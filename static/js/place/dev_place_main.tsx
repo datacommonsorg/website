@@ -25,7 +25,7 @@ import { RawIntlProvider } from "react-intl";
 
 import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
-import { intl } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import {
@@ -113,14 +113,13 @@ const CategoryItem = (props: {
 
   return (
     <div className="item-list-item">
-      <a
+      <LocalizedLink
         href={createHref(category.name, forceDevPlaces, place)}
         className={`item-list-text  + ${
           selectedCategory === category.name ? " selected" : ""
         }`}
-      >
-        {category.translatedName}
-      </a>
+        text={category.translatedName}
+      />
     </div>
   );
 };
@@ -347,9 +346,11 @@ const RelatedPlaces = (props: {
         <div className="item-list-inner">
           {(isCollapsed ? truncatedPlaces : childPlaces).map((place) => (
             <div key={place.dcid} className="item-list-item">
-              <a className="item-list-text" href={`/place/${place.dcid}`}>
-                {place.name}
-              </a>
+              <LocalizedLink
+                className="item-list-text"
+                href={`/place/${place.dcid}`}
+                text={place.name}
+              />
             </div>
           ))}
         </div>
