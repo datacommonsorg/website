@@ -28,7 +28,6 @@ from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
-from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import ServerBlockMetadata
