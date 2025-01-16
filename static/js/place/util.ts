@@ -171,7 +171,7 @@ function getTitle(title: string, placeScope: string): string {
 export function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse,
   parentPlaces: Place[],
-  similarPlaces: Place[],
+  peersWithinParent: string[],
   place: Place
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
@@ -222,24 +222,26 @@ export function placeChartsApiResponsesToPageConfig(
             tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
           }
 
-          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT" && tileConfig.type === "BAR") {
-            // Add similar places
-            const parentPlaceToKeep = getPlaceOverride(block.placeScope, parentPlaces);
-            tileConfig.comparisonPlaces = [place.dcid];
-          }
-
+          var maxPlacesCount = 5;
           if (tileConfig.type === "RANKING") {
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 5
             tileConfig.rankingTileSpec = {
               showHighest: false,
               showLowest: false,
               showHighestLowest: true,
               showMultiColumn: false,
-              rankingCount: chart.maxPlaces ? chart.maxPlaces : 5,
+              rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15
             tileConfig.barTileSpec = {
-              maxPlaces: chart.maxPlaces ? chart.maxPlaces : 15,
+              maxPlaces: maxPlacesCount,
             };
+          }
+
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT" && tileConfig.type === "BAR") {
+            peersWithinParent.sort(() => 0.5 - Math.random())
+            tileConfig.comparisonPlaces = [place.dcid].concat(peersWithinParent.slice(0, Math.min(maxPlacesCount-1, peersWithinParent.length)));
           }
           tiles.push(tileConfig);
         });

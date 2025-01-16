@@ -173,9 +173,8 @@ def related_places(place_dcid: str):
       for dcid in child_place_dcids
       if not all_place_by_dcid[dcid].dissolved
   ]
-
-  # get parent highlight
-#   parent_higlight = place_utils.
+  parent_to_highlight = place_utils.get_ordered_parents_to_highlight(parent_places)[0]
+  peers_within_parent = place_utils.fetch_child_place_dcids(parent_to_highlight, place.types[0])
 
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
@@ -183,5 +182,5 @@ def related_places(place_dcid: str):
                                       place=place,
                                       similarPlaces=similar_places,
                                       parentPlaces=parent_places,
-                                      peersWithinParent=[])
+                                      peersWithinParent=peers_within_parent)
   return jsonify(response)
