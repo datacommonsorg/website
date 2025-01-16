@@ -44,6 +44,7 @@ export const DataSourceDetails = ({
           ${theme.typography.family.heading};
           ${theme.typography.heading.sm};
           margin-bottom: ${theme.spacing.xl}px;
+          margin-left: ${theme.spacing.md}px;
         `}
       >
         {dataSourceTopic.title}
@@ -108,10 +109,10 @@ export const DataSourceDetails = ({
                   }
                   ul,
                   ol {
-                    padding: 0;
+                    padding-left: ${theme.spacing.sm}px;
                     margin-left: ${theme.spacing.md}px;
                     li {
-                      margin-bottom: ${theme.spacing.sm}px;
+                      margin-bottom: ${theme.spacing.md}px;
                     }
                   }
                   @media (max-width: ${theme.breakpoints.md}px) {
@@ -123,7 +124,7 @@ export const DataSourceDetails = ({
                   css={css`
                     ${theme.typography.family.text};
                     ${theme.typography.text.md};
-                    display: list-item;
+                    margin-bottom: ${theme.spacing.xs}px;
                   `}
                 >
                   {dataSourceGroup.url ? (

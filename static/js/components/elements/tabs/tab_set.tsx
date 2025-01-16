@@ -37,9 +37,13 @@ import { useTabContext } from "./tab_context";
 
 interface TabSetProps {
   children: ReactElement<TabProps> | ReactElement<TabProps>[];
+  alignment?: "flex-start" | "center";
 }
 
-export const TabSet = ({ children }: TabSetProps): ReactElement => {
+export const TabSet = ({
+  children,
+  alignment = "center",
+}: TabSetProps): ReactElement => {
   const theme = useTheme();
   const { value: selectedValue, onChange } = useTabContext();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -265,7 +269,12 @@ export const TabSet = ({ children }: TabSetProps): ReactElement => {
 
           display: flex;
           align-items: flex-end;
+          justify-content: ${alignment};
           gap: 0;
+
+          @media (max-width: ${theme.breakpoints.xl}px) {
+            justify-content: flex-start;
+          }
 
           -ms-overflow-style: none;
           scrollbar-width: none;
