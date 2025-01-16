@@ -187,21 +187,20 @@ def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguratio
     needs_current_place_data = False
     needs_peer_places_data = False
 
-    for block in config["blocks"]:
-      needs_current_place_data |= block['placeScope'] == "PLACE"
-      needs_child_data |= block['placeScope'] == "CHILD_PLACES"
-      needs_peer_places_data |= block[
-          'placeScope'] == "PEER_PLACES_WITHIN_PARENT"
+    for block in config.blocks:
+      needs_current_place_data |= block.place_scope == "PLACE"
+      needs_child_data |= block.place_scope == "CHILD_PLACES"
+      needs_peer_places_data |= block.place_scope == "PEER_PLACES_WITHIN_PARENT"
 
     if needs_child_data:
-      child_places_stat_var_dcids.extend(config["variables"])
+      child_places_stat_var_dcids.extend(config.variables)
     if needs_current_place_data:
-      current_place_stat_var_dcids.extend(config["variables"])
-      denominator = config.get('denominator', None)
+      current_place_stat_var_dcids.extend(config.variables)
+      denominator = config.denominator
       if denominator:
         current_place_stat_var_dcids.extend(denominator)
     if needs_peer_places_data:
-      peer_places_stat_var_dcids.extend(config["variables"])
+      peer_places_stat_var_dcids.extend(config.variables)
 
   # Find stat vars that have data for our place dcid
   current_place_obs_point_response = dc.obs_point(
@@ -242,28 +241,28 @@ def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguratio
   filtered_chart_config = [
       config for config in chart_config
       # Set intersection to see if this chart has any variables with observations for our place_dcid
-      if set(config["variables"]) & stat_vars_with_observations_set
+      if set(config.variables) & stat_vars_with_observations_set
   ]
 
   for config in chart_config:
     updated_blocks = []
-    for block in config["blocks"]:
-      if block["placeScope"] == "CHILD_PLACES":
+    for block in config.blocks:
+      if block.place_scope == "CHILD_PLACES":
         has_child_data = any(var in child_places_stat_vars_with_observations
-                             for var in config["variables"])
+                             for var in config.variables)
         if has_child_data:
           updated_blocks.append(block)
-      elif block["placeScope"] == "PLACE":
+      elif block.place_scope == "PLACE":
         has_data = any(var in current_place_stat_vars_with_observations
-                       for var in config["variables"])
+                       for var in config.variables)
         if has_data:
           updated_blocks.append(block)
-      elif block["placeScope"] == "PEER_PLACES_WITHIN_PARENT":
+      elif block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         has_peer_data = any(var in peer_places_stat_vars_with_observations
-                            for var in config["variables"])
+                            for var in config.variables)
         if has_peer_data:
           updated_blocks.append(block)
-    config["blocks"] = updated_blocks
+    config.blocks = updated_blocks
 
   return filtered_chart_config
 
