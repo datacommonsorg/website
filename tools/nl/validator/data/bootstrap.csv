@@ -147,9 +147,9 @@ Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDom
 Amount_Remittance_OutwardRemittance,Country,country/BRB,Outward Remittances,Barbados,281200
 Amount_Stock,Country,country/SWE,Stock Value,Sweden,10415811
 Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,Country,country/CHL,Stock Value as a Percentage of Nominal GDP,Chile,19493184
-Amout_FarmInventory_CornForGrain,Country,country/USA,Corn Grown,United States,331893745
-Amout_FarmInventory_CornForGrain,County,geoId/26101,Corn Grown,Manistee County,25350
-Amout_FarmInventory_CornForGrain,State,geoId/34,Corn Grown,New Jersey,9267130
+Amount_FarmInventory_CornForGrain,Country,country/USA,Corn Grown,United States,331893745
+Amount_FarmInventory_CornForGrain,County,geoId/26101,Corn Grown,Manistee County,25350
+Amount_FarmInventory_CornForGrain,State,geoId/34,Corn Grown,New Jersey,9267130
 AnnualChange_Stocks_Fuel_AviationGasoline,Country,country/GUY,Stocks of Fuel (Annual Change): Aviation Gasoline,Guyana,804567
 AnnualChange_Stocks_Fuel_BituminousCoal,Country,country/IDN,Stocks of Fuel (Annual Change): EIA_Bituminous Coal,Indonesia,275773800
 AnnualChange_Stocks_Fuel_BrownCoal,Country,country/HRV,Stocks of Fuel (Annual Change): Brown Coal,Croatia,3899000

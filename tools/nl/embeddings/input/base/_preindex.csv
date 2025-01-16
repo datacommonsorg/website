@@ -79,7 +79,7 @@ Amount of Carbon Dioxide Emissions from Steel Manufacturing,Annual_Emissions_Car
 Amount of Carbon Dioxide Emissions from Transportation,Annual_Emissions_CarbonDioxide_Transportation
 Amount of Carbon Dioxide Emissions from Waste Management,Annual_Emissions_CarbonDioxide_WasteManagement
 Amount of Corn grown for Silage (green fodder) or Greenchop,Amount_FarmInventory_CornForSilageOrGreenchop
-Amount of Corn grown for grain production,Amout_FarmInventory_CornForGrain
+Amount of Corn grown for grain production,Amount_FarmInventory_CornForGrain
 Amount of Dry Edible Bean grown,Amount_FarmInventory_DryEdibleBeans
 Amount of Durum Wheat grown for grain production,Amount_FarmInventory_DurumWheatForGrain
 Amount of Forage grown,Amount_FarmInventory_Forage
