@@ -1,20 +1,19 @@
 [
     {
       "category": "Environment",
-      "topic": "Air",
-      "titleId": "CHART_TITLE-Air_quality_index",
+      "title_id": "CHART_TITLE-Air_quality_index",
       "title": "Air quality index",
       "description": "Air quality index",
       "variables": [
         "AirQualityIndex_AirPollutant"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -25,8 +24,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -37,8 +36,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -52,21 +51,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Temperature",
-      "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006",
+      "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006",
       "title": "Projected max temperature change under RCP 2.6 (based on year 2006)",
       "description": "Projected max temperature change under RCP 2.6 (based on year 2006)",
       "variables": [
         "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "celsius",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -77,8 +75,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -89,8 +87,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -104,21 +102,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Temperature",
-      "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006",
+      "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006",
       "title": "Projected max temperature change under RCP 4.5 (based on year 2006)",
       "description": "Projected max temperature change under RCP 4.5 (based on year 2006)",
       "variables": [
         "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "celsius",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -129,8 +126,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -141,8 +138,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -156,21 +153,21 @@
     },
     {
       "category": "Environment",
-      "topic": "Temperature",
-      "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006",
+
+      "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006",
       "title": "Projected max temperature change under RCP 6.0 (based on year 2006)",
       "description": "Projected max temperature change under RCP 6.0 (based on year 2006)",
       "variables": [
         "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "celsius",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -181,8 +178,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -193,8 +190,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -208,21 +205,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Temperature",
-      "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006",
+      "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006",
       "title": "Projected max temperature change under RCP 8.5 (based on year 2006)",
       "description": "Projected max temperature change under RCP 8.5 (based on year 2006)",
       "variables": [
         "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "celsius",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -233,8 +229,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -245,8 +241,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -260,21 +256,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
-      "titleId": "CHART_TITLE-Mean_concentration_PM2.5",
+      "title_id": "CHART_TITLE-Mean_concentration_PM2.5",
       "title": "Mean PM2.5 concentration",
       "description": "Used to quantify air quality with measures of concentrations of fine inhalable particles, with diameters that are generally 2.5 micrometers and smaller in the air. Also see https://www.epa.gov/air-trends/particulate-matter-pm25-trends",
       "variables": [
         "Mean_Concentration_AirPollutant_PM2.5"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "μg/m³",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -285,8 +280,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -297,8 +292,9 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -312,21 +308,21 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
-      "titleId": "CHART_TITLE-Mean_concentration_Ozone",
+      "title_id": "CHART_TITLE-Mean_concentration_Ozone",
       "title": "Mean ozone concentration",
       "description": "Used to quantify air quality with measures of concentrations of ozone in air",
       "variables": [
         "Mean_Concentration_AirPollutant_Ozone"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "ppb",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -337,8 +333,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -349,8 +345,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -364,21 +360,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
-      "titleId": "CHART_TITLE-Mean_concentration_DieselPM",
+      "title_id": "CHART_TITLE-Mean_concentration_DieselPM",
       "title": "Mean diesel PM concentration",
       "description": "Annual mean Diesel PM concentration in air measured from EPA NATA",
       "variables": [
         "Mean_Concentration_AirPollutant_DieselPM"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "μg/m³",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -389,8 +384,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -401,8 +396,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -416,20 +411,19 @@
     },
     {
       "category": "Environment",
-      "topic": "Water",
-      "titleId": "CHART_TITLE-Palmer_drought_severity_index",
+      "title_id": "CHART_TITLE-Palmer_drought_severity_index",
       "title": "Palmer drought severity index",
       "description": "The Palmer Drought Severity Index (PDSI) uses readily available temperature and precipitation data to estimate relative dryness. See more details from https://climatedataguide.ucar.edu/climate-data/palmer-drought-severity-index-pdsi",
       "variables": [
         "PalmerDroughtSeverityIndex_Atmosphere"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -440,8 +434,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -452,8 +446,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -467,21 +461,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Emissions",
-      "titleId": "CHART_TITLE-Annual_emissions_greenhouse_gas",
+      "title_id": "CHART_TITLE-Annual_emissions_greenhouse_gas",
       "title": "Annual greenhouse gas emissions (large facilities, non-biogenic)",
       "description": "Measures the total annual greenhouse gas emissions (large facilities, non-biogenic)",
       "variables": [
         "Annual_Emissions_GreenhouseGas_NonBiogenic"
       ],
       "denominator": [],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "unit": "MTCO2e",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -492,8 +485,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -504,8 +497,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -519,21 +512,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Emissions",
-      "titleId": "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic",
+      "title_id": "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic",
       "title": "Carbon dioxide emissions (large facilities, non-biogenic)",
       "description": "Annual amount of carbon dioxide emissions (large facilities, non-biogenic)",
       "variables": [
         "Annual_Emissions_CarbonDioxide_NonBiogenic"
       ],
       "denominator": [],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "unit": "t",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -544,8 +536,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -556,8 +548,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -571,21 +563,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Emissions",
-      "titleId": "CHART_TITLE-methane_emissions_nonbiogenic",
+      "title_id": "CHART_TITLE-methane_emissions_nonbiogenic",
       "title": "Methane emissions (large facilities, non-biogenic)",
       "description": "Annual amount of methane emissions (large facilities, non-biogenic)",
       "variables": [
         "Annual_Emissions_Methane_NonBiogenic"
       ],
       "denominator": [],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "unit": "MTCO2e",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -596,8 +587,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -607,9 +598,8 @@
             }
           ]
         },
-        {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -620,21 +610,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Emissions",
-      "titleId": "CHART_TITLE-nitrous_oxide_emissions_non_biogenic",
+      "title_id": "CHART_TITLE-nitrous_oxide_emissions_non_biogenic",
       "title": "Nitrous oxide emissions (large facilities, non-biogenic)",
       "description": "Annual amount of nitrous oxide emissions (large facilities, non-biogenic)",
       "variables": [
         "Annual_Emissions_NitrousOxide_NonBiogenic"
       ],
       "denominator": [],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "unit": "MTCO2e",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -645,8 +634,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -657,8 +646,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -669,21 +658,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Water",
-      "titleId": "CHART_TITLE-water_withdrawal_rate",
+      "title_id": "CHART_TITLE-water_withdrawal_rate",
       "title": "Water withdrawal rate",
       "description": "Water withdrawal rate",
       "variables": [
         "WithdrawalRate_Water"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "mgd",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -694,8 +682,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -706,8 +694,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -718,21 +706,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
-      "titleId": "CHART_TITLE-Air pollutant cancer risk",
+      "title_id": "CHART_TITLE-Air pollutant cancer risk",
       "title": "Lifetime air toxics cancer risk",
       "description": "Probability of contracting cancer over a 70 year lifetime due to air pollutant exposure",
       "variables": [
         "AirPollutant_Cancer_Risk"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "per-million",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -743,8 +730,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -755,8 +742,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -767,21 +754,20 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
-      "titleId": "CHART_TITLE-carbon_dioxide_emissions_per_capita",
+      "title_id": "CHART_TITLE-carbon_dioxide_emissions_per_capita",
       "title": "Carbon dioxide emissions per capita",
       "description": "Total amount of carbon dioxide emissions per person",
       "variables": [
         "Amount_Emissions_CarbonDioxide_PerCapita"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "t",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -792,8 +778,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -804,8 +790,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -816,20 +802,19 @@
     },
     {
       "category": "Environment",
-      "topic": "Disasters",
-      "titleId": "CHART_TITLE-Earthquakes",
+      "title_id": "CHART_TITLE-Earthquakes",
       "title": "Earthquakes",
       "description": "Total number of earthquakes that occured",
       "variables": [
         "Count_EarthquakeEvent"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -840,8 +825,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -852,8 +837,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -864,20 +849,19 @@
     },
     {
       "category": "Environment",
-      "topic": "Disasters",
-      "titleId": "CHART_TITLE-Cyclones",
+      "title_id": "CHART_TITLE-Cyclones",
       "title": "Cyclones",
       "description": "Total number of cyclones that occured",
       "variables": [
         "Count_CycloneEvent"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -888,8 +872,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -900,8 +884,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"

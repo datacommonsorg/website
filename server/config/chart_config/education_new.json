@@ -1,7 +1,7 @@
 [
     {
       "category": "Education",
-      "titleId": "CHART_TITLE-Educational_attainment",
+      "title_id": "CHART_TITLE-Educational_attainment",
       "title": "Education attainment",
       "description": "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
       "variables": [
@@ -14,12 +14,12 @@
       "denominator": [
         "Count_Person_25OrMoreYears"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -27,8 +27,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -36,8 +36,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -48,7 +48,7 @@
     },
     {
       "category": "Education",
-      "titleId": "CHART_TITLE-School_enrollment",
+      "title_id": "CHART_TITLE-School_enrollment",
       "title": "School enrollment",
       "description": "Number of people who are enrolled in school, vs not enrolled in school",
       "variables": [
@@ -58,12 +58,12 @@
       "denominator": [
         "Count_Person_3OrMoreYears"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -71,8 +71,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -80,8 +80,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"

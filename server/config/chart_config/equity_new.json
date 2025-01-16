@@ -1,20 +1,19 @@
 [
     {
       "category": "Equity",
-      "topic": "Income",
-      "titleId": "CHART_TITLE-Gini_index",
+      "title_id": "CHART_TITLE-Gini_index",
       "title": "Gini index",
       "description": "The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842",
       "variables": [
         "GiniIndex_EconomicActivity"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -25,8 +24,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -37,8 +36,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "MAP"
@@ -52,8 +51,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Income",
-      "titleId": "CHART_TITLE-Median_household_income_race",
+      "title_id": "CHART_TITLE-Median_household_income_race",
       "title": "Median household income by race",
       "description": "Median incomes of households, broken down by race",
       "variables": [
@@ -65,13 +63,13 @@
         "Median_Income_Household_HouseholderRaceWhiteAlone"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "$",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -79,8 +77,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -88,8 +86,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -100,8 +98,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Income",
-      "titleId": "CHART_TITLE-Median_income_gender",
+      "title_id": "CHART_TITLE-Median_income_gender",
       "title": "Median income by gender",
       "description": "Median incomes of individuals, broken down by gender",
       "variables": [
@@ -109,13 +106,13 @@
         "Median_Income_Person_15OrMoreYears_Male_WithIncome"
       ],
       "denominator": [],
-      "nonDividable": true,
+      "non_dividable": true,
       "scale": true,
       "unit": "</span>",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -123,8 +120,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -132,8 +129,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -144,8 +141,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
-      "titleId": "CHART_TITLE-Poverty_rate_race",
+      "title_id": "CHART_TITLE-Poverty_rate_race",
       "title": "Poverty rate by race",
       "description": "Percentage of the population below the poverty level, broken down by race",
       "variables": [
@@ -164,13 +160,13 @@
         "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
         "Count_Person_WhiteAlone"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "unit": "%",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -178,8 +174,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -187,8 +183,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -199,8 +195,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
-      "titleId": "CHART_TITLE-Poverty_rate_gender",
+      "title_id": "CHART_TITLE-Poverty_rate_gender",
       "title": "Poverty rate by gender",
       "description": "Percentage of the population below the poverty level, broken down by gender",
       "variables": [
@@ -211,14 +206,14 @@
         "Count_Person_Female",
         "Count_Person_Male"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "scaling": 100,
       "unit": "%",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -226,8 +221,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -235,8 +230,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -247,8 +242,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
-      "titleId": "CHART_TITLE-Urban vs rural poverty population",
+      "title_id": "CHART_TITLE-Urban vs rural poverty population",
       "title": "Urban vs rural poverty population",
       "description": "Population below the poverty level, in urban and rural areas",
       "variables": [
@@ -258,12 +252,12 @@
       "denominator": [
         "Count_Person"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -271,8 +265,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -280,8 +274,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -292,8 +286,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
-      "titleId": "CHART_TITLE-Urban vs rural homeless population",
+      "title_id": "CHART_TITLE-Urban vs rural homeless population",
       "title": "Urban vs rural homeless population",
       "description": "Homeless population in urban and rural areas",
       "variables": [
@@ -303,12 +296,12 @@
       "denominator": [
         "Count_Person"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -316,8 +309,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -325,8 +318,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -337,8 +330,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
-      "titleId": "CHART_TITLE-Unemployment_rate_gender",
+      "title_id": "CHART_TITLE-Unemployment_rate_gender",
       "title": "Unemployment rate by gender",
       "description": "Percentage of the population, of working age, who are unemployed, broken down by gender",
       "variables": [
@@ -346,13 +338,13 @@
         "UnemploymentRate_Person_Male"
       ],
       "denominator": [],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "unit": "%",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -360,8 +352,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -369,8 +361,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -381,8 +373,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
-      "titleId": "CHART_TITLE-Percent_without_health_insurance_race",
+      "title_id": "CHART_TITLE-Percent_without_health_insurance_race",
       "title": "Percentage of people without health insurance by race",
       "description": "Percentage of the population, of working age, who have no health insurance, broken down by race",
       "variables": [
@@ -391,13 +382,13 @@
         "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
       ],
       "denominator": [],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "unit": "%",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -405,8 +396,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -414,8 +405,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -426,8 +417,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
-      "titleId": "CHART_TITLE-Percent_without_health_insurance_gender",
+      "title_id": "CHART_TITLE-Percent_without_health_insurance_gender",
       "title": "Percentage of people without health insurance by gender",
       "description": "Percentage of the population, of working age, who have no health insurance, broken down by gender",
       "variables": [
@@ -435,13 +425,13 @@
         "Percent_Person_18To64Years_Male_NoHealthInsurance"
       ],
       "denominator": [],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "unit": "%",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -449,8 +439,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -458,8 +448,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -470,8 +460,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Education",
-      "titleId": "CHART_TITLE-Associate_degree_rate_gender",
+      "title_id": "CHART_TITLE-Associate_degree_rate_gender",
       "title": "Rate of associate degree attainment by gender",
       "description": "Percentage of young adults who have an associate degree, broken down by gender",
       "variables": [
@@ -482,14 +471,14 @@
         "Count_Person_25To34Years_Female",
         "Count_Person_25To34Years_Male"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "scaling": 100,
       "unit": "%",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -497,8 +486,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -506,8 +495,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -518,8 +507,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Education",
-      "titleId": "CHART_TITLE-Bachelors_degree_rate_gender",
+      "title_id": "CHART_TITLE-Bachelors_degree_rate_gender",
       "title": "Rate of bachelor's degree attainment by gender",
       "description": "Percentage of young adults who have an bachelor's degree, broken down by gender",
       "variables": [
@@ -530,14 +518,14 @@
         "Count_Person_25To34Years_Female",
         "Count_Person_25To34Years_Male"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "scaling": 100,
       "unit": "%",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -545,8 +533,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -554,8 +542,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -566,8 +554,7 @@
     },
     {
       "category": "Equity",
-      "topic": "Education",
-      "titleId": "CHART_TITLE-Graduate_or_professional_degree_rate_gender",
+      "title_id": "CHART_TITLE-Graduate_or_professional_degree_rate_gender",
       "title": "Rate of graduate or professional degree attainment by gender",
       "description": "Percentage of young adults who have a graduate or professional degree, broken down by gender",
       "variables": [
@@ -578,14 +565,14 @@
         "Count_Person_25To34Years_Female",
         "Count_Person_25To34Years_Male"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "scaling": 100,
       "unit": "%",
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -593,8 +580,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -602,8 +589,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
