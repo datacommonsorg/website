@@ -100,7 +100,7 @@ function getStatVarKey(
  * @param parentPlaces All possible parent places to choose from
  * @returns string for the selected place dcid or undefined.
  */
-export function getPlaceOverride(
+function getPlaceOverride(
   placeScope: string,
   parentPlaces: Place[]
 ): string {

@@ -215,19 +215,11 @@ class DataCommonsWebClient {
   async getPlaceCharts(params: {
     category?: string;
     placeDcid: string;
-    parentPlaceDcid?: string;
   }): Promise<PlaceChartsApiResponse> {
-    const url = `${this.apiRoot || ""}/api/dev-place/charts/${params.placeDcid}?`;
-
-    const sp = new URLSearchParams();
-    if (params.category) {
-      sp.append('category', params.category);
-    }
-
-    if (params.parentPlaceDcid) {
-      sp.append('parentPlaceDcid', params.parentPlaceDcid);
-    }
-    const response = await fetch(url + sp.toString());
+    const url = `${this.apiRoot || ""}/api/dev-place/charts/${
+      params.placeDcid
+    }${params.category ? "?category=" + params.category : ""}`;
+    const response = await fetch(url);
     return (await response.json()) as PlaceChartsApiResponse;
   }
 

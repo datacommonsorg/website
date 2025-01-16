@@ -154,6 +154,22 @@ def place_type_to_highlight(place_types: List[str]) -> str:
   return None
 
 
+def get_place_override(parent_places: List[Place]) -> str:
+    place_override = None
+    for place in parent_places:
+        # Python's way to achieve the same logic as your TypeScript code
+        try:
+            lowest_index = min(PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(type) for type in place.types if type in PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+        except ValueError:  # No matching types found
+            lowest_index = float('inf')  # Equivalent to Infinity in this context
+
+        if lowest_index != float('inf'):
+            place_override = place
+            break  # Exit the loop once a match is found
+
+    return place_override.dcid if place_override else None  # Use None instead of undefined
+
+
 def filter_chart_configs_for_category(
     place_category: str, chart_config: List[ServerChartConfiguration]
 ) -> List[ServerChartConfiguration]:
@@ -207,38 +223,36 @@ def filter_chart_config_by_place_dcid(
       child_places_stat_var_dcids.extend(config.variables)
     if needs_current_place_data:
       current_place_stat_var_dcids.extend(config.variables)
-      denominator = config.denominator
-      if denominator:
-        current_place_stat_var_dcids.extend(denominator)
     if needs_peer_places_data:
       peer_places_stat_var_dcids.extend(config.variables)
+    # TODO(gmechali): Decide what do with if there's no denominator data.
 
   # Find stat vars that have data for our place dcid
   current_place_obs_point_response = dc.obs_point(
       entities=[place_dcid], variables=current_place_stat_var_dcids)
-  current_place_stat_vars_with_observations = [
+  current_place_stat_vars_with_observations = set([
       stat_var_dcid for stat_var_dcid in current_place_stat_var_dcids
       if current_place_obs_point_response["byVariable"].get(
           stat_var_dcid, {}).get("byEntity", {}).get(place_dcid, {})
-  ]
+  ])
 
   # Find stat vars that have data for our child places
   child_places_obs_point_response = dc.obs_point_within(
       place_dcid, child_place_type, variables=child_places_stat_var_dcids)
-  child_places_stat_vars_with_observations = [
+  child_places_stat_vars_with_observations = set([
       stat_var_dcid for stat_var_dcid in child_places_stat_var_dcids
       if child_places_obs_point_response["byVariable"].get(
           stat_var_dcid, {}).get("byEntity", {})
-  ]
+  ])
 
   # find stat vars that have data for our peer places.
   peer_places_obs_point_response = dc.obs_point_within(
       parent_place_dcid, str(place_type), variables=peer_places_stat_var_dcids)
-  peer_places_stat_vars_with_observations = [
+  peer_places_stat_vars_with_observations = set([
       stat_var_dcid for stat_var_dcid in peer_places_stat_var_dcids
       if peer_places_obs_point_response["byVariable"].get(
           stat_var_dcid, {}).get("byEntity", {})
-  ]
+  ])
 
   # Build set of all stat vars that have data for our place & children places
   stat_vars_with_observations_set = set(

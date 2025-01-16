@@ -59,7 +59,7 @@ def place_charts(place_dcid: str):
   """
   # Ensure category is valid
   place_category = request.args.get("category", OVERVIEW_CATEGORY)
-  parent_place_dcid = request.args.get("parentPlaceDcid", None)
+  parent_place_dcid = place_utils.get_place_override(place_utils.get_parent_places(place_dcid))
   if place_category not in CATEGORIES:
     return error_response(
         f"Argument 'category' {place_category} must be one of: {', '.join(CATEGORIES)}"
