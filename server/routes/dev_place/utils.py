@@ -259,7 +259,7 @@ def filter_chart_config_by_place_dcid(
 
   # find stat vars that have data for our peer places.
   peer_places_obs_point_response = dc.obs_point_within(
-      parent_place_dcid, str(place_type), variables=peer_places_stat_var_dcids)
+      parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
   peer_places_stat_vars_with_observations = set([
       stat_var_dcid for stat_var_dcid in peer_places_stat_var_dcids
       if peer_places_obs_point_response["byVariable"].get(

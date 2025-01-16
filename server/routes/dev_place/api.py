@@ -81,6 +81,8 @@ def place_charts(place_dcid: str):
   chart_config_existing_data = place_utils.filter_chart_config_by_place_dcid(
       chart_config=full_chart_config,
       place_dcid=place_dcid,
+      place_type=place.types[0] if len(place.types) > 0 else None,
+      parent_place_dcid=parent_place_dcid,
       child_place_type=child_place_type)
 
   chart_config_for_category = place_utils.filter_chart_configs_for_category(
