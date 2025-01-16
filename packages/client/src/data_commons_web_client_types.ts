@@ -164,7 +164,7 @@ export interface BlockConfig {
   nearbyPlaces: Place[];
   place: Place;
   similarPlaces: Place[];
-  placeScope?: string
+  placeScope?: string;
   title: string;
   category: string;
   description: string;
