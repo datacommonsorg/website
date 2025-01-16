@@ -83,7 +83,7 @@ def place_charts(place_dcid: str):
   filtered_chart_config = place_utils.filter_chart_config_by_place_dcid(
       chart_config=chart_config_for_category,
       place_dcid=place_dcid,
-      place_type=place.types[0],
+      place_type=place_utils.place_type_to_highlight(place.types),
       child_place_type=child_place_type,
       parent_place_dcid=parent_place_dcid)
 
@@ -93,8 +93,9 @@ def place_charts(place_dcid: str):
       place_utils.filter_chart_config_by_place_dcid(
           chart_config=full_chart_config,
           place_dcid=place_dcid,
-          place_type=place.types[0],
-          child_place_type=child_place_type))
+          place_type=place_utils.place_type_to_highlight(place.types),
+          child_place_type=child_place_type,
+          parent_place_dcid=parent_place_dcid))
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(

@@ -148,6 +148,21 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
+def place_type_to_highlight(place_types: List[str]) -> str:
+  """Returns the first place type in PARENT_PLACE_TYPES_TO_HIGHLIGHT that is also in place_types.
+
+  Args:
+    place_types: A list of place types.
+
+  Returns:
+    The first place type in PARENT_PLACE_TYPES_TO_HIGHLIGHT that is also in place_types, or None if no such place type exists.
+  """
+  for place_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT:
+    if place_type in place_types:
+      return place_type
+  return None
+
+
 def filter_chart_configs_for_category(
     place_category: str, chart_config: List[ServerChartConfiguration]
 ) -> List[ServerChartConfiguration]:
@@ -158,7 +173,7 @@ def filter_chart_configs_for_category(
       server_chart_config.blocks = [
           block for block in server_chart_config.blocks if block.is_overview
       ]
-      filtered_chart_config.append(server_chart_config)
+      filtered_chart_config.append(copy.deepcopy(server_chart_config))
   else:
     filtered_chart_config = [
         c for c in chart_config if c.category == place_category
@@ -167,11 +182,12 @@ def filter_chart_configs_for_category(
 
 
 @cache.memoize(timeout=TIMEOUT)
-def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguration],
-                                      place_dcid: str,
-                                      place_type: str,
-                                      child_place_type=str,
-                                      parent_place_dcid=str):
+def filter_chart_config_by_place_dcid(
+    chart_config: List[ServerChartConfiguration],
+    place_dcid: str,
+    place_type: str,
+    child_place_type=str,
+    parent_place_dcid=str):
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   
@@ -226,7 +242,7 @@ def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguratio
 
   # find stat vars that have data for our peer places.
   peer_places_obs_point_response = dc.obs_point_within(
-      parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
+      parent_place_dcid, str(place_type), variables=peer_places_stat_var_dcids)
   peer_places_stat_vars_with_observations = [
       stat_var_dcid for stat_var_dcid in peer_places_stat_var_dcids
       if peer_places_obs_point_response["byVariable"].get(
@@ -248,7 +264,7 @@ def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguratio
       if set(config.variables) & stat_vars_with_observations_set
   ]
 
-  for config in chart_config:
+  for config in filtered_chart_config:
     updated_blocks = []
     for block in config.blocks:
       if block.place_scope == "CHILD_PLACES":
@@ -264,7 +280,10 @@ def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguratio
       elif block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         has_peer_data = any(var in peer_places_stat_vars_with_observations
                             for var in config.variables)
-        if has_peer_data:
+        has_place_data = any(var in current_place_stat_vars_with_observations
+                             for var in config.variables)
+        if has_place_data & has_peer_data:
+          # Only add peers when we also have data for current place.
           updated_blocks.append(block)
     config.blocks = updated_blocks
 
