@@ -164,7 +164,6 @@ export interface BlockConfig {
   nearbyPlaces: Place[];
   place: Place;
   similarPlaces: Place[];
-  placeScope?: string
   title: string;
   category: string;
   description: string;
@@ -174,24 +173,6 @@ export interface BlockConfig {
   unit?: string; // Optional
   scaling?: number; // Optional
   placeScope?: string;
-}
-
-/**
- * Website API response for /api/dev-place/charts/<place_dcid>
- */
-export interface PlaceChartsApiResponse {
-  blocks: BlockConfig[];
-  place: Place;
-  translatedCategoryStrings: Record<string, string>;
-  placeScope?: string
-  title: string;
-  category: string;
-  description: string;
-  statisticalVariableDcids: string[];
-  topicDcids: string[];
-  denominator?: string; // Optional
-  unit?: string; // Optional
-  scaling?: number; // Optional
 }
 
 /**

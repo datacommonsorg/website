@@ -166,24 +166,6 @@ def filter_chart_configs_for_category(
   return filtered_chart_config
 
 
-def filter_chart_configs_for_category(
-    place_category: str, chart_config: List[ServerChartConfiguration]
-) -> List[ServerChartConfiguration]:
-  """Only returns the appropriate"""
-  filtered_chart_config = []
-  if place_category == "Overview":
-    for server_chart_config in chart_config:
-      server_chart_config.blocks = [
-          block for block in server_chart_config.blocks if block.is_overview
-      ]
-      filtered_chart_config.append(server_chart_config)
-  else:
-    filtered_chart_config = [
-        c for c in chart_config if c.category == place_category
-    ]
-  return filtered_chart_config
-
-
 @cache.memoize(timeout=TIMEOUT)
 def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguration],
                                       place_dcid: str,
@@ -376,8 +358,6 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
 
 def chart_config_to_overview_charts(
     chart_config: List[ServerChartConfiguration], child_place_type: str):
-def chart_config_to_overview_charts(
-    chart_config: List[ServerChartConfiguration], child_place_type: str):
   """
   Converts the given chart configuration into a list of Chart objects for API responses.
 
@@ -390,8 +370,6 @@ def chart_config_to_overview_charts(
   """
   blocks = []
   for page_config_item in chart_config:
-    denominator = page_config_item.denominator
-    for block in page_config_item.blocks:
     denominator = page_config_item.denominator
     for block in page_config_item.blocks:
       charts = []
@@ -423,7 +401,6 @@ def chart_config_to_overview_charts(
           unit=page_config_item.unit)
       if denominator:
         this_block.denominator = denominator
-      elif not page_config_item.non_dividable:
       elif not page_config_item.non_dividable:
         this_block.denominator = ["Count_Person"]
 
@@ -532,6 +509,8 @@ def read_chart_configs() -> List[ServerChartConfiguration]:
       # Legacy charts should get filtered out.
       continue
 
+    print(raw_config)
+
     server_block_configs = []
     for raw_block in raw_config.get('blocks', []):
       server_block_config = ServerBlockMetadata(**raw_block)
@@ -585,7 +564,6 @@ def fetch_child_place_dcids(place: Place,
 
 
 def translate_chart_config(chart_config: List[ServerChartConfiguration]):
-def translate_chart_config(chart_config: List[ServerChartConfiguration]):
   """
   Translates the 'titleId' field in each chart configuration item into a readable 'title'
   using the gettext function.
@@ -603,21 +581,15 @@ def translate_chart_config(chart_config: List[ServerChartConfiguration]):
     translated_item = copy.deepcopy(page_config_item)
     if translated_item.title_id:
       translated_item.title = gettext(translated_item.title_id)
-    translated_item = copy.deepcopy(page_config_item)
-    if translated_item.title_id:
-      translated_item.title = gettext(translated_item.title_id)
     translated_chart_config.append(translated_item)
   return translated_chart_config
 
 
 def get_translated_category_strings(
     chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
-def get_translated_category_strings(
-    chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
   translated_category_strings: Dict[str, str] = {}
 
   for page_config_item in chart_config:
-    category = page_config_item.category
     category = page_config_item.category
     if category in translated_category_strings:
       continue
