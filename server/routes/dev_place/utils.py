@@ -375,8 +375,6 @@ def chart_config_to_overview_charts(
       charts = []
       for chart in block.charts:
         this_chart = Chart(type=chart.type, maxPlaces=chart.max_places)
-      for chart in block.charts:
-        this_chart = Chart(type=chart.type, maxPlaces=chart.max_places)
         charts.append(this_chart)
 
       this_block = BlockConfig(

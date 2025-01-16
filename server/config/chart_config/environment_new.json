@@ -153,7 +153,6 @@
     },
     {
       "category": "Environment",
-
       "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006",
       "title": "Projected max temperature change under RCP 6.0 (based on year 2006)",
       "description": "Projected max temperature change under RCP 6.0 (based on year 2006)",
@@ -292,7 +291,6 @@
           ]
         },
         {
-
           "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
@@ -320,7 +318,6 @@
       "unit": "ppb",
       "blocks": [
         {
-
           "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
@@ -598,6 +595,7 @@
             }
           ]
         },
+        {
           "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
