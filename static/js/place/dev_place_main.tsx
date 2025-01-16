@@ -33,8 +33,8 @@ import {
 } from "../utils/data_commons_client";
 import { TileSources } from "../utils/tile_utils";
 import {
-  isPlaceContainedInUsa,
   getPlaceOverride,
+  isPlaceContainedInUsa,
   placeChartsApiResponsesToPageConfig,
 } from "./util";
 
