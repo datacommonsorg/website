@@ -27,7 +27,6 @@ import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl } from "../i18n/i18n";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
-import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
@@ -495,19 +494,11 @@ export const DevPlaceMain = (): React.JSX.Element => {
         relatedPlacesApiResponse.similarPlaces,
         relatedPlacesApiResponse.place
       );
-      setIsLoading(false);
-      const config = placeChartsApiResponsesToPageConfig(
-        placeChartsApiResponse,
-        relatedPlacesApiResponse.parentPlaces,
-        relatedPlacesApiResponse.similarPlaces,
-        relatedPlacesApiResponse.place
-      );
       setPageConfig(config);
     })();
   }, [place, category]);
 
   useEffect(() => {
-    if (placeChartsApiResponse && placeChartsApiResponse.blocks) {
     if (placeChartsApiResponse && placeChartsApiResponse.blocks) {
       // TODO(gmechali): Refactor this to use the translations correctly.
       // Move overview to be added in the response with translations. Use the

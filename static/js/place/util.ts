@@ -20,24 +20,10 @@ import {
   PlaceChartsApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
-import {
-  BlockConfig,
-  Chart,
-  Place,
-  PlaceChartsApiResponse,
-} from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import _ from "lodash";
 import { defineMessages } from "react-intl";
 
 import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
-import { StatVarSpec } from "../shared/types";
-import {
-  BlockConfig as SubjectPageBlockConfig,
-  CategoryConfig,
-  SubjectPageConfig,
-  TileConfig,
-} from "../types/subject_page_proto_types";
 import { StatVarSpec } from "../shared/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
