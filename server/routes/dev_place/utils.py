@@ -282,7 +282,7 @@ def filter_chart_config_by_place_dcid(
                             for var in config.variables)
         has_place_data = any(var in current_place_stat_vars_with_observations
                              for var in config.variables)
-        if has_place_data & has_peer_data:
+        if has_place_data and has_peer_data:
           # Only add peers when we also have data for current place.
           updated_blocks.append(block)
     config.blocks = updated_blocks
