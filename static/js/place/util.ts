@@ -222,13 +222,10 @@ export function placeChartsApiResponsesToPageConfig(
             tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
           }
 
-          if (block.placeScope === "SIMILAR_PLACES") {
-            // TODO(gmechali): Eventually get rid of this.
-            if (similarPlaces.length > 0) {
-              tileConfig.comparisonPlaces = [place.dcid].concat(
-                similarPlaces.map((p) => p.dcid)
-              );
-            }
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT" && tileConfig.type === "BAR") {
+            // Add similar places
+            const parentPlaceToKeep = getPlaceOverride(block.placeScope, parentPlaces);
+            tileConfig.comparisonPlaces = [place.dcid];
           }
 
           if (tileConfig.type === "RANKING") {

@@ -174,10 +174,14 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
+  # get parent highlight
+#   parent_higlight = place_utils.
+
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
                                       nearbyPlaces=nearby_places,
                                       place=place,
                                       similarPlaces=similar_places,
-                                      parentPlaces=parent_places)
+                                      parentPlaces=parent_places,
+                                      peersWithinParent=[])
   return jsonify(response)

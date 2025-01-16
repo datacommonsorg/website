@@ -77,6 +77,7 @@ class RelatedPlacesApiResponse:
   place: Place
   similarPlaces: List[Place]
   parentPlaces: List[Place] = None
+  peersWithinParent: List[Place] = None
 
 
 @dataclass
