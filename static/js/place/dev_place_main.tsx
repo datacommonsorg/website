@@ -115,7 +115,7 @@ const CategoryItem = (props: {
     <div className="item-list-item">
       <LocalizedLink
         href={createHref(category.name, forceDevPlaces, place)}
-        className={`item-list-text  + ${
+        className={`item-list-text ${
           selectedCategory === category.name ? " selected" : ""
         }`}
         text={category.translatedName}
