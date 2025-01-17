@@ -240,8 +240,7 @@ export function placeChartsApiResponsesToPageConfig(
           }
 
           if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
-            // Randomize the order of peersWithinParent & pass it in comparisonPlaces with the right number of places.
-            peersWithinParent.sort(() => 0.5 - Math.random());
+            // Pass peersWithinParents in comparisonPlaces with the right number of places.
             tileConfig.comparisonPlaces = [place.dcid].concat(
               peersWithinParent.slice(
                 0,

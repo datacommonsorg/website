@@ -14,6 +14,7 @@
 """
 Defines endpoints for the place page.
 """
+import random
 
 from flask import Blueprint
 from flask import g
@@ -185,6 +186,8 @@ def related_places(place_dcid: str):
     peers_within_parent = place_utils.fetch_child_place_dcids(
         parents_to_highlight[0],
         place_utils.place_type_to_highlight(place.types))
+    random.shuffle(peers_within_parent)
+
 
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
