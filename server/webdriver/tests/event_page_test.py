@@ -49,28 +49,41 @@ class TestEventPage(BaseDcWebdriverTest):
         EC.title_contains('Nicole - Event Page - ' + self.dc_title_string))
 
     # Check header section
-    div1 = find_elem(self.driver, by=By.XPATH, value='//*[@id="main-pane"]/div[1]/div[1]')
+    div1 = find_elem(self.driver,
+                     by=By.XPATH,
+                     value='//*[@id="main-pane"]/div[1]/div[1]')
     self.assertEqual(find_elem(div1, by=By.TAG_NAME, value='h1').text, 'Nicole')
-    self.assertEqual(find_elem(div1, by=By.TAG_NAME, value='h3').text, 'Cyclone Event in Indian River County, Florida, United States, North America, Earth')
+    self.assertEqual(
+        find_elem(div1, by=By.TAG_NAME, value='h3').text,
+        'Cyclone Event in Indian River County, Florida, United States, North America, Earth'
+    )
 
     # Check the Google Map section
     map_container = find_elem(self.driver, value='map-container')
-    self.assertEqual(len(find_elems(map_container, by=By.TAG_NAME, value='iframe')), 1)
+    self.assertEqual(
+        len(find_elems(map_container, by=By.TAG_NAME, value='iframe')), 1)
 
     # Check property values table
-    table = find_elem(self.driver, by=By.XPATH, value='//*[@id="main-pane"]/div[1]/section/div/table')
+    table = find_elem(self.driver,
+                      by=By.XPATH,
+                      value='//*[@id="main-pane"]/div[1]/section/div/table')
     table_rows = find_elems(table, by=By.XPATH, value='.//tbody/tr')
 
     # assert there are 3+ rows in the property values table
     self.assertGreater(len(table_rows), 3)
-    date_rows = find_elems(table, by=By.XPATH, value='//*[@id="main-pane"]/div[1]/section/div/table/tbody/tr[2]/td')
+    date_rows = find_elems(
+        table,
+        by=By.XPATH,
+        value='//*[@id="main-pane"]/div[1]/section/div/table/tbody/tr[2]/td')
     # assert the date is correct
     self.assertEqual(date_rows[0].text, 'Date')
     self.assertEqual(date_rows[1].text,
                      '2022-11-05T06:00:00 — 2022-11-11T18:00:00')
 
     # Check additional charts section
-    chart_section = find_elem(self.driver, by=By.ID, value='subject-page-main-pane')
+    chart_section = find_elem(self.driver,
+                              by=By.ID,
+                              value='subject-page-main-pane')
     charts = find_elems(chart_section, value='chart-container')
 
     # assert there are 4+ charts, and the first line has data
@@ -93,25 +106,38 @@ class TestEventPage(BaseDcWebdriverTest):
         EC.title_contains('0003 Fire 2015 (2836427)'))
 
     # Check header section
-    div1 = find_elem(self.driver, by=By.XPATH, value='//*[@id="main-pane"]/div[1]/div[1]')
-    self.assertEqual(find_elem(div1, by=By.TAG_NAME, value='h1').text, '0003 Fire 2015 (2836427)')
-    self.assertEqual(find_elem(div1, by=By.TAG_NAME, value='h3').text, 'Wildland Fire Event in Deschutes County, Oregon, United States, North America, Earth')
+    div1 = find_elem(self.driver,
+                     by=By.XPATH,
+                     value='//*[@id="main-pane"]/div[1]/div[1]')
+    self.assertEqual(
+        find_elem(div1, by=By.TAG_NAME, value='h1').text,
+        '0003 Fire 2015 (2836427)')
+    self.assertEqual(
+        find_elem(div1, by=By.TAG_NAME, value='h3').text,
+        'Wildland Fire Event in Deschutes County, Oregon, United States, North America, Earth'
+    )
 
     # Check google map section
     map_container = find_elem(self.driver, value='map-container')
-    self.assertEqual(len(find_elems(map_container, by=By.TAG_NAME, value='iframe')), 1)
+    self.assertEqual(
+        len(find_elems(map_container, by=By.TAG_NAME, value='iframe')), 1)
 
     # Check property values table
-    table = find_elem(self.driver, by=By.XPATH, value='//*[@id="main-pane"]/div[1]/section/div/table')
+    table = find_elem(self.driver,
+                      by=By.XPATH,
+                      value='//*[@id="main-pane"]/div[1]/section/div/table')
 
     # assert there are 2+ rows in the property values table and they have the right dates
-    self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')), 2)
+    self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
+                       2)
     date_rows = find_elems(table, by=By.XPATH, value='.//tbody/tr[2]/td')
     self.assertEqual(date_rows[0].text, 'Date')
     self.assertEqual(date_rows[1].text, '2015-01-05')
 
     # Check additional charts section
-    chart_section = find_elem(self.driver, by=By.ID, value='subject-page-main-pane')
+    chart_section = find_elem(self.driver,
+                              by=By.ID,
+                              value='subject-page-main-pane')
     charts = find_elems(chart_section, value='chart-container')
 
     # assert there are 4+ charts, and the first line has data
@@ -135,26 +161,39 @@ class TestEventPage(BaseDcWebdriverTest):
                           self.dc_title_string))
 
     # Check header section
-    div1 = find_elem(self.driver, by=By.XPATH, value='//*[@id="main-pane"]/div[1]/div[1]')
-    self.assertEqual(find_elem(div1, by=By.TAG_NAME, value='h1').text, 'stormEvent/nws5512667')
-    self.assertEqual(find_elem(div1, by=By.TAG_NAME, value='h3').text, 'Drought Event in Hood County, Texas, United States, North America, Earth')
-
+    div1 = find_elem(self.driver,
+                     by=By.XPATH,
+                     value='//*[@id="main-pane"]/div[1]/div[1]')
+    self.assertEqual(
+        find_elem(div1, by=By.TAG_NAME, value='h1').text,
+        'stormEvent/nws5512667')
+    self.assertEqual(
+        find_elem(div1, by=By.TAG_NAME, value='h3').text,
+        'Drought Event in Hood County, Texas, United States, North America, Earth'
+    )
 
     # Check google map section
     map_container = find_elem(self.driver, value='map-container')
-    self.assertEqual(len(find_elems(map_container, by=By.TAG_NAME, value='iframe')), 1)
+    self.assertEqual(
+        len(find_elems(map_container, by=By.TAG_NAME, value='iframe')), 1)
 
     # Check property values table
-    table = find_elem(self.driver, by=By.XPATH, value='//*[@id="main-pane"]/div[1]/section/div/table')
+    table = find_elem(self.driver,
+                      by=By.XPATH,
+                      value='//*[@id="main-pane"]/div[1]/section/div/table')
 
     # assert there are 2+ rows in the property values table and they have the right dates
-    self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')), 2)
+    self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
+                       2)
     date_rows = find_elems(table, by=By.XPATH, value='.//tbody/tr[2]/td')
     self.assertEqual(date_rows[0].text, 'Date')
-    self.assertEqual(date_rows[1].text, '2006-05-01T00:00:00-05:00 — 2006-05-08T23:59:00-05:00')
+    self.assertEqual(date_rows[1].text,
+                     '2006-05-01T00:00:00-05:00 — 2006-05-08T23:59:00-05:00')
 
     # Check additional charts section
-    chart_section = find_elem(self.driver, by=By.ID, value='subject-page-main-pane')
+    chart_section = find_elem(self.driver,
+                              by=By.ID,
+                              value='subject-page-main-pane')
     charts = find_elems(chart_section, value='chart-container')
 
     # assert there are 4+ charts, and the first line has data
