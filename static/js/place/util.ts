@@ -222,9 +222,9 @@ export function placeChartsApiResponsesToPageConfig(
             tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
           }
 
-          var maxPlacesCount = 5;
+          let maxPlacesCount = 5;
           if (tileConfig.type === "RANKING") {
-            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 5
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 5;
             tileConfig.rankingTileSpec = {
               showHighest: false,
               showLowest: false,
@@ -233,15 +233,20 @@ export function placeChartsApiResponsesToPageConfig(
               rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
-            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
             };
           }
 
-          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT" && tileConfig.type === "BAR") {
-            peersWithinParent.sort(() => 0.5 - Math.random())
-            tileConfig.comparisonPlaces = [place.dcid].concat(peersWithinParent.slice(0, Math.min(maxPlacesCount-1, peersWithinParent.length)));
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
+            peersWithinParent.sort(() => 0.5 - Math.random());
+            tileConfig.comparisonPlaces = [place.dcid].concat(
+              peersWithinParent.slice(
+                0,
+                Math.min(maxPlacesCount - 1, peersWithinParent.length)
+              )
+            );
           }
           tiles.push(tileConfig);
         });

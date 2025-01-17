@@ -77,11 +77,11 @@ def place_charts(place_dcid: str):
   # Retrieve available place page charts
   full_chart_config = place_utils.read_chart_configs()
 
- # Filter out place page charts that don't have any data for the current place_dcid
+  # Filter out place page charts that don't have any data for the current place_dcid
   chart_config_existing_data = place_utils.filter_chart_config_by_place_dcid(
       chart_config=full_chart_config,
       place_dcid=place_dcid,
-      place_type=place.types[0] if len(place.types) > 0 else None,
+      place_type=place_utils.place_type_to_highlight(place.types),
       parent_place_dcid=parent_place_dcid,
       child_place_type=child_place_type)
 
@@ -175,8 +175,15 @@ def related_places(place_dcid: str):
       for dcid in child_place_dcids
       if not all_place_by_dcid[dcid].dissolved
   ]
-  parent_to_highlight = place_utils.get_ordered_parents_to_highlight(parent_places)[0]
-  peers_within_parent = place_utils.fetch_child_place_dcids(parent_to_highlight, place.types[0])
+
+  parents_to_highlight = place_utils.get_ordered_parents_to_highlight(
+      parent_places)
+
+  peers_within_parent = []
+  if (parents_to_highlight):
+    peers_within_parent = place_utils.fetch_child_place_dcids(
+        parents_to_highlight[0],
+        place_utils.place_type_to_highlight(place.types))
 
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,

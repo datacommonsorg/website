@@ -124,7 +124,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
   # Get parent places
   parents_to_include = get_ordered_parents_to_highlight(all_parents)
-  parent_dcids =  [parent.dcid for parent in parents_to_include]
+  parent_dcids = [parent.dcid for parent in parents_to_include]
   all_parents = get_parent_places(dcid)
 
   localized_names = place_api.get_i18n_name(parent_dcids)
