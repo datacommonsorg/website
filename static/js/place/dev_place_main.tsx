@@ -484,7 +484,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
       setIsLoading(false);
-      console.log("HEYY " + relatedPlacesApiResponse.peersWithinParent);
       const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse,
         relatedPlacesApiResponse.parentPlaces,

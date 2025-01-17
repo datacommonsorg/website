@@ -85,6 +85,7 @@ def place_charts(place_dcid: str):
       parent_place_dcid=parent_place_dcid,
       child_place_type=child_place_type)
 
+  # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_configs_for_category(
       place_category, chart_config_existing_data)
 
