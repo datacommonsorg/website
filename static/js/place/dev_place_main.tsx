@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 /**
  * Copyright 2024 Google LLC
  *
@@ -22,10 +23,13 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
+import { css, ThemeProvider, useTheme } from "@emotion/react";
+import { LocationCity } from "../components/elements/icons/location_city";
 import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl } from "../i18n/i18n";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import {
   defaultDataCommonsClient,
@@ -34,6 +38,7 @@ import {
 import { TileSources } from "../utils/tile_utils";
 import {
   isPlaceContainedInUsa,
+  pageMessages,
   placeChartsApiResponsesToPageConfig,
 } from "./util";
 
@@ -66,8 +71,8 @@ const PlaceHeader = (props: {
         ></p>
       </div>
       <div className="dcid-and-knowledge-graph">
-        dcid: {place.dcid} •{" "}
-        <a href={`/browser/${place.dcid}`}>See Knowledge Graph</a>
+        {intl.formatMessage(pageMessages.KnowledgeGraph)} •{" "}
+        <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
       </div>
     </div>
   );
@@ -149,7 +154,9 @@ const PlaceTopicTabs = ({
 
   return (
     <div className="explore-topics-box">
-      <span className="explore-relevant-topics">Relevant topics</span>
+      <span className="explore-relevant-topics">
+        {intl.formatMessage(pageMessages.RelevantTopics)}
+      </span>
       <div className="item-list-container">
         <div className="item-list-inner">
           {topics.map((topic) => (
@@ -286,13 +293,33 @@ const PlaceOverview = (props: {
   const isInUsa = isPlaceContainedInUsa(
     parentPlaces.map((place) => place.dcid)
   );
+  const theme = useTheme();
   return (
     <div className="place-overview">
-      <div className="place-icon">
-        <div className="material-icons">location_city</div>
+      <div
+        css={css`
+          ${theme.typography.text.md}
+          align-items: center;
+          display: flex;
+          font-weight: 500;
+          gap: ${theme.spacing.sm}px;
+          margin-bottom: ${theme.spacing.md}px;
+          & > svg {
+            height: 1.5rem;
+          }
+        `}
+      >
+        <LocationCity />
+        <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
       </div>
-      <div className="place-name">{place.name}</div>
-      <div className="place-summary">{placeSummary}</div>
+      <div
+        css={css`
+          ${theme.typography.text.sm}
+          margin-bottom: ${theme.spacing.md}px;
+        `}
+      >
+        {placeSummary}
+      </div>
       <div className="row place-map">
         {isInUsa && (
           <div className="col-md-3">
@@ -413,7 +440,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
   const [hasError, setHasError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [categories, setCategories] = useState<string[]>();
+  const [categories, setCategories] = useState<string[]>([]);
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overviewString;
@@ -514,41 +541,43 @@ export const DevPlaceMain = (): React.JSX.Element => {
     return <div>Place &quot;{place.dcid}&quot; not found.</div>;
   }
   return (
-    <RawIntlProvider value={intl}>
-      <PlaceHeader
-        category={category}
-        place={place}
-        placeSubheader={placeSubheader}
-      />
-      <PlaceTopicTabs
-        topics={categories}
-        category={category}
-        place={place}
-        forceDevPlaces={forceDevPlaces}
-      />
-      {isOverview && placeSummary != "" && (
-        <PlaceOverview
+    <ThemeProvider theme={theme}>
+      <RawIntlProvider value={intl}>
+        <PlaceHeader
+          category={category}
           place={place}
-          placeSummary={placeSummary}
-          parentPlaces={parentPlaces}
+          placeSubheader={placeSubheader}
         />
-      )}
-      {isOverview && childPlaces.length > 0 && (
-        <RelatedPlaces place={place} childPlaces={childPlaces} />
-      )}
-      {hasPlaceCharts && (
-        <PlaceCharts
+        <PlaceTopicTabs
+          topics={categories}
+          category={category}
           place={place}
-          childPlaceType={childPlaceType}
-          pageConfig={pageConfig}
+          forceDevPlaces={forceDevPlaces}
         />
-      )}
-      {hasNoCharts && (
-        <div>
-          No {category === overviewString ? "" : category} data found for{" "}
-          {place.name}.
-        </div>
-      )}
-    </RawIntlProvider>
+        {isOverview && categories.length > 0 && placeSummary != "" && (
+          <PlaceOverview
+            place={place}
+            placeSummary={placeSummary}
+            parentPlaces={parentPlaces}
+          />
+        )}
+        {hasPlaceCharts && (
+          <PlaceCharts
+            place={place}
+            childPlaceType={childPlaceType}
+            pageConfig={pageConfig}
+          />
+        )}
+        {hasNoCharts && (
+          <div>
+            No {category === overviewString ? "" : category} data found for{" "}
+            {place.name}.
+          </div>
+        )}
+        {isOverview && childPlaces.length > 0 && (
+          <RelatedPlaces place={place} childPlaces={childPlaces} />
+        )}
+      </RawIntlProvider>
+    </ThemeProvider>
   );
 };
