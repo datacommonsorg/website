@@ -144,12 +144,12 @@ const PlaceOverviewTable = (props: {
         `}
       >
         {Array.from(sourceUrls).map((sourceUrl, index) => (
-          <>
-            <a href={sourceUrl} target="_blank" key={sourceUrl}>
+          <React.Fragment key={sourceUrl}>
+            <a href={sourceUrl} target="_blank">
               {new URL(sourceUrl).hostname}
             </a>
             {index < sourceUrls.size - 1 ? ", " : ""}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
