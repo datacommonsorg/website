@@ -56,24 +56,15 @@ class TestCharts(WebdriverBaseTest):
     self.assertGreater(len(event_maps), 5)
 
     # Wait until the svg loads in the first article.
-    self.assertIsNotNone(
-        find_elem(event_maps[0],
-                  by=By.TAG_NAME,
-                  value='svg'))
+    self.assertIsNotNone(find_elem(event_maps[0], by=By.TAG_NAME, value='svg'))
 
     # Assert first article has svg with map geo region.
-    map_geo_region = find_elem(event_maps[0],
-                               by=By.ID,
-                               value='map-geo-regions')
+    map_geo_region = find_elem(event_maps[0], by=By.ID, value='map-geo-regions')
     self.assertIsNotNone(map_geo_region)
 
-    path = find_elems(map_geo_region,
-                      by=By.TAG_NAME,
-                      value='path')
+    path = find_elems(map_geo_region, by=By.TAG_NAME, value='path')
     self.assertEqual(len(path), 1)
 
     # Assert first article has svg with at least 2 points.
-    self.assertGreater(
-        len(
-            find_elems(event_maps[0],
-                       value='map-points-layer')), 2)
+    self.assertGreater(len(find_elems(event_maps[0], value='map-points-layer')),
+                       2)

@@ -76,8 +76,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                                      path_to_elem=['charts-container'])
     self.assertEqual(len(category_containers), len(expected_categories))
     for category_container in category_containers:
-      chart_containers = find_elems(category_container,
-                                    value='chart-container')
+      chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
   def test_dev_place_chart_settings(self):

@@ -124,9 +124,7 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     table = find_elem(observation_section_chart_1,
                       by=By.TAG_NAME,
                       value='table')
-    first_row = find_elem(table,
-                          by=By.XPATH,
-                          value='.//tbody/tr[2]/td')
+    first_row = find_elem(table, by=By.XPATH, value='.//tbody/tr[2]/td')
     first_row.click()
 
     # Wait for the new page to open in a new tab
@@ -159,10 +157,17 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     """Test that the observation chart observation node links can redirect properly"""
     # Load California population browser page.
     self.driver.get(self.url_ + CA_POPULATION_URL)
-    self.assertIsNotNone(find_elem(self.driver, by=By.XPATH, value='//*[@id="node-content"]/div[1]/div/table'))
+    self.assertIsNotNone(
+        find_elem(self.driver,
+                  by=By.XPATH,
+                  value='//*[@id="node-content"]/div[1]/div/table'))
 
     # Click the point on the chart for the year 1850
-    point = find_elem(self.driver, by=By.XPATH, value='//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/div/*[name()="svg"]/'
+    point = find_elem(
+        self.driver,
+        by=By.XPATH,
+        value=
+        '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/div/*[name()="svg"]/'
         + '*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]')
     point.click()
 

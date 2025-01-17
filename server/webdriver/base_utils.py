@@ -93,9 +93,7 @@ def find_elems(
     if found_elements:
       elements.extend(found_elements)
     else:
-      elems_or_none = wait_elem(par,
-                                by,
-                                value,shared.TIMEOUT)
+      elems_or_none = wait_elem(par, by, value, shared.TIMEOUT)
       if elems_or_none:
         elements.append(elems_or_none)
   return elements if elements else []
