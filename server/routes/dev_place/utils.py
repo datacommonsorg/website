@@ -139,6 +139,40 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
+def place_type_to_highlight(place_types: List[str]) -> str:
+  """Returns the first place type in PARENT_PLACE_TYPES_TO_HIGHLIGHT that is also in place_types.
+
+  Args:
+    place_types: A list of place types.
+
+  Returns:
+    The first place type in PARENT_PLACE_TYPES_TO_HIGHLIGHT that is also in place_types, or None if no such place type exists.
+  """
+  for place_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT:
+    if place_type in place_types:
+      return place_type
+  return None
+
+
+def get_place_override(places: List[Place]) -> str:
+  """Returns the place with the lowest indexed type to highlight"""
+  place_override = None
+  for place in places:
+    try:
+      lowest_index = min(
+          PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(type)
+          for type in place.types
+          if type in PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+    except ValueError:
+      lowest_index = float('inf')
+
+    if lowest_index != float('inf'):
+      place_override = place
+      break
+
+  return place_override.dcid if place_override else None
+
+
 def filter_chart_configs_for_category(
     place_category: str, chart_config: List[ServerChartConfiguration]
 ) -> List[ServerChartConfiguration]:
@@ -149,7 +183,7 @@ def filter_chart_configs_for_category(
       server_chart_config.blocks = [
           block for block in server_chart_config.blocks if block.is_overview
       ]
-      filtered_chart_config.append(server_chart_config)
+      filtered_chart_config.append(copy.deepcopy(server_chart_config))
   else:
     filtered_chart_config = [
         c for c in chart_config if c.category == place_category
@@ -161,7 +195,9 @@ def filter_chart_configs_for_category(
 def filter_chart_config_by_place_dcid(
     chart_config: List[ServerChartConfiguration],
     place_dcid: str,
-    child_place_type=str):
+    place_type: str,
+    child_place_type=str,
+    parent_place_dcid=str):
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   
@@ -173,41 +209,61 @@ def filter_chart_config_by_place_dcid(
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
   """
   # Get a flat list of all statistical variable dcids in the chart config
-  non_map_stat_var_dcids = []
-  map_stat_var_dcids = []
+  current_place_stat_var_dcids = []
+  child_places_stat_var_dcids = []
+  peer_places_stat_var_dcids = []
   for config in chart_config:
+    needs_child_data = False
+    needs_current_place_data = False
+    needs_peer_places_data = False
+
     for block in config.blocks:
-      for chart in block.charts:
-        if chart.type == "MAP":
-          map_stat_var_dcids.extend(config.variables)
-        else:
-          non_map_stat_var_dcids.extend(config.variables)
+      needs_current_place_data |= block.place_scope == "PLACE"
+      needs_child_data |= block.place_scope == "CHILD_PLACES"
+      needs_peer_places_data |= block.place_scope == "PEER_PLACES_WITHIN_PARENT"
 
-        if config.denominator:
-          non_map_stat_var_dcids.extend(config.denominator)
+    if needs_child_data:
+      child_places_stat_var_dcids.extend(config.variables)
+    if needs_current_place_data:
+      current_place_stat_var_dcids.extend(config.variables)
+    if needs_peer_places_data:
+      peer_places_stat_var_dcids.extend(config.variables)
+    # TODO(gmechali): Decide what do with if there's no denominator data.
 
-  # Find non-map stat vars that have data for our place dcid
-  obs_point_response = dc.obs_point(entities=[place_dcid],
-                                    variables=non_map_stat_var_dcids)
-  non_map_stat_vars_with_observations = [
-      stat_var_dcid for stat_var_dcid in non_map_stat_var_dcids
-      if obs_point_response["byVariable"].get(stat_var_dcid, {}).get(
-          "byEntity", {}).get(place_dcid, {})
-  ]
+  # Find stat vars that have data for our place dcid
+  current_place_obs_point_response = dc.obs_point(
+      entities=[place_dcid], variables=current_place_stat_var_dcids)
+  current_place_stat_vars_with_observations = set([
+      stat_var_dcid for stat_var_dcid in current_place_stat_var_dcids
+      if current_place_obs_point_response["byVariable"].get(
+          stat_var_dcid, {}).get("byEntity", {}).get(place_dcid, {})
+  ])
 
-  # Find map stat vars that have data for our child places
-  obs_point_within_response = dc.obs_point_within(place_dcid,
-                                                  child_place_type,
-                                                  variables=map_stat_var_dcids)
-  map_stat_vars_with_observations = [
-      stat_var_dcid for stat_var_dcid in map_stat_var_dcids
-      if obs_point_within_response["byVariable"].get(stat_var_dcid, {}).get(
-          "byEntity", {})
-  ]
+  # Find stat vars that have data for our child places
+  child_places_obs_point_response = dc.obs_point_within(
+      place_dcid, child_place_type, variables=child_places_stat_var_dcids)
+  child_places_stat_vars_with_observations = set([
+      stat_var_dcid for stat_var_dcid in child_places_stat_var_dcids
+      if child_places_obs_point_response["byVariable"].get(
+          stat_var_dcid, {}).get("byEntity", {})
+  ])
+
+  # find stat vars that have data for our peer places.
+  peer_places_obs_point_response = dc.obs_point_within(
+      parent_place_dcid, str(place_type), variables=peer_places_stat_var_dcids)
+  peer_places_stat_vars_with_observations = set([
+      stat_var_dcid for stat_var_dcid in peer_places_stat_var_dcids
+      if peer_places_obs_point_response["byVariable"].get(
+          stat_var_dcid, {}).get("byEntity", {})
+  ])
 
   # Build set of all stat vars that have data for our place & children places
-  stat_vars_with_observations_set = set(non_map_stat_vars_with_observations)
-  stat_vars_with_observations_set.update(map_stat_vars_with_observations)
+  stat_vars_with_observations_set = set(
+      current_place_stat_vars_with_observations)
+  stat_vars_with_observations_set.update(
+      child_places_stat_vars_with_observations)
+  stat_vars_with_observations_set.update(
+      peer_places_stat_vars_with_observations)
 
   # Filter out chart config entries that don't have any data
   filtered_chart_config = [
@@ -215,6 +271,30 @@ def filter_chart_config_by_place_dcid(
       # Set intersection to see if this chart has any variables with observations for our place_dcid
       if set(config.variables) & stat_vars_with_observations_set
   ]
+
+  for config in filtered_chart_config:
+    updated_blocks = []
+    for block in config.blocks:
+      if block.place_scope == "CHILD_PLACES":
+        has_child_data = any(var in child_places_stat_vars_with_observations
+                             for var in config.variables)
+        if has_child_data:
+          updated_blocks.append(block)
+      elif block.place_scope == "PLACE":
+        has_data = any(var in current_place_stat_vars_with_observations
+                       for var in config.variables)
+        if has_data:
+          updated_blocks.append(block)
+      elif block.place_scope == "PEER_PLACES_WITHIN_PARENT":
+        has_peer_data = any(var in peer_places_stat_vars_with_observations
+                            for var in config.variables)
+        has_place_data = any(var in current_place_stat_vars_with_observations
+                             for var in config.variables)
+        if has_place_data and has_peer_data:
+          # Only add peers when we also have data for current place.
+          updated_blocks.append(block)
+    config.blocks = updated_blocks
+
   return filtered_chart_config
 
 
