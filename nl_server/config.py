@@ -22,7 +22,6 @@ import dacite
 
 class StoreType(str, Enum):
   MEMORY = 'MEMORY'
-  LANCEDB = 'LANCEDB'
   VERTEXAI = 'VERTEXAI'
 
 
@@ -65,11 +64,6 @@ class IndexConfig:
 
 @dataclass(kw_only=True)
 class MemoryIndexConfig(IndexConfig):
-  embeddings_path: str = None
-
-
-@dataclass(kw_only=True)
-class LanceDBIndexConfig(IndexConfig):
   embeddings_path: str = None
 
 

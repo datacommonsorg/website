@@ -23,7 +23,6 @@ import yaml
 from nl_server.config import Catalog
 from nl_server.config import Env
 from nl_server.config import IndexConfig
-from nl_server.config import LanceDBIndexConfig
 from nl_server.config import LocalModelConfig
 from nl_server.config import MemoryIndexConfig
 from nl_server.config import ModelConfig
@@ -157,8 +156,6 @@ def read_catalog(catalog_paths: List[str] = _DEFAULT_CATALOG_PATHS,
         match store_type:
           case StoreType.MEMORY:
             indexes[index_name] = MemoryIndexConfig(**index_config)
-          case StoreType.LANCEDB:
-            indexes[index_name] = LanceDBIndexConfig(**index_config)
           case StoreType.VERTEXAI:
             indexes[index_name] = VertexAIIndexConfig(**index_config)
           case _:
