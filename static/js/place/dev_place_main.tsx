@@ -19,10 +19,10 @@ import {
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
+import { ThemeProvider } from "@emotion/react";
 import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
-import { ThemeProvider } from "@emotion/react";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
@@ -30,7 +30,11 @@ import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
 import { PlaceOverview } from "./dev_place_overview";
-import { pageMessages, placeChartsApiResponsesToPageConfig } from "./util";
+import {
+  createPlacePageCategoryHref,
+  pageMessages,
+  placeChartsApiResponsesToPageConfig,
+} from "./util";
 
 /**
  * Component that renders the header section of a place page.
@@ -52,17 +56,19 @@ const PlaceHeader = (props: {
     <div className="title-section">
       <div className="place-info">
         <h1>
-          {place.name}
-          {category != "Overview" ? ` • ${category}` : ""}{" "}
+          <span>
+            {place.name}
+            {category != "Overview" ? ` • ${category}` : ""}{" "}
+          </span>
+          <div className="dcid-and-knowledge-graph">
+            {intl.formatMessage(pageMessages.KnowledgeGraph)} •{" "}
+            <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
+          </div>
         </h1>
         <p
           className="subheader"
           dangerouslySetInnerHTML={{ __html: placeSubheader }}
         ></p>
-      </div>
-      <div className="dcid-and-knowledge-graph">
-        {intl.formatMessage(pageMessages.KnowledgeGraph)} •{" "}
-        <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
       </div>
     </div>
   );
@@ -86,28 +92,10 @@ const TopicItem = (props: {
 }): React.JSX.Element => {
   const { category, selectedCategory, forceDevPlaces, place } = props;
 
-  const createHref = (
-    category: string,
-    forceDevPlaces: boolean,
-    place: NamedTypedPlace
-  ): string => {
-    const href = `/place/${place.dcid}`;
-    const params = new URLSearchParams();
-    const isOverview = category === "Overview";
-
-    if (!isOverview) {
-      params.set("category", category);
-    }
-    if (forceDevPlaces) {
-      params.set("force_dev_places", "true");
-    }
-    return params.size > 0 ? `${href}?${params.toString()}` : href;
-  };
-
   return (
     <div className="item-list-item">
       <a
-        href={createHref(category, forceDevPlaces, place)}
+        href={createPlacePageCategoryHref(category, forceDevPlaces, place)}
         className={`item-list-text  + ${
           selectedCategory === category ? " selected" : ""
         }`}
@@ -233,15 +221,13 @@ const PlaceCharts = (props: {
 }): React.JSX.Element => {
   const { childPlaceType, place, pageConfig } = props;
   return (
-    <div className="charts-container">
-      <SubjectPageMainPane
-        defaultEnclosedPlaceType={childPlaceType}
-        id="place-subject-page"
-        pageConfig={pageConfig}
-        place={place}
-        showExploreMore={true}
-      />
-    </div>
+    <SubjectPageMainPane
+      defaultEnclosedPlaceType={childPlaceType}
+      id="place-subject-page"
+      pageConfig={pageConfig}
+      place={place}
+      showExploreMore={true}
+    />
   );
 };
 
@@ -344,7 +330,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
         placeChartsApiResponse,
         relatedPlacesApiResponse.parentPlaces,
         relatedPlacesApiResponse.similarPlaces,
-        relatedPlacesApiResponse.place
+        relatedPlacesApiResponse.place,
+        isOverview,
+        forceDevPlaces
       );
       setPageConfig(config);
     })();

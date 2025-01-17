@@ -16,9 +16,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { DataRow } from "@datacommonsorg/client";
+import { css, useTheme } from "@emotion/react";
 import React, { useEffect, useRef, useState } from "react";
 
-import { css, useTheme } from "@emotion/react";
 import { LocationCity } from "../components/elements/icons/location_city";
 import { GoogleMap } from "../components/google_map";
 import { intl } from "../i18n/i18n";
@@ -101,7 +101,7 @@ const PlaceOverviewTable = (props: {
             padding: 12px 0;
             vertical-align: top;
             border-bottom: 1px solid #e1e3e1;
-            &:first-child {
+            &:first-of-type {
               font-weight: 500;
             }
           }
@@ -145,7 +145,7 @@ const PlaceOverviewTable = (props: {
       >
         {Array.from(sourceUrls).map((sourceUrl, index) => (
           <React.Fragment key={sourceUrl}>
-            <a href={sourceUrl} target="_blank">
+            <a href={sourceUrl} target="_blank" rel="noreferrer">
               {new URL(sourceUrl).hostname}
             </a>
             {index < sourceUrls.size - 1 ? ", " : ""}
@@ -180,6 +180,7 @@ export const PlaceOverview = (props: {
         border: 1px solid var(--GM3-ref-neutral-neutral90, #e3e3e3);
         background: rgba(211, 227, 253, 0.1);
         padding: 24px;
+        margin-bottom: ${theme.spacing.md}px;
       `}
     >
       <div
@@ -211,6 +212,9 @@ export const PlaceOverview = (props: {
           display: grid;
           grid-template-columns: 248px 4fr;
           gap: ${theme.spacing.xl}px;
+          &:has(> :only-child) {
+            grid-template-columns: 1fr;
+          }
           @media (max-width: ${theme.breakpoints.md}px) {
             grid-template-columns: 1fr;
           }

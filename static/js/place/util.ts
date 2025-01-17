@@ -22,12 +22,12 @@ import {
 import _ from "lodash";
 import { defineMessages } from "react-intl";
 
-import { intl } from "../i18n/i18n";
+import { intl, localizeLink } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
-import { StatVarSpec } from "../shared/types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
-  CategoryConfig,
   BlockConfig as SubjectPageBlockConfig,
+  CategoryConfig,
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
@@ -160,6 +160,31 @@ function getTitle(title: string, placeScope: string): string {
 }
 
 /**
+ * Creates a href for a place page category.
+ * @param category The category to create a href for.
+ * @param forceDevPlaces Whether to force dev places.
+ * @param place The place to create a href for.
+ * @returns The href for the place page category.
+ */
+export function createPlacePageCategoryHref(
+  category: string,
+  forceDevPlaces: boolean,
+  place: NamedTypedPlace
+): string {
+  const href = `/place/${place.dcid}`;
+  const params = new URLSearchParams();
+  const isOverview = category === "Overview";
+
+  if (!isOverview) {
+    params.set("category", category);
+  }
+  if (forceDevPlaces) {
+    params.set("force_dev_places", "true");
+  }
+  return params.size > 0 ? `${href}?${params.toString()}` : href;
+}
+
+/**
  * Helper to process the dev Place page API response
  * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
  * Groups charts by category and creates the necessary configuration objects for
@@ -172,7 +197,9 @@ export function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse,
   parentPlaces: Place[],
   similarPlaces: Place[],
-  place: Place
+  place: Place,
+  isOverview: boolean,
+  forceDevPlaces: boolean
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
@@ -282,6 +309,12 @@ export function placeChartsApiResponsesToPageConfig(
         statVarSpec,
         title: categoryName,
       };
+      if (isOverview) {
+        category.url = localizeLink(
+          createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
+        );
+        category.linkText = intl.formatMessage(pageMessages.MoreCharts);
+      }
       return category;
     }
   );
@@ -436,6 +469,12 @@ export const pageMessages = defineMessages({
     defaultMessage: "Summary Overview",
     description:
       "Header text for the Summary Overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
+  },
+  MoreCharts: {
+    id: "more_charts",
+    defaultMessage: "More charts",
+    description:
+      "Link text to show additional charts for the given chart category section for the current place.",
   },
 });
 
