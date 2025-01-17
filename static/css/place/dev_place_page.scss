@@ -56,7 +56,7 @@ main {
   // Overwrite default subject-page-main-pane style to align charts
   #subject-page-main-pane {
     .category {
-      margin: 48px 0;
+      margin: 32px 0;
       padding: 0;
 
       .block .row {
@@ -99,7 +99,7 @@ main {
       font-style: normal;
       font-weight: 400;
       line-height: 28px;
-      margin: 0 0 24px 0;
+      margin: 0;
       padding: 0 0 12px 0;
     }
   }
@@ -142,19 +142,6 @@ main {
   }
 }
 
-.place-overview {
-  border-radius: 8px;
-  border: 1px solid var(--GM3-ref-neutral-neutral90, #e3e3e3);
-  background: rgba(211, 227, 253, 0.1);
-  padding: 28px;
-  .place-map {
-    margin-top: 16px;
-  }
-  .table thead th {
-    border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-70, #ababab);
-    border-top: none;
-  }
-}
 .summary-text {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-size: 14px;
@@ -175,7 +162,6 @@ main {
   display: flex;
   flex-direction: column;
   gap: 48px;
-  margin: 24px 0;
 
   .category {
     .category-heading-container {
@@ -203,7 +189,13 @@ main {
 }
 
 .block.subtopic {
-  padding: 0;
+  padding: 28px 0;
+  h3 {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
 }
 
 .block-column {
