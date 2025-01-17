@@ -142,20 +142,21 @@ class VisTimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL.replace('#visType=timeline', ''))
 
     # Click the timeline tab
+    vis_types_clickable = EC.element_to_be_clickable(
+        (By.CLASS_NAME, 'vis-type-option'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(vis_types_clickable)
     vis_type_options = self.driver.find_elements(By.CLASS_NAME,
                                                  'vis-type-option')
     for vis_type in vis_type_options:
       if 'Timeline' in vis_type.text:
         vis_type.click()
         break
-    page_header = self.driver.find_element(By.CSS_SELECTOR, '.info-content h3')
-    self.assertEqual(page_header.text, 'Timeline')
+    page_header_locator = (By.CSS_SELECTOR, '.info-content h3')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.text_to_be_present_in_element(page_header_locator, 'Timeline'))
 
     # Click the start button
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'start-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'start-button').click()
+    shared.click_el(self.driver, (By.CLASS_NAME, 'start-button'))
 
     # Type california into the search box.
     element_present = EC.presence_of_element_located((By.ID, 'location-field'))
@@ -164,12 +165,8 @@ class VisTimelineTestMixin():
     search_box_input.send_keys(PLACE_SEARCH_CA)
 
     # Click on the first result.
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'pac-item'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    first_result = self.driver.find_element(By.CSS_SELECTOR,
-                                            '.pac-item:nth-child(1)')
-    first_result.click()
+    first_result_locator = (By.XPATH, '(//*[contains(@class, "pac-item")])[1]')
+    shared.click_el(self.driver, first_result_locator)
 
     # Type USA into the search box after California has been selected.
     element_present = EC.presence_of_element_located(
@@ -179,45 +176,29 @@ class VisTimelineTestMixin():
     search_box_input.send_keys(PLACE_SEARCH_USA)
 
     # Click on the first result.
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'pac-item'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    first_result = self.driver.find_element(By.CSS_SELECTOR,
-                                            '.pac-item:nth-child(1)')
-    first_result.click()
+    shared.click_el(self.driver, first_result_locator)
 
     # Click continue after USA has been selected.
     element_present = EC.text_to_be_present_in_element(
         (By.CLASS_NAME, 'place-selector-selections'),
         'United States of America')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'continue-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'continue-button').click()
+    shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Choose stat vars
     shared.wait_for_loading(self.driver)
     shared.click_sv_group(self.driver, "Demographics")
-    element_present = EC.presence_of_element_located(
+    shared.click_el(
+        self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
     shared.wait_for_loading(self.driver)
-    element_present = EC.presence_of_element_located(
+    shared.click_el(
+        self.driver,
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.ID,
-        'Median_Income_Persondc/g/Demographics-Median_Income_Person').click()
 
     # Click continue after selection is done loading.
     shared.wait_for_loading(self.driver)
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'continue-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'continue-button').click()
+    shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Assert chart is correct
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
