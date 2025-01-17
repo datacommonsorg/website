@@ -199,4 +199,5 @@ export interface RelatedPlacesApiResponse {
   place: Place;
   similarPlaces: Place[];
   parentPlaces: Place[];
+  peersWithinParent: string[];
 }

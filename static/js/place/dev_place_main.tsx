@@ -500,7 +500,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse,
         relatedPlacesApiResponse.parentPlaces,
-        relatedPlacesApiResponse.similarPlaces,
+        relatedPlacesApiResponse.peersWithinParent,
         relatedPlacesApiResponse.place
       );
       setPageConfig(config);
