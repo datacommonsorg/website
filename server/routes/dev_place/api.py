@@ -188,7 +188,6 @@ def related_places(place_dcid: str):
         place_utils.place_type_to_highlight(place.types))
     random.shuffle(peers_within_parent)
 
-
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
                                       nearbyPlaces=nearby_places,
