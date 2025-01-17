@@ -14,6 +14,7 @@
 """
 Defines endpoints for the place page.
 """
+import random
 
 from flask import Blueprint
 from flask import g
@@ -77,38 +78,29 @@ def place_charts(place_dcid: str):
   # Retrieve available place page charts
   full_chart_config = place_utils.read_chart_configs()
 
-  chart_config_for_category = place_utils.filter_chart_configs_for_category(
-      place_category, full_chart_config)
-
   # Filter out place page charts that don't have any data for the current place_dcid
-  filtered_chart_config = place_utils.filter_chart_config_by_place_dcid(
-      chart_config=chart_config_for_category,
+  chart_config_existing_data = place_utils.filter_chart_config_by_place_dcid(
+      chart_config=full_chart_config,
       place_dcid=place_dcid,
       place_type=place_utils.place_type_to_highlight(place.types),
-      child_place_type=child_place_type,
-      parent_place_dcid=parent_place_dcid)
+      parent_place_dcid=parent_place_dcid,
+      child_place_type=child_place_type)
 
-  # TODO(gmechali): Right now we're duplicating some of this. We should always only execute the call on the full chart config, THEN do the filtering by category.
-  # Always execute the full chart config to fetch all categories with data.
-  filtered_chart_config_for_category = (
-      place_utils.filter_chart_config_by_place_dcid(
-          chart_config=full_chart_config,
-          place_dcid=place_dcid,
-          place_type=place_utils.place_type_to_highlight(place.types),
-          child_place_type=child_place_type,
-          parent_place_dcid=parent_place_dcid))
+  # Only keep the chart config for the current category.
+  chart_config_for_category = place_utils.filter_chart_configs_for_category(
+      place_category, chart_config_existing_data)
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
-      filtered_chart_config)
+      chart_config_for_category)
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
   blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
                                                        child_place_type)
 
-  # Translate category strings
+  # Translate category strings for all charts that have any data.
   translated_category_strings = place_utils.get_translated_category_strings(
-      filtered_chart_config_for_category)
+      chart_config_existing_data)
 
   response = PlaceChartsApiResponse(
       blocks=blocks,
@@ -186,10 +178,21 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
+  parents_to_highlight = place_utils.get_ordered_parents_to_highlight(
+      parent_places)
+
+  peers_within_parent = []
+  if (parents_to_highlight):
+    peers_within_parent = place_utils.fetch_child_place_dcids(
+        parents_to_highlight[0],
+        place_utils.place_type_to_highlight(place.types))
+    random.shuffle(peers_within_parent)
+
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
                                       nearbyPlaces=nearby_places,
                                       place=place,
                                       similarPlaces=similar_places,
-                                      parentPlaces=parent_places)
+                                      parentPlaces=parent_places,
+                                      peersWithinParent=peers_within_parent)
   return jsonify(response)
