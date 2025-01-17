@@ -16,8 +16,8 @@
                       "country/GHA",
                       "country/UGA",
                       "country/SEN",
-                      "country/GIN",
                       "country/MLI",
+                      "country/GIN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -110,11 +110,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Guinea",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -122,11 +122,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/GIN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Mali",
+                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -236,11 +236,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SOM",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Somalia",
+                    "title": "Ghana",
                     "type": "LINE"
                   }
                 ]
@@ -248,11 +248,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GHA",
+                    "placeDcidOverride": "country/SOM",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Ghana",
+                    "title": "Somalia",
                     "type": "LINE"
                   }
                 ]
@@ -326,18 +326,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
@@ -350,11 +338,35 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
                     "title": "Ethiopia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                    ],
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -379,18 +391,6 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
                     "title": "Mali",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -481,13 +481,13 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/GIN",
-      "name": "Guinea",
+      "dcid": "country/MLI",
+      "name": "Mali",
       "place_type": "Country"
     },
     {
-      "dcid": "country/MLI",
-      "name": "Mali",
+      "dcid": "country/GIN",
+      "name": "Guinea",
       "place_type": "Country"
     },
     {
