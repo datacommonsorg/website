@@ -223,7 +223,7 @@ const PlaceOverviewTable = (props: {
   });
 
   return (
-    <table className="table" ref={containerRef}>
+    <table className="table key-demographics-table" ref={containerRef}>
       <thead>
         <tr>
           <th scope="col" colSpan={2}>
@@ -240,7 +240,7 @@ const PlaceOverviewTable = (props: {
           const formattedObservationValue =
             dataRow.variable.observation.value.toLocaleString();
           return (
-            <tr key={index}>
+            <tr key={index} className="key-demographics-row">
               <td>{dataRow.variable.properties.name}</td>
               <td>
                 {formattedObservationValue} {unit} (
