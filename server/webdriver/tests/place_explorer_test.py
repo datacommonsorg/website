@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -72,14 +70,13 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     self.assertEqual(set([block.text for block in block_titles]),
                      set(expected_categories))
 
-    # Assert that every block has at least one chart
+    # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
                                      value='category',
                                      path_to_elem=['charts-container'])
     self.assertEqual(len(category_containers), len(expected_categories))
     for category_container in category_containers:
-      chart_containers = find_elems(self.driver,
-                                    parent=category_container,
+      chart_containers = find_elems(category_container,
                                     value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 

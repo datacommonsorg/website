@@ -67,15 +67,14 @@ def find_parents(parents,
   for value in parent_path:
     this_level_elements = []
     for par in parents:
-      this_level_elements.extend(find_elems(par, par, by, value))
+      this_level_elements.extend(find_elems(par, by, value))
     elements_to_return = this_level_elements
 
   return elements_to_return
 
 
 def find_elems(
-    driver,
-    parent: webdriver.remote.webelement.WebElement | None = None,
+    parent: webdriver.remote.webelement.WebElement,
     by: str = By.CLASS_NAME,
     value: str = "",
     path_to_elem: List[str] = None
@@ -84,31 +83,26 @@ def find_elems(
     Finds elements within the parent elements with the specified by string and value.
     If not found, it will wait up to the timeout set, and then return None.
     """
-  if not parent:
-    parent = driver
-
   parents = find_parents([parent], by,
                          path_to_elem) if path_to_elem else [parent]
 
   elements = []
   for par in parents:
-    wait_elem(driver, by, value, shared.TIMEOUT)
+    wait_elem(par, by, value, shared.TIMEOUT)
     found_elements = par.find_elements(by, value)
     if found_elements:
       elements.extend(found_elements)
     else:
-      elems_or_none = wait_elem(driver=driver,
-                                by=by,
-                                value=value,
-                                timeout_seconds=shared.TIMEOUT)
+      elems_or_none = wait_elem(par,
+                                by,
+                                value,shared.TIMEOUT)
       if elems_or_none:
         elements.append(elems_or_none)
   return elements if elements else []
 
 
 def find_elem(
-    driver,
-    parent: webdriver.remote.webelement.WebElement | None = None,
+    parent: webdriver.remote.webelement.WebElement,
     by: str = By.CLASS_NAME,
     value: str = "",
     path_to_elem: List[str] = None
@@ -117,7 +111,7 @@ def find_elem(
   Finds an element within the parent element with the specified by string and value.
   If not found, it will wait up to the timeout set, and then return None.
   """
-  elems = find_elems(driver, parent, by, value, path_to_elem)
+  elems = find_elems(parent, by, value, path_to_elem)
   return elems[0] if elems else None
 
 
