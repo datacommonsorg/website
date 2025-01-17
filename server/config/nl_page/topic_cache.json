@@ -201,7 +201,7 @@
         "Amount_FarmInventory_SunflowerSeed",
         "Amount_FarmInventory_UplandCotton",
         "Amount_FarmInventory_WheatForGrain",
-        "Amount_FarmInventory_CornForGrain"
+        "Amout_FarmInventory_CornForGrain"
       ],
       "name": [
         "Farm products"
@@ -4779,7 +4779,7 @@
         "Percent_Normalweight_In_Count_Person_Urban"
       ],
       "name": [
-        "Prevalance of Normal Weight Adult Population by Residency"
+        "Prevalence of Normal Weight Adult Population by Residency"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -4794,7 +4794,7 @@
         "Percent_Normalweight_In_Count_Person_Male"
       ],
       "name": [
-        "Prevalance of Normal Weight Population by Gender"
+        "Prevalence of Normal Weight Population by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9562,7 +9562,7 @@
         "Amount_FarmInventory_Cotton",
         "Amount_FarmInventory_Rice",
         "Amount_FarmInventory_WheatForGrain",
-        "Amount_FarmInventory_CornForGrain",
+        "Amout_FarmInventory_CornForGrain",
         "Amount_FarmInventory_BarleyForGrain",
         "Count_FarmInventory_BeefCows",
         "Count_FarmInventory_Broilers",
