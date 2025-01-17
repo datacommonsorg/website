@@ -15,11 +15,12 @@
 
 
 # Convenience script for merging git submodules
-# 
+#
 # Requires: git to be installed
 #
 # Usage: ./scripts/merge_git_submodules.sh from root directory
 
+git submodule update --init --recursive
 cd mixer
 git checkout master
 git pull

@@ -4779,7 +4779,7 @@
         "Percent_Normalweight_In_Count_Person_Urban"
       ],
       "name": [
-        "Prevalance of Normal Weight Adult Population by Residency"
+        "Prevalence of Normal Weight Adult Population by Residency"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -4794,7 +4794,7 @@
         "Percent_Normalweight_In_Count_Person_Male"
       ],
       "name": [
-        "Prevalance of Normal Weight Population by Gender"
+        "Prevalence of Normal Weight Population by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
