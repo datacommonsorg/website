@@ -215,20 +215,17 @@ class DataCommonsWebClient {
    * @param params.placeDcid place dcid to fetch data for
    */
   async getPlaceCharts(params: {
+    placeDcid: string;
     category?: string;
     locale?: string;
-    placeDcid: string;
   }): Promise<PlaceChartsApiResponse> {
-    const urlQueryParams = new URLSearchParams();
-    if (params.locale) {
-      urlQueryParams.set(LOCALE_PARAM, params.locale);
-    }
-    if (params.category) {
-      urlQueryParams.set("category", params.category);
-    }
+    const queryString = toURLSearchParams({
+      category: params.category,
+      [LOCALE_PARAM]: params.locale,
+    });
     const url = `${this.apiRoot || ""}/api/dev-place/charts/${
       params.placeDcid
-    }${urlQueryParams.size ? "?" + urlQueryParams.toString() : ""}`;
+    }?${queryString}`;
     const response = await fetch(url);
     return (await response.json()) as PlaceChartsApiResponse;
   }
@@ -239,16 +236,15 @@ class DataCommonsWebClient {
    * @param params.placeDcid place dcid to fetch data for
    */
   async getRelatedPLaces(params: {
-    locale?: string;
     placeDcid: string;
+    locale?: string;
   }): Promise<RelatedPlacesApiResponse> {
-    const urlQueryParams = new URLSearchParams();
-    if (params.locale) {
-      urlQueryParams.set(LOCALE_PARAM, params.locale);
-    }
+    const queryString = toURLSearchParams({
+      [LOCALE_PARAM]: params.locale,
+    });
     const url = `${this.apiRoot || ""}/api/dev-place/related-places/${
       params.placeDcid
-    }${urlQueryParams.size ? "?" + urlQueryParams.toString() : ""}`;
+    }?${queryString}`;
     const response = await fetch(url);
     return (await response.json()) as RelatedPlacesApiResponse;
   }

@@ -51,9 +51,6 @@ def place_charts(place_dcid: str):
   - Charts specific to the place
   - Translated category strings for the charts
   """
-  # Get parent place DCID
-  parent_place_dcid = place_utils.get_place_override(
-      place_utils.get_parent_places(place_dcid))
 
   # Ensure category is valid
   place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
@@ -61,6 +58,10 @@ def place_charts(place_dcid: str):
     return error_response(
         f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.CATEGORIES)}"
     )
+
+  # Get parent place DCID
+  parent_place_dcid = place_utils.get_place_override(
+      place_utils.get_parent_places(place_dcid))
 
   # Fetch place info
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
