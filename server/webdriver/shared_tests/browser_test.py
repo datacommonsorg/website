@@ -17,6 +17,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elems
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
@@ -44,22 +46,11 @@ class BrowserTestMixin():
     self.assertIn(title_text, self.driver.title)
 
     # Wait for title to be present
-    title_locator = (By.TAG_NAME, 'h1')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.text_to_be_present_in_element(title_locator, 'Knowledge Graph'))
-    title_element = self.driver.find_element(*title_locator)
-    self.assertEqual(
-        "Knowledge Graph", title_element.text,
-        f"Expected title 'Knowledge Graph', but found: {title_element.text}")
+    self.assertEqual(find_elem(self.driver, by=By.TAG_NAME, value='h1').text, "Knowledge Graph")
 
     # Assert intro is correct
-    description_locator = (
-        By.XPATH, "//h1[text()='Knowledge Graph']/following-sibling::p")
-    description_element = self.driver.find_element(*description_locator)
-    expected_description_start = 'The Data Commons Knowledge Graph is constructed'
     self.assertTrue(
-        description_element.text.startswith(expected_description_start),
-        f"Intro text does not start with expected text. Found: {description_element.text}"
+        find_elem(self.driver, by=By.XPATH, value="//h1[text()='Knowledge Graph']/following-sibling::p").text.startswith("The Data Commons Knowledge Graph is constructed")
     )
 
   def test_page_serve_ca_population(self):
@@ -81,36 +72,28 @@ class BrowserTestMixin():
     self.assertEqual(title_text, self.driver.title)
 
     # Assert header is correct.
-    element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    statvar_title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1[1]')
-    self.assertEqual(statvar_title.text, 'Statistical Variable: Count_Person')
-    about_title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1[2]')
-    self.assertEqual(about_title.text, 'About: California')
+    node = find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]')
+    self.assertEqual(
+        find_elem(node, by=By.XPATH, value='.//h1[1]').text,
+        'Statistical Variable: Count_Person')
+    self.assertEqual(
+        find_elem(node, by=By.XPATH, value='.//h1[2]').text,
+        'About: California')
 
     # Assert properties section shows dcid and typeOf values for the statistical variable
     # Count_Person.
-    element_present = EC.presence_of_element_located(
-        (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    table = self.driver.find_element(
-        By.XPATH, '//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = table.find_elements(By.XPATH, './/tbody/tr[2]/td')
+    table = find_elem(self.driver, by=By.XPATH, value='//*[@id="node-content"]/div[1]/div/table')
+    dcid_row = find_elems(table, by=By.XPATH, value='.//tbody/tr[2]/td')
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'Count_Person')
-    type_of_row = table.find_elements(By.XPATH, './/tbody/tr[3]/td')
+    type_of_row = find_elems(table, by=By.XPATH, value='.//tbody/tr[3]/td')
     self.assertEqual(type_of_row[0].text, 'typeOf')
     self.assertEqual(type_of_row[1].text, 'StatisticalVariable')
     self.assertEqual(type_of_row[2].text, 'datacommons.org')
 
     # Assert observation charts loaded.
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'observation-chart'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    observations_section = self.driver.find_element(
-        By.XPATH, '//*[@id="node-content"]/div[2]')
-    observations = observations_section.find_elements(By.CLASS_NAME, 'card')
-    self.assertTrue(len(observations) > 0)
+    observations_section = find_elem(self.driver, by=By.XPATH, value='//*[@id="node-content"]/div[2]')
+    self.assertGreater(len(find_elems(observations_section, value='card')), 0)
 
   def test_page_serve_austrobaileya(self):
     """Test the browser page for Austrobaileya scandens can be loaded successfully."""
