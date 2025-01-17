@@ -46,12 +46,16 @@ class BrowserTestMixin():
     self.assertIn(title_text, self.driver.title)
 
     # Wait for title to be present
-    self.assertEqual(find_elem(self.driver, by=By.TAG_NAME, value='h1').text, "Knowledge Graph")
+    self.assertEqual(
+        find_elem(self.driver, by=By.TAG_NAME, value='h1').text,
+        "Knowledge Graph")
 
     # Assert intro is correct
     self.assertTrue(
-        find_elem(self.driver, by=By.XPATH, value="//h1[text()='Knowledge Graph']/following-sibling::p").text.startswith("The Data Commons Knowledge Graph is constructed")
-    )
+        find_elem(self.driver,
+                  by=By.XPATH,
+                  value="//h1[text()='Knowledge Graph']/following-sibling::p").
+        text.startswith("The Data Commons Knowledge Graph is constructed"))
 
   def test_page_serve_ca_population(self):
     """Test the browser page for California population can be loaded successfully."""
@@ -82,7 +86,9 @@ class BrowserTestMixin():
 
     # Assert properties section shows dcid and typeOf values for the statistical variable
     # Count_Person.
-    table = find_elem(self.driver, by=By.XPATH, value='//*[@id="node-content"]/div[1]/div/table')
+    table = find_elem(self.driver,
+                      by=By.XPATH,
+                      value='//*[@id="node-content"]/div[1]/div/table')
     dcid_row = find_elems(table, by=By.XPATH, value='.//tbody/tr[2]/td')
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'Count_Person')
@@ -92,7 +98,9 @@ class BrowserTestMixin():
     self.assertEqual(type_of_row[2].text, 'datacommons.org')
 
     # Assert observation charts loaded.
-    observations_section = find_elem(self.driver, by=By.XPATH, value='//*[@id="node-content"]/div[2]')
+    observations_section = find_elem(self.driver,
+                                     by=By.XPATH,
+                                     value='//*[@id="node-content"]/div[2]')
     self.assertGreater(len(find_elems(observations_section, value='card')), 0)
 
   def test_page_serve_austrobaileya(self):
