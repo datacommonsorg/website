@@ -9,8 +9,10 @@ This is a Docker image based on python:3.11, but comes with some other tools:
 
 ## How to update the Docker image
 
-To generate the Docker image and push it to GCS, change the version number
-in cloudbuild.yaml, then run:
+To generate the Docker image and push it to GCS:
+
+1. Change the version date in cloudbuild.yaml
+2. Run (from this directory):
 
 ```bash
 gcloud config set project datcom-ci

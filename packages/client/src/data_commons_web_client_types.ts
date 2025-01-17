@@ -145,9 +145,26 @@ export type ObservationDatesApiResponse = {
   };
 };
 
-type ChartType = "BAR" | "LINE" | "MAP" | "RANKING";
+type ChartType = "BAR" | "LINE" | "MAP" | "RANKING" | "HIGHLIGHT";
 export interface Chart {
   type: ChartType;
+  maxPlaces?: number; 
+}
+
+export interface Place {
+  dcid: string;
+  name: string;
+  types: string[];
+}
+
+export interface BlockConfig {
+  charts: Chart[]
+  childPlaceType: string;
+  childPlaces: Place[];
+  nearbyPlaces: Place[];
+  place: Place;
+  similarPlaces: Place[];
+  placeScope?: string;
   title: string;
   category: string;
   description: string;
@@ -158,22 +175,12 @@ export interface Chart {
   scaling?: number; // Optional
 }
 
-export interface Place {
-  dcid: string;
-  name: string;
-  types: string[];
-}
-
 /**
  * Website API response for /api/dev-place/charts/<place_dcid>
  */
 export interface PlaceChartsApiResponse {
-  charts: Chart[];
-  childPlaceType: string;
-  childPlaces: Place[];
-  nearbyPlaces: Place[];
+  blocks: BlockConfig[];
   place: Place;
-  similarPlaces: Place[];
   translatedCategoryStrings: Record<string, string>;
 }
 

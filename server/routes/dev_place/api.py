@@ -15,10 +15,7 @@
 Defines endpoints for the place page.
 """
 
-import copy
-
 from flask import Blueprint
-from flask import current_app
 from flask import g
 from flask import jsonify
 from flask import request
@@ -30,22 +27,11 @@ from server.routes import TIMEOUT
 from server.routes.dev_place import utils as place_utils
 from server.routes.dev_place.types import PlaceChartsApiResponse
 from server.routes.dev_place.types import RelatedPlacesApiResponse
-import server.services.datacommons as dc
-
-# from server.lib.cache import cache
 
 OVERVIEW_CATEGORY = "Overview"
 CATEGORIES = {
-    OVERVIEW_CATEGORY,
-    "Economics",
-    "Health",
-    "Equity",
-    "Crime",
-    "Education",
-    "Demographics",
-    "Housing",
-    "Environment",
-    "Energy",
+    OVERVIEW_CATEGORY, "Economics", "Health", "Equity", "Crime", "Education",
+    "Demographics", "Housing", "Environment", "Energy"
 }
 
 # Define blueprint
@@ -73,6 +59,8 @@ def place_charts(place_dcid: str):
   """
   # Ensure category is valid
   place_category = request.args.get("category", OVERVIEW_CATEGORY)
+  parent_place_dcid = place_utils.get_place_override(
+      place_utils.get_parent_places(place_dcid))
   if place_category not in CATEGORIES:
     return error_response(
         f"Argument 'category' {place_category} must be one of: {', '.join(CATEGORIES)}"
@@ -87,37 +75,35 @@ def place_charts(place_dcid: str):
       0] if ordered_child_place_types else None
 
   # Retrieve available place page charts
-  full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
+  full_chart_config = place_utils.read_chart_configs()
 
-  # Filter chart config by category
-  overview_chart_config = [c for c in full_chart_config if c.get("isOverview")]
-  if place_category == OVERVIEW_CATEGORY:
-    chart_config = overview_chart_config
-  else:
-    chart_config = [
-        c for c in full_chart_config if c["category"] == place_category
-    ]
+  chart_config_for_category = place_utils.filter_chart_configs_for_category(
+      place_category, full_chart_config)
 
   # Filter out place page charts that don't have any data for the current place_dcid
   filtered_chart_config = place_utils.filter_chart_config_by_place_dcid(
-      chart_config=chart_config,
+      chart_config=chart_config_for_category,
       place_dcid=place_dcid,
-      child_place_type=child_place_type)
+      place_type=place_utils.place_type_to_highlight(place.types),
+      child_place_type=child_place_type,
+      parent_place_dcid=parent_place_dcid)
 
-  # Always execute the call for the overview category to fetch the valid categories.
+  # TODO(gmechali): Right now we're duplicating some of this. We should always only execute the call on the full chart config, THEN do the filtering by category.
+  # Always execute the full chart config to fetch all categories with data.
   filtered_chart_config_for_category = (
-      filtered_chart_config if place_category == OVERVIEW_CATEGORY else
       place_utils.filter_chart_config_by_place_dcid(
-          chart_config=overview_chart_config,
+          chart_config=full_chart_config,
           place_dcid=place_dcid,
-          child_place_type=child_place_type))
+          place_type=place_utils.place_type_to_highlight(place.types),
+          child_place_type=child_place_type,
+          parent_place_dcid=parent_place_dcid))
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
       filtered_chart_config)
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
-  charts = place_utils.chart_config_to_overview_charts(translated_chart_config,
+  blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
                                                        child_place_type)
 
   # Translate category strings
@@ -125,7 +111,7 @@ def place_charts(place_dcid: str):
       filtered_chart_config_for_category)
 
   response = PlaceChartsApiResponse(
-      charts=charts,
+      blocks=blocks,
       place=place,
       translatedCategoryStrings=translated_category_strings)
   return jsonify(response)

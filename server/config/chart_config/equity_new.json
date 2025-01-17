@@ -1,0 +1,602 @@
+[
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Gini_index",
+      "title": "Gini index",
+      "description": "The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842",
+      "variables": [
+        "GiniIndex_EconomicActivity"
+      ],
+      "denominator": [],
+      "non_dividable": true,
+      "scale": true,
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            },
+            {
+              "type": "HIGHLIGHT"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "MAP"
+            },
+            {
+              "type": "RANKING"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "MAP"
+            },
+            {
+              "type": "RANKING"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Median_household_income_race",
+      "title": "Median household income by race",
+      "description": "Median incomes of households, broken down by race",
+      "variables": [
+        "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+        "Median_Income_Household_HouseholderRaceAsianAlone",
+        "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+        "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+        "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+        "Median_Income_Household_HouseholderRaceWhiteAlone"
+      ],
+      "denominator": [],
+      "non_dividable": true,
+      "scale": true,
+      "unit": "$",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Median_income_gender",
+      "title": "Median income by gender",
+      "description": "Median incomes of individuals, broken down by gender",
+      "variables": [
+        "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+        "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+      ],
+      "denominator": [],
+      "non_dividable": true,
+      "scale": true,
+      "unit": "</span>",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Poverty_rate_race",
+      "title": "Poverty rate by race",
+      "description": "Percentage of the population below the poverty level, broken down by race",
+      "variables": [
+        "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+        "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+      ],
+      "denominator": [
+        "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+        "Count_Person_AsianAlone",
+        "Count_Person_BlackOrAfricanAmericanAlone",
+        "Count_Person_HispanicOrLatino",
+        "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+        "Count_Person_WhiteAlone"
+      ],
+      "non_dividable": false,
+      "scale": true,
+      "unit": "%",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Poverty_rate_gender",
+      "title": "Poverty rate by gender",
+      "description": "Percentage of the population below the poverty level, broken down by gender",
+      "variables": [
+        "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+      ],
+      "denominator": [
+        "Count_Person_Female",
+        "Count_Person_Male"
+      ],
+      "non_dividable": false,
+      "scale": true,
+      "scaling": 100,
+      "unit": "%",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Urban vs rural poverty population",
+      "title": "Urban vs rural poverty population",
+      "description": "Population below the poverty level, in urban and rural areas",
+      "variables": [
+        "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
+        "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+      ],
+      "denominator": [
+        "Count_Person"
+      ],
+      "non_dividable": false,
+      "scale": true,
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Urban vs rural homeless population",
+      "title": "Urban vs rural homeless population",
+      "description": "Homeless population in urban and rural areas",
+      "variables": [
+        "Count_Person_Houseless_Urban",
+        "Count_Person_Houseless_Rural"
+      ],
+      "denominator": [
+        "Count_Person"
+      ],
+      "non_dividable": false,
+      "scale": true,
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Unemployment_rate_gender",
+      "title": "Unemployment rate by gender",
+      "description": "Percentage of the population, of working age, who are unemployed, broken down by gender",
+      "variables": [
+        "UnemploymentRate_Person_Female",
+        "UnemploymentRate_Person_Male"
+      ],
+      "denominator": [],
+      "non_dividable": false,
+      "scale": true,
+      "unit": "%",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Percent_without_health_insurance_race",
+      "title": "Percentage of people without health insurance by race",
+      "description": "Percentage of the population, of working age, who have no health insurance, broken down by race",
+      "variables": [
+        "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
+        "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
+        "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone"
+      ],
+      "denominator": [],
+      "non_dividable": false,
+      "scale": true,
+      "unit": "%",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Percent_without_health_insurance_gender",
+      "title": "Percentage of people without health insurance by gender",
+      "description": "Percentage of the population, of working age, who have no health insurance, broken down by gender",
+      "variables": [
+        "Percent_Person_18To64Years_Female_NoHealthInsurance",
+        "Percent_Person_18To64Years_Male_NoHealthInsurance"
+      ],
+      "denominator": [],
+      "non_dividable": false,
+      "scale": true,
+      "unit": "%",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Associate_degree_rate_gender",
+      "title": "Rate of associate degree attainment by gender",
+      "description": "Percentage of young adults who have an associate degree, broken down by gender",
+      "variables": [
+        "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female",
+        "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
+      ],
+      "denominator": [
+        "Count_Person_25To34Years_Female",
+        "Count_Person_25To34Years_Male"
+      ],
+      "non_dividable": false,
+      "scale": true,
+      "scaling": 100,
+      "unit": "%",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Bachelors_degree_rate_gender",
+      "title": "Rate of bachelor's degree attainment by gender",
+      "description": "Percentage of young adults who have an bachelor's degree, broken down by gender",
+      "variables": [
+        "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
+        "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
+      ],
+      "denominator": [
+        "Count_Person_25To34Years_Female",
+        "Count_Person_25To34Years_Male"
+      ],
+      "non_dividable": false,
+      "scale": true,
+      "scaling": 100,
+      "unit": "%",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Equity",
+      "title_id": "CHART_TITLE-Graduate_or_professional_degree_rate_gender",
+      "title": "Rate of graduate or professional degree attainment by gender",
+      "description": "Percentage of young adults who have a graduate or professional degree, broken down by gender",
+      "variables": [
+        "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female",
+        "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
+      ],
+      "denominator": [
+        "Count_Person_25To34Years_Female",
+        "Count_Person_25To34Years_Male"
+      ],
+      "non_dividable": false,
+      "scale": true,
+      "scaling": 100,
+      "unit": "%",
+      "blocks": [
+        {
+          "is_overview": true,
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    }
+  ]
