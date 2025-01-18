@@ -48,11 +48,12 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
 ]
 
 # Place page categories
-OVERVIEW_CATEGORY = "Overview"
-ORDERED_CATEGORIES = [
-    OVERVIEW_CATEGORY, "Economics", "Health", "Equity", "Crime", "Education",
-    "Demographics", "Housing", "Environment", "Energy"
+ORDERED_TOPICS = [
+    "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
+    "Housing", "Environment", "Energy"
 ]
+OVERVIEW_CATEGORY = "Overview"
+ORDERED_CATEGORIES = [OVERVIEW_CATEGORY] + ORDERED_TOPICS
 CATEGORIES = set(ORDERED_CATEGORIES)
 
 
