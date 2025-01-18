@@ -74,7 +74,7 @@ class TestPlaceAPI(unittest.TestCase):
       response_json = response.get_json()
       self.assertIn('blocks', response_json)
       self.assertIn('place', response_json)
-      self.assertIn('translatedCategoryStrings', response_json)
+      self.assertIn('categories', response_json)
       self.assertIn('charts', response_json['blocks'][0])
 
       # Check that the 'charts' field contains the expected number of charts
@@ -94,9 +94,12 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertEqual(response_json['place']['name'], 'United States')
       self.assertEqual(response_json['place']['types'], ['Country'])
 
-      # Check that 'translatedCategoryStrings' contains expected categories
-      self.assertIn('Crime', response_json['translatedCategoryStrings'])
-      self.assertIn('Education', response_json['translatedCategoryStrings'])
+      # Check that 'categories' contains expected categories
+      categories = [
+          category['translatedName'] for category in response_json['categories']
+      ]
+      self.assertIn('Crime', categories)
+      self.assertIn('Education', categories)
 
       # Ensure the denominator is present in chart results
       self.assertEqual(1, len(response_json["blocks"][0]["denominator"]))

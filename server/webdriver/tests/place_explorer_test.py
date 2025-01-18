@@ -16,6 +16,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.routes.dev_place.utils import ORDERED_CATEGORIES
+from server.routes.dev_place.utils import ORDERED_TOPICS
 from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
@@ -54,27 +56,22 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                        value='key-demographics-row',
                        path_to_elem=['key-demographics-table'])), 5)
 
-    # Assert all expected categories exist
-    expected_categories = [
-        "Crime", "Demographics", "Economics", "Education", "Energy",
-        "Environment", "Equity", "Health", "Housing"
-    ]
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=["Overview"] + expected_categories)
+                         expected_topics=ORDERED_CATEGORIES)
 
     # And that the categories have data in the overview
     block_titles = find_elems(self.driver, value='block-title')
     self.assertEqual(set([block.text for block in block_titles]),
-                     set(expected_categories))
+                     set(ORDERED_TOPICS))
 
     # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
                                      value='category',
                                      path_to_elem=['charts-container'])
-    self.assertEqual(len(category_containers), len(expected_categories))
+    self.assertEqual(len(category_containers), len(ORDERED_TOPICS))
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
