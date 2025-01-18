@@ -28,7 +28,6 @@ import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
-
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
 import { PlaceOverview } from "./dev_place_overview";
