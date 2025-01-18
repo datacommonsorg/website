@@ -12,18 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-substitutions:
-  _VERS: "2024-06-08"
-
 steps:
-  - name: "gcr.io/cloud-builders/docker"
+  - id: run_tests
+    name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
+    entrypoint: /bin/sh
+    waitFor: ["-"]
     args:
-      - build
-      - "--build-arg=VERS=${_VERS}"
-      - --tag=gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:${_VERS}
-      - --tag=gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:latest
-      - "."
+      - -c
+      - |
+        ./run_cdc_tests.sh
 
-images:
-  - "gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:${_VERS}"
-  - "gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:latest"
+timeout: 1800s # 30 minutes
+
+options:
+  machineType: "E2_HIGHCPU_32"

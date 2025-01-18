@@ -338,7 +338,7 @@ export function AutoCompleteInput(
               aria-label={props.placeholder}
               value={inputText}
               onChange={onInputChange}
-              onKeyDown={(event) => handleKeydownEvent(event)}
+              onKeyDown={(event): void => handleKeydownEvent(event)}
               className="pac-target-input search-input-text"
               autoComplete="one-time-code"
               autoFocus={props.shouldAutoFocus}

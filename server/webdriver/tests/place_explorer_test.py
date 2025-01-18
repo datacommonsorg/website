@@ -16,6 +16,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.routes.dev_place.utils import ORDERED_CATEGORIES
+from server.webdriver import base_utils
+from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.place_explorer_test import \
     PlaceExplorerTestMixin
@@ -28,24 +31,59 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
 
+    expected_topics = ORDERED_CATEGORIES
+    shared.assert_topics(self,
+                         self.driver,
+                         path_to_topics=['explore-topics-box'],
+                         classname='item-list-item',
+                         expected_topics=expected_topics)
+
+    # Assert the subheader contains the parent places.
+    place_subheader_callout_el = base_utils.wait_elem(self.driver,
+                                                      By.CLASS_NAME,
+                                                      'subheader',
+                                                      self.TIMEOUT_SEC)
+    self.assertEqual(place_subheader_callout_el.text,
+                     'State in United States of America, North America')
+
     # For the dev place page, the related places callout is under the
     # .related-places-callout div.
-    related_places_callout_el_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'related-places-callout'))
-    related_places_callout_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(related_places_callout_el_present)
+    related_places_callout_el = base_utils.wait_elem(self.driver, By.CLASS_NAME,
+                                                     'related-places-callout',
+                                                     self.TIMEOUT_SEC)
     self.assertEqual(related_places_callout_el.text, 'Places in California')
 
     # Assert the "Download" link is present in charts
-    download_link_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'download-outlink'))
-    download_link_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(download_link_present)
+    download_link_el = base_utils.wait_elem(self.driver, By.CLASS_NAME,
+                                            'download-outlink',
+                                            self.TIMEOUT_SEC)
     self.assertTrue('Download' in download_link_el.text)
 
     # Assert the "Explore in ... Tool" link is present in charts
-    explore_in_link_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'explore-in-outlink'))
-    explore_in_link_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(explore_in_link_present)
+    explore_in_link_el = base_utils.wait_elem(self.driver, By.CLASS_NAME,
+                                              'explore-in-outlink',
+                                              self.TIMEOUT_SEC)
     self.assertTrue('Explore in' in explore_in_link_el.text)
+
+  def test_explorer_redirect_place_explorer_populates_search_bar(self):
+    """Test the redirection from explore to place explore for single place queries populates the search bar from the URL query"""
+    usa_explore = '/explore#q=United%20States%20Of%20America'
+
+    start_url = self.url_ + usa_explore
+    self.driver.get(start_url)
+
+    # Assert 200 HTTP code: successful page load.
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
+
+    # Wait for redirect and page load
+    redirect_finished = EC.url_changes(start_url)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
+    shared.wait_for_loading(self.driver)
+
+    # Ensure the query string is set in the NL Search Bar.
+    search_bar_present = EC.presence_of_element_located(
+        (By.ID, 'query-search-input'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(search_bar_present)
+    search_bar = self.driver.find_element(By.ID, 'query-search-input')
+    self.assertEqual(search_bar.get_attribute('value'),
+                     'United States Of America')

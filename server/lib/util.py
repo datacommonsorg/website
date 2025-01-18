@@ -41,14 +41,27 @@ _ready_check_sleep_seconds = 5
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
     "economics",
+    "economics_new",
     "health",
+    "health_new",
     "equity",
+    "equity_new",
     "crime",
+    "crime_new",
     "education",
+    "education_new",
     "demographics",
+    "demographics_new",
     "housing",
+    "housing_new",
     "environment",
+    "environment_new",
     "energy",
+    "energy_new",
+    "health_new",
+    "crime_new",
+    "demographics_new",
+    "economics_new",
 ]
 
 # key is topic_id, which should match the folder name under config/topic_page

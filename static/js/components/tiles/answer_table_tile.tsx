@@ -250,7 +250,7 @@ function generateCsv(
   }
 
   // Helper function to encase each csv cell in quotes and escape double quotes
-  const sanitize = (cell: string) => {
+  const sanitize = (cell: string): string => {
     return `"${cell.replaceAll('"', '""')}"`;
   };
 

@@ -1,0 +1,653 @@
+[
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Life_expectancy",
+    "title": "Life expectancy (years)",
+    "description": "Life expectancy of an individual, measured in years",
+    "variables": [
+      "LifeExpectancy_Person"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Covid_cases",
+    "title": "COVID-19 cumulative cases",
+    "description": "Cumulative count of COVID-19 cases",
+    "variables": [
+      "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Covid_deaths",
+    "title": "COVID-19 cumulative deaths",
+    "description": "Cumulative count of deaths caused by COVID-19",
+    "variables": [
+      "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Mortality_events",
+    "title": "Mortality events",
+    "description": "Count of deaths caused by various diseases or external circumstances",
+    "variables": [
+      "Count_Death_DiseasesOfTheCirculatorySystem",
+      "Count_Death_Neoplasms",
+      "Count_Death_DiseasesOfTheRespiratorySystem",
+      "Count_Death_ExternalCauses",
+      "Count_Death_DiseasesOfTheNervousSystem"
+    ],
+    "denominator": [
+      "Count_Person"
+    ],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Infant_mortality_rate",
+    "title": "Infant mortality rate",
+    "description": "Count of deaths in infants caused by various diseases",
+    "variables": [
+      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "scaling": 0.1,
+    "unit": "%",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Infant_mortality_rate_gender",
+    "title": "Infant mortality rate by gender",
+    "description": "Count of deaths in infants caused by various diseases, broken down by gender",
+    "variables": [
+      "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male",
+      "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "scaling": 0.1,
+    "unit": "%",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Children_wasting",
+    "title": "Wasting among children under 5",
+    "description": "Prevalence of wasting (or low weight for height) among children under 5",
+    "variables": [
+      "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "%",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Children_wasting_by_gender",
+    "title": "Wasting among children under 5 by gender",
+    "description": "Prevalence of wasting (or low weight for height) among children under 5, broken down by gender",
+    "variables": [
+      "Count_Person_Upto4Years_Male_Wasting_AsFractionOf_Count_Person_Upto4Years_Male",
+      "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "%",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Children_severe_wasting",
+    "title": "Severe wasting among children under 5",
+    "description": "Prevalence of severe wasting (or severely low weight for height) among children under 5",
+    "variables": [
+      "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "%",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Children_severe_wasting_by_gender",
+    "title": "Severe wasting among children under 5 by gender",
+    "description": "Prevalence of severe wasting (or severely low weight for height) among children under 5, broken down by gender",
+    "variables": [
+      "Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male",
+      "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "%",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Health_outcomes",
+    "title": "Health outcomes",
+    "description": "Percentage of people who are aflicted by certain negative health outcomes, e.g. high cholesterol or arthritis",
+    "variables": [
+      "Percent_Person_WithHighCholesterol",
+      "Percent_Person_WithHighBloodPressure",
+      "Percent_Person_WithArthritis",
+      "Percent_Person_WithMentalHealthNotGood",
+      "Percent_Person_WithPhysicalHealthNotGood"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "%",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Health_behaviors",
+    "title": "Health behaviors",
+    "description": "Percentage of people who report certain negative health behaviors, e.g. obesity, smoking or binge drinking",
+    "variables": [
+      "Percent_Person_SleepLessThan7Hours",
+      "Percent_Person_Obesity",
+      "Percent_Person_BingeDrinking",
+      "Percent_Person_PhysicalInactivity",
+      "Percent_Person_Smoking"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "%",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Prescribed_drugs",
+    "title": "Prescribed drugs (quarterly)",
+    "description": "Total amount of prescribed retail drugs distributed in a quarter of a year",
+    "variables": [
+      "RetailDrugDistribution_DrugDistribution_Oxycodone",
+      "RetailDrugDistribution_DrugDistribution_Hydrocodone",
+      "RetailDrugDistribution_DrugDistribution_Codeine",
+      "RetailDrugDistribution_DrugDistribution_Amphetamine",
+      "RetailDrugDistribution_DrugDistribution_Morphine"
+    ],
+    "denominator": [
+      "Count_Person"
+    ],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "g",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Health",
+    "title_id": "CHART_TITLE-Alcohol_consumption_per_capita",
+    "title": "Alcohol consumption per capita (annual)",
+    "description": "Total amount of alcohol consumed per person anually",
+    "variables": [
+      "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "L",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  }
+]

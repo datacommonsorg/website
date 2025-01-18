@@ -103,7 +103,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       return;
     }
     if (!donutChartData) {
-      (async () => {
+      (async (): Promise<void> => {
         const data = await fetchData(props);
         setDonutChartData(data);
       })();
@@ -185,7 +185,9 @@ export function getReplacementStrings(
   };
 }
 
-export const fetchData = async (props: DonutTilePropType) => {
+export const fetchData = async (
+  props: DonutTilePropType
+): Promise<DonutChartData> => {
   // Assume all variables will have the same date
   // TODO: Handle different dates for different variables
   const date = getFirstCappedStatVarSpecDate(props.statVarSpec);

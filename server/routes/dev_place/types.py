@@ -18,27 +18,34 @@ Place API dataclass types
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING"}
+CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 
 
 @dataclass
 class Chart:
   type: str  # Restricted to CHART_TYPES
-  title: str
-  category: str
-  description: str
-  statisticalVariableDcids: List[str]
-  topicDcids: List[str]
-  denominator: Optional[List[str]] = None
-  unit: Optional[str] = None
-  scaling: Optional[float] = None
-  childPlaceType: Optional[str] = None
+  maxPlaces: int
 
   def __post_init__(self):
     # Custom validator for the `type` field
     if self.type not in CHART_TYPES:
       raise ValueError(
           f"Invalid type '{self.type}'. Expected one of {CHART_TYPES}")
+
+
+@dataclass
+class BlockConfig:
+  charts: List[Chart]
+  category: str
+  title: str
+  topicDcids: List[str]
+  description: str
+  denominator: Optional[List[str]] = None
+  statisticalVariableDcids: Optional[List[str]] = None
+  unit: Optional[str] = None
+  scaling: Optional[float] = None
+  childPlaceType: Optional[str] = None
+  placeScope: Optional[str] = None
 
 
 @dataclass
@@ -50,13 +57,19 @@ class Place:
 
 
 @dataclass
+class Category:
+  name: str
+  translatedName: str
+
+
+@dataclass
 class PlaceChartsApiResponse:
   """
   API Response for /api/dev-place/charts/<place_dcid>
   """
-  charts: List[Chart]
+  blocks: List[BlockConfig]
   place: Place
-  translatedCategoryStrings: Dict[str, str]
+  categories: List[Category]
 
 
 @dataclass
@@ -70,3 +83,36 @@ class RelatedPlacesApiResponse:
   place: Place
   similarPlaces: List[Place]
   parentPlaces: List[Place] = None
+  peersWithinParent: List[str] = None
+
+
+@dataclass
+class ServerChartMetadata:
+  """Chart metadata for the server configuration for charts"""
+  type: str
+  max_places: Optional[int] = None
+
+
+@dataclass
+class ServerBlockMetadata:
+  """Block metadata for the server configuration for blocks"""
+  place_scope: str
+  charts: List[ServerChartMetadata]
+  is_overview: bool = False
+
+
+@dataclass
+class ServerChartConfiguration:
+  """Configuration of hardcoded charts in server/config/chart_config"""
+  # Note that this is only for the revamped place page chart format.
+  category: str
+  title_id: str
+  title: str
+  description: str
+  variables: List[str]
+  denominator: Optional[List[str]]
+  blocks: List[ServerBlockMetadata]
+  unit: Optional[str] = None
+  scaling: Optional[int] = None
+  non_dividable: bool = False
+  scale: bool = False

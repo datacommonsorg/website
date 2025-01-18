@@ -17,7 +17,7 @@
 import React from "react";
 
 import { intl, LocalizedLink } from "../i18n/i18n";
-import { displayNameForPlaceType } from "./util";
+import { displayNameForPlaceType, pageMessages } from "./util";
 
 interface ChildPlacePropType {
   childPlaces: { string: string[] };
@@ -32,15 +32,9 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
     return (
       <React.Fragment>
         <span id="child-place-head">
-          {intl.formatMessage(
-            {
-              id: "child_places_menu-places_in_place",
-              defaultMessage: "Places in {placeName}",
-              description:
-                'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
-            },
-            { placeName: this.props.placeName }
-          )}
+          {intl.formatMessage(pageMessages.placesInPlace, {
+            placeName: this.props.placeName,
+          })}
         </span>
         {Object.keys(this.props.childPlaces)
           .sort()

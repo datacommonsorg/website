@@ -1,0 +1,197 @@
+[
+  {
+    "category": "Energy",
+    "title_id": "CHART_TITLE-Electricity_price",
+    "title": "Electricity price",
+    "description": "Annual average retail price of electricity, all sectors",
+    "variables": [
+      "Annual_Average_RetailPrice_Electricity"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "unit": "¢/kWh",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Energy",
+    "title_id": "CHART_TITLE-Electricity_generation",
+    "title": "Electricity generation per capita",
+    "description": "Annual net electricity generation, all fuels, all sectors",
+    "variables": [
+      "Annual_Generation_Electricity"
+    ],
+    "denominator": [
+      "Count_Person"
+    ],
+    "non_dividable": false,
+    "scale": true,
+    "unit": "kWh",
+    "scaling": 100,
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Energy",
+    "title_id": "CHART_TITLE-Energy_use",
+    "title": "Energy use (kg of oil equivalent per capita)",
+    "description": "Total amount of energy consumed per person, measured by kilogram of oil equivalent",
+    "variables": [
+      "Amount_Consumption_Energy_PerCapita"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "unit": "kg",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Energy",
+    "title_id": "CHART_TITLE-Electricity_consumption_per_capita",
+    "title": "Electricity consumption per capita",
+    "description": "Total amount of electricity consumed per person",
+    "variables": [
+      "Amount_Consumption_Electricity_PerCapita"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "unit": "kWh",
+    "blocks": [
+      {
+        "is_overview": true,
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  }
+]

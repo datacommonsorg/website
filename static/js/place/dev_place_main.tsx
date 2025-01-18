@@ -16,137 +16,28 @@
 
 import { DataRow } from "@datacommonsorg/client";
 import {
-  Chart,
+  Category,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
 import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
-import { intl } from "../i18n/i18n";
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import {
-  CategoryConfig,
-  SubjectPageConfig,
-  TileConfig,
-} from "../types/subject_page_proto_types";
+import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
 import { TileSources } from "../utils/tile_utils";
-import { isPlaceContainedInUsa } from "./util";
-
-/**
- * Returns the stat var key for a chart.
- *
- * A stat var key is a unique identifier for a statistical variable for the
- * given chart, including its DCID, denominator, log, scaling, and unit.
- *
- * @param chart The chart object
- * @param variableDcid The variable DCID
- * @param denom The denominator DCID
- * @returns The stat var key
- */
-function getStatVarKey(
-  chart: Chart,
-  variableDcid: string,
-  denom?: string
-): string {
-  return `${variableDcid}_denom_${denom}_log_${false}_scaling_${
-    chart.scaling
-  }_unit_${chart.unit}`;
-}
-
-/**
- * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
- * Groups charts by category and creates the necessary configuration objects for
- * rendering the subject page.
- *
- * @param placeChartsApiResponse The API response containing chart data
- * @returns A SubjectPageConfig object with categories, tiles, and stat var specs
- */
-function placeChartsApiResponsesToPageConfig(
-  placeChartsApiResponse: PlaceChartsApiResponse
-): SubjectPageConfig {
-  const chartsByCategory = _.groupBy(
-    placeChartsApiResponse.charts,
-    (item) => item.category
-  );
-  const categoryConfig: CategoryConfig[] = Object.keys(chartsByCategory).map(
-    (categoryName) => {
-      const charts = chartsByCategory[categoryName];
-
-      const tiles: TileConfig[] = charts.map((chart) => {
-        return {
-          description: chart.description,
-          title: chart.title,
-          type: chart.type,
-          statVarKey: chart.statisticalVariableDcids.map(
-            (variableDcid, variableIdx) => {
-              const denom =
-                chart.denominator &&
-                chart.denominator.length ===
-                  chart.statisticalVariableDcids.length
-                  ? chart.denominator[variableIdx]
-                  : undefined;
-              return getStatVarKey(chart, variableDcid, denom);
-            }
-          ),
-        };
-      });
-
-      const statVarSpec: Record<string, StatVarSpec> = {};
-      charts.forEach((chart) => {
-        chart.statisticalVariableDcids.forEach((variableDcid, variableIdx) => {
-          const denom =
-            chart.denominator &&
-            chart.denominator.length === chart.statisticalVariableDcids.length
-              ? chart.denominator[variableIdx]
-              : undefined;
-          const statVarKey = getStatVarKey(chart, variableDcid, denom);
-          statVarSpec[statVarKey] = {
-            denom,
-            log: false,
-            scaling: chart.scaling,
-            statVar: variableDcid,
-            unit: chart.unit,
-          };
-        });
-      });
-
-      // Group tiles into pairs to show a two-column layout
-      const column1Tiles: TileConfig[] = [];
-      const column2Tiles: TileConfig[] = [];
-      tiles.forEach((tile, index) => {
-        if (index % 2 === 0) {
-          column1Tiles.push(tile);
-        } else {
-          column2Tiles.push(tile);
-        }
-      });
-      const category: CategoryConfig = {
-        blocks: [
-          {
-            columns: [{ tiles }],
-          },
-        ],
-        statVarSpec,
-        title: categoryName,
-      };
-      return category;
-    }
-  );
-
-  const pageConfig: SubjectPageConfig = {
-    metadata: undefined,
-    categories: categoryConfig,
-  };
-  return pageConfig;
-}
+import {
+  isPlaceContainedInUsa,
+  pageMessages,
+  placeChartsApiResponsesToPageConfig,
+} from "./util";
 
 /**
  * Component that renders the header section of a place page.
@@ -194,8 +85,8 @@ const PlaceHeader = (props: {
  * @param props.place The place object containing the DCID for generating URLs
  * @returns Button component for the current topic
  */
-const TopicItem = (props: {
-  category: string;
+const CategoryItem = (props: {
+  category: Category;
   selectedCategory: string;
   forceDevPlaces: boolean;
   place: NamedTypedPlace;
@@ -222,14 +113,13 @@ const TopicItem = (props: {
 
   return (
     <div className="item-list-item">
-      <a
-        href={createHref(category, forceDevPlaces, place)}
-        className={`item-list-text  + ${
-          selectedCategory === category ? " selected" : ""
+      <LocalizedLink
+        href={createHref(category.name, forceDevPlaces, place)}
+        className={`item-list-text ${
+          selectedCategory === category.name ? " selected" : ""
         }`}
-      >
-        {category}
-      </a>
+        text={category.translatedName}
+      />
     </div>
   );
 };
@@ -243,18 +133,18 @@ const TopicItem = (props: {
  * @param props.place The place object containing the DCID for generating URLs
  * @returns Navigation component with topic tabs
  */
-const PlaceTopicTabs = ({
-  topics,
+const PlaceCategoryTabs = ({
+  categories,
   forceDevPlaces,
-  category,
+  selectedCategory,
   place,
 }: {
-  topics: string[];
+  categories: Category[];
   forceDevPlaces: boolean;
-  category: string;
+  selectedCategory: string;
   place: NamedTypedPlace;
 }): React.JSX.Element => {
-  if (!topics || topics.length == 0) {
+  if (!categories || categories.length == 0) {
     return <></>;
   }
 
@@ -263,11 +153,11 @@ const PlaceTopicTabs = ({
       <span className="explore-relevant-topics">Relevant topics</span>
       <div className="item-list-container">
         <div className="item-list-inner">
-          {topics.map((topic) => (
-            <TopicItem
-              key={topic}
-              category={topic}
-              selectedCategory={category}
+          {categories.map((category) => (
+            <CategoryItem
+              key={category.name}
+              category={category}
+              selectedCategory={selectedCategory}
               forceDevPlaces={forceDevPlaces}
               place={place}
             />
@@ -447,14 +337,20 @@ const RelatedPlaces = (props: {
 
   return (
     <div className="related-places">
-      <div className="related-places-callout">Places in {place.name}</div>
+      <div className="related-places-callout">
+        {intl.formatMessage(pageMessages.placesInPlace, {
+          placeName: place.name,
+        })}
+      </div>
       <div className="item-list-container">
         <div className="item-list-inner">
           {(isCollapsed ? truncatedPlaces : childPlaces).map((place) => (
             <div key={place.dcid} className="item-list-item">
-              <a className="item-list-text" href={`/place/${place.dcid}`}>
-                {place.name}
-              </a>
+              <LocalizedLink
+                className="item-list-text"
+                href={`/place/${place.dcid}`}
+                text={place.name}
+              />
             </div>
           ))}
         </div>
@@ -524,7 +420,11 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
   const [hasError, setHasError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [categories, setCategories] = useState<string[]>();
+  const [categories, setCategories] = useState<Category[]>();
+
+  // Get locale
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overviewString;
@@ -582,36 +482,34 @@ export const DevPlaceMain = (): React.JSX.Element => {
         await Promise.all([
           defaultDataCommonsWebClient.getPlaceCharts({
             category,
+            locale,
             placeDcid: place.dcid,
           }),
           defaultDataCommonsWebClient.getRelatedPLaces({
+            locale,
             placeDcid: place.dcid,
           }),
         ]);
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
-      const config = placeChartsApiResponsesToPageConfig(
-        placeChartsApiResponse
-      );
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
-      setPageConfig(config);
       setIsLoading(false);
+      const config = placeChartsApiResponsesToPageConfig(
+        placeChartsApiResponse,
+        relatedPlacesApiResponse.parentPlaces,
+        relatedPlacesApiResponse.peersWithinParent,
+        relatedPlacesApiResponse.place
+      );
+      setPageConfig(config);
     })();
   }, [place, category]);
 
   useEffect(() => {
-    if (placeChartsApiResponse && placeChartsApiResponse.charts) {
-      // TODO(gmechali): Refactor this to use the translations correctly.
-      // Move overview to be added in the response with translations. Use the
-      // translation in the tabs, but the english version in the URL.
-      setCategories(
-        ["Overview"].concat(
-          Object.values(placeChartsApiResponse.translatedCategoryStrings)
-        )
-      );
+    if (placeChartsApiResponse && placeChartsApiResponse.blocks) {
+      setCategories(placeChartsApiResponse.categories);
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse]);
 
@@ -628,9 +526,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
         place={place}
         placeSubheader={placeSubheader}
       />
-      <PlaceTopicTabs
-        topics={categories}
-        category={category}
+      <PlaceCategoryTabs
+        categories={categories}
+        selectedCategory={category}
         place={place}
         forceDevPlaces={forceDevPlaces}
       />
