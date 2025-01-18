@@ -67,9 +67,9 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
     try:
       ds = load_dataset('csv', data_files=embeddings_path)
     except:
-      error_str = "No embedding could be loaded."
+      error_str = f'No embedding could be loaded for {embeddings_path}'
       logging.error(error_str)
-      raise Exception("No embedding could be loaded.")
+      raise Exception(error_str)
 
     df = ds["train"].to_pandas()
     self.dcids = df['dcid'].values.tolist()
