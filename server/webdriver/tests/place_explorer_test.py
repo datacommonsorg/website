@@ -16,6 +16,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.routes.dev_place.utils import ORDERED_CATEGORIES
 from server.webdriver import base_utils
 from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
@@ -30,10 +31,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
 
-    expected_topics = [
-        "Overview", "Crime", "Demographics", "Economics", "Education", "Energy",
-        "Environment", "Equity", "Health", "Housing"
-    ]
+    expected_topics = ORDERED_CATEGORIES
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
