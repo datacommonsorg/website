@@ -26,8 +26,8 @@ import { intl, localizeLink } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
-  BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
+  BlockConfig as SubjectPageBlockConfig,
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
@@ -206,6 +206,13 @@ export function placeChartsApiResponsesToPageConfig(
     (item) => item.category
   );
 
+  const categoryNameToTranslatedName = _.fromPairs(
+    placeChartsApiResponse.categories.map((category) => [
+      category.name,
+      category.translatedName,
+    ])
+  );
+
   const categoryConfig: CategoryConfig[] = Object.keys(blocksByCategory).map(
     (categoryName) => {
       const blocks = blocksByCategory[categoryName];
@@ -215,9 +222,11 @@ export function placeChartsApiResponsesToPageConfig(
       blocks.forEach((block: BlockConfig) => {
         const tiles = [];
         block.charts.forEach((chart: Chart) => {
+          const title = getTitle(block.title, block.placeScope);
           const tileConfig: TileConfig = {
-            description: block.description,
-            title: getTitle(block.title, block.placeScope),
+            /** Highlight charts use title as description */
+            description: title,
+            title,
             type: chart.type,
 
             statVarKey: block.statisticalVariableDcids.map(
@@ -311,7 +320,7 @@ export function placeChartsApiResponsesToPageConfig(
       const category: CategoryConfig = {
         blocks: newblocks,
         statVarSpec,
-        title: categoryName,
+        title: categoryNameToTranslatedName[categoryName] || categoryName,
       };
       if (isOverview) {
         category.url = localizeLink(
@@ -479,6 +488,12 @@ export const pageMessages = defineMessages({
     defaultMessage: "More charts",
     description:
       "Link text to show additional charts for the given chart category section for the current place.",
+  },
+  placesInPlace: {
+    id: "child_places_menu-places_in_place",
+    defaultMessage: "Places in {placeName}",
+    description:
+      'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
   },
 });
 
