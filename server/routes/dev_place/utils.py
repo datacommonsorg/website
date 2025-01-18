@@ -83,23 +83,8 @@ def get_parent_places(dcid: str) -> List[Place]:
   return all_parents
 
 
-def get_place_type_with_parent_places_links(dcid: str) -> str:
-  """Get '<place type> in <parent places>' with html links for a given DCID
-  
-  Args:
-    dcid: dcid of the place to get links for
-  
-  Returns:
-    A descriptor of the given place which includes the place's type and links
-    to the place pages of its containing places.
-  """
-  # Get place type in localized, human-readable format
-  place_type = place_api.api_place_type(dcid)
-  place_type_display_name = place_api.get_place_type_i18n_name(place_type)
-
-  # Get parent places
-  all_parents = get_parent_places(dcid)
-
+def get_ordered_parents_to_highlight(all_parents: List[Place]) -> List[Place]:
+  """Returns the ordered list of parents to highlight."""
   # Filter parents to only the types desired
   parents_to_include = [
       parent for parent in all_parents if any(
@@ -117,7 +102,30 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
       key=lambda parent: min(type_order.get(t) for t in parent.types))
 
   # Fetch the localized names of the parents
+  return parents_to_include
+
+
+def get_place_type_with_parent_places_links(dcid: str) -> str:
+  """Get '<place type> in <parent places>' with html links for a given DCID
+  
+  Args:
+    dcid: dcid of the place to get links for
+  
+  Returns:
+    A descriptor of the given place which includes the place's type and links
+    to the place pages of its containing places.
+  """
+  # Get place type in localized, human-readable format
+  place_type = place_api.api_place_type(dcid)
+  place_type_display_name = place_api.get_place_type_i18n_name(place_type)
+
+  # Get parent places
+  all_parents = get_parent_places(dcid)
+
+  # Get parent places
+  parents_to_include = get_ordered_parents_to_highlight(all_parents)
   parent_dcids = [parent.dcid for parent in parents_to_include]
+
   localized_names = place_api.get_i18n_name(parent_dcids)
   places_with_names = [
       parent for parent in parents_to_include
@@ -250,7 +258,7 @@ def filter_chart_config_by_place_dcid(
 
   # find stat vars that have data for our peer places.
   peer_places_obs_point_response = dc.obs_point_within(
-      parent_place_dcid, str(place_type), variables=peer_places_stat_var_dcids)
+      parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
   peer_places_stat_vars_with_observations = set([
       stat_var_dcid for stat_var_dcid in peer_places_stat_var_dcids
       if peer_places_obs_point_response["byVariable"].get(

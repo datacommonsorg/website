@@ -26,8 +26,8 @@ import { intl, localizeLink } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
-  BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
+  BlockConfig as SubjectPageBlockConfig,
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
@@ -196,7 +196,7 @@ export function createPlacePageCategoryHref(
 export function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse,
   parentPlaces: Place[],
-  similarPlaces: Place[],
+  peersWithinParent: string[],
   place: Place,
   isOverview: boolean,
   forceDevPlaces: boolean
@@ -249,27 +249,31 @@ export function placeChartsApiResponsesToPageConfig(
             tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
           }
 
-          if (block.placeScope === "SIMILAR_PLACES") {
-            // TODO(gmechali): Eventually get rid of this.
-            if (similarPlaces.length > 0) {
-              tileConfig.comparisonPlaces = [place.dcid].concat(
-                similarPlaces.map((p) => p.dcid)
-              );
-            }
-          }
-
+          let maxPlacesCount = 5;
           if (tileConfig.type === "RANKING") {
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 5;
             tileConfig.rankingTileSpec = {
               showHighest: false,
               showLowest: false,
               showHighestLowest: true,
               showMultiColumn: false,
-              rankingCount: chart.maxPlaces ? chart.maxPlaces : 5,
+              rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
             tileConfig.barTileSpec = {
-              maxPlaces: chart.maxPlaces ? chart.maxPlaces : 15,
+              maxPlaces: maxPlacesCount,
             };
+          }
+
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
+            // Pass peersWithinParents in comparisonPlaces with the right number of places.
+            tileConfig.comparisonPlaces = [place.dcid].concat(
+              peersWithinParent.slice(
+                0,
+                Math.min(maxPlacesCount - 1, peersWithinParent.length)
+              )
+            );
           }
           tiles.push(tileConfig);
         });
