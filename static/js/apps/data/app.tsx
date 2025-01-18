@@ -20,8 +20,7 @@
 
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { IntroText } from "../../components/content/intro_text";
