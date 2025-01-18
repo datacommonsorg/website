@@ -15,7 +15,7 @@
  */
 
 /**
- * A context use within the tab component to facilitate communication between the various sub-components
+ * A context use within the tab component to facilitate communication between the various subcomponents
  * that make up a set of tabs.
  *
  */
