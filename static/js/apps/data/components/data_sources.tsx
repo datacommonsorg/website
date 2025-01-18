@@ -59,6 +59,7 @@ export const DataSources = ({
     <Tabs
       mode="routed"
       basePath="/data"
+      alignment="center"
       tabs={dataSourceTabs}
       defaultValue={dataSourceTabs[0].value}
     />

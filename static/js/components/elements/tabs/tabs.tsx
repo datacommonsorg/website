@@ -62,7 +62,7 @@ import { useRoutedTabs } from "./routed_tabs";
 import { Tab } from "./tab";
 import { TabContext } from "./tab_context";
 import { TabPanel } from "./tab_panel";
-import { TabSet } from "./tab_set";
+import { TabSet, TabSetAlignment } from "./tab_set";
 
 // An interface representing the definition of a tab.
 // An array of these are sent into the tab component.
@@ -81,6 +81,8 @@ interface BaseTabsProps {
   tabs: TabDefinition[];
   // the default tab: if omitted, defaults to the value of the first tab
   defaultValue?: string;
+  // the alignment of the tabs within the tab-set.
+  alignment?: TabSetAlignment;
 }
 
 // tab props required for the standard tab mode
@@ -104,6 +106,7 @@ export type TabsProps = StandardTabsProps | RoutedTabsProps;
 export function Tabs({
   tabs,
   defaultValue,
+  alignment,
   mode = "standard",
   basePath = "",
 }: TabsProps): ReactElement {
@@ -133,7 +136,7 @@ export function Tabs({
         onChange: onTabChange,
       }}
     >
-      <TabSet>
+      <TabSet alignment={alignment}>
         {tabs.map((t) => (
           <Tab key={t.value} value={t.value} label={t.label} />
         ))}

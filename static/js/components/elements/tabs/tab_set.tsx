@@ -35,19 +35,28 @@ import { KeyboardArrowRight } from "../icons/keyboard_arrow_right";
 import { TabProps } from "./tab";
 import { useTabContext } from "./tab_context";
 
+//The horizontal alignment of the tabs within the tab-set
+export type TabSetAlignment = "left" | "center" | "right";
+
 interface TabSetProps {
+  alignment?: TabSetAlignment;
   children: ReactElement<TabProps> | ReactElement<TabProps>[];
-  alignment?: "flex-start" | "center";
 }
 
 export const TabSet = ({
+  alignment = "left",
   children,
-  alignment = "center",
 }: TabSetProps): ReactElement => {
   const theme = useTheme();
   const { value: selectedValue, onChange } = useTabContext();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tabSetRef = useRef<HTMLDivElement>(null);
+
+  const alignmentMap: Record<TabSetAlignment, string> = {
+    left: "flex-start",
+    center: "center",
+    right: "flex-end",
+  };
 
   const [indicatorStyle, setIndicatorStyle] = useState<{
     left: number;
@@ -269,7 +278,7 @@ export const TabSet = ({
 
           display: flex;
           align-items: flex-end;
-          justify-content: ${alignment};
+          justify-content: ${alignmentMap[alignment]};
           gap: 0;
 
           @media (max-width: ${theme.breakpoints.xl}px) {
