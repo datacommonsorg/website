@@ -266,13 +266,14 @@ def filter_chart_config_by_place_dcid(
           stat_var_dcid, {}).get("byEntity", {})
   ])
 
-  # find stat vars that have data for our peer places.
+  # find stat vars that have data for our peer places. We only want to keep
+  # these stat vars if there is data for more than one place.
   peer_places_obs_point_response = dc.obs_point_within(
       parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
   peer_places_stat_vars_with_observations = set([
       stat_var_dcid for stat_var_dcid in peer_places_stat_var_dcids
-      if peer_places_obs_point_response["byVariable"].get(
-          stat_var_dcid, {}).get("byEntity", {})
+      if len(peer_places_obs_point_response["byVariable"].get(
+          stat_var_dcid, {}).get("byEntity", {})) > 1
   ])
 
   # Build set of all stat vars that have data for our place & children places
