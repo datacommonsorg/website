@@ -14,6 +14,7 @@
 """Helper functions for place page routes"""
 
 import copy
+import random
 import re
 from typing import Callable, Dict, List, Set
 
@@ -268,13 +269,21 @@ def filter_chart_config_by_place_dcid(
 
   # find stat vars that have data for our peer places. We only want to keep
   # these stat vars if there is data for more than one place.
+  peer_places_within = fetch_peer_places_within(place_dcid, place_type)[:15]
   peer_places_obs_point_response = dc.obs_point_within(
       parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
-  peer_places_stat_vars_with_observations = set([
-      stat_var_dcid for stat_var_dcid in peer_places_stat_var_dcids
-      if len(peer_places_obs_point_response["byVariable"].get(
-          stat_var_dcid, {}).get("byEntity", {})) > 1
-  ])
+  peer_places_stat_vars_with_observations = set()
+
+  for stat_var_dcid in peer_places_stat_var_dcids:
+    peers_with_data = 0
+    for peer_place_dcid in peer_places_obs_point_response["byVariable"].get(
+        stat_var_dcid, {}).get("byEntity", {}):
+      if peer_place_dcid in peer_places_within:
+        peers_with_data += 1
+
+        if peers_with_data == 2:
+          peer_places_stat_vars_with_observations.add(stat_var_dcid)
+          break  # Move to the next stat_var_dcid once a peer place with data is found
 
   # Build set of all stat vars that have data for our place & children places
   stat_vars_with_observations_set = set(
@@ -730,6 +739,24 @@ def fetch_nearby_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   sorted_place_distances = sorted(place_distances, key=lambda x: x[1])
   nearby_place_dcids = [item[0] for item in sorted_place_distances]
   return nearby_place_dcids
+
+
+@cache.memoize(timeout=TIMEOUT)
+def fetch_peer_places_within(place_dcid: str, place_types: list[str]):
+  parent_places = get_parent_places(place_dcid)
+  parents_to_highlight = get_ordered_parents_to_highlight(parent_places)
+
+  peers_within_parent = []
+  if (parents_to_highlight):
+    peers_within_parent = fetch_child_place_dcids(
+        parents_to_highlight[0], place_type_to_highlight(place_types))
+    random.shuffle(peers_within_parent)
+
+  # Remove place_dcid from the list
+  if place_dcid in peers_within_parent:
+    peers_within_parent.remove(place_dcid)
+
+  return peers_within_parent
 
 
 def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
