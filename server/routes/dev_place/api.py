@@ -173,7 +173,8 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
-  peers_within_parent = place_utils.fetch_peer_places_within(place.dcid, place.types)
+  peers_within_parent = place_utils.fetch_peer_places_within(
+      place.dcid, place.types)
 
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
