@@ -23,9 +23,9 @@
 #                    below which we drop matches? (default: 0.5)
 #
 # indexes:
-# - store_type: what type of embeddings store?  (MEMORY, LANCEDB, VERTEXAI)
+# - store_type: what type of embeddings store?  (MEMORY, VERTEXAI)
 # - model: the name of the associated model from `models` section
-# - embeddings_path: For MEMORY/LANCEDB, the path to the index files.
+# - embeddings_path: For MEMORY, the path to the index files.
 #               Can be a local absolute path or GCS (gs://) path.
 # - healthcheck_query: if this index were the default index, what is
 #                      the query to use for health-checking the index?
@@ -81,12 +81,6 @@ indexes:
     embeddings_path: gs://datcom-nl-models/bio_ft_2024_11_08_19_00_38/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Gene"
-  base_uae_lance:
-    store_type: LANCEDB
-    source_path: ../../tools/nl/embeddings/input/base
-    embeddings_path: gs://datcom-nl-models/base_uae_lance_2024_06_25_00_00_48
-    model: uae-large-v1-model
-    healthcheck_query: "Life expectancy"
   base_uae_mem:
     store_type: MEMORY
     source_path: ../../tools/nl/embeddings/input/base
