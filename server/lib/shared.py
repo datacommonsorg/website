@@ -15,6 +15,7 @@
 
 import re
 from typing import Set
+from flask import current_app
 
 import server.lib.fetch as fetch
 
@@ -243,3 +244,9 @@ def is_percapita_relevant(sv_dcid: str, nopc_svs: Set[str]) -> bool:
     if skip_phrase in sv_dcid:
       return False
   return True
+
+
+def is_feature_enabled(feature_name: str) -> bool:
+  """Returns whether the feature with `feature_name` is enabled."""
+  feature_flags = current_app.config['FEATURE_FLAGS']
+  return feature_name in feature_flags and feature_flags[feature_name]

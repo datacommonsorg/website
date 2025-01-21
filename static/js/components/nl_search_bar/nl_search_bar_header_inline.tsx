@@ -18,8 +18,9 @@
  * Inline-header version of the NL Search Component - used in Version 2 of the header
  */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 
+import { isFeatureEnabled } from "../../shared/util";
 import { NlSearchBarImplementationProps } from "../nl_search_bar";
 import { AutoCompleteInput } from "./auto_complete_input";
 
@@ -32,16 +33,22 @@ const NlSearchBarHeaderInline = ({
   onSearch,
   shouldAutoFocus,
 }: NlSearchBarImplementationProps): ReactElement => {
+  const [autocompleteEnabled, setAutoCompleteEnabled] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
   const isAutopushEnv = window.location.hostname == "autopush.datacommons.org";
-  const enableAutoComplete =
-    isAutopushEnv ||
-    (urlParams.has("ac_on") && urlParams.get("ac_on") == "true");
+
+  useEffect(() => {
+    setAutoCompleteEnabled(
+      isFeatureEnabled("autocomplete") ||
+        isAutopushEnv ||
+        (urlParams.has("ac_on") && urlParams.get("ac_on") == "true")
+    );
+  }, []);
 
   return (
     <div className="header-search-section">
       <AutoCompleteInput
-        enableAutoComplete={enableAutoComplete}
+        enableAutoComplete={autocompleteEnabled}
         value={value}
         invalid={invalid}
         placeholder={placeholder}
