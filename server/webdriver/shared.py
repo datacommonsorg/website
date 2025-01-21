@@ -21,6 +21,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elems
+
 LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
 ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
@@ -135,15 +138,10 @@ def safe_url_open(url):
 
 def assert_topics(self, driver, path_to_topics, classname, expected_topics):
   """Assert the topics on the place page."""
-  # Locate the 'explore-topics-box' div first
-  for path_classname in path_to_topics:
-    explore_topics_box = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.CLASS_NAME, path_classname)))
-
-  # Locate all 'item-list-item' elements within the 'explore-topics-box'
-  item_list_items = explore_topics_box.find_elements(By.CLASS_NAME, classname)
-
-  # Example expected texts (replace with your actual expected values)
+  item_list_items = find_elems(driver,
+                               by=By.CLASS_NAME,
+                               value=classname,
+                               path_to_elem=path_to_topics)
 
   # Assert that the number of found elements matches the expected number
   self.assertEqual(len(item_list_items), len(expected_topics))
