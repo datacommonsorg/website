@@ -89,8 +89,6 @@ def main(_):
   # Save embeddings
   if index_config.store_type == 'MEMORY':
     utils.save_embeddings_memory(fm.local_output_dir(), final_embeddings)
-  elif index_config.store_type == 'LANCEDB':
-    utils.save_embeddings_lancedb(fm.local_output_dir(), final_embeddings)
   else:
     raise ValueError(f'Unknown store type: {index_config.store_type}')
 

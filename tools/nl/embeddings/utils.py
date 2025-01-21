@@ -42,7 +42,6 @@ _COL_DCID = 'dcid'
 _COL_SENTENCE = 'sentence'
 _CHUNK_SIZE = 100
 _NUM_RETRIES = 3
-_LANCEDB_TABLE = 'datacommons'
 _MD5_SUM_FILE = 'md5sum.txt'
 
 
@@ -206,23 +205,6 @@ def save_embeddings_memory(local_dir: str, embeddings: List[Embedding]):
   local_file = os.path.join(local_dir, constants.EMBEDDINGS_FILE_NAME)
   df.to_csv(local_file, index=False)
   logging.info("Saved embeddings to %s", local_file)
-
-
-def save_embeddings_lancedb(local_dir: str, embeddings: List[Embedding]):
-  # lancedb has issues in docker containers on certain platforms.
-  # Importing it as a global import causes failures in build_embeddings on those platforms for Custom DC (CDC).
-  # Since this method is never called for building CDC embeddings, we import it locally.
-  # This will need to be addressed before we can support lancedb in CDC.
-  import lancedb
-
-  db = lancedb.connect(local_dir)
-  records = [{
-      _COL_DCID: x.preindex.dcid,
-      _COL_SENTENCE: x.preindex.text,
-      'vector': x.vector
-  } for x in embeddings]
-  db.create_table(_LANCEDB_TABLE, records)
-  logging.info("Saved embeddings as lancedb file in %s", local_dir)
 
 
 def save_index_config(fm: FileManager, index_config: IndexConfig):
