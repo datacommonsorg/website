@@ -66,8 +66,8 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
     logging.info('Loading embeddings file: %s', embeddings_path)
     try:
       ds = load_dataset('csv', data_files=embeddings_path)
-    except:
-      error_str = f'No embedding could be loaded for {embeddings_path}'
+    except Exception as e:
+      error_str = f'No embedding could be loaded for {embeddings_path}: {e}'
       logging.error(error_str)
       raise Exception(error_str)
 
