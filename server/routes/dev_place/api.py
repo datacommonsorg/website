@@ -29,12 +29,6 @@ from server.routes.dev_place import utils as place_utils
 from server.routes.dev_place.types import PlaceChartsApiResponse
 from server.routes.dev_place.types import RelatedPlacesApiResponse
 
-OVERVIEW_CATEGORY = "Overview"
-CATEGORIES = {
-    OVERVIEW_CATEGORY, "Economics", "Health", "Equity", "Crime", "Education",
-    "Demographics", "Housing", "Environment", "Energy"
-}
-
 # Define blueprint
 bp = Blueprint("dev_place_api", __name__, url_prefix='/api/dev-place')
 
@@ -58,14 +52,17 @@ def place_charts(place_dcid: str):
   - Charts specific to the place
   - Translated category strings for the charts
   """
+
   # Ensure category is valid
-  place_category = request.args.get("category", OVERVIEW_CATEGORY)
+  place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
+  if place_category not in place_utils.CATEGORIES:
+    return error_response(
+        f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.CATEGORIES)}"
+    )
+
+  # Get parent place DCID
   parent_place_dcid = place_utils.get_place_override(
       place_utils.get_parent_places(place_dcid))
-  if place_category not in CATEGORIES:
-    return error_response(
-        f"Argument 'category' {place_category} must be one of: {', '.join(CATEGORIES)}"
-    )
 
   # Fetch place info
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
@@ -98,14 +95,13 @@ def place_charts(place_dcid: str):
   blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
                                                        child_place_type)
 
-  # Translate category strings for all charts that have any data.
-  translated_category_strings = place_utils.get_translated_category_strings(
+  # Translate category strings
+  categories_with_translations = place_utils.get_categories_with_translations(
       chart_config_existing_data)
 
-  response = PlaceChartsApiResponse(
-      blocks=blocks,
-      place=place,
-      translatedCategoryStrings=translated_category_strings)
+  response = PlaceChartsApiResponse(blocks=blocks,
+                                    place=place,
+                                    categories=categories_with_translations)
   return jsonify(response)
 
 

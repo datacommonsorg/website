@@ -19,6 +19,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base import WebdriverBaseTest
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import wait_elem
 
 
 class TestCharts(WebdriverBaseTest):
@@ -45,26 +48,23 @@ class TestCharts(WebdriverBaseTest):
         EC.title_contains('Disasters Dashboard'))
 
     # Wait until the group of charts has loaded.
-    element_present = EC.presence_of_element_located(
-        (By.ID, 'subject-page-main-pane'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    self.assertIsNotNone(
+        wait_elem(self.driver, by=By.ID, value='subject-page-main-pane'))
 
     # Store a list of all the charts.
-    event_maps = self.driver.find_elements(By.CLASS_NAME,
-                                           'disaster-event-map-tile')
-    # Assert there are 5+ maps.
+    event_maps = find_elems(self.driver, value='disaster-event-map-tile')
     self.assertGreater(len(event_maps), 5)
 
     # Wait until the svg loads in the first article.
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        lambda d: event_maps[0].find_element(By.TAG_NAME, 'svg'))
+    self.assertIsNotNone(find_elem(event_maps[0], by=By.TAG_NAME, value='svg'))
 
     # Assert first article has svg with map geo region.
-    map_geo_region = event_maps[0].find_element(By.ID, 'map-geo-regions')
-    path = map_geo_region.find_elements(By.TAG_NAME, 'path')
+    map_geo_region = find_elem(event_maps[0], by=By.ID, value='map-geo-regions')
+    self.assertIsNotNone(map_geo_region)
+
+    path = find_elems(map_geo_region, by=By.TAG_NAME, value='path')
     self.assertEqual(len(path), 1)
 
-    # Assert first article has svg with points.
-    map_points_layers = event_maps[0].find_elements(By.CLASS_NAME,
-                                                    'map-points-layer')
-    self.assertGreater(len(map_points_layers), 2)
+    # Assert first article has svg with at least 2 points.
+    self.assertGreater(len(find_elems(event_maps[0], value='map-points-layer')),
+                       2)
