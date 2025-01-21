@@ -52,9 +52,7 @@ ENV PATH="/workspace/venv/bin:$PATH"
 RUN pip3 install -r ./import/simple/requirements.txt
 
 # Install data requirements.
-# Remove lancedb - it is not used by custom dc.
-RUN sed -i'' '/lancedb/d' /workspace/nl_requirements.txt \
-    && pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
+RUN pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
     && pip3 install -r ./tools/nl/embeddings/requirements.txt
 
 # Copy the embeddings builder module.
