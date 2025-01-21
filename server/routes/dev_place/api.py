@@ -75,17 +75,18 @@ def place_charts(place_dcid: str):
   # Retrieve available place page charts
   full_chart_config = place_utils.read_chart_configs()
 
+  place_type = place_utils.place_type_to_highlight(place.types)
   # Filter out place page charts that don't have any data for the current place_dcid
   chart_config_existing_data = place_utils.filter_chart_config_by_place_dcid(
       chart_config=full_chart_config,
       place_dcid=place_dcid,
-      place_type=place_utils.place_type_to_highlight(place.types),
+      place_type=place_type,
       parent_place_dcid=parent_place_dcid,
       child_place_type=child_place_type)
 
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_configs_for_category(
-      place_category, chart_config_existing_data)
+      place_category, chart_config_existing_data, place_type)
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(

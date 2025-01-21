@@ -76,6 +76,38 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
+  def test_dev_place_overview_africa(self):
+    """Ensure experimental dev place page content loads data for a continent."""
+    self.driver.get(self.url_ + '/place/africa?force_dev_places=true')
+
+    # Asert the related places box exists
+    self.assertEqual(
+        find_elem(self.driver, value='related-places-callout').text,
+        'Places in Africa')
+
+    shared.assert_topics(self,
+                         self.driver,
+                         path_to_topics=['explore-topics-box'],
+                         classname='item-list-item',
+                         expected_topics=ORDERED_CATEGORIES)
+
+    # And that the categories have data in the overview
+    topics_in_overview = set(
+        ["Economics", "Health", "Equity", "Demographics", "Environment", "Energy"])
+    block_titles = find_elems(self.driver, value='block-title')
+    self.assertEqual(set([block.text for block in block_titles]),
+                     topics_in_overview)
+
+    # Assert that every category is expected, and has at least one chart
+    category_containers = find_elems(self.driver,
+                                     value='category',
+                                     path_to_elem=['charts-container'])
+    self.assertEqual(len(category_containers), len(topics_in_overview))
+    for category_container in category_containers:
+      chart_containers = find_elems(category_container, value='chart-container')
+      self.assertGreater(len(chart_containers), 0)
+
+
   def test_dev_place_chart_settings(self):
     """Ensure the charts in the new place page contain the expected settings"""
     self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
