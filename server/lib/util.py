@@ -399,7 +399,7 @@ def get_nl_no_percapita_vars():
 def get_feature_flag_bucket_name() -> str:
   """Returns the bucket name containing the feature flags."""
   env_for_bucket = os.environ.get('FLASK_ENV')
-  if env_for_bucket == 'local':
+  if env_for_bucket in ['local', 'integration_test', 'test', 'webdriver']:
     env_for_bucket = 'autopush'
   elif env_for_bucket == 'production':
     env_for_bucket = 'prod'

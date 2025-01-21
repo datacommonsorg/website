@@ -15,6 +15,7 @@
 
 import re
 from typing import Set
+
 from flask import current_app
 
 import server.lib.fetch as fetch
