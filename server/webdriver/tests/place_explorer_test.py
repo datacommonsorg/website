@@ -85,15 +85,15 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         find_elem(self.driver, value='related-places-callout').text,
         'Places in Africa')
 
+    topics_in_overview = set(
+        ["Economics", "Health", "Equity", "Demographics", "Environment", "Energy"])
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=ORDERED_CATEGORIES)
+                         expected_topics=['Overview'].extend(topics_in_overview))
 
     # And that the categories have data in the overview
-    topics_in_overview = set(
-        ["Economics", "Health", "Equity", "Demographics", "Environment", "Energy"])
     block_titles = find_elems(self.driver, value='block-title')
     self.assertEqual(set([block.text for block in block_titles]),
                      topics_in_overview)
