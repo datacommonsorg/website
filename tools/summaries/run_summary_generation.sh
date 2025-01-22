@@ -29,8 +29,7 @@ else
   source .env/bin/activate
   python3 -m pip install -r $DIR/requirements.txt
 
-  # Generate US States + Top 100 Cities + Global cities summaries
-  # These are the first 151 entries of PriorityPlaces.0.txt
+  # Generate US States + Top 100 US Cities + Global Cities summaries
   echo "Generating US States and Top 100 US cities summaries"
   python3 -m $MODULE.fetch_place_summaries static/sitemap/PriorityPlaces.0.txt \
     --output_file $DIR/generated_summaries/priority_places.json \
@@ -53,8 +52,5 @@ else
   python3 -m $MODULE.generate_place_summary_shards \
     $DIR/generated_summaries/countries.json \
     $DIR/generated_summaries/us_counties.json \
-    $DIR/generated_summaries/global_cities.json \
     $DIR/generated_summaries/priority_places.json
 fi
-
-
