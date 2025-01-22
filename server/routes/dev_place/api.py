@@ -60,20 +60,19 @@ def place_charts(place_dcid: str):
         f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.CATEGORIES)}"
     )
 
-  # Get parent place DCID
-  parent_place_dcid = place_utils.get_place_override(
-      place_utils.get_parent_places(place_dcid))
+  # Retrieve available place page charts
+  full_chart_config = place_utils.read_chart_configs()
 
   # Fetch place info
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
-  # Determine child place type
-  ordered_child_place_types = place_utils.get_child_place_types(place)
-  child_place_type = ordered_child_place_types[
-      0] if ordered_child_place_types else None
+  # Get parent place DCID
+  parent_place_dcid = place_utils.get_place_override(
+      place_utils.get_parent_places(place_dcid))
 
-  # Retrieve available place page charts
-  full_chart_config = place_utils.read_chart_configs()
+  # Determine child place type to highlight
+  child_place_type_to_highlight = place_utils.get_child_place_type_to_highlight(
+      place)
 
   place_type = place_utils.place_type_to_highlight(place.types)
   # Filter out place page charts that don't have any data for the current place_dcid
@@ -82,7 +81,7 @@ def place_charts(place_dcid: str):
       place_dcid=place_dcid,
       place_type=place_type,
       parent_place_dcid=parent_place_dcid,
-      child_place_type=child_place_type)
+      child_place_type=child_place_type_to_highlight)
 
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_configs_for_category(
@@ -93,8 +92,8 @@ def place_charts(place_dcid: str):
       chart_config_for_category)
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
-  blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
-                                                       child_place_type)
+  blocks = place_utils.chart_config_to_overview_charts(
+      translated_chart_config, child_place_type_to_highlight)
 
   # Translate category strings
   categories_with_translations = place_utils.get_categories_with_translations(
