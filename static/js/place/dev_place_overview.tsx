@@ -201,6 +201,7 @@ export const PlaceOverview = (props: {
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
       </div>
       <div
+        className="place-summary"
         css={css`
           ${theme.typography.text.sm}
           margin-bottom: ${theme.spacing.md}px;
