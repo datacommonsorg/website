@@ -95,7 +95,9 @@ def get_parent_places(dcid: str) -> List[Place]:
 
 
 def get_ordered_parents_to_highlight(all_parents: List[Place]) -> List[Place]:
-  """Returns the ordered list of parents to highlight."""
+  """Returns the ordered list of parents to highlight.
+  We only consider the types to highlight we favor types that mean more to users (such as State, Country) over entities such as UNGeoRegions, ContinentalUnions etc.
+  """
   # Filter parents to only the types desired
   parents_to_include = [
       parent for parent in all_parents if any(
@@ -742,12 +744,17 @@ def fetch_nearby_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
 
 
 @cache.memoize(timeout=TIMEOUT)
-def fetch_peer_places_within(place_dcid: str, place_types: list[str]):
+def fetch_peer_places_within(place_dcid: str, place_types: list[str]) -> List[str]:
+  """Returns the list of peer places within the first parent that should be higlighted."""
   parent_places = get_parent_places(place_dcid)
+
+  # Only consider peers within the first parent of a type to highlight.
+  # For example, from country/FRA, we want to show the peers within the Continent Europe.
+  # as opposed to peers within the UNGeoRegion WesternEurope, or within the UNData region OECD.
   parents_to_highlight = get_ordered_parents_to_highlight(parent_places)
 
   peers_within_parent = []
-  if (parents_to_highlight):
+  if parents_to_highlight:
     peers_within_parent = fetch_child_place_dcids(
         parents_to_highlight[0], place_type_to_highlight(place_types))
     random.shuffle(peers_within_parent)
