@@ -56,7 +56,7 @@ function updateTooltip(
   tooltipLayer: Layer,
   latLng: LatLng,
   placeName?: string
-) {
+): void {
   const val = geoblaze.identify(geoRaster, [latLng.lng, latLng.lat]);
   if (val && val.length > GEORASTER_DATA_BAND) {
     tooltipLayer.setTooltipContent(
@@ -98,7 +98,7 @@ export function addGeotiffLayer(
   const geotiffLayer = new GeoRasterLayer({
     georaster: geoRaster,
     opacity: 1,
-    pixelValuesToColorFn: (value) => {
+    pixelValuesToColorFn: (value: { number: number }): string => {
       if (value[GEORASTER_DATA_BAND] === NO_DATA_VALUE) {
         return null;
       } else {

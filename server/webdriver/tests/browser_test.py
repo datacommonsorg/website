@@ -21,6 +21,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
+from server.webdriver.base_utils import find_elem
 import server.webdriver.shared as shared
 from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 
@@ -107,22 +108,23 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     self.driver.get(self.url_ + CA_POPULATION_URL)
 
     # Wait for observation charts to be loaded.
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'observation-chart'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    observations_section = self.driver.find_element(
-        By.XPATH, '//*[@id="node-content"]/div[2]')
+    self.assertIsNotNone(find_elem(self.driver, value='observation-chart'))
+    observations_section = find_elem(self.driver,
+                                     by=By.XPATH,
+                                     value='//*[@id="node-content"]/div[2]')
 
     # Switch to table view for the first chart
-    observation_section_chart_1 = observations_section.find_elements(
-        By.CLASS_NAME, 'card')[0]
-    table_view_button = observation_section_chart_1.find_element(
-        By.TAG_NAME, 'button')
+    observation_section_chart_1 = find_elem(observations_section, value='card')
+    table_view_button = find_elem(observation_section_chart_1,
+                                  by=By.TAG_NAME,
+                                  value='button')
     table_view_button.click()
 
     # Click the first row in the table view to open the browser page for that observation
-    table = observation_section_chart_1.find_element(By.TAG_NAME, 'table')
-    first_row = table.find_element(By.XPATH, './/tbody/tr[2]/td')
+    table = find_elem(observation_section_chart_1,
+                      by=By.TAG_NAME,
+                      value='table')
+    first_row = find_elem(table, by=By.XPATH, value='.//tbody/tr[2]/td')
     first_row.click()
 
     # Wait for the new page to open in a new tab
@@ -140,32 +142,33 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     self.assertEqual(new_page_title, self.driver.title)
 
     # Assert header of the new page is correct.
-    element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    about_title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1')
-    self.assertEqual(about_title.text, 'About: dc/o/y54f4zvqrzf67')
-    dcid_subtitle = self.driver.find_element(By.XPATH, '//*[@id="node"]/h2[1]')
-    self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y54f4zvqrzf67')
-    typeOf_subtitle = self.driver.find_element(By.XPATH,
-                                               '//*[@id="node"]/h2[2]')
-    self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
+    node = find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]')
+    self.assertEqual(
+        find_elem(node, by=By.XPATH, value='.//h1').text,
+        'About: dc/o/y54f4zvqrzf67')  # about title.
+    self.assertEqual(
+        find_elem(node, by=By.XPATH, value='.//h2[1]').text,
+        'dcid: dc/o/y54f4zvqrzf67')  # dcid subtitle
+    self.assertEqual(
+        find_elem(node, by=By.XPATH, value='.//h2[2]').text,
+        'typeOf: StatVarObservation')  # typeOf_subtitle
 
   def test_observation_chart_redirect(self):
     """Test that the observation chart observation node links can redirect properly"""
     # Load California population browser page.
     self.driver.get(self.url_ + CA_POPULATION_URL)
-    element_present = EC.presence_of_element_located(
-        (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    self.assertIsNotNone(
+        find_elem(self.driver,
+                  by=By.XPATH,
+                  value='//*[@id="node-content"]/div[1]/div/table'))
 
     # Click the point on the chart for the year 1850
-    element_present = EC.presence_of_element_located((By.XPATH, (
+    point = find_elem(
+        self.driver,
+        by=By.XPATH,
+        value=
         '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/div/*[name()="svg"]/'
-        + '*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]')))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    point = self.driver.find_element(By.XPATH, (
-        '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/div/*[name()="svg"]/'
-        + '*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'))
+        + '*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]')
     point.click()
 
     # Wait for the new page to open in a new tab
@@ -183,12 +186,13 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     self.assertEqual(new_page_title, self.driver.title)
 
     # Assert header of the new page is correct.
-    element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    about_title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1')
-    self.assertEqual(about_title.text, 'About: dc/o/y54f4zvqrzf67')
-    dcid_subtitle = self.driver.find_element(By.XPATH, '//*[@id="node"]/h2[1]')
-    self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y54f4zvqrzf67')
-    typeOf_subtitle = self.driver.find_element(By.XPATH,
-                                               '//*[@id="node"]/h2[2]')
-    self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
+    node = find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]')
+    self.assertEqual(
+        find_elem(node, by=By.XPATH, value='.//h1').text,
+        'About: dc/o/y54f4zvqrzf67')  # about title.
+    self.assertEqual(
+        find_elem(node, by=By.XPATH, value='.//h2[1]').text,
+        'dcid: dc/o/y54f4zvqrzf67')  # dcid subtitle
+    self.assertEqual(
+        find_elem(node, by=By.XPATH, value='.//h2[2]').text,
+        'typeOf: StatVarObservation')  # typeOf_subtitle

@@ -241,7 +241,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
                     <div
                       className={`${CSS_SELECTOR_PREFIX}-legend-entry`}
                       key={`${props.id}-legend-${spec.id}`}
-                      onClick={() => toggleEventTypeSelection(spec.id)}
+                      onClick={(): void => toggleEventTypeSelection(spec.id)}
                     >
                       <div
                         className={`${CSS_SELECTOR_PREFIX}-legend-color`}
@@ -406,7 +406,7 @@ export function fetchChartData(
     "polygonGeoJsonProp",
     props.apiRoot
   );
-  const childGeoJsonPromiseFn = () =>
+  const childGeoJsonPromiseFn = (): Promise<GeoJsonData> =>
     fetchGeoJsonData(
       props.place,
       props.enclosedPlaceType,
@@ -426,7 +426,7 @@ export function fetchChartData(
       break;
     }
   }
-  const placeGeoJsonPromiseFn = () =>
+  const placeGeoJsonPromiseFn = (): Promise<GeoJsonData> =>
     fetchNodeGeoJson([props.place.dcid], placeGeoJsonProp, props.apiRoot);
   const placeGeoJsonPromise = fetchData
     ? fetchData(
@@ -439,7 +439,7 @@ export function fetchChartData(
       ? Promise.resolve(props.parentPlaces)
       : null;
   if (!parentPlacesPromise) {
-    const parentPlacesPromiseFn = () =>
+    const parentPlacesPromiseFn = (): Promise<Array<NamedTypedPlace>> =>
       getParentPlacesPromise(props.place.dcid, props.apiRoot);
     parentPlacesPromise = fetchData
       ? fetchData(`parents-${props.place.dcid}`, parentPlacesPromiseFn)

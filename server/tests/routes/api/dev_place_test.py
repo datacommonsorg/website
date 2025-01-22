@@ -28,13 +28,14 @@ from web_app import app
 
 class TestPlaceAPI(unittest.TestCase):
 
+  @patch('server.routes.shared_api.place.parent_places')
   @patch('server.lib.fetch.raw_property_values')
   @patch('server.lib.fetch.multiple_property_values')
   @patch('server.services.datacommons.obs_point')
   @patch('server.services.datacommons.obs_point_within')
   def test_dev_place_charts(self, mock_obs_point_within, mock_obs_point,
                             mock_multiple_property_values,
-                            mock_raw_property_values):
+                            mock_raw_property_values, mock_parent_places):
     """Test the place_charts endpoint."""
 
     with app.app_context():
@@ -55,6 +56,14 @@ class TestPlaceAPI(unittest.TestCase):
       # Mock fetch.raw_property_values to return empty lists (no nearby or similar places)
       mock_raw_property_values.return_value = {place_dcid: []}
 
+      mock_parent_places.return_value = {
+          'dcid': 'northamerica',
+          'parents': [{
+              'type': 'Continent',
+              'dcid': 'northamerica'
+          }]
+      }
+
       # Send a GET request to the new endpoint
       response = app.test_client().get(f'/api/dev-place/charts/{place_dcid}')
 
@@ -63,41 +72,46 @@ class TestPlaceAPI(unittest.TestCase):
 
       # Check that the response data contains expected fields
       response_json = response.get_json()
-      self.assertIn('charts', response_json)
+      self.assertIn('blocks', response_json)
       self.assertIn('place', response_json)
-      self.assertIn('translatedCategoryStrings', response_json)
+      self.assertIn('categories', response_json)
+      self.assertIn('charts', response_json['blocks'][0])
 
       # Check that the 'charts' field contains the expected number of charts
       # Two charts have data (Crime and one Education stat var), and each has a
       # related chart, so we expect four charts
-      self.assertEqual(len(response_json['charts']), 4)
+      self.assertEqual(
+          sum(len(block.get('charts',)) for block in response_json['blocks']),
+          4)
 
       # Optionally, check that the charts have the correct titles
-      chart_titles = [chart['title'] for chart in response_json['charts']]
-      self.assertIn('Total crime', chart_titles)
-      self.assertIn('Education attainment', chart_titles)
+      block_titles = [block['title'] for block in response_json['blocks']]
+      self.assertIn('Total crime', block_titles)
+      self.assertIn('Education attainment', block_titles)
 
       # Check that the 'place' field contains correct place information
       self.assertEqual(response_json['place']['dcid'], place_dcid)
       self.assertEqual(response_json['place']['name'], 'United States')
       self.assertEqual(response_json['place']['types'], ['Country'])
 
-      # Check that 'translatedCategoryStrings' contains expected categories
-      self.assertIn('Crime', response_json['translatedCategoryStrings'])
-      self.assertIn('Education', response_json['translatedCategoryStrings'])
+      # Check that 'categories' contains expected categories
+      categories = [
+          category['translatedName'] for category in response_json['categories']
+      ]
+      self.assertIn('Crime', categories)
+      self.assertIn('Education', categories)
 
       # Ensure the denominator is present in chart results
-      self.assertEqual(None, response_json["charts"][0]["denominator"])
-      self.assertEqual(1, len(response_json["charts"][1]["denominator"]))
-      self.assertEqual(5, len(response_json["charts"][2]["denominator"]))
-      self.assertEqual(5, len(response_json["charts"][3]["denominator"]))
+      self.assertEqual(1, len(response_json["blocks"][0]["denominator"]))
+      self.assertEqual(5, len(response_json["blocks"][1]["denominator"]))
 
+  @patch('server.routes.shared_api.place.parent_places')
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   @patch('server.routes.dev_place.utils.fetch.multiple_property_values')
   @patch('server.routes.dev_place.utils.fetch.descendent_places')
   def test_related_places(self, mock_descendent_places,
                           mock_multiple_property_values,
-                          mock_raw_property_values):
+                          mock_raw_property_values, mock_parent_places):
     """Test the /api/dev-place/related-places endpoint. Mocks fetch.* and dc.* calls."""
 
     with app.app_context():
@@ -139,6 +153,18 @@ class TestPlaceAPI(unittest.TestCase):
 
       mock_raw_property_values.side_effect = mock_raw_property_values_side_effect
 
+      # Define side effects for mock_parent_places_
+      def mock_parent_places_side_effect(dcids, include_admin_areas):
+        return {
+            'dcid': 'geoId/06',
+            'parents': [{
+                'type': 'Country',
+                'dcid': 'country/USA'
+            }]
+        }
+
+      mock_parent_places.side_effect = mock_parent_places_side_effect
+
       # Send a GET request to the related-places endpoint
       response = app.test_client().get(
           f'/api/dev-place/related-places/{place_dcid}')
@@ -155,6 +181,7 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertIn('nearbyPlaces', response_json)
       self.assertIn('place', response_json)
       self.assertIn('similarPlaces', response_json)
+      self.assertIn('parentPlaces', response_json)
 
       # Check the place field
       self.assertEqual(response_json['place']['dcid'], place_dcid)
@@ -167,10 +194,16 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertEqual(len(response_json['nearbyPlaces']), 2)
       self.assertEqual(len(response_json['similarPlaces']), 2)
 
+      # Sort the childPlaces list by dcid
+      response_json['childPlaces'].sort(key=lambda x: x['dcid'])
+
       # Check contents of childPlaces
       self.assertEqual(response_json['childPlaces'][0]['dcid'], 'geoId/06')
       self.assertEqual(response_json['childPlaces'][0]['name'], 'California')
       self.assertEqual(response_json['childPlaces'][0]['types'], ['State'])
+      self.assertEqual(response_json['childPlaces'][1]['dcid'], 'geoId/07')
+      self.assertEqual(response_json['childPlaces'][1]['name'], 'New York')
+      self.assertEqual(response_json['childPlaces'][1]['types'], ['State'])
 
       # Check contents of nearbyPlaces
       self.assertEqual(response_json['nearbyPlaces'][0]['dcid'], 'country/CAN')
@@ -186,12 +219,14 @@ class TestPlaceAPI(unittest.TestCase):
       # Check the 'childPlaceType' field
       self.assertEqual(response_json['childPlaceType'], "State")
 
+  @patch('server.routes.shared_api.place.parent_places')
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   @patch('server.routes.dev_place.utils.fetch.multiple_property_values')
   @patch('server.routes.dev_place.utils.fetch.descendent_places')
   def test_related_places_es_locale(self, mock_descendent_places,
                                     mock_multiple_property_values,
-                                    mock_raw_property_values):
+                                    mock_raw_property_values,
+                                    mock_parent_places):
     """Test the /api/dev-place/related-places endpoint with 'es' locale."""
     with app.app_context():
       # Sample place_dcid
@@ -267,6 +302,18 @@ class TestPlaceAPI(unittest.TestCase):
 
       mock_raw_property_values.side_effect = mock_raw_property_values_side_effect
 
+      # Define side effects for mock_parent_places_
+      def mock_parent_places_side_effect(dcids, include_admin_areas):
+        return {
+            'dcid': 'geoId/06',
+            'parents': [{
+                'type': 'Country',
+                'dcid': 'country/USA'
+            }]
+        }
+
+      mock_parent_places.side_effect = mock_parent_places_side_effect
+
       mock_descendent_places.return_value = {
           'country/USA': ['geoId/06', 'geoId/07']
       }
@@ -299,6 +346,9 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertEqual(len(response_json['childPlaces']), 2)
       self.assertEqual(len(response_json['nearbyPlaces']), 2)
       self.assertEqual(len(response_json['similarPlaces']), 2)
+
+      # Sort the list to ensure the right values.
+      response_json['childPlaces'].sort(key=lambda x: x['dcid'])
 
       # Check contents of childPlaces
       # First child place should have Spanish name
@@ -337,7 +387,7 @@ class TestPlaceUtils(unittest.TestCase):
     """Test for a 'Place' type returning 'Continent'."""
     mock_raw_property_values.return_value = {}
     place = Place(dcid="Earth", name="World", types=["Place"])
-    self.assertEqual(place_utils.get_child_place_type(place), "Continent")
+    self.assertEqual(place_utils.get_child_place_types(place), ["Continent"])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_usa_state(self, mock_raw_property_values):
@@ -346,7 +396,7 @@ class TestPlaceUtils(unittest.TestCase):
     place = Place(dcid="country/USA",
                   name="United States of America",
                   types=["Country"])
-    self.assertEqual(place_utils.get_child_place_type(place), "State")
+    self.assertEqual(place_utils.get_child_place_types(place), ["State"])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_canada_administrative_area(self, mock_raw_property_values):
@@ -364,8 +414,8 @@ class TestPlaceUtils(unittest.TestCase):
         ]
     }
     place = Place(dcid="country/CAN", name="Canada", types=["Country"])
-    self.assertEqual(place_utils.get_child_place_type(place),
-                     "AdministrativeArea1")
+    self.assertEqual(place_utils.get_child_place_types(place),
+                     ["AdministrativeArea1"])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_un_geo_region_country(self, mock_raw_property_values):
@@ -374,7 +424,7 @@ class TestPlaceUtils(unittest.TestCase):
     place = Place(dcid="geoRegion/123",
                   name="UN Geo Region",
                   types=["UNGeoRegion"])
-    self.assertEqual(place_utils.get_child_place_type(place), "Country")
+    self.assertEqual(place_utils.get_child_place_types(place), ["Country"])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_us_state_county(self, mock_raw_property_values):
@@ -383,7 +433,7 @@ class TestPlaceUtils(unittest.TestCase):
     place = Place(dcid="geoId/06",
                   name="California",
                   types=["State", "AdministrativeArea1"])
-    self.assertEqual(place_utils.get_child_place_type(place), "County")
+    self.assertEqual(place_utils.get_child_place_types(place), ["County"])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_county_with_children(self, mock_raw_property_values):
@@ -401,7 +451,7 @@ class TestPlaceUtils(unittest.TestCase):
         ]
     }
     place = Place(dcid="geoId/06001", name="Alameda County", types=["County"])
-    self.assertEqual(place_utils.get_child_place_type(place), "City")
+    self.assertEqual(place_utils.get_child_place_types(place), ["City", "Town"])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_county_with_ordered_children(self, mock_raw_property_values):
@@ -419,7 +469,8 @@ class TestPlaceUtils(unittest.TestCase):
         ]
     }
     place = Place(dcid="geoId/06001", name="Alameda County", types=["County"])
-    self.assertEqual(place_utils.get_child_place_type(place), "Town")
+    self.assertEqual(place_utils.get_child_place_types(place),
+                     ["Town", "Village"])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_no_matching_child_type(self, mock_raw_property_values):
@@ -431,7 +482,7 @@ class TestPlaceUtils(unittest.TestCase):
         },]
     }
     place = Place(dcid="geoId/06001", name="Alameda County", types=["County"])
-    self.assertIsNone(place_utils.get_child_place_type(place))
+    self.assertEqual(place_utils.get_child_place_types(place), [])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_default_child_type(self, mock_raw_property_values):
@@ -443,5 +494,5 @@ class TestPlaceUtils(unittest.TestCase):
         },]
     }
     place = Place(dcid="geoId/06001", name="Alameda County", types=["County"])
-    self.assertEqual(place_utils.get_child_place_type(place),
-                     "CensusZipCodeTabulationArea")
+    self.assertEqual(place_utils.get_child_place_types(place),
+                     ["CensusZipCodeTabulationArea"])

@@ -18,15 +18,19 @@ import logging
 import os
 import re
 import time
+from typing import List, Set
 
 import flask
 from flask import current_app
 from flask import g
 from flask_babel import gettext
+from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
 from server.lib.config import GLOBAL_CONFIG_BUCKET
 from server.lib.i18n import AVAILABLE_LANGUAGES
+from server.lib.i18n import DEFAULT_LOCALE
+import server.routes.dev_place.utils as utils
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
 from shared.lib.place_summaries import get_shard_filename_by_dcid
@@ -57,7 +61,8 @@ CANONICAL_DOMAIN = 'datacommons.org'
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
 # Parent place types to include in listing of containing places at top of page
-PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+# Keep sorted!
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -66,7 +71,7 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'EurostatNUTS1',
     'Country',
     'Continent',
-}
+]
 
 # Location of manually written templates for SEO experimentation in GCS bucket
 SEO_EXPERIMENT_HTML_GCS_DIR = "seo_experiments/active"
@@ -218,6 +223,16 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
       parent for parent in all_parents
       if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
+
+  # Create a dictionary mapping parent types to their order in the highlight list
+  type_order = {
+      parent_type: i
+      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+  }
+
+  # Sort the parents_to_include list using the type_order dictionary
+  parents_to_include.sort(key=lambda parent: type_order.get(parent['type']))
+
   parent_dcids = [parent['dcid'] for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
   places_with_names = [
@@ -262,10 +277,57 @@ def is_seo_experiment_enabled(place_dcid: str, category: str,
   return False
 
 
+# Dev place page experiment groups for countries and US states
+# Calculated offline using instructions here:
+# https://github.com/datacommonsorg/website/pull/4773
+DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
+    'country/TLS', 'country/HUN', 'country/VEN', 'country/JAM', 'country/RWA',
+    'country/GGY', 'country/NGA', 'country/COD', 'country/COG', 'country/SVN',
+    'country/LSO', 'country/LBN', 'country/LCA', 'country/NFK', 'country/TTO',
+    'country/SGP', 'country/PYF', 'country/PRK', 'country/LVA', 'country/SUR',
+    'country/PRY', 'country/MDV'
+]
+DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
+    'geoId/56', 'geoId/04', 'geoId/41', 'geoId/20', 'geoId/37'
+]
+DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS: List[str] = [
+    'northamerica', 'southamerica', 'europe', 'africa', 'asia', 'antarctica',
+    'oceania'
+]
+DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
+                                           DEV_PLACE_EXPERIMENT_US_STATE_DCIDS +
+                                           DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS)
+
+
+def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
+                                    request_args: MultiDict[str, str]) -> bool:
+  """Determine if dev place experiment should be enabled for the page"""
+  # Disable dev place experiment for non-dev environments
+  # TODO(dwnoble): Remove this before prod release
+  if os.environ.get('FLASK_ENV') not in [
+      'local', 'autopush', 'dev', 'webdriver'
+  ] or not place_dcid:
+    return False
+
+  # Force dev place experiment for testing
+  if request_args.get("force_dev_places") == "true":
+    return True
+  # Disable dev place experiment for testing
+  if request_args.get("disable_dev_places") == "true":
+    return False
+
+  # Experiment is enabled for English pages for countries and US states in the experiment group
+  if locale == 'en' and place_dcid in DEV_PLACE_EXPERIMENT_DCIDS:
+    return True
+  return False
+
+
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
 @cache.cached(query_string=True)
 def place(place_dcid=None):
+  if is_dev_place_experiment_enabled(place_dcid, g.locale, flask.request.args):
+    return dev_place(place_dcid=place_dcid)
   redirect_args = dict(flask.request.args)
 
   # Strip trailing slashes from place dcids
@@ -418,3 +480,25 @@ def place_landing(error_msg=''):
         error_msg=error_msg,
         place_names=place_names,
         maps_api_key=current_app.config['MAPS_API_KEY'])
+
+
+# Dev place experiment route
+def dev_place(place_dcid=None):
+  place_type_with_parent_places_links = utils.get_place_type_with_parent_places_links(
+      place_dcid)
+  place_names = place_api.get_i18n_name([place_dcid]) or {}
+  place_name = place_names.get(place_dcid, place_dcid)
+  # Place summaries are currently only supported in English
+  if g.locale == DEFAULT_LOCALE:
+    place_summary = get_place_summaries(place_dcid).get(place_dcid,
+                                                        {}).get("summary", "")
+  else:
+    place_summary = ""
+
+  return flask.render_template(
+      'dev_place.html',
+      maps_api_key=current_app.config['MAPS_API_KEY'],
+      place_dcid=place_dcid,
+      place_name=place_name,
+      place_type_with_parent_places_links=place_type_with_parent_places_links,
+      place_summary=place_summary)

@@ -192,7 +192,7 @@ const NUM_TICKS = 10;
 const GRAPH_HEIGHT_XS = 130;
 const GRAPH_HEIGHT_S = 200;
 const GRAPH_HEIGHT_M = 400;
-const GRAPH_HEIGHT_L = 800;
+// const GRAPH_HEIGHT_L = 800; Re-add if necessary.
 const GRAPH_WIDTH_S = 660;
 const GRAPH_WIDTH_M = 700;
 const GRAPH_WIDTH_L = 760;
@@ -254,7 +254,7 @@ function interactionGraphTicked(
   /**
    * Clamps given x coordinate between left/right boundaries of bounding box
    */
-  function clampX(x: number) {
+  function clampX(x: number): number {
     return _.clamp(
       x,
       -width / 2 + MAX_NODE_RADIUS,
@@ -265,7 +265,7 @@ function interactionGraphTicked(
   /**
    * Clamps given y coordinate between top/bottom boundaries of bounding box
    */
-  function clampY(y: number) {
+  function clampY(y: number): number {
     return _.clamp(
       y,
       -height / 2 + MAX_NODE_RADIUS,

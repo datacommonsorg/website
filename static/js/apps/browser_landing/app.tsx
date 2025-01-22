@@ -18,11 +18,14 @@
  * Main component for the browser landing (knowledge graph) page
  */
 
+import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { IntroText } from "../../components/content/intro_text";
-import { KnowledgeGraphBrowser } from "../../components/knowledge_graph/knowledge_graph_browser";
+import { Section } from "../../components/elements/layout/section";
 import { KnowledgeGraphCategory } from "../../shared/types/knowledge_graph";
+import theme from "../../theme/theme";
+import { KnowledgeGraphBrowser } from "./components/knowledge_graph_browser";
 import knowledgeGraphData from "./knowledge_graph.json";
 
 const knowledgeGraph: KnowledgeGraphCategory[] = knowledgeGraphData;
@@ -32,19 +35,23 @@ const knowledgeGraph: KnowledgeGraphCategory[] = knowledgeGraphData;
  */
 export function App(): ReactElement {
   return (
-    <>
-      <IntroText>
-        <header>
-          <h1 id="kg-title">Knowledge Graph</h1>
-          <p id="kg-desc">
-            The Data Commons Knowledge Graph is constructed by synthesizing a
-            single database from many different data sources. This knowledge
-            graph can be used both to explore what data is available and to
-            understand the graph structure.
-          </p>
-        </header>
-      </IntroText>
-      <KnowledgeGraphBrowser knowledgeGraph={knowledgeGraph} />
-    </>
+    <ThemeProvider theme={theme}>
+      <Section>
+        <IntroText>
+          <header>
+            <h1>Knowledge Graph</h1>
+            <p>
+              The Data Commons Knowledge Graph is constructed by synthesizing a
+              single database from many different data sources. This knowledge
+              graph can be used both to explore what data is available and to
+              understand the graph structure.
+            </p>
+          </header>
+        </IntroText>
+      </Section>
+      <Section>
+        <KnowledgeGraphBrowser knowledgeGraph={knowledgeGraph} />
+      </Section>
+    </ThemeProvider>
   );
 }

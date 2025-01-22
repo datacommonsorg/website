@@ -87,10 +87,11 @@ function getAnswer(
     (feedbackStage === FeedbackStage.CALLS ||
       feedbackStage === FeedbackStage.OVERALL_QUESTIONS)
   ) {
-    answerPromise = () =>
+    answerPromise = (): Promise<string> =>
       Promise.resolve(getAnswerFromRagCalls(allCall, query.id));
   } else {
-    answerPromise = () => getAnswerFromQueryAndAnswerSheet(doc, query);
+    answerPromise = (): Promise<string> =>
+      getAnswerFromQueryAndAnswerSheet(doc, query);
   }
   if (!answerPromise) {
     return Promise.resolve({ answer: "", metadata });
@@ -224,7 +225,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       if (props.evalType !== EvalType.RIG) return;
       window.removeEventListener("click", onClick);
     };
-  }, []);
+  }, [props.evalType]);
 
   useEffect(() => {
     // Remove highlight from previous annotation

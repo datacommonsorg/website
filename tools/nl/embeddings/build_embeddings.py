@@ -36,12 +36,22 @@ flags.DEFINE_string(
 
 
 def _init_logger():
+  # Remove existing handlers from root handler that were set by absl library
+  for handler in logging.root.handlers:
+    logging.root.removeHandler(handler)
+
   # Log to stdout for easy redirect of the output text.
   # This enables the logs to be captured by the admin tool.
   logger = logging.getLogger()
-  logger.setLevel(logging.INFO)
   handler = logging.StreamHandler(sys.stdout)
   handler.setLevel(logging.INFO)
+
+  # Create a formatter to format the log messages
+  formatter = logging.Formatter(
+      "[%(asctime)s %(levelname)s %(filename)s:%(lineno)d] %(message)s")
+  handler.setFormatter(formatter)
+
+  # Add the handler to the logger
   logger.addHandler(handler)
 
 
@@ -79,8 +89,6 @@ def main(_):
   # Save embeddings
   if index_config.store_type == 'MEMORY':
     utils.save_embeddings_memory(fm.local_output_dir(), final_embeddings)
-  elif index_config.store_type == 'LANCEDB':
-    utils.save_embeddings_lancedb(fm.local_output_dir(), final_embeddings)
   else:
     raise ValueError(f'Unknown store type: {index_config.store_type}')
 

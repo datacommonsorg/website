@@ -23,6 +23,7 @@ from nl_server.config import ServerConfig
 from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import EmbeddingsModel
+from nl_server.embeddings import NoEmbeddingsException
 from nl_server.model.attribute_model import AttributeModel
 from nl_server.model.create import create_embeddings_model
 from nl_server.ranking import RerankingModel
@@ -95,19 +96,17 @@ class Registry:
     try:
       if idx_info.store_type == StoreType.MEMORY:
         store = MemoryEmbeddingsStore(idx_info)
-      elif idx_info.store_type == StoreType.LANCEDB:
-        # Lance DB's X86_64 lib doesn't run on MacOS Silicon, and
-        # this causes trouble for NL Server in Custom DC docker
-        # for MacOS Mx users. So skip using LanceDB for Custom DC.
-        # TODO: Drop this once Custom DC docker is fixed.
-        if not is_custom_dc():
-          from nl_server.store.lancedb import LanceDBStore
-          store = LanceDBStore(idx_info)
-        else:
-          logging.info('Not loading LanceDB in Custom DC environment!')
-          return
       elif idx_info.store_type == StoreType.VERTEXAI:
         store = VertexAIStore(idx_info)
+    except NoEmbeddingsException as e:
+      if not is_custom_dc():
+        raise e
+      # Some custom DCs may not have SVs or topics in which case no embeddings is a valid condition.
+      # We log a warning and skip it in that case.
+      logging.warning(
+          f'No embeddings found for the following index and will be skipped: {idx_info}'
+      )
+      store = None
     except Exception as e:
       logging.error(f'error loading index {idx_name}: {str(e)} ')
       raise e

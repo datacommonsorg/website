@@ -29,6 +29,11 @@ export const placeExplorerCategories = [
   "housing",
   "environment",
   "energy",
+  "health_new",
+  "energy_new",
+  "crime_new",
+  "demographics_new",
+  "economics_new",
 ];
 
 const NO_DATE_CAP_RCP_STATVARS = [
@@ -68,7 +73,7 @@ export function downloadFile(fileName: string, file: Blob | File): void {
   const url = window.URL.createObjectURL(file);
   link.setAttribute("href", url);
   link.setAttribute("download", fileName);
-  link.onclick = () => {
+  link.onclick = (): void => {
     setTimeout(() => window.URL.revokeObjectURL(url));
   };
   link.click();

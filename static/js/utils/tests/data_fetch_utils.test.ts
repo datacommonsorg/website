@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/* eslint-disable camelcase */
 import axios from "axios";
 import { when } from "jest-when";
 

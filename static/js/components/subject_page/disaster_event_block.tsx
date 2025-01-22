@@ -43,7 +43,6 @@ import {
 import {
   fetchDisasterEventPoints,
   getDate,
-  getHashValue,
   getSeverityFilters,
   getUpdatedHash,
   getUseCache,
@@ -193,7 +192,7 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
         {!hideFilters && (
           <div
             className="filter-toggle"
-            onClick={() => setShowFilters(!showFilters)}
+            onClick={(): void => setShowFilters(!showFilters)}
             title="Toggle filters"
           >
             <i className="material-icons">tune</i>
@@ -308,7 +307,8 @@ export function fetchDisasterEventData(
     };
     specIds.push(spec.id);
     const cacheKey = getDataFetchCacheKey(specDataOptions);
-    const promiseFn = () => fetchDisasterEventPoints(specDataOptions, apiRoot);
+    const promiseFn = (): Promise<DisasterEventPointData> =>
+      fetchDisasterEventPoints(specDataOptions, apiRoot);
     const promise = fetchData ? fetchData(cacheKey, promiseFn) : promiseFn();
     promises.push(promise);
   });

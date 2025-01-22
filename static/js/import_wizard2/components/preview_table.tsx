@@ -18,7 +18,6 @@
  * Component to show csv data in a table
  */
 
-import _ from "lodash";
 import React from "react";
 
 import { CsvData } from "../types";

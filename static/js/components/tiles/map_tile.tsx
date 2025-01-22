@@ -219,7 +219,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       !_.isEqual(mapChartData.props, props) ||
       !_.isEqual(mapChartData.dateOverride, dateOverride)
     ) {
-      (async () => {
+      (async (): Promise<void> => {
         try {
           setIsLoading(true);
           const data = await fetchData(props, dateOverride);
@@ -283,7 +283,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
   useDrawOnResize(drawFn, svgContainer.current);
   useEffect(() => {
-    const eventHandler = (e: CustomEvent<ChartEventDetail>) => {
+    const eventHandler = (e: CustomEvent<ChartEventDetail>): void => {
       if (e.detail.property === "date") {
         setDateOverride(e.detail.value);
       }
@@ -315,7 +315,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       }
       className={`${props.className} map-chart`}
       allowEmbed={true}
-      getDataCsv={async () => {
+      getDataCsv={async (): Promise<string> => {
         const layers = getDataSpec(props);
         const rows: DataRow[] = [];
         for (const layer of layers) {

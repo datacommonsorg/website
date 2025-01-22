@@ -93,7 +93,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           )}
         </div>
         <div
-          onClick={() => setChartOptionsOpened(!chartOptionsOpened)}
+          onClick={(): void => setChartOptionsOpened(!chartOptionsOpened)}
           className={`${SELECTOR_PREFIX}-options-button`}
         >
           <span>Chart Options</span>
@@ -110,7 +110,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                     id={ratioCheckboxId}
                     type="checkbox"
                     checked={props.isPerCapita}
-                    onChange={() => {
+                    onChange={(): void => {
                       props.onIsPerCapitaUpdated(!props.isPerCapita);
                       if (!props.isPerCapita) {
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
@@ -129,7 +129,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           <FacetSelector
             svFacetId={props.svFacetId}
             facetListPromise={Promise.resolve(props.facetList)}
-            onSvFacetIdUpdated={(svFacetId) => {
+            onSvFacetIdUpdated={(svFacetId): void => {
               props.onSvFacetIdUpdated(svFacetId);
               triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
                 [GA_PARAM_TOOL_CHART_OPTION]:

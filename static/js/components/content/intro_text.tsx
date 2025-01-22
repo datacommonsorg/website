@@ -18,6 +18,9 @@
  * A component to display a simple text block
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 interface IntroTextProps {
@@ -26,9 +29,28 @@ interface IntroTextProps {
 }
 
 export const IntroText = ({ children }: IntroTextProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <section id="intro-text" className="intro-text">
-      <div className="container">{children}</div>
-    </section>
+    <header
+      css={css`
+        width: 100%;
+        max-width: ${theme.width.md}px;
+        @media (max-width: ${theme.breakpoints.md}px) {
+          max-width: 100%;
+        }
+        h2,
+        h1 {
+          ${theme.typography.family.heading}
+          ${theme.typography.heading.lg}
+          margin-bottom: ${theme.spacing.xl}px;
+        }
+        p {
+          ${theme.typography.family.text}
+          ${theme.typography.text.md}
+        }
+      `}
+    >
+      {children}
+    </header>
   );
 };

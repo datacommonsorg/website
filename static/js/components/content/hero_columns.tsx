@@ -15,54 +15,63 @@
  */
 
 /**
- * A component to display the columned her component.
+ * A component to display the columned hero component.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-const HeroColumns = (): ReactElement => {
+interface HeroColumnsProps {
+  //the content of the two hero columns, given as slot props:
+  //<TextColumns.Left>...</TextColumns.Left><TextColumns.Right>...</TextColumns.Right>
+  children: ReactElement | ReactElement[];
+  //the size ratio of the two columns, with the default being equal
+  columnRatioVariant?: "equal" | "left-larger" | "right-larger";
+}
+
+interface HeroColumnsSlotProps {
+  //the content that populates either of the two columns
+  children: ReactElement | ReactElement[] | string;
+}
+
+const HeroColumnsLeft = ({ children }: HeroColumnsSlotProps): ReactElement => {
+  return <header id="hero">{children}</header>;
+};
+
+const HeroColumnsRight = ({ children }: HeroColumnsSlotProps): ReactElement => {
+  return <div>{children}</div>;
+};
+
+export const HeroColumns = ({
+  children,
+  columnRatioVariant = "equal",
+}: HeroColumnsProps): ReactElement => {
+  const theme = useTheme();
+
+  const layout =
+    columnRatioVariant === "right-larger"
+      ? "4fr 6fr"
+      : columnRatioVariant === "left-larger"
+      ? "6fr 4fr"
+      : "5fr 5fr";
+
   return (
-    <section id="hero-columns" className="hero-columns">
-      <div className="container big">
-        <div className="col_right">
-          <h2 className="title">
-            Build your Data Commons, overlay your data with global data, and let
-            everyone in your organization uncover insights with natural language
-            questions.{" "}
-            <a
-              href="https://docs.datacommons.org/custom_dc?utm_source=buildpage_hero"
-              title="Build your own Data Commons"
-            >
-              Learn how
-            </a>
-          </h2>
-        </div>
-        <div className="col_left">
-          <div>
-            <h4>Build and deploy your own</h4>
-            <p>
-              Launch your own Data Commons and customize it with your own data
-              to better engage your specific audience
-            </p>
-          </div>
-          <div>
-            <h4>Explore data with natural language</h4>
-            <p>
-              Ask questions in your own words and get answers directly from your
-              data
-            </p>
-          </div>
-          <div>
-            <h4>Gain actionable insights</h4>
-            <p>
-              Find actionable insights from your data in connection to global
-              data{" "}
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <article
+      css={css`
+        display: grid;
+        grid-template-columns: ${layout};
+        gap: ${theme.spacing.xl}px;
+        @media (max-width: ${theme.breakpoints.sm}px) {
+          grid-template-columns: 1fr;
+        }
+      `}
+    >
+      {children}
+    </article>
   );
 };
 
-export default HeroColumns;
+HeroColumns.Left = HeroColumnsLeft;
+HeroColumns.Right = HeroColumnsRight;

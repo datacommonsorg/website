@@ -62,7 +62,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
     if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
       loadEnclosedPlaces(place, isLoading);
     }
-  }, [place.value]);
+  }, [place, isLoading]);
 
   /**
    * If map view is selected, check that map view is possible before rendering
@@ -86,7 +86,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
         );
       }
     }
-  }, [place.value, display.chartType]);
+  }, [place.value, display]);
 
   return (
     <PlaceSelector
@@ -107,7 +107,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
               ? "selected-chart-option"
               : "chart-type-option"
           }`}
-          onClick={() => display.setChartType(ScatterChartType.SCATTER)}
+          onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
         >
           <i className="material-icons-outlined">scatter_plot</i>
         </div>
@@ -117,7 +117,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
               ? "selected-chart-option"
               : "chart-type-option"
           }`}
-          onClick={() => display.setChartType(ScatterChartType.MAP)}
+          onClick={(): void => display.setChartType(ScatterChartType.MAP)}
         >
           <i className="material-icons-outlined">public</i>
         </div>

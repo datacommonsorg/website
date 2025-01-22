@@ -116,48 +116,6 @@ class PlaceExplorerTestMixin():
                                           "place-highlight-in-overview").text
     self.assertTrue(place_type.startswith("Population:"))
 
-  def test_place_search(self):
-    """Test the place search box can work correctly."""
-    california_title = "California - Place Explorer - " + self.dc_title_string
-    # Load USA page.
-    self.driver.get(self.url_ + USA_URL)
-
-    # Wait until "Change Place" toggle has loaded.
-    element_present = EC.visibility_of_element_located(
-        (By.ID, 'change-place-toggle-text'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-
-    # Click on Change place
-    change_place_toggle = self.driver.find_element(By.ID,
-                                                   'change-place-toggle-text')
-    change_place_toggle.click()
-
-    # Wait until the search bar is visible.
-    element_present = EC.visibility_of_element_located(
-        (By.ID, 'place-autocomplete'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-
-    # Search for California in search bar
-    search_box = self.driver.find_element(By.ID, "place-autocomplete")
-    search_box.send_keys(PLACE_SEARCH)
-
-    # Wait until the place name has loaded.
-    element_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, '.pac-item:nth-child(1)'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-
-    # Select the first result from the list and click on it.
-    first_result = self.driver.find_element(By.CSS_SELECTOR,
-                                            '.pac-item:nth-child(1)')
-    first_result.click()
-
-    # Wait until the page loads and the title is correct.
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.title_contains(california_title))
-
-    # Assert page title is correct.
-    self.assertEqual(california_title, self.driver.title)
-
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
     title_text = "Median age by gender: states near California"
@@ -222,10 +180,18 @@ class PlaceExplorerTestMixin():
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
+    # Wait for redirect and page load.
+    redirect_finished = EC.url_changes(start_url)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
+    shared.wait_for_loading(self.driver)
+
+    # Assert redirected URL is correct and contains the query string.
+    self.assertTrue('place/country/USA?q=United+States+Of+America' in
+                    self.driver.current_url)
+
     # Assert page title is correct.
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains('United States of America'))
-    self.assertTrue("place/country/USA" in self.driver.current_url)
 
   def test_ranking_chart_present(self):
     """Test basic ranking chart."""
@@ -331,3 +297,26 @@ class PlaceExplorerTestMixin():
     # Check the title text
     page_title = self.driver.find_element(By.ID, 'place-name').text
     self.assertEqual(page_title, place_name_text)
+
+  def test_export_chart_data(self):
+    """Tests the export chart data button works correctly for group bar charts."""
+    # Load CA housing page
+    ca_housing_url = CA_URL + "?category=Housing"
+    self.driver.get(self.url_ + ca_housing_url)
+
+    # Wait for trend chart to load
+    trend_chart = EC.presence_of_element_located(
+        (By.CSS_SELECTOR, '[data-testclass~="is-snapshot"]'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(trend_chart)
+
+    # Find and click export link for group bar chart
+    export_link = self.driver.find_element(
+        By.XPATH,
+        "//*[@data-testclass='is-snapshot chart-type-GROUP_BAR']//div[contains(@class,'outlinks')]//a[text()='Export']"
+    )
+    export_link.click()
+
+    # Wait for entity DCID text to appear in dialog
+    entity_dcid_present = EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, "copy-svg"), "Entity DCID")
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(entity_dcid_present)

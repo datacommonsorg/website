@@ -21,6 +21,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import find_elems
+
 LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
 ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
@@ -62,6 +64,18 @@ def click_sv_group(driver, svg_name):
     if svg_name in group.text:
       group.click()
       break
+
+
+def click_el(driver, element_locator):
+  """Waits for an element with the given locator to be clickable, then clicks it.
+
+  Returns the clicked element.
+  """
+  element_clickable = EC.element_to_be_clickable(element_locator)
+  WebDriverWait(driver, TIMEOUT).until(element_clickable)
+  element = driver.find_element(*element_locator)
+  element.click()
+  return element
 
 
 def select_source(driver, source_name, sv_dcid):
@@ -119,3 +133,18 @@ def safe_url_open(url):
     with urllib.request.urlopen(req) as response:  # nosec B310
       return response.getcode()
   return 0
+
+
+def assert_topics(self, driver, path_to_topics, classname, expected_topics):
+  """Assert the topics on the place page."""
+  item_list_items = find_elems(driver,
+                               by=By.CLASS_NAME,
+                               value=classname,
+                               path_to_elem=path_to_topics)
+
+  # Assert that the number of found elements matches the expected number
+  self.assertEqual(len(item_list_items), len(expected_topics))
+
+  # Iterate through the elements and assert their text content
+  for item, expected_text in zip(item_list_items, expected_topics):
+    self.assertEqual(item.text, expected_text)
