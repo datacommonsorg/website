@@ -182,6 +182,7 @@ gh pr create \
   --head "${fork_owner}:${fork_name}:${UPDATE_BRANCH}" \
   --title "$current_date Custom DC stable release" \
   --body "$pr_body" \
-  --web > /dev/null
+  --web \
+  > /dev/null
 
 echo -e "\n$(tput bold)Please follow the link above to create a release PR.$(tput sgr0)"
