@@ -766,7 +766,8 @@ def fetch_nearby_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
 
 
 @cache.memoize(timeout=TIMEOUT)
-def fetch_peer_places_within(place_dcid: str, place_types: list[str]) -> List[str]:
+def fetch_peer_places_within(place_dcid: str,
+                             place_types: list[str]) -> List[str]:
   """Returns the list of peer places within the first parent that should be higlighted."""
   parent_places = get_parent_places(place_dcid)
 
