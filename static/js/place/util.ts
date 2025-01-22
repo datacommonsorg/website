@@ -117,25 +117,16 @@ function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
 }
 
 /**
- * Selects the appropriate enclosed place type to return given the placeScope and parent places.
- * @param placeScope string representing scope of places we want to show
- * @param place Current place
- * @returns string for the selected enclosed place type.
+ * Select the place type to highlight from provided list.
+ * @param place_types list of possible place types
+ * @returns the selected place_type.
  */
-function getEnclosedPlaceTypeOverride(
-  placeScope: string,
-  place: Place
-): string {
-  // If the scope is not one of the allowed values, return an empty string.
-  if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
-    return "";
-  }
-
+function firstPlaceTypeToHighlight(place_types: string[]): string {
   // Find the most important type from the place's types.
   let highlightedType = "";
   let lowestIndex = Infinity; // Start with a very high index
 
-  for (const currentType of place.types) {
+  for (const currentType of place_types) {
     const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
 
     if (currentIndex !== -1 && currentIndex < lowestIndex) {
@@ -145,6 +136,31 @@ function getEnclosedPlaceTypeOverride(
   }
 
   return highlightedType;
+}
+
+/**
+ * Selects the appropriate enclosed place type to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param place Current place
+ * @returns string for the selected enclosed place type.
+ */
+function getEnclosedPlaceTypeOverride(
+  placeScope: string,
+  place: Place
+): string {
+  switch (placeScope) {
+    case "CHILD_PLACES":
+      if (place.dcid == "Earth") {
+        // We do not have continent level data, so default to country.
+        return "Country";
+      }
+      return "";
+    case "SIMILAR_PLACES":
+    case "PEER_PLACES_WITHIN_PARENT":
+      return firstPlaceTypeToHighlight(place.types);
+    default:
+      return "";
+  }
 }
 
 // TODO(gmechali): Fix this once we decide what to do with i18n.
