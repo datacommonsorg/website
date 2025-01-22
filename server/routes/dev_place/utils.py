@@ -194,18 +194,28 @@ def get_place_override(places: List[Place]) -> str:
 def filter_chart_configs_for_category(
     place_category: str, chart_config: List[ServerChartConfiguration]
 ) -> List[ServerChartConfiguration]:
-  """Only returns the appropriate"""
+  """
+  Only returns the appropriate charts for the current category. Note that we do not
+  respect the is_overview filter for continents since we do not have continent level data.
+  If there is no data in the charts selected for the overview, we will fallback to the complete chart_config.
+  """
+  if place_category != "Overview":
+    return [c for c in chart_config if c.category == place_category]
+
+  original_chart_config = copy.deepcopy(chart_config)
+  # Only keep the blocks marked is_overview.
   filtered_chart_config = []
-  if place_category == "Overview":
-    for server_chart_config in chart_config:
-      server_chart_config.blocks = [
-          block for block in server_chart_config.blocks if block.is_overview
-      ]
-      filtered_chart_config.append(copy.deepcopy(server_chart_config))
-  else:
-    filtered_chart_config = [
-        c for c in chart_config if c.category == place_category
+  for server_chart_config in chart_config:
+    server_chart_config.blocks = [
+        block for block in server_chart_config.blocks if block.is_overview
     ]
+    if server_chart_config.blocks:
+      filtered_chart_config.append(copy.deepcopy(server_chart_config))
+
+  if not filtered_chart_config:
+    # Fallback to entire chart config if there is no data for overview page.
+    return original_chart_config
+
   return filtered_chart_config
 
 

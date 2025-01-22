@@ -74,11 +74,12 @@ def place_charts(place_dcid: str):
   child_place_type_to_highlight = place_utils.get_child_place_type_to_highlight(
       place)
 
+  place_type = place_utils.place_type_to_highlight(place.types)
   # Filter out place page charts that don't have any data for the current place_dcid
   chart_config_existing_data = place_utils.filter_chart_config_by_place_dcid(
       chart_config=full_chart_config,
       place_dcid=place_dcid,
-      place_type=place_utils.place_type_to_highlight(place.types),
+      place_type=place_type,
       parent_place_dcid=parent_place_dcid,
       child_place_type=child_place_type_to_highlight)
 
@@ -98,6 +99,8 @@ def place_charts(place_dcid: str):
   categories_with_translations = place_utils.get_categories_with_translations(
       chart_config_existing_data)
 
+  print(blocks)
+  print("blocks")
   response = PlaceChartsApiResponse(blocks=blocks,
                                     place=place,
                                     categories=categories_with_translations)
