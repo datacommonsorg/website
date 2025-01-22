@@ -105,8 +105,10 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         'Places in California')
 
     # Assert the overview exists, has a summary and a map.
-    self.assertNotEqual(len(find_elem(self.driver, by=By.CSS_SELECTOR, value='.place-summary').text),
-                        "")
+    self.assertNotEqual(
+        len(
+            find_elem(self.driver, by=By.CSS_SELECTOR,
+                      value='.place-summary').text), "")
     self.assertIsNotNone(find_elem(self.driver, value='map-container'))
 
     # Assert the key demographics table has data
