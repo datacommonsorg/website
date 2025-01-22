@@ -86,7 +86,7 @@ def place_charts(place_dcid: str):
 
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_configs_for_category(
-      place_category, chart_config_existing_data, place_type)
+      place_category, chart_config_existing_data)
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
@@ -100,6 +100,8 @@ def place_charts(place_dcid: str):
   categories_with_translations = place_utils.get_categories_with_translations(
       chart_config_existing_data)
 
+  print(blocks)
+  print("blocks")
   response = PlaceChartsApiResponse(blocks=blocks,
                                     place=place,
                                     categories=categories_with_translations)
