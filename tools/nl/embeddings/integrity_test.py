@@ -33,10 +33,6 @@ class TestIntegrity(unittest.TestCase):
     for embeddings_name, index_config in catalog().indexes.items():
       if embeddings_name in ['medium_ft', 'base_mistral_mem']:
         continue
-      if index_config.store_type == 'LANCEDB':
-        continue
-        # TODO: fix this after lancedb incremental update
-        # embeddings_dir = index_config.embeddings_path
       if index_config.store_type == 'MEMORY':
         embeddings_dir = os.path.dirname(index_config.embeddings_path)
       else:

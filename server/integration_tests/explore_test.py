@@ -277,11 +277,6 @@ class ExploreTestDetection(ExploreTest):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest')
 
-  def test_detection_basic_lancedb(self):
-    self.run_detection('detection_api_basic_lancedb', ['Commute in California'],
-                       test='unittest',
-                       idx='base_uae_lance')
-
   def test_detection_basic_sdg(self):
     self.run_detection('detection_api_sdg_idx', ['Health in USA'],
                        test='unittest',
