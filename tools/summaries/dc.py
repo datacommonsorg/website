@@ -176,7 +176,7 @@ def get_property(property: str,
                  direction="out") -> Dict:
   """Get mapping of place dcid -> property value"""
   req_url = f"https://api.datacommons.org/v1/bulk/property/values/{direction}?property={property}&key={_API_KEY}&nodes="
-  req_url += "&nodes=".join(place_dcids)
+  req_url += "&nodes=".join(place_dcids).replace("/", "%2F")
   response = requests.get(req_url)
   if response.status_code == 200:
     # Format response into dcid -> name dictionary

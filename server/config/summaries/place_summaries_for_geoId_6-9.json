@@ -24,16 +24,16 @@
         "summary": "Pohnpei State is a county in Federated States of Micronesia. The population in Pohnpei State was 36,196 in 2010."
     },
     "geoId/64060": {
-        "summary": "Yap State is a county in Federated States of Micronesia. The population in Yap State was 11,377 in 2010."
+        "summary": "Yap State is a county in Federated States of Micronesia. The population in Yap State was 11,577 in 2020."
     },
     "geoId/68190": {
-        "summary": "Majuro is a county in Marshall Islands. The population in Majuro was 25,400 in 2004."
+        "summary": "Majuro is a county in Marshall Islands. The population in Majuro was 27,797 in 2011."
     },
     "geoId/69085": {
         "summary": "Northern Islands Municipality is a county in Northern Mariana Islands. The population in Northern Islands Municipality was 0 in 2010."
     },
     "geoId/69100": {
-        "summary": "Rota is a county in Northern Mariana Islands. The population in Rota was 3,283 in 2000."
+        "summary": "Rota is a county in Northern Mariana Islands."
     },
     "geoId/69110": {
         "summary": "Saipan is a county in Northern Mariana Islands. The population in Saipan was 48,220 in 2010."
@@ -57,22 +57,22 @@
         "summary": "Kayangel is a county in Palau. The population in Kayangel was 54 in 2015."
     },
     "geoId/70150": {
-        "summary": "Koror is a county in Palau. The population in Koror was 11,444 in 2015."
+        "summary": "Koror is a county in Palau. The population in Koror was 10,600 in 2000."
     },
     "geoId/70212": {
-        "summary": "Melekeok is a county in Palau. The population in Melekeok was 277 in 2015."
+        "summary": "Melekeok is a county in Palau. The population in Melekeok was 318 in 2020."
     },
     "geoId/70214": {
         "summary": "Ngaraard is a county in Palau. The population in Ngaraard was 413 in 2015."
     },
     "geoId/70218": {
-        "summary": "Ngarchelong is a county in Palau. The population in Ngarchelong was 316 in 2015."
+        "summary": "Ngarchelong is a county in Palau. The population in Ngarchelong was 384 in 2020."
     },
     "geoId/70222": {
         "summary": "Ngardmau is a county in Palau. The population in Ngardmau was 185 in 2015."
     },
     "geoId/70224": {
-        "summary": "Ngatpang is a county in Palau. The population in Ngatpang was 282 in 2015."
+        "summary": "Ngatpang is a county in Palau. The population in Ngatpang was 289 in 2020."
     },
     "geoId/70226": {
         "summary": "Ngchesar is a county in Palau. The population in Ngchesar was 291 in 2015."
@@ -90,241 +90,241 @@
         "summary": "Sonsorol is a county in Palau. The population in Sonsorol was 40 in 2015."
     },
     "geoId/72001": {
-        "summary": "Adjuntas Municipio is a county in Puerto Rico, United States. The population in Adjuntas Municipio was 18,068 in 2021. The median age in Adjuntas Municipio was 43.3 in 2021. The median income in Adjuntas Municipio was $9,416 in 2021. The unemployment rate in Adjuntas Municipio was 7.4% in 2023."
+        "summary": "Adjuntas Municipio is a county in Puerto Rico, United States. The population in Adjuntas Municipio was 17,972 in 2022. The median age in Adjuntas Municipio was 43.8 in 2022. The median income in Adjuntas Municipio was $10,269 in 2022. The unemployment rate in Adjuntas Municipio was 8.1% in 2024."
     },
     "geoId/72003": {
-        "summary": "Aguada Municipio is a county in Puerto Rico, United States. The population in Aguada Municipio was 38,307 in 2021. The median age in Aguada Municipio was 44.5 in 2021. The median income in Aguada Municipio was $12,199 in 2021. The unemployment rate in Aguada Municipio was 6.7% in 2023."
+        "summary": "Aguada Municipio is a county in Puerto Rico, United States. The population in Aguada Municipio was 37,998 in 2022. The median age in Aguada Municipio was 45.4 in 2022. The median income in Aguada Municipio was $13,216 in 2022. The unemployment rate in Aguada Municipio was 6.9% in 2024."
     },
     "geoId/72005": {
-        "summary": "Aguadilla Municipio is a county in Puerto Rico, United States. The population in Aguadilla Municipio was 55,241 in 2021. The median age in Aguadilla Municipio was 43.6 in 2021. The median income in Aguadilla Municipio was $13,148 in 2021. The unemployment rate in Aguadilla Municipio was 7% in 2023."
+        "summary": "Aguadilla Municipio is a county in Puerto Rico, United States. The population in Aguadilla Municipio was 54,752 in 2022. The median age in Aguadilla Municipio was 44 in 2022. The median income in Aguadilla Municipio was $13,695 in 2022. The unemployment rate in Aguadilla Municipio was 7.3% in 2024."
     },
     "geoId/72007": {
-        "summary": "Aguas Buenas Municipio is a county in Puerto Rico, United States. The population in Aguas Buenas Municipio was 24,567 in 2021. The median age in Aguas Buenas Municipio was 43.2 in 2021. The median income in Aguas Buenas Municipio was $14,279 in 2021. The unemployment rate in Aguas Buenas Municipio was 6.2% in 2023."
+        "summary": "Aguas Buenas Municipio is a county in Puerto Rico, United States. The population in Aguas Buenas Municipio was 24,136 in 2022. The median age in Aguas Buenas Municipio was 44.2 in 2022. The median income in Aguas Buenas Municipio was $14,522 in 2022. The unemployment rate in Aguas Buenas Municipio was 5.7% in 2024."
     },
     "geoId/72009": {
-        "summary": "Aibonito Municipio is a county in Puerto Rico, United States. The population in Aibonito Municipio was 24,565 in 2021. The median age in Aibonito Municipio was 45.1 in 2021. The median income in Aibonito Municipio was $12,738 in 2021. The unemployment rate in Aibonito Municipio was 7.1% in 2023."
+        "summary": "Aibonito Municipio is a county in Puerto Rico, United States. The population in Aibonito Municipio was 24,555 in 2022. The median age in Aibonito Municipio was 45.8 in 2022. The median income in Aibonito Municipio was $13,888 in 2022. The unemployment rate in Aibonito Municipio was 6.9% in 2024."
     },
     "geoId/72011": {
-        "summary": "A\u00f1asco Municipio is a county in Puerto Rico, United States. The population in A\u00f1asco Municipio was 25,859 in 2021. The median age in A\u00f1asco Municipio was 43.8 in 2021. The median income in A\u00f1asco Municipio was $13,162 in 2021. The unemployment rate in A\u00f1asco Municipio was 5.9% in 2023."
+        "summary": "A\u00f1asco Municipio is a county in Puerto Rico, United States. The population in A\u00f1asco Municipio was 25,497 in 2022. The median age in A\u00f1asco Municipio was 45 in 2022. The median income in A\u00f1asco Municipio was $14,128 in 2022. The unemployment rate in A\u00f1asco Municipio was 6.5% in 2024."
     },
     "geoId/72013": {
-        "summary": "Arecibo Municipio is a county in Puerto Rico, United States. The population in Arecibo Municipio was 88,017 in 2021. The median age in Arecibo Municipio was 43.8 in 2021. The median income in Arecibo Municipio was $13,212 in 2021. The unemployment rate in Arecibo Municipio was 6.9% in 2023."
+        "summary": "Arecibo Municipio is a county in Puerto Rico, United States. The population in Arecibo Municipio was 87,217 in 2022. The median age in Arecibo Municipio was 44.6 in 2022. The median income in Arecibo Municipio was $14,610 in 2022. The unemployment rate in Arecibo Municipio was 5.9% in 2024."
     },
     "geoId/72015": {
-        "summary": "Arroyo Municipio is a county in Puerto Rico, United States. The population in Arroyo Municipio was 16,183 in 2021. The median age in Arroyo Municipio was 41.6 in 2021. The median income in Arroyo Municipio was $12,647 in 2021. The unemployment rate in Arroyo Municipio was 8.6% in 2023."
+        "summary": "Arroyo Municipio is a county in Puerto Rico, United States. The population in Arroyo Municipio was 15,797 in 2022. The median age in Arroyo Municipio was 41.9 in 2022. The median income in Arroyo Municipio was $14,191 in 2022. The unemployment rate in Arroyo Municipio was 8.4% in 2024."
     },
     "geoId/72017": {
-        "summary": "Barceloneta Municipio is a county in Puerto Rico, United States. The population in Barceloneta Municipio was 22,836 in 2021. The median age in Barceloneta Municipio was 42.4 in 2021. The median income in Barceloneta Municipio was $15,096 in 2021. The unemployment rate in Barceloneta Municipio was 7.8% in 2023."
+        "summary": "Barceloneta Municipio is a county in Puerto Rico, United States. The population in Barceloneta Municipio was 22,604 in 2022. The median age in Barceloneta Municipio was 42.7 in 2022. The median income in Barceloneta Municipio was $15,391 in 2022. The unemployment rate in Barceloneta Municipio was 7.1% in 2024."
     },
     "geoId/72019": {
-        "summary": "Barranquitas Municipio is a county in Puerto Rico, United States. The population in Barranquitas Municipio was 28,982 in 2021. The median age in Barranquitas Municipio was 38 in 2021. The median income in Barranquitas Municipio was $13,666 in 2021. The unemployment rate in Barranquitas Municipio was 7.2% in 2023."
+        "summary": "Barranquitas Municipio is a county in Puerto Rico, United States. The population in Barranquitas Municipio was 28,899 in 2022. The median age in Barranquitas Municipio was 38.9 in 2022. The median income in Barranquitas Municipio was $14,581 in 2022. The unemployment rate in Barranquitas Municipio was 7.1% in 2024."
     },
     "geoId/72021": {
-        "summary": "Bayam\u00f3n Municipio is a county in Puerto Rico, United States. The population in Bayam\u00f3n Municipio was 185,939 in 2021. The median age in Bayam\u00f3n Municipio was 43.3 in 2021. The median income in Bayam\u00f3n Municipio was $16,269 in 2021. The unemployment rate in Bayam\u00f3n Municipio was 4.5% in 2023."
+        "summary": "Bayam\u00f3n Municipio is a county in Puerto Rico, United States. The population in Bayam\u00f3n Municipio was 184,326 in 2022. The median age in Bayam\u00f3n Municipio was 43.7 in 2022. The median income in Bayam\u00f3n Municipio was $17,470 in 2022. The unemployment rate in Bayam\u00f3n Municipio was 3.7% in 2024."
     },
     "geoId/72023": {
-        "summary": "Cabo Rojo Municipio is a county in Puerto Rico, United States. The population in Cabo Rojo Municipio was 47,403 in 2021. The median age in Cabo Rojo Municipio was 45.8 in 2021. The median income in Cabo Rojo Municipio was $12,065 in 2021. The unemployment rate in Cabo Rojo Municipio was 6.2% in 2023."
+        "summary": "Cabo Rojo Municipio is a county in Puerto Rico, United States. The population in Cabo Rojo Municipio was 46,983 in 2022. The median age in Cabo Rojo Municipio was 46.3 in 2022. The median income in Cabo Rojo Municipio was $14,315 in 2022. The unemployment rate in Cabo Rojo Municipio was 6.2% in 2024."
     },
     "geoId/72025": {
-        "summary": "Caguas Municipio is a county in Puerto Rico, United States. The population in Caguas Municipio was 128,182 in 2021. The median age in Caguas Municipio was 43.1 in 2021. The median income in Caguas Municipio was $16,015 in 2021. The unemployment rate in Caguas Municipio was 4.7% in 2023."
+        "summary": "Caguas Municipio is a county in Puerto Rico, United States. The population in Caguas Municipio was 126,772 in 2022. The median age in Caguas Municipio was 43.8 in 2022. The median income in Caguas Municipio was $17,098 in 2022. The unemployment rate in Caguas Municipio was 4.7% in 2024."
     },
     "geoId/72027": {
-        "summary": "Camuy Municipio is a county in Puerto Rico, United States. The population in Camuy Municipio was 32,885 in 2021. The median age in Camuy Municipio was 43.8 in 2021. The median income in Camuy Municipio was $12,587 in 2021. The unemployment rate in Camuy Municipio was 6.4% in 2023."
+        "summary": "Camuy Municipio is a county in Puerto Rico, United States. The population in Camuy Municipio was 32,733 in 2022. The median age in Camuy Municipio was 44.5 in 2022. The median income in Camuy Municipio was $13,527 in 2022. The unemployment rate in Camuy Municipio was 5.5% in 2024."
     },
     "geoId/72029": {
-        "summary": "Can\u00f3vanas Municipio is a county in Puerto Rico, United States. The population in Can\u00f3vanas Municipio was 42,811 in 2021. The median age in Can\u00f3vanas Municipio was 41.5 in 2021. The median income in Can\u00f3vanas Municipio was $16,431 in 2021. The unemployment rate in Can\u00f3vanas Municipio was 4.4% in 2023."
+        "summary": "Can\u00f3vanas Municipio is a county in Puerto Rico, United States. The population in Can\u00f3vanas Municipio was 42,218 in 2022. The median age in Can\u00f3vanas Municipio was 41.8 in 2022. The median income in Can\u00f3vanas Municipio was $17,722 in 2022. The unemployment rate in Can\u00f3vanas Municipio was 4% in 2024."
     },
     "geoId/72031": {
-        "summary": "Carolina Municipio is a county in Puerto Rico, United States. The population in Carolina Municipio was 155,886 in 2021. The median age in Carolina Municipio was 43.7 in 2021. The median income in Carolina Municipio was $17,500 in 2021. The unemployment rate in Carolina Municipio was 4% in 2023."
+        "summary": "Carolina Municipio is a county in Puerto Rico, United States. The population in Carolina Municipio was 154,126 in 2022. The median age in Carolina Municipio was 44.3 in 2022. The median income in Carolina Municipio was $18,979 in 2022. The unemployment rate in Carolina Municipio was 3.4% in 2024."
     },
     "geoId/72033": {
-        "summary": "Cata\u00f1o Municipio is a county in Puerto Rico, United States. The population in Cata\u00f1o Municipio was 23,536 in 2021. The median age in Cata\u00f1o Municipio was 41.9 in 2021. The median income in Cata\u00f1o Municipio was $13,862 in 2021. The unemployment rate in Cata\u00f1o Municipio was 4% in 2023."
+        "summary": "Cata\u00f1o Municipio is a county in Puerto Rico, United States. The population in Cata\u00f1o Municipio was 23,060 in 2022. The median age in Cata\u00f1o Municipio was 42.9 in 2022. The median income in Cata\u00f1o Municipio was $15,124 in 2022. The unemployment rate in Cata\u00f1o Municipio was 3.4% in 2024."
     },
     "geoId/72035": {
-        "summary": "Cayey Municipio is a county in Puerto Rico, United States. The population in Cayey Municipio was 42,134 in 2021. The median age in Cayey Municipio was 43.9 in 2021. The median income in Cayey Municipio was $14,374 in 2021. The unemployment rate in Cayey Municipio was 5.2% in 2023."
+        "summary": "Cayey Municipio is a county in Puerto Rico, United States. The population in Cayey Municipio was 41,509 in 2022. The median age in Cayey Municipio was 44.6 in 2022. The median income in Cayey Municipio was $15,811 in 2022. The unemployment rate in Cayey Municipio was 4.7% in 2024."
     },
     "geoId/72037": {
-        "summary": "Ceiba Municipio is a county in Puerto Rico, United States. The population in Ceiba Municipio was 11,463 in 2021. The median age in Ceiba Municipio was 44.8 in 2021. The median income in Ceiba Municipio was $14,014 in 2021. The unemployment rate in Ceiba Municipio was 7% in 2023."
+        "summary": "Ceiba Municipio is a county in Puerto Rico, United States. The population in Ceiba Municipio was 11,256 in 2022. The median age in Ceiba Municipio was 45.6 in 2022. The median income in Ceiba Municipio was $15,660 in 2022. The unemployment rate in Ceiba Municipio was 7.2% in 2024."
     },
     "geoId/72039": {
-        "summary": "Ciales Municipio is a county in Puerto Rico, United States. The population in Ciales Municipio was 17,045 in 2021. The median age in Ciales Municipio was 43.5 in 2021. The median income in Ciales Municipio was $10,774 in 2021. The unemployment rate in Ciales Municipio was 7.6% in 2023."
+        "summary": "Ciales Municipio is a county in Puerto Rico, United States. The population in Ciales Municipio was 16,924 in 2022. The median age in Ciales Municipio was 44.9 in 2022. The median income in Ciales Municipio was $11,597 in 2022. The unemployment rate in Ciales Municipio was 8.4% in 2024."
     },
     "geoId/72041": {
-        "summary": "Cidra Municipio is a county in Puerto Rico, United States. The population in Cidra Municipio was 40,125 in 2021. The median age in Cidra Municipio was 42.1 in 2021. The median income in Cidra Municipio was $14,510 in 2021. The unemployment rate in Cidra Municipio was 4.9% in 2023."
+        "summary": "Cidra Municipio is a county in Puerto Rico, United States. The population in Cidra Municipio was 39,831 in 2022. The median age in Cidra Municipio was 42.9 in 2022. The median income in Cidra Municipio was $15,833 in 2022. The unemployment rate in Cidra Municipio was 4.2% in 2024."
     },
     "geoId/72043": {
-        "summary": "Coamo Municipio is a county in Puerto Rico, United States. The population in Coamo Municipio was 35,268 in 2021. The median age in Coamo Municipio was 43.7 in 2021. The median income in Coamo Municipio was $12,986 in 2021. The unemployment rate in Coamo Municipio was 7.7% in 2023."
+        "summary": "Coamo Municipio is a county in Puerto Rico, United States. The population in Coamo Municipio was 34,557 in 2022. The median age in Coamo Municipio was 44.5 in 2022. The median income in Coamo Municipio was $13,933 in 2022. The unemployment rate in Coamo Municipio was 7.4% in 2024."
     },
     "geoId/72045": {
-        "summary": "Comer\u00edo Municipio is a county in Puerto Rico, United States. The population in Comer\u00edo Municipio was 18,990 in 2021. The median age in Comer\u00edo Municipio was 41.1 in 2021. The median income in Comer\u00edo Municipio was $12,953 in 2021. The unemployment rate in Comer\u00edo Municipio was 7.3% in 2023."
+        "summary": "Comer\u00edo Municipio is a county in Puerto Rico, United States. The population in Comer\u00edo Municipio was 18,817 in 2022. The median age in Comer\u00edo Municipio was 41.7 in 2022. The median income in Comer\u00edo Municipio was $13,828 in 2022. The unemployment rate in Comer\u00edo Municipio was 6.4% in 2024."
     },
     "geoId/72047": {
-        "summary": "Corozal Municipio is a county in Puerto Rico, United States. The population in Corozal Municipio was 34,631 in 2021. The median age in Corozal Municipio was 41.4 in 2021. The median income in Corozal Municipio was $13,125 in 2021. The unemployment rate in Corozal Municipio was 6.5% in 2023."
+        "summary": "Corozal Municipio is a county in Puerto Rico, United States. The population in Corozal Municipio was 34,459 in 2022. The median age in Corozal Municipio was 41.9 in 2022. The median income in Corozal Municipio was $14,206 in 2022. The unemployment rate in Corozal Municipio was 8.4% in 2024."
     },
     "geoId/72049": {
-        "summary": "Culebra Municipio is a county in Puerto Rico, United States. The population in Culebra Municipio was 1,293 in 2021. The median age in Culebra Municipio was 45.1 in 2021. The median income in Culebra Municipio was $16,730 in 2021. The unemployment rate in Culebra Municipio was 1.8% in 2023."
+        "summary": "Culebra Municipio is a county in Puerto Rico, United States. The population in Culebra Municipio was 1,186 in 2022. The median age in Culebra Municipio was 44.6 in 2022. The median income in Culebra Municipio was $17,972 in 2022. The unemployment rate in Culebra Municipio was 1.1% in 2024."
     },
     "geoId/72051": {
-        "summary": "Dorado Municipio is a county in Puerto Rico, United States. The population in Dorado Municipio was 36,030 in 2021. The median age in Dorado Municipio was 42.4 in 2021. The median income in Dorado Municipio was $16,984 in 2021. The unemployment rate in Dorado Municipio was 4.7% in 2023."
+        "summary": "Dorado Municipio is a county in Puerto Rico, United States. The population in Dorado Municipio was 35,786 in 2022. The median age in Dorado Municipio was 42.5 in 2022. The median income in Dorado Municipio was $19,255 in 2022. The unemployment rate in Dorado Municipio was 5.1% in 2024."
     },
     "geoId/72053": {
-        "summary": "Fajardo Municipio is a county in Puerto Rico, United States. The population in Fajardo Municipio was 32,336 in 2021. The median age in Fajardo Municipio was 43 in 2021. The median income in Fajardo Municipio was $14,020 in 2021. The unemployment rate in Fajardo Municipio was 7.3% in 2023."
+        "summary": "Fajardo Municipio is a county in Puerto Rico, United States. The population in Fajardo Municipio was 31,984 in 2022. The median age in Fajardo Municipio was 43.7 in 2022. The median income in Fajardo Municipio was $16,000 in 2022. The unemployment rate in Fajardo Municipio was 7.7% in 2024."
     },
     "geoId/72054": {
-        "summary": "Florida Municipio is a county in Puerto Rico, United States. The population in Florida Municipio was 11,725 in 2021. The median age in Florida Municipio was 40.6 in 2021. The median income in Florida Municipio was $13,322 in 2021. The unemployment rate in Florida Municipio was 7.8% in 2023."
+        "summary": "Florida Municipio is a county in Puerto Rico, United States. The population in Florida Municipio was 11,641 in 2022. The median age in Florida Municipio was 40.7 in 2022. The median income in Florida Municipio was $14,170 in 2022. The unemployment rate in Florida Municipio was 7.6% in 2024."
     },
     "geoId/72055": {
-        "summary": "Gu\u00e1nica Municipio is a county in Puerto Rico, United States. The population in Gu\u00e1nica Municipio was 14,297 in 2021. The median age in Gu\u00e1nica Municipio was 43.8 in 2021. The median income in Gu\u00e1nica Municipio was $10,415 in 2021. The unemployment rate in Gu\u00e1nica Municipio was 11.1% in 2023."
+        "summary": "Gu\u00e1nica Municipio is a county in Puerto Rico, United States. The population in Gu\u00e1nica Municipio was 13,682 in 2022. The median age in Gu\u00e1nica Municipio was 45 in 2022. The median income in Gu\u00e1nica Municipio was $11,087 in 2022. The unemployment rate in Gu\u00e1nica Municipio was 14.2% in 2024."
     },
     "geoId/72057": {
-        "summary": "Guayama Municipio is a county in Puerto Rico, United States. The population in Guayama Municipio was 37,388 in 2021. The median age in Guayama Municipio was 40.4 in 2021. The median income in Guayama Municipio was $13,447 in 2021. The unemployment rate in Guayama Municipio was 7.1% in 2023."
+        "summary": "Guayama Municipio is a county in Puerto Rico, United States. The population in Guayama Municipio was 36,365 in 2022. The median age in Guayama Municipio was 40.7 in 2022. The median income in Guayama Municipio was $15,030 in 2022. The unemployment rate in Guayama Municipio was 7.8% in 2024."
     },
     "geoId/72059": {
-        "summary": "Guayanilla Municipio is a county in Puerto Rico, United States. The population in Guayanilla Municipio was 18,047 in 2021. The median age in Guayanilla Municipio was 42.2 in 2021. The median income in Guayanilla Municipio was $11,254 in 2021. The unemployment rate in Guayanilla Municipio was 11.3% in 2023."
+        "summary": "Guayanilla Municipio is a county in Puerto Rico, United States. The population in Guayanilla Municipio was 17,670 in 2022. The median age in Guayanilla Municipio was 42.6 in 2022. The median income in Guayanilla Municipio was $11,613 in 2022. The unemployment rate in Guayanilla Municipio was 10.8% in 2024."
     },
     "geoId/72061": {
-        "summary": "Guaynabo Municipio is a county in Puerto Rico, United States. The population in Guaynabo Municipio was 90,014 in 2021. The median age in Guaynabo Municipio was 45.7 in 2021. The median income in Guaynabo Municipio was $19,454 in 2021. The unemployment rate in Guaynabo Municipio was 2.7% in 2023."
+        "summary": "Guaynabo Municipio is a county in Puerto Rico, United States. The population in Guaynabo Municipio was 89,554 in 2022. The median age in Guaynabo Municipio was 46.3 in 2022. The median income in Guaynabo Municipio was $21,781 in 2022. The unemployment rate in Guaynabo Municipio was 2.4% in 2024."
     },
     "geoId/72063": {
-        "summary": "Gurabo Municipio is a county in Puerto Rico, United States. The population in Gurabo Municipio was 41,237 in 2021. The median age in Gurabo Municipio was 40.5 in 2021. The median income in Gurabo Municipio was $16,601 in 2021. The unemployment rate in Gurabo Municipio was 4.2% in 2023."
+        "summary": "Gurabo Municipio is a county in Puerto Rico, United States. The population in Gurabo Municipio was 40,517 in 2022. The median age in Gurabo Municipio was 41.2 in 2022. The median income in Gurabo Municipio was $18,583 in 2022. The unemployment rate in Gurabo Municipio was 3.7% in 2024."
     },
     "geoId/72065": {
-        "summary": "Hatillo Municipio is a county in Puerto Rico, United States. The population in Hatillo Municipio was 38,739 in 2021. The median age in Hatillo Municipio was 43.6 in 2021. The median income in Hatillo Municipio was $13,244 in 2021. The unemployment rate in Hatillo Municipio was 5.8% in 2023."
+        "summary": "Hatillo Municipio is a county in Puerto Rico, United States. The population in Hatillo Municipio was 38,330 in 2022. The median age in Hatillo Municipio was 44.6 in 2022. The median income in Hatillo Municipio was $15,030 in 2022. The unemployment rate in Hatillo Municipio was 5.4% in 2024."
     },
     "geoId/72067": {
-        "summary": "Hormigueros Municipio is a county in Puerto Rico, United States. The population in Hormigueros Municipio was 15,726 in 2021. The median age in Hormigueros Municipio was 48.1 in 2021. The median income in Hormigueros Municipio was $13,854 in 2021. The unemployment rate in Hormigueros Municipio was 4.4% in 2023."
+        "summary": "Hormigueros Municipio is a county in Puerto Rico, United States. The population in Hormigueros Municipio was 15,571 in 2022. The median age in Hormigueros Municipio was 49 in 2022. The median income in Hormigueros Municipio was $14,640 in 2022. The unemployment rate in Hormigueros Municipio was 5.2% in 2024."
     },
     "geoId/72069": {
-        "summary": "Humacao Municipio is a county in Puerto Rico, United States. The population in Humacao Municipio was 51,398 in 2021. The median age in Humacao Municipio was 45 in 2021. The median income in Humacao Municipio was $14,508 in 2021. The unemployment rate in Humacao Municipio was 6.8% in 2023."
+        "summary": "Humacao Municipio is a county in Puerto Rico, United States. The population in Humacao Municipio was 50,729 in 2022. The median age in Humacao Municipio was 45.9 in 2022. The median income in Humacao Municipio was $15,908 in 2022. The unemployment rate in Humacao Municipio was 6.6% in 2024."
     },
     "geoId/72071": {
-        "summary": "Isabela Municipio is a county in Puerto Rico, United States. The population in Isabela Municipio was 42,985 in 2021. The median age in Isabela Municipio was 43.8 in 2021. The median income in Isabela Municipio was $12,397 in 2021. The unemployment rate in Isabela Municipio was 6.4% in 2023."
+        "summary": "Isabela Municipio is a county in Puerto Rico, United States. The population in Isabela Municipio was 42,817 in 2022. The median age in Isabela Municipio was 44.3 in 2022. The median income in Isabela Municipio was $13,758 in 2022. The unemployment rate in Isabela Municipio was 5.7% in 2024."
     },
     "geoId/72073": {
-        "summary": "Jayuya Municipio is a county in Puerto Rico, United States. The population in Jayuya Municipio was 14,877 in 2021. The median age in Jayuya Municipio was 41.6 in 2021. The median income in Jayuya Municipio was $11,393 in 2021. The unemployment rate in Jayuya Municipio was 8.7% in 2023."
+        "summary": "Jayuya Municipio is a county in Puerto Rico, United States. The population in Jayuya Municipio was 14,726 in 2022. The median age in Jayuya Municipio was 41.7 in 2022. The median income in Jayuya Municipio was $13,175 in 2022. The unemployment rate in Jayuya Municipio was 6.7% in 2024."
     },
     "geoId/72075": {
-        "summary": "Juana D\u00edaz Municipio is a county in Puerto Rico, United States. The population in Juana D\u00edaz Municipio was 46,704 in 2021. The median age in Juana D\u00edaz Municipio was 41.5 in 2021. The median income in Juana D\u00edaz Municipio was $12,884 in 2021. The unemployment rate in Juana D\u00edaz Municipio was 7.2% in 2023."
+        "summary": "Juana D\u00edaz Municipio is a county in Puerto Rico, United States. The population in Juana D\u00edaz Municipio was 46,333 in 2022. The median age in Juana D\u00edaz Municipio was 41.6 in 2022. The median income in Juana D\u00edaz Municipio was $13,879 in 2022. The unemployment rate in Juana D\u00edaz Municipio was 6.6% in 2024."
     },
     "geoId/72077": {
-        "summary": "Juncos Municipio is a county in Puerto Rico, United States. The population in Juncos Municipio was 37,290 in 2021. The median age in Juncos Municipio was 39.7 in 2021. The median income in Juncos Municipio was $14,706 in 2021. The unemployment rate in Juncos Municipio was 6.1% in 2023."
+        "summary": "Juncos Municipio is a county in Puerto Rico, United States. The population in Juncos Municipio was 36,928 in 2022. The median age in Juncos Municipio was 40.1 in 2022. The median income in Juncos Municipio was $15,616 in 2022. The unemployment rate in Juncos Municipio was 5.5% in 2024."
     },
     "geoId/72079": {
-        "summary": "Lajas Municipio is a county in Puerto Rico, United States. The population in Lajas Municipio was 23,407 in 2021. The median age in Lajas Municipio was 47 in 2021. The median income in Lajas Municipio was $11,283 in 2021. The unemployment rate in Lajas Municipio was 8.2% in 2023."
+        "summary": "Lajas Municipio is a county in Puerto Rico, United States. The population in Lajas Municipio was 23,202 in 2022. The median age in Lajas Municipio was 47.4 in 2022. The median income in Lajas Municipio was $13,095 in 2022. The unemployment rate in Lajas Municipio was 9.8% in 2024."
     },
     "geoId/72081": {
-        "summary": "Lares Municipio is a county in Puerto Rico, United States. The population in Lares Municipio was 28,092 in 2021. The median age in Lares Municipio was 44.2 in 2021. The median income in Lares Municipio was $11,435 in 2021. The unemployment rate in Lares Municipio was 8.4% in 2023."
+        "summary": "Lares Municipio is a county in Puerto Rico, United States. The population in Lares Municipio was 27,990 in 2022. The median age in Lares Municipio was 44.6 in 2022. The median income in Lares Municipio was $11,725 in 2022. The unemployment rate in Lares Municipio was 9.5% in 2024."
     },
     "geoId/72083": {
-        "summary": "Las Mar\u00edas Municipio is a county in Puerto Rico, United States. The population in Las Mar\u00edas Municipio was 8,896 in 2021. The median age in Las Mar\u00edas Municipio was 43.4 in 2021. The median income in Las Mar\u00edas Municipio was $10,843 in 2021. The unemployment rate in Las Mar\u00edas Municipio was 8.2% in 2023."
+        "summary": "Las Mar\u00edas Municipio is a county in Puerto Rico, United States. The population in Las Mar\u00edas Municipio was 8,826 in 2022. The median age in Las Mar\u00edas Municipio was 43.9 in 2022. The median income in Las Mar\u00edas Municipio was $10,991 in 2022. The unemployment rate in Las Mar\u00edas Municipio was 10.9% in 2024."
     },
     "geoId/72085": {
-        "summary": "Las Piedras Municipio is a county in Puerto Rico, United States. The population in Las Piedras Municipio was 35,495 in 2021. The median age in Las Piedras Municipio was 42.1 in 2021. The median income in Las Piedras Municipio was $14,407 in 2021. The unemployment rate in Las Piedras Municipio was 6.8% in 2023."
+        "summary": "Las Piedras Municipio is a county in Puerto Rico, United States. The population in Las Piedras Municipio was 35,099 in 2022. The median age in Las Piedras Municipio was 42.6 in 2022. The median income in Las Piedras Municipio was $15,063 in 2022. The unemployment rate in Las Piedras Municipio was 6.9% in 2024."
     },
     "geoId/72087": {
-        "summary": "Lo\u00edza Municipio is a county in Puerto Rico, United States. The population in Lo\u00edza Municipio was 24,216 in 2021. The median age in Lo\u00edza Municipio was 41.7 in 2021. The median income in Lo\u00edza Municipio was $13,980 in 2021. The unemployment rate in Lo\u00edza Municipio was 5.1% in 2023."
+        "summary": "Lo\u00edza Municipio is a county in Puerto Rico, United States. The population in Lo\u00edza Municipio was 23,580 in 2022. The median age in Lo\u00edza Municipio was 42.8 in 2022. The median income in Lo\u00edza Municipio was $15,188 in 2022. The unemployment rate in Lo\u00edza Municipio was 4.7% in 2024."
     },
     "geoId/72089": {
-        "summary": "Luquillo Municipio is a county in Puerto Rico, United States. The population in Luquillo Municipio was 17,917 in 2021. The median age in Luquillo Municipio was 43.6 in 2021. The median income in Luquillo Municipio was $14,130 in 2021. The unemployment rate in Luquillo Municipio was 6.7% in 2023."
+        "summary": "Luquillo Municipio is a county in Puerto Rico, United States. The population in Luquillo Municipio was 17,716 in 2022. The median age in Luquillo Municipio was 44.5 in 2022. The median income in Luquillo Municipio was $15,117 in 2022. The unemployment rate in Luquillo Municipio was 6.4% in 2024."
     },
     "geoId/72091": {
-        "summary": "Manat\u00ed Municipio is a county in Puerto Rico, United States. The population in Manat\u00ed Municipio was 39,693 in 2021. The median age in Manat\u00ed Municipio was 43.5 in 2021. The median income in Manat\u00ed Municipio was $13,337 in 2021. The unemployment rate in Manat\u00ed Municipio was 5.7% in 2023."
+        "summary": "Manat\u00ed Municipio is a county in Puerto Rico, United States. The population in Manat\u00ed Municipio was 39,310 in 2022. The median age in Manat\u00ed Municipio was 44.2 in 2022. The median income in Manat\u00ed Municipio was $14,620 in 2022. The unemployment rate in Manat\u00ed Municipio was 5.4% in 2024."
     },
     "geoId/72093": {
-        "summary": "Maricao Municipio is a county in Puerto Rico, United States. The population in Maricao Municipio was 5,389 in 2021. The median age in Maricao Municipio was 44.8 in 2021. The median income in Maricao Municipio was $13,754 in 2021. The unemployment rate in Maricao Municipio was 7.1% in 2023."
+        "summary": "Maricao Municipio is a county in Puerto Rico, United States. The population in Maricao Municipio was 5,354 in 2022. The median age in Maricao Municipio was 45.8 in 2022. The median income in Maricao Municipio was $14,482 in 2022. The unemployment rate in Maricao Municipio was 9.3% in 2024."
     },
     "geoId/72095": {
-        "summary": "Maunabo Municipio is a county in Puerto Rico, United States. The population in Maunabo Municipio was 10,700 in 2021. The median age in Maunabo Municipio was 45.4 in 2021. The median income in Maunabo Municipio was $14,215 in 2021. The unemployment rate in Maunabo Municipio was 12.5% in 2023."
+        "summary": "Maunabo Municipio is a county in Puerto Rico, United States. The population in Maunabo Municipio was 10,563 in 2022. The median age in Maunabo Municipio was 46.2 in 2022. The median income in Maunabo Municipio was $14,098 in 2022. The unemployment rate in Maunabo Municipio was 9.1% in 2024."
     },
     "geoId/72097": {
-        "summary": "Mayag\u00fcez Municipio is a county in Puerto Rico, United States. The population in Mayag\u00fcez Municipio was 74,146 in 2021. The median age in Mayag\u00fcez Municipio was 42.3 in 2021. The median income in Mayag\u00fcez Municipio was $12,196 in 2021. The unemployment rate in Mayag\u00fcez Municipio was 6.3% in 2023."
+        "summary": "Mayag\u00fcez Municipio is a county in Puerto Rico, United States. The population in Mayag\u00fcez Municipio was 72,721 in 2022. The median age in Mayag\u00fcez Municipio was 42.8 in 2022. The median income in Mayag\u00fcez Municipio was $13,047 in 2022. The unemployment rate in Mayag\u00fcez Municipio was 6.9% in 2024."
     },
     "geoId/72099": {
-        "summary": "Moca Municipio is a county in Puerto Rico, United States. The population in Moca Municipio was 37,532 in 2021. The median age in Moca Municipio was 41.4 in 2021. The median income in Moca Municipio was $13,064 in 2021. The unemployment rate in Moca Municipio was 7.2% in 2023."
+        "summary": "Moca Municipio is a county in Puerto Rico, United States. The population in Moca Municipio was 37,363 in 2022. The median age in Moca Municipio was 42.1 in 2022. The median income in Moca Municipio was $13,819 in 2022. The unemployment rate in Moca Municipio was 7.2% in 2024."
     },
     "geoId/72101": {
-        "summary": "Morovis Municipio is a county in Puerto Rico, United States. The population in Morovis Municipio was 29,069 in 2021. The median age in Morovis Municipio was 39.9 in 2021. The median income in Morovis Municipio was $12,717 in 2021. The unemployment rate in Morovis Municipio was 7.1% in 2023."
+        "summary": "Morovis Municipio is a county in Puerto Rico, United States. The population in Morovis Municipio was 28,659 in 2022. The median age in Morovis Municipio was 41.5 in 2022. The median income in Morovis Municipio was $14,620 in 2022. The unemployment rate in Morovis Municipio was 7.1% in 2024."
     },
     "geoId/72103": {
-        "summary": "Naguabo Municipio is a county in Puerto Rico, United States. The population in Naguabo Municipio was 23,722 in 2021. The median age in Naguabo Municipio was 39.4 in 2021. The median income in Naguabo Municipio was $14,378 in 2021. The unemployment rate in Naguabo Municipio was 6.3% in 2023."
+        "summary": "Naguabo Municipio is a county in Puerto Rico, United States. The population in Naguabo Municipio was 23,340 in 2022. The median age in Naguabo Municipio was 39.8 in 2022. The median income in Naguabo Municipio was $15,772 in 2022. The unemployment rate in Naguabo Municipio was 6.8% in 2024."
     },
     "geoId/72105": {
-        "summary": "Naranjito Municipio is a county in Puerto Rico, United States. The population in Naranjito Municipio was 29,200 in 2021. The median age in Naranjito Municipio was 41.6 in 2021. The median income in Naranjito Municipio was $12,905 in 2021. The unemployment rate in Naranjito Municipio was 6.5% in 2023."
+        "summary": "Naranjito Municipio is a county in Puerto Rico, United States. The population in Naranjito Municipio was 29,153 in 2022. The median age in Naranjito Municipio was 42.4 in 2022. The median income in Naranjito Municipio was $13,884 in 2022. The unemployment rate in Naranjito Municipio was 6% in 2024."
     },
     "geoId/72107": {
-        "summary": "Orocovis Municipio is a county in Puerto Rico, United States. The population in Orocovis Municipio was 21,510 in 2021. The median age in Orocovis Municipio was 41.4 in 2021. The median income in Orocovis Municipio was $11,904 in 2021. The unemployment rate in Orocovis Municipio was 8% in 2023."
+        "summary": "Orocovis Municipio is a county in Puerto Rico, United States. The population in Orocovis Municipio was 21,378 in 2022. The median age in Orocovis Municipio was 41.7 in 2022. The median income in Orocovis Municipio was $12,839 in 2022. The unemployment rate in Orocovis Municipio was 7.6% in 2024."
     },
     "geoId/72109": {
-        "summary": "Patillas Municipio is a county in Puerto Rico, United States. The population in Patillas Municipio was 16,231 in 2021. The median age in Patillas Municipio was 46.2 in 2021. The median income in Patillas Municipio was $12,433 in 2021. The unemployment rate in Patillas Municipio was 9.5% in 2023."
+        "summary": "Patillas Municipio is a county in Puerto Rico, United States. The population in Patillas Municipio was 15,927 in 2022. The median age in Patillas Municipio was 46.9 in 2022. The median income in Patillas Municipio was $13,495 in 2022. The unemployment rate in Patillas Municipio was 8% in 2024."
     },
     "geoId/72111": {
-        "summary": "Pe\u00f1uelas Municipio is a county in Puerto Rico, United States. The population in Pe\u00f1uelas Municipio was 20,625 in 2021. The median age in Pe\u00f1uelas Municipio was 40.4 in 2021. The median income in Pe\u00f1uelas Municipio was $11,458 in 2021. The unemployment rate in Pe\u00f1uelas Municipio was 10.4% in 2023."
+        "summary": "Pe\u00f1uelas Municipio is a county in Puerto Rico, United States. The population in Pe\u00f1uelas Municipio was 20,298 in 2022. The median age in Pe\u00f1uelas Municipio was 40.6 in 2022. The median income in Pe\u00f1uelas Municipio was $12,583 in 2022. The unemployment rate in Pe\u00f1uelas Municipio was 11% in 2024."
     },
     "geoId/72113": {
-        "summary": "Ponce Municipio is a county in Puerto Rico, United States. The population in Ponce Municipio was 139,245 in 2021. The median age in Ponce Municipio was 42.8 in 2021. The median income in Ponce Municipio was $13,520 in 2021. The unemployment rate in Ponce Municipio was 6.8% in 2023."
+        "summary": "Ponce Municipio is a county in Puerto Rico, United States. The population in Ponce Municipio was 136,542 in 2022. The median age in Ponce Municipio was 43.5 in 2022. The median income in Ponce Municipio was $14,496 in 2022. The unemployment rate in Ponce Municipio was 7.1% in 2024."
     },
     "geoId/72115": {
-        "summary": "Quebradillas Municipio is a county in Puerto Rico, United States. The population in Quebradillas Municipio was 23,743 in 2021. The median age in Quebradillas Municipio was 42.1 in 2021. The median income in Quebradillas Municipio was $11,960 in 2021. The unemployment rate in Quebradillas Municipio was 6.9% in 2023."
+        "summary": "Quebradillas Municipio is a county in Puerto Rico, United States. The population in Quebradillas Municipio was 23,540 in 2022. The median age in Quebradillas Municipio was 43.7 in 2022. The median income in Quebradillas Municipio was $13,306 in 2022. The unemployment rate in Quebradillas Municipio was 6.4% in 2024."
     },
     "geoId/72117": {
-        "summary": "Rinc\u00f3n Municipio is a county in Puerto Rico, United States. The population in Rinc\u00f3n Municipio was 15,097 in 2021. The median age in Rinc\u00f3n Municipio was 47.7 in 2021. The median income in Rinc\u00f3n Municipio was $13,960 in 2021. The unemployment rate in Rinc\u00f3n Municipio was 11.4% in 2023."
+        "summary": "Rinc\u00f3n Municipio is a county in Puerto Rico, United States. The population in Rinc\u00f3n Municipio was 15,164 in 2022. The median age in Rinc\u00f3n Municipio was 48.8 in 2022. The median income in Rinc\u00f3n Municipio was $15,023 in 2022. The unemployment rate in Rinc\u00f3n Municipio was 12.8% in 2024."
     },
     "geoId/72119": {
-        "summary": "R\u00edo Grande Municipio is a county in Puerto Rico, United States. The population in R\u00edo Grande Municipio was 47,630 in 2021. The median age in R\u00edo Grande Municipio was 43.2 in 2021. The median income in R\u00edo Grande Municipio was $14,769 in 2021. The unemployment rate in R\u00edo Grande Municipio was 4.8% in 2023."
+        "summary": "R\u00edo Grande Municipio is a county in Puerto Rico, United States. The population in R\u00edo Grande Municipio was 46,838 in 2022. The median age in R\u00edo Grande Municipio was 43.8 in 2022. The median income in R\u00edo Grande Municipio was $15,719 in 2022. The unemployment rate in R\u00edo Grande Municipio was 5% in 2024."
     },
     "geoId/72121": {
-        "summary": "Sabana Grande Municipio is a county in Puerto Rico, United States. The population in Sabana Grande Municipio was 22,860 in 2021. The median age in Sabana Grande Municipio was 44.1 in 2021. The median income in Sabana Grande Municipio was $12,396 in 2021. The unemployment rate in Sabana Grande Municipio was 7.3% in 2023."
+        "summary": "Sabana Grande Municipio is a county in Puerto Rico, United States. The population in Sabana Grande Municipio was 22,639 in 2022. The median age in Sabana Grande Municipio was 44.9 in 2022. The median income in Sabana Grande Municipio was $14,287 in 2022. The unemployment rate in Sabana Grande Municipio was 7.7% in 2024."
     },
     "geoId/72123": {
-        "summary": "Salinas Municipio is a county in Puerto Rico, United States. The population in Salinas Municipio was 26,208 in 2021. The median age in Salinas Municipio was 42.6 in 2021. The median income in Salinas Municipio was $13,499 in 2021. The unemployment rate in Salinas Municipio was 9.6% in 2023."
+        "summary": "Salinas Municipio is a county in Puerto Rico, United States. The population in Salinas Municipio was 25,688 in 2022. The median age in Salinas Municipio was 42.8 in 2022. The median income in Salinas Municipio was $14,522 in 2022. The unemployment rate in Salinas Municipio was 9.5% in 2024."
     },
     "geoId/72125": {
-        "summary": "San Germ\u00e1n Municipio is a county in Puerto Rico, United States. The population in San Germ\u00e1n Municipio was 32,031 in 2021. The median age in San Germ\u00e1n Municipio was 45.2 in 2021. The median income in San Germ\u00e1n Municipio was $12,523 in 2021. The unemployment rate in San Germ\u00e1n Municipio was 7.4% in 2023."
+        "summary": "San Germ\u00e1n Municipio is a county in Puerto Rico, United States. The population in San Germ\u00e1n Municipio was 31,680 in 2022. The median age in San Germ\u00e1n Municipio was 46.2 in 2022. The median income in San Germ\u00e1n Municipio was $13,080 in 2022. The unemployment rate in San Germ\u00e1n Municipio was 8.1% in 2024."
     },
     "geoId/72127": {
-        "summary": "San Juan Municipio is a county in Puerto Rico, United States. The population in San Juan Municipio was 344,791 in 2021. The median age in San Juan Municipio was 44.4 in 2021. The median income in San Juan Municipio was $16,848 in 2021. The unemployment rate in San Juan Municipio was 4.4% in 2023."
+        "summary": "San Juan Municipio is a county in Puerto Rico, United States. The population in San Juan Municipio was 340,903 in 2022. The median age in San Juan Municipio was 45 in 2022. The median income in San Juan Municipio was $18,366 in 2022. The unemployment rate in San Juan Municipio was 3.5% in 2024."
     },
     "geoId/72129": {
-        "summary": "San Lorenzo Municipio is a county in Puerto Rico, United States. The population in San Lorenzo Municipio was 37,822 in 2021. The median age in San Lorenzo Municipio was 43.4 in 2021. The median income in San Lorenzo Municipio was $12,604 in 2021. The unemployment rate in San Lorenzo Municipio was 6.1% in 2023."
+        "summary": "San Lorenzo Municipio is a county in Puerto Rico, United States. The population in San Lorenzo Municipio was 37,552 in 2022. The median age in San Lorenzo Municipio was 43.8 in 2022. The median income in San Lorenzo Municipio was $13,641 in 2022. The unemployment rate in San Lorenzo Municipio was 5.7% in 2024."
     },
     "geoId/72131": {
-        "summary": "San Sebasti\u00e1n Municipio is a county in Puerto Rico, United States. The population in San Sebasti\u00e1n Municipio was 39,351 in 2021. The median age in San Sebasti\u00e1n Municipio was 45.5 in 2021. The median income in San Sebasti\u00e1n Municipio was $11,406 in 2021. The unemployment rate in San Sebasti\u00e1n Municipio was 8.6% in 2023."
+        "summary": "San Sebasti\u00e1n Municipio is a county in Puerto Rico, United States. The population in San Sebasti\u00e1n Municipio was 39,183 in 2022. The median age in San Sebasti\u00e1n Municipio was 46 in 2022. The median income in San Sebasti\u00e1n Municipio was $12,024 in 2022. The unemployment rate in San Sebasti\u00e1n Municipio was 10.4% in 2024."
     },
     "geoId/72133": {
-        "summary": "Santa Isabel Municipio is a county in Puerto Rico, United States. The population in Santa Isabel Municipio was 20,530 in 2021. The median age in Santa Isabel Municipio was 40.3 in 2021. The median income in Santa Isabel Municipio was $13,313 in 2021. The unemployment rate in Santa Isabel Municipio was 8.7% in 2023."
+        "summary": "Santa Isabel Municipio is a county in Puerto Rico, United States. The population in Santa Isabel Municipio was 20,207 in 2022. The median age in Santa Isabel Municipio was 40.6 in 2022. The median income in Santa Isabel Municipio was $14,317 in 2022. The unemployment rate in Santa Isabel Municipio was 7.8% in 2024."
     },
     "geoId/72135": {
-        "summary": "Toa Alta Municipio is a county in Puerto Rico, United States. The population in Toa Alta Municipio was 67,602 in 2021. The median age in Toa Alta Municipio was 40 in 2021. The median income in Toa Alta Municipio was $16,485 in 2021. The unemployment rate in Toa Alta Municipio was 4.1% in 2023."
+        "summary": "Toa Alta Municipio is a county in Puerto Rico, United States. The population in Toa Alta Municipio was 66,699 in 2022. The median age in Toa Alta Municipio was 41.1 in 2022. The median income in Toa Alta Municipio was $18,658 in 2022. The unemployment rate in Toa Alta Municipio was 3.6% in 2024."
     },
     "geoId/72137": {
-        "summary": "Toa Baja Municipio is a county in Puerto Rico, United States. The population in Toa Baja Municipio was 76,248 in 2021. The median age in Toa Baja Municipio was 41.9 in 2021. The median income in Toa Baja Municipio was $15,970 in 2021. The unemployment rate in Toa Baja Municipio was 4.1% in 2023."
+        "summary": "Toa Baja Municipio is a county in Puerto Rico, United States. The population in Toa Baja Municipio was 74,854 in 2022. The median age in Toa Baja Municipio was 42.6 in 2022. The median income in Toa Baja Municipio was $17,082 in 2022. The unemployment rate in Toa Baja Municipio was 3.4% in 2024."
     },
     "geoId/72139": {
-        "summary": "Trujillo Alto Municipio is a county in Puerto Rico, United States. The population in Trujillo Alto Municipio was 68,001 in 2021. The median age in Trujillo Alto Municipio was 41.7 in 2021. The median income in Trujillo Alto Municipio was $17,406 in 2021. The unemployment rate in Trujillo Alto Municipio was 2.6% in 2023."
+        "summary": "Trujillo Alto Municipio is a county in Puerto Rico, United States. The population in Trujillo Alto Municipio was 67,497 in 2022. The median age in Trujillo Alto Municipio was 42.7 in 2022. The median income in Trujillo Alto Municipio was $19,032 in 2022. The unemployment rate in Trujillo Alto Municipio was 2.1% in 2024."
     },
     "geoId/72141": {
-        "summary": "Utuado Municipio is a county in Puerto Rico, United States. The population in Utuado Municipio was 28,585 in 2021. The median age in Utuado Municipio was 45.1 in 2021. The median income in Utuado Municipio was $11,223 in 2021. The unemployment rate in Utuado Municipio was 8.5% in 2023."
+        "summary": "Utuado Municipio is a county in Puerto Rico, United States. The population in Utuado Municipio was 28,155 in 2022. The median age in Utuado Municipio was 45.8 in 2022. The median income in Utuado Municipio was $12,163 in 2022. The unemployment rate in Utuado Municipio was 8% in 2024."
     },
     "geoId/72143": {
-        "summary": "Vega Alta Municipio is a county in Puerto Rico, United States. The population in Vega Alta Municipio was 35,728 in 2021. The median age in Vega Alta Municipio was 40.9 in 2021. The median income in Vega Alta Municipio was $13,456 in 2021. The unemployment rate in Vega Alta Municipio was 5.1% in 2023."
+        "summary": "Vega Alta Municipio is a county in Puerto Rico, United States. The population in Vega Alta Municipio was 35,279 in 2022. The median age in Vega Alta Municipio was 41.6 in 2022. The median income in Vega Alta Municipio was $15,535 in 2022. The unemployment rate in Vega Alta Municipio was 5.1% in 2024."
     },
     "geoId/72145": {
-        "summary": "Vega Baja Municipio is a county in Puerto Rico, United States. The population in Vega Baja Municipio was 54,544 in 2021. The median age in Vega Baja Municipio was 43.1 in 2021. The median income in Vega Baja Municipio was $13,582 in 2021. The unemployment rate in Vega Baja Municipio was 7.2% in 2023."
+        "summary": "Vega Baja Municipio is a county in Puerto Rico, United States. The population in Vega Baja Municipio was 54,182 in 2022. The median age in Vega Baja Municipio was 43.9 in 2022. The median income in Vega Baja Municipio was $14,950 in 2022. The unemployment rate in Vega Baja Municipio was 6.6% in 2024."
     },
     "geoId/72147": {
-        "summary": "Vieques Municipio is a county in Puerto Rico, United States. The population in Vieques Municipio was 8,317 in 2021. The median age in Vieques Municipio was 43.6 in 2021. The median income in Vieques Municipio was $11,989 in 2021. The unemployment rate in Vieques Municipio was 6.1% in 2023."
+        "summary": "Vieques Municipio is a county in Puerto Rico, United States. The population in Vieques Municipio was 8,199 in 2022. The median age in Vieques Municipio was 45.3 in 2022. The median income in Vieques Municipio was $13,464 in 2022. The unemployment rate in Vieques Municipio was 5.9% in 2024."
     },
     "geoId/72149": {
-        "summary": "Villalba Municipio is a county in Puerto Rico, United States. The population in Villalba Municipio was 22,341 in 2021. The median age in Villalba Municipio was 42 in 2021. The median income in Villalba Municipio was $13,093 in 2021. The unemployment rate in Villalba Municipio was 10.1% in 2023."
+        "summary": "Villalba Municipio is a county in Puerto Rico, United States. The population in Villalba Municipio was 21,984 in 2022. The median age in Villalba Municipio was 43 in 2022. The median income in Villalba Municipio was $14,357 in 2022. The unemployment rate in Villalba Municipio was 8.9% in 2024."
     },
     "geoId/72151": {
-        "summary": "Yabucoa Municipio is a county in Puerto Rico, United States. The population in Yabucoa Municipio was 31,047 in 2021. The median age in Yabucoa Municipio was 44.9 in 2021. The median income in Yabucoa Municipio was $12,040 in 2021. The unemployment rate in Yabucoa Municipio was 7.7% in 2023."
+        "summary": "Yabucoa Municipio is a county in Puerto Rico, United States. The population in Yabucoa Municipio was 30,313 in 2022. The median age in Yabucoa Municipio was 46 in 2022. The median income in Yabucoa Municipio was $13,175 in 2022. The unemployment rate in Yabucoa Municipio was 8% in 2024."
     },
     "geoId/72153": {
-        "summary": "Yauco Municipio is a county in Puerto Rico, United States. The population in Yauco Municipio was 34,704 in 2021. The median age in Yauco Municipio was 45.5 in 2021. The median income in Yauco Municipio was $12,457 in 2021. The unemployment rate in Yauco Municipio was 10.2% in 2023."
+        "summary": "Yauco Municipio is a county in Puerto Rico, United States. The population in Yauco Municipio was 33,988 in 2022. The median age in Yauco Municipio was 46.2 in 2022. The median income in Yauco Municipio was $13,993 in 2022. The unemployment rate in Yauco Municipio was 11.1% in 2024."
     },
     "geoId/7276770": {
-        "summary": "San Juan zona urbana, an urban area within the municipality of San Juan, Puerto Rico, had a population of 325,343 in 2021. The median age in San Juan zona urbana was 44.2 years, with a median income of $17,105 in 2021."
+        "summary": "San Juan zona urbana is a city in Puerto Rico, United States. The population in San Juan zona urbana was 322,616 in 2022. The median age in San Juan zona urbana was 44.8 in 2022. The median income in San Juan zona urbana was $18,751 in 2022."
     },
     "geoId/78010": {
         "summary": "Saint Croix is a county in U.S. Virgin Islands. The population in Saint Croix was 50,601 in 2010."

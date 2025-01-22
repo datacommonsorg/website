@@ -29,12 +29,14 @@ else
   source .env/bin/activate
   python3 -m pip install -r $DIR/requirements.txt
 
-  # Get US States + Top 100 Cities summaries from saved Bard output
-  echo "Getting US States and Top 100 US cities summaries from saved Bard output"
-  python3 -m $MODULE.tsv_place_summaries_to_json $DIR/priority-places-bard.tsv \
-    --output_path $DIR/generated_summaries/us_states_and_100_cities.json \
-    --place_column_name DCID \
-    --summary_column_name Strict
+  # Generate US States + Top 100 Cities summaries
+  # These are the first 151 entries of PriorityPlaces.0.txt
+  echo "Generating US States and Top 100 US cities summaries"
+  python3 -m $MODULE.fetch_place_summaries static/sitemap/PriorityPlaces.0.txt \
+    --output_file $DIR/generated_summaries/us_states_and_100_cities.json \
+    --stat_var_json $DIR/stat_vars_to_highlight.json \
+    --end_index 151
+
 
   # Generate country summaries
   echo "Generating country summaries"

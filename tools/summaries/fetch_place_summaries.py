@@ -37,10 +37,10 @@ _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}
 _TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} was {value} in {year}."
 
 # Where to write intermediate results to
-_TEMP_FILENAME = 'generated_summaries/temp_output_batch_{num}.json'
+_TEMP_FILENAME = 'tools/summaries/generated_summaries/temp_output_batch_{num}.json'
 
 # Number of places to process at once
-_BATCH_SIZE = 500
+_BATCH_SIZE = 100
 
 
 def initialize_summaries(
@@ -130,7 +130,10 @@ def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
       logging.info(f"Generating summary for {place_name} ({place_dcid})")
 
       # Get stat var values for all stat vars to use
-      data_series = dc.get_data_series(place_dcid, sv_list)
+      data_series = utils.maybe_fetch_data_series(place_dcid, sv_list)
+      if not data_series:
+        # Skip the place if data is unable to be fetched
+        continue
 
       # Write a sentence for each stat var
       for sv, sv_data in data_series.items():
@@ -164,7 +167,8 @@ def build_template_summaries_for_sitemap(sitemap: str,
                                          stat_var_json: str = _STAT_VAR_JSON,
                                          batch_size: int = _BATCH_SIZE,
                                          output_file: str = _OUTPUT_FILE,
-                                         start_index: int = None) -> Dict:
+                                         start_index: int = None,
+                                         end_index: int = None,) -> Dict:
   """Generate summaries for all places in a sitemap"""
   start_time = time.time()
 
@@ -173,6 +177,9 @@ def build_template_summaries_for_sitemap(sitemap: str,
   if start_index:
     # Skip first lines of sitemap to start processing at start_index instead
     places = places[start_index:]
+  if end_index:
+    # End processing early once reaching end_index
+    places = places[:end_index]
   total_num_places = len(places)
   logging.info(f'Generating summaries for {total_num_places} places')
 
@@ -184,11 +191,19 @@ def build_template_summaries_for_sitemap(sitemap: str,
   for batch in batches:
     logging.info(
         f'Processing batch number {batch_num + 1} out of {total_num_batches}')
+    
+    # Skip batch if already processed
+    # Useful for restarting after server errors
+    temp_path = _TEMP_FILENAME.format(num=batch_num)
+    if os.path.exists(temp_path):
+      batch_num += 1
+      batch_start_time = time.time()
+      continue
+
     summaries = build_template_summaries(place_dcids=batch,
                                          stat_var_json=stat_var_json)
     # Write intermediate results to a temporary file
     # This allows us to save partial progress incase we hit server errors
-    temp_path = _TEMP_FILENAME.format(num=batch_num)
     utils.write_summaries_to_file(summaries=summaries, output_file=temp_path)
     logging.info(f'Wrote intermediate results to {temp_path}')
     logging.info(
@@ -236,14 +251,20 @@ def build_template_summaries_for_sitemap(sitemap: str,
               help='''Which line of the sitemap to start from. Useful
                    for skipping sitemap entries that already have summaries.''',
               type=int)
+@click.option('--end_index',
+              default=None,
+              help='''Which line of the sitemap to end on (exclusive). Useful
+                   for skipping sitemap entries that already have summaries.''',
+              type=int)
 def main(sitemap: str, stat_var_json: str, output_file: str, batch_size: int,
-         start_index: int):
+         start_index: int, end_index: int):
   logging.getLogger().setLevel(logging.INFO)
   build_template_summaries_for_sitemap(sitemap,
                                        stat_var_json=stat_var_json,
                                        output_file=output_file,
                                        batch_size=batch_size,
-                                       start_index=start_index)
+                                       start_index=start_index,
+                                       end_index=end_index)
 
 
 if __name__ == "__main__":
