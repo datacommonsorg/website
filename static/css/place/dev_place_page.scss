@@ -121,36 +121,6 @@ main {
   padding: 10px 24px 0;
 }
 
-.charts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-
-  .category {
-    .category-heading-container {
-      align-items: center;
-      border-bottom: $horizontal-divider-style;
-      display: flex;
-      flex-direction: row;
-
-      h2 {
-        flex-grow: 1;
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 28px;
-      }
-
-      a {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 20px;
-      }
-    }
-  }
-}
-
 .block.subtopic {
   h3 {
     font-size: 18px;

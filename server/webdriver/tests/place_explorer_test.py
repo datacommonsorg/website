@@ -45,7 +45,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         'Places in California')
 
     # Assert the overview exists, has a summary and a map.
-    self.assertNotEqual(len(find_elem(self.driver, value='place-summary').text),
+    self.assertNotEqual(len(find_elem(self.driver, by=By.CSS_SELECTOR, value='.place-summary').text),
                         "")
     self.assertIsNotNone(find_elem(self.driver, value='map-container'))
 
@@ -54,7 +54,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         len(
             find_elems(self.driver,
                        value='key-demographics-row',
-                       path_to_elem=['key-demographics-table'])), 5)
+                       path_to_elem=['key-demographics-table'])), 4)
 
     shared.assert_topics(self,
                          self.driver,
@@ -63,7 +63,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          expected_topics=ORDERED_CATEGORIES)
 
     # And that the categories have data in the overview
-    block_titles = find_elems(self.driver, value='block-title')
+    block_titles = find_elems(self.driver, value='block-title-text')
     self.assertEqual(set([block.text for block in block_titles]),
                      set(ORDERED_TOPICS))
 

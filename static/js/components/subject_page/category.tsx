@@ -69,10 +69,10 @@ export const Category = memo(function Category(
       {title && (
         <h2 className="block-title">
           {!props.config.url ? (
-            <span>{title}</span>
+            <span className="block-title-text">{title}</span>
           ) : props.config.linkText ? (
             <>
-              <span>{title}</span>
+              <span className="block-title-text">{title}</span>
               <a className="block-title-link" href={props.config.url}>
                 {props.config.linkText}
               </a>

@@ -227,13 +227,15 @@ const PlaceCharts = (props: {
 }): React.JSX.Element => {
   const { childPlaceType, place, pageConfig } = props;
   return (
-    <SubjectPageMainPane
-      defaultEnclosedPlaceType={childPlaceType}
-      id="place-subject-page"
-      pageConfig={pageConfig}
-      place={place}
-      showExploreMore={true}
-    />
+    <div className="charts-container">
+      <SubjectPageMainPane
+        defaultEnclosedPlaceType={childPlaceType}
+        id="place-subject-page"
+        pageConfig={pageConfig}
+        place={place}
+        showExploreMore={true}
+      />
+    </div>
   );
 };
 
