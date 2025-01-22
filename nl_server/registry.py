@@ -96,17 +96,6 @@ class Registry:
     try:
       if idx_info.store_type == StoreType.MEMORY:
         store = MemoryEmbeddingsStore(idx_info)
-      elif idx_info.store_type == StoreType.LANCEDB:
-        # Lance DB's X86_64 lib doesn't run on MacOS Silicon, and
-        # this causes trouble for NL Server in Custom DC docker
-        # for MacOS Mx users. So skip using LanceDB for Custom DC.
-        # TODO: Drop this once Custom DC docker is fixed.
-        if not is_custom_dc():
-          from nl_server.store.lancedb import LanceDBStore
-          store = LanceDBStore(idx_info)
-        else:
-          logging.info('Not loading LanceDB in Custom DC environment!')
-          return
       elif idx_info.store_type == StoreType.VERTEXAI:
         store = VertexAIStore(idx_info)
     except NoEmbeddingsException as e:
