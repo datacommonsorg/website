@@ -197,6 +197,7 @@ def filter_chart_configs_for_category(
   """
   Only returns the appropriate charts for the current category. Note that we do not
   respect the is_overview filter for continents since we do not have continent level data.
+  If there is no data in the charts selected for the overview, we will fallback to the complete chart_config.
   """
   if place_category != "Overview":
     return [c for c in chart_config if c.category == place_category]
@@ -212,6 +213,7 @@ def filter_chart_configs_for_category(
       filtered_chart_config.append(copy.deepcopy(server_chart_config))
 
   if not filtered_chart_config:
+    # Fallback to entire chart config if there is no data for overview page.
     return original_chart_config
 
   return filtered_chart_config
