@@ -168,7 +168,9 @@ def write_shards_to_files(shards: Dict[str, Dict]) -> None:
     write_summaries_to_file(shards['no-match'], filepath)
 
 
-def maybe_fetch_data_series(place_dcid: str, sv_list: List[str]) -> Dict:
+def maybe_fetch_data_series(
+    place_dcid: str, sv_list: List[str], max_retries=_MAX_RETRIES
+    ) -> Dict:
   """Fetch stat var values for all stat vars
   
   Because the call to DC APIs can be flakey, will attempt to refetch on failure.
@@ -183,7 +185,7 @@ def maybe_fetch_data_series(place_dcid: str, sv_list: List[str]) -> Dict:
     Series data as a CSV keyed by stat var
   """
   data = {}
-  for _ in range(0, _MAX_RETRIES):
+  for _ in range(0, max_retries):
     try:
       data = dc.get_data_series(place_dcid, sv_list)
       if data:
