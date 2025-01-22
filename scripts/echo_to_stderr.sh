@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Prints the first argument to stderr in yellow with a line break before.
+# Prints the first argument to stderr with a line break before.
 
-RESET="$(tput sgr0)"
-YELLOW="$(tput setaf 228)"
-echo -e "\n${YELLOW}${1}${RESET}" >&2
+echo -e "\n${1}" >&2
