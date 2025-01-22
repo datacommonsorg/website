@@ -532,6 +532,18 @@ def get_child_place_types(place: Place) -> list[str]:
   return []
 
 
+def get_child_place_type_to_highlight(place: Place):
+  """Returns the child place type to highlight"""
+  ordered_child_place_types = get_child_place_types(place)
+  child_place_type = ordered_child_place_types[
+      0] if ordered_child_place_types else None
+  if child_place_type == 'Continent':
+    # We should downgrade the child_place_type from continent to country since
+    # we do not have continent level data. Ex. this applies to dcid=Earth.
+    child_place_type = 'Country'
+  return child_place_type
+
+
 def read_chart_configs() -> List[ServerChartConfiguration]:
   """Reads the raw chart configs from app settings and parses them into the appropriate dataclasses."""
   raw_chart_configs = copy.deepcopy(current_app.config['CHART_CONFIG'])
