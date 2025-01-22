@@ -163,12 +163,14 @@ def build_template_summaries(place_dcids: List[str], stat_var_json=str) -> Dict:
   return summaries
 
 
-def build_template_summaries_for_sitemap(sitemap: str,
-                                         stat_var_json: str = _STAT_VAR_JSON,
-                                         batch_size: int = _BATCH_SIZE,
-                                         output_file: str = _OUTPUT_FILE,
-                                         start_index: int = None,
-                                         end_index: int = None,) -> Dict:
+def build_template_summaries_for_sitemap(
+    sitemap: str,
+    stat_var_json: str = _STAT_VAR_JSON,
+    batch_size: int = _BATCH_SIZE,
+    output_file: str = _OUTPUT_FILE,
+    start_index: int = None,
+    end_index: int = None,
+) -> Dict:
   """Generate summaries for all places in a sitemap"""
   start_time = time.time()
 
@@ -191,7 +193,7 @@ def build_template_summaries_for_sitemap(sitemap: str,
   for batch in batches:
     logging.info(
         f'Processing batch number {batch_num + 1} out of {total_num_batches}')
-    
+
     # Skip batch if already processed
     # Useful for restarting after server errors
     temp_path = _TEMP_FILENAME.format(num=batch_num)

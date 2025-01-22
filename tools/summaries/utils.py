@@ -30,6 +30,7 @@ _SUMMARY_OUTPUT_LOCATION = 'server/config/summaries/'
 # Maximum number of retries when attempting to fetch data via API calls
 _MAX_RETRIES = 3
 
+
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
   """Format a stat var observation to print nicely in a sentence
   
@@ -168,9 +169,9 @@ def write_shards_to_files(shards: Dict[str, Dict]) -> None:
     write_summaries_to_file(shards['no-match'], filepath)
 
 
-def maybe_fetch_data_series(
-    place_dcid: str, sv_list: List[str], max_retries=_MAX_RETRIES
-    ) -> Dict:
+def maybe_fetch_data_series(place_dcid: str,
+                            sv_list: List[str],
+                            max_retries=_MAX_RETRIES) -> Dict:
   """Fetch stat var values for all stat vars
   
   Because the call to DC APIs can be flakey, will attempt to refetch on failure.
