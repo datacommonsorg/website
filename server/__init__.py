@@ -307,6 +307,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       "config/home_page/partners.json")
   app.config['HOMEPAGE_SAMPLE_QUESTIONS'] = libutil.get_json(
       "config/home_page/sample_questions.json")
+  app.config['FEATURE_FLAGS'] = libutil.load_feature_flags()
 
   if cfg.TEST or cfg.LITE:
     app.config['MAPS_API_KEY'] = ''
@@ -375,7 +376,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
     app.config['TOPIC_CACHE'] = topic_cache.load(app.config['NL_CHART_TITLES'])
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
-    app.config['FEATURE_FLAGS'] = libutil.load_feature_flags()
     app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
       libutil.get_special_dc_non_countery_only_vars()
     # TODO: need to handle singular vs plural in the titles
