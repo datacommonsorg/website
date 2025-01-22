@@ -92,36 +92,37 @@ export function App(props: AppPropType): JSX.Element {
     sessionQueryId
   );
 
-  async function handleUserSignIn(
-    user: User,
-    credential: OAuthCredential
-  ): Promise<void> {
-    if (credential.accessToken) {
-      setUser(user); // Set the user state to the signed-in user
-      const docA = new GoogleSpreadsheet(props.sheetIdA, {
-        token: credential.accessToken,
-      });
-      const docB = new GoogleSpreadsheet(props.sheetIdB, {
-        token: credential.accessToken,
-      });
-      // Wait for documents to load
-      await Promise.all([docA.loadInfo(), docB.loadInfo()]);
-      // Get and set information about each document
-      Promise.all([getDocInfo(docA), getDocInfo(docB)]).then(
-        ([docInfoA, docInfoB]) => {
-          setCombinedDocInfo({
-            docInfoA,
-            docInfoB,
-            sortedQueryIds: getSortedQueryIds(docInfoA, docInfoB),
-          });
-        }
-      );
-    }
-  }
-
   // Sign in automatically.
   useEffect(() => {
     const scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+
+    const handleUserSignIn = async (
+      user: User,
+      credential: OAuthCredential
+    ): Promise<void> => {
+      if (credential.accessToken) {
+        setUser(user); // Set the user state to the signed-in user
+        const docA = new GoogleSpreadsheet(props.sheetIdA, {
+          token: credential.accessToken,
+        });
+        const docB = new GoogleSpreadsheet(props.sheetIdB, {
+          token: credential.accessToken,
+        });
+        // Wait for documents to load
+        await Promise.all([docA.loadInfo(), docB.loadInfo()]);
+        // Get and set information about each document
+        Promise.all([getDocInfo(docA), getDocInfo(docB)]).then(
+          ([docInfoA, docInfoB]) => {
+            setCombinedDocInfo({
+              docInfoA,
+              docInfoB,
+              sortedQueryIds: getSortedQueryIds(docInfoA, docInfoB),
+            });
+          }
+        );
+      }
+    };
+
     signInWithGoogle(scopes, handleUserSignIn);
   }, []);
 

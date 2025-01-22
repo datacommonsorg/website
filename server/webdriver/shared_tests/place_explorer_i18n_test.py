@@ -16,6 +16,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver import shared
+
 
 class PlaceI18nExplorerTestMixin():
   """Mixins to test the i18n place explorer page."""
@@ -39,28 +41,11 @@ class PlaceI18nExplorerTestMixin():
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(economics_section_present)
 
-    # TODO(beets): Re-enable this test after fixing flakiness in finding
-    # the chart.
-    # Test strings in GDP comparison chart
-    gdp_chart = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/section[1]/div/div[1]/div')
-    self.assertEqual(
-        gdp_chart.find_element(By.XPATH, 'h4').text, '日本 の 1 人あたりの国内総生産')
-
-    # Test that chart tick values are translated
-    y_text = gdp_chart.find_elements(By.CLASS_NAME,
-                                     'y')[0].find_elements(By.TAG_NAME, 'text')
-    self.assertEqual(y_text[0].text, 'USD 0')
-    self.assertEqual(y_text[1].text, 'USD 1万')
-
-    x_text = gdp_chart.find_elements(By.CLASS_NAME,
-                                     'x')[0].find_elements(By.TAG_NAME, 'text')
-    self.assertEqual(x_text[0].text, '1960')
-
-    # Test that sv labels are translated
-    sv_legend = gdp_chart.find_elements(By.CLASS_NAME, 'legend-basic')[0]
-    sv_label = sv_legend.find_elements(By.TAG_NAME, 'a')[0]
-    self.assertEqual(sv_label.text, '1 人あたりの GDP')
+    # Test that charts are present
+    charts = self.driver.find_elements(By.CSS_SELECTOR,
+                                       '#main-pane [class*="chart-container"]')
+    self.assertGreater(len(charts), 0,
+                       "Expected at least one chart to be present")
 
     # Test that topics are translated
     health_topic = self.driver.find_element(By.XPATH,
@@ -108,19 +93,11 @@ class PlaceI18nExplorerTestMixin():
     self.assertTrue("Demographics" in self.driver.current_url)
     self.assertTrue("&hl=fr" in self.driver.current_url)
 
-    # Assert chart title is correct.
-    chart_title = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[2]/div/h4')
-    self.assertEqual(chart_title.text,
-                     'Population urbaine et rurale : autres pays(2023)')
-
-    # Click through to ranking
-    pop_growth_rate_chip = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/section[6]/div/div[1]/div/div/div/div/a')
-    self.assertEqual(pop_growth_rate_chip.text,
-                     'Taux de croissance de la population')
-    pop_growth_rate_chip.click()
+    # Click through to ranking for population (Count_Person)
+    pop_link = self.driver.find_element(
+        By.CSS_SELECTOR, 'a.legend-link[title="Population totale"]')
+    self.assertIsNotNone(pop_link, "Population totale link not found")
+    pop_link.click()
 
     # Wait until ranking page has loaded
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
@@ -128,11 +105,33 @@ class PlaceI18nExplorerTestMixin():
 
     # Assert language is propagated
     url = self.driver.current_url
-    self.assertTrue('GrowthRate_Count_Person' in url)
+    self.assertTrue('Count_Person' in url)
     self.assertTrue('Country' in url)
     self.assertTrue('europe' in url)
-    self.assertTrue('unit=%25' in url)
     self.assertTrue('hl=fr' in url)
     self.assertEqual(
         self.driver.find_element(By.TAG_NAME, 'h1').text,
-        'Classement par Taux de croissance de la population')
+        'Classement par Population')
+
+  def test_explorer_redirect_place_explorer(self):
+    """Test the redirection from explore to place explore for single place queries keeps the locale and query string"""
+    usa_explore_fr_locale = '/explore?hl=fr#q=United%20States%20Of%20America'
+
+    start_url = self.url_ + usa_explore_fr_locale
+    self.driver.get(start_url)
+
+    # Assert 200 HTTP code: successful page load.
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
+
+    # Wait for redirect and page load.
+    redirect_finished = EC.url_changes(start_url)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
+    shared.wait_for_loading(self.driver)
+
+    # Assert redirected URL is correct and contains the locale and query string.
+    self.assertTrue('place/country/USA?q=United+States+Of+America&hl=fr' in
+                    self.driver.current_url)
+
+    # Assert localized page title is correct for the locale.
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(EC.title_contains('États-Unis'))

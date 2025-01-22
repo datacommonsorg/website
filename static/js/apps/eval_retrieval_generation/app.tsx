@@ -72,27 +72,31 @@ export function App(props: AppPropType): JSX.Element {
   const [allCall, setAllCall] = useState<Record<number, DcCalls>>(null);
   const [evalType, setEvalType] = useState<EvalType>(null);
 
-  async function handleUserSignIn(user: User, credential: OAuthCredential) {
-    if (credential.accessToken) {
-      setUser(user); // Set the user state to the signed-in user
-      const doc = new GoogleSpreadsheet(props.sheetId, {
-        token: credential.accessToken,
-      });
-      await doc.loadInfo();
-      setDoc(doc);
-      getDocInfo(doc).then((docInfo) => {
-        setAllCall(docInfo.allCall);
-        setAllQuery(docInfo.allQuery);
-        setFeedbackStage(getFirstFeedbackStage(docInfo.evalType));
-        setEvalType(docInfo.evalType);
-        setSessionQueryId(getFirstQuery(docInfo.allQuery, user.email));
-      });
-    }
-  }
-
   // Sign in automatically.
   useEffect(() => {
     const scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+
+    const handleUserSignIn = async (
+      user: User,
+      credential: OAuthCredential
+    ): Promise<void> => {
+      if (credential.accessToken) {
+        setUser(user); // Set the user state to the signed-in user
+        const doc = new GoogleSpreadsheet(props.sheetId, {
+          token: credential.accessToken,
+        });
+        await doc.loadInfo();
+        setDoc(doc);
+        getDocInfo(doc).then((docInfo) => {
+          setAllCall(docInfo.allCall);
+          setAllQuery(docInfo.allQuery);
+          setFeedbackStage(getFirstFeedbackStage(docInfo.evalType));
+          setEvalType(docInfo.evalType);
+          setSessionQueryId(getFirstQuery(docInfo.allQuery, user.email));
+        });
+      }
+    };
+
     signInWithGoogle(scopes, handleUserSignIn);
   }, []);
 

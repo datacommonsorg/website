@@ -46,7 +46,6 @@ export const ExploreContext = createContext({} as ExploreType);
 
 export const RankingUnitUrlFuncContext = createContext(
   (dcid: string, placeType?: string, apiRoot?: string) => {
-    const formattedApiRoot = apiRoot ? apiRoot.replace(/\/$/, "") : "";
     const path =
       !placeType || PLACE_TYPES.has(placeType)
         ? `/place/${dcid}`
@@ -57,7 +56,9 @@ export const RankingUnitUrlFuncContext = createContext(
 
 export const SdgContext = createContext({
   sdgIndex: null,
-  setSdgIndex: (i: number) => {
+  /* eslint-disable */
+  setSdgIndex: (_: number): void => {
     return;
   },
+  /* eslint-enable */
 });

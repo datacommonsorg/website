@@ -2,9 +2,52 @@
 
 ## How To Run the Data Commons WebDriver Unit Tests
 
-Run the following command from the parent directory:
+Run the following command from the repo root:
 
-    ./run_tests.sh -w
+```bash
+./run_tests.sh -w
+```
+
+### Run a subset of tests
+
+#### All tests in a class
+
+```bash
+./run_Test.sh -w -k "TestClass"
+```
+
+#### Single method in a class
+
+```bash
+./run_test.sh -w -k "TestClass and test_method"
+```
+
+See also the [Pytest syntax reference](https://docs.pytest.org/en/stable/how-to/usage.html#specifying-which-tests-to-run).
+Note that assuming there are no duplicate test class names, this is the equivalent of
+
+```bash
+./run_test.sh -w path/to/file_with_test.py::TestClass::test_method
+```
+
+### Check if a test is flaky
+
+If you suspect a test is flaky (failing a small percent of runs consistently),
+you can use [pytest-flakefinder](https://pypi.org/project/pytest-flakefinder/)
+to run it many times at once.
+
+Run a test 50 times:
+
+```bash
+./run_test.sh -w --flake-finder -k "TestClass and test_method"
+```
+
+Run a test 100 times:
+
+```bash
+./run_test.sh -w --flake-finder --flake-runs=100 -k "TestClass and test_method"
+```
+
+If you find that a test fails (often due to a TimeoutException), try using one of the strategies below to make sure all required elements have loaded before asserting on them.
 
 ## Things To Note
 
@@ -48,7 +91,15 @@ In the example below, WebDriver will wait until the element contains `"Mountain 
     'Mountain View')
     WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
 
-### 3. Wait Until HTML Element Disappears
+### 3. Wait Until HTML Element is Clickable
+
+If a test flakes with an "element not interactable" error, you may need to wait for the expected condition `element_to_be_clickable`. You can combine the waiting step and the clicking step by passing an element locator the the shared helper `click_el`:
+
+    shared.click_el(self.driver,
+      (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
+    shared.click_el(self.driver, (By.CLASS, 'continue-button'))
+
+### 4. Wait Until HTML Element Disappears
 
 If you want to wait until an element disappears from the DOM, use `invisibility_of_element_located`.
 
@@ -60,8 +111,8 @@ WebDriver can wait for the 2nd element to disappear as follows:
     (By.CSS_SELECTOR,'.my-class:nth-child(2)'))
     WebDriverWait(self.driver, SLEEP_SEC).until(element_present)
 
-### 4. Wait Until Page Title Changes
+### 5. Wait Until Page Title Changes
 
 If you want to make sure that the site's title is correct, wait until the title contains your desired text. This can be used to check to see if an on-click event works as expected.
 
-    WebDriverWait(self.driver, SLEEP_SEC).until(EC.title_contains(TITLE_TEXT)
+    WebDriverWait(self.driver, SLEEP_SEC).until(EC.title_contains(TITLE_TEXT))

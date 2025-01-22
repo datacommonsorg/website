@@ -189,7 +189,7 @@ export function getFooterOptions(
                   <Input
                     type="checkbox"
                     checked={pcInput.isChecked}
-                    onChange={() => {
+                    onChange={(): void => {
                       pcInput.onUpdated(!pcInput.isChecked);
                       if (!pcInput.isChecked) {
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
@@ -215,7 +215,7 @@ export function getFooterOptions(
                   <Input
                     type="checkbox"
                     checked={logInput.isChecked}
-                    onChange={() => {
+                    onChange={(): void => {
                       logInput.onUpdated(!logInput.isChecked);
                       if (!logInput.isChecked) {
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
@@ -331,7 +331,7 @@ export function getHash(
 ): string {
   const params = {
     [URL_PARAMS.VIS_TYPE]: visType,
-    [URL_PARAMS.PLACE]: places.join(PARAM_VALUE_SEP),
+    [URL_PARAMS.PLACE]: places ? places.join(PARAM_VALUE_SEP) : "",
     [URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
     [URL_PARAMS.STAT_VAR]: statVars
       .map((sv) => {

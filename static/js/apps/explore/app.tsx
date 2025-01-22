@@ -32,7 +32,7 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { intl } from "../../i18n/i18n";
+import { intl, localizeLink } from "../../i18n/i18n";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -251,7 +251,9 @@ export function App(props: AppProps): ReactElement {
         const placeDcid = pageMetadata.place.dcid;
         // If the user has a query, append it to the url
         const url = `/place/${placeDcid}${userQuery ? `?q=${userQuery}` : ""}`;
-        window.location.replace(url);
+        // Localize the url to maintain the current page's locale.
+        const localizedUrl = localizeLink(url);
+        window.location.replace(localizedUrl);
       }
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
@@ -335,10 +337,12 @@ export function App(props: AppProps): ReactElement {
       : topic
       ? `T: ${topic} | P: ${place} - `
       : "";
+    /* eslint-disable camelcase */
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${gaTitle}${document.title}`,
       page_location: window.location.href.replace("#", "?"),
     });
+    /* eslint-enable camelcase */
     if (query) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);

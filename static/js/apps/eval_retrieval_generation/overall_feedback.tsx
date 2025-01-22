@@ -149,7 +149,7 @@ export function OverallFeedback(): JSX.Element {
       })
       .finally(() => removeSpinner(FEEDBACK_PANE_ID));
     return () => void (subscribed = false);
-  }, [sheetId, sessionQueryId, sessionCallId, feedbackStage]);
+  }, [sheetId, sessionQueryId, sessionCallId, feedbackStage, evalType]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
     if (isSubmitted) {
@@ -197,14 +197,14 @@ export function OverallFeedback(): JSX.Element {
       });
   };
 
-  const handleChange = (event: FormEvent<HTMLInputElement>) => {
+  const handleChange = (event: FormEvent<HTMLInputElement>): void => {
     const { name, value } = event.target as HTMLInputElement;
     setResponse((prevState) => {
       return { ...prevState, [name]: value };
     });
   };
 
-  const enableReeval = () => {
+  const enableReeval = (): void => {
     setResponse(getEmptyResponse(evalType, feedbackStage));
     setIsSubmitted(false);
   };

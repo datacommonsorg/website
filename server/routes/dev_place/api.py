@@ -14,11 +14,9 @@
 """
 Defines endpoints for the place page.
 """
-
-import copy
+import random
 
 from flask import Blueprint
-from flask import current_app
 from flask import g
 from flask import jsonify
 from flask import request
@@ -30,23 +28,6 @@ from server.routes import TIMEOUT
 from server.routes.dev_place import utils as place_utils
 from server.routes.dev_place.types import PlaceChartsApiResponse
 from server.routes.dev_place.types import RelatedPlacesApiResponse
-import server.services.datacommons as dc
-
-# from server.lib.cache import cache
-
-OVERVIEW_CATEGORY = "Overview"
-CATEGORIES = {
-    OVERVIEW_CATEGORY,
-    "Economics",
-    "Health",
-    "Equity",
-    "Crime",
-    "Education",
-    "Demographics",
-    "Housing",
-    "Environment",
-    "Energy",
-}
 
 # Define blueprint
 bp = Blueprint("dev_place_api", __name__, url_prefix='/api/dev-place')
@@ -71,52 +52,56 @@ def place_charts(place_dcid: str):
   - Charts specific to the place
   - Translated category strings for the charts
   """
+
   # Ensure category is valid
-  place_category = request.args.get("category", OVERVIEW_CATEGORY)
-  if place_category not in CATEGORIES:
+  place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
+  if place_category not in place_utils.CATEGORIES:
     return error_response(
-        f"Argument 'category' {place_category} must be one of: {', '.join(CATEGORIES)}"
+        f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.CATEGORIES)}"
     )
+
+  # Get parent place DCID
+  parent_place_dcid = place_utils.get_place_override(
+      place_utils.get_parent_places(place_dcid))
 
   # Fetch place info
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
   # Determine child place type
-  child_place_type = place_utils.get_child_place_type(place)
+  ordered_child_place_types = place_utils.get_child_place_types(place)
+  child_place_type = ordered_child_place_types[
+      0] if ordered_child_place_types else None
 
   # Retrieve available place page charts
-  full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
-
-  # Filter chart config by category
-  if place_category == OVERVIEW_CATEGORY:
-    chart_config = [c for c in full_chart_config if c.get("isOverview")]
-  else:
-    chart_config = [
-        c for c in full_chart_config if c["category"] == place_category
-    ]
+  full_chart_config = place_utils.read_chart_configs()
 
   # Filter out place page charts that don't have any data for the current place_dcid
-  filtered_chart_config = place_utils.filter_chart_config_by_place_dcid(
-      chart_config=chart_config,
+  chart_config_existing_data = place_utils.filter_chart_config_by_place_dcid(
+      chart_config=full_chart_config,
       place_dcid=place_dcid,
+      place_type=place_utils.place_type_to_highlight(place.types),
+      parent_place_dcid=parent_place_dcid,
       child_place_type=child_place_type)
+
+  # Only keep the chart config for the current category.
+  chart_config_for_category = place_utils.filter_chart_configs_for_category(
+      place_category, chart_config_existing_data)
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
-      filtered_chart_config)
+      chart_config_for_category)
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
-  charts = place_utils.chart_config_to_overview_charts(translated_chart_config,
+  blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
                                                        child_place_type)
 
   # Translate category strings
-  translated_category_strings = place_utils.get_translated_category_strings(
-      filtered_chart_config)
+  categories_with_translations = place_utils.get_categories_with_translations(
+      chart_config_existing_data)
 
-  response = PlaceChartsApiResponse(
-      charts=charts,
-      place=place,
-      translatedCategoryStrings=translated_category_strings)
+  response = PlaceChartsApiResponse(blocks=blocks,
+                                    place=place,
+                                    categories=categories_with_translations)
   return jsonify(response)
 
 
@@ -146,10 +131,23 @@ def related_places(place_dcid: str):
                                                             locale=g.locale)
   similar_place_dcids = place_utils.fetch_similar_place_dcids(place,
                                                               locale=g.locale)
-  child_place_type = place_utils.get_child_place_type(place)
-  child_place_dcids = place_utils.fetch_child_place_dcids(place,
-                                                          child_place_type,
-                                                          locale=g.locale)
+  ordered_child_place_types = place_utils.get_child_place_types(place)
+  primary_child_place_type = ordered_child_place_types[
+      0] if ordered_child_place_types else None
+
+  child_place_dcids = []
+  seen_dcids = set(
+  )  # Keep track of seen DCIDs to prevent dupes but keep ordering.
+
+  # TODO(gmechali): Refactor this into async calls.
+  for child_place_type in ordered_child_place_types:
+    for dcid in place_utils.fetch_child_place_dcids(place,
+                                                    child_place_type,
+                                                    locale=g.locale):
+      if dcid not in seen_dcids:
+        child_place_dcids.append(dcid)
+        seen_dcids.add(dcid)
+
   parent_places = place_utils.get_parent_places(place.dcid)
 
   # Fetch all place objects in one request to reduce latency (includes name and typeOf)
@@ -176,10 +174,21 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
-  response = RelatedPlacesApiResponse(childPlaceType=child_place_type,
+  parents_to_highlight = place_utils.get_ordered_parents_to_highlight(
+      parent_places)
+
+  peers_within_parent = []
+  if (parents_to_highlight):
+    peers_within_parent = place_utils.fetch_child_place_dcids(
+        parents_to_highlight[0],
+        place_utils.place_type_to_highlight(place.types))
+    random.shuffle(peers_within_parent)
+
+  response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
                                       nearbyPlaces=nearby_places,
                                       place=place,
                                       similarPlaces=similar_places,
-                                      parentPlaces=parent_places)
+                                      parentPlaces=parent_places,
+                                      peersWithinParent=peers_within_parent)
   return jsonify(response)

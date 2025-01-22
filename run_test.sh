@@ -173,9 +173,17 @@ function run_webdriver_test {
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
+    export FLAKE_FINDER=true
+  fi
   source .env/bin/activate
   start_servers
-  python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+  if [[ "$FLAKE_FINDER" == "true" ]]; then
+    python3 -m pytest -n auto server/webdriver/tests/ ${@}
+  else
+    # TODO: Stop using reruns once tests are deflaked.
+    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+  fi
   stop_servers
   deactivate
 }

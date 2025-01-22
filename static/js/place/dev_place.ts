@@ -17,9 +17,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../i18n/i18n";
 import { DevPlaceMain } from "./dev_place_main";
 
-window.addEventListener("load", (): void => {
+window.addEventListener("load", async (): Promise<void> => {
+  // Get locale from metadata
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
+  // Load locale data
+  await loadLocaleData(locale, [
+    import(`../i18n/compiled-lang/${locale}/place.json`),
+    import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+    import(`../i18n/compiled-lang/${locale}/units.json`),
+  ]);
+
+  // Render page
   renderPage();
 });
 

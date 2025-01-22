@@ -40,11 +40,11 @@ export interface Link {
   title: string;
   //the url of the chip link
   url: string;
+  //the variant of the link chip
+  variant?: "elevated" | "flat";
 }
 
 interface LinkChipProps {
-  //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
-  variant?: "elevated" | "flat";
   //the link chip to be displayed
   linkChip: Link;
   //the section gives location of the chip component in order to give context for the GA event
@@ -52,19 +52,20 @@ interface LinkChipProps {
 }
 
 export const LinkChip = ({
-  variant = "elevated",
   linkChip,
   section = "",
 }: LinkChipProps): ReactElement => {
   const theme = useTheme();
 
   const chipStyles = css`
-    ${variant === "elevated" ? theme.box.primary : theme.box.secondary};
-    ${variant === "elevated" ? theme.elevation.primary : ""};
+    ${linkChip.variant === "elevated"
+      ? theme.box.primary
+      : theme.box.secondary};
+    ${linkChip.variant === "elevated" ? theme.elevation.primary : ""};
     ${theme.typography.family.text};
     ${theme.typography.text.md};
     ${theme.radius.primary};
-    color: ${variant === "elevated"
+    color: ${linkChip.variant === "elevated"
       ? theme.colors.link.primary.base
       : theme.colors.text.primary.base};
     line-height: 1rem;
@@ -77,7 +78,7 @@ export const LinkChip = ({
 
     &:hover {
       text-decoration: none;
-      color: ${variant === "elevated"
+      color: ${linkChip.variant === "elevated"
         ? theme.colors.link.primary.base
         : theme.colors.text.primary.base};
       .icon {
@@ -88,7 +89,7 @@ export const LinkChip = ({
     .icon {
       transition: transform 0.1s ease-in-out;
       svg {
-        fill: ${variant === "elevated"
+        fill: ${linkChip.variant === "elevated"
           ? theme.colors.link.primary.base
           : theme.colors.text.primary.base};
       }

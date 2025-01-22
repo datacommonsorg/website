@@ -47,6 +47,14 @@ export const LinkChips = ({
   linkChips,
 }: LinkChipsProps): ReactElement => {
   const theme = useTheme();
+
+  linkChips.map((lc) => {
+    if (!lc.variant) {
+      lc.variant = variant;
+    }
+    return lc;
+  });
+
   return (
     <>
       {header && (
@@ -88,12 +96,7 @@ export const LinkChips = ({
         `}
       >
         {linkChips.map((linkChip) => (
-          <LinkChip
-            key={linkChip.id}
-            variant={variant}
-            section={section}
-            linkChip={linkChip}
-          />
+          <LinkChip key={linkChip.id} section={section} linkChip={linkChip} />
         ))}
       </div>
     </>

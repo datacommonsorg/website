@@ -55,7 +55,11 @@ function hasRequiredProps(obs: Observation): boolean {
   return true;
 }
 
-function getCellVal(row: Array<string>, colIdx: number, valueMap: ValueMap) {
+function getCellVal(
+  row: Array<string>,
+  colIdx: number,
+  valueMap: ValueMap
+): string {
   const cellVal = row[colIdx];
   if (cellVal in valueMap) {
     return valueMap[cellVal];

@@ -106,13 +106,13 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         collapsible={false}
         svHierarchyType={StatVarHierarchyType.DOWNLOAD}
         sampleEntities={samplePlaces}
-        deselectSVs={(svList: string[]) =>
+        deselectSVs={(svList: string[]): void =>
           svList.forEach((sv) => {
             props.onStatVarRemoved(sv);
           })
         }
         selectedSVs={selectedSVs}
-        selectSV={(sv) => selectSV(sv)}
+        selectSV={(sv): void => selectSV(sv)}
       />
       {/* Modal for selecting stat var to replace when too many are selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
@@ -140,7 +140,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
                           (_.isEmpty(modalSelection) && idx === 0) ||
                           modalSelection === sv
                         }
-                        onClick={() => setModalSelection(sv)}
+                        onClick={(): void => setModalSelection(sv)}
                       />
                       {sv in props.statVars
                         ? props.statVars[sv].title || sv
@@ -153,7 +153,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
           </Container>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => confirmStatVars()}>
+          <Button color="primary" onClick={(): void => confirmStatVars()}>
             Confirm
           </Button>
         </ModalFooter>

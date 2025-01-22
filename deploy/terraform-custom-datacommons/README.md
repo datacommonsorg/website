@@ -80,8 +80,48 @@ Generate credentials for Google Cloud:
 gcloud auth application-default login --project $PROJECT_ID
 gcloud auth login
 ```
+### 4. (Optional) Provision a docker artifact registry and push custom Data Commons images
 
-### 4. Initialize Terraform
+An artifact registry can optionally be used to store custom Docker images for the Data Commons web service image.
+
+Create a new artifact repository named `$PROJECT_ID-artifacts` in the `us-central1` region:
+
+```bash
+REGION=us-central1 # Or any other GCP region
+./create_artifact_repository.sh $PROJECT_ID $REGION
+```
+
+Follow [these instructions to build custom Data Commons docker images](https://docs.datacommons.org/custom_dc/build_image.html).
+
+For example, to build a custom Data Commons web service image:
+
+```bash
+docker build --platform linux/amd64  -f build/cdc_services/Dockerfile \
+  --tag custom-dc-services \
+  .
+```
+
+And follow [these instructions to push a new image to the artifact registry](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling#pushing_images_to_a_repository).
+
+For example:
+
+```bash
+PROJECT_ID=your-gcp-project
+docker tag custom-dc-services:latest \
+  us-central1-docker.pkg.dev/$PROJECT_ID/$PROJECT_ID-artifacts/custom-dc-services:latest
+docker push \
+  us-central1-docker.pkg.dev/$PROJECT_ID/$PROJECT_ID-artifacts/custom-dc-services:latest
+```
+
+To use this custom image in your Terraform deployment, set the `dc_web_service_image` variable to `us-central1-docker.pkg.dev/your-gcp-project/your-gcp-project-artifacts/custom-dc-services:latest`.
+
+Example:
+
+```
+dc_web_service_image = "us-central1-docker.pkg.dev/my-gcp-project/datcom-website-dev-artifacts/custom-dc-services:latest"
+```
+
+### 5. Initialize Terraform
 
 ```bash
 cd modules
@@ -111,7 +151,7 @@ terraform init
 terraform plan
 ```
 
-### 5. Provision and run Data Commons in GCP
+### 6. Provision and run Data Commons in GCP
 
 Deploy custom Data Commons instance (takes about 15 minutes):
 
@@ -127,7 +167,7 @@ Once the deployment is complete, terraform should output something like:
 cloud_run_service_name = "<namespace>-datacommons-web-service"
 cloud_run_service_url = "https://<namespace>-datacommons-web-service-abc123-uc.a.run.app"
 dc_api_key = <sensitive>
-dc_gcs_data_bucket_path = "<namespace>-datacommons-data-<project-id>"
+gcs_data_bucket_name = "<namespace>-datacommons-data-<project-id>"
 maps_api_key = <sensitive>
 mysql_instance_connection_name = "<project-id>:us-central1:<namespace>-datacommons-mysql-instance"
 mysql_instance_public_ip = "<mysql_ip>"
@@ -138,7 +178,7 @@ redis_instance_port = 6379
 
 ### 6. Load custom data
 
-Upload custom sample data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
+Upload custom sample data to the GCS bucket specified by the terraform output `gcs_data_bucket_name` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
 From the `website` repository's root directory, run:
 
 ```
