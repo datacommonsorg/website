@@ -14,7 +14,6 @@
 """
 Defines endpoints for the place page.
 """
-import random
 
 from flask import Blueprint
 from flask import g
@@ -67,8 +66,9 @@ def place_charts(place_dcid: str):
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
   # Get parent place DCID
-  parent_place_dcid = place_utils.get_place_override(
+  parent_place_override = place_utils.get_place_override(
       place_utils.get_parent_places(place_dcid))
+  parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
   # Determine child place type to highlight
   child_place_type_to_highlight = place_utils.get_child_place_type_to_highlight(
@@ -174,15 +174,8 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
-  parents_to_highlight = place_utils.get_ordered_parents_to_highlight(
-      parent_places)
-
-  peers_within_parent = []
-  if (parents_to_highlight):
-    peers_within_parent = place_utils.fetch_child_place_dcids(
-        parents_to_highlight[0],
-        place_utils.place_type_to_highlight(place.types))
-    random.shuffle(peers_within_parent)
+  peers_within_parent = place_utils.fetch_peer_places_within(
+      place.dcid, place.types)
 
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
