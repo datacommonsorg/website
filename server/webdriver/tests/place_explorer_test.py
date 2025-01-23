@@ -50,23 +50,23 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          expected_topics=ORDERED_CATEGORIES)
 
     # And that the categories have data in the overview
-    topics_in_overview = set(
-        ["Economics", "Health", "Demographics", "Environment", "Energy"])
     block_titles = find_elems(self.driver, value='block-title')
     self.assertEqual(set([block.text for block in block_titles]),
-                     topics_in_overview)
+                     set(ORDERED_TOPICS))
 
     # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
                                      value='category',
                                      path_to_elem=['charts-container'])
-    self.assertEqual(len(category_containers), len(topics_in_overview))
+    self.assertEqual(len(category_containers), len(ORDERED_TOPICS))
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
   def test_dev_place_demographics_world(self):
     """Ensure place page revamp World page works"""
+    # Use a larger window height since the maps show up further down.
+    self.driver.set_window_size(1200, 2400)
     self.driver.get(self.url_ +
                     '/place/Earth?force_dev_places=true&category=Demographics')
 
@@ -123,15 +123,18 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          expected_topics=ORDERED_CATEGORIES)
 
     # And that the categories have data in the overview
+    topics_in_overview = set(
+        ["Economics", "Health", "Equity", "Crime", "Education", "Demographics",
+    "Housing", "Energy"])
     block_titles = find_elems(self.driver, value='block-title')
     self.assertEqual(set([block.text for block in block_titles]),
-                     set(ORDERED_TOPICS))
+                     topics_in_overview)
 
     # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
                                      value='category',
                                      path_to_elem=['charts-container'])
-    self.assertEqual(len(category_containers), len(ORDERED_TOPICS))
+    self.assertEqual(len(category_containers), len(topics_in_overview))
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
