@@ -65,8 +65,6 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_demographics_world(self):
     """Ensure place page revamp World page works"""
-    # Use a larger window height since the maps show up further down.
-    self.driver.set_window_size(1200, 4500)
     self.driver.get(self.url_ +
                     '/place/Earth?force_dev_places=true&category=Demographics')
 
