@@ -661,7 +661,7 @@ def translate_chart_config(chart_config: List[ServerChartConfiguration],
         places_within_title = gettext('%(placeType)s in %(parentPlaces)s',
                                       placeType=translated_child_place_type,
                                       parentPlaces=place_name)
-        title_sections = [peer_places_title, places_within_title]
+        title_sections = [places_within_title, places_within_title]
       else:
         title_sections = [translated_stat_var_title]
 
