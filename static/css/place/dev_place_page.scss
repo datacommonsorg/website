@@ -40,57 +40,13 @@ main {
     padding: 0;
   }
   .container {
-    padding: calc(#{var.$spacing} * 6) 0;
-    &.big {
-      padding: calc(#{var.$spacing} * 12) 0;
-      @include media-breakpoint-down(lg) {
-        padding: calc(#{var.$spacing} * 8) calc(#{var.$spacing} * 3);
-      }
-    }
+    padding: calc(#{var.$spacing} * 6) 15px;
     @include media-breakpoint-down(lg) {
       max-width: 100% !important;
       padding: var.$container-horizontal-padding calc(#{var.$spacing} * 3);
     }
   }
-
-  // Overwrite default subject-page-main-pane style to align charts
   #subject-page-main-pane {
-    .category {
-      margin: 48px 0;
-      padding: 0;
-
-      .block .row {
-        margin: 0;
-
-        .block-column {
-          padding: 0;
-
-          .col-xl-6 {
-            flex-basis: auto;
-            flex-grow: 1;
-            flex-shrink: 1;
-            padding: 0;
-            width: 100%;
-
-            .chart-container {
-              height: 100%;
-              margin: 0;
-            }
-
-            @include media-breakpoint-up(md) {
-              width: calc(50% - #{$chart-horizontal-spacing/2});
-            }
-          }
-
-          .row {
-            column-gap: 24px;
-            margin: 0;
-            row-gap: 42px;
-          }
-        }
-      }
-    }
-
     .block-title {
       background: none;
       border-bottom: $horizontal-divider-style;
@@ -99,8 +55,8 @@ main {
       font-style: normal;
       font-weight: 400;
       line-height: 28px;
-      margin: 0 0 24px 0;
-      padding: 0 0 12px 0;
+      margin: 0;
+      padding: 0 24px 12px;
     }
   }
 }
@@ -113,13 +69,28 @@ main {
 
   .place-info {
     flex-grow: 1;
+    padding: 0 24px;
 
     h1 {
+      align-items: center;
       color: var(--gm-3-ref-neutral-neutral-20);
+      display: flex;
+      flex-direction: row;
       font-size: 28px;
       font-style: normal;
       font-weight: 400;
+      justify-content: space-between;
       line-height: 36px;
+      flex-wrap: wrap;
+
+      .dcid-and-knowledge-graph {
+        color: var(--gm-3-ref-neutral-neutral-40);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.1px;
+      }
     }
 
     .subheader {
@@ -131,42 +102,8 @@ main {
       margin-bottom: 0;
     }
   }
-
-  .dcid-and-knowledge-graph {
-    color: var(--gm-3-ref-neutral-neutral-40);
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    letter-spacing: 0.1px;
-  }
 }
 
-.place-overview {
-  border-radius: 8px;
-  border: 1px solid var(--GM3-ref-neutral-neutral90, #e3e3e3);
-  background: rgba(211, 227, 253, 0.1);
-  padding: 28px;
-  .place-name {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
-  }
-  .place-summary {
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-  }
-  .place-map {
-    margin-top: 16px;
-  }
-  .table thead th {
-    border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-70, #ababab);
-    border-top: none;
-  }
-}
 .summary-text {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-size: 14px;
@@ -181,46 +118,22 @@ main {
   margin: 8px 0;
   padding-top: 10px;
   margin-bottom: 32px;
-}
-
-.charts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-  margin: 24px 0;
-
-  .category {
-    .category-heading-container {
-      align-items: center;
-      border-bottom: $horizontal-divider-style;
-      display: flex;
-      flex-direction: row;
-
-      h2 {
-        flex-grow: 1;
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 28px;
-      }
-
-      a {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 20px;
-      }
-    }
-  }
+  padding: 10px 24px 0;
 }
 
 .block.subtopic {
-  padding: 0;
-}
-
-.block-column {
-  width: 50%;
-  padding: 0px 10px 24px 10px;
+  h3 {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .block-controls {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 .related-places {
@@ -248,9 +161,11 @@ main {
 }
 
 #page-loading {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 8px;
+  padding-left: 24px;
+  padding-right: 24px;
   svg {
     font-size: 24px;
     animation: rotating 2s linear infinite;
