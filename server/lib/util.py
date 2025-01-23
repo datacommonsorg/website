@@ -29,6 +29,8 @@ import urllib
 from flask import jsonify
 from flask import make_response
 from flask import request
+from google.cloud import storage
+from google.cloud.exceptions import NotFound
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
@@ -388,6 +390,47 @@ def get_nl_no_percapita_vars():
       if sv and yn in ['n', 'no']:
         nopc_vars.add(sv)
     return nopc_vars
+
+
+def get_feature_flag_bucket_name() -> str:
+  """Returns the bucket name containing the feature flags."""
+  env_for_bucket = os.environ.get('FLASK_ENV')
+  if env_for_bucket in ['local', 'integration_test', 'test', 'webdriver']:
+    env_for_bucket = 'autopush'
+  elif env_for_bucket == 'production':
+    env_for_bucket = 'prod'
+  return 'datcom-website-' + env_for_bucket + '-resources'
+
+
+def load_feature_flags():
+  """Loads the feature flags into app config."""
+  storage_client = storage.Client()
+  bucket_name = get_feature_flag_bucket_name()
+  try:
+    bucket = storage_client.get_bucket(bucket_name)
+  except NotFound:
+    logging.error("Bucket not found: " + bucket_name)
+    return {}
+
+  blob = bucket.get_blob("feature_flags.json")
+  data = {}
+  if blob:
+    try:
+      data = json.loads(blob.download_as_bytes())
+    except json.JSONDecodeError:
+      logging.warning("Loading feature flags failed to decode JSON.")
+    except TypeError:
+      logging.warning("Loading feature flags encountered a TypeError.")
+  else:
+    logging.warning("Feature flag file not found in the bucket.")
+
+  # Create the dictionary using a dictionary comprehension
+  feature_flag_dict = {
+      flag["name"]: flag["enabled"]
+      for flag in data
+      if 'name' in flag and 'enabled' in flag
+  }
+  return feature_flag_dict
 
 
 # Returns a set of SVs that have percentage units.
