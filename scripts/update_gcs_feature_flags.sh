@@ -47,9 +47,39 @@ fi
 # Construct the filename (e.g., dev.json, staging.json)
 file="${environment}.json"
 
+# Validate the JSON file
+if ! python -m json.tool "server/config/feature_flag_configs/${file}" &> /dev/null; then
+  echo "Error: ${file} is not valid JSON."
+  exit 1
+fi
+
 # Construct the bucket name, handling the "prod" case for production
 if [[ "$environment" == "production" ]]; then
   bucket_name="datcom-website-prod-resources"
+
+  # Confirmation prompt for production
+  read -p "Have you validated these feature flags in staging? (yes/no) " -n 1 -r
+  echo    # (optional) move to a new line
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Aborting deployment to production."
+    exit 1
+  fi
+
+  # Fetch staging flags from GCS
+  echo "Fetching staging feature flags from GCS..."
+  gsutil cp "gs://datcom-website-staging-resources/feature_flags.json" "staging_flags.json"
+
+  # Compare staging and production flags
+  echo "Comparing staging and production feature flags..."
+  if ! diff "server/config/feature_flag_configs/${file}" "staging_flags.json" &> /dev/null; then
+    echo "Error: Production feature flags differ from staging."
+    echo "Please ensure the flags are identical before deploying to production."
+    echo "Diffs:"
+    diff -C 2 "server/config/feature_flag_configs/${file}" "staging_flags.json"
+    exit 1
+  fi
+
+  rm "staging_flags.json"  # Clean up temporary file
 else
   bucket_name="datcom-website-${environment}-resources"
 fi
