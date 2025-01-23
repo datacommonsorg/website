@@ -50,8 +50,19 @@ fi
 # Construct the filename (e.g., dev.json, staging.json)
 file="${environment}.json"
 
+# Find the right python command.
+if command -v python3 &> /dev/null; then
+    PYTHON=python3
+elif command -v python &> /dev/null; then
+    PYTHON=python
+else
+    echo "Error: Python not found!"
+    exit 1
+fi
+
+$PYTHON your_python_script.py
 # Validate the JSON file
-if ! python -m json.tool "server/config/feature_flag_configs/${file}" &> /dev/null; then
+if ! $PYTHON -m json.tool "server/config/feature_flag_configs/${file}" &> /dev/null; then
   echo "Error: ${file} is not valid JSON."
   exit 1
 fi
