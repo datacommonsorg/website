@@ -433,7 +433,7 @@ def load_fallback_feature_flags(environment: str):
   environments_with_local_files = set('local', 'autopush', 'dev', 'staging',
                                       'production')
 
-  env_to_use = environment if environment in environments_with_local_files else 'autopush'
+  env_to_use = environment if environment in environments_with_local_files else 'production'
 
   filepath = os.path.join(get_repo_root(), "config", "feature_flag_configs",
                           env_to_use + ".json")
