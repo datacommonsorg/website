@@ -8,7 +8,7 @@ is usable by the data sources page in the primary Data Commons site.
 
 ## Notes
 
-This script may be temporary. The external data sources pages are populated
+This script is temporary. The external data sources pages are populated
 from an ultimate source not connected to this repository. The process will
 likely be updated in the future so that the local json used here will also be
 populated from the same source that generates the markdown/html used in the external

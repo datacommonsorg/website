@@ -20,6 +20,9 @@
 # eventually be compiled into JSON from source and copied into this
 # repository.
 
+# TODO: When the json for these datasets are directly populated into
+# this repository, remove this script.
+
 from dataclasses import asdict
 from dataclasses import dataclass
 import json
