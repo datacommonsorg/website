@@ -198,17 +198,3 @@ export function stripPatternFromQuery(query: string, pattern: string): string {
   // returns "population of "
   return query.replace(regex, "");
 }
-
-export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
-
-/**
- * Helper method to interact with feature flags.
- * @param featureName name of feature for which we want status.
- * @returns Bool describing if the feature is enabled
- */
-export function isFeatureEnabled(featureName: string): boolean {
-  if (featureName in FEATURE_FLAGS) {
-    return FEATURE_FLAGS[featureName];
-  }
-  return false;
-}

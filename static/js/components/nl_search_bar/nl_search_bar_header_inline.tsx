@@ -20,7 +20,10 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 
-import { isFeatureEnabled } from "../../shared/util";
+import {
+  AUTOCOMPLETE_FEATURE_FLAG,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
 import { NlSearchBarImplementationProps } from "../nl_search_bar";
 import { AutoCompleteInput } from "./auto_complete_input";
 
@@ -39,7 +42,7 @@ const NlSearchBarHeaderInline = ({
 
   useEffect(() => {
     setAutoCompleteEnabled(
-      isFeatureEnabled("autocomplete") ||
+      isFeatureEnabled(AUTOCOMPLETE_FEATURE_FLAG) ||
         isAutopushEnv ||
         (urlParams.has("ac_on") && urlParams.get("ac_on") == "true")
     );

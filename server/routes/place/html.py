@@ -28,9 +28,11 @@ from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
 from server.lib.config import GLOBAL_CONFIG_BUCKET
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import PLACE_PAGE_EXPERIMENT_FEATURE_FLAG
+from server.lib.feature_flags import PLACE_PAGE_GA_FEATURE_FLAG
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
-from server.lib.shared import is_feature_enabled
 import server.routes.dev_place.utils as utils
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
@@ -303,7 +305,7 @@ DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
 def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
                                     request_args: MultiDict[str, str]) -> bool:
   """Determine if dev place experiment should be enabled for the page"""
-  if not is_feature_enabled("dev_place_experiment"):
+  if not is_feature_enabled(PLACE_PAGE_EXPERIMENT_FEATURE_FLAG):
     return False
 
   # Disable dev place experiment for non-dev environments
@@ -330,8 +332,9 @@ def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
 @bp.route('/<path:place_dcid>')
 @cache.cached(query_string=True)
 def place(place_dcid=None):
-  if is_feature_enabled("dev_place_ga") or is_dev_place_experiment_enabled(
-      place_dcid, g.locale, flask.request.args):
+  if is_feature_enabled(
+      PLACE_PAGE_GA_FEATURE_FLAG) or is_dev_place_experiment_enabled(
+          place_dcid, g.locale, flask.request.args):
     return dev_place(place_dcid=place_dcid)
   redirect_args = dict(flask.request.args)
 
