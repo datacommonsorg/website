@@ -402,7 +402,7 @@ def get_feature_flag_bucket_name() -> str:
   return 'datcom-website-' + env_for_bucket + '-resources'
 
 
-def load_feature_flags():
+def load_feature_flags_from_gcs():
   """Loads the feature flags into app config."""
   storage_client = storage.Client()
   bucket_name = get_feature_flag_bucket_name()
@@ -423,6 +423,29 @@ def load_feature_flags():
       logging.warning("Loading feature flags encountered a TypeError.")
   else:
     logging.warning("Feature flag file not found in the bucket.")
+
+  return data
+
+def load_fallback_feature_flags():
+  """Loads the fallback feature flags into app config."""
+  env_to_use = os.environ.get('FLASK_ENV')
+  if env_to_use == 'local':
+    env_to_use = 'autopush'
+
+  filepath = os.path.join(get_repo_root(), "config", "feature_flag_configs",
+                          env_to_use + ".json")
+  with open(filepath, 'r') as f:
+    data = json.load(f)
+  return data
+
+
+def load_feature_flags():
+  """Loads the feature flags into app config."""
+  data = load_feature_flags_from_gcs()
+
+  if not data:
+    print("I came in here and loaded.")
+    data = load_fallback_feature_flags()
 
   # Create the dictionary using a dictionary comprehension
   feature_flag_dict = {
