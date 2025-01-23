@@ -66,7 +66,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
   def test_dev_place_demographics_world(self):
     """Ensure place page revamp World page works"""
     # Use a larger window height since the maps show up further down.
-    self.driver.set_window_size(1200, 2400)
+    self.driver.set_window_size(1200, 4500)
     self.driver.get(self.url_ +
                     '/place/Earth?force_dev_places=true&category=Demographics')
 
@@ -77,8 +77,14 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          classname='item-list-item',
                          expected_topics=ORDERED_CATEGORIES)
 
+    # Scroll to a map chart.
+    # TODO(gmechali): Make a util for scrolling to element.
+    map_chart = self.driver.find_element(By.CLASS_NAME, "map-chart")
+    self.driver.execute_script("arguments[0].scrollIntoView();", map_chart)
+
     # Assert we see at least one map item with data.
-    map_containers = find_elems(self.driver, value='map')
+    map_containers = find_elems(self.driver, value='map-chart')
+
     self.assertGreater(len(map_containers), 0)
     map_geo_regions = find_elem(map_containers[0],
                                 by=By.ID,
