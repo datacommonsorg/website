@@ -250,13 +250,18 @@ def filter_chart_config_by_place_dcid(
       needs_child_data |= block.place_scope == "CHILD_PLACES"
       needs_peer_places_data |= block.place_scope == "PEER_PLACES_WITHIN_PARENT"
 
+    variables = copy.deepcopy(config.variables)
+    if not config.non_dividable:
+      if not config.denominator:
+        config.denominator = ["Count_Person"]
+      variables.extend(config.denominator)
+
     if needs_child_data:
-      child_places_stat_var_dcids.extend(config.variables)
+      child_places_stat_var_dcids.extend(variables)
     if needs_current_place_data:
-      current_place_stat_var_dcids.extend(config.variables)
+      current_place_stat_var_dcids.extend(variables)
     if needs_peer_places_data:
-      peer_places_stat_var_dcids.extend(config.variables)
-    # TODO(gmechali): Decide what do with if there's no denominator data.
+      peer_places_stat_var_dcids.extend(variables)
 
   # Find stat vars that have data for our place dcid
   current_place_obs_point_response = dc.obs_point(
@@ -303,24 +308,36 @@ def filter_chart_config_by_place_dcid(
   for config in filtered_chart_config:
     updated_blocks = []
     for block in config.blocks:
+      has_child_data = False
+      has_place_data = False
+      has_peer_data = False
+      has_denom_data = False
+
       if block.place_scope == "CHILD_PLACES":
         has_child_data = any(var in child_places_stat_vars_with_observations
                              for var in config.variables)
-        if has_child_data:
-          updated_blocks.append(block)
+        has_denom_data = all(var in child_places_stat_vars_with_observations
+                             for var in config.denominator)
       elif block.place_scope == "PLACE":
-        has_data = any(var in current_place_stat_vars_with_observations
-                       for var in config.variables)
-        if has_data:
-          updated_blocks.append(block)
-      elif block.place_scope == "PEER_PLACES_WITHIN_PARENT":
-        has_peer_data = any(var in peer_places_stat_vars_with_observations
-                            for var in config.variables)
         has_place_data = any(var in current_place_stat_vars_with_observations
                              for var in config.variables)
-        if has_place_data and has_peer_data:
-          # Only add peers when we also have data for current place.
-          updated_blocks.append(block)
+        has_denom_data = all(var in current_place_stat_vars_with_observations
+                             for var in config.denominator)
+      elif block.place_scope == "PEER_PLACES_WITHIN_PARENT":
+        has_place_data = any(var in current_place_stat_vars_with_observations
+                             for var in config.variables)
+        # Only add peers when we also have data for current place.
+        has_peer_data = has_place_data and any(
+            var in peer_places_stat_vars_with_observations
+            for var in config.variables)
+        has_denom_data = all(var in peer_places_stat_vars_with_observations
+                             for var in config.denominator)
+
+      block.non_dividable = config.non_dividable or not has_denom_data
+
+      if has_child_data or has_place_data or has_peer_data:
+        updated_blocks.append(block)
+
     config.blocks = updated_blocks
 
   return filtered_chart_config
@@ -441,11 +458,8 @@ def chart_config_to_overview_charts(
           title=page_config_item.title,
           placeScope=block.place_scope,
           topicDcids=[],
+          denominator=denominator if not block.non_dividable else None,
           unit=page_config_item.unit)
-      if denominator:
-        this_block.denominator = denominator
-      elif not page_config_item.non_dividable:
-        this_block.denominator = ["Count_Person"]
 
       this_block.childPlaceType = child_place_type
       blocks.append(this_block)

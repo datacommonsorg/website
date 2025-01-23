@@ -99,8 +99,6 @@ def place_charts(place_dcid: str):
   categories_with_translations = place_utils.get_categories_with_translations(
       chart_config_existing_data)
 
-  print(blocks)
-  print("blocks")
   response = PlaceChartsApiResponse(blocks=blocks,
                                     place=place,
                                     categories=categories_with_translations)
