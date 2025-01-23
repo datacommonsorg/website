@@ -83,6 +83,15 @@ main {
       line-height: 36px;
       flex-wrap: wrap;
 
+      .place-info-link {
+        color: inherit;
+      }
+      
+      .place-info-link:hover {
+        color: var(--link-color);
+        text-decoration: underline;
+      }
+      
       .dcid-and-knowledge-graph {
         color: var(--gm-3-ref-neutral-neutral-40);
         font-size: 12px;

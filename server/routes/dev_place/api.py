@@ -55,9 +55,9 @@ def place_charts(place_dcid: str):
 
   # Ensure category is valid
   place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
-  if place_category not in place_utils.CATEGORIES:
+  if place_category not in place_utils.ALLOWED_CATEGORIES:
     return error_response(
-        f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.CATEGORIES)}"
+        f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.ALLOWED_CATEGORIES)}"
     )
 
   # Retrieve available place page charts
