@@ -67,7 +67,7 @@ Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDom
 Amount_Remittance_OutwardRemittance,,,
 Amount_Stock,,,
 Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,n,,
-Amout_FarmInventory_CornForGrain,,,
+Amount_FarmInventory_CornForGrain,,,
 AnnualChange_Stocks_Fuel_AviationGasoline,,,
 AnnualChange_Stocks_Fuel_BituminousCoal,,,
 AnnualChange_Stocks_Fuel_BrownCoal,,,
