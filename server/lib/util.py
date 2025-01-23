@@ -392,20 +392,21 @@ def get_nl_no_percapita_vars():
     return nopc_vars
 
 
-def get_feature_flag_bucket_name() -> str:
+def get_feature_flag_bucket_name(environment: str) -> str:
   """Returns the bucket name containing the feature flags."""
-  env_for_bucket = os.environ.get('FLASK_ENV')
-  if env_for_bucket in ['local', 'integration_test', 'test', 'webdriver']:
+  if environment in ['integration_test', 'test', 'webdriver']:
     env_for_bucket = 'autopush'
-  elif env_for_bucket == 'production':
+  elif environment == 'production':
     env_for_bucket = 'prod'
+  else:
+    env_for_bucket = environment
   return 'datcom-website-' + env_for_bucket + '-resources'
 
 
-def load_feature_flags_from_gcs():
+def load_feature_flags_from_gcs(environment: str):
   """Loads the feature flags into app config."""
   storage_client = storage.Client()
-  bucket_name = get_feature_flag_bucket_name()
+  bucket_name = get_feature_flag_bucket_name(environment)
   try:
     bucket = storage_client.get_bucket(bucket_name)
   except NotFound:
@@ -426,14 +427,13 @@ def load_feature_flags_from_gcs():
 
   return data
 
-def load_fallback_feature_flags():
+def load_fallback_feature_flags(environment: str):
   """Loads the fallback feature flags into app config."""
-  env_to_use = os.environ.get('FLASK_ENV')
-  if env_to_use == 'local':
-    env_to_use = 'autopush'
-
+  if environment in ['integration_test', 'test', 'webdriver']:
+    environment = 'autopush'
   filepath = os.path.join(get_repo_root(), "config", "feature_flag_configs",
-                          env_to_use + ".json")
+                          environment + ".json")
+
   with open(filepath, 'r') as f:
     data = json.load(f)
   return data
@@ -441,11 +441,14 @@ def load_fallback_feature_flags():
 
 def load_feature_flags():
   """Loads the feature flags into app config."""
-  data = load_feature_flags_from_gcs()
+  environment = os.environ.get('FLASK_ENV')
+
+  data = None
+  if environment != 'local':
+    data = load_feature_flags_from_gcs(environment)
 
   if not data:
-    print("I came in here and loaded.")
-    data = load_fallback_feature_flags()
+    data = load_fallback_feature_flags(environment)
 
   # Create the dictionary using a dictionary comprehension
   feature_flag_dict = {
