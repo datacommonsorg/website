@@ -15,15 +15,18 @@
 
 # Script to upload feature flag configurations to the website GCS bucket.
 # Used for updating the feature flags used in different environments.
-# Will upload the specified configuration file to the corresponding 
+# Will upload the specified configuration file to the corresponding
 # environment's bucket.
+#
+# In order to update Production, you must first update staging to have the same flags you're about to rollout to Production. 
+# This script can also trigger the Kubernetes pod to restart all nodes in the cluster.
 #
 # To Use:
 #  (1) Make sure you're running from root with a clean HEAD
-#  (2) Make sure you've signed into authenticated to gcloud using 
+#  (2) Make sure you've signed into authenticated to gcloud using
 #          `gcloud auth application-default login`
 #  (3) Run `./scripts/update_gcs_feature_flags.sh <environment>`
-#  Where <environment> is one of: dev, staging, production, autopush 
+#  Where <environment> is one of: dev, staging, production, autopush
 
 # Define the valid environments
 valid_environments=("dev" "staging" "production" "autopush")
@@ -71,11 +74,11 @@ if [[ "$environment" == "production" ]]; then
 
   # Compare staging and production flags
   echo "Comparing staging and production feature flags..."
-  if ! diff "server/config/feature_flag_configs/${file}" "staging_flags.json" &> /dev/null; then
+  if ! diff --color "server/config/feature_flag_configs/${file}" "staging_flags.json" &> /dev/null; then
     echo "Error: Production feature flags differ from staging."
     echo "Please ensure the flags are identical before deploying to production."
     echo "Diffs:"
-    diff -C 2 "server/config/feature_flag_configs/${file}" "staging_flags.json"
+    diff -C 2 --color "server/config/feature_flag_configs/${file}" "staging_flags.json"
     exit 1
   fi
 
@@ -88,3 +91,18 @@ echo "Uploading ${file} to gs://${bucket_name}/feature_flags.json"
 gsutil cp "server/config/feature_flag_configs/${file}" "gs://${bucket_name}/feature_flags.json"
 
 echo "Upload complete!"
+
+# Prompt for Kubernetes restart
+read -p "Do you want to restart the Kubernetes deployment? (yes/no) " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  # Use the appropriate project.
+  gcloud config set project datcom-website-${environment}
+
+  # Get the credentials for the autopush k8s cluster
+  gcloud container clusters get-credentials website-us-central1 --region us-central1 --project datcom-website-${environment}
+
+  # Restart the deployment
+  kubectl rollout restart deployment website-app -n website
+  echo "Kubernetes deployment restarted."
+fi

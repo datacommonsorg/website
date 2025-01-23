@@ -427,14 +427,15 @@ def load_feature_flags_from_gcs(environment: str):
 
   return data
 
+
 def load_fallback_feature_flags(environment: str):
-  """Loads the fallback feature flags into app config."""
+  """Loads the fallback feature flags into the app config. We fallback to checked in flag configs per environment."""
   if environment in ['integration_test', 'test', 'webdriver']:
     environment = 'autopush'
   filepath = os.path.join(get_repo_root(), "config", "feature_flag_configs",
                           environment + ".json")
 
-  with open(filepath, 'r') as f:
+  with open(filepath, 'r', encoding="utf-8") as f:
     data = json.load(f)
   return data
 

@@ -1,6 +1,6 @@
 [{
     "name": "autocomplete",
-    "enabled": false
+    "enabled": true
 },
 {
     "name": "dev_place_experiment",
