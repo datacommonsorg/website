@@ -58,7 +58,9 @@ const PlaceHeader = (props: {
       <div className="place-info">
         <h1>
           <span>
-            {place.name}
+            <a className="place-info-link" href={`/place/${place.dcid}`}>
+              {place.name}
+            </a>
             {category != "Overview" ? ` • ${category}` : ""}{" "}
           </span>
           <div className="dcid-and-knowledge-graph">

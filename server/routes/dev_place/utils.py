@@ -47,6 +47,7 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'EurostatNUTS1',
     'Country',
     'Continent',
+    'Place',  # World!
 ]
 
 # Place page categories
@@ -54,9 +55,9 @@ ORDERED_TOPICS = [
     "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
     "Housing", "Environment", "Energy"
 ]
+TOPICS = set(ORDERED_TOPICS)
 OVERVIEW_CATEGORY = "Overview"
-ORDERED_CATEGORIES = [OVERVIEW_CATEGORY] + ORDERED_TOPICS
-CATEGORIES = set(ORDERED_CATEGORIES)
+ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
 
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
@@ -645,11 +646,6 @@ def get_categories_with_translations(
   """
   categories: List[Category] = []
 
-  overview_category = Category(
-      name=OVERVIEW_CATEGORY,
-      translatedName=get_translated_category_string(OVERVIEW_CATEGORY))
-  categories.append(overview_category)
-
   categories_set: Set[str] = set()
   for page_config_item in chart_config:
     category = page_config_item.category
@@ -657,7 +653,7 @@ def get_categories_with_translations(
       continue
     categories_set.add(category)
 
-  for category in ORDERED_CATEGORIES:
+  for category in ORDERED_TOPICS:
     if not category in categories_set:
       continue
     category = Category(name=category,
