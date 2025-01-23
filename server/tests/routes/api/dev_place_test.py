@@ -103,7 +103,9 @@ class TestPlaceAPI(unittest.TestCase):
 
       # Ensure the denominator is present in chart results
       self.assertEqual(1, len(response_json["blocks"][0]["denominator"]))
-      self.assertEqual(5, len(response_json["blocks"][1]["denominator"]))
+
+      # TODO(gmechali): Imrpove test coverage of intricacies of the place charts selection.
+      self.assertIsNone(response_json["blocks"][1]["denominator"])
 
   @patch('server.routes.shared_api.place.parent_places')
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')

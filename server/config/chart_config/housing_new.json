@@ -12,8 +12,8 @@
       "scale": true,
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
+          "is_overview": true,
           "charts": [
             {
               "type": "LINE"
@@ -24,8 +24,8 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
+          "is_overview": true,
           "charts": [
             {
               "type": "MAP"
@@ -36,7 +36,55 @@
           ]
         },
         {
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "is_overview": true,
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Housing",
+      "title_id": "CHART_TITLE-Housing_units_date_built",
+      "title": "Housing units by date built",
+      "description": "Number of available housing units by date built",
+      "variables": [
+        "Count_HousingUnit_Before1939DateBuilt",
+        "Count_HousingUnit_1940To1949DateBuilt",
+        "Count_HousingUnit_1950To1959DateBuilt",
+        "Count_HousingUnit_1960To1969DateBuilt",
+        "Count_HousingUnit_1970To1979DateBuilt",
+        "Count_HousingUnit_1980To1989DateBuilt",
+        "Count_HousingUnit_1990To1999DateBuilt",
+        "Count_HousingUnit_2000To2009DateBuilt",
+        "Count_HousingUnit_2010OrLaterDateBuilt"
+      ],
+      "denominator": [
+        "Count_HousingUnit"
+      ],
+      "non_dividable": false,
+      "scale": true,
+      "blocks": [
+        {
+          "place_scope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "place_scope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -68,8 +116,8 @@
       "scale": true,
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
+          "is_overview": true,
           "charts": [
             {
               "type": "LINE"
@@ -77,8 +125,8 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
+          "is_overview": true,
           "charts": [
             {
               "type": "BAR"
@@ -86,8 +134,8 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
           "charts": [
             {
               "type": "BAR"
@@ -136,7 +184,6 @@
       "scale": true,
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -145,7 +192,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -154,58 +200,6 @@
           ]
         },
         {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Housing",
-      "title_id": "CHART_TITLE-Housing_units_date_built",
-      "title": "Housing units by date built",
-      "description": "Number of available housing units by date built",
-      "variables": [
-        "Count_HousingUnit_Before1939DateBuilt",
-        "Count_HousingUnit_1940To1949DateBuilt",
-        "Count_HousingUnit_1950To1959DateBuilt",
-        "Count_HousingUnit_1960To1969DateBuilt",
-        "Count_HousingUnit_1970To1979DateBuilt",
-        "Count_HousingUnit_1980To1989DateBuilt",
-        "Count_HousingUnit_1990To1999DateBuilt",
-        "Count_HousingUnit_2000To2009DateBuilt",
-        "Count_HousingUnit_2010OrLaterDateBuilt"
-      ],
-      "denominator": [
-        "Count_HousingUnit"
-      ],
-      "non_dividable": false,
-      "scale": true,
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -231,7 +225,6 @@
       "scale": true,
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -240,7 +233,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -249,7 +241,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {

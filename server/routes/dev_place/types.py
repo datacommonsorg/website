@@ -99,6 +99,7 @@ class ServerBlockMetadata:
   place_scope: str
   charts: List[ServerChartMetadata]
   is_overview: bool = False
+  non_dividable: bool = False  # After existence checks
 
 
 @dataclass
@@ -114,5 +115,5 @@ class ServerChartConfiguration:
   blocks: List[ServerBlockMetadata]
   unit: Optional[str] = None
   scaling: Optional[int] = None
-  non_dividable: bool = False
+  non_dividable: bool = False  # Read in from configs
   scale: bool = False
