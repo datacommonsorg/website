@@ -62,6 +62,7 @@ ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
 PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
 NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
 
+
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
   """Get <a href-place page url> tag linking to the place page for a place
   
@@ -652,14 +653,15 @@ def translate_chart_config(chart_config: List[ServerChartConfiguration],
       title_sections = []
 
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
-        title_sections.append(gettext(
-            NEIGHBORING_PLACES_IN_PARENT_PLACE_STR,
-            placeType=translated_place_type,
-            parentPlace=parent_place_name))
+        title_sections.append(
+            gettext(NEIGHBORING_PLACES_IN_PARENT_PLACE_STR,
+                    placeType=translated_place_type,
+                    parentPlace=parent_place_name))
       elif translated_block.place_scope == "CHILD_PLACES":
-        title_sections.append(gettext(PLACE_TYPE_IN_PARENT_PLACES_STR,
-                                      placeType=translated_child_place_type,
-                                      parentPlaces=place_name))
+        title_sections.append(
+            gettext(PLACE_TYPE_IN_PARENT_PLACES_STR,
+                    placeType=translated_child_place_type,
+                    parentPlaces=place_name))
 
       if translated_item.title_id:
         title_sections.append(gettext(translated_item.title_id))
