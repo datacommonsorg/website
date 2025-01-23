@@ -66,8 +66,9 @@ def place_charts(place_dcid: str):
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
   # Get parent place DCID
-  parent_place_dcid = place_utils.get_place_override(
-      place_utils.get_parent_places(place_dcid)).dcid
+  parent_place_override = place_utils.get_place_override(
+      place_utils.get_parent_places(place_dcid))
+  parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
   # Determine child place type to highlight
   child_place_type_to_highlight = place_utils.get_child_place_type_to_highlight(

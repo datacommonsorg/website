@@ -102,8 +102,9 @@ def get_ordered_by_place_type_to_highlight(places: List[Place]) -> List[Place]:
   """
   # Filter places to only the place types to keep
   places_to_include = [
-      place for place in places if any(
-          place_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT for place_type in place.types)
+      place for place in places
+      if any(place_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT
+             for place_type in place.types)
   ]
 
   # Create a dictionary mapping the place types to their order in the highlight list
@@ -125,6 +126,7 @@ def get_place_override(places: List[Place]) -> Place | None:
   if possible_places:
     return possible_places[0]
   return None
+
 
 def get_place_type_with_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID
