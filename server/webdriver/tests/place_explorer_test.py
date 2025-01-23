@@ -52,7 +52,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     # And that the categories have data in the overview
     topics_in_overview = set(
         ["Economics", "Health", "Demographics", "Environment", "Energy"])
-    block_titles = find_elems(self.driver, value='block-title')
+    block_titles = find_elems(self.driver, value='block-title-text')
     self.assertEqual(set([block.text for block in block_titles]),
                      topics_in_overview)
 
@@ -158,7 +158,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          expected_topics=topics_for_africa)
 
     # And that the categories have data in the overview
-    block_titles = find_elems(self.driver, value='block-title')
+    block_titles = find_elems(self.driver, value='block-title-text')
     self.assertEqual(set([block.text for block in block_titles]),
                      set(categories_for_africa))
 
