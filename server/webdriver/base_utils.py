@@ -30,7 +30,7 @@ DEFAULT_WIDTH = 1200
 def create_driver(preferences=None):
   # These options are needed to run ChromeDriver inside a Docker without a UI.
   chrome_options = Options()
-  # chrome_options.add_argument('--headless=new')
+  chrome_options.add_argument('--headless=new')
   chrome_options.add_argument('--no-sandbox')
   chrome_options.add_argument('--disable-dev-shm-usage')
   chrome_options.add_argument('--hide-scrollbars')
