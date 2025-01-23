@@ -38,6 +38,7 @@ from server.services import datacommons as dc
 
 # Parent place types to include in listing of containing places at top of page
 PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
+    'City',
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -94,29 +95,36 @@ def get_parent_places(dcid: str) -> List[Place]:
   return all_parents
 
 
-def get_ordered_parents_to_highlight(all_parents: List[Place]) -> List[Place]:
+# def get_ordered_parents_to_highlight(all_parents: List[Place]) -> List[Place]:
+def get_ordered_by_place_type_to_highlight(places: List[Place]) -> List[Place]:
   """Returns the ordered list of parents to highlight.
   We only consider the types to highlight we favor types that mean more to users (such as State, Country) over entities such as UNGeoRegions, ContinentalUnions etc.
   """
-  # Filter parents to only the types desired
-  parents_to_include = [
-      parent for parent in all_parents if any(
-          p_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT for p_type in parent.types)
+  # Filter places to only the place types to keep
+  places_to_include = [
+      place for place in places if any(
+          place_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT for place_type in place.types)
   ]
 
-  # Create a dictionary mapping parent types to their order in the highlight list
+  # Create a dictionary mapping the place types to their order in the highlight list
   type_order = {
-      parent_type: i
-      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+      place_type: i
+      for i, place_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
   }
 
-  # Sort the parents_to_include list using the type_order dictionary
-  parents_to_include.sort(
-      key=lambda parent: min(type_order.get(t) for t in parent.types))
+  # Sort the places_to_include list using the type_order dictionary
+  places_to_include.sort(
+      key=lambda place: min(type_order.get(t) for t in place.types))
 
-  # Fetch the localized names of the parents
-  return parents_to_include
+  return places_to_include
 
+
+def get_place_override(places: List[Place]) -> Place | None:
+  """Returns the place with the lowest indexed type to highlight"""
+  possible_places = get_ordered_by_place_type_to_highlight(places)
+  if possible_places:
+    return possible_places[0]
+  return None
 
 def get_place_type_with_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID
@@ -136,7 +144,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   all_parents = get_parent_places(dcid)
 
   # Get parent places
-  parents_to_include = get_ordered_parents_to_highlight(all_parents)
+  parents_to_include = get_ordered_by_place_type_to_highlight(all_parents)
   parent_dcids = [parent.dcid for parent in parents_to_include]
 
   localized_names = place_api.get_i18n_name(parent_dcids)
@@ -160,7 +168,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
-def place_type_to_highlight(place_types: List[str]) -> str:
+def place_type_to_highlight(place_types: List[str]) -> str | None:
   """Returns the first place type in PARENT_PLACE_TYPES_TO_HIGHLIGHT that is also in place_types.
 
   Args:
@@ -169,29 +177,13 @@ def place_type_to_highlight(place_types: List[str]) -> str:
   Returns:
     The first place type in PARENT_PLACE_TYPES_TO_HIGHLIGHT that is also in place_types, or None if no such place type exists.
   """
+  if not place_types:
+    return None
+
   for place_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT:
     if place_type in place_types:
       return place_type
   return None
-
-
-def get_place_override(places: List[Place]) -> str:
-  """Returns the place with the lowest indexed type to highlight"""
-  place_override = None
-  for place in places:
-    try:
-      lowest_index = min(
-          PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(type)
-          for type in place.types
-          if type in PARENT_PLACE_TYPES_TO_HIGHLIGHT)
-    except ValueError:
-      lowest_index = float('inf')
-
-    if lowest_index != float('inf'):
-      place_override = place
-      break
-
-  return place_override.dcid if place_override else None
 
 
 def filter_chart_configs_for_category(
@@ -281,7 +273,7 @@ def filter_chart_config_by_place_dcid(
 
   # find stat vars that have data for our peer places. We only want to keep
   # these stat vars if there is data for more than one place.
-  peer_places_within = fetch_peer_places_within(place_dcid, place_type)[:15]
+  peer_places_within = fetch_peer_places_within(place_dcid, [place_type])[:15]
   peer_places_obs_point_response = dc.obs_point_within(
       parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
   peer_places_stat_vars_with_observations = set()
@@ -774,12 +766,12 @@ def fetch_peer_places_within(place_dcid: str,
   # Only consider peers within the first parent of a type to highlight.
   # For example, from country/FRA, we want to show the peers within the Continent Europe.
   # as opposed to peers within the UNGeoRegion WesternEurope, or within the UNData region OECD.
-  parents_to_highlight = get_ordered_parents_to_highlight(parent_places)
+  parent_to_use = get_place_override(parent_places)
 
   peers_within_parent = []
-  if parents_to_highlight:
+  if parent_to_use:
     peers_within_parent = fetch_child_place_dcids(
-        parents_to_highlight[0], place_type_to_highlight(place_types))
+        parent_to_use, place_type_to_highlight(place_types))
     random.shuffle(peers_within_parent)
 
   # Remove place_dcid from the list
