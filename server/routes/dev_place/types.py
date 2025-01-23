@@ -16,7 +16,7 @@ Place API dataclass types
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 
@@ -100,6 +100,7 @@ class ServerBlockMetadata:
   charts: List[ServerChartMetadata]
   is_overview: bool = False
   non_dividable: bool = False  # After existence checks
+  title: Optional[str] = None
 
 
 @dataclass

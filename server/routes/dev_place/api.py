@@ -67,7 +67,7 @@ def place_charts(place_dcid: str):
 
   # Get parent place DCID
   parent_place_override = place_utils.get_place_override(
-      place_utils.get_parent_places(place_dcid))
+      place_utils.get_parent_places(place_dcid), g.locale)
   parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
   # Determine child place type to highlight
@@ -89,7 +89,8 @@ def place_charts(place_dcid: str):
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
-      chart_config_for_category)
+      chart_config_for_category, place_type, child_place_type_to_highlight,
+      place.name, parent_place_override.name if parent_place_override else None)
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
   blocks = place_utils.chart_config_to_overview_charts(

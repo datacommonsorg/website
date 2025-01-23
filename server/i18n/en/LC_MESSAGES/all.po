@@ -936,45 +936,88 @@ msgstr "Water withdrawal rate"
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(placeType)s in %(parentPlaces)s"
 
+#. Neighboring places. Gives context for where the places are relative to one another.
+msgid "Neighboring %(placeType)s in %(parentPlaces)s"
+msgstr "%(placeType)s in %(parentPlaces)s"
+
 #. Place Types
 msgid "singular_administrative_area"
 msgstr "Administrative Area"
 
+msgid "plural_administrative_area"
+msgstr "Administrative Areas"
+
 msgid "singular_administrative_area_level"
 msgstr "Administrative Area %(level)s Place"
+
+msgid "plural_administrative_area_level"
+msgstr "Administrative Area %(level)s Places"
 
 msgid "singular_borough"
 msgstr "Borough"
 
+msgid "plural_borough"
+msgstr "Boroughs"
+
 msgid "singular_city"
 msgstr "City"
+
+msgid "plural_city"
+msgstr "Cities"
 
 msgid "singular_country"
 msgstr "Country"
 
+msgid "plural_country"
+msgstr "Countries"
+
 msgid "singular_county"
 msgstr "County"
+
+msgid "plural_county"
+msgstr "Counties"
 
 msgid "singular_eurostat_nuts"
 msgstr "Eurostat NUTS %(level)s Place"
 
+msgid "plural_eurostat_nuts"
+msgstr "Eurostat NUTS %(level)s Places"
+
 msgid "singular_neighborhood"
 msgstr "Neighborhood"
+
+msgid "plural_neighborhood"
+msgstr "Neighborhoods"
 
 msgid "singular_place"
 msgstr "Place"
 
+msgid "plural_place"
+msgstr "Places"
+
 msgid "singular_state"
 msgstr "State"
+
+msgid "plural_state"
+msgstr "States"
 
 msgid "singular_town"
 msgstr "Town"
 
+msgid "plural_town"
+msgstr "Towns"
+
 msgid "singular_village"
 msgstr "Village"
 
+msgid "plural_village"
+msgstr "Villages"
+
 msgid "singular_zip_code"
 msgstr "ZIP Code"
+
+msgid "plural_zip_code"
+msgstr "ZIP Codes"
 
 #~ msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
 #~ msgstr "Nitrous oxide emissions (non-biogenic)"

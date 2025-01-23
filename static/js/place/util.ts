@@ -163,18 +163,6 @@ function getEnclosedPlaceTypeOverride(
   }
 }
 
-// TODO(gmechali): Fix this once we decide what to do with i18n.
-function getTitle(title: string, placeScope: string): string {
-  if (placeScope === "PEER_PLACES_WITHIN_PARENT") {
-    return title + ": Peer places within parent";
-  } else if (placeScope === "CHILD_PLACES") {
-    return title + ": places within";
-  } else if (placeScope === "SIMILAR_PLACES") {
-    return title + ": other places";
-  }
-  return title;
-}
-
 /**
  * Creates a href for a place page category.
  * @param category The category to create a href for.
@@ -238,7 +226,7 @@ export function placeChartsApiResponsesToPageConfig(
       blocks.forEach((block: BlockConfig) => {
         const tiles = [];
         block.charts.forEach((chart: Chart) => {
-          const title = getTitle(block.title, block.placeScope);
+          const title = block.title;
           const tileConfig: TileConfig = {
             /** Highlight charts use title as description */
             description: title,
