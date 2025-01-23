@@ -125,9 +125,10 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          expected_topics=ORDERED_CATEGORIES)
 
     # And that the categories have data in the overview
-    topics_in_overview = set(
-        ["Economics", "Health", "Equity", "Crime", "Education", "Demographics",
-    "Housing", "Energy"])
+    topics_in_overview = set([
+        "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
+        "Housing", "Energy"
+    ])
     block_titles = find_elems(self.driver, value='block-title-text')
     self.assertEqual(set([block.text for block in block_titles]),
                      topics_in_overview)
