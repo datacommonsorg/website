@@ -48,7 +48,7 @@ export const TabSet = ({
   children,
 }: TabSetProps): ReactElement => {
   const theme = useTheme();
-  const { value: selectedValue, onChange } = useTabContext();
+  const { route: selectedRoute, onChange } = useTabContext();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tabSetRef = useRef<HTMLDivElement>(null);
 
@@ -112,7 +112,7 @@ export const TabSet = ({
     scrollActiveTabIntoView();
   }, [
     children,
-    selectedValue,
+    selectedRoute,
     calculateSelectedTabIndicator,
     scrollActiveTabIntoView,
   ]);
@@ -215,9 +215,9 @@ export const TabSet = ({
           e.preventDefault();
           const focusedTab = tabs[currentIndex];
           if (focusedTab) {
-            const tabValue = focusedTab.getAttribute("data-tab-value");
-            if (tabValue) {
-              onChange(tabValue);
+            const tabRoute = focusedTab.getAttribute("data-tab-route");
+            if (tabRoute) {
+              onChange(tabRoute);
               if (scrollContainerRef.current) {
                 scrollTabIntoView(focusedTab, scrollContainerRef.current);
               }

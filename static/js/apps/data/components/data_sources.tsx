@@ -51,7 +51,6 @@ export const DataSources = ({
   dataSources,
 }: DataSourcesProps): ReactElement => {
   const dataSourceTabs = dataSources.map((topic) => ({
-    value: topic.slug,
     label: topic.title,
     content: <DataSourceDetails dataSourceTopic={topic} />,
   }));
@@ -61,7 +60,6 @@ export const DataSources = ({
       basePath="/data"
       alignment="center"
       tabs={dataSourceTabs}
-      defaultValue={dataSourceTabs[0].value}
     />
   );
 };

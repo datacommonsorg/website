@@ -28,26 +28,27 @@ import React, { ReactElement, useRef } from "react";
 import { useTabContext } from "./tab_context";
 
 export interface TabProps {
-  //the label that displays at the top of the tab component
+  // the label that displays at the top of the tab component
   label: string;
-  //the value of the tab component - used to connect tabs with their tab panels
-  value: string | number;
+  // the corresponding route of the tab component:
+  // used to connect tabs and routes with their tab panel
+  route: string | number;
 }
 
-export const Tab = ({ label, value }: TabProps): ReactElement => {
+export const Tab = ({ label, route }: TabProps): ReactElement => {
   const theme = useTheme();
 
-  const { value: selectedValue, onChange } = useTabContext();
+  const { route: selectedRoute, onChange } = useTabContext();
   const tabRef = useRef<HTMLButtonElement>(null);
 
-  const tabValue = value !== undefined ? value : label;
+  const tabRoute = route !== undefined ? route : label;
 
-  const isSelected = selectedValue === tabValue;
+  const isSelected = selectedRoute === tabRoute;
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      onChange(tabValue);
+      onChange(tabRoute);
     }
   };
 
@@ -55,8 +56,8 @@ export const Tab = ({ label, value }: TabProps): ReactElement => {
     <button
       role="tab"
       aria-selected={isSelected}
-      aria-controls={`tabpanel-${tabValue}`}
-      id={`tab-${tabValue}`}
+      aria-controls={`tabpanel-${tabRoute}`}
+      id={`tab-${tabRoute}`}
       css={css`
         padding: ${theme.spacing.md}px 0;
         margin: 0 ${theme.spacing.lg}px;
@@ -68,7 +69,7 @@ export const Tab = ({ label, value }: TabProps): ReactElement => {
         cursor: pointer;
         transition: color 0.3s ease;
       `}
-      onClick={(): void => onChange(tabValue)}
+      onClick={(): void => onChange(tabRoute)}
       onKeyDown={handleKeyDown}
       tabIndex={isSelected ? 0 : -1}
       ref={tabRef}

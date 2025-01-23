@@ -24,28 +24,28 @@ import { useEffect, useState } from "react";
 interface RoutedTabsProps {
   // enabled is true if routing logic is enabled (to prevent routing updates on a standard tab)
   enabled?: boolean;
-  // The list of all possible tab values (the routes)
-  tabValues: string[];
+  // The list of all possible tab routes
+  tabRoutes: string[];
   // The default tab to use when there's no valid match in the URL
-  defaultValue: string;
+  defaultRoute: string;
   // A base path of the page on which the tab component resides
   basePath?: string;
 }
 
 interface RoutedTabsInterface {
-  //the currently active tab value
+  //the currently active tab route
   activeTab: string;
   //a function to handle tab changes
-  onTabChange: (newValue: string | number) => void;
+  onTabChange: (newRoute: string | number) => void;
 }
 
 export function useRoutedTabs({
   enabled = true,
-  tabValues,
-  defaultValue,
+  tabRoutes,
+  defaultRoute,
   basePath = "",
 }: RoutedTabsProps): RoutedTabsInterface {
-  const [activeTab, setActiveTab] = useState<string>(defaultValue);
+  const [activeTab, setActiveTab] = useState<string>(defaultRoute);
 
   useEffect(() => {
     if (!enabled) {
@@ -57,13 +57,13 @@ export function useRoutedTabs({
       const lastPart = pathParts[pathParts.length - 1] || "";
 
       if (
-        tabValues.includes(lastPart) &&
+        tabRoutes.includes(lastPart) &&
         window.location.pathname === `${basePath}/${lastPart}`
       ) {
         setActiveTab(lastPart);
       } else {
-        setActiveTab(defaultValue);
-        window.history.replaceState({}, "", `${basePath}/${defaultValue}`);
+        setActiveTab(defaultRoute);
+        window.history.replaceState({}, "", `${basePath}/${defaultRoute}`);
       }
     };
 
@@ -77,14 +77,14 @@ export function useRoutedTabs({
     return (): void => {
       window.removeEventListener("popstate", handlePopState);
     };
-  }, [enabled, basePath, defaultValue, tabValues]);
+  }, [enabled, basePath, defaultRoute, tabRoutes]);
 
-  const onTabChange = (newValue: string | number): void => {
+  const onTabChange = (newRoute: string | number): void => {
     if (!enabled) {
       return;
     }
-    setActiveTab(String(newValue));
-    window.history.pushState({}, "", `${basePath}/${newValue}`);
+    setActiveTab(String(newRoute));
+    window.history.pushState({}, "", `${basePath}/${newRoute}`);
   };
 
   return {

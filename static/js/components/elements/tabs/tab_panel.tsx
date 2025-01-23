@@ -26,25 +26,26 @@ import React, { ReactElement, ReactNode } from "react";
 import { useTabContext } from "./tab_context";
 
 interface TabPanelProps {
-  //the value of the tab component - used to connect tab panels with their tab selector buttons
-  value: string | number;
-  //the content of the tab panel
+  // the route of the tab panel component:
+  // used to connect tab panels with their tab selector buttons
+  route: string | number;
+  // the content of the tab panel
   children: ReactNode;
 }
 
-export const TabPanel = ({ value, children }: TabPanelProps): ReactElement => {
-  const { value: selectedValue } = useTabContext();
+export const TabPanel = ({ route, children }: TabPanelProps): ReactElement => {
+  const { route: selectedRoute } = useTabContext();
   const theme = useTheme();
 
-  if (selectedValue !== value) {
+  if (selectedRoute !== route) {
     return null;
   }
 
   return (
     <div
       role="tabpanel"
-      id={`tabpanel-${value}`}
-      aria-labelledby={`tab-${value}`}
+      id={`tabpanel-${route}`}
+      aria-labelledby={`tab-${route}`}
       css={css`
         padding: ${theme.spacing.xl}px 0;
       `}

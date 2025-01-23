@@ -22,13 +22,13 @@
 
 import { createContext, useContext } from "react";
 
-type TabValue = string | number;
+type TabRoute = string | number;
 
 interface TabContextProps {
-  //the currently selected tab index
-  value: TabValue;
-  //the function used to handle changing of the tab value
-  onChange: (value: TabValue) => void;
+  //the route corresponding to the currently selected tab index
+  route: TabRoute;
+  //the function used to handle changing of the tab route
+  onChange: (route: TabRoute) => void;
 }
 
 export const TabContext = createContext<TabContextProps | undefined>(undefined);

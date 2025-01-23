@@ -23,18 +23,38 @@
  *
  * const demographicTabs = [
  *   {
- *     value: "demographics",
  *     label: "Demographics",
  *     content: <DemographicDataSources />,
  *   },
  *   {
- *     value: "economy",
  *     label: "Economy",
  *     content: <div>Some economy info</div>,
  *   },
  *   {
- *     value: "crime",
  *     label: "Crime",
+ *     content: <div>Some crime info</div>,
+ *   },
+ * ];
+ *
+ * // if you wish to give routes that are different from
+ * // auto-slugified labels, you can provide them explicitly:
+ *
+ * // set up the tabs, an array of TabDefinition:
+ *
+ * const demographicTabs = [
+ *   {
+ *     route: "demographics",
+ *     label: "Demographics Statics",
+ *     content: <DemographicDataSources />,
+ *   },
+ *   {
+ *     route: "economy",
+ *     label: "Economic Statistics",
+ *     content: <div>Some economy info</div>,
+ *   },
+ *   {
+ *     route: "crime",
+ *     label: "Crime Statistics",
  *     content: <div>Some crime info</div>,
  *   },
  * ];
@@ -44,7 +64,7 @@
  *   mode="standard" //this can be omitted
  *   basePath="/path/to/page" //such as "/data"
  *   tabs={demographicTabs}
- *   defaultValue="demographics"
+ *   defaultRoute="demographics"
  * />
  *
  * // display a routed tab component:
@@ -52,12 +72,13 @@
  *   mode="routed"
  *   basePath="/some/base/path"
  *   tabs={demographicTabs}
- *   defaultValue="demographics"
+ *   defaultRoute="demographics"
  * />
  */
 
-import React, { ReactElement, ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode, useMemo, useState } from "react";
 
+import { slugify } from "../../../apps/base/utilities/utilities";
 import { useRoutedTabs } from "./routed_tabs";
 import { Tab } from "./tab";
 import { TabContext } from "./tab_context";
@@ -67,8 +88,9 @@ import { TabSet, TabSetAlignment } from "./tab_set";
 // An interface representing the definition of a tab.
 // An array of these are sent into the tab component.
 export interface TabDefinition {
-  //the value of a tab: this is an id or slug.
-  value: string;
+  //the route of a tab: this is an id or slug. for routed tabs, will
+  // appear in the url.
+  route?: string;
   //the label that appears in the tab selector
   label: string;
   //the content of the tab that appears when the tab is selected.
@@ -79,8 +101,8 @@ export interface TabDefinition {
 interface BaseTabsProps {
   // a list of the tabs that populate this component
   tabs: TabDefinition[];
-  // the default tab: if omitted, defaults to the value of the first tab
-  defaultValue?: string;
+  // the default tab: if omitted, defaults to the route of the first tab
+  defaultRoute?: string;
   // the alignment of the tabs within the tab-set.
   alignment?: TabSetAlignment;
 }
@@ -103,23 +125,59 @@ interface RoutedTabsProps extends BaseTabsProps {
 
 export type TabsProps = StandardTabsProps | RoutedTabsProps;
 
+const isValidRoute = (route: string): boolean => {
+  const validRoutePattern = /^[a-zA-Z0-9-_]+$/;
+  return validRoutePattern.test(route);
+};
+
 export function Tabs({
   tabs,
-  defaultValue,
+  defaultRoute,
   alignment,
   mode = "standard",
   basePath = "",
 }: TabsProps): ReactElement {
-  const firstTabValue = tabs[0]?.value ?? "";
-  const fallbackDefault = defaultValue || firstTabValue;
+  const processedTabs: TabDefinition[] = useMemo(() => {
+    const processed = tabs.map((tab) => ({
+      ...tab,
+      route: tab.route ?? slugify(tab.label),
+    }));
+
+    processed.forEach((tab) => {
+      if (!isValidRoute(tab.route)) {
+        throw new Error(
+          `Invalid route "${tab.route}" for tab "${tab.label}". Routes cannot contain "/", spaces, or special characters.`
+        );
+      }
+    });
+
+    const routes = processed.map((t) => t.route);
+    const routeSet = new Set(routes);
+    // if the number of unique routes is less than the total, we have duplicates.
+    if (routeSet.size !== routes.length) {
+      const duplicates = routes.filter(
+        (route, index) => routes.indexOf(route) !== index
+      );
+      const uniqueDuplicates = Array.from(new Set(duplicates));
+
+      throw new Error(
+        `Tabs component has duplicate routes: ${uniqueDuplicates.join(", ")}.`
+      );
+    }
+
+    return processed;
+  }, [tabs]);
+
+  const firstTabRoute = processedTabs[0]?.route ?? "";
+  const fallbackDefault = defaultRoute || firstTabRoute;
 
   const [localActiveTab, setLocalActiveTab] = useState(fallbackDefault);
 
   const { activeTab: routedActiveTab, onTabChange: routedOnChange } =
     useRoutedTabs({
       enabled: mode === "routed",
-      tabValues: tabs.map((t) => t.value),
-      defaultValue: fallbackDefault,
+      tabRoutes: processedTabs.map((t) => t.route),
+      defaultRoute: fallbackDefault,
       basePath,
     });
 
@@ -132,18 +190,18 @@ export function Tabs({
   return (
     <TabContext.Provider
       value={{
-        value: activeTab,
+        route: activeTab,
         onChange: onTabChange,
       }}
     >
       <TabSet alignment={alignment}>
-        {tabs.map((t) => (
-          <Tab key={t.value} value={t.value} label={t.label} />
+        {processedTabs.map((t) => (
+          <Tab key={t.route} route={t.route} label={t.label} />
         ))}
       </TabSet>
 
-      {tabs.map((t) => (
-        <TabPanel key={t.value} value={t.value}>
+      {processedTabs.map((t) => (
+        <TabPanel key={t.route} route={t.route}>
           {t.content}
         </TabPanel>
       ))}
