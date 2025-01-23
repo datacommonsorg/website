@@ -215,6 +215,7 @@ export interface CategoryConfig {
   blocks: BlockConfig[];
   dcid?: string;
   url?: string;
+  linkText?: string;
 }
 
 export interface SubjectPageConfig {
