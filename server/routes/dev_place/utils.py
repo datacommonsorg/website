@@ -59,6 +59,8 @@ TOPICS = set(ORDERED_TOPICS)
 OVERVIEW_CATEGORY = "Overview"
 ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
 
+PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
+NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
   """Get <a href-place page url> tag linking to the place page for a place
@@ -647,25 +649,20 @@ def translate_chart_config(chart_config: List[ServerChartConfiguration],
   for page_config_item in chart_config:
     translated_item = copy.deepcopy(page_config_item)
     for translated_block in translated_item.blocks:
-      translated_stat_var_title = gettext(
-          translated_item.title_id) if translated_item.title_id else None
+      title_sections = []
 
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
-        peer_places_title = gettext(
-            'Neighboring %(placeType)s in %(parentPlaces)s',
+        title_sections.append(gettext(
+            NEIGHBORING_PLACES_IN_PARENT_PLACE_STR,
             placeType=translated_place_type,
-            parentPlaces=parent_place_name)
-        title_sections = [peer_places_title, translated_stat_var_title]
-        translated_block.title = ': '.join(
-            [peer_places_title, translated_stat_var_title])
+            parentPlace=parent_place_name))
       elif translated_block.place_scope == "CHILD_PLACES":
-        places_within_title = gettext('%(placeType)s in %(parentPlaces)s',
+        title_sections.append(gettext(PLACE_TYPE_IN_PARENT_PLACES_STR,
                                       placeType=translated_child_place_type,
-                                      parentPlaces=place_name)
-        title_sections = [places_within_title, places_within_title]
-      else:
-        title_sections = [translated_stat_var_title]
+                                      parentPlaces=place_name))
 
+      if translated_item.title_id:
+        title_sections.append(gettext(translated_item.title_id))
       translated_block.title = ': '.join(title_sections)
 
     translated_chart_config.append(translated_item)
