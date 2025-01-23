@@ -21,15 +21,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
+  renderPage();
 });
 
 function renderPage(): void {
