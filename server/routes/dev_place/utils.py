@@ -317,6 +317,7 @@ def filter_chart_config_by_place_dcid(
       if set(config.variables) & stat_vars_with_observations_set
   ]
 
+  valid_chart_configs = []
   for config in filtered_chart_config:
     updated_blocks = []
     for block in config.blocks:
@@ -352,7 +353,11 @@ def filter_chart_config_by_place_dcid(
 
     config.blocks = updated_blocks
 
-  return filtered_chart_config
+    # Only keep configs that have blocks.
+    if config.blocks:
+      valid_chart_configs.append(config)
+
+  return valid_chart_configs
 
 
 def select_string_with_locale(strings_with_locale: List[str],
@@ -441,7 +446,8 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
 
 
 def chart_config_to_overview_charts(
-    chart_config: List[ServerChartConfiguration], child_place_type: str):
+    chart_config: List[ServerChartConfiguration],
+    child_place_type: str) -> List[BlockConfig]:
   """
   Converts the given chart configuration into a list of Chart objects for API responses.
 
