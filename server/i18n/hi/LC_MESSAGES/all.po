@@ -749,4 +749,3 @@ msgstr "गांव"
 
 msgid "singular_zip_code"
 msgstr "पिन कोड"
-

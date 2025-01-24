@@ -749,4 +749,3 @@ msgstr "마을"
 
 msgid "singular_zip_code"
 msgstr "우편번호"
-

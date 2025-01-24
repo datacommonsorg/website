@@ -749,4 +749,3 @@ msgstr "Village"
 
 msgid "singular_zip_code"
 msgstr "Code postal"
-

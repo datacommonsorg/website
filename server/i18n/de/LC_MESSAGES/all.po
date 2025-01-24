@@ -749,4 +749,3 @@ msgstr "Dorf"
 
 msgid "singular_zip_code"
 msgstr "Postleitzahl"
-

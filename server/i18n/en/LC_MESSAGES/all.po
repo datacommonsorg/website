@@ -1174,4 +1174,3 @@ msgstr "Unemployment Rate"
 
 #~ msgid "CHART_TITLE-CHART_CATEGORY-Climate"
 #~ msgstr "Climate"
-

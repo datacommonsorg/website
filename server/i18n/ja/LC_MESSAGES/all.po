@@ -749,4 +749,3 @@ msgstr "村"
 
 msgid "singular_zip_code"
 msgstr "郵便番号"
-
