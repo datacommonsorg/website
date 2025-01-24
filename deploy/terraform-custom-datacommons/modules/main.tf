@@ -319,6 +319,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
     google_secret_manager_secret_version.mysql_password_version,
     google_secret_manager_secret_version.dc_api_key_version,
     google_secret_manager_secret_version.maps_api_key_version,
+    null_resource.run_db_init
   ]
 }
 
@@ -392,4 +393,32 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
     google_secret_manager_secret_version.dc_api_key_version,
     google_secret_manager_secret_version.maps_api_key_version
   ]
+}
+
+# Run the db init job on terraform apply
+resource "null_resource" "run_db_init" {
+  depends_on = [
+    google_cloud_run_v2_job.dc_data_job,
+    google_sql_database_instance.mysql_instance
+  ]
+
+  # Force the db init job to be run on each terraform apply
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      # 1) Execute the schema update / initializationjob
+      gcloud run jobs execute ${var.namespace}-datacommons-data-job \
+        --update-env-vars DATA_RUN_MODE=schemaupdate \
+        --region=${var.region} \
+        --project=${var.project_id}
+
+      # 2) Wait for the job to complete
+      gcloud run jobs wait ${var.namespace}-datacommons-data-job \
+        --region=${var.region} \
+        --project=${var.project_id}
+    EOT
+  }
 }
