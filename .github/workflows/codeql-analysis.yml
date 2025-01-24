@@ -22,7 +22,8 @@ on:
 
 permissions:
   contents: read
-  packages: read
+  security-events: write
+  pull-requests: read
 
 jobs:
   analyze:
