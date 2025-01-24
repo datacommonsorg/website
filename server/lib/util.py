@@ -392,20 +392,21 @@ def get_nl_no_percapita_vars():
     return nopc_vars
 
 
-def get_feature_flag_bucket_name() -> str:
+def get_feature_flag_bucket_name(environment: str) -> str:
   """Returns the bucket name containing the feature flags."""
-  env_for_bucket = os.environ.get('FLASK_ENV')
-  if env_for_bucket in ['local', 'integration_test', 'test', 'webdriver']:
+  if environment in ['integration_test', 'test', 'webdriver']:
     env_for_bucket = 'autopush'
-  elif env_for_bucket == 'production':
+  elif environment == 'production':
     env_for_bucket = 'prod'
+  else:
+    env_for_bucket = environment
   return 'datcom-website-' + env_for_bucket + '-resources'
 
 
-def load_feature_flags():
+def load_feature_flags_from_gcs(environment: str):
   """Loads the feature flags into app config."""
   storage_client = storage.Client()
-  bucket_name = get_feature_flag_bucket_name()
+  bucket_name = get_feature_flag_bucket_name(environment)
   try:
     bucket = storage_client.get_bucket(bucket_name)
   except NotFound:
@@ -423,6 +424,42 @@ def load_feature_flags():
       logging.warning("Loading feature flags encountered a TypeError.")
   else:
     logging.warning("Feature flag file not found in the bucket.")
+
+  return data
+
+
+def load_fallback_feature_flags(environment: str):
+  """Loads the fallback feature flags into the app config. We fallback to checked in flag configs per environment."""
+  environments_with_local_files = set(
+      ['local', 'autopush', 'dev', 'staging', 'production'])
+  testing_environments = set(['integration_test', 'test', 'webdriver'])
+
+  if environment in testing_environments:
+    env_to_use = 'autopush'
+  elif environment in environments_with_local_files:
+    env_to_use = environment
+  else:
+    env_to_use = 'production'
+
+  filepath = os.path.join(get_repo_root(), "config", "feature_flag_configs",
+                          env_to_use + ".json")
+
+  with open(filepath, 'r', encoding="utf-8") as f:
+    data = json.load(f)
+  return data
+
+
+def load_feature_flags():
+  """Loads the feature flags into app config."""
+  environment = os.environ.get('FLASK_ENV')
+
+  environment_with_gcs = set(['dev', 'autopush', 'staging', 'production'])
+  data = None
+  if environment in environment_with_gcs:
+    data = load_feature_flags_from_gcs(environment)
+
+  if not data:
+    data = load_fallback_feature_flags(environment)
 
   # Create the dictionary using a dictionary comprehension
   feature_flag_dict = {
