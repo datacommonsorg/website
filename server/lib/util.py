@@ -29,6 +29,8 @@ import urllib
 from flask import jsonify
 from flask import make_response
 from flask import request
+from google.cloud import storage
+from google.cloud.exceptions import NotFound
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
@@ -58,10 +60,6 @@ PLACE_EXPLORER_CATEGORIES = [
     "environment_new",
     "energy",
     "energy_new",
-    "health_new",
-    "crime_new",
-    "demographics_new",
-    "economics_new",
 ]
 
 # key is topic_id, which should match the folder name under config/topic_page
@@ -392,6 +390,84 @@ def get_nl_no_percapita_vars():
       if sv and yn in ['n', 'no']:
         nopc_vars.add(sv)
     return nopc_vars
+
+
+def get_feature_flag_bucket_name(environment: str) -> str:
+  """Returns the bucket name containing the feature flags."""
+  if environment in ['integration_test', 'test', 'webdriver']:
+    env_for_bucket = 'autopush'
+  elif environment == 'production':
+    env_for_bucket = 'prod'
+  else:
+    env_for_bucket = environment
+  return 'datcom-website-' + env_for_bucket + '-resources'
+
+
+def load_feature_flags_from_gcs(environment: str):
+  """Loads the feature flags into app config."""
+  storage_client = storage.Client()
+  bucket_name = get_feature_flag_bucket_name(environment)
+  try:
+    bucket = storage_client.get_bucket(bucket_name)
+  except NotFound:
+    logging.error("Bucket not found: " + bucket_name)
+    return {}
+
+  blob = bucket.get_blob("feature_flags.json")
+  data = {}
+  if blob:
+    try:
+      data = json.loads(blob.download_as_bytes())
+    except json.JSONDecodeError:
+      logging.warning("Loading feature flags failed to decode JSON.")
+    except TypeError:
+      logging.warning("Loading feature flags encountered a TypeError.")
+  else:
+    logging.warning("Feature flag file not found in the bucket.")
+
+  return data
+
+
+def load_fallback_feature_flags(environment: str):
+  """Loads the fallback feature flags into the app config. We fallback to checked in flag configs per environment."""
+  environments_with_local_files = set(
+      ['local', 'autopush', 'dev', 'staging', 'production'])
+  testing_environments = set(['integration_test', 'test', 'webdriver'])
+
+  if environment in testing_environments:
+    env_to_use = 'autopush'
+  elif environment in environments_with_local_files:
+    env_to_use = environment
+  else:
+    env_to_use = 'production'
+
+  filepath = os.path.join(get_repo_root(), "config", "feature_flag_configs",
+                          env_to_use + ".json")
+
+  with open(filepath, 'r', encoding="utf-8") as f:
+    data = json.load(f)
+  return data
+
+
+def load_feature_flags():
+  """Loads the feature flags into app config."""
+  environment = os.environ.get('FLASK_ENV')
+
+  environment_with_gcs = set(['dev', 'autopush', 'staging', 'production'])
+  data = None
+  if environment in environment_with_gcs:
+    data = load_feature_flags_from_gcs(environment)
+
+  if not data:
+    data = load_fallback_feature_flags(environment)
+
+  # Create the dictionary using a dictionary comprehension
+  feature_flag_dict = {
+      flag["name"]: flag["enabled"]
+      for flag in data
+      if 'name' in flag and 'enabled' in flag
+  }
+  return feature_flag_dict
 
 
 # Returns a set of SVs that have percentage units.

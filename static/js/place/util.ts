@@ -22,9 +22,9 @@ import {
 import _ from "lodash";
 import { defineMessages } from "react-intl";
 
-import { intl } from "../i18n/i18n";
+import { intl, localizeLink } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
-import { StatVarSpec } from "../shared/types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
@@ -117,25 +117,16 @@ function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
 }
 
 /**
- * Selects the appropriate enclosed place type to return given the placeScope and parent places.
- * @param placeScope string representing scope of places we want to show
- * @param place Current place
- * @returns string for the selected enclosed place type.
+ * Select the place type to highlight from provided list.
+ * @param place_types list of possible place types
+ * @returns the selected place_type.
  */
-function getEnclosedPlaceTypeOverride(
-  placeScope: string,
-  place: Place
-): string {
-  // If the scope is not one of the allowed values, return an empty string.
-  if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
-    return "";
-  }
-
+function firstPlaceTypeToHighlight(place_types: string[]): string {
   // Find the most important type from the place's types.
   let highlightedType = "";
   let lowestIndex = Infinity; // Start with a very high index
 
-  for (const currentType of place.types) {
+  for (const currentType of place_types) {
     const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
 
     if (currentIndex !== -1 && currentIndex < lowestIndex) {
@@ -147,16 +138,54 @@ function getEnclosedPlaceTypeOverride(
   return highlightedType;
 }
 
-// TODO(gmechali): Fix this once we decide what to do with i18n.
-function getTitle(title: string, placeScope: string): string {
-  if (placeScope === "PEER_PLACES_WITHIN_PARENT") {
-    return title + ": Peer places within parent";
-  } else if (placeScope === "CHILD_PLACES") {
-    return title + ": places within";
-  } else if (placeScope === "SIMILAR_PLACES") {
-    return title + ": other places";
+/**
+ * Selects the appropriate enclosed place type to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param place Current place
+ * @returns string for the selected enclosed place type.
+ */
+function getEnclosedPlaceTypeOverride(
+  placeScope: string,
+  place: Place
+): string {
+  switch (placeScope) {
+    case "CHILD_PLACES":
+      if (place.dcid == "Earth") {
+        // We do not have continent level data, so default to country.
+        return "Country";
+      }
+      return "";
+    case "SIMILAR_PLACES":
+    case "PEER_PLACES_WITHIN_PARENT":
+      return firstPlaceTypeToHighlight(place.types);
+    default:
+      return "";
   }
-  return title;
+}
+
+/**
+ * Creates a href for a place page category.
+ * @param category The category to create a href for.
+ * @param forceDevPlaces Whether to force dev places.
+ * @param place The place to create a href for.
+ * @returns The href for the place page category.
+ */
+export function createPlacePageCategoryHref(
+  category: string,
+  forceDevPlaces: boolean,
+  place: NamedTypedPlace
+): string {
+  const href = `/place/${place.dcid}`;
+  const params = new URLSearchParams();
+  const isOverview = category === "Overview";
+
+  if (!isOverview) {
+    params.set("category", category);
+  }
+  if (forceDevPlaces) {
+    params.set("force_dev_places", "true");
+  }
+  return params.size > 0 ? `${href}?${params.toString()}` : href;
 }
 
 /**
@@ -172,7 +201,9 @@ export function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse,
   parentPlaces: Place[],
   peersWithinParent: string[],
-  place: Place
+  place: Place,
+  isOverview: boolean,
+  forceDevPlaces: boolean
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
@@ -195,7 +226,7 @@ export function placeChartsApiResponsesToPageConfig(
       blocks.forEach((block: BlockConfig) => {
         const tiles = [];
         block.charts.forEach((chart: Chart) => {
-          const title = getTitle(block.title, block.placeScope);
+          const title = block.title;
           const tileConfig: TileConfig = {
             /** Highlight charts use title as description */
             description: title,
@@ -295,6 +326,12 @@ export function placeChartsApiResponsesToPageConfig(
         statVarSpec,
         title: categoryNameToTranslatedName[categoryName] || categoryName,
       };
+      if (isOverview) {
+        category.url = localizeLink(
+          createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
+        );
+        category.linkText = intl.formatMessage(pageMessages.MoreCharts);
+      }
       return category;
     }
   );
@@ -433,6 +470,29 @@ const pluralPlaceTypeMessages = defineMessages({
 });
 
 export const pageMessages = defineMessages({
+  KnowledgeGraph: {
+    id: "knowledge_graph",
+    defaultMessage: "Knowledge Graph",
+    description: "Link to the Knowledge Graph for the current place",
+  },
+  RelevantTopics: {
+    id: "relevant_topics",
+    defaultMessage: "Relevant Topics",
+    description:
+      "Header text for the Relevant Topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
+  },
+  SummaryOverview: {
+    id: "summary_overview",
+    defaultMessage: "Summary Overview",
+    description:
+      "Header text for the Summary Overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
+  },
+  MoreCharts: {
+    id: "more_charts",
+    defaultMessage: "More charts",
+    description:
+      "Link text to show additional charts for the given chart category section for the current place.",
+  },
   placesInPlace: {
     id: "child_places_menu-places_in_place",
     defaultMessage: "Places in {placeName}",

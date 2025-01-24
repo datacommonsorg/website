@@ -14,7 +14,6 @@
 """
 Defines endpoints for the place page.
 """
-import random
 
 from flask import Blueprint
 from flask import g
@@ -55,33 +54,34 @@ def place_charts(place_dcid: str):
 
   # Ensure category is valid
   place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
-  if place_category not in place_utils.CATEGORIES:
+  if place_category not in place_utils.ALLOWED_CATEGORIES:
     return error_response(
-        f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.CATEGORIES)}"
+        f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.ALLOWED_CATEGORIES)}"
     )
-
-  # Get parent place DCID
-  parent_place_dcid = place_utils.get_place_override(
-      place_utils.get_parent_places(place_dcid))
-
-  # Fetch place info
-  place = place_utils.fetch_place(place_dcid, locale=g.locale)
-
-  # Determine child place type
-  ordered_child_place_types = place_utils.get_child_place_types(place)
-  child_place_type = ordered_child_place_types[
-      0] if ordered_child_place_types else None
 
   # Retrieve available place page charts
   full_chart_config = place_utils.read_chart_configs()
 
+  # Fetch place info
+  place = place_utils.fetch_place(place_dcid, locale=g.locale)
+
+  # Get parent place DCID
+  parent_place_override = place_utils.get_place_override(
+      place_utils.get_parent_places(place_dcid), g.locale)
+  parent_place_dcid = parent_place_override.dcid if parent_place_override else None
+
+  # Determine child place type to highlight
+  child_place_type_to_highlight = place_utils.get_child_place_type_to_highlight(
+      place)
+
+  place_type = place_utils.place_type_to_highlight(place.types)
   # Filter out place page charts that don't have any data for the current place_dcid
   chart_config_existing_data = place_utils.filter_chart_config_by_place_dcid(
       chart_config=full_chart_config,
       place_dcid=place_dcid,
-      place_type=place_utils.place_type_to_highlight(place.types),
+      place_type=place_type,
       parent_place_dcid=parent_place_dcid,
-      child_place_type=child_place_type)
+      child_place_type=child_place_type_to_highlight)
 
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_configs_for_category(
@@ -89,11 +89,12 @@ def place_charts(place_dcid: str):
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
-      chart_config_for_category)
+      chart_config_for_category, place_type, child_place_type_to_highlight,
+      place.name, parent_place_override.name if parent_place_override else None)
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
-  blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
-                                                       child_place_type)
+  blocks = place_utils.chart_config_to_overview_charts(
+      translated_chart_config, child_place_type_to_highlight)
 
   # Translate category strings
   categories_with_translations = place_utils.get_categories_with_translations(
@@ -174,15 +175,8 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
-  parents_to_highlight = place_utils.get_ordered_parents_to_highlight(
-      parent_places)
-
-  peers_within_parent = []
-  if (parents_to_highlight):
-    peers_within_parent = place_utils.fetch_child_place_dcids(
-        parents_to_highlight[0],
-        place_utils.place_type_to_highlight(place.types))
-    random.shuffle(peers_within_parent)
+  peers_within_parent = place_utils.fetch_peer_places_within(
+      place.dcid, place.types)
 
   response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,

@@ -23,6 +23,7 @@ export const BRAZIL_PLACE_DCID = "country/BRA";
 export const NEPAL_PLACE_DCID = "country/NPL";
 export const PAKISTAN_PLACE_DCID = "country/PAK";
 export const CHINA_PLACE_DCID = "country/CHN";
+export const MEXICO_PLACE_DCID = "country/MEX";
 export const NORTH_AMERICA_DCID = "northamerica";
 export const OCEANIA_DCID = "oceania";
 export const AUSTRALIA_NEW_ZEALAND_DCID = "AustraliaAndNewZealand";

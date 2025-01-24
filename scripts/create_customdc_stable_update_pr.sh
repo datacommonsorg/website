@@ -95,7 +95,7 @@ if [[ $mode == "delete" ]]; then
     exit 1
   fi
   echo "Deleting branch ${UPDATE_BRANCH} on both local and remote..."
-  git branch -d "$UPDATE_BRANCH"
+  git branch -d "$UPDATE_BRANCH" || true
   git push "$fork_remote" --delete "$UPDATE_BRANCH"
   echo ""
   echo "Ready to re-run without '--delete'."
@@ -171,13 +171,18 @@ pr_body+="
 - Website changes are listed on this page.
 - If you're unsure what affects custom DC, please message the team."
 
-echo "Opening PR creation UI..."
-
-# Open the PR creation UI using GitHub CLI
+# Get a PR creation link using GitHub CLI
+echo "Getting PR creation link..."
+# Intercept attempts to open a web browser and print the URL instead.
+# Use stderr instead of stdout so regular output "Opening browser" can be hidden
+export GH_BROWSER="./scripts/echo_to_stderr.sh"
 gh pr create \
   --repo datacommonsorg/website \
   --base customdc_stable \
   --head "${fork_owner}:${fork_name}:${UPDATE_BRANCH}" \
   --title "$current_date Custom DC stable release" \
   --body "$pr_body" \
-  --web
+  --web \
+  > /dev/null
+
+echo -e "\n$(tput bold)Please follow the link above to create a release PR.$(tput sgr0)"
