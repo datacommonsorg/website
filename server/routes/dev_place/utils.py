@@ -63,9 +63,6 @@ ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
 PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
 NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
 
-PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
-NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
-
 # Variables to include in overview table
 PLACE_OVERVIEW_TABLE_VARIABLES = [
     {
@@ -85,6 +82,7 @@ PLACE_OVERVIEW_TABLE_VARIABLES = [
         "i18n_message_id": "VARIABLE_NAME-UnemploymentRate_Person"
     },
 ]
+
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
   """Get <a href-place page url> tag linking to the place page for a place
