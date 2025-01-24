@@ -188,8 +188,11 @@ def _load_nodes(dc: str, cache_nodes: List, name_overrides: Dict) -> TopicCache:
       name = name_override_info.get('title', '')
     if 'relevantVariableList' in node:
       prop = 'relevantVariableList'
-    else:
+    elif 'memberList' in node:
       prop = 'memberList'
+    else:
+      logging.warning(f"Node {dcid} missing both 'relevantVariableList' and 'memberList'")
+      continue
     vars = node[prop]
     out_map[dcid] = Node(name=name, type=typ, vars=vars, extended_vars=[])
 
