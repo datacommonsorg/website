@@ -105,3 +105,48 @@ class TestTopicCacheLoader(unittest.TestCase):
     """Tests that when IS_CUSTOM_DC is true, but no user data path is specified,
     there are no failures."""
     _test_topic_cache_loader(self, "no_user_data_path")
+
+  def test_load_nodes(self):
+    """Tests _load_nodes function with various node configurations."""
+    test_nodes = [
+        {
+            'dcid': ['topic1'],
+            'typeOf': ['Topic'],
+            'name': ['Topic 1'],
+            'relevantVariableList': ['var1', 'var2']
+        },
+        {
+            'dcid': ['topic2'],
+            'typeOf': ['Topic'],
+            'name': ['Topic 2'],
+            'memberList': ['var3', 'var4']
+        },
+        {
+            'dcid': ['topic3'],
+            'typeOf': ['Topic'],
+            'name': ['Topic 3'],
+            # Missing both relevantVariableList and memberList
+        }
+    ]
+
+    result = topic_cache._load_nodes(DCNames.MAIN_DC.value, test_nodes, {})
+
+    # Check that only two nodes were processed
+    self.assertEqual(len(result.out_map), 2)
+    # Verify first node with relevantVariableList
+    self.assertIn('topic1', result.out_map)
+    self.assertEqual(result.out_map['topic1'].name, 'Topic 1')
+    self.assertEqual(result.out_map['topic1'].vars, ['var1', 'var2'])
+    # Verify second node with memberList
+    self.assertIn('topic2', result.out_map)
+    self.assertEqual(result.out_map['topic2'].name, 'Topic 2')
+    self.assertEqual(result.out_map['topic2'].vars, ['var3', 'var4'])
+    # Verify third node was skipped
+    self.assertNotIn('topic3', result.out_map)
+    # Verify in_map connections
+    self.assertIn('var1', result.in_map)
+    self.assertIn('var2', result.in_map)
+    self.assertIn('var3', result.in_map)
+    self.assertIn('var4', result.in_map)
+    self.assertEqual(result.in_map['var1']['relevantVariable'], {'topic1'})
+    self.assertEqual(result.in_map['var3']['member'], {'topic2'})
