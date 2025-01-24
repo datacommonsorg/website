@@ -502,6 +502,7 @@ PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
         "City", "Town", "Village", "Borough", "AdministrativeArea3",
         "CensusZipCodeTabulationArea"
     ],
+    "City": ["CensusZipCodeTabulationArea"],
 }
 
 # List of callable expressions for matching specific parent places to their primary child place type.
