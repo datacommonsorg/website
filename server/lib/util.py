@@ -432,8 +432,14 @@ def load_fallback_feature_flags(environment: str):
   """Loads the fallback feature flags into the app config. We fallback to checked in flag configs per environment."""
   environments_with_local_files = set(
       ['local', 'autopush', 'dev', 'staging', 'production'])
+  testing_environments = set(['integration_test', 'test', 'webdriver'])
 
-  env_to_use = environment if environment in environments_with_local_files else 'production'
+  if environment in testing_environments:
+    env_to_use = 'autopush'
+  elif environment in environments_with_local_files:
+    env_to_use = environment
+  else:
+    env_to_use = 'production'
 
   filepath = os.path.join(get_repo_root(), "config", "feature_flag_configs",
                           env_to_use + ".json")
