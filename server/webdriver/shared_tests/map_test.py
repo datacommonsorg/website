@@ -51,7 +51,8 @@ class MapTestMixin():
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
     # Wait until the chart has loaded.
-    chart_map = wait_elem(self.driver, by=By.ID, value='map-items')
+    shared.wait_for_loading(self.driver)
+    self.assertIsNotNone(wait_elem(self.driver, by=By.ID, value='map-items'))
 
     # Assert place name is correct.
     self.assertEqual(
@@ -67,6 +68,7 @@ class MapTestMixin():
                   value='//*[@id="map-chart"]/div/div[1]/h3').text)
 
     # Assert was have 58 map regions and 5 legends.
+    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                      58)
     chart_legend = find_elem(self.driver, by=By.ID, value='choropleth-legend')
@@ -79,10 +81,10 @@ class MapTestMixin():
               value='//*[@id="chart-row"]/div/div/div/div[3]/div[3]/a').click()
 
     # Assert redirect was correct
+    place_list = find_elem(self.driver, by=By.ID, value='place-list')
+    shared.wait_for_loading(self.driver)
     self.assertEqual(
-        find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="place-list"]/div/span').text,
+        find_elem(place_list, by=By.XPATH, value='./div/span').text,
         'United States of America')
 
     # Select State place type
@@ -94,17 +96,18 @@ class MapTestMixin():
     find_elem(place_type_selector, by=By.XPATH, value='./option[2]').click()
 
     # Assert that a map chart is loaded
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
+    self.assertIsNotNone(wait_elem(self.driver, by=By.ID, value='map-items'))
     self.assertIn(
         "Median Age of Population ",
         find_elem(self.driver,
                   by=By.XPATH,
                   value='//*[@id="map-chart"]/div/div[1]/h3').text)
+    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     58)
+                     52)
 
     # Click explore timeline
-    find_elem(self.driver, 'explore-timeline-text').click()
+    find_elem(self.driver, value='explore-timeline-text').click()
 
     # Assert rankings page loaded
     new_page_title = (
@@ -166,9 +169,11 @@ class MapTestMixin():
     self.driver.get(self.url_ + MAP_URL)
 
     # Click on first link on landing page
-    find_elem(self.driver,
-              by=By.ID,
-              value='//*[@id="placeholder-container"]/ul/li[2]/a[1]').click()
+    placeholder_container = find_elem(self.driver,
+                                      by=By.ID,
+                                      value='placeholder-container')
+    find_elem(placeholder_container, by=By.XPATH,
+              value='./ul/li[2]/a[1]').click()
 
     # Assert chart loads
     shared.wait_for_loading(self.driver)
