@@ -16,8 +16,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.routes.dev_place.utils import ORDERED_CATEGORIES
 from server.routes.dev_place.utils import ORDERED_TOPICS
+from server.routes.dev_place.utils import TOPICS
 from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
@@ -47,20 +47,17 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=ORDERED_CATEGORIES)
+                         expected_topics=ORDERED_TOPICS)
 
     # And that the categories have data in the overview
-    topics_in_overview = set(
-        ["Economics", "Health", "Demographics", "Environment", "Energy"])
-    block_titles = find_elems(self.driver, value='block-title')
-    self.assertEqual(set([block.text for block in block_titles]),
-                     topics_in_overview)
+    block_titles = find_elems(self.driver, value='block-title-text')
+    self.assertEqual(set([block.text for block in block_titles]), TOPICS)
 
     # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
                                      value='category',
                                      path_to_elem=['charts-container'])
-    self.assertEqual(len(category_containers), len(topics_in_overview))
+    self.assertEqual(len(category_containers), len(ORDERED_TOPICS))
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
@@ -75,10 +72,16 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=ORDERED_CATEGORIES)
+                         expected_topics=ORDERED_TOPICS)
+
+    # Scroll to a map chart.
+    # TODO(gmechali): Make a util for scrolling to element.
+    map_chart = self.driver.find_element(By.CLASS_NAME, "map-chart")
+    self.driver.execute_script("arguments[0].scrollIntoView();", map_chart)
 
     # Assert we see at least one map item with data.
-    map_containers = find_elems(self.driver, value='map')
+    map_containers = find_elems(self.driver, value='map-chart')
+
     self.assertGreater(len(map_containers), 0)
     map_geo_regions = find_elem(map_containers[0],
                                 by=By.ID,
@@ -97,7 +100,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
     self.assertEqual(
         find_elem(self.driver, value='subheader').text,
-        'State in United States of America, North America')
+        'State in United States of America, North America, World')
 
     # Asert the related places box exists
     self.assertEqual(
@@ -105,8 +108,10 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         'Places in California')
 
     # Assert the overview exists, has a summary and a map.
-    self.assertNotEqual(len(find_elem(self.driver, value='place-summary').text),
-                        "")
+    self.assertNotEqual(
+        len(
+            find_elem(self.driver, by=By.CSS_SELECTOR,
+                      value='.place-summary').text), "")
     self.assertIsNotNone(find_elem(self.driver, value='map-container'))
 
     # Assert the key demographics table has data
@@ -114,24 +119,27 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         len(
             find_elems(self.driver,
                        value='key-demographics-row',
-                       path_to_elem=['key-demographics-table'])), 5)
+                       path_to_elem=['key-demographics-table'])), 4)
 
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=ORDERED_CATEGORIES)
+                         expected_topics=ORDERED_TOPICS)
 
     # And that the categories have data in the overview
-    block_titles = find_elems(self.driver, value='block-title')
-    self.assertEqual(set([block.text for block in block_titles]),
-                     set(ORDERED_TOPICS))
+    topics_in_overview = [
+        "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
+        "Housing", "Energy"
+    ]
+    block_titles = find_elems(self.driver, value='block-title-text')
+    self.assertEqual([block.text for block in block_titles], topics_in_overview)
 
     # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
                                      value='category',
                                      path_to_elem=['charts-container'])
-    self.assertEqual(len(category_containers), len(ORDERED_TOPICS))
+    self.assertEqual(len(category_containers), len(topics_in_overview))
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
@@ -140,15 +148,19 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     """Ensure experimental dev place page content loads data for a continent."""
     self.driver.get(self.url_ + '/place/africa?force_dev_places=true')
 
+    # Assert the subheader contains the parent places.
+    self.assertIsNotNone(find_elem(self.driver, value='place-info'))
+    self.assertEqual(
+        find_elem(self.driver, value='subheader').text, 'Continent in World')
+
     # Asert the related places box exists
     self.assertEqual(
         find_elem(self.driver, value='related-places-callout').text,
         'Places in Africa')
 
-    categories_for_africa = [
+    topics_for_africa = [
         "Economics", "Health", "Equity", "Demographics", "Environment", "Energy"
     ]
-    topics_for_africa = ['Overview'] + categories_for_africa
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
@@ -156,15 +168,14 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          expected_topics=topics_for_africa)
 
     # And that the categories have data in the overview
-    block_titles = find_elems(self.driver, value='block-title')
-    self.assertEqual(set([block.text for block in block_titles]),
-                     set(categories_for_africa))
+    block_titles = find_elems(self.driver, value='block-title-text')
+    self.assertEqual([block.text for block in block_titles], topics_for_africa)
 
     # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
                                      value='category',
                                      path_to_elem=['charts-container'])
-    self.assertEqual(len(category_containers), len(categories_for_africa))
+    self.assertEqual(len(category_containers), len(topics_for_africa))
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
