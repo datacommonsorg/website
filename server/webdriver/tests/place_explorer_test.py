@@ -22,6 +22,7 @@ from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import scroll_to_elem
 from server.webdriver.shared_tests.place_explorer_test import \
     PlaceExplorerTestMixin
 
@@ -75,15 +76,10 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                          expected_topics=ORDERED_TOPICS)
 
     # Scroll to a map chart.
-    # TODO(gmechali): Make a util for scrolling to element.
-    map_chart = self.driver.find_element(By.CLASS_NAME, "map-chart")
-    self.driver.execute_script("arguments[0].scrollIntoView();", map_chart)
+    map_container = scroll_to_elem(self.driver, value='map-chart')
+    self.assertIsNotNone(map_container)
 
-    # Assert we see at least one map item with data.
-    map_containers = find_elems(self.driver, value='map-chart')
-
-    self.assertGreater(len(map_containers), 0)
-    map_geo_regions = find_elem(map_containers[0],
+    map_geo_regions = find_elem(map_container,
                                 by=By.ID,
                                 value='map-geo-regions',
                                 path_to_elem=['map-items'])
