@@ -79,7 +79,8 @@ PLACE_OVERVIEW_TABLE_VARIABLES = [
     },
     {
         "variable_dcid": "UnemploymentRate_Person",
-        "i18n_message_id": "VARIABLE_NAME-UnemploymentRate_Person"
+        "i18n_message_id": "VARIABLE_NAME-UnemploymentRate_Person",
+        "unit": "Percent"
     },
 ]
 
@@ -919,7 +920,8 @@ def fetch_overview_table_data(place_dcid: str,
     date = most_recent_observation.get("date", "")
     value = most_recent_observation.get("value", "")
     provenance_url = facets.get(facet_id, {}).get("provenanceUrl", "")
-    unit = facets.get(facet_id, {}).get("unit", None)
+    # Use the unit from the facet if available, otherwise use the unit from the variable definition
+    unit = facets.get(facet_id, {}).get("unit", None) or item.get("unit", None)
 
     data_rows.append(
         OverviewTableDataRow(
