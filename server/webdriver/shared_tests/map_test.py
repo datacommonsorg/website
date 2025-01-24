@@ -151,6 +151,7 @@ class MapTestMixin():
         value='Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Assert chart is correct.
+    shared.wait_for_loading(self.driver)
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
         'Median Age of Population ',

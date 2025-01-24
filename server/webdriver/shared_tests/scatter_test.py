@@ -59,13 +59,19 @@ class ScatterTestMixin():
     self.assertIsNotNone(scatterplot)
 
     # Assert place name is correct.
-    self.assertEqual(find_elem(self.driver, by=By.XPATH,
-                                          value='//*[@id="place-list"]/div/span').text, 'California')
+    self.assertEqual(
+        find_elem(self.driver,
+                  by=By.XPATH,
+                  value='//*[@id="place-list"]/div/span').text, 'California')
 
     # Assert chart is correct.
-    chart = find_elem(self.driver, by=By.XPATH, value='//*[@id="chart"]/div[1]/div[1]')
-    self.assertIn("Population Asian Alone Per Capita ", find_elem(chart, by=By.XPATH, value='./h3[1]').text)
-    self.assertIn("Median Income of a Population ", find_elem(chart, by=By.XPATH, value='./h3[2]').text)
+    chart = find_elem(self.driver,
+                      by=By.XPATH,
+                      value='//*[@id="chart"]/div[1]/div[1]')
+    self.assertIn("Population Asian Alone Per Capita ",
+                  find_elem(chart, by=By.XPATH, value='./h3[1]').text)
+    self.assertIn("Median Income of a Population ",
+                  find_elem(chart, by=By.XPATH, value='./h3[2]').text)
     circles = find_elems(scatterplot, by=By.TAG_NAME, value='circle')
     self.assertGreater(len(circles), 20)
 
@@ -84,12 +90,14 @@ class ScatterTestMixin():
 
     # Click on the first result.
     find_elem(self.driver, by=By.CSS_SELECTOR,
-                                            value='.pac-item:nth-child(1)').click()
+              value='.pac-item:nth-child(1)').click()
     shared.wait_for_loading(self.driver)
     self.assertIsNotNone(wait_elem(self.driver, value='chip'))
 
     # Choose place type
-    Select(find_elem(self.driver, by=By.ID, value='place-selector-place-type')).select_by_value('County')
+    Select(
+        find_elem(self.driver, by=By.ID,
+                  value='place-selector-place-type')).select_by_value('County')
 
     # Choose stat vars
     shared.wait_for_loading(self.driver)
@@ -100,19 +108,27 @@ class ScatterTestMixin():
     element_present = EC.presence_of_element_located(
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    find_elem(self.driver, by=
-        By.ID, value='Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
+    find_elem(
+        self.driver,
+        by=By.ID,
+        value='Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Click on median income button
     shared.wait_for_loading(self.driver)
-    find_elem(self.driver, by=
-        By.ID, value='Median_Income_Persondc/g/Demographics-Median_Income_Person').click()
+    find_elem(self.driver,
+              by=By.ID,
+              value='Median_Income_Persondc/g/Demographics-Median_Income_Person'
+             ).click()
 
     # Assert chart is correct.
     scatterplot = find_elem(self.driver, by=By.ID, value='scatterplot')
-    chart = find_elem(self.driver, by=By.XPATH, value='//*[@id="chart"]/div[1]/div[1]')
-    self.assertIn("Median Income of a Population ", find_elem(chart, by=By.XPATH, value='./h3[1]').text)
-    self.assertIn("Median Age of Population ", find_elem(chart, by=By.XPATH, value='./h3[2]').text)
+    chart = find_elem(self.driver,
+                      by=By.XPATH,
+                      value='//*[@id="chart"]/div[1]/div[1]')
+    self.assertIn("Median Income of a Population ",
+                  find_elem(chart, by=By.XPATH, value='./h3[1]').text)
+    self.assertIn("Median Age of Population ",
+                  find_elem(chart, by=By.XPATH, value='./h3[2]').text)
     circles = find_elems(scatterplot, by=By.TAG_NAME, value='circle')
     self.assertGreater(len(circles), 20)
 
@@ -121,8 +137,9 @@ class ScatterTestMixin():
 
     # Click on first link on landing page
     shared.wait_for_loading(self.driver)
-    find_elem(self.driver, by=
-        By.XPATH, value='//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
+    find_elem(self.driver,
+              by=By.XPATH,
+              value='//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
 
     # Assert chart loads
     shared.wait_for_loading(self.driver)

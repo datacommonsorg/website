@@ -16,9 +16,9 @@ import re
 
 from selenium.webdriver.common.by import By
 
+from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
-from server.webdriver import shared
 
 MAP_URL = '/tools/map'
 
@@ -31,11 +31,13 @@ class StatVarHierarchyTestMixin():
     self.driver.get(self.url_ + MAP_URL)
 
     # Wait until stat var hierarchy is present
-    self.assertIsNotNone(wait_elem(self.driver, by=By.ID, value='hierarchy-section'))
+    self.assertIsNotNone(
+        wait_elem(self.driver, by=By.ID, value='hierarchy-section'))
 
     # Get the count of the first category
     agriculture_category = find_elem(self.driver,
-        by=By.XPATH, value="//*[text()='Agriculture']")
+                                     by=By.XPATH,
+                                     value="//*[text()='Agriculture']")
     count_text = find_elem(agriculture_category, value='sv-count').text
 
     rgx = re.compile(r'\(([0-9]+)\)')
@@ -52,22 +54,29 @@ class StatVarHierarchyTestMixin():
 
     # Click on the first result.
     find_elem(self.driver, by=By.CSS_SELECTOR,
-                                            value='.pac-item:nth-child(1)').click()
+              value='.pac-item:nth-child(1)').click()
     self.assertIsNotNone(wait_elem(self.driver, value='chip'))
 
     # Wait until the place type selector populates with options
-    self.assertIsNotNone(wait_elem(self.driver, by=By.CSS_SELECTOR, value="option[value='County']"))
+    self.assertIsNotNone(
+        wait_elem(self.driver,
+                  by=By.CSS_SELECTOR,
+                  value="option[value='County']"))
 
     # Select the 'County' place type option
-    find_elem(self.driver, by=By.CSS_SELECTOR, value="option[value='County']").click()
+    find_elem(self.driver, by=By.CSS_SELECTOR,
+              value="option[value='County']").click()
 
     # Get the count after filtering
     shared.wait_for_loading(self.driver)
 
-    agriculture_category = find_elem(self.driver, by=By.XPATH, value="//*[text()='Agriculture']")
+    agriculture_category = find_elem(self.driver,
+                                     by=By.XPATH,
+                                     value="//*[text()='Agriculture']")
 
-    count_text = find_elem(agriculture_category, by=
-        By.CLASS_NAME, value='sv-count').text
+    count_text = find_elem(agriculture_category,
+                           by=By.CLASS_NAME,
+                           value='sv-count').text
     count_text = rgx.search(count_text).group(0)
 
     count_filter = int(count_text.replace('(', '').replace(')', ''))
