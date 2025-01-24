@@ -16,7 +16,7 @@ Place API dataclass types
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 
@@ -100,6 +100,7 @@ class ServerBlockMetadata:
   charts: List[ServerChartMetadata]
   is_overview: bool = False
   non_dividable: bool = False  # After existence checks
+  title: Optional[str] = None
 
 
 @dataclass
@@ -117,3 +118,24 @@ class ServerChartConfiguration:
   scaling: Optional[int] = None
   non_dividable: bool = False  # Read in from configs
   scale: bool = False
+
+
+@dataclass
+class OverviewTableDataRow:
+  """
+  A single row of overview table data for a place.
+  """
+  date: str
+  name: str
+  provenanceUrl: str
+  unit: str
+  value: float
+  variableDcid: str
+
+
+@dataclass
+class PlaceOverviewTableApiResponse:
+  """
+  API Response for /api/dev-place/overview-table/<place_dcid>
+  """
+  data: List[OverviewTableDataRow]

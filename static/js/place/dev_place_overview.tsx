@@ -15,15 +15,14 @@
  */
 /** @jsxImportSource @emotion/react */
 
-import { DataRow } from "@datacommonsorg/client";
+import { PlaceOverviewTableApiResponse } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import { css, useTheme } from "@emotion/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import { LocationCity } from "../components/elements/icons/location_city";
 import { GoogleMap } from "../components/google_map";
-import { intl } from "../i18n/i18n";
-import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { defaultDataCommonsClient } from "../utils/data_commons_client";
+import { formatDate, formatNumber, intl } from "../i18n/i18n";
+import { NamedTypedPlace } from "../shared/types";
 import { isPlaceContainedInUsa, pageMessages } from "./util";
 
 /**
@@ -38,46 +37,19 @@ import { isPlaceContainedInUsa, pageMessages } from "./util";
  */
 const PlaceOverviewTable = (props: {
   placeDcid: string;
+  placeOverviewTableApiResponse: PlaceOverviewTableApiResponse;
 }): React.JSX.Element => {
   const theme = useTheme();
-  const { placeDcid } = props;
-  const [dataRows, setDataRows] = useState<DataRow[]>([]);
   const containerRef = useRef(null);
-  // Fetch key demographic statistics for the place when it changes
-  useEffect(() => {
-    (async (): Promise<void> => {
-      const placeOverviewDataRows = await defaultDataCommonsClient.getDataRows({
-        entities: [placeDcid],
-        variables: [
-          "Count_Person",
-          "Median_Income_Person",
-          "Median_Age_Person",
-          "UnemploymentRate_Person",
-        ],
-      });
-      setDataRows(placeOverviewDataRows);
-    })();
-  }, [placeDcid]);
-  if (!dataRows) {
-    return null;
-  }
+  const dataRows = props.placeOverviewTableApiResponse.data;
+
   const sourceUrls = new Set(
     dataRows.map((dataRow) => {
-      return dataRow.variable.observation.metadata.provenanceUrl;
+      return dataRow.provenanceUrl;
     })
   );
-  const statVarDcids = dataRows.map((dr) => {
-    return dr.variable.dcid;
-  });
-
-  const statVarSpecs: StatVarSpec[] = statVarDcids.map((dcid) => {
-    return {
-      statVar: dcid,
-      denom: "", // Initialize with an empty string or a default denominator if applicable
-      unit: "", // Initialize with an empty string or a default unit if applicable
-      scaling: 1, // Initialize with a default scaling factor
-      log: false, // Initialize with a default log value
-    };
+  const statVarDcids = dataRows.map((row) => {
+    return row.variableDcid;
   });
 
   return (
@@ -118,17 +90,27 @@ const PlaceOverviewTable = (props: {
         </thead>
         <tbody>
           {dataRows.map((dataRow, index) => {
-            const unit = dataRow.variable.observation.metadata.unitDisplayName
-              ? dataRow.variable.observation.metadata.unitDisplayName
-              : "";
-            const formattedObservationValue =
-              dataRow.variable.observation.value.toLocaleString();
+            const unit = dataRow.unit;
+            const value = dataRow.value;
+
+            // Format the observation value with the unit
+            const formattedObservationValue = formatNumber(
+              value,
+              unit,
+              undefined,
+              undefined,
+              {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 0,
+                style: "decimal",
+              }
+            );
+            const formattedDate = formatDate(dataRow.date);
             return (
               <tr key={index} className="key-demographics-row">
-                <td>{dataRow.variable.properties.name}</td>
+                <td>{dataRow.name}</td>
                 <td>
-                  {formattedObservationValue} {unit} (
-                  {dataRow.variable.observation.date})
+                  {formattedObservationValue} ({formattedDate})
                 </td>
                 <td></td>
               </tr>
@@ -166,10 +148,12 @@ const PlaceOverviewTable = (props: {
  */
 export const PlaceOverview = (props: {
   place: NamedTypedPlace;
-  placeSummary: string;
+  placeSummary?: string;
   parentPlaces: NamedTypedPlace[];
+  placeOverviewTableApiResponse: PlaceOverviewTableApiResponse;
 }): React.JSX.Element => {
-  const { place, placeSummary, parentPlaces } = props;
+  const { place, placeSummary, parentPlaces, placeOverviewTableApiResponse } =
+    props;
   const isInUsa = isPlaceContainedInUsa(
     parentPlaces.map((place) => place.dcid)
   );
@@ -200,15 +184,18 @@ export const PlaceOverview = (props: {
         <LocationCity />
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
       </div>
-      <div
-        className="place-summary"
-        css={css`
-          ${theme.typography.text.sm}
-          margin-bottom: ${theme.spacing.md}px;
-        `}
-      >
-        {placeSummary}
-      </div>
+      {placeSummary && (
+        <div
+          className="place-summary"
+          css={css`
+            ${theme.typography.text.sm}
+            margin-bottom: ${theme.spacing.md}px;
+          `}
+        >
+          {placeSummary}
+        </div>
+      )}
+
       <div
         css={css`
           display: grid;
@@ -229,7 +216,10 @@ export const PlaceOverview = (props: {
         )}
         <div>
           {!isInUsa && <br></br>}
-          <PlaceOverviewTable placeDcid={place.dcid} />
+          <PlaceOverviewTable
+            placeDcid={place.dcid}
+            placeOverviewTableApiResponse={placeOverviewTableApiResponse}
+          />
         </div>
       </div>
     </div>

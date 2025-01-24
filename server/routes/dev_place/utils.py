@@ -29,6 +29,7 @@ from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
 from server.routes.dev_place.types import Chart
+from server.routes.dev_place.types import OverviewTableDataRow
 from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import ServerBlockMetadata
 from server.routes.dev_place.types import ServerChartConfiguration
@@ -58,6 +59,32 @@ ORDERED_TOPICS = [
 TOPICS = set(ORDERED_TOPICS)
 OVERVIEW_CATEGORY = "Overview"
 ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
+
+PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
+NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
+
+PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
+NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
+
+# Variables to include in overview table
+PLACE_OVERVIEW_TABLE_VARIABLES = [
+    {
+        "variable_dcid": "Count_Person",
+        "i18n_message_id": "VARIABLE_NAME-Count_Person"
+    },
+    {
+        "variable_dcid": "Median_Income_Person",
+        "i18n_message_id": "VARIABLE_NAME-Median_Income_Person"
+    },
+    {
+        "variable_dcid": "Median_Age_Person",
+        "i18n_message_id": "VARIABLE_NAME-Median_Age_Person"
+    },
+    {
+        "variable_dcid": "UnemploymentRate_Person",
+        "i18n_message_id": "VARIABLE_NAME-UnemploymentRate_Person"
+    },
+]
 
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
@@ -121,11 +148,13 @@ def get_ordered_by_place_type_to_highlight(places: List[Place]) -> List[Place]:
   return places_to_include
 
 
-def get_place_override(places: List[Place]) -> Place | None:
+def get_place_override(places: List[Place],
+                       locale: str = DEFAULT_LOCALE) -> Place | None:
   """Returns the place with the lowest indexed type to highlight"""
   possible_places = get_ordered_by_place_type_to_highlight(places)
   if possible_places:
-    return possible_places[0]
+    # Repeat fetch here in order to get the interationalized name.
+    return fetch_place(possible_places[0].dcid, locale=locale)
   return None
 
 
@@ -462,7 +491,7 @@ def chart_config_to_overview_charts(
           description=page_config_item.description,
           scaling=page_config_item.scaling,
           statisticalVariableDcids=page_config_item.variables,
-          title=page_config_item.title,
+          title=block.title,
           placeScope=block.place_scope,
           topicDcids=[],
           denominator=denominator if not block.non_dividable else None,
@@ -611,7 +640,9 @@ def fetch_child_place_dcids(place: Place,
   return child_place_dcids
 
 
-def translate_chart_config(chart_config: List[ServerChartConfiguration]):
+def translate_chart_config(chart_config: List[ServerChartConfiguration],
+                           place_type: str, child_place_type: str,
+                           place_name: str, parent_place_name: str | None):
   """
   Translates the 'titleId' field in each chart configuration item into a readable 'title'
   using the gettext function.
@@ -620,15 +651,46 @@ def translate_chart_config(chart_config: List[ServerChartConfiguration]):
       chart_config (List[Dict]): A list of dictionaries where each dictionary contains 
                                   chart configuration data. Each dictionary may have a 'titleId'
                                   field that needs to be translated into a 'title'.
+      place_type: Type of the current place
+      child_place_type: Type of the child place
+      place_name: Name of the current place, already internationalized
+      parent_place_name: Name of the parent place, already internationalized
 
   Returns:
       List[Dict]: A new list of dictionaries with the 'title' field translated where applicable.
   """
+  # We do not properly identify Administrative Areas, so will exclude those from the chart title and fallback to "Places"
+  if place_type and place_type.startswith('AdministrativeArea'):
+    place_type = 'Place'
+  if child_place_type and child_place_type.startswith('AdministrativeArea'):
+    child_place_type = 'Place'
+
+  translated_place_type = place_api.get_place_type_i18n_name(
+      place_type, plural=True) if place_type else None
+  translated_child_place_type = place_api.get_place_type_i18n_name(
+      child_place_type, plural=True) if child_place_type else None
+
   translated_chart_config = []
   for page_config_item in chart_config:
     translated_item = copy.deepcopy(page_config_item)
-    if translated_item.title_id:
-      translated_item.title = gettext(translated_item.title_id)
+    for translated_block in translated_item.blocks:
+      title_sections = []
+
+      if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
+        title_sections.append(
+            gettext(NEIGHBORING_PLACES_IN_PARENT_PLACE_STR,
+                    placeType=translated_place_type,
+                    parentPlace=parent_place_name))
+      elif translated_block.place_scope == "CHILD_PLACES":
+        title_sections.append(
+            gettext(PLACE_TYPE_IN_PARENT_PLACES_STR,
+                    placeType=translated_child_place_type,
+                    parentPlaces=place_name))
+
+      if translated_item.title_id:
+        title_sections.append(gettext(translated_item.title_id))
+      translated_block.title = ': '.join(title_sections)
+
     translated_chart_config.append(translated_item)
   return translated_chart_config
 
@@ -824,3 +886,52 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
 
   # Return the list of similar place dcids
   return place_cohort_member_dcids
+
+
+def fetch_overview_table_data(place_dcid: str,
+                              locale=DEFAULT_LOCALE
+                             ) -> List[OverviewTableDataRow]:
+  """
+  Fetches overview table data for the specified place.
+  """
+  data_rows = []
+  variables = [v["variable_dcid"] for v in PLACE_OVERVIEW_TABLE_VARIABLES]
+
+  # Fetch the most recent observation for each variable
+  resp = dc.obs_point([place_dcid], variables)
+  facets = resp.get("facets", {})
+
+  # Iterate over each variable and extract the most recent observation
+  for item in PLACE_OVERVIEW_TABLE_VARIABLES:
+    variable_dcid = item["variable_dcid"]
+    name = gettext(item["i18n_message_id"])
+    ordered_facet_observations = resp.get("byVariable", {}).get(
+        variable_dcid, {}).get("byEntity", {}).get(place_dcid,
+                                                   {}).get("orderedFacets", [])
+    most_recent_facet = ordered_facet_observations[
+        0] if ordered_facet_observations else None
+    if not most_recent_facet:
+      continue
+
+    observations = most_recent_facet.get("observations", [])
+    most_recent_observation = observations[0] if observations else None
+    if not most_recent_observation:
+      continue
+
+    facet_id = most_recent_facet.get("facetId", "")
+    date = most_recent_observation.get("date", "")
+    value = most_recent_observation.get("value", "")
+    provenance_url = facets.get(facet_id, {}).get("provenanceUrl", "")
+    unit = facets.get(facet_id, {}).get("unit", None)
+
+    data_rows.append(
+        OverviewTableDataRow(
+            date=date,
+            name=name,
+            provenanceUrl=provenance_url,
+            unit=unit,
+            value=value,
+            variableDcid=variable_dcid,
+        ))
+
+  return data_rows

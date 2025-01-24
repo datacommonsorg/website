@@ -22,6 +22,7 @@ import {
   ApiNodePropvalOutResponse,
   ObservationDatesApiResponse,
   PlaceChartsApiResponse,
+  PlaceOverviewTableApiResponse,
   PointApiResponse,
   RelatedPlacesApiResponse,
   SeriesApiResponse,
@@ -247,6 +248,20 @@ class DataCommonsWebClient {
     }?${queryString}`;
     const response = await fetch(url);
     return (await response.json()) as RelatedPlacesApiResponse;
+  }
+
+  async getPlaceOverviewTable(params: {
+    placeDcid: string;
+    locale?: string;
+  }): Promise<PlaceOverviewTableApiResponse> {
+    const queryString = toURLSearchParams({
+      [LOCALE_PARAM]: params.locale,
+    });
+    const url = `${this.apiRoot || ""}/api/dev-place/overview-table/${
+      params.placeDcid
+    }?${queryString}`;
+    const response = await fetch(url);
+    return (await response.json()) as PlaceOverviewTableApiResponse;
   }
 }
 
