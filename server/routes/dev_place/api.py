@@ -87,9 +87,6 @@ def place_charts(place_dcid: str):
   chart_config_for_category = place_utils.filter_chart_configs_for_category(
       place_category, chart_config_existing_data)
 
-  print("chart_config_for_category")
-  print(chart_config_for_category)
-
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
       chart_config_for_category, place_type, child_place_type_to_highlight,
@@ -98,9 +95,6 @@ def place_charts(place_dcid: str):
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
   blocks = place_utils.chart_config_to_overview_charts(
       translated_chart_config, child_place_type_to_highlight)
-
-  print("blocks")
-  print(blocks)
 
   # Translate category strings
   categories_with_translations = place_utils.get_categories_with_translations(
