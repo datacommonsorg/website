@@ -50,7 +50,6 @@ import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
-import { SearchSection } from "./search_section";
 import { SuccessResult } from "./success_result";
 
 enum LoadingStatus {
@@ -144,7 +143,10 @@ export function App(props: AppProps): ReactElement {
         {props.isDemo && (
           <AutoPlay
             autoPlayQuery={autoPlayQuery}
-            inputQuery={setQuery}
+            inputQuery={(query) => {
+              setQuery(query);
+              setStoreQueryString(query);
+            }}
             disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
           />
         )}
@@ -161,15 +163,6 @@ export function App(props: AppProps): ReactElement {
         {loadingStatus === LoadingStatus.LOADING && (
           <div>
             <Spinner isOpen={true} />
-          </div>
-        )}
-        {loadingStatus === LoadingStatus.DEMO_INIT && (
-          <div className="row explore-charts">
-            <SearchSection
-              query={query}
-              debugData={null}
-              exploreContext={null}
-            />
           </div>
         )}
         {loadingStatus === LoadingStatus.SUCCESS && (
