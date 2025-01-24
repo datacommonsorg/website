@@ -133,20 +133,16 @@ class TestTopicCacheLoader(unittest.TestCase):
 
     # Check that only two nodes were processed
     self.assertEqual(len(result.out_map), 2)
-    
     # Verify first node with relevantVariableList
     self.assertIn('topic1', result.out_map)
     self.assertEqual(result.out_map['topic1'].name, 'Topic 1')
     self.assertEqual(result.out_map['topic1'].vars, ['var1', 'var2'])
-    
     # Verify second node with memberList
     self.assertIn('topic2', result.out_map)
     self.assertEqual(result.out_map['topic2'].name, 'Topic 2')
     self.assertEqual(result.out_map['topic2'].vars, ['var3', 'var4'])
-    
     # Verify third node was skipped
     self.assertNotIn('topic3', result.out_map)
-
     # Verify in_map connections
     self.assertIn('var1', result.in_map)
     self.assertIn('var2', result.in_map)
