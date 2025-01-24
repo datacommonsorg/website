@@ -413,12 +413,8 @@ resource "null_resource" "run_db_init" {
       gcloud run jobs execute ${var.namespace}-datacommons-data-job \
         --update-env-vars DATA_RUN_MODE=schemaupdate \
         --region=${var.region} \
-        --project=${var.project_id}
-
-      # 2) Wait for the job to complete
-      gcloud run jobs wait ${var.namespace}-datacommons-data-job \
-        --region=${var.region} \
-        --project=${var.project_id}
+        --project=${var.project_id} \
+        --wait
     EOT
   }
 }
