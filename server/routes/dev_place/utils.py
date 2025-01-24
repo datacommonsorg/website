@@ -16,7 +16,7 @@
 import copy
 import random
 import re
-from typing import Callable, Dict, List, Set
+from typing import Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
@@ -228,7 +228,7 @@ def filter_chart_config_by_place_dcid(
     place_dcid: str,
     place_type: str,
     child_place_type=str,
-    parent_place_dcid=str):
+    parent_place_dcid=str) -> List[ServerChartConfiguration]:
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   
@@ -361,7 +361,7 @@ def filter_chart_config_by_place_dcid(
 
 
 def select_string_with_locale(strings_with_locale: List[str],
-                              locale=DEFAULT_LOCALE):
+                              locale=DEFAULT_LOCALE) -> str:
   """
   Selects a string with a locale from a list of strings with locale tags.
   Each string is assumed to have a locale suffix in the format '@<locale>', such as 'hello@en'.
@@ -574,7 +574,7 @@ def get_child_place_types(place: Place) -> list[str]:
   return []
 
 
-def get_child_place_type_to_highlight(place: Place):
+def get_child_place_type_to_highlight(place: Place) -> str:
   """Returns the child place type to highlight"""
   ordered_child_place_types = get_child_place_types(place)
   child_place_type = ordered_child_place_types[
@@ -622,9 +622,10 @@ def fetch_child_place_dcids(place: Place,
   return child_place_dcids
 
 
-def translate_chart_config(chart_config: List[ServerChartConfiguration],
-                           place_type: str, child_place_type: str,
-                           place_name: str, parent_place_name: str | None):
+def translate_chart_config(
+    chart_config: List[ServerChartConfiguration], place_type: str,
+    child_place_type: str, place_name: str,
+    parent_place_name: str | None) -> List[ServerChartConfiguration]:
   """
   Translates the 'titleId' field in each chart configuration item into a readable 'title'
   using the gettext function.
@@ -750,7 +751,7 @@ def get_place_cohort(place: Place) -> str:
   return ""
 
 
-def parse_nearby_value(nearby_value: str):
+def parse_nearby_value(nearby_value: str) -> Tuple[str, str | None, str | None]:
   """
   Parses a nearby value string to extract the place DCID, distance, and an optional unit.
 
