@@ -191,7 +191,8 @@ def _load_nodes(dc: str, cache_nodes: List, name_overrides: Dict) -> TopicCache:
     elif 'memberList' in node:
       prop = 'memberList'
     else:
-      logging.warning(f"Node {dcid} missing both 'relevantVariableList' and 'memberList'")
+      logging.warning(
+          f"Node {dcid} missing both 'relevantVariableList' and 'memberList'")
       continue
     vars = node[prop]
     out_map[dcid] = Node(name=name, type=typ, vars=vars, extended_vars=[])
