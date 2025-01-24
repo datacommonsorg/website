@@ -43,7 +43,6 @@ const NlSearchBarHeaderInline = ({
   useEffect(() => {
     setAutoCompleteEnabled(
       isFeatureEnabled(AUTOCOMPLETE_FEATURE_FLAG) ||
-        isAutopushEnv ||
         (urlParams.has("ac_on") && urlParams.get("ac_on") == "true")
     );
   }, []);

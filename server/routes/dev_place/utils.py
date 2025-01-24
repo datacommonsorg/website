@@ -86,7 +86,6 @@ PLACE_OVERVIEW_TABLE_VARIABLES = [
     },
 ]
 
-
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
   """Get <a href-place page url> tag linking to the place page for a place
   

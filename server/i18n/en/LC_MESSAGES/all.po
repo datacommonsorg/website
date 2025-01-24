@@ -1045,8 +1045,6 @@ msgstr "ZIP Code"
 msgid "plural_zip_code"
 msgstr "ZIP Codes"
 
-<<<<<<< Updated upstream
-=======
 #. Name describing the statistical variable for population
 msgid "VARIABLE_NAME-Count_Person"
 msgstr "Population"
@@ -1063,7 +1061,6 @@ msgstr "Median Age"
 msgid "VARIABLE_NAME-UnemploymentRate_Person"
 msgstr "Unemployment Rate"
 
->>>>>>> Stashed changes
 #~ msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
 #~ msgstr "Nitrous oxide emissions (non-biogenic)"
 
