@@ -87,6 +87,7 @@
   <script>
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};
     globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
+    globalThis.FEATURE_FLAGS = {{ config['FEATURE_FLAGS'] | tojson }};
     globalThis.enableBQ = {{ config['ENABLE_BQ']|int }};
   </script>
   <script>

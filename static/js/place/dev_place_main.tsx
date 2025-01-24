@@ -13,28 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @jsxImportSource @emotion/react */
 
-import { DataRow } from "@datacommonsorg/client";
 import {
   Category,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import React, { useEffect, useRef, useState } from "react";
+import { ThemeProvider } from "@emotion/react";
+import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
-import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
-import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { NamedTypedPlace } from "../shared/types";
+import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
+import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
+import { PlaceOverview } from "./dev_place_overview";
 import {
-  defaultDataCommonsClient,
-  defaultDataCommonsWebClient,
-} from "../utils/data_commons_client";
-import { TileSources } from "../utils/tile_utils";
-import {
-  isPlaceContainedInUsa,
+  createPlacePageCategoryHref,
   pageMessages,
   placeChartsApiResponsesToPageConfig,
 } from "./util";
@@ -59,17 +57,21 @@ const PlaceHeader = (props: {
     <div className="title-section">
       <div className="place-info">
         <h1>
-          {place.name}
-          {category != "Overview" ? ` • ${category}` : ""}{" "}
+          <span>
+            <a className="place-info-link" href={`/place/${place.dcid}`}>
+              {place.name}
+            </a>
+            {category != "Overview" ? ` • ${category}` : ""}{" "}
+          </span>
+          <div className="dcid-and-knowledge-graph">
+            {intl.formatMessage(pageMessages.KnowledgeGraph)} •{" "}
+            <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
+          </div>
         </h1>
         <p
           className="subheader"
           dangerouslySetInnerHTML={{ __html: placeSubheader }}
         ></p>
-      </div>
-      <div className="dcid-and-knowledge-graph">
-        dcid: {place.dcid} •{" "}
-        <a href={`/browser/${place.dcid}`}>See Knowledge Graph</a>
       </div>
     </div>
   );
@@ -93,28 +95,10 @@ const CategoryItem = (props: {
 }): React.JSX.Element => {
   const { category, selectedCategory, forceDevPlaces, place } = props;
 
-  const createHref = (
-    category: string,
-    forceDevPlaces: boolean,
-    place: NamedTypedPlace
-  ): string => {
-    const href = `/place/${place.dcid}`;
-    const params = new URLSearchParams();
-    const isOverview = category === "Overview";
-
-    if (!isOverview) {
-      params.set("category", category);
-    }
-    if (forceDevPlaces) {
-      params.set("force_dev_places", "true");
-    }
-    return params.size > 0 ? `${href}?${params.toString()}` : href;
-  };
-
   return (
     <div className="item-list-item">
       <LocalizedLink
-        href={createHref(category.name, forceDevPlaces, place)}
+        href={createPlacePageCategoryHref(category.name, forceDevPlaces, place)}
         className={`item-list-text ${
           selectedCategory === category.name ? " selected" : ""
         }`}
@@ -150,7 +134,9 @@ const PlaceCategoryTabs = ({
 
   return (
     <div className="explore-topics-box">
-      <span className="explore-relevant-topics">Relevant topics</span>
+      <span className="explore-relevant-topics">
+        {intl.formatMessage(pageMessages.RelevantTopics)}
+      </span>
       <div className="item-list-container">
         <div className="item-list-inner">
           {categories.map((category) => (
@@ -162,147 +148,6 @@ const PlaceCategoryTabs = ({
               place={place}
             />
           ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-/**
- * Component that displays a table of key demographic statistics for a place.
- *
- * Fetches data for population, median income, median age, unemployment rate,
- * and crime statistics using the Data Commons API. Displays the values in a
- * formatted table with units and dates.
- *
- * @param props.placeDcid The DCID of the place to show statistics for
- * @returns A table component showing key demographic statistics, or null if data not loaded
- */
-const PlaceOverviewTable = (props: {
-  placeDcid: string;
-}): React.JSX.Element => {
-  const { placeDcid } = props;
-  const [dataRows, setDataRows] = useState<DataRow[]>([]);
-  const containerRef = useRef(null);
-  // Fetch key demographic statistics for the place when it changes
-  useEffect(() => {
-    (async (): Promise<void> => {
-      const placeOverviewDataRows = await defaultDataCommonsClient.getDataRows({
-        entities: [placeDcid],
-        variables: [
-          "Count_Person",
-          "Median_Income_Person",
-          "Median_Age_Person",
-          "UnemploymentRate_Person",
-          "Count_CriminalActivities_CombinedCrime",
-        ],
-        perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
-      });
-      setDataRows(placeOverviewDataRows);
-    })();
-  }, [placeDcid]);
-  if (!dataRows) {
-    return null;
-  }
-  const sourceUrls = new Set(
-    dataRows.map((dataRow) => {
-      return dataRow.variable.observation.metadata.provenanceUrl;
-    })
-  );
-  const statVarDcids = dataRows.map((dr) => {
-    return dr.variable.dcid;
-  });
-
-  const statVarSpecs: StatVarSpec[] = statVarDcids.map((dcid) => {
-    return {
-      statVar: dcid,
-      denom: "", // Initialize with an empty string or a default denominator if applicable
-      unit: "", // Initialize with an empty string or a default unit if applicable
-      scaling: 1, // Initialize with a default scaling factor
-      log: false, // Initialize with a default log value
-    };
-  });
-
-  return (
-    <table className="table key-demographics-table" ref={containerRef}>
-      <thead>
-        <tr>
-          <th scope="col" colSpan={2}>
-            Key Demographics
-          </th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {dataRows.map((dataRow, index) => {
-          const unit = dataRow.variable.observation.metadata.unitDisplayName
-            ? dataRow.variable.observation.metadata.unitDisplayName
-            : "";
-          const formattedObservationValue =
-            dataRow.variable.observation.value.toLocaleString();
-          return (
-            <tr key={index} className="key-demographics-row">
-              <td>{dataRow.variable.properties.name}</td>
-              <td>
-                {formattedObservationValue} {unit} (
-                {dataRow.variable.observation.date})
-              </td>
-              <td></td>
-            </tr>
-          );
-        })}
-        {dataRows && (
-          <tr>
-            <td>
-              <div className="chart-container">
-                <TileSources
-                  containerRef={containerRef}
-                  sources={sourceUrls}
-                  statVarSpecs={statVarSpecs}
-                />
-              </div>
-            </td>
-            <td></td>
-            <td></td>
-          </tr>
-        )}
-      </tbody>
-    </table>
-  );
-};
-
-/**
- * Displays an overview of a place including its name, summary, map and key statistics.
- *
- * @param props.place The place object containing name and dcid
- * @param props.placeSummary A text summary describing the place
- * @returns A component with the place overview including icon, name, summary, map and statistics table
- */
-const PlaceOverview = (props: {
-  place: NamedTypedPlace;
-  placeSummary: string;
-  parentPlaces: NamedTypedPlace[];
-}): React.JSX.Element => {
-  const { place, placeSummary, parentPlaces } = props;
-  const isInUsa = isPlaceContainedInUsa(
-    parentPlaces.map((place) => place.dcid)
-  );
-  return (
-    <div className="place-overview">
-      <div className="place-icon">
-        <div className="material-icons">location_city</div>
-      </div>
-      <div className="place-name">{place.name}</div>
-      <div className="place-summary">{placeSummary}</div>
-      <div className="row place-map">
-        {isInUsa && (
-          <div className="col-md-3">
-            <GoogleMap dcid={place.dcid}></GoogleMap>
-          </div>
-        )}
-        <div className="col-md-9">
-          {!isInUsa && <br></br>}
-          <PlaceOverviewTable placeDcid={place.dcid} />
         </div>
       </div>
     </div>
@@ -326,7 +171,7 @@ const RelatedPlaces = (props: {
     return null;
   }
 
-  const NUM_PLACES = 15;
+  const NUM_PLACES = 100;
   const showToggle = childPlaces.length > NUM_PLACES;
   const truncatedPlaces = childPlaces.slice(0, NUM_PLACES);
   const numPlacesCollapsed = childPlaces.length - NUM_PLACES;
@@ -420,7 +265,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
   const [hasError, setHasError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [categories, setCategories] = useState<Category[]>();
+  const [categories, setCategories] = useState<Category[]>([]);
 
   // Get locale
   const metadataContainer = document.getElementById("metadata-base");
@@ -501,7 +346,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
         placeChartsApiResponse,
         relatedPlacesApiResponse.parentPlaces,
         relatedPlacesApiResponse.peersWithinParent,
-        relatedPlacesApiResponse.place
+        relatedPlacesApiResponse.place,
+        isOverview,
+        forceDevPlaces
       );
       setPageConfig(config);
     })();
@@ -520,41 +367,43 @@ export const DevPlaceMain = (): React.JSX.Element => {
     return <div>Place &quot;{place.dcid}&quot; not found.</div>;
   }
   return (
-    <RawIntlProvider value={intl}>
-      <PlaceHeader
-        category={category}
-        place={place}
-        placeSubheader={placeSubheader}
-      />
-      <PlaceCategoryTabs
-        categories={categories}
-        selectedCategory={category}
-        place={place}
-        forceDevPlaces={forceDevPlaces}
-      />
-      {isOverview && placeSummary != "" && (
-        <PlaceOverview
+    <ThemeProvider theme={theme}>
+      <RawIntlProvider value={intl}>
+        <PlaceHeader
+          category={category}
           place={place}
-          placeSummary={placeSummary}
-          parentPlaces={parentPlaces}
+          placeSubheader={placeSubheader}
         />
-      )}
-      {isOverview && childPlaces.length > 0 && (
-        <RelatedPlaces place={place} childPlaces={childPlaces} />
-      )}
-      {hasPlaceCharts && (
-        <PlaceCharts
+        <PlaceCategoryTabs
+          categories={categories}
+          selectedCategory={category}
           place={place}
-          childPlaceType={childPlaceType}
-          pageConfig={pageConfig}
+          forceDevPlaces={forceDevPlaces}
         />
-      )}
-      {hasNoCharts && (
-        <div>
-          No {category === overviewString ? "" : category} data found for{" "}
-          {place.name}.
-        </div>
-      )}
-    </RawIntlProvider>
+        {isOverview && categories.length > 0 && placeSummary != "" && (
+          <PlaceOverview
+            place={place}
+            placeSummary={placeSummary}
+            parentPlaces={parentPlaces}
+          />
+        )}
+        {hasPlaceCharts && (
+          <PlaceCharts
+            place={place}
+            childPlaceType={childPlaceType}
+            pageConfig={pageConfig}
+          />
+        )}
+        {hasNoCharts && (
+          <div>
+            No {category === overviewString ? "" : category} data found for{" "}
+            {place.name}.
+          </div>
+        )}
+        {isOverview && childPlaces.length > 0 && (
+          <RelatedPlaces place={place} childPlaces={childPlaces} />
+        )}
+      </RawIntlProvider>
+    </ThemeProvider>
   );
 };
