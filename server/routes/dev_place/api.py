@@ -196,7 +196,6 @@ def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  # Fetch overview table data
   data_rows = place_utils.fetch_overview_table_data(place_dcid, locale=g.locale)
 
   response = PlaceOverviewTableApiResponse(data=data_rows)

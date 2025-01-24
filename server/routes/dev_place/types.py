@@ -128,7 +128,7 @@ class OverviewTableDataRow:
   date: str
   name: str
   provenanceUrl: str
-  unit: str
+  unit: Optional[str]
   value: float
   variableDcid: str
 

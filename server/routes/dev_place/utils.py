@@ -64,7 +64,7 @@ PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
 NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
 
 # Variables to include in overview table
-PLACE_OVERVIEW_TABLE_VARIABLES = [
+PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
     {
         "variable_dcid": "Count_Person",
         "i18n_message_id": "VARIABLE_NAME-Count_Person"
