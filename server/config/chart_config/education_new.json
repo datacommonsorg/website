@@ -27,7 +27,7 @@
           ]
         },
         {
-          "is_overview": false,
+          "is_overview": true,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -71,7 +71,7 @@
           ]
         },
         {
-          "is_overview": false,
+          "is_overview": true,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {

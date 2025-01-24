@@ -547,6 +547,18 @@ OSERVATION_POINT_RESPONSE = {
                     }
                 }
             }
+        },
+        # Include Count_Person as it's used as the denominator.
+        "Count_Person": {
+            "byEntity": {
+                "country/USA": {
+                    "dates": {
+                        "2022": {
+                            "value": 5000
+                        }
+                    }
+                }
+            }
         }
     }
 }

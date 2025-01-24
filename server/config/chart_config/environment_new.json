@@ -1,5 +1,238 @@
 [
-    {
+  {
+    "category": "Environment",
+    "title_id": "CHART_TITLE-carbon_dioxide_emissions_per_capita",
+    "title": "Carbon dioxide emissions per capita",
+    "description": "Total amount of carbon dioxide emissions per person",
+    "variables": [
+      "Amount_Emissions_CarbonDioxide_PerCapita"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "unit": "t",
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Environment",
+    "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006",
+    "title": "Projected max temperature change under RCP 4.5 (based on year 2006)",
+    "description": "Projected max temperature change under RCP 4.5 (based on year 2006)",
+    "variables": [
+      "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "unit": "celsius",
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Environment",
+    "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006",
+    "title": "Projected max temperature change under RCP 8.5 (based on year 2006)",
+    "description": "Projected max temperature change under RCP 8.5 (based on year 2006)",
+    "variables": [
+      "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "unit": "celsius",
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Environment",
+    "title_id": "CHART_TITLE-water_withdrawal_rate",
+    "title": "Water withdrawal rate",
+    "description": "Water withdrawal rate",
+    "variables": [
+      "WithdrawalRate_Water"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "unit": "mgd",
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Environment",
+    "title_id": "CHART_TITLE-Cyclones",
+    "title": "Cyclones",
+    "description": "Total number of cyclones that occured",
+    "variables": [
+      "Count_CycloneEvent"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
       "category": "Environment",
       "title_id": "CHART_TITLE-Air_quality_index",
       "title": "Air quality index",
@@ -12,7 +245,6 @@
       "scale": true,
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -36,7 +268,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -63,7 +294,6 @@
       "unit": "celsius",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -87,58 +317,6 @@
           ]
         },
         {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Environment",
-      "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006",
-      "title": "Projected max temperature change under RCP 4.5 (based on year 2006)",
-      "description": "Projected max temperature change under RCP 4.5 (based on year 2006)",
-      "variables": [
-        "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"
-      ],
-      "denominator": [],
-      "non_dividable": true,
-      "scale": true,
-      "unit": "celsius",
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            },
-            {
-              "type": "HIGHLIGHT"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -165,7 +343,6 @@
       "unit": "celsius",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -189,58 +366,6 @@
           ]
         },
         {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Environment",
-      "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006",
-      "title": "Projected max temperature change under RCP 8.5 (based on year 2006)",
-      "description": "Projected max temperature change under RCP 8.5 (based on year 2006)",
-      "variables": [
-        "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85"
-      ],
-      "denominator": [],
-      "non_dividable": true,
-      "scale": true,
-      "unit": "celsius",
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            },
-            {
-              "type": "HIGHLIGHT"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -267,7 +392,6 @@
       "unit": "μg/m³",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -291,7 +415,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -318,7 +441,6 @@
       "unit": "ppb",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -342,7 +464,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -369,7 +490,6 @@
       "unit": "μg/m³",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -393,7 +513,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -419,7 +538,6 @@
       "scale": true,
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -443,7 +561,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -470,7 +587,6 @@
       "unit": "MTCO2e",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -494,7 +610,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -521,7 +636,6 @@
       "unit": "t",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -545,7 +659,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -572,7 +685,6 @@
       "unit": "MTCO2e",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -596,7 +708,6 @@
           ]
         },
         {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -620,7 +731,6 @@
       "unit": "MTCO2e",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -644,55 +754,6 @@
           ]
         },
         {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Environment",
-      "title_id": "CHART_TITLE-water_withdrawal_rate",
-      "title": "Water withdrawal rate",
-      "description": "Water withdrawal rate",
-      "variables": [
-        "WithdrawalRate_Water"
-      ],
-      "denominator": [],
-      "non_dividable": true,
-      "scale": true,
-      "unit": "mgd",
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            },
-            {
-              "type": "HIGHLIGHT"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -716,7 +777,6 @@
       "unit": "per-million",
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -740,55 +800,6 @@
           ]
         },
         {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Environment",
-      "title_id": "CHART_TITLE-carbon_dioxide_emissions_per_capita",
-      "title": "Carbon dioxide emissions per capita",
-      "description": "Total amount of carbon dioxide emissions per person",
-      "variables": [
-        "Amount_Emissions_CarbonDioxide_PerCapita"
-      ],
-      "denominator": [],
-      "non_dividable": true,
-      "scale": true,
-      "unit": "t",
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            },
-            {
-              "type": "HIGHLIGHT"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -811,7 +822,6 @@
       "scale": true,
       "blocks": [
         {
-          "is_overview": true,
           "place_scope": "PLACE",
           "charts": [
             {
@@ -835,54 +845,6 @@
           ]
         },
         {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Environment",
-      "title_id": "CHART_TITLE-Cyclones",
-      "title": "Cyclones",
-      "description": "Total number of cyclones that occured",
-      "variables": [
-        "Count_CycloneEvent"
-      ],
-      "denominator": [],
-      "non_dividable": true,
-      "scale": true,
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            },
-            {
-              "type": "HIGHLIGHT"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {

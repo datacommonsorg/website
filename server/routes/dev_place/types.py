@@ -16,7 +16,7 @@ Place API dataclass types
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 
@@ -57,13 +57,19 @@ class Place:
 
 
 @dataclass
+class Category:
+  name: str
+  translatedName: str
+
+
+@dataclass
 class PlaceChartsApiResponse:
   """
   API Response for /api/dev-place/charts/<place_dcid>
   """
   blocks: List[BlockConfig]
   place: Place
-  translatedCategoryStrings: Dict[str, str]
+  categories: List[Category]
 
 
 @dataclass
@@ -77,6 +83,7 @@ class RelatedPlacesApiResponse:
   place: Place
   similarPlaces: List[Place]
   parentPlaces: List[Place] = None
+  peersWithinParent: List[str] = None
 
 
 @dataclass
@@ -92,6 +99,8 @@ class ServerBlockMetadata:
   place_scope: str
   charts: List[ServerChartMetadata]
   is_overview: bool = False
+  non_dividable: bool = False  # After existence checks
+  title: Optional[str] = None
 
 
 @dataclass
@@ -107,5 +116,5 @@ class ServerChartConfiguration:
   blocks: List[ServerBlockMetadata]
   unit: Optional[str] = None
   scaling: Optional[int] = None
-  non_dividable: bool = False
+  non_dividable: bool = False  # Read in from configs
   scale: bool = False

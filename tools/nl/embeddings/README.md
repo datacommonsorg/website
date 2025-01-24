@@ -15,9 +15,9 @@ Embeddings index is configured in
 keys are index names (specified as `idx=` param value). Each value contains the
 following fields:
 
-- `store_type`: what type of embeddings store? (MEMORY, LANCEDB, VERTEXAI)
+- `store_type`: what type of embeddings store? (MEMORY, VERTEXAI)
 - `model`: the name of the associated model from `models` section
-- `embeddings_path`: For MEMORY/LANCEDB, the path to the index files. Can be a
+- `embeddings_path`: For MEMORY, the path to the index files. Can be a
   local absolute path or GCS (gs://) path.
 - `source_path`: the input csv folder path.
 
