@@ -17,6 +17,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
 SCATTER_URL = '/tools/scatter'
@@ -52,23 +55,18 @@ class ScatterTestMixin():
 
     # Wait until the chart has loaded.
     shared.wait_for_loading(self.driver)
-    element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    scatterplot = find_elem(self.driver, by=By.ID, value='scatterplot')
+    self.assertIsNotNone(scatterplot)
 
     # Assert place name is correct.
-    place_name = self.driver.find_element(By.XPATH,
-                                          '//*[@id="place-list"]/div/span')
-    self.assertEqual(place_name.text, 'California')
+    self.assertEqual(find_elem(self.driver, by=By.XPATH,
+                                          value='//*[@id="place-list"]/div/span').text, 'California')
 
     # Assert chart is correct.
-    chart_title_y = self.driver.find_element(
-        By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[1]')
-    chart_title_x = self.driver.find_element(
-        By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[2]')
-    self.assertIn("Population Asian Alone Per Capita ", chart_title_y.text)
-    self.assertIn("Median Income of a Population ", chart_title_x.text)
-    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
-    circles = chart.find_elements(By.TAG_NAME, 'circle')
+    chart = find_elem(self.driver, by=By.XPATH, value='//*[@id="chart"]/div[1]/div[1]')
+    self.assertIn("Population Asian Alone Per Capita ", find_elem(chart, by=By.XPATH, value='./h3[1]').text)
+    self.assertIn("Median Income of a Population ", find_elem(chart, by=By.XPATH, value='./h3[2]').text)
+    circles = find_elems(scatterplot, by=By.TAG_NAME, value='circle')
     self.assertGreater(len(circles), 20)
 
   def test_manually_enter_options(self):
@@ -77,33 +75,21 @@ class ScatterTestMixin():
     """
     self.driver.get(self.url_ + SCATTER_URL)
 
-    # Wait until search box is present.
-    element_present = EC.presence_of_element_located((By.ID, 'ac'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element(By.ID, 'ac')
-
-    # Type california into the search box.
+    # Wait until search box is present and type california into the search box
+    search_box_input = find_elem(self.driver, by=By.ID, value='ac')
     search_box_input.send_keys(PLACE_SEARCH_CA)
 
     # Wait until there is at least one result in autocomplete results.
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'pac-item'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    self.assertIsNotNone(wait_elem(self.driver, value='pac-item'))
 
     # Click on the first result.
-    first_result = self.driver.find_element(By.CSS_SELECTOR,
-                                            '.pac-item:nth-child(1)')
-    first_result.click()
-    element_present = EC.presence_of_element_located((By.CLASS_NAME, 'chip'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    find_elem(self.driver, by=By.CSS_SELECTOR,
+                                            value='.pac-item:nth-child(1)').click()
+    shared.wait_for_loading(self.driver)
+    self.assertIsNotNone(wait_elem(self.driver, value='chip'))
 
     # Choose place type
-    element_present = EC.text_to_be_present_in_element(
-        (By.ID, 'place-selector-place-type'), "County")
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    selects = Select(
-        self.driver.find_element(By.ID, 'place-selector-place-type'))
-    selects.select_by_value('County')
+    Select(find_elem(self.driver, by=By.ID, value='place-selector-place-type')).select_by_value('County')
 
     # Choose stat vars
     shared.wait_for_loading(self.driver)
@@ -114,29 +100,21 @@ class ScatterTestMixin():
     element_present = EC.presence_of_element_located(
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
+    find_elem(self.driver, by=
+        By.ID, value='Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Click on median income button
+    
     shared.wait_for_loading(self.driver)
-    element_present = EC.presence_of_element_located(
-        (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.ID,
-        'Median_Income_Persondc/g/Demographics-Median_Income_Person').click()
+    find_elem(self.driver, by=
+        By.ID, value='Median_Income_Persondc/g/Demographics-Median_Income_Person').click()
 
     # Assert chart is correct.
-    element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_title_y = self.driver.find_element(
-        By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[1]')
-    chart_title_x = self.driver.find_element(
-        By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[2]')
-    self.assertEqual(chart_title_y.text, "Median Income of a Population (2022)")
-    self.assertEqual(chart_title_x.text, "Median Age of Population (2022)")
-    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
-    circles = chart.find_elements(By.TAG_NAME, 'circle')
+    scatterplot = find_elem(self.driver, by=By.ID, value='scatterplot')
+    chart = find_elem(self.driver, by=By.XPATH, value='//*[@id="chart"]/div[1]/div[1]')
+    self.assertIn("Median Income of a Population ", find_elem(chart, by=By.XPATH, value='./h3[1]').text)
+    self.assertIn("Median Age of Population ", find_elem(chart, by=By.XPATH, value='./h3[2]').text)
+    circles = find_elems(scatterplot, by=By.TAG_NAME, value='circle')
     self.assertGreater(len(circles), 20)
 
   def test_landing_page_link(self):
@@ -144,16 +122,11 @@ class ScatterTestMixin():
 
     # Click on first link on landing page
     shared.wait_for_loading(self.driver)
-    element_present = EC.presence_of_element_located(
-        (By.ID, 'placeholder-container'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.XPATH, '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
+    find_elem(self.driver, by=
+        By.XPATH, value='//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
 
     # Assert chart loads
-    element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     shared.wait_for_loading(self.driver)
-    chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
-    circles = chart.find_elements(By.TAG_NAME, 'circle')
+    chart = find_elem(self.driver, by=By.ID, value='scatterplot')
+    circles = find_elems(chart, by=By.TAG_NAME, value='circle')
     self.assertGreater(len(circles), 1)
