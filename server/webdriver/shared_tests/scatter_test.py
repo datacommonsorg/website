@@ -104,7 +104,6 @@ class ScatterTestMixin():
         By.ID, value='Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Click on median income button
-    
     shared.wait_for_loading(self.driver)
     find_elem(self.driver, by=
         By.ID, value='Median_Income_Persondc/g/Demographics-Median_Income_Person').click()
