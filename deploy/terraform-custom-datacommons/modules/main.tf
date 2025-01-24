@@ -409,7 +409,7 @@ resource "null_resource" "run_db_init" {
 
   provisioner "local-exec" {
     command = <<EOT
-      # 1) Execute the schema update / initializationjob
+      # 1) Execute the schema update / initialization job
       gcloud run jobs execute ${var.namespace}-datacommons-data-job \
         --update-env-vars DATA_RUN_MODE=schemaupdate \
         --region=${var.region} \
