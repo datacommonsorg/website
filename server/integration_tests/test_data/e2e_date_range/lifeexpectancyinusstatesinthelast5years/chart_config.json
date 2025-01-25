@@ -41,7 +41,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
                       "LifeExpectancy_Person_3563600999"
@@ -71,72 +71,8 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Female"
-                    ],
-                    "title": "Female Life Expectancy in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Female"
-                    ],
-                    "title": "Female Life Expectancy in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
-            "title": "Female Life Expectancy in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Male Life Expectancy in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Male Life Expectancy in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
-            "title": "Male Life Expectancy in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
                       "LifeExpectancy_Person_Female_2776657033",
@@ -188,10 +124,10 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
-                      "Count_Death_1151455814"
+                      "Count_Death_1437305810"
                     ],
                     "title": "Number of Deaths in United States",
                     "type": "LINE"
@@ -220,7 +156,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person_1113810078"
@@ -282,6 +218,38 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -292,7 +260,6 @@
                     ],
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block",
-                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block",
                       "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block",
                       "Count_Death_CertainInfectiousParasiticDiseases_multiple_place_bar_block",
                       "Count_Death_Neoplasms_multiple_place_bar_block",
@@ -308,71 +275,8 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Causes of Death"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Mortality Event: Female in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2019"
-                    },
-                    "statVarKey": [
-                      "Count_Death_Female_1151455814"
-                    ],
-                    "title": "Count of Mortality Event: Female in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: Female in United States",
-                    "statVarKey": [
-                      "Count_Death_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Mortality Event: Female"
           },
           {
             "columns": [
@@ -476,7 +380,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT.AGE--M0_2966989201"
@@ -602,7 +506,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
                       "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2966989201",
@@ -653,7 +557,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
                       "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1151455814"
@@ -715,7 +619,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_606064963"
@@ -809,7 +713,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2019"
+                      "startDate": "2020"
                     },
                     "statVarKey": [
                       "Median_Age_Person_3357919774"
@@ -849,8 +753,8 @@
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
-          "Count_Death_1151455814": {
-            "facetId": "1151455814",
+          "Count_Death_1437305810": {
+            "facetId": "1437305810",
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
@@ -883,6 +787,10 @@
             "facetId": "1113810078",
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod": {
+            "name": "Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
           },
           "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female": {
             "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
@@ -931,19 +839,6 @@
           "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block": {
             "name": "Deaths From Diseases of the Circulatory System",
             "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
-          },
-          "Count_Death_Female": {
-            "name": "Count of Mortality Event: Female",
-            "statVar": "Count_Death_Female"
-          },
-          "Count_Death_Female_1151455814": {
-            "facetId": "1151455814",
-            "name": "Count of Mortality Event: Female",
-            "statVar": "Count_Death_Female"
-          },
-          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
-            "name": "% of Suicide Events",
-            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
             "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
@@ -1010,18 +905,10 @@
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
-          "LifeExpectancy_Person_Female": {
-            "name": "Female Life Expectancy",
-            "statVar": "LifeExpectancy_Person_Female"
-          },
           "LifeExpectancy_Person_Female_2776657033": {
             "facetId": "2776657033",
             "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
-          },
-          "LifeExpectancy_Person_Male": {
-            "name": "Male Life Expectancy",
-            "statVar": "LifeExpectancy_Person_Male"
           },
           "LifeExpectancy_Person_Male_2776657033": {
             "facetId": "2776657033",
@@ -1462,7 +1349,6 @@
       },
       "Count_Death_AsAFractionOfCount_Person": {
         "causeOfDeath": [
-          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
           "Count_MortalityEvent_Assault(Homicide)_AsAFractionOf_Count_Person",
           "Count_MortalityEvent_ICD10/A00-B99_AsAFractionOf_Count_Person",
           "Count_MortalityEvent_ICD10/C00-D48_AsAFractionOf_Count_Person",
@@ -1472,18 +1358,6 @@
           "Count_MortalityEvent_ICD10/Q00-Q99_AsAFractionOf_Count_Person",
           "Count_MortalityEvent_ICD10/R00-R99_AsAFractionOf_Count_Person",
           "Count_MortalityEvent_Suicide_AsAFractionOf_Count_Person"
-        ]
-      },
-      "Count_Death_Female": {
-        "causeOfDeath": [
-          "Count_Death_AbnormalNotClassfied_Female",
-          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female",
-          "Count_Death_CertainInfectiousParasiticDiseases_Female",
-          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female",
-          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female",
-          "Count_Death_DiseasesOfTheCirculatorySystem_Female",
-          "Count_Death_Neoplasms_Female",
-          "Count_MortalityEvent_Assault(Homicide)_Female"
         ]
       },
       "LifeExpectancy_Person": {

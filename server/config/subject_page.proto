@@ -360,6 +360,8 @@ message Tile {
   // Only used in ANSWER_MESSAGE, ANSWER_TABLE, and ENTITY_OVERVIEW for now.
   // TODO: use this for all other tile types as well.
   repeated string entities = 22;
+  // [optional] If set, used instead of main enclosed place type for the page.
+  string enclosed_place_type_override = 23;
 
   // specs for specific tile types
   oneof tile_type_spec {
@@ -439,6 +441,11 @@ message Category {
   repeated Block blocks = 3;
   // If the category corresponds to an entity (like topic) this includes the dcid.
   string dcid = 5;
+  // TODO(dwnoble): Combine url & link text into a single optional field.
+  // [optional] If set, adds an href link to the category header
+  string url = 6;
+  // [optional] If set, uses this text as the href link in the category header instead of the category title
+  string link_text = 7;
 }
 
 message SubjectPageConfig {

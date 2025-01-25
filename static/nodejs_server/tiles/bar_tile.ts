@@ -130,7 +130,7 @@ export async function getBarTileResult(
     const csvLabelHeader =
       mode === TOOLFORMER_RAG_MODE ? "variable" : undefined;
     const result: TileResult = {
-      data_csv: dataGroupsToCsv(chartData.dataGroup, csvLabelHeader),
+      dataCsv: dataGroupsToCsv(chartData.dataGroup, csvLabelHeader),
       placeType: enclosedPlaceType,
       places: getPlaces(tileConfig, place),
       srcs: getSources(chartData.sources),

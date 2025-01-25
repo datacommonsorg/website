@@ -16,6 +16,8 @@
 
 /* mocked axios calls for Page test for download tool. */
 
+/* eslint-disable camelcase */
+
 jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";

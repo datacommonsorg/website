@@ -27,7 +27,9 @@ set -e
 # Kill forked processes on exit.
 trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 
-source .run_cdc_dev.env && export $(sed '/^#/d' .run_cdc_dev.env | cut -d= -f1)
+ENV_FILE=${RUN_CDC_DEV_ENV_FILE:-.run_cdc_dev.env}
+echo "Using environment file: $ENV_FILE"
+source $ENV_FILE && export $(sed '/^#/d' $ENV_FILE | cut -d= -f1)
 
 # Print commit hashes.
 echo -e "\033[0;32m" # Set different color.
@@ -60,7 +62,7 @@ fi
 
 # Validate api root and key by making an API call.
 echo
-url="${DC_API_ROOT}/v2/node?key=${DC_API_KEY}&nodes=geoId/06&property=<-"
+url="${DC_API_ROOT}/v2/node?key=${DC_API_KEY}&nodes=geoId/06&property=%3C-"
 echo "Calling API to validate key: $url"
 # Perform the request and capture both output and HTTP status code
 response=$(curl --silent --output /dev/null --write-out "%{http_code}" "$url")

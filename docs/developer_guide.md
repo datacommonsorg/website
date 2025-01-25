@@ -65,10 +65,21 @@ website and mixer changes.
   nvm use 18.4.0
   ```
 
-- Protoc 3.21.9
+  To set this version as default:
+
+  ```bash
+  nvm alias default 18.4.0
+  ```
+
+- Protoc 3.21.12
 
   Install [`protoc`](https://grpc.io/docs/protoc-installation/) at version
-  [3.21.9](https://github.com/protocolbuffers/protobuf/releases/tag/v21.9).
+  3.21.12.
+
+  On MacOS, you can do this with Homebrew by running `brew install protobuf@21`.
+  Be sure to update your path as described in the output (likely it'll instruct
+  you to run
+  `echo 'export PATH="/opt/homebrew/opt/protobuf@21/bin:$PATH"' >> ~/.zshrc`).
 
 - [Optional] gcloud
 
@@ -358,5 +369,5 @@ To test .yaml cloudbuild files, you can use cloud-build-local to dry run the fil
 The Data Commons site makes use of Material Design icons. In certain cases, font-based Material Design icon usage can result in
 flashes of unstyled content that can be avoided by using SVG icons.
 
-We have provided tools to facilitate the creation and use of Material SVG icons in both the Jinja template and in React components. 
+We have provided tools to facilitate the creation and use of Material SVG icons in both the Jinja template and in React components.
 For instructions  on how to generate and use these SVGs and components, please see: [Icon Readme](../tools/resources/icons/README.md):

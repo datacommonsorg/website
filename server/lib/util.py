@@ -13,8 +13,7 @@
 # limitations under the License.
 
 import csv
-from datetime import date
-from datetime import datetime
+import datetime
 from functools import wraps
 import gzip
 import hashlib
@@ -30,6 +29,8 @@ import urllib
 from flask import jsonify
 from flask import make_response
 from flask import request
+from google.cloud import storage
+from google.cloud.exceptions import NotFound
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
@@ -42,14 +43,23 @@ _ready_check_sleep_seconds = 5
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
     "economics",
+    "economics_new",
     "health",
+    "health_new",
     "equity",
+    "equity_new",
     "crime",
+    "crime_new",
     "education",
+    "education_new",
     "demographics",
+    "demographics_new",
     "housing",
+    "housing_new",
     "environment",
+    "environment_new",
     "energy",
+    "energy_new",
 ]
 
 # key is topic_id, which should match the folder name under config/topic_page
@@ -382,6 +392,84 @@ def get_nl_no_percapita_vars():
     return nopc_vars
 
 
+def get_feature_flag_bucket_name(environment: str) -> str:
+  """Returns the bucket name containing the feature flags."""
+  if environment in ['integration_test', 'test', 'webdriver']:
+    env_for_bucket = 'autopush'
+  elif environment == 'production':
+    env_for_bucket = 'prod'
+  else:
+    env_for_bucket = environment
+  return 'datcom-website-' + env_for_bucket + '-resources'
+
+
+def load_feature_flags_from_gcs(environment: str):
+  """Loads the feature flags into app config."""
+  storage_client = storage.Client()
+  bucket_name = get_feature_flag_bucket_name(environment)
+  try:
+    bucket = storage_client.get_bucket(bucket_name)
+  except NotFound:
+    logging.error("Bucket not found: " + bucket_name)
+    return {}
+
+  blob = bucket.get_blob("feature_flags.json")
+  data = {}
+  if blob:
+    try:
+      data = json.loads(blob.download_as_bytes())
+    except json.JSONDecodeError:
+      logging.warning("Loading feature flags failed to decode JSON.")
+    except TypeError:
+      logging.warning("Loading feature flags encountered a TypeError.")
+  else:
+    logging.warning("Feature flag file not found in the bucket.")
+
+  return data
+
+
+def load_fallback_feature_flags(environment: str):
+  """Loads the fallback feature flags into the app config. We fallback to checked in flag configs per environment."""
+  environments_with_local_files = set(
+      ['local', 'autopush', 'dev', 'staging', 'production'])
+  testing_environments = set(['integration_test', 'test', 'webdriver'])
+
+  if environment in testing_environments:
+    env_to_use = 'autopush'
+  elif environment in environments_with_local_files:
+    env_to_use = environment
+  else:
+    env_to_use = 'production'
+
+  filepath = os.path.join(get_repo_root(), "config", "feature_flag_configs",
+                          env_to_use + ".json")
+
+  with open(filepath, 'r', encoding="utf-8") as f:
+    data = json.load(f)
+  return data
+
+
+def load_feature_flags():
+  """Loads the feature flags into app config."""
+  environment = os.environ.get('FLASK_ENV')
+
+  environment_with_gcs = set(['dev', 'autopush', 'staging', 'production'])
+  data = None
+  if environment in environment_with_gcs:
+    data = load_feature_flags_from_gcs(environment)
+
+  if not data:
+    data = load_fallback_feature_flags(environment)
+
+  # Create the dictionary using a dictionary comprehension
+  feature_flag_dict = {
+      flag["name"]: flag["enabled"]
+      for flag in data
+      if 'name' in flag and 'enabled' in flag
+  }
+  return feature_flag_dict
+
+
 # Returns a set of SVs that have percentage units.
 # (Generated from http://gpaste/6422443047518208)
 def get_sdg_percent_vars():
@@ -472,11 +560,11 @@ def hash_id(user_id):
 def parse_date(date_string):
   parts = date_string.split("-")
   if len(parts) == 1:
-    return datetime.strptime(date_string, "%Y")
+    return datetime.datetime.strptime(date_string, "%Y")
   elif len(parts) == 2:
-    return datetime.strptime(date_string, "%Y-%m")
+    return datetime.datetime.strptime(date_string, "%Y-%m")
   elif len(parts) == 3:
-    return datetime.strptime(date_string, "%Y-%m-%d")
+    return datetime.datetime.strptime(date_string, "%Y-%m-%d")
   else:
     raise ValueError("Invalid date: %s", date_string)
 
@@ -808,7 +896,7 @@ def _get_recent_date_counts(observation_entity_counts_by_date,
   # TODO: Remove this check once data is corrected in b/327667797
   if observation_entity_counts_by_date[
       'variable'] in FILTER_FUTURE_OBSERVATIONS_FROM_VARIABLES:
-    todays_date = str(date.today())
+    todays_date = str(datetime.date.today())
     descending_observation_dates = [
         observation_date for observation_date in descending_observation_dates
         if observation_date['date'] < todays_date
@@ -818,7 +906,7 @@ def _get_recent_date_counts(observation_entity_counts_by_date,
   # Heuristic to fetch the "max_dates_to_check" most recent
   # observation dates or observation dates going back
   # "max_years_to_check" years, whichever is greater
-  cutoff_year = str(date.today().year - max_years_to_check)
+  cutoff_year = str(datetime.date.today().year - max_years_to_check)
   latest_observation_dates_from_year = [
       o for o in descending_observation_dates if o['date'] > cutoff_year
   ]

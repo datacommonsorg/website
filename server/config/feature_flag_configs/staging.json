@@ -1,0 +1,12 @@
+[{
+    "name": "autocomplete",
+    "enabled": true
+},
+{
+    "name": "dev_place_experiment",
+    "enabled": false
+},
+{
+    "name": "dev_place_ga",
+    "enabled": false
+}]

@@ -123,7 +123,7 @@ export function PreviewSection(props: PreviewSectionProps): JSX.Element {
           link.setAttribute("href", url);
           link.setAttribute("download", "importPackage.zip");
           setIsGeneratingFiles(false);
-          link.onclick = () => {
+          link.onclick = (): void => {
             setTimeout(() => window.URL.revokeObjectURL(url));
           };
           link.click();

@@ -18,7 +18,8 @@
  * Functions for getting results for a map tile
  */
 
-// This import is unused in this file, but needed for draw functions
+// Canvas import is needed to support the draw functions in this file.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as Canvas from "canvas";
 import _ from "lodash";
 
@@ -138,7 +139,7 @@ export async function getMapTileResult(
   try {
     const chartData = await fetchData(tileProp);
     const result: TileResult = {
-      data_csv: mapDataToCsv(chartData.layerData),
+      dataCsv: mapDataToCsv(chartData.layerData),
       placeType: enclosedPlaceType,
       places: [place.dcid],
       srcs: getSources(chartData.sources),

@@ -18,10 +18,7 @@
  * Component for selecting topic and place.
  */
 
-import axios from "axios";
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { CustomInput } from "reactstrap";
 
 import { NamedTypedPlace } from "../../shared/types";
 import { TopicsSummary } from "../../types/app/topic_page_types";
@@ -157,6 +154,7 @@ function getMorePlaces(
   });
 }
 
+/* TODO(chejennifer): Consider deleting or reintroducing the commented out block below and lines 67-118 above.
 function selectPlace(
   currentTopic: string,
   event: React.ChangeEvent<HTMLInputElement>
@@ -181,3 +179,4 @@ function selectTopic(
     window.open(`/topic/${topic}/${currentPlace}`, "_self");
   }
 }
+*/

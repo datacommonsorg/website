@@ -8,7 +8,9 @@ This is a Docker image based on gcr.io/datcom-ci/webdriver-chrome, but comes wit
 
 ## How to update the Docker image
 
-To generate the Docker image and push it to GCS, run the following from the root directory:
+Generally you shouldn't have to do this manually since it happens as part of the website autopush pipeline (see build/ci/cloudbuild.push.yaml).
+
+If you can't wait for the next autopush build, you can run a script to generate this image as well as some others that are usually autopushed and push them all to GCS as latest:
 
 ```bash
 .scripts/push_image.sh

@@ -32,7 +32,7 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { intl } from "../../i18n/i18n";
+import { intl, localizeLink } from "../../i18n/i18n";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -50,7 +50,6 @@ import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
-import { SearchSection } from "./search_section";
 import { SuccessResult } from "./success_result";
 
 enum LoadingStatus {
@@ -144,7 +143,10 @@ export function App(props: AppProps): ReactElement {
         {props.isDemo && (
           <AutoPlay
             autoPlayQuery={autoPlayQuery}
-            inputQuery={setQuery}
+            inputQuery={(query) => {
+              setQuery(query);
+              setStoreQueryString(query);
+            }}
             disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
           />
         )}
@@ -161,15 +163,6 @@ export function App(props: AppProps): ReactElement {
         {loadingStatus === LoadingStatus.LOADING && (
           <div>
             <Spinner isOpen={true} />
-          </div>
-        )}
-        {loadingStatus === LoadingStatus.DEMO_INIT && (
-          <div className="row explore-charts">
-            <SearchSection
-              query={query}
-              debugData={null}
-              exploreContext={null}
-            />
           </div>
         )}
         {loadingStatus === LoadingStatus.SUCCESS && (
@@ -196,7 +189,18 @@ export function App(props: AppProps): ReactElement {
     return hasPlace || fulfillData["entities"];
   }
 
-  function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
+  /**
+   * Process the fulfill data from the search API response.
+   *
+   * This processes the fulfill data by setting up page metadata, debug data, and user
+   * messages for rendering the explore page. However, if the fulfill response only
+   * contains place information, a page overview configuration, but no charts, it will
+   * redirect to /place/{placeDcid} instead.
+   *
+   * @param fulfillData The fulfill data from the search API response
+   * @param userQuery The user's search query
+   */
+  function processFulfillData(fulfillData: any, userQuery?: string): void {
     setDebugData(fulfillData["debug"]);
     setStoreDebugData(fulfillData["debug"]);
     const userMessage = {
@@ -238,8 +242,11 @@ export function App(props: AppProps): ReactElement {
       isPendingRedirect = shouldSkipPlaceOverview(pageMetadata);
       if (isPendingRedirect) {
         const placeDcid = pageMetadata.place.dcid;
-        const url = `/place/${placeDcid}`;
-        window.location.replace(url);
+        // If the user has a query, append it to the url
+        const url = `/place/${placeDcid}${userQuery ? `?q=${userQuery}` : ""}`;
+        // Localize the url to maintain the current page's locale.
+        const localizedUrl = localizeLink(url);
+        window.location.replace(localizedUrl);
       }
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
@@ -253,7 +260,7 @@ export function App(props: AppProps): ReactElement {
         }
       }
       if (
-        shouldSetQuery &&
+        !userQuery &&
         !_.isEmpty(pageMetadata.mainTopics) &&
         pageMetadata.place.name
       ) {
@@ -323,10 +330,12 @@ export function App(props: AppProps): ReactElement {
       : topic
       ? `T: ${topic} | P: ${place} - `
       : "";
+    /* eslint-disable camelcase */
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${gaTitle}${document.title}`,
       page_location: window.location.href.replace("#", "?"),
     });
+    /* eslint-enable camelcase */
     if (query) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
@@ -347,7 +356,7 @@ export function App(props: AppProps): ReactElement {
         includeStopWords
       )
         .then((resp) => {
-          processFulfillData(resp, false);
+          processFulfillData(resp, query);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -371,7 +380,7 @@ export function App(props: AppProps): ReactElement {
         client
       )
         .then((resp) => {
-          processFulfillData(resp, true);
+          processFulfillData(resp);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);

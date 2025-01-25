@@ -464,24 +464,33 @@ MAPS_PREDICTIONS_VALUES = [
 ]
 # Place page chart config for place page testing
 SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
-    "category": "Crime",
-    "titleId": "CHART_TITLE-Total_crime",
-    "title": "Total crime",
-    "description": "Total number of criminal incidents",
-    "statsVars": ["Count_CriminalActivities_CombinedCrime"],
-    "isOverview": True,
-    "relatedChart": {
-        "titleId": "CHART_TITLE-Crime_rate",
-        "title": "Crimes per 100,000 people",
-        "description": "Total number of criminal incidents per 100,000 people",
-        "scale": True,
-        "denominator": "Count_Person",
-        "scaling": 100000
-    }
+    "category":
+        "Crime",
+    "title_id":
+        "CHART_TITLE-Total_crime",
+    "title":
+        "Total crime",
+    "description":
+        "Total number of criminal incidents",
+    "variables": ["Count_CriminalActivities_CombinedCrime"],
+    "denominator": [],
+    "non_dividable":
+        False,
+    "scale":
+        True,
+    "blocks": [{
+        "is_overview": True,
+        "place_scope": "PLACE",
+        "charts": [{
+            "type": "LINE"
+        }, {
+            "type": "HIGHLIGHT"
+        }],
+    }],
 }, {
     "category":
         "Education",
-    "titleId":
+    "title_id":
         "CHART_TITLE-Educational_attainment",
     "title":
         "Education attainment",
@@ -491,31 +500,26 @@ SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
     ],
     "description":
         "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
-    "statsVars": [
+    "non_dividable":
+        False,
+    "scale":
+        True,
+    "variables": [
         "Count_Person_EducationalAttainmentNoSchoolingCompleted",
         "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
         "Count_Person_EducationalAttainmentBachelorsDegree",
         "Count_Person_EducationalAttainmentMastersDegree",
         "Count_Person_EducationalAttainmentDoctorateDegree"
     ],
-    "isOverview":
-        True,
-    "relatedChart": {
-        "titleId":
-            "CHART_TITLE-Educational_attainment_rate",
-        "title":
-            "Education attainment rate",
-        "description":
-            "Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
-        "scale":
-            True,
-        "denominator":
-            "Count_Person_25OrMoreYears",
-        "scaling":
-            100,
-        "unit":
-            "%"
-    }
+    "blocks": [{
+        "is_overview": True,
+        "place_scope": "PLACE",
+        "charts": [{
+            "type": "LINE"
+        }, {
+            "type": "HIGHLIGHT"
+        }],
+    }]
 }]
 
 # Observation point response for place page testing
@@ -539,6 +543,18 @@ OSERVATION_POINT_RESPONSE = {
                     "dates": {
                         "2022": {
                             "value": 500
+                        }
+                    }
+                }
+            }
+        },
+        # Include Count_Person as it's used as the denominator.
+        "Count_Person": {
+            "byEntity": {
+                "country/USA": {
+                    "dates": {
+                        "2022": {
+                            "value": 5000
                         }
                     }
                 }

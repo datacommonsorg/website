@@ -86,7 +86,7 @@ export function CallFeedback(): JSX.Element {
         setStatus(FormStatus.NotStarted);
       }
     });
-  }, [sheetId, sessionQueryId, sessionCallId, applyToNext]);
+  }, [sheetId, sessionQueryId, sessionCallId, applyToNext, evalType]);
 
   useEffect(() => {
     if (!(sessionQueryId in allCall)) {
@@ -106,7 +106,7 @@ export function CallFeedback(): JSX.Element {
     } else {
       setEvalInfo(null);
     }
-  }, [doc, allCall, sessionQueryId, sessionCallId]);
+  }, [doc, allCall, sessionQueryId, sessionCallId, evalType]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
     if (status === FormStatus.InProgress) {
@@ -146,11 +146,11 @@ export function CallFeedback(): JSX.Element {
     return true;
   };
 
-  const handleApplyToNextChange = () => {
+  const handleApplyToNextChange = (): void => {
     setApplyToNext(!applyToNext);
   };
 
-  const handleChange = (event: FormEvent<HTMLInputElement>) => {
+  const handleChange = (event: FormEvent<HTMLInputElement>): void => {
     const { name, value } = event.target as HTMLInputElement;
     setResponse((prevState) => {
       const newState = {
@@ -169,7 +169,7 @@ export function CallFeedback(): JSX.Element {
     });
   };
 
-  const enableReeval = () => {
+  const enableReeval = (): void => {
     setResponse(EMPTY_RESPONSE[evalType]);
     setStatus(FormStatus.NotStarted);
   };

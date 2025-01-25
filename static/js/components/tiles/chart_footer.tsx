@@ -49,11 +49,11 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
         <div className="main-footer-section">
           <div className="outlinks">
             {props.handleEmbed && (
-              <div className="outlink-item">
+              <div className="outlink-item download-outlink">
                 <span className="material-icons-outlined">download</span>
                 <a
                   href="#"
-                  onClick={(event) => {
+                  onClick={(event): void => {
                     event.preventDefault();
                     triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
                       [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
@@ -66,13 +66,13 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
               </div>
             )}
             {props.exploreLink && (
-              <div className="outlink-item">
+              <div className="outlink-item explore-in-outlink">
                 <span className="material-icons-outlined">timeline</span>
                 <a
                   href={props.exploreLink.url}
                   rel="noopener noreferrer"
                   target="_blank"
-                  onClick={(event) => {
+                  onClick={(): boolean => {
                     triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
                       [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
                     });
@@ -106,7 +106,7 @@ function Footnote(props: { text: string }): JSX.Element {
       {hideToggle || showFullText ? props.text : `${shortText}...`}
       <span
         className="chart-footnote-toggle"
-        onClick={() => setShowFullText(!showFullText)}
+        onClick={(): void => setShowFullText(!showFullText)}
       >
         {!hideToggle && (showFullText ? " Show less" : " Show more")}
       </span>

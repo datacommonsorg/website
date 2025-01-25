@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/* eslint-disable camelcase */
 jest.mock("axios");
 jest.setTimeout(100000);
 
@@ -38,9 +39,9 @@ const INFO_PLACES: [InfoPlace, InfoPlace] = [
   { name: "Place 2", dcid: "dcid/2" },
 ];
 
-async function waitForComponentUpdates(wrapper: ReactWrapper) {
+async function waitForComponentUpdates(wrapper: ReactWrapper): Promise<void> {
   // Wait for state updates
-  await waitFor(() => {
+  await waitFor((): void => {
     expect(wrapper.text()).toContain("");
   });
   // Wait for stat var info and place info fetching

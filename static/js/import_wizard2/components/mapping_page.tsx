@@ -22,17 +22,9 @@
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
-import { container } from "webpack";
 
 import { TEMPLATE_MAPPING_COMPONENTS } from "../templates";
-import {
-  Column,
-  CsvData,
-  MappedThing,
-  Mapping,
-  MappingVal,
-  ValueMap,
-} from "../types";
+import { Column, CsvData, MappedThing, Mapping, MappingVal } from "../types";
 import { MappingPreviewSection } from "./mapping_preview_section";
 import { PreviewTable } from "./preview_table";
 
@@ -46,19 +38,11 @@ interface MappingPageProps {
 }
 
 export function MappingPage(props: MappingPageProps): JSX.Element {
-  // TODO: get valueMap from MappingSectionComponent
-  const [valueMap, setValueMap] = useState<ValueMap>({});
+  // TODO(chejennifer): Get the valueMap from MappingSectionComponent
   const [showPreview, setShowPreview] = useState(false);
   const [inputErrors, setInputErrors] = useState(new Set());
   const previewRef = useRef(null);
   const containerRef = useRef(null);
-
-  let fileName = "";
-  if (props.csvData && props.csvData.rawCsvFile) {
-    fileName = props.csvData.rawCsvFile.name;
-  } else if (props.csvData && props.csvData.rawCsvUrl) {
-    fileName = props.csvData.rawCsvUrl;
-  }
 
   function scrollToPreview(): void {
     if (showPreview && containerRef.current && previewRef.current) {
@@ -150,9 +134,9 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
                 <MappingPreviewSection
                   correctedMapping={props.userMapping}
                   csvData={props.csvData}
-                  valueMap={valueMap}
+                  valueMap={{}} // TODO(chejennifer): Pass in the real valueMap.
                   onBackClicked={props.onBackClicked}
-                  onContinueClicked={(hasError: boolean) => {
+                  onContinueClicked={(hasError: boolean): void => {
                     if (hasError) {
                       scrollToPreview();
                     } else {
@@ -169,7 +153,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
                 </Button>
                 <Button
                   className="nav-btn"
-                  onClick={() => {
+                  onClick={(): void => {
                     setShowPreview(true);
                   }}
                 >

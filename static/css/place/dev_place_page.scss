@@ -16,24 +16,51 @@
 
 /** Styles for dev /place/<dcid> pages */
 
-@use "../base.scss";
-@use "../explore";
+@use "../variables" as var;
+@import "../base";
+@import "../explore";
 
-// Left/right spacing shared across elements to ensure all text on the page
-// is left-justified to the same visual line, including the NL search bar text
-$text-alignment-spacing: 24px;
+@import "../shared/tiles.scss";
 
 // Border styling used to create a horizontal divider between sections
 $horizontal-divider-style: 1px solid rgba(0, 0, 0, 0.12);
 
+// Horizontal distance to leave between charts
+$chart-horizontal-spacing: 24px;
+
 main {
   // Leave space on top for navbar and bottom for footer
-  padding: 24px 0;
+  padding: 48px 0 24px 0;
 }
 
-.page-content-container {
-  padding: 0 $text-alignment-spacing;
+// TODO(juliawu): Update styles so dynamic padding is used across the website
+#dc-places {
+  &.main-content {
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    padding: calc(#{var.$spacing} * 6) 15px;
+    @include media-breakpoint-down(lg) {
+      max-width: 100% !important;
+      padding: var.$container-horizontal-padding calc(#{var.$spacing} * 3);
+    }
+  }
+  #subject-page-main-pane {
+    .block-title {
+      background: none;
+      border-bottom: $horizontal-divider-style;
+      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28px;
+      margin: 0;
+      padding: 0 24px 12px;
+    }
+  }
 }
+
 .title-section {
   display: flex;
   flex-direction: row;
@@ -42,13 +69,37 @@ main {
 
   .place-info {
     flex-grow: 1;
+    padding: 0 24px;
 
     h1 {
+      align-items: center;
       color: var(--gm-3-ref-neutral-neutral-20);
+      display: flex;
+      flex-direction: row;
       font-size: 28px;
       font-style: normal;
       font-weight: 400;
+      justify-content: space-between;
       line-height: 36px;
+      flex-wrap: wrap;
+
+      .place-info-link {
+        color: inherit;
+      }
+      
+      .place-info-link:hover {
+        color: var(--link-color);
+        text-decoration: underline;
+      }
+      
+      .dcid-and-knowledge-graph {
+        color: var(--gm-3-ref-neutral-neutral-40);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.1px;
+      }
     }
 
     .subheader {
@@ -60,38 +111,8 @@ main {
       margin-bottom: 0;
     }
   }
-
-  .dcid-and-knowledge-graph {
-    color: var(--gm-3-ref-neutral-neutral-40);
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px;
-    letter-spacing: 0.1px;
-  }
 }
 
-.place-overview {
-  border-radius: 8px;
-  border: 1px solid var(--GM3-ref-neutral-neutral90, #e3e3e3);
-  background: rgba(211, 227, 253, 0.1);
-  padding: 28px;
-  .place-name {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
-  }
-  .place-summary {
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-  }
-  .place-map {
-    margin-top: 16px;
-  }
-}
 .summary-text {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-size: 14px;
@@ -106,46 +127,22 @@ main {
   margin: 8px 0;
   padding-top: 10px;
   margin-bottom: 32px;
-}
-
-.charts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
-  margin: 24px 0;
-
-  .category {
-    .category-heading-container {
-      align-items: center;
-      border-bottom: $horizontal-divider-style;
-      display: flex;
-      flex-direction: row;
-
-      h2 {
-        flex-grow: 1;
-        font-size: 22px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 28px;
-      }
-
-      a {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 20px;
-      }
-    }
-  }
+  padding: 10px 24px 0;
 }
 
 .block.subtopic {
-  padding: 0;
-}
-
-.block-column {
-  width: 50%;
-  padding: 0px 10px 24px 10px;
+  h3 {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .block-controls {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 .related-places {
@@ -169,5 +166,29 @@ main {
     font-weight: 500;
     padding-left: 8px;
     padding-top: 16px;
+  }
+}
+
+#page-loading {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  padding-left: 24px;
+  padding-right: 24px;
+  svg {
+    font-size: 24px;
+    animation: rotating 2s linear infinite;
+  }
+  p {
+    margin: 3px 0 0 0;
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

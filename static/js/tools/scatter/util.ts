@@ -150,7 +150,7 @@ export async function getStatAllWithinPlace(
  * @param key
  * @param isX
  */
-function addSuffix(key: string, isX: boolean) {
+function addSuffix(key: string, isX: boolean): string {
   return `${key}${isX ? "x" : "y"}`;
 }
 
@@ -368,7 +368,7 @@ export function updateHashPlace(hash: string, place: PlaceInfo): string {
 function updateHashDisplayOptions(
   hash: string,
   display: DisplayOptionsWrapper
-) {
+): string {
   hash = updateHashBoolean(
     hash,
     FieldToAbbreviation.showQuadrant,

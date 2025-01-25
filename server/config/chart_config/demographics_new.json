@@ -1,0 +1,645 @@
+[
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Citizenship",
+    "title": "Citizenship status",
+    "description": "Total number of individuals, broken down by citizenship status",
+    "variables": [
+      "Count_Person_USCitizenBornInTheUnitedStates",
+      "Count_Person_USCitizenByNaturalization",
+      "Count_Person_NotAUSCitizen",
+      "Count_Person_USCitizenBornAbroadOfAmericanParents"
+    ],
+    "denominator": [
+      "Count_Person"
+    ],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Fertility_rate",
+    "title": "Fertility rate",
+    "description": "Average number of children that would be born to a woman over her lifetime",
+    "variables": [
+      "FertilityRate_Person_Female"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Marital_status",
+    "title": "Marital status",
+    "description": "Total number of individuals, broken down by marital status",
+    "variables": [
+      "Count_Person_MarriedAndNotSeparated",
+      "Count_Person_Divorced",
+      "Count_Person_NeverMarried",
+      "Count_Person_Widowed",
+      "Count_Person_Separated"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Median_age",
+    "title": "Median Age",
+    "description": "The median age of the population",
+    "variables": [
+      "Median_Age_Person"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Median_age_gender",
+    "title": "Median age by gender",
+    "description": "The median age of the population, broken down by gender",
+    "variables": [
+      "Median_Age_Person_Female",
+      "Median_Age_Person_Male"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Median_age_race",
+    "title": "Median age by race",
+    "description": "The median age of the population, broken down by race",
+    "variables": [
+      "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone",
+      "Median_Age_Person_AsianAlone",
+      "Median_Age_Person_BlackOrAfricanAmericanAlone",
+      "Median_Age_Person_HispanicOrLatino",
+      "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+      "Median_Age_Person_SomeOtherRaceAlone",
+      "Median_Age_Person_TwoOrMoreRaces",
+      "Median_Age_Person_WhiteAlone"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Population",
+    "title": "Population",
+    "description": "Total number of individuals",
+    "variables": [
+      "Count_Person"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },{
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Population_age",
+    "title": "Population by age",
+    "description": "Number of individuals who fall within various age buckets",
+    "variables": [
+      "Count_Person_Upto4Years",
+      "Count_Person_5To9Years",
+      "Count_Person_5To17Years",
+      "Count_Person_10To14Years",
+      "Count_Person_15To19Years",
+      "Count_Person_18To24Years",
+      "Count_Person_20To24Years",
+      "Count_Person_25To29Years",
+      "Count_Person_25To34Years",
+      "Count_Person_30To34Years",
+      "Count_Person_35To39Years",
+      "Count_Person_35To44Years",
+      "Count_Person_40To44Years",
+      "Count_Person_45To49Years",
+      "Count_Person_45To54Years",
+      "Count_Person_50To54Years",
+      "Count_Person_55To59Years",
+      "Count_Person_60To61Years",
+      "Count_Person_60To64Years",
+      "Count_Person_62To64Years",
+      "Count_Person_65To69Years",
+      "Count_Person_65To74Years",
+      "Count_Person_70To74Years",
+      "Count_Person_75To79Years",
+      "Count_Person_75OrMoreYears",
+      "Count_Person_80OrMoreYears"
+    ],
+    "denominator": [
+      "Count_Person"
+    ],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Population_gender",
+    "title": "Population by gender",
+    "description": "Total number of individuals, broken down by gender",
+    "variables": [
+      "Count_Person_Female",
+      "Count_Person_Male"
+    ],
+    "denominator": [
+      "Count_Person"
+    ],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Population_race",
+    "title": "Population by race",
+    "description": "Total number of individuals, broken down by race",
+    "variables": [
+      "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+      "Count_Person_AsianAlone",
+      "Count_Person_BlackOrAfricanAmericanAlone",
+      "Count_Person_HispanicOrLatino",
+      "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+      "Count_Person_SomeOtherRaceAlone",
+      "Count_Person_TwoOrMoreRaces",
+      "Count_Person_WhiteAlone"
+    ],
+    "denominator": [
+      "Count_Person"
+    ],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Population_density",
+    "title": "Population density (people per km²)",
+    "description": "Measurement of people per km²",
+    "variables": [
+      "Count_Person_PerArea"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Population_growth_rate",
+    "title": "Population growth rate",
+    "description": "Increase in the number of individuals",
+    "variables": [
+      "GrowthRate_Count_Person"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "scale": true,
+    "unit": "%",
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Urban_v_rural_population",
+    "title": "Urban and rural population",
+    "description": "Total number of individuals in rural vs urban parts of a place",
+    "variables": [
+      "Count_Person_Urban",
+      "Count_Person_Rural"
+    ],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Demographics",
+    "title_id": "CHART_TITLE-Urban and rural households",
+    "title": "Urban and rural households",
+    "description": "Total number of households in rural vs urban parts of a place",
+    "variables": [
+      "Count_Household_Rural",
+      "Count_Household_Urban"
+    ],
+    "denominator": [
+      "Count_Household"
+    ],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  }
+]

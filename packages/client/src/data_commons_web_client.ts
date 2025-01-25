@@ -22,6 +22,7 @@ import {
   ApiNodePropvalOutResponse,
   ObservationDatesApiResponse,
   PlaceChartsApiResponse,
+  PlaceOverviewTableApiResponse,
   PointApiResponse,
   RelatedPlacesApiResponse,
   SeriesApiResponse,
@@ -31,6 +32,8 @@ import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 export interface DatacommonsWebClientParams {
   apiRoot?: string;
 }
+
+const LOCALE_PARAM = "hl";
 
 class DataCommonsWebClient {
   /** Website API root */
@@ -213,12 +216,17 @@ class DataCommonsWebClient {
    * @param params.placeDcid place dcid to fetch data for
    */
   async getPlaceCharts(params: {
-    category?: string;
     placeDcid: string;
+    category?: string;
+    locale?: string;
   }): Promise<PlaceChartsApiResponse> {
+    const queryString = toURLSearchParams({
+      category: params.category,
+      [LOCALE_PARAM]: params.locale,
+    });
     const url = `${this.apiRoot || ""}/api/dev-place/charts/${
       params.placeDcid
-    }${params.category ? "?category=" + params.category : ""}`;
+    }?${queryString}`;
     const response = await fetch(url);
     return (await response.json()) as PlaceChartsApiResponse;
   }
@@ -227,15 +235,40 @@ class DataCommonsWebClient {
    * Gets related place info charts for the given place
    * Uses /api/dev-place/related-places/<placeDcid> endpoint
    * @param params.placeDcid place dcid to fetch data for
+   * @param params.locale [optional] locale to fetch data for
    */
   async getRelatedPLaces(params: {
     placeDcid: string;
+    locale?: string;
   }): Promise<RelatedPlacesApiResponse> {
+    const queryString = toURLSearchParams({
+      [LOCALE_PARAM]: params.locale,
+    });
     const url = `${this.apiRoot || ""}/api/dev-place/related-places/${
       params.placeDcid
-    }`;
+    }?${queryString}`;
     const response = await fetch(url);
     return (await response.json()) as RelatedPlacesApiResponse;
+  }
+
+  /**
+   * Gets place overview table for the given place
+   * Uses /api/dev-place/overview-table/<placeDcid> endpoint
+   * @param params.placeDcid place dcid to fetch data for
+   * @param params.locale [optional] locale to fetch data for
+   */
+  async getPlaceOverviewTable(params: {
+    placeDcid: string;
+    locale?: string;
+  }): Promise<PlaceOverviewTableApiResponse> {
+    const queryString = toURLSearchParams({
+      [LOCALE_PARAM]: params.locale,
+    });
+    const url = `${this.apiRoot || ""}/api/dev-place/overview-table/${
+      params.placeDcid
+    }?${queryString}`;
+    const response = await fetch(url);
+    return (await response.json()) as PlaceOverviewTableApiResponse;
   }
 }
 

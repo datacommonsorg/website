@@ -191,7 +191,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Count_Death_2018_1151455814"
+                      "Count_Death_2018_1437305810"
                     ],
                     "title": "Number of Deaths in United States",
                     "type": "LINE"
@@ -351,7 +351,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Count_Death_Female_2018_1151455814"
+                      "Count_Death_Female_2018_1437305810"
                     ],
                     "title": "Count of Mortality Event: Female in United States",
                     "type": "LINE"
@@ -852,9 +852,9 @@
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
-          "Count_Death_2018_1151455814": {
+          "Count_Death_2018_1437305810": {
             "date": "2018",
-            "facetId": "1151455814",
+            "facetId": "1437305810",
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
@@ -960,9 +960,9 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_2018_1151455814": {
+          "Count_Death_Female_2018_1437305810": {
             "date": "2018",
-            "facetId": "1151455814",
+            "facetId": "1437305810",
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },

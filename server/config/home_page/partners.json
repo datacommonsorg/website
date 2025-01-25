@@ -1,5 +1,11 @@
 [
   {
+    "id": "unSdg",
+    "title": "United Nations Sustainable Development Goals",
+    "sprite-index": 5,
+    "url": "https://unstats.un.org/UNSDWebsite/undatacommons/sdgs"
+  },
+  {
     "id": "techsoup",
     "title": "TechSoup",
     "sprite-index": 0,
@@ -28,11 +34,5 @@
     "title": "Stanford University",
     "sprite-index": 4,
     "url": "https://datacommons.stanford.edu"
-  },
-  {
-    "id": "unSdg",
-    "title": "United Nations Sustainable Development Goals",
-    "sprite-index": 5,
-    "url": "https://unstats.un.org/UNSDWebsite/undatacommons/sdgs"
   }
 ]

@@ -28,6 +28,9 @@ from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
 from server.lib.config import GLOBAL_CONFIG_BUCKET
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import PLACE_PAGE_EXPERIMENT_FEATURE_FLAG
+from server.lib.feature_flags import PLACE_PAGE_GA_FEATURE_FLAG
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
 import server.routes.dev_place.utils as utils
@@ -61,7 +64,8 @@ CANONICAL_DOMAIN = 'datacommons.org'
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
 # Parent place types to include in listing of containing places at top of page
-PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+# Keep sorted!
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -70,7 +74,7 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'EurostatNUTS1',
     'Country',
     'Continent',
-}
+]
 
 # Location of manually written templates for SEO experimentation in GCS bucket
 SEO_EXPERIMENT_HTML_GCS_DIR = "seo_experiments/active"
@@ -222,6 +226,16 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
       parent for parent in all_parents
       if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
+
+  # Create a dictionary mapping parent types to their order in the highlight list
+  type_order = {
+      parent_type: i
+      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+  }
+
+  # Sort the parents_to_include list using the type_order dictionary
+  parents_to_include.sort(key=lambda parent: type_order.get(parent['type']))
+
   parent_dcids = [parent['dcid'] for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
   places_with_names = [
@@ -274,8 +288,8 @@ DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
     'country/TLS', 'country/HUN', 'country/VEN', 'country/JAM', 'country/RWA',
     'country/GGY', 'country/NGA', 'country/COD', 'country/COG', 'country/SVN',
     'country/LSO', 'country/LBN', 'country/LCA', 'country/NFK', 'country/TTO',
-    'country/SGP', 'country/PYF', 'country/PRK', 'country/RUS', 'country/LVA',
-    'country/SUR', 'country/PRY', 'country/IND', 'country/MDV'
+    'country/SGP', 'country/PYF', 'country/PRK', 'country/LVA', 'country/SUR',
+    'country/PRY', 'country/MDV'
 ]
 DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
     'geoId/56', 'geoId/04', 'geoId/41', 'geoId/20', 'geoId/37'
@@ -305,14 +319,29 @@ DEV_PLACE_EXPERIMENT_CITIES_DCIDS: List[str] = [
     'wikidataId/Q72945', 'wikidataId/Q75110', 'wikidataId/Q852238',
     'wikidataId/Q862611', 'wikidataId/Q894', 'wikidataId/Q911'
 ]
+DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS: List[str] = [
+    'northamerica', 'southamerica', 'europe', 'africa', 'asia', 'antarctica',
+    'oceania'
+]
 DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
                                            DEV_PLACE_EXPERIMENT_US_STATE_DCIDS +
-                                           DEV_PLACE_EXPERIMENT_CITIES_DCIDS)
+                                           DEV_PLACE_EXPERIMENT_CITIES_DCIDS +
+                                           DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS)
+
+
+def is_dev_place_ga_enabled(request_args: MultiDict[str, str]) -> bool:
+  """Determine if dev place ga should be enabled"""
+  return is_feature_enabled(
+      PLACE_PAGE_GA_FEATURE_FLAG
+  ) and not request_args.get("disable_dev_places") == "true"
 
 
 def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
                                     request_args: MultiDict[str, str]) -> bool:
   """Determine if dev place experiment should be enabled for the page"""
+  if not is_feature_enabled(PLACE_PAGE_EXPERIMENT_FEATURE_FLAG):
+    return False
+
   # Disable dev place experiment for non-dev environments
   # TODO(dwnoble): Remove this before prod release
   if os.environ.get('FLASK_ENV') not in [
@@ -337,7 +366,9 @@ def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
 @bp.route('/<path:place_dcid>')
 @cache.cached(query_string=True)
 def place(place_dcid=None):
-  if is_dev_place_experiment_enabled(place_dcid, g.locale, flask.request.args):
+  if is_dev_place_ga_enabled(
+      flask.request.args) or is_dev_place_experiment_enabled(
+          place_dcid, g.locale, flask.request.args):
     return dev_place(place_dcid=place_dcid)
   redirect_args = dict(flask.request.args)
 

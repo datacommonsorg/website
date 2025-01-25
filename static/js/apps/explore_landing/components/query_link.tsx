@@ -42,5 +42,9 @@ export function QueryLink(props: QueryLinkProps): ReactElement {
     // NL
     url += `&q=${encodeURIComponent(query.title)}&a=True`;
   }
-  return <a href={url}>{query.title}</a>;
+  return (
+    <a data-testid={`query-link-"${query.title}"`} href={url}>
+      {query.title}
+    </a>
+  );
 }

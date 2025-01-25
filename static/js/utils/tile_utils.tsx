@@ -47,7 +47,6 @@ const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
 const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
 const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
-const NUM_FRACTION_DIGITS = 1;
 const SUPER_SCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 
 /**
@@ -365,7 +364,7 @@ export function TileSources(props: {
           rel="noreferrer"
           target="_blank"
           title={sourceUrl}
-          onClick={(event) => {
+          onClick={(): boolean => {
             triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
               [GA_PARAM_URL]: sourceUrl,
             });
@@ -379,21 +378,26 @@ export function TileSources(props: {
     );
   });
   return (
-    <div className="sources" {...{ part: "source" }}>
-      Source: <span {...{ part: "source-links" }}>{sourcesJsx}</span>
-      {statVarSpecs && statVarSpecs.length > 0 && (
-        <>
-          <span {...{ part: "source-separator" }}> • </span>
-          <span {...{ part: "source-show-metadata-link" }}>
-            <TileMetadataModal
-              apiRoot={props.apiRoot}
-              containerRef={props.containerRef}
-              statVarSpecs={statVarSpecs}
-            ></TileMetadataModal>
-          </span>
-        </>
+    <>
+      {sourcesJsx.length > 0 && (
+        <div className="sources" {...{ part: "source" }}>
+          {sourcesJsx.length > 1 ? "Sources" : "Source"}:{" "}
+          <span {...{ part: "source-links" }}>{sourcesJsx}</span>
+          {statVarSpecs && statVarSpecs.length > 0 && (
+            <>
+              <span {...{ part: "source-separator" }}> • </span>
+              <span {...{ part: "source-show-metadata-link" }}>
+                <TileMetadataModal
+                  apiRoot={props.apiRoot}
+                  containerRef={props.containerRef}
+                  statVarSpecs={statVarSpecs}
+                ></TileMetadataModal>
+              </span>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
@@ -569,7 +573,7 @@ export function getComparisonPlaces(
  * @param columnHeader CSV column header
  * @returns capitalized column header
  */
-export function transformCsvHeader(columnHeader: string) {
+export function transformCsvHeader(columnHeader: string): string {
   if (columnHeader.length === 0) {
     return columnHeader;
   }

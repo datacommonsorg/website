@@ -48,7 +48,7 @@ export function MappingConstantsSection(
           <Input
             className="constant-value-input"
             type="text"
-            onChange={(e) => {
+            onChange={(e): void => {
               const val = e.target.value;
               props.onConstantValUpdated(thing, val);
             }}

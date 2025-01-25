@@ -180,10 +180,18 @@ class PlaceExplorerTestMixin():
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
+    # Wait for redirect and page load.
+    redirect_finished = EC.url_changes(start_url)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
+    shared.wait_for_loading(self.driver)
+
+    # Assert redirected URL is correct and contains the query string.
+    self.assertTrue('place/country/USA?q=United+States+Of+America' in
+                    self.driver.current_url)
+
     # Assert page title is correct.
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains('United States of America'))
-    self.assertTrue("place/country/USA" in self.driver.current_url)
 
   def test_ranking_chart_present(self):
     """Test basic ranking chart."""
@@ -290,14 +298,25 @@ class PlaceExplorerTestMixin():
     page_title = self.driver.find_element(By.ID, 'place-name').text
     self.assertEqual(page_title, place_name_text)
 
-  def test_dev_place_overview_california(self):
-    """Ensure experimental dev place page content loads"""
-    self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
+  def test_export_chart_data(self):
+    """Tests the export chart data button works correctly for group bar charts."""
+    # Load CA housing page
+    ca_housing_url = CA_URL + "?category=Housing"
+    self.driver.get(self.url_ + ca_housing_url)
 
-    # For the dev place page, the related places callout is under the
-    # .related-places-callout div.
-    related_places_callout_el_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'related-places-callout'))
-    related_places_callout_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(related_places_callout_el_present)
-    self.assertEqual(related_places_callout_el.text, 'Places in California')
+    # Wait for trend chart to load
+    trend_chart = EC.presence_of_element_located(
+        (By.CSS_SELECTOR, '[data-testclass~="is-snapshot"]'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(trend_chart)
+
+    # Find and click export link for group bar chart
+    export_link = self.driver.find_element(
+        By.XPATH,
+        "//*[@data-testclass='is-snapshot chart-type-GROUP_BAR']//div[contains(@class,'outlinks')]//a[text()='Export']"
+    )
+    export_link.click()
+
+    # Wait for entity DCID text to appear in dialog
+    entity_dcid_present = EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, "copy-svg"), "Entity DCID")
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(entity_dcid_present)

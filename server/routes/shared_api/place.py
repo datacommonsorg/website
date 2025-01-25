@@ -125,6 +125,23 @@ PLACE_TYPE_TO_LOCALE_MESSAGE = {
     "CensusZipCodeTabulationArea": "singular_zip_code",
 }
 
+# Place type to the message id that holds its translation
+PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL = {
+    "AdministrativeArea": "plural_administrative_area",
+    "AdministrativeArea<Level>": "plural_administrative_area_level",
+    "Borough": "plural_borough",
+    "City": "plural_city",
+    "Country": "plural_country",
+    "County": "plural_county",
+    "EurostatNUTS<Level>": "plural_eurostat_nuts",
+    "Neighborhood": "plural_neighborhood",
+    "Place": "plural_place",
+    "State": "plural_state",
+    "Town": "plural_town",
+    "Village": "plural_village",
+    "CensusZipCodeTabulationArea": "plural_zip_code",
+}
+
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
@@ -151,18 +168,18 @@ def get_place_type(place_dcids):
   return ret
 
 
-def get_place_type_i18n_name(place_type: str) -> str:
+def get_place_type_i18n_name(place_type: str, plural: bool = False) -> str:
   """For a given place type, get its localized name for display"""
-  if place_type in PLACE_TYPE_TO_LOCALE_MESSAGE:
-    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE[place_type])
+  place_type_to_local_map = PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL if plural else PLACE_TYPE_TO_LOCALE_MESSAGE
+  if place_type in place_type_to_local_map:
+    return gettext(place_type_to_local_map[place_type])
   elif place_type.startswith('AdministrativeArea'):
     level = place_type[-1]
-    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['AdministrativeArea<Level>'],
+    return gettext(place_type_to_local_map['AdministrativeArea<Level>'],
                    level=level)
   elif place_type.startswith('EurostatNUTS'):
     level = place_type[-1]
-    return gettext(PLACE_TYPE_TO_LOCALE_MESSAGE['EurostatNUTS<Level>'],
-                   level=level)
+    return gettext(place_type_to_local_map['EurostatNUTS<Level>'], level=level)
   else:
     # Return place type un-camel-cased
     words = re.findall(r'[A-Z](?:[a-z]+|[A-Z]*(?=[A-Z]|$))', place_type)
@@ -211,10 +228,6 @@ def get_i18n_name(dcids, should_resolve_all=True):
   locales = i18n.locale_choices(g.locale)
   for dcid in dcids:
     values = response.get(dcid, [])
-    # If there is no nameWithLanguage for this dcid, fall back to name.
-    if not values:
-      dcids_default_name.append(dcid)
-      continue
     result[dcid] = ''
     for locale in locales:
       for entry in values:
@@ -223,6 +236,11 @@ def get_i18n_name(dcids, should_resolve_all=True):
           break
       if result[dcid]:
         break
+
+    if not result[dcid]:
+      # if there is no name with language, default to name.
+      dcids_default_name.append(dcid)
+
   if dcids_default_name:
     if should_resolve_all:
       default_names = names(dcids_default_name)

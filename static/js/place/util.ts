@@ -13,10 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {
+  BlockConfig,
+  Chart,
+  Place,
+  PlaceChartsApiResponse,
+} from "@datacommonsorg/client/dist/data_commons_web_client_types";
+import _ from "lodash";
 import { defineMessages } from "react-intl";
 
-import { intl } from "../i18n/i18n";
+import { intl, localizeLink } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import {
+  BlockConfig as SubjectPageBlockConfig,
+  CategoryConfig,
+  SubjectPageConfig,
+  TileConfig,
+} from "../types/subject_page_proto_types";
 
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
@@ -44,6 +58,290 @@ export const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set([
   "State",
   "County",
 ]);
+
+/**
+ * An ordered list of place types for which to highlight child places.
+ */
+const PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
+  "County",
+  "AdministrativeArea2",
+  "EurostatNUTS2",
+  "State",
+  "AdministrativeArea1",
+  "EurostatNUTS1",
+  "Country",
+  "Continent",
+];
+
+/**
+ * Returns the stat var key for a chart.
+ *
+ * A stat var key is a unique identifier for a statistical variable for the
+ * given chart, including its DCID, denominator, log, scaling, and unit.
+ *
+ * @param chart The chart object
+ * @param variableDcid The variable DCID
+ * @param denom The denominator DCID
+ * @returns The stat var key
+ */
+function getStatVarKey(
+  block: BlockConfig,
+  variableDcid: string,
+  denom?: string
+): string {
+  return `${variableDcid}_denom_${denom}_log_${false}_scaling_${
+    block.scaling
+  }_unit_${block.unit}`;
+}
+
+/**
+ * Selects the appropriate place to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param parentPlaces All possible parent places to choose from
+ * @returns string for the selected place dcid or undefined.
+ */
+function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
+  if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
+    return "";
+  }
+
+  const placeOverride = parentPlaces.find((place) => {
+    const lowestIndex = Math.min(
+      ...place.types
+        .map((type) => PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(type))
+        .filter((index) => index !== -1)
+    );
+    return lowestIndex !== Infinity;
+  });
+  return placeOverride ? placeOverride.dcid : undefined;
+}
+
+/**
+ * Select the place type to highlight from provided list.
+ * @param place_types list of possible place types
+ * @returns the selected place_type.
+ */
+function firstPlaceTypeToHighlight(place_types: string[]): string {
+  // Find the most important type from the place's types.
+  let highlightedType = "";
+  let lowestIndex = Infinity; // Start with a very high index
+
+  for (const currentType of place_types) {
+    const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
+
+    if (currentIndex !== -1 && currentIndex < lowestIndex) {
+      highlightedType = currentType;
+      lowestIndex = currentIndex;
+    }
+  }
+
+  return highlightedType;
+}
+
+/**
+ * Selects the appropriate enclosed place type to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param place Current place
+ * @returns string for the selected enclosed place type.
+ */
+function getEnclosedPlaceTypeOverride(
+  placeScope: string,
+  place: Place
+): string {
+  switch (placeScope) {
+    case "CHILD_PLACES":
+      if (place.dcid == "Earth") {
+        // We do not have continent level data, so default to country.
+        return "Country";
+      }
+      return "";
+    case "SIMILAR_PLACES":
+    case "PEER_PLACES_WITHIN_PARENT":
+      return firstPlaceTypeToHighlight(place.types);
+    default:
+      return "";
+  }
+}
+
+/**
+ * Creates a href for a place page category.
+ * @param category The category to create a href for.
+ * @param forceDevPlaces Whether to force dev places.
+ * @param place The place to create a href for.
+ * @returns The href for the place page category.
+ */
+export function createPlacePageCategoryHref(
+  category: string,
+  forceDevPlaces: boolean,
+  place: NamedTypedPlace
+): string {
+  const href = `/place/${place.dcid}`;
+  const params = new URLSearchParams();
+  const isOverview = category === "Overview";
+
+  if (!isOverview) {
+    params.set("category", category);
+  }
+  if (forceDevPlaces) {
+    params.set("force_dev_places", "true");
+  }
+  return params.size > 0 ? `${href}?${params.toString()}` : href;
+}
+
+/**
+ * Helper to process the dev Place page API response
+ * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
+ * Groups charts by category and creates the necessary configuration objects for
+ * rendering the subject page.
+ *
+ * @param placeChartsApiResponse The API response containing chart data
+ * @returns A SubjectPageConfig object with categories, tiles, and stat var specs
+ */
+export function placeChartsApiResponsesToPageConfig(
+  placeChartsApiResponse: PlaceChartsApiResponse,
+  parentPlaces: Place[],
+  peersWithinParent: string[],
+  place: Place,
+  isOverview: boolean,
+  forceDevPlaces: boolean
+): SubjectPageConfig {
+  const blocksByCategory = _.groupBy(
+    placeChartsApiResponse.blocks,
+    (item) => item.category
+  );
+
+  const categoryNameToTranslatedName = _.fromPairs(
+    placeChartsApiResponse.categories.map((category) => [
+      category.name,
+      category.translatedName,
+    ])
+  );
+
+  const categoryConfig: CategoryConfig[] = Object.keys(blocksByCategory).map(
+    (categoryName) => {
+      const blocks = blocksByCategory[categoryName];
+      const newblocks: SubjectPageBlockConfig[] = [];
+      const statVarSpec: Record<string, StatVarSpec> = {};
+
+      blocks.forEach((block: BlockConfig) => {
+        const tiles = [];
+        block.charts.forEach((chart: Chart) => {
+          const title = block.title;
+          const tileConfig: TileConfig = {
+            /** Highlight charts use title as description */
+            description: title,
+            title,
+            type: chart.type,
+
+            statVarKey: block.statisticalVariableDcids.map(
+              (variableDcid, variableIdx) => {
+                const denom =
+                  block.denominator &&
+                  block.denominator.length ===
+                    block.statisticalVariableDcids.length
+                    ? block.denominator[variableIdx]
+                    : undefined;
+                return getStatVarKey(block, variableDcid, denom);
+              }
+            ),
+          };
+
+          const placeOverride: string = getPlaceOverride(
+            block.placeScope,
+            parentPlaces
+          );
+          if (placeOverride) {
+            tileConfig["placeDcidOverride"] = placeOverride;
+          }
+
+          const lowestIndexType = getEnclosedPlaceTypeOverride(
+            block.placeScope,
+            place
+          );
+          if (lowestIndexType) {
+            tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
+          }
+
+          let maxPlacesCount = 5;
+          if (tileConfig.type === "RANKING") {
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 5;
+            tileConfig.rankingTileSpec = {
+              showHighest: false,
+              showLowest: false,
+              showHighestLowest: true,
+              showMultiColumn: false,
+              rankingCount: maxPlacesCount,
+            };
+          } else if (tileConfig.type === "BAR") {
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
+            tileConfig.barTileSpec = {
+              maxPlaces: maxPlacesCount,
+            };
+          }
+
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
+            // Pass peersWithinParents in comparisonPlaces with the right number of places.
+            tileConfig.comparisonPlaces = [place.dcid].concat(
+              peersWithinParent.slice(
+                0,
+                Math.min(maxPlacesCount - 1, peersWithinParent.length)
+              )
+            );
+          }
+          tiles.push(tileConfig);
+        });
+
+        blocks.forEach((block) => {
+          block.statisticalVariableDcids
+            .flat()
+            .forEach((variableDcid, variableIdx) => {
+              const denom =
+                block.denominator &&
+                block.denominator.length ===
+                  block.statisticalVariableDcids.length
+                  ? block.denominator[variableIdx]
+                  : undefined;
+              const statVarKey = getStatVarKey(block, variableDcid, denom);
+              statVarSpec[statVarKey] = {
+                denom: undefined,
+                log: false,
+                scaling: block.scaling,
+                noPerCapita: false,
+                statVar: variableDcid,
+                unit: block.unit,
+              };
+            });
+        });
+
+        newblocks.push({
+          title: tiles[0].title,
+          denom: block.denominator?.length > 0 ? block.denominator[0] : "",
+          startWithDenom: false,
+          columns: [{ tiles }],
+        });
+      });
+
+      const category: CategoryConfig = {
+        blocks: newblocks,
+        statVarSpec,
+        title: categoryNameToTranslatedName[categoryName] || categoryName,
+      };
+      if (isOverview) {
+        category.url = localizeLink(
+          createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
+        );
+        category.linkText = intl.formatMessage(pageMessages.MoreCharts);
+      }
+      return category;
+    }
+  );
+
+  const pageConfig: SubjectPageConfig = {
+    metadata: undefined,
+    categories: categoryConfig,
+  };
+  return pageConfig;
+}
 
 const singularPlaceTypeMessages = defineMessages({
   Country: {
@@ -168,6 +466,38 @@ const pluralPlaceTypeMessages = defineMessages({
     defaultMessage: "Places",
     description:
       'General collection of places. It is used when we don"t have a specific place type. Some examples: "_Places_ in Russia" as a header for a section with links to many places contained in Russia, as chart titles, such as "Median Age: _Places_ near Paris" or "Median Age: Other _Places_", or "Ranking for All _Places_ in Russia".',
+  },
+});
+
+export const pageMessages = defineMessages({
+  KnowledgeGraph: {
+    id: "knowledge_graph",
+    defaultMessage: "Knowledge Graph",
+    description: "Link to the Knowledge Graph for the current place",
+  },
+  RelevantTopics: {
+    id: "relevant_topics",
+    defaultMessage: "Relevant Topics",
+    description:
+      "Header text for the Relevant Topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
+  },
+  SummaryOverview: {
+    id: "summary_overview",
+    defaultMessage: "Summary Overview",
+    description:
+      "Header text for the Summary Overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
+  },
+  MoreCharts: {
+    id: "more_charts",
+    defaultMessage: "More charts",
+    description:
+      "Link text to show additional charts for the given chart category section for the current place.",
+  },
+  placesInPlace: {
+    id: "child_places_menu-places_in_place",
+    defaultMessage: "Places in {placeName}",
+    description:
+      'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
   },
 });
 

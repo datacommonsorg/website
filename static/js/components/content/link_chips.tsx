@@ -15,69 +15,90 @@
  */
 
 /**
- * A component that renders a series of chips that function as links with titles
+ * A component that renders a block of link chips (Material Design-inspired
+ * chips that act as links
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import {
-  GA_EVENT_HOMEPAGE_CLICK,
-  GA_PARAM_ID,
-  GA_PARAM_URL,
-  triggerGAEvent,
-} from "../../shared/ga_events";
-import { ArrowForward } from "../elements/icons/arrow_forward";
-
-//an individual LinkChip comprising the title and url attributes of the chip.
-export interface LinkChip {
-  //a unique identifier for the chip (used for map keys)
-  id: string;
-  //the title of the chip - this will be the text of the link
-  title: string;
-  //the url of the chip link
-  url: string;
-}
+import { Link, LinkChip } from "../elements/link_chip";
 
 interface LinkChipsProps {
   //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
   variant?: "elevated" | "flat";
   //the title of the component, displayed as a header above the chips
-  title?: string;
+  header?: string;
+  //the typographical component for the header (defaults to "h3")
+  headerComponent?: "h3" | "h4" | "p";
   //the section gives location of the chip component in order to give context for the GA event
   section: string;
-  //the link
-  linkChips: LinkChip[];
+  //an array of links to be rendered by the component
+  linkChips: Link[];
 }
 
 export const LinkChips = ({
   variant = "elevated",
-  title,
+  header,
+  headerComponent = "h3",
   section,
   linkChips,
 }: LinkChipsProps): ReactElement => {
+  const theme = useTheme();
+
+  linkChips.map((lc) => {
+    if (!lc.variant) {
+      lc.variant = variant;
+    }
+    return lc;
+  });
+
   return (
-    <section className="chip-section">
-      <div className="container">
-        {title && <h3>{title} </h3>}
-        <ul className="chip-container">
-          {linkChips.map((linkChip) => (
-            <li key={linkChip.id} className={`chip-item ${variant}`}>
-              <a
-                href={linkChip.url}
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: `${section} ${linkChip.id}`,
-                    [GA_PARAM_URL]: linkChip.url,
-                  });
-                }}
-              >
-                <ArrowForward height={"24px"} />
-                {linkChip.title}
-              </a>
-            </li>
-          ))}
-        </ul>
+    <>
+      {header && (
+        <header
+          css={css`
+            & > h3 {
+              ${theme.typography.family.heading};
+              ${theme.typography.heading.md};
+              margin-bottom: ${theme.spacing.lg}px;
+            }
+
+            & > h4 {
+              ${theme.typography.family.heading};
+              ${theme.typography.heading.xs}
+              margin-bottom: ${theme.spacing.lg}px;
+            }
+
+            & > p {
+              ${theme.typography.text.md}
+            }
+          `}
+        >
+          {(!headerComponent || headerComponent === "h3") && <h3>{header}</h3>}
+          {headerComponent === "h4" && <h4>{header}</h4>}
+          {headerComponent === "p" && <p>{header}</p>}
+        </header>
+      )}
+      <div
+        css={css`
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-wrap: wrap;
+          max-width: 80%;
+          gap: ${theme.spacing.md}px;
+          @media (max-width: ${theme.breakpoints.md}px) {
+            max-width: 100%;
+          }
+        `}
+      >
+        {linkChips.map((linkChip) => (
+          <LinkChip key={linkChip.id} section={section} linkChip={linkChip} />
+        ))}
       </div>
-    </section>
+    </>
   );
 };

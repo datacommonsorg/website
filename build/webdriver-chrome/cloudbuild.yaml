@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Version can be found at: https://chromedriver.storage.googleapis.com/LATEST_RELEASE
 substitutions:
-  _VERS: "2024-06-05"
+  _VERS: "2025-01-15"
 
 steps:
   - name: "gcr.io/cloud-builders/docker"

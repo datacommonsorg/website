@@ -494,7 +494,7 @@ export function highlightPlaceToggle(
   containerElement: HTMLElement,
   placeDcid: string,
   shouldHighlight: boolean
-) {
+): void {
   const container = d3.select(containerElement);
   const region = container
     .select(`#${getPlacePathId(placeDcid)}`)
@@ -535,7 +535,7 @@ export function getTooltipHtmlFn(
     }
   }
 
-  const getTooltipHtml = (place: NamedPlace) => {
+  const getTooltipHtml = (place: NamedPlace): string => {
     const tooltipLines: string[] = [place.name];
     if (place.dcid in allDataValues) {
       const placeValues = allDataValues[place.dcid];

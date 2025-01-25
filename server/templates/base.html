@@ -87,6 +87,7 @@
   <script>
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};
     globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
+    globalThis.FEATURE_FLAGS = {{ config['FEATURE_FLAGS'] | tojson }};
     globalThis.enableBQ = {{ config['ENABLE_BQ']|int }};
   </script>
   <script>
@@ -125,6 +126,7 @@
   data-hide-sub-footer="{{ is_hide_sub_footer }}"
   data-subfooter-extra="{{ subfooter_extra_content|safe }}"
   data-brand-logo-light="{{ brand_logo_light }}"
+  data-locale="{{ locale }}"
 >
 </div>
 
