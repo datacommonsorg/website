@@ -280,7 +280,7 @@ def is_seo_experiment_enabled(place_dcid: str, category: str,
   return False
 
 
-# Dev place page experiment groups for countries and US states
+# Dev place page experiment groups for countries, US states, and cities
 # Calculated offline using instructions here:
 # https://github.com/datacommonsorg/website/pull/4773
 # https://github.com/datacommonsorg/website/pull/4781
