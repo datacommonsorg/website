@@ -1045,6 +1045,22 @@ msgstr "ZIP Code"
 msgid "plural_zip_code"
 msgstr "ZIP Codes"
 
+#. Name describing the statistical variable for population
+msgid "VARIABLE_NAME-Count_Person"
+msgstr "Population"
+
+#. Name describing the statistical variable for median income of the population
+msgid "VARIABLE_NAME-Median_Income_Person"
+msgstr "Median Income"
+
+#. Name describing the statistical variable for median age of the population
+msgid "VARIABLE_NAME-Median_Age_Person"
+msgstr "Median Age"
+
+#. Name describing the statistical variable for unemployment rate of the population
+msgid "VARIABLE_NAME-UnemploymentRate_Person"
+msgstr "Unemployment Rate"
+
 #~ msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
 #~ msgstr "Nitrous oxide emissions (non-biogenic)"
 
@@ -1158,4 +1174,3 @@ msgstr "ZIP Codes"
 
 #~ msgid "CHART_TITLE-CHART_CATEGORY-Climate"
 #~ msgstr "Climate"
-

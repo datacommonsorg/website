@@ -29,6 +29,7 @@ from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
 from server.routes.dev_place.types import Chart
+from server.routes.dev_place.types import OverviewTableDataRow
 from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import ServerBlockMetadata
 from server.routes.dev_place.types import ServerChartConfiguration
@@ -61,6 +62,27 @@ ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
 
 PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
 NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
+
+# Variables to include in overview table
+PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
+    {
+        "variable_dcid": "Count_Person",
+        "i18n_message_id": "VARIABLE_NAME-Count_Person"
+    },
+    {
+        "variable_dcid": "Median_Income_Person",
+        "i18n_message_id": "VARIABLE_NAME-Median_Income_Person"
+    },
+    {
+        "variable_dcid": "Median_Age_Person",
+        "i18n_message_id": "VARIABLE_NAME-Median_Age_Person"
+    },
+    {
+        "variable_dcid": "UnemploymentRate_Person",
+        "i18n_message_id": "VARIABLE_NAME-UnemploymentRate_Person",
+        "unit": "Percent"
+    },
+]
 
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
@@ -870,3 +892,53 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
 
   # Return the list of similar place dcids
   return place_cohort_member_dcids
+
+
+def fetch_overview_table_data(place_dcid: str,
+                              locale=DEFAULT_LOCALE
+                             ) -> List[OverviewTableDataRow]:
+  """
+  Fetches overview table data for the specified place.
+  """
+  data_rows = []
+  variables = [v["variable_dcid"] for v in PLACE_OVERVIEW_TABLE_VARIABLES]
+
+  # Fetch the most recent observation for each variable
+  resp = dc.obs_point([place_dcid], variables)
+  facets = resp.get("facets", {})
+
+  # Iterate over each variable and extract the most recent observation
+  for item in PLACE_OVERVIEW_TABLE_VARIABLES:
+    variable_dcid = item["variable_dcid"]
+    name = gettext(item["i18n_message_id"])
+    ordered_facet_observations = resp.get("byVariable", {}).get(
+        variable_dcid, {}).get("byEntity", {}).get(place_dcid,
+                                                   {}).get("orderedFacets", [])
+    most_recent_facet = ordered_facet_observations[
+        0] if ordered_facet_observations else None
+    if not most_recent_facet:
+      continue
+
+    observations = most_recent_facet.get("observations", [])
+    most_recent_observation = observations[0] if observations else None
+    if not most_recent_observation:
+      continue
+
+    facet_id = most_recent_facet.get("facetId", "")
+    date = most_recent_observation.get("date", "")
+    value = most_recent_observation.get("value", "")
+    provenance_url = facets.get(facet_id, {}).get("provenanceUrl", "")
+    # Use the unit from the facet if available, otherwise use the unit from the variable definition
+    unit = facets.get(facet_id, {}).get("unit", None) or item.get("unit", None)
+
+    data_rows.append(
+        OverviewTableDataRow(
+            date=date,
+            name=name,
+            provenanceUrl=provenance_url,
+            unit=unit,
+            value=value,
+            variableDcid=variable_dcid,
+        ))
+
+  return data_rows
