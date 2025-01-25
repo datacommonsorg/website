@@ -201,3 +201,19 @@ export interface RelatedPlacesApiResponse {
   parentPlaces: Place[];
   peersWithinParent: string[];
 }
+
+export interface OverviewTableDataRow {
+  date: string;
+  name: string;
+  provenanceUrl: string;
+  value: number;
+  variableDcid: string;
+  unit?: string;
+}
+
+/**
+ * Website API response for /api/dev-place/overview-table/<place_dcid>
+ */
+export interface PlaceOverviewTableApiResponse {
+  data: OverviewTableDataRow[];
+}

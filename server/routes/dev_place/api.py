@@ -26,6 +26,7 @@ from server.lib.util import log_execution_time
 from server.routes import TIMEOUT
 from server.routes.dev_place import utils as place_utils
 from server.routes.dev_place.types import PlaceChartsApiResponse
+from server.routes.dev_place.types import PlaceOverviewTableApiResponse
 from server.routes.dev_place.types import RelatedPlacesApiResponse
 
 # Define blueprint
@@ -185,4 +186,17 @@ def related_places(place_dcid: str):
                                       similarPlaces=similar_places,
                                       parentPlaces=parent_places,
                                       peersWithinParent=peers_within_parent)
+  return jsonify(response)
+
+
+@bp.route('/overview-table/<path:place_dcid>')
+@log_execution_time
+@cache.cached(timeout=TIMEOUT, query_string=True)
+def overview_table(place_dcid: str):
+  """
+  Fetches and returns overview table data for the specified place.
+  """
+  data_rows = place_utils.fetch_overview_table_data(place_dcid, locale=g.locale)
+
+  response = PlaceOverviewTableApiResponse(data=data_rows)
   return jsonify(response)

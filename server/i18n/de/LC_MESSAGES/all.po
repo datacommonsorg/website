@@ -749,3 +749,14 @@ msgstr "Dorf"
 
 msgid "singular_zip_code"
 msgstr "Postleitzahl"
+msgid "VARIABLE_NAME-Count_Person"
+msgstr "Population"
+
+msgid "VARIABLE_NAME-Median_Income_Person"
+msgstr "Median Income"
+
+msgid "VARIABLE_NAME-Median_Age_Person"
+msgstr "Median Age"
+
+msgid "VARIABLE_NAME-UnemploymentRate_Person"
+msgstr "Unemployment Rate"

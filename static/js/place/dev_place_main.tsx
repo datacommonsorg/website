@@ -18,6 +18,7 @@
 import {
   Category,
   PlaceChartsApiResponse,
+  PlaceOverviewTableApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import { ThemeProvider } from "@emotion/react";
@@ -257,6 +258,8 @@ export const DevPlaceMain = (): React.JSX.Element => {
     useState<RelatedPlacesApiResponse>();
   const [placeChartsApiResponse, setPlaceChartsApiResponse] =
     useState<PlaceChartsApiResponse>();
+  const [placeOverviewTableApiResponse, setPlaceOverviewTableApiResponse] =
+    useState<PlaceOverviewTableApiResponse>();
 
   // Derived place data
   const [childPlaceType, setChildPlaceType] = useState<string>();
@@ -323,24 +326,32 @@ export const DevPlaceMain = (): React.JSX.Element => {
     }
     setIsLoading(true);
     (async (): Promise<void> => {
-      const [placeChartsApiResponse, relatedPlacesApiResponse] =
-        await Promise.all([
-          defaultDataCommonsWebClient.getPlaceCharts({
-            category,
-            locale,
-            placeDcid: place.dcid,
-          }),
-          defaultDataCommonsWebClient.getRelatedPLaces({
-            locale,
-            placeDcid: place.dcid,
-          }),
-        ]);
+      const [
+        placeChartsApiResponse,
+        relatedPlacesApiResponse,
+        placeOverviewTableApiResponse,
+      ] = await Promise.all([
+        defaultDataCommonsWebClient.getPlaceCharts({
+          category,
+          locale,
+          placeDcid: place.dcid,
+        }),
+        defaultDataCommonsWebClient.getRelatedPLaces({
+          locale,
+          placeDcid: place.dcid,
+        }),
+        defaultDataCommonsWebClient.getPlaceOverviewTable({
+          locale,
+          placeDcid: place.dcid,
+        }),
+      ]);
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
+      setPlaceOverviewTableApiResponse(placeOverviewTableApiResponse);
       setIsLoading(false);
       const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse,
@@ -380,13 +391,16 @@ export const DevPlaceMain = (): React.JSX.Element => {
           place={place}
           forceDevPlaces={forceDevPlaces}
         />
-        {isOverview && categories.length > 0 && placeSummary != "" && (
-          <PlaceOverview
-            place={place}
-            placeSummary={placeSummary}
-            parentPlaces={parentPlaces}
-          />
-        )}
+        {isOverview &&
+          placeOverviewTableApiResponse &&
+          placeOverviewTableApiResponse.data.length > 0 && (
+            <PlaceOverview
+              place={place}
+              placeSummary={placeSummary}
+              parentPlaces={parentPlaces}
+              placeOverviewTableApiResponse={placeOverviewTableApiResponse}
+            />
+          )}
         {hasPlaceCharts && (
           <PlaceCharts
             place={place}
