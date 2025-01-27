@@ -34,6 +34,18 @@ Where `<environment>` is one of:
 10. **Prompt for Kubernetes restart:** It asks the user if they want to restart the Kubernetes deployment.
 11. **Restart the Kubernetes deployment (optional):** If the user confirms, it uses `gcloud` commands to restart the Kubernetes deployment.
 
+## GCS Buckets
+
+The feature_flags.json file is uploaded to the following GCS buckets:
+* Autopush: [datcom-website-autopush-resources](https://pantheon.corp.google.com/storage/browser/datcom-website-autopush-resources;tab=objects?e=13803378&mods=-monitoring_api_staging&project=datcom-ci)
+* Dev: [datcom-website-dev-resources](https://pantheon.corp.google.com/storage/browser/datcom-website-dev-resources;tab=objects?e=13803378&mods=-monitoring_api_staging&project=datcom-ci)
+* Staging: [datcom-website-staging-resources](https://pantheon.corp.google.com/storage/browser/datcom-website-staging-resources;tab=objects?e=13803378&mods=-monitoring_api_staging&project=datcom-ci&prefix=&forceOnObjectsSortingFiltering=false)
+* Production: [datcom-website-prod-resources](https://pantheon.corp.google.com/storage/browser/datcom-website-prod-resources;tab=objects?e=13803378&mods=-monitoring_api_staging&project=datcom-ci&prefix=&forceOnObjectsSortingFiltering=false)
+
+## Checked in Flag Files
+
+This script uploads the feature flag configuration files from the Github master branch, into the following GCS Buckets above. You can find the flag configs in [`server/config/feature_flag_configs`](https://github.com/datacommonsorg/website/tree/9ed3b4aa8639056a410befcb0df1bc2373f33807/server/config/feature_flag_configs).
+
 ## Important Notes
 
 * This script assumes you have the Google Cloud SDK installed and configured.
