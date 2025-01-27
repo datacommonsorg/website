@@ -367,7 +367,7 @@ def filter_chart_config_by_place_dcid(
             for var in config.variables)
         has_denom_data = all(var in peer_places_stat_vars_with_observations
                              for var in config.denominator)
-        has_place_data = False # Reset it.
+        has_place_data = False  # Reset it.
 
       block.non_dividable = config.non_dividable or not has_denom_data
 
