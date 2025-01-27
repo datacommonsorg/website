@@ -423,6 +423,7 @@ def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
                                          child_place_type).get(place_dcid, [])
 
   # Check if geo data exists, starting from the least detailed level (geoJsonCoordinatesDP3) to the more detailed level (geoJsonCoordinatesDP2).
+  # Checks both DP3 and DP2 because not all child places have geo data at all detail levels.
   # Performs checks sequentially to avoid expensive property value fetches for higher detail levels.
   ordered_geo_properties = ["geoJsonCoordinatesDP3", "geoJsonCoordinatesDP2"]
   for geo_property in ordered_geo_properties:
