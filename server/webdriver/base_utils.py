@@ -113,6 +113,24 @@ def find_elem(
   return elems[0] if elems else None
 
 
+def scroll_to_elem(
+    parent: webdriver.remote.webelement.WebElement,
+    by: str = By.CLASS_NAME,
+    value: str = "",
+    path_to_elem: List[str] = None
+) -> webdriver.remote.webelement.WebElement | None:
+  """
+  Scrolls to the element specified by By attribute and value. Waits for it to load if needed.
+  Returns the element it scrolled to.
+  """
+  elem_to_scroll_to = find_elem(parent, by, value, path_to_elem)
+  if not elem_to_scroll_to:
+    return None
+
+  parent.execute_script("arguments[0].scrollIntoView();", elem_to_scroll_to)
+  return elem_to_scroll_to
+
+
 def wait_elem(driver,
               by: str = By.CLASS_NAME,
               value: str = "",
