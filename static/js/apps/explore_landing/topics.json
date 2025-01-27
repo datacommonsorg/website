@@ -179,8 +179,8 @@
             "url": "q=Tell+me+about+the+economy+in+Brazil"
           },
           {
-            "title": "What is the GDP of Iran?",
-            "url": "q=What+is+the+GDP+of+Iran"
+            "title": "What is the GDP of New Zealand?",
+            "url": "q=What+is+the+GDP+of+New+Zealand"
           }
         ],
         "comparison": [
@@ -310,12 +310,12 @@
             "url": "q=What+is+the+prevalence+of+Asthma+across+California+counties"
           },
           {
-            "title": "What are the rates of child immunization in Pakistan?",
-            "url": "q=What+are+the+rates+of+child+immunization+in+Pakistan"
-          },
-          {
             "title": "How does life expectancy vary across countries in Africa?",
             "url": "q=How+does+life+Expectancy+vary+across+countries+in+Africa"
+          },
+          {
+            "title": "Tell me about age distribution in the USA.",
+            "url": "q=Tell+me+about+age+distribution+in+the+USA."
           },
           {
             "title": "Which counties in Illinois have seen the greatest increase in the number of cancer deaths?",
@@ -586,8 +586,8 @@
             "url": "q=What+languages+are+spoken+at+home+in+California"
           },
           {
-            "title": "Which state in the US has the most Tamil speakers?",
-            "url": "q=Which+state+in+the+US+has+the+most+Tamil+speakers"
+            "title": "Which state in the US has the most Spanish speakers?",
+            "url": "q=Which+state+in+the+US+has+the+most+Spanish+speakers"
           },
           {
             "title": "Which counties in the US have most immigrants?",
