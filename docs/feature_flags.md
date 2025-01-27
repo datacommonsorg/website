@@ -46,6 +46,16 @@ The feature_flags.json file is uploaded to the following GCS buckets:
 
 This script uploads the feature flag configuration files from the Github master branch, into the following GCS Buckets above. You can find the flag configs in [`server/config/feature_flag_configs`](https://github.com/datacommonsorg/website/tree/9ed3b4aa8639056a410befcb0df1bc2373f33807/server/config/feature_flag_configs).
 
+## How to Add a New Flag
+
+1. **Add flag in flag configurations**: Check the flags in the Github master branch [`server/config/feature_flag_configs`](https://github.com/datacommonsorg/website/tree/9ed3b4aa8639056a410befcb0df1bc2373f33807/server/config/feature_flag_configs).
+2. **Define flag in server layer**: Add your flag constant to [feature_flags.py](https://github.com/datacommonsorg/website/blob/master/server/lib/feature_flags.py#L19) helper file for use in the API layer.
+3. **Define flag in client layer**: Add your flag constant to [feature_flags/util.ts](https://github.com/datacommonsorg/website/blob/master/static/js/shared/feature_flags/util.ts#L18) helper file for use in the client layer.
+4. **Check flag value and implement your feature**
+5. **Deploy & update GCS Flag files**: Once your code reaches production, you can enable your flags and run the script to update the GCS flag files.
+6. **Restart Kubernetes**: The script to update the GCS flag files will prompt you to restart Kubernetes, on restart the new flags will be applied and your feature will be enabled.
+
+
 ## Important Notes
 
 * This script assumes you have the Google Cloud SDK installed and configured.
