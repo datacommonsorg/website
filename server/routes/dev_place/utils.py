@@ -265,10 +265,9 @@ def filter_chart_config_by_place_dcid(
   current_place_stat_var_dcids = []
   child_places_stat_var_dcids = []
   peer_places_stat_var_dcids = []
+  # Look for maps in child place & peer places within parent blocks to perform geo data existence checks.
   found_child_place_map = False
   found_peer_places_map = False
-  child_places_have_geo_data = False
-  peer_places_have_geo_data = False
   for config in chart_config:
     needs_child_data = False
     needs_current_place_data = False
@@ -321,51 +320,13 @@ def filter_chart_config_by_place_dcid(
       parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
   peer_places_stat_vars_with_observations = set()
 
-  # Check if child place have geo data available.
-  # TODO: Move geo existence checks to a function
-  if found_child_place_map:
-    child_places = fetch.descendent_places([place_dcid], child_place_type).get(
-        place_dcid, [])
-    child_place_geojson_data = fetch.property_values(child_places,
-                                                     "geoJsonCoordinatesDP3")
-    filtered_child_place_geojson_data = {
-        child_place_dcid: values
-        for child_place_dcid, values in child_place_geojson_data.items()
-        if values
-    }
-    child_places_have_geo_data = bool(filtered_child_place_geojson_data)
-    if not child_places_have_geo_data:
-      child_place_geojson_data = fetch.property_values(child_places,
-                                                       "geoJsonCoordinatesDP2")
-      filtered_child_place_geojson_data = {
-          child_place_dcid: values
-          for child_place_dcid, values in child_place_geojson_data.items()
-          if values
-      }
-      child_places_have_geo_data = bool(filtered_child_place_geojson_data)
-
-  # Check if peer places have geo data available.
+  # Check if child place & peer places have geo data available.
+  child_places_have_geo_data = check_geo_data_exists(
+      place_dcid, child_place_type) if found_child_place_map else False
   # (Ensure parent_place_dcid is set to account for "Earth" not having a parent place)
-  if found_peer_places_map and parent_place_dcid:
-    peer_places = fetch.descendent_places([parent_place_dcid], place_type).get(
-        parent_place_dcid, [])
-    peer_place_geojson_data = fetch.property_values(peer_places,
-                                                    "geoJsonCoordinatesDP3")
-    filtered_peer_place_geojson_data = {
-        peer_place_dcid: values
-        for peer_place_dcid, values in peer_place_geojson_data.items()
-        if values
-    }
-    peer_places_have_geo_data = bool(filtered_peer_place_geojson_data)
-    if not peer_places_have_geo_data:
-      peer_place_geojson_data = fetch.property_values(peer_places,
-                                                      "geoJsonCoordinatesDP2")
-      filtered_peer_place_geojson_data = {
-          peer_place_dcid: values
-          for peer_place_dcid, values in peer_place_geojson_data.items()
-          if values
-      }
-      peer_places_have_geo_data = bool(filtered_peer_place_geojson_data)
+  peer_places_have_geo_data = check_geo_data_exists(
+      parent_place_dcid,
+      place_type) if found_peer_places_map and parent_place_dcid else False
 
   for stat_var_dcid in peer_places_stat_var_dcids:
     peers_with_data = 0
@@ -425,15 +386,11 @@ def filter_chart_config_by_place_dcid(
       # Override non_dividable as False if we dont have denominator data.
       block.non_dividable = config.non_dividable or not has_denom_data
 
-      # Remove maps if we dont have child geojson data.
+      # Remove maps if we dont have child or peer places geo data.
       filtered_block = copy.deepcopy(block)
-      if not child_places_have_geo_data and block.place_scope == "CHILD_PLACES":
-        filtered_block.charts = [
-            chart for chart in filtered_block.charts if chart.type != "MAP"
-        ]
-
-      # Remove maps if we dont have peer places geojson data.
-      if not peer_places_have_geo_data and block.place_scope == "PEER_PLACES_WITHIN_PARENT":
+      if (not child_places_have_geo_data and block.place_scope == "CHILD_PLACES"
+         ) or (not peer_places_have_geo_data and
+               block.place_scope == "PEER_PLACES_WITHIN_PARENT"):
         filtered_block.charts = [
             chart for chart in filtered_block.charts if chart.type != "MAP"
         ]
@@ -449,6 +406,35 @@ def filter_chart_config_by_place_dcid(
       valid_chart_configs.append(config)
 
   return valid_chart_configs
+
+
+def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
+  """
+  Check if geo data exists for a given place and child place type.
+
+  Args:
+    place_dcid: dcid of the place to check
+    child_place_type: type of the child place to check
+
+  Returns:
+    True if geo data exists for the given place and child place type, False otherwise
+  """
+  child_places = fetch.descendent_places([place_dcid],
+                                         child_place_type).get(place_dcid, [])
+
+  # Check if geo data exists, starting from the least detailed level (geoJsonCoordinatesDP3) to the more detailed level (geoJsonCoordinatesDP2).
+  # Performs checks sequentially to avoid expensive property value fetches for higher detail levels.
+  ordered_geo_properties = ["geoJsonCoordinatesDP3", "geoJsonCoordinatesDP2"]
+  for geo_property in ordered_geo_properties:
+    child_place_geojson_data = fetch.property_values(child_places, geo_property)
+    filtered_child_place_geojson_data = {
+        child_place_dcid: values
+        for child_place_dcid, values in child_place_geojson_data.items()
+        if values
+    }
+    if bool(filtered_child_place_geojson_data):
+      return True
+  return False
 
 
 def select_string_with_locale(strings_with_locale: List[str],
