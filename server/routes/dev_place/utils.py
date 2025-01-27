@@ -345,7 +345,7 @@ def filter_chart_config_by_place_dcid(
     for block in config.blocks:
       has_child_data = False
       has_place_data = False
-      has_peer_data = False
+      has_peer_and_place_data = False
       has_denom_data = False
 
       if block.place_scope == "CHILD_PLACES":
@@ -362,15 +362,16 @@ def filter_chart_config_by_place_dcid(
         has_place_data = any(var in current_place_stat_vars_with_observations
                              for var in config.variables)
         # Only add peers when we also have data for current place.
-        has_peer_data = has_place_data and any(
+        has_peer_and_place_data = has_place_data and any(
             var in peer_places_stat_vars_with_observations
             for var in config.variables)
         has_denom_data = all(var in peer_places_stat_vars_with_observations
                              for var in config.denominator)
+        has_place_data = False  # Reset it.
 
       block.non_dividable = config.non_dividable or not has_denom_data
 
-      if has_child_data or has_place_data or has_peer_data:
+      if has_child_data or has_place_data or has_peer_and_place_data:
         updated_blocks.append(block)
 
     config.blocks = updated_blocks
