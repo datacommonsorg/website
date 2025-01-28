@@ -225,8 +225,8 @@ export function placeChartsApiResponsesToPageConfig(
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
 
-      let blockTitle;
       blocks.forEach((block: BlockConfig) => {
+        let blockTitle;
         const tiles = [];
         block.charts.forEach((chart: Chart) => {
           if (!blockTitle) {
