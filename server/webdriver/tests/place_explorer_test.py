@@ -44,8 +44,8 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
     # Assert we have data for all expected topics.
     topics_for_world = [
-        "Economics", "Health", "Equity", "Crime",
-        "Demographics", "Housing", "Environment", "Energy"
+        "Economics", "Health", "Equity", "Crime", "Demographics", "Housing",
+        "Environment", "Energy"
     ]
     shared.assert_topics(self,
                          self.driver,
@@ -74,8 +74,8 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
     # Assert we have data for all expected topics.
     topics_for_world = [
-        "Economics", "Health", "Equity", "Crime",
-        "Demographics", "Housing", "Environment", "Energy"
+        "Economics", "Health", "Equity", "Crime", "Demographics", "Housing",
+        "Environment", "Energy"
     ]
     shared.assert_topics(self,
                          self.driver,
