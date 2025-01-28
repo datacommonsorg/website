@@ -25,7 +25,7 @@ import { ThemeProvider } from "@emotion/react";
 import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
-import ScrollToTopButton from "../components/elements/scroll_to_top_button";
+import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import {

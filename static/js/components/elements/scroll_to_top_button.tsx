@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import styled from "styled-components";
 
 import { ArrowUpward } from "./icons/arrow_upward";
 
-const ScrollToTopButton = (): JSX.Element => {
+export const ScrollToTopButton = (): JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
 
   // Show button when page is scrolled down
@@ -82,5 +82,3 @@ const FloatingButton = styled.button`
     background-color: var(--dc-gray); // Darker shade on hover
   }
 `;
-
-export default ScrollToTopButton;

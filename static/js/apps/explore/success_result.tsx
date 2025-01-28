@@ -22,7 +22,7 @@ import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef } from "react";
 
-import ScrollToTopButton from "../../components/elements/scroll_to_top_button";
+import { ScrollToTopButton } from "../../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
   CLIENT_TYPES,
