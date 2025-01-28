@@ -22,8 +22,8 @@
 
 /** @jsxImportSource @emotion/react */
 
-import React, { useEffect, useState } from "react";
 import { css, useTheme } from "@emotion/react";
+import React, { useEffect, useState } from "react";
 
 import { ArrowUpward } from "./icons/arrow_upward";
 
