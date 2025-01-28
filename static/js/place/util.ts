@@ -210,10 +210,10 @@ export function placeChartsApiResponsesToPageConfig(
     (item) => item.category
   );
 
-  const categoryNameToTranslatedName = _.fromPairs(
+  const categoryNameToCategory = _.fromPairs(
     placeChartsApiResponse.categories.map((category) => [
       category.name,
-      category.translatedName,
+      category,
     ])
   );
 
@@ -324,9 +324,11 @@ export function placeChartsApiResponsesToPageConfig(
       const category: CategoryConfig = {
         blocks: newblocks,
         statVarSpec,
-        title: categoryNameToTranslatedName[categoryName] || categoryName,
+        title: categoryNameToCategory[categoryName].translatedName || categoryName,
       };
-      if (isOverview) {
+      console.log(JSON.stringify(categoryNameToCategory[categoryName]));
+      if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
+        console.log("Doing it here.");
         category.url = localizeLink(
           createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
         );

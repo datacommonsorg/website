@@ -757,6 +757,33 @@ def translate_chart_config(
   return translated_chart_config
 
 
+def get_categories_with_more_charts(
+    category: str,
+    categories: List[Category],
+    existing_chart_config: List[ServerChartConfiguration],
+    existing_chart_config_for_category: List[ServerChartConfiguration]) -> List[Category]:
+  """Returns"""
+  if category != 'Overview':
+    # No need to set the hasMoreCharts attribute. It defaults to False.
+    return categories
+  
+  overview_block_count_per_category = {}
+  for config in existing_chart_config_for_category:
+      for _ in config.blocks:
+          category = config.category
+          overview_block_count_per_category[category] = overview_block_count_per_category.get(category, 0) + 1
+
+  block_count_per_category_all_charts = {}
+  for config in existing_chart_config:
+      for _ in config.blocks:
+          category = config.category
+          block_count_per_category_all_charts[category] = block_count_per_category_all_charts.get(category, 0) + 1
+
+  for cat in categories:
+      cat.hasMoreCharts = overview_block_count_per_category.get(cat.name, 0) < block_count_per_category_all_charts.get(cat.name, 0)
+
+  return categories
+
 def get_categories_with_translations(
     chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
   """
@@ -781,7 +808,8 @@ def get_categories_with_translations(
     if not category in categories_set:
       continue
     category = Category(name=category,
-                        translatedName=get_translated_category_string(category))
+                        translatedName=get_translated_category_string(category),
+                        hasMoreCharts=False) # will be set later.
     categories.append(category)
 
   return categories
