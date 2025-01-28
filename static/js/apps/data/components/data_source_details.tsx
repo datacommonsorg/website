@@ -118,6 +118,9 @@ export const DataSourceDetails = ({
                   @media (max-width: ${theme.breakpoints.md}px) {
                     margin-left: ${theme.spacing.md}px;
                   }
+                  code {
+                    color: ${theme.colors.text.secondary.base};
+                  }
                 `}
               >
                 <h4

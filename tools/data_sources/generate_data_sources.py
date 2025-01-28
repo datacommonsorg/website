@@ -40,7 +40,7 @@ BASE_URL = "https://docs.datacommons.org/datasets/"
 ENDPOINTS = [
     "Demographics.html", "Economy.html", "Crime.html", "Energy.html",
     "Environment.html", "Agriculture.html", "Education.html", "Housing.html",
-    "Health.html"
+    "Health.html", "Biomedical.html"
 ]
 OUTPUT_DIR = "../../static/js/apps/data"
 OUTPUT_FILENAME = "data_sources.json"
