@@ -72,7 +72,7 @@ export const Section = ({
             max-width: 100%;
           }
           @media (max-width: ${theme.breakpoints.sm}px) {
-            padding: ${theme.spacing.huge}px ${theme.spacing.lg}px;
+            padding: ${theme.spacing.xl}px ${theme.spacing.lg}px;
           }
         `}
       >

@@ -136,6 +136,9 @@ const config = {
       __dirname + "/js/apps/build/main.ts",
       __dirname + "/css/build.scss",
     ],
+    data: [
+      __dirname + "/js/apps/data/main.ts",
+    ],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
       __dirname + "/css/disaster_dashboard.scss",
