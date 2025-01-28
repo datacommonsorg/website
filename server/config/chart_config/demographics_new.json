@@ -184,7 +184,7 @@
     "description": "The median age of the population, broken down by gender",
     "variables": ["Median_Age_Person_Female", "Median_Age_Person_Male"],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "blocks": [
       {

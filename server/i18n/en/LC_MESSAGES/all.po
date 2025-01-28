@@ -432,6 +432,10 @@ msgstr "Energy use (kg of oil equivalent per capita)"
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "Fertility rate"
 
+#. Title of a place chart: Gross domestic product (GDP) at market prices based on constant local currency
+msgid "CHART_TITLE-Gdp"
+msgstr "Gross domestic product"
+
 #. Title of a place chart: Annual percentage growth rate of GDP at market prices based on constant local currency
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "Gross domestic product growth rate"
