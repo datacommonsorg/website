@@ -85,6 +85,9 @@ main {
 
       .place-info-link {
         color: var(--link-color);
+      }
+
+      .place-info-link:hover {
         text-decoration: underline;
       }
       
