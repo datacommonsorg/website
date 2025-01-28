@@ -100,7 +100,7 @@ export async function getLineTileResult(
     const chartData = await fetchData(tileProp);
     const chartTitle = getChartTitle(
       tileConfig.title,
-      getReplacementStrings(tileProp)
+      getReplacementStrings(tileProp, chartData)
     );
     const csvLabelHeader = mode === TOOLFORMER_RAG_MODE ? "date" : undefined;
     const result: TileResult = {
@@ -192,7 +192,7 @@ export async function getLineChart(
     const chartData = await fetchData(tileProp);
     const chartTitle = getChartTitle(
       tileConfig.title,
-      getReplacementStrings(tileProp)
+      getReplacementStrings(tileProp, chartData)
     );
     return getLineChartSvg(tileProp, chartData, chartTitle);
   } catch (e) {
