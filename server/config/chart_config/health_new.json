@@ -8,7 +8,7 @@
       "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "L",
     "blocks": [
@@ -242,7 +242,7 @@
       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "scaling": 0.1,
     "unit": "%",
@@ -474,7 +474,7 @@
       "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
@@ -523,7 +523,7 @@
       "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
@@ -565,7 +565,7 @@
       "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
@@ -614,7 +614,7 @@
       "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
