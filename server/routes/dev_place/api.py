@@ -88,7 +88,6 @@ def place_charts(place_dcid: str):
   chart_config_for_category = place_utils.filter_chart_configs_for_category(
       place_category, chart_config_existing_data)
 
-
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
       chart_config_for_category, place_type, child_place_type_to_highlight,
@@ -103,8 +102,8 @@ def place_charts(place_dcid: str):
       chart_config_existing_data)
 
   categories_with_more_charts = place_utils.get_categories_with_more_charts(
-    place_category, categories_with_translations,
-      chart_config_existing_data, chart_config_for_category)
+      place_category, categories_with_translations, chart_config_existing_data,
+      chart_config_for_category)
 
   response = PlaceChartsApiResponse(blocks=blocks,
                                     place=place,

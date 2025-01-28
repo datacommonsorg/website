@@ -324,7 +324,8 @@ export function placeChartsApiResponsesToPageConfig(
       const category: CategoryConfig = {
         blocks: newblocks,
         statVarSpec,
-        title: categoryNameToCategory[categoryName].translatedName || categoryName,
+        title:
+          categoryNameToCategory[categoryName].translatedName || categoryName,
       };
       console.log(JSON.stringify(categoryNameToCategory[categoryName]));
       if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
