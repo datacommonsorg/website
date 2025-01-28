@@ -334,9 +334,7 @@ export function placeChartsApiResponsesToPageConfig(
         title:
           categoryNameToCategory[categoryName].translatedName || categoryName,
       };
-      console.log(JSON.stringify(categoryNameToCategory[categoryName]));
       if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
-        console.log("Doing it here.");
         category.url = localizeLink(
           createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
         );

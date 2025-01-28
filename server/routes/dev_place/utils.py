@@ -811,12 +811,9 @@ def get_categories_with_more_charts(
           category] = block_count_per_category_all_charts.get(category, 0) + 1
 
   for cat in categories:
-    print(cat.name)
-    print(overview_block_count_per_category.get(cat.name, 0))
-    print(block_count_per_category_all_charts.get(cat.name, 0))
+    # Only show that categories have more charts if there are more blocks in the category chart config than in the overview chart config.
     cat.hasMoreCharts = overview_block_count_per_category.get(
         cat.name, 0) < block_count_per_category_all_charts.get(cat.name, 0)
-    print("\n\n")
 
   return categories
 
