@@ -110,6 +110,16 @@ export function AutoCompleteInput(
 
     const urlParams = new URLSearchParams(window.location.search);
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
+
+    // If this is a place page, with no query set, use the place name as the value.
+    const placePagePathRegex = /^\/place\/[^/]+.*$/;
+    const placePageTitleRegex = /^(.+?) - Data Commons$/;
+
+    const isPlacePage = placePagePathRegex.test(window.location.pathname);
+    const match = document.title.match(placePageTitleRegex);
+    if (isPlacePage && inputText.length == 0 && match && match.length > 1) {
+      setInputText(match[1].trim());
+    }
   }, []);
 
   // Whenever any of the scrollY states change, recompute to see if we need to hide the results.
