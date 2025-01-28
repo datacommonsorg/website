@@ -72,6 +72,11 @@ export interface Theme {
         dark?: string;
       };
     };
+    tabs?: {
+      selected?: string;
+      unselected?: string;
+      lining?: string;
+    };
     background?: {
       primary?: {
         base?: string;
