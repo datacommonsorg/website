@@ -56,7 +56,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     # And that the categories have data in the overview
     block_titles = find_elems(self.driver, value='block-title-text')
     self.assertEqual(set([block.text for block in block_titles]),
-                     topics_for_world)
+                     set(topics_for_world))
 
     # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
