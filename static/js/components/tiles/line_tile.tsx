@@ -237,6 +237,7 @@ function getPlaceDcids(props: LineTilePropType): string[] {
     : [props.place.dcid];
 }
 
+// TODO(gmechali): Unify fetching latest data for all tiles.
 /**
  * Returns the latest year found in the chart data.
  *
