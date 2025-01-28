@@ -37,6 +37,7 @@ import {
   CHINA_PLACE_DCID,
   COMOROS_PLACE_DCID,
   CONGO_PLACE_DCID,
+  COLOMBIA_PLACE_DCID,
   CUBA_PLACE_DCID,
   DEFAULT_POPULATION_DCID,
   DJIBOUTI_PLACE_DCID,
@@ -73,6 +74,7 @@ import {
   RWANDA_PLACE_DCID,
   SAINT_LUCIA_PLACE_DCID,
   SLOVAKIA_PLACE_DCID,
+  SOUTH_AFRICA_PLACE_DCID,
   SWITZERLAND_PLACE_DCID,
   UAE_PLACE_DCID,
   USA_PLACE_DCID,
@@ -156,8 +158,8 @@ const EUROPE_CHILD_PLACE_TYPES = {
 };
 
 const AA1_AA2_PLACES = new Set([
-  BENIN_PLACE_DCID,
   ARGENTINA_PLACE_DCID,
+  BENIN_PLACE_DCID,
   BELIZE_PLACE_DCID,
   BANGLADESH_PLACE_DCID,
   BELARUS_PLACE_DCID,
@@ -168,6 +170,7 @@ const AA1_AA2_PLACES = new Set([
   CAMEROON_PLACE_DCID,
   CAPE_VERDE_PLACE_DCID,
   CHINA_PLACE_DCID,
+  COLOMBIA_PLACE_DCID,
   COMOROS_PLACE_DCID,
   CONGO_PLACE_DCID,
   CUBA_PLACE_DCID,
@@ -203,6 +206,7 @@ const AA1_AA2_PLACES = new Set([
   RWANDA_PLACE_DCID,
   SAINT_LUCIA_PLACE_DCID,
   SLOVAKIA_PLACE_DCID,
+  SOUTH_AFRICA_PLACE_DCID,
   SWITZERLAND_PLACE_DCID,
   UAE_PLACE_DCID,
 ]);
@@ -317,8 +321,8 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
   const domainParamValue = params.get(URL_PARAM_KEYS.DOMAIN);
   const domain = domainParamValue
     ? domainParamValue
-        .split(URL_PARAM_DOMAIN_SEPARATOR)
-        .map((val) => Number(val))
+      .split(URL_PARAM_DOMAIN_SEPARATOR)
+      .map((val) => Number(val))
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
   const showTimeSlider = params.get(URL_PARAM_KEYS.TIME_SLIDER);
@@ -408,12 +412,12 @@ export function updateHashDisplay(
   if (display.showMapPoints) {
     params = `${params}&${URL_PARAM_KEYS.MAP_POINTS}=${
       display.showMapPoints ? "1" : "0"
-    }`;
+      }`;
   }
   if (display.showTimeSlider) {
     params = `${params}&${URL_PARAM_KEYS.TIME_SLIDER}=${
       display.showTimeSlider ? "1" : "0"
-    }`;
+      }`;
   }
   if (display.color) {
     params = `${params}&${URL_PARAM_KEYS.COLOR}=${display.color}`;
