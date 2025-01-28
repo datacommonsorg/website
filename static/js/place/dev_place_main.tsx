@@ -27,6 +27,7 @@ import { RawIntlProvider } from "react-intl";
 
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
+import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
@@ -278,6 +279,8 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const metadataContainer = document.getElementById("metadata-base");
   const locale = metadataContainer.dataset.locale;
 
+  const { setQueryString: setStoreQueryString } = useQueryStore();
+
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overviewString;
   const isOverview = category === overviewString;
@@ -310,6 +313,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
     });
     setPlaceSummary(pageMetadata.dataset.placeSummary);
     setPlaceSubheader(pageMetadata.dataset.placeSubheader);
+    setStoreQueryString(pageMetadata.dataset.placeName);
   }, []);
 
   /**
