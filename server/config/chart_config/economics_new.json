@@ -226,14 +226,13 @@
   },
   {
     "category": "Economics",
-    "title_id": "CHART_TITLE-Gdp_per_capita",
-    "title": "Gross domestic product per capita",
-    "description": "Gross domestic product (nominal) per capita, see https://en.wikipedia.org/wiki/Gross_domestic_product",
+    "title_id": "CHART_TITLE-Gdp",
+    "title": "Gross domestic product",
+    "description": "Gross domestic product (nominal), see https://en.wikipedia.org/wiki/Gross_domestic_product",
     "variables": [
-      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
-    "non_dividable": true,
     "scale": true,
     "unit": "$",
     "blocks": [
