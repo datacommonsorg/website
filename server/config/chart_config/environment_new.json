@@ -86,10 +86,7 @@
         "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
-            "type": "MAP"
-          },
-          {
-            "type": "RANKING"
+            "type": "BAR"
           }
         ]
       }
@@ -613,10 +610,7 @@
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
+              "type": "BAR"
             }
           ]
         }
@@ -662,10 +656,7 @@
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
+              "type": "BAR"
             }
           ]
         }
