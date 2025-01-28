@@ -84,6 +84,7 @@ MULTIPOLYGON_GEOJSON_TYPE = "MultiPolygon"
 POLYGON_GEOJSON_TYPE = "Polygon"
 
 # Override the choropleth display level map for special cases
+# TODO: Remove this once we have a better way to handle special cases
 OVERRIDE_CHOROPLETH_DISPLAY_LEVEL_MAP = {
     'geoId/72': 'geoJsonCoordinatesDP1',
     'country/TLS': 'geoJsonCoordinatesDP1'
