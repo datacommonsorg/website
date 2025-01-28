@@ -191,7 +191,7 @@
       "Median_Age_Person_Male"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "blocks": [
       {

@@ -244,6 +244,33 @@ def filter_chart_configs_for_category(
   return filtered_chart_config
 
 
+def count_places_per_stat_var(
+    obs_point_response,
+    stat_var_dcids: list[str],
+    places_to_consider: list[str] = None) -> List[Dict[str, int]]:
+  """
+  Returns a count of places with data for each stat var.
+  Removes the Stat var entirely if there are 0 places with data. 
+  If there are more than 2 places with data, we just store it as 2.
+  """
+  stat_var_to_places_with_data = {}
+  for stat_var_dcid in stat_var_dcids:
+    places_with_data = 0
+    for place_dcid in obs_point_response["byVariable"].get(stat_var_dcid,
+                                                           {}).get(
+                                                               "byEntity", {}):
+      if places_to_consider is None or place_dcid in places_to_consider:
+        places_with_data += 1
+
+        if places_with_data == 2:
+          break  # At least 2, no need to keep iterating.
+
+    if places_with_data > 0:
+      stat_var_to_places_with_data[stat_var_dcid] = places_with_data
+
+  return stat_var_to_places_with_data
+
+
 @cache.memoize(timeout=TIMEOUT)
 def filter_chart_config_by_place_dcid(
     chart_config: List[ServerChartConfiguration],
@@ -307,18 +334,17 @@ def filter_chart_config_by_place_dcid(
   # Find stat vars that have data for our child places
   child_places_obs_point_response = dc.obs_point_within(
       place_dcid, child_place_type, variables=child_places_stat_var_dcids)
-  child_places_stat_vars_with_observations = set([
-      stat_var_dcid for stat_var_dcid in child_places_stat_var_dcids
-      if child_places_obs_point_response["byVariable"].get(
-          stat_var_dcid, {}).get("byEntity", {})
-  ])
+  child_stat_var_to_places_with_data = count_places_per_stat_var(
+      child_places_obs_point_response, child_places_stat_var_dcids)
 
   # find stat vars that have data for our peer places. We only want to keep
   # these stat vars if there is data for more than one place.
   peer_places_within = fetch_peer_places_within(place_dcid, [place_type])[:15]
   peer_places_obs_point_response = dc.obs_point_within(
       parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
-  peer_places_stat_vars_with_observations = set()
+  peer_stat_var_to_places_with_data = count_places_per_stat_var(
+      peer_places_obs_point_response, peer_places_stat_var_dcids,
+      peer_places_within)
 
   # Check if child place & peer places have geo data available.
   child_places_have_geo_data = check_geo_data_exists(
@@ -328,24 +354,13 @@ def filter_chart_config_by_place_dcid(
       parent_place_dcid,
       place_type) if found_peer_places_map and parent_place_dcid else False
 
-  for stat_var_dcid in peer_places_stat_var_dcids:
-    peers_with_data = 0
-    for peer_place_dcid in peer_places_obs_point_response["byVariable"].get(
-        stat_var_dcid, {}).get("byEntity", {}):
-      if peer_place_dcid in peer_places_within:
-        peers_with_data += 1
-
-        if peers_with_data == 2:
-          peer_places_stat_vars_with_observations.add(stat_var_dcid)
-          break  # Move to the next stat_var_dcid once a peer place with data is found
-
   # Build set of all stat vars that have data for our place & children places
   stat_vars_with_observations_set = set(
       current_place_stat_vars_with_observations)
   stat_vars_with_observations_set.update(
-      child_places_stat_vars_with_observations)
+      [var for var, _ in child_stat_var_to_places_with_data.items()])
   stat_vars_with_observations_set.update(
-      peer_places_stat_vars_with_observations)
+      [var for var, _ in peer_stat_var_to_places_with_data.items()])
 
   # Filter out chart config entries that don't have any data
   filtered_chart_config = [
@@ -364,10 +379,16 @@ def filter_chart_config_by_place_dcid(
       has_denom_data = False
 
       if block.place_scope == "CHILD_PLACES":
-        has_child_data = any(var in child_places_stat_vars_with_observations
+        has_child_data = any(var in child_stat_var_to_places_with_data
                              for var in config.variables)
-        has_denom_data = all(var in child_places_stat_vars_with_observations
+        has_denom_data = all(var in child_stat_var_to_places_with_data
                              for var in config.denominator)
+
+        # Bar charts should only show up if we have data for multiple places.
+        if has_child_data and block.charts[0].type == 'BAR':
+          has_child_data = any(var in child_stat_var_to_places_with_data and
+                               child_stat_var_to_places_with_data[var] > 1
+                               for var in config.variables)
       elif block.place_scope == "PLACE":
         has_place_data = any(var in current_place_stat_vars_with_observations
                              for var in config.variables)
@@ -378,11 +399,18 @@ def filter_chart_config_by_place_dcid(
                              for var in config.variables)
         # Only add peers when we also have data for current place.
         has_peer_and_place_data = has_place_data and any(
-            var in peer_places_stat_vars_with_observations
+            var in peer_stat_var_to_places_with_data
             for var in config.variables)
-        has_denom_data = all(var in peer_places_stat_vars_with_observations
+        has_denom_data = all(var in peer_stat_var_to_places_with_data
                              for var in config.denominator)
         has_place_data = False  # Reset it.
+
+        # Bar charts should only show up if we have data for multiple places.
+        if has_peer_and_place_data and block.charts[0].type == 'BAR':
+          has_peer_and_place_data = any(
+              var in peer_stat_var_to_places_with_data and
+              peer_stat_var_to_places_with_data[var] > 1
+              for var in config.variables)
 
       # Override non_dividable as False if we dont have denominator data.
       block.non_dividable = config.non_dividable or not has_denom_data
