@@ -17,7 +17,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.routes.dev_place.utils import ORDERED_TOPICS
-from server.routes.dev_place.utils import TOPICS
 from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
@@ -44,21 +43,26 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         'Places in World')
 
     # Assert we have data for all expected topics.
+    topics_for_world = [
+        "Economics", "Health", "Equity", "Crime"
+        "Demographics", "Housing", "Environment", "Energy"
+    ]
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=ORDERED_TOPICS)
+                         expected_topics=topics_for_world)
 
     # And that the categories have data in the overview
     block_titles = find_elems(self.driver, value='block-title-text')
-    self.assertEqual(set([block.text for block in block_titles]), TOPICS)
+    self.assertEqual(set([block.text for block in block_titles]),
+                     topics_for_world)
 
     # Assert that every category is expected, and has at least one chart
     category_containers = find_elems(self.driver,
                                      value='category',
                                      path_to_elem=['charts-container'])
-    self.assertEqual(len(category_containers), len(ORDERED_TOPICS))
+    self.assertEqual(len(category_containers), len(topics_for_world))
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
@@ -69,11 +73,15 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                     '/place/Earth?force_dev_places=true&category=Demographics')
 
     # Assert we have data for all expected topics.
+    topics_for_world = [
+        "Economics", "Health", "Equity", "Crime"
+        "Demographics", "Housing", "Environment", "Energy"
+    ]
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=ORDERED_TOPICS)
+                         expected_topics=topics_for_world)
 
     # Scroll to a map chart.
     map_container = scroll_to_elem(self.driver, value='map-chart')

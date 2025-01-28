@@ -73,6 +73,8 @@ const PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
   "Continent",
 ];
 
+const DATE_STR = "(${date})";
+
 /**
  * Returns the stat var key for a chart.
  *
@@ -118,15 +120,15 @@ function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
 
 /**
  * Select the place type to highlight from provided list.
- * @param place_types list of possible place types
+ * @param placeTypes list of possible place types
  * @returns the selected place_type.
  */
-function firstPlaceTypeToHighlight(place_types: string[]): string {
+function firstPlaceTypeToHighlight(placeTypes: string[]): string {
   // Find the most important type from the place's types.
   let highlightedType = "";
   let lowestIndex = Infinity; // Start with a very high index
 
-  for (const currentType of place_types) {
+  for (const currentType of placeTypes) {
     const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
 
     if (currentIndex !== -1 && currentIndex < lowestIndex) {
@@ -223,14 +225,19 @@ export function placeChartsApiResponsesToPageConfig(
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
 
+      let blockTitle;
       blocks.forEach((block: BlockConfig) => {
         const tiles = [];
         block.charts.forEach((chart: Chart) => {
+          if (!blockTitle) {
+            blockTitle = block.title;
+          }
+
           const title = block.title;
           const tileConfig: TileConfig = {
             /** Highlight charts use title as description */
             description: title,
-            title,
+            title: title + " " + DATE_STR,
             type: chart.type,
 
             statVarKey: block.statisticalVariableDcids.map(
@@ -314,7 +321,7 @@ export function placeChartsApiResponsesToPageConfig(
         });
 
         newblocks.push({
-          title: tiles[0].title,
+          title: blockTitle,
           denom: block.denominator?.length > 0 ? block.denominator[0] : "",
           startWithDenom: false,
           columns: [{ tiles }],
