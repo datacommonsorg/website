@@ -410,11 +410,13 @@ export function updateHashDisplay(
 ): string {
   let params = "";
   if (display.showMapPoints) {
-    params = `${params}&${URL_PARAM_KEYS.MAP_POINTS}=${display.showMapPoints ? "1" : "0"
+    params = `${params}&${URL_PARAM_KEYS.MAP_POINTS}=${
+      display.showMapPoints ? "1" : "0"
       }`;
   }
   if (display.showTimeSlider) {
-    params = `${params}&${URL_PARAM_KEYS.TIME_SLIDER}=${display.showTimeSlider ? "1" : "0"
+    params = `${params}&${URL_PARAM_KEYS.TIME_SLIDER}=${
+      display.showTimeSlider ? "1" : "0"
       }`;
   }
   if (display.color) {
