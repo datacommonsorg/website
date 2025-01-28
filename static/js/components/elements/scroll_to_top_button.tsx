@@ -23,12 +23,13 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { css, useTheme } from "@emotion/react";
 
 import { ArrowUpward } from "./icons/arrow_upward";
 
 export const ScrollToTopButton = (): JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
+  const theme = useTheme();
 
   // Show button when page is scrolled down
   useEffect(() => {
@@ -47,38 +48,35 @@ export const ScrollToTopButton = (): JSX.Element => {
   const scrollToTop = (): void => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // For smooth scrolling
+      behavior: "smooth",
     });
   };
 
   return (
-    <FloatingButton
+    <button
       onClick={scrollToTop}
-      style={{ display: isVisible ? "block" : "none" }}
+      css={css`
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: ${theme.colors.button.primary.base};
+        color: white;
+        border: none;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        opacity: 0.8;
+        z-index: 100; // Ensure it's above other elements
+        transition: opacity 0.3s ease;
+        display: ${isVisible ? "block" : "none"};
+
+        &:hover {
+          opacity: 1;
+          background-color: ${theme.colors.button.primary.dark};
+        }
+      `}
     >
-      <ArrowUpward /> {/* Or use your preferred icon component */}
-    </FloatingButton>
+      <ArrowUpward />
+    </button>
   );
 };
-
-const FloatingButton = styled.button`
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: var(--dc-gray-lite);
-  color: white;
-  border: none;
-  border-radius: 50%; // Make it circular
-  margin-right: 25px;
-  margin-bottom: 25px;
-  padding: 10px;
-  cursor: pointer;
-  opacity: 0.8;
-  z-index: 100; // Ensure it's above other elements
-  transition: opacity 0.3s ease; // Smooth transition on hover
-
-  &:hover {
-    opacity: 1;
-    background-color: var(--dc-gray); // Darker shade on hover
-  }
-`;
