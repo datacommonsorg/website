@@ -791,7 +791,8 @@ def get_categories_with_more_charts(
     existing_chart_config: List[ServerChartConfiguration],
     existing_chart_config_for_category: List[ServerChartConfiguration]
 ) -> List[Category]:
-  """Returns"""
+  """Computes whether the categories have more charts to show in the category pages.
+  Returns the original list of Categories with the hasMoreCharts bit set properly."""
   if category != 'Overview':
     # No need to set the hasMoreCharts attribute. It defaults to False.
     return categories
