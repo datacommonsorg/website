@@ -67,6 +67,7 @@
       },
       {
         "place_scope": "CHILD_PLACES",
+        "is_overview": true,
         "charts": [
           {
             "type": "MAP"
