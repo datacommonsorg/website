@@ -60,6 +60,7 @@ class Place:
 class Category:
   name: str
   translatedName: str
+  hasMoreCharts: bool = False
 
 
 @dataclass

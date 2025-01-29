@@ -101,9 +101,13 @@ def place_charts(place_dcid: str):
   categories_with_translations = place_utils.get_categories_with_translations(
       chart_config_existing_data)
 
+  categories_with_more_charts = place_utils.get_categories_with_more_charts(
+      place_category, categories_with_translations, chart_config_existing_data,
+      chart_config_for_category)
+
   response = PlaceChartsApiResponse(blocks=blocks,
                                     place=place,
-                                    categories=categories_with_translations)
+                                    categories=categories_with_more_charts)
   return jsonify(response)
 
 

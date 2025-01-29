@@ -178,6 +178,7 @@ export interface BlockConfig {
 export interface Category {
   name: string;
   translatedName: string;
+  hasMoreCharts: boolean;
 }
 
 /**

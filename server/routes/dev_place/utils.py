@@ -217,20 +217,21 @@ def place_type_to_highlight(place_types: List[str]) -> str | None:
 
 
 def filter_chart_configs_for_category(
-    place_category: str, chart_config: List[ServerChartConfiguration]
+    place_category: str, full_chart_config: List[ServerChartConfiguration]
 ) -> List[ServerChartConfiguration]:
   """
   Only returns the appropriate charts for the current category. Note that we do not
   respect the is_overview filter for continents since we do not have continent level data.
   If there is no data in the charts selected for the overview, we will fallback to the complete chart_config.
   """
-  if place_category != "Overview":
-    return [c for c in chart_config if c.category == place_category]
+  working_chart_config = copy.deepcopy(full_chart_config)
 
-  original_chart_config = copy.deepcopy(chart_config)
+  if place_category != "Overview":
+    return [c for c in working_chart_config if c.category == place_category]
+
   # Only keep the blocks marked is_overview.
   filtered_chart_config = []
-  for server_chart_config in chart_config:
+  for server_chart_config in working_chart_config:
     server_chart_config.blocks = [
         block for block in server_chart_config.blocks if block.is_overview
     ]
@@ -239,7 +240,7 @@ def filter_chart_configs_for_category(
 
   if not filtered_chart_config:
     # Fallback to entire chart config if there is no data for overview page.
-    return original_chart_config
+    return copy.deepcopy(full_chart_config)
 
   return filtered_chart_config
 
@@ -785,6 +786,39 @@ def translate_chart_config(
   return translated_chart_config
 
 
+def get_categories_with_more_charts(
+    category: str, categories: List[Category],
+    existing_chart_config: List[ServerChartConfiguration],
+    existing_chart_config_for_category: List[ServerChartConfiguration]
+) -> List[Category]:
+  """Computes whether the categories have more charts to show in the category pages.
+  Returns the original list of Categories with the hasMoreCharts bit set properly."""
+  if category != 'Overview':
+    # No need to set the hasMoreCharts attribute. It defaults to False.
+    return categories
+
+  overview_block_count_per_category = {}
+  for config in existing_chart_config_for_category:
+    for _ in config.blocks:
+      category = config.category
+      overview_block_count_per_category[
+          category] = overview_block_count_per_category.get(category, 0) + 1
+
+  block_count_per_category_all_charts = {}
+  for config in existing_chart_config:
+    for _ in config.blocks:
+      category = config.category
+      block_count_per_category_all_charts[
+          category] = block_count_per_category_all_charts.get(category, 0) + 1
+
+  for cat in categories:
+    # Only show that categories have more charts if there are more blocks in the category chart config than in the overview chart config.
+    cat.hasMoreCharts = overview_block_count_per_category.get(
+        cat.name, 0) < block_count_per_category_all_charts.get(cat.name, 0)
+
+  return categories
+
+
 def get_categories_with_translations(
     chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
   """
@@ -809,7 +843,8 @@ def get_categories_with_translations(
     if not category in categories_set:
       continue
     category = Category(name=category,
-                        translatedName=get_translated_category_string(category))
+                        translatedName=get_translated_category_string(category),
+                        hasMoreCharts=False)  # will be set later.
     categories.append(category)
 
   return categories
