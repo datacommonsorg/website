@@ -19,8 +19,7 @@
  */
 
 import queryString from "query-string";
-import React from "react";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 

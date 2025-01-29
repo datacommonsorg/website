@@ -178,6 +178,7 @@ export interface BlockConfig {
 export interface Category {
   name: string;
   translatedName: string;
+  hasMoreCharts: boolean;
 }
 
 /**
@@ -200,4 +201,20 @@ export interface RelatedPlacesApiResponse {
   similarPlaces: Place[];
   parentPlaces: Place[];
   peersWithinParent: string[];
+}
+
+export interface OverviewTableDataRow {
+  date: string;
+  name: string;
+  provenanceUrl: string;
+  value: number;
+  variableDcid: string;
+  unit?: string;
+}
+
+/**
+ * Website API response for /api/dev-place/overview-table/<place_dcid>
+ */
+export interface PlaceOverviewTableApiResponse {
+  data: OverviewTableDataRow[];
 }

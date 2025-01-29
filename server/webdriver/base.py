@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver import shared
+from server.webdriver import base_utils
 from server.webdriver.base_utils import create_driver
 from shared.lib.test_server import NLWebServerTestCase
 from shared.lib.test_setup import set_up_macos_for_tests
@@ -26,7 +26,7 @@ class WebdriverBaseTest(NLWebServerTestCase):
   def setUp(self, preferences=None):
     """Runs at the beginning of every individual test."""
     # Maximum time, in seconds, before throwing a TimeoutException.
-    self.TIMEOUT_SEC = shared.TIMEOUT
+    self.TIMEOUT_SEC = base_utils.TIMEOUT
     self.driver = create_driver(preferences)
     # The URL of the Data Commons server.
     self.url_ = self.get_server_url()
