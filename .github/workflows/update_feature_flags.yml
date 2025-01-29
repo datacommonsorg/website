@@ -1,0 +1,48 @@
+name: Update Feature Flags in the Google Cloud Storage buckets
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'server/configs/feature_flags/*.json'
+
+jobs:
+  update_flags:
+    strategy:
+      matrix:
+        environment: [autopush, dev, staging, production]
+        flag_file:
+          - autopush: 'server/configs/feature_flags/autopush.json'
+          - dev: 'server/configs/feature_flags/dev.json'
+          - staging: 'server/configs/feature_flags/staging.json'
+          - production: 'server/configs/feature_flags/production.json'
+        include:
+          - environment: autopush
+            flag_file: 'server/configs/feature_flags/autopush.json'
+          - environment: dev
+            flag_file: 'server/configs/feature_flags/dev.json'
+          - environment: staging
+            flag_file: 'server/configs/feature_flags/staging.json'
+          - environment: production
+            flag_file: 'server/configs/feature_flags/production.json'
+
+    name: Update flags for ${{ matrix.environment }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Run script
+        run: |
+          ./scripts/update_gcs_feature_flags.sh ${{ matrix.environment }}
+        env:
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
