@@ -12,7 +12,7 @@
     "questions": [
       "Tell me about the economy in Brazil.",
       "Show me the breakdown of businesses by industry type in the US.",
-      "What is the GDP in Iran?"
+      "What is the GDP of New Zealand?"
     ]
   },
   {
@@ -35,8 +35,8 @@
     "category": "Demographics",
     "questions": [
       "Demographics around the world",
-      "Which country has the most old people?",
-      "Which state in the US has the most Tamil speakers?"
+      "What is the age distribution in the USA?",
+      "Which state in the US has the most Spanish speakers?"
     ]
   },
   {
@@ -44,7 +44,7 @@
     "questions": [
       "How does life expectancy vary across countries in Africa?",
       "What is the prevalence of asthma across California counties?",
-      "What are the rates of child immunization in Pakistan?"
+      "Have mortality rates decreased over the years in India?"
     ]
   }
 ]
