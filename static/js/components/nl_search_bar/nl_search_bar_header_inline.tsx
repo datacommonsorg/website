@@ -38,7 +38,6 @@ const NlSearchBarHeaderInline = ({
 }: NlSearchBarImplementationProps): ReactElement => {
   const [autocompleteEnabled, setAutoCompleteEnabled] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
-  const isAutopushEnv = window.location.hostname == "autopush.datacommons.org";
 
   useEffect(() => {
     setAutoCompleteEnabled(

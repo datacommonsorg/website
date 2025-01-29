@@ -84,11 +84,10 @@ main {
       flex-wrap: wrap;
 
       .place-info-link {
-        color: inherit;
-      }
-      
-      .place-info-link:hover {
         color: var(--link-color);
+      }
+
+      .place-info-link:hover {
         text-decoration: underline;
       }
       
