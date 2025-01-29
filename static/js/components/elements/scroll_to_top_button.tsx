@@ -59,7 +59,7 @@ export const ScrollToTopButton = (): JSX.Element => {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background-color: ${theme.colors.button.primary.base};
+        background-color: ${theme?.colors?.button?.primary?.base};
         color: white;
         border: none;
         border-radius: 50%;
@@ -72,7 +72,7 @@ export const ScrollToTopButton = (): JSX.Element => {
 
         &:hover {
           opacity: 1;
-          background-color: ${theme.colors.button.primary.dark};
+          background-color: ${theme?.colors?.button?.primary?.dark};
         }
       `}
     >
