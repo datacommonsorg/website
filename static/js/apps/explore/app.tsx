@@ -18,6 +18,7 @@
  * Main component for DC Explore.
  */
 
+import { ThemeProvider, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
@@ -44,6 +45,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
+import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
@@ -138,46 +140,48 @@ export function App(props: AppProps): ReactElement {
     ? null
     : savedContext.current[0]["insightCtx"];
   return (
-    <RawIntlProvider value={intl}>
-      <Container className="explore-container">
-        {props.isDemo && (
-          <AutoPlay
-            autoPlayQuery={autoPlayQuery}
-            inputQuery={(query) => {
-              setQuery(query);
-              setStoreQueryString(query);
-            }}
-            disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
-          />
-        )}
-        {loadingStatus === LoadingStatus.FAILED && (
-          <ErrorResult
-            query={query}
-            debugData={debugData}
-            exploreContext={exploreContext}
-            queryResult={queryResult}
-            userMessage={userMessage}
-            hideHeaderSearchBar={props.hideHeaderSearchBar}
-          />
-        )}
-        {loadingStatus === LoadingStatus.LOADING && (
-          <div>
-            <Spinner isOpen={true} />
-          </div>
-        )}
-        {loadingStatus === LoadingStatus.SUCCESS && (
-          <SuccessResult
-            query={query}
-            debugData={debugData}
-            exploreContext={exploreContext}
-            queryResult={queryResult}
-            pageMetadata={pageMetadata}
-            userMessage={userMessage}
-            hideHeaderSearchBar={props.hideHeaderSearchBar}
-          />
-        )}
-      </Container>
-    </RawIntlProvider>
+    <ThemeProvider theme={theme}>
+      <RawIntlProvider value={intl}>
+        <Container className="explore-container">
+          {props.isDemo && (
+            <AutoPlay
+              autoPlayQuery={autoPlayQuery}
+              inputQuery={(query) => {
+                setQuery(query);
+                setStoreQueryString(query);
+              }}
+              disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
+            />
+          )}
+          {loadingStatus === LoadingStatus.FAILED && (
+            <ErrorResult
+              query={query}
+              debugData={debugData}
+              exploreContext={exploreContext}
+              queryResult={queryResult}
+              userMessage={userMessage}
+              hideHeaderSearchBar={props.hideHeaderSearchBar}
+            />
+          )}
+          {loadingStatus === LoadingStatus.LOADING && (
+            <div>
+              <Spinner isOpen={true} />
+            </div>
+          )}
+          {loadingStatus === LoadingStatus.SUCCESS && (
+            <SuccessResult
+              query={query}
+              debugData={debugData}
+              exploreContext={exploreContext}
+              queryResult={queryResult}
+              pageMetadata={pageMetadata}
+              userMessage={userMessage}
+              hideHeaderSearchBar={props.hideHeaderSearchBar}
+            />
+          )}
+        </Container>
+      </RawIntlProvider>
+    </ThemeProvider>
   );
 
   function isFulfillDataValid(fulfillData: any): boolean {
