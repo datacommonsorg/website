@@ -268,9 +268,17 @@ msgstr "Arson"
 msgid "CHART_TITLE-Arson_rate"
 msgstr "Arsons per 100,000 people"
 
+#. Title of a place chart: Number of young adults who have an associate degree, broken down by gender
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Associate degree attainment by gender"
+
 #. Title of a place chart: Percentage of young adults who have an associate degree, broken down by gender
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "Rate of associate degree attainment by gender"
+
+#. Title of a place chart: Number of young adults who have a bachelor's degree, broken down by gender
+msgid "CHART_TITLE-Bachelors_degree_gender"
+msgstr "Bachelor's degree attainment by gender"
 
 #. Title of a place chart: Percentage of young adults who have an bachelor's degree, broken down by gender
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
@@ -479,6 +487,10 @@ msgstr "Government expenditures on military"
 #. Title of a place chart: Amount spent by a government on the military as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Government expenditures on military (% of GDP)"
+
+#. Title of a place chart: Number of young adults who have a graduate or professional degree, broken down by gender
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Graduate or professional degree attainment by gender"
 
 #. Title of a place chart: Percentage of young adults who have a graduate or professional degree, broken down by gender
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
@@ -701,6 +713,10 @@ msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Mortality events per capita"
 
 #. Title of a place chart: Total amount of outward remittance from a place
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Outward remittance"
+
+#. Title of a place chart: Total amount of outward remittance from a place per gdp.
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Outward remittance"
 

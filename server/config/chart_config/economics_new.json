@@ -9,7 +9,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -54,7 +53,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -99,7 +97,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -144,7 +141,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -189,7 +185,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -233,7 +228,6 @@
       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -281,52 +275,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
-    "unit": "$",
-    "blocks": [
-      {
-        "place_scope": "PLACE",
-        "charts": [
-          {
-            "type": "LINE"
-          },
-          {
-            "type": "HIGHLIGHT"
-          }
-        ]
-      },
-      {
-        "place_scope": "CHILD_PLACES",
-        "charts": [
-          {
-            "type": "MAP"
-          },
-          {
-            "type": "RANKING"
-          }
-        ]
-      },
-      {
-       "place_scope": "PEER_PLACES_WITHIN_PARENT",
-        "charts": [
-          {
-            "type": "BAR"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "category": "Economics",
-    "title_id": "CHART_TITLE-Gni_per_capita",
-    "title": "Gross national income per capita (purchasing power parity)",
-    "description": "Gross national income, divided by population, converted using purchasing power parity rates",
-    "variables": [
-      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
-    ],
-    "denominator": [],
-    "non_dividable": true,
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -382,8 +330,7 @@
     "denominator": [
       "Count_Household"
     ],
-    "non_dividable": true,
-    "scale": true,
+    "non_dividable": false,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -430,7 +377,6 @@
       "Count_Person_15OrMoreYears"
     ],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -468,7 +414,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -557,8 +502,7 @@
       "Count_Person_InLaborForce"
     ],
     "denominator": ["Count_Person_15To64Years"],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -602,7 +546,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "scaling": 100,
     "blocks": [
@@ -651,7 +594,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -699,7 +641,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -744,7 +685,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -789,7 +729,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -836,8 +775,7 @@
       "Count_Person_Employed"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -876,6 +814,95 @@
   },
   {
     "category": "Economics",
+    "title_id": "CHART_TITLE-Unemployment_rate",
+    "title": "Unemployment rate",
+    "description": "Percentage of the population, of working age, who are unemployed.",
+    "variables": [
+      "UnemploymentRate_Person"
+    ],
+    "denominator": [],
+    "non_dividable": true,
+    "unit": "%",
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
+       "is_overview": true,
+       "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Economics",
+    "title_id": "CHART_TITLE-Unemployment_rate-urban-v-rural",
+    "title": "Unemployment rate: urban vs rural",
+    "description": "Percentage of the working age population that is unemployed in urban vs. rural areas.",
+    "variables": [
+      "UnemploymentRate_Person_Rural",
+      "UnemploymentRate_Person_Urban"
+    ],
+    "denominator": [
+      "Count_Person_Rural",
+      "Count_Person_Urban"
+    ],
+    "non_dividable": false,
+    "unit": "%",
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Economics",
     "title_id": "CHART_TITLE-Outward_remittance",
     "title": "Outward remittance",
     "description": "Total amount of outward remittance from a place",
@@ -884,7 +911,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -927,7 +953,7 @@
     "variables": [
       "Count_Person_BelowPovertyLevelInThePast12Months"
     ],
-    "denominator": ["Count_Person"],
+    "denominator": [],
     "non_dividable": true,
     "blocks": [
       {
@@ -975,7 +1001,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -1001,94 +1026,6 @@
       },
       {
        "place_scope": "PEER_PLACES_WITHIN_PARENT",
-        "charts": [
-          {
-            "type": "BAR"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "category": "Economics",
-    "title_id": "CHART_TITLE-Unemployment_rate",
-    "title": "Unemployment rate",
-    "description": "Percentage of the population, of working age, who are unemployed.",
-    "variables": [
-      "UnemploymentRate_Person"
-    ],
-    "denominator": [],
-    "non_dividable": true,
-    "scale": true,
-    "unit": "%",
-    "blocks": [
-      {
-        "place_scope": "PLACE",
-        "is_overview": true,
-        "charts": [
-          {
-            "type": "LINE"
-          },
-          {
-            "type": "HIGHLIGHT"
-          }
-        ]
-      },
-      {
-        "place_scope": "CHILD_PLACES",
-        "is_overview": true,
-        "charts": [
-          {
-            "type": "MAP"
-          },
-          {
-            "type": "RANKING"
-          }
-        ]
-      },
-      {
-       "place_scope": "PEER_PLACES_WITHIN_PARENT",
-       "is_overview": true,
-       "charts": [
-          {
-            "type": "BAR"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "category": "Economics",
-    "title_id": "CHART_TITLE-Unemployment_rate-urban-v-rural",
-    "title": "Unemployment rate: urban vs rural",
-    "description": "Percentage of the working age population that is unemployed in urban vs. rural areas.",
-    "variables": [
-      "UnemploymentRate_Person_Rural",
-      "UnemploymentRate_Person_Urban"
-    ],
-    "denominator": [],
-    "non_dividable": false,
-    "scale": true,
-    "unit": "%",
-    "blocks": [
-      {
-        "place_scope": "PLACE",
-        "charts": [
-          {
-            "type": "LINE"
-          }
-        ]
-      },
-      {
-        "place_scope": "CHILD_PLACES",
-        "charts": [
-          {
-            "type": "BAR"
-          }
-        ]
-      },
-      {
-        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1108,7 +1045,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -1146,7 +1082,7 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
+    "scaling": 100,
     "unit": "%",
     "blocks": [
       {
@@ -1192,7 +1128,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -1232,7 +1167,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -1271,7 +1205,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "unit": "$",
     "blocks": [
       {
@@ -1316,7 +1249,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "₹",
     "blocks": [
       {
@@ -1361,7 +1293,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "₹",
     "blocks": [
       {
@@ -1407,7 +1338,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "₹",
     "blocks": [
       {
@@ -1447,7 +1377,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "₹",
     "blocks": [
       {

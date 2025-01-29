@@ -61,7 +61,7 @@
       "Count_HousingUnit_2010OrLaterDateBuilt"
     ],
     "denominator": ["Count_HousingUnit"],
-    "non_dividable": true,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {

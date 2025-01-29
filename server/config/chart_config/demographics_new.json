@@ -328,7 +328,7 @@
       "Count_Person_75To79Years",
       "Count_Person_80OrMoreYears"
     ],
-    "denominator": ["Count_Person"],
+    "denominator": [],
     "non_dividable": false,
     "scale": true,
     "blocks": [
@@ -364,7 +364,7 @@
     "title": "Population by gender",
     "description": "Total number of individuals, broken down by gender",
     "variables": ["Count_Person_Female", "Count_Person_Male"],
-    "denominator": ["Count_Person"],
+    "denominator": [],
     "non_dividable": false,
     "scale": true,
     "blocks": [
@@ -409,7 +409,7 @@
       "Count_Person_TwoOrMoreRaces",
       "Count_Person_WhiteAlone"
     ],
-    "denominator": ["Count_Person"],
+    "denominator": [],
     "non_dividable": false,
     "scale": true,
     "blocks": [

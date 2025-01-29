@@ -245,11 +245,23 @@ function getPlaceDcids(props: LineTilePropType): string[] {
  * @returns Latest year with data.
  */
 const getLatestDate = (chartData: LineChartData): string | null => {
-  const years = chartData?.dataGroup
-    ?.flatMap((g) => g.value)
-    ?.map((p) => new Date(p.time).getUTCFullYear());
+  if (!chartData ||!chartData.dataGroup) {
+    return null;
+  }
 
-  return years ? years.sort().pop().toString() : null;
+  const years = chartData?.dataGroup
+    .flatMap((g) => g.value || [])
+    .map((p) => {
+      const date = p && p.time ? new Date(p.time) : null;
+      return date ? date.getUTCFullYear() : null;
+    })
+    .filter(year => year !== null);
+
+  if (years.length > 0) {
+    years.sort()
+    return years.pop().toString();
+  }
+  return null;
 };
 
 // Get the ReplacementStrings object used for formatting the title

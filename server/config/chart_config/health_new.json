@@ -9,7 +9,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "L",
     "blocks": [
       {
@@ -57,7 +56,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -104,7 +102,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -154,8 +151,7 @@
       "Percent_Person_Smoking"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "%",
     "blocks": [
       {
@@ -200,8 +196,7 @@
       "Percent_Person_WithPhysicalHealthNotGood"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "%",
     "blocks": [
       {
@@ -241,7 +236,6 @@
     "variables": ["Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "scaling": 0.1,
     "unit": "%",
     "blocks": [
@@ -287,8 +281,7 @@
       "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "scaling": 0.1,
     "unit": "%",
     "blocks": [
@@ -329,7 +322,6 @@
     "variables": ["LifeExpectancy_Person"],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -378,9 +370,8 @@
       "Count_Death_ExternalCauses",
       "Count_Death_DiseasesOfTheNervousSystem"
     ],
-    "denominator": ["Count_Person"],
+    "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -423,9 +414,8 @@
       "RetailDrugDistribution_DrugDistribution_Amphetamine",
       "RetailDrugDistribution_DrugDistribution_Morphine"
     ],
-    "denominator": ["Count_Person"],
+    "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "unit": "g",
     "blocks": [
       {
@@ -467,7 +457,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -516,7 +505,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -558,7 +546,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
@@ -607,7 +594,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "scale": true,
     "unit": "%",
     "blocks": [
       {
