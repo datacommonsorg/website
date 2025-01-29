@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { formatNumber, loadLocaleData, translateUnit } from "./i18n";
+import {
+  formatDate,
+  formatNumber,
+  loadLocaleData,
+  translateUnit,
+} from "./i18n";
 
 /**
  * Prints a string as hex - useful to displaying non-breaking spaces and other
@@ -380,6 +385,42 @@ test("translateUnit", async () => {
         console.log(`Failed for ${c.unit}, ${locale}: return value = ${text}`);
         throw e;
       }
+    }
+  }
+});
+
+test("formatDate", async () => {
+  const cases: {
+    date: string;
+    expected: { [lang: string]: string };
+  }[] = [
+    {
+      date: "2024",
+      expected: {
+        en: "2024",
+        de: "2024",
+      },
+    },
+    {
+      date: "2024-11",
+      expected: {
+        en: "Nov 2024",
+        de: "Nov. 2024",
+      },
+    },
+    {
+      date: "2024-11-01",
+      expected: {
+        en: "Nov 1, 2024",
+        de: "1. Nov. 2024",
+      },
+    },
+  ];
+
+  for (const locale of ["en", "de"]) {
+    for (const c of cases) {
+      const text = formatDate(c.date, locale);
+      expect(text).toEqual(c.expected[locale]);
     }
   }
 });
