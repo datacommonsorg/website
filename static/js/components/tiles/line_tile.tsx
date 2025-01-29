@@ -245,7 +245,7 @@ function getPlaceDcids(props: LineTilePropType): string[] {
  * @returns Latest year with data.
  */
 const getLatestDate = (chartData: LineChartData): string | null => {
-  if (!chartData ||!chartData.dataGroup) {
+  if (!chartData || !chartData.dataGroup) {
     return null;
   }
 
@@ -255,10 +255,10 @@ const getLatestDate = (chartData: LineChartData): string | null => {
       const date = p && p.time ? new Date(p.time) : null;
       return date ? date.getUTCFullYear() : null;
     })
-    .filter(year => year !== null);
+    .filter((year) => year !== null);
 
   if (years.length > 0) {
-    years.sort()
+    years.sort();
     return years.pop().toString();
   }
   return null;
