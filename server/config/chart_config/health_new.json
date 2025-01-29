@@ -8,7 +8,7 @@
       "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "L",
     "blocks": [
@@ -238,11 +238,9 @@
     "title_id": "CHART_TITLE-Infant_mortality_rate",
     "title": "Infant mortality rate",
     "description": "Count of deaths in infants caused by various diseases",
-    "variables": [
-      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-    ],
+    "variables": ["Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "scaling": 0.1,
     "unit": "%",
@@ -328,11 +326,9 @@
     "title_id": "CHART_TITLE-Life_expectancy",
     "title": "Life expectancy (years)",
     "description": "Life expectancy of an individual, measured in years",
-    "variables": [
-      "LifeExpectancy_Person"
-    ],
+    "variables": ["LifeExpectancy_Person"],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "blocks": [
       {
@@ -382,9 +378,7 @@
       "Count_Death_ExternalCauses",
       "Count_Death_DiseasesOfTheNervousSystem"
     ],
-    "denominator": [
-      "Count_Person"
-    ],
+    "denominator": ["Count_Person"],
     "non_dividable": false,
     "scale": true,
     "blocks": [
@@ -429,9 +423,7 @@
       "RetailDrugDistribution_DrugDistribution_Amphetamine",
       "RetailDrugDistribution_DrugDistribution_Morphine"
     ],
-    "denominator": [
-      "Count_Person"
-    ],
+    "denominator": ["Count_Person"],
     "non_dividable": false,
     "scale": true,
     "unit": "g",
@@ -474,7 +466,7 @@
       "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
@@ -523,7 +515,7 @@
       "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
@@ -565,7 +557,7 @@
       "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
@@ -614,7 +606,7 @@
       "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female"
     ],
     "denominator": [],
-    "non_dividable": false,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
