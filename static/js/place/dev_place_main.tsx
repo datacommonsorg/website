@@ -25,8 +25,14 @@ import { ThemeProvider } from "@emotion/react";
 import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
+import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
+import {
+  isFeatureEnabled,
+  SCROLL_TO_TOP_FEATURE_FLAG,
+} from "../shared/feature_flags/util";
+import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
@@ -59,9 +65,13 @@ const PlaceHeader = (props: {
       <div className="place-info">
         <h1>
           <span>
-            <a className="place-info-link" href={`/place/${place.dcid}`}>
-              {place.name}
-            </a>
+            {category === "Overview" ? (
+              place.name
+            ) : (
+              <a className="place-info-link" href={`/place/${place.dcid}`}>
+                {place.name}
+              </a>
+            )}
             {category != "Overview" ? ` • ${category}` : ""}{" "}
           </span>
           <div className="dcid-and-knowledge-graph">
@@ -274,6 +284,8 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const metadataContainer = document.getElementById("metadata-base");
   const locale = metadataContainer.dataset.locale;
 
+  const { setQueryString: setStoreQueryString } = useQueryStore();
+
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overviewString;
   const isOverview = category === overviewString;
@@ -306,6 +318,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
     });
     setPlaceSummary(pageMetadata.dataset.placeSummary);
     setPlaceSubheader(pageMetadata.dataset.placeSubheader);
+    setStoreQueryString(pageMetadata.dataset.placeName);
   }, []);
 
   /**
@@ -417,6 +430,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
         {isOverview && childPlaces.length > 0 && (
           <RelatedPlaces place={place} childPlaces={childPlaces} />
         )}
+        {isFeatureEnabled(SCROLL_TO_TOP_FEATURE_FLAG) && <ScrollToTopButton />}
       </RawIntlProvider>
     </ThemeProvider>
   );

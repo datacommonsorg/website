@@ -283,6 +283,7 @@ export function placeChartsApiResponsesToPageConfig(
             maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
+              sort: "DESCENDING",
             };
           }
 
