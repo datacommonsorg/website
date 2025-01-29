@@ -131,10 +131,7 @@
         "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
-            "type": "MAP"
-          },
-          {
-            "type": "RANKING"
+            "type": "BAR"
           }
         ]
       }
@@ -149,7 +146,7 @@
       "WithdrawalRate_Water"
     ],
     "denominator": [],
-    "non_dividable": true,
+    "non_dividable": false,
     "scale": true,
     "unit": "mgd",
     "blocks": [
@@ -253,7 +250,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -268,10 +264,7 @@
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
+              "type": "BAR"
             }
           ]
         }
@@ -317,10 +310,7 @@
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
+              "type": "BAR"
             }
           ]
         }
@@ -351,7 +341,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -366,10 +355,7 @@
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
+              "type": "BAR"
             }
           ]
         }
@@ -400,7 +386,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -415,10 +400,7 @@
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
+              "type": "BAR"
             }
           ]
         }
@@ -449,7 +431,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -498,7 +479,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -513,10 +493,7 @@
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
+              "type": "BAR"
             }
           ]
         }
@@ -546,7 +523,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -561,10 +537,7 @@
           "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
+              "type": "BAR"
             }
           ]
         }
@@ -595,7 +568,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -641,7 +613,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -687,7 +658,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -733,7 +703,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -779,7 +748,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {
@@ -824,7 +792,6 @@
           ]
         },
         {
-          "is_overview": false,
           "place_scope": "CHILD_PLACES",
           "charts": [
             {

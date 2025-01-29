@@ -48,7 +48,7 @@
     "title": "Electricity generation per capita",
     "description": "Annual net electricity generation, all fuels, all sectors",
     "variables": ["Annual_Generation_Electricity"],
-    "denominator": ["Count_Person"],
+    "denominator": [],
     "non_dividable": true,
     "scale": true,
     "unit": "kWh",
