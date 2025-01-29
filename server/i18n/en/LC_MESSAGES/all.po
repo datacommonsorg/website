@@ -956,9 +956,9 @@ msgstr "Water withdrawal rate"
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(placeType)s in %(parentPlaces)s"
 
-#. Neighboring places. Gives context for where the places are relative to one another.
-msgid "Neighboring %(placeType)s in %(parentPlace)s"
-msgstr "Neighboring %(placeType)s in %(parentPlace)s"
+#. Other places. Gives context for where the places are relative to one another.
+msgid "Other %(placeType)s in %(parentPlace)s"
+msgstr "Other %(placeType)s in %(parentPlace)s"
 
 #. Place Types
 #. Singular for the Administrative Area place type

@@ -61,7 +61,7 @@ OVERVIEW_CATEGORY = "Overview"
 ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
 
 PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
-NEIGHBORING_PLACES_IN_PARENT_PLACE_STR = 'Neighboring %(placeType)s in %(parentPlace)s'
+OTHER_PLACES_IN_PARENT_PLACE_STR = 'Other  %(placeType)s in %(parentPlace)s'
 
 # Variables to include in overview table
 PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
@@ -771,9 +771,11 @@ def translate_chart_config(
     for translated_block in translated_item.blocks:
       title_sections = []
 
+      if translated_block.place_scope == "PLACE":
+        title_sections.append(place_name)
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         title_sections.append(
-            gettext(NEIGHBORING_PLACES_IN_PARENT_PLACE_STR,
+            gettext(OTHER_PLACES_IN_PARENT_PLACE_STR,
                     placeType=translated_place_type,
                     parentPlace=parent_place_name))
       elif translated_block.place_scope == "CHILD_PLACES":
