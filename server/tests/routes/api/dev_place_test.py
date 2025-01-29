@@ -498,3 +498,40 @@ class TestPlaceUtils(unittest.TestCase):
     place = Place(dcid="geoId/06001", name="Alameda County", types=["County"])
     self.assertEqual(place_utils.get_child_place_types(place),
                      ["CensusZipCodeTabulationArea"])
+
+  @patch('server.routes.dev_place.utils.dc.v2node')
+  @patch('server.routes.dev_place.utils.fetch.descendent_places')
+  def test_check_geo_data_exists(self, mock_descendent_places, mock_v2node):
+    """Test check_geo_data_exists method."""
+    # Test case where geo data exists
+    mock_descendent_places.return_value = {
+        "geoId/04": ["geoId/04001", "geoId/04003", "geoId/04005"]
+    }
+    mock_v2node.return_value = {
+        "data": {
+            "geoId/04001": {
+                "properties": [
+                    "geoJsonCoordinatesDP3", "name", "latitude", "longitude"
+                ]
+            }
+        }
+    }
+    self.assertTrue(place_utils.check_geo_data_exists("geoId/04", "County"))
+
+    # Test case where no geo data exists
+    mock_v2node.return_value = {
+        "data": {
+            "geoId/04001": {
+                "properties": ["name", "latitude", "longitude"]
+            }
+        }
+    }
+    self.assertFalse(place_utils.check_geo_data_exists("geoId/04", "County"))
+
+    # Test case where no child places exist
+    mock_descendent_places.return_value = {}
+    self.assertFalse(place_utils.check_geo_data_exists("geoId/04", "County"))
+
+    # Verify mock calls
+    mock_descendent_places.assert_called_with(["geoId/04"], "County")
+    mock_v2node.assert_called()

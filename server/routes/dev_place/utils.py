@@ -451,20 +451,19 @@ def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
   """
   child_places = fetch.descendent_places([place_dcid],
                                          child_place_type).get(place_dcid, [])
+  # Geo properties to check for.
+  geo_properties = {
+      "geoJsonCoordinatesDP3", "geoJsonCoordinatesDP2", "geoJsonCoordinatesDP1"
+  }
 
-  # Check if geo data exists, starting from the least detailed level (geoJsonCoordinatesDP3) to the more detailed level (geoJsonCoordinatesDP2).
-  # Checks both DP3 and DP2 because not all child places have geo data at all detail levels.
-  # Performs checks sequentially to avoid expensive property value fetches for higher detail levels.
-  ordered_geo_properties = ["geoJsonCoordinatesDP3", "geoJsonCoordinatesDP2"]
-  for geo_property in ordered_geo_properties:
-    child_place_geojson_data = fetch.property_values(child_places, geo_property)
-    filtered_child_place_geojson_data = {
-        child_place_dcid: values
-        for child_place_dcid, values in child_place_geojson_data.items()
-        if values
-    }
-    if bool(filtered_child_place_geojson_data):
-      return True
+  # Fetch properties for each child place.
+  place_properties = dc.v2node(child_places, "->").get("data", {})
+  # Check if geo data exists for at least one of the child places.
+  for _place_dcid in place_properties.keys():
+    properties = place_properties[_place_dcid].get("properties", [])
+    for property in properties:
+      if property in geo_properties:
+        return True
   return False
 
 
