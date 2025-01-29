@@ -610,7 +610,7 @@ PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
         "City", "Town", "Village", "Borough", "AdministrativeArea3",
         "CensusZipCodeTabulationArea"
     ],
-     "AdministrativeArea3": [
+    "AdministrativeArea3": [
         "City", "Town", "Village", "Borough", "AdministrativeArea4",
         "CensusZipCodeTabulationArea"
     ],
