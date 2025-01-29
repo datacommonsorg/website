@@ -18,6 +18,7 @@ export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
 export const PLACE_PAGE_EXPERIMENT_FEATURE_FLAG = "autocomplete";
 export const PLACE_PAGE_GA_FEATURE_FLAG = "autocomplete";
+export const SCROLL_TO_TOP_FEATURE_FLAG = "scroll_to_top_button";
 
 /**
  * Helper method to interact with feature flags.
