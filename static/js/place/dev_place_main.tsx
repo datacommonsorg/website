@@ -28,11 +28,11 @@ import { RawIntlProvider } from "react-intl";
 import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
-import { useQueryStore } from "../shared/stores/query_store_hook";
 import {
   isFeatureEnabled,
   SCROLL_TO_TOP_FEATURE_FLAG,
 } from "../shared/feature_flags/util";
+import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
