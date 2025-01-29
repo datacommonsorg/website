@@ -162,7 +162,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       id={props.id}
       isInitialLoading={_.isNull(chartData)}
       isLoading={isLoading}
-      replacementStrings={getReplacementStrings(props)}
+      replacementStrings={getReplacementStrings(props, chartData)}
       sources={props.sources || (chartData && chartData.sources)}
       subtitle={props.subtitle}
       title={props.title}
@@ -237,12 +237,41 @@ function getPlaceDcids(props: LineTilePropType): string[] {
     : [props.place.dcid];
 }
 
+// TODO(gmechali): Unify fetching latest data for all tiles.
+/**
+ * Returns the latest year found in the chart data.
+ *
+ * @param chartData Line chart data
+ * @returns Latest year with data.
+ */
+const getLatestDate = (chartData: LineChartData): string | null => {
+  if (!chartData || !chartData.dataGroup) {
+    return null;
+  }
+
+  const years = chartData?.dataGroup
+    .flatMap((g) => g.value || [])
+    .map((p) => {
+      const date = p && p.time ? new Date(p.time) : null;
+      return date ? date.getUTCFullYear() : null;
+    })
+    .filter((year) => year !== null);
+
+  if (years.length > 0) {
+    years.sort();
+    return years.pop().toString();
+  }
+  return null;
+};
+
 // Get the ReplacementStrings object used for formatting the title
 export function getReplacementStrings(
-  props: LineTilePropType
+  props: LineTilePropType,
+  chartData: LineChartData
 ): ReplacementStrings {
   return {
     placeName: props.place ? props.place.name : "",
+    date: getLatestDate(chartData),
   };
 }
 

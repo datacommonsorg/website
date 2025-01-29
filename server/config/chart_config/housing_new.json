@@ -1,262 +1,243 @@
 [
-    {
-      "category": "Housing",
-      "title_id": "CHART_TITLE-Housing_units",
-      "title": "Housing units",
-      "description": "Total number of housing units available",
-      "variables": [
-        "Count_HousingUnit"
-      ],
-      "denominator": [],
-      "non_dividable": false,
-      "scale": true,
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            },
-            {
-              "type": "HIGHLIGHT"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "MAP"
-            },
-            {
-              "type": "RANKING"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Housing",
-      "title_id": "CHART_TITLE-Housing_units_race",
-      "title": "Housing units by householder race",
-      "description": "Total number of housing units occupied by members of various races",
-      "variables": [
-        "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
-        "Count_HousingUnit_HouseholderRaceAsianAlone",
-        "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone",
-        "Count_HousingUnit_HouseholderRaceHispanicOrLatino",
-        "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
-        "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone",
-        "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces",
-        "Count_HousingUnit_HouseholderRaceWhiteAlone"
-      ],
-      "denominator": [
-        "Count_HousingUnit"
-      ],
-      "non_dividable": false,
-      "scale": true,
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Housing",
-      "title_id": "CHART_TITLE-Housing_units_price",
-      "title": "Housing units by price",
-      "description": "Number of occupied housing units by price",
-      "variables": [
-        "Count_HousingUnit_HomeValueUpto10000USDollar",
-        "Count_HousingUnit_HomeValue10000To14999USDollar",
-        "Count_HousingUnit_HomeValue15000To19999USDollar",
-        "Count_HousingUnit_HomeValue20000To24999USDollar",
-        "Count_HousingUnit_HomeValue25000To29999USDollar",
-        "Count_HousingUnit_HomeValue30000To34999USDollar",
-        "Count_HousingUnit_HomeValue35000To39999USDollar",
-        "Count_HousingUnit_HomeValue40000To49999USDollar",
-        "Count_HousingUnit_HomeValue50000To59999USDollar",
-        "Count_HousingUnit_HomeValue60000To69999USDollar",
-        "Count_HousingUnit_HomeValue70000To79999USDollar",
-        "Count_HousingUnit_HomeValue80000To89999USDollar",
-        "Count_HousingUnit_HomeValue90000To99999USDollar",
-        "Count_HousingUnit_HomeValue100000To124999USDollar",
-        "Count_HousingUnit_HomeValue125000To149999USDollar",
-        "Count_HousingUnit_HomeValue150000To174999USDollar",
-        "Count_HousingUnit_HomeValue175000To199999USDollar",
-        "Count_HousingUnit_HomeValue200000To249999USDollar",
-        "Count_HousingUnit_HomeValue250000To299999USDollar",
-        "Count_HousingUnit_HomeValue300000To399999USDollar",
-        "Count_HousingUnit_HomeValue400000To499999USDollar",
-        "Count_HousingUnit_HomeValue500000To749999USDollar",
-        "Count_HousingUnit_HomeValue750000To999999USDollar",
-        "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-        "Count_HousingUnit_HomeValue1500000To1999999USDollar",
-        "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
-      ],
-      "denominator": [
-        "Count_HousingUnit"
-      ],
-      "non_dividable": false,
-      "scale": true,
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Housing",
-      "title_id": "CHART_TITLE-Housing_units_date_built",
-      "title": "Housing units by date built",
-      "description": "Number of available housing units by date built",
-      "variables": [
-        "Count_HousingUnit_Before1939DateBuilt",
-        "Count_HousingUnit_1940To1949DateBuilt",
-        "Count_HousingUnit_1950To1959DateBuilt",
-        "Count_HousingUnit_1960To1969DateBuilt",
-        "Count_HousingUnit_1970To1979DateBuilt",
-        "Count_HousingUnit_1980To1989DateBuilt",
-        "Count_HousingUnit_1990To1999DateBuilt",
-        "Count_HousingUnit_2000To2009DateBuilt",
-        "Count_HousingUnit_2010OrLaterDateBuilt"
-      ],
-      "denominator": [
-        "Count_HousingUnit"
-      ],
-      "non_dividable": false,
-      "scale": true,
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Housing",
-      "title_id": "CHART_TITLE-Housing_units_rental_status",
-      "title": "Housing units by rental status",
-      "description": "Number of housing units occupied by owner vs renter",
-      "variables": [
-        "Count_HousingUnit_OwnerOccupied",
-        "Count_HousingUnit_RenterOccupied"
-      ],
-      "denominator": [
-        "Count_HousingUnit"
-      ],
-      "non_dividable": false,
-      "scale": true,
-      "blocks": [
-        {
-          "is_overview": true,
-          "place_scope": "PLACE",
-          "charts": [
-            {
-              "type": "LINE"
-            }
-          ]
-        },
-        {
-          "is_overview": false,
-          "place_scope": "CHILD_PLACES",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        },
-        {
-          "is_overview": true,
-          "place_scope": "PEER_PLACES_WITHIN_PARENT",
-          "charts": [
-            {
-              "type": "BAR"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  {
+    "category": "Housing",
+    "title_id": "CHART_TITLE-Housing_units",
+    "title": "Housing units",
+    "description": "Total number of housing units available",
+    "variables": ["Count_HousingUnit"],
+    "denominator": [],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          },
+          {
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "MAP"
+          },
+          {
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Housing",
+    "title_id": "CHART_TITLE-Housing_units_date_built",
+    "title": "Housing units by date built",
+    "description": "Number of available housing units by date built",
+    "variables": [
+      "Count_HousingUnit_Before1939DateBuilt",
+      "Count_HousingUnit_1940To1949DateBuilt",
+      "Count_HousingUnit_1950To1959DateBuilt",
+      "Count_HousingUnit_1960To1969DateBuilt",
+      "Count_HousingUnit_1970To1979DateBuilt",
+      "Count_HousingUnit_1980To1989DateBuilt",
+      "Count_HousingUnit_1990To1999DateBuilt",
+      "Count_HousingUnit_2000To2009DateBuilt",
+      "Count_HousingUnit_2010OrLaterDateBuilt"
+    ],
+    "denominator": ["Count_HousingUnit"],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Housing",
+    "title_id": "CHART_TITLE-Housing_units_race",
+    "title": "Housing units by householder race",
+    "description": "Total number of housing units occupied by members of various races",
+    "variables": [
+      "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+      "Count_HousingUnit_HouseholderRaceAsianAlone",
+      "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone",
+      "Count_HousingUnit_HouseholderRaceHispanicOrLatino",
+      "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+      "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone",
+      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces",
+      "Count_HousingUnit_HouseholderRaceWhiteAlone"
+    ],
+    "denominator": ["Count_HousingUnit"],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Housing",
+    "title_id": "CHART_TITLE-Housing_units_price",
+    "title": "Housing units by price",
+    "description": "Number of occupied housing units by price",
+    "variables": [
+      "Count_HousingUnit_HomeValueUpto10000USDollar",
+      "Count_HousingUnit_HomeValue10000To14999USDollar",
+      "Count_HousingUnit_HomeValue15000To19999USDollar",
+      "Count_HousingUnit_HomeValue20000To24999USDollar",
+      "Count_HousingUnit_HomeValue25000To29999USDollar",
+      "Count_HousingUnit_HomeValue30000To34999USDollar",
+      "Count_HousingUnit_HomeValue35000To39999USDollar",
+      "Count_HousingUnit_HomeValue40000To49999USDollar",
+      "Count_HousingUnit_HomeValue50000To59999USDollar",
+      "Count_HousingUnit_HomeValue60000To69999USDollar",
+      "Count_HousingUnit_HomeValue70000To79999USDollar",
+      "Count_HousingUnit_HomeValue80000To89999USDollar",
+      "Count_HousingUnit_HomeValue90000To99999USDollar",
+      "Count_HousingUnit_HomeValue100000To124999USDollar",
+      "Count_HousingUnit_HomeValue125000To149999USDollar",
+      "Count_HousingUnit_HomeValue150000To174999USDollar",
+      "Count_HousingUnit_HomeValue175000To199999USDollar",
+      "Count_HousingUnit_HomeValue200000To249999USDollar",
+      "Count_HousingUnit_HomeValue250000To299999USDollar",
+      "Count_HousingUnit_HomeValue300000To399999USDollar",
+      "Count_HousingUnit_HomeValue400000To499999USDollar",
+      "Count_HousingUnit_HomeValue500000To749999USDollar",
+      "Count_HousingUnit_HomeValue750000To999999USDollar",
+      "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+      "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
+    ],
+    "denominator": ["Count_HousingUnit"],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Housing",
+    "title_id": "CHART_TITLE-Housing_units_rental_status",
+    "title": "Housing units by rental status",
+    "description": "Number of housing units occupied by owner vs renter",
+    "variables": [
+      "Count_HousingUnit_OwnerOccupied",
+      "Count_HousingUnit_RenterOccupied"
+    ],
+    "denominator": ["Count_HousingUnit"],
+    "non_dividable": false,
+    "scale": true,
+    "blocks": [
+      {
+        "place_scope": "PLACE",
+        "charts": [
+          {
+            "type": "LINE"
+          }
+        ]
+      },
+      {
+        "place_scope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      },
+      {
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "BAR"
+          }
+        ]
+      }
+    ]
+  }
+]

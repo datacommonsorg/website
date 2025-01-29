@@ -177,7 +177,8 @@ function formatNumber(
   value: number,
   unit?: string,
   useDefaultFormat?: boolean,
-  numFractionDigits?: number
+  numFractionDigits?: number,
+  options?: Intl.NumberFormatOptions
 ): string {
   if (isNaN(value)) {
     return "-";
@@ -185,7 +186,7 @@ function formatNumber(
   if (useDefaultFormat) {
     return Intl.NumberFormat(intl.locale).format(value);
   }
-  const formatOptions: any = {
+  const formatOptions: Intl.NumberFormatOptions = options || {
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
     maximumSignificantDigits: 3,
@@ -217,6 +218,11 @@ function formatNumber(
     case "Percentage":
       formatOptions.style = "percent";
       value = value / 100; // Values are scaled by formatter for percent display
+      break;
+    case "Year":
+      formatOptions.style = "unit";
+      formatOptions.unit = "year";
+      formatOptions.unitDisplay = "short";
       break;
     case "MetricTon":
     case "t":
@@ -340,7 +346,68 @@ function translateUnit(unit: string): string {
   return displayUnit;
 }
 
+/**
+ * Formats an ISO date string to the current locale.
+ *
+ * @param dateString: ISO date string
+ * @param locale: (optional) locale to use for formatting
+ *
+ * Example:
+ * 2024-11-01 -> November 1, 2024
+ * 2024-11 -> November 2024
+ * 2024 -> 2024
+ *
+ * @return formatted date string
+ */
+function formatDate(dateString: string, locale?: string) {
+  // Regex to match:
+  //  - Year (required): 4 digits
+  //  - Optional month: -MM
+  //  - Optional day: -DD
+  const pattern = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
+  const match = dateString.match(pattern);
+
+  // If the date string doesn't match the pattern, return it as is
+  if (!match) {
+    return dateString;
+  }
+
+  const year = parseInt(match[1], 10);
+  const month = match[2] ? parseInt(match[2], 10) : null;
+  const day = match[3] ? parseInt(match[3], 10) : null;
+
+  // Case 1: Year only
+  if (!month) {
+    return dateString;
+  }
+
+  // Otherwise, construct a Date
+  // - If day is missing, default to 1
+  //   so “2024-11” becomes 2024-11-01
+  const date = new Date(year, month - 1, day || 1);
+
+  // Ensure that date is valid
+  if (isNaN(date.getTime())) {
+    return dateString;
+  }
+
+  // Determine how to format:
+  // - Year & month -> "November 2024"
+  // - Full date -> "November 1, 2024"
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+  };
+  if (day) {
+    options.day = "numeric";
+  }
+
+  // Format using locale
+  return date.toLocaleDateString(locale || intl.locale, options);
+}
+
 export {
+  formatDate,
   formatNumber,
   intl,
   loadLocaleData,

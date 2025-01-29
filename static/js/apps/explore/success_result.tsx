@@ -22,6 +22,7 @@ import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef } from "react";
 
+import { ScrollToTopButton } from "../../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
   CLIENT_TYPES,
@@ -34,6 +35,10 @@ import {
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
+import {
+  isFeatureEnabled,
+  SCROLL_TO_TOP_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import {
@@ -190,6 +195,9 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                     svgChartHeight={SVG_CHART_HEIGHT}
                     showExploreMore={true}
                   />
+                  {isFeatureEnabled(SCROLL_TO_TOP_FEATURE_FLAG) && (
+                    <ScrollToTopButton />
+                  )}
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>

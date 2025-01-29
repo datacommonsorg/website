@@ -18,6 +18,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
+from server.webdriver.base_utils import find_elem
 from server.webdriver.shared_tests.place_explorer_i18n_test import \
     PlaceI18nExplorerTestMixin
 
@@ -41,9 +42,7 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
     shared.wait_for_loading(self.driver)
 
     # Ensure the query string is set in the NL Search Bar.
-    search_bar_present = EC.presence_of_element_located(
-        (By.ID, 'query-search-input'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(search_bar_present)
-    search_bar = self.driver.find_element(By.ID, 'query-search-input')
-    self.assertEqual(search_bar.get_attribute('value'),
-                     'United States Of America')
+    self.assertEqual(
+        find_elem(self.driver, by=By.ID,
+                  value='query-search-input').get_attribute('value'),
+        'United States Of America')

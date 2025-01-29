@@ -56,9 +56,9 @@ def main(_):
                        cache_root,
                        use_anonymous_client=True)
 
-  # Download all the indexes that are MEMORY or LANCEDB store type
+  # Download all the indexes that are MEMORY store type
   for index_info in catalog.indexes.values():
-    if not index_info.store_type in [StoreType.MEMORY, StoreType.LANCEDB]:
+    if not index_info.store_type in [StoreType.MEMORY]:
       continue
     if gcs.is_gcs_path(index_info.embeddings_path):
       gcs.maybe_download(index_info.embeddings_path,

@@ -67,13 +67,25 @@ variable "google_analytics_tag_id" {
 # Data Commons Cloud Storage bucket variables
 
 # If not set, the default is <namespace>-datacommons-data-<project_id>
-variable "dc_gcs_data_bucket_path_override" {
-  description = "Custom GCS data bucket path."
+variable "gcs_data_bucket_name" {
+  description = "Custom GCS data bucket name."
   type        = string
   default     = ""
 }
 
-variable "dc_gcs_data_bucket_location" {
+variable "gcs_data_bucket_input_folder" {
+  description = "Input data folder in the GCS data bucket"
+  type        = string
+  default     = "input"
+}
+
+variable "gcs_data_bucket_output_folder" {
+  description = "Output data folder in the GCS data bucket"
+  type        = string
+  default     = "output"
+}
+
+variable "gcs_data_bucket_location" {
   description = "Data Commons GCS data bucket location"
   type        = string
   default     = "US"
@@ -170,11 +182,11 @@ variable "make_dc_web_service_public" {
 }
 
 #  Data Commons Cloud Run job variables
-
+# TODO: Change to stable after the next release
 variable "dc_data_job_image" {
   description = "The container image for the data job"
   type        = string
-  default     = "gcr.io/datcom-ci/datacommons-data:stable"
+  default     = "gcr.io/datcom-ci/datacommons-data:latest"
 }
 
 variable "dc_data_job_cpu" {

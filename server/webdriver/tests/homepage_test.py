@@ -17,6 +17,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elems
 from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
 
 
@@ -28,13 +30,12 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     self.driver.get(self.url_ + '/')
 
-    title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
+    # Assert page title is correct
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.title_contains(self.dc_title_string))
 
-    hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
     self.assertTrue(
-        hero_msg.text.startswith(
+        find_elem(self.driver, by=By.ID, value='hero').text.startswith(
             "Data Commons brings together the world's public data, making it simple to explore"
         ))
 
@@ -43,13 +44,12 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     self.driver.get(self.url_ + '/?hl=it')
 
-    title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
+    # Assert page title is correct
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.title_contains(self.dc_title_string))
 
-    hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
     self.assertTrue(
-        hero_msg.text.startswith(
+        find_elem(self.driver, by=By.ID, value='hero').text.startswith(
             "Data Commons brings together the world's public data, making it simple to explore"
         ))
 
@@ -100,19 +100,15 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     self.driver.get(self.url_ + '/?ac_on=true')
 
-    title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
-
-    search_box_input = self.driver.find_element(By.ID, 'query-search-input')
+    # Assert page title is correct
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.title_contains(self.dc_title_string))
 
     # Type california into the search box.
+    search_box_input = find_elem(self.driver,
+                                 by=By.ID,
+                                 value='query-search-input')
     search_box_input.send_keys("California")
 
-    suggestions_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'search-input-result-section'))
-    WebDriverWait(self.driver, 300).until(suggestions_present)
-
-    autocomplete_results = self.driver.find_elements(
-        By.CLASS_NAME, 'search-input-result-section')
-    self.assertTrue(len(autocomplete_results) == 5)
+    self.assertEqual(
+        len(find_elems(self.driver, value='search-input-result-section')), 5)
