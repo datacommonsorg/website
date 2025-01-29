@@ -18,12 +18,14 @@
  * Main component for DC Explore.
  */
 
+import { ThemeProvider, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
+import theme from "../../theme/theme";
 
 import { Spinner } from "../../components/spinner";
 import {
@@ -138,46 +140,48 @@ export function App(props: AppProps): ReactElement {
     ? null
     : savedContext.current[0]["insightCtx"];
   return (
-    <RawIntlProvider value={intl}>
-      <Container className="explore-container">
-        {props.isDemo && (
-          <AutoPlay
-            autoPlayQuery={autoPlayQuery}
-            inputQuery={(query) => {
-              setQuery(query);
-              setStoreQueryString(query);
-            }}
-            disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
-          />
-        )}
-        {loadingStatus === LoadingStatus.FAILED && (
-          <ErrorResult
-            query={query}
-            debugData={debugData}
-            exploreContext={exploreContext}
-            queryResult={queryResult}
-            userMessage={userMessage}
-            hideHeaderSearchBar={props.hideHeaderSearchBar}
-          />
-        )}
-        {loadingStatus === LoadingStatus.LOADING && (
-          <div>
-            <Spinner isOpen={true} />
-          </div>
-        )}
-        {loadingStatus === LoadingStatus.SUCCESS && (
-          <SuccessResult
-            query={query}
-            debugData={debugData}
-            exploreContext={exploreContext}
-            queryResult={queryResult}
-            pageMetadata={pageMetadata}
-            userMessage={userMessage}
-            hideHeaderSearchBar={props.hideHeaderSearchBar}
-          />
-        )}
-      </Container>
-    </RawIntlProvider>
+    <ThemeProvider theme={theme}>
+      <RawIntlProvider value={intl}>
+        <Container className="explore-container">
+          {props.isDemo && (
+            <AutoPlay
+              autoPlayQuery={autoPlayQuery}
+              inputQuery={(query) => {
+                setQuery(query);
+                setStoreQueryString(query);
+              }}
+              disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
+            />
+          )}
+          {loadingStatus === LoadingStatus.FAILED && (
+            <ErrorResult
+              query={query}
+              debugData={debugData}
+              exploreContext={exploreContext}
+              queryResult={queryResult}
+              userMessage={userMessage}
+              hideHeaderSearchBar={props.hideHeaderSearchBar}
+            />
+          )}
+          {loadingStatus === LoadingStatus.LOADING && (
+            <div>
+              <Spinner isOpen={true} />
+            </div>
+          )}
+          {loadingStatus === LoadingStatus.SUCCESS && (
+            <SuccessResult
+              query={query}
+              debugData={debugData}
+              exploreContext={exploreContext}
+              queryResult={queryResult}
+              pageMetadata={pageMetadata}
+              userMessage={userMessage}
+              hideHeaderSearchBar={props.hideHeaderSearchBar}
+            />
+          )}
+        </Container>
+      </RawIntlProvider>
+    </ThemeProvider>
   );
 
   function isFulfillDataValid(fulfillData: any): boolean {
