@@ -73,6 +73,8 @@ const PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
   "Continent",
 ];
 
+const DATE_STR = "(${date})";
+
 /**
  * Returns the stat var key for a chart.
  *
@@ -118,15 +120,15 @@ function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
 
 /**
  * Select the place type to highlight from provided list.
- * @param place_types list of possible place types
+ * @param placeTypes list of possible place types
  * @returns the selected place_type.
  */
-function firstPlaceTypeToHighlight(place_types: string[]): string {
+function firstPlaceTypeToHighlight(placeTypes: string[]): string {
   // Find the most important type from the place's types.
   let highlightedType = "";
   let lowestIndex = Infinity; // Start with a very high index
 
-  for (const currentType of place_types) {
+  for (const currentType of placeTypes) {
     const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
 
     if (currentIndex !== -1 && currentIndex < lowestIndex) {
@@ -161,18 +163,6 @@ function getEnclosedPlaceTypeOverride(
     default:
       return "";
   }
-}
-
-// TODO(gmechali): Fix this once we decide what to do with i18n.
-function getTitle(title: string, placeScope: string): string {
-  if (placeScope === "PEER_PLACES_WITHIN_PARENT") {
-    return title + ": Peer places within parent";
-  } else if (placeScope === "CHILD_PLACES") {
-    return title + ": places within";
-  } else if (placeScope === "SIMILAR_PLACES") {
-    return title + ": other places";
-  }
-  return title;
 }
 
 /**
@@ -222,10 +212,10 @@ export function placeChartsApiResponsesToPageConfig(
     (item) => item.category
   );
 
-  const categoryNameToTranslatedName = _.fromPairs(
+  const categoryNameToCategory = _.fromPairs(
     placeChartsApiResponse.categories.map((category) => [
       category.name,
-      category.translatedName,
+      category,
     ])
   );
 
@@ -236,13 +226,18 @@ export function placeChartsApiResponsesToPageConfig(
       const statVarSpec: Record<string, StatVarSpec> = {};
 
       blocks.forEach((block: BlockConfig) => {
+        let blockTitle;
         const tiles = [];
         block.charts.forEach((chart: Chart) => {
-          const title = getTitle(block.title, block.placeScope);
+          if (!blockTitle) {
+            blockTitle = block.title;
+          }
+
+          const title = block.title;
           const tileConfig: TileConfig = {
             /** Highlight charts use title as description */
             description: title,
-            title,
+            title: title + " " + DATE_STR,
             type: chart.type,
 
             statVarKey: block.statisticalVariableDcids.map(
@@ -288,6 +283,7 @@ export function placeChartsApiResponsesToPageConfig(
             maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
+              sort: "DESCENDING",
             };
           }
 
@@ -326,7 +322,7 @@ export function placeChartsApiResponsesToPageConfig(
         });
 
         newblocks.push({
-          title: tiles[0].title,
+          title: blockTitle,
           denom: block.denominator?.length > 0 ? block.denominator[0] : "",
           startWithDenom: false,
           columns: [{ tiles }],
@@ -336,9 +332,10 @@ export function placeChartsApiResponsesToPageConfig(
       const category: CategoryConfig = {
         blocks: newblocks,
         statVarSpec,
-        title: categoryNameToTranslatedName[categoryName] || categoryName,
+        title:
+          categoryNameToCategory[categoryName].translatedName || categoryName,
       };
-      if (isOverview) {
+      if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
         category.url = localizeLink(
           createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
         );

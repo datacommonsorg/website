@@ -22,12 +22,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import TIMEOUT
 
 LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
 ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
 ASYNC_ELEMENT_CLASS = 'dc-async-element'
-TIMEOUT = 60
+
 # Keep in sync with the web component definitions at static/library/*component.ts
 # and packages/web-components/src/main.ts
 WEB_COMPONENT_TAG_NAMES = [

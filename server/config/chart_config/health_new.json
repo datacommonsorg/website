@@ -8,8 +8,7 @@
       "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "L",
     "blocks": [
       {
@@ -57,7 +56,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -104,7 +102,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -154,8 +151,7 @@
       "Percent_Person_Smoking"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "%",
     "blocks": [
       {
@@ -200,8 +196,7 @@
       "Percent_Person_WithPhysicalHealthNotGood"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "%",
     "blocks": [
       {
@@ -238,12 +233,9 @@
     "title_id": "CHART_TITLE-Infant_mortality_rate",
     "title": "Infant mortality rate",
     "description": "Count of deaths in infants caused by various diseases",
-    "variables": [
-      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-    ],
+    "variables": ["Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "scaling": 0.1,
     "unit": "%",
     "blocks": [
@@ -289,8 +281,7 @@
       "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "scaling": 0.1,
     "unit": "%",
     "blocks": [
@@ -328,12 +319,9 @@
     "title_id": "CHART_TITLE-Life_expectancy",
     "title": "Life expectancy (years)",
     "description": "Life expectancy of an individual, measured in years",
-    "variables": [
-      "LifeExpectancy_Person"
-    ],
+    "variables": ["LifeExpectancy_Person"],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -382,11 +370,8 @@
       "Count_Death_ExternalCauses",
       "Count_Death_DiseasesOfTheNervousSystem"
     ],
-    "denominator": [
-      "Count_Person"
-    ],
+    "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -429,11 +414,8 @@
       "RetailDrugDistribution_DrugDistribution_Amphetamine",
       "RetailDrugDistribution_DrugDistribution_Morphine"
     ],
-    "denominator": [
-      "Count_Person"
-    ],
+    "denominator": [],
     "non_dividable": false,
-    "scale": true,
     "unit": "g",
     "blocks": [
       {
@@ -474,8 +456,7 @@
       "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "%",
     "blocks": [
       {
@@ -523,8 +504,7 @@
       "Count_Person_Upto4Years_Female_Wasting_AsFractionOf_Count_Person_Upto4Years_Female"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "%",
     "blocks": [
       {
@@ -565,8 +545,7 @@
       "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "%",
     "blocks": [
       {
@@ -614,8 +593,7 @@
       "Count_Person_Upto4Years_Female_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Female"
     ],
     "denominator": [],
-    "non_dividable": false,
-    "scale": true,
+    "non_dividable": true,
     "unit": "%",
     "blocks": [
       {

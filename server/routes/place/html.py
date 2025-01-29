@@ -280,9 +280,10 @@ def is_seo_experiment_enabled(place_dcid: str, category: str,
   return False
 
 
-# Dev place page experiment groups for countries and US states
+# Dev place page experiment groups for countries, US states, and cities
 # Calculated offline using instructions here:
 # https://github.com/datacommonsorg/website/pull/4773
+# https://github.com/datacommonsorg/website/pull/4781
 DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
     'country/TLS', 'country/HUN', 'country/VEN', 'country/JAM', 'country/RWA',
     'country/GGY', 'country/NGA', 'country/COD', 'country/COG', 'country/SVN',
@@ -293,13 +294,46 @@ DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
 DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
     'geoId/56', 'geoId/04', 'geoId/41', 'geoId/20', 'geoId/37'
 ]
+DEV_PLACE_EXPERIMENT_CITIES_DCIDS: List[str] = [
+    'geoId/4865000', 'nuts/PL127', 'wikidataId/Q1011138', 'wikidataId/Q1016939',
+    'wikidataId/Q1025345', 'wikidataId/Q109949', 'wikidataId/Q115256',
+    'wikidataId/Q11909', 'wikidataId/Q1342853', 'wikidataId/Q146723',
+    'wikidataId/Q1533', 'wikidataId/Q162880', 'wikidataId/Q16959',
+    'wikidataId/Q170247', 'wikidataId/Q173985', 'wikidataId/Q179608',
+    'wikidataId/Q179691', 'wikidataId/Q18459', 'wikidataId/Q189633',
+    'wikidataId/Q1953', 'wikidataId/Q198240', 'wikidataId/Q198370',
+    'wikidataId/Q200235', 'wikidataId/Q200878', 'wikidataId/Q2060398',
+    'wikidataId/Q220', 'wikidataId/Q25282', 'wikidataId/Q269',
+    'wikidataId/Q30340', 'wikidataId/Q3274', 'wikidataId/Q328615',
+    'wikidataId/Q332753', 'wikidataId/Q34820', 'wikidataId/Q349973',
+    'wikidataId/Q3579', 'wikidataId/Q362865', 'wikidataId/Q36312',
+    'wikidataId/Q3711', 'wikidataId/Q3718', 'wikidataId/Q372791',
+    'wikidataId/Q38927', 'wikidataId/Q3921', 'wikidataId/Q426756',
+    'wikidataId/Q4361', 'wikidataId/Q4709', 'wikidataId/Q48320',
+    'wikidataId/Q492552', 'wikidataId/Q496837', 'wikidataId/Q506578',
+    'wikidataId/Q570884', 'wikidataId/Q571033', 'wikidataId/Q571949',
+    'wikidataId/Q57787', 'wikidataId/Q59233', 'wikidataId/Q616048',
+    'wikidataId/Q6487', 'wikidataId/Q657072', 'wikidataId/Q66485',
+    'wikidataId/Q68744', 'wikidataId/Q699777', 'wikidataId/Q713357',
+    'wikidataId/Q71373', 'wikidataId/Q71455', 'wikidataId/Q72945',
+    'wikidataId/Q75110', 'wikidataId/Q852238', 'wikidataId/Q862611',
+    'wikidataId/Q894', 'wikidataId/Q911'
+]
 DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS: List[str] = [
     'northamerica', 'southamerica', 'europe', 'africa', 'asia', 'antarctica',
     'oceania'
 ]
 DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
                                            DEV_PLACE_EXPERIMENT_US_STATE_DCIDS +
+                                           DEV_PLACE_EXPERIMENT_CITIES_DCIDS +
                                            DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS)
+
+
+def is_dev_place_ga_enabled(request_args: MultiDict[str, str]) -> bool:
+  """Determine if dev place ga should be enabled"""
+  return is_feature_enabled(
+      PLACE_PAGE_GA_FEATURE_FLAG
+  ) and not request_args.get("disable_dev_places") == "true"
 
 
 def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
@@ -332,8 +366,8 @@ def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
 @bp.route('/<path:place_dcid>')
 @cache.cached(query_string=True)
 def place(place_dcid=None):
-  if is_feature_enabled(
-      PLACE_PAGE_GA_FEATURE_FLAG) or is_dev_place_experiment_enabled(
+  if is_dev_place_ga_enabled(
+      flask.request.args) or is_dev_place_experiment_enabled(
           place_dcid, g.locale, flask.request.args):
     return dev_place(place_dcid=place_dcid)
   redirect_args = dict(flask.request.args)

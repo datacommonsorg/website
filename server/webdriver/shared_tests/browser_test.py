@@ -19,6 +19,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import scroll_to_elem
+from server.webdriver.base_utils import wait_elem
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
@@ -78,21 +80,20 @@ class BrowserTestMixin():
     # Assert header is correct.
     node = find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]')
     self.assertEqual(
-        find_elem(node, by=By.XPATH, value='.//h1[1]').text,
+        find_elem(node, by=By.XPATH, value='./h1[1]').text,
         'Statistical Variable: Count_Person')
     self.assertEqual(
-        find_elem(node, by=By.XPATH, value='.//h1[2]').text,
-        'About: California')
+        find_elem(node, by=By.XPATH, value='./h1[2]').text, 'About: California')
 
     # Assert properties section shows dcid and typeOf values for the statistical variable
     # Count_Person.
     table = find_elem(self.driver,
                       by=By.XPATH,
                       value='//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = find_elems(table, by=By.XPATH, value='.//tbody/tr[2]/td')
+    dcid_row = find_elems(table, by=By.XPATH, value='./tbody/tr[2]/td')
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'Count_Person')
-    type_of_row = find_elems(table, by=By.XPATH, value='.//tbody/tr[3]/td')
+    type_of_row = find_elems(table, by=By.XPATH, value='./tbody/tr[3]/td')
     self.assertEqual(type_of_row[0].text, 'typeOf')
     self.assertEqual(type_of_row[1].text, 'StatisticalVariable')
     self.assertEqual(type_of_row[2].text, 'datacommons.org')
@@ -123,37 +124,33 @@ class BrowserTestMixin():
     self.assertEqual(title_text, self.driver.title)
 
     # Assert header is correct.
-    element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    title = self.driver.find_element(By.XPATH, '//*[@id="node"]/h1')
-    self.assertEqual(title.text, 'About: Austrobaileya scandens C.T.White')
-    dcid_subtitle = self.driver.find_element(By.XPATH, '//*[@id="node"]/h2[1]')
-    self.assertEqual(dcid_subtitle.text, 'dcid: dc/bsmvthtq89217')
-    typeOf_subtitle = self.driver.find_element(By.XPATH,
-                                               '//*[@id="node"]/h2[2]')
-    self.assertEqual(typeOf_subtitle.text, 'typeOf: BiologicalSpecimen')
+    self.assertEqual(
+        find_elem(self.driver, by=By.TAG_NAME, value='h1').text,
+        'About: Austrobaileya scandens C.T.White')
+    self.assertEqual(
+        find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]/h2[1]').text,
+        'dcid: dc/bsmvthtq89217')
+    self.assertEqual(
+        find_elem(self.driver, by=By.XPATH, value='//*[@id="node"]/h2[2]').text,
+        'typeOf: BiologicalSpecimen')
 
     # Assert properties contains correct dcid and typeOf
-    element_present = EC.presence_of_element_located(
-        (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    table = self.driver.find_element(
-        By.XPATH, '//*[@id="node-content"]/div[1]/div/table')
-    dcid_row = table.find_elements(By.XPATH, './/tbody/tr[2]/td')
+    table = find_elem(self.driver, By.XPATH,
+                      '//*[@id="node-content"]/div[1]/div/table')
+    dcid_row = find_elems(table, by=By.XPATH, value='./tbody/tr[2]/td')
     self.assertEqual(dcid_row[0].text, 'dcid')
     self.assertEqual(dcid_row[1].text, 'dc/bsmvthtq89217')
-    type_of_row = table.find_elements(By.XPATH, './/tbody/tr[3]/td')
+    type_of_row = find_elems(table, by=By.XPATH, value='./tbody/tr[3]/td')
     self.assertEqual(type_of_row[0].text, 'typeOf')
     self.assertEqual(type_of_row[1].text, 'BiologicalSpecimen')
     self.assertEqual(type_of_row[2].text, 'nybg.org')
 
     # Assert image loaded.
-    element_present = EC.presence_of_element_located(
-        (By.ID, 'browser-image-section'))
-    WebDriverWait(self.driver, 2 * self.TIMEOUT_SEC).until(element_present)
-    image_section = self.driver.find_element(By.ID, 'browser-image-section')
-    image = image_section.find_element(By.TAG_NAME, 'img')
-    self.assertTrue(image)
+    image_section = find_elem(self.driver,
+                              by=By.ID,
+                              value='browser-image-section')
+    image = find_elem(image_section, By.TAG_NAME, 'img')
+    self.assertIsNotNone(image)
 
   def test_stat_var_hierarchy(self):
     """Test that the stat var hierarchy can search properly"""
@@ -161,38 +158,31 @@ class BrowserTestMixin():
     self.driver.get(self.url_ + MTV_URL)
 
     # Wait for the search box of the statvar hierarchy section to be present
-    stat_var_search_input_xpath = (
-        '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/' + 'div/input')
-    element_present = EC.presence_of_element_located(
-        (By.XPATH, stat_var_search_input_xpath))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_input = self.driver.find_element(By.XPATH,
-                                            stat_var_search_input_xpath)
+    sv_hierarchy_section = find_elem(self.driver, By.ID,
+                                     'stat-var-hierarchy-section')
+    search_input = find_elem(sv_hierarchy_section, By.TAG_NAME, 'input')
 
     # Search for "male asian " and select the first result
     search_input.send_keys(SEARCH_INPUT)
-    loading_finished = EC.invisibility_of_element_located(
-        (By.ID, 'sv-search-spinner'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(loading_finished)
-    first_result = self.driver.find_element(
-        By.XPATH,
-        ('//*[@id="stat-var-hierarchy-section"]//div[contains(@class, ' +
-         '"statvar-hierarchy-search-results")]/div[2]/div[1]'))
+    wait_elem(self.driver, By.ID, 'sv-search-spinner')
+    sv_hierarchy_results_section = scroll_to_elem(
+        self.driver, value='statvar-hierarchy-search-results')
+
+    first_result = find_elem(sv_hierarchy_results_section, By.XPATH,
+                             './div[2]/div[1]')
     first_result.click()
 
     # Assert that the section Count_Person_Male_AsianAlone opened and shows at least one chart
-    element_present = EC.presence_of_element_located((By.XPATH, (
-        '//div[@class="highlighted-stat-var"]/div/div/div/div/div[@class="card"]'
-        + '/div[@class="observation-chart"]')))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_title = self.driver.find_element(
-        By.XPATH, '//div[@class="highlighted-stat-var"]/div/div/div/h5/a')
+    highlighted_sv = find_elem(self.driver, value='highlighted-stat-var')
+    wait_elem(highlighted_sv, value='observation-chart')
+    chart_title = find_elem(highlighted_sv,
+                            by=By.XPATH,
+                            value='./div/div/div/h5/a')
     self.assertEqual(
         chart_title.text,
         'Count_Person_Male_AsianAlone for Mountain Viewopen_in_new')
-    self.assertTrue(chart_title.text.startswith('Count_Person_Male_AsianAlone'))
-    charts_section = self.driver.find_element(By.CLASS_NAME,
-                                              'statvars-charts-section')
-    observation_charts = charts_section.find_elements(By.CLASS_NAME,
-                                                      'observation-chart')
-    self.assertTrue(len(observation_charts) > 0)
+
+    # Assert has at least one observation.
+    charts_section = find_elem(self.driver, value='statvars-charts-section')
+    self.assertTrue(
+        len(find_elems(charts_section, value='observation-chart')) > 0)

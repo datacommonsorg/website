@@ -4,9 +4,7 @@
     "title_id": "CHART_TITLE-Electricity_consumption_per_capita",
     "title": "Electricity consumption per capita",
     "description": "Total amount of electricity consumed per person",
-    "variables": [
-      "Amount_Consumption_Electricity_PerCapita"
-    ],
+    "variables": ["Amount_Consumption_Electricity_PerCapita"],
     "denominator": [],
     "non_dividable": true,
     "scale": true,
@@ -49,13 +47,9 @@
     "title_id": "CHART_TITLE-Electricity_generation",
     "title": "Electricity generation per capita",
     "description": "Annual net electricity generation, all fuels, all sectors",
-    "variables": [
-      "Annual_Generation_Electricity"
-    ],
-    "denominator": [
-      "Count_Person"
-    ],
-    "non_dividable": false,
+    "variables": ["Annual_Generation_Electricity"],
+    "denominator": [],
+    "non_dividable": true,
     "scale": true,
     "unit": "kWh",
     "scaling": 100,
@@ -100,9 +94,7 @@
     "title_id": "CHART_TITLE-Electricity_price",
     "title": "Electricity price",
     "description": "Annual average retail price of electricity, all sectors",
-    "variables": [
-      "Annual_Average_RetailPrice_Electricity"
-    ],
+    "variables": ["Annual_Average_RetailPrice_Electricity"],
     "denominator": [],
     "non_dividable": true,
     "scale": true,
@@ -148,9 +140,7 @@
     "title_id": "CHART_TITLE-Energy_use",
     "title": "Energy use (kg of oil equivalent per capita)",
     "description": "Total amount of energy consumed per person, measured by kilogram of oil equivalent",
-    "variables": [
-      "Amount_Consumption_Energy_PerCapita"
-    ],
+    "variables": ["Amount_Consumption_Energy_PerCapita"],
     "denominator": [],
     "non_dividable": true,
     "scale": true,

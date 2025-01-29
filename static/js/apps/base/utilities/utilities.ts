@@ -50,7 +50,6 @@ export const resolveHref = (href: string, routes: Routes): string => {
   }
 };
 
-//TODO: Revisit the `slugify` function after the revamp of the home-page, as it may not be required.
 /*
   This function takes a string that may contain spaces and capital letters and returns a slugged version
   of the string in kebab-case. It is used to convert labels into slugs that can be used as part of html
