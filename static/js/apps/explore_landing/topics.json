@@ -310,12 +310,16 @@
             "url": "q=What+is+the+prevalence+of+Asthma+across+California+counties"
           },
           {
+            "title": "Have mortality rates decreased over the years in India?",
+            "url": "q=Have+mortality+rates+decreased+over+the+years+in+India"
+          },
+          {
             "title": "How does life expectancy vary across countries in Africa?",
             "url": "q=How+does+life+Expectancy+vary+across+countries+in+Africa"
           },
           {
-            "title": "Tell me about age distribution in the USA.",
-            "url": "q=Tell+me+about+age+distribution+in+the+USA."
+            "title": "What is the age distribution in the USA?",
+            "url": "q=What+is+the+age+distribution+in+the+USA"
           },
           {
             "title": "Which counties in Illinois have seen the greatest increase in the number of cancer deaths?",

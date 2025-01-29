@@ -35,7 +35,7 @@
     "category": "Demographics",
     "questions": [
       "Demographics around the world",
-      "Tell me about age distribution in the USA.",
+      "What is the age distribution in the USA?",
       "Which state in the US has the most Spanish speakers?"
     ]
   },
@@ -43,7 +43,8 @@
     "category": "Health",
     "questions": [
       "How does life expectancy vary across countries in Africa?",
-      "What is the prevalence of asthma across California counties?"
+      "What is the prevalence of asthma across California counties?",
+      "Have mortality rates decreased over the years in India?"
     ]
   }
 ]
