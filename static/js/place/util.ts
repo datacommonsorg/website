@@ -22,9 +22,9 @@ import {
 import _ from "lodash";
 import { defineMessages } from "react-intl";
 
-import { intl } from "../i18n/i18n";
+import { intl, localizeLink } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
-import { StatVarSpec } from "../shared/types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
@@ -73,6 +73,8 @@ const PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
   "Continent",
 ];
 
+const DATE_STR = "(${date})";
+
 /**
  * Returns the stat var key for a chart.
  *
@@ -117,25 +119,16 @@ function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
 }
 
 /**
- * Selects the appropriate enclosed place type to return given the placeScope and parent places.
- * @param placeScope string representing scope of places we want to show
- * @param place Current place
- * @returns string for the selected enclosed place type.
+ * Select the place type to highlight from provided list.
+ * @param placeTypes list of possible place types
+ * @returns the selected place_type.
  */
-function getEnclosedPlaceTypeOverride(
-  placeScope: string,
-  place: Place
-): string {
-  // If the scope is not one of the allowed values, return an empty string.
-  if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
-    return "";
-  }
-
+function firstPlaceTypeToHighlight(placeTypes: string[]): string {
   // Find the most important type from the place's types.
   let highlightedType = "";
   let lowestIndex = Infinity; // Start with a very high index
 
-  for (const currentType of place.types) {
+  for (const currentType of placeTypes) {
     const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
 
     if (currentIndex !== -1 && currentIndex < lowestIndex) {
@@ -147,16 +140,54 @@ function getEnclosedPlaceTypeOverride(
   return highlightedType;
 }
 
-// TODO(gmechali): Fix this once we decide what to do with i18n.
-function getTitle(title: string, placeScope: string): string {
-  if (placeScope === "PEER_PLACES_WITHIN_PARENT") {
-    return title + ": Peer places within parent";
-  } else if (placeScope === "CHILD_PLACES") {
-    return title + ": places within";
-  } else if (placeScope === "SIMILAR_PLACES") {
-    return title + ": other places";
+/**
+ * Selects the appropriate enclosed place type to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param place Current place
+ * @returns string for the selected enclosed place type.
+ */
+function getEnclosedPlaceTypeOverride(
+  placeScope: string,
+  place: Place
+): string {
+  switch (placeScope) {
+    case "CHILD_PLACES":
+      if (place.dcid == "Earth") {
+        // We do not have continent level data, so default to country.
+        return "Country";
+      }
+      return "";
+    case "SIMILAR_PLACES":
+    case "PEER_PLACES_WITHIN_PARENT":
+      return firstPlaceTypeToHighlight(place.types);
+    default:
+      return "";
   }
-  return title;
+}
+
+/**
+ * Creates a href for a place page category.
+ * @param category The category to create a href for.
+ * @param forceDevPlaces Whether to force dev places.
+ * @param place The place to create a href for.
+ * @returns The href for the place page category.
+ */
+export function createPlacePageCategoryHref(
+  category: string,
+  forceDevPlaces: boolean,
+  place: NamedTypedPlace
+): string {
+  const href = `/place/${place.dcid}`;
+  const params = new URLSearchParams();
+  const isOverview = category === "Overview";
+
+  if (!isOverview) {
+    params.set("category", category);
+  }
+  if (forceDevPlaces) {
+    params.set("force_dev_places", "true");
+  }
+  return params.size > 0 ? `${href}?${params.toString()}` : href;
 }
 
 /**
@@ -171,12 +202,21 @@ function getTitle(title: string, placeScope: string): string {
 export function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse,
   parentPlaces: Place[],
-  similarPlaces: Place[],
-  place: Place
+  peersWithinParent: string[],
+  place: Place,
+  isOverview: boolean,
+  forceDevPlaces: boolean
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
     (item) => item.category
+  );
+
+  const categoryNameToCategory = _.fromPairs(
+    placeChartsApiResponse.categories.map((category) => [
+      category.name,
+      category,
+    ])
   );
 
   const categoryConfig: CategoryConfig[] = Object.keys(blocksByCategory).map(
@@ -186,11 +226,18 @@ export function placeChartsApiResponsesToPageConfig(
       const statVarSpec: Record<string, StatVarSpec> = {};
 
       blocks.forEach((block: BlockConfig) => {
+        let blockTitle;
         const tiles = [];
         block.charts.forEach((chart: Chart) => {
+          if (!blockTitle) {
+            blockTitle = block.title;
+          }
+
+          const title = block.title;
           const tileConfig: TileConfig = {
-            description: block.description,
-            title: getTitle(block.title, block.placeScope),
+            /** Highlight charts use title as description */
+            description: title,
+            title: title + " " + DATE_STR,
             type: chart.type,
 
             statVarKey: block.statisticalVariableDcids.map(
@@ -222,27 +269,32 @@ export function placeChartsApiResponsesToPageConfig(
             tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
           }
 
-          if (block.placeScope === "SIMILAR_PLACES") {
-            // TODO(gmechali): Eventually get rid of this.
-            if (similarPlaces.length > 0) {
-              tileConfig.comparisonPlaces = [place.dcid].concat(
-                similarPlaces.map((p) => p.dcid)
-              );
-            }
-          }
-
+          let maxPlacesCount = 5;
           if (tileConfig.type === "RANKING") {
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 5;
             tileConfig.rankingTileSpec = {
               showHighest: false,
               showLowest: false,
               showHighestLowest: true,
               showMultiColumn: false,
-              rankingCount: chart.maxPlaces ? chart.maxPlaces : 5,
+              rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
             tileConfig.barTileSpec = {
-              maxPlaces: chart.maxPlaces ? chart.maxPlaces : 15,
+              maxPlaces: maxPlacesCount,
+              sort: "DESCENDING",
             };
+          }
+
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
+            // Pass peersWithinParents in comparisonPlaces with the right number of places.
+            tileConfig.comparisonPlaces = [place.dcid].concat(
+              peersWithinParent.slice(
+                0,
+                Math.min(maxPlacesCount - 1, peersWithinParent.length)
+              )
+            );
           }
           tiles.push(tileConfig);
         });
@@ -270,7 +322,7 @@ export function placeChartsApiResponsesToPageConfig(
         });
 
         newblocks.push({
-          title: tiles[0].title,
+          title: blockTitle,
           denom: block.denominator?.length > 0 ? block.denominator[0] : "",
           startWithDenom: false,
           columns: [{ tiles }],
@@ -280,8 +332,15 @@ export function placeChartsApiResponsesToPageConfig(
       const category: CategoryConfig = {
         blocks: newblocks,
         statVarSpec,
-        title: categoryName,
+        title:
+          categoryNameToCategory[categoryName].translatedName || categoryName,
       };
+      if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
+        category.url = localizeLink(
+          createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
+        );
+        category.linkText = intl.formatMessage(pageMessages.MoreCharts);
+      }
       return category;
     }
   );
@@ -416,6 +475,38 @@ const pluralPlaceTypeMessages = defineMessages({
     defaultMessage: "Places",
     description:
       'General collection of places. It is used when we don"t have a specific place type. Some examples: "_Places_ in Russia" as a header for a section with links to many places contained in Russia, as chart titles, such as "Median Age: _Places_ near Paris" or "Median Age: Other _Places_", or "Ranking for All _Places_ in Russia".',
+  },
+});
+
+export const pageMessages = defineMessages({
+  KnowledgeGraph: {
+    id: "knowledge_graph",
+    defaultMessage: "Knowledge Graph",
+    description: "Link to the Knowledge Graph for the current place",
+  },
+  RelevantTopics: {
+    id: "relevant_topics",
+    defaultMessage: "Relevant Topics",
+    description:
+      "Header text for the Relevant Topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
+  },
+  SummaryOverview: {
+    id: "summary_overview",
+    defaultMessage: "Summary Overview",
+    description:
+      "Header text for the Summary Overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
+  },
+  MoreCharts: {
+    id: "more_charts",
+    defaultMessage: "More charts",
+    description:
+      "Link text to show additional charts for the given chart category section for the current place.",
+  },
+  placesInPlace: {
+    id: "child_places_menu-places_in_place",
+    defaultMessage: "Places in {placeName}",
+    description:
+      'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
   },
 });
 

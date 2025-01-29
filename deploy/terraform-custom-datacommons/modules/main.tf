@@ -107,10 +107,24 @@ resource "google_sql_user" "mysql_user" {
 }
 
 # Data commons storage bucket
-resource "google_storage_bucket" "dc_gcs_data_bucket" {
-  name     = local.dc_gcs_data_bucket_path
-  location = var.dc_gcs_data_bucket_location
+resource "google_storage_bucket" "gcs_data_bucket" {
+  name     = local.gcs_data_bucket_name
+  location = var.gcs_data_bucket_location
   uniform_bucket_level_access = true
+}
+
+# Input 'folder' for the data loading job.
+resource "google_storage_bucket_object" "gcs_data_bucket_input_folder" {
+  name          = "${var.gcs_data_bucket_input_folder}/"
+  content       = "Input folder"
+  bucket        = "${google_storage_bucket.gcs_data_bucket.name}"
+}
+
+# Output 'folder' for the data loading job.
+resource "google_storage_bucket_object" "gcs_data_bucket_output_folder" {
+  name          = "${var.gcs_data_bucket_output_folder}/"
+  content       = "Output folder"
+  bucket        = "${google_storage_bucket.gcs_data_bucket.name}"
 }
 
 # Generate a random suffix to append to api keys.
@@ -305,6 +319,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
     google_secret_manager_secret_version.mysql_password_version,
     google_secret_manager_secret_version.dc_api_key_version,
     google_secret_manager_secret_version.maps_api_key_version,
+    null_resource.run_db_init
   ]
 }
 
@@ -360,7 +375,7 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
 
         env {
           name  = "INPUT_DIR"
-          value = "gs://${local.dc_gcs_data_bucket_path}/input"
+          value = "gs://${local.gcs_data_bucket_name}/${var.gcs_data_bucket_input_folder}"
         }
       }
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
@@ -378,4 +393,28 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
     google_secret_manager_secret_version.dc_api_key_version,
     google_secret_manager_secret_version.maps_api_key_version
   ]
+}
+
+# Run the db init job on terraform apply
+resource "null_resource" "run_db_init" {
+  depends_on = [
+    google_cloud_run_v2_job.dc_data_job,
+    google_sql_database_instance.mysql_instance
+  ]
+
+  # Force the db init job to be run on each terraform apply
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = <<EOT
+      # 1) Execute the schema update / initialization job
+      gcloud run jobs execute ${var.namespace}-datacommons-data-job \
+        --update-env-vars DATA_RUN_MODE=schemaupdate \
+        --region=${var.region} \
+        --project=${var.project_id} \
+        --wait
+    EOT
+  }
 }

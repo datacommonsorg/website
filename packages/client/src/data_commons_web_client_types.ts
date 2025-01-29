@@ -148,7 +148,7 @@ export type ObservationDatesApiResponse = {
 type ChartType = "BAR" | "LINE" | "MAP" | "RANKING" | "HIGHLIGHT";
 export interface Chart {
   type: ChartType;
-  maxPlaces?: number; 
+  maxPlaces?: number;
 }
 
 export interface Place {
@@ -158,7 +158,7 @@ export interface Place {
 }
 
 export interface BlockConfig {
-  charts: Chart[]
+  charts: Chart[];
   childPlaceType: string;
   childPlaces: Place[];
   nearbyPlaces: Place[];
@@ -175,13 +175,19 @@ export interface BlockConfig {
   scaling?: number; // Optional
 }
 
+export interface Category {
+  name: string;
+  translatedName: string;
+  hasMoreCharts: boolean;
+}
+
 /**
  * Website API response for /api/dev-place/charts/<place_dcid>
  */
 export interface PlaceChartsApiResponse {
   blocks: BlockConfig[];
   place: Place;
-  translatedCategoryStrings: Record<string, string>;
+  categories: Category[];
 }
 
 /**
@@ -194,4 +200,21 @@ export interface RelatedPlacesApiResponse {
   place: Place;
   similarPlaces: Place[];
   parentPlaces: Place[];
+  peersWithinParent: string[];
+}
+
+export interface OverviewTableDataRow {
+  date: string;
+  name: string;
+  provenanceUrl: string;
+  value: number;
+  variableDcid: string;
+  unit?: string;
+}
+
+/**
+ * Website API response for /api/dev-place/overview-table/<place_dcid>
+ */
+export interface PlaceOverviewTableApiResponse {
+  data: OverviewTableDataRow[];
 }

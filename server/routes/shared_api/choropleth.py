@@ -83,6 +83,15 @@ MULTILINE_GEOJSON_TYPE = "MultiLineString"
 MULTIPOLYGON_GEOJSON_TYPE = "MultiPolygon"
 POLYGON_GEOJSON_TYPE = "Polygon"
 
+# Override the choropleth display level map for special cases where the detail
+# level returned by CHOROPLETH_GEOJSON_DP_LEVEL_MAP is too low for the specific
+# place (this can happen for small countries and overseas territories).
+# TODO: Remove this once we have a better way to handle special cases
+OVERRIDE_CHOROPLETH_DISPLAY_LEVEL_MAP = {
+    'geoId/72': 'geoJsonCoordinatesDP1',
+    'country/TLS': 'geoJsonCoordinatesDP1'
+}
+
 
 @cache.memoize(timeout=TIMEOUT)
 def get_choropleth_display_level(geoDcid):
@@ -259,10 +268,10 @@ def geojson():
   # dp level for the place type
   geojson_prop = geojson_prop + CHOROPLETH_GEOJSON_DP_LEVEL_MAP.get(
       place_type, "")
-  # geoId/72 needs higher resolution geojson because otherwise, the map looks
-  # too fragmented
-  if place_dcid == 'geoId/72':
-    geojson_prop = 'geoJsonCoordinatesDP1'
+
+  # Override geojson prop for special cases to avoid fetching over-simplified geojson
+  if place_dcid in OVERRIDE_CHOROPLETH_DISPLAY_LEVEL_MAP:
+    geojson_prop = OVERRIDE_CHOROPLETH_DISPLAY_LEVEL_MAP[place_dcid]
   names_by_geo = {}
   if place_name_prop:
     names_by_geo = shared.names(geos, place_name_prop)

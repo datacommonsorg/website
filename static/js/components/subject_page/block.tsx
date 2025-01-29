@@ -705,7 +705,7 @@ function renderTiles(
     return (
       <div className="row">
         {tilesJsx.map((tileJsx, tileJsxIndex) => (
-          <div key={tileJsxIndex} className="col-xl-6">
+          <div key={tileJsxIndex} className="col-md-6">
             {tileJsx}
           </div>
         ))}
