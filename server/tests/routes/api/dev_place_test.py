@@ -86,8 +86,8 @@ class TestPlaceAPI(unittest.TestCase):
 
       # Optionally, check that the charts have the correct titles
       block_titles = [block['title'] for block in response_json['blocks']]
-      self.assertIn('Total crime', block_titles)
-      self.assertIn('Education attainment', block_titles)
+      self.assertIn('United States: Total crime', block_titles)
+      self.assertIn('United States: Education attainment', block_titles)
 
       # Check that the 'place' field contains correct place information
       self.assertEqual(response_json['place']['dcid'], place_dcid)
