@@ -74,7 +74,6 @@ async def place_charts(place_dcid: str):
     highlight, and the current place type to highlight.
     Returns a Tuple with the Place override, the child place type & place type.
     """
-    # 
     parent_place_override_task = asyncio.to_thread(
         place_utils.get_place_override,
         place_utils.get_parent_places(place_dcid), g.locale)
