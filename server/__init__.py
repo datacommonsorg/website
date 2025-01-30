@@ -45,6 +45,26 @@ BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
 
 
+# Helper method to get an api key first from the environment, then from GCP secrets.
+# TODO: use this method everywhere else that is applicable in this file
+def _get_api_key(env_keys=[], secret_project='', secret_path=''):
+  # Try to get the key from the environment
+  for k in env_keys:
+    if os.environ.get(k):
+      return os.environ.get(k)
+
+  # Try to get the key from secrets
+  if secret_project and secret_path:
+    secret_client = secretmanager.SecretManagerServiceClient()
+    secret_name = secret_client.secret_version_path(secret_project, secret_path,
+                                                    'latest')
+    secret_response = secret_client.access_secret_version(name=secret_name)
+    return secret_response.payload.data.decode('UTF-8').replace('\n', '')
+
+  # If key is not found, return an empty string
+  return ''
+
+
 def register_routes_base_dc(app):
   # apply the blueprints for all apps
   from server.routes.dev import html as dev_html
@@ -130,6 +150,23 @@ def register_routes_sustainability(app):
   app.config[
       'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
       )
+
+
+def register_routes_datagemma(app, cfg):
+  # Install blueprint for DataGemma page
+  from server.routes.dev_datagemma import api as dev_datagemma_api
+  app.register_blueprint(dev_datagemma_api.bp)
+  from server.routes.dev_datagemma import html as dev_datagemma_html
+  app.register_blueprint(dev_datagemma_html.bp)
+
+  # Set the gemini api key
+  app.config['GEMINI_API_KEY'] = _get_api_key(['GEMINI_API_KEY'],
+                                              cfg.SECRET_PROJECT,
+                                              'gemini-api-key')
+  # Set the DC NL api key
+  app.config['DC_NL_API_KEY'] = _get_api_key(['DC_NL_API_KEY'],
+                                             cfg.SECRET_PROJECT,
+                                             'dc-nl-api-key')
 
 
 def register_routes_common(app):
@@ -281,6 +318,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if cfg.SHOW_SUSTAINABILITY:
     register_routes_sustainability(app)
+
+  if cfg.ENABLE_DATAGEMMA:
+    register_routes_datagemma(app, cfg)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()

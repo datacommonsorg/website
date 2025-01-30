@@ -40,3 +40,4 @@ typing-extensions==4.10.0
 webdriver-manager==4.0.0
 Werkzeug==3.0.6
 wheel==0.38.1
+git+https://github.com/datacommonsorg/llm-tools.git
