@@ -87,7 +87,8 @@ async def place_charts(place_dcid: str):
                                 child_place_type_to_highlight_task,
                                 place_type_task)
 
-  parent_place_override, child_place_type_to_highlight, place_type = await fetch_place_types()
+  parent_place_override, child_place_type_to_highlight, place_type = await fetch_place_types(
+  )
   parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
   # Filter out place page charts that don't have any data for the current place_dcid
@@ -148,7 +149,9 @@ async def related_places(place_dcid: str):
   primary_child_place_type = ordered_child_place_types[
       0] if ordered_child_place_types else None
 
-  async def get_related_place_dcids_async(place: Place) -> tuple[list[str], list[str], list[Place], list[str], list[list[str]]]:
+  async def get_related_place_dcids_async(
+      place: Place
+  ) -> tuple[list[str], list[str], list[Place], list[str], list[list[str]]]:
     """Helper function to execute asynchronously the calls to fetch the DCIDs
      for the child places, nearby places, similar places, parent places and peer places within parent.
      Returns lists of DCIDs or Places for each type of related places."""

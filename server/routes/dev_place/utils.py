@@ -816,7 +816,8 @@ def translate_chart_config(
   return translated_chart_config
 
 
-def get_block_count_per_category(chart_config: List[ServerChartConfiguration]) -> Dict[str, int]:
+def get_block_count_per_category(
+    chart_config: List[ServerChartConfiguration]) -> Dict[str, int]:
   """Computes the number of blocks per category.
   Returns a Dict from category name to block count."""
   overview_block_count_per_category = {}
@@ -840,12 +841,13 @@ def get_categories_metadata(
   block_count_all_charts = {}
   if category == 'Overview':
     # Fetch the count of blocks for the overview charts, and per category charts.
-    block_count_category_charts = get_block_count_per_category(existing_chart_config_for_category)
-    block_count_all_charts =  get_block_count_per_category(existing_chart_config)
-
+    block_count_category_charts = get_block_count_per_category(
+        existing_chart_config_for_category)
+    block_count_all_charts = get_block_count_per_category(existing_chart_config)
 
   categories: List[Category] = []
-  categories_set: Set[str] = set([item.category for item in existing_chart_config])
+  categories_set: Set[str] = set(
+      [item.category for item in existing_chart_config])
 
   for category in ORDERED_TOPICS:
     if not category in categories_set:
@@ -856,9 +858,10 @@ def get_categories_metadata(
     has_more_charts = block_count_category_charts.get(
         category, 0) < block_count_all_charts.get(category, 0)
 
-    category = Category(name=category,
-                        translatedName=gettext(f'CHART_TITLE-CHART_CATEGORY-{category}'),
-                        hasMoreCharts=has_more_charts)
+    category = Category(
+        name=category,
+        translatedName=gettext(f'CHART_TITLE-CHART_CATEGORY-{category}'),
+        hasMoreCharts=has_more_charts)
     categories.append(category)
   return categories
 
