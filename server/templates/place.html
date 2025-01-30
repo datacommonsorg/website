@@ -27,6 +27,7 @@ limitations under the License.
   {% set description = _('Statistics about {category} in {place_name}.'.format(category=category, place_name=place_name)) %}
 {% endif %}
 {% set place_category = category %}
+{% set new_place_page = false %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/place_page.min.css' , t=config['VERSION'])}}>
