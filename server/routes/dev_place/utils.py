@@ -486,8 +486,8 @@ def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
   # Check if geo data exists for at least one of the child places.
   for _place_dcid in place_properties.keys():
     properties = place_properties[_place_dcid].get("properties", [])
-    for property in properties:
-      if property in geo_properties:
+    for prop in properties:
+      if prop in geo_properties:
         return True
   return False
 
