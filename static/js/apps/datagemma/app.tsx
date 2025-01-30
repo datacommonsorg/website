@@ -36,8 +36,8 @@ const RAG_MODE = "rag";
 // Constants for URL hash parameters
 const URL_HASH_PARAMS = {
   query: "q",
-  mode: "m"
-}
+  mode: "m",
+};
 
 // Interface for the displayed answer.
 interface DisplayedAnswer {
@@ -133,7 +133,7 @@ export function App(): ReactElement {
       .catch(() => {
         setAnswer({
           answer: "There was a problem running the query, please try again.",
-          footnotes: ""
+          footnotes: "",
         });
       })
       .finally(() => {
@@ -156,7 +156,7 @@ export function App(): ReactElement {
         <div className="mode-input">
           {[RIG_MODE, RAG_MODE].map((m) => {
             return (
-              <div className="mode-option">
+              <div className="mode-option" key={m}>
                 <Input
                   type="radio"
                   name=""
@@ -168,7 +168,8 @@ export function App(): ReactElement {
                   }}
                 />
                 <label>{m}</label>
-              </div>)
+              </div>
+            );
           })}
         </div>
         <div onClick={onQueryRun} className="btn btn-primary">

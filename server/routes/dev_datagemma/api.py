@@ -23,18 +23,20 @@ from flask import current_app
 from flask import request
 
 # Define blueprint
-bp = flask.Blueprint('dev_datagemma_api', __name__, url_prefix='/api/dev/datagemma')
+bp = flask.Blueprint('dev_datagemma_api',
+                     __name__,
+                     url_prefix='/api/dev/datagemma')
 
 _RIG_MODE = 'rig'
 _RAG_MODE = 'rag'
 
 # TODO: consider moving these specifications to a config somewhere
 _VERTEX_AI_RIG = VertexAI(project_id='datcom-website-dev',
-                         location='us-central1',
-                         prediction_endpoint_id='4999251772590522368')
+                          location='us-central1',
+                          prediction_endpoint_id='4999251772590522368')
 _VERTEX_AI_RAG = VertexAI(project_id='datcom-website-dev',
-                         location='us-central1',
-                         prediction_endpoint_id='3459865124959944704')
+                          location='us-central1',
+                          prediction_endpoint_id='3459865124959944704')
 
 
 def _get_datagemma_answer(query, mode):
