@@ -5,44 +5,40 @@ on:
     branches:
       - master
     paths:
-      - 'server/configs/feature_flags/*.json'
+      - 'server/configs/feature_flags/autopush.json'
 
 jobs:
   update_flags:
     strategy:
       matrix:
-        environment: [autopush, dev, staging, production]
+        environment: [autopush]
         flag_file:
           - autopush: 'server/configs/feature_flags/autopush.json'
-          - dev: 'server/configs/feature_flags/dev.json'
-          - staging: 'server/configs/feature_flags/staging.json'
-          - production: 'server/configs/feature_flags/production.json'
         include:
           - environment: autopush
             flag_file: 'server/configs/feature_flags/autopush.json'
-          - environment: dev
-            flag_file: 'server/configs/feature_flags/dev.json'
-          - environment: staging
-            flag_file: 'server/configs/feature_flags/staging.json'
-          - environment: production
-            flag_file: 'server/configs/feature_flags/production.json'
+            gcp_project_number_secret: GCP_PROJECT_NUMBER_AUTOPUSH # Use project NUMBER
+            workload_identity_provider_secret: WORKLOAD_IDENTITY_PROVIDER_AUTOPUSH
+            service_account_secret: SERVICE_ACCOUNT_AUTOPUSH
 
     name: Update flags for ${{ matrix.environment }}
 
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Crucial for Workload Identity Federation
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
         with:
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ secrets[matrix.workload_identity_provider_secret] }}
+          service_account: ${{ secrets[matrix.service_account_secret] }}
 
       - name: Run script
         run: |
           ./scripts/update_gcs_feature_flags.sh ${{ matrix.environment }}
         env:
-          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCP_PROJECT_ID: ${{ secrets[matrix.gcp_project_number_secret] }} # Now the project NUMBER
