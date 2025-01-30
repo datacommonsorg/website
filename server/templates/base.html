@@ -48,6 +48,8 @@
     gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
       client_storage: 'none',
       anonymize_ip: true,
+      {# TODO: Remove new_place_page custom dimension after full launch #}
+      {{ ("new_place_page: {},"|safe).format('true' if new_place_page else 'false') if new_place_page is defined else "" }}
       {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
       {{ ("send_page_view: false,"|safe) if manual_ga_pageview else "" }}
     });
