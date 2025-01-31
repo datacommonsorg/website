@@ -560,7 +560,7 @@
                       "startDate": "2020"
                     },
                     "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1151455814"
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1123266408"
                     ],
                     "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
                     "type": "LINE"
@@ -716,7 +716,7 @@
                       "startDate": "2020"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_3357919774"
+                      "Median_Age_Person_3795540742"
                     ],
                     "title": "Median Age of Population in United States",
                     "type": "LINE"
@@ -774,8 +774,8 @@
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
-          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1151455814": {
-            "facetId": "1151455814",
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1123266408": {
+            "facetId": "1123266408",
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
@@ -923,8 +923,8 @@
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "Median_Age_Person_3357919774": {
-            "facetId": "3357919774",
+          "Median_Age_Person_3795540742": {
+            "facetId": "3795540742",
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },

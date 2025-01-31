@@ -13,6 +13,68 @@
                       "startDate": "2024"
                     },
                     "statVarKey": [
+                      "Count_Person_2176550201"
+                    ],
+                    "title": "Population in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in United States",
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2024"
+                    },
+                    "statVarKey": [
                       "Count_Person_Employed_3707913853"
                     ],
                     "title": "Population With Current Employment in United States",
@@ -166,6 +228,15 @@
           }
         ],
         "statVarSpec": {
+          "Count_Person": {
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
+          "Count_Person_2176550201": {
+            "facetId": "2176550201",
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
           "Count_Person_Employed": {
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
@@ -580,22 +651,50 @@
     },
     "childTopics": [
       {
-        "dcid": "dc/topic/Jobs",
-        "name": "Jobs",
+        "dcid": "dc/topic/Age",
+        "name": "Age",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/UnemploymentRate",
-        "name": "Unemployment Rate",
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/UnpaidFamilyWorkers",
-        "name": "Unpaid Family Workers",
+        "dcid": "dc/topic/Race",
+        "name": "Population by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Language",
+        "name": "Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MaritalStatus",
+        "name": "Marital Status",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Veterans",
+        "name": "Veterans",
         "types": [
           "Topic"
         ]
@@ -604,8 +703,8 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
         "types": [
           "Topic"
         ]
@@ -614,8 +713,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
         "types": [
           "Topic"
         ]
@@ -723,43 +822,36 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
+        "dcid": "dc/topic/Health",
+        "name": "Health",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
         "types": [
           "Topic"
         ]

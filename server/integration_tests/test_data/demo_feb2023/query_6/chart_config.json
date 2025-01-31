@@ -537,7 +537,7 @@
                     "statVarKey": [
                       "Percent_Person_ReceivedCholesterolScreening"
                     ],
-                    "title": "Prevalence: Cholesterol Screening in Placer County",
+                    "title": "Percentage of Adult Population Received Cholesterol Screening in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -545,17 +545,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Prevalence: Cholesterol Screening in Placer County",
+                    "description": "Percentage of Adult Population Received Cholesterol Screening in Placer County",
                     "statVarKey": [
                       "Percent_Person_ReceivedCholesterolScreening"
                     ],
-                    "title": "Prevalence: Cholesterol Screening in Placer County",
+                    "title": "Percentage of Adult Population Received Cholesterol Screening in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Prevalence: Cholesterol Screening"
+            "title": "Percentage of Adult Population Received Cholesterol Screening"
           },
           {
             "columns": [
@@ -569,7 +569,7 @@
                     "statVarKey": [
                       "Percent_Person_ReceivedCholesterolScreening"
                     ],
-                    "title": "Prevalence: Cholesterol Screening in Cities of Placer County (${date})",
+                    "title": "Percentage of Adult Population Received Cholesterol Screening in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -580,13 +580,13 @@
                     "statVarKey": [
                       "Percent_Person_ReceivedCholesterolScreening"
                     ],
-                    "title": "Prevalence: Cholesterol Screening in Cities of Placer County (${date})",
+                    "title": "Percentage of Adult Population Received Cholesterol Screening in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Prevalence: Cholesterol Screening in Cities of Placer County"
+            "title": "Percentage of Adult Population Received Cholesterol Screening in Cities of Placer County"
           },
           {
             "columns": [
@@ -1477,7 +1477,7 @@
             "unit": "%"
           },
           "Percent_Person_ReceivedCholesterolScreening": {
-            "name": "Prevalence: Cholesterol Screening",
+            "name": "Percentage of Adult Population Received Cholesterol Screening",
             "statVar": "Percent_Person_ReceivedCholesterolScreening",
             "unit": "%"
           },
