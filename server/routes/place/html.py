@@ -342,13 +342,6 @@ def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
   if not is_feature_enabled(PLACE_PAGE_EXPERIMENT_FEATURE_FLAG):
     return False
 
-  # Disable dev place experiment for non-dev environments
-  # TODO(dwnoble): Remove this before prod release
-  if os.environ.get('FLASK_ENV') not in [
-      'local', 'autopush', 'dev', 'webdriver'
-  ] or not place_dcid:
-    return False
-
   # Force dev place experiment for testing
   if request_args.get("force_dev_places") == "true":
     return True
