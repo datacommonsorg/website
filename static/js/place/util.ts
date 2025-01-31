@@ -22,6 +22,11 @@ import {
 import _ from "lodash";
 
 import { intl, localizeLink } from "../i18n/i18n";
+import {
+  pageMessages,
+  pluralPlaceTypeMessages,
+  singularPlaceTypeMessages,
+} from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
@@ -30,11 +35,6 @@ import {
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
-import {
-  pageMessages,
-  pluralPlaceTypeMessages,
-  singularPlaceTypeMessages,
-} from "./i18n_messages";
 
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.

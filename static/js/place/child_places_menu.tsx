@@ -17,7 +17,7 @@
 import React from "react";
 
 import { intl, LocalizedLink } from "../i18n/i18n";
-import { pageMessages } from "./i18n_messages";
+import { pageMessages } from "../i18n/i18n_place_messages";
 import { displayNameForPlaceType } from "./util";
 
 interface ChildPlacePropType {
