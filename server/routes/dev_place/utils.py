@@ -25,6 +25,7 @@ from flask_babel import gettext
 from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
+from server.lib.i18n_messages import OTHER_PLACES_IN_PARENT_PLACE_STR, PLACE_OVERVIEW_TABLE_VARIABLES, PLACE_TYPE_IN_PARENT_PLACES_STR
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
@@ -59,31 +60,6 @@ ORDERED_TOPICS = [
 TOPICS = set(ORDERED_TOPICS)
 OVERVIEW_CATEGORY = "Overview"
 ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
-
-PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
-OTHER_PLACES_IN_PARENT_PLACE_STR = 'Other  %(placeType)s in %(parentPlace)s'
-
-# Variables to include in overview table
-PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
-    {
-        "variable_dcid": "Count_Person",
-        "i18n_message_id": "VARIABLE_NAME-Count_Person"
-    },
-    {
-        "variable_dcid": "Median_Income_Person",
-        "i18n_message_id": "VARIABLE_NAME-Median_Income_Person"
-    },
-    {
-        "variable_dcid": "Median_Age_Person",
-        "i18n_message_id": "VARIABLE_NAME-Median_Age_Person"
-    },
-    {
-        "variable_dcid": "UnemploymentRate_Person",
-        "i18n_message_id": "VARIABLE_NAME-UnemploymentRate_Person",
-        "unit": "Percent"
-    },
-]
-
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
   """Get <a href-place page url> tag linking to the place page for a place

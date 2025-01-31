@@ -23,7 +23,8 @@ import { LocationCity } from "../components/elements/icons/location_city";
 import { GoogleMap } from "../components/google_map";
 import { formatDate, formatNumber, intl } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
-import { isPlaceContainedInUsa, pageMessages } from "./util";
+import { pageMessages } from "./i18n_messages";
+import { isPlaceContainedInUsa } from "./util";
 
 /**
  * Component that displays a table of key demographic statistics for a place.
@@ -83,7 +84,7 @@ const PlaceOverviewTable = (props: {
         <thead>
           <tr>
             <th scope="col" colSpan={2}>
-              Key Demographics
+              {intl.formatMessage(pageMessages.KeyDemographics)}
             </th>
             <th scope="col"></th>
           </tr>

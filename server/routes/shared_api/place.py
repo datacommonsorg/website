@@ -28,6 +28,7 @@ from markupsafe import escape
 from server.lib import fetch
 from server.lib.cache import cache
 import server.lib.i18n as i18n
+from server.lib.i18n_messages import PLACE_TYPE_TO_LOCALE_MESSAGE, PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL
 from server.lib.shared import names
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
@@ -108,39 +109,6 @@ PLACE_OVERRIDE = {
     "wikidataId/Q281796": "wikidataId/Q2981389",
 }
 
-# Place type to the message id that holds its translation
-PLACE_TYPE_TO_LOCALE_MESSAGE = {
-    "AdministrativeArea": "singular_administrative_area",
-    "AdministrativeArea<Level>": "singular_administrative_area_level",
-    "Borough": "singular_borough",
-    "City": "singular_city",
-    "Country": "singular_country",
-    "County": "singular_county",
-    "EurostatNUTS<Level>": "singular_eurostat_nuts",
-    "Neighborhood": "singular_neighborhood",
-    "Place": "singular_place",
-    "State": "singular_state",
-    "Town": "singular_town",
-    "Village": "singular_village",
-    "CensusZipCodeTabulationArea": "singular_zip_code",
-}
-
-# Place type to the message id that holds its translation
-PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL = {
-    "AdministrativeArea": "plural_administrative_area",
-    "AdministrativeArea<Level>": "plural_administrative_area_level",
-    "Borough": "plural_borough",
-    "City": "plural_city",
-    "Country": "plural_country",
-    "County": "plural_county",
-    "EurostatNUTS<Level>": "plural_eurostat_nuts",
-    "Neighborhood": "plural_neighborhood",
-    "Place": "plural_place",
-    "State": "plural_state",
-    "Town": "plural_town",
-    "Village": "plural_village",
-    "CensusZipCodeTabulationArea": "plural_zip_code",
-}
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
