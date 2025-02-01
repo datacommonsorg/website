@@ -57,6 +57,7 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
 
     # Raise no embeddings exception if the embeddings path does not have any embeddings.
     if _is_csv_empty_or_header_only(embeddings_path):
+      logging.info(f'Empty file from {embeddings_path}')
       raise NoEmbeddingsException()
 
     self.dataset_embeddings: torch.Tensor = None
@@ -119,10 +120,13 @@ def _is_csv_empty_or_header_only(file_path):
   """
   with open(file_path, 'r', newline='') as csvfile:
     reader = csv.reader(csvfile)
+    logging.info(f'reading {file_path}')
     try:
       # Read the first row (header)
+      logging.info("reading first line")
       next(reader)
       # Try reading the second row
+      logging.info("reading second line")
       next(reader)
       # If no exception is raised, there are more rows than just the header
       return False
