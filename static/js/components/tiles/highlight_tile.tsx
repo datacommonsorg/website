@@ -201,7 +201,7 @@ export const fetchData = async (
     // digits to get the first non-zero digit and the number after
     // TODO: think about adding a limit to the number of digits.
     numFractionDigitsUsed =
-      Math.abs(value) >= 1
+      Math.abs(value) >= 1 || value === 0
         ? numFractionDigits
         : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
     if (scaling) {
