@@ -25,6 +25,6 @@ echo "printing downloaded csv files"
 
 find /tmp -type f -name "*.csv" -print0 | while IFS= read -r -d $'\0' file; do
   echo "--- $file ---"  # Print the filename as a header
-  head -n 2 "$file"    # Print the first 2 lines of the file
+  head -n 3 "$file"    # Print the first 2 lines of the file
   echo ""             # Add an empty line for better readability
 done
