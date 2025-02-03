@@ -13,6 +13,7 @@
 # limitations under the License.
 """Helper functions for place page routes"""
 
+import asyncio
 import copy
 import random
 import re
@@ -216,7 +217,7 @@ def place_type_to_highlight(place_types: List[str]) -> str | None:
   return None
 
 
-def filter_chart_configs_for_category(
+def filter_chart_config_for_category(
     place_category: str, full_chart_config: List[ServerChartConfiguration]
 ) -> List[ServerChartConfiguration]:
   """
@@ -248,23 +249,28 @@ def filter_chart_configs_for_category(
 def count_places_per_stat_var(
     obs_point_response,
     stat_var_dcids: list[str],
-    places_to_consider: list[str] = None) -> List[Dict[str, int]]:
+    place_count_threshold: int = 1,
+    places_to_consider: list[str] = []) -> List[Dict[str, int]]:
   """
   Returns a count of places with data for each stat var.
   Removes the Stat var entirely if there are 0 places with data. 
   If there are more than 2 places with data, we just store it as 2.
   """
   stat_var_to_places_with_data = {}
+  places_to_consider = places_to_consider[:15] if places_to_consider else []
   for stat_var_dcid in stat_var_dcids:
     places_with_data = 0
-    for place_dcid in obs_point_response["byVariable"].get(stat_var_dcid,
-                                                           {}).get(
-                                                               "byEntity", {}):
-      if places_to_consider is None or place_dcid in places_to_consider:
+    observations = obs_point_response["byVariable"].get(stat_var_dcid,
+                                                        {}).get("byEntity", {})
+    for place_dcid in observations:
+      if not observations[place_dcid]:
+        continue
+
+      if not places_to_consider or place_dcid in places_to_consider:
         places_with_data += 1
 
-        if places_with_data == 2:
-          break  # At least 2, no need to keep iterating.
+        if places_with_data == place_count_threshold:
+          break  # At least place_count_threshold number of places, no need to keep iterating.
 
     if places_with_data > 0:
       stat_var_to_places_with_data[stat_var_dcid] = places_with_data
@@ -273,12 +279,10 @@ def count_places_per_stat_var(
 
 
 @cache.memoize(timeout=TIMEOUT)
-def filter_chart_config_by_place_dcid(
-    chart_config: List[ServerChartConfiguration],
-    place_dcid: str,
-    place_type: str,
-    child_place_type=str,
-    parent_place_dcid=str) -> List[ServerChartConfiguration]:
+async def filter_chart_config_for_data_existence(
+    chart_config: List[ServerChartConfiguration], place_dcid: str,
+    place_type: str, child_place_type: str,
+    parent_place_dcid: str) -> List[ServerChartConfiguration]:
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   
@@ -289,6 +293,56 @@ def filter_chart_config_by_place_dcid(
   Returns:
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
   """
+
+  async def fetch_and_process_stats():
+    """Fetches and processes observation data concurrently."""
+
+    current_place_obs_point_task = asyncio.to_thread(
+        dc.obs_point, [place_dcid], current_place_stat_var_dcids)
+    child_places_obs_point_within_task = asyncio.to_thread(
+        dc.obs_point_within, place_dcid, child_place_type,
+        child_places_stat_var_dcids)
+    peer_places_obs_point_within_task = asyncio.to_thread(
+        dc.obs_point_within, parent_place_dcid, place_type,
+        peer_places_stat_var_dcids)
+
+    fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
+                                               place_dcid, [place_type])
+
+    current_place_obs_point_response, child_places_obs_point_within, peer_places_obs_point_within, fetch_peer_places = await asyncio.gather(
+        current_place_obs_point_task, child_places_obs_point_within_task,
+        peer_places_obs_point_within_task, fetch_peer_places_task)
+
+    count_places_per_child_sv_task = asyncio.to_thread(
+        count_places_per_stat_var, child_places_obs_point_within,
+        child_places_stat_var_dcids, 2)
+    count_places_per_peer_sv_task = asyncio.to_thread(
+        count_places_per_stat_var, peer_places_obs_point_within,
+        peer_places_stat_var_dcids, 2, fetch_peer_places)
+    count_places_per_sv_task = asyncio.to_thread(
+        count_places_per_stat_var, current_place_obs_point_response,
+        current_place_stat_var_dcids, 1)
+
+    # Check if child place & peer places have geo data available. These can run concurrently.
+    child_geo_task = asyncio.to_thread(
+        check_geo_data_exists, place_dcid,
+        child_place_type) if found_child_place_map else asyncio.Future()
+    if not found_child_place_map:
+      child_geo_task.set_result(False)
+
+    peer_geo_task = asyncio.to_thread(
+        check_geo_data_exists, parent_place_dcid, place_type
+    ) if found_peer_places_map and parent_place_dcid else asyncio.Future()
+    if not (found_peer_places_map and parent_place_dcid):
+      peer_geo_task.set_result(False)
+
+    # Gather all tasks, including the ones previously created with asyncio.to_thread
+    current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data = await asyncio.gather(
+        count_places_per_sv_task, count_places_per_child_sv_task,
+        count_places_per_peer_sv_task, child_geo_task, peer_geo_task)
+
+    return current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data
+
   # Get a flat list of all statistical variable dcids in the chart config
   current_place_stat_var_dcids = []
   child_places_stat_var_dcids = []
@@ -323,37 +377,8 @@ def filter_chart_config_by_place_dcid(
     if needs_peer_places_data:
       peer_places_stat_var_dcids.extend(variables)
 
-  # Find stat vars that have data for our place dcid
-  current_place_obs_point_response = dc.obs_point(
-      entities=[place_dcid], variables=current_place_stat_var_dcids)
-  current_place_stat_vars_with_observations = set([
-      stat_var_dcid for stat_var_dcid in current_place_stat_var_dcids
-      if current_place_obs_point_response["byVariable"].get(
-          stat_var_dcid, {}).get("byEntity", {}).get(place_dcid, {})
-  ])
-
-  # Find stat vars that have data for our child places
-  child_places_obs_point_response = dc.obs_point_within(
-      place_dcid, child_place_type, variables=child_places_stat_var_dcids)
-  child_stat_var_to_places_with_data = count_places_per_stat_var(
-      child_places_obs_point_response, child_places_stat_var_dcids)
-
-  # find stat vars that have data for our peer places. We only want to keep
-  # these stat vars if there is data for more than one place.
-  peer_places_within = fetch_peer_places_within(place_dcid, [place_type])[:15]
-  peer_places_obs_point_response = dc.obs_point_within(
-      parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
-  peer_stat_var_to_places_with_data = count_places_per_stat_var(
-      peer_places_obs_point_response, peer_places_stat_var_dcids,
-      peer_places_within)
-
-  # Check if child place & peer places have geo data available.
-  child_places_have_geo_data = check_geo_data_exists(
-      place_dcid, child_place_type) if found_child_place_map else False
-  # (Ensure parent_place_dcid is set to account for "Earth" not having a parent place)
-  peer_places_have_geo_data = check_geo_data_exists(
-      parent_place_dcid,
-      place_type) if found_peer_places_map and parent_place_dcid else False
+  current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data = await fetch_and_process_stats(
+  )
 
   # Build set of all stat vars that have data for our place & children places
   stat_vars_with_observations_set = set(
@@ -461,8 +486,8 @@ def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
   # Check if geo data exists for at least one of the child places.
   for _place_dcid in place_properties.keys():
     properties = place_properties[_place_dcid].get("properties", [])
-    for property in properties:
-      if property in geo_properties:
+    for prop in properties:
+      if prop in geo_properties:
         return True
   return False
 
@@ -791,72 +816,54 @@ def translate_chart_config(
   return translated_chart_config
 
 
-def get_categories_with_more_charts(
-    category: str, categories: List[Category],
-    existing_chart_config: List[ServerChartConfiguration],
-    existing_chart_config_for_category: List[ServerChartConfiguration]
-) -> List[Category]:
-  """Computes whether the categories have more charts to show in the category pages.
-  Returns the original list of Categories with the hasMoreCharts bit set properly."""
-  if category != 'Overview':
-    # No need to set the hasMoreCharts attribute. It defaults to False.
-    return categories
-
+def get_block_count_per_category(
+    chart_config: List[ServerChartConfiguration]) -> Dict[str, int]:
+  """Computes the number of blocks per category.
+  Returns a Dict from category name to block count."""
   overview_block_count_per_category = {}
-  for config in existing_chart_config_for_category:
+  for config in chart_config:
     for _ in config.blocks:
       category = config.category
       overview_block_count_per_category[
           category] = overview_block_count_per_category.get(category, 0) + 1
-
-  block_count_per_category_all_charts = {}
-  for config in existing_chart_config:
-    for _ in config.blocks:
-      category = config.category
-      block_count_per_category_all_charts[
-          category] = block_count_per_category_all_charts.get(category, 0) + 1
-
-  for cat in categories:
-    # Only show that categories have more charts if there are more blocks in the category chart config than in the overview chart config.
-    cat.hasMoreCharts = overview_block_count_per_category.get(
-        cat.name, 0) < block_count_per_category_all_charts.get(cat.name, 0)
-
-  return categories
+  return overview_block_count_per_category
 
 
-def get_categories_with_translations(
-    chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
-  """
-  Returns a list of categories with their translated names from the chart config.
+def get_categories_metadata(
+    category: str, existing_chart_config: List[ServerChartConfiguration],
+    existing_chart_config_for_category: List[ServerChartConfiguration]
+) -> List[Category]:
+  """Processes the categories from the chart configs with data.
+  Returns a list of Category with the translatedName, and whether there are
+  more charts to view."""
 
-  Args:
-      chart_config (List[ServerChartConfiguration]): The chart configuration to use for determining categories.
+  block_count_category_charts = {}
+  block_count_all_charts = {}
+  if category == 'Overview':
+    # Fetch the count of blocks for the overview charts, and per category charts.
+    block_count_category_charts = get_block_count_per_category(
+        existing_chart_config_for_category)
+    block_count_all_charts = get_block_count_per_category(existing_chart_config)
 
-  Returns:
-      List[Category]: A list of categories with their translated names.
-  """
   categories: List[Category] = []
-
-  categories_set: Set[str] = set()
-  for page_config_item in chart_config:
-    category = page_config_item.category
-    if category in categories_set:
-      continue
-    categories_set.add(category)
+  categories_set: Set[str] = set(
+      [item.category for item in existing_chart_config])
 
   for category in ORDERED_TOPICS:
     if not category in categories_set:
       continue
-    category = Category(name=category,
-                        translatedName=get_translated_category_string(category),
-                        hasMoreCharts=False)  # will be set later.
+
+    # Determine whether there are more charts in the category page than on the
+    # overview for that category.
+    has_more_charts = block_count_category_charts.get(
+        category, 0) < block_count_all_charts.get(category, 0)
+
+    category = Category(
+        name=category,
+        translatedName=gettext(f'CHART_TITLE-CHART_CATEGORY-{category}'),
+        hasMoreCharts=has_more_charts)
     categories.append(category)
-
   return categories
-
-
-def get_translated_category_string(category: str) -> str:
-  return gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
 
 
 def get_place_cohort(place: Place) -> str:
@@ -1066,3 +1073,28 @@ def fetch_overview_table_data(place_dcid: str,
         ))
 
   return data_rows
+
+
+def dedupe_preserve_order(lists: List[List[str]]) -> List[str]:
+  """Removes duplicate DCIDs in the list of list provided.
+  Returns the list of string DCIDs with the order preserved."""
+  place_dcids = []
+  seen_dcids = set(
+  )  # Keep track of seen DCIDs to prevent dupes but keep ordering.
+  for results in lists:
+    for dcid in results:
+      if dcid not in seen_dcids:
+        place_dcids.append(dcid)
+        seen_dcids.add(dcid)
+  return place_dcids
+
+
+def extract_places_from_dcids(all_places_by_dcid: Dict[str, Place],
+                              dcids: List[str]) -> List[Place]:
+  """Extracts Place objects according to a list of DCIDs provided.
+  Returns the list of Place objects."""
+  return [
+      all_places_by_dcid[dcid]
+      for dcid in dcids
+      if not all_places_by_dcid[dcid].dissolved
+  ]
