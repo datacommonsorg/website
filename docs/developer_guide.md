@@ -281,6 +281,10 @@ TIPS: you can inspect variable in the botton of "DEBUG CONSOLE" window.
 A full tutorial of debugging Flask app in Visual Studio Code is in
 [here](https://code.visualstudio.com/docs/python/tutorial-flask).
 
+### Manage Feature Flags
+
+Feature flags are used to gate the rollout of features, and can easily be turned on/off in various environments. Please read the Feature Flags [guide](https://github.com/datacommonsorg/website/blob/master/docs/feature_flags.md).
+
 ### Add new charts in Place Page
 
 1. Update [server/config/chart_config/](../server/config/chart_config)`<category>.json` with the new chart.

@@ -21,10 +21,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver import shared
-
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
+TIMEOUT = 60
 
 
 def create_driver(preferences=None):
@@ -88,12 +87,12 @@ def find_elems(
 
   elements = []
   for par in parents:
-    wait_elem(par, by, value, shared.TIMEOUT)
+    wait_elem(par, by, value, TIMEOUT)
     found_elements = par.find_elements(by, value)
     if found_elements:
       elements.extend(found_elements)
     else:
-      elems_or_none = wait_elem(par, by, value, shared.TIMEOUT)
+      elems_or_none = wait_elem(par, by, value, TIMEOUT)
       if elems_or_none:
         elements.append(elems_or_none)
   return elements if elements else []
@@ -113,10 +112,28 @@ def find_elem(
   return elems[0] if elems else None
 
 
+def scroll_to_elem(
+    parent: webdriver.remote.webelement.WebElement,
+    by: str = By.CLASS_NAME,
+    value: str = "",
+    path_to_elem: List[str] = None
+) -> webdriver.remote.webelement.WebElement | None:
+  """
+  Scrolls to the element specified by By attribute and value. Waits for it to load if needed.
+  Returns the element it scrolled to.
+  """
+  elem_to_scroll_to = find_elem(parent, by, value, path_to_elem)
+  if not elem_to_scroll_to:
+    return None
+
+  parent.execute_script("arguments[0].scrollIntoView();", elem_to_scroll_to)
+  return elem_to_scroll_to
+
+
 def wait_elem(driver,
               by: str = By.CLASS_NAME,
               value: str = "",
-              timeout_seconds: float = 5):
+              timeout_seconds: float = TIMEOUT):
   """
   Waits for an element within the parent element with the specified by string and value.
   Uses a default timeout of 5 seconds.

@@ -21,11 +21,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import TIMEOUT
+
 LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
 ASYNC_ELEMENT_HOLDER_CLASS = 'dc-async-element-holder'
 ASYNC_ELEMENT_CLASS = 'dc-async-element'
-TIMEOUT = 60
+
 # Keep in sync with the web component definitions at static/library/*component.ts
 # and packages/web-components/src/main.ts
 WEB_COMPONENT_TAG_NAMES = [
@@ -135,15 +138,10 @@ def safe_url_open(url):
 
 def assert_topics(self, driver, path_to_topics, classname, expected_topics):
   """Assert the topics on the place page."""
-  # Locate the 'explore-topics-box' div first
-  for path_classname in path_to_topics:
-    explore_topics_box = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.CLASS_NAME, path_classname)))
-
-  # Locate all 'item-list-item' elements within the 'explore-topics-box'
-  item_list_items = explore_topics_box.find_elements(By.CLASS_NAME, classname)
-
-  # Example expected texts (replace with your actual expected values)
+  item_list_items = find_elems(driver,
+                               by=By.CLASS_NAME,
+                               value=classname,
+                               path_to_elem=path_to_topics)
 
   # Assert that the number of found elements matches the expected number
   self.assertEqual(len(item_list_items), len(expected_topics))

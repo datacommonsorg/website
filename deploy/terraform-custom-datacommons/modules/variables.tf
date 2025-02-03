@@ -182,11 +182,11 @@ variable "make_dc_web_service_public" {
 }
 
 #  Data Commons Cloud Run job variables
-
+# TODO: Change to stable after the next release
 variable "dc_data_job_image" {
   description = "The container image for the data job"
   type        = string
-  default     = "gcr.io/datcom-ci/datacommons-data:stable"
+  default     = "gcr.io/datcom-ci/datacommons-data:latest"
 }
 
 variable "dc_data_job_cpu" {
