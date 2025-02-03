@@ -220,7 +220,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
             secret_key_ref {
               secret = env.value.value_source.secret_key_ref.secret
               version = env.value.value_source.secret_key_ref.version
-            }            
+            }
           }
         }
       }
@@ -253,11 +253,6 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       env {
         name  = "ENABLE_MODEL"
         value = "true"
-      }
-
-      env {
-        name = "REDIS_HOST"
-        value = var.enable_redis ? google_redis_instance.redis_instance[0].host : ""
       }
 
       env {
@@ -338,7 +333,7 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
   location = var.region
   deletion_protection = false
 
-  template { 
+  template {
     template {
       containers {
         image = var.dc_data_job_image
@@ -353,7 +348,7 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
         # Shared environment variables
         dynamic "env" {
           for_each = local.cloud_run_shared_env_variables
-          content { 
+          content {
             name  = env.value.name
             value = env.value.value
           }
@@ -368,7 +363,7 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
               secret_key_ref {
                 secret = env.value.value_source.secret_key_ref.secret
                 version = env.value.value_source.secret_key_ref.version
-              }            
+              }
             }
           }
         }
