@@ -33,7 +33,7 @@ variable "dc_api_key" {
 
 # Optional variables
 
-# Optional: If blank, will generate a Maps API key. 
+# Optional: If blank, will generate a Maps API key.
 variable "maps_api_key" {
   description = "Google Maps API Key"
   type        = string
@@ -182,11 +182,10 @@ variable "make_dc_web_service_public" {
 }
 
 #  Data Commons Cloud Run job variables
-# TODO: Change to stable after the next release
 variable "dc_data_job_image" {
   description = "The container image for the data job"
   type        = string
-  default     = "gcr.io/datcom-ci/datacommons-data:latest"
+  default     = "gcr.io/datcom-ci/datacommons-data:stable"
 }
 
 variable "dc_data_job_cpu" {
