@@ -167,19 +167,22 @@ def get_place_type(place_dcids):
     ret[escape(dcid)] = chosen_type
   return ret
 
+def translate(string: str, **kwargs):
+  """Returns the translated string"""
+  return gettext(string, kwargs)
 
 def get_place_type_i18n_name(place_type: str, plural: bool = False) -> str:
   """For a given place type, get its localized name for display"""
   place_type_to_local_map = PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL if plural else PLACE_TYPE_TO_LOCALE_MESSAGE
   if place_type in place_type_to_local_map:
-    return gettext(place_type_to_local_map[place_type])
+    return translate(place_type_to_local_map[place_type])
   elif place_type.startswith('AdministrativeArea'):
     level = place_type[-1]
-    return gettext(place_type_to_local_map['AdministrativeArea<Level>'],
+    return translate(place_type_to_local_map['AdministrativeArea<Level>'],
                    level=level)
   elif place_type.startswith('EurostatNUTS'):
     level = place_type[-1]
-    return gettext(place_type_to_local_map['EurostatNUTS<Level>'], level=level)
+    return translate(place_type_to_local_map['EurostatNUTS<Level>'], level=level)
   else:
     # Return place type un-camel-cased
     words = re.findall(r'[A-Z](?:[a-z]+|[A-Z]*(?=[A-Z]|$))', place_type)
@@ -533,13 +536,13 @@ def api_ranking(dcid):
   # Contains statistical variable and the display name used for place rankings.
   ranking_stats = {
       # TRANSLATORS: Label for rankings of places by size of population (sorted from highest to lowest).
-      'Count_Person': gettext('Largest Population'),
+      'Count_Person': translate('Largest Population'),
       # TRANSLATORS: Label for rankings of median individual income (sorted from highest to lowest).
-      'Median_Income_Person': gettext('Highest Median Income'),
+      'Median_Income_Person': translate('Highest Median Income'),
       # TRANSLATORS: Label for rankings of places by the median age of it's population (sorted from highest to lowest).
-      'Median_Age_Person': gettext('Highest Median Age'),
+      'Median_Age_Person': translate('Highest Median Age'),
       # TRANSLATORS: Label for rankings of places by the unemployment rate of it's population (sorted from highest to lowest).
-      'UnemploymentRate_Person': gettext('Highest Unemployment Rate'),
+      'UnemploymentRate_Person': translate('Highest Unemployment Rate'),
   }
   # Crime stats var is separted from RANKING_STATS as it uses perCapita
   # option.
@@ -547,7 +550,7 @@ def api_ranking(dcid):
   crime_statsvar = {
       # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
       'Count_CriminalActivities_CombinedCrime':
-          gettext('Highest Crime Per Capita')
+          translate('Highest Crime Per Capita')
   }
   for parent_dcid in selected_parents:
     response = dc.related_place(dcid,

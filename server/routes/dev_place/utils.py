@@ -21,7 +21,6 @@ from typing import Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
-from flask_babel import gettext
 
 from server.lib import fetch
 from server.lib.cache import cache
@@ -85,6 +84,8 @@ PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
     },
 ]
 
+def get_place_url(place_dcid: str) -> str:
+  return flask.url_for('place.place', place_dcid=place_dcid)
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
   """Get <a href-place page url> tag linking to the place page for a place
@@ -96,7 +97,7 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
   Returns:
     An html anchor tag linking to a place page.
   """
-  url = flask.url_for('place.place', place_dcid=place_dcid)
+  url = get_place_url(place_dcid)
   return f'<a href="{url}">{place_name}</a>'
 
 
@@ -122,7 +123,6 @@ def get_parent_places(dcid: str) -> List[Place]:
   return all_parents
 
 
-# def get_ordered_parents_to_highlight(all_parents: List[Place]) -> List[Place]:
 def get_ordered_by_place_type_to_highlight(places: List[Place]) -> List[Place]:
   """Returns the ordered list of parents to highlight.
   We only consider the types to highlight we favor types that mean more to users (such as State, Country) over entities such as UNGeoRegions, ContinentalUnions etc.
@@ -193,7 +193,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   ]
 
   if links:
-    return gettext('%(placeType)s in %(parentPlaces)s',
+    return place_api.translate('%(placeType)s in %(parentPlaces)s',
                    placeType=place_type_display_name,
                    parentPlaces=', '.join(links))
   return ''
@@ -764,7 +764,7 @@ def translate_chart_config(
     parent_place_name: str | None) -> List[ServerChartConfiguration]:
   """
   Translates the 'titleId' field in each chart configuration item into a readable 'title'
-  using the gettext function.
+  using the place_api.translate function.
 
   Args:
       chart_config (List[Dict]): A list of dictionaries where each dictionary contains 
@@ -799,17 +799,17 @@ def translate_chart_config(
         title_sections.append(place_name)
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         title_sections.append(
-            gettext(OTHER_PLACES_IN_PARENT_PLACE_STR,
+            place_api.translate(OTHER_PLACES_IN_PARENT_PLACE_STR,
                     placeType=translated_place_type,
                     parentPlace=parent_place_name))
       elif translated_block.place_scope == "CHILD_PLACES":
         title_sections.append(
-            gettext(PLACE_TYPE_IN_PARENT_PLACES_STR,
+            place_api.translate(PLACE_TYPE_IN_PARENT_PLACES_STR,
                     placeType=translated_child_place_type,
                     parentPlaces=place_name))
 
       if translated_item.title_id:
-        title_sections.append(gettext(translated_item.title_id))
+        title_sections.append(place_api.translate(translated_item.title_id))
       translated_block.title = ': '.join(title_sections)
 
     translated_chart_config.append(translated_item)
@@ -860,7 +860,7 @@ def get_categories_metadata(
 
     category = Category(
         name=category,
-        translatedName=gettext(f'CHART_TITLE-CHART_CATEGORY-{category}'),
+        translatedName=place_api.translate(f'CHART_TITLE-CHART_CATEGORY-{category}'),
         hasMoreCharts=has_more_charts)
     categories.append(category)
   return categories
@@ -1041,7 +1041,7 @@ def fetch_overview_table_data(place_dcid: str,
   # Iterate over each variable and extract the most recent observation
   for item in PLACE_OVERVIEW_TABLE_VARIABLES:
     variable_dcid = item["variable_dcid"]
-    name = gettext(item["i18n_message_id"])
+    name = place_api.translate(item["i18n_message_id"])
     ordered_facet_observations = resp.get("byVariable", {}).get(
         variable_dcid, {}).get("byEntity", {}).get(place_dcid,
                                                    {}).get("orderedFacets", [])
