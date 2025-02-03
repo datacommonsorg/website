@@ -30,8 +30,8 @@ import {
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
-  CategoryConfig,
   BlockConfig as SubjectPageBlockConfig,
+  CategoryConfig,
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";

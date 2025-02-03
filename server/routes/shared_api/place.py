@@ -28,7 +28,8 @@ from markupsafe import escape
 from server.lib import fetch
 from server.lib.cache import cache
 import server.lib.i18n as i18n
-from server.lib.i18n_messages import PLACE_TYPE_TO_LOCALE_MESSAGE, PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL
+from server.lib.i18n_messages import PLACE_TYPE_TO_LOCALE_MESSAGE
+from server.lib.i18n_messages import PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL
 from server.lib.shared import names
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
@@ -108,7 +109,6 @@ PLACE_OVERRIDE = {
     "wikidataId/Q41496": "wikidataId/Q15194",
     "wikidataId/Q281796": "wikidataId/Q2981389",
 }
-
 
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'

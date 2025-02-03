@@ -25,7 +25,9 @@ from flask_babel import gettext
 from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
-from server.lib.i18n_messages import OTHER_PLACES_IN_PARENT_PLACE_STR, PLACE_OVERVIEW_TABLE_VARIABLES, PLACE_TYPE_IN_PARENT_PLACES_STR
+from server.lib.i18n_messages import OTHER_PLACES_IN_PARENT_PLACE_STR
+from server.lib.i18n_messages import PLACE_OVERVIEW_TABLE_VARIABLES
+from server.lib.i18n_messages import PLACE_TYPE_IN_PARENT_PLACES_STR
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
@@ -60,6 +62,7 @@ ORDERED_TOPICS = [
 TOPICS = set(ORDERED_TOPICS)
 OVERVIEW_CATEGORY = "Overview"
 ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
+
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
   """Get <a href-place page url> tag linking to the place page for a place

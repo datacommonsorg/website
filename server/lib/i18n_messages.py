@@ -76,4 +76,3 @@ PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
         "unit": "Percent"
     },
 ]
-
