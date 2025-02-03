@@ -31,18 +31,32 @@ import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
 
 NANTERRE = Place(dcid="wikidataId/Q170507", name="Nanterre", types=["City"])
-ARR_NANTERRE = Place(dcid="wikidataId/Q385728", name="arrondissement of Nanterre", types=["AdministrativeArea3"])
-ILE_DE_FRANCE = Place(dcid="nuts/FR10", name="Ile-de-France", types=["EurostatNUTS2"])
-ILE_DE_FRANCE_NUTS1 = Place(dcid="nuts/FR1", name="Île-de-France", types=["EurostatNUTS1"])
+ARR_NANTERRE = Place(dcid="wikidataId/Q385728",
+                     name="arrondissement of Nanterre",
+                     types=["AdministrativeArea3"])
+ILE_DE_FRANCE = Place(dcid="nuts/FR10",
+                      name="Ile-de-France",
+                      types=["EurostatNUTS2"])
+ILE_DE_FRANCE_NUTS1 = Place(dcid="nuts/FR1",
+                            name="Île-de-France",
+                            types=["EurostatNUTS1"])
 FRANCE = Place(dcid="country/FRA", name="France", types=["Country"])
 EUROPE = Place(dcid="europe", name="Europe", types=["Continent"])
 
-ZIP_94041 = Place(dcid="zip/94041", name="94041", types=["CensusZipCodeTabulationArea"])
-MOUNTAIN_VIEW = Place(dcid="geoId/0649670", name="Mountain View", types=["City"])
-SANTA_CLARA_COUNTY = Place(dcid="geoId/06085", name="Santa Clara County", types=["County"])
+ZIP_94041 = Place(dcid="zip/94041",
+                  name="94041",
+                  types=["CensusZipCodeTabulationArea"])
+MOUNTAIN_VIEW = Place(dcid="geoId/0649670",
+                      name="Mountain View",
+                      types=["City"])
+SANTA_CLARA_COUNTY = Place(dcid="geoId/06085",
+                           name="Santa Clara County",
+                           types=["County"])
 CALIFORNIA = Place(dcid="geoId/06", name="California", types=["State"])
 USA = Place(dcid="geoId/US", name="United States", types=["Country"])
-NORTH_AMERICA = Place(dcid="northamerica", name="North America", types=["Continent"])
+NORTH_AMERICA = Place(dcid="northamerica",
+                      name="North America",
+                      types=["Continent"])
 EARTH = Place(dcid="Earth", name="Earth", types=["Place"])
 
 PLACE_BY_ID = {
@@ -61,6 +75,7 @@ PLACE_BY_ID = {
     EARTH.dcid: EARTH,
 }
 
+
 class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def setUp(self):
@@ -73,7 +88,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.app_context.push()
 
     self.mock_fetch_place = self.patch(utils, "fetch_place")
-    
+
     def fetch_place_side_effect(place_dcid, locale=None):
       if place_dcid in PLACE_BY_ID:
         return PLACE_BY_ID[place_dcid]
@@ -90,11 +105,10 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_api_place_type.side_effect = fetch_api_place_type_side_effect
 
     self.mock_fetch_places = self.patch(utils, "fetch_places")
-    self.mock_fetch_raw_property_values = self.patch(
-        fetch, "raw_property_values")
+    self.mock_fetch_raw_property_values = self.patch(fetch,
+                                                     "raw_property_values")
     self.mock_fetch_descendent_places = self.patch(fetch, "descendent_places")
-    self.mock_multi_prop_values = self.patch(fetch,
-                                             "multiple_property_values")
+    self.mock_multi_prop_values = self.patch(fetch, "multiple_property_values")
 
     def fetch_get_i18n_name_side_effect(place_dcids):
       return {p: PLACE_BY_ID[p].name for p in place_dcids if p in PLACE_BY_ID}
@@ -102,21 +116,26 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_get_i18n_name = self.patch(place_api, "get_i18n_name")
     self.mock_get_i18n_name.side_effect = fetch_get_i18n_name_side_effect
 
-
     def place_to_place_resp(place: Place):
       return {'name': place.name, 'dcid': place.dcid, 'type': place.types[0]}
 
     def fetch_api_parent_places_side_effect(place_dcids, include_admin_areas):
-      return {CALIFORNIA.dcid: [place_to_place_resp(USA), place_to_place_resp(NORTH_AMERICA), place_to_place_resp(EARTH)]}
-    
+      return {
+          CALIFORNIA.dcid: [
+              place_to_place_resp(USA),
+              place_to_place_resp(NORTH_AMERICA),
+              place_to_place_resp(EARTH)
+          ]
+      }
+
     self.mock_api_parent_places = self.patch(place_api, "parent_places")
     self.mock_api_parent_places.side_effect = fetch_api_parent_places_side_effect
 
     # @mock.patch('server.routes.dev_place.utils.flask.url_for')  # Mock the url_for function
     def mock_url_for_side_effect(endpoint, **values):
-        if endpoint == 'place.place':
-            return f"/place/{values['place_dcid']}"
-        return None
+      if endpoint == 'place.place':
+        return f"/place/{values['place_dcid']}"
+      return None
 
     self.mock_place_url = self.patch(utils, "get_place_url")
     self.mock_place_url.side_effect = mock_url_for_side_effect
@@ -132,14 +151,14 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
     self.mock_v2node = self.patch(dc, "v2node")
-    self.mock_fetch_peer_places_within = self.patch(
-        utils, "fetch_peer_places_within")
+    self.mock_fetch_peer_places_within = self.patch(utils,
+                                                    "fetch_peer_places_within")
     self.mock_fetch_similar_place_dcids = self.patch(
         utils, "fetch_similar_place_dcids")
-    self.mock_fetch_child_place_dcids = self.patch(
-        utils, "fetch_child_place_dcids")
-    self.mock_fetch_places_from_dcids = self.patch(
-        utils, "extract_places_from_dcids")
+    self.mock_fetch_child_place_dcids = self.patch(utils,
+                                                   "fetch_child_place_dcids")
+    self.mock_fetch_places_from_dcids = self.patch(utils,
+                                                   "extract_places_from_dcids")
 
   def tearDown(self):
     self.app_context.pop()
@@ -167,8 +186,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             "dcid": "geoId/06",
             "name": "California",
             "type": "State"
-        },
-        {
+        }, {
             "dcid": "country/USA",
             "name": "United States",
             "type": "Country"
@@ -181,18 +199,20 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
   def test_get_parent_places_filters_invalid(self):
     """Tests that getting parent places returns the proper values."""
     self.mock_api_parent_places.return_value = {
-        "geoId/06": [{
-            "dcid": "geoId/06",
-            "type": "State" # missing name.
-        },
-        {
-            "dcid": "country/USA",
-            "name": "United States" # missing types.
-        },
-        {
-            "name": "United States",
-            "types": "Continent" # missing dcid.
-        }]
+        "geoId/06": [
+            {
+                "dcid": "geoId/06",
+                "type": "State"  # missing name.
+            },
+            {
+                "dcid": "country/USA",
+                "name": "United States"  # missing types.
+            },
+            {
+                "name": "United States",
+                "types": "Continent"  # missing dcid.
+            }
+        ]
     }
 
     self.assertEqual(len(utils.get_parent_places("geoId/06")), 0)
@@ -200,13 +220,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
   def test_get_ordered_by_place_type_to_highlight_usa_place(self):
     """Tests that getting parent places returns the proper values in the right order for the USA place format."""
     places = [
-      ZIP_94041,
-      MOUNTAIN_VIEW,
-      SANTA_CLARA_COUNTY,
-      CALIFORNIA,
-      USA,
-      NORTH_AMERICA,
-      EARTH
+        ZIP_94041, MOUNTAIN_VIEW, SANTA_CLARA_COUNTY, CALIFORNIA, USA,
+        NORTH_AMERICA, EARTH
     ]
     # Zips should be removed, the order above is expected.
     expected_order = copy.deepcopy(places[1:])
@@ -221,13 +236,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
   def test_get_ordered_by_place_type_to_highlight_eu_place(self):
     """Tests that getting parent places returns the proper values in the right order for the EU place format."""
     places = [
-      NANTERRE,
-      ARR_NANTERRE,
-      ILE_DE_FRANCE,
-      ILE_DE_FRANCE_NUTS1,
-      FRANCE,
-      EUROPE,
-      EARTH
+        NANTERRE, ARR_NANTERRE, ILE_DE_FRANCE, ILE_DE_FRANCE_NUTS1, FRANCE,
+        EUROPE, EARTH
     ]
 
     # ARR_NANTERRE is an AA3 so remove it.
@@ -237,21 +247,15 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     # randomize the order in place.
     random.shuffle(places)
-    
+
     actual_order = utils.get_ordered_by_place_type_to_highlight(places)
 
     self.assertEqual(actual_order, expected_order)
 
-
   def test_get_place_override_zip(self):
     places = [
-      ZIP_94041,
-      MOUNTAIN_VIEW,
-      SANTA_CLARA_COUNTY,
-      CALIFORNIA,
-      USA,
-      NORTH_AMERICA,
-      EARTH
+        ZIP_94041, MOUNTAIN_VIEW, SANTA_CLARA_COUNTY, CALIFORNIA, USA,
+        NORTH_AMERICA, EARTH
     ]
 
     random.shuffle(places)
@@ -261,27 +265,16 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def test_get_place_override_mtv(self):
     places = [
-      MOUNTAIN_VIEW,
-      SANTA_CLARA_COUNTY,
-      CALIFORNIA,
-      USA,
-      NORTH_AMERICA,
-      EARTH
+        MOUNTAIN_VIEW, SANTA_CLARA_COUNTY, CALIFORNIA, USA, NORTH_AMERICA, EARTH
     ]
 
     random.shuffle(places)
 
     place = utils.get_place_override(places)
     self.assertEqual(place.dcid, MOUNTAIN_VIEW.dcid)
-    
+
   def test_get_place_override_ile_de_france(self):
-    places = [
-      ILE_DE_FRANCE,
-      ILE_DE_FRANCE_NUTS1,
-      FRANCE,
-      EUROPE,
-      EARTH
-    ]
+    places = [ILE_DE_FRANCE, ILE_DE_FRANCE_NUTS1, FRANCE, EUROPE, EARTH]
 
     random.shuffle(places)
 
@@ -289,23 +282,17 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(place.dcid, ILE_DE_FRANCE.dcid)
 
   def test_get_place_type_with_parent_places_links(self):
-    # self.mock_api_place_type.return_value = "State"
-    # self.mock_get_place_type_i18n_name.return_value = "State"
-    # self.mock_parent_places.return_value = [
-    #     Place(dcid="geoId/US", name="United States", types=["Country"])
-    # ]
-    # self.mock_get_i18n_name.return_value = {"geoId/US": "United States"}
-
     place_str = utils.get_place_type_with_parent_places_links(CALIFORNIA.dcid)
-    self.assertEqu("singular state in", place_str)
-    self.assertIn('<a href="None">United States</a>, <a href="None">North America</a>, <a href="None">Earth</a>',
-                    place_str)
+    self.assertEqual(
+        place_str,
+        'singular_state in <a href="None">United States</a>, <a href="None">North America</a>, <a href="None">Earth</a>'
+    )
 
-  # def test_place_type_to_highlight(self):
-  #   self.assertEqual(
-  #       utils.place_type_to_highlight(["City", "State"]), "State")
-  #   self.assertIsNone(utils.place_type_to_highlight(["City"]))
-  #   self.assertIsNone(utils.place_type_to_highlight())
+  def test_place_type_to_highlight(self):
+    self.assertEqual(
+        utils.place_type_to_highlight(["City", "State"]), "State")
+    self.assertIsNone(utils.place_type_to_highlight(["City"]))
+    self.assertIsNone(utils.place_type_to_highlight([]))
 
   # def test_filter_chart_config_for_category(self):
   #   config = [

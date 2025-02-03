@@ -84,8 +84,10 @@ PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
     },
 ]
 
+
 def get_place_url(place_dcid: str) -> str:
   return flask.url_for('place.place', place_dcid=place_dcid)
+
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
   """Get <a href-place page url> tag linking to the place page for a place
@@ -194,8 +196,8 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
   if links:
     return place_api.translate('%(placeType)s in %(parentPlaces)s',
-                   placeType=place_type_display_name,
-                   parentPlaces=', '.join(links))
+                               placeType=place_type_display_name,
+                               parentPlaces=', '.join(links))
   return ''
 
 
@@ -800,13 +802,13 @@ def translate_chart_config(
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         title_sections.append(
             place_api.translate(OTHER_PLACES_IN_PARENT_PLACE_STR,
-                    placeType=translated_place_type,
-                    parentPlace=parent_place_name))
+                                placeType=translated_place_type,
+                                parentPlace=parent_place_name))
       elif translated_block.place_scope == "CHILD_PLACES":
         title_sections.append(
             place_api.translate(PLACE_TYPE_IN_PARENT_PLACES_STR,
-                    placeType=translated_child_place_type,
-                    parentPlaces=place_name))
+                                placeType=translated_child_place_type,
+                                parentPlaces=place_name))
 
       if translated_item.title_id:
         title_sections.append(place_api.translate(translated_item.title_id))
@@ -858,10 +860,10 @@ def get_categories_metadata(
     has_more_charts = block_count_category_charts.get(
         category, 0) < block_count_all_charts.get(category, 0)
 
-    category = Category(
-        name=category,
-        translatedName=place_api.translate(f'CHART_TITLE-CHART_CATEGORY-{category}'),
-        hasMoreCharts=has_more_charts)
+    category = Category(name=category,
+                        translatedName=place_api.translate(
+                            f'CHART_TITLE-CHART_CATEGORY-{category}'),
+                        hasMoreCharts=has_more_charts)
     categories.append(category)
   return categories
 

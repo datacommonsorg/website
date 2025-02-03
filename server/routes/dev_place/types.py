@@ -56,13 +56,10 @@ class Place:
   dissolved: bool = False
 
   def __eq__(self, other):
-      if not isinstance(other, Place):
-          return False
-      return (self.dcid == other.dcid and
-              self.name == other.name and
-              self.types == other.types and
-              self.dissolved == other.dissolved)
-
+    if not isinstance(other, Place):
+      return False
+    return (self.dcid == other.dcid and self.name == other.name and
+            self.types == other.types and self.dissolved == other.dissolved)
 
 
 @dataclass

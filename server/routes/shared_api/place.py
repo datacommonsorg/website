@@ -167,9 +167,11 @@ def get_place_type(place_dcids):
     ret[escape(dcid)] = chosen_type
   return ret
 
+
 def translate(string: str, **kwargs):
   """Returns the translated string"""
   return gettext(string, kwargs)
+
 
 def get_place_type_i18n_name(place_type: str, plural: bool = False) -> str:
   """For a given place type, get its localized name for display"""
@@ -179,10 +181,11 @@ def get_place_type_i18n_name(place_type: str, plural: bool = False) -> str:
   elif place_type.startswith('AdministrativeArea'):
     level = place_type[-1]
     return translate(place_type_to_local_map['AdministrativeArea<Level>'],
-                   level=level)
+                     level=level)
   elif place_type.startswith('EurostatNUTS'):
     level = place_type[-1]
-    return translate(place_type_to_local_map['EurostatNUTS<Level>'], level=level)
+    return translate(place_type_to_local_map['EurostatNUTS<Level>'],
+                     level=level)
   else:
     # Return place type un-camel-cased
     words = re.findall(r'[A-Z](?:[a-z]+|[A-Z]*(?=[A-Z]|$))', place_type)
