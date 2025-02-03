@@ -131,5 +131,7 @@ def _is_csv_empty_or_header_only(file_path):
       # If no exception is raised, there are more rows than just the header
       return False
     except StopIteration:
+      # Try reading the second row
+      logging.error("in stop iteration")
       # StopIteration is raised if there are no more rows to read
       return True
