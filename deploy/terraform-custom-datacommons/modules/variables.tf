@@ -214,12 +214,6 @@ variable "vpc_network_subnet_name" {
   default     = "default"
 }
 
-variable "vpc_base_cidr_block" {
-  description = "Base CIDR block to be subdivided for VPC connectors"
-  type        = string
-  default     = "10.8.0.0/24"
-}
-
 # Data Commons Cloud Redis Memorystore instance variables
 
 variable "enable_redis" {

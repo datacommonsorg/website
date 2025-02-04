@@ -17,8 +17,6 @@
 locals {
   # Data Commons Data Bucket
   gcs_data_bucket_name = var.gcs_data_bucket_name != "" ? var.gcs_data_bucket_name : "${var.namespace}-datacommons-data-${var.project_id}"
-  # VPC Connector CIDR block
-  vpc_connector_cidr = cidrsubnet(var.vpc_base_cidr_block, 4, 0) # Generates the first /28 subnet from the /24 block
 
   # Use var.maps_api_key if set, otherwise use generated Maps API key
   maps_api_key = var.maps_api_key != null ? var.maps_api_key : google_apikeys_key.maps_api_key.key_string
