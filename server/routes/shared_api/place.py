@@ -168,9 +168,9 @@ def get_place_type(place_dcids):
   return ret
 
 
-def translate(string: str, **kwargs):
-  """Returns the translated string"""
-  return gettext(string, kwargs)
+def translate(*args, **kwargs):
+  """Returns the gettextd string"""
+  return gettext(*args, **kwargs)
 
 
 def get_place_type_i18n_name(place_type: str, plural: bool = False) -> str:

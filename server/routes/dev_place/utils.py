@@ -86,6 +86,7 @@ PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
 
 
 def get_place_url(place_dcid: str) -> str:
+  """Returns the URL for the flask place endpoint."""
   return flask.url_for('place.place', place_dcid=place_dcid)
 
 
@@ -279,8 +280,6 @@ def count_places_per_stat_var(
 
   return stat_var_to_places_with_data
 
-
-@cache.memoize(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
@@ -314,6 +313,13 @@ async def filter_chart_config_for_data_existence(
     current_place_obs_point_response, child_places_obs_point_within, peer_places_obs_point_within, fetch_peer_places = await asyncio.gather(
         current_place_obs_point_task, child_places_obs_point_within_task,
         peer_places_obs_point_within_task, fetch_peer_places_task)
+    
+    print("current_place_obs_point_response")
+    print(current_place_obs_point_response)
+
+    
+    print("child_places_obs_point_within")
+    print(child_places_obs_point_within)
 
     count_places_per_child_sv_task = asyncio.to_thread(
         count_places_per_stat_var, child_places_obs_point_within,
@@ -464,6 +470,22 @@ async def filter_chart_config_for_data_existence(
 
   return valid_chart_configs
 
+@cache.memoize(timeout=TIMEOUT)
+async def memoized_filter_chart_config_for_data_existence(
+    chart_config: List[ServerChartConfiguration], place_dcid: str,
+    place_type: str, child_place_type: str,
+    parent_place_dcid: str) -> List[ServerChartConfiguration]:
+  """
+  Filters the chart configuration to only include charts that have data for a specific place DCID.
+  
+  Args:
+      chart_config (List[Dict]): A list of chart configurations, where each configuration includes statistical variable DCIDs under the key 'variables'.
+      place_dcid (str): dcid for the place of interest.
+
+  Returns:
+      List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
+  """
+  return filter_chart_config_for_data_existence(chart_config, place_dcid, place_type, child_place_type, parent_place_dcid)
 
 def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
   """

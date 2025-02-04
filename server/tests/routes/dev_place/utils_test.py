@@ -13,13 +13,14 @@
 # limitations under the License.
 """Unit tests for server.routes.dev_place.utils."""
 
-import random
 import copy
+from dataclasses import asdict
+import random
 import unittest
 from unittest import mock
-from dataclasses import asdict
 
 from flask import Flask
+from flask_caching import Cache
 
 from server.lib import fetch
 from server.routes.dev_place import utils
@@ -77,6 +78,7 @@ PLACE_BY_ID = {
 
 
 class TestUtils(unittest.IsolatedAsyncioTestCase):
+  """Tests for utils within the dev_place api."""
 
   def setUp(self):
     super().setUp()
@@ -131,19 +133,16 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_api_parent_places = self.patch(place_api, "parent_places")
     self.mock_api_parent_places.side_effect = fetch_api_parent_places_side_effect
 
-    # @mock.patch('server.routes.dev_place.utils.flask.url_for')  # Mock the url_for function
-    def mock_url_for_side_effect(endpoint, **values):
-      if endpoint == 'place.place':
-        return f"/place/{values['place_dcid']}"
-      return None
+    def mock_url_for_side_effect(place_dcid):
+      return f"/place/{place_dcid}"
 
     self.mock_place_url = self.patch(utils, "get_place_url")
     self.mock_place_url.side_effect = mock_url_for_side_effect
 
-    def fetch_translate(string: str, **kwargs):
+    def fetch_translate(args, **kwargs):
       if 'placeType' in kwargs and 'parentPlaces' in kwargs:
         return f"{kwargs['placeType']} in {kwargs['parentPlaces']}"
-      return string
+      return args
 
     self.mock_translate = self.patch(place_api, "translate")
     self.mock_translate.side_effect = fetch_translate
@@ -170,34 +169,23 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.addCleanup(patcher.stop)
     return mock_obj
 
-  # def test_get_place_html_link(self):
-  #   """Tests the get_place_html_link generates the proper link."""
-  #   with self.app_context: # Simulate a request
-  #     ca_link = utils.get_place_html_link("geoId/06", "California")
-  #     africa_link = utils.get_place_html_link("africa", "Africa")
+  def test_get_place_html_link(self):
+    """Tests the get_place_html_link generates the proper link."""
+    ca_link = utils.get_place_html_link(CALIFORNIA.dcid, CALIFORNIA.name)
+    africa_link = utils.get_place_html_link("africa", "Africa")
 
-  #   self.assertEqual(ca_link, '<a href="/place?place_dcid=geoId/06">California</a>')
-  #   self.assertEqual(africa_link, '<a href="/place?place_dcid=africa">Africa</a>')
+    self.assertEqual(ca_link, '<a href="/place/geoId/06">California</a>')
+    self.assertEqual(africa_link, '<a href="/place/africa">Africa</a>')
 
   def test_get_parent_places(self):
     """Tests that getting parent places returns the proper values."""
-    self.mock_api_parent_places.return_value = {
-        "geoId/06": [{
-            "dcid": "geoId/06",
-            "name": "California",
-            "type": "State"
-        }, {
-            "dcid": "country/USA",
-            "name": "United States",
-            "type": "Country"
-        }]
-    }
-    parents = utils.get_parent_places("geoId/06")
-    self.assertEqual(len(parents), 2)
-    self.assertEqual([p.dcid for p in parents], ["geoId/06", "country/USA"])
+    parents = utils.get_parent_places(CALIFORNIA.dcid)
+    self.assertEqual([p.dcid for p in parents],
+                     [USA.dcid, NORTH_AMERICA.dcid, EARTH.dcid])
 
   def test_get_parent_places_filters_invalid(self):
     """Tests that getting parent places returns the proper values."""
+    self.mock_api_parent_places.side_effect = None
     self.mock_api_parent_places.return_value = {
         "geoId/06": [
             {
@@ -215,7 +203,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
         ]
     }
 
-    self.assertEqual(len(utils.get_parent_places("geoId/06")), 0)
+    self.assertEqual(utils.get_parent_places(CALIFORNIA.dcid), [])
 
   def test_get_ordered_by_place_type_to_highlight_usa_place(self):
     """Tests that getting parent places returns the proper values in the right order for the USA place format."""
@@ -285,38 +273,123 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     place_str = utils.get_place_type_with_parent_places_links(CALIFORNIA.dcid)
     self.assertEqual(
         place_str,
-        'singular_state in <a href="None">United States</a>, <a href="None">North America</a>, <a href="None">Earth</a>'
+        'singular_state in <a href="/place/geoId/US">United States</a>, <a href="/place/northamerica">North America</a>, <a href="/place/Earth">Earth</a>'
     )
 
   def test_place_type_to_highlight(self):
+    self.assertEqual(utils.place_type_to_highlight(["City", "State"]), "City")
+    self.assertEqual(utils.place_type_to_highlight(["Place", "County"]),
+                     "County")
     self.assertEqual(
-        utils.place_type_to_highlight(["City", "State"]), "State")
-    self.assertIsNone(utils.place_type_to_highlight(["City"]))
-    self.assertIsNone(utils.place_type_to_highlight([]))
+        utils.place_type_to_highlight([
+            "AdministrativeArea1", "AdministrativeArea2", "AdministrativeArea3"
+        ]), "AdministrativeArea2")
+    self.assertIsNone(
+        utils.place_type_to_highlight(
+            ["CensusZipCodeTabulationArea", "Town", "Zip", "Village"]))
 
-  # def test_filter_chart_config_for_category(self):
-  #   config = [
-  #       ServerChartConfiguration(
-  #           category="Overview",
-  #           blocks=[
-  #               ServerBlockMetadata(
-  #                   is_overview=True,
-  #                   charts=[ServerChartMetadata(type="LINE")])
-  #           ]),
-  #       ServerChartConfiguration(
-  #           category="Economics",
-  #           blocks=[ServerBlockMetadata(charts=[ServerChartMetadata(type="BAR")])
-  #                  ])
-  #   ]
-  #   overview_config = utils.filter_chart_config_for_category("Overview", config)
-  #   self.assertEqual(len(overview_config), 1)
-  #   self.assertEqual(overview_config.category, "Overview")
+  async def test_filter_chart_config_for_data_existence_place_has_no_data(self):
+    """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
+    # Initialize the ServerChartConfig
+    configs = [ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])])]
 
-  #   economics_config = utils.filter_chart_config_for_category("Economics",
-  #                                                            config)
-  #   self.assertEqual(len(economics_config), 1)
-  #   self.assertEqual(economics_config.category, "Economics")
+    # Mock the existence check
+    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
+      return {'byVariable': {}}
+    self.mock_obs_point.side_effect = mock_obs_point_side_effect
 
-  # def test_count_places_per_stat_var(self):
-  #   # TODO.
-  #   pass
+    # Assert the chart is there.
+    filtered_configs = await utils.filter_chart_config_for_data_existence(configs, CALIFORNIA.dcid, CALIFORNIA.types[0], SANTA_CLARA_COUNTY.types[0], USA.dcid)
+
+    self.assertEqual(filtered_configs, [])
+
+  async def test_filter_chart_config_for_data_existence_peers_have_no_data(self):
+    """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
+    # Initialize the ServerChartConfig
+    configs = [ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT', [ServerChartMetadata('BAR')])])]
+
+    # Mock the existence check
+    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
+      return {'byVariable': {'geoId/04': {}}}
+    self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
+
+    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
+      return {'byVariable': {CALIFORNIA.dcid: {}}}
+    self.mock_obs_point_within.side_effect = mock_obs_point_side_effect
+
+    # Assert the chart is there.
+    filtered_configs = await utils.filter_chart_config_for_data_existence(configs, CALIFORNIA.dcid, CALIFORNIA.types[0], SANTA_CLARA_COUNTY.types[0], USA.dcid)
+
+    self.assertEqual(filtered_configs, [])
+    
+  async def test_filter_chart_config_for_data_existence_children_have_no_data(self):
+    """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
+    # Initialize the ServerChartConfig
+    configs = [ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])])]
+
+    # Mock the existence check
+    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
+      return {'byVariable': {SANTA_CLARA_COUNTY.dcid: {}}}
+    self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
+
+    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
+      return {'byVariable': {CALIFORNIA.dcid: {}}}
+    self.mock_obs_point_within.side_effect = mock_obs_point_side_effect
+
+
+    # Assert the chart is there.
+    filtered_configs = await utils.filter_chart_config_for_data_existence(configs, CALIFORNIA.dcid, CALIFORNIA.types[0], SANTA_CLARA_COUNTY.types[0], USA.dcid)
+
+    self.assertEqual(filtered_configs, [])
+
+
+  async def test_filter_chart_config_for_data_existence_all_data(self):
+    """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
+    # Initialize the ServerChartConfig
+    configs = [
+      ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])]),
+      ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])]),
+      ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT', [ServerChartMetadata('BAR')])])
+      ]
+
+    # Mock the existence check
+    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
+      return {'byVariable': {'byEntity': {SANTA_CLARA_COUNTY.dcid: [123,1321,32123,32,32]}}}
+    self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
+
+    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
+      return {'byVariable': {'byEntity': {CALIFORNIA.dcid: [2,2,3,43,1]}}}
+    self.mock_obs_point_within.side_effect = mock_obs_point_side_effect
+
+
+    # Assert the chart is there.
+    filtered_configs = await utils.filter_chart_config_for_data_existence(configs, CALIFORNIA.dcid, CALIFORNIA.types[0], SANTA_CLARA_COUNTY.types[0], USA.dcid)
+
+    self.assertEqual(len(filtered_configs), 3)
+
+    # Repeat when denom doesn't exist
+    # Repeat when all exist.
+
+
+  # TODO(gmechali): Add test for filter_chart_config_for_data_existence
+  # TODO(gmechali): Add test for filter_chart_config_for_category.
+  # TODO(gmechali): Add test for count_places_per_stat_var.
+  # TODO(gmechali): Add test for check_geo_data_exists.
+  # TODO(gmechali): Add test for select_string_with_locale.
+  # TODO(gmechali): Add test for fetch_places, fetch_places.
+  # TODO(gmechali): Add test for chart_config_to_overview_charts.
+  # TODO(gmechali): Add test for get_child_place_types.
+  # TODO(gmechali): Add test for get_child_place_type_to_highlight.
+  # TODO(gmechali): Add test for read_chart_configs.
+  # TODO(gmechali): Add test for fetch_child_place_dcids.
+  # TODO(gmechali): Add test for translate_chart_config.
+  # TODO(gmechali): Add test for get_block_count_per_category.
+  # TODO(gmechali): Add test for get_categories_metadata.
+  # TODO(gmechali): Add test for get_place_cohort.
+  # TODO(gmechali): Add test for parse_nearby_value.
+  # TODO(gmechali): Add test for fetch_nearby_place_dcids.
+  # TODO(gmechali): Add test for fetch_peer_places_within.
+  # TODO(gmechali): Add test for fetch_similar_place_dcids.
+  # TODO(gmechali): Add test for fetch_overview_table_data.
+  # TODO(gmechali): Add test for dedupe_preserve_order.
+  # TODO(gmechali): Add test for extract_places_from_dcids.

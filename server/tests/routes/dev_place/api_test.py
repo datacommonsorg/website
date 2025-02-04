@@ -27,6 +27,7 @@ from web_app import app
 
 
 class TestPlaceAPI(unittest.TestCase):
+  """Tests for the Place API."""
 
   @patch('server.routes.shared_api.place.parent_places')
   @patch('server.lib.fetch.raw_property_values')

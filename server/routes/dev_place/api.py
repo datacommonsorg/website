@@ -92,13 +92,13 @@ async def place_charts(place_dcid: str):
   parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
   # Filter out place page charts that don't have any data for the current place_dcid
-  chart_config_existing_data = await asyncio.to_thread(
+  chart_config_existing_data = await (asyncio.to_thread(
       place_utils.filter_chart_config_for_data_existence,
       chart_config=full_chart_config,
       place_dcid=place_dcid,
       place_type=place_type,
       parent_place_dcid=parent_place_dcid,
-      child_place_type=child_place_type_to_highlight)
+      child_place_type=child_place_type_to_highlight))
 
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_config_for_category(
