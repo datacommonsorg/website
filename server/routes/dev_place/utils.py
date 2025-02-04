@@ -25,6 +25,9 @@ from flask import current_app
 from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
+from server.lib.i18n_messages import OTHER_PLACES_IN_PARENT_PLACE_STR
+from server.lib.i18n_messages import PLACE_OVERVIEW_TABLE_VARIABLES
+from server.lib.i18n_messages import PLACE_TYPE_IN_PARENT_PLACES_STR
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
@@ -59,30 +62,6 @@ ORDERED_TOPICS = [
 TOPICS = set(ORDERED_TOPICS)
 OVERVIEW_CATEGORY = "Overview"
 ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
-
-PLACE_TYPE_IN_PARENT_PLACES_STR = '%(placeType)s in %(parentPlaces)s'
-OTHER_PLACES_IN_PARENT_PLACE_STR = 'Other  %(placeType)s in %(parentPlace)s'
-
-# Variables to include in overview table
-PLACE_OVERVIEW_TABLE_VARIABLES: List[Dict[str, str]] = [
-    {
-        "variable_dcid": "Count_Person",
-        "i18n_message_id": "VARIABLE_NAME-Count_Person"
-    },
-    {
-        "variable_dcid": "Median_Income_Person",
-        "i18n_message_id": "VARIABLE_NAME-Median_Income_Person"
-    },
-    {
-        "variable_dcid": "Median_Age_Person",
-        "i18n_message_id": "VARIABLE_NAME-Median_Age_Person"
-    },
-    {
-        "variable_dcid": "UnemploymentRate_Person",
-        "i18n_message_id": "VARIABLE_NAME-UnemploymentRate_Person",
-        "unit": "Percent"
-    },
-]
 
 
 def get_place_url(place_dcid: str) -> str:
@@ -877,15 +856,16 @@ def get_categories_metadata(
     if not category in categories_set:
       continue
 
+
     # Determine whether there are more charts in the category page than on the
     # overview for that category.
     has_more_charts = block_count_category_charts.get(
         category, 0) < block_count_all_charts.get(category, 0)
 
-    category = Category(name=category,
-                        translatedName=place_api.translate(
-                            f'CHART_TITLE-CHART_CATEGORY-{category}'),
-                        hasMoreCharts=has_more_charts)
+    category = Category(
+        name=category,
+        translatedName=gettext(f'CHART_TITLE-CHART_CATEGORY-{category}'),
+        hasMoreCharts=has_more_charts)
     categories.append(category)
   return categories
 
