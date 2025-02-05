@@ -449,7 +449,7 @@ async def memoized_filter_chart_config_for_data_existence(
     place_type: str, child_place_type: str,
     parent_place_dcid: str) -> List[ServerChartConfiguration]:
   """Memoized version of filter_chart_config_for_data_existence"""
-  return filter_chart_config_for_data_existence(chart_config, place_dcid,
+  return await filter_chart_config_for_data_existence(chart_config, place_dcid,
                                                 place_type, child_place_type,
                                                 parent_place_dcid)
 
