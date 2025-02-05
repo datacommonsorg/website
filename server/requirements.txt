@@ -1,7 +1,7 @@
 absl-py==1.4.0
 beautifulsoup4==4.12.2
 CacheControl==0.12.11
-Flask==2.3.2
+Flask[async]==2.3.2
 Flask-Babel==2.0.0
 Flask-Caching==2.0.1
 flask_cors==5.0.0
