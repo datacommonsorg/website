@@ -16,6 +16,7 @@
 import copy
 from dataclasses import asdict
 import random
+from typing import Dict
 import unittest
 from unittest import mock
 
@@ -53,7 +54,12 @@ MOUNTAIN_VIEW = Place(dcid="geoId/0649670",
 SANTA_CLARA_COUNTY = Place(dcid="geoId/06085",
                            name="Santa Clara County",
                            types=["County"])
+SAN_MATEO_COUNTY = Place(dcid="ggeoId/06081",
+                         name="San Mateo County",
+                         types=["County"])
 CALIFORNIA = Place(dcid="geoId/06", name="California", types=["State"])
+NEW_YORK = Place(dcid="geoId/36", name="New York", types=["State"])
+ARIZONA = Place(dcid="geoId/04", name="Arizona", types=["State"])
 USA = Place(dcid="geoId/US", name="United States", types=["Country"])
 NORTH_AMERICA = Place(dcid="northamerica",
                       name="North America",
@@ -147,11 +153,18 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_translate = self.patch(place_api, "translate")
     self.mock_translate.side_effect = fetch_translate
 
+    def mock_fetch_peer_places_within_side_effect(place_dcid, place_types):
+      return [NEW_YORK.dcid, ARIZONA.dcid]
+
+    self.mock_fetch_peer_places = self.patch(utils, "fetch_peer_places_within")
+    self.mock_fetch_peer_places.side_effect = mock_fetch_peer_places_within_side_effect
+
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
+
+    # TODO(gmechali): Verify we only mock the least possible functions.
     self.mock_v2node = self.patch(dc, "v2node")
-    self.mock_fetch_peer_places_within = self.patch(utils,
-                                                    "fetch_peer_places_within")
+
     self.mock_fetch_similar_place_dcids = self.patch(
         utils, "fetch_similar_place_dcids")
     self.mock_fetch_child_place_dcids = self.patch(utils,
@@ -168,6 +181,34 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     mock_obj = patcher.start()
     self.addCleanup(patcher.stop)
     return mock_obj
+
+  def mock_dc_api_data(self,
+                       stat_var: str,
+                       places: list[str],
+                       dc_obs_point: bool = False,
+                       dc_obs_points_within: bool = False,
+                       data: list[int] = [123, 321]) -> Dict[str, any]:
+
+    def create_mock_data(stat_var: str, places: list[str]):
+      by_entity = {}
+      for place in places:
+        by_entity[place] = data
+      return {'byVariable': {stat_var: {'byEntity': by_entity}}}
+
+    val = create_mock_data(stat_var, places)
+
+    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
+      return val
+
+    val2 = create_mock_data(stat_var, places)
+
+    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
+      return val2
+
+    if dc_obs_point:
+      self.mock_obs_point.side_effect = mock_obs_point_side_effect
+    if dc_obs_points_within:
+      self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
 
   def test_get_place_html_link(self):
     """Tests the get_place_html_link generates the proper link."""
@@ -291,87 +332,205 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
   async def test_filter_chart_config_for_data_existence_place_has_no_data(self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
-    configs = [ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])])]
+    configs = [
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])])
+    ]
 
-    # Mock the existence check
-    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
-      return {'byVariable': {}}
-    self.mock_obs_point.side_effect = mock_obs_point_side_effect
+    self.mock_dc_api_data(stat_var='Count_Person',
+                          places=[CALIFORNIA.dcid],
+                          dc_obs_point=True,
+                          dc_obs_points_within=True,
+                          data=[])
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(configs, CALIFORNIA.dcid, CALIFORNIA.types[0], SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = await utils.filter_chart_config_for_data_existence(
+        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
+        SANTA_CLARA_COUNTY.types[0], USA.dcid)
 
     self.assertEqual(filtered_configs, [])
 
-  async def test_filter_chart_config_for_data_existence_peers_have_no_data(self):
+  async def test_filter_chart_config_for_data_existence_peers_have_no_data(
+      self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
-    configs = [ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT', [ServerChartMetadata('BAR')])])]
+    configs = [
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            None, [
+                ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT',
+                                    [ServerChartMetadata('BAR')])
+            ]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])])
+    ]
 
-    # Mock the existence check
-    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
-      return {'byVariable': {'geoId/04': {}}}
-    self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
-
-    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
-      return {'byVariable': {CALIFORNIA.dcid: {}}}
-    self.mock_obs_point_within.side_effect = mock_obs_point_side_effect
+    self.mock_dc_api_data(stat_var='Count_Person',
+                          places=[CALIFORNIA.dcid],
+                          dc_obs_point=True)
+    self.mock_dc_api_data(stat_var='Count_Person',
+                          places=[CALIFORNIA.dcid, ARIZONA.dcid, NEW_YORK.dcid],
+                          dc_obs_points_within=True,
+                          data=[])
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(configs, CALIFORNIA.dcid, CALIFORNIA.types[0], SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = await utils.filter_chart_config_for_data_existence(
+        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
+        SANTA_CLARA_COUNTY.types[0], USA.dcid)
 
-    self.assertEqual(filtered_configs, [])
-    
-  async def test_filter_chart_config_for_data_existence_children_have_no_data(self):
+    self.assertEqual(len(filtered_configs), 1)
+    self.assertEqual(filtered_configs, [
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            ['Count_Person'],
+            [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])])
+    ])
+
+  async def test_filter_chart_config_for_data_existence_children_have_no_data(
+      self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
-    configs = [ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])])]
+    configs = [
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            None,
+            [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])])
+    ]
 
-    # Mock the existence check
-    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
-      return {'byVariable': {SANTA_CLARA_COUNTY.dcid: {}}}
-    self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
-
-    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
-      return {'byVariable': {CALIFORNIA.dcid: {}}}
-    self.mock_obs_point_within.side_effect = mock_obs_point_side_effect
-
+    self.mock_dc_api_data(stat_var='Count_Person',
+                          places=[CALIFORNIA.dcid],
+                          dc_obs_point=True,
+                          data=[])
+    self.mock_dc_api_data(stat_var='Count_Person',
+                          places=[SANTA_CLARA_COUNTY.dcid],
+                          dc_obs_points_within=True,
+                          data=[])
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(configs, CALIFORNIA.dcid, CALIFORNIA.types[0], SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = await utils.filter_chart_config_for_data_existence(
+        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
+        SANTA_CLARA_COUNTY.types[0], USA.dcid)
 
     self.assertEqual(filtered_configs, [])
-
 
   async def test_filter_chart_config_for_data_existence_all_data(self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
     configs = [
-      ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])]),
-      ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])]),
-      ServerChartConfiguration('Economics', 'CHART', 'CHART', 'description', ['Count_Person'], None, [ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT', [ServerChartMetadata('BAR')])])
-      ]
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            None,
+            [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])
+            ]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            None, [
+                ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT',
+                                    [ServerChartMetadata('BAR')])
+            ])
+    ]
 
-    # Mock the existence check
-    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
-      return {'byVariable': {'byEntity': {SANTA_CLARA_COUNTY.dcid: [123,1321,32123,32,32]}}}
-    self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
-
-    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
-      return {'byVariable': {'byEntity': {CALIFORNIA.dcid: [2,2,3,43,1]}}}
-    self.mock_obs_point_within.side_effect = mock_obs_point_side_effect
-
+    self.mock_dc_api_data(stat_var='Count_Person',
+                          places=[CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid],
+                          dc_obs_point=True)
+    self.mock_dc_api_data(stat_var='Count_Person',
+                          places=[
+                              SANTA_CLARA_COUNTY.dcid, SAN_MATEO_COUNTY.dcid,
+                              CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid
+                          ],
+                          dc_obs_points_within=True)
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(configs, CALIFORNIA.dcid, CALIFORNIA.types[0], SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = await utils.filter_chart_config_for_data_existence(
+        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
+        SANTA_CLARA_COUNTY.types[0], USA.dcid)
 
-    self.assertEqual(len(filtered_configs), 3)
+    expected_configs = [
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            ['Count_Person'],
+            [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])
+            ]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            ['Count_Person'],
+            [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['Count_Person'],
+            ['Count_Person'], [
+                ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT',
+                                    [ServerChartMetadata('BAR')])
+            ])
+    ]
 
-    # Repeat when denom doesn't exist
-    # Repeat when all exist.
+    self.assertEqual(filtered_configs, expected_configs)
 
+  async def test_filter_chart_config_for_data_existence_has_no_denominator_data(
+      self):
+    """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
+    # Initialize the ServerChartConfig
+    configs = [
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['LifeExpectancy'],
+            None,
+            [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])
+            ]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['LifeExpectancy'],
+            None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['LifeExpectancy'],
+            None, [
+                ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT',
+                                    [ServerChartMetadata('BAR')])
+            ])
+    ]
 
-  # TODO(gmechali): Add test for filter_chart_config_for_data_existence
+    self.mock_dc_api_data(stat_var='LifeExpectancy',
+                          places=[CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid],
+                          dc_obs_point=True)
+    self.mock_dc_api_data(stat_var='LifeExpectancy',
+                          places=[
+                              CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid,
+                              SANTA_CLARA_COUNTY.dcid, SAN_MATEO_COUNTY.dcid
+                          ],
+                          dc_obs_points_within=True)
+
+    # Assert the chart is there.
+    filtered_configs = await utils.filter_chart_config_for_data_existence(
+        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
+        SANTA_CLARA_COUNTY.types[0], USA.dcid)
+
+    expected_configs = [
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['LifeExpectancy'],
+            ['Count_Person'], [
+                ServerBlockMetadata('CHILD_PLACES',
+                                    [ServerChartMetadata('BAR')],
+                                    non_dividable=True)
+            ]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['LifeExpectancy'],
+            ['Count_Person'], [
+                ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')],
+                                    non_dividable=True)
+            ]),
+        ServerChartConfiguration(
+            'Economics', 'CHART', 'CHART', 'description', ['LifeExpectancy'],
+            ['Count_Person'], [
+                ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT',
+                                    [ServerChartMetadata('BAR')],
+                                    non_dividable=True)
+            ])
+    ]
+
+    self.assertEqual(filtered_configs, expected_configs)
+
   # TODO(gmechali): Add test for filter_chart_config_for_category.
   # TODO(gmechali): Add test for count_places_per_stat_var.
   # TODO(gmechali): Add test for check_geo_data_exists.

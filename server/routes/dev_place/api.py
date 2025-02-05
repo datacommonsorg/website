@@ -56,20 +56,9 @@ async def place_charts(place_dcid: str):
   - Charts specific to the place
   - Translated category strings for the charts
   """
-  # Validate the category parameter.
-  place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
-  if place_category not in place_utils.ALLOWED_CATEGORIES:
-    return error_response(
-        f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.ALLOWED_CATEGORIES)}"
-    )
 
-  # Retrieve available place page charts
-  full_chart_config = place_utils.read_chart_configs()
-
-  # Blocking call to fetch the current place info
-  place = await asyncio.to_thread(place_utils.fetch_place, place_dcid, g.locale)
-
-  async def fetch_place_types() -> tuple[Place | None, str, str | None]:
+  async def fetch_place_types(
+      place: Place) -> tuple[Place | None, str, str | None]:
     """Asynchronously fetch the parent place override, the child place type to
     highlight, and the current place type to highlight.
     Returns a Tuple with the Place override, the child place type & place type.
@@ -87,13 +76,26 @@ async def place_charts(place_dcid: str):
                                 child_place_type_to_highlight_task,
                                 place_type_task)
 
+  # Validate the category parameter.
+  place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
+  if place_category not in place_utils.ALLOWED_CATEGORIES:
+    return error_response(
+        f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.ALLOWED_CATEGORIES)}"
+    )
+
+  # Retrieve available place page charts
+  full_chart_config = place_utils.read_chart_configs()
+
+  # Blocking call to fetch the current place info
+  place = await asyncio.to_thread(place_utils.fetch_place, place_dcid, g.locale)
+
   parent_place_override, child_place_type_to_highlight, place_type = await fetch_place_types(
-  )
+      place)
+
   parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
   # Filter out place page charts that don't have any data for the current place_dcid
-  chart_config_existing_data = await asyncio.to_thread(
-      place_utils.filter_chart_config_for_data_existence,
+  chart_config_existing_data = await place_utils.filter_chart_config_for_data_existence(
       chart_config=full_chart_config,
       place_dcid=place_dcid,
       place_type=place_type,

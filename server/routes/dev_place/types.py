@@ -99,6 +99,11 @@ class ServerChartMetadata:
   type: str
   max_places: Optional[int] = None
 
+  def __eq__(self, other):
+    if not isinstance(other, ServerChartMetadata):
+      return False
+    return (self.type == other.type and self.max_places == other.max_places)
+
 
 @dataclass
 class ServerBlockMetadata:
@@ -108,6 +113,15 @@ class ServerBlockMetadata:
   is_overview: bool = False
   non_dividable: bool = False  # After existence checks
   title: Optional[str] = None
+
+  def __eq__(self, other):
+    if not isinstance(other, ServerBlockMetadata):
+      return False
+    return (self.place_scope == other.place_scope and
+            self.is_overview == other.is_overview and
+            self.is_overview == other.is_overview and
+            self.non_dividable == other.non_dividable and
+            self.title == other.title and self.charts == other.charts)
 
 
 @dataclass
@@ -125,6 +139,19 @@ class ServerChartConfiguration:
   scaling: Optional[int] = None
   non_dividable: bool = False  # Read in from configs
   scale: bool = False
+
+  def __eq__(self, other):
+    if not isinstance(other, ServerChartConfiguration):
+      return False
+    return (self.category == other.category and
+            self.title_id == other.title_id and self.title == other.title and
+            self.description == other.description and
+            self.variables == other.variables and
+            self.denominator == other.denominator and
+            self.blocks == other.blocks and self.unit == other.unit and
+            self.scaling == other.scaling and
+            self.non_dividable == other.non_dividable and
+            self.scale == other.scale)
 
 
 @dataclass

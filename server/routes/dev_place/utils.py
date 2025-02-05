@@ -21,6 +21,7 @@ from typing import Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
+from flask_babel import gettext
 
 from server.lib import fetch
 from server.lib.cache import cache
@@ -292,14 +293,6 @@ async def filter_chart_config_for_data_existence(
     current_place_obs_point_response, child_places_obs_point_within, peer_places_obs_point_within, fetch_peer_places = await asyncio.gather(
         current_place_obs_point_task, child_places_obs_point_within_task,
         peer_places_obs_point_within_task, fetch_peer_places_task)
-    
-    print("current_place_obs_point_response")
-    print(current_place_obs_point_response)
-
-    
-    print("child_places_obs_point_within")
-    print(child_places_obs_point_within)
-
     count_places_per_child_sv_task = asyncio.to_thread(
         count_places_per_stat_var, child_places_obs_point_within,
         child_places_stat_var_dcids, 2)
@@ -464,7 +457,9 @@ async def memoized_filter_chart_config_for_data_existence(
   Returns:
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
   """
-  return filter_chart_config_for_data_existence(chart_config, place_dcid, place_type, child_place_type, parent_place_dcid)
+  return filter_chart_config_for_data_existence(chart_config, place_dcid,
+                                                place_type, child_place_type,
+                                                parent_place_dcid)
 
 def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
   """
@@ -855,7 +850,6 @@ def get_categories_metadata(
   for category in ORDERED_TOPICS:
     if not category in categories_set:
       continue
-
 
     # Determine whether there are more charts in the category page than on the
     # overview for that category.
