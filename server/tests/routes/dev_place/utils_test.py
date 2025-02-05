@@ -15,7 +15,7 @@
 
 import copy
 import random
-from typing import Dict
+from typing import Dict, List
 import unittest
 from unittest import mock
 
@@ -181,11 +181,13 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     return mock_obj
 
   def mock_dc_api_data(self, stat_var: str,
-                       places: list[str],
+                       places: List[str],
                        dc_obs_point: bool = False,
                        dc_obs_points_within: bool = False,
-                       data: list[int] = list([123, 321])) -> Dict[str, any]:
+                       data: List[int] | None = None) -> Dict[str, any]:
     """Mocks the data from the DC API request obs point and obs point within."""
+    if data is None:
+      data = []
 
     def create_mock_data(stat_var: str, places: list[str]) -> Dict[str, any]:
       by_entity = {}
@@ -367,7 +369,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.mock_dc_api_data(stat_var='Count_Person',
                           places=[CALIFORNIA.dcid],
-                          dc_obs_point=True)
+                          dc_obs_point=True,
+                          data=list([1234,321]))
     self.mock_dc_api_data(stat_var='Count_Person',
                           places=[CALIFORNIA.dcid, ARIZONA.dcid, NEW_YORK.dcid],
                           dc_obs_points_within=True,
@@ -435,13 +438,15 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.mock_dc_api_data(stat_var='Count_Person',
                           places=[CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid],
-                          dc_obs_point=True)
+                          dc_obs_point=True,
+                          data=list([1234,321]))
     self.mock_dc_api_data(stat_var='Count_Person',
                           places=[
                               SANTA_CLARA_COUNTY.dcid, SAN_MATEO_COUNTY.dcid,
                               CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid
                           ],
-                          dc_obs_points_within=True)
+                          dc_obs_points_within=True,
+                          data=list([1234,321]))
 
     # Assert the chart is there.
     filtered_configs = await utils.filter_chart_config_for_data_existence(
@@ -491,13 +496,15 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.mock_dc_api_data(stat_var='LifeExpectancy',
                           places=[CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid],
-                          dc_obs_point=True)
+                          dc_obs_point=True,
+                          data=list([1234,321]))
     self.mock_dc_api_data(stat_var='LifeExpectancy',
                           places=[
                               CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid,
                               SANTA_CLARA_COUNTY.dcid, SAN_MATEO_COUNTY.dcid
                           ],
-                          dc_obs_points_within=True)
+                          dc_obs_points_within=True,
+                          data=list([1234,321]))
 
     # Assert the chart is there.
     filtered_configs = await utils.filter_chart_config_for_data_existence(
