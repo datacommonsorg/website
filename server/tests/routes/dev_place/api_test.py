@@ -26,7 +26,9 @@ from server.tests.routes.api.mock_data import SAMPLE_PLACE_PAGE_CHART_CONFIG
 from web_app import app
 
 
+# TODO(gmechali): Break up these tests into the overview_table_test, place_charts_test and related_places_test.
 class TestPlaceAPI(unittest.TestCase):
+  """Tests for the Place API."""
 
   @patch('server.routes.shared_api.place.parent_places')
   @patch('server.lib.fetch.raw_property_values')
@@ -68,6 +70,7 @@ class TestPlaceAPI(unittest.TestCase):
       response = app.test_client().get(f'/api/dev-place/charts/{place_dcid}')
 
       # Check if the response is successful
+      print(response)
       self.assertEqual(response.status_code, 200)
 
       # Check that the response data contains expected fields
