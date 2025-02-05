@@ -95,7 +95,7 @@ async def place_charts(place_dcid: str):
   parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
   # Filter out place page charts that don't have any data for the current place_dcid
-  chart_config_existing_data = await place_utils.filter_chart_config_for_data_existence(
+  chart_config_existing_data = await place_utils.memoized_filter_chart_config_for_data_existence(
       chart_config=full_chart_config,
       place_dcid=place_dcid,
       place_type=place_type,
