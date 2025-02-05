@@ -180,8 +180,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.addCleanup(patcher.stop)
     return mock_obj
 
-  def mock_dc_api_data(self,
-                       stat_var: str,
+  def mock_dc_api_data(stat_var: str,
                        places: list[str],
                        dc_obs_point: bool = False,
                        dc_obs_points_within: bool = False,
