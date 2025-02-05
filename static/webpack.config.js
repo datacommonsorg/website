@@ -37,7 +37,7 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
-    datagemma: [__dirname + "/js/apps/datagemma/main.ts", __dirname + "/css/datagemma.scss"],
+    datagemma: [__dirname + "/js/apps/datagemma/main.ts"],
     diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",

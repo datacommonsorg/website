@@ -13,6 +13,8 @@
 # limitations under the License.
 """Endpoints for DataGemma page"""
 
+import json
+
 from data_gemma import DataCommons
 from data_gemma import GoogleAIStudio
 from data_gemma import RAGFlow
@@ -21,6 +23,7 @@ from data_gemma import VertexAI
 import flask
 from flask import current_app
 from flask import request
+from flask import Response
 
 # Define blueprint
 bp = flask.Blueprint('dev_datagemma_api',
@@ -39,7 +42,17 @@ _VERTEX_AI_RAG = VertexAI(project_id='datcom-website-dev',
                           prediction_endpoint_id='3459865124959944704')
 
 
-def _get_datagemma_answer(query, mode):
+def _get_datagemma_result(query, mode):
+  """Gets the results of running a datagemma flow on a query
+  
+  Args:
+      query: Query to run datagemma flow on
+      mode: mode to run the datagemma flow in
+
+  Returns:
+      Results of running the datagemma flow. This is a FlowResponse as defined
+      here: https://github.com/datacommonsorg/llm-tools/blob/main/data_gemma/base.py#L116
+  """
   dc_nl_service = DataCommons(api_key=current_app.config['DC_NL_API_KEY'])
   result = None
   if mode == _RIG_MODE:
@@ -51,10 +64,7 @@ def _get_datagemma_answer(query, mode):
     result = RAGFlow(llm_question=_VERTEX_AI_RAG,
                      llm_answer=gemini_model,
                      data_fetcher=dc_nl_service).query(query=query)
-  if result:
-    return result.answer()
-  else:
-    return ''
+  return result
 
 
 @bp.route('/query')
@@ -62,8 +72,11 @@ def datagemma_query():
   query = request.args.get('query')
   mode = request.args.get('mode')
   if not query:
-    return "error: must provide a query field", 400
+    return 'error: must provide a query field', 400
   if not mode or mode not in [_RIG_MODE, _RAG_MODE]:
     return f'error: must provide a mode field with values {_RIG_MODE} or {_RAG_MODE}', 400
-  resp = _get_datagemma_answer(query, mode)
-  return resp, 200
+  dg_result = _get_datagemma_result(query, mode)
+  result = {'answer': '', 'debug': ''}
+  if dg_result:
+    result = {'answer': dg_result.answer(), 'debug': dg_result.debug()}
+  return Response(json.dumps(result), 200, mimetype='application/json')
