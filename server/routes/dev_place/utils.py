@@ -21,7 +21,6 @@ from typing import Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
-from flask_babel import gettext
 
 from server.lib import fetch
 from server.lib.cache import cache
@@ -260,6 +259,7 @@ def count_places_per_stat_var(
 
   return stat_var_to_places_with_data
 
+
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
@@ -442,24 +442,17 @@ async def filter_chart_config_for_data_existence(
 
   return valid_chart_configs
 
+
 @cache.memoize(timeout=TIMEOUT)
 async def memoized_filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
     parent_place_dcid: str) -> List[ServerChartConfiguration]:
-  """
-  Filters the chart configuration to only include charts that have data for a specific place DCID.
-  
-  Args:
-      chart_config (List[Dict]): A list of chart configurations, where each configuration includes statistical variable DCIDs under the key 'variables'.
-      place_dcid (str): dcid for the place of interest.
-
-  Returns:
-      List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
-  """
+  """Memoized version of filter_chart_config_for_data_existence"""
   return filter_chart_config_for_data_existence(chart_config, place_dcid,
                                                 place_type, child_place_type,
                                                 parent_place_dcid)
+
 
 def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
   """
@@ -856,10 +849,10 @@ def get_categories_metadata(
     has_more_charts = block_count_category_charts.get(
         category, 0) < block_count_all_charts.get(category, 0)
 
-    category = Category(
-        name=category,
-        translatedName=gettext(f'CHART_TITLE-CHART_CATEGORY-{category}'),
-        hasMoreCharts=has_more_charts)
+    category = Category(name=category,
+                        translatedName=place_api.translate(
+                            f'CHART_TITLE-CHART_CATEGORY-{category}'),
+                        hasMoreCharts=has_more_charts)
     categories.append(category)
   return categories
 

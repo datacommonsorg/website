@@ -14,14 +14,12 @@
 """Unit tests for server.routes.dev_place.utils."""
 
 import copy
-from dataclasses import asdict
 import random
 from typing import Dict
 import unittest
 from unittest import mock
 
 from flask import Flask
-from flask_caching import Cache
 
 from server.lib import fetch
 from server.routes.dev_place import utils

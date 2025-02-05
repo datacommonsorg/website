@@ -26,6 +26,7 @@ from server.tests.routes.api.mock_data import SAMPLE_PLACE_PAGE_CHART_CONFIG
 from web_app import app
 
 
+# TODO(gmechali): Break up these tests into the overview_table_test, place_charts_test and related_places_test.
 class TestPlaceAPI(unittest.TestCase):
   """Tests for the Place API."""
 
