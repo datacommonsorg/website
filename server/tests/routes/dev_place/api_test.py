@@ -70,6 +70,7 @@ class TestPlaceAPI(unittest.TestCase):
       response = app.test_client().get(f'/api/dev-place/charts/{place_dcid}')
 
       # Check if the response is successful
+      print(response)
       self.assertEqual(response.status_code, 200)
 
       # Check that the response data contains expected fields
