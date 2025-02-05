@@ -186,8 +186,9 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                        dc_obs_point: bool = False,
                        dc_obs_points_within: bool = False,
                        data: list[int] = [123, 321]) -> Dict[str, any]:
+    """Mocks the data from the DC API request obs point and obs point within."""
 
-    def create_mock_data(stat_var: str, places: list[str]):
+    def create_mock_data(stat_var: str, places: list[str]) -> Dict[str, any]:
       by_entity = {}
       for place in places:
         by_entity[place] = data
