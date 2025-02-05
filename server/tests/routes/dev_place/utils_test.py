@@ -180,7 +180,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.addCleanup(patcher.stop)
     return mock_obj
 
-  def mock_dc_api_data(self, stat_var: str,
+  def mock_dc_api_data(self,
+                       stat_var: str,
                        places: List[str],
                        dc_obs_point: bool = False,
                        dc_obs_points_within: bool = False,
@@ -370,7 +371,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_dc_api_data(stat_var='Count_Person',
                           places=[CALIFORNIA.dcid],
                           dc_obs_point=True,
-                          data=list([1234,321]))
+                          data=list([1234, 321]))
     self.mock_dc_api_data(stat_var='Count_Person',
                           places=[CALIFORNIA.dcid, ARIZONA.dcid, NEW_YORK.dcid],
                           dc_obs_points_within=True,
@@ -439,14 +440,14 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_dc_api_data(stat_var='Count_Person',
                           places=[CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid],
                           dc_obs_point=True,
-                          data=list([1234,321]))
+                          data=list([1234, 321]))
     self.mock_dc_api_data(stat_var='Count_Person',
                           places=[
                               SANTA_CLARA_COUNTY.dcid, SAN_MATEO_COUNTY.dcid,
                               CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid
                           ],
                           dc_obs_points_within=True,
-                          data=list([1234,321]))
+                          data=list([1234, 321]))
 
     # Assert the chart is there.
     filtered_configs = await utils.filter_chart_config_for_data_existence(
@@ -497,14 +498,14 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_dc_api_data(stat_var='LifeExpectancy',
                           places=[CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid],
                           dc_obs_point=True,
-                          data=list([1234,321]))
+                          data=list([1234, 321]))
     self.mock_dc_api_data(stat_var='LifeExpectancy',
                           places=[
                               CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid,
                               SANTA_CLARA_COUNTY.dcid, SAN_MATEO_COUNTY.dcid
                           ],
                           dc_obs_points_within=True,
-                          data=list([1234,321]))
+                          data=list([1234, 321]))
 
     # Assert the chart is there.
     filtered_configs = await utils.filter_chart_config_for_data_existence(
