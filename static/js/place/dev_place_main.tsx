@@ -28,6 +28,7 @@ import { RawIntlProvider } from "react-intl";
 import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
+import { pageMessages } from "../i18n/i18n_place_messages";
 import {
   isFeatureEnabled,
   SCROLL_TO_TOP_FEATURE_FLAG,
@@ -40,7 +41,6 @@ import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
 import { PlaceOverview } from "./dev_place_overview";
 import {
   createPlacePageCategoryHref,
-  pageMessages,
   placeChartsApiResponsesToPageConfig,
 } from "./util";
 
