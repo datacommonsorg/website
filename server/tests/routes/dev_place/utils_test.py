@@ -180,11 +180,11 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.addCleanup(patcher.stop)
     return mock_obj
 
-  def mock_dc_api_data(stat_var: str,
+  def mock_dc_api_data(self, stat_var: str,
                        places: list[str],
                        dc_obs_point: bool = False,
                        dc_obs_points_within: bool = False,
-                       data: list[int] = [123, 321]) -> Dict[str, any]:
+                       data: list[int] = list([123, 321])) -> Dict[str, any]:
     """Mocks the data from the DC API request obs point and obs point within."""
 
     def create_mock_data(stat_var: str, places: list[str]) -> Dict[str, any]:
