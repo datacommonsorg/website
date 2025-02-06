@@ -342,12 +342,13 @@ def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
   if not is_feature_enabled(PLACE_PAGE_EXPERIMENT_FEATURE_FLAG):
     return False
 
-  # Force dev place experiment for testing
-  if request_args.get("force_dev_places") == "true":
-    return True
   # Disable dev place experiment for testing
   if request_args.get("disable_dev_places") == "true":
     return False
+
+  # Force dev place experiment for testing
+  if request_args.get("force_dev_places") == "true":
+    return True
 
   # Experiment is enabled for English pages for countries and US states in the experiment group
   if locale == 'en' and place_dcid in DEV_PLACE_EXPERIMENT_DCIDS:
