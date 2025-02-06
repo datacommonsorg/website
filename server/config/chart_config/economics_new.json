@@ -97,7 +97,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -228,7 +227,6 @@
       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -275,7 +273,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -414,7 +411,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -594,7 +590,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -685,7 +680,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -729,7 +723,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -911,7 +904,6 @@
     ],
     "denominator": [],
     "non_dividable": true,
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
@@ -1204,7 +1196,6 @@
     ],
     "denominator": [],
     "non_dividable": false,
-    "unit": "$",
     "blocks": [
       {
         "place_scope": "PLACE",
