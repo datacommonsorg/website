@@ -80,10 +80,12 @@ const DC_YELLOW = "hsl(35.3, 100%, 29%)";
 const DC_YELLOW_PILL_TEXT = "hsl(3.3, 71.1%, 14.9%)";
 const DC_YELLOW_PILL_BCKG = "hsl(40.4, 100%, 91%)";
 
+const DC_GRAY_DARK = "hsl(0, 0%, 28%)";
 const DC_GRAY = "hsl(160, 2.2%, 27.3%)";
 const DC_GRAY_PILL_TEXT = DC_YELLOW;
 const DC_GRAY_PILL_BCKG = "hsl(240, 20.8%, 90.6%)";
 const DC_GRAY_LIGHT = "hsl(0, 0%, 78%)";
+const DC_GRAY_LINING = "hsl(140, 3%, 77%)";
 
 const theme: Theme = {
   breakpoints: BREAKPOINTS,
@@ -97,12 +99,22 @@ const theme: Theme = {
         dark: DC_BLUE_DARK,
         light: DC_WHITE,
       },
+      secondary: {
+        base: DC_GRAY,
+        dark: DC_GRAY_LIGHT,
+        light: DC_GRAY_PILL_BCKG,
+      },
     },
     background: {
       primary: {
         base: DC_WHITE,
         dark: DC_BLUE_DARK,
         light: DC_BLUE_WHITE,
+      },
+      secondary: {
+        base: DC_BONE,
+        dark: DC_GRAY,
+        light: DC_GRAY_LIGHT,
       },
     },
     border: {
@@ -111,6 +123,11 @@ const theme: Theme = {
         dark: DC_BLUE_DARK,
         light: DC_GRAY_LIGHT,
       },
+    },
+    tabs: {
+      selected: DC_BLUE,
+      unselected: DC_GRAY_DARK,
+      lining: DC_GRAY_LINING,
     },
     box: {
       blue: {

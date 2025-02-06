@@ -21,6 +21,7 @@ class Config(_base.Config):
   SCHEME = 'http'
   USE_MEMCACHE = False
   ENABLE_BQ = True
+  ENABLE_DATAGEMMA = True
 
 
 class DCConfig(Config):

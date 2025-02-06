@@ -26,7 +26,9 @@ from server.tests.routes.api.mock_data import SAMPLE_PLACE_PAGE_CHART_CONFIG
 from web_app import app
 
 
+# TODO(gmechali): Break up these tests into the overview_table_test, place_charts_test and related_places_test.
 class TestPlaceAPI(unittest.TestCase):
+  """Tests for the Place API."""
 
   @patch('server.routes.shared_api.place.parent_places')
   @patch('server.lib.fetch.raw_property_values')
@@ -68,6 +70,7 @@ class TestPlaceAPI(unittest.TestCase):
       response = app.test_client().get(f'/api/dev-place/charts/{place_dcid}')
 
       # Check if the response is successful
+      print(response)
       self.assertEqual(response.status_code, 200)
 
       # Check that the response data contains expected fields
@@ -86,8 +89,8 @@ class TestPlaceAPI(unittest.TestCase):
 
       # Optionally, check that the charts have the correct titles
       block_titles = [block['title'] for block in response_json['blocks']]
-      self.assertIn('Total crime', block_titles)
-      self.assertIn('Education attainment', block_titles)
+      self.assertIn('United States: Total crime', block_titles)
+      self.assertIn('United States: Education attainment', block_titles)
 
       # Check that the 'place' field contains correct place information
       self.assertEqual(response_json['place']['dcid'], place_dcid)
@@ -103,7 +106,9 @@ class TestPlaceAPI(unittest.TestCase):
 
       # Ensure the denominator is present in chart results
       self.assertEqual(1, len(response_json["blocks"][0]["denominator"]))
-      self.assertEqual(5, len(response_json["blocks"][1]["denominator"]))
+
+      # TODO(gmechali): Imrpove test coverage of intricacies of the place charts selection.
+      self.assertIsNone(response_json["blocks"][1]["denominator"])
 
   @patch('server.routes.shared_api.place.parent_places')
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
@@ -496,3 +501,40 @@ class TestPlaceUtils(unittest.TestCase):
     place = Place(dcid="geoId/06001", name="Alameda County", types=["County"])
     self.assertEqual(place_utils.get_child_place_types(place),
                      ["CensusZipCodeTabulationArea"])
+
+  @patch('server.routes.dev_place.utils.dc.v2node')
+  @patch('server.routes.dev_place.utils.fetch.descendent_places')
+  def test_check_geo_data_exists(self, mock_descendent_places, mock_v2node):
+    """Test check_geo_data_exists method."""
+    # Test case where geo data exists
+    mock_descendent_places.return_value = {
+        "geoId/04": ["geoId/04001", "geoId/04003", "geoId/04005"]
+    }
+    mock_v2node.return_value = {
+        "data": {
+            "geoId/04001": {
+                "properties": [
+                    "geoJsonCoordinatesDP3", "name", "latitude", "longitude"
+                ]
+            }
+        }
+    }
+    self.assertTrue(place_utils.check_geo_data_exists("geoId/04", "County"))
+
+    # Test case where no geo data exists
+    mock_v2node.return_value = {
+        "data": {
+            "geoId/04001": {
+                "properties": ["name", "latitude", "longitude"]
+            }
+        }
+    }
+    self.assertFalse(place_utils.check_geo_data_exists("geoId/04", "County"))
+
+    # Test case where no child places exist
+    mock_descendent_places.return_value = {}
+    self.assertFalse(place_utils.check_geo_data_exists("geoId/04", "County"))
+
+    # Verify mock calls
+    mock_descendent_places.assert_called_with(["geoId/04"], "County")
+    mock_v2node.assert_called()

@@ -28,6 +28,7 @@
   {% endif %}
   {% set place_category = category %}
   {% set is_show_header_search_bar = true %}
+  {% set new_place_page = true %}
   
   {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/dev_place_page.min.css' , t=config['VERSION'])}}>

@@ -13,12 +13,12 @@
                       "geoId/06085",
                       "geoId/06075",
                       "geoId/06081",
-                      "geoId/06041",
                       "geoId/06001",
+                      "geoId/06041",
                       "geoId/06003",
                       "geoId/06013",
-                      "geoId/06069",
                       "geoId/06087",
+                      "geoId/06069",
                       "geoId/06055"
                     ],
                     "statVarKey": [
@@ -73,11 +73,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06041",
+                    "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Marin County",
+                    "title": "Alameda County",
                     "type": "LINE"
                   }
                 ]
@@ -85,11 +85,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06001",
+                    "placeDcidOverride": "geoId/06041",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Alameda County",
+                    "title": "Marin County",
                     "type": "LINE"
                   }
                 ]
@@ -121,11 +121,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06069",
+                    "placeDcidOverride": "geoId/06087",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "San Benito County",
+                    "title": "Santa Cruz County",
                     "type": "LINE"
                   }
                 ]
@@ -133,11 +133,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06087",
+                    "placeDcidOverride": "geoId/06069",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Santa Cruz County",
+                    "title": "San Benito County",
                     "type": "LINE"
                   }
                 ]
@@ -174,11 +174,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06001",
+                    "placeDcidOverride": "geoId/06003",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Alameda County",
+                    "title": "Alpine County",
                     "type": "LINE"
                   }
                 ]
@@ -198,11 +198,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06003",
+                    "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Alpine County",
+                    "title": "Alameda County",
                     "type": "LINE"
                   }
                 ]
@@ -234,30 +234,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06069",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_pct"
-                    ],
-                    "title": "San Benito County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06041",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_pct"
-                    ],
-                    "title": "Marin County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06087",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
@@ -270,11 +246,35 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06049",
+                    "placeDcidOverride": "geoId/06069",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Modoc County",
+                    "title": "San Benito County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06077",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_pct"
+                    ],
+                    "title": "San Joaquin County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06089",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_pct"
+                    ],
+                    "title": "Shasta County",
                     "type": "LINE"
                   }
                 ]

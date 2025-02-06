@@ -37,6 +37,7 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    datagemma: [__dirname + "/js/apps/datagemma/main.ts"],
     diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
@@ -135,6 +136,9 @@ const config = {
     build: [
       __dirname + "/js/apps/build/main.ts",
       __dirname + "/css/build.scss",
+    ],
+    data: [
+      __dirname + "/js/apps/data/main.ts",
     ],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
