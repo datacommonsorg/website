@@ -499,6 +499,7 @@ def select_string_with_locale(strings_with_locale: List[str],
   Returns:
       str: String without the locale tag.
   """
+  # TODO(gmechali): Move this to be an i18n util function.
   default_i18n_string = ""
   for string_with_locale in strings_with_locale:
     # Check if this string has the desired locale by checking if it ends with '@<locale>'
@@ -741,13 +742,18 @@ def read_chart_configs() -> List[ServerChartConfiguration]:
   return server_chart_configs
 
 
-@cache.memoize(timeout=TIMEOUT)
 def fetch_child_place_dcids(place: Place, child_place_type: str) -> List[str]:
   # Get all possible child places
   descendent_places_result = fetch.descendent_places(
       [place.dcid], descendent_type=child_place_type)
   child_place_dcids = descendent_places_result.get(place.dcid, [])
   return child_place_dcids
+
+
+@cache.memoize(timeout=TIMEOUT)
+def cached_fetch_child_place_dcids(place: Place,
+                                   child_place_type: str) -> List[str]:
+  return fetch_child_place_dcids(place, child_place_type)
 
 
 def translate_chart_config(
