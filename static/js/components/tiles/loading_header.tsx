@@ -20,6 +20,7 @@
 
 import React from "react";
 import { Spinner } from "reactstrap";
+
 import { intl } from "../../i18n/i18n";
 import { tileMessages } from "../../i18n/i18n_tile_messages";
 
