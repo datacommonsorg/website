@@ -168,7 +168,7 @@ export const pageMessages = defineMessages({
       "Header text for the Key Demographics section for the current place. Section will include a table of key demographic statistics for the place.",
   },
   MoreCharts: {
-    id: "more_charts",
+    id: "more_charts_link",
     defaultMessage: "More charts",
     description:
       "Link text to show additional charts for the given chart category section for the current place.",

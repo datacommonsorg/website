@@ -27,7 +27,8 @@ MESSAGES_POT_RELATIVE_PATH = '../../server/i18n/all.pot'
 
 
 def extract_message_from_chart(config):
-  id = config['titleId']
+  # Old place page chart config has titleId, new place page chart config has title_id
+  id = config['titleId'] if 'titleId' in config else config['title_id']
   message = config['title']
   description = config.get('description', '')
   return (id, {
