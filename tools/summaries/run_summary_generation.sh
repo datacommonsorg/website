@@ -29,16 +29,16 @@ else
   source .env/bin/activate
   python3 -m pip install -r $DIR/requirements.txt
 
-  # Generate US States + Top 100 US Cities + Global Cities summaries
-  echo "Generating US states, top 100 US cities, and global cities summaries"
-  python3 -m $MODULE.fetch_place_summaries static/sitemap/PriorityPlaces.0.txt \
-    --output_file $DIR/generated_summaries/priority_places.json \
-    --stat_var_json $DIR/stat_vars_to_highlight.json
-
   # Generate country summaries
   echo "Generating country summaries"
   python3 -m $MODULE.fetch_place_summaries static/sitemap/Country.0.txt \
     --output_file $DIR/generated_summaries/countries.json \
+    --stat_var_json $DIR/stat_vars_to_highlight.json
+  
+  # Generate US States + Top 100 US Cities + Global Cities summaries
+  echo "Generating US states, top 100 US cities, and global cities summaries"
+  python3 -m $MODULE.fetch_place_summaries static/sitemap/PriorityPlaces.0.txt \
+    --output_file $DIR/generated_summaries/priority_places.json \
     --stat_var_json $DIR/stat_vars_to_highlight.json
 
   # Generate US county summaries
