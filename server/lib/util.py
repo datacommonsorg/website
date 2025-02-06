@@ -431,7 +431,7 @@ def load_feature_flags_from_gcs(environment: str):
 def load_fallback_feature_flags(environment: str):
   """Loads the fallback feature flags into the app config. We fallback to checked in flag configs per environment."""
   environments_with_local_files = set(
-      ['local', 'autopush', 'dev', 'staging', 'production'])
+      ['local', 'autopush', 'dev', 'staging', 'production', 'custom'])
   testing_environments = set(['integration_test', 'test', 'webdriver'])
 
   if environment in testing_environments:
