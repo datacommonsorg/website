@@ -15,7 +15,7 @@
 
 FROM nikolaik/python-nodejs:python3.11-nodejs18-slim as base
 
-RUN apt-get update && apt-get -y upgrade
+RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 
 ARG ENV
 ENV ENV=${ENV}
