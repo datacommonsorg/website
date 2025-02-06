@@ -179,6 +179,13 @@ export const GA_EVENT_BUILDPAGE_CLICK = "buildpage_click";
 export const GA_EVENT_AUTOCOMPLETE_SELECTION = "autocomplete_select";
 
 /**
+ * Triggered on autocomplete selections that redirect directly to the place page.
+ * Parameters:
+ *  "result_index": <index of the selected autocomplete result.
+ */
+export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE = "autocomplete_select_redirects_to_place";
+
+/**
  * Triggered on autocomplete trigger.
  * Parameters:
  *    "query": <sample query>
