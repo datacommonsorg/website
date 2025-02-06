@@ -239,6 +239,13 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.mock_v2node.side_effect = mock_v2node_side_effect
 
+  def create_mock_data(self, stat_var: str, places: list[str],
+                       data: list) -> Dict[str, any]:
+    by_entity = {}
+    for place in places:
+      by_entity[place] = data
+    return {'byVariable': {stat_var: {'byEntity': by_entity}}}
+
   def mock_dc_api_data(self,
                        stat_var: str,
                        places: List[str],
@@ -249,18 +256,12 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     if data is None:
       data = []
 
-    def create_mock_data(stat_var: str, places: list[str]) -> Dict[str, any]:
-      by_entity = {}
-      for place in places:
-        by_entity[place] = data
-      return {'byVariable': {stat_var: {'byEntity': by_entity}}}
-
-    val = create_mock_data(stat_var, places)
+    val = self.create_mock_data(stat_var, places, data)
 
     def mock_obs_point_side_effect(entities, variables, date='LATEST'):
       return val
 
-    val2 = create_mock_data(stat_var, places)
+    val2 = self.create_mock_data(stat_var, places, data)
 
     def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
       return val2
@@ -828,8 +829,96 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
         "plural_county in California: pop_count_id"
     ])
 
+  def test_multiple_places_for_stat_var(self):
+    obs_point_response = {
+        "byVariable": {
+            "stat_var_1": {
+                "byEntity": {
+                    "place_1": list([1234]),
+                    "place_2": list([1234]),
+                    "place_3": list([1234])
+                }
+            },
+            "stat_var_2": {
+                "byEntity": {
+                    "place_4": list([1234, 321])
+                }
+            }
+        }
+    }
+    stat_var_dcids = ["stat_var_1", "stat_var_2"]
+    expected = {"stat_var_1": 2, "stat_var_2": 1}  # capped at 2
+    result = utils.count_places_per_stat_var(obs_point_response, stat_var_dcids,
+                                             2)
+    self.assertEqual(result, expected)
+
+  def test_empty_response(self):
+    obs_point_response = {
+        "byVariable": {
+            "stat_var_1": {
+                "byEntity": {}
+            },
+            "stat_var_2": {
+                "byEntity": {}
+            }
+        }
+    }
+    stat_var_dcids = ["stat_var_1", "stat_var_2"]
+    expected = {}
+    result = utils.count_places_per_stat_var(obs_point_response, stat_var_dcids)
+    self.assertEqual(result, expected)
+
+  # def test_filter_by_category(self):
+  #   chart_config = [
+  #       ServerChartConfiguration(
+  #           category="Agriculture",
+  #           blocks=[ServerBlockMetadata(is_overview=True), ServerChartMetadata(is_overview=False)],
+  #       ),
+  #       ServerChartConfiguration(
+  #           category="Education", blocks=[ChartBlock(is_overview=True)]
+  #       ),
+  #   ]
+
+  #   filtered = filter_chart_config_for_category("Agriculture", chart_config)
+  #   self.assertEqual(len(filtered), 1)
+  #   self.assertEqual(filtered[0].category, "Agriculture")
+  #   self.assertEqual(len(filtered[0].blocks), 2)  # All blocks should be kept for category filters
+
+  # def test_overview_filter_with_data(self):
+  #   chart_config = [
+  #       ServerChartConfiguration(
+  #           category="Agriculture",
+  #           blocks=[BlockConfig(is_overview=True), ChartBlock(is_overview=False)],
+  #       ),
+  #       ServerChartConfiguration(
+  #           category="Education", blocks=[ChartBlock(is_overview=True)]
+  #       ),
+  #   ]
+
+  #   filtered = filter_chart_config_for_category("Overview", chart_config)
+  #   self.assertEqual(len(filtered), 2)
+  #   self.assertEqual(len(filtered[0].blocks), 1)  # Only overview blocks
+  #   self.assertTrue(filtered[0].blocks[0].is_overview)
+  #   self.assertEqual(len(filtered[1].blocks), 1)
+  #   self.assertTrue(filtered[1].blocks[0].is_overview)
+
+  # def test_overview_filter_no_overview_data(self):
+  #   chart_config = [
+  #       ServerChartConfiguration(
+  #           category="Agriculture",
+  #           blocks=[ChartBlock(is_overview=False), ChartBlock(is_overview=False)],
+  #       ),
+  #       ServerChartConfiguration(
+  #           category="Education", blocks=[ChartBlock(is_overview=False)]
+  #       ),
+  #   ]
+
+  #   filtered = filter_chart_config_for_category("Overview", chart_config)
+  #   self.assertEqual(len(filtered), 2)  # Fallback to full config
+  #   self.assertEqual(len(filtered[0].blocks), 2)
+  #   self.assertEqual(len(filtered[1].blocks), 1)
+
   # TODO(gmechali): Add test for filter_chart_config_for_category.
-  # TODO(gmechali): Add test for count_places_per_stat_var.
   # TODO(gmechali): Add test for get_block_count_per_category.
   # TODO(gmechali): Add test for get_categories_metadata.
   # TODO(gmechali): Add test for get_place_cohort.
