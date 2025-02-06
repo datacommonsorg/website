@@ -195,6 +195,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.mock_translate = self.patch(place_api, "translate")
 
+    # TODO(gmechali): Remove this mock, we should mock the api response.
     def mock_fetch_peer_places_within_side_effect(place_dcid, place_types):
       return [NEW_YORK.dcid, ARIZONA.dcid]
 
