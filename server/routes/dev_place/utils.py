@@ -979,7 +979,7 @@ def fetch_peer_places_within(place_dcid: str,
 
   peers_within_parent = []
   if parent_to_use:
-    peers_within_parent = fetch_child_place_dcids(
+    peers_within_parent = cached_fetch_child_place_dcids(
         parent_to_use, place_type_to_highlight(place_types))
     random.shuffle(peers_within_parent)
 
