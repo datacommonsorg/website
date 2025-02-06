@@ -18,7 +18,7 @@
 },
 {
     "name": "scroll_to_top_button",
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the scroll to top button on the explore and place pages."
 }]
