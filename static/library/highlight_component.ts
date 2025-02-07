@@ -89,6 +89,10 @@ export class DatacommonsHighlightComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  // Optional: Locale to use for this component
+  @property()
+  locale?: string;
+
   render(): HTMLDivElement {
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
@@ -112,6 +116,10 @@ export class DatacommonsHighlightComponent extends LitElement {
         unit: this.unit || "",
       },
     };
-    return createWebComponentElement(HighlightTile, highlightTileProps);
+    return createWebComponentElement(
+      HighlightTile,
+      highlightTileProps,
+      this.locale
+    );
   }
 }
