@@ -13,6 +13,17 @@
 # limitations under the License.
 
 steps:
+  - id: push-web-server
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1
+        docker build -f build/web_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-website:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-website:${_TAG}
+
   - id: push-cdc-services
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -28,6 +39,44 @@ steps:
           .
         docker push gcr.io/$_PROJECT_ID/datacommons-services:${_TAG}
         docker push gcr.io/$_PROJECT_ID/datacommons-services:latest
+    waitFor: ["-"]
+
+  - id: push-nl-server
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1 docker build -f build/nl_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG}
+    waitFor: ["-"]
+
+  - id: push-nodejs-server
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1 docker build -f build/nodejs_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nodejs:${_TAG} .
+        docker push gcr.io/$_PROJECT_ID/datacommons-nodejs:${_TAG}
+    waitFor: ["-"]
+
+  - id: push-website-cron-testing
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1
+        docker build -f build/website_cron_testing/Dockerfile \
+          --tag gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG} \
+          --tag gcr.io/$_PROJECT_ID/website-cron-testing:latest \
+          .
+        docker push gcr.io/$_PROJECT_ID/website-cron-testing:${_TAG}
+        docker push gcr.io/$_PROJECT_ID/website-cron-testing:latest
     waitFor: ["-"]
 
 timeout: 3600s
