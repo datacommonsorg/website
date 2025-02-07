@@ -56,6 +56,9 @@ ARG PIP_NO_CACHE_DIR=1
 
 WORKDIR /workspace
 
+# Install git which is needed to install web server requirements
+RUN apt-get update && apt-get -y upgrade && apt-get install -y git
+
 # Copy requirements.
 # Copy nl_requirements.txt since it is referenced by embeddings requirements.txt
 COPY server/requirements.txt ./server/requirements.txt
