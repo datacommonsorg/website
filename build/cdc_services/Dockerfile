@@ -17,7 +17,7 @@ FROM golang:1.20.7 AS mixer
 
 WORKDIR /workspace
 
-# Install the protobuf compiler and Go plugins.
+# Install the protobuf compiler, Go plugins
 RUN apt-get update \
     && apt-get install -y protobuf-compiler \
     && go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0 \
@@ -55,6 +55,8 @@ ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
 WORKDIR /workspace
+
+RUN apt-get update && apt-get -y upgrade && apt-get install -y git
 
 # Copy requirements.
 # Copy nl_requirements.txt since it is referenced by embeddings requirements.txt
