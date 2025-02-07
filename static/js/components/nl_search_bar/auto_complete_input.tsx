@@ -32,6 +32,7 @@ import { Input, InputGroup } from "reactstrap";
 
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
+  GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   triggerGAEvent,
 } from "../../shared/ga_events";
@@ -308,6 +309,10 @@ export function AutoCompleteInput(
       // then that means there are no other parts of the query, so it's a place only
       // redirection.
       if (result.dcid) {
+        triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
+          [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+        });
+
         const url = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
         window.open(url, "_self");
         return;
