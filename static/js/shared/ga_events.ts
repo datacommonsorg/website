@@ -183,7 +183,8 @@ export const GA_EVENT_AUTOCOMPLETE_SELECTION = "autocomplete_select";
  * Parameters:
  *  "result_index": <index of the selected autocomplete result.
  */
-export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE = "autocomplete_select_redirects_to_place";
+export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
+  "autocomplete_select_redirects_to_place";
 
 /**
  * Triggered on autocomplete trigger.
