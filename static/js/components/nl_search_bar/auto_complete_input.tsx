@@ -148,8 +148,15 @@ export function AutoCompleteInput(
 
   useEffect(() => {
     // TriggerSearch state used to ensure onSearch only called after text updated.
-    props.onSearch();
+    executeQuery();
   }, [triggerSearch, setTriggerSearch]);
+
+  function executeQuery(): void {
+    setResults({ placeResults: [], svResults: [] });
+    setHoveredIdx(-1);
+    controller.current.abort(); // Ensure autocomplete responses can't come back.
+    props.onSearch();
+  }
 
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const currentText = e.target.value;
@@ -253,7 +260,7 @@ export function AutoCompleteInput(
         if (hoveredIdx >= 0) {
           selectResult(results.placeResults[hoveredIdx], hoveredIdx);
         } else {
-          props.onSearch();
+          executeQuery();
         }
         break;
       case "ArrowUp":
@@ -348,7 +355,7 @@ export function AutoCompleteInput(
               autoComplete="one-time-code"
               autoFocus={props.shouldAutoFocus}
             ></Input>
-            <div onClick={props.onSearch} id="rich-search-button">
+            <div onClick={executeQuery} id="rich-search-button">
               {isHeaderBar && <ArrowForward />}
             </div>
           </InputGroup>
