@@ -19,7 +19,10 @@ from typing import Dict, List
 import unittest
 from unittest import mock
 
+import pytest
+import asyncio
 from flask import Flask
+from flask_caching import Cache
 
 from server.routes.dev_place import utils
 from server.routes.dev_place.types import BlockConfig
@@ -137,16 +140,29 @@ SAMPLE_CHART_CONFIG = ServerChartConfiguration('Economics', 'title_id', 'title',
                                                [SAMPLE_BLOCK_METADATA])
 
 
+@pytest.fixture(scope="function")  # or "module" if you prefer
+def app():
+    app = Flask(__name__)
+    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+    app.config['SERVER_NAME'] = 'example.com'
+    app.config['CACHE_TYPE'] = 'null'  # Or a real cache type for some tests
+    return app
+
+@pytest.fixture
+def cache(app):  # Inject the app fixture
+    cache = Cache(app)
+    return cache
+
 class TestUtils(unittest.IsolatedAsyncioTestCase):
   """Tests for utils within the dev_place api."""
 
   def setUp(self):
     super().setUp()
 
-    app = Flask(__name__)
-    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-    app.config['SERVER_NAME'] = 'example.com'
-    self.app_context = app.app_context()
+    super().setUp()
+    self.app = app() # Initialize app
+    self.cache = cache(self.app) # Initialize cache
+    self.app_context = self.app.app_context()
     self.app_context.push()
 
     self.mock_fetch_place = self.patch(utils, "fetch_place")
@@ -196,11 +212,11 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_translate = self.patch(place_api, "translate")
 
     # TODO(gmechali): Remove this mock, we should mock the api response.
-    def mock_fetch_peer_places_within_side_effect(place_dcid, place_types):
-      return [NEW_YORK.dcid, ARIZONA.dcid]
+    # def mock_fetch_peer_places_within_side_effect(place_dcid, place_types):
+    #   return [NEW_YORK.dcid, ARIZONA.dcid]
 
-    self.mock_fetch_peer_places = self.patch(utils, "fetch_peer_places_within")
-    self.mock_fetch_peer_places.side_effect = mock_fetch_peer_places_within_side_effect
+    # self.mock_fetch_peer_places = self.patch(utils, "fetch_peer_places_within")
+    # self.mock_fetch_peer_places.side_effect = mock_fetch_peer_places_within_side_effect
 
     self.mock_v2node = self.patch(dc, "v2node")
 
@@ -214,8 +230,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
 
-    self.mock_fetch_similar_place_dcids = self.patch(
-        utils, "fetch_similar_place_dcids")
+    # self.mock_fetch_similar_place_dcids = self.patch(
+    #     utils, "fetch_similar_place_dcids")
 
   def tearDown(self):
     self.app_context.pop()
@@ -227,12 +243,30 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.addCleanup(patcher.stop)
     return mock_obj
 
+  def get_app_from_fixture(self):
+    """Helper method to access the 'app' fixture."""
+    return self._test_class_instance.app
+
+  def get_cache_from_fixture(self, app):
+    """Helper method to access the 'cache' fixture."""
+    return Cache(app)
+
+  @pytest.fixture
+  def client(self, app):  # Pass app to test_client
+    with app.test_client() as client:
+      with app.app_context():
+        yield client
+        self.cache.clear()  # Clear cache after each test
+
   def mock_v2node_api_data(self, data):
 
     def mock_v2node_side_effect(nodes, props):
       return {"data": data}
 
     self.mock_v2node.side_effect = mock_v2node_side_effect
+
+  def test_cache_initialization(self):
+    self.assertIsInstance(self.cache, Cache)
 
   def create_mock_data(self, stat_var: str, places: list[str],
                        data: list) -> Dict[str, any]:
@@ -580,7 +614,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                           data=list([1234, 321]))
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(
+    filtered_configs = await utils.memoized_filter_chart_config_for_data_existence(
         configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
         SANTA_CLARA_COUNTY.types[0], USA.dcid)
 
