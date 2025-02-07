@@ -49,6 +49,9 @@
     });
   </script>
   {% endif %}
+  <script>
+    globalThis.FEATURE_FLAGS = {{ config['FEATURE_FLAGS'] | tojson }};
+  </script>
 
   <title>{{ title }} - Custom Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

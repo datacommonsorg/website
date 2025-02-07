@@ -21,8 +21,10 @@ from unittest import mock
 
 from flask import Flask
 
-from server.lib import fetch
 from server.routes.dev_place import utils
+from server.routes.dev_place.types import BlockConfig
+from server.routes.dev_place.types import Category
+from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import ServerBlockMetadata
 from server.routes.dev_place.types import ServerChartConfiguration
@@ -80,6 +82,60 @@ PLACE_BY_ID = {
     EARTH.dcid: EARTH,
 }
 
+MOUNTAIN_VIEW_API_DATA = {
+    "arcs": {
+        "typeOf": {
+            "nodes": [{
+                'value': MOUNTAIN_VIEW.types[0]
+            }]
+        },
+        "name": {
+            "nodes": [{
+                'value': MOUNTAIN_VIEW.name
+            }]
+        },
+        "dissolutionDate": {
+            "nodes": [{
+                'value': None
+            }]
+        },
+        "nameWithLanguage": {
+            "nodes": [{
+                'value': "Mountain View@en"
+            }, {
+                'value': "Mountain ViewFr@fr"
+            }]
+        }
+    }
+}
+CALIFORNIA_API_DATA = {
+    "arcs": {
+        "typeOf": {
+            "nodes": [{
+                'value': CALIFORNIA.types[0]
+            }]
+        },
+        "name": {
+            "nodes": [{
+                'value': CALIFORNIA.name
+            }]
+        },
+        "dissolutionDate": {
+            "nodes": [{
+                'value': None
+            }]
+        }
+    },
+}
+
+SAMPLE_BLOCK_METADATA = ServerBlockMetadata('PLACE',
+                                            [ServerChartMetadata('BAR')],
+                                            is_overview=True)
+SAMPLE_CHART_CONFIG = ServerChartConfiguration('Economics', 'title_id', 'title',
+                                               'description',
+                                               ['LifeExpectancy'], None,
+                                               [SAMPLE_BLOCK_METADATA])
+
 
 class TestUtils(unittest.IsolatedAsyncioTestCase):
   """Tests for utils within the dev_place api."""
@@ -110,12 +166,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_api_place_type = self.patch(place_api, "api_place_type")
     self.mock_api_place_type.side_effect = fetch_api_place_type_side_effect
 
-    self.mock_fetch_places = self.patch(utils, "fetch_places")
-    self.mock_fetch_raw_property_values = self.patch(fetch,
-                                                     "raw_property_values")
-    self.mock_fetch_descendent_places = self.patch(fetch, "descendent_places")
-    self.mock_multi_prop_values = self.patch(fetch, "multiple_property_values")
-
     def fetch_get_i18n_name_side_effect(place_dcids):
       return {p: PLACE_BY_ID[p].name for p in place_dcids if p in PLACE_BY_ID}
 
@@ -143,32 +193,29 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_place_url = self.patch(utils, "get_place_url")
     self.mock_place_url.side_effect = mock_url_for_side_effect
 
-    def fetch_translate(args, **kwargs):
-      if 'placeType' in kwargs and 'parentPlaces' in kwargs:
-        return f"{kwargs['placeType']} in {kwargs['parentPlaces']}"
-      return args
-
     self.mock_translate = self.patch(place_api, "translate")
-    self.mock_translate.side_effect = fetch_translate
 
+    # TODO(gmechali): Remove this mock, we should mock the api response.
     def mock_fetch_peer_places_within_side_effect(place_dcid, place_types):
       return [NEW_YORK.dcid, ARIZONA.dcid]
 
     self.mock_fetch_peer_places = self.patch(utils, "fetch_peer_places_within")
     self.mock_fetch_peer_places.side_effect = mock_fetch_peer_places_within_side_effect
 
+    self.mock_v2node = self.patch(dc, "v2node")
+
+    def fetch_translate(args, **kwargs):
+      if 'placeType' in kwargs and 'parentPlaces' in kwargs:
+        return f"{kwargs['placeType']} in {kwargs['parentPlaces']}"
+      return args
+
+    self.mock_translate.side_effect = fetch_translate
+
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
 
-    # TODO(gmechali): Verify we only mock the least possible functions.
-    self.mock_v2node = self.patch(dc, "v2node")
-
     self.mock_fetch_similar_place_dcids = self.patch(
         utils, "fetch_similar_place_dcids")
-    self.mock_fetch_child_place_dcids = self.patch(utils,
-                                                   "fetch_child_place_dcids")
-    self.mock_fetch_places_from_dcids = self.patch(utils,
-                                                   "extract_places_from_dcids")
 
   def tearDown(self):
     self.app_context.pop()
@@ -180,6 +227,20 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.addCleanup(patcher.stop)
     return mock_obj
 
+  def mock_v2node_api_data(self, data):
+
+    def mock_v2node_side_effect(nodes, props):
+      return {"data": data}
+
+    self.mock_v2node.side_effect = mock_v2node_side_effect
+
+  def create_mock_data(self, stat_var: str, places: list[str],
+                       data: list) -> Dict[str, any]:
+    by_entity = {}
+    for place in places:
+      by_entity[place] = data
+    return {'byVariable': {stat_var: {'byEntity': by_entity}}}
+
   def mock_dc_api_data(self,
                        stat_var: str,
                        places: List[str],
@@ -190,18 +251,12 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     if data is None:
       data = []
 
-    def create_mock_data(stat_var: str, places: list[str]) -> Dict[str, any]:
-      by_entity = {}
-      for place in places:
-        by_entity[place] = data
-      return {'byVariable': {stat_var: {'byEntity': by_entity}}}
-
-    val = create_mock_data(stat_var, places)
+    val = self.create_mock_data(stat_var, places, data)
 
     def mock_obs_point_side_effect(entities, variables, date='LATEST'):
       return val
 
-    val2 = create_mock_data(stat_var, places)
+    val2 = self.create_mock_data(stat_var, places, data)
 
     def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
       return val2
@@ -210,6 +265,23 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
       self.mock_obs_point.side_effect = mock_obs_point_side_effect
     if dc_obs_points_within:
       self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
+
+  def create_contained_in_data(self, types_list):
+    """
+    Creates the CONTAINED_IN_DATA dictionary structure from a list of node dictionaries.
+
+    Args:
+        nodes_data: A list of dictionaries, where each dictionary represents a node
+                    and contains a "types" key with a list of type strings.
+
+    Returns:
+        A dictionary in the CONTAINED_IN_DATA format.
+    """
+    data = {"arcs": {"containedInPlace": {"nodes": []}}}
+
+    for type_ in types_list:
+      data["arcs"]["containedInPlace"]["nodes"].append({"types": [type_]})
+    return data
 
   def test_get_place_html_link(self):
     """Tests the get_place_html_link generates the proper link."""
@@ -537,24 +609,392 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.assertEqual(filtered_configs, expected_configs)
 
-  # TODO(gmechali): Add test for filter_chart_config_for_category.
-  # TODO(gmechali): Add test for count_places_per_stat_var.
-  # TODO(gmechali): Add test for check_geo_data_exists.
-  # TODO(gmechali): Add test for select_string_with_locale.
-  # TODO(gmechali): Add test for fetch_places, fetch_places.
-  # TODO(gmechali): Add test for chart_config_to_overview_charts.
-  # TODO(gmechali): Add test for get_child_place_types.
-  # TODO(gmechali): Add test for get_child_place_type_to_highlight.
-  # TODO(gmechali): Add test for read_chart_configs.
-  # TODO(gmechali): Add test for fetch_child_place_dcids.
-  # TODO(gmechali): Add test for translate_chart_config.
-  # TODO(gmechali): Add test for get_block_count_per_category.
-  # TODO(gmechali): Add test for get_categories_metadata.
+  def test_check_geo_data_exists_true(self):
+    self.mock_v2node_api_data(
+        data={SAN_MATEO_COUNTY.dcid: {
+            "properties": ["geoJsonCoordinatesDP3"]
+        }})
+
+    self.assertTrue(utils.check_geo_data_exists(CALIFORNIA.dcid, "County"))
+
+  def test_check_geo_data_exists_false(self):
+    self.mock_v2node_api_data(
+        data={SAN_MATEO_COUNTY.dcid: {
+            "properties": ["notAGeoProperty"]
+        }})
+
+    self.assertFalse(utils.check_geo_data_exists(CALIFORNIA.dcid, "County"))
+
+  def test_select_string_with_locale(self):
+    strings = ["hello@en", "hola@es", "bonjour@fr"]
+    self.assertEqual(utils.select_string_with_locale(strings, "es"), "hola")
+    self.assertEqual(utils.select_string_with_locale(strings, "de"), "hello")
+    self.assertEqual(utils.select_string_with_locale(["test"], "es"), "")
+
+  def test_fetch_places(self):
+    data = {
+        MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW_API_DATA,
+        CALIFORNIA.dcid: CALIFORNIA_API_DATA
+    }
+    self.mock_v2node_api_data(data)
+
+    places = utils.fetch_places([MOUNTAIN_VIEW.dcid, CALIFORNIA.dcid])
+
+    self.assertEqual([p.name for p in places],
+                     [MOUNTAIN_VIEW.name, CALIFORNIA.name])
+
+  def test_fetch_places_fr(self):
+    ca_api_data = copy.deepcopy(CALIFORNIA_API_DATA)
+    ca_api_data['arcs']['nameWithLanguage'] = {
+        "nodes": [{
+            'value': "California@en"
+        }, {
+            'value': "Californie@fr"
+        }]
+    }
+    data = {
+        MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW_API_DATA,
+        CALIFORNIA.dcid: ca_api_data
+    }
+    self.mock_v2node_api_data(data)
+
+    places = utils.fetch_places([MOUNTAIN_VIEW.dcid, CALIFORNIA.dcid],
+                                locale="fr")
+
+    self.assertEqual([p.name for p in places],
+                     ["Mountain ViewFr", 'Californie'])
+
+  def test_chart_config_to_overview_charts(self):
+    chart_config = [
+        ServerChartConfiguration(
+            'Economics',
+            'CHART',
+            'CHART',
+            'description', ['LifeExpectancy'], ['Count_Person'], [
+                ServerBlockMetadata('CHILD_PLACES',
+                                    [ServerChartMetadata('MAP')],
+                                    title='Title!'),
+                ServerBlockMetadata('PLACE', [
+                    ServerChartMetadata('LINE'),
+                    ServerChartMetadata('HIGHLIGHT')
+                ]),
+                ServerBlockMetadata('PEERS_PLACES_WITHIN_PARENT', [
+                    ServerChartMetadata('BAR'),
+                    ServerChartMetadata('HIGHLIGHT')
+                ]),
+            ],
+            unit="USD",
+            scaling=100)
+    ]
+    blocks = utils.chart_config_to_overview_charts(chart_config, "County")
+
+    expected_blocks = [
+        BlockConfig(charts=[Chart(type='MAP', maxPlaces=None)],
+                    category='Economics',
+                    title='Title!',
+                    topicDcids=[],
+                    description='description',
+                    denominator=['Count_Person'],
+                    statisticalVariableDcids=['LifeExpectancy'],
+                    unit="USD",
+                    scaling=100,
+                    childPlaceType='County',
+                    placeScope='CHILD_PLACES'),
+        BlockConfig(charts=[
+            Chart(type='LINE', maxPlaces=None),
+            Chart(type='HIGHLIGHT', maxPlaces=None)
+        ],
+                    category='Economics',
+                    title=None,
+                    topicDcids=[],
+                    description='description',
+                    denominator=['Count_Person'],
+                    statisticalVariableDcids=['LifeExpectancy'],
+                    unit="USD",
+                    scaling=100,
+                    childPlaceType='County',
+                    placeScope='PLACE'),
+        BlockConfig(charts=[
+            Chart(type='BAR', maxPlaces=None),
+            Chart(type='HIGHLIGHT', maxPlaces=None)
+        ],
+                    category='Economics',
+                    title=None,
+                    topicDcids=[],
+                    description='description',
+                    denominator=['Count_Person'],
+                    statisticalVariableDcids=['LifeExpectancy'],
+                    unit="USD",
+                    scaling=100,
+                    childPlaceType='County',
+                    placeScope='PEERS_PLACES_WITHIN_PARENT')
+    ]
+    self.assertEqual(blocks, expected_blocks)
+
+  def test_get_child_place_types(self):
+    data = {
+        FRANCE.dcid: self.create_contained_in_data(["State", "EurostatNUTS1"])
+    }
+    self.mock_v2node_api_data(data)
+
+    child_types = utils.get_child_place_types(FRANCE)
+    self.assertEqual(child_types, ["State", "EurostatNUTS1"])
+
+  def test_get_child_place_type_to_highlight(self):
+
+    data = {
+        EARTH.dcid:
+            self.create_contained_in_data(["Continent"]),
+        USA.dcid:
+            self.create_contained_in_data(["State", "County", "City"]),
+        FRANCE.dcid:
+            self.create_contained_in_data([
+                "AdministrativeArea1", "AdministrativeArea2",
+                "AdministrativeArea3"
+            ]),
+        CALIFORNIA.dcid:
+            self.create_contained_in_data(["County", "City"]),
+        SAN_MATEO_COUNTY.dcid:
+            self.create_contained_in_data(
+                ["City", "CensusZipCodeTabulationArea"]),
+    }
+    self.mock_v2node_api_data(data)
+
+    self.assertEqual(utils.get_child_place_type_to_highlight(EARTH), "Country")
+    self.assertEqual(utils.get_child_place_type_to_highlight(USA), "State")
+    self.assertEqual(utils.get_child_place_type_to_highlight(FRANCE),
+                     "AdministrativeArea1")
+    self.assertEqual(utils.get_child_place_type_to_highlight(CALIFORNIA),
+                     "County")
+    self.assertEqual(utils.get_child_place_type_to_highlight(SAN_MATEO_COUNTY),
+                     "City")
+
+  def test_read_chart_configs(self):
+    app = Flask(__name__)
+    app.config['CHART_CONFIG'] = [{
+        'title': 'Chart',
+        'title_id': 'Chart',
+        'description': 'description',
+        'denominator': ['Count_Person'],
+        'category': 'Economics',
+        'variables': ['LifeExpectancy'],
+        'blocks': [{
+            'place_scope': 'PLACE',
+            'charts': [{
+                'type': 'BAR'
+            }]
+        }]
+    }]
+
+    with app.app_context():
+      configs = utils.read_chart_configs()
+      self.assertEqual(configs, [
+          ServerChartConfiguration(
+              category='Economics',
+              title='Chart',
+              title_id='Chart',
+              description='description',
+              denominator=['Count_Person'],
+              variables=['LifeExpectancy'],
+              blocks=[
+                  ServerBlockMetadata(place_scope='PLACE',
+                                      charts=[ServerChartMetadata(type='BAR')])
+              ])
+      ])
+
+  def test_fetch_child_place_dcids(self):
+    api_data = copy.deepcopy(CALIFORNIA_API_DATA)
+    api_data['arcs']['containedInPlace+'] = {
+        "nodes": [{
+            'value': MOUNTAIN_VIEW.dcid
+        }]
+    }
+    data = {CALIFORNIA.dcid: api_data}
+    self.mock_v2node_api_data(data)
+
+    child_dcids = utils.fetch_child_place_dcids(CALIFORNIA, "City")
+    self.assertEqual(child_dcids, [MOUNTAIN_VIEW.dcid])
+
+  def test_translate_chart_config_place_titles(self):
+    """Tests the most common scenario: PLACE scope and a title_id."""
+    chart_config = [
+        ServerChartConfiguration(
+            'Economics', 'pop_count_id', 'Population Count', 'description',
+            ['Count_Person'], None, [
+                ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')]),
+                ServerBlockMetadata('PEER_PLACES_WITHIN_PARENT',
+                                    [ServerChartMetadata('BAR')]),
+                ServerBlockMetadata('CHILD_PLACES',
+                                    [ServerChartMetadata('BAR')])
+            ])
+    ]
+    translated_config = utils.translate_chart_config(chart_config, "State",
+                                                     "County", "California",
+                                                     "United States")
+
+    self.assertEqual([b.title for b in translated_config[0].blocks], [
+        "California: pop_count_id",
+        "Other %(placeType)s in %(parentPlace)s: pop_count_id",
+        "plural_county in California: pop_count_id"
+    ])
+
+  def test_multiple_places_for_stat_var(self):
+    obs_point_response = {
+        "byVariable": {
+            "stat_var_1": {
+                "byEntity": {
+                    "place_1": list([1234]),
+                    "place_2": list([1234]),
+                    "place_3": list([1234])
+                }
+            },
+            "stat_var_2": {
+                "byEntity": {
+                    "place_4": list([1234, 321])
+                }
+            }
+        }
+    }
+    stat_var_dcids = ["stat_var_1", "stat_var_2"]
+    expected = {"stat_var_1": 2, "stat_var_2": 1}  # capped at 2
+    result = utils.count_places_per_stat_var(obs_point_response, stat_var_dcids,
+                                             2)
+    self.assertEqual(result, expected)
+
+  def test_empty_response(self):
+    obs_point_response = {
+        "byVariable": {
+            "stat_var_1": {
+                "byEntity": {}
+            },
+            "stat_var_2": {
+                "byEntity": {}
+            }
+        }
+    }
+    stat_var_dcids = ["stat_var_1", "stat_var_2"]
+    expected = {}
+    result = utils.count_places_per_stat_var(obs_point_response, stat_var_dcids)
+    self.assertEqual(result, expected)
+
+  def test_filter_by_category(self):
+    config = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    config2 = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    config.category = "Energy"
+    config2.category = "Economics"
+
+    energy_filtered = utils.filter_chart_config_for_category(
+        "Energy", [config, config2])
+    economics_filtered = utils.filter_chart_config_for_category(
+        "Economics", [config, config2])
+    self.maxDiff = None
+    self.assertEqual(energy_filtered, [config])
+    self.assertEqual(economics_filtered, [config2])
+
+  def test_overview_filter_with_data(self):
+    config = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    for block in config.blocks:
+      block.is_overview = True
+
+    overview_filtered = utils.filter_chart_config_for_category(
+        "Overview", [config])
+    self.maxDiff = None
+    self.assertEqual(overview_filtered, [config])
+
+  def test_overview_filter_no_overview_data(self):
+    config = copy.deepcopy(SAMPLE_CHART_CONFIG)
+
+    for block in config.blocks:
+      block.is_overview = False
+
+    overview_filtered = utils.filter_chart_config_for_category(
+        "Overview", [config])
+    self.assertEqual(overview_filtered, [config])  # Fallback to full config.
+
+  def test_single_category(self):
+    config = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    config.category = "Economics"
+    config.blocks = [
+        SAMPLE_BLOCK_METADATA, SAMPLE_BLOCK_METADATA, SAMPLE_BLOCK_METADATA
+    ]
+
+    config2 = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    config2.category = "Economics"
+    config2.blocks = [SAMPLE_BLOCK_METADATA]
+
+    config3 = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    config3.category = "Energy"
+    config3.blocks = [SAMPLE_BLOCK_METADATA]
+
+    expected_result: Dict[str, int] = {"Economics": 4, "Energy": 1}
+    self.assertEqual(
+        utils.get_block_count_per_category([config, config2, config3]),
+        expected_result)
+
+  def test_basic_categories(self):
+    economics_config = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    economics_config.category = "Economics"
+
+    economics_config2 = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    economics_config2.category = "Economics"
+    for block in economics_config.blocks:
+      block.is_overview = True
+
+    energy_config = copy.deepcopy(SAMPLE_CHART_CONFIG)
+    energy_config.category = "Energy"
+
+    # Lets assume one economy config isn't in the overview.
+    all_chart_config = [economics_config, economics_config2, energy_config]
+    overview_config = [economics_config, energy_config]
+
+    categories = utils.get_categories_metadata("Overview", all_chart_config,
+                                               overview_config)
+
+    energy_category = Category(
+        name="Energy",
+        translatedName="CHART_TITLE-CHART_CATEGORY-Energy",
+        hasMoreCharts=False)
+    econ_category = Category(
+        name="Economics",
+        translatedName="CHART_TITLE-CHART_CATEGORY-Economics",
+        hasMoreCharts=True)
+    self.assertEqual([econ_category, energy_category], categories)
+
+  def test_fetch_nearby_places(self):
+    api_data = copy.deepcopy(CALIFORNIA_API_DATA)
+    api_data['arcs']['nearbyPlaces'] = {
+        "nodes": [{
+            "value": "geoId/04@1000m"
+        }, {
+            "value": "geoId/05@1000m"
+        }]
+    }
+    data = {CALIFORNIA.dcid: api_data}
+
+    self.mock_v2node_api_data(data)
+    nearby_dcids = utils.fetch_nearby_place_dcids(CALIFORNIA)
+    self.assertEqual(nearby_dcids, ["geoId/04", "geoId/05"])
+
+  def test_extract_places(self):
+    dissolved_san_mateo = copy.deepcopy(SAN_MATEO_COUNTY)
+    dissolved_san_mateo.dissolved = True
+
+    all_places = {
+        CALIFORNIA.dcid: CALIFORNIA,
+        MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW,
+        SANTA_CLARA_COUNTY.dcid: SANTA_CLARA_COUNTY,
+        SAN_MATEO_COUNTY.dcid: dissolved_san_mateo
+    }
+    dcids = [
+        CALIFORNIA.dcid, MOUNTAIN_VIEW.dcid, SANTA_CLARA_COUNTY.dcid,
+        dissolved_san_mateo.dcid
+    ]
+    extracted_places = utils.extract_places_from_dcids(all_places, dcids)
+
+    self.assertEqual(extracted_places,
+                     [CALIFORNIA, MOUNTAIN_VIEW, SANTA_CLARA_COUNTY])
+
   # TODO(gmechali): Add test for get_place_cohort.
-  # TODO(gmechali): Add test for parse_nearby_value.
-  # TODO(gmechali): Add test for fetch_nearby_place_dcids.
   # TODO(gmechali): Add test for fetch_peer_places_within.
   # TODO(gmechali): Add test for fetch_similar_place_dcids.
   # TODO(gmechali): Add test for fetch_overview_table_data.
-  # TODO(gmechali): Add test for dedupe_preserve_order.
-  # TODO(gmechali): Add test for extract_places_from_dcids.
