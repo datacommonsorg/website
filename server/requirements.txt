@@ -24,7 +24,7 @@ json5==0.9.14
 langdetect==1.0.9
 markupsafe==2.1.2
 parameterized==0.8.1
-pillow==10.3.0
+pillow==10.4.0
 protobuf==4.25.3
 PyGithub==1.58.2
 pyOpenSSL==23.2.0
