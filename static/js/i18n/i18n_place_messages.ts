@@ -151,21 +151,21 @@ export const pageMessages = defineMessages({
   },
   RelevantTopics: {
     id: "relevant_topics",
-    defaultMessage: "Relevant Topics",
+    defaultMessage: "Relevant topics",
     description:
-      "Header text for the Relevant Topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
+      "Header text for the Relevant topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
   },
   SummaryOverview: {
     id: "summary_overview",
-    defaultMessage: "Summary Overview",
+    defaultMessage: "Summary overview",
     description:
-      "Header text for the Summary Overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
+      "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
   },
   KeyDemographics: {
     id: "key_demographics",
-    defaultMessage: "Key Demographics",
+    defaultMessage: "Key demographics",
     description:
-      "Header text for the Key Demographics section for the current place. Section will include a table of key demographic statistics for the place.",
+      "Header text for the Key demographics section for the current place. Section will include a table of key demographic statistics for the place.",
   },
   MoreCharts: {
     id: "more_charts_link",

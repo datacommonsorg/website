@@ -13,11 +13,11 @@
   },
   "chart-title-with-two-variables": {
     "defaultMessage": "{variable1} Vs. {variable2}",
-    "description": "Chart title for a chart comparing two different variables. For example, this could be Obesity Rate vs. Median Income."
+    "description": "Chart title for a chart comparing two different variables. For example, this could be \"Obesity Rate vs. Median Income.\""
   },
   "chart-title-with-two-variables-and-location": {
     "defaultMessage": "{variable1} Vs. {variable2} in {placeType} of {place}",
-    "description": "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be Obesity Rate Vs. Income in States of USA, or Housing vs Poverty in Countries of Europe."
+    "description": "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be \"Obesity Rate Vs. Income in States of USA\", or \"Housing vs Poverty in Countries of Europe\"."
   },
   "chart_clause-other_placeType": {
     "defaultMessage": "{chartTitle}: other {placeType}",
@@ -108,8 +108,8 @@
     "description": "Text for header or subheader of Overview charts on place pages."
   },
   "key_demographics": {
-    "defaultMessage": "Key Demographics",
-    "description": "Header text for the Key Demographics section for the current place. Section will include a table of key demographic statistics for the place."
+    "defaultMessage": "Key demographics",
+    "description": "Header text for the Key demographics section for the current place. Section will include a table of key demographic statistics for the place."
   },
   "knowledge_graph": {
     "defaultMessage": "Knowledge Graph",
@@ -272,8 +272,8 @@
     "description": "Column header for a ranking table. Column includes values associated with a statistical variable for a place."
   },
   "relevant_topics": {
-    "defaultMessage": "Relevant Topics",
-    "description": "Header text for the Relevant Topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing."
+    "defaultMessage": "Relevant topics",
+    "description": "Header text for the Relevant topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing."
   },
   "scatterTool": {
     "defaultMessage": "Scatter Tool",
@@ -364,8 +364,8 @@
     "description": "Title indicating that the chart data comes from the following multiple sources"
   },
   "summary_overview": {
-    "defaultMessage": "Summary Overview",
-    "description": "Header text for the Summary Overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics."
+    "defaultMessage": "Summary overview",
+    "description": "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics."
   },
   "the_world": {
     "defaultMessage": "the World",
@@ -377,6 +377,6 @@
   },
   "viaGoogle": {
     "defaultMessage": "via Google",
-    "description": "Indicator displayed when chart data comes from Google"
+    "description": "Indicator displayed when chart data comes from Google. Example \"Source: www2.census.gov via Google\""
   }
 }
