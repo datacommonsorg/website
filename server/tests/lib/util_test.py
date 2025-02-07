@@ -726,6 +726,203 @@ class TestGetSeriesDatesFromEntities(unittest.TestCase):
     self.assertEqual(result, expected_output)
 
 
+class TestGetSeriesDatesFromEntitiesWithin(unittest.TestCase):
+  maxDiff = None
+
+  @patch('server.services.datacommons.obs_series_within')
+  def test_single_variable(self, mock_obs_series_within):
+    mock_obs_series_within.return_value = {
+        "byVariable": {
+            "Count_Person": {
+                "byEntity": {
+                    "geoId/06": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
+                    },
+                    "geoId/51": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
+                    }
+                }
+            }
+        },
+        "facets": {
+            "2176550201": {
+                "importName": "facet1"
+            }
+        }
+    }
+
+    parent_entity = "country/USA"
+    child_type = "State"
+    variables = ["Count_Person"]
+    expected_output = {
+        'datesByVariable': [{
+            'variable':
+                'Count_Person',
+            'observationDates': [{
+                'date': '1900',
+                'entityCount': [{
+                    'facet': '2176550201',
+                    'count': 2
+                }]
+            }, {
+                'date': '1901',
+                'entityCount': [{
+                    'facet': '2176550201',
+                    'count': 2
+                }]
+            }]
+        }],
+        'facets': {
+            '2176550201': {
+                "importName": "facet1"
+            }
+        }
+    }
+
+    result = lib_util.get_series_dates_from_entities_within(
+        parent_entity, child_type, variables)
+    self.assertEqual(result, expected_output)
+
+  @patch('server.services.datacommons.obs_series_within')
+  def test_multiple_variables_multiple_entities(self, mock_obs_series_within):
+    mock_obs_series_within.return_value = {
+        "byVariable": {
+            "Count_Person": {
+                "byEntity": {
+                    "geoId/06": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
+                    },
+                    "geoId/51": {
+                        "orderedFacets": [{
+                            "facetId": "2176550201",
+                            "observations": [{
+                                "date": "1901",
+                                "value": 5500000
+                            }]
+                        }]
+                    }
+                }
+            },
+            "Count_Household": {
+                "byEntity": {
+                    "geoId/06": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550202",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 15000000
+                            }, {
+                                "date": "1901",
+                                "value": 15500000
+                            }]
+                        }]
+                    },
+                    "geoId/51": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550202",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 1000000
+                            },]
+                        }]
+                    }
+                }
+            }
+        },
+        "facets": {
+            '2176550201': {
+                "importName": "facet1"
+            },
+            '2176550202': {
+                "importName": "facet2"
+            }
+        }
+    }
+
+    parent_entity = "country/USA"
+    child_type = "State"
+    variables = ["Count_Person", "Count_Household"]
+    expected_output = {
+        'datesByVariable': [{
+            'variable':
+                'Count_Household',
+            'observationDates': [{
+                'date': '1900',
+                'entityCount': [{
+                    'facet': '2176550202',
+                    'count': 2
+                }]
+            }, {
+                'date': '1901',
+                'entityCount': [{
+                    'facet': '2176550202',
+                    'count': 1
+                }]
+            }]
+        }, {
+            'variable':
+                'Count_Person',
+            'observationDates': [{
+                'date': '1900',
+                'entityCount': [{
+                    'facet': '2176550201',
+                    'count': 1
+                }]
+            }, {
+                'date': '1901',
+                'entityCount': [{
+                    'facet': '2176550201',
+                    'count': 2
+                }]
+            }]
+        }],
+        'facets': {
+            '2176550201': {
+                "importName": "facet1"
+            },
+            '2176550202': {
+                "importName": "facet2"
+            }
+        }
+    }
+
+    result = lib_util.get_series_dates_from_entities_within(
+        parent_entity, child_type, variables)
+    self.assertEqual(result, expected_output)
+
+
 class TestFetchHighestCoverage(unittest.TestCase):
 
   mock_obs_series_labor_force_response = {
@@ -1509,9 +1706,9 @@ class TestFetchHighestCoverage(unittest.TestCase):
     mock_point_core.assert_called_with(entities, variables, '2020', False)
 
   @patch('server.lib.fetch.point_within_core')
-  @patch('server.services.datacommons.get_series_dates')
+  @patch('server.lib.util.get_series_dates_from_entities_within')
   def test_fetch_highest_coverage_with_parent_entity_and_child_type(
-      self, mock_get_series_dates, mock_point_within_core):
+      self, mock_get_series_dates_from_entities_within, mock_point_within_core):
     variables = ['who/Var1', 'who/Var2']
     parent_entity = 'Earth'
     child_type = 'Country'
@@ -1617,7 +1814,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
         }
     }
 
-    mock_get_series_dates.return_value = mock_series_dates_response
+    mock_get_series_dates_from_entities_within.return_value = mock_series_dates_response
 
     lib_util.fetch_highest_coverage(variables=variables,
                                     all_facets=False,
@@ -1628,9 +1825,9 @@ class TestFetchHighestCoverage(unittest.TestCase):
                                               variables, "2020", False, None)
 
   @patch('server.lib.fetch.point_within_core')
-  @patch('server.services.datacommons.get_series_dates')
+  @patch('server.lib.util.get_series_dates_from_entities_within')
   def test_fetch_highest_coverage_with_parent_entity_and_child_type_multi_variable(
-      self, mock_get_series_dates, mock_point_within_core):
+      self, mock_get_series_dates_from_entities_within, mock_point_within_core):
     variables = ['who/Var1', 'who/Var2']
     parent_entity = 'Earth'
     child_type = 'Country'
@@ -1736,7 +1933,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
         }
     }
 
-    mock_get_series_dates.return_value = mock_series_dates_response
+    mock_get_series_dates_from_entities_within.return_value = mock_series_dates_response
 
     lib_util.fetch_highest_coverage(variables=variables,
                                     all_facets=False,
@@ -1747,9 +1944,9 @@ class TestFetchHighestCoverage(unittest.TestCase):
                                               variables, "2019", False, None)
 
   @patch('server.lib.fetch.point_within_core')
-  @patch('server.services.datacommons.get_series_dates')
+  @patch('server.lib.util.get_series_dates_from_entities_within')
   def test_fetch_highest_coverage_with_no_observation_dates(
-      self, mock_get_series_dates, mock_point_within_core):
+      self, mock_get_series_dates_from_entities_within, mock_point_within_core):
     variables = ['who/Var1', 'who/Var2']
     parent_entity = 'Earth'
     child_type = 'Country'
@@ -1761,7 +1958,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
         }]
     }
 
-    mock_get_series_dates.return_value = mock_series_dates_response
+    mock_get_series_dates_from_entities_within.return_value = mock_series_dates_response
 
     expected_output = {"data": {"who/Var1": {}, "who/Var2": {}}, "facets": {}}
 
