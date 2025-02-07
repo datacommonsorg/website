@@ -160,7 +160,7 @@ async def related_places(place_dcid: str):
      Returns lists of DCIDs or Places for each type of related places."""
 
     child_tasks = [
-        asyncio.to_thread(place_utils.fetch_child_place_dcids, place,
+        asyncio.to_thread(place_utils.cached_fetch_child_place_dcids, place,
                           child_place_type)
         for child_place_type in ordered_child_place_types
     ]

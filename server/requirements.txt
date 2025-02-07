@@ -24,7 +24,7 @@ json5==0.9.14
 langdetect==1.0.9
 markupsafe==2.1.2
 parameterized==0.8.1
-pillow==10.3.0
+pillow==10.4.0
 protobuf==4.25.3
 PyGithub==1.58.2
 pyOpenSSL==23.2.0
@@ -40,3 +40,5 @@ typing-extensions==4.10.0
 webdriver-manager==4.0.0
 Werkzeug==3.0.6
 wheel==0.38.1
+# TODO: publish the library to pypi so we don't have to install from git
+git+https://github.com/datacommonsorg/llm-tools.git
