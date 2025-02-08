@@ -55,13 +55,13 @@ const TITLE_MESSAGES = defineMessages({
   titleWithTwoVariables: {
     defaultMessage: "{variable1} Vs. {variable2}",
     description:
-      "Chart title for a chart comparing two different variables. For example, this could be Obesity Rate vs. Median Income.",
+      'Chart title for a chart comparing two different variables. For example, this could be "Obesity Rate vs. Median Income."',
     id: "chart-title-with-two-variables",
   },
   titleWithTwoVariablesAndLocation: {
     defaultMessage: "{variable1} Vs. {variable2} in {placeType} of {place}",
     description:
-      "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be Obesity Rate Vs. Income in States of USA, or Housing vs Poverty in Countries of Europe.",
+      'Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be "Obesity Rate Vs. Income in States of USA", or "Housing vs Poverty in Countries of Europe".',
     id: "chart-title-with-two-variables-and-location",
   },
 });

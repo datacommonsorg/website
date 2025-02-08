@@ -21,6 +21,8 @@ import React, { RefObject, useRef } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { intl } from "../../i18n/i18n";
+import { tileMessages } from "../../i18n/i18n_tile_messages";
 import { StatVarSpec } from "../../shared/types";
 import {
   RankingData,
@@ -380,7 +382,7 @@ function getExploreLink(
     {}
   );
   return {
-    displayText: "Timeline Tool",
+    displayText: intl.formatMessage(tileMessages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
 }
