@@ -26,7 +26,7 @@ export const SCROLL_TO_TOP_FEATURE_FLAG = "scroll_to_top_button";
  * @returns Bool describing if the feature is enabled
  */
 export function isFeatureEnabled(featureName: string): boolean {
-  if (featureName in FEATURE_FLAGS) {
+  if (FEATURE_FLAGS && featureName in FEATURE_FLAGS) {
     return FEATURE_FLAGS[featureName];
   }
   return false;
