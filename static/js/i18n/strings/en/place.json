@@ -3,6 +3,22 @@
     "defaultMessage": "Sorry, but we don't have any data about {placeName}",
     "description": "Text for an alert that we show when user tries to navigate to a place with no data. For example, \"Sorry, but we don't have any data about {Hong Kong Island, Hong Kong}\"."
   },
+  "chart-title-with-per-capita-and-date": {
+    "defaultMessage": "{variableName} (Per Capita in {date})",
+    "description": "Chart title for a chart with variable values that are per capita for a specific date"
+  },
+  "chart-title-with-per-capita-no-date": {
+    "defaultMessage": "{variableName} (Per Capita)",
+    "description": "Chart title for a chart with variable values that are per capita"
+  },
+  "chart-title-with-two-variables": {
+    "defaultMessage": "{variable1} Vs. {variable2}",
+    "description": "Chart title for a chart comparing two different variables. For example, this could be \"Obesity Rate vs. Median Income.\""
+  },
+  "chart-title-with-two-variables-and-location": {
+    "defaultMessage": "{variable1} Vs. {variable2} in {placeType} of {place}",
+    "description": "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be \"Obesity Rate Vs. Income in States of USA\", or \"Housing vs Poverty in Countries of Europe\"."
+  },
   "chart_clause-other_placeType": {
     "defaultMessage": "{chartTitle}: other {placeType}",
     "description": "Used to describe other places. Like \"Educational Attainment in other {countries}\"."
@@ -51,6 +67,22 @@
     "defaultMessage": "Places in {placeName}",
     "description": "Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header \"Places in {Austria}\"."
   },
+  "chooseVariable": {
+    "defaultMessage": "Choose a variable to view its metadata",
+    "description": "Title for the metadata modal showing the list of variables to show source information for"
+  },
+  "close": {
+    "defaultMessage": "Close",
+    "description": "Button to close the metadata modal"
+  },
+  "disasterTool": {
+    "defaultMessage": "Disaster Tool",
+    "description": "Title for the disaster tool"
+  },
+  "download": {
+    "defaultMessage": "Download",
+    "description": "Button to download data from the chart"
+  },
   "embed_citation": {
     "defaultMessage": "Data from {sources} via Data Commons",
     "description": "Used to cite where the data is from, but that it was provided through Data Commons. For example, \"Data from {nytimes.com} via Data Commons\" or \"Data from {census.gov, nytimes.com} via Data Commons\". Please keep the name \"Data Commons\"."
@@ -67,17 +99,41 @@
     "defaultMessage": "Export this chart",
     "description": "Text for the hyperlink text that will let users export data and export charts."
   },
+  "exploreLink": {
+    "defaultMessage": "Explore in {toolName}",
+    "description": "Link to explore the chart in a specific tool"
+  },
   "header-overview": {
     "defaultMessage": "Overview",
     "description": "Text for header or subheader of Overview charts on place pages."
+  },
+  "key_demographics": {
+    "defaultMessage": "Key demographics",
+    "description": "Header text for the Key demographics section for the current place. Section will include a table of key demographic statistics for the place."
+  },
+  "knowledge_graph": {
+    "defaultMessage": "Knowledge Graph",
+    "description": "Link to the Knowledge Graph for the current place"
   },
   "link-return_to_overview": {
     "defaultMessage": "Back to overview",
     "description": "Text for the link present in subtopic place pages directing the user back to the Overview page."
   },
+  "loading": {
+    "defaultMessage": "Loading...",
+    "description": "Loading indicator displayed when chart visualizations are loading"
+  },
+  "mapTool": {
+    "defaultMessage": "Map Tool",
+    "description": "Title for the map tool"
+  },
   "more_charts": {
     "defaultMessage": "More charts",
     "description": "Link to explore more charts about a particular domain, such as Education or Health."
+  },
+  "more_charts_link": {
+    "defaultMessage": "More charts",
+    "description": "Link text to show additional charts for the given chart category section for the current place."
   },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} in {placeName}",
@@ -199,6 +255,14 @@
     "defaultMessage": "Top {rankSize} {pluralPlaceType} in {placeName}, per capita",
     "description": "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
+  "ranking-tile-latest-data-available-footer": {
+    "defaultMessage": "Ranking based on latest data available. Some places may be missing due to incomplete reporting that year.",
+    "description": "Description of a chart that shows the most recently available data."
+  },
+  "ranking-tile-latest-data-footer": {
+    "defaultMessage": "This ranking includes data from several years for a comprehensive view of places.",
+    "description": "Description of a chart that shows data points from various years."
+  },
   "ranking_table-header_rank": {
     "defaultMessage": "Rank",
     "description": "Column header for a ranking table. Column includes values associated with the numerical rank of a place."
@@ -207,9 +271,25 @@
     "defaultMessage": "Value",
     "description": "Column header for a ranking table. Column includes values associated with a statistical variable for a place."
   },
+  "relevant_topics": {
+    "defaultMessage": "Relevant topics",
+    "description": "Header text for the Relevant topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing."
+  },
+  "scatterTool": {
+    "defaultMessage": "Scatter Tool",
+    "description": "Title for the scatter tool"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Search for another place",
     "description": "Text for the Search Box after we alerted the user that data isn't available for the place they just tried."
+  },
+  "selectVariable": {
+    "defaultMessage": "Select a variable from the list to see its details. The links below open the Statistical Variable Explorer in a new tab.",
+    "description": "Subtitle for the metadata modal showing the list of variables to show source information for"
+  },
+  "showMetadata": {
+    "defaultMessage": "Show metadata",
+    "description": "Link to show source metadata for the chart"
   },
   "singular_administrative_area": {
     "defaultMessage": "Administrative Area",
@@ -263,8 +343,40 @@
     "defaultMessage": "ZIP Code",
     "description": "A ZIP Code area. Some examples, we say that 94539 is \"_ZIP Code_ in Alameda County, California, United States of America, North America\"."
   },
+  "snap-to-latest-data-checkbox-label": {
+    "defaultMessage": "Snap to date with highest coverage",
+    "description": "Checkbox label for an option that tells a chart visualization to show the latest data available"
+  },
+  "snap-to-latest-data-help-tooltip": {
+    "defaultMessage": "'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year.",
+    "description": "Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
+  },
+  "snap-to-latest-data-overlap-help-tooltip": {
+    "defaultMessage": "The highest coverage data is also the latest data available for this chart.",
+    "description": "Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
+  },
+  "source": {
+    "defaultMessage": "Source",
+    "description": "Title indicating that the chart data comes from the following single source"
+  },
+  "sources": {
+    "defaultMessage": "Sources",
+    "description": "Title indicating that the chart data comes from the following multiple sources"
+  },
+  "summary_overview": {
+    "defaultMessage": "Summary overview",
+    "description": "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics."
+  },
   "the_world": {
     "defaultMessage": "the World",
     "description": "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth."
+  },
+  "timelineTool": {
+    "defaultMessage": "Timeline Tool",
+    "description": "Title for the timeline tool"
+  },
+  "viaGoogle": {
+    "defaultMessage": "via Google",
+    "description": "Indicator displayed when chart data comes from Google. Example \"Source: www2.census.gov via Google\""
   }
 }
