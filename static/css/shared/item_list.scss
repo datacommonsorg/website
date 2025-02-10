@@ -22,8 +22,8 @@
     color: var(--gm-3-sys-light-primary);
     .item-list-item {
       display: inline-flex;
-
-      &:before {
+      
+      &:not(:last-child)::after {
         content: "•";
         color: var(--gm-3-ref-neutral-neutral-40);
         display: inline-block;
