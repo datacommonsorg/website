@@ -23,6 +23,7 @@ import { LocationCity } from "../components/elements/icons/location_city";
 import { GoogleMap } from "../components/google_map";
 import { formatDate, formatNumber, intl } from "../i18n/i18n";
 import { pageMessages } from "../i18n/i18n_place_messages";
+import { InfoTooltipComponent } from "../shared/components";
 import { NamedTypedPlace } from "../shared/types";
 import { isPlaceContainedInUsa } from "./util";
 
@@ -184,6 +185,10 @@ export const PlaceOverview = (props: {
       >
         <LocationCity />
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
+        <InfoTooltipComponent
+          icon_path="../../images/info_spark.svg"
+          description="Supppppp"
+        />
       </div>
       {placeSummary && (
         <div

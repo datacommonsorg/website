@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
+import { css, useTheme } from "@emotion/react";
 import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 /**
@@ -40,5 +42,44 @@ export const IconPlaceholder = (props: {
     <IconPlaceholderContainer $height={props.height}>
       <span className="material-icons-outlined">{props.iconName}</span>
     </IconPlaceholderContainer>
+  );
+};
+
+export const InfoTooltipComponent = (props: {
+  icon_path: string;
+  description: string;
+}): React.JSX.Element => {
+  const [isVisible, setIsVisible] = useState(false);
+  const theme = useTheme();
+
+  const InfoTooltip = styled.div`
+    position: absolute;
+    top: 25px;
+    left: 0;
+    background-color: ${theme.colors.background.secondary.light};
+    border: 1px solid #ccc; /* Tooltip border */
+    padding: 8px;
+    border-radius: 4px;
+    z-index: 1;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  `;
+
+  const InfoTooltipContainerStyled = styled.div`
+    position: relative;
+    display: inline-block;
+  `;
+
+  const InfoTooltipImg = styled.img`
+    font-size: ${theme.typography.text.md};
+  `;
+  const handleButtonClick = () => {
+    setIsVisible(!isVisible);
+  };
+
+  return (
+    <InfoTooltipContainerStyled>
+      <InfoTooltipImg onClick={handleButtonClick} src={props.icon_path} />
+      {isVisible && <InfoTooltip>{props.description}</InfoTooltip>}
+    </InfoTooltipContainerStyled>
   );
 };

@@ -237,7 +237,9 @@ export function placeChartsApiResponsesToPageConfig(
       const blocks = blocksByCategory[categoryName];
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
-      let defaultBarChartItems = isMobileByWidth() ? DEFAULT_BAR_CHART_ITEMS_MOBILE : DEFAULT_BAR_CHART_ITEMS;
+      const defaultBarChartItems = isMobileByWidth()
+        ? DEFAULT_BAR_CHART_ITEMS_MOBILE
+        : DEFAULT_BAR_CHART_ITEMS;
 
       blocks.forEach((block: BlockConfig) => {
         let blockTitle;
@@ -294,7 +296,9 @@ export function placeChartsApiResponsesToPageConfig(
               rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
-            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : defaultBarChartItems;
+            maxPlacesCount = chart.maxPlaces
+              ? chart.maxPlaces
+              : defaultBarChartItems;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
               sort: "DESCENDING",
