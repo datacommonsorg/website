@@ -179,20 +179,12 @@ export function App(): ReactElement {
       <div
         className="app"
         css={css`
-          margin: ${theme.spacing.lg}px;
+          margin: ${theme.spacing.xl}px;
           display: flex;
           flex-direction: column;
           gap: ${theme.spacing.lg}px;
         `}
       >
-        <div
-          className="title"
-          css={css`
-            ${theme.typography.heading.lg};
-          `}
-        >
-          DataGemma Playground
-        </div>
         <div
           className="inputs"
           css={css`
@@ -202,6 +194,35 @@ export function App(): ReactElement {
             gap: ${theme.spacing.sm}px;
           `}
         >
+        <div
+          className="mode-input"
+          css={css`
+            display: flex;
+            gap: ${theme.spacing.sm}px;
+            margin-left: 56px;
+            & > .mode-option {
+              margin-left: 24px;
+            }
+          `}
+        >
+          {[RIG_MODE, RAG_MODE].map((m) => {
+            return (
+              <div className="mode-option" key={m}>
+                <Input
+                  type="radio"
+                  name=""
+                  value={m}
+                  checked={mode === m}
+                  onChange={() => {
+                    setMode(m);
+                    updateHash({ [URL_HASH_PARAMS.mode]: m });
+                  }}
+                />
+                <label>{m}</label>
+              </div>
+            );
+          })}
+        </div>
           <div
             className="query-input"
             css={css`
@@ -217,33 +238,9 @@ export function App(): ReactElement {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-          </div>
-          <div
-            className="mode-input"
-            css={css`
-              margin-left: 24px;
-            `}
-          >
-            {[RIG_MODE, RAG_MODE].map((m) => {
-              return (
-                <div className="mode-option" key={m}>
-                  <Input
-                    type="radio"
-                    name=""
-                    value={m}
-                    checked={mode === m}
-                    onChange={() => {
-                      setMode(m);
-                      updateHash({ [URL_HASH_PARAMS.mode]: m });
-                    }}
-                  />
-                  <label>{m}</label>
-                </div>
-              );
-            })}
-          </div>
-          <div onClick={onQueryRun} className="btn btn-primary">
-            Run
+            <div onClick={onQueryRun} className="btn btn-primary">
+              run
+            </div>
           </div>
         </div>
         <div

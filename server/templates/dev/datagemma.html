@@ -22,6 +22,17 @@
     
     {% block head %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+          #main {
+               height: 100vh;
+               display: flex;
+               flex-direction: column;
+          }
+          .main-content {
+               width: 100%;
+               flex-grow: 1;
+          }
+    </style>
     {% endblock %}
     
     {% block content %}
