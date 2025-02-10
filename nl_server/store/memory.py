@@ -119,6 +119,7 @@ def _is_csv_empty_or_header_only(file_path):
     True if the CSV file is empty or has only the header, False otherwise.
   """
   with open(file_path, 'r', newline='') as csvfile:
+    csvfile.seek(0)
     reader = csv.reader(csvfile)
     logging.error(f'reading {file_path}')
     num_rows = len(list(reader))
