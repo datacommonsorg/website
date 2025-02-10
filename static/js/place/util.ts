@@ -36,6 +36,11 @@ import {
   TileConfig,
 } from "../types/subject_page_proto_types";
 
+const MAX_WIDTH_MOBILE = 768;
+const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
+const DEFAULT_BAR_CHART_ITEMS = 15;
+
+/**
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
  */
@@ -194,6 +199,10 @@ export function createPlacePageCategoryHref(
   return params.size > 0 ? `${href}?${params.toString()}` : href;
 }
 
+function isMobileByWidth(): boolean {
+  return window.innerWidth <= MAX_WIDTH_MOBILE;
+}
+
 /**
  * Helper to process the dev Place page API response
  * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
@@ -228,6 +237,7 @@ export function placeChartsApiResponsesToPageConfig(
       const blocks = blocksByCategory[categoryName];
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
+      let defaultBarChartItems = isMobileByWidth() ? DEFAULT_BAR_CHART_ITEMS_MOBILE : DEFAULT_BAR_CHART_ITEMS;
 
       blocks.forEach((block: BlockConfig) => {
         let blockTitle;
@@ -284,7 +294,7 @@ export function placeChartsApiResponsesToPageConfig(
               rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
-            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
+            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : defaultBarChartItems;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
               sort: "DESCENDING",
