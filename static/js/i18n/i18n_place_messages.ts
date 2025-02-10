@@ -159,6 +159,12 @@ export const pageMessages = defineMessages({
     id: "summary_overview",
     defaultMessage: "Summary overview",
     description:
+      "Tooltip text for the Summary overview section for the current place. This text explains that we use AI to generate the Summary Overview text.",
+  },
+  SummaryOverviewTooltip: {
+    id: "summary_overview_tooltip",
+    defaultMessage: "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data.",
+    description:
       "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
   },
   KeyDemographics: {

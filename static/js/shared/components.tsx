@@ -53,32 +53,32 @@ export const InfoTooltipComponent = (props: {
   const theme = useTheme();
 
   const InfoTooltip = styled.div`
+    ${theme.typography.text.sm}
     position: absolute;
-    top: 25px;
+    min-width: 240px;
+    top: ${theme.spacing.lg}px;
     left: 0;
     background-color: ${theme.colors.background.secondary.light};
-    border: 1px solid #ccc; /* Tooltip border */
-    padding: 8px;
-    border-radius: 4px;
+    border: 1px solid ${theme.colors.border.primary.light};
+    border-radius: ${theme.radius.secondary.borderRadius};
+    padding: ${theme.spacing.lg}px;
     z-index: 1;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: ${theme.elevation.secondary.boxShadow};
   `;
 
   const InfoTooltipContainerStyled = styled.div`
     position: relative;
     display: inline-block;
+    margin: ${theme.spacing.sm}px;
   `;
 
-  const InfoTooltipImg = styled.img`
-    font-size: ${theme.typography.text.md};
-  `;
   const handleButtonClick = () => {
     setIsVisible(!isVisible);
   };
 
   return (
     <InfoTooltipContainerStyled>
-      <InfoTooltipImg onClick={handleButtonClick} src={props.icon_path} />
+      <img onClick={handleButtonClick} src={props.icon_path} />
       {isVisible && <InfoTooltip>{props.description}</InfoTooltip>}
     </InfoTooltipContainerStyled>
   );

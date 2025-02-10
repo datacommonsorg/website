@@ -185,20 +185,20 @@ export const PlaceOverview = (props: {
       >
         <LocationCity />
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
-        <InfoTooltipComponent
-          icon_path="../../images/info_spark.svg"
-          description="Supppppp"
-        />
       </div>
       {placeSummary && (
         <div
-          className="place-summary"
-          css={css`
-            ${theme.typography.text.sm}
-            margin-bottom: ${theme.spacing.md}px;
+        className="place-summary"
+        css={css`
+          ${theme.typography.text.sm}
+          margin-bottom: ${theme.spacing.md}px;
           `}
-        >
-          {placeSummary}
+          >
+          <span>{placeSummary}</span>
+          <InfoTooltipComponent
+            icon_path="../../images/info_spark.svg"
+            description={intl.formatMessage(pageMessages.SummaryOverviewTooltip)}
+          />
         </div>
       )}
 
