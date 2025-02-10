@@ -21,18 +21,8 @@
     {% set is_hide_header_search_bar = 'true' %}
     
     {% block head %}
+    <link rel="stylesheet" href={{url_for('static', filename='css/datagemma.min.css')}}>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <style>
-          #main {
-               height: 100vh;
-               display: flex;
-               flex-direction: column;
-          }
-          .main-content {
-               width: 100%;
-               flex-grow: 1;
-          }
-    </style>
     {% endblock %}
     
     {% block content %}
