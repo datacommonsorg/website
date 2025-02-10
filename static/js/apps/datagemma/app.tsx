@@ -180,6 +180,7 @@ export function App(): ReactElement {
         className="app"
         css={css`
           margin: ${theme.spacing.xl}px;
+          margin-top: 0;
           display: flex;
           flex-direction: column;
           gap: ${theme.spacing.lg}px;
@@ -194,35 +195,35 @@ export function App(): ReactElement {
             gap: ${theme.spacing.sm}px;
           `}
         >
-        <div
-          className="mode-input"
-          css={css`
-            display: flex;
-            gap: ${theme.spacing.sm}px;
-            margin-left: 56px;
-            & > .mode-option {
-              margin-left: 24px;
-            }
-          `}
-        >
-          {[RIG_MODE, RAG_MODE].map((m) => {
-            return (
-              <div className="mode-option" key={m}>
-                <Input
-                  type="radio"
-                  name=""
-                  value={m}
-                  checked={mode === m}
-                  onChange={() => {
-                    setMode(m);
-                    updateHash({ [URL_HASH_PARAMS.mode]: m });
-                  }}
-                />
-                <label>{m}</label>
-              </div>
-            );
-          })}
-        </div>
+          <div
+            className="mode-input"
+            css={css`
+              display: flex;
+              gap: ${theme.spacing.sm}px;
+              margin-left: 56px;
+              & > .mode-option {
+                margin-left: 24px;
+              }
+            `}
+          >
+            {[RIG_MODE, RAG_MODE].map((m) => {
+              return (
+                <div className="mode-option" key={m}>
+                  <Input
+                    type="radio"
+                    name=""
+                    value={m}
+                    checked={mode === m}
+                    onChange={() => {
+                      setMode(m);
+                      updateHash({ [URL_HASH_PARAMS.mode]: m });
+                    }}
+                  />
+                  <label>{m}</label>
+                </div>
+              );
+            })}
+          </div>
           <div
             className="query-input"
             css={css`
