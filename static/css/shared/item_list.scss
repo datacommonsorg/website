@@ -15,13 +15,11 @@
  */
 
 .item-list-container {
-  overflow: hidden;
   .item-list-inner {
     line-height: 24px;
     font-size: 14px;
     font-weight: 500;
     color: var(--gm-3-sys-light-primary);
-    margin-left: -12px;
     .item-list-item {
       display: inline-flex;
 
