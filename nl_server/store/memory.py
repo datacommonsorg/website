@@ -124,8 +124,8 @@ def _is_csv_empty_or_header_only(file_path):
     num_rows = len(list(reader))
     logging.error(f'has {num_rows} rows')
     if num_rows > 1:
-      return True
-    return False
+      return False
+    return True
     try:
       # Read the first row (header)
       logging.error("reading first line")
