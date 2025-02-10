@@ -26,6 +26,8 @@ import React from "react";
 import { NL_SOURCE_REPLACEMENTS } from "../constants/app/explore_constants";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
 import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
+import { intl } from "../i18n/i18n";
+import { tileMessages } from "../i18n/i18n_tile_messages";
 import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
@@ -373,7 +375,9 @@ export function TileSources(props: {
         >
           {sourceText}
         </a>
-        {globalThis.viaGoogle ? " via Google" : ""}
+        {globalThis.viaGoogle
+          ? " " + intl.formatMessage(tileMessages.viaGoogle)
+          : ""}
       </span>
     );
   });
@@ -381,8 +385,10 @@ export function TileSources(props: {
     <>
       {sourcesJsx.length > 0 && (
         <div className="sources" {...{ part: "source" }}>
-          {sourcesJsx.length > 1 ? "Sources" : "Source"}:{" "}
-          <span {...{ part: "source-links" }}>{sourcesJsx}</span>
+          {sourcesJsx.length > 1
+            ? intl.formatMessage(tileMessages.sources)
+            : intl.formatMessage(tileMessages.source)}
+          : <span {...{ part: "source-links" }}>{sourcesJsx}</span>
           {statVarSpecs && statVarSpecs.length > 0 && (
             <>
               <span {...{ part: "source-separator" }}> • </span>

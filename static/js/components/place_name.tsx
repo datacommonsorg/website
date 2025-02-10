@@ -20,6 +20,7 @@
 
 import React, { useEffect, useState } from "react";
 
+import { intl } from "../i18n/i18n";
 import { ABORT_CONTROLLER_CANCELLED } from "../shared/constants";
 import { isUSACountyOrCity } from "../tools/shared_util";
 import { getPlaceDisplayNames, getPlaceNames } from "../utils/place_utils";
@@ -33,12 +34,14 @@ export function PlaceName(props: PlaceNameProp): JSX.Element {
   // We want the display name (gets name with state code if available) if
   // parent place is USA
   const [name, setName] = useState<string>("");
+
   useEffect(() => {
     const controller = new AbortController();
     const placeNamesPromise = isUSACountyOrCity(props.dcid)
       ? getPlaceDisplayNames([props.dcid], {
           apiRoot: props.apiRoot,
           signal: controller.signal,
+          locale: intl.locale,
         })
       : getPlaceNames([props.dcid], {
           apiRoot: props.apiRoot,
