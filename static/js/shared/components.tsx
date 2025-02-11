@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { css, useTheme } from "@emotion/react";
-import React from "react";
-import { useState } from "react";
+import { useTheme } from "@emotion/react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 /**
@@ -46,7 +45,7 @@ export const IconPlaceholder = (props: {
 };
 
 export const InfoTooltipComponent = (props: {
-  icon_path: string;
+  iconPath: string;
   description: string;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
@@ -72,13 +71,13 @@ export const InfoTooltipComponent = (props: {
     margin: ${theme.spacing.sm}px;
   `;
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (): void => {
     setIsVisible(!isVisible);
   };
 
   return (
     <InfoTooltipContainerStyled>
-      <img onClick={handleButtonClick} src={props.icon_path} />
+      <img onClick={handleButtonClick} src={props.iconPath} />
       {isVisible && <InfoTooltip>{props.description}</InfoTooltip>}
     </InfoTooltipContainerStyled>
   );
