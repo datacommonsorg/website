@@ -12,4 +12,4 @@ torchvision==0.17.2
 # sentence-transformers v2.2.2. Look into upgrading sentence-transformers to
 # v2.3.0 or newer
 huggingface_hub==0.25.2
-transformers==4.45.2
+transformers==4.48.0
