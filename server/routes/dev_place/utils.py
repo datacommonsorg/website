@@ -18,7 +18,6 @@ import copy
 import random
 import re
 from typing import Callable, Dict, List, Set, Tuple
-import flask.testing
 
 import flask
 from flask import current_app
@@ -63,10 +62,6 @@ ORDERED_TOPICS = [
 TOPICS = set(ORDERED_TOPICS)
 OVERVIEW_CATEGORY = "Overview"
 ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
-
-# def is_testing():
-#   """Helper function to determine if we're in a test context."""
-#   return current_app.config.get('TESTING', False)
 
 
 def get_place_url(place_dcid: str) -> str:
@@ -265,6 +260,7 @@ def count_places_per_stat_var(
   return stat_var_to_places_with_data
 
 
+@cache.memoize(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
@@ -445,18 +441,6 @@ async def filter_chart_config_for_data_existence(
       valid_chart_configs.append(config)
 
   return valid_chart_configs
-
-
-@cache.memoize(timeout=TIMEOUT)
-async def memoized_filter_chart_config_for_data_existence(
-    chart_config: List[ServerChartConfiguration], place_dcid: str,
-    place_type: str, child_place_type: str,
-    parent_place_dcid: str) -> List[ServerChartConfiguration]:
-  """Memoized version of filter_chart_config_for_data_existence"""
-  return await filter_chart_config_for_data_existence(chart_config, place_dcid,
-                                                      place_type,
-                                                      child_place_type,
-                                                      parent_place_dcid)
 
 
 def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
@@ -746,18 +730,14 @@ def read_chart_configs() -> List[ServerChartConfiguration]:
   return server_chart_configs
 
 
+@cache.memoize(timeout=TIMEOUT)
 def fetch_child_place_dcids(place: Place, child_place_type: str) -> List[str]:
-  # Get all possible child places
+  """Returns all possible child places.
+  """
   descendent_places_result = fetch.descendent_places(
       [place.dcid], descendent_type=child_place_type)
   child_place_dcids = descendent_places_result.get(place.dcid, [])
   return child_place_dcids
-
-
-@cache.memoize(timeout=TIMEOUT)
-def cached_fetch_child_place_dcids(place: Place,
-                                   child_place_type: str) -> List[str]:
-  return fetch_child_place_dcids(place, child_place_type)
 
 
 def translate_chart_config(
@@ -983,7 +963,7 @@ def fetch_peer_places_within(place_dcid: str,
 
   peers_within_parent = []
   if parent_to_use:
-    peers_within_parent = cached_fetch_child_place_dcids(
+    peers_within_parent = fetch_child_place_dcids(
         parent_to_use, place_type_to_highlight(place_types))
     random.shuffle(peers_within_parent)
 
