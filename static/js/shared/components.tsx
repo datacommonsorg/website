@@ -15,7 +15,7 @@
  */
 
 import { useTheme } from "@emotion/react";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 /**
@@ -87,12 +87,11 @@ export const InfoTooltipComponent = (props: {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isVisible]);
-
 
   return (
     <InfoTooltipContainerStyled ref={containerRef}>

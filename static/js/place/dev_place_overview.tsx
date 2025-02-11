@@ -187,9 +187,7 @@ export const PlaceOverview = (props: {
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
         <InfoTooltipComponent
           iconPath="../../images/info_spark.svg"
-          description={intl.formatMessage(
-            pageMessages.SummaryOverviewTooltip
-          )}
+          description={intl.formatMessage(pageMessages.SummaryOverviewTooltip)}
         />
       </div>
       {placeSummary && (
