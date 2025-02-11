@@ -275,6 +275,7 @@ async def filter_chart_config_for_data_existence(
   Returns:
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
   """
+
   async def fetch_and_process_stats():
     """Fetches and processes observation data concurrently."""
 
