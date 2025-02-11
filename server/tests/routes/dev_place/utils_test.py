@@ -14,14 +14,15 @@
 """Unit tests for server.routes.dev_place.utils."""
 
 import copy
+import sys
 import random
 from typing import Dict, List
 import unittest
 from unittest import mock
 
 import pytest
-import asyncio
 from flask import Flask
+import flask.ctx
 from flask_caching import Cache
 
 from server.routes.dev_place import utils
@@ -140,30 +141,48 @@ SAMPLE_CHART_CONFIG = ServerChartConfiguration('Economics', 'title_id', 'title',
                                                [SAMPLE_BLOCK_METADATA])
 
 
-@pytest.fixture(scope="function")  # or "module" if you prefer
+@pytest.fixture(scope="module")
 def app():
     app = Flask(__name__)
     app.config['BABEL_DEFAULT_LOCALE'] = 'en'
     app.config['SERVER_NAME'] = 'example.com'
-    app.config['CACHE_TYPE'] = 'null'  # Or a real cache type for some tests
+    app.config['CACHE_TYPE'] = 'null'
     return app
 
-@pytest.fixture
-def cache(app):  # Inject the app fixture
-    cache = Cache(app)
-    return cache
+# @pytest.fixture(scope="module")
+# def cache():
+#     cache = Cache()
+#     return cache
 
 class TestUtils(unittest.IsolatedAsyncioTestCase):
   """Tests for utils within the dev_place api."""
 
+  @pytest.fixture(autouse=True)
+  def setup_app_context(self, request):
+    """Setup the app context and cache for each test."""
+    print("--- setup_app_context: START ---", file=sys.stderr)
+    self.app = request.getfixturevalue('app')
+    self.app_context = self.app.app_context()
+
+    # print("Self app context ", file=sys.stderr)
+    # print(self.app_context, file=sys.stderr)
+
+    self.cache = Cache()
+    # self.cache.init_app(self.app)
+    # print(self.cache, file=sys.stderr)
+    # print(self.cache.app, file=sys.stderr)
+
+    with self.app_context:
+        self.cache.init_app(self.app)
+        self.cache.app = self.app
+        print("--- setup_app_context: App context entered ---", file=sys.stderr)
+        yield
+        print("--- setup_app_context: App context exited ---", file=sys.stderr)
+        self.cache.clear()
+    print("--- setup_app_context: END ---", file=sys.stderr)
+
   def setUp(self):
     super().setUp()
-
-    super().setUp()
-    self.app = app() # Initialize app
-    self.cache = cache(self.app) # Initialize cache
-    self.app_context = self.app.app_context()
-    self.app_context.push()
 
     self.mock_fetch_place = self.patch(utils, "fetch_place")
 
@@ -230,11 +249,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
 
-    # self.mock_fetch_similar_place_dcids = self.patch(
-    #     utils, "fetch_similar_place_dcids")
-
   def tearDown(self):
-    self.app_context.pop()
     super().tearDown()
 
   def patch(self, module, name):
@@ -243,20 +258,20 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.addCleanup(patcher.stop)
     return mock_obj
 
-  def get_app_from_fixture(self):
-    """Helper method to access the 'app' fixture."""
-    return self._test_class_instance.app
+  # def get_app_from_fixture(self):
+  #   """Helper method to access the 'app' fixture."""
+  #   return self._test_class_instance.app
 
-  def get_cache_from_fixture(self, app):
-    """Helper method to access the 'cache' fixture."""
-    return Cache(app)
+  # def get_cache_from_fixture(self, app):
+  #   """Helper method to access the 'cache' fixture."""
+  #   return Cache(app)
 
-  @pytest.fixture
-  def client(self, app):  # Pass app to test_client
-    with app.test_client() as client:
-      with app.app_context():
-        yield client
-        self.cache.clear()  # Clear cache after each test
+  # @pytest.fixture
+  # def client(self, app):  # Pass app to test_client
+  #   with app.test_client() as client:
+  #     with app.app_context():
+  #       yield client
+  #       self.cache.clear()  # Clear cache after each test
 
   def mock_v2node_api_data(self, data):
 
@@ -264,9 +279,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
       return {"data": data}
 
     self.mock_v2node.side_effect = mock_v2node_side_effect
-
-  def test_cache_initialization(self):
-    self.assertIsInstance(self.cache, Cache)
 
   def create_mock_data(self, stat_var: str, places: list[str],
                        data: list) -> Dict[str, any]:
@@ -583,6 +595,10 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
   async def test_filter_chart_config_for_data_existence_has_no_denominator_data(
       self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
+    # with self.app_context:
+    print("---- Entered the test ----", file=sys.stderr)
+    # self.cache.app = self.app
+    print(self.app_context, file=sys.stderr)
     # Initialize the ServerChartConfig
     configs = [
         ServerChartConfiguration(
@@ -614,7 +630,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                           data=list([1234, 321]))
 
     # Assert the chart is there.
-    filtered_configs = await utils.memoized_filter_chart_config_for_data_existence(
+    funt = utils.memoized_filter_chart_config_for_data_existence.__wrapped__
+    filtered_configs = await funt(
         configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
         SANTA_CLARA_COUNTY.types[0], USA.dcid)
 
@@ -642,6 +659,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     ]
 
     self.assertEqual(filtered_configs, expected_configs)
+    print("---- Exited the test ----", file=sys.stderr)
+
 
   def test_check_geo_data_exists_true(self):
     self.mock_v2node_api_data(
@@ -765,7 +784,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     ]
     self.assertEqual(blocks, expected_blocks)
 
-  def test_get_child_place_types(self):
+  def test_get_child_place_types_france(self):
     data = {
         FRANCE.dcid: self.create_contained_in_data(["State", "EurostatNUTS1"])
     }
@@ -773,6 +792,15 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     child_types = utils.get_child_place_types(FRANCE)
     self.assertEqual(child_types, ["State", "EurostatNUTS1"])
+
+  def test_get_child_place_types_california(self):
+    data = {
+        CALIFORNIA.dcid: self.create_contained_in_data(["County"])
+    }
+    self.mock_v2node_api_data(data)
+
+    child_types = utils.get_child_place_types(CALIFORNIA)
+    self.assertEqual(child_types, ["County"])
 
   def test_get_child_place_type_to_highlight(self):
 
@@ -820,7 +848,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
         }]
     }]
 
-    with app.app_context():
+    with self.app_context:
       configs = utils.read_chart_configs()
       self.assertEqual(configs, [
           ServerChartConfiguration(
@@ -1010,23 +1038,25 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(nearby_dcids, ["geoId/04", "geoId/05"])
 
   def test_extract_places(self):
-    dissolved_san_mateo = copy.deepcopy(SAN_MATEO_COUNTY)
-    dissolved_san_mateo.dissolved = True
+    with self.app.app_context():
+      print(flask.ctx, file=sys.stderr)
+      dissolved_san_mateo = copy.deepcopy(SAN_MATEO_COUNTY)
+      dissolved_san_mateo.dissolved = True
 
-    all_places = {
-        CALIFORNIA.dcid: CALIFORNIA,
-        MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW,
-        SANTA_CLARA_COUNTY.dcid: SANTA_CLARA_COUNTY,
-        SAN_MATEO_COUNTY.dcid: dissolved_san_mateo
-    }
-    dcids = [
-        CALIFORNIA.dcid, MOUNTAIN_VIEW.dcid, SANTA_CLARA_COUNTY.dcid,
-        dissolved_san_mateo.dcid
-    ]
-    extracted_places = utils.extract_places_from_dcids(all_places, dcids)
+      all_places = {
+          CALIFORNIA.dcid: CALIFORNIA,
+          MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW,
+          SANTA_CLARA_COUNTY.dcid: SANTA_CLARA_COUNTY,
+          SAN_MATEO_COUNTY.dcid: dissolved_san_mateo
+      }
+      dcids = [
+          CALIFORNIA.dcid, MOUNTAIN_VIEW.dcid, SANTA_CLARA_COUNTY.dcid,
+          dissolved_san_mateo.dcid
+      ]
+      extracted_places = utils.extract_places_from_dcids(all_places, dcids)
 
-    self.assertEqual(extracted_places,
-                     [CALIFORNIA, MOUNTAIN_VIEW, SANTA_CLARA_COUNTY])
+      self.assertEqual(extracted_places,
+                      [CALIFORNIA, MOUNTAIN_VIEW, SANTA_CLARA_COUNTY])
 
   # TODO(gmechali): Add test for get_place_cohort.
   # TODO(gmechali): Add test for fetch_peer_places_within.

@@ -18,6 +18,7 @@ import copy
 import random
 import re
 from typing import Callable, Dict, List, Set, Tuple
+import flask.testing
 
 import flask
 from flask import current_app
@@ -62,6 +63,10 @@ ORDERED_TOPICS = [
 TOPICS = set(ORDERED_TOPICS)
 OVERVIEW_CATEGORY = "Overview"
 ALLOWED_CATEGORIES = {OVERVIEW_CATEGORY}.union(TOPICS)
+
+# def is_testing():
+#   """Helper function to determine if we're in a test context."""
+#   return current_app.config.get('TESTING', False)
 
 
 def get_place_url(place_dcid: str) -> str:
@@ -1022,9 +1027,7 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   return place_cohort_member_dcids
 
 
-def fetch_overview_table_data(place_dcid: str,
-                              locale=DEFAULT_LOCALE
-                             ) -> List[OverviewTableDataRow]:
+def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   """
   Fetches overview table data for the specified place.
   """
