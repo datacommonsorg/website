@@ -1,5 +1,8 @@
-msgid "%(project)s is a Google supported project"
-msgstr "%(project)s एक ऐसा प्रोजेक्ट है जिसे Google से सहायता मिलती है"
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s में %(placeType)s"
+
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr ""
 
 msgid "APIs"
 msgstr "APIs"
@@ -10,8 +13,62 @@ msgstr "इसके बारे में जानकारी"
 msgid "About Data Commons"
 msgstr "Data Commons के बारे में जानकारी"
 
+msgid "Administrative Area"
+msgstr ""
+
+msgid "Administrative Area 1 Place"
+msgstr ""
+
+msgid "Administrative Area 1 Places"
+msgstr ""
+
+msgid "Administrative Area 2 Place"
+msgstr ""
+
+msgid "Administrative Area 2 Places"
+msgstr ""
+
+msgid "Administrative Area 3 Place"
+msgstr ""
+
+msgid "Administrative Area 3 Places"
+msgstr ""
+
+msgid "Administrative Area 4 Place"
+msgstr ""
+
+msgid "Administrative Area 4 Places"
+msgstr ""
+
+msgid "Administrative Area 5 Place"
+msgstr ""
+
+msgid "Administrative Area 5 Places"
+msgstr ""
+
+msgid "Administrative Areas"
+msgstr ""
+
+msgid "An initiative from"
+msgstr ""
+
+msgid "Back to homepage"
+msgstr ""
+
+msgid "BigQuery"
+msgstr ""
+
 msgid "Blog"
 msgstr "ब्लॉग"
+
+msgid "Borough"
+msgstr ""
+
+msgid "Boroughs"
+msgstr ""
+
+msgid "Cities"
+msgstr ""
 
 msgid "Cities, India"
 msgstr "Cities, India"
@@ -19,14 +76,26 @@ msgstr "Cities, India"
 msgid "Cities, United States"
 msgstr "संयुक्त राज्य अमेरिका के शहर"
 
+msgid "City"
+msgstr ""
+
 msgid "Contribute"
 msgstr "योगदान"
+
+msgid "Counties"
+msgstr ""
 
 msgid "Counties, United States"
 msgstr "संयुक्त राज्य अमेरिका की काउंटी"
 
 msgid "Countries"
 msgstr "देश"
+
+msgid "Country"
+msgstr ""
+
+msgid "County"
+msgstr ""
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -55,6 +124,24 @@ msgstr "देश, राज्य, काउंटी या शहर का �
 msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
+msgid "Eurostat NUTS 1 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 1 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Places"
+msgstr ""
+
 msgid "Explore"
 msgstr "एक्सप्लोर करें"
 
@@ -82,9 +169,6 @@ msgstr "शिक्षा पर सरकारी खर्च"
 msgid "Government Expenditures on Military"
 msgstr "सेना पर सरकारी खर्च"
 
-msgid "Knowledge Graph"
-msgstr "ज्ञान ग्राफ"
-
 msgid "Gross National Income"
 msgstr "सकल राष्ट्रीय आय"
 
@@ -100,29 +184,47 @@ msgstr "सबसे ज़्यादा औसत आमदनी वाल�
 msgid "Highest Unemployment Rate"
 msgstr "सबसे ज़्यादा बेरोज़गारी दर"
 
+msgid "Knowledge Graph"
+msgstr "ज्ञान ग्राफ"
+
 msgid "Largest Population"
 msgstr "सबसे ज़्यादा जनसंख्या"
 
 msgid "Life Expectancy"
 msgstr "औसत उम्र"
 
-msgid "Loading..."
-msgstr "लोड हो रहा है..."
+msgid "Loading"
+msgstr ""
 
 msgid "Map Explorer"
 msgstr "मैप एक्सप्लोरर"
 
-msgid "Maps Explorer"
-msgstr "Maps Explorer"
+msgid "Median Age"
+msgstr ""
+
+msgid "Median Income"
+msgstr ""
 
 msgid "Median Income, United States"
 msgstr "संयुक्त राज्य अमेरिका में औसत आय"
 
-msgid "Natural Language Explorer"
-msgstr "Natural Language Explorer"
+msgid "Natural Disaster Dashboard"
+msgstr ""
+
+msgid "Neighborhood"
+msgstr ""
+
+msgid "Neighborhoods"
+msgstr ""
+
+msgid "Other %(placeType)s in %(parentPlace)s"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>जगह एक्सप्लोर करने वाले टूल से आपको किसी जगह का सबसे ज़रूरी डेटा समझने में मदद मिलती है. यह टूल किसी जगह के बारे में शिक्षा और अर्थशास्त्र से जुड़ा डेटा, चार्ट में दिखाता है. इस डेटा में लोगों की जानकारी (जैसे, उम्र, लिंग, आय, शिक्षा वगैरह) भी शामिल होती है. साथ ही, अन्य जगहों का डेटा भी दिखाया जाता है, ताकि तुलना की जा सके. आप मेट्रिक के हिसाब से अलग-अलग जगहों की रैंक भी देख सकते हैं. इन मेट्रिक में बेरोज़गारी, अपराध, और आय शामिल हैं.</p><p>आप ऊपर दिए गए खोज बॉक्स का इस्तेमाल करके, अपने पसंदीदा शहर, पिन कोड, देश, राज्य या देश के हिसाब से डेटा के चार्ट देख सकते हैं.</p><p>इसके अलावा, आप सबसे मशहूर कुछ जगहों को एक्सप्लोर कर सकते हैं ...</p>"
+
+msgid "Place"
+msgstr ""
 
 msgid "Place Explorer"
 msgstr "जगह एक्सप्लोर करने वाला टूल"
@@ -133,6 +235,9 @@ msgstr "प्लेस रैंकिंग"
 msgid "Places"
 msgstr "जगहें"
 
+msgid "Population"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr "निजता नीति"
 
@@ -142,8 +247,23 @@ msgstr "रैंकिंग"
 msgid "Scatter Plot Explorer"
 msgstr "स्कैटर प्लॉट एक्सप्लोरर"
 
-msgid "Scatter Plots"
-msgstr "Scatter Plots"
+msgid "Show about links"
+msgstr ""
+
+msgid "Show documentation links"
+msgstr ""
+
+msgid "Show exploration tools"
+msgstr ""
+
+msgid "Show site navigation"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "States"
+msgstr ""
 
 msgid "States, India"
 msgstr "States, India"
@@ -154,26 +274,53 @@ msgstr "संयुक्त राज्य अमेरिका के र�
 msgid "Statistical Variable Explorer"
 msgstr "Statistical Variable Explorer"
 
+msgid "Statistics"
+msgstr ""
+
+msgid "Sustainability Explorer"
+msgstr ""
+
 msgid "Terms Of Use"
 msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "नियम और शर्तें"
 
-msgid "Timeline Charts"
-msgstr "Timeline Charts"
-
 msgid "Timelines Explorer"
 msgstr "टाइमलाइन एक्सप्लोर करने वाला टूल"
+
+msgid "Tools"
+msgstr ""
+
+msgid "Town"
+msgstr ""
+
+msgid "Towns"
+msgstr ""
 
 msgid "Tutorials"
 msgstr "ट्यूटोरियल"
 
+msgid "Unemployment Rate"
+msgstr ""
+
 msgid "Unemployment Rate, United States"
 msgstr "संयुक्त राज्य अमेरिका में बेरोज़गारी की दर"
 
+msgid "Village"
+msgstr ""
+
+msgid "Villages"
+msgstr ""
+
 msgid "Worldwide"
 msgstr "दुनिया भर में"
+
+msgid "ZIP Code"
+msgstr ""
+
+msgid "ZIP Codes"
+msgstr ""
 
 msgid "by city"
 msgstr "शहर के हिसाब से"
@@ -204,6 +351,9 @@ msgstr "आगज़नी"
 
 msgid "CHART_TITLE-Arson_rate"
 msgstr "प्रति एक लाख लोगों के अनुपात में आगज़नी की घटनाएं"
+
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Associate degree attainment by gender"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "लिंग के हिसाब से असोसिएट डिग्री पाने वालों की दर"
@@ -328,6 +478,9 @@ msgstr "ऊर्जा की खपत (प्रति व्यक्ति 
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "प्रजनन दर"
 
+msgid "CHART_TITLE-Gdp"
+msgstr "Gross domestic product"
+
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "सकल घरेलू उत्पाद (GDP) वृद्धि दर"
 
@@ -360,6 +513,9 @@ msgstr "सेना पर होने वाला सरकारी खर�
 
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "सेना पर होने वाला सरकारी खर्च (GDP का प्रतिशत)"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Graduate or professional degree attainment by gender"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की संख्या जिनके पास प्रोफ़ेशनल डिग्री है"
@@ -525,6 +681,9 @@ msgstr "मौत की घटनाएं"
 
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "प्रति व्यक्ति मरने वालों की संख्या"
+
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Outward remittance"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "लोगों के बैंक खातों से निकाली गई कुल रकम"
@@ -703,61 +862,26 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "खास जानकारी"
 
-#. Place containment. Gives context for where a place is located.
-msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(parentPlaces)s में %(placeType)s"
 
-#. Place Types
-msgid "singular_administrative_area"
-msgstr "प्रशासकीय क्षेत्र"
 
-msgid "singular_administrative_area_level"
-msgstr "प्रशासकीय क्षेत्र %(level)s वाले इलाके"
 
-msgid "singular_borough"
-msgstr "नगर"
 
-msgid "singular_city"
-msgstr "शहर"
 
-msgid "singular_country"
-msgstr "देश"
 
-msgid "singular_county"
-msgstr "काउंटी"
 
-msgid "singular_eurostat_nuts"
-msgstr "यूरोस्टेट एनयूटीएस %(level)s वाले इलाके"
 
-msgid "singular_neighborhood"
-msgstr "आस-पड़ोस"
 
-msgid "singular_place"
-msgstr "जगह"
 
-msgid "singular_state"
-msgstr "राज्य"
 
-msgid "singular_town"
-msgstr "कस्बा"
 
-msgid "singular_village"
-msgstr "गांव"
 
-msgid "singular_zip_code"
-msgstr "पिन कोड"
 
-msgid "VARIABLE_NAME-Count_Person"
-msgstr "Population"
 
-msgid "VARIABLE_NAME-Median_Income_Person"
-msgstr "Median Income"
 
-msgid "VARIABLE_NAME-Median_Age_Person"
-msgstr "Median Age"
 
-msgid "VARIABLE_NAME-UnemploymentRate_Person"
-msgstr "Unemployment Rate"
+
+
+
+
+

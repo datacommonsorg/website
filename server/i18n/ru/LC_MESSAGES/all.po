@@ -1,5 +1,8 @@
-msgid "%(project)s is a Google project"
-msgstr "Проект %(project)s - это проект Google"
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s: %(placeType)s"
+
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr ""
 
 msgid "APIs"
 msgstr "APIs"
@@ -10,8 +13,62 @@ msgstr "Информация"
 msgid "About Data Commons"
 msgstr "О Data Commons"
 
+msgid "Administrative Area"
+msgstr ""
+
+msgid "Administrative Area 1 Place"
+msgstr ""
+
+msgid "Administrative Area 1 Places"
+msgstr ""
+
+msgid "Administrative Area 2 Place"
+msgstr ""
+
+msgid "Administrative Area 2 Places"
+msgstr ""
+
+msgid "Administrative Area 3 Place"
+msgstr ""
+
+msgid "Administrative Area 3 Places"
+msgstr ""
+
+msgid "Administrative Area 4 Place"
+msgstr ""
+
+msgid "Administrative Area 4 Places"
+msgstr ""
+
+msgid "Administrative Area 5 Place"
+msgstr ""
+
+msgid "Administrative Area 5 Places"
+msgstr ""
+
+msgid "Administrative Areas"
+msgstr ""
+
+msgid "An initiative from"
+msgstr ""
+
+msgid "Back to homepage"
+msgstr ""
+
+msgid "BigQuery"
+msgstr ""
+
 msgid "Blog"
 msgstr "Блог"
+
+msgid "Borough"
+msgstr ""
+
+msgid "Boroughs"
+msgstr ""
+
+msgid "Cities"
+msgstr ""
 
 msgid "Cities, India"
 msgstr "Cities, India"
@@ -19,14 +76,26 @@ msgstr "Cities, India"
 msgid "Cities, United States"
 msgstr "Города в США"
 
+msgid "City"
+msgstr ""
+
 msgid "Contribute"
 msgstr "Помочь проекту"
+
+msgid "Counties"
+msgstr ""
 
 msgid "Counties, United States"
 msgstr "Округа в США"
 
 msgid "Countries"
 msgstr "Страны"
+
+msgid "Country"
+msgstr ""
+
+msgid "County"
+msgstr ""
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -55,6 +124,24 @@ msgstr "Укажите страну, штат, округ или город"
 msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
+msgid "Eurostat NUTS 1 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 1 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Places"
+msgstr ""
+
 msgid "Explore"
 msgstr "Обзор"
 
@@ -82,9 +169,6 @@ msgstr "Расходы правительства на образование"
 msgid "Government Expenditures on Military"
 msgstr "Военные расходы правительства"
 
-msgid "Knowledge Graph"
-msgstr "графа знаний"
-
 msgid "Gross National Income"
 msgstr "Валовой национальный доход"
 
@@ -100,29 +184,47 @@ msgstr "Самый высокий медианный доход"
 msgid "Highest Unemployment Rate"
 msgstr "Самый высокий уровень безработицы"
 
+msgid "Knowledge Graph"
+msgstr "графа знаний"
+
 msgid "Largest Population"
 msgstr "Самое большое население"
 
 msgid "Life Expectancy"
 msgstr "Средняя продолжительность жизни"
 
-msgid "Loading..."
-msgstr "Загрузка…"
+msgid "Loading"
+msgstr ""
 
 msgid "Map Explorer"
 msgstr "Изучение карт"
 
-msgid "Maps Explorer"
-msgstr "Maps Explorer"
+msgid "Median Age"
+msgstr ""
+
+msgid "Median Income"
+msgstr ""
 
 msgid "Median Income, United States"
 msgstr "Медианный доход в США"
 
-msgid "Natural Language Explorer"
-msgstr "Natural Language Explorer"
+msgid "Natural Disaster Dashboard"
+msgstr ""
+
+msgid "Neighborhood"
+msgstr ""
+
+msgid "Neighborhoods"
+msgstr ""
+
+msgid "Other %(placeType)s in %(parentPlace)s"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>В окне выше доступен поиск информации по городу, почтовому индексу, округу, штату или стране.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
+
+msgid "Place"
+msgstr ""
 
 msgid "Place Explorer"
 msgstr "Place Explorer"
@@ -133,6 +235,9 @@ msgstr "Рейтинги мест"
 msgid "Places"
 msgstr "Места"
 
+msgid "Population"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
@@ -142,8 +247,23 @@ msgstr "Рейтинги"
 msgid "Scatter Plot Explorer"
 msgstr "Просмотр точечных диаграмм"
 
-msgid "Scatter Plots"
-msgstr "Scatter Plots"
+msgid "Show about links"
+msgstr ""
+
+msgid "Show documentation links"
+msgstr ""
+
+msgid "Show exploration tools"
+msgstr ""
+
+msgid "Show site navigation"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "States"
+msgstr ""
 
 msgid "States, India"
 msgstr "States, India"
@@ -154,26 +274,53 @@ msgstr "Штаты в США"
 msgid "Statistical Variable Explorer"
 msgstr "Statistical Variable Explorer"
 
+msgid "Statistics"
+msgstr ""
+
+msgid "Sustainability Explorer"
+msgstr ""
+
 msgid "Terms Of Use"
 msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "Условия использования"
 
-msgid "Timeline Charts"
-msgstr "Timeline Charts"
-
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
+
+msgid "Tools"
+msgstr ""
+
+msgid "Town"
+msgstr ""
+
+msgid "Towns"
+msgstr ""
 
 msgid "Tutorials"
 msgstr "Руководства"
 
+msgid "Unemployment Rate"
+msgstr ""
+
 msgid "Unemployment Rate, United States"
 msgstr "Уровень безработицы в США"
 
+msgid "Village"
+msgstr ""
+
+msgid "Villages"
+msgstr ""
+
 msgid "Worldwide"
 msgstr "в мире"
+
+msgid "ZIP Code"
+msgstr ""
+
+msgid "ZIP Codes"
+msgstr ""
 
 msgid "by city"
 msgstr "по городу"
@@ -204,6 +351,9 @@ msgstr "Поджог"
 
 msgid "CHART_TITLE-Arson_rate"
 msgstr "Количество поджогов на 100 000 человек"
+
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Associate degree attainment by gender"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "Процент людей с неоконченным высшим образованием по полу"
@@ -328,6 +478,9 @@ msgstr "Энергопотребление (кг нефтяного эквива
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "Коэффициент суммарной рождаемости"
 
+msgid "CHART_TITLE-Gdp"
+msgstr "Gross domestic product"
+
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "Темпы роста ВВП"
 
@@ -360,6 +513,9 @@ msgstr "Военные расходы правительства"
 
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Военные расходы правительства (в процентах от ВВП)"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Graduate or professional degree attainment by gender"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "Процент людей, имеющих степень магистра или высшее профессиональное образование, по полу"
@@ -525,6 +681,9 @@ msgstr "Смертельные случаи"
 
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Смертельные случаи на душу населения"
+
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Outward remittance"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Переводы за рубеж"
@@ -703,61 +862,26 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Обзор"
 
-#. Place containment. Gives context for where a place is located.
-msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(parentPlaces)s: %(placeType)s"
 
-#. Place Types
-msgid "singular_administrative_area"
-msgstr "Административный район"
 
-msgid "singular_administrative_area_level"
-msgstr "Место по типу административного района уровня %(level)s"
 
-msgid "singular_borough"
-msgstr "Район"
 
-msgid "singular_city"
-msgstr "Город"
 
-msgid "singular_country"
-msgstr "Страна"
 
-msgid "singular_county"
-msgstr "Округ"
 
-msgid "singular_eurostat_nuts"
-msgstr "Место по типу Евростат NUTS уровня %(level)s"
 
-msgid "singular_neighborhood"
-msgstr "Микрорайон"
 
-msgid "singular_place"
-msgstr "Место"
 
-msgid "singular_state"
-msgstr "Штат"
 
-msgid "singular_town"
-msgstr "Город"
 
-msgid "singular_village"
-msgstr "Поселок"
 
-msgid "singular_zip_code"
-msgstr "Почтовый индекс"
 
-msgid "VARIABLE_NAME-Count_Person"
-msgstr "Population"
 
-msgid "VARIABLE_NAME-Median_Income_Person"
-msgstr "Median Income"
 
-msgid "VARIABLE_NAME-Median_Age_Person"
-msgstr "Median Age"
 
-msgid "VARIABLE_NAME-UnemploymentRate_Person"
-msgstr "Unemployment Rate"
+
+
+
+
+

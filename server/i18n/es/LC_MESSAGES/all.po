@@ -1,5 +1,8 @@
-msgid "%(project)s is a Google project"
-msgstr "%(project)s es un proyecto de Google"
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(placeType)s de %(parentPlaces)s"
+
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr ""
 
 msgid "APIs"
 msgstr "APIs"
@@ -10,8 +13,62 @@ msgstr "Información"
 msgid "About Data Commons"
 msgstr "Acerca de Data Commons"
 
+msgid "Administrative Area"
+msgstr ""
+
+msgid "Administrative Area 1 Place"
+msgstr ""
+
+msgid "Administrative Area 1 Places"
+msgstr ""
+
+msgid "Administrative Area 2 Place"
+msgstr ""
+
+msgid "Administrative Area 2 Places"
+msgstr ""
+
+msgid "Administrative Area 3 Place"
+msgstr ""
+
+msgid "Administrative Area 3 Places"
+msgstr ""
+
+msgid "Administrative Area 4 Place"
+msgstr ""
+
+msgid "Administrative Area 4 Places"
+msgstr ""
+
+msgid "Administrative Area 5 Place"
+msgstr ""
+
+msgid "Administrative Area 5 Places"
+msgstr ""
+
+msgid "Administrative Areas"
+msgstr ""
+
+msgid "An initiative from"
+msgstr ""
+
+msgid "Back to homepage"
+msgstr ""
+
+msgid "BigQuery"
+msgstr ""
+
 msgid "Blog"
 msgstr "Blog"
+
+msgid "Borough"
+msgstr ""
+
+msgid "Boroughs"
+msgstr ""
+
+msgid "Cities"
+msgstr ""
 
 msgid "Cities, India"
 msgstr "Cities, India"
@@ -19,14 +76,26 @@ msgstr "Cities, India"
 msgid "Cities, United States"
 msgstr "Ciudades (Estados Unidos)"
 
+msgid "City"
+msgstr ""
+
 msgid "Contribute"
 msgstr "Colaborar"
+
+msgid "Counties"
+msgstr ""
 
 msgid "Counties, United States"
 msgstr "Condados (Estados Unidos)"
 
 msgid "Countries"
 msgstr "Países"
+
+msgid "Country"
+msgstr ""
+
+msgid "County"
+msgstr ""
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -55,6 +124,24 @@ msgstr "Introduce un país, un estado, un condado o una ciudad"
 msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
+msgid "Eurostat NUTS 1 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 1 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Places"
+msgstr ""
+
 msgid "Explore"
 msgstr "Ver"
 
@@ -82,9 +169,6 @@ msgstr "Gasto público en educación"
 msgid "Government Expenditures on Military"
 msgstr "Gasto público militar"
 
-msgid "Knowledge Graph"
-msgstr "Grafo de conocimiento"
-
 msgid "Gross National Income"
 msgstr "Renta Nacional Bruta"
 
@@ -100,29 +184,47 @@ msgstr "Ingresos medios más altos"
 msgid "Highest Unemployment Rate"
 msgstr "Tasa de desempleo más alta"
 
+msgid "Knowledge Graph"
+msgstr "Grafo de conocimiento"
+
 msgid "Largest Population"
 msgstr "Población más numerosa"
 
 msgid "Life Expectancy"
 msgstr "Esperanza de vida"
 
-msgid "Loading..."
-msgstr "Cargando..."
+msgid "Loading"
+msgstr ""
 
 msgid "Map Explorer"
 msgstr "Explorador de mapas"
 
-msgid "Maps Explorer"
-msgstr "Maps Explorer"
+msgid "Median Age"
+msgstr ""
+
+msgid "Median Income"
+msgstr ""
 
 msgid "Median Income, United States"
 msgstr "Ingresos medios (Estados Unidos)"
 
-msgid "Natural Language Explorer"
-msgstr "Natural Language Explorer"
+msgid "Natural Disaster Dashboard"
+msgstr ""
+
+msgid "Neighborhood"
+msgstr ""
+
+msgid "Neighborhoods"
+msgstr ""
+
+msgid "Other %(placeType)s in %(parentPlace)s"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>La herramienta Explorador de lugares permite conocer los datos principales de un lugar. Reúne un conjunto de gráficos sobre demografía, educación, economía y otros aspectos del sitio y los compara con los de otros lugares. También permite ver las clasificaciones de los distintos lugares en relación con diferentes métricas, como el desempleo, la criminalidad o los ingresos.</p><p>Puedes acceder a los gráficos de la ciudad, el código postal, el condado, el estado o el país que quieras a través del cuadro de búsqueda que aparece arriba.</p><p>Si quieres, también puedes consultar los datos de lugares conocidos:</p>"
+
+msgid "Place"
+msgstr ""
 
 msgid "Place Explorer"
 msgstr "Place Explorer"
@@ -133,6 +235,9 @@ msgstr "Clasificaciones de lugares"
 msgid "Places"
 msgstr "Sitios"
 
+msgid "Population"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr "Política de Privacidad"
 
@@ -142,8 +247,23 @@ msgstr "Clasificación"
 msgid "Scatter Plot Explorer"
 msgstr "Explorador de gráficos de dispersión"
 
-msgid "Scatter Plots"
-msgstr "Scatter Plots"
+msgid "Show about links"
+msgstr ""
+
+msgid "Show documentation links"
+msgstr ""
+
+msgid "Show exploration tools"
+msgstr ""
+
+msgid "Show site navigation"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "States"
+msgstr ""
 
 msgid "States, India"
 msgstr "States, India"
@@ -154,26 +274,53 @@ msgstr "Estados (Estados Unidos)"
 msgid "Statistical Variable Explorer"
 msgstr "Statistical Variable Explorer"
 
+msgid "Statistics"
+msgstr ""
+
+msgid "Sustainability Explorer"
+msgstr ""
+
 msgid "Terms Of Use"
 msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "Términos y Condiciones"
 
-msgid "Timeline Charts"
-msgstr "Timeline Charts"
-
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
+
+msgid "Tools"
+msgstr ""
+
+msgid "Town"
+msgstr ""
+
+msgid "Towns"
+msgstr ""
 
 msgid "Tutorials"
 msgstr "Tutoriales"
 
+msgid "Unemployment Rate"
+msgstr ""
+
 msgid "Unemployment Rate, United States"
 msgstr "Tasa de desempleo (Estados Unidos)"
 
+msgid "Village"
+msgstr ""
+
+msgid "Villages"
+msgstr ""
+
 msgid "Worldwide"
 msgstr "Todo el mundo"
+
+msgid "ZIP Code"
+msgstr ""
+
+msgid "ZIP Codes"
+msgstr ""
 
 msgid "by city"
 msgstr "por ciudad"
@@ -204,6 +351,9 @@ msgstr "Incendios provocados"
 
 msgid "CHART_TITLE-Arson_rate"
 msgstr "Incendios provocados por cada 100.000 habitantes"
+
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Associate degree attainment by gender"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "Tasa de diplomados por sexo"
@@ -328,6 +478,9 @@ msgstr "Consumo energético (kg de equivalente de petróleo per cápita)"
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "Tasa de fertilidad"
 
+msgid "CHART_TITLE-Gdp"
+msgstr "Gross domestic product"
+
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "Tasa de crecimiento del Producto Interior Bruto"
 
@@ -360,6 +513,9 @@ msgstr "Gasto público militar"
 
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Gasto público militar (% del PIB)"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Graduate or professional degree attainment by gender"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "Tasa de personas con diplomas o grados profesionales por sexo"
@@ -525,6 +681,9 @@ msgstr "Mortalidad"
 
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Mortalidad per cápita"
+
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Outward remittance"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Remesas pagadas"
@@ -703,61 +862,26 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Vista general"
 
-#. Place containment. Gives context for where a place is located.
-msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(placeType)s de %(parentPlaces)s"
 
-#. Place Types
-msgid "singular_administrative_area"
-msgstr "Área administrativa"
 
-msgid "singular_administrative_area_level"
-msgstr "Lugar de un área administrativa de nivel %(level)s"
 
-msgid "singular_borough"
-msgstr "Municipio"
 
-msgid "singular_city"
-msgstr "Ciudad"
 
-msgid "singular_country"
-msgstr "País"
 
-msgid "singular_county"
-msgstr "Condado"
 
-msgid "singular_eurostat_nuts"
-msgstr "Lugar de nivel %(level)s en la clasificación NUTS de Eurostat"
 
-msgid "singular_neighborhood"
-msgstr "Barrio"
 
-msgid "singular_place"
-msgstr "Sitio"
 
-msgid "singular_state"
-msgstr "Estado"
 
-msgid "singular_town"
-msgstr "Localidad"
 
-msgid "singular_village"
-msgstr "Pueblo"
 
-msgid "singular_zip_code"
-msgstr "Código postal"
 
-msgid "VARIABLE_NAME-Count_Person"
-msgstr "Population"
 
-msgid "VARIABLE_NAME-Median_Income_Person"
-msgstr "Median Income"
 
-msgid "VARIABLE_NAME-Median_Age_Person"
-msgstr "Median Age"
 
-msgid "VARIABLE_NAME-UnemploymentRate_Person"
-msgstr "Unemployment Rate"
+
+
+
+
+

@@ -1,5 +1,8 @@
-msgid "%(project)s is a Google project"
-msgstr "%(project)s은(는) Google의 프로젝트입니다"
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s %(placeType)s"
+
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr ""
 
 msgid "APIs"
 msgstr "APIs"
@@ -10,8 +13,62 @@ msgstr "정보"
 msgid "About Data Commons"
 msgstr "Data Commons 정보"
 
+msgid "Administrative Area"
+msgstr ""
+
+msgid "Administrative Area 1 Place"
+msgstr ""
+
+msgid "Administrative Area 1 Places"
+msgstr ""
+
+msgid "Administrative Area 2 Place"
+msgstr ""
+
+msgid "Administrative Area 2 Places"
+msgstr ""
+
+msgid "Administrative Area 3 Place"
+msgstr ""
+
+msgid "Administrative Area 3 Places"
+msgstr ""
+
+msgid "Administrative Area 4 Place"
+msgstr ""
+
+msgid "Administrative Area 4 Places"
+msgstr ""
+
+msgid "Administrative Area 5 Place"
+msgstr ""
+
+msgid "Administrative Area 5 Places"
+msgstr ""
+
+msgid "Administrative Areas"
+msgstr ""
+
+msgid "An initiative from"
+msgstr ""
+
+msgid "Back to homepage"
+msgstr ""
+
+msgid "BigQuery"
+msgstr ""
+
 msgid "Blog"
 msgstr "블로그"
+
+msgid "Borough"
+msgstr ""
+
+msgid "Boroughs"
+msgstr ""
+
+msgid "Cities"
+msgstr ""
 
 msgid "Cities, India"
 msgstr "Cities, India"
@@ -19,14 +76,26 @@ msgstr "Cities, India"
 msgid "Cities, United States"
 msgstr "도시, 미국"
 
+msgid "City"
+msgstr ""
+
 msgid "Contribute"
 msgstr "참여"
+
+msgid "Counties"
+msgstr ""
 
 msgid "Counties, United States"
 msgstr "국가, 미국"
 
 msgid "Countries"
 msgstr "국가"
+
+msgid "Country"
+msgstr ""
+
+msgid "County"
+msgstr ""
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -55,6 +124,24 @@ msgstr "국가나 시/도/구를 입력하세요"
 msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
+msgid "Eurostat NUTS 1 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 1 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Places"
+msgstr ""
+
 msgid "Explore"
 msgstr "탐색"
 
@@ -82,9 +169,6 @@ msgstr "정부의 교육비 지출"
 msgid "Government Expenditures on Military"
 msgstr "정부 군사비 지출"
 
-msgid "Knowledge Graph"
-msgstr "지식 그래프"
-
 msgid "Gross National Income"
 msgstr "총국민소득"
 
@@ -100,29 +184,47 @@ msgstr "최고 중위 소득"
 msgid "Highest Unemployment Rate"
 msgstr "최고 실업률"
 
+msgid "Knowledge Graph"
+msgstr "지식 그래프"
+
 msgid "Largest Population"
 msgstr "최대 인구"
 
 msgid "Life Expectancy"
 msgstr "기대수명"
 
-msgid "Loading..."
-msgstr "로드 중..."
+msgid "Loading"
+msgstr ""
 
 msgid "Map Explorer"
 msgstr "지도 탐색기"
 
-msgid "Maps Explorer"
-msgstr "Maps Explorer"
+msgid "Median Age"
+msgstr ""
+
+msgid "Median Income"
+msgstr ""
 
 msgid "Median Income, United States"
 msgstr "중위 소득, 미국"
 
-msgid "Natural Language Explorer"
-msgstr "Natural Language Explorer"
+msgid "Natural Disaster Dashboard"
+msgstr ""
+
+msgid "Neighborhood"
+msgstr ""
+
+msgid "Neighborhoods"
+msgstr ""
+
+msgid "Other %(placeType)s in %(parentPlace)s"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>장소 탐색기 도구를 사용하면 장소에 관한 핵심 데이터를 파악할 수 있습니다. 인구, 교육, 경제 등에 대한 여러 차트를 가져와서 다른 장소와 비교하며 확인이 가능합니다. 실업률, 범죄율, 소득과 같은 다양한 지표에 따라 여러 장소의 순위를 확인할 수도 있습니다.</p><p>위 검색 상자에 관심 있는 도시, 우편번호, 카운티, 주, 국가를 입력하여 차트를 확인하세요.</p><p>또는 유명한 장소에 관한 데이터를 살펴볼 수도 있습니다.</p>"
+
+msgid "Place"
+msgstr ""
 
 msgid "Place Explorer"
 msgstr "장소 탐색 도구"
@@ -133,6 +235,9 @@ msgstr "장소 순위"
 msgid "Places"
 msgstr "장소"
 
+msgid "Population"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr "개인정보처리방침"
 
@@ -142,8 +247,23 @@ msgstr "순위"
 msgid "Scatter Plot Explorer"
 msgstr "분산형 차트 탐색기"
 
-msgid "Scatter Plots"
-msgstr "Scatter Plots"
+msgid "Show about links"
+msgstr ""
+
+msgid "Show documentation links"
+msgstr ""
+
+msgid "Show exploration tools"
+msgstr ""
+
+msgid "Show site navigation"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "States"
+msgstr ""
 
 msgid "States, India"
 msgstr "States, India"
@@ -154,26 +274,53 @@ msgstr "주, 미국"
 msgid "Statistical Variable Explorer"
 msgstr "Statistical Variable Explorer"
 
+msgid "Statistics"
+msgstr ""
+
+msgid "Sustainability Explorer"
+msgstr ""
+
 msgid "Terms Of Use"
 msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "이용약관"
 
-msgid "Timeline Charts"
-msgstr "Timeline Charts"
-
 msgid "Timelines Explorer"
 msgstr "타임라인 탐색기"
+
+msgid "Tools"
+msgstr ""
+
+msgid "Town"
+msgstr ""
+
+msgid "Towns"
+msgstr ""
 
 msgid "Tutorials"
 msgstr "튜토리얼"
 
+msgid "Unemployment Rate"
+msgstr ""
+
 msgid "Unemployment Rate, United States"
 msgstr "실업률, 미국"
 
+msgid "Village"
+msgstr ""
+
+msgid "Villages"
+msgstr ""
+
 msgid "Worldwide"
 msgstr "전 세계"
+
+msgid "ZIP Code"
+msgstr ""
+
+msgid "ZIP Codes"
+msgstr ""
 
 msgid "by city"
 msgstr "도시별"
@@ -204,6 +351,9 @@ msgstr "방화"
 
 msgid "CHART_TITLE-Arson_rate"
 msgstr "10만 명당 방화 건수"
+
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Associate degree attainment by gender"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "성별에 따른 2년제 학위 취득률"
@@ -328,6 +478,9 @@ msgstr "에너지 사용(1인당 석유 환산량 kg당)"
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "출산율"
 
+msgid "CHART_TITLE-Gdp"
+msgstr "Gross domestic product"
+
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "GDP 성장률"
 
@@ -360,6 +513,9 @@ msgstr "정부 군사비 지출"
 
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "정부 군사비 지출(GDP 대비 %)"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Graduate or professional degree attainment by gender"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "성별에 따른 대학 졸업 또는 전문 학위 취득률"
@@ -525,6 +681,9 @@ msgstr "사망률"
 
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "1인당 사망률"
+
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Outward remittance"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "당발송금"
@@ -703,61 +862,26 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "개요"
 
-#. Place containment. Gives context for where a place is located.
-msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(parentPlaces)s %(placeType)s"
 
-#. Place Types
-msgid "singular_administrative_area"
-msgstr "행정 구역"
 
-msgid "singular_administrative_area_level"
-msgstr "%(level)s급 행정 구역"
 
-msgid "singular_borough"
-msgstr "자치구"
 
-msgid "singular_city"
-msgstr "시"
 
-msgid "singular_country"
-msgstr "국가"
 
-msgid "singular_county"
-msgstr "카운티"
 
-msgid "singular_eurostat_nuts"
-msgstr "유럽 연합통계청 NUTS %(level)s급 장소"
 
-msgid "singular_neighborhood"
-msgstr "동네"
 
-msgid "singular_place"
-msgstr "장소"
 
-msgid "singular_state"
-msgstr "주"
 
-msgid "singular_town"
-msgstr "소도시"
 
-msgid "singular_village"
-msgstr "마을"
 
-msgid "singular_zip_code"
-msgstr "우편번호"
 
-msgid "VARIABLE_NAME-Count_Person"
-msgstr "Population"
 
-msgid "VARIABLE_NAME-Median_Income_Person"
-msgstr "Median Income"
 
-msgid "VARIABLE_NAME-Median_Age_Person"
-msgstr "Median Age"
 
-msgid "VARIABLE_NAME-UnemploymentRate_Person"
-msgstr "Unemployment Rate"
+
+
+
+
+

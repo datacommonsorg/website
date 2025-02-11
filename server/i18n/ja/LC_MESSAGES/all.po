@@ -1,5 +1,8 @@
-msgid "%(project)s is a Google project"
-msgstr "%(project)s は Google のプロジェクトです"
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s 内の %(placeType)s"
+
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr ""
 
 msgid "APIs"
 msgstr "APIs"
@@ -10,8 +13,62 @@ msgstr "基本情報"
 msgid "About Data Commons"
 msgstr "データコモンズについて"
 
+msgid "Administrative Area"
+msgstr ""
+
+msgid "Administrative Area 1 Place"
+msgstr ""
+
+msgid "Administrative Area 1 Places"
+msgstr ""
+
+msgid "Administrative Area 2 Place"
+msgstr ""
+
+msgid "Administrative Area 2 Places"
+msgstr ""
+
+msgid "Administrative Area 3 Place"
+msgstr ""
+
+msgid "Administrative Area 3 Places"
+msgstr ""
+
+msgid "Administrative Area 4 Place"
+msgstr ""
+
+msgid "Administrative Area 4 Places"
+msgstr ""
+
+msgid "Administrative Area 5 Place"
+msgstr ""
+
+msgid "Administrative Area 5 Places"
+msgstr ""
+
+msgid "Administrative Areas"
+msgstr ""
+
+msgid "An initiative from"
+msgstr ""
+
+msgid "Back to homepage"
+msgstr ""
+
+msgid "BigQuery"
+msgstr ""
+
 msgid "Blog"
 msgstr "ブログ"
+
+msgid "Borough"
+msgstr ""
+
+msgid "Boroughs"
+msgstr ""
+
+msgid "Cities"
+msgstr ""
 
 msgid "Cities, India"
 msgstr "Cities, India"
@@ -19,14 +76,26 @@ msgstr "Cities, India"
 msgid "Cities, United States"
 msgstr "米国の都市"
 
+msgid "City"
+msgstr ""
+
 msgid "Contribute"
 msgstr "協力する"
+
+msgid "Counties"
+msgstr ""
 
 msgid "Counties, United States"
 msgstr "米国の郡"
 
 msgid "Countries"
 msgstr "国"
+
+msgid "Country"
+msgstr ""
+
+msgid "County"
+msgstr ""
 
 msgid "Data Commons"
 msgstr "データコモンズ"
@@ -55,6 +124,24 @@ msgstr "国、州、郡、都市のいずれかを入力してください"
 msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
+msgid "Eurostat NUTS 1 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 1 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 2 Places"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Place"
+msgstr ""
+
+msgid "Eurostat NUTS 3 Places"
+msgstr ""
+
 msgid "Explore"
 msgstr "探索"
 
@@ -82,9 +169,6 @@ msgstr "政府の教育支出"
 msgid "Government Expenditures on Military"
 msgstr "政府の軍事支出"
 
-msgid "Knowledge Graph"
-msgstr "ナレッジグラフ"
-
 msgid "Gross National Income"
 msgstr "国民総所得"
 
@@ -100,29 +184,47 @@ msgstr "所得の中央値上位"
 msgid "Highest Unemployment Rate"
 msgstr "失業率上位"
 
+msgid "Knowledge Graph"
+msgstr "ナレッジグラフ"
+
 msgid "Largest Population"
 msgstr "人口上位"
 
 msgid "Life Expectancy"
 msgstr "平均寿命"
 
-msgid "Loading..."
-msgstr "読み込んでいます…"
+msgid "Loading"
+msgstr ""
 
 msgid "Map Explorer"
 msgstr "マップ エクスプローラ"
 
-msgid "Maps Explorer"
-msgstr "Maps Explorer"
+msgid "Median Age"
+msgstr ""
+
+msgid "Median Income"
+msgstr ""
 
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
 
-msgid "Natural Language Explorer"
-msgstr "Natural Language Explorer"
+msgid "Natural Disaster Dashboard"
+msgstr ""
+
+msgid "Neighborhood"
+msgstr ""
+
+msgid "Neighborhoods"
+msgstr ""
+
+msgid "Other %(placeType)s in %(parentPlace)s"
+msgstr ""
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>プレイス エクスプローラは、地域の基礎的なコアデータを把握するために役立つツールです。特定の地域の人口統計、教育、経済などに関する一連のグラフをまとめて、他の地域と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の地域がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている地域を探索することもできます。</p>"
+
+msgid "Place"
+msgstr ""
 
 msgid "Place Explorer"
 msgstr "プレイス エクスプローラ"
@@ -133,6 +235,9 @@ msgstr "地域ランキング"
 msgid "Places"
 msgstr "場所"
 
+msgid "Population"
+msgstr ""
+
 msgid "Privacy Policy"
 msgstr "プライバシー ポリシー"
 
@@ -142,8 +247,23 @@ msgstr "ランキング"
 msgid "Scatter Plot Explorer"
 msgstr "散布図エクスプローラ"
 
-msgid "Scatter Plots"
-msgstr "Scatter Plots"
+msgid "Show about links"
+msgstr ""
+
+msgid "Show documentation links"
+msgstr ""
+
+msgid "Show exploration tools"
+msgstr ""
+
+msgid "Show site navigation"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "States"
+msgstr ""
 
 msgid "States, India"
 msgstr "States, India"
@@ -154,26 +274,53 @@ msgstr "米国の州"
 msgid "Statistical Variable Explorer"
 msgstr "Statistical Variable Explorer"
 
+msgid "Statistics"
+msgstr ""
+
+msgid "Sustainability Explorer"
+msgstr ""
+
 msgid "Terms Of Use"
 msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "利用規約"
 
-msgid "Timeline Charts"
-msgstr "Timeline Charts"
-
 msgid "Timelines Explorer"
 msgstr "タイムライン エクスプローラ"
+
+msgid "Tools"
+msgstr ""
+
+msgid "Town"
+msgstr ""
+
+msgid "Towns"
+msgstr ""
 
 msgid "Tutorials"
 msgstr "チュートリアル"
 
+msgid "Unemployment Rate"
+msgstr ""
+
 msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
 
+msgid "Village"
+msgstr ""
+
+msgid "Villages"
+msgstr ""
+
 msgid "Worldwide"
 msgstr "全世界"
+
+msgid "ZIP Code"
+msgstr ""
+
+msgid "ZIP Codes"
+msgstr ""
 
 msgid "by city"
 msgstr "都市別"
@@ -204,6 +351,9 @@ msgstr "放火"
 
 msgid "CHART_TITLE-Arson_rate"
 msgstr "放火件数（人口 100,000 人あたり）"
+
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Associate degree attainment by gender"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "準学士号の取得率（性別ごと）"
@@ -328,6 +478,9 @@ msgstr "エネルギー使用量（1 人あたりの石油換算 kg）"
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "出生率"
 
+msgid "CHART_TITLE-Gdp"
+msgstr "Gross domestic product"
+
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "国内総生産の成長率"
 
@@ -360,6 +513,9 @@ msgstr "政府の軍事支出"
 
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "政府の軍事支出（GDP 比）"
+
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Graduate or professional degree attainment by gender"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "学位または専門職学位の取得率（性別ごと）"
@@ -525,6 +681,9 @@ msgstr "死亡者数"
 
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "人口あたりの死亡者数"
+
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Outward remittance"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "仕向送金"
@@ -703,61 +862,26 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "概要"
 
-#. Place containment. Gives context for where a place is located.
-msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(parentPlaces)s 内の %(placeType)s"
 
-#. Place Types
-msgid "singular_administrative_area"
-msgstr "行政区域"
 
-msgid "singular_administrative_area_level"
-msgstr "行政区域 %(level)s の地域"
 
-msgid "singular_borough"
-msgstr "特別区"
 
-msgid "singular_city"
-msgstr "都市"
 
-msgid "singular_country"
-msgstr "国"
 
-msgid "singular_county"
-msgstr "郡"
 
-msgid "singular_eurostat_nuts"
-msgstr "Eurostat NUTS %(level)s の地域"
 
-msgid "singular_neighborhood"
-msgstr "近隣地区"
 
-msgid "singular_place"
-msgstr "場所"
 
-msgid "singular_state"
-msgstr "州"
 
-msgid "singular_town"
-msgstr "町"
 
-msgid "singular_village"
-msgstr "村"
 
-msgid "singular_zip_code"
-msgstr "郵便番号"
 
-msgid "VARIABLE_NAME-Count_Person"
-msgstr "Population"
 
-msgid "VARIABLE_NAME-Median_Income_Person"
-msgstr "Median Income"
 
-msgid "VARIABLE_NAME-Median_Age_Person"
-msgstr "Median Age"
 
-msgid "VARIABLE_NAME-UnemploymentRate_Person"
-msgstr "Unemployment Rate"
+
+
+
+
+
