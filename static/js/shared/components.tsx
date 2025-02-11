@@ -15,7 +15,7 @@
  */
 
 import { useTheme } from "@emotion/react";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 /**
@@ -49,18 +49,19 @@ export const InfoTooltipComponent = (props: {
   description: string;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
 
   const InfoTooltip = styled.div`
     ${theme.typography.text.sm}
     position: absolute;
-    min-width: 240px;
+    min-width: 312px;
     top: ${theme.spacing.lg}px;
     left: 0;
     background-color: ${theme.colors.background.secondary.light};
     border: 1px solid ${theme.colors.border.primary.light};
     border-radius: ${theme.radius.secondary.borderRadius};
-    padding: ${theme.spacing.lg}px;
+    padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
     z-index: 1;
     box-shadow: ${theme.elevation.secondary.boxShadow};
   `;
@@ -68,15 +69,33 @@ export const InfoTooltipComponent = (props: {
   const InfoTooltipContainerStyled = styled.div`
     position: relative;
     display: inline-block;
-    margin: ${theme.spacing.sm}px;
+    margin: ${theme.spacing.xs}px;
   `;
 
   const handleButtonClick = (): void => {
     setIsVisible(!isVisible);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isVisible &&
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isVisible]);
+
+
   return (
-    <InfoTooltipContainerStyled>
+    <InfoTooltipContainerStyled ref={containerRef}>
       <img onClick={handleButtonClick} src={props.iconPath} />
       {isVisible && <InfoTooltip>{props.description}</InfoTooltip>}
     </InfoTooltipContainerStyled>
