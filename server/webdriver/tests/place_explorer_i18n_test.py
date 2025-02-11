@@ -46,3 +46,37 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
         find_elem(self.driver, by=By.ID,
                   value='query-search-input').get_attribute('value'),
         'United States Of America')
+
+  def test_dev_place_page_loads_with_locale(self):
+    """Ensure experimental dev place page content loads data for a continent."""
+    self.driver.get(self.url_ + '/place/africa?force_dev_places=true&hl=fr')
+
+    # Assert the subheader contains the parent places.
+    self.assertIsNotNone(find_elem(self.driver, value='place-info'))
+    # Assert the h1 has the localized place name
+    self.assertEqual(
+        find_elem(self.driver, by=By.CSS_SELECTOR,
+                  value='.place-info h1 span').text, 'Afrique')
+
+    # Asert the related places box exists
+    self.assertEqual(
+        find_elem(self.driver, value='related-places-callout').text,
+        'Lieux en Afrique')
+
+    # TODO: Update topics to be localized when the translations are available.
+    topics_for_africa = [
+        "Économie", "Santé", "Capitaux propres", "Données démographiques",
+        "Environment", "Energy"
+    ]
+    shared.assert_topics(self,
+                         self.driver,
+                         path_to_topics=['explore-topics-box'],
+                         classname='item-list-item',
+                         expected_topics=topics_for_africa)
+
+    # Assert the download link exists and has correct text
+    download_link = find_elem(self.driver,
+                              by=By.CSS_SELECTOR,
+                              value=".download-outlink a")
+    # TODO: Update this to use the correct text when the translations are available.
+    self.assertEqual(download_link.text, "Download")

@@ -179,20 +179,13 @@ export function App(): ReactElement {
       <div
         className="app"
         css={css`
-          margin: ${theme.spacing.lg}px;
+          margin: ${theme.spacing.xl}px;
+          margin-top: 0;
           display: flex;
           flex-direction: column;
           gap: ${theme.spacing.lg}px;
         `}
       >
-        <div
-          className="title"
-          css={css`
-            ${theme.typography.heading.lg};
-          `}
-        >
-          DataGemma Playground
-        </div>
         <div
           className="inputs"
           css={css`
@@ -203,25 +196,14 @@ export function App(): ReactElement {
           `}
         >
           <div
-            className="query-input"
-            css={css`
-              display: flex;
-              align-items: center;
-              gap: ${theme.spacing.sm}px;
-              width: 100%;
-            `}
-          >
-            <label>Query</label>
-            <Input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-          <div
             className="mode-input"
             css={css`
-              margin-left: 24px;
+              display: flex;
+              gap: ${theme.spacing.sm}px;
+              margin-left: 56px;
+              & > .mode-option {
+                margin-left: 24px;
+              }
             `}
           >
             {[RIG_MODE, RAG_MODE].map((m) => {
@@ -242,8 +224,24 @@ export function App(): ReactElement {
               );
             })}
           </div>
-          <div onClick={onQueryRun} className="btn btn-primary">
-            Run
+          <div
+            className="query-input"
+            css={css`
+              display: flex;
+              align-items: center;
+              gap: ${theme.spacing.sm}px;
+              width: 100%;
+            `}
+          >
+            <label>Query</label>
+            <Input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <div onClick={onQueryRun} className="btn btn-primary">
+              run
+            </div>
           </div>
         </div>
         <div

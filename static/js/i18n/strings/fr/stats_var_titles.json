@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI"
+  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "Consommation (annuelle) d'alcool pur par habitant"
   },
@@ -53,6 +59,24 @@
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "Capitalisation boursière des entreprises nationales (en pourcentage du PIB)"
   },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
+  },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "Nombre d'activités criminelles (incendies volontaires)"
   },
@@ -65,8 +89,11 @@
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "Nombre d'activités criminelles (crimes violents)"
   },
-  "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+  },
+  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
     "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
@@ -77,14 +104,11 @@
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
     "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
   },
-  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
-  },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
     "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
   },
-  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "Nombre de cyclones"
@@ -614,6 +638,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "Nombre cumulé de décès de la COVID-19"
   },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
+    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
+    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
+    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "Taux de fécondité"
   },
@@ -628,6 +664,15 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "Espérance de vie"
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Mean Diesel PM Concentration"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Mean Ozone Concentration"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "Mean PM2.5 Concentration"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "Salaire quotidien d'un travailleur"
@@ -716,6 +761,9 @@
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "Revenus individuels médians (hommes)"
   },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "The Palmer Drought Severity Index"
+  },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "Pourcentage de la population sans assurance santé (femmes)"
   },
@@ -791,6 +839,9 @@
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "Taux de chômage (zone urbaine)"
   },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Water Withdrawal Rate"
+  },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "Population (bouddhiste)"
   },
@@ -814,56 +865,5 @@
   },
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "Population (sikhe)"
-  },
-  "AirQualityIndex_AirPollutant": {
-    "defaultMessage": "AQI"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
-  },
-  "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "Mean PM2.5 Concentration"
-  },
-  "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Mean Ozone Concentration"
-  },
-  "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Mean Diesel PM Concentration"
-  },
-  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
-  },
-  "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
-  },
-  "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "The Palmer Drought Severity Index"
-  },
-  "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
-  },
-  "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
-  },
-  "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
   }
 }

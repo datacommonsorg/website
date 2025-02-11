@@ -21,6 +21,9 @@
 import React from "react";
 import { Spinner } from "reactstrap";
 
+import { intl } from "../../i18n/i18n";
+import { tileMessages } from "../../i18n/i18n_tile_messages";
+
 /**
  * Header with loading indicator
  * @param props.isLoading true if the component is loading
@@ -37,7 +40,7 @@ export function LoadingHeader(props: {
       {isLoading ? (
         <>
           <Spinner color="secondary" size="sm" className="mr-1" />
-          {title ? title : "Loading..."}
+          {title ? title : intl.formatMessage(tileMessages.loading)}
         </>
       ) : (
         title

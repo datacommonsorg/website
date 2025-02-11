@@ -29,6 +29,8 @@ import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { intl } from "../../i18n/i18n";
+import { tileMessages } from "../../i18n/i18n_tile_messages";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
@@ -453,7 +455,7 @@ function getExploreLink(props: BivariateTilePropType): {
     {}
   );
   return {
-    displayText: "Scatter Tool",
+    displayText: intl.formatMessage(tileMessages.scatterTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
 }

@@ -27,7 +27,8 @@ export const tileMessages = defineMessages({
   viaGoogle: {
     id: "viaGoogle",
     defaultMessage: "via Google",
-    description: "Indicator displayed when chart data comes from Google",
+    description:
+      'Indicator displayed when chart data comes from Google. Example "Source: www2.census.gov via Google"',
   },
   sources: {
     id: "sources",
