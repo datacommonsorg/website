@@ -29,6 +29,8 @@ website:
   nodePool: "default-pool"
   evalTool:
     enabled: true
+  dataGemma:
+    enabled: true
   redis:
     enabled: true
     configFile: |

@@ -70,6 +70,7 @@ while getopts ":e:p:m?d?l?xg" OPTION; do
 done
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+export ENABLE_DATAGEMMA=true
 
 # Set flask env
 if [[ $FLASK_ENV == "" ]]; then
