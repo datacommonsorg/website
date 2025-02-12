@@ -14,34 +14,34 @@ msgid "About Data Commons"
 msgstr "Informazioni su Data Commons"
 
 msgid "Administrative Area"
-msgstr ""
+msgstr "Area amministrativa"
 
 msgid "Administrative Area 1 Place"
-msgstr ""
+msgstr "Luogo dell'area amministrativa 1"
 
 msgid "Administrative Area 1 Places"
 msgstr ""
 
 msgid "Administrative Area 2 Place"
-msgstr ""
+msgstr "Luogo dell'area amministrativa 2"
 
 msgid "Administrative Area 2 Places"
 msgstr ""
 
 msgid "Administrative Area 3 Place"
-msgstr ""
+msgstr "Luogo dell'area amministrativa 3"
 
 msgid "Administrative Area 3 Places"
 msgstr ""
 
 msgid "Administrative Area 4 Place"
-msgstr ""
+msgstr "Luogo dell'area amministrativa 4"
 
 msgid "Administrative Area 4 Places"
 msgstr ""
 
 msgid "Administrative Area 5 Place"
-msgstr ""
+msgstr "Luogo dell'area amministrativa 5"
 
 msgid "Administrative Area 5 Places"
 msgstr ""
@@ -62,7 +62,7 @@ msgid "Blog"
 msgstr "Blog"
 
 msgid "Borough"
-msgstr ""
+msgstr "Distretto"
 
 msgid "Boroughs"
 msgstr ""
@@ -77,7 +77,7 @@ msgid "Cities, United States"
 msgstr "Città, Stati Uniti"
 
 msgid "City"
-msgstr ""
+msgstr "Città"
 
 msgid "Contribute"
 msgstr "Contribuisci"
@@ -92,10 +92,10 @@ msgid "Countries"
 msgstr "Paesi"
 
 msgid "Country"
-msgstr ""
+msgstr "Paese"
 
 msgid "County"
-msgstr ""
+msgstr "Contea"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -125,19 +125,19 @@ msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
 msgid "Eurostat NUTS 1 Place"
-msgstr ""
+msgstr "Luogo Eurostat NUTS 1"
 
 msgid "Eurostat NUTS 1 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 2 Place"
-msgstr ""
+msgstr "Luogo Eurostat NUTS 2"
 
 msgid "Eurostat NUTS 2 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 3 Place"
-msgstr ""
+msgstr "Luogo Eurostat NUTS 3"
 
 msgid "Eurostat NUTS 3 Places"
 msgstr ""
@@ -212,7 +212,7 @@ msgid "Natural Disaster Dashboard"
 msgstr ""
 
 msgid "Neighborhood"
-msgstr ""
+msgstr "Quartiere"
 
 msgid "Neighborhoods"
 msgstr ""
@@ -224,7 +224,7 @@ msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Lo strumento Place Explorer ti consente di conoscere i dati fondamentali relativi a un luogo. Raccoglie una serie di grafici relativi a dati demografici, istruzione, aspetti economici e altro ancora, collocandoli nel contesto e confrontandoli con altri luoghi. Puoi anche conoscere il posizionamento di luoghi differenti in merito a diverse metriche quali disoccupazione, criminalità e reddito.</p><p>Puoi analizzare in dettaglio i grafici per città, codice postale, contea, stato o paese che preferisci usando la casella di ricerca in alto.</p><p>In alternativa puoi iniziare a esplorare alcuni luoghi molto noti.</p>"
 
 msgid "Place"
-msgstr ""
+msgstr "Luogo"
 
 msgid "Place Explorer"
 msgstr "Place Explorer"
@@ -260,7 +260,7 @@ msgid "Show site navigation"
 msgstr ""
 
 msgid "State"
-msgstr ""
+msgstr "Stato"
 
 msgid "States"
 msgstr ""
@@ -293,7 +293,7 @@ msgid "Tools"
 msgstr ""
 
 msgid "Town"
-msgstr ""
+msgstr "Città"
 
 msgid "Towns"
 msgstr ""
@@ -308,7 +308,7 @@ msgid "Unemployment Rate, United States"
 msgstr "Tasso di disoccupazione, Stati Uniti"
 
 msgid "Village"
-msgstr ""
+msgstr "Villaggio"
 
 msgid "Villages"
 msgstr ""
@@ -317,7 +317,7 @@ msgid "Worldwide"
 msgstr "Tutto il mondo"
 
 msgid "ZIP Code"
-msgstr ""
+msgstr "Codice postale"
 
 msgid "ZIP Codes"
 msgstr ""
@@ -861,19 +861,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

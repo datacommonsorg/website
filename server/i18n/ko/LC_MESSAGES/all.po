@@ -14,34 +14,34 @@ msgid "About Data Commons"
 msgstr "Data Commons 정보"
 
 msgid "Administrative Area"
-msgstr ""
+msgstr "행정 구역"
 
 msgid "Administrative Area 1 Place"
-msgstr ""
+msgstr "1급 행정 구역"
 
 msgid "Administrative Area 1 Places"
 msgstr ""
 
 msgid "Administrative Area 2 Place"
-msgstr ""
+msgstr "2급 행정 구역"
 
 msgid "Administrative Area 2 Places"
 msgstr ""
 
 msgid "Administrative Area 3 Place"
-msgstr ""
+msgstr "3급 행정 구역"
 
 msgid "Administrative Area 3 Places"
 msgstr ""
 
 msgid "Administrative Area 4 Place"
-msgstr ""
+msgstr "4급 행정 구역"
 
 msgid "Administrative Area 4 Places"
 msgstr ""
 
 msgid "Administrative Area 5 Place"
-msgstr ""
+msgstr "5급 행정 구역"
 
 msgid "Administrative Area 5 Places"
 msgstr ""
@@ -62,7 +62,7 @@ msgid "Blog"
 msgstr "블로그"
 
 msgid "Borough"
-msgstr ""
+msgstr "자치구"
 
 msgid "Boroughs"
 msgstr ""
@@ -77,7 +77,7 @@ msgid "Cities, United States"
 msgstr "도시, 미국"
 
 msgid "City"
-msgstr ""
+msgstr "시"
 
 msgid "Contribute"
 msgstr "참여"
@@ -92,10 +92,10 @@ msgid "Countries"
 msgstr "국가"
 
 msgid "Country"
-msgstr ""
+msgstr "국가"
 
 msgid "County"
-msgstr ""
+msgstr "카운티"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -125,19 +125,19 @@ msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
 msgid "Eurostat NUTS 1 Place"
-msgstr ""
+msgstr "유럽 연합통계청 NUTS 1급 장소"
 
 msgid "Eurostat NUTS 1 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 2 Place"
-msgstr ""
+msgstr "유럽 연합통계청 NUTS 2급 장소"
 
 msgid "Eurostat NUTS 2 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 3 Place"
-msgstr ""
+msgstr "유럽 연합통계청 NUTS 3급 장소"
 
 msgid "Eurostat NUTS 3 Places"
 msgstr ""
@@ -212,7 +212,7 @@ msgid "Natural Disaster Dashboard"
 msgstr ""
 
 msgid "Neighborhood"
-msgstr ""
+msgstr "동네"
 
 msgid "Neighborhoods"
 msgstr ""
@@ -224,7 +224,7 @@ msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>장소 탐색기 도구를 사용하면 장소에 관한 핵심 데이터를 파악할 수 있습니다. 인구, 교육, 경제 등에 대한 여러 차트를 가져와서 다른 장소와 비교하며 확인이 가능합니다. 실업률, 범죄율, 소득과 같은 다양한 지표에 따라 여러 장소의 순위를 확인할 수도 있습니다.</p><p>위 검색 상자에 관심 있는 도시, 우편번호, 카운티, 주, 국가를 입력하여 차트를 확인하세요.</p><p>또는 유명한 장소에 관한 데이터를 살펴볼 수도 있습니다.</p>"
 
 msgid "Place"
-msgstr ""
+msgstr "장소"
 
 msgid "Place Explorer"
 msgstr "장소 탐색 도구"
@@ -260,7 +260,7 @@ msgid "Show site navigation"
 msgstr ""
 
 msgid "State"
-msgstr ""
+msgstr "주"
 
 msgid "States"
 msgstr ""
@@ -293,7 +293,7 @@ msgid "Tools"
 msgstr ""
 
 msgid "Town"
-msgstr ""
+msgstr "소도시"
 
 msgid "Towns"
 msgstr ""
@@ -308,7 +308,7 @@ msgid "Unemployment Rate, United States"
 msgstr "실업률, 미국"
 
 msgid "Village"
-msgstr ""
+msgstr "마을"
 
 msgid "Villages"
 msgstr ""
@@ -317,7 +317,7 @@ msgid "Worldwide"
 msgstr "전 세계"
 
 msgid "ZIP Code"
-msgstr ""
+msgstr "우편번호"
 
 msgid "ZIP Codes"
 msgstr ""
@@ -861,19 +861,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

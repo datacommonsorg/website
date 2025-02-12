@@ -14,34 +14,34 @@ msgid "About Data Commons"
 msgstr "データコモンズについて"
 
 msgid "Administrative Area"
-msgstr ""
+msgstr "行政区域"
 
 msgid "Administrative Area 1 Place"
-msgstr ""
+msgstr "行政区域 1 の地域"
 
 msgid "Administrative Area 1 Places"
 msgstr ""
 
 msgid "Administrative Area 2 Place"
-msgstr ""
+msgstr "行政区域 2 の地域"
 
 msgid "Administrative Area 2 Places"
 msgstr ""
 
 msgid "Administrative Area 3 Place"
-msgstr ""
+msgstr "行政区域 3 の地域"
 
 msgid "Administrative Area 3 Places"
 msgstr ""
 
 msgid "Administrative Area 4 Place"
-msgstr ""
+msgstr "行政区域 4 の地域"
 
 msgid "Administrative Area 4 Places"
 msgstr ""
 
 msgid "Administrative Area 5 Place"
-msgstr ""
+msgstr "行政区域 5 の地域"
 
 msgid "Administrative Area 5 Places"
 msgstr ""
@@ -62,7 +62,7 @@ msgid "Blog"
 msgstr "ブログ"
 
 msgid "Borough"
-msgstr ""
+msgstr "特別区"
 
 msgid "Boroughs"
 msgstr ""
@@ -77,7 +77,7 @@ msgid "Cities, United States"
 msgstr "米国の都市"
 
 msgid "City"
-msgstr ""
+msgstr "都市"
 
 msgid "Contribute"
 msgstr "協力する"
@@ -92,10 +92,10 @@ msgid "Countries"
 msgstr "国"
 
 msgid "Country"
-msgstr ""
+msgstr "国"
 
 msgid "County"
-msgstr ""
+msgstr "郡"
 
 msgid "Data Commons"
 msgstr "データコモンズ"
@@ -125,19 +125,19 @@ msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
 msgid "Eurostat NUTS 1 Place"
-msgstr ""
+msgstr "Eurostat NUTS 1 の地域"
 
 msgid "Eurostat NUTS 1 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 2 Place"
-msgstr ""
+msgstr "Eurostat NUTS 2 の地域"
 
 msgid "Eurostat NUTS 2 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 3 Place"
-msgstr ""
+msgstr "Eurostat NUTS 3 の地域"
 
 msgid "Eurostat NUTS 3 Places"
 msgstr ""
@@ -212,7 +212,7 @@ msgid "Natural Disaster Dashboard"
 msgstr ""
 
 msgid "Neighborhood"
-msgstr ""
+msgstr "近隣地区"
 
 msgid "Neighborhoods"
 msgstr ""
@@ -224,7 +224,7 @@ msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>プレイス エクスプローラは、地域の基礎的なコアデータを把握するために役立つツールです。特定の地域の人口統計、教育、経済などに関する一連のグラフをまとめて、他の地域と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の地域がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている地域を探索することもできます。</p>"
 
 msgid "Place"
-msgstr ""
+msgstr "場所"
 
 msgid "Place Explorer"
 msgstr "プレイス エクスプローラ"
@@ -260,7 +260,7 @@ msgid "Show site navigation"
 msgstr ""
 
 msgid "State"
-msgstr ""
+msgstr "州"
 
 msgid "States"
 msgstr ""
@@ -293,7 +293,7 @@ msgid "Tools"
 msgstr ""
 
 msgid "Town"
-msgstr ""
+msgstr "町"
 
 msgid "Towns"
 msgstr ""
@@ -308,7 +308,7 @@ msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
 
 msgid "Village"
-msgstr ""
+msgstr "村"
 
 msgid "Villages"
 msgstr ""
@@ -317,7 +317,7 @@ msgid "Worldwide"
 msgstr "全世界"
 
 msgid "ZIP Code"
-msgstr ""
+msgstr "郵便番号"
 
 msgid "ZIP Codes"
 msgstr ""
@@ -861,19 +861,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

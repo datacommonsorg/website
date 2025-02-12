@@ -14,34 +14,34 @@ msgid "About Data Commons"
 msgstr "О Data Commons"
 
 msgid "Administrative Area"
-msgstr ""
+msgstr "Административный район"
 
 msgid "Administrative Area 1 Place"
-msgstr ""
+msgstr "Место по типу административного района уровня 1"
 
 msgid "Administrative Area 1 Places"
 msgstr ""
 
 msgid "Administrative Area 2 Place"
-msgstr ""
+msgstr "Место по типу административного района уровня 2"
 
 msgid "Administrative Area 2 Places"
 msgstr ""
 
 msgid "Administrative Area 3 Place"
-msgstr ""
+msgstr "Место по типу административного района уровня 3"
 
 msgid "Administrative Area 3 Places"
 msgstr ""
 
 msgid "Administrative Area 4 Place"
-msgstr ""
+msgstr "Место по типу административного района уровня 4"
 
 msgid "Administrative Area 4 Places"
 msgstr ""
 
 msgid "Administrative Area 5 Place"
-msgstr ""
+msgstr "Место по типу административного района уровня 5"
 
 msgid "Administrative Area 5 Places"
 msgstr ""
@@ -62,7 +62,7 @@ msgid "Blog"
 msgstr "Блог"
 
 msgid "Borough"
-msgstr ""
+msgstr "Район"
 
 msgid "Boroughs"
 msgstr ""
@@ -77,7 +77,7 @@ msgid "Cities, United States"
 msgstr "Города в США"
 
 msgid "City"
-msgstr ""
+msgstr "Город"
 
 msgid "Contribute"
 msgstr "Помочь проекту"
@@ -92,10 +92,10 @@ msgid "Countries"
 msgstr "Страны"
 
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 msgid "County"
-msgstr ""
+msgstr "Округ"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -125,19 +125,19 @@ msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
 msgid "Eurostat NUTS 1 Place"
-msgstr ""
+msgstr "Место по типу Евростат NUTS уровня 1"
 
 msgid "Eurostat NUTS 1 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 2 Place"
-msgstr ""
+msgstr "Место по типу Евростат NUTS уровня 2"
 
 msgid "Eurostat NUTS 2 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 3 Place"
-msgstr ""
+msgstr "Место по типу Евростат NUTS уровня 3"
 
 msgid "Eurostat NUTS 3 Places"
 msgstr ""
@@ -212,7 +212,7 @@ msgid "Natural Disaster Dashboard"
 msgstr ""
 
 msgid "Neighborhood"
-msgstr ""
+msgstr "Микрорайон"
 
 msgid "Neighborhoods"
 msgstr ""
@@ -224,7 +224,7 @@ msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>В окне выше доступен поиск информации по городу, почтовому индексу, округу, штату или стране.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
 
 msgid "Place"
-msgstr ""
+msgstr "Место"
 
 msgid "Place Explorer"
 msgstr "Place Explorer"
@@ -260,7 +260,7 @@ msgid "Show site navigation"
 msgstr ""
 
 msgid "State"
-msgstr ""
+msgstr "Штат"
 
 msgid "States"
 msgstr ""
@@ -293,7 +293,7 @@ msgid "Tools"
 msgstr ""
 
 msgid "Town"
-msgstr ""
+msgstr "Город"
 
 msgid "Towns"
 msgstr ""
@@ -308,7 +308,7 @@ msgid "Unemployment Rate, United States"
 msgstr "Уровень безработицы в США"
 
 msgid "Village"
-msgstr ""
+msgstr "Поселок"
 
 msgid "Villages"
 msgstr ""
@@ -317,7 +317,7 @@ msgid "Worldwide"
 msgstr "в мире"
 
 msgid "ZIP Code"
-msgstr ""
+msgstr "Почтовый индекс"
 
 msgid "ZIP Codes"
 msgstr ""
@@ -861,19 +861,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

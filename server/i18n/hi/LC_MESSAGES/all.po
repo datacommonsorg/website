@@ -14,34 +14,34 @@ msgid "About Data Commons"
 msgstr "Data Commons के बारे में जानकारी"
 
 msgid "Administrative Area"
-msgstr ""
+msgstr "प्रशासकीय क्षेत्र"
 
 msgid "Administrative Area 1 Place"
-msgstr ""
+msgstr "प्रशासकीय क्षेत्र 1 वाले इलाके"
 
 msgid "Administrative Area 1 Places"
 msgstr ""
 
 msgid "Administrative Area 2 Place"
-msgstr ""
+msgstr "प्रशासकीय क्षेत्र 2 वाले इलाके"
 
 msgid "Administrative Area 2 Places"
 msgstr ""
 
 msgid "Administrative Area 3 Place"
-msgstr ""
+msgstr "प्रशासकीय क्षेत्र 3 वाले इलाके"
 
 msgid "Administrative Area 3 Places"
 msgstr ""
 
 msgid "Administrative Area 4 Place"
-msgstr ""
+msgstr "प्रशासकीय क्षेत्र 4 वाले इलाके"
 
 msgid "Administrative Area 4 Places"
 msgstr ""
 
 msgid "Administrative Area 5 Place"
-msgstr ""
+msgstr "प्रशासकीय क्षेत्र 5 वाले इलाके"
 
 msgid "Administrative Area 5 Places"
 msgstr ""
@@ -62,7 +62,7 @@ msgid "Blog"
 msgstr "ब्लॉग"
 
 msgid "Borough"
-msgstr ""
+msgstr "नगर"
 
 msgid "Boroughs"
 msgstr ""
@@ -77,7 +77,7 @@ msgid "Cities, United States"
 msgstr "संयुक्त राज्य अमेरिका के शहर"
 
 msgid "City"
-msgstr ""
+msgstr "शहर"
 
 msgid "Contribute"
 msgstr "योगदान"
@@ -92,10 +92,10 @@ msgid "Countries"
 msgstr "देश"
 
 msgid "Country"
-msgstr ""
+msgstr "देश"
 
 msgid "County"
-msgstr ""
+msgstr "काउंटी"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -125,19 +125,19 @@ msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
 msgid "Eurostat NUTS 1 Place"
-msgstr ""
+msgstr "यूरोस्टेट एनयूटीएस 1 वाले इलाके"
 
 msgid "Eurostat NUTS 1 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 2 Place"
-msgstr ""
+msgstr "यूरोस्टेट एनयूटीएस 2 वाले इलाके"
 
 msgid "Eurostat NUTS 2 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 3 Place"
-msgstr ""
+msgstr "यूरोस्टेट एनयूटीएस 3 वाले इलाके"
 
 msgid "Eurostat NUTS 3 Places"
 msgstr ""
@@ -212,7 +212,7 @@ msgid "Natural Disaster Dashboard"
 msgstr ""
 
 msgid "Neighborhood"
-msgstr ""
+msgstr "आस-पड़ोस"
 
 msgid "Neighborhoods"
 msgstr ""
@@ -224,7 +224,7 @@ msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>जगह एक्सप्लोर करने वाले टूल से आपको किसी जगह का सबसे ज़रूरी डेटा समझने में मदद मिलती है. यह टूल किसी जगह के बारे में शिक्षा और अर्थशास्त्र से जुड़ा डेटा, चार्ट में दिखाता है. इस डेटा में लोगों की जानकारी (जैसे, उम्र, लिंग, आय, शिक्षा वगैरह) भी शामिल होती है. साथ ही, अन्य जगहों का डेटा भी दिखाया जाता है, ताकि तुलना की जा सके. आप मेट्रिक के हिसाब से अलग-अलग जगहों की रैंक भी देख सकते हैं. इन मेट्रिक में बेरोज़गारी, अपराध, और आय शामिल हैं.</p><p>आप ऊपर दिए गए खोज बॉक्स का इस्तेमाल करके, अपने पसंदीदा शहर, पिन कोड, देश, राज्य या देश के हिसाब से डेटा के चार्ट देख सकते हैं.</p><p>इसके अलावा, आप सबसे मशहूर कुछ जगहों को एक्सप्लोर कर सकते हैं ...</p>"
 
 msgid "Place"
-msgstr ""
+msgstr "जगह"
 
 msgid "Place Explorer"
 msgstr "जगह एक्सप्लोर करने वाला टूल"
@@ -260,7 +260,7 @@ msgid "Show site navigation"
 msgstr ""
 
 msgid "State"
-msgstr ""
+msgstr "राज्य"
 
 msgid "States"
 msgstr ""
@@ -293,7 +293,7 @@ msgid "Tools"
 msgstr ""
 
 msgid "Town"
-msgstr ""
+msgstr "कस्बा"
 
 msgid "Towns"
 msgstr ""
@@ -308,7 +308,7 @@ msgid "Unemployment Rate, United States"
 msgstr "संयुक्त राज्य अमेरिका में बेरोज़गारी की दर"
 
 msgid "Village"
-msgstr ""
+msgstr "गांव"
 
 msgid "Villages"
 msgstr ""
@@ -317,7 +317,7 @@ msgid "Worldwide"
 msgstr "दुनिया भर में"
 
 msgid "ZIP Code"
-msgstr ""
+msgstr "पिन कोड"
 
 msgid "ZIP Codes"
 msgstr ""
@@ -861,19 +861,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

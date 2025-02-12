@@ -14,34 +14,34 @@ msgid "About Data Commons"
 msgstr "Acerca de Data Commons"
 
 msgid "Administrative Area"
-msgstr ""
+msgstr "Área administrativa"
 
 msgid "Administrative Area 1 Place"
-msgstr ""
+msgstr "Lugar de un área administrativa de nivel 1"
 
 msgid "Administrative Area 1 Places"
 msgstr ""
 
 msgid "Administrative Area 2 Place"
-msgstr ""
+msgstr "Lugar de un área administrativa de nivel 2"
 
 msgid "Administrative Area 2 Places"
 msgstr ""
 
 msgid "Administrative Area 3 Place"
-msgstr ""
+msgstr "Lugar de un área administrativa de nivel 3"
 
 msgid "Administrative Area 3 Places"
 msgstr ""
 
 msgid "Administrative Area 4 Place"
-msgstr ""
+msgstr "Lugar de un área administrativa de nivel 4"
 
 msgid "Administrative Area 4 Places"
 msgstr ""
 
 msgid "Administrative Area 5 Place"
-msgstr ""
+msgstr "Lugar de un área administrativa de nivel 5"
 
 msgid "Administrative Area 5 Places"
 msgstr ""
@@ -62,7 +62,7 @@ msgid "Blog"
 msgstr "Blog"
 
 msgid "Borough"
-msgstr ""
+msgstr "Municipio"
 
 msgid "Boroughs"
 msgstr ""
@@ -77,7 +77,7 @@ msgid "Cities, United States"
 msgstr "Ciudades (Estados Unidos)"
 
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 msgid "Contribute"
 msgstr "Colaborar"
@@ -92,10 +92,10 @@ msgid "Countries"
 msgstr "Países"
 
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 msgid "County"
-msgstr ""
+msgstr "Condado"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -125,19 +125,19 @@ msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
 msgid "Eurostat NUTS 1 Place"
-msgstr ""
+msgstr "Lugar de nivel 1 en la clasificación NUTS de Eurostat"
 
 msgid "Eurostat NUTS 1 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 2 Place"
-msgstr ""
+msgstr "Lugar de nivel 2 en la clasificación NUTS de Eurostat"
 
 msgid "Eurostat NUTS 2 Places"
 msgstr ""
 
 msgid "Eurostat NUTS 3 Place"
-msgstr ""
+msgstr "Lugar de nivel 3 en la clasificación NUTS de Eurostat"
 
 msgid "Eurostat NUTS 3 Places"
 msgstr ""
@@ -212,7 +212,7 @@ msgid "Natural Disaster Dashboard"
 msgstr ""
 
 msgid "Neighborhood"
-msgstr ""
+msgstr "Barrio"
 
 msgid "Neighborhoods"
 msgstr ""
@@ -224,7 +224,7 @@ msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>La herramienta Explorador de lugares permite conocer los datos principales de un lugar. Reúne un conjunto de gráficos sobre demografía, educación, economía y otros aspectos del sitio y los compara con los de otros lugares. También permite ver las clasificaciones de los distintos lugares en relación con diferentes métricas, como el desempleo, la criminalidad o los ingresos.</p><p>Puedes acceder a los gráficos de la ciudad, el código postal, el condado, el estado o el país que quieras a través del cuadro de búsqueda que aparece arriba.</p><p>Si quieres, también puedes consultar los datos de lugares conocidos:</p>"
 
 msgid "Place"
-msgstr ""
+msgstr "Sitio"
 
 msgid "Place Explorer"
 msgstr "Place Explorer"
@@ -260,7 +260,7 @@ msgid "Show site navigation"
 msgstr ""
 
 msgid "State"
-msgstr ""
+msgstr "Estado"
 
 msgid "States"
 msgstr ""
@@ -293,7 +293,7 @@ msgid "Tools"
 msgstr ""
 
 msgid "Town"
-msgstr ""
+msgstr "Localidad"
 
 msgid "Towns"
 msgstr ""
@@ -308,7 +308,7 @@ msgid "Unemployment Rate, United States"
 msgstr "Tasa de desempleo (Estados Unidos)"
 
 msgid "Village"
-msgstr ""
+msgstr "Pueblo"
 
 msgid "Villages"
 msgstr ""
@@ -317,7 +317,7 @@ msgid "Worldwide"
 msgstr "Todo el mundo"
 
 msgid "ZIP Code"
-msgstr ""
+msgstr "Código postal"
 
 msgid "ZIP Codes"
 msgstr ""
@@ -861,19 +861,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
