@@ -1,6 +1,6 @@
 [{
     "name": "autocomplete",
-    "enabled": true,
+    "enabled": false,
     "owner": "gmechali",
     "description": "Feature flag to enable place autocomplete."
 },
