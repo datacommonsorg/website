@@ -408,7 +408,7 @@
     "category": "Crime",
     "title_id": "CHART_TITLE-Violent_crime",
     "title": "Violent crime",
-    "description": "Total number of violent incidents",
+    "description": "Total number of violent crime incidents",
     "variables": [
       "Count_CriminalActivities_ViolentCrime"
     ],
