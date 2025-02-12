@@ -27,8 +27,9 @@ from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
 from server.lib.i18n_messages import get_other_places_in_parent_place_str
+from server.lib.i18n_messages import \
+    get_place_overview_table_variable_to_locale_message
 from server.lib.i18n_messages import get_place_type_in_parent_places_str
-from server.lib.i18n_messages import PLACE_OVERVIEW_TABLE_VARIABLES
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
@@ -1029,14 +1030,18 @@ def fetch_overview_table_data(place_dcid: str,
   Fetches overview table data for the specified place.
   """
   data_rows = []
-  variables = [v["variable_dcid"] for v in PLACE_OVERVIEW_TABLE_VARIABLES]
+  place_overview_table_variable_translations = get_place_overview_table_variable_to_locale_message(
+  )
+  variables = [
+      v["variable_dcid"] for v in place_overview_table_variable_translations
+  ]
 
   # Fetch the most recent observation for each variable
   resp = dc.obs_point([place_dcid], variables)
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
-  for item in PLACE_OVERVIEW_TABLE_VARIABLES:
+  for item in place_overview_table_variable_translations:
     variable_dcid = item["variable_dcid"]
     name = item["translated_name"]
     ordered_facet_observations = resp.get("byVariable", {}).get(

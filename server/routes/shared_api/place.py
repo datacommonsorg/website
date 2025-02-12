@@ -28,8 +28,8 @@ from markupsafe import escape
 from server.lib import fetch
 from server.lib.cache import cache
 import server.lib.i18n as i18n
-from server.lib.i18n_messages import PLACE_TYPE_TO_LOCALE_MESSAGE
-from server.lib.i18n_messages import PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL
+from server.lib.i18n_messages import get_place_type_to_locale_message
+from server.lib.i18n_messages import get_place_type_to_locale_message_plural
 from server.lib.shared import names
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
@@ -138,7 +138,8 @@ def get_place_type(place_dcids):
 
 def get_place_type_i18n_name(place_type: str, plural: bool = False) -> str:
   """For a given place type, get its localized name for display"""
-  place_type_to_local_map = PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL if plural else PLACE_TYPE_TO_LOCALE_MESSAGE
+  place_type_to_local_map = get_place_type_to_locale_message_plural(
+  ) if plural else get_place_type_to_locale_message()
   if place_type in place_type_to_local_map:
     return place_type_to_local_map[place_type]
   else:
