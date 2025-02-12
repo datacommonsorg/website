@@ -1,4 +1,550 @@
 {
+    "geoId/01": {
+        "summary": "Alabama is a state in United States. The population in Alabama was 5,157,699 in 2024. The median age in Alabama was 39.3 in 2023. The median income in Alabama was $33,108 in 2023. The unemployment rate in Alabama was 3.2% in 2024. The life expectancy in Alabama was 73.2 in 2020. The percentage of people with obesity in Alabama was 39.56% in 2022. The percentage of people who binge drink in Alabama was 15.53% in 2022. The percentage of people who smoke in Alabama was 17.01% in 2022."
+    },
+    "geoId/02": {
+        "summary": "Alaska is a state in United States. The population in Alaska was 740,133 in 2024. The median age in Alaska was 35.6 in 2023. The median income in Alaska was $43,069 in 2023. The unemployment rate in Alaska was 4.7% in 2024. The life expectancy in Alaska was 76.6 in 2020. The percentage of people with obesity in Alaska was 31.95% in 2022. The percentage of people who binge drink in Alaska was 19.42% in 2022. The percentage of people who smoke in Alaska was 16.88% in 2022."
+    },
+    "geoId/0203000": {
+        "summary": "Anchorage municipality is a city in Alaska, United States. The population in Anchorage municipality was 286,075 in 2023. The median age in Anchorage municipality was 34.9 in 2023. The median income in Anchorage municipality was $47,000 in 2023. The unemployment rate in Anchorage municipality was 3.5% in 2024. The percentage of people with obesity in Anchorage municipality was 30.4% in 2022. The percentage of people who binge drink in Anchorage municipality was 19% in 2022. The percentage of people who smoke in Anchorage municipality was 15% in 2022."
+    },
+    "geoId/04": {
+        "summary": "Arizona is a state in United States. The population in Arizona was 7,582,384 in 2024. The median age in Arizona was 38.8 in 2023. The median income in Arizona was $39,900 in 2023. The unemployment rate in Arizona was 3.5% in 2024. The life expectancy in Arizona was 76.3 in 2020. The percentage of people with obesity in Arizona was 33.56% in 2022. The percentage of people who binge drink in Arizona was 18.37% in 2022. The percentage of people who smoke in Arizona was 13.51% in 2022."
+    },
+    "geoId/0412000": {
+        "summary": "Chandler is a city in Arizona, United States. The population in Chandler was 280,167 in 2023. The median age in Chandler was 37.4 in 2023. The median income in Chandler was $52,580 in 2023. The unemployment rate in Chandler was 2.8% in 2024. The percentage of people with obesity in Chandler was 30.2% in 2022. The percentage of people who binge drink in Chandler was 18.5% in 2022. The percentage of people who smoke in Chandler was 11.2% in 2022."
+    },
+    "geoId/0427400": {
+        "summary": "Gilbert is a city in Arizona, United States. The population in Gilbert was 275,411 in 2023. The median age in Gilbert was 35.7 in 2023. The median income in Gilbert was $55,389 in 2023. The unemployment rate in Gilbert was 2.7% in 2024. The percentage of people with obesity in Gilbert was 29.8% in 2022. The percentage of people who binge drink in Gilbert was 19.8% in 2022. The percentage of people who smoke in Gilbert was 10.7% in 2022."
+    },
+    "geoId/0427820": {
+        "summary": "Glendale is a city in Arizona, United States. The population in Glendale was 253,855 in 2023. The median age in Glendale was 34.5 in 2023. The median income in Glendale was $36,441 in 2023. The unemployment rate in Glendale was 3.3% in 2024. The percentage of people with obesity in Glendale was 35.9% in 2022. The percentage of people who binge drink in Glendale was 17.2% in 2022. The percentage of people who smoke in Glendale was 15.9% in 2022."
+    },
+    "geoId/0446000": {
+        "summary": "Mesa is a city in Arizona, United States. The population in Mesa was 511,648 in 2023. The median age in Mesa was 37.2 in 2023. The median income in Mesa was $41,340 in 2023. The unemployment rate in Mesa was 3.1% in 2024. The percentage of people with obesity in Mesa was 33.9% in 2022. The percentage of people who binge drink in Mesa was 18.7% in 2022. The percentage of people who smoke in Mesa was 14.4% in 2022."
+    },
+    "geoId/0455000": {
+        "summary": "Phoenix is a city in Arizona, United States. The population in Phoenix was 1,650,070 in 2023. The median age in Phoenix was 34.8 in 2023. The median income in Phoenix was $40,786 in 2023. The unemployment rate in Phoenix was 3.2% in 2024. The percentage of people with obesity in Phoenix was 35.1% in 2022. The percentage of people who binge drink in Phoenix was 17.6% in 2022. The percentage of people who smoke in Phoenix was 14.6% in 2022."
+    },
+    "geoId/0465000": {
+        "summary": "Scottsdale is a city in Arizona, United States. The population in Scottsdale was 244,394 in 2023. The median age in Scottsdale was 49.2 in 2023. The median income in Scottsdale was $59,333 in 2023. The unemployment rate in Scottsdale was 2.5% in 2024. The percentage of people with obesity in Scottsdale was 28.8% in 2022. The percentage of people who binge drink in Scottsdale was 20% in 2022. The percentage of people who smoke in Scottsdale was 9.6% in 2022."
+    },
+    "geoId/0477000": {
+        "summary": "Tucson is a city in Arizona, United States. The population in Tucson was 547,239 in 2023. The median age in Tucson was 34.6 in 2023. The median income in Tucson was $31,676 in 2023. The unemployment rate in Tucson was 3.6% in 2024. The percentage of people with obesity in Tucson was 34.8% in 2022. The percentage of people who binge drink in Tucson was 16.8% in 2022. The percentage of people who smoke in Tucson was 16.5% in 2022."
+    },
+    "geoId/05": {
+        "summary": "Arkansas is a state in United States. The population in Arkansas was 3,088,354 in 2024. The median age in Arkansas was 38.4 in 2023. The median income in Arkansas was $32,294 in 2023. The unemployment rate in Arkansas was 3.4% in 2024. The life expectancy in Arkansas was 73.8 in 2020. The percentage of people with obesity in Arkansas was 38.3% in 2022. The percentage of people who binge drink in Arkansas was 17.35% in 2022. The percentage of people who smoke in Arkansas was 19.28% in 2022."
+    },
+    "geoId/06": {
+        "summary": "California is a state in United States. The population in California was 39,431,263 in 2024. The median age in California was 37.6 in 2023. The median income in California was $41,901 in 2023. The unemployment rate in California was 5.2% in 2024. The life expectancy in California was 79 in 2020. The percentage of people with obesity in California was 28.33% in 2022. The percentage of people who binge drink in California was 18.73% in 2022. The percentage of people who smoke in California was 11.58% in 2022."
+    },
+    "geoId/0602000": {
+        "summary": "Anaheim is a city in California, United States. The population in Anaheim was 340,512 in 2023. The median age in Anaheim was 35.9 in 2023. The median income in Anaheim was $37,147 in 2023. The unemployment rate in Anaheim was 4.1% in 2024. The percentage of people with obesity in Anaheim was 28.2% in 2022. The percentage of people who binge drink in Anaheim was 17.4% in 2022. The percentage of people who smoke in Anaheim was 12.5% in 2022."
+    },
+    "geoId/0603526": {
+        "summary": "Bakersfield is a city in California, United States. The population in Bakersfield was 413,381 in 2023. The median age in Bakersfield was 31.9 in 2023. The median income in Bakersfield was $34,748 in 2023. The unemployment rate in Bakersfield was 5.9% in 2024. The percentage of people with obesity in Bakersfield was 34.7% in 2022. The percentage of people who binge drink in Bakersfield was 17.9% in 2022. The percentage of people who smoke in Bakersfield was 14.6% in 2022."
+    },
+    "geoId/0613392": {
+        "summary": "Chula Vista is a city in California, United States. The population in Chula Vista was 274,333 in 2023. The median age in Chula Vista was 37 in 2023. The median income in Chula Vista was $42,727 in 2023. The unemployment rate in Chula Vista was 4.7% in 2024. The percentage of people with obesity in Chula Vista was 26.9% in 2022. The percentage of people who binge drink in Chula Vista was 20.2% in 2022. The percentage of people who smoke in Chula Vista was 11% in 2022."
+    },
+    "geoId/0627000": {
+        "summary": "Fresno is a city in California, United States. The population in Fresno was 545,716 in 2023. The median age in Fresno was 32.4 in 2023. The median income in Fresno was $33,148 in 2023. The unemployment rate in Fresno was 6.3% in 2024. The percentage of people with obesity in Fresno was 38.7% in 2022. The percentage of people who binge drink in Fresno was 15.5% in 2022. The percentage of people who smoke in Fresno was 14.9% in 2022."
+    },
+    "geoId/0636770": {
+        "summary": "Irvine is a city in California, United States. The population in Irvine was 314,621 in 2023. The median age in Irvine was 33.9 in 2023. The median income in Irvine was $63,803 in 2023. The unemployment rate in Irvine was 4% in 2024. The percentage of people with obesity in Irvine was 20.3% in 2022. The percentage of people who binge drink in Irvine was 15.9% in 2022. The percentage of people who smoke in Irvine was 8.1% in 2022."
+    },
+    "geoId/0643000": {
+        "summary": "Long Beach is a city in California, United States. The population in Long Beach was 449,468 in 2023. The median age in Long Beach was 36.8 in 2023. The median income in Long Beach was $40,293 in 2023. The unemployment rate in Long Beach was 5.7% in 2024. The percentage of people with obesity in Long Beach was 27.6% in 2022. The percentage of people who binge drink in Long Beach was 18% in 2022. The percentage of people who smoke in Long Beach was 12.6% in 2022."
+    },
+    "geoId/0644000": {
+        "summary": "Los Angeles is a city in California, United States. The population in Los Angeles was 3,820,914 in 2023. The median age in Los Angeles was 36.9 in 2023. The median income in Los Angeles was $36,978 in 2023. The unemployment rate in Los Angeles was 5.8% in 2024. The percentage of people with obesity in Los Angeles was 27.5% in 2022. The percentage of people who binge drink in Los Angeles was 18.1% in 2022. The percentage of people who smoke in Los Angeles was 12.6% in 2022."
+    },
+    "geoId/0653000": {
+        "summary": "Oakland is a city in California, United States. The population in Oakland was 436,504 in 2023. The median age in Oakland was 37.6 in 2023. The median income in Oakland was $49,524 in 2023. The unemployment rate in Oakland was 5.2% in 2024. The percentage of people with obesity in Oakland was 23.7% in 2022. The percentage of people who binge drink in Oakland was 19.3% in 2022. The percentage of people who smoke in Oakland was 11.7% in 2022."
+    },
+    "geoId/0662000": {
+        "summary": "Riverside is a city in California, United States. The population in Riverside was 318,858 in 2023. The median age in Riverside was 33.1 in 2023. The median income in Riverside was $36,883 in 2023. The unemployment rate in Riverside was 4.5% in 2024. The percentage of people with obesity in Riverside was 35.1% in 2022. The percentage of people who binge drink in Riverside was 18.8% in 2022. The percentage of people who smoke in Riverside was 13.1% in 2022."
+    },
+    "geoId/0664000": {
+        "summary": "Sacramento is a city in California, United States. The population in Sacramento was 526,384 in 2023. The median age in Sacramento was 35.7 in 2023. The median income in Sacramento was $42,170 in 2023. The unemployment rate in Sacramento was 4.9% in 2024. The percentage of people with obesity in Sacramento was 34.7% in 2022. The percentage of people who binge drink in Sacramento was 16.3% in 2022. The percentage of people who smoke in Sacramento was 12.9% in 2022."
+    },
+    "geoId/0666000": {
+        "summary": "San Diego is a city in California, United States. The population in San Diego was 1,388,320 in 2023. The median age in San Diego was 36 in 2023. The median income in San Diego was $49,109 in 2023. The unemployment rate in San Diego was 4.2% in 2024. The percentage of people with obesity in San Diego was 24.7% in 2022. The percentage of people who binge drink in San Diego was 20.8% in 2022. The percentage of people who smoke in San Diego was 10.7% in 2022."
+    },
+    "geoId/0667000": {
+        "summary": "San Francisco is a city in California, United States. The population in San Francisco was 808,988 in 2023. The median age in San Francisco was 39.7 in 2023. The median income in San Francisco was $69,260 in 2023. The unemployment rate in San Francisco was 3.5% in 2024. The percentage of people with obesity in San Francisco was 18.2% in 2022. The percentage of people who binge drink in San Francisco was 22.9% in 2022. The percentage of people who smoke in San Francisco was 10% in 2022."
+    },
+    "geoId/0668000": {
+        "summary": "San Jose is a city in California, United States. The population in San Jose was 969,655 in 2023. The median age in San Jose was 38.1 in 2023. The median income in San Jose was $53,495 in 2023. The unemployment rate in San Jose was 4% in 2024. The percentage of people with obesity in San Jose was 23.2% in 2022. The percentage of people who binge drink in San Jose was 16% in 2022. The percentage of people who smoke in San Jose was 9.4% in 2022."
+    },
+    "geoId/0669000": {
+        "summary": "Santa Ana is a city in California, United States. The population in Santa Ana was 310,539 in 2023. The median age in Santa Ana was 34.3 in 2023. The median income in Santa Ana was $33,325 in 2023. The unemployment rate in Santa Ana was 3.8% in 2024. The percentage of people with obesity in Santa Ana was 30.8% in 2022. The percentage of people who binge drink in Santa Ana was 17.2% in 2022. The percentage of people who smoke in Santa Ana was 13.7% in 2022."
+    },
+    "geoId/0675000": {
+        "summary": "Stockton is a city in California, United States. The population in Stockton was 319,543 in 2023. The median age in Stockton was 33.7 in 2023. The median income in Stockton was $34,779 in 2023. The unemployment rate in Stockton was 7.1% in 2024. The percentage of people with obesity in Stockton was 35.3% in 2022. The percentage of people who binge drink in Stockton was 15.7% in 2022. The percentage of people who smoke in Stockton was 14.5% in 2022."
+    },
+    "geoId/08": {
+        "summary": "Colorado is a state in United States. The population in Colorado was 5,957,493 in 2024. The median age in Colorado was 37.5 in 2023. The median income in Colorado was $46,958 in 2023. The unemployment rate in Colorado was 4.5% in 2024. The life expectancy in Colorado was 78.3 in 2020. The percentage of people with obesity in Colorado was 26.29% in 2022. The percentage of people who binge drink in Colorado was 20.47% in 2022. The percentage of people who smoke in Colorado was 12.52% in 2022."
+    },
+    "geoId/0804000": {
+        "summary": "Aurora is a city in Colorado, United States. The population in Aurora was 395,052 in 2023. The median age in Aurora was 35.1 in 2023. The median income in Aurora was $43,231 in 2023. The unemployment rate in Aurora was 4.7% in 2024. The percentage of people with obesity in Aurora was 28.3% in 2022. The percentage of people who binge drink in Aurora was 18.6% in 2022. The percentage of people who smoke in Aurora was 14.1% in 2022."
+    },
+    "geoId/0816000": {
+        "summary": "Colorado Springs is a city in Colorado, United States. The population in Colorado Springs was 488,664 in 2023. The median age in Colorado Springs was 35.6 in 2023. The median income in Colorado Springs was $43,144 in 2023. The unemployment rate in Colorado Springs was 4.6% in 2024. The percentage of people with obesity in Colorado Springs was 28.3% in 2022. The percentage of people who binge drink in Colorado Springs was 16.2% in 2022. The percentage of people who smoke in Colorado Springs was 13.3% in 2022."
+    },
+    "geoId/0820000": {
+        "summary": "Denver is a city in Colorado, United States. The population in Denver was 716,577 in 2023. The median age in Denver was 35.2 in 2023. The median income in Denver was $54,395 in 2023. The unemployment rate in Denver was 5.1% in 2024. The percentage of people with obesity in Denver was 23.2% in 2022. The percentage of people who binge drink in Denver was 25% in 2022. The percentage of people who smoke in Denver was 11.3% in 2022."
+    },
+    "geoId/09": {
+        "summary": "Connecticut is a state in United States. The population in Connecticut was 3,675,069 in 2024. The median age in Connecticut was 41.2 in 2023. The median income in Connecticut was $46,415 in 2023. The unemployment rate in Connecticut was 2.7% in 2024. The life expectancy in Connecticut was 78.4 in 2020. The percentage of people with obesity in Connecticut was 31.36% in 2022. The percentage of people who binge drink in Connecticut was 17.87% in 2022. The percentage of people who smoke in Connecticut was 21.09% in 2022."
+    },
+    "geoId/10": {
+        "summary": "Delaware is a state in United States. The population in Delaware was 1,051,917 in 2024. The median age in Delaware was 41.5 in 2023. The median income in Delaware was $41,678 in 2023. The unemployment rate in Delaware was 3.2% in 2024. The life expectancy in Delaware was 76.7 in 2020. The percentage of people with obesity in Delaware was 38.57% in 2022. The percentage of people who binge drink in Delaware was 16.88% in 2022. The percentage of people who smoke in Delaware was 15.01% in 2022."
+    },
+    "geoId/11": {
+        "summary": "District of Columbia is a state in United States. The population in District of Columbia was 702,250 in 2024. The median age in District of Columbia was 34.9 in 2023. The median income in District of Columbia was $70,144 in 2023. The unemployment rate in District of Columbia was 5% in 2024. The life expectancy in District of Columbia was 78 in 2019. The percentage of people with obesity in District of Columbia was 25.26% in 2022. The percentage of people who binge drink in District of Columbia was 23.38% in 2022. The percentage of people who smoke in District of Columbia was 11.6% in 2022."
+    },
+    "geoId/1150000": {
+        "summary": "Washington is a city in District of Columbia, United States. The population in Washington was 678,972 in 2023. The median age in Washington was 34.9 in 2023. The median income in Washington was $70,144 in 2023. The unemployment rate in Washington was 5% in 2024. The percentage of people with obesity in Washington was 25.5% in 2022. The percentage of people who binge drink in Washington was 23.5% in 2022. The percentage of people who smoke in Washington was 11.9% in 2022."
+    },
+    "geoId/12": {
+        "summary": "Florida is a state in United States. The population in Florida was 23,372,215 in 2024. The median age in Florida was 42.6 in 2023. The median income in Florida was $36,270 in 2023. The unemployment rate in Florida was 3.1% in 2024. The life expectancy in Florida was 77.5 in 2020. The percentage of people with obesity in Florida was 32.64% in 2022. The percentage of people who binge drink in Florida was 18.1% in 2022. The percentage of people who smoke in Florida was 14.31% in 2022."
+    },
+    "geoId/1235000": {
+        "summary": "Jacksonville is a city in Florida, United States. The population in Jacksonville was 985,843 in 2023. The median age in Jacksonville was 36.4 in 2023. The median income in Jacksonville was $37,273 in 2023. The unemployment rate in Jacksonville was 3.1% in 2024. The percentage of people with obesity in Jacksonville was 33.7% in 2022. The percentage of people who binge drink in Jacksonville was 15.9% in 2022. The percentage of people who smoke in Jacksonville was 16.4% in 2022."
+    },
+    "geoId/1245000": {
+        "summary": "Miami is a city in Florida, United States. The population in Miami was 455,924 in 2023. The median age in Miami was 39.7 in 2023. The median income in Miami was $31,456 in 2023. The unemployment rate in Miami was 2.4% in 2024. The percentage of people with obesity in Miami was 30.3% in 2022. The percentage of people who binge drink in Miami was 17.9% in 2022. The percentage of people who smoke in Miami was 13.5% in 2022."
+    },
+    "geoId/1253000": {
+        "summary": "Orlando is a city in Florida, United States. The population in Orlando was 320,742 in 2023. The median age in Orlando was 35.1 in 2023. The median income in Orlando was $38,798 in 2023. The unemployment rate in Orlando was 2.8% in 2024. The percentage of people with obesity in Orlando was 33.6% in 2022. The percentage of people who binge drink in Orlando was 18% in 2022. The percentage of people who smoke in Orlando was 13.2% in 2022."
+    },
+    "geoId/1263000": {
+        "summary": "St. Petersburg is a city in Florida, United States. The population in St. Petersburg was 263,553 in 2023. The median age in St. Petersburg was 43.1 in 2023. The median income in St. Petersburg was $41,627 in 2023. The unemployment rate in St. Petersburg was 3.2% in 2024. The percentage of people with obesity in St. Petersburg was 32.2% in 2022. The percentage of people who binge drink in St. Petersburg was 18.6% in 2022. The percentage of people who smoke in St. Petersburg was 14.3% in 2022."
+    },
+    "geoId/1271000": {
+        "summary": "Tampa is a city in Florida, United States. The population in Tampa was 403,364 in 2023. The median age in Tampa was 35.6 in 2023. The median income in Tampa was $39,781 in 2023. The unemployment rate in Tampa was 3.2% in 2024. The percentage of people with obesity in Tampa was 32.3% in 2022. The percentage of people who binge drink in Tampa was 18.9% in 2022. The percentage of people who smoke in Tampa was 14.2% in 2022."
+    },
+    "geoId/13": {
+        "summary": "Georgia is a state in United States. The population in Georgia was 11,180,878 in 2024. The median age in Georgia was 37.4 in 2023. The median income in Georgia was $37,610 in 2023. The unemployment rate in Georgia was 3.4% in 2024. The life expectancy in Georgia was 75.6 in 2020. The percentage of people with obesity in Georgia was 36.97% in 2022. The percentage of people who binge drink in Georgia was 15.71% in 2022. The percentage of people who smoke in Georgia was 14.91% in 2022."
+    },
+    "geoId/1304000": {
+        "summary": "Atlanta is a city in Georgia, United States. The population in Atlanta was 510,823 in 2023. The median age in Atlanta was 34 in 2023. The median income in Atlanta was $48,222 in 2023. The unemployment rate in Atlanta was 4.1% in 2024. The percentage of people with obesity in Atlanta was 32.5% in 2022. The percentage of people who binge drink in Atlanta was 17% in 2022. The percentage of people who smoke in Atlanta was 13.2% in 2022."
+    },
+    "geoId/15": {
+        "summary": "Hawaii is a state in United States. The population in Hawaii was 1,446,146 in 2024. The median age in Hawaii was 40.6 in 2023. The median income in Hawaii was $43,944 in 2023. The unemployment rate in Hawaii was 2.8% in 2024. The life expectancy in Hawaii was 80.7 in 2020. The percentage of people with obesity in Hawaii was 25.57% in 2022. The percentage of people who binge drink in Hawaii was 20.37% in 2022. The percentage of people who smoke in Hawaii was 12.25% in 2022."
+    },
+    "geoId/1517000": {
+        "summary": "Honolulu is a city in Hawaii, United States. The population in Honolulu was 395,327 in 1999."
+    },
+    "geoId/1571550": {
+        "summary": "Urban Honolulu is a city in Hawaii, United States. The population in Urban Honolulu was 341,778 in 2023. The median age in Urban Honolulu was 42.9 in 2023. The median income in Urban Honolulu was $44,476 in 2023. The percentage of people with obesity in Urban Honolulu was 24.4% in 2022. The percentage of people who binge drink in Urban Honolulu was 19% in 2022. The percentage of people who smoke in Urban Honolulu was 11.1% in 2022."
+    },
+    "geoId/16": {
+        "summary": "Idaho is a state in United States. The population in Idaho was 2,001,619 in 2024. The median age in Idaho was 37.1 in 2023. The median income in Idaho was $35,734 in 2023. The unemployment rate in Idaho was 3.7% in 2024. The life expectancy in Idaho was 78.4 in 2020. The percentage of people with obesity in Idaho was 33.57% in 2022. The percentage of people who binge drink in Idaho was 16.95% in 2022. The percentage of people who smoke in Idaho was 13.64% in 2022."
+    },
+    "geoId/17": {
+        "summary": "Illinois is a state in United States. The population in Illinois was 12,710,158 in 2024. The median age in Illinois was 38.9 in 2023. The median income in Illinois was $42,068 in 2023. The unemployment rate in Illinois was 4.3% in 2024. The life expectancy in Illinois was 76.8 in 2020. The percentage of people with obesity in Illinois was 34.55% in 2022. The percentage of people who binge drink in Illinois was 20.32% in 2022. The percentage of people who smoke in Illinois was 13.79% in 2022."
+    },
+    "geoId/1714000": {
+        "summary": "Chicago is a city in Illinois, United States. The population in Chicago was 2,664,452 in 2023. The median age in Chicago was 35.7 in 2023. The median income in Chicago was $42,119 in 2023. The unemployment rate in Chicago was 4.7% in 2024. The percentage of people with obesity in Chicago was 35.2% in 2022. The percentage of people who binge drink in Chicago was 20.1% in 2022. The percentage of people who smoke in Chicago was 14.2% in 2022."
+    },
+    "geoId/18": {
+        "summary": "Indiana is a state in United States. The population in Indiana was 6,924,275 in 2024. The median age in Indiana was 38 in 2023. The median income in Indiana was $37,408 in 2023. The unemployment rate in Indiana was 4% in 2024. The life expectancy in Indiana was 75 in 2020. The percentage of people with obesity in Indiana was 38.52% in 2022. The percentage of people who binge drink in Indiana was 17.25% in 2022. The percentage of people who smoke in Indiana was 18.21% in 2022."
+    },
+    "geoId/1825000": {
+        "summary": "Fort Wayne is a city in Indiana, United States. The population in Fort Wayne was 269,994 in 2023. The median age in Fort Wayne was 35 in 2023. The median income in Fort Wayne was $35,282 in 2023. The unemployment rate in Fort Wayne was 4.2% in 2024. The percentage of people with obesity in Fort Wayne was 39.4% in 2022. The percentage of people who binge drink in Fort Wayne was 16.4% in 2022. The percentage of people who smoke in Fort Wayne was 19.1% in 2022."
+    },
+    "geoId/1836003": {
+        "summary": "Indianapolis city (balance) is a city in Indiana, United States. The population in Indianapolis city (balance) was 879,293 in 2023. The median age in Indianapolis city (balance) was 34.1 in 2023. The median income in Indianapolis city (balance) was $37,403 in 2023. The unemployment rate in Indianapolis city (balance) was 4% in 2024. The percentage of people with obesity in Indianapolis city (balance) was 39.5% in 2022. The percentage of people who binge drink in Indianapolis city (balance) was 17.9% in 2022. The percentage of people who smoke in Indianapolis city (balance) was 18.3% in 2022."
+    },
+    "geoId/19": {
+        "summary": "Iowa is a state in United States. The population in Iowa was 3,241,488 in 2024. The median age in Iowa was 38.6 in 2023. The median income in Iowa was $39,832 in 2023. The unemployment rate in Iowa was 3% in 2024. The life expectancy in Iowa was 77.5 in 2020. The percentage of people with obesity in Iowa was 38.61% in 2022. The percentage of people who binge drink in Iowa was 23.38% in 2022. The percentage of people who smoke in Iowa was 16.38% in 2022."
+    },
+    "geoId/20": {
+        "summary": "Kansas is a state in United States. The population in Kansas was 2,970,606 in 2024. The median age in Kansas was 37.2 in 2023. The median income in Kansas was $39,362 in 2023. The unemployment rate in Kansas was 3.3% in 2024. The life expectancy in Kansas was 76.4 in 2020. The percentage of people with obesity in Kansas was 36.79% in 2022. The percentage of people who binge drink in Kansas was 18.21% in 2022. The percentage of people who smoke in Kansas was 15.75% in 2022."
+    },
+    "geoId/2079000": {
+        "summary": "Wichita is a city in Kansas, United States. The population in Wichita was 396,119 in 2023. The median age in Wichita was 35.7 in 2023. The median income in Wichita was $36,078 in 2023. The unemployment rate in Wichita was 3.9% in 2024. The percentage of people with obesity in Wichita was 34.7% in 2022. The percentage of people who binge drink in Wichita was 16.7% in 2022. The percentage of people who smoke in Wichita was 19.1% in 2022."
+    },
+    "geoId/21": {
+        "summary": "Kentucky is a state in United States. The population in Kentucky was 4,588,372 in 2024. The median age in Kentucky was 39.1 in 2023. The median income in Kentucky was $34,030 in 2023. The unemployment rate in Kentucky was 5.1% in 2024. The life expectancy in Kentucky was 73.5 in 2020. The percentage of people with obesity in Kentucky was 38.22% in 2022. The percentage of people who binge drink in Kentucky was 15.28% in 2022. The percentage of people who smoke in Kentucky was 18.72% in 2022."
+    },
+    "geoId/2146027": {
+        "summary": "Lexington is a city in Kentucky, United States. The population in Lexington was 320,154 in 2023. The median age in Lexington was 35.2 in 2023. The median income in Lexington was $37,716 in 2023. The unemployment rate in Lexington was 4% in 2024. The percentage of people with obesity in Lexington was 34.5% in 2022. The percentage of people who binge drink in Lexington was 15.5% in 2022. The percentage of people who smoke in Lexington was 15% in 2022."
+    },
+    "geoId/2148000": {
+        "summary": "Louisville is a city in Kentucky, United States. The population in Louisville was 253,128 in 1999. The percentage of people with obesity in Louisville was 39.9% in 2022. The percentage of people who binge drink in Louisville was 14.6% in 2022. The percentage of people who smoke in Louisville was 19.8% in 2022."
+    },
+    "geoId/2148006": {
+        "summary": "Louisville/Jefferson County metro government (balance) is a city in Kentucky, United States. The population in Louisville/Jefferson County metro government (balance) was 622,981 in 2023. The median age in Louisville/Jefferson County metro government (balance) was 37.7 in 2023. The median income in Louisville/Jefferson County metro government (balance) was $37,450 in 2023. The percentage of people with obesity in Louisville/Jefferson County metro government (balance) was 36.1% in 2022. The percentage of people who binge drink in Louisville/Jefferson County metro government (balance) was 16.1% in 2022. The percentage of people who smoke in Louisville/Jefferson County metro government (balance) was 16.3% in 2022."
+    },
+    "geoId/22": {
+        "summary": "Louisiana is a state in United States. The population in Louisiana was 4,597,740 in 2024. The median age in Louisiana was 37.8 in 2023. The median income in Louisiana was $32,434 in 2023. The unemployment rate in Louisiana was 4.1% in 2024. The life expectancy in Louisiana was 73.1 in 2020. The percentage of people with obesity in Louisiana was 40.71% in 2022. The percentage of people who binge drink in Louisiana was 18.73% in 2022. The percentage of people who smoke in Louisiana was 19.32% in 2022."
+    },
+    "geoId/2255000": {
+        "summary": "New Orleans is a city in Louisiana, United States. The population in New Orleans was 364,136 in 2023. The median age in New Orleans was 38.4 in 2023. The median income in New Orleans was $32,271 in 2023. The unemployment rate in New Orleans was 4.6% in 2024. The percentage of people with obesity in New Orleans was 37.2% in 2022. The percentage of people who binge drink in New Orleans was 20.1% in 2022. The percentage of people who smoke in New Orleans was 17.6% in 2022."
+    },
+    "geoId/23": {
+        "summary": "Maine is a state in United States. The population in Maine was 1,405,012 in 2024. The median age in Maine was 44.8 in 2023. The median income in Maine was $38,152 in 2023. The unemployment rate in Maine was 3.6% in 2024. The life expectancy in Maine was 77.8 in 2020. The percentage of people with obesity in Maine was 33.21% in 2022. The percentage of people who binge drink in Maine was 18.67% in 2022. The percentage of people who smoke in Maine was 15.32% in 2022."
+    },
+    "geoId/24": {
+        "summary": "Maryland is a state in United States. The population in Maryland was 6,263,220 in 2024. The median age in Maryland was 39.3 in 2023. The median income in Maryland was $50,096 in 2023. The unemployment rate in Maryland was 2.7% in 2024. The life expectancy in Maryland was 76.8 in 2020. The percentage of people with obesity in Maryland was 33.55% in 2022. The percentage of people who binge drink in Maryland was 15.84% in 2022. The percentage of people who smoke in Maryland was 12.09% in 2022."
+    },
+    "geoId/2404000": {
+        "summary": "Baltimore is a city in Maryland, United States. The population in Baltimore was 565,239 in 2023. The median age in Baltimore was 36.1 in 2023. The median income in Baltimore was $37,411 in 2023. The unemployment rate in Baltimore was 3.9% in 2024. The percentage of people with obesity in Baltimore was 37.9% in 2022. The percentage of people who binge drink in Baltimore was 17.4% in 2022. The percentage of people who smoke in Baltimore was 16.4% in 2022."
+    },
+    "geoId/25": {
+        "summary": "Massachusetts is a state in United States. The population in Massachusetts was 7,136,171 in 2024. The median age in Massachusetts was 40 in 2023. The median income in Massachusetts was $48,593 in 2023. The unemployment rate in Massachusetts was 4.2% in 2024. The life expectancy in Massachusetts was 79 in 2020. The percentage of people with obesity in Massachusetts was 28.86% in 2022. The percentage of people who binge drink in Massachusetts was 19.48% in 2022. The percentage of people who smoke in Massachusetts was 12.26% in 2022."
+    },
+    "geoId/2507000": {
+        "summary": "Boston is a city in Massachusetts, United States. The population in Boston was 653,833 in 2023. The median age in Boston was 33.2 in 2023. The median income in Boston was $48,176 in 2023. The unemployment rate in Boston was 4% in 2024. The percentage of people with obesity in Boston was 27.3% in 2022. The percentage of people who binge drink in Boston was 19% in 2022. The percentage of people who smoke in Boston was 11.8% in 2022."
+    },
+    "geoId/26": {
+        "summary": "Michigan is a state in United States. The population in Michigan was 10,140,459 in 2024. The median age in Michigan was 40.1 in 2023. The median income in Michigan was $37,246 in 2023. The unemployment rate in Michigan was 5% in 2024. The life expectancy in Michigan was 76 in 2020. The percentage of people with obesity in Michigan was 35.97% in 2022. The percentage of people who binge drink in Michigan was 18.99% in 2022. The percentage of people who smoke in Michigan was 16.99% in 2022."
+    },
+    "geoId/2622000": {
+        "summary": "Detroit is a city in Michigan, United States. The population in Detroit was 633,218 in 2023. The median age in Detroit was 35.1 in 2023. The median income in Detroit was $25,229 in 2023. The unemployment rate in Detroit was 9.7% in 2024. The percentage of people with obesity in Detroit was 45% in 2022. The percentage of people who binge drink in Detroit was 14.2% in 2022. The percentage of people who smoke in Detroit was 23.8% in 2022."
+    },
+    "geoId/27": {
+        "summary": "Minnesota is a state in United States. The population in Minnesota was 5,793,151 in 2024. The median age in Minnesota was 38.6 in 2023. The median income in Minnesota was $45,533 in 2023. The unemployment rate in Minnesota was 2.7% in 2024. The life expectancy in Minnesota was 79.1 in 2020. The percentage of people with obesity in Minnesota was 33.91% in 2022. The percentage of people who binge drink in Minnesota was 21.86% in 2022. The percentage of people who smoke in Minnesota was 13.89% in 2022."
+    },
+    "geoId/2743000": {
+        "summary": "Minneapolis is a city in Minnesota, United States. The population in Minneapolis was 425,115 in 2023. The median age in Minneapolis was 33 in 2023. The median income in Minneapolis was $44,716 in 2023. The unemployment rate in Minneapolis was 2.4% in 2024. The percentage of people with obesity in Minneapolis was 29.6% in 2022. The percentage of people who binge drink in Minneapolis was 21.2% in 2022. The percentage of people who smoke in Minneapolis was 13.7% in 2022."
+    },
+    "geoId/2758000": {
+        "summary": "Saint Paul is a city in Minnesota, United States. The population in Saint Paul was 303,820 in 2023. The median age in Saint Paul was 33.5 in 2023. The median income in Saint Paul was $40,764 in 2023. The unemployment rate in Saint Paul was 2.5% in 2024. The percentage of people with obesity in Saint Paul was 33.2% in 2022. The percentage of people who binge drink in Saint Paul was 17.7% in 2022. The percentage of people who smoke in Saint Paul was 15.4% in 2022."
+    },
+    "geoId/28": {
+        "summary": "Mississippi is a state in United States. The population in Mississippi was 2,943,045 in 2024. The median age in Mississippi was 38.4 in 2023. The median income in Mississippi was $30,181 in 2023. The unemployment rate in Mississippi was 3.5% in 2024. The life expectancy in Mississippi was 71.9 in 2020. The percentage of people with obesity in Mississippi was 41.86% in 2022. The percentage of people who binge drink in Mississippi was 14.94% in 2022. The percentage of people who smoke in Mississippi was 18.82% in 2022."
+    },
+    "geoId/29": {
+        "summary": "Missouri is a state in United States. The population in Missouri was 6,245,466 in 2024. The median age in Missouri was 38.9 in 2023. The median income in Missouri was $37,170 in 2023. The unemployment rate in Missouri was 3.2% in 2024. The life expectancy in Missouri was 75.1 in 2020. The percentage of people with obesity in Missouri was 37.46% in 2022. The percentage of people who binge drink in Missouri was 19.88% in 2022. The percentage of people who smoke in Missouri was 18.57% in 2022."
+    },
+    "geoId/2938000": {
+        "summary": "Kansas City is a city in Missouri, United States. The population in Kansas City was 510,704 in 2023. The median age in Kansas City was 35.7 in 2023. The median income in Kansas City was $40,396 in 2023. The unemployment rate in Kansas City was 3.5% in 2024. The percentage of people with obesity in Kansas City was 40% in 2022. The percentage of people who binge drink in Kansas City was 18.9% in 2022. The percentage of people who smoke in Kansas City was 17.9% in 2022."
+    },
+    "geoId/2965000": {
+        "summary": "St. Louis is a city in Missouri, United States. The population in St. Louis was 281,754 in 2023. The median age in St. Louis was 36.6 in 2023. The median income in St. Louis was $37,275 in 2023. The unemployment rate in St. Louis was 4% in 2024. The percentage of people with obesity in St. Louis was 37.4% in 2022. The percentage of people who binge drink in St. Louis was 18.7% in 2022. The percentage of people who smoke in St. Louis was 19.4% in 2022."
+    },
+    "geoId/30": {
+        "summary": "Montana is a state in United States. The population in Montana was 1,137,233 in 2024. The median age in Montana was 40.2 in 2023. The median income in Montana was $36,489 in 2023. The unemployment rate in Montana was 3% in 2024. The life expectancy in Montana was 76.8 in 2020. The percentage of people with obesity in Montana was 31.73% in 2022. The percentage of people who binge drink in Montana was 23.62% in 2022. The percentage of people who smoke in Montana was 15.93% in 2022."
+    },
+    "geoId/31": {
+        "summary": "Nebraska is a state in United States. The population in Nebraska was 2,005,465 in 2024. The median age in Nebraska was 37.1 in 2023. The median income in Nebraska was $40,374 in 2023. The unemployment rate in Nebraska was 2.6% in 2024. The life expectancy in Nebraska was 77.7 in 2020. The percentage of people with obesity in Nebraska was 37.51% in 2022. The percentage of people who binge drink in Nebraska was 20.34% in 2022. The percentage of people who smoke in Nebraska was 14.75% in 2022."
+    },
+    "geoId/3128000": {
+        "summary": "Lincoln is a city in Nebraska, United States. The population in Lincoln was 294,757 in 2023. The median age in Lincoln was 33.4 in 2023. The median income in Lincoln was $37,192 in 2023. The unemployment rate in Lincoln was 2.4% in 2024. The percentage of people with obesity in Lincoln was 33.8% in 2022. The percentage of people who binge drink in Lincoln was 19.5% in 2022. The percentage of people who smoke in Lincoln was 14.6% in 2022."
+    },
+    "geoId/3137000": {
+        "summary": "Omaha is a city in Nebraska, United States. The population in Omaha was 483,335 in 2023. The median age in Omaha was 35.3 in 2023. The median income in Omaha was $41,078 in 2023. The unemployment rate in Omaha was 3% in 2024. The percentage of people with obesity in Omaha was 36.3% in 2022. The percentage of people who binge drink in Omaha was 19.6% in 2022. The percentage of people who smoke in Omaha was 14.3% in 2022."
+    },
+    "geoId/32": {
+        "summary": "Nevada is a state in United States. The population in Nevada was 3,267,467 in 2024. The median age in Nevada was 38.9 in 2023. The median income in Nevada was $38,594 in 2023. The unemployment rate in Nevada was 5.6% in 2024. The life expectancy in Nevada was 76.3 in 2020. The percentage of people with obesity in Nevada was 32.47% in 2022. The percentage of people who binge drink in Nevada was 19.11% in 2022. The percentage of people who smoke in Nevada was 16.07% in 2022."
+    },
+    "geoId/3231900": {
+        "summary": "Henderson is a city in Nevada, United States. The population in Henderson was 337,305 in 2023. The median age in Henderson was 42.5 in 2023. The median income in Henderson was $45,715 in 2023. The unemployment rate in Henderson was 5.4% in 2024. The percentage of people with obesity in Henderson was 30.1% in 2022. The percentage of people who binge drink in Henderson was 19.9% in 2022. The percentage of people who smoke in Henderson was 14.4% in 2022."
+    },
+    "geoId/3240000": {
+        "summary": "Las Vegas is a city in Nevada, United States. The population in Las Vegas was 660,929 in 2023. The median age in Las Vegas was 38.5 in 2023. The median income in Las Vegas was $37,133 in 2023. The unemployment rate in Las Vegas was 6% in 2024. The percentage of people with obesity in Las Vegas was 33.9% in 2022. The percentage of people who binge drink in Las Vegas was 18.3% in 2022. The percentage of people who smoke in Las Vegas was 17.6% in 2022."
+    },
+    "geoId/3251800": {
+        "summary": "North Las Vegas is a city in Nevada, United States. The population in North Las Vegas was 284,771 in 2023. The median age in North Las Vegas was 34.3 in 2023. The median income in North Las Vegas was $36,646 in 2023. The unemployment rate in North Las Vegas was 6.8% in 2024. The percentage of people with obesity in North Las Vegas was 35.5% in 2022. The percentage of people who binge drink in North Las Vegas was 17.6% in 2022. The percentage of people who smoke in North Las Vegas was 18.3% in 2022."
+    },
+    "geoId/3260600": {
+        "summary": "Reno is a city in Nevada, United States. The population in Reno was 274,915 in 2023. The median age in Reno was 37.3 in 2023. The median income in Reno was $40,852 in 2023. The unemployment rate in Reno was 4.6% in 2024. The percentage of people with obesity in Reno was 30.1% in 2022. The percentage of people who binge drink in Reno was 20.9% in 2022. The percentage of people who smoke in Reno was 15.2% in 2022."
+    },
+    "geoId/33": {
+        "summary": "New Hampshire is a state in United States. The population in New Hampshire was 1,409,032 in 2024. The median age in New Hampshire was 43.2 in 2023. The median income in New Hampshire was $46,197 in 2023. The unemployment rate in New Hampshire was 2.7% in 2024. The life expectancy in New Hampshire was 79 in 2020. The percentage of people with obesity in New Hampshire was 31.04% in 2022. The percentage of people who binge drink in New Hampshire was 19.04% in 2022. The percentage of people who smoke in New Hampshire was 12.81% in 2022."
+    },
+    "geoId/34": {
+        "summary": "New Jersey is a state in United States. The population in New Jersey was 9,500,851 in 2024. The median age in New Jersey was 40.1 in 2023. The median income in New Jersey was $47,833 in 2023. The unemployment rate in New Jersey was 4.2% in 2024. The life expectancy in New Jersey was 77.5 in 2020. The percentage of people with obesity in New Jersey was 30.09% in 2022. The percentage of people who binge drink in New Jersey was 17.23% in 2022. The percentage of people who smoke in New Jersey was 11.92% in 2022."
+    },
+    "geoId/3436000": {
+        "summary": "Jersey City is a city in New Jersey, United States. The population in Jersey City was 291,657 in 2023. The median age in Jersey City was 34.7 in 2023. The median income in Jersey City was $54,433 in 2023. The unemployment rate in Jersey City was 4.4% in 2024. The percentage of people with obesity in Jersey City was 29.1% in 2022. The percentage of people who binge drink in Jersey City was 16.5% in 2022. The percentage of people who smoke in Jersey City was 11.1% in 2022."
+    },
+    "geoId/3451000": {
+        "summary": "Newark is a city in New Jersey, United States. The population in Newark was 304,960 in 2023. The median age in Newark was 34.8 in 2023. The median income in Newark was $29,679 in 2023. The unemployment rate in Newark was 7% in 2024. The percentage of people with obesity in Newark was 35.1% in 2022. The percentage of people who binge drink in Newark was 13.9% in 2022. The percentage of people who smoke in Newark was 19.3% in 2022."
+    },
+    "geoId/35": {
+        "summary": "New Mexico is a state in United States. The population in New Mexico was 2,130,256 in 2024. The median age in New Mexico was 39.2 in 2023. The median income in New Mexico was $32,973 in 2023. The unemployment rate in New Mexico was 3.9% in 2024. The life expectancy in New Mexico was 74.5 in 2020. The percentage of people with obesity in New Mexico was 32.24% in 2022. The percentage of people who binge drink in New Mexico was 16.76% in 2022. The percentage of people who smoke in New Mexico was 16.29% in 2022."
+    },
+    "geoId/3502000": {
+        "summary": "Albuquerque is a city in New Mexico, United States. The population in Albuquerque was 560,274 in 2023. The median age in Albuquerque was 38.7 in 2023. The median income in Albuquerque was $37,026 in 2023. The unemployment rate in Albuquerque was 3.6% in 2024. The percentage of people with obesity in Albuquerque was 28.4% in 2022. The percentage of people who binge drink in Albuquerque was 17.5% in 2022. The percentage of people who smoke in Albuquerque was 14.8% in 2022."
+    },
+    "geoId/36": {
+        "summary": "New York is a state in United States. The population in New York was 19,867,248 in 2024. The median age in New York was 39.6 in 2023. The median income in New York was $42,741 in 2023. The unemployment rate in New York was 4.1% in 2024. The life expectancy in New York was 77.7 in 2020. The percentage of people with obesity in New York was 29.98% in 2022. The percentage of people who binge drink in New York was 18.76% in 2022. The percentage of people who smoke in New York was 12.86% in 2022."
+    },
+    "geoId/3610000": {
+        "summary": "Brookhaven is a city in New York, United States. The population in Brookhaven was 482,436 in 2018. The unemployment rate in Brookhaven was 3.1% in 2024."
+    },
+    "geoId/3611000": {
+        "summary": "Buffalo is a city in New York, United States. The population in Buffalo was 274,678 in 2023. The median age in Buffalo was 34.3 in 2023. The median income in Buffalo was $30,224 in 2023. The unemployment rate in Buffalo was 5% in 2024. The percentage of people with obesity in Buffalo was 38.4% in 2022. The percentage of people who binge drink in Buffalo was 17.9% in 2022. The percentage of people who smoke in Buffalo was 19.4% in 2022."
+    },
+    "geoId/3634000": {
+        "summary": "Hempstead is a city in New York, United States. The population in Hempstead was 768,103 in 2018. The unemployment rate in Hempstead was 3% in 2024."
+    },
+    "geoId/3638000": {
+        "summary": "Islip is a city in New York, United States. The population in Islip was 330,914 in 2018. The unemployment rate in Islip was 3.1% in 2024."
+    },
+    "geoId/3651000": {
+        "summary": "New York City is a city in New York, United States. The population in New York City was 8,258,035 in 2023. The median age in New York City was 38 in 2023. The median income in New York City was $41,482 in 2023. The unemployment rate in New York City was 5.2% in 2024. The percentage of people with obesity in New York City was 27% in 2022. The percentage of people who binge drink in New York City was 17.6% in 2022. The percentage of people who smoke in New York City was 12.8% in 2022."
+    },
+    "geoId/3656000": {
+        "summary": "Oyster Bay is a city in New York, United States. The population in Oyster Bay was 298,388 in 2018. The unemployment rate in Oyster Bay was 2.7% in 2024."
+    },
+    "geoId/37": {
+        "summary": "North Carolina is a state in United States. The population in North Carolina was 11,046,024 in 2024. The median age in North Carolina was 39.1 in 2023. The median income in North Carolina was $36,964 in 2023. The unemployment rate in North Carolina was 3.4% in 2024. The life expectancy in North Carolina was 76.1 in 2020. The percentage of people with obesity in North Carolina was 33.64% in 2022. The percentage of people who binge drink in North Carolina was 18.05% in 2022. The percentage of people who smoke in North Carolina was 14.66% in 2022."
+    },
+    "geoId/3712000": {
+        "summary": "Charlotte is a city in North Carolina, United States. The population in Charlotte was 911,311 in 2023. The median age in Charlotte was 34.4 in 2023. The median income in Charlotte was $44,357 in 2023. The unemployment rate in Charlotte was 3.3% in 2024. The percentage of people with obesity in Charlotte was 34.3% in 2022. The percentage of people who binge drink in Charlotte was 18.7% in 2022. The percentage of people who smoke in Charlotte was 12.8% in 2022."
+    },
+    "geoId/3719000": {
+        "summary": "Durham is a city in North Carolina, United States. The population in Durham was 296,186 in 2023. The median age in Durham was 34.8 in 2023. The median income in Durham was $45,024 in 2023. The unemployment rate in Durham was 2.9% in 2024. The percentage of people with obesity in Durham was 33.9% in 2022. The percentage of people who binge drink in Durham was 18% in 2022. The percentage of people who smoke in Durham was 12.4% in 2022."
+    },
+    "geoId/3728000": {
+        "summary": "Greensboro is a city in North Carolina, United States. The population in Greensboro was 302,296 in 2023. The median age in Greensboro was 34.1 in 2023. The median income in Greensboro was $34,027 in 2023. The unemployment rate in Greensboro was 4% in 2024. The percentage of people with obesity in Greensboro was 35.1% in 2022. The percentage of people who binge drink in Greensboro was 15.8% in 2022. The percentage of people who smoke in Greensboro was 15.5% in 2022."
+    },
+    "geoId/3755000": {
+        "summary": "Raleigh is a city in North Carolina, United States. The population in Raleigh was 482,295 in 2023. The median age in Raleigh was 34.7 in 2023. The median income in Raleigh was $45,768 in 2023. The unemployment rate in Raleigh was 3.1% in 2024. The percentage of people with obesity in Raleigh was 28.2% in 2022. The percentage of people who binge drink in Raleigh was 18% in 2022. The percentage of people who smoke in Raleigh was 11.7% in 2022."
+    },
+    "geoId/3775000": {
+        "summary": "Winston-Salem is a city in North Carolina, United States. The population in Winston-Salem was 252,975 in 2023. The median age in Winston-Salem was 35.6 in 2023. The median income in Winston-Salem was $32,866 in 2023. The unemployment rate in Winston-Salem was 3.5% in 2024. The percentage of people with obesity in Winston-Salem was 34% in 2022. The percentage of people who binge drink in Winston-Salem was 16.2% in 2022. The percentage of people who smoke in Winston-Salem was 16.2% in 2022."
+    },
+    "geoId/38": {
+        "summary": "North Dakota is a state in United States. The population in North Dakota was 796,568 in 2024. The median age in North Dakota was 35.7 in 2023. The median income in North Dakota was $42,611 in 2023. The unemployment rate in North Dakota was 2.5% in 2024. The life expectancy in North Dakota was 76.9 in 2020. The percentage of people with obesity in North Dakota was 37.13% in 2022. The percentage of people who binge drink in North Dakota was 22.91% in 2022. The percentage of people who smoke in North Dakota was 16.14% in 2022."
+    },
+    "geoId/39": {
+        "summary": "Ohio is a state in United States. The population in Ohio was 11,883,304 in 2024. The median age in Ohio was 39.6 in 2023. The median income in Ohio was $37,812 in 2023. The unemployment rate in Ohio was 4.2% in 2024. The life expectancy in Ohio was 75.3 in 2020. The percentage of people with obesity in Ohio was 39.44% in 2022. The percentage of people who binge drink in Ohio was 19.52% in 2022. The percentage of people who smoke in Ohio was 18.79% in 2022."
+    },
+    "geoId/3915000": {
+        "summary": "Cincinnati is a city in Ohio, United States. The population in Cincinnati was 311,097 in 2023. The median age in Cincinnati was 33 in 2023. The median income in Cincinnati was $34,104 in 2023. The unemployment rate in Cincinnati was 4.5% in 2024. The percentage of people with obesity in Cincinnati was 41.8% in 2022. The percentage of people who binge drink in Cincinnati was 20.4% in 2022. The percentage of people who smoke in Cincinnati was 19.1% in 2022."
+    },
+    "geoId/3916000": {
+        "summary": "Cleveland is a city in Ohio, United States. The population in Cleveland was 362,656 in 2023. The median age in Cleveland was 36.3 in 2023. The median income in Cleveland was $26,596 in 2023. The unemployment rate in Cleveland was 4.3% in 2024. The percentage of people with obesity in Cleveland was 44.9% in 2022. The percentage of people who binge drink in Cleveland was 17% in 2022. The percentage of people who smoke in Cleveland was 24.5% in 2022."
+    },
+    "geoId/3918000": {
+        "summary": "Columbus is a city in Ohio, United States. The population in Columbus was 913,175 in 2023. The median age in Columbus was 33 in 2023. The median income in Columbus was $39,123 in 2023. The unemployment rate in Columbus was 4.1% in 2024. The percentage of people with obesity in Columbus was 38.4% in 2022. The percentage of people who binge drink in Columbus was 18% in 2022. The percentage of people who smoke in Columbus was 18.3% in 2022."
+    },
+    "geoId/3977000": {
+        "summary": "Toledo is a city in Ohio, United States. The population in Toledo was 265,304 in 2023. The median age in Toledo was 35.7 in 2023. The median income in Toledo was $30,175 in 2023. The unemployment rate in Toledo was 6.4% in 2024. The percentage of people with obesity in Toledo was 45% in 2022. The percentage of people who binge drink in Toledo was 17.2% in 2022. The percentage of people who smoke in Toledo was 22.3% in 2022."
+    },
+    "geoId/40": {
+        "summary": "Oklahoma is a state in United States. The population in Oklahoma was 4,095,393 in 2024. The median age in Oklahoma was 36.9 in 2023. The median income in Oklahoma was $35,155 in 2023. The unemployment rate in Oklahoma was 3% in 2024. The life expectancy in Oklahoma was 74.1 in 2020. The percentage of people with obesity in Oklahoma was 40.36% in 2022. The percentage of people who binge drink in Oklahoma was 15.31% in 2022. The percentage of people who smoke in Oklahoma was 17.56% in 2022."
+    },
+    "geoId/4055000": {
+        "summary": "Oklahoma City is a city in Oklahoma, United States. The population in Oklahoma City was 702,767 in 2023. The median age in Oklahoma City was 35 in 2023. The median income in Oklahoma City was $38,731 in 2023. The unemployment rate in Oklahoma City was 2.9% in 2024. The percentage of people with obesity in Oklahoma City was 39.8% in 2022. The percentage of people who binge drink in Oklahoma City was 16.3% in 2022. The percentage of people who smoke in Oklahoma City was 15.7% in 2022."
+    },
+    "geoId/4075000": {
+        "summary": "Tulsa is a city in Oklahoma, United States. The population in Tulsa was 411,894 in 2023. The median age in Tulsa was 35.5 in 2023. The median income in Tulsa was $35,308 in 2023. The unemployment rate in Tulsa was 3% in 2024. The percentage of people with obesity in Tulsa was 39.4% in 2022. The percentage of people who binge drink in Tulsa was 13.2% in 2022. The percentage of people who smoke in Tulsa was 17.5% in 2022."
+    },
+    "geoId/41": {
+        "summary": "Oregon is a state in United States. The population in Oregon was 4,272,371 in 2024. The median age in Oregon was 40.1 in 2023. The median income in Oregon was $40,208 in 2023. The unemployment rate in Oregon was 4.3% in 2024. The life expectancy in Oregon was 78.8 in 2020. The percentage of people with obesity in Oregon was 31.97% in 2022. The percentage of people who binge drink in Oregon was 19.58% in 2022. The percentage of people who smoke in Oregon was 14.18% in 2022."
+    },
+    "geoId/4159000": {
+        "summary": "Portland is a city in Oregon, United States. The population in Portland was 630,498 in 2023. The median age in Portland was 38.6 in 2023. The median income in Portland was $47,518 in 2023. The unemployment rate in Portland was 4.1% in 2024. The percentage of people with obesity in Portland was 28.2% in 2022. The percentage of people who binge drink in Portland was 20.1% in 2022. The percentage of people who smoke in Portland was 12.6% in 2022."
+    },
+    "geoId/42": {
+        "summary": "Pennsylvania is a state in United States. The population in Pennsylvania was 13,078,751 in 2024. The median age in Pennsylvania was 40.9 in 2023. The median income in Pennsylvania was $39,546 in 2023. The unemployment rate in Pennsylvania was 3.3% in 2024. The life expectancy in Pennsylvania was 76.8 in 2020. The percentage of people with obesity in Pennsylvania was 34.51% in 2022. The percentage of people who binge drink in Pennsylvania was 19.92% in 2022. The percentage of people who smoke in Pennsylvania was 16.84% in 2022."
+    },
+    "geoId/4260000": {
+        "summary": "Philadelphia is a city in Pennsylvania, United States. The population in Philadelphia was 1,550,542 in 2023. The median age in Philadelphia was 35.1 in 2023. The median income in Philadelphia was $35,064 in 2023. The unemployment rate in Philadelphia was 4.4% in 2024. The percentage of people with obesity in Philadelphia was 33.8% in 2022. The percentage of people who binge drink in Philadelphia was 18.2% in 2022. The percentage of people who smoke in Philadelphia was 17.8% in 2022."
+    },
+    "geoId/4261000": {
+        "summary": "Pittsburgh is a city in Pennsylvania, United States. The population in Pittsburgh was 303,255 in 2023. The median age in Pittsburgh was 33.5 in 2023. The median income in Pittsburgh was $36,413 in 2023. The unemployment rate in Pittsburgh was 2.7% in 2024. The percentage of people with obesity in Pittsburgh was 33.8% in 2022. The percentage of people who binge drink in Pittsburgh was 19.4% in 2022. The percentage of people who smoke in Pittsburgh was 16.4% in 2022."
+    },
+    "geoId/44": {
+        "summary": "Rhode Island is a state in United States. The population in Rhode Island was 1,112,308 in 2024. The median age in Rhode Island was 40.5 in 2023. The median income in Rhode Island was $41,858 in 2023. The unemployment rate in Rhode Island was 4.2% in 2024. The life expectancy in Rhode Island was 78.2 in 2020. The percentage of people with obesity in Rhode Island was 31.66% in 2022. The percentage of people who binge drink in Rhode Island was 18.84% in 2022. The percentage of people who smoke in Rhode Island was 13.69% in 2022."
+    },
+    "geoId/45": {
+        "summary": "South Carolina is a state in United States. The population in South Carolina was 5,478,831 in 2024. The median age in South Carolina was 40.1 in 2023. The median income in South Carolina was $35,661 in 2023. The unemployment rate in South Carolina was 4% in 2024. The life expectancy in South Carolina was 74.8 in 2020. The percentage of people with obesity in South Carolina was 35.37% in 2022. The percentage of people who binge drink in South Carolina was 18.48% in 2022. The percentage of people who smoke in South Carolina was 15.63% in 2022."
+    },
+    "geoId/46": {
+        "summary": "South Dakota is a state in United States. The population in South Dakota was 924,669 in 2024. The median age in South Dakota was 37.7 in 2023. The median income in South Dakota was $39,291 in 2023. The unemployment rate in South Dakota was 2% in 2024. The life expectancy in South Dakota was 76.7 in 2020. The percentage of people with obesity in South Dakota was 35.54% in 2022. The percentage of people who binge drink in South Dakota was 21.4% in 2022. The percentage of people who smoke in South Dakota was 15.75% in 2022."
+    },
+    "geoId/47": {
+        "summary": "Tennessee is a state in United States. The population in Tennessee was 7,227,750 in 2024. The median age in Tennessee was 38.9 in 2023. The median income in Tennessee was $36,072 in 2023. The unemployment rate in Tennessee was 3.5% in 2024. The life expectancy in Tennessee was 73.8 in 2020. The percentage of people with obesity in Tennessee was 37.84% in 2022. The percentage of people who binge drink in Tennessee was 16.72% in 2022. The percentage of people who smoke in Tennessee was 19.45% in 2022."
+    },
+    "geoId/4748000": {
+        "summary": "Memphis is a city in Tennessee, United States. The population in Memphis was 618,639 in 2023. The median age in Memphis was 34.3 in 2023. The median income in Memphis was $32,583 in 2023. The unemployment rate in Memphis was 5.1% in 2024. The percentage of people with obesity in Memphis was 45.1% in 2022. The percentage of people who binge drink in Memphis was 15.5% in 2022. The percentage of people who smoke in Memphis was 21.8% in 2022."
+    },
+    "geoId/4752000": {
+        "summary": "Nashville is a city in Tennessee, United States. The population in Nashville was 692,587 in 2018."
+    },
+    "geoId/4752006": {
+        "summary": "Nashville-Davidson metropolitan government (balance) is a city in Tennessee, United States. The population in Nashville-Davidson metropolitan government (balance) was 687,788 in 2023. The median age in Nashville-Davidson metropolitan government (balance) was 34.4 in 2023. The median income in Nashville-Davidson metropolitan government (balance) was $43,335 in 2023. The percentage of people with obesity in Nashville-Davidson metropolitan government (balance) was 31.8% in 2022. The percentage of people who binge drink in Nashville-Davidson metropolitan government (balance) was 17.9% in 2022. The percentage of people who smoke in Nashville-Davidson metropolitan government (balance) was 16.8% in 2022."
+    },
+    "geoId/48": {
+        "summary": "Texas is a state in United States. The population in Texas was 31,290,831 in 2024. The median age in Texas was 35.5 in 2023. The median income in Texas was $38,602 in 2023. The unemployment rate in Texas was 3.7% in 2024. The life expectancy in Texas was 76.5 in 2020. The percentage of people with obesity in Texas was 36.77% in 2022. The percentage of people who binge drink in Texas was 17.84% in 2022. The percentage of people who smoke in Texas was 14.75% in 2022."
+    },
+    "geoId/4804000": {
+        "summary": "Arlington is a city in Texas, United States. The population in Arlington was 398,431 in 2023. The median age in Arlington was 33.6 in 2023. The median income in Arlington was $37,493 in 2023. The unemployment rate in Arlington was 3.4% in 2024. The percentage of people with obesity in Arlington was 39.2% in 2022. The percentage of people who binge drink in Arlington was 16.1% in 2022. The percentage of people who smoke in Arlington was 15.6% in 2022."
+    },
+    "geoId/4805000": {
+        "summary": "Austin is a city in Texas, United States. The population in Austin was 979,882 in 2023. The median age in Austin was 34.5 in 2023. The median income in Austin was $52,223 in 2023. The unemployment rate in Austin was 2.9% in 2024. The percentage of people with obesity in Austin was 29.2% in 2022. The percentage of people who binge drink in Austin was 21% in 2022. The percentage of people who smoke in Austin was 11% in 2022."
+    },
+    "geoId/4817000": {
+        "summary": "Corpus Christi is a city in Texas, United States. The population in Corpus Christi was 316,595 in 2023. The median age in Corpus Christi was 36.3 in 2023. The median income in Corpus Christi was $33,491 in 2023. The unemployment rate in Corpus Christi was 3.8% in 2024. The percentage of people with obesity in Corpus Christi was 42.7% in 2022. The percentage of people who binge drink in Corpus Christi was 21.1% in 2022. The percentage of people who smoke in Corpus Christi was 15.6% in 2022."
+    },
+    "geoId/4819000": {
+        "summary": "Dallas is a city in Texas, United States. The population in Dallas was 1,302,868 in 2023. The median age in Dallas was 33.4 in 2023. The median income in Dallas was $39,770 in 2023. The unemployment rate in Dallas was 3.6% in 2024. The percentage of people with obesity in Dallas was 36% in 2022. The percentage of people who binge drink in Dallas was 17.2% in 2022. The percentage of people who smoke in Dallas was 14.6% in 2022."
+    },
+    "geoId/4824000": {
+        "summary": "El Paso is a city in Texas, United States. The population in El Paso was 678,958 in 2023. The median age in El Paso was 34.1 in 2023. The median income in El Paso was $29,430 in 2023. The unemployment rate in El Paso was 3.8% in 2024. The percentage of people with obesity in El Paso was 39.5% in 2022. The percentage of people who binge drink in El Paso was 18.7% in 2022. The percentage of people who smoke in El Paso was 14.7% in 2022."
+    },
+    "geoId/4827000": {
+        "summary": "Fort Worth is a city in Texas, United States. The population in Fort Worth was 978,468 in 2023. The median age in Fort Worth was 33.4 in 2023. The median income in Fort Worth was $40,028 in 2023. The unemployment rate in Fort Worth was 3.7% in 2024. The percentage of people with obesity in Fort Worth was 39.7% in 2022. The percentage of people who binge drink in Fort Worth was 16.6% in 2022. The percentage of people who smoke in Fort Worth was 15.8% in 2022."
+    },
+    "geoId/4835000": {
+        "summary": "Houston is a city in Texas, United States. The population in Houston was 2,314,157 in 2023. The median age in Houston was 34.3 in 2023. The median income in Houston was $35,991 in 2023. The unemployment rate in Houston was 4% in 2024. The percentage of people with obesity in Houston was 35.7% in 2022. The percentage of people who binge drink in Houston was 15.7% in 2022. The percentage of people who smoke in Houston was 15.2% in 2022."
+    },
+    "geoId/4841464": {
+        "summary": "Laredo is a city in Texas, United States. The population in Laredo was 257,602 in 2023. The median age in Laredo was 29.7 in 2023. The median income in Laredo was $27,927 in 2023. The unemployment rate in Laredo was 3.7% in 2024. The percentage of people with obesity in Laredo was 42.3% in 2022. The percentage of people who binge drink in Laredo was 16.5% in 2022. The percentage of people who smoke in Laredo was 15.2% in 2022."
+    },
+    "geoId/4845000": {
+        "summary": "Lubbock is a city in Texas, United States. The population in Lubbock was 266,878 in 2023. The median age in Lubbock was 30.4 in 2023. The median income in Lubbock was $32,807 in 2023. The unemployment rate in Lubbock was 3% in 2024. The percentage of people with obesity in Lubbock was 36.6% in 2022. The percentage of people who binge drink in Lubbock was 18.3% in 2022. The percentage of people who smoke in Lubbock was 16.1% in 2022."
+    },
+    "geoId/4858016": {
+        "summary": "Plano is a city in Texas, United States. The population in Plano was 290,190 in 2023. The median age in Plano was 39.3 in 2023. The median income in Plano was $56,045 in 2023. The unemployment rate in Plano was 3.2% in 2024. The percentage of people with obesity in Plano was 28.2% in 2022. The percentage of people who binge drink in Plano was 16.4% in 2022. The percentage of people who smoke in Plano was 10.1% in 2022."
+    },
+    "geoId/4865000": {
+        "summary": "San Antonio is a city in Texas, United States. The population in San Antonio was 1,495,295 in 2023. The median age in San Antonio was 34.6 in 2023. The median income in San Antonio was $33,736 in 2023. The unemployment rate in San Antonio was 3.3% in 2024. The percentage of people with obesity in San Antonio was 38.2% in 2022. The percentage of people who binge drink in San Antonio was 17.7% in 2022. The percentage of people who smoke in San Antonio was 15.1% in 2022."
+    },
+    "geoId/49": {
+        "summary": "Utah is a state in United States. The population in Utah was 3,503,613 in 2024. The median age in Utah was 31.7 in 2023. The median income in Utah was $40,000 in 2023. The unemployment rate in Utah was 2.9% in 2024. The life expectancy in Utah was 78.6 in 2020. The percentage of people with obesity in Utah was 32.24% in 2022. The percentage of people who binge drink in Utah was 13.19% in 2022. The percentage of people who smoke in Utah was 8.39% in 2022."
+    },
+    "geoId/50": {
+        "summary": "Vermont is a state in United States. The population in Vermont was 648,493 in 2024. The median age in Vermont was 43 in 2023. The median income in Vermont was $41,013 in 2023. The unemployment rate in Vermont was 2.5% in 2024. The life expectancy in Vermont was 78.8 in 2020. The percentage of people with obesity in Vermont was 27.16% in 2022. The percentage of people who binge drink in Vermont was 20.63% in 2022. The percentage of people who smoke in Vermont was 13.57% in 2022."
+    },
+    "geoId/51": {
+        "summary": "Virginia is a state in United States. The population in Virginia was 8,811,195 in 2024. The median age in Virginia was 38.8 in 2023. The median income in Virginia was $44,901 in 2023. The unemployment rate in Virginia was 2.5% in 2024. The life expectancy in Virginia was 77.6 in 2020. The percentage of people with obesity in Virginia was 35.76% in 2022. The percentage of people who binge drink in Virginia was 18.32% in 2022. The percentage of people who smoke in Virginia was 14.04% in 2022."
+    },
+    "geoId/5116000": {
+        "summary": "Chesapeake is a city in Virginia, United States. The population in Chesapeake was 253,886 in 2023. The median age in Chesapeake was 37.7 in 2023. The median income in Chesapeake was $46,506 in 2023. The unemployment rate in Chesapeake was 2.5% in 2024. The percentage of people with obesity in Chesapeake was 40.4% in 2022. The percentage of people who binge drink in Chesapeake was 17.2% in 2022. The percentage of people who smoke in Chesapeake was 14% in 2022."
+    },
+    "geoId/5157000": {
+        "summary": "Norfolk is a city in Virginia, United States. The population in Norfolk was 230,930 in 2023. The median age in Norfolk was 32.4 in 2023. The median income in Norfolk was $35,471 in 2023. The unemployment rate in Norfolk was 3% in 2024. The percentage of people with obesity in Norfolk was 39.4% in 2022. The percentage of people who binge drink in Norfolk was 19.9% in 2022. The percentage of people who smoke in Norfolk was 17.1% in 2022."
+    },
+    "geoId/5182000": {
+        "summary": "Virginia Beach is a city in Virginia, United States. The population in Virginia Beach was 453,649 in 2023. The median age in Virginia Beach was 37.4 in 2023. The median income in Virginia Beach was $46,941 in 2023. The unemployment rate in Virginia Beach was 2.5% in 2024. The percentage of people with obesity in Virginia Beach was 33.8% in 2022. The percentage of people who binge drink in Virginia Beach was 19.2% in 2022. The percentage of people who smoke in Virginia Beach was 13.2% in 2022."
+    },
+    "geoId/53": {
+        "summary": "Washington is a state in United States. The population in Washington was 7,958,180 in 2024. The median age in Washington was 38.2 in 2023. The median income in Washington was $47,149 in 2023. The unemployment rate in Washington was 4.3% in 2024. The life expectancy in Washington was 79.2 in 2020. The percentage of people with obesity in Washington was 31.06% in 2022. The percentage of people who binge drink in Washington was 18.11% in 2022. The percentage of people who smoke in Washington was 10.93% in 2022."
+    },
+    "geoId/5363000": {
+        "summary": "Seattle is a city in Washington, United States. The population in Seattle was 755,078 in 2023. The median age in Seattle was 35.5 in 2023. The median income in Seattle was $68,074 in 2023. The unemployment rate in Seattle was 2.8% in 2024. The percentage of people with obesity in Seattle was 23.4% in 2022. The percentage of people who binge drink in Seattle was 18.9% in 2022. The percentage of people who smoke in Seattle was 7.5% in 2022."
+    },
+    "geoId/54": {
+        "summary": "West Virginia is a state in United States. The population in West Virginia was 1,769,979 in 2024. The median age in West Virginia was 42.7 in 2023. The median income in West Virginia was $31,897 in 2023. The unemployment rate in West Virginia was 3.6% in 2024. The life expectancy in West Virginia was 72.8 in 2020. The percentage of people with obesity in West Virginia was 40.55% in 2022. The percentage of people who binge drink in West Virginia was 16.93% in 2022. The percentage of people who smoke in West Virginia was 21.1% in 2022."
+    },
+    "geoId/55": {
+        "summary": "Wisconsin is a state in United States. The population in Wisconsin was 5,960,975 in 2024. The median age in Wisconsin was 40.1 in 2023. The median income in Wisconsin was $41,645 in 2023. The unemployment rate in Wisconsin was 2.9% in 2024. The life expectancy in Wisconsin was 77.7 in 2020. The percentage of people with obesity in Wisconsin was 37.76% in 2022. The percentage of people who binge drink in Wisconsin was 23.19% in 2022. The percentage of people who smoke in Wisconsin was 16.09% in 2022."
+    },
+    "geoId/5548000": {
+        "summary": "Madison is a city in Wisconsin, United States. The population in Madison was 280,305 in 2023. The median age in Madison was 31.8 in 2023. The median income in Madison was $44,398 in 2023. The unemployment rate in Madison was 2.1% in 2024. The percentage of people with obesity in Madison was 32.1% in 2022. The percentage of people who binge drink in Madison was 22.3% in 2022. The percentage of people who smoke in Madison was 11.8% in 2022."
+    },
+    "geoId/5553000": {
+        "summary": "Milwaukee is a city in Wisconsin, United States. The population in Milwaukee was 561,385 in 2023. The median age in Milwaukee was 32.2 in 2023. The median income in Milwaukee was $32,247 in 2023. The unemployment rate in Milwaukee was 4% in 2024. The percentage of people with obesity in Milwaukee was 43.4% in 2022. The percentage of people who binge drink in Milwaukee was 19.3% in 2022. The percentage of people who smoke in Milwaukee was 20.5% in 2022."
+    },
+    "geoId/56": {
+        "summary": "Wyoming is a state in United States. The population in Wyoming was 587,618 in 2024. The median age in Wyoming was 38.8 in 2023. The median income in Wyoming was $39,471 in 2023. The unemployment rate in Wyoming was 3.7% in 2024. The life expectancy in Wyoming was 76.3 in 2020. The percentage of people with obesity in Wyoming was 34.59% in 2022. The percentage of people who binge drink in Wyoming was 19.37% in 2022. The percentage of people who smoke in Wyoming was 16.69% in 2022."
+    },
+    "geoId/7276770": {
+        "summary": "San Juan zona urbana is a city in Puerto Rico, United States. The population in San Juan zona urbana was 320,691 in 2023. The median age in San Juan zona urbana was 45.2 in 2023. The median income in San Juan zona urbana was $19,536 in 2023."
+    },
+    "nuts/AT13": {
+        "summary": "Vienna is a city in Austria. The population in Vienna was 1,982,097 in 2023. The life expectancy in Vienna was 80.46 in 2022."
+    },
+    "nuts/CZ01": {
+        "summary": "Prague is a city in Czech Republic. The population in Prague was 1,357,326 in 2023. The life expectancy in Prague was 80.1 in 2022."
+    },
+    "nuts/DE111": {
+        "summary": "Stuttgart is a city in Germany. The population in Stuttgart was 632,865 in 2023. The life expectancy in Stuttgart was 83 in 2020."
+    },
+    "nuts/DE212": {
+        "summary": "Munich is a city in Germany. The population in Munich was 1,512,491 in 2023. The life expectancy in Munich was 83.11 in 2020."
+    },
+    "nuts/DE254": {
+        "summary": "Nuremberg is a city in Germany. The population in Nuremberg was 523,026 in 2023. The life expectancy in Nuremberg was 80.57 in 2020."
+    },
+    "nuts/DE3": {
+        "summary": "Berlin is a city in Germany. The population in Berlin was 3,755,251 in 2023. The life expectancy in Berlin was 80.9 in 2022."
+    },
+    "nuts/DE302": {
+        "summary": "East Berlin is a city in Germany. The population in East Berlin was 1,279,212 in 1989."
+    },
+    "nuts/DE501": {
+        "summary": "Bremen is a city in Germany. The population in Bremen was 569,396 in 2023. The life expectancy in Bremen was 80.46 in 2020."
+    },
+    "nuts/DE6": {
+        "summary": "Hamburg is a city in Germany. The population in Hamburg was 1,892,122 in 2023. The life expectancy in Hamburg was 80.8 in 2022."
+    },
+    "nuts/DE712": {
+        "summary": "Frankfurt am Main is a city in Germany. The population in Frankfurt am Main was 773,068 in 2023. The life expectancy in Frankfurt am Main was 81.89 in 2020."
+    },
+    "nuts/DE921": {
+        "summary": "Hanover is a city in Germany. The population in Hanover was 538,068 in 2019."
+    },
+    "nuts/DEA11": {
+        "summary": "D\u00fcsseldorf is a city in Germany. The population in D\u00fcsseldorf was 629,047 in 2023. The life expectancy in D\u00fcsseldorf was 81.41 in 2020."
+    },
+    "nuts/DEA13": {
+        "summary": "Essen is a city in Germany. The population in Essen was 584,580 in 2023. The life expectancy in Essen was 80.01 in 2020."
+    },
+    "nuts/DEA23": {
+        "summary": "Cologne is a city in Germany. The population in Cologne was 1,084,831 in 2023. The life expectancy in Cologne was 81.08 in 2020."
+    },
+    "nuts/DEA52": {
+        "summary": "Dortmund is a city in Germany. The population in Dortmund was 593,317 in 2023. The life expectancy in Dortmund was 79.95 in 2020."
+    },
+    "nuts/DED21": {
+        "summary": "Dresden is a city in Germany. The population in Dresden was 563,311 in 2023. The life expectancy in Dresden was 82.47 in 2020."
+    },
+    "nuts/DED51": {
+        "summary": "Leipzig is a city in Germany. The population in Leipzig was 616,093 in 2023. The life expectancy in Leipzig was 80.86 in 2020."
+    },
+    "nuts/FR101": {
+        "summary": "Paris is a city in France. The population in Paris was 2,104,154 in 2023. The life expectancy in Paris was 84.1 in 2022."
+    },
+    "nuts/HU101": {
+        "summary": "Budapest is a city in Hungary. The population in Budapest was 1,737,026 in 2020."
+    },
+    "nuts/LV006": {
+        "summary": "Riga is a city in Latvia. The population in Riga was 609,489 in 2023. The life expectancy in Riga was 74.9 in 2022."
+    },
+    "nuts/NL310": {
+        "summary": "Utrecht is a city in Netherlands. The population in Utrecht was 1,387,643 in 2023."
+    },
+    "nuts/NO011": {
+        "summary": "Oslo is a city in Norway. The population in Oslo was 693,494 in 2020. The life expectancy in Oslo was 80.25 in 2008."
+    },
+    "nuts/PL127": {
+        "summary": "Warsaw is a city in Poland. The population in Warsaw was 1,864,679 in 2021."
+    },
+    "nuts/PL213": {
+        "summary": "Krak\u00f3w is a city in Poland. The population in Krak\u00f3w was 792,655 in 2023."
+    },
+    "nuts/PL514": {
+        "summary": "Miasto Wroc\u0142aw is a city in Poland. The population in Miasto Wroc\u0142aw was 671,206 in 2023."
+    },
+    "nuts/SOF46": {
+        "summary": "Sofia is a city in Bulgaria. The population in Sofia was 1,221,785 in 2021."
+    },
+    "nuts/UKD33": {
+        "summary": "Manchester is a city in United Kingdom. The population in Manchester was 568,996 in 2022. The life expectancy in Manchester was 77 in 2021."
+    },
+    "nuts/UKE32": {
+        "summary": "Sheffield is a city in United Kingdom. The population in Sheffield was 566,242 in 2022. The life expectancy in Sheffield was 80 in 2021."
+    },
+    "nuts/UKE41": {
+        "summary": "Bradford is a city in United Kingdom. The population in Bradford was 552,644 in 2022. The life expectancy in Bradford was 78.9 in 2021."
+    },
+    "nuts/UKG31": {
+        "summary": "Birmingham is a city in United Kingdom. The population in Birmingham was 1,157,603 in 2022. The life expectancy in Birmingham was 78.7 in 2021."
+    },
+    "nuts/UKM34": {
+        "summary": "Glasgow is a city in United Kingdom. The population in Glasgow was 626,410 in 2018."
+    },
     "wikidataId/Q1000918": {
         "summary": "Kaiyuan is a city in China. The population in Kaiyuan was 529,736 in 2000."
     },
@@ -1382,9 +1928,6 @@
     "wikidataId/Q23482": {
         "summary": "Marseille is a city in Metropolitan France, France. The population in Marseille was 861,635 in 2015."
     },
-    "wikidataId/Q23681": {
-        "summary": "The population in Turkish Republic of Northern Cyprus was 382,836 in 2021."
-    },
     "wikidataId/Q237847": {
         "summary": "Solapur is a city in Maharashtra, India."
     },
@@ -1414,9 +1957,6 @@
     },
     "wikidataId/Q244004": {
         "summary": "S\u00e9tif is a city in Algeria. The population in S\u00e9tif was 288,461 in 2008."
-    },
-    "wikidataId/Q244165": {
-        "summary": "The population in Artsakh was 120,000 in 2021."
     },
     "wikidataId/Q244232": {
         "summary": "Tabuk is a city in Saudi Arabia. The population in Tabuk was 594,350 in 2022."
@@ -1553,9 +2093,6 @@
     "wikidataId/Q2933": {
         "summary": "Asunci\u00f3n is a city in Paraguay. The population in Asunci\u00f3n was 462,241 in 2022."
     },
-    "wikidataId/Q29999": {
-        "summary": "The population in Kingdom of the Netherlands was 17,821,419 in 2023."
-    },
     "wikidataId/Q30002": {
         "summary": "Chengdu is a city in China. The population in Chengdu was 4,333,541 in 2000."
     },
@@ -1585,9 +2122,6 @@
     },
     "wikidataId/Q3130": {
         "summary": "Sydney is a city in Australia. The population in Sydney was 5,450,496 in 2023. The life expectancy in Sydney was 84.3 in 2022."
-    },
-    "wikidataId/Q31354462": {
-        "summary": "The population in Republic of Abkhazia was 242,000 in 2016."
     },
     "wikidataId/Q3141": {
         "summary": "Melbourne is a city in Australia. The population in Melbourne was 5,207,145 in 2023. The life expectancy in Melbourne was 84 in 2022."
@@ -1984,9 +2518,6 @@
     },
     "wikidataId/Q4035": {
         "summary": "Osasco is a city in S\u00e3o Paulo, Brazil. The population in Osasco was 777,048 in 2022."
-    },
-    "wikidataId/Q40362": {
-        "summary": "The population in Sahrawi Arab Democratic Republic was 502,585 in 2010."
     },
     "wikidataId/Q404116": {
         "summary": "Pingdingshan is a city in China. The population in Pingdingshan was 4,987,137 in 2020."
@@ -2785,9 +3316,6 @@
     },
     "wikidataId/Q755763": {
         "summary": "Jijiga is a city in Ethiopia."
-    },
-    "wikidataId/Q756617": {
-        "summary": "The population in Kingdom of Denmark was 5,707,251 in 2016."
     },
     "wikidataId/Q7578": {
         "summary": "Jambi is a city in Indonesia. The population in Jambi was 619,600 in 2022."

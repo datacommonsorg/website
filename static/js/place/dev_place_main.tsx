@@ -145,11 +145,11 @@ const PlaceCategoryTabs = ({
 
   return (
     <div className="explore-topics-box">
-      <span className="explore-relevant-topics">
-        {intl.formatMessage(pageMessages.RelevantTopics)}
-      </span>
       <div className="item-list-container">
         <div className="item-list-inner">
+          <span className="explore-relevant-topics">
+            {intl.formatMessage(pageMessages.RelevantTopics)}
+          </span>
           {categories.map((category) => (
             <CategoryItem
               key={category.name}

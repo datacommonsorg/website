@@ -98,6 +98,3 @@ class Config:
   # Whether to enable BigQuery for instance. This is primarily used for
   # accessing the observation browser pages.
   ENABLE_BQ = False
-  # Whether to enable the DataGemma UI for this instance. This UI should only be
-  # enabled for internal instances.
-  ENABLE_DATAGEMMA = False

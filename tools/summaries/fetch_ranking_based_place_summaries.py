@@ -183,7 +183,7 @@ def build_ranking_based_summaries(place_type: str, parent_place_dcid: str,
     summaries[place] = {"summary": " ".join(sentence_list)}
 
   # Write summaries to file
-  with open(output_file, "w") as out_file:
+  with open(output_file, "w+") as out_file:
     json.dump(summaries, out_file, indent=4)
 
 
