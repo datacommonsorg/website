@@ -9,6 +9,78 @@
       "value": "placeName"
     }
   ],
+  "chart-title-with-per-capita-and-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (Per Capita in "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "chart-title-with-per-capita-no-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (Per Capita)"
+    }
+  ],
+  "chart-title-with-two-variables": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " Vs. "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
+  "chart-title-with-two-variables-and-location": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " Vs. "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " of "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    }
+  ],
   "chart_clause-other_placeType": [
     {
       "type": 1,
@@ -145,6 +217,30 @@
       "value": "placeName"
     }
   ],
+  "chooseVariable": [
+    {
+      "type": 0,
+      "value": "Choose a variable to view its metadata"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "disasterTool": [
+    {
+      "type": 0,
+      "value": "Disaster Tool"
+    }
+  ],
+  "download": [
+    {
+      "type": 0,
+      "value": "Download"
+    }
+  ],
   "embed_citation": [
     {
       "type": 0,
@@ -177,10 +273,32 @@
       "value": "Export this chart"
     }
   ],
+  "exploreLink": [
+    {
+      "type": 0,
+      "value": "Explore in "
+    },
+    {
+      "type": 1,
+      "value": "toolName"
+    }
+  ],
   "header-overview": [
     {
       "type": 0,
       "value": "Overview"
+    }
+  ],
+  "key_demographics": [
+    {
+      "type": 0,
+      "value": "Key demographics"
+    }
+  ],
+  "knowledge_graph": [
+    {
+      "type": 0,
+      "value": "Knowledge Graph"
     }
   ],
   "link-return_to_overview": [
@@ -189,7 +307,25 @@
       "value": "Back to overview"
     }
   ],
+  "loading": [
+    {
+      "type": 0,
+      "value": "Loading..."
+    }
+  ],
+  "mapTool": [
+    {
+      "type": 0,
+      "value": "Map Tool"
+    }
+  ],
   "more_charts": [
+    {
+      "type": 0,
+      "value": "More charts"
+    }
+  ],
+  "more_charts_link": [
     {
       "type": 0,
       "value": "More charts"
@@ -575,6 +711,18 @@
       "value": ", per capita"
     }
   ],
+  "ranking-tile-latest-data-available-footer": [
+    {
+      "type": 0,
+      "value": "Ranking based on latest data available. Some places may be missing due to incomplete reporting that year."
+    }
+  ],
+  "ranking-tile-latest-data-footer": [
+    {
+      "type": 0,
+      "value": "This ranking includes data from several years for a comprehensive view of places."
+    }
+  ],
   "ranking_table-header_rank": [
     {
       "type": 0,
@@ -587,10 +735,34 @@
       "value": "Value"
     }
   ],
+  "relevant_topics": [
+    {
+      "type": 0,
+      "value": "Relevant topics"
+    }
+  ],
+  "scatterTool": [
+    {
+      "type": 0,
+      "value": "Scatter Tool"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "Search for another place"
+    }
+  ],
+  "selectVariable": [
+    {
+      "type": 0,
+      "value": "Select a variable from the list to see its details. The links below open the Statistical Variable Explorer in a new tab."
+    }
+  ],
+  "showMetadata": [
+    {
+      "type": 0,
+      "value": "Show metadata"
     }
   ],
   "singular_administrative_area": [
@@ -687,10 +859,58 @@
       "value": "ZIP Code"
     }
   ],
+  "snap-to-latest-data-checkbox-label": [
+    {
+      "type": 0,
+      "value": "Snap to date with highest coverage"
+    }
+  ],
+  "snap-to-latest-data-help-tooltip": [
+    {
+      "type": 0,
+      "value": "'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
+    }
+  ],
+  "snap-to-latest-data-overlap-help-tooltip": [
+    {
+      "type": 0,
+      "value": "The highest coverage data is also the latest data available for this chart."
+    }
+  ],
+  "source": [
+    {
+      "type": 0,
+      "value": "Source"
+    }
+  ],
+  "sources": [
+    {
+      "type": 0,
+      "value": "Sources"
+    }
+  ],
+  "summary_overview": [
+    {
+      "type": 0,
+      "value": "Summary overview"
+    }
+  ],
   "the_world": [
     {
       "type": 0,
       "value": "the World"
+    }
+  ],
+  "timelineTool": [
+    {
+      "type": 0,
+      "value": "Timeline Tool"
+    }
+  ],
+  "viaGoogle": [
+    {
+      "type": 0,
+      "value": "via Google"
     }
   ]
 }
