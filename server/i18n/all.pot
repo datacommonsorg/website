@@ -1,6 +1,10 @@
-#. The label for a link to project homepage.
+#. Label for a place type in a parent place. For example: "Country in North America"
 #, python-format
-msgid "%(project)s is a Google project"
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr ""
+
+#. The label for a link to project homepage.
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
 msgstr ""
 
 #. The label for a link to our API documentation.
@@ -14,8 +18,80 @@ msgstr ""
 msgid "About Data Commons"
 msgstr ""
 
+#. Label describing the place type for an administrative area
+msgid "Administrative Area"
+msgstr ""
+
+#. Label describing the place type for an administrative area of level 1. For example, a US state.
+msgid "Administrative Area 1 Place"
+msgstr ""
+
+#. Label describing the plural place type for an administrative area of level 1 in plural form. For example, a US state.
+msgid "Administrative Area 1 Places"
+msgstr ""
+
+#. Label describing the place type for an administrative area of level 2. For example, a US county.
+msgid "Administrative Area 2 Place"
+msgstr ""
+
+#. Label describing the plural place type for an administrative area of level 2 in plural form. For example, a US county.
+msgid "Administrative Area 2 Places"
+msgstr ""
+
+#. Label describing the place type for an administrative area of level 3. For example, a city within a county.
+msgid "Administrative Area 3 Place"
+msgstr ""
+
+#. Label describing the plural place type for an administrative area of level 3 in plural form. For example, a city within a county.
+msgid "Administrative Area 3 Places"
+msgstr ""
+
+#. Label describing the place type for an administrative area of level 4. For example, a block or a borough within a city.
+msgid "Administrative Area 4 Place"
+msgstr ""
+
+#. Label describing the plural place type for an administrative area of level 4 in plural form. For example, a block or a borough within a city.
+msgid "Administrative Area 4 Places"
+msgstr ""
+
+#. Label describing the place type for an administrative area of level 5. For example, in India an administrative area of level 5 is a village
+msgid "Administrative Area 5 Place"
+msgstr ""
+
+#. Label describing the plural place type for an administrative area of level 5 in plural form. For example, in India an administrative area of level 5 is a village
+msgid "Administrative Area 5 Places"
+msgstr ""
+
+#. Label describing the place type for an administrative area in plural form
+msgid "Administrative Areas"
+msgstr ""
+
+#. The label for the Google branding byline.
+msgid "An initiative from"
+msgstr ""
+
+#. The label for a link back to the homepage with a project-specific name.
+msgid "Back to homepage"
+msgstr ""
+
+#. The label for a link to BigQuery integration starter docs.
+msgid "BigQuery"
+msgstr ""
+
 #. The label for a link to the project's blog.
 msgid "Blog"
+msgstr ""
+
+#. Label describing the place type for a borough
+msgid "Borough"
+msgstr ""
+
+#. Label describing the plural place type for a borough in plural form
+msgid "Boroughs"
+msgstr ""
+
+#. Label describing the plural place type for a city in plural form
+msgid "Cities"
 msgstr ""
 
 #. Heading for a list of cities in India. See this message on https://datacommons.org/place
@@ -26,16 +102,33 @@ msgstr ""
 msgid "Cities, United States"
 msgstr ""
 
+#. Label describing the place type for a city
+msgid "City"
+msgstr ""
+
 #. The label for a link to instructions about contributing to the project.
 msgid "Contribute"
+msgstr ""
+
+#. Label describing the plural place type for a county in plural form
+msgid "Counties"
 msgstr ""
 
 #. Heading for a list of counties in the US. See this message on https://datacommons.org/place
 msgid "Counties, United States"
 msgstr ""
 
+#. Label describing the plural place type for a country in plural form
 #. Heading for a list of countries.
 msgid "Countries"
+msgstr ""
+
+#. Label describing the place type for a country
+msgid "Country"
+msgstr ""
+
+#. Label describing the place type for a county
+msgid "County"
 msgstr ""
 
 #. The label for a link to informational pages about the Data Commons project.
@@ -74,6 +167,30 @@ msgstr ""
 msgid "Enter a country, state, district or city"
 msgstr ""
 
+#. Label describing the place type for a Eurostat NUTS place of level 1, or a major social-economic region in Europe. For example, North Germany.
+msgid "Eurostat NUTS 1 Place"
+msgstr ""
+
+#. Label describing the plural place type for a Eurostat NUTS place of level 1 in plural form. For example, a major social-economic region in Europe. For example, North Germany.
+msgid "Eurostat NUTS 1 Places"
+msgstr ""
+
+#. Label describing the place type for a Eurostat NUTS place of level 2, or a medium social-economic region in Europe. For example, Île-de-France, France.
+msgid "Eurostat NUTS 2 Place"
+msgstr ""
+
+#. Label describing the plural place type for a Eurostat NUTS place of level 2 in plural form. For example, a medium social-economic region in Europe. For example, Île-de-France, France.
+msgid "Eurostat NUTS 2 Places"
+msgstr ""
+
+#. Label describing the place type for a Eurostat NUTS place of level 3, or a smaller area designation used for regional planning. For example, Barcelona Province, Spain.
+msgid "Eurostat NUTS 3 Place"
+msgstr ""
+
+#. Label describing the plural place type for a Eurostat NUTS place of level 3 in plural form. For example, a smaller area designation used for regional planning. For example, Barcelona Province, Spain.
+msgid "Eurostat NUTS 3 Places"
+msgstr ""
+
 #. The label for a collection of exploration tools.
 msgid "Explore"
 msgstr ""
@@ -81,6 +198,7 @@ msgstr ""
 msgid "Explore the data"
 msgstr ""
 
+#. The label for a link to project FAQ (Frequently Asked Questions) page (abbreviated version).
 msgid "FAQ"
 msgstr ""
 
@@ -89,6 +207,7 @@ msgid "Feedback"
 msgstr ""
 
 #. The label for a link to project FAQ page.
+#. The label for a link to project FAQ (Frequently Asked Questions) page.
 msgid "Frequently Asked Questions"
 msgstr ""
 
@@ -97,6 +216,7 @@ msgid "Gini Index"
 msgstr ""
 
 #. The label for a link to the project's github repository (for open sourced code).
+#. The label for a link to the project's GitHub repository (for open sourced code).
 msgid "Github Repository"
 msgstr ""
 
@@ -106,10 +226,6 @@ msgstr ""
 
 #. Link to worldwide rankings for Government Expenditures on Military, by country.
 msgid "Government Expenditures on Military"
-msgstr ""
-
-#. The name of a tool to browse the Data Commons knowledge graph.
-msgid "Knowledge Graph"
 msgstr ""
 
 #. Link to worldwide rankings for Gross National Income, by country.
@@ -131,6 +247,10 @@ msgstr ""
 msgid "Highest Unemployment Rate"
 msgstr ""
 
+#. The name of a tool to browse the Data Commons knowledge graph.
+msgid "Knowledge Graph"
+msgstr ""
+
 #. Label for rankings of places by size of population (sorted from highest to lowest).
 msgid "Largest Population"
 msgstr ""
@@ -140,25 +260,48 @@ msgid "Life Expectancy"
 msgstr ""
 
 #. A message shown on the page while the content is loading.
-msgid "Loading..."
+msgid "Loading"
 msgstr ""
 
 #. The name of a tool to explore maps of statistical variables for places.
 msgid "Map Explorer"
 msgstr ""
 
-msgid "Maps Explorer"
+#. Label for the "Median_Age_Person" median age variable representing the median age of a place
+msgid "Median Age"
+msgstr ""
+
+#. Label for the "Median_Income_Person" median income variable representing the median income of a place
+msgid "Median Income"
 msgstr ""
 
 #. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
 msgid "Median Income, United States"
 msgstr ""
 
-msgid "Natural Language Explorer"
+#. The name of a dashboard that shows information about natural disasters.
+msgid "Natural Disaster Dashboard"
+msgstr ""
+
+#. Label describing the place type for a neighborhood
+msgid "Neighborhood"
+msgstr ""
+
+#. Label describing the plural place type for a neighborhood in plural form
+msgid "Neighborhoods"
+msgstr ""
+
+#. Label for other places in a parent place. For example: "Other States in United States of America"
+#, python-format
+msgid "Other %(placeType)s in %(parentPlace)s"
 msgstr ""
 
 #. The name of a tool to browse statistics about a place.
 msgid "PLACE_EXPLORER_INTRO"
+msgstr ""
+
+#. Label describing the place type for a place
+msgid "Place"
 msgstr ""
 
 #. The name of a tool to browse statistics about a place.
@@ -169,8 +312,13 @@ msgstr ""
 msgid "Place Rankings"
 msgstr ""
 
+#. Label describing the plural place type for a place in plural form
 #. Heading for a list of places
 msgid "Places"
+msgstr ""
+
+#. Label for the "Count_Person" population variable representing the total population of a place
+msgid "Population"
 msgstr ""
 
 #. The label for a link to site privacy policy.
@@ -185,7 +333,25 @@ msgstr ""
 msgid "Scatter Plot Explorer"
 msgstr ""
 
-msgid "Scatter Plots"
+msgid "Show about links"
+msgstr ""
+
+#. The label for a link to documentation links.
+msgid "Show documentation links"
+msgstr ""
+
+msgid "Show exploration tools"
+msgstr ""
+
+msgid "Show site navigation"
+msgstr ""
+
+#. Label describing the place type for a state
+msgid "State"
+msgstr ""
+
+#. Label describing the plural place type for a state in plural form
+msgid "States"
 msgstr ""
 
 #. Heading for a list of states in India. See this message on https://datacommons.org/place
@@ -196,9 +362,15 @@ msgstr ""
 msgid "States, United States"
 msgstr ""
 
-#. The name of a tool that provides observation and import information about statistical             variables.
-#. The name of a tool that provides observation and import information about statistical                 variables.
+#. The name of a tool that provides observation and import information about statistical variables.
 msgid "Statistical Variable Explorer"
+msgstr ""
+
+msgid "Statistics"
+msgstr ""
+
+#. The name of a tool that allows users to explore sustainability data.
+msgid "Sustainability Explorer"
 msgstr ""
 
 #. The label for a link to site terms of use.
@@ -209,23 +381,52 @@ msgstr ""
 msgid "Terms and Conditions"
 msgstr ""
 
-msgid "Timeline Charts"
-msgstr ""
-
 #. The name of a tool to explore timeline charts of statistical variables for places.
 msgid "Timelines Explorer"
+msgstr ""
+
+#. The label for a collection of exploration tools.
+msgid "Tools"
+msgstr ""
+
+#. Label describing the place type for a town
+msgid "Town"
+msgstr ""
+
+#. Label describing the plural place type for a town in plural form
+msgid "Towns"
 msgstr ""
 
 #. The label for a link to our API tutorials.
 msgid "Tutorials"
 msgstr ""
 
+#. Label for the "UnemploymentRate_Person" unemployment rate variable representing the unemployment rate of a place
+msgid "Unemployment Rate"
+msgstr ""
+
 #. Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place
 msgid "Unemployment Rate, United States"
 msgstr ""
 
+#. Label describing the place type for a village
+msgid "Village"
+msgstr ""
+
+#. Label describing the plural place type for a village in plural form
+msgid "Villages"
+msgstr ""
+
 #. Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place
 msgid "Worldwide"
+msgstr ""
+
+#. Label describing the place type for a ZIP code
+msgid "ZIP Code"
+msgstr ""
+
+#. Label describing the plural place type for a ZIP code in plural form
+msgid "ZIP Codes"
 msgstr ""
 
 #. Heading for a list of rankings, pivoted by city. See this message on https://datacommons.org/place
@@ -268,6 +469,10 @@ msgstr "Arson"
 #. Title of a place chart: Total number of arson incidents per 100,000 people
 msgid "CHART_TITLE-Arson_rate"
 msgstr "Arsons per 100,000 people"
+
+#. Title of a place chart: Number of young adults who have an associate degree, broken down by gender
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Associate degree attainment by gender"
 
 #. Title of a place chart: Percentage of young adults who have an associate degree, broken down by gender
 msgid "CHART_TITLE-Associate_degree_rate_gender"
@@ -433,6 +638,10 @@ msgstr "Energy use (kg of oil equivalent per capita)"
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "Fertility rate"
 
+#. Title of a place chart: Gross domestic product (nominal), see https://en.wikipedia.org/wiki/Gross_domestic_product
+msgid "CHART_TITLE-Gdp"
+msgstr "Gross domestic product"
+
 #. Title of a place chart: Annual percentage growth rate of GDP at market prices based on constant local currency
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "Gross domestic product growth rate"
@@ -476,6 +685,10 @@ msgstr "Government expenditures on military"
 #. Title of a place chart: Amount spent by a government on the military as a percentage of GDP
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Government expenditures on military (% of GDP)"
+
+#. Title of a place chart: Number of young adults who have a graduate or professional degree, broken down by gender
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Graduate or professional degree attainment by gender"
 
 #. Title of a place chart: Percentage of young adults who have a graduate or professional degree, broken down by gender
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
@@ -641,7 +854,7 @@ msgstr "Marital status"
 msgid "CHART_TITLE-Marital_status_distribution"
 msgstr "Marital status distribution"
 
-#. Title of a place chart:
+#. Title of a place chart: Market capitalization of domestic companies
 msgid "CHART_TITLE-Market_capitalization"
 msgstr "Market capitalization of domestic companies"
 
@@ -685,7 +898,7 @@ msgstr "Median household income by race"
 msgid "CHART_TITLE-Median_income_gender"
 msgstr "Median income by gender"
 
-#. Title of a place chart:
+#. Title of a place chart: Median individual income
 msgid "CHART_TITLE-Median_individual_income"
 msgstr "Median individual income"
 
@@ -696,6 +909,10 @@ msgstr "Mortality events"
 #. Title of a place chart: Count of deaths caused by various diseases or external circumstances, divided by the population count
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Mortality events per capita"
+
+#. Title of a place chart: Total amount of outward remittance from a place
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Outward remittance"
 
 #. Title of a place chart: Total amount of outward remittance from a place
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
@@ -717,19 +934,19 @@ msgstr "Percentage of people without health insurance by race"
 msgid "CHART_TITLE-Percentage of literate and illiterate population"
 msgstr "Percentage of literate and illiterate population"
 
-#. Title of a place chart:
+#. Title of a place chart: Percentage of population by religon
 msgid "CHART_TITLE-Percentage of population by religon"
 msgstr "Percentage of population by religon"
 
-#. Title of a place chart:
+#. Title of a place chart: Percentage of population by social category (e.g. their cast or tribe).
 msgid "CHART_TITLE-Percentage of population by social category"
 msgstr "Percentage of population by social category (e.g. their cast or tribe)."
 
-#. Title of a place chart:
+#. Title of a place chart: Percentage of urban and rural households
 msgid "CHART_TITLE-Percentage of urban and rural households"
 msgstr "Percentage of urban and rural households"
 
-#. Title of a place chart:
+#. Title of a place chart: Percentage of urban vs rural homeless population
 msgid "CHART_TITLE-Percentage of urban vs rural homeless population"
 msgstr "Percentage of urban vs rural homeless population"
 
@@ -861,7 +1078,7 @@ msgstr "Unemployment rate"
 msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
 msgstr "Unemployment rate: urban vs rural"
 
-#. Title of a place chart: Percentage of the population, of working age, who are unemployed. Broken down by gender
+#. Title of a place chart: Percentage of the population, of working age, who are unemployed, broken down by gender
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Unemployment rate by gender"
 
@@ -877,7 +1094,7 @@ msgstr "Urban vs rural homeless population"
 msgid "CHART_TITLE-Urban vs rural poverty population"
 msgstr "Urban vs rural poverty population"
 
-#. Title of a place chart:
+#. Title of a place chart: Urban vs rural poverty rate
 msgid "CHART_TITLE-Urban vs rural poverty rate"
 msgstr "Urban vs rural poverty rate"
 
@@ -932,47 +1149,3 @@ msgstr "Nitrous oxide emissions (large facilities, non-biogenic)"
 #. Title of a place chart: Water withdrawal rate
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
-
-#. Place containment. Gives context for where a place is located.
-msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(placeType)s in %(parentPlaces)s"
-
-#. Place Types
-msgid "singular_administrative_area"
-msgstr "Administrative Area"
-
-msgid "singular_administrative_area_level"
-msgstr "Administrative Area %(level)s Place"
-
-msgid "singular_borough"
-msgstr "Borough"
-
-msgid "singular_city"
-msgstr "City"
-
-msgid "singular_country"
-msgstr "Country"
-
-msgid "singular_county"
-msgstr "County"
-
-msgid "singular_eurostat_nuts"
-msgstr "Eurostat NUTS %(level)s Place"
-
-msgid "singular_neighborhood"
-msgstr "Neighborhood"
-
-msgid "singular_place"
-msgstr "Place"
-
-msgid "singular_state"
-msgstr "State"
-
-msgid "singular_town"
-msgstr "Town"
-
-msgid "singular_village"
-msgstr "Village"
-
-msgid "singular_zip_code"
-msgstr "ZIP Code"

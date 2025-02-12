@@ -33,6 +33,7 @@ from server.lib.feature_flags import PLACE_PAGE_EXPERIMENT_FEATURE_FLAG
 from server.lib.feature_flags import PLACE_PAGE_GA_FEATURE_FLAG
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
+from server.lib.i18n_messages import get_place_type_in_parent_places_str
 import server.routes.dev_place.utils as utils
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
@@ -251,9 +252,8 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   ]
 
   if links:
-    return gettext('%(placeType)s in %(parentPlaces)s',
-                   placeType=place_type_display_name,
-                   parentPlaces=', '.join(links))
+    return get_place_type_in_parent_places_str(place_type_display_name,
+                                               ', '.join(links))
   return ''
 
 
