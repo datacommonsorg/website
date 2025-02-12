@@ -20,8 +20,8 @@ import unittest
 from unittest import mock
 
 from flask import Flask
-from flask_caching import Cache
 from flask_babel import Babel
+from flask_caching import Cache
 import pytest
 
 from server.routes.dev_place import utils
