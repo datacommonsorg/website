@@ -21,6 +21,7 @@ from unittest import mock
 
 from flask import Flask
 from flask_caching import Cache
+from flask_babel import Babel
 import pytest
 
 from server.routes.dev_place import utils
@@ -212,7 +213,9 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.mock_place_url = self.patch(utils, "get_place_url")
     self.mock_place_url.side_effect = mock_url_for_side_effect
-    self.mock_translate = self.patch(place_api, "translate")
+
+
+    self.mock_translate = self.patch(place_api, "gettext")
     self.mock_v2node = self.patch(dc, "v2node")
 
     def fetch_translate(args, **kwargs):
@@ -440,7 +443,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     place_str = utils.get_place_type_with_parent_places_links(CALIFORNIA.dcid)
     self.assertEqual(
         place_str,
-        'singular_state in <a href="/place/geoId/US">United States</a>, <a href="/place/northamerica">North America</a>, <a href="/place/Earth">Earth</a>'
+        'State in <a href="/place/geoId/US">United States</a>, <a href="/place/northamerica">North America</a>, <a href="/place/Earth">Earth</a>'
     )
 
   def test_place_type_to_highlight(self):
@@ -878,8 +881,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.assertEqual([b.title for b in translated_config[0].blocks], [
         "California: pop_count_id",
-        "Other %(placeType)s in %(parentPlace)s: pop_count_id",
-        "plural_county in California: pop_count_id"
+        "Other Counties in United States: pop_count_id",
+        "Counties in California: pop_count_id"
     ])
 
   def test_multiple_places_for_stat_var(self):
