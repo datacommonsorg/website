@@ -19,12 +19,16 @@ import os
 from typing import Dict, List
 
 import shared.lib.place_summaries as lib_summaries
+from tools.summaries import dc
 
 # Base URL for place pages listed in sitemaps
 _PLACE_PAGE_BASE_URL = "https://datacommons.org/place/"
 
 # Where to write summary jsons to
 _SUMMARY_OUTPUT_LOCATION = 'server/config/summaries/'
+
+# Maximum number of retries when attempting to fetch data via API calls
+_MAX_RETRIES = 3
 
 
 def format_stat_var_value(value: float, stat_var_data: Dict) -> str:
@@ -62,7 +66,7 @@ def combine_summaries(summaries: List[Dict]) -> Dict:
 def write_summaries_to_file(summaries: Dict, output_file: str):
   """Write summary dict json"""
   # Write to output file
-  with open(output_file, "w") as out_f:
+  with open(output_file, "w+") as out_f:
     json.dump(summaries, out_f, indent=4, sort_keys=True)
   logging.info(f"Wrote summaries to {output_file}.")
 
@@ -163,3 +167,30 @@ def write_shards_to_files(shards: Dict[str, Dict]) -> None:
     filepath = os.path.join(_SUMMARY_OUTPUT_LOCATION,
                             lib_summaries.DEFAULT_FILENAME)
     write_summaries_to_file(shards['no-match'], filepath)
+
+
+def maybe_fetch_data_series(place_dcid: str,
+                            sv_list: List[str],
+                            max_retries=_MAX_RETRIES) -> Dict:
+  """Fetch stat var values for all stat vars
+  
+  Because the call to DC APIs can be flakey, will attempt to refetch on failure.
+  After the max number of retries, if data still cannot be fetched, will return
+  an empty dict.
+
+  Args:
+    place_dcid: DCID of the place to fetch data for
+    sv_list: list of DCIDs of the stat vars to fetch data for
+  
+  Returns:
+    Series data as a CSV keyed by stat var
+  """
+  data = {}
+  for _ in range(0, max_retries):
+    try:
+      data = dc.get_data_series(place_dcid, sv_list)
+      if data:
+        break
+    except:
+      continue
+  return data

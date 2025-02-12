@@ -1,92 +1,95 @@
 {
     "nuts/AT13": {
-        "summary": "Vienna is a city in Austria. The population in Vienna was 1,897,491 in 2019. The life expectancy in Vienna was 80.19 in 2021."
+        "summary": "Vienna is a city in Austria. The population in Vienna was 1,982,097 in 2023. The life expectancy in Vienna was 80.46 in 2022."
     },
     "nuts/CZ01": {
-        "summary": "Prague is a city in Czech Republic. The population in Prague was 1,308,632 in 2019. The life expectancy in Prague was 79.2 in 2021."
+        "summary": "Prague is a city in Czech Republic. The population in Prague was 1,357,326 in 2023. The life expectancy in Prague was 80.1 in 2022."
     },
     "nuts/DE111": {
-        "summary": "Stuttgart is a city in Germany. The population in Stuttgart was 634,830 in 2019. The life expectancy in Stuttgart was 83 in 2020."
+        "summary": "Stuttgart is a city in Germany. The population in Stuttgart was 632,865 in 2023. The life expectancy in Stuttgart was 83 in 2020."
     },
     "nuts/DE212": {
-        "summary": "Munich is a city in Germany. The population in Munich was 1,471,508 in 2019. The life expectancy in Munich was 83.11 in 2020."
+        "summary": "Munich is a city in Germany. The population in Munich was 1,512,491 in 2023. The life expectancy in Munich was 83.11 in 2020."
     },
     "nuts/DE254": {
-        "summary": "Nuremberg is a city in Germany. The population in Nuremberg was 518,365 in 2019. The life expectancy in Nuremberg was 80.57 in 2020."
+        "summary": "Nuremberg is a city in Germany. The population in Nuremberg was 523,026 in 2023. The life expectancy in Nuremberg was 80.57 in 2020."
     },
     "nuts/DE3": {
-        "summary": "Berlin is a city in Germany. The population in Berlin was 3,644,826 in 2019. The life expectancy in Berlin was 81 in 2021."
+        "summary": "Berlin is a city in Germany. The population in Berlin was 3,755,251 in 2023. The life expectancy in Berlin was 80.9 in 2022."
+    },
+    "nuts/DE302": {
+        "summary": "East Berlin is a city in Germany. The population in East Berlin was 1,279,212 in 1989."
     },
     "nuts/DE501": {
-        "summary": "Bremen is a city in Germany. The population in Bremen was 569,352 in 2019. The life expectancy in Bremen was 80.46 in 2020."
+        "summary": "Bremen is a city in Germany. The population in Bremen was 569,396 in 2023. The life expectancy in Bremen was 80.46 in 2020."
     },
     "nuts/DE6": {
-        "summary": "Hamburg is a city in Germany. The population in Hamburg was 1,841,179 in 2019. The life expectancy in Hamburg was 81.1 in 2021."
+        "summary": "Hamburg is a city in Germany. The population in Hamburg was 1,892,122 in 2023. The life expectancy in Hamburg was 80.8 in 2022."
     },
     "nuts/DE712": {
-        "summary": "Frankfurt am Main is a city in Germany. The population in Frankfurt am Main was 753,056 in 2019. The life expectancy in Frankfurt am Main was 81.89 in 2020."
+        "summary": "Frankfurt am Main is a city in Germany. The population in Frankfurt am Main was 773,068 in 2023. The life expectancy in Frankfurt am Main was 81.89 in 2020."
     },
     "nuts/DE921": {
-        "summary": "Hanover is a city in Germany. The population in Hanover was 532,163 in 2016."
+        "summary": "Hanover is a city in Germany. The population in Hanover was 538,068 in 2019."
     },
     "nuts/DEA11": {
-        "summary": "D\u00fcsseldorf is a city in Germany. The population in D\u00fcsseldorf was 619,294 in 2019. The life expectancy in D\u00fcsseldorf was 81.41 in 2020."
+        "summary": "D\u00fcsseldorf is a city in Germany. The population in D\u00fcsseldorf was 629,047 in 2023. The life expectancy in D\u00fcsseldorf was 81.41 in 2020."
     },
     "nuts/DEA13": {
-        "summary": "Essen is a city in Germany. The population in Essen was 583,109 in 2019. The life expectancy in Essen was 80.01 in 2020."
+        "summary": "Essen is a city in Germany. The population in Essen was 584,580 in 2023. The life expectancy in Essen was 80.01 in 2020."
     },
     "nuts/DEA23": {
-        "summary": "Cologne is a city in Germany. The population in Cologne was 1,085,664 in 2019. The life expectancy in Cologne was 81.08 in 2020."
+        "summary": "Cologne is a city in Germany. The population in Cologne was 1,084,831 in 2023. The life expectancy in Cologne was 81.08 in 2020."
     },
     "nuts/DEA52": {
-        "summary": "Dortmund is a city in Germany. The population in Dortmund was 587,010 in 2019. The life expectancy in Dortmund was 79.95 in 2020."
+        "summary": "Dortmund is a city in Germany. The population in Dortmund was 593,317 in 2023. The life expectancy in Dortmund was 79.95 in 2020."
     },
     "nuts/DED21": {
-        "summary": "Dresden is a city in Germany. The population in Dresden was 554,649 in 2019. The life expectancy in Dresden was 82.47 in 2020."
+        "summary": "Dresden is a city in Germany. The population in Dresden was 563,311 in 2023. The life expectancy in Dresden was 82.47 in 2020."
     },
     "nuts/DED51": {
-        "summary": "Leipzig is a city in Germany. The population in Leipzig was 587,857 in 2019. The life expectancy in Leipzig was 80.86 in 2020."
+        "summary": "Leipzig is a city in Germany. The population in Leipzig was 616,093 in 2023. The life expectancy in Leipzig was 80.86 in 2020."
     },
     "nuts/FR101": {
-        "summary": "Paris is a city in France. The population in Paris was 2,160,928 in 2019. The life expectancy in Paris was 82.76 in 2020."
+        "summary": "Paris is a city in France. The population in Paris was 2,104,154 in 2023. The life expectancy in Paris was 84.1 in 2022."
     },
     "nuts/HU101": {
-        "summary": "Budapest is a city in Hungary. The population in Budapest was 1,756,056 in 2016."
+        "summary": "Budapest is a city in Hungary. The population in Budapest was 1,737,026 in 2020."
     },
     "nuts/LV006": {
-        "summary": "Riga is a city in Latvia. The population in Riga was 632,614 in 2019. The life expectancy in Riga was 73.9 in 2021."
+        "summary": "Riga is a city in Latvia. The population in Riga was 609,489 in 2023. The life expectancy in Riga was 74.9 in 2022."
     },
     "nuts/NL310": {
-        "summary": "Utrecht is a city in Netherlands. The population in Utrecht was 1,306,912 in 2019."
+        "summary": "Utrecht is a city in Netherlands. The population in Utrecht was 1,387,643 in 2023."
     },
     "nuts/NO011": {
-        "summary": "Oslo is a city in Norway. The population in Oslo was 681,067 in 2019. The life expectancy in Oslo was 80.25 in 2008."
+        "summary": "Oslo is a city in Norway. The population in Oslo was 693,494 in 2020. The life expectancy in Oslo was 80.25 in 2008."
     },
     "nuts/PL127": {
-        "summary": "Warsaw is a city in Poland. The population in Warsaw was 1,764,615 in 2017."
+        "summary": "Warsaw is a city in Poland. The population in Warsaw was 1,864,679 in 2021."
     },
     "nuts/PL213": {
-        "summary": "Krak\u00f3w is a city in Poland. The population in Krak\u00f3w was 766,683 in 2019."
+        "summary": "Krak\u00f3w is a city in Poland. The population in Krak\u00f3w was 792,655 in 2023."
     },
     "nuts/PL514": {
-        "summary": "Miasto Wroc\u0142aw is a city in Poland. The population in Miasto Wroc\u0142aw was 638,659 in 2019."
+        "summary": "Miasto Wroc\u0142aw is a city in Poland. The population in Miasto Wroc\u0142aw was 671,206 in 2023."
     },
     "nuts/SOF46": {
-        "summary": "Sofia is a city in Bulgaria. The population in Sofia was 1,236,047 in 2017."
+        "summary": "Sofia is a city in Bulgaria. The population in Sofia was 1,221,785 in 2021."
     },
     "nuts/UKD33": {
-        "summary": "Manchester is a city in United Kingdom. The population in Manchester was 553,230 in 2019."
+        "summary": "Manchester is a city in United Kingdom. The population in Manchester was 568,996 in 2022. The life expectancy in Manchester was 77 in 2021."
     },
     "nuts/UKE32": {
-        "summary": "Sheffield is a city in United Kingdom. The population in Sheffield was 584,028 in 2019."
+        "summary": "Sheffield is a city in United Kingdom. The population in Sheffield was 566,242 in 2022. The life expectancy in Sheffield was 80 in 2021."
     },
     "nuts/UKE41": {
-        "summary": "Bradford is a city in United Kingdom. The population in Bradford was 536,986 in 2019."
+        "summary": "Bradford is a city in United Kingdom. The population in Bradford was 552,644 in 2022. The life expectancy in Bradford was 78.9 in 2021."
     },
     "nuts/UKG31": {
-        "summary": "Birmingham is a city in United Kingdom. The population in Birmingham was 1,148,862 in 2019."
+        "summary": "Birmingham is a city in United Kingdom. The population in Birmingham was 1,157,603 in 2022. The life expectancy in Birmingham was 78.7 in 2021."
     },
     "nuts/UKM34": {
-        "summary": "Glasgow is a city in United Kingdom. The population in Glasgow was 598,830 in 2011."
+        "summary": "Glasgow is a city in United Kingdom. The population in Glasgow was 626,410 in 2018."
     }
 }
