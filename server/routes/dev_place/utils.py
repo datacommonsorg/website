@@ -21,13 +21,15 @@ from typing import Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
+from flask_babel import gettext
 
 from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
-from server.lib.i18n_messages import OTHER_PLACES_IN_PARENT_PLACE_STR
-from server.lib.i18n_messages import PLACE_OVERVIEW_TABLE_VARIABLES
-from server.lib.i18n_messages import PLACE_TYPE_IN_PARENT_PLACES_STR
+from server.lib.i18n_messages import get_other_places_in_parent_place_str
+from server.lib.i18n_messages import \
+    get_place_overview_table_variable_to_locale_message
+from server.lib.i18n_messages import get_place_type_in_parent_places_str
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
@@ -175,9 +177,8 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   ]
 
   if links:
-    return place_api.translate('%(placeType)s in %(parentPlaces)s',
-                               placeType=place_type_display_name,
-                               parentPlaces=', '.join(links))
+    return get_place_type_in_parent_places_str(place_type_display_name,
+                                               ', '.join(links))
   return ''
 
 
@@ -762,7 +763,7 @@ def translate_chart_config(
     parent_place_name: str | None) -> List[ServerChartConfiguration]:
   """
   Translates the 'titleId' field in each chart configuration item into a readable 'title'
-  using the place_api.translate function.
+  using the gettext function.
 
   Args:
       chart_config (List[Dict]): A list of dictionaries where each dictionary contains 
@@ -797,17 +798,16 @@ def translate_chart_config(
         title_sections.append(place_name)
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         title_sections.append(
-            place_api.translate(OTHER_PLACES_IN_PARENT_PLACE_STR,
-                                placeType=translated_place_type,
-                                parentPlace=parent_place_name))
+            get_other_places_in_parent_place_str(translated_child_place_type,
+                                                 parent_place_name))
+
       elif translated_block.place_scope == "CHILD_PLACES":
         title_sections.append(
-            place_api.translate(PLACE_TYPE_IN_PARENT_PLACES_STR,
-                                placeType=translated_child_place_type,
-                                parentPlaces=place_name))
+            get_place_type_in_parent_places_str(translated_child_place_type,
+                                                place_name))
 
       if translated_item.title_id:
-        title_sections.append(place_api.translate(translated_item.title_id))
+        title_sections.append(gettext(translated_item.title_id))
       translated_block.title = ': '.join(title_sections)
 
     translated_chart_config.append(translated_item)
@@ -856,10 +856,10 @@ def get_categories_metadata(
     has_more_charts = block_count_category_charts.get(
         category, 0) < block_count_all_charts.get(category, 0)
 
-    category = Category(name=category,
-                        translatedName=place_api.translate(
-                            f'CHART_TITLE-CHART_CATEGORY-{category}'),
-                        hasMoreCharts=has_more_charts)
+    category = Category(
+        name=category,
+        translatedName=gettext(f'CHART_TITLE-CHART_CATEGORY-{category}'),
+        hasMoreCharts=has_more_charts)
     categories.append(category)
   return categories
 
@@ -1030,16 +1030,20 @@ def fetch_overview_table_data(place_dcid: str,
   Fetches overview table data for the specified place.
   """
   data_rows = []
-  variables = [v["variable_dcid"] for v in PLACE_OVERVIEW_TABLE_VARIABLES]
+  place_overview_table_variable_translations = get_place_overview_table_variable_to_locale_message(
+  )
+  variables = [
+      v["variable_dcid"] for v in place_overview_table_variable_translations
+  ]
 
   # Fetch the most recent observation for each variable
   resp = dc.obs_point([place_dcid], variables)
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
-  for item in PLACE_OVERVIEW_TABLE_VARIABLES:
+  for item in place_overview_table_variable_translations:
     variable_dcid = item["variable_dcid"]
-    name = place_api.translate(item["i18n_message_id"])
+    name = item["translated_name"]
     ordered_facet_observations = resp.get("byVariable", {}).get(
         variable_dcid, {}).get("byEntity", {}).get(place_dcid,
                                                    {}).get("orderedFacets", [])
