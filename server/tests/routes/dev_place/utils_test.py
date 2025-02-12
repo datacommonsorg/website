@@ -214,7 +214,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_place_url = self.patch(utils, "get_place_url")
     self.mock_place_url.side_effect = mock_url_for_side_effect
 
-
     self.mock_translate = self.patch(place_api, "gettext")
     self.mock_v2node = self.patch(dc, "v2node")
 
