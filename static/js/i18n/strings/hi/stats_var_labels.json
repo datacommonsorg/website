@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Air Toxics Cancer Risk"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI"
+  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "अल्कोहल की खपत"
   },
@@ -53,6 +59,24 @@
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP का %)"
   },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Electricity Price"
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "Carbon Dioxide (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Greenhouse Gas (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Methane (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "Nitrous Oxide (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Annual Electricity Generation"
+  },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "आगज़नी"
   },
@@ -65,8 +89,11 @@
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "हिंसक अपराधों की संख्या"
   },
-  "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Hate Crimes"
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "Hate Crimes (Motivated by Disability)"
+  },
+  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
+    "defaultMessage": "Hate Crimes (Motivated by Ethnicity)"
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
     "defaultMessage": "Hate Crimes (Motivated by Gender)"
@@ -77,14 +104,11 @@
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
     "defaultMessage": "Hate Crimes (Motivated by Religion)"
   },
-  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Hate Crimes (Motivated by Ethnicity)"
-  },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
     "defaultMessage": "Hate Crimes (Motivated by Sexual Orientation)"
   },
-  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Hate Crimes (Motivated by Disability)"
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "Hate Crimes"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "चक्रवात"
@@ -614,6 +638,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "COVID-19 की वजह से हुई मौतें"
   },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 2.6"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 4.5"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 6.0"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
+    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 8.5"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "प्रजनन दर"
   },
@@ -628,6 +664,15 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "औसत उम्र"
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Diesel PM"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Ozone"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "PM2.5"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "कामकाजी व्यक्ति को हर दिन मिलने वाला वेतन"
@@ -716,6 +761,9 @@
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "पुरुष"
   },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "PDSI"
+  },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "महिला"
   },
@@ -791,6 +839,9 @@
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "शहरी"
   },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Water Withdrawal Rate"
+  },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "बौद्ध"
   },
@@ -814,56 +865,5 @@
   },
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "सिख"
-  },
-  "AirQualityIndex_AirPollutant": {
-    "defaultMessage": "AQI"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 2.6"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 4.5"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 6.0"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 8.5"
-  },
-  "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "PM2.5"
-  },
-  "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Ozone"
-  },
-  "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Diesel PM"
-  },
-  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Greenhouse Gas (Large Facilities, Non-biogenic)"
-  },
-  "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
-  },
-  "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "PDSI"
-  },
-  "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
-  },
-  "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
-  },
-  "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Electricity Price"
   }
 }

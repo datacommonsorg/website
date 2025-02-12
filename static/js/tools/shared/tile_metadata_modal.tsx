@@ -22,6 +22,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
+import { intl } from "../../i18n/i18n";
+import { tileMessages } from "../../i18n/i18n_tile_messages";
 import { StatVarSpec } from "../../shared/types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { apiRootToHostname } from "../../utils/url_utils";
@@ -105,7 +107,7 @@ export function TileMetadataModal(
           setModalOpen(true);
         }}
       >
-        show metadata
+        {intl.formatMessage(tileMessages.showMetadata)}
       </a>
       {modalOpen && (
         <Modal
@@ -116,11 +118,10 @@ export function TileMetadataModal(
           className="metadata-modal modal-dialog-centered modal-lg"
         >
           <ModalHeader toggle={toggleModal} close={<></>}>
-            Choose a variable to view its metadata
+            {intl.formatMessage(tileMessages.chooseVariable)}
           </ModalHeader>
           <div className="modal-subtitle">
-            Select a variable from the list to see its details. The links below
-            open the Statistical Variable Explorer in a new tab.
+            {intl.formatMessage(tileMessages.selectVariable)}
           </div>
           <ModalBody>
             <div className="metadata-modal-links">
@@ -151,7 +152,7 @@ export function TileMetadataModal(
                 setModalOpen(false);
               }}
             >
-              Close
+              {intl.formatMessage(tileMessages.close)}
             </Button>
           </ModalFooter>
         </Modal>
