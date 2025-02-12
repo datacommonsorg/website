@@ -1073,7 +1073,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     resp = utils.fetch_overview_table_data(CALIFORNIA.dcid)
     self.maxDiff = None
     self.assertEqual(len(resp), 1)
-    self.assertEqual(resp[0].name, 'VARIABLE_NAME-Count_Person')
+    self.assertEqual(resp[0].name, 'Population')
     self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_0')
     self.assertEqual(resp[0].value, 123)
     self.assertEqual(resp[0].variableDcid, 'Count_Person')
