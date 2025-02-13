@@ -1774,18 +1774,24 @@ class TestFetchHighestCoverage(unittest.TestCase):
     # response
     self.assertEqual(result, expected_output)
 
+
 class TestFeatureFlagsTest(unittest.TestCase):
-    def test_load_feature_flag_files(self):
-        directory = "server/config/feature_flag_configs/"
-        filenames = os.listdir(directory)
 
-        for filename in filenames:
-            filepath = directory + filename
-            with open(filepath, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            
-            features = [item.get("name") for item in data if isinstance(item, dict) and "name" in item]
-            duplicate_features = [f for f in features if features.count(f) > 1]
+  def test_load_feature_flag_files(self):
+    directory = "server/config/feature_flag_configs/"
+    filenames = os.listdir(directory)
 
-            self.assertEqual(len(duplicate_features), 0)
-            self.assertEqual(len(features), 4)
+    for filename in filenames:
+      filepath = directory + filename
+      with open(filepath, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+      features = [
+          item.get("name")
+          for item in data
+          if isinstance(item, dict) and "name" in item
+      ]
+      duplicate_features = [f for f in features if features.count(f) > 1]
+
+      self.assertEqual(len(duplicate_features), 0)
+      self.assertEqual(len(features), 4)
