@@ -4,7 +4,7 @@
     "slug": "agriculture",
     "dataSourceGroups": [
       {
-        "label": "US Department of Agriculture (USDA)",
+        "label": "U.S. Department of Agriculture (USDA)",
         "url": "https://www.usda.gov/",
         "description": null,
         "dataSources": [
@@ -155,7 +155,7 @@
         ]
       },
       {
-        "label": "US National Institutes of Health: National Center for Biotechnology Information (NIH: NCBI)",
+        "label": "U.S. National Institutes of Health: National Center for Biotechnology Information (NIH: NCBI)",
         "url": "https://www.ncbi.nlm.nih.gov/",
         "description": null,
         "dataSources": [
@@ -177,7 +177,7 @@
         ]
       },
       {
-        "label": "US National Institutes of Health: National Library of Medicine",
+        "label": "U.S. National Institutes of Health: National Library of Medicine",
         "url": "https://www.nlm.nih.gov/",
         "description": null,
         "dataSources": [
@@ -212,7 +212,7 @@
     "slug": "crime",
     "dataSourceGroups": [
       {
-        "label": "US Bureau of Justice Statistics (BJS)",
+        "label": "U.S. Bureau of Justice Statistics (BJS)",
         "url": "https://bjs.ojp.gov/",
         "description": null,
         "dataSources": [
@@ -224,7 +224,7 @@
         ]
       },
       {
-        "label": "US Federal Bureau of Investigation (FBI)",
+        "label": "U.S. Federal Bureau of Investigation (FBI)",
         "url": "https://www.fbi.gov/",
         "description": null,
         "dataSources": [
@@ -236,7 +236,7 @@
           {
             "label": "Uniform Crime Reporting (UCR) Program",
             "url": "https://www.fbi.gov/services/cjis/ucr",
-            "description": "Volume of violent crime by type as reported by U.S. city and town law enforcement agencies.\n\n[US Department of Justice legal policies and disclaimers](https://www.justice.gov/legalpolicies)"
+            "description": "Volume of violent crime by type as reported by U.S. city and town law enforcement agencies.\n\n[U.S. Department of Justice legal policies and disclaimers](https://www.justice.gov/legalpolicies)"
           }
         ]
       }
@@ -601,75 +601,7 @@
         ]
       },
       {
-        "label": "UK Ministry of Housing Communities and Local Government",
-        "url": "https://www.gov.uk/government/organisations/ministry-of-housing-communities-and-local-government",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "IMD2019",
-            "url": "https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019/",
-            "description": "Statistics on relative deprivation in small areas in England."
-          }
-        ]
-      },
-      {
-        "label": "UK Office for National Statistics",
-        "url": "https://www.ons.gov.uk/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "UK Open Geography Portal",
-            "url": "https://geoportal.statistics.gov.uk/",
-            "description": "Index of geographic classifications in the U.K., including names, codes, maps, and boundaries."
-          }
-        ]
-      },
-      {
-        "label": "US Bureau of Transportation Statistics",
-        "url": "https://www.bts.dot.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "US Tract Transportation Characteristics for Households",
-            "url": "https://www.bts.dot.gov/latch/latch-data",
-            "description": "Transportation characteristics of U.S.households at the census tract level, including household and demographic information, employment status, vehicle ownership, trips taken, modal choice, and other related transportation data."
-          }
-        ]
-      },
-      {
-        "label": "US Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "American Community Survey (ACS)",
-            "url": "https://www.census.gov/programs-surveys/acs",
-            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
-          },
-          {
-            "label": "Cartographic Boundary Files",
-            "url": "https://www.census.gov/programs-surveys/geography/geographies/mapping-files.html",
-            "description": "KML files for U.S. counties, states, congressional districts, etc."
-          },
-          {
-            "label": "Gazetteer Files",
-            "url": "https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html",
-            "description": "Basic geographic information about U.S. counties, county subdivisions, congressional districts, states, etc."
-          },
-          {
-            "label": "Population Estimates Program (PEP)",
-            "url": "https://www.census.gov/programs-surveys/popest/about.html",
-            "description": "Produces yearly estimates of the population for the United States, its states, counties, cities, and towns, as well as for the Commonwealth of Puerto Rico and its municipios. Data Commons imports the total population estimate data for the U.S. at the state, county, and city levels."
-          },
-          {
-            "label": "US Decennial Census - Redistricting data",
-            "url": "https://www.census.gov",
-            "description": "Basic population, race demographics and housing statistics from U.S. redistricting data, mapped down to block-group level.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
-        "label": "US Center for Disease Control and Prevention (CDC)",
+        "label": "U.S. Centers for Disease Control and Prevention (CDC)",
         "url": "https://www.cdc.gov/",
         "description": null,
         "dataSources": [
@@ -706,7 +638,7 @@
         ]
       },
       {
-        "label": "US Commerce Data Hub",
+        "label": "U.S. Commerce Data Hub",
         "url": "https://data.commerce.gov/",
         "description": null,
         "dataSources": [
@@ -723,7 +655,7 @@
         ]
       },
       {
-        "label": "US Department of Housing and Urban Development (HUD)",
+        "label": "U.S. Department of Housing and Urban Development (HUD)",
         "url": "https://www.hud.gov/",
         "description": null,
         "dataSources": [
@@ -735,19 +667,7 @@
         ]
       },
       {
-        "label": "US Federal Election Commission (FEC)",
-        "url": "https://www.fec.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "Candidates & Committees",
-            "url": "https://www.fec.gov/data/browse-data/?tab=bulk-data",
-            "description": "Data about U.S. election candidates, campaigns, contributors, expenditures and contributions.\n\n[Terms of use](https://www.fec.gov/updates/sale-or-use-contributor-information/)."
-          }
-        ]
-      },
-      {
-        "label": "US National Center for Education Statistics (NCES)",
+        "label": "U.S. National Center for Education Statistics (NCES)",
         "url": "https://nces.ed.gov/",
         "description": "Collects, collates, analyzes, and reports complete statistics on the condition of education in the United States and other nations.",
         "dataSources": [
@@ -779,7 +699,7 @@
         ]
       },
       {
-        "label": "US National Highway Traffic Safety Administration (NHTSA)",
+        "label": "U.S. National Highway Traffic Safety Administration (NHTSA)",
         "url": "https://www.nhtsa.gov/",
         "description": "Responsible for keeping people safe on America's roadways.",
         "dataSources": [
@@ -787,6 +707,30 @@
             "label": "Fatality Analysis Reporting System (FARS) Crash Data",
             "url": "https://www.nhtsa.gov/crash-data-systems/fatality-analysis-reporting-system",
             "description": "Data on fatal motor vehicle crashes in the U.S.."
+          }
+        ]
+      },
+      {
+        "label": "UK Ministry of Housing Communities and Local Government",
+        "url": "https://www.gov.uk/government/organisations/ministry-of-housing-communities-and-local-government",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "IMD2019",
+            "url": "https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019/",
+            "description": "Statistics on relative deprivation in small areas in England."
+          }
+        ]
+      },
+      {
+        "label": "UK Office for National Statistics",
+        "url": "https://www.ons.gov.uk/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "UK Open Geography Portal",
+            "url": "https://geoportal.statistics.gov.uk/",
+            "description": "Index of geographic classifications in the U.K., including names, codes, maps, and boundaries."
           }
         ]
       },
@@ -833,6 +777,62 @@
             "label": "Sri Lanka Census",
             "url": "https://data.humdata.org/group/lka",
             "description": "Sri Lanka demographics, education and agriculture statistics at the country, province and district levels."
+          }
+        ]
+      },
+      {
+        "label": "United States Bureau of Transportation Statistics",
+        "url": "https://www.bts.dot.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "US Tract Transportation Characteristics for Households",
+            "url": "https://www.bts.dot.gov/latch/latch-data",
+            "description": "Transportation characteristics of U.S.households at the census tract level, including household and demographic information, employment status, vehicle ownership, trips taken, modal choice, and other related transportation data."
+          }
+        ]
+      },
+      {
+        "label": "United States Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey (ACS)",
+            "url": "https://www.census.gov/programs-surveys/acs",
+            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
+          },
+          {
+            "label": "Cartographic Boundary Files",
+            "url": "https://www.census.gov/programs-surveys/geography/geographies/mapping-files.html",
+            "description": "KML files for U.S. counties, states, congressional districts, etc."
+          },
+          {
+            "label": "Gazetteer Files",
+            "url": "https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html",
+            "description": "Basic geographic information about U.S. counties, county subdivisions, congressional districts, states, etc."
+          },
+          {
+            "label": "Population Estimates Program (PEP)",
+            "url": "https://www.census.gov/programs-surveys/popest/about.html",
+            "description": "Produces yearly estimates of the population for the United States, its states, counties, cities, and towns, as well as for the Commonwealth of Puerto Rico and its municipios. Data Commons imports the total population estimate data for the U.S. at the state, county, and city levels."
+          },
+          {
+            "label": "US Decennial Census - Redistricting data",
+            "url": "https://www.census.gov",
+            "description": "Basic population, race demographics and housing statistics from U.S. redistricting data, mapped down to block-group level.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+          }
+        ]
+      },
+      {
+        "label": "United States Federal Election Commission (FEC)",
+        "url": "https://www.fec.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Candidates & Committees",
+            "url": "https://www.fec.gov/data/browse-data/?tab=bulk-data",
+            "description": "Data about U.S. election candidates, campaigns, contributors, expenditures and contributions.\n\n[Terms of use](https://www.fec.gov/updates/sale-or-use-contributor-information/)."
           }
         ]
       },
@@ -1074,7 +1074,7 @@
         ]
       },
       {
-        "label": "US Bureau of Economic Analysis (BEA)",
+        "label": "U.S. Bureau of Economic Analysis (BEA)",
         "url": "https://www.bea.gov/",
         "description": null,
         "dataSources": [
@@ -1096,7 +1096,7 @@
         ]
       },
       {
-        "label": "US Bureau of Labor Statistics (BLS)",
+        "label": "U.S. Bureau of Labor Statistics (BLS)",
         "url": "https://www.bls.gov/",
         "description": null,
         "dataSources": [
@@ -1128,7 +1128,65 @@
         ]
       },
       {
-        "label": "US Census Bureau",
+        "label": "U.S. Commerce Data Hub",
+        "url": "https://data.commerce.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Economic Development Administration (EDA)",
+            "url": "https://www.eda.gov/performance/tools",
+            "description": "Statistics on economic development in the United States, reporting on investments, jobs, and poverty."
+          }
+        ]
+      },
+      {
+        "label": "U.S. Department of Housing and Urban Development (HUD)",
+        "url": "https://www.hud.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Income Limits",
+            "url": "https://www.huduser.gov/portal/datasets/il.html",
+            "description": "Data Commons has imported 80th and 150th percentile median family income estimates for different household sizes for U.S. counties and county subdivisions."
+          }
+        ]
+      },
+      {
+        "label": "U.S. Department of Labor (DOL)",
+        "url": "https://www.dol.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "USA Minimum Wages",
+            "url": "https://www.dol.gov/agencies/whd/state/minimum-wage/history",
+            "description": "U.S. minimum wages at the state level."
+          },
+          {
+            "label": "Weekly Claims and Extended Benefits Trigger Data",
+            "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
+            "description": "Weekly new and continuing unemployment insurance claims for U.S. states.\n\n[Terms of use](https://www.dol.gov/general/foia)."
+          }
+        ]
+      },
+      {
+        "label": "U.S. Federal Reserve",
+        "url": "https://www.federalreserve.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Treasury Nominal and Inflation-Indexed Constant Maturity Series",
+            "url": "https://www.federalreserve.gov/releases/h15/default.htm",
+            "description": "Data Commons includes all published statistics for 1-Month, 3-Month, 6-Month, 1-Year, 2-Year, 3-Year, 5-Year, 7-Year, 10-Year, 20-Year, and 30-Year constant maturities."
+          },
+          {
+            "label": "US Federal Reserve H.15 Interest Rates",
+            "url": "https://www.federalreserve.gov/DataDownload/Choose.aspx?rel=H15",
+            "description": "U.S. Federal Reserve H.15 interest rates\n\nThis data is in the public domain."
+          }
+        ]
+      },
+      {
+        "label": "United States Census Bureau",
         "url": "https://www.census.gov/",
         "description": null,
         "dataSources": [
@@ -1146,64 +1204,6 @@
             "label": "Economic Census",
             "url": "https://www.census.gov/programs-surveys/economic-census/about.html",
             "description": "Number of U.S. businesses and amount of revenue, by business payroll status, industry, operation type, and tax status.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
-        "label": "US Commerce Data Hub",
-        "url": "https://data.commerce.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "Economic Development Administration (EDA)",
-            "url": "https://www.eda.gov/performance/tools",
-            "description": "Statistics on economic development in the United States, reporting on investments, jobs, and poverty."
-          }
-        ]
-      },
-      {
-        "label": "US Department of Housing and Urban Development (HUD)",
-        "url": "https://www.hud.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "Income Limits",
-            "url": "https://www.huduser.gov/portal/datasets/il.html",
-            "description": "Data Commons has imported 80th and 150th percentile median family income estimates for different household sizes for U.S. counties and county subdivisions."
-          }
-        ]
-      },
-      {
-        "label": "US Department of Labor (DOL)",
-        "url": "https://www.dol.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "USA Minimum Wages",
-            "url": "https://www.dol.gov/agencies/whd/state/minimum-wage/history",
-            "description": "U.S. minimum wages at the state level."
-          },
-          {
-            "label": "Weekly Claims and Extended Benefits Trigger Data",
-            "url": "https://oui.doleta.gov/unemploy/DataDownloads.asp",
-            "description": "Weekly new and continuing unemployment insurance claims for U.S. states.\n\n[Terms of use](https://www.dol.gov/general/foia)."
-          }
-        ]
-      },
-      {
-        "label": "US Federal Reserve",
-        "url": "https://www.federalreserve.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "Treasury Nominal and Inflation-Indexed Constant Maturity Series",
-            "url": "https://www.federalreserve.gov/releases/h15/default.htm",
-            "description": "Data Commons includes all published statistics for 1-Month, 3-Month, 6-Month, 1-Year, 2-Year, 3-Year, 5-Year, 7-Year, 10-Year, 20-Year, and 30-Year constant maturities."
-          },
-          {
-            "label": "US Federal Reserve H.15 Interest Rates",
-            "url": "https://www.federalreserve.gov/DataDownload/Choose.aspx?rel=H15",
-            "description": "U.S. Federal Reserve H.15 interest rates\n\nThis data is in the public domain."
           }
         ]
       },
@@ -1378,19 +1378,7 @@
         ]
       },
       {
-        "label": "US Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "American Community Survey Education Tabulation (ACS-ED)",
-            "url": "https://nces.ed.gov/programs/edge/demographic/acs",
-            "description": "The National Center for Education Statistics collaborates with the U.S. Census Bureau to create a variety of custom data files that describe the condition of school-age children in the United States at the country, state, and school district levels. ACS-ED is updated annually based on ACS five-year period estimates.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
-        "label": "US Department of Education (ED)",
+        "label": "U.S. Department of Education (ED)",
         "url": "https://www.ed.gov/",
         "description": null,
         "dataSources": [
@@ -1402,7 +1390,7 @@
         ]
       },
       {
-        "label": "US National Center for Education Statistics (NCES)",
+        "label": "U.S. National Center for Education Statistics (NCES)",
         "url": "https://nces.ed.gov/",
         "description": "Collects, collates, analyzes, and reports complete statistics on the condition of education in the United States and other nations.",
         "dataSources": [
@@ -1439,7 +1427,7 @@
         ]
       },
       {
-        "label": "US National Science Foundation",
+        "label": "U.S. National Science Foundation",
         "url": "https://www.nsf.gov/",
         "description": null,
         "dataSources": [
@@ -1463,6 +1451,18 @@
         ]
       },
       {
+        "label": "United States Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey Education Tabulation (ACS-ED)",
+            "url": "https://nces.ed.gov/programs/edge/demographic/acs",
+            "description": "The National Center for Education Statistics collaborates with the U.S. Census Bureau to create a variety of custom data files that describe the condition of school-age children in the United States at the country, state, and school district levels. ACS-ED is updated annually based on ACS five-year period estimates.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+          }
+        ]
+      },
+      {
         "label": "World Bank",
         "url": "https://www.worldbank.org/en/home",
         "description": null,
@@ -1481,7 +1481,7 @@
     "slug": "energy",
     "dataSourceGroups": [
       {
-        "label": "US Energy Information Administration (EIA)",
+        "label": "U.S. Energy Information Administration (EIA)",
         "url": "https://www.eia.gov/",
         "description": null,
         "dataSources": [
@@ -1503,14 +1503,14 @@
         ]
       },
       {
-        "label": "US National Renewable Energy Laboratory (NREL)",
+        "label": "U.S. National Renewable Energy Laboratory (NREL)",
         "url": "https://www.nrel.gov/",
         "description": null,
         "dataSources": [
           {
             "label": "RE Atlas",
             "url": "https://maps.nrel.gov/re-atlas",
-            "description": "Data Commons has imported the potential for solar energy generation in different counties in the US.\n\n[Disclaimer](https://maps.nrel.gov/re-atlas/)."
+            "description": "Data Commons has imported the potential for solar energy generation in different counties in the U.S.\n\n[Disclaimer](https://maps.nrel.gov/re-atlas/)."
           }
         ]
       },
@@ -1695,19 +1695,7 @@
         ]
       },
       {
-        "label": "US Bureau of Transportation Statistics",
-        "url": "https://www.bts.dot.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "US Tract Transportation Characteristics for Households",
-            "url": "https://www.bts.dot.gov/latch/latch-data",
-            "description": "Transportation characteristics of U.S.households at the census tract level, including household and demographic information, employment status, vehicle ownership, trips taken, modal choice, and other related transportation data."
-          }
-        ]
-      },
-      {
-        "label": "US Center for Disease Control and Prevention (CDC)",
+        "label": "U.S. Centers for Disease Control and Prevention (CDC)",
         "url": "https://www.cdc.gov/",
         "description": null,
         "dataSources": [
@@ -1724,39 +1712,7 @@
         ]
       },
       {
-        "label": "US Environmental Protection Agency (EPA)",
-        "url": "https://www.epa.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "Air Data",
-            "url": "https://www.epa.gov/outdoor-air-quality-data",
-            "description": "Air quality data collected from outdoor monitors on the county, Core Based Statistical Areas (CBSAs), and site monitor levels."
-          },
-          {
-            "label": "EJSCREEN",
-            "url": "https://www.epa.gov/ejscreen",
-            "description": "Environmental justice mapping tool based on environmental and demographic indicators."
-          },
-          {
-            "label": "Greenhouse Gas Reporting Program",
-            "url": "https://www.epa.gov/enviro/greenhouse-gas-overview",
-            "description": "Annual reporting of greenhouse gases from large emission sources."
-          },
-          {
-            "label": "National Emissions Inventory",
-            "url": "https://www.epa.gov/air-emissions-inventories/national-emissions-inventory-nei",
-            "description": "Provides estimates of air emissions of criteria pollutants, hazardous pollutants and greenhouse gases at the U.S. county level. Estimates are based on 188 on-road air emission sources (mobile sources such as highway and border crossing vehicles electricity measurement), 248 non-road air emissions sources (mobile sources such as off-highway vehicle gasoline measurement), 703 non-point air emissions sources (such as industrial processes, oil and gas exploration and production) and 5818 point air emissions sources (such as chemical and organic solvent evaporation measurement)."
-          },
-          {
-            "label": "Superfund Sites",
-            "url": "https://www.epa.gov/superfund",
-            "description": "Site contamination data, hazard scores and more.\n\n[Disclaimers and terms of use](https://www.epa.gov/web-policies-and-procedures/epa-disclaimers)"
-          }
-        ]
-      },
-      {
-        "label": "US National Aeronautics and Space Administration (NASA)",
+        "label": "U.S. National Aeronautics and Space Administration (NASA)",
         "url": "https://www.nasa.gov/",
         "description": null,
         "dataSources": [
@@ -1788,7 +1744,7 @@
         ]
       },
       {
-        "label": "US National Oceanic and Atmospheric Administration (NOAA)",
+        "label": "U.S. National Oceanic and Atmospheric Administration (NOAA)",
         "url": "https://www.noaa.gov/",
         "description": null,
         "dataSources": [
@@ -1825,7 +1781,7 @@
         ]
       },
       {
-        "label": "US National Wildfire Coordinating Group",
+        "label": "U.S. National Wildfire Coordinating Group",
         "url": "https://www.nwcg.gov/",
         "description": null,
         "dataSources": [
@@ -1833,6 +1789,50 @@
             "label": "National Interagency Fire Center Interagency Situation Report - 209 (SIT-209)",
             "url": "https://famit.nwcg.gov/",
             "description": "Information related to U.S. wildland fire management incidents and resources.\n\n[Terms of use](https://www.fs.usda.gov/about-agency/disclaimers-important-notices)"
+          }
+        ]
+      },
+      {
+        "label": "United States Bureau of Transportation Statistics",
+        "url": "https://www.bts.dot.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "US Tract Transportation Characteristics for Households",
+            "url": "https://www.bts.dot.gov/latch/latch-data",
+            "description": "Transportation characteristics of U.S.households at the census tract level, including household and demographic information, employment status, vehicle ownership, trips taken, modal choice, and other related transportation data."
+          }
+        ]
+      },
+      {
+        "label": "United States Environmental Protection Agency (EPA)",
+        "url": "https://www.epa.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Air Data",
+            "url": "https://www.epa.gov/outdoor-air-quality-data",
+            "description": "Air quality data collected from outdoor monitors on the county, Core Based Statistical Areas (CBSAs), and site monitor levels."
+          },
+          {
+            "label": "EJSCREEN",
+            "url": "https://www.epa.gov/ejscreen",
+            "description": "Environmental justice mapping tool based on environmental and demographic indicators."
+          },
+          {
+            "label": "Greenhouse Gas Reporting Program",
+            "url": "https://www.epa.gov/enviro/greenhouse-gas-overview",
+            "description": "Annual reporting of greenhouse gases from large emission sources."
+          },
+          {
+            "label": "National Emissions Inventory",
+            "url": "https://www.epa.gov/air-emissions-inventories/national-emissions-inventory-nei",
+            "description": "Provides estimates of air emissions of criteria pollutants, hazardous pollutants and greenhouse gases at the U.S. county level. Estimates are based on 188 on-road air emission sources (mobile sources such as highway and border crossing vehicles electricity measurement), 248 non-road air emissions sources (mobile sources such as off-highway vehicle gasoline measurement), 703 non-point air emissions sources (such as industrial processes, oil and gas exploration and production) and 5818 point air emissions sources (such as chemical and organic solvent evaporation measurement)."
+          },
+          {
+            "label": "Superfund Sites",
+            "url": "https://www.epa.gov/superfund",
+            "description": "Site contamination data, hazard scores and more.\n\n[Disclaimers and terms of use](https://www.epa.gov/web-policies-and-procedures/epa-disclaimers)"
           }
         ]
       },
@@ -2158,31 +2158,7 @@
         ]
       },
       {
-        "label": "UK Ministry of Housing Communities and Local Government",
-        "url": "https://www.gov.uk/government/organisations/ministry-of-housing-communities-and-local-government",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "IMD2019",
-            "url": "https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019/",
-            "description": "Statistics on relative deprivation in small areas in England."
-          }
-        ]
-      },
-      {
-        "label": "US Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "Small Area Health Insurance Estimates (SAHIE)",
-            "url": "https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html",
-            "description": "Provides yearly estimates of health insurance coverage status for all U.S. counties and states. Data Commons includes all estimates, available by age, race, sex, and income.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
-        "label": "US Center for Disease Control and Prevention (CDC)",
+        "label": "U.S. Centers for Disease Control and Prevention (CDC)",
         "url": "https://www.cdc.gov/",
         "description": null,
         "dataSources": [
@@ -2244,7 +2220,31 @@
         ]
       },
       {
-        "label": "US Drug Enforcement Agency (DEA)",
+        "label": "UK Ministry of Housing Communities and Local Government",
+        "url": "https://www.gov.uk/government/organisations/ministry-of-housing-communities-and-local-government",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "IMD2019",
+            "url": "https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019/",
+            "description": "Statistics on relative deprivation in small areas in England."
+          }
+        ]
+      },
+      {
+        "label": "United States Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Small Area Health Insurance Estimates (SAHIE)",
+            "url": "https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html",
+            "description": "Provides yearly estimates of health insurance coverage status for all U.S. counties and states. Data Commons includes all estimates, available by age, race, sex, and income.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+          }
+        ]
+      },
+      {
+        "label": "United States Drug Enforcement Agency (DEA)",
         "url": "https://www.dea.gov/",
         "description": null,
         "dataSources": [
@@ -2286,7 +2286,7 @@
     "slug": "housing",
     "dataSourceGroups": [
       {
-        "label": "US Census Bureau",
+        "label": "United States Census Bureau",
         "url": "https://www.census.gov/",
         "description": null,
         "dataSources": [
