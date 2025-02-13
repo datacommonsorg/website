@@ -35,10 +35,6 @@ import {
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
-import {
-  isFeatureEnabled,
-  SCROLL_TO_TOP_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import {
@@ -195,9 +191,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                     svgChartHeight={SVG_CHART_HEIGHT}
                     showExploreMore={true}
                   />
-                  {isFeatureEnabled(SCROLL_TO_TOP_FEATURE_FLAG) && (
-                    <ScrollToTopButton />
-                  )}
+                  <ScrollToTopButton />
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
