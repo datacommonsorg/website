@@ -372,7 +372,8 @@ export const DevPlaceMain = (): React.JSX.Element => {
         relatedPlacesApiResponse.peersWithinParent,
         relatedPlacesApiResponse.place,
         isOverview,
-        forceDevPlaces
+        forceDevPlaces,
+        theme
       );
       setPageConfig(config);
     })();

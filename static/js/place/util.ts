@@ -19,6 +19,7 @@ import {
   Place,
   PlaceChartsApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
+import { Theme } from "@emotion/react";
 import _ from "lodash";
 
 import { intl, localizeLink } from "../i18n/i18n";
@@ -36,7 +37,6 @@ import {
   TileConfig,
 } from "../types/subject_page_proto_types";
 
-const MAX_WIDTH_MOBILE = 768;
 const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
 const DEFAULT_BAR_CHART_ITEMS = 15;
 
@@ -199,8 +199,8 @@ export function createPlacePageCategoryHref(
   return params.size > 0 ? `${href}?${params.toString()}` : href;
 }
 
-function isMobileByWidth(): boolean {
-  return window.innerWidth <= MAX_WIDTH_MOBILE;
+function isMobileByWidth(theme: Theme): boolean {
+  return window.innerWidth <= theme.breakpoints.sm;
 }
 
 /**
@@ -218,7 +218,8 @@ export function placeChartsApiResponsesToPageConfig(
   peersWithinParent: string[],
   place: Place,
   isOverview: boolean,
-  forceDevPlaces: boolean
+  forceDevPlaces: boolean,
+  theme: Theme
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
@@ -237,7 +238,7 @@ export function placeChartsApiResponsesToPageConfig(
       const blocks = blocksByCategory[categoryName];
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
-      const defaultBarChartItems = isMobileByWidth()
+      const defaultBarChartItems = isMobileByWidth(theme)
         ? DEFAULT_BAR_CHART_ITEMS_MOBILE
         : DEFAULT_BAR_CHART_ITEMS;
 

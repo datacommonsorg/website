@@ -62,7 +62,6 @@ const DC_BLUE = "hsl(217, 90%, 43%)";
 const DC_BLUE_PILL_TEXT = "hsl(217, 90%, 15%)";
 const DC_BLUE_PILL_BCKG = "hsl(218, 92%, 95%)";
 const DC_BLUE_PILL_BCKG_HOVER = "hsl(204, 90%, 80%)";
-const DC_BLUE_BCKG_LIGHT = "hsl(217, 91%, 91%)";
 
 const DC_BLUE_DARK = "hsl(217.4, 89.6%, 15.1%)";
 const DC_BLUE_LIGHT = "hsl(218, 57.1%, 62.5%)";

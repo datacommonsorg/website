@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { useTheme } from "@emotion/react";
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
+import { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import React, { useState } from "react";
 
 /**
  * Chip component to display a selected item with the ability to remove the item
@@ -44,59 +44,53 @@ export const IconPlaceholder = (props: {
   );
 };
 
+const InfoTooltip = styled.div<{ theme?: Theme }>`
+  ${(p) => p.theme?.typography?.text?.sm}
+  position: absolute;
+  min-width: 312px;
+  top: ${(p) => p.theme.spacing.lg}px;
+  left: 0;
+  background-color: ${(p) => p.theme.colors.background.secondary.light};
+  border: 1px solid ${(p) => p.theme.colors.border.primary.light};
+  border-radius: ${(p) => p.theme.radius.secondary.borderRadius};
+  padding: ${(p) => p.theme.spacing?.md}px ${(p) => p.theme.spacing.lg}px;
+  z-index: 1;
+  box-shadow: ${(p) => p.theme.elevation.secondary.boxShadow};
+`;
+
+const InfoTooltipContainerStyled = styled.div<{ theme?: Theme }>`
+  position: relative;
+  display: inline-block;
+  margin: ${(p) => p.theme.spacing.xs}px;
+`;
+
 export const InfoTooltipComponent = (props: {
-  iconPath: string;
+  icon: React.JSX.Element;
   description: string;
+  theme: Theme;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const theme = useTheme();
-
-  const InfoTooltip = styled.div`
-    ${theme.typography.text.sm}
-    position: absolute;
-    min-width: 312px;
-    top: ${theme.spacing.lg}px;
-    left: 0;
-    background-color: ${theme.colors.background.secondary.light};
-    border: 1px solid ${theme.colors.border.primary.light};
-    border-radius: ${theme.radius.secondary.borderRadius};
-    padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
-    z-index: 1;
-    box-shadow: ${theme.elevation.secondary.boxShadow};
-  `;
-
-  const InfoTooltipContainerStyled = styled.div`
-    position: relative;
-    display: inline-block;
-    margin: ${theme.spacing.xs}px;
-  `;
-
-  const handleButtonClick = (): void => {
-    setIsVisible(!isVisible);
+  console.log(props.theme?.colors?.background?.secondary?.light);
+  const handleMouseEnter = (): void => {
+    setIsVisible(true);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isVisible &&
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setIsVisible(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isVisible]);
+  const handleMouseLeave = (): void => {
+    setIsVisible(false);
+  };
 
   return (
-    <InfoTooltipContainerStyled ref={containerRef}>
-      <img onClick={handleButtonClick} src={props.iconPath} />
-      {isVisible && <InfoTooltip>{props.description}</InfoTooltip>}
+    <InfoTooltipContainerStyled
+      theme={props.theme}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {props.icon}
+      {isVisible && (
+        <InfoTooltip theme={props.theme} className="info-tooltip-hover">
+          {props.description}
+        </InfoTooltip>
+      )}
     </InfoTooltipContainerStyled>
   );
 };

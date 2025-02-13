@@ -19,6 +19,7 @@ import { PlaceOverviewTableApiResponse } from "@datacommonsorg/client/dist/data_
 import { css, useTheme } from "@emotion/react";
 import React, { useRef } from "react";
 
+import { InfoSpark } from "../components/elements/icons/info_spark";
 import { LocationCity } from "../components/elements/icons/location_city";
 import { GoogleMap } from "../components/google_map";
 import { formatDate, formatNumber, intl } from "../i18n/i18n";
@@ -160,6 +161,7 @@ export const PlaceOverview = (props: {
     parentPlaces.map((place) => place.dcid)
   );
   const theme = useTheme();
+  console.log("Themeeee" + JSON.stringify(theme));
   return (
     <div
       css={css`
@@ -186,7 +188,8 @@ export const PlaceOverview = (props: {
         <LocationCity />
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
         <InfoTooltipComponent
-          iconPath="../../images/info_spark.svg"
+          theme={theme}
+          icon={<InfoSpark />}
           description={intl.formatMessage(pageMessages.SummaryOverviewTooltip)}
         />
       </div>
