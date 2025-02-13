@@ -29,10 +29,6 @@ import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { pageMessages } from "../i18n/i18n_place_messages";
-import {
-  isFeatureEnabled,
-  SCROLL_TO_TOP_FEATURE_FLAG,
-} from "../shared/feature_flags/util";
 import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
@@ -145,11 +141,11 @@ const PlaceCategoryTabs = ({
 
   return (
     <div className="explore-topics-box">
-      <span className="explore-relevant-topics">
-        {intl.formatMessage(pageMessages.RelevantTopics)}
-      </span>
       <div className="item-list-container">
         <div className="item-list-inner">
+          <span className="explore-relevant-topics">
+            {intl.formatMessage(pageMessages.RelevantTopics)}
+          </span>
           {categories.map((category) => (
             <CategoryItem
               key={category.name}
@@ -431,7 +427,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
         {isOverview && childPlaces.length > 0 && (
           <RelatedPlaces place={place} childPlaces={childPlaces} />
         )}
-        {isFeatureEnabled(SCROLL_TO_TOP_FEATURE_FLAG) && <ScrollToTopButton />}
+        <ScrollToTopButton />
       </RawIntlProvider>
     </ThemeProvider>
   );

@@ -75,6 +75,13 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
   return ''
 
 
+def _enable_datagemma() -> bool:
+  """Returns whether to enable the DataGemma UI for this instance. 
+  This UI should only be enabled for internal instances.
+  """
+  return os.environ.get('ENABLE_DATAGEMMA') == 'true'
+
+
 def register_routes_base_dc(app):
   # apply the blueprints for all apps
   from server.routes.dev import html as dev_html
@@ -329,7 +336,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if cfg.SHOW_SUSTAINABILITY:
     register_routes_sustainability(app)
 
-  if cfg.ENABLE_DATAGEMMA:
+  if _enable_datagemma():
     register_routes_datagemma(app, cfg)
 
   # Load topic page config

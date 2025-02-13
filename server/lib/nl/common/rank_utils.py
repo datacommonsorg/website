@@ -339,17 +339,17 @@ def _compute_place_to_denom(sv: str, places: List[str]):
 def _compute_growth_ranked_lists(
     things_with_vals: List[Tuple], growth_direction: types.TimeDeltaType,
     rank_order: types.RankingType) -> GrowthRankedLists:
+  time_delta_sort = _TIME_DELTA_SORT_MAP.get((growth_direction, rank_order),
+                                             False)
   # Rank by abs
   things_by_abs = sorted(things_with_vals,
                          key=lambda pair: (pair[1].abs, pair[0]),
-                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
-                                                       rank_order)])
+                         reverse=time_delta_sort)
 
   # Rank by pct
   things_by_pct = sorted(things_with_vals,
                          key=lambda pair: (pair[1].pct, pair[0]),
-                         reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
-                                                       rank_order)])
+                         reverse=time_delta_sort)
 
   # Filter first, and then rank by pc
   things_by_pc = []
@@ -358,8 +358,7 @@ def _compute_growth_ranked_lists(
       things_by_pc.append((place, growth))
   things_by_pc = sorted(things_by_pc,
                         key=lambda pair: (pair[1].pc, pair[0]),
-                        reverse=_TIME_DELTA_SORT_MAP[(growth_direction,
-                                                      rank_order)])
+                        reverse=time_delta_sort)
 
   return GrowthRankedLists(abs=[sv for sv, _ in things_by_abs],
                            pct=[sv for sv, _ in things_by_pct],
