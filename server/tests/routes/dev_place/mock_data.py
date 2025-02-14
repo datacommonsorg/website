@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.routes.dev_place.types import Place
 from typing import Dict, List
 from unittest import mock
+
+from server.routes.dev_place.types import Place
 
 NANTERRE = Place(dcid="wikidataId/Q170507", name="Nanterre", types=["City"])
 ARR_NANTERRE = Place(dcid="wikidataId/Q385728",
@@ -40,7 +41,7 @@ LOS_ALTOS = Place(dcid="geoId/0643280", name="Los Altos", types=["City"])
 SANTA_CLARA_COUNTY = Place(dcid="geoId/06085",
                            name="Santa Clara County",
                            types=["County"])
-SAN_MATEO_COUNTY = Place(dcid="ggeoId/06081",
+SAN_MATEO_COUNTY = Place(dcid="geoId/06081",
                          name="San Mateo County",
                          types=["County"])
 CALIFORNIA = Place(dcid="geoId/06", name="California", types=["State"])
@@ -62,11 +63,14 @@ PLACE_BY_ID = {
     ZIP_94041.dcid: ZIP_94041,
     MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW,
     SANTA_CLARA_COUNTY.dcid: SANTA_CLARA_COUNTY,
+    SAN_MATEO_COUNTY.dcid: SAN_MATEO_COUNTY,
     CALIFORNIA.dcid: CALIFORNIA,
     USA.dcid: USA,
     NORTH_AMERICA.dcid: NORTH_AMERICA,
     EARTH.dcid: EARTH,
 }
+
+
 def make_api_data(place: Place):
   return {
       "arcs": {
@@ -95,80 +99,75 @@ def make_api_data(place: Place):
       }
   }
 
+
 def mock_dc_api_data(stat_var: str,
-                    places: List[str],
-                    dc_obs_point: bool = False,
-                    dc_obs_points_within: bool = False,
-                    mock_obs_point: mock.Mock = None,
-                    mock_obs_point_within: mock.Mock = None,
-                    data: List[int] | None = None,
-                    include_facets=False) -> Dict[str, any]:
-    """Mocks the data from the DC API request obs point and obs point within."""
-    if data is None:
-      data = []
+                     places: List[str],
+                     dc_obs_point: bool = False,
+                     dc_obs_points_within: bool = False,
+                     mock_obs_point: mock.Mock = None,
+                     mock_obs_point_within: mock.Mock = None,
+                     data: List[int] | None = None,
+                     include_facets=False) -> Dict[str, any]:
+  """Mocks the data from the DC API request obs point and obs point within."""
+  if data is None:
+    data = []
 
-    val = create_mock_data(stat_var, places, data, include_facets)
-    val2 = create_mock_data(stat_var, places, data, include_facets)
+  val = create_mock_data(stat_var, places, data, include_facets)
+  val2 = create_mock_data(stat_var, places, data, include_facets)
 
-    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
-      return val
+  def mock_obs_point_side_effect(entities, variables, date='LATEST'):
+    return val
 
-    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
-      return val2
+  def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
+    return val2
 
-    if dc_obs_point:
-      mock_obs_point.side_effect = mock_obs_point_side_effect
-    if dc_obs_points_within:
-      mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
+  if dc_obs_point:
+    mock_obs_point.side_effect = mock_obs_point_side_effect
+  if dc_obs_points_within:
+    mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
 
 
 def _create_ordered_facets(data, facets):
-    ordered_facets = []
-    for i, val in enumerate(data):
-      facet_id = f"facet_{i}"
-      observation = {
-          "date": f"2023-{i+1:02}-01",
-          "value": val,
-      }
-      ordered_facets.append({
-          "facetId": facet_id,
-          "observations": [observation],
-          "provenanceUrl": f"prov.com/{facet_id}",
-          "unit": "count"
-      })
-      facets[facet_id] = {
-          "provenanceUrl": f"prov.com/{facet_id}",
-          "unit": "count"
-      }
-    return ordered_facets
+  ordered_facets = []
+  for i, val in enumerate(data):
+    facet_id = f"facet_{i}"
+    observation = {
+        "date": f"2023-{i+1:02}-01",
+        "value": val,
+    }
+    ordered_facets.append({
+        "facetId": facet_id,
+        "observations": [observation],
+        "provenanceUrl": f"prov.com/{facet_id}",
+        "unit": "count"
+    })
+    facets[facet_id] = {
+        "provenanceUrl": f"prov.com/{facet_id}",
+        "unit": "count"
+    }
+  return ordered_facets
 
 
 def create_mock_data(stat_var: str,
-                    places: list[str],
-                    data: list,
-                    include_facets: bool = False) -> Dict[str, any]:
-    by_entity = {}
-    facets = {}
-    for place in places:
-        if include_facets:
-            ordered_facets = _create_ordered_facets(data, facets)
-            by_entity[place] = {"orderedFacets": ordered_facets}
-        else:
-            by_entity[place] = data
-
+                     places: list[str],
+                     data: list,
+                     include_facets: bool = False) -> Dict[str, any]:
+  by_entity = {}
+  facets = {}
+  for place in places:
     if include_facets:
-        return {
-            "byVariable": {
-                stat_var: {
-                    "byEntity": by_entity
-                }
-            },
-            "facets": facets
-        }
+      ordered_facets = _create_ordered_facets(data, facets)
+      by_entity[place] = {"orderedFacets": ordered_facets}
+    else:
+      by_entity[place] = data
 
-    return {"byVariable": {stat_var: {"byEntity": by_entity}}}
+  if include_facets:
+    return {"byVariable": {stat_var: {"byEntity": by_entity}}, "facets": facets}
+
+  return {"byVariable": {stat_var: {"byEntity": by_entity}}}
 
 
+SAN_MATEO_COUNTY_API_DATA = make_api_data(SAN_MATEO_COUNTY)
 MOUNTAIN_VIEW_API_DATA = make_api_data(MOUNTAIN_VIEW)
 CALIFORNIA_API_DATA = make_api_data(CALIFORNIA)
 ARIZONA_API_DATA = make_api_data(ARIZONA)

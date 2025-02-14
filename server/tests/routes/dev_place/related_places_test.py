@@ -13,28 +13,26 @@
 # limitations under the License.
 """Unit tests for server.routes.dev_place.place_charts."""
 
-import sys
-import copy
-import random
-from flask import jsonify
 from typing import Dict, List
 import unittest
 from unittest import mock
 
 from flask import Flask
 from flask import g
+from flask import jsonify
 from flask_babel import Babel
 from flask_caching import Cache
 import pytest
 
+from server.lib import fetch
 from server.routes.dev_place import api
 from server.routes.dev_place import utils
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
-from server.routes.dev_place.types import ServerBlockMetadata
 from server.routes.dev_place.types import RelatedPlacesApiResponse
+from server.routes.dev_place.types import ServerBlockMetadata
 from server.routes.dev_place.types import ServerChartConfiguration
 from server.routes.dev_place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
@@ -47,7 +45,7 @@ def app():
   app = Flask(__name__)
   app.config['BABEL_DEFAULT_LOCALE'] = 'en'
   app.config['SERVER_NAME'] = 'example.com'
-  app.config['CACHE_TYPE'] = 'simple'
+  app.config['CACHE_TYPE'] = 'null'
   app.config['CHART_CONFIG'] = [{
       'title': 'Chart',
       'title_id': 'Chart',
@@ -83,14 +81,14 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
     self.v2node_api_response_index = 0
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
+    self.mock_fetch_place = self.patch(utils, "fetch_place")
+    self.mock_descendent_places = self.patch(fetch, "descendent_places")
 
     def fetch_get_i18n_name_side_effect(place_dcids):
       return {p: PLACE_BY_ID[p].name for p in place_dcids if p in PLACE_BY_ID}
 
     self.mock_get_i18n_name = self.patch(place_api, "get_i18n_name")
     self.mock_get_i18n_name.side_effect = fetch_get_i18n_name_side_effect
-
-    self.mock_fetch_place = self.patch(utils, "fetch_place")
 
     def fetch_place_side_effect(place_dcid, locale=None):
       if place_dcid in mock_data.PLACE_BY_ID:
@@ -113,6 +111,17 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
 
     self.mock_api_parent_places = self.patch(place_api, "parent_places")
     self.mock_api_parent_places.side_effect = fetch_api_parent_places_side_effect
+
+    def fetch_descendent_places_side_effect(nodes, descendent_type):
+      return {
+          mock_data.CALIFORNIA.dcid: [mock_data.SAN_MATEO_COUNTY.dcid],
+          mock_data.USA.dcid: [
+              mock_data.ARIZONA.dcid, mock_data.NEW_YORK.dcid,
+              mock_data.CALIFORNIA.dcid
+          ]
+      }
+
+    self.mock_descendent_places.side_effect = fetch_descendent_places_side_effect
 
   def tearDown(self):
     self.cache.clear()
@@ -182,26 +191,19 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
   def test_related_places_california(self):
     """Tests that getting parent places returns the proper values."""
     with self.app.app_context():
-      print(self.app.url_map, file=sys.stderr)
       g.locale = 'en'
-      self.mock_dc_api_data(stat_var='Count_Person',
-                            places=["geoId/06"],
-                            dc_obs_point=True,
-                            dc_obs_points_within=True,
-                            data=[])
-
       data_child_places = {
-          mock_data.CALIFORNIA.dcid: self.create_contained_in_data(["City"])
-      }
-      ca_api_data = copy.deepcopy(mock_data.CALIFORNIA_API_DATA)
-      ca_api_data['arcs']['containedInPlace+'] = {
-          "nodes": [{
-              'value': mock_data.MOUNTAIN_VIEW.dcid
-          }]
+          mock_data.CALIFORNIA.dcid:
+              self.create_contained_in_data(["County"]),
+          mock_data.USA.dcid:
+              self.create_contained_in_data(["State"]),
+          mock_data.SAN_MATEO_COUNTY.dcid:
+              self.create_contained_in_data(["City"]),
       }
       data_place_data = {
-          mock_data.MOUNTAIN_VIEW.dcid: mock_data.MOUNTAIN_VIEW_API_DATA,
-          mock_data.CALIFORNIA.dcid: mock_data.CALIFORNIA_API_DATA
+          mock_data.SAN_MATEO_COUNTY.dcid: mock_data.SAN_MATEO_COUNTY_API_DATA,
+          mock_data.CALIFORNIA.dcid: mock_data.CALIFORNIA_API_DATA,
+          mock_data.USA.dcid: mock_data.USA_API_DATA
       }
 
       self.mock_v2node_api_data([data_child_places, data_place_data])
@@ -209,18 +211,34 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
       response = self.app.test_client().get(
           f'/api/dev-place/related-places/geoId/06')
 
+      # TODO(gmechali): Track down how we end up with the dcid instead of name.
       actual = response.get_json()
       expected = jsonify(
-          RelatedPlacesApiResponse(place=mock_data.CALIFORNIA,
-                                   similarPlaces=[],
-                                   childPlaces=[],
-                                   parentPlaces=[
-                                       mock_data.USA, mock_data.NORTH_AMERICA,
-                                       mock_data.EARTH
-                                   ],
-                                   peersWithinParent=[],
-                                   childPlaceType="County",
-                                   nearbyPlaces=[])).get_json()
+          RelatedPlacesApiResponse(
+              place=mock_data.CALIFORNIA,
+              similarPlaces=[],
+              childPlaces=[
+                  Place(dcid=mock_data.SAN_MATEO_COUNTY.dcid,
+                        name=mock_data.SAN_MATEO_COUNTY.dcid,
+                        types=[])
+              ],
+              parentPlaces=[
+                  mock_data.USA, mock_data.NORTH_AMERICA, mock_data.EARTH
+              ],
+              peersWithinParent=[],
+              childPlaceType="County",
+              nearbyPlaces=[])).get_json()
 
       self.assertEqual(response.status_code, 200)
+
+      # We leave it out of the above because the order gets shuffled.
+      actual_peers_within_parents_set = set(actual['peersWithinParent'])
+      actual['peersWithinParent'] = []
+      expected_peers_within_parents = {
+          mock_data.ARIZONA.dcid, mock_data.NEW_YORK.dcid
+      }
+
+      self.maxDiff = None
       self.assertEqual(actual, expected)
+      self.assertEqual(actual_peers_within_parents_set,
+                       expected_peers_within_parents)

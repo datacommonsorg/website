@@ -33,8 +33,8 @@ from server.routes.dev_place.types import ServerBlockMetadata
 from server.routes.dev_place.types import ServerChartConfiguration
 from server.routes.dev_place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
-from server.tests.routes.dev_place import mock_data
 from server.services import datacommons as dc
+from server.tests.routes.dev_place import mock_data
 
 SAMPLE_BLOCK_METADATA = ServerBlockMetadata('PLACE',
                                             [ServerChartMetadata('BAR')],
@@ -323,12 +323,12 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     ]
 
     mock_data.mock_dc_api_data(stat_var='Count_Person',
-                          places=[mock_data.CALIFORNIA.dcid],
-                          dc_obs_point=True,
-                          dc_obs_points_within=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=[])
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[])
 
     # Assert the chart is there.
     filtered_configs = utils.filter_chart_config_for_data_existence(
@@ -353,20 +353,21 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     ]
 
     mock_data.mock_dc_api_data(stat_var='Count_Person',
-                          places=[mock_data.CALIFORNIA.dcid],
-                          dc_obs_point=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=list([1234, 321]))
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='Count_Person',
-                          places=[
-                              mock_data.CALIFORNIA.dcid, mock_data.ARIZONA.dcid,
-                              mock_data.NEW_YORK.dcid
-                          ],
-                          dc_obs_points_within=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=[])
+                               places=[
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.ARIZONA.dcid,
+                                   mock_data.NEW_YORK.dcid
+                               ],
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[])
 
     # Assert the chart is there.
     filtered_configs = utils.filter_chart_config_for_data_existence(
@@ -392,17 +393,17 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     ]
 
     mock_data.mock_dc_api_data(stat_var='Count_Person',
-                          places=[mock_data.CALIFORNIA.dcid],
-                          dc_obs_point=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=[])
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[])
     mock_data.mock_dc_api_data(stat_var='Count_Person',
-                          places=[mock_data.SANTA_CLARA_COUNTY.dcid],
-                          dc_obs_points_within=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=[])
+                               places=[mock_data.SANTA_CLARA_COUNTY.dcid],
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[])
 
     # Assert the chart is there.
     filtered_configs = utils.filter_chart_config_for_data_existence(
@@ -432,25 +433,27 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     ]
 
     mock_data.mock_dc_api_data(stat_var='Count_Person',
-                          places=[
-                              mock_data.CALIFORNIA.dcid,
-                              mock_data.NEW_YORK.dcid, mock_data.ARIZONA.dcid
-                          ],
-                          dc_obs_point=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=list([1234, 321]))
+                               places=[
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.NEW_YORK.dcid,
+                                   mock_data.ARIZONA.dcid
+                               ],
+                               dc_obs_point=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='Count_Person',
-                          places=[
-                              mock_data.SANTA_CLARA_COUNTY.dcid,
-                              mock_data.SAN_MATEO_COUNTY.dcid,
-                              mock_data.CALIFORNIA.dcid,
-                              mock_data.NEW_YORK.dcid, mock_data.ARIZONA.dcid
-                          ],
-                          dc_obs_points_within=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=list([1234, 321]))
+                               places=[
+                                   mock_data.SANTA_CLARA_COUNTY.dcid,
+                                   mock_data.SAN_MATEO_COUNTY.dcid,
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.NEW_YORK.dcid,
+                                   mock_data.ARIZONA.dcid
+                               ],
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
 
     # Assert the chart is there.
     filtered_configs = utils.filter_chart_config_for_data_existence(
@@ -498,25 +501,27 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     ]
 
     mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
-                          places=[
-                              mock_data.CALIFORNIA.dcid,
-                              mock_data.NEW_YORK.dcid, mock_data.ARIZONA.dcid
-                          ],
-                          dc_obs_point=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=list([1234, 321]))
+                               places=[
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.NEW_YORK.dcid,
+                                   mock_data.ARIZONA.dcid
+                               ],
+                               dc_obs_point=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
-                          places=[
-                              mock_data.CALIFORNIA.dcid,
-                              mock_data.NEW_YORK.dcid, mock_data.ARIZONA.dcid,
-                              mock_data.SANTA_CLARA_COUNTY.dcid,
-                              mock_data.SAN_MATEO_COUNTY.dcid
-                          ],
-                          dc_obs_points_within=True,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=list([1234, 321]))
+                               places=[
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.NEW_YORK.dcid,
+                                   mock_data.ARIZONA.dcid,
+                                   mock_data.SANTA_CLARA_COUNTY.dcid,
+                                   mock_data.SAN_MATEO_COUNTY.dcid
+                               ],
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
 
     # Assert the chart is there.
     filtered_configs = utils.filter_chart_config_for_data_existence(
@@ -962,13 +967,13 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def test_fetch_overview_table_data(self):
     mock_data.mock_dc_api_data(stat_var='Count_Person',
-                          places=[mock_data.CALIFORNIA.dcid],
-                          dc_obs_point=True,
-                          dc_obs_points_within=False,
-                          mock_obs_point=self.mock_obs_point,
-                          mock_obs_point_within=self.mock_obs_point_within,
-                          data=[123],
-                          include_facets=True)
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               dc_obs_points_within=False,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[123],
+                               include_facets=True)
     resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
 
     self.assertEqual(len(resp), 1)
