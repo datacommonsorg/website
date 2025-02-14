@@ -166,23 +166,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.mock_v2node.side_effect = mock_v2node_side_effect
 
-  def create_contained_in_data(self, types_list):
-    """
-    Creates the CONTAINED_IN_DATA dictionary structure from a list of node dictionaries.
-
-    Args:
-        nodes_data: A list of dictionaries, where each dictionary represents a node
-                    and contains a "types" key with a list of type strings.
-
-    Returns:
-        A dictionary in the CONTAINED_IN_DATA format.
-    """
-    data = {"arcs": {"containedInPlace": {"nodes": []}}}
-
-    for type_ in types_list:
-      data["arcs"]["containedInPlace"]["nodes"].append({"types": [type_]})
-    return data
-
   def test_get_place_html_link(self):
     """Tests the get_place_html_link generates the proper link."""
     ca_link = utils.get_place_html_link(mock_data.CALIFORNIA.dcid,
@@ -683,7 +666,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
   def test_get_child_place_types_france(self):
     data = {
         mock_data.FRANCE.dcid:
-            self.create_contained_in_data(["State", "EurostatNUTS1"])
+            mock_data.create_contained_in_data(["State", "EurostatNUTS1"])
     }
     self.mock_v2node_api_data([data])
 
@@ -692,7 +675,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def test_get_child_place_types_california(self):
     data = {
-        mock_data.CALIFORNIA.dcid: self.create_contained_in_data(["County"])
+        mock_data.CALIFORNIA.dcid:
+            mock_data.create_contained_in_data(["County"])
     }
     self.mock_v2node_api_data([data])
 
@@ -703,18 +687,18 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     data = {
         mock_data.EARTH.dcid:
-            self.create_contained_in_data(["Continent"]),
+            mock_data.create_contained_in_data(["Continent"]),
         mock_data.USA.dcid:
-            self.create_contained_in_data(["State", "County", "City"]),
+            mock_data.create_contained_in_data(["State", "County", "City"]),
         mock_data.FRANCE.dcid:
-            self.create_contained_in_data([
+            mock_data.create_contained_in_data([
                 "AdministrativeArea1", "AdministrativeArea2",
                 "AdministrativeArea3"
             ]),
         mock_data.CALIFORNIA.dcid:
-            self.create_contained_in_data(["County", "City"]),
+            mock_data.create_contained_in_data(["County", "City"]),
         mock_data.SAN_MATEO_COUNTY.dcid:
-            self.create_contained_in_data(
+            mock_data.create_contained_in_data(
                 ["City", "CensusZipCodeTabulationArea"]),
     }
     self.mock_v2node_api_data([data])

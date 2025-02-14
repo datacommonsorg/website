@@ -60,6 +60,7 @@ def app():
           }]
       }]
   }]
+  app.register_blueprint(api.bp)
   return app
 
 
@@ -70,7 +71,6 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
   def setup_app_context(self, request):
     """Setup the app context and cache for each test."""
     self.app = request.getfixturevalue('app')
-    self.app.register_blueprint(api.bp)
     self.cache = Cache(self.app)
     self.app_context = self.app.app_context()
 
@@ -127,51 +127,7 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
     self.cache.clear()
     super().tearDown()
 
-  def create_contained_in_data(self, types_list):
-    """
-    Creates the CONTAINED_IN_DATA dictionary structure from a list of node dictionaries.
-
-    Args:
-        nodes_data: A list of dictionaries, where each dictionary represents a node
-                    and contains a "types" key with a list of type strings.
-
-    Returns:
-        A dictionary in the CONTAINED_IN_DATA format.
-    """
-    data = {"arcs": {"containedInPlace": {"nodes": []}}}
-
-    for type_ in types_list:
-      data["arcs"]["containedInPlace"]["nodes"].append({"types": [type_]})
-    return data
-
-  def mock_dc_api_data(self,
-                       stat_var: str,
-                       places: List[str],
-                       dc_obs_point: bool = False,
-                       dc_obs_points_within: bool = False,
-                       data: List[int] | None = None,
-                       include_facets=False) -> Dict[str, any]:
-    """Mocks the data from the DC API request obs point and obs point within."""
-    if data is None:
-      data = []
-
-    val = mock_data.create_mock_data(stat_var, places, data, include_facets)
-
-    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
-      return val
-
-    val2 = mock_data.create_mock_data(stat_var, places, data, include_facets)
-
-    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
-      return val2
-
-    if dc_obs_point:
-      self.mock_obs_point.side_effect = mock_obs_point_side_effect
-    if dc_obs_points_within:
-      self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
-
   def mock_v2node_api_data(self, response_list: list[dict]):
-
     def mock_v2node_side_effect(nodes, props):
       value = {
           "data":
@@ -189,16 +145,16 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
     return mock_obj
 
   def test_related_places_california(self):
-    """Tests that getting parent places returns the proper values."""
+    """Tests that getting related places."""
     with self.app.app_context():
       g.locale = 'en'
       data_child_places = {
           mock_data.CALIFORNIA.dcid:
-              self.create_contained_in_data(["County"]),
+              mock_data.create_contained_in_data(["County"]),
           mock_data.USA.dcid:
-              self.create_contained_in_data(["State"]),
+              mock_data.create_contained_in_data(["State"]),
           mock_data.SAN_MATEO_COUNTY.dcid:
-              self.create_contained_in_data(["City"]),
+              mock_data.create_contained_in_data(["City"]),
       }
       data_place_data = {
           mock_data.SAN_MATEO_COUNTY.dcid: mock_data.SAN_MATEO_COUNTY_API_DATA,
@@ -238,7 +194,15 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
           mock_data.ARIZONA.dcid, mock_data.NEW_YORK.dcid
       }
 
-      self.maxDiff = None
       self.assertEqual(actual, expected)
       self.assertEqual(actual_peers_within_parents_set,
                        expected_peers_within_parents)
+
+  def test_related_places_requires_dcid(self):
+    """Tests that getting parent places returns the proper values."""
+    with self.app.app_context():
+      g.locale = 'en'
+
+      response = self.app.test_client().get(f'/api/dev-place/related-places/')
+
+      self.assertEqual(response.status_code, 404)

@@ -100,6 +100,24 @@ def make_api_data(place: Place):
   }
 
 
+def create_contained_in_data(self, types_list):
+  """
+    Creates the CONTAINED_IN_DATA dictionary structure from a list of node dictionaries.
+
+    Args:
+        nodes_data: A list of dictionaries, where each dictionary represents a node
+                    and contains a "types" key with a list of type strings.
+
+    Returns:
+        A dictionary in the CONTAINED_IN_DATA format.
+    """
+  data = {"arcs": {"containedInPlace": {"nodes": []}}}
+
+  for type_ in types_list:
+    data["arcs"]["containedInPlace"]["nodes"].append({"types": [type_]})
+  return data
+
+
 def mock_dc_api_data(stat_var: str,
                      places: List[str],
                      dc_obs_point: bool = False,
