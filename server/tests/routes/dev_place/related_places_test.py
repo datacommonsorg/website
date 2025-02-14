@@ -13,7 +13,7 @@
 # limitations under the License.
 """Unit tests for server.routes.dev_place.place_charts."""
 
-from typing import Dict, List
+from typing import List
 import unittest
 from unittest import mock
 
@@ -25,7 +25,6 @@ import pytest
 
 from server.lib import fetch
 from server.routes.dev_place import api
-from server.routes.dev_place import utils
 from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import RelatedPlacesApiResponse
 import server.routes.shared_api.place as place_api

@@ -13,7 +13,7 @@
 # limitations under the License.
 """Unit tests for server.routes.dev_place.overview_table."""
 
-from typing import Dict, List
+from typing import List
 import unittest
 from unittest import mock
 
@@ -23,12 +23,9 @@ from flask import jsonify
 from flask_caching import Cache
 import pytest
 
-from server.lib import fetch
 from server.lib import i18n_messages
 from server.routes.dev_place import api
-from server.routes.dev_place import utils
 from server.routes.dev_place.types import OverviewTableDataRow
-from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import PlaceOverviewTableApiResponse
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
