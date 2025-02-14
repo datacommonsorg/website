@@ -22,7 +22,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,Prevalence of Obesity\r\n2022,28.3507123161638\r\n2021,28.7662064433597\r\n2020,29.05220116561\r\n2018,26.5390162257648\r\n2017,24.7682631563912\r\n2016,24.8935552679736\r\n2015,24.359457072888\r\n2014,24.7398336716586",
+      "dataCsv": "label,Prevalence of Obesity\r\n2022,28.35071231616375\r\n2021,28.76620644335975\r\n2020,29.053175916497338\r\n2018,26.539016225764783\r\n2017,24.768263156391146\r\n2016,24.8935552679736\r\n2015,24.359457072888013\r\n2014,24.739833671658577",
       "legend": [
         "Prevalence of Obesity"
       ],
@@ -43,7 +43,7 @@
       ],
       "highlight": {
         "date": "2022",
-        "value": 28.3507123161638
+        "value": 28.35071231616375
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=counties%20in%20california%20with%20highest%20obesity"
