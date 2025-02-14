@@ -94,13 +94,15 @@ def make_api_data(place: Place):
                   'value': place.name + "@en"
               }, {
                   'value': place.name + "fr@fr"
+              }, {
+                  'value': place.name + "es@es"
               }]
           }
       }
   }
 
 
-def create_contained_in_data(self, types_list):
+def create_contained_in_data(types_list):
   """
     Creates the CONTAINED_IN_DATA dictionary structure from a list of node dictionaries.
 

@@ -20,21 +20,14 @@ from unittest import mock
 from flask import Flask
 from flask import g
 from flask import jsonify
-from flask_babel import Babel
 from flask_caching import Cache
 import pytest
 
 from server.lib import fetch
 from server.routes.dev_place import api
 from server.routes.dev_place import utils
-from server.routes.dev_place.types import BlockConfig
-from server.routes.dev_place.types import Category
-from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import RelatedPlacesApiResponse
-from server.routes.dev_place.types import ServerBlockMetadata
-from server.routes.dev_place.types import ServerChartConfiguration
-from server.routes.dev_place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
 from server.tests.routes.dev_place import mock_data
@@ -65,7 +58,7 @@ def app():
 
 
 class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
-  """Testing"""
+  """Tests for the related places api endpoint."""
 
   @pytest.fixture(autouse=True)
   def setup_app_context(self, request):
@@ -81,21 +74,7 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
     self.v2node_api_response_index = 0
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
-    self.mock_fetch_place = self.patch(utils, "fetch_place")
     self.mock_descendent_places = self.patch(fetch, "descendent_places")
-
-    def fetch_get_i18n_name_side_effect(place_dcids):
-      return {p: PLACE_BY_ID[p].name for p in place_dcids if p in PLACE_BY_ID}
-
-    self.mock_get_i18n_name = self.patch(place_api, "get_i18n_name")
-    self.mock_get_i18n_name.side_effect = fetch_get_i18n_name_side_effect
-
-    def fetch_place_side_effect(place_dcid, locale=None):
-      if place_dcid in mock_data.PLACE_BY_ID:
-        return mock_data.PLACE_BY_ID[place_dcid]
-      return None
-
-    self.mock_fetch_place.side_effect = fetch_place_side_effect
 
     def place_to_place_resp(place: Place):
       return {'name': place.name, 'dcid': place.dcid, 'type': place.types[0]}
@@ -128,6 +107,7 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
     super().tearDown()
 
   def mock_v2node_api_data(self, response_list: list[dict]):
+
     def mock_v2node_side_effect(nodes, props):
       value = {
           "data":
@@ -145,7 +125,7 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
     return mock_obj
 
   def test_related_places_california(self):
-    """Tests that getting related places."""
+    """Tests that the related places endpoint succeeds for california."""
     with self.app.app_context():
       g.locale = 'en'
       data_child_places = {
@@ -167,11 +147,12 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
       response = self.app.test_client().get(
           f'/api/dev-place/related-places/geoId/06')
 
-      # TODO(gmechali): Track down how we end up with the dcid instead of name.
       actual = response.get_json()
       expected = jsonify(
           RelatedPlacesApiResponse(
-              place=mock_data.CALIFORNIA,
+              place=Place(dcid=mock_data.CALIFORNIA.dcid,
+                          name=mock_data.CALIFORNIA.dcid,
+                          types=[]),
               similarPlaces=[],
               childPlaces=[
                   Place(dcid=mock_data.SAN_MATEO_COUNTY.dcid,
@@ -198,8 +179,64 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
       self.assertEqual(actual_peers_within_parents_set,
                        expected_peers_within_parents)
 
+  def test_related_places_california_es(self):
+    """Tests that the related places endpoint succeeds for california."""
+    with self.app.app_context():
+      g.locale = 'es'
+      data_child_places = {
+          mock_data.CALIFORNIA.dcid:
+              mock_data.create_contained_in_data(["County"]),
+          mock_data.USA.dcid:
+              mock_data.create_contained_in_data(["State"]),
+          mock_data.SAN_MATEO_COUNTY.dcid:
+              mock_data.create_contained_in_data(["City"]),
+      }
+      data_place_data = {
+          mock_data.SAN_MATEO_COUNTY.dcid: mock_data.SAN_MATEO_COUNTY_API_DATA,
+          mock_data.CALIFORNIA.dcid: mock_data.CALIFORNIA_API_DATA,
+          mock_data.USA.dcid: mock_data.USA_API_DATA
+      }
+
+      self.mock_v2node_api_data([data_child_places, data_place_data])
+
+      response = self.app.test_client().get(
+          f'/api/dev-place/related-places/geoId/06?hl=es')
+
+      # TODO(gmechali): Verify why test is spitting the out the dcid instead of name. I think it has to do with i18n.
+      actual = response.get_json()
+      expected = jsonify(
+          RelatedPlacesApiResponse(
+              place=Place(dcid=mock_data.CALIFORNIA.dcid,
+                          name=mock_data.CALIFORNIA.dcid,
+                          types=[]),
+              similarPlaces=[],
+              childPlaces=[
+                  Place(dcid=mock_data.SAN_MATEO_COUNTY.dcid,
+                        name=mock_data.SAN_MATEO_COUNTY.dcid,
+                        types=[])
+              ],
+              parentPlaces=[
+                  mock_data.USA, mock_data.NORTH_AMERICA, mock_data.EARTH
+              ],
+              peersWithinParent=[],
+              childPlaceType="County",
+              nearbyPlaces=[])).get_json()
+
+      self.assertEqual(response.status_code, 200)
+
+      # We leave it out of the above because the order gets shuffled.
+      actual_peers_within_parents_set = set(actual['peersWithinParent'])
+      actual['peersWithinParent'] = []
+      expected_peers_within_parents = {
+          mock_data.ARIZONA.dcid, mock_data.NEW_YORK.dcid
+      }
+      self.maxDiff = None
+      self.assertEqual(actual, expected)
+      self.assertEqual(actual_peers_within_parents_set,
+                       expected_peers_within_parents)
+
   def test_related_places_requires_dcid(self):
-    """Tests that getting parent places returns the proper values."""
+    """Tests that the related places endpoint requires a dcid."""
     with self.app.app_context():
       g.locale = 'en'
 
