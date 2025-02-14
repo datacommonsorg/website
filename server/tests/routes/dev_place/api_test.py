@@ -15,12 +15,7 @@
 import unittest
 from unittest.mock import patch
 
-from server.tests.routes.api.mock_data import MULTIPLE_PROPERTY_VALUES_RESPONSE
-from server.tests.routes.api.mock_data import \
-    MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES
-from server.tests.routes.api.mock_data import OSERVATION_POINT_RESPONSE
-from server.tests.routes.api.mock_data import OSERVATION_WITHIN_POINT_RESPONSE
-from server.tests.routes.api.mock_data import SAMPLE_PLACE_PAGE_CHART_CONFIG
+from server.tests.routes.api import mock_data
 from web_app import app
 
 
@@ -43,15 +38,15 @@ class TestPlaceAPI(unittest.TestCase):
       place_dcid = "country/USA"
 
       # Override the CHART_CONFIG with sample values
-      app.config['CHART_CONFIG'] = SAMPLE_PLACE_PAGE_CHART_CONFIG
+      app.config['CHART_CONFIG'] = mock_data.SAMPLE_PLACE_PAGE_CHART_CONFIG
 
       # Mock obs_point call with a properly structured response
-      mock_obs_point.return_value = OSERVATION_POINT_RESPONSE
+      mock_obs_point.return_value = mock_data.OSERVATION_POINT_RESPONSE
 
       # Mock obs_point_within for finding child places existence check for map-based stat vars
-      mock_obs_point_within.return_value = OSERVATION_WITHIN_POINT_RESPONSE
+      mock_obs_point_within.return_value = mock_data.OSERVATION_WITHIN_POINT_RESPONSE
 
-      mock_multiple_property_values.return_value = MULTIPLE_PROPERTY_VALUES_RESPONSE
+      mock_multiple_property_values.return_value = mock_data.MULTIPLE_PROPERTY_VALUES_RESPONSE
 
       # Mock fetch.raw_property_values to return empty lists (no nearby or similar places)
       mock_raw_property_values.return_value = {place_dcid: []}
@@ -122,7 +117,7 @@ class TestPlaceAPI(unittest.TestCase):
       place_dcid = 'country/USA'
 
       # Define side effects for mock_multiple_property_values
-      mock_multiple_property_values.return_value = MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES
+      mock_multiple_property_values.return_value = mock_data.MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES
 
       # Mock descendent_places to return child places
       mock_descendent_places.return_value = {
