@@ -53,9 +53,18 @@ import {
 const PlaceHeader = (props: {
   category: string;
   place: NamedTypedPlace;
-  placeSubheader: string;
+  parentPlaces: NamedTypedPlace[];
 }): React.JSX.Element => {
-  const { category, place, placeSubheader } = props;
+  const { category, place, parentPlaces } = props;
+  const parentPlacesLinks = parentPlaces.map((parent, index) => (
+    <span key={parent.dcid}>
+      <a className="place-info-link" href={`/place/${parent.dcid}`}>
+        {parent.name}
+      </a>
+      {index < parentPlaces.length - 1 ? ", " : ""}
+    </span>
+  ));
+
   return (
     <div className="title-section">
       <div className="place-info">
@@ -75,10 +84,11 @@ const PlaceHeader = (props: {
             <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
           </div>
         </h1>
-        <p
+        {/* <p
           className="subheader"
           dangerouslySetInnerHTML={{ __html: placeSubheader }}
-        ></p>
+        ></p> */}
+        <p className="subheader">{place.types[0] || "Place"} in {parentPlacesLinks}</p>
       </div>
     </div>
   );
@@ -313,7 +323,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       types: [],
     });
     setPlaceSummary(pageMetadata.dataset.placeSummary);
-    setPlaceSubheader(pageMetadata.dataset.placeSubheader);
+    // setPlaceSubheader(pageMetadata.dataset.placeSubheader);
     setStoreQueryString(pageMetadata.dataset.placeName);
   }, []);
 
@@ -356,7 +366,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       ]);
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
-      setRelatedPlacesApiResponse(relatedPlacesApiResponse);
+      // setRelatedPlacesApiResponse(relatedPlacesApiResponse);
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
@@ -392,7 +402,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
         <PlaceHeader
           category={category}
           place={place}
-          placeSubheader={placeSubheader}
+          parentPlaces={parentPlaces}
         />
         <PlaceCategoryTabs
           categories={categories}

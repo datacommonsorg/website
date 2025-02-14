@@ -104,7 +104,9 @@ def get_parent_places(dcid: str) -> List[Place]:
                 name=parent['name'],
                 types=[parent['type']]))
 
-  return all_parents
+  parents_to_include = get_ordered_by_place_type_to_highlight(all_parents)
+
+  return parents_to_include
 
 
 def get_ordered_by_place_type_to_highlight(places: List[Place]) -> List[Place]:
