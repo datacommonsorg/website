@@ -13,7 +13,6 @@
 # limitations under the License.
 """Unit tests for server.routes.dev_place.place_charts."""
 
-from typing import List
 import unittest
 from unittest import mock
 
