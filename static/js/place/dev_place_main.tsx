@@ -84,10 +84,6 @@ const PlaceHeader = (props: {
             <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
           </div>
         </h1>
-        {/* <p
-          className="subheader"
-          dangerouslySetInnerHTML={{ __html: placeSubheader }}
-        ></p> */}
         <p className="subheader">{place.types[0] || "Place"} in {parentPlacesLinks}</p>
       </div>
     </div>
