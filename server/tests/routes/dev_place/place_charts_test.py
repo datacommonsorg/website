@@ -20,6 +20,7 @@ from web_app import app
 
 # TODO(gmechali): Refactor to use the mocking in mock_data.
 
+
 class TestPlaceAPI(unittest.TestCase):
   """Tests for the Place API."""
 
