@@ -56,6 +56,11 @@ const InfoTooltip = styled.div<{ theme?: Theme }>`
   padding: ${(p) => p.theme.spacing?.md}px ${(p) => p.theme.spacing.lg}px;
   z-index: 1;
   box-shadow: ${(p) => p.theme.elevation.secondary.boxShadow};
+
+  @media (max-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const InfoTooltipContainerStyled = styled.div<{ theme?: Theme }>`
@@ -69,19 +74,22 @@ export const InfoTooltipComponent = (props: {
   theme: Theme;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
-  const handleMouseEnter = (): void => {
+  const handleShow = (): void => {
     setIsVisible(true);
   };
 
-  const handleMouseLeave = (): void => {
+  const handleHide = (): void => {
     setIsVisible(false);
   };
 
   return (
     <InfoTooltipContainerStyled
       theme={props.theme}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleShow}
+      onMouseLeave={handleHide}
+      onTouchStart={handleShow}
+      onTouchEnd={handleHide}
+      onTouchCancel={handleHide}
     >
       {props.icon}
       {isVisible && (
