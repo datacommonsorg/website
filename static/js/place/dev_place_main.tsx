@@ -84,7 +84,7 @@ const PlaceHeader = (props: {
             <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
           </div>
         </h1>
-        <p className="subheader">{place.types[0] || "Place"} in {parentPlacesLinks}</p>
+        { place.types?.length > 0 && <p className="subheader">{place.types[0]} in {parentPlacesLinks}</p> }
       </div>
     </div>
   );
@@ -266,8 +266,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [placeSubheader, setPlaceSubheader] = useState<string>();
 
   // API response data
-  const [relatedPlacesApiResponse, setRelatedPlacesApiResponse] =
-    useState<RelatedPlacesApiResponse>();
   const [placeChartsApiResponse, setPlaceChartsApiResponse] =
     useState<PlaceChartsApiResponse>();
   const [placeOverviewTableApiResponse, setPlaceOverviewTableApiResponse] =
@@ -319,7 +317,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
       types: [],
     });
     setPlaceSummary(pageMetadata.dataset.placeSummary);
-    // setPlaceSubheader(pageMetadata.dataset.placeSubheader);
     setStoreQueryString(pageMetadata.dataset.placeName);
   }, []);
 
@@ -362,12 +359,12 @@ export const DevPlaceMain = (): React.JSX.Element => {
       ]);
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
-      // setRelatedPlacesApiResponse(relatedPlacesApiResponse);
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
       setPlaceOverviewTableApiResponse(placeOverviewTableApiResponse);
       setIsLoading(false);
+      setPlace(relatedPlacesApiResponse.place);
       const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse,
         relatedPlacesApiResponse.parentPlaces,
