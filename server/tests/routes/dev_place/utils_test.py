@@ -438,12 +438,12 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     place = utils.get_place_override(places)
     self.assertEqual(place.dcid, ILE_DE_FRANCE.dcid)
 
-  def test_get_place_type_with_parent_places_links(self):
-    place_str = utils.get_place_type_with_parent_places_links(CALIFORNIA.dcid)
-    self.assertEqual(
-        place_str,
-        'State in <a href="/place/geoId/US">United States</a>, <a href="/place/northamerica">North America</a>, <a href="/place/Earth">Earth</a>'
-    )
+  # def test_get_place_type_with_parent_places_links(self):
+  #   place_str = utils.get_place_type_with_parent_places_links(CALIFORNIA.dcid)
+  #   self.assertEqual(
+  #       place_str,
+  #       'State in <a href="/place/geoId/US">United States</a>, <a href="/place/northamerica">North America</a>, <a href="/place/Earth">Earth</a>'
+  #   )
 
   def test_place_type_to_highlight(self):
     self.assertEqual(utils.place_type_to_highlight(["City", "State"]), "City")

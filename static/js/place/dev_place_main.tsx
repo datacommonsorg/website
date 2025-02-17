@@ -19,8 +19,8 @@ import {
   Category,
   PlaceChartsApiResponse,
   PlaceOverviewTableApiResponse,
-  RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
+import { displayNameForPlaceType } from "./util";
 import { ThemeProvider } from "@emotion/react";
 import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
@@ -84,7 +84,7 @@ const PlaceHeader = (props: {
             <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
           </div>
         </h1>
-        { place.types?.length > 0 && <p className="subheader">{place.types[0]} in {parentPlacesLinks}</p> }
+        { place.types?.length > 0 && <p className="subheader">{intl.formatMessage(pageMessages.placeTypeInPlaces, { placeType: displayNameForPlaceType(place.types[0])})}  {parentPlacesLinks}</p> }
       </div>
     </div>
   );

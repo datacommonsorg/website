@@ -179,4 +179,10 @@ export const pageMessages = defineMessages({
     description:
       'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
   },
+  placeTypeInPlaces: {
+    id: "place_type_in_places",
+    defaultMessage: "{placeType} in",
+    description:
+      'Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows "State in {USA, North America, World}".',
+  },
 });

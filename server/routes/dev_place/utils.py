@@ -85,7 +85,7 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
   return f'<a href="{url}">{place_name}</a>'
 
 
-def get_parent_places(dcid: str) -> List[Place]:
+def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
   """Gets the parent places for a given DCID
   
   Args:
@@ -96,14 +96,12 @@ def get_parent_places(dcid: str) -> List[Place]:
   """
   parents_resp = place_api.parent_places([dcid], include_admin_areas=True).get(
       dcid, [])
-  all_parents = []
+  all_parent_dcids = []
   for parent in parents_resp:
     if 'type' in parent and 'name' in parent and 'type' in parent:
-      all_parents.append(
-          Place(dcid=parent['dcid'],
-                name=parent['name'],
-                types=[parent['type']]))
+      all_parent_dcids.append(parent['dcid'])
 
+  all_parents = fetch_places(all_parent_dcids, locale)
   parents_to_include = get_ordered_by_place_type_to_highlight(all_parents)
 
   return parents_to_include
@@ -141,47 +139,6 @@ def get_place_override(places: List[Place],
     # Repeat fetch here in order to get the interationalized name.
     return fetch_place(possible_places[0].dcid, locale=locale)
   return None
-
-
-def get_place_type_with_parent_places_links(dcid: str) -> str:
-  """Get '<place type> in <parent places>' with html links for a given DCID
-  
-  Args:
-    dcid: dcid of the place to get links for
-  
-  Returns:
-    A descriptor of the given place which includes the place's type and links
-    to the place pages of its containing places.
-  """
-  # Get place type in localized, human-readable format
-  place_type = place_api.api_place_type(dcid)
-  place_type_display_name = place_api.get_place_type_i18n_name(place_type)
-
-  # Get parent places
-  all_parents = get_parent_places(dcid)
-
-  # Get parent places
-  parents_to_include = get_ordered_by_place_type_to_highlight(all_parents)
-  parent_dcids = [parent.dcid for parent in parents_to_include]
-
-  localized_names = place_api.get_i18n_name(parent_dcids)
-  places_with_names = [
-      parent for parent in parents_to_include
-      if parent.dcid in localized_names.keys()
-  ]
-
-  # Generate <a href=place page url> tag for each parent place
-  links = [
-      get_place_html_link(place_dcid=parent.dcid,
-                          place_name=localized_names.get(parent.dcid))
-      if parent.types != 'Continent' else localized_names.get(parent.dcid)
-      for parent in places_with_names
-  ]
-
-  if links:
-    return get_place_type_in_parent_places_str(place_type_display_name,
-                                               ', '.join(links))
-  return ''
 
 
 def place_type_to_highlight(place_types: List[str]) -> str | None:
@@ -508,6 +465,14 @@ def select_string_with_locale(strings_with_locale: List[str],
   return default_i18n_string
 
 
+
+def sort_place_types(place_types) -> List[Place]:
+    """
+    Sorts a list of place types according to the order defined in
+    PARENT_PLACE_TYPES_TO_HIGHLIGHT.
+    """
+    return sorted(place_types, key=lambda x: PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(x) if x in PARENT_PLACE_TYPES_TO_HIGHLIGHT else float('inf'))
+
 def fetch_place(place_dcid: str, locale: str = DEFAULT_LOCALE) -> Place:
   """
   Fetches a single Place object for the given place DCID and locale.
@@ -546,12 +511,11 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
     place_name_with_languages_strs = place_props.get('nameWithLanguage', [])
     name_with_locale = select_string_with_locale(place_name_with_languages_strs,
                                                  locale=locale)
-
     place_names = place_props.get('name', [])
     default_name = place_names[0] if place_names else place_dcid
     dissolved = bool(place_props.get('dissolutionDate'))
 
-    place_types = place_props.get('typeOf', [])
+    place_types = sort_place_types(place_props.get('typeOf', []))
     # Use the name with locale if available, otherwise fall back to the default ('en') name
     name = name_with_locale or default_name
     places.append(
@@ -764,16 +728,17 @@ def translate_chart_config(
   Returns:
       List[Dict]: A new list of dictionaries with the 'title' field translated where applicable.
   """
+  default_place_type = 'Place'
   # We do not properly identify Administrative Areas, so will exclude those from the chart title and fallback to "Places"
   if place_type and place_type.startswith('AdministrativeArea'):
-    place_type = 'Place'
+    place_type = default_place_type
   if child_place_type and child_place_type.startswith('AdministrativeArea'):
-    child_place_type = 'Place'
+    child_place_type = default_place_type
 
   translated_place_type = place_api.get_place_type_i18n_name(
-      place_type, plural=True) if place_type else None
+      place_type, plural=True) if place_type else default_place_type
   translated_child_place_type = place_api.get_place_type_i18n_name(
-      child_place_type, plural=True) if child_place_type else None
+      child_place_type, plural=True) if child_place_type else default_place_type
 
   translated_chart_config = []
   for page_config_item in chart_config:
@@ -785,7 +750,7 @@ def translate_chart_config(
         title_sections.append(place_name)
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         title_sections.append(
-            get_other_places_in_parent_place_str(translated_child_place_type,
+            get_other_places_in_parent_place_str(translated_place_type,
                                                  parent_place_name))
 
       elif translated_block.place_scope == "CHILD_PLACES":
