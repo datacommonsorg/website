@@ -572,9 +572,8 @@ def dev_place(place_dcid=None):
   else:
     place_summary = ""
 
-  return flask.render_template(
-      'dev_place.html',
-      maps_api_key=current_app.config['MAPS_API_KEY'],
-      place_dcid=place_dcid,
-      place_name=place_name,
-      place_summary=place_summary)
+  return flask.render_template('dev_place.html',
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               place_dcid=place_dcid,
+                               place_name=place_name,
+                               place_summary=place_summary)

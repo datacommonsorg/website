@@ -465,13 +465,15 @@ def select_string_with_locale(strings_with_locale: List[str],
   return default_i18n_string
 
 
-
 def sort_place_types(place_types) -> List[Place]:
-    """
+  """
     Sorts a list of place types according to the order defined in
     PARENT_PLACE_TYPES_TO_HIGHLIGHT.
     """
-    return sorted(place_types, key=lambda x: PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(x) if x in PARENT_PLACE_TYPES_TO_HIGHLIGHT else float('inf'))
+  return sorted(place_types,
+                key=lambda x: PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(x)
+                if x in PARENT_PLACE_TYPES_TO_HIGHLIGHT else float('inf'))
+
 
 def fetch_place(place_dcid: str, locale: str = DEFAULT_LOCALE) -> Place:
   """

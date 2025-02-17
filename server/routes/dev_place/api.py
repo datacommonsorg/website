@@ -169,8 +169,7 @@ async def related_places(place_dcid: str):
     similar_task = asyncio.to_thread(place_utils.fetch_similar_place_dcids,
                                      place, g.locale)
     parent_places_task = asyncio.to_thread(place_utils.get_parent_places,
-                                           place.dcid,
-                                           g.locale)
+                                           place.dcid, g.locale)
     peers_within_parent_task = asyncio.to_thread(
         place_utils.fetch_peer_places_within, place.dcid, place.types)
 
