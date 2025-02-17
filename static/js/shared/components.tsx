@@ -61,7 +61,6 @@ const InfoTooltip = styled.div<{ theme?: Theme }>`
 const InfoTooltipContainerStyled = styled.div<{ theme?: Theme }>`
   position: relative;
   display: inline-block;
-  margin: ${(p) => p.theme.spacing.xs}px;
 `;
 
 export const InfoTooltipComponent = (props: {
@@ -70,7 +69,6 @@ export const InfoTooltipComponent = (props: {
   theme: Theme;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
-  console.log(props.theme?.colors?.background?.secondary?.light);
   const handleMouseEnter = (): void => {
     setIsVisible(true);
   };

@@ -161,7 +161,6 @@ export const PlaceOverview = (props: {
     parentPlaces.map((place) => place.dcid)
   );
   const theme = useTheme();
-  console.log("Themeeee" + JSON.stringify(theme));
   return (
     <div
       css={css`
@@ -187,11 +186,11 @@ export const PlaceOverview = (props: {
       >
         <LocationCity />
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
-        <InfoTooltipComponent
+        { placeSummary && <InfoTooltipComponent
           theme={theme}
           icon={<InfoSpark />}
           description={intl.formatMessage(pageMessages.SummaryOverviewTooltip)}
-        />
+        /> }
       </div>
       {placeSummary && (
         <div
