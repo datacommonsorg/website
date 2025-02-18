@@ -141,10 +141,10 @@ To enable language models
 ./run_server.sh -m
 ```
 
-#### 🛠️ Troubleshooting
+#### 🛠️ Troubleshooting server startup
 <details>
   <summary>
-    Encountering <b>ModuleNotFoundError</b>?
+    <b>1. ModuleNotFoundError</b>: missing python libraries...
   </summary>
   Clear the environment and rebuild all required libraries by running:
 
