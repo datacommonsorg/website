@@ -783,7 +783,7 @@ def translate_chart_config(
         title_sections.append(place_name)
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         title_sections.append(
-            get_other_places_in_parent_place_str(translated_child_place_type,
+            get_other_places_in_parent_place_str(translated_place_type,
                                                  parent_place_name))
 
       elif translated_block.place_scope == "CHILD_PLACES":
