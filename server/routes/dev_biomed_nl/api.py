@@ -13,25 +13,25 @@
 # # limitations under the License.
 # """Endpoints for LLM Search page"""
 
-# import json
+import json
 
-# import flask
-# from flask import current_app
-# from flask import request
-# from flask import Response
+import flask
+from flask import current_app
+from flask import request
+from flask import Response
 
-# # Define blueprint
-# bp = flask.Blueprint('llm_search_api',
-#                      __name__,
-#                      url_prefix='/api/llm_search')
+# Define blueprint
+bp = flask.Blueprint('llm_search_api',
+                     __name__,
+                     url_prefix='/api/llm_search')
 
-# @bp.route('/query')
-# def llm_search():
-#   query = request.args.get('query')
-#   if not query:
-#     return 'error: must provide a query field', 400
-#   result = {'answer': '', 'debug': ''}
-#   dg_result = None
-#   if dg_result:
-#     result = {'answer': dg_result.answer(), 'debug': dg_result.debug()}
-#   return Response(json.dumps(result), 200, mimetype='application/json')
+@bp.route('/query')
+def llm_search():
+  query = request.args.get('query')
+  if not query:
+    return 'error: must provide a query field', 400
+  result = {'answer': 'hello', 'debug': 'world'}
+  dg_result = None
+  if dg_result:
+    result = {'answer': dg_result.answer(), 'debug': dg_result.debug()}
+  return Response(json.dumps(result), 200, mimetype='application/json')
