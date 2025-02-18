@@ -177,6 +177,11 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def test_get_parent_places(self):
     """Tests that getting parent places returns the proper values."""
+    self.mock_v2node_api_data([{
+        mock_data.USA.dcid: mock_data.USA_API_DATA,
+        mock_data.NORTH_AMERICA.dcid: mock_data.NORTH_AMERICA_API_DATA,
+        mock_data.EARTH.dcid: mock_data.EARTH_API_DATA
+    }])
     parents = utils.get_parent_places(mock_data.CALIFORNIA.dcid)
     self.assertEqual([p.dcid for p in parents], [
         mock_data.USA.dcid, mock_data.NORTH_AMERICA.dcid, mock_data.EARTH.dcid
@@ -757,7 +762,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.assertEqual([b.title for b in translated_config[0].blocks], [
         "California: pop_count_id",
-        "Other Counties in United States: pop_count_id",
+        "Other States in United States: pop_count_id",
         "Counties in California: pop_count_id"
     ])
 
@@ -929,13 +934,18 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             'value': mock_data.NEW_YORK.dcid
         }]
     }
+    parent_data = {
+        mock_data.USA.dcid: usa_api_data,
+        mock_data.NORTH_AMERICA.dcid: mock_data.NORTH_AMERICA_API_DATA,
+        mock_data.EARTH.dcid: mock_data.EARTH_API_DATA,
+    }
     data = {
         mock_data.CALIFORNIA.dcid: mock_data.CALIFORNIA_API_DATA,
         mock_data.USA.dcid: usa_api_data,
         mock_data.ARIZONA.dcid: mock_data.ARIZONA_API_DATA,
         mock_data.NEW_YORK.dcid: mock_data.NEW_YORK_API_DATA
     }
-    self.mock_v2node_api_data([data, usa_api_data])
+    self.mock_v2node_api_data([parent_data, data, usa_api_data])
 
     peers = utils.fetch_peer_places_within(mock_data.CALIFORNIA.dcid, ['State'])
     self.assertEqual(set(peers),

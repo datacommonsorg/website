@@ -84,11 +84,6 @@ def make_api_data(place: Place):
                   'value': place.name
               }]
           },
-          "dissolutionDate": {
-              "nodes": [{
-                  'value': None
-              }]
-          },
           "nameWithLanguage": {
               "nodes": [{
                   'value': place.name + "@en"
@@ -193,3 +188,5 @@ CALIFORNIA_API_DATA = make_api_data(CALIFORNIA)
 ARIZONA_API_DATA = make_api_data(ARIZONA)
 NEW_YORK_API_DATA = make_api_data(NEW_YORK)
 USA_API_DATA = make_api_data(USA)
+EARTH_API_DATA = make_api_data(EARTH)
+NORTH_AMERICA_API_DATA = make_api_data(NORTH_AMERICA)
