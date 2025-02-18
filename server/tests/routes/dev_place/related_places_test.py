@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Unit tests for server.routes.dev_place.place_charts."""
-import sys
+
 import unittest
 from unittest import mock
 
@@ -142,25 +142,28 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
           mock_data.EARTH.dcid: mock_data.EARTH_API_DATA
       }
 
-      self.mock_v2node_api_data([data_child_places, data_place_data,  data_place_data,  data_place_data,  data_place_data])
+      self.mock_v2node_api_data([
+          data_child_places, data_place_data, data_place_data, data_place_data,
+          data_place_data
+      ])
 
       response = self.app.test_client().get(
           f'/api/dev-place/related-places/geoId/06')
 
       actual = response.get_json()
       expected = jsonify(
-          RelatedPlacesApiResponse(
-              place=Place(dcid=mock_data.CALIFORNIA.dcid,
-                          name=mock_data.CALIFORNIA.dcid,
-                          types=[]),
-              similarPlaces=[],
-              childPlaces=[mock_data.SAN_MATEO_COUNTY],
-              parentPlaces=[
-                  mock_data.USA, mock_data.NORTH_AMERICA, mock_data.EARTH
-              ],
-              peersWithinParent=[],
-              childPlaceType="County",
-              nearbyPlaces=[])).get_json()
+          RelatedPlacesApiResponse(place=Place(dcid=mock_data.CALIFORNIA.dcid,
+                                               name=mock_data.CALIFORNIA.dcid,
+                                               types=[]),
+                                   similarPlaces=[],
+                                   childPlaces=[mock_data.SAN_MATEO_COUNTY],
+                                   parentPlaces=[
+                                       mock_data.USA, mock_data.NORTH_AMERICA,
+                                       mock_data.EARTH
+                                   ],
+                                   peersWithinParent=[],
+                                   childPlaceType="County",
+                                   nearbyPlaces=[])).get_json()
 
       self.assertEqual(response.status_code, 200)
 
@@ -195,13 +198,18 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
           mock_data.EARTH.dcid: mock_data.EARTH_API_DATA
       }
 
-      self.mock_v2node_api_data([data_child_places, data_place_data,  data_place_data,  data_place_data,  data_place_data])
+      self.mock_v2node_api_data([
+          data_child_places, data_place_data, data_place_data, data_place_data,
+          data_place_data
+      ])
 
       response = self.app.test_client().get(
           f'/api/dev-place/related-places/geoId/06?hl=es')
 
       # TODO(gmechali): Verify why test is spitting the out the dcid instead of name. I think it has to do with i18n.
-      parent_places_es = [mock_data.USA, mock_data.NORTH_AMERICA, mock_data.EARTH] 
+      parent_places_es = [
+          mock_data.USA, mock_data.NORTH_AMERICA, mock_data.EARTH
+      ]
       for parent in parent_places_es:
         parent.name += 'es'
 
