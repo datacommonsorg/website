@@ -19,6 +19,7 @@ import {
   Place,
   PlaceChartsApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
+import { Theme } from "@emotion/react";
 import _ from "lodash";
 
 import { intl, localizeLink } from "../i18n/i18n";
@@ -36,6 +37,10 @@ import {
   TileConfig,
 } from "../types/subject_page_proto_types";
 
+const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
+const DEFAULT_BAR_CHART_ITEMS = 15;
+
+/**
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
  */
@@ -194,6 +199,10 @@ export function createPlacePageCategoryHref(
   return params.size > 0 ? `${href}?${params.toString()}` : href;
 }
 
+function isMobileByWidth(theme: Theme): boolean {
+  return window.innerWidth <= theme.breakpoints.sm;
+}
+
 /**
  * Helper to process the dev Place page API response
  * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
@@ -209,7 +218,8 @@ export function placeChartsApiResponsesToPageConfig(
   peersWithinParent: string[],
   place: Place,
   isOverview: boolean,
-  forceDevPlaces: boolean
+  forceDevPlaces: boolean,
+  theme: Theme
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
@@ -228,6 +238,9 @@ export function placeChartsApiResponsesToPageConfig(
       const blocks = blocksByCategory[categoryName];
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
+      const defaultBarChartItems = isMobileByWidth(theme)
+        ? DEFAULT_BAR_CHART_ITEMS_MOBILE
+        : DEFAULT_BAR_CHART_ITEMS;
 
       blocks.forEach((block: BlockConfig) => {
         let blockTitle;
@@ -284,7 +297,9 @@ export function placeChartsApiResponsesToPageConfig(
               rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
-            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
+            maxPlacesCount = chart.maxPlaces
+              ? chart.maxPlaces
+              : defaultBarChartItems;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
               sort: "DESCENDING",

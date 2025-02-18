@@ -114,7 +114,7 @@ const theme: Theme = {
       secondary: {
         base: DC_BONE,
         dark: DC_GRAY,
-        light: DC_GRAY_LIGHT,
+        light: DC_BLUE_WHITE,
       },
     },
     border: {

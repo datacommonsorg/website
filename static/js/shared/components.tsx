@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import React from "react";
-import styled from "styled-components";
+import { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
+import React, { useState } from "react";
 
 /**
  * Chip component to display a selected item with the ability to remove the item
@@ -40,5 +41,62 @@ export const IconPlaceholder = (props: {
     <IconPlaceholderContainer $height={props.height}>
       <span className="material-icons-outlined">{props.iconName}</span>
     </IconPlaceholderContainer>
+  );
+};
+
+const InfoTooltip = styled.div<{ theme?: Theme }>`
+  ${(p) => p.theme?.typography?.text?.sm}
+  position: absolute;
+  min-width: 312px;
+  top: ${(p) => p.theme.spacing.lg}px;
+  left: 0;
+  background-color: ${(p) => p.theme.colors.background.secondary.light};
+  border: 1px solid ${(p) => p.theme.colors.border.primary.light};
+  border-radius: ${(p) => p.theme.radius.secondary.borderRadius};
+  padding: ${(p) => p.theme.spacing?.md}px ${(p) => p.theme.spacing.lg}px;
+  z-index: 1;
+  box-shadow: ${(p) => p.theme.elevation.secondary.boxShadow};
+
+  @media (max-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`;
+
+const InfoTooltipContainerStyled = styled.div<{ theme?: Theme }>`
+  position: relative;
+  display: inline-block;
+`;
+
+export const InfoTooltipComponent = (props: {
+  icon: React.JSX.Element;
+  description: string;
+  theme: Theme;
+}): React.JSX.Element => {
+  const [isVisible, setIsVisible] = useState(false);
+  const handleShow = (): void => {
+    setIsVisible(true);
+  };
+
+  const handleHide = (): void => {
+    setIsVisible(false);
+  };
+
+  return (
+    <InfoTooltipContainerStyled
+      theme={props.theme}
+      onMouseEnter={handleShow}
+      onMouseLeave={handleHide}
+      onTouchStart={handleShow}
+      onTouchEnd={handleHide}
+      onTouchCancel={handleHide}
+    >
+      {props.icon}
+      {isVisible && (
+        <InfoTooltip theme={props.theme} className="info-tooltip-hover">
+          {props.description}
+        </InfoTooltip>
+      )}
+    </InfoTooltipContainerStyled>
   );
 };
