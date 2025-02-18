@@ -85,7 +85,7 @@ const PlaceHeader = (props: {
             <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
           </div>
         </h1>
-        {place.types?.length > 0 && (
+        {place.types?.length > 0 && parentPlacesLinks.length > 0 && (
           <p className="subheader">
             {intl.formatMessage(pageMessages.placeTypeInPlaces, {
               placeType: displayNameForPlaceType(place.types[0]),
