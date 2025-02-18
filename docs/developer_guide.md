@@ -142,7 +142,7 @@ To enable language models
 ```
 
 #### 🛠️ Troubleshooting server startup
-<details style="margin-left: 1em;">
+<details>
   <summary>
     <b>1. ModuleNotFoundError</b>: missing python libraries...
   </summary>
