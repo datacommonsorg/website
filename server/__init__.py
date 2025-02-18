@@ -130,6 +130,9 @@ def register_routes_biomedical_dc(app):
   from server.routes.protein import html as protein_html
   app.register_blueprint(protein_html.bp)
 
+  from server.routes.biomedical import api as bio_api
+  app.register_blueprint(bio_api.bp)
+
 
 def register_routes_disasters(app):
   # Install blueprints specific to disasters

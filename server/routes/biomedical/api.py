@@ -21,9 +21,9 @@ from flask import request
 from flask import Response
 
 # Define blueprint
-bp = flask.Blueprint('llm_search_api',
+bp = flask.Blueprint('biomedical_api',
                      __name__,
-                     url_prefix='/api/llm_search')
+                     url_prefix='/biomedical/nl')
 
 @bp.route('/query')
 def llm_search():
@@ -31,7 +31,4 @@ def llm_search():
   if not query:
     return 'error: must provide a query field', 400
   result = {'answer': 'hello', 'debug': 'world'}
-  dg_result = None
-  if dg_result:
-    result = {'answer': dg_result.answer(), 'debug': dg_result.debug()}
   return Response(json.dumps(result), 200, mimetype='application/json')
