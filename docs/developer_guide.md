@@ -141,6 +141,18 @@ To enable language models
 ./run_server.sh -m
 ```
 
+<details>
+  <summary>
+    <b>🛠️ Troubleshooting: ModuleNotFoundError</b>
+  </summary>
+  Clear the environment and rebuild all required libraries by running:
+
+  ```bash
+  rm -rf .env
+  ./run_test.sh --setup_python
+  ```
+</details>
+
 ### Start NL Server
 
 Natural language models are hosted on a separate server. For features that
