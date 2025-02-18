@@ -141,9 +141,10 @@ To enable language models
 ./run_server.sh -m
 ```
 
+#### 🛠️ Troubleshooting
 <details>
   <summary>
-    <b>🛠️ Troubleshooting: ModuleNotFoundError</b>
+    Encountering <b>ModuleNotFoundError</b>?
   </summary>
   Clear the environment and rebuild all required libraries by running:
 
