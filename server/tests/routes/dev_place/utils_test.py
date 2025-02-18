@@ -765,7 +765,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.assertEqual([b.title for b in translated_config[0].blocks], [
         "California: pop_count_id",
-        "Other Counties in United States: pop_count_id",
+        "Other States in United States: pop_count_id",
         "Counties in California: pop_count_id"
     ])
 
