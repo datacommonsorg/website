@@ -19,6 +19,7 @@ import {
   Category,
   PlaceChartsApiResponse,
   PlaceOverviewTableApiResponse,
+  RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import { ThemeProvider } from "@emotion/react";
 import React, { useEffect, useState } from "react";
@@ -273,6 +274,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [placeSubheader, setPlaceSubheader] = useState<string>();
 
   // API response data
+  const [receivedApiResponse, setReceivedApiResponse] = useState(false);
   const [placeChartsApiResponse, setPlaceChartsApiResponse] =
     useState<PlaceChartsApiResponse>();
   const [placeOverviewTableApiResponse, setPlaceOverviewTableApiResponse] =
@@ -340,7 +342,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
    * Updates state with API responses and derived data.
    */
   useEffect(() => {
-    if (!place) {
+    if (!place || receivedApiResponse) {
       return;
     }
     setIsLoading(true);
@@ -365,13 +367,16 @@ export const DevPlaceMain = (): React.JSX.Element => {
         }),
       ]);
 
+      setReceivedApiResponse(true);
       setPlaceChartsApiResponse(placeChartsApiResponse);
+      setPlaceOverviewTableApiResponse(placeOverviewTableApiResponse);
+
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
-      setPlaceOverviewTableApiResponse(placeOverviewTableApiResponse);
       setIsLoading(false);
       setPlace(relatedPlacesApiResponse.place);
+
       const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse,
         relatedPlacesApiResponse.parentPlaces,
