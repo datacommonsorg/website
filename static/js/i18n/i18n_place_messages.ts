@@ -18,6 +18,12 @@ import { defineMessages } from "react-intl";
 
 // Strings to use in place page
 export const singularPlaceTypeMessages = defineMessages({
+  Continent: {
+    id: "singular_continent",
+    defaultMessage: "Continent",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Continent. An example use is 'A Continent in the world' to describe 'Europe'. Please maintain capitalization.",
+  },
   Country: {
     id: "singular_country",
     defaultMessage: "Country",
@@ -81,6 +87,12 @@ export const singularPlaceTypeMessages = defineMessages({
 });
 
 export const pluralPlaceTypeMessages = defineMessages({
+  Continent: {
+    id: "plural_continent",
+    defaultMessage: "Continents",
+    description:
+      "A label or header for a collection of places of type Continent (see https://en.wikipedia.org/wiki/Continent). Some examples: 'Continents in the world', 'Median Age: Other Continents', or 'Ranking by Population for Continents in the world'. Please maintain capitalization.",
+  },
   Country: {
     id: "plural_country",
     defaultMessage: "Countries",
