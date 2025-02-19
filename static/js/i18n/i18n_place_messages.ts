@@ -159,7 +159,7 @@ export const pageMessages = defineMessages({
     id: "summary_overview",
     defaultMessage: "Summary overview",
     description:
-      "Tooltip text for the Summary overview section for the current place. This text explains that we use AI to generate the Summary Overview text.",
+      "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
   },
   SummaryOverviewTooltip: {
     id: "summary_overview_tooltip",
