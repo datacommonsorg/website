@@ -41,7 +41,7 @@ website:
   evalTool:
     enabled: false
 
-  datagemma:
+  dataGemma:
     enabled: false
   experiments:
     enabled: false
