@@ -127,7 +127,11 @@ restart_kubernetes_deployment() {
   fi
 
   gcloud config set project "datcom-website-${environment}"
-  gcloud container clusters get-credentials website-us-west1 --region us-west1 --project "datcom-website-${environment}"
+
+  if [[ "$environment" == "prod" ]]; then
+    gcloud container clusters get-credentials website-us-west1 --region us-west1 --project "datcom-website-${environment}"
+  fi
+
   gcloud container clusters get-credentials website-us-central1 --region us-central1 --project "datcom-website-${environment}"
   kubectl rollout restart deployment website-app -n website
   echo "Kubernetes deployment restarted in environment: ${environment}."
