@@ -41,6 +41,8 @@ website:
   evalTool:
     enabled: false
 
+  datagemma:
+    enabled: false
   experiments:
     enabled: false
 

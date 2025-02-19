@@ -29,6 +29,8 @@ website:
   nodePool: "default-pool"
   evalTool:
     enabled: true
+  datagemma:
+    enabled: true
   experiments:
     enabled: true
   redis:
