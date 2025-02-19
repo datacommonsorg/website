@@ -11,7 +11,7 @@
 # # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # # See the License for the specific language governing permissions and
 # # limitations under the License.
-# """Endpoints for LLM Search page"""
+# """Endpoints for Biomed NL Search page"""
 
 import json
 
@@ -20,7 +20,9 @@ from flask import request
 from flask import Response
 
 # Define blueprint
-bp = flask.Blueprint('biomed_nl_api', __name__, url_prefix='/api/biomed_nl')
+bp = flask.Blueprint('biomed_nl_api',
+                     __name__,
+                     url_prefix='/api/experiments/biomed_nl')
 
 
 def _fulfill_traversal_query(query):
@@ -29,8 +31,8 @@ def _fulfill_traversal_query(query):
 
 @bp.route('/query')
 def llm_search():
-  query = request.args.get('query')
+  query = request.args.get('q')
   if not query:
-    return 'error: must provide a query field', 400
+    return 'error: q param is required', 400
   result = _fulfill_traversal_query(query)
   return Response(json.dumps(result), 200, mimetype='application/json')

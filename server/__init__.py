@@ -177,8 +177,8 @@ def register_routes_experiments(app, cfg):
   app.register_blueprint(dev_datagemma_html.bp)
 
   # Install blueprint for Biomed NL experiment
-  from server.routes.biomed_nl import api as bio_api
-  app.register_blueprint(bio_api.bp)
+  from server.routes.experiments import biomed_nl_api
+  app.register_blueprint(biomed_nl_api.bp)
 
   # Set the gemini api key
   app.config['GEMINI_API_KEY'] = _get_api_key(['GEMINI_API_KEY'],
