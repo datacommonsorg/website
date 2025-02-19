@@ -21,6 +21,7 @@ limitations under the License.
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
+{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -152,8 +153,4 @@ limitations under the License.
       We do use in-session cookies to be able to manage state.
   </dl>
   {% endblock %}
-
-
-
-{% endblock %}
 
