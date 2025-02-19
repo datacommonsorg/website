@@ -137,6 +137,8 @@ spec:
               value: {{ .Values.website.evalTool.enabled | quote }}
             - name: ENABLE_DATAGEMMA
               value: {{ .Values.website.dataGemma.enabled | quote }}
+            - name: ENABLE_EXPERIMENTS
+              value: {{ .Values.website.experiments.enabled | quote }}
             - name: INGRESS_CONFIG_PATH
               value: /datacommons/ingress/rules
             # A dummy config used to bounce the server without any docker image

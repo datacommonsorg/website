@@ -82,6 +82,12 @@ def _enable_datagemma() -> bool:
   return os.environ.get('ENABLE_DATAGEMMA') == 'true'
 
 
+def _enable_experiments() -> bool:
+  """Returns whether to enable the Data Commons experiments for the instance. 
+  """
+  return os.environ.get('ENABLE_EXPERIMENTS') == 'true'
+
+
 def register_routes_base_dc(app):
   # apply the blueprints for all apps
   from server.routes.dev import html as dev_html
@@ -129,9 +135,6 @@ def register_routes_biomedical_dc(app):
 
   from server.routes.protein import html as protein_html
   app.register_blueprint(protein_html.bp)
-
-  from server.routes.biomedical import api as bio_api
-  app.register_blueprint(bio_api.bp)
 
 
 def register_routes_disasters(app):
@@ -187,6 +190,11 @@ def register_routes_datagemma(app, cfg):
   app.config['DC_NL_API_KEY'] = _get_api_key(['DC_NL_API_KEY'],
                                              cfg.SECRET_PROJECT,
                                              'dc-nl-api-key')
+
+
+def register_routes_experiments(app, cfg):
+  from server.routes.biomed_nl import api as bio_api
+  app.register_blueprint(bio_api.bp)
 
 
 def register_routes_common(app):
@@ -341,6 +349,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if _enable_datagemma():
     register_routes_datagemma(app, cfg)
+
+  if _enable_experiments():
+    register_routes_experiments(app, cfg)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()

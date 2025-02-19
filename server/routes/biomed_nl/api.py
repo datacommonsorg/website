@@ -16,19 +16,21 @@
 import json
 
 import flask
-from flask import current_app
 from flask import request
 from flask import Response
 
 # Define blueprint
-bp = flask.Blueprint('biomedical_api',
-                     __name__,
-                     url_prefix='/biomedical/nl')
+bp = flask.Blueprint('biomed_nl_api', __name__, url_prefix='/api/biomed_nl')
+
+
+def _fulfill_traversal_query(query):
+  return {'answer': 'hello', 'debug': 'world'}
+
 
 @bp.route('/query')
 def llm_search():
   query = request.args.get('query')
   if not query:
     return 'error: must provide a query field', 400
-  result = {'answer': 'hello', 'debug': 'world'}
+  result = _fulfill_traversal_query(query)
   return Response(json.dumps(result), 200, mimetype='application/json')
