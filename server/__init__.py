@@ -75,15 +75,9 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
   return ''
 
 
-def _enable_datagemma() -> bool:
-  """Returns whether to enable the DataGemma UI for this instance. 
-  This UI should only be enabled for internal instances.
-  """
-  return os.environ.get('ENABLE_DATAGEMMA') == 'true'
-
-
 def _enable_experiments() -> bool:
   """Returns whether to enable the Data Commons experiments for the instance. 
+  This includes the DataGemma and Biomed NL experiments.
   """
   return os.environ.get('ENABLE_EXPERIMENTS') == 'true'
 
@@ -175,12 +169,16 @@ def register_routes_sustainability(app):
       )
 
 
-def register_routes_datagemma(app, cfg):
+def register_routes_experiments(app, cfg):
   # Install blueprint for DataGemma page
   from server.routes.dev_datagemma import api as dev_datagemma_api
   app.register_blueprint(dev_datagemma_api.bp)
   from server.routes.dev_datagemma import html as dev_datagemma_html
   app.register_blueprint(dev_datagemma_html.bp)
+
+  # Install blueprint for Biomed NL experiment
+  from server.routes.biomed_nl import api as bio_api
+  app.register_blueprint(bio_api.bp)
 
   # Set the gemini api key
   app.config['GEMINI_API_KEY'] = _get_api_key(['GEMINI_API_KEY'],
@@ -190,11 +188,6 @@ def register_routes_datagemma(app, cfg):
   app.config['DC_NL_API_KEY'] = _get_api_key(['DC_NL_API_KEY'],
                                              cfg.SECRET_PROJECT,
                                              'dc-nl-api-key')
-
-
-def register_routes_experiments(app, cfg):
-  from server.routes.biomed_nl import api as bio_api
-  app.register_blueprint(bio_api.bp)
 
 
 def register_routes_common(app):
@@ -346,9 +339,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if cfg.SHOW_SUSTAINABILITY:
     register_routes_sustainability(app)
-
-  if _enable_datagemma():
-    register_routes_datagemma(app, cfg)
 
   if _enable_experiments():
     register_routes_experiments(app, cfg)

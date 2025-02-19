@@ -83,12 +83,9 @@ fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 if [[ $FLASK_ENV == "biomedical" ]]; then
-  export ENABLE_DATAGEMMA=false
   export ENABLE_EXPERIMENTS=false
 else
-  export ENABLE_DATAGEMMA=true
   export ENABLE_EXPERIMENTS=true
-
 fi
 
 if [[ $USE_GUNICORN ]]; then
