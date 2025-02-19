@@ -35,7 +35,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
-    self.assertEqual(find_elem(self.driver, value='subheader').text, '')
+    self.assertIsNone(find_elem(self.driver, value='subheader'))
 
     # Asert the related places box exists
     self.assertEqual(
