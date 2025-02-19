@@ -5,7 +5,7 @@ This script automates the deployment of feature flags to a Google Cloud Storage 
 ## Usage
 
 ```bash
-./deploy_feature_flags.sh <environment>
+./update_gcs_feature_flags.sh <environment>
 ```
 
 
