@@ -97,14 +97,17 @@ def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
   parents_resp = place_api.parent_places([dcid], include_admin_areas=True).get(
       dcid, [])
   all_parent_dcids = []
+  all_parent_places = []
   for parent in parents_resp:
-    if 'type' in parent and 'name' in parent and 'type' in parent:
+    if 'dcid' in parent and 'name' in parent and 'type' in parent:
       all_parent_dcids.append(parent['dcid'])
+      all_parent_places.append(
+          Place(name=parent['name'],
+                dcid=parent['dcid'],
+                types=[parent['type']]))
 
-  all_parents = fetch_places(all_parent_dcids, locale)
-  parents_to_include = get_ordered_by_place_type_to_highlight(all_parents)
-
-  return parents_to_include
+  parents_to_include = get_ordered_by_place_type_to_highlight(all_parent_places)
+  return fetch_places([p.dcid for p in parents_to_include], locale)
 
 
 def get_ordered_by_place_type_to_highlight(places: List[Place]) -> List[Place]:
