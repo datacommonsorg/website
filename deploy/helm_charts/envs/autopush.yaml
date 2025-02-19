@@ -29,7 +29,7 @@ website:
   nodePool: "default-pool"
   evalTool:
     enabled: true
-  datagemma:
+  dataGemma:
     enabled: true
   experiments:
     enabled: true

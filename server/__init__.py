@@ -76,8 +76,8 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
 
 
 def _enable_datagemma() -> bool:
-  """Returns whether to enable the Data Commons experiments for the instance. 
-  This includes the DataGemma and Biomed NL experiments.
+  """Returns whether to enable the DataGemma UI for this instance. 
+  This UI should only be enabled for internal instances.
   """
   return os.environ.get('ENABLE_DATAGEMMA') == 'true'
 

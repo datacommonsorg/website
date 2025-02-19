@@ -136,7 +136,7 @@ spec:
             - name: ENABLE_EVAL_TOOL
               value: {{ .Values.website.evalTool.enabled | quote }}
             - name: ENABLE_DATAGEMMA
-              value: {{ .Values.website.datagemma.enabled | quote }}
+              value: {{ .Values.website.dataGemma.enabled | quote }}
             - name: ENABLE_EXPERIMENTS
               value: {{ .Values.website.experiments.enabled | quote }}
             - name: INGRESS_CONFIG_PATH
