@@ -55,7 +55,7 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
       gcp_path: The path to getting the api key from GCP secrets
 
   Returns:
-      API key if it exists, otherwise returns an empty string.
+      API key if it exists, otherwise an empty string.
   
   TODO: use this method everywhere else in this file
   """
