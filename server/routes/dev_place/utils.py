@@ -46,11 +46,11 @@ from server.services import datacommons as dc
 PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'City',
     'County',
-    'AdministrativeArea2',
     'EurostatNUTS2',
+    'AdministrativeArea2',
     'State',
-    'AdministrativeArea1',
     'EurostatNUTS1',
+    'AdministrativeArea1',
     'Country',
     'Continent',
     'Place',  # World!
@@ -96,11 +96,9 @@ def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
   """
   parents_resp = place_api.parent_places([dcid], include_admin_areas=True).get(
       dcid, [])
-  all_parent_dcids = []
   all_parent_places = []
   for parent in parents_resp:
     if 'dcid' in parent and 'name' in parent and 'type' in parent:
-      all_parent_dcids.append(parent['dcid'])
       all_parent_places.append(
           Place(name=parent['name'],
                 dcid=parent['dcid'],
