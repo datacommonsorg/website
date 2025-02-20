@@ -726,6 +726,13 @@
           "types": [
             "AdministrativeArea1"
           ]
+        },
+        {
+          "dcid": "wikidataId/Q986431",
+          "name": "Southern District",
+          "types": [
+            "AdministrativeArea1"
+          ]
         }
       ]
     },
