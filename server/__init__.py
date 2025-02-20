@@ -75,7 +75,9 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
       return ''
 
   # If key is not found, return an empty string
-  logging.warning(f'No key found for project: {gcp_project}; path:{gcp_path}')
+  logging.warning(
+      f'No key found in environment variables: {env_keys} nor project-path: {gcp_project}-{gcp_path}'
+  )
   return ''
 
 
