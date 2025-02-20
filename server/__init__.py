@@ -195,7 +195,7 @@ def register_routes_datagemma(app, cfg):
 
 def register_routes_experiments(app, cfg):
   # Install blueprint for Biomed NL experiment
-  from server.routes.experiments import biomed_nl_api
+  from server.routes.experiments.biomed_nl import api as biomed_nl_api
   app.register_blueprint(biomed_nl_api.bp)
 
 
