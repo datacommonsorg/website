@@ -71,12 +71,13 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
       secret_response = secret_client.access_secret_version(name=secret_name)
       return secret_response.payload.data.decode('UTF-8').replace('\n', '')
     except NotFound:
-      logging.warning(f'No key found at {gcp_project}:{gcp_path}')
+      logging.warning(
+          f'No key found at {gcp_path} of the configured GCP project.')
       return ''
 
   # If key is not found, return an empty string
   logging.warning(
-      f'No key found in environment variables: {env_keys} nor project-path: {gcp_project}-{gcp_path}'
+      f'No key found in the [{",".join(env_keys)}] environment variable(s), nor at "{gcp_path}" of the configured GCP project.'
   )
   return ''
 
