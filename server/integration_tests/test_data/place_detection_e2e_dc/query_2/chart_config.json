@@ -9,26 +9,26 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
                     "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
-                    "type": "RANKING"
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
                     "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
-                    "type": "MAP"
+                    "type": "RANKING"
                   }
                 ]
               }
@@ -40,26 +40,26 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
                     "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
-                    "type": "RANKING"
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
                     "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
-                    "type": "MAP"
+                    "type": "RANKING"
                   }
                 ]
               }
@@ -88,64 +88,123 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar"
+                      "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
-                    "type": "RANKING"
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar"
+                      "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
-                    "type": "MAP"
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: 49,999 USD or Less in States of United States"
+            "title": "Median Gross Rent of Housing Unit: With Cash Rent in States of United States"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To99999USDollar"
+                      "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Count of Housing Unit: 50,000-99,999 USD in States of United States (${date})",
-                    "type": "RANKING"
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To99999USDollar"
+                      "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
                     ],
-                    "title": "Count of Housing Unit: 50,000-99,999 USD in States of United States (${date})",
+                    "title": "Median Gross Rent of Housing Unit: With Cash Rent in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Gross Rent of Housing Unit: With Cash Rent"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithRent_Upto100USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 100 USD or Less in States of United States (${date})",
                     "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_WithRent_Upto100USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 100 USD or Less in States of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Housing Unit: 50,000-99,999 USD in States of United States"
+            "title": "Count of Housing Unit: 100 USD or Less in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithRent_100To149USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 100-149 USD in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_WithRent_100To149USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 100-149 USD in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: 100-149 USD in States of United States"
           },
           {
             "columns": [
@@ -154,597 +213,49 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "ASCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/USA"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block"
+                      "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block"
                     ],
-                    "title": "Home Value of Houses in United States (${date})",
+                    "title": "Houses by Rental Amount in United States (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Home Value of Houses"
+            "title": "Houses by Rental Amount"
           },
           {
             "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-                    ],
-                    "title": "Housing Units Valued at $1,000,000 or More in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-                    ],
-                    "title": "Housing Units Valued at $1,000,000 or More in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Housing Units Valued at $1,000,000 or More in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-                    ],
-                    "title": "Housing Units Valued at $1,000,000 or More in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Housing Units Valued at $1,000,000 or More in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-                    ],
-                    "title": "Housing Units Valued at $1,000,000 or More in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Housing Units Valued at $1,000,000 or More"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue15000To19999USDollar"
-                    ],
-                    "title": "Homes Valued Between $15,000 to $19,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue15000To19999USDollar"
-                    ],
-                    "title": "Homes Valued Between $15,000 to $19,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $15,000 to $19,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue15000To19999USDollar"
-                    ],
-                    "title": "Homes Valued Between $15,000 to $19,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $15,000 to $19,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue15000To19999USDollar"
-                    ],
-                    "title": "Homes Valued Between $15,000 to $19,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $15,000 to $19,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
-                    ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
-                    ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $175,000 to $199,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
-                    ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $175,000 to $199,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
-                    ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $175,000 to $199,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue20000To24999USDollar"
-                    ],
-                    "title": "Homes Valued Between $20,000 to $24,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue20000To24999USDollar"
-                    ],
-                    "title": "Homes Valued Between $20,000 to $24,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $20,000 to $24,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue20000To24999USDollar"
-                    ],
-                    "title": "Homes Valued Between $20,000 to $24,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $20,000 to $24,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue20000To24999USDollar"
-                    ],
-                    "title": "Homes Valued Between $20,000 to $24,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $20,000 to $24,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue150000To174999USDollar"
-                    ],
-                    "title": "Homes Valued Between $150,000 and $174,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue150000To174999USDollar"
-                    ],
-                    "title": "Homes Valued Between $150,000 and $174,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $150,000 and $174,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue150000To174999USDollar"
-                    ],
-                    "title": "Homes Valued Between $150,000 and $174,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $150,000 and $174,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue150000To174999USDollar"
-                    ],
-                    "title": "Homes Valued Between $150,000 and $174,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $150,000 and $174,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To249999USDollar"
-                    ],
-                    "title": "Homes Valued Between $200,000 to $249,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To249999USDollar"
-                    ],
-                    "title": "Homes Valued Between $200,000 to $249,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $200,000 to $249,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To249999USDollar"
-                    ],
-                    "title": "Homes Valued Between $200,000 to $249,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $200,000 to $249,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To249999USDollar"
-                    ],
-                    "title": "Homes Valued Between $200,000 to $249,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $200,000 to $249,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue100000To124999USDollar"
-                    ],
-                    "title": "Homes Valued Between $100,000 and $124,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue100000To124999USDollar"
-                    ],
-                    "title": "Homes Valued Between $100,000 and $124,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $100,000 and $124,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue100000To124999USDollar"
-                    ],
-                    "title": "Homes Valued Between $100,000 and $124,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $100,000 and $124,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue100000To124999USDollar"
-                    ],
-                    "title": "Homes Valued Between $100,000 and $124,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $100,000 and $124,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To59999USDollar"
-                    ],
-                    "title": "Homes Valued Between $50,000 to $59,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To59999USDollar"
-                    ],
-                    "title": "Homes Valued Between $50,000 to $59,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $50,000 to $59,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To59999USDollar"
-                    ],
-                    "title": "Homes Valued Between $50,000 to $59,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $50,000 to $59,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To59999USDollar"
-                    ],
-                    "title": "Homes Valued Between $50,000 to $59,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $50,000 to $59,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue10000To14999USDollar"
-                    ],
-                    "title": "Homes Valued Between $10,000 and $14,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue10000To14999USDollar"
-                    ],
-                    "title": "Homes Valued Between $10,000 and $14,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $10,000 and $14,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue10000To14999USDollar"
-                    ],
-                    "title": "Homes Valued Between $10,000 and $14,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $10,000 and $14,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue10000To14999USDollar"
-                    ],
-                    "title": "Homes Valued Between $10,000 and $14,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $10,000 and $14,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto10000USDollar"
-                    ],
-                    "title": "Homes Valued at $10,000 or Less in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
               {
                 "tiles": [
                   {
@@ -753,6 +264,21 @@
                     ],
                     "title": "Homes Valued at $10,000 or Less in States of United States (${date})",
                     "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto10000USDollar"
+                    ],
+                    "title": "Homes Valued at $10,000 or Less in States of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
@@ -794,32 +320,32 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue90000To99999USDollar"
+                      "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Homes Valued Between $90,000 to $99,999 in States of United States (${date})",
-                    "type": "RANKING"
+                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue90000To99999USDollar"
+                      "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Homes Valued Between $90,000 to $99,999 in States of United States (${date})",
-                    "type": "MAP"
+                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Homes Valued Between $90,000 to $99,999 in States of United States"
+            "title": "Count of Housing Unit: 49,999 USD or Less in States of United States"
           },
           {
             "columns": [
@@ -827,9 +353,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue90000To99999USDollar"
+                      "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Homes Valued Between $90,000 to $99,999 in United States",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in United States",
                     "type": "LINE"
                   }
                 ]
@@ -837,223 +363,21 @@
               {
                 "tiles": [
                   {
-                    "description": "Homes Valued Between $90,000 to $99,999 in United States",
+                    "description": "Count of Housing Unit: 49,999 USD or Less in United States",
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue90000To99999USDollar"
+                      "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Homes Valued Between $90,000 to $99,999 in United States",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Homes Valued Between $90,000 to $99,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue40000To49999USDollar"
-                    ],
-                    "title": "Homes Valued Between $40,000 to $49,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue40000To49999USDollar"
-                    ],
-                    "title": "Homes Valued Between $40,000 to $49,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $40,000 to $49,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue40000To49999USDollar"
-                    ],
-                    "title": "Homes Valued Between $40,000 to $49,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $40,000 to $49,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue40000To49999USDollar"
-                    ],
-                    "title": "Homes Valued Between $40,000 to $49,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $40,000 to $49,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue250000To299999USDollar"
-                    ],
-                    "title": "Homes Valued Between $250,000 to $299,999 in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue250000To299999USDollar"
-                    ],
-                    "title": "Homes Valued Between $250,000 to $299,999 in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $250,000 to $299,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue250000To299999USDollar"
-                    ],
-                    "title": "Homes Valued Between $250,000 to $299,999 in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Homes Valued Between $250,000 to $299,999 in United States",
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue250000To299999USDollar"
-                    ],
-                    "title": "Homes Valued Between $250,000 to $299,999 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $250,000 to $299,999"
+            "title": "Count of Housing Unit: 49,999 USD or Less"
           }
         ],
         "statVarSpec": {
-          "Count_HousingUnit_HomeValue1000000OrMoreUSDollar": {
-            "name": "Housing Units Valued at $1,000,000 or More",
-            "statVar": "Count_HousingUnit_HomeValue1000000OrMoreUSDollar"
-          },
-          "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block": {
-            "name": "Homes Valued Between $1,000,000 and $1,499,999",
-            "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
-          },
-          "Count_HousingUnit_HomeValue100000To124999USDollar": {
-            "name": "Homes Valued Between $100,000 and $124,999",
-            "statVar": "Count_HousingUnit_HomeValue100000To124999USDollar"
-          },
-          "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue10000To14999USDollar": {
-            "name": "Homes Valued Between $10,000 and $14,999",
-            "statVar": "Count_HousingUnit_HomeValue10000To14999USDollar"
-          },
-          "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block": {
-            "name": "Homes Valued Between $1,500,000 and $1,999,999",
-            "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
-          },
-          "Count_HousingUnit_HomeValue150000To174999USDollar": {
-            "name": "Homes Valued Between $150,000 and $174,999",
-            "statVar": "Count_HousingUnit_HomeValue150000To174999USDollar"
-          },
-          "Count_HousingUnit_HomeValue15000To19999USDollar": {
-            "name": "Homes Valued Between $15,000 to $19,999",
-            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
-          },
-          "Count_HousingUnit_HomeValue175000To199999USDollar": {
-            "name": "Homes Valued Between $175,000 to $199,999",
-            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue200000To249999USDollar": {
-            "name": "Homes Valued Between $200,000 to $249,999",
-            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
-          },
-          "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
-          },
-          "Count_HousingUnit_HomeValue20000To24999USDollar": {
-            "name": "Homes Valued Between $20,000 to $24,999",
-            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
-          },
-          "Count_HousingUnit_HomeValue250000To299999USDollar": {
-            "name": "Homes Valued Between $250,000 to $299,999",
-            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
-          },
-          "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
-          },
-          "Count_HousingUnit_HomeValue40000To49999USDollar": {
-            "name": "Homes Valued Between $40,000 to $49,999",
-            "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
-          },
-          "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
-          },
-          "Count_HousingUnit_HomeValue50000To59999USDollar": {
-            "name": "Homes Valued Between $50,000 to $59,999",
-            "statVar": "Count_HousingUnit_HomeValue50000To59999USDollar"
-          },
-          "Count_HousingUnit_HomeValue50000To99999USDollar": {
-            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
-          },
-          "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
-            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
-          },
-          "Count_HousingUnit_HomeValue90000To99999USDollar": {
-            "name": "Homes Valued Between $90,000 to $99,999",
-            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
-          },
           "Count_HousingUnit_HomeValueUpto10000USDollar": {
             "name": "Homes Valued at $10,000 or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
@@ -1062,9 +386,113 @@
             "name": "Count of Housing Unit: 49,999 USD or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
-          "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: 49,999 USD or Less",
-            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          "Count_HousingUnit_WithRent_1000To1249USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 1,000 - 1,249 USD",
+            "statVar": "Count_HousingUnit_WithRent_1000To1249USDollar"
+          },
+          "Count_HousingUnit_WithRent_100To149USDollar": {
+            "name": "Count of Housing Unit: 100 - 149 USD",
+            "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
+          },
+          "Count_HousingUnit_WithRent_100To149USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 100 - 149 USD",
+            "statVar": "Count_HousingUnit_WithRent_100To149USDollar"
+          },
+          "Count_HousingUnit_WithRent_1250To1499USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 1,250 - 1,499 USD",
+            "statVar": "Count_HousingUnit_WithRent_1250To1499USDollar"
+          },
+          "Count_HousingUnit_WithRent_1500To1999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 1,500 - 1,999 USD",
+            "statVar": "Count_HousingUnit_WithRent_1500To1999USDollar"
+          },
+          "Count_HousingUnit_WithRent_150To199USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 150 - 199 USD",
+            "statVar": "Count_HousingUnit_WithRent_150To199USDollar"
+          },
+          "Count_HousingUnit_WithRent_2000OrMoreUSDollar_multiple_place_bar_block": {
+            "name": "Housing Units Valued at $2,000 or More",
+            "statVar": "Count_HousingUnit_WithRent_2000OrMoreUSDollar"
+          },
+          "Count_HousingUnit_WithRent_2000To2499USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 2,000 - 2,499 USD",
+            "statVar": "Count_HousingUnit_WithRent_2000To2499USDollar"
+          },
+          "Count_HousingUnit_WithRent_200To249USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 200 - 249 USD",
+            "statVar": "Count_HousingUnit_WithRent_200To249USDollar"
+          },
+          "Count_HousingUnit_WithRent_2500To2999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 2,500 - 2,999 USD",
+            "statVar": "Count_HousingUnit_WithRent_2500To2999USDollar"
+          },
+          "Count_HousingUnit_WithRent_250To299USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 250 - 299 USD",
+            "statVar": "Count_HousingUnit_WithRent_250To299USDollar"
+          },
+          "Count_HousingUnit_WithRent_3000To3499USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 3,000 - 3,499 USD",
+            "statVar": "Count_HousingUnit_WithRent_3000To3499USDollar"
+          },
+          "Count_HousingUnit_WithRent_300To349USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 300 - 349 USD",
+            "statVar": "Count_HousingUnit_WithRent_300To349USDollar"
+          },
+          "Count_HousingUnit_WithRent_3500OrMoreUSDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 3,500 USD or More",
+            "statVar": "Count_HousingUnit_WithRent_3500OrMoreUSDollar"
+          },
+          "Count_HousingUnit_WithRent_350To399USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 350 - 399 USD",
+            "statVar": "Count_HousingUnit_WithRent_350To399USDollar"
+          },
+          "Count_HousingUnit_WithRent_400To449USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 400 - 449 USD",
+            "statVar": "Count_HousingUnit_WithRent_400To449USDollar"
+          },
+          "Count_HousingUnit_WithRent_450To499USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 450 - 499 USD",
+            "statVar": "Count_HousingUnit_WithRent_450To499USDollar"
+          },
+          "Count_HousingUnit_WithRent_500To549USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 500 - 549 USD",
+            "statVar": "Count_HousingUnit_WithRent_500To549USDollar"
+          },
+          "Count_HousingUnit_WithRent_550To599USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 550 - 599 USD",
+            "statVar": "Count_HousingUnit_WithRent_550To599USDollar"
+          },
+          "Count_HousingUnit_WithRent_600To649USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 600 - 649 USD",
+            "statVar": "Count_HousingUnit_WithRent_600To649USDollar"
+          },
+          "Count_HousingUnit_WithRent_650To699USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 650 - 699 USD",
+            "statVar": "Count_HousingUnit_WithRent_650To699USDollar"
+          },
+          "Count_HousingUnit_WithRent_700To749USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 700 - 749 USD",
+            "statVar": "Count_HousingUnit_WithRent_700To749USDollar"
+          },
+          "Count_HousingUnit_WithRent_750To799USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 750 - 799 USD",
+            "statVar": "Count_HousingUnit_WithRent_750To799USDollar"
+          },
+          "Count_HousingUnit_WithRent_800To899USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 800 - 899 USD",
+            "statVar": "Count_HousingUnit_WithRent_800To899USDollar"
+          },
+          "Count_HousingUnit_WithRent_900To999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 900 - 999 USD",
+            "statVar": "Count_HousingUnit_WithRent_900To999USDollar"
+          },
+          "Count_HousingUnit_WithRent_Upto100USDollar": {
+            "name": "Count of Housing Unit: 100 USD or Less",
+            "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
+          },
+          "Count_HousingUnit_WithRent_Upto100USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 100 USD or Less",
+            "statVar": "Count_HousingUnit_WithRent_Upto100USDollar"
           },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
             "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
@@ -1073,6 +501,10 @@
           "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
             "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
             "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied": {
+            "name": "Median Gross Rent of Housing Unit: With Cash Rent",
+            "statVar": "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
           }
         }
       }
