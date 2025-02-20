@@ -6,7 +6,7 @@
   "entities_detected": [
     "volvox"
   ],
-  "entities_resolved": "(name: Volvox, dcid: bio/D044446); ",
+  "entities_resolved": "(name: Volvox, dcid: bio/D044446); (name: Volvox, dcid: bio/Volvox); ",
   "query_with_places_removed": "what is the phylum of",
   "sv_matching": {
     "CosineScore": [
@@ -24,7 +24,7 @@
       0.314266,
       0.312765,
       0.312629,
-      0.312505,
+      0.312504,
       0.311774,
       0.310339,
       0.310075,
@@ -83,7 +83,7 @@
       0.248279,
       0.247354,
       0.24662,
-      0.246163,
+      0.246164,
       0.238985,
       0.231355,
       0.230288,
@@ -127,7 +127,8 @@
   "query_detection_debug_logs": {
     "dc_recognize_entities": {
       "volvox": [
-        "bio/D044446"
+        "bio/D044446",
+        "bio/Volvox"
       ]
     },
     "dc_recognize_places": {},
