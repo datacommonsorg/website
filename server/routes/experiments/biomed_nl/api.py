@@ -1,0 +1,38 @@
+# # Copyright 2025 Google LLC
+# #
+# # Licensed under the Apache License, Version 2.0 (the "License");
+# # you may not use this file except in compliance with the License.
+# # You may obtain a copy of the License at
+# #
+# #      http://www.apache.org/licenses/LICENSE-2.0
+# #
+# # Unless required by applicable law or agreed to in writing, software
+# # distributed under the License is distributed on an "AS IS" BASIS,
+# # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# # See the License for the specific language governing permissions and
+# # limitations under the License.
+# """Endpoints for Biomed NL Search page"""
+
+import json
+
+import flask
+from flask import request
+from flask import Response
+
+# Define blueprint
+bp = flask.Blueprint('biomed_nl_api',
+                     __name__,
+                     url_prefix='/api/experiments/biomed_nl')
+
+
+def _fulfill_traversal_query(query):
+  return {'answer': 'hello', 'debug': 'world'}
+
+
+@bp.route('/query')
+def llm_search():
+  query = request.args.get('q')
+  if not query:
+    return 'error: q param is required', 400
+  result = _fulfill_traversal_query(query)
+  return Response(json.dumps(result), 200, mimetype='application/json')

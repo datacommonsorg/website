@@ -26,6 +26,7 @@ from google.api_core.exceptions import NotFound
 from google.cloud import secretmanager
 import google.cloud.logging
 
+from google.api_core.exceptions import NotFound
 from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
@@ -64,7 +65,6 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
     if os.environ.get(k):
       return os.environ.get(k)
 
-  # Try to get the key from secrets
   if gcp_project and gcp_path:
     try:
       secret_client = secretmanager.SecretManagerServiceClient()
@@ -75,7 +75,6 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
     except NotFound:
       return ''
 
-  # If key is not found, return an empty string
   return ''
 
 
@@ -84,6 +83,13 @@ def _enable_datagemma() -> bool:
   This UI should only be enabled for internal instances.
   """
   return os.environ.get('ENABLE_DATAGEMMA') == 'true'
+
+
+def _enable_experiments() -> bool:
+  """Returns whether to enable the Data Commons experiments for the instance. 
+  This includes the Biomed NL experiments.
+  """
+  return os.environ.get('ENABLE_EXPERIMENTS') == 'true'
 
 
 def register_routes_base_dc(app):
@@ -191,6 +197,22 @@ def register_routes_datagemma(app, cfg):
   app.register_blueprint(dev_datagemma_api.bp)
   from server.routes.dev_datagemma import html as dev_datagemma_html
   app.register_blueprint(dev_datagemma_html.bp)
+
+  if not app.config['GEMINI_API_KEY'] or not app.config['DC_NL_API_KEY']:
+    app.logger.warning('DataGemma routes not registered due to missing API key')
+    return
+
+  # Install blueprint for DataGemma page
+  from server.routes.dev_datagemma import api as dev_datagemma_api
+  app.register_blueprint(dev_datagemma_api.bp)
+  from server.routes.dev_datagemma import html as dev_datagemma_html
+  app.register_blueprint(dev_datagemma_html.bp)
+
+
+def register_routes_experiments(app, cfg):
+  # Install blueprint for Biomed NL experiment
+  from server.routes.experiments.biomed_nl import api as biomed_nl_api
+  app.register_blueprint(biomed_nl_api.bp)
 
 
 def register_routes_common(app):
@@ -345,6 +367,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if _enable_datagemma():
     register_routes_datagemma(app, cfg)
+
+  if _enable_experiments():
+    register_routes_experiments(app, cfg)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()

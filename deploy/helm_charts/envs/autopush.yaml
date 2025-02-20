@@ -31,6 +31,8 @@ website:
     enabled: true
   dataGemma:
     enabled: true
+  experiments:
+    enabled: true
   redis:
     enabled: true
     configFile: |

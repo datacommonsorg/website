@@ -71,6 +71,7 @@ done
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export ENABLE_DATAGEMMA=true
+export ENABLE_EXPERIMENTS=true
 
 # Set flask env
 if [[ $FLASK_ENV == "" ]]; then
