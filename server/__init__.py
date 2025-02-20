@@ -75,6 +75,8 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
       return ''
 
   # If key is not found, return an empty string
+  logging.warning(
+      f'No secret found for project: {gcp_project}; path:{gcp_path}')
   return ''
 
 
@@ -314,7 +316,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config.from_object(cfg)
 
   # Check DC_API_KEY is set for local dev.
-  if cfg.CUSTOM and cfg.LOCAL and not os.environ.get('DC_API_KEY'):
+  if (cfg.LITE or
+      (cfg.CUSTOM and cfg.LOCAL)) and not os.environ.get('DC_API_KEY'):
     raise Exception(
         'Set environment variable DC_API_KEY for local custom DC development')
 
