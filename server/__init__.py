@@ -75,6 +75,7 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
     except NotFound:
       return ''
 
+  # If key is not found, return an empty string
   return ''
 
 
