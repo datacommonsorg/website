@@ -92,7 +92,7 @@ class ScatterTestMixin():
     find_elem(self.driver, by=By.CSS_SELECTOR,
               value='.pac-item:nth-child(1)').click()
     shared.wait_for_loading(self.driver)
-    self.assertIsNotNone(wait_elem(self.driver, value='chip'))
+    self.assertIsNotNone(wait_elem(self.driver, value='place-selector-place-type'))
 
     # Choose place type
     Select(
