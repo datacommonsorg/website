@@ -56,9 +56,7 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
 
   Returns:
       API key if it exists, otherwise an empty string.
-  
-  TODO: use this method everywhere else in this file
-  """
+    """
   # Try to get the key from the environment
   for k in env_keys:
     if os.environ.get(k):
@@ -73,6 +71,7 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
       secret_response = secret_client.access_secret_version(name=secret_name)
       return secret_response.payload.data.decode('UTF-8').replace('\n', '')
     except NotFound:
+      logging.warning(f'No secret found for {gcp_project}:{gcp_path}')
       return ''
 
   # If key is not found, return an empty string
@@ -377,34 +376,17 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['MAPS_API_KEY'] = ''
   else:
     # Get the API key from environment first.
-    if os.environ.get('MAPS_API_KEY'):
-      app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
-    elif os.environ.get('maps_api_key'):
-      app.config['MAPS_API_KEY'] = os.environ.get('maps_api_key')
-    else:
-      secret_client = secretmanager.SecretManagerServiceClient()
-      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                      'maps-api-key', 'latest')
-      secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+    app.config['MAPS_API_KEY'] = _get_api_key(['MAPS_API_KEY', 'maps_api_key'],
+                                              cfg.SECRET_PROJECT,
+                                              'maps-api-key')
 
   if cfg.LOCAL:
     app.config['LOCAL'] = True
 
   # Need to fetch the API key for non gcp environment.
   if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
-    # Get the API key from environment first.
-    if os.environ.get('DC_API_KEY'):
-      app.config['DC_API_KEY'] = os.environ.get('DC_API_KEY')
-    elif os.environ.get('dc_api_key'):
-      app.config['DC_API_KEY'] = os.environ.get('dc_api_key')
-    else:
-      secret_client = secretmanager.SecretManagerServiceClient()
-      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                      'mixer-api-key', 'latest')
-      secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['DC_API_KEY'] = secret_response.payload.data.decode(
-          'UTF-8').replace('\n', '')
+    app.config['DC_API_KEY'] = _get_api_key(['DC_API_KEY', 'dc_api_key'],
+                                            cfg.SECRET_PROJECT, 'mixer-api-key')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
@@ -422,18 +404,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     else:
       app.config['NL_TABLE'] = None
 
-    # Get the API key from environment first.
     if cfg.USE_LLM:
       app.config['LLM_PROMPT_TEXT'] = llm_prompt.get_prompts()
-      if os.environ.get('LLM_API_KEY'):
-        app.config['LLM_API_KEY'] = os.environ.get('LLM_API_KEY')
-      else:
-        secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                        'palm-api-key',
-                                                        'latest')
-        secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['LLM_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+      app.config['LLM_API_KEY'] = _get_api_key(['LLM_API_KEY'],
+                                               cfg.SECRET_PROJECT,
+                                               'palm-api-key')
+
     app.config[
         'NL_BAD_WORDS'] = EMPTY_BANNED_WORDS if cfg.CUSTOM else load_bad_words(
         )
