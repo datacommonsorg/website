@@ -3387,6 +3387,7 @@ sdg/ER_PTD_FRHWTR,Average proportion of Freshwater Key Biodiversity Areas covere
 sdg/ER_PTD_MTN,Average proportion of Mountain Key Biodiversity Areas covered by protected areas
 sdg/ER_PTD_TERR,Average proportion of Terrestrial Key Biodiversity Areas covered by protected areas
 sdg/ER_RSK_LST,Red List Index
+sdg/FP_CPI_TOTL_ZG,"Annual inflation, consumer prices;Annual inflation rate as measured by the consumer price index;Percentage change in the cost to the average consumer of acquiring a basket of goods and services that may be fixed or changed at specified intervals, such as yearly;Annual inflation rate consumer price index"
 sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F,Proportion of females of reproductive age who have their need for family planning satisfied with modern methods
 sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F,Proportion of females aged 15-49 years with anaemia
 sdg/SH_STA_MORT.SEX--F,Maternal mortality
@@ -3602,7 +3603,11 @@ worldBank/4_1_SHARE_RE_IN_ELECTRICITY,Renewable electricity share of total elect
 worldBank/EG_ELC_ACCS_RU_ZS,percentage of rural population with access to electricity
 worldBank/EG_ELC_ACCS_UR_ZS,percentage of urban population with access to electricity
 worldBank/EG_ELC_ACCS_ZS,percentage of population with access to electricity
+worldBank/FR_INR_DPST,"Deposit interest rate;Deposit interest rate is the rate paid by commercial or similar banks for demand, time, or savings deposits"
+worldBank/FR_INR_LEND,"Lending interest rate;Lending rate is the bank rate that usually meets the short- and medium-term financing needs of the private sector"
+worldBank/FR_INR_RINR,"Real lending interest rate;Lending interest rate adjusted for inflation as measured by the GDP deflator"
 sdg/SG_GEN_PARL.SEX--F,proportion of seats held by women in national parliaments
 Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
+dc/x6l3mg60hpe7c,"Consumer Price Index of Consumer Goods And Services (Seasonally Unadjusted): Urban Consumer; Consumer Price Index for All Urban Consumers"
