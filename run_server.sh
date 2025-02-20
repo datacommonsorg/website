@@ -70,6 +70,8 @@ while getopts ":e:p:m?d?l?xg" OPTION; do
 done
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+export ENABLE_DATAGEMMA=true
+export ENABLE_EXPERIMENTS=true
 
 # Set flask env
 if [[ $FLASK_ENV == "" ]]; then
@@ -81,14 +83,6 @@ else
   export ENV_PREFIX="Local"
 fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
-
-if [[ $FLASK_ENV == "biomedical" ]]; then
-  export ENABLE_DATAGEMMA=false
-  export ENABLE_EXPERIMENTS=false
-else
-  export ENABLE_DATAGEMMA=true
-  export ENABLE_EXPERIMENTS=true
-fi
 
 if [[ $USE_GUNICORN ]]; then
   gunicorn --log-level info --preload --timeout 1000 --bind localhost:${PORT} -w 4 web_app:app
