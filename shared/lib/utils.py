@@ -211,7 +211,6 @@ def get_gcp_secret(gcp_project, gcp_path, version='latest'):
   Returns:
       The requested secret if it exists, otherwise an empty string.
     """
-  # Try to get the key from secrets
   try:
     secret_client = secretmanager.SecretManagerServiceClient()
     secret_name = secret_client.secret_version_path(gcp_project, gcp_path,
