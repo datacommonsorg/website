@@ -250,6 +250,9 @@ Amounts provided and mobilized in United States dollars per year in relation to 
 "Annual amount of volatile organic compound emissions from non-biogenic, miscellaneous emission sources",Annual_Amount_Emissions_EPAMiscellaneousEmissionSource_NonBiogenicEmissionSource_VolatileOrganicCompound
 Annual growth rate of real GDP per capita,dc/topic/sdg_8.1.1
 Annual growth rate of real GDP per employed person,dc/topic/sdg_8.2.1
+Annual inflation rate as measured by the consumer price index,sdg/FP_CPI_TOTL_ZG
+Annual inflation rate consumer price index,sdg/FP_CPI_TOTL_ZG
+"Annual inflation, consumer prices",sdg/FP_CPI_TOTL_ZG
 Annual mean levels of fine particulate matter (e.g. PM2.5 and PM10) in cities (population weighted),dc/topic/sdg_11.6.2
 Area of Farm Growing Corn for Silage Or Greenchop,Area_Farm_CornForSilageOrGreenchop
 Area of Farm Growing Cotton,Area_Farm_Cotton
@@ -489,6 +492,8 @@ Commute Time,dc/topic/CommuteTime
 Concentration of Smoke PM2.5,Concentration_AirPollutant_SmokePM25
 Condition of the economy,dc/topic/Economy
 "Conflict-related deaths per 100K population, by sex, age and cause",dc/topic/sdg_16.1.2
+Consumer Price Index for All Urban Consumers,dc/x6l3mg60hpe7c
+Consumer Price Index of Consumer Goods And Services (Seasonally Unadjusted): Urban Consumer,dc/x6l3mg60hpe7c
 Consumption of Anthracite Coal by the Manufacturing Industry,Annual_Consumption_Fuel_Manufacturing_AnthraciteCoal
 Consumption of Aviation Gasoline,Annual_Consumption_Fuel_AviationGasoline
 Consumption of Aviation Gasoline by International Aviation Bunkers,Annual_Consumption_Fuel_InternationalAviationBunkers_AviationGasoline
@@ -648,6 +653,8 @@ Degree of sustainable public procurement policies and action plan implementation
 Demographics,dc/topic/Demographics
 Dengue,dc/topic/Dengue
 Dentists,dc/topic/Dentists
+Deposit interest rate,worldBank/FR_INR_DPST
+"Deposit interest rate is the rate paid by commercial or similar banks for demand, time, or savings deposits",worldBank/FR_INR_DPST
 Develop and implement tools to monitor sustainable development impacts for sustainable tourism that creates jobs and promotes local culture and products,dc/topic/sdg_12.b
 "Develop effective, accountable and transparent institutions at all levels",dc/topic/sdg_16.6
 "Develop quality, reliable, sustainable and resilient infrastructure, including regional and trans-border infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all",dc/topic/sdg_9.1
@@ -1003,6 +1010,9 @@ Land Cover,dc/topic/LandCover
 Land Use And Coverage,dc/topic/LandUseAndCoverage
 Landslide,dc/topic/Landslide
 Language,dc/topic/Language
+Lending interest rate,worldBank/FR_INR_LEND
+Lending interest rate adjusted for inflation as measured by the GDP deflator,worldBank/FR_INR_RINR
+Lending rate is the bank rate that usually meets the short- and medium-term financing needs of the private sector,worldBank/FR_INR_LEND
 Length of national highway,Length_Transportation_NationalHighway
 Length of rail road,Length_Transportation_Railroad
 Length of road,Length_Transportation_Road
@@ -2882,6 +2892,7 @@ Percent of land covered by Permanent Water,LandCoverFraction_PermanentWater
 Percent of land covered by Seasonal Water,LandCoverFraction_SeasonalWater
 Percent of land covered by Shrubland,LandCoverFraction_Shrubland
 Percent of land covered by Snow Ice,LandCoverFraction_SnowIce
+"Percentage change in the cost to the average consumer of acquiring a basket of goods and services that may be fixed or changed at specified intervals, such as yearly",sdg/FP_CPI_TOTL_ZG
 Percentage of Bcg Immunization Coverage Among 1 Year Old female,WHO/bcgv_Female
 Percentage of Bcg Immunization Coverage Among 1 Year Old in Rural Areas,WHO/bcgv_Rural
 Percentage of Bcg Immunization Coverage Among 1 Year Old in Urban areas,WHO/bcgv_Urban
@@ -3122,6 +3133,7 @@ Real Gross Value Added from Manufacturing,Amount_EconomicActivity_GrossValueAdde
 "Real Gross Value Added from Mining, Manufacturing, and Utilities",Amount_EconomicActivity_GrossValueAdded_ISICMiningManufacturingUtilities_RealValue
 "Real Gross Value Added from Transport, Storage, and Communications",Amount_EconomicActivity_GrossValueAdded_ISICTransportStorageCommunications_RealValue
 "Real Gross Value Added from Wholesale, Retail Trade, Restaurants, and Hotels",Amount_EconomicActivity_GrossValueAdded_ISICWholesaleRetailTradeRestaurantsHotels_RealValue
+Real lending interest rate,worldBank/FR_INR_RINR
 "Realize timely implementation of duty-free and quota-free market access on a lasting basis for all least developed countries, consistent with World Trade Organization decisions, including by ensuring that preferential rules of origin applicable to imports from least developed countries are transparent and simple, and contribute to facilitating market access",dc/topic/sdg_17.12
 Reasons for death,dc/topic/CausesOfDeath
 Reasons for mortality,dc/topic/CausesOfDeath
