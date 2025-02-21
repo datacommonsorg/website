@@ -12,11 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Utility functions shared across servers."""
+import logging
 
 import copy
 import os
 import re
 from typing import Dict, List, Set
+from google.api_core.exceptions import NotFound
+from google.cloud import secretmanager
 
 from markupsafe import escape
 
@@ -197,6 +200,56 @@ def escape_strings(data):
     # Otherwise, assume data is of a type that doesn't need escaping and just
     # return it as is.
     return data
+
+
+def get_gcp_secret(gcp_project, gcp_path, version='latest'):
+  """Fetches a secret from GCP.
+  
+  Args:
+      gcp_project: The GCP project to use to get the secret.
+      gcp_path: The path to getting the secret from GCP.
+
+  Returns:
+      The requested secret if it exists, otherwise an empty string.
+    """
+  # Try to get the key from secrets
+  try:
+    secret_client = secretmanager.SecretManagerServiceClient()
+    secret_name = secret_client.secret_version_path(gcp_project, gcp_path,
+                                                    version)
+    secret_response = secret_client.access_secret_version(name=secret_name)
+    return secret_response.payload.data.decode('UTF-8').replace('\n', '')
+  except NotFound:
+    logging.warning(
+        f'No secret found at {gcp_path} of the requested GCP project.')
+    return ''
+
+
+def get_api_key(env_keys=[], gcp_project='', gcp_path=''):
+  """Gets an api key first from the environment, then from GCP secrets.
+  
+  Args:
+      env_keys: A list of keys in the environment to try getting the api key with
+      gcp_project: The GCP project to use to get the api key from GCP secrets
+      gcp_path: The path to getting the api key from GCP secrets
+
+  Returns:
+      API key if it exists, otherwise an empty string.
+    """
+  # Try to get the key from the environment
+  for k in env_keys:
+    if os.environ.get(k):
+      return os.environ.get(k)
+
+  # Try to get the key from secrets
+  if gcp_project and gcp_path:
+    return get_gcp_secret(gcp_project, gcp_path)
+
+  # If key is not found, return an empty string
+  logging.warning(
+      f'No key found in the [{",".join(env_keys)}] environment variable(s), nor at "{gcp_path}" of the configured GCP project.'
+  )
+  return ''
 
 
 def is_test_env() -> bool:

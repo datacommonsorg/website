@@ -20,7 +20,7 @@ import smtplib
 
 from absl import app
 from absl import flags
-from google.cloud import secretmanager
+from shared.lib.utils import get_gcp_secret
 
 _SENDER = "datacommonsorg@gmail.com"
 _SMTP_HOST = "smtp.gmail.com"
@@ -64,11 +64,9 @@ def send_email(recipient, subject, message):
   msg_to_send['To'] = recipient
 
   # Get credentials for sending email
-  secret_client = secretmanager.SecretManagerServiceClient()
-  secret_name = secret_client.secret_version_path(_SECRET_PROJECT, _SECRET_NAME,
-                                                  _SECRET_VERSION)
-  secret_response = secret_client.access_secret_version(name=secret_name)
-  password = secret_response.payload.data.decode('UTF-8')
+  password = get_gcp_secret(gcp_project=_SECRET_PROJECT,
+                            gcp_path=_SECRET_NAME,
+                            version=_SECRET_VERSION)
 
   # Send the email
   server = smtplib.SMTP(_SMTP_HOST, _SMTP_PORT)

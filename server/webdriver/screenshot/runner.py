@@ -17,12 +17,12 @@ import logging
 import os
 import time
 
-from google.cloud import secretmanager
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from shared.lib.utils import get_gcp_secret
 
 from server.webdriver import shared
 
@@ -74,11 +74,7 @@ def login(driver):
                                              "//button[contains(., 'Next')]")
   driver.execute_script("arguments[0].click();", username_next_button)
   # Enter password
-  secret_client = secretmanager.SecretManagerServiceClient()
-  secret_name = secret_client.secret_version_path(_SECRET_PROJECT, _SECRET_NAME,
-                                                  'latest')
-  secret_response = secret_client.access_secret_version(name=secret_name)
-  password = secret_response.payload.data.decode('UTF-8')
+  password = get_gcp_secret(gcp_project=_SECRET_PROJECT, gcp_path=_SECRET_NAME)
   password_input = WebDriverWait(driver, WAIT_TIMEOUT).until(
       EC.element_to_be_clickable((By.XPATH, "//input[@type='password']")))
   password_input.send_keys(password)
