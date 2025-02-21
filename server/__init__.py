@@ -22,10 +22,8 @@ from flask import redirect
 from flask import request
 from flask_babel import Babel
 import flask_cors
-
 import google.cloud.logging
 
-from shared.lib.utils import get_api_key
 from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
@@ -40,6 +38,7 @@ from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
 from shared.lib import gcp as lib_gcp
 from shared.lib import utils as lib_utils
+from shared.lib.utils import get_api_key
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 

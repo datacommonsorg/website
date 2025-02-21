@@ -20,6 +20,7 @@ import smtplib
 
 from absl import app
 from absl import flags
+
 from shared.lib.utils import get_gcp_secret
 
 _SENDER = "datacommonsorg@gmail.com"

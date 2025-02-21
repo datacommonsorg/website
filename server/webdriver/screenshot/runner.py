@@ -22,9 +22,9 @@ from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from shared.lib.utils import get_gcp_secret
 
 from server.webdriver import shared
+from shared.lib.utils import get_gcp_secret
 
 WIDTH = 1280
 SCREENSHOTS_FOLDER = 'screenshots'

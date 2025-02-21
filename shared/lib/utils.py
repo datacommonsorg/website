@@ -12,15 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Utility functions shared across servers."""
-import logging
-
 import copy
+import logging
 import os
 import re
 from typing import Dict, List, Set
+
 from google.api_core.exceptions import NotFound
 from google.cloud import secretmanager
-
 from markupsafe import escape
 
 import shared.lib.constants as constants
