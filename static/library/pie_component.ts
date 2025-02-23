@@ -101,6 +101,10 @@ export class DatacommonsPieComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  // Optional: Locale to use for this component
+  @property()
+  locale?: string;
+
   render(): HTMLDivElement {
     const statVarSpec = [];
     this.variables.forEach((statVarDcid) => {
@@ -129,6 +133,6 @@ export class DatacommonsPieComponent extends LitElement {
       svgChartHeight: 200,
       title: this.header || this.title,
     };
-    return createWebComponentElement(DonutTile, donutTileProps);
+    return createWebComponentElement(DonutTile, donutTileProps, this.locale);
   }
 }
