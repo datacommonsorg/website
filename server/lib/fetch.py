@@ -363,7 +363,7 @@ def entity_variables(entities):
   return result
 
 
-def properties(nodes, out=True):
+def properties(nodes, out=True, max_pages=1):
   """Returns the properties for a list of nodes.
 
   The response is in the following format:
@@ -372,14 +372,14 @@ def properties(nodes, out=True):
   }
 
   """
-  resp = dc.v2node(nodes, '->' if out else '<-')
+  resp = dc.v2node(nodes, '->' if out else '<-', max_pages)
   result = {node: [] for node in nodes}
   for node, val in resp.get('data', {}).items():
     result[node] = val.get('properties', [])
   return result
 
 
-def property_values(nodes, prop, out=True, constraints=''):
+def property_values(nodes, prop, out=True, constraints='', max_pages=1):
   """Returns a compact property values data out of REST API response.
 
   The response is the following format:
@@ -388,7 +388,7 @@ def property_values(nodes, prop, out=True, constraints=''):
   }
   """
   resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                          constraints))
+                                          constraints), max_pages)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -440,7 +440,7 @@ def multiple_property_values(nodes: List[str],
   return result
 
 
-def raw_property_values(nodes, prop, out=True, constraints=''):
+def raw_property_values(nodes, prop, out=True, constraints='', max_pages=1):
   """Returns full property values data out of REST API response.
 
   The response is the following format:
@@ -458,14 +458,14 @@ def raw_property_values(nodes, prop, out=True, constraints=''):
 
   """
   resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                          constraints))
+                                          constraints), max_pages)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
   return result
 
 
-def triples(nodes, out=True):
+def triples(nodes, out=True, max_pages=1):
   """Fetch triples for given nodes.
 
   The response is the following format:
@@ -484,7 +484,7 @@ def triples(nodes, out=True):
   }
 
   """
-  resp = dc.v2node(nodes, '->*' if out else '<-*')
+  resp = dc.v2node(nodes, '->*' if out else '<-*', max_pages)
   result = {}
   for node, arcs in resp.get('data', {}).items():
     result[node] = {}

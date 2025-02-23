@@ -249,18 +249,41 @@ def v2observation(select, entity, variable):
   })
 
 
-def v2node(nodes, prop):
+def _merge_paged_response(result, paged_response):
+  for dcid in paged_response['data']:
+    for prop in paged_response['data'][dcid].get('arcs', {}):
+      result.setdefault(dcid, {}).setdefault('arcs', {}).setdefault(
+          prop, {}).setdefault('nodes', []).extend(
+              paged_response['data'][dcid]['arcs'][prop]['nodes'])
+
+    if 'properties' in paged_response['data'][dcid]:
+      result.setdefault(dcid, {}).setdefault('properties', []).extend(
+          paged_response['data'][dcid].get('properties', []))
+
+
+def v2node(nodes, prop, max_pages=1):
   """Wrapper to call V2 Node REST API.
 
   Args:
       nodes: A list of node dcids.
       prop: The property to query for.
   """
-  url = get_service_url('/v2/node')
-  return post(url, {
-      'nodes': sorted(nodes),
-      'property': prop,
-  })
+  fetched_pages = 0
+  result = {}
+  next_token = ''
+  while True:
+    url = get_service_url('/v2/node')
+    paged_response = post(url, {
+        'nodes': sorted(nodes),
+        'property': prop,
+        'nextToken': next_token
+    })
+    _merge_paged_response(result, paged_response)
+    fetched_pages += 1
+    next_token = paged_response.get('nextToken', '')
+    if not next_token or fetched_pages >= max_pages:
+      break
+  return result
 
 
 def v2event(node, prop):
