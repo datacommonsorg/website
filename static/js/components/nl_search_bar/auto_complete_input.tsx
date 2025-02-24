@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -48,6 +48,15 @@ import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
 const LOCATION_SEARCH = "location_search";
+const SAMPLE_QUESTIONS = [
+  "What is the population of California?",
+  "GDP of Japan?",
+  "Average temperature in Paris?",
+  "Unemployment rate in Germany?",
+  "Life expectancy in Canada?",
+];
+const TYPING_SPEED = 30; // milliseconds per character
+const DISPLAY_DURATION = 3000; // milliseconds to display each question
 
 export interface AutoCompleteResult {
   dcid: string;
@@ -99,6 +108,8 @@ export function AutoCompleteInput(
   const [lastScrollYOnTrigger, setLastScrollYOnTrigger] = useState(0);
   // Tracks the last scrollY value for current height offsett.
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [sampleQuestionIndex, setSampleQuestionIndex] = useState(0);
+  const [sampleQuestionText, setSampleQuestionText] = useState("");
 
   const isHeaderBar = props.barType == "header";
   let lang = "";
@@ -111,102 +122,142 @@ export function AutoCompleteInput(
 
     const urlParams = new URLSearchParams(window.location.search);
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
+
+    // Start cycling through sample questions when the component mounts.
+    cycleSampleQuestions(sampleQuestionIndex);
   }, []);
 
-  // Whenever any of the scrollY states change, recompute to see if we need to hide the results.
-  // We only hide the results when the user has scrolled past 15% of the window height since the autocomplete request.
-  // It allows the user to navigate through the page without being annoyed by the results,
-  // and to scroll through the results without them disappearing.
-  useEffect(() => {
-    if (
-      results.placeResults.length > 0 &&
-      Math.abs(lastScrollY - lastScrollYOnTrigger) > window.outerHeight * 0.15
-    ) {
-      setResults({ placeResults: [], svResults: [] });
-    }
-  }, [lastScrollY, lastScrollYOnTrigger]);
 
-  useEffect(() => {
-    // For the first load when q= param is set, we want to ensure the
-    // props.value is propagated if it doesn't match input text.
-    // Afterwards, the onInputchange method is responsible for updating
-    // the text.
-    if (props.value != inputText) {
-      changeText(props.value);
-    }
-  }, [props.value]);
+  const placeholderText =
+  !inputActive
+    ? sampleQuestionText
+    : props.placeholder;
 
-  // Clear suggested results when click registered outside of component.
-  useOutsideClickAlerter(wrapperRef, () => {
-    setResults({ placeResults: [], svResults: [] });
-    setInputActive(false);
-  });
-
-  useInsideClickAlerter(wrapperRef, () => {
-    setInputActive(true);
-  });
-
-  useEffect(() => {
-    // TriggerSearch state used to ensure onSearch only called after text updated.
-    executeQuery();
-  }, [triggerSearch, setTriggerSearch]);
-
-  function executeQuery(): void {
-    setResults({ placeResults: [], svResults: [] });
-    setHoveredIdx(-1);
-    controller.current.abort(); // Ensure autocomplete responses can't come back.
-    props.onSearch();
-  }
-
-  function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    const currentText = e.target.value;
-    changeText(currentText);
-    setBaseInput(currentText);
-
-    if (!props.enableAutoComplete) return;
-
-    const selectionApplied =
-      hoveredIdx >= 0 &&
-      hoveredIdx < results.placeResults.length &&
-      currentText.trim().endsWith(results.placeResults[hoveredIdx].name);
-
-    let lastSelection = lastAutoCompleteSelection;
-    if (selectionApplied) {
-      // Trigger Google Analytics event to track the index of the selected autocomplete result.
-      triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
-        [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
-      });
-
-      // Reset all suggestion results.
-      setResults({ placeResults: [], svResults: [] });
-      setHoveredIdx(-1);
-      // Set the autocomplete selection.
-      setLastAutoCompleteSelection(results.placeResults[hoveredIdx].name);
-      return;
-    } else if (_.isEmpty(currentText)) {
-      // Reset all suggestion results.
-      setResults({ placeResults: [], svResults: [] });
-      setLastAutoCompleteSelection("");
-      setHoveredIdx(-1);
-      return;
-    } else if (!currentText.includes(lastAutoCompleteSelection)) {
-      // If the user backspaces into the last selection, reset it.
-      lastSelection = "";
-      setLastAutoCompleteSelection(lastSelection);
-      // fall through
-    }
-
-    let queryForAutoComplete = currentText;
-    if (!_.isEmpty(lastSelection)) {
-      // if the last selection is still present, only send what comes after to autocomplete.
-      const splitQuery = queryForAutoComplete.split(lastSelection);
-      if (splitQuery.length == 2) {
-        queryForAutoComplete = splitQuery[1].trim();
+  const cycleSampleQuestions = (index: number) => {
+    let currentQuestion = SAMPLE_QUESTIONS[index];
+    let charIndex = 0;
+  
+    const typeNextChar = () => {
+      if (charIndex <= currentQuestion.length) {
+        setSampleQuestionText(currentQuestion.substring(0, charIndex));
+        charIndex++;
+        setTimeout(typeNextChar, TYPING_SPEED);
+      } else {
+        setTimeout(() => {
+          const deleteChar = () => {
+            if (charIndex >= 0) {
+              setSampleQuestionText(currentQuestion.substring(0, charIndex));
+              charIndex--;
+              setTimeout(deleteChar, TYPING_SPEED);
+            } else {
+              setSampleQuestionIndex(
+                (index + 1) % SAMPLE_QUESTIONS.length
+              );
+              cycleSampleQuestions((index + 1) % SAMPLE_QUESTIONS.length);
+            }
+          };
+          deleteChar();
+        }, DISPLAY_DURATION);
       }
+    };
+    typeNextChar();
+  };
+
+    // Whenever any of the scrollY states change, recompute to see if we need to hide the results.
+    // We only hide the results when the user has scrolled past 15% of the window height since the autocomplete request.
+    // It allows the user to navigate through the page without being annoyed by the results,
+    // and to scroll through the results without them disappearing.
+    useEffect(() => {
+      if (
+        results.placeResults.length > 0 &&
+        Math.abs(lastScrollY - lastScrollYOnTrigger) > window.outerHeight * 0.15
+      ) {
+        setResults({ placeResults: [], svResults: [] });
+      }
+    }, [lastScrollY, lastScrollYOnTrigger]);
+
+    useEffect(() => {
+      // For the first load when q= param is set, we want to ensure the
+      // props.value is propagated if it doesn't match input text.
+      // Afterwards, the onInputchange method is responsible for updating
+      // the text.
+      if (props.value != inputText) {
+        changeText(props.value);
+      }
+    }, [props.value]);
+
+    // Clear suggested results when click registered outside of component.
+    useOutsideClickAlerter(wrapperRef, () => {
+      setResults({ placeResults: [], svResults: [] });
+      setInputActive(false);
+    });
+
+    useInsideClickAlerter(wrapperRef, () => {
+      setInputActive(true);
+    });
+
+    useEffect(() => {
+      // TriggerSearch state used to ensure onSearch only called after text updated.
+      executeQuery();
+    }, [triggerSearch, setTriggerSearch]);
+
+    function executeQuery(): void {
+      setResults({ placeResults: [], svResults: [] });
+      setHoveredIdx(-1);
+      controller.current.abort(); // Ensure autocomplete responses can't come back.
+      props.onSearch();
     }
 
-    sendDebouncedAutoCompleteRequest(queryForAutoComplete);
-  }
+    function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
+      const currentText = e.target.value;
+      changeText(currentText);
+      setBaseInput(currentText);
+
+      if (!props.enableAutoComplete) return;
+
+      const selectionApplied =
+        hoveredIdx >= 0 &&
+        hoveredIdx < results.placeResults.length &&
+        currentText.trim().endsWith(results.placeResults[hoveredIdx].name);
+
+      let lastSelection = lastAutoCompleteSelection;
+      if (selectionApplied) {
+        console.log("Autocomplete select")
+        // Trigger Google Analytics event to track the index of the selected autocomplete result.
+        triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
+          [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
+        });
+
+        // Reset all suggestion results.
+        setResults({ placeResults: [], svResults: [] });
+        setHoveredIdx(-1);
+        // Set the autocomplete selection.
+        setLastAutoCompleteSelection(results.placeResults[hoveredIdx].name);
+        return;
+      } else if (_.isEmpty(currentText)) {
+        // Reset all suggestion results.
+        setResults({ placeResults: [], svResults: [] });
+        setLastAutoCompleteSelection("");
+        setHoveredIdx(-1);
+        return;
+      } else if (!currentText.includes(lastAutoCompleteSelection)) {
+        // If the user backspaces into the last selection, reset it.
+        lastSelection = "";
+        setLastAutoCompleteSelection(lastSelection);
+        // fall through
+      }
+
+      let queryForAutoComplete = currentText;
+      if (!_.isEmpty(lastSelection)) {
+        // if the last selection is still present, only send what comes after to autocomplete.
+        const splitQuery = queryForAutoComplete.split(lastSelection);
+        if (splitQuery.length == 2) {
+          queryForAutoComplete = splitQuery[1].trim();
+        }
+      }
+
+      sendDebouncedAutoCompleteRequest(queryForAutoComplete);
+    }
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
     setLastScrollYOnTrigger(window.scrollY);
@@ -297,6 +348,7 @@ export function AutoCompleteInput(
 
   function selectResult(result: AutoCompleteResult, idx: number): void {
     // Trigger Google Analytics event to track the index of the selected autocomplete result.
+    console.log("Autocomplete select")
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
     });
@@ -309,6 +361,7 @@ export function AutoCompleteInput(
       // then that means there are no other parts of the query, so it's a place only
       // redirection.
       if (result.dcid) {
+        console.log("Autocomplete select redirect")
         triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
           [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
         });
@@ -346,8 +399,8 @@ export function AutoCompleteInput(
             <Input
               id={props.inputId}
               invalid={props.invalid}
-              placeholder={props.placeholder}
-              aria-label={props.placeholder}
+              placeholder={placeholderText}
+              aria-label={placeholderText}
               value={inputText}
               onChange={onInputChange}
               onKeyDown={(event): void => handleKeydownEvent(event)}
@@ -360,7 +413,7 @@ export function AutoCompleteInput(
             </div>
           </InputGroup>
         </div>
-        {props.enableAutoComplete && !_.isEmpty(results.placeResults) && (
+        {props.enableAutoComplete && (
           <AutoCompleteSuggestions
             baseInput={baseInput}
             allResults={results.placeResults}
