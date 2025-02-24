@@ -58,6 +58,7 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
 
     # Raise no embeddings exception if the embeddings path does not have any embeddings.
     if _is_csv_empty_or_header_only(embeddings_path):
+      logging.error('meep: ' + embeddings_path)
       raise NoEmbeddingsException()
 
     self.dataset_embeddings: torch.Tensor = None
@@ -124,13 +125,18 @@ def _is_csv_empty_or_header_only(file_path):
   with file_lock:
     with open(file_path, 'r', newline='') as csvfile:
       reader = csv.reader(csvfile)
+      logging.error('meep: opened' + file_path)
       try:
         # Read the first row (header)
+        logging.error('meep: first')
         next(reader)
         # Try reading the second row
+        logging.error('meep: second')
         next(reader)
+        logging.error('meep: third')
         # If no exception is raised, there are more rows than just the header
         return False
       except StopIteration:
+        logging.error('meep: iter')
         # StopIteration is raised if there are no more rows to read
         return True
