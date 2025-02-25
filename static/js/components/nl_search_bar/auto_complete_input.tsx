@@ -30,6 +30,7 @@ import React, {
 } from "react";
 import { Input, InputGroup } from "reactstrap";
 
+import { intl } from "../../i18n/i18n";
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
@@ -45,14 +46,16 @@ import {
 import { ArrowForward } from "../elements/icons/arrow_forward";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
+import {
+  cycleSampleQuestions,
+  enableDynamicPlacehoder,
+  loadSampleQuestions,
+  placeholderMessages,
+} from "./dynamic_placeholder_helper";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
 const LOCATION_SEARCH = "location_search";
-const TYPING_SPEED = 40; // milliseconds per character
-const TYPING_SPEED_DELETE = 20; // milliseconds per character
-const DISPLAY_DURATION_DELAY = 3000;
-const MAX_SAMPLE_QUESTION_CYCLE = 5;
 
 export interface AutoCompleteResult {
   dcid: string;
@@ -112,12 +115,6 @@ export function AutoCompleteInput(
   let lang = "";
 
   const { placeholder } = useQueryStore();
-  const metadataContainer = document.getElementById("metadata-base");
-  const sampleQuestions = metadataContainer?.dataset?.sampleQuestions
-    ? JSON.parse(metadataContainer.dataset.sampleQuestions).flatMap(
-        (category) => category.questions
-      ) ?? []
-    : [];
 
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
@@ -129,62 +126,20 @@ export function AutoCompleteInput(
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
 
     // Start cycling through sample questions when the component mounts.
-    if (
-      props.enableDynamicPlaceholders &&
-      sampleQuestions != null &&
-      sampleQuestions.length > 0
-    ) {
-      const sampleQuestionStartIndex = Math.floor(
-        Math.random() * sampleQuestions.length
+    if (props.enableDynamicPlaceholders) {
+      enableDynamicPlacehoder(
+        setSampleQuestionText,
+        setDynamicPlaceholdersEnabled
       );
-
-      // Add a 5-second delay before starting the cycle
-      const timerId = setTimeout(() => {
-        setDynamicPlaceholdersEnabled(true);
-        cycleSampleQuestions(sampleQuestionStartIndex, 0);
-      }, DISPLAY_DURATION_DELAY);
-
-      return () => clearTimeout(timerId);
     }
   }, []);
 
   const placeholderText =
     !inputActive && dynamicPlaceholdersEnabled
-      ? 'Try searching "' + sampleQuestionText + '"'
+      ? intl.formatMessage(placeholderMessages.trySearchingPlaceholder, {
+          sampleQuestion: sampleQuestionText,
+        })
       : placeholder;
-
-  /* Start typing the sample questions through the Input's placeholder attribute while inactive. */
-  const cycleSampleQuestions = (index: number, questionCount: number) => {
-    if (questionCount >= MAX_SAMPLE_QUESTION_CYCLE) {
-      setSampleQuestionText("");
-      setDynamicPlaceholdersEnabled(false);
-      return;
-    }
-
-    const currentQuestion = sampleQuestions[index];
-    let charIndex = 0;
-
-    const typeNextChar = () => {
-      if (charIndex <= currentQuestion.length) {
-        setSampleQuestionText(currentQuestion.substring(0, charIndex++));
-        setTimeout(typeNextChar, TYPING_SPEED);
-      } else {
-        setTimeout(() => {
-          const deleteChar = () => {
-            if (charIndex >= 0) {
-              setSampleQuestionText(currentQuestion.substring(0, charIndex--));
-              setTimeout(deleteChar, TYPING_SPEED_DELETE);
-            } else {
-              const nextQuestionIndex = (index + 1) % sampleQuestions.length;
-              cycleSampleQuestions(nextQuestionIndex, ++questionCount);
-            }
-          };
-          deleteChar();
-        }, DISPLAY_DURATION_DELAY);
-      }
-    };
-    typeNextChar();
-  };
 
   // Whenever any of the scrollY states change, recompute to see if we need to hide the results.
   // We only hide the results when the user has scrolled past 15% of the window height since the autocomplete request.

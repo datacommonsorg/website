@@ -31,7 +31,7 @@
 },
 {
     "name": "dynamic_placeholder_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
 }]
