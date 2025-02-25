@@ -18,6 +18,12 @@ import { defineMessages } from "react-intl";
 
 // Strings to use in place page
 export const singularPlaceTypeMessages = defineMessages({
+  Continent: {
+    id: "singular_continent",
+    defaultMessage: "Continent",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Continent. An example use is 'A Continent in the world' to describe 'Europe'. Please maintain capitalization.",
+  },
   Country: {
     id: "singular_country",
     defaultMessage: "Country",
@@ -81,6 +87,12 @@ export const singularPlaceTypeMessages = defineMessages({
 });
 
 export const pluralPlaceTypeMessages = defineMessages({
+  Continent: {
+    id: "plural_continent",
+    defaultMessage: "Continents",
+    description:
+      "A label or header for a collection of places of type Continent (see https://en.wikipedia.org/wiki/Continent). Some examples: 'Continents in the world', 'Median Age: Other Continents', or 'Ranking by Population for Continents in the world'. Please maintain capitalization.",
+  },
   Country: {
     id: "plural_country",
     defaultMessage: "Countries",
@@ -161,6 +173,13 @@ export const pageMessages = defineMessages({
     description:
       "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
   },
+  SummaryOverviewTooltip: {
+    id: "summary_overview_tooltip",
+    defaultMessage:
+      "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data.",
+    description:
+      "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
+  },
   KeyDemographics: {
     id: "key_demographics",
     defaultMessage: "Key demographics",
@@ -178,6 +197,12 @@ export const pageMessages = defineMessages({
     defaultMessage: "Places in {placeName}",
     description:
       'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
+  },
+  placeTypeInPlaces: {
+    id: "place_type_in_places",
+    defaultMessage: "{placeType} in",
+    description:
+      'Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows "State in {USA, North America, World}".',
   },
   categoryInPlace: {
     id: "category_in_place",
