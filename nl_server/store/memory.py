@@ -119,23 +119,12 @@ def _is_csv_empty_or_header_only(file_path):
     True if the CSV file is empty or has only the header, False otherwise.
   """
   with open(file_path, 'r', newline='') as csvfile:
-    csvfile.seek(0)
     reader = csv.reader(csvfile)
-    logging.error(f'reading {file_path}')
-    num_rows = len(list(reader))
-    logging.error(f'has {num_rows} rows')
-    if num_rows > 1:
-      return False
-    return True
     try:
       # Read the first row (header)
-      logging.error("reading first line")
-      first_row = next(reader)
-      logging.error(first_row)
+      next(reader)
       # Try reading the second row
-      logging.error("reading second line")
-      second_row = next(reader)
-      logging.error(second_row)
+      next(reader)
       # If no exception is raised, there are more rows than just the header
       return False
     except StopIteration:

@@ -20,11 +20,3 @@ python3 -m pip install --upgrade pip
 python3 -m pip install -r nl_server/requirements.txt -q
 python3 -m pip install -r tools/nl/download_nl_files/requirements.txt -q
 python3 -m tools.nl.download_nl_files.download_nl_files --catalog_path="deploy/nl/catalog.yaml"
-
-echo "printing downloaded csv files"
-
-find /tmp -type f -name "*.csv" -print0 | while IFS= read -r -d $'\0' file; do
-  echo "--- $file ---"  # Print the filename as a header
-  head -n 3 "$file"    # Print the first 2 lines of the file
-  echo ""             # Add an empty line for better readability
-done
