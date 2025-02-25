@@ -268,12 +268,27 @@ def _merge_paged_response(result, paged_response):
     del result['nextToken']
 
 
-def v2node(nodes, prop, max_pages=1):
+def v2node(nodes, prop):
   """Wrapper to call V2 Node REST API.
 
   Args:
       nodes: A list of node dcids.
       prop: The property to query for.
+  """
+  url = get_service_url('/v2/node')
+  return post(url, {
+      'nodes': sorted(nodes),
+      'property': prop,
+  })
+
+
+def v2node_paginated(nodes, prop, max_pages=1):
+  """Wrapper to call V2 Node REST API.
+
+  Args:
+      nodes: A list of node dcids.
+      prop: The property to query for.
+      max_pages: The maximum number of pages to fetch from the v2node api.
   """
   fetched_pages = 0
   result = {}

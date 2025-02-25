@@ -17,7 +17,7 @@ import os
 import unittest
 from unittest import mock
 
-from server.services.datacommons import v2node
+from server.services.datacommons import v2node_paginated
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DATA_DIR = os.path.join(MODULE_DIR, "..", "test_data", "datacommons")
@@ -31,14 +31,14 @@ def get_json(filename):
     return json.load(f)
 
 
-class TestServiceDataCommonsV2Node(unittest.TestCase):
+class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
 
   @mock.patch('server.services.datacommons.post')
   def test_termination_condition_max_pages_fetched(self, mock_post):
     response_with_next_token = get_json('v2node_response_with_next_token')
     mock_post.side_effect = [response_with_next_token, response_with_next_token]
 
-    v2node(['dc/1', 'dc/2'], '->{property1,property2}', max_pages=2)
+    v2node_paginated(['dc/1', 'dc/2'], '->{property1,property2}', max_pages=2)
 
     assert mock_post.call_count == 2
 
@@ -48,8 +48,9 @@ class TestServiceDataCommonsV2Node(unittest.TestCase):
     mock_post.side_effect = [response_without_next_token]
 
     self.assertEqual(
-        v2node(['dc/1', 'dc/2'], '->{property1,property2}', max_pages=3),
-        response_without_next_token)
+        v2node_paginated(['dc/1', 'dc/2'],
+                         '->{property1,property2}',
+                         max_pages=3), response_without_next_token)
 
   @mock.patch('server.services.datacommons.post')
   def test_merging_paged_responses(self, mock_post):
@@ -60,7 +61,9 @@ class TestServiceDataCommonsV2Node(unittest.TestCase):
     ]
 
     self.assertEqual(
-        v2node(['dc/1', 'dc/2'], '->{property1,property2}', max_pages=3),
+        v2node_paginated(['dc/1', 'dc/2'],
+                         '->{property1,property2}',
+                         max_pages=3),
         get_json('v2node_expected_merged_response'))
 
   @mock.patch('server.services.datacommons.post')
@@ -72,19 +75,19 @@ class TestServiceDataCommonsV2Node(unittest.TestCase):
         properties_with_next_token, properties_without_next_token
     ]
 
-    self.assertEqual(v2node(['dc/1', 'dc/2'], '->', max_pages=3),
+    self.assertEqual(v2node_paginated(['dc/1', 'dc/2'], '->', max_pages=3),
                      get_json('v2node_expected_merged_properties'))
 
   @mock.patch('server.services.datacommons.post')
   def test_empty_response_returns_empty(self, mock_post):
     mock_post.side_effect = [{}]
 
-    self.assertEqual(v2node(['dc/1', 'dc/2'], '->', max_pages=3), {})
+    self.assertEqual(v2node_paginated(['dc/1', 'dc/2'], '->', max_pages=3), {})
 
   @mock.patch('server.services.datacommons.post')
   def test_no_data_in_response(self, mock_post):
     response_with_no_data = {'data': {'dc/1': {}, 'dc/2': {}}}
     mock_post.side_effect = [response_with_no_data]
 
-    self.assertEqual(v2node(['dc/1', 'dc/2'], '->', max_pages=3),
+    self.assertEqual(v2node_paginated(['dc/1', 'dc/2'], '->', max_pages=3),
                      response_with_no_data)
