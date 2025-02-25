@@ -60,6 +60,7 @@ export const enableDynamicPlacehoder = (
 
   (): void => clearTimeout(timerId);
 };
+
 export const loadSampleQuestions = (): string[] => {
   const metadataContainer = document.getElementById("metadata-base");
   const sampleQuestions = metadataContainer?.dataset?.sampleQuestions
