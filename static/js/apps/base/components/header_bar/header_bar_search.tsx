@@ -66,7 +66,7 @@ const HeaderBarSearch = ({
   const initialValue = searchBarHashMode ? queryString : urlQuery;
 
   // Initialize whether to let the placeholder show dynamic examples.
-  const EXPERIMENT_ROLLOUT_RATIO = 1;
+  const EXPERIMENT_ROLLOUT_RATIO = .2;
   const showDynamicPlaceholders =
     isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) ||
     (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) &&

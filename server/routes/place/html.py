@@ -581,5 +581,6 @@ def dev_place(place_dcid=None):
                                place_dcid=place_dcid,
                                place_name=place_name,
                                sample_questions=json.dumps(
-                                  current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])),
                                place_summary=place_summary)

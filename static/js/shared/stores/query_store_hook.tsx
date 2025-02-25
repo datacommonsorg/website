@@ -96,10 +96,6 @@ export const useQueryStore = (): QueryStoreData => {
   };
 
   const setPlaceholderString = (placeholder: string): void => {
-    if (placeholder == null) {
-      return;
-    }
-
     setPlaceholderState(placeholder);
     globalThis.queryStore.setPlaceholderString(placeholder);
   };
