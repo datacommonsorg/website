@@ -107,7 +107,7 @@ interface MenuPropsType {
   dcid: string;
   pageChart: PageChart;
   selectCategory: string;
-  placeName: string;
+  placeName?: string;
 }
 
 const Menu: React.FC<MenuPropsType> = (props: MenuPropsType) => {
