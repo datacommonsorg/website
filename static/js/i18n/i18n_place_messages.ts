@@ -179,4 +179,10 @@ export const pageMessages = defineMessages({
     description:
       'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
   },
+  categoryInPlace: {
+    id: "category_in_place",
+    defaultMessage: "{category} in {placeName}",
+    description:
+      'Used for the placeholder in the search bar, set it as "Category in Place". For example, when in the economics page for the Austria place page, it will show "{Economics} in {Austria}".',
+  },
 });

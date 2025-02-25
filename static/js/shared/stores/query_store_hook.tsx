@@ -84,7 +84,6 @@ export const useQueryStore = (): QueryStoreData => {
 
     queryStore.subscribe(handleStoreUpdate);
     handleStoreUpdate(queryStore, "queryString");
-    handleStoreUpdate(queryStore, "placeholderString");
 
     return () => {
       queryStore.unsubscribe(handleStoreUpdate);
@@ -97,8 +96,12 @@ export const useQueryStore = (): QueryStoreData => {
   };
 
   const setPlaceholderString = (placeholder: string): void => {
+    if (placeholder == null) {
+      return;
+    }
+
     setPlaceholderState(placeholder);
-    globalThis.queryStore.set
+    globalThis.queryStore.setPlaceholderString(placeholder);
   }
 
   const setQueryResult = (result: QueryResult): void => {

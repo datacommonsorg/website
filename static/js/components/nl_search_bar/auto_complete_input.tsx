@@ -36,13 +36,7 @@ import {
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { stripPatternFromQuery, SAMPLE_QUERIES } from "../../shared/util";
-import {
-  DYNAMIC_PLACEHOLDER_EXPERIMENT,
-  DYNAMIC_PLACEHOLDER_GA,
-  isFeatureEnabled,
-} from "../../shared/feature_flags/util";
-
+import { stripPatternFromQuery } from "../../shared/util";
 import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
@@ -57,7 +51,7 @@ const PLACE_EXPLORER_PREFIX = "/place/";
 const LOCATION_SEARCH = "location_search";
 const TYPING_SPEED = 40; // milliseconds per character
 const TYPING_SPEED_DELETE = 20; // milliseconds per character
-const DISPLAY_DURATION = 3000; // milliseconds to display each question
+const DISPLAY_DURATION_DELAY = 3000;
 const MAX_SAMPLE_QUESTION_CYCLE = 5;
 
 export interface AutoCompleteResult {
@@ -71,13 +65,13 @@ interface AutoCompleteInputPropType {
   enableAutoComplete?: boolean;
   value: string;
   invalid: boolean;
-  placeholder: string;
   inputId: string;
   onChange: (query: string) => void;
   onSearch: () => void;
   feedbackLink: string;
   shouldAutoFocus: boolean;
   barType: string;
+  enableDynamicPlaceholders?: boolean;
 }
 
 function convertJSONToAutoCompleteResults(
@@ -103,6 +97,7 @@ export function AutoCompleteInput(
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [inputActive, setInputActive] = useState(false);
+  const [dynamicPlaceholdersEnabled, setDynamicPlaceholdersEnabled] = useState(false);
   const [sampleQuestionText, setSampleQuestionText] = useState("");
   const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
     useState("");
@@ -115,8 +110,11 @@ export function AutoCompleteInput(
   const isHeaderBar = props.barType == "header";
   let lang = "";
 
-  const {placeholder: placeholder} = useQueryStore();
-  console.log("So finally?" + placeholder);
+  const { placeholder } = useQueryStore();
+  const metadataContainer = document.getElementById("metadata-base");
+  const sampleQuestions = metadataContainer?.dataset?.sampleQuestions
+  ? JSON.parse(metadataContainer.dataset.sampleQuestions).flatMap((category) => category.questions) ?? []
+  : [];
 
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
@@ -128,26 +126,34 @@ export function AutoCompleteInput(
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
 
     // Start cycling through sample questions when the component mounts.
-    if (isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) || (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) && Math.random() < .9)) {
-      const sampleQuestionStartIndex = Math.floor(Math.random() * SAMPLE_QUERIES.length);
-      cycleSampleQuestions(sampleQuestionStartIndex, 0);
+    if (props.enableDynamicPlaceholders && sampleQuestions != null && sampleQuestions.length > 0) {
+      const sampleQuestionStartIndex = Math.floor(Math.random() * sampleQuestions.length);
+      
+      // Add a 5-second delay before starting the cycle
+      const timerId = setTimeout(() => {
+        setDynamicPlaceholdersEnabled(true);
+        cycleSampleQuestions(sampleQuestionStartIndex, 0);
+      }, DISPLAY_DURATION_DELAY); 
+
+      return () => clearTimeout(timerId); 
     }
   }, []);
 
 
   const placeholderText =
-  !inputActive && sampleQuestionText
-    ? sampleQuestionText
+  !inputActive && dynamicPlaceholdersEnabled
+    ? "Try searching \"" + sampleQuestionText + "\""
     : placeholder;
 
   /* Start typing the sample questions through the Input's placeholder attribute while inactive. */
   const cycleSampleQuestions = (index: number, questionCount: number) => {
     if (questionCount >= MAX_SAMPLE_QUESTION_CYCLE) {
       setSampleQuestionText("");
+      setDynamicPlaceholdersEnabled(false);
       return;
     }
 
-    let currentQuestion = SAMPLE_QUERIES[index];
+    let currentQuestion =  sampleQuestions[index];
     let charIndex = 0;
   
     const typeNextChar = () => {
@@ -161,12 +167,12 @@ export function AutoCompleteInput(
               setSampleQuestionText(currentQuestion.substring(0, charIndex--));
               setTimeout(deleteChar, TYPING_SPEED_DELETE);
             } else {
-              const nextQuestionIndex = (index + 1) % SAMPLE_QUERIES.length
+              const nextQuestionIndex = (index + 1) % sampleQuestions.length
               cycleSampleQuestions(nextQuestionIndex, ++questionCount);
             }
           };
           deleteChar();
-        }, DISPLAY_DURATION);
+        }, DISPLAY_DURATION_DELAY);
       }
     };
     typeNextChar();
@@ -231,7 +237,6 @@ export function AutoCompleteInput(
 
       let lastSelection = lastAutoCompleteSelection;
       if (selectionApplied) {
-        console.log("Autocomplete select")
         // Trigger Google Analytics event to track the index of the selected autocomplete result.
         triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
           [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
@@ -357,7 +362,6 @@ export function AutoCompleteInput(
 
   function selectResult(result: AutoCompleteResult, idx: number): void {
     // Trigger Google Analytics event to track the index of the selected autocomplete result.
-    console.log("Autocomplete select")
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
     });
@@ -370,7 +374,6 @@ export function AutoCompleteInput(
       // then that means there are no other parts of the query, so it's a place only
       // redirection.
       if (result.dcid) {
-        console.log("Autocomplete select redirect")
         triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
           [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
         });

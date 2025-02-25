@@ -280,8 +280,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const metadataContainer = document.getElementById("metadata-base");
   const locale = metadataContainer.dataset.locale;
 
-  const { placeholder,  setPlaceholderString: setStorePlaceholderString } = useQueryStore();
-  console.log("And here, we got " + placeholder);
+  const { setPlaceholderString: setStorePlaceholderString } = useQueryStore();
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overviewString;
@@ -315,7 +314,14 @@ export const DevPlaceMain = (): React.JSX.Element => {
     });
     setPlaceSummary(pageMetadata.dataset.placeSummary);
     setPlaceSubheader(pageMetadata.dataset.placeSubheader);
-    setStorePlaceholderString(pageMetadata.dataset.placeName);
+    if (isOverview) {
+      setStorePlaceholderString(pageMetadata.dataset.placeName);
+    } else {
+      setStorePlaceholderString(intl.formatMessage(pageMessages.categoryInPlace, {
+        placeName: pageMetadata.dataset.placeName,
+        category: category,
+      }))
+    }
   }, []);
 
   /**

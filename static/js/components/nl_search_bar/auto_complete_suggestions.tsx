@@ -50,7 +50,6 @@ export function AutoCompleteSuggestions(
   useEffect(() => {
     if (!triggered && props.allResults.length > 0) {
       setTriggered(true);
-      console.log("Autocomplete trigger")
       triggerGAEvent(GA_EVENT_AUTOCOMPLETE_TRIGGERED, {
         [GA_PARAM_QUERY]: props.baseInput,
       });

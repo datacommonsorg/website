@@ -48,7 +48,7 @@ export class QueryStore {
     this.notifyListeners("queryString");
   }
 
-  setPlaceholderText(placeholderText: string): void {
+  setPlaceholderString(placeholderText: string): void {
     this.placeholderString = placeholderText;
     this.notifyListeners("placeholderString");
   }
