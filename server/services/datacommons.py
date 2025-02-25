@@ -252,13 +252,17 @@ def v2observation(select, entity, variable):
 def _merge_paged_response(result, paged_response):
   for dcid in paged_response['data']:
     for prop in paged_response['data'][dcid].get('arcs', {}):
-      result.setdefault(dcid, {}).setdefault('arcs', {}).setdefault(
+      result['data'].setdefault(dcid, {}).setdefault('arcs', {}).setdefault(
           prop, {}).setdefault('nodes', []).extend(
               paged_response['data'][dcid]['arcs'][prop]['nodes'])
 
     if 'properties' in paged_response['data'][dcid]:
-      result.setdefault(dcid, {}).setdefault('properties', []).extend(
+      result['data'].setdefault(dcid, {}).setdefault('properties', []).extend(
           paged_response['data'][dcid].get('properties', []))
+
+  result['nextToken'] = paged_response.get('nextToken', '')
+  if not result['nextToken']:
+    del result['nextToken']
 
 
 def v2node(nodes, prop, max_pages=1):
@@ -269,7 +273,7 @@ def v2node(nodes, prop, max_pages=1):
       prop: The property to query for.
   """
   fetched_pages = 0
-  result = {}
+  result = {'data': {}}
   next_token = ''
   while True:
     url = get_service_url('/v2/node')
