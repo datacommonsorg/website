@@ -35,4 +35,9 @@ steps:
         source .env/bin/activate
         export FLASK_ENV=test
         export TOKENIZERS_PARALLELISM=false
-        python3 -m pytest --flake-finder --flake-runs 10 -n auto -s nl_server/tests/embeddings_test.py
+        python3 -m pytest -n auto -s nl_server/tests/embeddings_test.py
+        python3 -m pytest -n auto -s nl_server/tests/embeddings_test.py
+        python3 -m pytest -n auto -s nl_server/tests/embeddings_test.py
+        python3 -m pytest -n auto -s nl_server/tests/embeddings_test.py
+        python3 -m pytest -n auto -s nl_server/tests/embeddings_test.py
+        python3 -m pytest -n auto -s nl_server/tests/embeddings_test.py
