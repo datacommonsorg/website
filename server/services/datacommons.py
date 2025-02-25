@@ -249,6 +249,20 @@ def v2observation(select, entity, variable):
   })
 
 
+def v2node(nodes, prop):
+  """Wrapper to call V2 Node REST API.
+
+  Args:
+      nodes: A list of node dcids.
+      prop: The property to query for.
+  """
+  url = get_service_url('/v2/node')
+  return post(url, {
+      'nodes': sorted(nodes),
+      'property': prop,
+  })
+
+
 def _merge_paged_response(result, paged_response):
   for dcid in paged_response.get('data', []):
     # Initialize dcid in data even when no arcs or properties are returned
@@ -266,20 +280,6 @@ def _merge_paged_response(result, paged_response):
   result['nextToken'] = paged_response.get('nextToken', '')
   if not result['nextToken']:
     del result['nextToken']
-
-
-def v2node(nodes, prop):
-  """Wrapper to call V2 Node REST API.
-
-  Args:
-      nodes: A list of node dcids.
-      prop: The property to query for.
-  """
-  url = get_service_url('/v2/node')
-  return post(url, {
-      'nodes': sorted(nodes),
-      'property': prop,
-  })
 
 
 def v2node_paginated(nodes, prop, max_pages=1):
