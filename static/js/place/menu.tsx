@@ -110,7 +110,6 @@ interface MenuPropsType {
   placeName: string;
 }
 
-// class Menu extends React.Component<MenuPropsType> {
 const Menu: React.FC<MenuPropsType> = (props: MenuPropsType) => {
     const dcid = props.dcid;
     const selectCategory = props.selectCategory;
