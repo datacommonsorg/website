@@ -36,7 +36,7 @@ export const placeholderMessages = defineMessages({
 export const enableDynamicPlacehoder = (
   setSampleQuestionText: (arg0: any) => void,
   setDynamicPlaceholdersEnabled: (arg0: any) => void
-) => {
+): void => {
   const sampleQuestions = loadSampleQuestions();
   if (sampleQuestions.length == 0) {
     return;
@@ -58,7 +58,7 @@ export const enableDynamicPlacehoder = (
     );
   }, 5000);
 
-  return () => clearTimeout(timerId);
+  (): void => clearTimeout(timerId);
 };
 export const loadSampleQuestions = (): string[] => {
   const metadataContainer = document.getElementById("metadata-base");
@@ -77,7 +77,7 @@ export const cycleSampleQuestions = (
   questionCount: number,
   setSampleQuestionText: (arg0: any) => void,
   setDynamicPlaceholdersEnabled: (arg0: any) => void
-) => {
+): void => {
   if (questionCount >= MAX_SAMPLE_QUESTION_CYCLE) {
     setSampleQuestionText("");
     setDynamicPlaceholdersEnabled(false);
@@ -93,7 +93,7 @@ export const cycleSampleQuestions = (
       setTimeout(typeNextChar, TYPING_SPEED);
     } else {
       setTimeout(() => {
-        const deleteChar = () => {
+        const deleteChar = (): void => {
           if (charIndex >= 0) {
             setSampleQuestionText(currentQuestion.substring(0, charIndex--));
             setTimeout(deleteChar, TYPING_SPEED_DELETE);

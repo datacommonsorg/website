@@ -47,9 +47,7 @@ import { ArrowForward } from "../elements/icons/arrow_forward";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
 import {
-  cycleSampleQuestions,
   enableDynamicPlacehoder,
-  loadSampleQuestions,
   placeholderMessages,
 } from "./dynamic_placeholder_helper";
 
