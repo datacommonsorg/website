@@ -64,8 +64,6 @@ def main(_):
       gcs.maybe_download(index_info.embeddings_path,
                          cache_root,
                          use_anonymous_client=True)
-    path = index_info.embeddings_path
-    print(f'finished downloading {path}')
 
 
 if __name__ == '__main__':
