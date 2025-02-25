@@ -36,14 +36,11 @@ class TestServiceDataCommonsV2Node(unittest.TestCase):
   @mock.patch('server.services.datacommons.post')
   def test_termination_condition_max_pages_fetched(self, mock_post):
     response_with_next_token = get_json('v2node_response_with_next_token')
-    response_without_next_token = get_json('v2node_response_without_next_token')
-    mock_post.side_effect = [
-        response_with_next_token, response_without_next_token
-    ]
+    mock_post.side_effect = [response_with_next_token, response_with_next_token]
 
-    self.assertEqual(
-        v2node(['dc/1', 'dc/2'], '->{property1,property2}', max_pages=1),
-        response_with_next_token)
+    v2node(['dc/1', 'dc/2'], '->{property1,property2}', max_pages=2)
+
+    assert mock_post.call_count == 2
 
   @mock.patch('server.services.datacommons.post')
   def test_termination_condition_no_next_token(self, mock_post):
