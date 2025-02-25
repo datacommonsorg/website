@@ -21,13 +21,15 @@ from typing import Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
+from flask_babel import gettext
 
 from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
-from server.lib.i18n_messages import OTHER_PLACES_IN_PARENT_PLACE_STR
-from server.lib.i18n_messages import PLACE_OVERVIEW_TABLE_VARIABLES
-from server.lib.i18n_messages import PLACE_TYPE_IN_PARENT_PLACES_STR
+from server.lib.i18n_messages import get_other_places_in_parent_place_str
+from server.lib.i18n_messages import \
+    get_place_overview_table_variable_to_locale_message
+from server.lib.i18n_messages import get_place_type_in_parent_places_str
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Category
@@ -44,11 +46,11 @@ from server.services import datacommons as dc
 PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'City',
     'County',
-    'AdministrativeArea2',
     'EurostatNUTS2',
+    'AdministrativeArea2',
     'State',
-    'AdministrativeArea1',
     'EurostatNUTS1',
+    'AdministrativeArea1',
     'Country',
     'Continent',
     'Place',  # World!
@@ -83,7 +85,7 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
   return f'<a href="{url}">{place_name}</a>'
 
 
-def get_parent_places(dcid: str) -> List[Place]:
+def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
   """Gets the parent places for a given DCID
   
   Args:
@@ -94,15 +96,16 @@ def get_parent_places(dcid: str) -> List[Place]:
   """
   parents_resp = place_api.parent_places([dcid], include_admin_areas=True).get(
       dcid, [])
-  all_parents = []
+  all_parent_places = []
   for parent in parents_resp:
-    if 'type' in parent and 'name' in parent and 'type' in parent:
-      all_parents.append(
-          Place(dcid=parent['dcid'],
-                name=parent['name'],
+    if 'dcid' in parent and 'name' in parent and 'type' in parent:
+      all_parent_places.append(
+          Place(name=parent['name'],
+                dcid=parent['dcid'],
                 types=[parent['type']]))
 
-  return all_parents
+  parents_to_include = get_ordered_by_place_type_to_highlight(all_parent_places)
+  return fetch_places([p.dcid for p in parents_to_include], locale)
 
 
 def get_ordered_by_place_type_to_highlight(places: List[Place]) -> List[Place]:
@@ -137,48 +140,6 @@ def get_place_override(places: List[Place],
     # Repeat fetch here in order to get the interationalized name.
     return fetch_place(possible_places[0].dcid, locale=locale)
   return None
-
-
-def get_place_type_with_parent_places_links(dcid: str) -> str:
-  """Get '<place type> in <parent places>' with html links for a given DCID
-  
-  Args:
-    dcid: dcid of the place to get links for
-  
-  Returns:
-    A descriptor of the given place which includes the place's type and links
-    to the place pages of its containing places.
-  """
-  # Get place type in localized, human-readable format
-  place_type = place_api.api_place_type(dcid)
-  place_type_display_name = place_api.get_place_type_i18n_name(place_type)
-
-  # Get parent places
-  all_parents = get_parent_places(dcid)
-
-  # Get parent places
-  parents_to_include = get_ordered_by_place_type_to_highlight(all_parents)
-  parent_dcids = [parent.dcid for parent in parents_to_include]
-
-  localized_names = place_api.get_i18n_name(parent_dcids)
-  places_with_names = [
-      parent for parent in parents_to_include
-      if parent.dcid in localized_names.keys()
-  ]
-
-  # Generate <a href=place page url> tag for each parent place
-  links = [
-      get_place_html_link(place_dcid=parent.dcid,
-                          place_name=localized_names.get(parent.dcid))
-      if parent.types != 'Continent' else localized_names.get(parent.dcid)
-      for parent in places_with_names
-  ]
-
-  if links:
-    return place_api.translate('%(placeType)s in %(parentPlaces)s',
-                               placeType=place_type_display_name,
-                               parentPlaces=', '.join(links))
-  return ''
 
 
 def place_type_to_highlight(place_types: List[str]) -> str | None:
@@ -260,6 +221,7 @@ def count_places_per_stat_var(
   return stat_var_to_places_with_data
 
 
+@cache.memoize(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
@@ -443,18 +405,6 @@ async def filter_chart_config_for_data_existence(
   return valid_chart_configs
 
 
-@cache.memoize(timeout=TIMEOUT)
-async def memoized_filter_chart_config_for_data_existence(
-    chart_config: List[ServerChartConfiguration], place_dcid: str,
-    place_type: str, child_place_type: str,
-    parent_place_dcid: str) -> List[ServerChartConfiguration]:
-  """Memoized version of filter_chart_config_for_data_existence"""
-  return await filter_chart_config_for_data_existence(chart_config, place_dcid,
-                                                      place_type,
-                                                      child_place_type,
-                                                      parent_place_dcid)
-
-
 def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
   """
   Check if geo data exists for a given place and child place type.
@@ -516,6 +466,16 @@ def select_string_with_locale(strings_with_locale: List[str],
   return default_i18n_string
 
 
+def sort_place_types(place_types) -> List[Place]:
+  """
+    Sorts a list of place types according to the order defined in
+    PARENT_PLACE_TYPES_TO_HIGHLIGHT.
+    """
+  return sorted(place_types,
+                key=lambda x: PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(x)
+                if x in PARENT_PLACE_TYPES_TO_HIGHLIGHT else float('inf'))
+
+
 def fetch_place(place_dcid: str, locale: str = DEFAULT_LOCALE) -> Place:
   """
   Fetches a single Place object for the given place DCID and locale.
@@ -554,12 +514,11 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
     place_name_with_languages_strs = place_props.get('nameWithLanguage', [])
     name_with_locale = select_string_with_locale(place_name_with_languages_strs,
                                                  locale=locale)
-
     place_names = place_props.get('name', [])
     default_name = place_names[0] if place_names else place_dcid
     dissolved = bool(place_props.get('dissolutionDate'))
 
-    place_types = place_props.get('typeOf', [])
+    place_types = sort_place_types(place_props.get('typeOf', []))
     # Use the name with locale if available, otherwise fall back to the default ('en') name
     name = name_with_locale or default_name
     places.append(
@@ -742,18 +701,14 @@ def read_chart_configs() -> List[ServerChartConfiguration]:
   return server_chart_configs
 
 
+@cache.memoize(timeout=TIMEOUT)
 def fetch_child_place_dcids(place: Place, child_place_type: str) -> List[str]:
-  # Get all possible child places
+  """Returns all possible child places.
+  """
   descendent_places_result = fetch.descendent_places(
       [place.dcid], descendent_type=child_place_type)
   child_place_dcids = descendent_places_result.get(place.dcid, [])
   return child_place_dcids
-
-
-@cache.memoize(timeout=TIMEOUT)
-def cached_fetch_child_place_dcids(place: Place,
-                                   child_place_type: str) -> List[str]:
-  return fetch_child_place_dcids(place, child_place_type)
 
 
 def translate_chart_config(
@@ -762,7 +717,7 @@ def translate_chart_config(
     parent_place_name: str | None) -> List[ServerChartConfiguration]:
   """
   Translates the 'titleId' field in each chart configuration item into a readable 'title'
-  using the place_api.translate function.
+  using the gettext function.
 
   Args:
       chart_config (List[Dict]): A list of dictionaries where each dictionary contains 
@@ -776,16 +731,17 @@ def translate_chart_config(
   Returns:
       List[Dict]: A new list of dictionaries with the 'title' field translated where applicable.
   """
+  default_place_type = 'Place'
   # We do not properly identify Administrative Areas, so will exclude those from the chart title and fallback to "Places"
   if place_type and place_type.startswith('AdministrativeArea'):
-    place_type = 'Place'
+    place_type = default_place_type
   if child_place_type and child_place_type.startswith('AdministrativeArea'):
-    child_place_type = 'Place'
+    child_place_type = default_place_type
 
   translated_place_type = place_api.get_place_type_i18n_name(
-      place_type, plural=True) if place_type else None
+      place_type, plural=True) if place_type else default_place_type
   translated_child_place_type = place_api.get_place_type_i18n_name(
-      child_place_type, plural=True) if child_place_type else None
+      child_place_type, plural=True) if child_place_type else default_place_type
 
   translated_chart_config = []
   for page_config_item in chart_config:
@@ -797,17 +753,16 @@ def translate_chart_config(
         title_sections.append(place_name)
       if translated_block.place_scope == "PEER_PLACES_WITHIN_PARENT":
         title_sections.append(
-            place_api.translate(OTHER_PLACES_IN_PARENT_PLACE_STR,
-                                placeType=translated_place_type,
-                                parentPlace=parent_place_name))
+            get_other_places_in_parent_place_str(translated_place_type,
+                                                 parent_place_name))
+
       elif translated_block.place_scope == "CHILD_PLACES":
         title_sections.append(
-            place_api.translate(PLACE_TYPE_IN_PARENT_PLACES_STR,
-                                placeType=translated_child_place_type,
-                                parentPlaces=place_name))
+            get_place_type_in_parent_places_str(translated_child_place_type,
+                                                place_name))
 
       if translated_item.title_id:
-        title_sections.append(place_api.translate(translated_item.title_id))
+        title_sections.append(gettext(translated_item.title_id))
       translated_block.title = ': '.join(title_sections)
 
     translated_chart_config.append(translated_item)
@@ -856,10 +811,10 @@ def get_categories_metadata(
     has_more_charts = block_count_category_charts.get(
         category, 0) < block_count_all_charts.get(category, 0)
 
-    category = Category(name=category,
-                        translatedName=place_api.translate(
-                            f'CHART_TITLE-CHART_CATEGORY-{category}'),
-                        hasMoreCharts=has_more_charts)
+    category = Category(
+        name=category,
+        translatedName=gettext(f'CHART_TITLE-CHART_CATEGORY-{category}'),
+        hasMoreCharts=has_more_charts)
     categories.append(category)
   return categories
 
@@ -979,7 +934,7 @@ def fetch_peer_places_within(place_dcid: str,
 
   peers_within_parent = []
   if parent_to_use:
-    peers_within_parent = cached_fetch_child_place_dcids(
+    peers_within_parent = fetch_child_place_dcids(
         parent_to_use, place_type_to_highlight(place_types))
     random.shuffle(peers_within_parent)
 
@@ -1023,23 +978,25 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   return place_cohort_member_dcids
 
 
-def fetch_overview_table_data(place_dcid: str,
-                              locale=DEFAULT_LOCALE
-                             ) -> List[OverviewTableDataRow]:
+def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   """
   Fetches overview table data for the specified place.
   """
   data_rows = []
-  variables = [v["variable_dcid"] for v in PLACE_OVERVIEW_TABLE_VARIABLES]
+  place_overview_table_variable_translations = get_place_overview_table_variable_to_locale_message(
+  )
+  variables = [
+      v["variable_dcid"] for v in place_overview_table_variable_translations
+  ]
 
   # Fetch the most recent observation for each variable
   resp = dc.obs_point([place_dcid], variables)
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
-  for item in PLACE_OVERVIEW_TABLE_VARIABLES:
+  for item in place_overview_table_variable_translations:
     variable_dcid = item["variable_dcid"]
-    name = place_api.translate(item["i18n_message_id"])
+    name = item["translated_name"]
     ordered_facet_observations = resp.get("byVariable", {}).get(
         variable_dcid, {}).get("byEntity", {}).get(place_dcid,
                                                    {}).get("orderedFacets", [])

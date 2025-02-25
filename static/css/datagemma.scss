@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
-export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
-export const PLACE_PAGE_EXPERIMENT_FEATURE_FLAG = "autocomplete";
-export const PLACE_PAGE_GA_FEATURE_FLAG = "autocomplete";
+ /* Styles for DataGemma UI */
 
-/**
- * Helper method to interact with feature flags.
- * @param featureName name of feature for which we want status.
- * @returns Bool describing if the feature is enabled
- */
-export function isFeatureEnabled(featureName: string): boolean {
-  if (FEATURE_FLAGS && featureName in FEATURE_FLAGS) {
-    return FEATURE_FLAGS[featureName];
-  }
-  return false;
+ #main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    width: 100%;
+    flex-grow: 1;
 }

@@ -29,16 +29,13 @@ import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { pageMessages } from "../i18n/i18n_place_messages";
-import {
-  isFeatureEnabled,
-  SCROLL_TO_TOP_FEATURE_FLAG,
-} from "../shared/feature_flags/util";
 import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
 import { PlaceOverview } from "./dev_place_overview";
+import { displayNameForPlaceType } from "./util";
 import {
   createPlacePageCategoryHref,
   placeChartsApiResponsesToPageConfig,
@@ -57,9 +54,18 @@ import {
 const PlaceHeader = (props: {
   category: string;
   place: NamedTypedPlace;
-  placeSubheader: string;
+  parentPlaces: NamedTypedPlace[];
 }): React.JSX.Element => {
-  const { category, place, placeSubheader } = props;
+  const { category, place, parentPlaces } = props;
+  const parentPlacesLinks = parentPlaces.map((parent, index) => (
+    <span key={parent.dcid}>
+      <a className="place-info-link" href={`/place/${parent.dcid}`}>
+        {parent.name}
+      </a>
+      {index < parentPlaces.length - 1 ? ", " : ""}
+    </span>
+  ));
+
   return (
     <div className="title-section">
       <div className="place-info">
@@ -79,10 +85,14 @@ const PlaceHeader = (props: {
             <a href={`/browser/${place.dcid}`}>{place.dcid}</a>
           </div>
         </h1>
-        <p
-          className="subheader"
-          dangerouslySetInnerHTML={{ __html: placeSubheader }}
-        ></p>
+        {place.types?.length > 0 && parentPlacesLinks.length > 0 && (
+          <p className="subheader">
+            {intl.formatMessage(pageMessages.placeTypeInPlaces, {
+              placeType: displayNameForPlaceType(place.types[0]),
+            })}{" "}
+            {parentPlacesLinks}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -145,11 +155,11 @@ const PlaceCategoryTabs = ({
 
   return (
     <div className="explore-topics-box">
-      <span className="explore-relevant-topics">
-        {intl.formatMessage(pageMessages.RelevantTopics)}
-      </span>
       <div className="item-list-container">
         <div className="item-list-inner">
+          <span className="explore-relevant-topics">
+            {intl.formatMessage(pageMessages.RelevantTopics)}
+          </span>
           {categories.map((category) => (
             <CategoryItem
               key={category.name}
@@ -264,8 +274,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [placeSubheader, setPlaceSubheader] = useState<string>();
 
   // API response data
-  const [relatedPlacesApiResponse, setRelatedPlacesApiResponse] =
-    useState<RelatedPlacesApiResponse>();
+  const [receivedApiResponse, setReceivedApiResponse] = useState(false);
   const [placeChartsApiResponse, setPlaceChartsApiResponse] =
     useState<PlaceChartsApiResponse>();
   const [placeOverviewTableApiResponse, setPlaceOverviewTableApiResponse] =
@@ -317,7 +326,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
       types: [],
     });
     setPlaceSummary(pageMetadata.dataset.placeSummary);
-    setPlaceSubheader(pageMetadata.dataset.placeSubheader);
     setStoreQueryString(pageMetadata.dataset.placeName);
   }, []);
 
@@ -334,7 +342,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
    * Updates state with API responses and derived data.
    */
   useEffect(() => {
-    if (!place) {
+    if (!place || receivedApiResponse) {
       return;
     }
     setIsLoading(true);
@@ -359,20 +367,24 @@ export const DevPlaceMain = (): React.JSX.Element => {
         }),
       ]);
 
+      setReceivedApiResponse(true);
       setPlaceChartsApiResponse(placeChartsApiResponse);
-      setRelatedPlacesApiResponse(relatedPlacesApiResponse);
+      setPlaceOverviewTableApiResponse(placeOverviewTableApiResponse);
+
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
-      setPlaceOverviewTableApiResponse(placeOverviewTableApiResponse);
       setIsLoading(false);
+      setPlace(relatedPlacesApiResponse.place);
+
       const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse,
         relatedPlacesApiResponse.parentPlaces,
         relatedPlacesApiResponse.peersWithinParent,
         relatedPlacesApiResponse.place,
         isOverview,
-        forceDevPlaces
+        forceDevPlaces,
+        theme
       );
       setPageConfig(config);
     })();
@@ -396,7 +408,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
         <PlaceHeader
           category={category}
           place={place}
-          placeSubheader={placeSubheader}
+          parentPlaces={parentPlaces}
         />
         <PlaceCategoryTabs
           categories={categories}
@@ -430,7 +442,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
         {isOverview && childPlaces.length > 0 && (
           <RelatedPlaces place={place} childPlaces={childPlaces} />
         )}
-        {isFeatureEnabled(SCROLL_TO_TOP_FEATURE_FLAG) && <ScrollToTopButton />}
+        <ScrollToTopButton />
       </RawIntlProvider>
     </ThemeProvider>
   );

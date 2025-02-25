@@ -224,18 +224,19 @@ export function getPlaceDisplayNames(
   options?: {
     apiRoot?: string;
     signal?: AbortSignal;
+    locale?: string;
   }
 ): Promise<DisplayNameApiResponse> {
   if (!dcids.length) {
     return Promise.resolve({});
   }
   const requestOptions = options?.signal ? { signal: options.signal } : {};
+  let url = `${options?.apiRoot || ""}/api/place/displayname`;
+  if (options?.locale) {
+    url += `?hl=${options.locale}`;
+  }
   return axios
-    .post(
-      `${options?.apiRoot || ""}/api/place/displayname`,
-      { dcids },
-      requestOptions
-    )
+    .post(url, { dcids }, requestOptions)
     .then((resp) => {
       return resp.data;
     })

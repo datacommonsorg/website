@@ -96,7 +96,7 @@ async def place_charts(place_dcid: str):
 
   # Filter out place page charts that don't have any data for the current place_dcid
   chart_config_existing_data = await asyncio.to_thread(
-      place_utils.memoized_filter_chart_config_for_data_existence,
+      place_utils.filter_chart_config_for_data_existence,
       chart_config=full_chart_config,
       place_dcid=place_dcid,
       place_type=place_type,
@@ -160,7 +160,7 @@ async def related_places(place_dcid: str):
      Returns lists of DCIDs or Places for each type of related places."""
 
     child_tasks = [
-        asyncio.to_thread(place_utils.cached_fetch_child_place_dcids, place,
+        asyncio.to_thread(place_utils.fetch_child_place_dcids, place,
                           child_place_type)
         for child_place_type in ordered_child_place_types
     ]
@@ -169,7 +169,7 @@ async def related_places(place_dcid: str):
     similar_task = asyncio.to_thread(place_utils.fetch_similar_place_dcids,
                                      place, g.locale)
     parent_places_task = asyncio.to_thread(place_utils.get_parent_places,
-                                           place.dcid)
+                                           place.dcid, g.locale)
     peers_within_parent_task = asyncio.to_thread(
         place_utils.fetch_peer_places_within, place.dcid, place.types)
 
@@ -218,6 +218,6 @@ def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  data_rows = place_utils.fetch_overview_table_data(place_dcid, locale=g.locale)
+  data_rows = place_utils.fetch_overview_table_data(place_dcid)
 
   return jsonify(PlaceOverviewTableApiResponse(data=data_rows))

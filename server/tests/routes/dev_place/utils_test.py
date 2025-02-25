@@ -20,6 +20,9 @@ import unittest
 from unittest import mock
 
 from flask import Flask
+from flask_babel import Babel
+from flask_caching import Cache
+import pytest
 
 from server.routes.dev_place import utils
 from server.routes.dev_place.types import BlockConfig
@@ -31,102 +34,7 @@ from server.routes.dev_place.types import ServerChartConfiguration
 from server.routes.dev_place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
-
-NANTERRE = Place(dcid="wikidataId/Q170507", name="Nanterre", types=["City"])
-ARR_NANTERRE = Place(dcid="wikidataId/Q385728",
-                     name="arrondissement of Nanterre",
-                     types=["AdministrativeArea3"])
-ILE_DE_FRANCE = Place(dcid="nuts/FR10",
-                      name="Ile-de-France",
-                      types=["EurostatNUTS2"])
-ILE_DE_FRANCE_NUTS1 = Place(dcid="nuts/FR1",
-                            name="Île-de-France",
-                            types=["EurostatNUTS1"])
-FRANCE = Place(dcid="country/FRA", name="France", types=["Country"])
-EUROPE = Place(dcid="europe", name="Europe", types=["Continent"])
-
-ZIP_94041 = Place(dcid="zip/94041",
-                  name="94041",
-                  types=["CensusZipCodeTabulationArea"])
-MOUNTAIN_VIEW = Place(dcid="geoId/0649670",
-                      name="Mountain View",
-                      types=["City"])
-SANTA_CLARA_COUNTY = Place(dcid="geoId/06085",
-                           name="Santa Clara County",
-                           types=["County"])
-SAN_MATEO_COUNTY = Place(dcid="ggeoId/06081",
-                         name="San Mateo County",
-                         types=["County"])
-CALIFORNIA = Place(dcid="geoId/06", name="California", types=["State"])
-NEW_YORK = Place(dcid="geoId/36", name="New York", types=["State"])
-ARIZONA = Place(dcid="geoId/04", name="Arizona", types=["State"])
-USA = Place(dcid="geoId/US", name="United States", types=["Country"])
-NORTH_AMERICA = Place(dcid="northamerica",
-                      name="North America",
-                      types=["Continent"])
-EARTH = Place(dcid="Earth", name="Earth", types=["Place"])
-
-PLACE_BY_ID = {
-    NANTERRE.dcid: NANTERRE,
-    ARR_NANTERRE.dcid: ARR_NANTERRE,
-    ILE_DE_FRANCE.dcid: ILE_DE_FRANCE,
-    ILE_DE_FRANCE_NUTS1.dcid: ILE_DE_FRANCE_NUTS1,
-    FRANCE.dcid: FRANCE,
-    EUROPE.dcid: EUROPE,
-    ZIP_94041.dcid: ZIP_94041,
-    MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW,
-    SANTA_CLARA_COUNTY.dcid: SANTA_CLARA_COUNTY,
-    CALIFORNIA.dcid: CALIFORNIA,
-    USA.dcid: USA,
-    NORTH_AMERICA.dcid: NORTH_AMERICA,
-    EARTH.dcid: EARTH,
-}
-
-MOUNTAIN_VIEW_API_DATA = {
-    "arcs": {
-        "typeOf": {
-            "nodes": [{
-                'value': MOUNTAIN_VIEW.types[0]
-            }]
-        },
-        "name": {
-            "nodes": [{
-                'value': MOUNTAIN_VIEW.name
-            }]
-        },
-        "dissolutionDate": {
-            "nodes": [{
-                'value': None
-            }]
-        },
-        "nameWithLanguage": {
-            "nodes": [{
-                'value': "Mountain View@en"
-            }, {
-                'value': "Mountain ViewFr@fr"
-            }]
-        }
-    }
-}
-CALIFORNIA_API_DATA = {
-    "arcs": {
-        "typeOf": {
-            "nodes": [{
-                'value': CALIFORNIA.types[0]
-            }]
-        },
-        "name": {
-            "nodes": [{
-                'value': CALIFORNIA.name
-            }]
-        },
-        "dissolutionDate": {
-            "nodes": [{
-                'value': None
-            }]
-        }
-    },
-}
+from server.tests.routes.dev_place import mock_data
 
 SAMPLE_BLOCK_METADATA = ServerBlockMetadata('PLACE',
                                             [ServerChartMetadata('BAR')],
@@ -137,37 +45,67 @@ SAMPLE_CHART_CONFIG = ServerChartConfiguration('Economics', 'title_id', 'title',
                                                [SAMPLE_BLOCK_METADATA])
 
 
+@pytest.fixture(scope="module")
+def app():
+  app = Flask(__name__)
+  app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+  app.config['SERVER_NAME'] = 'example.com'
+  app.config['CACHE_TYPE'] = 'null'
+  app.config['CHART_CONFIG'] = [{
+      'title': 'Chart',
+      'title_id': 'Chart',
+      'description': 'description',
+      'denominator': ['Count_Person'],
+      'category': 'Economics',
+      'variables': ['LifeExpectancy'],
+      'blocks': [{
+          'place_scope': 'PLACE',
+          'charts': [{
+              'type': 'BAR'
+          }]
+      }]
+  }]
+  return app
+
+
 class TestUtils(unittest.IsolatedAsyncioTestCase):
   """Tests for utils within the dev_place api."""
+
+  @pytest.fixture(autouse=True)
+  def setup_app_context(self, request):
+    """Setup the app context and cache for each test."""
+
+    self.app = request.getfixturevalue('app')
+    self.cache = Cache(self.app)
+    self.app_context = self.app.app_context()
 
   def setUp(self):
     super().setUp()
 
-    app = Flask(__name__)
-    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-    app.config['SERVER_NAME'] = 'example.com'
-    self.app_context = app.app_context()
-    self.app_context.push()
-
     self.mock_fetch_place = self.patch(utils, "fetch_place")
+    self.v2node_api_response_index = 0
 
     def fetch_place_side_effect(place_dcid, locale=None):
-      if place_dcid in PLACE_BY_ID:
-        return PLACE_BY_ID[place_dcid]
+      if place_dcid in mock_data.PLACE_BY_ID:
+        return mock_data.PLACE_BY_ID[place_dcid]
       return None
 
     self.mock_fetch_place.side_effect = fetch_place_side_effect
 
     def fetch_api_place_type_side_effect(place_dcid):
-      if place_dcid in PLACE_BY_ID:
-        return PLACE_BY_ID[place_dcid].types[0]
+      if place_dcid in mock_data.PLACE_BY_ID:
+        return mock_data.PLACE_BY_ID[place_dcid].types[0]
       return None
 
     self.mock_api_place_type = self.patch(place_api, "api_place_type")
     self.mock_api_place_type.side_effect = fetch_api_place_type_side_effect
 
     def fetch_get_i18n_name_side_effect(place_dcids):
-      return {p: PLACE_BY_ID[p].name for p in place_dcids if p in PLACE_BY_ID}
+      return {
+          p: mock_data.PLACE_BY_ID[p].name
+          for p in place_dcids
+          if p in mock_data.PLACE_BY_ID
+      }
 
     self.mock_get_i18n_name = self.patch(place_api, "get_i18n_name")
     self.mock_get_i18n_name.side_effect = fetch_get_i18n_name_side_effect
@@ -177,10 +115,10 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     def fetch_api_parent_places_side_effect(place_dcids, include_admin_areas):
       return {
-          CALIFORNIA.dcid: [
-              place_to_place_resp(USA),
-              place_to_place_resp(NORTH_AMERICA),
-              place_to_place_resp(EARTH)
+          mock_data.CALIFORNIA.dcid: [
+              place_to_place_resp(mock_data.USA),
+              place_to_place_resp(mock_data.NORTH_AMERICA),
+              place_to_place_resp(mock_data.EARTH)
           ]
       }
 
@@ -193,15 +131,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_place_url = self.patch(utils, "get_place_url")
     self.mock_place_url.side_effect = mock_url_for_side_effect
 
-    self.mock_translate = self.patch(place_api, "translate")
-
-    # TODO(gmechali): Remove this mock, we should mock the api response.
-    def mock_fetch_peer_places_within_side_effect(place_dcid, place_types):
-      return [NEW_YORK.dcid, ARIZONA.dcid]
-
-    self.mock_fetch_peer_places = self.patch(utils, "fetch_peer_places_within")
-    self.mock_fetch_peer_places.side_effect = mock_fetch_peer_places_within_side_effect
-
+    self.mock_translate = self.patch(place_api, "gettext")
     self.mock_v2node = self.patch(dc, "v2node")
 
     def fetch_translate(args, **kwargs):
@@ -214,11 +144,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.mock_obs_point = self.patch(dc, "obs_point")
     self.mock_obs_point_within = self.patch(dc, "obs_point_within")
 
-    self.mock_fetch_similar_place_dcids = self.patch(
-        utils, "fetch_similar_place_dcids")
-
   def tearDown(self):
-    self.app_context.pop()
+    self.cache.clear()
     super().tearDown()
 
   def patch(self, module, name):
@@ -227,65 +154,22 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.addCleanup(patcher.stop)
     return mock_obj
 
-  def mock_v2node_api_data(self, data):
+  def mock_v2node_api_data(self, response_list: list[dict]):
 
     def mock_v2node_side_effect(nodes, props):
-      return {"data": data}
+      value = {
+          "data":
+              response_list[self.v2node_api_response_index % len(response_list)]
+      }
+      self.v2node_api_response_index += 1
+      return value
 
     self.mock_v2node.side_effect = mock_v2node_side_effect
 
-  def create_mock_data(self, stat_var: str, places: list[str],
-                       data: list) -> Dict[str, any]:
-    by_entity = {}
-    for place in places:
-      by_entity[place] = data
-    return {'byVariable': {stat_var: {'byEntity': by_entity}}}
-
-  def mock_dc_api_data(self,
-                       stat_var: str,
-                       places: List[str],
-                       dc_obs_point: bool = False,
-                       dc_obs_points_within: bool = False,
-                       data: List[int] | None = None) -> Dict[str, any]:
-    """Mocks the data from the DC API request obs point and obs point within."""
-    if data is None:
-      data = []
-
-    val = self.create_mock_data(stat_var, places, data)
-
-    def mock_obs_point_side_effect(entities, variables, date='LATEST'):
-      return val
-
-    val2 = self.create_mock_data(stat_var, places, data)
-
-    def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
-      return val2
-
-    if dc_obs_point:
-      self.mock_obs_point.side_effect = mock_obs_point_side_effect
-    if dc_obs_points_within:
-      self.mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
-
-  def create_contained_in_data(self, types_list):
-    """
-    Creates the CONTAINED_IN_DATA dictionary structure from a list of node dictionaries.
-
-    Args:
-        nodes_data: A list of dictionaries, where each dictionary represents a node
-                    and contains a "types" key with a list of type strings.
-
-    Returns:
-        A dictionary in the CONTAINED_IN_DATA format.
-    """
-    data = {"arcs": {"containedInPlace": {"nodes": []}}}
-
-    for type_ in types_list:
-      data["arcs"]["containedInPlace"]["nodes"].append({"types": [type_]})
-    return data
-
   def test_get_place_html_link(self):
     """Tests the get_place_html_link generates the proper link."""
-    ca_link = utils.get_place_html_link(CALIFORNIA.dcid, CALIFORNIA.name)
+    ca_link = utils.get_place_html_link(mock_data.CALIFORNIA.dcid,
+                                        mock_data.CALIFORNIA.name)
     africa_link = utils.get_place_html_link("africa", "Africa")
 
     self.assertEqual(ca_link, '<a href="/place/geoId/06">California</a>')
@@ -293,9 +177,15 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def test_get_parent_places(self):
     """Tests that getting parent places returns the proper values."""
-    parents = utils.get_parent_places(CALIFORNIA.dcid)
-    self.assertEqual([p.dcid for p in parents],
-                     [USA.dcid, NORTH_AMERICA.dcid, EARTH.dcid])
+    self.mock_v2node_api_data([{
+        mock_data.USA.dcid: mock_data.USA_API_DATA,
+        mock_data.NORTH_AMERICA.dcid: mock_data.NORTH_AMERICA_API_DATA,
+        mock_data.EARTH.dcid: mock_data.EARTH_API_DATA
+    }])
+    parents = utils.get_parent_places(mock_data.CALIFORNIA.dcid)
+    self.assertEqual([p.dcid for p in parents], [
+        mock_data.USA.dcid, mock_data.NORTH_AMERICA.dcid, mock_data.EARTH.dcid
+    ])
 
   def test_get_parent_places_filters_invalid(self):
     """Tests that getting parent places returns the proper values."""
@@ -317,13 +207,14 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
         ]
     }
 
-    self.assertEqual(utils.get_parent_places(CALIFORNIA.dcid), [])
+    self.assertEqual(utils.get_parent_places(mock_data.CALIFORNIA.dcid), [])
 
   def test_get_ordered_by_place_type_to_highlight_usa_place(self):
     """Tests that getting parent places returns the proper values in the right order for the USA place format."""
     places = [
-        ZIP_94041, MOUNTAIN_VIEW, SANTA_CLARA_COUNTY, CALIFORNIA, USA,
-        NORTH_AMERICA, EARTH
+        mock_data.ZIP_94041, mock_data.MOUNTAIN_VIEW,
+        mock_data.SANTA_CLARA_COUNTY, mock_data.CALIFORNIA, mock_data.USA,
+        mock_data.NORTH_AMERICA, mock_data.EARTH
     ]
     # Zips should be removed, the order above is expected.
     expected_order = copy.deepcopy(places[1:])
@@ -338,8 +229,9 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
   def test_get_ordered_by_place_type_to_highlight_eu_place(self):
     """Tests that getting parent places returns the proper values in the right order for the EU place format."""
     places = [
-        NANTERRE, ARR_NANTERRE, ILE_DE_FRANCE, ILE_DE_FRANCE_NUTS1, FRANCE,
-        EUROPE, EARTH
+        mock_data.NANTERRE, mock_data.ARR_NANTERRE, mock_data.ILE_DE_FRANCE,
+        mock_data.ILE_DE_FRANCE_NUTS1, mock_data.FRANCE, mock_data.EUROPE,
+        mock_data.EARTH
     ]
 
     # ARR_NANTERRE is an AA3 so remove it.
@@ -356,39 +248,38 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def test_get_place_override_zip(self):
     places = [
-        ZIP_94041, MOUNTAIN_VIEW, SANTA_CLARA_COUNTY, CALIFORNIA, USA,
-        NORTH_AMERICA, EARTH
+        mock_data.ZIP_94041, mock_data.MOUNTAIN_VIEW,
+        mock_data.SANTA_CLARA_COUNTY, mock_data.CALIFORNIA, mock_data.USA,
+        mock_data.NORTH_AMERICA, mock_data.EARTH
     ]
 
     random.shuffle(places)
 
     place = utils.get_place_override(places)
-    self.assertEqual(place.dcid, MOUNTAIN_VIEW.dcid)
+    self.assertEqual(place.dcid, mock_data.MOUNTAIN_VIEW.dcid)
 
   def test_get_place_override_mtv(self):
     places = [
-        MOUNTAIN_VIEW, SANTA_CLARA_COUNTY, CALIFORNIA, USA, NORTH_AMERICA, EARTH
+        mock_data.MOUNTAIN_VIEW, mock_data.SANTA_CLARA_COUNTY,
+        mock_data.CALIFORNIA, mock_data.USA, mock_data.NORTH_AMERICA,
+        mock_data.EARTH
     ]
 
     random.shuffle(places)
 
     place = utils.get_place_override(places)
-    self.assertEqual(place.dcid, MOUNTAIN_VIEW.dcid)
+    self.assertEqual(place.dcid, mock_data.MOUNTAIN_VIEW.dcid)
 
   def test_get_place_override_ile_de_france(self):
-    places = [ILE_DE_FRANCE, ILE_DE_FRANCE_NUTS1, FRANCE, EUROPE, EARTH]
+    places = [
+        mock_data.ILE_DE_FRANCE, mock_data.ILE_DE_FRANCE_NUTS1,
+        mock_data.FRANCE, mock_data.EUROPE, mock_data.EARTH
+    ]
 
     random.shuffle(places)
 
     place = utils.get_place_override(places)
-    self.assertEqual(place.dcid, ILE_DE_FRANCE.dcid)
-
-  def test_get_place_type_with_parent_places_links(self):
-    place_str = utils.get_place_type_with_parent_places_links(CALIFORNIA.dcid)
-    self.assertEqual(
-        place_str,
-        'singular_state in <a href="/place/geoId/US">United States</a>, <a href="/place/northamerica">North America</a>, <a href="/place/Earth">Earth</a>'
-    )
+    self.assertEqual(place.dcid, mock_data.ILE_DE_FRANCE.dcid)
 
   def test_place_type_to_highlight(self):
     self.assertEqual(utils.place_type_to_highlight(["City", "State"]), "City")
@@ -402,7 +293,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
         utils.place_type_to_highlight(
             ["CensusZipCodeTabulationArea", "Town", "Zip", "Village"]))
 
-  async def test_filter_chart_config_for_data_existence_place_has_no_data(self):
+  def test_filter_chart_config_for_data_existence_place_has_no_data(self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
     configs = [
@@ -411,21 +302,22 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])])
     ]
 
-    self.mock_dc_api_data(stat_var='Count_Person',
-                          places=[CALIFORNIA.dcid],
-                          dc_obs_point=True,
-                          dc_obs_points_within=True,
-                          data=[])
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[])
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(
-        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
-        SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = utils.filter_chart_config_for_data_existence(
+        configs, mock_data.CALIFORNIA.dcid, mock_data.CALIFORNIA.types[0],
+        mock_data.SANTA_CLARA_COUNTY.types[0], mock_data.USA.dcid)
 
     self.assertEqual(filtered_configs, [])
 
-  async def test_filter_chart_config_for_data_existence_peers_have_no_data(
-      self):
+  def test_filter_chart_config_for_data_existence_peers_have_no_data(self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
     configs = [
@@ -440,19 +332,27 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             None, [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])])
     ]
 
-    self.mock_dc_api_data(stat_var='Count_Person',
-                          places=[CALIFORNIA.dcid],
-                          dc_obs_point=True,
-                          data=list([1234, 321]))
-    self.mock_dc_api_data(stat_var='Count_Person',
-                          places=[CALIFORNIA.dcid, ARIZONA.dcid, NEW_YORK.dcid],
-                          dc_obs_points_within=True,
-                          data=[])
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.ARIZONA.dcid,
+                                   mock_data.NEW_YORK.dcid
+                               ],
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[])
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(
-        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
-        SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = utils.filter_chart_config_for_data_existence(
+        configs, mock_data.CALIFORNIA.dcid, mock_data.CALIFORNIA.types[0],
+        mock_data.SANTA_CLARA_COUNTY.types[0], mock_data.USA.dcid)
 
     self.assertEqual(len(filtered_configs), 1)
     self.assertEqual(filtered_configs, [
@@ -462,8 +362,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             [ServerBlockMetadata('PLACE', [ServerChartMetadata('BAR')])])
     ])
 
-  async def test_filter_chart_config_for_data_existence_children_have_no_data(
-      self):
+  def test_filter_chart_config_for_data_existence_children_have_no_data(self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
     configs = [
@@ -473,23 +372,27 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             [ServerBlockMetadata('CHILD_PLACES', [ServerChartMetadata('BAR')])])
     ]
 
-    self.mock_dc_api_data(stat_var='Count_Person',
-                          places=[CALIFORNIA.dcid],
-                          dc_obs_point=True,
-                          data=[])
-    self.mock_dc_api_data(stat_var='Count_Person',
-                          places=[SANTA_CLARA_COUNTY.dcid],
-                          dc_obs_points_within=True,
-                          data=[])
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[])
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[mock_data.SANTA_CLARA_COUNTY.dcid],
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[])
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(
-        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
-        SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = utils.filter_chart_config_for_data_existence(
+        configs, mock_data.CALIFORNIA.dcid, mock_data.CALIFORNIA.types[0],
+        mock_data.SANTA_CLARA_COUNTY.types[0], mock_data.USA.dcid)
 
     self.assertEqual(filtered_configs, [])
 
-  async def test_filter_chart_config_for_data_existence_all_data(self):
+  def test_filter_chart_config_for_data_existence_all_data(self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
     configs = [
@@ -509,22 +412,33 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             ])
     ]
 
-    self.mock_dc_api_data(stat_var='Count_Person',
-                          places=[CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid],
-                          dc_obs_point=True,
-                          data=list([1234, 321]))
-    self.mock_dc_api_data(stat_var='Count_Person',
-                          places=[
-                              SANTA_CLARA_COUNTY.dcid, SAN_MATEO_COUNTY.dcid,
-                              CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid
-                          ],
-                          dc_obs_points_within=True,
-                          data=list([1234, 321]))
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.NEW_YORK.dcid,
+                                   mock_data.ARIZONA.dcid
+                               ],
+                               dc_obs_point=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[
+                                   mock_data.SANTA_CLARA_COUNTY.dcid,
+                                   mock_data.SAN_MATEO_COUNTY.dcid,
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.NEW_YORK.dcid,
+                                   mock_data.ARIZONA.dcid
+                               ],
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(
-        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
-        SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = utils.filter_chart_config_for_data_existence(
+        configs, mock_data.CALIFORNIA.dcid, mock_data.CALIFORNIA.types[0],
+        mock_data.SANTA_CLARA_COUNTY.types[0], mock_data.USA.dcid)
 
     expected_configs = [
         ServerChartConfiguration(
@@ -546,8 +460,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.assertEqual(filtered_configs, expected_configs)
 
-  async def test_filter_chart_config_for_data_existence_has_no_denominator_data(
-      self):
+  def test_filter_chart_config_for_data_existence_has_no_denominator_data(self):
     """Tests the filter_chart_config_for_data_existence function, which checks chart existence."""
     # Initialize the ServerChartConfig
     configs = [
@@ -567,22 +480,33 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             ])
     ]
 
-    self.mock_dc_api_data(stat_var='LifeExpectancy',
-                          places=[CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid],
-                          dc_obs_point=True,
-                          data=list([1234, 321]))
-    self.mock_dc_api_data(stat_var='LifeExpectancy',
-                          places=[
-                              CALIFORNIA.dcid, NEW_YORK.dcid, ARIZONA.dcid,
-                              SANTA_CLARA_COUNTY.dcid, SAN_MATEO_COUNTY.dcid
-                          ],
-                          dc_obs_points_within=True,
-                          data=list([1234, 321]))
+    mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
+                               places=[
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.NEW_YORK.dcid,
+                                   mock_data.ARIZONA.dcid
+                               ],
+                               dc_obs_point=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
+    mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
+                               places=[
+                                   mock_data.CALIFORNIA.dcid,
+                                   mock_data.NEW_YORK.dcid,
+                                   mock_data.ARIZONA.dcid,
+                                   mock_data.SANTA_CLARA_COUNTY.dcid,
+                                   mock_data.SAN_MATEO_COUNTY.dcid
+                               ],
+                               dc_obs_points_within=True,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=list([1234, 321]))
 
     # Assert the chart is there.
-    filtered_configs = await utils.filter_chart_config_for_data_existence(
-        configs, CALIFORNIA.dcid, CALIFORNIA.types[0],
-        SANTA_CLARA_COUNTY.types[0], USA.dcid)
+    filtered_configs = utils.filter_chart_config_for_data_existence(
+        configs, mock_data.CALIFORNIA.dcid, mock_data.CALIFORNIA.types[0],
+        mock_data.SANTA_CLARA_COUNTY.types[0], mock_data.USA.dcid)
 
     expected_configs = [
         ServerChartConfiguration(
@@ -610,20 +534,24 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(filtered_configs, expected_configs)
 
   def test_check_geo_data_exists_true(self):
-    self.mock_v2node_api_data(
-        data={SAN_MATEO_COUNTY.dcid: {
+    self.mock_v2node_api_data([{
+        mock_data.SAN_MATEO_COUNTY.dcid: {
             "properties": ["geoJsonCoordinatesDP3"]
-        }})
+        }
+    }])
 
-    self.assertTrue(utils.check_geo_data_exists(CALIFORNIA.dcid, "County"))
+    self.assertTrue(
+        utils.check_geo_data_exists(mock_data.CALIFORNIA.dcid, "County"))
 
   def test_check_geo_data_exists_false(self):
-    self.mock_v2node_api_data(
-        data={SAN_MATEO_COUNTY.dcid: {
+    self.mock_v2node_api_data([{
+        mock_data.SAN_MATEO_COUNTY.dcid: {
             "properties": ["notAGeoProperty"]
-        }})
+        }
+    }])
 
-    self.assertFalse(utils.check_geo_data_exists(CALIFORNIA.dcid, "County"))
+    self.assertFalse(
+        utils.check_geo_data_exists(mock_data.CALIFORNIA.dcid, "County"))
 
   def test_select_string_with_locale(self):
     strings = ["hello@en", "hola@es", "bonjour@fr"]
@@ -633,36 +561,37 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def test_fetch_places(self):
     data = {
-        MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW_API_DATA,
-        CALIFORNIA.dcid: CALIFORNIA_API_DATA
+        mock_data.MOUNTAIN_VIEW.dcid: mock_data.MOUNTAIN_VIEW_API_DATA,
+        mock_data.CALIFORNIA.dcid: mock_data.CALIFORNIA_API_DATA
     }
-    self.mock_v2node_api_data(data)
+    self.mock_v2node_api_data([data])
 
-    places = utils.fetch_places([MOUNTAIN_VIEW.dcid, CALIFORNIA.dcid])
+    places = utils.fetch_places(
+        [mock_data.MOUNTAIN_VIEW.dcid, mock_data.CALIFORNIA.dcid])
 
     self.assertEqual([p.name for p in places],
-                     [MOUNTAIN_VIEW.name, CALIFORNIA.name])
+                     [mock_data.MOUNTAIN_VIEW.name, mock_data.CALIFORNIA.name])
 
   def test_fetch_places_fr(self):
-    ca_api_data = copy.deepcopy(CALIFORNIA_API_DATA)
+    ca_api_data = copy.deepcopy(mock_data.CALIFORNIA_API_DATA)
     ca_api_data['arcs']['nameWithLanguage'] = {
         "nodes": [{
             'value': "California@en"
         }, {
-            'value': "Californie@fr"
+            'value': "Californiafr@fr"
         }]
     }
     data = {
-        MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW_API_DATA,
-        CALIFORNIA.dcid: ca_api_data
+        mock_data.MOUNTAIN_VIEW.dcid: mock_data.MOUNTAIN_VIEW_API_DATA,
+        mock_data.CALIFORNIA.dcid: ca_api_data
     }
-    self.mock_v2node_api_data(data)
+    self.mock_v2node_api_data([data])
 
-    places = utils.fetch_places([MOUNTAIN_VIEW.dcid, CALIFORNIA.dcid],
-                                locale="fr")
+    places = utils.fetch_places(
+        [mock_data.MOUNTAIN_VIEW.dcid, mock_data.CALIFORNIA.dcid], locale="fr")
 
     self.assertEqual([p.name for p in places],
-                     ["Mountain ViewFr", 'Californie'])
+                     ["Mountain Viewfr", 'Californiafr'])
 
   def test_chart_config_to_overview_charts(self):
     chart_config = [
@@ -731,63 +660,62 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     ]
     self.assertEqual(blocks, expected_blocks)
 
-  def test_get_child_place_types(self):
+  def test_get_child_place_types_france(self):
     data = {
-        FRANCE.dcid: self.create_contained_in_data(["State", "EurostatNUTS1"])
+        mock_data.FRANCE.dcid:
+            mock_data.create_contained_in_data(["State", "EurostatNUTS1"])
     }
-    self.mock_v2node_api_data(data)
+    self.mock_v2node_api_data([data])
 
-    child_types = utils.get_child_place_types(FRANCE)
+    child_types = utils.get_child_place_types(mock_data.FRANCE)
     self.assertEqual(child_types, ["State", "EurostatNUTS1"])
+
+  def test_get_child_place_types_california(self):
+    data = {
+        mock_data.CALIFORNIA.dcid:
+            mock_data.create_contained_in_data(["County"])
+    }
+    self.mock_v2node_api_data([data])
+
+    child_types = utils.get_child_place_types(mock_data.CALIFORNIA)
+    self.assertEqual(child_types, ["County"])
 
   def test_get_child_place_type_to_highlight(self):
 
     data = {
-        EARTH.dcid:
-            self.create_contained_in_data(["Continent"]),
-        USA.dcid:
-            self.create_contained_in_data(["State", "County", "City"]),
-        FRANCE.dcid:
-            self.create_contained_in_data([
+        mock_data.EARTH.dcid:
+            mock_data.create_contained_in_data(["Continent"]),
+        mock_data.USA.dcid:
+            mock_data.create_contained_in_data(["State", "County", "City"]),
+        mock_data.FRANCE.dcid:
+            mock_data.create_contained_in_data([
                 "AdministrativeArea1", "AdministrativeArea2",
                 "AdministrativeArea3"
             ]),
-        CALIFORNIA.dcid:
-            self.create_contained_in_data(["County", "City"]),
-        SAN_MATEO_COUNTY.dcid:
-            self.create_contained_in_data(
+        mock_data.CALIFORNIA.dcid:
+            mock_data.create_contained_in_data(["County", "City"]),
+        mock_data.SAN_MATEO_COUNTY.dcid:
+            mock_data.create_contained_in_data(
                 ["City", "CensusZipCodeTabulationArea"]),
     }
-    self.mock_v2node_api_data(data)
+    self.mock_v2node_api_data([data])
 
-    self.assertEqual(utils.get_child_place_type_to_highlight(EARTH), "Country")
-    self.assertEqual(utils.get_child_place_type_to_highlight(USA), "State")
-    self.assertEqual(utils.get_child_place_type_to_highlight(FRANCE),
+    self.assertEqual(utils.get_child_place_type_to_highlight(mock_data.EARTH),
+                     "Country")
+    self.assertEqual(utils.get_child_place_type_to_highlight(mock_data.USA),
+                     "State")
+    self.assertEqual(utils.get_child_place_type_to_highlight(mock_data.FRANCE),
                      "AdministrativeArea1")
-    self.assertEqual(utils.get_child_place_type_to_highlight(CALIFORNIA),
-                     "County")
-    self.assertEqual(utils.get_child_place_type_to_highlight(SAN_MATEO_COUNTY),
-                     "City")
+    self.assertEqual(
+        utils.get_child_place_type_to_highlight(mock_data.CALIFORNIA), "County")
+    self.assertEqual(
+        utils.get_child_place_type_to_highlight(mock_data.SAN_MATEO_COUNTY),
+        "City")
 
   def test_read_chart_configs(self):
-    app = Flask(__name__)
-    app.config['CHART_CONFIG'] = [{
-        'title': 'Chart',
-        'title_id': 'Chart',
-        'description': 'description',
-        'denominator': ['Count_Person'],
-        'category': 'Economics',
-        'variables': ['LifeExpectancy'],
-        'blocks': [{
-            'place_scope': 'PLACE',
-            'charts': [{
-                'type': 'BAR'
-            }]
-        }]
-    }]
-
-    with app.app_context():
+    with self.app_context:
       configs = utils.read_chart_configs()
+
       self.assertEqual(configs, [
           ServerChartConfiguration(
               category='Economics',
@@ -803,17 +731,17 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
       ])
 
   def test_fetch_child_place_dcids(self):
-    api_data = copy.deepcopy(CALIFORNIA_API_DATA)
+    api_data = copy.deepcopy(mock_data.CALIFORNIA_API_DATA)
     api_data['arcs']['containedInPlace+'] = {
         "nodes": [{
-            'value': MOUNTAIN_VIEW.dcid
+            'value': mock_data.MOUNTAIN_VIEW.dcid
         }]
     }
-    data = {CALIFORNIA.dcid: api_data}
-    self.mock_v2node_api_data(data)
+    data = {mock_data.CALIFORNIA.dcid: api_data}
+    self.mock_v2node_api_data([data])
 
-    child_dcids = utils.fetch_child_place_dcids(CALIFORNIA, "City")
-    self.assertEqual(child_dcids, [MOUNTAIN_VIEW.dcid])
+    child_dcids = utils.fetch_child_place_dcids(mock_data.CALIFORNIA, "City")
+    self.assertEqual(child_dcids, [mock_data.MOUNTAIN_VIEW.dcid])
 
   def test_translate_chart_config_place_titles(self):
     """Tests the most common scenario: PLACE scope and a title_id."""
@@ -834,8 +762,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.assertEqual([b.title for b in translated_config[0].blocks], [
         "California: pop_count_id",
-        "Other %(placeType)s in %(parentPlace)s: pop_count_id",
-        "plural_county in California: pop_count_id"
+        "Other States in United States: pop_count_id",
+        "Counties in California: pop_count_id"
     ])
 
   def test_multiple_places_for_stat_var(self):
@@ -887,7 +815,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
         "Energy", [config, config2])
     economics_filtered = utils.filter_chart_config_for_category(
         "Economics", [config, config2])
-    self.maxDiff = None
+
     self.assertEqual(energy_filtered, [config])
     self.assertEqual(economics_filtered, [config2])
 
@@ -898,7 +826,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     overview_filtered = utils.filter_chart_config_for_category(
         "Overview", [config])
-    self.maxDiff = None
     self.assertEqual(overview_filtered, [config])
 
   def test_overview_filter_no_overview_data(self):
@@ -961,7 +888,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual([econ_category, energy_category], categories)
 
   def test_fetch_nearby_places(self):
-    api_data = copy.deepcopy(CALIFORNIA_API_DATA)
+    api_data = copy.deepcopy(mock_data.CALIFORNIA_API_DATA)
     api_data['arcs']['nearbyPlaces'] = {
         "nodes": [{
             "value": "geoId/04@1000m"
@@ -969,32 +896,74 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             "value": "geoId/05@1000m"
         }]
     }
-    data = {CALIFORNIA.dcid: api_data}
+    data = {mock_data.CALIFORNIA.dcid: api_data}
 
-    self.mock_v2node_api_data(data)
-    nearby_dcids = utils.fetch_nearby_place_dcids(CALIFORNIA)
+    self.mock_v2node_api_data([data])
+    nearby_dcids = utils.fetch_nearby_place_dcids(mock_data.CALIFORNIA)
     self.assertEqual(nearby_dcids, ["geoId/04", "geoId/05"])
 
   def test_extract_places(self):
-    dissolved_san_mateo = copy.deepcopy(SAN_MATEO_COUNTY)
+    dissolved_san_mateo = copy.deepcopy(mock_data.SAN_MATEO_COUNTY)
     dissolved_san_mateo.dissolved = True
 
     all_places = {
-        CALIFORNIA.dcid: CALIFORNIA,
-        MOUNTAIN_VIEW.dcid: MOUNTAIN_VIEW,
-        SANTA_CLARA_COUNTY.dcid: SANTA_CLARA_COUNTY,
-        SAN_MATEO_COUNTY.dcid: dissolved_san_mateo
+        mock_data.CALIFORNIA.dcid: mock_data.CALIFORNIA,
+        mock_data.MOUNTAIN_VIEW.dcid: mock_data.MOUNTAIN_VIEW,
+        mock_data.SANTA_CLARA_COUNTY.dcid: mock_data.SANTA_CLARA_COUNTY,
+        mock_data.SAN_MATEO_COUNTY.dcid: dissolved_san_mateo
     }
     dcids = [
-        CALIFORNIA.dcid, MOUNTAIN_VIEW.dcid, SANTA_CLARA_COUNTY.dcid,
-        dissolved_san_mateo.dcid
+        mock_data.CALIFORNIA.dcid, mock_data.MOUNTAIN_VIEW.dcid,
+        mock_data.SANTA_CLARA_COUNTY.dcid, dissolved_san_mateo.dcid
     ]
     extracted_places = utils.extract_places_from_dcids(all_places, dcids)
 
-    self.assertEqual(extracted_places,
-                     [CALIFORNIA, MOUNTAIN_VIEW, SANTA_CLARA_COUNTY])
+    self.assertEqual(extracted_places, [
+        mock_data.CALIFORNIA, mock_data.MOUNTAIN_VIEW,
+        mock_data.SANTA_CLARA_COUNTY
+    ])
 
-  # TODO(gmechali): Add test for get_place_cohort.
-  # TODO(gmechali): Add test for fetch_peer_places_within.
-  # TODO(gmechali): Add test for fetch_similar_place_dcids.
-  # TODO(gmechali): Add test for fetch_overview_table_data.
+  def test_fetch_peer_places_within_states(self):
+    usa_api_data = copy.deepcopy(mock_data.USA_API_DATA)
+    usa_api_data['arcs']['containedInPlace+'] = {
+        "nodes": [{
+            'value': mock_data.CALIFORNIA.dcid
+        }, {
+            'value': mock_data.ARIZONA.dcid
+        }, {
+            'value': mock_data.NEW_YORK.dcid
+        }]
+    }
+    parent_data = {
+        mock_data.USA.dcid: usa_api_data,
+        mock_data.NORTH_AMERICA.dcid: mock_data.NORTH_AMERICA_API_DATA,
+        mock_data.EARTH.dcid: mock_data.EARTH_API_DATA,
+    }
+    data = {
+        mock_data.CALIFORNIA.dcid: mock_data.CALIFORNIA_API_DATA,
+        mock_data.USA.dcid: usa_api_data,
+        mock_data.ARIZONA.dcid: mock_data.ARIZONA_API_DATA,
+        mock_data.NEW_YORK.dcid: mock_data.NEW_YORK_API_DATA
+    }
+    self.mock_v2node_api_data([parent_data, data, usa_api_data])
+
+    peers = utils.fetch_peer_places_within(mock_data.CALIFORNIA.dcid, ['State'])
+    self.assertEqual(set(peers),
+                     {mock_data.ARIZONA.dcid, mock_data.NEW_YORK.dcid})
+
+  def test_fetch_overview_table_data(self):
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               dc_obs_points_within=False,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[123],
+                               include_facets=True)
+    resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
+
+    self.assertEqual(len(resp), 1)
+    self.assertEqual(resp[0].name, 'Population')
+    self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_0')
+    self.assertEqual(resp[0].value, 123)
+    self.assertEqual(resp[0].variableDcid, 'Count_Person')
