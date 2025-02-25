@@ -19,6 +19,7 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
+
 import {
   GA_EVENT_AUTOCOMPLETE_TRIGGERED,
   GA_PARAM_QUERY,

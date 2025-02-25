@@ -111,76 +111,76 @@ interface MenuPropsType {
 }
 
 const Menu: React.FC<MenuPropsType> = (props: MenuPropsType) => {
-    const dcid = props.dcid;
-    const selectCategory = props.selectCategory;
-    const categories = Object.keys(props.categories);
-    const categoriesWithData = Object.keys(props.pageChart);
-    const showOverviewSubmenu = categories.length === 1;
-    const placeName = props.placeName;
+  const dcid = props.dcid;
+  const selectCategory = props.selectCategory;
+  const categories = Object.keys(props.categories);
+  const categoriesWithData = Object.keys(props.pageChart);
+  const showOverviewSubmenu = categories.length === 1;
+  const placeName = props.placeName;
 
-    const { setPlaceholderString: setStorePlaceholderString } = useQueryStore();
-    
-    useEffect(() => {
-      setStorePlaceholderString(placeName);
-    }, []);
+  const { setPlaceholderString: setStorePlaceholderString } = useQueryStore();
 
-    return (
-      <ul id="nav-topics" className="nav flex-column accordion">
-        {showOverviewSubmenu ? null : (
-          <li className="nav-item">
-            <LocalizedLink
-              href={`/place/${dcid}`}
-              className={`nav-link ${!selectCategory ? "active" : ""}`}
-              text={intl.formatMessage({
-                id: "header-overview",
-                defaultMessage: "Overview",
-                description:
-                  "Text for header or subheader of Overview charts on place pages.",
-              })}
-              handleClick={(): void =>
-                triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
-                  [GA_PARAM_PLACE_CATEGORY_CLICK]:
-                    GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
-                  [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
-                    GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
-                })
-              }
-            />
-          </li>
-        )}
-        {categories.map((category: string) => {
-          const items: { [topic: string]: string[] } = {};
-          let topics: string[] = [];
-          if (category === "Overview") {
-            items[""] = Object.keys(props.pageChart[category]).map(
-              (t) => props.categories[t]
-            );
-          } else if (categoriesWithData.indexOf(category) > -1) {
-            topics = Object.keys(props.pageChart[category]);
-            for (const topic of topics) {
-              items[topic] = [];
-              items[topic].push(
-                ...props.pageChart[category][topic].map((c) => c.title)
-              );
+  useEffect(() => {
+    setStorePlaceholderString(placeName);
+  }, []);
+
+  return (
+    <ul id="nav-topics" className="nav flex-column accordion">
+      {showOverviewSubmenu ? null : (
+        <li className="nav-item">
+          <LocalizedLink
+            href={`/place/${dcid}`}
+            className={`nav-link ${!selectCategory ? "active" : ""}`}
+            text={intl.formatMessage({
+              id: "header-overview",
+              defaultMessage: "Overview",
+              description:
+                "Text for header or subheader of Overview charts on place pages.",
+            })}
+            handleClick={(): void =>
+              triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+                [GA_PARAM_PLACE_CATEGORY_CLICK]:
+                  GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
+                [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
+                  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
+              })
             }
-          }
-          const categoryDisplayStr = props.categories[category];
-          if (showOverviewSubmenu || category !== "Overview") {
-            return (
-              <MenuCategory
-                key={category}
-                dcid={dcid}
-                selectCategory={selectCategory}
-                category={category}
-                items={items}
-                topics={topics}
-                categoryDisplayStr={categoryDisplayStr}
-              />
+          />
+        </li>
+      )}
+      {categories.map((category: string) => {
+        const items: { [topic: string]: string[] } = {};
+        let topics: string[] = [];
+        if (category === "Overview") {
+          items[""] = Object.keys(props.pageChart[category]).map(
+            (t) => props.categories[t]
+          );
+        } else if (categoriesWithData.indexOf(category) > -1) {
+          topics = Object.keys(props.pageChart[category]);
+          for (const topic of topics) {
+            items[topic] = [];
+            items[topic].push(
+              ...props.pageChart[category][topic].map((c) => c.title)
             );
           }
-        })}
-      </ul>
-    );
-  }
+        }
+        const categoryDisplayStr = props.categories[category];
+        if (showOverviewSubmenu || category !== "Overview") {
+          return (
+            <MenuCategory
+              key={category}
+              dcid={dcid}
+              selectCategory={selectCategory}
+              category={category}
+              items={items}
+              topics={topics}
+              categoryDisplayStr={categoryDisplayStr}
+            />
+          );
+        }
+      })}
+    </ul>
+  );
+};
 
 export { Menu };

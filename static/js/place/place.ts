@@ -131,7 +131,7 @@ function renderPage(): void {
           categories: data.categories,
           dcid,
           selectCategory: category,
-          placeName: placeName,
+          placeName,
         }),
         document.getElementById("menu")
       );
@@ -140,7 +140,7 @@ function renderPage(): void {
         ReactDOM.render(
           React.createElement(PlaceHighlight, {
             dcid,
-            highlight: data.highlight
+            highlight: data.highlight,
           }),
           document.getElementById("place-highlight")
         );
