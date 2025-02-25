@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import { PageChart } from "../chart/types";
 import { intl, LocalizedLink } from "../i18n/i18n";
@@ -26,6 +26,7 @@ import {
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
   triggerGAEvent,
 } from "../shared/ga_events";
+import { useQueryStore } from "../shared/stores/query_store_hook";
 
 interface MenuCategoryPropsType {
   dcid: string;
@@ -106,15 +107,24 @@ interface MenuPropsType {
   dcid: string;
   pageChart: PageChart;
   selectCategory: string;
+  placeName: string;
 }
 
-class Menu extends React.Component<MenuPropsType> {
-  render(): JSX.Element {
-    const dcid = this.props.dcid;
-    const selectCategory = this.props.selectCategory;
-    const categories = Object.keys(this.props.categories);
-    const categoriesWithData = Object.keys(this.props.pageChart);
+// class Menu extends React.Component<MenuPropsType> {
+const Menu: React.FC<MenuPropsType> = (props: MenuPropsType) => {
+    const dcid = props.dcid;
+    const selectCategory = props.selectCategory;
+    const categories = Object.keys(props.categories);
+    const categoriesWithData = Object.keys(props.pageChart);
     const showOverviewSubmenu = categories.length === 1;
+    const placeName = props.placeName;
+
+    const { setPlaceholderString: setStorePlaceholderString } = useQueryStore();
+    
+    useEffect(() => {
+      setStorePlaceholderString(placeName);
+    }, []);
+
     return (
       <ul id="nav-topics" className="nav flex-column accordion">
         {showOverviewSubmenu ? null : (
@@ -143,19 +153,19 @@ class Menu extends React.Component<MenuPropsType> {
           const items: { [topic: string]: string[] } = {};
           let topics: string[] = [];
           if (category === "Overview") {
-            items[""] = Object.keys(this.props.pageChart[category]).map(
-              (t) => this.props.categories[t]
+            items[""] = Object.keys(props.pageChart[category]).map(
+              (t) => props.categories[t]
             );
           } else if (categoriesWithData.indexOf(category) > -1) {
-            topics = Object.keys(this.props.pageChart[category]);
+            topics = Object.keys(props.pageChart[category]);
             for (const topic of topics) {
               items[topic] = [];
               items[topic].push(
-                ...this.props.pageChart[category][topic].map((c) => c.title)
+                ...props.pageChart[category][topic].map((c) => c.title)
               );
             }
           }
-          const categoryDisplayStr = this.props.categories[category];
+          const categoryDisplayStr = props.categories[category];
           if (showOverviewSubmenu || category !== "Overview") {
             return (
               <MenuCategory
@@ -173,6 +183,5 @@ class Menu extends React.Component<MenuPropsType> {
       </ul>
     );
   }
-}
 
 export { Menu };
