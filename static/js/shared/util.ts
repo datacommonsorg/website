@@ -51,6 +51,14 @@ const NO_DATE_CAP_RCP_STATVARS = [
   "PctProb_",
 ];
 
+export const SAMPLE_QUERIES = [
+  "What is the population of California?",
+  "GDP of Japan?",
+  "Average temperature in Paris?",
+  "Unemployment rate in Germany?",
+  "Life expectancy in Canada?",
+];
+
 // used to set fields in an object
 export interface Setter<T> {
   (value: T): void;

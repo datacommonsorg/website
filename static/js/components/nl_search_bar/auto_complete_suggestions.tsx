@@ -54,8 +54,6 @@ export function AutoCompleteSuggestions(
       triggerGAEvent(GA_EVENT_AUTOCOMPLETE_TRIGGERED, {
         [GA_PARAM_QUERY]: props.baseInput,
       });
-    // } else {
-    //   console.log("Skipped trigger due to dedup");
     }
   }, [props.allResults]);
 

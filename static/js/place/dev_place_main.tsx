@@ -280,7 +280,8 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const metadataContainer = document.getElementById("metadata-base");
   const locale = metadataContainer.dataset.locale;
 
-  const { setQueryString: setStoreQueryString } = useQueryStore();
+  const { placeholder,  setPlaceholderString: setStorePlaceholderString } = useQueryStore();
+  console.log("And here, we got " + placeholder);
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overviewString;
@@ -314,7 +315,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
     });
     setPlaceSummary(pageMetadata.dataset.placeSummary);
     setPlaceSubheader(pageMetadata.dataset.placeSubheader);
-    setStoreQueryString(pageMetadata.dataset.placeName);
+    setStorePlaceholderString(pageMetadata.dataset.placeName);
   }, []);
 
   /**

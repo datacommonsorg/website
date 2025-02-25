@@ -29,7 +29,7 @@ interface NlSearchBarPropType {
   inputId: string;
   onSearch: (q: string) => void;
   initialValue: string;
-  placeholder: string;
+  placeholder?: string;
   shouldAutoFocus?: boolean;
   feedbackLink?: string;
 }

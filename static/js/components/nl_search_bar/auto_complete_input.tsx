@@ -36,7 +36,13 @@ import {
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { stripPatternFromQuery } from "../../shared/util";
+import { stripPatternFromQuery, SAMPLE_QUERIES } from "../../shared/util";
+import {
+  DYNAMIC_PLACEHOLDER_EXPERIMENT,
+  DYNAMIC_PLACEHOLDER_GA,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
+
 import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
@@ -44,19 +50,15 @@ import {
 import { ArrowForward } from "../elements/icons/arrow_forward";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
+import { useQueryStore } from "../../shared/stores/query_store_hook";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
 const LOCATION_SEARCH = "location_search";
-const SAMPLE_QUESTIONS = [
-  "What is the population of California?",
-  "GDP of Japan?",
-  "Average temperature in Paris?",
-  "Unemployment rate in Germany?",
-  "Life expectancy in Canada?",
-];
-const TYPING_SPEED = 30; // milliseconds per character
+const TYPING_SPEED = 40; // milliseconds per character
+const TYPING_SPEED_DELETE = 20; // milliseconds per character
 const DISPLAY_DURATION = 3000; // milliseconds to display each question
+const MAX_SAMPLE_QUESTION_CYCLE = 5;
 
 export interface AutoCompleteResult {
   dcid: string;
@@ -101,6 +103,7 @@ export function AutoCompleteInput(
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [inputActive, setInputActive] = useState(false);
+  const [sampleQuestionText, setSampleQuestionText] = useState("");
   const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
     useState("");
   // Used to reduce sensitivity to scrolling for autocomplete result dismissal.
@@ -108,11 +111,12 @@ export function AutoCompleteInput(
   const [lastScrollYOnTrigger, setLastScrollYOnTrigger] = useState(0);
   // Tracks the last scrollY value for current height offsett.
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [sampleQuestionIndex, setSampleQuestionIndex] = useState(0);
-  const [sampleQuestionText, setSampleQuestionText] = useState("");
 
   const isHeaderBar = props.barType == "header";
   let lang = "";
+
+  const {placeholder: placeholder} = useQueryStore();
+  console.log("So finally?" + placeholder);
 
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
@@ -124,36 +128,41 @@ export function AutoCompleteInput(
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
 
     // Start cycling through sample questions when the component mounts.
-    cycleSampleQuestions(sampleQuestionIndex);
+    if (isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) || (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) && Math.random() < .9)) {
+      const sampleQuestionStartIndex = Math.floor(Math.random() * SAMPLE_QUERIES.length);
+      cycleSampleQuestions(sampleQuestionStartIndex, 0);
+    }
   }, []);
 
 
   const placeholderText =
-  !inputActive
+  !inputActive && sampleQuestionText
     ? sampleQuestionText
-    : props.placeholder;
+    : placeholder;
 
-  const cycleSampleQuestions = (index: number) => {
-    let currentQuestion = SAMPLE_QUESTIONS[index];
+  /* Start typing the sample questions through the Input's placeholder attribute while inactive. */
+  const cycleSampleQuestions = (index: number, questionCount: number) => {
+    if (questionCount >= MAX_SAMPLE_QUESTION_CYCLE) {
+      setSampleQuestionText("");
+      return;
+    }
+
+    let currentQuestion = SAMPLE_QUERIES[index];
     let charIndex = 0;
   
     const typeNextChar = () => {
       if (charIndex <= currentQuestion.length) {
-        setSampleQuestionText(currentQuestion.substring(0, charIndex));
-        charIndex++;
+        setSampleQuestionText(currentQuestion.substring(0, charIndex++));
         setTimeout(typeNextChar, TYPING_SPEED);
       } else {
         setTimeout(() => {
           const deleteChar = () => {
             if (charIndex >= 0) {
-              setSampleQuestionText(currentQuestion.substring(0, charIndex));
-              charIndex--;
-              setTimeout(deleteChar, TYPING_SPEED);
+              setSampleQuestionText(currentQuestion.substring(0, charIndex--));
+              setTimeout(deleteChar, TYPING_SPEED_DELETE);
             } else {
-              setSampleQuestionIndex(
-                (index + 1) % SAMPLE_QUESTIONS.length
-              );
-              cycleSampleQuestions((index + 1) % SAMPLE_QUESTIONS.length);
+              const nextQuestionIndex = (index + 1) % SAMPLE_QUERIES.length
+              cycleSampleQuestions(nextQuestionIndex, ++questionCount);
             }
           };
           deleteChar();

@@ -50,6 +50,7 @@ const HeaderBarSearch = ({
   gaValueSearchSource,
 }: HeaderBarSearchProps): ReactElement => {
   const { queryString, placeholder, queryResult, debugData } = useQueryStore();
+  console.log("So in here, we got" + placeholder)
 
   // Get the query string from the url params.
   const urlParams = new URLSearchParams(window.location.search);

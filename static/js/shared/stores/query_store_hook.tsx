@@ -30,6 +30,7 @@ interface QueryStoreData {
   queryResult: QueryResult | null;
   debugData: any;
   setQueryString: (query: string) => void;
+  setPlaceholderString: (query: string) => void;
   setQueryResult: (result: QueryResult) => void;
   setDebugData: (data: any) => void;
 }
@@ -73,11 +74,17 @@ export const useQueryStore = (): QueryStoreData => {
         if (newQueryResult !== null) {
           setQueryResultState(newQueryResult);
         }
+      } else if (changeType === "placeholderString") {
+        const placeholderString = store.getPlaceholderString();
+        if (placeholder !== null) {
+          setPlaceholderState(placeholderString);
+        }
       }
     };
 
     queryStore.subscribe(handleStoreUpdate);
     handleStoreUpdate(queryStore, "queryString");
+    handleStoreUpdate(queryStore, "placeholderString");
 
     return () => {
       queryStore.unsubscribe(handleStoreUpdate);
@@ -88,6 +95,11 @@ export const useQueryStore = (): QueryStoreData => {
     setQueryStringState(query);
     globalThis.queryStore.setQueryString(query);
   };
+
+  const setPlaceholderString = (placeholder: string): void => {
+    setPlaceholderState(placeholder);
+    globalThis.queryStore.set
+  }
 
   const setQueryResult = (result: QueryResult): void => {
     setQueryResultState(result);
@@ -105,6 +117,7 @@ export const useQueryStore = (): QueryStoreData => {
     queryResult,
     debugData,
     setQueryString,
+    setPlaceholderString,
     setQueryResult,
     setDebugData,
   };
