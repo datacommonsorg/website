@@ -53,7 +53,7 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
                          max_pages=3), response_without_next_token)
 
   @mock.patch('server.services.datacommons.post')
-  def test_merging_paged_responses(self, mock_post):
+  def test_merge_paged_responses_with_no_max_pages(self, mock_post):
     response_with_next_token = get_json('v2node_response_with_next_token')
     response_without_next_token = get_json('v2node_response_without_next_token')
     mock_post.side_effect = [
@@ -63,7 +63,7 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
     self.assertEqual(
         v2node_paginated(['dc/1', 'dc/2'],
                          '->{property1,property2}',
-                         max_pages=3),
+                         max_pages=None),
         get_json('v2node_expected_merged_response'))
 
   @mock.patch('server.services.datacommons.post')

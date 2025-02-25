@@ -288,7 +288,8 @@ def v2node_paginated(nodes, prop, max_pages=1):
   Args:
       nodes: A list of node dcids.
       prop: The property to query for.
-      max_pages: The maximum number of pages to fetch from the v2node api.
+      max_pages: The maximum number of pages to fetch. If None, v2node is
+        queried until nextToken is not in the response.
   """
   fetched_pages = 0
   result = {}
@@ -306,7 +307,7 @@ def v2node_paginated(nodes, prop, max_pages=1):
     _merge_paged_response(result, response)
     fetched_pages += 1
     next_token = response.get('nextToken', '')
-    if not next_token or fetched_pages >= max_pages:
+    if not next_token or (max_pages and fetched_pages >= max_pages):
       break
   return result
 
