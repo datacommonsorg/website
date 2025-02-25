@@ -77,3 +77,17 @@ class TestServiceDataCommonsV2Node(unittest.TestCase):
 
     self.assertEqual(v2node(['dc/1', 'dc/2'], '->', max_pages=3),
                      get_json('v2node_expected_merged_properties'))
+
+  @mock.patch('server.services.datacommons.post')
+  def test_empty_response_returns_empty(self, mock_post):
+    mock_post.side_effect = [{}]
+
+    self.assertEqual(v2node(['dc/1', 'dc/2'], '->', max_pages=3), {})
+
+  @mock.patch('server.services.datacommons.post')
+  def test_no_data_in_response(self, mock_post):
+    response_with_no_data = {'data': {'dc/1': {}, 'dc/2': {}}}
+    mock_post.side_effect = [response_with_no_data]
+
+    self.assertEqual(v2node(['dc/1', 'dc/2'], '->', max_pages=3),
+                     response_with_no_data)
