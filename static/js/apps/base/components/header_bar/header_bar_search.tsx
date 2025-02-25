@@ -25,18 +25,18 @@ import {
 } from "../../../../constants/app/explore_constants";
 import { localizeLink } from "../../../../i18n/i18n";
 import {
-  GA_EVENT_NL_SEARCH,
-  GA_PARAM_QUERY,
-  GA_PARAM_DYNAMIC_PLACEHOLDER,
-  GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
-  triggerGAEvent,
-} from "../../../../shared/ga_events";
-import {
   DYNAMIC_PLACEHOLDER_EXPERIMENT,
   DYNAMIC_PLACEHOLDER_GA,
   isFeatureEnabled,
 } from "../../../../shared/feature_flags/util";
+import {
+  GA_EVENT_NL_SEARCH,
+  GA_PARAM_DYNAMIC_PLACEHOLDER,
+  GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
+  GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
+  triggerGAEvent,
+} from "../../../../shared/ga_events";
 import { useQueryStore } from "../../../../shared/stores/query_store_hook";
 import { updateHash } from "../../../../utils/url_utils";
 import { DebugInfo } from "../../../explore/debug_info";
@@ -67,7 +67,10 @@ const HeaderBarSearch = ({
 
   // Initialize whether to let the placeholder show dynamic examples.
   const EXPERIMENT_ROLLOUT_RATIO = 1;
-  const showDynamicPlaceholders = isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) || (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) && Math.random() < EXPERIMENT_ROLLOUT_RATIO);
+  const showDynamicPlaceholders =
+    isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) ||
+    (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) &&
+      Math.random() < EXPERIMENT_ROLLOUT_RATIO);
 
   return (
     <div className="header-search">

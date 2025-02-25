@@ -102,7 +102,7 @@ export const useQueryStore = (): QueryStoreData => {
 
     setPlaceholderState(placeholder);
     globalThis.queryStore.setPlaceholderString(placeholder);
-  }
+  };
 
   const setQueryResult = (result: QueryResult): void => {
     setQueryResultState(result);

@@ -317,10 +317,12 @@ export const DevPlaceMain = (): React.JSX.Element => {
     if (isOverview) {
       setStorePlaceholderString(pageMetadata.dataset.placeName);
     } else {
-      setStorePlaceholderString(intl.formatMessage(pageMessages.categoryInPlace, {
-        placeName: pageMetadata.dataset.placeName,
-        category: category,
-      }))
+      setStorePlaceholderString(
+        intl.formatMessage(pageMessages.categoryInPlace, {
+          placeName: pageMetadata.dataset.placeName,
+          category,
+        })
+      );
     }
   }, []);
 
