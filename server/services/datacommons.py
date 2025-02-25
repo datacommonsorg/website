@@ -277,14 +277,17 @@ def v2node(nodes, prop, max_pages=1):
   next_token = ''
   while True:
     url = get_service_url('/v2/node')
-    paged_response = post(url, {
+    response = post(url, {
         'nodes': sorted(nodes),
         'property': prop,
         'nextToken': next_token
     })
-    _merge_paged_response(result, paged_response)
+    if max_pages == 1:
+      return response
+
+    _merge_paged_response(result, response)
     fetched_pages += 1
-    next_token = paged_response.get('nextToken', '')
+    next_token = response.get('nextToken', '')
     if not next_token or fetched_pages >= max_pages:
       break
   return result
