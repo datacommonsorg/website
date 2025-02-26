@@ -636,10 +636,10 @@ section {
       flex-wrap: nowrap;
       align-items: center;
       gap: 4px;
-      @include media-breakpoint-down(lg) {
+      @include media-breakpoint-down(sm) {
         padding: 4px 6px;
       }
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(sm) {
         padding: 4px 24px;
       }
 
@@ -672,10 +672,10 @@ section {
         overflow: hidden;
         text-overflow: ellipsis;
 
-        @include media-breakpoint-down(lg) {
+        @include media-breakpoint-down(sm) {
           font-size: 13px;
         }
-        @include media-breakpoint-up(lg) {
+        @include media-breakpoint-up(sm) {
           font-size: 16px;
         }
       }
