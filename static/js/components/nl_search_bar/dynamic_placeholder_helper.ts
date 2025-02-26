@@ -17,6 +17,7 @@
 /**
  * Helper class for enabling dynamic placeholders without muddying the AutoCompleteInput component.
  */
+import { SetStateAction } from "react";
 import { defineMessages } from "react-intl";
 
 const TYPING_SPEED = 40; // milliseconds per character
@@ -34,8 +35,8 @@ export const placeholderMessages = defineMessages({
 });
 
 export const enableDynamicPlacehoder = (
-  setSampleQuestionText: (arg0: any) => void,
-  setDynamicPlaceholdersEnabled: (arg0: any) => void
+  setSampleQuestionText: (arg0: SetStateAction<String>) => void,
+  setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
 ): void => {
   const sampleQuestions = loadSampleQuestions();
   if (sampleQuestions.length == 0) {
@@ -103,7 +104,7 @@ export const cycleSampleQuestions = (
             cycleSampleQuestions(
               sampleQuestions,
               nextQuestionIndex,
-              ++questionCount,
+              questionCount + 1,
               setSampleQuestionText,
               setDynamicPlaceholdersEnabled
             );
