@@ -22,4 +22,17 @@
     "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the scroll to top button on the explore and place pages."
+},
+{
+    "name": "dynamic_placeholder_experiment",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
+},
+
+{
+    "name": "dynamic_placeholder_ga",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
 }]
