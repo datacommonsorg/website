@@ -1,25 +1,33 @@
-[{
+[
+  {
     "name": "autocomplete",
     "enabled": false,
     "owner": "gmechali",
     "description": "Feature flag to enable place autocomplete."
-},
-{
+  },
+  {
     "name": "dev_place_experiment",
     "enabled": false,
     "owner": "gmechali",
     "description": "Feature flag to enable the V2 place page only for the experiment places."
-},
-{
+  },
+  {
     "name": "dev_place_ga",
     "enabled": false,
     "owner": "dwnoble",
     "description": "Feature flag to enable the V2 Place page to GA."
-},
-{
+  },
+  {
     "name": "scroll_to_top_button",
     "deprecated": true,
     "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the scroll to top button on the explore and place pages."
-}]
+  },
+  {
+    "name": "biomed_nl_routes",
+    "enabled": false,
+    "owner": "calinc",
+    "description": "Enables the experiments/biomed_nl api and html routes."
+  }
+]
