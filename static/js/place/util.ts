@@ -36,6 +36,7 @@ import {
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
+import { isMobileByWidth } from "../shared/util";
 
 const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
 const DEFAULT_BAR_CHART_ITEMS = 15;
@@ -197,10 +198,6 @@ export function createPlacePageCategoryHref(
     params.set("force_dev_places", "true");
   }
   return params.size > 0 ? `${href}?${params.toString()}` : href;
-}
-
-export function isMobileByWidth(theme: Theme): boolean {
-  return window.innerWidth <= theme.breakpoints.sm;
 }
 
 /**

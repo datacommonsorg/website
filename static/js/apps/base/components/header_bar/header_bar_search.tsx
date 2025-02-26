@@ -24,12 +24,6 @@ import {
   URL_HASH_PARAMS,
 } from "../../../../constants/app/explore_constants";
 import { localizeLink } from "../../../../i18n/i18n";
-import { isMobileByWidth } from "../../../../place/util";
-import {
-  DYNAMIC_PLACEHOLDER_EXPERIMENT,
-  DYNAMIC_PLACEHOLDER_GA,
-  isFeatureEnabled,
-} from "../../../../shared/feature_flags/util";
 import {
   DYNAMIC_PLACEHOLDER_EXPERIMENT,
   DYNAMIC_PLACEHOLDER_GA,
@@ -47,6 +41,7 @@ import { useQueryStore } from "../../../../shared/stores/query_store_hook";
 import theme from "../../../../theme/theme";
 import { updateHash } from "../../../../utils/url_utils";
 import { DebugInfo } from "../../../explore/debug_info";
+import { isMobileByWidth } from "../../../../shared/util";
 
 interface HeaderBarSearchProps {
   inputId?: string;
