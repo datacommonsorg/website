@@ -199,7 +199,7 @@ export function createPlacePageCategoryHref(
   return params.size > 0 ? `${href}?${params.toString()}` : href;
 }
 
-function isMobileByWidth(theme: Theme): boolean {
+export function isMobileByWidth(theme: Theme): boolean {
   return window.innerWidth <= theme.breakpoints.sm;
 }
 

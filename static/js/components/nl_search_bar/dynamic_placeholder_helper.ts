@@ -65,15 +65,28 @@ export const enableDynamicPlacehoder = (
 
 export const loadSampleQuestions = (): string[] => {
   const metadataContainer = document.getElementById("metadata-base");
-  var sampleQuestions = metadataContainer?.dataset?.sampleQuestions
+  let sampleQuestions = metadataContainer?.dataset?.sampleQuestions
     ? JSON.parse(metadataContainer.dataset.sampleQuestions).flatMap(
         (category) => category.questions
       ) ?? []
     : [];
-  const countries = ["United States", "France", "Australia", "Thailand", "Morocco", "South Africa", "Chile", "Bolivia", "India", "Malaysia"];
+  const countries = [
+    "United States",
+    "France",
+    "Australia",
+    "Thailand",
+    "Morocco",
+    "South Africa",
+    "Chile",
+    "Bolivia",
+    "India",
+    "Malaysia",
+  ];
   sampleQuestions.sort(() => Math.random() - 0.5);
   countries.sort(() => Math.random() - 0.5);
-  sampleQuestions = sampleQuestions.slice(0,MAX_SAMPLE_QUESTION_CYCLE).concat(countries.slice(0, MAX_SAMPLE_COUNTRY_CYCLE));
+  sampleQuestions = sampleQuestions
+    .slice(0, MAX_SAMPLE_QUESTION_CYCLE)
+    .concat(countries.slice(0, MAX_SAMPLE_COUNTRY_CYCLE));
   return sampleQuestions.sort(() => Math.random() - 0.5);
 };
 
@@ -94,7 +107,7 @@ export const cycleSampleQuestions = (
   const currentQuestion = sampleQuestions[index];
   let charIndex = 0;
 
-  const typeNextChar = () => {
+  const typeNextChar = (): void => {
     if (charIndex <= currentQuestion.length) {
       setSampleQuestionText(currentQuestion.substring(0, charIndex++));
       setTimeout(typeNextChar, TYPING_SPEED);

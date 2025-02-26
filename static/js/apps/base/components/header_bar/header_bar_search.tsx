@@ -24,6 +24,7 @@ import {
   URL_HASH_PARAMS,
 } from "../../../../constants/app/explore_constants";
 import { localizeLink } from "../../../../i18n/i18n";
+import { isMobileByWidth } from "../../../../place/util";
 import {
   DYNAMIC_PLACEHOLDER_EXPERIMENT,
   DYNAMIC_PLACEHOLDER_GA,
@@ -38,6 +39,7 @@ import {
   triggerGAEvent,
 } from "../../../../shared/ga_events";
 import { useQueryStore } from "../../../../shared/stores/query_store_hook";
+import theme from "../../../../theme/theme";
 import { updateHash } from "../../../../utils/url_utils";
 import { DebugInfo } from "../../../explore/debug_info";
 
@@ -68,11 +70,13 @@ const HeaderBarSearch = ({
 
   // Initialize whether to let the placeholder show dynamic examples.
   const EXPERIMENT_ROLLOUT_RATIO = 0.2;
+  const showDynamicPlaceholdersBase =
+    lang === "en" &&
+    (isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) ||
+      (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) &&
+        Math.random() < EXPERIMENT_ROLLOUT_RATIO));
   const showDynamicPlaceholders =
-    lang === "en" && (
-    isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) ||
-    (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) &&
-      Math.random() < EXPERIMENT_ROLLOUT_RATIO));
+    showDynamicPlaceholdersBase && !isMobileByWidth(theme);
 
   return (
     <div className="header-search">
