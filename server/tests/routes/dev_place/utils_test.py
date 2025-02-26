@@ -177,6 +177,11 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
   def test_get_parent_places(self):
     """Tests that getting parent places returns the proper values."""
+    self.mock_v2node_api_data([{
+        mock_data.USA.dcid: mock_data.USA_API_DATA,
+        mock_data.NORTH_AMERICA.dcid: mock_data.NORTH_AMERICA_API_DATA,
+        mock_data.EARTH.dcid: mock_data.EARTH_API_DATA
+    }])
     parents = utils.get_parent_places(mock_data.CALIFORNIA.dcid)
     self.assertEqual([p.dcid for p in parents], [
         mock_data.USA.dcid, mock_data.NORTH_AMERICA.dcid, mock_data.EARTH.dcid
@@ -275,14 +280,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     place = utils.get_place_override(places)
     self.assertEqual(place.dcid, mock_data.ILE_DE_FRANCE.dcid)
-
-  def test_get_place_type_with_parent_places_links(self):
-    place_str = utils.get_place_type_with_parent_places_links(
-        mock_data.CALIFORNIA.dcid)
-    self.assertEqual(
-        place_str,
-        'State in <a href="/place/geoId/US">United States</a>, <a href="/place/northamerica">North America</a>, <a href="/place/Earth">Earth</a>'
-    )
 
   def test_place_type_to_highlight(self):
     self.assertEqual(utils.place_type_to_highlight(["City", "State"]), "City")
@@ -937,13 +934,18 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             'value': mock_data.NEW_YORK.dcid
         }]
     }
+    parent_data = {
+        mock_data.USA.dcid: usa_api_data,
+        mock_data.NORTH_AMERICA.dcid: mock_data.NORTH_AMERICA_API_DATA,
+        mock_data.EARTH.dcid: mock_data.EARTH_API_DATA,
+    }
     data = {
         mock_data.CALIFORNIA.dcid: mock_data.CALIFORNIA_API_DATA,
         mock_data.USA.dcid: usa_api_data,
         mock_data.ARIZONA.dcid: mock_data.ARIZONA_API_DATA,
         mock_data.NEW_YORK.dcid: mock_data.NEW_YORK_API_DATA
     }
-    self.mock_v2node_api_data([data, usa_api_data])
+    self.mock_v2node_api_data([parent_data, data, usa_api_data])
 
     peers = utils.fetch_peer_places_within(mock_data.CALIFORNIA.dcid, ['State'])
     self.assertEqual(set(peers),
