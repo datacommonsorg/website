@@ -54,6 +54,10 @@ export const useQueryStore = (): QueryStoreData => {
   useEffect(() => {
     const queryStore = (globalThis.queryStore as QueryStore) || null;
 
+    if (queryStore == null) {
+      return;
+    }
+
     const handleStoreUpdate = (
       store: typeof queryStore,
       changeType: ChangeType
@@ -82,11 +86,11 @@ export const useQueryStore = (): QueryStoreData => {
       }
     };
 
-    queryStore?.subscribe(handleStoreUpdate);
+    queryStore.subscribe(handleStoreUpdate);
     handleStoreUpdate(queryStore, "queryString");
 
     return () => {
-      queryStore?.unsubscribe(handleStoreUpdate);
+      queryStore.unsubscribe(handleStoreUpdate);
     };
   }, []);
 
