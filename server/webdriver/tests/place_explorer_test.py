@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -35,7 +36,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
-    self.assertEqual(find_elem(self.driver, value='subheader').text, '')
+    self.assertIsNone(find_elem(self.driver, value='subheader'))
 
     # Asert the related places box exists
     self.assertEqual(
@@ -376,3 +377,24 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         find_elem(self.driver, by=By.ID,
                   value='query-search-input').get_attribute('value'),
         'United States Of America')
+
+  def test_dev_place_ai_spark_icon_hover(self):
+    self.driver.get(self.url_ + '/place/geoId/04?force_dev_places=true')
+
+    # Find the icon element that triggers the tooltip on hover.
+    icon_element = find_elem(self.driver, value='spark-info-tooltip-icon')
+    self.assertIsNotNone(icon_element)
+
+    # Move the mouse to the icon element to trigger the hover.
+    actions = ActionChains(self.driver)
+    actions.move_to_element(icon_element).perform()
+
+    # Wait for the tooltip to become visible.
+    self.driver.implicitly_wait(2)
+
+    # Find the tooltip element.
+    tooltip_element = find_elem(self.driver, value='info-tooltip-hover')
+
+    # Assert that the tooltip element is visible.
+    self.assertTrue(tooltip_element.is_displayed())
+    self.assertIn("We use AI to summarize", tooltip_element.text)
