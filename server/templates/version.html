@@ -5,7 +5,7 @@
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
  
-       http://www.apache.org://www.apache.org/licenses/LICENSE-2.0
+       http://www.apache.org/licenses/LICENSE-2.0
  
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,91 +19,91 @@
    <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}} >
    <style>
      .true-status {
-       color: green;
-     }
-     .false-status {
-       color: red;
-     }
-     .feature-flag-table {
-        margin-top: 20px; /* Add padding above the feature flags table */
-     }
-     .feature-flag-table td:first-child {
-        padding-right: 10px; /* Add padding between name and status */
-     }
-   </style>
+        color: green;
+      }
+      .false-status {
+        color: red;
+      }
+      .feature-flag-table {
+        margin-top: 20px;
+      }
+      .feature-flag-table td:first-child {
+        padding-right: 10px;
+      }
+    </style>
+
  {% endblock %}
- 
  {% block content %}
-   <div style="margin-left: 20px;">
-     <table>
-       <tbody>
-         <tr>
-           <td width="200px">
-             Website Commit:
-           </td>
-           <td>
-             <a href="https://github.com/datacommonsorg/website/commit/{{website_hash}}">{{website_hash}}</a>
-           </td>
-         </tr>
-         <tr>
-           <td width="200px">
-             Mixer Commit:
-           </td>
-           <td>
-             <a href="https://github.com/datacommonsorg/mixer/commit/{{mixer_hash}}">{{mixer_hash}}</a>
-           </td>
-         </tr>
-         <tr>
-           <td width="200px">Remote Mixer Domain:</td>
-           <td>
-             <a href="{{remote_mixer_domain}}/version">{{remote_mixer_domain}}</a>
-           </td>
-         </tr>
-         <tr>
-           <td width="200px">
-             BigTable tables:
-           </td>
-           <td>
-             {{tables[0]}}
-           </td>
-           <br>
-         </tr>
-         {% for table in tables[1:] %}
-         <tr>
-           <td></td>
-           <td>
-             {{table}}
-           </td>
-         </tr>
-         {% endfor %}
-         <tr>
-           <td width="200px">
-             Bigquery Dataset:
-           </td>
-           <td>
-             {{bigquery}}
-           </td>
-         </tr>
-         <tr>
-             <td width="200px">
-                 Feature Flags:
-             </td>
-             <td>
-                 <table class="feature-flag-table">
-                     <tbody>
-                         {% for key, value in featureFlags.items() %}
-                             <tr>
-                                 <td>{{ key }}:</td>
-                                 <td class="{% if value %}true-status{% else %}false-status{% endif %}">
-                                     {{ value }}
-                                 </td>
-                             </tr>
-                         {% endfor %}
-                     </tbody>
-                 </table>
-             </td>
-         </tr>
-       </tbody>
-     </table>
-   </div>
- {% endblock %}
+  <div style="margin-left: 20px;">
+    <table>
+      <tbody>
+        <tr>
+          <td width="200px">
+            Website Commit:
+          </td>
+          <td>
+            <a href="https://github.com/datacommonsorg/website/commit/{{website_hash}}">{{website_hash}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td width="200px">
+            Mixer Commit:
+          </td>
+          <td>
+            <a href="https://github.com/datacommonsorg/mixer/commit/{{mixer_hash}}">{{mixer_hash}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td width="200px">Remote Mixer Domain:</td>
+          <td>
+            <a href="{{remote_mixer_domain}}/version">{{remote_mixer_domain}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td width="200px">
+            BigTable tables:
+          </td>
+          <td>
+            {{tables[0]}}
+          </td>
+          <br>
+        </tr>
+        {% for table in tables[1:] %}
+        <tr>
+          <td></td>
+          <td>
+            {{table}}
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td width="200px">
+            Bigquery Dataset:
+          </td>
+          <td>
+            {{bigquery}}
+          </td>
+        </tr>
+        <tr>
+          <td width="200px">
+            Feature Flags:
+          </td>
+          <td>
+            <table class="feature-flag-table">
+              <tbody>
+                {% for key, value in featureFlags.items() %}
+                  <tr>
+                    <td>{{ key }}:</td>
+                    <td class="{% if value %}true-status{% else %}false-status{% endif %}">
+                      {{ value }}
+                    </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+          </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
