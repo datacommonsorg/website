@@ -29,7 +29,7 @@ options:
   substitution_option: 'ALLOW_LOOSE'
 
 triggers:
-  - filename: 'server/config/feature_flag_configs/**'
+  - filename: 'server/config/feature_flag_configs/(autopush|dev|staging|production).json'
     github:
       owner: 'datacommonsorg'
       name: 'website'
