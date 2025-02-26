@@ -35,7 +35,7 @@ export const placeholderMessages = defineMessages({
 });
 
 export const enableDynamicPlacehoder = (
-  setSampleQuestionText: (arg0: SetStateAction<String>) => void,
+  setSampleQuestionText: (arg0: SetStateAction<string>) => void,
   setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
 ): void => {
   const sampleQuestions = loadSampleQuestions();
@@ -77,8 +77,8 @@ export const cycleSampleQuestions = (
   sampleQuestions: string[],
   index: number,
   questionCount: number,
-  setSampleQuestionText: (arg0: any) => void,
-  setDynamicPlaceholdersEnabled: (arg0: any) => void
+  setSampleQuestionText: (arg0: SetStateAction<string>) => void,
+  setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
 ): void => {
   if (questionCount >= MAX_SAMPLE_QUESTION_CYCLE) {
     setSampleQuestionText("");
