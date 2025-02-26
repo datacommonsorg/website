@@ -31,6 +31,11 @@ import {
   isFeatureEnabled,
 } from "../../../../shared/feature_flags/util";
 import {
+  DYNAMIC_PLACEHOLDER_EXPERIMENT,
+  DYNAMIC_PLACEHOLDER_GA,
+  isFeatureEnabled,
+} from "../../../../shared/feature_flags/util";
+import {
   GA_EVENT_NL_SEARCH,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
   GA_PARAM_QUERY,
@@ -77,6 +82,7 @@ const HeaderBarSearch = ({
         Math.random() < EXPERIMENT_ROLLOUT_RATIO));
   const showDynamicPlaceholders =
     showDynamicPlaceholdersBase && !isMobileByWidth(theme);
+
 
   return (
     <div className="header-search">
