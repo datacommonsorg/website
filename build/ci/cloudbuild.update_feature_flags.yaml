@@ -1,0 +1,39 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+  - name: 'bash'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        modified_file="${_MODIFIED_FILE}"
+        filename=$(basename "$modified_file")
+        filename_without_extension="${filename%.*}"
+        should_restart="false"
+        skip_staging_prompt="true"
+        ./scripts/update_gcs_feature_flags.sh "$filename_without_extension" "$skip_staging_prompt" "$should_restart"
+
+options:
+  substitution_option: 'ALLOW_LOOSE'
+
+triggers:
+  - filename: 'server/config/feature_flag_configs/(autopush|dev|staging|production).json'
+    github:
+      owner: 'datacommonsorg'
+      name: 'website'
+    push:
+      branch: '^master$'
+substitutions:
+  _MODIFIED_FILE: '${TRIGGER_FILE_NAME}'
