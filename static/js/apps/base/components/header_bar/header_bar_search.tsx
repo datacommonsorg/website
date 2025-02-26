@@ -60,6 +60,7 @@ const HeaderBarSearch = ({
   // Get the query string from the url params.
   const urlParams = new URLSearchParams(window.location.search);
   const urlQuery = urlParams.get(QUERY_PARAM) || "";
+  const lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
 
   // If the search bar is in hash mode, use the query string from the url params.
   // Otherwise, use the query string from the query store.
@@ -68,9 +69,10 @@ const HeaderBarSearch = ({
   // Initialize whether to let the placeholder show dynamic examples.
   const EXPERIMENT_ROLLOUT_RATIO = 0.2;
   const showDynamicPlaceholders =
+    lang === "en" && (
     isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) ||
     (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) &&
-      Math.random() < EXPERIMENT_ROLLOUT_RATIO);
+      Math.random() < EXPERIMENT_ROLLOUT_RATIO));
 
   return (
     <div className="header-search">
