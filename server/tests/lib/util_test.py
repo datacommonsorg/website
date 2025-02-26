@@ -1776,6 +1776,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
 
 
 class TestFeatureFlagsTest(unittest.TestCase):
+  FEATURE_FLAG_COUNT = 6
 
   def test_load_feature_flag_files(self):
     directory = "server/config/feature_flag_configs/"
@@ -1794,4 +1795,4 @@ class TestFeatureFlagsTest(unittest.TestCase):
       duplicate_features = [f for f in features if features.count(f) > 1]
 
       self.assertEqual(len(duplicate_features), 0)
-      self.assertEqual(len(features), 4)
+      self.assertEqual(len(features), self.FEATURE_FLAG_COUNT)
