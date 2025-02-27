@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Theme } from "@emotion/react";
+import { Theme, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 
@@ -71,9 +71,9 @@ const InfoTooltipContainerStyled = styled.div<{ theme?: Theme }>`
 export const InfoTooltipComponent = (props: {
   icon: React.JSX.Element;
   description: string;
-  theme: Theme;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
+  const theme = useTheme();
   const handleShow = (): void => {
     setIsVisible(true);
   };
@@ -84,7 +84,7 @@ export const InfoTooltipComponent = (props: {
 
   return (
     <InfoTooltipContainerStyled
-      theme={props.theme}
+      theme={theme}
       onMouseEnter={handleShow}
       onMouseLeave={handleHide}
       onTouchStart={handleShow}
@@ -93,7 +93,7 @@ export const InfoTooltipComponent = (props: {
     >
       {props.icon}
       {isVisible && (
-        <InfoTooltip theme={props.theme} className="info-tooltip-hover">
+        <InfoTooltip theme={theme} className="info-tooltip-hover">
           {props.description}
         </InfoTooltip>
       )}
