@@ -327,6 +327,10 @@ export function App(props: AppProps): ReactElement {
     const mode = getSingleParam(hashParams[URL_HASH_PARAMS.MODE]);
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
     const reranker = getSingleParam(hashParams[URL_HASH_PARAMS.RERANKER]);
+    const maxTopics = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPICS]);
+    const maxSubtopicSvs = getSingleParam(
+      hashParams[URL_HASH_PARAMS.MAX_SUBTOPIC_SVS]
+    );
 
     let fulfillmentPromise: Promise<any>;
     const gaTitle = query
@@ -357,7 +361,9 @@ export function App(props: AppProps): ReactElement {
         defaultPlace,
         mode,
         reranker,
-        includeStopWords
+        includeStopWords,
+        maxTopics,
+        maxSubtopicSvs
       )
         .then((resp) => {
           processFulfillData(resp, query);
@@ -470,7 +476,9 @@ const fetchDetectAndFufillData = async (
   defaultPlace: string,
   mode: string,
   reranker: string,
-  includeStopWords: string
+  includeStopWords: string,
+  maxTopics: string,
+  maxSubtopicSvs: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -500,6 +508,13 @@ const fetchDetectAndFufillData = async (
   if (idx) {
     argsMap.set(URL_HASH_PARAMS.IDX, idx);
   }
+  if (maxTopics) {
+    argsMap.set(URL_HASH_PARAMS.MAX_TOPICS, maxTopics);
+  }
+  if (maxSubtopicSvs) {
+    argsMap.set(URL_HASH_PARAMS.MAX_SUBTOPIC_SVS, maxSubtopicSvs);
+  }
+
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {
     const startTime = window.performance ? window.performance.now() : undefined;
