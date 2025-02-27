@@ -186,7 +186,7 @@ export const PlaceOverview = (props: {
       >
         <LocationCity />
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
-        {/* TODO(gmechali): Re enabled */}
+        {/* TODO(gmechali): Re-enable when static theme issue is fixed. */}
         {false && placeSummary && (
           <InfoTooltipComponent
             icon={<InfoSpark />}
