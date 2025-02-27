@@ -36,6 +36,7 @@ import {
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
+import { Theme } from "../theme/types";
 
 const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
 const DEFAULT_BAR_CHART_ITEMS = 15;
