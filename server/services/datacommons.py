@@ -263,8 +263,8 @@ def v2node(nodes, prop):
   })
 
 
-def _merge_paged_response(result, paged_response):
-  for dcid in paged_response.get('data', []):
+def _merge_v2node_response(result, paged_response):
+  for dcid in paged_response.get('data', {}):
     # Initialize dcid in data even when no arcs or properties are returned
     result.setdefault('data', {}).setdefault(dcid, {})
 
