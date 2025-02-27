@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { Theme } from "@emotion/react";
+import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 
-import theme from "../theme/theme";
+import { Theme } from "../theme/types";
 
 /**
  * Chip component to display a selected item with the ability to remove the item
@@ -75,6 +75,7 @@ export const InfoTooltipComponent = (props: {
   description: string;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
+  const theme = useTheme();
   const handleShow = (): void => {
     setIsVisible(true);
   };
