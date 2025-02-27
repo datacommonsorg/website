@@ -19,7 +19,6 @@ import {
   Place,
   PlaceChartsApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import { Theme } from "@emotion/react";
 import _ from "lodash";
 
 import { intl, localizeLink } from "../i18n/i18n";
@@ -30,6 +29,7 @@ import {
 } from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { Theme } from "../theme/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
