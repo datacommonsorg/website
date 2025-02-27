@@ -19,7 +19,6 @@ import {
   Place,
   PlaceChartsApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import { Theme } from "@emotion/react";
 import _ from "lodash";
 
 import { intl, localizeLink } from "../i18n/i18n";
@@ -36,6 +35,7 @@ import {
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
+import { Theme } from "../theme/types";
 
 const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
 const DEFAULT_BAR_CHART_ITEMS = 15;
