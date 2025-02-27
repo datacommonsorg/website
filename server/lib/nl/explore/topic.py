@@ -300,8 +300,8 @@ def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
 
 def _max_subtopic_sv_limit(state: ftypes.PopulateState) -> int:
   # If there was a limit specified in the insight context, use that limit.
-  if state.uttr.insight_ctx.get(Params.MAX_SUBTOPIC_SVS) != None:
-    return state.insight_ctx[Params.MAX_SUBTOPIC_SVS]
+  if state.uttr.insight_ctx.get(Params.MAX_TOPIC_SVS) != None:
+    return state.insight_ctx[Params.MAX_TOPIC_SVS]
   # Otherwise, use default limits depending on the dc
   if is_sdg(state.uttr.insight_ctx):
     return _MAX_SUBTOPIC_SV_LIMIT_SDG

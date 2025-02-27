@@ -328,8 +328,8 @@ export function App(props: AppProps): ReactElement {
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
     const reranker = getSingleParam(hashParams[URL_HASH_PARAMS.RERANKER]);
     const maxTopics = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPICS]);
-    const maxSubtopicSvs = getSingleParam(
-      hashParams[URL_HASH_PARAMS.MAX_SUBTOPIC_SVS]
+    const maxTopicSvs = getSingleParam(
+      hashParams[URL_HASH_PARAMS.MAX_TOPIC_SVS]
     );
 
     let fulfillmentPromise: Promise<any>;
@@ -363,7 +363,7 @@ export function App(props: AppProps): ReactElement {
         reranker,
         includeStopWords,
         maxTopics,
-        maxSubtopicSvs
+        maxTopicSvs
       )
         .then((resp) => {
           processFulfillData(resp, query);
@@ -478,7 +478,7 @@ const fetchDetectAndFufillData = async (
   reranker: string,
   includeStopWords: string,
   maxTopics: string,
-  maxSubtopicSvs: string
+  maxTopicSvs: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -511,8 +511,8 @@ const fetchDetectAndFufillData = async (
   if (maxTopics) {
     argsMap.set(URL_HASH_PARAMS.MAX_TOPICS, maxTopics);
   }
-  if (maxSubtopicSvs) {
-    argsMap.set(URL_HASH_PARAMS.MAX_SUBTOPIC_SVS, maxSubtopicSvs);
+  if (maxTopicSvs) {
+    argsMap.set(URL_HASH_PARAMS.MAX_TOPIC_SVS, maxTopicSvs);
   }
 
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
