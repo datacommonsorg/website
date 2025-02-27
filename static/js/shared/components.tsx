@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import theme from "../theme/theme";
 import { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useState } from "react";
+
+import theme from "../theme/theme";
 
 /**
  * Chip component to display a selected item with the ability to remove the item
