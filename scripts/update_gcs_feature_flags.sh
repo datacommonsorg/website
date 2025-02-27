@@ -25,8 +25,12 @@
 #  (1) Make sure you're running from root with a clean HEAD
 #  (2) Make sure you've signed into authenticated to gcloud using
 #          `gcloud auth application-default login`
-#  (3) Run `./scripts/update_gcs_feature_flags.sh <environment>`
+#  (3) Run `./scripts/update_gcs_feature_flags.sh <environment> <skipStagingPrompt> <shouldRestart>`
 #  Where <environment> is one of: dev, staging, production, autopush
+#        <skipStagingPrompt> specifies whether we should skip prompting the user for a staging check.
+#        <shouldRestart> specifies whether to restart the Kubernetes cluster.
+#  The last two parameters are optional, but if ommitted, the caller will be prompted for an answer. 
+#  For programmatic callouts to this script (i.e. from Cloud Build), don't forget these parameters!
 
 # Helper functions
 
@@ -147,6 +151,8 @@ if [ -z "$1" ]; then
 fi
 
 environment="$1"
+skip_staging_prompt="$2"
+should_restart="$3"
 
 # Validate the environment
 if ! is_valid_environment "$environment"; then
@@ -169,11 +175,13 @@ fi
 bucket_name=$(get_bucket_name "$environment")
 
 if [[ "$environment" == "production" ]]; then
-    read -p "Have you validated these feature flags in staging? (yes/no) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      echo "Aborting deployment to production."
-      exit 1
+    if [[ -z "$skip_staging_prompt" || "$skip_staging_prompt" != "true" ]]; then
+        read -p "Have you validated these feature flags in staging? (yes/no) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Aborting deployment to production."
+            exit 1
+        fi
     fi
 
     if ! compare_staging_production "$temp_file"; then
@@ -188,10 +196,16 @@ gsutil cp "${temp_file}" "gs://${bucket_name}/feature_flags.json"
 echo "Upload complete!"
 
 # Kubernetes restart prompt
-read -p "Do you want to restart the Kubernetes deployment? (yes/no) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  restart_kubernetes_deployment "$environment" # Call the new function
+if [[ -n "$should_restart" ]]; then
+  if [[ "$should_restart" == "true" ]]; then
+    restart_kubernetes_deployment "$environment"
+  fi
+else
+  read -p "Do you want to restart the Kubernetes deployment? (yes/no) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    restart_kubernetes_deployment "$environment"
+  fi
 fi
 
 rm "${temp_file}"
