@@ -43,7 +43,7 @@ export const IconPlaceholder = (props: {
   );
 };
 
-const InfoTooltip = styled.div<{ }>`
+const InfoTooltip = styled.div<{}>`
   position: absolute;
   min-width: 312px;
   left: 0;
@@ -55,7 +55,7 @@ const InfoTooltip = styled.div<{ }>`
   }
 `;
 
-const InfoTooltipContainerStyled = styled.div<{ }>`
+const InfoTooltipContainerStyled = styled.div<{}>`
   position: relative;
   display: inline-block;
 `;
