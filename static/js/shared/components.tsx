@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useState } from "react";
-
-import { Theme } from "../theme/types";
 
 /**
  * Chip component to display a selected item with the ability to remove the item
@@ -46,18 +43,11 @@ export const IconPlaceholder = (props: {
   );
 };
 
-const InfoTooltip = styled.div<{ theme?: Theme }>`
-  ${(p) => p.theme?.typography?.text?.sm}
+const InfoTooltip = styled.div`
   position: absolute;
   min-width: 312px;
-  top: ${(p) => p.theme.spacing.lg}px;
   left: 0;
-  background-color: ${(p) => p.theme.colors.background.secondary.light};
-  border: 1px solid ${(p) => p.theme.colors.border.primary.light};
-  border-radius: ${(p) => p.theme.radius.secondary.borderRadius};
-  padding: ${(p) => p.theme.spacing?.md}px ${(p) => p.theme.spacing.lg}px;
   z-index: 1;
-  box-shadow: ${(p) => p.theme.elevation.secondary.boxShadow};
 
   @media (max-width: 768px) {
     left: 50%;
@@ -65,7 +55,7 @@ const InfoTooltip = styled.div<{ theme?: Theme }>`
   }
 `;
 
-const InfoTooltipContainerStyled = styled.div<{ theme?: Theme }>`
+const InfoTooltipContainerStyled = styled.div`
   position: relative;
   display: inline-block;
 `;
@@ -75,7 +65,6 @@ export const InfoTooltipComponent = (props: {
   description: string;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
-  const theme = useTheme();
   const handleShow = (): void => {
     setIsVisible(true);
   };
@@ -86,7 +75,6 @@ export const InfoTooltipComponent = (props: {
 
   return (
     <InfoTooltipContainerStyled
-      theme={theme}
       onMouseEnter={handleShow}
       onMouseLeave={handleHide}
       onTouchStart={handleShow}
@@ -95,7 +83,7 @@ export const InfoTooltipComponent = (props: {
     >
       {props.icon}
       {isVisible && (
-        <InfoTooltip theme={theme} className="info-tooltip-hover">
+        <InfoTooltip className="info-tooltip-hover">
           {props.description}
         </InfoTooltip>
       )}
