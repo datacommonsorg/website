@@ -17,12 +17,16 @@ from unittest import mock
 
 from deepdiff import DeepDiff
 
-from server.routes.experiments.biomed_nl.query_resolution import \
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    annotate_query_with_types
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    identify_query_traversal_start
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    recognize_entities_from_query
+from server.routes.experiments.biomed_nl.entity_recognition import \
     sample_dcids_by_type
-from server.routes.experiments.biomed_nl.query_resolution import sanitize_query
-from server.routes.experiments.biomed_nl.query_resolution import recognize_entities_from_query
-from server.routes.experiments.biomed_nl.query_resolution import annotate_query_with_types
-from server.routes.experiments.biomed_nl.query_resolution import identify_query_traversal_start
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    sanitize_query
 
 
 class TestQuerySanitization(unittest.TestCase):
