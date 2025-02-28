@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { useTheme, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 
