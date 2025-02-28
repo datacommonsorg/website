@@ -26,7 +26,7 @@
   },
   {
     "name": "biomed_nl_routes",
-    "enabled": false,
+    "enabled": true,
     "owner": "calinc",
     "description": "Enables the experiments/biomed_nl api and html routes."
   }
