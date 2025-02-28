@@ -17,18 +17,13 @@
 # The flags are disabled by default.
 #
 # Usage:
-# ./scripts/create_feature_flag.sh <flag_name> <owner> <description>
-
-# Check if the correct number of arguments is provided
-if [ $# -ne 3 ]; then
-    echo "Usage: $0 <flag_name> <owner> <description>"
-    exit 1
-fi
+# ./scripts/create_feature_flag.sh 
+# This script will prompt the user for file_name, owner, and description.
 
 # Get the arguments
-flag_name=$1
-owner=$2
-description=$3
+read -p "Name of flag to be created: " flag_name
+read -p "Flag owner: " owner
+read -p "Description for the flag: " description
 
 # Construct the JSON object
 new_entry='
@@ -39,10 +34,9 @@ new_entry='
   "description": "'"$description"'"
 }'
 
-environments=(local dev autopush staging production custom)
-for env in "${environments[@]}"; do
-    # Construct the file path
-    file_path="server/config/feature_flag_configs/${env}.json"
+
+feature_flag_configs_dir="server/config/feature_flag_configs"
+for file_path in "$feature_flag_configs_dir"/*.json; do
     # Read the existing JSON data from the file (or create an empty array if it doesn't exist)
     json_data=$(cat "$file_path" 2>/dev/null || echo "")
 
