@@ -13,11 +13,18 @@
 # # limitations under the License.
 
 import unittest
+from unittest import mock
 
+from deepdiff import DeepDiff
+
+from server.routes.experiments.biomed_nl.query_resolution import \
+    sample_dcids_by_type
 from server.routes.experiments.biomed_nl.query_resolution import sanitize_query
+from server.routes.experiments.biomed_nl.query_resolution import recognize_entities_from_query
+from server.routes.experiments.biomed_nl.query_resolution import annotate_query_with_types
 
 
-class TestQueryResolution(unittest.TestCase):
+class TestQuerySanitization(unittest.TestCase):
 
   def test_sanitize_query(self):
     assert sanitize_query(
@@ -27,3 +34,118 @@ class TestQueryResolution(unittest.TestCase):
     ) == 'query about entity1 entity2 and entity removes commas'
     assert sanitize_query("entity's query with apostrophe is removed"
                          ) == 'entity query with apostrophe is removed'
+
+
+class TestRecognizeEntities(unittest.TestCase):
+
+  def setUp(self):
+    self.fetch_types_response = {
+        'dc/1': [
+            {
+                'dcid': 'dc/typeA',
+                'name': 'TypeA',
+                'types': ['Class'],
+            },
+            {
+                'dcid': 'dc/typeB',
+                'name': 'TypeB',
+                'types': ['Class'],
+            },
+        ],
+        'dc/2': [{
+            'dcid': 'dc/typeB',
+            'name': 'TypeB',
+            'types': ['Class'],
+        },],
+        'dc/3': [
+            {
+                'dcid': 'dc/typeB',
+                'name': 'TypeB',
+                'types': ['Class'],
+            },
+            {
+                'dcid': 'dc/typeC',
+                'name': 'TypeC',
+                'types': ['Class'],
+            },
+        ],
+    }
+
+  @mock.patch('server.lib.fetch.raw_property_values')
+  def test_sample_dcids_adds_all_unique_types_exceeding_sample_size(
+      self, mock_fetch):
+    input_dcids = ['dc/1', 'dc/2', 'dc/3']
+
+    mock_fetch.side_effect = [self.fetch_types_response]
+
+    sampled_dcids, unique_types = sample_dcids_by_type(input_dcids, 1)
+
+    mock_fetch.assert_called_once_with(input_dcids, 'typeOf')
+    assert set(sampled_dcids) == {'dc/1', 'dc/3'}
+    assert set(unique_types) == {'TypeA', 'TypeB', 'TypeC'}
+
+  @mock.patch('server.lib.fetch.raw_property_values')
+  def test_sample_dcids_adds_skipped_dcids_from_first_pass(self, mock_fetch):
+    input_dcids = ['dc/1', 'dc/2', 'dc/3']
+
+    mock_fetch.side_effect = [self.fetch_types_response]
+
+    sampled_dcids, unique_types = sample_dcids_by_type(input_dcids, 3)
+
+    mock_fetch.assert_called_once_with(input_dcids, 'typeOf')
+    assert set(sampled_dcids) == {'dc/1', 'dc/2', 'dc/3'}
+    assert set(unique_types) == {'TypeA', 'TypeB', 'TypeC'}
+
+  @mock.patch('server.services.datacommons.recognize_entities')
+  @mock.patch('server.lib.fetch.raw_property_values')
+  def test_recognize_entities(self, mock_fetch_types, mock_recognize):
+
+    mock_recognize.side_effect = [[{
+        "span": "entity1",
+        "entities": [{
+            "dcid": "dc/1"
+        }]
+    }, {
+        "span": "second entity",
+        "entities": [{
+            "dcid": "dc/2"
+        }, {
+            "dcid": "dc/3"
+        }]
+    }]]
+
+    def fetch_types_side_effect(dcids, _):
+      return {key: self.fetch_types_response[key] for key in dcids}
+
+    mock_fetch_types.side_effect = fetch_types_side_effect
+
+    query = "query containing entity1 and second entity"
+    entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
+        query)
+
+    mock_recognize.assert_called_once_with(query)
+    mock_fetch_types.assert_has_calls(
+        [mock.call(['dc/1'], 'typeOf'),
+         mock.call(['dc/2', 'dc/3'], 'typeOf')])
+
+    assert DeepDiff(entities_to_dcids, {
+        'entity1': ['dc/1'],
+        'second entity': ['dc/2', 'dc/3']
+    },
+                    ignore_order=True) == {}
+
+    assert DeepDiff(entities_to_recognized_types, {
+        'entity1': ['TypeA', 'TypeB'],
+        'second entity': ['TypeB', 'TypeC']
+    },
+                    ignore_order=True) == {}
+
+  def test_annotate_query_with_types(self):
+    query = "query containing entity1 and second entity"
+    entities_to_types = {
+        'entity1': ['TypeA', 'TypeB'],
+        'second entity': ['TypeB', 'TypeC']
+    }
+    assert annotate_query_with_types(
+        query, entities_to_types
+    ) == "query containing [entity1 (typeOf: TypeA, TypeB)] and [second entity (typeOf: TypeB, TypeC)]"

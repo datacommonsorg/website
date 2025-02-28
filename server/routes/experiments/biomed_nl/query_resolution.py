@@ -12,6 +12,8 @@
 # # See the License for the specific language governing permissions and
 # # limitations under the License.
 
+from google import genai
+
 import server.lib.fetch as fetch
 import server.routes.experiments.biomed_nl.utils as utils
 import server.services.datacommons as dc
@@ -42,7 +44,7 @@ def sanitize_query(query):
   return query
 
 
-def sample_dcids_by_type(dcids):
+def sample_dcids_by_type(dcids, min_sample_size):
   """Samples a set of DCIDs such that all unique types of the original DCID list
   are present in the sample.
 
@@ -50,9 +52,9 @@ def sample_dcids_by_type(dcids):
     dcids: A list of DCIDs to sample from.
 
   Returns:
-    A list of tuples, where each tuple contains:
-      - A DCID.
-      - A list of types associated with that DCID.
+    A tuple of:
+      - The sampled DCIDs.
+      - The list of types represented by those DCIDs.
   """
   get_types_response = fetch.raw_property_values(dcids, 'typeOf')
 
@@ -61,41 +63,58 @@ def sample_dcids_by_type(dcids):
       type_node['name']
       for type_nodes in get_types_response.values()
       for type_node in type_nodes
+      if 'name' in type_node
   }
 
-  sampled_dcids_and_types = []
+  unique_types = list(remaining_unique_types)
+
+  sampled_dcids = []
+  first_pass_skipped = []
   for dcid in dcids:
     dcid_types = list(
         {node_type['name'] for node_type in get_types_response.get(dcid, [])})
 
     if any(dcid_type in remaining_unique_types for dcid_type in dcid_types):
       remaining_unique_types.difference_update(set(dcid_types))
-      sampled_dcids_and_types.append((dcid, dcid_types))
+      sampled_dcids.append(dcid)
     elif not remaining_unique_types:
-      sampled_dcids_and_types.append((dcid, dcid_types))
-      if len(sampled_dcids_and_types) >= MIN_SAMPLES:
+      sampled_dcids.append(dcid)
+      if len(sampled_dcids) >= min_sample_size:
         break
+    else:
+      first_pass_skipped.append(dcid)
 
-  return sampled_dcids_and_types
+  # If some dcids were skipped in the first pass to find all unique types, but
+  # the current sample size does exceed the expected min, add some of the skipped
+  # dcids into the sampling.
+  num_skipped_samples_to_add = min_sample_size - len(sampled_dcids)
+  if num_skipped_samples_to_add > 0:
+    num_skipped_samples_to_add = min(num_skipped_samples_to_add,
+                                     len(first_pass_skipped))
+    sampled_dcids.extend(first_pass_skipped[:num_skipped_samples_to_add])
+
+  return sampled_dcids, unique_types
 
 
-def find_entities_from_query(query):
-  """Searches the DC KG for entities from the query and returns each recognized
-  entity's DCID and types.
+def recognize_entities_from_query(query):
+  """Searches the DC KG for entities from the query to extract each entity's DCID
+  and types.
 
   Args:
     query: The query string to process.
 
   Returns:
-    A dictionary where:
-      - Keys are the substring from the query that found a match in DC KG.
-      - Values are lists of tuples, each tuple containing:
-        - A DCID.
-        - A list of types associated with that DCID.
+    A tuple containing two dictionaries:
+      - entities_to_dcids: A dictionary where keys are recognized entity spans
+        (strings) and values are lists of corresponding DCIDs (strings).
+      - entities_to_recognized_types: A dictionary where keys are recognized
+        entity spans (strings) and values are lists of associated types
+        (strings).
   """
   recognize_response = dc.recognize_entities(query)
 
-  result = {}
+  entities_to_dcids = {}
+  entities_to_recognized_types = {}
   for item in recognize_response:
     queried_entity = item['span']
 
@@ -108,9 +127,11 @@ def find_entities_from_query(query):
     if not dcids:
       continue
 
-    result[queried_entity] = sample_dcids_by_type(dcids)
+    dcids, types = sample_dcids_by_type(dcids, MIN_SAMPLES)
+    entities_to_dcids[queried_entity] = dcids
+    entities_to_recognized_types[queried_entity] = types
 
-  return result
+  return entities_to_dcids, entities_to_recognized_types
 
 
 def annotate_query_with_types(query, entities_to_types):
@@ -129,11 +150,11 @@ def annotate_query_with_types(query, entities_to_types):
   annotated_query = query.lower()
   for entity, types in entities_to_types.items():
     annotated_query = annotated_query.replace(
-        entity.lower(), f"[{entity} (typeOf: {','.join(types)})]")
+        entity.lower(), f"[{entity} (typeOf: {', '.join(types)})]")
   return annotated_query
 
 
-def identify_query_traversal_start(query):
+def identify_query_traversal_start(query, gemini_api_key):
   """Determines which DC KG entities to begin a graph traversal to answer the given query.
 
   This function takes a user query, finds matching DC KG entities, and uses
@@ -160,22 +181,17 @@ def identify_query_traversal_start(query):
   """
 
   query = sanitize_query(query)
-  recognized_entities = find_entities_from_query(query)
-  entities_to_recognized_types = {
-      entity_str:
-          list({dc_type for _, types in dcids_and_types for dc_type in types})
-      for entity_str, dcids_and_types in recognized_entities.items()
-  }
-  entities_to_dcids = {
-      entity_str: [dcid for dcid, _ in dcids_and_types]
-      for entity_str, dcids_and_types in recognized_entities.items()
-  }
+  entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
+      query)
 
+  client = genai.Client(
+      api_key=gemini_api_key,
+      http_options=genai.types.HttpOptions(api_version='v1alpha'))
   prompt = utils.ENTITY_RANK_PROMPT.format(QUERY=query,
                                            ENTS=entities_to_recognized_types)
 
-  #   response = gemini_model.generate_content(prompt)
-  response = None
+  response = client.models.generate_content(model='gemini-2.0-flash-001',
+                                            contents=prompt)
   response_token_counts = utils.get_gemini_response_token_counts(response)
   response_text = response.text
 
