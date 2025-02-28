@@ -22,6 +22,7 @@ from server.routes.experiments.biomed_nl.query_resolution import \
 from server.routes.experiments.biomed_nl.query_resolution import sanitize_query
 from server.routes.experiments.biomed_nl.query_resolution import recognize_entities_from_query
 from server.routes.experiments.biomed_nl.query_resolution import annotate_query_with_types
+from server.routes.experiments.biomed_nl.query_resolution import identify_query_traversal_start
 
 
 class TestQuerySanitization(unittest.TestCase):
@@ -71,6 +72,24 @@ class TestRecognizeEntities(unittest.TestCase):
         ],
     }
 
+    self.fetch_types_side_effect = lambda dcids, _: {
+        key: self.fetch_types_response[key] for key in dcids
+    }
+
+    self.v1_recognize_entities_response = [{
+        "span": "entity1",
+        "entities": [{
+            "dcid": "dc/1"
+        }]
+    }, {
+        "span": "second entity",
+        "entities": [{
+            "dcid": "dc/2"
+        }, {
+            "dcid": "dc/3"
+        }]
+    }]
+
   @mock.patch('server.lib.fetch.raw_property_values')
   def test_sample_dcids_adds_all_unique_types_exceeding_sample_size(
       self, mock_fetch):
@@ -88,7 +107,7 @@ class TestRecognizeEntities(unittest.TestCase):
   def test_sample_dcids_adds_skipped_dcids_from_first_pass(self, mock_fetch):
     input_dcids = ['dc/1', 'dc/2', 'dc/3']
 
-    mock_fetch.side_effect = [self.fetch_types_response]
+    mock_fetch.side_effect = self.fetch_types_side_effect
 
     sampled_dcids, unique_types = sample_dcids_by_type(input_dcids, 3)
 
@@ -96,28 +115,12 @@ class TestRecognizeEntities(unittest.TestCase):
     assert set(sampled_dcids) == {'dc/1', 'dc/2', 'dc/3'}
     assert set(unique_types) == {'TypeA', 'TypeB', 'TypeC'}
 
-  @mock.patch('server.services.datacommons.recognize_entities')
   @mock.patch('server.lib.fetch.raw_property_values')
-  def test_recognize_entities(self, mock_fetch_types, mock_recognize):
+  @mock.patch('server.services.datacommons.recognize_entities')
+  def test_recognize_entities(self, mock_recognize, mock_fetch_types):
 
-    mock_recognize.side_effect = [[{
-        "span": "entity1",
-        "entities": [{
-            "dcid": "dc/1"
-        }]
-    }, {
-        "span": "second entity",
-        "entities": [{
-            "dcid": "dc/2"
-        }, {
-            "dcid": "dc/3"
-        }]
-    }]]
-
-    def fetch_types_side_effect(dcids, _):
-      return {key: self.fetch_types_response[key] for key in dcids}
-
-    mock_fetch_types.side_effect = fetch_types_side_effect
+    mock_recognize.side_effect = [self.v1_recognize_entities_response]
+    mock_fetch_types.side_effect = self.fetch_types_side_effect
 
     query = "query containing entity1 and second entity"
     entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
@@ -149,3 +152,60 @@ class TestRecognizeEntities(unittest.TestCase):
     assert annotate_query_with_types(
         query, entities_to_types
     ) == "query containing [entity1 (typeOf: TypeA, TypeB)] and [second entity (typeOf: TypeB, TypeC)]"
+
+  @mock.patch('server.lib.fetch.raw_property_values')
+  @mock.patch('server.services.datacommons.recognize_entities')
+  @mock.patch('google.genai.Client')
+  def test_gemini_fails_to_find_start(self, MockClient, mock_recognize,
+                                      mock_fetch_types):
+    mock_recognize.side_effect = [self.v1_recognize_entities_response]
+    mock_fetch_types.side_effect = self.fetch_types_side_effect
+
+    mocked_response_text = "NONE"
+    mock_gemini_response = mock.MagicMock(text=mocked_response_text,
+                                          usage_metadata=mock.MagicMock(
+                                              prompt_token_count=10,
+                                              candidates_token_count=100))
+    mock_client_instance = mock.MagicMock()
+    mock_client_instance.models.generate_content.return_value = mock_gemini_response
+    MockClient.return_value = mock_client_instance
+
+    query = "query containing entity1 and second entity"
+    (entities_to_dcids, selected_entities, annotated_query,
+     response_token_counts) = identify_query_traversal_start(
+         query, 'test_api_key')
+
+    assert MockClient.call_args[1]['api_key'] == 'test_api_key'
+    assert (entities_to_dcids, selected_entities, annotated_query,
+            response_token_counts) == (None, None, None, (10, 100))
+
+  @mock.patch('server.lib.fetch.raw_property_values')
+  @mock.patch('server.services.datacommons.recognize_entities')
+  @mock.patch('google.genai.Client')
+  def test_gemini_fails_to_find_start(self, MockClient, mock_recognize,
+                                      mock_fetch_types):
+    mock_recognize.side_effect = [self.v1_recognize_entities_response]
+    mock_fetch_types.side_effect = self.fetch_types_side_effect
+    mocked_response_text = "second entity\nentity1"
+    mock_gemini_response = mock.MagicMock(text=mocked_response_text,
+                                          usage_metadata=mock.MagicMock(
+                                              prompt_token_count=10,
+                                              candidates_token_count=100))
+    mock_client_instance = mock.MagicMock()
+    mock_client_instance.models.generate_content.return_value = mock_gemini_response
+    MockClient.return_value = mock_client_instance
+
+    query = "query containing entity1 and second entity"
+    (entities_to_dcids, selected_entities, annotated_query,
+     response_token_counts) = identify_query_traversal_start(
+         query, 'test_api_key')
+
+    assert MockClient.call_args[1]['api_key'] == 'test_api_key'
+    assert DeepDiff(entities_to_dcids, {
+        'entity1': ['dc/1'],
+        'second entity': ['dc/2', 'dc/3']
+    },
+                    ignore_order=True) == {}
+    assert selected_entities == ['second entity', 'entity1']
+    assert annotated_query == 'query containing [entity1 (typeOf: TypeA, TypeB)] and [second entity (typeOf: TypeB, TypeC)]'
+    assert response_token_counts == (10, 100)

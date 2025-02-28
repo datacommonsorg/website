@@ -150,7 +150,7 @@ def annotate_query_with_types(query, entities_to_types):
   annotated_query = query.lower()
   for entity, types in entities_to_types.items():
     annotated_query = annotated_query.replace(
-        entity.lower(), f"[{entity} (typeOf: {', '.join(types)})]")
+        entity.lower(), f"[{entity} (typeOf: {', '.join(sorted(types))})]")
   return annotated_query
 
 
