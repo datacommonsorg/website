@@ -266,16 +266,19 @@ def v2node(nodes, prop):
 def _merge_v2node_response(result, paged_response):
   for dcid in paged_response.get('data', {}):
     # Initialize dcid in data even when no arcs or properties are returned
-    result.setdefault('data', {}).setdefault(dcid, {})
+    merged_result_for_dcid = result.setdefault('data', {}).setdefault(dcid, {})
 
     for prop in paged_response['data'][dcid].get('arcs', {}):
-      result['data'][dcid].setdefault('arcs', {}).setdefault(
-          prop, {}).setdefault('nodes', []).extend(
-              paged_response['data'][dcid]['arcs'][prop]['nodes'])
+      merged_property_values_for_dcid = merged_result_for_dcid.setdefault(
+          'arcs', {}).setdefault(prop, {}).setdefault('nodes', [])
+      merged_property_values_for_dcid.extend(
+          paged_response['data'][dcid]['arcs'][prop]['nodes'])
 
     if 'properties' in paged_response['data'][dcid]:
-      result['data'][dcid].setdefault('properties', []).extend(
-          paged_response['data'][dcid].get('properties', []))
+      merged_properties_for_dcid = merged_result_for_dcid.setdefault(
+          'properties', [])
+      merged_properties_for_dcid.extend(paged_response['data'][dcid].get(
+          'properties', []))
 
   result['nextToken'] = paged_response.get('nextToken', '')
   if not result['nextToken']:
@@ -301,10 +304,7 @@ def v2node_paginated(nodes, prop, max_pages=1):
         'property': prop,
         'nextToken': next_token
     })
-    if max_pages == 1:
-      return response
-
-    _merge_paged_response(result, response)
+    _merge_v2node_response(result, response)
     fetched_pages += 1
     next_token = response.get('nextToken', '')
     if not next_token or (max_pages and fetched_pages >= max_pages):
