@@ -154,7 +154,7 @@ def annotate_query_with_types(query, entities_to_types):
   return annotated_query
 
 
-def identify_query_traversal_start(query, gemini_api_key):
+def get_traversal_start_entities(query, gemini_api_key):
   """Determines which DC KG entities to begin a graph traversal to answer the given query.
 
   This function takes a user query, finds matching DC KG entities, and uses
