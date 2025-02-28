@@ -25,6 +25,18 @@
     "description": "Feature flag to enable the scroll to top button on the explore and place pages."
   },
   {
+    "name": "dynamic_placeholder_experiment",
+    "enabled": true,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
+  },
+  {
+    "name": "dynamic_placeholder_ga",
+    "enabled": true,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
+  },
+  {
     "name": "biomed_nl_routes",
     "enabled": true,
     "owner": "calinc",

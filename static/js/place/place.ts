@@ -131,6 +131,7 @@ function renderPage(): void {
           categories: data.categories,
           dcid,
           selectCategory: category,
+          placeName,
         }),
         document.getElementById("menu")
       );
