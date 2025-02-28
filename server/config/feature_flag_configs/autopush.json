@@ -37,9 +37,9 @@
     "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
   },
   {
-    "name": "biomed_nl_routes",
+    "name": "biomed_nl",
     "enabled": true,
     "owner": "calinc",
-    "description": "Enables the experiments/biomed_nl api and html routes."
+    "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   }
 ]
