@@ -15,8 +15,14 @@
 steps:
   - id: 'get-changed-files'
     name: 'gcr.io/cloud-builders/git'
-    args: ['diff', '--name-only', 'origin/${_BASE_BRANCH}', '--', 'server/config/feature_flag_configs/*.json']
-
+    entrypoint: '/bin/bash'
+    args:
+      - '-c'
+      - |
+          # List the files that match the included filter
+          MATCHED_FILES=$(git diff --name-only HEAD^ HEAD | grep '^server/config/feature_flag_configs/.*\.json$')
+          echo "Matched files: $MATCHED_FILES"
+          
   - name: 'gcr.io/cloud-builders/git'
     id: 'update-feature-flags'
     entrypoint: '/bin/bash'
@@ -24,8 +30,7 @@ steps:
     args:
       - '-c'
       - |
-        changed_files="$$(cat /workspace/get_changed_files)"
-        IFS=$'\n' read -rd '' -a files <<< "$changed_files" #splits the output into an array.
+        IFS=$'\n' read -rd '' -a files <<< $MATCHED_FILES
         for modified_file in "${files[@]}"; do
           filename=$(basename "$modified_file")
           filename_without_extension="${filename%.*}"
