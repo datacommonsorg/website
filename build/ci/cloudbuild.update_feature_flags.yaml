@@ -20,7 +20,7 @@ steps:
       - '-c'
       - |
           # List the files that match the included filter
-          MATCHED_FILES=$(git diff --name-only HEAD^ HEAD | grep '^server/config/feature_flag_configs/.*\.json$')
+          MATCHED_FILES=$(git diff --name-only HEAD^ HEAD | grep -E '^server/config/feature_flag_configs/(prod|autopush|staging|dev)\.json$')
           echo "Matched files: $MATCHED_FILES"
           
   - name: 'gcr.io/cloud-builders/git'
