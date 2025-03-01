@@ -30,7 +30,7 @@ steps:
     args:
       - '-c'
       - |
-        IFS=$'\n' read -rd '' -a files <<< $MATCHED_FILES
+        IFS=$'\n' read -rd '' -a files <<< "$MATCHED_FILES"
         for modified_file in "${files[@]}"; do
           filename=$(basename "$modified_file")
           filename_without_extension="${filename%.*}"
