@@ -13,27 +13,23 @@
 # limitations under the License.
 
 steps:
-  - name: 'bash'
-    entrypoint: 'bash'
+  - id: 'get-changed-files'
+    name: 'gcr.io/cloud-builders/git'
+    args: ['diff', '--name-only', 'origin/${_BASE_BRANCH}', '--', 'server/config/feature_flag_configs/*.json']
+
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'update-feature-flags'
+    entrypoint: '/bin/bash'
+    waitFor: ['get_changed_files']
     args:
       - '-c'
       - |
-        modified_file="${_MODIFIED_FILE}"
-        filename=$(basename "$modified_file")
-        filename_without_extension="${filename%.*}"
-        should_restart="false"
-        skip_staging_prompt="true"
-        ./scripts/update_gcs_feature_flags.sh "$filename_without_extension" "$skip_staging_prompt" "$should_restart"
-
-options:
-  substitution_option: 'ALLOW_LOOSE'
-
-triggers:
-  - filename: 'server/config/feature_flag_configs/(autopush|dev|staging|production).json'
-    github:
-      owner: 'datacommonsorg'
-      name: 'website'
-    push:
-      branch: '^master$'
-substitutions:
-  _MODIFIED_FILE: '${TRIGGER_FILE_NAME}'
+        changed_files="$$(cat /workspace/get_changed_files)"
+        IFS=$'\n' read -rd '' -a files <<< "$changed_files" #splits the output into an array.
+        for modified_file in "${files[@]}"; do
+          filename=$(basename "$modified_file")
+          filename_without_extension="${filename%.*}"
+          should_restart="false"
+          skip_staging_prompt="true"
+          ./scripts/update_gcs_feature_flags.sh "$filename_without_extension" "$skip_staging_prompt" "$should_restart"
+        done
