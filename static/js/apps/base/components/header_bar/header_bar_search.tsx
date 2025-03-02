@@ -101,6 +101,7 @@ const HeaderBarSearch = ({
           } else {
             triggerGAEvent(GA_EVENT_NL_SEARCH, {
               [GA_PARAM_QUERY]: q,
+              [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(showDynamicPlaceholders),
               [GA_PARAM_SOURCE]:
                 gaValueSearchSource ?? GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
             });

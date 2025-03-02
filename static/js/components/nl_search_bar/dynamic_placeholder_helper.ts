@@ -20,16 +20,16 @@
 import { SetStateAction } from "react";
 import { defineMessages } from "react-intl";
 
-const TYPING_SPEED = 40; // milliseconds per character
-const TYPING_SPEED_DELETE = 20; // milliseconds per character
+const TYPING_SPEED = 50; // milliseconds per character
+const TYPING_SPEED_DELETE = 30; // milliseconds per character
 const DISPLAY_DURATION_DELAY = 3000;
 const MAX_SAMPLE_QUESTION_CYCLE = 5;
 const MAX_SAMPLE_COUNTRY_CYCLE = 5;
 
 export const placeholderMessages = defineMessages({
-  enterQuestionPlaceholder: {
-    id: "enter_question_to_explore",
-    defaultMessage: 'Enter a question to explore..."{sampleQuestion}"',
+  trySearchingFor: {
+    id: "try_searching_for",
+    defaultMessage: 'Try searching for ...  "{sampleQuestion}"',
     description:
       "Used for the dynamic placeholders in the search bar, gives an example of a query to type.",
   },
@@ -58,7 +58,7 @@ export const enableDynamicPlacehoder = (
       setSampleQuestionText,
       setDynamicPlaceholdersEnabled
     );
-  }, DISPLAY_DURATION_DELAY);
+  }, 500); // ms before start of animation.
 
   (): void => clearTimeout(timerId);
 };
