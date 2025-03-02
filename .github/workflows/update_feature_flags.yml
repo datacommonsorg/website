@@ -1,0 +1,44 @@
+name: Update Feature Flags in the Google Cloud Storage buckets
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'server/configs/feature_flags/autopush.json'
+
+jobs:
+  update_flags:
+    strategy:
+      matrix:
+        environment: [autopush]
+        flag_file:
+          - autopush: 'server/configs/feature_flags/autopush.json'
+        include:
+          - environment: autopush
+            flag_file: 'server/configs/feature_flags/autopush.json'
+            gcp_project_number_secret: GCP_PROJECT_NUMBER_AUTOPUSH # Use project NUMBER
+            workload_identity_provider_secret: WORKLOAD_IDENTITY_PROVIDER_AUTOPUSH
+            service_account_secret: SERVICE_ACCOUNT_AUTOPUSH
+
+    name: Update flags for ${{ matrix.environment }}
+
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write  # Crucial for Workload Identity Federation
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: ${{ secrets[matrix.workload_identity_provider_secret] }}
+          service_account: ${{ secrets[matrix.service_account_secret] }}
+
+      - name: Run script
+        run: |
+          ./scripts/update_gcs_feature_flags.sh ${{ matrix.environment }}
+        env:
+          GCP_PROJECT_ID: ${{ secrets[matrix.gcp_project_number_secret] }} # Now the project NUMBER
