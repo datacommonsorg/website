@@ -233,6 +233,10 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   disableEntityLink?: boolean;
 
+  // Optional: Locale to use for this component
+  @property()
+  locale?: string;
+
   render(): HTMLDivElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
@@ -280,6 +284,6 @@ export class DatacommonsBarComponent extends LitElement {
       disableEntityLink: this.disableEntityLink,
     };
 
-    return createWebComponentElement(BarTile, barTileProps);
+    return createWebComponentElement(BarTile, barTileProps, this.locale);
   }
 }

@@ -145,6 +145,10 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  // Optional: Locale to use for this component
+  @property()
+  locale?: string;
+
   render(): HTMLDivElement {
     const variables = this.variables || [this.variable];
     const statVarSpecs = variables.map((statVar) => {
@@ -181,6 +185,10 @@ export class DatacommonsRankingComponent extends LitElement {
       variables: statVarSpecs,
       title: this.header || this.title,
     };
-    return createWebComponentElement(RankingTile, rankingTileProps);
+    return createWebComponentElement(
+      RankingTile,
+      rankingTileProps,
+      this.locale
+    );
   }
 }
