@@ -1782,7 +1782,6 @@ class TestFeatureFlagsTest(unittest.TestCase):
     directory = "server/config/feature_flag_configs/"
     filenames = os.listdir(directory)
 
-
     for filename in filenames:
       filepath = directory + filename
       with open(filepath, 'r', encoding='utf-8') as f:
