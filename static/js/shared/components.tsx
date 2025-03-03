@@ -17,6 +17,9 @@
 import styled from "@emotion/styled";
 import React, { useState } from "react";
 
+import theme from "../theme/theme";
+import { Theme } from "../theme/types";
+
 /**
  * Chip component to display a selected item with the ability to remove the item
  */
@@ -43,11 +46,18 @@ export const IconPlaceholder = (props: {
   );
 };
 
-const InfoTooltip = styled.div`
+const InfoTooltip = styled.div<{ theme?: Theme }>`
+  ${(p) => p.theme?.typography?.text?.sm}
   position: absolute;
   min-width: 312px;
+  top: ${(p): number => p.theme.spacing.lg}px;
   left: 0;
+  background-color: ${(p): string => p.theme.colors.background.secondary.light};
+  border: 1px solid ${(p): string => p.theme.colors.border.primary.light};
+  border-radius: ${(p): string => p.theme.radius.secondary.borderRadius};
+  padding: ${(p) => p.theme.spacing?.md}px ${(p) => p.theme.spacing.lg}px;
   z-index: 1;
+  box-shadow: ${(p): string => p.theme.elevation.secondary.boxShadow};
 
   @media (max-width: 768px) {
     left: 50%;
@@ -55,7 +65,7 @@ const InfoTooltip = styled.div`
   }
 `;
 
-const InfoTooltipContainerStyled = styled.div`
+const InfoTooltipContainerStyled = styled.div<{ theme?: Theme }>`
   position: relative;
   display: inline-block;
 `;
@@ -75,6 +85,7 @@ export const InfoTooltipComponent = (props: {
 
   return (
     <InfoTooltipContainerStyled
+      theme={theme}
       onMouseEnter={handleShow}
       onMouseLeave={handleHide}
       onTouchStart={handleShow}
@@ -83,7 +94,7 @@ export const InfoTooltipComponent = (props: {
     >
       {props.icon}
       {isVisible && (
-        <InfoTooltip className="info-tooltip-hover">
+        <InfoTooltip theme={theme} className="info-tooltip-hover">
           {props.description}
         </InfoTooltip>
       )}
