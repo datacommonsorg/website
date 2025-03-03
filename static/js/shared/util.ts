@@ -17,7 +17,7 @@
 import _ from "lodash";
 
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
-import { Theme } from "@emotion/react";
+import { Theme } from "../theme/types";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -66,8 +66,11 @@ export function randDomId(): string {
 
 
 /** Determines if the width corresponds to mobile based on themes. */
-export function isMobileByWidth(theme: Theme): boolean {
-  return window.innerWidth <= theme.breakpoints.sm;
+export function isMobileByWidth(theme: Theme | null): boolean {
+  if (theme === null) {
+    return false;
+  }
+  return window.innerWidth <= (theme?.breakpoints?.sm ?? 768);
 }
 
 /**

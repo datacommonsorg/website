@@ -38,10 +38,11 @@ import {
   triggerGAEvent,
 } from "../../../../shared/ga_events";
 import { useQueryStore } from "../../../../shared/stores/query_store_hook";
-import theme from "../../../../theme/theme";
 import { updateHash } from "../../../../utils/url_utils";
 import { DebugInfo } from "../../../explore/debug_info";
 import { isMobileByWidth } from "../../../../shared/util";
+import { useTheme } from "@emotion/react";
+import { Theme } from "../../../../theme/types";
 
 interface HeaderBarSearchProps {
   inputId?: string;
@@ -75,6 +76,7 @@ const HeaderBarSearch = ({
     (isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) ||
       (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) &&
         Math.random() < EXPERIMENT_ROLLOUT_RATIO));
+  const theme: Theme = useTheme();
   const showDynamicPlaceholders =
     showDynamicPlaceholdersBase && !isMobileByWidth(theme);
 
