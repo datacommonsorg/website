@@ -16,6 +16,7 @@
 
 /* A wrapping component to render the header bar version of the search */
 
+import { useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { NlSearchBar } from "../../../../components/nl_search_bar";
@@ -38,11 +39,10 @@ import {
   triggerGAEvent,
 } from "../../../../shared/ga_events";
 import { useQueryStore } from "../../../../shared/stores/query_store_hook";
+import { isMobileByWidth } from "../../../../shared/util";
+import { Theme } from "../../../../theme/types";
 import { updateHash } from "../../../../utils/url_utils";
 import { DebugInfo } from "../../../explore/debug_info";
-import { isMobileByWidth } from "../../../../shared/util";
-import { useTheme } from "@emotion/react";
-import { Theme } from "../../../../theme/types";
 
 interface HeaderBarSearchProps {
   inputId?: string;
@@ -79,7 +79,6 @@ const HeaderBarSearch = ({
   const theme: Theme = useTheme();
   const showDynamicPlaceholders =
     showDynamicPlaceholdersBase && !isMobileByWidth(theme);
-
 
   return (
     <div className="header-search">

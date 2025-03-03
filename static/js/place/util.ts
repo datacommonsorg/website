@@ -29,14 +29,14 @@ import {
 } from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { isMobileByWidth } from "../shared/util";
+import { Theme } from "../theme/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
-import { isMobileByWidth } from "../shared/util";
-import { Theme } from "../theme/types";
 
 const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
 const DEFAULT_BAR_CHART_ITEMS = 15;
