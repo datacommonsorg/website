@@ -1,17 +1,17 @@
-# # Copyright 2025 Google LLC
-# #
-# # Licensed under the Apache License, Version 2.0 (the "License");
-# # you may not use this file except in compliance with the License.
-# # You may obtain a copy of the License at
-# #
-# #      http://www.apache.org/licenses/LICENSE-2.0
-# #
-# # Unless required by applicable law or agreed to in writing, software
-# # distributed under the License is distributed on an "AS IS" BASIS,
-# # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# # See the License for the specific language governing permissions and
-# # limitations under the License.
-
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+'''Recognizes DC KG entities from a NL query.'''
 from google import genai
 
 import server.lib.fetch as fetch
@@ -50,10 +50,12 @@ def sample_dcids_by_type(dcids, min_sample_size):
 
   Args:
     dcids: A list of DCIDs to sample from.
+    min_sample_size: The minimum number of DCIDs expected in the sample. This is
+      ignored if original list of dcids is smaller.
 
   Returns:
     A tuple of:
-      - The sampled DCIDs.
+      - The sample list of DCIDs.
       - The list of types represented by those DCIDs.
   """
   get_types_response = fetch.raw_property_values(dcids, 'typeOf')
@@ -68,32 +70,35 @@ def sample_dcids_by_type(dcids, min_sample_size):
 
   unique_types = list(remaining_unique_types)
 
-  sampled_dcids = []
+  sample_dcids = []
   first_pass_skipped = []
   for dcid in dcids:
-    dcid_types = list(
-        {node_type['name'] for node_type in get_types_response.get(dcid, [])})
+    dcid_types = [
+        node_type.get('name', '')
+        for node_type in get_types_response.get(dcid, [])
+    ]
 
     if any(dcid_type in remaining_unique_types for dcid_type in dcid_types):
-      remaining_unique_types.difference_update(set(dcid_types))
-      sampled_dcids.append(dcid)
+      # Remove the types of the sampled dcid from the set of unique types that
+      # needs to be added to the set since they are now represented in the
+      # sample set.
+      remaining_unique_types.difference_update(dcid_types)
+      sample_dcids.append(dcid)
     elif not remaining_unique_types:
-      sampled_dcids.append(dcid)
-      if len(sampled_dcids) >= min_sample_size:
+      sample_dcids.append(dcid)
+      if len(sample_dcids) >= min_sample_size:
         break
     else:
       first_pass_skipped.append(dcid)
 
   # If some dcids were skipped in the first pass to find all unique types, but
-  # the current sample size does exceed the expected min, add some of the skipped
-  # dcids into the sampling.
-  num_skipped_samples_to_add = min_sample_size - len(sampled_dcids)
+  # the current sample size does not exceed the expected min, add some of the
+  # skipped dcids into the sampling.
+  num_skipped_samples_to_add = min_sample_size - len(sample_dcids)
   if num_skipped_samples_to_add > 0:
-    num_skipped_samples_to_add = min(num_skipped_samples_to_add,
-                                     len(first_pass_skipped))
-    sampled_dcids.extend(first_pass_skipped[:num_skipped_samples_to_add])
+    sample_dcids.extend(first_pass_skipped[:num_skipped_samples_to_add])
 
-  return sampled_dcids, unique_types
+  return sample_dcids, unique_types
 
 
 def recognize_entities_from_query(query):
