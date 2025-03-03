@@ -135,7 +135,7 @@ export function AutoCompleteInput(
 
   const placeholderText =
     !inputActive && dynamicPlaceholdersEnabled
-      ? intl.formatMessage(placeholderMessages.trySearchingFor, {
+      ? intl.formatMessage(placeholderMessages.exploreDataPlaceholder, {
           sampleQuestion: sampleQuestionText,
         })
       : placeholder;
