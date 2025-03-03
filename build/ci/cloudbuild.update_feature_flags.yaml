@@ -20,10 +20,13 @@ steps:
       - |
         modified_file="${_MODIFIED_FILE}"
         filename=$(basename "$modified_file")
-        filename_without_extension="${filename%.*}"
+        environment="${filename%.*}"
         should_restart="false"
+        if [ "$environment" != "production" ]; then
+          should_restart="true"
+        fi
         skip_staging_prompt="true"
-        ./scripts/update_gcs_feature_flags.sh "$filename_without_extension" "$skip_staging_prompt" "$should_restart"
+        ./scripts/update_gcs_feature_flags.sh "$environment" "$skip_staging_prompt" "$should_restart"
 
 options:
   substitution_option: 'ALLOW_LOOSE'
