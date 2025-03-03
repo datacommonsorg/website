@@ -13,7 +13,7 @@
   },
   {
     "name": "dev_place_ga",
-    "enabled": true,
+    "enabled": false,
     "owner": "dwnoble",
     "description": "Feature flag to enable the V2 Place page to GA."
   },
