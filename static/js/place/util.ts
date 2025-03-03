@@ -200,10 +200,6 @@ export function createPlacePageCategoryHref(
   return params.size > 0 ? `${href}?${params.toString()}` : href;
 }
 
-function isMobileByWidth(theme: Theme): boolean {
-  return window.innerWidth <= theme.breakpoints.sm;
-}
-
 /**
  * Helper to process the dev Place page API response
  * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
