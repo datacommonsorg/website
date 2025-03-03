@@ -25,7 +25,7 @@ class PlaceI18nExplorerTestMixin():
   def test_japan_in_japanese(self):
     """Test translations from various sources are displayed correctly."""
 
-    start_url = self.url_ + '/place/country/JPN?hl=ja'
+    start_url = self.url_ + '/place/country/JPN?hl=ja&disable_dev_places=true'
     self.driver.get(start_url)
 
     place_name_present = EC.text_to_be_present_in_element((By.ID, 'place-name'),
@@ -71,7 +71,8 @@ class PlaceI18nExplorerTestMixin():
     """Test the demographics link in FR propagates."""
 
     # Load France page.
-    self.driver.get(self.url_ + '/place/country/FRA?hl=fr')
+    self.driver.get(self.url_ +
+                    '/place/country/FRA?hl=fr&disable_dev_places=true')
 
     # Wait until the Demographics link is present.
     element_present = EC.presence_of_element_located(
