@@ -465,7 +465,7 @@ def raw_property_values(nodes, prop, out=True, constraints=''):
   return result
 
 
-def triples(nodes, out=True):
+def triples(nodes, out=True, max_pages=1):
   """Fetch triples for given nodes.
 
   The response is the following format:
@@ -484,7 +484,7 @@ def triples(nodes, out=True):
   }
 
   """
-  resp = dc.v2node(nodes, '->*' if out else '<-*')
+  resp = dc.v2node_paginated(nodes, '->*' if out else '<-*', max_pages)
   result = {}
   for node, arcs in resp.get('data', {}).items():
     result[node] = {}
