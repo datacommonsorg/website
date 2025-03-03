@@ -1776,7 +1776,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
 
 
 class TestFeatureFlagsTest(unittest.TestCase):
-  FEATURE_FLAG_COUNT = 6
+  FEATURE_FLAG_COUNT = 7
 
   def test_load_feature_flag_files(self):
     directory = "server/config/feature_flag_configs/"

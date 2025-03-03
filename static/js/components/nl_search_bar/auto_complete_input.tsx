@@ -35,6 +35,7 @@ import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
+  GA_PARAM_DYNAMIC_PLACEHOLDER,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
@@ -134,7 +135,7 @@ export function AutoCompleteInput(
 
   const placeholderText =
     !inputActive && dynamicPlaceholdersEnabled
-      ? intl.formatMessage(placeholderMessages.trySearchingPlaceholder, {
+      ? intl.formatMessage(placeholderMessages.trySearchingFor, {
           sampleQuestion: sampleQuestionText,
         })
       : placeholder;
@@ -337,9 +338,10 @@ export function AutoCompleteInput(
       if (result.dcid) {
         triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
           [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+          [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(enableDynamicPlacehoder),
         });
 
-        const url = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
+        const url = PLACE_EXPLORER_PREFIX + `${result.dcid}?q=${result.name}`;
         window.open(url, "_self");
         return;
       }
