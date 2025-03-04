@@ -1,16 +1,17 @@
-# # Copyright 2025 Google LLC
-# #
-# # Licensed under the Apache License, Version 2.0 (the "License");
-# # you may not use this file except in compliance with the License.
-# # You may obtain a copy of the License at
-# #
-# #      http://www.apache.org/licenses/LICENSE-2.0
-# #
-# # Unless required by applicable law or agreed to in writing, software
-# # distributed under the License is distributed on an "AS IS" BASIS,
-# # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# # See the License for the specific language governing permissions and
-# # limitations under the License.
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+'''Traverses DC KG to find node paths that answer a NL query.'''
 
 import math
 import re
@@ -103,7 +104,7 @@ class Property:
   @staticmethod
   def is_incoming(property_label):
     '''Checks if a property label represents an incoming link.'''
-    return Property.incoming_hop_token() in property_label
+    return Property.incoming_token() in property_label
 
   @staticmethod
   def incoming_token():
@@ -124,9 +125,9 @@ class Property:
     formatted property label.'''
     label = re.sub(r"[()]", "", property_label)
     if Property.is_incoming(property_label):
-      split_label = label.split(Property.incoming_hop_token())
+      split_label = label.split(Property.incoming_token())
       if include_incoming_types:
-        return f'{split_label[1]} ({split_label[0]})'
+        return split_label[1], split_label[0]
       else:
         return split_label[1]
     return label
@@ -154,14 +155,14 @@ class PathStore:
     self.property_descriptions = {}
 
   @classmethod
-  def from_selected_paths(cls, selected_paths, original_path_store):
+  def from_selected_paths(cls, selected_paths, original):
     instance = cls()
     for path_str in selected_paths:
       dcid = re.findall('path\d+: (.*?) \(', path_str)[0]
       path = path_str.split(dcid)[1].strip()
-      next_dcids = original_path_store.get(dcid, {}).get(path, set())
+      next_dcids = original.path_store.get(dcid, {}).get(path, set())
       instance.path_store.setdefault(dcid,
-                                     {}).setdefault(Path.parse(path),
+                                     {}).setdefault(path,
                                                     set()).update(next_dcids)
     return instance
 
@@ -196,26 +197,55 @@ class PathStore:
           - Values are dictionaries where keys are formatted propery_labels
             and values are sets of dcids representing values for that property.
 
-    TODO: add example input/output for this one DO_NOT_SUBMIT
+    Example:
+      Inputs: 
+        - self.path_store: {
+            'dcid1': {
+              '(prop1) (prop2)': {'dcid3'},
+              '(prop3)': {'dcid4'}
+            },
+            'dcid2': {
+              '(prop4) (prop5)': {'dcid5'}
+            }
+          }
+        - triples: {
+            'dcid3': {
+              '(propA)': {'dcid6'},
+              '(propB)': {'dcid7'}
+            },
+            'dcid4': {
+              '(propC)': {'dcid8'}
+            },
+            'dcid5': {
+              '(propD)': {'dcid9'}
+            }
+          }
+      Result:
+        - self.path_store: {
+            'dcid1': {
+              '(prop1) (prop2) (propA)': {'dcid6'},
+              '(prop1) (prop2) (propB)': {'dcid7'},
+              '(prop3) (propC)': {'dcid8'}
+            },
+            'dcid2': {
+              '(prop4) (prop5) (propD)': {'dcid9'}
+            }
+          }
     '''
     if not self.path_store:
       self.path_store = triples
       return
 
     merged_path_store = {}
-    print(self.path_store)
     for start_dcid, paths in self.path_store.items():
       for path, next_dcids in paths.items():
-        print(path, next_dcids)
         if not next_dcids:
           merged_path_store.setdefault(start_dcid, {})[path] = set()
           continue
 
         for next_dcid in next_dcids:
-          print(next_dcid)
           for prop, prop_vals in triples.get(next_dcid, {}).items():
             merged_path = Path.add_hop(path, prop)
-            print(merged_path)
             merged_path_store.setdefault(start_dcid,
                                          {}).setdefault(merged_path,
                                                         set()).update(prop_vals)
@@ -230,7 +260,7 @@ class PathStore:
 
     Args:
       min_sample_size: The minimum number of DCIDs that should remain for each
-        path.
+        path. 
     
     TODO: Extract similar sampling technique used in entity_recognition and move
       to shared utils.
@@ -248,37 +278,46 @@ class PathStore:
         for node_dcid in set(outgoing_props.keys()) | set(incoming_props.keys())
     }
 
-    sampled_path_store = {}
+    sample_path_store = {}
 
     for start_dcid, paths in self.path_store.items():
-      sampled_path_store[start_dcid] = {}
+
+      sample_path_store[start_dcid] = {}
+
       for path, next_dcids in paths.items():
-        sampled_path_store[start_dcid][path] = set()
+
+        sample_path_store[start_dcid][path] = set()
         unique_next_props_for_path = {
             next_prop for dcid in next_dcids
             for next_prop in dcid_to_all_props.get(dcid, [])
         }
-        sampled_dcids = []
+
+        sample_dcids = set()
         skipped_dcids = []
-        for dcid in next_dcids:
-          props = dcid_to_all_props.get(dcid, [])
+
+        dcids_to_props = {
+            dcid: dcid_to_all_props.get(dcid, []) for dcid in next_dcids
+        }
+        # Sort properties by length for deterministic testing.
+        for dcid, props in sorted(dcids_to_props.items(),
+                                  key=lambda item: len(item[1]),
+                                  reverse=True):
           if not unique_next_props_for_path:
-            sampled_dcids.append(dcid)
-            if len(sampled_dcids) >= min_sample_size:
+            if len(sample_dcids) >= min_sample_size:
               break
+            sample_dcids.add(dcid)
           elif any(prop in unique_next_props_for_path for prop in props):
-            sampled_dcids.append(dcid)
+            sample_dcids.add(dcid)
             unique_next_props_for_path.difference_update(props)
           else:
             skipped_dcids.append(dcid)
 
-        num_samples_needed = min_sample_size - len(sampled_dcids)
-        if num_samples_needed > 0:
-          num_samples_to_add = min(len(skipped_dcids), num_samples_needed)
-          sampled_dcids.extend(skipped_dcids[:num_samples_to_add])
+        num_samples_to_add = min_sample_size - len(sample_dcids)
+        if num_samples_to_add > 0:
+          sample_dcids.update(skipped_dcids[:num_samples_to_add])
+        sample_path_store[start_dcid][path] = sample_dcids
 
-        sampled_path_store[start_dcid][path] = set(sampled_dcids)
-    self.path_store = sampled_path_store
+    self.path_store = sample_path_store
 
   def fetch_property_descriptions(self):
     '''Fetches and stores descriptions for properties in the path store.
@@ -289,8 +328,8 @@ class PathStore:
     '''
 
     all_prop_dcids = {
-        Path.parse(path, include_incoming_types=False)
-        for path in self.path_store.values()
+        prop for paths in self.path_store.values() for path in paths
+        for prop in Path.parse(path, include_incoming_types=False)
     }
 
     descriptions = fetch.property_values(all_prop_dcids, 'description')
@@ -436,7 +475,7 @@ class PathFinder:
 
     should_terminate = True
 
-    prompt = utils.TRAVSERSAL_PROMPT.format(
+    prompt = utils.TRAVERSAL_PROMPT.format(
         QUERY=self.query,
         START_ENT=self.start_entity_name,
         START_DCIDS=self.start_dcids,
@@ -444,6 +483,11 @@ class PathFinder:
         METADATA=self.path_store.get_property_descriptions())
     response = self.gemini.models.generate_content(model=self.gemini_model_str,
                                                    contents=prompt)
+    input_tokens, output_tokens = utils.get_gemini_response_token_counts(
+        response)
+    self.input_tokens += input_tokens
+    self.output_tokens += output_tokens
+
     if response.text.startswith('DONE'):
       should_terminate = True
     elif response.text.startswith('CONTINUE'):
@@ -455,16 +499,12 @@ class PathFinder:
       return True
 
     paths = [
-        line for line in response.text.split('\n')
-        if bool(re.match(r"^path\d+:", line))
+        line.strip()
+        for line in response.text.split('\n')
+        if bool(re.match(r"^path\d+:", line.strip()))
     ]
 
     self.selected_paths = PathStore.from_selected_paths(paths, self.path_store)
-
-    input_tokens, output_tokens = utils.get_gemini_response_token_counts(
-        response)
-    self.input_tokens += input_tokens
-    self.output_tokens += output_tokens
 
     return should_terminate
 
@@ -490,11 +530,7 @@ class PathFinder:
     should_terminate = self.select_paths()
 
     if not should_terminate:
-      # TODO: log that more hops would be required to answer this query.
+      # Long term, we could continue traversing if we are confident in the LLM
+      # choices.
       pass
-    return self.selected_paths, top_props
-
-  @staticmethod
-  def traverse(self, path):
-    # TODO: DO_NOT_SUBMIT
-    pass
+    return top_props
