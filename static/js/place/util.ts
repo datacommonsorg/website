@@ -29,6 +29,7 @@ import {
 } from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { isMobileByWidth } from "../shared/util";
 import { Theme } from "../theme/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
@@ -197,10 +198,6 @@ export function createPlacePageCategoryHref(
     params.set("force_dev_places", "true");
   }
   return params.size > 0 ? `${href}?${params.toString()}` : href;
-}
-
-function isMobileByWidth(theme: Theme): boolean {
-  return window.innerWidth <= theme.breakpoints.sm;
 }
 
 /**
