@@ -13,13 +13,12 @@
 # limitations under the License.
 '''Traverses DC KG to find node paths that answer a NL query.'''
 
+from collections import defaultdict
 import math
 import re
 
-from google import genai
 from sentence_transformers import SentenceTransformer
 from sentence_transformers import util
-from collections import defaultdict
 
 import server.lib.fetch as fetch
 import server.routes.experiments.biomed_nl.utils as utils
@@ -119,6 +118,11 @@ def get_all_triples(dcids):
               fetch.triples(dcids, out=False, max_pages=None).get(dcid, {})
       } for dcid in dcids
   }
+
+
+def get_property_descriptions(cache):
+  # TODO DO_NOT_SUBMIT
+  pass
 
 
 class Property:
@@ -585,7 +589,11 @@ class PathFinder:
         gemini_model_str (str, optional): Name of the Gemini model to use.
     '''
 
-  def __init__(self, query, start_entity_name, start_entity_dcids):
+  def __init__(self,
+               query,
+               start_entity_name,
+               start_entity_dcids,
+               gemini_client=None):
     # Set params
     self.query = query
     self.start_entity_name = start_entity_name
@@ -593,18 +601,13 @@ class PathFinder:
     self.path_store = PathStore()
     self.input_tokens = 0
     self.output_tokens = 0
-    self.gemini = None
+    self.gemini = gemini_client
     self.embeddings_model = None
     self.gemini_model_str = ''
 
-  def initialize_models(self,
-                        gemini_api_key,
-                        gemini_model_str='gemini-2.0-flash-001'):
+  def initialize_models(self, gemini_model_str='gemini-2.0-flash-001'):
     self.embeddings_model = SentenceTransformer(
         'all-MiniLM-L6-v2')  # Or another lightweight model
-    self.gemini = genai.Client(
-        api_key=gemini_api_key,
-        http_options=genai.types.HttpOptions(api_version='v1alpha'))
     self.gemini_model_str = gemini_model_str
 
   def traverse_n_hops(self, start_dcids, n):

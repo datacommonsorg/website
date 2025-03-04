@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from collections import defaultdict
 import unittest
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
 from deepdiff import DeepDiff
-from collections import defaultdict
 
 from server.routes.experiments.biomed_nl.traversal import get_next_hop_triples
 from server.routes.experiments.biomed_nl.traversal import PathFinder

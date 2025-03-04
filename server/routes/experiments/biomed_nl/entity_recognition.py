@@ -159,7 +159,7 @@ def annotate_query_with_types(query, entities_to_types):
   return annotated_query
 
 
-def get_traversal_start_entities(query, gemini_api_key):
+def get_traversal_start_entities(query, gemini_client):
   """Determines which DC KG entities to begin a graph traversal to answer the given query.
 
   This function takes a user query, finds matching DC KG entities, and uses
@@ -169,6 +169,7 @@ def get_traversal_start_entities(query, gemini_api_key):
 
   Args:
     query: The user query string.
+    gemini_client: A Gemini client object with pre-configured API key.
 
   Returns:
     A tuple containing the following:
@@ -189,14 +190,11 @@ def get_traversal_start_entities(query, gemini_api_key):
   entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
       query)
 
-  client = genai.Client(
-      api_key=gemini_api_key,
-      http_options=genai.types.HttpOptions(api_version='v1alpha'))
   prompt = utils.ENTITY_RANK_PROMPT.format(QUERY=query,
                                            ENTS=entities_to_recognized_types)
 
-  response = client.models.generate_content(model='gemini-2.0-flash-001',
-                                            contents=prompt)
+  response = gemini_client.models.generate_content(model='gemini-2.0-flash-001',
+                                                   contents=prompt)
   response_token_counts = utils.get_gemini_response_token_counts(response)
   response_text = response.text
 

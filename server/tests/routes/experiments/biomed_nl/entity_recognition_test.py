@@ -159,9 +159,7 @@ class TestRecognizeEntities(unittest.TestCase):
 
   @mock.patch('server.lib.fetch.raw_property_values')
   @mock.patch('server.services.datacommons.recognize_entities')
-  @mock.patch('google.genai.Client')
-  def test_gemini_fails_to_find_start(self, MockClient, mock_recognize,
-                                      mock_fetch_types):
+  def test_gemini_fails_to_find_start(self, mock_recognize, mock_fetch_types):
     mock_recognize.side_effect = [self.v1_recognize_entities_response]
     mock_fetch_types.side_effect = self.fetch_types_side_effect
 
@@ -170,16 +168,14 @@ class TestRecognizeEntities(unittest.TestCase):
                                           usage_metadata=mock.MagicMock(
                                               prompt_token_count=10,
                                               candidates_token_count=100))
-    mock_client_instance = mock.MagicMock()
-    mock_client_instance.models.generate_content.return_value = mock_gemini_response
-    MockClient.return_value = mock_client_instance
+    mock_client_instance = mock.MagicMock(models=mock.MagicMock(
+        generate_content=mock.MagicMock(return_value=mock_gemini_response)))
 
     query = "query containing entity1 and second entity"
     (entities_to_dcids, selected_entities, annotated_query,
      response_token_counts) = get_traversal_start_entities(
-         query, 'test_api_key')
+         query, mock_client_instance)
 
-    assert MockClient.call_args[1]['api_key'] == 'test_api_key'
     assert (entities_to_dcids, selected_entities, annotated_query,
             response_token_counts) == (None, None, None, (10, 100))
 
@@ -195,16 +191,14 @@ class TestRecognizeEntities(unittest.TestCase):
                                           usage_metadata=mock.MagicMock(
                                               prompt_token_count=10,
                                               candidates_token_count=100))
-    mock_client_instance = mock.MagicMock()
-    mock_client_instance.models.generate_content.return_value = mock_gemini_response
-    MockClient.return_value = mock_client_instance
+    mock_client_instance = mock.MagicMock(models=mock.MagicMock(
+        generate_content=mock.MagicMock(return_value=mock_gemini_response)))
 
     query = "query containing entity1 and second entity"
     (entities_to_dcids, selected_entities, annotated_query,
      response_token_counts) = get_traversal_start_entities(
-         query, 'test_api_key')
+         query, mock_client_instance)
 
-    assert MockClient.call_args[1]['api_key'] == 'test_api_key'
     assert DeepDiff(entities_to_dcids, {
         'entity1': ['dc/1'],
         'second entity': ['dc/2', 'dc/3']
