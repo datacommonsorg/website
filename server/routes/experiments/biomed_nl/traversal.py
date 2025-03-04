@@ -19,6 +19,7 @@ import re
 from google import genai
 from sentence_transformers import SentenceTransformer
 from sentence_transformers import util
+from collections import defaultdict
 
 import server.lib.fetch as fetch
 import server.routes.experiments.biomed_nl.utils as utils
@@ -107,6 +108,17 @@ def get_next_hop_triples(dcids, out=True):
                 set()).add(value_object['dcid'])
 
   return result
+
+
+def get_all_triples(dcids):
+  return {
+      dcid: {
+          'outgoing':
+              fetch.triples(dcids, out=True, max_pages=None).get(dcid, {}),
+          'incoming':
+              fetch.triples(dcids, out=False, max_pages=None).get(dcid, {})
+      } for dcid in dcids
+  }
 
 
 class Property:
@@ -729,3 +741,43 @@ class PathFinder:
       # choices.
       pass
     return top_props
+
+  def build_traversal_cache(self):
+    cache = {}
+
+    for start_dcid, paths in self.selected_paths.get_paths_from_start().items():
+      for path in paths:
+
+        dcids = [start_dcid]
+        if start_dcid not in cache:
+          cache.update(get_all_triples(dcids))
+
+        for prop in Path.parse(path):
+
+          next_dcids = set()
+          for dcid in dcids:
+
+            if isinstance(prop, tuple):
+              node_type = prop[1]
+              prop = prop[0]
+              incoming_dcids = [
+                  node['dcid']
+                  for node in cache[dcid]['incoming'].get(prop, [])
+                  if not is_terminal(node) and node_type in node['types']
+              ]
+              next_dcids.update(incoming_dcids)
+            else:
+              outgoing_dcids = [
+                  node['dcid']
+                  for node in cache[dcid]['outgoing'].get(prop, [])
+                  if not is_terminal(node)
+              ]
+              next_dcids.update(outgoing_dcids)
+
+          # Only fetch triples for a given dcid one time.
+          fetch_dcids = [dcid for dcid in next_dcids if dcid not in cache]
+          if fetch_dcids:
+            cache.update(get_all_triples(fetch_dcids))
+          dcids = list(next_dcids)
+
+    return cache

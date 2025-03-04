@@ -17,6 +17,7 @@ from unittest.mock import MagicMock
 from unittest.mock import patch
 
 from deepdiff import DeepDiff
+from collections import defaultdict
 
 from server.routes.experiments.biomed_nl.traversal import get_next_hop_triples
 from server.routes.experiments.biomed_nl.traversal import PathFinder
@@ -571,3 +572,194 @@ class TestTraversal(unittest.TestCase):
     }
     assert path_finder.input_tokens == 10
     assert path_finder.output_tokens == 100
+
+  @patch('server.lib.fetch.triples')
+  def test_build_traversal_cache(self, mock_triples):
+
+    def triples_response(dcids, out, max_pages):
+      assert max_pages == None
+      triples = {
+          'start1': {
+              True: {
+                  # Redo path propA -> dcid0 -> propB -> dcid1, dcid2
+                  'propA': [
+                      {
+                          'dcid': 'dcid0',
+                          'types': ['ExploreType']
+                      },
+                      {
+                          'dcid': 'do_not_explore1',
+                          'types': ['NonExploreTypeEnum']
+                      },
+                      {
+                          'value': 'do_not_explore2',
+                      },
+                  ],
+                  'propB': [{
+                      'dcid': 'do_not_explore2',
+                      'types': ['ExploreType']
+                  },],
+              },
+              False: {
+                  'propE': [{
+                      'dcid': 'do_not_explore3',
+                      'types': ['ExploreType']
+                  },]
+              },
+          },
+          'start2': {
+              True: {
+                  'propA': [{
+                      'dcid': 'dcid4',
+                      'types': ['ExploreType']
+                  },]
+              },
+          },
+          'dcid0': {
+              True: {
+                  'propB': [
+                      {
+                          'dcid': 'dcid1',
+                          'types': ['ExploreType']
+                      },
+                      {
+                          'dcid': 'dcid2',
+                          'types': ['ExploreType']
+                      },
+                  ]
+              },
+          },
+          'dcid4': {
+              False: {
+                  'propD': [{
+                      'dcid': 'dcid3',
+                      'types': ['Type']
+                  },]
+              },
+          },
+          'dcid2': {
+              True: {
+                  'name': [{
+                      'value': 'dcid_2',
+                  },]
+              },
+          },
+          'dcid1': {
+              True: {
+                  'name': [{
+                      'value': 'dcid_1',
+                  },]
+              },
+          },
+          'dcid3': {
+              True: {
+                  'name': [{
+                      'value': 'dcid_3',
+                  },]
+              },
+          },
+      }
+      return {dcid: triples.get(dcid, {}).get(out, {}) for dcid in dcids}
+
+    mock_triples.side_effect = triples_response
+    path_finder = PathFinder('', '', [])
+    path_finder.selected_paths.path_store = {
+        'start1': {
+            '(propA) (propB)': {'dcid1', 'dcid2'},
+        },
+        'start2': {
+            '(propA) (Types linked by propD)': {'dcid3'},
+        }
+    }
+
+    cache = path_finder.build_traversal_cache()
+    # start1 -propA-> dcid0 -propB-> dcid1, dcid2
+    #        -propB-> x
+    # start2 -propA-> dcid4 <-propD (Types)- dcid3
+    expected_cache = {
+        'start1': {
+            'outgoing': {
+                'propA': [
+                    {
+                        'dcid': 'dcid0',
+                        'types': ['ExploreType']
+                    },
+                    {
+                        'dcid': 'do_not_explore1',
+                        'types': ['NonExploreTypeEnum']
+                    },
+                    {
+                        'value': 'do_not_explore2',
+                    },
+                ],
+                'propB': [{
+                    'dcid': 'do_not_explore2',
+                    'types': ['ExploreType']
+                },],
+            },
+            'incoming': {
+                'propE': [{
+                    'dcid': 'do_not_explore3',
+                    'types': ['ExploreType']
+                },]
+            },
+        },
+        'start2': {
+            'outgoing': {
+                'propA': [{
+                    'dcid': 'dcid4',
+                    'types': ['ExploreType']
+                },]
+            },
+            'incoming': {}
+        },
+        'dcid0': {
+            'outgoing': {
+                'propB': [
+                    {
+                        'dcid': 'dcid1',
+                        'types': ['ExploreType']
+                    },
+                    {
+                        'dcid': 'dcid2',
+                        'types': ['ExploreType']
+                    },
+                ]
+            },
+            'incoming': {}
+        },
+        'dcid4': {
+            'outgoing': {},
+            'incoming': {
+                'propD': [{
+                    'dcid': 'dcid3',
+                    'types': ['Type']
+                },]
+            },
+        },
+        'dcid2': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_2',
+                },]
+            },
+            'incoming': {}
+        },
+        'dcid1': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_1',
+                },]
+            },
+            'incoming': {}
+        },
+        'dcid3': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_3',
+                },]
+            },
+            'incoming': {}
+        },
+    }
+    assert DeepDiff(expected_cache, cache, ignore_order=True) == {}
