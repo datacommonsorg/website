@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from server.webdriver.base_utils import find_elem
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -131,6 +132,7 @@ class PlaceExplorerTestMixin():
     demographics = self.driver.find_element(By.XPATH,
                                             '//*[@id="Demographics"]/a')
     demographics.click()
+    self.driver.get(self.driver.current_url + '&disable_dev_places=true')
 
     # Wait until the new page has loaded.
     element_present = EC.presence_of_element_located(
@@ -289,14 +291,14 @@ class PlaceExplorerTestMixin():
     place_name = self.driver.find_element(By.XPATH, xpath)
     place_name_text = place_name.text
     place_name.click()
+    shared.wait_for_loading(self.driver)
 
-    # Wait for the presence of new page title.
-    title_present = EC.presence_of_element_located((By.ID, 'place-name'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
+    place_info = find_elem(self.driver, value='place-info')
+    self.assertIsNotNone(place_info)
+    place_info_span = find_elem(place_info, by=By.TAG_NAME, value='span')
+    self.assertIsNotNone(place_info_span)
 
-    # Check the title text
-    page_title = self.driver.find_element(By.ID, 'place-name').text
-    self.assertEqual(page_title, place_name_text)
+    self.assertEqual(place_info_span.text, place_name_text)
 
   def test_export_chart_data(self):
     """Tests the export chart data button works correctly for group bar charts."""

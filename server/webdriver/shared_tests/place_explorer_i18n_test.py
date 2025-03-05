@@ -84,6 +84,7 @@ class PlaceI18nExplorerTestMixin():
                                             '//*[@id="Demographics"]/a')
     self.assertEqual(demographics.text, 'DONNÉES DÉMOGRAPHIQUES')
     demographics.click()
+    self.driver.get(self.driver.current_url + '&disable_dev_places=true')
 
     # Wait until the new page has loaded.
     element_present = EC.presence_of_element_located(
@@ -99,6 +100,7 @@ class PlaceI18nExplorerTestMixin():
         By.CSS_SELECTOR, 'a.legend-link[title="Population totale"]')
     self.assertIsNotNone(pop_link, "Population totale link not found")
     pop_link.click()
+    self.driver.get(self.driver.current_url + '&disable_dev_places=true')
 
     # Wait until ranking page has loaded
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
