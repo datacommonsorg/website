@@ -17,7 +17,7 @@ import os
 import unittest
 from unittest import mock
 
-from server.services.datacommons import v2node_paginated
+from server.services.datacommons import v2node_paginated, v2node
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DATA_DIR = os.path.join(MODULE_DIR, "..", "test_data", "datacommons")
@@ -29,6 +29,38 @@ def get_json(filename):
   filepath = os.path.join(TEST_DATA_DIR, filename)
   with open(filepath, "r") as f:
     return json.load(f)
+
+
+class TestServiceDataCommonsV2Node(unittest.TestCase):
+
+  @mock.patch('server.services.datacommons.post')
+  def test_v2node_returns_response(self, mock_post):
+    response_with_next_token = get_json('v2node_response_with_next_token')
+
+    def side_effect(url, data):
+      assert url.endswith('/v2/node')
+      assert data == {
+          'nodes': ['dc/1', 'dc/2'],
+          'property': '->{property1,property2}',
+      }
+      return response_with_next_token
+
+    mock_post.side_effect = side_effect
+
+    self.assertEqual(v2node(['dc/1', 'dc/2'], '->{property1,property2}'),
+                     response_with_next_token)
+    assert mock_post.call_count == 1
+
+  @mock.patch('server.services.datacommons.post')
+  def test_large_input_size_makes_multiple_post_calls(self, mock_post):
+
+    input_dcids = [f'dc{i}' for i in range(10000)]
+    v2node(input_dcids, '->*')
+    assert mock_post.call_count == 19
+    print(mock_post.call_args)
+    print('hello worlds')
+    assert mock_post.call_args.args[1]['nodes'] == input_dcids[9734:]
+    assert len(mock_post.call_args.args[1]['nodes']) < len(input_dcids)
 
 
 class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
@@ -167,3 +199,12 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
     self.assertEqual(v2node_paginated(['dc/1', 'dc/2'], '->', max_pages=3),
                      response_with_no_data_for_dcids)
     assert mock_post.call_count == 1
+
+  @mock.patch('server.services.datacommons.post')
+  def test_large_input_size_makes_multiple_post_calls(self, mock_post):
+
+    input_dcids = [f'dc{i}' for i in range(10000)]
+    v2node_paginated(input_dcids, '->*')
+    assert mock_post.call_count == 19
+    assert mock_post.call_args.args[1]['nodes'] == input_dcids[9734:]
+    assert len(mock_post.call_args.args[1]['nodes']) < len(input_dcids)

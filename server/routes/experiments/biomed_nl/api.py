@@ -48,14 +48,16 @@ def _fulfill_traversal_query(query):
 
   if not start_entity or not start_dcids:
     # TODO: log error
-    return {}
+    return {'response': 'error in recognition'}
 
-  path_finder = PathFinder(annotated_query, start_entity, start_dcids,
-                           gemini_client)
-  path_finder.initialize_models(gemini_model_str=GEMINI_PRO)
+  path_finder = PathFinder(annotated_query,
+                           start_entity,
+                           start_dcids,
+                           gemini_client,
+                           gemini_model_str=GEMINI_PRO)
   path_finder.find_paths()
   # TODO: Add error handling before constructing cache.
-
+  print(path_finder.selected_paths.path_store)
   cache = path_finder.build_traversal_cache()
   # TODO: add error handling.
 
@@ -64,7 +66,10 @@ def _fulfill_traversal_query(query):
   response = gemini_client.models.generate_content(model=GEMINI_PRO,
                                                    contents=final_prompt)
 
-  return {'response': response.text}
+  return {
+      'response': response.text,
+      'selected_path': path_finder.selected_paths.path_store
+  }
 
 
 @bp.route('/query')

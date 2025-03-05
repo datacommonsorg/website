@@ -177,7 +177,7 @@ class TestRecognizeEntities(unittest.TestCase):
          query, mock_client_instance)
 
     assert (entities_to_dcids, selected_entities, annotated_query,
-            response_token_counts) == (None, None, None, (10, 100))
+            response_token_counts) == ({}, [], '', (10, 100))
 
   @mock.patch('server.lib.fetch.raw_property_values')
   @mock.patch('server.services.datacommons.recognize_entities')

@@ -593,7 +593,8 @@ class PathFinder:
                query,
                start_entity_name,
                start_entity_dcids,
-               gemini_client=None):
+               gemini_client=None,
+               gemini_model_str='gemini-2.0-flash-001'):
     # Set params
     self.query = query
     self.start_entity_name = start_entity_name
@@ -602,12 +603,7 @@ class PathFinder:
     self.input_tokens = 0
     self.output_tokens = 0
     self.gemini = gemini_client
-    self.embeddings_model = None
-    self.gemini_model_str = ''
-
-  def initialize_models(self, gemini_model_str='gemini-2.0-flash-001'):
-    self.embeddings_model = SentenceTransformer(
-        'all-MiniLM-L6-v2')  # Or another lightweight model
+    self.embeddings_model = SentenceTransformer('all-MiniLM-L6-v2')
     self.gemini_model_str = gemini_model_str
 
   def traverse_n_hops(self, start_dcids, n):
