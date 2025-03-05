@@ -17,15 +17,11 @@ from unittest.mock import MagicMock
 from unittest.mock import patch
 
 from deepdiff import DeepDiff
-
-# Assuming the code from the original file is in a file named 'your_module.py'
-# and fetch and utils are mocked appropriately
 from server.routes.experiments.biomed_nl.traversal import get_next_hop_triples
 from server.routes.experiments.biomed_nl.traversal import Path
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 from server.routes.experiments.biomed_nl.traversal import PathStore
 from server.routes.experiments.biomed_nl.traversal import Property
-from server.routes.experiments.biomed_nl.traversal import should_explore
 
 
 def fetch_triples_side_effect(dcids, out, max_pages):

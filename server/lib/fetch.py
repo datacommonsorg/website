@@ -467,6 +467,13 @@ def raw_property_values(nodes, prop, out=True, constraints=''):
 
 def triples(nodes, out=True, max_pages=1):
   """Fetch triples for given nodes.
+        
+        
+  Args:
+    - nodes: The dcids of nodes to find the triples of.
+    - out: Whether outgoing or incoming arcs should be fetched.
+    - max_pages: The maximum number of pages to fetch. If None, v2node is
+        queried until nextToken is not in the response.
 
   The response is the following format:
   {

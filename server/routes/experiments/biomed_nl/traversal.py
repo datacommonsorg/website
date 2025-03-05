@@ -24,24 +24,33 @@ import server.lib.fetch as fetch
 import server.routes.experiments.biomed_nl.utils as utils
 
 MIN_SAMPLE_SIZE = 3
+TERMINAL_NODE_TYPES = ['Class', 'Provenance']
+PATH_FINDING_MAX_V2NODE_PAGES = 2
 
 
-def should_explore(node):
-  '''Determines if a node should be explored further during graph traversal.
+def is_terminal(node):
+  '''Determines if a node value should be skipped during graph traversal.
 
     Exploration continues if the node is not a terminal node. Terminal nodes
     are defined as those with types including 'Class', 'Provenance', or any
-    type ending with 'Enum'.
+    type ending with 'Enum' or nodes without a dcid.
 
     Args:
-        node: A single node value from V2 Node API response .
+        node: A single node value from V2 Node API response.
 
     Returns:
-        True if the node should be explored, False otherwise.
+        True if the node should be skipped in further traversal, False otherwise.
   '''
-  is_terminal_node = 'Class' in node['types'] or 'Provenance' in node[
-      'types'] or any(dc_type.endswith("Enum") for dc_type in node['types'])
-  return not is_terminal_node
+  if 'dcid' not in node:
+    return True
+
+  if any(terminal in node['types'] for terminal in TERMINAL_NODE_TYPES):
+    return True
+
+  if any(node_type.endswith("Enum") for node_type in node['types']):
+    return True
+
+  return False
 
 
 def get_next_hop_triples(dcids, out=True):
@@ -71,7 +80,7 @@ def get_next_hop_triples(dcids, out=True):
       }
     }
   '''
-  triples = fetch.triples(dcids, out, max_pages=2)
+  triples = fetch.triples(dcids, out, max_pages=PATH_FINDING_MAX_V2NODE_PAGES)
 
   result = {}
   for subject_dcid, properties in triples.items():
@@ -79,23 +88,19 @@ def get_next_hop_triples(dcids, out=True):
     for property, value_objects in properties.items():
       formatted_property_label = Property.format_label(property)
       for value_object in value_objects:
-        if 'dcid' in value_object:
-          if should_explore(value_object):
-            if out:
-              result_dcid.setdefault(formatted_property_label,
-                                     set()).add(value_object['dcid'])
-            else:
-              for value_object_type in value_object.get('types', []):
-                result_dcid.setdefault(
-                    Property.format_label(property, value_object_type),
-                    set()).add(value_object['dcid'])
-          else:
-            result_dcid.setdefault(formatted_property_label, set())
-        elif 'value' in value_object:
+        if is_terminal(value_object):
           result_dcid.setdefault(formatted_property_label, set())
+          continue
+
+        if out:
+          result_dcid.setdefault(formatted_property_label,
+                                 set()).add(value_object['dcid'])
         else:
-          # This case occasionally happens when there is an error in the graph.
-          pass
+          for value_object_type in value_object.get('types', []):
+            result_dcid.setdefault(
+                Property.format_label(property, value_object_type),
+                set()).add(value_object['dcid'])
+
   return result
 
 
@@ -158,10 +163,10 @@ class PathStore:
   def from_selected_paths(cls, selected_paths, original):
     instance = cls()
     for path_str in selected_paths:
-      dcid = re.findall('path\d+: (.*?) \(', path_str)[0]
-      path = path_str.split(dcid)[1].strip()
-      next_dcids = original.path_store.get(dcid, {}).get(path, set())
-      instance.path_store.setdefault(dcid,
+      start_dcid = re.findall('path\d+: (.*?) \(', path_str)[0]
+      path = path_str.split(start_dcid)[1].strip()
+      next_dcids = original.path_store.get(start_dcid, {}).get(path, set())
+      instance.path_store.setdefault(start_dcid,
                                      {}).setdefault(path,
                                                     set()).update(next_dcids)
     return instance
@@ -172,10 +177,10 @@ class PathStore:
   def get_next_dcids(self):
     '''Returns a list of all DCIDs that are the target of the last hop across
     all paths in the PathStore.'''
-    return [
-        dcid for path in self.path_store.values() for dcids in path.values()
-        for dcid in dcids
-    ]
+    next_dcids = []
+    for path in self.path_store.values():
+      next_dcids.extend(path.values())
+    return next_dcids
 
   def get_paths_from_start(self):
     '''Returns a dictionary mapping start DCIDs to lists of the paths
