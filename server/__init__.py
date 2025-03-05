@@ -30,6 +30,8 @@ from server.lib import topic_cache
 import server.lib.cache as lib_cache
 import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
@@ -196,6 +198,21 @@ def register_routes_datagemma(app, cfg):
   app.register_blueprint(dev_datagemma_html.bp)
 
 
+def register_routes_biomed_nl(app, cfg):
+  # Set the gemini api key
+  app.config['BIOMED_NL_GEMINI_API_KEY'] = _get_api_key(
+      ['BIOMED_NL_GEMINI_API_KEY'], cfg.SECRET_PROJECT,
+      'biomed-nl-gemini-api-key')
+
+  if not app.config['BIOMED_NL_GEMINI_API_KEY']:
+    app.logger.warning('Biomed NL routes not registered due to missing API key')
+    return
+
+  # Install blueprint for DataGemma page
+  from server.routes.experiments.biomed_nl import api as biomed_nl_api
+  app.register_blueprint(biomed_nl_api.bp)
+
+
 def register_routes_common(app):
   # apply blueprints for main app
   from server.routes import static
@@ -328,6 +345,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   lib_cache.cache.init_app(app)
   lib_cache.model_cache.init_app(app)
+  app.config['FEATURE_FLAGS'] = libutil.load_feature_flags()
 
   # Configure ingress
   # See deployment yamls.
@@ -349,6 +367,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if _enable_datagemma():
     register_routes_datagemma(app, cfg)
+
+  if is_feature_enabled(BIOMED_NL_FEATURE_FLAG, app):
+    register_routes_biomed_nl(app, cfg)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -375,7 +396,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       "config/home_page/partners.json")
   app.config['HOMEPAGE_SAMPLE_QUESTIONS'] = libutil.get_json(
       "config/home_page/sample_questions.json")
-  app.config['FEATURE_FLAGS'] = libutil.load_feature_flags()
 
   if cfg.TEST or cfg.LITE:
     app.config['MAPS_API_KEY'] = ''
