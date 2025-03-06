@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-import { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { useState } from "react";
+
+import theme from "../theme/theme";
+import { Theme } from "../theme/types";
 
 /**
  * Chip component to display a selected item with the ability to remove the item
@@ -48,14 +50,14 @@ const InfoTooltip = styled.div<{ theme?: Theme }>`
   ${(p) => p.theme?.typography?.text?.sm}
   position: absolute;
   min-width: 312px;
-  top: ${(p) => p.theme.spacing.lg}px;
+  top: ${(p): number => p.theme.spacing.lg}px;
   left: 0;
-  background-color: ${(p) => p.theme.colors.background.secondary.light};
-  border: 1px solid ${(p) => p.theme.colors.border.primary.light};
-  border-radius: ${(p) => p.theme.radius.secondary.borderRadius};
+  background-color: ${(p): string => p.theme.colors.background.secondary.light};
+  border: 1px solid ${(p): string => p.theme.colors.border.primary.light};
+  border-radius: ${(p): string => p.theme.radius.secondary.borderRadius};
   padding: ${(p) => p.theme.spacing?.md}px ${(p) => p.theme.spacing.lg}px;
   z-index: 1;
-  box-shadow: ${(p) => p.theme.elevation.secondary.boxShadow};
+  box-shadow: ${(p): string => p.theme.elevation.secondary.boxShadow};
 
   @media (max-width: 768px) {
     left: 50%;
@@ -71,7 +73,6 @@ const InfoTooltipContainerStyled = styled.div<{ theme?: Theme }>`
 export const InfoTooltipComponent = (props: {
   icon: React.JSX.Element;
   description: string;
-  theme: Theme;
 }): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState(false);
   const handleShow = (): void => {
@@ -84,7 +85,7 @@ export const InfoTooltipComponent = (props: {
 
   return (
     <InfoTooltipContainerStyled
-      theme={props.theme}
+      theme={theme}
       onMouseEnter={handleShow}
       onMouseLeave={handleHide}
       onTouchStart={handleShow}
@@ -93,7 +94,7 @@ export const InfoTooltipComponent = (props: {
     >
       {props.icon}
       {isVisible && (
-        <InfoTooltip theme={props.theme} className="info-tooltip-hover">
+        <InfoTooltip theme={theme} className="info-tooltip-hover">
           {props.description}
         </InfoTooltip>
       )}

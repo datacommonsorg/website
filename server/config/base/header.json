@@ -73,7 +73,7 @@
         "label": "Blog"
       },
       {
-        "href": "https://docs.datacommons.org/datasets/",
+        "href": "{static.data}",
         "label": "Data Sources"
       },
       {

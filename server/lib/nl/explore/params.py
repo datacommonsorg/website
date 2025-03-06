@@ -51,6 +51,12 @@ class Params(str, Enum):
   RERANKER = 'reranker'
   # If set, then don't get related things
   SKIP_RELATED_THINGS = 'skipRelatedThings'
+  # The default place to use if no place detected in query
+  DEFAULT_PLACE = 'default_place'
+  # The maximum number of SVs to open for subtopics within a topic
+  MAX_TOPIC_SVS = 'maxTopicSvs'
+  # The maximum number of topics to process when generating a result
+  MAX_TOPICS = 'maxTopics'
 
 
 class DCNames(str, Enum):

@@ -19,7 +19,6 @@ import {
   Place,
   PlaceChartsApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import { Theme } from "@emotion/react";
 import _ from "lodash";
 
 import { intl, localizeLink } from "../i18n/i18n";
@@ -30,6 +29,8 @@ import {
 } from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { isMobileByWidth } from "../shared/util";
+import { Theme } from "../theme/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
@@ -197,10 +198,6 @@ export function createPlacePageCategoryHref(
     params.set("force_dev_places", "true");
   }
   return params.size > 0 ? `${href}?${params.toString()}` : href;
-}
-
-function isMobileByWidth(theme: Theme): boolean {
-  return window.innerWidth <= theme.breakpoints.sm;
 }
 
 /**
