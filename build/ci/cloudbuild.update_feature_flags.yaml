@@ -13,30 +13,32 @@
 # limitations under the License.
 
 steps:
-  - name: 'bash'
-    entrypoint: 'bash'
+  - id: 'get-changed-files'
+    name: 'gcr.io/cloud-builders/git'
+    entrypoint: '/bin/bash'
     args:
       - '-c'
       - |
-        modified_file="${_MODIFIED_FILE}"
-        filename=$(basename "$modified_file")
-        environment="${filename%.*}"
-        should_restart="false"
-        if [ "$environment" != "production" ]; then
-          should_restart="true"
-        fi
-        skip_staging_prompt="true"
-        ./scripts/update_gcs_feature_flags.sh "$environment" "$skip_staging_prompt" "$should_restart"
+          # List the files that match the included filter
+          MATCHED_FILES=$(git diff --name-only HEAD^ HEAD | grep -E '^server/config/feature_flag_configs/(prod|autopush|staging|dev)\.json$')
+          echo "Matched files: $MATCHED_FILES"
+          
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'update-feature-flags'
+    entrypoint: '/bin/bash'
+    waitFor: ['get_changed_files']
+    args:
+      - '-c'
+      - |
 
-options:
-  substitution_option: 'ALLOW_LOOSE'
-
-triggers:
-  - filename: 'server/config/feature_flag_configs/(autopush|dev|staging|production).json'
-    github:
-      owner: 'datacommonsorg'
-      name: 'website'
-    push:
-      branch: '^master$'
-substitutions:
-  _MODIFIED_FILE: '${TRIGGER_FILE_NAME}'
+        IFS=$'\n' read -rd '' -a files <<< "$MATCHED_FILES"
+        for modified_file in "${files[@]}"; do
+          filename=$(basename "$modified_file")
+          environment="${filename%.*}"
+          should_restart="false"
+          if [ "$environment" != "production" ]; then
+            should_restart="true"
+          fi
+          skip_staging_prompt="true"
+          ./scripts/update_gcs_feature_flags.sh "$environment" "$skip_staging_prompt" "$should_restart"
+        done
