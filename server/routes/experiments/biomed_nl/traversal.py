@@ -90,8 +90,8 @@ def get_next_hop_triples(dcids, out=True):
   result = {}
   for subject_dcid, properties in triples.items():
     result_dcid = result.setdefault(subject_dcid, {})
-    for property, value_objects in properties.items():
-      formatted_property_label = Property.format_label(property)
+    for prop, value_objects in properties.items():
+      formatted_property_label = Property.format_label(prop)
       for value_object in value_objects:
         if is_terminal(value_object):
           result_dcid.setdefault(formatted_property_label, set())
@@ -133,12 +133,12 @@ class Property:
     return 's linked by '
 
   @staticmethod
-  def format_label(property, incoming_type=''):
+  def format_label(prop, incoming_type=''):
     '''Formats a property label represting a single hop in a path.'''
     if incoming_type:
-      return f'({incoming_type + Property.incoming_token() + property})'
+      return f'({incoming_type + Property.incoming_token() + prop})'
 
-    return f'({property})'
+    return f'({prop})'
 
   @staticmethod
   def parse_label(property_label):

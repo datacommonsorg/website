@@ -19,10 +19,8 @@ from unittest.mock import patch
 from deepdiff import DeepDiff
 
 from server.routes.experiments.biomed_nl.traversal import get_next_hop_triples
-from server.routes.experiments.biomed_nl.traversal import Path
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 from server.routes.experiments.biomed_nl.traversal import PathStore
-from server.routes.experiments.biomed_nl.traversal import Property
 
 
 def fetch_triples_side_effect(dcids, out, max_pages):
