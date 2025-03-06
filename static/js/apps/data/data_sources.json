@@ -519,7 +519,32 @@
           {
             "label": "OECD Regional Demography Statistics",
             "url": "https://stats.oecd.org/Index.aspx?DataSetCode=REGION_DEMOGR#",
-            "description": "Includes regional statistics for OECD countries on population by age, population density, life expectancy and mortality by age group.\n\n[Terms of use](https://www.oecd.org/termsandconditions/)"
+            "description": "Includes regional statistics for OECD countries on population by age, population density, life expectancy and mortality by age group."
+          },
+          {
+            "label": "OECD Regional Demography Statistics Deaths",
+            "url": "https://data-explorer.oecd.org/vis?df[ds]=DisseminateFinalDMZ&df[id]=DSD_REG_DEMO%40DF_DEATH_5Y&df[ag]=OECD.CFE.EDS&df[vs]=2.0&dq=A.......&to[TIME_PERIOD]=false&pd=%2C",
+            "description": "Deaths statistics by age and sex measured by OECD."
+          },
+          {
+            "label": "OECD Regional Demography Statistics Life Expectancy",
+            "url": "https://data-explorer.oecd.org/vis?df[ds]=DisseminateFinalDMZ&df[id]=DSD_REG_DEMO%40DF_LIFE_EXP&df[ag]=OECD.CFE.EDS&df[vs]=2.0&dq=A.......&pd=%2C&to[TIME_PERIOD]=false&vw=tb",
+            "description": "Life Expectancy statistics by gender measured by OECD."
+          },
+          {
+            "label": "OECD Regional Demography Statistics Mortality",
+            "url": "https://stats.oecd.org/Index.aspx?DataSetCode=REGION_DEMOGR#",
+            "description": "Mortality statistics measured by age and gender by OECD."
+          },
+          {
+            "label": "OECD Regional Demography Statistics Population",
+            "url": "https://data-explorer.oecd.org/vis?fs[0]=Topic%2C0%7CRegional%252C%20rural%20and%20urban%20development%23GEO%23&pg=40&fc=Topic&bp=true&snb=117&df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_REG_DEMO%40DF_POP_5Y&df[ag]=OECD.CFE.EDS&df[vs]=2.0&dq=A.......&to[TIME_PERIOD]=false&vw=tb&pd=%2C",
+            "description": "Population statistics by age and sex measured by OECD."
+          },
+          {
+            "label": "OECD Regional Demography Statistics Population Density",
+            "url": "https://data-explorer.oecd.org/vis?pg=0&snb=1&tm=pop%20density&df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_REG_DEMO%40DF_DENSITY&df[ag]=OECD.CFE.EDS&df[vs]=2.0&dq=A.......&pd=%2C&to[TIME_PERIOD]=false&vw=tb",
+            "description": "Population density statistics measured by OECD.\n\n[Terms of use](https://www.oecd.org/termsandconditions/)"
           }
         ]
       },
@@ -1104,6 +1129,11 @@
             "label": "Consumer Price Index",
             "url": "https://www.bls.gov/cpi",
             "description": "U.S. consumer price index broken down by categories of consumers."
+          },
+          {
+            "label": "Current Employment Statistics (CES)",
+            "url": "https://www.bls.gov/ces",
+            "description": "Industry estimates of nonfarm employment, hours, and earnings of workers on payrolls."
           },
           {
             "label": "Job Openings and Labor Turnover Survey",
