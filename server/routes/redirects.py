@@ -69,7 +69,7 @@ def nlnext():
 
 @bp.route('/datasets')
 def datasets():
-  return redirect('https://docs.datacommons.org/datasets/', code=302)
+  return redirect(url_for('static.data'), code=301)
 
 
 @bp.route('/documentation')
