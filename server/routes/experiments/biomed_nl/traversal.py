@@ -103,7 +103,7 @@ def get_next_hop_triples(dcids, out=True):
         else:
           for value_object_type in value_object.get('types', []):
             result_dcid.setdefault(
-                Property.format_label(property, value_object_type),
+                Property.format_label(prop, value_object_type),
                 set()).add(value_object['dcid'])
 
   return result
@@ -134,7 +134,7 @@ class Property:
 
   @staticmethod
   def format_label(prop, incoming_type=''):
-    '''Formats a property label represting a single hop in a path.'''
+    '''Formats a property label representing a single hop in a path.'''
     if incoming_type:
       return f'({incoming_type + Property.incoming_token() + prop})'
 
@@ -210,7 +210,7 @@ class Path:
     Example 1:
       - Inputs: 
           path: '(ChemicalCompoundGeneticVariantAssociations linked by compoundID) (variantID)'
-          include_types: True
+      
       - Output:
         [('compoundID', 'ChemicalCompoundGeneticVariantAssociations'), ('variantID', '')]
     '''
@@ -406,17 +406,17 @@ class PathStore:
 
     merged_path_store = {}
     for start_dcid, paths in self.current_paths.items():
+      paths_from_start_dcid = merged_path_store.setdefault(start_dcid, {})
       for path, next_dcids in paths.items():
         if not next_dcids:
-          merged_path_store.setdefault(start_dcid, {})[path] = set()
+          paths_from_start_dcid[path] = set()
           continue
 
         for next_dcid in next_dcids:
           for prop, prop_vals in triples.get(next_dcid, {}).items():
             merged_path = Path.add_hop(path, prop)
-            merged_path_store.setdefault(start_dcid,
-                                         {}).setdefault(merged_path,
-                                                        set()).update(prop_vals)
+            paths_from_start_dcid.setdefault(merged_path,
+                                             set()).update(prop_vals)
 
     self.current_paths = merged_path_store
     self.sample_next_hops()
