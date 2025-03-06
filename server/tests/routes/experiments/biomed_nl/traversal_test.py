@@ -17,6 +17,7 @@ from unittest.mock import MagicMock
 from unittest.mock import patch
 
 from deepdiff import DeepDiff
+
 from server.routes.experiments.biomed_nl.traversal import get_next_hop_triples
 from server.routes.experiments.biomed_nl.traversal import Path
 from server.routes.experiments.biomed_nl.traversal import PathFinder
@@ -185,9 +186,10 @@ class TestTraversal(unittest.TestCase):
             '(propD)': {'dcid9'}
         }
     }
-    
+
     def skip_sampling():
       return
+
     path_store.sample_next_hops = skip_sampling
 
     path_store.merge_triples_into_path_store(input_triples)

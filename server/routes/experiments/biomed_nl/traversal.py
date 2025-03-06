@@ -28,9 +28,10 @@ TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
 
 DESCRIPTION_OF_DESCRIPTION_PROPERTY = (
-        'The description describes the entity by its characteristics or '
-        'attributes, providing information about that entity to help to define '
-        'and distinguish it.')
+    'The description describes the entity by its characteristics or '
+    'attributes, providing information about that entity to help to define '
+    'and distinguish it.')
+
 
 def is_terminal(node):
   '''Determines if a node value should be skipped during graph traversal.
@@ -120,6 +121,7 @@ class Property:
     - Outgoing: (property_id)  e.g., (drugGenericName)
     - Incoming: (node_type + incoming_token + property_id) e.g., (ChemicalCompoundGeneticVariantAssociations linked by compoundID)
   '''
+
   @staticmethod
   def is_incoming(property_label):
     '''Checks if a property label represents an incoming link.'''
@@ -156,7 +158,7 @@ class Property:
     if Property.is_incoming(property_label):
       split_label = prop.split(Property.incoming_token())
       return split_label[1], split_label[0]
-    
+
     return prop, ''
 
 
@@ -173,6 +175,7 @@ class Path:
     Example Path String:
         '(prop1) (type1s linked by prop2) (prop3)'
     '''
+
   @staticmethod
   def parse_properties(path):
     '''Parses a path string into a list of individual property labels.
@@ -188,7 +191,7 @@ class Path:
         ['compoundID', 'variantID']
 
     '''
-    
+
     property_list = []
     for property_label in path.split(') ('):
       # parse_label removes extra parentheses
@@ -211,13 +214,12 @@ class Path:
       - Output:
         [('compoundID', 'ChemicalCompoundGeneticVariantAssociations'), ('variantID', '')]
     '''
-    
+
     property_and_type_list = []
     for property_label in path.split(') ('):
       prop, node_type = Property.parse_label(property_label)
       property_and_type_list.append((prop, node_type))
     return property_and_type_list
-
 
   @staticmethod
   def add_hop(path, formatted_property_label):
@@ -259,6 +261,7 @@ class PathStore:
             retain for each path during the `sample_next_hops` operation.
             Defaults to `MIN_SAMPLE_SIZE`.
     '''
+
   def __init__(self, min_sample_size=MIN_SAMPLE_SIZE):
     self.current_paths = {}
     self.selected_paths = {}
@@ -319,11 +322,12 @@ class PathStore:
     for path_str in selected_path_strs:
       start_dcid = re.findall('path\d+: (.*?) \(', path_str)[0]
       property_path = path_str.split(start_dcid)[1].strip()
-      next_dcids = self.current_paths.get(start_dcid, {}).get(property_path, set())
+      next_dcids = self.current_paths.get(start_dcid,
+                                          {}).get(property_path, set())
       selected_path_store.setdefault(start_dcid,
                                      {}).setdefault(property_path,
                                                     set()).update(next_dcids)
-    
+
     self.selected_paths = selected_path_store
 
   def get_start_dcids(self):
@@ -338,11 +342,12 @@ class PathStore:
         next_dcids.update(dcids)
     return list(next_dcids)
 
-
   def get_paths_from_start(self):
     '''Returns a dictionary mapping start DCIDs to lists of the paths
     originating from them.'''
-    return {dcid: list(props.keys()) for dcid, props in self.current_paths.items()}
+    return {
+        dcid: list(props.keys()) for dcid, props in self.current_paths.items()
+    }
 
   def merge_triples_into_path_store(self, triples):
     '''Merges new triples into the existing path store by extending the paths.
@@ -416,7 +421,6 @@ class PathStore:
     self.current_paths = merged_path_store
     self.sample_next_hops()
 
-
   def sample_next_hops(self):
     """Reduces the set of next_dcids for each path down to the minimum set that
     spans all unique next_hop possibilities.
@@ -446,7 +450,7 @@ class PathStore:
       for path, next_dcids in paths.items():
 
         sample_path_store[start_dcid][path] = set()
-        
+
         unique_next_props_for_path = set()
         for dcid in next_dcids:
           unique_next_props_for_path.update(dcid_to_all_props.get(dcid, []))
@@ -454,7 +458,7 @@ class PathStore:
         sample_dcids = set()
         skipped_dcids = []
 
-        for dcid in sorted(next_dcids): 
+        for dcid in sorted(next_dcids):
           props = dcid_to_all_props.get(dcid, [])
           if not unique_next_props_for_path:
             if len(sample_dcids) >= self.min_next_dcid_sample_size:
@@ -486,11 +490,13 @@ class PathStore:
       for path in paths:
         all_property_dcids.update(Path.parse_properties(path))
 
-    property_dcids_to_fetch = all_property_dcids.difference(self.property_descriptions.keys())
+    property_dcids_to_fetch = all_property_dcids.difference(
+        self.property_descriptions.keys())
     if not property_dcids_to_fetch:
       return self.property_descriptions
-    
-    descriptions = fetch.property_values(list(property_dcids_to_fetch), 'description')
+
+    descriptions = fetch.property_values(list(property_dcids_to_fetch),
+                                         'description')
 
     for prop in property_dcids_to_fetch:
       if not descriptions.get(prop, []):
@@ -516,8 +522,7 @@ class PathStore:
     for start_dcid, paths in self.current_paths.items():
       for path in paths:
         path_properties = Path.parse_properties(path)
-        if any(prop in path_properties
-                for prop in selected_properties):
+        if any(prop in path_properties for prop in selected_properties):
           # If the path contains any of the selected_properties, then keep it.
           filtered_path_store.setdefault(start_dcid, {})[path] = paths[path]
 
@@ -567,6 +572,7 @@ class PathFinder:
             model for generating embeddings.
         gemini_model_str (str, optional): Name of the Gemini model to use.
     '''
+
   def __init__(self, query, start_entity_name, start_entity_dcids):
     # Set params
     self.query = query
