@@ -20,15 +20,16 @@
 import { SetStateAction } from "react";
 import { defineMessages } from "react-intl";
 
-const TYPING_SPEED = 40; // milliseconds per character
-const TYPING_SPEED_DELETE = 20; // milliseconds per character
+const TYPING_SPEED = 50; // milliseconds per character
+const TYPING_SPEED_DELETE = 30; // milliseconds per character
 const DISPLAY_DURATION_DELAY = 3000;
 const MAX_SAMPLE_QUESTION_CYCLE = 5;
+const MAX_SAMPLE_COUNTRY_CYCLE = 5;
 
 export const placeholderMessages = defineMessages({
-  trySearchingPlaceholder: {
-    id: "try_searching_placeholder",
-    defaultMessage: 'Try searching "{sampleQuestion}"',
+  exploreDataPlaceholder: {
+    id: "explore_data_on",
+    defaultMessage: 'Explore data on... "{sampleQuestion}"',
     description:
       "Used for the dynamic placeholders in the search bar, gives an example of a query to type.",
   },
@@ -47,7 +48,7 @@ export const enableDynamicPlacehoder = (
     Math.random() * sampleQuestions.length
   );
 
-  // Add a 5-second delay before starting the cycle
+  // Add a 0.5-second delay before starting the cycle
   const timerId = setTimeout(() => {
     setDynamicPlaceholdersEnabled(true);
     cycleSampleQuestions(
@@ -57,19 +58,36 @@ export const enableDynamicPlacehoder = (
       setSampleQuestionText,
       setDynamicPlaceholdersEnabled
     );
-  }, 5000);
+  }, 800);
 
   (): void => clearTimeout(timerId);
 };
 
 export const loadSampleQuestions = (): string[] => {
   const metadataContainer = document.getElementById("metadata-base");
-  const sampleQuestions = metadataContainer?.dataset?.sampleQuestions
+  let sampleQuestions = metadataContainer?.dataset?.sampleQuestions
     ? JSON.parse(metadataContainer.dataset.sampleQuestions).flatMap(
         (category) => category.questions
       ) ?? []
     : [];
-  return sampleQuestions;
+  const countries = [
+    "United States",
+    "France",
+    "Australia",
+    "Thailand",
+    "Morocco",
+    "South Africa",
+    "Chile",
+    "Bolivia",
+    "India",
+    "Malaysia",
+  ];
+  sampleQuestions.sort(() => Math.random() - 0.5);
+  countries.sort(() => Math.random() - 0.5);
+  sampleQuestions = sampleQuestions
+    .slice(0, MAX_SAMPLE_QUESTION_CYCLE)
+    .concat(countries.slice(0, MAX_SAMPLE_COUNTRY_CYCLE));
+  return sampleQuestions.sort(() => Math.random() - 0.5);
 };
 
 /* Start typing the sample questions through the Input's placeholder attribute while inactive. */
@@ -80,7 +98,7 @@ export const cycleSampleQuestions = (
   setSampleQuestionText: (arg0: SetStateAction<string>) => void,
   setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
 ): void => {
-  if (questionCount >= MAX_SAMPLE_QUESTION_CYCLE) {
+  if (questionCount == sampleQuestions.length) {
     setSampleQuestionText("");
     setDynamicPlaceholdersEnabled(false);
     return;
@@ -89,7 +107,7 @@ export const cycleSampleQuestions = (
   const currentQuestion = sampleQuestions[index];
   let charIndex = 0;
 
-  const typeNextChar = () => {
+  const typeNextChar = (): void => {
     if (charIndex <= currentQuestion.length) {
       setSampleQuestionText(currentQuestion.substring(0, charIndex++));
       setTimeout(typeNextChar, TYPING_SPEED);
