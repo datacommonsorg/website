@@ -163,7 +163,7 @@ class TestTraversal(unittest.TestCase):
 
   def test_merge_triples(self):
     path_store = PathStore()
-    path_store.path_store = {
+    path_store.current_paths = {
         'dcid1': {
             '(prop1) (prop2)': {'dcid3'},
             '(prop3)': {'dcid4'}
@@ -185,6 +185,10 @@ class TestTraversal(unittest.TestCase):
             '(propD)': {'dcid9'}
         }
     }
+    
+    def skip_sampling():
+      return
+    path_store.sample_next_hops = skip_sampling
 
     path_store.merge_triples_into_path_store(input_triples)
 
@@ -198,7 +202,7 @@ class TestTraversal(unittest.TestCase):
             '(prop4) (prop5) (propD)': {'dcid9'}
         }
     }
-    assert DeepDiff(path_store.path_store,
+    assert DeepDiff(path_store.current_paths,
                     expected_path_store,
                     ignore_order=True) == {}
 
@@ -206,7 +210,7 @@ class TestTraversal(unittest.TestCase):
   def test_traversal_without_sampling(self, mock_fetch):
     mock_fetch.side_effect = fetch_triples_side_effect
 
-    def null_sample(_):
+    def null_sample():
       return
 
     path_finder = PathFinder('', '', ['gene1', 'disease1'])
@@ -234,7 +238,7 @@ class TestTraversal(unittest.TestCase):
                 set()
         }
     }
-    assert DeepDiff(path_finder.path_store.path_store,
+    assert DeepDiff(path_finder.path_store.current_paths,
                     expected_path_store,
                     ignore_order=True) == {}
 
@@ -262,7 +266,7 @@ class TestTraversal(unittest.TestCase):
 
     mock_fetch_properties.side_effect = fetch_properties_response
 
-    path_store = PathStore()
+    path_store = PathStore(min_sample_size=2)
     initial_path_store = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
@@ -273,8 +277,8 @@ class TestTraversal(unittest.TestCase):
             '(propC)': {'dcid1'}
         }
     }
-    path_store.path_store = initial_path_store
-    path_store.sample_next_hops(2)
+    path_store.current_paths = initial_path_store
+    path_store.sample_next_hops()
     expected_store_sample_min_2 = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid3'},
@@ -285,12 +289,13 @@ class TestTraversal(unittest.TestCase):
             '(propC)': {'dcid1'}
         }
     }
-    assert DeepDiff(path_store.path_store,
+    assert DeepDiff(path_store.current_paths,
                     expected_store_sample_min_2,
                     ignore_order=True) == {}
 
-    path_store.path_store = initial_path_store
-    path_store.sample_next_hops(3)
+    path_store = PathStore(min_sample_size=3)
+    path_store.current_paths = initial_path_store
+    path_store.sample_next_hops()
     expected_store_sample_min_3 = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
@@ -301,7 +306,7 @@ class TestTraversal(unittest.TestCase):
             '(propC)': {'dcid1'}
         }
     }
-    assert DeepDiff(path_store.path_store,
+    assert DeepDiff(path_store.current_paths,
                     expected_store_sample_min_3,
                     ignore_order=True) == {}
 
@@ -324,7 +329,7 @@ class TestTraversal(unittest.TestCase):
     mock_description_values.side_effect = description_values_response
 
     path_finder = PathFinder('query', '', [])
-    path_finder.path_store.path_store = {
+    path_finder.path_store.current_paths = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
             '(propC)': {'dcid1'},
@@ -398,7 +403,7 @@ class TestTraversal(unittest.TestCase):
             '(propB)': {'dcid6', 'dcid7'},
         }
     }
-    assert DeepDiff(path_finder.path_store.path_store,
+    assert DeepDiff(path_finder.path_store.current_paths,
                     filtered_path_store,
                     ignore_order=True) == {}
     assert DeepDiff(path_finder.path_store.property_descriptions,
@@ -416,7 +421,7 @@ class TestTraversal(unittest.TestCase):
 
     path_finder = PathFinder('', '', [])
     path_finder.gemini = mock_client_instance
-    path_finder.path_store.path_store = {
+    path_finder.path_store.current_paths = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
             '(propC)': {'dcid1'},
@@ -445,9 +450,9 @@ class TestTraversal(unittest.TestCase):
             'and distinguish it.')
     }
 
-    should_terminate = path_finder.select_paths()
+    should_terminate = path_finder.is_traversal_complete()
     assert should_terminate == True
-    assert path_finder.selected_paths.path_store == {}
+    assert path_finder.path_store.selected_paths == {}
     assert path_finder.input_tokens == 10
     assert path_finder.output_tokens == 100
 
@@ -467,7 +472,7 @@ class TestTraversal(unittest.TestCase):
 
     path_finder = PathFinder('', '', [])
     path_finder.gemini = mock_client_instance
-    path_finder.path_store.path_store = {
+    path_finder.path_store.current_paths = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
             '(propC)': {'dcid1'},
@@ -496,9 +501,9 @@ class TestTraversal(unittest.TestCase):
             'and distinguish it.')
     }
 
-    should_terminate = path_finder.select_paths()
+    should_terminate = path_finder.is_traversal_complete()
     assert should_terminate == False
-    assert path_finder.selected_paths.path_store == {
+    assert path_finder.path_store.selected_paths == {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
         },
@@ -525,7 +530,7 @@ class TestTraversal(unittest.TestCase):
 
     path_finder = PathFinder('', '', [])
     path_finder.gemini = mock_client_instance
-    path_finder.path_store.path_store = {
+    path_finder.path_store.current_paths = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
             '(propC)': {'dcid1'},
@@ -554,9 +559,9 @@ class TestTraversal(unittest.TestCase):
             'and distinguish it.')
     }
 
-    should_terminate = path_finder.select_paths()
+    should_terminate = path_finder.is_traversal_complete()
     assert should_terminate == True
-    assert path_finder.selected_paths.path_store == {
+    assert path_finder.path_store.selected_paths == {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
         },
