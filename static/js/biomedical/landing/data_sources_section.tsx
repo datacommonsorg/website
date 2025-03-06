@@ -46,7 +46,7 @@ export function DataSourcesSection(): JSX.Element {
           <p>
             The Biomedical Data Commons is a comprehensive repository that
             integrates data from over{" "}
-            <UnderlinedLink href="https://docs.datacommons.org/datasets/Biomedical.html">
+            <UnderlinedLink href="https://datacommons.org/data/biomedical">
               18 different trusted sources
             </UnderlinedLink>{" "}
             like NIH NCBI and EMBL-EBI. Including commonly used open-source

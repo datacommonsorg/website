@@ -48,7 +48,7 @@ export const StayInTouch = ({ routes }: StayInTouchProps): ReactElement => {
         <h3>See Also</h3>
         <ul>
           <li>
-            <a href="https://docs.datacommons.org/datasets/">Data Sources</a>
+            <a href={routes["static.data"]}>Data Sources</a>
           </li>
           <li>
             <a href={routes["static.faq"]}>Frequently Asked Questions</a>
