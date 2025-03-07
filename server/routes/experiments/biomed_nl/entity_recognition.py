@@ -116,9 +116,7 @@ def recognize_entities_from_query(query):
         entity spans (strings) and values are lists of associated types
         (strings).
   """
-  print(query)
   recognize_response = dc.recognize_entities(query)
-  print(recognize_response)
   entities_to_dcids = {}
   entities_to_recognized_types = {}
   for item in recognize_response:
@@ -190,7 +188,6 @@ def get_traversal_start_entities(query, gemini_client):
   query = sanitize_query(query)
   entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
       query)
-  print(entities_to_dcids, entities_to_recognized_types)
 
   prompt = utils.ENTITY_RANK_PROMPT.format(QUERY=query,
                                            ENTS=entities_to_recognized_types)
@@ -199,7 +196,6 @@ def get_traversal_start_entities(query, gemini_client):
                                                    contents=prompt)
   response_token_counts = utils.get_gemini_response_token_counts(response)
   response_text = response.text
-  print(response_text)
 
   if response_text.startswith('NONE'):
     return {}, [], '', response_token_counts

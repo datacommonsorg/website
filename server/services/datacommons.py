@@ -505,7 +505,7 @@ def recognize_places(query):
 def recognize_entities(query):
   url = get_service_url('/v1/recognize/entities')
   resp = post(url, {'queries': [query]})
-  return resp.get('queryItems', {}).get(query, {}).get('items', [])
+  return resp.get('queryItems', {}).get(query.lower(), {}).get('items', [])
 
 
 def find_entities(places):

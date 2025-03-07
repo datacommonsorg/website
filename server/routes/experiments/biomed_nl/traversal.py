@@ -22,10 +22,13 @@ from sentence_transformers import util
 
 import server.lib.fetch as fetch
 import server.routes.experiments.biomed_nl.utils as utils
+import server.services.datacommons as dc
+from markupsafe import escape
 
 MIN_SAMPLE_SIZE = 3
 TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
+EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
 
 DESCRIPTION_OF_DESCRIPTION_PROPERTY = (
     'The description describes the entity by its characteristics or '
@@ -587,8 +590,6 @@ class PathFinder:
         output_tokens (int): Tracks the cumulative number of output tokens used
             in Gemini API calls.
         gemini: A Gemini client object.
-        embeddings_model (SentenceTransformer, optional):  A SentenceTransformer
-            model for generating embeddings.
         gemini_model_str (str, optional): Name of the Gemini model to use.
     '''
 
@@ -606,7 +607,6 @@ class PathFinder:
     self.input_tokens = 0
     self.output_tokens = 0
     self.gemini = gemini_client
-    self.embeddings_model = SentenceTransformer('all-MiniLM-L6-v2')
     self.gemini_model_str = gemini_model_str
 
   def traverse_n_hops(self, start_dcids, n):
@@ -633,7 +633,7 @@ class PathFinder:
       self.path_store.merge_triples_into_path_store(triples)
       dcids = self.path_store.get_next_dcids()
 
-  def filter_paths_with_embeddings_model(self, pct=0.1):
+  def filter_paths_with_embeddings(self, pct=0.1):
     '''Filters paths based on cosine similarity between property descriptions 
     and the query.
 
@@ -649,25 +649,23 @@ class PathFinder:
     # TODO: add a description to description in DC KG.
     property_descriptions['description'] = DESCRIPTION_OF_DESCRIPTION_PROPERTY
 
-    prop_embeds = {
-        prop:
-            self.embeddings_model.encode(property_descriptions[prop],
-                                         convert_to_tensor=True)
-        for prop in property_descriptions
-    }
-    query_embed = self.embeddings_model.encode(self.query,
-                                               convert_to_tensor=True)
+    embeddings = dc.nl_encode(
+        EMBEDDINGS_MODEL,
+        list(property_descriptions.values()) + [self.query])
 
-    properties_to_similarity_score = {
-        prop: util.cos_sim(query_embed, prop_embed).item()
-        for prop, prop_embed in prop_embeds.items()
-    }
-    num_top_properties = math.ceil(len(properties_to_similarity_score) * pct)
+    query_embed = embeddings[self.query]
+    property_similarity_scores = {}
+    for prop, description in property_descriptions.items():
+      sanitized_description = str(escape(description))
+      cosine_similarity = util.cos_sim(
+          query_embed, embeddings[sanitized_description]).item()
+      property_similarity_scores[prop] = cosine_similarity
+
+    num_top_properties = math.ceil(len(property_similarity_scores) * pct)
     top_props = [
-        property[0]
-        for property in sorted(properties_to_similarity_score.items(),
-                               key=lambda item: item[1],
-                               reverse=True)[:num_top_properties]
+        property[0] for property in sorted(property_similarity_scores.items(),
+                                           key=lambda item: item[1],
+                                           reverse=True)[:num_top_properties]
     ]
 
     self.path_store.filter_by_properties(top_props)
@@ -727,7 +725,7 @@ class PathFinder:
     '''
 
     self.traverse_n_hops(self.start_dcids, 3)
-    top_props = self.filter_paths_with_embeddings_model()
+    top_props = self.filter_paths_with_embeddings()
     should_terminate = self.is_traversal_complete()
 
     if should_terminate:
@@ -735,7 +733,7 @@ class PathFinder:
     self.path_store.current_paths = self.path_store.selected_paths
 
     self.traverse_n_hops(self.path_store.get_next_dcids(), 3)
-    top_props = top_props.extend(self.filter_paths_with_embeddings_model())
+    top_props = top_props.extend(self.filter_paths_with_embeddings())
     should_terminate = self.is_traversal_complete()
 
     if not should_terminate:

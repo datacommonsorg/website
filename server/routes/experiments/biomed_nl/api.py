@@ -27,6 +27,7 @@ from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
 
 GEMINI_PRO = 'gemini-1.5-pro'
+GEMINI_PRO_TOKEN_LIMIT = 2000000  # Real limit is 2,097,152; adding some buffer
 
 # Define blueprint
 bp = flask.Blueprint('biomed_nl_api',
@@ -35,6 +36,7 @@ bp = flask.Blueprint('biomed_nl_api',
 
 
 def _fulfill_traversal_query(query):
+
   gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
   gemini_client = genai.Client(
       api_key=gemini_api_key,
@@ -55,20 +57,28 @@ def _fulfill_traversal_query(query):
                            start_dcids,
                            gemini_client,
                            gemini_model_str=GEMINI_PRO)
+
   path_finder.find_paths()
   # TODO: Add error handling before constructing cache.
-  print(path_finder.path_store.selected_paths)
+
   cache = path_finder.build_traversal_cache()
   # TODO: add error handling.
 
   final_prompt = utils.FINAL_PROMPT.format(sentence=query,
                                            json_str=utils.format_dict(cache))
-  response = gemini_client.models.generate_content(model=GEMINI_PRO,
-                                                   contents=final_prompt)
+
+  input_tokens = gemini_client.models.count_tokens(
+      contents=final_prompt, model=GEMINI_PRO).total_tokens
+  if input_tokens < GEMINI_PRO_TOKEN_LIMIT:
+    response = gemini_client.models.generate_content(model=GEMINI_PRO,
+                                                     contents=final_prompt)
+  else:
+    # Todo add log message
+    pass
 
   return {
       'response': response.text,
-      'selected_path': utils.format_dict(path_finder.path_store.selected_paths)
+      'selected_path': utils.format_dict(path_finder.path_store.selected_paths),
   }
 
 
