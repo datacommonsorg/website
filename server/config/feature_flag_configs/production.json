@@ -7,7 +7,7 @@
   },
   {
     "name": "dev_place_experiment",
-    "enabled": true,
+    "enabled": false,
     "owner": "gmechali",
     "description": "Feature flag to enable the V2 place page only for the experiment places."
   },
