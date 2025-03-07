@@ -57,7 +57,7 @@ def _fulfill_traversal_query(query):
                            gemini_model_str=GEMINI_PRO)
   path_finder.find_paths()
   # TODO: Add error handling before constructing cache.
-  print(path_finder.selected_paths.path_store)
+  print(path_finder.path_store.selected_paths)
   cache = path_finder.build_traversal_cache()
   # TODO: add error handling.
 
@@ -68,7 +68,7 @@ def _fulfill_traversal_query(query):
 
   return {
       'response': response.text,
-      'selected_path': path_finder.selected_paths.path_store
+      'selected_path': path_finder.path_store.selected_paths
   }
 
 
