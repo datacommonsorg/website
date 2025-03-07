@@ -62,13 +62,13 @@ def _fulfill_traversal_query(query):
   # TODO: add error handling.
 
   final_prompt = utils.FINAL_PROMPT.format(sentence=query,
-                                           json_str=json.dumps(cache, indent=3))
+                                           json_str=utils.format_dict(cache))
   response = gemini_client.models.generate_content(model=GEMINI_PRO,
                                                    contents=final_prompt)
 
   return {
       'response': response.text,
-      'selected_path': path_finder.path_store.selected_paths
+      'selected_path': utils.format_dict(path_finder.path_store.selected_paths)
   }
 
 

@@ -336,7 +336,7 @@ class PathStore:
 
     selected_path_store = {}
     for path_str in selected_path_strs:
-      start_dcid = re.findall('path\d+: (.*?) \(', path_str)[0]
+      start_dcid = re.findall(r'path\d+: (.*?) \(', path_str)[0]
       property_path = path_str.split(start_dcid)[1].strip()
       next_dcids = self.current_paths.get(start_dcid,
                                           {}).get(property_path, set())
