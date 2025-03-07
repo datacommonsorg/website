@@ -663,7 +663,7 @@ class TestTraversal(unittest.TestCase):
 
     mock_triples.side_effect = triples_response
     path_finder = PathFinder('', '', [])
-    path_finder.selected_paths.path_store = {
+    path_finder.path_store.selected_paths = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2'},
         },

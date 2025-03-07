@@ -358,12 +358,15 @@ class PathStore:
         next_dcids.update(dcids)
     return list(next_dcids)
 
-  def get_paths_from_start(self):
+  def get_paths_from_start(self, only_selected_paths=False):
     '''Returns a dictionary mapping start DCIDs to lists of the paths
     originating from them.'''
-    return {
-        dcid: list(props.keys()) for dcid, props in self.current_paths.items()
-    }
+
+    paths = self.current_paths
+    if only_selected_paths:
+      paths = self.selected_paths
+
+    return {dcid: list(props.keys()) for dcid, props in paths.items()}
 
   def merge_triples_into_path_store(self, triples):
     '''Merges new triples into the existing path store by extending the paths.
@@ -744,25 +747,25 @@ class PathFinder:
   def build_traversal_cache(self):
     cache = {}
 
-    for start_dcid, paths in self.selected_paths.get_paths_from_start().items():
+    for start_dcid, paths in self.path_store.get_paths_from_start(
+        only_selected_paths=True).items():
       for path in paths:
 
         dcids = [start_dcid]
         if start_dcid not in cache:
           cache.update(get_all_triples(dcids))
 
-        for prop in Path.parse(path):
+        for prop, incoming_node_type in Path.parse_property_and_type(path):
 
           next_dcids = set()
           for dcid in dcids:
 
-            if isinstance(prop, tuple):
-              node_type = prop[1]
-              prop = prop[0]
+            if incoming_node_type:
               incoming_dcids = [
                   node['dcid']
                   for node in cache[dcid]['incoming'].get(prop, [])
-                  if not is_terminal(node) and node_type in node['types']
+                  if not is_terminal(node) and
+                  incoming_node_type in node['types']
               ]
               next_dcids.update(incoming_dcids)
             else:
