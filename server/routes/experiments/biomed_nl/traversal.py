@@ -17,13 +17,13 @@ from collections import defaultdict
 import math
 import re
 
+from markupsafe import escape
 from sentence_transformers import SentenceTransformer
 from sentence_transformers import util
 
 import server.lib.fetch as fetch
 import server.routes.experiments.biomed_nl.utils as utils
 import server.services.datacommons as dc
-from markupsafe import escape
 
 MIN_SAMPLE_SIZE = 3
 TERMINAL_NODE_TYPES = ['Class', 'Provenance']
@@ -121,11 +121,6 @@ def get_all_triples(dcids):
               fetch.triples(dcids, out=False, max_pages=None).get(dcid, {})
       } for dcid in dcids
   }
-
-
-def get_property_descriptions(cache):
-  # TODO DO_NOT_SUBMIT
-  pass
 
 
 class Property:
@@ -779,5 +774,8 @@ class PathFinder:
           if fetch_dcids:
             cache.update(get_all_triples(fetch_dcids))
           dcids = list(next_dcids)
+
+    # TODO: fetch *all* property descriptions, instead of the just path store's
+    cache['property_descriptions'] = self.path_store.get_property_descriptions()
 
     return cache

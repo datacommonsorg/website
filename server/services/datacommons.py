@@ -28,7 +28,7 @@ from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
 
-MAX_SIZE_V2NODE_REQUEST = 7000
+MAX_SIZE_V2NODE_REQUEST = 5000
 
 cfg = libconfig.get_config()
 

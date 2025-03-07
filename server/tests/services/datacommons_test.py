@@ -17,7 +17,8 @@ import os
 import unittest
 from unittest import mock
 
-from server.services.datacommons import v2node_paginated, v2node
+from server.services.datacommons import v2node
+from server.services.datacommons import v2node_paginated
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DATA_DIR = os.path.join(MODULE_DIR, "..", "test_data", "datacommons")

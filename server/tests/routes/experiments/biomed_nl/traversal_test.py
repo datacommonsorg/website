@@ -19,6 +19,8 @@ from unittest.mock import patch
 
 from deepdiff import DeepDiff
 
+from server.routes.experiments.biomed_nl.traversal import \
+    DESCRIPTION_OF_DESCRIPTION_PROPERTY
 from server.routes.experiments.biomed_nl.traversal import get_next_hop_triples
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 from server.routes.experiments.biomed_nl.traversal import PathStore
@@ -312,7 +314,8 @@ class TestTraversal(unittest.TestCase):
                     ignore_order=True) == {}
 
   @patch('server.lib.fetch.property_values')
-  def test_filter_paths(self, mock_description_values):
+  @patch('server.services.datacommons.nl_encode')
+  def test_filter_paths(self, mock_embeddings, mock_description_values):
 
     def description_values_response(nodes, prop, out=True, constraints=''):
       assert prop == 'description'
@@ -343,8 +346,8 @@ class TestTraversal(unittest.TestCase):
         }
     }
 
-    def encode_response(text, convert_to_tensor):
-      assert convert_to_tensor == True
+    def encode_response(model, queries):
+      assert model != ''
       embeddings_ordered_by_query_similarity = [
           [0.2, 0.8, 0.1, 0.5],
           [0.1, 0.1, 0.1, 0.9],
@@ -364,10 +367,11 @@ class TestTraversal(unittest.TestCase):
           'propE':
               embeddings_ordered_by_query_similarity[1],
           'query': [0.15, 0.45, 0.1, 0.7],
+          DESCRIPTION_OF_DESCRIPTION_PROPERTY: [0.0] * 4
       }
-      if 'The description describes' in text:
-        return [0.0] * 4
-      return embeddings[text]
+      assert all(query in embeddings for query in queries)
+
+      return embeddings
 
     descriptions = {
         'propA':
@@ -386,11 +390,9 @@ class TestTraversal(unittest.TestCase):
             'and distinguish it.')
     }
 
-    embeddings_mock = MagicMock()
-    embeddings_mock.encode.side_effect = encode_response
-    path_finder.embeddings_model = embeddings_mock
+    mock_embeddings.side_effect = encode_response
 
-    props = path_finder.filter_paths_with_embeddings_model(
+    props = path_finder.filter_paths_with_embeddings(
         pct=0.3)  # Rounds up to top 2 props
 
     assert set(props) == {'propB', 'propE'}
@@ -761,5 +763,6 @@ class TestTraversal(unittest.TestCase):
             },
             'incoming': {}
         },
+        'property_descriptions': {}
     }
     assert DeepDiff(expected_cache, cache, ignore_order=True) == {}
