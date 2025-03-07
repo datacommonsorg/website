@@ -126,8 +126,9 @@ def get_ordered_by_place_type_to_highlight(places: List[Place]) -> List[Place]:
   }
 
   # Sort the places_to_include list using the type_order dictionary
-  places_to_include.sort(
-      key=lambda place: min(type_order.get(t) for t in place.types))
+  places_to_include.sort(key=lambda place: min(
+      type_order.get(t) for t in place.types if t in
+      PARENT_PLACE_TYPES_TO_HIGHLIGHT))
 
   return places_to_include
 
