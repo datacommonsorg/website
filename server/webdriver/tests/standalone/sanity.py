@@ -49,7 +49,6 @@ flags.DEFINE_string(
 flags.DEFINE_string("url", None, "URL to start testing from.", required=True)
 
 _TEST_PARAM = "test=sanity"
-_DOCSITE_URL = "https://docs.datacommons.org"
 
 
 def url_with_test_param(url: str):
