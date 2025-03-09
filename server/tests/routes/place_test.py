@@ -14,10 +14,10 @@
 
 import unittest
 from unittest.mock import patch
-from server.tests.utils import mock_feature_flags
 
 from flask import request
 
+from server.tests.utils import mock_feature_flags
 from web_app import app
 
 
@@ -252,7 +252,6 @@ class TestPlacePageHeaders(unittest.TestCase):
     mock_get_place_type_i18n_name.return_value = 'State'
     mock_get_i18n_name.return_value = {'geoId/06': 'California'}
     mock_api_place_type.return_value = 'State'
-
 
     # Test available languages listed as alternates for main page
     response = app.test_client().get('/place/geoId/06', follow_redirects=False)

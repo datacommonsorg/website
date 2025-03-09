@@ -15,7 +15,8 @@
 
 from typing import List
 
+
 def mock_feature_flags(app, flags: List[str], enabled: bool):
-    """Mocks the feature flags"""
-    for flag in flags:
-        app.config["FEATURE_FLAGS"][flag] = enabled
+  """Mocks the feature flags"""
+  for flag in flags:
+    app.config["FEATURE_FLAGS"][flag] = enabled

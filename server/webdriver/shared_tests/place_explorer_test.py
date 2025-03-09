@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.webdriver.base_utils import find_elem
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
+from server.webdriver.base_utils import find_elem
 
 MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
