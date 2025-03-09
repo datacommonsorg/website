@@ -199,9 +199,9 @@ the total worth of all the stocks in a company or market in sweden,Amount_Stock,
 the percentage of the us gdp that is represented by stock value in chile,Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,country/CHL,,,*,0,0
 the proportion of the us economy that is made up of stock value in chile,Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,country/CHL,,,*,0,0
 the amount of stock value in the us economy relative to the total size of the economy in chile,Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,country/CHL,,,*,6,3
-corn grown for grain in new jersey,Amout_FarmInventory_CornForGrain,geoId/34,,,,1,1
-grain corn in new jersey,Amout_FarmInventory_CornForGrain,geoId/34,,,,3,2
-corn for human consumption in new jersey,Amout_FarmInventory_CornForGrain,geoId/34,,,,0,0
+corn grown for grain in new jersey,Amount_FarmInventory_CornForGrain,geoId/34,,,,1,1
+grain corn in new jersey,Amount_FarmInventory_CornForGrain,geoId/34,,,,3,2
+corn for human consumption in new jersey,Amount_FarmInventory_CornForGrain,geoId/34,,,,0,0
 aviation gasoline inventories in guyana,AnnualChange_Stocks_Fuel_AviationGasoline,country/GUY,,,,0,0
 the amount of aviation gasoline on hand in guyana,AnnualChange_Stocks_Fuel_AviationGasoline,country/GUY,,,,0,0
 the level of aviation gasoline reserves in guyana,AnnualChange_Stocks_Fuel_AviationGasoline,country/GUY,,,,0,0

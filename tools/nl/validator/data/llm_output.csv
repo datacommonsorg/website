@@ -67,7 +67,7 @@ Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDom
 Amount_Remittance_OutwardRemittance,Total Amount of Outward Remittances,The total amount of money that is remitted from the United States to other countries
 Amount_Stock,Total Stock Value,The total value of all the stocks in a company or market;The sum of the market values of all the stocks in a company or market;The total worth of all the stocks in a company or market
 Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,Stock Value as a Percentage of Nominal Gross Domestic Production (GDP),The percentage of the US GDP that is represented by stock value;The proportion of the US economy that is made up of stock value;The amount of stock value in the US economy relative to the total size of the economy
-Amout_FarmInventory_CornForGrain,Amount of Corn for Grain Grown,Corn grown for grain;Grain corn;Corn for human consumption
+Amount_FarmInventory_CornForGrain,Amount of Corn for Grain Grown,Corn grown for grain;Grain corn;Corn for human consumption
 AnnualChange_Stocks_Fuel_AviationGasoline,Stocks of Aviation Gasoline,Aviation gasoline inventories;The amount of aviation gasoline on hand;The level of aviation gasoline reserves
 AnnualChange_Stocks_Fuel_BituminousCoal,Stocks of Bituminous Coal,Bituminous coal reserves;Bituminous coal supplies;Bituminous coal holdings
 AnnualChange_Stocks_Fuel_BrownCoal,Annual Brown Coal Stocks Change,The change in brown coal stocks from one year to the next;The difference between the amount of brown coal in stock at the end of one year and the amount in stock at the beginning of the next year;The increase or decrease in brown coal stocks over a period of one year
