@@ -17,6 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
+from server.webdriver.base_utils import find_elem
 
 MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
@@ -42,7 +43,7 @@ class PlaceExplorerTestMixin():
     place_type_text = "Country in North America"
 
     # Load USA page.
-    self.driver.get(self.url_ + USA_URL)
+    self.driver.get(self.url_ + USA_URL + '?disable_dev_places=true')
 
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
@@ -74,7 +75,7 @@ class PlaceExplorerTestMixin():
     title_text = "Mountain View - Place Explorer - " + self.dc_title_string
 
     # Load Mountain View Page.
-    self.driver.get(self.url_ + MTV_URL)
+    self.driver.get(self.url_ + MTV_URL + '?disable_dev_places=true')
 
     # Wait until the page loads and the title is correct.
     WebDriverWait(self.driver,
@@ -120,7 +121,7 @@ class PlaceExplorerTestMixin():
     """Test the demographics link can work correctly."""
     title_text = "Median age by gender: states near California"
     # Load California page.
-    self.driver.get(self.url_ + CA_URL)
+    self.driver.get(self.url_ + CA_URL + '?disable_dev_places=true')
 
     # Wait until the Demographics link is present.
     element_present = EC.presence_of_element_located(
@@ -131,6 +132,7 @@ class PlaceExplorerTestMixin():
     demographics = self.driver.find_element(By.XPATH,
                                             '//*[@id="Demographics"]/a')
     demographics.click()
+    self.driver.get(self.driver.current_url + '&disable_dev_places=true')
 
     # Wait until the new page has loaded.
     element_present = EC.presence_of_element_located(
@@ -150,7 +152,7 @@ class PlaceExplorerTestMixin():
   def test_demographics_redirect_link(self):
     """Test a place page with demographics after a redirect."""
     # Load California's Demographics page.
-    start_url = self.url_ + '/place?dcid=geoId/06&category=Demographics&utm_medium=um'
+    start_url = self.url_ + '/place?dcid=geoId/06&category=Demographics&utm_medium=um&disable_dev_places=true'
     self.driver.get(start_url)
 
     # Wait for redirect.
@@ -204,7 +206,7 @@ class PlaceExplorerTestMixin():
     last_rank = "52."
 
     # Load California's economincs page.
-    self.driver.get(self.url_ + ca_economics_url)
+    self.driver.get(self.url_ + ca_economics_url + '&disable_dev_places=true')
 
     # Wait for the presense of the chart title element.
     chart_title_present = EC.presence_of_element_located(
@@ -277,7 +279,7 @@ class PlaceExplorerTestMixin():
 
   def test_ranking_chart_redirect_link(self):
     """Test the redirect link can work correctly."""
-    ca_economics_url = CA_URL + "?category=Economics"
+    ca_economics_url = CA_URL + "?category=Economics&disable_dev_places=true"
     self.driver.get(self.url_ + ca_economics_url)
 
     xpath = '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/table/tbody/tr[1]/td[2]/a'
@@ -289,19 +291,19 @@ class PlaceExplorerTestMixin():
     place_name = self.driver.find_element(By.XPATH, xpath)
     place_name_text = place_name.text
     place_name.click()
+    shared.wait_for_loading(self.driver)
 
-    # Wait for the presence of new page title.
-    title_present = EC.presence_of_element_located((By.ID, 'place-name'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
+    place_info = find_elem(self.driver, value='place-info')
+    self.assertIsNotNone(place_info)
+    place_info_span = find_elem(place_info, by=By.TAG_NAME, value='span')
+    self.assertIsNotNone(place_info_span)
 
-    # Check the title text
-    page_title = self.driver.find_element(By.ID, 'place-name').text
-    self.assertEqual(page_title, place_name_text)
+    self.assertEqual(place_info_span.text, place_name_text)
 
   def test_export_chart_data(self):
     """Tests the export chart data button works correctly for group bar charts."""
     # Load CA housing page
-    ca_housing_url = CA_URL + "?category=Housing"
+    ca_housing_url = CA_URL + "?category=Housing&disable_dev_places=true"
     self.driver.get(self.url_ + ca_housing_url)
 
     # Wait for trend chart to load

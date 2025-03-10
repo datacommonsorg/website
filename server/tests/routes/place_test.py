@@ -17,6 +17,7 @@ from unittest.mock import patch
 
 from flask import request
 
+from server.tests.utils import mock_feature_flags
 from web_app import app
 
 
@@ -67,6 +68,7 @@ class TestPlacePage(unittest.TestCase):
   @patch('server.routes.shared_api.place.parent_places')
   def test_place(self, mock_parent_places, mock_get_place_type_i18n_name,
                  mock_api_place_type, mock_get_i18n_name):
+    mock_feature_flags(app, ['dev_place_ga'], False)
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
@@ -157,6 +159,7 @@ class TestPlacePageHeaders(unittest.TestCase):
   def test_place_page_canonical_header(self, mock_parent_places,
                                        mock_get_place_type_i18n_name,
                                        mock_api_place_type, mock_get_i18n_name):
+    mock_feature_flags(app, ['dev_place_ga'], False)
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
@@ -238,6 +241,7 @@ class TestPlacePageHeaders(unittest.TestCase):
   def test_place_page_alternate_header(self, mock_parent_places,
                                        mock_get_place_type_i18n_name,
                                        mock_api_place_type, mock_get_i18n_name):
+    mock_feature_flags(app, ['dev_place_ga'], False)
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
