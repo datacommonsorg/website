@@ -19,7 +19,7 @@ steps:
     args:
       - '-c'
       - |
-          MATCHED_FILES=$(git diff --name-only HEAD^ HEAD | grep -E '^server/config/feature_flag_configs/(prod|autopush|staging|dev)\.json$')
+          MATCHED_FILES=$(git diff --name-only HEAD^ HEAD | grep -E '^server/config/feature_flag_configs/(production|autopush|staging|dev)\.json$')
           echo "MATCHED_FILES=$MATCHED_FILES"
           echo "::set-output name=matched_files::$MATCHED_FILES"
     outputs:
