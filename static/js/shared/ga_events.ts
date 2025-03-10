@@ -179,6 +179,14 @@ export const GA_EVENT_BUILDPAGE_CLICK = "buildpage_click";
 export const GA_EVENT_AUTOCOMPLETE_SELECTION = "autocomplete_select";
 
 /**
+ * Triggered on autocomplete selections that redirect directly to the place page.
+ * Parameters:
+ *  "result_index": <index of the selected autocomplete result.
+ */
+export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
+  "autocomplete_select_redirects_to_place";
+
+/**
  * Triggered on autocomplete trigger.
  * Parameters:
  *    "query": <sample query>
@@ -203,6 +211,7 @@ export const GA_PARAM_TOPIC = "topic";
 export const GA_PARAM_PLACE = "place";
 export const GA_PARAM_TIMING_MS = "time_ms";
 export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
+export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";

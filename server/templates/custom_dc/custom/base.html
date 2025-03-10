@@ -23,6 +23,7 @@
 
   Optional variables:
   locale: string, value for html lang attr
+  is_hide_header_search_bar: boolean, if true, the header will not contain a search bar. Default false.
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
 
   Blocks to override:
@@ -30,6 +31,8 @@
   content - main page content
 -#}
 <!DOCTYPE html>
+{#- Hide the header search bar for custom DC pages. -#}
+{% set is_hide_header_search_bar = 'true' %}
 
 <html lang={{ locale }} id={{ page_id }}>
 
@@ -49,6 +52,9 @@
     });
   </script>
   {% endif %}
+  <script>
+    globalThis.FEATURE_FLAGS = {{ config['FEATURE_FLAGS'] | tojson }};
+  </script>
 
   <title>{{ title }} - Custom Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -67,7 +73,11 @@
 
 <body>
   {# Set page locale. #}
-  <div id="metadata-base" class="d-none" data-locale="{{ locale }}"></div>
+  <div id="metadata-base" class="d-none" 
+    data-hide-header-search-bar="{{ is_hide_header_search_bar }}"
+    data-locale="{{ locale }}"
+  >
+  </div>
 
   <div id="main">
     <header id="main-header">

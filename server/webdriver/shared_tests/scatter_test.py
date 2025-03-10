@@ -95,9 +95,11 @@ class ScatterTestMixin():
     self.assertIsNotNone(wait_elem(self.driver, value='chip'))
 
     # Choose place type
-    Select(
-        find_elem(self.driver, by=By.ID,
-                  value='place-selector-place-type')).select_by_value('County')
+    shared.wait_for_loading(self.driver)
+    place_selector_place_type = find_elem(self.driver,
+                                          by=By.ID,
+                                          value='place-selector-place-type')
+    Select(place_selector_place_type).select_by_value('County')
 
     # Choose stat vars
     shared.wait_for_loading(self.driver)

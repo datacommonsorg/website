@@ -29,6 +29,8 @@ import {
 } from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { isMobileByWidth } from "../shared/util";
+import { Theme } from "../theme/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
@@ -36,6 +38,10 @@ import {
   TileConfig,
 } from "../types/subject_page_proto_types";
 
+const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
+const DEFAULT_BAR_CHART_ITEMS = 15;
+
+/**
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
  */
@@ -209,7 +215,8 @@ export function placeChartsApiResponsesToPageConfig(
   peersWithinParent: string[],
   place: Place,
   isOverview: boolean,
-  forceDevPlaces: boolean
+  forceDevPlaces: boolean,
+  theme: Theme
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
@@ -228,6 +235,9 @@ export function placeChartsApiResponsesToPageConfig(
       const blocks = blocksByCategory[categoryName];
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
+      const defaultBarChartItems = isMobileByWidth(theme)
+        ? DEFAULT_BAR_CHART_ITEMS_MOBILE
+        : DEFAULT_BAR_CHART_ITEMS;
 
       blocks.forEach((block: BlockConfig) => {
         let blockTitle;
@@ -284,7 +294,9 @@ export function placeChartsApiResponsesToPageConfig(
               rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
-            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
+            maxPlacesCount = chart.maxPlaces
+              ? chart.maxPlaces
+              : defaultBarChartItems;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
               sort: "DESCENDING",

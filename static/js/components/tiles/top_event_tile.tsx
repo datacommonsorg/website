@@ -27,7 +27,8 @@ import {
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
-import { formatNumber } from "../../i18n/i18n";
+import { formatNumber, intl } from "../../i18n/i18n";
+import { tileMessages } from "../../i18n/i18n_tile_messages";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
@@ -217,7 +218,7 @@ export const TopEventTile = memo(function TopEventTile(
             exploreLink={
               props.showExploreMore
                 ? {
-                    displayText: "Disaster Tool",
+                    displayText: intl.formatMessage(tileMessages.disasterTool),
                     url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
                   }
                 : null

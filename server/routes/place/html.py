@@ -33,6 +33,7 @@ from server.lib.feature_flags import PLACE_PAGE_EXPERIMENT_FEATURE_FLAG
 from server.lib.feature_flags import PLACE_PAGE_GA_FEATURE_FLAG
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
+from server.lib.i18n_messages import get_place_type_in_parent_places_str
 import server.routes.dev_place.utils as utils
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
@@ -251,9 +252,8 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   ]
 
   if links:
-    return gettext('%(placeType)s in %(parentPlaces)s',
-                   placeType=place_type_display_name,
-                   parentPlaces=', '.join(links))
+    return get_place_type_in_parent_places_str(place_type_display_name,
+                                               ', '.join(links))
   return ''
 
 
@@ -285,39 +285,83 @@ def is_seo_experiment_enabled(place_dcid: str, category: str,
 # https://github.com/datacommonsorg/website/pull/4773
 # https://github.com/datacommonsorg/website/pull/4781
 DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
-    'country/TLS', 'country/HUN', 'country/VEN', 'country/JAM', 'country/RWA',
-    'country/GGY', 'country/NGA', 'country/COD', 'country/COG', 'country/SVN',
-    'country/LSO', 'country/LBN', 'country/LCA', 'country/NFK', 'country/TTO',
-    'country/SGP', 'country/PYF', 'country/PRK', 'country/LVA', 'country/SUR',
-    'country/PRY', 'country/MDV'
+    'country/ABW', 'country/AND', 'country/AUT', 'country/AZE', 'country/BEL',
+    'country/BEN', 'country/BLM', 'country/BOL', 'country/BRA', 'country/BRB',
+    'country/BWA', 'country/CHL', 'country/COD', 'country/COG', 'country/CUW',
+    'country/CZE', 'country/EGY', 'country/FJI', 'country/GGY', 'country/GIB',
+    'country/GRC', 'country/GRL', 'country/HUN', 'country/IND', 'country/ISL',
+    'country/JAM', 'country/KHM', 'country/LBN', 'country/LCA', 'country/LSO',
+    'country/LVA', 'country/MDG', 'country/MDV', 'country/MLI', 'country/MSR',
+    'country/MYT', 'country/NCL', 'country/NER', 'country/NFK', 'country/NGA',
+    'country/NOR', 'country/PER', 'country/PNG', 'country/PRI', 'country/PRK',
+    'country/PRY', 'country/PYF', 'country/RWA', 'country/SGP', 'country/SHN',
+    'country/SPM', 'country/SSD', 'country/SUR', 'country/SVN', 'country/TCA',
+    'country/TLS', 'country/TTO', 'country/VEN', 'country/WLF', 'country/YUG',
+    'country/ZAF'
 ]
 DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
-    'geoId/56', 'geoId/04', 'geoId/41', 'geoId/20', 'geoId/37'
+    'geoId/01', 'geoId/04', 'geoId/09', 'geoId/10', 'geoId/20', 'geoId/22',
+    'geoId/27', 'geoId/37', 'geoId/40', 'geoId/41', 'geoId/48', 'geoId/54',
+    'geoId/56'
 ]
 DEV_PLACE_EXPERIMENT_CITIES_DCIDS: List[str] = [
-    'geoId/4865000', 'nuts/PL127', 'wikidataId/Q1011138', 'wikidataId/Q1016939',
-    'wikidataId/Q1025345', 'wikidataId/Q109949', 'wikidataId/Q115256',
-    'wikidataId/Q11909', 'wikidataId/Q1342853', 'wikidataId/Q146723',
-    'wikidataId/Q1533', 'wikidataId/Q162880', 'wikidataId/Q16959',
-    'wikidataId/Q170247', 'wikidataId/Q173985', 'wikidataId/Q179608',
-    'wikidataId/Q179691', 'wikidataId/Q18459', 'wikidataId/Q189633',
-    'wikidataId/Q1953', 'wikidataId/Q198240', 'wikidataId/Q198370',
-    'wikidataId/Q200235', 'wikidataId/Q200878', 'wikidataId/Q2060398',
-    'wikidataId/Q220', 'wikidataId/Q25282', 'wikidataId/Q269',
-    'wikidataId/Q30340', 'wikidataId/Q3274', 'wikidataId/Q328615',
-    'wikidataId/Q332753', 'wikidataId/Q34820', 'wikidataId/Q349973',
-    'wikidataId/Q3579', 'wikidataId/Q362865', 'wikidataId/Q36312',
+    'geoId/1714000', 'geoId/3651000', 'geoId/4865000', 'nuts/FR101',
+    'nuts/PL127', 'wikidataId/Q1011138', 'wikidataId/Q1016939',
+    'wikidataId/Q1022251', 'wikidataId/Q1025345', 'wikidataId/Q10393',
+    'wikidataId/Q109949', 'wikidataId/Q112813', 'wikidataId/Q115256',
+    'wikidataId/Q11725', 'wikidataId/Q11909', 'wikidataId/Q1207076',
+    'wikidataId/Q125293', 'wikidataId/Q12829733', 'wikidataId/Q1337056',
+    'wikidataId/Q1342853', 'wikidataId/Q134635', 'wikidataId/Q1357984',
+    'wikidataId/Q1361', 'wikidataId/Q1375351', 'wikidataId/Q14634',
+    'wikidataId/Q146723', 'wikidataId/Q147171', 'wikidataId/Q1489',
+    'wikidataId/Q1530', 'wikidataId/Q1533', 'wikidataId/Q162880',
+    'wikidataId/Q16959', 'wikidataId/Q170247', 'wikidataId/Q170322',
+    'wikidataId/Q173985', 'wikidataId/Q174461', 'wikidataId/Q179608',
+    'wikidataId/Q179691', 'wikidataId/Q183584', 'wikidataId/Q18459',
+    'wikidataId/Q185684', 'wikidataId/Q18808', 'wikidataId/Q189633',
+    'wikidataId/Q189823', 'wikidataId/Q1953', 'wikidataId/Q197922',
+    'wikidataId/Q198184', 'wikidataId/Q198240', 'wikidataId/Q198266',
+    'wikidataId/Q198370', 'wikidataId/Q200054', 'wikidataId/Q200235',
+    'wikidataId/Q200663', 'wikidataId/Q200878', 'wikidataId/Q205922',
+    'wikidataId/Q2060398', 'wikidataId/Q220', 'wikidataId/Q223761',
+    'wikidataId/Q225641', 'wikidataId/Q243322', 'wikidataId/Q2449',
+    'wikidataId/Q2471', 'wikidataId/Q25282', 'wikidataId/Q2640092',
+    'wikidataId/Q26590', 'wikidataId/Q266014', 'wikidataId/Q269',
+    'wikidataId/Q270787', 'wikidataId/Q2844', 'wikidataId/Q286266',
+    'wikidataId/Q2868', 'wikidataId/Q2887', 'wikidataId/Q30340',
+    'wikidataId/Q3141', 'wikidataId/Q324293', 'wikidataId/Q3274',
+    'wikidataId/Q328615', 'wikidataId/Q332753', 'wikidataId/Q34820',
+    'wikidataId/Q349973', 'wikidataId/Q35493', 'wikidataId/Q3579',
+    'wikidataId/Q359990', 'wikidataId/Q360870', 'wikidataId/Q360942',
+    'wikidataId/Q362865', 'wikidataId/Q36312', 'wikidataId/Q363479',
+    'wikidataId/Q3640', 'wikidataId/Q36529', 'wikidataId/Q36947',
     'wikidataId/Q3711', 'wikidataId/Q3718', 'wikidataId/Q372791',
-    'wikidataId/Q38927', 'wikidataId/Q3921', 'wikidataId/Q426756',
-    'wikidataId/Q4361', 'wikidataId/Q4709', 'wikidataId/Q48320',
-    'wikidataId/Q492552', 'wikidataId/Q496837', 'wikidataId/Q506578',
-    'wikidataId/Q570884', 'wikidataId/Q571033', 'wikidataId/Q571949',
-    'wikidataId/Q57787', 'wikidataId/Q59233', 'wikidataId/Q616048',
-    'wikidataId/Q6487', 'wikidataId/Q657072', 'wikidataId/Q66485',
-    'wikidataId/Q68744', 'wikidataId/Q699777', 'wikidataId/Q713357',
-    'wikidataId/Q71373', 'wikidataId/Q71455', 'wikidataId/Q72945',
-    'wikidataId/Q75110', 'wikidataId/Q852238', 'wikidataId/Q862611',
-    'wikidataId/Q894', 'wikidataId/Q911'
+    'wikidataId/Q374365', 'wikidataId/Q3780', 'wikidataId/Q38545',
+    'wikidataId/Q38927', 'wikidataId/Q3894', 'wikidataId/Q38968',
+    'wikidataId/Q3921', 'wikidataId/Q404529', 'wikidataId/Q406',
+    'wikidataId/Q416669', 'wikidataId/Q416988', 'wikidataId/Q426756',
+    'wikidataId/Q42941', 'wikidataId/Q43463', 'wikidataId/Q4361',
+    'wikidataId/Q44210', 'wikidataId/Q46747', 'wikidataId/Q4709',
+    'wikidataId/Q48320', 'wikidataId/Q48338', 'wikidataId/Q486235',
+    'wikidataId/Q486319', 'wikidataId/Q492552', 'wikidataId/Q496837',
+    'wikidataId/Q4970', 'wikidataId/Q506578', 'wikidataId/Q515712',
+    'wikidataId/Q570884', 'wikidataId/Q571033', 'wikidataId/Q571219',
+    'wikidataId/Q571766', 'wikidataId/Q571949', 'wikidataId/Q572140',
+    'wikidataId/Q57756', 'wikidataId/Q57787', 'wikidataId/Q57906',
+    'wikidataId/Q57947', 'wikidataId/Q57958', 'wikidataId/Q5826',
+    'wikidataId/Q58401', 'wikidataId/Q58576', 'wikidataId/Q58695',
+    'wikidataId/Q59164', 'wikidataId/Q59227', 'wikidataId/Q59233',
+    'wikidataId/Q612', 'wikidataId/Q616048', 'wikidataId/Q6487',
+    'wikidataId/Q649', 'wikidataId/Q656', 'wikidataId/Q657072',
+    'wikidataId/Q66485', 'wikidataId/Q66616', 'wikidataId/Q68744',
+    'wikidataId/Q69060', 'wikidataId/Q699777', 'wikidataId/Q713317',
+    'wikidataId/Q713357', 'wikidataId/Q71373', 'wikidataId/Q71455',
+    'wikidataId/Q72945', 'wikidataId/Q75091', 'wikidataId/Q75110',
+    'wikidataId/Q75379', 'wikidataId/Q8131', 'wikidataId/Q852238',
+    'wikidataId/Q856003', 'wikidataId/Q862611', 'wikidataId/Q8660',
+    'wikidataId/Q8673', 'wikidataId/Q883', 'wikidataId/Q887', 'wikidataId/Q894',
+    'wikidataId/Q911', 'wikidataId/Q914', 'wikidataId/Q919',
+    'wikidataId/Q93230', 'wikidataId/Q9361'
 ]
 DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS: List[str] = [
     'northamerica', 'southamerica', 'europe', 'africa', 'asia', 'antarctica',
@@ -470,6 +514,8 @@ def place(place_dcid=None):
               place_summary=place_summary.get('summary')
               if place_summary and locale == 'en' else '',
               maps_api_key=current_app.config['MAPS_API_KEY'],
+              sample_questions=json.dumps(
+                  current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
               block_indexing=block_indexing))
       response.headers.set('Link',
                            generate_link_headers(place_dcid, category, locale))
@@ -491,6 +537,8 @@ def place(place_dcid=None):
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY'],
+          sample_questions=json.dumps(
+              current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
           block_indexing=block_indexing))
   response.headers.set('Link',
                        generate_link_headers(place_dcid, category, locale))
@@ -519,8 +567,6 @@ def place_landing(error_msg=''):
 
 # Dev place experiment route
 def dev_place(place_dcid=None):
-  place_type_with_parent_places_links = utils.get_place_type_with_parent_places_links(
-      place_dcid)
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
   # Place summaries are currently only supported in English
@@ -530,10 +576,11 @@ def dev_place(place_dcid=None):
   else:
     place_summary = ""
 
-  return flask.render_template(
-      'dev_place.html',
-      maps_api_key=current_app.config['MAPS_API_KEY'],
-      place_dcid=place_dcid,
-      place_name=place_name,
-      place_type_with_parent_places_links=place_type_with_parent_places_links,
-      place_summary=place_summary)
+  return flask.render_template('dev_place.html',
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               place_dcid=place_dcid,
+                               place_name=place_name,
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])),
+                               place_summary=place_summary)

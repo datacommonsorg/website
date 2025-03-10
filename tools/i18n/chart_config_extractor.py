@@ -27,9 +27,10 @@ MESSAGES_POT_RELATIVE_PATH = '../../server/i18n/all.pot'
 
 
 def extract_message_from_chart(config):
-  id = config['titleId']
+  # Old place page chart config has titleId, new place page chart config has title_id
+  id = config['titleId'] if 'titleId' in config else config['title_id']
   message = config['title']
-  description = config.get('description', '')
+  description = config.get('description', '') or config['title']
   return (id, {
       'message': message,
       'description': f'Title of a place chart: {description}'
@@ -41,6 +42,10 @@ def maybe_add_message(messages, id, message):
     if id in messages and \
         messages[id]['message'] != message['message']:
       raise ValueError(f'Adding duplicate id with different message: {id}')
+    # If we have already added a message with this id, and the new message has no
+    # description, don't add it.
+    if id in messages and not message['description']:
+      return
     messages[id] = message
 
 

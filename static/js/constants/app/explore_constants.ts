@@ -43,6 +43,8 @@ export const URL_HASH_PARAMS = {
   MODE: "mode",
   RERANKER: "reranker",
   INCLUDE_STOP_WORDS: "includeStopWords",
+  MAX_TOPICS: "maxTopics",
+  MAX_TOPIC_SVS: "maxTopicSvs",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL

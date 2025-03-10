@@ -59,9 +59,9 @@ def build():
       partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 
-@bp.route("/data", defaults={"path": ""})
+@bp.route("/data", defaults={"path": ""}, strict_slashes=False)
 @bp.route("/data/<path:path>")
-def data_page(path):
+def data(path):
   return lib_render.render_page("static/data.html", "data.html")
 
 
@@ -107,10 +107,11 @@ def mcf_playground():
 @bp.route('/version')
 def version():
   mixer_version = dc.version()
-  return render_template('version.html',
-                         website_hash=os.environ.get("WEBSITE_HASH"),
-                         mixer_hash=mixer_version.get('gitHash', ''),
-                         tables=mixer_version.get('tables', ''),
-                         bigquery=mixer_version.get('bigquery', ''),
-                         remote_mixer_domain=mixer_version.get(
-                             'remoteMixerDomain', ''))
+  return render_template(
+      'version.html',
+      website_hash=os.environ.get("WEBSITE_HASH"),
+      mixer_hash=mixer_version.get('gitHash', ''),
+      tables=mixer_version.get('tables', ''),
+      bigquery=mixer_version.get('bigquery', ''),
+      featureFlags=current_app.config.get('FEATURE_FLAGS', []),
+      remote_mixer_domain=mixer_version.get('remoteMixerDomain', ''))

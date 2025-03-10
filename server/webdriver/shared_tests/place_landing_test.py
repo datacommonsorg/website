@@ -102,7 +102,9 @@ class PlaceLandingTestMixin():
   def test_place_landing_explore_more(self):
     """Test place landing explore more link."""
 
-    self.driver.get(self.url_ + '/place/geoId/1714000?category=Education')
+    self.driver.get(
+        self.url_ +
+        '/place/geoId/1714000?category=Education&disable_dev_places=true')
 
     # Wait until the chart has loaded.
     element_present = EC.presence_of_element_located(
@@ -150,7 +152,9 @@ class PlaceLandingTestMixin():
     """Test place landing url parameters."""
 
     # Test for ?category=Education
-    self.driver.get(self.url_ + '/place/geoId/1714000?category=Education')
+    self.driver.get(
+        self.url_ +
+        '/place/geoId/1714000?category=Education&disable_dev_places=true')
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'chart-container'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
@@ -159,7 +163,9 @@ class PlaceLandingTestMixin():
     self.assertEqual(link.text, 'Education attainment')
 
     # Test for ?topic=Education
-    self.driver.get(self.url_ + '/place/geoId/1714000?topic=Education')
+    self.driver.get(
+        self.url_ +
+        '/place/geoId/1714000?topic=Education&disable_dev_places=true')
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'chart-container'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)

@@ -22,6 +22,7 @@ from flask import redirect
 from flask import request
 from flask_babel import Babel
 import flask_cors
+from google.api_core.exceptions import NotFound
 from google.cloud import secretmanager
 import google.cloud.logging
 
@@ -43,6 +44,49 @@ from shared.lib import utils as lib_utils
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
+
+
+def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
+  """Gets an api key first from the environment, then from GCP secrets.
+  
+  Args:
+      env_keys: A list of keys in the environment to try getting the api key with
+      gcp_project: The GCP project to use to get the api key from GCP secrets
+      gcp_path: The path to getting the api key from GCP secrets
+
+  Returns:
+      API key if it exists, otherwise an empty string.
+    """
+  # Try to get the key from the environment
+  for k in env_keys:
+    if os.environ.get(k):
+      return os.environ.get(k)
+
+  # Try to get the key from secrets
+  if gcp_project and gcp_path:
+    try:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(gcp_project, gcp_path,
+                                                      'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      return secret_response.payload.data.decode('UTF-8').replace('\n', '')
+    except NotFound:
+      logging.warning(
+          f'No key found at {gcp_path} of the configured GCP project.')
+      return ''
+
+  # If key is not found, return an empty string
+  logging.warning(
+      f'No key found in the [{",".join(env_keys)}] environment variable(s), nor at "{gcp_path}" of the configured GCP project.'
+  )
+  return ''
+
+
+def _enable_datagemma() -> bool:
+  """Returns whether to enable the DataGemma UI for this instance. 
+  This UI should only be enabled for internal instances.
+  """
+  return os.environ.get('ENABLE_DATAGEMMA') == 'true'
 
 
 def register_routes_base_dc(app):
@@ -130,6 +174,26 @@ def register_routes_sustainability(app):
   app.config[
       'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
       )
+
+
+def register_routes_datagemma(app, cfg):
+  # Set the gemini api key
+  app.config['GEMINI_API_KEY'] = _get_api_key(['GEMINI_API_KEY'],
+                                              cfg.SECRET_PROJECT,
+                                              'gemini-api-key')
+  # Set the DC NL api key
+  app.config['DC_NL_API_KEY'] = _get_api_key(['DC_NL_API_KEY'],
+                                             cfg.SECRET_PROJECT,
+                                             'dc-nl-api-key')
+  if not app.config['GEMINI_API_KEY'] or not app.config['DC_NL_API_KEY']:
+    app.logger.warning('DataGemma routes not registered due to missing API key')
+    return
+
+  # Install blueprint for DataGemma page
+  from server.routes.dev_datagemma import api as dev_datagemma_api
+  app.register_blueprint(dev_datagemma_api.bp)
+  from server.routes.dev_datagemma import html as dev_datagemma_html
+  app.register_blueprint(dev_datagemma_html.bp)
 
 
 def register_routes_common(app):
@@ -254,7 +318,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config.from_object(cfg)
 
   # Check DC_API_KEY is set for local dev.
-  if cfg.CUSTOM and cfg.LOCAL and not os.environ.get('DC_API_KEY'):
+  if (cfg.LITE or
+      (cfg.CUSTOM and cfg.LOCAL)) and not os.environ.get('DC_API_KEY'):
     raise Exception(
         'Set environment variable DC_API_KEY for local custom DC development')
 
@@ -281,6 +346,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if cfg.SHOW_SUSTAINABILITY:
     register_routes_sustainability(app)
+
+  if _enable_datagemma():
+    register_routes_datagemma(app, cfg)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -313,34 +381,17 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['MAPS_API_KEY'] = ''
   else:
     # Get the API key from environment first.
-    if os.environ.get('MAPS_API_KEY'):
-      app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
-    elif os.environ.get('maps_api_key'):
-      app.config['MAPS_API_KEY'] = os.environ.get('maps_api_key')
-    else:
-      secret_client = secretmanager.SecretManagerServiceClient()
-      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                      'maps-api-key', 'latest')
-      secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+    app.config['MAPS_API_KEY'] = _get_api_key(['MAPS_API_KEY', 'maps_api_key'],
+                                              cfg.SECRET_PROJECT,
+                                              'maps-api-key')
 
   if cfg.LOCAL:
     app.config['LOCAL'] = True
 
   # Need to fetch the API key for non gcp environment.
   if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
-    # Get the API key from environment first.
-    if os.environ.get('DC_API_KEY'):
-      app.config['DC_API_KEY'] = os.environ.get('DC_API_KEY')
-    elif os.environ.get('dc_api_key'):
-      app.config['DC_API_KEY'] = os.environ.get('dc_api_key')
-    else:
-      secret_client = secretmanager.SecretManagerServiceClient()
-      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                      'mixer-api-key', 'latest')
-      secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['DC_API_KEY'] = secret_response.payload.data.decode(
-          'UTF-8').replace('\n', '')
+    app.config['DC_API_KEY'] = _get_api_key(['DC_API_KEY', 'dc_api_key'],
+                                            cfg.SECRET_PROJECT, 'mixer-api-key')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
@@ -358,18 +409,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     else:
       app.config['NL_TABLE'] = None
 
-    # Get the API key from environment first.
     if cfg.USE_LLM:
       app.config['LLM_PROMPT_TEXT'] = llm_prompt.get_prompts()
-      if os.environ.get('LLM_API_KEY'):
-        app.config['LLM_API_KEY'] = os.environ.get('LLM_API_KEY')
-      else:
-        secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                        'palm-api-key',
-                                                        'latest')
-        secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['LLM_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+      app.config['LLM_API_KEY'] = _get_api_key(['LLM_API_KEY'],
+                                               cfg.SECRET_PROJECT,
+                                               'palm-api-key')
+
     app.config[
         'NL_BAD_WORDS'] = EMPTY_BANNED_WORDS if cfg.CUSTOM else load_bad_words(
         )

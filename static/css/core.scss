@@ -636,7 +636,12 @@ section {
       flex-wrap: nowrap;
       align-items: center;
       gap: 4px;
-      padding: 4px 24px;
+      @include media-breakpoint-down(sm) {
+        padding: 4px 6px;
+      }
+      @include media-breakpoint-up(sm) {
+        padding: 4px 24px;
+      }
 
       #rich-search-button {
         cursor: pointer;
@@ -660,13 +665,20 @@ section {
         border: none;
         color: var(--gm-3-ref-neutral-neutral-40);
         font-family: var(--font-family-sans-serif);
-        font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: 24px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 13px;
+        }
+
+        @include media-breakpoint-up(sm) {
+          font-size: 16px;
+        }
       }
 
       .search-input-text:focus {
@@ -697,7 +709,7 @@ section {
       border-radius: 28px;
     }
 
-    .search-input-results-list {
+    .autocomplete-search-input-results-list {
       padding-bottom: 24px;
       border-bottom-left-radius: 28px;
       border-bottom-right-radius: 28px;
