@@ -59,7 +59,7 @@ export function ResultHeaderSection(
       </div>
       {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
         <div className="explore-topics-box">
-          <ItemList items={topicList}></ItemList>
+          <ItemList items={topicList} showRelevantTopicLabel={true}></ItemList>
         </div>
       )}
     </>
