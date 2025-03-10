@@ -34,7 +34,9 @@ export function ItemList(props: ItemListPropType): ReactElement {
   return (
     <div className="item-list-container">
       <div className="item-list-inner">
-        {props.showRelevantTopicLabel && <span className="explore-relevant-topics">Related topics</span> }
+        {props.showRelevantTopicLabel && (
+          <span className="explore-relevant-topics">Related topics</span>
+        )}
         {props.items.map((item, idx) => {
           return (
             <div key={idx} className="item-list-item">
