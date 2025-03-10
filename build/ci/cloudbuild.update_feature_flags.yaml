@@ -19,19 +19,20 @@ steps:
     args:
       - '-c'
       - |
-          # List the files that match the included filter
           MATCHED_FILES=$(git diff --name-only HEAD^ HEAD | grep -E '^server/config/feature_flag_configs/(prod|autopush|staging|dev)\.json$')
-          echo "Matched files: $MATCHED_FILES"
-          
+          echo "MATCHED_FILES=$MATCHED_FILES"
+          echo "::set-output name=matched_files::$MATCHED_FILES"
+    outputs:
+      - matched_files
+
   - name: 'gcr.io/cloud-builders/git'
     id: 'update-feature-flags'
     entrypoint: '/bin/bash'
-    waitFor: ['get_changed_files']
+    waitFor: ['get-changed-files']
     args:
       - '-c'
       - |
-
-        IFS=$'\n' read -rd '' -a files <<< "$MATCHED_FILES"
+        IFS=$'\n' read -rd '' -a files <<< "$$(get-changed-files.matched_files)"
         for modified_file in "${files[@]}"; do
           filename=$(basename "$modified_file")
           environment="${filename%.*}"
