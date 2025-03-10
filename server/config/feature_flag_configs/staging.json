@@ -26,7 +26,7 @@
   },
   {
     "name": "dynamic_placeholder_experiment",
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
   },
