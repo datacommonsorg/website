@@ -18,6 +18,13 @@
     "description": "Feature flag to enable the V2 Place page to GA."
   },
   {
+    "name": "scroll_to_top_button",
+    "deprecated": true,
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the scroll to top button on the explore and place pages."
+  },
+  {
     "name": "dynamic_placeholder_experiment",
     "enabled": true,
     "owner": "gmechali",
