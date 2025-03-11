@@ -19,8 +19,8 @@ steps:
     args:
       - '-c'
       - |
-          MATCHED_FILES=$(git diff --name-only HEAD^ HEAD | grep -E '^server/config/feature_flag_configs/(production|autopush|staging|dev)\.json$')
-          printf '%s\n' "$MATCHED_FILES" > /workspace/matched_files.txt
+        matched_files=$(git diff --name-only HEAD^ HEAD | grep -E '^server/config/feature_flag_configs/(production|autopush|staging|dev)\.json$')
+        printf '%s\n' "$matched_files" > /workspace/matched_files.txt
 
   - name: 'gcr.io/cloud-builders/git'
     id: 'update-feature-flags'
@@ -34,11 +34,12 @@ steps:
             continue
           fi
           filename=$(basename "$modified_file")
-          environment="${filename%.*}"
-          should_restart="false"
-          if [ "$environment" != "production" ]; then
-            should_restart="true"
-          fi
-          skip_staging_prompt="true"
-          ./scripts/update_gcs_feature_flags.sh "$environment" "$skip_staging_prompt" "$should_restart"
+          echo "${filename}"
+          # environment="${filename%.*}"
+          # should_restart="false"
+          # if [ "$environment" != "production" ]; then
+          #   should_restart="true"
+          # fi
+          # skip_staging_prompt="true"
+          # ./scripts/update_gcs_feature_flags.sh "$environment" "$skip_staging_prompt" "$should_restart"
         done < /workspace/matched_files.txt 
