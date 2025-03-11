@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,18 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Common library for functions related to feature flags"""
+"""Helpers for tests - DO NOT USE IN PROD"""
 
-from flask import current_app
-
-AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
-PLACE_PAGE_EXPERIMENT_FEATURE_FLAG = 'dev_place_experiment'
-PLACE_PAGE_GA_FEATURE_FLAG = 'dev_place_ga'
-BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
+from typing import List
 
 
-def is_feature_enabled(feature_name: str, app=None) -> bool:
-  """Returns whether the feature with `feature_name` is enabled."""
-  if not app:
-    app = current_app
-  return app.config['FEATURE_FLAGS'].get(feature_name, False)
+def mock_feature_flags(app, flags: List[str], enabled: bool):
+  """Mocks the feature flags"""
+  for flag in flags:
+    app.config["FEATURE_FLAGS"][flag] = enabled
