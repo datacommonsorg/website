@@ -28,6 +28,8 @@ from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
 
+MAX_SIZE_V2NODE_REQUEST = 5000
+
 cfg = libconfig.get_config()
 
 
@@ -249,21 +251,35 @@ def v2observation(select, entity, variable):
   })
 
 
-def v2node(nodes, prop):
-  """Wrapper to call V2 Node REST API.
-
-  Args:
-      nodes: A list of node dcids.
-      prop: The property to query for.
+def batch_requested_nodes(url, nodes, max_v2node_request_size):
   """
-  url = get_service_url('/v2/node')
-  return post(url, {
-      'nodes': sorted(nodes),
-      'property': prop,
-  })
+  Splits a list of dcids into batches that do not exceed the DC API request size limit.
+  """
+  full_request = url + ",".join([f'{n}' for n in (nodes)])
+  if len(full_request.encode('utf-8')) <= max_v2node_request_size:
+    return [nodes]
+
+  batches = []
+  cur_batch = []
+  cur_encoded_len = 0
+  for node in nodes:
+    cur_encoded_len += len(node.encode('utf-8'))
+    if cur_encoded_len > max_v2node_request_size:
+      batches.append(cur_batch)
+      cur_batch = []
+      cur_encoded_len = 0
+    cur_batch.append(node)
+
+  if cur_batch:
+    batches.append(cur_batch)
+  return batches
 
 
 def _merge_v2node_response(result, paged_response):
+  if not result:
+    result.update(paged_response)
+    return
+
   for dcid in paged_response.get('data', {}):
     # Initialize dcid in data even when no arcs or properties are returned
     merged_result_for_dcid = result.setdefault('data', {}).setdefault(dcid, {})
@@ -272,7 +288,7 @@ def _merge_v2node_response(result, paged_response):
       merged_property_values_for_dcid = merged_result_for_dcid.setdefault(
           'arcs', {}).setdefault(prop, {}).setdefault('nodes', [])
       merged_property_values_for_dcid.extend(
-          paged_response['data'][dcid]['arcs'][prop]['nodes'])
+          paged_response['data'][dcid]['arcs'][prop].get('nodes', []))
 
     if 'properties' in paged_response['data'][dcid]:
       merged_properties_for_dcid = merged_result_for_dcid.setdefault(
@@ -283,6 +299,23 @@ def _merge_v2node_response(result, paged_response):
   result['nextToken'] = paged_response.get('nextToken', '')
   if not result['nextToken']:
     del result['nextToken']
+
+
+def v2node(nodes, prop):
+  """Wrapper to call V2 Node REST API.
+
+  Args:
+      nodes: A list of node dcids.
+      prop: The property to query for.
+  """
+  response = {}
+  url = get_service_url('/v2/node')
+  for batch in batch_requested_nodes(url, nodes, MAX_SIZE_V2NODE_REQUEST):
+    _merge_v2node_response(response, (post(url, {
+        'nodes': sorted(batch),
+        'property': prop,
+    })))
+  return response
 
 
 def v2node_paginated(nodes, prop, max_pages=1):
@@ -297,18 +330,20 @@ def v2node_paginated(nodes, prop, max_pages=1):
   fetched_pages = 0
   result = {}
   next_token = ''
-  while True:
-    url = get_service_url('/v2/node')
-    response = post(url, {
-        'nodes': sorted(nodes),
-        'property': prop,
-        'nextToken': next_token
-    })
-    _merge_v2node_response(result, response)
-    fetched_pages += 1
-    next_token = response.get('nextToken', '')
-    if not next_token or (max_pages and fetched_pages >= max_pages):
-      break
+  url = get_service_url('/v2/node')
+  for node_batch in batch_requested_nodes(url, nodes, MAX_SIZE_V2NODE_REQUEST):
+    while True:
+
+      response = post(url, {
+          'nodes': sorted(node_batch),
+          'property': prop,
+          'nextToken': next_token
+      })
+      _merge_v2node_response(result, response)
+      fetched_pages += 1
+      next_token = response.get('nextToken', '')
+      if not next_token or (max_pages and fetched_pages >= max_pages):
+        break
   return result
 
 
@@ -475,7 +510,7 @@ def recognize_places(query):
 def recognize_entities(query):
   url = get_service_url('/v1/recognize/entities')
   resp = post(url, {'queries': [query]})
-  return resp.get('queryItems', {}).get(query, {}).get('items', [])
+  return resp.get('queryItems', {}).get(query.lower(), {}).get('items', [])
 
 
 def find_entities(places):
