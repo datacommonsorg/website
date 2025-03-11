@@ -38,6 +38,7 @@ PyYAML==6.0.1
 redis==4.5.4
 requests==2.31.0
 selenium==4.21.0
+sentence-transformers==3.4.1
 typing-extensions==4.11.0
 webdriver-manager==4.0.0
 Werkzeug==3.0.6

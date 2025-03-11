@@ -17,7 +17,6 @@ import math
 import re
 
 from markupsafe import escape
-from sentence_transformers import SentenceTransformer
 from sentence_transformers import util
 
 import server.lib.fetch as fetch
