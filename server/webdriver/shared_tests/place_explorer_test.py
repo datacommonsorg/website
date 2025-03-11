@@ -292,13 +292,15 @@ class PlaceExplorerTestMixin():
     place_name_text = place_name.text
     place_name.click()
     shared.wait_for_loading(self.driver)
+    self.driver.get(self.driver.current_url + '&disable_dev_places=true')
 
-    place_info = find_elem(self.driver, value='place-info')
-    self.assertIsNotNone(place_info)
-    place_info_span = find_elem(place_info, by=By.TAG_NAME, value='span')
-    self.assertIsNotNone(place_info_span)
+    # Wait for the presence of new page title.
+    title_present = EC.presence_of_element_located((By.ID, 'place-name'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
-    self.assertEqual(place_info_span.text, place_name_text)
+    # Check the title text
+    page_title = self.driver.find_element(By.ID, 'place-name').text
+    self.assertEqual(page_title, place_name_text)
 
   def test_export_chart_data(self):
     """Tests the export chart data button works correctly for group bar charts."""
