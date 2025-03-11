@@ -13,7 +13,6 @@
 # limitations under the License.
 '''Traverses DC KG to find node paths that answer a NL query.'''
 
-from collections import defaultdict
 import math
 import re
 

@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections import defaultdict
 import unittest
 from unittest.mock import MagicMock
 from unittest.mock import patch
@@ -765,4 +764,4 @@ class TestTraversal(unittest.TestCase):
         },
         'property_descriptions': {}
     }
-    assert DeepDiff(entity_info, entity_info, ignore_order=True) == {}
+    assert DeepDiff(entity_info, expected_entity_info, ignore_order=True) == {}
