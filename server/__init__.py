@@ -208,7 +208,7 @@ def register_routes_biomed_nl(app, cfg):
     app.logger.warning('Biomed NL routes not registered due to missing API key')
     return
 
-  # Install blueprint for DataGemma page
+  # Install blueprint for experimental biomed NL page
   from server.routes.experiments.biomed_nl import api as biomed_nl_api
   app.register_blueprint(biomed_nl_api.bp)
 

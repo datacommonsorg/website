@@ -651,6 +651,7 @@ class PathFinder:
     query_embed = embeddings[self.query]
     property_similarity_scores = {}
     for prop, description in property_descriptions.items():
+      # the response from nl_encode contains sanitized input strings
       sanitized_description = str(escape(description))
       cosine_similarity = util.cos_sim(
           query_embed, embeddings[sanitized_description]).item()
@@ -737,17 +738,61 @@ class PathFinder:
       pass
     return top_props
 
-  def build_traversal_cache(self):
-    cache = {}
+  def get_traversed_entity_info(self):
+    '''Retrieves information about entities traversed along specified paths.
 
-    for start_dcid, paths in self.path_store.get_paths_from_start(
-        only_selected_paths=True).items():
-      for path in paths:
+    This method iterates through the selected paths defined in `self.path_store`. 
+    It traverses these paths, starting at the keys which are dcids and paths are
+    properties that should be fetched for each subsequent node. At each hop, all
+    triples are fetched for each node.
+
+    Returns:
+        dict: A dictionary containing all triples of the traversed entities where
+          - Keys are DCIDs
+          - Values are dictionaries containing 'incoming' and
+        'outgoing' properties, each of which is a list of triples.
+          The dictionary *also* contains a key "property_descriptions" which is
+        a description of the properties, taken from the path_store
+
+        The structure of the returned dictionary is approximately:
+
+        ```
+        {
+            "dcid1": {
+                "incoming": {
+                    "property1": [
+                        {"dcid": "dcid2", "types": ["Type1"]},
+                        {"dcid": "dcid3", "types": ["Type2"]}
+                    ],
+                    "property2": [...]
+                },
+                "outgoing": {
+                    "property3": [
+                        {"dcid": "dcid4", "types": ["Type3"]}
+                    ],
+                    ...
+                }
+            },
+            "dcid2": { ... },
+            ...
+            "property_descriptions": {
+                "property1": 'description of Property1',
+                "property2": 'description of Property2',
+            }
+        }
+        ```
+    '''
+    entity_info = {}
+
+    paths_from_start = self.path_store.get_paths_from_start(
+        only_selected_paths=True)
+    for start_dcid in paths_from_start:
+      if start_dcid not in entity_info:
+        entity_info.update(get_all_triples([start_dcid]))
+
+      for path in paths_from_start[start_dcid]:
 
         dcids = [start_dcid]
-        if start_dcid not in cache:
-          cache.update(get_all_triples(dcids))
-
         for prop, incoming_node_type in Path.parse_property_and_type(path):
 
           next_dcids = set()
@@ -756,7 +801,7 @@ class PathFinder:
             if incoming_node_type:
               incoming_dcids = [
                   node['dcid']
-                  for node in cache[dcid]['incoming'].get(prop, [])
+                  for node in entity_info[dcid]['incoming'].get(prop, [])
                   if not is_terminal(node) and
                   incoming_node_type in node['types']
               ]
@@ -764,18 +809,19 @@ class PathFinder:
             else:
               outgoing_dcids = [
                   node['dcid']
-                  for node in cache[dcid]['outgoing'].get(prop, [])
+                  for node in entity_info[dcid]['outgoing'].get(prop, [])
                   if not is_terminal(node)
               ]
               next_dcids.update(outgoing_dcids)
 
           # Only fetch triples for a given dcid one time.
-          fetch_dcids = [dcid for dcid in next_dcids if dcid not in cache]
+          fetch_dcids = [dcid for dcid in next_dcids if dcid not in entity_info]
           if fetch_dcids:
-            cache.update(get_all_triples(fetch_dcids))
+            entity_info.update(get_all_triples(fetch_dcids))
           dcids = list(next_dcids)
 
     # TODO: fetch *all* property descriptions, instead of the just path store's
-    cache['property_descriptions'] = self.path_store.get_property_descriptions()
+    entity_info[
+        'property_descriptions'] = self.path_store.get_property_descriptions()
 
-    return cache
+    return entity_info

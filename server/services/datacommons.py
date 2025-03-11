@@ -255,40 +255,24 @@ def batch_requested_nodes(url, nodes, max_v2node_request_size):
   """
   Splits a list of dcids into batches that do not exceed the DC API request size limit.
   """
-  full_request = url + "&".join([f'nodes={n}' for n in (nodes)])
+  full_request = url + ",".join([f'{n}' for n in (nodes)])
   if len(full_request.encode('utf-8')) <= max_v2node_request_size:
     return [nodes]
 
   batches = []
   cur_batch = []
+  cur_encoded_len = 0
   for node in nodes:
-    potential_request = url + "&".join(
-        [f'nodes={n}' for n in cur_batch + [node]])
-    if len(potential_request.encode('utf-8')) > max_v2node_request_size:
+    cur_encoded_len += len(node.encode('utf-8'))
+    if cur_encoded_len > max_v2node_request_size:
       batches.append(cur_batch)
       cur_batch = []
+      cur_encoded_len = 0
     cur_batch.append(node)
 
   if cur_batch:
     batches.append(cur_batch)
   return batches
-
-
-def v2node(nodes, prop):
-  """Wrapper to call V2 Node REST API.
-
-  Args:
-      nodes: A list of node dcids.
-      prop: The property to query for.
-  """
-  response = {}
-  url = get_service_url('/v2/node')
-  for batch in batch_requested_nodes(url, nodes, MAX_SIZE_V2NODE_REQUEST):
-    response.update(post(url, {
-        'nodes': sorted(batch),
-        'property': prop,
-    }))
-  return response
 
 
 def _merge_v2node_response(result, paged_response):
@@ -311,6 +295,23 @@ def _merge_v2node_response(result, paged_response):
   result['nextToken'] = paged_response.get('nextToken', '')
   if not result['nextToken']:
     del result['nextToken']
+
+
+def v2node(nodes, prop):
+  """Wrapper to call V2 Node REST API.
+
+  Args:
+      nodes: A list of node dcids.
+      prop: The property to query for.
+  """
+  response = {}
+  url = get_service_url('/v2/node')
+  for batch in batch_requested_nodes(url, nodes, MAX_SIZE_V2NODE_REQUEST):
+    _merge_v2node_response(response, (post(url, {
+        'nodes': sorted(batch),
+        'property': prop,
+    })))
+  return response
 
 
 def v2node_paginated(nodes, prop, max_pages=1):

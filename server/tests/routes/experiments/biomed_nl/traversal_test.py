@@ -576,7 +576,7 @@ class TestTraversal(unittest.TestCase):
     assert path_finder.output_tokens == 100
 
   @patch('server.lib.fetch.triples')
-  def test_build_traversal_cache(self, mock_triples):
+  def test_get_traversed_entity_info(self, mock_triples):
 
     def triples_response(dcids, out, max_pages):
       assert max_pages == None
@@ -674,11 +674,11 @@ class TestTraversal(unittest.TestCase):
         }
     }
 
-    cache = path_finder.build_traversal_cache()
+    entity_info = path_finder.get_traversed_entity_info()
     # start1 -propA-> dcid0 -propB-> dcid1, dcid2
     #        -propB-> x
     # start2 -propA-> dcid4 <-propD (Types)- dcid3
-    expected_cache = {
+    expected_entity_info = {
         'start1': {
             'outgoing': {
                 'propA': [
@@ -765,4 +765,4 @@ class TestTraversal(unittest.TestCase):
         },
         'property_descriptions': {}
     }
-    assert DeepDiff(expected_cache, cache, ignore_order=True) == {}
+    assert DeepDiff(entity_info, entity_info, ignore_order=True) == {}

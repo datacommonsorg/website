@@ -53,15 +53,32 @@ class TestServiceDataCommonsV2Node(unittest.TestCase):
     assert mock_post.call_count == 1
 
   @mock.patch('server.services.datacommons.post')
-  def test_large_input_size_makes_multiple_post_calls(self, mock_post):
+  @mock.patch('server.services.datacommons.get_service_url')
+  def test_large_input_size_makes_multiple_post_calls(self, mock_url,
+                                                      mock_post):
 
-    input_dcids = [f'dc{i}' for i in range(10000)]
-    v2node(input_dcids, '->*')
-    assert mock_post.call_count == 19
-    print(mock_post.call_args)
-    print('hello worlds')
-    assert mock_post.call_args.args[1]['nodes'] == input_dcids[9734:]
+    def mock_url_response(url):
+      assert url == '/v2/node'
+      return 'datacommons.org/v2/node'
+
+    mock_url.side_effect = mock_url_response
+
+    def mock_post_response(_, request):
+      if 'dc0' in request['nodes']:
+        return get_json('v2node_first_batch_response')
+      if 'dc4999' in request['nodes']:
+        return get_json('v2node_last_batch_response')
+      return {'data': {}}
+
+    mock_post.side_effect = mock_post_response
+
+    input_dcids = [f'dc{i}' for i in range(5000)]
+    response = v2node(input_dcids, '->*')
+    assert mock_post.call_count == 6
+    assert mock_post.call_args.args[1]['nodes'] == input_dcids[4354:]
     assert len(mock_post.call_args.args[1]['nodes']) < len(input_dcids)
+
+    assert response == get_json('v2node_expected_merged_batches')
 
 
 class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
@@ -202,10 +219,29 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
     assert mock_post.call_count == 1
 
   @mock.patch('server.services.datacommons.post')
-  def test_large_input_size_makes_multiple_post_calls(self, mock_post):
+  @mock.patch('server.services.datacommons.get_service_url')
+  def test_large_input_size_makes_multiple_post_calls(self, mock_url,
+                                                      mock_post):
 
-    input_dcids = [f'dc{i}' for i in range(10000)]
-    v2node_paginated(input_dcids, '->*')
-    assert mock_post.call_count == 19
-    assert mock_post.call_args.args[1]['nodes'] == input_dcids[9734:]
+    def mock_url_response(url):
+      assert url == '/v2/node'
+      return 'datacommons.org/v2/node'
+
+    mock_url.side_effect = mock_url_response
+
+    def mock_post_response(_, request):
+      if 'dc0' in request['nodes']:
+        return get_json('v2node_first_batch_response')
+      if 'dc4999' in request['nodes']:
+        return get_json('v2node_last_batch_response')
+      return {'data': {}}
+
+    mock_post.side_effect = mock_post_response
+
+    input_dcids = [f'dc{i}' for i in range(5000)]
+    response = v2node_paginated(input_dcids, '->*')
+
+    assert mock_post.call_count == 6
+    assert mock_post.call_args.args[1]['nodes'] == input_dcids[4354:]
     assert len(mock_post.call_args.args[1]['nodes']) < len(input_dcids)
+    assert response == get_json('v2node_expected_merged_batches')
