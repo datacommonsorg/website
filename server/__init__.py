@@ -23,6 +23,7 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.api_core.exceptions import NotFound
+from google.api_core.exceptions import PermissionDenied
 from google.cloud import secretmanager
 import google.cloud.logging
 
@@ -75,6 +76,9 @@ def _get_api_key(env_keys=[], gcp_project='', gcp_path=''):
     except NotFound:
       logging.warning(
           f'No key found at {gcp_path} of the configured GCP project.')
+      return ''
+    except PermissionDenied as e:
+      logging.warning(e)
       return ''
 
   # If key is not found, return an empty string
