@@ -72,10 +72,9 @@ function getSectionTrigger(title: string, opened: boolean): JSX.Element {
   );
 }
 
-
 function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
-    // TODO: format the markdown response
-  let footnotes = "";
+  // TODO: format the markdown response
+  const footnotes = "";
   return { answer: response.answer, footnotes, debugInfo: response.debug };
 }
 
@@ -110,7 +109,7 @@ export function App(): ReactElement {
         paramsSerializer: stringifyFn,
       })
       .then((resp) => {
-          setAnswer(processApiResponse(resp.data));
+        setAnswer(processApiResponse(resp.data));
       })
       .catch(() => {
         setAnswer({

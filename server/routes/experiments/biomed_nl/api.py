@@ -79,7 +79,7 @@ def _fulfill_traversal_query(query):
           model=GEMINI_PRO, contents=final_prompt)
     else:
       # Todo add log message
-      response['debug'] += f'\nFetched data too large for Gemini'
+      response['debug'] += '\nFetched data too large for Gemini'
       return response
 
     response['answer'] = gemini_response.text
@@ -90,7 +90,7 @@ def _fulfill_traversal_query(query):
     logging.error(f'[biomed_nl]: {e}')
     response['debug'] += f'\nERROR:{e}'
 
-  return response
+  return response\
 
 
 @bp.route('/query')
