@@ -37,7 +37,7 @@ bp = flask.Blueprint('biomed_nl_api',
 
 
 def _fulfill_traversal_query(query):
-  response = {}
+  response = {'answer': '', 'debug': ''}
   # TODO: remove extensive try-catch block once this api is stable
   try:
     gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
@@ -53,7 +53,8 @@ def _fulfill_traversal_query(query):
 
     if not start_entity or not start_dcids:
       # TODO: log error
-      return {'response': 'error in recognition'}
+      response['debug'] += '\nEntity Recognition Error'
+      return response
 
     path_finder = PathFinder(annotated_query,
                              start_entity,
@@ -72,22 +73,23 @@ def _fulfill_traversal_query(query):
 
     input_tokens = gemini_client.models.count_tokens(
         contents=final_prompt, model=GEMINI_PRO).total_tokens
+    gemini_response = None
     if input_tokens < GEMINI_PRO_TOKEN_LIMIT:
-      response = gemini_client.models.generate_content(model=GEMINI_PRO,
-                                                       contents=final_prompt)
+      gemini_response = gemini_client.models.generate_content(
+          model=GEMINI_PRO, contents=final_prompt)
     else:
       # Todo add log message
-      pass
+      response['debug'] += f'\nFetched data too large for Gemini'
+      return response
 
-    response = {
-        'response':
-            response.text,
-        'selected_path':
-            utils.format_dict(path_finder.path_store.selected_paths),
-    }
+    response['answer'] = gemini_response.text
+    response['debug'] += '\n' + utils.format_dict(
+        path_finder.path_store.get_paths_from_start(only_selected_paths=True))
+
   except Exception as e:
     logging.error(f'[biomed_nl]: {e}')
-    response = {'errors': str(e)}
+    response['debug'] += f'\nERROR:{e}'
+
   return response
 
 
