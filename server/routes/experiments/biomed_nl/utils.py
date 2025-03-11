@@ -107,6 +107,97 @@ Here is more information about each property and NodeType:
 {METADATA}
 '''
 
+FINAL_PROMPT = """Using the json object below, respond to the query: "{sentence}"
+
+The json object will be in the following format.
+{{
+    <entity1>: {{  
+      "outgoing": {{
+        <property>: [
+          {{
+            "dcid": "<entity2>"
+            "types": ["<Type of entity2>"]
+          }},
+          {{
+            "value": "literal value of this property"
+          }},
+          ...
+        ],
+        ...
+      }}, 
+      "incoming": {{
+        <property>: [
+          {{
+            "dcid": "<another entity>"
+            "types": ["<Type of this other entity>"]
+          }},
+        ],
+      }}
+    }},
+    <entity2>: {{  
+      "outgoing": {{
+        <property>: [
+          {{
+            "dcid": "<another entity>"
+            "types": ["<Type of this other entity>"]
+          }},
+        ],}}, 
+      "incoming": {{
+        ...
+      }}
+    }},
+  ...
+  "property_descriptions": {{}}
+}}
+To understand the json object:
+- the json object is used to represent a knowledge graph where entities are
+  nodes of the graph and properties are the directed edges connecting the
+  entities.
+- the 'incoming' dicts represent edges that pointing at the entity
+- the 'outgoing'dicts represent edges that pointing away from the entity
+- property_descriptions are descriptions for each property from in_arcs and
+out_arcs
+
+
+In your response, when citing a value from the text, please include the path to
+get the value in square brackets.
+For example, if the object contains:
+{{
+  "geoId/06"": {{
+    "outgoing": {{
+      "containedInPlace": {{
+        "nodes": [{{
+          "dcid": "country/USA",
+          ...
+        }}]
+      }}
+    }}
+  }},
+  ...
+}}
+To cite this fact, please cite it like:
+ "... is contained in USA [geoId/06.outgoing.containedInPlace]"
+
+
+You are only allowed to use the information given in the json object. I will be
+checking your answers to make sure they can be found in the json object.
+
+If the json object is insufficient to fully answer the query, include the
+entities you need information about and use the dcid if available. If there are
+additional entities that you need that you know the dcid of, include this at
+the end of your response "ADDITIONAL_ENTITY_DCIDS: <list of entity dcids>". If
+there are additional entities that you need that you only know the name of,
+include at the end of your response "ADDITIONAL_ENTITY_NAMES: [entities you only have the name of]".
+
+```
+{json_str}
+```
+
+So now, using the json object above, respond to the query: "{sentence}"
+
+Once you have your final answer, make the response as human-readable as possible using bullet points, markdown tables, etc but keep the sources (ie the [out_arcs..*] and [in_arcs..*].
+"""
+
 
 def get_gemini_response_token_counts(response):
   return (response.usage_metadata.prompt_token_count,
