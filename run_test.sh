@@ -39,7 +39,7 @@ function start_servers() {
   }
 # On exit, assign status code to a variable and call cleanup.
   trap 'exit_with=$?; cleanup' EXIT
-  ./run_servers.sh &
+  ./run_servers.sh --verbose &
   # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
   # Wait a few seconds and make sure the server script subprocess hasn't failed.
