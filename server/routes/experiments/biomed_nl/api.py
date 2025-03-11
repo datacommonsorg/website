@@ -43,7 +43,7 @@ def _fulfill_traversal_query(query):
       http_options=genai.types.HttpOptions(api_version='v1alpha'))
 
   (entities_to_dcids, selected_entities, annotated_query,
-   response_token_counts) = get_traversal_start_entities(query, gemini_client)
+   _) = get_traversal_start_entities(query, gemini_client)
 
   start_entity = selected_entities[0] if len(selected_entities) else ''
   start_dcids = entities_to_dcids.get(start_entity, [])

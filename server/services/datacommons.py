@@ -276,6 +276,10 @@ def batch_requested_nodes(url, nodes, max_v2node_request_size):
 
 
 def _merge_v2node_response(result, paged_response):
+  if not result:
+    result.update(paged_response)
+    return
+
   for dcid in paged_response.get('data', {}):
     # Initialize dcid in data even when no arcs or properties are returned
     merged_result_for_dcid = result.setdefault('data', {}).setdefault(dcid, {})
@@ -284,7 +288,7 @@ def _merge_v2node_response(result, paged_response):
       merged_property_values_for_dcid = merged_result_for_dcid.setdefault(
           'arcs', {}).setdefault(prop, {}).setdefault('nodes', [])
       merged_property_values_for_dcid.extend(
-          paged_response['data'][dcid]['arcs'][prop]['nodes'])
+          paged_response['data'][dcid]['arcs'][prop].get('nodes', []))
 
     if 'properties' in paged_response['data'][dcid]:
       merged_properties_for_dcid = merged_result_for_dcid.setdefault(
