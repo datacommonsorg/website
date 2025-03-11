@@ -20,13 +20,13 @@
   {
     "name": "scroll_to_top_button",
     "deprecated": true,
-    "enabled": true,
+    "enabled": false,
     "owner": "gmechali",
     "description": "Feature flag to enable the scroll to top button on the explore and place pages."
   },
   {
     "name": "dynamic_placeholder_experiment",
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
   },

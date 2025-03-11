@@ -73,7 +73,7 @@ export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export ENABLE_DATAGEMMA=true
 
 # Set flask env
-if [[ $FLASK_ENV == "" ]]; then
+if [[ -z "$FLASK_ENV" || "$FLASK_ENV" == "test" ]]; then
   export FLASK_ENV="local"
   if [[ $ENV_PREFIX == "" ]]; then
     export ENV_PREFIX="DC"
