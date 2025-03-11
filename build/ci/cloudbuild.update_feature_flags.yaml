@@ -36,7 +36,7 @@ steps:
             continue
           fi
           filename=$(basename "$modified_file")
-          echo "${filename}"
+          echo "Processing modified file: ${filename}"
           environment="${filename%.*}"
           should_restart="false"
           if [ "$environment" != "production" ]; then
