@@ -293,6 +293,7 @@ class PlaceExplorerTestMixin():
     place_name.click()
     shared.wait_for_loading(self.driver)
     self.driver.get(self.driver.current_url + '?disable_dev_places=true')
+    shared.wait_for_loading(self.driver)
 
     # Wait for the presence of new page title.
     title_present = EC.presence_of_element_located((By.ID, 'place-name'))
