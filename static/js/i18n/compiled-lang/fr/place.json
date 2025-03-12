@@ -9,6 +9,78 @@
       "value": "placeName"
     }
   ],
+  "chart-title-with-per-capita-and-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (par habitant en "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "chart-title-with-per-capita-no-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (par habitant)"
+    }
+  ],
+  "chart-title-with-two-variables": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " contre "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
+  "chart-title-with-two-variables-and-location": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " contre "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    },
+    {
+      "type": 0,
+      "value": " dans les "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " de la région "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    }
+  ],
   "chart_clause-other_placeType": [
     {
       "type": 1,
@@ -80,7 +152,7 @@
     },
     {
       "type": 0,
-      "value": ": rankings in "
+      "value": " : classement – "
     },
     {
       "type": 1,
@@ -110,7 +182,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": "En savoir plus "
+      "value": "Voir plus ›"
     }
   ],
   "chart_metadata-export": [
@@ -145,6 +217,30 @@
       "value": "placeName"
     }
   ],
+  "chooseVariable": [
+    {
+      "type": 0,
+      "value": "Choisissez une variable pour afficher ses métadonnées"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "Fermer"
+    }
+  ],
+  "disasterTool": [
+    {
+      "type": 0,
+      "value": "Outil Catastrophe"
+    }
+  ],
+  "download": [
+    {
+      "type": 0,
+      "value": "Télécharger"
+    }
+  ],
   "embed_citation": [
     {
       "type": 0,
@@ -177,10 +273,32 @@
       "value": "Exporter ce graphique"
     }
   ],
+  "exploreLink": [
+    {
+      "type": 0,
+      "value": "Explorer dans "
+    },
+    {
+      "type": 1,
+      "value": "toolName"
+    }
+  ],
   "header-overview": [
     {
       "type": 0,
       "value": "Aperçu"
+    }
+  ],
+  "key_demographics": [
+    {
+      "type": 0,
+      "value": "Données démographiques clés"
+    }
+  ],
+  "knowledge_graph": [
+    {
+      "type": 0,
+      "value": "Knowledge Graph"
     }
   ],
   "link-return_to_overview": [
@@ -189,7 +307,25 @@
       "value": "Retour à l'aperçu"
     }
   ],
+  "loading": [
+    {
+      "type": 0,
+      "value": "Chargement..."
+    }
+  ],
+  "mapTool": [
+    {
+      "type": 0,
+      "value": "Outil cartographique"
+    }
+  ],
   "more_charts": [
+    {
+      "type": 0,
+      "value": "Autres graphiques"
+    }
+  ],
+  "more_charts_link": [
     {
       "type": 0,
       "value": "Autres graphiques"
@@ -595,6 +731,18 @@
       "value": "), par habitant"
     }
   ],
+  "ranking-tile-latest-data-available-footer": [
+    {
+      "type": 0,
+      "value": "Classement basé sur les dernières données disponibles. Certains lieux peuvent être manquants en raison de données incomplètes cette année-là."
+    }
+  ],
+  "ranking-tile-latest-data-footer": [
+    {
+      "type": 0,
+      "value": "Ce classement inclut des données de plusieurs années pour une vue complète des lieux."
+    }
+  ],
   "ranking_table-header_rank": [
     {
       "type": 0,
@@ -607,10 +755,34 @@
       "value": "Valeur"
     }
   ],
+  "relevant_topics": [
+    {
+      "type": 0,
+      "value": "Sujets pertinents"
+    }
+  ],
+  "scatterTool": [
+    {
+      "type": 0,
+      "value": "Outil Nuage de points"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "Recherchez un autre lieu"
+    }
+  ],
+  "selectVariable": [
+    {
+      "type": 0,
+      "value": "Sélectionnez une variable dans la liste pour en afficher les détails. Les liens ci-dessous ouvrent l'explorateur de variables statistiques dans un nouvel onglet."
+    }
+  ],
+  "showMetadata": [
+    {
+      "type": 0,
+      "value": "Afficher les métadonnées"
     }
   ],
   "singular_administrative_area": [
@@ -699,10 +871,58 @@
       "value": "Code postal"
     }
   ],
+  "snap-to-latest-data-checkbox-label": [
+    {
+      "type": 0,
+      "value": "Aligner sur la date avec la couverture la plus élevée"
+    }
+  ],
+  "snap-to-latest-data-help-tooltip": [
+    {
+      "type": 0,
+      "value": "\"Aligner sur la date avec la couverture la plus élevée\" affiche les données les plus récentes avec une couverture maximale. Certains lieux peuvent être manquants en raison de données incomplètes cette année-là."
+    }
+  ],
+  "snap-to-latest-data-overlap-help-tooltip": [
+    {
+      "type": 0,
+      "value": "Les données de couverture les plus élevées sont aussi les plus récentes disponibles pour ce graphique."
+    }
+  ],
+  "source": [
+    {
+      "type": 0,
+      "value": "Source"
+    }
+  ],
+  "sources": [
+    {
+      "type": 0,
+      "value": "Sources"
+    }
+  ],
+  "summary_overview": [
+    {
+      "type": 0,
+      "value": "Aperçu du résumé"
+    }
+  ],
   "the_world": [
     {
       "type": 0,
       "value": "le monde"
+    }
+  ],
+  "timelineTool": [
+    {
+      "type": 0,
+      "value": "Outil Chronologie"
+    }
+  ],
+  "viaGoogle": [
+    {
+      "type": 0,
+      "value": "via Google"
     }
   ]
 }
