@@ -66,7 +66,7 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
     # TODO: Update topics to be localized when the translations are available.
     topics_for_africa = [
         "Économie", "Santé", "Capitaux propres", "Données démographiques",
-        "Environment", "Energy"
+        "Environment", "Énergie"
     ]
     shared.assert_topics(self,
                          self.driver,
