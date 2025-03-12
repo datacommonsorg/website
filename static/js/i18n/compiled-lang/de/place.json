@@ -9,6 +9,78 @@
       "value": "placeName"
     }
   ],
+  "chart-title-with-per-capita-and-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (pro Kopf in "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "chart-title-with-per-capita-no-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (pro Kopf)"
+    }
+  ],
+  "chart-title-with-two-variables": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " im Vergleich zu "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
+  "chart-title-with-two-variables-and-location": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " im Vergleich zu "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": ", "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    }
+  ],
   "chart_clause-other_placeType": [
     {
       "type": 1,
@@ -84,7 +156,7 @@
     },
     {
       "type": 0,
-      "value": ": rankings in "
+      "value": ": Rankings in "
     },
     {
       "type": 1,
@@ -114,7 +186,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": "Weitere  entdecken"
+      "value": "Mehr entdecken ›"
     }
   ],
   "chart_metadata-export": [
@@ -149,6 +221,30 @@
       "value": "placeName"
     }
   ],
+  "chooseVariable": [
+    {
+      "type": 0,
+      "value": "Wähle eine Variable aus, um die Metadaten anzusehen"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "Schließen"
+    }
+  ],
+  "disasterTool": [
+    {
+      "type": 0,
+      "value": "Katastrophen-Tool"
+    }
+  ],
+  "download": [
+    {
+      "type": 0,
+      "value": "Herunterladen"
+    }
+  ],
   "embed_citation": [
     {
       "type": 0,
@@ -181,10 +277,36 @@
       "value": "Dieses Diagramm exportieren"
     }
   ],
+  "exploreLink": [
+    {
+      "type": 0,
+      "value": "In "
+    },
+    {
+      "type": 1,
+      "value": "toolName"
+    },
+    {
+      "type": 0,
+      "value": " erkunden"
+    }
+  ],
   "header-overview": [
     {
       "type": 0,
       "value": "Übersicht"
+    }
+  ],
+  "key_demographics": [
+    {
+      "type": 0,
+      "value": "Wichtige demografische Merkmale"
+    }
+  ],
+  "knowledge_graph": [
+    {
+      "type": 0,
+      "value": "Knowledge Graph"
     }
   ],
   "link-return_to_overview": [
@@ -193,7 +315,25 @@
       "value": "Zurück zur Übersicht"
     }
   ],
+  "loading": [
+    {
+      "type": 0,
+      "value": "Wird geladen…"
+    }
+  ],
+  "mapTool": [
+    {
+      "type": 0,
+      "value": "Karten-Tool"
+    }
+  ],
   "more_charts": [
+    {
+      "type": 0,
+      "value": "Weitere Diagramme"
+    }
+  ],
+  "more_charts_link": [
     {
       "type": 0,
       "value": "Weitere Diagramme"
@@ -583,6 +723,18 @@
       "value": ", pro Kopf"
     }
   ],
+  "ranking-tile-latest-data-available-footer": [
+    {
+      "type": 0,
+      "value": "Ranking basierend auf den neuesten verfügbaren Daten. Einige Orte fehlen möglicherweise aufgrund unvollständiger Daten für dieses Jahr."
+    }
+  ],
+  "ranking-tile-latest-data-footer": [
+    {
+      "type": 0,
+      "value": "Dieses Ranking enthält Daten aus mehreren Jahren für eine umfassende Übersicht zu den Orten"
+    }
+  ],
   "ranking_table-header_rank": [
     {
       "type": 0,
@@ -595,10 +747,34 @@
       "value": "Wert"
     }
   ],
+  "relevant_topics": [
+    {
+      "type": 0,
+      "value": "Relevante Themen"
+    }
+  ],
+  "scatterTool": [
+    {
+      "type": 0,
+      "value": "Streudiagramm"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "Nach einem anderen Ort suchen"
+    }
+  ],
+  "selectVariable": [
+    {
+      "type": 0,
+      "value": "Wähle eine Variable aus der Liste aus, um die Details anzusehen. Über die unten stehenden Links wird der Explorer für statistische Variablen in einem neuen Tab geöffnet."
+    }
+  ],
+  "showMetadata": [
+    {
+      "type": 0,
+      "value": "Metadaten anzeigen"
     }
   ],
   "singular_administrative_area": [
@@ -691,10 +867,58 @@
       "value": "Postleitzahl"
     }
   ],
+  "snap-to-latest-data-checkbox-label": [
+    {
+      "type": 0,
+      "value": "Datum mit der höchsten Abdeckung anzeigen"
+    }
+  ],
+  "snap-to-latest-data-help-tooltip": [
+    {
+      "type": 0,
+      "value": "Mit „Datum mit der höchsten Abdeckung anzeigen“ werden die aktuellsten Daten mit der maximalen Abdeckung angezeigt. Einige Orte fehlen möglicherweise aufgrund unvollständiger Daten für dieses Jahr."
+    }
+  ],
+  "snap-to-latest-data-overlap-help-tooltip": [
+    {
+      "type": 0,
+      "value": "Die Daten zur höchsten Abdeckung sind auch die neuesten Daten, die für dieses Diagramm verfügbar sind."
+    }
+  ],
+  "source": [
+    {
+      "type": 0,
+      "value": "Quelle"
+    }
+  ],
+  "sources": [
+    {
+      "type": 0,
+      "value": "Quellen"
+    }
+  ],
+  "summary_overview": [
+    {
+      "type": 0,
+      "value": "Übersicht der Zusammenfassung"
+    }
+  ],
   "the_world": [
     {
       "type": 0,
       "value": "weltweit"
+    }
+  ],
+  "timelineTool": [
+    {
+      "type": 0,
+      "value": "Zeitachsen-Tool"
+    }
+  ],
+  "viaGoogle": [
+    {
+      "type": 0,
+      "value": "über Google"
     }
   ]
 }

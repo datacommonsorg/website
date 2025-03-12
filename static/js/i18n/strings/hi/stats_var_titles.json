@@ -1,10 +1,4 @@
 {
-  "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
-  },
-  "AirQualityIndex_AirPollutant": {
-    "defaultMessage": "AQI"
-  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "प्रति व्यक्ति अल्कोहल की खपत (सालाना)"
   },
@@ -59,24 +53,6 @@
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP के प्रतिशत के हिसाब से)"
   },
-  "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
-  },
-  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
-  },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "आपराधिक गतिविधियों की संख्या (आगज़नी)"
   },
@@ -89,26 +65,26 @@
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "आपराधिक गतिविधियों की संख्या (हिंसक अपराध)"
   },
-  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
-  },
-  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "आपराधिक घटनाओं की संख्या (नफ़रत फैलाने वाले अपराध)"
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (लिंग के आधार पर नफ़रत फैलाने वाले अपराध)"
   },
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (नस्ल के आधार पर नफ़रत फैलाने वाले अपराध)"
   },
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (धर्म के आधार पर नफ़रत फैलाने वाले अपराध)"
+  },
+  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (जाति के आधार पर नफ़रत फैलाने वाले अपराध)"
   },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (यौन रुझान के आधार पर नफ़रत फैलाने वाले अपराध)"
   },
-  "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "आपराधिक गतिविधियों की संख्या (दिव्यांगों के ख़िलाफ़ नफ़रत फैलाने वाले अपराध)"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "एक जगह पर आए चक्रवातों की संख्या"
@@ -638,18 +614,6 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "COVID-19 की वजह से हुई मौतें"
   },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
-  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "प्रजनन दर"
   },
@@ -664,15 +628,6 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "औसत उम्र"
-  },
-  "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Mean Diesel PM Concentration"
-  },
-  "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Mean Ozone Concentration"
-  },
-  "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "Mean PM2.5 Concentration"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "कामकाजी व्यक्ति को हर दिन मिलने वाला वेतन"
@@ -761,9 +716,6 @@
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "औसत व्यक्तिगत आमदनी (पुरुष)"
   },
-  "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "The Palmer Drought Severity Index"
-  },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है (महिला)"
   },
@@ -839,9 +791,6 @@
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "बेरोज़गारी दर (शहरी)"
   },
-  "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
-  },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "जनसंख्या (बौद्ध)"
   },
@@ -865,5 +814,56 @@
   },
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "जनसंख्या (सिख)"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "एक्यूआई"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
+    "defaultMessage": "आरसीपी 2.6 के आधार पर, साल 2016 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
+    "defaultMessage": "आरसीपी 4.5 के आधार पर, साल 2016 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
+    "defaultMessage": "आरसीपी 6.0 के आधार पर, साल 2016 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
+    "defaultMessage": "आरसीपी 8.5 के आधार पर, साल 2016 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "PM2.5 की मात्रा का औसत"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "ओज़ोन की मात्रा का औसत"
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "डीज़ल पीएम की मात्रा का औसत"
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "कार्बन डाइऑक्साइड का उत्सर्जन (बड़े सोर्स, नॉन-बायोजनिक यानी निर्जीव चीज़ों से होने वाला उत्सर्जन)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "मीथेन का उत्सर्जन (बड़े सोर्स, नॉन-बायोजनिक यानी निर्जीव चीज़ों से होने वाला उत्सर्जन)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "नाइट्रस ऑक्साइड का उत्सर्जन (बड़े सोर्स, नॉन-बायोजनिक यानी निर्जीव चीज़ों से होने वाला उत्सर्जन)"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "ग्रीनहाउस गैस का सालाना उत्सर्जन (बड़े सोर्स, नॉन-बायोजनिक यानी निर्जीव चीज़ों से होने वाला उत्सर्जन)"
+  },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "पानी निकाले जाने की दर"
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "पामर ड्राउट सिवेरिटी इंडेक्स"
+  },
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "जहरीली हवा से होने वाले कैंसर का खतरा"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "बिजली का सालाना उत्पादन"
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "बिजली का सालाना उत्पादन"
   }
 }
