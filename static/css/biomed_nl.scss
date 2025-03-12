@@ -26,3 +26,21 @@
     width: 100%;
     flex-grow: 1;
 }
+
+.query-input {              
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.app {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+}

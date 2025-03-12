@@ -129,28 +129,19 @@ export function App(): ReactElement {
         className="app"
         css={css`
           margin: ${theme.spacing.xl}px;
-          margin-top: 0;
-          display: flex;
-          flex-direction: column;
           gap: ${theme.spacing.lg}px;
         `}
       >
         <div
           className="inputs"
           css={css`
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
             gap: ${theme.spacing.sm}px;
           `}
         >
           <div
             className="query-input"
             css={css`
-              display: flex;
-              align-items: center;
               gap: ${theme.spacing.sm}px;
-              width: 100%;
             `}
           >
             <label>Query</label>
@@ -164,16 +155,7 @@ export function App(): ReactElement {
             </div>
           </div>
         </div>
-        <div
-          className="answer"
-          css={css`
-            & > table,
-            th,
-            td {
-              border: solid;
-            }
-          `}
-        >
+        <div className="answer">
           {showLoading && <div>Loading ...</div>}
           {!showLoading && answer && (
             <div>
