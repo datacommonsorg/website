@@ -2,6 +2,18 @@
   "alert-no_data_for_place": {
     "defaultMessage": "Spiacenti, nessun dato disponibile in merito a: {placeName}"
   },
+  "chart-title-with-per-capita-and-date": {
+    "defaultMessage": "{variableName} (pro capite in data {date})"
+  },
+  "chart-title-with-per-capita-no-date": {
+    "defaultMessage": "{variableName} (pro capite)"
+  },
+  "chart-title-with-two-variables": {
+    "defaultMessage": "Confronto tra {variable1} e {variable2}"
+  },
+  "chart-title-with-two-variables-and-location": {
+    "defaultMessage": "Confronto tra {variable1} e {variable2} in {placeType} in {place}"
+  },
   "chart_clause-other_placeType": {
     "defaultMessage": "{chartTitle}: {placeType} differenti"
   },
@@ -15,7 +27,7 @@
     "defaultMessage": "{chartTitle}: {placeType} nei pressi di {placeName}"
   },
   "chart_clause-rankings_in_place": {
-    "defaultMessage": "{variable}: rankings in {placeName}"
+    "defaultMessage": "{variable}: ranking in {placeName}"
   },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{variable} in: {placeName}"
@@ -24,7 +36,7 @@
     "defaultMessage": "(la linea tratteggiata indica dati mancanti)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "Scopri di più "
+    "defaultMessage": "Esplora altro ›"
   },
   "chart_metadata-export": {
     "defaultMessage": "Esporta"
@@ -38,6 +50,18 @@
   "child_places_menu-places_in_place": {
     "defaultMessage": "Luoghi in: {placeName}"
   },
+  "chooseVariable": {
+    "defaultMessage": "Scegli una variabile per visualizzarne i metadati"
+  },
+  "close": {
+    "defaultMessage": "Chiudi"
+  },
+  "disasterTool": {
+    "defaultMessage": "Strumento calamità"
+  },
+  "download": {
+    "defaultMessage": "Scarica"
+  },
   "embed_citation": {
     "defaultMessage": "Dati di {sources} tramite Data Commons"
   },
@@ -50,13 +74,31 @@
   "embed_export_chart_link": {
     "defaultMessage": "Esporta questo grafico"
   },
+  "exploreLink": {
+    "defaultMessage": "Esplora in {toolName}"
+  },
   "header-overview": {
     "defaultMessage": "Panoramica"
+  },
+  "key_demographics": {
+    "defaultMessage": "Principali dati demografici"
+  },
+  "knowledge_graph": {
+    "defaultMessage": "Knowledge Graph"
   },
   "link-return_to_overview": {
     "defaultMessage": "Torna alla panoramica"
   },
+  "loading": {
+    "defaultMessage": "Caricamento in corso…"
+  },
+  "mapTool": {
+    "defaultMessage": "Strumento mappa"
+  },
   "more_charts": {
+    "defaultMessage": "Altri grafici"
+  },
+  "more_charts_link": {
     "defaultMessage": "Altri grafici"
   },
   "place_breadcrumb": {
@@ -149,14 +191,32 @@
   "ranking-subtitle_top_percapita": {
     "defaultMessage": "{rankSize} {pluralPlaceType} con il posizionamento più alto in {placeName}, pro capite"
   },
+  "ranking-tile-latest-data-available-footer": {
+    "defaultMessage": "Classificazione basata sugli ultimi dati disponibili. Alcuni luoghi potrebbero mancare a causa di dati incompleti in quell'anno."
+  },
+  "ranking-tile-latest-data-footer": {
+    "defaultMessage": "Questa classificazione include dati di diversi anni per una visualizzazione completa dei luoghi."
+  },
   "ranking_table-header_rank": {
     "defaultMessage": "Posizione"
   },
   "ranking_table-header_value": {
     "defaultMessage": "Valore"
   },
+  "relevant_topics": {
+    "defaultMessage": "Argomenti pertinenti"
+  },
+  "scatterTool": {
+    "defaultMessage": "Strumento dispersione"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Cerca un altro luogo"
+  },
+  "selectVariable": {
+    "defaultMessage": "Seleziona una variabile dall'elenco per visualizzarne i dettagli. I link di seguito aprono Esploratore delle variabili statistiche in una nuova scheda."
+  },
+  "showMetadata": {
+    "defaultMessage": "Mostra metadati"
   },
   "singular_administrative_area": {
     "defaultMessage": "Area amministrativa"
@@ -197,7 +257,31 @@
   "singular_zip_code": {
     "defaultMessage": "Codice postale"
   },
+  "snap-to-latest-data-checkbox-label": {
+    "defaultMessage": "Allinea alla data con la copertura massima"
+  },
+  "snap-to-latest-data-help-tooltip": {
+    "defaultMessage": "\"Allinea alla data con la copertura massima\" mostra i dati più recenti con la copertura massima. Alcuni luoghi potrebbero mancare a causa di dati incompleti in quell'anno."
+  },
+  "snap-to-latest-data-overlap-help-tooltip": {
+    "defaultMessage": "I dati con la copertura massima sono anche i più recenti disponibili per questo grafico."
+  },
+  "source": {
+    "defaultMessage": "Fonte"
+  },
+  "sources": {
+    "defaultMessage": "Fonti"
+  },
+  "summary_overview": {
+    "defaultMessage": "Panoramica di riepilogo"
+  },
   "the_world": {
     "defaultMessage": "nel mondo"
+  },
+  "timelineTool": {
+    "defaultMessage": "Strumento cronologia"
+  },
+  "viaGoogle": {
+    "defaultMessage": "tramite Google"
   }
 }

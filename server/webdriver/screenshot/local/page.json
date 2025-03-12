@@ -35,6 +35,11 @@
     "async": true
   },
   {
+    "url": "/place/country/JPN?hl=ja&force_dev_places=true",
+    "height": 4000,
+    "async": true
+  },
+  {
     "url": "/place/geoId/1304000/?utm_medium=explore&mprop=count&popt=Person&hl=en&seed=1",
     "height": 4000,
     "async": true

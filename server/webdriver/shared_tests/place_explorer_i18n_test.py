@@ -33,7 +33,7 @@ class PlaceI18nExplorerTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
     place_type_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
-                                                          'アジア 内の 国')
+                                                          'アジア の 国')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 
     economics_section_present = EC.text_to_be_present_in_element(

@@ -1,11 +1,11 @@
 msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(parentPlaces)s 内の %(placeType)s"
+msgstr "%(parentPlaces)s の %(placeType)s"
 
-msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
-msgstr ""
+msgid "<a href="https://datacommons.org">Data Commons</a> from Google"
+msgstr "Google の <a href="https://datacommons.org">データコモンズ</a>"
 
 msgid "APIs"
-msgstr "APIs"
+msgstr "API"
 
 msgid "About"
 msgstr "基本情報"
@@ -20,43 +20,43 @@ msgid "Administrative Area 1 Place"
 msgstr "行政区域 1 の地域"
 
 msgid "Administrative Area 1 Places"
-msgstr ""
+msgstr "行政区域 1 の地域"
 
 msgid "Administrative Area 2 Place"
 msgstr "行政区域 2 の地域"
 
 msgid "Administrative Area 2 Places"
-msgstr ""
+msgstr "行政区域 2 の地域"
 
 msgid "Administrative Area 3 Place"
 msgstr "行政区域 3 の地域"
 
 msgid "Administrative Area 3 Places"
-msgstr ""
+msgstr "行政区域 3 の地域"
 
 msgid "Administrative Area 4 Place"
 msgstr "行政区域 4 の地域"
 
 msgid "Administrative Area 4 Places"
-msgstr ""
+msgstr "行政区域 4 の地域"
 
 msgid "Administrative Area 5 Place"
 msgstr "行政区域 5 の地域"
 
 msgid "Administrative Area 5 Places"
-msgstr ""
+msgstr "行政区域 5 の地域"
 
 msgid "Administrative Areas"
-msgstr ""
+msgstr "行政区域"
 
 msgid "An initiative from"
-msgstr ""
+msgstr "取り組みの主体"
 
 msgid "Back to homepage"
-msgstr ""
+msgstr "ホームページに戻る"
 
 msgid "BigQuery"
-msgstr ""
+msgstr "BigQuery"
 
 msgid "Blog"
 msgstr "ブログ"
@@ -65,13 +65,13 @@ msgid "Borough"
 msgstr "特別区"
 
 msgid "Boroughs"
-msgstr ""
+msgstr "特別区"
 
 msgid "Cities"
-msgstr ""
+msgstr "都市"
 
 msgid "Cities, India"
-msgstr "Cities, India"
+msgstr "都市、インド"
 
 msgid "Cities, United States"
 msgstr "米国の都市"
@@ -83,7 +83,7 @@ msgid "Contribute"
 msgstr "協力する"
 
 msgid "Counties"
-msgstr ""
+msgstr "郡"
 
 msgid "Counties, United States"
 msgstr "米国の郡"
@@ -101,7 +101,7 @@ msgid "Data Commons"
 msgstr "データコモンズ"
 
 msgid "Data Download Tool"
-msgstr "Data Download Tool"
+msgstr "データ ダウンロード ツール"
 
 msgid "Data Sources"
 msgstr "データソース"
@@ -110,7 +110,7 @@ msgid "Disclaimers"
 msgstr "免責事項"
 
 msgid "Districts, India"
-msgstr "Districts, India"
+msgstr "地区、インド"
 
 msgid "Documentation"
 msgstr "ドキュメント"
@@ -128,19 +128,19 @@ msgid "Eurostat NUTS 1 Place"
 msgstr "Eurostat NUTS 1 の地域"
 
 msgid "Eurostat NUTS 1 Places"
-msgstr ""
+msgstr "Eurostat NUTS 1 の地域"
 
 msgid "Eurostat NUTS 2 Place"
 msgstr "Eurostat NUTS 2 の地域"
 
 msgid "Eurostat NUTS 2 Places"
-msgstr ""
+msgstr "Eurostat NUTS 2 の地域"
 
 msgid "Eurostat NUTS 3 Place"
 msgstr "Eurostat NUTS 3 の地域"
 
 msgid "Eurostat NUTS 3 Places"
-msgstr ""
+msgstr "Eurostat NUTS 3 の地域"
 
 msgid "Explore"
 msgstr "探索"
@@ -194,37 +194,37 @@ msgid "Life Expectancy"
 msgstr "平均寿命"
 
 msgid "Loading"
-msgstr ""
+msgstr "読み込んでいます"
 
 msgid "Map Explorer"
 msgstr "マップ エクスプローラ"
 
 msgid "Median Age"
-msgstr ""
+msgstr "年齢の中央値"
 
 msgid "Median Income"
-msgstr ""
+msgstr "収入の中央値"
 
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
 
 msgid "Natural Disaster Dashboard"
-msgstr ""
+msgstr "自然災害ダッシュボード"
 
 msgid "Neighborhood"
-msgstr "近隣地区"
+msgstr "近隣地域"
 
 msgid "Neighborhoods"
-msgstr ""
+msgstr "近隣地域"
 
 msgid "Other %(placeType)s in %(parentPlace)s"
-msgstr ""
+msgstr "%(parentPlace)s のその他の %(placeType)s"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>プレイス エクスプローラは、地域の基礎的なコアデータを把握するために役立つツールです。特定の地域の人口統計、教育、経済などに関する一連のグラフをまとめて、他の地域と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の地域がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている地域を探索することもできます。</p>"
 
 msgid "Place"
-msgstr "場所"
+msgstr "地域"
 
 msgid "Place Explorer"
 msgstr "プレイス エクスプローラ"
@@ -236,7 +236,7 @@ msgid "Places"
 msgstr "場所"
 
 msgid "Population"
-msgstr ""
+msgstr "人口"
 
 msgid "Privacy Policy"
 msgstr "プライバシー ポリシー"
@@ -248,40 +248,40 @@ msgid "Scatter Plot Explorer"
 msgstr "散布図エクスプローラ"
 
 msgid "Show about links"
-msgstr ""
+msgstr "Show about links"
 
 msgid "Show documentation links"
-msgstr ""
+msgstr "ドキュメント リンクを表示"
 
 msgid "Show exploration tools"
-msgstr ""
+msgstr "Show exploration tools"
 
 msgid "Show site navigation"
-msgstr ""
+msgstr "Show site navigation"
 
 msgid "State"
 msgstr "州"
 
 msgid "States"
-msgstr ""
+msgstr "州"
 
 msgid "States, India"
-msgstr "States, India"
+msgstr "州、インド"
 
 msgid "States, United States"
 msgstr "米国の州"
 
 msgid "Statistical Variable Explorer"
-msgstr "Statistical Variable Explorer"
+msgstr "統計変数エクスプローラ"
 
 msgid "Statistics"
-msgstr ""
+msgstr "Statistics"
 
 msgid "Sustainability Explorer"
-msgstr ""
+msgstr "サステナビリティ エクスプローラ"
 
 msgid "Terms Of Use"
-msgstr "Terms Of Use"
+msgstr "利用規約"
 
 msgid "Terms and Conditions"
 msgstr "利用規約"
@@ -290,19 +290,19 @@ msgid "Timelines Explorer"
 msgstr "タイムライン エクスプローラ"
 
 msgid "Tools"
-msgstr ""
+msgstr "ツール"
 
 msgid "Town"
 msgstr "町"
 
 msgid "Towns"
-msgstr ""
+msgstr "町"
 
 msgid "Tutorials"
 msgstr "チュートリアル"
 
 msgid "Unemployment Rate"
-msgstr ""
+msgstr "失業率"
 
 msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
@@ -311,7 +311,7 @@ msgid "Village"
 msgstr "村"
 
 msgid "Villages"
-msgstr ""
+msgstr "村"
 
 msgid "Worldwide"
 msgstr "全世界"
@@ -320,7 +320,7 @@ msgid "ZIP Code"
 msgstr "郵便番号"
 
 msgid "ZIP Codes"
-msgstr ""
+msgstr "郵便番号"
 
 msgid "by city"
 msgstr "都市別"
@@ -335,16 +335,16 @@ msgid "in United States"
 msgstr "米国内"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr "生涯の大気有害物質のがんリスク"
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr "大気質指数"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "1 人あたりのアルコール消費量（年間）"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions"
+msgstr "年間温室効果ガス排出量"
 
 msgid "CHART_TITLE-Arson"
 msgstr "放火"
@@ -353,7 +353,7 @@ msgid "CHART_TITLE-Arson_rate"
 msgstr "放火件数（人口 100,000 人あたり）"
 
 msgid "CHART_TITLE-Associate_degree_gender"
-msgstr "Associate degree attainment by gender"
+msgstr "準学士号の取得（性別ごと）"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "準学士号の取得率（性別ごと）"
@@ -362,7 +362,7 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "学士号の取得率（性別ごと）"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr "空気"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "犯罪"
@@ -371,7 +371,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "人口統計"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr "災害"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "経済"
@@ -380,10 +380,10 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "学歴"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr "排出量"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr "エネルギー"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 msgstr "環境"
@@ -398,19 +398,19 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "住宅"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr "収入"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "概要"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr "貧困"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr "温度"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr "水"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "就労している児童"
@@ -467,10 +467,10 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "1 人あたりの電力消費量"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr "1 人あたりの発電量"
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr "電気料金"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "エネルギー使用量（1 人あたりの石油換算 kg）"
@@ -479,7 +479,7 @@ msgid "CHART_TITLE-Fertility_rate"
 msgstr "出生率"
 
 msgid "CHART_TITLE-Gdp"
-msgstr "Gross domestic product"
+msgstr "国内総生産"
 
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "国内総生産の成長率"
@@ -515,52 +515,52 @@ msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "政府の軍事支出（GDP 比）"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
-msgstr "Graduate or professional degree attainment by gender"
+msgstr "学位または専門職学位の取得（性別ごと）"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "学位または専門職学位の取得率（性別ごと）"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr "ヘイトクライム"
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr "障がい者が対象のヘイトクライム"
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr "障がい者が対象のヘイトクライム（10 万人あたり）"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr "民族を対象としたヘイトクライム"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr "民族が対象のヘイトクライム（10 万人あたり）"
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr "性別が対象のヘイトクライム"
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr "性別が対象のヘイトクライム（10 万人あたり）"
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr "人種が対象のヘイトクライム"
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr "人種が対象のヘイトクライム（10 万人あたり）"
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr "宗教が対象のヘイトクライム"
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr "宗教が対象のヘイトクライム（10 万人あたり）"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr "性的指向が対象のヘイトクライム"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr "性的指向が対象のヘイトクライム（10 万人あたり）"
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr "ヘイトクライム件数（10 万人あたり）"
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "健康習慣"
@@ -647,13 +647,13 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "国内企業の時価総額（GDP 比）"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr "平均ディーゼル PM 濃度"
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr "平均オゾン濃度"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr "平均 PM2.5 濃度"
 
 msgid "CHART_TITLE-Median_age"
 msgstr "年齢の中央値"
@@ -683,13 +683,13 @@ msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "人口あたりの死亡者数"
 
 msgid "CHART_TITLE-Outward_remittance"
-msgstr "Outward remittance"
+msgstr "仕向送金"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "仕向送金"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr "パーマー干ばつ深刻度指数"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "健康保険加入者の割合（性別ごと）"
@@ -761,16 +761,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1 人あたりの処方薬の量（四半期別）"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr "推定最高気温変動（RCP 2.6、2006 年基準）"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr "推定最高気温変動（RCP 4.5、2006 年基準）"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr "推定最高気温変動（RCP 6.0、2006 年基準）"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr "推定最高気温変動（RCP 8.5、2006 年基準）"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "窃盗"
@@ -848,27 +848,20 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "労働者と非労働者の人口の比較"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr "二酸化炭素排出量（非生物起源）"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr "1 人あたりの二酸化炭素排出量"
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr "メタン排出量（非生物起源）"
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr "亜酸化窒素排出量（非生物起源）"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
+msgstr "取水量"
 
-
-
-
-
-
-
-
-
-
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "概要"
 
