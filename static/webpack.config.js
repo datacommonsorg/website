@@ -38,6 +38,7 @@ const config = {
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     datagemma: [__dirname + "/js/apps/datagemma/main.ts", __dirname + "/css/datagemma.scss"],
+    biomed_nl: [__dirname + "/js/apps/biomed_nl/main.ts", __dirname + "/css/biomed_nl.scss"],
     diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
