@@ -1,8 +1,8 @@
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(parentPlaces)s में %(placeType)s"
 
-msgid "<a href="https://datacommons.org">Data Commons</a> from Google"
-msgstr "Google का <a href="https://datacommons.org">Data Commons</a>"
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr "Google का <a href=\"https://datacommons.org\">Data Commons</a>"
 
 msgid "APIs"
 msgstr "एपीआई"
@@ -861,7 +861,4 @@ msgstr "नाइट्रस ऑक्साइड का उत्सर्ज
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "पानी निकाले जाने की दर"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "खास जानकारी"
 

@@ -19,7 +19,6 @@ import {
   Category,
   PlaceChartsApiResponse,
   PlaceOverviewTableApiResponse,
-  RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import { ThemeProvider } from "@emotion/react";
 import React, { useEffect, useState } from "react";
@@ -35,9 +34,9 @@ import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
 import { PlaceOverview } from "./dev_place_overview";
-import { displayNameForPlaceType } from "./util";
 import {
   createPlacePageCategoryHref,
+  displayNameForPlaceType,
   placeChartsApiResponsesToPageConfig,
 } from "./util";
 
@@ -70,7 +69,7 @@ const PlaceHeader = (props: {
     <div className="title-section">
       <div className="place-info">
         <h1>
-          <span>
+          <span data-testid="place-name">
             {category === "Overview" ? (
               place.name
             ) : (
@@ -89,8 +88,8 @@ const PlaceHeader = (props: {
           <p className="subheader">
             {intl.formatMessage(pageMessages.placeTypeInPlaces, {
               placeType: displayNameForPlaceType(place.types[0]),
-            })}{" "}
-            {parentPlacesLinks}
+              parentPlaces: parentPlacesLinks,
+            })}
           </p>
         )}
       </div>

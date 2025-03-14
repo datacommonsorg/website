@@ -200,9 +200,9 @@ export const pageMessages = defineMessages({
   },
   placeTypeInPlaces: {
     id: "place_type_in_places",
-    defaultMessage: "{placeType} in",
+    defaultMessage: "{placeType} in {parentPlaces}",
     description:
-      'Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows "State in {USA, North America, World}".',
+      'Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows "State in USA, North America, World". Please leave the {placeType} and {parentPlaces} variables unchanged in the resulting translation.',
   },
   categoryInPlace: {
     id: "category_in_place",
