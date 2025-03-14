@@ -37,7 +37,7 @@ import {
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
@@ -255,7 +255,7 @@ export function Block(props: BlockPropType): JSX.Element {
                 onChange={() => setUseDenom(!useDenom)}
               />
               <span data-testid="see-per-capita">
-                {intl.formatMessage(tileMessages.seePerCapita)}
+                {intl.formatMessage(messages.seePerCapita)}
               </span>
             </label>
           </span>
@@ -507,10 +507,10 @@ function renderTiles(
             hideFooter={tile.hideFooter}
             footnote={
               blockDate == DATE_LATEST
-                ? intl.formatMessage(tileMessages.rankingTileLatestDataFooter)
+                ? intl.formatMessage(messages.rankingTileLatestDataFooter)
                 : blockDate === DATE_HIGHEST_COVERAGE
                 ? intl.formatMessage(
-                    tileMessages.rankingTileLatestDataAvailableFooter
+                    messages.rankingTileLatestDataAvailableFooter
                   )
                 : undefined
             }

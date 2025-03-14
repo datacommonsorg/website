@@ -17,7 +17,7 @@
 import _ from "lodash";
 
 import { intl } from "../i18n/i18n";
-import { tileMessages } from "../i18n/i18n_tile_messages";
+import { messages } from "../i18n/i18n_messages";
 
 const placeTypeToPlural = {
   place: "places",
@@ -102,7 +102,7 @@ export function getDateRange(dates: string[]): string {
   const maxDate = formatDate(_.max(dates));
   return minDate === maxDate
     ? `${minDate}`
-    : intl.formatMessage(tileMessages.dateRange, { minDate, maxDate });
+    : intl.formatMessage(messages.dateRange, { minDate, maxDate });
 }
 
 /**

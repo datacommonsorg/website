@@ -210,4 +210,22 @@ export const pageMessages = defineMessages({
     description:
       'Used for the placeholder in the search bar, set it as "Category in Place". For example, when in the economics page for the Austria place page, it will show "{Economics} in {Austria}".',
   },
+  placeNotFound: {
+    id: "place_not_found",
+    defaultMessage: 'Place "{placeDcid}" not found.',
+    description:
+      'Text to display on a 404 page when a place ID is not found. Example: "Place "dcid:geoId/04" not found.". Please leave the {placeDcid} variable unchanged in the resulting translation.',
+  },
+  categoryNotFound: {
+    id: "category_not_found",
+    defaultMessage: 'Category not found for place "{place}".',
+    description:
+      'Text to display on a 404 page when a category is not found. Example: "Category not found for place "Austria".". Please leave the {place} variable unchanged in the resulting translation.',
+  },
+  noCharts: {
+    id: "no_charts",
+    defaultMessage: "No {category} data found for {place}.",
+    description:
+      'Text to display when a category has no charts. Example: "No Economics data found for Austria.". Please leave the {category} and {place} variables unchanged in the resulting translation.',
+  },
 });

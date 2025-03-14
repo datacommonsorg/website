@@ -7,6 +7,10 @@
     "defaultMessage": "{category} in {placeName}",
     "description": "Used for the placeholder in the search bar, set it as \"Category in Place\". For example, when in the economics page for the Austria place page, it will show \"{Economics} in {Austria}\"."
   },
+  "category_not_found": {
+    "defaultMessage": "Category not found for place \"{place}\".",
+    "description": "Text to display on a 404 page when a category is not found. Example: \"Category not found for place \"Austria\".\". Please leave the {place} variable unchanged in the resulting translation."
+  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName} (Per Capita in {date})",
     "description": "Chart title for a chart with variable values that are per capita for a specific date"
@@ -107,6 +111,10 @@
     "defaultMessage": "Export this chart",
     "description": "Text for the hyperlink text that will let users export data and export charts."
   },
+  "enterQuery": {
+    "defaultMessage": "Enter a question to explore",
+    "description": "Placeholder text for the Data Commons search bar query input field"
+  },
   "exploreLink": {
     "defaultMessage": "Explore in {toolName}",
     "description": "Link to explore the chart in a specific tool"
@@ -147,9 +155,17 @@
     "defaultMessage": "More charts",
     "description": "Link text to show additional charts for the given chart category section for the current place."
   },
+  "no_charts": {
+    "defaultMessage": "No {category} data found for {place}.",
+    "description": "Text to display when a category has no charts. Example: \"No Economics data found for Austria.\". Please leave the {category} and {place} variables unchanged in the resulting translation."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} in {placeName}",
     "description": "Gives context for where this place is located. E.g. on the Tokyo place page, we say \"{City} in {Japan, Asia}\"."
+  },
+  "place_not_found": {
+    "defaultMessage": "Place \"{placeDcid}\" not found.",
+    "description": "Text to display on a 404 page when a place ID is not found. Example: \"Place \"dcid:geoId/04\" not found.\". Please leave the {placeDcid} variable unchanged in the resulting translation."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Rankings (in)",
