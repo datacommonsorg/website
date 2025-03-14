@@ -251,8 +251,6 @@ Amounts provided and mobilized in United States dollars per year in relation to 
 Annual growth rate of real GDP per capita,dc/topic/sdg_8.1.1
 Annual growth rate of real GDP per employed person,dc/topic/sdg_8.2.1
 Annual inflation rate as measured by the consumer price index,sdg/FP_CPI_TOTL_ZG
-Annual inflation rate consumer price index,sdg/FP_CPI_TOTL_ZG
-"Annual inflation, consumer prices",sdg/FP_CPI_TOTL_ZG
 Annual mean levels of fine particulate matter (e.g. PM2.5 and PM10) in cities (population weighted),dc/topic/sdg_11.6.2
 Area of Farm Growing Corn for Silage Or Greenchop,Area_Farm_CornForSilageOrGreenchop
 Area of Farm Growing Cotton,Area_Farm_Cotton
@@ -654,7 +652,6 @@ Demographics,dc/topic/Demographics
 Dengue,dc/topic/Dengue
 Dentists,dc/topic/Dentists
 Deposit interest rate,worldBank/FR_INR_DPST
-"Deposit interest rate is the rate paid by commercial or similar banks for demand, time, or savings deposits",worldBank/FR_INR_DPST
 Develop and implement tools to monitor sustainable development impacts for sustainable tourism that creates jobs and promotes local culture and products,dc/topic/sdg_12.b
 "Develop effective, accountable and transparent institutions at all levels",dc/topic/sdg_16.6
 "Develop quality, reliable, sustainable and resilient infrastructure, including regional and trans-border infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all",dc/topic/sdg_9.1
@@ -1011,8 +1008,6 @@ Land Use And Coverage,dc/topic/LandUseAndCoverage
 Landslide,dc/topic/Landslide
 Language,dc/topic/Language
 Lending interest rate,worldBank/FR_INR_LEND
-Lending interest rate adjusted for inflation as measured by the GDP deflator,worldBank/FR_INR_RINR
-Lending rate is the bank rate that usually meets the short- and medium-term financing needs of the private sector,worldBank/FR_INR_LEND
 Length of national highway,Length_Transportation_NationalHighway
 Length of rail road,Length_Transportation_Railroad
 Length of road,Length_Transportation_Road
@@ -2892,7 +2887,6 @@ Percent of land covered by Permanent Water,LandCoverFraction_PermanentWater
 Percent of land covered by Seasonal Water,LandCoverFraction_SeasonalWater
 Percent of land covered by Shrubland,LandCoverFraction_Shrubland
 Percent of land covered by Snow Ice,LandCoverFraction_SnowIce
-"Percentage change in the cost to the average consumer of acquiring a basket of goods and services that may be fixed or changed at specified intervals, such as yearly",sdg/FP_CPI_TOTL_ZG
 Percentage of Bcg Immunization Coverage Among 1 Year Old female,WHO/bcgv_Female
 Percentage of Bcg Immunization Coverage Among 1 Year Old in Rural Areas,WHO/bcgv_Rural
 Percentage of Bcg Immunization Coverage Among 1 Year Old in Urban areas,WHO/bcgv_Urban
@@ -3299,6 +3293,7 @@ Total confirmed or probable COVID-19 cases,CumulativeCount_MedicalConditionIncid
 "Total government revenue as a proportion of GDP, by source",dc/topic/sdg_17.1.1
 Total greenhouse gas emissions per year,dc/topic/sdg_13.2.2
 Total net official development assistance to medical research and basic health sectors,dc/topic/sdg_3.b.2
+Total nonfarm payroll,Count_Person_Employed_TotalNonfarm
 Total official development assistance grants from all donors that focus on poverty reduction as a share of the recipient country’s gross national income,dc/topic/sdg_1.a.1
 Total official flows (official development assistance plus other official flows) to the agriculture sector,dc/topic/sdg_2.a.2
 Total official international support (official development assistance plus other official flows) to infrastructure,dc/topic/sdg_9.a.1
