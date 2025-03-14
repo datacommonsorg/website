@@ -26,7 +26,6 @@ import { AutoCompleteInput } from "./auto_complete_input";
 export function NlSearchBarStandard({
   value,
   invalid,
-  placeholder,
   inputId,
   onChange,
   onSearch,
@@ -40,7 +39,6 @@ export function NlSearchBarStandard({
         enableAutoComplete={false}
         value={value}
         invalid={invalid}
-        placeholder={placeholder}
         inputId={inputId}
         onChange={onChange}
         onSearch={onSearch}

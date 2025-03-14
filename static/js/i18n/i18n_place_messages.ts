@@ -204,4 +204,10 @@ export const pageMessages = defineMessages({
     description:
       'Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows "State in {USA, North America, World}".',
   },
+  categoryInPlace: {
+    id: "category_in_place",
+    defaultMessage: "{category} in {placeName}",
+    description:
+      'Used for the placeholder in the search bar, set it as "Category in Place". For example, when in the economics page for the Austria place page, it will show "{Economics} in {Austria}".',
+  },
 });

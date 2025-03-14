@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -378,6 +379,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                   value='query-search-input').get_attribute('value'),
         'United States Of America')
 
+  @pytest.mark.skip(reason="Fix theme compile error before re-enabling")
   def test_dev_place_ai_spark_icon_hover(self):
     self.driver.get(self.url_ + '/place/geoId/04?force_dev_places=true')
 

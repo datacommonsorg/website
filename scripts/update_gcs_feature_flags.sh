@@ -25,8 +25,12 @@
 #  (1) Make sure you're running from root with a clean HEAD
 #  (2) Make sure you've signed into authenticated to gcloud using
 #          `gcloud auth application-default login`
-#  (3) Run `./scripts/update_gcs_feature_flags.sh <environment>`
+#  (3) Run `./scripts/update_gcs_feature_flags.sh <environment> <skipStagingPrompt> <shouldRestart>`
 #  Where <environment> is one of: dev, staging, production, autopush
+#        <skipStagingPrompt> specifies whether we should skip prompting the user for a staging check.
+#        <shouldRestart> specifies whether to restart the Kubernetes cluster.
+#  The last two parameters are optional, but if ommitted, the caller will be prompted for an answer. 
+#  For programmatic callouts to this script (i.e. from Cloud Build), don't forget these parameters!
 
 # Helper functions
 
@@ -102,15 +106,42 @@ compare_staging_production() {
         return 1
     fi
 
-    echo "Comparing staging and production feature flags..."
-    if ! diff --color "${temp_file}" "${staging_file}" &> /dev/null; then
-      echo "Error: Production feature flags differ from staging."
-      echo "Please ensure the flags are identical before deploying to production."
-      echo "Diffs:"
-      diff -C 2 --color "${temp_file}" "${staging_file}"
-      rm "${staging_file}"
-      rm "staging_from_github.json"
-      return 1
+    local python_executable=$(find_python)
+
+    # Python script to identify if flags enabled in production are disabled in staging.
+    if "$python_executable" -c "
+import json
+import sys
+
+try:
+    with open('$staging_file', 'r') as f1, open('$temp_file', 'r') as f2:
+        staging_data = json.load(f1)
+        production_data = json.load(f2)
+
+    staging_enabled = {f['name'] for f in staging_data if f.get('enabled')}
+    production_enabled = {f['name'] for f in production_data if f.get('enabled')}
+
+    production_only_enabled = production_enabled - staging_enabled
+
+    if production_only_enabled:
+        print('Error: Production feature flags have enabled flags that are disabled or missing in staging.')
+        print('Please ensure that all enabled flags in production are also enabled in staging.')
+        print('See the following flags that must first be enabled in staging:', sorted(list(production_only_enabled)))
+        sys.exit(1)
+    else:
+        print('Success comparing production and staging flags.')
+        sys.exit(0)
+
+except FileNotFoundError:
+    print('Error: File not found.', file=sys.stderr)
+    sys.exit(1)
+except json.JSONDecodeError:
+    print('Error: Invalid JSON.', file=sys.stderr)
+    sys.exit(1)
+" ; then
+        rm "${staging_file}"
+        rm "staging_from_github.json"
+        return 1
     fi
     rm "${staging_file}"
     rm "staging_from_github.json"
@@ -147,6 +178,8 @@ if [ -z "$1" ]; then
 fi
 
 environment="$1"
+skip_staging_prompt="$2"
+should_restart="$3"
 
 # Validate the environment
 if ! is_valid_environment "$environment"; then
@@ -169,11 +202,13 @@ fi
 bucket_name=$(get_bucket_name "$environment")
 
 if [[ "$environment" == "production" ]]; then
-    read -p "Have you validated these feature flags in staging? (yes/no) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-      echo "Aborting deployment to production."
-      exit 1
+    if [[ -z "$skip_staging_prompt" || "$skip_staging_prompt" != "true" ]]; then
+        read -p "Have you validated these feature flags in staging? (yes/no) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Aborting deployment to production."
+            exit 1
+        fi
     fi
 
     if ! compare_staging_production "$temp_file"; then
@@ -188,10 +223,16 @@ gsutil cp "${temp_file}" "gs://${bucket_name}/feature_flags.json"
 echo "Upload complete!"
 
 # Kubernetes restart prompt
-read -p "Do you want to restart the Kubernetes deployment? (yes/no) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-  restart_kubernetes_deployment "$environment" # Call the new function
+if [[ -n "$should_restart" ]]; then
+  if [[ "$should_restart" == "true" ]]; then
+    restart_kubernetes_deployment "$environment"
+  fi
+else
+  read -p "Do you want to restart the Kubernetes deployment? (yes/no) " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    restart_kubernetes_deployment "$environment"
+  fi
 fi
 
 rm "${temp_file}"

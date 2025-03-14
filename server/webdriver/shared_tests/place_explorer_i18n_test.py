@@ -25,7 +25,7 @@ class PlaceI18nExplorerTestMixin():
   def test_japan_in_japanese(self):
     """Test translations from various sources are displayed correctly."""
 
-    start_url = self.url_ + '/place/country/JPN?hl=ja'
+    start_url = self.url_ + '/place/country/JPN?hl=ja&disable_dev_places=true'
     self.driver.get(start_url)
 
     place_name_present = EC.text_to_be_present_in_element((By.ID, 'place-name'),
@@ -33,7 +33,7 @@ class PlaceI18nExplorerTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
     place_type_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
-                                                          'アジア 内の 国')
+                                                          'アジア の 国')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 
     economics_section_present = EC.text_to_be_present_in_element(
@@ -71,7 +71,8 @@ class PlaceI18nExplorerTestMixin():
     """Test the demographics link in FR propagates."""
 
     # Load France page.
-    self.driver.get(self.url_ + '/place/country/FRA?hl=fr')
+    self.driver.get(self.url_ +
+                    '/place/country/FRA?hl=fr&disable_dev_places=true')
 
     # Wait until the Demographics link is present.
     element_present = EC.presence_of_element_located(
@@ -83,6 +84,7 @@ class PlaceI18nExplorerTestMixin():
                                             '//*[@id="Demographics"]/a')
     self.assertEqual(demographics.text, 'DONNÉES DÉMOGRAPHIQUES')
     demographics.click()
+    self.driver.get(self.driver.current_url + '&disable_dev_places=true')
 
     # Wait until the new page has loaded.
     element_present = EC.presence_of_element_located(
@@ -98,6 +100,7 @@ class PlaceI18nExplorerTestMixin():
         By.CSS_SELECTOR, 'a.legend-link[title="Population totale"]')
     self.assertIsNotNone(pop_link, "Population totale link not found")
     pop_link.click()
+    self.driver.get(self.driver.current_url + '&disable_dev_places=true')
 
     # Wait until ranking page has loaded
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))

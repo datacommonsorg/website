@@ -403,7 +403,7 @@ def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
 @bp.route('/<path:place_dcid>')
 @cache.cached(query_string=True)
 def place(place_dcid=None):
-  if is_dev_place_ga_enabled(
+  if place_dcid is not None and is_dev_place_ga_enabled(
       flask.request.args) or is_dev_place_experiment_enabled(
           place_dcid, g.locale, flask.request.args):
     return dev_place(place_dcid=place_dcid)
@@ -514,6 +514,8 @@ def place(place_dcid=None):
               place_summary=place_summary.get('summary')
               if place_summary and locale == 'en' else '',
               maps_api_key=current_app.config['MAPS_API_KEY'],
+              sample_questions=json.dumps(
+                  current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
               block_indexing=block_indexing))
       response.headers.set('Link',
                            generate_link_headers(place_dcid, category, locale))
@@ -535,6 +537,8 @@ def place(place_dcid=None):
           category=category if category else '',
           place_summary=place_summary.get('summary') if place_summary else '',
           maps_api_key=current_app.config['MAPS_API_KEY'],
+          sample_questions=json.dumps(
+              current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
           block_indexing=block_indexing))
   response.headers.set('Link',
                        generate_link_headers(place_dcid, category, locale))
@@ -576,4 +580,7 @@ def dev_place(place_dcid=None):
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                place_dcid=place_dcid,
                                place_name=place_name,
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])),
                                place_summary=place_summary)
