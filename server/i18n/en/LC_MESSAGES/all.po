@@ -1148,3 +1148,4 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 #. Title of a place chart: Water withdrawal rate
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+

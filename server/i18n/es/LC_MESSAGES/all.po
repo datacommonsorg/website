@@ -1,8 +1,8 @@
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(placeType)s de %(parentPlaces)s"
 
-msgid "<a href="https://datacommons.org">Data Commons</a> from Google"
-msgstr "<a href="https://datacommons.org">Data Commons</a> de Google"
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr "<a href=\"https://datacommons.org\">Data Commons</a> de Google"
 
 msgid "APIs"
 msgstr "APIs"
@@ -861,7 +861,4 @@ msgstr "Emisiones de óxido nitroso (no biogénico)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Índice de extracción de agua"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Vista general"
 
