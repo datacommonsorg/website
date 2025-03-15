@@ -2,10 +2,10 @@ msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(parentPlaces)s में %(placeType)s"
 
 msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
-msgstr ""
+msgstr "Google का <a href=\"https://datacommons.org\">Data Commons</a>"
 
 msgid "APIs"
-msgstr "APIs"
+msgstr "एपीआई"
 
 msgid "About"
 msgstr "इसके बारे में जानकारी"
@@ -14,49 +14,49 @@ msgid "About Data Commons"
 msgstr "Data Commons के बारे में जानकारी"
 
 msgid "Administrative Area"
-msgstr "प्रशासकीय क्षेत्र"
+msgstr "प्रशासनिक क्षेत्र"
 
 msgid "Administrative Area 1 Place"
-msgstr "प्रशासकीय क्षेत्र 1 वाले इलाके"
+msgstr "प्रशासनिक क्षेत्र 1 के तहत आने वाला इलाका"
 
 msgid "Administrative Area 1 Places"
-msgstr ""
+msgstr "प्रशासनिक क्षेत्र 1 के तहत आने वाले इलाके"
 
 msgid "Administrative Area 2 Place"
-msgstr "प्रशासकीय क्षेत्र 2 वाले इलाके"
+msgstr "प्रशासनिक क्षेत्र 2 के तहत आने वाला इलाका"
 
 msgid "Administrative Area 2 Places"
-msgstr ""
+msgstr "प्रशासनिक क्षेत्र 2 के तहत आने वाले इलाके"
 
 msgid "Administrative Area 3 Place"
-msgstr "प्रशासकीय क्षेत्र 3 वाले इलाके"
+msgstr "प्रशासनिक क्षेत्र 3 के तहत आने वाला इलाका"
 
 msgid "Administrative Area 3 Places"
-msgstr ""
+msgstr "प्रशासनिक क्षेत्र 3 के तहत आने वाले इलाके"
 
 msgid "Administrative Area 4 Place"
-msgstr "प्रशासकीय क्षेत्र 4 वाले इलाके"
+msgstr "प्रशासनिक क्षेत्र 4 के तहत आने वाला इलाका"
 
 msgid "Administrative Area 4 Places"
-msgstr ""
+msgstr "प्रशासनिक क्षेत्र 4 के तहत आने वाले इलाके"
 
 msgid "Administrative Area 5 Place"
-msgstr "प्रशासकीय क्षेत्र 5 वाले इलाके"
+msgstr "प्रशासकीय क्षेत्र 5 के तहत आने वाले इलाके"
 
 msgid "Administrative Area 5 Places"
-msgstr ""
+msgstr "प्रशासनिक क्षेत्र 5 के तहत आने वाले इलाके"
 
 msgid "Administrative Areas"
-msgstr ""
+msgstr "प्रशासनिक क्षेत्र"
 
 msgid "An initiative from"
-msgstr ""
+msgstr "इनकी पहल"
 
 msgid "Back to homepage"
-msgstr ""
+msgstr "होम पेज पर वापस जाएं"
 
 msgid "BigQuery"
-msgstr ""
+msgstr "BigQuery"
 
 msgid "Blog"
 msgstr "ब्लॉग"
@@ -65,13 +65,13 @@ msgid "Borough"
 msgstr "नगर"
 
 msgid "Boroughs"
-msgstr ""
+msgstr "नगर"
 
 msgid "Cities"
-msgstr ""
+msgstr "शहर"
 
 msgid "Cities, India"
-msgstr "Cities, India"
+msgstr "शहर, भारत"
 
 msgid "Cities, United States"
 msgstr "संयुक्त राज्य अमेरिका के शहर"
@@ -83,7 +83,7 @@ msgid "Contribute"
 msgstr "योगदान"
 
 msgid "Counties"
-msgstr ""
+msgstr "काउंटी"
 
 msgid "Counties, United States"
 msgstr "संयुक्त राज्य अमेरिका की काउंटी"
@@ -101,7 +101,7 @@ msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr "Data Download Tool"
+msgstr "डेटा डाउनलोड टूल"
 
 msgid "Data Sources"
 msgstr "डेटा सोर्स"
@@ -110,7 +110,7 @@ msgid "Disclaimers"
 msgstr "खंंडन"
 
 msgid "Districts, India"
-msgstr "Districts, India"
+msgstr "ज़िला, भारत"
 
 msgid "Documentation"
 msgstr "दस्तावेज़"
@@ -125,22 +125,22 @@ msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
 msgid "Eurostat NUTS 1 Place"
-msgstr "यूरोस्टेट एनयूटीएस 1 वाले इलाके"
+msgstr "यूरोस्टेट एनयूटीएस 1 के तहत आने वाला इलाका"
 
 msgid "Eurostat NUTS 1 Places"
-msgstr ""
+msgstr "यूरोस्टेट एनयूटीएस 1 के तहत आने वाले इलाके"
 
 msgid "Eurostat NUTS 2 Place"
-msgstr "यूरोस्टेट एनयूटीएस 2 वाले इलाके"
+msgstr "यूरोस्टेट एनयूटीएस 2 के तहत आने वाला इलाका"
 
 msgid "Eurostat NUTS 2 Places"
-msgstr ""
+msgstr "यूरोस्टेट एनयूटीएस 2 के तहत आने वाले इलाके"
 
 msgid "Eurostat NUTS 3 Place"
-msgstr "यूरोस्टेट एनयूटीएस 3 वाले इलाके"
+msgstr "यूरोस्टेट एनयूटीएस 3 के तहत आने वाला इलाका"
 
 msgid "Eurostat NUTS 3 Places"
-msgstr ""
+msgstr "यूरोस्टेट एनयूटीएस 3 के तहत आने वाले इलाके"
 
 msgid "Explore"
 msgstr "एक्सप्लोर करें"
@@ -185,7 +185,7 @@ msgid "Highest Unemployment Rate"
 msgstr "सबसे ज़्यादा बेरोज़गारी दर"
 
 msgid "Knowledge Graph"
-msgstr "ज्ञान ग्राफ"
+msgstr "नॉलेज ग्राफ़"
 
 msgid "Largest Population"
 msgstr "सबसे ज़्यादा जनसंख्या"
@@ -194,31 +194,31 @@ msgid "Life Expectancy"
 msgstr "औसत उम्र"
 
 msgid "Loading"
-msgstr ""
+msgstr "लोड हो रहा है"
 
 msgid "Map Explorer"
 msgstr "मैप एक्सप्लोरर"
 
 msgid "Median Age"
-msgstr ""
+msgstr "मीडियन उम्र"
 
 msgid "Median Income"
-msgstr ""
+msgstr "मीडियन इनकम"
 
 msgid "Median Income, United States"
 msgstr "संयुक्त राज्य अमेरिका में औसत आय"
 
 msgid "Natural Disaster Dashboard"
-msgstr ""
+msgstr "प्राकृतिक आपदाओं की जानकारी वाला डैशबोर्ड"
 
 msgid "Neighborhood"
-msgstr "आस-पड़ोस"
+msgstr "आस-पास"
 
 msgid "Neighborhoods"
-msgstr ""
+msgstr "आस-पास"
 
 msgid "Other %(placeType)s in %(parentPlace)s"
-msgstr ""
+msgstr "%(parentPlace)s में अन्य %(placeType)s"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>जगह एक्सप्लोर करने वाले टूल से आपको किसी जगह का सबसे ज़रूरी डेटा समझने में मदद मिलती है. यह टूल किसी जगह के बारे में शिक्षा और अर्थशास्त्र से जुड़ा डेटा, चार्ट में दिखाता है. इस डेटा में लोगों की जानकारी (जैसे, उम्र, लिंग, आय, शिक्षा वगैरह) भी शामिल होती है. साथ ही, अन्य जगहों का डेटा भी दिखाया जाता है, ताकि तुलना की जा सके. आप मेट्रिक के हिसाब से अलग-अलग जगहों की रैंक भी देख सकते हैं. इन मेट्रिक में बेरोज़गारी, अपराध, और आय शामिल हैं.</p><p>आप ऊपर दिए गए खोज बॉक्स का इस्तेमाल करके, अपने पसंदीदा शहर, पिन कोड, देश, राज्य या देश के हिसाब से डेटा के चार्ट देख सकते हैं.</p><p>इसके अलावा, आप सबसे मशहूर कुछ जगहों को एक्सप्लोर कर सकते हैं ...</p>"
@@ -236,7 +236,7 @@ msgid "Places"
 msgstr "जगहें"
 
 msgid "Population"
-msgstr ""
+msgstr "जनसंख्या"
 
 msgid "Privacy Policy"
 msgstr "निजता नीति"
@@ -248,40 +248,40 @@ msgid "Scatter Plot Explorer"
 msgstr "स्कैटर प्लॉट एक्सप्लोरर"
 
 msgid "Show about links"
-msgstr ""
+msgstr "Show about links"
 
 msgid "Show documentation links"
-msgstr ""
+msgstr "दस्तावेज़ के लिंक दिखाएं"
 
 msgid "Show exploration tools"
-msgstr ""
+msgstr "Show exploration tools"
 
 msgid "Show site navigation"
-msgstr ""
+msgstr "Show site navigation"
 
 msgid "State"
 msgstr "राज्य"
 
 msgid "States"
-msgstr ""
+msgstr "राज्य"
 
 msgid "States, India"
-msgstr "States, India"
+msgstr "राज्य, भारत"
 
 msgid "States, United States"
 msgstr "संयुक्त राज्य अमेरिका के राज्य"
 
 msgid "Statistical Variable Explorer"
-msgstr "Statistical Variable Explorer"
+msgstr "स्टैटिस्टिकल वैरिएबल एक्सप्लोरर"
 
 msgid "Statistics"
-msgstr ""
+msgstr "Statistics"
 
 msgid "Sustainability Explorer"
-msgstr ""
+msgstr "सस्टेनबिलिटी एक्सप्लोरर"
 
 msgid "Terms Of Use"
-msgstr "Terms Of Use"
+msgstr "इस्तेमाल की शर्तें"
 
 msgid "Terms and Conditions"
 msgstr "नियम और शर्तें"
@@ -290,19 +290,19 @@ msgid "Timelines Explorer"
 msgstr "टाइमलाइन एक्सप्लोर करने वाला टूल"
 
 msgid "Tools"
-msgstr ""
+msgstr "टूल"
 
 msgid "Town"
 msgstr "कस्बा"
 
 msgid "Towns"
-msgstr ""
+msgstr "कस्बे"
 
 msgid "Tutorials"
 msgstr "ट्यूटोरियल"
 
 msgid "Unemployment Rate"
-msgstr ""
+msgstr "बेरोज़गारी दर"
 
 msgid "Unemployment Rate, United States"
 msgstr "संयुक्त राज्य अमेरिका में बेरोज़गारी की दर"
@@ -311,7 +311,7 @@ msgid "Village"
 msgstr "गांव"
 
 msgid "Villages"
-msgstr ""
+msgstr "गांव"
 
 msgid "Worldwide"
 msgstr "दुनिया भर में"
@@ -320,7 +320,7 @@ msgid "ZIP Code"
 msgstr "पिन कोड"
 
 msgid "ZIP Codes"
-msgstr ""
+msgstr "पिन कोड"
 
 msgid "by city"
 msgstr "शहर के हिसाब से"
@@ -335,16 +335,16 @@ msgid "in United States"
 msgstr "संयुक्त राज्य अमेरिका में"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr "जहरीली हवा से होने वाले कैंसर का जीवन भर खतरा"
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr "एयर क्वालिटी इंडेक्स"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "अल्कोहल की प्रति व्यक्ति खपत (सालाना)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions"
+msgstr "ग्रीनहाउस गैस का सालाना उत्सर्जन"
 
 msgid "CHART_TITLE-Arson"
 msgstr "आगज़नी"
@@ -353,7 +353,7 @@ msgid "CHART_TITLE-Arson_rate"
 msgstr "प्रति एक लाख लोगों के अनुपात में आगज़नी की घटनाएं"
 
 msgid "CHART_TITLE-Associate_degree_gender"
-msgstr "Associate degree attainment by gender"
+msgstr "लैंगिग जानकारी के हिसाब से, असोसिएट डिग्री पाने वालों की दर"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "लिंग के हिसाब से असोसिएट डिग्री पाने वालों की दर"
@@ -362,7 +362,7 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की दर जो स्नातक हैं"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr "हवा"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "अपराध"
@@ -371,7 +371,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "लोगों की जानकारी, जैसे कि उम्र, लिंग, आय, शिक्षा वगैरह"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr "आपदाएं"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "अर्थशास्त्र"
@@ -380,10 +380,10 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "शिक्षा"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr "उत्सर्जन"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr "ऊर्जा"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 msgstr "एनवायरमेंट"
@@ -398,19 +398,19 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "घर"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr "आय"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "खास जानकारी"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr "गरीबी"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr "तापमान"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr "पानी"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "नौकरी करने वाले बच्चों की संख्या"
@@ -467,10 +467,10 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "प्रति व्यक्ति बिजली की खपत"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr "प्रति व्यक्ति बिजली का उत्पादन"
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr "बिजली का शुल्क"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "ऊर्जा की खपत (प्रति व्यक्ति किलोग्राम तेल)"
@@ -479,7 +479,7 @@ msgid "CHART_TITLE-Fertility_rate"
 msgstr "प्रजनन दर"
 
 msgid "CHART_TITLE-Gdp"
-msgstr "Gross domestic product"
+msgstr "सकल घरेलू उत्पाद (जीडीपी)"
 
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "सकल घरेलू उत्पाद (GDP) वृद्धि दर"
@@ -515,52 +515,52 @@ msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "सेना पर होने वाला सरकारी खर्च (GDP का प्रतिशत)"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
-msgstr "Graduate or professional degree attainment by gender"
+msgstr "लैंगिग जानकारी के हिसाब से, ग्रैजुएट या प्रोफ़ेशनल डिग्री वाले लोगों की संख्या"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की संख्या जिनके पास प्रोफ़ेशनल डिग्री है"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr "नफ़रत फैलाने वाला अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr "दिव्यांगों के ख़िलाफ़ नफ़रत फैलाने वाला अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr "प्रति 1,00,000 व्यक्ति, दिव्यांगों के ख़िलाफ़ नफ़रत फैलाने वाले अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr "जाति के आधार पर नफ़रत फैलाने वाला अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr "प्रति 1,00,000 व्यक्ति, जाति के आधार पर नफ़रत फैलाने वाले अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr "लिंग के आधार पर नफ़रत फैलाने वाला अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr "प्रति 1,00,000 व्यक्ति, लिंग के आधार पर नफ़रत फैलाने वाले अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr "नस्ल के आधार पर नफ़रत फैलाने वाला अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr "प्रति 1,00,000 व्यक्ति, नस्ल के आधार पर नफ़रत फैलाने वाले अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr "धर्म के आधार पर नफ़रत फैलाने वाला अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr "प्रति 1,00,000 व्यक्ति, धर्म के आधार पर नफ़रत फैलाने वाले अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr "यौन रुझान के आधार पर नफ़रत फैलाने वाला अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr "प्रति 1,00,000 व्यक्ति, यौन रुझान के आधार पर नफ़रत फैलाने वाले अपराध"
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr "प्रति 1,00,000 व्यक्ति, नफ़रत फैलाने वाले अपराध"
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "स्वास्थ्य से जुड़ी बुरी आदतें"
@@ -647,13 +647,13 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP का प्रतिशत)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr "डीज़ल पीएम की मात्रा का औसत"
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr "ओज़ोन की मात्रा का औसत"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr "PM2.5 की मात्रा का औसत"
 
 msgid "CHART_TITLE-Median_age"
 msgstr "औसत उम्र"
@@ -683,13 +683,13 @@ msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "प्रति व्यक्ति मरने वालों की संख्या"
 
 msgid "CHART_TITLE-Outward_remittance"
-msgstr "Outward remittance"
+msgstr "बाहर भेजे गए पैसे"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "लोगों के बैंक खातों से निकाली गई कुल रकम"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr "पामर ड्राउट सिवेरिटी इंडेक्स"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों का प्रतिशत जिनके पास स्वास्थ्य बीमा नहीं है"
@@ -728,7 +728,7 @@ msgid "CHART_TITLE-Population_age_distribution"
 msgstr "उम्र वर्ग में आने वाले लोगों का प्रतिशत"
 
 msgid "CHART_TITLE-Population_density"
-msgstr "जनसंख्या घनत्व (प्रति वर्ग किमी में रहने वाले लोग)"
+msgstr "जनसंख्या का घनत्व (प्रति वर्ग कि॰मी॰ में रहने वाले लोग)"
 
 msgid "CHART_TITLE-Population_gender"
 msgstr "लिंग के हिसाब से जनसंख्या"
@@ -761,16 +761,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "बताई गई दवाई प्रति व्यक्ति (हर तिमाही में)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr "आरसीपी 2.6 के आधार पर, तापमान में होने वाला ज़्यादा से ज़्यादा बदलाव (यह अनुमान साल 2006 में लगाया गया था)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr "आरसीपी 4.5 के आधार पर, तापमान में ज़्यादा से ज़्यादा बदलाव का अनुमान (यह अनुमान साल 2006 में लगाया गया था)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr "आरसीपी 6.0 के आधार पर, तापमान में होने वाला ज़्यादा से ज़्यादा बदलाव (यह अनुमान साल 2006 में लगाया गया था)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr "आरसीपी 8.5 के आधार पर, तापमान में ज़्यादा से ज़्यादा बदलाव (यह अनुमान साल 2006 में लगाया गया था)"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "प्रॉपर्टी से जुड़े अपराधों की कुल संख्या"
@@ -848,27 +848,17 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "कामकाजी बनाम गैर-कामकाजी लोगों की जनसंख्या"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr "कार्बन डाइऑक्साइड का उत्सर्जन (नॉन-बायोजनिक यानी निर्जीव चीज़ों से होने वाला उत्सर्जन)"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr "प्रति व्यक्ति कार्बन डाइऑक्साइड का उत्सर्जन"
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr "मीथेन का उत्सर्जन (नॉन-बायोजनिक यानी निर्जीव चीज़ों से होने वाला उत्सर्जन)"
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr "नाइट्रस ऑक्साइड का उत्सर्जन (नॉन-बायोजनिक यानी निर्जीव चीज़ों से होने वाला उत्सर्जन)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
-
-
-
-
-
-
-
-
-
-
+msgstr "पानी निकाले जाने की दर"
 

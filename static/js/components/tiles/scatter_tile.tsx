@@ -34,7 +34,7 @@ import { URL_PATH } from "../../constants/app/visualization_constants";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -558,7 +558,7 @@ function getExploreLink(props: ScatterTilePropType): {
     displayOptions
   );
   return {
-    displayText: intl.formatMessage(tileMessages.scatterTool),
+    displayText: intl.formatMessage(messages.scatterTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
 }

@@ -1,6 +1,6 @@
 {
   "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
+    "defaultMessage": "Риск возникновения рака из-за загрязнения воздуха"
   },
   "AirQualityIndex_AirPollutant": {
     "defaultMessage": "AQI"
@@ -60,22 +60,22 @@
     "defaultMessage": "Рыночная капитализация отечественных компаний (в процентах от ВВП)"
   },
   "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
+    "defaultMessage": "Ежегодное производство электроэнергии"
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "Выбросы углекислого газа (небиогенные, на крупных объектах)"
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
+    "defaultMessage": "Ежегодные выбросы парникового газа (небиогенные, на крупных объектах)"
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "Выбросы метана (небиогенные, на крупных объектах)"
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "Выбросы оксида азота (небиогенные, на крупных объектах)"
   },
   "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
+    "defaultMessage": "Ежегодное производство электроэнергии"
   },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "Количество преступлений (поджоги)"
@@ -90,25 +90,25 @@
     "defaultMessage": "Количество преступлений (насильственные)"
   },
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+    "defaultMessage": "Число преступлений (на почве ненависти к инвалидам)"
   },
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+    "defaultMessage": "Число преступлений (на почве этнической ненависти)"
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
+    "defaultMessage": "Число преступлений (на почве гендерной ненависти)"
   },
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
+    "defaultMessage": "Число преступлений (на почве расовой ненависти)"
   },
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+    "defaultMessage": "Число преступлений (на почве религиозной ненависти)"
   },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+    "defaultMessage": "Число преступлений (на почве ненависти к людям с иной сексуальной ориентацией)"
   },
   "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
+    "defaultMessage": "Число преступлений (на почве ненависти)"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "Количество случаев циклонов"
@@ -639,16 +639,16 @@
     "defaultMessage": "Общее количество летальных исходов от COVID-19"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+    "defaultMessage": "Максимальное изменение температуры (с 2016 года по сценарию RCP 2.6)"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+    "defaultMessage": "Максимальное изменение температуры (с 2016 года по сценарию RCP 4.5)"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+    "defaultMessage": "Максимальное изменение температуры (с 2016 года по сценарию RCP 6.0)"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+    "defaultMessage": "Максимальное изменение температуры (с 2016 года по сценарию RCP 8.5)"
   },
   "FertilityRate_Person_Female": {
     "defaultMessage": "Коэффициент суммарной рождаемости"
@@ -666,13 +666,13 @@
     "defaultMessage": "Средняя продолжительность жизни"
   },
   "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Mean Diesel PM Concentration"
+    "defaultMessage": "Средняя концентрация твердых частиц дизельного топлива"
   },
   "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Mean Ozone Concentration"
+    "defaultMessage": "Средняя концентрация озона"
   },
   "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "Mean PM2.5 Concentration"
+    "defaultMessage": "Средняя концентрация частиц PM2.5"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "Средний заработок в день"
@@ -762,7 +762,7 @@
     "defaultMessage": "Медианный личный доход (мужчины)"
   },
   "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "The Palmer Drought Severity Index"
+    "defaultMessage": "Индекс интенсивности засухи Палмера"
   },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "Процент населения без медицинской страховки (женщины)"
@@ -840,7 +840,7 @@
     "defaultMessage": "Доля безработных (сельская местность)"
   },
   "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
+    "defaultMessage": "Объем забора воды"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "Население (буддисты)"

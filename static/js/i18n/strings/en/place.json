@@ -3,6 +3,10 @@
     "defaultMessage": "Sorry, but we don't have any data about {placeName}",
     "description": "Text for an alert that we show when user tries to navigate to a place with no data. For example, \"Sorry, but we don't have any data about {Hong Kong Island, Hong Kong}\"."
   },
+  "category_in_place": {
+    "defaultMessage": "{category} in {placeName}",
+    "description": "Used for the placeholder in the search bar, set it as \"Category in Place\". For example, when in the economics page for the Austria place page, it will show \"{Economics} in {Austria}\"."
+  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName} (Per Capita in {date})",
     "description": "Chart title for a chart with variable values that are per capita for a specific date"
@@ -75,6 +79,10 @@
     "defaultMessage": "Close",
     "description": "Button to close the metadata modal"
   },
+  "dateRange": {
+    "defaultMessage": "{minDate} to {maxDate}",
+    "description": "Date range for a chart title. For example: \"2010 to 2020\". Please leave the variables {minDate} and {maxDate} unchanged in the translated message."
+  },
   "disasterTool": {
     "defaultMessage": "Disaster Tool",
     "description": "Title for the disaster tool"
@@ -99,9 +107,17 @@
     "defaultMessage": "Export this chart",
     "description": "Text for the hyperlink text that will let users export data and export charts."
   },
+  "enterQuery": {
+    "defaultMessage": "Enter a question to explore",
+    "description": "Placeholder text for the Data Commons search bar query input field"
+  },
   "exploreLink": {
     "defaultMessage": "Explore in {toolName}",
     "description": "Link to explore the chart in a specific tool"
+  },
+  "explore_data_on": {
+    "defaultMessage": "Explore data on... \"{sampleQuestion}\"",
+    "description": "Used for the dynamic placeholders in the search bar, gives an example of a query to type."
   },
   "header-overview": {
     "defaultMessage": "Overview",
@@ -135,9 +151,17 @@
     "defaultMessage": "More charts",
     "description": "Link text to show additional charts for the given chart category section for the current place."
   },
+  "no_charts": {
+    "defaultMessage": "No {category} data found for {place}.",
+    "description": "Text to display when a category has no charts. Example: \"No Economics data found for Austria.\". Please leave the {category} and {place} variables unchanged in the resulting translation."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} in {placeName}",
     "description": "Gives context for where this place is located. E.g. on the Tokyo place page, we say \"{City} in {Japan, Asia}\"."
+  },
+  "place_not_found": {
+    "defaultMessage": "Place \"{placeDcid}\" not found.",
+    "description": "Text to display on a 404 page when a place ID is not found. Example: \"Place \"dcid:geoId/04\" not found.\". Please leave the {placeDcid} variable unchanged in the resulting translation."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Rankings (in)",
@@ -146,6 +170,10 @@
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} of {total}",
     "description": "The main content of the ranking table, telling users how the current place ranks among other places of the same type in the same parent place. For ZIP Code 94539, we see that for Largest Population, it is \"{8} of {41}\" among ZIP Codes in Alameda County."
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{placeType} in {parentPlaces}",
+    "description": "Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows \"State in USA, North America, World\". Please leave the {placeType} and {parentPlaces} variables unchanged in the resulting translation."
   },
   "plural_administrative_area": {
     "defaultMessage": "Administrative Areas",
@@ -162,6 +190,10 @@
   "plural_city": {
     "defaultMessage": "Cities",
     "description": "A label or header for a collection of places of type City (generally places with more people than a town, borough or village, see https://en.wikipedia.org/wiki/City). Some examples: 'Cities in California', 'Median Age: Other Cities', or 'Rankings of Population for Cities in California'. Please maintain capitalization."
+  },
+  "plural_continent": {
+    "defaultMessage": "Continents",
+    "description": "A label or header for a collection of places of type Continent (see https://en.wikipedia.org/wiki/Continent). Some examples: 'Continents in the world', 'Median Age: Other Continents', or 'Ranking by Population for Continents in the world'. Please maintain capitalization."
   },
   "plural_country": {
     "defaultMessage": "Countries",
@@ -283,6 +315,10 @@
     "defaultMessage": "Search for another place",
     "description": "Text for the Search Box after we alerted the user that data isn't available for the place they just tried."
   },
+  "seePerCapita": {
+    "defaultMessage": "See per capita",
+    "description": "Checkbox label text for option that toggles per capita data"
+  },
   "selectVariable": {
     "defaultMessage": "Select a variable from the list to see its details. The links below open the Statistical Variable Explorer in a new tab.",
     "description": "Subtitle for the metadata modal showing the list of variables to show source information for"
@@ -306,6 +342,10 @@
   "singular_city": {
     "defaultMessage": "City",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/City, generally a place with more people than a town, borough or village. An example use is 'City in France' to describe 'Paris'. Please maintain capitalization."
+  },
+  "singular_continent": {
+    "defaultMessage": "Continent",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Continent. An example use is 'A Continent in the world' to describe 'Europe'. Please maintain capitalization."
   },
   "singular_country": {
     "defaultMessage": "Country",
@@ -365,6 +405,10 @@
   },
   "summary_overview": {
     "defaultMessage": "Summary overview",
+    "description": "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics."
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data.",
     "description": "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics."
   },
   "the_world": {

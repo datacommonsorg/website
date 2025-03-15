@@ -2,13 +2,13 @@
   "AirPollutant_Cancer_Risk": [
     {
       "type": 0,
-      "value": "Air Toxics Cancer Risk"
+      "value": "जहरीली हवा से होने वाले कैंसर का खतरा"
     }
   ],
   "AirQualityIndex_AirPollutant": [
     {
       "type": 0,
-      "value": "AQI"
+      "value": "एक्यूआई"
     }
   ],
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
@@ -86,7 +86,7 @@
   "Amount_Emissions_CarbonDioxide_PerCapita": [
     {
       "type": 0,
-      "value": "Carbon Dioxide Emissions"
+      "value": "कार्बन डाइऑक्साइड का उत्सर्जन"
     }
   ],
   "Amount_Remittance_InwardRemittance": [
@@ -122,37 +122,37 @@
   "Annual_Average_RetailPrice_Electricity": [
     {
       "type": 0,
-      "value": "Electricity Price"
+      "value": "बिजली का शुल्क"
     }
   ],
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Carbon Dioxide (Large Facilities, Non-biogenic)"
+      "value": "कार्बन डाइऑक्साइड (बड़े सोर्स, नॉन-बायोजनिक)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
-      "value": "Greenhouse Gas (Large Facilities, Non-biogenic)"
+      "value": "ग्रीनहाउस गैस (बड़े सोर्स, नॉन-बायोजनिक)"
     }
   ],
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Methane (Large Facilities, Non-biogenic)"
+      "value": "मीथेन (बड़े सोर्स, नॉन-बायोजनिक)"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Nitrous Oxide (Large Facilities, Non-biogenic)"
+      "value": "नाइट्रस ऑक्साइड (बड़े सोर्स, नॉन-बायोजनिक)"
     }
   ],
   "Annual_Generation_Electricity": [
     {
       "type": 0,
-      "value": "Annual Electricity Generation"
+      "value": "बिजली का सालाना उत्पादन"
     }
   ],
   "Count_CriminalActivities_Arson": [
@@ -182,43 +182,43 @@
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Disability)"
+      "value": "दिव्यांगों के ख़िलाफ़ नफ़रत फैलाने वाले अपराध"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Ethnicity)"
+      "value": "जाति के आधार पर नफ़रत फैलाने वाले अपराध"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Gender)"
+      "value": "लिंग के आधार पर नफ़रत फैलाने वाले अपराध"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Race)"
+      "value": "नस्ल के आधार पर नफ़रत फैलाने वाले अपराध"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Religion)"
+      "value": "धर्म के आधार पर नफ़रत फैलाने वाले अपराध"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Sexual Orientation)"
+      "value": "यौन रुझान के आधार पर नफ़रत फैलाने वाले अपराध"
     }
   ],
   "Count_CriminalIncidents_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes"
+      "value": "नफ़रत से जुड़े हिंसक अपराध"
     }
   ],
   "Count_CycloneEvent": [
@@ -1280,25 +1280,25 @@
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 2.6"
+      "value": "आरसीपी 2.6 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 4.5"
+      "value": "आरसीपी 4.5 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 6.0"
+      "value": "आरसीपी 6.0 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 8.5"
+      "value": "आरसीपी 8.5 के आधार पर, साल 2006 से तापमान में आया ज़्यादा से ज़्यादा बदलाव"
     }
   ],
   "FertilityRate_Person_Female": [
@@ -1334,13 +1334,13 @@
   "Mean_Concentration_AirPollutant_DieselPM": [
     {
       "type": 0,
-      "value": "Diesel PM"
+      "value": "डीज़ल पीएम"
     }
   ],
   "Mean_Concentration_AirPollutant_Ozone": [
     {
       "type": 0,
-      "value": "Ozone"
+      "value": "ओज़ोन"
     }
   ],
   "Mean_Concentration_AirPollutant_PM2.5": [
@@ -1526,7 +1526,7 @@
   "PalmerDroughtSeverityIndex_Atmosphere": [
     {
       "type": 0,
-      "value": "PDSI"
+      "value": "पीडीएसआई"
     }
   ],
   "Percent_Person_18To64Years_Female_NoHealthInsurance": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water Withdrawal Rate"
+      "value": "पानी निकाले जाने की दर"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

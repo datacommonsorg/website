@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,23 +15,17 @@
  */
 
 /**
- * A container for any tile containing a chart.
+ * Entrypoint for biomed NL interface page.
  */
 
 import React from "react";
+import ReactDOM from "react-dom";
 
-import { Loading } from "../elements/loading";
+import { App } from "./app";
 
-/**
- * Header with loading indicator
- * @param props.isLoading true if the component is loading
- * @param props.title Header text
- * @returns
- */
-export function LoadingHeader(props: {
-  isLoading: boolean;
-  title?: string;
-}): JSX.Element {
-  const { isLoading, title } = props;
-  return <h4 {...{ part: "header" }}>{isLoading ? <Loading /> : title}</h4>;
-}
+window.addEventListener("load", (): void => {
+  ReactDOM.render(
+    React.createElement(App),
+    document.getElementById("biomed_nl")
+  );
+});

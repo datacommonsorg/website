@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 '''Recognizes DC KG entities from a NL query.'''
-from google import genai
 
 import server.lib.fetch as fetch
 import server.routes.experiments.biomed_nl.utils as utils
