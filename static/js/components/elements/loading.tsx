@@ -24,6 +24,7 @@
 
 import { css } from "@emotion/react";
 import React from "react";
+
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { ProgressActivity } from "./icons/progress_activity";

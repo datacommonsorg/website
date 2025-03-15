@@ -7,10 +7,6 @@
     "defaultMessage": "{category} in {placeName}",
     "description": "Used for the placeholder in the search bar, set it as \"Category in Place\". For example, when in the economics page for the Austria place page, it will show \"{Economics} in {Austria}\"."
   },
-  "category_not_found": {
-    "defaultMessage": "Category not found for place \"{place}\".",
-    "description": "Text to display on a 404 page when a category is not found. Example: \"Category not found for place \"Austria\".\". Please leave the {place} variable unchanged in the resulting translation."
-  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName} (Per Capita in {date})",
     "description": "Chart title for a chart with variable values that are per capita for a specific date"
