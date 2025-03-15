@@ -9,6 +9,78 @@
       "value": "placeName"
     }
   ],
+  "chart-title-with-per-capita-and-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (на душу населения на "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "chart-title-with-per-capita-no-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (на душу населения)"
+    }
+  ],
+  "chart-title-with-two-variables": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " – "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
+  "chart-title-with-two-variables-and-location": [
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": ": "
+    },
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " – "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
   "chart_clause-other_placeType": [
     {
       "type": 1,
@@ -80,11 +152,15 @@
     },
     {
       "type": 0,
-      "value": ": rankings in "
+      "value": ": рейтинг ("
     },
     {
       "type": 1,
       "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ")"
     }
   ],
   "chart_clause-variable_in_place": [
@@ -110,7 +186,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": "Подробнее… "
+      "value": "Ещё ›"
     }
   ],
   "chart_metadata-export": [
@@ -145,6 +221,30 @@
       "value": "placeName"
     }
   ],
+  "chooseVariable": [
+    {
+      "type": 0,
+      "value": "Выберите переменную, метаданные которой хотите просмотреть"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "Закрыть"
+    }
+  ],
+  "disasterTool": [
+    {
+      "type": 0,
+      "value": "Инструмент \"Стихийное бедствие\""
+    }
+  ],
+  "download": [
+    {
+      "type": 0,
+      "value": "Скачать"
+    }
+  ],
   "embed_citation": [
     {
       "type": 0,
@@ -177,10 +277,36 @@
       "value": "Экспортировать диаграмму"
     }
   ],
+  "exploreLink": [
+    {
+      "type": 0,
+      "value": "Поиск с помощью инструмента \""
+    },
+    {
+      "type": 1,
+      "value": "toolName"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
   "header-overview": [
     {
       "type": 0,
       "value": "Обзор"
+    }
+  ],
+  "key_demographics": [
+    {
+      "type": 0,
+      "value": "Ключевые демографические данные"
+    }
+  ],
+  "knowledge_graph": [
+    {
+      "type": 0,
+      "value": "Сеть знаний"
     }
   ],
   "link-return_to_overview": [
@@ -189,7 +315,25 @@
       "value": "Назад к обзору"
     }
   ],
+  "loading": [
+    {
+      "type": 0,
+      "value": "Загрузка…"
+    }
+  ],
+  "mapTool": [
+    {
+      "type": 0,
+      "value": "Инструмент \"Карта\""
+    }
+  ],
   "more_charts": [
+    {
+      "type": 0,
+      "value": "Другие диаграммы"
+    }
+  ],
+  "more_charts_link": [
     {
       "type": 0,
       "value": "Другие диаграммы"
@@ -551,6 +695,18 @@
       "value": ", на душу населения"
     }
   ],
+  "ranking-tile-latest-data-available-footer": [
+    {
+      "type": 0,
+      "value": "Основано на последних данных. Некоторые места могут отсутствовать из-за неполной отчетности за этот год."
+    }
+  ],
+  "ranking-tile-latest-data-footer": [
+    {
+      "type": 0,
+      "value": "В таблицу включены данные за несколько лет. Они позволяют получить полное представление о местах."
+    }
+  ],
   "ranking_table-header_rank": [
     {
       "type": 0,
@@ -563,10 +719,34 @@
       "value": "Значение"
     }
   ],
+  "relevant_topics": [
+    {
+      "type": 0,
+      "value": "Подходящие темы"
+    }
+  ],
+  "scatterTool": [
+    {
+      "type": 0,
+      "value": "Инструмент Scatter"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "Поиск другого места"
+    }
+  ],
+  "selectVariable": [
+    {
+      "type": 0,
+      "value": "Выберите переменную, данные которой хотите просмотреть. При нажатии на ссылки ниже проводник статистических переменных откроется в новой вкладке."
+    }
+  ],
+  "showMetadata": [
+    {
+      "type": 0,
+      "value": "Показать метаданные"
     }
   ],
   "singular_administrative_area": [
@@ -655,10 +835,58 @@
       "value": "Почтовый индекс"
     }
   ],
+  "snap-to-latest-data-checkbox-label": [
+    {
+      "type": 0,
+      "value": "Перейти к информации с максимальным охватом"
+    }
+  ],
+  "snap-to-latest-data-help-tooltip": [
+    {
+      "type": 0,
+      "value": "При выборе этого параметра показываются самые актуальные данные с наибольшим покрытием. Некоторые места могут отсутствовать из-за неполной отчетности за этот год."
+    }
+  ],
+  "snap-to-latest-data-overlap-help-tooltip": [
+    {
+      "type": 0,
+      "value": "Данные с максимальным покрытием также являются новейшими для этой таблицы."
+    }
+  ],
+  "source": [
+    {
+      "type": 0,
+      "value": "Источник"
+    }
+  ],
+  "sources": [
+    {
+      "type": 0,
+      "value": "Источники"
+    }
+  ],
+  "summary_overview": [
+    {
+      "type": 0,
+      "value": "Общие сведения"
+    }
+  ],
   "the_world": [
     {
       "type": 0,
       "value": "в мире"
+    }
+  ],
+  "timelineTool": [
+    {
+      "type": 0,
+      "value": "Инструмент \"Хронология\""
+    }
+  ],
+  "viaGoogle": [
+    {
+      "type": 0,
+      "value": "через Google"
     }
   ]
 }

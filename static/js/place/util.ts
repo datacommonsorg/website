@@ -197,7 +197,7 @@ export function createPlacePageCategoryHref(
   if (forceDevPlaces) {
     params.set("force_dev_places", "true");
   }
-  return params.size > 0 ? `${href}?${params.toString()}` : href;
+  return localizeLink(params.size > 0 ? `${href}?${params.toString()}` : href);
 }
 
 /**
@@ -352,8 +352,10 @@ export function placeChartsApiResponsesToPageConfig(
           categoryNameToCategory[categoryName].translatedName || categoryName,
       };
       if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
-        category.url = localizeLink(
-          createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
+        category.url = createPlacePageCategoryHref(
+          categoryName,
+          forceDevPlaces,
+          place
         );
         category.linkText = intl.formatMessage(pageMessages.MoreCharts);
       }

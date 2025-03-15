@@ -41,7 +41,7 @@ import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { messages } from "../../i18n/i18n_messages";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
@@ -747,7 +747,7 @@ function getExploreLink(props: MapTilePropType): {
     {}
   );
   return {
-    displayText: intl.formatMessage(tileMessages.mapTool),
+    displayText: intl.formatMessage(messages.mapTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
 }

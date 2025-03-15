@@ -215,6 +215,8 @@ def register_routes_biomed_nl(app, cfg):
   # Install blueprint for experimental biomed NL page
   from server.routes.experiments.biomed_nl import api as biomed_nl_api
   app.register_blueprint(biomed_nl_api.bp)
+  from server.routes.experiments.biomed_nl import html as biomed_nl_html
+  app.register_blueprint(biomed_nl_html.bp)
 
 
 def register_routes_common(app):
