@@ -13,13 +13,20 @@
 # limitations under the License.
 '''Traverses DC KG to find node paths that answer a NL query.'''
 
+import enum
+import json
 import math
 import re
 
 from markupsafe import escape
+from pydantic import BaseModel
 from sentence_transformers import util
 
 import server.lib.fetch as fetch
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    annotate_query_with_types
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    recognize_entities_from_query
 import server.routes.experiments.biomed_nl.utils as utils
 import server.services.datacommons as dc
 
@@ -544,6 +551,22 @@ class PathStore:
     self.current_paths = filtered_path_store
 
 
+class QueryTypes(enum.Enum):
+  OVERVIEW = "Overview"
+  TRAVERSAL = "Traversal"
+
+
+class DetectedEntities(BaseModel):
+  raw_str: str
+  sanitized_str: str
+  synonyms: list[str]
+
+
+class ParseQueryResponse(BaseModel):
+  query_type: QueryTypes
+  entities: list[DetectedEntities]
+
+
 class PathFinder:
   '''Facilitates pathfinding in a knowledge graph based on a natural language query.
 
@@ -588,19 +611,56 @@ class PathFinder:
 
   def __init__(self,
                query,
-               start_entity_name,
-               start_entity_dcids,
                gemini_client=None,
                gemini_model_str='gemini-2.0-flash-001'):
     # Set params
+    self.raw_query = query
     self.query = query
-    self.start_entity_name = start_entity_name
-    self.start_dcids = start_entity_dcids
+    self.start_entity_name = ''
+    self.start_dcids = []
     self.path_store = PathStore()
     self.input_tokens = 0
     self.output_tokens = 0
     self.gemini = gemini_client
     self.gemini_model_str = gemini_model_str
+    self.query_type = None
+
+  def parse_query(self):
+    prompt = utils.PARSE_QUERY_PROMPT.format(QUERY=self.raw_query)
+
+    gemini_response = self.gemini.models.generate_content(
+        model=self.gemini_model_str,
+        contents=prompt,
+        config={
+            'response_mime_type': 'application/json',
+            'response_schema': ParseQueryResponse,
+        })
+    parsed_response = ParseQueryResponse(**json.loads(gemini_response.text))
+    print(parsed_response)  # DO_NOT_SUBMIT
+    self.query_type = parsed_response.query_type
+
+    # Only traverse from one starting point
+    start_entity = parsed_response.entities[0]
+    self.start_entity_name = start_entity.sanitized_str
+    start_strs = [start_entity.sanitized_str] + start_entity.synonyms
+
+    str_to_raw = {}
+    for entity in parsed_response.entities:
+      str_to_raw[entity.sanitized_str] = entity.raw_str
+      for synonym in entity.synonyms:
+        str_to_raw[synonym] = entity.raw_str
+    entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
+        ' '.join((str_to_raw.keys())))
+    print(entities_to_dcids)  # DO_NOT_SUBMIT
+
+    for entity, dcids in entities_to_dcids.items():
+      if entity in start_strs:
+        self.start_dcids.extend(dcids)
+    raw_to_types = {}
+    for entity, types in entities_to_recognized_types.items():
+      raw_to_types.setdefault(str_to_raw[entity], []).extend(types)
+
+    self.query = annotate_query_with_types(self.raw_query, raw_to_types)
 
   def traverse_n_hops(self, start_dcids, n):
     '''Traverses the graph for a specified number of hops, updating the path store.
@@ -784,10 +844,10 @@ class PathFinder:
 
     paths_from_start = self.path_store.get_paths_from_start(
         only_selected_paths=True)
+    entity_info.update(get_all_triples(list(paths_from_start.keys())))
+    print('start entity info')
+    print(entity_info)
     for start_dcid in paths_from_start:
-      if start_dcid not in entity_info:
-        entity_info.update(get_all_triples([start_dcid]))
-
       for path in paths_from_start[start_dcid]:
 
         dcids = [start_dcid]
@@ -815,6 +875,7 @@ class PathFinder:
           # Only fetch triples for a given dcid one time.
           fetch_dcids = [dcid for dcid in next_dcids if dcid not in entity_info]
           if fetch_dcids:
+            print('fetching entity info for', fetch_dcids)
             entity_info.update(get_all_triples(fetch_dcids))
           dcids = list(next_dcids)
 
@@ -823,3 +884,18 @@ class PathFinder:
         'property_descriptions'] = self.path_store.get_property_descriptions()
 
     return entity_info
+
+  def run(self):
+    self.parse_query()
+    if self.query_type == QueryTypes.OVERVIEW:
+      print('overview')
+      # Skip traversal and fetch data for the entities
+      self.path_store.selected_paths = {dcid: {} for dcid in self.start_dcids}
+      print(self.path_store.selected_paths)
+    else:
+      print('traverse')
+      self.find_paths()
+      print('Selected Paths:')
+      print(self.path_store.select_paths)
+
+    return self.get_traversed_entity_info()

@@ -42,6 +42,7 @@ const URL_HASH_PARAMS = {
 // Interface for the response received from Biomed NL API.
 interface BiomedNlApiResponse {
   answer: string;
+  footnotes: string;
   debug: string;
 }
 
@@ -74,8 +75,11 @@ function getSectionTrigger(title: string, opened: boolean): JSX.Element {
 
 function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
   // TODO: format the markdown response
-  const footnotes = "";
-  return { answer: response.answer, footnotes, debugInfo: response.debug };
+  return {
+    answer: response.answer,
+    footnotes: response.footnotes,
+    debugInfo: response.debug,
+  };
 }
 
 /**

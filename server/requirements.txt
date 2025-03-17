@@ -28,6 +28,7 @@ markupsafe==2.1.2
 parameterized==0.8.1
 pillow==10.4.0
 protobuf==4.25.3
+pydantic==2.10.6
 PyGithub==1.58.2
 pyOpenSSL==23.2.0
 python-dateutil==2.8.2

@@ -215,7 +215,8 @@ class TestTraversal(unittest.TestCase):
     def null_sample():
       return
 
-    path_finder = PathFinder('', '', ['gene1', 'disease1'])
+    path_finder = PathFinder('')
+    path_finder.start_dcids = ['gene1', 'disease1']
     path_finder.path_store.sample_next_hops = null_sample
     path_finder.traverse_n_hops(['gene1', 'disease1'], 2)
 
@@ -331,7 +332,7 @@ class TestTraversal(unittest.TestCase):
 
     mock_description_values.side_effect = description_values_response
 
-    path_finder = PathFinder('query', '', [])
+    path_finder = PathFinder('query')
     path_finder.path_store.current_paths = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
@@ -421,7 +422,7 @@ class TestTraversal(unittest.TestCase):
     mock_client_instance = MagicMock(models=MagicMock(
         generate_content=MagicMock(return_value=mock_gemini_response)))
 
-    path_finder = PathFinder('', '', [])
+    path_finder = PathFinder('')
     path_finder.gemini = mock_client_instance
     path_finder.path_store.current_paths = {
         'start1': {
@@ -472,7 +473,7 @@ class TestTraversal(unittest.TestCase):
     mock_client_instance = MagicMock(models=MagicMock(
         generate_content=MagicMock(return_value=mock_gemini_response)))
 
-    path_finder = PathFinder('', '', [])
+    path_finder = PathFinder('')
     path_finder.gemini = mock_client_instance
     path_finder.path_store.current_paths = {
         'start1': {
@@ -530,7 +531,7 @@ class TestTraversal(unittest.TestCase):
     mock_client_instance = MagicMock(models=MagicMock(
         generate_content=MagicMock(return_value=mock_gemini_response)))
 
-    path_finder = PathFinder('', '', [])
+    path_finder = PathFinder('')
     path_finder.gemini = mock_client_instance
     path_finder.path_store.current_paths = {
         'start1': {
@@ -663,7 +664,7 @@ class TestTraversal(unittest.TestCase):
       return {dcid: triples.get(dcid, {}).get(out, {}) for dcid in dcids}
 
     mock_triples.side_effect = triples_response
-    path_finder = PathFinder('', '', [])
+    path_finder = PathFinder('')
     path_finder.path_store.selected_paths = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2'},
@@ -765,3 +766,29 @@ class TestTraversal(unittest.TestCase):
         'property_descriptions': {}
     }
     assert DeepDiff(entity_info, expected_entity_info, ignore_order=True) == {}
+
+  def test_parse_query(self):
+    mock_gemini_response = '''{
+    "query_type": "Traversal",
+    "entities": [
+        {
+        "raw_str": "atorvastatin",
+        "sanitized_str": "atorvastatin",
+        "synonyms": [
+            "lipitor"
+        ]
+        },
+        {
+        "raw_str": "KIF6",
+        "sanitized_str": "KIF6",
+        "synonyms": []
+        }
+    ]
+    }'''
+    mock_gemini_client = MagicMock(models=MagicMock(generate_content=MagicMock(
+        return_value=mock_gemini_response)))
+    path_finder = PathFinder(
+        'what genetic variants are associated with atorvastatin and have the gene symbol KIF6',
+        gemini_client=mock_gemini_client)
+    path_finder.parse_query()
+    assert True
