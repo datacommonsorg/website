@@ -94,7 +94,7 @@ run_data() {
 
 run_service() {
   if [ -n "$CUSTOM_IMAGE" ]; then
-    echo -e "\n${GREEN}Starting Docker services container with custom image '${CUSTOM_IMAGE}'...${NC}\n"
+    echo -e "\n${GREEN}Starting Docker services container with custom image ${YELLOW}${CUSTOM_IMAGE}${NC}...\n"
     docker run -it \
     --env-file $PWD/custom_dc/env.list \
     -p 8080:8080 \
@@ -105,7 +105,7 @@ run_service() {
     -v $PWD/static/custom_dc/$CUSTOM_DIR/:workspace/static/custom_dc/$CUSTOM_DIR \
     $CUSTOM_IMAGE
   else
-    echo -e "\n${GREEN}Starting Docker services container with '${RELEASE}' release...${NC}\n"
+    echo -e "\n${GREEN}Starting Docker services container with ${YELLOW}${RELEASE}${NC} release...\n"
     docker run -it \
     --env-file $PWD/custom_dc/env.list \
     -p 8080:8080 \
@@ -118,7 +118,7 @@ run_service() {
 
 # Check that env.list file exists
 if [ ! -f "custom_dc/env.list" ]; then
-  echo -e "\n${RED}Error: Configuration file env.list not found.${NC}"
+  echo -e "\n${RED}Error: Configuration file ${YELLOW}env.list${NC} not found."
   echo -e "1. Copy custom_dc/env.list.sample and save as custom_dc/env.list."
   echo -e "2. Set all necessary environment variables." 
   echo -e "For details, see comment in the file or refer to https://docs.datacommons.org/custom_dc/quickstart.html#env-vars\n"
@@ -133,8 +133,8 @@ CUSTOM_DIR=`sed -n 's/^FLASK_ENV=\(.*\)/\1/p' < custom_dc/env.list`
 # Check that directories are configured
 if [ -z "$INPUT_DIR" ] || [ -z "$OUTPUT_DIR" ]; then
   echo -e "\n${RED}Error: Data directories missing in configuration file.${NC}"
-  echo -e "Please set environment variables INPUT_DIR and OUTPUT_DIR in env.list." 
-  echo -e "For details, see comments in the file or refer to https://docs.datacommons.org/custom_dc/quickstart.html#env-vars\n"
+  echo -e "Please set environment variables 'INPUT_DIR' and 'OUTPUT_DIR' in ${YELLOW}env.list${NC}." 
+  echo -e "For details, see comments in the file or refer to ${YELLOW}https://docs.datacommons.org/custom_dc/quickstart.html#env-vars${NC}"
   exit 1
 fi
 
@@ -144,19 +144,28 @@ RELEASE="stable"
 CUSTOM_IMAGE=""
 SCHEMA_UPDATE=false
 
+set -x
+
 # Parse command-line options
 OPTS=$(getopt -o m:r:c:s --long mode:,release:,custom_image:,schema_update -n 'run_docker.sh' -- "$@")
 
 eval set -- "$OPTS"
 
 # Process command-line options
-while true; do
+while [ $# -gt 0 ]; do
+# Handle missing options if other 'arguments' are specified
+ if [[ "$1" != *"-"* ]]; then
+   echo -e "\n${RED}That is not a valid option.${NC}"
+   echo -e "Please try again or see the top of run_docker.sh for correct usage." >&2
+   exit 1
+  fi
+  while [ $# -gt 0 ]; do
   case "$1" in
     -m | --mode)
       if [ "$2" = "run_all" ] || [ "$2" = "build_only" ] || [ "$2" = "build_and_run_service" ] || [ "$2" = "build_and_run_all" ] || [ "$2" = "run_service" ]; then
          MODE="$2"
       else
-        echo -e "${RED}Error: Invalid mode '$2'.\n${NC}Must be one of the following:\n- 'run_all' (default) \n- 'run_service'\n- 'build_only'\n- 'build_and_run_service'\n- 'build_and_run_all'${NC}" >&2
+        echo -e "${RED}Error: Invalid mode '$2'.\n${NC}Must be one of the following:\n- 'run_all' (default) \n- 'run_service'\n- 'build_only'\n- 'build_and_run_service'\n- 'build_and_run_all'" >&2
         exit 1
       fi
       shift 2
@@ -165,14 +174,15 @@ while true; do
       if [ "$2" = "stable" ] || [ "$2" = "latest" ] ; then
        RELEASE="$2"
       else
-        echo -e "${RED}Error: Invalid release '$2'. Must be 'stable' or 'latest'${NC}" >&2
+        echo -e "\n${RED}Error: Invalid release ${YELLOW}'$2'${NC}."
+        echo -e "Please specify 'stable' or 'latest'.\n" >&2
         exit 1
       fi
       shift 2
       ;;
     -c | --custom_image)
       if [[ "$2" == *"datcom-ci"* ]]; then
-        echo -e "${RED}Error: Invalid custom image '$2'. Please enter a custom name and tag for your custom build.${NC}" >&2
+        echo -e "\n${RED}Error: Invalid custom image ${YELLOW}$2${NC}. Please enter a custom name and tag for your custom build.\n" >&2
         exit 1 
       else
         CUSTOM_IMAGE="$2"
@@ -183,63 +193,60 @@ while true; do
       SCHEMA_UPDATE=true
       shift
       ;;
-      --)
+    --)
       shift
       break
       ;;
-    -*|--*)
-      echo "Unknown option $1"
-      exit 1
-      ;;
-    *)
-      echo "Unknown error"
+    *) 
+      echo "Not a valid option" >&2
       exit 1
       ;;
   esac
+  done
 done
 
 # Handle invalid option combinations
 if [[( "$MODE" == "build_only" || "$MODE" == "build_and_run_service" || "$MODE" == "build_and_run_all" ) && ( -z "$CUSTOM_IMAGE" )]]; then
    echo -e "\n${RED}Error: Name and tag missing for custom build."
-   echo -e "Please set the '-c' or '--custom_image' option with a name and tag.${NC}\n"
+   echo -e "${NC}Please set the '-c' or '--custom_image' option with a name and tag.\n"
    exit 1
 fi
 if [ "$MODE" != "run_all" ] && [ "$SCHEMA_UPDATE" == true ]; then
-  echo -e "\n${RED}Error: Schema update invalid in this mode."
-  echo -e "Schema update may only be specified in 'run_all' mode.${NC}\n"
+  echo -e "\n${RED}Error: Schema update invalid in this mode.${NC}"
+  echo -e "Schema update may only be specified in 'run_all' mode.\n"
   exit 1
 fi
 
 # Call functions according to selected mode
 case $MODE in
    "build_only")
-      echo -e "\n${GREEN}Building custom image '${CUSTOM_IMAGE}'...${NC}\n"
+      echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE}${NC}...\n"
       build
       ;;
     "build_and_run_service")
-      echo -e "\n${GREEN}Building custom image '${CUSTOM_IMAGE}' and running services container...${NC}\n"
+      echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE}${NC} and running services container...\n"
       build
       run_service
       ;;
     "build_and_run_all")
-      echo -e "\n${GREEN}Building custom image '${CUSTOM_IMAGE}' and running all containers...${NC}\n" 
+      echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE}${NC} and running all containers...\n" 
       build
       run_data
       run_service
       ;;
     "run_service")
       if [ -n "$CUSTOM_IMAGE" ]; then
-        echo -e "\n${GREEN}Running services container with custom image '${CUSTOM_IMAGE}'...${NC}\n"
+        echo -e "\n${GREEN}Running services container with custom image ${YELLOW}${CUSTOM_IMAGE}${NC}...\n"
       else
-        echo -e "\n${GREEN}Running services container with '${RELEASE}' release...${NC}\n"
+        echo -e "\n${GREEN}Running services container with ${YELLOW}${RELEASE}${NC} release...${NC}\n"
       fi
       run_service
       ;;
     "run_all")
       if [ -n "$CUSTOM_IMAGE" ]; then
-        echo -e "\n${GREEN}Running all containers with custom image '${CUSTOM_IMAGE}'...${NC}\n"
+        echo -e "\n${GREEN}Running all containers with custom image ${YELLOW}${CUSTOM_IMAGE}${NC}...\n"
       else 
-        echo -e "\n${GREEN}Running all '${RELEASE}' containers...${NC}\n"
+        echo -e "\n${GREEN}Running all ${YELLOW}${RELEASE}${NC} containers...\n"
       fi
       run_data
       run_service
