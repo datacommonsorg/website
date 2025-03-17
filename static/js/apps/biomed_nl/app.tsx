@@ -60,16 +60,18 @@ interface DisplayedAnswer {
   debugInfo: string;
 }
 
+// Eneable dropdown for Footer and Debug sections
 function getSectionTrigger(title: string, opened: boolean): JSX.Element {
   return (
     <div
       css={css`
-        ${theme.typography.heading.md};
+        ${theme.typography.heading.xs};
         margin-bottom: ${theme.spacing.sm}px;
         cursor: pointer;
         &:hover {
           color: ${theme.colors.background.secondary};
         }
+        display: flex;
       `}
     >
       <span className="material-icons-outlined">
@@ -100,6 +102,7 @@ export function App(): ReactElement {
   const [answer, setAnswer] = useState<DisplayedAnswer>(null);
   const [showLoading, setShowLoading] = useState<boolean>(false);
 
+  // A loading spinner that shows new biomed pun every minute
   function SpinnerWithText(): ReactElement {
     const [showMessage, setShowMessage] = useState(false);
     const [message, setMessage] = useState("");
@@ -116,16 +119,19 @@ export function App(): ReactElement {
       ],
       []
     );
+    // Show puns in random order every time.
     const shuffledIndexes = useRef(
       [...Array(customMessages.length).keys()].sort(() => Math.random() - 0.5)
     ).current;
 
     useEffect(() => {
+      // Show first biomed pun after 3 seconds
       const timeoutId = setTimeout(() => {
         setShowMessage(true);
         setMessage(customMessages[shuffledIndexes[messageIndex]]);
       }, 3000);
 
+      // Show next pun after one minute
       const messageInterval = setInterval(() => {
         setMessageIndex((prevIndex) => (prevIndex + 1) % customMessages.length);
         setMessage(customMessages[shuffledIndexes[messageIndex]]);
@@ -173,14 +179,6 @@ export function App(): ReactElement {
    * useEffect hook to handle initial loading of information from the URL hash.
    */
   useEffect(() => {
-    const hashParams = queryString.parse(window.location.hash);
-    const hashQuery = (hashParams[URL_HASH_PARAMS.q] || "") as string;
-    if (hashQuery) {
-      onHashChange(hashQuery);
-    }
-  }, []);
-
-  useEffect(() => {
     const handleHashChange = (): void => {
       const hashParams = queryString.parse(window.location.hash);
       const hashQuery = (hashParams[URL_HASH_PARAMS.q] || "") as string;
@@ -189,7 +187,11 @@ export function App(): ReactElement {
       }
     };
 
+    // Execute query when hash params are updated.
     window.addEventListener("hashchange", handleHashChange);
+
+    // Check if query is provided in hash param on load.
+    handleHashChange();
 
     // Cleanup the event listener
     return () => {
