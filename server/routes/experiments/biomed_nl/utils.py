@@ -214,7 +214,7 @@ We want to ensure the user can trace the info from your response to our knowledg
 Therefore, when citing a value from the data, please include a keyed reference to the triple in the response.
 Here are some examples for citations based on the example data provided above:
 
-  answer: "ABCC2 has a potential association with a gene [1] and its full name is ATP binding cassette subfamily C member 2 [2]. The gene has two orthologs, one with ncbi id 100020524 [3] and one with ncbi id 100060654 [3]."
+  answer: "ABCC2 has a potential association with a drug [1] and its full name is ATP binding cassette subfamily C member 2 [2]. The gene has two orthologs, one with ncbi id 100020524 [3] and one with ncbi id 100060654 [3]."
   references: [ 
     SubjectPredicate(
       key=1
