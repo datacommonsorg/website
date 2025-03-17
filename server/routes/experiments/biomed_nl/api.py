@@ -13,17 +13,16 @@
 # limitations under the License.
 """Endpoints for Biomed NL Search page"""
 
+import enum
 import json
 import logging
-
-from pydantic import BaseModel
 
 import flask
 from flask import current_app
 from flask import request
 from flask import Response
 from google import genai
-import enum
+from pydantic import BaseModel
 
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
