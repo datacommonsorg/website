@@ -261,6 +261,8 @@ Then double check that your citation number in the answer response correctly mat
 Double check that if you are asserting an association between two entities, that you have examined the association node. 
 If data for the association node is not provided, list it under "additional_entity_dcids". You can say that the nodes *may* be associated, but that further investigaion is required.
 
+If the query is just the name of an entity, give an overview or summary of the entity given the information provided below.
+
 So now, using the data below, respond to the query: 
 "{QUERY}"
 

@@ -69,15 +69,26 @@ def _fulfill_traversal_query(query):
 
   traversed_entity_info = {}
   try:
-    traversed_entity_info = path_finder.run()
-  except:
+    path_finder.parse_query()
+
+    if path_finder.query_type == PathFinder.QueryTypes.OVERVIEW:
+      # Skip traversal and fetch data for the entities
+      path_finder.path_store.selected_paths = {
+          dcid: {} for dcid in path_finder.start_dcids
+      }
+    else:
+      path_finder.find_paths()
+
+    traversed_entity_info = path_finder.get_traversed_entity_info()
+
+  except Exception as e:
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
     if path_finder.start_dcids:
       response[
           'answer'] = f'{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
     else:
       response[
-          'answer'] = f'Error finding entities from the query in the knowledge graph.'
+          'answer'] = 'Error finding entities from the query in the knowledge graph.'
     return response
 
   try:

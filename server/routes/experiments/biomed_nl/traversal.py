@@ -551,22 +551,6 @@ class PathStore:
     self.current_paths = filtered_path_store
 
 
-class QueryTypes(enum.Enum):
-  OVERVIEW = "Overview"
-  TRAVERSAL = "Traversal"
-
-
-class DetectedEntities(BaseModel):
-  raw_str: str
-  sanitized_str: str
-  synonyms: list[str]
-
-
-class ParseQueryResponse(BaseModel):
-  query_type: QueryTypes
-  entities: list[DetectedEntities]
-
-
 class PathFinder:
   '''Facilitates pathfinding in a knowledge graph based on a natural language query.
 
@@ -608,6 +592,19 @@ class PathFinder:
         gemini: A Gemini client object.
         gemini_model_str (str, optional): Name of the Gemini model to use.
     '''
+
+  class QueryTypes(enum.Enum):
+    OVERVIEW = "Overview"
+    TRAVERSAL = "Traversal"
+
+  class DetectedEntities(BaseModel):
+    raw_str: str
+    sanitized_str: str
+    synonyms: list[str]
+
+  class ParseQueryResponse(BaseModel):
+    query_type: "PathFinder.QueryTypes"
+    entities: "list[PathFinder.DetectedEntities]"
 
   def __init__(self,
                query,
@@ -658,9 +655,10 @@ class PathFinder:
         contents=prompt,
         config={
             'response_mime_type': 'application/json',
-            'response_schema': ParseQueryResponse,
+            'response_schema': PathFinder.ParseQueryResponse,
         })
-    parsed_response = ParseQueryResponse(**json.loads(gemini_response.text))
+    parsed_response = PathFinder.ParseQueryResponse(
+        **json.loads(gemini_response.text))
     self.query_type = parsed_response.query_type
 
     # Only traverse from one starting point
@@ -907,13 +905,3 @@ class PathFinder:
         'property_descriptions'] = self.path_store.get_property_descriptions()
 
     return entity_info
-
-  def run(self):
-    self.parse_query()
-    if self.query_type == QueryTypes.OVERVIEW:
-      # Skip traversal and fetch data for the entities
-      self.path_store.selected_paths = {dcid: {} for dcid in self.start_dcids}
-    else:
-      self.find_paths()
-
-    return self.get_traversed_entity_info()
