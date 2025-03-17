@@ -74,7 +74,6 @@ def _fulfill_traversal_query(query):
         path_finder.path_store.get_paths_from_start(only_selected_paths=True))
 
     # TODO: add error handling.
-    print(traversed_entity_info)  # DO_NOT_SUBMIT
     final_prompt = utils.FINAL_RESPONSE_PROMPT.format(
         QUERY=query, ENTITY_INFO=utils.format_dict(traversed_entity_info))
 

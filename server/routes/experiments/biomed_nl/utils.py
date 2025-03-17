@@ -37,7 +37,7 @@ Your task is to break down a natural language query into a structured output in 
     
     ii. For each identified raw string:
       a. save a sanitized version of the string by fixing any typos that you are confident for and convert all characters to lower case
-        - "alzeihmers disease" -> "alzheimer's disease"
+        - "Alzeihmers disease" -> "Alzheimer's disease"
         - "Betapapillomavirus 1" -> "betapapillomavirus 1"
         If there are no typos in the raw string, just copy the raw string to the sanitized string.
       
@@ -50,8 +50,8 @@ Your task is to break down a natural language query into a structured output in 
 
     Here are some examples of the final outputs for this step:
       - "tell me about atorvasttin": [{{"raw_str": "atorvasttin", "sanitized_str": "atorvastatin", "synonyms": ["lipitor"]}}]
-      - "what drugs are associated with alzeihmers disease?": [{{"raw_str": "alzeihmers disease", "sanitized_str": "alzheimer's disease", "synonyms": []}}]
-      - "What is the exemplar isolate of Betapapillomavirus 1?": [{{"raw_str": "Betapapillomavirus 1", "sanitized_str": "Betapapillomavirus 1", "synonyms": []}}]
+      - "what drugs are associated with Alzeihmers Disease?": [{{"raw_str": "Alzeihmers Disease", "sanitized_str": "alzheimer's disease", "synonyms": []}}]
+      - "What is the exemplar isolate of Betapapillomavirus 1?": [{{"raw_str": "Betapapillomavirus 1", "sanitized_str": "betapapillomavirus 1", "synonyms": []}}]
 
 Now perform this task for the query:
 {QUERY}

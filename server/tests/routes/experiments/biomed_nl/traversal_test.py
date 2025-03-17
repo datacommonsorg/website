@@ -767,8 +767,66 @@ class TestTraversal(unittest.TestCase):
     }
     assert DeepDiff(entity_info, expected_entity_info, ignore_order=True) == {}
 
-  def test_parse_query(self):
-    mock_gemini_response = '''{
+  @patch('server.services.datacommons.recognize_entities')
+  @patch('server.lib.fetch.raw_property_values')
+  def test_parse_query(self, mock_fetch_types, mock_recognize_entities):
+    mock_recognize_entities.return_value = [{
+        "span": "atorvastatin",
+        "entities": [{
+            "dcid": "dc/1"
+        }]
+    }, {
+        "span": "lipitor",
+        "entities": [{
+            "dcid": "dc/1"
+        }, {
+            "dcid": "dc/2"
+        }]
+    }, {
+        "span": "kif6",
+        "entities": [{
+            "dcid": "dc/3"
+        }, {
+            "dcid": "dc/4"
+        }]
+    }]
+    mock_fetch_types.return_value = {
+        'dc/1': [
+            {
+                'dcid': 'dc/typeA',
+                'name': 'TypeA',
+                'types': ['Class'],
+            },
+            {
+                'dcid': 'dc/typeB',
+                'name': 'TypeB',
+                'types': ['Class'],
+            },
+        ],
+        'dc/2': [{
+            'dcid': 'dc/typeB',
+            'name': 'TypeB',
+            'types': ['Class'],
+        },],
+        'dc/3': [
+            {
+                'dcid': 'dc/typeB',
+                'name': 'TypeB',
+                'types': ['Class'],
+            },
+            {
+                'dcid': 'dc/typeC',
+                'name': 'TypeC',
+                'types': ['Class'],
+            },
+        ],
+        'dc/4': [{
+            'dcid': 'dc/typeB',
+            'name': 'TypeB',
+            'types': ['Class'],
+        },],
+    }
+    mock_gemini_response = MagicMock(text='''{
     "query_type": "Traversal",
     "entities": [
         {
@@ -780,15 +838,18 @@ class TestTraversal(unittest.TestCase):
         },
         {
         "raw_str": "KIF6",
-        "sanitized_str": "KIF6",
+        "sanitized_str": "kif6",
         "synonyms": []
         }
     ]
-    }'''
+    }''')
     mock_gemini_client = MagicMock(models=MagicMock(generate_content=MagicMock(
         return_value=mock_gemini_response)))
     path_finder = PathFinder(
         'what genetic variants are associated with atorvastatin and have the gene symbol KIF6',
         gemini_client=mock_gemini_client)
     path_finder.parse_query()
-    assert True
+    expected_start_dcids = ['dc/1', 'dc/2']
+    self.assertCountEqual(path_finder.start_dcids, expected_start_dcids)
+    assert set(path_finder.start_dcids) == set(expected_start_dcids)
+    assert path_finder.start_entity_name == 'atorvastatin'

@@ -626,6 +626,31 @@ class PathFinder:
     self.query_type = None
 
   def parse_query(self):
+    '''Parses the raw query using a Gemini model to identify the query type,
+    entities, and their types.
+
+    This method performs the following steps:
+    1. Formats a prompt for the Gemini model using the raw query.
+    2. Calls the Gemini model to generate a structured JSON response containing
+       parsed information about the query.
+    3. Extracts the query type from the Gemini response and sets the
+       `self.query_type` attribute.
+    4. Identifies the primary starting entity from the parsed entities and
+       sets `self.start_entity_name` and creates a list of potential
+       starting strings (including synonyms).
+    5. Creates a mapping between sanitized entity strings and their original
+       raw strings, including synonyms.
+    6. Uses an external function `recognize_entities_from_query` to identify
+       entities and their associated Data Commons IDs (DCIDs) and recognized
+       types within the query.
+    7. Populates the `self.start_dcids` list with the DCIDs of the starting
+       entity.
+    8. Creates a mapping between the raw entity strings and their recognized
+       types.
+    9. Uses an external function `annotate_query_with_types` to add type
+       information to the original raw query, storing the result in
+       `self.query`.
+    '''
     prompt = utils.PARSE_QUERY_PROMPT.format(QUERY=self.raw_query)
 
     gemini_response = self.gemini.models.generate_content(
@@ -636,7 +661,6 @@ class PathFinder:
             'response_schema': ParseQueryResponse,
         })
     parsed_response = ParseQueryResponse(**json.loads(gemini_response.text))
-    print(parsed_response)  # DO_NOT_SUBMIT
     self.query_type = parsed_response.query_type
 
     # Only traverse from one starting point
@@ -651,15 +675,16 @@ class PathFinder:
         str_to_raw[synonym] = entity.raw_str
     entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
         ' '.join((str_to_raw.keys())))
-    print(entities_to_dcids)  # DO_NOT_SUBMIT
 
+    start_dcids = set()
     for entity, dcids in entities_to_dcids.items():
       if entity in start_strs:
-        self.start_dcids.extend(dcids)
+        start_dcids.update(dcids)
     raw_to_types = {}
     for entity, types in entities_to_recognized_types.items():
       raw_to_types.setdefault(str_to_raw[entity], []).extend(types)
 
+    self.start_dcids = list(start_dcids)
     self.query = annotate_query_with_types(self.raw_query, raw_to_types)
 
   def traverse_n_hops(self, start_dcids, n):
@@ -845,8 +870,6 @@ class PathFinder:
     paths_from_start = self.path_store.get_paths_from_start(
         only_selected_paths=True)
     entity_info.update(get_all_triples(list(paths_from_start.keys())))
-    print('start entity info')
-    print(entity_info)
     for start_dcid in paths_from_start:
       for path in paths_from_start[start_dcid]:
 
@@ -875,7 +898,6 @@ class PathFinder:
           # Only fetch triples for a given dcid one time.
           fetch_dcids = [dcid for dcid in next_dcids if dcid not in entity_info]
           if fetch_dcids:
-            print('fetching entity info for', fetch_dcids)
             entity_info.update(get_all_triples(fetch_dcids))
           dcids = list(next_dcids)
 
@@ -888,14 +910,9 @@ class PathFinder:
   def run(self):
     self.parse_query()
     if self.query_type == QueryTypes.OVERVIEW:
-      print('overview')
       # Skip traversal and fetch data for the entities
       self.path_store.selected_paths = {dcid: {} for dcid in self.start_dcids}
-      print(self.path_store.selected_paths)
     else:
-      print('traverse')
       self.find_paths()
-      print('Selected Paths:')
-      print(self.path_store.select_paths)
 
     return self.get_traversed_entity_info()
