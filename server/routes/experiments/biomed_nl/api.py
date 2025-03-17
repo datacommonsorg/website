@@ -60,16 +60,28 @@ class FinalAnswerResponse(BaseModel):
 def _fulfill_traversal_query(query):
   response = {'answer': '', 'debug': ''}
   # TODO: remove extensive try-catch block once this api is stable
+
+  gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
+  gemini_client = genai.Client(
+      api_key=gemini_api_key,
+      http_options=genai.types.HttpOptions(api_version='v1alpha'))
+
+  path_finder = PathFinder(query, gemini_client, gemini_model_str=GEMINI_PRO)
+
+  traversed_entity_info = {}
   try:
-    gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
-    gemini_client = genai.Client(
-        api_key=gemini_api_key,
-        http_options=genai.types.HttpOptions(api_version='v1alpha'))
-
-    path_finder = PathFinder(query, gemini_client, gemini_model_str=GEMINI_PRO)
-
     traversed_entity_info = path_finder.run()
+  except:
+    logging.error(f'[biomed_nl]: {e}', exc_info=True)
+    if path_finder.start_dcids:
+      response[
+          'answer'] = f'{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
+    else:
+      response[
+          'answer'] = f'Error finding entities from the query in the knowledge graph.'
+    return response
 
+  try:
     response['debug'] += '\n' + utils.format_dict(
         path_finder.path_store.get_paths_from_start(only_selected_paths=True))
 
@@ -79,21 +91,39 @@ def _fulfill_traversal_query(query):
 
     input_tokens = gemini_client.models.count_tokens(
         contents=final_prompt, model=GEMINI_PRO).total_tokens
-    final_response = None
-    if input_tokens < GEMINI_PRO_TOKEN_LIMIT:
+
+    if input_tokens > GEMINI_PRO_TOKEN_LIMIT * 0.75:
+      entity_info = {
+          dcid: traversed_entity_info[dcid]
+          for dcid in path_finder.start_dcids
+          if dcid in traversed_entity_info
+      }
+      entity_info['property_descriptions'] = traversed_entity_info.get(
+          'property_descriptions', {})
+      selected_paths = path_finder.path_store.get_paths_from_start(
+          only_selected_paths=True)
+
+      fallback_prompt = utils.FALLBACK_PROMPT.format(
+          QUERY=query,
+          START_ENT=path_finder.start_entity_name,
+          START_DCIDS=', '.join(path_finder.start_dcids),
+          SELECTED_PATHS=utils.format_dict(selected_paths),
+          ENTITY_INFO=utils.format_dict(entity_info))
+
       gemini_response = gemini_client.models.generate_content(
-          model=GEMINI_PRO,
-          contents=final_prompt,
-          config={
-              'response_mime_type': 'application/json',
-              'response_schema': FinalAnswerResponse,
-          })
-      final_response = FinalAnswerResponse(**json.loads(gemini_response.text))
-    else:
-      # Todo add log message
+          model=GEMINI_PRO, contents=fallback_prompt)
+      response['answer'] = gemini_response.text
       response['debug'] += '\nFetched data too large for Gemini'
       return response
 
+    gemini_response = gemini_client.models.generate_content(
+        model=GEMINI_PRO,
+        contents=final_prompt,
+        config={
+            'response_mime_type': 'application/json',
+            'response_schema': FinalAnswerResponse,
+        })
+    final_response = FinalAnswerResponse(**json.loads(gemini_response.text))
     response['answer'] = final_response.answer
     response['footnotes'] = '\n'.join(
         [ref.model_dump_json(indent=2) for ref in final_response.references])
@@ -101,7 +131,7 @@ def _fulfill_traversal_query(query):
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
     response['debug'] += f'\nERROR:{e}'
 
-  return response\
+  return response
 
 
 @bp.route('/query')

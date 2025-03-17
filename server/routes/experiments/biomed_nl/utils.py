@@ -269,6 +269,25 @@ So now, using the data below, respond to the query:
 ```
 '''
 
+FALLBACK_PROMPT = '''
+Context: A user has submitted a query which we are responding to with data from a knowledge graph.
+The query is: {QUERY}
+We found that starting from {START_ENT}({START_DCIDS}) in the graph, these paths might be relevant:
+{SELECTED_PATHS}
+
+Where each paths starts from the key and is a list of properties (or hops) in the graph to connected entities.
+
+We tried fetching all of the entities from the graph that are along the path, but the amount of data is too large to give to you to summarize.
+Given the info about {START_ENT} below, can you summarize this situation for the user and tell them how they might find their answer using 
+the given path in the knowledge graph?
+
+They are provided with a UI that lists triples for a given entity.
+
+{ENTITY_INFO}
+
+At the end of your response, you can refer them to https://docs.datacommons.org/api/ for info about querying the Knowledge graph.
+'''
+
 
 def get_gemini_response_token_counts(response):
   return (response.usage_metadata.prompt_token_count,

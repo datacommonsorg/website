@@ -874,7 +874,8 @@ class PathFinder:
       for path in paths_from_start[start_dcid]:
 
         dcids = [start_dcid]
-        for prop, incoming_node_type in Path.parse_property_and_type(path):
+        properties_in_path = Path.parse_property_and_type(path)
+        for index, (prop, incoming_node_type) in enumerate(properties_in_path):
 
           next_dcids = set()
           for dcid in dcids:
@@ -897,7 +898,7 @@ class PathFinder:
 
           # Only fetch triples for a given dcid one time.
           fetch_dcids = [dcid for dcid in next_dcids if dcid not in entity_info]
-          if fetch_dcids:
+          if fetch_dcids and (index < len(properties_in_path) - 1):
             entity_info.update(get_all_triples(fetch_dcids))
           dcids = list(next_dcids)
 
