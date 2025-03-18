@@ -739,6 +739,30 @@ class TestTraversal(unittest.TestCase):
                 },]
             },
         },
+        'dcid2': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_2',
+                },]
+            },
+            'incoming': {}
+        },
+        'dcid1': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_1',
+                },]
+            },
+            'incoming': {}
+        },
+        'dcid3': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_3',
+                },]
+            },
+            'incoming': {}
+        },
         'property_descriptions': {}
     }
     assert DeepDiff(entity_info, expected_entity_info, ignore_order=True) == {}
