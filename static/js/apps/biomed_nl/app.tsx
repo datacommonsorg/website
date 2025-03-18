@@ -42,7 +42,7 @@ const URL_HASH_PARAMS = {
   q: "q",
 };
 
-const sampleQuestions = [
+const SAMPLE_QUESTIONS = [
   "What genes are associated with Alzheimer's disease?",
   "What is the mechanism of action of atorvastatin?",
   "Is there a complete genome for Monkeypox virus?",
@@ -58,7 +58,7 @@ const sampleQuestions = [
   "What is the concept unique id for rheumatoid arthritis?",
   "What is the chembl ID of acetaminophen?",
 ];
-const overviewText = `This experiment allows you to explore the Biomedical Data
+const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
   Commons knowledge graph with ease using natural language. Ask
   research questions in natural language, like "What genes are
   associated with Alzheimer's disease?". The AI model will
@@ -207,7 +207,7 @@ export function App(): ReactElement {
           <SimpleText>
             <>
               <h3 className="title">Exploring biomedical data</h3>
-              <p className="overview">{overviewText}</p>
+              <p className="overview">{OVERVIEW_TEXT}</p>
             </>
           </SimpleText>
         </div>
@@ -242,7 +242,7 @@ export function App(): ReactElement {
                 gap: ${theme.spacing.lg}px;
               `}
             >
-              {sampleQuestions.map((question, index) => {
+              {SAMPLE_QUESTIONS.map((question, index) => {
                 return (
                   <LinkBox
                     key={question}

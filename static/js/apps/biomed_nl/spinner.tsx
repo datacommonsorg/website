@@ -26,7 +26,7 @@ import theme from "../../theme/theme";
 const THIRTY_SECONDS = 3000;
 const SIXTY_SECONDS = 60000;
 
-const customMessages = [
+const CUSTOM_MESSAGES = [
   "The data is taking its time to ensure perfect homeostasis.",
   "Like a healthy cell, the data is going through a natural maturation process.",
   "The data is undergoing a controlled differentiation, becoming more specialized.",
@@ -42,20 +42,20 @@ export function SpinnerWithText(): ReactElement {
 
   // Show puns in random order every time.
   const shuffledIndexes = useRef(
-    [...Array(customMessages.length).keys()].sort(() => Math.random() - 0.5)
+    [...Array(CUSTOM_MESSAGES.length).keys()].sort(() => Math.random() - 0.5)
   ).current;
 
   useEffect(() => {
     // Show first biomed pun after 3 seconds
     const timeoutId = setTimeout(() => {
       setShowMessage(true);
-      setMessage(customMessages[shuffledIndexes[messageIndex]]);
+      setMessage(CUSTOM_MESSAGES[shuffledIndexes[messageIndex]]);
     }, THIRTY_SECONDS);
 
     // Show new pun after each minute
     const messageInterval = setInterval(() => {
-      setMessageIndex((prevIndex) => (prevIndex + 1) % customMessages.length);
-      setMessage(customMessages[shuffledIndexes[messageIndex]]);
+      setMessageIndex((prevIndex) => (prevIndex + 1) % CUSTOM_MESSAGES.length);
+      setMessage(CUSTOM_MESSAGES[shuffledIndexes[messageIndex]]);
     }, SIXTY_SECONDS);
 
     return () => {
