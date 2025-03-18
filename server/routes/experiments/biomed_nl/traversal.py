@@ -896,7 +896,9 @@ class PathFinder:
 
           # Only fetch triples for a given dcid one time.
           fetch_dcids = [dcid for dcid in next_dcids if dcid not in entity_info]
-          if fetch_dcids and (index < len(properties_in_path) - 1):
+          is_not_last_hop = index < (len(properties_in_path) - 1)
+          should_fetch_hop = is_not_last_hop or len(properties_in_path) < 3
+          if fetch_dcids and should_fetch_hop:
             entity_info.update(get_all_triples(fetch_dcids))
           dcids = list(next_dcids)
 
