@@ -51,7 +51,7 @@ You have two tasks:
         - "Betapapillomavirus 1" -> "betapapillomavirus 1"
         If there are no typos in the raw string, just copy the raw string to the sanitized string.
       
-      b. list are any obvious synonyms for entity, this is mostly for drugs but should apply to cases where you think two different words would map to the same entity in a knowledge graph. Examples:
+      b. List any obvious synonyms for entity, this is mostly for drugs but should apply to cases where you think two different words would map to the same entity in a knowledge graph. Examples:
         - "tylenol" -> ["acetaminophen"]
         - "lipitor" -> ["atorvastatin"]
         Only do this for things you are confident for. Ensure that synonyms are lower case.
