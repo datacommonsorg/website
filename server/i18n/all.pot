@@ -1,4 +1,4 @@
-#. Label for a place type in a parent place. For example: "Country in North America"
+#. Label for a place type in a parent place. For example: "Country in North America". Please leave the variables `%(placeType)s` and `%(parentPlaces)s` unchanged in the translation.
 #, python-format
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr ""
@@ -291,7 +291,7 @@ msgstr ""
 msgid "Neighborhoods"
 msgstr ""
 
-#. Label for other places in a parent place. For example: "Other States in United States of America"
+#. Label for other places in a parent place. For example: "Other States in United States of America". Please leave the variables `%(placeType)s` and `%(parentPlace)s` unchanged in the translation.
 #, python-format
 msgid "Other %(placeType)s in %(parentPlace)s"
 msgstr ""

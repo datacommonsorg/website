@@ -116,7 +116,7 @@
     "description": "Link to explore the chart in a specific tool"
   },
   "explore_data_on": {
-    "defaultMessage": "Explore data on... \"{sampleQuestion}\"",
+    "defaultMessage": "Explore data on... \\\"{sampleQuestion}\\\"",
     "description": "Used for the dynamic placeholders in the search bar, gives an example of a query to type."
   },
   "header-overview": {
