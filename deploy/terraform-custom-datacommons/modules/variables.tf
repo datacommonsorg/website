@@ -200,6 +200,12 @@ variable "dc_data_job_memory" {
   default     = "8G"
 }
 
+variable "dc_data_job_timeout" {
+  description = "Timeout for the Data Commons data loading job"
+  type        = string
+  default     = "600s"
+}
+
 # Data Commons Cloud VPC Network variables
 
 variable "vpc_network_name" {
