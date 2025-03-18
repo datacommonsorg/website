@@ -727,9 +727,9 @@ class PathFinder:
 
     embeddings = dc.nl_encode(
         EMBEDDINGS_MODEL,
-        list(property_descriptions.values()) + [self.query])
-
-    query_embed = embeddings[self.query]
+        list(property_descriptions.values()) + [self.query.lower()])
+    sanitized_query = str(escape(self.query.lower()))
+    query_embed = embeddings[sanitized_query]
     property_similarity_scores = {}
     for prop, description in property_descriptions.items():
       # the response from nl_encode contains sanitized input strings

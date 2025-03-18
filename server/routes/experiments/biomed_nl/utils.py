@@ -15,18 +15,28 @@
 import json
 
 PARSE_QUERY_PROMPT = '''
-Your task is to break down a natural language query into a structured output in two steps:
+Your task is to break down a natural language query into a structured output in two steps.
+
+For context, we will be fetching data from a knowledge graph to respond to the user's query.
+We need to know how much data we will need to pull and for which entities to get the data for.
+
+You have two tasks:
   1. Classify the query into a QueryType. There are two options:
-    a. OVERVIEW: this means the query is asking for information strictly about an entity (or entities). Here are some examples of this type where X and Y represent entities in our knowledge graph:
+    a. OVERVIEW: this means the query is asking for information strictly about an entity (or entities) such as a summary of or overview of that entity. 
+      It could also be for asking for string-based properties of the entity, like its ID in another database, or alternative names. Queries that ask for
+      other properties would fall into the TRAVERSAL category, described below.
+    Here are some examples of OVERVIEW type queries where X represents an entity in our knowledge graph:
        - "tell me about X"
        - "X"
        - "description for X"
-      These examples are asking for information strictly about X and Y that can be answered by fetching triples strictly for the individual entities in the query.
+       - "what is the HGNC id of X"
+      These examples are asking for information that can be answered by fetching only triples with string values where the entity is the source.
     b. TRAVERSAL: this indicates in order to answer the query, we will need to traverse the knowledge graph to find the triples that answer the query. Here are some examples:
       - "what diseases are associated with X"
       - "what drugs act on X"
       - "is there an association between X and Y"
-      These examples are asking for information that can only be answered by traversing the knowledge graph
+      - "what is the genomic location of X?"
+      These examples are asking for information that can only be answered by traversing the knowledge graph. This essentially covers all queries that are NOT requesting an overview, summary, or id of an entity.
 
   2. Identify detected entities. There are two parts to this:
     i. Identify the raw strings in the query that may represent entities in the knowledge graph which would be necessary to respond to the query. Examples:
@@ -37,7 +47,7 @@ Your task is to break down a natural language query into a structured output in 
     
     ii. For each identified raw string:
       a. save a sanitized version of the string by fixing any typos that you are confident for and convert all characters to lower case
-        - "Alzeihmers disease" -> "Alzheimer's disease"
+        - "Alzeihmers disease" -> "alzheimer's disease"
         - "Betapapillomavirus 1" -> "betapapillomavirus 1"
         If there are no typos in the raw string, just copy the raw string to the sanitized string.
       
