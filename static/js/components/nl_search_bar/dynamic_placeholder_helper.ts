@@ -29,7 +29,7 @@ const MAX_SAMPLE_COUNTRY_CYCLE = 5;
 export const placeholderMessages = defineMessages({
   exploreDataPlaceholder: {
     id: "explore_data_on",
-    defaultMessage: 'Explore data on... "{sampleQuestion}"',
+    defaultMessage: 'Explore data on... \\"{sampleQuestion}\\"',
     description:
       "Used for the dynamic placeholders in the search bar, gives an example of a query to type.",
   },
