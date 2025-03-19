@@ -195,7 +195,7 @@ export function getPlaceNames(
   if (!dcids.length) {
     return Promise.resolve({});
   }
-  if (options?.locale) {
+  if (options?.locale && options.locale !== "en") {
     return getPlaceNamesI18n(dcids, {
       ...options,
       apiRoot: options?.apiRoot,
