@@ -141,7 +141,10 @@ export function App(): ReactElement {
   function submitQueryInput(): void {
     updateHash({ [URL_HASH_PARAMS.q]: queryInput });
 
-    setRetriggerQuery(!retriggerQuery);
+    if (queryInput == queryFinal) {
+      // Rerun the same query if requested by user.
+      setRetriggerQuery(!retriggerQuery);
+    }
     setQueryFinal(queryInput);
   }
 
