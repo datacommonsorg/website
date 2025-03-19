@@ -69,8 +69,10 @@ const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
 const FEEDBACK_FORM =
   "https://docs.google.com/forms/d/e/1FAIpQLSdSutPw3trI8X6kJwFESyle4XZ6Efbd5AvPFQaFmMiwSMfBxQ/viewform?usp=pp_url";
 const FEEDBACK_QUERY_PARAM = "&entry.2089204314=";
-const FEEDBACK_RESPONSE_PARAM = "&entry.1084929806=";
+const FEEDBACK_ANSWER_PARAM = "&entry.1084929806=";
 const FEEDBACK_DEBUG_PARAM = "&entry.1464639663=";
+const MAX_FORM_ANSWER_LENGTH = 1000;
+const MAX_FORM_DEBUG_LENGTH = 500;
 // Interface for the response received from Biomed NL API.
 interface BiomedNlApiResponse {
   answer: string;
@@ -157,8 +159,14 @@ export function App(): ReactElement {
   useEffect(() => {
     function formatFeedbackLink(response: string, debugInfo: string): string {
       const queryField = `${FEEDBACK_QUERY_PARAM}${queryFinal}`;
-      const responseField = `${FEEDBACK_RESPONSE_PARAM}${response}`;
-      const debugField = `${FEEDBACK_DEBUG_PARAM}${debugInfo}`;
+      const responseField = `${FEEDBACK_ANSWER_PARAM}${response.substring(
+        0,
+        MAX_FORM_ANSWER_LENGTH
+      )}`;
+      const debugField = `${FEEDBACK_DEBUG_PARAM}${debugInfo.substring(
+        0,
+        MAX_FORM_DEBUG_LENGTH
+      )}`;
       return `${FEEDBACK_FORM}${queryField}${responseField}${debugField}`;
     }
     function formatReferences(footnotes: string): string {
@@ -204,7 +212,10 @@ export function App(): ReactElement {
       // TODO: format the markdown response
       return {
         answer: formatReferencesInResponse(response.answer),
-        feedbackLink: formatFeedbackLink(response.answer, response.debug),
+        feedbackLink: formatFeedbackLink(
+          response.answer,
+          response.debug + response.footnotes
+        ),
         footnotes: formatReferences(response.footnotes),
         debugInfo: response.debug,
       };
@@ -285,88 +296,110 @@ export function App(): ReactElement {
             </InputGroup>
           </div>
         </div>
-        <div className="example-queries">
+        <div
+          css={css`
+            margin: ${theme.spacing.lg}px;
+          `}
+        >
           {!showLoading && !answer && (
             <div
+              className="example-queries"
               css={css`
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: ${theme.spacing.lg}px;
+                columns: 2;
+                column-gap: ${theme.spacing.md}px;
               `}
             >
               {SAMPLE_QUESTIONS.map((question, index) => {
                 return (
-                  <LinkBox
+                  <div
                     key={question}
-                    link={sampleQuestionToLink(question)}
-                    color={"blue"}
-                    dataTestId={`question-item-${index}`}
-                  />
+                    css={css`
+                      padding: ${theme.spacing.md}px;
+                      break-inside: avoid;
+                      p {
+                        margin-bottom: ${theme.spacing.xs}px;
+                      }
+                    `}
+                  >
+                    <LinkBox
+                      link={sampleQuestionToLink(question)}
+                      color={"blue"}
+                      dataTestId={`question-item-${index}`}
+                      useXsHeadingTitle={true}
+                    />
+                  </div>
                 );
               })}
             </div>
           )}
-        </div>
-        <div className="loading">{showLoading && <SpinnerWithText />}</div>
-        <div className="answer">
-          {!showLoading && answer && (
-            <div>
-              <div className="matched-entities">{/* TODO! */}</div>
-              <div
-                css={css`
-                  ${theme.typography.heading.md};
-                  margin-bottom: ${theme.spacing.sm}px;
-                `}
-              >
-                Answer
-              </div>
-              <ReactMarkdown
-                rehypePlugins={[rehypeRaw as any]}
-                remarkPlugins={[remarkGfm]}
-              >
-                {answer.answer}
-              </ReactMarkdown>
-              <div className="feedback-form">
-                <p>
-                  <a
-                    href={answer.feedbackLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Tell us how we did.
-                  </a>
-                </p>
-              </div>
-              {answer.footnotes && (
-                <Collapsible
-                  trigger={getSectionTrigger("Footnotes", false)}
-                  triggerWhenOpen={getSectionTrigger("Footnotes", true)}
-                  open={true}
+          <div className="loading">{showLoading && <SpinnerWithText />}</div>
+          <div className="answer">
+            {!showLoading && answer && (
+              <div>
+                <div className="matched-entities">{/* TODO! */}</div>
+                <div
+                  css={css`
+                    ${theme.typography.heading.md};
+                    margin-bottom: ${theme.spacing.sm}px;
+                  `}
                 >
-                  <ReactMarkdown
-                    rehypePlugins={[rehypeRaw as any]}
-                    remarkPlugins={[remarkGfm]}
-                  >
-                    {answer.footnotes}
-                  </ReactMarkdown>
-                </Collapsible>
-              )}
-              {answer.debugInfo && (
-                <Collapsible
-                  trigger={getSectionTrigger("Debug", false)}
-                  triggerWhenOpen={getSectionTrigger("Debug", true)}
-                  open={false}
+                  Answer
+                </div>
+                <ReactMarkdown
+                  rehypePlugins={[rehypeRaw as any]}
+                  remarkPlugins={[remarkGfm]}
                 >
-                  <ReactMarkdown
-                    rehypePlugins={[rehypeRaw as any]}
-                    remarkPlugins={[remarkGfm]}
+                  {answer.answer}
+                </ReactMarkdown>
+                <div className="feedback-form">
+                  <p>---</p>
+                  <p>
+                    <a
+                      href={answer.feedbackLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Tell us how we did.
+                    </a>
+                  </p>
+                </div>
+                {answer.footnotes && (
+                  <Collapsible
+                    trigger={getSectionTrigger(
+                      "Knowledge Graph References",
+                      false
+                    )}
+                    triggerWhenOpen={getSectionTrigger(
+                      "Knowledge Graph References",
+                      true
+                    )}
+                    open={true}
                   >
-                    {answer.debugInfo}
-                  </ReactMarkdown>
-                </Collapsible>
-              )}
-            </div>
-          )}
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeRaw as any]}
+                      remarkPlugins={[remarkGfm]}
+                    >
+                      {answer.footnotes}
+                    </ReactMarkdown>
+                  </Collapsible>
+                )}
+                {answer.debugInfo && (
+                  <Collapsible
+                    trigger={getSectionTrigger("Debug", false)}
+                    triggerWhenOpen={getSectionTrigger("Debug", true)}
+                    open={false}
+                  >
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeRaw as any]}
+                      remarkPlugins={[remarkGfm]}
+                    >
+                      {answer.debugInfo}
+                    </ReactMarkdown>
+                  </Collapsible>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </ThemeProvider>
