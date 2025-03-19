@@ -34,6 +34,7 @@ MIN_SAMPLE_SIZE = 3
 TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
 EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
+MAX_HOPS_TO_FETCH_ALL_TRIPLES = 3
 
 DESCRIPTION_OF_DESCRIPTION_PROPERTY = (
     'The description describes the entity by its characteristics or '
@@ -559,7 +560,9 @@ class PathFinder:
     related to a user's query.  It leverages both graph traversal techniques
     and large language models (LLMs) for path selection and termination.
 
-    Path finding can be broken down into the following steps given a start dcid(s):
+    Path finding can be broken down into the following steps 
+    0. Determine whether the query is asking for an overview or traversal and
+       extract the starting entity + dcids.
     1. Explore the knowledge graph outwards from the
        starting entity's DCIDs for a specified number of hops, using the
        `traverse_n_hops` method.  This populates the `PathStore` with
@@ -593,7 +596,7 @@ class PathFinder:
         gemini_model_str (str, optional): Name of the Gemini model to use.
     '''
 
-  class QueryTypes(enum.Enum):
+  class TraversalTypes(enum.Enum):
     OVERVIEW = "Overview"
     TRAVERSAL = "Traversal"
 
@@ -602,8 +605,8 @@ class PathFinder:
     sanitized_str: str
     synonyms: list[str]
 
-  class ParseQueryResponse(BaseModel):
-    query_type: "PathFinder.QueryTypes"
+  class StartInfo(BaseModel):
+    traversal_type: "PathFinder.TraversalTypes"
     entities: "list[PathFinder.DetectedEntities]"
 
   def __init__(self,
@@ -620,9 +623,9 @@ class PathFinder:
     self.output_tokens = 0
     self.gemini = gemini_client
     self.gemini_model_str = gemini_model_str
-    self.query_type = None
+    self.traversal_type = None
 
-  def parse_query(self):
+  def find_start_and_traversal_type(self):
     '''Parses the raw query using a Gemini model to identify the query type,
     entities, and their types.
 
@@ -655,13 +658,12 @@ class PathFinder:
         contents=prompt,
         config={
             'response_mime_type': 'application/json',
-            'response_schema': PathFinder.ParseQueryResponse,
+            'response_schema': PathFinder.StartInfo,
         })
-    parsed_response = PathFinder.ParseQueryResponse(
-        **json.loads(gemini_response.text))
-    self.query_type = parsed_response.query_type
+    parsed_response = PathFinder.StartInfo(**json.loads(gemini_response.text))
+    self.traversal_type = parsed_response.traversal_type
 
-    # Only traverse from one starting point
+    # Take the first entity because we only want to traverse from one starting point
     start_entity = parsed_response.entities[0]
     self.start_entity_name = start_entity.sanitized_str
     start_strs = [start_entity.sanitized_str] + start_entity.synonyms
@@ -675,6 +677,7 @@ class PathFinder:
         ' '.join((str_to_raw.keys())))
 
     start_dcids = set()
+    # Add dcids of only the start entity to start_dcids.
     for entity, dcids in entities_to_dcids.items():
       if entity in start_strs:
         start_dcids.update(dcids)
@@ -897,7 +900,8 @@ class PathFinder:
           # Only fetch triples for a given dcid one time.
           fetch_dcids = [dcid for dcid in next_dcids if dcid not in entity_info]
           is_not_last_hop = index < (len(properties_in_path) - 1)
-          should_fetch_hop = is_not_last_hop or len(properties_in_path) < 3
+          should_fetch_hop = is_not_last_hop or len(
+              properties_in_path) < MAX_HOPS_TO_FETCH_ALL_TRIPLES
           if fetch_dcids and should_fetch_hop:
             entity_info.update(get_all_triples(fetch_dcids))
           dcids = list(next_dcids)

@@ -41,19 +41,53 @@ class TripleDirection(enum.Enum):
   INCOMING = "Incoming"
 
 
-class SubjectPredicate(BaseModel):
+class CitedTripleReference(BaseModel):
+  # the footnote number corresponding to this reference in Gemini's final response
   key: int
+  # the subject of the cited triple
   source: str
+  # the direction of the cited triple
   direction: TripleDirection
+  # the property of the cited triple
   prop: str
+  # the incoming type of the cited triple (only populated if direction is Incoming)
   linked_type: str
 
 
 class FinalAnswerResponse(BaseModel):
+  # The final reponse for the user's query
   answer: str
-  references: list[SubjectPredicate]
+  # Triples cited in the final response
+  references: list[CitedTripleReference]
+  # Extra entities that Gemini would have wanted to form a complete repsonse
   additional_entity_names: list[str]
   additional_entity_dcids: list[str]
+
+
+def _get_fallback_response(query, response, path_finder, traversed_entity_info,
+                           gemini_client):
+  entity_info = {
+      dcid: traversed_entity_info[dcid]
+      for dcid in path_finder.start_dcids
+      if dcid in traversed_entity_info
+  }
+  entity_info['property_descriptions'] = traversed_entity_info.get(
+      'property_descriptions', {})
+  selected_paths = path_finder.path_store.get_paths_from_start(
+      only_selected_paths=True)
+
+  fallback_prompt = utils.FALLBACK_PROMPT.format(
+      QUERY=query,
+      START_ENT=path_finder.start_entity_name,
+      START_DCIDS=', '.join(path_finder.start_dcids),
+      SELECTED_PATHS=utils.format_dict(selected_paths),
+      ENTITY_INFO=utils.format_dict(entity_info))
+
+  gemini_response = gemini_client.models.generate_content(
+      model=GEMINI_PRO, contents=fallback_prompt)
+  response['answer'] = gemini_response.text
+  response['debug'] += '\nFetched data too large for Gemini'
+  return response
 
 
 def _fulfill_traversal_query(query):
@@ -69,9 +103,9 @@ def _fulfill_traversal_query(query):
 
   traversed_entity_info = {}
   try:
-    path_finder.parse_query()
+    path_finder.find_start_and_traversal_type()
 
-    if path_finder.query_type == PathFinder.QueryTypes.OVERVIEW:
+    if path_finder.traversal_type == PathFinder.TraversalTypes.OVERVIEW:
       # Skip traversal and fetch data for the entities
       path_finder.path_store.selected_paths = {
           dcid: {} for dcid in path_finder.start_dcids
@@ -102,41 +136,26 @@ def _fulfill_traversal_query(query):
     input_tokens = gemini_client.models.count_tokens(
         contents=final_prompt, model=GEMINI_PRO).total_tokens
 
-    if input_tokens > GEMINI_PRO_TOKEN_LIMIT * 0.75:
-      entity_info = {
-          dcid: traversed_entity_info[dcid]
-          for dcid in path_finder.start_dcids
-          if dcid in traversed_entity_info
-      }
-      entity_info['property_descriptions'] = traversed_entity_info.get(
-          'property_descriptions', {})
-      selected_paths = path_finder.path_store.get_paths_from_start(
-          only_selected_paths=True)
-
-      fallback_prompt = utils.FALLBACK_PROMPT.format(
-          QUERY=query,
-          START_ENT=path_finder.start_entity_name,
-          START_DCIDS=', '.join(path_finder.start_dcids),
-          SELECTED_PATHS=utils.format_dict(selected_paths),
-          ENTITY_INFO=utils.format_dict(entity_info))
-
+    should_include_fallback = False
+    if input_tokens < GEMINI_PRO_TOKEN_LIMIT * 0.75:
       gemini_response = gemini_client.models.generate_content(
-          model=GEMINI_PRO, contents=fallback_prompt)
-      response['answer'] = gemini_response.text
-      response['debug'] += '\nFetched data too large for Gemini'
-      return response
+          model=GEMINI_PRO,
+          contents=final_prompt,
+          config={
+              'response_mime_type': 'application/json',
+              'response_schema': FinalAnswerResponse,
+          })
+      final_response = FinalAnswerResponse(**json.loads(gemini_response.text))
+      response['answer'] = final_response.answer
+      response['footnotes'] = '\n'.join(
+          [ref.model_dump_json(indent=2) for ref in final_response.references])
+    else:
+      should_include_fallback = True
 
-    gemini_response = gemini_client.models.generate_content(
-        model=GEMINI_PRO,
-        contents=final_prompt,
-        config={
-            'response_mime_type': 'application/json',
-            'response_schema': FinalAnswerResponse,
-        })
-    final_response = FinalAnswerResponse(**json.loads(gemini_response.text))
-    response['answer'] = final_response.answer
-    response['footnotes'] = '\n'.join(
-        [ref.model_dump_json(indent=2) for ref in final_response.references])
+    # TODO: return fallback for traversal error + timeouts and uncertain final responses
+    if should_include_fallback:
+      _get_fallback_response(query, response, path_finder,
+                             traversed_entity_info, gemini_client)
   except Exception as e:
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
     response['debug'] += f'\nERROR:{e}'

@@ -21,7 +21,7 @@ For context, we will be fetching data from a knowledge graph to respond to the u
 We need to know how much data we will need to pull and for which entities to get the data for.
 
 You have two tasks:
-  1. Classify the query into a QueryType. There are two options:
+  1. Classify the query into a TraversalType. There are two options:
     a. OVERVIEW: this means the query is asking for information strictly about an entity (or entities) such as a summary of or overview of that entity. 
       It could also be for asking for string-based properties of the entity, like its ID in another database, or alternative names. Queries that ask for
       other properties would fall into the TRAVERSAL category, described below.
@@ -226,21 +226,21 @@ Here are some examples for citations based on the example data provided above:
 
   answer: "ABCC2 has a potential association with a drug [1] and its full name is ATP binding cassette subfamily C member 2 [2]. The gene has two orthologs, one with ncbi id 100020524 [3] and one with ncbi id 100060654 [3]."
   references: [ 
-    SubjectPredicate(
+    CitedTripleReference(
       key=1
       source= "bio/ABCC2", 
       direction= INCOMING, 
       prop= "geneID", 
       linked_type= ChemicalCompoundGeneAssociation
       ),
-    SubjectPredicate(
+    CitedTripleReference(
       key=2
       source= "bio/ABCC2", 
       direction= OUTGOING, 
       prop= "fullName", 
       linked_type=""
       ),
-    SubjectPredicate(
+    CitedTripleReference(
       key=3
       source= "bio/ABCC2", 
       direction= OUTGOING, 
@@ -249,7 +249,7 @@ Here are some examples for citations based on the example data provided above:
       ),
     ]
       - Important: Only populate linked_type when the direction is Incoming!
-      - Do not repeat identical SubjectPredicates in the references list. You can cite the same SubjectPredicate key multiple times, as we see with citing the SubjectPredicate with key=3 twice in the example above.
+      - Do not repeat identical CitedTripleReferences in the references list. You can cite the same CitedTripleReference key multiple times, as we see with citing the CitedTripleReference with key=3 twice in the example above.
       - Any claim you make should have a citation to the provided data
 
 Please double check that your citation number in the answer response correctly matches the key in the references dictionary.
