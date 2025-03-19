@@ -14,12 +14,14 @@
 # limitations under the License.
 
 
-# Usage: ./run__local_docker.sh [--mode <running mode>] ([--release stable|latest] | 
-# [--custom_image <custom image>]) [--schema_update]
+# Usage: ./run_local_docker.sh [--mode <running mode>] ([--release stable|latest] | 
+# [--custom_image <image name and tag>]) [--schema_update]
+#
+# If no options are set, the defaults are --mode run_all --release stable
 #
 # Options:
-#   --m|mode <running mode>:
-#       Available options are:
+#   --mode|-m <running mode>:
+#       Optional. Available options are:
 #       * run_all (default): Run data and services containers.
 #       * run_service: Run only the services container. Only use this if you 
 #         haven't made changes to your data.
@@ -29,34 +31,33 @@
 #       * build_and_run_service: Build a custom image and run only the services
 #         container. Only use this if you haven't made changes to your data.
 #      
-#   --r|release latest | stable
-#       Optional: If using the prebuilt image provided by Data commons team, you
-#       can choose which release to use. The default is stable. 
-#       Don't set this if you're using a custom image.
+#   --release|-r latest | stable (default)
+#       Optional. If using the prebuilt image provided by Data commons team, you
+#       can choose which release to use. Don't set this if you're using a custom image.
 #
-#   --c|custom_image <custom image>
+#   --custom_image|-c <custom image name and tag>
 #       Required if any of the build_* modes are set. Set it to the image name
 #       and tag you want to build or have already built.  
 #
-#    --s|schema_update
-#        Optional: In the rare case that you get a 'SQL checked failed' error in
-#        your running service, you can set this to run the data container in 
-#        schema update mode, which skips embeddings generation and completes much
-#        faster. Only set this with 'run_all' mode.
+#   --schema_update|-s
+#       Optional. In the rare case that you get a 'SQL checked failed' error in
+#       your running service, you can set this to run the data container in 
+#       schema update mode, which skips embeddings generation and completes much
+#       faster. Only set this with 'run_all' mode.
 #
 # Examples:
 #   ./run_local_docker.sh
 #       This starts all containers, using the prebuilt stable images released by
 #       Data Commons.
-#   ./run_local_docker.sh -m run_service -r latest
+#   ./run_local_docker.sh --mode run_service --release latest
 #       This starts only the service container, using the prebuilt latest release.
 #       Use this if you haven't made any changes to your data but just want
 #       to pick up the latest code.
-#   ./run_local_docker.sh -m build_and_run_all -c my-datacommons-application:dev
+#   ./run_local_docker.sh --mode build_and_run_all --custom_image my-datacommons:dev
 #       This builds a custom image and starts all containers.
-#   ./run_local_docker.sh -m build_only -c my-datacommons-application:release
+#   ./run_local_docker.sh --mode build_only --custom_image my-datacommons:prod
 #       This builds a custom image but does not start any containers. Use this
-#       if you are building a custom image to upload to GCP.
+#       if you are building a custom image to upload to Google Cloud.
 
 set -e
 
@@ -76,20 +77,20 @@ build() {
 
 run_data() {
   if [ $SCHEMA_UPDATE == true ]; then
-  echo -e "\n${GREEN}Starting Docker data container in schema update mode...${NC}\n"
-  docker run -it \
-  --env-file $PWD/custom_dc/env.list \
-  -e DATA_UPDATE_MODE=schemaupdate \
-  -v $INPUT_DIR:$INPUT_DIR \
-  -v $OUTPUT_DIR:$OUTPUT_DIR \
-  gcr.io/datcom-ci/datacommons-data:$RELEASE
+    echo -e "\n${GREEN}Starting Docker data container in schema update mode...${NC}\n"
+    docker run -it \
+    --env-file $PWD/custom_dc/env.list \
+    -e DATA_UPDATE_MODE=schemaupdate \
+    -v $INPUT_DIR:$INPUT_DIR \
+    -v $OUTPUT_DIR:$OUTPUT_DIR \
+    gcr.io/datcom-ci/datacommons-data:$RELEASE
   else
-  echo -e "\n${GREEN}Starting Docker data container...${NC}\n"
-  docker run -it \
-  --env-file $PWD/custom_dc/env.list \
-  -v $INPUT_DIR:$INPUT_DIR \
-  -v $OUTPUT_DIR:$OUTPUT_DIR \
-  gcr.io/datcom-ci/datacommons-data:$RELEASE
+    echo -e "\n${GREEN}Starting Docker data container...${NC}\n"
+    docker run -it \
+    --env-file $PWD/custom_dc/env.list \
+    -v $INPUT_DIR:$INPUT_DIR \
+    -v $OUTPUT_DIR:$OUTPUT_DIR \
+    gcr.io/datcom-ci/datacommons-data:$RELEASE
   fi
 }
 
@@ -122,7 +123,7 @@ if [ ! -f "custom_dc/env.list" ]; then
   echo -e "Error: Configuration file ${YELLOW}env.list${NC} not found."
   echo -e "1. Copy custom_dc/env.list.sample and save as custom_dc/env.list."
   echo -e "2. Set all necessary environment variables." 
-  echo -e "For details, see comment in the file or refer to https://docs.datacommons.org/custom_dc/quickstart.html#env-vars\n"
+  echo -e "For details, see comments in the file or refer to https://docs.datacommons.org/custom_dc/quickstart.html#env-vars\n"
   exit 1
 fi
 
@@ -160,7 +161,7 @@ while true; do
   case "$1" in
     -m | --mode)
       if [ "$2" == "run_all" ] || [ "$2" == "build_only" ] || [ "$2" == "build_and_run_service" ] || [ "$2" == "build_and_run_all" ] || [ "$2" == "run_service" ]; then
-         MODE="$2"
+        MODE="$2"
       else
         echo -e "Error: Invalid mode '$2'. Must be one of the following:\nrun_all (default) \nrun_service\nbuild_only\nbuild_and_run_service\nbuild_and_run_all" >&2
         exit 1
@@ -191,10 +192,10 @@ while true; do
       SCHEMA_UPDATE=true
       shift
       ;;
-     --) 
-     shift
-     break 
-     ;;
+    --) 
+      shift
+      break 
+      ;;
     *)
       echo -e "Error: Unexpected input. Please try again." >&2
       exit 1
@@ -203,12 +204,12 @@ while true; do
 done
 
 # Handle invalid option combinations
-# No need to handle -c and -r specified together as the former is ignored if 
+# No need to handle -c and -r specified together as the former is just ignored if 
 # the latter is specified.
 if [[( "$MODE" == "build_only" || "$MODE" == "build_and_run_service" || "$MODE" == "build_and_run_all" ) && ( -z "$CUSTOM_IMAGE" )]]; then
-   echo -e "Error: Name and tag missing for custom build."
-   echo -e "Please set the '-c' or '--custom_image' option with a name and tag."
-   exit 1
+  echo -e "Error: Name and tag missing for custom build."
+  echo -e "Please set the '-c' or '--custom_image' option with a name and tag."
+  exit 1
 fi
 if [ "$MODE" != "run_all" ] && [ "$SCHEMA_UPDATE" == true ]; then
   echo -e "Error: Schema update invalid in this mode."
@@ -218,36 +219,36 @@ fi
 
 # Call functions according to selected mode
 case $MODE in
-   "build_only")
-      echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE}...${NC}\n"
-      build
-      ;;
-    "build_and_run_service")
-      echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE} and running services container...${NC}\n"
-      build
-      run_service
-      ;;
-    "build_and_run_all")
-      echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE} and running all containers...${NC}\n" 
-      build
-      run_data
-      run_service
-      ;;
-    "run_service")
-      if [ -n "$CUSTOM_IMAGE" ]; then
-        echo -e "\n${GREEN}Running services container with custom image ${YELLOW}${CUSTOM_IMAGE}...${NC}\n"
-      else
-        echo -e "\n${GREEN}Running services container with ${YELLOW}${RELEASE} release...${NC}\n"
-      fi
-      run_service
-      ;;
-    "run_all")
-      if [ -n "$CUSTOM_IMAGE" ]; then
-        echo -e "\n${GREEN}Running all containers with custom image ${YELLOW}${CUSTOM_IMAGE}...${NC}\n"
-      else 
-        echo -e "\n${GREEN}Running all ${YELLOW}${RELEASE} containers...${NC}\n"
-      fi
-      run_data
-      run_service
-      ;;
+  "build_only")
+    echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE}...${NC}\n"
+    build
+    ;;
+  "build_and_run_service")
+    echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE} and running services container...${NC}\n"
+    build
+    run_service
+    ;;
+  "build_and_run_all")
+    echo -e "\n${GREEN}Building custom image ${YELLOW}${CUSTOM_IMAGE} and running all containers...${NC}\n" 
+    build
+    run_data
+    run_service
+    ;;
+  "run_service")
+    if [ -n "$CUSTOM_IMAGE" ]; then
+      echo -e "\n${GREEN}Running services container with custom image ${YELLOW}${CUSTOM_IMAGE}...${NC}\n"
+    else
+      echo -e "\n${GREEN}Running services container with ${YELLOW}${RELEASE} release...${NC}\n"
+    fi
+    run_service
+    ;;
+  "run_all")
+    if [ -n "$CUSTOM_IMAGE" ]; then
+      echo -e "\n${GREEN}Running all containers with custom image ${YELLOW}${CUSTOM_IMAGE}...${NC}\n"
+    else 
+      echo -e "\n${GREEN}Running all ${YELLOW}${RELEASE} containers...${NC}\n"
+    fi
+    run_data
+    run_service
+    ;;
 esac
