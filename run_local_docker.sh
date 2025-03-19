@@ -14,8 +14,8 @@
 # limitations under the License.
 
 
-# Usage: ./run_local_docker.sh [--mode <running mode>] ([--release stable|latest] | 
-# [--custom_image <image name and tag>]) [--schema_update]
+# Usage: ./run_local_docker.sh [--mode|-m <running mode>] ([--release|-r stable|latest] | 
+#        [--custom_image|-c <image name and tag>]) [--schema_update|-s]
 #
 # If no options are set, the defaults are --mode run_all --release stable
 #
@@ -103,8 +103,8 @@ run_service() {
     -e DEBUG=true \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR/:workspace/server/templates/custom_dc/$CUSTOM_DIR \
-    -v $PWD/static/custom_dc/$CUSTOM_DIR/:workspace/static/custom_dc/$CUSTOM_DIR \
+    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:workspace/server/templates/custom_dc/$CUSTOM_DIR \
+    -v $PWD/static/custom_dc/$CUSTOM_DIR:workspace/static/custom_dc/$CUSTOM_DIR \
     $CUSTOM_IMAGE
   else
     echo -e "\n${GREEN}Starting Docker services container with ${YELLOW}${RELEASE} release...${NC}\n"
