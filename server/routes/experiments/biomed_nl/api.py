@@ -64,8 +64,8 @@ class FinalAnswerResponse(BaseModel):
   additional_entity_dcids: list[str]
 
 
-def _get_fallback_response(query, response, path_finder, traversed_entity_info,
-                           gemini_client):
+def _append_fallback_response(query, response, path_finder,
+                              traversed_entity_info, gemini_client):
   entity_info = {
       dcid: traversed_entity_info[dcid]
       for dcid in path_finder.start_dcids
@@ -85,9 +85,8 @@ def _get_fallback_response(query, response, path_finder, traversed_entity_info,
 
   gemini_response = gemini_client.models.generate_content(
       model=GEMINI_PRO, contents=fallback_prompt)
-  response['answer'] = gemini_response.text
+  response['answer'] += '\n\n' + gemini_response.text
   response['debug'] += '\nFetched data too large for Gemini'
-  return response
 
 
 def _fulfill_traversal_query(query):
@@ -154,8 +153,8 @@ def _fulfill_traversal_query(query):
 
     # TODO: return fallback for traversal error + timeouts and uncertain final responses
     if should_include_fallback:
-      _get_fallback_response(query, response, path_finder,
-                             traversed_entity_info, gemini_client)
+      _append_fallback_response(query, response, path_finder,
+                                traversed_entity_info, gemini_client)
   except Exception as e:
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
     response['debug'] += f'\nERROR:{e}'
