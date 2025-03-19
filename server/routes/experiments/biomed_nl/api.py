@@ -27,6 +27,8 @@ from pydantic import BaseModel
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
 
+logging.INFO("[biomed_nl] api.py file imported")
+
 GEMINI_PRO = 'gemini-1.5-pro'
 GEMINI_PRO_TOKEN_LIMIT = 2097152
 
