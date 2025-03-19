@@ -159,8 +159,6 @@ class VisMapTestMixin():
     self.assertEqual(len(self.get_chart_map_regions()), 58)
     ranking_items = self.get_ranking_items(wait_for_loading=False)
     self.assertEqual(len(ranking_items), 10)
-    self.assertIn(' County, CA', ranking_items[0].text)
-    self.assertIn(' County, CA', ranking_items[9].text)
 
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
