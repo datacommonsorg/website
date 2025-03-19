@@ -57,6 +57,8 @@ class Params(str, Enum):
   MAX_TOPIC_SVS = 'maxTopicSvs'
   # The maximum number of topics to process when generating a result
   MAX_TOPICS = 'maxTopics'
+  # The maximum number of charts blocks to return in the resulting chart config
+  MAX_CHARTS = 'maxCharts'
 
 
 class DCNames(str, Enum):
