@@ -769,7 +769,8 @@ class TestTraversal(unittest.TestCase):
 
   @patch('server.services.datacommons.recognize_entities')
   @patch('server.lib.fetch.raw_property_values')
-  def test_parse_query(self, mock_fetch_types, mock_recognize_entities):
+  def test_find_start_and_traversal_type(self, mock_fetch_types,
+                                         mock_recognize_entities):
     mock_recognize_entities.return_value = [{
         "span": "atorvastatin",
         "entities": [{
@@ -827,7 +828,7 @@ class TestTraversal(unittest.TestCase):
         },],
     }
     mock_gemini_response = MagicMock(text='''{
-    "query_type": "Traversal",
+    "traversal_type": "Traversal",
     "entities": [
         {
         "raw_str": "atorvastatin",
@@ -848,7 +849,7 @@ class TestTraversal(unittest.TestCase):
     path_finder = PathFinder(
         'what genetic variants are associated with atorvastatin and have the gene symbol KIF6',
         gemini_client=mock_gemini_client)
-    path_finder.parse_query()
+    path_finder.find_start_and_traversal_type()
     expected_start_dcids = ['dc/1', 'dc/2']
     self.assertCountEqual(path_finder.start_dcids, expected_start_dcids)
     assert set(path_finder.start_dcids) == set(expected_start_dcids)
