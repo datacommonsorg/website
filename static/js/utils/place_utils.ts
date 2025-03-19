@@ -168,6 +168,20 @@ export function getNamedTypedPlace(
 /**
  * Given a list of place dcids, returns a promise with a map of dcids to place
  * names
+ *
+ * By default fetches the "name" property. Use the "prop" option to fetch
+ * an alternate name property.
+ *
+ * If a locale is provided, it will return localized names from the
+ * nameWithLanguage property.
+ *
+ * @param dcids
+ * @param options - The options for the request
+ * @param options.apiRoot - The root URL of the API
+ * @param options.prop - The property to get the names for.
+ * @param options.signal - The signal to abort the request
+ * @param options.locale - The locale to get the names in
+ * @returns A promise with a map of dcids to place names
  */
 export function getPlaceNames(
   dcids: string[],
@@ -175,10 +189,17 @@ export function getPlaceNames(
     apiRoot?: string;
     prop?: string;
     signal?: AbortSignal;
+    locale?: string;
   }
 ): Promise<{ [key: string]: string }> {
   if (!dcids.length) {
     return Promise.resolve({});
+  }
+  if (options?.locale && options.locale !== "en") {
+    return getPlaceNamesI18n(dcids, {
+      ...options,
+      apiRoot: options?.apiRoot,
+    });
   }
   const requestOptions = options?.signal ? { signal: options.signal } : {};
   return axios
@@ -188,6 +209,41 @@ export function getPlaceNames(
         dcids,
         prop: options?.prop,
       },
+      requestOptions
+    )
+    .then((resp) => {
+      return resp.data;
+    });
+}
+
+/**
+ * Given a list of place dcids, returns a promise with a map of dcids to place
+ * names
+ */
+export function getPlaceNamesI18n(
+  dcids: string[],
+  options?: {
+    apiRoot?: string;
+    signal?: AbortSignal;
+    locale?: string;
+  }
+): Promise<{ [key: string]: string }> {
+  if (!dcids.length) {
+    return Promise.resolve({});
+  }
+  const requestOptions = options?.signal ? { signal: options.signal } : {};
+  const searchParams = new URLSearchParams();
+  for (const dcid of dcids) {
+    searchParams.append("dcid", dcid);
+  }
+  if (options?.locale) {
+    searchParams.set("hl", options.locale);
+  }
+  return axios
+    .get(
+      `${
+        options?.apiRoot || ""
+      }/api/place/name/i18n?${searchParams.toString()}`,
       requestOptions
     )
     .then((resp) => {

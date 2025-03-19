@@ -212,7 +212,7 @@ export const pageMessages = defineMessages({
   },
   placeNotFound: {
     id: "place_not_found",
-    defaultMessage: 'Place "{placeDcid}" not found.',
+    defaultMessage: 'Place \\"{placeDcid}\\" not found.',
     description:
       'Text to display on a 404 page when a place ID is not found. Example: "Place "dcid:geoId/04" not found.". Please leave the {placeDcid} variable unchanged in the resulting translation.',
   },

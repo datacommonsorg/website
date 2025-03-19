@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 import time
 
 from selenium.webdriver.common.by import By
@@ -20,6 +21,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
+
+# Regular expression for matching Japanese characters:
+# Hiragana: \u3040-\u309F
+# Katakana: \u30A0-\u30FF
+# Common Kanji: \u4E00-\u9FAF (includes many Chinese characters used in Japanese)
+JAPANESE_CHAR_PATTERN = re.compile(r'[\u3040-\u30FF\u4E00-\u9FAF]')
 
 
 class PlaceI18nExplorerTestMixin():
@@ -117,6 +124,20 @@ class PlaceI18nExplorerTestMixin():
                   by=By.CSS_SELECTOR,
                   value=".chart-container .chart-footnote").text,
         "使用可能な最新のデータに基づくランキング。一部の地域は、対象の年の報告が不完全なため、欠落している可能性があります。")
+
+    # Wait for and scroll to the first bar chart tile so it lazy loads
+    bar_chart_tile_present = EC.presence_of_element_located(
+        (By.CLASS_NAME, "bar-chart"))
+    bar_chart_tile = WebDriverWait(
+        self.driver, self.TIMEOUT_SEC).until(bar_chart_tile_present)
+    self.driver.execute_script("arguments[0].scrollIntoView();", bar_chart_tile)
+
+    # Ensure that the bar chart's axis labels (localized place names) have japanese text
+    self.assertTrue(
+        JAPANESE_CHAR_PATTERN.search(
+            find_elem(self.driver,
+                      by=By.CSS_SELECTOR,
+                      value="svg text.place-tick").text))
 
     # TODO: Update this test once the see per capita link is translated
     self.assertEqual(
