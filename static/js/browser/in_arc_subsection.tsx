@@ -52,7 +52,10 @@ export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
     });
     return (
       <div className="card p-0">
-        <h4 id={this.props.parentType} className="arc-group-title">
+        <h4
+          id={`${this.props.parentType}-${this.props.property}`}
+          className="arc-group-title"
+        >
           <span className="mp">Subject Type: {this.props.parentType}</span>
         </h4>
         <div className="in-arc-table">
