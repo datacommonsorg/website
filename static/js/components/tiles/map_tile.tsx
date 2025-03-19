@@ -446,6 +446,8 @@ export const fetchData = async (
     if (props.geoJsonProp) {
       geoJsonParams["geoJsonProp"] = props.geoJsonProp;
     }
+    // Set the language for the geojson request
+    geoJsonParams["hl"] = intl.locale;
     const geoJsonPromise = axios
       .get(`${props.apiRoot || ""}/api/choropleth/geojson`, {
         params: geoJsonParams,
