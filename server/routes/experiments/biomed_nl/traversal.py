@@ -13,13 +13,20 @@
 # limitations under the License.
 '''Traverses DC KG to find node paths that answer a NL query.'''
 
+import enum
+import json
 import math
 import re
 
 from markupsafe import escape
+from pydantic import BaseModel
 from sentence_transformers import util
 
 import server.lib.fetch as fetch
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    annotate_query_with_types
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    recognize_entities_from_query
 import server.routes.experiments.biomed_nl.utils as utils
 import server.services.datacommons as dc
 
@@ -27,6 +34,7 @@ MIN_SAMPLE_SIZE = 3
 TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
 EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
+MAX_HOPS_TO_FETCH_ALL_TRIPLES = 3
 
 DESCRIPTION_OF_DESCRIPTION_PROPERTY = (
     'The description describes the entity by its characteristics or '
@@ -552,7 +560,9 @@ class PathFinder:
     related to a user's query.  It leverages both graph traversal techniques
     and large language models (LLMs) for path selection and termination.
 
-    Path finding can be broken down into the following steps given a start dcid(s):
+    Path finding can be broken down into the following steps 
+    0. Determine whether the query is asking for an overview or traversal and
+       extract the starting entity + dcids.
     1. Explore the knowledge graph outwards from the
        starting entity's DCIDs for a specified number of hops, using the
        `traverse_n_hops` method.  This populates the `PathStore` with
@@ -586,21 +596,97 @@ class PathFinder:
         gemini_model_str (str, optional): Name of the Gemini model to use.
     '''
 
+  class TraversalTypes(enum.Enum):
+    OVERVIEW = "Overview"
+    TRAVERSAL = "Traversal"
+
+  class DetectedEntities(BaseModel):
+    raw_str: str
+    sanitized_str: str
+    synonyms: list[str]
+
+  class StartInfo(BaseModel):
+    traversal_type: "PathFinder.TraversalTypes"
+    entities: "list[PathFinder.DetectedEntities]"
+
   def __init__(self,
                query,
-               start_entity_name,
-               start_entity_dcids,
                gemini_client=None,
                gemini_model_str='gemini-2.0-flash-001'):
     # Set params
+    self.raw_query = query
     self.query = query
-    self.start_entity_name = start_entity_name
-    self.start_dcids = start_entity_dcids
+    self.start_entity_name = ''
+    self.start_dcids = []
     self.path_store = PathStore()
     self.input_tokens = 0
     self.output_tokens = 0
     self.gemini = gemini_client
     self.gemini_model_str = gemini_model_str
+    self.traversal_type = None
+
+  def find_start_and_traversal_type(self):
+    '''Parses the raw query using a Gemini model to identify the query type,
+    entities, and their types.
+
+    This method performs the following steps:
+    1. Formats a prompt for the Gemini model using the raw query.
+    2. Calls the Gemini model to generate a structured JSON response containing
+       parsed information about the query.
+    3. Extracts the query type from the Gemini response and sets the
+       `self.query_type` attribute.
+    4. Identifies the primary starting entity from the parsed entities and
+       sets `self.start_entity_name` and creates a list of potential
+       starting strings (including synonyms).
+    5. Creates a mapping between sanitized entity strings and their original
+       raw strings, including synonyms.
+    6. Uses an external function `recognize_entities_from_query` to identify
+       entities and their associated Data Commons IDs (DCIDs) and recognized
+       types within the query.
+    7. Populates the `self.start_dcids` list with the DCIDs of the starting
+       entity.
+    8. Creates a mapping between the raw entity strings and their recognized
+       types.
+    9. Uses an external function `annotate_query_with_types` to add type
+       information to the original raw query, storing the result in
+       `self.query`.
+    '''
+    prompt = utils.PARSE_QUERY_PROMPT.format(QUERY=self.raw_query)
+
+    gemini_response = self.gemini.models.generate_content(
+        model=self.gemini_model_str,
+        contents=prompt,
+        config={
+            'response_mime_type': 'application/json',
+            'response_schema': PathFinder.StartInfo,
+        })
+    parsed_response = PathFinder.StartInfo(**json.loads(gemini_response.text))
+    self.traversal_type = parsed_response.traversal_type
+
+    # Take the first entity because we only want to traverse from one starting point
+    start_entity = parsed_response.entities[0]
+    self.start_entity_name = start_entity.sanitized_str
+    start_strs = [start_entity.sanitized_str] + start_entity.synonyms
+
+    str_to_raw = {}
+    for entity in parsed_response.entities:
+      str_to_raw[entity.sanitized_str] = entity.raw_str
+      for synonym in entity.synonyms:
+        str_to_raw[synonym] = entity.raw_str
+    entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
+        ' '.join((str_to_raw.keys())))
+
+    start_dcids = set()
+    # Add dcids of only the start entity to start_dcids.
+    for entity, dcids in entities_to_dcids.items():
+      if entity in start_strs:
+        start_dcids.update(dcids)
+    raw_to_types = {}
+    for entity, types in entities_to_recognized_types.items():
+      raw_to_types.setdefault(str_to_raw[entity], []).extend(types)
+
+    self.start_dcids = list(start_dcids)
+    self.query = annotate_query_with_types(self.raw_query, raw_to_types)
 
   def traverse_n_hops(self, start_dcids, n):
     '''Traverses the graph for a specified number of hops, updating the path store.
@@ -644,9 +730,9 @@ class PathFinder:
 
     embeddings = dc.nl_encode(
         EMBEDDINGS_MODEL,
-        list(property_descriptions.values()) + [self.query])
-
-    query_embed = embeddings[self.query]
+        list(property_descriptions.values()) + [self.query.lower()])
+    sanitized_query = str(escape(self.query.lower()))
+    query_embed = embeddings[sanitized_query]
     property_similarity_scores = {}
     for prop, description in property_descriptions.items():
       # the response from nl_encode contains sanitized input strings
@@ -784,14 +870,13 @@ class PathFinder:
 
     paths_from_start = self.path_store.get_paths_from_start(
         only_selected_paths=True)
+    entity_info.update(get_all_triples(list(paths_from_start.keys())))
     for start_dcid in paths_from_start:
-      if start_dcid not in entity_info:
-        entity_info.update(get_all_triples([start_dcid]))
-
       for path in paths_from_start[start_dcid]:
 
         dcids = [start_dcid]
-        for prop, incoming_node_type in Path.parse_property_and_type(path):
+        properties_in_path = Path.parse_property_and_type(path)
+        for index, (prop, incoming_node_type) in enumerate(properties_in_path):
 
           next_dcids = set()
           for dcid in dcids:
@@ -814,7 +899,10 @@ class PathFinder:
 
           # Only fetch triples for a given dcid one time.
           fetch_dcids = [dcid for dcid in next_dcids if dcid not in entity_info]
-          if fetch_dcids:
+          is_not_last_hop = index < (len(properties_in_path) - 1)
+          should_fetch_hop = is_not_last_hop or len(
+              properties_in_path) < MAX_HOPS_TO_FETCH_ALL_TRIPLES
+          if fetch_dcids and should_fetch_hop:
             entity_info.update(get_all_triples(fetch_dcids))
           dcids = list(next_dcids)
 

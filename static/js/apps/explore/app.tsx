@@ -331,6 +331,7 @@ export function App(props: AppProps): ReactElement {
     const maxTopicSvs = getSingleParam(
       hashParams[URL_HASH_PARAMS.MAX_TOPIC_SVS]
     );
+    const maxCharts = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_CHARTS]);
 
     let fulfillmentPromise: Promise<any>;
     const gaTitle = query
@@ -363,7 +364,8 @@ export function App(props: AppProps): ReactElement {
         reranker,
         includeStopWords,
         maxTopics,
-        maxTopicSvs
+        maxTopicSvs,
+        maxCharts
       )
         .then((resp) => {
           processFulfillData(resp, query);
@@ -478,7 +480,8 @@ const fetchDetectAndFufillData = async (
   reranker: string,
   includeStopWords: string,
   maxTopics: string,
-  maxTopicSvs: string
+  maxTopicSvs: string,
+  maxCharts: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -513,6 +516,9 @@ const fetchDetectAndFufillData = async (
   }
   if (maxTopicSvs) {
     argsMap.set(URL_HASH_PARAMS.MAX_TOPIC_SVS, maxTopicSvs);
+  }
+  if (maxCharts) {
+    argsMap.set(URL_HASH_PARAMS.MAX_CHARTS, maxCharts);
   }
 
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
