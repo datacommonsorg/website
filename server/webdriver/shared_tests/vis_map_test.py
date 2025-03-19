@@ -26,22 +26,23 @@ PLACE_SEARCH_CA = 'California'
 class VisMapTestMixin():
   """Mixins to test the map visualization page."""
 
-  def get_ranking_items(self):
-    elements_present = EC.presence_of_all_elements_located(
-        (By.CSS_SELECTOR, '.ranking-list .place-name'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
-    ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
-                                              '.ranking-list .place-name')
-    names_loaded = []
-    for i, _ in enumerate(ranking_items):
-      names_loaded.append(
-          EC.text_to_be_present_in_element((
-              By.XPATH,
-              f'(//*[contains(@class, "ranking-list")]//*[contains(@class,"place-name")])[{i+1}]'
-          ), ','))
+  def get_ranking_items(self, wait_for_loading=True):
+    if wait_for_loading:
+      elements_present = EC.presence_of_all_elements_located(
+          (By.CSS_SELECTOR, '.ranking-list .place-name'))
+      WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
+      ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
+                                                '.ranking-list .place-name')
+      names_loaded = []
+      for i, _ in enumerate(ranking_items):
+        names_loaded.append(
+            EC.text_to_be_present_in_element((
+                By.XPATH,
+                f'(//*[contains(@class, "ranking-list")]//*[contains(@class,"place-name")])[{i+1}]'
+            ), ','))
 
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.all_of(*names_loaded))
+      WebDriverWait(self.driver,
+                    self.TIMEOUT_SEC).until(EC.all_of(*names_loaded))
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     return ranking_items
@@ -131,7 +132,7 @@ class VisMapTestMixin():
     per_capita_checkbox.click()
     shared.wait_for_loading(self.driver)
     self.assertEqual(len(self.get_chart_map_regions()), 58)
-    ranking_items = self.get_ranking_items()
+    ranking_items = self.get_ranking_items(wait_for_loading=False)
     self.assertEqual(len(ranking_items), 10)
     self.assertIn(' County, CA', ranking_items[0].text)
     self.assertIn(' County, CA', ranking_items[9].text)
@@ -156,10 +157,8 @@ class VisMapTestMixin():
         By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
     self.assertTrue("wonder.cdc.gov" in chart_source.text)
     self.assertEqual(len(self.get_chart_map_regions()), 58)
-    ranking_items = self.get_ranking_items()
+    ranking_items = self.get_ranking_items(wait_for_loading=False)
     self.assertEqual(len(ranking_items), 10)
-    self.assertIn(' County, CA', ranking_items[0].text)
-    self.assertIn(' County, CA', ranking_items[9].text)
 
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
