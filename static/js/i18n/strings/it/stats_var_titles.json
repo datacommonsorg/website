@@ -1,9 +1,9 @@
 {
   "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
+    "defaultMessage": "Rischio di cancro per tossicità dell'aria"
   },
   "AirQualityIndex_AirPollutant": {
-    "defaultMessage": "AQI"
+    "defaultMessage": "IQA"
   },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "Consumo di alcol puro pro capite (annuale)"
@@ -60,22 +60,22 @@
     "defaultMessage": "Capitalizzazione di mercato delle società nazionali (percentuale del PIL)"
   },
   "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
+    "defaultMessage": "Produzione annuale di elettricità"
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "Emissioni di anidride carbonica (strutture grandi, non biogeniche)"
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
+    "defaultMessage": "Emissioni annuali di gas serra (strutture grandi, non biogeniche)"
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "Emissioni di metano (strutture grandi, non biogeniche)"
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "Emissioni di ossido di azoto (strutture grandi, non biogeniche)"
   },
   "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
+    "defaultMessage": "Produzione annuale di elettricità"
   },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "Numero di attività criminali (incendio doloso)"
@@ -90,25 +90,25 @@
     "defaultMessage": "Numero di attività criminali (crimini violenti)"
   },
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+    "defaultMessage": "Numero di atti criminali (crimini d'odio basati sulla disabilità)"
   },
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+    "defaultMessage": "Numero di atti criminali (crimini d'odio basati sull'etnia)"
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
+    "defaultMessage": "Numero di atti criminali (crimini d'odio basati sul genere)"
   },
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
+    "defaultMessage": "Numero di atti criminali (crimini d'odio basati sul gruppo etnico)"
   },
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+    "defaultMessage": "Numero di atti criminali (crimini d'odio basati sulla religione)"
   },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+    "defaultMessage": "Numero di atti criminali (crimini d'odio basati sull'orientamento sessuale)"
   },
   "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
+    "defaultMessage": "Numero di atti criminali (crimini d'odio)"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "Numero di cicloni"
@@ -639,16 +639,16 @@
     "defaultMessage": "Decessi cumulativi per COVID-19"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+    "defaultMessage": "Variazione massima della temperatura (RCP 2.6, anno di riferimento 2016)"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+    "defaultMessage": "Variazione massima della temperatura (RCP 4.5, anno di riferimento 2016)"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+    "defaultMessage": "Variazione massima della temperatura (RCP 6.0, anno di riferimento 2016)"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+    "defaultMessage": "Variazione massima della temperatura (RCP 8.5, anno di riferimento 2016)"
   },
   "FertilityRate_Person_Female": {
     "defaultMessage": "Tasso di fertilità"
@@ -666,13 +666,13 @@
     "defaultMessage": "Aspettativa di vita"
   },
   "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Mean Diesel PM Concentration"
+    "defaultMessage": "Concentrazione media di diesel PM"
   },
   "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Mean Ozone Concentration"
+    "defaultMessage": "Concentrazione media di ozono"
   },
   "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "Mean PM2.5 Concentration"
+    "defaultMessage": "Concentrazione media di PM 2.5"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "Retribuzione giornaliera del lavoratore"
@@ -762,7 +762,7 @@
     "defaultMessage": "Reddito individuale medio (uomini)"
   },
   "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "The Palmer Drought Severity Index"
+    "defaultMessage": "Indice di gravità della siccità di Palmer"
   },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "Percentuale di popolazione senza assicurazione sanitaria (donne)"
@@ -840,7 +840,7 @@
     "defaultMessage": "Tasso di disoccupazione (urbano)"
   },
   "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
+    "defaultMessage": "Tasso di prelievo di acqua"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "Popolazione (buddista)"

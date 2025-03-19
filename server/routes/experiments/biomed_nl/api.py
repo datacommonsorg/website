@@ -14,6 +14,7 @@
 """Endpoints for Biomed NL Search page"""
 
 import json
+import logging
 
 import flask
 from flask import current_app
@@ -36,50 +37,60 @@ bp = flask.Blueprint('biomed_nl_api',
 
 
 def _fulfill_traversal_query(query):
+  response = {'answer': '', 'debug': ''}
+  # TODO: remove extensive try-catch block once this api is stable
+  try:
+    gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
+    gemini_client = genai.Client(
+        api_key=gemini_api_key,
+        http_options=genai.types.HttpOptions(api_version='v1alpha'))
 
-  gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
-  gemini_client = genai.Client(
-      api_key=gemini_api_key,
-      http_options=genai.types.HttpOptions(api_version='v1alpha'))
+    (entities_to_dcids, selected_entities, annotated_query,
+     _) = get_traversal_start_entities(query, gemini_client)
 
-  (entities_to_dcids, selected_entities, annotated_query,
-   _) = get_traversal_start_entities(query, gemini_client)
+    start_entity = selected_entities[0] if len(selected_entities) else ''
+    start_dcids = entities_to_dcids.get(start_entity, [])
 
-  start_entity = selected_entities[0] if len(selected_entities) else ''
-  start_dcids = entities_to_dcids.get(start_entity, [])
+    if not start_entity or not start_dcids:
+      # TODO: log error
+      response['debug'] += '\nEntity Recognition Error'
+      return response
 
-  if not start_entity or not start_dcids:
-    # TODO: log error
-    return {'response': 'error in recognition'}
+    path_finder = PathFinder(annotated_query,
+                             start_entity,
+                             start_dcids,
+                             gemini_client,
+                             gemini_model_str=GEMINI_PRO)
 
-  path_finder = PathFinder(annotated_query,
-                           start_entity,
-                           start_dcids,
-                           gemini_client,
-                           gemini_model_str=GEMINI_PRO)
+    path_finder.find_paths()
+    # TODO: Add error handling before constructing cache.
 
-  path_finder.find_paths()
-  # TODO: Add error handling before constructing cache.
+    traversed_entity_info = path_finder.get_traversed_entity_info()
+    # TODO: add error handling.
 
-  cache = path_finder.build_traversal_cache()
-  # TODO: add error handling.
+    final_prompt = utils.FINAL_PROMPT.format(
+        sentence=query, json_str=utils.format_dict(traversed_entity_info))
 
-  final_prompt = utils.FINAL_PROMPT.format(sentence=query,
-                                           json_str=utils.format_dict(cache))
+    input_tokens = gemini_client.models.count_tokens(
+        contents=final_prompt, model=GEMINI_PRO).total_tokens
+    gemini_response = None
+    if input_tokens < GEMINI_PRO_TOKEN_LIMIT:
+      gemini_response = gemini_client.models.generate_content(
+          model=GEMINI_PRO, contents=final_prompt)
+    else:
+      # Todo add log message
+      response['debug'] += '\nFetched data too large for Gemini'
+      return response
 
-  input_tokens = gemini_client.models.count_tokens(
-      contents=final_prompt, model=GEMINI_PRO).total_tokens
-  if input_tokens < GEMINI_PRO_TOKEN_LIMIT:
-    response = gemini_client.models.generate_content(model=GEMINI_PRO,
-                                                     contents=final_prompt)
-  else:
-    # Todo add log message
-    pass
+    response['answer'] = gemini_response.text
+    response['debug'] += '\n' + utils.format_dict(
+        path_finder.path_store.get_paths_from_start(only_selected_paths=True))
 
-  return {
-      'response': response.text,
-      'selected_path': utils.format_dict(path_finder.path_store.selected_paths),
-  }
+  except Exception as e:
+    logging.error(f'[biomed_nl]: {e}')
+    response['debug'] += f'\nERROR:{e}'
+
+  return response\
 
 
 @bp.route('/query')

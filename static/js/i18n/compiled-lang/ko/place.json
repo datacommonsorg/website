@@ -13,6 +13,78 @@
       "value": "에 관한 정보가 없습니다"
     }
   ],
+  "chart-title-with-per-capita-and-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": "(1인당, "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": " 기준)"
+    }
+  ],
+  "chart-title-with-per-capita-no-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": "(인당)"
+    }
+  ],
+  "chart-title-with-two-variables": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " 대 "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
+  "chart-title-with-two-variables-and-location": [
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": "의 "
+    },
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " 대 "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
   "chart_clause-other_placeType": [
     {
       "type": 1,
@@ -92,11 +164,15 @@
     },
     {
       "type": 0,
-      "value": ": rankings in "
+      "value": ": "
     },
     {
       "type": 1,
       "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": "에서의 순위"
     }
   ],
   "chart_clause-variable_in_place": [
@@ -122,7 +198,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": "더보기 "
+      "value": "자세히 알아보기 ›"
     }
   ],
   "chart_metadata-export": [
@@ -157,6 +233,30 @@
       "value": "의 장소"
     }
   ],
+  "chooseVariable": [
+    {
+      "type": 0,
+      "value": "메타데이터를 확인할 변수를 선택하세요"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "닫기"
+    }
+  ],
+  "disasterTool": [
+    {
+      "type": 0,
+      "value": "재난 도구"
+    }
+  ],
+  "download": [
+    {
+      "type": 0,
+      "value": "다운로드"
+    }
+  ],
   "embed_citation": [
     {
       "type": 0,
@@ -189,10 +289,32 @@
       "value": "차트 내보내기"
     }
   ],
+  "exploreLink": [
+    {
+      "type": 1,
+      "value": "toolName"
+    },
+    {
+      "type": 0,
+      "value": "에서 살펴보기"
+    }
+  ],
   "header-overview": [
     {
       "type": 0,
       "value": "개요"
+    }
+  ],
+  "key_demographics": [
+    {
+      "type": 0,
+      "value": "주요 인구통계"
+    }
+  ],
+  "knowledge_graph": [
+    {
+      "type": 0,
+      "value": "지식 그래프"
     }
   ],
   "link-return_to_overview": [
@@ -201,7 +323,25 @@
       "value": "개요 페이지로 돌아가기"
     }
   ],
+  "loading": [
+    {
+      "type": 0,
+      "value": "로드 중…"
+    }
+  ],
+  "mapTool": [
+    {
+      "type": 0,
+      "value": "지도 도구"
+    }
+  ],
   "more_charts": [
+    {
+      "type": 0,
+      "value": "차트 더보기"
+    }
+  ],
+  "more_charts_link": [
     {
       "type": 0,
       "value": "차트 더보기"
@@ -575,6 +715,18 @@
       "value": "(1인당)"
     }
   ],
+  "ranking-tile-latest-data-available-footer": [
+    {
+      "type": 0,
+      "value": "순위는 사용 가능한 최신 데이터를 기반으로 책정됩니다. 해당 연도의 보고가 불완전할 경우 일부 장소는 누락될 수 있습니다."
+    }
+  ],
+  "ranking-tile-latest-data-footer": [
+    {
+      "type": 0,
+      "value": "이 순위에는 여러 해에 걸친 데이터가 포함되어 있어 장소를 포괄적으로 파악할 수 있습니다."
+    }
+  ],
   "ranking_table-header_rank": [
     {
       "type": 0,
@@ -587,10 +739,34 @@
       "value": "값"
     }
   ],
+  "relevant_topics": [
+    {
+      "type": 0,
+      "value": "관련 주제"
+    }
+  ],
+  "scatterTool": [
+    {
+      "type": 0,
+      "value": "분산 도구"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "다른 장소 검색"
+    }
+  ],
+  "selectVariable": [
+    {
+      "type": 0,
+      "value": "목록에서 변수를 선택하여 세부정보를 확인하세요. 아래 링크를 클릭하면 새 탭에서 통계 변수 탐색기가 열립니다"
+    }
+  ],
+  "showMetadata": [
+    {
+      "type": 0,
+      "value": "메타데이터 보기"
     }
   ],
   "singular_administrative_area": [
@@ -683,10 +859,58 @@
       "value": "우편번호"
     }
   ],
+  "snap-to-latest-data-checkbox-label": [
+    {
+      "type": 0,
+      "value": "최신 데이터를 포함하도록 날짜 자동 맞추기"
+    }
+  ],
+  "snap-to-latest-data-help-tooltip": [
+    {
+      "type": 0,
+      "value": "'최신 데이터를 포함하도록 날짜 자동 맞추기'는 최대 범위의 최신 데이터를 표시합니다. 해당 연도의 보고가 불완전할 경우 일부 장소는 누락될 수 있습니다."
+    }
+  ],
+  "snap-to-latest-data-overlap-help-tooltip": [
+    {
+      "type": 0,
+      "value": "적용 범위가 가장 큰 데이터는 이 차트에서 사용할 수 있는 최신 데이터이기도 합니다."
+    }
+  ],
+  "source": [
+    {
+      "type": 0,
+      "value": "출처"
+    }
+  ],
+  "sources": [
+    {
+      "type": 0,
+      "value": "출처"
+    }
+  ],
+  "summary_overview": [
+    {
+      "type": 0,
+      "value": "요약 개요"
+    }
+  ],
   "the_world": [
     {
       "type": 0,
       "value": "세계"
+    }
+  ],
+  "timelineTool": [
+    {
+      "type": 0,
+      "value": "타임라인 도구"
+    }
+  ],
+  "viaGoogle": [
+    {
+      "type": 0,
+      "value": "Google을 통해"
     }
   ]
 }

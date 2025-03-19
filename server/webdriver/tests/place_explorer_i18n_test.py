@@ -63,10 +63,9 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
         find_elem(self.driver, value='related-places-callout').text,
         'Lieux en Afrique')
 
-    # TODO: Update topics to be localized when the translations are available.
     topics_for_africa = [
         "Économie", "Santé", "Capitaux propres", "Données démographiques",
-        "Environment", "Energy"
+        "Environment", "Énergie"
     ]
     shared.assert_topics(self,
                          self.driver,
@@ -78,5 +77,4 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
     download_link = find_elem(self.driver,
                               by=By.CSS_SELECTOR,
                               value=".download-outlink a")
-    # TODO: Update this to use the correct text when the translations are available.
-    self.assertEqual(download_link.text, "Download")
+    self.assertEqual(download_link.text, "Télécharger")
