@@ -364,12 +364,12 @@ export const fetchData = async (
     } else if (props.sort === "ascendingPopulation") {
       popPoints.sort((a, b) => a.value - b.value);
     }
-
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
       {
         apiRoot: props.apiRoot,
         prop: props.placeNameProp,
+        locale: intl.locale,
       }
     );
     const placeType =
