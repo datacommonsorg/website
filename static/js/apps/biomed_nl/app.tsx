@@ -66,6 +66,11 @@ const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
   concise answers with links to relevant data. Your feedback is
   invaluable; a feedback form will appear after each query.`;
 
+const FEEDBACK_FORM =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdSutPw3trI8X6kJwFESyle4XZ6Efbd5AvPFQaFmMiwSMfBxQ/viewform?usp=pp_url";
+const FEEDBACK_QUERY_PARAM = "&entry.2089204314=";
+const FEEDBACK_RESPONSE_PARAM = "&entry.1084929806=";
+const FEEDBACK_DEBUG_PARAM = "&entry.1464639663=";
 // Interface for the response received from Biomed NL API.
 interface BiomedNlApiResponse {
   answer: string;
@@ -76,6 +81,7 @@ interface BiomedNlApiResponse {
 // Interface for the displayed answer.
 interface DisplayedAnswer {
   answer: string;
+  feedbackLink: string;
   footnotes: string;
   debugInfo: string;
 }
@@ -102,15 +108,6 @@ function getSectionTrigger(title: string, opened: boolean): JSX.Element {
   );
 }
 
-function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
-  // TODO: format the markdown response
-  return {
-    answer: response.answer,
-    footnotes: response.footnotes,
-    debugInfo: response.debug,
-  };
-}
-
 const sampleQuestionToLink = (sampleQuestion: string): Link => ({
   id: sampleQuestion,
   title: sampleQuestion,
@@ -121,36 +118,29 @@ const sampleQuestionToLink = (sampleQuestion: string): Link => ({
  * Application container
  */
 export function App(): ReactElement {
-  const [query, setQuery] = useState<string>("");
+  const [queryInput, setQueryInput] = useState<string>("");
+  const [queryFinal, setQueryFinal] = useState<string>("");
   const [answer, setAnswer] = useState<DisplayedAnswer>(null);
   const [showLoading, setShowLoading] = useState<boolean>(false);
+  const [retriggerQuery, setRetriggerQuery] = useState<boolean>(false);
 
   /**
    * useEffect hook to handle initial loading of information from the URL hash.
    */
   useEffect(() => {
-    const handleHashChange = (): void => {
-      const hashParams = queryString.parse(window.location.hash);
-      const hashQuery = (hashParams[URL_HASH_PARAMS.q] || "") as string;
-      if (hashQuery) {
-        onHashChange(hashQuery);
-      }
-    };
+    const hashParams = queryString.parse(window.location.hash);
+    const hashQuery = (hashParams[URL_HASH_PARAMS.q] || "") as string;
+    if (hashQuery) {
+      setQueryInput(hashQuery);
+      setQueryFinal(hashQuery);
+    }
+  }, []); // Run only once to check hash param on load
 
-    // Execute query when hash params are updated.
-    window.addEventListener("hashchange", handleHashChange);
+  function submitQueryInput(): void {
+    updateHash({ [URL_HASH_PARAMS.q]: queryInput });
 
-    // Check if query is provided in hash param on load.
-    handleHashChange();
-
-    // Cleanup the event listener
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []); // Run only once to set up the listener
-
-  function setHashToQuery(): void {
-    updateHash({ [URL_HASH_PARAMS.q]: query });
+    setRetriggerQuery(!retriggerQuery);
+    setQueryFinal(queryInput);
   }
 
   function handleKeydownEvent(
@@ -159,20 +149,74 @@ export function App(): ReactElement {
     switch (event.key) {
       case "Enter":
         event.preventDefault();
-        setHashToQuery();
+        submitQueryInput();
         break;
     }
   }
 
-  /**
-   * Function to execute the query when the "Run" button is clicked.
-   */
-  function onHashChange(query: string): void {
-    setQuery(query);
+  useEffect(() => {
+    function formatFeedbackLink(response: string, debugInfo: string): string {
+      const queryField = `${FEEDBACK_QUERY_PARAM}${queryFinal}`;
+      const responseField = `${FEEDBACK_RESPONSE_PARAM}${response}`;
+      const debugField = `${FEEDBACK_DEBUG_PARAM}${debugInfo}`;
+      return `${FEEDBACK_FORM}${queryField}${responseField}${debugField}`;
+    }
+    function formatReferences(footnotes: string): string {
+      const jsonStrings = footnotes.split(/}\n{/g);
+      const result = [];
+      // Add back the "}" and "{" that were removed by the split, except for the first and last element
+      for (let i = 0; i < jsonStrings.length; i++) {
+        let str = jsonStrings[i].trim();
+        if (i > 0) {
+          str = "{" + str;
+        }
+        if (i < jsonStrings.length - 1) {
+          str = str + "}";
+        }
+        const reference = JSON.parse(str);
+        const elementId =
+          reference.direction == "Outgoing"
+            ? `browser-arc-${reference.prop}-0`
+            : `${reference.linked_type}-${reference.prop}`;
+        const href = `/browser/${reference.source}#${elementId}`;
+        const formattedIncomingType =
+          reference.direction == "Outgoing"
+            ? ""
+            : `.(${reference.linked_type})`;
+        const linkLabel = `${reference.source}.${reference.prop}${formattedIncomingType}`;
+        const link = `<p>[${reference.key}] <a href="${href}" id="biomednl-ref-${reference.key}" target="_blank">${linkLabel}</a></p>`;
+        result.push(link);
+      }
+      return result.join("\n");
+    }
+
+    function formatReferencesInResponse(answer: string): string {
+      const referencePattern = /\[(\d+)\]/g;
+      const annotatedAnswer = answer.replace(referencePattern, (match, key) => {
+        return `<a href="#biomednl-ref-${key}">${match}</a>`;
+      });
+      return annotatedAnswer;
+    }
+
+    function processApiResponse(
+      response: BiomedNlApiResponse
+    ): DisplayedAnswer {
+      // TODO: format the markdown response
+      return {
+        answer: formatReferencesInResponse(response.answer),
+        feedbackLink: formatFeedbackLink(response.answer, response.debug),
+        footnotes: formatReferences(response.footnotes),
+        debugInfo: response.debug,
+      };
+    }
+    if (!queryFinal) {
+      setAnswer(null);
+      return;
+    }
     setShowLoading(true);
     axios
       .get("/api/experiments/biomed_nl/query", {
-        params: { q: query },
+        params: { q: queryFinal },
         paramsSerializer: stringifyFn,
       })
       .then((resp) => {
@@ -181,6 +225,7 @@ export function App(): ReactElement {
       .catch(() => {
         setAnswer({
           answer: "There was a problem running the query, please try again.",
+          feedbackLink: formatFeedbackLink("", ""),
           footnotes: "",
           debugInfo: "",
         });
@@ -188,7 +233,7 @@ export function App(): ReactElement {
       .finally(() => {
         setShowLoading(false);
       });
-  }
+  }, [queryFinal, retriggerQuery]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -196,7 +241,7 @@ export function App(): ReactElement {
         className="app"
         css={css`
           margin-left: ${theme.spacing.xl}px;
-          gap: ${theme.spacing.lg}px;
+          gap: ${theme.spacing.sm}px;
           width: 70%;
         `}
       >
@@ -228,12 +273,15 @@ export function App(): ReactElement {
               </span>
               <Input
                 type="text"
-                value={query}
-                onChange={(e): void => setQuery(e.target.value)}
+                value={queryInput}
+                onChange={(e): void => setQueryInput(e.target.value)}
                 onKeyDown={(event): void => handleKeydownEvent(event)}
                 className="search-input-text"
               />
-              <div onClick={setHashToQuery} id="rich-search-button"></div>
+              <div
+                onClick={(): void => submitQueryInput()}
+                id="rich-search-button"
+              ></div>
             </InputGroup>
           </div>
         </div>
@@ -252,7 +300,6 @@ export function App(): ReactElement {
                     key={question}
                     link={sampleQuestionToLink(question)}
                     color={"blue"}
-                    section={`sample-q ${index}`}
                     dataTestId={`question-item-${index}`}
                   />
                 );
@@ -264,6 +311,7 @@ export function App(): ReactElement {
         <div className="answer">
           {!showLoading && answer && (
             <div>
+              <div className="matched-entities">{/* TODO! */}</div>
               <div
                 css={css`
                   ${theme.typography.heading.md};
@@ -278,6 +326,17 @@ export function App(): ReactElement {
               >
                 {answer.answer}
               </ReactMarkdown>
+              <div className="feedback-form">
+                <p>
+                  <a
+                    href={answer.feedbackLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Tell us how we did.
+                  </a>
+                </p>
+              </div>
               {answer.footnotes && (
                 <Collapsible
                   trigger={getSectionTrigger("Footnotes", false)}
