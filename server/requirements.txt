@@ -28,6 +28,7 @@ markupsafe==2.1.2
 parameterized==0.8.1
 pillow==10.4.0
 protobuf==4.25.3
+pydantic==2.10.6
 PyGithub==1.58.2
 pyOpenSSL==23.2.0
 python-dateutil==2.8.2
@@ -39,7 +40,7 @@ redis==4.5.4
 requests==2.31.0
 selenium==4.21.0
 sentence-transformers==3.4.1
-typing-extensions==4.11.0
+typing-extensions==4.12.2
 webdriver-manager==4.0.0
 Werkzeug==3.0.6
 wheel==0.38.1
