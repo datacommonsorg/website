@@ -94,7 +94,10 @@ def get_next_hop_triples(dcids, out=True):
       }
     }
   '''
-  triples = fetch.triples(dcids, out, max_pages=PATH_FINDING_MAX_V2NODE_PAGES)
+  triples = {}
+  for dcid_batch in utils.batch_requested_nodes(dcids):
+    triples.update(
+        fetch.triples(dcid_batch, out, max_pages=PATH_FINDING_MAX_V2NODE_PAGES))
 
   result = {}
   for subject_dcid, properties in triples.items():
@@ -119,12 +122,16 @@ def get_next_hop_triples(dcids, out=True):
 
 
 def get_all_triples(dcids):
+  out_triples = {}
+  in_triples = {}
+  for dcid_batch in utils.batch_requested_nodes(dcids):
+    out_triples.update(fetch.triples(dcid_batch, out=True, max_pages=None))
+    in_triples.update(fetch.triples(dcid_batch, out=False, max_pages=None))
+
   return {
       dcid: {
-          'outgoing':
-              fetch.triples(dcids, out=True, max_pages=None).get(dcid, {}),
-          'incoming':
-              fetch.triples(dcids, out=False, max_pages=None).get(dcid, {})
+          'outgoing': out_triples.get(dcid, {}),
+          'incoming': in_triples.get(dcid, {})
       } for dcid in dcids
   }
 
@@ -455,8 +462,13 @@ class PathStore:
     """
 
     next_dcids = self.get_next_dcids()
-    outgoing_props = fetch.properties(next_dcids, out=True)
-    incoming_props = fetch.properties(next_dcids, out=False)
+
+    outgoing_props = {}
+    incoming_props = {}
+    for dcid_batch in utils.batch_requested_nodes(next_dcids):
+      outgoing_props.update(fetch.properties(dcid_batch, out=True))
+      incoming_props.update(fetch.properties(dcid_batch, out=False))
+
     dcid_to_all_props = {}
     for dcid in set(outgoing_props.keys()) | set(incoming_props.keys()):
       props = set()
@@ -518,8 +530,10 @@ class PathStore:
     if not property_dcids_to_fetch:
       return self.property_descriptions
 
-    descriptions = fetch.property_values(list(property_dcids_to_fetch),
-                                         'description')
+    descriptions = {}
+    for dcid_batch in utils.batch_requested_nodes(
+        list(property_dcids_to_fetch)):
+      descriptions.update(fetch.property_values(dcid_batch, 'description'))
 
     for prop in property_dcids_to_fetch:
       if not descriptions.get(prop, []):

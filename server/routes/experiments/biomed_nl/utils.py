@@ -300,6 +300,8 @@ They are provided with a UI that lists triples for a given entity.
 At the end of your response, you can refer them to https://docs.datacommons.org/api/ for info about querying the Knowledge graph.
 '''
 
+MAX_NUM_DCID_PER_V2NODE_REQUEST = 100
+
 
 def get_gemini_response_token_counts(response):
   return (response.usage_metadata.prompt_token_count,
@@ -314,3 +316,10 @@ def format_dict(obj):
     return obj
 
   return json.dumps(obj, indent=4, default=set_encoder, sort_keys=True)
+
+
+def batch_requested_nodes(nodes, batch_size=MAX_NUM_DCID_PER_V2NODE_REQUEST):
+  """
+  Splits a list of dcids into batches that do not exceed the DC API request size limit.
+  """
+  return [nodes[i:i + batch_size] for i in range(0, len(nodes), batch_size)]
