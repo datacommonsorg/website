@@ -20,6 +20,7 @@
 
 import React from "react";
 
+import { getInArcSubsectionElementId } from "../utils/browser_utils";
 import { ArcTableRow } from "./arc_table_row";
 import { InArcValue } from "./types";
 
@@ -53,7 +54,10 @@ export class InArcSubsection extends React.Component<InArcSubsectionPropType> {
     return (
       <div className="card p-0">
         <h4
-          id={`${this.props.parentType}-${this.props.property}`}
+          id={getInArcSubsectionElementId(
+            this.props.parentType,
+            this.props.property
+          )}
           className="arc-group-title"
         >
           <span className="mp">Subject Type: {this.props.parentType}</span>

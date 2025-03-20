@@ -34,6 +34,10 @@ import { Search } from "../../components/elements/icons/search";
 import { Link, LinkBox } from "../../components/elements/link_box";
 import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
+import {
+  getInArcSubsectionElementId,
+  getOutArcRowElementId,
+} from "../../utils/browser_utils";
 import { updateHash } from "../../utils/url_utils";
 import { SpinnerWithText } from "./spinner";
 
@@ -73,10 +77,20 @@ const FEEDBACK_ANSWER_PARAM = "&entry.1084929806=";
 const FEEDBACK_DEBUG_PARAM = "&entry.1464639663=";
 const MAX_FORM_ANSWER_LENGTH = 1000;
 const MAX_FORM_DEBUG_LENGTH = 500;
+
+interface TripleReference {
+  refNum: number;
+  source: string;
+  isOutgoing: boolean;
+  prop: string;
+  linkedType: string;
+}
+
 // Interface for the response received from Biomed NL API.
 interface BiomedNlApiResponse {
+  query: string;
   answer: string;
-  footnotes: string;
+  footnotes: TripleReference[];
   debug: string;
 }
 
@@ -84,7 +98,7 @@ interface BiomedNlApiResponse {
 interface DisplayedAnswer {
   answer: string;
   feedbackLink: string;
-  footnotes: string;
+  footnotes: JSX.Element;
   debugInfo: string;
 }
 
@@ -115,6 +129,91 @@ const sampleQuestionToLink = (sampleQuestion: string): Link => ({
   title: sampleQuestion,
   url: `/experiments/biomed_nl#q=${encodeURIComponent(sampleQuestion)}`,
 });
+
+function constructFeedbackLink(response: BiomedNlApiResponse): string {
+  const queryField = `${FEEDBACK_QUERY_PARAM}${response.query}`;
+
+  const answerField = `${FEEDBACK_ANSWER_PARAM}${response.answer.substring(
+    0,
+    MAX_FORM_ANSWER_LENGTH
+  )}`;
+
+  const flattenedFootnotes = response.footnotes
+    .map(
+      (ref) =>
+        `${ref.refNum}-${ref.source}-${ref.isOutgoing ? "out" : "in"}-${
+          ref.prop
+        }-${ref.linkedType}`
+    )
+    .join(";");
+  const fullDebug = response.debug + "\n" + flattenedFootnotes;
+
+  const debugField = `${FEEDBACK_DEBUG_PARAM}${fullDebug.substring(
+    0,
+    MAX_FORM_DEBUG_LENGTH
+  )}`;
+  return `${FEEDBACK_FORM}${queryField}${answerField}${debugField}`;
+}
+
+function getFootnoteReferenceElementId(referenceNumber: number): string {
+  return `biomednl-ref-${referenceNumber}`;
+}
+
+function getReferenceBrowserElementId(reference: TripleReference): string {
+  return reference.isOutgoing
+    ? getOutArcRowElementId(reference.prop)
+    : getInArcSubsectionElementId(reference.linkedType, reference.prop);
+}
+
+function formatReferences(references: TripleReference[]): JSX.Element {
+  const refs = references.map(
+    (reference: TripleReference, index: number): JSX.Element => {
+      const browserElementId = getReferenceBrowserElementId(reference);
+
+      const linkLabelItems = [reference.source, reference.prop];
+      if (!reference.isOutgoing) {
+        linkLabelItems.push(reference.linkedType);
+      }
+
+      return (
+        <p key={index}>
+          [{reference.refNum}]:{" "}
+          <a
+            href={`/browser/${reference.source}#${browserElementId}`}
+            id={getFootnoteReferenceElementId(reference.refNum)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {linkLabelItems.join(".")}
+          </a>
+        </p>
+      );
+    }
+  );
+  return <>{refs}</>;
+}
+
+function formatCitationsInResponse(answer: string): string {
+  const referencePattern = /\[(\d+)\]/g;
+  // Answer will be rendered in markdown
+  const annotatedAnswer = answer.replace(referencePattern, (match, refNum) => {
+    return `<a href="#${getFootnoteReferenceElementId(refNum)}">${match}</a>`;
+  });
+  return annotatedAnswer;
+}
+
+function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
+  const formattedAnswer = formatCitationsInResponse(response.answer);
+  const feedbackLink = constructFeedbackLink(response);
+  const tripleReferences = formatReferences(response.footnotes);
+
+  return {
+    answer: formattedAnswer,
+    feedbackLink,
+    footnotes: tripleReferences,
+    debugInfo: response.debug,
+  };
+}
 
 /**
  * Application container
@@ -160,69 +259,6 @@ export function App(): ReactElement {
   }
 
   useEffect(() => {
-    function formatFeedbackLink(response: string, debugInfo: string): string {
-      const queryField = `${FEEDBACK_QUERY_PARAM}${queryFinal}`;
-      const responseField = `${FEEDBACK_ANSWER_PARAM}${response.substring(
-        0,
-        MAX_FORM_ANSWER_LENGTH
-      )}`;
-      const debugField = `${FEEDBACK_DEBUG_PARAM}${debugInfo.substring(
-        0,
-        MAX_FORM_DEBUG_LENGTH
-      )}`;
-      return `${FEEDBACK_FORM}${queryField}${responseField}${debugField}`;
-    }
-    function formatReferences(footnotes: string): string {
-      const jsonStrings = footnotes.split(/}\n{/g);
-      const result = [];
-      // Add back the "}" and "{" that were removed by the split, except for the first and last element
-      for (let i = 0; i < jsonStrings.length; i++) {
-        let str = jsonStrings[i].trim();
-        if (i > 0) {
-          str = "{" + str;
-        }
-        if (i < jsonStrings.length - 1) {
-          str = str + "}";
-        }
-        const reference = JSON.parse(str);
-        const elementId =
-          reference.direction == "Outgoing"
-            ? `browser-arc-${reference.prop}-0`
-            : `${reference.linked_type}-${reference.prop}`;
-        const href = `/browser/${reference.source}#${elementId}`;
-        const formattedIncomingType =
-          reference.direction == "Outgoing"
-            ? ""
-            : `.(${reference.linked_type})`;
-        const linkLabel = `${reference.source}.${reference.prop}${formattedIncomingType}`;
-        const link = `<p>[${reference.key}] <a href="${href}" id="biomednl-ref-${reference.key}" target="_blank">${linkLabel}</a></p>`;
-        result.push(link);
-      }
-      return result.join("\n");
-    }
-
-    function formatReferencesInResponse(answer: string): string {
-      const referencePattern = /\[(\d+)\]/g;
-      const annotatedAnswer = answer.replace(referencePattern, (match, key) => {
-        return `<a href="#biomednl-ref-${key}">${match}</a>`;
-      });
-      return annotatedAnswer;
-    }
-
-    function processApiResponse(
-      response: BiomedNlApiResponse
-    ): DisplayedAnswer {
-      // TODO: format the markdown response
-      return {
-        answer: formatReferencesInResponse(response.answer),
-        feedbackLink: formatFeedbackLink(
-          response.answer,
-          response.debug + response.footnotes
-        ),
-        footnotes: formatReferences(response.footnotes),
-        debugInfo: response.debug,
-      };
-    }
     if (!queryFinal) {
       setAnswer(null);
       return;
@@ -237,12 +273,14 @@ export function App(): ReactElement {
         setAnswer(processApiResponse(resp.data));
       })
       .catch(() => {
-        setAnswer({
-          answer: "There was a problem running the query, please try again.",
-          feedbackLink: formatFeedbackLink("", ""),
-          footnotes: "",
-          debugInfo: "",
-        });
+        setAnswer(
+          processApiResponse({
+            query: queryFinal,
+            answer: "There was a problem running the query, please try again.",
+            footnotes: [],
+            debug: "",
+          })
+        );
       })
       .finally(() => {
         setShowLoading(false);
@@ -328,7 +366,8 @@ export function App(): ReactElement {
                       link={sampleQuestionToLink(question)}
                       color={"blue"}
                       dataTestId={`question-item-${index}`}
-                      useXsHeadingTitle={true}
+                      titleTypographySize="xs"
+                      useHeadingTypographyType={true}
                     />
                   </div>
                 );
@@ -378,12 +417,7 @@ export function App(): ReactElement {
                     )}
                     open={true}
                   >
-                    <ReactMarkdown
-                      rehypePlugins={[rehypeRaw as any]}
-                      remarkPlugins={[remarkGfm]}
-                    >
-                      {answer.footnotes}
-                    </ReactMarkdown>
+                    {answer.footnotes}
                   </Collapsible>
                 )}
                 {answer.debugInfo && (

@@ -53,7 +53,9 @@ interface LinkBoxProps {
   //the data-testid for the link box
   dataTestId?: string;
   //the typography size for title text
-  useXsHeadingTitle?: boolean;
+  titleTypographySize?: string;
+  // the typography size for title text
+  useHeadingTypographyType?: boolean;
 }
 
 export const LinkBox = ({
@@ -62,7 +64,8 @@ export const LinkBox = ({
   category,
   section = "",
   dataTestId,
-  useXsHeadingTitle = false,
+  titleTypographySize = "xl",
+  useHeadingTypographyType = false,
 }: LinkBoxProps): ReactElement => {
   const theme = useTheme();
 
@@ -71,9 +74,7 @@ export const LinkBox = ({
     list-style: none;
   `;
 
-  const titleTypography = useXsHeadingTitle
-    ? theme.typography.heading.xs
-    : theme.typography.text.xl;
+  const titleTypographyType = useHeadingTypographyType ? "heading" : "text";
 
   const linkStyles = css`
     ${theme.box.primary};
@@ -91,7 +92,7 @@ export const LinkBox = ({
 
     p {
       color: ${theme.colors.box[color].text};
-      ${titleTypography};
+      ${theme.typography[titleTypographyType][titleTypographySize]};
     }
 
     small {

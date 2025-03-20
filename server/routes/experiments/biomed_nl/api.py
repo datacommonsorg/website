@@ -13,7 +13,6 @@
 # limitations under the License.
 """Endpoints for Biomed NL Search page"""
 
-import enum
 import json
 import logging
 
@@ -22,7 +21,7 @@ from flask import current_app
 from flask import request
 from flask import Response
 from google import genai
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
@@ -36,22 +35,17 @@ bp = flask.Blueprint('biomed_nl_api',
                      url_prefix='/api/experiments/biomed_nl')
 
 
-class TripleDirection(enum.Enum):
-  OUTGOING = "Outgoing"
-  INCOMING = "Incoming"
-
-
 class CitedTripleReference(BaseModel):
   # the footnote number corresponding to this reference in Gemini's final response
-  key: int
+  ref_num: int = Field(alias="refNum")
   # the subject of the cited triple
   source: str
-  # the direction of the cited triple
-  direction: TripleDirection
+  # indicates if the triple is an out-arc, otherwise it is an in-arc
+  is_outgoing: bool = Field(alias="isOutgoing")
   # the property of the cited triple
   prop: str
   # the incoming type of the cited triple (only populated if direction is Incoming)
-  linked_type: str
+  linked_type: str = Field(alias="linkedType")
 
 
 class FinalAnswerResponse(BaseModel):
@@ -90,7 +84,7 @@ def _append_fallback_response(query, response, path_finder,
 
 
 def _fulfill_traversal_query(query):
-  response = {'answer': '', 'debug': ''}
+  response = {'query': query, 'answer': '', 'debug': ''}
   # TODO: remove extensive try-catch block once this api is stable
 
   gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
@@ -146,8 +140,11 @@ def _fulfill_traversal_query(query):
           })
       final_response = FinalAnswerResponse(**json.loads(gemini_response.text))
       response['answer'] = final_response.answer
-      response['footnotes'] = '\n'.join(
-          [ref.model_dump_json(indent=2) for ref in final_response.references])
+      # Convert triple references to serializable objects
+      response['footnotes'] = [
+          ref.model_dump(by_alias=True, mode="json")
+          for ref in final_response.references
+      ]
     else:
       should_include_fallback = True
 

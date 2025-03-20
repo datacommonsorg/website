@@ -66,7 +66,6 @@ function setListenerForScrollTo(): void {
         if (node instanceof HTMLElement) {
           const targetElement = node.querySelector(`#${hash}`);
           if (!targetElement) return;
-          console.log(targetElement);
           window.scrollTo(
             0,
             targetElement.getBoundingClientRect().top -

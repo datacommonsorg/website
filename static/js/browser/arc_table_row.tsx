@@ -23,6 +23,7 @@ import _ from "lodash";
 import React from "react";
 
 import { GoogleMap } from "../components/google_map";
+import { getOutArcRowElementId } from "../utils/browser_utils";
 import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
@@ -108,7 +109,10 @@ export class ArcTableRow extends React.Component<
           id={
             this.props.propIndex == undefined
               ? undefined
-              : `browser-arc-${this.props.propertyLabel}-${this.props.propIndex}`
+              : getOutArcRowElementId(
+                  this.props.propertyLabel,
+                  this.props.propIndex
+                )
           }
         >
           {this.props.noPropLink ? (
