@@ -21,7 +21,8 @@ from flask import current_app
 from flask import request
 from flask import Response
 from google import genai
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+from pydantic import Field
 
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
