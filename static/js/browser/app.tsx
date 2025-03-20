@@ -37,6 +37,7 @@ const GENERAL_PROPERTIES_HEADER = "Properties";
 const SELECTED_SV_SEP = "__";
 const SCROLL_MARGIN = 10;
 const SCROLL_TIMEOUT = 10000;
+const SCROLL_DELAY = 500;
 
 interface BrowserPagePropType {
   dcid: string;
@@ -66,12 +67,16 @@ function setListenerForScrollTo(): void {
         if (node instanceof HTMLElement) {
           const targetElement = node.querySelector(`#${hash}`);
           if (!targetElement) return;
-          window.scrollTo(
-            0,
-            targetElement.getBoundingClientRect().top -
-              headerHeight -
-              SCROLL_MARGIN
-          );
+          setTimeout(() => {
+            window.scrollTo({
+              top:
+                targetElement.getBoundingClientRect().top -
+                headerHeight -
+                SCROLL_MARGIN,
+              behavior: "smooth",
+            });
+          }, SCROLL_DELAY);
+
           observer.disconnect(); // Stop observing after the element is found
         }
       });
