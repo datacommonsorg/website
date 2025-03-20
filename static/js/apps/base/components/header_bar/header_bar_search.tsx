@@ -32,6 +32,7 @@ import {
 } from "../../../../shared/feature_flags/util";
 import {
   GA_EVENT_NL_SEARCH,
+  GA_EVENT_RENDER_NL_SEARCH_BAR,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
   GA_PARAM_QUERY,
   GA_PARAM_SOURCE,
@@ -79,6 +80,9 @@ const HeaderBarSearch = ({
   const theme: Theme = useTheme();
   const showDynamicPlaceholders =
     showDynamicPlaceholdersBase && !isMobileByWidth(theme);
+  triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR, {
+    [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(showDynamicPlaceholders),
+  });
 
   return (
     <div className="header-search">
