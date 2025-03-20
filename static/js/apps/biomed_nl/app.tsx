@@ -166,31 +166,38 @@ function getReferenceBrowserElementId(reference: TripleReference): string {
 }
 
 function formatReferences(references: TripleReference[]): JSX.Element {
-  const refs = references.map(
-    (reference: TripleReference, index: number): JSX.Element => {
-      const browserElementId = getReferenceBrowserElementId(reference);
+  return (
+    <div
+      css={css`
+        margin-left: ${theme.spacing.lg}px;
+      `}
+    >
+      {references.map(
+        (reference: TripleReference, index: number): JSX.Element => {
+          const browserElementId = getReferenceBrowserElementId(reference);
 
-      const linkLabelItems = [reference.source, reference.prop];
-      if (!reference.isOutgoing) {
-        linkLabelItems.push(reference.linkedType);
-      }
+          const linkLabelItems = [reference.source, reference.prop];
+          if (!reference.isOutgoing) {
+            linkLabelItems.push(reference.linkedType);
+          }
 
-      return (
-        <p key={index}>
-          [{reference.refNum}]:{" "}
-          <a
-            href={`/browser/${reference.source}#${browserElementId}`}
-            id={getFootnoteReferenceElementId(reference.refNum)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {linkLabelItems.join(".")}
-          </a>
-        </p>
-      );
-    }
+          return (
+            <p key={index}>
+              [{reference.refNum}]:{" "}
+              <a
+                href={`/browser/${reference.source}#${browserElementId}`}
+                id={getFootnoteReferenceElementId(reference.refNum)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {linkLabelItems.join(".")}
+              </a>
+            </p>
+          );
+        }
+      )}
+    </div>
   );
-  return <>{refs}</>;
 }
 
 function formatCitationsInResponse(answer: string): string {
@@ -347,7 +354,7 @@ export function App(): ReactElement {
               className="example-queries"
               css={css`
                 columns: 2;
-                column-gap: ${theme.spacing.md}px;
+                column-gap: ${theme.spacing.sm}px;
               `}
             >
               {SAMPLE_QUESTIONS.map((question, index) => {
