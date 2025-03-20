@@ -21,6 +21,7 @@
 
 import { css, ThemeProvider } from "@emotion/react";
 import axios from "axios";
+import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
@@ -131,7 +132,7 @@ const sampleQuestionToLink = (sampleQuestion: string): Link => ({
 });
 
 function constructFeedbackLink(response: BiomedNlApiResponse): string {
-  const queryField = `${FEEDBACK_QUERY_PARAM}${response.query}`;
+  const queryField = `${FEEDBACK_QUERY_PARAM}${_.escape(response.query)}`;
 
   const answerField = `${FEEDBACK_ANSWER_PARAM}${response.answer.substring(
     0,
