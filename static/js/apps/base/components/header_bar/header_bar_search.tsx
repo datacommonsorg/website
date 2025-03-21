@@ -17,7 +17,7 @@
 /* A wrapping component to render the header bar version of the search */
 
 import { useTheme } from "@emotion/react";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 
 import { NlSearchBar } from "../../../../components/nl_search_bar";
 import {
@@ -80,9 +80,10 @@ const HeaderBarSearch = ({
   const theme: Theme = useTheme();
   const showDynamicPlaceholders =
     showDynamicPlaceholdersBase && !isMobileByWidth(theme);
-  triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR, {
-    [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(showDynamicPlaceholders),
-  });
+
+  useEffect(() => {
+      triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR, {});
+  }, []);
 
   return (
     <div className="header-search">

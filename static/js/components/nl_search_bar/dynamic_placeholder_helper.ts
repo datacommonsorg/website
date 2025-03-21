@@ -19,6 +19,10 @@
  */
 import { SetStateAction } from "react";
 import { defineMessages } from "react-intl";
+import {
+  GA_EVENT_RENDER_NL_SEARCH_BAR_WITH_PLACEHOLDERS,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 
 const TYPING_SPEED = 50; // milliseconds per character
 const TYPING_SPEED_DELETE = 30; // milliseconds per character
@@ -39,6 +43,7 @@ export const enableDynamicPlacehoder = (
   setSampleQuestionText: (arg0: SetStateAction<string>) => void,
   setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
 ): void => {
+  triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR_WITH_PLACEHOLDERS, {});
   const sampleQuestions = loadSampleQuestions();
   if (sampleQuestions.length == 0) {
     return;

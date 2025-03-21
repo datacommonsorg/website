@@ -125,7 +125,7 @@ export function AutoCompleteInput(
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
 
     // Start cycling through sample questions when the component mounts.
-    if (props.enableDynamicPlaceholders) {
+    if (!inputText && props.enableDynamicPlaceholders) {
       enableDynamicPlacehoder(
         setSampleQuestionText,
         setDynamicPlaceholdersEnabled
