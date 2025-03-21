@@ -35,6 +35,9 @@ const URL_PREFIX = "/browser/";
 const PLACE_STAT_VAR_PROPERTIES_HEADER = "Statistical Variable Properties";
 const GENERAL_PROPERTIES_HEADER = "Properties";
 const SELECTED_SV_SEP = "__";
+const SCROLL_MARGIN = 10;
+const SCROLL_TIMEOUT = 10000;
+const SCROLL_DELAY = 500;
 
 interface BrowserPagePropType {
   dcid: string;
@@ -50,6 +53,46 @@ interface BrowserPageStateType {
   dataFetched: boolean;
 }
 
+function setListenerForScrollTo(): void {
+  const hash = window.location.hash.substring(1);
+  if (!hash) return;
+  const header = document.querySelector(
+    "#main-header-container"
+  ) as HTMLElement;
+  const headerHeight = header ? header.offsetHeight : 0;
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node instanceof HTMLElement) {
+          const targetElement = node.querySelector(`#${hash}`);
+          if (!targetElement) return;
+          setTimeout(() => {
+            window.scrollTo({
+              top:
+                targetElement.getBoundingClientRect().top -
+                headerHeight -
+                SCROLL_MARGIN,
+              behavior: "smooth",
+            });
+          }, SCROLL_DELAY);
+
+          observer.disconnect(); // Stop observing after the element is found
+        }
+      });
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+
+  setTimeout(() => {
+    observer.disconnect();
+  }, SCROLL_TIMEOUT);
+}
+
 export class BrowserPage extends React.Component<
   BrowserPagePropType,
   BrowserPageStateType
@@ -63,6 +106,7 @@ export class BrowserPage extends React.Component<
   }
 
   componentDidMount(): void {
+    setListenerForScrollTo();
     this.fetchData();
   }
 
