@@ -227,32 +227,38 @@ Here are some examples for citations based on the example data provided above:
   answer: "ABCC2 has a potential association with a drug [1] and its full name is ATP binding cassette subfamily C member 2 [2]. The gene has two orthologs, one with ncbi id 100020524 [3] and one with ncbi id 100060654 [3]."
   references: [ 
     CitedTripleReference(
-      key=1
+      ref_num=1
       source= "bio/ABCC2", 
-      direction= INCOMING, 
+      is_outgoing= False, 
       prop= "geneID", 
       linked_type= ChemicalCompoundGeneAssociation
       ),
     CitedTripleReference(
-      key=2
+      ref_num=2
       source= "bio/ABCC2", 
-      direction= OUTGOING, 
+      is_outgoing= True, 
       prop= "fullName", 
       linked_type=""
       ),
     CitedTripleReference(
-      key=3
+      ref_num=3
       source= "bio/ABCC2", 
-      direction= OUTGOING, 
+      is_outoing= True, 
       prop= "geneOrtholog", 
       linked_type=""
       ),
     ]
       - Important: Only populate linked_type when the direction is Incoming!
-      - Do not repeat identical CitedTripleReferences in the references list. You can cite the same CitedTripleReference key multiple times, as we see with citing the CitedTripleReference with key=3 twice in the example above.
+      - Do not repeat identical CitedTripleReferences in the references list. You can cite the same CitedTripleReference ref_num multiple times, as we see with citing the CitedTripleReference with ref_num=3 twice in the example above.
       - Any claim you make should have a citation to the provided data
+      - In the CitedTripleReference:
+        - ref_num is the number used to refer to this citation in your answer
+        - source is the root key of the dictionary from which you are making your assertion. 
+        - is_outgoing is True if your assertion is coming from an "outgoing" dictionary and False if it's coming from an "incoming" dictionary
+        - prop is the property used to make the assertion; it should be a key from inside the "outgoing" or "incoming" dictionary
+        - linked_type is the type listed in a property-value pair in an *incoming* dictionary
 
-Please double check that your citation number in the answer response correctly matches the key in the references dictionary.
+Please double check that your citation number in the answer response correctly matches the ref_num corresponding to the CitedTripleReference providing the data for your assertion.
 Double check that if you are asserting an association between two entities, that you have examined the association node. 
 If data for the association node is not provided, list it under "additional_entity_dcids"
 
@@ -267,11 +273,7 @@ include this as a list in "additional_entity_names".
 
 Once you have your final answer, make the response as human-readable as possible using bullet points, markdown tables, etc in the "answer" field.
 
-Then double check that your citation number in the answer response correctly matches the key in the references dictionary.
-Double check that if you are asserting an association between two entities, that you have examined the association node. 
-If data for the association node is not provided, list it under "additional_entity_dcids". You can say that the nodes *may* be associated, but that further investigaion is required.
-
-If the query is just the name of an entity, give an overview or summary of the entity given the information provided below.
+If the query is just the name of an entity, give an overview or summary of the data for that entity.
 
 So now, using the data below, respond to the query: 
 "{QUERY}"
