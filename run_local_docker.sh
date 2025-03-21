@@ -66,7 +66,7 @@
 #   ./run_local_docker.sh
 #       This starts all containers, using the prebuilt stable images released by
 #       Data Commons.
-#   ./run_local_docker.sh --run service --version latest
+#   ./run_local_docker.sh --run service --image latest
 #       This starts only the service container, using the prebuilt latest release.
 #       Use this if you haven't made any changes to your data but just want
 #       to pick up the latest code.
@@ -122,7 +122,7 @@ run_data() {
 }
 
 run_service() {
-  if [ "$IMAGE" == "stable" ] || [ "$IMAGE" == "stable" ]; then
+  if [ "$IMAGE" == "stable" ] || [ "$IMAGE" == "latest" ]; then
     echo -e "${GREEN}Starting Docker services container with ${IMAGE} image...${NC}\n"
     docker run -it \
     --env-file "$PWD/custom_dc/env.list" \
@@ -257,7 +257,7 @@ if [ ! -f "custom_dc/env.list" ]; then
   exit 1
 fi
 # Handle ambiguous use of two mutually exclusive options
-if [ "$UPLOAD" == true && "$RUN" != "none" ]; then
+if [ "$UPLOAD" == true && ] [ "$RUN" != "none" ]; then
   echo -e "${RED}Error: ${NC}Illegal option combination. You cannot specify both '--upload' and '--run'."
   echo -e "Please specify one or the other."
   exit 1
