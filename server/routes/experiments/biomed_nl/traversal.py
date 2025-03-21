@@ -20,7 +20,6 @@ import re
 
 from markupsafe import escape
 from pydantic import BaseModel
-from sentence_transformers import util
 
 import server.lib.fetch as fetch
 from server.routes.experiments.biomed_nl.entity_recognition import \
@@ -751,7 +750,7 @@ class PathFinder:
     for prop, description in property_descriptions.items():
       # the response from nl_encode contains sanitized input strings
       sanitized_description = str(escape(description))
-      cosine_similarity = util.cos_sim(
+      cosine_similarity = utils.cos_sim(
           query_embed, embeddings[sanitized_description]).item()
       property_similarity_scores[prop] = cosine_similarity
 
