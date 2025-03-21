@@ -184,7 +184,7 @@ function formatReferences(references: TripleReference[]): JSX.Element {
 
           return (
             <p key={index}>
-              [{reference.refNum}]:{" "}
+              [{reference.refNum}]&nbsp;
               <a
                 href={`/browser/${reference.source}#${browserElementId}`}
                 id={getFootnoteReferenceElementId(reference.refNum)}
