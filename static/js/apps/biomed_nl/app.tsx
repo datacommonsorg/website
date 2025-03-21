@@ -374,8 +374,6 @@ export function App(): ReactElement {
                       link={sampleQuestionToLink(question)}
                       color={"blue"}
                       dataTestId={`question-item-${index}`}
-                      titleTypographySize="xs"
-                      useHeadingTypographyType={true}
                     />
                   </div>
                 );
