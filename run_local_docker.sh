@@ -14,16 +14,21 @@
 # limitations under the License.
 
 
-# Usage: ./run_local_docker.sh [--build|-b <image name and tag>] [--run|-r data|service|all] [--version|-v stable|latest] | 
-#        [--upload|-u <source image name and tag> [<target image and tag>]) [--schema_update|-s] 
-
-# If no options are set, the defaults is --run all
+# Usage: ./run_local_docker.sh [--build|-b] [--run|-r data|service|all|none] 
+#           [--image |-i stable|latest|<image name and tag>]
+#         OR
+#        ./run_local_docker.sh [--build|-b] [--run|-r none]
+#           [--upload|-u <source image name and tag> [<target image and tag>]]
+#         OR
+#        ./run_local_docker.sh [--run|-r data|all] [--schema_update|-s] 
 #
+# If no options are set, the default is '--run all'.
+# 
 # Options:
 #   --build|-b 
 #       Optional: Build a custom image. If you set this, you must also set the
 #          '--image' option with a custom image name and tag. 
-#        
+#
 #   --run|-r all (default) | service | data | none
 #       Optional: If the option is not specified, both data and service containers are run.
 #       'service': Only the services container is run. You can use
@@ -50,7 +55,6 @@
 #        <target image name and tag>Optional. If not set, the source name and tag will
 #           be used as the target name for the package.
 #           Be sure that you have already set up a registry repository. 
-#           See [get link] for details.
 #
 #   --schema_update|-s
 #       Optional. In the rare case that you get a 'SQL checked failed' error in
@@ -252,6 +256,13 @@ if [ ! -f "custom_dc/env.list" ]; then
   echo -e "For details, see comments in the file.\n"
   exit 1
 fi
+# Handle ambiguous use of two mutually exclusive options
+if [ "$UPLOAD" == true && "$RUN" != "none" ]; then
+  echo -e "${RED}Error: ${NC}Illegal option combination. You cannot specify both '--upload' and '--run'."
+  echo -e "Please specify one or the other."
+  exit 1
+fi
+
 # Handle missing directories
 if [[( "$RUN" != "none" ) && ( -z "$INPUT_DIR" || -z "$OUTPUT_DIR" )]]; then
   echo -e "${RED}Error:${NC} Data directories missing in configuration file."
@@ -260,7 +271,7 @@ if [[( "$RUN" != "none" ) && ( -z "$INPUT_DIR" || -z "$OUTPUT_DIR" )]]; then
   exit 1
 fi
 # Handle missing name for custom build
-if [[ ("$BUILD" == true || "$UPLOAD" == true ) && ( "$IMAGE" == "stable" || "$IMAGE" == "latest" ) ]]; then
+if [[ ("$BUILD" == true || "$UPLOAD" == true ) && ( "$IMAGE" == "stable" || "$IMAGE" == "latest") ]]; then
   echo -e "${RED}Error:${NC} You have not specified a valid custom image name."
   echo -e "Please set the '--image' or '-i' option with a name and tag for your build.\n" 
   exit 1
@@ -281,8 +292,6 @@ if [ "$UPLOAD" == true ]; then
   check_app_credentials
   get_docker_credentials
   upload
-# It doesn't make sense to upload and run containers, so we'll make them
-# mutually exclusive
   exit 0
 elif [ "$RUN" == "data" ]; then
   run_data
