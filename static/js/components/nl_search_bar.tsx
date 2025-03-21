@@ -46,7 +46,7 @@ export interface NlSearchBarImplementationProps {
   //the change event (used to trigger appropriate state changes in this parent)
   onChange: (newValue: string) => void;
   //a function to be called once a search is run
-  onSearch: (dynamicPlaceholdersEnabled) => void;
+  onSearch: (dynamicPlaceholdersEnabled: boolean) => void;
   //the autofocus attribute of the input will be set to shouldAutoFocus
   shouldAutoFocus?: boolean;
   //an optional feedback link
