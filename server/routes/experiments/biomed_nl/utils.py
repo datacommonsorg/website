@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+
 import numpy as np
 
 PARSE_QUERY_PROMPT = '''
