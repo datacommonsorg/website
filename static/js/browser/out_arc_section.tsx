@@ -141,6 +141,7 @@ export class OutArcSection extends React.Component<
                           ? this.props.provDomain[provenanceId]
                           : null
                       }
+                      propIndex={index}
                     />
                   );
                 }
