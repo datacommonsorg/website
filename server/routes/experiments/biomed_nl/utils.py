@@ -345,6 +345,11 @@ def cos_sim(embeddings1, embeddings2):
   embeddings1 = np.array(embeddings1)
   embeddings2 = np.array(embeddings2)
 
+  if len(embeddings1.shape) == 1:
+    embeddings1 = embeddings1.reshape(1, -1)
+  if len(embeddings2.shape) == 1:
+    embeddings2 = embeddings2.reshape(1, -1)
+
   # Normalize the embeddings
   embeddings1_norm = embeddings1 / np.linalg.norm(
       embeddings1, axis=1, keepdims=True)
