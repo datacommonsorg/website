@@ -27,7 +27,7 @@ interface NlSearchBarPropType {
   variant?: "standard" | "header-inline";
   allowEmptySearch?: boolean;
   inputId: string;
-  onSearch: (q: string) => void;
+  onSearch: (q: string, dynamicPlaceholdersEnabled: boolean) => void;
   initialValue: string;
   placeholder?: string;
   shouldAutoFocus?: boolean;
@@ -46,7 +46,7 @@ export interface NlSearchBarImplementationProps {
   //the change event (used to trigger appropriate state changes in this parent)
   onChange: (newValue: string) => void;
   //a function to be called once a search is run
-  onSearch: () => void;
+  onSearch: (dynamicPlaceholdersEnabled) => void;
   //the autofocus attribute of the input will be set to shouldAutoFocus
   shouldAutoFocus?: boolean;
   //an optional feedback link
@@ -63,13 +63,13 @@ export function NlSearchBar(props: NlSearchBarPropType): ReactElement {
     setInvalid(false);
   }, [props.initialValue]);
 
-  function handleSearch(): void {
+  function handleSearch(dynamicPlaceholdersEnabled: boolean): void {
     if (!props.allowEmptySearch && !value) {
       setInvalid(true);
       return;
     }
 
-    props.onSearch(value);
+    props.onSearch(value, dynamicPlaceholdersEnabled);
   }
 
   const commonProps: NlSearchBarImplementationProps = {

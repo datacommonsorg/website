@@ -41,7 +41,8 @@ export const placeholderMessages = defineMessages({
 
 export const enableDynamicPlacehoder = (
   setSampleQuestionText: (arg0: SetStateAction<string>) => void,
-  setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
+  setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void,
+  setDynamicPlaceholdersDone: (arg0: SetStateAction<boolean>) => void
 ): void => {
   triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR_WITH_PLACEHOLDERS, {});
   const sampleQuestions = loadSampleQuestions();
@@ -56,12 +57,13 @@ export const enableDynamicPlacehoder = (
   // Add a 0.5-second delay before starting the cycle
   const timerId = setTimeout(() => {
     setDynamicPlaceholdersEnabled(true);
+    setDynamicPlaceholdersDone(false);
     cycleSampleQuestions(
       sampleQuestions,
       sampleQuestionStartIndex,
       0,
       setSampleQuestionText,
-      setDynamicPlaceholdersEnabled
+      setDynamicPlaceholdersDone
     );
   }, 800);
 
@@ -101,11 +103,11 @@ export const cycleSampleQuestions = (
   index: number,
   questionCount: number,
   setSampleQuestionText: (arg0: SetStateAction<string>) => void,
-  setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
+  setDynamicPlaceholdersDone: (arg0: SetStateAction<boolean>) => void
 ): void => {
   if (questionCount == sampleQuestions.length) {
     setSampleQuestionText("");
-    setDynamicPlaceholdersEnabled(false);
+    setDynamicPlaceholdersDone(true);
     return;
   }
 
@@ -129,7 +131,7 @@ export const cycleSampleQuestions = (
               nextQuestionIndex,
               questionCount + 1,
               setSampleQuestionText,
-              setDynamicPlaceholdersEnabled
+              setDynamicPlaceholdersDone
             );
           }
         };
