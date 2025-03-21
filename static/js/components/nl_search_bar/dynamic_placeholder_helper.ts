@@ -19,6 +19,7 @@
  */
 import { SetStateAction } from "react";
 import { defineMessages } from "react-intl";
+
 import {
   GA_EVENT_RENDER_NL_SEARCH_BAR_WITH_PLACEHOLDERS,
   triggerGAEvent,

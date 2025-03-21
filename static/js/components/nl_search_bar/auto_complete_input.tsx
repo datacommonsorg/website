@@ -99,9 +99,9 @@ export function AutoCompleteInput(
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [inputActive, setInputActive] = useState(false);
-  const [dynamicPlaceholdersDone, setDynamicPlaceholdersDone] =
+  const [dynamicPlaceholdersDone, setDynamicPlaceholdersDone] = useState(false);
+  const [dynamicPlaceholdersEnabled, setDynamicPlaceholdersEnabled] =
     useState(false);
-  const [dynamicPlaceholdersEnabled, setDynamicPlaceholdersEnabled] = useState(false);
   const [sampleQuestionText, setSampleQuestionText] = useState("");
   const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
     useState("");

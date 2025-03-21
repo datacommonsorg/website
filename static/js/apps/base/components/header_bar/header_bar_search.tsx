@@ -82,7 +82,7 @@ const HeaderBarSearch = ({
     showDynamicPlaceholdersBase && !isMobileByWidth(theme);
 
   useEffect(() => {
-      triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR, {});
+    triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR, {});
   }, []);
 
   return (
@@ -94,7 +94,9 @@ const HeaderBarSearch = ({
           if (searchBarHashMode) {
             triggerGAEvent(GA_EVENT_NL_SEARCH, {
               [GA_PARAM_QUERY]: q,
-              [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(dynamicPlaceholdersEnabled),
+              [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(
+                dynamicPlaceholdersEnabled
+              ),
               [GA_PARAM_SOURCE]:
                 gaValueSearchSource ?? GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
             });
@@ -107,7 +109,9 @@ const HeaderBarSearch = ({
           } else {
             triggerGAEvent(GA_EVENT_NL_SEARCH, {
               [GA_PARAM_QUERY]: q,
-              [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(dynamicPlaceholdersEnabled),
+              [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(
+                dynamicPlaceholdersEnabled
+              ),
               [GA_PARAM_SOURCE]:
                 gaValueSearchSource ?? GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
             });
