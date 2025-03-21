@@ -138,6 +138,20 @@ class PlaceI18nExplorerTestMixin():
             find_elem(self.driver,
                       by=By.CSS_SELECTOR,
                       value="svg text.place-tick").text))
+    # Test that clicking place-tick opens in new tab
+    place_tick = find_elem(self.driver,
+                           by=By.CSS_SELECTOR,
+                           value="svg text.place-tick")
+    place_tick.click()
+
+    # Switch to new tab
+    self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    # Ensure the new page has the correct locale
+    self.assertIn("hl=ja", self.driver.current_url)
+
+    # Switch back to original tab
+    self.driver.switch_to.window(self.driver.window_handles[0])
 
     # TODO: Update this test once the see per capita link is translated
     self.assertEqual(
