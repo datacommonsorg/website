@@ -38,7 +38,7 @@
   },
   {
     "name": "biomed_nl",
-    "enabled": false,
+    "enabled": true,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   }
