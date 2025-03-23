@@ -14,11 +14,11 @@
 # limitations under the License.
 
 # Usage:
-#   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--build|-b] [--run|-r all|service|none] 
+#   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--build|-b] [--run|-r all|service|none|data] 
 #      ( [--version|-v stable|latest] | [--image|-i <custom-built image name and tag> ] )
 #   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--build|-b <image name>] 
 #      [--upload|-u <source image name>] [--package|-p <target image>] [--run none ]
-#   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--run|-r all] [--schema_update|-s]
+#   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--run|-r all|data] [--schema_update|-s]
 #
 #   If no options are set, the default is '--env_file $PWD/custom_dc/env.list --run all --version stable'  
 # 
@@ -31,9 +31,9 @@
 #  --build|-b
 #      Optional: Build a custom image. If you specify it, you must also set the
 #      '--image|i' option. 
-#      If you set this without the '--upload' option, '--run service' is automatically 
-#      applied. If you set it with the '--upload' option, '--run none' is automatically applied. 
+#      If you set this with the '--upload' option, '--run none' is automatically applied. 
 #      You can later use a '--run' option and use the '--image' option to specify this build.
+#
 #  --run|-r all|service|none
 #      Optional: If not specified, defaults to 'all': both data and service 
 #      containers are run.
@@ -42,29 +42,33 @@
 #       If '--upload' is specified, 'none' is the only valid option and is set 
 #       by default.
 #    'service': Only run the service container. You can use this if you have 
-#       not made any changes to your data.
-
+#       not made any changes to your data, or if you are running in a hybrid mode,
+#       with a local service reading data from Cloud SQL.
+#    'data': Only run the data container. Only use this if you are running in a hybrid mode, 
+#       with a local data container writing output to Cloud SQL.
+#
 #  --image|-i <custom image and tag>
-#      Optional with '--run': A custom image that you have previously built and want to run. 
-#      Required with '--build' and '--upload': With '--build', the image you want to build.
-#      With '--upload', the source image of the package you want to build.
+#     Optional with '--run': A custom image that you have previously built and want to run. 
+#     Required with '--build' and '--upload' options: With '--build', the image you want to build.
+#     With '--upload', the source image of the package you want to build.
 #
 #   --version|v stable|latest|
-#       Optional: uses the Data Commons prebuilt 'stable' release by default.
-#      'latest': Use the Data Commons 'latest' release.
-#       Ignored if --image|-i is set.
+#     Optional: uses the Data Commons prebuilt 'stable' release by default.
+#     'latest': Use the Data Commons 'latest' release.
+#      Ignored if --image|-i is set.
 #     
 #  --schema_update|-s
-#    Optional. In the rare case that you get a 'SQL checked failed' error in
-#    your running service, you can set this to run the data container in 
-#    schema update mode, which skips embeddings generation and completes much
-#    faster.
+#     Optional. In the rare case that you get a 'SQL checked failed' error in
+#     your running service, you can set this to run the data container in 
+#     schema update mode, which skips embeddings generation and completes much
+#     faster.
 #          
 #  --upload|-u <source image>
 #    Optional: Create a package from a custom image and upload it to the Google Cloud
 #      Artifact Registry. You must have already set up a Registry repository.
 #    <source image>: Required: The name and tag of the custom image to use to
 #      build the Docker image. (Can be the same as that used in the --build option.)
+#     If this option is specified, 'run none' is automatically set.
 #
 #   --package|-p <target image>
 #     Optional: Provide a name and tag for the package to be uploaded. 
@@ -115,12 +119,19 @@ build() {
 
 upload() {
   check_app_credentials
-  echo -e "${GREEN}Creating package '$GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/$PACKAGE'...${NC}\n"
-  get_docker_credentials
-  docker tag $IMAGE $GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/${PACKAGE}
-  check gcloud credentials
-  echo -e "${GREEN}Uploading package to Google Artifact Registry. This will take several minutes...${NC}\n"
-  docker push $GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/$PACKAGE
+  # Now get Docker credentials 
+  echo -e "Getting credentials for Cloud Docker package...\n"
+  gcloud auth configure-docker $REGION-docker.pkg.dev
+  exit_status=$?
+  if [ $exit_status != 0 ]; then
+    exit 1
+  else
+    echo -e "${GREEN}Creating package '$GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/$PACKAGE'...${NC}\n"
+    docker tag $IMAGE $GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/${PACKAGE}
+    # check gcloud auth login credentials
+    echo -e "${GREEN}Uploading package to Google Artifact Registry. This will take several minutes...${NC}\n"
+    docker push $GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/$PACKAGE
+  fi
 }
 
 run_data() {
@@ -130,6 +141,15 @@ run_data() {
     --env-file $ENV_FILE \
     -e DATA_UPDATE_MODE=schemaupdate \
     -v $INPUT_DIR:$INPUT_DIR \
+    -v $OUTPUT_DIR:$OUTPUT_DIR \
+    gcr.io/datcom-ci/datacommons-data:${VERSION}
+  elif [[ "$INPUT_DIR" == *"gs://"* ]]; then
+    check_app_credentials
+    echo -e "${GREEN}Starting Docker data container with '$VERSION' release...${NC}\n"
+    docker run -it \
+    --env-file $ENV_FILE \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
     gcr.io/datcom-ci/datacommons-data:${VERSION}
   else
@@ -154,6 +174,28 @@ run_service() {
     -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
     -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
     $IMAGE
+  elif [[ -n "$IMAGE" && "$INPUT_DIR" == *"gs://"* ]]; then
+    check_app_credentials
+    echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}'...${NC}\n"
+    docker run -it \
+    --env-file $ENV_FILE \
+    -p 8080:8080 \
+    -e DEBUG=true \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+    -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
+    $IMAGE
+  elif [[ "$INPUT_DIR" == *"gs://"* ]]; then
+    check_app_credentials
+    echo -e "${GREEN}Starting Docker services container with '${VERSION}' release...${NC}\n"
+    docker run -it \
+    --env-file $ENV_FILE \
+    -p 8080:8080 \
+    -e DEBUG=true \
+    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+     gcr.io/datcom-ci/datacommons-services:${VERSION}
   else
     echo -e "${GREEN}Starting Docker services container with '${VERSION}' release...${NC}\n"
     docker run -it \
@@ -166,9 +208,8 @@ run_service() {
   fi
 }
 
-# Functions for checking/getting GCP credentials
-# (Currently needed only for 'upload' option)
-#########################################################
+# Function for checking GCP application default credentials
+############################################################
 
 check_app_credentials() {
   echo -e "Checking for valid Cloud application default credentials...\n"
@@ -183,16 +224,7 @@ check_app_credentials() {
   # gcloud auth will print out login info and exit.
 }
 
-get_docker_credentials() {
-  echo -e "Getting credentials for Cloud Docker package...\n"
-  gcloud auth configure-docker $REGION-docker.pkg.dev
-  exit_status=$?
-  if [ $exit_status -eq 0 ]; then
-    return 0
-  else
-    exit 1
-  fi
-}
+# Way to check for principal credentials i.e. gcloud auth login?
 
 # Begin execution 
 #######################################################
@@ -233,7 +265,7 @@ while true; do
       ;;
     -b | --build)
       BUILD=true
-      shift 2
+      shift      
       ;;
     -r | --run)
       if [ "$2" == "all" ] || [ "$2" == "none" ] || [ "$2" == "service" ] || [ "$2" == "data" ]; then
@@ -247,7 +279,7 @@ while true; do
     -v | --version)
       if [ "$2" == "stable" ] || [ "$2" == "latest" ]; then
         VERSION="$2"
-         shift 2
+        shift 2
       else
         echo -e "${RED}Error:${NC} That is not a valid version. Valid options are 'stable' or 'release'.\n"
         exit 1
@@ -263,7 +295,7 @@ while true; do
       ;;
     -u | --upload)
       UPLOAD=true
-      shift 2
+      shift
       ;;
     -p | --package)
       PACKAGE="$2"
@@ -280,51 +312,81 @@ done
 source "$ENV_FILE"
 
 # Handle various error conditions
-#===========================================================
-# Missing variables and other incorrect settings
-#------------------------------------------------------------
+##############################################################
+# Missing variables and incompatible settings
+#============================================================
+# First handle variables in env.list file
+#-------------------------------------------------------------
 if [ -z "$INPUT_DIR" ] || [ -z "$OUTPUT_DIR" ]; then
   echo -e "${RED}Error:${NC} Missing input or output data directories."
   echo -e "Please set 'INPUT_DIR' and 'OUTPUT_DIR' in your env.list file.\n"
   exit 1
 fi
 
-if [ "$BUILD" == true ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}Error:${NC} You have specified the --build option but have not specified an image name and tag."
-  echo -e "Please use the -'-image' or '-i' option with the name and tag of the image you would like to build.\n"
-  exit 1
-fi
-
-if [ "$UPLOAD" == true ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}Error:${NC} You have specified the --upload option but have not specified a source image name and tag."
-  echo -e "Please use the -'-image' or '-i' option with the name and tag of the image that will be the source of the package to be built.\n"
-  exit 1
-fi
-
-if ([ "$UPLOAD" == true ]) && ([[ -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOUD_REGION" ]]); then
+if  [[ ("$UPLOAD" == true ) && ( -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOUD_REGION" )]]; then
   echo -e "${RED}Error:${NC} Missing GCP project and region settings."
   echo -e "Please set 'GOOGLE_CLOUD_PROJECT' and/or 'GOOGLE_CLOUD_REGION' in your env.list file.\n"
   exit 1
 fi
 
-# If incorrect DB settings are specified, fail now. No point in trying to make sense of
-# other output. 
+# Invalid directory combination. Single gs:// path for output dir is OK, but
+# not for input dir.
+if [[ "$INPUT_DIR" == *"gs://"* &&  "$OUTPUT_DIR" != *"gs://"* ]]; then
+  echo -e "${RED}Error:${NC} Incorrect directory options in env.list file."
+  echo -e "Your "INPUT_DIR" is set to a "gs://" path, but the 'OUTPUT_DIR' is not."
+  echo -e "Please fix your env.list file so that they match.\n"
+  exit 1
+fi
 
-if [[( "$RUN" != "none" ) &&  ( "$USE_CLOUDSQL" == true  ||  "$USE_SQLITE " == false  ) ]]; then
+# Invalid settings for database
+# First handle the hybrid setup case
+if [[( "$INPUT_DIR" == *"gs://"* || "$OUTPUT_DIR" == *"gs://"* ) && ( -z "$GOOGLE_CLOUD_PROJECT"  || "$USE_SQLITE" == true ||  "$USE_CLOUDSQL" == false || -z "$CLOUDSQL_INSTANCE" || -z "$DB_USER" || -z "$DB_PASS" ) ]]; then
+  echo -e "${RED}Error:${NC} Incorrect SQL settings in your env.list file."
+  echo -e "Be sure to set 'USE_CLOUDSQL' to 'true' and/or 'USE_SQLITE' to 'false 
+  and ensure all other GCP-related settings are specified correctly'.\n"
+  exit 1
+# Now the normal local case
+elif [[( "$RUN" != "none" ) &&  ( "$USE_CLOUDSQL" == true  ||  "$USE_SQLITE " == false  ) ]]; then
   echo -e "${RED}Error:${NC} Incorrect SQL settings in your env.list file."
   echo -e "Be sure to set 'USE_CLOUDSQL' to 'false' and/or 'USE_SQLITE' to 'true'.\n"
   exit 1
 fi
 
-# Reset run options if --build and/or --upload are set
-# It doesn't make sense to run both containers in these contexts
-#----------------------------------------------------------------
+# Now handle missing options in input
+#-------------------------------------------------------------
+# Missing custom image for build and upload
+if [ "$BUILD" == true ] && [ -z "$IMAGE" ]; then
+  echo -e "${RED}Error:${NC} You have specified the --build option but have not 
+  specified an image name and tag."
+  echo -e "Please use the -'-image' or '-i' option with the name and tag of the 
+  image you would like to build.\n"
+  exit 1
+fi
+if [ "$UPLOAD" == true ] && [ -z "$IMAGE" ]; then
+  echo -e "${RED}Error:${NC} You have specified the --upload option but have not 
+  specified a source image name and tag."
+  echo -e "Please use the -'-image' or '-i' option with the name and tag of the 
+  image that will be the source of the package to be built.\n"
+  exit 1
+fi
+
+# Set 'run' values for cases where it does not make sense to run both containers
+#-----------------------------------------------------------------------------
+# build only
 if [ "$BUILD" == true ] && [ "$UPLOAD" == false ]; then
   RUN="service"
+# upload
 elif [ "$UPLOAD" == true ]; then
   RUN="none"
 fi
- 
+# output to cloud
+if [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
+  RUN=service
+fi
+# service running in cloud
+if [ "$INPUT_DIR" == *"gs://"* ]; then
+  RUN=data
+fi
 
 # Call Docker commands
 ######################################
