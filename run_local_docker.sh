@@ -201,8 +201,8 @@ get_docker_credentials() {
 ENV_FILE="$PWD/custom_dc/env.list"
 SCHEMA_UPDATE=false
 VERSION="stable"
-CUSTOM_IMAGE=""
-PACKAGE=""
+IMAGE=""
+PACKAGE="$IMAGE"
 BUILD=false
 UPLOAD=false
 RUN="all"
@@ -281,8 +281,7 @@ source "$ENV_FILE"
 
 # Handle various error conditions
 #===========================================================
-
-# Missing variables
+# Missing variables and other incorrect settings
 #------------------------------------------------------------
 if [ -z "$INPUT_DIR" ] || [ -z "$OUTPUT_DIR" ]; then
   echo -e "${RED}Error:${NC} Missing input or output data directories."
@@ -308,15 +307,14 @@ if ([ "$UPLOAD" == true ]) && ([[ -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOU
   exit 1
 fi
 
-# If package name is not set, set it automatically to the same as the image name
-# build name if not specified
-if [ "$UPLOAD" == true ] && [ -z "$PACKAGE" ]; then
-  PACKAGE="$IMAGE"
-fi
+# If incorrect DB settings are specified, fail now. No point in trying to make sense of
+# other output. 
 
-# Invalid option combinations
-#---------------------------------------------------------------
-# Combination of --version and --image will just silently ignore the first one.
+if [[( "$RUN" != "none" ) &&  ( "$USE_CLOUDSQL" == true  ||  "$USE_SQLITE " == false  ) ]]; then
+  echo -e "${RED}Error:${NC} Incorrect SQL settings in your env.list file."
+  echo -e "Be sure to set 'USE_CLOUDSQL' to 'false' and/or 'USE_SQLITE' to 'true'.\n"
+  exit 1
+fi
 
 # Reset run options if --build and/or --upload are set
 # It doesn't make sense to run both containers in these contexts
@@ -326,11 +324,10 @@ if [ "$BUILD" == true ] && [ "$UPLOAD" == false ]; then
 elif [ "$UPLOAD" == true ]; then
   RUN="none"
 fi
-
-# Reset 
+ 
 
 # Call Docker commands
-#------------------------------
+######################################
 
 if [ "$BUILD" == true ]; then
   build
