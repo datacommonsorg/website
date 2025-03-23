@@ -138,6 +138,10 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  // Optional: Locale to use for this component
+  @property()
+  locale?: string;
+
   render(): HTMLDivElement {
     const lineTileProps: LineTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
@@ -175,6 +179,6 @@ export class DatacommonsLineComponent extends LitElement {
       ),
       placeNameProp: this.placeNameProp,
     };
-    return createWebComponentElement(LineTile, lineTileProps);
+    return createWebComponentElement(LineTile, lineTileProps, this.locale);
   }
 }

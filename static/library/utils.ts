@@ -19,6 +19,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { StyleSheetManager } from "styled-components";
 
+import { loadLocaleData } from "../js/i18n/i18n";
 import {
   DEFAULT_API_ENDPOINT,
   MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
@@ -69,7 +70,8 @@ export function convertBooleanAttribute(attributeValue: string): boolean {
  */
 export function createWebComponentElement(
   tile: (props: any) => JSX.Element,
-  tileProps: any
+  tileProps: any,
+  locale = "en"
 ): HTMLDivElement {
   const container = document.createElement("div");
   const styleHost = document.createElement("div");
@@ -86,17 +88,33 @@ export function createWebComponentElement(
     container.appendChild(link);
   }
 
-  // Create mount point and render tile in it
-  const mountPoint = document.createElement("div");
-  const tileElement = React.createElement(tile, tileProps);
-  // Wrap tile in a StyleSheetManager to support styled-components styles
-  const wrappedTileElement = React.createElement(
-    StyleSheetManager,
-    { target: styleHost },
-    tileElement
-  );
-  ReactDOM.render(wrappedTileElement, mountPoint);
-  container.appendChild(mountPoint);
+  new Promise((resolve) => {
+    loadLocaleData(locale, [
+      import(`../js/i18n/compiled-lang/${locale}/units.json`),
+      import(`../js/i18n/compiled-lang/${locale}/place.json`),
+      import(`../js/i18n/compiled-lang/${locale}/stats_var_labels.json`),
+    ])
+      .catch((error) => {
+        console.error("Error loading data for locale=", locale, error);
+      })
+      .finally(() => {
+        // Load the component regardless of whether the locale data was loaded
+        // Will default to English if locale data is not found
+
+        // Create mount point and render tile in it
+        const mountPoint = document.createElement("div");
+        const tileElement = React.createElement(tile, tileProps);
+        // Wrap tile in a StyleSheetManager to support styled-components styles
+        const wrappedTileElement = React.createElement(
+          StyleSheetManager,
+          { target: styleHost },
+          tileElement
+        );
+        ReactDOM.render(wrappedTileElement, mountPoint);
+        container.appendChild(mountPoint);
+        resolve(container);
+      });
+  });
 
   return container;
 }

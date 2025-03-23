@@ -97,6 +97,10 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  // Optional: Locale to use for this component
+  @property()
+  locale?: string;
+
   render(): HTMLDivElement {
     const gaugeTileProps: GaugeTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
@@ -126,6 +130,6 @@ export class DatacommonsGaugeComponent extends LitElement {
       svgChartHeight: 200,
       title: this.header || this.title,
     };
-    return createWebComponentElement(GaugeTile, gaugeTileProps);
+    return createWebComponentElement(GaugeTile, gaugeTileProps, this.locale);
   }
 }
