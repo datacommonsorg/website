@@ -14,32 +14,53 @@
 # limitations under the License.
 
 # Usage:
-#   ./run_local_docker.sh [--run|-r all|service|none] [--version|-v ]
-#   ./run_local_docker.sh [--build|-b <image name>] [--run|-r all|service|none] 
-#   ./run_local_docker.sh [--build|-b <image name>] [--upload|-u <source image name>] [--package|-p <target image>]
-#   ./run_local_docker.sh [--schema_update|-s] 
+#   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--run|-r all|service|none] 
+#      [--version|-v stable|latest]
+#   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--build|-b <image name>] 
+#      [--run|-r all|service|none] 
+#   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--build|-b <image name>] 
+#      [--upload|-u <source image name>] 
+#      [--package|-p <target image>] [--run none ]
+#   ./run_local_docker.sh [--env_file|-e <env.list file path>] [--schema_update|-s] 
 #
-# If no options are set, the default is '--run all'.
+#   If no options are set, the default is '--run all --version stable 
+#      --env_file $PWD/custom_dc/env.list'.
 # 
 # Options:
-#  --build|-b <image name>
-#    Optional: Build a custom image.
-#    Required: <image name>: Name and tag of the image to build.
+#  --env_file|-e <path to env.list file> 
+#    Optional: If not specified, defaults to '$PWD/custom_dc/env.list'. The path
+#    and file name of the environment file env.list. Use this option to maintain
+#    multiple environment files with different settings (helpful for testing).
 #
-#  --run|-r all (default) | service |  none
-#    Optional: If not specified, both data and service containers are run.
-#    'service': Only run the service container. You can use this if you have 
-#       not made any changes to your data.
+#  --build|-b <custom image name and tag>
+#    Optional: Build a custom image.
+#    If you set this, '--run service' is automatically applied. If you set it with
+#    the '--upload' option, '--run none' is automatically applied. 
+#    If you use this initially with '--run none' you can later 
+#    use the '--image' option to specify this build.
+#
+#  --run|-r all|service|data|none
+#    Optional: If not specified, defaults to 'all': both data and service 
+#    containers are run.
 #    'none': Don't start any containers. You can use this if you are using the 
 #       '--build' and/or '--update' options and don't need to run local containers.
 #       If '--upload' is specified, 'none' is the only valid option and is set 
 #       by default.
+#    'service': Only run the service container. You can use this if you have 
+#       not made any changes to your data, or if you are doing local development
+#       with data in Google Cloud. In the latter case, you must set all GCP variables in 'env/list'.
+#       See more information in https://docs.datacommons.org/custom_dc/advanced.html#run-local
+#    'data': Only run the data container. You can use this if you are 
+#       storing your input data locally and writing output to Google Cloud.
+#       with data in the cloud. In the latter case, you must set all GCP variables in 'env/list'.
+#       See more information in https://docs.datacommons.org/custom_dc/advanced.html#local-services
 #
-#  --version|-v [stable (default) | latest]
-#    Optional: The Data Commons-provided prebuilt image version you want to run.
-#      If unspecified, defaults to 'stable'.
-#      'latest': Uses the Data Commons 'latest' release.
-#
+#  --image|-i stable|latest|<custom image and tag>
+#    Optional: The image you want to run. If not specified, defaults to 'stable',
+#      the Data Commons prebuilt 'stable' release.
+#    'latest': Use the Data Commons 'latest' release.
+#     <custom image and tag>:   The name and tag of a custom image you have previously built.
+#     
 #  --schema_update|-s
 #    Optional. In the rare case that you get a 'SQL checked failed' error in
 #    your running service, you can set this to run the data container in 
@@ -65,9 +86,10 @@
 #       This starts only the service container, using the prebuilt latest release.
 #       Use this if you haven't made any changes to your data but just want
 #       to pick up the latest code.
-#   ./run_local_docker.sh --build --image my-datacommons:dev
-#       This builds a custom image and starts all containers.
-#   ./run_local_docker.sh --build --image my-datacommons:dev --run none
+#   ./run_local_docker.sh --build my-datacommons:dev [--run service]
+#       This builds a custom image and starts the service. Use this if you haven't
+#       made any changes to your data but are developing your custom site.
+#   ./run_local_docker.sh --build --image my-datacommons:dev -[-run none]
 #       This builds a custom image but does not start any containers. Use this
 #       if you are building a custom image to upload later to Google Cloud.
 
@@ -103,20 +125,28 @@ upload() {
 
 run_data() {
   if [ "$SCHEMA_UPDATE" == true ]; then
-    echo -e "${GREEN}Starting Docker data container with '$VERSION' release in schema update mode...${NC}\n"
+    echo -e "${GREEN}Starting Docker data container with '$IMAGE' release in schema update mode...${NC}\n"
     docker run -it \
-    --env-file "$PWD/custom_dc/env.list" \
-    -e DATA_UPDATE_MODE=schemaupdate \
+    --env-file $ENV_FILE \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    gcr.io/datcom-ci/datacommons-data:${VERSION}
+    gcr.io/datcom-ci/datacommons-data:${IMAGE}
+  elif [[ "$OUTPUT_DIR" == *"gs://"*  ]]; then
+   echo -e "${GREEN}Starting Docker data container with '$IMAGE' release and output to Google Cloud...${NC}\n"
+   check_app_credentials
+   docker run -it \
+   --env-file $ENV_FILE \
+   -v $INPUT_DIR:$INPUT_DIR \
+   -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+   -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+   gcr.io/datcom-ci/datacommons-data:${IMAGE}
   else
-    echo -e "${GREEN}Starting Docker data container with '$VERSION' release...${NC}\n"
+    echo -e "${GREEN}Starting Docker data container with '$IMAGE' release...${NC}\n"
     docker run -it \
-    --env-file $PWD/custom_dc/env.list \
+    --env-file $ENV_FILE \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    gcr.io/datcom-ci/datacommons-data:${VERSION}
+    gcr.io/datcom-ci/datacommons-data:${IMAGE}
   fi
 }
 
@@ -124,7 +154,7 @@ run_service() {
   if [ -n "$IMAGE" ]; then
     echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}'...${NC}\n"
     docker run -it \
-    --env-file "$PWD/custom_dc/env.list" \
+    --env-file $ENV_FILE \
     -p 8080:8080 \
     -e DEBUG=true \
     -v $INPUT_DIR:$INPUT_DIR \
@@ -132,15 +162,28 @@ run_service() {
     -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
     -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
     $IMAGE
-  else
-    echo -e "${GREEN}Starting Docker services container with '${VERSION}' release...${NC}\n"
+  # Data in cloud scenario; assume it's a custom build
+  elif [[ "$INPUT_DIR" == "*"gs://"*" && "$OUTPUT_DIR" == *"gs://"*  ]]; then
+    echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}'...${NC}\n"
+    check_app_credentials
     docker run -it \
-    --env-file "$PWD/custom_dc/env.list" \
+    --env-file $ENV_FILE \
+    -p 8080:8080 \
+    -e DEBUG=true \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+    -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
+    $IMAGE
+  else
+    echo -e "${GREEN}Starting Docker services container with '${IMAGE}' release...${NC}\n"
+    docker run -it \
+    --env-file $ENV_FILE \
     -p 8080:8080 \
     -e DEBUG=true \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    gcr.io/datcom-ci/datacommons-services:${VERSION}
+    gcr.io/datcom-ci/datacommons-services:${IMAGE}
   fi
 }
 
@@ -151,14 +194,14 @@ run_service() {
 check_app_credentials() {
   echo -e "Checking for valid Cloud application default credentials...\n"
   # Attempt to print the access token
-  gcloud auth application-default print-access-token &> /dev/null
+  gcloud auth application-default print-access-token > /dev/null
   exit_status=$?
-  if [ $exit_status -eq 0 ]; then
+  if [ ${exit_status} -eq 0 ]; then
     echo -e "GCP application default credentials are valid.\n"
     return 0
-  else
-    exit 1
   fi
+  # Cannot call the login routine on behalf of user. If creds are not valid, the
+  # gcloud auth will print out login info and exit.
 }
 
 get_docker_credentials() {
@@ -175,29 +218,17 @@ get_docker_credentials() {
 # Begin execution 
 #######################################################
 
-# Read and set required variables from env.list file
-if [ -f "$PWD/custom_dc/env.list" ]; then
-  source "$PWD/custom_dc/env.list"
-else
-  echo -e "${RED}Error: ${NC}Configuration file 'env.list' not found."
-  echo -e "Do the following: "
-  echo -e "1. Copy 'custom_dc/env.list.sample' and save as 'custom_dc/env.list'."
-  echo -e "2. Set all necessary environment variables." 
-  echo -e "For details, see comments in the file or https://docs.datacommons.org/custom_dc/quickstart.html#env-vars\n"
-  exit 1  
-fi
-
 # Initialize variables for optional settings
-VERSION="stable"
+ENV_FILE="$PWD/custom_dc/env.list"
 SCHEMA_UPDATE=false
-IMAGE=""
+IMAGE="stable"
 PACKAGE=""
 BUILD=false
 UPLOAD=false
 RUN="all"
 
 # Parse command-line options
-OPTS=$(getopt -o b:r:v:su:p: --long build:,run:,version:,schema_update,upload:,package: -n 'run_local_docker.sh' -- "$@")
+OPTS=$(getopt -o e:b:r:i:su:p: --long env_file:,build:,run:,image:,schema_update,upload:,package: -n 'run_local_docker.sh' -- "$@")
 
 if [ $? != 0 ]; then
   echo "Failed to parse options." >&2
@@ -210,29 +241,34 @@ eval set -- "$OPTS"
 # getopt handles invalid options and missing arguments
 while true; do
   case "$1" in
+    -e | --env_file)
+      if [ -f "$2" ]; then
+        ENV_FILE="$2"
+      else
+        echo -e "${RED}Error:${NC} File does not exist."
+        echo -e "Please specify a valid path and file name."
+        exit 1
+      fi
+      shift 2
+      ;;
     -b | --build)
       BUILD=true
       IMAGE="$2"
       shift 2
       ;;
     -r | --run)
-      if [ "$2" == "all" ] || [ "$2" == "none" ] || [ "$2" == "service" ]; then
+      if [ "$2" == "all" ] || [ "$2" == "none" ] || [ "$2" == "service" ] || [ "$2" == "data" ]; then
         RUN="$2"
         shift 2
       else
-        echo -e "${RED}Error:${NC} That is not a valid run option. Valid options are:\nall\none\nservice\n"
+        echo -e "${RED}Error:${NC} That is not a valid run option. Valid options are:\nall\none\nservice\datan"
         exit 1
       fi
       ;;
-    -v | --version)
-      if [ "$2" == "stable" ] || [ "$2" == "latest" ]; then
-        VERSION="$2"
-        shift 2
-      else 
-        echo -e "${RED}Error:${NC} That is not a valid version option. Valid options are 'stable' or 'latest'. \n"
-        exit 1
-      fi
-      ;;
+    -i | --image)
+       IMAGE="$2"
+       shift 2
+       ;;
     -s | --schema_update)
       SCHEMA_UPDATE=true
       shift
@@ -253,27 +289,36 @@ while true; do
     esac
 done
 
-# Handle various error conditions
-#--------------------------------
-# Handle missing directories
-if [[( "$RUN" != "none" ) && ( -z "$INPUT_DIR" || -z "$OUTPUT_DIR" )]]; then
-  echo -e "${RED}Error:${NC} Data directories missing in configuration file."
-  echo -e "Please set environment variables 'INPUT_DIR' and 'OUTPUT_DIR' in 'env.list'." 
-  echo -e "For details, see comments in the file or https://docs.datacommons.org/custom_dc/quickstart.html#env-vars\n"
+# Get options from the selected env.list file
+source "$ENV_FILE"
+
+# Do some basic error handling
+# Don't continue if options are missing or invalid in env.list. Eventually
+# stuff won't run but the error messages may not be clear.
+
+if [ -z "$INPUT_DIR" ] || [ -z "$OUTPUT_DIR" ]; then
+  echo -e "${RED}Error:${NC} Missing input or output data directories."
+  echo -e "Please set 'INPUT_DIR' and 'OUTPUT_DIR' in your env.list file.\n"
   exit 1
 fi
 
-# Handle missing GCP variables
-if [ "$UPLOAD" == true ]; then
-  if [ -z "$GOOGLE_CLOUD_PROJECT" ]; then
-    echo -e "${RED}Error:${NC} Google Cloud project ID missing in configuration file."
-    echo -e "Please set environment variable 'GOOGLE_CLOUD_PROJECT' in 'env.list'.\n" 
-    exit 1
-  fi
-  if [ -z "$GOOGLE_CLOUD_REGION" ]; then
-  echo -e "${RED}Error:${NC} Google Cloud region missing in configuration file."
-  echo -e "Please set environment variable 'GOOGLE_CLOUD_REGION' in 'env.list'.\n" 
+if ([ "$UPLOAD" == true ]) && ([[ -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOUD_REGION" ]]); then
+    echo -e "${RED}Error:${NC} Missing GCP project and region settings."
+  echo -e "Please set 'GOOGLE_CLOUD_PROJECT' and/or 'GOOGLE_CLOUD_REGION' in your env.list file.\n"
   exit 1
+fi
+
+# Reset run options if --build and/or --upload are set
+# It doesn't make sense to run both containers in these contexts
+#----------------------------------------------------------------
+if [ "$BUILD" == true ] && [ "$UPLOAD" == false ]; then
+  RUN="service"
+elif [ "$UPLOAD" == true ]; then
+  RUN="none"
+# While we're here, check for a package name, and set it to the same as the
+# build name if not specified
+  if [ -z "$PACKAGE"]; then
+    PACKAGE="$IMAGE"
   fi
 fi
 
@@ -285,11 +330,8 @@ if [ "$BUILD" == true ]; then
 fi
 
 if [ "$UPLOAD" == true ]; then
-  if [ -z "$PACKAGE"]; then
-    PACKAGE="$IMAGE"
-  fi
-  RUN="none"
   upload
+  exit 0
 fi
 
 # All the run options
