@@ -21,6 +21,7 @@
 
 import { css, ThemeProvider } from "@emotion/react";
 import axios from "axios";
+import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
@@ -34,6 +35,10 @@ import { Search } from "../../components/elements/icons/search";
 import { Link, LinkBox } from "../../components/elements/link_box";
 import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
+import {
+  getInArcSubsectionElementId,
+  getOutArcRowElementId,
+} from "../../utils/browser_utils";
 import { updateHash } from "../../utils/url_utils";
 import { SpinnerWithText } from "./spinner";
 
@@ -66,17 +71,35 @@ const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
   concise answers with links to relevant data. Your feedback is
   invaluable; a feedback form will appear after each query.`;
 
+const FEEDBACK_FORM =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdSutPw3trI8X6kJwFESyle4XZ6Efbd5AvPFQaFmMiwSMfBxQ/viewform?usp=pp_url";
+const FEEDBACK_QUERY_PARAM = "&entry.2089204314=";
+const FEEDBACK_ANSWER_PARAM = "&entry.1084929806=";
+const FEEDBACK_DEBUG_PARAM = "&entry.1464639663=";
+const MAX_FORM_ANSWER_LENGTH = 1000;
+const MAX_FORM_DEBUG_LENGTH = 500;
+
+interface TripleReference {
+  refNum: number;
+  source: string;
+  isOutgoing: boolean;
+  prop: string;
+  linkedType: string;
+}
+
 // Interface for the response received from Biomed NL API.
 interface BiomedNlApiResponse {
+  query: string;
   answer: string;
-  footnotes: string;
+  footnotes: TripleReference[];
   debug: string;
 }
 
 // Interface for the displayed answer.
 interface DisplayedAnswer {
   answer: string;
-  footnotes: string;
+  feedbackLink: string;
+  footnotes: JSX.Element;
   debugInfo: string;
 }
 
@@ -102,55 +125,134 @@ function getSectionTrigger(title: string, opened: boolean): JSX.Element {
   );
 }
 
-function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
-  // TODO: format the markdown response
-  return {
-    answer: response.answer,
-    footnotes: response.footnotes,
-    debugInfo: response.debug,
-  };
-}
-
 const sampleQuestionToLink = (sampleQuestion: string): Link => ({
   id: sampleQuestion,
   title: sampleQuestion,
   url: `/experiments/biomed_nl#q=${encodeURIComponent(sampleQuestion)}`,
 });
 
+function constructFeedbackLink(response: BiomedNlApiResponse): string {
+  const queryField = `${FEEDBACK_QUERY_PARAM}${_.escape(response.query)}`;
+
+  const answerField = `${FEEDBACK_ANSWER_PARAM}${response.answer.substring(
+    0,
+    MAX_FORM_ANSWER_LENGTH
+  )}`;
+
+  const flattenedFootnotes = response.footnotes
+    .map(
+      (ref) =>
+        `${ref.refNum}-${ref.source}-${ref.isOutgoing ? "out" : "in"}-${
+          ref.prop
+        }-${ref.linkedType}`
+    )
+    .join(";");
+  const fullDebug = response.debug + "\n" + flattenedFootnotes;
+
+  const debugField = `${FEEDBACK_DEBUG_PARAM}${fullDebug.substring(
+    0,
+    MAX_FORM_DEBUG_LENGTH
+  )}`;
+  return `${FEEDBACK_FORM}${queryField}${answerField}${debugField}`;
+}
+
+function getFootnoteReferenceElementId(referenceNumber: number): string {
+  return `biomednl-ref-${referenceNumber}`;
+}
+
+function getReferenceBrowserElementId(reference: TripleReference): string {
+  return reference.isOutgoing
+    ? getOutArcRowElementId(reference.prop)
+    : getInArcSubsectionElementId(reference.linkedType, reference.prop);
+}
+
+function formatReferences(references: TripleReference[]): JSX.Element {
+  return (
+    <div
+      css={css`
+        margin-left: ${theme.spacing.lg}px;
+      `}
+    >
+      {references.map(
+        (reference: TripleReference, index: number): JSX.Element => {
+          const browserElementId = getReferenceBrowserElementId(reference);
+
+          const linkLabelItems = [reference.source, reference.prop];
+          if (!reference.isOutgoing) {
+            linkLabelItems.push(reference.linkedType);
+          }
+
+          return (
+            <p key={index}>
+              [{reference.refNum}]&nbsp;
+              <a
+                href={`/browser/${reference.source}#${browserElementId}`}
+                id={getFootnoteReferenceElementId(reference.refNum)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {linkLabelItems.join(".")}
+              </a>
+            </p>
+          );
+        }
+      )}
+    </div>
+  );
+}
+
+function formatCitationsInResponse(answer: string): string {
+  const referencePattern = /\[(\d+)\]/g;
+  // Answer will be rendered in markdown
+  const annotatedAnswer = answer.replace(referencePattern, (match, refNum) => {
+    return `<a href="#${getFootnoteReferenceElementId(refNum)}">${match}</a>`;
+  });
+  return annotatedAnswer;
+}
+
+function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
+  const formattedAnswer = formatCitationsInResponse(response.answer);
+  const feedbackLink = constructFeedbackLink(response);
+  const tripleReferences = formatReferences(response.footnotes);
+
+  return {
+    answer: formattedAnswer,
+    feedbackLink,
+    footnotes: tripleReferences,
+    debugInfo: response.debug,
+  };
+}
+
 /**
  * Application container
  */
 export function App(): ReactElement {
-  const [query, setQuery] = useState<string>("");
+  const [queryInput, setQueryInput] = useState<string>("");
+  const [queryFinal, setQueryFinal] = useState<string>("");
   const [answer, setAnswer] = useState<DisplayedAnswer>(null);
   const [showLoading, setShowLoading] = useState<boolean>(false);
+  const [retriggerQuery, setRetriggerQuery] = useState<boolean>(false);
 
   /**
    * useEffect hook to handle initial loading of information from the URL hash.
    */
   useEffect(() => {
-    const handleHashChange = (): void => {
-      const hashParams = queryString.parse(window.location.hash);
-      const hashQuery = (hashParams[URL_HASH_PARAMS.q] || "") as string;
-      if (hashQuery) {
-        onHashChange(hashQuery);
-      }
-    };
+    const hashParams = queryString.parse(window.location.hash);
+    const hashQuery = (hashParams[URL_HASH_PARAMS.q] || "") as string;
+    if (hashQuery) {
+      setQueryInput(hashQuery);
+      setQueryFinal(hashQuery);
+    }
+  }, []); // Run only once to check hash param on load
 
-    // Execute query when hash params are updated.
-    window.addEventListener("hashchange", handleHashChange);
+  function submitQueryInput(): void {
+    updateHash({ [URL_HASH_PARAMS.q]: queryInput });
 
-    // Check if query is provided in hash param on load.
-    handleHashChange();
-
-    // Cleanup the event listener
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []); // Run only once to set up the listener
-
-  function setHashToQuery(): void {
-    updateHash({ [URL_HASH_PARAMS.q]: query });
+    if (queryInput == queryFinal) {
+      // Rerun the same query if requested by user.
+      setRetriggerQuery(!retriggerQuery);
+    }
+    setQueryFinal(queryInput);
   }
 
   function handleKeydownEvent(
@@ -159,155 +261,191 @@ export function App(): ReactElement {
     switch (event.key) {
       case "Enter":
         event.preventDefault();
-        setHashToQuery();
+        submitQueryInput();
         break;
     }
   }
 
-  /**
-   * Function to execute the query when the "Run" button is clicked.
-   */
-  function onHashChange(query: string): void {
-    setQuery(query);
+  useEffect(() => {
+    if (!queryFinal) {
+      setAnswer(null);
+      return;
+    }
     setShowLoading(true);
     axios
       .get("/api/experiments/biomed_nl/query", {
-        params: { q: query },
+        params: { q: queryFinal },
         paramsSerializer: stringifyFn,
       })
       .then((resp) => {
         setAnswer(processApiResponse(resp.data));
       })
       .catch(() => {
-        setAnswer({
-          answer: "There was a problem running the query, please try again.",
-          footnotes: "",
-          debugInfo: "",
-        });
+        setAnswer(
+          processApiResponse({
+            query: queryFinal,
+            answer: "There was a problem running the query, please try again.",
+            footnotes: [],
+            debug: "",
+          })
+        );
       })
       .finally(() => {
         setShowLoading(false);
       });
-  }
+  }, [queryFinal, retriggerQuery]);
 
   return (
     <ThemeProvider theme={theme}>
       <div
         className="app"
         css={css`
-          margin-left: ${theme.spacing.xl}px;
-          gap: ${theme.spacing.lg}px;
-          width: 70%;
+          margin: 0 auto;
+          gap: ${theme.spacing.sm}px;
+          max-width: ${theme.width.xl}px;
+          padding: 0 ${theme.spacing.xl}px;
         `}
       >
-        <div className="header">
-          <p
-            css={css`
-              ${theme.typography.text.sm}
-            `}
-          >
-            Experiments by Data Commons
-          </p>
-          <SimpleText>
-            <>
-              <h3 className="title">Exploring biomedical data</h3>
-              <p className="overview">{OVERVIEW_TEXT}</p>
-            </>
-          </SimpleText>
-        </div>
-        <div
-          className="inputs"
-          css={css`
-            gap: ${theme.spacing.sm}px;
-          `}
-        >
-          <div className="search-bar">
-            <InputGroup className="search-bar-content">
-              <span className="search-bar-icon">
-                <Search />
-              </span>
-              <Input
-                type="text"
-                value={query}
-                onChange={(e): void => setQuery(e.target.value)}
-                onKeyDown={(event): void => handleKeydownEvent(event)}
-                className="search-input-text"
-              />
-              <div onClick={setHashToQuery} id="rich-search-button"></div>
-            </InputGroup>
-          </div>
-        </div>
-        <div className="example-queries">
-          {!showLoading && !answer && (
-            <div
+        <div>
+          <div className="header">
+            <p
               css={css`
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: ${theme.spacing.lg}px;
+                ${theme.typography.text.sm}
               `}
             >
-              {SAMPLE_QUESTIONS.map((question, index) => {
-                return (
-                  <LinkBox
-                    key={question}
-                    link={sampleQuestionToLink(question)}
-                    color={"blue"}
-                    section={`sample-q ${index}`}
-                    dataTestId={`question-item-${index}`}
-                  />
-                );
-              })}
+              Experiments by Data Commons
+            </p>
+            <SimpleText>
+              <>
+                <h3 className="title">Exploring biomedical data</h3>
+                <p className="overview">{OVERVIEW_TEXT}</p>
+              </>
+            </SimpleText>
+          </div>
+          <div
+            className="inputs"
+            css={css`
+              gap: ${theme.spacing.sm}px;
+            `}
+          >
+            <div className="search-bar">
+              <InputGroup className="search-bar-content">
+                <span className="search-bar-icon">
+                  <Search />
+                </span>
+                <Input
+                  type="text"
+                  value={queryInput}
+                  onChange={(e): void => setQueryInput(e.target.value)}
+                  onKeyDown={(event): void => handleKeydownEvent(event)}
+                  className="search-input-text"
+                />
+                <div
+                  onClick={(): void => submitQueryInput()}
+                  id="rich-search-button"
+                ></div>
+              </InputGroup>
             </div>
-          )}
-        </div>
-        <div className="loading">{showLoading && <SpinnerWithText />}</div>
-        <div className="answer">
-          {!showLoading && answer && (
-            <div>
+          </div>
+          <div
+            css={css`
+              margin: ${theme.spacing.lg}px;
+            `}
+          >
+            {!showLoading && !answer && (
               <div
+                className="example-queries"
                 css={css`
-                  ${theme.typography.heading.md};
-                  margin-bottom: ${theme.spacing.sm}px;
+                  columns: 2;
+                  column-gap: ${theme.spacing.sm}px;
                 `}
               >
-                Answer
+                {SAMPLE_QUESTIONS.map((question, index) => {
+                  return (
+                    <div
+                      key={question}
+                      css={css`
+                        padding: ${theme.spacing.md}px;
+                        break-inside: avoid;
+                        p {
+                          margin-bottom: ${theme.spacing.xs}px;
+                        }
+                      `}
+                    >
+                      <LinkBox
+                        link={sampleQuestionToLink(question)}
+                        color={"blue"}
+                        dataTestId={`question-item-${index}`}
+                      />
+                    </div>
+                  );
+                })}
               </div>
-              <ReactMarkdown
-                rehypePlugins={[rehypeRaw as any]}
-                remarkPlugins={[remarkGfm]}
-              >
-                {answer.answer}
-              </ReactMarkdown>
-              {answer.footnotes && (
-                <Collapsible
-                  trigger={getSectionTrigger("Footnotes", false)}
-                  triggerWhenOpen={getSectionTrigger("Footnotes", true)}
-                  open={true}
-                >
+            )}
+            <div className="loading">{showLoading && <SpinnerWithText />}</div>
+            <div className="answer">
+              {!showLoading && answer && (
+                <div>
+                  <div className="matched-entities">{/* TODO! */}</div>
+                  <div
+                    css={css`
+                      ${theme.typography.heading.md};
+                      margin-bottom: ${theme.spacing.lg}px;
+                    `}
+                  >
+                    {_.escape(queryFinal)}
+                  </div>
                   <ReactMarkdown
                     rehypePlugins={[rehypeRaw as any]}
                     remarkPlugins={[remarkGfm]}
                   >
-                    {answer.footnotes}
+                    {answer.answer}
                   </ReactMarkdown>
-                </Collapsible>
-              )}
-              {answer.debugInfo && (
-                <Collapsible
-                  trigger={getSectionTrigger("Debug", false)}
-                  triggerWhenOpen={getSectionTrigger("Debug", true)}
-                  open={false}
-                >
-                  <ReactMarkdown
-                    rehypePlugins={[rehypeRaw as any]}
-                    remarkPlugins={[remarkGfm]}
-                  >
-                    {answer.debugInfo}
-                  </ReactMarkdown>
-                </Collapsible>
+                  <div className="feedback-form">
+                    <p>---</p>
+                    <p>
+                      <a
+                        href={answer.feedbackLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Tell us how we did.
+                      </a>
+                    </p>
+                  </div>
+                  {answer.footnotes && (
+                    <Collapsible
+                      trigger={getSectionTrigger(
+                        "Knowledge Graph References",
+                        false
+                      )}
+                      triggerWhenOpen={getSectionTrigger(
+                        "Knowledge Graph References",
+                        true
+                      )}
+                      open={true}
+                    >
+                      {answer.footnotes}
+                    </Collapsible>
+                  )}
+                  {answer.debugInfo && (
+                    <Collapsible
+                      trigger={getSectionTrigger("Debug", false)}
+                      triggerWhenOpen={getSectionTrigger("Debug", true)}
+                      open={false}
+                    >
+                      <ReactMarkdown
+                        rehypePlugins={[rehypeRaw as any]}
+                        remarkPlugins={[remarkGfm]}
+                      >
+                        {answer.debugInfo}
+                      </ReactMarkdown>
+                    </Collapsible>
+                  )}
+                </div>
               )}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </ThemeProvider>
