@@ -200,14 +200,26 @@ export const pageMessages = defineMessages({
   },
   placeTypeInPlaces: {
     id: "place_type_in_places",
-    defaultMessage: "{placeType} in",
+    defaultMessage: "{placeType} in {parentPlaces}",
     description:
-      'Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows "State in {USA, North America, World}".',
+      'Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows "State in USA, North America, World". Please leave the {placeType} and {parentPlaces} variables unchanged in the resulting translation.',
   },
   categoryInPlace: {
     id: "category_in_place",
     defaultMessage: "{category} in {placeName}",
     description:
       'Used for the placeholder in the search bar, set it as "Category in Place". For example, when in the economics page for the Austria place page, it will show "{Economics} in {Austria}".',
+  },
+  placeNotFound: {
+    id: "place_not_found",
+    defaultMessage: 'Place "{placeDcid}" not found.',
+    description:
+      'Text to display on a 404 page when a place ID is not found. Example: "Place "dcid:geoId/04" not found.". Please leave the {placeDcid} variable unchanged in the resulting translation.',
+  },
+  noCharts: {
+    id: "no_charts",
+    defaultMessage: "No {category} data found for {place}.",
+    description:
+      'Text to display when a category has no charts. Example: "No Economics data found for Austria.". Please leave the {category} and {place} variables unchanged in the resulting translation.',
   },
 });

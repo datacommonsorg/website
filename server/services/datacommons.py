@@ -28,8 +28,6 @@ from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
 
-MAX_SIZE_V2NODE_REQUEST = 5000
-
 cfg = libconfig.get_config()
 
 
@@ -251,28 +249,17 @@ def v2observation(select, entity, variable):
   })
 
 
-def batch_requested_nodes(url, nodes, max_v2node_request_size):
-  """
-  Splits a list of dcids into batches that do not exceed the DC API request size limit.
-  """
-  full_request = url + ",".join([f'{n}' for n in (nodes)])
-  if len(full_request.encode('utf-8')) <= max_v2node_request_size:
-    return [nodes]
+def v2node(nodes, prop):
+  """Wrapper to call V2 Node REST API.
 
-  batches = []
-  cur_batch = []
-  cur_encoded_len = 0
-  for node in nodes:
-    cur_encoded_len += len(node.encode('utf-8'))
-    if cur_encoded_len > max_v2node_request_size:
-      batches.append(cur_batch)
-      cur_batch = []
-      cur_encoded_len = 0
-    cur_batch.append(node)
-
-  if cur_batch:
-    batches.append(cur_batch)
-  return batches
+  Args:
+      nodes: A list of node dcids.
+      prop: The property to query for.
+  """
+  return post(get_service_url('/v2/node'), {
+      'nodes': sorted(nodes),
+      'property': prop,
+  })
 
 
 def _merge_v2node_response(result, paged_response):
@@ -301,23 +288,6 @@ def _merge_v2node_response(result, paged_response):
     del result['nextToken']
 
 
-def v2node(nodes, prop):
-  """Wrapper to call V2 Node REST API.
-
-  Args:
-      nodes: A list of node dcids.
-      prop: The property to query for.
-  """
-  response = {}
-  url = get_service_url('/v2/node')
-  for batch in batch_requested_nodes(url, nodes, MAX_SIZE_V2NODE_REQUEST):
-    _merge_v2node_response(response, (post(url, {
-        'nodes': sorted(batch),
-        'property': prop,
-    })))
-  return response
-
-
 def v2node_paginated(nodes, prop, max_pages=1):
   """Wrapper to call V2 Node REST API.
 
@@ -331,19 +301,18 @@ def v2node_paginated(nodes, prop, max_pages=1):
   result = {}
   next_token = ''
   url = get_service_url('/v2/node')
-  for node_batch in batch_requested_nodes(url, nodes, MAX_SIZE_V2NODE_REQUEST):
-    while True:
+  while True:
 
-      response = post(url, {
-          'nodes': sorted(node_batch),
-          'property': prop,
-          'nextToken': next_token
-      })
-      _merge_v2node_response(result, response)
-      fetched_pages += 1
-      next_token = response.get('nextToken', '')
-      if not next_token or (max_pages and fetched_pages >= max_pages):
-        break
+    response = post(url, {
+        'nodes': sorted(nodes),
+        'property': prop,
+        'nextToken': next_token
+    })
+    _merge_v2node_response(result, response)
+    fetched_pages += 1
+    next_token = response.get('nextToken', '')
+    if not next_token or (max_pages and fetched_pages >= max_pages):
+      break
   return result
 
 

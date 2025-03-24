@@ -400,6 +400,9 @@ section {
     .menu-main-link {
       font-size: 0.875rem;
       color: #5e5e5e;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .menu-toggle {
@@ -417,7 +420,8 @@ section {
       @media (max-width: 340px) {
         font-size: 24px;
       }
-      &.menu-toggle-close, &.menu-toggle-back {
+      &.menu-toggle-close,
+      &.menu-toggle-back {
         font-size: 24px;
       }
     }
@@ -739,7 +743,7 @@ section {
       .search-input-result-section:hover {
         background-color: var(--gm-3-sys-light-surface-container-high);
       }
-    } 
+    }
 
     .result-divider {
       margin: 0;
@@ -750,7 +754,6 @@ section {
     border-color: var(--gm-3-ref-neutral-neutral-20);
   }
 
- 
   .search-box-section-active,
   .search-box-section-active:hover {
     border-color: var(--gm-3-sys-light-primary);
@@ -778,7 +781,7 @@ section {
   margin: auto;
   max-width: 1310px;
   @include media-breakpoint-down(lg) {
-    max-width: 100%!important;
+    max-width: 100% !important;
     padding: 20px calc(#{var.$spacing} * 3);
   }
   @media (max-width: 580px) {

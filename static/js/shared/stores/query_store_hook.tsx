@@ -21,6 +21,8 @@
 
 import { useEffect, useState } from "react";
 
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import { QueryResult } from "../../types/app/explore_types";
 import { ChangeType, QueryStore } from "./query_store";
 
@@ -35,10 +37,18 @@ interface QueryStoreData {
   setDebugData: (data: any) => void;
 }
 
+/**
+ * Returns the default placeholder string for the query store.
+ * This is used when the user has not entered a query string.
+ */
+function getDefaultPlaceholderString(): string {
+  return intl.formatMessage(messages.enterQuery);
+}
+
 export const useQueryStore = (): QueryStoreData => {
   const [queryString, setQueryStringState] = useState<string>("");
   const [placeholder, setPlaceholderState] = useState<string>(
-    "Enter a question to explore"
+    getDefaultPlaceholderString()
   );
   const [queryResult, setQueryResultState] = useState<QueryResult>(null);
   const [debugData, setDebugDataState] = useState<any>({});

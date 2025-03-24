@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -33,7 +36,7 @@ class PlaceI18nExplorerTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
     place_type_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
-                                                          'アジア 内の 国')
+                                                          'アジア の 国')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 
     economics_section_present = EC.text_to_be_present_in_element(
