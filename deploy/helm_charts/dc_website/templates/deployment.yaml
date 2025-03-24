@@ -100,9 +100,9 @@ spec:
             periodSeconds: 10
           resources:
             limits:
-              memory: "3G"
+              memory: "4G"
             requests:
-              memory: "3G"
+              memory: "4G"
           volumeMounts:
             - name: ingress-config
               mountPath: /datacommons/ingress
@@ -135,6 +135,8 @@ spec:
               value: {{ .Values.nl.enabled | quote }}
             - name: ENABLE_EVAL_TOOL
               value: {{ .Values.website.evalTool.enabled | quote }}
+            - name: ENABLE_DATAGEMMA
+              value: {{ .Values.website.dataGemma.enabled | quote }}
             - name: INGRESS_CONFIG_PATH
               value: /datacommons/ingress/rules
             # A dummy config used to bounce the server without any docker image

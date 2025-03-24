@@ -28,6 +28,8 @@ from markupsafe import escape
 from server.lib import fetch
 from server.lib.cache import cache
 import server.lib.i18n as i18n
+from server.lib.i18n_messages import get_place_type_to_locale_message
+from server.lib.i18n_messages import get_place_type_to_locale_message_plural
 from server.lib.shared import names
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
@@ -108,40 +110,6 @@ PLACE_OVERRIDE = {
     "wikidataId/Q281796": "wikidataId/Q2981389",
 }
 
-# Place type to the message id that holds its translation
-PLACE_TYPE_TO_LOCALE_MESSAGE = {
-    "AdministrativeArea": "singular_administrative_area",
-    "AdministrativeArea<Level>": "singular_administrative_area_level",
-    "Borough": "singular_borough",
-    "City": "singular_city",
-    "Country": "singular_country",
-    "County": "singular_county",
-    "EurostatNUTS<Level>": "singular_eurostat_nuts",
-    "Neighborhood": "singular_neighborhood",
-    "Place": "singular_place",
-    "State": "singular_state",
-    "Town": "singular_town",
-    "Village": "singular_village",
-    "CensusZipCodeTabulationArea": "singular_zip_code",
-}
-
-# Place type to the message id that holds its translation
-PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL = {
-    "AdministrativeArea": "plural_administrative_area",
-    "AdministrativeArea<Level>": "plural_administrative_area_level",
-    "Borough": "plural_borough",
-    "City": "plural_city",
-    "Country": "plural_country",
-    "County": "plural_county",
-    "EurostatNUTS<Level>": "plural_eurostat_nuts",
-    "Neighborhood": "plural_neighborhood",
-    "Place": "plural_place",
-    "State": "plural_state",
-    "Town": "plural_town",
-    "Village": "plural_village",
-    "CensusZipCodeTabulationArea": "plural_zip_code",
-}
-
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
@@ -170,16 +138,10 @@ def get_place_type(place_dcids):
 
 def get_place_type_i18n_name(place_type: str, plural: bool = False) -> str:
   """For a given place type, get its localized name for display"""
-  place_type_to_local_map = PLACE_TYPE_TO_LOCALE_MESSAGE_PLURAL if plural else PLACE_TYPE_TO_LOCALE_MESSAGE
+  place_type_to_local_map = get_place_type_to_locale_message_plural(
+  ) if plural else get_place_type_to_locale_message()
   if place_type in place_type_to_local_map:
-    return gettext(place_type_to_local_map[place_type])
-  elif place_type.startswith('AdministrativeArea'):
-    level = place_type[-1]
-    return gettext(place_type_to_local_map['AdministrativeArea<Level>'],
-                   level=level)
-  elif place_type.startswith('EurostatNUTS'):
-    level = place_type[-1]
-    return gettext(place_type_to_local_map['EurostatNUTS<Level>'], level=level)
+    return place_type_to_local_map[place_type]
   else:
     # Return place type un-camel-cased
     words = re.findall(r'[A-Z](?:[a-z]+|[A-Z]*(?=[A-Z]|$))', place_type)

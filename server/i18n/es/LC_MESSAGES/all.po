@@ -1,5 +1,8 @@
-msgid "%(project)s is a Google project"
-msgstr "%(project)s es un proyecto de Google"
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(placeType)s de %(parentPlaces)s"
+
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr "<a href=\"https://datacommons.org\">Data Commons</a> de Google"
 
 msgid "APIs"
 msgstr "APIs"
@@ -10,17 +13,77 @@ msgstr "Información"
 msgid "About Data Commons"
 msgstr "Acerca de Data Commons"
 
+msgid "Administrative Area"
+msgstr "Área administrativa"
+
+msgid "Administrative Area 1 Place"
+msgstr "Lugar de área administrativa de nivel 1"
+
+msgid "Administrative Area 1 Places"
+msgstr "Lugares de área administrativa de nivel 1"
+
+msgid "Administrative Area 2 Place"
+msgstr "Lugar de área administrativa de nivel 2"
+
+msgid "Administrative Area 2 Places"
+msgstr "Lugares de área administrativa de nivel 2"
+
+msgid "Administrative Area 3 Place"
+msgstr "Lugar de área administrativa de nivel 3"
+
+msgid "Administrative Area 3 Places"
+msgstr "Lugares de área administrativa de nivel 3"
+
+msgid "Administrative Area 4 Place"
+msgstr "Lugar de área administrativa de nivel 4"
+
+msgid "Administrative Area 4 Places"
+msgstr "Lugares de área administrativa de nivel 4"
+
+msgid "Administrative Area 5 Place"
+msgstr "Lugar de área administrativa de nivel 5"
+
+msgid "Administrative Area 5 Places"
+msgstr "Lugares de área administrativa de nivel 5"
+
+msgid "Administrative Areas"
+msgstr "Áreas administrativas"
+
+msgid "An initiative from"
+msgstr "Una iniciativa de"
+
+msgid "Back to homepage"
+msgstr "Volver a la página principal"
+
+msgid "BigQuery"
+msgstr "BigQuery"
+
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Borough"
+msgstr "Municipio"
+
+msgid "Boroughs"
+msgstr "Municipios"
+
+msgid "Cities"
+msgstr "Ciudades"
+
 msgid "Cities, India"
-msgstr "Cities, India"
+msgstr "Ciudades, la India"
 
 msgid "Cities, United States"
 msgstr "Ciudades (Estados Unidos)"
 
+msgid "City"
+msgstr "Ciudad"
+
 msgid "Contribute"
 msgstr "Colaborar"
+
+msgid "Counties"
+msgstr "Condados"
 
 msgid "Counties, United States"
 msgstr "Condados (Estados Unidos)"
@@ -28,11 +91,17 @@ msgstr "Condados (Estados Unidos)"
 msgid "Countries"
 msgstr "Países"
 
+msgid "Country"
+msgstr "País"
+
+msgid "County"
+msgstr "Condado"
+
 msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr "Data Download Tool"
+msgstr "Herramienta de descarga de datos"
 
 msgid "Data Sources"
 msgstr "Fuentes de datos"
@@ -41,7 +110,7 @@ msgid "Disclaimers"
 msgstr "Renuncias de responsabilidad"
 
 msgid "Districts, India"
-msgstr "Districts, India"
+msgstr "Distritos, la India"
 
 msgid "Documentation"
 msgstr "Documentación"
@@ -54,6 +123,24 @@ msgstr "Introduce un país, un estado, un condado o una ciudad"
 
 msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
+
+msgid "Eurostat NUTS 1 Place"
+msgstr "Lugar de nivel 1 en la clasificación NUTS de Eurostat"
+
+msgid "Eurostat NUTS 1 Places"
+msgstr "Lugares de nivel 1 en la clasificación NUTS de Eurostat"
+
+msgid "Eurostat NUTS 2 Place"
+msgstr "Lugar de nivel 2 en la clasificación NUTS de Eurostat"
+
+msgid "Eurostat NUTS 2 Places"
+msgstr "Lugares de nivel 2 en la clasificación NUTS de Eurostat"
+
+msgid "Eurostat NUTS 3 Place"
+msgstr "Lugar de nivel 3 en la clasificación NUTS de Eurostat"
+
+msgid "Eurostat NUTS 3 Places"
+msgstr "Lugares de nivel 3 en la clasificación NUTS de Eurostat"
 
 msgid "Explore"
 msgstr "Ver"
@@ -82,9 +169,6 @@ msgstr "Gasto público en educación"
 msgid "Government Expenditures on Military"
 msgstr "Gasto público militar"
 
-msgid "Knowledge Graph"
-msgstr "Grafo de conocimiento"
-
 msgid "Gross National Income"
 msgstr "Renta Nacional Bruta"
 
@@ -100,29 +184,47 @@ msgstr "Ingresos medios más altos"
 msgid "Highest Unemployment Rate"
 msgstr "Tasa de desempleo más alta"
 
+msgid "Knowledge Graph"
+msgstr "Gráfico de conocimiento"
+
 msgid "Largest Population"
 msgstr "Población más numerosa"
 
 msgid "Life Expectancy"
 msgstr "Esperanza de vida"
 
-msgid "Loading..."
-msgstr "Cargando..."
+msgid "Loading"
+msgstr "Cargando"
 
 msgid "Map Explorer"
 msgstr "Explorador de mapas"
 
-msgid "Maps Explorer"
-msgstr "Maps Explorer"
+msgid "Median Age"
+msgstr "Edad mediana"
+
+msgid "Median Income"
+msgstr "Ingresos medianos"
 
 msgid "Median Income, United States"
 msgstr "Ingresos medios (Estados Unidos)"
 
-msgid "Natural Language Explorer"
-msgstr "Natural Language Explorer"
+msgid "Natural Disaster Dashboard"
+msgstr "Panel de control de desastres naturales"
+
+msgid "Neighborhood"
+msgstr "Barrio"
+
+msgid "Neighborhoods"
+msgstr "Barrios"
+
+msgid "Other %(placeType)s in %(parentPlace)s"
+msgstr "Otros %(placeType)s de %(parentPlace)s"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>La herramienta Explorador de lugares permite conocer los datos principales de un lugar. Reúne un conjunto de gráficos sobre demografía, educación, economía y otros aspectos del sitio y los compara con los de otros lugares. También permite ver las clasificaciones de los distintos lugares en relación con diferentes métricas, como el desempleo, la criminalidad o los ingresos.</p><p>Puedes acceder a los gráficos de la ciudad, el código postal, el condado, el estado o el país que quieras a través del cuadro de búsqueda que aparece arriba.</p><p>Si quieres, también puedes consultar los datos de lugares conocidos:</p>"
+
+msgid "Place"
+msgstr "Sitio"
 
 msgid "Place Explorer"
 msgstr "Place Explorer"
@@ -133,6 +235,9 @@ msgstr "Clasificaciones de lugares"
 msgid "Places"
 msgstr "Sitios"
 
+msgid "Population"
+msgstr "Población"
+
 msgid "Privacy Policy"
 msgstr "Política de Privacidad"
 
@@ -142,38 +247,80 @@ msgstr "Clasificación"
 msgid "Scatter Plot Explorer"
 msgstr "Explorador de gráficos de dispersión"
 
-msgid "Scatter Plots"
-msgstr "Scatter Plots"
+msgid "Show about links"
+msgstr "Show about links"
+
+msgid "Show documentation links"
+msgstr "Mostrar enlaces de documentación"
+
+msgid "Show exploration tools"
+msgstr "Show exploration tools"
+
+msgid "Show site navigation"
+msgstr "Show site navigation"
+
+msgid "State"
+msgstr "Estado"
+
+msgid "States"
+msgstr "Estados"
 
 msgid "States, India"
-msgstr "States, India"
+msgstr "Estados, la India"
 
 msgid "States, United States"
 msgstr "Estados (Estados Unidos)"
 
 msgid "Statistical Variable Explorer"
-msgstr "Statistical Variable Explorer"
+msgstr "Explorador de variables estadísticas"
+
+msgid "Statistics"
+msgstr "Statistics"
+
+msgid "Sustainability Explorer"
+msgstr "Explorador de sostenibilidad"
 
 msgid "Terms Of Use"
-msgstr "Terms Of Use"
+msgstr "Términos de Uso"
 
 msgid "Terms and Conditions"
 msgstr "Términos y Condiciones"
 
-msgid "Timeline Charts"
-msgstr "Timeline Charts"
-
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
+
+msgid "Tools"
+msgstr "Herramientas"
+
+msgid "Town"
+msgstr "Localidad"
+
+msgid "Towns"
+msgstr "Localidades"
 
 msgid "Tutorials"
 msgstr "Tutoriales"
 
+msgid "Unemployment Rate"
+msgstr "Tasa de desempleo"
+
 msgid "Unemployment Rate, United States"
 msgstr "Tasa de desempleo (Estados Unidos)"
 
+msgid "Village"
+msgstr "Pueblo"
+
+msgid "Villages"
+msgstr "Pueblos"
+
 msgid "Worldwide"
 msgstr "Todo el mundo"
+
+msgid "ZIP Code"
+msgstr "Código postal"
+
+msgid "ZIP Codes"
+msgstr "Códigos postales"
 
 msgid "by city"
 msgstr "por ciudad"
@@ -188,22 +335,25 @@ msgid "in United States"
 msgstr "en Estados Unidos"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr "Riesgo de padecer cáncer por exposición a sustancias tóxicas en el aire"
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr "Índice de calidad del aire"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Consumo de alcohol per cápita (anual)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions"
+msgstr "Emisiones anuales de gases de efecto invernadero"
 
 msgid "CHART_TITLE-Arson"
 msgstr "Incendios provocados"
 
 msgid "CHART_TITLE-Arson_rate"
 msgstr "Incendios provocados por cada 100.000 habitantes"
+
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Grado de asociado por sexo"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "Tasa de diplomados por sexo"
@@ -212,7 +362,7 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Tasa de personas con grados por sexo"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr "Aire"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Criminalidad"
@@ -221,7 +371,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Demografía"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr "Desastres"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Economía"
@@ -230,10 +380,10 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Educación"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr "Emisiones"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr "Energía"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 msgstr "Medio ambiente"
@@ -248,19 +398,19 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Vivienda"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr "Ingresos"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Descripción general"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr "Pobreza"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr "Temperatura"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr "Agua"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Niños trabajadores"
@@ -317,16 +467,19 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Consumo de electricidad per cápita"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr "Generación de electricidad per cápita"
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr "Precio de la electricidad"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "Consumo energético (kg de equivalente de petróleo per cápita)"
 
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "Tasa de fertilidad"
+
+msgid "CHART_TITLE-Gdp"
+msgstr "Producto interior bruto"
 
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "Tasa de crecimiento del Producto Interior Bruto"
@@ -361,50 +514,53 @@ msgstr "Gasto público militar"
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Gasto público militar (% del PIB)"
 
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Tasa de personas con diplomas o grados profesionales por sexo"
+
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "Tasa de personas con diplomas o grados profesionales por sexo"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr "Delitos de odio"
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr "Delitos de odio por motivos de discapacidad"
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr "Delitos de odio por motivos de discapacidad por cada 100.000 personas"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr "Delitos de odio por motivos étnicos"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr "Delitos de odio por motivos étnicos por cada 100.000 personas"
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr "Delitos de odio por motivos de género"
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr "Delitos de odio por motivos de género por cada 100.000 personas"
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr "Delitos de odio por motivos raciales"
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr "Delitos de odio por motivos raciales por cada 100.000 personas"
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr "Delitos de odio por motivos religiosos"
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr "Delitos de odio por motivos religiosos por cada 100.000 personas"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr "Delitos de odio por motivos de orientación sexual"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr "Delitos de odio por motivos de orientación sexual por cada 100.000 personas"
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr "Delitos de odio por cada 100.000 personas"
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "Hábitos que afectan a la salud"
@@ -491,13 +647,13 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Capitalización en el mercado de las empresas nacionales (% del PIB)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr "Concentración media de PM del diésel"
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr "Concentración media de ozono"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr "Concentración media de PM2,5"
 
 msgid "CHART_TITLE-Median_age"
 msgstr "Edad media"
@@ -526,11 +682,14 @@ msgstr "Mortalidad"
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Mortalidad per cápita"
 
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Remesas pagadas"
+
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Remesas pagadas"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr "Índice de gravedad de la sequía de Palmer"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "Porcentaje de personas sin seguro médico por sexo"
@@ -602,16 +761,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Medicamentos recetados per cápita (por trimestre)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr "Cambio previsto de la temperatura máx. según el RCP 2.6 (en base al año 2006)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr "Cambio previsto de la temperatura máx. según el RCP 4.5 (en base al año 2006)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr "Cambio previsto de la temperatura máx. según el RCP 6.0 (en base al año 2006)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr "Cambio previsto de la temperatura máx. según el RCP 8.5 (en base al año 2006)"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "Delitos contra la propiedad"
@@ -689,75 +848,17 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Personas trabajadoras y no trabajadoras"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr "Emisiones de dióxido de carbono (no biogénico)"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr "Emisiones de dióxido de carbono per cápita"
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr "Emisiones de metano (no biogénico)"
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr "Emisiones de óxido nitroso (no biogénico)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
+msgstr "Índice de extracción de agua"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Vista general"
-
-#. Place containment. Gives context for where a place is located.
-msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(placeType)s de %(parentPlaces)s"
-
-#. Place Types
-msgid "singular_administrative_area"
-msgstr "Área administrativa"
-
-msgid "singular_administrative_area_level"
-msgstr "Lugar de un área administrativa de nivel %(level)s"
-
-msgid "singular_borough"
-msgstr "Municipio"
-
-msgid "singular_city"
-msgstr "Ciudad"
-
-msgid "singular_country"
-msgstr "País"
-
-msgid "singular_county"
-msgstr "Condado"
-
-msgid "singular_eurostat_nuts"
-msgstr "Lugar de nivel %(level)s en la clasificación NUTS de Eurostat"
-
-msgid "singular_neighborhood"
-msgstr "Barrio"
-
-msgid "singular_place"
-msgstr "Sitio"
-
-msgid "singular_state"
-msgstr "Estado"
-
-msgid "singular_town"
-msgstr "Localidad"
-
-msgid "singular_village"
-msgstr "Pueblo"
-
-msgid "singular_zip_code"
-msgstr "Código postal"
-
-msgid "VARIABLE_NAME-Count_Person"
-msgstr "Population"
-
-msgid "VARIABLE_NAME-Median_Income_Person"
-msgstr "Median Income"
-
-msgid "VARIABLE_NAME-Median_Age_Person"
-msgstr "Median Age"
-
-msgid "VARIABLE_NAME-UnemploymentRate_Person"
-msgstr "Unemployment Rate"

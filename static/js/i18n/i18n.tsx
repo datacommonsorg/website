@@ -208,6 +208,7 @@ function formatNumber(
       formatOptions.currencyDisplay = "code";
       break;
     case "$":
+    case "USD":
     case "USDollar":
       formatOptions.style = "currency";
       formatOptions.currency = "USD";

@@ -14,7 +14,7 @@
       "url": "#%26svx%3DCount_Household_Urban%26dx%3DCount_Person%26svy%3DCount_Household_Rural%26dy%3DCount_Person%26epd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
     }]
   }, {
-    "header": "Literate Population Per Capita vs. Schools Per Capita",
+    "header": "Literate Population Per Capita vs. Population Below Poverty Level Per Capita",
     "preposition": "for",
     "examples": [{
       "text": "states in India",
@@ -26,8 +26,7 @@
     "preposition": "among",
     "examples": [{
       "text": "all states in India",
-      "url": "#%26svx%3DCount_Person_Literate_Female%26dx%3DCount_Person%26svy%3DCount_Person_Workers%26dy%3DCount_Person%26epd%3Dcountry%2FIND%26ept%3DAdministrativeArea1"
-
+      "url": "#&svx=Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person&pcx=1&dx=Count_Person&svy=Count_Person_Literate&pcy=1&dy=Count_Person&epd=country/IND&ept=AdministrativeArea1&ct=1"
     }]
   }, {
     "header": "Number of Schools vs Dropout Rate of Female Students",

@@ -19,11 +19,14 @@ import { PlaceOverviewTableApiResponse } from "@datacommonsorg/client/dist/data_
 import { css, useTheme } from "@emotion/react";
 import React, { useRef } from "react";
 
+import { InfoSpark } from "../components/elements/icons/info_spark";
 import { LocationCity } from "../components/elements/icons/location_city";
 import { GoogleMap } from "../components/google_map";
 import { formatDate, formatNumber, intl } from "../i18n/i18n";
+import { pageMessages } from "../i18n/i18n_place_messages";
+import { InfoTooltipComponent } from "../shared/components";
 import { NamedTypedPlace } from "../shared/types";
-import { isPlaceContainedInUsa, pageMessages } from "./util";
+import { isPlaceContainedInUsa } from "./util";
 
 /**
  * Component that displays a table of key demographic statistics for a place.
@@ -83,7 +86,7 @@ const PlaceOverviewTable = (props: {
         <thead>
           <tr>
             <th scope="col" colSpan={2}>
-              Key Demographics
+              {intl.formatMessage(pageMessages.KeyDemographics)}
             </th>
             <th scope="col"></th>
           </tr>
@@ -183,6 +186,14 @@ export const PlaceOverview = (props: {
       >
         <LocationCity />
         <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
+        {placeSummary && (
+          <InfoTooltipComponent
+            icon={<InfoSpark />}
+            description={intl.formatMessage(
+              pageMessages.SummaryOverviewTooltip
+            )}
+          />
+        )}
       </div>
       {placeSummary && (
         <div
@@ -192,7 +203,7 @@ export const PlaceOverview = (props: {
             margin-bottom: ${theme.spacing.md}px;
           `}
         >
-          {placeSummary}
+          <span>{placeSummary}</span>
         </div>
       )}
 

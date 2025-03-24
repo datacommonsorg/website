@@ -85,6 +85,7 @@ class DownloadTestMixin():
     self.driver.get(self.url_ + DOWNLOAD_URL)
 
     # Wait until search box is present and type california.
+    shared.wait_for_loading(self.driver)
     search_box_input = find_elem(self.driver, by=By.ID, value='ac')
     search_box_input.send_keys(PLACE_SEARCH_CA)
 

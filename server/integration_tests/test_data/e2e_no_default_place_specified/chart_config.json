@@ -667,6 +667,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "description": "Population: Bachelors Degree or Higher, Female in United States of America",
                     "statVarKey": [
                       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"

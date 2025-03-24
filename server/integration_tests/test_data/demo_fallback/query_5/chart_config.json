@@ -392,6 +392,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "description": "Household Median Income in United States",
                     "statVarKey": [
                       "Median_Income_Household"

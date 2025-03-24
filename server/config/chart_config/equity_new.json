@@ -193,7 +193,7 @@
       "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
       "Count_Person_WhiteAlone"
     ],
-    "non_dividable": false,
+    "non_dividable": true,
     "blocks": [
       {
         "place_scope": "PLACE",
