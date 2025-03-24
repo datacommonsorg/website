@@ -29,11 +29,13 @@ class VisMapTestMixin():
   def get_ranking_items(self):
     # The highest and lowest place rankings are loaded separately, so we need to wait for both
     highest_elements = EC.presence_of_all_elements_located(
-        (By.CSS_SELECTOR, '.highest-ranking-container .ranking-list .place-name'))
+        (By.CSS_SELECTOR,
+         '.highest-ranking-container .ranking-list .place-name'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(highest_elements)
 
     lowest_elements = EC.presence_of_all_elements_located(
-        (By.CSS_SELECTOR, '.lowest-ranking-container .ranking-list .place-name'))
+        (By.CSS_SELECTOR,
+         '.lowest-ranking-container .ranking-list .place-name'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(lowest_elements)
 
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
@@ -47,8 +49,7 @@ class VisMapTestMixin():
               f'(//*[contains(@class, "ranking-list")]//*[contains(@class,"place-name")])[{i+1}]'
           ), ','))
 
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.all_of(*names_loaded))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(EC.all_of(*names_loaded))
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     return ranking_items
