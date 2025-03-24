@@ -36,7 +36,7 @@ import {
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { messages } from "../../i18n/i18n_messages";
 import { PLACE_TYPES } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
@@ -364,12 +364,12 @@ export const fetchData = async (
     } else if (props.sort === "ascendingPopulation") {
       popPoints.sort((a, b) => a.value - b.value);
     }
-
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
       {
         apiRoot: props.apiRoot,
         prop: props.placeNameProp,
+        locale: intl.locale,
       }
     );
     const placeType =
@@ -622,7 +622,7 @@ function getExploreLink(props: BarTilePropType): {
     {}
   );
   return {
-    displayText: intl.formatMessage(tileMessages.timelineTool),
+    displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
 }

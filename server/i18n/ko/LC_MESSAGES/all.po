@@ -1,8 +1,8 @@
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(parentPlaces)s의 %(placeType)s"
 
-msgid "<a href="https://datacommons.org">Data Commons</a> from Google"
-msgstr "Google의 <a href="https://datacommons.org">Data Commons</a>"
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr "Google의 <a href=\"https://datacommons.org\">Data Commons</a>"
 
 msgid "APIs"
 msgstr "API"
@@ -861,7 +861,4 @@ msgstr "아산화질소 배출량(비생물)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "취수율"
-
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "개요"
 

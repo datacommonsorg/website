@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-/**
- * A container for any tile containing a chart.
- */
+export function getOutArcRowElementId(prop: string, index = 0): string {
+  return `browser-arc-${prop}-${index}`;
+}
 
-import React from "react";
-
-import { Loading } from "../elements/loading";
-
-/**
- * Header with loading indicator
- * @param props.isLoading true if the component is loading
- * @param props.title Header text
- * @returns
- */
-export function LoadingHeader(props: {
-  isLoading: boolean;
-  title?: string;
-}): JSX.Element {
-  const { isLoading, title } = props;
-  return <h4 {...{ part: "header" }}>{isLoading ? <Loading /> : title}</h4>;
+export function getInArcSubsectionElementId(
+  incomingType: string,
+  prop: string
+): string {
+  return `${incomingType}-${prop}`;
 }

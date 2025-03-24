@@ -16,8 +16,8 @@
 
 import { defineMessages } from "react-intl";
 
-// Strings to use in the chart tile components & web components
-export const tileMessages = defineMessages({
+// Strings to use in header
+export const messages = defineMessages({
   loading: {
     id: "loading",
     defaultMessage: "Loading...",
@@ -94,5 +94,36 @@ export const tileMessages = defineMessages({
     id: "scatterTool",
     defaultMessage: "Scatter Tool",
     description: "Title for the scatter tool",
+  },
+  rankingTileLatestDataFooter: {
+    defaultMessage:
+      "This ranking includes data from several years for a comprehensive view of places.",
+    description:
+      "Description of a chart that shows data points from various years.",
+    id: "ranking-tile-latest-data-footer",
+  },
+  rankingTileLatestDataAvailableFooter: {
+    defaultMessage:
+      "Ranking based on latest data available. Some places may be missing due to incomplete reporting that year.",
+    description:
+      "Description of a chart that shows the most recently available data.",
+    id: "ranking-tile-latest-data-available-footer",
+  },
+  seePerCapita: {
+    id: "seePerCapita",
+    defaultMessage: "See per capita",
+    description: "Checkbox label text for option that toggles per capita data",
+  },
+  dateRange: {
+    id: "dateRange",
+    defaultMessage: "{minDate} to {maxDate}",
+    description:
+      'Date range for a chart title. For example: "2010 to 2020". Please leave the variables {minDate} and {maxDate} unchanged in the translated message.',
+  },
+  enterQuery: {
+    id: "enterQuery",
+    defaultMessage: "Enter a question to explore",
+    description:
+      "Placeholder text for the Data Commons search bar query input field",
   },
 });
