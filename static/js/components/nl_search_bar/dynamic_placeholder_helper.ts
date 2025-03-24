@@ -20,6 +20,11 @@
 import { SetStateAction } from "react";
 import { defineMessages } from "react-intl";
 
+import {
+  GA_EVENT_RENDER_NL_SEARCH_BAR_WITH_PLACEHOLDERS,
+  triggerGAEvent,
+} from "../../shared/ga_events";
+
 const TYPING_SPEED = 50; // milliseconds per character
 const TYPING_SPEED_DELETE = 30; // milliseconds per character
 const DISPLAY_DURATION_DELAY = 3000;
@@ -29,7 +34,7 @@ const MAX_SAMPLE_COUNTRY_CYCLE = 5;
 export const placeholderMessages = defineMessages({
   exploreDataPlaceholder: {
     id: "explore_data_on",
-    defaultMessage: 'Explore data on... \\"{sampleQuestion}\\"',
+    defaultMessage: 'Explore data on... "{sampleQuestion}"',
     description:
       "Used for the dynamic placeholders in the search bar, gives an example of a query to type.",
   },
@@ -37,8 +42,10 @@ export const placeholderMessages = defineMessages({
 
 export const enableDynamicPlacehoder = (
   setSampleQuestionText: (arg0: SetStateAction<string>) => void,
-  setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
+  setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void,
+  setDynamicPlaceholdersDone: (arg0: SetStateAction<boolean>) => void
 ): void => {
+  triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR_WITH_PLACEHOLDERS, {});
   const sampleQuestions = loadSampleQuestions();
   if (sampleQuestions.length == 0) {
     return;
@@ -51,12 +58,13 @@ export const enableDynamicPlacehoder = (
   // Add a 0.5-second delay before starting the cycle
   const timerId = setTimeout(() => {
     setDynamicPlaceholdersEnabled(true);
+    setDynamicPlaceholdersDone(false);
     cycleSampleQuestions(
       sampleQuestions,
       sampleQuestionStartIndex,
       0,
       setSampleQuestionText,
-      setDynamicPlaceholdersEnabled
+      setDynamicPlaceholdersDone
     );
   }, 800);
 
@@ -96,11 +104,11 @@ export const cycleSampleQuestions = (
   index: number,
   questionCount: number,
   setSampleQuestionText: (arg0: SetStateAction<string>) => void,
-  setDynamicPlaceholdersEnabled: (arg0: SetStateAction<boolean>) => void
+  setDynamicPlaceholdersDone: (arg0: SetStateAction<boolean>) => void
 ): void => {
   if (questionCount == sampleQuestions.length) {
     setSampleQuestionText("");
-    setDynamicPlaceholdersEnabled(false);
+    setDynamicPlaceholdersDone(true);
     return;
   }
 
@@ -124,7 +132,7 @@ export const cycleSampleQuestions = (
               nextQuestionIndex,
               questionCount + 1,
               setSampleQuestionText,
-              setDynamicPlaceholdersEnabled
+              setDynamicPlaceholdersDone
             );
           }
         };

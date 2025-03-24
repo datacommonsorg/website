@@ -40,7 +40,6 @@
 }
 
 .app {
-    margin-top: 0;
     display: flex;
     flex-direction: column;
 }
@@ -141,7 +140,6 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border-left-color: #09f;
     animation: spin 1s linear infinite;
     margin-right: 10px;
   }

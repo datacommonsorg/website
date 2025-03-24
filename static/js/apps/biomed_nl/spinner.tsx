@@ -67,7 +67,12 @@ export function SpinnerWithText(): ReactElement {
   return (
     <ThemeProvider theme={theme}>
       <div className="spinner-container">
-        <div className="spinner"></div>
+        <div
+          className="spinner"
+          css={css`
+            border-left-color: ${theme.colors.box.blue.text};
+          `}
+        ></div>
         <div>This may take up to 5 minutes...</div>
       </div>
       {showMessage && (
