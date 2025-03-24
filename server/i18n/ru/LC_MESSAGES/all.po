@@ -1,8 +1,11 @@
-msgid "%(project)s is a Google project"
-msgstr "Проект %(project)s - это проект Google"
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s: место(а) по типу %(placeType)s"
+
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr "<a href=\"https://datacommons.org\">Data Commons</a> от Google"
 
 msgid "APIs"
-msgstr "APIs"
+msgstr "API"
 
 msgid "About"
 msgstr "Информация"
@@ -10,17 +13,77 @@ msgstr "Информация"
 msgid "About Data Commons"
 msgstr "О Data Commons"
 
+msgid "Administrative Area"
+msgstr "Административный район"
+
+msgid "Administrative Area 1 Place"
+msgstr "Место по типу административного района первого уровня"
+
+msgid "Administrative Area 1 Places"
+msgstr "Места по типу административного района первого уровня"
+
+msgid "Administrative Area 2 Place"
+msgstr "Место по типу административного района второго уровня"
+
+msgid "Administrative Area 2 Places"
+msgstr "Места по типу административного района второго уровня"
+
+msgid "Administrative Area 3 Place"
+msgstr "Место по типу административного района третьего уровня"
+
+msgid "Administrative Area 3 Places"
+msgstr "Места по типу административного района третьего уровня"
+
+msgid "Administrative Area 4 Place"
+msgstr "Место по типу административного района четвертого уровня"
+
+msgid "Administrative Area 4 Places"
+msgstr "Места по типу административного района четвертого уровня"
+
+msgid "Administrative Area 5 Place"
+msgstr "Место по типу административного района пятого уровня"
+
+msgid "Administrative Area 5 Places"
+msgstr "Места по типу административного района пятого уровня"
+
+msgid "Administrative Areas"
+msgstr "Административные районы"
+
+msgid "An initiative from"
+msgstr "Инициатива"
+
+msgid "Back to homepage"
+msgstr "Вернуться на главную страницу"
+
+msgid "BigQuery"
+msgstr "BigQuery"
+
 msgid "Blog"
 msgstr "Блог"
 
+msgid "Borough"
+msgstr "Район"
+
+msgid "Boroughs"
+msgstr "Районы"
+
+msgid "Cities"
+msgstr "Города"
+
 msgid "Cities, India"
-msgstr "Cities, India"
+msgstr "Города в Индии"
 
 msgid "Cities, United States"
 msgstr "Города в США"
 
+msgid "City"
+msgstr "Город"
+
 msgid "Contribute"
 msgstr "Помочь проекту"
+
+msgid "Counties"
+msgstr "Округа"
 
 msgid "Counties, United States"
 msgstr "Округа в США"
@@ -28,11 +91,17 @@ msgstr "Округа в США"
 msgid "Countries"
 msgstr "Страны"
 
+msgid "Country"
+msgstr "Страна"
+
+msgid "County"
+msgstr "Округ"
+
 msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr "Data Download Tool"
+msgstr "Инструмент скачивания данных"
 
 msgid "Data Sources"
 msgstr "Источники данных"
@@ -41,7 +110,7 @@ msgid "Disclaimers"
 msgstr "Отказ от обязательств"
 
 msgid "Districts, India"
-msgstr "Districts, India"
+msgstr "Округа в Индии"
 
 msgid "Documentation"
 msgstr "Документация"
@@ -54,6 +123,24 @@ msgstr "Укажите страну, штат, округ или город"
 
 msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
+
+msgid "Eurostat NUTS 1 Place"
+msgstr "Место по типу Евростат NUTS первого уровня"
+
+msgid "Eurostat NUTS 1 Places"
+msgstr "Места по типу Евростат NUTS первого уровня"
+
+msgid "Eurostat NUTS 2 Place"
+msgstr "Место по типу Евростат NUTS второго уровня"
+
+msgid "Eurostat NUTS 2 Places"
+msgstr "Места по типу Евростат NUTS второго уровня"
+
+msgid "Eurostat NUTS 3 Place"
+msgstr "Место по типу Евростат NUTS третьего уровня"
+
+msgid "Eurostat NUTS 3 Places"
+msgstr "Места по типу Евростат NUTS третьего уровня"
 
 msgid "Explore"
 msgstr "Обзор"
@@ -82,9 +169,6 @@ msgstr "Расходы правительства на образование"
 msgid "Government Expenditures on Military"
 msgstr "Военные расходы правительства"
 
-msgid "Knowledge Graph"
-msgstr "графа знаний"
-
 msgid "Gross National Income"
 msgstr "Валовой национальный доход"
 
@@ -100,29 +184,47 @@ msgstr "Самый высокий медианный доход"
 msgid "Highest Unemployment Rate"
 msgstr "Самый высокий уровень безработицы"
 
+msgid "Knowledge Graph"
+msgstr "Сеть знаний"
+
 msgid "Largest Population"
 msgstr "Самое большое население"
 
 msgid "Life Expectancy"
 msgstr "Средняя продолжительность жизни"
 
-msgid "Loading..."
-msgstr "Загрузка…"
+msgid "Loading"
+msgstr "Загрузка"
 
 msgid "Map Explorer"
 msgstr "Изучение карт"
 
-msgid "Maps Explorer"
-msgstr "Maps Explorer"
+msgid "Median Age"
+msgstr "Медианный возраст"
+
+msgid "Median Income"
+msgstr "Медианный доход"
 
 msgid "Median Income, United States"
 msgstr "Медианный доход в США"
 
-msgid "Natural Language Explorer"
-msgstr "Natural Language Explorer"
+msgid "Natural Disaster Dashboard"
+msgstr "Страница статистики стихийных бедствий"
+
+msgid "Neighborhood"
+msgstr "Микрорайон"
+
+msgid "Neighborhoods"
+msgstr "Микрорайоны"
+
+msgid "Other %(placeType)s in %(parentPlace)s"
+msgstr "%(parentPlace)s: другие %(placeType)s"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Place Explorer – это инструмент, который помогает получить основные данные о выбранном месте. Информация выводится в виде диаграмм данных по демографии, образованию, экономике и т. д. в сравнении с другими местами. Вы также можете посмотреть рейтинг разных мест по определенным показателям, таким как безработица, преступность и доход.</p><p>В окне выше доступен поиск информации по городу, почтовому индексу, округу, штату или стране.</p><p>Кроме того, можно начать с просмотра данных об известных местах.</p>"
+
+msgid "Place"
+msgstr "Место"
 
 msgid "Place Explorer"
 msgstr "Place Explorer"
@@ -133,6 +235,9 @@ msgstr "Рейтинги мест"
 msgid "Places"
 msgstr "Места"
 
+msgid "Population"
+msgstr "Население"
+
 msgid "Privacy Policy"
 msgstr "Политика конфиденциальности"
 
@@ -142,38 +247,80 @@ msgstr "Рейтинги"
 msgid "Scatter Plot Explorer"
 msgstr "Просмотр точечных диаграмм"
 
-msgid "Scatter Plots"
-msgstr "Scatter Plots"
+msgid "Show about links"
+msgstr "Show about links"
+
+msgid "Show documentation links"
+msgstr "Показать ссылки на документацию"
+
+msgid "Show exploration tools"
+msgstr "Show exploration tools"
+
+msgid "Show site navigation"
+msgstr "Show site navigation"
+
+msgid "State"
+msgstr "Штат"
+
+msgid "States"
+msgstr "Штаты"
 
 msgid "States, India"
-msgstr "States, India"
+msgstr "Штаты в Индии"
 
 msgid "States, United States"
 msgstr "Штаты в США"
 
 msgid "Statistical Variable Explorer"
-msgstr "Statistical Variable Explorer"
+msgstr "Проводник статистических параметров"
+
+msgid "Statistics"
+msgstr "Statistics"
+
+msgid "Sustainability Explorer"
+msgstr "Просмотр данных об экологичности"
 
 msgid "Terms Of Use"
-msgstr "Terms Of Use"
+msgstr "Условия использования"
 
 msgid "Terms and Conditions"
 msgstr "Условия использования"
 
-msgid "Timeline Charts"
-msgstr "Timeline Charts"
-
 msgid "Timelines Explorer"
 msgstr "Timelines Explorer"
+
+msgid "Tools"
+msgstr "Инструменты"
+
+msgid "Town"
+msgstr "Город"
+
+msgid "Towns"
+msgstr "Города"
 
 msgid "Tutorials"
 msgstr "Руководства"
 
+msgid "Unemployment Rate"
+msgstr "Уровень безработицы"
+
 msgid "Unemployment Rate, United States"
 msgstr "Уровень безработицы в США"
 
+msgid "Village"
+msgstr "Поселок"
+
+msgid "Villages"
+msgstr "Поселки"
+
 msgid "Worldwide"
 msgstr "в мире"
+
+msgid "ZIP Code"
+msgstr "Почтовый индекс"
+
+msgid "ZIP Codes"
+msgstr "Почтовые индексы"
 
 msgid "by city"
 msgstr "по городу"
@@ -188,22 +335,25 @@ msgid "in United States"
 msgstr "в США"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr "Риск возникновения рака в течение жизни из-за загрязнения воздуха"
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr "Индекс качества воздуха"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Потребление алкоголя на душу населения (в год)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions"
+msgstr "Ежегодные выбросы парникового газа"
 
 msgid "CHART_TITLE-Arson"
 msgstr "Поджог"
 
 msgid "CHART_TITLE-Arson_rate"
 msgstr "Количество поджогов на 100 000 человек"
+
+msgid "CHART_TITLE-Associate_degree_gender"
+msgstr "Число людей с неоконченным высшим образованием с разбивкой по полу"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "Процент людей с неоконченным высшим образованием по полу"
@@ -212,7 +362,7 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Процент имеющих степень бакалавра людей по полу"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr "Воздух"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Преступления"
@@ -221,7 +371,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Демография"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr "Стихийные бедствия"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Экономика"
@@ -230,10 +380,10 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Образование"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr "Выбросы"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr "Энергия"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 msgstr "Окружающая среда"
@@ -248,19 +398,19 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Жилье"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr "Доход"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Обзор"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr "Бедность"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr "Температура"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr "Вода"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "Количество работающих детей"
@@ -317,16 +467,19 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Электропотребление на душу населения"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr "Производство электроэнергии на душу населения"
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr "Стоимость электроэнергии"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "Энергопотребление (кг нефтяного эквивалента на душу населения)"
 
 msgid "CHART_TITLE-Fertility_rate"
 msgstr "Коэффициент суммарной рождаемости"
+
+msgid "CHART_TITLE-Gdp"
+msgstr "Валовой внутренний продукт"
 
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "Темпы роста ВВП"
@@ -361,50 +514,53 @@ msgstr "Военные расходы правительства"
 msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "Военные расходы правительства (в процентах от ВВП)"
 
+msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
+msgstr "Число людей, имеющих степень магистра или высшее профессиональное образование, с разбивкой по полу"
+
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "Процент людей, имеющих степень магистра или высшее профессиональное образование, по полу"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr "Преступления на почве ненависти"
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr "Преступления на почве ненависти к инвалидам"
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr "Преступления на почве ненависти к инвалидам на 100 000 человек"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr "Преступления на почве этнической ненависти"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr "Преступления на почве этнической ненависти на 100 000 человек"
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr "Преступления на почве гендерной ненависти"
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr "Преступления на почве гендерной ненависти на 100 000 человек"
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr "Преступления на почве расовой ненависти"
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr "Преступления на почве расовой ненависти на 100 000 человек"
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr "Преступления на почве религиозной ненависти"
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr "Преступления на почве религиозной ненависти на 100 000 человек"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr "Преступления на почве ненависти к людям с иной сексуальной ориентацией"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr "Преступления на почве ненависти к людям с иной сексуальной ориентацией на 100 000 человек"
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr "Преступления на почве ненависти на 100 000 человек"
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "Вредные привычки"
@@ -491,13 +647,13 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Рыночная капитализация отечественных компаний (в % от ВВП)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr "Средняя концентрация твердых частиц дизельного топлива"
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr "Средняя концентрация озона"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr "Средняя концентрация частиц PM2.5"
 
 msgid "CHART_TITLE-Median_age"
 msgstr "Медианный возраст"
@@ -526,11 +682,14 @@ msgstr "Смертельные случаи"
 msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "Смертельные случаи на душу населения"
 
+msgid "CHART_TITLE-Outward_remittance"
+msgstr "Переводы за рубеж"
+
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "Переводы за рубеж"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr "Индекс интенсивности засухи Палмера"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "Процент людей без медицинской страховки по полу"
@@ -602,16 +761,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "Количество прописанных лекарств на душу населения (за квартал)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr "Прогнозируемое максимальное изменение температуры по сценарию RCP 2.6 (с 2006 года)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr "Прогнозируемое максимальное изменение температуры по сценарию RCP 4.5 (с 2006 года)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr "Прогнозируемое максимальное изменение температуры по сценарию RCP 6.0 (с 2006 года)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr "Прогнозируемое максимальное изменение температуры по сценарию RCP 8.5 (с 2006 года)"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "Имущественные преступления"
@@ -689,75 +848,17 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Доля работающих и неработающих"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr "Выбросы углекислого газа (небиогенные)"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr "Выбросы углекислого газа на душу населения"
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr "Выбросы метана (небиогенные)"
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr "Выбросы оксида азота (небиогенные)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
+msgstr "Объем забора воды"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Обзор"
-
-#. Place containment. Gives context for where a place is located.
-msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(parentPlaces)s: %(placeType)s"
-
-#. Place Types
-msgid "singular_administrative_area"
-msgstr "Административный район"
-
-msgid "singular_administrative_area_level"
-msgstr "Место по типу административного района уровня %(level)s"
-
-msgid "singular_borough"
-msgstr "Район"
-
-msgid "singular_city"
-msgstr "Город"
-
-msgid "singular_country"
-msgstr "Страна"
-
-msgid "singular_county"
-msgstr "Округ"
-
-msgid "singular_eurostat_nuts"
-msgstr "Место по типу Евростат NUTS уровня %(level)s"
-
-msgid "singular_neighborhood"
-msgstr "Микрорайон"
-
-msgid "singular_place"
-msgstr "Место"
-
-msgid "singular_state"
-msgstr "Штат"
-
-msgid "singular_town"
-msgstr "Город"
-
-msgid "singular_village"
-msgstr "Поселок"
-
-msgid "singular_zip_code"
-msgstr "Почтовый индекс"
-
-msgid "VARIABLE_NAME-Count_Person"
-msgstr "Population"
-
-msgid "VARIABLE_NAME-Median_Income_Person"
-msgstr "Median Income"
-
-msgid "VARIABLE_NAME-Median_Age_Person"
-msgstr "Median Age"
-
-msgid "VARIABLE_NAME-UnemploymentRate_Person"
-msgstr "Unemployment Rate"

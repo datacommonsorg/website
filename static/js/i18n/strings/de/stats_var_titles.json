@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Krebsrisiko durch Luftverschmutzung"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "LQI"
+  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "Alkoholkonsum pro Kopf (jährlich)"
   },
@@ -53,6 +59,24 @@
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "Marktkapitalisierung der inländischen Unternehmen (prozentualer Anteil des BIP)"
   },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Jährliche Stromerzeugung"
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "Kohlendioxidemissionen (große Anlagen, nicht biogen)"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Jährliche Treibhausgasemissionen (große Anlagen, nicht biogen)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Methanemissionen (große Anlagen, nicht biogen)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "Distickstoffmonoxid-Emissionen (große Anlagen, nicht biogen)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Jährliche Stromerzeugung"
+  },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "Anzahl krimineller Handlungen (Brandstiftung)"
   },
@@ -65,26 +89,26 @@
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "Anzahl krimineller Handlungen (Gewaltverbrechen)"
   },
-  "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
-  },
-  "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
-  },
-  "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
-  },
-  "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen mit Behinderung)"
   },
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+    "defaultMessage": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen anderer ethnischer Herkunft)"
+  },
+  "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
+    "defaultMessage": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen anderen Geschlechts)"
+  },
+  "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
+    "defaultMessage": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen anderer Hautfarbe)"
+  },
+  "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
+    "defaultMessage": "Anzahl krimineller Vorfälle (religiös motivierte Hasskriminalität)"
   },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+    "defaultMessage": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen anderer sexueller Orientierung)"
   },
-  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "Anzahl krimineller Vorfälle (Hasskriminalität)"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "Anzahl von Zyklonen"
@@ -614,6 +638,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "Kumulative COVID-19-Todesfälle"
   },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
+    "defaultMessage": "Max. Temperaturänderung (RCP2.6, Basisjahr 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
+    "defaultMessage": "Max. Temperaturänderung (RCP4.5, Basisjahr 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
+    "defaultMessage": "Max. Temperaturänderung (RCP6.0, Basisjahr 2016)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
+    "defaultMessage": "Max. Temperaturänderung (RCP8.5, Basisjahr 2016)"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "Fruchtbarkeitsrate"
   },
@@ -628,6 +664,15 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "Lebenserwartung"
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Durchschnittliche Konzentration von Dieselpartikeln"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Durchschnittliche Ozonkonzentration"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "Durchschnittliche PM2,5-Konzentration"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "Tägliches Arbeitsentgelt"
@@ -669,10 +714,10 @@
     "defaultMessage": "Medianwert für das Alter (Frauen)"
   },
   "Median_Age_Person_HispanicOrLatino": {
-    "defaultMessage": "Medianwerte für das Alter (Hispano- oder Lateinamerikaner)"
+    "defaultMessage": "Medianwert für das Alter (Hispano- oder Lateinamerikaner)"
   },
   "Median_Age_Person_Male": {
-    "defaultMessage": "Medianwert des Alters (Männer)"
+    "defaultMessage": "Medianwert für das Alter (Männer)"
   },
   "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": {
     "defaultMessage": "Medianwert für das Alter (Hawaiianisch oder Pazifikinsulaner)"
@@ -687,34 +732,37 @@
     "defaultMessage": "Medianwert für das Alter (nur Weiß)"
   },
   "Median_Income_Household": {
-    "defaultMessage": "Mittleres Haushaltseinkommen"
+    "defaultMessage": "Medianwert für das Haushaltseinkommen"
   },
   "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
-    "defaultMessage": "Mittleres Haushaltseinkommen (Angehörige der indigenen Völker Amerikas/Alaskas)"
+    "defaultMessage": "Medianwert für das Haushaltseinkommen (Angehörige der indigenen Völker Amerikas/Alaskas)"
   },
   "Median_Income_Household_HouseholderRaceAsianAlone": {
-    "defaultMessage": "Mittleres Haushaltseinkommen (asiatisch)"
+    "defaultMessage": "Medianwert für das Haushaltseinkommen (asiatisch)"
   },
   "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": {
-    "defaultMessage": "Mittleres Haushaltseinkommen (Schwarz oder afroamerikanisch)"
+    "defaultMessage": "Medianwert für das Haushaltseinkommen (Schwarz oder afroamerikanisch)"
   },
   "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
-    "defaultMessage": "Mittleres Haushaltseinkommen (Hispano- oder Lateinamerikaner)"
+    "defaultMessage": "Medianwert für das Haushaltseinkommen (Hispano- oder Lateinamerikaner)"
   },
   "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": {
-    "defaultMessage": "Mittleres Haushaltseinkommen (Hawaiianisch oder Pazifikinsulaner)"
+    "defaultMessage": "Medianwert für das Haushaltseinkommen (Hawaiianisch oder Pazifikinsulaner)"
   },
   "Median_Income_Household_HouseholderRaceWhiteAlone": {
-    "defaultMessage": "Mittleres Haushaltseinkommen (Weiß)"
+    "defaultMessage": "Medianwert für das Haushaltseinkommen (Weiß)"
   },
   "Median_Income_Person": {
-    "defaultMessage": "Mittleres individuelles Einkommen"
+    "defaultMessage": "Medianwert für das individuelle Einkommen"
   },
   "Median_Income_Person_15OrMoreYears_Female_WithIncome": {
     "defaultMessage": "Medianwert für das individuelle Einkommen (Frauen)"
   },
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
-    "defaultMessage": "Mittleres individuelles Einkommen (Männer)"
+    "defaultMessage": "Medianwert für das individuelle Einkommen (Männer)"
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "Der Palmer-Dürre-Index"
   },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "Anteil der Personen ohne Krankenversicherung (Frauen)"
@@ -791,6 +839,9 @@
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "Arbeitslosenquote (städtisch)"
   },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Wasserentnahmerate"
+  },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "Bevölkerung (buddhistisch)"
   },
@@ -814,56 +865,5 @@
   },
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "Bevölkerung (Sikh)"
-  },
-  "AirQualityIndex_AirPollutant": {
-    "defaultMessage": "AQI"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
-  },
-  "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "Mean PM2.5 Concentration"
-  },
-  "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Mean Ozone Concentration"
-  },
-  "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Mean Diesel PM Concentration"
-  },
-  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
-  },
-  "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
-  },
-  "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "The Palmer Drought Severity Index"
-  },
-  "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
-  },
-  "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
-  },
-  "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
   }
 }

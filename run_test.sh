@@ -39,7 +39,7 @@ function start_servers() {
   }
 # On exit, assign status code to a variable and call cleanup.
   trap 'exit_with=$?; cleanup' EXIT
-  ./run_servers.sh &
+  ./run_servers.sh --verbose &
   # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
   # Wait a few seconds and make sure the server script subprocess hasn't failed.
@@ -138,7 +138,7 @@ function run_py_test {
   # Disabled nodejs e2e test to avoid dependency on dev
   python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   python3 -m pytest -n auto shared/tests/ -s ${@}
-  python3 -m pytest -n auto nl_server/tests/ -s ${@}
+  python3 -m pytest nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"

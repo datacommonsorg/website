@@ -20,11 +20,17 @@ import {
   PlaceChartsApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
-import { defineMessages } from "react-intl";
 
 import { intl, localizeLink } from "../i18n/i18n";
+import {
+  pageMessages,
+  pluralPlaceTypeMessages,
+  singularPlaceTypeMessages,
+} from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { isMobileByWidth } from "../shared/util";
+import { Theme } from "../theme/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
@@ -32,6 +38,10 @@ import {
   TileConfig,
 } from "../types/subject_page_proto_types";
 
+const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
+const DEFAULT_BAR_CHART_ITEMS = 15;
+
+/**
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
  */
@@ -187,7 +197,7 @@ export function createPlacePageCategoryHref(
   if (forceDevPlaces) {
     params.set("force_dev_places", "true");
   }
-  return params.size > 0 ? `${href}?${params.toString()}` : href;
+  return localizeLink(params.size > 0 ? `${href}?${params.toString()}` : href);
 }
 
 /**
@@ -205,7 +215,8 @@ export function placeChartsApiResponsesToPageConfig(
   peersWithinParent: string[],
   place: Place,
   isOverview: boolean,
-  forceDevPlaces: boolean
+  forceDevPlaces: boolean,
+  theme: Theme
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
@@ -224,6 +235,9 @@ export function placeChartsApiResponsesToPageConfig(
       const blocks = blocksByCategory[categoryName];
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
+      const defaultBarChartItems = isMobileByWidth(theme)
+        ? DEFAULT_BAR_CHART_ITEMS_MOBILE
+        : DEFAULT_BAR_CHART_ITEMS;
 
       blocks.forEach((block: BlockConfig) => {
         let blockTitle;
@@ -280,7 +294,9 @@ export function placeChartsApiResponsesToPageConfig(
               rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
-            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
+            maxPlacesCount = chart.maxPlaces
+              ? chart.maxPlaces
+              : defaultBarChartItems;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
               sort: "DESCENDING",
@@ -336,8 +352,10 @@ export function placeChartsApiResponsesToPageConfig(
           categoryNameToCategory[categoryName].translatedName || categoryName,
       };
       if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
-        category.url = localizeLink(
-          createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
+        category.url = createPlacePageCategoryHref(
+          categoryName,
+          forceDevPlaces,
+          place
         );
         category.linkText = intl.formatMessage(pageMessages.MoreCharts);
       }
@@ -351,164 +369,6 @@ export function placeChartsApiResponsesToPageConfig(
   };
   return pageConfig;
 }
-
-const singularPlaceTypeMessages = defineMessages({
-  Country: {
-    id: "singular_country",
-    defaultMessage: "Country",
-    description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Country. An example use is 'A Country in Europe' to describe 'France'. Please maintain capitalization.",
-  },
-  State: {
-    id: "singular_state",
-    defaultMessage: "State",
-    description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Constituent_state, generally a subdivision of a country. An example use is 'A State in United States' to describe 'California'. Please maintain capitalization.",
-  },
-  County: {
-    id: "singular_county",
-    defaultMessage: "County",
-    description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/County, generally a subdivision of a State. An example use is 'County in California' to describe 'San Mateo County'. Please maintain capitalization.",
-  },
-  City: {
-    id: "singular_city",
-    defaultMessage: "City",
-    description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/City, generally a place with more people than a town, borough or village. An example use is 'City in France' to describe 'Paris'. Please maintain capitalization.",
-  },
-  Town: {
-    id: "singular_town",
-    defaultMessage: "Town",
-    description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Town, generally a place with fewer people than a city, but more than a village. An example use is 'Town in France' to describe 'Paris'. Please maintain capitalization.",
-  },
-  Village: {
-    id: "singular_village",
-    defaultMessage: "Village",
-    description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Village, generally a place smaller than a town. An example use is 'Village in Harris County' to describe 'Hilshire Village'. Please maintain capitalization.",
-  },
-  Borough: {
-    id: "singular_borough",
-    defaultMessage: "Borough",
-    description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Borough, similar to a town or city. An example use is 'Borough in New York' to describe 'Queens'. Please maintain capitalization.",
-  },
-  Neighborhood: {
-    id: "singular_neighborhood",
-    defaultMessage: "Neighborhood",
-    description:
-      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Neighborhood, generally a place within a town or city. An example use is 'Neighborhood in Paris' to describe '8th arrondissement'. Please maintain capitalization.",
-  },
-  CensusZipCodeTabulationArea: {
-    id: "singular_zip_code",
-    defaultMessage: "ZIP Code",
-    description:
-      'A ZIP Code area. Some examples, we say that 94539 is "_ZIP Code_ in Alameda County, California, United States of America, North America".',
-  },
-  Place: {
-    id: "singular_place",
-    defaultMessage: "Place",
-    description:
-      'A general type of place. It is used as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say "Moscow Oblast is A _Place_ in Russia" or "Lincoln Center is a _Place_ in New York City".',
-  },
-});
-
-const pluralPlaceTypeMessages = defineMessages({
-  Country: {
-    id: "plural_country",
-    defaultMessage: "Countries",
-    description:
-      "A label or header for a collection of places of type Country (see https://en.wikipedia.org/wiki/Country). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Ranking by Population for Countries in Europe'. Please maintain capitalization.",
-  },
-  State: {
-    id: "plural_state",
-    defaultMessage: "States",
-    description:
-      "A label or header for a collection of places of type State (generally a subdivision of a Country, see https://en.wikipedia.org/wiki/Constituent_state). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Ranking by Population for Countries in Europe'. Please maintain capitalization.",
-  },
-  County: {
-    id: "plural_county",
-    defaultMessage: "Counties",
-    description:
-      "A label or header for a collection of places of type County (generally subdivisions of a State, see https://en.wikipedia.org/wiki/County). Some examples: 'Counties in California', 'Median Age: Other Counties', or 'Rankings of Population for Counties in California'. Please maintain capitalization.",
-  },
-  City: {
-    id: "plural_city",
-    defaultMessage: "Cities",
-    description:
-      "A label or header for a collection of places of type City (generally places with more people than a town, borough or village, see https://en.wikipedia.org/wiki/City). Some examples: 'Cities in California', 'Median Age: Other Cities', or 'Rankings of Population for Cities in California'. Please maintain capitalization.",
-  },
-  Town: {
-    id: "plural_town",
-    defaultMessage: "Towns",
-    description:
-      "A label or header for a collection of places of type Town (generally places with fewer people than a city, but more than a village, see https://en.wikipedia.org/wiki/Town). Some examples: 'Towns in California', 'Median Age: Other Towns', or 'Rankings of Population for Towns in California'. Please maintain capitalization.",
-  },
-  Village: {
-    id: "plural_village",
-    defaultMessage: "Villages",
-    description:
-      "A label or header for a collection of places of type Village (generally places smaller than a town, see https://en.wikipedia.org/wiki/Village). Some examples: 'Villages in California', 'Median Age: Other Villages', or 'Ranking by Population for Villages in California'. Please maintain capitalization.",
-  },
-  Borough: {
-    id: "plural_borough",
-    defaultMessage: "Boroughs",
-    description:
-      "A label or header for a collection of places of type Borough (generally places similar to a town or city, see https://en.wikipedia.org/wiki/Borough). Some examples: 'Boroughs in California', 'Median Age: Other Boroughs', or 'Ranking by Population for Boroughs in New York'. Please maintain capitalization.",
-  },
-  Neighborhood: {
-    id: "plural_neighborhood",
-    defaultMessage: "Neighborhoods",
-    description:
-      "A label or header for a collection of places of type Neighborhood (generally places within a town or city, see https://en.wikipedia.org/wiki/Neighborhood). Some examples: 'Neighborhoods in California', 'Median Age: Other Neighborhoods', or 'Ranking by Population for Neighborhoods in Paris'. Please maintain capitalization.",
-  },
-  CensusZipCodeTabulationArea: {
-    id: "plural_zip_codes",
-    defaultMessage: "Zip Codes",
-    description:
-      'A collection of ZIP Codes. Some examples: "_ZIP Codes_ in Fremont" or "Median Age: _ZIP Codes_ near 94539", "Median Age: Other _ZIP Codes_" or "Ranking by Number of Employed People for _ZIP Codes_ in Santa Clara County".',
-  },
-  Place: {
-    id: "plural_places",
-    defaultMessage: "Places",
-    description:
-      'General collection of places. It is used when we don"t have a specific place type. Some examples: "_Places_ in Russia" as a header for a section with links to many places contained in Russia, as chart titles, such as "Median Age: _Places_ near Paris" or "Median Age: Other _Places_", or "Ranking for All _Places_ in Russia".',
-  },
-});
-
-export const pageMessages = defineMessages({
-  KnowledgeGraph: {
-    id: "knowledge_graph",
-    defaultMessage: "Knowledge Graph",
-    description: "Link to the Knowledge Graph for the current place",
-  },
-  RelevantTopics: {
-    id: "relevant_topics",
-    defaultMessage: "Relevant Topics",
-    description:
-      "Header text for the Relevant Topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
-  },
-  SummaryOverview: {
-    id: "summary_overview",
-    defaultMessage: "Summary Overview",
-    description:
-      "Header text for the Summary Overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
-  },
-  MoreCharts: {
-    id: "more_charts",
-    defaultMessage: "More charts",
-    description:
-      "Link text to show additional charts for the given chart category section for the current place.",
-  },
-  placesInPlace: {
-    id: "child_places_menu-places_in_place",
-    defaultMessage: "Places in {placeName}",
-    description:
-      'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
-  },
-});
 
 /**
  * Returns place type, possibly pluralized if requested.

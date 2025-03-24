@@ -25,7 +25,8 @@ npm list @formatjs/cli || npm install formatjs
 npm run extract -- 'js/**/*.ts*' \
   --out-file js/i18n/strings/en/place.json \
   --id-interpolation-pattern '[sha512:contenthash:base64:6]'\
-  --ignore '**/i18n/i18n.tsx'
+  --ignore '**/i18n/i18n.tsx' \
+  --ignore '**/*.d.ts'
 
 cd ..
 

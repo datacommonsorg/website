@@ -223,7 +223,8 @@ class TestApiSeriesWithin(unittest.TestCase):
         return mock_data.SERIES_WITHIN_ALL_FACETS
       if url.endswith('/v2/node') and data == {
           'nodes': ['testUnit'],
-          'property': '->*'
+          'property': '->*',
+          'nextToken': ''
       }:
         return {
             'data': {

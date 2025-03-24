@@ -15,6 +15,8 @@
 Defines endpoints for the place page.
 """
 
+import asyncio
+
 from flask import Blueprint
 from flask import g
 from flask import jsonify
@@ -25,9 +27,11 @@ from server.lib.util import error_response
 from server.lib.util import log_execution_time
 from server.routes import TIMEOUT
 from server.routes.dev_place import utils as place_utils
+from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import PlaceChartsApiResponse
 from server.routes.dev_place.types import PlaceOverviewTableApiResponse
 from server.routes.dev_place.types import RelatedPlacesApiResponse
+from server.routes.dev_place.utils import extract_places_from_dcids
 
 # Define blueprint
 bp = Blueprint("dev_place_api", __name__, url_prefix='/api/dev-place')
@@ -36,7 +40,7 @@ bp = Blueprint("dev_place_api", __name__, url_prefix='/api/dev-place')
 @bp.route('/charts/<path:place_dcid>')
 @log_execution_time
 @cache.cached(timeout=TIMEOUT, query_string=True)
-def place_charts(place_dcid: str):
+async def place_charts(place_dcid: str):
   """
   Returns chart definitions for the specified place based on the availability of
   of data for that place. Results are translated into the user's locale.
@@ -53,7 +57,26 @@ def place_charts(place_dcid: str):
   - Translated category strings for the charts
   """
 
-  # Ensure category is valid
+  async def fetch_place_types(
+      place: Place) -> tuple[Place | None, str, str | None]:
+    """Asynchronously fetch the parent place override, the child place type to
+    highlight, and the current place type to highlight.
+    Returns a Tuple with the Place override, the child place type & place type.
+    """
+    parent_place_override_task = asyncio.to_thread(
+        place_utils.get_place_override,
+        place_utils.get_parent_places(place_dcid), g.locale)
+    child_place_type_to_highlight_task = asyncio.to_thread(
+        place_utils.get_child_place_type_to_highlight, place)
+    place_type_task = asyncio.to_thread(place_utils.place_type_to_highlight,
+                                        place.types)
+
+    # return place, parent_place_override_task, child_place_type_to_highlight_task, place_type_task
+    return await asyncio.gather(parent_place_override_task,
+                                child_place_type_to_highlight_task,
+                                place_type_task)
+
+  # Validate the category parameter.
   place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
   if place_category not in place_utils.ALLOWED_CATEGORIES:
     return error_response(
@@ -63,21 +86,17 @@ def place_charts(place_dcid: str):
   # Retrieve available place page charts
   full_chart_config = place_utils.read_chart_configs()
 
-  # Fetch place info
-  place = place_utils.fetch_place(place_dcid, locale=g.locale)
+  # Blocking call to fetch the current place info
+  place = await asyncio.to_thread(place_utils.fetch_place, place_dcid, g.locale)
 
-  # Get parent place DCID
-  parent_place_override = place_utils.get_place_override(
-      place_utils.get_parent_places(place_dcid), g.locale)
-  parent_place_dcid = parent_place_override.dcid if parent_place_override else None
-
-  # Determine child place type to highlight
-  child_place_type_to_highlight = place_utils.get_child_place_type_to_highlight(
+  parent_place_override, child_place_type_to_highlight, place_type = await fetch_place_types(
       place)
 
-  place_type = place_utils.place_type_to_highlight(place.types)
+  parent_place_dcid = parent_place_override.dcid if parent_place_override else None
+
   # Filter out place page charts that don't have any data for the current place_dcid
-  chart_config_existing_data = place_utils.filter_chart_config_by_place_dcid(
+  chart_config_existing_data = await asyncio.to_thread(
+      place_utils.filter_chart_config_for_data_existence,
       chart_config=full_chart_config,
       place_dcid=place_dcid,
       place_type=place_type,
@@ -85,7 +104,7 @@ def place_charts(place_dcid: str):
       child_place_type=child_place_type_to_highlight)
 
   # Only keep the chart config for the current category.
-  chart_config_for_category = place_utils.filter_chart_configs_for_category(
+  chart_config_for_category = place_utils.filter_chart_config_for_category(
       place_category, chart_config_existing_data)
 
   # Translate chart config titles
@@ -97,13 +116,8 @@ def place_charts(place_dcid: str):
   blocks = place_utils.chart_config_to_overview_charts(
       translated_chart_config, child_place_type_to_highlight)
 
-  # Translate category strings
-  categories_with_translations = place_utils.get_categories_with_translations(
-      chart_config_existing_data)
-
-  categories_with_more_charts = place_utils.get_categories_with_more_charts(
-      place_category, categories_with_translations, chart_config_existing_data,
-      chart_config_for_category)
+  categories_with_more_charts = place_utils.get_categories_metadata(
+      place_category, chart_config_existing_data, chart_config_for_category)
 
   response = PlaceChartsApiResponse(blocks=blocks,
                                     place=place,
@@ -114,7 +128,7 @@ def place_charts(place_dcid: str):
 @bp.route('/related-places/<path:place_dcid>')
 @log_execution_time
 @cache.cached(timeout=TIMEOUT, query_string=True)
-def related_places(place_dcid: str):
+async def related_places(place_dcid: str):
   """
   Fetches and returns related place data to the specified place.
   Results are translated into the user's locale.
@@ -129,66 +143,72 @@ def related_places(place_dcid: str):
   - Place details (name, type, etc.)
   - Lists of nearby, similar, and child places
   """
-  # Fetch place info
-  place = place_utils.fetch_place(place_dcid, locale=g.locale)
+  # Fetch the current place.
+  place = place_utils.fetch_place(place_dcid, g.locale)
 
-  # Fetch nearby, similar, and child place dcids
-  nearby_place_dcids = place_utils.fetch_nearby_place_dcids(place,
-                                                            locale=g.locale)
-  similar_place_dcids = place_utils.fetch_similar_place_dcids(place,
-                                                              locale=g.locale)
-  ordered_child_place_types = place_utils.get_child_place_types(place)
+  # Fetch the child place types, find type to highlight.
+  ordered_child_place_types = await asyncio.to_thread(
+      place_utils.get_child_place_types, place)
   primary_child_place_type = ordered_child_place_types[
       0] if ordered_child_place_types else None
 
-  child_place_dcids = []
-  seen_dcids = set(
-  )  # Keep track of seen DCIDs to prevent dupes but keep ordering.
+  async def get_related_place_dcids_async(
+      place: Place
+  ) -> tuple[list[str], list[str], list[Place], list[str], list[list[str]]]:
+    """Helper function to execute asynchronously the calls to fetch the DCIDs
+     for the child places, nearby places, similar places, parent places and peer places within parent.
+     Returns lists of DCIDs or Places for each type of related places."""
 
-  # TODO(gmechali): Refactor this into async calls.
-  for child_place_type in ordered_child_place_types:
-    for dcid in place_utils.fetch_child_place_dcids(place, child_place_type):
-      if dcid not in seen_dcids:
-        child_place_dcids.append(dcid)
-        seen_dcids.add(dcid)
+    child_tasks = [
+        asyncio.to_thread(place_utils.fetch_child_place_dcids, place,
+                          child_place_type)
+        for child_place_type in ordered_child_place_types
+    ]
+    nearby_task = asyncio.to_thread(place_utils.fetch_nearby_place_dcids, place,
+                                    g.locale)
+    similar_task = asyncio.to_thread(place_utils.fetch_similar_place_dcids,
+                                     place, g.locale)
+    parent_places_task = asyncio.to_thread(place_utils.get_parent_places,
+                                           place.dcid, g.locale)
+    peers_within_parent_task = asyncio.to_thread(
+        place_utils.fetch_peer_places_within, place.dcid, place.types)
 
-  parent_places = place_utils.get_parent_places(place.dcid)
+    nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent, *child_results = await asyncio.gather(
+        nearby_task, similar_task, parent_places_task, peers_within_parent_task,
+        *child_tasks)
+    return nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent, *child_results
 
-  # Fetch all place objects in one request to reduce latency (includes name and typeOf)
+  # Fetches nearby, similar, parent, peers within parent, and child places concurrently.
+  nearby_place_dcids, similar_place_dcids, parent_places, peers_within_parent, *child_results = await get_related_place_dcids_async(
+      place)
+
+  # Dedupes the child places but preserves ordering.
+  child_place_dcids = place_utils.dedupe_preserve_order(child_results)
+
+  # Initiates a dict of all places by DCID. Note that we omit the peers within parent since we do not need the Place object for those.
   all_place_dcids = [
       place_dcid, *nearby_place_dcids, *similar_place_dcids, *child_place_dcids
   ]
-  all_places = place_utils.fetch_places(all_place_dcids, locale=g.locale)
+  all_places_by_dcid = {
+      p.dcid: p for p in place_utils.fetch_places(all_place_dcids, g.locale)
+  }
 
-  # Get place objects for nearby, similar, and child places
-  all_place_by_dcid = {p.dcid: p for p in all_places}
-  nearby_places = [
-      all_place_by_dcid[dcid]
-      for dcid in nearby_place_dcids
-      if not all_place_by_dcid[dcid].dissolved
-  ]
-  similar_places = [
-      all_place_by_dcid[dcid]
-      for dcid in similar_place_dcids
-      if not all_place_by_dcid[dcid].dissolved
-  ]
-  child_places = [
-      all_place_by_dcid[dcid]
-      for dcid in child_place_dcids
-      if not all_place_by_dcid[dcid].dissolved
-  ]
+  # Extracts the Place objects from the DCIDs.
+  nearby_places = extract_places_from_dcids(all_places_by_dcid,
+                                            nearby_place_dcids)
+  similar_places = extract_places_from_dcids(all_places_by_dcid,
+                                             similar_place_dcids)
+  child_places = extract_places_from_dcids(all_places_by_dcid,
+                                           child_place_dcids)
 
-  peers_within_parent = place_utils.fetch_peer_places_within(
-      place.dcid, place.types)
-
-  response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
-                                      childPlaces=child_places,
-                                      nearbyPlaces=nearby_places,
-                                      place=place,
-                                      similarPlaces=similar_places,
-                                      parentPlaces=parent_places,
-                                      peersWithinParent=peers_within_parent)
-  return jsonify(response)
+  return jsonify(
+      RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
+                               childPlaces=child_places,
+                               nearbyPlaces=nearby_places,
+                               place=place,
+                               similarPlaces=similar_places,
+                               parentPlaces=parent_places,
+                               peersWithinParent=peers_within_parent))
 
 
 @bp.route('/overview-table/<path:place_dcid>')
@@ -198,7 +218,6 @@ def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  data_rows = place_utils.fetch_overview_table_data(place_dcid, locale=g.locale)
+  data_rows = place_utils.fetch_overview_table_data(place_dcid)
 
-  response = PlaceOverviewTableApiResponse(data=data_rows)
-  return jsonify(response)
+  return jsonify(PlaceOverviewTableApiResponse(data=data_rows))

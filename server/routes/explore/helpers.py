@@ -61,7 +61,9 @@ _SANITY_TEST = 'sanity'
 # Get the default place to be used for fulfillment. If there is a place in the
 # request, use that. Otherwise, use pre-chosen places.
 def _get_default_place(request: Dict, is_special_dc: bool, debug_logs: Dict):
-  default_place_dcid = request.args.get('default_place', default='', type=str)
+  default_place_dcid = request.args.get(params.Params.DEFAULT_PLACE,
+                                        default='',
+                                        type=str)
   # If default place from request is earth, use the Earth place object
   if default_place_dcid == constants.EARTH.dcid:
     return constants.EARTH
@@ -255,6 +257,33 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
       return None, err_json
 
   return utterance, None
+
+
+def update_insight_ctx_for_chart_fulfill(request: Dict,
+                                         utterance: nl_utterance.Utterance,
+                                         dc_name: str):
+  """This updates the insight context part of the utterance with information
+    from the request that is specifically needed for generating the chart config
+    during fulfill.
+
+    Args:
+      request: the original api request
+      utterance: the utterance generated for the request
+      dc_name: the value to use for the parameter "dc"
+  """
+  utterance.insight_ctx[params.Params.DC.value] = dc_name
+  # iterate through numeric parameters and set in the insight context
+  for p in [
+      params.Params.MAX_TOPIC_SVS, params.Params.MAX_TOPICS,
+      params.Params.MAX_CHARTS
+  ]:
+    param_val = request.args.get(p, None)
+    if param_val != None:
+      if param_val.isnumeric():
+        param_val = int(param_val)
+      else:
+        param_val = None
+    utterance.insight_ctx[p] = param_val
 
 
 #

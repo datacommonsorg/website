@@ -41,6 +41,9 @@ website:
   evalTool:
     enabled: false
 
+  dataGemma:
+    enabled: false
+
 nameOverride: ""
 fullnameOverride: ""
 
