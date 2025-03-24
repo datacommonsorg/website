@@ -13,6 +13,78 @@
       "value": " के बारे में कोई डेटा नहीं है"
     }
   ],
+  "chart-title-with-per-capita-and-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (प्रति व्यक्ति के हिसाब से, "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": " में)"
+    }
+  ],
+  "chart-title-with-per-capita-no-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (प्रति व्यक्ति)"
+    }
+  ],
+  "chart-title-with-two-variables": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " बनाम "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
+  "chart-title-with-two-variables-and-location": [
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": " के "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " में "
+    },
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " बनाम "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
   "chart_clause-other_placeType": [
     {
       "type": 1,
@@ -92,11 +164,15 @@
     },
     {
       "type": 0,
-      "value": ": rankings in "
+      "value": ": "
     },
     {
       "type": 1,
       "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " में रैंकिंग"
     }
   ],
   "chart_clause-variable_in_place": [
@@ -122,7 +198,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": "ज़्यादा  एक्सप्लोर करें"
+      "value": "ज़्यादा एक्सप्लोर करें ›"
     }
   ],
   "chart_metadata-export": [
@@ -157,6 +233,30 @@
       "value": " में जगहें"
     }
   ],
+  "chooseVariable": [
+    {
+      "type": 0,
+      "value": "मेटाडेटा देखने के लिए कोई वैरिएबल चुनें"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "बंद करें"
+    }
+  ],
+  "disasterTool": [
+    {
+      "type": 0,
+      "value": "आपदा की जानकारी देने वाला टूल"
+    }
+  ],
+  "download": [
+    {
+      "type": 0,
+      "value": "डाउनलोड करें"
+    }
+  ],
   "embed_citation": [
     {
       "type": 0,
@@ -189,10 +289,32 @@
       "value": "यह चार्ट भेजें"
     }
   ],
+  "exploreLink": [
+    {
+      "type": 1,
+      "value": "toolName"
+    },
+    {
+      "type": 0,
+      "value": " में एक्सप्लोर करें"
+    }
+  ],
   "header-overview": [
     {
       "type": 0,
       "value": "खास जानकारी"
+    }
+  ],
+  "key_demographics": [
+    {
+      "type": 0,
+      "value": "अहम डेमोग्राफ़िक्स"
+    }
+  ],
+  "knowledge_graph": [
+    {
+      "type": 0,
+      "value": "नॉलेज ग्राफ़"
     }
   ],
   "link-return_to_overview": [
@@ -201,10 +323,28 @@
       "value": "खास जानकारी वाले पेज पर वापस जाएं"
     }
   ],
+  "loading": [
+    {
+      "type": 0,
+      "value": "लोड हो रहा है..."
+    }
+  ],
+  "mapTool": [
+    {
+      "type": 0,
+      "value": "मैप टूल"
+    }
+  ],
   "more_charts": [
     {
       "type": 0,
       "value": "और चार्ट देखें"
+    }
+  ],
+  "more_charts_link": [
+    {
+      "type": 0,
+      "value": "और चार्ट"
     }
   ],
   "place_breadcrumb": [
@@ -567,6 +707,18 @@
       "value": "pluralPlaceType"
     }
   ],
+  "ranking-tile-latest-data-available-footer": [
+    {
+      "type": 0,
+      "value": "सबसे नए डेटा के आधार पर रैंकिंग तय की गई है. उस साल की पूरी रिपोर्ट न होने की वजह से, शायद कुछ जगहों की जानकारी मौजूद न हो."
+    }
+  ],
+  "ranking-tile-latest-data-footer": [
+    {
+      "type": 0,
+      "value": "इस रैंकिंग में कई सालों का डेटा शामिल है, ताकि जगहों की पूरी जानकारी मिल सके."
+    }
+  ],
   "ranking_table-header_rank": [
     {
       "type": 0,
@@ -579,10 +731,34 @@
       "value": "मान"
     }
   ],
+  "relevant_topics": [
+    {
+      "type": 0,
+      "value": "काम के विषय"
+    }
+  ],
+  "scatterTool": [
+    {
+      "type": 0,
+      "value": "स्कैटर टूल"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "कोई दूसरी जगह खोजें"
+    }
+  ],
+  "selectVariable": [
+    {
+      "type": 0,
+      "value": "किसी वैरिएबल को सूची में से चुनकर, उससे जुड़ी जानकारी देखें. नीचे दिए गए लिंक की मदद से नए टैब में स्टैटिस्टिकल वैरिएबल एक्सप्लोरर खोले जा सकते हैं."
+    }
+  ],
+  "showMetadata": [
+    {
+      "type": 0,
+      "value": "मेटाडेटा दिखाएं"
     }
   ],
   "singular_administrative_area": [
@@ -679,10 +855,58 @@
       "value": "पिन कोड"
     }
   ],
+  "snap-to-latest-data-checkbox-label": [
+    {
+      "type": 0,
+      "value": "सबसे ज़्यादा कवरेज वाली तारीख दिखाएं"
+    }
+  ],
+  "snap-to-latest-data-help-tooltip": [
+    {
+      "type": 0,
+      "value": "'सबसे ज़्यादा कवरेज वाली तारीख दिखाएं' में, ज़्यादा से ज़्यादा कवरेज वाला नया डेटा दिखाया जाता है. उस साल की पूरी रिपोर्ट न होने की वजह से, शायद कुछ जगहों की जानकारी मौजूद न हो."
+    }
+  ],
+  "snap-to-latest-data-overlap-help-tooltip": [
+    {
+      "type": 0,
+      "value": "सबसे ज़्यादा कवरेज वाला डेटा, इस चार्ट के लिए सबसे नया डेटा भी होता है."
+    }
+  ],
+  "source": [
+    {
+      "type": 0,
+      "value": "सोर्स"
+    }
+  ],
+  "sources": [
+    {
+      "type": 0,
+      "value": "स्रोत"
+    }
+  ],
+  "summary_overview": [
+    {
+      "type": 0,
+      "value": "खास जानकारी"
+    }
+  ],
   "the_world": [
     {
       "type": 0,
       "value": "दुनिया में"
+    }
+  ],
+  "timelineTool": [
+    {
+      "type": 0,
+      "value": "टाइमलाइन टूल"
+    }
+  ],
+  "viaGoogle": [
+    {
+      "type": 0,
+      "value": "Google से"
     }
   ]
 }

@@ -12,36 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 '''Recognizes DC KG entities from a NL query.'''
-from google import genai
 
 import server.lib.fetch as fetch
 import server.routes.experiments.biomed_nl.utils as utils
 import server.services.datacommons as dc
 
 MIN_SAMPLES = 3
-
-
-def sanitize_query(query):
-  """Sanitizes a query string for better search results.
-
-  Removes question marks, replaces commas with spaces, and strips apostrophes
-  from possessive words.
-
-  Args:
-    query: The query string to sanitize.
-
-  Returns:
-    The sanitized query string.
-
-  TODO: Replace this with an LLM call that instead identifies entities in the
-        query and suggests alternative names
-  """
-  query = query.replace('?', '')
-  query = query.replace(', ', ' ')
-  for word in set(query.split(' ')):
-    if word.endswith("'s"):
-      query = query.replace(word, word[:-2])
-  return query
 
 
 def sample_dcids_by_type(dcids, min_sample_size):
@@ -117,7 +93,6 @@ def recognize_entities_from_query(query):
         (strings).
   """
   recognize_response = dc.recognize_entities(query)
-
   entities_to_dcids = {}
   entities_to_recognized_types = {}
   for item in recognize_response:
@@ -157,55 +132,3 @@ def annotate_query_with_types(query, entities_to_types):
     annotated_query = annotated_query.replace(
         entity.lower(), f"[{entity} (typeOf: {', '.join(sorted(types))})]")
   return annotated_query
-
-
-def get_traversal_start_entities(query, gemini_api_key):
-  """Determines which DC KG entities to begin a graph traversal to answer the given query.
-
-  This function takes a user query, finds matching DC KG entities, and uses
-  a language model to rank those entities based on their relevance to the
-  query. It then returns the mapping of entities to DCIDs, the selected
-  entities, and an annotated version of the query.
-
-  Args:
-    query: The user query string.
-
-  Returns:
-    A tuple containing the following:
-      - entities_to_dcids: A dictionary mapping recognized entity strings to 
-        lists of DCIDs.
-      - selected_entities: A list of entity strings that were selected as
-        most relevant to the query.
-      - annotated_query: The original query string annotated with entity
-        types.
-      - response_token_counts: Token counts associated with the language
-        model's response.
-
-    If the language model returns "NONE", the function returns:
-      - None, None, None, response_token_counts
-  """
-
-  query = sanitize_query(query)
-  entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
-      query)
-
-  client = genai.Client(
-      api_key=gemini_api_key,
-      http_options=genai.types.HttpOptions(api_version='v1alpha'))
-  prompt = utils.ENTITY_RANK_PROMPT.format(QUERY=query,
-                                           ENTS=entities_to_recognized_types)
-
-  response = client.models.generate_content(model='gemini-2.0-flash-001',
-                                            contents=prompt)
-  response_token_counts = utils.get_gemini_response_token_counts(response)
-  response_text = response.text
-
-  if response_text.startswith('NONE'):
-    return None, None, None, response_token_counts
-
-  selected_entities = response_text.strip('```\n').split('\n\n')[0].split('\n')
-  annotated_query = annotate_query_with_types(query,
-                                              entities_to_recognized_types)
-
-  return (entities_to_dcids, selected_entities, annotated_query,
-          response_token_counts)

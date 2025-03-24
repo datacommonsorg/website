@@ -17,6 +17,7 @@ import os
 import unittest
 from unittest import mock
 
+from server.services.datacommons import v2node
 from server.services.datacommons import v2node_paginated
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))

@@ -23,7 +23,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { messages } from "../../i18n/i18n_messages";
 import { StatVarSpec } from "../../shared/types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { apiRootToHostname } from "../../utils/url_utils";
@@ -107,7 +107,7 @@ export function TileMetadataModal(
           setModalOpen(true);
         }}
       >
-        {intl.formatMessage(tileMessages.showMetadata)}
+        {intl.formatMessage(messages.showMetadata)}
       </a>
       {modalOpen && (
         <Modal
@@ -118,10 +118,10 @@ export function TileMetadataModal(
           className="metadata-modal modal-dialog-centered modal-lg"
         >
           <ModalHeader toggle={toggleModal} close={<></>}>
-            {intl.formatMessage(tileMessages.chooseVariable)}
+            {intl.formatMessage(messages.chooseVariable)}
           </ModalHeader>
           <div className="modal-subtitle">
-            {intl.formatMessage(tileMessages.selectVariable)}
+            {intl.formatMessage(messages.selectVariable)}
           </div>
           <ModalBody>
             <div className="metadata-modal-links">
@@ -152,7 +152,7 @@ export function TileMetadataModal(
                 setModalOpen(false);
               }}
             >
-              {intl.formatMessage(tileMessages.close)}
+              {intl.formatMessage(messages.close)}
             </Button>
           </ModalFooter>
         </Modal>

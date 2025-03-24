@@ -438,6 +438,9 @@ def clear_fallback(state: PopulateState):
 
 
 def _get_max_num_charts(state: PopulateState) -> int:
+  # If there was a limit specified in the insight context, use that limit.
+  if state.uttr.insight_ctx.get(params.Params.MAX_CHARTS) != None:
+    return state.uttr.insight_ctx[params.Params.MAX_CHARTS]
   # For special DCs use a much higher limit of charts
   # shown. NOTE: This is a hack to allow mix of topics from
   # multiple sources.

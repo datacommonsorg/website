@@ -256,14 +256,17 @@ def v2node(nodes, prop):
       nodes: A list of node dcids.
       prop: The property to query for.
   """
-  url = get_service_url('/v2/node')
-  return post(url, {
+  return post(get_service_url('/v2/node'), {
       'nodes': sorted(nodes),
       'property': prop,
   })
 
 
 def _merge_v2node_response(result, paged_response):
+  if not result:
+    result.update(paged_response)
+    return
+
   for dcid in paged_response.get('data', {}):
     # Initialize dcid in data even when no arcs or properties are returned
     merged_result_for_dcid = result.setdefault('data', {}).setdefault(dcid, {})
@@ -272,7 +275,7 @@ def _merge_v2node_response(result, paged_response):
       merged_property_values_for_dcid = merged_result_for_dcid.setdefault(
           'arcs', {}).setdefault(prop, {}).setdefault('nodes', [])
       merged_property_values_for_dcid.extend(
-          paged_response['data'][dcid]['arcs'][prop]['nodes'])
+          paged_response['data'][dcid]['arcs'][prop].get('nodes', []))
 
     if 'properties' in paged_response['data'][dcid]:
       merged_properties_for_dcid = merged_result_for_dcid.setdefault(
@@ -297,8 +300,9 @@ def v2node_paginated(nodes, prop, max_pages=1):
   fetched_pages = 0
   result = {}
   next_token = ''
+  url = get_service_url('/v2/node')
   while True:
-    url = get_service_url('/v2/node')
+
     response = post(url, {
         'nodes': sorted(nodes),
         'property': prop,
@@ -475,7 +479,7 @@ def recognize_places(query):
 def recognize_entities(query):
   url = get_service_url('/v1/recognize/entities')
   resp = post(url, {'queries': [query]})
-  return resp.get('queryItems', {}).get(query, {}).get('items', [])
+  return resp.get('queryItems', {}).get(query.lower(), {}).get('items', [])
 
 
 def find_entities(places):

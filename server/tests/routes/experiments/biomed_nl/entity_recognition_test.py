@@ -20,25 +20,9 @@ from deepdiff import DeepDiff
 from server.routes.experiments.biomed_nl.entity_recognition import \
     annotate_query_with_types
 from server.routes.experiments.biomed_nl.entity_recognition import \
-    get_traversal_start_entities
-from server.routes.experiments.biomed_nl.entity_recognition import \
     recognize_entities_from_query
 from server.routes.experiments.biomed_nl.entity_recognition import \
     sample_dcids_by_type
-from server.routes.experiments.biomed_nl.entity_recognition import \
-    sanitize_query
-
-
-class TestQuerySanitization(unittest.TestCase):
-
-  def test_sanitize_query(self):
-    assert sanitize_query(
-        'query ends in question mark?') == 'query ends in question mark'
-    assert sanitize_query(
-        'query about entity1, entity2, and entity removes commas'
-    ) == 'query about entity1 entity2 and entity removes commas'
-    assert sanitize_query("entity's query with apostrophe is removed"
-                         ) == 'entity query with apostrophe is removed'
 
 
 class TestRecognizeEntities(unittest.TestCase):
@@ -156,60 +140,3 @@ class TestRecognizeEntities(unittest.TestCase):
     assert annotate_query_with_types(
         query, entities_to_types
     ) == "query containing [entity1 (typeOf: TypeA, TypeB)] and [second entity (typeOf: TypeB, TypeC)]"
-
-  @mock.patch('server.lib.fetch.raw_property_values')
-  @mock.patch('server.services.datacommons.recognize_entities')
-  @mock.patch('google.genai.Client')
-  def test_gemini_fails_to_find_start(self, MockClient, mock_recognize,
-                                      mock_fetch_types):
-    mock_recognize.side_effect = [self.v1_recognize_entities_response]
-    mock_fetch_types.side_effect = self.fetch_types_side_effect
-
-    mocked_response_text = "NONE"
-    mock_gemini_response = mock.MagicMock(text=mocked_response_text,
-                                          usage_metadata=mock.MagicMock(
-                                              prompt_token_count=10,
-                                              candidates_token_count=100))
-    mock_client_instance = mock.MagicMock()
-    mock_client_instance.models.generate_content.return_value = mock_gemini_response
-    MockClient.return_value = mock_client_instance
-
-    query = "query containing entity1 and second entity"
-    (entities_to_dcids, selected_entities, annotated_query,
-     response_token_counts) = get_traversal_start_entities(
-         query, 'test_api_key')
-
-    assert MockClient.call_args[1]['api_key'] == 'test_api_key'
-    assert (entities_to_dcids, selected_entities, annotated_query,
-            response_token_counts) == (None, None, None, (10, 100))
-
-  @mock.patch('server.lib.fetch.raw_property_values')
-  @mock.patch('server.services.datacommons.recognize_entities')
-  @mock.patch('google.genai.Client')
-  def test_get_traversal_start_entities(self, MockClient, mock_recognize,
-                                        mock_fetch_types):
-    mock_recognize.side_effect = [self.v1_recognize_entities_response]
-    mock_fetch_types.side_effect = self.fetch_types_side_effect
-    mocked_response_text = "second entity\nentity1"
-    mock_gemini_response = mock.MagicMock(text=mocked_response_text,
-                                          usage_metadata=mock.MagicMock(
-                                              prompt_token_count=10,
-                                              candidates_token_count=100))
-    mock_client_instance = mock.MagicMock()
-    mock_client_instance.models.generate_content.return_value = mock_gemini_response
-    MockClient.return_value = mock_client_instance
-
-    query = "query containing entity1 and second entity"
-    (entities_to_dcids, selected_entities, annotated_query,
-     response_token_counts) = get_traversal_start_entities(
-         query, 'test_api_key')
-
-    assert MockClient.call_args[1]['api_key'] == 'test_api_key'
-    assert DeepDiff(entities_to_dcids, {
-        'entity1': ['dc/1'],
-        'second entity': ['dc/2', 'dc/3']
-    },
-                    ignore_order=True) == {}
-    assert selected_entities == ['second entity', 'entity1']
-    assert annotated_query == 'query containing [entity1 (typeOf: TypeA, TypeB)] and [second entity (typeOf: TypeB, TypeC)]'
-    assert response_token_counts == (10, 100)

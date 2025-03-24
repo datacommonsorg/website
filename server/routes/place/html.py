@@ -403,7 +403,7 @@ def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
 @bp.route('/<path:place_dcid>')
 @cache.cached(query_string=True)
 def place(place_dcid=None):
-  if is_dev_place_ga_enabled(
+  if place_dcid is not None and is_dev_place_ga_enabled(
       flask.request.args) or is_dev_place_experiment_enabled(
           place_dcid, g.locale, flask.request.args):
     return dev_place(place_dcid=place_dcid)

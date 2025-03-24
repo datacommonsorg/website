@@ -379,7 +379,6 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                   value='query-search-input').get_attribute('value'),
         'United States Of America')
 
-  # TODO(gmechali): Re-enable when static theme issue is fixed.
   @pytest.mark.skip(reason="Fix theme compile error before re-enabling")
   def test_dev_place_ai_spark_icon_hover(self):
     self.driver.get(self.url_ + '/place/geoId/04?force_dev_places=true')

@@ -98,6 +98,19 @@ export const GA_EVENT_TOOL_CHART_OPTION_CLICK = "tool_chart_option_click";
 export const GA_EVENT_NL_SEARCH = "explore_search_q";
 
 /**
+ * Triggered when the NL Search bar is rendered.
+ * Parameters:
+ *   "dynamic_placeholders_enabled": Dynamic placeholder enablement.
+ */
+export const GA_EVENT_RENDER_NL_SEARCH_BAR = "nl_search_bar_render";
+
+/**
+ * Triggered when the NL Search bar is rendered with dynamic placeholders enabled.
+ */
+export const GA_EVENT_RENDER_NL_SEARCH_BAR_WITH_PLACEHOLDERS =
+  "nl_search_bar_render_with_placeholders";
+
+/**
  * Triggered when detection results are returned in NL search.
  * Parameters:
  *   "query": search query

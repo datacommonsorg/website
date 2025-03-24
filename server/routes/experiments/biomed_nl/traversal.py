@@ -13,19 +13,27 @@
 # limitations under the License.
 '''Traverses DC KG to find node paths that answer a NL query.'''
 
+import enum
+import json
 import math
 import re
 
-from google import genai
-from sentence_transformers import SentenceTransformer
-from sentence_transformers import util
+from markupsafe import escape
+from pydantic import BaseModel
 
 import server.lib.fetch as fetch
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    annotate_query_with_types
+from server.routes.experiments.biomed_nl.entity_recognition import \
+    recognize_entities_from_query
 import server.routes.experiments.biomed_nl.utils as utils
+import server.services.datacommons as dc
 
 MIN_SAMPLE_SIZE = 3
 TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
+EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
+MAX_HOPS_TO_FETCH_ALL_TRIPLES = 3
 
 DESCRIPTION_OF_DESCRIPTION_PROPERTY = (
     'The description describes the entity by its characteristics or '
@@ -85,7 +93,10 @@ def get_next_hop_triples(dcids, out=True):
       }
     }
   '''
-  triples = fetch.triples(dcids, out, max_pages=PATH_FINDING_MAX_V2NODE_PAGES)
+  triples = {}
+  for dcid_batch in utils.batch_requested_nodes(dcids):
+    triples.update(
+        fetch.triples(dcid_batch, out, max_pages=PATH_FINDING_MAX_V2NODE_PAGES))
 
   result = {}
   for subject_dcid, properties in triples.items():
@@ -107,6 +118,21 @@ def get_next_hop_triples(dcids, out=True):
                 set()).add(value_object['dcid'])
 
   return result
+
+
+def get_all_triples(dcids):
+  out_triples = {}
+  in_triples = {}
+  for dcid_batch in utils.batch_requested_nodes(dcids):
+    out_triples.update(fetch.triples(dcid_batch, out=True, max_pages=None))
+    in_triples.update(fetch.triples(dcid_batch, out=False, max_pages=None))
+
+  return {
+      dcid: {
+          'outgoing': out_triples.get(dcid, {}),
+          'incoming': in_triples.get(dcid, {})
+      } for dcid in dcids
+  }
 
 
 class Property:
@@ -320,7 +346,7 @@ class PathStore:
 
     selected_path_store = {}
     for path_str in selected_path_strs:
-      start_dcid = re.findall('path\d+: (.*?) \(', path_str)[0]
+      start_dcid = re.findall(r'path\d+: (.*?) \(', path_str)[0]
       property_path = path_str.split(start_dcid)[1].strip()
       next_dcids = self.current_paths.get(start_dcid,
                                           {}).get(property_path, set())
@@ -342,12 +368,15 @@ class PathStore:
         next_dcids.update(dcids)
     return list(next_dcids)
 
-  def get_paths_from_start(self):
+  def get_paths_from_start(self, only_selected_paths=False):
     '''Returns a dictionary mapping start DCIDs to lists of the paths
     originating from them.'''
-    return {
-        dcid: list(props.keys()) for dcid, props in self.current_paths.items()
-    }
+
+    paths = self.current_paths
+    if only_selected_paths:
+      paths = self.selected_paths
+
+    return {dcid: list(props.keys()) for dcid, props in paths.items()}
 
   def merge_triples_into_path_store(self, triples):
     '''Merges new triples into the existing path store by extending the paths.
@@ -432,8 +461,13 @@ class PathStore:
     """
 
     next_dcids = self.get_next_dcids()
-    outgoing_props = fetch.properties(next_dcids, out=True)
-    incoming_props = fetch.properties(next_dcids, out=False)
+
+    outgoing_props = {}
+    incoming_props = {}
+    for dcid_batch in utils.batch_requested_nodes(next_dcids):
+      outgoing_props.update(fetch.properties(dcid_batch, out=True))
+      incoming_props.update(fetch.properties(dcid_batch, out=False))
+
     dcid_to_all_props = {}
     for dcid in set(outgoing_props.keys()) | set(incoming_props.keys()):
       props = set()
@@ -495,8 +529,10 @@ class PathStore:
     if not property_dcids_to_fetch:
       return self.property_descriptions
 
-    descriptions = fetch.property_values(list(property_dcids_to_fetch),
-                                         'description')
+    descriptions = {}
+    for dcid_batch in utils.batch_requested_nodes(
+        list(property_dcids_to_fetch)):
+      descriptions.update(fetch.property_values(dcid_batch, 'description'))
 
     for prop in property_dcids_to_fetch:
       if not descriptions.get(prop, []):
@@ -537,7 +573,9 @@ class PathFinder:
     related to a user's query.  It leverages both graph traversal techniques
     and large language models (LLMs) for path selection and termination.
 
-    Path finding can be broken down into the following steps given a start dcid(s):
+    Path finding can be broken down into the following steps 
+    0. Determine whether the query is asking for an overview or traversal and
+       extract the starting entity + dcids.
     1. Explore the knowledge graph outwards from the
        starting entity's DCIDs for a specified number of hops, using the
        `traverse_n_hops` method.  This populates the `PathStore` with
@@ -568,32 +606,100 @@ class PathFinder:
         output_tokens (int): Tracks the cumulative number of output tokens used
             in Gemini API calls.
         gemini: A Gemini client object.
-        embeddings_model (SentenceTransformer, optional):  A SentenceTransformer
-            model for generating embeddings.
         gemini_model_str (str, optional): Name of the Gemini model to use.
     '''
 
-  def __init__(self, query, start_entity_name, start_entity_dcids):
+  class TraversalTypes(enum.Enum):
+    OVERVIEW = "Overview"
+    TRAVERSAL = "Traversal"
+
+  class DetectedEntities(BaseModel):
+    raw_str: str
+    sanitized_str: str
+    synonyms: list[str]
+
+  class StartInfo(BaseModel):
+    traversal_type: "PathFinder.TraversalTypes"
+    entities: "list[PathFinder.DetectedEntities]"
+
+  def __init__(self,
+               query,
+               gemini_client=None,
+               gemini_model_str='gemini-2.0-flash-001'):
     # Set params
+    self.raw_query = query
     self.query = query
-    self.start_entity_name = start_entity_name
-    self.start_dcids = start_entity_dcids
+    self.start_entity_name = ''
+    self.start_dcids = []
     self.path_store = PathStore()
     self.input_tokens = 0
     self.output_tokens = 0
-    self.gemini = None
-    self.embeddings_model = None
-    self.gemini_model_str = ''
-
-  def initialize_models(self,
-                        gemini_api_key,
-                        gemini_model_str='gemini-2.0-flash-001'):
-    self.embeddings_model = SentenceTransformer(
-        'all-MiniLM-L6-v2')  # Or another lightweight model
-    self.gemini = genai.Client(
-        api_key=gemini_api_key,
-        http_options=genai.types.HttpOptions(api_version='v1alpha'))
+    self.gemini = gemini_client
     self.gemini_model_str = gemini_model_str
+    self.traversal_type = None
+
+  def find_start_and_traversal_type(self):
+    '''Parses the raw query using a Gemini model to identify the query type,
+    entities, and their types.
+
+    This method performs the following steps:
+    1. Formats a prompt for the Gemini model using the raw query.
+    2. Calls the Gemini model to generate a structured JSON response containing
+       parsed information about the query.
+    3. Extracts the query type from the Gemini response and sets the
+       `self.query_type` attribute.
+    4. Identifies the primary starting entity from the parsed entities and
+       sets `self.start_entity_name` and creates a list of potential
+       starting strings (including synonyms).
+    5. Creates a mapping between sanitized entity strings and their original
+       raw strings, including synonyms.
+    6. Uses an external function `recognize_entities_from_query` to identify
+       entities and their associated Data Commons IDs (DCIDs) and recognized
+       types within the query.
+    7. Populates the `self.start_dcids` list with the DCIDs of the starting
+       entity.
+    8. Creates a mapping between the raw entity strings and their recognized
+       types.
+    9. Uses an external function `annotate_query_with_types` to add type
+       information to the original raw query, storing the result in
+       `self.query`.
+    '''
+    prompt = utils.PARSE_QUERY_PROMPT.format(QUERY=self.raw_query)
+
+    gemini_response = self.gemini.models.generate_content(
+        model=self.gemini_model_str,
+        contents=prompt,
+        config={
+            'response_mime_type': 'application/json',
+            'response_schema': PathFinder.StartInfo,
+        })
+    parsed_response = PathFinder.StartInfo(**json.loads(gemini_response.text))
+    self.traversal_type = parsed_response.traversal_type
+
+    # Take the first entity because we only want to traverse from one starting point
+    start_entity = parsed_response.entities[0]
+    self.start_entity_name = start_entity.sanitized_str
+    start_strs = [start_entity.sanitized_str] + start_entity.synonyms
+
+    str_to_raw = {}
+    for entity in parsed_response.entities:
+      str_to_raw[entity.sanitized_str] = entity.raw_str
+      for synonym in entity.synonyms:
+        str_to_raw[synonym] = entity.raw_str
+    entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
+        ' '.join((str_to_raw.keys())))
+
+    start_dcids = set()
+    # Add dcids of only the start entity to start_dcids.
+    for entity, dcids in entities_to_dcids.items():
+      if entity in start_strs:
+        start_dcids.update(dcids)
+    raw_to_types = {}
+    for entity, types in entities_to_recognized_types.items():
+      raw_to_types.setdefault(str_to_raw[entity], []).extend(types)
+
+    self.start_dcids = list(start_dcids)
+    self.query = annotate_query_with_types(self.raw_query, raw_to_types)
 
   def traverse_n_hops(self, start_dcids, n):
     '''Traverses the graph for a specified number of hops, updating the path store.
@@ -619,7 +725,7 @@ class PathFinder:
       self.path_store.merge_triples_into_path_store(triples)
       dcids = self.path_store.get_next_dcids()
 
-  def filter_paths_with_embeddings_model(self, pct=0.1):
+  def filter_paths_with_embeddings(self, pct=0.1):
     '''Filters paths based on cosine similarity between property descriptions 
     and the query.
 
@@ -635,25 +741,26 @@ class PathFinder:
     # TODO: add a description to description in DC KG.
     property_descriptions['description'] = DESCRIPTION_OF_DESCRIPTION_PROPERTY
 
-    prop_embeds = {
-        prop:
-            self.embeddings_model.encode(property_descriptions[prop],
-                                         convert_to_tensor=True)
-        for prop in property_descriptions
-    }
-    query_embed = self.embeddings_model.encode(self.query,
-                                               convert_to_tensor=True)
+    # note: the keys of the nl_encode output are santized copies of the inputs
+    embeddings = dc.nl_encode(
+        EMBEDDINGS_MODEL,
+        list(property_descriptions.values()) + [self.query.lower()])
+    sanitized_query = str(escape(self.query.lower()))
+    query_embed = embeddings[sanitized_query]
 
-    properties_to_similarity_score = {
-        prop: util.cos_sim(query_embed, prop_embed).item()
-        for prop, prop_embed in prop_embeds.items()
-    }
-    num_top_properties = math.ceil(len(properties_to_similarity_score) * pct)
+    property_similarity_scores = {}
+    for prop, description in property_descriptions.items():
+      # sanitize the description to match sanitized output of nl_encode
+      sanitized_description = str(escape(description))
+      cosine_similarity = utils.cos_sim(
+          query_embed, embeddings[sanitized_description]).item()
+      property_similarity_scores[prop] = cosine_similarity
+
+    num_top_properties = math.ceil(len(property_similarity_scores) * pct)
     top_props = [
-        property[0]
-        for property in sorted(properties_to_similarity_score.items(),
-                               key=lambda item: item[1],
-                               reverse=True)[:num_top_properties]
+        property[0] for property in sorted(property_similarity_scores.items(),
+                                           key=lambda item: item[1],
+                                           reverse=True)[:num_top_properties]
     ]
 
     self.path_store.filter_by_properties(top_props)
@@ -713,7 +820,7 @@ class PathFinder:
     '''
 
     self.traverse_n_hops(self.start_dcids, 3)
-    top_props = self.filter_paths_with_embeddings_model()
+    top_props = self.filter_paths_with_embeddings()
     should_terminate = self.is_traversal_complete()
 
     if should_terminate:
@@ -721,7 +828,7 @@ class PathFinder:
     self.path_store.current_paths = self.path_store.selected_paths
 
     self.traverse_n_hops(self.path_store.get_next_dcids(), 3)
-    top_props = top_props.extend(self.filter_paths_with_embeddings_model())
+    top_props = top_props.extend(self.filter_paths_with_embeddings())
     should_terminate = self.is_traversal_complete()
 
     if not should_terminate:
@@ -729,3 +836,93 @@ class PathFinder:
       # choices.
       pass
     return top_props
+
+  def get_traversed_entity_info(self):
+    '''Retrieves information about entities traversed along specified paths.
+
+    This method iterates through the selected paths defined in `self.path_store`. 
+    It traverses these paths, starting at the keys which are dcids and paths are
+    properties that should be fetched for each subsequent node. At each hop, all
+    triples are fetched for each node.
+
+    Returns:
+        dict: A dictionary containing all triples of the traversed entities where
+          - Keys are DCIDs
+          - Values are dictionaries containing 'incoming' and
+        'outgoing' properties, each of which is a list of triples.
+          The dictionary *also* contains a key "property_descriptions" which is
+        a description of the properties, taken from the path_store
+
+        The structure of the returned dictionary is approximately:
+
+        ```
+        {
+            "dcid1": {
+                "incoming": {
+                    "property1": [
+                        {"dcid": "dcid2", "types": ["Type1"]},
+                        {"dcid": "dcid3", "types": ["Type2"]}
+                    ],
+                    "property2": [...]
+                },
+                "outgoing": {
+                    "property3": [
+                        {"dcid": "dcid4", "types": ["Type3"]}
+                    ],
+                    ...
+                }
+            },
+            "dcid2": { ... },
+            ...
+            "property_descriptions": {
+                "property1": 'description of Property1',
+                "property2": 'description of Property2',
+            }
+        }
+        ```
+    '''
+    entity_info = {}
+
+    paths_from_start = self.path_store.get_paths_from_start(
+        only_selected_paths=True)
+    entity_info.update(get_all_triples(list(paths_from_start.keys())))
+    for start_dcid in paths_from_start:
+      for path in paths_from_start[start_dcid]:
+
+        dcids = [start_dcid]
+        properties_in_path = Path.parse_property_and_type(path)
+        for index, (prop, incoming_node_type) in enumerate(properties_in_path):
+
+          next_dcids = set()
+          for dcid in dcids:
+
+            if incoming_node_type:
+              incoming_dcids = [
+                  node['dcid']
+                  for node in entity_info[dcid]['incoming'].get(prop, [])
+                  if not is_terminal(node) and
+                  incoming_node_type in node['types']
+              ]
+              next_dcids.update(incoming_dcids)
+            else:
+              outgoing_dcids = [
+                  node['dcid']
+                  for node in entity_info[dcid]['outgoing'].get(prop, [])
+                  if not is_terminal(node)
+              ]
+              next_dcids.update(outgoing_dcids)
+
+          # Only fetch triples for a given dcid one time.
+          fetch_dcids = [dcid for dcid in next_dcids if dcid not in entity_info]
+          is_not_last_hop = index < (len(properties_in_path) - 1)
+          should_fetch_hop = is_not_last_hop or len(
+              properties_in_path) < MAX_HOPS_TO_FETCH_ALL_TRIPLES
+          if fetch_dcids and should_fetch_hop:
+            entity_info.update(get_all_triples(fetch_dcids))
+          dcids = list(next_dcids)
+
+    # TODO: fetch *all* property descriptions, instead of the just path store's
+    entity_info[
+        'property_descriptions'] = self.path_store.get_property_descriptions()
+
+    return entity_info

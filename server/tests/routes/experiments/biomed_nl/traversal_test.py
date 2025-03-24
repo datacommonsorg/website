@@ -18,6 +18,8 @@ from unittest.mock import patch
 
 from deepdiff import DeepDiff
 
+from server.routes.experiments.biomed_nl.traversal import \
+    DESCRIPTION_OF_DESCRIPTION_PROPERTY
 from server.routes.experiments.biomed_nl.traversal import get_next_hop_triples
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 from server.routes.experiments.biomed_nl.traversal import PathStore
@@ -213,7 +215,8 @@ class TestTraversal(unittest.TestCase):
     def null_sample():
       return
 
-    path_finder = PathFinder('', '', ['gene1', 'disease1'])
+    path_finder = PathFinder('')
+    path_finder.start_dcids = ['gene1', 'disease1']
     path_finder.path_store.sample_next_hops = null_sample
     path_finder.traverse_n_hops(['gene1', 'disease1'], 2)
 
@@ -311,7 +314,8 @@ class TestTraversal(unittest.TestCase):
                     ignore_order=True) == {}
 
   @patch('server.lib.fetch.property_values')
-  def test_filter_paths(self, mock_description_values):
+  @patch('server.services.datacommons.nl_encode')
+  def test_filter_paths(self, mock_embeddings, mock_description_values):
 
     def description_values_response(nodes, prop, out=True, constraints=''):
       assert prop == 'description'
@@ -328,7 +332,7 @@ class TestTraversal(unittest.TestCase):
 
     mock_description_values.side_effect = description_values_response
 
-    path_finder = PathFinder('query', '', [])
+    path_finder = PathFinder('query')
     path_finder.path_store.current_paths = {
         'start1': {
             '(propA) (propB)': {'dcid1', 'dcid2', 'dcid3'},
@@ -342,8 +346,8 @@ class TestTraversal(unittest.TestCase):
         }
     }
 
-    def encode_response(text, convert_to_tensor):
-      assert convert_to_tensor == True
+    def encode_response(model, queries):
+      assert model != ''
       embeddings_ordered_by_query_similarity = [
           [0.2, 0.8, 0.1, 0.5],
           [0.1, 0.1, 0.1, 0.9],
@@ -363,10 +367,11 @@ class TestTraversal(unittest.TestCase):
           'propE':
               embeddings_ordered_by_query_similarity[1],
           'query': [0.15, 0.45, 0.1, 0.7],
+          DESCRIPTION_OF_DESCRIPTION_PROPERTY: [0.0] * 4
       }
-      if 'The description describes' in text:
-        return [0.0] * 4
-      return embeddings[text]
+      assert all(query in embeddings for query in queries)
+
+      return embeddings
 
     descriptions = {
         'propA':
@@ -385,11 +390,9 @@ class TestTraversal(unittest.TestCase):
             'and distinguish it.')
     }
 
-    embeddings_mock = MagicMock()
-    embeddings_mock.encode.side_effect = encode_response
-    path_finder.embeddings_model = embeddings_mock
+    mock_embeddings.side_effect = encode_response
 
-    props = path_finder.filter_paths_with_embeddings_model(
+    props = path_finder.filter_paths_with_embeddings(
         pct=0.3)  # Rounds up to top 2 props
 
     assert set(props) == {'propB', 'propE'}
@@ -419,7 +422,7 @@ class TestTraversal(unittest.TestCase):
     mock_client_instance = MagicMock(models=MagicMock(
         generate_content=MagicMock(return_value=mock_gemini_response)))
 
-    path_finder = PathFinder('', '', [])
+    path_finder = PathFinder('')
     path_finder.gemini = mock_client_instance
     path_finder.path_store.current_paths = {
         'start1': {
@@ -470,7 +473,7 @@ class TestTraversal(unittest.TestCase):
     mock_client_instance = MagicMock(models=MagicMock(
         generate_content=MagicMock(return_value=mock_gemini_response)))
 
-    path_finder = PathFinder('', '', [])
+    path_finder = PathFinder('')
     path_finder.gemini = mock_client_instance
     path_finder.path_store.current_paths = {
         'start1': {
@@ -528,7 +531,7 @@ class TestTraversal(unittest.TestCase):
     mock_client_instance = MagicMock(models=MagicMock(
         generate_content=MagicMock(return_value=mock_gemini_response)))
 
-    path_finder = PathFinder('', '', [])
+    path_finder = PathFinder('')
     path_finder.gemini = mock_client_instance
     path_finder.path_store.current_paths = {
         'start1': {
@@ -571,3 +574,283 @@ class TestTraversal(unittest.TestCase):
     }
     assert path_finder.input_tokens == 10
     assert path_finder.output_tokens == 100
+
+  @patch('server.lib.fetch.triples')
+  def test_get_traversed_entity_info(self, mock_triples):
+
+    def triples_response(dcids, out, max_pages):
+      assert max_pages == None
+      triples = {
+          'start1': {
+              True: {
+                  # Redo path propA -> dcid0 -> propB -> dcid1, dcid2
+                  'propA': [
+                      {
+                          'dcid': 'dcid0',
+                          'types': ['ExploreType']
+                      },
+                      {
+                          'dcid': 'do_not_explore1',
+                          'types': ['NonExploreTypeEnum']
+                      },
+                      {
+                          'value': 'do_not_explore2',
+                      },
+                  ],
+                  'propB': [{
+                      'dcid': 'do_not_explore2',
+                      'types': ['ExploreType']
+                  },],
+              },
+              False: {
+                  'propE': [{
+                      'dcid': 'do_not_explore3',
+                      'types': ['ExploreType']
+                  },]
+              },
+          },
+          'start2': {
+              True: {
+                  'propA': [{
+                      'dcid': 'dcid4',
+                      'types': ['ExploreType']
+                  },]
+              },
+          },
+          'dcid0': {
+              True: {
+                  'propB': [
+                      {
+                          'dcid': 'dcid1',
+                          'types': ['ExploreType']
+                      },
+                      {
+                          'dcid': 'dcid2',
+                          'types': ['ExploreType']
+                      },
+                  ]
+              },
+          },
+          'dcid4': {
+              False: {
+                  'propD': [{
+                      'dcid': 'dcid3',
+                      'types': ['Type']
+                  },]
+              },
+          },
+          'dcid2': {
+              True: {
+                  'name': [{
+                      'value': 'dcid_2',
+                  },]
+              },
+          },
+          'dcid1': {
+              True: {
+                  'name': [{
+                      'value': 'dcid_1',
+                  },]
+              },
+          },
+          'dcid3': {
+              True: {
+                  'name': [{
+                      'value': 'dcid_3',
+                  },]
+              },
+          },
+      }
+      return {dcid: triples.get(dcid, {}).get(out, {}) for dcid in dcids}
+
+    mock_triples.side_effect = triples_response
+    path_finder = PathFinder('')
+    path_finder.path_store.selected_paths = {
+        'start1': {
+            '(propA) (propB)': {'dcid1', 'dcid2'},
+        },
+        'start2': {
+            '(propA) (Types linked by propD)': {'dcid3'},
+        }
+    }
+
+    entity_info = path_finder.get_traversed_entity_info()
+    # start1 -propA-> dcid0 -propB-> dcid1, dcid2
+    #        -propB-> x
+    # start2 -propA-> dcid4 <-propD (Types)- dcid3
+    expected_entity_info = {
+        'start1': {
+            'outgoing': {
+                'propA': [
+                    {
+                        'dcid': 'dcid0',
+                        'types': ['ExploreType']
+                    },
+                    {
+                        'dcid': 'do_not_explore1',
+                        'types': ['NonExploreTypeEnum']
+                    },
+                    {
+                        'value': 'do_not_explore2',
+                    },
+                ],
+                'propB': [{
+                    'dcid': 'do_not_explore2',
+                    'types': ['ExploreType']
+                },],
+            },
+            'incoming': {
+                'propE': [{
+                    'dcid': 'do_not_explore3',
+                    'types': ['ExploreType']
+                },]
+            },
+        },
+        'start2': {
+            'outgoing': {
+                'propA': [{
+                    'dcid': 'dcid4',
+                    'types': ['ExploreType']
+                },]
+            },
+            'incoming': {}
+        },
+        'dcid0': {
+            'outgoing': {
+                'propB': [
+                    {
+                        'dcid': 'dcid1',
+                        'types': ['ExploreType']
+                    },
+                    {
+                        'dcid': 'dcid2',
+                        'types': ['ExploreType']
+                    },
+                ]
+            },
+            'incoming': {}
+        },
+        'dcid4': {
+            'outgoing': {},
+            'incoming': {
+                'propD': [{
+                    'dcid': 'dcid3',
+                    'types': ['Type']
+                },]
+            },
+        },
+        'dcid2': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_2',
+                },]
+            },
+            'incoming': {}
+        },
+        'dcid1': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_1',
+                },]
+            },
+            'incoming': {}
+        },
+        'dcid3': {
+            'outgoing': {
+                'name': [{
+                    'value': 'dcid_3',
+                },]
+            },
+            'incoming': {}
+        },
+        'property_descriptions': {}
+    }
+    assert DeepDiff(entity_info, expected_entity_info, ignore_order=True) == {}
+
+  @patch('server.services.datacommons.recognize_entities')
+  @patch('server.lib.fetch.raw_property_values')
+  def test_find_start_and_traversal_type(self, mock_fetch_types,
+                                         mock_recognize_entities):
+    mock_recognize_entities.return_value = [{
+        "span": "atorvastatin",
+        "entities": [{
+            "dcid": "dc/1"
+        }]
+    }, {
+        "span": "lipitor",
+        "entities": [{
+            "dcid": "dc/1"
+        }, {
+            "dcid": "dc/2"
+        }]
+    }, {
+        "span": "kif6",
+        "entities": [{
+            "dcid": "dc/3"
+        }, {
+            "dcid": "dc/4"
+        }]
+    }]
+    mock_fetch_types.return_value = {
+        'dc/1': [
+            {
+                'dcid': 'dc/typeA',
+                'name': 'TypeA',
+                'types': ['Class'],
+            },
+            {
+                'dcid': 'dc/typeB',
+                'name': 'TypeB',
+                'types': ['Class'],
+            },
+        ],
+        'dc/2': [{
+            'dcid': 'dc/typeB',
+            'name': 'TypeB',
+            'types': ['Class'],
+        },],
+        'dc/3': [
+            {
+                'dcid': 'dc/typeB',
+                'name': 'TypeB',
+                'types': ['Class'],
+            },
+            {
+                'dcid': 'dc/typeC',
+                'name': 'TypeC',
+                'types': ['Class'],
+            },
+        ],
+        'dc/4': [{
+            'dcid': 'dc/typeB',
+            'name': 'TypeB',
+            'types': ['Class'],
+        },],
+    }
+    mock_gemini_response = MagicMock(text='''{
+    "traversal_type": "Traversal",
+    "entities": [
+        {
+        "raw_str": "atorvastatin",
+        "sanitized_str": "atorvastatin",
+        "synonyms": [
+            "lipitor"
+        ]
+        },
+        {
+        "raw_str": "KIF6",
+        "sanitized_str": "kif6",
+        "synonyms": []
+        }
+    ]
+    }''')
+    mock_gemini_client = MagicMock(models=MagicMock(generate_content=MagicMock(
+        return_value=mock_gemini_response)))
+    path_finder = PathFinder(
+        'what genetic variants are associated with atorvastatin and have the gene symbol KIF6',
+        gemini_client=mock_gemini_client)
+    path_finder.find_start_and_traversal_type()
+    expected_start_dcids = ['dc/1', 'dc/2']
+    self.assertCountEqual(path_finder.start_dcids, expected_start_dcids)
+    assert set(path_finder.start_dcids) == set(expected_start_dcids)
+    assert path_finder.start_entity_name == 'atorvastatin'
