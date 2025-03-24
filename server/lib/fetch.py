@@ -432,7 +432,7 @@ def multiple_property_values(nodes: List[str],
   result: Dict[str, Dict[str, List[str]]] = {}
   resp_data = resp.get('data', {})
   for node in nodes:
-    resp_node_arcs = resp_data.get(node).get('arcs', {})
+    resp_node_arcs = resp_data.get(node, {}).get('arcs', {})
     result[node] = {}
     for prop in props:
       prop_nodes = resp_node_arcs.get(prop, {}).get('nodes', [])
@@ -465,8 +465,15 @@ def raw_property_values(nodes, prop, out=True, constraints=''):
   return result
 
 
-def triples(nodes, out=True):
+def triples(nodes, out=True, max_pages=1):
   """Fetch triples for given nodes.
+        
+        
+  Args:
+    - nodes: The dcids of nodes to find the triples of.
+    - out: Whether outgoing or incoming arcs should be fetched.
+    - max_pages: The maximum number of pages to fetch. If None, v2node is
+        queried until nextToken is not in the response.
 
   The response is the following format:
   {
@@ -484,7 +491,7 @@ def triples(nodes, out=True):
   }
 
   """
-  resp = dc.v2node(nodes, '->*' if out else '<-*')
+  resp = dc.v2node_paginated(nodes, '->*' if out else '<-*', max_pages)
   result = {}
   for node, arcs in resp.get('data', {}).items():
     result[node] = {}

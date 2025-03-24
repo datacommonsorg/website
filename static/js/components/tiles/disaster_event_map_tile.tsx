@@ -35,11 +35,13 @@ import {
   GeoJsonFeature,
   GeoJsonFeatureProperties,
 } from "../../chart/types";
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventPoint,
@@ -197,7 +199,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
       exploreLink={
         props.showExploreMore
           ? {
-              displayText: "Disaster Tool",
+              displayText: intl.formatMessage(messages.disasterTool),
               url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
             }
           : null

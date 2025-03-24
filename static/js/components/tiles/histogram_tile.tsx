@@ -24,6 +24,8 @@ import React, { memo, useCallback, useRef } from "react";
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw_histogram";
 import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import { NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
@@ -282,7 +284,7 @@ export const HistogramTile = memo(function HistogramTile(
       exploreLink={
         props.showExploreMore
           ? {
-              displayText: "Disaster Tool",
+              displayText: intl.formatMessage(messages.disasterTool),
               url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
             }
           : null

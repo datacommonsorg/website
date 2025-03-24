@@ -98,6 +98,19 @@ export const GA_EVENT_TOOL_CHART_OPTION_CLICK = "tool_chart_option_click";
 export const GA_EVENT_NL_SEARCH = "explore_search_q";
 
 /**
+ * Triggered when the NL Search bar is rendered.
+ * Parameters:
+ *   "dynamic_placeholders_enabled": Dynamic placeholder enablement.
+ */
+export const GA_EVENT_RENDER_NL_SEARCH_BAR = "nl_search_bar_render";
+
+/**
+ * Triggered when the NL Search bar is rendered with dynamic placeholders enabled.
+ */
+export const GA_EVENT_RENDER_NL_SEARCH_BAR_WITH_PLACEHOLDERS =
+  "nl_search_bar_render_with_placeholders";
+
+/**
  * Triggered when detection results are returned in NL search.
  * Parameters:
  *   "query": search query
@@ -179,6 +192,14 @@ export const GA_EVENT_BUILDPAGE_CLICK = "buildpage_click";
 export const GA_EVENT_AUTOCOMPLETE_SELECTION = "autocomplete_select";
 
 /**
+ * Triggered on autocomplete selections that redirect directly to the place page.
+ * Parameters:
+ *  "result_index": <index of the selected autocomplete result.
+ */
+export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
+  "autocomplete_select_redirects_to_place";
+
+/**
  * Triggered on autocomplete trigger.
  * Parameters:
  *    "query": <sample query>
@@ -203,6 +224,7 @@ export const GA_PARAM_TOPIC = "topic";
 export const GA_PARAM_PLACE = "place";
 export const GA_PARAM_TIMING_MS = "time_ms";
 export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
+export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";

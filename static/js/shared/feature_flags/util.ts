@@ -16,9 +16,8 @@
 
 export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
-export const PLACE_PAGE_EXPERIMENT_FEATURE_FLAG = "autocomplete";
-export const PLACE_PAGE_GA_FEATURE_FLAG = "autocomplete";
-export const SCROLL_TO_TOP_FEATURE_FLAG = "scroll_to_top_button";
+export const DYNAMIC_PLACEHOLDER_EXPERIMENT = "dynamic_placeholder_experiment";
+export const DYNAMIC_PLACEHOLDER_GA = "dynamic_placeholder_ga";
 
 /**
  * Helper method to interact with feature flags.
@@ -26,7 +25,7 @@ export const SCROLL_TO_TOP_FEATURE_FLAG = "scroll_to_top_button";
  * @returns Bool describing if the feature is enabled
  */
 export function isFeatureEnabled(featureName: string): boolean {
-  if (featureName in FEATURE_FLAGS) {
+  if (FEATURE_FLAGS && featureName in FEATURE_FLAGS) {
     return FEATURE_FLAGS[featureName];
   }
   return false;

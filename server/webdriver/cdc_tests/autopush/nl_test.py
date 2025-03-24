@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from selenium.webdriver.common.by import By
+
 from server.integration_tests.explore_test import ExploreTest
+from server.webdriver.base_utils import find_elem
 from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
     CdcAutopushTestBase
 
@@ -23,3 +26,11 @@ class CdcAutopushNLTest(ExploreTest, CdcAutopushTestBase):
   def test_cdc_nl(self):
     """Run Query on custom DC stat var."""
     self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])
+
+  def test_ensure_inline_search_bar_is_displayed(self):
+    """Test that the inline search bar is displayed for custom dc pages."""
+    self.driver.get(self.url_ + '/explore')
+    self.assertTrue(
+        find_elem(self.driver,
+                  by=By.CSS_SELECTOR,
+                  value='.explore-container .search-bar').is_displayed())

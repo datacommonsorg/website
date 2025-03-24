@@ -69,7 +69,6 @@ export function SearchSection(props: {
           [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.QUERY,
         });
       }}
-      placeholder={props.query}
       initialValue={props.query}
       shouldAutoFocus={false}
       feedbackLink={DEVELOPER_MODE ? feedbackLink : undefined}

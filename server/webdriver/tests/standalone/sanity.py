@@ -163,6 +163,11 @@ class WebsiteSanityTest:
             ))
         return
 
+      # There is a button in the topic section that leads to the data sources
+      # page. don't include it as an explore landing page.
+      if topic_url_elem.get_attribute("href").endswith("/data"):
+        continue
+
       explore_landing_pages.append(
           WebPage(
               PageType.EXPLORE_LANDING,

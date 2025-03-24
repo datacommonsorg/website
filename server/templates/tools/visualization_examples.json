@@ -102,11 +102,12 @@
         "url": "/tools/visualization?#visType%3Dscatter%26place%3DgeoId%2F06%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_BelowPovertyLevelInThePast12Months\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Mean_SolarInsolation\"%7D"
       }]
     }, {
-      "header": "Literate Population Per Capita vs. Schools Per Capita",
+      "header": "Literate Population Per Capita vs. Population Below Poverty Level Per Capita",
       "preposition": "for",
       "examples": [{
         "text": "states in India",
-        "url": "/tools/visualization?#visType%3Dscatter%26place%3Dcountry%2FIND%26placeType%3DAdministrativeArea1%26sv%3D%7B\"dcid\"%3A\"Count_Person_Literate\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_School\"%2C\"pc\"%3A\"1\"%7D"      }]
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3Dcountry%2FIND%26placeType%3DAdministrativeArea1%26sv%3D%7B\"dcid\"%3A\"Count_Person_Literate\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person\"%7D"
+      }]
     }, {
       "header": "Bachelor's Degree Attainment vs. Female Population Per Capita",
       "preposition": "for counties in",

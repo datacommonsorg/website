@@ -27,7 +27,8 @@ class TestApiStatsProperty(unittest.TestCase):
     def side_effect(url, req_json, _=None):
       if req_json == {
           'nodes': ['DifferenceRelativeToBaseDate1990_Temperature'],
-          'property': '->*'
+          'property': '->*',
+          'nextToken': ''
       }:
         return {
             'data': {

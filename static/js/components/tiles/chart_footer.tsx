@@ -20,6 +20,8 @@
 
 import React, { useState } from "react";
 
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import {
   GA_EVENT_TILE_DOWNLOAD,
   GA_EVENT_TILE_EXPLORE_MORE,
@@ -61,7 +63,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     props.handleEmbed();
                   }}
                 >
-                  Download
+                  {intl.formatMessage(messages.download)}
                 </a>
               </div>
             )}
@@ -79,7 +81,9 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     return true;
                   }}
                 >
-                  Explore in {props.exploreLink.displayText}
+                  {intl.formatMessage(messages.exploreLink, {
+                    toolName: props.exploreLink.displayText,
+                  })}
                 </a>
               </div>
             )}
