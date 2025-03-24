@@ -300,148 +300,151 @@ export function App(): ReactElement {
       <div
         className="app"
         css={css`
-          margin-left: ${theme.spacing.xl}px;
+          margin: 0 auto;
           gap: ${theme.spacing.sm}px;
-          width: 70%;
+          max-width: ${theme.width.xl}px;
+          padding: 0 ${theme.spacing.xl}px;
         `}
       >
-        <div className="header">
-          <p
-            css={css`
-              ${theme.typography.text.sm}
-            `}
-          >
-            Experiments by Data Commons
-          </p>
-          <SimpleText>
-            <>
-              <h3 className="title">Exploring biomedical data</h3>
-              <p className="overview">{OVERVIEW_TEXT}</p>
-            </>
-          </SimpleText>
-        </div>
-        <div
-          className="inputs"
-          css={css`
-            gap: ${theme.spacing.sm}px;
-          `}
-        >
-          <div className="search-bar">
-            <InputGroup className="search-bar-content">
-              <span className="search-bar-icon">
-                <Search />
-              </span>
-              <Input
-                type="text"
-                value={queryInput}
-                onChange={(e): void => setQueryInput(e.target.value)}
-                onKeyDown={(event): void => handleKeydownEvent(event)}
-                className="search-input-text"
-              />
-              <div
-                onClick={(): void => submitQueryInput()}
-                id="rich-search-button"
-              ></div>
-            </InputGroup>
-          </div>
-        </div>
-        <div
-          css={css`
-            margin: ${theme.spacing.lg}px;
-          `}
-        >
-          {!showLoading && !answer && (
-            <div
-              className="example-queries"
+        <div>
+          <div className="header">
+            <p
               css={css`
-                columns: 2;
-                column-gap: ${theme.spacing.sm}px;
+                ${theme.typography.text.sm}
               `}
             >
-              {SAMPLE_QUESTIONS.map((question, index) => {
-                return (
-                  <div
-                    key={question}
-                    css={css`
-                      padding: ${theme.spacing.md}px;
-                      break-inside: avoid;
-                      p {
-                        margin-bottom: ${theme.spacing.xs}px;
-                      }
-                    `}
-                  >
-                    <LinkBox
-                      link={sampleQuestionToLink(question)}
-                      color={"blue"}
-                      dataTestId={`question-item-${index}`}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
-          <div className="loading">{showLoading && <SpinnerWithText />}</div>
-          <div className="answer">
-            {!showLoading && answer && (
-              <div>
-                <div className="matched-entities">{/* TODO! */}</div>
+              Experiments by Data Commons
+            </p>
+            <SimpleText>
+              <>
+                <h3 className="title">Exploring biomedical data</h3>
+                <p className="overview">{OVERVIEW_TEXT}</p>
+              </>
+            </SimpleText>
+          </div>
+          <div
+            className="inputs"
+            css={css`
+              gap: ${theme.spacing.sm}px;
+            `}
+          >
+            <div className="search-bar">
+              <InputGroup className="search-bar-content">
+                <span className="search-bar-icon">
+                  <Search />
+                </span>
+                <Input
+                  type="text"
+                  value={queryInput}
+                  onChange={(e): void => setQueryInput(e.target.value)}
+                  onKeyDown={(event): void => handleKeydownEvent(event)}
+                  className="search-input-text"
+                />
                 <div
-                  css={css`
-                    ${theme.typography.heading.md};
-                    margin-bottom: ${theme.spacing.sm}px;
-                  `}
-                >
-                  Answer
-                </div>
-                <ReactMarkdown
-                  rehypePlugins={[rehypeRaw as any]}
-                  remarkPlugins={[remarkGfm]}
-                >
-                  {answer.answer}
-                </ReactMarkdown>
-                <div className="feedback-form">
-                  <p>---</p>
-                  <p>
-                    <a
-                      href={answer.feedbackLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  onClick={(): void => submitQueryInput()}
+                  id="rich-search-button"
+                ></div>
+              </InputGroup>
+            </div>
+          </div>
+          <div
+            css={css`
+              margin: ${theme.spacing.lg}px;
+            `}
+          >
+            {!showLoading && !answer && (
+              <div
+                className="example-queries"
+                css={css`
+                  columns: 2;
+                  column-gap: ${theme.spacing.sm}px;
+                `}
+              >
+                {SAMPLE_QUESTIONS.map((question, index) => {
+                  return (
+                    <div
+                      key={question}
+                      css={css`
+                        padding: ${theme.spacing.md}px;
+                        break-inside: avoid;
+                        p {
+                          margin-bottom: ${theme.spacing.xs}px;
+                        }
+                      `}
                     >
-                      Tell us how we did.
-                    </a>
-                  </p>
-                </div>
-                {answer.footnotes && (
-                  <Collapsible
-                    trigger={getSectionTrigger(
-                      "Knowledge Graph References",
-                      false
-                    )}
-                    triggerWhenOpen={getSectionTrigger(
-                      "Knowledge Graph References",
-                      true
-                    )}
-                    open={true}
-                  >
-                    {answer.footnotes}
-                  </Collapsible>
-                )}
-                {answer.debugInfo && (
-                  <Collapsible
-                    trigger={getSectionTrigger("Debug", false)}
-                    triggerWhenOpen={getSectionTrigger("Debug", true)}
-                    open={false}
-                  >
-                    <ReactMarkdown
-                      rehypePlugins={[rehypeRaw as any]}
-                      remarkPlugins={[remarkGfm]}
-                    >
-                      {answer.debugInfo}
-                    </ReactMarkdown>
-                  </Collapsible>
-                )}
+                      <LinkBox
+                        link={sampleQuestionToLink(question)}
+                        color={"blue"}
+                        dataTestId={`question-item-${index}`}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             )}
+            <div className="loading">{showLoading && <SpinnerWithText />}</div>
+            <div className="answer">
+              {!showLoading && answer && (
+                <div>
+                  <div className="matched-entities">{/* TODO! */}</div>
+                  <div
+                    css={css`
+                      ${theme.typography.heading.md};
+                      margin-bottom: ${theme.spacing.lg}px;
+                    `}
+                  >
+                    {_.escape(queryFinal)}
+                  </div>
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw as any]}
+                    remarkPlugins={[remarkGfm]}
+                  >
+                    {answer.answer}
+                  </ReactMarkdown>
+                  <div className="feedback-form">
+                    <p>---</p>
+                    <p>
+                      <a
+                        href={answer.feedbackLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Tell us how we did.
+                      </a>
+                    </p>
+                  </div>
+                  {answer.footnotes && (
+                    <Collapsible
+                      trigger={getSectionTrigger(
+                        "Knowledge Graph References",
+                        false
+                      )}
+                      triggerWhenOpen={getSectionTrigger(
+                        "Knowledge Graph References",
+                        true
+                      )}
+                      open={true}
+                    >
+                      {answer.footnotes}
+                    </Collapsible>
+                  )}
+                  {answer.debugInfo && (
+                    <Collapsible
+                      trigger={getSectionTrigger("Debug", false)}
+                      triggerWhenOpen={getSectionTrigger("Debug", true)}
+                      open={false}
+                    >
+                      <ReactMarkdown
+                        rehypePlugins={[rehypeRaw as any]}
+                        remarkPlugins={[remarkGfm]}
+                      >
+                        {answer.debugInfo}
+                      </ReactMarkdown>
+                    </Collapsible>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -14,6 +14,8 @@
 
 import json
 
+import numpy as np
+
 PARSE_QUERY_PROMPT = '''
 Your task is to break down a natural language query into a structured output in two steps.
 
@@ -325,3 +327,37 @@ def batch_requested_nodes(nodes, batch_size=MAX_NUM_DCID_PER_V2NODE_REQUEST):
   Splits a list of dcids into batches that do not exceed the DC API request size limit.
   """
   return [nodes[i:i + batch_size] for i in range(0, len(nodes), batch_size)]
+
+
+def cos_sim(embeddings1, embeddings2):
+  """
+    Calculates the cosine similarity between two sets of embeddings.
+
+    Args:
+        embeddings1: A numpy array of shape (n, d) where n is the number of embeddings
+                     in the first set and d is the dimensionality.
+        embeddings2: A numpy array of shape (m, d) where m is the number of embeddings
+                     in the second set and d is the dimensionality.
+
+    Returns:
+        A numpy array of shape (n, m) containing the cosine similarity scores.
+    """
+
+  embeddings1 = np.array(embeddings1)
+  embeddings2 = np.array(embeddings2)
+
+  if len(embeddings1.shape) == 1:
+    embeddings1 = embeddings1.reshape(1, -1)
+  if len(embeddings2.shape) == 1:
+    embeddings2 = embeddings2.reshape(1, -1)
+
+  # Normalize the embeddings
+  embeddings1_norm = embeddings1 / np.linalg.norm(
+      embeddings1, axis=1, keepdims=True)
+  embeddings2_norm = embeddings2 / np.linalg.norm(
+      embeddings2, axis=1, keepdims=True)
+
+  # Calculate the cosine similarity
+  similarity_matrix = np.dot(embeddings1_norm, embeddings2_norm.T)
+
+  return similarity_matrix

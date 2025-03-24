@@ -20,7 +20,6 @@ import re
 
 from markupsafe import escape
 from pydantic import BaseModel
-from sentence_transformers import util
 
 import server.lib.fetch as fetch
 from server.routes.experiments.biomed_nl.entity_recognition import \
@@ -742,16 +741,18 @@ class PathFinder:
     # TODO: add a description to description in DC KG.
     property_descriptions['description'] = DESCRIPTION_OF_DESCRIPTION_PROPERTY
 
+    # note: the keys of the nl_encode output are santized copies of the inputs
     embeddings = dc.nl_encode(
         EMBEDDINGS_MODEL,
         list(property_descriptions.values()) + [self.query.lower()])
     sanitized_query = str(escape(self.query.lower()))
     query_embed = embeddings[sanitized_query]
+
     property_similarity_scores = {}
     for prop, description in property_descriptions.items():
-      # the response from nl_encode contains sanitized input strings
+      # sanitize the description to match sanitized output of nl_encode
       sanitized_description = str(escape(description))
-      cosine_similarity = util.cos_sim(
+      cosine_similarity = utils.cos_sim(
           query_embed, embeddings[sanitized_description]).item()
       property_similarity_scores[prop] = cosine_similarity
 
