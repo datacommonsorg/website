@@ -15,17 +15,15 @@
  */
 
 .item-list-container {
-  overflow: hidden;
   .item-list-inner {
     line-height: 24px;
     font-size: 14px;
     font-weight: 500;
     color: var(--gm-3-sys-light-primary);
-    margin-left: -12px;
     .item-list-item {
       display: inline-flex;
-
-      &:before {
+      
+      &:not(:last-child)::after {
         content: "•";
         color: var(--gm-3-ref-neutral-neutral-40);
         display: inline-block;

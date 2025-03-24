@@ -29,17 +29,16 @@ else
   source .env/bin/activate
   python3 -m pip install -r $DIR/requirements.txt
 
-  # Get US States + Top 100 Cities summaries from saved Bard output
-  echo "Getting US States and Top 100 US cities summaries from saved Bard output"
-  python3 -m $MODULE.tsv_place_summaries_to_json $DIR/priority-places-bard.tsv \
-    --output_path $DIR/generated_summaries/us_states_and_100_cities.json \
-    --place_column_name DCID \
-    --summary_column_name Strict
-
   # Generate country summaries
   echo "Generating country summaries"
   python3 -m $MODULE.fetch_place_summaries static/sitemap/Country.0.txt \
     --output_file $DIR/generated_summaries/countries.json \
+    --stat_var_json $DIR/stat_vars_to_highlight.json
+  
+  # Generate US States + Top 100 US Cities + Global Cities summaries
+  echo "Generating US states, top 100 US cities, and global cities summaries"
+  python3 -m $MODULE.fetch_place_summaries static/sitemap/PriorityPlaces.0.txt \
+    --output_file $DIR/generated_summaries/priority_places.json \
     --stat_var_json $DIR/stat_vars_to_highlight.json
 
   # Generate US county summaries
@@ -48,22 +47,10 @@ else
     --output_file $DIR/generated_summaries/us_counties.json \
     --stat_var_json $DIR/stat_vars_to_highlight.json
 
-  # Generate global cities summaries
-  # Skip first 151 places in PriorityPlaces.0.txt
-  # Those places already have summaries in us_states_and_100_cities.json
-  echo "Generating global cities summaries"
-  python3 -m $MODULE.fetch_place_summaries static/sitemap/PriorityPlaces.0.txt \
-    --output_file $DIR/generated_summaries/global_cities.json \
-    --stat_var_json $DIR/stat_vars_to_highlight.json \
-    --start_index 151
-
   # Write all generated summaries to sharded json files.
   echo "Combining summaries and writing to config"
   python3 -m $MODULE.generate_place_summary_shards \
     $DIR/generated_summaries/countries.json \
     $DIR/generated_summaries/us_counties.json \
-    $DIR/generated_summaries/global_cities.json \
-    $DIR/generated_summaries/us_states_and_100_cities.json
+    $DIR/generated_summaries/priority_places.json
 fi
-
-

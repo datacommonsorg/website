@@ -117,9 +117,9 @@ def detect_and_fulfill():
   utterance.insight_ctx[
       Params.EXP_MORE_DISABLED.value] = request.get_json().get(
           Params.EXP_MORE_DISABLED, "")
-  utterance.insight_ctx[Params.DC.value] = dc_name
   utterance.insight_ctx[Params.SKIP_RELATED_THINGS] = request.args.get(
       Params.SKIP_RELATED_THINGS.value, '') == 'true'
+  helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
 
   # Important to setup utterance for explore flow (this is really the only difference
   # between NL and Explore).
@@ -253,5 +253,5 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                                client=client,
                                mode=mode)
   utterance.insight_ctx = insight_ctx
-  utterance.insight_ctx[Params.DC.value] = dc_name
+  helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
   return _fulfill_with_chart_config(utterance, debug_logs)

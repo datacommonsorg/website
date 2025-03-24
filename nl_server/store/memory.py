@@ -57,6 +57,7 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
 
     # Raise no embeddings exception if the embeddings path does not have any embeddings.
     if _is_csv_empty_or_header_only(embeddings_path):
+      logging.info(f'Empty file from {embeddings_path}')
       raise NoEmbeddingsException()
 
     self.dataset_embeddings: torch.Tensor = None

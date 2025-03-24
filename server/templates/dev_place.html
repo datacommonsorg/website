@@ -28,6 +28,7 @@
   {% endif %}
   {% set place_category = category %}
   {% set is_show_header_search_bar = true %}
+  {% set new_place_page = true %}
   
   {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/dev_place_page.min.css' , t=config['VERSION'])}}>
@@ -48,17 +49,10 @@
       style="display:none;"
       data-place-dcid="{{place_dcid}}"
       data-place-name="{{place_name}}"
-      data-place-links="{{place_type_with_parent_places_links}}"
       data-place-summary="{{place_summary}}"
-      data-place-subheader="{{place_type_with_parent_places_links}}"
     ></div>
     <div id="plage-page-main" class="container">
       <div id="place-page-content" class="page-content-container">
-      </div>
-      <div id="page-loading" class="mt-4" style="display:none;">
-        {{ inline_svg('progress_activity') }}
-        {# TRANSLATORS: A message shown on the page while the content is loading. #}
-        <p>{% trans %}Loading{% endtrans %}</p>
       </div>
     </div>
   </div>

@@ -22,6 +22,8 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
@@ -81,7 +83,9 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           {!_.isEmpty(props.sources) && (
             <div className={`${SELECTOR_PREFIX}-metadata`}>
               <span>Data from {getSourcesJsx(props.sources)}</span>
-              {globalThis.viaGoogle ? " via Google" : ""}
+              {globalThis.viaGoogle
+                ? " " + intl.formatMessage(messages.viaGoogle)
+                : ""}
             </div>
           )}
           {!_.isEmpty(mMethods) && (

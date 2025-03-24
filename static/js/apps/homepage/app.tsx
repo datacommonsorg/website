@@ -69,7 +69,7 @@ export function App({
   return (
     <ThemeProvider theme={theme}>
       <Section colorVariant="light" variant="large">
-        <HomeHero linkChips={topicLinkChips} />
+        <HomeHero linkChips={topicLinkChips} routes={routes} />
       </Section>
 
       <Section>

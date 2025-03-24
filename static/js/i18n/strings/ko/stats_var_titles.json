@@ -1,4 +1,10 @@
 {
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "공기 중 독성으로 인한 암 발병 위험"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI"
+  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "1인당 순수알코올 소비량(연간)"
   },
@@ -53,6 +59,24 @@
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "국내 기업 시가총액(GDP 대비 백분율)"
   },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "연간 전기 발전량"
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "이산화탄소 배출량(대형 시설, 비생물)"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "연간 온실 가스 배출량(대형 시설, 비생물)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "메탄 배출량(대형 시설, 비생물)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "아산화질소 배출량(대형 시설, 비생물)"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "연간 전기 발전량"
+  },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "범죄 행위 수(방화)"
   },
@@ -65,26 +89,26 @@
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "범죄 행위 수(폭력 범죄)"
   },
-  "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
-  },
-  "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
-  },
-  "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
-  },
-  "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "형사 사건 수(장애 증오 범죄)"
   },
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+    "defaultMessage": "형사 사건 수(민족 증오 범죄)"
+  },
+  "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
+    "defaultMessage": "형사 사건 수(성별 증오 범죄)"
+  },
+  "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
+    "defaultMessage": "형사 사건 수(인종 증오 범죄)"
+  },
+  "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
+    "defaultMessage": "형사 사건 수(종교 증오 범죄)"
   },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+    "defaultMessage": "형사 사건 수(성적 지향 증오 범죄)"
   },
-  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "형사 사건 수(증오 범죄)"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "사이클론 발생 횟수"
@@ -614,6 +638,18 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "코로나19 누적 사망자 수"
   },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
+    "defaultMessage": "최고 기온 변화(RCP 2.6, 기준 연도 2016년)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
+    "defaultMessage": "최고 기온 변화(RCP 4.5, 기준 연도 2016년)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
+    "defaultMessage": "최고 기온 변화(RCP 6.0, 기준 연도 2016년)"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
+    "defaultMessage": "최고 기온 변화(RCP 8.5, 기준 연도 2016년)"
+  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "출산율"
   },
@@ -628,6 +664,15 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "기대수명"
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "평균 디젤 미세먼지(PM) 농도"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "평균 오존 농도"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "평균 초미세먼지(PM2.5) 농도"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "노동자 일당"
@@ -716,6 +761,9 @@
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "중위 개인 소득(남성)"
   },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "파머가뭄지수"
+  },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "건강 보험이 없는 인구 비율(여성)"
   },
@@ -791,6 +839,9 @@
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "실업률(도시)"
   },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "취수율"
+  },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "인구(불교)"
   },
@@ -814,56 +865,5 @@
   },
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "인구(시크교)"
-  },
-  "AirQualityIndex_AirPollutant": {
-    "defaultMessage": "AQI"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
-  },
-  "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "Mean PM2.5 Concentration"
-  },
-  "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Mean Ozone Concentration"
-  },
-  "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Mean Diesel PM Concentration"
-  },
-  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
-  },
-  "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
-  },
-  "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "The Palmer Drought Severity Index"
-  },
-  "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
-  },
-  "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
-  },
-  "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
   }
 }

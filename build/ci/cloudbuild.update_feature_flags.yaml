@@ -1,0 +1,65 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+  - id: 'get-changed-files'
+    name: 'gcr.io/cloud-builders/git'
+    entrypoint: '/bin/bash'
+    args:
+      - '-c'
+      - |
+        set -e
+        git fetch --depth=2
+        matched_files=$(git diff --name-only HEAD^ HEAD | grep -E '^server/config/feature_flag_configs/(production|autopush|staging|dev)\.json$')
+        printf '%s\n' "$matched_files" > /workspace/matched_files.txt
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'update-feature-flags'
+    entrypoint: '/bin/bash'
+    waitFor: ['get-changed-files']
+    args:
+      - '-c'
+      - |
+        sort_files() {
+          local files=("$@")
+          local sorted_files=()
+          local environment_order=("autopush" "dev" "staging" "production")
+
+          for env in "${environment_order[@]}"; do
+            for file in "${files[@]}"; do
+              if [[ "$file" == "server/config/feature_flag_configs/${env}.json" ]]; then
+                sorted_files+=("$file")
+              fi
+            done
+          done
+          printf '%s\n' "${sorted_files[@]}"
+        }
+
+        changed_files=$(cat /workspace/matched_files.txt)
+        sorted_files=$(sort_files $changed_files)
+
+        while IFS= read -r modified_file; do
+          if [[ -z "$modified_file" ]]; then  # Skip empty lines
+            continue
+          fi
+          filename=$(basename "$modified_file")
+          echo "Processing modified file: ${filename}"
+          environment="${filename%.*}"
+          should_restart="false"
+          if [ "$environment" != "production" ]; then
+            should_restart="true"
+          fi
+          skip_staging_prompt="true"
+          ./scripts/update_gcs_feature_flags.sh "$environment" "$skip_staging_prompt" "$should_restart"
+        done <<< "$sorted_files"

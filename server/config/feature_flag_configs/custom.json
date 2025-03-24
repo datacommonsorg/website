@@ -1,0 +1,45 @@
+[
+  {
+    "name": "autocomplete",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Feature flag to enable place autocomplete."
+  },
+  {
+    "name": "dev_place_experiment",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the V2 place page only for the experiment places."
+  },
+  {
+    "name": "dev_place_ga",
+    "enabled": false,
+    "owner": "dwnoble",
+    "description": "Feature flag to enable the V2 Place page to GA."
+  },
+  {
+    "name": "scroll_to_top_button",
+    "deprecated": true,
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the scroll to top button on the explore and place pages."
+  },
+  {
+    "name": "dynamic_placeholder_experiment",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
+  },
+  {
+    "name": "dynamic_placeholder_ga",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
+  },
+  {
+    "name": "biomed_nl",
+    "enabled": false,
+    "owner": "calinc",
+    "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
+  }
+]

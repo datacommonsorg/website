@@ -15,10 +15,10 @@
 # Custom Data Commons terraform resources
 
 provider "google" {
-  project = var.project_id
-  region  = var.region
+  project               = var.project_id
+  region                = var.region
   user_project_override = var.user_project_override
-  billing_project = local.billing_project_id
+  billing_project       = local.billing_project_id
 }
 
 # Reference the default VPC network
@@ -34,15 +34,15 @@ data "google_compute_subnetwork" "default_subnet" {
 
 # Create redis instance
 resource "google_redis_instance" "redis_instance" {
-  count           = var.enable_redis ? 1 : 0
-  name           = "${var.namespace}-${var.redis_instance_name}"
-  tier           = var.redis_tier
-  memory_size_gb = var.redis_memory_size_gb
-  region         = var.region
-  location_id    = var.redis_location_id
+  count                   = var.enable_redis ? 1 : 0
+  name                    = "${var.namespace}-${var.redis_instance_name}"
+  tier                    = var.redis_tier
+  memory_size_gb          = var.redis_memory_size_gb
+  region                  = var.region
+  location_id             = var.redis_location_id
   alternative_location_id = var.redis_alternative_location_id
-  authorized_network = data.google_compute_network.default.self_link
-  replica_count = var.redis_replica_count
+  authorized_network      = data.google_compute_network.default.self_link
+  replica_count           = var.redis_replica_count
 }
 
 # Create MySQL instance
@@ -93,9 +93,9 @@ resource "google_secret_manager_secret_version" "mysql_password_version" {
 }
 
 resource "google_sql_database" "mysql_db" {
-  name     = var.mysql_database_name
-  instance = google_sql_database_instance.mysql_instance.name
-  charset  = "utf8mb4"
+  name      = var.mysql_database_name
+  instance  = google_sql_database_instance.mysql_instance.name
+  charset   = "utf8mb4"
   collation = "utf8mb4_unicode_ci"
 }
 
@@ -108,23 +108,23 @@ resource "google_sql_user" "mysql_user" {
 
 # Data commons storage bucket
 resource "google_storage_bucket" "gcs_data_bucket" {
-  name     = local.gcs_data_bucket_name
-  location = var.gcs_data_bucket_location
+  name                        = local.gcs_data_bucket_name
+  location                    = var.gcs_data_bucket_location
   uniform_bucket_level_access = true
 }
 
 # Input 'folder' for the data loading job.
 resource "google_storage_bucket_object" "gcs_data_bucket_input_folder" {
-  name          = "${var.gcs_data_bucket_input_folder}/"
-  content       = "Input folder"
-  bucket        = "${google_storage_bucket.gcs_data_bucket.name}"
+  name    = "${var.gcs_data_bucket_input_folder}/"
+  content = "Input folder"
+  bucket  = google_storage_bucket.gcs_data_bucket.name
 }
 
 # Output 'folder' for the data loading job.
 resource "google_storage_bucket_object" "gcs_data_bucket_output_folder" {
-  name          = "${var.gcs_data_bucket_output_folder}/"
-  content       = "Output folder"
-  bucket        = "${google_storage_bucket.gcs_data_bucket.name}"
+  name    = "${var.gcs_data_bucket_output_folder}/"
+  content = "Output folder"
+  bucket  = google_storage_bucket.gcs_data_bucket.name
 }
 
 # Generate a random suffix to append to api keys.
@@ -181,8 +181,8 @@ resource "google_secret_manager_secret_version" "dc_api_key_version" {
 
 # Data Commons Cloud Run Service
 resource "google_cloud_run_v2_service" "dc_web_service" {
-  name     = "${var.namespace}-datacommons-web-service"
-  location = var.region
+  name                = "${var.namespace}-datacommons-web-service"
+  location            = var.region
   deletion_protection = false
 
   template {
@@ -215,18 +215,18 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       dynamic "env" {
         for_each = local.cloud_run_shared_env_variable_secrets
         content {
-          name  = env.value.name
+          name = env.value.name
           value_source {
             secret_key_ref {
-              secret = env.value.value_source.secret_key_ref.secret
+              secret  = env.value.value_source.secret_key_ref.secret
               version = env.value.value_source.secret_key_ref.version
-            }            
+            }
           }
         }
       }
 
       env {
-        name = "GOOGLE_ANALYTICS_TAG_ID"
+        name  = "GOOGLE_ANALYTICS_TAG_ID"
         value = var.google_analytics_tag_id != null ? var.google_analytics_tag_id : ""
       }
 
@@ -256,16 +256,11 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       }
 
       env {
-        name = "REDIS_HOST"
-        value = var.enable_redis ? google_redis_instance.redis_instance[0].host : ""
-      }
-
-      env {
-        name  = "MAPS_API_KEY"
+        name = "MAPS_API_KEY"
         value_source {
           secret_key_ref {
-            secret = google_secret_manager_secret.maps_api_key.secret_id
-            version  = "latest"
+            secret  = google_secret_manager_secret.maps_api_key.secret_id
+            version = "latest"
           }
         }
       }
@@ -297,8 +292,8 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
     vpc_access {
       network_interfaces {
-        network = data.google_compute_network.default.id
-        subnetwork  = data.google_compute_subnetwork.default_subnet.name
+        network    = data.google_compute_network.default.id
+        subnetwork = data.google_compute_subnetwork.default_subnet.name
       }
       egress = "PRIVATE_RANGES_ONLY"
     }
@@ -334,11 +329,11 @@ resource "google_cloud_run_service_iam_member" "dc_web_service_invoker" {
 
 # Data Commons data loading job
 resource "google_cloud_run_v2_job" "dc_data_job" {
-  name     = "${var.namespace}-datacommons-data-job"
-  location = var.region
+  name                = "${var.namespace}-datacommons-data-job"
+  location            = var.region
   deletion_protection = false
 
-  template { 
+  template {
     template {
       containers {
         image = var.dc_data_job_image
@@ -353,7 +348,7 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
         # Shared environment variables
         dynamic "env" {
           for_each = local.cloud_run_shared_env_variables
-          content { 
+          content {
             name  = env.value.name
             value = env.value.value
           }
@@ -363,12 +358,12 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
         dynamic "env" {
           for_each = local.cloud_run_shared_env_variable_secrets
           content {
-            name  = env.value.name
+            name = env.value.name
             value_source {
               secret_key_ref {
-                secret = env.value.value_source.secret_key_ref.secret
+                secret  = env.value.value_source.secret_key_ref.secret
                 version = env.value.value_source.secret_key_ref.version
-              }            
+              }
             }
           }
         }
@@ -378,8 +373,17 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
           value = "gs://${local.gcs_data_bucket_name}/${var.gcs_data_bucket_input_folder}"
         }
       }
+      vpc_access {
+        network_interfaces {
+          network    = data.google_compute_network.default.id
+          subnetwork = data.google_compute_subnetwork.default_subnet.name
+        }
+        egress = "PRIVATE_RANGES_ONLY"
+      }
+
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
-      service_account = google_service_account.datacommons_service_account.email
+      service_account       = google_service_account.datacommons_service_account.email
+      timeout               = var.dc_data_job_timeout
     }
   }
 

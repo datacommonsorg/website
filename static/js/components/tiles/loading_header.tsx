@@ -19,7 +19,8 @@
  */
 
 import React from "react";
-import { Spinner } from "reactstrap";
+
+import { Loading } from "../elements/loading";
 
 /**
  * Header with loading indicator
@@ -32,16 +33,5 @@ export function LoadingHeader(props: {
   title?: string;
 }): JSX.Element {
   const { isLoading, title } = props;
-  return (
-    <h4 {...{ part: "header" }}>
-      {isLoading ? (
-        <>
-          <Spinner color="secondary" size="sm" className="mr-1" />
-          {title ? title : "Loading..."}
-        </>
-      ) : (
-        title
-      )}
-    </h4>
-  );
+  return <h4 {...{ part: "header" }}>{isLoading ? <Loading /> : title}</h4>;
 }
