@@ -383,6 +383,7 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
 
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
       service_account       = google_service_account.datacommons_service_account.email
+      timeout               = var.dc_data_job_timeout
     }
   }
 

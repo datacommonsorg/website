@@ -69,7 +69,7 @@ interface AutoCompleteInputPropType {
   invalid: boolean;
   inputId: string;
   onChange: (query: string) => void;
-  onSearch: () => void;
+  onSearch: (dynamicPlaceholdersEnabled: boolean) => void;
   feedbackLink: string;
   shouldAutoFocus: boolean;
   barType: string;
@@ -99,6 +99,7 @@ export function AutoCompleteInput(
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [inputActive, setInputActive] = useState(false);
+  const [dynamicPlaceholdersDone, setDynamicPlaceholdersDone] = useState(false);
   const [dynamicPlaceholdersEnabled, setDynamicPlaceholdersEnabled] =
     useState(false);
   const [sampleQuestionText, setSampleQuestionText] = useState("");
@@ -125,16 +126,17 @@ export function AutoCompleteInput(
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
 
     // Start cycling through sample questions when the component mounts.
-    if (props.enableDynamicPlaceholders) {
+    if (!inputText && props.enableDynamicPlaceholders) {
       enableDynamicPlacehoder(
         setSampleQuestionText,
-        setDynamicPlaceholdersEnabled
+        setDynamicPlaceholdersEnabled,
+        setDynamicPlaceholdersDone
       );
     }
   }, []);
 
   const placeholderText =
-    !inputActive && dynamicPlaceholdersEnabled
+    !inputActive && dynamicPlaceholdersEnabled && !dynamicPlaceholdersDone
       ? intl.formatMessage(placeholderMessages.exploreDataPlaceholder, {
           sampleQuestion: sampleQuestionText,
         })
@@ -182,7 +184,7 @@ export function AutoCompleteInput(
     setResults({ placeResults: [], svResults: [] });
     setHoveredIdx(-1);
     controller.current.abort(); // Ensure autocomplete responses can't come back.
-    props.onSearch();
+    props.onSearch(dynamicPlaceholdersEnabled);
   }
 
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
