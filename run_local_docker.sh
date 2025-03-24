@@ -112,29 +112,26 @@ NC="\033[0m" # No Color
 ##############################################
 
 build() {
-  echo -e "${GREEN}Starting Docker build of '$IMAGE'. This will take several minutes...${NC}\n"
+  echo -e "${GREEN}Starting Docker build of '$IMAGE'. This may take up to ten minutes..."
+  echo -e "Tip: If you don't need to test natural language querying, you can speed up build times substantially by setting 'ENABLE_MODEL=false' in env.list.${NC}\n"
   docker build --tag $IMAGE \
   -f build/cdc_services/Dockerfile .
 }
 
 upload() {
   check_app_credentials
-  # Now get Docker credentials 
-  echo -e "Getting credentials for Cloud Docker package...\n"
-  gcloud auth configure-docker $REGION-docker.pkg.dev
-  exit_status=$?
-  if [ $exit_status != 0 ]; then
-    exit 1
-  else
-    echo -e "${GREEN}Creating package '$GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/$PACKAGE'...${NC}\n"
-    docker tag $IMAGE $GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/${PACKAGE}
-    # check gcloud auth login credentials
-    echo -e "${GREEN}Uploading package to Google Artifact Registry. This will take several minutes...${NC}\n"
-    docker push $GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/$PACKAGE
-  fi
+  get_docker_credentials
+  echo -e "${GREEN}Creating package '$GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/${PACKAGE}'...${NC}\n"
+  docker tag ${IMAGE} ${GOOGLE_CLOUD_REGION}-docker.pkg.dev/${GOOGLE_CLOUD_PROJECT}/${GOOGLE_CLOUD_PROJECT}-artifacts/${PACKAGE}
+  # Need principal account credentials to run docker push.Is there a way to check this so as not to make the user
+  # rerun the command after the check?
+  # gcloud auth will print out login info and exit.
+  echo -e "${GREEN}Uploading package to Google Artifact Registry. This will take several minutes...${NC}\n"
+  docker push ${GOOGLE_CLOUD_REGION}-docker.pkg.dev/${GOOGLE_CLOUD_PROJECT}/${GOOGLE_CLOUD_PROJECT}-artifacts/${PACKAGE}
 }
 
 run_data() {
+  docker pull gcr.io/datcom-ci/datacommons-data:${VERSION}
   if [ "$SCHEMA_UPDATE" == true ]; then
     echo -e "${GREEN}Starting Docker data container with '$VERSION' release in schema update mode...${NC}\n"
     docker run -it \
@@ -153,11 +150,6 @@ run_data() {
     -v $OUTPUT_DIR:$OUTPUT_DIR \
     gcr.io/datcom-ci/datacommons-data:${VERSION}
   else
-    echo -e "${GREEN}Starting Docker data container with '$VERSION' release...${NC}\n"
-    docker run -it \
-    --env-file $ENV_FILE \
-    -v $INPUT_DIR:$INPUT_DIR \
-    -v $OUTPUT_DIR:$OUTPUT_DIR \
     gcr.io/datcom-ci/datacommons-data:${VERSION}
   fi
 }
@@ -187,6 +179,7 @@ run_service() {
     -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
     $IMAGE
   elif [[ "$INPUT_DIR" == *"gs://"* ]]; then
+    docker pull gcr.io/datcom-ci/datacommons-services:${VERSION}
     check_app_credentials
     echo -e "${GREEN}Starting Docker services container with '${VERSION}' release...${NC}\n"
     docker run -it \
@@ -198,6 +191,7 @@ run_service() {
      gcr.io/datcom-ci/datacommons-services:${VERSION}
   else
     echo -e "${GREEN}Starting Docker services container with '${VERSION}' release...${NC}\n"
+    docker pull gcr.io/datcom-ci/datacommons-services:${VERSION}
     docker run -it \
     --env-file $ENV_FILE \
     -p 8080:8080 \
@@ -208,9 +202,10 @@ run_service() {
   fi
 }
 
-# Function for checking GCP application default credentials
+# Functions for checking GCP credentials
 ############################################################
 
+# This is for checking the application default (project) creds 
 check_app_credentials() {
   echo -e "Checking for valid Cloud application default credentials...\n"
   # Attempt to print the access token
@@ -220,8 +215,16 @@ check_app_credentials() {
     echo -e "GCP application default credentials are valid.\n"
     return 0
   fi
-  # Cannot call the login routine on behalf of user. If creds are not valid, the
-  # gcloud auth will print out login info and exit.
+}
+
+# This is to get credentials to authenticate Docker to GCP 
+get_docker_credentials() {
+  echo -e "Getting credentials for Cloud Docker package...\n"
+  gcloud auth configure-docker ${GOOGLE_CLOUD_REGION}-docker.pkg.dev
+  exit_status=$?
+  if [ ${exit_status} -eq 0 ]; then
+    return 0
+  fi
 }
 
 # Way to check for principal credentials i.e. gcloud auth login?
@@ -356,22 +359,22 @@ fi
 #-------------------------------------------------------------
 # Missing custom image for build and upload
 if [ "$BUILD" == true ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}Error:${NC} You have specified the --build option but have not 
-  specified an image name and tag."
-  echo -e "Please use the -'-image' or '-i' option with the name and tag of the 
-  image you would like to build.\n"
+  echo -e "${RED}Error:${NC} You have specified the --build option but have not specified an image name and tag."
+  echo -e "Please use the -'-image' or '-i' option with the name and tag of the image you would like to build.\n"
   exit 1
 fi
 if [ "$UPLOAD" == true ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}Error:${NC} You have specified the --upload option but have not 
-  specified a source image name and tag."
-  echo -e "Please use the -'-image' or '-i' option with the name and tag of the 
-  image that will be the source of the package to be built.\n"
+  echo -e "${RED}Error:${NC} You have specified the --upload option but have not specified a source image name and tag."
+  echo -e "Please use the -'-image' or '-i' option with the name and tag of the image that will be the source of the package to be built.\n"
   exit 1
+fi
+# Not an error; just an optional value that we need to set
+if [ "$UPLOAD" == true ] && [ -z "$PACKAGE" ]; then
+  PACKAGE="$IMAGE"
 fi
 
 # Set 'run' values for cases where it does not make sense to run both containers
-#-----------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # build only
 if [ "$BUILD" == true ] && [ "$UPLOAD" == false ]; then
   RUN="service"
