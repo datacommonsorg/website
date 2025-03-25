@@ -21,6 +21,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import redirect
 from flask import render_template
+from flask import send_from_directory
 from flask import request
 
 import server.lib.render as lib_render
@@ -115,3 +116,11 @@ def version():
       bigquery=mixer_version.get('bigquery', ''),
       featureFlags=current_app.config.get('FEATURE_FLAGS', []),
       remote_mixer_domain=mixer_version.get('remoteMixerDomain', ''))
+
+
+@bp.route('/robots.txt')
+def robots_config():
+  if current_app.config.get('DISABLE_CRAWLERS', False):
+    return "User-agent: *<br>Disallow: /"
+  else:
+    return send_from_directory("dist", "robots.txt")
