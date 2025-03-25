@@ -97,7 +97,7 @@
 #
 #   For more details, see https://docs.datacommons.org/custom_dc/
 
-cd $(dirname "$0")
+# cd $(dirname "$0")
 
 set -e
 export POSIXLY_CORRECT=true
@@ -113,19 +113,19 @@ NC="\033[0m" # No Color
 
 build() {
   echo -e "${GREEN}Starting Docker build of '$IMAGE'. This may take up to ten minutes..."
-  echo -e "Tip: If you don't need to test natural language querying, you can speed up build times substantially by setting 'ENABLE_MODEL=false' in env.list.${NC}\n"
   docker build --tag $IMAGE \
   -f build/cdc_services/Dockerfile .
+  return 0
 }
 
 upload() {
   check_app_credentials
+  # Need Docker credentials for running docker tag to create an Artifact Registry package
   get_docker_credentials
   echo -e "${GREEN}Creating package '$GOOGLE_CLOUD_REGION-docker.pkg.dev/$GOOGLE_CLOUD_PROJECT/$GOOGLE_CLOUD_PROJECT-artifacts/${PACKAGE}'...${NC}\n"
   docker tag ${IMAGE} ${GOOGLE_CLOUD_REGION}-docker.pkg.dev/${GOOGLE_CLOUD_PROJECT}/${GOOGLE_CLOUD_PROJECT}-artifacts/${PACKAGE}
-  # Need principal account credentials to run docker push.Is there a way to check this so as not to make the user
-  # rerun the command after the check?
-  # gcloud auth will print out login info and exit.
+  # Need principal account credentials to run docker push.
+  check_gcloud_credentials
   echo -e "${GREEN}Uploading package to Google Artifact Registry. This will take several minutes...${NC}\n"
   docker push ${GOOGLE_CLOUD_REGION}-docker.pkg.dev/${GOOGLE_CLOUD_PROJECT}/${GOOGLE_CLOUD_PROJECT}-artifacts/${PACKAGE}
 }
@@ -140,16 +140,22 @@ run_data() {
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
     gcr.io/datcom-ci/datacommons-data:${VERSION}
-  elif [[ "$INPUT_DIR" == *"gs://"* ]]; then
+  # Hybrid setup: input dir local, output dir in Cloud
+  elif [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
     check_app_credentials
-    echo -e "${GREEN}Starting Docker data container with '$VERSION' release...${NC}\n"
+    echo -e "${GREEN}Starting Docker data container with '$VERSION' release and writing output to Google Cloud...${NC}\n"
     docker run -it \
     --env-file $ENV_FILE \
     -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
     -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-    -v $OUTPUT_DIR:$OUTPUT_DIR \
+    -v $INPUT_DIR:$INPUT_DIR \
     gcr.io/datcom-ci/datacommons-data:${VERSION}
   else
+    echo -e "${GREEN}Starting Docker data container with '$VERSION' release...${NC}\n"
+    docker run -it \
+    --env-file $ENV_FILE \
+    -v $INPUT_DIR:$INPUT_DIR \
+    -v $OUTPUT_DIR:$OUTPUT_DIR \
     gcr.io/datcom-ci/datacommons-data:${VERSION}
   fi
 }
@@ -166,9 +172,10 @@ run_service() {
     -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
     -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
     $IMAGE
+  # Hybrid setup: data in Cloud, service run locally with custom build
   elif [[ -n "$IMAGE" && "$INPUT_DIR" == *"gs://"* ]]; then
     check_app_credentials
-    echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}'...${NC}\n"
+    echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}' reading data in Google Cloud...${NC}\n"
     docker run -it \
     --env-file $ENV_FILE \
     -p 8080:8080 \
@@ -178,14 +185,16 @@ run_service() {
     -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
     -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
     $IMAGE
+  # Hybrid setup: data in Cloud, service run locally with standard release
   elif [[ "$INPUT_DIR" == *"gs://"* ]]; then
     docker pull gcr.io/datcom-ci/datacommons-services:${VERSION}
     check_app_credentials
-    echo -e "${GREEN}Starting Docker services container with '${VERSION}' release...${NC}\n"
+    echo -e "${GREEN}Starting Docker services container with '${VERSION}' release reading data in Google Cloud...${NC}\n"
     docker run -it \
     --env-file $ENV_FILE \
     -p 8080:8080 \
     -e DEBUG=true \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
     -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
     -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
      gcr.io/datcom-ci/datacommons-services:${VERSION}
@@ -205,7 +214,8 @@ run_service() {
 # Functions for checking GCP credentials
 ############################################################
 
-# This is for checking the application default (project) creds 
+# This is for checking the application default credentials (in this case the Data 
+# Commons containers) to access GCP
 check_app_credentials() {
   echo -e "Checking for valid Cloud application default credentials...\n"
   # Attempt to print the access token
@@ -214,6 +224,7 @@ check_app_credentials() {
   if [ ${exit_status} -eq 0 ]; then
     echo -e "GCP application default credentials are valid.\n"
     return 0
+    # If they're not, the gcloud auth application-default login program will take over
   fi
 }
 
@@ -227,7 +238,19 @@ get_docker_credentials() {
   fi
 }
 
-# Way to check for principal credentials i.e. gcloud auth login?
+# This is for checking the user's/service account's credentials to authorize
+# gcloud to access GCP
+check_gcloud_credentials() {
+  echo -e "Checking for valid gcloud credentials...\n"
+  # Attempt to print the identity token 
+  gcloud auth print-identity-token > /dev/null
+  exit_status=$?
+  if [ ${exit_status} -eq 0 ]; then
+    echo -e "gcloud credentials are valid.\n"
+    return 0
+    # If they're not, the gcloud auth login program will take over
+  fi
+}
 
 # Begin execution 
 #######################################################
@@ -314,48 +337,31 @@ done
 # Get options from the selected env.list file
 source "$ENV_FILE"
 
+
 # Handle various error conditions
-##############################################################
-# Missing variables and incompatible settings
+#############################################
+
+# Missing variables needed to construct Docker commands
 #============================================================
-# First handle variables in env.list file
+# Missing variables in env.list file
 #-------------------------------------------------------------
+# Needed for docker run -v option
 if [ -z "$INPUT_DIR" ] || [ -z "$OUTPUT_DIR" ]; then
   echo -e "${RED}Error:${NC} Missing input or output data directories."
   echo -e "Please set 'INPUT_DIR' and 'OUTPUT_DIR' in your env.list file.\n"
   exit 1
 fi
 
+# Needed for docker tag and push
 if  [[ ("$UPLOAD" == true ) && ( -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOUD_REGION" )]]; then
   echo -e "${RED}Error:${NC} Missing GCP project and region settings."
   echo -e "Please set 'GOOGLE_CLOUD_PROJECT' and/or 'GOOGLE_CLOUD_REGION' in your env.list file.\n"
   exit 1
 fi
 
-# Invalid directory combination. Single gs:// path for output dir is OK, but
-# not for input dir.
-if [[ "$INPUT_DIR" == *"gs://"* &&  "$OUTPUT_DIR" != *"gs://"* ]]; then
-  echo -e "${RED}Error:${NC} Incorrect directory options in env.list file."
-  echo -e "Your "INPUT_DIR" is set to a "gs://" path, but the 'OUTPUT_DIR' is not."
-  echo -e "Please fix your env.list file so that they match.\n"
-  exit 1
-fi
-
-# Invalid settings for database
-# First handle the hybrid setup case
-if [[( "$INPUT_DIR" == *"gs://"* || "$OUTPUT_DIR" == *"gs://"* ) && ( -z "$GOOGLE_CLOUD_PROJECT"  || "$USE_SQLITE" == true ||  "$USE_CLOUDSQL" == false || -z "$CLOUDSQL_INSTANCE" || -z "$DB_USER" || -z "$DB_PASS" ) ]]; then
-  echo -e "${RED}Error:${NC} Incorrect SQL settings in your env.list file."
-  echo -e "Be sure to set 'USE_CLOUDSQL' to 'true' and/or 'USE_SQLITE' to 'false 
-  and ensure all other GCP-related settings are specified correctly'.\n"
-  exit 1
-# Now the normal local case
-elif [[( "$RUN" != "none" ) &&  ( "$USE_CLOUDSQL" == true  ||  "$USE_SQLITE " == false  ) ]]; then
-  echo -e "${RED}Error:${NC} Incorrect SQL settings in your env.list file."
-  echo -e "Be sure to set 'USE_CLOUDSQL' to 'false' and/or 'USE_SQLITE' to 'true'.\n"
-  exit 1
-fi
-
-# Now handle missing options in input
+# Missing options in input
+# Don't need to handle invalid option combinations as one will just take precedence
+# and others will be ignored
 #-------------------------------------------------------------
 # Missing custom image for build and upload
 if [ "$BUILD" == true ] && [ -z "$IMAGE" ]; then
@@ -368,27 +374,36 @@ if [ "$UPLOAD" == true ] && [ -z "$IMAGE" ]; then
   echo -e "Please use the -'-image' or '-i' option with the name and tag of the image that will be the source of the package to be built.\n"
   exit 1
 fi
-# Not an error; just an optional value that we need to set
-if [ "$UPLOAD" == true ] && [ -z "$PACKAGE" ]; then
-  PACKAGE="$IMAGE"
-fi
 
-# Set 'run' values for cases where it does not make sense to run both containers
+# Reset 'run' values where the defaults don't make sense or user input has overriden
+# correct defaults
 #-------------------------------------------------------------------------------
-# build only
-if [ "$BUILD" == true ] && [ "$UPLOAD" == false ]; then
-  RUN="service"
+
 # upload
-elif [ "$UPLOAD" == true ]; then
+if [ "$UPLOAD" == true ] && [ "$RUN" != "none" ]; then
+  echo -e "${YELLOW}Warning:$NC Invalid 'run' option."
+  echo -e "Ignoring and running upload...\n"
   RUN="none"
+  sleep 5
 fi
-# output to cloud
-if [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
-  RUN=service
+# Local service reading data in cloud
+if [[ "$INPUT_DIR" == *"gs://"* ]] && [ "$RUN" != "service" ]; then
+  echo -e "${YELLOW}Warning:$NC Invalid 'run' option."
+  echo -e "Ignoring and running service container only.\n"
+  RUN="service"
+  sleep 5
 fi
-# service running in cloud
-if [ "$INPUT_DIR" == *"gs://"* ]; then
-  RUN=data
+# Data container running locally and outputting to cloud
+if [[ "$OUTPUT_DIR" == *"gs://"* ]] && [ "$RUN" != "data" ]; then
+  echo -e "${YELLOW}Warning:$NC Invalid 'run' option."
+  echo -e "Ignoring and running data container only.\n"
+  RUN="data"
+fi
+if [[ ("$SCHEMA_UPDATE" == true ) && ( "$RUN" == "service" || "$RUN" == "none") ]]; then
+  echo -e "${YELLOW}Warning:$NC Invalid 'run' option."
+  echo -e "Ignoring extra options and running all containers..."
+  RUN="all"
+  sleep 5
 fi
 
 # Call Docker commands
@@ -404,16 +419,21 @@ if [ "$UPLOAD" == true ]; then
 fi
 
 # All the run options
-if [ "$RUN" == "none" ]; then
-  exit 0;
-elif [ "$RUN" == "data" ]; then
-  run_data
-  exit 0
-elif [ "$RUN" == "service" ]; then
-  run_service
-  exit 0
-elif [ "$RUN" == "all" ]; then
-  run_data
-  run_service
-  exit 0
-fi
+case "$RUN" in
+   "none")
+     exit 0
+    ;;
+    "data")
+      run_data
+      exit 0
+    ;;
+    "service")
+      run_service
+      exit 0
+    ;;
+    "all" | *)
+      run_data
+      run_service
+      exit 0
+    ;;
+esac
