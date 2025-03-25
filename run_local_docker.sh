@@ -298,7 +298,7 @@ while true; do
         RUN="$2"
         shift 2
       else
-        echo -e "${RED}Error:${NC} That is not a valid run option. Valid options are:\nall\none\nservice\datan"
+        echo -e "${RED}Error:${NC} That is not a valid run option. Valid options are:\nall\none\nservice\data\n"
         exit 1
       fi
       ;;
@@ -360,18 +360,22 @@ if  [[ ("$UPLOAD" == true ) && ( -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOUD
 fi
 
 # Missing options in input
-# Don't need to handle invalid option combinations as one will just take precedence
-# and others will be ignored
 #-------------------------------------------------------------
 # Missing custom image for build and upload
 if [ "$BUILD" == true ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}Error:${NC} You have specified the --build option but have not specified an image name and tag."
+  echo -e "${RED}Error:${NC} Missing an image name and tag for build."
   echo -e "Please use the -'-image' or '-i' option with the name and tag of the image you would like to build.\n"
   exit 1
 fi
 if [ "$UPLOAD" == true ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}Error:${NC} You have specified the --upload option but have not specified a source image name and tag."
-  echo -e "Please use the -'-image' or '-i' option with the name and tag of the image that will be the source of the package to be built.\n"
+  echo -e "${RED}Error:${NC} Missing source image name and tag for upload."
+  echo -e "Please use the -'-image' or '-i' option with the name and tag of the image that will be the source of the package to be built."
+  echo -e "If you would like to rename the package to be built, also specify the '--package' option.\n"
+  exit 1
+fi
+if [ -n "$PACKAGE"] && [ "$UPLOAD" == false ]; then
+  echo -e "${RED}Error:${NC} Invalid options."
+  echo -e "Please specify '--upload' to create a package.\n"
   exit 1
 fi
 
