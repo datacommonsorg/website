@@ -8,7 +8,7 @@ This script automates the deployment of feature flags from `master` to a Google 
 ### Usage
 
 ```bash
-./update_gcs_feature_flags.sh <environment>
+./scripts/update_gcs_feature_flags.sh <environment>
 ```
 
 
