@@ -22,6 +22,7 @@ from flask import current_app
 from flask import redirect
 from flask import render_template
 from flask import request
+from flask import Response
 from flask import send_from_directory
 
 from server.lib.cache import cache
@@ -124,6 +125,6 @@ def version():
 @cache.cached(timeout=TIMEOUT)
 def robots_config():
   if current_app.config.get('DISABLE_CRAWLERS', False):
-    return "User-agent: *<br>Disallow: /"
+    return Response("User-agent: *\nDisallow: /", mimetype="text/plain")
   else:
     return send_from_directory("dist", "robots.txt")
