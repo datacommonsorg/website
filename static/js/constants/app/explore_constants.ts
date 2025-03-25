@@ -45,6 +45,7 @@ export const URL_HASH_PARAMS = {
   INCLUDE_STOP_WORDS: "includeStopWords",
   MAX_TOPICS: "maxTopics",
   MAX_TOPIC_SVS: "maxTopicSvs",
+  MAX_CHARTS: "maxCharts",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL

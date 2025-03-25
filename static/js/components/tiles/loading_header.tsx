@@ -19,10 +19,8 @@
  */
 
 import React from "react";
-import { Spinner } from "reactstrap";
 
-import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { Loading } from "../elements/loading";
 
 /**
  * Header with loading indicator
@@ -35,16 +33,5 @@ export function LoadingHeader(props: {
   title?: string;
 }): JSX.Element {
   const { isLoading, title } = props;
-  return (
-    <h4 {...{ part: "header" }}>
-      {isLoading ? (
-        <>
-          <Spinner color="secondary" size="sm" className="mr-1" />
-          {title ? title : intl.formatMessage(tileMessages.loading)}
-        </>
-      ) : (
-        title
-      )}
-    </h4>
-  );
+  return <h4 {...{ part: "header" }}>{isLoading ? <Loading /> : title}</h4>;
 }

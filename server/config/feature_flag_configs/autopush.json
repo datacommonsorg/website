@@ -20,7 +20,7 @@
   {
     "name": "scroll_to_top_button",
     "deprecated": true,
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the scroll to top button on the explore and place pages."
   },
@@ -38,7 +38,7 @@
   },
   {
     "name": "biomed_nl",
-    "enabled": true,
+    "enabled": false,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   }

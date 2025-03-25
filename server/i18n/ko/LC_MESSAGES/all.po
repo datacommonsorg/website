@@ -1,11 +1,11 @@
 msgid "%(placeType)s in %(parentPlaces)s"
-msgstr "%(parentPlaces)s %(placeType)s"
+msgstr "%(parentPlaces)s의 %(placeType)s"
 
 msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
-msgstr ""
+msgstr "Google의 <a href=\"https://datacommons.org\">Data Commons</a>"
 
 msgid "APIs"
-msgstr "APIs"
+msgstr "API"
 
 msgid "About"
 msgstr "정보"
@@ -20,43 +20,43 @@ msgid "Administrative Area 1 Place"
 msgstr "1급 행정 구역"
 
 msgid "Administrative Area 1 Places"
-msgstr ""
+msgstr "1급 행정 구역"
 
 msgid "Administrative Area 2 Place"
 msgstr "2급 행정 구역"
 
 msgid "Administrative Area 2 Places"
-msgstr ""
+msgstr "2급 행정 구역"
 
 msgid "Administrative Area 3 Place"
 msgstr "3급 행정 구역"
 
 msgid "Administrative Area 3 Places"
-msgstr ""
+msgstr "3급 행정 구역"
 
 msgid "Administrative Area 4 Place"
 msgstr "4급 행정 구역"
 
 msgid "Administrative Area 4 Places"
-msgstr ""
+msgstr "4급 행정 구역"
 
 msgid "Administrative Area 5 Place"
 msgstr "5급 행정 구역"
 
 msgid "Administrative Area 5 Places"
-msgstr ""
+msgstr "5급 행정 구역"
 
 msgid "Administrative Areas"
-msgstr ""
+msgstr "행정 구역"
 
 msgid "An initiative from"
-msgstr ""
+msgstr "이니셔티브 제공자"
 
 msgid "Back to homepage"
-msgstr ""
+msgstr "홈페이지로 돌아가기"
 
 msgid "BigQuery"
-msgstr ""
+msgstr "BigQuery"
 
 msgid "Blog"
 msgstr "블로그"
@@ -65,13 +65,13 @@ msgid "Borough"
 msgstr "자치구"
 
 msgid "Boroughs"
-msgstr ""
+msgstr "자치구"
 
 msgid "Cities"
-msgstr ""
+msgstr "도시"
 
 msgid "Cities, India"
-msgstr "Cities, India"
+msgstr "인도의 도시"
 
 msgid "Cities, United States"
 msgstr "도시, 미국"
@@ -83,7 +83,7 @@ msgid "Contribute"
 msgstr "참여"
 
 msgid "Counties"
-msgstr ""
+msgstr "카운티"
 
 msgid "Counties, United States"
 msgstr "국가, 미국"
@@ -101,7 +101,7 @@ msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr "Data Download Tool"
+msgstr "데이터 다운로드 도구"
 
 msgid "Data Sources"
 msgstr "데이터 소스"
@@ -110,7 +110,7 @@ msgid "Disclaimers"
 msgstr "면책조항"
 
 msgid "Districts, India"
-msgstr "Districts, India"
+msgstr "인도의 구"
 
 msgid "Documentation"
 msgstr "문서"
@@ -125,22 +125,22 @@ msgid "Enter a country, state, district or city"
 msgstr "Enter a country, state, district or city"
 
 msgid "Eurostat NUTS 1 Place"
-msgstr "유럽 연합통계청 NUTS 1급 장소"
+msgstr "유럽연합 통계국 NUTS 1급 장소"
 
 msgid "Eurostat NUTS 1 Places"
-msgstr ""
+msgstr "유럽연합 통계국 NUTS 1급 장소"
 
 msgid "Eurostat NUTS 2 Place"
-msgstr "유럽 연합통계청 NUTS 2급 장소"
+msgstr "유럽연합 통계국 NUTS 2급 장소"
 
 msgid "Eurostat NUTS 2 Places"
-msgstr ""
+msgstr "유럽연합 통계국 NUTS 2급 장소"
 
 msgid "Eurostat NUTS 3 Place"
-msgstr "유럽 연합통계청 NUTS 3급 장소"
+msgstr "유럽연합 통계국 NUTS 3급 장소"
 
 msgid "Eurostat NUTS 3 Places"
-msgstr ""
+msgstr "유럽연합 통계국 NUTS 3급 장소"
 
 msgid "Explore"
 msgstr "탐색"
@@ -194,31 +194,31 @@ msgid "Life Expectancy"
 msgstr "기대수명"
 
 msgid "Loading"
-msgstr ""
+msgstr "로드 중"
 
 msgid "Map Explorer"
 msgstr "지도 탐색기"
 
 msgid "Median Age"
-msgstr ""
+msgstr "중위 연령"
 
 msgid "Median Income"
-msgstr ""
+msgstr "중위 소득"
 
 msgid "Median Income, United States"
 msgstr "중위 소득, 미국"
 
 msgid "Natural Disaster Dashboard"
-msgstr ""
+msgstr "자연재해 대시보드"
 
 msgid "Neighborhood"
 msgstr "동네"
 
 msgid "Neighborhoods"
-msgstr ""
+msgstr "동네"
 
 msgid "Other %(placeType)s in %(parentPlace)s"
-msgstr ""
+msgstr "%(parentPlace)s의 기타 %(placeType)s"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>장소 탐색기 도구를 사용하면 장소에 관한 핵심 데이터를 파악할 수 있습니다. 인구, 교육, 경제 등에 대한 여러 차트를 가져와서 다른 장소와 비교하며 확인이 가능합니다. 실업률, 범죄율, 소득과 같은 다양한 지표에 따라 여러 장소의 순위를 확인할 수도 있습니다.</p><p>위 검색 상자에 관심 있는 도시, 우편번호, 카운티, 주, 국가를 입력하여 차트를 확인하세요.</p><p>또는 유명한 장소에 관한 데이터를 살펴볼 수도 있습니다.</p>"
@@ -236,7 +236,7 @@ msgid "Places"
 msgstr "장소"
 
 msgid "Population"
-msgstr ""
+msgstr "인구"
 
 msgid "Privacy Policy"
 msgstr "개인정보처리방침"
@@ -248,40 +248,40 @@ msgid "Scatter Plot Explorer"
 msgstr "분산형 차트 탐색기"
 
 msgid "Show about links"
-msgstr ""
+msgstr "Show about links"
 
 msgid "Show documentation links"
-msgstr ""
+msgstr "문서 링크 표시"
 
 msgid "Show exploration tools"
-msgstr ""
+msgstr "Show exploration tools"
 
 msgid "Show site navigation"
-msgstr ""
+msgstr "Show site navigation"
 
 msgid "State"
 msgstr "주"
 
 msgid "States"
-msgstr ""
+msgstr "주"
 
 msgid "States, India"
-msgstr "States, India"
+msgstr "인도의 주"
 
 msgid "States, United States"
 msgstr "주, 미국"
 
 msgid "Statistical Variable Explorer"
-msgstr "Statistical Variable Explorer"
+msgstr "통계 변수 탐색기"
 
 msgid "Statistics"
-msgstr ""
+msgstr "Statistics"
 
 msgid "Sustainability Explorer"
-msgstr ""
+msgstr "지속 가능성 탐색기"
 
 msgid "Terms Of Use"
-msgstr "Terms Of Use"
+msgstr "이용약관"
 
 msgid "Terms and Conditions"
 msgstr "이용약관"
@@ -290,19 +290,19 @@ msgid "Timelines Explorer"
 msgstr "타임라인 탐색기"
 
 msgid "Tools"
-msgstr ""
+msgstr "도구"
 
 msgid "Town"
 msgstr "소도시"
 
 msgid "Towns"
-msgstr ""
+msgstr "소도시"
 
 msgid "Tutorials"
 msgstr "튜토리얼"
 
 msgid "Unemployment Rate"
-msgstr ""
+msgstr "실업률"
 
 msgid "Unemployment Rate, United States"
 msgstr "실업률, 미국"
@@ -311,7 +311,7 @@ msgid "Village"
 msgstr "마을"
 
 msgid "Villages"
-msgstr ""
+msgstr "마을"
 
 msgid "Worldwide"
 msgstr "전 세계"
@@ -320,7 +320,7 @@ msgid "ZIP Code"
 msgstr "우편번호"
 
 msgid "ZIP Codes"
-msgstr ""
+msgstr "우편번호"
 
 msgid "by city"
 msgstr "도시별"
@@ -335,16 +335,16 @@ msgid "in United States"
 msgstr "미국"
 
 msgid "CHART_TITLE-Air pollutant cancer risk"
-msgstr "Lifetime air toxics cancer risk"
+msgstr "전체 기간 공기 중 독성으로 인한 암 발병 위험"
 
 msgid "CHART_TITLE-Air_quality_index"
-msgstr "Air quality index"
+msgstr "공기질 지수"
 
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "1인당 알코올 소비량(연간)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions"
+msgstr "연간 온실 가스 배출량"
 
 msgid "CHART_TITLE-Arson"
 msgstr "방화"
@@ -353,7 +353,7 @@ msgid "CHART_TITLE-Arson_rate"
 msgstr "10만 명당 방화 건수"
 
 msgid "CHART_TITLE-Associate_degree_gender"
-msgstr "Associate degree attainment by gender"
+msgstr "성별에 따른 준학사 학위 취득"
 
 msgid "CHART_TITLE-Associate_degree_rate_gender"
 msgstr "성별에 따른 2년제 학위 취득률"
@@ -362,7 +362,7 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "성별에 따른 학사 학위 취득률"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Air"
-msgstr "Air"
+msgstr "공기"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "범죄"
@@ -371,7 +371,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "인구통계"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
-msgstr "Disasters"
+msgstr "재해"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "경제학"
@@ -380,10 +380,10 @@ msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "교육"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
-msgstr "Emissions"
+msgstr "배출량"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
-msgstr "Energy"
+msgstr "에너지"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 msgstr "환경"
@@ -398,19 +398,19 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "주택"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Income"
-msgstr "Income"
+msgstr "수입"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "개요"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
-msgstr "Poverty"
+msgstr "빈곤"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
-msgstr "Temperature"
+msgstr "기온"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Water"
-msgstr "Water"
+msgstr "물"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "고용 아동 수"
@@ -467,10 +467,10 @@ msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "1인당 전기 소비량"
 
 msgid "CHART_TITLE-Electricity_generation"
-msgstr "Electricity generation per capita"
+msgstr "1인당 전기 발전량"
 
 msgid "CHART_TITLE-Electricity_price"
-msgstr "Electricity price"
+msgstr "전기 요금"
 
 msgid "CHART_TITLE-Energy_use"
 msgstr "에너지 사용(1인당 석유 환산량 kg당)"
@@ -479,7 +479,7 @@ msgid "CHART_TITLE-Fertility_rate"
 msgstr "출산율"
 
 msgid "CHART_TITLE-Gdp"
-msgstr "Gross domestic product"
+msgstr "국내총생산(GDP)"
 
 msgid "CHART_TITLE-Gdp_growth_rate"
 msgstr "GDP 성장률"
@@ -515,52 +515,52 @@ msgid "CHART_TITLE-Government_expenditures_military_per_gdp"
 msgstr "정부 군사비 지출(GDP 대비 %)"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_gender"
-msgstr "Graduate or professional degree attainment by gender"
+msgstr "성별에 따른 대학 졸업 또는 전문 학위 취득"
 
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "성별에 따른 대학 졸업 또는 전문 학위 취득률"
 
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr "증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr "장애 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
-msgstr "Hate crimes motivated by disability per 100,000 people"
+msgstr "100,000명당 장애 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr "민족 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
-msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+msgstr "100,000명당 민족 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr "성별 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
-msgstr "Hate crimes motivated by gender per 100,000 people"
+msgstr "100,000명당 성별 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr "인종 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
-msgstr "Hate crimes motivated by race per 100,000 people"
+msgstr "100,000명당 인종 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr "종교 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
-msgstr "Hate crimes motivated by religion per 100,000 people"
+msgstr "100,000명당 종교 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr "성적 지향 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
-msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+msgstr "100,000명당 성적 지향 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Hate_Crime_rate"
-msgstr "Hate crimes per 100,000 people"
+msgstr "100,000명당 증오 범죄 사건 수"
 
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "보건행동"
@@ -647,13 +647,13 @@ msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "국내 기업 시가총액(GDP 대비 %)"
 
 msgid "CHART_TITLE-Mean_concentration_DieselPM"
-msgstr "Mean Diesel PM concentration"
+msgstr "평균 디젤 미세먼지(PM) 농도"
 
 msgid "CHART_TITLE-Mean_concentration_Ozone"
-msgstr "Mean Ozone concentration"
+msgstr "평균 오존 농도"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
-msgstr "Mean PM2.5 concentration"
+msgstr "평균 초미세먼지(PM2.5) 농도"
 
 msgid "CHART_TITLE-Median_age"
 msgstr "중위 연령"
@@ -683,13 +683,13 @@ msgid "CHART_TITLE-Mortality_events_per_capita"
 msgstr "1인당 사망률"
 
 msgid "CHART_TITLE-Outward_remittance"
-msgstr "Outward remittance"
+msgstr "당발송금"
 
 msgid "CHART_TITLE-Outward_remittance_per_gdp"
 msgstr "당발송금"
 
 msgid "CHART_TITLE-Palmer_drought_severity_index"
-msgstr "Palmer drought severity index"
+msgstr "파머가뭄지수"
 
 msgid "CHART_TITLE-Percent_without_health_insurance_gender"
 msgstr "성별에 따른 보험 비보유자 비율"
@@ -761,16 +761,16 @@ msgid "CHART_TITLE-Prescribed_drugs_per_capita"
 msgstr "1인당 처방약(분기별)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 2.6 (based on year 2006)"
+msgstr "RCP 2.6에 따른 예상 최고 온도 변화(2006년 기준)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 4.5 (based on year 2006)"
+msgstr "RCP 4.5에 따른 예상 최고 온도 변화(2006년 기준)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 6.0 (based on year 2006)"
+msgstr "RCP 6.0에 따른 예상 최고 온도 변화(2006년 기준)"
 
 msgid "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006"
-msgstr "Projected max temperature change under RCP 8.5 (based on year 2006)"
+msgstr "RCP 8.5에 따른 예상 최고 온도 변화(2006년 기준)"
 
 msgid "CHART_TITLE-Property_crime"
 msgstr "재산범죄"
@@ -848,27 +848,17 @@ msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "노동자 및 비노동자 인구 비교"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
-msgstr "Carbon dioxide emissions (non-biogenic)"
+msgstr "이산화탄소 배출량(비생물)"
 
 msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
-msgstr "Carbon dioxide emissions per capita"
+msgstr "1인당 이산화탄소 배출량"
 
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
-msgstr "Methane emissions (non-biogenic)"
+msgstr "메탄 배출량(비생물)"
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
-msgstr "Nitrous oxide emissions (non-biogenic)"
+msgstr "아산화질소 배출량(비생물)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
-msgstr "Water withdrawal rate"
-
-
-
-
-
-
-
-
-
-
+msgstr "취수율"
 

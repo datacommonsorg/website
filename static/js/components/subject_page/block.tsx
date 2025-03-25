@@ -37,6 +37,7 @@ import {
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
@@ -115,20 +116,6 @@ export interface BlockPropType {
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
-const rankingTileLatestDataFooter = intl.formatMessage({
-  defaultMessage:
-    "This ranking includes data from several years for a comprehensive view of places.",
-  description:
-    "Description of a chart that shows data points from various years.",
-  id: "ranking-tile-latest-data-footer",
-});
-const rankingTileLatestDataAvailableFooter = intl.formatMessage({
-  defaultMessage:
-    "Ranking based on latest data available. Some places may be missing due to incomplete reporting that year.",
-  description:
-    "Description of a chart that shows the most recently available data.",
-  id: "ranking-tile-latest-data-available-footer",
-});
 
 /**
  * Helper for determining if we should snap the charts in this block to the
@@ -267,7 +254,9 @@ export function Block(props: BlockPropType): JSX.Element {
                 checked={useDenom}
                 onChange={() => setUseDenom(!useDenom)}
               />
-              <span>See per capita</span>
+              <span data-testid="see-per-capita">
+                {intl.formatMessage(messages.seePerCapita)}
+              </span>
             </label>
           </span>
         )}
@@ -518,9 +507,11 @@ function renderTiles(
             hideFooter={tile.hideFooter}
             footnote={
               blockDate == DATE_LATEST
-                ? rankingTileLatestDataFooter
+                ? intl.formatMessage(messages.rankingTileLatestDataFooter)
                 : blockDate === DATE_HIGHEST_COVERAGE
-                ? rankingTileLatestDataAvailableFooter
+                ? intl.formatMessage(
+                    messages.rankingTileLatestDataAvailableFooter
+                  )
                 : undefined
             }
           />

@@ -9,6 +9,78 @@
       "value": " に関するデータはありません"
     }
   ],
+  "chart-title-with-per-capita-and-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": "（"
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": " における 1 人あたり）"
+    }
+  ],
+  "chart-title-with-per-capita-no-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": "（1 人あたり）"
+    }
+  ],
+  "chart-title-with-two-variables": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " と "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
+  "chart-title-with-two-variables-and-location": [
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": " の "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " における "
+    },
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " と "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
   "chart_clause-other_placeType": [
     {
       "type": 1,
@@ -88,11 +160,15 @@
     },
     {
       "type": 0,
-      "value": ": rankings in "
+      "value": ": "
     },
     {
       "type": 1,
       "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " でのランキング"
     }
   ],
   "chart_clause-variable_in_place": [
@@ -118,7 +194,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": " をもっと見る"
+      "value": "もっと見る ›"
     }
   ],
   "chart_metadata-export": [
@@ -153,6 +229,30 @@
       "value": " の地域"
     }
   ],
+  "chooseVariable": [
+    {
+      "type": 0,
+      "value": "メタデータを表示する変数を選択してください"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "閉じる"
+    }
+  ],
+  "disasterTool": [
+    {
+      "type": 0,
+      "value": "災害ツール"
+    }
+  ],
+  "download": [
+    {
+      "type": 0,
+      "value": "ダウンロード"
+    }
+  ],
   "embed_citation": [
     {
       "type": 0,
@@ -185,10 +285,32 @@
       "value": "このグラフをエクスポート"
     }
   ],
+  "exploreLink": [
+    {
+      "type": 1,
+      "value": "toolName"
+    },
+    {
+      "type": 0,
+      "value": " で探索"
+    }
+  ],
   "header-overview": [
     {
       "type": 0,
       "value": "概要"
+    }
+  ],
+  "key_demographics": [
+    {
+      "type": 0,
+      "value": "主なユーザー層"
+    }
+  ],
+  "knowledge_graph": [
+    {
+      "type": 0,
+      "value": "ナレッジグラフ"
     }
   ],
   "link-return_to_overview": [
@@ -197,7 +319,25 @@
       "value": "概要に戻る"
     }
   ],
+  "loading": [
+    {
+      "type": 0,
+      "value": "読み込んでいます..."
+    }
+  ],
+  "mapTool": [
+    {
+      "type": 0,
+      "value": "マップツール"
+    }
+  ],
   "more_charts": [
+    {
+      "type": 0,
+      "value": "その他のグラフ"
+    }
+  ],
+  "more_charts_link": [
     {
       "type": 0,
       "value": "その他のグラフ"
@@ -563,6 +703,18 @@
       "value": "（1 人あたり）"
     }
   ],
+  "ranking-tile-latest-data-available-footer": [
+    {
+      "type": 0,
+      "value": "使用可能な最新のデータに基づくランキング。一部の地域は、対象の年の報告が不完全なため、欠落している可能性があります。"
+    }
+  ],
+  "ranking-tile-latest-data-footer": [
+    {
+      "type": 0,
+      "value": "このランキングには、場所についての包括的な視点を得るために、数年間のデータが含まれています。"
+    }
+  ],
   "ranking_table-header_rank": [
     {
       "type": 0,
@@ -575,10 +727,34 @@
       "value": "値"
     }
   ],
+  "relevant_topics": [
+    {
+      "type": 0,
+      "value": "関連トピック"
+    }
+  ],
+  "scatterTool": [
+    {
+      "type": 0,
+      "value": "散布図ツール"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "別の場所を検索する"
+    }
+  ],
+  "selectVariable": [
+    {
+      "type": 0,
+      "value": "リストから変数を選択すると、その詳細が表示されます。以下のリンクをクリックすると、新しいタブで統計変数エクスプローラが開きます。"
+    }
+  ],
+  "showMetadata": [
+    {
+      "type": 0,
+      "value": "メタデータを表示"
     }
   ],
   "singular_administrative_area": [
@@ -675,10 +851,58 @@
       "value": "郵便番号"
     }
   ],
+  "snap-to-latest-data-checkbox-label": [
+    {
+      "type": 0,
+      "value": "カバレッジが最も高い日付にスナップする"
+    }
+  ],
+  "snap-to-latest-data-help-tooltip": [
+    {
+      "type": 0,
+      "value": "[最もカバレッジの高い日付にスナップ] では、カバレッジが最大の最新のデータが表示されます。一部の地域は、対象の年の報告が不完全なため、欠落している可能性があります。"
+    }
+  ],
+  "snap-to-latest-data-overlap-help-tooltip": [
+    {
+      "type": 0,
+      "value": "カバレッジが最も高いデータは、このグラフで利用できる最新のデータでもあります。"
+    }
+  ],
+  "source": [
+    {
+      "type": 0,
+      "value": "出典"
+    }
+  ],
+  "sources": [
+    {
+      "type": 0,
+      "value": "ソース"
+    }
+  ],
+  "summary_overview": [
+    {
+      "type": 0,
+      "value": "概要"
+    }
+  ],
   "the_world": [
     {
       "type": 0,
       "value": "世界"
+    }
+  ],
+  "timelineTool": [
+    {
+      "type": 0,
+      "value": "タイムライン ツール"
+    }
+  ],
+  "viaGoogle": [
+    {
+      "type": 0,
+      "value": "Google 経由"
     }
   ]
 }

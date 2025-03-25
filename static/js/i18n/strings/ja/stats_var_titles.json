@@ -1,6 +1,6 @@
 {
   "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
+    "defaultMessage": "大気有害物質のがんリスク"
   },
   "AirQualityIndex_AirPollutant": {
     "defaultMessage": "AQI"
@@ -60,22 +60,22 @@
     "defaultMessage": "国内企業の時価総額（GDP 比）"
   },
   "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
+    "defaultMessage": "年間発電量"
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "二酸化炭素排出量（大規模施設、非生物起源）"
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
+    "defaultMessage": "温室効果ガス年間排出量（大規模施設、非生物起源）"
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "メタン排出量（大規模施設、非生物起源）"
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
+    "defaultMessage": "亜酸化窒素排出量（大規模施設、非生物起源）"
   },
   "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
+    "defaultMessage": "年間発電量"
   },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "犯罪件数（放火）"
@@ -90,25 +90,25 @@
     "defaultMessage": "犯罪件数（暴力犯罪）"
   },
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+    "defaultMessage": "犯罪件数（障がい者が対象のヘイトクライム）"
   },
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+    "defaultMessage": "犯罪件数（民族が対象のヘイトクライム）"
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
+    "defaultMessage": "犯罪件数（性別が対象のヘイトクライム）"
   },
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
+    "defaultMessage": "犯罪件数（人種が対象のヘイトクライム）"
   },
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+    "defaultMessage": "犯罪件数（宗教が対象のヘイトクライム）"
   },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+    "defaultMessage": "犯罪件数（性的指向が対象のヘイトクライム）"
   },
   "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
+    "defaultMessage": "犯罪件数（ヘイトクライム）"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "サイクロン災害件数"
@@ -639,16 +639,16 @@
     "defaultMessage": "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+    "defaultMessage": "最高気温変動（RCP 2.6、2016 年基準）"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+    "defaultMessage": "最高気温変動（RCP 4.5、2016 年基準）"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+    "defaultMessage": "最高気温変動（RCP 6.0、2016 年基準）"
   },
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+    "defaultMessage": "最高気温変動（RCP 8.5、2016 年基準）"
   },
   "FertilityRate_Person_Female": {
     "defaultMessage": "出生率"
@@ -666,13 +666,13 @@
     "defaultMessage": "平均寿命"
   },
   "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Mean Diesel PM Concentration"
+    "defaultMessage": "平均ディーゼル PM 濃度"
   },
   "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Mean Ozone Concentration"
+    "defaultMessage": "平均オゾン濃度"
   },
   "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "Mean PM2.5 Concentration"
+    "defaultMessage": "平均 PM2.5 濃度"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "労働者の 1 日の賃金"
@@ -762,7 +762,7 @@
     "defaultMessage": "個人所得の中央値（男性）"
   },
   "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "The Palmer Drought Severity Index"
+    "defaultMessage": "パーマー干ばつ深刻度指数"
   },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "健康保険未加入者の割合（女性）"
@@ -840,7 +840,7 @@
     "defaultMessage": "失業率（都市部）"
   },
   "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
+    "defaultMessage": "取水量"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "人口（仏教）"
