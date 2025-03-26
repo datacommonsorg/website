@@ -1,8 +1,8 @@
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(parentPlaces)s: место(а) по типу %(placeType)s"
 
-msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
-msgstr "<a href=\"https://datacommons.org\">Data Commons</a> от Google"
+msgid "<a href="https://datacommons.org">Data Commons</a> from Google"
+msgstr "<a href="https://datacommons.org">Data Commons</a> от Google"
 
 msgid "APIs"
 msgstr "API"
@@ -861,4 +861,7 @@ msgstr "Выбросы оксида азота (небиогенные)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Объем забора воды"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Обзор"
 

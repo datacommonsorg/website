@@ -1,8 +1,8 @@
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(placeType)s dans la région %(parentPlaces)s"
 
-msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
-msgstr "<a href=\"https://datacommons.org\">Data Commons</a> de Google"
+msgid "<a href="https://datacommons.org">Data Commons</a> from Google"
+msgstr "<a href="https://datacommons.org">Data Commons</a> de Google"
 
 msgid "APIs"
 msgstr "API"
@@ -386,7 +386,7 @@ msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Énergie"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "Environnement"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Capitaux propres"
@@ -861,4 +861,7 @@ msgstr "Émissions de protoxyde d'azote (non biogéniques)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Taux de prélèvement d'eau"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Aperçu"
 
