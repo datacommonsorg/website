@@ -38,7 +38,7 @@
 #    * build_and_run: Build a custom service image and run containers.
 #    * build_and_upload: Build a custom service image and upload it to Google Cloud (no containers run). 
 #    * upload: Upload a previously built image. 
-#    With all these options, you must also specify '--image' with the (source) image name and tag.
+#    With all these options, you must also specify '--image' with the (source) #   mage name and tag.
 #
 #  --container|-c all|service|data
 #    Optional: The containers to run.
@@ -129,37 +129,40 @@ upload() {
 }
 
 run_data() {
-  #docker pull gcr.io/datcom-ci/datacommons-data:${IMAGE}
+  if [ "$RELEASE" == "latest" ]; then
+    docker pull gcr.io/datcom-ci/datacommons-data:${RELEASE}
+  fi
+  schema_update='""'
+  schema_update_text=""
   if [ "$SCHEMA_UPDATE" == true ]; then
-    echo -e "${GREEN}Starting Docker data container with '$IMAGE' release in schema update mode...${NC}\n"
-    docker run -it \
-    --env-file $ENV_FILE \
-    -e DATA_UPDATE_MODE=schemaupdate \
-    -v $INPUT_DIR:$INPUT_DIR \
-    -v $OUTPUT_DIR:$OUTPUT_DIR \
-    gcr.io/datcom-ci/datacommons-data:${IMAGE}
+    schema_update="-e DATA_UPDATE_MODE=schemaupdate"
+    schema_update_text=" in schema update mode"
+  fi
   # Hybrid setup: input dir local, output dir in Cloud
-  elif [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
+if [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
     check_app_credentials
-    echo -e "${GREEN}Starting Docker data container with '$IMAGE' release and writing output to Google Cloud...${NC}\n"
+    echo -e "${GREEN}Starting Docker data container with '$RELEASE' release$schema_update_text and writing output to Google Cloud...${NC}\n"
     docker run -it \
     --env-file $ENV_FILE \
+    ${schema_update//\"/} \
     -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
     -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
     -v $INPUT_DIR:$INPUT_DIR \
-    gcr.io/datcom-ci/datacommons-data:${IMAGE}
+    gcr.io/datcom-ci/datacommons-data:${RELEASE}
   else
-    echo -e "${GREEN}Starting Docker data container with '$IMAGE' release...${NC}\n"
+    echo -e "${GREEN}Starting Docker data container with '$RELEASE' release$schema_update_text...${NC}\n"
     docker run -it \
     --env-file $ENV_FILE \
+    ${schema_update//\"/} \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    gcr.io/datcom-ci/datacommons-data:${IMAGE}
+    gcr.io/datcom-ci/datacommons-data:${RELEASE}
   fi
 }
 
+
 run_service() {
-  if [ "$IMAGE" != "stable" ] && [ "$IMAGE" != "latest" ]; then
+  if [ -n "$IMAGE" ]; then
     if ["$INPUT_DIR" == *"gs://"* ]; then
       check_app_credentials
       echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}' reading data in Google Cloud...${NC}\n"
@@ -185,27 +188,30 @@ run_service() {
       $IMAGE
     fi
   elif [[ "$INPUT_DIR" == *"gs://"* ]]; then
-    #docker pull gcr.io/datcom-ci/datacommons-services:${IMAGE}
     check_app_credentials
-    echo -e "${GREEN}Starting Docker services container with '${IMAGE}' release reading data in Google Cloud...${NC}\n"
+    if [ "$RELEASE" == "latest" ]; then
+      docker pull gcr.io/datcom-ci/datacommons-services:${RELEASE}
+    fi
+    echo -e "${GREEN}Starting Docker services container with '${RELEASE}' release reading data in Google Cloud...${NC}\n"
     docker run -it \
     --env-file $ENV_FILE \
     -p 8080:8080 \
     -e DEBUG=true \
     -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
     -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
-    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
-     gcr.io/datcom-ci/datacommons-services:${IMAGE}
+     gcr.io/datcom-ci/datacommons-services:${RELEASE}
   else
-    echo -e "${GREEN}Starting Docker services container with '${IMAGE}' release...${NC}\n"
-    #docker pull gcr.io/datcom-ci/datacommons-services:${IMAGE}
+    if [ "$RELEASE" == "latest" ]; then
+      docker pull gcr.io/datcom-ci/datacommons-services:${RELEASE}
+    fi
+    echo -e "${GREEN}Starting Docker services container with '${RELEASE}' release...${NC}\n"
     docker run -it \
     --env-file $ENV_FILE \
     -p 8080:8080 \
     -e DEBUG=true \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
-    gcr.io/datcom-ci/datacommons-services:${IMAGE}
+    gcr.io/datcom-ci/datacommons-services:${RELEASE}
   fi
 }
 
@@ -360,7 +366,7 @@ fi
 # Missing options in input
 #-------------------------------------------------------------
 # Missing custom image for build and upload
-if [[ ( "$MODE" == "build" || "$MODE" == "build_and_upload" || "$MODE" == "upload" ) && ( "$IMAGE" == "stable" || "$IMAGE" == "latest" ) ]]; then
+if [[ ( "$MODE" == "build" || "$MODE" == "build_and_upload" || "$MODE" == "upload" ) && ( -z "$IMAGE" ) ]]; then
   echo -e "${RED}Error:${NC}Missing an image name and tag for build/upload."
   echo -e "Please use the -'-image' or '-i' option with the name and tag of the custom image you are building or have already built.\n"
   exit 1
@@ -374,19 +380,19 @@ fi
 if [[ ( -z "$PACKAGE" ) && ( "$MODE" == "upload" || "$MODE" == "build_and_upload" ) ]]; then
   echo -e "${YELLOW}Warning:${NC}No '--package' option specified. The target package name and tag will be the same as the source."
   PACKAGE="$IMAGE"
-  sleep 10
+  sleep 5
 fi
 
 if [ "$SCHEMA_UPDATE" == true ] && [ "$MODE" != "run" ]; then
   echo -e "${YELLOW}Warning:${NC}Schema update cannot be run in '"$MODE"' mode. Ignoring mode option.\n"
   MODE="run"
-  sleep 10
+  sleep 5
 fi
 
-if [[ ( "$SCHEMA_UPDATE" == true ) && ( "$IMAGE" != "latest" || "$IMAGE" != "stable" )]]; then
+if [ "$SCHEMA_UPDATE" == true ] && [ -n "$IMAGE" ]; then
   echo -e "${YELLOW}Warning:${NC}Schema update cannot be run with custom image. Ignoring image option.\n"
   IMAGE="stable"
-  sleep 10
+  sleep 5
 fi
 
 # Reset option values where the defaults don't make sense or user input has 
