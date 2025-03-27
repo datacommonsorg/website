@@ -18,6 +18,7 @@ import _ from "lodash";
 
 import { Theme } from "../theme/types";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
+import { URLSearchParams } from "url";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -206,4 +207,40 @@ export function stripPatternFromQuery(query: string, pattern: string): string {
   // E.g.: query: "population of Calif", pattern: "Calif",
   // returns "population of "
   return query.replace(regex, "");
+}
+
+/**
+ * Extracts all flags from the URL.
+ */
+export function extractFlagsFromUrl(url: string): URLSearchParams {
+  try {
+    const parsedUrl = new URL(url);
+    return parsedUrl.searchParams;
+  } catch (error) {
+    console.error("Invalid URL provided:", error);
+    return new URLSearchParams();
+  }
+}
+
+/**
+ * Redirects to the destination URL while preserving the URL parameters in the originURL.
+ * 
+ * @param originUrl Current URL from which to extract URL parameters
+ * @param destinationUrl Desitnation URL to follow
+ * @param overrideParams Parameters to override.
+ */
+export function redirect(originUrl: string, destinationUrl: string, overrideParams: URLSearchParams = new URLSearchParams()): void {
+  const originParams = extractFlagsFromUrl(originUrl);
+
+  // Override parameters in originParams if necessary.
+  overrideParams.forEach((value, key) => {
+    originParams.set(key, value);
+  });
+
+  let finalUrl = destinationUrl;
+  if (originParams.size > 0) {
+    finalUrl += "?" + originParams.toString();
+  }
+
+  window.open(finalUrl, "_self");
 }
