@@ -30,7 +30,9 @@ import server.routes.experiments.biomed_nl.utils as utils
 logging.info("[biomed_nl] imported api.py")
 
 GEMINI_PRO = 'gemini-1.5-pro'
-GEMINI_PRO_TOKEN_LIMIT = 2097152
+GEMINI_PRO_TOKEN_LIMIT = 2000000
+GEMINI_CHARS_PER_TOKEN_ESTIMATE = 4
+PROMPT_TRUNCATE_TOKEN_BUFFER = 5
 
 # Define blueprint
 bp = flask.Blueprint('biomed_nl_api',
@@ -61,6 +63,13 @@ class FinalAnswerResponse(BaseModel):
   additional_entity_dcids: list[str]
 
 
+class BiomedNlApiResponse(BaseModel):
+  query: str
+  answer: str = ""
+  footnotes: list[CitedTripleReference] = []
+  debug: str = ""
+
+
 def _append_fallback_response(query, response, path_finder,
                               traversed_entity_info, gemini_client):
   entity_info = {
@@ -80,14 +89,29 @@ def _append_fallback_response(query, response, path_finder,
       SELECTED_PATHS=utils.format_dict(selected_paths),
       ENTITY_INFO=utils.format_dict(entity_info))
 
+  token_count = gemini_client.models.count_tokens(
+      model=GEMINI_PRO,
+      contents=fallback_prompt,
+  ).total_tokens
+  while token_count > GEMINI_PRO_TOKEN_LIMIT:
+    logging.info('[biomed_nl] truncate fallback prompt')
+    char_num_diff = (GEMINI_CHARS_PER_TOKEN_ESTIMATE *
+                     (abs(GEMINI_PRO_TOKEN_LIMIT - token_count)) +
+                     PROMPT_TRUNCATE_TOKEN_BUFFER)
+    fallback_prompt = fallback_prompt[:-char_num_diff]
+    token_count = gemini_client.models.count_tokens(
+        model=GEMINI_PRO,
+        contents=fallback_prompt,
+    ).total_tokens
+
   gemini_response = gemini_client.models.generate_content(
       model=GEMINI_PRO, contents=fallback_prompt)
-  response['answer'] += '\n\n' + gemini_response.text
-  response['debug'] += '\nFetched data too large for Gemini'
+  response.answer += '\n\n' + gemini_response.text
+  response.debug += '\nFetched data too large for Gemini'
 
 
 def _fulfill_traversal_query(query):
-  response = {'query': query, 'answer': '', 'debug': ''}
+  response = BiomedNlApiResponse(query=query)
   # TODO: remove extensive try-catch block once this api is stable
 
   gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
@@ -114,15 +138,13 @@ def _fulfill_traversal_query(query):
   except Exception as e:
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
     if path_finder.start_dcids:
-      response[
-          'answer'] = f'{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
+      response.answer = f'{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
     else:
-      response[
-          'answer'] = 'Error finding entities from the query in the knowledge graph.'
+      response.answer = 'Error finding entities from the query in the knowledge graph.'
     return response
 
   try:
-    response['debug'] += '\n' + utils.format_dict(
+    response.debug += '\n' + utils.format_dict(
         path_finder.path_store.get_paths_from_start(only_selected_paths=True))
 
     # TODO: add error handling.
@@ -142,12 +164,9 @@ def _fulfill_traversal_query(query):
               'response_schema': FinalAnswerResponse,
           })
       final_response = FinalAnswerResponse(**json.loads(gemini_response.text))
-      response['answer'] = final_response.answer
+      response.answer = final_response.answer
       # Convert triple references to serializable objects
-      response['footnotes'] = [
-          ref.model_dump(by_alias=True, mode="json")
-          for ref in final_response.references
-      ]
+      response.footnotes = final_response.references
     else:
       should_include_fallback = True
 
@@ -157,9 +176,9 @@ def _fulfill_traversal_query(query):
                                 traversed_entity_info, gemini_client)
   except Exception as e:
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
-    response['debug'] += f'\nERROR:{e}'
+    response.debug += f'\nERROR:{e}'
 
-  return response
+  return response.model_dump(by_alias=True, mode="json")
 
 
 @bp.route('/query')

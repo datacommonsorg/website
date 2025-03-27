@@ -48,7 +48,6 @@ const URL_HASH_PARAMS = {
 };
 
 const SAMPLE_QUESTIONS = [
-  "What genes are associated with Alzheimer's disease?",
   "What is the mechanism of action of atorvastatin?",
   "Is there a complete genome for Monkeypox virus?",
   "What genes does rs429358 regulate?",
@@ -62,6 +61,7 @@ const SAMPLE_QUESTIONS = [
   "What is the HGNC ID of FGFR1?",
   "What is the concept unique id for rheumatoid arthritis?",
   "What is the chembl ID of acetaminophen?",
+  "What genes are associated with Alzheimer's disease?",
 ];
 const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
   Commons knowledge graph with ease using natural language. Ask
@@ -156,7 +156,7 @@ function constructFeedbackLink(response: BiomedNlApiResponse): string {
   return `${FEEDBACK_FORM}${queryField}${answerField}${debugField}`;
 }
 
-function getFootnoteReferenceElementId(referenceNumber: number): string {
+function getFootnoteReferenceElementId(referenceNumber: string): string {
   return `biomednl-ref-${referenceNumber}`;
 }
 
@@ -187,7 +187,7 @@ function formatReferences(references: TripleReference[]): JSX.Element {
               [{reference.refNum}]&nbsp;
               <a
                 href={`/browser/${reference.source}#${browserElementId}`}
-                id={getFootnoteReferenceElementId(reference.refNum)}
+                id={getFootnoteReferenceElementId(reference.refNum.toString())}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -201,12 +201,49 @@ function formatReferences(references: TripleReference[]): JSX.Element {
   );
 }
 
+/**
+ * Replace citation numbers in textual answer with link to the footote
+ * containing the full reference.
+ *
+ * [More detailed explanation of the function's behavior.]
+ *
+ * @param paramName [string] The final answer returned by the biomed_nl api
+ * @returns [string] The final answer with citations linked to footnotes to be
+ *  rendered in Markdown
+ * @example
+ * Input:
+ * The following genetic variants are associated with premature birth:
+ * rs10774053 [1, 2]
+ *
+ * Output:
+ * The following genetic variants are associated with premature birth:
+ * rs10774053 [<a href="#biomednl-ref-1">1</a>, <a href="#biomednl-ref-2">2</a>]
+ */
 function formatCitationsInResponse(answer: string): string {
-  const referencePattern = /\[(\d+)\]/g;
-  // Answer will be rendered in markdown
-  const annotatedAnswer = answer.replace(referencePattern, (match, refNum) => {
-    return `<a href="#${getFootnoteReferenceElementId(refNum)}">${match}</a>`;
-  });
+  // Match instances of comma-separated numbers contained by square brackets
+  // (any amount of whitespace is allowed)
+  // Example matches: [d] or [d, d] or [d,d,d]
+  const referencePattern = /\[(\s*\d+(\s*,\s*\d+)*\s*)\]/g;
+
+  // Final, formatted answer will be rendered in markdown
+  const annotatedAnswer = answer.replace(
+    referencePattern,
+    (_, commaSeparatedRefNums) => {
+      return (
+        "[" +
+        commaSeparatedRefNums
+          .split(",")
+          .map(
+            (refNum: string) =>
+              `<a href="#${getFootnoteReferenceElementId(
+                refNum.trim()
+              )}">${refNum}</a>`
+          )
+          .join(",") +
+        "]"
+      );
+    }
+  );
   return annotatedAnswer;
 }
 
@@ -255,6 +292,12 @@ export function App(): ReactElement {
     setQueryFinal(queryInput);
   }
 
+  function resetToSampleQueries(): void {
+    updateHash({ [URL_HASH_PARAMS.q]: "" });
+    setQueryInput("");
+    setQueryFinal("");
+  }
+
   function handleKeydownEvent(
     event: React.KeyboardEvent<HTMLDivElement>
   ): void {
@@ -280,16 +323,16 @@ export function App(): ReactElement {
       .then((resp) => {
         setAnswer(processApiResponse(resp.data));
       })
-      .catch(() => {
-        setAnswer(
-          processApiResponse({
-            query: queryFinal,
-            answer: "There was a problem running the query, please try again.",
-            footnotes: [],
-            debug: "",
-          })
-        );
-      })
+      // .catch(() => {
+      //   setAnswer(
+      //     processApiResponse({
+      //       query: queryFinal,
+      //       answer: "There was a problem running the query, please try again.",
+      //       footnotes: [],
+      //       debug: "",
+      //     })
+      //   );
+      // })
       .finally(() => {
         setShowLoading(false);
       });
@@ -393,7 +436,7 @@ export function App(): ReactElement {
                       margin-bottom: ${theme.spacing.lg}px;
                     `}
                   >
-                    {_.escape(queryFinal)}
+                    {queryFinal}
                   </div>
                   <ReactMarkdown
                     rehypePlugins={[rehypeRaw as any]}
@@ -411,6 +454,19 @@ export function App(): ReactElement {
                       >
                         Tell us how we did.
                       </a>
+                    </p>
+                    <br></br>
+                    <p>
+                      <span
+                        onClick={resetToSampleQueries}
+                        css={css`
+                          color: ${theme.colors.link.primary.base};
+                          cursor: pointer;
+                        `}
+                      >
+                        &larr; Back
+                      </span>
+                      &nbsp;to see sample queries.
                     </p>
                   </div>
                   {answer.footnotes && (
