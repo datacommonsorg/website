@@ -38,6 +38,8 @@ export const placeExplorerCategories = [
   "economics_new",
 ];
 
+const SEARCH_PARAMS_TO_PROPAGATE = new Set(["hl"]);
+
 const NO_DATE_CAP_RCP_STATVARS = [
   // This stat var only has data for 2100. while other stat vars along the same
   // lines (eg. NumberOfMonths_5CelsiusOrMore_Percentile90AcrossModels_) have
@@ -210,12 +212,19 @@ export function stripPatternFromQuery(query: string, pattern: string): string {
 }
 
 /**
- * Extracts all flags from the URL.
+ * Extracts all flags to propagate from the URL.
  */
-export function extractFlagsFromUrl(url: string): URLSearchParams {
+export function extractFlagsToPropagate(url: string): URLSearchParams {
   try {
     const parsedUrl = new URL(url);
-    return parsedUrl.searchParams;
+    const searchParams = parsedUrl.searchParams;
+
+    for (const key of searchParams.keys()) {
+      if (!SEARCH_PARAMS_TO_PROPAGATE.has(key)) {
+        searchParams.delete(key);
+      }
+    }
+    return searchParams;
   } catch (error) {
     console.error("Invalid URL provided:", error);
     return new URLSearchParams();
@@ -234,7 +243,7 @@ export function redirect(
   destinationUrl: string,
   overrideParams: URLSearchParams = new URLSearchParams()
 ): void {
-  const originParams = extractFlagsFromUrl(originUrl);
+  const originParams = extractFlagsToPropagate(originUrl);
 
   // Override parameters in originParams if necessary.
   overrideParams.forEach((value, key) => {
