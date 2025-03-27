@@ -527,6 +527,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Area_Farm"
+                    ],
+                    "title": "Total Farm Area in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "description": "Total Farm Area in United States",
                     "statVarKey": [
                       "Area_Farm"
@@ -541,6 +552,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Farm"
+                    ],
+                    "title": "Farms in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -559,6 +581,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Income_Farm"
+                    ],
+                    "title": "Total Farm Income in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {

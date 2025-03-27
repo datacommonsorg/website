@@ -483,9 +483,19 @@
         "description": null,
         "dataSources": [
           {
+            "label": "Ethiopia Statistics",
+            "url": "https://ethiopia.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
+          },
+          {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
             "description": "Demographics, health and education data for Kenya at the country, county and town and suburb levels."
+          },
+          {
+            "label": "Rwanda Census",
+            "url": "https://rwanda.opendataforafrica.org/",
+            "description": "Demographics, economy and education data for Rwanda at the country, region and district levels."
           },
           {
             "label": "SouthAfrica Census",
@@ -1051,6 +1061,23 @@
         ]
       },
       {
+        "label": "Open Data for Africa",
+        "url": "https://dataportal.opendataforafrica.org/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Ethiopia Statistics",
+            "url": "https://ethiopia.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
+          },
+          {
+            "label": "Rwanda Census",
+            "url": "https://rwanda.opendataforafrica.org/",
+            "description": "Demographics, economy and education data for Rwanda at the country, region and district levels.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb);[Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+          }
+        ]
+      },
+      {
         "label": "OpenFIGI",
         "url": "https://www.openfigi.com/",
         "description": "A system for identifying global financial instruments. It provides tools for identifying, mapping, and requesting a free Financial Instrument Global Identifier (FIGI).",
@@ -1343,9 +1370,19 @@
         "description": null,
         "dataSources": [
           {
+            "label": "Ethiopia Statistics",
+            "url": "https://ethiopia.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
+          },
+          {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
             "description": "Demographics, health and education data for Kenya at the country, county and town and suburb levels."
+          },
+          {
+            "label": "Rwanda Census",
+            "url": "https://rwanda.opendataforafrica.org/",
+            "description": "Demographics, economy and education data for Rwanda at the country, region and district levels."
           },
           {
             "label": "SouthAfrica Census",
@@ -2086,6 +2123,11 @@
         "url": "https://dataportal.opendataforafrica.org/",
         "description": null,
         "dataSources": [
+          {
+            "label": "Ethiopia Statistics",
+            "url": "https://ethiopia.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
+          },
           {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
