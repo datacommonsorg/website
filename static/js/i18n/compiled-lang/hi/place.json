@@ -13,6 +13,24 @@
       "value": " के बारे में कोई डेटा नहीं है"
     }
   ],
+  "category_in_place": [
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": " के लिए, "
+    },
+    {
+      "type": 1,
+      "value": "category"
+    },
+    {
+      "type": 0,
+      "value": " से जुड़ा डेटा"
+    }
+  ],
   "chart-title-with-per-capita-and-date": [
     {
       "type": 1,
@@ -245,6 +263,24 @@
       "value": "बंद करें"
     }
   ],
+  "dateRange": [
+    {
+      "type": 1,
+      "value": "minDate"
+    },
+    {
+      "type": 0,
+      "value": " से "
+    },
+    {
+      "type": 1,
+      "value": "maxDate"
+    },
+    {
+      "type": 0,
+      "value": " तक"
+    }
+  ],
   "disasterTool": [
     {
       "type": 0,
@@ -289,6 +325,12 @@
       "value": "यह चार्ट भेजें"
     }
   ],
+  "enterQuery": [
+    {
+      "type": 0,
+      "value": "जानकारी पाने के लिए कोई सवाल पूछें"
+    }
+  ],
   "exploreLink": [
     {
       "type": 1,
@@ -297,6 +339,20 @@
     {
       "type": 0,
       "value": " में एक्सप्लोर करें"
+    }
+  ],
+  "explore_data_on": [
+    {
+      "type": 0,
+      "value": "इससे जुड़ा डेटा देखें... \""
+    },
+    {
+      "type": 1,
+      "value": "sampleQuestion"
+    },
+    {
+      "type": 0,
+      "value": "\""
     }
   ],
   "header-overview": [
@@ -347,6 +403,24 @@
       "value": "और चार्ट"
     }
   ],
+  "no_charts": [
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": " के लिए, "
+    },
+    {
+      "type": 1,
+      "value": "category"
+    },
+    {
+      "type": 0,
+      "value": " से जुड़ा कोई डेटा नहीं मिला."
+    }
+  ],
   "place_breadcrumb": [
     {
       "type": 1,
@@ -359,6 +433,20 @@
     {
       "type": 1,
       "value": "placeType"
+    }
+  ],
+  "place_not_found": [
+    {
+      "type": 0,
+      "value": "\""
+    },
+    {
+      "type": 1,
+      "value": "placeDcid"
+    },
+    {
+      "type": 0,
+      "value": "\" जगह की जानकारी नहीं मिली."
     }
   ],
   "place_page_ranking_table-ranking_in": [
@@ -379,6 +467,20 @@
     {
       "type": 1,
       "value": "rank"
+    }
+  ],
+  "place_type_in_places": [
+    {
+      "type": 1,
+      "value": "parentPlaces"
+    },
+    {
+      "type": 0,
+      "value": " में "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
     }
   ],
   "plural_administrative_area": [
@@ -411,6 +513,12 @@
     {
       "type": 0,
       "value": "शहर"
+    }
+  ],
+  "plural_continent": [
+    {
+      "type": 0,
+      "value": "महाद्वीप"
     }
   ],
   "plural_country": [
@@ -749,6 +857,12 @@
       "value": "कोई दूसरी जगह खोजें"
     }
   ],
+  "seePerCapita": [
+    {
+      "type": 0,
+      "value": "प्रति व्यक्ति से जुड़ा डेटा देखें"
+    }
+  ],
   "selectVariable": [
     {
       "type": 0,
@@ -791,6 +905,12 @@
     {
       "type": 0,
       "value": "शहर"
+    }
+  ],
+  "singular_continent": [
+    {
+      "type": 0,
+      "value": "महाद्वीप"
     }
   ],
   "singular_country": [
@@ -889,6 +1009,12 @@
     {
       "type": 0,
       "value": "खास जानकारी"
+    }
+  ],
+  "summary_overview_tooltip": [
+    {
+      "type": 0,
+      "value": "हम सोर्स से जुटाए गए अपने डेटा से अहम जानकारी पाने के लिए, एआई का इस्तेमाल करते हैं. हर चार्ट पर इस डेटा का लिंक मौजूद है. हमारा मकसद सटीक जानकारी देना है. इसलिए, कृपया जानकारी की समीक्षा करें और सोर्स डेटा देखें."
     }
   ],
   "the_world": [

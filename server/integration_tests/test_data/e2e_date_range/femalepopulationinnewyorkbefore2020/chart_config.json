@@ -162,7 +162,7 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance_3376114862"
+                      "Count_Person_Female_WithHealthInsurance_1704193675"
                     ],
                     "title": "Women With Health Insurance in New York",
                     "type": "LINE"
@@ -584,13 +584,13 @@
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
           },
-          "Count_Person_Female_WithHealthInsurance_2019": {
-            "date": "2019",
+          "Count_Person_Female_WithHealthInsurance_1704193675": {
+            "facetId": "1704193675",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
-          "Count_Person_Female_WithHealthInsurance_3376114862": {
-            "facetId": "3376114862",
+          "Count_Person_Female_WithHealthInsurance_2019": {
+            "date": "2019",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
