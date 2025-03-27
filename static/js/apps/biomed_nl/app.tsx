@@ -455,7 +455,6 @@ export function App(): ReactElement {
                         Tell us how we did.
                       </a>
                     </p>
-                    <br></br>
                     <p>
                       <span
                         onClick={resetToSampleQueries}
@@ -464,9 +463,8 @@ export function App(): ReactElement {
                           cursor: pointer;
                         `}
                       >
-                        &larr; Back
+                        &larr; Back to see sample queries.
                       </span>
-                      &nbsp;to see sample queries.
                     </p>
                   </div>
                   {answer.footnotes && (

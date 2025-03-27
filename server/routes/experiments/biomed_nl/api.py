@@ -27,8 +27,6 @@ from pydantic import Field
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
 
-logging.info("[biomed_nl] imported api.py")
-
 GEMINI_PRO = 'gemini-1.5-pro'
 GEMINI_PRO_TOKEN_LIMIT = 2000000
 GEMINI_CHARS_PER_TOKEN_ESTIMATE = 4
@@ -93,8 +91,9 @@ def _append_fallback_response(query, response, path_finder,
       model=GEMINI_PRO,
       contents=fallback_prompt,
   ).total_tokens
+  truncation_loop_count = 0
   while token_count > GEMINI_PRO_TOKEN_LIMIT:
-    logging.info('[biomed_nl] truncate fallback prompt')
+    truncation_loop_count += 1
     char_num_diff = (GEMINI_CHARS_PER_TOKEN_ESTIMATE *
                      (abs(GEMINI_PRO_TOKEN_LIMIT - token_count)) +
                      PROMPT_TRUNCATE_TOKEN_BUFFER)
@@ -103,6 +102,10 @@ def _append_fallback_response(query, response, path_finder,
         model=GEMINI_PRO,
         contents=fallback_prompt,
     ).total_tokens
+
+  if truncation_loop_count > 1:
+    logging.warning('[biomed_nl] fallback truncation loop ran %d times',
+                    truncation_loop_count)
 
   gemini_response = gemini_client.models.generate_content(
       model=GEMINI_PRO, contents=fallback_prompt)
@@ -178,7 +181,7 @@ def _fulfill_traversal_query(query):
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
     response.debug += f'\nERROR:{e}'
 
-  return response.model_dump(by_alias=True, mode="json")
+  return response
 
 
 @bp.route('/query')
@@ -186,5 +189,6 @@ def llm_search():
   query = request.args.get('q')
   if not query:
     return 'error: q param is required', 400
-  result = _fulfill_traversal_query(query)
+  result = _fulfill_traversal_query(query).model_dump(by_alias=True,
+                                                      mode="json")
   return Response(json.dumps(result), 200, mimetype='application/json')
