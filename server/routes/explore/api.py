@@ -131,36 +131,6 @@ def detect_and_fulfill():
 
 
 #
-# NOTE: `feedbackData` contains the logged payload.
-#
-# There are two types of feedback:
-# (1) Query-level: when `queryId` key is set
-# (2) Chart-level: when `chartId` field is set
-#
-# `chartId` is a json object that specifies the
-# location of a chart in the session by means of:
-#
-#   queryIdx, categoryIdx, blockIdx, columnIdx, tileIdx
-#
-# The last 4 are indexes into the corresponding fields in
-# the chart-config object (logged while processing the query),
-# and of type SubjectPageConfig proto.
-#
-@bp.route('/feedback', methods=['POST'])
-def feedback():
-  if (not current_app.config['LOG_QUERY']):
-    flask.abort(404)
-
-  session_id = request.json['sessionId']
-  feedback_data = request.json['feedbackData']
-  try:
-    bt.write_feedback(session_id, feedback_data)
-    return '', 200
-  except Exception as e:
-    return f'Failed to record feedback data {e}', 500
-
-
-#
 # Given an utterance constructed either from a query or from dcids,
 # fulfills it into charts.
 #
