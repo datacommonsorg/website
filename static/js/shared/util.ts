@@ -15,10 +15,10 @@
  */
 
 import _ from "lodash";
+import { URLSearchParams } from "url";
 
 import { Theme } from "../theme/types";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
-import { URLSearchParams } from "url";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -224,12 +224,16 @@ export function extractFlagsFromUrl(url: string): URLSearchParams {
 
 /**
  * Redirects to the destination URL while preserving the URL parameters in the originURL.
- * 
+ *
  * @param originUrl Current URL from which to extract URL parameters
  * @param destinationUrl Desitnation URL to follow
  * @param overrideParams Parameters to override.
  */
-export function redirect(originUrl: string, destinationUrl: string, overrideParams: URLSearchParams = new URLSearchParams()): void {
+export function redirect(
+  originUrl: string,
+  destinationUrl: string,
+  overrideParams: URLSearchParams = new URLSearchParams()
+): void {
   const originParams = extractFlagsFromUrl(originUrl);
 
   // Override parameters in originParams if necessary.

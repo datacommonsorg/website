@@ -38,8 +38,8 @@ import {
   GA_PARAM_DYNAMIC_PLACEHOLDER,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { redirect } from "../../shared/util";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
+import { redirect } from "../../shared/util";
 import { stripPatternFromQuery } from "../../shared/util";
 import {
   useInsideClickAlerter,
@@ -345,9 +345,9 @@ export function AutoCompleteInput(
         });
 
         const overrideParams = new URLSearchParams();
-        overrideParams.set('q', result.name);
+        overrideParams.set("q", result.name);
         const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
-        return redirect(window.location.href, destinationUrl,overrideParams )
+        return redirect(window.location.href, destinationUrl, overrideParams);
       }
     }
 
