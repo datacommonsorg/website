@@ -32,7 +32,6 @@ import {
 } from "../../constants/app/explore_constants";
 import {
   ExploreContext,
-  NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
@@ -173,27 +172,25 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 })}`;
               }}
             >
-              <NlSessionContext.Provider value={props.pageMetadata.sessionId}>
-                <ExploreContext.Provider
-                  value={{
-                    exploreMore: props.pageMetadata.exploreMore,
-                    place: props.pageMetadata.place.dcid,
-                    placeType: props.exploreContext.childEntityType || "",
-                  }}
-                >
-                  <SubjectPageMainPane
-                    id={PAGE_ID}
-                    place={props.pageMetadata.place}
-                    pageConfig={trimCategory(
-                      props.pageMetadata.pageConfig,
-                      maxBlock
-                    )}
-                    svgChartHeight={SVG_CHART_HEIGHT}
-                    showExploreMore={true}
-                  />
-                  <ScrollToTopButton />
-                </ExploreContext.Provider>
-              </NlSessionContext.Provider>
+              <ExploreContext.Provider
+                value={{
+                  exploreMore: props.pageMetadata.exploreMore,
+                  place: props.pageMetadata.place.dcid,
+                  placeType: props.exploreContext.childEntityType || "",
+                }}
+              >
+                <SubjectPageMainPane
+                  id={PAGE_ID}
+                  place={props.pageMetadata.place}
+                  pageConfig={trimCategory(
+                    props.pageMetadata.pageConfig,
+                    maxBlock
+                  )}
+                  svgChartHeight={SVG_CHART_HEIGHT}
+                  showExploreMore={true}
+                />
+                <ScrollToTopButton />
+              </ExploreContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
             {!emptyPlaceOverview &&
               !_.isEmpty(props.pageMetadata.childPlaces) && (
