@@ -686,20 +686,31 @@ class PathFinder:
       str_to_raw[entity.sanitized_str] = entity.raw_str
       for synonym in entity.synonyms:
         str_to_raw[synonym] = entity.raw_str
-    entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
-        ' '.join((str_to_raw.keys())))
+
+    detected_entities = recognize_entities_from_query(' '.join(
+        (str_to_raw.keys())))
+
+    displayed_entities = {}
 
     start_dcids = set()
-    # Add dcids of only the start entity to start_dcids.
-    for entity, dcids in entities_to_dcids.items():
-      if entity in start_strs:
-        start_dcids.update(dcids)
     raw_to_types = {}
-    for entity, types in entities_to_recognized_types.items():
-      raw_to_types.setdefault(str_to_raw[entity], []).extend(types)
+    for entity in detected_entities:
+      raw_to_types.setdefault(str_to_raw.get(entity.name, entity.name),
+                              []).extend(entity.types)
+      if any(entity.name in start_str for start_str in start_strs):
+        start_dcids.add(entity.dcid)
+
+      if entity.dcid in displayed_entities:
+        combined_types = list(
+            set(displayed_entities[entity.dcid].types) | set(entity.types))
+        displayed_entities[entity.dcid].types = combined_types
+      else:
+        displayed_entities[entity.dcid] = entity.model_copy()
 
     self.start_dcids = list(start_dcids)
     self.query = annotate_query_with_types(self.raw_query, raw_to_types)
+
+    return list(displayed_entities.values())
 
   def traverse_n_hops(self, start_dcids, n):
     '''Traverses the graph for a specified number of hops, updating the path store.

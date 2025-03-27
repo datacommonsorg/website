@@ -24,6 +24,8 @@ from server.routes.experiments.biomed_nl.entity_recognition import \
 from server.routes.experiments.biomed_nl.entity_recognition import \
     sample_dcids_by_type
 
+from server.routes.experiments.biomed_nl.utils import GraphEntity
+
 
 class TestRecognizeEntities(unittest.TestCase):
 
@@ -85,11 +87,13 @@ class TestRecognizeEntities(unittest.TestCase):
 
     mock_fetch.side_effect = [self.fetch_types_response]
 
-    sampled_dcids, unique_types = sample_dcids_by_type(input_dcids, 1)
+    entities = sample_dcids_by_type("entity", input_dcids, 1)
 
     mock_fetch.assert_called_once_with(input_dcids, 'typeOf')
-    assert set(sampled_dcids) == {'dc/1', 'dc/3'}
-    assert set(unique_types) == {'TypeA', 'TypeB', 'TypeC'}
+    assert entities == [
+        GraphEntity(name="entity", dcid="dc/1", types=["TypeA", "TypeB"]),
+        GraphEntity(name="entity", dcid="dc/3", types=["TypeB", "TypeC"])
+    ]
 
   @mock.patch('server.lib.fetch.raw_property_values')
   def test_sample_dcids_adds_skipped_dcids_from_first_pass(self, mock_fetch):
@@ -97,11 +101,14 @@ class TestRecognizeEntities(unittest.TestCase):
 
     mock_fetch.side_effect = self.fetch_types_side_effect
 
-    sampled_dcids, unique_types = sample_dcids_by_type(input_dcids, 3)
+    entities = sample_dcids_by_type("entity", input_dcids, 3)
 
     mock_fetch.assert_called_once_with(input_dcids, 'typeOf')
-    assert set(sampled_dcids) == {'dc/1', 'dc/2', 'dc/3'}
-    assert set(unique_types) == {'TypeA', 'TypeB', 'TypeC'}
+    assert entities == [
+        GraphEntity(name="entity", dcid="dc/1", types=["TypeA", "TypeB"]),
+        GraphEntity(name="entity", dcid="dc/3", types=["TypeB", "TypeC"]),
+        GraphEntity(name="entity", dcid="dc/2", types=["TypeB"]),
+    ]
 
   @mock.patch('server.lib.fetch.raw_property_values')
   @mock.patch('server.services.datacommons.recognize_entities')
@@ -111,25 +118,18 @@ class TestRecognizeEntities(unittest.TestCase):
     mock_fetch_types.side_effect = self.fetch_types_side_effect
 
     query = "query containing entity1 and second entity"
-    entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
-        query)
+    entities = recognize_entities_from_query(query)
 
     mock_recognize.assert_called_once_with(query)
     mock_fetch_types.assert_has_calls(
         [mock.call(['dc/1'], 'typeOf'),
          mock.call(['dc/2', 'dc/3'], 'typeOf')])
 
-    assert DeepDiff(entities_to_dcids, {
-        'entity1': ['dc/1'],
-        'second entity': ['dc/2', 'dc/3']
-    },
-                    ignore_order=True) == {}
-
-    assert DeepDiff(entities_to_recognized_types, {
-        'entity1': ['TypeA', 'TypeB'],
-        'second entity': ['TypeB', 'TypeC']
-    },
-                    ignore_order=True) == {}
+    assert entities == [
+        GraphEntity(name="entity1", dcid="dc/1", types=["TypeA", "TypeB"]),
+        GraphEntity(name="second entity", dcid="dc/2", types=["TypeB"]),
+        GraphEntity(name="second entity", dcid="dc/3", types=["TypeB", "TypeC"])
+    ]
 
   def test_annotate_query_with_types(self):
     query = "query containing entity1 and second entity"

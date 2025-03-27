@@ -15,6 +15,7 @@
 import json
 
 import numpy as np
+from pydantic import BaseModel
 
 PARSE_QUERY_PROMPT = '''
 Your task is to break down a natural language query into a structured output in two steps.
@@ -305,6 +306,12 @@ They can also find more info at https://docs.datacommons.org/api/ for programati
 '''
 
 MAX_NUM_DCID_PER_V2NODE_REQUEST = 100
+
+
+class GraphEntity(BaseModel):
+  name: str
+  types: list[str]
+  dcid: str
 
 
 def get_gemini_response_token_counts(response):

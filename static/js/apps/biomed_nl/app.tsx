@@ -87,12 +87,19 @@ interface TripleReference {
   linkedType: string;
 }
 
+interface GraphEntity {
+  name: string;
+  dcid: string;
+  types: string[];
+}
+
 // Interface for the response received from Biomed NL API.
 interface BiomedNlApiResponse {
   query: string;
   answer: string;
   footnotes: TripleReference[];
   debug: string;
+  entities: GraphEntity[];
 }
 
 // Interface for the displayed answer.
@@ -101,6 +108,7 @@ interface DisplayedAnswer {
   feedbackLink: string;
   footnotes: JSX.Element;
   debugInfo: string;
+  displayEntities: JSX.Element;
 }
 
 // Headings for Footer and Debug dropdown sections
@@ -247,16 +255,78 @@ function formatCitationsInResponse(answer: string): string {
   return annotatedAnswer;
 }
 
+function formatDetectedEntities(entities: GraphEntity[]): JSX.Element {
+  console.log(entities);
+  return (
+    <>
+      {entities.map((entity) => {
+        return (
+          <div
+            css={css`
+              display: block;
+            `}
+            key={entity.dcid}
+          >
+            <a
+              href={`/browser/${entity.dcid}`}
+              css={css`
+                ${theme.box.primary};
+                ${theme.elevation.secondary};
+                ${theme.radius.secondary};
+                color: ${theme.colors.link.primary.base};
+                line-height: 1rem;
+                display: block;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                gap: ${theme.spacing.sm}px;
+                padding: ${theme.spacing.md}px;
+                transition: background-color 0.1s ease-in-out,
+                  box-shadow 0.1s ease-in-out;
+
+                &:hover {
+                  text-decoration: none;
+                  color: ${theme.colors.link.primary.base};
+                  cursor: pointer;
+                }
+              `}
+            >
+              <p
+                css={css`
+                  margin: 0;
+                  ${theme.typography.text.md};
+                `}
+              >
+                {entity.name} ({entity.types.join(", ")})
+              </p>
+              <p
+                css={css`
+                  margin: 0;
+                  ${theme.typography.text.sm};
+                `}
+              >
+                ({entity.dcid})
+              </p>
+            </a>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
 function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
   const formattedAnswer = formatCitationsInResponse(response.answer);
   const feedbackLink = constructFeedbackLink(response);
   const tripleReferences = formatReferences(response.footnotes);
+  const formattedEntites = formatDetectedEntities(response.entities);
 
   return {
     answer: formattedAnswer,
     feedbackLink,
     footnotes: tripleReferences,
     debugInfo: response.debug,
+    displayEntities: formattedEntites,
   };
 }
 
@@ -329,6 +399,7 @@ export function App(): ReactElement {
             query: queryFinal,
             answer: "There was a problem running the query, please try again.",
             footnotes: [],
+            entities: [],
             debug: "",
           })
         );
@@ -425,80 +496,95 @@ export function App(): ReactElement {
                 })}
               </div>
             )}
-            <div className="loading">{showLoading && <SpinnerWithText />}</div>
-            <div className="answer">
-              {!showLoading && answer && (
-                <div>
-                  <div className="matched-entities">{/* TODO! */}</div>
-                  <div
-                    css={css`
-                      ${theme.typography.heading.md};
-                      margin-bottom: ${theme.spacing.lg}px;
-                    `}
-                  >
-                    {queryFinal}
-                  </div>
-                  <ReactMarkdown
-                    rehypePlugins={[rehypeRaw as any]}
-                    remarkPlugins={[remarkGfm]}
-                  >
-                    {answer.answer}
-                  </ReactMarkdown>
-                  <div className="feedback-form">
-                    <p>---</p>
-                    <p>
-                      <a
-                        href={answer.feedbackLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Tell us how we did.
-                      </a>
-                    </p>
-                    <p>
-                      <span
-                        onClick={resetToSampleQueries}
-                        css={css`
-                          color: ${theme.colors.link.primary.base};
-                          cursor: pointer;
-                        `}
-                      >
-                        &larr; Back to see sample queries.
-                      </span>
-                    </p>
-                  </div>
-                  {answer.footnotes && (
-                    <Collapsible
-                      trigger={getSectionTrigger(
-                        "Knowledge Graph References",
-                        false
-                      )}
-                      triggerWhenOpen={getSectionTrigger(
-                        "Knowledge Graph References",
-                        true
-                      )}
-                      open={true}
-                    >
-                      {answer.footnotes}
-                    </Collapsible>
-                  )}
-                  {answer.debugInfo && (
-                    <Collapsible
-                      trigger={getSectionTrigger("Debug", false)}
-                      triggerWhenOpen={getSectionTrigger("Debug", true)}
-                      open={false}
-                    >
-                      <ReactMarkdown
-                        rehypePlugins={[rehypeRaw as any]}
-                        remarkPlugins={[remarkGfm]}
-                      >
-                        {answer.debugInfo}
-                      </ReactMarkdown>
-                    </Collapsible>
-                  )}
+            {showLoading && <SpinnerWithText />}
+            {!showLoading && answer && (
+              <div
+                className="answer"
+                css={css`
+                  padding-top: ${theme.spacing.lg}px;
+                `}
+              >
+                <div
+                  css={css`
+                    ${theme.typography.heading.md};
+                  `}
+                >
+                  {queryFinal}
                 </div>
-              )}
-            </div>
+                <div
+                  css={css`
+                    display: flex;
+                    flex-direction: row;
+                    gap: ${theme.spacing.md}px;
+                    align-items: center;
+                    margin: ${theme.spacing.sm}px 0;
+                    padding: ${theme.spacing.sm}px;
+                    border-radius: 10px;
+                  `}
+                >
+                  {answer.displayEntities}
+                </div>
+                <ReactMarkdown
+                  rehypePlugins={[rehypeRaw as any]}
+                  remarkPlugins={[remarkGfm]}
+                >
+                  {answer.answer}
+                </ReactMarkdown>
+                <div className="feedback-form">
+                  <p>---</p>
+                  <p>
+                    <a
+                      href={answer.feedbackLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Tell us how we did.
+                    </a>
+                  </p>
+                  <br></br>
+                  <p>
+                    <span
+                      onClick={resetToSampleQueries}
+                      css={css`
+                        color: ${theme.colors.link.primary.base};
+                        cursor: pointer;
+                      `}
+                    >
+                      &larr; Back to see sample queries.
+                    </span>
+                  </p>
+                </div>
+                {answer.footnotes && (
+                  <Collapsible
+                    trigger={getSectionTrigger(
+                      "Knowledge Graph References",
+                      false
+                    )}
+                    triggerWhenOpen={getSectionTrigger(
+                      "Knowledge Graph References",
+                      true
+                    )}
+                    open={true}
+                  >
+                    {answer.footnotes}
+                  </Collapsible>
+                )}
+                {answer.debugInfo && (
+                  <Collapsible
+                    trigger={getSectionTrigger("Debug", false)}
+                    triggerWhenOpen={getSectionTrigger("Debug", true)}
+                    open={false}
+                  >
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeRaw as any]}
+                      remarkPlugins={[remarkGfm]}
+                    >
+                      {answer.debugInfo}
+                    </ReactMarkdown>
+                  </Collapsible>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

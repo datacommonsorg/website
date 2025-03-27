@@ -20,7 +20,7 @@ import server.services.datacommons as dc
 MIN_SAMPLES = 3
 
 
-def sample_dcids_by_type(dcids, min_sample_size):
+def sample_dcids_by_type(entity_name, dcids, min_sample_size):
   """Samples a set of DCIDs such that all unique types of the original DCID list
   are present in the sample.
 
@@ -44,7 +44,8 @@ def sample_dcids_by_type(dcids, min_sample_size):
       if 'name' in type_node
   }
 
-  unique_types = list(remaining_unique_types)
+  graph_entities = []
+  skipped_entities = []
 
   sample_dcids = []
   first_pass_skipped = []
@@ -59,12 +60,19 @@ def sample_dcids_by_type(dcids, min_sample_size):
       # needs to be added to the set since they are now represented in the
       # sample set.
       remaining_unique_types.difference_update(dcid_types)
+      graph_entities.append(
+          utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
       sample_dcids.append(dcid)
     elif not remaining_unique_types:
       sample_dcids.append(dcid)
+      graph_entities.append(
+          utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
+
       if len(sample_dcids) >= min_sample_size:
         break
     else:
+      skipped_entities.append(
+          utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
       first_pass_skipped.append(dcid)
 
   # If some dcids were skipped in the first pass to find all unique types, but
@@ -73,8 +81,8 @@ def sample_dcids_by_type(dcids, min_sample_size):
   num_skipped_samples_to_add = min_sample_size - len(sample_dcids)
   if num_skipped_samples_to_add > 0:
     sample_dcids.extend(first_pass_skipped[:num_skipped_samples_to_add])
-
-  return sample_dcids, unique_types
+    graph_entities.extend(skipped_entities[:num_skipped_samples_to_add])
+  return graph_entities
 
 
 def recognize_entities_from_query(query):
@@ -93,8 +101,8 @@ def recognize_entities_from_query(query):
         (strings).
   """
   recognize_response = dc.recognize_entities(query)
-  entities_to_dcids = {}
-  entities_to_recognized_types = {}
+
+  detected_entities = []
   for item in recognize_response:
     queried_entity = item['span']
 
@@ -107,11 +115,9 @@ def recognize_entities_from_query(query):
     if not dcids:
       continue
 
-    dcids, types = sample_dcids_by_type(dcids, MIN_SAMPLES)
-    entities_to_dcids[queried_entity] = dcids
-    entities_to_recognized_types[queried_entity] = types
-
-  return entities_to_dcids, entities_to_recognized_types
+    entities = sample_dcids_by_type(queried_entity, dcids, MIN_SAMPLES)
+    detected_entities.extend(entities)
+  return detected_entities
 
 
 def annotate_query_with_types(query, entities_to_types):

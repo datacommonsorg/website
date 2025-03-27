@@ -66,6 +66,7 @@ class BiomedNlApiResponse(BaseModel):
   answer: str = ""
   footnotes: list[CitedTripleReference] = []
   debug: str = ""
+  entities: list[utils.GraphEntity] = []
 
 
 def _append_fallback_response(query, response, path_finder,
@@ -126,7 +127,7 @@ def _fulfill_traversal_query(query):
 
   traversed_entity_info = {}
   try:
-    path_finder.find_start_and_traversal_type()
+    response.entities = path_finder.find_start_and_traversal_type()
 
     if path_finder.traversal_type == PathFinder.TraversalTypes.OVERVIEW:
       # Skip traversal and fetch data for the entities
