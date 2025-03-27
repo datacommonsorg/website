@@ -24,3 +24,4 @@ class Config(_base.Config):
   HIDE_DEBUG = False
   USE_MEMCACHE = False
   ENABLE_BQ = True
+  DISABLE_CRAWLERS = True
