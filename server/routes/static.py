@@ -22,8 +22,12 @@ from flask import current_app
 from flask import redirect
 from flask import render_template
 from flask import request
+from flask import Response
+from flask import send_from_directory
 
+from server.lib.cache import cache
 import server.lib.render as lib_render
+from server.routes import TIMEOUT
 from server.services import datacommons as dc
 
 bp = Blueprint('static', __name__)
@@ -115,3 +119,12 @@ def version():
       bigquery=mixer_version.get('bigquery', ''),
       featureFlags=current_app.config.get('FEATURE_FLAGS', []),
       remote_mixer_domain=mixer_version.get('remoteMixerDomain', ''))
+
+
+@bp.route('/robots.txt')
+@cache.cached(timeout=TIMEOUT)
+def robots_config():
+  if current_app.config.get('DISABLE_CRAWLERS', False):
+    return Response("User-agent: *\nDisallow: /", mimetype="text/plain")
+  else:
+    return send_from_directory("dist", "robots.txt")
