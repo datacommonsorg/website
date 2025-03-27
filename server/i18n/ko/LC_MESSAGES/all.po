@@ -862,3 +862,6 @@ msgstr "아산화질소 배출량(비생물)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "취수율"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "개요"
+

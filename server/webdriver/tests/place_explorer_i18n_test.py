@@ -73,7 +73,7 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
 
     topics_for_africa = [
         "Économie", "Santé", "Capitaux propres", "Données démographiques",
-        "Environment", "Énergie"
+        "Environnement", "Énergie"
     ]
     shared.assert_topics(self,
                          self.driver,
@@ -97,10 +97,9 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
         (By.CSS_SELECTOR, '.place-info [data-testid="place-name"]'), '日本')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
-    # TODO: Update this test once the place type is translated
     # Ensure that the place type in {parentPlace} is translated
     place_type_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '.place-info .subheader'), '国 in')
+        (By.CSS_SELECTOR, '.place-info .subheader'), 'の 国')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 
     # Ensure that the topics tab links are translated
@@ -149,12 +148,12 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
                       by=By.CSS_SELECTOR,
                       value="svg text.place-tick").text))
 
-    # TODO: Update this test once the see per capita link is translated
+    # Ensure translated per capita checkbox is present
     self.assertEqual(
         find_elem(self.driver,
                   by=By.CSS_SELECTOR,
                   value=".block-controls [data-testid='see-per-capita']").text,
-        "See per capita")
+        "1 人あたりのデータを表示")
 
     # Test that related places callout is translated
     related_places = find_elem(self.driver,
