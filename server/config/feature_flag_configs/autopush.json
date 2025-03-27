@@ -47,5 +47,5 @@
     "enabled": false,
     "owner": "dwnoble",
     "description": "Feature flag to show the API modal on web components."
-  },
+  }
 ]
