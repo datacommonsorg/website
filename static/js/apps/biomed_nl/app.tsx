@@ -323,16 +323,16 @@ export function App(): ReactElement {
       .then((resp) => {
         setAnswer(processApiResponse(resp.data));
       })
-      // .catch(() => {
-      //   setAnswer(
-      //     processApiResponse({
-      //       query: queryFinal,
-      //       answer: "There was a problem running the query, please try again.",
-      //       footnotes: [],
-      //       debug: "",
-      //     })
-      //   );
-      // })
+      .catch(() => {
+        setAnswer(
+          processApiResponse({
+            query: queryFinal,
+            answer: "There was a problem running the query, please try again.",
+            footnotes: [],
+            debug: "",
+          })
+        );
+      })
       .finally(() => {
         setShowLoading(false);
       });
