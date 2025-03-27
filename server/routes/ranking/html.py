@@ -32,9 +32,13 @@ def ranking(stat_var, place_type, place_dcid=''):
   else:
     place_name = 'the World'
   per_capita = flask.request.args.get('pc', False) != False
-  return flask.render_template('ranking.html',
-                               place_name=place_name,
-                               place_dcid=place_dcid,
-                               place_type=place_type,
-                               per_capita=per_capita,
-                               stat_var=stat_var)
+  return flask.render_template(
+      'ranking.html',
+      place_name=place_name,
+      place_dcid=place_dcid,
+      place_type=place_type,
+      per_capita=per_capita,
+      stat_var=stat_var,
+      sample_questions=json.dumps(
+          current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
+  )
