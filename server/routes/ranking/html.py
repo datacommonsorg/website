@@ -13,7 +13,10 @@
 # limitations under the License.
 """Place Ranking related handlers."""
 
+import json
+
 import flask
+from flask import current_app
 
 import server.routes.shared_api.place as place_api
 
@@ -32,13 +35,12 @@ def ranking(stat_var, place_type, place_dcid=''):
   else:
     place_name = 'the World'
   per_capita = flask.request.args.get('pc', False) != False
-  return flask.render_template(
-      'ranking.html',
-      place_name=place_name,
-      place_dcid=place_dcid,
-      place_type=place_type,
-      per_capita=per_capita,
-      stat_var=stat_var,
-      sample_questions=json.dumps(
-          current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
-  )
+  return flask.render_template('ranking.html',
+                               place_name=place_name,
+                               place_dcid=place_dcid,
+                               place_type=place_type,
+                               per_capita=per_capita,
+                               stat_var=stat_var,
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))

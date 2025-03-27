@@ -82,17 +82,15 @@ def scatter():
         info_json=info_json,
         maps_api_key=current_app.config['MAPS_API_KEY'],
         sample_questions=json.dumps(
-            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
-    )
+            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/statvar')
 def stat_var():
-  return flask.render_template(
-      'tools/stat_var.html',
-      sample_questions=json.dumps(
-          current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
-  )
+  return flask.render_template('tools/stat_var.html',
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/download')
@@ -106,8 +104,7 @@ def download():
         info_places=json.dumps(info_places),
         maps_api_key=current_app.config['MAPS_API_KEY'],
         sample_questions=json.dumps(
-            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
-    )
+            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/visualization')
@@ -120,5 +117,4 @@ def visualization():
         info_json=info_json,
         maps_api_key=current_app.config['MAPS_API_KEY'],
         sample_questions=json.dumps(
-            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])),
-    )
+            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
