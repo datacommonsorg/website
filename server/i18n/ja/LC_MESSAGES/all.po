@@ -1,8 +1,8 @@
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(parentPlaces)s の %(placeType)s"
 
-msgid "<a href="https://datacommons.org">Data Commons</a> from Google"
-msgstr "Google の <a href="https://datacommons.org">データコモンズ</a>"
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr "Google の <a href=\"https://datacommons.org\">データコモンズ</a>"
 
 msgid "APIs"
 msgstr "API"

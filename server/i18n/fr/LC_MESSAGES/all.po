@@ -1,8 +1,8 @@
 msgid "%(placeType)s in %(parentPlaces)s"
 msgstr "%(placeType)s dans la région %(parentPlaces)s"
 
-msgid "<a href="https://datacommons.org">Data Commons</a> from Google"
-msgstr "<a href="https://datacommons.org">Data Commons</a> de Google"
+msgid "<a href=\"https://datacommons.org\">Data Commons</a> from Google"
+msgstr "<a href=\"https://datacommons.org\">Data Commons</a> de Google"
 
 msgid "APIs"
 msgstr "API"
