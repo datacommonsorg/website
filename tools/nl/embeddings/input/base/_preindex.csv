@@ -1544,6 +1544,7 @@ Number of Female People With Bachelor's Degree or Higher Who Divorced in the Pas
 Number of Female People With Bachelor's Degree or Higher Who Married in the Past 12 Months,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_Female_MarriedInThePast12Months
 Number of Female People With Own Children Under 18,Count_Person_WithOwnChildrenUnder18_Female
 Number of Female students,Count_Student_Female
+Number of Females in workforce who are under utilized,Count_Person_LaborUnderutilizedPotentialLaborForce_Female
 Number of Females with Earnings,Count_Person_16OrMoreYears_Female_WithEarnings
 Number of Females with Educational Attainment from Nursery to 4th Grade,Count_Person_25OrMoreYears_EducationalAttainmentNurseryTo4ThGrade_Female
 Number of Females with Educational Attainment of 10th Grade,Count_Person_25OrMoreYears_EducationalAttainment10ThGrade_Female
@@ -1758,6 +1759,7 @@ Number of Male People With Bachelor's Degree or Higher Who Married in the Past 1
 Number of Male People With Own Children Under 18,Count_Person_WithOwnChildrenUnder18_Male
 Number of Male Students,Count_Student_Male
 Number of Male Workers,Count_Person_Workers_Male
+Number of Males in workforce who are under utilized,Count_Person_LaborUnderutilizedPotentialLaborForce_Male
 Number of Males with Earnings,Count_Person_16OrMoreYears_Male_WithEarnings
 Number of Males with Educational Attainment from Nursery to 4th Grade,Count_Person_25OrMoreYears_EducationalAttainmentNurseryTo4ThGrade_Male
 Number of Males with Educational Attainment of 10th Grade,Count_Person_25OrMoreYears_EducationalAttainment10ThGrade_Male
@@ -2108,6 +2110,9 @@ Number of employed people in Financial and insurance activities,Count_Person_Emp
 Number of employed people in Information and communication,Count_Person_Employed_NACE/J
 Number of employed people in Manufacturing,Count_Person_Employed_NACE/C
 Number of employed people in Real estate activities,Count_Person_Employed_NACE/L
+Number of employed people not participating in Subsistance Agriculture,Count_Person_30To34Years_NonSubsistenceAgriculture_Employed
+Number of employed people participating in Subsistance Agriculture,Count_Person_30To34Years_SubsistenceAgriculture_Employed
+Number of employees who are married,Count_Person_Employed_Married_AsAFractionOf_Count_Person_Married
 Number of establishments of all industries,Count_Establishment_NAICSTotalAllIndustries
 Number of establishments owned by private entities,Count_Establishment_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries
 Number of establishments owned by private entities in the Solar Electric Power Generation industry,dc/wfktw3b5c50h1
@@ -2593,6 +2598,7 @@ Number of people do not speak english at all,Count_Person_SpeakEnglishNotAtAll
 Number of people do not speak english well,Count_Person_SpeakEnglishNotWell
 Number of people employed in the manufacturing sector,dc/ndg1xk1e9frc2
 Number of people enrolled for Aadhaar,Count_Person_Aadhaar_Enrolled
+Number of people in workforce who are under utilized,Count_Person_LaborUnderutilizedPotentialLaborForce
 Number of people living above the poverty level in the past 12 months,Count_Person_AbovePovertyLevelInThePast12Months
 Number of people living in urban areas,Count_Person_Urban
 Number of people living in urban areas and below poverty level in the past 12 months,Count_Person_Urban_BelowPovertyLevelInThePast12Months
@@ -2621,6 +2627,7 @@ Number of people that are never married and reside in non-institutionalized grou
 Number of people that are never married and reside in nursing facilities,Count_Person_NeverMarried_ResidesInNursingFacilities
 Number of people under 18 years old without health insurance,Count_Person_18OrLessYears_NoHealthInsurance
 Number of people walking to work,dc/vp8cbt6k79t94
+Number of people who are Plant Operator,Count_Person_PlantOperatorAndMachineOperatorAndMachineAssemble
 Number of people who are high school graduates or higher,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher
 Number of people who are high school graduates or higher and reside in adult correctional facilities,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInAdultCorrectionalFacilities
 Number of people who are high school graduates or higher and reside in college or university student housing,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInCollegeOrUniversityStudentHousing
@@ -2631,6 +2638,7 @@ Number of people who are high school graduates or higher and reside in nursing f
 Number of people who are less than high school graduates,Count_Person_EducationalAttainmentLessThanHighSchoolGraduate
 Number of people who are seperated,Count_Person_Separated
 Number of people who are seperated and reside in adult correctional facilities,Count_Person_Separated_ResidesInAdultCorrectionalFacilities
+Number of people who are under utilized participating in Subsistance Agriculture,Count_Person_SubsistenceAgriculture_LaborUnderutilizedPotentialLaborForce
 Number of people who carpool to work,dc/wc8q05drd74bd
 Number of people who died or disappeared in the process of migration towards an international destination,dc/topic/sdg_10.7.3
 Number of people who do not work,Count_Person_NonWorker
@@ -2706,7 +2714,13 @@ Number of people with kindergarten level education,Count_Person_EducationalAttai
 Number of people with multi races,Count_Person_TwoOrMoreRaces
 Number of people with professional school degree,Count_Person_EducationalAttainmentProfessionalSchoolDegree
 Number of people with public health insurance,Count_Person_WithPublicHealthInsurance
+Number of people work in Agriculture,Count_Person_NonSubsistenceAgriculture_AgricultureForestryFishingSector;Count_Person_SubsistenceAgriculture_AgricultureForestryFishingSector
 "Number of people work in Agriculture, Forestry, Fishing And Hunting",Count_Worker_NAICSAgricultureForestryFishingHunting
+Number of people work in Electricity,Count_Person_NonSubsistenceAgriculture_ElectricityGasSteamAirConditionSupply;Count_Person_SubsistenceAgriculture_ElectricityGasSteamAirConditionSupply
+Number of people work in Manufacturing Sector not participating in Subsistance Agriculture,Count_Person_NonSubsistenceAgriculture_ManufacturingSector
+Number of people work in Manufacturing Sector participating in Subsistance Agriculture,Count_Person_SubsistenceAgriculture_ManufacturingSector
+Number of people work in Mining,Count_Person_NonSubsistenceAgriculture_MiningQuarrying;Count_Person_SubsistenceAgriculture_MiningQuarrying
+Number of people work in Water Supply,Count_Person_NonSubsistenceAgriculture_WaterSupplySewerageWasteManagement;Count_Person_SubsistenceAgriculture_WaterSupplySewerageWasteManagement
 "Number of people working in sports, hobby, music instruments, and book stores",dc/e2zdnwjjhyj36
 Number of people working in the retail trade industry,dc/p69tpsldf99h7
 Number of privately owned Wind Electric Power Generation establishments,dc/evcytmdmc9xgd
@@ -2720,6 +2734,7 @@ Number of renter occupied married couple family households,Count_Household_Marri
 Number of renter occupied married couple family households below poverty in the past 12 months,Count_Household_MarriedCoupleFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months
 Number of rip current events,Count_RipCurrentEvent
 Number of robberies,Count_CriminalActivities_Robbery
+Number of rural people who are Plant Operator,Count_Person_PlantOperatorAndMachineOperatorAndMachineAssemble_Rural
 Number of rural people who do not work,Count_Person_NonWorker_Rural
 Number of rural scheduled caste people,Count_Person_ScheduledCaste_Rural
 Number of rural scheduled caste people below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Rural
@@ -2799,6 +2814,8 @@ Number of unemployed people,Count_Person_Unemployed
 Number of united states Citizens Born In The United States,Count_Person_USCitizenBornInTheUnitedStates
 Number of united states Citizens By Naturalization,Count_Person_USCitizenByNaturalization
 Number of university and college teachers,Count_Teacher_UniversityAndCollegeTeacher
+Number of unmarried people who are unemployed,Count_Person_Unemployed_Unmarried_AsAFractionOf_Count_Person_Unmarried
+Number of urban people who are Plant Operator,Count_Person_PlantOperatorAndMachineOperatorAndMachineAssemble_Urban
 Number of urban people who do not work,Count_Person_NonWorker_Urban
 Number of urban scheduled caste people,Count_Person_ScheduledCaste_Urban
 Number of urban scheduled caste people below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Urban
@@ -2926,6 +2943,7 @@ Percentage of children younger than 5 years who are wasting,Count_Person_Upto4Ye
 Percentage of elderly females Received Core Preventive Services,Percent_Person_65OrMoreYears_Female_ReceivedCorePreventiveServices
 Percentage of elderly males Received Core Preventive Services,Percent_Person_65OrMoreYears_Male_ReceivedCorePreventiveServices
 Percentage of elderly people who have lost all their teeth,Percent_Person_65OrMoreYears_WithAllTeethLoss
+Percentage of employed people with lower secondary education,Count_Person_16OrMoreYears_LowerSecondaryEducation_Employed_AsAFractionOf_Count_Person_16OrMoreYears_LowerSecondaryEducation
 Percentage of females Aged 21 to 65 Received Cervical Cancer Screening,Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening
 Percentage of females Aged 50 to 74 Received Mammography,Percent_Person_50To74Years_Female_ReceivedMammography
 Percentage of females aged 16-50 who gave birth in the past 12 months,Count_Person_16To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_16To50Years_Female
