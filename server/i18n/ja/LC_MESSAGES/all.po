@@ -862,3 +862,6 @@ msgstr "亜酸化窒素排出量（非生物起源）"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "取水量"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "概要"
+

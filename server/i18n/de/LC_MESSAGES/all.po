@@ -862,3 +862,6 @@ msgstr "Distickstoffmonoxid-Emissionen (nicht biogen)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Wasserentnahmerate"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Übersicht"
+
