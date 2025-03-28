@@ -11,6 +11,8 @@
       0.91876,
       0.85905,
       0.83541,
+      0.82506,
+      0.80534,
       0.78231,
       0.77732,
       0.77629,
@@ -23,12 +25,12 @@
       0.7573,
       0.7573,
       0.7553,
-      0.75334,
+      0.75335,
       0.75329,
       0.75096,
       0.74826,
       0.74515,
-      0.7444,
+      0.74439,
       0.74316,
       0.74267,
       0.73966,
@@ -42,9 +44,7 @@
       0.72993,
       0.72891,
       0.7289,
-      0.72807,
-      0.72596,
-      0.72593
+      0.72807
     ],
     "MultiSV": {
       "Candidates": [
@@ -54,11 +54,13 @@
           "Parts": [
             {
               "CosineScore": [
-                0.92579
+                0.92579,
+                0.8887
               ],
               "QueryPart": "male population",
               "SV": [
-                "Count_Person_Male"
+                "Count_Person_Male",
+                "Count_Person_Male_AsAFractionOf_Count_Person"
               ]
             },
             {
@@ -101,11 +103,12 @@
           ]
         },
         {
-          "AggCosineScore": 0.863,
+          "AggCosineScore": 0.8693,
           "DelimBased": false,
           "Parts": [
             {
               "CosineScore": [
+                0.82162,
                 0.80889,
                 0.80342,
                 0.80176,
@@ -113,6 +116,7 @@
               ],
               "QueryPart": "male",
               "SV": [
+                "Count_Person_Male_AsAFractionOf_Count_Person",
                 "Count_Death_Male_AsAFractionOf_Count_Person_Male",
                 "LifeExpectancy_Person_Male",
                 "Count_Person_Male",
@@ -139,6 +143,8 @@
       "dc/topic/Gender",
       "Count_Person_Female",
       "Count_Person_Male",
+      "Count_Person_Female_AsAFractionOf_Count_Person",
+      "Count_Person_Male_AsAFractionOf_Count_Person",
       "Count_Person_Female_MarriedAndNotSeparated",
       "Count_Person_Urban_Female",
       "dc/70zj83ev915f8",
@@ -170,9 +176,7 @@
       "dc/topic/WhiteAloneFemalePopulationByAge",
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_3OrMoreYears_Male_EnrolledInSchool",
-      "dc/topic/MedianHouseholdIncomeByGender",
-      "dc/topic/FemaleMortality",
-      "dc/topic/NeverMarriedFemalePopulationByAge"
+      "dc/topic/MedianHouseholdIncomeByGender"
     ]
   },
   "props_matching": {
