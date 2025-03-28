@@ -23,7 +23,6 @@ from server.routes.experiments.biomed_nl.entity_recognition import \
     recognize_entities_from_query
 from server.routes.experiments.biomed_nl.entity_recognition import \
     sample_dcids_by_type
-
 from server.routes.experiments.biomed_nl.utils import GraphEntity
 
 
