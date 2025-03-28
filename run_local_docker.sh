@@ -19,12 +19,17 @@ help() {
 cat << EOF
 Usage:
 
-./run_local_docker.sh [--env_file|-e <env.list file path>] [--actions|-a run|build_run|build|build_upload|upload] 
-  [container|-c all|service] [--release|-r latest|stable] [--image|-i <custom image name:tag>] [--package|-p <package name:tag>] [--schema-update|s]
+./run_local_docker.sh [--env_file|-e <env.list file path>] 
+  [--actions|-a run|build_run|build|build_upload|upload] [--container|-c all|service]
+  [--release|-r latest|stable] [--image|-i <custom image name:tag>] 
+  [--package|-p <package name:tag>] [--schema-update|-s]
 
-If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable': all containers are run, using the Data Commons-provided 'stable' image.
+If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable'
+All containers are run, using the Data Commons-provided 'stable' image.
 
-Some of these options are mutually exclusive and some are required depending on the setting of the '--actions' option. Here is a high-level summary of valid combinations:
+Some of these options are mutually exclusive and some are required depending on 
+the setting of the '--actions' option. Here is a high-level summary of valid 
+combinations:
 
 -a build_run [-c all|service] [-r latest|stable] -i <custom image name:tag>
 
@@ -32,7 +37,7 @@ Some of these options are mutually exclusive and some are required depending on 
 
 -a build_upload|upload -i <custom image name:tag> [-p <package name:tag>]
 
--action run|build_run [-c all] [-r latest|stable] [-i <custom image name:tag>] -s
+-a run|build_run [-c all] [-r latest|stable] [-i <custom image name:tag>] -s
 
 Options:
 
@@ -47,9 +52,11 @@ Options:
   Other options are:
   * build: Only build a custom service image, don't run any containers.
   * build_run: Build a custom service image and run containers.
-  * build_upload: Build a custom service image and upload it to Google Cloud (no containers run). 
+  * build_upload: Build a custom service image and upload it to Google Cloud 
+    (no containers run). 
   * upload: Upload a previously built image (no containers run). 
-  With all these options, you must also specify '--image' with the (source) image name and tag.
+  With all these options, you must also specify '--image' with the (source) 
+  image name and tag.
 
 --container|-c all|service
   Optional: The containers to run.
@@ -68,7 +75,8 @@ Options:
   Only valid with 'run' and 'build_run'. Ignored otherwise.
 
 --image|-i <custom image name:tag>
-  Optional with 'run': the name and tag of the custom image to run in the service container.
+  Optional with 'run': the name and tag of the custom image to run in the service 
+  container.
   Required for all other actions: the name and tag of the custom image to build/run/upload.
   
 --package|-p <target package name:tag>
