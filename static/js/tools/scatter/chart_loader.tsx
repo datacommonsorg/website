@@ -184,7 +184,7 @@ async function loadData(
   place: PlaceInfo,
   isLoading: IsLoadingWrapper,
   setCache: (cache: Cache) => void
-) {
+): Promise<void> {
   isLoading.setAreDataLoading(true);
   const statResponsePromise: Promise<PointApiResponse> = getStatWithinPlace(
     place.enclosingPlace.dcid,

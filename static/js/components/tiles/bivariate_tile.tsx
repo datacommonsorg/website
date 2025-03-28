@@ -115,7 +115,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       return;
     }
     if (!bivariateChartData || !_.isEqual(bivariateChartData.props, props)) {
-      (async () => {
+      (async (): Promise<void> => {
         const data = await fetchData(props);
         setBivariateChartData(data);
       })();

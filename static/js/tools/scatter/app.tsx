@@ -50,7 +50,7 @@ function App(): JSX.Element {
   );
   const showInfo = !showChart && !showChooseStatVarMessage;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
-  const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
+  const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
   return (
     <>
       <StatVarChooser
@@ -99,7 +99,7 @@ function AppWithContext(): JSX.Element {
 
   useEffect(() => applyHash(store), []);
   useEffect(() => updateHash(store), [store]);
-  window.onhashchange = () => applyHash(store);
+  window.onhashchange = (): void => applyHash(store);
 
   return (
     <Context.Provider value={store}>
