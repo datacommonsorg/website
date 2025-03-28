@@ -25,14 +25,13 @@ def sample_dcids_by_type(entity_name, dcids, min_sample_size):
   are present in the sample.
 
   Args:
+    entity_name: The name of the entity whose dcids are being sampled
     dcids: A list of DCIDs to sample from.
     min_sample_size: The minimum number of DCIDs expected in the sample. This is
       ignored if original list of dcids is smaller.
 
   Returns:
-    A tuple of:
-      - The sample list of DCIDs.
-      - The list of types represented by those DCIDs.
+    A list of GraphEntity objects representing the sampled DCIDs.
   """
   get_types_response = fetch.raw_property_values(dcids, 'typeOf')
 
@@ -94,12 +93,7 @@ def recognize_entities_from_query(query):
     query: The query string to process.
 
   Returns:
-    A tuple containing two dictionaries:
-      - entities_to_dcids: A dictionary where keys are recognized entity spans
-        (strings) and values are lists of corresponding DCIDs (strings).
-      - entities_to_recognized_types: A dictionary where keys are recognized
-        entity spans (strings) and values are lists of associated types
-        (strings).
+    A list of sampled GraphEntity objects that were detected in the query.
   """
   recognize_response = dc.recognize_entities(query)
 
