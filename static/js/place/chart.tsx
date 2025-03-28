@@ -234,7 +234,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         <span key={source}>
           <a
             href={source}
-            onClick={() =>
+            onClick={(): void =>
               triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
                 [GA_PARAM_PLACE_CHART_CLICK]:
                   GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
@@ -329,7 +329,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             <div className="outlinks">
               <a
                 href="#"
-                onClick={(event) => {
+                onClick={(event): void => {
                   this._handleEmbed(event);
                   triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
                     [GA_PARAM_PLACE_CHART_CLICK]:
@@ -349,7 +349,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   href={exploreUrl}
                   rel="noopener noreferrer"
                   target="_blank"
-                  onClick={() =>
+                  onClick={(): void =>
                     triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
                       [GA_PARAM_PLACE_CHART_CLICK]:
                         GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
@@ -534,11 +534,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       chartType === chartTypeEnum.CHOROPLETH &&
       this.state.choroplethDataGroup
     ) {
-      const redirectAction = (geoProperty: GeoJsonFeatureProperties) => {
+      const redirectAction = (geoProperty: GeoJsonFeatureProperties): void => {
         const redirectLink = `${CHOROPLETH_REDIRECT_BASE_URL}${geoProperty.geoDcid}${this.placeLinkSearch}`;
         window.open(redirectLink, "_blank");
       };
-      const getTooltipHtml = (place: NamedPlace) => {
+      const getTooltipHtml = (place: NamedPlace): string => {
         let value = "Data Unavailable";
         if (this.state.choroplethDataGroup.data[place.dcid]) {
           value = formatNumber(
