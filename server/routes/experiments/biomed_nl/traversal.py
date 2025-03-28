@@ -17,6 +17,7 @@ import enum
 import json
 import math
 import re
+import time
 
 from markupsafe import escape
 from pydantic import BaseModel
@@ -34,6 +35,8 @@ TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
 EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
 MAX_HOPS_TO_FETCH_ALL_TRIPLES = 3
+
+FETCH_ENTITIES_TIMEOUT = 180  # 3 minutes
 
 DESCRIPTION_OF_DESCRIPTION_PROPERTY = (
     'The description describes the entity by its characteristics or '
@@ -893,12 +896,17 @@ class PathFinder:
         ```
     '''
     entity_info = {}
+    timed_out = False
+    start_time = time.time()
 
     paths_from_start = self.path_store.get_paths_from_start(
         only_selected_paths=True)
     entity_info.update(get_all_triples(list(paths_from_start.keys())))
     for start_dcid in paths_from_start:
       for path in paths_from_start[start_dcid]:
+        if time.time() - start_time > FETCH_ENTITIES_TIMEOUT:
+          timed_out = True
+          return entity_info, timed_out
 
         dcids = [start_dcid]
         properties_in_path = Path.parse_property_and_type(path)
@@ -936,4 +944,4 @@ class PathFinder:
     entity_info[
         'property_descriptions'] = self.path_store.get_property_descriptions()
 
-    return entity_info
+    return entity_info, False

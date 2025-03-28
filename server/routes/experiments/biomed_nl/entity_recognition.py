@@ -54,6 +54,7 @@ def sample_dcids_by_type(entity_name, dcids, min_sample_size):
         node_type.get('name', '')
         for node_type in get_types_response.get(dcid, [])
     ]
+    dcid_types = list(set(dcid_types))
 
     if any(dcid_type in remaining_unique_types for dcid_type in dcid_types):
       # Remove the types of the sampled dcid from the set of unique types that

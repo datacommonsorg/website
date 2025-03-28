@@ -69,7 +69,7 @@ const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
   associated with Alzheimer's disease?". The AI model will
   interpret your query, search the knowledge graph, and return
   concise answers with links to relevant data. Your feedback is
-  invaluable; a feedback form will appear after each query.`;
+  invaluable; a link to a feedback form will appear after each query.`;
 
 const FEEDBACK_FORM =
   "https://docs.google.com/forms/d/e/1FAIpQLSdSutPw3trI8X6kJwFESyle4XZ6Efbd5AvPFQaFmMiwSMfBxQ/viewform?usp=pp_url";
@@ -175,6 +175,9 @@ function getReferenceBrowserElementId(reference: TripleReference): string {
 }
 
 function formatReferences(references: TripleReference[]): JSX.Element {
+  if (!references.length) {
+    return null;
+  }
   return (
     <div
       css={css`
@@ -256,10 +259,13 @@ function formatCitationsInResponse(answer: string): string {
 }
 
 function formatDetectedEntities(entities: GraphEntity[]): JSX.Element {
-  console.log(entities);
   return (
     <>
       {entities.map((entity) => {
+        const capitalizedName = entity.name
+          .split(" ")
+          .map((word) => word[0].toUpperCase() + word.slice(1))
+          .join(" ");
         return (
           <div
             css={css`
@@ -271,14 +277,14 @@ function formatDetectedEntities(entities: GraphEntity[]): JSX.Element {
               href={`/browser/${entity.dcid}`}
               css={css`
                 ${theme.box.primary};
-                ${theme.elevation.secondary};
+                ${theme.elevation.primary};
                 ${theme.radius.secondary};
                 color: ${theme.colors.link.primary.base};
                 line-height: 1rem;
                 display: block;
                 justify-content: center;
                 align-items: center;
-                text-align: center;
+                text-align: left;
                 gap: ${theme.spacing.sm}px;
                 padding: ${theme.spacing.md}px;
                 transition: background-color 0.1s ease-in-out,
@@ -290,6 +296,8 @@ function formatDetectedEntities(entities: GraphEntity[]): JSX.Element {
                   cursor: pointer;
                 }
               `}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <p
                 css={css`
@@ -297,7 +305,14 @@ function formatDetectedEntities(entities: GraphEntity[]): JSX.Element {
                   ${theme.typography.text.md};
                 `}
               >
-                {entity.name} ({entity.types.join(", ")})
+                <span
+                  css={css`
+                    font-weight: 500;
+                  `}
+                >
+                  {capitalizedName}
+                </span>{" "}
+                &nbsp;({entity.types.join(", ")})
               </p>
               <p
                 css={css`
@@ -305,7 +320,7 @@ function formatDetectedEntities(entities: GraphEntity[]): JSX.Element {
                   ${theme.typography.text.sm};
                 `}
               >
-                ({entity.dcid})
+                {entity.dcid}
               </p>
             </a>
           </div>
@@ -513,60 +528,56 @@ export function App(): ReactElement {
                 </div>
                 <div
                   css={css`
-                    display: flex;
-                    flex-direction: row;
-                    gap: ${theme.spacing.md}px;
-                    align-items: center;
-                    margin: ${theme.spacing.sm}px 0;
-                    padding: ${theme.spacing.sm}px;
-                    border-radius: 10px;
+                    margin: ${theme.spacing.md}px ${theme.spacing.sm}px;
                   `}
                 >
-                  {answer.displayEntities}
-                </div>
-                <ReactMarkdown
-                  rehypePlugins={[rehypeRaw as any]}
-                  remarkPlugins={[remarkGfm]}
-                >
-                  {answer.answer}
-                </ReactMarkdown>
-                <div className="feedback-form">
-                  <p>---</p>
-                  <p>
-                    <a
-                      href={answer.feedbackLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Tell us how we did.
-                    </a>
-                  </p>
-                  <br></br>
-                  <p>
-                    <span
-                      onClick={resetToSampleQueries}
-                      css={css`
-                        color: ${theme.colors.link.primary.base};
-                        cursor: pointer;
-                      `}
-                    >
-                      &larr; Back to see sample queries.
-                    </span>
-                  </p>
+                  <ReactMarkdown
+                    rehypePlugins={[rehypeRaw as any]}
+                    remarkPlugins={[remarkGfm]}
+                  >
+                    {answer.answer}
+                  </ReactMarkdown>
                 </div>
                 {answer.footnotes && (
                   <Collapsible
                     trigger={getSectionTrigger(
-                      "Knowledge Graph References",
+                      "Knowledge Graph references",
                       false
                     )}
                     triggerWhenOpen={getSectionTrigger(
-                      "Knowledge Graph References",
+                      "Knowledge Graph references",
                       true
                     )}
                     open={true}
                   >
                     {answer.footnotes}
+                  </Collapsible>
+                )}
+                {answer.displayEntities && (
+                  <Collapsible
+                    trigger={getSectionTrigger(
+                      "Related Knowledge Graph entities",
+                      false
+                    )}
+                    triggerWhenOpen={getSectionTrigger(
+                      "Related Knowledge Graph entities",
+                      true
+                    )}
+                    open={true}
+                  >
+                    <div
+                      css={css`
+                        display: flex;
+                        flex-direction: row;
+                        gap: ${theme.spacing.md}px;
+                        align-items: center;
+                        margin: ${theme.spacing.sm}px 0;
+                        padding: ${theme.spacing.sm}px;
+                        overflow-x: auto;
+                      `}
+                    >
+                      {answer.displayEntities}
+                    </div>{" "}
                   </Collapsible>
                 )}
                 {answer.debugInfo && (
@@ -583,6 +594,29 @@ export function App(): ReactElement {
                     </ReactMarkdown>
                   </Collapsible>
                 )}
+                <div className="feedback-form">
+                  <p>---</p>
+                  <p>
+                    <a
+                      href={answer.feedbackLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Tell us how we did.
+                    </a>
+                  </p>
+                  <p>
+                    <span
+                      onClick={resetToSampleQueries}
+                      css={css`
+                        color: ${theme.colors.link.primary.base};
+                        cursor: pointer;
+                      `}
+                    >
+                      &larr; Back to see sample queries.
+                    </span>
+                  </p>
+                </div>
               </div>
             )}
           </div>
