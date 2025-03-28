@@ -273,7 +273,7 @@ while true; do
       if [ -f "$2" ]; then
         ENV_FILE="$2"
       else
-        echo -e "${RED}Error:${NC} File does not exist.\nPlease specify a valid path and file name." 1>&2
+        echo -e "${RED}ERROR:${NC} File does not exist.\nPlease specify a valid path and file name." 1>&2
         exit 1
       fi
       shift 2
@@ -283,7 +283,7 @@ while true; do
         ACTIONS="$2"
         shift 2  
       else
-        echo -e "${RED}Error:${NC} That is not a valid action. Valid options are:\nrun\nbuild\nbuild_run\nbuild_upload\nupload\n" 1>&2
+        echo -e "${RED}ERROR:${NC} That is not a valid action. Valid options are:\nrun\nbuild\nbuild_run\nbuild_upload\nupload\n" 1>&2
         exit 1
       fi
       ;;
@@ -292,7 +292,7 @@ while true; do
         CONTAINER="$2"
         shift 2
       else
-        echo -e "${RED}Error:${NC} That is not a valid container option. Valid options are:\nall\nservice\n" 1>&2
+        echo -e "${RED}ERROR:${NC} That is not a valid container option. Valid options are:\nall\nservice\n" 1>&2
         exit 1
       fi
       ;;
@@ -301,13 +301,13 @@ while true; do
         RELEASE="$2"
         shift 2
       else
-        echo -e "${RED}Error:${NC} That is not a valid release option. Valid options are:\nstable\nlatest\n" 1>&2
+        echo -e "${RED}ERROR:${NC} That is not a valid release option. Valid options are:\nstable\nlatest\n" 1>&2
         exit 1
       fi
       ;;
     -i | --image)
       if [ "$2" == "latest" ] || [ "$2" == "stable" ]; then
-        echo -e "${RED}Error:${NC} That is not a valid custom image name. Did you mean to use the '--release' option?\n" 1>&2
+        echo -e "${RED}ERROR:${NC} That is not a valid custom image name. Did you mean to use the '--release' option?\n" 1>&2
         exit 1
       else
        IMAGE="$2"
@@ -336,7 +336,7 @@ done
 
 # Handle garbage input (getopt doesn't do it)
 if [ $# -gt 0 ]; then
-  echo -e "${RED}Error: ${NC} Invalid input.\nPlease try again. See '--help' for correct usage.\n" 1>&2
+  echo -e "${RED}ERROR: ${NC} Invalid input.\nPlease try again. See '--help' for correct usage.\n" 1>&2
   exit 1
 fi
 
@@ -352,12 +352,12 @@ source "$ENV_FILE"
 #-------------------------------------------------------------
 # Missing required custom image for build and upload
 if [ "$ACTIONS" != "run" ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}Error:${NC} Missing an image name and tag for build and/or upload.\nPlease use the -'-image' or '-i' option with the name and tag of the custom image you are building or have already built.\n" 1>&2
+  echo -e "${RED}ERROR:${NC} Missing an image name and tag for build and/or upload.\nPlease use the -'-image' or '-i' option with the name and tag of the custom image you are building or have already built.\n" 1>&2
   exit 1
 fi
 # Missing package for upload; not an error, just info
 if [[ "$ACTIONS" == *"upload"* ]] && [ -z $PACKAGE ]; then
-  echo -e "${YELLOW}Info:${NC} No '--package' option specified."
+  echo -e "${YELLOW}INFO:${NC} No '--package' option specified."
   echo -e "The target image will use the same name and tag as the source image '$IMAGE'.\n"
   sleep 3
   # Assign image name
@@ -368,13 +368,13 @@ fi
 #-------------------------------------------------------------
 # Needed for docker run -v option
 if [ -z "$INPUT_DIR" ] || [ -z "$OUTPUT_DIR" ]; then
-  echo -e "${RED}Error:${NC} Missing input or output data directories.\nPlease set 'INPUT_DIR' and 'OUTPUT_DIR' in your env.list file.\n" 1>&2
+  echo -e "${RED}ERROR:${NC} Missing input or output data directories.\nPlease set 'INPUT_DIR' and 'OUTPUT_DIR' in your env.list file.\n" 1>&2
   exit 1
 fi
 
 # Needed for docker tag and push
 if  [[ ( "$ACTIONS" == *"upload"* ) && ( -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOUD_REGION" )]]; then
-  echo -e "${RED}Error:${NC} Missing GCP project and region settings.\nPlease set 'GOOGLE_CLOUD_PROJECT' and/or 'GOOGLE_CLOUD_REGION' in your env.list file.\n" 1>&2
+  echo -e "${RED}ERROR:${NC} Missing GCP project and region settings.\nPlease set 'GOOGLE_CLOUD_PROJECT' and/or 'GOOGLE_CLOUD_REGION' in your env.list file.\n" 1>&2
   exit 1
 fi
 
