@@ -2814,7 +2814,7 @@ Number of unemployed people,Count_Person_Unemployed
 Number of united states Citizens Born In The United States,Count_Person_USCitizenBornInTheUnitedStates
 Number of united states Citizens By Naturalization,Count_Person_USCitizenByNaturalization
 Number of university and college teachers,Count_Teacher_UniversityAndCollegeTeacher
-Number of urban group quarters households,Count_Household_KenyaGroupQuarters_Urban
+Number of urban group quarters household,Count_Household_KenyaGroupQuarters_Urban
 Number of urban people who do not work,Count_Person_NonWorker_Urban
 Number of urban scheduled caste people,Count_Person_ScheduledCaste_Urban
 Number of urban scheduled caste people below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Urban
