@@ -310,8 +310,14 @@ MAX_NUM_DCID_PER_V2NODE_REQUEST = 100
 
 
 class GraphEntity(BaseModel):
+  '''
+  A single node from the Data Commons knowledge graph, represented by it name, types, and dcid.
+  '''
+  # The name of the entity.
   name: str
+  # The types of the entity.
   types: list[str]
+  # The dcid of the entity.
   dcid: str
 
   def __eq__(self, other):

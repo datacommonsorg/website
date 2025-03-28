@@ -258,7 +258,22 @@ function formatCitationsInResponse(answer: string): string {
   return annotatedAnswer;
 }
 
-function formatDetectedEntities(entities: GraphEntity[]): JSX.Element {
+/**
+ * Renders a list of GraphEntity objects as clickable chips.
+ *
+ * This component takes an array of GraphEntity objects and generates a series of
+ * styled <div> elements, each containing a link to the Data Commons browser
+ * page for the entity. The entity's name, types, and DCID are displayed within
+ * the chip.
+ *
+ * @param {GraphEntity[]} entities - An array of GraphEntity objects to render.
+ * @returns {JSX.Element} A JSX.Element containing the list of entity chips.
+ */
+function generateRelatedEntityChips(entities: GraphEntity[]): JSX.Element {
+  if (!entities.length) {
+    return null;
+  }
+
   return (
     <>
       {entities.map((entity) => {
@@ -334,14 +349,14 @@ function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
   const formattedAnswer = formatCitationsInResponse(response.answer);
   const feedbackLink = constructFeedbackLink(response);
   const tripleReferences = formatReferences(response.footnotes);
-  const formattedEntites = formatDetectedEntities(response.entities);
+  const formattedEntities = generateRelatedEntityChips(response.entities);
 
   return {
     answer: formattedAnswer,
     feedbackLink,
     footnotes: tripleReferences,
     debugInfo: response.debug,
-    displayEntities: formattedEntites,
+    displayEntities: formattedEntities,
   };
 }
 

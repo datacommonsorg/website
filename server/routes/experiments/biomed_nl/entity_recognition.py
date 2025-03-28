@@ -44,10 +44,8 @@ def sample_dcids_by_type(entity_name, dcids, min_sample_size):
   }
 
   graph_entities = []
-  skipped_entities = []
+  first_pass_skipped_entities = []
 
-  sample_dcids = []
-  first_pass_skipped = []
   for dcid in dcids:
     dcid_types = [
         node_type.get('name', '')
@@ -62,26 +60,23 @@ def sample_dcids_by_type(entity_name, dcids, min_sample_size):
       remaining_unique_types.difference_update(dcid_types)
       graph_entities.append(
           utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
-      sample_dcids.append(dcid)
     elif not remaining_unique_types:
-      sample_dcids.append(dcid)
       graph_entities.append(
           utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
 
-      if len(sample_dcids) >= min_sample_size:
+      if len(graph_entities) >= min_sample_size:
         break
     else:
-      skipped_entities.append(
+      first_pass_skipped_entities.append(
           utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
-      first_pass_skipped.append(dcid)
 
   # If some dcids were skipped in the first pass to find all unique types, but
   # the current sample size does not exceed the expected min, add some of the
   # skipped dcids into the sampling.
-  num_skipped_samples_to_add = min_sample_size - len(sample_dcids)
+  num_skipped_samples_to_add = min_sample_size - len(graph_entities)
   if num_skipped_samples_to_add > 0:
-    sample_dcids.extend(first_pass_skipped[:num_skipped_samples_to_add])
-    graph_entities.extend(skipped_entities[:num_skipped_samples_to_add])
+    graph_entities.extend(
+        first_pass_skipped_entities[:num_skipped_samples_to_add])
   return graph_entities
 
 

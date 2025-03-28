@@ -704,6 +704,10 @@ class PathFinder:
     for entity in detected_entities:
       raw_to_types.setdefault(str_to_raw.get(entity.name, entity.name),
                               []).extend(entity.types)
+      # Check if the resolved KG entity name is a substring of the identified
+      # start strings. The substring check is required because gemini might
+      # identify "abcd genes" as the start entity when we actually match on just
+      # "abcd".
       if any(entity.name in start_str for start_str in start_strs):
         start_dcids.add(entity.dcid)
 
