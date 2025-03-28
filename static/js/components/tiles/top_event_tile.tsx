@@ -45,7 +45,6 @@ import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
 import { TileSources } from "../../utils/tile_utils";
-import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 
 const DEFAULT_RANKING_COUNT = 10;
@@ -226,7 +225,6 @@ export const TopEventTile = memo(function TopEventTile(
           />
         </div>
       </div>
-      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
     </div>
   );

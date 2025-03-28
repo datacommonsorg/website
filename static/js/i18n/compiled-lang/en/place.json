@@ -9,6 +9,20 @@
       "value": "placeName"
     }
   ],
+  "category_in_place": [
+    {
+      "type": 1,
+      "value": "category"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
   "chart-title-with-per-capita-and-date": [
     {
       "type": 1,
@@ -229,6 +243,20 @@
       "value": "Close"
     }
   ],
+  "dateRange": [
+    {
+      "type": 1,
+      "value": "minDate"
+    },
+    {
+      "type": 0,
+      "value": " to "
+    },
+    {
+      "type": 1,
+      "value": "maxDate"
+    }
+  ],
   "disasterTool": [
     {
       "type": 0,
@@ -273,6 +301,12 @@
       "value": "Export this chart"
     }
   ],
+  "enterQuery": [
+    {
+      "type": 0,
+      "value": "Enter a question to explore"
+    }
+  ],
   "exploreLink": [
     {
       "type": 0,
@@ -281,6 +315,20 @@
     {
       "type": 1,
       "value": "toolName"
+    }
+  ],
+  "explore_data_on": [
+    {
+      "type": 0,
+      "value": "Explore data on... \""
+    },
+    {
+      "type": 1,
+      "value": "sampleQuestion"
+    },
+    {
+      "type": 0,
+      "value": "\""
     }
   ],
   "header-overview": [
@@ -331,6 +379,28 @@
       "value": "More charts"
     }
   ],
+  "no_charts": [
+    {
+      "type": 0,
+      "value": "No "
+    },
+    {
+      "type": 1,
+      "value": "category"
+    },
+    {
+      "type": 0,
+      "value": " data found for "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "place_breadcrumb": [
     {
       "type": 1,
@@ -343,6 +413,20 @@
     {
       "type": 1,
       "value": "placeName"
+    }
+  ],
+  "place_not_found": [
+    {
+      "type": 0,
+      "value": "Place \""
+    },
+    {
+      "type": 1,
+      "value": "placeDcid"
+    },
+    {
+      "type": 0,
+      "value": "\" not found."
     }
   ],
   "place_page_ranking_table-ranking_in": [
@@ -363,6 +447,20 @@
     {
       "type": 1,
       "value": "total"
+    }
+  ],
+  "place_type_in_places": [
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "parentPlaces"
     }
   ],
   "plural_administrative_area": [
@@ -395,6 +493,12 @@
     {
       "type": 0,
       "value": "Cities"
+    }
+  ],
+  "plural_continent": [
+    {
+      "type": 0,
+      "value": "Continents"
     }
   ],
   "plural_country": [
@@ -753,6 +857,12 @@
       "value": "Search for another place"
     }
   ],
+  "seePerCapita": [
+    {
+      "type": 0,
+      "value": "See per capita"
+    }
+  ],
   "selectVariable": [
     {
       "type": 0,
@@ -795,6 +905,12 @@
     {
       "type": 0,
       "value": "City"
+    }
+  ],
+  "singular_continent": [
+    {
+      "type": 0,
+      "value": "Continent"
     }
   ],
   "singular_country": [
@@ -893,6 +1009,12 @@
     {
       "type": 0,
       "value": "Summary overview"
+    }
+  ],
+  "summary_overview_tooltip": [
+    {
+      "type": 0,
+      "value": "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data."
     }
   ],
   "the_world": [
