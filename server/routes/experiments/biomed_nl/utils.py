@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from collections import Counter
 import json
 
 import numpy as np
-from collections import Counter
 from pydantic import BaseModel
 
 PARSE_QUERY_PROMPT = '''
