@@ -351,12 +351,12 @@ source "$ENV_FILE"
 # Missing variables from input
 #-------------------------------------------------------------
 # Missing required custom image for build and upload
-if [ "$MODE" != "run" ] && [ -z "$IMAGE" ]; then
+if [ "$ACTIONS" != "run" ] && [ -z "$IMAGE" ]; then
   echo -e "${RED}Error:${NC} Missing an image name and tag for build and/or upload.\nPlease use the -'-image' or '-i' option with the name and tag of the custom image you are building or have already built.\n" 1>&2
   exit 1
 fi
 # Missing package for upload; not an error, just info
-if [[ "$MODE" == *"upload"* ]] && [ -z $PACKAGE ]; then
+if [[ "$ACTIONS" == *"upload"* ]] && [ -z $PACKAGE ]; then
   echo -e "${YELLOW}Info:${NC} No '--package' option specified."
   echo -e "The target image will use the same name and tag as the source image '$IMAGE'.\n"
   sleep 3
@@ -373,7 +373,7 @@ if [ -z "$INPUT_DIR" ] || [ -z "$OUTPUT_DIR" ]; then
 fi
 
 # Needed for docker tag and push
-if  [[ ( "$MODE" == *"upload"* ) && ( -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOUD_REGION" )]]; then
+if  [[ ( "$ACTIONS" == *"upload"* ) && ( -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOGLE_CLOUD_REGION" )]]; then
   echo -e "${RED}Error:${NC} Missing GCP project and region settings.\nPlease set 'GOOGLE_CLOUD_PROJECT' and/or 'GOOGLE_CLOUD_REGION' in your env.list file.\n" 1>&2
   exit 1
 fi
