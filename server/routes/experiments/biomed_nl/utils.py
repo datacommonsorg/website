@@ -15,6 +15,7 @@
 import json
 
 import numpy as np
+from collections import Counter
 from pydantic import BaseModel
 
 PARSE_QUERY_PROMPT = '''
@@ -312,6 +313,12 @@ class GraphEntity(BaseModel):
   name: str
   types: list[str]
   dcid: str
+
+  def __eq__(self, other):
+    if isinstance(other, GraphEntity):
+      return (self.name == other.name and self.dcid == other.dcid and
+              Counter(self.types) == Counter(other.types))
+    return False
 
 
 def get_gemini_response_token_counts(response):
