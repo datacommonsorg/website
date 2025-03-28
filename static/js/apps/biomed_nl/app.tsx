@@ -22,7 +22,6 @@
 import { css, ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
-import queryString from "query-string";
 import React, { ReactElement, useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
 import ReactMarkdown from "react-markdown";
@@ -39,13 +38,9 @@ import {
   getInArcSubsectionElementId,
   getOutArcRowElementId,
 } from "../../utils/browser_utils";
-import { updateHash } from "../../utils/url_utils";
 import { SpinnerWithText } from "./spinner";
 
-// Constants for URL hash parameters
-const URL_HASH_PARAMS = {
-  q: "q",
-};
+const URL_PARAM_QUERY = "query";
 
 const SAMPLE_QUESTIONS = [
   "What is the mechanism of action of atorvastatin?",
@@ -125,11 +120,15 @@ function getSectionTrigger(title: string, opened: boolean): JSX.Element {
   );
 }
 
-const sampleQuestionToLink = (sampleQuestion: string): Link => ({
-  id: sampleQuestion,
-  title: sampleQuestion,
-  url: `/experiments/biomed_nl#q=${encodeURIComponent(sampleQuestion)}`,
-});
+const sampleQuestionToLink = (sampleQuestion: string): Link => {
+  const params = new URLSearchParams({ [URL_PARAM_QUERY]: sampleQuestion });
+  const queryUrl = `${window.location.pathname}?${params.toString()}`;
+  return {
+    id: sampleQuestion,
+    title: sampleQuestion,
+    url: queryUrl,
+  };
+};
 
 function constructFeedbackLink(response: BiomedNlApiResponse): string {
   const queryField = `${FEEDBACK_QUERY_PARAM}${_.escape(response.query)}`;
@@ -271,29 +270,39 @@ export function App(): ReactElement {
   const [retriggerQuery, setRetriggerQuery] = useState<boolean>(false);
 
   /**
-   * useEffect hook to handle initial loading of information from the URL hash.
+   * useEffect hook to handle initial loading of information from the URL params.
    */
   useEffect(() => {
-    const hashParams = queryString.parse(window.location.hash);
-    const hashQuery = (hashParams[URL_HASH_PARAMS.q] || "") as string;
-    if (hashQuery) {
-      setQueryInput(hashQuery);
-      setQueryFinal(hashQuery);
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const queryFromUrl = urlParams.get(URL_PARAM_QUERY);
+    if (queryFromUrl) {
+      setQueryInput(queryFromUrl);
+      setQueryFinal(queryFromUrl);
     }
-  }, []); // Run only once to check hash param on load
+  }, []); // Run only once to check url param on load
+
+  function updateUrl(query: string): void {
+    let newUrl = window.location.pathname;
+    if (query) {
+      const params = new URLSearchParams({ [URL_PARAM_QUERY]: query });
+      newUrl += `?${params.toString()}`;
+    }
+    window.history.pushState({ query }, "", newUrl);
+  }
 
   function submitQueryInput(): void {
-    updateHash({ [URL_HASH_PARAMS.q]: queryInput });
-
     if (queryInput == queryFinal) {
       // Rerun the same query if requested by user.
       setRetriggerQuery(!retriggerQuery);
+    } else {
+      updateUrl(queryInput);
     }
     setQueryFinal(queryInput);
   }
 
   function resetToSampleQueries(): void {
-    updateHash({ [URL_HASH_PARAMS.q]: "" });
+    updateUrl("");
     setQueryInput("");
     setQueryFinal("");
   }
