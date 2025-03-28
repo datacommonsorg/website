@@ -47,6 +47,7 @@ Agricultural Output,dc/topic/AgriculturalProduction
 Agricultural Production,dc/topic/AgriculturalProduction
 Agriculture,dc/topic/Agriculture
 Agriculture data,dc/topic/Agriculture
+Agriculture forestry and fishing sector as a fraction of GDP,Amount_EconomicActivity_GrossDomesticProduction_AgricultureForestryFishingSector_AsAFractionOf_Amount_EconomicActivity_GrossDomesticProduction
 Agriculture statistics,dc/topic/Agriculture
 Aid for Trade commitments and disbursements,dc/topic/sdg_8.a.1
 Air Quality Index,dc/topic/AirQualityIndex
@@ -874,6 +875,11 @@ GDP,dc/topic/GDP
 GDP By Industry,dc/topic/GDPByIndustry
 GDP change rate,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction
 GDP contribution by industries,dc/topic/IndustriesByGDP
+GDP expenditure discrepancy as a fraction of total GDP,Amount_ExpenditureActivity_GrossDomesticProduction_DiscrepancyExpenditure_AsAFractionOf_Amount_ExpenditureActivity_GrossDomesticProduction
+GDP growth rate in agriculture,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_Agriculture
+GDP growth rate in employer household activities,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_EmployerHouseholdActivities
+GDP growth rate in information and communication,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_InformationAndCommunication
+GDP growth rate in mining and quarrying,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_MiningQuarrying
 Gender,dc/topic/Gender
 Gini Index,GiniIndex_EconomicActivity
 Global Warming,dc/topic/ClimateChange
@@ -1115,6 +1121,7 @@ Mean Visibility,Mean_Visibility
 Mean Wind Speed,Mean_WindSpeed
 Mean commute time of working people,Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome
 Mean farm area,Mean_Area_Farm
+Mean national student assessment score,Mean_AssessmentScore_Student_NationalScore
 Mean near-surface rainfall,Mean_Rainfall
 Mean relative humidity,Mean_Humidity_RelativeHumidity
 Mean size of Households with foreign born people from Caribbean,Mean_HouseholdSize_Household_ForeignBorn_PlaceOfBirthCaribbean
@@ -1150,6 +1157,7 @@ Mean social security income of households with foreign born people from South Ce
 Mean social security income of households with foreign born people from South Eastern Asia,Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia
 Mean social security income of households with foreign born people from Southern Eastern Europe,Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthSouthernEasternEurope
 Mean social security income of households with foreign born people from Western Asia,Mean_SocialSecurityIncome_Household_ForeignBorn_PlaceOfBirthWesternAsia
+Mean student assessment score in Kiswahili Insha,Mean_AssessmentScore_Student_Kiswahili_KiswahiliInsha
 Measles Immunization Coverage Among 1 year old female,WHO/mslv_Female
 Measles Immunization Coverage Among 1 year old in Rural Areas,WHO/mslv_Rural
 Measles Immunization Coverage Among 1 year old in Urban areas,WHO/mslv_Urban
@@ -1289,6 +1297,10 @@ No Health Insurance,dc/topic/NoHealthInsurance
 No Health Insurance by gender,dc/topic/NoHealthInsuranceByGender
 No Health Insurance by income,dc/topic/NoHealthInsuranceByIncome
 No Health Insurance by race,dc/topic/NoHealthInsuranceByRace
+Nominal GDP expenditure discrepancy,Nominal_Amount_ExpenditureActivity_GrossDomesticProduction_DiscrepancyExpenditure
+Nominal GDP from accommodation and food sector,Nominal_Amount_EconomicActivity_GrossDomesticProduction_AccommodationAndFoodSector
+Nominal GDP from arts entertainment and recreation,Nominal_Amount_EconomicActivity_GrossDomesticProduction_ArtsEntertainmentRecreation
+Nominal GDP from nonprofit institutions serving households,Nominal_Amount_ExpenditureActivity_GrossDomesticProduction_NonProfitInstitutionsServingHouseholds
 Non communicable disease deaths,dc/topic/WHONonCommunicableDiseaseDeaths
 Non communicable diseases,dc/topic/WHONonCommunicableDiseases
 Non-English Languages Spoken At Home,dc/topic/NonEnglishLanguageAtHome
@@ -2712,6 +2724,8 @@ Number of people working in the retail trade industry,dc/p69tpsldf99h7
 Number of privately owned Wind Electric Power Generation establishments,dc/evcytmdmc9xgd
 Number of property crime incidents,Count_CriminalActivities_PropertyCrime
 Number of prople with self care disability,Count_Person_SelfCareDifficulty
+Number of registered female students with a Kenya Certificate of Secondary Education,Count_Person_KenyaCertificateSecondaryEducation_Female_Registered
+Number of registered male students with a Kenya Certificate of Secondary Education,Count_Person_KenyaCertificateSecondaryEducation_Male_Registered
 Number of rental Housing Units with Cash Rent,Count_HousingUnit_WithCashRent
 Number of rented houses,Count_HousingUnit_RenterOccupied
 Number of renter occupied family households,Count_Household_FamilyHousehold_RenterOccupied
@@ -2720,6 +2734,7 @@ Number of renter occupied married couple family households,Count_Household_Marri
 Number of renter occupied married couple family households below poverty in the past 12 months,Count_Household_MarriedCoupleFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months
 Number of rip current events,Count_RipCurrentEvent
 Number of robberies,Count_CriminalActivities_Robbery
+Number of rural group quarters households,Count_Household_KenyaGroupQuarters_Rural
 Number of rural people who do not work,Count_Person_NonWorker_Rural
 Number of rural scheduled caste people,Count_Person_ScheduledCaste_Rural
 Number of rural scheduled caste people below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Rural
@@ -2799,6 +2814,7 @@ Number of unemployed people,Count_Person_Unemployed
 Number of united states Citizens Born In The United States,Count_Person_USCitizenBornInTheUnitedStates
 Number of united states Citizens By Naturalization,Count_Person_USCitizenByNaturalization
 Number of university and college teachers,Count_Teacher_UniversityAndCollegeTeacher
+Number of urban group quarters households,Count_Household_KenyaGroupQuarters_Urban
 Number of urban people who do not work,Count_Person_NonWorker_Urban
 Number of urban scheduled caste people,Count_Person_ScheduledCaste_Urban
 Number of urban scheduled caste people below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Urban
@@ -2996,6 +3012,7 @@ Prevalence of undernourishment,dc/topic/sdg_2.1.1;sdg/SN_ITK_DEFC
 Preventative Health,dc/topic/PreventativeHealth
 Preventative health and behavior,dc/topic/PreventativeHealthAndBehavior
 "Primary government expenditures as a proportion of original approved budget, by sector (or by budget codes or similar)",dc/topic/sdg_16.6.1
+Private final consumption as a fraction of total GDP,Amount_ExpenditureActivity_GrossDomesticProduction_PrivateFinalConsumption_AsAFractionOf_Amount_ExpenditureActivity_GrossDomesticProduction
 Private health insurance,dc/topic/PrivateHealthInsuranceType
 Production and Consumption Waste,dc/topic/ProductionConsumptionandWaste
 Professions,dc/topic/Jobs
@@ -3120,6 +3137,8 @@ Rate of female deaths due to Intentional Self Harm,Count_Death_IntentionalSelfHa
 Rate of male deaths due to Intentional Self Harm,Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male
 Ratio of land consumption rate to population growth rate,dc/topic/sdg_11.3.1
 "Rationalize inefficient fossil-fuel subsidies that encourage wasteful consumption by removing market distortions, in accordance with national circumstances, including by restructuring taxation and phasing out those harmful subsidies, where they exist, to reflect their environmental impacts, taking fully into account the specific needs and conditions of developing countries and minimizing the possible adverse impacts on their development in a manner that protects the poor and the affected communities",dc/topic/sdg_12.c
+Real GDP value from all economic activities,RealValue_Amount_EconomicActivity_GrossDomesticProduction_AllEconomicActivities
+Real GDP value from financial intermediation services,RealValue_Amount_EconomicActivity_GrossDomesticProduction_FinancialIntermediationServicesIndirectlyMeasured
 Real Gross Value Added,Amount_EconomicActivity_GrossValueAdded_RealValue
 "Real Gross Value Added from Agriculture, Hunting, Forestry, and Fishing",Amount_EconomicActivity_GrossValueAdded_ISICAgricultureHuntingForestryFishing_RealValue
 Real Gross Value Added from Construction,Amount_EconomicActivity_GrossValueAdded_ISICConstruction_RealValue
@@ -3242,6 +3261,7 @@ Students,dc/topic/StudentPopulation
 Students in College,dc/topic/StudentsInCollege
 Students in Kindergarten,dc/topic/StudentsInKindergarten
 Students in Primary School,dc/topic/StudentsInPrimarySchool
+Students with excellent performance in Kenya Certificate of Secondary Education,Count_Student_KenyaCertificateSecondaryEducation_ExcellentPerformance
 "Substantially increase health financing and the recruitment, development, training and retention of the health workforce in developing countries, especially in least developed countries and small island developing States",dc/topic/sdg_3.c
 Substantially reduce corruption and bribery in all their forms,dc/topic/sdg_16.5
 Suicide,dc/topic/Suicide
@@ -3302,6 +3322,7 @@ Total quantity of gases released by the farming industry,dc/topic/AgricultureEmi
 Total quantity of gases released by the manufacturing industry,dc/topic/ManufacturingEmissionsByGas
 Total quantity of gases released by the power industry,dc/topic/PowerEmissionsByGas
 Total quantity of gases released by the transportation sector,dc/topic/TransportationEmissionsByGas
+Total registered students with a Kenya Certificate of Secondary Education,Count_Person_KenyaCertificateSecondaryEducation_Registered
 "Total resource flows for development, by recipient and donor countries and type of flow (e.g. official development assistance, foreign direct investment and other flows)",dc/topic/sdg_10.b.1
 Total value of inward and outward illicit financial flows (in current United States dollars),dc/topic/sdg_16.4.1
 Total wages of workers in transportation and warehousing industry,dc/0hq9z5mspf73f
