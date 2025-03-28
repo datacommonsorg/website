@@ -356,7 +356,7 @@ if [ "$ACTIONS" != "run" ] && [ -z "$IMAGE" ]; then
   exit 1
 fi
 # Missing package for upload; not an error, just info
-if [[ "$ACTIONS" == *"upload"* ]] && [ -z $PACKAGE ]; then
+if [[ "$ACTIONS" == *"upload"* ]] && [ -z "$PACKAGE" ]; then
   echo -e "${YELLOW}INFO:${NC} No '--package' option specified."
   echo -e "The target image will use the same name and tag as the source image '$IMAGE'.\n"
   sleep 3
