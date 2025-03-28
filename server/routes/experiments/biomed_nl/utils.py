@@ -293,15 +293,15 @@ We found that starting from {START_ENT}({START_DCIDS}) in the graph, these paths
 
 Where each paths starts from the key and is a list of properties (or hops) in the graph to connected entities.
 
-We tried fetching all of the entities from the graph that are along the path, but the amount of data is too large to give to you to summarize.
+We tried fetching all of the entities from the graph that are along the path, but the amount of data is too large to pass to Gemini to generate a summarized response.
 Given the info about {START_ENT} below, can you summarize this situation for the user and tell them how they might find their answer using 
 the given path in the knowledge graph?
 
-They are provided with a UI that lists triples for a given entity.
+They are provided with a link to the UI that lists triples for a given entity which the user can explore. 
+They can also find more info at https://docs.datacommons.org/api/ for programatically querying the Knowledge graph.
 
 {ENTITY_INFO}
 
-At the end of your response, you can refer them to https://docs.datacommons.org/api/ for info about querying the Knowledge graph.
 '''
 
 MAX_NUM_DCID_PER_V2NODE_REQUEST = 100
