@@ -666,6 +666,10 @@ class PathFinder:
     9. Uses an external function `annotate_query_with_types` to add type
        information to the original raw query, storing the result in
        `self.query`.
+
+    Returns:
+      List of GraphEntities that were detected from the query to be displayed in
+      final page result.
     '''
     prompt = utils.PARSE_QUERY_PROMPT.format(QUERY=self.raw_query)
 
