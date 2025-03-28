@@ -311,7 +311,8 @@ MAX_NUM_DCID_PER_V2NODE_REQUEST = 100
 
 class GraphEntity(BaseModel):
   '''
-  A single node from the Data Commons knowledge graph, represented by it name, types, and dcid.
+  A single node from the Data Commons knowledge graph, represented by its name, 
+  types, and dcid.
   '''
   # The name of the entity.
   name: str
