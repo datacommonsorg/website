@@ -46,6 +46,7 @@ export function PlaceName(props: PlaceNameProp): JSX.Element {
       : getPlaceNames([props.dcid], {
           apiRoot: props.apiRoot,
           signal: controller.signal,
+          locale: intl.locale,
         });
 
     placeNamesPromise
