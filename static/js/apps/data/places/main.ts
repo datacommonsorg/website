@@ -15,7 +15,7 @@
  */
 
 /**
- * Entry point for the data sources page.
+ * Entry point for the place data sources page.
  */
 
 import React from "react";
