@@ -25,6 +25,7 @@ import React, { ReactElement } from "react";
 import { Section } from "../../../../components/elements/layout/section";
 import { PlaceData } from "../place_data";
 import { PlaceDataOverviewHeader } from "./place_data_overview_header";
+import { PlaceSources } from "./place_sources";
 import { StatVarPlaceTopics } from "./stat_var_place_topics";
 
 interface PlaceDataOverviewPageProps {
@@ -38,6 +39,9 @@ export const PlaceDataOverviewPage = ({
   return (
     <>
       <PlaceDataOverviewHeader place={placeData.place} />
+      <Section>
+        <PlaceSources />
+      </Section>
       <Section>
         {Object.entries(placeData.topics).map(([topicKey, topic]) => (
           <StatVarPlaceTopics
