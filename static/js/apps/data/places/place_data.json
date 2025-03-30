@@ -1,0 +1,52 @@
+{
+  "country/CAN": {
+    "place": {
+      "dcid": "country/CAN",
+      "name": "Canada"
+    },
+    "topics": {
+      "demographics": {
+        "title": "Demographics",
+        "examples": {
+          "statvar": [
+            {
+              "title": "Total Population",
+              "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FCAN%26placeType%3DAdministrativeArea1%26sv%3D{\"dcid\"%3A\"Count_Person\"}"
+            },
+            {
+              "title": "Population Density",
+              "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FCAN%26placeType%3DAdministrativeArea1%26sv%3D{\"dcid\"%3A\"Count_Person_PerArea\"}"
+            },
+            {
+              "title": "Population: Living together",
+              "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FCAN%26placeType%3DAdministrativeArea1%26sv%3D{\"dcid\"%3A\"\"}___{\"dcid\"%3A\"Count_Person_LivingTogether\"}"
+            },
+            {
+              "title": "Population: Years 15, Unemployed (As Fraction of Count Person 15 Years)",
+              "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FCAN%26placeType%3DAdministrativeArea1%26sv%3D{\"dcid\"%3A\"Count_Person_15Years_Unemployed_AsAFractionOf_Count_Person_15Years\"}"
+            }
+          ]
+        }
+      },
+      "economics": {
+        "title": "Economics",
+        "examples": {
+          "statvar": [
+            {
+              "title": "Mobile Phone Subscriptions Per Person in a Population",
+              "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FCAN%26placeType%3DAdministrativeArea1%26sv%3D%7B%22dcid%22%3A%22Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person%22%7D"
+            },
+            {
+              "title": "Stock Value as a Percentage of Nominal GDP",
+              "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FCAN%26placeType%3DAdministrativeArea1%26sv%3D%7B%22dcid%22%3A%22Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal%22%7D"
+            },
+            {
+              "title": "Population in the Labor Force",
+              "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FCAN%26placeType%3DAdministrativeArea1%26sv%3D%7B%22dcid%22%3A%22Count_Person_InLaborForce%22%7D"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
