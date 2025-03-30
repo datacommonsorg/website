@@ -20,6 +20,7 @@
 
 /** @jsxImportSource @emotion/react */
 
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Section } from "../../../../components/elements/layout/section";
@@ -36,13 +37,19 @@ interface PlaceDataOverviewPageProps {
 export const PlaceDataOverviewPage = ({
   placeData,
 }: PlaceDataOverviewPageProps): ReactElement => {
+  const theme = useTheme();
   return (
     <>
       <PlaceDataOverviewHeader place={placeData.place} />
-      <Section>
+      <Section
+        variant="small"
+        innerSx={css`
+          display: flex;
+          flex-direction: column;
+          gap: ${theme.spacing.lg}px;
+        `}
+      >
         <PlaceSources />
-      </Section>
-      <Section>
         {Object.entries(placeData.topics).map(([topicKey, topic]) => (
           <StatVarPlaceTopics
             key={topicKey}

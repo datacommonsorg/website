@@ -23,6 +23,7 @@ import React, { ReactElement } from "react";
 
 import { LinkChips } from "../../../../components/content/link_chips";
 import { Link } from "../../../../components/elements/link_chip";
+import { Box } from "../../../../components/elements/wrappers/box";
 import { Query } from "../../../../shared/topic_config";
 import { Place } from "../place_data";
 
@@ -56,14 +57,16 @@ export function StatVarPlaceTopics({
   });
 
   return (
-    <LinkChips
-      header={`${place.name} · ${topic}`}
-      headerComponent="h3"
-      section="statvar"
-      containerSx={css`
-        max-width: 100%;
-      `}
-      linkChips={statVarLinkChips}
-    />
+    <Box>
+      <LinkChips
+        header={`${place.name} · ${topic}`}
+        headerComponent="h4"
+        section="statvar"
+        containerSx={css`
+          max-width: 100%;
+        `}
+        linkChips={statVarLinkChips}
+      />
+    </Box>
   );
 }

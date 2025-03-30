@@ -23,22 +23,14 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
+import { Box } from "../../../../components/elements/wrappers/box";
 import { intl, LocalizedLink } from "../../../../i18n/i18n";
 import { componentPlaceSources } from "../../../../i18n/i18n_place_messages";
 
 export const PlaceSources = (): ReactElement => {
   const theme = useTheme();
   return (
-    <div
-      css={css`
-        ${theme.radius.tertiary}
-        background: ${theme.colors.background.primary.base};
-        border: 1px solid ${theme.colors.border.primary.light};
-        width: 100%;
-        margin-bottom: ${theme.spacing.xl}px;
-        padding: ${theme.spacing.lg}px;
-      `}
-    >
+    <Box>
       <header>
         <h3
           css={css`
@@ -135,6 +127,6 @@ export const PlaceSources = (): ReactElement => {
         </div>
       </div>
       {/* Item Blocks */}
-    </div>
+    </Box>
   );
 };
