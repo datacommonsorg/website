@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@
 
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from "@emotion/react";
+import { css, Theme, useTheme } from "@emotion/react";
+import { Interpolation } from "@emotion/styled";
 import React, { ReactElement } from "react";
 
 import { Link, LinkChip } from "../elements/link_chip";
@@ -33,6 +34,8 @@ interface LinkChipsProps {
   header?: string;
   //the typographical component for the header (defaults to "h3")
   headerComponent?: "h3" | "h4" | "p";
+  //prop to allow the optional addition to an overriding of attributes that style the container.
+  containerSx?: Interpolation<Theme>;
   //the section gives location of the chip component in order to give context for the GA event
   section: string;
   //an array of links to be rendered by the component
@@ -43,16 +46,28 @@ export const LinkChips = ({
   variant = "elevated",
   header,
   headerComponent = "h3",
+  containerSx,
   section,
   linkChips,
 }: LinkChipsProps): ReactElement => {
   const theme = useTheme();
 
-  linkChips.map((lc) => {
-    if (!lc.variant) {
-      lc.variant = variant;
+  const containerStyle = css`
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 80%;
+    gap: ${theme.spacing.md}px;
+    @media (max-width: ${theme.breakpoints.md}px) {
+      max-width: 100%;
     }
-    return lc;
+  `;
+
+  linkChips.forEach((chip) => {
+    if (!chip.variant) {
+      chip.variant = variant;
+    }
   });
 
   return (
@@ -68,12 +83,12 @@ export const LinkChips = ({
 
             & > h4 {
               ${theme.typography.family.heading};
-              ${theme.typography.heading.xs}
+              ${theme.typography.heading.xs};
               margin-bottom: ${theme.spacing.lg}px;
             }
 
             & > p {
-              ${theme.typography.text.md}
+              ${theme.typography.text.md};
             }
           `}
         >
@@ -82,19 +97,7 @@ export const LinkChips = ({
           {headerComponent === "p" && <p>{header}</p>}
         </header>
       )}
-      <div
-        css={css`
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-wrap: wrap;
-          max-width: 80%;
-          gap: ${theme.spacing.md}px;
-          @media (max-width: ${theme.breakpoints.md}px) {
-            max-width: 100%;
-          }
-        `}
-      >
+      <div css={[containerStyle, containerSx]}>
         {linkChips.map((linkChip) => (
           <LinkChip key={linkChip.id} section={section} linkChip={linkChip} />
         ))}
