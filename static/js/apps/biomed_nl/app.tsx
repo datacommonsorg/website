@@ -71,7 +71,7 @@ graph related to your query. Please try a query related to diseases, drugs,
 genes, genetic variants, taxons, or viruses.`;
 
 const DETECTED_ENTITIES_BUT_NO_ANSWER = `There was an error or timeout in 
-traversing the knowledge graph, we are unable to summarize an answer for your 
+traversing the knowledge graph. We are unable to summarize an answer for your 
 query. See below for entities found in the knowledge graph related to your 
 query.`;
 
