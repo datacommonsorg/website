@@ -23,7 +23,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
@@ -32,7 +32,7 @@ import { ProgressActivity } from "./icons/progress_activity";
 /**
  * Loading indicator component
  */
-export const Loading = () => {
+export const Loading = (): ReactElement => {
   return (
     <div
       css={css`
