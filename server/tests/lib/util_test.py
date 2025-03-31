@@ -1805,7 +1805,9 @@ class TestFeatureFlagsTest(unittest.TestCase):
       self.assertEqual(len(duplicate_features), 0)
 
     # Assert that we have counts for all environments
-    self.assertEqual(len(feature_flag_counts), self.FEATURE_FLAG_ENVIRONMENT_COUNT)
+    self.assertEqual(len(feature_flag_counts),
+                     self.FEATURE_FLAG_ENVIRONMENT_COUNT)
 
     # Assert all environments have the same number of feature flags
-    self.assertTrue(all(count == feature_flag_counts[0] for count in feature_flag_counts))
+    self.assertTrue(
+        all(count == feature_flag_counts[0] for count in feature_flag_counts))
