@@ -66,6 +66,15 @@ const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
   concise answers with links to relevant data. Your feedback is
   invaluable; a link to a feedback form will appear after each query.`;
 
+const NO_DETECTED_ENTITIES = `We were unable to find entities in the knowledge
+graph related to your query. Please try a query related to diseases, drugs, 
+genes, genetic variants, taxons, or viruses.`;
+
+const DETECTED_ENTITIES_BUT_NO_ANSWER = `There was an error or timeout in 
+traversing the knowledge graph, we are unable to summarize an answer for your 
+query. See below for entities found in the knowledge graph related to your 
+query.`;
+
 const FEEDBACK_FORM =
   "https://docs.google.com/forms/d/e/1FAIpQLSdSutPw3trI8X6kJwFESyle4XZ6Efbd5AvPFQaFmMiwSMfBxQ/viewform?usp=pp_url";
 const FEEDBACK_QUERY_PARAM = "&entry.2089204314=";
@@ -345,15 +354,33 @@ function generateRelatedEntityChips(entities: GraphEntity[]): JSX.Element {
 }
 
 function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
-  const formattedAnswer = formatCitationsInResponse(response.answer);
   const feedbackLink = constructFeedbackLink(response);
-  const tripleReferences = formatReferences(response.footnotes);
+
+  if (!response.entities.length) {
+    return {
+      answer: NO_DETECTED_ENTITIES,
+      feedbackLink,
+      footnotes: null,
+      debugInfo: response.debug,
+      displayEntities: null,
+    };
+  }
+
   const formattedEntities = generateRelatedEntityChips(response.entities);
+  if (!response.answer) {
+    return {
+      answer: DETECTED_ENTITIES_BUT_NO_ANSWER,
+      feedbackLink,
+      footnotes: null,
+      debugInfo: response.debug,
+      displayEntities: formattedEntities,
+    };
+  }
 
   return {
-    answer: formattedAnswer,
+    answer: formatCitationsInResponse(response.answer),
     feedbackLink,
-    footnotes: tripleReferences,
+    footnotes: formatReferences(response.footnotes),
     debugInfo: response.debug,
     displayEntities: formattedEntities,
   };
