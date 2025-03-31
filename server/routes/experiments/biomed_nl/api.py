@@ -143,9 +143,9 @@ def _fulfill_traversal_query(query):
   except Exception as e:
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
     if path_finder.start_dcids:
-      response.answer = f'{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
+      response.debug += f'\n{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
     else:
-      response.answer = 'Error finding entities from the query in the knowledge graph.'
+      response.debug += '\nError finding entities from the query in the knowledge graph.'
     return response
 
   try:
