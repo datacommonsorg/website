@@ -135,11 +135,14 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
         "使用可能な最新のデータに基づくランキング。一部の地域は、対象の年の報告が不完全なため、欠落している可能性があります。")
 
     # Ranking tile place names load asynchronously, so wait for place name text to be non-empty
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        lambda driver: driver.find_element(By.CSS_SELECTOR, '.ranking-tile .place-name')
-        and driver.find_element(By.CSS_SELECTOR, '.ranking-tile .place-name').text.strip() != '')
+    WebDriverWait(
+        self.driver, self.TIMEOUT_SEC).until(lambda driver: driver.find_element(
+            By.CSS_SELECTOR, '.ranking-tile .place-name'
+        ) and driver.find_element(By.CSS_SELECTOR, '.ranking-tile .place-name').
+                                             text.strip() != '')
     # Assert that the 1st place name contains Japanese characters
-    place_name = self.driver.find_element(By.CSS_SELECTOR, '.ranking-tile .place-name')
+    place_name = self.driver.find_element(By.CSS_SELECTOR,
+                                          '.ranking-tile .place-name')
     self.assertTrue(JAPANESE_CHAR_PATTERN.search(place_name.text))
 
     # Wait for and scroll to the first bar chart tile so it lazy loads
