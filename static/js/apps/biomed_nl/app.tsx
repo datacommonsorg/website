@@ -22,7 +22,6 @@
 import { css, ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
-import queryString from "query-string";
 import React, { ReactElement, useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
 import ReactMarkdown from "react-markdown";
@@ -39,13 +38,9 @@ import {
   getInArcSubsectionElementId,
   getOutArcRowElementId,
 } from "../../utils/browser_utils";
-import { updateHash } from "../../utils/url_utils";
 import { SpinnerWithText } from "./spinner";
 
-// Constants for URL hash parameters
-const URL_HASH_PARAMS = {
-  q: "q",
-};
+const URL_PARAM_QUERY = "query";
 
 const SAMPLE_QUESTIONS = [
   "What is the mechanism of action of atorvastatin?",
@@ -69,7 +64,16 @@ const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
   associated with Alzheimer's disease?". The AI model will
   interpret your query, search the knowledge graph, and return
   concise answers with links to relevant data. Your feedback is
-  invaluable; a feedback form will appear after each query.`;
+  invaluable; a link to a feedback form will appear after each query.`;
+
+const NO_DETECTED_ENTITIES = `We were unable to find entities in the knowledge
+graph related to your query. Please try a query related to diseases, drugs, 
+genes, genetic variants, taxons, or viruses.`;
+
+const DETECTED_ENTITIES_BUT_NO_ANSWER = `There was an error or timeout in 
+traversing the knowledge graph. We are unable to summarize an answer for your 
+query. See below for entities found in the knowledge graph related to your 
+query.`;
 
 const FEEDBACK_FORM =
   "https://docs.google.com/forms/d/e/1FAIpQLSdSutPw3trI8X6kJwFESyle4XZ6Efbd5AvPFQaFmMiwSMfBxQ/viewform?usp=pp_url";
@@ -87,12 +91,19 @@ interface TripleReference {
   linkedType: string;
 }
 
+interface GraphEntity {
+  name: string;
+  dcid: string;
+  types: string[];
+}
+
 // Interface for the response received from Biomed NL API.
 interface BiomedNlApiResponse {
   query: string;
   answer: string;
   footnotes: TripleReference[];
   debug: string;
+  entities: GraphEntity[];
 }
 
 // Interface for the displayed answer.
@@ -101,6 +112,25 @@ interface DisplayedAnswer {
   feedbackLink: string;
   footnotes: JSX.Element;
   debugInfo: string;
+  displayEntities: JSX.Element;
+}
+
+function getLegalDisclaimer(): JSX.Element {
+  return (
+    <>
+      The use of this experimental UI is subject to the&nbsp;
+      <a
+        href="https://support.google.com/legal/answer/15696323"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Trusted Tester Agreement
+      </a>
+      . You may not share this link with people outside your organization.
+      Don&apos;t hesitate to contact us at support@datacommons.org if you have
+      any questions!
+    </>
+  );
 }
 
 // Headings for Footer and Debug dropdown sections
@@ -125,11 +155,15 @@ function getSectionTrigger(title: string, opened: boolean): JSX.Element {
   );
 }
 
-const sampleQuestionToLink = (sampleQuestion: string): Link => ({
-  id: sampleQuestion,
-  title: sampleQuestion,
-  url: `/experiments/biomed_nl#q=${encodeURIComponent(sampleQuestion)}`,
-});
+const sampleQuestionToLink = (sampleQuestion: string): Link => {
+  const params = new URLSearchParams({ [URL_PARAM_QUERY]: sampleQuestion });
+  const queryUrl = `${window.location.pathname}?${params.toString()}`;
+  return {
+    id: sampleQuestion,
+    title: sampleQuestion,
+    url: queryUrl,
+  };
+};
 
 function constructFeedbackLink(response: BiomedNlApiResponse): string {
   const queryField = `${FEEDBACK_QUERY_PARAM}${_.escape(response.query)}`;
@@ -167,6 +201,9 @@ function getReferenceBrowserElementId(reference: TripleReference): string {
 }
 
 function formatReferences(references: TripleReference[]): JSX.Element {
+  if (!references.length) {
+    return null;
+  }
   return (
     <div
       css={css`
@@ -247,16 +284,123 @@ function formatCitationsInResponse(answer: string): string {
   return annotatedAnswer;
 }
 
+/**
+ * Renders a list of GraphEntity objects as clickable chips.
+ *
+ * This component takes an array of GraphEntity objects and generates a series of
+ * styled <div> elements, each containing a link to the Data Commons browser
+ * page for the entity. The entity's name, types, and DCID are displayed within
+ * the chip.
+ *
+ * @param {GraphEntity[]} entities - An array of GraphEntity objects to render.
+ * @returns {JSX.Element} A JSX.Element containing the list of entity chips.
+ */
+function generateRelatedEntityChips(entities: GraphEntity[]): JSX.Element {
+  if (!entities.length) {
+    return null;
+  }
+
+  return (
+    <>
+      {entities.map((entity) => {
+        const capitalizedName = entity.name
+          .split(" ")
+          .map((word) => word[0].toUpperCase() + word.slice(1))
+          .join(" ");
+        return (
+          <div
+            css={css`
+              display: block;
+            `}
+            key={entity.dcid}
+          >
+            <a
+              href={`/browser/${entity.dcid}`}
+              css={css`
+                ${theme.box.primary};
+                ${theme.elevation.primary};
+                ${theme.radius.secondary};
+                color: ${theme.colors.link.primary.base};
+                line-height: 1rem;
+                display: block;
+                justify-content: center;
+                align-items: center;
+                text-align: left;
+                gap: ${theme.spacing.sm}px;
+                padding: ${theme.spacing.md}px;
+                transition: background-color 0.1s ease-in-out,
+                  box-shadow 0.1s ease-in-out;
+
+                &:hover {
+                  text-decoration: none;
+                  color: ${theme.colors.link.primary.base};
+                  cursor: pointer;
+                }
+              `}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p
+                css={css`
+                  margin: 0;
+                  ${theme.typography.text.md};
+                `}
+              >
+                <span
+                  css={css`
+                    font-weight: 500;
+                  `}
+                >
+                  {capitalizedName}
+                </span>{" "}
+                &nbsp;({entity.types.join(", ")})
+              </p>
+              <p
+                css={css`
+                  margin: 0;
+                  ${theme.typography.text.sm};
+                `}
+              >
+                {entity.dcid}
+              </p>
+            </a>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
 function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
-  const formattedAnswer = formatCitationsInResponse(response.answer);
   const feedbackLink = constructFeedbackLink(response);
-  const tripleReferences = formatReferences(response.footnotes);
+
+  if (!response.entities.length) {
+    return {
+      answer: NO_DETECTED_ENTITIES,
+      feedbackLink,
+      footnotes: null,
+      debugInfo: response.debug,
+      displayEntities: null,
+    };
+  }
+
+  const formattedEntities = generateRelatedEntityChips(response.entities);
+  if (!response.answer) {
+    return {
+      answer: DETECTED_ENTITIES_BUT_NO_ANSWER,
+      feedbackLink,
+      footnotes: null,
+      debugInfo: response.debug,
+      displayEntities: formattedEntities,
+    };
+  }
 
   return {
-    answer: formattedAnswer,
+    answer: formatCitationsInResponse(response.answer),
     feedbackLink,
-    footnotes: tripleReferences,
+    footnotes: formatReferences(response.footnotes),
     debugInfo: response.debug,
+    displayEntities: formattedEntities,
   };
 }
 
@@ -271,29 +415,39 @@ export function App(): ReactElement {
   const [retriggerQuery, setRetriggerQuery] = useState<boolean>(false);
 
   /**
-   * useEffect hook to handle initial loading of information from the URL hash.
+   * useEffect hook to handle initial loading of information from the URL params.
    */
   useEffect(() => {
-    const hashParams = queryString.parse(window.location.hash);
-    const hashQuery = (hashParams[URL_HASH_PARAMS.q] || "") as string;
-    if (hashQuery) {
-      setQueryInput(hashQuery);
-      setQueryFinal(hashQuery);
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const queryFromUrl = urlParams.get(URL_PARAM_QUERY);
+    if (queryFromUrl) {
+      setQueryInput(queryFromUrl);
+      setQueryFinal(queryFromUrl);
     }
-  }, []); // Run only once to check hash param on load
+  }, []); // Run only once to check url param on load
+
+  function updateUrl(query: string): void {
+    let newUrl = window.location.pathname;
+    if (query) {
+      const params = new URLSearchParams({ [URL_PARAM_QUERY]: query });
+      newUrl += `?${params.toString()}`;
+    }
+    window.history.pushState({ query }, "", newUrl);
+  }
 
   function submitQueryInput(): void {
-    updateHash({ [URL_HASH_PARAMS.q]: queryInput });
-
     if (queryInput == queryFinal) {
       // Rerun the same query if requested by user.
       setRetriggerQuery(!retriggerQuery);
+    } else {
+      updateUrl(queryInput);
     }
     setQueryFinal(queryInput);
   }
 
   function resetToSampleQueries(): void {
-    updateHash({ [URL_HASH_PARAMS.q]: "" });
+    updateUrl("");
     setQueryInput("");
     setQueryFinal("");
   }
@@ -329,6 +483,7 @@ export function App(): ReactElement {
             query: queryFinal,
             answer: "There was a problem running the query, please try again.",
             footnotes: [],
+            entities: [],
             debug: "",
           })
         );
@@ -362,6 +517,7 @@ export function App(): ReactElement {
               <>
                 <h3 className="title">Exploring biomedical data</h3>
                 <p className="overview">{OVERVIEW_TEXT}</p>
+                <p>{getLegalDisclaimer()}</p>
               </>
             </SimpleText>
           </div>
@@ -425,80 +581,114 @@ export function App(): ReactElement {
                 })}
               </div>
             )}
-            <div className="loading">{showLoading && <SpinnerWithText />}</div>
-            <div className="answer">
-              {!showLoading && answer && (
-                <div>
-                  <div className="matched-entities">{/* TODO! */}</div>
-                  <div
-                    css={css`
-                      ${theme.typography.heading.md};
-                      margin-bottom: ${theme.spacing.lg}px;
-                    `}
-                  >
-                    {queryFinal}
-                  </div>
+            {showLoading && <SpinnerWithText />}
+            {!showLoading && answer && (
+              <div
+                className="answer"
+                css={css`
+                  padding-top: ${theme.spacing.lg}px;
+                `}
+              >
+                <div
+                  css={css`
+                    ${theme.typography.heading.md};
+                  `}
+                >
+                  {queryFinal}
+                </div>
+                <div
+                  css={css`
+                    margin: ${theme.spacing.md}px ${theme.spacing.sm}px;
+                  `}
+                >
                   <ReactMarkdown
                     rehypePlugins={[rehypeRaw as any]}
                     remarkPlugins={[remarkGfm]}
                   >
                     {answer.answer}
                   </ReactMarkdown>
-                  <div className="feedback-form">
-                    <p>---</p>
-                    <p>
-                      <a
-                        href={answer.feedbackLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Tell us how we did.
-                      </a>
-                    </p>
-                    <p>
-                      <span
-                        onClick={resetToSampleQueries}
-                        css={css`
-                          color: ${theme.colors.link.primary.base};
-                          cursor: pointer;
-                        `}
-                      >
-                        &larr; Back to see sample queries.
-                      </span>
-                    </p>
-                  </div>
-                  {answer.footnotes && (
-                    <Collapsible
-                      trigger={getSectionTrigger(
-                        "Knowledge Graph References",
-                        false
-                      )}
-                      triggerWhenOpen={getSectionTrigger(
-                        "Knowledge Graph References",
-                        true
-                      )}
-                      open={true}
-                    >
-                      {answer.footnotes}
-                    </Collapsible>
-                  )}
-                  {answer.debugInfo && (
-                    <Collapsible
-                      trigger={getSectionTrigger("Debug", false)}
-                      triggerWhenOpen={getSectionTrigger("Debug", true)}
-                      open={false}
-                    >
-                      <ReactMarkdown
-                        rehypePlugins={[rehypeRaw as any]}
-                        remarkPlugins={[remarkGfm]}
-                      >
-                        {answer.debugInfo}
-                      </ReactMarkdown>
-                    </Collapsible>
-                  )}
                 </div>
-              )}
-            </div>
+                {answer.footnotes && (
+                  <Collapsible
+                    trigger={getSectionTrigger(
+                      "Knowledge Graph references",
+                      false
+                    )}
+                    triggerWhenOpen={getSectionTrigger(
+                      "Knowledge Graph references",
+                      true
+                    )}
+                    open={true}
+                  >
+                    {answer.footnotes}
+                  </Collapsible>
+                )}
+                {answer.displayEntities && (
+                  <Collapsible
+                    trigger={getSectionTrigger(
+                      "Related Knowledge Graph entities",
+                      false
+                    )}
+                    triggerWhenOpen={getSectionTrigger(
+                      "Related Knowledge Graph entities",
+                      true
+                    )}
+                    open={true}
+                  >
+                    <div
+                      css={css`
+                        display: flex;
+                        flex-direction: row;
+                        gap: ${theme.spacing.md}px;
+                        align-items: center;
+                        margin: ${theme.spacing.sm}px 0;
+                        padding: ${theme.spacing.sm}px;
+                        overflow-x: auto;
+                      `}
+                    >
+                      {answer.displayEntities}
+                    </div>{" "}
+                  </Collapsible>
+                )}
+                {answer.debugInfo && (
+                  <Collapsible
+                    trigger={getSectionTrigger("Debug", false)}
+                    triggerWhenOpen={getSectionTrigger("Debug", true)}
+                    open={false}
+                  >
+                    <ReactMarkdown
+                      rehypePlugins={[rehypeRaw as any]}
+                      remarkPlugins={[remarkGfm]}
+                    >
+                      {answer.debugInfo}
+                    </ReactMarkdown>
+                  </Collapsible>
+                )}
+                <div className="feedback-form">
+                  <p>---</p>
+                  <p>
+                    <a
+                      href={answer.feedbackLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Tell us how we did.
+                    </a>
+                  </p>
+                  <p>
+                    <span
+                      onClick={resetToSampleQueries}
+                      css={css`
+                        color: ${theme.colors.link.primary.base};
+                        cursor: pointer;
+                      `}
+                    >
+                      &larr; Back to see sample queries.
+                    </span>
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -20,19 +20,18 @@ import server.services.datacommons as dc
 MIN_SAMPLES = 3
 
 
-def sample_dcids_by_type(dcids, min_sample_size):
+def sample_dcids_by_type(entity_name, dcids, min_sample_size):
   """Samples a set of DCIDs such that all unique types of the original DCID list
   are present in the sample.
 
   Args:
+    entity_name: The name of the entity whose dcids are being sampled
     dcids: A list of DCIDs to sample from.
     min_sample_size: The minimum number of DCIDs expected in the sample. This is
       ignored if original list of dcids is smaller.
 
   Returns:
-    A tuple of:
-      - The sample list of DCIDs.
-      - The list of types represented by those DCIDs.
+    A list of GraphEntity objects representing the sampled DCIDs.
   """
   get_types_response = fetch.raw_property_values(dcids, 'typeOf')
 
@@ -44,37 +43,41 @@ def sample_dcids_by_type(dcids, min_sample_size):
       if 'name' in type_node
   }
 
-  unique_types = list(remaining_unique_types)
+  graph_entities = []
+  first_pass_skipped_entities = []
 
-  sample_dcids = []
-  first_pass_skipped = []
   for dcid in dcids:
     dcid_types = [
         node_type.get('name', '')
         for node_type in get_types_response.get(dcid, [])
     ]
+    dcid_types = list(set(dcid_types))
 
     if any(dcid_type in remaining_unique_types for dcid_type in dcid_types):
       # Remove the types of the sampled dcid from the set of unique types that
       # needs to be added to the set since they are now represented in the
       # sample set.
       remaining_unique_types.difference_update(dcid_types)
-      sample_dcids.append(dcid)
+      graph_entities.append(
+          utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
     elif not remaining_unique_types:
-      sample_dcids.append(dcid)
-      if len(sample_dcids) >= min_sample_size:
+      graph_entities.append(
+          utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
+
+      if len(graph_entities) >= min_sample_size:
         break
     else:
-      first_pass_skipped.append(dcid)
+      first_pass_skipped_entities.append(
+          utils.GraphEntity(dcid=dcid, types=dcid_types, name=entity_name))
 
   # If some dcids were skipped in the first pass to find all unique types, but
   # the current sample size does not exceed the expected min, add some of the
   # skipped dcids into the sampling.
-  num_skipped_samples_to_add = min_sample_size - len(sample_dcids)
+  num_skipped_samples_to_add = min_sample_size - len(graph_entities)
   if num_skipped_samples_to_add > 0:
-    sample_dcids.extend(first_pass_skipped[:num_skipped_samples_to_add])
-
-  return sample_dcids, unique_types
+    graph_entities.extend(
+        first_pass_skipped_entities[:num_skipped_samples_to_add])
+  return graph_entities
 
 
 def recognize_entities_from_query(query):
@@ -85,16 +88,11 @@ def recognize_entities_from_query(query):
     query: The query string to process.
 
   Returns:
-    A tuple containing two dictionaries:
-      - entities_to_dcids: A dictionary where keys are recognized entity spans
-        (strings) and values are lists of corresponding DCIDs (strings).
-      - entities_to_recognized_types: A dictionary where keys are recognized
-        entity spans (strings) and values are lists of associated types
-        (strings).
+    A list of sampled GraphEntity objects that were detected in the query.
   """
   recognize_response = dc.recognize_entities(query)
-  entities_to_dcids = {}
-  entities_to_recognized_types = {}
+
+  detected_entities = []
   for item in recognize_response:
     queried_entity = item['span']
 
@@ -107,11 +105,9 @@ def recognize_entities_from_query(query):
     if not dcids:
       continue
 
-    dcids, types = sample_dcids_by_type(dcids, MIN_SAMPLES)
-    entities_to_dcids[queried_entity] = dcids
-    entities_to_recognized_types[queried_entity] = types
-
-  return entities_to_dcids, entities_to_recognized_types
+    entities = sample_dcids_by_type(queried_entity, dcids, MIN_SAMPLES)
+    detected_entities.extend(entities)
+  return detected_entities
 
 
 def annotate_query_with_types(query, entities_to_types):

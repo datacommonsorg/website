@@ -18,7 +18,7 @@
  * Main component for DC Explore.
  */
 
-import { ThemeProvider, useTheme } from "@emotion/react";
+import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
@@ -146,7 +146,7 @@ export function App(props: AppProps): ReactElement {
           {props.isDemo && (
             <AutoPlay
               autoPlayQuery={autoPlayQuery}
-              inputQuery={(query) => {
+              inputQuery={(query): void => {
                 setQuery(query);
                 setStoreQueryString(query);
               }}
