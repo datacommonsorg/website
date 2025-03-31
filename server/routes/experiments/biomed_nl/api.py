@@ -142,6 +142,8 @@ def _fulfill_traversal_query(query):
 
   except Exception as e:
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
+    # TODO: add an error enum to the final response instead of adding errors to
+    # debug; client can decide how to display different error cases.
     if path_finder.start_dcids:
       response.debug += f'\n{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
     else:
