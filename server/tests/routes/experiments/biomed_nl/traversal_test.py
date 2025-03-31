@@ -674,7 +674,9 @@ class TestTraversal(unittest.TestCase):
         }
     }
 
-    entity_info = path_finder.get_traversed_entity_info()
+    entity_info, timed_out = path_finder.get_traversed_entity_info()
+    assert timed_out == False
+
     # start1 -propA-> dcid0 -propB-> dcid1, dcid2
     #        -propB-> x
     # start2 -propA-> dcid4 <-propD (Types)- dcid3
