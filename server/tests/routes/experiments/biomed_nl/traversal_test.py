@@ -393,7 +393,7 @@ class TestTraversal(unittest.TestCase):
     mock_embeddings.side_effect = encode_response
 
     props = path_finder.filter_paths_with_embeddings(
-        pct=0.3)  # Rounds up to top 2 props
+        pct=0.3, max_paths_before_filtering=0)  # Rounds up to top 2 props
 
     assert set(props) == {'propB', 'propE'}
 
@@ -767,7 +767,7 @@ class TestTraversal(unittest.TestCase):
         },
         'property_descriptions': {}
     }
-    assert DeepDiff(entity_info, expected_entity_info, ignore_order=True) == {}
+    assert DeepDiff(expected_entity_info, entity_info, ignore_order=True) == {}
 
   @patch('server.services.datacommons.recognize_entities')
   @patch('server.lib.fetch.raw_property_values')

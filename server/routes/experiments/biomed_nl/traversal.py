@@ -35,8 +35,8 @@ TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
 EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
 MAX_HOPS_TO_FETCH_ALL_TRIPLES = 3
-MAX_UNFILTERED_PATHS_FOR_TRAVERSAL = 8.5
-MAX_ENTITY_INFO_SIZE_MB = 30
+MAX_UNFILTERED_PATHS_FOR_TRAVERSAL = 100
+MAX_ENTITY_INFO_SIZE_MB = 9
 
 FETCH_ENTITIES_TIMEOUT = 180  # 3 minutes
 
@@ -134,6 +134,7 @@ def get_all_triples(dcids):
       result.setdefault(dcid, {})['outgoing'] = out_triples.get(dcid, {})
       result.setdefault(dcid, {})['incoming'] = in_triples.get(dcid, {})
     if utils.get_dictionary_size_mb(result) > MAX_ENTITY_INFO_SIZE_MB:
+      print('hello2')
       return result
   return result
 
@@ -747,7 +748,10 @@ class PathFinder:
       self.path_store.merge_triples_into_path_store(triples)
       dcids = self.path_store.get_next_dcids()
 
-  def filter_paths_with_embeddings(self, pct=0.3):
+  def filter_paths_with_embeddings(
+      self,
+      pct=0.3,
+      max_paths_before_filtering=MAX_UNFILTERED_PATHS_FOR_TRAVERSAL):
     '''Filters paths based on cosine similarity between property descriptions 
     and the query.
 
@@ -764,7 +768,7 @@ class PathFinder:
         self.path_store.get_paths_from_start().values()
         for path in paths_from_start_dcid
     ])
-    if total_paths < MAX_UNFILTERED_PATHS_FOR_TRAVERSAL:
+    if total_paths < max_paths_before_filtering:
       # If there's not too many paths for Gemini to choose from, then skip
       # filtering by embedding
       return list(property_descriptions.keys())
@@ -927,6 +931,8 @@ class PathFinder:
         exceeded_mem_limit = utils.get_dictionary_size_mb(
             entity_info) > MAX_ENTITY_INFO_SIZE_MB
         if exceeded_time_limit or exceeded_mem_limit:
+          print('hello')
+          print(exceeded_time_limit, exceeded_time_limit)
           terminated_prematurely = True
           return entity_info, terminated_prematurely
 
@@ -939,7 +945,7 @@ class PathFinder:
 
             if incoming_node_type:
               incoming_prop_vals = entity_info.get(dcid,
-                                                   {}).get('incmoing',
+                                                   {}).get('incoming',
                                                            {}).get(prop, [])
               incoming_dcids = [
                   node['dcid'] for node in incoming_prop_vals if
