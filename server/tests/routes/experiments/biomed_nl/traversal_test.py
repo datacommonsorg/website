@@ -367,7 +367,7 @@ class TestTraversal(unittest.TestCase):
           'propE':
               embeddings_ordered_by_query_similarity[1],
           'query': [0.15, 0.45, 0.1, 0.7],
-          DESCRIPTION_OF_DESCRIPTION_PROPERTY: [0.0] * 4
+          DESCRIPTION_OF_DESCRIPTION_PROPERTY: [0.1] * 4
       }
       assert all(query in embeddings for query in queries)
 
