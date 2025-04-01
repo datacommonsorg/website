@@ -84,13 +84,13 @@ function getSectionTrigger(title: string, opened: boolean): JSX.Element {
  * @returns A DisplayedAnswer object containing the parsed answer and footnotes.
  */
 function processRigResponse(response: DataGemmaAPIResponse): DisplayedAnswer {
-  const answer_parts = response.answer.split("#### FOOTNOTES ####\n");
+  const answerParts = response.answer.split("#### FOOTNOTES ####\n");
   let footnotes = "";
-  if (answer_parts.length > 1) {
-    footnotes = answer_parts[1];
+  if (answerParts.length > 1) {
+    footnotes = answerParts[1];
     footnotes = footnotes.replaceAll("\n", "\n\n");
   }
-  return { answer: answer_parts[0], footnotes, debugInfo: response.debug };
+  return { answer: answerParts[0], footnotes, debugInfo: response.debug };
 }
 
 /**
@@ -100,24 +100,24 @@ function processRigResponse(response: DataGemmaAPIResponse): DisplayedAnswer {
  * @returns A DisplayedAnswer object containing the parsed answer and footnotes.
  */
 function processRagResponse(response: DataGemmaAPIResponse): DisplayedAnswer {
-  const answer_parts = response.answer.split("#### TABLES ####\n");
+  const answerParts = response.answer.split("#### TABLES ####\n");
   let footnotes = "";
-  if (answer_parts.length > 1) {
-    const footnotes_part = answer_parts[1];
-    const table_list = footnotes_part.split("Table");
-    for (const t of table_list) {
-      const trimmed_t = t.trim();
-      if (!trimmed_t) {
+  if (answerParts.length > 1) {
+    const footnotesPart = answerParts[1];
+    const tableList = footnotesPart.split("Table");
+    for (const t of tableList) {
+      const trimmedT = t.trim();
+      if (!trimmedT) {
         continue;
       }
 
-      const title = _.cloneDeep(trimmed_t).split("\n", 1)[0];
-      const tableContent = trimmed_t.replace(title, "");
+      const title = _.cloneDeep(trimmedT).split("\n", 1)[0];
+      const tableContent = trimmedT.replace(title, "");
       const processedTable = processTableText(tableContent.trim());
       footnotes += "Table " + title + "\n" + processedTable + "\n\n";
     }
   }
-  return { answer: answer_parts[0], footnotes, debugInfo: response.debug };
+  return { answer: answerParts[0], footnotes, debugInfo: response.debug };
 }
 
 /**
@@ -214,7 +214,7 @@ export function App(): ReactElement {
                     name=""
                     value={m}
                     checked={mode === m}
-                    onChange={() => {
+                    onChange={(): void => {
                       setMode(m);
                       updateHash({ [URL_HASH_PARAMS.mode]: m });
                     }}
@@ -237,7 +237,7 @@ export function App(): ReactElement {
             <Input
               type="text"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e): void => setQuery(e.target.value)}
             />
             <div onClick={onQueryRun} className="btn btn-primary">
               run

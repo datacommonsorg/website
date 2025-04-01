@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from collections import Counter
 import json
 
 import numpy as np
+from pydantic import BaseModel
 
 PARSE_QUERY_PROMPT = '''
 Your task is to break down a natural language query into a structured output in two steps.
@@ -293,18 +295,37 @@ We found that starting from {START_ENT}({START_DCIDS}) in the graph, these paths
 
 Where each paths starts from the key and is a list of properties (or hops) in the graph to connected entities.
 
-We tried fetching all of the entities from the graph that are along the path, but the amount of data is too large to give to you to summarize.
+We tried fetching all of the entities from the graph that are along the path, but the amount of data is too large to pass to Gemini to generate a summarized response.
 Given the info about {START_ENT} below, can you summarize this situation for the user and tell them how they might find their answer using 
 the given path in the knowledge graph?
 
-They are provided with a UI that lists triples for a given entity.
+They are provided with a link to the UI that lists triples for a given entity which the user can explore. 
+They can also find more info at https://docs.datacommons.org/api/ for programatically querying the Knowledge graph.
 
 {ENTITY_INFO}
 
-At the end of your response, you can refer them to https://docs.datacommons.org/api/ for info about querying the Knowledge graph.
 '''
 
 MAX_NUM_DCID_PER_V2NODE_REQUEST = 100
+
+
+class GraphEntity(BaseModel):
+  '''
+  A single node from the Data Commons knowledge graph, represented by its name, 
+  types, and dcid.
+  '''
+  # The name of the entity.
+  name: str
+  # The types of the entity.
+  types: list[str]
+  # The dcid of the entity.
+  dcid: str
+
+  def __eq__(self, other):
+    if isinstance(other, GraphEntity):
+      return (self.name == other.name and self.dcid == other.dcid and
+              Counter(self.types) == Counter(other.types))
+    return False
 
 
 def get_gemini_response_token_counts(response):

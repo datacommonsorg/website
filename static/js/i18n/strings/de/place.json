@@ -2,6 +2,9 @@
   "alert-no_data_for_place": {
     "defaultMessage": "Wir haben leider keine Daten zu {placeName}"
   },
+  "category_in_place": {
+    "defaultMessage": "{category} in {placeName}"
+  },
   "chart-title-with-per-capita-and-date": {
     "defaultMessage": "{variableName} (pro Kopf in {date})"
   },
@@ -56,6 +59,9 @@
   "close": {
     "defaultMessage": "Schließen"
   },
+  "dateRange": {
+    "defaultMessage": "{minDate} bis {maxDate}"
+  },
   "disasterTool": {
     "defaultMessage": "Katastrophen-Tool"
   },
@@ -74,8 +80,14 @@
   "embed_export_chart_link": {
     "defaultMessage": "Dieses Diagramm exportieren"
   },
+  "enterQuery": {
+    "defaultMessage": "Frage eingeben, um zu suchen"
+  },
   "exploreLink": {
     "defaultMessage": "In {toolName} erkunden"
+  },
+  "explore_data_on": {
+    "defaultMessage": "Suche Daten zu… „{sampleQuestion}“"
   },
   "header-overview": {
     "defaultMessage": "Übersicht"
@@ -101,14 +113,23 @@
   "more_charts_link": {
     "defaultMessage": "Weitere Diagramme"
   },
+  "no_charts": {
+    "defaultMessage": "Keine {category}-Daten für {place} gefunden."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} in {placeName}"
+  },
+  "place_not_found": {
+    "defaultMessage": "Ort „{placeDcid}“ nicht gefunden."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Ranking (in)"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} von {total}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{placeType} in {parentPlaces}"
   },
   "plural_administrative_area": {
     "defaultMessage": "Verwaltungsbereiche"
@@ -121,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "Städte"
+  },
+  "plural_continent": {
+    "defaultMessage": "Kontinente"
   },
   "plural_country": {
     "defaultMessage": "Länder"
@@ -212,6 +236,9 @@
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Nach einem anderen Ort suchen"
   },
+  "seePerCapita": {
+    "defaultMessage": "Pro Kopf ansehen"
+  },
   "selectVariable": {
     "defaultMessage": "Wähle eine Variable aus der Liste aus, um die Details anzusehen. Über die unten stehenden Links wird der Explorer für statistische Variablen in einem neuen Tab geöffnet."
   },
@@ -229,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "Stadt"
+  },
+  "singular_continent": {
+    "defaultMessage": "Kontinent"
   },
   "singular_country": {
     "defaultMessage": "Land"
@@ -274,6 +304,9 @@
   },
   "summary_overview": {
     "defaultMessage": "Übersicht der Zusammenfassung"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "Wir verwenden KI, um Erkenntnisse aus unseren Datenquellen zusammenzufassen (in jedem Diagramm verlinkt). Bitte überprüfen Sie die Zusammenfassung und die Quelldaten."
   },
   "the_world": {
     "defaultMessage": "weltweit"
