@@ -86,7 +86,7 @@ export function DisasterEventMapSelectors(
           id="disaster-event-map-date-selector-input"
           type="select"
           value={props.date}
-          onChange={(e) => {
+          onChange={(e): void => {
             props.setDate(e.target.value);
           }}
         >
