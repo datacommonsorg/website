@@ -126,18 +126,16 @@ def get_next_hop_triples(dcids, out=True):
 
 
 def get_all_triples(dcids):
-  out_triples = {}
-  in_triples = {}
+  result = {}
   for dcid_batch in utils.batch_requested_nodes(dcids):
-    out_triples.update(fetch.triples(dcid_batch, out=True, max_pages=None))
-    in_triples.update(fetch.triples(dcid_batch, out=False, max_pages=None))
-
-  return {
-      dcid: {
-          'outgoing': out_triples.get(dcid, {}),
-          'incoming': in_triples.get(dcid, {})
-      } for dcid in dcids
-  }
+    out_triples = fetch.triples(dcid_batch, out=True, max_pages=None)
+    in_triples = fetch.triples(dcid_batch, out=False, max_pages=None)
+    for dcid in dcid_batch:
+      result.setdefault(dcid, {})['outgoing'] = out_triples.get(dcid, {})
+      result.setdefault(dcid, {})['incoming'] = in_triples.get(dcid, {})
+    if utils.get_dictionary_size_mb(result) > MAX_ENTITY_INFO_SIZE_MB:
+      return result
+  return result
 
 
 class Property:
@@ -940,17 +938,21 @@ class PathFinder:
           for dcid in dcids:
 
             if incoming_node_type:
+              incoming_prop_vals = entity_info.get(dcid,
+                                                   {}).get('incmoing',
+                                                           {}).get(prop, [])
               incoming_dcids = [
-                  node['dcid']
-                  for node in entity_info[dcid]['incoming'].get(prop, [])
-                  if not is_terminal(node) and
-                  incoming_node_type in node['types']
+                  node['dcid'] for node in incoming_prop_vals if
+                  not is_terminal(node) and incoming_node_type in node['types']
               ]
               next_dcids.update(incoming_dcids)
             else:
+              outgoing_prop_vals = entity_info.get(dcid,
+                                                   {}).get('outgoing',
+                                                           {}).get(prop, [])
               outgoing_dcids = [
                   node['dcid']
-                  for node in entity_info[dcid]['outgoing'].get(prop, [])
+                  for node in outgoing_prop_vals
                   if not is_terminal(node)
               ]
               next_dcids.update(outgoing_dcids)
