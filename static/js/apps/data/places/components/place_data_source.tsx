@@ -108,7 +108,7 @@ export const PlaceDataSource = ({
             ${theme.typography.text.xs}
             text-transform: uppercase;
             margin-bottom: ${theme.spacing.sm}px;
-            padding: 7px 0; // Add visual alignmet with the first column title
+            padding: 7px 0; // Add visual alignment with the first column title
           `}
         >
           {intl.formatMessage(pageMessages.DataSets)}
