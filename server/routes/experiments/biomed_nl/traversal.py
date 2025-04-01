@@ -35,6 +35,8 @@ TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
 EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
 MAX_HOPS_TO_FETCH_ALL_TRIPLES = 3
+MAX_UNFILTERED_PATHS_FOR_TRAVERSAL = 8.5
+MAX_ENTITY_INFO_SIZE_MB = 30
 
 FETCH_ENTITIES_TIMEOUT = 180  # 3 minutes
 
@@ -747,7 +749,7 @@ class PathFinder:
       self.path_store.merge_triples_into_path_store(triples)
       dcids = self.path_store.get_next_dcids()
 
-  def filter_paths_with_embeddings(self, pct=0.1):
+  def filter_paths_with_embeddings(self, pct=0.3):
     '''Filters paths based on cosine similarity between property descriptions 
     and the query.
 
@@ -757,8 +759,17 @@ class PathFinder:
     Returns:
         A list of the top properties that were selected for filtering.
     '''
-
     property_descriptions = self.path_store.get_property_descriptions()
+
+    total_paths = len([
+        path for paths_from_start_dcid in
+        self.path_store.get_paths_from_start().values()
+        for path in paths_from_start_dcid
+    ])
+    if total_paths < MAX_UNFILTERED_PATHS_FOR_TRAVERSAL:
+      # If there's not too many paths for Gemini to choose from, then skip
+      # filtering by embedding
+      return list(property_descriptions.keys())
 
     # TODO: add a description to description in DC KG.
     property_descriptions['description'] = DESCRIPTION_OF_DESCRIPTION_PROPERTY
@@ -874,6 +885,9 @@ class PathFinder:
         'outgoing' properties, each of which is a list of triples.
           The dictionary *also* contains a key "property_descriptions" which is
         a description of the properties, taken from the path_store
+        
+        boolean: Whether the traversal terminated prematurely due to memory or 
+          time limit.
 
         The structure of the returned dictionary is approximately:
 
@@ -904,7 +918,6 @@ class PathFinder:
         ```
     '''
     entity_info = {}
-    timed_out = False
     start_time = time.time()
 
     paths_from_start = self.path_store.get_paths_from_start(
@@ -912,9 +925,12 @@ class PathFinder:
     entity_info.update(get_all_triples(list(paths_from_start.keys())))
     for start_dcid in paths_from_start:
       for path in paths_from_start[start_dcid]:
-        if time.time() - start_time > FETCH_ENTITIES_TIMEOUT:
-          timed_out = True
-          return entity_info, timed_out
+        exceeded_time_limit = time.time() - start_time > FETCH_ENTITIES_TIMEOUT
+        exceeded_mem_limit = utils.get_dictionary_size_mb(
+            entity_info) > MAX_ENTITY_INFO_SIZE_MB
+        if exceeded_time_limit or exceeded_mem_limit:
+          terminated_prematurely = True
+          return entity_info, terminated_prematurely
 
         dcids = [start_dcid]
         properties_in_path = Path.parse_property_and_type(path)
