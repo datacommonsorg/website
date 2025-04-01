@@ -30,12 +30,19 @@ import { componentPlaceSources } from "../../../../i18n/i18n_place_messages";
 export const PlaceSources = (): ReactElement => {
   const theme = useTheme();
   return (
-    <Box>
+    <Box
+      sx={css`
+        display: flex;
+        flex-direction: column;
+        gap: ${theme.spacing.md}px;
+      `}
+    >
       <header>
         <h3
           css={css`
             ${theme.typography.family.heading}
             ${theme.typography.heading.xs}
+            margin: 0;
           `}
         >
           {intl.formatMessage(componentPlaceSources.DataSources)}
@@ -47,9 +54,15 @@ export const PlaceSources = (): ReactElement => {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: ${theme.spacing.lg}px;
+          padding-bottom: ${theme.spacing.md}px;
+          border-bottom: 1px solid ${theme.colors.border.primary.light};
+          &:last-of-type {
+            padding: 0;
+            border: 0;
+          }
         `}
       >
-        <div className="statisticItemMeta">
+        <div>
           <h4
             css={css`
               ${theme.typography.family.text}
@@ -85,6 +98,7 @@ export const PlaceSources = (): ReactElement => {
             css={css`
               ${theme.typography.family.text}
               ${theme.typography.text.sm}
+              margin: 0;
               display: flex;
               gap: ${theme.spacing.xs}px;
             `}
@@ -97,13 +111,14 @@ export const PlaceSources = (): ReactElement => {
             </span>
           </p>
         </div>
-        <div className="statisticItemSets">
+        <div>
           <h5
             css={css`
               ${theme.typography.family.text}
               ${theme.typography.text.xs}
               text-transform: uppercase;
               margin-bottom: ${theme.spacing.sm}px;
+              padding: 7px 0; // Add visual alignmet with the first column title
             `}
           >
             {intl.formatMessage(componentPlaceSources.DataSets)}
@@ -113,7 +128,7 @@ export const PlaceSources = (): ReactElement => {
               ${theme.typography.family.text}
               ${theme.typography.text.md}
               margin: 0;
-              padding-left: ${theme.spacing.lg}px;
+              padding-left: ${theme.spacing.md}px;
               color: ${theme.colors.link.primary.base};
             `}
           >

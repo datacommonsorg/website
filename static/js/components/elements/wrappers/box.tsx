@@ -50,7 +50,7 @@ export const Box = ({
           background-color: ${color};
           border: 1px solid ${theme.colors.border.primary.light};
           width: 100%;
-          padding: ${theme.spacing.lg}px;
+          padding: ${theme.spacing.xl}px ${theme.spacing.lg}px;
         `,
         sx,
       ]}
