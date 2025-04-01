@@ -196,6 +196,7 @@ if ! download_from_github "$file" "$temp_file"; then
 fi
 
 if ! validate_json "$temp_file"; then
+  echo "EXITING!"
   exit 1
 fi
 
@@ -211,7 +212,7 @@ if [[ "$environment" == "production" ]]; then
         fi
     fi
 
-    if ! compare_staging_production "$temp_file"; then
+    if compare_staging_production "$temp_file"; then
         exit 1
     fi
 fi
