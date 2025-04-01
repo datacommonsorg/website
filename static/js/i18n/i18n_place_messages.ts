@@ -223,26 +223,3 @@ export const pageMessages = defineMessages({
       'Text to display when a category has no charts. Example: "No Economics data found for Austria.". Please leave the {category} and {place} variables unchanged in the resulting translation.',
   },
 });
-
-export const componentPlaceSources = defineMessages({
-  DataSources: {
-    id: "data_sources",
-    defaultMessage: "Data Sources",
-    description: "Text to display when listing the data sources",
-  },
-  DataSets: {
-    id: "datasets",
-    defaultMessage: "Datasets",
-    description: "Text to display when listing the datasets",
-  },
-  Topics: {
-    id: "topics",
-    defaultMessage: "Topics",
-    description: "Text to display when listing the Topics",
-  },
-  License: {
-    id: "License",
-    defaultMessage: "License",
-    description: "Text to display when listing the License",
-  },
-});

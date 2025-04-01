@@ -4,6 +4,25 @@
       "dcid": "country/CAN",
       "name": "Canada"
     },
+    "sources": [
+      {
+        "label": "Statistics Canada",
+        "url": "https://www.statcan.gc.ca/",
+        "license": "Creative Commons 4",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "topics": ["Demographics", "Economics"],
+        "dataSets": [
+          {
+            "label": "Canada Statistics",
+            "url": "https://example.com"
+          },
+          {
+            "label": "Population Estimates",
+            "url": "https://example.com"
+          }
+        ]
+      }
+    ],
     "topics": {
       "demographics": {
         "title": "Demographics",
