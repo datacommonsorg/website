@@ -134,7 +134,6 @@ def get_all_triples(dcids):
       result.setdefault(dcid, {})['outgoing'] = out_triples.get(dcid, {})
       result.setdefault(dcid, {})['incoming'] = in_triples.get(dcid, {})
     if utils.get_dictionary_size_mb(result) > MAX_ENTITY_INFO_SIZE_MB:
-      print('hello2')
       return result
   return result
 
@@ -931,8 +930,6 @@ class PathFinder:
         exceeded_mem_limit = utils.get_dictionary_size_mb(
             entity_info) > MAX_ENTITY_INFO_SIZE_MB
         if exceeded_time_limit or exceeded_mem_limit:
-          print('hello')
-          print(exceeded_time_limit, exceeded_time_limit)
           terminated_prematurely = True
           return entity_info, terminated_prematurely
 
