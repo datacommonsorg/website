@@ -36,6 +36,8 @@ PATH_FINDING_MAX_V2NODE_PAGES = 2
 EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
 MAX_HOPS_TO_FETCH_ALL_TRIPLES = 3
 MAX_UNFILTERED_PATHS_FOR_TRAVERSAL = 100
+
+# Determined by sampling entity info size in Colab for hero queries
 MAX_ENTITY_INFO_SIZE_MB = 9
 
 FETCH_ENTITIES_TIMEOUT = 180  # 3 minutes
@@ -131,8 +133,9 @@ def get_all_triples(dcids):
     out_triples = fetch.triples(dcid_batch, out=True, max_pages=None)
     in_triples = fetch.triples(dcid_batch, out=False, max_pages=None)
     for dcid in dcid_batch:
-      result.setdefault(dcid, {})['outgoing'] = out_triples.get(dcid, {})
-      result.setdefault(dcid, {})['incoming'] = in_triples.get(dcid, {})
+      result[dcid] = {}
+      result[dcid]['outgoing'] = out_triples.get(dcid, {})
+      result[dcid]['incoming'] = in_triples.get(dcid, {})
     if utils.get_dictionary_size_mb(result) > MAX_ENTITY_INFO_SIZE_MB:
       return result
   return result
@@ -762,11 +765,10 @@ class PathFinder:
     '''
     property_descriptions = self.path_store.get_property_descriptions()
 
-    total_paths = len([
-        path for paths_from_start_dcid in
-        self.path_store.get_paths_from_start().values()
-        for path in paths_from_start_dcid
-    ])
+    total_paths = 0
+    for paths_from_dcid in self.path_store.get_paths_from_start().values():
+      total_paths += len(paths_from_dcid)
+
     if total_paths < max_paths_before_filtering:
       # If there's not too many paths for Gemini to choose from, then skip
       # filtering by embedding
