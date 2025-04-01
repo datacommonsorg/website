@@ -73,12 +73,6 @@ const PlaceHeader = (props: {
     );
   });
 
-  const placeHref = createPlacePageCategoryHref(
-    selectedCategory.name,
-    forceDevPlaces,
-    place
-  );
-
   return (
     <div className="title-section">
       <div className="place-info">
@@ -87,9 +81,11 @@ const PlaceHeader = (props: {
             {selectedCategory.name === "Overview" ? (
               place.name
             ) : (
-              <a className="place-info-link" href={placeHref}>
-                {place.name}
-              </a>
+              <LocalizedLink
+                className="place-info-link"
+                href={`/place/${place.dcid}`}
+                text={place.name}
+              />
             )}
             {selectedCategory.name != "Overview"
               ? ` • ${selectedCategory.translatedName}`

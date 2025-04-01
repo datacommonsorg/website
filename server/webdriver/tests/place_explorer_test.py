@@ -98,6 +98,20 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         len(find_elems(map_geo_regions, by=By.TAG_NAME, value='path')),
         238)  # country count.
 
+  def test_dev_place_overview_world_redirect(self):
+    """Ensure click on place link from the demographics page redirects to the overview page"""
+    self.driver.get(self.url_ + '/place/Earth?category=Demographics')
+
+    # Click the place link and verify it takes us to the overview page
+    place_link = find_elem(self.driver,
+                           by=By.CSS_SELECTOR,
+                           value='.place-info-link')
+    place_link.click()
+
+    # Wait for URL change and page load
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.url_to_be(self.url_ + '/place/Earth'))
+
   def test_dev_place_overview_california(self):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
