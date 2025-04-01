@@ -66,6 +66,7 @@ class BiomedNlApiResponse(BaseModel):
   answer: str = ""
   footnotes: list[CitedTripleReference] = []
   debug: str = ""
+  entities: list[utils.GraphEntity] = []
 
 
 def _append_fallback_response(query, response, path_finder,
@@ -126,7 +127,7 @@ def _fulfill_traversal_query(query):
 
   traversed_entity_info = {}
   try:
-    path_finder.find_start_and_traversal_type()
+    response.entities = path_finder.find_start_and_traversal_type()
 
     if path_finder.traversal_type == PathFinder.TraversalTypes.OVERVIEW:
       # Skip traversal and fetch data for the entities
@@ -136,14 +137,17 @@ def _fulfill_traversal_query(query):
     else:
       path_finder.find_paths()
 
-    traversed_entity_info = path_finder.get_traversed_entity_info()
+    traversed_entity_info, fetching_entities_timed_out = path_finder.get_traversed_entity_info(
+    )
 
   except Exception as e:
     logging.error(f'[biomed_nl]: {e}', exc_info=True)
+    # TODO: add an error enum to the final response instead of adding errors to
+    # debug; client can decide how to display different error cases.
     if path_finder.start_dcids:
-      response.answer = f'{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
+      response.debug += f'\n{path_finder.start_entity_name}: {", ".join(path_finder.start_dcids)}'
     else:
-      response.answer = 'Error finding entities from the query in the knowledge graph.'
+      response.debug += '\nError finding entities from the query in the knowledge graph.'
     return response
 
   try:
@@ -174,7 +178,7 @@ def _fulfill_traversal_query(query):
       should_include_fallback = True
 
     # TODO: return fallback for traversal error + timeouts and uncertain final responses
-    if should_include_fallback:
+    if should_include_fallback or fetching_entities_timed_out:
       _append_fallback_response(query, response, path_finder,
                                 traversed_entity_info, gemini_client)
   except Exception as e:
