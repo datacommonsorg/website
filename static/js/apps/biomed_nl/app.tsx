@@ -122,6 +122,24 @@ interface DisplayedAnswer {
   displayEntities: JSX.Element;
 }
 
+function getLegalDisclaimer(): JSX.Element {
+  return (
+    <>
+      The use of this experimental UI is subject to the&nbsp;
+      <a
+        href="https://support.google.com/legal/answer/15696323"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Trusted Tester Agreement
+      </a>
+      . You may not share this link with people outside your organization.
+      Don&apos;t hesitate to contact us at support@datacommons.org if you have
+      any questions!
+    </>
+  );
+}
+
 // Headings for Footer and Debug dropdown sections
 function getSectionTrigger(title: string, opened: boolean): JSX.Element {
   return (
@@ -506,6 +524,7 @@ export function App(): ReactElement {
               <>
                 <h3 className="title">Exploring biomedical data</h3>
                 <p className="overview">{OVERVIEW_TEXT}</p>
+                <p>{getLegalDisclaimer()}</p>
               </>
             </SimpleText>
           </div>
