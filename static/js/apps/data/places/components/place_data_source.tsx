@@ -42,6 +42,12 @@ export const PlaceDataSource = ({
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: ${theme.spacing.lg}px;
+        padding-bottom: ${theme.spacing.md}px;
+        border-bottom: 1px solid ${theme.colors.border.primary.light};
+        &:last-of-type {
+          padding: 0;
+          border: 0;
+        }
       `}
     >
       <div>
@@ -84,7 +90,8 @@ export const PlaceDataSource = ({
           css={css`
             ${theme.typography.family.text}
             ${theme.typography.text.sm}
-              display: flex;
+            margin: 0;
+            display: flex;
             gap: ${theme.spacing.xs}px;
           `}
         >
@@ -99,8 +106,9 @@ export const PlaceDataSource = ({
           css={css`
             ${theme.typography.family.text}
             ${theme.typography.text.xs}
-              text-transform: uppercase;
+            text-transform: uppercase;
             margin-bottom: ${theme.spacing.sm}px;
+            padding: 7px 0; // Add visual alignmet with the first column title
           `}
         >
           {intl.formatMessage(pageMessages.DataSets)}
@@ -109,8 +117,8 @@ export const PlaceDataSource = ({
           css={css`
             ${theme.typography.family.text}
             ${theme.typography.text.md}
-              margin: 0;
-            padding-left: ${theme.spacing.lg}px;
+            margin: 0;
+            padding-left: ${theme.spacing.md}px;
             color: ${theme.colors.link.primary.base};
           `}
         >

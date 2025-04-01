@@ -39,12 +39,19 @@ export const PlaceDataSources = ({
 }: PlaceDataSourcesProps): ReactElement => {
   const theme = useTheme();
   return (
-    <Box>
+    <Box
+      sx={css`
+        display: flex;
+        flex-direction: column;
+        gap: ${theme.spacing.md}px;
+      `}
+    >
       <header>
         <h3
           css={css`
             ${theme.typography.family.heading}
             ${theme.typography.heading.xs}
+            margin: 0;
           `}
         >
           {intl.formatMessage(pageMessages.DataSources)}

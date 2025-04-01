@@ -39,7 +39,7 @@ export const PlaceDataOverviewHeader = ({
   return (
     <>
       <Section
-        variant="small"
+        variant="compact"
         innerSx={css`
           display: flex;
           justify-content: space-between;
@@ -50,7 +50,6 @@ export const PlaceDataOverviewHeader = ({
           css={css`
             ${theme.typography.family.heading};
             ${theme.typography.heading.sm};
-            margin-bottom: ${theme.spacing.xl}px;
             margin-left: ${theme.spacing.md}px;
           `}
         >
