@@ -24,11 +24,11 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { intl } from "../../../../i18n/i18n";
-import { componentPlaceSources } from "../../../../i18n/i18n_place_messages";
+import { pageMessages } from "../../../../i18n/i18n_data_source_messages";
 import { DataSourceGroup } from "../place_data";
 
 interface PlaceDataSourceProps {
-  //an data source associated with a particular place.
+  //a data source associated with a particular place.
   placeDataSource: DataSourceGroup;
 }
 
@@ -72,7 +72,7 @@ export const PlaceDataSource = ({
             gap: ${theme.spacing.xs}px;
           `}
         >
-          <strong>{intl.formatMessage(componentPlaceSources.Topics)}:</strong>
+          <strong>{intl.formatMessage(pageMessages.Topics)}:</strong>
           {placeDataSource.topics.map((topic, index) => (
             <span key={index}>
               {topic}
@@ -88,7 +88,7 @@ export const PlaceDataSource = ({
             gap: ${theme.spacing.xs}px;
           `}
         >
-          <strong>{intl.formatMessage(componentPlaceSources.License)}:</strong>
+          <strong>{intl.formatMessage(pageMessages.License)}:</strong>
           <span>
             <a href={placeDataSource.licenseUrl}>{placeDataSource.license}</a>
           </span>
@@ -103,7 +103,7 @@ export const PlaceDataSource = ({
             margin-bottom: ${theme.spacing.sm}px;
           `}
         >
-          {intl.formatMessage(componentPlaceSources.DataSets)}
+          {intl.formatMessage(pageMessages.DataSets)}
         </h5>
         <ul
           css={css`

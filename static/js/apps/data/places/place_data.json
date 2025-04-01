@@ -9,7 +9,7 @@
         "label": "Statistics Canada",
         "url": "https://www.statcan.gc.ca/",
         "license": "Creative Commons 4",
-        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/deed.en",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
         "topics": ["Demographics", "Economics"],
         "dataSets": [
           {

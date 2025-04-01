@@ -25,7 +25,7 @@ import React, { ReactElement } from "react";
 
 import { Box } from "../../../../components/elements/wrappers/box";
 import { intl } from "../../../../i18n/i18n";
-import { componentPlaceSources } from "../../../../i18n/i18n_place_messages";
+import { pageMessages } from "../../../../i18n/i18n_data_source_messages";
 import { DataSourceGroup } from "../place_data";
 import { PlaceDataSource } from "./place_data_source";
 
@@ -47,7 +47,7 @@ export const PlaceDataSources = ({
             ${theme.typography.heading.xs}
           `}
         >
-          {intl.formatMessage(componentPlaceSources.DataSources)}
+          {intl.formatMessage(pageMessages.DataSources)}
         </h3>
       </header>
       {placeDataSources.map((placeDataSource) => (
