@@ -133,9 +133,10 @@ def get_all_triples(dcids):
     out_triples = fetch.triples(dcid_batch, out=True, max_pages=None)
     in_triples = fetch.triples(dcid_batch, out=False, max_pages=None)
     for dcid in dcid_batch:
-      result[dcid] = {}
-      result[dcid]['outgoing'] = out_triples.get(dcid, {})
-      result[dcid]['incoming'] = in_triples.get(dcid, {})
+      result[dcid] = {
+          'outgoing': out_triples.get(dcid, {}),
+          'incoming': in_triples.get(dcid, {})
+      }
     if utils.get_dictionary_size_mb(result) > MAX_ENTITY_INFO_SIZE_MB:
       return result
   return result
