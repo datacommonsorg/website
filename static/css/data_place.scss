@@ -1,0 +1,166 @@
+/**
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Styles for the data place page - used to import styles required for the statvar tool */
+
+/*
+  TODO (Nick): Look into converting the statvar tool to emotion.
+ */
+
+@import "base";
+@import "draw";
+@import "stat_var_hierarchy";
+@import "table";
+
+// the styles below are also found in browser.scss
+
+.observations-table .node-table tr > td:last-of-type {
+  width: 70%;
+}
+
+.property-column {
+  word-wrap: break-word;
+  vertical-align: top;
+}
+
+.browser-in-arc-section .card {
+  margin: $vertical-spacing 0 2 * $vertical-spacing;
+}
+
+.arc-group-title {
+  margin: $vertical-spacing $horizontal-spacing;
+  font-size: 1rem;
+}
+
+.hide-dots .dot {
+  opacity: 0;
+}
+
+.dot {
+  r: 5;
+}
+
+.dot:hover {
+  r: 5;
+}
+
+.clickable circle {
+  cursor: pointer;
+}
+
+.no-click circle {
+  cursor: auto;
+}
+
+.in-arc-table {
+  max-height: 12.6em;
+  overflow-y: scroll;
+}
+
+.provenance-column {
+  vertical-align: top;
+}
+
+.clickable-text {
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+.clickable-text:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #721c24;
+  font-size: 0.9rem;
+  padding: $vertical-spacing $horizontal-spacing;
+  border-radius: $border-radius;
+  background: #f8d7da;
+}
+
+.legend {
+  display: none;
+}
+
+.statvars-charts-section {
+  margin-left: 24px;
+  padding: $vertical-spacing;
+  background: $result-background;
+  border-radius: $border-radius;
+  margin-bottom: (-$vertical-spacing);
+}
+
+.stat-var-link {
+  font-size: 0.9rem;
+}
+
+.stat-var-link .material-icons {
+  padding-left: 0.5rem;
+}
+
+#observation-chart-section {
+  margin-bottom: (-$vertical-spacing);
+}
+
+.chart-toggle {
+  background: var(--gm-3-white) !important;
+  border: 1px solid var(--dc-primary) !important;
+  color: var(--dc-primary) !important;
+  height: 2rem;
+  padding-bottom: 0;
+  padding-top: 0;
+  position: absolute;
+  right: $horizontal-spacing;
+  top: 10px;
+}
+
+.chart-toggle span,
+.chart-toggle .material-icons {
+  line-height: 2rem;
+  padding-right: 4px;
+  vertical-align: middle;
+}
+
+.chart-toggle .material-icons {
+  font-size: 18px;
+  padding-right: 4px;
+}
+
+.chart-title {
+  min-height: 2.5rem;
+}
+
+.observations-table {
+  max-height: 250px;
+  overflow-y: scroll;
+  font-size: 0.8rem;
+}
+
+.observations-table .observation-table-row-clickable:hover {
+  cursor: pointer;
+  background-color: var(--dc-gray-lite);
+}
+
+.chart-section .metadata {
+  line-height: 1.5;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.loading-spinner-container {
+  position: relative;
+  min-height: 200px;
+}

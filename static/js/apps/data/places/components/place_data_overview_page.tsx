@@ -24,6 +24,8 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Section } from "../../../../components/elements/layout/section";
+import { StatVarHierarchyType } from "../../../../shared/types";
+import { StatVarHierarchy } from "../../../../stat_var_hierarchy/stat_var_hierarchy";
 import { PlaceData } from "../place_data";
 import { PlaceDataOverviewHeader } from "./place_data_overview_header";
 import { PlaceDataSources } from "./place_data_sources";
@@ -50,6 +52,17 @@ export const PlaceDataOverviewPage = ({
         `}
       >
         <PlaceDataSources placeDataSources={placeData.sources} />
+        <div className="table-page-section">
+          <h3>Statistical Variables</h3>
+          <div className="card">
+            <StatVarHierarchy
+              type={StatVarHierarchyType.BROWSER}
+              entities={[
+                { dcid: placeData.place.dcid, name: placeData.place.name },
+              ]}
+            />
+          </div>
+        </div>
         {Object.entries(placeData.topics).map(([topicKey, topic]) => (
           <StatVarPlaceTopics
             key={topicKey}
