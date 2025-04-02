@@ -5,196 +5,12 @@
   "main_place_name": "<None>",
   "entities_detected": [],
   "entities_resolved": "",
-  "query_with_places_removed": "how are factors like obesity , blood pressure and asthma impacted by climate change",
+  "query_with_places_removed": "",
   "sv_matching": {
-    "CosineScore": [
-      0.78648,
-      0.71356,
-      0.69181,
-      0.67409,
-      0.67346,
-      0.67046,
-      0.66351,
-      0.65939,
-      0.65202,
-      0.64848,
-      0.64617,
-      0.6459,
-      0.64355,
-      0.64109,
-      0.64052,
-      0.64021,
-      0.63842,
-      0.63803,
-      0.63765,
-      0.63464,
-      0.63415,
-      0.63385,
-      0.63227,
-      0.63222,
-      0.63049,
-      0.6303,
-      0.62984,
-      0.62957
-    ],
-    "MultiSV": {
-      "Candidates": [
-        {
-          "AggCosineScore": 0.8999,
-          "DelimBased": false,
-          "Parts": [
-            {
-              "CosineScore": [
-                0.79978
-              ],
-              "QueryPart": "factors like obesity blood pressure asthma impacted",
-              "SV": [
-                "dc/topic/Asthma"
-              ]
-            },
-            {
-              "CosineScore": [
-                1.0
-              ],
-              "QueryPart": "climate change",
-              "SV": [
-                "dc/topic/ClimateChange"
-              ]
-            }
-          ]
-        },
-        {
-          "AggCosineScore": 0.8615,
-          "DelimBased": true,
-          "Parts": [
-            {
-              "CosineScore": [
-                0.75886,
-                0.74636,
-                0.74017,
-                0.73512,
-                0.7131
-              ],
-              "QueryPart": "factors like obesity",
-              "SV": [
-                "Percent_Person_Obesity",
-                "WHO/NCD_BMI_30A",
-                "dc/x13tvt8jsgrm4",
-                "dc/4lvmzr1h1ylk1",
-                "dc/topic/Health"
-              ]
-            },
-            {
-              "CosineScore": [
-                1.0
-              ],
-              "QueryPart": "blood pressure",
-              "SV": [
-                "dc/topic/BloodPressure"
-              ]
-            },
-            {
-              "CosineScore": [
-                0.82557,
-                0.80279
-              ],
-              "QueryPart": "asthma impacted climate change",
-              "SV": [
-                "dc/topic/Asthma",
-                "dc/topic/ClimateChange"
-              ]
-            }
-          ]
-        },
-        {
-          "AggCosineScore": 0.8413,
-          "DelimBased": false,
-          "Parts": [
-            {
-              "CosineScore": [
-                0.77684,
-                0.7495,
-                0.73427,
-                0.73251
-              ],
-              "QueryPart": "factors like obesity blood pressure asthma",
-              "SV": [
-                "dc/topic/Asthma",
-                "dc/topic/BloodPressure",
-                "dc/topic/HealthConditions",
-                "dc/topic/Health"
-              ]
-            },
-            {
-              "CosineScore": [
-                0.90569
-              ],
-              "QueryPart": "impacted climate change",
-              "SV": [
-                "dc/topic/ClimateChange"
-              ]
-            }
-          ]
-        },
-        {
-          "AggCosineScore": 0.8232,
-          "DelimBased": false,
-          "Parts": [
-            {
-              "CosineScore": [
-                0.82079
-              ],
-              "QueryPart": "factors like obesity blood pressure",
-              "SV": [
-                "dc/topic/BloodPressure"
-              ]
-            },
-            {
-              "CosineScore": [
-                0.82557,
-                0.80279
-              ],
-              "QueryPart": "asthma impacted climate change",
-              "SV": [
-                "dc/topic/Asthma",
-                "dc/topic/ClimateChange"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    "Query": "how are factors like obesity , blood pressure and asthma impacted by climate change",
-    "SV": [
-      "dc/topic/ClimateChange",
-      "dc/topic/Asthma",
-      "dc/topic/ProjectedClimateExtremes",
-      "dc/topic/BloodPressure",
-      "dc/topic/sdg_13.3",
-      "dc/topic/CO2Emissions",
-      "Annual_Emissions_GreenhouseGas",
-      "dc/topic/AmbientAirPollution",
-      "Annual_Amount_Emissions_SCC_27_NaturalSources",
-      "Percent_Person_Obesity",
-      "dc/topic/sdg_3.9.1",
-      "dc/topic/GlobalHealth",
-      "dc/topic/Health",
-      "dc/topic/sdg_13",
-      "dc/topic/sdg_13.b",
-      "dc/topic/sdg_13.2.1",
-      "Percent_Person_Children_WithAsthma",
-      "dc/topic/sdg_13.2.2",
-      "Percent_Person_WithAsthma",
-      "dc/topic/Emissions",
-      "dc/topic/Pollutants",
-      "Annual_Emissions_GreenhouseGas_OilAndGas",
-      "dc/topic/GreenhouseGasEmissions",
-      "dc/topic/AsthmaFemalePopulationByAge",
-      "dc/topic/sdg_13.1",
-      "dc/topic/sdg_13.2",
-      "dc/topic/sdg_11.6.2",
-      "dc/topic/HealthConditions"
-    ]
+    "CosineScore": [],
+    "MultiSV": {},
+    "Query": "how are factors like obesity blood pressure and asthma impacted by climate change",
+    "SV": []
   },
   "props_matching": {
     "CosineScore": [],
@@ -202,19 +18,16 @@
   },
   "query_detection_debug_logs": {
     "dc_recognize_places": {},
+    "llm_response": {},
     "main_place_inferred": null,
     "original_query": "how are factors like obesity blood pressure and asthma impacted by climate change",
     "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
     "place_resolution": "Place resolution did not trigger (no place dcids found).",
     "places_found_str": [],
     "query_transformations": {
-      "place_detection_input": "how are factors like obesity, blood pressure and asthma impacted by climate change",
-      "place_detection_with_places_removed": "how are factors like obesity , blood pressure and asthma impacted by climate change",
       "sv_detection_query_index_types": [
-        "base_uae_mem"
-      ],
-      "sv_detection_query_input": "how are factors like obesity , blood pressure and asthma impacted by climate change",
-      "sv_detection_query_stop_words_removal": "factors like obesity , blood pressure asthma impacted climate change"
+        ""
+      ]
     }
   }
 }
