@@ -1,0 +1,17 @@
+{
+  "status": "SUCCESS",
+  "startTime": "2025-03-28 18:24:36.008108",
+  "lastUpdate": "2025-03-28 18:24:36.324859",
+  "importFiles": {
+    "/usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/hospital_entities.csv": {
+      "status": "SUCCESS",
+      "startTime": "2025-03-28 18:24:36.009664",
+      "lastUpdate": "2025-03-28 18:24:36.015643"
+    },
+    "/usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/hospital_observations.csv": {
+      "status": "SUCCESS",
+      "startTime": "2025-03-28 18:24:36.016281",
+      "lastUpdate": "2025-03-28 18:24:36.305191"
+    }
+  }
+}

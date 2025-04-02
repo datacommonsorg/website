@@ -1,0 +1,17 @@
+{
+  "status": "FAILURE",
+  "error": "'Nodes' object has no attribute '_event_entity_generated_id_count'",
+  "startTime": "2025-02-14 00:08:08.869713",
+  "lastUpdate": "2025-02-14 00:08:08.875751",
+  "importFiles": {
+    "/usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/biomed_mcf/usan.csv": {
+      "status": "SUCCESS",
+      "error": "'Nodes' object has no attribute '_event_entity_generated_id_count'",
+      "startTime": "2025-02-14 00:08:08.870965",
+      "lastUpdate": "2025-02-14 00:08:08.874650"
+    },
+    "/usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/biomed_mcf/usan_stems_schema.mcf": {
+      "status": "NOT_STARTED"
+    }
+  }
+}

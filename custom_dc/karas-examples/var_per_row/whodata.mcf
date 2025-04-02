@@ -1,0 +1,17 @@
+Node: dcid:who/Adult_curr_cig_smokers
+typeOf: dcs:StatisticalVariable
+measuredProperty: dcs:percent
+name: "Prevalence of current cigarette smoking among adults (%)"
+populationType: dcs:Person
+
+Node: dcid:who/Adult_curr_cig_smokers_female
+typeOf: dcs:StatisticalVariable
+measuredProperty: dcs:percent
+name: "Prevalence of current cigarette smoking among adults (%) [Female]"
+populationType: dcs:Person
+
+Node: dcid:who/Adult_curr_cig_smokers_male
+typeOf: dcs:StatisticalVariable
+measuredProperty: dcs:percent
+name: "Prevalence of current cigarette smoking among adults (%) [Male]"
+populationType: dcs:Person

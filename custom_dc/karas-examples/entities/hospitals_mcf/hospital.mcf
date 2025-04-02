@@ -1,0 +1,4 @@
+Node: dcid:HospitalBed
+name: "Hospital Bed"
+typeOf: schema:Property
+domainIncludes: schema:Hospital

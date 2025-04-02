@@ -1,0 +1,107 @@
+Node: dcid:A22001
+name: "St Elias Specialty Hospital"
+typeOf: dcid:Hospital
+address: "4800 Cordova Street"
+cityName: "Anchorage"
+City: dcid:geoId/02
+zipCode: 99503
+hospitalSubType: "Long Term"
+
+Node: dcid:A20001
+name: "Providence Alaska Medical Center"
+typeOf: dcid:Hospital
+address: "3200 Providence Drive"
+City: dcid:geoId/02
+cityName: "Anchorage"
+zipCode: 99508
+hospitalSubType: "Short Term"
+
+Node: dcid:A20008
+name: "Bartlett Regional Hospital"
+typeOf: dcid:Hospital
+address: "3260 Hospital Dr"
+City: dcid:geoId/02110
+cityName: "Juneau"
+zipCode: 99801
+hospitalSubType: "Short Term"
+
+Node: dcid:A21311
+name: "Ketchikan Medical Center"
+typeOf: dcid:Hospital
+address: "3100 Tongass Avenue"
+City: dcid:geoId/02150
+cityName: "Ketchikan"
+zipCode: 99901
+hospitalSubType: "Critical Access Hospitals"
+
+Node:dcid:A20017
+name: "Alaska Regional Hospital"
+typeOf: dcid:Hospital
+address: "2801 Debarr Road"
+City: dcid:geoId/02020
+cityName: "Anchorage"
+zipCode: 99508
+hospitalSubType:" Short Term"
+
+Node: dcid:A21301
+name: "Providence Valdez Medical Center"
+typeOf: dcid:Hospital
+address: "Po Box 550"
+City: dcid:geoId/02261
+cityName: "Valdez"
+zipCode: 99686
+hospitalSubType: "Critical Access Hospitals"
+
+Node: dcid:A21306
+name: "Island Medical Ctr"
+typeOf: dcid:Hospital
+address: "1915 East Rezanof Drive"
+City: dcid: geoId/02150
+cityName: "Kodiak"
+zipCode:99615
+hospitalSubType:"Critical Access Hospitals"
+
+Node: dcid:A21304
+name: "Petersburg Medical Center"
+typeOf: dcid:Hospital
+address: "Po Box 589"
+City: geoId/02280
+cityName: "Petersburg"
+zipCode: 99833
+hospitalSubType: "Critical Access Hospitals"
+
+Node: dcid:ccn/total_num_staffed_beds
+name: "All beds"
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Hospital
+description: "Weekly sum of all staffed beds per hospital"
+
+Node: dcid:ccn/num_staffed_adult_beds
+name: "Beds for adults"
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Hospital
+description: "Weekly sum of all staffed beds reserved for adults per hospital"
+ 
+Node: dcid:num_staffed_inpatient_icu_beds
+name: "Inpatient ICU beds"
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Hospital
+description: "Weekly sum of all staffed inpatient beds in the ICU per hospital"
+
+Node: dcid:num_staffed_adult_inpatient_icu_beds
+name: "Inpatient ICU beds for adults"
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Hospital
+description: "Weekly sum of all staffed beds that are reserved for adults in inpatient ICs per hospital"
+
+Node: dcid:num_staffed_inpatient_icu_beds_occupied
+name: "Occupied inpatient ICU beds"
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Hospital
+description: "Weekly sum of all staffed beds that are occupied in the inpatient ICU per hospital"
+
+Node: dcid:num_staffed_adult_icu_beds_occupied
+name: "Occupied ICU beds for adults"
+typeOf: dcid:StatisticalVariable
+populationType: dcid:Hospital
+description: "Weekly sum of all staffed beds that are occupied by adults in the ICU per hospital"

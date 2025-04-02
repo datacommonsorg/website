@@ -1,0 +1,23 @@
+{
+  "inputFiles": {
+    "*.csv": {
+      "provenance": "UN_WHO",
+      "format": "variablePerRow",
+      "columnMappings": {
+        "variable": "SERIES",
+        "entity": "GEOGRAPHY",
+        "date": "TIME_PERIOD",
+        "value": "OBS_VALUE"
+      }
+    }
+  },
+  "groupStatVarsByProperty": true,
+  "sources": {
+    "custom.who.int": {
+      "url": "https://custom.who.int",
+      "provenances": {
+        "UN_WHO": "https://custom.who.int/data/gho/indicator-metadata-registry/imr-details/6128"
+      }
+    }
+  }
+}

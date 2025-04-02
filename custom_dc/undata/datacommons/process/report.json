@@ -1,0 +1,17 @@
+{
+  "status": "SUCCESS",
+  "startTime": "2025-02-13 22:05:00.991908",
+  "lastUpdate": "2025-02-13 22:05:01.382104",
+  "importFiles": {
+    "/usr/local/google/home/kmoscoe/website/custom_dc/undata/undata-demo_WHO__Adult_curr_cig_smoking.csv": {
+      "status": "SUCCESS",
+      "startTime": "2025-02-13 22:05:00.992529",
+      "lastUpdate": "2025-02-13 22:05:01.173448"
+    },
+    "/usr/local/google/home/kmoscoe/website/custom_dc/undata/undata-demo_manual_un_who_star_vars.mcf": {
+      "status": "SUCCESS",
+      "startTime": "2025-02-13 22:05:01.173982",
+      "lastUpdate": "2025-02-13 22:05:01.175356"
+    }
+  }
+}

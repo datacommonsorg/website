@@ -1,0 +1,8 @@
+
+Node: dcid:biomed/NameStem
+name: "US Adopted Name Stem"
+typeOf: schema:Class
+subClassOf: dcs:ChemicalSubstance
+shortDisplayName: "USAN Stem"
+description: "A common stem for which chemical and/or pharmacologic parameters have been established. This is designated by the United States Adopted Names (USAN) Council."
+descriptionUrl: "https://www.ama-assn.org/about/united-states-adopted-names/united-states-adopted-names-approved-stems"

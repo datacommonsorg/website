@@ -1,0 +1,24 @@
+{
+    "inputFiles": {
+      "*.csv": {
+        "importType": "observations",
+        "format": "variablePerRow",
+        "provenance": "USAFacts Demo Provenance",
+        "columnMappings": {
+          "variable": "variableMeasured",
+          "entity": "observationAbout",
+          "date": "observationDate",
+          "value": "value"
+        }
+      }
+    },
+    "groupStatVarsByProperty": true,
+    "sources": {
+      "USAFacts Demo": {
+        "url": "https://usafacts.example.com",
+        "provenances": {
+          "USAFacts Demo Provenance": "https://usafacts.example.com/provenance"
+        }
+      }
+    }
+}

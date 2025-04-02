@@ -1,0 +1,12 @@
+{
+  "status": "SUCCESS",
+  "startTime": "2025-01-27 22:15:20.664761",
+  "lastUpdate": "2025-01-27 22:15:20.958952",
+  "importFiles": {
+    "/usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/var_per_row/whodata.mcf": {
+      "status": "SUCCESS",
+      "startTime": "2025-01-27 22:15:20.667129",
+      "lastUpdate": "2025-01-27 22:15:20.668218"
+    }
+  }
+}

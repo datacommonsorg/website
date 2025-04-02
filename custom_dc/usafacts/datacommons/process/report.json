@@ -1,0 +1,17 @@
+{
+  "status": "SUCCESS",
+  "startTime": "2024-12-11 18:45:18.028849",
+  "lastUpdate": "2024-12-11 18:45:18.793168",
+  "importFiles": {
+    "/usr/local/google/home/kmoscoe/website/custom_dc/usafacts/usafacts-demo_input_us_debt_gdp-Total_Public_Debt_as_Percent_of_Gross_Domestic_Product.csv": {
+      "status": "SUCCESS",
+      "startTime": "2024-12-11 18:45:18.031203",
+      "lastUpdate": "2024-12-11 18:45:18.326986"
+    },
+    "/usr/local/google/home/kmoscoe/website/custom_dc/usafacts/usafacts-demo_input_state_2009_2023_stat_vars.mcf": {
+      "status": "SUCCESS",
+      "startTime": "2024-12-11 18:45:18.328184",
+      "lastUpdate": "2024-12-11 18:45:18.368915"
+    }
+  }
+}

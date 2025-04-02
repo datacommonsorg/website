@@ -1,0 +1,7 @@
+dcid,sentence
+num_staffed_adult_beds,Number of beds for adults in Alaska hospitals each week;Number of staffed beds for adults in Alaska hospitals each week
+num_staffed_adult_icu_beds_occupied,Total number of beds occupied by adults in ICUs in Alaska hospitals each week;Total number of staffed beds that are occupied by adults in ICUs in Alaska hospitals each week
+num_staffed_adult_inpatient_icu_beds,Number of beds for adults in inpatient ICUs in Alaska hospitals each week;Number of staffed beds for adults in ICUs in Alaska hospitals each week
+num_staffed_inpatient_icu_beds,Number of beds in inpatient ICUs in Alaska hospitals each week;Number of staffed beds there are in inpatient ICUs in Alaska hospitals each week
+num_staffed_inpatient_icu_beds_occupied,Number of beds that are occupied in inpatient ICUs in Alaska hospitals each week;Number of staffed beds that are occupied in inpatient ICUs in Alaska hospitals
+total_num_staffed_beds,Total number of beds in Alaska hospitals each week;Total number of staffed beds in Alaska hospitals each week

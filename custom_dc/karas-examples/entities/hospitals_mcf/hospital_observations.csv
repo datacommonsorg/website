@@ -1,0 +1,7 @@
+dcid,week,total_num_staffed_beds,num_staffed_adult_beds,num_staffed_inpatient_icu_beds,num_staffed_adult_inpatient_icu_beds,num_staffed_inpatient_icu_beds_occupied,num_staffed_adult_icu_beds_occupied
+A22001,2023-01-27,79,79,12,12,-999999,-999999
+A20001,2023-01-27,1262,1048,264,146,264,146
+A20017,2023-01-27,0,0,-999999,-999999,0,0
+A21301,2023-01-27,836,780,101,62,66,62
+A21306,2023-01-27,0,0,9,9,8,8
+A21304,2023-01-27,6,6,0,0,0,0

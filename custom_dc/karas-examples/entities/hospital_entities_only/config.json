@@ -1,0 +1,29 @@
+{
+  "inputFiles": {
+    "hospital_entities.csv": {
+      "importType": "entities",
+      "rowEntityType": "Hospital",
+      "entityColumns": [
+        "City"
+      ],
+      "provenance": "Alaska Weekly Hospital Capacity"
+    }
+   },
+  "entities": {
+    "Hospital": {
+      "name": "Hospital"
+    },
+    "Bed": {
+    "name": "HospitalBed",
+    "description": "Needed for hospital statvars"
+    }
+  },
+  "sources": {
+    "HHS Protect Public Data Hub": {
+      "url": "https://public-data-hub-dhhs.hub.arcgis.com/",
+      "provenances": {
+        "Alaska Weekly Hospital Capacity": "https://public-data-hub-dhhs.hub.arcgis.com/datasets/d47bfcaac2544c2eb1fcfb3d36b5ed23_0/explore"
+      }
+    }
+  }
+}

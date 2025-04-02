@@ -1,0 +1,9 @@
+CCN,Name,Address,CityName,City,ZipCode,HospitalSubtype
+A22001,St Elias Specialty Hospital,4800 Cordova Street,Anchorage,geoId/02020,99503,Long Term
+A20001,Providence Alaska Medical Center,3200 Providence Drive,Anchorage,geoId/02020,Short Term
+A20008,Bartlett Regional Hospital,3260 Hospital Dr,Juneau,geoId/02110,99801,Short Term
+A21311,Ketchikan Medical Center,3100 Tongass Avenue,Ketchikan,geoId/02150,99901,Critical Access Hospitals
+A20017,Alaska Regional Hospital,2801 Debarr Road,Anchorage,geoId/02020,99508,Short Term
+A21301,Providence Valdez Medical Center,Po Box 550,Valdez,geoId/02261,99686,Critical Access Hospitals
+A21306,Island Medical Ctr,1915 East Rezanof Drive,Kodiak,geoId/02150,99615,Critical Access Hospitals
+A21304,Petersburg Medical Center,Po Box 589,Petersburg,geoId/02280,99833,Critical Access Hospitals

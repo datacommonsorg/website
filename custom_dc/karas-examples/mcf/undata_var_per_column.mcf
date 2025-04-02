@@ -1,0 +1,29 @@
+Node: dcid:Adult_curr_cig_smokers
+memberOf: dcid:dc/g/CustomGroup, dcid:who/g/UN, dcid:who/g/WHO 
+
+Node: dcid:Adult_curr_cig_smokers_female
+memberOf: dcid:dc/g/CustomGroup, dcid:who/g/UN, dcid:who/g/WHO
+
+Node: dcid:Adult_curr_cig_smokers_male
+memberOf: dcid:dc/g/CustomGroup, dcid:who/g/UN, dcid:who/g/WHO
+
+Node: dcid:who/g/CustomGroup
+typeOf: dcs:StatVarGroup
+name: "Custom"
+specializationOf: dcid:dc/g/Root
+
+Node: dcid:who/g/UN
+typeOf: dcs:StatVarGroup
+name: "UN"
+specializationOf: dcid:dc/g/CustomGroup
+displayRank: 1
+
+Node: dcid:who/g/WHO
+typeOf: dcs:StatVarGroup
+name: "WHO"
+specializationOf: dcid:dc/g/CustomGroup
+displayRank: 2
+
+
+
+

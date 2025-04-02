@@ -1,0 +1,12 @@
+{
+  "status": "SUCCESS",
+  "startTime": "2025-02-20 00:19:50.172937",
+  "lastUpdate": "2025-02-20 00:19:50.205449",
+  "importFiles": {
+    "/usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/hospital_entities_only/hospital_entities.csv": {
+      "status": "SUCCESS",
+      "startTime": "2025-02-20 00:19:50.176077",
+      "lastUpdate": "2025-02-20 00:19:50.191461"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+embeddings_path: /usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/biomed_mcf/datacommons/nl/embeddings/embeddings.csv
+healthcheck_query: health
+model: ft-final-v20230717230459-all-MiniLM-L6-v2
+source_path: /usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/biomed_mcf/datacommons/nl/
+store_type: MEMORY

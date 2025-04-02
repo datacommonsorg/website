@@ -1,0 +1,11 @@
+SERIES,GEOGRAPHY,TIME_PERIOD,OBS_VALUE
+dcs:who/Adult_curr_cig_smokers_female,dcid:country/AFG,2019,1.2
+dcs:who/Adult_curr_cig_smokers_male,dcid:country/AFG,2019,13.4
+dcs:who/Adult_curr_cig_smokers,dcid:country/AFG,2019,7.5
+dcs:who/Adult_curr_cig_smokers_female,dcid:country/AGO,2016,1.8
+dcs:who/Adult_curr_cig_smokers_male,dcid:country/AGO,2016,14.3
+dcs:who/Adult_curr_cig_smokers_female,dcid:country/ALB,2018,4.5
+dcs:who/Adult_curr_cig_smokers_male,dcid:country/ALB,2018,35.7
+dcs:who/Adult_curr_cig_smokers_male,dcid:country/ARE,2018,11.1
+dcs:who/Adult_curr_cig_smoking_female,dcid:country/ARE,2018,1.6
+dcs:who/Adult_curr_cig_smokers,dcid:country/ARE,2018,6.3

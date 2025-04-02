@@ -1,0 +1,13 @@
+indexes:
+  user_all_minilm_mem:
+    embeddings_path: /usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/hospitals_mcf/datacommons/nl/embeddings/embeddings.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    source_path: /usr/local/google/home/kmoscoe/website/custom_dc/karas-examples/entities/hospitals_mcf/datacommons/nl
+    store_type: MEMORY
+models:
+  ft-final-v20230717230459-all-MiniLM-L6-v2:
+    gcs_folder: gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2
+    score_threshold: 0.5
+    type: LOCAL
+    usage: EMBEDDINGS
+version: '1'

@@ -1,0 +1,18 @@
+{
+  "inputFiles": {
+    "usan.csv": {
+      "importType": "entities",
+      "rowEntityType": "biomed/NameStem",
+      "idColumn": "Stem",
+      "provenance": "United States Adopted Names approved stems"
+    }
+  },
+  "sources": {
+    "AMA": {
+      "url": "https://www.ama-assn.org/",
+      "provenances": {
+        "United States Adopted Names approved stems": "https://www.ama-assn.org/about/united-states-adopted-names/united-states-adopted-names-approved-stems"
+      }
+    }
+  }
+}

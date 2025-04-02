@@ -1,0 +1,23 @@
+{
+  "inputFiles": {
+    "hospital_observations.csv": {
+      "importType": "observations",
+      "entityType": "dcid:Hospital",
+      "provenance": "Alaska Weekly Hospital Capacity"
+    }
+  },
+  "entities": {
+    "Hospital": {
+      "name": "Hospital"
+    }
+  },
+   "groupStatVarsByProperty": true,
+   "sources": {
+    "HHS Protect Public Data Hub": {
+      "url": "https://public-data-hub-dhhs.hub.arcgis.com/",
+      "provenances": {
+        "Alaska Weekly Hospital Capacity": "https://public-data-hub-dhhs.hub.arcgis.com/datasets/d47bfcaac2544c2eb1fcfb3d36b5ed23_0/explore"
+      }
+    }
+  }
+}
