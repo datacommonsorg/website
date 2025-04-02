@@ -21,10 +21,10 @@ import {
   PlaceOverviewTableApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import { ThemeProvider } from "@emotion/react";
+import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
-import styled from "@emotion/styled";
 import { Loading } from "../components/elements/loading";
 import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
