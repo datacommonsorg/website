@@ -161,11 +161,13 @@ restart_kubernetes_deployment() {
 
   if [[ "$environment" == "prod" ]]; then
     gcloud container clusters get-credentials website-us-west1 --region us-west1 --project "datcom-website-${environment}"
+    kubectl rollout restart deployment website-app -n website
+    echo "Kubernetes deployment restarted in environment: ${environment}, region: us-west1."
   fi
 
   gcloud container clusters get-credentials website-us-central1 --region us-central1 --project "datcom-website-${environment}"
   kubectl rollout restart deployment website-app -n website
-  echo "Kubernetes deployment restarted in environment: ${environment}."
+  echo "Kubernetes deployment restarted in environment: ${environment}, region: us-central1."
 }
 
 # Main script
@@ -196,6 +198,7 @@ if ! download_from_github "$file" "$temp_file"; then
 fi
 
 if ! validate_json "$temp_file"; then
+  echo "EXITING!"
   exit 1
 fi
 
@@ -211,7 +214,7 @@ if [[ "$environment" == "production" ]]; then
         fi
     fi
 
-    if ! compare_staging_production "$temp_file"; then
+    if compare_staging_production "$temp_file"; then
         exit 1
     fi
 fi
