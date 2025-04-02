@@ -22,6 +22,7 @@ import {
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import { ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
@@ -344,7 +345,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       console.error("Error loading place page metadata element");
       return;
     }
-    if (pageMetadata.dataset.placeDcid == "") {
+    if (_.isEmpty(pageMetadata.dataset.placeDcid)) {
       console.error("Error loading place page metadata element");
       setHasError(true);
     }
