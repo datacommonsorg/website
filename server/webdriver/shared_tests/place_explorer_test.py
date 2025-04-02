@@ -325,3 +325,50 @@ class PlaceExplorerTestMixin():
     entity_dcid_present = EC.text_to_be_present_in_element(
         (By.CLASS_NAME, "copy-svg"), "Entity DCID")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(entity_dcid_present)
+
+  def test_canonical_links_in_html_head(self):
+    """Test that canonical and alternate language links are present in HTML head"""
+    # Test overview page links
+    self.driver.get(self.url_ + '/place/geoId/06')
+
+    # Get page source and check canonical link
+    page_source = self.driver.page_source
+    self.assertIn(
+        '<link rel="canonical" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+
+    # Check alternate language links
+    self.assertIn(
+        '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?hl=ru">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+
+    # Test category page links
+    self.driver.get(self.url_ + '/place/geoId/06?category=Health')
+    page_source = self.driver.page_source
+
+    self.assertIn(
+        '<link rel="canonical" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?category=Health&amp;hl=ru">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+
+    # Test invalid category
+    self.driver.get(self.url_ +
+                    '/place/geoId/06?category=Health,InvalidCategory')
+    page_source = self.driver.page_source
+
+    self.assertNotIn('<link rel="canonical"', page_source)
+    self.assertNotIn('<link rel="alternate" hreflang="en"', page_source)

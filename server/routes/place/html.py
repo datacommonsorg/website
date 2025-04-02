@@ -19,6 +19,7 @@ import os
 import re
 import time
 from typing import List, Set
+from urllib.parse import urlencode
 
 import flask
 from flask import current_app
@@ -41,6 +42,8 @@ from shared.lib.place_summaries import get_shard_filename_by_dcid
 from shared.lib.place_summaries import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
+
+PROD_PLACE_PAGE_BASE_URL = 'https://datacommons.org/place/'
 
 CATEGORIES = {
     "Economics",
@@ -406,7 +409,8 @@ def place(place_dcid=None):
   if place_dcid is not None and is_dev_place_ga_enabled(
       flask.request.args) or is_dev_place_experiment_enabled(
           place_dcid, g.locale, flask.request.args):
-    return dev_place(place_dcid=place_dcid)
+    place_category = flask.request.args.get('category', None)
+    return dev_place(place_dcid=place_dcid, place_category=place_category)
   redirect_args = dict(flask.request.args)
 
   # Strip trailing slashes from place dcids
@@ -565,8 +569,68 @@ def place_landing(error_msg=''):
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
+def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
+  """Returns canonical and alternate language header links for the place page
+
+  Returns an empty list if the place category is invalid.
+
+  Always sets the base url to "https://datacommons.org/place/" to avoid indexing
+  dev or custom DC versions of the place pages.
+
+  Args:
+    place_dcid: The DCID of the place to get canonical links for
+    place_category: The category of the place to get canonical links for
+
+  Returns:
+    A list of canonical and alternate language header links for the place page
+
+  Example output:
+  <link rel="canonical" href="https://datacommons.org/place/geoId/06?category=Health">
+  <link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06?category=Health">
+  <link rel="alternate" hreflang="de" href="https://datacommons.org/place/geoId/06?category=Health&hl=de">
+  <link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06?category=Health">
+  <link rel="alternate" hreflang="es" href="https://datacommons.org/place/geoId/06?category=Health&hl=es">
+  <link rel="alternate" hreflang="fr" href="https://datacommons.org/place/geoId/06?category=Health&hl=fr">
+  <link rel="alternate" hreflang="hi" href="https://datacommons.org/place/geoId/06?category=Health&hl=hi">
+  <link rel="alternate" hreflang="it" href="https://datacommons.org/place/geoId/06?category=Health&hl=it">
+  <link rel="alternate" hreflang="ja" href="https://datacommons.org/place/geoId/06?category=Health&hl=ja">
+  <link rel="alternate" hreflang="ko" href="https://datacommons.org/place/geoId/06?category=Health&hl=ko">
+  <link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?category=Health&hl=ru">
+  """
+  links = []
+  # Return empty list if the place category is invalid
+  if place_category and place_category not in CATEGORIES and place_category != 'Overview':
+    return links
+
+  # Add canonical URL without language parameter
+  query_params = {}
+  if place_category and place_category != 'Overview':
+    query_params['category'] = place_category
+  canonical_url = PROD_PLACE_PAGE_BASE_URL + place_dcid
+  if query_params:
+    canonical_url += '?' + urlencode(query_params)
+  links.append(f'<link rel="canonical" href="{canonical_url}">')
+
+  # Add x-default alternate link pointing to English version
+  links.append(
+      f'<link rel="alternate" hreflang="x-default" href="{canonical_url}">')
+
+  # Add language-specific alternate links
+  for lang in AVAILABLE_LANGUAGES:
+    query_params = {}
+    if place_category and place_category != 'Overview':
+      query_params['category'] = place_category
+    if lang != DEFAULT_LOCALE:
+      query_params['hl'] = lang
+    url = PROD_PLACE_PAGE_BASE_URL + place_dcid
+    if query_params:
+      url += '?' + urlencode(query_params)
+    links.append(f'<link rel="alternate" hreflang="{lang}" href="{url}">')
+  return links
+
+
 # Dev place experiment route
-def dev_place(place_dcid=None):
+def dev_place(place_dcid=None, place_category=None):
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
   # Place summaries are currently only supported in English
@@ -576,11 +640,14 @@ def dev_place(place_dcid=None):
   else:
     place_summary = ""
 
+  canonical_links = get_canonical_links(place_dcid, place_category)
+  print(canonical_links)
   return flask.render_template('dev_place.html',
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                place_dcid=place_dcid,
                                place_name=place_name,
+                               place_summary=place_summary,
                                sample_questions=json.dumps(
                                    current_app.config.get(
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])),
-                               place_summary=place_summary)
+                               canonical_links=canonical_links)
