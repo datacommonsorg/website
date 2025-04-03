@@ -74,7 +74,7 @@ const PlaceHeader = (props: {
   });
 
   const placeHref = createPlacePageCategoryHref(
-    selectedCategory.name,
+    "Overview",
     forceDevPlaces,
     place
   );
