@@ -55,11 +55,9 @@ const PlaceHeader = (props: {
   selectedCategory: Category;
   place: NamedTypedPlace;
   parentPlaces: NamedTypedPlace[];
-  forceDevPlaces: boolean;
   isLoading: boolean;
 }): React.JSX.Element => {
-  const { selectedCategory, place, parentPlaces, forceDevPlaces, isLoading } =
-    props;
+  const { selectedCategory, place, parentPlaces, isLoading } = props;
   const parentPlacesLinks = parentPlaces.map((parent, index) => {
     return (
       <span key={parent.dcid}>
@@ -73,11 +71,7 @@ const PlaceHeader = (props: {
     );
   });
 
-  const placeHref = createPlacePageCategoryHref(
-    "Overview",
-    forceDevPlaces,
-    place
-  );
+  const placeHref = createPlacePageCategoryHref("Overview", place);
 
   return (
     <div className="title-section">
@@ -124,22 +118,20 @@ const PlaceHeader = (props: {
  *
  * @param props.category The category for the current button
  * @param props.selectedCategory The currently selected category
- * @param props.forceDevPlaces Whether the flag to force dev places should be propagated.
  * @param props.place The place object containing the DCID for generating URLs
  * @returns Button component for the current topic
  */
 const CategoryItem = (props: {
   category: Category;
   selectedCategoryName: string;
-  forceDevPlaces: boolean;
   place: NamedTypedPlace;
 }): React.JSX.Element => {
-  const { category, selectedCategoryName, forceDevPlaces, place } = props;
+  const { category, selectedCategoryName, place } = props;
 
   return (
     <div className="item-list-item">
       <LocalizedLink
-        href={createPlacePageCategoryHref(category.name, forceDevPlaces, place)}
+        href={createPlacePageCategoryHref(category.name, place)}
         className={`item-list-text ${
           selectedCategoryName === category.name ? " selected" : ""
         }`}
@@ -160,12 +152,10 @@ const CategoryItem = (props: {
  */
 const PlaceCategoryTabs = ({
   categories,
-  forceDevPlaces,
   selectedCategory,
   place,
 }: {
   categories: Category[];
-  forceDevPlaces: boolean;
   selectedCategory: Category;
   place: NamedTypedPlace;
 }): React.JSX.Element => {
@@ -185,7 +175,6 @@ const PlaceCategoryTabs = ({
               key={category.name}
               category={category}
               selectedCategoryName={selectedCategory.name}
-              forceDevPlaces={forceDevPlaces}
               place={place}
             />
           ))}
@@ -322,7 +311,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overviewString;
   const isOverview = category === overviewString;
-  const forceDevPlaces = urlParams.get("force_dev_places") === "true";
   const hasPlaceCharts =
     place && pageConfig && pageConfig.categories.length > 0;
   const hasNoCharts =
@@ -424,7 +412,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
           relatedPlacesApiResponse.peersWithinParent,
           relatedPlacesApiResponse.place,
           isOverview,
-          forceDevPlaces,
           theme
         );
         setPageConfig(config);
@@ -460,14 +447,12 @@ export const DevPlaceMain = (): React.JSX.Element => {
           selectedCategory={selectedCategory}
           place={place}
           parentPlaces={parentPlaces}
-          forceDevPlaces={forceDevPlaces}
           isLoading={isLoading}
         />
         <PlaceCategoryTabs
           categories={categories}
           selectedCategory={selectedCategory}
           place={place}
-          forceDevPlaces={forceDevPlaces}
         />
         {isOverview &&
           placeOverviewTableApiResponse &&
