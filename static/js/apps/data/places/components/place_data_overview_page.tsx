@@ -24,12 +24,10 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Section } from "../../../../components/elements/layout/section";
-import { Box } from "../../../../components/elements/wrappers/box";
-import { StatVarHierarchyType } from "../../../../shared/types";
-import { StatVarHierarchy } from "../../../../stat_var_hierarchy/stat_var_hierarchy";
 import { PlaceData } from "../place_data";
 import { PlaceDataOverviewHeader } from "./place_data_overview_header";
 import { PlaceDataSources } from "./place_data_sources";
+import { PlaceDataStatVarHierarchy } from "./place_data_stat_var_hierarchy";
 import { StatVarPlaceTopics } from "./stat_var_place_topics";
 
 interface PlaceDataOverviewPageProps {
@@ -54,31 +52,7 @@ export const PlaceDataOverviewPage = ({
       >
         <PlaceDataSources placeDataSources={placeData.sources} />
 
-        <Box
-          sx={css`
-            display: flex;
-            flex-direction: column;
-            gap: ${theme.spacing.md}px;
-          `}
-        >
-          <header>
-            <h3
-              css={css`
-                ${theme.typography.family.heading}
-                ${theme.typography.heading.xs}
-                        margin: 0;
-              `}
-            >
-              Statistical Variables
-            </h3>
-          </header>
-          <StatVarHierarchy
-            type={StatVarHierarchyType.BROWSER}
-            entities={[
-              { dcid: placeData.place.dcid, name: placeData.place.name },
-            ]}
-          />
-        </Box>
+        <PlaceDataStatVarHierarchy place={placeData.place} />
         {Object.entries(placeData.topics).map(([topicKey, topic]) => (
           <StatVarPlaceTopics
             key={topicKey}

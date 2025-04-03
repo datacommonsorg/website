@@ -50,12 +50,16 @@ export const PlaceDataOverviewHeader = ({
           css={css`
             ${theme.typography.family.heading};
             ${theme.typography.heading.sm};
-            margin-left: ${theme.spacing.md}px;
+            margin-left: ${theme.spacing.sm}px;
           `}
         >
           <a href={`/place/${place.dcid}`}>{place.name}</a> · Data Overview
         </h3>
-        <div>
+        <div
+          css={css`
+            margin-right: ${theme.spacing.sm}px;
+          `}
+        >
           {place.dcid} ·{" "}
           <a href={`/browser/${place.dcid}`}>See Knowledge Graph</a>
         </div>
