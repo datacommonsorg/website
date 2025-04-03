@@ -45,13 +45,18 @@ def timeline():
     return flask.render_template(
         'tools/timeline.html',
         info_json=info_json,
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        sample_questions=json.dumps(
+            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 # This tool is used by the Harvard Data Science course
 @bp.route('/timeline/bulk_download')
 def timeline_bulk_download():
-  return flask.render_template('tools/timeline_bulk_download.html')
+  return flask.render_template('tools/timeline_bulk_download.html',
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/map')
@@ -63,7 +68,9 @@ def map():
         'tools/map.html',
         maps_api_key=current_app.config['MAPS_API_KEY'],
         info_json=info_json,
-        allow_leaflet=allow_leaflet)
+        allow_leaflet=allow_leaflet,
+        sample_questions=json.dumps(
+            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/scatter')
@@ -73,12 +80,17 @@ def scatter():
     return flask.render_template(
         'tools/scatter.html',
         info_json=info_json,
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        sample_questions=json.dumps(
+            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/statvar')
 def stat_var():
-  return flask.render_template('tools/stat_var.html')
+  return flask.render_template('tools/stat_var.html',
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/download')
@@ -90,7 +102,9 @@ def download():
     return flask.render_template(
         'tools/download.html',
         info_places=json.dumps(info_places),
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        sample_questions=json.dumps(
+            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/visualization')
@@ -101,4 +115,6 @@ def visualization():
         'tools/visualization.html',
         manual_ga_pageview=True,
         info_json=info_json,
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        sample_questions=json.dumps(
+            current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
