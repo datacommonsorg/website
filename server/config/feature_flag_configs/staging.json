@@ -36,6 +36,12 @@
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
   {
+    "name": "show_api_modal",
+    "enabled": false,
+    "owner": "dwnoble",
+    "description": "Feature flag to show the API modal on web components."
+  },
+  {
     "name": "place_data_overview",
     "enabled": false,
     "owner": "nick-next",
