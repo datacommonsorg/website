@@ -31,16 +31,19 @@
   {% set new_place_page = true %}
   
   {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/dev_place_page.min.css' , t=config['VERSION'])}}>
-  
-  {% if locale == "en" %}
-  <meta name="description" content="{{ place_summary or description }}" />
-  {% endif %}
-  
-  {% if block_indexing %}
-  <meta name="robots" content="noindex" />
-  {% endif %}
-  
+    {%- for link in canonical_links %}
+      {{ link|safe }}
+    {%- endfor %}
+
+    <link rel="stylesheet" href={{url_for('static', filename='css/dev_place_page.min.css' , t=config['VERSION'])}}>
+
+    {% if locale == "en" %}
+    <meta name="description" content="{{ place_summary or description }}" />
+    {% endif %}
+
+    {% if block_indexing %}
+    <meta name="robots" content="noindex" />
+    {% endif %}
   {% endblock %}
   
   {% block content %}

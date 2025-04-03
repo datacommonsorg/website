@@ -17,6 +17,7 @@ from unittest.mock import patch
 
 from flask import request
 
+from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.tests.utils import mock_feature_flags
 from web_app import app
 
@@ -287,3 +288,34 @@ class TestPlacePageHeaders(unittest.TestCase):
         'Link')
     assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="x-default"' in response.headers.get(
         'Link')
+
+  @patch('server.routes.shared_api.place.get_i18n_name')
+  @patch('server.routes.shared_api.place.api_place_type')
+  @patch('server.routes.shared_api.place.get_place_type_i18n_name')
+  @patch('server.routes.shared_api.place.parent_places')
+  def test_get_canonical_links(self, mock_parent_places,
+                               mock_get_place_type_i18n_name,
+                               mock_api_place_type, mock_get_i18n_name):
+    from server.routes.place.html import get_canonical_links
+
+    # Test canonical links for overview page
+    links = get_canonical_links('geoId/06', None)
+    # Ensure the number of canonical links is num available languages + 2 for x-default and canonical
+    assert len(links) == len(AVAILABLE_LANGUAGES) + 2
+    assert '<link rel="canonical" href="https://datacommons.org/place/geoId/06">' in links
+    assert '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06">' in links
+    assert '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06">' in links
+    assert '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?hl=ru">' in links
+
+    # Test canonical links for category page
+    links = get_canonical_links('geoId/06', 'Health')
+    # Ensure the number of canonical links is num available languages + 2 for x-default and canonical
+    assert len(links) == len(AVAILABLE_LANGUAGES) + 2
+    assert '<link rel="canonical" href="https://datacommons.org/place/geoId/06?category=Health">' in links
+    assert '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06?category=Health">' in links
+    assert '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06?category=Health">' in links
+    assert '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?category=Health&hl=ru">' in links
+
+    # Test empty list returned for invalid category
+    links = get_canonical_links('geoId/06', 'InvalidCategory')
+    assert links == []
