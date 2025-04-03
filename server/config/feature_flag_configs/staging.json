@@ -34,5 +34,11 @@
     "enabled": false,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
+  },
+  {
+    "name": "place_data_overview",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Enables the data/place/<place> routes."
   }
 ]

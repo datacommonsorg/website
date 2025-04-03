@@ -33,6 +33,7 @@ import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 from server.lib.feature_flags import BIOMED_NL_FEATURE_FLAG
 from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import PLACE_DATA_OVERVIEW_FEATURE_FLAG
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
@@ -376,6 +377,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if is_feature_enabled(BIOMED_NL_FEATURE_FLAG, app):
     register_routes_biomed_nl(app, cfg)
+
+  if is_feature_enabled(PLACE_DATA_OVERVIEW_FEATURE_FLAG, app):
+    from server.routes.data import html as data_html
+    app.register_blueprint(data_html.bp)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()

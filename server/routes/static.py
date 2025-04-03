@@ -63,11 +63,6 @@ def build():
       partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 
-@bp.route("/data/place/<path:place>")
-def data_place(place):
-  return lib_render.render_page("static/data_place.html", "data_place.html")
-
-
 @bp.route("/data", defaults={"path": ""}, strict_slashes=False)
 @bp.route("/data/<path:path>")
 def data(path):
