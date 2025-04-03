@@ -27,6 +27,26 @@
 
 // the styles below are also found in browser.scss
 
+
+.loading-spinner-container {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  min-height: 200px;
+}
+
+.stat-var-hierarchy-container {
+  margin: 0;
+  padding: 0;
+}
+
+.statvar-hierarchy-search-section {
+  margin: 0 0 24px 0;
+  padding: 0;
+}
+
+
+
 .observations-table .node-table tr > td:last-of-type {
   width: 70%;
 }
@@ -158,9 +178,4 @@
   line-height: 1.5;
   font-size: 0.9rem;
   margin-bottom: 0;
-}
-
-.loading-spinner-container {
-  position: relative;
-  min-height: 200px;
 }
