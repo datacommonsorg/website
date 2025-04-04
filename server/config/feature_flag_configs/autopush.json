@@ -43,7 +43,7 @@
   },
   {
     "name": "data_overview",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Enables the data_overview/<place> routes."
   }
