@@ -71,8 +71,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_demographics_world(self):
     """Ensure place page revamp World page works"""
-    self.driver.get(self.url_ +
-                    '/place/Earth?category=Demographics')
+    self.driver.get(self.url_ + '/place/Earth?category=Demographics')
 
     # Assert we have data for all expected topics.
     topics_for_world = [

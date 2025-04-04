@@ -290,8 +290,7 @@ def is_dev_place_ga_enabled(request_args: MultiDict[str, str]) -> bool:
 @bp.route('/<path:place_dcid>')
 @cache.cached(query_string=True)
 def place(place_dcid=None):
-  if place_dcid is not None and is_dev_place_ga_enabled(
-      flask.request.args):
+  if place_dcid is not None and is_dev_place_ga_enabled(flask.request.args):
     return dev_place(place_dcid=place_dcid)
   redirect_args = dict(flask.request.args)
 
