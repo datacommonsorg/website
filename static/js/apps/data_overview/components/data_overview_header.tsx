@@ -24,6 +24,8 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Section } from "../../../components/elements/layout/section";
+import { intl, LocalizedLink } from "../../../i18n/i18n";
+import { pageMessages } from "../../../i18n/i18n_data_overview_messages";
 import { Place } from "../place_data";
 
 interface DataOverviewHeaderProps {
@@ -53,7 +55,8 @@ export const DataOverviewHeader = ({
             margin-left: ${theme.spacing.sm}px;
           `}
         >
-          <a href={`/place/${place.dcid}`}>{place.name}</a> · Data Overview
+          <a href={`/place/${place.dcid}`}>{place.name}</a> ·{" "}
+          {intl.formatMessage(pageMessages.DataOverview)}
         </h3>
         <div
           css={css`
@@ -61,7 +64,10 @@ export const DataOverviewHeader = ({
           `}
         >
           {place.dcid} ·{" "}
-          <a href={`/browser/${place.dcid}`}>See Knowledge Graph</a>
+          <LocalizedLink
+            href={`/browser/${place.dcid}`}
+            text={intl.formatMessage(pageMessages.SeeKnowledgeGraph)}
+          />
         </div>
       </Section>
     </>

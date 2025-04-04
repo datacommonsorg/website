@@ -21,9 +21,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
-window.addEventListener("load", (): void => {
+window.addEventListener("load", async (): Promise<void> => {
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+  await loadLocaleData(locale, [
+    import(`../../i18n/compiled-lang/${locale}/place.json`),
+  ]);
+
   renderPage();
 });
 

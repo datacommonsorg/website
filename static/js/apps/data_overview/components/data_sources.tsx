@@ -25,7 +25,7 @@ import React, { ReactElement } from "react";
 
 import { Box } from "../../../components/elements/wrappers/box";
 import { intl } from "../../../i18n/i18n";
-import { pageMessages } from "../../../i18n/i18n_data_source_messages";
+import { pageMessages } from "../../../i18n/i18n_data_overview_messages";
 import { DataSourceGroup } from "../place_data";
 import { DataSource } from "./data_source";
 

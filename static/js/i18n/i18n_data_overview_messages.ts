@@ -17,11 +17,22 @@
 import { defineMessages } from "react-intl";
 
 export const pageMessages = defineMessages({
+  DataOverview: {
+    id: "data_overview",
+    defaultMessage: "Data Overview",
+    description:
+      "Header text for the main title of the Data Overview page, a page that gives an overview of a place's data sources. This will appear next to the name of the place, as in: Canada · Data Overview",
+  },
+  SeeKnowledgeGraph: {
+    id: "see_knowledge_graph",
+    defaultMessage: "See Knowledge Graph",
+    description: "Link to the Knowledge Graph for the current place",
+  },
   DataSources: {
     id: "data_sources",
     defaultMessage: "Data Sources",
     description:
-      "Header text for the Data Sources page, a page that gives an overview of a place's data sources.",
+      "Header text for the Data Overview page, a page that gives an overview of a place's data sources.",
   },
   DataSets: {
     id: "datasets",
