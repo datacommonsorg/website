@@ -22,4 +22,6 @@ bp = Blueprint('data', __name__)
 
 @bp.route("/data/place/<path:place>")
 def data_place(place):
-  return lib_render.render_page("static/data_place.html", "data_place.html")
+  return lib_render.render_page("static/data_place.html",
+                                "data_place.html",
+                                place_dcid=place)

@@ -28,8 +28,11 @@ window.addEventListener("load", (): void => {
 });
 
 function renderPage(): void {
+  const metaEl = document.getElementById("page-metadata");
+  const placeDcid = metaEl.dataset.placeDcid;
+
   ReactDOM.render(
-    React.createElement(App),
+    React.createElement(App, { placeDcid }),
     document.getElementById("app-container")
   );
 }

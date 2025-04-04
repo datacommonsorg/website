@@ -36,9 +36,13 @@ const placeDataOverview: PlaceDataOverview = placeDataOverviewData;
  * Application container
  */
 
-export function App(): ReactElement {
-  const pathname = window.location.pathname;
-  const dcid = pathname.replace(/^\/data\/place\//, "");
+interface AppProps {
+  //the place dcid for the place whose overview will be rendered
+  placeDcid: string;
+}
+
+export function App(props: AppProps): ReactElement {
+  const dcid = props.placeDcid;
 
   return (
     <ThemeProvider theme={theme}>
