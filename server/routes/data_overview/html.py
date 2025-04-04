@@ -20,8 +20,8 @@ from server.lib import render as lib_render
 bp = Blueprint('data', __name__)
 
 
-@bp.route("/data/place/<path:place>")
-def data_place(place):
-  return lib_render.render_page("static/data_place.html",
-                                "data_place.html",
+@bp.route("/data_overview/<path:place>")
+def data_overview(place):
+  return lib_render.render_page("static/data_overview.html",
+                                "data_overview.html",
                                 place_dcid=place)

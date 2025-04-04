@@ -15,7 +15,7 @@
  */
 
 /**
- * A component to display a section of data sources associated with a place.
+ * A component that wraps the StatVarHierarchy for display in the place data page
  */
 
 /** @jsxImportSource @emotion/react */
@@ -23,20 +23,19 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { Box } from "../../../../components/elements/wrappers/box";
-import { intl } from "../../../../i18n/i18n";
-import { pageMessages } from "../../../../i18n/i18n_data_source_messages";
-import { DataSourceGroup } from "../place_data";
-import { PlaceDataSource } from "./place_data_source";
+import { Box } from "../../../components/elements/wrappers/box";
+import { StatVarHierarchyType } from "../../../shared/types";
+import { StatVarHierarchy } from "../../../stat_var_hierarchy/stat_var_hierarchy";
+import { Place } from "../place_data";
 
-interface PlaceDataSourcesProps {
-  //an array of data sources associated with a particular place
-  placeDataSources: DataSourceGroup[];
+interface DataOverviewStatVarHierarchyProps {
+  //the place for which we will render a StatVarHierarchy tool
+  place: Place;
 }
 
-export const PlaceDataSources = ({
-  placeDataSources,
-}: PlaceDataSourcesProps): ReactElement => {
+export const DataOverviewStatVarHierarchy = ({
+  place,
+}: DataOverviewStatVarHierarchyProps): ReactElement => {
   const theme = useTheme();
   return (
     <Box
@@ -51,18 +50,16 @@ export const PlaceDataSources = ({
           css={css`
             ${theme.typography.family.heading}
             ${theme.typography.heading.xs}
-            margin: 0;
+              margin: 0;
           `}
         >
-          {intl.formatMessage(pageMessages.DataSources)}
+          Statistical Variables
         </h3>
       </header>
-      {placeDataSources.map((placeDataSource) => (
-        <PlaceDataSource
-          key={placeDataSource.label}
-          placeDataSource={placeDataSource}
-        />
-      ))}
+      <StatVarHierarchy
+        type={StatVarHierarchyType.BROWSER}
+        entities={[{ dcid: place.dcid, name: place.name }]}
+      />
     </Box>
   );
 };

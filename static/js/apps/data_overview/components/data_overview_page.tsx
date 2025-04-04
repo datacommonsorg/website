@@ -23,25 +23,25 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { Section } from "../../../../components/elements/layout/section";
+import { Section } from "../../../components/elements/layout/section";
 import { PlaceData } from "../place_data";
-import { PlaceDataOverviewHeader } from "./place_data_overview_header";
-import { PlaceDataSources } from "./place_data_sources";
-import { PlaceDataStatVarHierarchy } from "./place_data_stat_var_hierarchy";
+import { DataOverviewHeader } from "./data_overview_header";
+import { DataOverviewStatVarHierarchy } from "./data_overview_stat_var_hierarchy";
+import { DataSources } from "./data_sources";
 import { StatVarPlaceTopics } from "./stat_var_place_topics";
 
-interface PlaceDataOverviewPageProps {
+interface DataOverviewPageProps {
   //the place data object; an object comprising the place, data sources and example stat vars
   placeData: PlaceData;
 }
 
-export const PlaceDataOverviewPage = ({
+export const DataOverviewPage = ({
   placeData,
-}: PlaceDataOverviewPageProps): ReactElement => {
+}: DataOverviewPageProps): ReactElement => {
   const theme = useTheme();
   return (
     <>
-      <PlaceDataOverviewHeader place={placeData.place} />
+      <DataOverviewHeader place={placeData.place} />
       <Section
         variant="small"
         innerSx={css`
@@ -50,9 +50,9 @@ export const PlaceDataOverviewPage = ({
           gap: ${theme.spacing.lg}px;
         `}
       >
-        <PlaceDataSources placeDataSources={placeData.sources} />
+        <DataSources placeDataSources={placeData.sources} />
 
-        <PlaceDataStatVarHierarchy place={placeData.place} />
+        <DataOverviewStatVarHierarchy place={placeData.place} />
         {Object.entries(placeData.topics).map(([topicKey, topic]) => (
           <StatVarPlaceTopics
             key={topicKey}

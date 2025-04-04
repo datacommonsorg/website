@@ -23,17 +23,17 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { Section } from "../../../../components/elements/layout/section";
+import { Section } from "../../../components/elements/layout/section";
 import { Place } from "../place_data";
 
-interface PlaceDataOverviewHeaderProps {
+interface DataOverviewHeaderProps {
   //the place data object; an object comprising the place, data sources and example stat vars
   place: Place;
 }
 
-export const PlaceDataOverviewHeader = ({
+export const DataOverviewHeader = ({
   place,
-}: PlaceDataOverviewHeaderProps): ReactElement => {
+}: DataOverviewHeaderProps): ReactElement => {
   const theme = useTheme();
 
   return (

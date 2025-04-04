@@ -23,7 +23,7 @@
                these with with the types found in /data
  */
 
-import { Query } from "../../../shared/topic_config";
+import { Query } from "../../shared/topic_config";
 
 export interface Place {
   dcid: string;

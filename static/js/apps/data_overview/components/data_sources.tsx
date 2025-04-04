@@ -15,7 +15,7 @@
  */
 
 /**
- * A component that wraps the StatVarHierarchy for display in the place data page
+ * A component to display a section of data sources associated with a place.
  */
 
 /** @jsxImportSource @emotion/react */
@@ -23,19 +23,20 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { Box } from "../../../../components/elements/wrappers/box";
-import { StatVarHierarchyType } from "../../../../shared/types";
-import { StatVarHierarchy } from "../../../../stat_var_hierarchy/stat_var_hierarchy";
-import { Place } from "../place_data";
+import { Box } from "../../../components/elements/wrappers/box";
+import { intl } from "../../../i18n/i18n";
+import { pageMessages } from "../../../i18n/i18n_data_source_messages";
+import { DataSourceGroup } from "../place_data";
+import { DataSource } from "./data_source";
 
-interface PlaceDataStatVarHierarchyProps {
-  //the place for which we will render a StatVarHierarchy tool
-  place: Place;
+interface DataSourcesProps {
+  //an array of data sources associated with a particular place
+  placeDataSources: DataSourceGroup[];
 }
 
-export const PlaceDataStatVarHierarchy = ({
-  place,
-}: PlaceDataStatVarHierarchyProps): ReactElement => {
+export const DataSources = ({
+  placeDataSources,
+}: DataSourcesProps): ReactElement => {
   const theme = useTheme();
   return (
     <Box
@@ -50,16 +51,18 @@ export const PlaceDataStatVarHierarchy = ({
           css={css`
             ${theme.typography.family.heading}
             ${theme.typography.heading.xs}
-              margin: 0;
+            margin: 0;
           `}
         >
-          Statistical Variables
+          {intl.formatMessage(pageMessages.DataSources)}
         </h3>
       </header>
-      <StatVarHierarchy
-        type={StatVarHierarchyType.BROWSER}
-        entities={[{ dcid: place.dcid, name: place.name }]}
-      />
+      {placeDataSources.map((placeDataSource) => (
+        <DataSource
+          key={placeDataSource.label}
+          placeDataSource={placeDataSource}
+        />
+      ))}
     </Box>
   );
 };

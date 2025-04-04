@@ -24,9 +24,9 @@
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { Section } from "../../../components/elements/layout/section";
-import theme from "../../../theme/theme";
-import { PlaceDataOverviewPage } from "./components/place_data_overview_page";
+import { Section } from "../../components/elements/layout/section";
+import theme from "../../theme/theme";
+import { DataOverviewPage } from "./components/data_overview_page";
 import { PlaceDataOverview } from "./place_data";
 import placeDataOverviewData from "./place_data.json";
 
@@ -49,7 +49,7 @@ export function App(props: AppProps): ReactElement {
       {!placeDataOverview[dcid] ? (
         <Section>Place not found.</Section>
       ) : (
-        <PlaceDataOverviewPage placeData={placeDataOverview[dcid]} />
+        <DataOverviewPage placeData={placeDataOverview[dcid]} />
       )}
     </ThemeProvider>
   );

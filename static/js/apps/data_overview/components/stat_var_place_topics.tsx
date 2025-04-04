@@ -21,10 +21,10 @@
 import { css } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { LinkChips } from "../../../../components/content/link_chips";
-import { Link } from "../../../../components/elements/link_chip";
-import { Box } from "../../../../components/elements/wrappers/box";
-import { Query } from "../../../../shared/topic_config";
+import { LinkChips } from "../../../components/content/link_chips";
+import { Link } from "../../../components/elements/link_chip";
+import { Box } from "../../../components/elements/wrappers/box";
+import { Query } from "../../../shared/topic_config";
 import { Place } from "../place_data";
 
 interface StatVarPlaceTopicsProps {

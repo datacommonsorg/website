@@ -42,9 +42,9 @@
     "description": "Feature flag to show the API modal on web components."
   },
   {
-    "name": "place_data_overview",
+    "name": "data_overview",
     "enabled": true,
     "owner": "nick-next",
-    "description": "Enables the data/place/<place> routes."
+    "description": "Enables the data_overview/<place> routes."
   }
 ]

@@ -23,18 +23,18 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { intl } from "../../../../i18n/i18n";
-import { pageMessages } from "../../../../i18n/i18n_data_source_messages";
+import { intl } from "../../../i18n/i18n";
+import { pageMessages } from "../../../i18n/i18n_data_source_messages";
 import { DataSourceGroup } from "../place_data";
 
-interface PlaceDataSourceProps {
+interface DataSourceProps {
   //a data source associated with a particular place.
   placeDataSource: DataSourceGroup;
 }
 
-export const PlaceDataSource = ({
+export const DataSource = ({
   placeDataSource,
-}: PlaceDataSourceProps): ReactElement => {
+}: DataSourceProps): ReactElement => {
   const theme = useTheme();
   return (
     <div
