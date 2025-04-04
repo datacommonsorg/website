@@ -178,13 +178,11 @@ function getEnclosedPlaceTypeOverride(
 /**
  * Creates a href for a place page category.
  * @param category The category to create a href for.
- * @param forceDevPlaces Whether to force dev places.
  * @param place The place to create a href for.
  * @returns The href for the place page category.
  */
 export function createPlacePageCategoryHref(
   category: string,
-  forceDevPlaces: boolean,
   place: NamedTypedPlace
 ): string {
   const href = `/place/${place.dcid}`;
@@ -193,9 +191,6 @@ export function createPlacePageCategoryHref(
 
   if (!isOverview) {
     params.set("category", category);
-  }
-  if (forceDevPlaces) {
-    params.set("force_dev_places", "true");
   }
   return localizeLink(params.size > 0 ? `${href}?${params.toString()}` : href);
 }
@@ -215,7 +210,6 @@ export function placeChartsApiResponsesToPageConfig(
   peersWithinParent: string[],
   place: Place,
   isOverview: boolean,
-  forceDevPlaces: boolean,
   theme: Theme
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
@@ -352,11 +346,7 @@ export function placeChartsApiResponsesToPageConfig(
           categoryNameToCategory[categoryName].translatedName || categoryName,
       };
       if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
-        category.url = createPlacePageCategoryHref(
-          categoryName,
-          forceDevPlaces,
-          place
-        );
+        category.url = createPlacePageCategoryHref(categoryName, place);
         category.linkText = intl.formatMessage(pageMessages.MoreCharts);
       }
       return category;
