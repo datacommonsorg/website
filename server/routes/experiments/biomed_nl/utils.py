@@ -14,6 +14,7 @@
 
 from collections import Counter
 import json
+import sys
 
 import numpy as np
 from pydantic import BaseModel
@@ -382,3 +383,48 @@ def cos_sim(embeddings1, embeddings2):
   similarity_matrix = np.dot(embeddings1_norm, embeddings2_norm.T)
 
   return similarity_matrix
+
+
+def get_size(obj, seen=None):
+  """Recursively calculates the approximate size of a Python object in bytes,
+    handling dictionaries, lists, tuples, sets, frozensets, and objects with __dict__.
+
+    Args:
+        obj: The Python object to calculate the size of.
+        seen (set, optional): A set to keep track of visited objects
+                               to avoid infinite recursion for cyclic structures.
+                               Defaults to None.
+
+    Returns:
+        int: The approximate size of the object in bytes.
+    """
+  size = sys.getsizeof(obj)
+  if seen is None:
+    seen = set()
+  object_id = id(obj)
+  if object_id in seen:
+    return 0  # Already counted
+
+  seen.add(object_id)
+
+  if isinstance(obj, dict):
+    size += get_size(list(obj.values()), seen)
+    size += get_size(list(obj.keys()), seen)
+  elif isinstance(obj, (list, tuple, set, frozenset)):
+    size += sum(get_size(item, seen) for item in obj)
+  elif hasattr(obj, '__dict__'):
+    size += get_size(obj.__dict__, seen)
+  return size
+
+
+def get_dictionary_size_mb(data):
+  """Calculates the approximate size of a dictionary in megabytes,
+    including the size of its keys and values recursively.
+
+    Args:
+        data (dict): The dictionary to calculate the size of.
+
+    Returns:
+        float: The approximate size of the dictionary in megabytes.
+    """
+  return get_size(data) / (1024 * 1024)
