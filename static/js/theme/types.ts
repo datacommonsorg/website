@@ -362,5 +362,8 @@ export interface Theme {
     secondary: {
       borderRadius: string;
     };
+    tertiary: {
+      borderRadius: string;
+    };
   };
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,8 @@ export interface Link {
   url: string;
   //the variant of the link chip
   variant?: "elevated" | "flat";
+  //the color variant of the link chip
+  colorVariant?: "primary" | "grey";
 }
 
 interface LinkChipProps {
@@ -57,17 +59,51 @@ export const LinkChip = ({
 }: LinkChipProps): ReactElement => {
   const theme = useTheme();
 
+  const baseBoxStyle =
+    linkChip.variant === "elevated" ? theme.box.primary : theme.box.secondary;
+
+  const baseElevation =
+    linkChip.variant === "elevated" ? theme.elevation.primary : "";
+
+  const primaryTextColor =
+    linkChip.variant === "elevated"
+      ? theme.colors.link.primary.base
+      : theme.colors.text.primary.base;
+
+  const colors =
+    linkChip.colorVariant === "grey"
+      ? css`
+          background-color: ${theme.colors.box.grey.pill};
+          color: ${theme.colors.box.grey.text};
+          svg {
+            fill: ${theme.colors.box.grey.text};
+          }
+          &:hover {
+            background-color: ${theme.colors.box.grey.pill};
+            text-decoration: none;
+          }
+        `
+      : css`
+          color: ${primaryTextColor};
+          svg {
+            fill: ${primaryTextColor};
+          }
+          &:hover {
+            color: ${primaryTextColor};
+            text-decoration: none;
+            .icon {
+              transform: translateX(2px);
+            }
+          }
+        `;
+
   const chipStyles = css`
-    ${linkChip.variant === "elevated"
-      ? theme.box.primary
-      : theme.box.secondary};
-    ${linkChip.variant === "elevated" ? theme.elevation.primary : ""};
+    ${baseBoxStyle};
+    ${colors}
+    ${baseElevation};
     ${theme.typography.family.text};
     ${theme.typography.text.md};
     ${theme.radius.primary};
-    color: ${linkChip.variant === "elevated"
-      ? theme.colors.link.primary.base
-      : theme.colors.text.primary.base};
     line-height: 1rem;
     display: inline-flex;
     justify-content: center;
@@ -76,22 +112,10 @@ export const LinkChip = ({
     padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
     transition: background-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 
-    &:hover {
-      text-decoration: none;
-      color: ${linkChip.variant === "elevated"
-        ? theme.colors.link.primary.base
-        : theme.colors.text.primary.base};
-      .icon {
-        transform: translateX(2px);
-      }
-    }
-
     .icon {
       transition: transform 0.1s ease-in-out;
       svg {
-        fill: ${linkChip.variant === "elevated"
-          ? theme.colors.link.primary.base
-          : theme.colors.text.primary.base};
+        fill: ${primaryTextColor};
       }
     }
   `;
