@@ -480,56 +480,6 @@
             ],
             "description": "Labor force participation rate is the proportion of the population ages 15-64 that is economically active: all people who supply labor for the production of goods and services during a specified period. International labour organization, ILOSTAT database. Data retrieved in march 1, 2020.",
             "title": "Percent of Females Working Age Population in the Labor Force"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Female, Islam in India",
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Muslim_Female"
-                    ],
-                    "title": "Population: Female, Islam in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Islam"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Muslim_Female"
-                    ],
-                    "title": "Population: Female, Islam in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Muslim_Female"
-                    ],
-                    "title": "Population: Female, Islam in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Female, Islam in Administrative Area 1 Places of India"
           }
         ],
         "statVarSpec": {
@@ -580,10 +530,6 @@
           "indianCensus/Count_Person_Religion_Christian_Female": {
             "name": "Population: Female, Christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Female"
-          },
-          "indianCensus/Count_Person_Religion_Muslim_Female": {
-            "name": "Population: Female, Islam",
-            "statVar": "indianCensus/Count_Person_Religion_Muslim_Female"
           }
         }
       }
@@ -906,10 +852,6 @@
         "placeOfResidenceClassification": [
           "Count_Person_Rural_Female",
           "Count_Person_Urban_Female"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Christian_Female",
-          "indianCensus/Count_Person_Religion_Muslim_Female"
         ]
       }
     },
