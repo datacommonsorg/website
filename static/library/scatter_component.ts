@@ -117,6 +117,10 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  // Optional: Locale to use for this component
+  @property()
+  locale?: string;
+
   render(): HTMLDivElement {
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
@@ -149,6 +153,10 @@ export class DatacommonsScatterComponent extends LitElement {
       title: this.header,
       placeNameProp: this.placeNameProp,
     };
-    return createWebComponentElement(ScatterTile, scatterTileProps);
+    return createWebComponentElement(
+      ScatterTile,
+      scatterTileProps,
+      this.locale
+    );
   }
 }
