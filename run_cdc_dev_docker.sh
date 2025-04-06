@@ -39,6 +39,17 @@ combinations:
 
 -a run|build_run [-c all] [-r latest|stable] [-i <custom image name:tag>] -s
 
+Note: If you are running in "hybrid" mode, the only valid options are:
+
+./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] [--actions|-a run|build_run] 
+ [--image|-i <custom image name:tag>]
+
+./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] [--actions|-a run] 
+  [--schema-update|-s]
+
+All others will be ignored. The script will infer the correct container based on the 
+env.list directory settings and/or the 'build_run' setting. 
+
 Options:
 
 --env_file|-e <path to env.list file> 
@@ -59,21 +70,26 @@ Options:
   With all these options, you must also specify '--image' with the (source) 
   image name and tag.
 
---container|-c all|service
+-container|-c all|service|data
   Optional: The containers to run.
   Default with 'run' and 'build_run': all: Run all containers. Other options are:
-  * service: Only run the service container. You can use this if you have 
-    not made any changes to your data. Exclusive with '--schema-update'.
-  Only valid with 'run' and 'build_run'. Ignored otherwise.
+  * service: Only run the service container. You can use this if you have not made 
+    any changes to your data, or   you are only running the service container 
+    locally (with the data container in the cloud) Exclusive with '--schema-update'.
+  * data: Only run the data container. This is only valid if you are running the 
+    data container locally (with the service container in the cloud).
+    Only valid with 'run' and 'build_run'. Ignored otherwise.
+  For "hybrid" setups, the script will infer the correct container to run from the 
+  env.list file; this setting will be ignored.
 
 --release|-r stable|latest
   Optional with 'run' and 'build_run'.
   Default: stable: run the prebuilt 'stable' image provided by Data Commons team.
   Other options:
   * latest: Run the 'latest' release provided by Data Commons team. 
-  If you specify this with an additional '--image' option, the option applies 
-  only to the data container. Otherise, it applies to both containers. 
-  Only valid with 'run' and 'build_run'. Ignored otherwise.
+    If you specify this with an additional '--image' option, the option applies 
+    only to the data container. Otherise, it applies to both containers. 
+    Only valid with 'run' and 'build_run'. Ignored otherwise.
 
 --image|-i <custom image name:tag>
   Optional with 'run': the name and tag of the custom image to run in the service 
@@ -89,7 +105,8 @@ Options:
   Optional. In the rare case that you get a 'SQL checked failed' error in
   your running service, you can set this to run the data container in 
   schema update mode, which skips embeddings generation and completes much faster.
-  Only valid with 'run' and 'build_run' actions and 'all' containers. Ignored otherwise.
+  Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers. 
+  Ignored otherwise.
 
 Examples:
 
@@ -164,17 +181,59 @@ run_data() {
     schema_update="-e DATA_UPDATE_MODE=schemaupdate"
     schema_update_text=" in schema update mode"
   fi
+  if [ "$data_hybrid" == true ]; then
+   check_app_credentials
+    echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text} and writing output to Google Cloud...${NC}\n"
+    docker run -it \
+    --env-file $ENV_FILE \
+    ${schema_update//\"/} \
+    -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+    -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+    -v $INPUT_DIR:$INPUT_DIR \
+    gcr.io/datcom-ci/datacommons-data:${RELEASE}
+  else
   echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text}...${NC}\n"
   docker run -i \
-  --env-file "$ENV_FILE" \
+   --env-file $ENV_FILE \
   ${schema_update//\"/} \
   -v $INPUT_DIR:$INPUT_DIR \
   -v $OUTPUT_DIR:$OUTPUT_DIR \
   gcr.io/datcom-ci/datacommons-data:${RELEASE}
+  fi
 }
 
 # Run service container
 run_service() {
+  if [ "$service_hybrid" == true ]; then
+    check_app_credentials
+    # Custom-built image
+    if [ -n "$IMAGE" ]; then
+      echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}' reading data in Google Cloud...${NC}\n"
+      docker run -it \
+      --env-file $ENV_FILE \
+      -p 8080:8080 \
+      -e DEBUG=true \
+      -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+      -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+      -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
+      -v $PWD/static/custom_dc/$CUSTOM_DIR:/workspace/static/custom_dc/$CUSTOM_DIR \
+      $IMAGE
+    # Data Commons-released images
+    else 
+      if [ "$RELEASE" == "latest" ]; then
+        docker pull gcr.io/datcom-ci/datacommons-services:latest
+      fi
+      echo -e "${GREEN}Starting Docker services container with '${RELEASE}' release reading data in Google Cloud...${NC}\n"
+      docker run -it \
+      --env-file $ENV_FILE \
+      -p 8080:8080 \
+      -e DEBUG=true \
+      -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
+      -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+      gcr.io/datcom-ci/datacommons-services:${RELEASE}
+    fi
+  # Regular mode
+  else
   # Custom-built image
   if [ -n "$IMAGE" ]; then
     echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}'...${NC}\n"
@@ -201,12 +260,13 @@ run_service() {
     -v $OUTPUT_DIR:$OUTPUT_DIR \
     gcr.io/datcom-ci/datacommons-services:${RELEASE}
   fi
+  fi
 }
 
 # Functions for checking GCP credentials
 ############################################################
 
-# Check application default credentials. Needed for docker tag/push.
+# Check application default credentials. Needed for hybrid setups and docker tag/push.
 check_app_credentials() {
   echo -e "Checking for valid Cloud application default credentials...\n"
   # Attempt to print the access token
@@ -292,7 +352,7 @@ while true; do
         CONTAINER="$2"
         shift 2
       else
-        echo -e "${RED}ERROR:${NC} That is not a valid container option. Valid options are:\nall\nservice\n" 1>&2
+        echo -e "${RED}ERROR:${NC} That is not a valid container option. Valid options are 'all' or 'service' or 'data'\n" 1>&2
         exit 1
       fi
       ;;
@@ -301,7 +361,7 @@ while true; do
         RELEASE="$2"
         shift 2
       else
-        echo -e "${RED}ERROR:${NC} That is not a valid release option. Valid options are:\nstable\nlatest\n" 1>&2
+        echo -e "${RED}ERROR:${NC} That is not a valid release option. Valid options are 'stable' or 'latest'\n" 1>&2
         exit 1
       fi
       ;;
@@ -347,27 +407,23 @@ fi
 # Get options from the selected env.list file
 source "$ENV_FILE"
 
+# Set variables for hybrid mode
+#----------------------------------------------------
+# Determine hybrid mode and set a variable to true for use throughout the script
+if [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
+  service_hybrid=true
+elif [[ "$INPUT_DIR" != *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
+  data_hybrid=true
+elif [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" != *"gs://"* ]]; then
+  echo -e "${RED}ERROR:$NC Invalid data directory settings in env.list file. Please set your OUTPUT_DIR to a Cloud Path or your INPUT_DIR to a local path.\n" 1>&2
+  exit 1
+fi
+
 # Handle various error conditions
 #######################################################
 
 # Missing variables needed to construct Docker commands
 #============================================================
-# Missing variables from input
-#-------------------------------------------------------------
-# Missing required custom image for build and upload
-if [ "$ACTIONS" != "run" ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}ERROR:${NC} Missing an image name and tag for build and/or upload.\nPlease use the -'-image' or '-i' option with the name and tag of the custom image you are building or have already built.\n" 1>&2
-  exit 1
-fi
-# Missing package for upload; not an error, just info
-if [[ "$ACTIONS" == *"upload"* ]] && [ -z "$PACKAGE" ]; then
-  echo -e "${YELLOW}INFO:${NC} No '--package' option specified."
-  echo -e "The target image will use the same name and tag as the source image '$IMAGE'.\n"
-  sleep 3
-  # Assign image name
-  PACKAGE=$IMAGE
-fi
-
 # Missing variables in env.list file
 #-------------------------------------------------------------
 # Needed for docker run -v option
@@ -382,11 +438,42 @@ if  [[ ( "$ACTIONS" == *"upload"* ) && ( -z "$GOOGLE_CLOUD_PROJECT" || -z "$GOOG
   exit 1
 fi
 
-# Handle invalid option combinations and reset to valid. Most are silently 
-# ignored and handled in the case statement.
+# Missing variables from input
+#-------------------------------------------------------------
+# Missing required custom image for build and upload
+if [ "$ACTIONS" != "run" ] && [ -z "$IMAGE" ]; then
+  echo -e "${RED}ERROR:${NC} Missing an image name and tag for build and/or upload.\nPlease use the -'-image' or '-i' option with the name and tag of the custom image you are building or have already built.\n" 1>&2
+  exit 1
+fi
+
+# Missing package for upload; not an error, just info
+if [[ "$ACTIONS" == *"upload"* ]] && [ -z "$PACKAGE" ]; then
+  echo -e "${YELLOW}INFO:${NC} No '--package' option specified."
+  echo -e "The target image will use the same name and tag as the source image '$IMAGE'.\n"
+  sleep 3
+  # Assign image name
+  PACKAGE=$IMAGE
+fi
+
+# Handle invalid option combinations and reset to valid (most are silently 
+# ignored and handled by the case statement)
 #--------------------------------------------------------------------
-if [ "$SCHEMA_UPDATE" == true ] && [ "$CONTAINER" == "service" ]; then
+if [ "$data_hybrid" == true ]; then
+  ACTIONS="run"
+  CONTAINER="data"
+elif [ "$SCHEMA_UPDATE" == true ]; then
   CONTAINER="all"
+fi  
+
+if [ "$service_hybrid" == true ]; then
+  if [ "$ACTIONS" != "run" ] &&  [ "$ACTIONS" != "build_run" ]; then
+    echo -e "${RED}ERROR: ${NC}Invalid action for running in "hybrid" service mode.\n Valid options are 'run' or 'build_run'.\n" 1>&2
+    exit 1
+  fi
+  if [ -n "$IMAGE" ]; then
+    RELEASE=''
+  fi
+  CONTAINER="service"
 fi
 
 # Call Docker commands
@@ -396,11 +483,10 @@ case "$ACTIONS" in
     build
     ;;
   "build_run")
+    build
     if [ "$CONTAINER" == "service" ]; then
-      build
       run_service
     else
-      build
       run_data
       run_service
     fi   
@@ -415,6 +501,8 @@ case "$ACTIONS" in
   "run")
     if [ "$CONTAINER" == "service" ]; then
       run_service
+    elif [ "$CONTAINER" == "data" ]; then
+      run_data
     else
       run_data
       run_service
