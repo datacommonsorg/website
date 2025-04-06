@@ -182,7 +182,7 @@ run_data() {
     schema_update_text=" in schema update mode"
   fi
   if [ "$data_hybrid" == true ]; then
-   check_app_credentials
+    check_app_credentials
     echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text} and writing output to Google Cloud...${NC}\n"
     docker run -i \
     --env-file "$ENV_FILE" \
@@ -192,13 +192,13 @@ run_data() {
     -v $INPUT_DIR:$INPUT_DIR \
     gcr.io/datcom-ci/datacommons-data:${RELEASE}
   else
-  echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text}...${NC}\n"
-  docker run -i \
-   --env-file "$ENV_FILE" \
-  ${schema_update//\"/} \
-  -v $INPUT_DIR:$INPUT_DIR \
-  -v $OUTPUT_DIR:$OUTPUT_DIR \
-  gcr.io/datcom-ci/datacommons-data:${RELEASE}
+    echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text}...${NC}\n"
+    docker run -i \
+    --env-file "$ENV_FILE" \
+    ${schema_update//\"/} \
+    -v $INPUT_DIR:$INPUT_DIR \
+    -v $OUTPUT_DIR:$OUTPUT_DIR \
+    gcr.io/datcom-ci/datacommons-data:${RELEASE}
   fi
 }
 
@@ -260,7 +260,7 @@ run_service() {
     -v $OUTPUT_DIR:$OUTPUT_DIR \
     gcr.io/datcom-ci/datacommons-services:${RELEASE}
   fi
-  fi
+fi
 }
 
 # Functions for checking GCP credentials
