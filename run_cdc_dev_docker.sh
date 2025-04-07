@@ -22,7 +22,7 @@ Usage:
 ./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] 
   [--actions|-a run|build_run|build|build_upload|upload] [--container|-c all|service]
   [--release|-r latest|stable] [--image|-i <custom image name:tag>] 
-  [--package|-p <package name:tag>] [--schema-update|-s]
+  [--package|-p <package name:tag>] [--schema_update|-s]
 
 If no options are set, the default is '--env_file $PWD/custom_dc/env.list --actions run --container all --release stable'
 All containers are run, using the Data Commons-provided 'stable' image.
@@ -45,7 +45,7 @@ Note: If you are running in "hybrid" mode, the only valid options are:
  [--image|-i <custom image name:tag>]
 
 ./run_cdc_dev_docker.sh [--env_file|-e <env.list file path>] [--actions|-a run] 
-  [--schema-update|-s]
+  [--schema_update|-s]
 
 All others will be ignored. The script will infer the correct container based on the 
 env.list directory settings and/or the 'build_run' setting. 
