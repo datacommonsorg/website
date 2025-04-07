@@ -1114,6 +1114,18 @@
         ]
       },
       {
+        "label": "SouthAfrica Budget",
+        "url": "https://github.com/dsfsi/data-commons-data/tree/master/data/budget%20data/csv/",
+        "description": "Revenue and expenditure budget of South Africa at metropolitan municipality level for different economic sectors.",
+        "dataSources": [
+          {
+            "label": "South Africa Budget",
+            "url": "https://github.com/dsfsi/data-commons-data/tree/master/data/budget%20data/csv/",
+            "description": "Revenue and expenditure budget of South Africa."
+          }
+        ]
+      },
+      {
         "label": "Statistics Canada",
         "url": "https://www.statcan.gc.ca/en/start",
         "description": null,

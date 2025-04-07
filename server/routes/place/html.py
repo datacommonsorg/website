@@ -641,13 +641,12 @@ def dev_place(place_dcid=None, place_category=None):
     place_summary = ""
 
   canonical_links = get_canonical_links(place_dcid, place_category)
-  print(canonical_links)
   return flask.render_template('dev_place.html',
+                               canonical_links=canonical_links,
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                place_dcid=place_dcid,
                                place_name=place_name,
                                place_summary=place_summary,
                                sample_questions=json.dumps(
                                    current_app.config.get(
-                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])),
-                               canonical_links=canonical_links)
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))

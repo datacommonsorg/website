@@ -21,6 +21,8 @@ import {
   PlaceOverviewTableApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import { ThemeProvider } from "@emotion/react";
+import styled from "@emotion/styled";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
@@ -40,6 +42,11 @@ import {
   displayNameForPlaceType,
   placeChartsApiResponsesToPageConfig,
 } from "./util";
+
+const PlaceWarning = styled.div`
+  padding: 24px;
+  font-size: ${(p) => p.theme.typography.text.md};
+`;
 
 /**
  * Component that renders the header section of a place page.
@@ -338,15 +345,15 @@ export const DevPlaceMain = (): React.JSX.Element => {
       console.error("Error loading place page metadata element");
       return;
     }
-    if (
-      pageMetadata.dataset.placeDcid != "" &&
-      pageMetadata.dataset.placeName === ""
-    ) {
+    if (_.isEmpty(pageMetadata.dataset.placeDcid)) {
       console.error("Error loading place page metadata element");
       setHasError(true);
     }
+    // Get place name from page metadata. Use placeDcid if placeName is not set.
+    const placeName =
+      pageMetadata.dataset.placeName || pageMetadata.dataset.placeDcid;
     setPlace({
-      name: pageMetadata.dataset.placeName,
+      name: placeName,
       dcid: pageMetadata.dataset.placeDcid,
       types: [],
     });
@@ -487,12 +494,12 @@ export const DevPlaceMain = (): React.JSX.Element => {
           />
         )}
         {hasNoCharts && (
-          <div>
+          <PlaceWarning>
             {intl.formatMessage(pageMessages.noCharts, {
               category: selectedCategory.translatedName,
               place: place.name,
             })}
-          </div>
+          </PlaceWarning>
         )}
         {isOverview && childPlaces.length > 0 && (
           <RelatedPlaces place={place} childPlaces={childPlaces} />

@@ -23,6 +23,7 @@ MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
 CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
+NO_DATA_NEIGHBORHOOD_URL = '/place/wikidataId/Q995366'
 
 
 def element_has_text(driver, locator):
@@ -372,3 +373,18 @@ class PlaceExplorerTestMixin():
 
     self.assertNotIn('<link rel="canonical"', page_source)
     self.assertNotIn('<link rel="alternate" hreflang="en"', page_source)
+
+  def test_neighborhood_no_data(self):
+    """Test that neighborhood place page shows correct type and no data message."""
+    # Load neighborhood page
+    self.driver.get(self.url_ + NO_DATA_NEIGHBORHOOD_URL)
+
+    # Wait for subheader to load and contain "Neighborhood in"
+    subheader_present = EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, 'subheader'), 'Neighborhood in')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subheader_present)
+
+    # Wait for no data message to appear
+    no_data_present = EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, 'page-content-container'), 'No data found for')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(no_data_present)
