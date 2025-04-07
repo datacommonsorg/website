@@ -18,7 +18,7 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 
 import theme from "../theme/theme";
-import { Theme } from "../theme/types";
+import { TextVariant, Theme } from "../theme/types";
 
 /**
  * Chip component to display a selected item with the ability to remove the item
@@ -47,7 +47,7 @@ export const IconPlaceholder = (props: {
 };
 
 const InfoTooltip = styled.div<{ theme?: Theme }>`
-  ${(p) => p.theme?.typography?.text?.sm}
+  ${(p): TextVariant => p.theme?.typography?.text?.sm}
   position: absolute;
   min-width: 312px;
   top: ${(p): number => p.theme.spacing.lg}px;
@@ -55,7 +55,8 @@ const InfoTooltip = styled.div<{ theme?: Theme }>`
   background-color: ${(p): string => p.theme.colors.background.secondary.light};
   border: 1px solid ${(p): string => p.theme.colors.border.primary.light};
   border-radius: ${(p): string => p.theme.radius.secondary.borderRadius};
-  padding: ${(p) => p.theme.spacing?.md}px ${(p) => p.theme.spacing.lg}px;
+  padding: ${(p): number => p.theme.spacing?.md}px
+    ${(p): number => p.theme.spacing.lg}px;
   z-index: 1;
   box-shadow: ${(p): string => p.theme.elevation.secondary.boxShadow};
 
