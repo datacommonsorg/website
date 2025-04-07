@@ -29,6 +29,7 @@ import { Public } from "../../../components/elements/icons/public";
 import { ScatterPlot } from "../../../components/elements/icons/scatter_plot";
 import { Timeline } from "../../../components/elements/icons/timeline";
 import { LinkIconBox } from "../../../components/elements/link_icon_box";
+import { Tooltip } from "../../../components/elements/tooltip/tooltip";
 import { resolveHref } from "../../base/utilities/utilities";
 
 interface ToolsProps {
@@ -119,6 +120,28 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
             url: "https://docs.datacommons.org/api/",
           }}
         />
+        {/* TODO (nick-next): Remove this before PR */}
+        <div style={{ margin: "100px" }}>
+          <Tooltip
+            title={
+              <>
+                <h1>This is a tooltip</h1>
+                <p>
+                  <em>Some emphasized text</em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+          >
+            <button onClick={(): void => console.log("click")}>
+              Hover over me or tap me
+            </button>
+          </Tooltip>
+        </div>
+        {/* TODO (next-next): End of removal area */}
       </div>
     </>
   );
