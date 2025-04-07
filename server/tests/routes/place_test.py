@@ -136,8 +136,8 @@ class TestPlacePage(unittest.TestCase):
     assert response.status_code == 200
     assert b"<title>California - Environment" in response.data
 
-    response = app.test_client().get('/place/geoId/06/?category=InvalidCategory',
-                                     follow_redirects=True)
+    response = app.test_client().get(
+        '/place/geoId/06/?category=InvalidCategory', follow_redirects=True)
     assert response.status_code == 200
     assert b"<title>California - Data Commons" in response.data
 
@@ -184,8 +184,7 @@ class TestPlacePageHeaders(unittest.TestCase):
         'Link')
 
     # Test "Overview" page gives canonical without query parameters
-    response = app.test_client().get('/place/geoId/06',
-                                     follow_redirects=False)
+    response = app.test_client().get('/place/geoId/06', follow_redirects=False)
     assert response.status_code == 200
     assert 'Link' in response.headers
     assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
@@ -225,7 +224,7 @@ class TestPlacePageHeaders(unittest.TestCase):
 
     # Test bad category input gives a canonical without category
     response = app.test_client().get('/place/geoId/06?category=foobar',
-                                     follow_redirects=False)
+                                     follow_redirects=True)
     assert response.status_code == 200
     assert 'Link' in response.headers
     assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
@@ -233,7 +232,7 @@ class TestPlacePageHeaders(unittest.TestCase):
 
     # Test bad locale input gives a canonical without locale
     response = app.test_client().get('/place/geoId/06?hl=foobar',
-                                     follow_redirects=False)
+                                     follow_redirects=True)
     assert response.status_code == 200
     assert 'Link' in response.headers
     assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(

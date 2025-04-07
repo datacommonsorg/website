@@ -23,7 +23,7 @@
     {% set title = place_name %}
     {% set description = _('Statistics about economics, health, equity, crime, education, demographics, housing, and environment in {place_name}.'.format(place_name=place_name)) %}
   {% else %}
-    {% set title = place_name + ' - ' + _(category) %}
+    {% set title = place_name + ' - ' + _('CHART_TITLE-CHART_CATEGORY-{category}'.format(category=category)) %}
     {% set description = _('Statistics about {category} in {place_name}.'.format(category=category, place_name=place_name)) %}
   {% endif %}
   {% set place_category = category %}
