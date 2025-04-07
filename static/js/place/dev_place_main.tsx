@@ -408,7 +408,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
           setStorePlaceholderString(
             intl.formatMessage(pageMessages.categoryInPlace, {
               placeName: pageMetadata.dataset.placeName,
-              category: selectedCategory.translatedName,
+              category: newSelectedCategory.translatedName,
             })
           );
         }
