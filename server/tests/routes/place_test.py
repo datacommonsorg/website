@@ -69,7 +69,6 @@ class TestPlacePage(unittest.TestCase):
   @patch('server.routes.shared_api.place.parent_places')
   def test_place(self, mock_parent_places, mock_get_place_type_i18n_name,
                  mock_api_place_type, mock_get_i18n_name):
-    mock_feature_flags(app, ['dev_place_ga'], False)
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
@@ -137,6 +136,11 @@ class TestPlacePage(unittest.TestCase):
     assert response.status_code == 200
     assert b"<title>California - Environment" in response.data
 
+    response = app.test_client().get('/place/geoId/06/?category=InvalidCategory',
+                                     follow_redirects=True)
+    assert response.status_code == 200
+    assert b"<title>California - Data Commons" in response.data
+
     # TODO(beets): construct a better test that doesn't rely on prod.
     response = app.test_client().get('/explore/place?dcid=geoId/06',
                                      follow_redirects=False)
@@ -180,7 +184,7 @@ class TestPlacePageHeaders(unittest.TestCase):
         'Link')
 
     # Test "Overview" page gives canonical without query parameters
-    response = app.test_client().get('/place/geoId/06?category=Overview',
+    response = app.test_client().get('/place/geoId/06',
                                      follow_redirects=False)
     assert response.status_code == 200
     assert 'Link' in response.headers

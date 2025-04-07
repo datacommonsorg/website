@@ -306,9 +306,6 @@ def legacy_place(place_dcid: str, category: str):
   if locale not in AVAILABLE_LANGUAGES:
     locale = 'en'
 
-  if category not in CATEGORIES:
-    category = None
-
   is_overview = (not category) or (category == 'Overview')
 
   place_summary = {}
@@ -513,6 +510,10 @@ def place(place_dcid):
   if category in CATEGORY_REDIRECTS:
     redirect_args['category'] = CATEGORY_REDIRECTS[category]
     should_redirect = True
+  elif category is not None and category not in CATEGORIES:
+    # Redirect to the overview page if the category is invalid
+    redirect_args['category'] = None
+    should_redirect = True
 
   if should_redirect:
     redirect_args['place_dcid'] = place_dcid
@@ -535,6 +536,7 @@ def place(place_dcid):
   canonical_links = get_canonical_links(place_dcid, category)
   return flask.render_template('dev_place.html',
                                canonical_links=canonical_links,
+                               category=category,
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                place_dcid=place_dcid,
                                place_name=place_name,
