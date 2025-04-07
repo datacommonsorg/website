@@ -388,3 +388,21 @@ class PlaceExplorerTestMixin():
     no_data_present = EC.text_to_be_present_in_element(
         (By.CLASS_NAME, 'page-content-container'), 'No data found for')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(no_data_present)
+
+  def test_place_category_placeholder(self):
+    """Test that the place category placeholder is correct."""
+    # Load CA housing page
+    ca_housing_url = CA_URL + "?category=Housing"
+    self.driver.get(self.url_ + ca_housing_url)
+
+    # Wait for search input to be present
+    search_input_present = EC.presence_of_element_located(
+        (By.ID, "query-search-input"))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(search_input_present)
+
+    # Wait for placeholder text to update to expected value
+    def placeholder_has_text(driver):
+      element = driver.find_element(By.ID, "query-search-input")
+      return element.get_attribute("placeholder") == "Housing in California"
+
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(placeholder_has_text)
