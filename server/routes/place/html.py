@@ -289,58 +289,9 @@ def is_dev_place_ga_enabled(request_args: MultiDict[str, str]) -> bool:
   ) and not request_args.get("disable_dev_places") == "true"
 
 
-@bp.route('', strict_slashes=False)
-@bp.route('/<path:place_dcid>')
-@cache.cached(query_string=True)
-def place(place_dcid=None):
-  if place_dcid is not None and is_dev_place_ga_enabled(flask.request.args):
-    place_category = flask.request.args.get('category', None)
-    return dev_place(place_dcid=place_dcid, place_category=place_category)
-  redirect_args = dict(flask.request.args)
-
-  # Strip trailing slashes from place dcids
-  should_redirect = False
-  if place_dcid and place_dcid.endswith('/'):
-    place_dcid = place_dcid.rstrip('/')
-    should_redirect = True
-
-  # Rename legacy "topic" request argument to "category"
-  if 'topic' in flask.request.args:
-    redirect_args['category'] = flask.request.args.get('topic', '')
-    del redirect_args['topic']
-    should_redirect = True
-
-  # Rename legacy category request arguments
-  category = redirect_args.get('category', None)
-  if category in CATEGORY_REDIRECTS:
-    redirect_args['category'] = CATEGORY_REDIRECTS[category]
-    should_redirect = True
-
-  if should_redirect:
-    redirect_args['place_dcid'] = place_dcid
-    return flask.redirect(flask.url_for('place.place', **redirect_args),
-                          code=301)
-
-  dcid = flask.request.args.get('dcid', None)
-  if dcid:
-    # Traffic from "explore more" in Search. Forward along all parameters,
-    # except for dcid, to the new URL format.
-    redirect_args = dict(flask.request.args)
-    redirect_args['place_dcid'] = dcid
-    del redirect_args['dcid']
-    redirect_args['category'] = category
-    url = flask.url_for('place.place',
-                        **redirect_args,
-                        _external=True,
-                        _scheme=current_app.config.get('SCHEME', 'https'))
-    return flask.redirect(url)
-
-  if not place_dcid:
-    return place_landing()
-
+def legacy_place(place_dcid: str, category: str):
+  """Render legacy place page"""
   place_type = place_api.api_place_type(place_dcid)
-  if not place_type:
-    return place_landing(error_msg=f'Place "{place_dcid}" not found')
 
   place_type_with_parent_places_links = get_place_type_with_parent_places_links(
       place_dcid)
@@ -434,26 +385,6 @@ def place(place_dcid=None):
   return response
 
 
-def place_landing(error_msg=''):
-  """Returns filled template for the place landing page."""
-  template_file = os.path.join('custom_dc', g.env, 'place_landing.html')
-  dcid_json = os.path.join('custom_dc', g.env, 'place_landing_dcids.json')
-  if not os.path.exists(
-      os.path.join(current_app.root_path, 'templates', template_file)):
-    template_file = 'place_landing.html'
-    dcid_json = 'place_landing_dcids.json'
-
-  with open(os.path.join(current_app.root_path, 'templates', dcid_json)) as f:
-    landing_dcids = json.load(f)
-    # Use display names (including state, if applicable) for the static page
-    place_names = place_api.get_display_name(landing_dcids)
-    return flask.render_template(
-        template_file,
-        error_msg=error_msg,
-        place_names=place_names,
-        maps_api_key=current_app.config['MAPS_API_KEY'])
-
-
 def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
   """Returns canonical and alternate language header links for the place page
 
@@ -514,8 +445,84 @@ def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
   return links
 
 
-# Dev place experiment route
-def dev_place(place_dcid=None, place_category=None):
+@bp.route('', strict_slashes=False)
+@cache.cached(query_string=True)
+def place_explorer():
+  """Renders the place explorer landing page.
+
+  Also handles redirects from Google Search to individual place pages if the
+  request includes a dcid.
+  """
+  dcid = flask.request.args.get('dcid', None)
+  if dcid:
+    # Handle redirects from Google Search using old URL format
+    # URLS from the search "Explore More" link look like:
+    # https://datacommons.org/place?utm_medium=explore&dcid=geoId/06&mprop=count&popt=Person&hl=en
+    # Forward along all parameters, except for dcid, to the new URL format.
+    redirect_args = dict(flask.request.args)
+    redirect_args['place_dcid'] = dcid
+    del redirect_args['dcid']
+    url = flask.url_for('place.place',
+                        **redirect_args,
+                        _external=True,
+                        _scheme=current_app.config.get('SCHEME', 'https'))
+    return flask.redirect(url)
+
+  # Otherwise, render the place explorer landing page
+  template_file = os.path.join('custom_dc', g.env, 'place_landing.html')
+  dcid_json = os.path.join('custom_dc', g.env, 'place_landing_dcids.json')
+  if not os.path.exists(
+      os.path.join(current_app.root_path, 'templates', template_file)):
+    template_file = 'place_landing.html'
+    dcid_json = 'place_landing_dcids.json'
+
+  with open(os.path.join(current_app.root_path, 'templates', dcid_json)) as f:
+    landing_dcids = json.load(f)
+    # Use display names (including state, if applicable) for the static page
+    place_names = place_api.get_display_name(landing_dcids)
+    return flask.render_template(
+        template_file,
+        place_names=place_names,
+        maps_api_key=current_app.config['MAPS_API_KEY'])
+
+
+@bp.route('/<path:place_dcid>', strict_slashes=False)
+@cache.cached(query_string=True)
+def place(place_dcid):
+  """
+  Renders place page with the given DCID.
+
+  Args:
+    place_dcid: DCID of the place to redirect to
+  """
+  redirect_args = dict(flask.request.args)
+  # Strip trailing slashes from place dcids
+  should_redirect = False
+  if place_dcid and place_dcid.endswith('/'):
+    place_dcid = place_dcid.rstrip('/')
+    should_redirect = True
+
+  # Rename legacy "topic" request argument to "category"
+  if 'topic' in flask.request.args:
+    redirect_args['category'] = flask.request.args.get('topic', '')
+    del redirect_args['topic']
+    should_redirect = True
+
+  # Rename legacy category request arguments
+  category = redirect_args.get('category', None)
+  if category in CATEGORY_REDIRECTS:
+    redirect_args['category'] = CATEGORY_REDIRECTS[category]
+    should_redirect = True
+
+  if should_redirect:
+    redirect_args['place_dcid'] = place_dcid
+    return flask.redirect(flask.url_for('place.place', **redirect_args),
+                          code=301)
+
+  # Render legacy place page if dev place ga is not enabled
+  if not is_dev_place_ga_enabled(flask.request.args):
+    return legacy_place(place_dcid=place_dcid, category=category)
+
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
   # Place summaries are currently only supported in English
@@ -525,7 +532,7 @@ def dev_place(place_dcid=None, place_category=None):
   else:
     place_summary = ""
 
-  canonical_links = get_canonical_links(place_dcid, place_category)
+  canonical_links = get_canonical_links(place_dcid, category)
   return flask.render_template('dev_place.html',
                                canonical_links=canonical_links,
                                maps_api_key=current_app.config['MAPS_API_KEY'],
