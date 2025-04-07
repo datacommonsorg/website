@@ -44,15 +44,18 @@ interface TooltipProps {
   skidding?: number;
   //Distance in the perpendicular axis of the placement (away from tooltip)
   distance?: number;
-  //Fade transition duration in ms. Defaults to 150ms.
+  //Fade transition duration in ms. Defaults to 100ms.
   fadeDuration?: number;
+  //Entry animation duration in ms. Defaults to 150ms.
+  entryDuration?: number;
   //The maximum width of the tooltip. Defaults to 300px.
   maxWidth?: number | string;
 }
 
 //TODO (pablonoel): move these to the theme?
 const TOOLTIP_Z_INDEX = 9999;
-const TOOLTIP_DEFAULT_FADE_DURATION = 150;
+const TOOLTIP_DEFAULT_FADE_DURATION = 100;
+const TOOLTIP_DEFAULT_ENTRY_DURATION = 150;
 const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
 
 /*
@@ -85,6 +88,8 @@ const TooltipBox = styled.div<{
   $skidding: number;
   $maxWidth: string;
   $placement: TooltipPlacement;
+  $visible: boolean;
+  $entryDuration: number;
 }>`
   max-width: ${({ $maxWidth }): string => $maxWidth};
   background-color: #333;
@@ -94,8 +99,15 @@ const TooltipBox = styled.div<{
   font-size: 0.875rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
-  ${({ $distance, $skidding, $placement }): string => {
+  ${({
+    $distance,
+    $skidding,
+    $placement,
+    $visible,
+    $entryDuration,
+  }): string => {
     let styles = "";
+    const popDistance = 5;
 
     if ($placement.startsWith("top")) {
       styles += `margin-bottom: ${$distance}px;`;
@@ -107,16 +119,34 @@ const TooltipBox = styled.div<{
       styles += `margin-left: ${$distance}px;`;
     }
 
+    let transformX = 0;
+    let transformY = 0;
+
     if ($skidding !== 0) {
       if ($placement.startsWith("top") || $placement.startsWith("bottom")) {
-        styles += `transform: translateX(${$skidding}px);`;
+        transformX = $skidding;
       } else if (
         $placement.startsWith("left") ||
         $placement.startsWith("right")
       ) {
-        styles += `transform: translateY(${$skidding}px);`;
+        transformY = $skidding;
       }
     }
+
+    if ($placement.startsWith("top")) {
+      transformY += $visible ? 0 : popDistance;
+    } else if ($placement.startsWith("bottom")) {
+      transformY += $visible ? 0 : -popDistance;
+    } else if ($placement.startsWith("left")) {
+      transformX += $visible ? 0 : popDistance;
+    } else if ($placement.startsWith("right")) {
+      transformX += $visible ? 0 : -popDistance;
+    }
+
+    styles += `
+      transform: translate(${transformX}px, ${transformY}px);
+      transition: transform ${$entryDuration}ms ease-out;
+    `;
 
     return styles;
   }}
@@ -131,6 +161,7 @@ export const Tooltip = ({
   skidding,
   distance,
   fadeDuration,
+  entryDuration,
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
 }: TooltipProps): ReactElement => {
   const isTouchDevice = (): boolean =>
@@ -146,8 +177,10 @@ export const Tooltip = ({
   const effectivePlacement = placement || defaultPlacement;
 
   const effectiveSkidding = skidding ?? 0;
-  const effectiveDistance = distance ?? (effectiveFollowCursor ? 16 : 8);
+  const effectiveDistance = distance ?? (effectiveFollowCursor ? 16 : 12);
   const effectiveFadeDuration = fadeDuration ?? TOOLTIP_DEFAULT_FADE_DURATION;
+  const effectiveEntryDuration =
+    entryDuration ?? TOOLTIP_DEFAULT_ENTRY_DURATION;
 
   const [open, setOpen] = useState(false);
   const [openByTouch, setOpenByTouch] = useState(false);
@@ -337,6 +370,8 @@ export const Tooltip = ({
             $skidding={effectiveSkidding}
             $maxWidth={effectiveMaxWidth}
             $placement={computedPlacement}
+            $visible={open}
+            $entryDuration={effectiveEntryDuration}
           >
             {title}
           </TooltipBox>
