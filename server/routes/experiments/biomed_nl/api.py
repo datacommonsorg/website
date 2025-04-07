@@ -31,6 +31,7 @@ GEMINI_PRO = 'gemini-1.5-pro'
 GEMINI_PRO_TOKEN_LIMIT = 2000000
 GEMINI_CHARS_PER_TOKEN_ESTIMATE = 4
 PROMPT_TRUNCATE_TOKEN_BUFFER = 5
+GEMINI_TIMEOUT = 240000  # 4 minutes
 
 # Define blueprint
 bp = flask.Blueprint('biomed_nl_api',
@@ -119,9 +120,10 @@ def _fulfill_traversal_query(query):
   # TODO: remove extensive try-catch block once this api is stable
 
   gemini_api_key = current_app.config['BIOMED_NL_GEMINI_API_KEY']
-  gemini_client = genai.Client(
-      api_key=gemini_api_key,
-      http_options=genai.types.HttpOptions(api_version='v1alpha'))
+  gemini_client = genai.Client(api_key=gemini_api_key,
+                               http_options=genai.types.HttpOptions(
+                                   api_version='v1alpha',
+                                   timeout=GEMINI_TIMEOUT))
 
   path_finder = PathFinder(query, gemini_client, gemini_model_str=GEMINI_PRO)
 
