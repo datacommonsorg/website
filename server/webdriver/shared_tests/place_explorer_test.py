@@ -327,6 +327,53 @@ class PlaceExplorerTestMixin():
         (By.CLASS_NAME, "copy-svg"), "Entity DCID")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(entity_dcid_present)
 
+  def test_canonical_links_in_html_head(self):
+    """Test that canonical and alternate language links are present in HTML head"""
+    # Test overview page links
+    self.driver.get(self.url_ + '/place/geoId/06')
+
+    # Get page source and check canonical link
+    page_source = self.driver.page_source
+    self.assertIn(
+        '<link rel="canonical" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+
+    # Check alternate language links
+    self.assertIn(
+        '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?hl=ru">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+
+    # Test category page links
+    self.driver.get(self.url_ + '/place/geoId/06?category=Health')
+    page_source = self.driver.page_source
+
+    self.assertIn(
+        '<link rel="canonical" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?category=Health&amp;hl=ru">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+
+    # Test invalid category
+    self.driver.get(self.url_ +
+                    '/place/geoId/06?category=Health,InvalidCategory')
+    page_source = self.driver.page_source
+
+    self.assertNotIn('<link rel="canonical"', page_source)
+    self.assertNotIn('<link rel="alternate" hreflang="en"', page_source)
+
   def test_neighborhood_no_data(self):
     """Test that neighborhood place page shows correct type and no data message."""
     # Load neighborhood page
