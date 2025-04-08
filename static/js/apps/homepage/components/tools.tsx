@@ -24,6 +24,7 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Download } from "../../../components/elements/icons/download";
+import { InfoSpark } from "../../../components/elements/icons/info_spark";
 import { IntegrationInstructions } from "../../../components/elements/icons/integration_instructions";
 import { Public } from "../../../components/elements/icons/public";
 import { ScatterPlot } from "../../../components/elements/icons/scatter_plot";
@@ -121,12 +122,14 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
           }}
         />
         {/* TODO (nick-next): Remove this before PR */}
-        <div style={{ margin: "100px" }}>
+        <div style={{ margin: "50px" }}>
           <Tooltip
             title={
               <>
                 <h1>This is a tooltip</h1>
                 <p>
+                  <a href={"https://example.com"}>Another link.</a>
+                  <br />
                   <em>Some emphasized text</em>
                   <br />
                   <a href={"https://google.com"}>
@@ -135,12 +138,48 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
                 </p>
               </>
             }
+            disableTouchListener
           >
             <button onClick={(): void => console.log("click")}>
               Hover over me or tap me
             </button>
           </Tooltip>
         </div>
+
+        <div style={{ margin: "50px" }}>
+          <Tooltip
+            title={
+              <>
+                <h2>A Tooltip</h2>
+                <p>
+                  <em>This one triggered from an icon, with no links</em>
+                </p>
+              </>
+            }
+          >
+            <InfoSpark />
+          </Tooltip>
+        </div>
+
+        <div style={{ margin: "50px" }}>
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+          >
+            <ScatterPlot />
+          </Tooltip>
+        </div>
+
         {/* TODO (next-next): End of removal area */}
       </div>
     </>

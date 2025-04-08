@@ -152,6 +152,39 @@ const TooltipBox = styled.div<{
   }}
 `;
 
+const isTouchDevice = (): boolean =>
+  "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+function isTriggerFocusable(child: ReactNode): boolean {
+  if (!React.isValidElement(child)) return false;
+  const elType = child.type;
+  const props = child.props || {};
+
+  if (elType === "button") return true;
+  if (elType === "a" && !!props.href) return true;
+  return typeof props.tabIndex === "number" && props.tabIndex >= 0;
+}
+
+const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    )
+  ).filter(
+    (el) => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden")
+  );
+};
+
+function mergeHandlers<T extends (...args: any[]) => void>(
+  userHandler: T | undefined,
+  ourHandler: T
+): (...args: Parameters<T>) => void {
+  return function merged(...args: Parameters<T>): void {
+    if (typeof userHandler === "function") userHandler(...args);
+    ourHandler(...args);
+  };
+}
+
 export const Tooltip = ({
   title,
   children,
@@ -164,9 +197,6 @@ export const Tooltip = ({
   entryDuration,
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
 }: TooltipProps): ReactElement => {
-  const isTouchDevice = (): boolean =>
-    "ontouchstart" in window || navigator.maxTouchPoints > 0;
-
   const effectiveFollowCursor = followCursor && !isTouchDevice();
   const effectiveMaxWidth =
     typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth;
@@ -335,8 +365,108 @@ export const Tooltip = ({
     }
   }, [disableTouchListener, openByTouch]);
 
-  return (
-    <>
+  const handleTriggerKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!open) return;
+
+      if (e.key === "Tab" && !e.shiftKey) {
+        if (tooltipBoxRef.current) {
+          const focusable = getFocusableElements(tooltipBoxRef.current);
+          if (focusable.length > 0) {
+            e.preventDefault();
+            focusable[0].focus();
+          }
+        }
+      } else if (e.key === "Tab" && e.shiftKey) {
+        if (tooltipBoxRef.current) {
+          const focusable = getFocusableElements(tooltipBoxRef.current);
+          if (focusable.length > 0) {
+            e.preventDefault();
+            focusable[focusable.length - 1].focus();
+          }
+        }
+      }
+    },
+    [open]
+  );
+
+  const handleTooltipKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!tooltipBoxRef.current) return;
+
+      const focusable = getFocusableElements(tooltipBoxRef.current);
+      if (focusable.length === 0) return;
+
+      const firstElement = focusable[0];
+      const lastElement = focusable[focusable.length - 1];
+
+      if (e.key === "Tab") {
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          setOpen(false);
+
+          const allFocusable = getFocusableElements(document.body);
+          const triggerIndex = allFocusable.indexOf(
+            triggerRef.current as HTMLElement
+          );
+
+          if (triggerIndex > 0) {
+            allFocusable[triggerIndex - 1].focus();
+          } else {
+            (document.activeElement as HTMLElement).blur();
+          }
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          setOpen(false);
+
+          const allFocusable = getFocusableElements(document.body);
+          const triggerIndex = allFocusable.indexOf(
+            triggerRef.current as HTMLElement
+          );
+
+          if (triggerIndex >= 0 && triggerIndex < allFocusable.length - 1) {
+            const nextElement = allFocusable[triggerIndex + 1];
+            nextElement.focus();
+          } else {
+            (document.activeElement as HTMLElement).blur();
+          }
+        }
+      }
+    },
+    []
+  );
+
+  const triggerChild = React.Children.only(children) as ReactElement;
+
+  let triggerNode: ReactElement;
+  if (isTriggerFocusable(triggerChild)) {
+    triggerNode = React.cloneElement(triggerChild, {
+      ref: mergedReferenceRef,
+      onMouseEnter: mergeHandlers(
+        triggerChild.props.onMouseEnter,
+        handleMouseEnter
+      ),
+      onMouseMove: mergeHandlers(
+        triggerChild.props.onMouseMove,
+        handleMouseMove
+      ),
+      onMouseLeave: mergeHandlers(
+        triggerChild.props.onMouseLeave,
+        handleTriggerMouseLeave
+      ),
+      onFocus: mergeHandlers(triggerChild.props.onFocus, handleFocus),
+      onBlur: mergeHandlers(triggerChild.props.onBlur, handleBlur),
+      onTouchStart: mergeHandlers(
+        triggerChild.props.onTouchStart,
+        handleTouchStart
+      ),
+      onKeyDown: mergeHandlers(
+        triggerChild.props.onKeyDown,
+        handleTriggerKeyDown
+      ),
+    });
+  } else {
+    triggerNode = (
       <div
         ref={mergedReferenceRef}
         onMouseEnter={handleMouseEnter}
@@ -345,9 +475,17 @@ export const Tooltip = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         onTouchStart={handleTouchStart}
+        onKeyDown={handleTriggerKeyDown}
+        tabIndex={0}
       >
-        {children}
+        {triggerChild}
       </div>
+    );
+  }
+
+  return (
+    <>
+      {triggerNode}
 
       <FloatingPortal>
         <TooltipContainer
@@ -366,6 +504,8 @@ export const Tooltip = ({
         >
           <TooltipBox
             ref={tooltipBoxRef}
+            role="tooltip"
+            onKeyDown={handleTooltipKeyDown}
             $distance={effectiveDistance}
             $skidding={effectiveSkidding}
             $maxWidth={effectiveMaxWidth}
