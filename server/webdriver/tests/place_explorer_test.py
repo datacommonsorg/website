@@ -33,7 +33,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_overview_world(self):
     """Ensure place page revamp World page works"""
-    self.driver.get(self.url_ + '/place/Earth?force_dev_places=true')
+    self.driver.get(self.url_ + '/place/Earth')
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
@@ -71,8 +71,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_demographics_world(self):
     """Ensure place page revamp World page works"""
-    self.driver.get(self.url_ +
-                    '/place/Earth?force_dev_places=true&category=Demographics')
+    self.driver.get(self.url_ + '/place/Earth?category=Demographics')
 
     # Assert we have data for all expected topics.
     topics_for_world = [
@@ -114,7 +113,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_overview_california(self):
     """Ensure experimental dev place page content loads"""
-    self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
+    self.driver.get(self.url_ + '/place/geoId/06')
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
@@ -166,7 +165,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_overview_san_mateo_county(self):
     """Ensure experimental dev place page content loads"""
-    self.driver.get(self.url_ + '/place/geoId/06081?force_dev_places=true')
+    self.driver.get(self.url_ + '/place/geoId/06081')
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
@@ -220,7 +219,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_overview_los_angeles(self):
     """Ensure experimental dev place page content loads"""
-    self.driver.get(self.url_ + '/place/geoId/0644000?force_dev_places=true')
+    self.driver.get(self.url_ + '/place/geoId/0644000')
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
@@ -275,7 +274,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_overview_zip_90003(self):
     """Ensure experimental dev place page content loads"""
-    self.driver.get(self.url_ + '/place/zip/90003?force_dev_places=true')
+    self.driver.get(self.url_ + '/place/zip/90003')
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
@@ -322,7 +321,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_overview_africa(self):
     """Ensure experimental dev place page content loads data for a continent."""
-    self.driver.get(self.url_ + '/place/africa?force_dev_places=true')
+    self.driver.get(self.url_ + '/place/africa')
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
@@ -358,7 +357,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_chart_settings(self):
     """Ensure the charts in the new place page contain the expected settings"""
-    self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
+    self.driver.get(self.url_ + '/place/geoId/06')
 
     self.assertTrue(
         find_elem(self.driver,
@@ -395,7 +394,7 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
 
   @pytest.mark.skip(reason="Fix theme compile error before re-enabling")
   def test_dev_place_ai_spark_icon_hover(self):
-    self.driver.get(self.url_ + '/place/geoId/04?force_dev_places=true')
+    self.driver.get(self.url_ + '/place/geoId/04')
 
     # Find the icon element that triggers the tooltip on hover.
     icon_element = find_elem(self.driver, value='spark-info-tooltip-icon')
