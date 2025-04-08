@@ -230,6 +230,7 @@ run_service() {
       -e DEBUG=true \
       -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
       -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
+      -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
       gcr.io/datcom-ci/datacommons-services:${RELEASE}
     fi
   # Regular mode
@@ -258,6 +259,7 @@ run_service() {
     -e DEBUG=true \
     -v $INPUT_DIR:$INPUT_DIR \
     -v $OUTPUT_DIR:$OUTPUT_DIR \
+    -v $PWD/server/templates/custom_dc/$CUSTOM_DIR:/workspace/server/templates/custom_dc/$CUSTOM_DIR \
     gcr.io/datcom-ci/datacommons-services:${RELEASE}
   fi
 fi
