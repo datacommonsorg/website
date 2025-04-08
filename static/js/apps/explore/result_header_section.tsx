@@ -66,25 +66,35 @@ export function ResultHeaderSection(
   );
 
   function getPlaceHeader(): JSX.Element {
-    // Avoid links when there is more than one place, since the mix of links
-    // and non-links (`,` `and more`) looks odd.
+    const places = props.pageMetadata.places;
+    const numPlaces = places.length;
+
+    // Handle case with no places
+    if (numPlaces === 0) {
+      console.log("Num places 0");
+      return <></>;
+    }
+
+    // Handle case with exactly one place
+    if (numPlaces === 1) {
+      console.log("Num places 1");
+      return (
+        <a className="place-callout-link" href={`/place/${places[0].dcid}`}>
+          {places[0].name}
+        </a>
+      );
+    }
+    console.log("Num places 2+");
     return (
       <>
-        {props.pageMetadata.places.length == 1 && (
-          <a
-            className="place-callout-link"
-            href={`/place/${props.pageMetadata.places[0].dcid}`}
-          >
-            {props.pageMetadata.places[0].name}
-          </a>
-        )}
-        {props.pageMetadata.places.length >= 2 && (
-          <span>
-            {props.pageMetadata.places[0].name},&nbsp;
-            {props.pageMetadata.places[1].name}
-          </span>
-        )}
-        {props.pageMetadata.places.length > 2 && <>&nbsp;and more</>}
+        <a className="place-callout-link" href={`/place/${places[0].dcid}`}>
+          {places[0].name}
+        </a>
+        {", "}
+        <a className="place-callout-link" href={`/place/${places[1].dcid}`}>
+          {places[1].name}
+        </a>
+        {numPlaces > 2 && <>&nbsp;and more</>}
       </>
     );
   }
