@@ -50,6 +50,8 @@ interface TooltipProps {
   fadeDuration?: number;
   //Entry animation duration in ms. Defaults to 150ms.
   entryDuration?: number;
+  // Delay before closing the tooltip when the mouse leaves in ms. Defaults to 150ms.
+  closeDelay?: number;
   //The maximum width of the tooltip. Defaults to 300px.
   maxWidth?: number | string;
 }
@@ -58,6 +60,7 @@ interface TooltipProps {
 const TOOLTIP_Z_INDEX = 9999;
 const TOOLTIP_DEFAULT_FADE_DURATION = 100;
 const TOOLTIP_DEFAULT_ENTRY_DURATION = 150;
+const TOOLTIP_DEFAULT_CLOSE_DELAY = 150;
 const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
 
 /*
@@ -218,6 +221,7 @@ export const Tooltip = ({
   distance,
   fadeDuration,
   entryDuration,
+  closeDelay,
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
 }: TooltipProps): ReactElement => {
   const effectiveFollowCursor = followCursor && !isTouchDevice();
@@ -234,9 +238,11 @@ export const Tooltip = ({
   const effectiveFadeDuration = fadeDuration ?? TOOLTIP_DEFAULT_FADE_DURATION;
   const effectiveEntryDuration =
     entryDuration ?? TOOLTIP_DEFAULT_ENTRY_DURATION;
+  const effectiveCloseDelay = closeDelay ?? TOOLTIP_DEFAULT_CLOSE_DELAY;
 
   const [open, setOpen] = useState(false);
   const [openByTouch, setOpenByTouch] = useState(false);
+  const closeTimeoutRef = useRef<number | null>(null);
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const tooltipBoxRef = useRef<HTMLDivElement | null>(null);
@@ -260,6 +266,43 @@ export const Tooltip = ({
 
   const mergedReferenceRef = useMergeRefs([triggerRef, refs.setReference]);
 
+  const clearCloseTimeout = useCallback((): void => {
+    if (closeTimeoutRef.current !== null) {
+      window.clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  }, []);
+
+  const handleOpen = useCallback(
+    (touch = false): void => {
+      clearCloseTimeout();
+      setOpen(true);
+      if (touch) {
+        setOpenByTouch(true);
+      }
+    },
+    [clearCloseTimeout]
+  );
+
+  const handleClose = useCallback(
+    (touch = false): void => {
+      clearCloseTimeout();
+      setOpen(false);
+      if (touch) {
+        setOpenByTouch(false);
+      }
+    },
+    [clearCloseTimeout]
+  );
+
+  const handleCloseWithDelay = useCallback((): void => {
+    clearCloseTimeout();
+    closeTimeoutRef.current = window.setTimeout(() => {
+      handleClose();
+      closeTimeoutRef.current = null;
+    }, effectiveCloseDelay);
+  }, [clearCloseTimeout, effectiveCloseDelay, handleClose]);
+
   useEffect(() => {
     if (!openByTouch) return;
 
@@ -272,24 +315,21 @@ export const Tooltip = ({
       ) {
         return;
       }
-
-      setOpen(false);
-      setOpenByTouch(false);
+      handleClose(true);
     };
 
     document.addEventListener("touchstart", handleDocumentClick);
-
     return () => {
       document.removeEventListener("touchstart", handleDocumentClick);
     };
-  }, [openByTouch]);
+  }, [openByTouch, handleClose]);
 
-  const handleMouseEnter = useCallback(() => {
+  const handleMouseEnter = useCallback((): void => {
     if (disableTouchListener && isTouchDevice()) {
       return;
     }
-    setOpen(true);
-  }, [disableTouchListener]);
+    handleOpen();
+  }, [disableTouchListener, handleOpen]);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
@@ -318,7 +358,7 @@ export const Tooltip = ({
   const handleTriggerMouseLeave = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
       if (effectiveFollowCursor) {
-        setOpen(false);
+        handleCloseWithDelay();
         return;
       }
 
@@ -330,10 +370,9 @@ export const Tooltip = ({
       ) {
         return;
       }
-
-      setOpen(false);
+      handleCloseWithDelay();
     },
-    [effectiveFollowCursor, refs.floating]
+    [effectiveFollowCursor, refs.floating, handleCloseWithDelay]
   );
 
   const handleTooltipMouseLeave = useCallback(
@@ -346,17 +385,16 @@ export const Tooltip = ({
       ) {
         return;
       }
-
-      setOpen(false);
+      handleCloseWithDelay();
     },
-    [triggerRef]
+    [handleCloseWithDelay]
   );
 
-  const handleFocus = useCallback(() => {
+  const handleFocus = useCallback((): void => {
     if (disableTouchListener && isTouchDevice()) return;
 
-    setOpen(true);
-  }, [disableTouchListener]);
+    handleOpen();
+  }, [disableTouchListener, handleOpen]);
 
   const handleBlur = useCallback(
     (e: React.FocusEvent<HTMLDivElement>) => {
@@ -370,23 +408,21 @@ export const Tooltip = ({
       }
 
       if (!openByTouch) {
-        setOpen(false);
+        handleClose();
       }
     },
-    [openByTouch, refs.floating]
+    [openByTouch, refs.floating, handleClose]
   );
 
-  const handleTouchStart = useCallback(() => {
+  const handleTouchStart = useCallback((): void => {
     if (disableTouchListener) return;
 
     if (openByTouch) {
-      setOpen(false);
-      setOpenByTouch(false);
+      handleClose(true);
     } else {
-      setOpen(true);
-      setOpenByTouch(true);
+      handleOpen(true);
     }
-  }, [disableTouchListener, openByTouch]);
+  }, [disableTouchListener, openByTouch, handleClose, handleOpen]);
 
   const handleTriggerKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -426,7 +462,7 @@ export const Tooltip = ({
       if (e.key === "Tab") {
         if (e.shiftKey && document.activeElement === firstElement) {
           e.preventDefault();
-          setOpen(false);
+          handleClose();
 
           const allFocusable = getFocusableElements(document.body);
           const triggerIndex = allFocusable.indexOf(
@@ -440,7 +476,7 @@ export const Tooltip = ({
           }
         } else if (!e.shiftKey && document.activeElement === lastElement) {
           e.preventDefault();
-          setOpen(false);
+          handleClose();
 
           const allFocusable = getFocusableElements(document.body);
           const triggerIndex = allFocusable.indexOf(
@@ -456,7 +492,7 @@ export const Tooltip = ({
         }
       }
     },
-    []
+    [handleClose]
   );
 
   const triggerChild = React.Children.only(children) as ReactElement;
