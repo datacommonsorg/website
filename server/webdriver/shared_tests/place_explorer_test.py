@@ -371,8 +371,10 @@ class PlaceExplorerTestMixin():
                     '/place/geoId/06?category=Health,InvalidCategory')
     page_source = self.driver.page_source
 
-    self.assertNotIn('<link rel="canonical"', page_source)
-    self.assertNotIn('<link rel="alternate" hreflang="en"', page_source)
+    # Invalid category should redirect to overview page
+    self.assertIn(
+        '<link rel="canonical" href="https://datacommons.org/place/geoId/06">',
+        page_source)
 
   def test_neighborhood_no_data(self):
     """Test that neighborhood place page shows correct type and no data message."""
