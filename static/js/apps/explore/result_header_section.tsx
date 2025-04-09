@@ -69,22 +69,17 @@ export function ResultHeaderSection(
     const places = props.pageMetadata.places;
     const numPlaces = places.length;
 
-    // Handle case with no places
     if (numPlaces === 0) {
-      console.log("Num places 0");
       return <></>;
     }
 
-    // Handle case with exactly one place
     if (numPlaces === 1) {
-      console.log("Num places 1");
       return (
         <a className="place-callout-link" href={`/place/${places[0].dcid}`}>
           {places[0].name}
         </a>
       );
     }
-    console.log("Num places 2+");
     return (
       <>
         <a className="place-callout-link" href={`/place/${places[0].dcid}`}>
