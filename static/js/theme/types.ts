@@ -150,6 +150,11 @@ export interface Theme {
         tag: string;
         pill: string;
       };
+      tooltip: {
+        text: string;
+        tag: string;
+        pill: string;
+      };
     };
     link?: {
       primary?: {
@@ -263,6 +268,9 @@ export interface Theme {
       borderRadius: string;
     };
     secondary: {
+      borderRadius: string;
+    };
+    tertiary: {
       borderRadius: string;
     };
   };

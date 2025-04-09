@@ -19,6 +19,8 @@ import React, {
   useState,
 } from "react";
 
+import theme from "../../../theme/theme";
+
 //options are: top, top-start, top-end, right, right-start, right-end, bottom, bottom-start, bottom-end, left, left-start, and left-end
 type TooltipPlacement = Placement;
 
@@ -91,13 +93,34 @@ const TooltipBox = styled.div<{
   $visible: boolean;
   $entryDuration: number;
 }>`
+  ${theme.elevation.primary};
+  ${theme.radius.tertiary};
   max-width: ${({ $maxWidth }): string => $maxWidth};
-  background-color: #333;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background-color: ${theme.colors.box.tooltip.pill};
+  color: ${theme.colors.box.tooltip.text};
+  padding: ${theme.spacing.md}px;
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.spacing.sm}px;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  big {
+    padding: 0;
+    margin: 0;
+    ${theme.typography.family.heading}
+    ${theme.typography.text.md}
+    font-weight: 600;
+  }
+  p,
+  li {
+    padding: 0;
+    margin: 0;
+    ${theme.typography.family.text}
+    ${theme.typography.text.md}
+  }
 
   ${({
     $distance,
