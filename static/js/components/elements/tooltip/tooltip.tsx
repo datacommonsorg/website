@@ -21,42 +21,38 @@ import React, {
 
 import theme from "../../../theme/theme";
 
-//options are: top, top-start, top-end, right, right-start, right-end, bottom, bottom-start, bottom-end, left, left-start, and left-end
+// Options are: top, top-start, top-end, right, right-start, right-end,
+// bottom, bottom-start, bottom-end, left, left-start, and left-end
 type TooltipPlacement = Placement;
 
-/*
- The interface for the tooltip component.
- */
 interface TooltipProps {
-  //The content of the tooltip itself. This can be a string or ReactNode.
+  // The content of the tooltip itself. This can be a string or ReactNode.
   title: ReactNode;
-  //The trigger of the tooltip. This can be any ReactNode.
+  // The trigger of the tooltip. This can be any ReactNode.
   children: ReactNode;
-  //Placement of the tooltip relative to the trigger. It will self-adjust
-  //if no room. Default is 'bottom-start' when followCursor is
-  //true, else 'top'.
+  // Placement of the tooltip relative to the trigger. It will self-adjust if no room.
+  // Default is 'bottom-start' when followCursor is true, else 'top'.
   placement?: TooltipPlacement;
-  //The tooltip follows the mouse cursor if true. Default false.
+  // The tooltip follows the mouse cursor if true. Default false.
   followCursor?: boolean;
-  //Touch events do not open the tooltip if true. Default false.
-  //This can be used to suppress touch opening the tooltip when
-  //the tooltip is an action.
+  // Touch events do not open the tooltip if true. Default false. This can be used to
+  // suppress touch opening the tooltip when the tooltip is an action.
   disableTouchListener?: boolean;
-  //Skidding along the axis of the placement (movement laterally - not away from tooltip)
+  // Skidding along the axis of the placement (movement laterally - not away from tooltip)
   skidding?: number;
-  //Distance in the perpendicular axis of the placement (away from tooltip)
+  // Distance in the perpendicular axis of the placement (away from tooltip)
   distance?: number;
-  //Fade transition duration in ms. Defaults to 100ms.
+  // Fade transition duration in ms. Defaults to 100ms.
   fadeDuration?: number;
-  //Entry animation duration in ms. Defaults to 150ms.
+  // Entry animation duration in ms. Defaults to 150ms.
   entryDuration?: number;
   // Delay before closing the tooltip when the mouse leaves in ms. Defaults to 150ms.
   closeDelay?: number;
-  //The maximum width of the tooltip. Defaults to 300px.
+  // The maximum width of the tooltip. Defaults to 300px.
   maxWidth?: number | string;
 }
 
-//TODO (pablonoel): move these to the theme?
+// TODO (pablonoel): move some of these to the theme (the z-index, width)?
 const TOOLTIP_Z_INDEX = 9999;
 const TOOLTIP_DEFAULT_FADE_DURATION = 100;
 const TOOLTIP_DEFAULT_ENTRY_DURATION = 150;
@@ -428,17 +424,15 @@ export const Tooltip = ({
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (!open) return;
 
-      if (e.key === "Tab" && !e.shiftKey) {
-        if (tooltipBoxRef.current) {
-          const focusable = getFocusableElements(tooltipBoxRef.current);
+      if (tooltipBoxRef.current) {
+        const focusable = getFocusableElements(tooltipBoxRef.current);
+
+        if (e.key === "Tab" && !e.shiftKey) {
           if (focusable.length > 0) {
             e.preventDefault();
             focusable[0].focus();
           }
-        }
-      } else if (e.key === "Tab" && e.shiftKey) {
-        if (tooltipBoxRef.current) {
-          const focusable = getFocusableElements(tooltipBoxRef.current);
+        } else if (e.key === "Tab" && e.shiftKey) {
           if (focusable.length > 0) {
             e.preventDefault();
             focusable[focusable.length - 1].focus();
