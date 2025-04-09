@@ -15,21 +15,32 @@
  */
 
 /**
- * Component for the stat var queries on the explore landing pages.
+ * Component for the stat var queries on country data pages.
  */
 
+import { css } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { LinkChips } from "../../../components/content/link_chips";
 import { Link } from "../../../components/elements/link_chip";
+import { Box } from "../../../components/elements/wrappers/box";
 import { Query } from "../../../shared/topic_config";
+import { Place } from "../place_data";
 
-interface StatVarQueriesProps {
+interface StatVarPlaceTopicsProps {
+  //the display name of the place (e.g. Canada)
+  place: Place;
+  //the display name of the topic (e.g. Economics)
+  topic: string;
   //the stat var queries that will be displayed as link chips in this component
   queries: Query[];
 }
 
-export function StatVarQueries({ queries }: StatVarQueriesProps): ReactElement {
+export function StatVarPlaceTopics({
+  place,
+  topic,
+  queries,
+}: StatVarPlaceTopicsProps): ReactElement {
   const statVarLinkChips: Link[] = queries.map((query) => ({
     id: query.url,
     title: query.title,
@@ -37,17 +48,25 @@ export function StatVarQueries({ queries }: StatVarQueriesProps): ReactElement {
     variant: "flat",
   }));
 
-  if (queries.length === 0) {
-    return null;
-  }
+  statVarLinkChips.push({
+    id: "see-more-in-timelines",
+    title: "See more in the timelines explorer",
+    url: `/tools/visualization#visType%3Dtimeline%26place%3D${place.dcid}`,
+    variant: "flat",
+    colorVariant: "grey",
+  });
+
   return (
-    <LinkChips
-      header={
-        "Explore statistical variables around the world in the Timeline explorer tool"
-      }
-      headerComponent="h3"
-      section="statvar"
-      linkChips={statVarLinkChips}
-    />
+    <Box>
+      <LinkChips
+        header={`${place.name} · ${topic}`}
+        headerComponent="h4"
+        section="statvar"
+        containerSx={css`
+          max-width: 100%;
+        `}
+        linkChips={statVarLinkChips}
+      />
+    </Box>
   );
 }
