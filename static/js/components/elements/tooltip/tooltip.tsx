@@ -74,7 +74,7 @@ const TooltipBox = styled.div<{
   $placement: TooltipPlacement;
   $visible: boolean;
   $entryDuration: number;
-  $transitionMs: number;
+  $fadeDuration: number;
   $followCursor: boolean;
 }>`
   ${theme.elevation.primary};
@@ -118,7 +118,7 @@ const TooltipBox = styled.div<{
     $placement,
     $visible,
     $entryDuration,
-    $transitionMs,
+    $fadeDuration,
   }): string => {
     let styles = "";
     const popDistance = 5;
@@ -159,7 +159,7 @@ const TooltipBox = styled.div<{
 
     styles += `
       transform: translate(${transformX}px, ${transformY}px);
-      transition: transform ${$entryDuration}ms ease-out, opacity ${$transitionMs}ms ease-in-out;
+      transition: transform ${$entryDuration}ms ease-out, opacity ${$fadeDuration}ms ease-in-out;
     `;
 
     return styles;
@@ -656,7 +656,7 @@ export const Tooltip = ({
           $placement={computedPlacement}
           $visible={open}
           $entryDuration={effectiveEntryDuration}
-          $transitionMs={effectiveFadeDuration}
+          $fadeDuration={effectiveFadeDuration}
           $followCursor={effectiveFollowCursor}
           style={{
             position: strategy,
