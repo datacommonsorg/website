@@ -156,6 +156,7 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
                 </p>
               </>
             }
+            followCursor
           >
             <InfoSpark />
           </Tooltip>
@@ -175,6 +176,7 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
                 </p>
               </>
             }
+            placement={"right"}
           >
             <ScatterPlot />
           </Tooltip>

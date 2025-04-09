@@ -10,7 +10,7 @@ import {
   useMergeRefs,
 } from "@floating-ui/react";
 import React, {
-  MouseEvent,
+  MouseEvent as ReactMouseEvent,
   ReactElement,
   ReactNode,
   useCallback,
@@ -50,40 +50,23 @@ interface TooltipProps {
   closeDelay?: number;
   // The maximum width of the tooltip. Defaults to 300px.
   maxWidth?: number | string;
+  // Lateral buffer distance in pixels around the trigger to prevent early closure
+  // Defaults to 15px.
+  triggerCloseBuffer?: number;
 }
 
 // TODO (pablonoel): move some of these to the theme (the z-index, width)?
 const TOOLTIP_Z_INDEX = 9999;
 const TOOLTIP_DEFAULT_FADE_DURATION = 100;
 const TOOLTIP_DEFAULT_ENTRY_DURATION = 150;
-const TOOLTIP_DEFAULT_CLOSE_DELAY = 150;
+const TOOLTIP_DEFAULT_CLOSE_DELAY = 0;
+const TOOLTIP_DEFAULT_TRIGGER_CLOSE_BUFFER = 15;
 const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
 
 /*
- * The container for the tooltip itself. Note that this is not the visible tooltip
- * box (which will be inside this container). It is a transparent container that
- * always touches the trigger so that the mouse can pass between the trigger and
- * the tooltip box without losing the tooltip.
+ * The visible tooltip box that appears when the user activates
+ * the trigger.
  */
-const TooltipContainer = styled.div<{
-  $visible: boolean;
-  $transitionMs: number;
-  $followCursor: boolean;
-}>`
-  z-index: ${TOOLTIP_Z_INDEX};
-  background-color: transparent;
-  opacity: ${({ $visible }): number => ($visible ? 1 : 0)};
-  transition: opacity ${({ $transitionMs }): number => $transitionMs}ms
-    ease-in-out;
-  pointer-events: ${({ $followCursor }): string =>
-    $followCursor ? "none" : "auto"};
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-`;
-
 const TooltipBox = styled.div<{
   $distance: number;
   $skidding: number;
@@ -91,6 +74,8 @@ const TooltipBox = styled.div<{
   $placement: TooltipPlacement;
   $visible: boolean;
   $entryDuration: number;
+  $transitionMs: number;
+  $followCursor: boolean;
 }>`
   ${theme.elevation.primary};
   ${theme.radius.tertiary};
@@ -101,6 +86,12 @@ const TooltipBox = styled.div<{
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.sm}px;
+  z-index: ${TOOLTIP_Z_INDEX};
+  opacity: ${({ $visible }): number => ($visible ? 1 : 0)};
+  pointer-events: ${({ $followCursor }): string =>
+    $followCursor ? "none" : "auto"};
+  padding: ${theme.spacing.md}px;
+
   h1,
   h2,
   h3,
@@ -127,6 +118,7 @@ const TooltipBox = styled.div<{
     $placement,
     $visible,
     $entryDuration,
+    $transitionMs,
   }): string => {
     let styles = "";
     const popDistance = 5;
@@ -167,7 +159,7 @@ const TooltipBox = styled.div<{
 
     styles += `
       transform: translate(${transformX}px, ${transformY}px);
-      transition: transform ${$entryDuration}ms ease-out;
+      transition: transform ${$entryDuration}ms ease-out, opacity ${$transitionMs}ms ease-in-out;
     `;
 
     return styles;
@@ -219,6 +211,7 @@ export const Tooltip = ({
   entryDuration,
   closeDelay,
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
+  triggerCloseBuffer = TOOLTIP_DEFAULT_TRIGGER_CLOSE_BUFFER,
 }: TooltipProps): ReactElement => {
   const effectiveFollowCursor = followCursor && !isTouchDevice();
   const effectiveMaxWidth =
@@ -230,7 +223,7 @@ export const Tooltip = ({
   const effectivePlacement = placement || defaultPlacement;
 
   const effectiveSkidding = skidding ?? 0;
-  const effectiveDistance = distance ?? (effectiveFollowCursor ? 16 : 12);
+  const effectiveDistance = distance ?? 12;
   const effectiveFadeDuration = fadeDuration ?? TOOLTIP_DEFAULT_FADE_DURATION;
   const effectiveEntryDuration =
     entryDuration ?? TOOLTIP_DEFAULT_ENTRY_DURATION;
@@ -252,14 +245,11 @@ export const Tooltip = ({
     placement: computedPlacement,
   } = useFloating({
     placement: effectivePlacement,
-    middleware: [
-      ...(effectiveFollowCursor ? [offset(effectiveDistance)] : []),
-      flip(),
-      shift(),
-    ],
+    middleware: [offset(effectiveDistance), flip(), shift()],
     whileElementsMounted: autoUpdate,
   });
 
+  const mergedFloatingRef = useMergeRefs([tooltipBoxRef, refs.setFloating]);
   const mergedReferenceRef = useMergeRefs([triggerRef, refs.setReference]);
 
   const clearCloseTimeout = useCallback((): void => {
@@ -328,7 +318,7 @@ export const Tooltip = ({
   }, [disableTouchListener, handleOpen]);
 
   const handleMouseMove = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
+    (e: ReactMouseEvent<HTMLDivElement>) => {
       if (effectiveFollowCursor) {
         refs.setReference({
           getBoundingClientRect() {
@@ -352,7 +342,7 @@ export const Tooltip = ({
   );
 
   const handleTriggerMouseLeave = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
+    (e: ReactMouseEvent<HTMLDivElement>) => {
       if (effectiveFollowCursor) {
         handleCloseWithDelay();
         return;
@@ -372,7 +362,7 @@ export const Tooltip = ({
   );
 
   const handleTooltipMouseLeave = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
+    (e: ReactMouseEvent<HTMLDivElement>) => {
       if (
         triggerRef.current &&
         e.relatedTarget instanceof Node &&
@@ -489,6 +479,120 @@ export const Tooltip = ({
     [handleClose]
   );
 
+  useEffect(() => {
+    if (!open || effectiveFollowCursor) return;
+
+    function onMouseMove(e: globalThis.MouseEvent): void {
+      if (
+        triggerRef.current?.contains(e.target as Node) ||
+        tooltipBoxRef.current?.contains(e.target as Node)
+      ) {
+        clearCloseTimeout();
+        return;
+      }
+
+      const triggerRect = triggerRef.current?.getBoundingClientRect();
+      const tooltipRect = tooltipBoxRef.current?.getBoundingClientRect();
+      if (!triggerRect || !tooltipRect) return;
+
+      const triggerWithBuffer = {
+        left: triggerRect.left,
+        right: triggerRect.right,
+        top: triggerRect.top,
+        bottom: triggerRect.bottom,
+      };
+
+      if (
+        computedPlacement.startsWith("top") ||
+        computedPlacement.startsWith("bottom")
+      ) {
+        triggerWithBuffer.left -= triggerCloseBuffer;
+        triggerWithBuffer.right += triggerCloseBuffer;
+      } else if (
+        computedPlacement.startsWith("left") ||
+        computedPlacement.startsWith("right")
+      ) {
+        triggerWithBuffer.top -= triggerCloseBuffer;
+        triggerWithBuffer.bottom += triggerCloseBuffer;
+      }
+
+      let [bridgeWidth, bridgeHeight, bridgeLeft, bridgeTop] = [0, 0, 0, 0];
+
+      if (
+        computedPlacement.startsWith("top") ||
+        computedPlacement.startsWith("bottom")
+      ) {
+        bridgeWidth = Math.max(triggerRect.width, tooltipRect.width);
+        bridgeLeft =
+          Math.min(triggerRect.left, tooltipRect.left) -
+          Math.abs(
+            bridgeWidth - Math.max(triggerRect.width, tooltipRect.width)
+          ) /
+            2;
+      } else {
+        bridgeHeight = Math.max(triggerRect.height, tooltipRect.height);
+        bridgeTop =
+          Math.min(triggerRect.top, tooltipRect.top) -
+          Math.abs(
+            bridgeHeight - Math.max(triggerRect.height, tooltipRect.height)
+          ) /
+            2;
+      }
+
+      const inTriggerBuffer =
+        e.clientX >= triggerWithBuffer.left &&
+        e.clientX <= triggerWithBuffer.right &&
+        e.clientY >= triggerWithBuffer.top &&
+        e.clientY <= triggerWithBuffer.bottom;
+
+      let inBridgeArea = false;
+
+      if (computedPlacement.startsWith("top")) {
+        inBridgeArea =
+          e.clientX >= bridgeLeft &&
+          e.clientX <= bridgeLeft + bridgeWidth &&
+          e.clientY >= tooltipRect.bottom &&
+          e.clientY <= triggerRect.top;
+      } else if (computedPlacement.startsWith("bottom")) {
+        inBridgeArea =
+          e.clientX >= bridgeLeft &&
+          e.clientX <= bridgeLeft + bridgeWidth &&
+          e.clientY >= triggerRect.bottom &&
+          e.clientY <= tooltipRect.top;
+      } else if (computedPlacement.startsWith("left")) {
+        inBridgeArea =
+          e.clientY >= bridgeTop &&
+          e.clientY <= bridgeTop + bridgeHeight &&
+          e.clientX >= tooltipRect.right &&
+          e.clientX <= triggerRect.left;
+      } else if (computedPlacement.startsWith("right")) {
+        inBridgeArea =
+          e.clientY >= bridgeTop &&
+          e.clientY <= bridgeTop + bridgeHeight &&
+          e.clientX >= triggerRect.right &&
+          e.clientX <= tooltipRect.left;
+      }
+
+      if (inTriggerBuffer || inBridgeArea) {
+        clearCloseTimeout();
+      } else {
+        handleCloseWithDelay();
+      }
+    }
+
+    window.addEventListener("mousemove", onMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+    };
+  }, [
+    open,
+    computedPlacement,
+    handleCloseWithDelay,
+    clearCloseTimeout,
+    triggerCloseBuffer,
+    effectiveFollowCursor,
+  ]);
+
   const triggerChild = React.Children.only(children) as ReactElement;
 
   let triggerNode: ReactElement;
@@ -541,9 +645,17 @@ export const Tooltip = ({
       {triggerNode}
 
       <FloatingPortal>
-        <TooltipContainer
-          ref={refs.setFloating}
+        <TooltipBox
+          ref={mergedFloatingRef}
+          role="tooltip"
+          onKeyDown={handleTooltipKeyDown}
+          onMouseLeave={handleTooltipMouseLeave}
+          $distance={effectiveDistance}
+          $skidding={effectiveSkidding}
+          $maxWidth={effectiveMaxWidth}
+          $placement={computedPlacement}
           $visible={open}
+          $entryDuration={effectiveEntryDuration}
           $transitionMs={effectiveFadeDuration}
           $followCursor={effectiveFollowCursor}
           style={{
@@ -553,22 +665,9 @@ export const Tooltip = ({
             display: "block",
             pointerEvents: open ? "auto" : "none",
           }}
-          onMouseLeave={handleTooltipMouseLeave}
         >
-          <TooltipBox
-            ref={tooltipBoxRef}
-            role="tooltip"
-            onKeyDown={handleTooltipKeyDown}
-            $distance={effectiveDistance}
-            $skidding={effectiveSkidding}
-            $maxWidth={effectiveMaxWidth}
-            $placement={computedPlacement}
-            $visible={open}
-            $entryDuration={effectiveEntryDuration}
-          >
-            {title}
-          </TooltipBox>
-        </TooltipContainer>
+          {title}
+        </TooltipBox>
       </FloatingPortal>
     </>
   );
