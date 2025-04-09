@@ -3612,3 +3612,24 @@ Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
 dc/x6l3mg60hpe7c,"Consumer Price Index of Consumer Goods And Services (Seasonally Unadjusted): Urban Consumer; Consumer Price Index for All Urban Consumers"
+Monthly_Amount_Sales_BookStores,Monthly amount sale in Book Stores
+Monthly_Amount_Sales_BuildingMaterialAndGardenEquipmentAndSuppliesDealers,Monthly amount sale in Building Material and Garden Equipment and Supplies Dealers
+Monthly_Amount_Sales_BuildingMaterialAndSuppliesDealers,Monthly amount sale in Building Material and Supplies Dealers
+Monthly_Amount_Sales_ClothingAndClothingAccessStores,Monthly amount sale in Clothing and Clothing Accessory Stores
+Monthly_Amount_Sales_ClothingStores,Monthly amount sale in Clothing Stores
+Monthly_Amount_Sales_DepartmentStores,Monthly amount sale in Department Stores
+Monthly_Amount_Sales_DepartmentStoresExcludingDiscountDepartmentStores,Monthly amount sale in Department Stores Excluding Discount Department Stores
+Monthly_Amount_Sales_DiscountDeptStores,Monthly amount sale in Discount Department Stores
+Monthly_Amount_Sales_DrinkingPlaces,Monthly amount sale in Drinking Places
+Monthly_Amount_Sales_ElectronicShoppingAndMailOrderHouses,Monthly amount sale in Electronic Shopping and Mail-Order Houses
+Monthly_Amount_Sales_ElectronicsStores,Monthly amount sale in Electronics Stores
+Monthly_Amount_Sales_FamilyClothingStores,Monthly amount sale in Family Clothing Stores
+Monthly_Amount_Sales_FloorCoveringStores,Monthly amount sale in Floor Covering Stores
+Monthly_Amount_Sales_FoodAndBeverageStores,Monthly amount sale in Food and Beverage Stores
+Monthly_Amount_Sales_FoodServicesAndDrinkingPlaces,Monthly amount sale in Food Services and Drinking Places
+Monthly_Amount_Sales_FuelDealers,Monthly amount sale in Fuel Dealers
+Monthly_Amount_Sales_FullServiceRestaurants,Monthly amount sale in Full-Service Restaurants
+Monthly_Amount_Sales_FurnitureFurnishingsStores,Monthly amount sale in Furniture and Furnishings Stores
+Monthly_Amount_Sales_FurnitureFurnishingsStores_ElectronicsApplianceStores,Monthly amount sale in Furniture, Furnishings, and Electronics & Appliance Stores
+Monthly_Amount_Sales_FurnitureStores,Monthly amount sale in Furniture Stores
+Monthly_Amount_Sales_GasolineStations,Monthly amount sale in Gasoline Stations
