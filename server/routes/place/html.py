@@ -442,6 +442,26 @@ def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
   return links
 
 
+def redirect_to_place_page(dcid: str, request_args: MultiDict[str, str]):
+  """Redirect to the place page for the given DCID
+
+  Handles redirects from Google Search using old URL format
+  Args:
+    dcid: The DCID of the place to redirect to
+    request_args: The request arguments to forward to the place page
+  Returns:
+    A redirect to the place page
+  """
+  redirect_args = dict(request_args)
+  redirect_args['place_dcid'] = dcid
+  del redirect_args['dcid']
+  url = flask.url_for('place.place',
+                      **redirect_args,
+                      _external=True,
+                      _scheme=current_app.config.get('SCHEME', 'https'))
+  return flask.redirect(url)
+
+
 @bp.route('', strict_slashes=False)
 @cache.cached(query_string=True)
 def place_explorer():
@@ -451,19 +471,13 @@ def place_explorer():
   request includes a dcid.
   """
   dcid = flask.request.args.get('dcid', None)
+
+  # If the request contains a dcid, redirect to the place page.
+  # This handles redirects from Google Search "Explore More" link.
+  # Example URL:
+  # https://datacommons.org/place?utm_medium=explore&dcid=geoId/06&mprop=count&popt=Person&hl=en
   if dcid:
-    # Handle redirects from Google Search using old URL format
-    # URLS from the search "Explore More" link look like:
-    # https://datacommons.org/place?utm_medium=explore&dcid=geoId/06&mprop=count&popt=Person&hl=en
-    # Forward along all parameters, except for dcid, to the new URL format.
-    redirect_args = dict(flask.request.args)
-    redirect_args['place_dcid'] = dcid
-    del redirect_args['dcid']
-    url = flask.url_for('place.place',
-                        **redirect_args,
-                        _external=True,
-                        _scheme=current_app.config.get('SCHEME', 'https'))
-    return flask.redirect(url)
+    return redirect_to_place_page(dcid, flask.request.args)
 
   # Otherwise, render the place explorer landing page
   template_file = os.path.join('custom_dc', g.env, 'place_landing.html')

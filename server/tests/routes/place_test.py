@@ -322,3 +322,41 @@ class TestPlacePageHeaders(unittest.TestCase):
     # Test empty list returned for invalid category
     links = get_canonical_links('geoId/06', 'InvalidCategory')
     assert links == []
+
+
+class TestRedirectToPlacePage(unittest.TestCase):
+  """Tests for the redirect_to_place_page function."""
+
+  @patch('flask.url_for')
+  @patch('flask.redirect')
+  def test_redirect_to_place_page(self, mock_redirect, mock_url_for):
+    """Test that redirect_to_place_page properly formats the redirect URL."""
+    from werkzeug.datastructures import MultiDict
+
+    from server.routes.place.html import redirect_to_place_page
+
+    # Setup test data
+    dcid = 'geoId/06'
+    request_args = MultiDict([('dcid', 'geoId/06'), ('category', 'Health'),
+                              ('hl', 'en'), ('utm_medium', 'explore')])
+
+    # Mock url_for to return a specific URL
+    mock_url_for.return_value = '/place/geoId/06?category=Health&hl=en&utm_medium=explore'
+
+    # Need to run within app context
+    with app.app_context():
+      # Call the function
+      redirect_to_place_page(dcid, request_args)
+
+      # Verify url_for was called with correct arguments
+      mock_url_for.assert_called_once_with('place.place',
+                                           category='Health',
+                                           hl='en',
+                                           utm_medium='explore',
+                                           place_dcid='geoId/06',
+                                           _external=True,
+                                           _scheme='http')
+
+      # Verify redirect was called with the URL from url_for
+      mock_redirect.assert_called_once_with(
+          '/place/geoId/06?category=Health&hl=en&utm_medium=explore')
