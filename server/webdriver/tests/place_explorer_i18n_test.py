@@ -57,7 +57,7 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_page_loads_with_locale(self):
     """Ensure experimental dev place page content loads data for a continent."""
-    self.driver.get(self.url_ + '/place/africa?force_dev_places=true&hl=fr')
+    self.driver.get(self.url_ + '/place/africa?hl=fr')
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
@@ -90,7 +90,7 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
   def test_japan_in_japanese_new_place_page(self):
     """Test translations from various sources are displayed correctly."""
 
-    start_url = self.url_ + '/place/country/JPN?hl=ja&force_dev_places=true'
+    start_url = self.url_ + '/place/country/JPN?hl=ja'
     self.driver.get(start_url)
 
     place_name_present = EC.text_to_be_present_in_element(

@@ -19,6 +19,7 @@ import os
 import re
 import time
 from typing import List, Set
+from urllib.parse import urlencode
 
 import flask
 from flask import current_app
@@ -29,7 +30,6 @@ from werkzeug.datastructures import MultiDict
 from server.lib.cache import cache
 from server.lib.config import GLOBAL_CONFIG_BUCKET
 from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import PLACE_PAGE_EXPERIMENT_FEATURE_FLAG
 from server.lib.feature_flags import PLACE_PAGE_GA_FEATURE_FLAG
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
@@ -41,6 +41,8 @@ from shared.lib.place_summaries import get_shard_filename_by_dcid
 from shared.lib.place_summaries import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
+
+PROD_PLACE_PAGE_BASE_URL = 'https://datacommons.org/place/'
 
 CATEGORIES = {
     "Economics",
@@ -280,99 +282,6 @@ def is_seo_experiment_enabled(place_dcid: str, category: str,
   return False
 
 
-# Dev place page experiment groups for countries, US states, and cities
-# Calculated offline using instructions here:
-# https://github.com/datacommonsorg/website/pull/4773
-# https://github.com/datacommonsorg/website/pull/4781
-DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
-    'country/ABW', 'country/AND', 'country/AUT', 'country/AZE', 'country/BEL',
-    'country/BEN', 'country/BLM', 'country/BOL', 'country/BRA', 'country/BRB',
-    'country/BWA', 'country/CHL', 'country/COD', 'country/COG', 'country/CUW',
-    'country/CZE', 'country/EGY', 'country/FJI', 'country/GGY', 'country/GIB',
-    'country/GRC', 'country/GRL', 'country/HUN', 'country/IND', 'country/ISL',
-    'country/JAM', 'country/KHM', 'country/LBN', 'country/LCA', 'country/LSO',
-    'country/LVA', 'country/MDG', 'country/MDV', 'country/MLI', 'country/MSR',
-    'country/MYT', 'country/NCL', 'country/NER', 'country/NFK', 'country/NGA',
-    'country/NOR', 'country/PER', 'country/PNG', 'country/PRI', 'country/PRK',
-    'country/PRY', 'country/PYF', 'country/RWA', 'country/SGP', 'country/SHN',
-    'country/SPM', 'country/SSD', 'country/SUR', 'country/SVN', 'country/TCA',
-    'country/TLS', 'country/TTO', 'country/VEN', 'country/WLF', 'country/YUG',
-    'country/ZAF'
-]
-DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
-    'geoId/01', 'geoId/04', 'geoId/09', 'geoId/10', 'geoId/20', 'geoId/22',
-    'geoId/27', 'geoId/37', 'geoId/40', 'geoId/41', 'geoId/48', 'geoId/54',
-    'geoId/56'
-]
-DEV_PLACE_EXPERIMENT_CITIES_DCIDS: List[str] = [
-    'geoId/1714000', 'geoId/3651000', 'geoId/4865000', 'nuts/FR101',
-    'nuts/PL127', 'wikidataId/Q1011138', 'wikidataId/Q1016939',
-    'wikidataId/Q1022251', 'wikidataId/Q1025345', 'wikidataId/Q10393',
-    'wikidataId/Q109949', 'wikidataId/Q112813', 'wikidataId/Q115256',
-    'wikidataId/Q11725', 'wikidataId/Q11909', 'wikidataId/Q1207076',
-    'wikidataId/Q125293', 'wikidataId/Q12829733', 'wikidataId/Q1337056',
-    'wikidataId/Q1342853', 'wikidataId/Q134635', 'wikidataId/Q1357984',
-    'wikidataId/Q1361', 'wikidataId/Q1375351', 'wikidataId/Q14634',
-    'wikidataId/Q146723', 'wikidataId/Q147171', 'wikidataId/Q1489',
-    'wikidataId/Q1530', 'wikidataId/Q1533', 'wikidataId/Q162880',
-    'wikidataId/Q16959', 'wikidataId/Q170247', 'wikidataId/Q170322',
-    'wikidataId/Q173985', 'wikidataId/Q174461', 'wikidataId/Q179608',
-    'wikidataId/Q179691', 'wikidataId/Q183584', 'wikidataId/Q18459',
-    'wikidataId/Q185684', 'wikidataId/Q18808', 'wikidataId/Q189633',
-    'wikidataId/Q189823', 'wikidataId/Q1953', 'wikidataId/Q197922',
-    'wikidataId/Q198184', 'wikidataId/Q198240', 'wikidataId/Q198266',
-    'wikidataId/Q198370', 'wikidataId/Q200054', 'wikidataId/Q200235',
-    'wikidataId/Q200663', 'wikidataId/Q200878', 'wikidataId/Q205922',
-    'wikidataId/Q2060398', 'wikidataId/Q220', 'wikidataId/Q223761',
-    'wikidataId/Q225641', 'wikidataId/Q243322', 'wikidataId/Q2449',
-    'wikidataId/Q2471', 'wikidataId/Q25282', 'wikidataId/Q2640092',
-    'wikidataId/Q26590', 'wikidataId/Q266014', 'wikidataId/Q269',
-    'wikidataId/Q270787', 'wikidataId/Q2844', 'wikidataId/Q286266',
-    'wikidataId/Q2868', 'wikidataId/Q2887', 'wikidataId/Q30340',
-    'wikidataId/Q3141', 'wikidataId/Q324293', 'wikidataId/Q3274',
-    'wikidataId/Q328615', 'wikidataId/Q332753', 'wikidataId/Q34820',
-    'wikidataId/Q349973', 'wikidataId/Q35493', 'wikidataId/Q3579',
-    'wikidataId/Q359990', 'wikidataId/Q360870', 'wikidataId/Q360942',
-    'wikidataId/Q362865', 'wikidataId/Q36312', 'wikidataId/Q363479',
-    'wikidataId/Q3640', 'wikidataId/Q36529', 'wikidataId/Q36947',
-    'wikidataId/Q3711', 'wikidataId/Q3718', 'wikidataId/Q372791',
-    'wikidataId/Q374365', 'wikidataId/Q3780', 'wikidataId/Q38545',
-    'wikidataId/Q38927', 'wikidataId/Q3894', 'wikidataId/Q38968',
-    'wikidataId/Q3921', 'wikidataId/Q404529', 'wikidataId/Q406',
-    'wikidataId/Q416669', 'wikidataId/Q416988', 'wikidataId/Q426756',
-    'wikidataId/Q42941', 'wikidataId/Q43463', 'wikidataId/Q4361',
-    'wikidataId/Q44210', 'wikidataId/Q46747', 'wikidataId/Q4709',
-    'wikidataId/Q48320', 'wikidataId/Q48338', 'wikidataId/Q486235',
-    'wikidataId/Q486319', 'wikidataId/Q492552', 'wikidataId/Q496837',
-    'wikidataId/Q4970', 'wikidataId/Q506578', 'wikidataId/Q515712',
-    'wikidataId/Q570884', 'wikidataId/Q571033', 'wikidataId/Q571219',
-    'wikidataId/Q571766', 'wikidataId/Q571949', 'wikidataId/Q572140',
-    'wikidataId/Q57756', 'wikidataId/Q57787', 'wikidataId/Q57906',
-    'wikidataId/Q57947', 'wikidataId/Q57958', 'wikidataId/Q5826',
-    'wikidataId/Q58401', 'wikidataId/Q58576', 'wikidataId/Q58695',
-    'wikidataId/Q59164', 'wikidataId/Q59227', 'wikidataId/Q59233',
-    'wikidataId/Q612', 'wikidataId/Q616048', 'wikidataId/Q6487',
-    'wikidataId/Q649', 'wikidataId/Q656', 'wikidataId/Q657072',
-    'wikidataId/Q66485', 'wikidataId/Q66616', 'wikidataId/Q68744',
-    'wikidataId/Q69060', 'wikidataId/Q699777', 'wikidataId/Q713317',
-    'wikidataId/Q713357', 'wikidataId/Q71373', 'wikidataId/Q71455',
-    'wikidataId/Q72945', 'wikidataId/Q75091', 'wikidataId/Q75110',
-    'wikidataId/Q75379', 'wikidataId/Q8131', 'wikidataId/Q852238',
-    'wikidataId/Q856003', 'wikidataId/Q862611', 'wikidataId/Q8660',
-    'wikidataId/Q8673', 'wikidataId/Q883', 'wikidataId/Q887', 'wikidataId/Q894',
-    'wikidataId/Q911', 'wikidataId/Q914', 'wikidataId/Q919',
-    'wikidataId/Q93230', 'wikidataId/Q9361'
-]
-DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS: List[str] = [
-    'northamerica', 'southamerica', 'europe', 'africa', 'asia', 'antarctica',
-    'oceania'
-]
-DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
-                                           DEV_PLACE_EXPERIMENT_US_STATE_DCIDS +
-                                           DEV_PLACE_EXPERIMENT_CITIES_DCIDS +
-                                           DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS)
-
-
 def is_dev_place_ga_enabled(request_args: MultiDict[str, str]) -> bool:
   """Determine if dev place ga should be enabled"""
   return is_feature_enabled(
@@ -380,78 +289,9 @@ def is_dev_place_ga_enabled(request_args: MultiDict[str, str]) -> bool:
   ) and not request_args.get("disable_dev_places") == "true"
 
 
-def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
-                                    request_args: MultiDict[str, str]) -> bool:
-  """Determine if dev place experiment should be enabled for the page"""
-  if not is_feature_enabled(PLACE_PAGE_EXPERIMENT_FEATURE_FLAG):
-    return False
-
-  # Force dev place experiment for testing
-  if request_args.get("force_dev_places") == "true":
-    return True
-  # Disable dev place experiment for testing
-  if request_args.get("disable_dev_places") == "true":
-    return False
-
-  # Experiment is enabled for English pages for countries and US states in the experiment group
-  if locale == 'en' and place_dcid in DEV_PLACE_EXPERIMENT_DCIDS:
-    return True
-  return False
-
-
-@bp.route('', strict_slashes=False)
-@bp.route('/<path:place_dcid>')
-@cache.cached(query_string=True)
-def place(place_dcid=None):
-  if place_dcid is not None and is_dev_place_ga_enabled(
-      flask.request.args) or is_dev_place_experiment_enabled(
-          place_dcid, g.locale, flask.request.args):
-    return dev_place(place_dcid=place_dcid)
-  redirect_args = dict(flask.request.args)
-
-  # Strip trailing slashes from place dcids
-  should_redirect = False
-  if place_dcid and place_dcid.endswith('/'):
-    place_dcid = place_dcid.rstrip('/')
-    should_redirect = True
-
-  # Rename legacy "topic" request argument to "category"
-  if 'topic' in flask.request.args:
-    redirect_args['category'] = flask.request.args.get('topic', '')
-    del redirect_args['topic']
-    should_redirect = True
-
-  # Rename legacy category request arguments
-  category = redirect_args.get('category', None)
-  if category in CATEGORY_REDIRECTS:
-    redirect_args['category'] = CATEGORY_REDIRECTS[category]
-    should_redirect = True
-
-  if should_redirect:
-    redirect_args['place_dcid'] = place_dcid
-    return flask.redirect(flask.url_for('place.place', **redirect_args),
-                          code=301)
-
-  dcid = flask.request.args.get('dcid', None)
-  if dcid:
-    # Traffic from "explore more" in Search. Forward along all parameters,
-    # except for dcid, to the new URL format.
-    redirect_args = dict(flask.request.args)
-    redirect_args['place_dcid'] = dcid
-    del redirect_args['dcid']
-    redirect_args['category'] = category
-    url = flask.url_for('place.place',
-                        **redirect_args,
-                        _external=True,
-                        _scheme=current_app.config.get('SCHEME', 'https'))
-    return flask.redirect(url)
-
-  if not place_dcid:
-    return place_landing()
-
+def legacy_place(place_dcid: str, category: str):
+  """Render legacy place page"""
   place_type = place_api.api_place_type(place_dcid)
-  if not place_type:
-    return place_landing(error_msg=f'Place "{place_dcid}" not found')
 
   place_type_with_parent_places_links = get_place_type_with_parent_places_links(
       place_dcid)
@@ -465,9 +305,6 @@ def place(place_dcid=None):
   locale = flask.request.args.get('hl')
   if locale not in AVAILABLE_LANGUAGES:
     locale = 'en'
-
-  if category not in CATEGORIES:
-    category = None
 
   is_overview = (not category) or (category == 'Overview')
 
@@ -545,8 +382,104 @@ def place(place_dcid=None):
   return response
 
 
-def place_landing(error_msg=''):
-  """Returns filled template for the place landing page."""
+def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
+  """Returns canonical and alternate language header links for the place page
+
+  Returns an empty list if the place category is invalid.
+
+  Always sets the base url to "https://datacommons.org/place/" to avoid indexing
+  dev or custom DC versions of the place pages.
+
+  Args:
+    place_dcid: The DCID of the place to get canonical links for
+    place_category: The category of the place to get canonical links for
+
+  Returns:
+    A list of canonical and alternate language header links for the place page
+
+  Example output:
+  <link rel="canonical" href="https://datacommons.org/place/geoId/06?category=Health">
+  <link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06?category=Health">
+  <link rel="alternate" hreflang="de" href="https://datacommons.org/place/geoId/06?category=Health&hl=de">
+  <link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06?category=Health">
+  <link rel="alternate" hreflang="es" href="https://datacommons.org/place/geoId/06?category=Health&hl=es">
+  <link rel="alternate" hreflang="fr" href="https://datacommons.org/place/geoId/06?category=Health&hl=fr">
+  <link rel="alternate" hreflang="hi" href="https://datacommons.org/place/geoId/06?category=Health&hl=hi">
+  <link rel="alternate" hreflang="it" href="https://datacommons.org/place/geoId/06?category=Health&hl=it">
+  <link rel="alternate" hreflang="ja" href="https://datacommons.org/place/geoId/06?category=Health&hl=ja">
+  <link rel="alternate" hreflang="ko" href="https://datacommons.org/place/geoId/06?category=Health&hl=ko">
+  <link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?category=Health&hl=ru">
+  """
+  links = []
+  # Return empty list if the place category is invalid
+  if place_category and place_category not in CATEGORIES and place_category != 'Overview':
+    return links
+
+  # Add canonical URL without language parameter
+  query_params = {}
+  if place_category and place_category != 'Overview':
+    query_params['category'] = place_category
+  canonical_url = PROD_PLACE_PAGE_BASE_URL + place_dcid
+  if query_params:
+    canonical_url += '?' + urlencode(query_params)
+  links.append(f'<link rel="canonical" href="{canonical_url}">')
+
+  # Add x-default alternate link pointing to English version
+  links.append(
+      f'<link rel="alternate" hreflang="x-default" href="{canonical_url}">')
+
+  # Add language-specific alternate links
+  for lang in AVAILABLE_LANGUAGES:
+    query_params = {}
+    if place_category and place_category != 'Overview':
+      query_params['category'] = place_category
+    if lang != DEFAULT_LOCALE:
+      query_params['hl'] = lang
+    url = PROD_PLACE_PAGE_BASE_URL + place_dcid
+    if query_params:
+      url += '?' + urlencode(query_params)
+    links.append(f'<link rel="alternate" hreflang="{lang}" href="{url}">')
+  return links
+
+
+def redirect_to_place_page(dcid: str, request_args: MultiDict[str, str]):
+  """Redirect to the place page for the given DCID
+
+  Handles redirects from Google Search using old URL format
+  Args:
+    dcid: The DCID of the place to redirect to
+    request_args: The request arguments to forward to the place page
+  Returns:
+    A redirect to the place page
+  """
+  redirect_args = dict(request_args)
+  redirect_args['place_dcid'] = dcid
+  del redirect_args['dcid']
+  url = flask.url_for('place.place',
+                      **redirect_args,
+                      _external=True,
+                      _scheme=current_app.config.get('SCHEME', 'https'))
+  return flask.redirect(url)
+
+
+@bp.route('', strict_slashes=False)
+@cache.cached(query_string=True)
+def place_explorer():
+  """Renders the place explorer landing page.
+
+  Also handles redirects from Google Search to individual place pages if the
+  request includes a dcid.
+  """
+  dcid = flask.request.args.get('dcid', None)
+
+  # If the request contains a dcid, redirect to the place page.
+  # This handles redirects from Google Search "Explore More" link.
+  # Example URL:
+  # https://datacommons.org/place?utm_medium=explore&dcid=geoId/06&mprop=count&popt=Person&hl=en
+  if dcid:
+    return redirect_to_place_page(dcid, flask.request.args)
+
+  # Otherwise, render the place explorer landing page
   template_file = os.path.join('custom_dc', g.env, 'place_landing.html')
   dcid_json = os.path.join('custom_dc', g.env, 'place_landing_dcids.json')
   if not os.path.exists(
@@ -560,13 +493,51 @@ def place_landing(error_msg=''):
     place_names = place_api.get_display_name(landing_dcids)
     return flask.render_template(
         template_file,
-        error_msg=error_msg,
         place_names=place_names,
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
-# Dev place experiment route
-def dev_place(place_dcid=None):
+@bp.route('/<path:place_dcid>', strict_slashes=False)
+@cache.cached(query_string=True)
+def place(place_dcid):
+  """
+  Renders place page with the given DCID.
+
+  Args:
+    place_dcid: DCID of the place to redirect to
+  """
+  redirect_args = dict(flask.request.args)
+  # Strip trailing slashes from place dcids
+  should_redirect = False
+  if place_dcid and place_dcid.endswith('/'):
+    place_dcid = place_dcid.rstrip('/')
+    should_redirect = True
+
+  # Rename legacy "topic" request argument to "category"
+  if 'topic' in flask.request.args:
+    redirect_args['category'] = flask.request.args.get('topic', '')
+    del redirect_args['topic']
+    should_redirect = True
+
+  # Rename legacy category request arguments
+  category = redirect_args.get('category', None)
+  if category in CATEGORY_REDIRECTS:
+    redirect_args['category'] = CATEGORY_REDIRECTS[category]
+    should_redirect = True
+  elif category is not None and category not in CATEGORIES:
+    # Redirect to the overview page if the category is invalid
+    redirect_args['category'] = None
+    should_redirect = True
+
+  if should_redirect:
+    redirect_args['place_dcid'] = place_dcid
+    return flask.redirect(flask.url_for('place.place', **redirect_args),
+                          code=301)
+
+  # Render legacy place page if dev place ga is not enabled
+  if not is_dev_place_ga_enabled(flask.request.args):
+    return legacy_place(place_dcid=place_dcid, category=category)
+
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
   # Place summaries are currently only supported in English
@@ -576,11 +547,14 @@ def dev_place(place_dcid=None):
   else:
     place_summary = ""
 
+  canonical_links = get_canonical_links(place_dcid, category)
   return flask.render_template('dev_place.html',
+                               canonical_links=canonical_links,
+                               category=category,
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                place_dcid=place_dcid,
                                place_name=place_name,
+                               place_summary=place_summary,
                                sample_questions=json.dumps(
                                    current_app.config.get(
-                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])),
-                               place_summary=place_summary)
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))

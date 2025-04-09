@@ -145,12 +145,13 @@ section {
 
     .header-menu {
       display: flex;
-      max-width: 450px;
+      max-width: 475px;
       &-list {
         display: flex;
         align-items: stretch;
         list-style: none;
         margin: 0;
+        padding: 0;
         @include media-breakpoint-up(xl) {
           gap: calc(#{var.$spacing} * 4);
         }
@@ -171,9 +172,10 @@ section {
             align-items: center;
             background-color: transparent;
             .menu-main-label {
-              font-size: 0.875rem;
               color: #474747;
+              font-size: 0.875rem;
               transition: color 0.3s ease-in-out;
+              white-space: nowrap;
             }
             .menu-arrow-icon {
               margin: 0;
@@ -188,12 +190,13 @@ section {
           }
 
           .menu-main-link {
-            display: flex;
             align-items: center;
-            padding: 8px 0;
             color: #474747;
-            transition: color 0.3s ease-in-out;
+            display: flex;
             font-size: 0.875rem;
+            padding: 8px 0;
+            transition: color 0.3s ease-in-out;
+            white-space: nowrap;
           }
 
           &:hover {
