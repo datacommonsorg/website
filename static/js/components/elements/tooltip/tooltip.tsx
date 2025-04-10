@@ -30,8 +30,11 @@ interface TooltipProps {
   title: ReactNode;
   // The trigger of the tooltip. This can be any ReactNode.
   children: ReactNode;
-  // Placement of the tooltip relative to the trigger. It will self-adjust if no room.
-  // Default is 'bottom-start' when followCursor is true, else 'top'.
+  // Mode of the tooltip: 'tooltip' or 'popover'. Defaults to 'tooltip'.
+  // In 'tooltip' mode, it behaves as a tooltip on desktop and popover in touch mode.
+  // In 'popover' mode, it behaves like a popover in both touch and non-touch mode.
+  mode?: "tooltip" | "popover";
+  // The placement of the cursor relative to the trigger. Default "top".
   placement?: TooltipPlacement;
   // The tooltip follows the mouse cursor if true. Default false.
   followCursor?: boolean;
@@ -217,6 +220,7 @@ function mergeHandlers<T extends (...args: any[]) => void>(
 export const Tooltip = ({
   title,
   children,
+  mode = "tooltip",
   placement,
   followCursor = false,
   disableTouchListener = false,
@@ -229,8 +233,10 @@ export const Tooltip = ({
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
   triggerBuffer = TOOLTIP_DEFAULT_TRIGGER_BUFFER,
 }: TooltipProps): ReactElement => {
+  const popoverMode = mode === "popover";
+
   const isTouch = isTouchDevice();
-  const effectiveFollowCursor = followCursor && !isTouch;
+  const effectiveFollowCursor = followCursor && !isTouch && !popoverMode;
   const effectiveMaxWidth =
     typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth;
 
@@ -330,11 +336,13 @@ export const Tooltip = ({
   }, [openByTouch, handleClose]);
 
   const handleMouseEnter = useCallback((): void => {
-    if (disableTouchListener && isTouchDevice()) {
+    if (disableTouchListener && isTouch) {
       return;
     }
-    handleOpen();
-  }, [disableTouchListener, handleOpen]);
+    if (!popoverMode) {
+      handleOpen();
+    }
+  }, [disableTouchListener, isTouch, popoverMode, handleOpen]);
 
   const handleMouseMove = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
@@ -362,6 +370,8 @@ export const Tooltip = ({
 
   const handleTriggerMouseLeave = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
+      if (popoverMode) return;
+
       if (effectiveFollowCursor) {
         handleCloseWithDelay();
         return;
@@ -377,11 +387,13 @@ export const Tooltip = ({
       }
       handleCloseWithDelay();
     },
-    [effectiveFollowCursor, refs.floating, handleCloseWithDelay]
+    [popoverMode, effectiveFollowCursor, refs.floating, handleCloseWithDelay]
   );
 
   const handleTooltipMouseLeave = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
+      if (popoverMode) return;
+
       if (
         triggerRef.current &&
         e.relatedTarget instanceof Node &&
@@ -392,14 +404,16 @@ export const Tooltip = ({
       }
       handleCloseWithDelay();
     },
-    [handleCloseWithDelay]
+    [popoverMode, handleCloseWithDelay]
   );
 
   const handleFocus = useCallback((): void => {
-    if (disableTouchListener && isTouchDevice()) return;
+    if (disableTouchListener && isTouch) return;
 
-    handleOpen();
-  }, [disableTouchListener, handleOpen]);
+    if (!popoverMode) {
+      handleOpen();
+    }
+  }, [disableTouchListener, isTouch, popoverMode, handleOpen]);
 
   const handleBlur = useCallback(
     (e: React.FocusEvent<HTMLDivElement>) => {
@@ -412,11 +426,11 @@ export const Tooltip = ({
         return;
       }
 
-      if (!openByTouch) {
+      if (!openByTouch && !popoverMode) {
         handleClose();
       }
     },
-    [openByTouch, refs.floating, handleClose]
+    [openByTouch, popoverMode, refs.floating, handleClose]
   );
 
   const handleTouchStart = useCallback((): void => {
@@ -428,6 +442,11 @@ export const Tooltip = ({
       handleOpen(true);
     }
   }, [disableTouchListener, openByTouch, handleClose, handleOpen]);
+
+  const handleClick = useCallback((): void => {
+    if (!popoverMode || isTouch) return;
+    open ? handleClose(true) : handleOpen(true);
+  }, [popoverMode, isTouch, open, handleClose, handleOpen]);
 
   const handleTriggerKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -636,6 +655,7 @@ export const Tooltip = ({
         triggerChild.props.onTouchStart,
         handleTouchStart
       ),
+      onClick: mergeHandlers(triggerChild.props.onClick, handleClick),
       onKeyDown: mergeHandlers(
         triggerChild.props.onKeyDown,
         handleTriggerKeyDown
@@ -651,8 +671,10 @@ export const Tooltip = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         onTouchStart={handleTouchStart}
+        onClick={handleClick}
         onKeyDown={handleTriggerKeyDown}
         tabIndex={0}
+        style={{ cursor: popoverMode ? "pointer" : "inherit" }}
       >
         {triggerChild}
       </div>

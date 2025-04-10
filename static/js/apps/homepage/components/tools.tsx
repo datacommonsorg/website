@@ -26,6 +26,7 @@ import React, { ReactElement } from "react";
 import { Download } from "../../../components/elements/icons/download";
 import { InfoSpark } from "../../../components/elements/icons/info_spark";
 import { IntegrationInstructions } from "../../../components/elements/icons/integration_instructions";
+import { LocationCity } from "../../../components/elements/icons/location_city";
 import { Public } from "../../../components/elements/icons/public";
 import { ScatterPlot } from "../../../components/elements/icons/scatter_plot";
 import { Timeline } from "../../../components/elements/icons/timeline";
@@ -122,7 +123,7 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
           }}
         />
         {/* TODO (nick-next): Remove this before PR */}
-        <div style={{ margin: "50px" }}>
+        <div style={{ margin: "25px" }}>
           <Tooltip
             title={
               <>
@@ -146,14 +147,12 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
           </Tooltip>
         </div>
 
-        <div style={{ margin: "50px" }}>
+        <div style={{ margin: "25px" }}>
           <Tooltip
             title={
               <>
-                <h2>A Tooltip</h2>
-                <p>
-                  <em>This one triggered from an icon, with no links</em>
-                </p>
+                <h2>Follow Cursor</h2>
+                <p>This tooltip follows the cursor.</p>
               </>
             }
             followCursor
@@ -162,7 +161,27 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
           </Tooltip>
         </div>
 
-        <div style={{ margin: "50px" }}>
+        <div style={{ margin: "25px" }}>
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This cursor is to the left.</em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement={"left"}
+          >
+            <ScatterPlot />
+          </Tooltip>
+        </div>
+
+        <div style={{ margin: "25px" }}>
           <Tooltip
             title={
               <>
@@ -176,9 +195,48 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
                 </p>
               </>
             }
+          >
+            <LocationCity />
+          </Tooltip>
+        </div>
+
+        <div style={{ margin: "25px" }}>
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one is to the right.</em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
             placement={"right"}
           >
-            <ScatterPlot />
+            <IntegrationInstructions />
+          </Tooltip>
+        </div>
+
+        <div style={{ margin: "25px" }}>
+          <Tooltip
+            title={
+              <>
+                <h1>Popover</h1>
+                <p>
+                  This is always a popover
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            mode="popover"
+          >
+            <InfoSpark />
           </Tooltip>
         </div>
 
