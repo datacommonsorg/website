@@ -3612,3 +3612,25 @@ Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
 dc/x6l3mg60hpe7c,"Consumer Price Index of Consumer Goods And Services (Seasonally Unadjusted): Urban Consumer; Consumer Price Index for All Urban Consumers"
+Count_Person_16OrMoreYears_LowerSecondaryEducation_Employed_AsAFractionOf_Count_Person_16OrMoreYears_LowerSecondaryEducation,Percentage of employed people with lower secondary education
+Count_Person_Employed_Married_AsAFractionOf_Count_Person_Married,Number of employees who are married
+Count_Person_Unemployed_Unmarried_AsAFractionOf_Count_Person_Unmarried,Number of unmarried people who are unemployed
+Count_Person_LaborUnderutilizedPotentialLaborForce,Number of people in workforce who are under utilized
+Count_Person_LaborUnderutilizedPotentialLaborForce_Female,Number of Females in workforce who are under utilized
+Count_Person_LaborUnderutilizedPotentialLaborForce_Male,Number of Males in workforce who are under utilized
+Count_Person_30To34Years_NonSubsistenceAgriculture_Employed,Number of employed people not participating in Subsistance Agriculture
+Count_Person_30To34Years_SubsistenceAgriculture_Employed,Number of employed people participating in Subsistance Agriculture
+Count_Person_SubsistenceAgriculture_LaborUnderutilizedPotentialLaborForce,Number of people who are under utilized participating in Subsistance Agriculture
+Count_Person_NonSubsistenceAgriculture_AgricultureForestryFishingSector,Number of people work in Agriculture, Forestry, Fishing And Hunting not participating in Subsistance Agriculture
+Count_Person_NonSubsistenceAgriculture_ElectricityGasSteamAirConditionSupply,Number of people work in Electricity, Gas Steam and Air Condition Supply not participating in Subsistance Agriculture
+Count_Person_NonSubsistenceAgriculture_ManufacturingSector,Number of people work in Manufacturing Sector not participating in Subsistance Agriculture
+Count_Person_NonSubsistenceAgriculture_MiningQuarrying,Number of people work in Mining, Quarrying not participating in Subsistance Agriculture
+Count_Person_SubsistenceAgriculture_WaterSupplySewerageWasteManagement,Number of people work in Water Supply, Sewerage and Waste Management participating in Subsistance Agriculture
+Count_Person_SubsistenceAgriculture_AgricultureForestryFishingSector,Number of people work in Agriculture, Forestry, Fishing And Hunting participating in Subsistance Agriculture
+Count_Person_SubsistenceAgriculture_ElectricityGasSteamAirConditionSupply,Number of people work in Electricity, Gas Steam and Air Condition Supply participating in Subsistance Agriculture
+Count_Person_SubsistenceAgriculture_ManufacturingSector,Number of people work in Manufacturing Sector participating in Subsistance Agriculture
+Count_Person_SubsistenceAgriculture_MiningQuarrying,Number of people work in Mining, Quarrying participating in Subsistance Agriculture
+Count_Person_NonSubsistenceAgriculture_WaterSupplySewerageWasteManagement,Number of people work in Water Supply, Sewerage and Waste Management not participating in Subsistance Agriculture
+Count_Person_PlantOperatorAndMachineOperatorAndMachineAssemble,Number of people who are Plant Operator, Machine Operator and Machine Assembler
+Count_Person_PlantOperatorAndMachineOperatorAndMachineAssemble_Rural,Number of rural people who are Plant Operator, Machine Operator and Machine Assembler
+Count_Person_PlantOperatorAndMachineOperatorAndMachineAssemble_Urban,Number of urban people who are Plant Operator, Machine Operator and Machine Assembler
