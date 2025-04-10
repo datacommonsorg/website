@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import re
-import time
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
