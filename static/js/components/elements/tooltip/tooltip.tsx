@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import type { Placement } from "@floating-ui/react";
+import { arrow, FloatingArrow } from "@floating-ui/react";
 import {
   autoUpdate,
   flip,
@@ -235,17 +236,24 @@ export const Tooltip = ({
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const tooltipBoxRef = useRef<HTMLDivElement | null>(null);
+  const arrowRef = useRef(null);
 
   const {
     x,
     y,
     strategy,
     refs,
-    update,
+    context,
     placement: computedPlacement,
+    update,
   } = useFloating({
     placement: effectivePlacement,
-    middleware: [offset(effectiveDistance), flip(), shift()],
+    middleware: [
+      offset(effectiveDistance),
+      flip(),
+      shift(),
+      arrow({ element: arrowRef }),
+    ],
     whileElementsMounted: autoUpdate,
   });
 
@@ -667,6 +675,14 @@ export const Tooltip = ({
           }}
         >
           {title}
+          <FloatingArrow
+            ref={arrowRef}
+            context={context}
+            fill={theme.colors.box.tooltip.pill}
+            stroke={"hsla(0, 0%, 0%, 0.2)"}
+            strokeWidth={1}
+            staticOffset={followCursor ? "5%" : 0}
+          />
         </TooltipBox>
       </FloatingPortal>
     </>
