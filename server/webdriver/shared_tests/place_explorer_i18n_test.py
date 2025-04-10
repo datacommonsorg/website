@@ -59,12 +59,12 @@ class PlaceI18nExplorerTestMixin():
     self.driver.get(self.driver.current_url)
 
     # Wait until the new page has loaded and check for localized text
-    element_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, 'span[data-testid="place-name"]'))
-    place_name = WebDriverWait(self.driver,
-                               self.TIMEOUT_SEC).until(element_present)
+    text_present = EC.text_to_be_present_in_element(
+        (By.CSS_SELECTOR, 'span[data-testid="place-name"]'), 'Données démographiques')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(text_present)
 
     # Assert the French text is present
+    place_name = self.driver.find_element(By.CSS_SELECTOR, 'span[data-testid="place-name"]')
     self.assertIn("Données démographiques", place_name.text)
 
     # Assert that Demographics and hl=fr is part of the new url.
