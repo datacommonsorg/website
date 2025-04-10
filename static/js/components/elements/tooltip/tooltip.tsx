@@ -21,6 +21,7 @@ import React, {
 } from "react";
 
 import theme from "../../../theme/theme";
+import { Close } from "../icons/close";
 
 // Options are: top, top-start, top-end, right, right-start, right-end,
 // bottom, bottom-start, bottom-end, left, left-start, and left-end
@@ -160,6 +161,20 @@ const TooltipBox = styled.div<{
   }}
 `;
 
+const CloseButton = styled.button`
+  position: absolute;
+  top: ${theme.spacing.sm}px;
+  right: ${theme.spacing.sm}px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: ${theme.colors.box.tooltip.text};
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const isTouchDevice = (): boolean =>
   "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
@@ -243,7 +258,7 @@ export const Tooltip = ({
   const effectiveCloseDelay = closeDelay ?? TOOLTIP_DEFAULT_CLOSE_DELAY;
 
   const [open, setOpen] = useState(false);
-  const [openByTouch, setOpenByTouch] = useState(false);
+  const [openAsPopover, setOpenAsPopover] = useState(false);
   const closeTimeoutRef = useRef<number | null>(null);
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
@@ -288,22 +303,22 @@ export const Tooltip = ({
   }, []);
 
   const handleOpen = useCallback(
-    (touch = false): void => {
+    (asPopover = false): void => {
       clearCloseTimeout();
       setOpen(true);
-      if (touch) {
-        setOpenByTouch(true);
+      if (asPopover) {
+        setOpenAsPopover(true);
       }
     },
     [clearCloseTimeout]
   );
 
   const handleClose = useCallback(
-    (touch = false): void => {
+    (asPopover = false): void => {
       clearCloseTimeout();
       setOpen(false);
-      if (touch) {
-        setOpenByTouch(false);
+      if (asPopover) {
+        setOpenAsPopover(false);
       }
     },
     [clearCloseTimeout]
@@ -318,25 +333,27 @@ export const Tooltip = ({
   }, [clearCloseTimeout, effectiveCloseDelay, handleClose]);
 
   useEffect(() => {
-    if (!openByTouch) return;
+    if (!open || !openAsPopover) return;
 
     const handleDocumentClick = (e: Event): void => {
       const target = e.target as Node;
-
       if (
         (triggerRef.current && triggerRef.current.contains(target)) ||
         (tooltipBoxRef.current && tooltipBoxRef.current.contains(target))
       ) {
         return;
       }
-      handleClose(true);
+      handleClose(openAsPopover);
     };
 
     document.addEventListener("touchstart", handleDocumentClick);
+    document.addEventListener("mousedown", handleDocumentClick);
+
     return () => {
       document.removeEventListener("touchstart", handleDocumentClick);
+      document.removeEventListener("mousedown", handleDocumentClick);
     };
-  }, [openByTouch, handleClose]);
+  }, [open, popoverMode, openAsPopover, handleClose]);
 
   const handleMouseEnter = useCallback((): void => {
     if (disableTouchListener && isTouch) {
@@ -429,22 +446,22 @@ export const Tooltip = ({
         return;
       }
 
-      if (!openByTouch && !popoverMode) {
+      if (!openAsPopover && !popoverMode) {
         handleClose();
       }
     },
-    [openByTouch, popoverMode, refs.floating, handleClose]
+    [openAsPopover, popoverMode, refs.floating, handleClose]
   );
 
   const handleTouchStart = useCallback((): void => {
     if (disableTouchListener) return;
 
-    if (openByTouch) {
+    if (openAsPopover) {
       handleClose(true);
     } else {
       handleOpen(true);
     }
-  }, [disableTouchListener, openByTouch, handleClose, handleOpen]);
+  }, [disableTouchListener, openAsPopover, handleClose, handleOpen]);
 
   const handleClick = useCallback((): void => {
     if (!popoverMode || isTouch) return;
@@ -521,7 +538,7 @@ export const Tooltip = ({
   );
 
   useEffect(() => {
-    if (!open || effectiveFollowCursor) return;
+    if (!open || effectiveFollowCursor || openAsPopover) return;
 
     function onMouseMove(e: globalThis.MouseEvent): void {
       if (
@@ -632,6 +649,8 @@ export const Tooltip = ({
     clearCloseTimeout,
     triggerBuffer,
     effectiveFollowCursor,
+    popoverMode,
+    openAsPopover,
   ]);
 
   let triggerChild: ReactElement;
@@ -716,6 +735,11 @@ export const Tooltip = ({
             pointerEvents: open ? "auto" : "none",
           }}
         >
+          {(popoverMode || openAsPopover) && (
+            <CloseButton onClick={(): void => handleClose(true)}>
+              <Close />
+            </CloseButton>
+          )}
           {title}
           {effectiveShowArrow && (
             <FloatingArrow
