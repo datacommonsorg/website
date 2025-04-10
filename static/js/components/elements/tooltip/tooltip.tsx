@@ -44,8 +44,10 @@ interface TooltipProps {
   distance?: number;
   // Fade transition duration in ms. Defaults to 100ms.
   fadeDuration?: number;
-  // Entry animation duration in ms. Defaults to 150ms.
-  entryDuration?: number;
+  // Entry and exit animation duration in ms. Defaults to 150ms.
+  animationDuration?: number;
+  // Distance of animation in pixels. Defaults to 5px.
+  animationDistance?: number;
   // Delay before closing the tooltip when the mouse leaves in ms. Defaults to 150ms.
   closeDelay?: number;
   // The maximum width of the tooltip. Defaults to 300px.
@@ -57,8 +59,11 @@ interface TooltipProps {
 
 // TODO (pablonoel): move some of these to the theme (the z-index, width)?
 const TOOLTIP_Z_INDEX = 9999;
+const TOOLTIP_DEFAULT_DISTANCE = 12;
+const TOOLTIP_DEFAULT_SKIDDING = 0;
 const TOOLTIP_DEFAULT_FADE_DURATION = 100;
-const TOOLTIP_DEFAULT_ENTRY_DURATION = 150;
+const TOOLTIP_DEFAULT_ANIMATION_DURATION = 150;
+const TOOLTIP_DEFAULT_ANIMATION_DISTANCE = 5;
 const TOOLTIP_DEFAULT_CLOSE_DELAY = 0;
 const TOOLTIP_DEFAULT_TRIGGER_CLOSE_BUFFER = 15;
 const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
@@ -73,9 +78,10 @@ const TooltipBox = styled.div<{
   $maxWidth: string;
   $placement: TooltipPlacement;
   $visible: boolean;
-  $entryDuration: number;
+  $animationDuration: number;
   $fadeDuration: number;
   $followCursor: boolean;
+  $animationDistance: number;
 }>`
   ${theme.elevation.primary};
   ${theme.radius.tertiary};
@@ -117,11 +123,11 @@ const TooltipBox = styled.div<{
     $skidding,
     $placement,
     $visible,
-    $entryDuration,
+    $animationDuration,
     $fadeDuration,
+    $animationDistance,
   }): string => {
     let styles = "";
-    const popDistance = 5;
 
     if ($placement.startsWith("top")) {
       styles += `margin-bottom: ${$distance}px;`;
@@ -148,18 +154,18 @@ const TooltipBox = styled.div<{
     }
 
     if ($placement.startsWith("top")) {
-      transformY += $visible ? 0 : popDistance;
+      transformY += $visible ? 0 : $animationDistance;
     } else if ($placement.startsWith("bottom")) {
-      transformY += $visible ? 0 : -popDistance;
+      transformY += $visible ? 0 : -$animationDistance;
     } else if ($placement.startsWith("left")) {
-      transformX += $visible ? 0 : popDistance;
+      transformX += $visible ? 0 : $animationDistance;
     } else if ($placement.startsWith("right")) {
-      transformX += $visible ? 0 : -popDistance;
+      transformX += $visible ? 0 : -$animationDistance;
     }
 
     styles += `
       transform: translate(${transformX}px, ${transformY}px);
-      transition: transform ${$entryDuration}ms ease-out, opacity ${$fadeDuration}ms ease-in-out;
+      transition: transform ${$animationDuration}ms ease-out, opacity ${$fadeDuration}ms ease-in-out;
     `;
 
     return styles;
@@ -208,7 +214,8 @@ export const Tooltip = ({
   skidding,
   distance,
   fadeDuration,
-  entryDuration,
+  animationDuration,
+  animationDistance,
   closeDelay,
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
   triggerCloseBuffer = TOOLTIP_DEFAULT_TRIGGER_CLOSE_BUFFER,
@@ -222,11 +229,13 @@ export const Tooltip = ({
     : "top";
   const effectivePlacement = placement || defaultPlacement;
 
-  const effectiveSkidding = skidding ?? 0;
-  const effectiveDistance = distance ?? 12;
+  const effectiveSkidding = skidding ?? TOOLTIP_DEFAULT_SKIDDING;
+  const effectiveDistance = distance ?? TOOLTIP_DEFAULT_DISTANCE;
   const effectiveFadeDuration = fadeDuration ?? TOOLTIP_DEFAULT_FADE_DURATION;
-  const effectiveEntryDuration =
-    entryDuration ?? TOOLTIP_DEFAULT_ENTRY_DURATION;
+  const effectiveAnimationDuration =
+    animationDuration ?? TOOLTIP_DEFAULT_ANIMATION_DURATION;
+  const effectiveAnimationDistance =
+    animationDistance ?? TOOLTIP_DEFAULT_ANIMATION_DISTANCE;
   const effectiveCloseDelay = closeDelay ?? TOOLTIP_DEFAULT_CLOSE_DELAY;
 
   const [open, setOpen] = useState(false);
@@ -655,9 +664,10 @@ export const Tooltip = ({
           $maxWidth={effectiveMaxWidth}
           $placement={computedPlacement}
           $visible={open}
-          $entryDuration={effectiveEntryDuration}
+          $animationDuration={effectiveAnimationDuration}
           $fadeDuration={effectiveFadeDuration}
           $followCursor={effectiveFollowCursor}
+          $animationDistance={effectiveAnimationDistance}
           style={{
             position: strategy,
             top: y ?? 0,
