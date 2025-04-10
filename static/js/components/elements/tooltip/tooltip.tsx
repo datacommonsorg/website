@@ -53,8 +53,8 @@ interface TooltipProps {
   // The maximum width of the tooltip. Defaults to 300px.
   maxWidth?: number | string;
   // Lateral buffer distance in pixels around the trigger to prevent early closure
-  // Defaults to 15px.
-  triggerCloseBuffer?: number;
+  // Defaults to 10px.
+  triggerBuffer?: number;
 }
 
 // TODO (pablonoel): move some of these to the theme (the z-index, width)?
@@ -65,7 +65,7 @@ const TOOLTIP_DEFAULT_FADE_DURATION = 100;
 const TOOLTIP_DEFAULT_ANIMATION_DURATION = 150;
 const TOOLTIP_DEFAULT_ANIMATION_DISTANCE = 5;
 const TOOLTIP_DEFAULT_CLOSE_DELAY = 0;
-const TOOLTIP_DEFAULT_TRIGGER_CLOSE_BUFFER = 15;
+const TOOLTIP_DEFAULT_TRIGGER_BUFFER = 10;
 const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
 
 /*
@@ -82,6 +82,7 @@ const TooltipBox = styled.div<{
   $fadeDuration: number;
   $followCursor: boolean;
   $animationDistance: number;
+  $isTouch: boolean;
 }>`
   ${theme.elevation.primary};
   ${theme.radius.tertiary};
@@ -126,6 +127,8 @@ const TooltipBox = styled.div<{
     $animationDuration,
     $fadeDuration,
     $animationDistance,
+    $followCursor,
+    $isTouch,
   }): string => {
     let styles = "";
 
@@ -153,19 +156,25 @@ const TooltipBox = styled.div<{
       }
     }
 
-    if ($placement.startsWith("top")) {
-      transformY += $visible ? 0 : $animationDistance;
-    } else if ($placement.startsWith("bottom")) {
-      transformY += $visible ? 0 : -$animationDistance;
-    } else if ($placement.startsWith("left")) {
-      transformX += $visible ? 0 : $animationDistance;
-    } else if ($placement.startsWith("right")) {
-      transformX += $visible ? 0 : -$animationDistance;
+    const shouldAnimate = !$followCursor && !$isTouch;
+
+    if (shouldAnimate) {
+      if ($placement.startsWith("top")) {
+        transformY += $visible ? 0 : $animationDistance;
+      } else if ($placement.startsWith("bottom")) {
+        transformY += $visible ? 0 : -$animationDistance;
+      } else if ($placement.startsWith("left")) {
+        transformX += $visible ? 0 : $animationDistance;
+      } else if ($placement.startsWith("right")) {
+        transformX += $visible ? 0 : -$animationDistance;
+      }
     }
 
     styles += `
       transform: translate(${transformX}px, ${transformY}px);
-      transition: transform ${$animationDuration}ms ease-out, opacity ${$fadeDuration}ms ease-in-out;
+      transition: ${
+        shouldAnimate ? `transform ${$animationDuration}ms ease-out, ` : ""
+      }opacity ${$fadeDuration}ms ease-in-out;
     `;
 
     return styles;
@@ -218,9 +227,10 @@ export const Tooltip = ({
   animationDistance,
   closeDelay,
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
-  triggerCloseBuffer = TOOLTIP_DEFAULT_TRIGGER_CLOSE_BUFFER,
+  triggerBuffer = TOOLTIP_DEFAULT_TRIGGER_BUFFER,
 }: TooltipProps): ReactElement => {
-  const effectiveFollowCursor = followCursor && !isTouchDevice();
+  const isTouch = isTouchDevice();
+  const effectiveFollowCursor = followCursor && !isTouch;
   const effectiveMaxWidth =
     typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth;
 
@@ -515,14 +525,14 @@ export const Tooltip = ({
         computedPlacement.startsWith("top") ||
         computedPlacement.startsWith("bottom")
       ) {
-        triggerWithBuffer.left -= triggerCloseBuffer;
-        triggerWithBuffer.right += triggerCloseBuffer;
+        triggerWithBuffer.left -= triggerBuffer;
+        triggerWithBuffer.right += triggerBuffer;
       } else if (
         computedPlacement.startsWith("left") ||
         computedPlacement.startsWith("right")
       ) {
-        triggerWithBuffer.top -= triggerCloseBuffer;
-        triggerWithBuffer.bottom += triggerCloseBuffer;
+        triggerWithBuffer.top -= triggerBuffer;
+        triggerWithBuffer.bottom += triggerBuffer;
       }
 
       let [bridgeWidth, bridgeHeight, bridgeLeft, bridgeTop] = [0, 0, 0, 0];
@@ -598,7 +608,7 @@ export const Tooltip = ({
     computedPlacement,
     handleCloseWithDelay,
     clearCloseTimeout,
-    triggerCloseBuffer,
+    triggerBuffer,
     effectiveFollowCursor,
   ]);
 
@@ -668,6 +678,7 @@ export const Tooltip = ({
           $fadeDuration={effectiveFadeDuration}
           $followCursor={effectiveFollowCursor}
           $animationDistance={effectiveAnimationDistance}
+          $isTouch={isTouch}
           style={{
             position: strategy,
             top: y ?? 0,
