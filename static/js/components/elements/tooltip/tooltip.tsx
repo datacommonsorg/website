@@ -69,7 +69,7 @@ const TOOLTIP_Z_INDEX = 9999;
 const TOOLTIP_DEFAULT_DISTANCE = 12;
 const TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE = 20;
 const TOOLTIP_DEFAULT_SKIDDING = 0;
-const TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING = -15;
+const TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING = 0;
 const TOOLTIP_DEFAULT_FADE_DURATION = 100;
 const TOOLTIP_DEFAULT_ANIMATION_DURATION = 150;
 const TOOLTIP_DEFAULT_ANIMATION_DISTANCE = 5;
@@ -90,9 +90,9 @@ const TooltipBox = styled.div<{
   $followCursor: boolean;
   $animationDistance: number;
   $isTouch: boolean;
+  $showArrow: boolean;
 }>`
   ${theme.elevation.primary};
-  ${theme.radius.tertiary};
   max-width: ${({ $maxWidth }): string => $maxWidth};
   background-color: ${theme.colors.box.tooltip.pill};
   color: ${theme.colors.box.tooltip.text};
@@ -105,6 +105,37 @@ const TooltipBox = styled.div<{
   pointer-events: ${({ $followCursor }): string =>
     $followCursor ? "none" : "auto"};
   padding: ${theme.spacing.md}px;
+
+  ${({ $placement, $showArrow }): string | { borderRadius: string } => {
+    if (!$showArrow) {
+      return theme.radius.tertiary;
+    }
+    const baseRadius = theme.radius.tertiary.borderRadius;
+    const placementRules = [
+      { prefix: "top-start", rule: "border-bottom-left-radius: 0;" },
+      { prefix: "top-end", rule: "border-bottom-right-radius: 0;" },
+      { prefix: "bottom-start", rule: "border-top-left-radius: 0;" },
+      { prefix: "bottom-end", rule: "border-top-right-radius: 0;" },
+      { prefix: "left-start", rule: "border-top-right-radius: 0;" },
+      { prefix: "left-end", rule: "border-bottom-right-radius: 0;" },
+      { prefix: "right-start", rule: "border-top-left-radius: 0;" },
+      { prefix: "right-end", rule: "border-bottom-left-radius: 0;" },
+      { prefix: "top", rule: "border-bottom-radius: 0;" },
+      { prefix: "bottom", rule: "border-top-radius: 0;" },
+      { prefix: "left", rule: "border-right-radius: 0;" },
+      { prefix: "right", rule: "border-left-radius: 0;" },
+    ];
+    const match = placementRules.find(({ prefix }) =>
+      $placement.startsWith(prefix)
+    );
+    if (match) {
+      return `
+        border-radius: ${baseRadius};
+        ${match.rule}
+      `;
+    }
+    return theme.radius.tertiary;
+  }}
 
   h1,
   h2,
@@ -236,11 +267,6 @@ export const Tooltip = ({
     ? "bottom-start"
     : "top";
   const effectivePlacement = placement || defaultPlacement;
-
-  const effectiveShowArrow =
-    showArrow &&
-    !effectivePlacement.includes("-start") &&
-    !effectivePlacement.includes("-end");
 
   const effectiveSkidding =
     skidding ?? followCursor
@@ -727,6 +753,7 @@ export const Tooltip = ({
           $followCursor={effectiveFollowCursor}
           $animationDistance={effectiveAnimationDistance}
           $isTouch={isTouch}
+          $showArrow={showArrow}
           style={{
             position: strategy,
             top: y ?? 0,
@@ -741,14 +768,13 @@ export const Tooltip = ({
             </CloseButton>
           )}
           {title}
-          {effectiveShowArrow && (
+          {showArrow && (
             <FloatingArrow
               ref={arrowRef}
               context={context}
               fill={theme.colors.box.tooltip.pill}
               stroke={"hsla(0, 0%, 0%, 0.2)"}
               strokeWidth={1}
-              staticOffset={followCursor ? "5%" : 0}
             />
           )}
         </TooltipBox>

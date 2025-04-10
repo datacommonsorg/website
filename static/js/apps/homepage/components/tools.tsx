@@ -156,6 +156,7 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
               </>
             }
             followCursor
+            showArrow
           >
             <InfoSpark />
           </Tooltip>
