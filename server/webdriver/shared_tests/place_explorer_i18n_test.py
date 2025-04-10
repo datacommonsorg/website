@@ -27,6 +27,7 @@ from server.webdriver.base_utils import find_elem
 # Common Kanji: \u4E00-\u9FAF (includes many Chinese characters used in Japanese)
 JAPANESE_CHAR_PATTERN = re.compile(r'[\u3040-\u30FF\u4E00-\u9FAF]')
 
+
 class PlaceI18nExplorerTestMixin():
   """Mixins to test the i18n place explorer page."""
 
