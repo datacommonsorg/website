@@ -184,6 +184,15 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
 
         <div style={{ margin: "25px" }}>
           <Tooltip
+            title="A simple tooltip, text trigger, text content"
+            showArrow
+          >
+            Text Trigger
+          </Tooltip>
+        </div>
+
+        <div style={{ margin: "25px" }}>
+          <Tooltip
             title={
               <>
                 <h2>Another icon tooltip</h2>

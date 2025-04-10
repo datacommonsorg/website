@@ -634,7 +634,13 @@ export const Tooltip = ({
     effectiveFollowCursor,
   ]);
 
-  const triggerChild = React.Children.only(children) as ReactElement;
+  let triggerChild: ReactElement;
+
+  if (typeof children === "string" || typeof children === "number") {
+    triggerChild = <span>{children}</span>;
+  } else {
+    triggerChild = React.Children.only(children) as ReactElement;
+  }
 
   let triggerNode: ReactElement;
   if (isTriggerFocusable(triggerChild)) {
