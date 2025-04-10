@@ -175,7 +175,8 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
                 </p>
               </>
             }
-            placement={"left"}
+            placement="left"
+            showArrow
           >
             <ScatterPlot />
           </Tooltip>

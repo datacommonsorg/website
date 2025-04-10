@@ -39,6 +39,8 @@ interface TooltipProps {
   placement?: TooltipPlacement;
   // The tooltip follows the mouse cursor if true. Default false.
   followCursor?: boolean;
+  // Whether to show the arrow. Defaults to false.
+  showArrow?: boolean;
   // Touch events do not open the tooltip if true. Default false. This can be used to
   // suppress touch opening the tooltip when the tooltip is an action.
   disableTouchListener?: boolean;
@@ -197,6 +199,7 @@ export const Tooltip = ({
   mode = "tooltip",
   placement,
   followCursor = false,
+  showArrow = false,
   disableTouchListener = false,
   skidding,
   distance,
@@ -218,6 +221,11 @@ export const Tooltip = ({
     ? "bottom-start"
     : "top";
   const effectivePlacement = placement || defaultPlacement;
+
+  const effectiveShowArrow =
+    showArrow &&
+    !effectivePlacement.includes("-start") &&
+    !effectivePlacement.includes("-end");
 
   const effectiveSkidding =
     skidding ?? followCursor
@@ -242,6 +250,19 @@ export const Tooltip = ({
   const tooltipBoxRef = useRef<HTMLDivElement | null>(null);
   const arrowRef = useRef(null);
 
+  const middleware = [
+    offset({
+      mainAxis: effectiveDistance,
+      crossAxis: effectiveSkidding,
+    }),
+    flip(),
+    shift(),
+  ];
+
+  if (showArrow) {
+    middleware.push(arrow({ element: arrowRef }));
+  }
+
   const {
     x,
     y,
@@ -252,15 +273,7 @@ export const Tooltip = ({
     update,
   } = useFloating({
     placement: effectivePlacement,
-    middleware: [
-      offset({
-        mainAxis: effectiveDistance,
-        crossAxis: effectiveSkidding,
-      }),
-      flip(),
-      shift(),
-      arrow({ element: arrowRef }),
-    ],
+    middleware,
     whileElementsMounted: autoUpdate,
   });
 
@@ -698,14 +711,16 @@ export const Tooltip = ({
           }}
         >
           {title}
-          <FloatingArrow
-            ref={arrowRef}
-            context={context}
-            fill={theme.colors.box.tooltip.pill}
-            stroke={"hsla(0, 0%, 0%, 0.2)"}
-            strokeWidth={1}
-            staticOffset={followCursor ? "5%" : 0}
-          />
+          {effectiveShowArrow && (
+            <FloatingArrow
+              ref={arrowRef}
+              context={context}
+              fill={theme.colors.box.tooltip.pill}
+              stroke={"hsla(0, 0%, 0%, 0.2)"}
+              strokeWidth={1}
+              staticOffset={followCursor ? "5%" : 0}
+            />
+          )}
         </TooltipBox>
       </FloatingPortal>
     </>
