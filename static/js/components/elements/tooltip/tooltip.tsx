@@ -63,7 +63,9 @@ interface TooltipProps {
 // TODO (pablonoel): move some of these to the theme (the z-index, width)?
 const TOOLTIP_Z_INDEX = 9999;
 const TOOLTIP_DEFAULT_DISTANCE = 12;
+const TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE = 20;
 const TOOLTIP_DEFAULT_SKIDDING = 0;
+const TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING = -15;
 const TOOLTIP_DEFAULT_FADE_DURATION = 100;
 const TOOLTIP_DEFAULT_ANIMATION_DURATION = 150;
 const TOOLTIP_DEFAULT_ANIMATION_DISTANCE = 5;
@@ -76,8 +78,6 @@ const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
  * the trigger.
  */
 const TooltipBox = styled.div<{
-  $distance: number;
-  $skidding: number;
   $maxWidth: string;
   $placement: TooltipPlacement;
   $visible: boolean;
@@ -112,7 +112,7 @@ const TooltipBox = styled.div<{
     margin: 0;
     ${theme.typography.family.heading}
     ${theme.typography.text.md}
-    font-weight: 600;
+        font-weight: 600;
   }
   p,
   li {
@@ -123,8 +123,6 @@ const TooltipBox = styled.div<{
   }
 
   ${({
-    $distance,
-    $skidding,
     $placement,
     $visible,
     $animationDuration,
@@ -133,31 +131,8 @@ const TooltipBox = styled.div<{
     $followCursor,
     $isTouch,
   }): string => {
-    let styles = "";
-
-    if ($placement.startsWith("top")) {
-      styles += `margin-bottom: ${$distance}px;`;
-    } else if ($placement.startsWith("bottom")) {
-      styles += `margin-top: ${$distance}px;`;
-    } else if ($placement.startsWith("left")) {
-      styles += `margin-right: ${$distance}px;`;
-    } else if ($placement.startsWith("right")) {
-      styles += `margin-left: ${$distance}px;`;
-    }
-
     let transformX = 0;
     let transformY = 0;
-
-    if ($skidding !== 0) {
-      if ($placement.startsWith("top") || $placement.startsWith("bottom")) {
-        transformX = $skidding;
-      } else if (
-        $placement.startsWith("left") ||
-        $placement.startsWith("right")
-      ) {
-        transformY = $skidding;
-      }
-    }
 
     const shouldAnimate = !$followCursor && !$isTouch;
 
@@ -173,14 +148,12 @@ const TooltipBox = styled.div<{
       }
     }
 
-    styles += `
+    return `
       transform: translate(${transformX}px, ${transformY}px);
       transition: ${
         shouldAnimate ? `transform ${$animationDuration}ms ease-out, ` : ""
       }opacity ${$fadeDuration}ms ease-in-out;
     `;
-
-    return styles;
   }}
 `;
 
@@ -245,8 +218,14 @@ export const Tooltip = ({
     : "top";
   const effectivePlacement = placement || defaultPlacement;
 
-  const effectiveSkidding = skidding ?? TOOLTIP_DEFAULT_SKIDDING;
-  const effectiveDistance = distance ?? TOOLTIP_DEFAULT_DISTANCE;
+  const effectiveSkidding =
+    skidding ?? followCursor
+      ? TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING
+      : TOOLTIP_DEFAULT_SKIDDING;
+  const effectiveDistance =
+    distance ?? followCursor
+      ? TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE
+      : TOOLTIP_DEFAULT_DISTANCE;
   const effectiveFadeDuration = fadeDuration ?? TOOLTIP_DEFAULT_FADE_DURATION;
   const effectiveAnimationDuration =
     animationDuration ?? TOOLTIP_DEFAULT_ANIMATION_DURATION;
@@ -270,7 +249,14 @@ export const Tooltip = ({
     placement: computedPlacement,
   } = useFloating({
     placement: effectivePlacement,
-    middleware: [offset(effectiveDistance), flip(), shift()],
+    middleware: [
+      offset({
+        mainAxis: effectiveDistance,
+        crossAxis: effectiveSkidding,
+      }),
+      flip(),
+      shift(),
+    ],
     whileElementsMounted: autoUpdate,
   });
 
@@ -691,8 +677,6 @@ export const Tooltip = ({
           role="tooltip"
           onKeyDown={handleTooltipKeyDown}
           onMouseLeave={handleTooltipMouseLeave}
-          $distance={effectiveDistance}
-          $skidding={effectiveSkidding}
           $maxWidth={effectiveMaxWidth}
           $placement={computedPlacement}
           $visible={open}
