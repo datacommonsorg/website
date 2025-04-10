@@ -138,7 +138,8 @@ class PlaceExplorerTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(text_present)
 
     # Assert the English text is present
-    place_name = self.driver.find_element(By.CSS_SELECTOR, 'span[data-testid="place-name"]')
+    place_name = self.driver.find_element(By.CSS_SELECTOR,
+                                          'span[data-testid="place-name"]')
     self.assertIn("Demographics", place_name.text)
 
     # Assert that Demographics is part of the new url
