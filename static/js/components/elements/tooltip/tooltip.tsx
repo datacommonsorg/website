@@ -31,8 +31,11 @@ interface TooltipProps {
   title: ReactNode;
   // The trigger of the tooltip. This can be any ReactNode.
   children: ReactNode;
-  // Placement of the tooltip relative to the trigger. It will self-adjust if no room.
-  // Default is 'bottom-start' when followCursor is true, else 'top'.
+  // Mode of the tooltip: 'tooltip' or 'popover'. Defaults to 'tooltip'.
+  // In 'tooltip' mode, it behaves as a tooltip on desktop and popover in touch mode.
+  // In 'popover' mode, it behaves like a popover in both touch and non-touch mode.
+  mode?: "tooltip" | "popover";
+  // The placement of the cursor relative to the trigger. Default "top".
   placement?: TooltipPlacement;
   // The tooltip follows the mouse cursor if true. Default false.
   followCursor?: boolean;
@@ -45,23 +48,30 @@ interface TooltipProps {
   distance?: number;
   // Fade transition duration in ms. Defaults to 100ms.
   fadeDuration?: number;
-  // Entry animation duration in ms. Defaults to 150ms.
-  entryDuration?: number;
+  // Entry and exit animation duration in ms. Defaults to 150ms.
+  animationDuration?: number;
+  // Distance of animation in pixels. Defaults to 5px.
+  animationDistance?: number;
   // Delay before closing the tooltip when the mouse leaves in ms. Defaults to 150ms.
   closeDelay?: number;
   // The maximum width of the tooltip. Defaults to 300px.
   maxWidth?: number | string;
   // Lateral buffer distance in pixels around the trigger to prevent early closure
-  // Defaults to 15px.
-  triggerCloseBuffer?: number;
+  // Defaults to 10px.
+  triggerBuffer?: number;
 }
 
 // TODO (pablonoel): move some of these to the theme (the z-index, width)?
 const TOOLTIP_Z_INDEX = 9999;
+const TOOLTIP_DEFAULT_DISTANCE = 12;
+const TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE = 20;
+const TOOLTIP_DEFAULT_SKIDDING = 0;
+const TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING = -15;
 const TOOLTIP_DEFAULT_FADE_DURATION = 100;
-const TOOLTIP_DEFAULT_ENTRY_DURATION = 150;
+const TOOLTIP_DEFAULT_ANIMATION_DURATION = 150;
+const TOOLTIP_DEFAULT_ANIMATION_DISTANCE = 5;
 const TOOLTIP_DEFAULT_CLOSE_DELAY = 0;
-const TOOLTIP_DEFAULT_TRIGGER_CLOSE_BUFFER = 15;
+const TOOLTIP_DEFAULT_TRIGGER_BUFFER = 10;
 const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
 
 /*
@@ -69,14 +79,14 @@ const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
  * the trigger.
  */
 const TooltipBox = styled.div<{
-  $distance: number;
-  $skidding: number;
   $maxWidth: string;
   $placement: TooltipPlacement;
   $visible: boolean;
-  $entryDuration: number;
+  $animationDuration: number;
   $fadeDuration: number;
   $followCursor: boolean;
+  $animationDistance: number;
+  $isTouch: boolean;
 }>`
   ${theme.elevation.primary};
   ${theme.radius.tertiary};
@@ -103,7 +113,7 @@ const TooltipBox = styled.div<{
     margin: 0;
     ${theme.typography.family.heading}
     ${theme.typography.text.md}
-    font-weight: 600;
+        font-weight: 600;
   }
   p,
   li {
@@ -114,56 +124,37 @@ const TooltipBox = styled.div<{
   }
 
   ${({
-    $distance,
-    $skidding,
     $placement,
     $visible,
-    $entryDuration,
+    $animationDuration,
     $fadeDuration,
+    $animationDistance,
+    $followCursor,
+    $isTouch,
   }): string => {
-    let styles = "";
-    const popDistance = 5;
-
-    if ($placement.startsWith("top")) {
-      styles += `margin-bottom: ${$distance}px;`;
-    } else if ($placement.startsWith("bottom")) {
-      styles += `margin-top: ${$distance}px;`;
-    } else if ($placement.startsWith("left")) {
-      styles += `margin-right: ${$distance}px;`;
-    } else if ($placement.startsWith("right")) {
-      styles += `margin-left: ${$distance}px;`;
-    }
-
     let transformX = 0;
     let transformY = 0;
 
-    if ($skidding !== 0) {
-      if ($placement.startsWith("top") || $placement.startsWith("bottom")) {
-        transformX = $skidding;
-      } else if (
-        $placement.startsWith("left") ||
-        $placement.startsWith("right")
-      ) {
-        transformY = $skidding;
+    const shouldAnimate = !$followCursor && !$isTouch;
+
+    if (shouldAnimate) {
+      if ($placement.startsWith("top")) {
+        transformY += $visible ? 0 : $animationDistance;
+      } else if ($placement.startsWith("bottom")) {
+        transformY += $visible ? 0 : -$animationDistance;
+      } else if ($placement.startsWith("left")) {
+        transformX += $visible ? 0 : $animationDistance;
+      } else if ($placement.startsWith("right")) {
+        transformX += $visible ? 0 : -$animationDistance;
       }
     }
 
-    if ($placement.startsWith("top")) {
-      transformY += $visible ? 0 : popDistance;
-    } else if ($placement.startsWith("bottom")) {
-      transformY += $visible ? 0 : -popDistance;
-    } else if ($placement.startsWith("left")) {
-      transformX += $visible ? 0 : popDistance;
-    } else if ($placement.startsWith("right")) {
-      transformX += $visible ? 0 : -popDistance;
-    }
-
-    styles += `
+    return `
       transform: translate(${transformX}px, ${transformY}px);
-      transition: transform ${$entryDuration}ms ease-out, opacity ${$fadeDuration}ms ease-in-out;
+      transition: ${
+        shouldAnimate ? `transform ${$animationDuration}ms ease-out, ` : ""
+      }opacity ${$fadeDuration}ms ease-in-out;
     `;
-
-    return styles;
   }}
 `;
 
@@ -203,18 +194,23 @@ function mergeHandlers<T extends (...args: any[]) => void>(
 export const Tooltip = ({
   title,
   children,
+  mode = "tooltip",
   placement,
   followCursor = false,
   disableTouchListener = false,
   skidding,
   distance,
   fadeDuration,
-  entryDuration,
+  animationDuration,
+  animationDistance,
   closeDelay,
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
-  triggerCloseBuffer = TOOLTIP_DEFAULT_TRIGGER_CLOSE_BUFFER,
+  triggerBuffer = TOOLTIP_DEFAULT_TRIGGER_BUFFER,
 }: TooltipProps): ReactElement => {
-  const effectiveFollowCursor = followCursor && !isTouchDevice();
+  const popoverMode = mode === "popover";
+
+  const isTouch = isTouchDevice();
+  const effectiveFollowCursor = followCursor && !isTouch && !popoverMode;
   const effectiveMaxWidth =
     typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth;
 
@@ -223,11 +219,19 @@ export const Tooltip = ({
     : "top";
   const effectivePlacement = placement || defaultPlacement;
 
-  const effectiveSkidding = skidding ?? 0;
-  const effectiveDistance = distance ?? 12;
+  const effectiveSkidding =
+    skidding ?? followCursor
+      ? TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING
+      : TOOLTIP_DEFAULT_SKIDDING;
+  const effectiveDistance =
+    distance ?? followCursor
+      ? TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE
+      : TOOLTIP_DEFAULT_DISTANCE;
   const effectiveFadeDuration = fadeDuration ?? TOOLTIP_DEFAULT_FADE_DURATION;
-  const effectiveEntryDuration =
-    entryDuration ?? TOOLTIP_DEFAULT_ENTRY_DURATION;
+  const effectiveAnimationDuration =
+    animationDuration ?? TOOLTIP_DEFAULT_ANIMATION_DURATION;
+  const effectiveAnimationDistance =
+    animationDistance ?? TOOLTIP_DEFAULT_ANIMATION_DISTANCE;
   const effectiveCloseDelay = closeDelay ?? TOOLTIP_DEFAULT_CLOSE_DELAY;
 
   const [open, setOpen] = useState(false);
@@ -249,7 +253,10 @@ export const Tooltip = ({
   } = useFloating({
     placement: effectivePlacement,
     middleware: [
-      offset(effectiveDistance),
+      offset({
+        mainAxis: effectiveDistance,
+        crossAxis: effectiveSkidding,
+      }),
       flip(),
       shift(),
       arrow({ element: arrowRef }),
@@ -319,11 +326,13 @@ export const Tooltip = ({
   }, [openByTouch, handleClose]);
 
   const handleMouseEnter = useCallback((): void => {
-    if (disableTouchListener && isTouchDevice()) {
+    if (disableTouchListener && isTouch) {
       return;
     }
-    handleOpen();
-  }, [disableTouchListener, handleOpen]);
+    if (!popoverMode) {
+      handleOpen();
+    }
+  }, [disableTouchListener, isTouch, popoverMode, handleOpen]);
 
   const handleMouseMove = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
@@ -351,6 +360,8 @@ export const Tooltip = ({
 
   const handleTriggerMouseLeave = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
+      if (popoverMode) return;
+
       if (effectiveFollowCursor) {
         handleCloseWithDelay();
         return;
@@ -366,11 +377,13 @@ export const Tooltip = ({
       }
       handleCloseWithDelay();
     },
-    [effectiveFollowCursor, refs.floating, handleCloseWithDelay]
+    [popoverMode, effectiveFollowCursor, refs.floating, handleCloseWithDelay]
   );
 
   const handleTooltipMouseLeave = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
+      if (popoverMode) return;
+
       if (
         triggerRef.current &&
         e.relatedTarget instanceof Node &&
@@ -381,14 +394,16 @@ export const Tooltip = ({
       }
       handleCloseWithDelay();
     },
-    [handleCloseWithDelay]
+    [popoverMode, handleCloseWithDelay]
   );
 
   const handleFocus = useCallback((): void => {
-    if (disableTouchListener && isTouchDevice()) return;
+    if (disableTouchListener && isTouch) return;
 
-    handleOpen();
-  }, [disableTouchListener, handleOpen]);
+    if (!popoverMode) {
+      handleOpen();
+    }
+  }, [disableTouchListener, isTouch, popoverMode, handleOpen]);
 
   const handleBlur = useCallback(
     (e: React.FocusEvent<HTMLDivElement>) => {
@@ -401,11 +416,11 @@ export const Tooltip = ({
         return;
       }
 
-      if (!openByTouch) {
+      if (!openByTouch && !popoverMode) {
         handleClose();
       }
     },
-    [openByTouch, refs.floating, handleClose]
+    [openByTouch, popoverMode, refs.floating, handleClose]
   );
 
   const handleTouchStart = useCallback((): void => {
@@ -417,6 +432,11 @@ export const Tooltip = ({
       handleOpen(true);
     }
   }, [disableTouchListener, openByTouch, handleClose, handleOpen]);
+
+  const handleClick = useCallback((): void => {
+    if (!popoverMode || isTouch) return;
+    open ? handleClose(true) : handleOpen(true);
+  }, [popoverMode, isTouch, open, handleClose, handleOpen]);
 
   const handleTriggerKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -514,14 +534,14 @@ export const Tooltip = ({
         computedPlacement.startsWith("top") ||
         computedPlacement.startsWith("bottom")
       ) {
-        triggerWithBuffer.left -= triggerCloseBuffer;
-        triggerWithBuffer.right += triggerCloseBuffer;
+        triggerWithBuffer.left -= triggerBuffer;
+        triggerWithBuffer.right += triggerBuffer;
       } else if (
         computedPlacement.startsWith("left") ||
         computedPlacement.startsWith("right")
       ) {
-        triggerWithBuffer.top -= triggerCloseBuffer;
-        triggerWithBuffer.bottom += triggerCloseBuffer;
+        triggerWithBuffer.top -= triggerBuffer;
+        triggerWithBuffer.bottom += triggerBuffer;
       }
 
       let [bridgeWidth, bridgeHeight, bridgeLeft, bridgeTop] = [0, 0, 0, 0];
@@ -597,7 +617,7 @@ export const Tooltip = ({
     computedPlacement,
     handleCloseWithDelay,
     clearCloseTimeout,
-    triggerCloseBuffer,
+    triggerBuffer,
     effectiveFollowCursor,
   ]);
 
@@ -625,6 +645,7 @@ export const Tooltip = ({
         triggerChild.props.onTouchStart,
         handleTouchStart
       ),
+      onClick: mergeHandlers(triggerChild.props.onClick, handleClick),
       onKeyDown: mergeHandlers(
         triggerChild.props.onKeyDown,
         handleTriggerKeyDown
@@ -640,8 +661,10 @@ export const Tooltip = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         onTouchStart={handleTouchStart}
+        onClick={handleClick}
         onKeyDown={handleTriggerKeyDown}
         tabIndex={0}
+        style={{ cursor: popoverMode ? "pointer" : "inherit" }}
       >
         {triggerChild}
       </div>
@@ -658,14 +681,14 @@ export const Tooltip = ({
           role="tooltip"
           onKeyDown={handleTooltipKeyDown}
           onMouseLeave={handleTooltipMouseLeave}
-          $distance={effectiveDistance}
-          $skidding={effectiveSkidding}
           $maxWidth={effectiveMaxWidth}
           $placement={computedPlacement}
           $visible={open}
-          $entryDuration={effectiveEntryDuration}
+          $animationDuration={effectiveAnimationDuration}
           $fadeDuration={effectiveFadeDuration}
           $followCursor={effectiveFollowCursor}
+          $animationDistance={effectiveAnimationDistance}
+          $isTouch={isTouch}
           style={{
             position: strategy,
             top: y ?? 0,
