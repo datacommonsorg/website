@@ -571,43 +571,6 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   min-height: 325px;
 }
 
-.nl-feedback {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-
-  .nl-feedback-text {
-    color: var(--success);
-    font-style: italic;
-  }
-
-  .nl-feedback-actions {
-    display: flex;
-    justify-content: right;
-    font-size: 0.75rem;
-  }
-
-  .material-icons-outlined {
-    font-size: 16px;
-    color: var(--link-color);
-  }
-}
-
-.feedback-emoji {
-  padding: 0.1rem 0.3rem;
-}
-
-.feedback-emoji:not(.feedback-emoji-dim):hover {
-  background: #e9e9e9;
-  border-radius: var(--border-radius-primary);
-  cursor: pointer;
-}
-
-.feedback-emoji-dim {
-  opacity: 0.3;
-  user-select: none;
-}
-
 /**
  * Answer message tile
  */

@@ -62,9 +62,6 @@ class PlaceI18nExplorerTestMixin():
     aa_children_label = self.driver.find_element(
         By.XPATH, '//*[@id="child-place"]/div/div')
     self.assertEqual(aa_children_label.text, '行政区域 1 の地域')
-    aichi_prefecture = self.driver.find_element(
-        By.XPATH, '//*[@id="child-place"]/div/a[1]')
-    self.assertEqual(aichi_prefecture.text, '三重県,')
 
     # Test that timeline links are removed
     self.assertListEqual(
@@ -141,3 +138,10 @@ class PlaceI18nExplorerTestMixin():
     # Assert localized page title is correct for the locale.
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains('États-Unis'))
+
+  def test_localized_place_page_title(self):
+    """Test localized place page title is correct for the locale."""
+    self.driver.get(self.url_ +
+                    '/place/country/USA?hl=ja&category=Demographics')
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(EC.title_contains('アメリカ合衆国 - 人口統計'))

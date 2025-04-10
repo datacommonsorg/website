@@ -13,16 +13,9 @@
   },
   {
     "name": "dev_place_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "dwnoble",
     "description": "Feature flag to enable the V2 Place page to GA."
-  },
-  {
-    "name": "scroll_to_top_button",
-    "deprecated": true,
-    "enabled": false,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the scroll to top button on the explore and place pages."
   },
   {
     "name": "dynamic_placeholder_experiment",
@@ -41,5 +34,17 @@
     "enabled": true,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
+  },
+  {
+    "name": "show_api_modal",
+    "enabled": false,
+    "owner": "dwnoble",
+    "description": "Feature flag to show the API modal on web components."
+  },
+  {
+    "name": "data_overview",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Enables the data_overview/<place> routes."
   }
 ]

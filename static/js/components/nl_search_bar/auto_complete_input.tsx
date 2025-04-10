@@ -39,6 +39,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
+import { redirect } from "../../shared/util";
 import { stripPatternFromQuery } from "../../shared/util";
 import {
   useInsideClickAlerter,
@@ -343,9 +344,10 @@ export function AutoCompleteInput(
           [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(enableDynamicPlacehoder),
         });
 
-        const url = PLACE_EXPLORER_PREFIX + `${result.dcid}?q=${result.name}`;
-        window.open(url, "_self");
-        return;
+        const overrideParams = new URLSearchParams();
+        overrideParams.set("q", result.name);
+        const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
+        return redirect(window.location.href, destinationUrl, overrideParams);
       }
     }
 

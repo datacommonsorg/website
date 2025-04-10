@@ -23,6 +23,7 @@ MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
 CA_URL = '/place/geoId/06'
 PLACE_SEARCH = 'California, USA'
+NO_DATA_NEIGHBORHOOD_URL = '/place/wikidataId/Q995366'
 
 
 def element_has_text(driver, locator):
@@ -325,3 +326,85 @@ class PlaceExplorerTestMixin():
     entity_dcid_present = EC.text_to_be_present_in_element(
         (By.CLASS_NAME, "copy-svg"), "Entity DCID")
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(entity_dcid_present)
+
+  def test_canonical_links_in_html_head(self):
+    """Test that canonical and alternate language links are present in HTML head"""
+    # Test overview page links
+    self.driver.get(self.url_ + '/place/geoId/06')
+
+    # Get page source and check canonical link
+    page_source = self.driver.page_source
+    self.assertIn(
+        '<link rel="canonical" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+
+    # Check alternate language links
+    self.assertIn(
+        '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?hl=ru">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+
+    # Test category page links
+    self.driver.get(self.url_ + '/place/geoId/06?category=Health')
+    page_source = self.driver.page_source
+
+    self.assertIn(
+        '<link rel="canonical" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?category=Health&amp;hl=ru">',
+        page_source)
+    self.assertIn(
+        '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06?category=Health">',
+        page_source)
+
+    # Test invalid category
+    self.driver.get(self.url_ +
+                    '/place/geoId/06?category=Health,InvalidCategory')
+    page_source = self.driver.page_source
+
+    # Invalid category should redirect to overview page
+    self.assertIn(
+        '<link rel="canonical" href="https://datacommons.org/place/geoId/06">',
+        page_source)
+
+  def test_neighborhood_no_data(self):
+    """Test that neighborhood place page shows correct type and no data message."""
+    # Load neighborhood page
+    self.driver.get(self.url_ + NO_DATA_NEIGHBORHOOD_URL)
+
+    # Wait for subheader to load and contain "Neighborhood in"
+    subheader_present = EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, 'subheader'), 'Neighborhood in')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subheader_present)
+
+    # Wait for no data message to appear
+    no_data_present = EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, 'page-content-container'), 'No data found for')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(no_data_present)
+
+  def test_place_category_placeholder(self):
+    """Test that the place category placeholder is correct."""
+    # Load CA housing page
+    ca_housing_url = CA_URL + "?category=Housing"
+    self.driver.get(self.url_ + ca_housing_url)
+
+    # Wait for search input to be present
+    search_input_present = EC.presence_of_element_located(
+        (By.ID, "query-search-input"))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(search_input_present)
+
+    # Wait for placeholder text to update to expected value
+    def placeholder_has_text(driver):
+      element = driver.find_element(By.ID, "query-search-input")
+      return element.get_attribute("placeholder") == "Housing in California"
+
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(placeholder_has_text)

@@ -15,6 +15,7 @@
  */
 
 import _ from "lodash";
+import { URLSearchParams } from "url";
 
 import { Theme } from "../theme/types";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
@@ -36,6 +37,8 @@ export const placeExplorerCategories = [
   "demographics_new",
   "economics_new",
 ];
+
+const SEARCH_PARAMS_TO_PROPAGATE = new Set(["hl"]);
 
 const NO_DATE_CAP_RCP_STATVARS = [
   // This stat var only has data for 2100. while other stat vars along the same
@@ -206,4 +209,51 @@ export function stripPatternFromQuery(query: string, pattern: string): string {
   // E.g.: query: "population of Calif", pattern: "Calif",
   // returns "population of "
   return query.replace(regex, "");
+}
+
+/**
+ * Extracts all flags to propagate from the URL.
+ */
+export function extractFlagsToPropagate(url: string): URLSearchParams {
+  try {
+    const parsedUrl = new URL(url);
+    const searchParams = parsedUrl.searchParams;
+
+    for (const key of searchParams.keys()) {
+      if (!SEARCH_PARAMS_TO_PROPAGATE.has(key)) {
+        searchParams.delete(key);
+      }
+    }
+    return searchParams;
+  } catch (error) {
+    console.error("Invalid URL provided:", error);
+    return new URLSearchParams();
+  }
+}
+
+/**
+ * Redirects to the destination URL while preserving the URL parameters in the originURL.
+ *
+ * @param originUrl Current URL from which to extract URL parameters
+ * @param destinationUrl Desitnation URL to follow
+ * @param overrideParams Parameters to override.
+ */
+export function redirect(
+  originUrl: string,
+  destinationUrl: string,
+  overrideParams: URLSearchParams = new URLSearchParams()
+): void {
+  const originParams = extractFlagsToPropagate(originUrl);
+
+  // Override parameters in originParams if necessary.
+  overrideParams.forEach((value, key) => {
+    originParams.set(key, value);
+  });
+
+  let finalUrl = destinationUrl;
+  if (originParams.size > 0) {
+    finalUrl += "?" + originParams.toString();
+  }
+
+  window.open(finalUrl, "_self");
 }

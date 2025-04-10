@@ -17,6 +17,7 @@ from unittest.mock import patch
 
 from flask import request
 
+from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.tests.utils import mock_feature_flags
 from web_app import app
 
@@ -68,7 +69,6 @@ class TestPlacePage(unittest.TestCase):
   @patch('server.routes.shared_api.place.parent_places')
   def test_place(self, mock_parent_places, mock_get_place_type_i18n_name,
                  mock_api_place_type, mock_get_i18n_name):
-    mock_feature_flags(app, ['dev_place_ga'], False)
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
@@ -136,6 +136,11 @@ class TestPlacePage(unittest.TestCase):
     assert response.status_code == 200
     assert b"<title>California - Environment" in response.data
 
+    response = app.test_client().get(
+        '/place/geoId/06/?category=InvalidCategory', follow_redirects=True)
+    assert response.status_code == 200
+    assert b"<title>California - Data Commons" in response.data
+
     # TODO(beets): construct a better test that doesn't rely on prod.
     response = app.test_client().get('/explore/place?dcid=geoId/06',
                                      follow_redirects=False)
@@ -179,8 +184,7 @@ class TestPlacePageHeaders(unittest.TestCase):
         'Link')
 
     # Test "Overview" page gives canonical without query parameters
-    response = app.test_client().get('/place/geoId/06?category=Overview',
-                                     follow_redirects=False)
+    response = app.test_client().get('/place/geoId/06', follow_redirects=False)
     assert response.status_code == 200
     assert 'Link' in response.headers
     assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
@@ -220,7 +224,7 @@ class TestPlacePageHeaders(unittest.TestCase):
 
     # Test bad category input gives a canonical without category
     response = app.test_client().get('/place/geoId/06?category=foobar',
-                                     follow_redirects=False)
+                                     follow_redirects=True)
     assert response.status_code == 200
     assert 'Link' in response.headers
     assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
@@ -228,7 +232,7 @@ class TestPlacePageHeaders(unittest.TestCase):
 
     # Test bad locale input gives a canonical without locale
     response = app.test_client().get('/place/geoId/06?hl=foobar',
-                                     follow_redirects=False)
+                                     follow_redirects=True)
     assert response.status_code == 200
     assert 'Link' in response.headers
     assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
@@ -287,3 +291,72 @@ class TestPlacePageHeaders(unittest.TestCase):
         'Link')
     assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="x-default"' in response.headers.get(
         'Link')
+
+  @patch('server.routes.shared_api.place.get_i18n_name')
+  @patch('server.routes.shared_api.place.api_place_type')
+  @patch('server.routes.shared_api.place.get_place_type_i18n_name')
+  @patch('server.routes.shared_api.place.parent_places')
+  def test_get_canonical_links(self, mock_parent_places,
+                               mock_get_place_type_i18n_name,
+                               mock_api_place_type, mock_get_i18n_name):
+    from server.routes.place.html import get_canonical_links
+
+    # Test canonical links for overview page
+    links = get_canonical_links('geoId/06', None)
+    # Ensure the number of canonical links is num available languages + 2 for x-default and canonical
+    assert len(links) == len(AVAILABLE_LANGUAGES) + 2
+    assert '<link rel="canonical" href="https://datacommons.org/place/geoId/06">' in links
+    assert '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06">' in links
+    assert '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06">' in links
+    assert '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?hl=ru">' in links
+
+    # Test canonical links for category page
+    links = get_canonical_links('geoId/06', 'Health')
+    # Ensure the number of canonical links is num available languages + 2 for x-default and canonical
+    assert len(links) == len(AVAILABLE_LANGUAGES) + 2
+    assert '<link rel="canonical" href="https://datacommons.org/place/geoId/06?category=Health">' in links
+    assert '<link rel="alternate" hreflang="x-default" href="https://datacommons.org/place/geoId/06?category=Health">' in links
+    assert '<link rel="alternate" hreflang="en" href="https://datacommons.org/place/geoId/06?category=Health">' in links
+    assert '<link rel="alternate" hreflang="ru" href="https://datacommons.org/place/geoId/06?category=Health&hl=ru">' in links
+
+    # Test empty list returned for invalid category
+    links = get_canonical_links('geoId/06', 'InvalidCategory')
+    assert links == []
+
+
+class TestRedirectToPlacePage(unittest.TestCase):
+  """Tests for the redirect_to_place_page function."""
+
+  @patch('flask.url_for')
+  @patch('flask.redirect')
+  def test_redirect_to_place_page(self, mock_redirect, mock_url_for):
+    """Test that redirect_to_place_page properly formats the redirect URL."""
+    from werkzeug.datastructures import MultiDict
+
+    from server.routes.place.html import redirect_to_place_page
+
+    # Setup test data
+    dcid = 'geoId/06'
+    request_args = MultiDict([('dcid', 'geoId/06'), ('category', 'Health'),
+                              ('hl', 'en'), ('utm_medium', 'explore')])
+
+    # Mock url_for to return a specific URL
+    mock_url_for.return_value = '/place/geoId/06?category=Health&hl=en&utm_medium=explore'
+
+    # Need to run within app context
+    with app.app_context():
+      # Call the function
+      redirect_to_place_page(dcid, request_args)
+
+      # Verify url_for was called with correct arguments
+      mock_url_for.assert_called_once_with('place.place',
+                                           category='Health',
+                                           hl='en',
+                                           utm_medium='explore',
+                                           place_dcid='geoId/06',
+                                           _external=True,
+                                           _scheme='http')
+
+      # Verify redirect was called with the URL from url_for
+      mock_redirect.assert_called_once_with(
+          '/place/geoId/06?category=Health&hl=en&utm_medium=explore')

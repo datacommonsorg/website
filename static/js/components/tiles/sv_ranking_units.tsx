@@ -32,7 +32,6 @@ import {
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getHash } from "../../utils/app/visualization_utils";
 import { formatString, TileSources } from "../../utils/tile_utils";
-import { NlChartFeedback } from "../nl_feedback";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
@@ -132,9 +131,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   : null
               }
               footnote={props.footnote}
-            >
-              <NlChartFeedback id={props.tileId} />
-            </ChartFooter>
+            ></ChartFooter>
           )}
         </div>
       ) : (
@@ -164,9 +161,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
                   footnote={props.footnote}
-                >
-                  <NlChartFeedback id={props.tileId} />
-                </ChartFooter>
+                ></ChartFooter>
               )}
             </div>
           )}
@@ -195,9 +190,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
                   footnote={props.footnote}
-                >
-                  <NlChartFeedback id={props.tileId} />
-                </ChartFooter>
+                ></ChartFooter>
               )}
             </div>
           )}

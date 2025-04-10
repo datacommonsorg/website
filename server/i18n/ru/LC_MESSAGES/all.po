@@ -862,3 +862,6 @@ msgstr "Выбросы оксида азота (небиогенные)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Объем забора воды"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Обзор"
+

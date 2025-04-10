@@ -862,3 +862,6 @@ msgstr "Emissioni di ossido di azoto (non biogeniche)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Tasso di prelievo di acqua"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "Panoramica"
+

@@ -17,6 +17,7 @@ import enum
 import json
 import math
 import re
+import time
 
 from markupsafe import escape
 from pydantic import BaseModel
@@ -34,6 +35,12 @@ TERMINAL_NODE_TYPES = ['Class', 'Provenance']
 PATH_FINDING_MAX_V2NODE_PAGES = 2
 EMBEDDINGS_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
 MAX_HOPS_TO_FETCH_ALL_TRIPLES = 3
+MAX_UNFILTERED_PATHS_FOR_TRAVERSAL = 100
+
+# Determined by sampling entity info size in Colab for hero queries
+MAX_ENTITY_INFO_SIZE_MB = 9
+
+FETCH_ENTITIES_TIMEOUT = 180  # 3 minutes
 
 DESCRIPTION_OF_DESCRIPTION_PROPERTY = (
     'The description describes the entity by its characteristics or '
@@ -121,18 +128,18 @@ def get_next_hop_triples(dcids, out=True):
 
 
 def get_all_triples(dcids):
-  out_triples = {}
-  in_triples = {}
+  result = {}
   for dcid_batch in utils.batch_requested_nodes(dcids):
-    out_triples.update(fetch.triples(dcid_batch, out=True, max_pages=None))
-    in_triples.update(fetch.triples(dcid_batch, out=False, max_pages=None))
-
-  return {
-      dcid: {
+    out_triples = fetch.triples(dcid_batch, out=True, max_pages=None)
+    in_triples = fetch.triples(dcid_batch, out=False, max_pages=None)
+    for dcid in dcid_batch:
+      result[dcid] = {
           'outgoing': out_triples.get(dcid, {}),
           'incoming': in_triples.get(dcid, {})
-      } for dcid in dcids
-  }
+      }
+    if utils.get_dictionary_size_mb(result) > MAX_ENTITY_INFO_SIZE_MB:
+      return result
+  return result
 
 
 class Property:
@@ -663,6 +670,10 @@ class PathFinder:
     9. Uses an external function `annotate_query_with_types` to add type
        information to the original raw query, storing the result in
        `self.query`.
+
+    Returns:
+      List of GraphEntities that were detected from the query to be displayed in
+      final page result.
     '''
     prompt = utils.PARSE_QUERY_PROMPT.format(QUERY=self.raw_query)
 
@@ -686,20 +697,35 @@ class PathFinder:
       str_to_raw[entity.sanitized_str] = entity.raw_str
       for synonym in entity.synonyms:
         str_to_raw[synonym] = entity.raw_str
-    entities_to_dcids, entities_to_recognized_types = recognize_entities_from_query(
-        ' '.join((str_to_raw.keys())))
+
+    detected_entities = recognize_entities_from_query(' '.join(
+        (str_to_raw.keys())))
+
+    displayed_entities = {}
 
     start_dcids = set()
-    # Add dcids of only the start entity to start_dcids.
-    for entity, dcids in entities_to_dcids.items():
-      if entity in start_strs:
-        start_dcids.update(dcids)
     raw_to_types = {}
-    for entity, types in entities_to_recognized_types.items():
-      raw_to_types.setdefault(str_to_raw[entity], []).extend(types)
+    for entity in detected_entities:
+      raw_to_types.setdefault(str_to_raw.get(entity.name, entity.name),
+                              []).extend(entity.types)
+      # Check if the resolved KG entity name is a substring of the identified
+      # start strings. The substring check is required because gemini might
+      # identify "abcd genes" as the start entity when we actually match on just
+      # "abcd".
+      if any(entity.name in start_str for start_str in start_strs):
+        start_dcids.add(entity.dcid)
+
+      if entity.dcid in displayed_entities:
+        combined_types = list(
+            set(displayed_entities[entity.dcid].types) | set(entity.types))
+        displayed_entities[entity.dcid].types = combined_types
+      else:
+        displayed_entities[entity.dcid] = entity.model_copy()
 
     self.start_dcids = list(start_dcids)
     self.query = annotate_query_with_types(self.raw_query, raw_to_types)
+
+    return list(displayed_entities.values())
 
   def traverse_n_hops(self, start_dcids, n):
     '''Traverses the graph for a specified number of hops, updating the path store.
@@ -725,7 +751,10 @@ class PathFinder:
       self.path_store.merge_triples_into_path_store(triples)
       dcids = self.path_store.get_next_dcids()
 
-  def filter_paths_with_embeddings(self, pct=0.1):
+  def filter_paths_with_embeddings(
+      self,
+      pct=0.3,
+      max_paths_before_filtering=MAX_UNFILTERED_PATHS_FOR_TRAVERSAL):
     '''Filters paths based on cosine similarity between property descriptions 
     and the query.
 
@@ -735,8 +764,16 @@ class PathFinder:
     Returns:
         A list of the top properties that were selected for filtering.
     '''
-
     property_descriptions = self.path_store.get_property_descriptions()
+
+    total_paths = 0
+    for paths_from_dcid in self.path_store.get_paths_from_start().values():
+      total_paths += len(paths_from_dcid)
+
+    if total_paths < max_paths_before_filtering:
+      # If there's not too many paths for Gemini to choose from, then skip
+      # filtering by embedding
+      return list(property_descriptions.keys())
 
     # TODO: add a description to description in DC KG.
     property_descriptions['description'] = DESCRIPTION_OF_DESCRIPTION_PROPERTY
@@ -852,6 +889,9 @@ class PathFinder:
         'outgoing' properties, each of which is a list of triples.
           The dictionary *also* contains a key "property_descriptions" which is
         a description of the properties, taken from the path_store
+        
+        boolean: Whether the traversal terminated prematurely due to memory or 
+          time limit.
 
         The structure of the returned dictionary is approximately:
 
@@ -882,12 +922,19 @@ class PathFinder:
         ```
     '''
     entity_info = {}
+    start_time = time.time()
 
     paths_from_start = self.path_store.get_paths_from_start(
         only_selected_paths=True)
     entity_info.update(get_all_triples(list(paths_from_start.keys())))
     for start_dcid in paths_from_start:
       for path in paths_from_start[start_dcid]:
+        exceeded_time_limit = time.time() - start_time > FETCH_ENTITIES_TIMEOUT
+        exceeded_mem_limit = utils.get_dictionary_size_mb(
+            entity_info) > MAX_ENTITY_INFO_SIZE_MB
+        if exceeded_time_limit or exceeded_mem_limit:
+          terminated_prematurely = True
+          return entity_info, terminated_prematurely
 
         dcids = [start_dcid]
         properties_in_path = Path.parse_property_and_type(path)
@@ -897,17 +944,21 @@ class PathFinder:
           for dcid in dcids:
 
             if incoming_node_type:
+              incoming_prop_vals = entity_info.get(dcid,
+                                                   {}).get('incoming',
+                                                           {}).get(prop, [])
               incoming_dcids = [
-                  node['dcid']
-                  for node in entity_info[dcid]['incoming'].get(prop, [])
-                  if not is_terminal(node) and
-                  incoming_node_type in node['types']
+                  node['dcid'] for node in incoming_prop_vals if
+                  not is_terminal(node) and incoming_node_type in node['types']
               ]
               next_dcids.update(incoming_dcids)
             else:
+              outgoing_prop_vals = entity_info.get(dcid,
+                                                   {}).get('outgoing',
+                                                           {}).get(prop, [])
               outgoing_dcids = [
                   node['dcid']
-                  for node in entity_info[dcid]['outgoing'].get(prop, [])
+                  for node in outgoing_prop_vals
                   if not is_terminal(node)
               ]
               next_dcids.update(outgoing_dcids)
@@ -925,4 +976,4 @@ class PathFinder:
     entity_info[
         'property_descriptions'] = self.path_store.get_property_descriptions()
 
-    return entity_info
+    return entity_info, False

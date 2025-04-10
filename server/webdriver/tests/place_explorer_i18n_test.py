@@ -57,7 +57,7 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
 
   def test_dev_place_page_loads_with_locale(self):
     """Ensure experimental dev place page content loads data for a continent."""
-    self.driver.get(self.url_ + '/place/africa?force_dev_places=true&hl=fr')
+    self.driver.get(self.url_ + '/place/africa?hl=fr')
 
     # Assert the subheader contains the parent places.
     self.assertIsNotNone(find_elem(self.driver, value='place-info'))
@@ -73,7 +73,7 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
 
     topics_for_africa = [
         "Économie", "Santé", "Capitaux propres", "Données démographiques",
-        "Environment", "Énergie"
+        "Environnement", "Énergie"
     ]
     shared.assert_topics(self,
                          self.driver,
@@ -90,17 +90,16 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
   def test_japan_in_japanese_new_place_page(self):
     """Test translations from various sources are displayed correctly."""
 
-    start_url = self.url_ + '/place/country/JPN?hl=ja&force_dev_places=true'
+    start_url = self.url_ + '/place/country/JPN?hl=ja'
     self.driver.get(start_url)
 
     place_name_present = EC.text_to_be_present_in_element(
         (By.CSS_SELECTOR, '.place-info [data-testid="place-name"]'), '日本')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
-    # TODO: Update this test once the place type is translated
     # Ensure that the place type in {parentPlace} is translated
     place_type_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '.place-info .subheader'), '国 in')
+        (By.CSS_SELECTOR, '.place-info .subheader'), 'の 国')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 
     # Ensure that the topics tab links are translated
@@ -135,6 +134,17 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
                   value=".chart-container .chart-footnote").text,
         "使用可能な最新のデータに基づくランキング。一部の地域は、対象の年の報告が不完全なため、欠落している可能性があります。")
 
+    # Ranking tile place names load asynchronously, so wait for place name text to be non-empty
+    WebDriverWait(
+        self.driver, self.TIMEOUT_SEC).until(lambda driver: driver.find_element(
+            By.CSS_SELECTOR, '.ranking-tile .place-name'
+        ) and driver.find_element(By.CSS_SELECTOR, '.ranking-tile .place-name').
+                                             text.strip() != '')
+    # Assert that the 1st place name contains Japanese characters
+    place_name = self.driver.find_element(By.CSS_SELECTOR,
+                                          '.ranking-tile .place-name')
+    self.assertTrue(JAPANESE_CHAR_PATTERN.search(place_name.text))
+
     # Wait for and scroll to the first bar chart tile so it lazy loads
     bar_chart_tile_present = EC.presence_of_element_located(
         (By.CLASS_NAME, "bar-chart"))
@@ -149,12 +159,12 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
                       by=By.CSS_SELECTOR,
                       value="svg text.place-tick").text))
 
-    # TODO: Update this test once the see per capita link is translated
+    # Ensure translated per capita checkbox is present
     self.assertEqual(
         find_elem(self.driver,
                   by=By.CSS_SELECTOR,
                   value=".block-controls [data-testid='see-per-capita']").text,
-        "See per capita")
+        "1 人あたりのデータを表示")
 
     # Test that related places callout is translated
     related_places = find_elem(self.driver,

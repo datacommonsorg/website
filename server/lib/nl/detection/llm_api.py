@@ -23,7 +23,7 @@ import requests
 
 from server.lib.nl.common import counters
 
-_GEMINI_PRO_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+_GEMINI_PRO_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent"
 _API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.

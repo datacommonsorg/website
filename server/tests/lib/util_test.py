@@ -1776,11 +1776,17 @@ class TestFetchHighestCoverage(unittest.TestCase):
 
 
 class TestFeatureFlagsTest(unittest.TestCase):
-  FEATURE_FLAG_COUNT = 7
+  # Number of environments that support feature flags
+  FEATURE_FLAG_ENVIRONMENT_COUNT = 6
 
   def test_load_feature_flag_files(self):
+    """Test that all environments have the same number of feature flags, and
+    that there are no duplicate feature flags.
+    """
     directory = "server/config/feature_flag_configs/"
     filenames = os.listdir(directory)
+    self.assertEqual(len(filenames), self.FEATURE_FLAG_ENVIRONMENT_COUNT)
+    feature_flag_counts = []
 
     for filename in filenames:
       filepath = directory + filename
@@ -1794,5 +1800,14 @@ class TestFeatureFlagsTest(unittest.TestCase):
       ]
       duplicate_features = [f for f in features if features.count(f) > 1]
 
+      feature_flag_count = len(features)
+      feature_flag_counts.append(feature_flag_count)
       self.assertEqual(len(duplicate_features), 0)
-      self.assertEqual(len(features), self.FEATURE_FLAG_COUNT)
+
+    # Assert that we have counts for all environments
+    self.assertEqual(len(feature_flag_counts),
+                     self.FEATURE_FLAG_ENVIRONMENT_COUNT)
+
+    # Assert all environments have the same number of feature flags
+    self.assertTrue(
+        all(count == feature_flag_counts[0] for count in feature_flag_counts))
