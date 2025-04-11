@@ -89,7 +89,7 @@ const TooltipBox = styled.div<{
   $fadeDuration: number;
   $followCursor: boolean;
   $animationDistance: number;
-  $isTouch: boolean;
+  $openAsPopover: boolean;
   $showArrow: boolean;
 }>`
   ${theme.elevation.primary};
@@ -164,12 +164,12 @@ const TooltipBox = styled.div<{
     $fadeDuration,
     $animationDistance,
     $followCursor,
-    $isTouch,
+    $openAsPopover,
   }): string => {
     let transformX = 0;
     let transformY = 0;
 
-    const shouldAnimate = !$followCursor && !$isTouch;
+    const shouldAnimate = !$followCursor && !$openAsPopover;
 
     if (shouldAnimate) {
       if ($placement.startsWith("top")) {
@@ -752,7 +752,7 @@ export const Tooltip = ({
           $fadeDuration={effectiveFadeDuration}
           $followCursor={effectiveFollowCursor}
           $animationDistance={effectiveAnimationDistance}
-          $isTouch={isTouch}
+          $openAsPopover={openAsPopover}
           $showArrow={showArrow}
           style={{
             position: strategy,
