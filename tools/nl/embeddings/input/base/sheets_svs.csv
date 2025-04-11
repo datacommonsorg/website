@@ -3612,3 +3612,262 @@ Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
 dc/x6l3mg60hpe7c,"Consumer Price Index of Consumer Goods And Services (Seasonally Unadjusted): Urban Consumer; Consumer Price Index for All Urban Consumers"
+Nominal_Index_Commodity,Commodity price index (nominal)
+Nominal_Index_Commodity_Agriculture,Agriculture commodity price index (nominal)
+Nominal_Index_Commodity_BaseMetalsExceptIronOre,Base metals (excluding iron ore) price index (nominal)
+Nominal_Index_Commodity_Beverage,Beverage price index (nominal)
+Nominal_Index_Commodity_Energy,Energy commodity price index (nominal)
+Nominal_Index_Commodity_Fertilizer,Fertilizer commodity price index (nominal)
+Nominal_Index_Commodity_Food,Nominal food price index (nominal)
+Nominal_Index_Commodity_Grain,Grain price index (nominal)
+Nominal_Index_Commodity_MetalAndMineral,Metal and mineral price index (nominal)
+Nominal_Index_Commodity_NonEnergy,Non-energy commodity price index (nominal)
+Nominal_Index_Commodity_OilAndMeal,Oil and meal commodity price index (nominal)
+Nominal_Index_Commodity_OtherFoods,Price index of other foods (nominal)
+Nominal_Index_Commodity_OtherRawMaterial,Nominal price index of other raw materials (nominal)
+Nominal_Index_Commodity_PreciousMetal,Precious metal commodity price index (nominal)
+Nominal_Index_Commodity_RawMaterials,Raw materials commodity price index (nominal)
+Nominal_Index_Commodity_Timber,Timber commodity price index (nominal)
+RealValue_DeflatorManufacturedExportsUnitValueIndex_EconomicActivity,Deflator of the unit value index of manufactured exports (real value)
+RealValue_Index_Commodity,Commodity price index (real value)
+RealValue_Index_Commodity_Agriculture,Real value index of agricultural commodities
+RealValue_Index_Commodity_BaseMetalsExceptIronOre,Real value index for base metals (except iron ore) commodity
+RealValue_Index_Commodity_Beverage,Real value index of beverage commodity
+RealValue_Index_Commodity_Energy,Real value index of energy commodity
+RealValue_Index_Commodity_Fertilizer,Real value index of fertilizer prices
+RealValue_Index_Commodity_Food,Real value index of food commodities
+RealValue_Index_Commodity_Grain,Real value index of grain commodities
+RealValue_Index_Commodity_MetalAndMineral,Metal and mineral commodity price index (in real value)
+RealValue_Index_Commodity_NonEnergy,Real value index of non-energy commodities
+RealValue_Index_Commodity_OilAndMeal,Real value index for oil and meal commodity
+RealValue_Index_Commodity_OtherFoods,Real value index of other foods commodities
+RealValue_Index_Commodity_OtherRawMaterial,Real value index of other raw materials commodity prices
+RealValue_Index_Commodity_PreciousMetal,Real value index of precious metals commodities
+RealValue_Index_Commodity_RawMaterials,Real value index of raw material commodities
+RealValue_Index_Commodity_Timber,Real value index for timber
+Monthly_Index_Commodity,Monthly commodity price index
+Monthly_Index_Commodity_Agriculture,Monthly commodity index for agriculture
+Monthly_Index_Commodity_BaseMetalsExceptIronOre,Monthly index of commodity price for base metals (except iron ore)
+Monthly_Index_Commodity_Beverage,Monthly commodity price index for beverages
+Monthly_Index_Commodity_Energy,Monthly energy commodity price index
+Monthly_Index_Commodity_Fertilizer,Monthly fertilizer commodity price index
+Monthly_Index_Commodity_Food,Monthly food price index
+Monthly_Index_Commodity_Grain,Monthly grain price index
+Monthly_Index_Commodity_MetalAndMineral,Monthly commodity price index for metal and mineral
+Monthly_Index_Commodity_NonEnergy,Monthly commodity price index - non-energy
+Monthly_Index_Commodity_OilAndMeal,Monthly commodity price index - oil and meal
+Monthly_Index_Commodity_OtherFoods,Monthly commodity price index for other foods
+Monthly_Index_Commodity_OtherRawMaterial,Monthly commodity price index for other raw material
+Monthly_Index_Commodity_PreciousMetal,Monthly commodity price index: precious metal
+Monthly_Index_Commodity_RawMaterials,Monthly raw materials commodity price index
+Monthly_Index_Commodity_Timber,Monthly timber price index
+Monthly_Index_Commodity_NaturalGas,Monthly natural gas price index
+Monthly_Mean_Price_Commodity_CrudeOil,Monthly average price of crude oil
+Monthly_Price_Commodity_A1Rice_Thailand,Monthly price of a1 quality rice in thailand
+Monthly_Price_Commodity_Aluminum,Monthly price of aluminum
+Monthly_Price_Commodity_Bananas_Europe,Monthly price of bananas in europe
+Monthly_Price_Commodity_Bananas_UnitedStates,Monthly price of bananas in united states
+Monthly_Price_Commodity_Barley,Monthly price of barley
+Monthly_Price_Commodity_Beef,Monthly price of beef
+Monthly_Price_Commodity_Broilers,Monthly price of broiler meat
+Monthly_Price_Commodity_Coal_Australia,Monthly coal price in australia
+Monthly_Price_Commodity_Coal_SouthAfrica,Monthly coal price in south africa
+Monthly_Price_Commodity_Cocoa,Monthly price of cocoa
+Monthly_Price_Commodity_CoconutOil,Monthly price of coconut oil
+Monthly_Price_Commodity_CoffeeArabic,Monthly price of coffee arabica
+Monthly_Price_Commodity_CoffeeRobusta,Monthly price of robusta coffee
+Monthly_Price_Commodity_Copper,Monthly price of copper
+Monthly_Price_Commodity_CottonAIndex,Monthly cotton a index price
+Monthly_Price_Commodity_CrudeOil_Dubai,Monthly price of crude oil (dubai)
+Monthly_Price_Commodity_CrudeOil_NorthSeaBrent,Monthly crude oil (north sea brent) price
+Monthly_Price_Commodity_CrudeOil_WestTexasIntermediate,Monthly crude oil (west texas intermediate) price
+Monthly_Price_Commodity_DiammoniumPhosphate,Monthly price of diammonium phosphate commodity
+Monthly_Price_Commodity_FishAndSeafood,Monthly price of fish and seafood
+Monthly_Price_Commodity_Gold,Monthly price of gold
+Monthly_Price_Commodity_Groundnut,Monthly price of groundnut
+Monthly_Price_Commodity_GroundnutOil,Monthly price of groundnut oil
+Monthly_Price_Commodity_IronOreCFRSpot,Monthly iron ore cfr spot price
+Monthly_Price_Commodity_Lead,Monthly price of lead commodity
+Monthly_Price_Commodity_LiquefiedNaturalGas_Japan,Monthly price of liquefied natural gas in japan
+Monthly_Price_Commodity_Maize,Monthly price of maize
+Monthly_Price_Commodity_NaturalGas_Europe,Monthly price of natural gas in europe
+Monthly_Price_Commodity_NaturalGas_UnitedStates,Monthly price of natural gas in the united states
+Monthly_Price_Commodity_Nickel,Monthly price of nickel
+Monthly_Price_Commodity_OrangesIncludingTangerines,Monthly price of oranges (including tangerines)
+Monthly_Price_Commodity_PalmKernelOil,Monthly price of palm kernel oil
+Monthly_Price_Commodity_PalmOil,Monthly price of palm oil commodity
+Monthly_Price_Commodity_PhosphateRock,Monthly price of phosphate rock
+Monthly_Price_Commodity_Platinum,Monthly price of platinum
+Monthly_Price_Commodity_Plywood,Monthly price of plywood
+Monthly_Price_Commodity_PotassiuimChloride,Monthly price of potassiuim chloride
+Monthly_Price_Commodity_RSS3Rubber,Monthly price of rss3 rubber
+Monthly_Price_Commodity_RapseedOil,Monthly price of rapeseed oil
+Monthly_Price_Commodity_RiceFivePercentKernel_Thailand,Monthly price of rice - 5% kernel (thailand)
+Monthly_Price_Commodity_RiceFivePercentKernel_Vietnam,Monthly price of rice - 5% broken, vietnam
+Monthly_Price_Commodity_RiceTwentyFivePercentKernel_Thailand,Monthly price of rice (25% kernel) in thailand
+Monthly_Price_Commodity_Sawnwood_Cameroon,Monthly price of sawnwood in cameroon
+Monthly_Price_Commodity_Sawnwood_Malaysia,Monthly price of sawnwood in malaysia
+Monthly_Price_Commodity_SheepAndLambs,Monthly sheep and lambs price
+Monthly_Price_Commodity_Shrimp_Mexico,Monthly price of shrimp in mexico
+Monthly_Price_Commodity_Silver,Monthly price of silver
+Monthly_Price_Commodity_Sorghum,Monthly price of sorghum
+Monthly_Price_Commodity_Soybean,Monthly price of soybean
+Monthly_Price_Commodity_SoybeanMeal,Monthly price of soybean meal
+Monthly_Price_Commodity_SoybeanOil,Monthly price of soybean oil
+Monthly_Price_Commodity_Sugar,Monthly price of sugar
+Monthly_Price_Commodity_Sugar_Europe,Monthly price of sugar in europe
+Monthly_Price_Commodity_Sugar_UnitedStates,Monthly price of sugar in united states
+Monthly_Price_Commodity_SunflowerOil,Monthly price of sunflower oil
+Monthly_Price_Commodity_TSR20Rubber,Monthly price of tsr20 rubber
+Monthly_Price_Commodity_Tea,Monthly price of tea
+Monthly_Price_Commodity_Tea_Colombo,Monthly tea price in colombo
+Monthly_Price_Commodity_Tea_Kolkata,Monthly price of tea in kolkata
+Monthly_Price_Commodity_Tea_Mombasa,Monthly price of tea in mombasa
+Monthly_Price_Commodity_Tin,Monthly price of tin
+Monthly_Price_Commodity_Tobacco_USImportUnitValue,Monthly import unit value of tobacco in the us.
+Monthly_Price_Commodity_TripleSuperphosphate,Monthly price of the commodity - triple superphosphate
+Monthly_Price_Commodity_Urea,Monthly price of urea commodity
+Monthly_Price_Commodity_WheatHRW_UnitedStates,Monthly price of hard red winter (hrw) wheat in the united states.
+Monthly_Price_Commodity_WheatSRW_UnitedStates,Monthly price of wheat srw in united states
+Monthly_Price_Commodity_WoodLog_Cameroon,Monthly price of wood logs in cameroon
+Monthly_Price_Commodity_WoodLog_Malaysia,Monthly price of wood logs in malaysia
+Monthly_Price_Commodity_Zinc,Monthly price of zinc
+RealValue_Index_Commodity_NaturalGas,Natural gas commodity price index (real value)
+RealValue_ManufacturedExportsUnitValueIndex_EconomicActivity,Unit value index of manufactured exports  (real value)
+RealValue_Mean_Price_Commodity_CrudeOil,Average price of crude oil  (real value)
+RealValue_Price_Commodity_A1Rice_Thailand,Real price of a1 rice in thailand  (real value)
+RealValue_Price_Commodity_Aluminum,Real price of aluminum  (real value)
+RealValue_Price_Commodity_Bananas_Europe,Price of bananas in europe (real value)
+RealValue_Price_Commodity_Bananas_UnitedStates,Price of bananas in the united states (real value)
+RealValue_Price_Commodity_Barley,Real price of barley
+RealValue_Price_Commodity_Beef,Real price of beef
+RealValue_Price_Commodity_Broilers,Real value of broilers
+RealValue_Price_Commodity_Coal_Australia,Real value of coal prices in australia
+RealValue_Price_Commodity_Coal_SouthAfrica,Coal price in south africa (real value)
+RealValue_Price_Commodity_Cocoa,Real value price of cocoa
+RealValue_Price_Commodity_CoconutOil,Real price of coconut oil
+RealValue_Price_Commodity_CoffeeArabic,Real price of arabica coffee
+RealValue_Price_Commodity_CoffeeRobusta,Real price of robusta coffee
+RealValue_Price_Commodity_Copper,Real value of copper
+RealValue_Price_Commodity_CottonAIndex,Real price of cotton a index
+RealValue_Price_Commodity_CrudeOil_Dubai,Price of crude oil (dubai)
+RealValue_Price_Commodity_CrudeOil_NorthSeaBrent,Spot price of north sea brent crude oil
+RealValue_Price_Commodity_CrudeOil_WestTexasIntermediate,Real value of west texas intermediate crude oil price
+RealValue_Price_Commodity_DiammoniumPhosphate,Real price of diammonium phosphate commodity
+RealValue_Price_Commodity_FishAndSeafood,Real value price of fish and seafood
+RealValue_Price_Commodity_Gold,Real value of gold price
+RealValue_Price_Commodity_Groundnut,Real value of groundnut
+RealValue_Price_Commodity_GroundnutOil,Real value price of groundnut oil
+RealValue_Price_Commodity_IronOreCFRSpot,Spot price of iron ore (cfr)
+RealValue_Price_Commodity_Lead,Lead price (real value)
+RealValue_Price_Commodity_LiquefiedNaturalGas_Japan,Price of liquefied natural gas in japan (real value)
+RealValue_Price_Commodity_Maize,Real price of maize
+RealValue_Price_Commodity_NaturalGas_Europe,Natural gas price in europe (real value)
+RealValue_Price_Commodity_NaturalGas_UnitedStates,Natural gas price in the united states (real value)
+RealValue_Price_Commodity_Nickel,Real price of nickel
+RealValue_Price_Commodity_OrangesIncludingTangerines,Real price of oranges (including tangerines)
+RealValue_Price_Commodity_PalmKernelOil,Real price of palm kernel oil
+RealValue_Price_Commodity_PalmOil,Real price of palm oil
+RealValue_Price_Commodity_PhosphateRock,Real value of phosphate rock
+RealValue_Price_Commodity_Platinum,Real value of platinum
+RealValue_Price_Commodity_Plywood,Real value of plywood
+RealValue_Price_Commodity_PotassiuimChloride,Real price of potassiuim chloride
+RealValue_Price_Commodity_RSS3Rubber,Real value price of the commodity rss3 rubber
+RealValue_Price_Commodity_RiceFivePercentKernel_Thailand,Real price of rice - five percent kernel in thailand
+RealValue_Price_Commodity_RiceFivePercentKernel_Vietnam,Real price of rice - 5% kernel in vietnam
+RealValue_Price_Commodity_RiceTwentyFivePercentKernel_Thailand,Real price of rice (twenty five percent kernel) in thailand
+RealValue_Price_Commodity_Sawnwood_Cameroon,Real price of sawnwood in cameroon
+RealValue_Price_Commodity_Sawnwood_Malaysia,Real value of sawnwood in malaysia
+RealValue_Price_Commodity_SheepAndLambs,Real value of the sheep and lamb commodity price
+RealValue_Price_Commodity_Shrimp_Mexico,Real price of shrimp in mexico
+RealValue_Price_Commodity_Silver,Real price of silver
+RealValue_Price_Commodity_Sorghum,Real price of sorghum
+RealValue_Price_Commodity_Soybean,Real value of soybean price
+RealValue_Price_Commodity_SoybeanMeal,Real price of soybean meal commodity
+RealValue_Price_Commodity_SoybeanOil,Real price of soybean oil
+RealValue_Price_Commodity_Sugar,Real price of sugar
+RealValue_Price_Commodity_Sugar_Europe,Real price of sugar in europe
+RealValue_Price_Commodity_Sugar_UnitedStates,Real value of sugar price in united states
+RealValue_Price_Commodity_TSR20Rubber,Real price of tsr20 rubber
+RealValue_Price_Commodity_Tea,Real price of tea commodity
+RealValue_Price_Commodity_Tea_Colombo,Real price of tea in colombo
+RealValue_Price_Commodity_Tea_Kolkata,Real value of tea price in kolkata
+RealValue_Price_Commodity_Tea_Mombasa,Real price of tea in mombasa
+RealValue_Price_Commodity_Tin,Real value of tin commodity price
+RealValue_Price_Commodity_Tobacco_USImportUnitValue,Tobacco import unit value in us dollars
+RealValue_Price_Commodity_TripleSuperphosphate,Real price of triple superphosphate
+RealValue_Price_Commodity_Urea,Real price of urea
+RealValue_Price_Commodity_WheatHRW_UnitedStates,Price of hard red winter (hrw) wheat in the united states (real value)
+RealValue_Price_Commodity_WheatSRW_UnitedStates,Real price of wheat srw in united states
+RealValue_Price_Commodity_WoodLog_Cameroon,Real value of wood logs in cameroon
+RealValue_Price_Commodity_WoodLog_Malaysia,Real price of wood log in malaysia
+RealValue_Price_Commodity_Zinc,Real price of zinc
+Nominal_Index_Commodity_NaturalGas,Natural gas price index (nominal)
+Nominal_Mean_Price_Commodity_CrudeOil,Average nominal price of crude oil (nominal)
+Nominal_Price_Commodity_A1Rice_Thailand,Nominal price of a1 rice in thailand
+Nominal_Price_Commodity_Aluminum,Nominal price of aluminum
+Nominal_Price_Commodity_Bananas_Europe,Nominal price of bananas in europe
+Nominal_Price_Commodity_Bananas_UnitedStates,Nominal price of bananas in united states
+Nominal_Price_Commodity_Barley,Nominal price of barley
+Nominal_Price_Commodity_Beef,Nominal price of beef
+Nominal_Price_Commodity_Broilers,Nominal price of broilers
+Nominal_Price_Commodity_Coal_Australia,Nominal price of coal in australia
+Nominal_Price_Commodity_Coal_SouthAfrica,Nominal price of coal in south africa
+Nominal_Price_Commodity_Cocoa,Nominal price of cocoa
+Nominal_Price_Commodity_CoconutOil,Nominal price of coconut oil
+Nominal_Price_Commodity_CoffeeArabic,Nominal price of coffee arabica
+Nominal_Price_Commodity_CoffeeRobusta,Nominal price of robusta coffee
+Nominal_Price_Commodity_Copper,Nominal price of copper
+Nominal_Price_Commodity_CottonAIndex,Nominal price of cotton a index
+Nominal_Price_Commodity_CrudeOil_Dubai,Nominal price of crude oil (dubai)
+Nominal_Price_Commodity_CrudeOil_NorthSeaBrent,North sea brent crude oil price (nominal)
+Nominal_Price_Commodity_CrudeOil_WestTexasIntermediate,Nominal price of west texas intermediate crude oil
+Nominal_Price_Commodity_DiammoniumPhosphate,Nominal price of diammonium phosphate
+Nominal_Price_Commodity_FishAndSeafood,Nominal price of fish and seafood
+Nominal_Price_Commodity_Gold,Nominal price of gold
+Nominal_Price_Commodity_Groundnut,Nominal price of groundnut 
+Nominal_Price_Commodity_GroundnutOil,Nominal price of groundnut oil
+Nominal_Price_Commodity_IronOreCFRSpot,Nominal price of iron ore (cfr)
+Nominal_Price_Commodity_Lead,Nominal price of lead
+Nominal_Price_Commodity_LiquefiedNaturalGas_Japan,Nominal price of liquefied natural gas in japan
+Nominal_Price_Commodity_Maize,Nominal price of maize
+Nominal_Price_Commodity_NaturalGas_Europe,Natural gas price in europe
+Nominal_Price_Commodity_NaturalGas_UnitedStates,Nominal price of natural gas in united states
+Nominal_Price_Commodity_Nickel,Nominal price of nickel
+Nominal_Price_Commodity_OrangesIncludingTangerines,Nominal price of oranges (including tangerines)
+Nominal_Price_Commodity_PalmKernelOil,Nominal price of palm kernel oil
+Nominal_Price_Commodity_PalmOil,Nominal price of palm oil
+Nominal_Price_Commodity_PhosphateRock,Nominal price of phosphate rock
+Nominal_Price_Commodity_Platinum,Nominal price of platinum
+Nominal_Price_Commodity_Plywood,Nominal price of plywood
+Nominal_Price_Commodity_PotassiuimChloride,Nominal price of potassiuim chloride
+Nominal_Price_Commodity_RSS3Rubber,Nominal price of rss3 rubber
+Nominal_Price_Commodity_RiceFivePercentKernel_Thailand,Nominal price of rice - five percent broken in thailand
+Nominal_Price_Commodity_RiceFivePercentKernel_Vietnam,Nominal price of rice - 5% broken in vietnam
+Nominal_Price_Commodity_RiceTwentyFivePercentKernel_Thailand,Nominal price of rice (25% broken) in thailand
+Nominal_Price_Commodity_Sawnwood_Cameroon,Nominal price of sawnwood in cameroon
+Nominal_Price_Commodity_Sawnwood_Malaysia,Nominal price of sawnwood in malaysia
+Nominal_Price_Commodity_SheepAndLambs,Nominal price of sheep and lambs
+Nominal_Price_Commodity_Shrimp_Mexico,Nominal price of shrimp in mexico
+Nominal_Price_Commodity_Silver,Nominal price of silver
+Nominal_Price_Commodity_Sorghum,Nominal price of sorghum
+Nominal_Price_Commodity_Soybean,Nominal price of soybean
+Nominal_Price_Commodity_SoybeanMeal,Nominal price of soybean meal
+Nominal_Price_Commodity_SoybeanOil,Nominal price of soybean oil
+Nominal_Price_Commodity_Sugar,Nominal price of sugar
+Nominal_Price_Commodity_Sugar_Europe,Nominal sugar price in europe
+Nominal_Price_Commodity_Sugar_UnitedStates,Nominal price of sugar in united states
+Nominal_Price_Commodity_TSR20Rubber,Nominal price of tsr20 rubber
+Nominal_Price_Commodity_Tea,Nominal price of tea commodity
+Nominal_Price_Commodity_Tea_Colombo,Nominal price of tea in colombo
+Nominal_Price_Commodity_Tea_Kolkata,Nominal price of tea in kolkata
+Nominal_Price_Commodity_Tea_Mombasa,Nominal tea price in mombasa
+Nominal_Price_Commodity_Tin,Nominal price of tin
+Nominal_Price_Commodity_Tobacco_USImportUnitValue,Import unit value of tobacco (nominal price)
+Nominal_Price_Commodity_TripleSuperphosphate,Nominal price of the commodity triple superphosphate
+Nominal_Price_Commodity_Urea,Nominal price of urea
+Nominal_Price_Commodity_WheatHRW_UnitedStates,Nominal price of hard red winter (hrw) wheat in the united states
+Nominal_Price_Commodity_WheatSRW_UnitedStates,Nominal price of wheat srw in united states
+Nominal_Price_Commodity_WoodLog_Cameroon,Nominal price of wood logs in cameroon
+Nominal_Price_Commodity_WoodLog_Malaysia,Nominal price of wood log in malaysia
+Nominal_Price_Commodity_Zinc,Nominal price of zinc
