@@ -225,7 +225,10 @@ const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
       'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
     )
   ).filter(
-    (el) => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden")
+    (el) =>
+      !el.hasAttribute("disabled") &&
+      !el.getAttribute("aria-hidden") &&
+      el.tabIndex !== -1
   );
 };
 
@@ -341,16 +344,11 @@ export const Tooltip = ({
     [clearCloseTimeout]
   );
 
-  const handleClose = useCallback(
-    (asPopover = false): void => {
-      clearCloseTimeout();
-      setOpen(false);
-      if (asPopover) {
-        setOpenAsPopover(false);
-      }
-    },
-    [clearCloseTimeout]
-  );
+  const handleClose = useCallback((): void => {
+    clearCloseTimeout();
+    setOpen(false);
+    setOpenAsPopover(false);
+  }, [clearCloseTimeout]);
 
   const handleCloseWithDelay = useCallback((): void => {
     clearCloseTimeout();
@@ -371,7 +369,7 @@ export const Tooltip = ({
       ) {
         return;
       }
-      handleClose(openAsPopover);
+      handleClose();
     };
 
     document.addEventListener("touchstart", handleDocumentClick);
@@ -485,7 +483,7 @@ export const Tooltip = ({
     if (disableTouchListener) return;
 
     if (openAsPopover) {
-      handleClose(true);
+      handleClose();
     } else {
       handleOpen(true);
     }
@@ -493,11 +491,17 @@ export const Tooltip = ({
 
   const handleClick = useCallback((): void => {
     if (!popoverMode || isTouch) return;
-    open ? handleClose(true) : handleOpen(true);
+    open ? handleClose() : handleOpen(true);
   }, [popoverMode, isTouch, open, handleClose, handleOpen]);
 
   const handleTriggerKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "Enter" && popoverMode) {
+        e.preventDefault();
+        open ? handleClose() : handleOpen(true);
+        return;
+      }
+
       if (!open) return;
 
       if (tooltipBoxRef.current) {
@@ -516,7 +520,7 @@ export const Tooltip = ({
         }
       }
     },
-    [open]
+    [open, popoverMode, handleClose, handleOpen]
   );
 
   const handleTooltipKeyDown = useCallback(
@@ -741,7 +745,7 @@ export const Tooltip = ({
     <>
       {triggerNode}
 
-      <FloatingPortal>
+      <FloatingPortal preserveTabOrder={false}>
         <TooltipBox
           ref={mergedFloatingRef}
           role="tooltip"
@@ -764,12 +768,12 @@ export const Tooltip = ({
             pointerEvents: open ? "auto" : "none",
           }}
         >
+          {title}
           {(popoverMode || openAsPopover) && (
-            <CloseButton onClick={(): void => handleClose(true)}>
+            <CloseButton onClick={(): void => handleClose()} tabIndex={-1}>
               <Close />
             </CloseButton>
           )}
-          {title}
           {showArrow && (
             <FloatingArrow
               ref={arrowRef}
