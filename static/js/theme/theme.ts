@@ -319,6 +319,14 @@ const theme: Theme = {
       borderRadius: "12px",
     },
   },
+  zIndex: {
+    primary: 9999,
+    secondary: 999,
+    tertiary: 99,
+  },
+  tooltip: {
+    width: "300px",
+  },
 };
 
 export default theme;

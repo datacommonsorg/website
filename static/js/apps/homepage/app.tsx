@@ -34,6 +34,7 @@ import {
 } from "../../shared/types/homepage";
 import theme from "../../theme/theme";
 import { BuildYourOwn } from "./components/build_your_own";
+import { DemoTooltips } from "./components/demo_tooltips";
 import { HomeHero } from "./components/home_hero";
 import { SampleQuestions } from "./components/sample_questions";
 import { Tools } from "./components/tools";
@@ -74,6 +75,10 @@ export function App({
 
       <Section>
         <SampleQuestions sampleQuestions={sampleQuestions} />
+      </Section>
+
+      <Section variant="small">
+        <DemoTooltips routes={routes} />
       </Section>
 
       <Section variant="small">

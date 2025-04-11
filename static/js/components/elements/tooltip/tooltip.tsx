@@ -64,8 +64,8 @@ interface TooltipProps {
   triggerBuffer?: number;
 }
 
-// TODO (pablonoel): move some of these to the theme (the z-index, width)?
-const TOOLTIP_Z_INDEX = 9999;
+const TOOLTIP_Z_INDEX = theme.zIndex.primary;
+const TOOLTIP_DEFAULT_MAX_WIDTH = theme.tooltip.width;
 const TOOLTIP_DEFAULT_DISTANCE = 12;
 const TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE = 25;
 const TOOLTIP_DEFAULT_SKIDDING = 0;
@@ -75,7 +75,6 @@ const TOOLTIP_DEFAULT_ANIMATION_DURATION = 150;
 const TOOLTIP_DEFAULT_ANIMATION_DISTANCE = 5;
 const TOOLTIP_DEFAULT_CLOSE_DELAY = 0;
 const TOOLTIP_DEFAULT_TRIGGER_BUFFER = 10;
-const TOOLTIP_DEFAULT_MAX_WIDTH = "300px";
 
 /*
  * The visible tooltip box that appears when the user activates
@@ -92,6 +91,8 @@ const TooltipBox = styled.div<{
   $openAsPopover: boolean;
   $showArrow: boolean;
 }>`
+  ${theme.typography.family.text}
+  ${theme.typography.text.sm}
   ${theme.elevation.primary};
   max-width: ${({ $maxWidth }): string => $maxWidth};
   background-color: ${theme.colors.box.tooltip.pill};
@@ -112,18 +113,18 @@ const TooltipBox = styled.div<{
     }
     const baseRadius = theme.radius.tertiary.borderRadius;
     const placementRules = [
-      { prefix: "top-start", rule: "border-bottom-left-radius: 0;" },
-      { prefix: "top-end", rule: "border-bottom-right-radius: 0;" },
-      { prefix: "bottom-start", rule: "border-top-left-radius: 0;" },
-      { prefix: "bottom-end", rule: "border-top-right-radius: 0;" },
-      { prefix: "left-start", rule: "border-top-right-radius: 0;" },
-      { prefix: "left-end", rule: "border-bottom-right-radius: 0;" },
-      { prefix: "right-start", rule: "border-top-left-radius: 0;" },
-      { prefix: "right-end", rule: "border-bottom-left-radius: 0;" },
-      { prefix: "top", rule: "border-bottom-radius: 0;" },
-      { prefix: "bottom", rule: "border-top-radius: 0;" },
-      { prefix: "left", rule: "border-right-radius: 0;" },
-      { prefix: "right", rule: "border-left-radius: 0;" },
+      { prefix: "top-start", rule: "border-bottom-left-radius: 3px;" },
+      { prefix: "top-end", rule: "border-bottom-right-radius: 3px;" },
+      { prefix: "bottom-start", rule: "border-top-left-radius: 3px;" },
+      { prefix: "bottom-end", rule: "border-top-right-radius: 3px;" },
+      { prefix: "left-start", rule: "border-top-right-radius: 3px;" },
+      { prefix: "left-end", rule: "border-bottom-right-radius: 3px;" },
+      { prefix: "right-start", rule: "border-top-left-radius: 3px;" },
+      { prefix: "right-end", rule: "border-bottom-left-radius: 3px;" },
+      { prefix: "top", rule: "border-bottom-radius: 3px;" },
+      { prefix: "bottom", rule: "border-top-radius: 3px;" },
+      { prefix: "left", rule: "border-right-radius: 3px;" },
+      { prefix: "right", rule: "border-left-radius: 3px;" },
     ];
     const match = placementRules.find(({ prefix }) =>
       $placement.startsWith(prefix)
@@ -146,7 +147,7 @@ const TooltipBox = styled.div<{
     padding: 0;
     margin: 0;
     ${theme.typography.family.heading}
-    ${theme.typography.text.md}
+    ${theme.typography.text.sm}
         font-weight: 600;
   }
   p,
@@ -154,7 +155,7 @@ const TooltipBox = styled.div<{
     padding: 0;
     margin: 0;
     ${theme.typography.family.text}
-    ${theme.typography.text.md}
+    ${theme.typography.text.sm}
   }
 
   ${({
@@ -200,10 +201,17 @@ const CloseButton = styled.button`
   border: none;
   cursor: pointer;
   color: ${theme.colors.box.tooltip.text};
-
   &:hover {
-    opacity: 0.8;
+    color: ${theme.colors.link.primary.base};
   }
+`;
+
+const BasicString = styled.span`
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  ${theme.typography.family.text}
+  ${theme.typography.text.sm}
 `;
 
 const isTouchDevice = (): boolean =>
@@ -324,7 +332,7 @@ export const Tooltip = ({
   const mergedFloatingRef = useMergeRefs([tooltipBoxRef, refs.setFloating]);
   const mergedReferenceRef = useMergeRefs([triggerRef, refs.setReference]);
 
-  const shouldShowArrowBorder = !computedPlacement.startsWith("bottom");
+  const ArrorBorder = !computedPlacement.startsWith("bottom");
 
   const clearCloseTimeout = useCallback((): void => {
     if (closeTimeoutRef.current !== null) {
@@ -700,7 +708,7 @@ export const Tooltip = ({
   let triggerChild: ReactElement;
 
   if (typeof children === "string" || typeof children === "number") {
-    triggerChild = <span>{children}</span>;
+    triggerChild = <BasicString>{children}</BasicString>;
   } else {
     triggerChild = React.Children.only(children) as ReactElement;
   }
@@ -792,9 +800,11 @@ export const Tooltip = ({
               context={context}
               fill={theme.colors.box.tooltip.pill}
               stroke={
-                shouldShowArrowBorder ? "hsla(0, 0%, 0%, 0.2)" : "transparent"
+                ArrorBorder
+                  ? "hsla(0, 0%, 0%, 0.2)"
+                  : "hsla(100, 100%, 100%, 0.5)"
               }
-              strokeWidth={shouldShowArrowBorder ? 1 : 0}
+              strokeWidth={1}
             />
           )}
         </TooltipBox>

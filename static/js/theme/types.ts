@@ -274,4 +274,12 @@ export interface Theme {
       borderRadius: string;
     };
   };
+  zIndex: {
+    primary?: number;
+    secondary?: number;
+    tertiary?: number;
+  };
+  tooltip: {
+    width?: string;
+  };
 }
