@@ -71,6 +71,8 @@ class PlaceI18nExplorerTestMixin():
     self.driver.get(start_url)
 
     # Assert 200 HTTP code: successful page load.
+    redirect_finished = EC.url_changes(start_url)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Wait for redirect and page load.
