@@ -132,6 +132,7 @@ export function extractUrlHashParams(
   const maxTopics = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPICS]);
   const maxTopicSvs = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPIC_SVS]);
   const maxCharts = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_CHARTS]);
+  const chartType = getSingleParam(hashParams[URL_HASH_PARAMS.CHART_TYPE]);
 
   return [
     query,
@@ -151,5 +152,6 @@ export function extractUrlHashParams(
     maxTopics,
     maxTopicSvs,
     maxCharts,
+    chartType,
   ];
 }

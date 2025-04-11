@@ -24,7 +24,6 @@ import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
-import { stringifyFn } from "../../utils/axios";
 import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
@@ -49,6 +48,7 @@ import { useQueryStore } from "../../shared/stores/query_store_hook";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { stringifyFn } from "../../utils/axios";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import {
   extractUrlHashParams,
@@ -318,6 +318,7 @@ export function App(props: AppProps): ReactElement {
       maxTopics,
       maxTopicSvs,
       maxCharts,
+      chartType,
     ] = extractUrlHashParams(hashParams);
 
     let topicToUse = topic;
@@ -405,7 +406,32 @@ export function App(props: AppProps): ReactElement {
           client
         )
           .then((resp) => {
-            console.log("Just finished the ihghlight response");
+            console.log(
+              "Just finished the ihghlight response" +
+                JSON.stringify(
+                  resp["config"]["categories"][0]["blocks"][0]["columns"][0][
+                    "tiles"
+                  ][0]
+                )
+            );
+            // chart["lineTileSpec"] = {};
+
+            delete resp["config"]["categories"][0]["blocks"][0]["columns"][0][
+              "tiles"
+            ][0]["barTileSpec"];
+
+            resp["config"]["categories"][0]["blocks"][0]["columns"][0][
+              "tiles"
+            ][0]["type"] = chartType;
+
+            console.log(
+              "RESPPP " +
+                JSON.stringify(
+                  resp["config"]["categories"][0]["blocks"][0]["columns"][0][
+                    "tiles"
+                  ][0]
+                )
+            );
             processFulfillData(resp);
           })
           .catch(() => {
@@ -436,7 +462,7 @@ export function App(props: AppProps): ReactElement {
       )
         .then((resp) => {
           console.log("Just finished the full response");
-          processFulfillData(resp);
+          // processFulfillData(resp);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
