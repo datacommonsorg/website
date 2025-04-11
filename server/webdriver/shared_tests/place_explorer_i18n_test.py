@@ -20,6 +20,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import wait_for_text
 
 # Regular expression for matching Japanese characters:
 # Hiragana: \u3040-\u309F
@@ -36,37 +37,29 @@ class PlaceI18nExplorerTestMixin():
 
     # Load France page.
     self.driver.get(self.url_ + '/place/country/FRA?hl=fr')
-    # Wait for explore topics to load
-    explore_topics_present = EC.presence_of_all_elements_located(
-        (By.CLASS_NAME, 'item-list-item'))
-    explore_topics = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(explore_topics_present)
-
     # Find demographic link in explore topics box
-    demographics = None
-    for item in explore_topics:
-      if item.text == 'Données démographiques':
-        demographics = item
-        break
-    self.assertIsNotNone(
-        demographics,
-        "Could not find demographics link with text 'Données démographiques'")
-    demographics = demographics.find_element(By.TAG_NAME, 'a')
+    topics_for_fr = [
+        "Économie", "Santé", "Capitaux propres", "Données démographiques",
+        "Environnement", "Énergie"
+    ]
+    shared.assert_topics(self,
+                         self.driver,
+                         path_to_topics=['explore-topics-box'],
+                         classname='item-list-item',
+                         expected_topics=topics_for_fr)
+
+    demographics = find_elem(
+        self.driver,
+        by=By.CSS_SELECTOR,
+        value='.item-list-item[data-testid="Demographics"] a')
     demographics.click()
     self.driver.get(self.driver.current_url)
 
-    # Wait until the new page has loaded and check for localized text
-    text_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, 'span[data-testid="place-name"]'),
-        'Données démographiques')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(text_present)
+    # Wait until the new page has loaded and check for text
+    wait_for_text(self.driver, "Données démographiques", By.CSS_SELECTOR,
+                  'span[data-testid="place-name"]')
 
-    # Assert the French text is present
-    place_name = self.driver.find_element(By.CSS_SELECTOR,
-                                          'span[data-testid="place-name"]')
-    self.assertIn("Données démographiques", place_name.text)
-
-    # Assert that Demographics and hl=fr is part of the new url.
+    # Assert that Demographics is part of the new url
     self.assertTrue("Demographics" in self.driver.current_url)
     self.assertTrue("&hl=fr" in self.driver.current_url)
 
@@ -81,8 +74,6 @@ class PlaceI18nExplorerTestMixin():
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Wait for redirect and page load.
-    redirect_finished = EC.url_changes(start_url)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
     shared.wait_for_loading(self.driver)
 
     # Assert redirected URL is correct and contains the locale and query string.
@@ -159,14 +150,11 @@ class PlaceI18nExplorerTestMixin():
     start_url = self.url_ + '/place/country/JPN?hl=ja'
     self.driver.get(start_url)
 
-    place_name_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '.place-info [data-testid="place-name"]'), '日本')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
+    wait_for_text(self.driver, '日本', By.CSS_SELECTOR,
+                  '.place-info [data-testid="place-name"]')
 
     # Ensure that the place type in {parentPlace} is translated
-    place_type_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '.place-info .subheader'), 'の 国')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
+    wait_for_text(self.driver, 'の 国', By.CSS_SELECTOR, '.place-info .subheader')
 
     # Ensure that the topics tab links are translated
     economics_link = find_elem(self.driver,
@@ -176,10 +164,7 @@ class PlaceI18nExplorerTestMixin():
 
     # Ensure that the economics section is translated
     # The first block-title-text is the economics section
-    economics_section_present = EC.text_to_be_present_in_element(
-        (By.CLASS_NAME, 'block-title-text'), '経済')
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(economics_section_present)
+    wait_for_text(self.driver, '経済', By.CLASS_NAME, 'block-title-text')
 
     # Test that charts are present
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart-container')
@@ -187,10 +172,9 @@ class PlaceI18nExplorerTestMixin():
                        "Expected at least one chart to be present")
 
     # Wait for and scroll to ranking tile so it lazy loads
-    ranking_tile_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, "ranking-tile"))
-    ranking_tile = WebDriverWait(self.driver,
-                                 self.TIMEOUT_SEC).until(ranking_tile_present)
+    ranking_tile = find_elem(self.driver,
+                             by=By.CLASS_NAME,
+                             value="ranking-tile")
     self.driver.execute_script("arguments[0].scrollIntoView();", ranking_tile)
 
     # Ensure the ranking tile footer text is translated

@@ -23,6 +23,7 @@ from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import scroll_to_elem
+from server.webdriver.base_utils import wait_for_text
 
 MTV_URL = '/place/geoId/0649670'
 USA_URL = '/place/country/USA'
@@ -113,34 +114,28 @@ class PlaceExplorerTestMixin():
     title_text = "Median age by gender: states near California"
     # Load California page.
     self.driver.get(self.url_ + CA_URL)
-    # Wait for explore topics to load
-    explore_topics_present = EC.presence_of_all_elements_located(
-        (By.CLASS_NAME, 'item-list-item'))
-    explore_topics = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(explore_topics_present)
 
     # Find demographic link in explore topics box
-    demographics = None
-    for item in explore_topics:
-      if item.text == 'Demographics':
-        demographics = item
-        break
-    self.assertIsNotNone(
-        demographics,
-        "Could not find demographics link with text 'Demographics'")
-    demographics = demographics.find_element(By.TAG_NAME, 'a')
+    topics_for_ca = [
+        "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
+        "Housing", "Environment", "Energy"
+    ]
+    shared.assert_topics(self,
+                         self.driver,
+                         path_to_topics=['explore-topics-box'],
+                         classname='item-list-item',
+                         expected_topics=topics_for_ca)
+
+    demographics = find_elem(
+        self.driver,
+        by=By.CSS_SELECTOR,
+        value='.item-list-item[data-testid="Demographics"] a')
     demographics.click()
     self.driver.get(self.driver.current_url)
 
     # Wait until the new page has loaded and check for text
-    text_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, 'span[data-testid="place-name"]'), 'Demographics')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(text_present)
-
-    # Assert the English text is present
-    place_name = self.driver.find_element(By.CSS_SELECTOR,
-                                          'span[data-testid="place-name"]')
-    self.assertIn("Demographics", place_name.text)
+    wait_for_text(self.driver, "Demographics", By.CSS_SELECTOR,
+                  'span[data-testid="place-name"]')
 
     # Assert that Demographics is part of the new url
     self.assertTrue("Demographics" in self.driver.current_url)
@@ -159,10 +154,8 @@ class PlaceExplorerTestMixin():
     self.assertTrue("utm_medium=um" in self.driver.current_url)
 
     # Wait for place name to show correct text
-    place_name_text = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '[data-testid="place-name"]'),
-        'California • Demographics')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_text)
+    wait_for_text(self.driver, "California • Demographics", By.CSS_SELECTOR,
+                  '[data-testid="place-name"]')
 
   def test_explorer_redirect_place_explorer(self):
     """Test the redirection from explore to place explore for single place queries"""
@@ -242,14 +235,11 @@ class PlaceExplorerTestMixin():
     self.driver.get(self.url_ + NO_DATA_NEIGHBORHOOD_URL)
 
     # Wait for subheader to load and contain "Neighborhood in"
-    subheader_present = EC.text_to_be_present_in_element(
-        (By.CLASS_NAME, 'subheader'), 'Neighborhood in')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subheader_present)
+    wait_for_text(self.driver, "Neighborhood in", By.CLASS_NAME, 'subheader')
 
     # Wait for no data message to appear
-    no_data_present = EC.text_to_be_present_in_element(
-        (By.CLASS_NAME, 'page-content-container'), 'No data found for')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(no_data_present)
+    wait_for_text(self.driver, "No data found for", By.CLASS_NAME,
+                  'page-content-container')
 
   def test_place_category_placeholder(self):
     """Test that the place category placeholder is correct."""
@@ -258,9 +248,8 @@ class PlaceExplorerTestMixin():
     self.driver.get(self.url_ + ca_housing_url)
 
     # Wait for search input to be present
-    search_input_present = EC.presence_of_element_located(
-        (By.ID, "query-search-input"))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(search_input_present)
+    wait_for_text(self.driver, "Housing in California", By.ID,
+                  "query-search-input")
 
     # Wait for placeholder text to update to expected value
     def placeholder_has_text(driver):
