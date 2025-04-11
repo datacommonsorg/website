@@ -24,6 +24,7 @@ import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
+import { stringifyFn } from "../../utils/axios";
 import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
@@ -49,7 +50,11 @@ import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
-import { getUpdatedHash } from "../../utils/url_utils";
+import {
+  extractUrlHashParams,
+  getSingleParam,
+  getUpdatedHash,
+} from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import { SuccessResult } from "./success_result";
@@ -62,18 +67,6 @@ enum LoadingStatus {
 }
 
 const DEFAULT_PLACE = "geoId/06";
-
-const getSingleParam = (input: string | string[]): string => {
-  // If the input is an array, convert it to a single string
-  if (Array.isArray(input)) {
-    return input[0];
-  }
-  if (!input) {
-    // Return empty instead of letting it be undefined.
-    return "";
-  }
-  return input;
-};
 
 const toApiList = (input: string): string[] => {
   // Split of an empty string returns [''].  Trim empties.
@@ -302,42 +295,49 @@ export function App(props: AppProps): ReactElement {
     );
   }
 
-  function handleHashChange(): void {
+
+  async function handleHashChange(): Promise<void> {
     setLoadingStatus(LoadingStatus.LOADING);
     const hashParams = queryString.parse(window.location.hash);
-    const query =
-      getSingleParam(hashParams[URL_HASH_PARAMS.QUERY]) ||
-      getSingleParam(hashParams[URL_HASH_PARAMS.DEPRECATED_QUERY]);
-    const topic = getSingleParam(hashParams[URL_HASH_PARAMS.TOPIC]);
-    const place = getSingleParam(hashParams[URL_HASH_PARAMS.PLACE]);
-    const dc = getSingleParam(hashParams[URL_HASH_PARAMS.DC]);
-    const idx = getSingleParam(hashParams[URL_HASH_PARAMS.IDX]);
-    const disableExploreMore = getSingleParam(
-      hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
-    );
-    const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
-    const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
-    const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
-    const includeStopWords = getSingleParam(
-      hashParams[URL_HASH_PARAMS.INCLUDE_STOP_WORDS]
-    );
-    const defaultPlace = getSingleParam(
-      hashParams[URL_HASH_PARAMS.DEFAULT_PLACE]
-    );
-    const mode = getSingleParam(hashParams[URL_HASH_PARAMS.MODE]);
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
-    const reranker = getSingleParam(hashParams[URL_HASH_PARAMS.RERANKER]);
-    const maxTopics = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPICS]);
-    const maxTopicSvs = getSingleParam(
-      hashParams[URL_HASH_PARAMS.MAX_TOPIC_SVS]
-    );
-    const maxCharts = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_CHARTS]);
+    const [
+      query,
+      place,
+      topic,
+      statVar,
+      dc,
+      idx,
+      disableExploreMore,
+      detector,
+      testMode,
+      i18n,
+      includeStopWords,
+      defaultPlace,
+      mode,
+      reranker,
+      maxTopics,
+      maxTopicSvs,
+      maxCharts,
+    ] = extractUrlHashParams(hashParams);
+
+    let topicToUse = topic;
+
+    let places = [];
+    if (!place) {
+      places = [DEFAULT_PLACE];
+    } else if (place.includes(URL_DELIM)) {
+      places = toApiList(place);
+    } else {
+      places = [place];
+    }
 
     let fulfillmentPromise: Promise<any>;
+    let highlightPromise: Promise<any>;
+
     const gaTitle = query
       ? `Q: ${query} - `
-      : topic
-      ? `T: ${topic} | P: ${place} - `
+      : topicToUse
+      ? `T: ${topicToUse} | P: ${place} - `
       : "";
     /* eslint-disable camelcase */
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
@@ -377,9 +377,52 @@ export function App(props: AppProps): ReactElement {
       client = client || CLIENT_TYPES.ENTITY;
       setQuery("");
       setStoreQueryString("");
+
+      let data = {};
+      if (statVar) {
+        data = await axios.get("/api/node/propvals", {
+          params: {
+            dcids: [statVar],
+            propExpr: "<-relevantVariable",
+          },
+          paramsSerializer: stringifyFn,
+        });
+        console.log("Data is " + JSON.stringify(data));
+        topicToUse = data["data"][statVar][0]["dcid"];
+
+        highlightPromise = fetchFulfillData(
+          places,
+          toApiList(statVar),
+          "",
+          [],
+          [],
+          dc,
+          [],
+          [],
+          disableExploreMore,
+          testMode,
+          i18n,
+          client
+        )
+          .then((resp) => {
+            console.log("Just finished the ihghlight response");
+            processFulfillData(resp);
+          })
+          .catch(() => {
+            setLoadingStatus(LoadingStatus.FAILED);
+          });
+      }
+      // If has highlight chart, fetchFulfillData for highlight chart.
+      // Then fetch fulfill data for Topis of highlight chart.
+      console.log(
+        "SO WE RE ABOUT TO USE TOPIC: " +
+          topicToUse +
+          " because " +
+          JSON.stringify(data)
+      );
       fulfillmentPromise = fetchFulfillData(
-        toApiList(place || DEFAULT_PLACE),
-        toApiList(topic || DEFAULT_TOPIC),
+        places,
+        toApiList(topicToUse || DEFAULT_TOPIC),
         "",
         [],
         [],
@@ -392,6 +435,7 @@ export function App(props: AppProps): ReactElement {
         client
       )
         .then((resp) => {
+          console.log("Just finished the full response");
           processFulfillData(resp);
         })
         .catch(() => {
@@ -483,42 +527,25 @@ const fetchDetectAndFufillData = async (
   maxTopicSvs: string,
   maxCharts: string
 ) => {
+  const fieldsMap = {
+    [URL_HASH_PARAMS.DETECTOR]: detector,
+    [URL_HASH_PARAMS.TEST_MODE]: testMode,
+    [URL_HASH_PARAMS.I18N]: i18n,
+    [URL_HASH_PARAMS.CLIENT]: client,
+    [URL_HASH_PARAMS.DEFAULT_PLACE]: defaultPlace,
+    [URL_HASH_PARAMS.MODE]: mode,
+    [URL_HASH_PARAMS.RERANKER]: reranker,
+    [URL_HASH_PARAMS.INCLUDE_STOP_WORDS]: includeStopWords,
+    [URL_HASH_PARAMS.IDX]: idx,
+    [URL_HASH_PARAMS.MAX_TOPICS]: maxTopics,
+    [URL_HASH_PARAMS.MAX_TOPIC_SVS]: maxTopicSvs,
+    [URL_HASH_PARAMS.MAX_CHARTS]: maxCharts,
+  };
   const argsMap = new Map<string, string>();
-  if (detector) {
-    argsMap.set(URL_HASH_PARAMS.DETECTOR, detector);
-  }
-  if (testMode) {
-    argsMap.set(URL_HASH_PARAMS.TEST_MODE, testMode);
-  }
-  if (i18n) {
-    argsMap.set(URL_HASH_PARAMS.I18N, i18n);
-  }
-  if (client) {
-    argsMap.set(URL_HASH_PARAMS.CLIENT, client);
-  }
-  if (defaultPlace) {
-    argsMap.set(URL_HASH_PARAMS.DEFAULT_PLACE, defaultPlace);
-  }
-  if (mode) {
-    argsMap.set(URL_HASH_PARAMS.MODE, mode);
-  }
-  if (reranker) {
-    argsMap.set(URL_HASH_PARAMS.RERANKER, reranker);
-  }
-  if (includeStopWords) {
-    argsMap.set(URL_HASH_PARAMS.INCLUDE_STOP_WORDS, includeStopWords);
-  }
-  if (idx) {
-    argsMap.set(URL_HASH_PARAMS.IDX, idx);
-  }
-  if (maxTopics) {
-    argsMap.set(URL_HASH_PARAMS.MAX_TOPICS, maxTopics);
-  }
-  if (maxTopicSvs) {
-    argsMap.set(URL_HASH_PARAMS.MAX_TOPIC_SVS, maxTopicSvs);
-  }
-  if (maxCharts) {
-    argsMap.set(URL_HASH_PARAMS.MAX_CHARTS, maxCharts);
+  for (const [field, value] of Object.entries(fieldsMap)) {
+    if (value) {
+      argsMap.set(field, value);
+    }
   }
 
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";

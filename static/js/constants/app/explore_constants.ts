@@ -21,6 +21,8 @@
 // URL hash param keys
 export const URL_HASH_PARAMS = {
   PLACE: "p",
+  PLACES: "pp",
+  STAT_VAR: "sv",
   TOPIC: "t",
   QUERY: "q",
   DC: "dc",
