@@ -98,7 +98,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
                   <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">Natural Disaster Dashboard</a>
-                  <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans
+                  <a class="dropdown-item" href="{{ url_for('place.place_explorer') }}">{% trans %}Place Explorer{% endtrans
                     %}</a>
                   <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Knowledge Graph{%
                     endtrans %}</a>
@@ -171,7 +171,7 @@
             {# TRANSLATORS: The label for a collection of exploration tools. #}
             <h6>{% trans %}Explore{% endtrans %}</h6>
             {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
-            <a href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
+            <a href="{{ url_for('place.place_explorer') }}">{% trans %}Place Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
             <a href="{{ url_for('browser.browser_main') }}">{% trans %}Knowledge Graph{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}

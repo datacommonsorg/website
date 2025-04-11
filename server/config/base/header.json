@@ -4,7 +4,7 @@
     "ariaLabel": "Show exploration tools",
     "subMenu": [
       {
-        "href": "{place.place}",
+        "href": "{place.place_explorer}",
         "label": "Place Explorer"
       },
       {
