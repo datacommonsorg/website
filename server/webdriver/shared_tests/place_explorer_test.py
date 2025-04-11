@@ -248,15 +248,13 @@ class PlaceExplorerTestMixin():
     self.driver.get(self.url_ + ca_housing_url)
 
     # Wait for search input to be present
-    wait_for_text(self.driver, "Housing in California", By.ID,
-                  "query-search-input")
+    search_input = find_elem(self.driver, by=By.ID, value="query-search-input")
 
     # Wait for placeholder text to update to expected value
-    def placeholder_has_text(driver):
-      element = driver.find_element(By.ID, "query-search-input")
-      return element.get_attribute("placeholder") == "Housing in California"
-
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(placeholder_has_text)
+    WebDriverWait(
+        self.driver,
+        self.TIMEOUT_SEC).until(lambda driver: search_input.get_attribute(
+            "placeholder") == "Housing in California")
 
   def test_dev_place_overview_world(self):
     """Ensure place page revamp World page works"""
