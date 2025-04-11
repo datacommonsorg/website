@@ -295,7 +295,6 @@ export function App(props: AppProps): ReactElement {
     );
   }
 
-
   async function handleHashChange(): Promise<void> {
     setLoadingStatus(LoadingStatus.LOADING);
     const hashParams = queryString.parse(window.location.hash);
@@ -321,7 +320,7 @@ export function App(props: AppProps): ReactElement {
       chartType,
     ] = extractUrlHashParams(hashParams);
 
-    let topicToUse = topic;
+    let topicsToUse = toApiList(topic || DEFAULT_TOPIC);
 
     let places = [];
     if (!place) {
@@ -337,8 +336,8 @@ export function App(props: AppProps): ReactElement {
 
     const gaTitle = query
       ? `Q: ${query} - `
-      : topicToUse
-      ? `T: ${topicToUse} | P: ${place} - `
+      : topicsToUse
+      ? `T: ${topicsToUse} | P: ${places} - `
       : "";
     /* eslint-disable camelcase */
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
@@ -381,48 +380,49 @@ export function App(props: AppProps): ReactElement {
 
       let data = {};
       if (statVar) {
+        let statVars = [];
+        if (statVar.includes(URL_DELIM)) {
+          statVars = toApiList(statVar);
+        } else {
+          statVars = [statVar];
+        }
+
         data = await axios.get("/api/node/propvals", {
           params: {
-            dcids: [statVar],
+            dcids: statVars,
             propExpr: "<-relevantVariable",
           },
           paramsSerializer: stringifyFn,
         });
-        console.log("Data is " + JSON.stringify(data));
-        topicToUse = data["data"][statVar][0]["dcid"];
+
+        const allTopics = [];
+        for (const sv of statVars) {
+          if (sv in data["data"]) {
+            for (const tpc of data["data"][sv]) {
+              allTopics.push(tpc["dcid"]);
+            }
+          }
+        }
+        topicsToUse = allTopics;
 
         highlightPromise = fetchFulfillData(
           places,
-          toApiList(statVar),
-          "",
-          [],
-          [],
+          statVars,
           dc,
-          [],
-          [],
           disableExploreMore,
           testMode,
           i18n,
           client
         )
           .then((resp) => {
-            console.log(
-              "Just finished the ihghlight response" +
-                JSON.stringify(
-                  resp["config"]["categories"][0]["blocks"][0]["columns"][0][
-                    "tiles"
-                  ][0]
-                )
-            );
-            // chart["lineTileSpec"] = {};
-
-            delete resp["config"]["categories"][0]["blocks"][0]["columns"][0][
-              "tiles"
-            ][0]["barTileSpec"];
-
-            resp["config"]["categories"][0]["blocks"][0]["columns"][0][
-              "tiles"
-            ][0]["type"] = chartType;
+            for (const block of resp["config"]["categories"][0]["blocks"]) {
+              for (const cols of block["columns"]) {
+                for (const tile of cols["tiles"]) {
+                  delete tile["barTileSpec"];
+                  tile["type"] = chartType;
+                }
+              }
+            }
 
             console.log(
               "RESPPP " +
@@ -432,37 +432,24 @@ export function App(props: AppProps): ReactElement {
                   ][0]
                 )
             );
-            processFulfillData(resp);
+            // processFulfillData(resp);
           })
           .catch(() => {
             setLoadingStatus(LoadingStatus.FAILED);
           });
       }
-      // If has highlight chart, fetchFulfillData for highlight chart.
-      // Then fetch fulfill data for Topis of highlight chart.
-      console.log(
-        "SO WE RE ABOUT TO USE TOPIC: " +
-          topicToUse +
-          " because " +
-          JSON.stringify(data)
-      );
+      // Merge this with response above. Make calls in parallel
       fulfillmentPromise = fetchFulfillData(
         places,
-        toApiList(topicToUse || DEFAULT_TOPIC),
-        "",
-        [],
-        [],
+        topicsToUse,
         dc,
-        [],
-        [],
         disableExploreMore,
         testMode,
         i18n,
         client
       )
         .then((resp) => {
-          console.log("Just finished the full response");
-          // processFulfillData(resp);
+          processFulfillData(resp);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -481,12 +468,7 @@ export function App(props: AppProps): ReactElement {
 const fetchFulfillData = async (
   places: string[],
   topics: string[],
-  placeType: string,
-  cmpPlaces: string[],
-  cmpTopics: string[],
   dc: string,
-  svgs: string[],
-  classificationsJson: any,
   disableExploreMore: string,
   testMode: string,
   i18n: string,
@@ -509,11 +491,6 @@ const fetchFulfillData = async (
       dc,
       entities: places,
       variables: topics,
-      childEntityType: placeType,
-      comparisonEntities: cmpPlaces,
-      comparisonVariables: cmpTopics,
-      extensionGroups: svgs,
-      classifications: classificationsJson,
       disableExploreMore,
     });
     if (startTime) {

@@ -112,7 +112,7 @@ export function extractUrlHashParams(
     getSingleParam(hashParams[URL_HASH_PARAMS.DEPRECATED_QUERY]);
   const place = getSingleParam(hashParams[URL_HASH_PARAMS.PLACE]);
   const topic = getSingleParam(hashParams[URL_HASH_PARAMS.TOPIC]);
-  const statVar = getSingleParam(hashParams[URL_HASH_PARAMS.STAT_VAR]);
+  const statVars = getSingleParam(hashParams[URL_HASH_PARAMS.STAT_VAR]);
   const dc = getSingleParam(hashParams[URL_HASH_PARAMS.DC]);
   const idx = getSingleParam(hashParams[URL_HASH_PARAMS.IDX]);
   const disableExploreMore = getSingleParam(
@@ -138,7 +138,7 @@ export function extractUrlHashParams(
     query,
     place,
     topic,
-    statVar,
+    statVars,
     dc,
     idx,
     disableExploreMore,
