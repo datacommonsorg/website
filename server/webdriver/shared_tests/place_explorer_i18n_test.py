@@ -19,7 +19,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
-from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elem, scroll_to_elem
 from server.webdriver.base_utils import wait_for_text
 
 # Regular expression for matching Japanese characters:
@@ -198,11 +198,7 @@ class PlaceI18nExplorerTestMixin():
     self.assertTrue(JAPANESE_CHAR_PATTERN.search(place_name.text))
 
     # Wait for and scroll to the first bar chart tile so it lazy loads
-    bar_chart_tile_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, "bar-chart"))
-    bar_chart_tile = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(bar_chart_tile_present)
-    self.driver.execute_script("arguments[0].scrollIntoView();", bar_chart_tile)
+    scroll_to_elem(self.driver, by=By.CLASS_NAME, value="bar-chart")
 
     # Ensure that the bar chart's axis labels (localized place names) have japanese text
     self.assertTrue(
