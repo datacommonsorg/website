@@ -496,6 +496,12 @@ export const Tooltip = ({
 
   const handleTriggerKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "Escape" && open) {
+        e.preventDefault();
+        handleClose();
+        return;
+      }
+
       if (e.key === "Enter" && popoverMode) {
         e.preventDefault();
         open ? handleClose() : handleOpen(true);
@@ -525,6 +531,12 @@ export const Tooltip = ({
 
   const handleTooltipKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        handleClose();
+        return;
+      }
+
       if (!tooltipBoxRef.current) return;
 
       const focusable = getFocusableElements(tooltipBoxRef.current);
@@ -764,7 +776,7 @@ export const Tooltip = ({
             position: strategy,
             top: y ?? 0,
             left: x ?? 0,
-            display: "block",
+            display: "inline-block",
             pointerEvents: open ? "auto" : "none",
           }}
         >
