@@ -67,7 +67,7 @@ interface TooltipProps {
 // TODO (pablonoel): move some of these to the theme (the z-index, width)?
 const TOOLTIP_Z_INDEX = 9999;
 const TOOLTIP_DEFAULT_DISTANCE = 12;
-const TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE = 20;
+const TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE = 25;
 const TOOLTIP_DEFAULT_SKIDDING = 0;
 const TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING = 0;
 const TOOLTIP_DEFAULT_FADE_DURATION = 100;
@@ -320,6 +320,8 @@ export const Tooltip = ({
 
   const mergedFloatingRef = useMergeRefs([tooltipBoxRef, refs.setFloating]);
   const mergedReferenceRef = useMergeRefs([triggerRef, refs.setReference]);
+
+  const shouldShowArrowBorder = !computedPlacement.startsWith("bottom");
 
   const clearCloseTimeout = useCallback((): void => {
     if (closeTimeoutRef.current !== null) {
@@ -773,8 +775,10 @@ export const Tooltip = ({
               ref={arrowRef}
               context={context}
               fill={theme.colors.box.tooltip.pill}
-              stroke={"hsla(0, 0%, 0%, 0.2)"}
-              strokeWidth={1}
+              stroke={
+                shouldShowArrowBorder ? "hsla(0, 0%, 0%, 0.2)" : "transparent"
+              }
+              strokeWidth={shouldShowArrowBorder ? 1 : 0}
             />
           )}
         </TooltipBox>
