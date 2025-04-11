@@ -413,30 +413,7 @@ export function App(props: AppProps): ReactElement {
           testMode,
           i18n,
           client
-        )
-          .then((resp) => {
-            for (const block of resp["config"]["categories"][0]["blocks"]) {
-              for (const cols of block["columns"]) {
-                for (const tile of cols["tiles"]) {
-                  delete tile["barTileSpec"];
-                  tile["type"] = chartType;
-                }
-              }
-            }
-
-            console.log(
-              "RESPPP " +
-                JSON.stringify(
-                  resp["config"]["categories"][0]["blocks"][0]["columns"][0][
-                    "tiles"
-                  ][0]
-                )
-            );
-            // processFulfillData(resp);
-          })
-          .catch(() => {
-            setLoadingStatus(LoadingStatus.FAILED);
-          });
+        );
       }
       // Merge this with response above. Make calls in parallel
       fulfillmentPromise = fetchFulfillData(
@@ -447,13 +424,30 @@ export function App(props: AppProps): ReactElement {
         testMode,
         i18n,
         client
-      )
-        .then((resp) => {
-          processFulfillData(resp);
-        })
-        .catch(() => {
-          setLoadingStatus(LoadingStatus.FAILED);
-        });
+      );
+
+      const [highlightResponse, fulfillResponse] = await Promise.all([
+        highlightPromise,
+        fulfillmentPromise,
+      ]);
+      for (const block of highlightResponse["config"]["categories"][0][
+        "blocks"
+      ]) {
+        for (const cols of block["columns"]) {
+          for (const tile of cols["tiles"]) {
+            delete tile["barTileSpec"];
+            tile["type"] = chartType;
+          }
+        }
+      }
+      console.log("\nHighlightResponse: " + JSON.stringify(highlightResponse));
+      console.log("\nfulfillResponse: " + JSON.stringify(fulfillResponse));
+
+      fulfillResponse["config"]["categories"] = highlightResponse["config"][
+        "categories"
+      ].concat(fulfillResponse["config"]["categories"]);
+
+      processFulfillData(fulfillResponse);
     }
     // Once current query processing is done, run the next autoplay query if
     // there are any more autoplay queries left.
