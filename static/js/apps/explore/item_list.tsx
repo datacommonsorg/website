@@ -39,7 +39,7 @@ export function ItemList(props: ItemListPropType): ReactElement {
         )}
         {props.items.map((item, idx) => {
           return (
-            <div key={idx} className="item-list-item" data-testid={item.text}>
+            <div key={idx} className="item-list-item">
               <a className="item-list-text" href={item.url}>
                 {item.text}
               </a>
