@@ -37,8 +37,19 @@ interface DemoTooltipsProps {
 export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
   const theme = useTheme();
   return (
-    <div style={{ display: "flex", gap: "30px" }}>
-      <div style={{ margin: "25px" }}>
+    <div
+      css={css`
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        justify-content: flex-start;
+      `}
+    >
+      <div
+        css={css`
+          display: block;
+          background: red;
+        `}
+      >
         <Tooltip
           title={
             <>
@@ -62,7 +73,11 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div style={{ margin: "25px" }}>
+      <div
+        css={css`
+          background: red;
+        `}
+      >
         <Tooltip
           title={
             <>
@@ -77,7 +92,12 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div style={{ margin: "25px" }}>
+      <div
+        css={css`
+          display: block;
+          background: red;
+        `}
+      >
         <Tooltip
           title={
             <>
@@ -98,13 +118,23 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div style={{ margin: "25px" }}>
+      <div
+        css={css`
+          display: block;
+          background: red;
+        `}
+      >
         <Tooltip title="A simple tooltip, text trigger, text content" showArrow>
           Text Trigger
         </Tooltip>
       </div>
 
-      <div style={{ margin: "25px" }}>
+      <div
+        css={css`
+          display: block;
+          background: red;
+        `}
+      >
         <Tooltip
           title={
             <>
@@ -123,7 +153,12 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div style={{ margin: "25px" }}>
+      <div
+        css={css`
+          display: block;
+          background: red;
+        `}
+      >
         <Tooltip
           title={
             <>
@@ -143,7 +178,12 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div style={{ margin: "25px" }}>
+      <div
+        css={css`
+          display: block;
+          background: red;
+        `}
+      >
         <Tooltip
           title={
             <>

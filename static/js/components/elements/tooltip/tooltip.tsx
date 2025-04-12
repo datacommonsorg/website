@@ -121,10 +121,22 @@ const TooltipBox = styled.div<{
       { prefix: "left-end", rule: "border-bottom-right-radius: 3px;" },
       { prefix: "right-start", rule: "border-top-left-radius: 3px;" },
       { prefix: "right-end", rule: "border-bottom-left-radius: 3px;" },
-      { prefix: "top", rule: "border-bottom-radius: 3px;" },
-      { prefix: "bottom", rule: "border-top-radius: 3px;" },
-      { prefix: "left", rule: "border-right-radius: 3px;" },
-      { prefix: "right", rule: "border-left-radius: 3px;" },
+      {
+        prefix: "top",
+        rule: "border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;",
+      },
+      {
+        prefix: "bottom",
+        rule: "border-top-left-radius: 3px; border-top-left-radius: 3px;",
+      },
+      {
+        prefix: "left",
+        rule: "border-top-right-radius: 3px; border-bottom-right-radius: 3px;",
+      },
+      {
+        prefix: "right",
+        rule: "border-top-left-radius: 3px; border-bottom-left-radius: 3px;",
+      },
     ];
     const match = placementRules.find(({ prefix }) =>
       $placement.startsWith(prefix)
@@ -332,7 +344,7 @@ export const Tooltip = ({
   const mergedFloatingRef = useMergeRefs([tooltipBoxRef, refs.setFloating]);
   const mergedReferenceRef = useMergeRefs([triggerRef, refs.setReference]);
 
-  const ArrorBorder = !computedPlacement.startsWith("bottom");
+  const ArrowBorder = !computedPlacement.startsWith("bottom");
 
   const clearCloseTimeout = useCallback((): void => {
     if (closeTimeoutRef.current !== null) {
@@ -754,7 +766,10 @@ export const Tooltip = ({
         onClick={handleClick}
         onKeyDown={handleTriggerKeyDown}
         tabIndex={0}
-        style={{ cursor: popoverMode ? "pointer" : "inherit" }}
+        style={{
+          display: "inline-block",
+          cursor: popoverMode ? "pointer" : "inherit",
+        }}
       >
         {triggerChild}
       </div>
@@ -800,7 +815,7 @@ export const Tooltip = ({
               context={context}
               fill={theme.colors.box.tooltip.pill}
               stroke={
-                ArrorBorder
+                ArrowBorder
                   ? "hsla(0, 0%, 0%, 0.2)"
                   : "hsla(100, 100%, 100%, 0.5)"
               }
