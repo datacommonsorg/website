@@ -24,14 +24,11 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Download } from "../../../components/elements/icons/download";
-import { InfoSpark } from "../../../components/elements/icons/info_spark";
 import { IntegrationInstructions } from "../../../components/elements/icons/integration_instructions";
-import { LocationCity } from "../../../components/elements/icons/location_city";
 import { Public } from "../../../components/elements/icons/public";
 import { ScatterPlot } from "../../../components/elements/icons/scatter_plot";
 import { Timeline } from "../../../components/elements/icons/timeline";
 import { LinkIconBox } from "../../../components/elements/link_icon_box";
-import { Tooltip } from "../../../components/elements/tooltip/tooltip";
 import { resolveHref } from "../../base/utilities/utilities";
 
 interface ToolsProps {

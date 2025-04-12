@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,10 @@
  */
 
 /**
- * A component that renders the tools section of the home page.
+ * A component that demos the tooltips.
  */
+
+// TODO (nick-next): Remove this file before PR is merged into master.
 
 /** @jsxImportSource @emotion/react */
 
@@ -29,12 +31,7 @@ import { LocationCity } from "../../../components/elements/icons/location_city";
 import { ScatterPlot } from "../../../components/elements/icons/scatter_plot";
 import { Tooltip } from "../../../components/elements/tooltip/tooltip";
 
-interface DemoTooltipsProps {
-  //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Record<string, string>;
-}
-
-export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
+export const DemoTooltips = (): ReactElement => {
   const theme = useTheme();
   return (
     <div
@@ -55,18 +52,32 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
       `}
     >
       <div className="box">
+        <Tooltip title="A simple tooltip, text trigger, text content" showArrow>
+          Text Trigger
+        </Tooltip>
+      </div>
+
+      <div className="box">
         <p>
-          A button that can be click/tap or hover, with a rich content tooltip
+          A button that can be hovered, with a rich content tooltip. The button
+          has an action on click, so touch popovers are disabled.
+        </p>
+        <h4>Details</h4>
+        <p>
+          <br />
+          <strong>Trigger:</strong> HTML (React) Element
+          <br />
+          <strong>Content:</strong> HTML (React) Element
+          <br />
+          <strong>disableTouchListener:</strong> true
+          <br />
         </p>
         <Tooltip
           title={
             <>
               <h1>Tooltip Title</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-                <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
-                </a>{" "}
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Voluptatibus <strong>ratione consectetur eligend</strong> i et
                 neque saepe velit <em>architecto dolor.</em>
               </p>
@@ -92,7 +103,7 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
               padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
             `}
           >
-            Hover over me or tap me
+            Hover me
           </button>
         </Tooltip>
       </div>
@@ -130,12 +141,6 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
           showArrow
         >
           <ScatterPlot />
-        </Tooltip>
-      </div>
-
-      <div className="box">
-        <Tooltip title="A simple tooltip, text trigger, text content" showArrow>
-          Text Trigger
         </Tooltip>
       </div>
 

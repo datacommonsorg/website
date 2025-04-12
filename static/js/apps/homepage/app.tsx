@@ -77,8 +77,9 @@ export function App({
         <SampleQuestions sampleQuestions={sampleQuestions} />
       </Section>
 
+      {/* TODO (nick-next): Remove this before PR */}
       <Section variant="small">
-        <DemoTooltips routes={routes} />
+        <DemoTooltips />
       </Section>
 
       <Section variant="small">
