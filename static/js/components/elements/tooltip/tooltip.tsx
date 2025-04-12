@@ -235,6 +235,9 @@ const TooltipBox = styled.div<{
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.sm}px;
+  opacity: ${({ $visible }): number => ($visible ? 1 : 0)};
+  pointer-events: ${({ $followCursor }): string =>
+    $followCursor ? "none" : "auto"};
   z-index: ${TOOLTIP_Z_INDEX};
   opacity: ${({ $visible }): number => ($visible ? 1 : 0)};
   pointer-events: ${({ $followCursor }): string =>
@@ -278,7 +281,7 @@ const TooltipBox = styled.div<{
     margin: 0;
     ${theme.typography.family.heading}
     ${theme.typography.text.sm}
-        font-weight: 600;
+    font-weight: 600;
   }
   p,
   li {
@@ -357,6 +360,10 @@ const SimpleStringTrigger = styled.span`
 const isTouchDevice = (): boolean =>
   "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
+/*
+ * Check if the trigger element focusable in itself (if not, we
+ * will wrap it in a focusable element).
+ */
 function isTriggerFocusable(child: ReactNode): boolean {
   if (!React.isValidElement(child)) return false;
   const elType = child.type;
@@ -367,6 +374,10 @@ function isTriggerFocusable(child: ReactNode): boolean {
   return typeof props.tabIndex === "number" && props.tabIndex >= 0;
 }
 
+/*
+ * Gets all focusable elements in a node (used for managing tabbing into
+ * the tooltip)
+ */
 const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
   return Array.from(
     container.querySelectorAll<HTMLElement>(
@@ -380,6 +391,10 @@ const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
   );
 };
 
+/*
+ * If the trigger element sent is focusable (see above function) then
+ * we will not wrap it, and instead merge the tooltip handlers into it
+ */
 function mergeHandlers<T extends (...args: any[]) => void>(
   userHandler: T | undefined,
   ourHandler: T
@@ -438,9 +453,17 @@ export const Tooltip = ({
     animationDistance ?? TOOLTIP_DEFAULT_ANIMATION_DISTANCE;
   const effectiveCloseDelay = closeDelay ?? TOOLTIP_DEFAULT_CLOSE_DELAY;
 
+  /*
+   * We have separate states for mounted (in DOM) versus open (opacity 1)
+   * These always change in coordination but the separation allows us to
+   * animate after mounting.
+   */
+  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [openAsPopover, setOpenAsPopover] = useState(false);
+
   const closeTimeoutRef = useRef<number | null>(null);
+  const unmountTimeoutRef = useRef<number | null>(null);
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const tooltipBoxRef = useRef<HTMLDivElement | null>(null);
@@ -478,29 +501,68 @@ export const Tooltip = ({
 
   const shouldShowArrowBorder = !computedPlacement.startsWith("bottom");
 
-  const clearCloseTimeout = useCallback((): void => {
+  useEffect(() => {
+    if (mounted) {
+      requestAnimationFrame(() => setOpen(true));
+    } else {
+      setOpen(false);
+    }
+  }, [mounted]);
+
+  const clearCloseTimeout = useCallback(() => {
     if (closeTimeoutRef.current !== null) {
       window.clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
     }
   }, []);
 
+  const clearUnmountTimeout = useCallback(() => {
+    if (unmountTimeoutRef.current !== null) {
+      window.clearTimeout(unmountTimeoutRef.current);
+      unmountTimeoutRef.current = null;
+    }
+  }, []);
+
   const handleOpen = useCallback(
     (asPopover = false): void => {
       clearCloseTimeout();
-      setOpen(true);
-      if (asPopover) {
-        setOpenAsPopover(true);
+      clearUnmountTimeout();
+      setOpenAsPopover(asPopover);
+
+      if (!mounted) {
+        setMounted(true);
+      } else {
+        setOpen(true);
       }
     },
-    [clearCloseTimeout]
+    [mounted, clearCloseTimeout, clearUnmountTimeout]
   );
 
   const handleClose = useCallback((): void => {
     clearCloseTimeout();
+    clearUnmountTimeout();
+
+    const isPopover = openAsPopover || popoverMode;
+
     setOpen(false);
-    setOpenAsPopover(false);
-  }, [clearCloseTimeout]);
+
+    const totalTime = isPopover
+      ? effectiveFadeDuration
+      : Math.max(effectiveFadeDuration, effectiveAnimationDuration);
+
+    unmountTimeoutRef.current = window.setTimeout(() => {
+      setOpenAsPopover(false);
+      setMounted(false);
+      unmountTimeoutRef.current = null;
+    }, totalTime);
+  }, [
+    clearCloseTimeout,
+    clearUnmountTimeout,
+    effectiveFadeDuration,
+    effectiveAnimationDuration,
+    openAsPopover,
+    popoverMode,
+  ]);
 
   const handleCloseWithDelay = useCallback((): void => {
     clearCloseTimeout();
@@ -531,7 +593,7 @@ export const Tooltip = ({
       document.removeEventListener("touchstart", handleDocumentClick);
       document.removeEventListener("mousedown", handleDocumentClick);
     };
-  }, [open, popoverMode, openAsPopover, handleClose]);
+  }, [open, openAsPopover, handleClose]);
 
   /*
    * Mouse and touch event handlers
@@ -739,10 +801,14 @@ export const Tooltip = ({
     [handleClose]
   );
 
+  /*
+   * Bridging and buffering logic to keep tooltip open if you move from trigger
+   * to tooltip or vice versa for normal hover-based tooltips.
+   */
   useEffect(() => {
     if (!open || effectiveFollowCursor || openAsPopover) return;
 
-    function onMouseMove(e: globalThis.MouseEvent): void {
+    function onMouseMove(e: MouseEvent): void {
       if (
         triggerRef.current?.contains(e.target as Node) ||
         tooltipBoxRef.current?.contains(e.target as Node)
@@ -918,46 +984,48 @@ export const Tooltip = ({
     <>
       {triggerNode}
 
-      <FloatingPortal preserveTabOrder={false}>
-        <TooltipBox
-          ref={mergedFloatingRef}
-          role="tooltip"
-          onKeyDown={handleTooltipKeyDown}
-          onMouseLeave={handleTooltipMouseLeave}
-          $maxWidth={effectiveMaxWidth}
-          $placement={computedPlacement}
-          $visible={open}
-          $animationDuration={effectiveAnimationDuration}
-          $fadeDuration={effectiveFadeDuration}
-          $followCursor={effectiveFollowCursor}
-          $animationDistance={effectiveAnimationDistance}
-          $openAsPopover={openAsPopover}
-          $showArrow={showArrow}
-          style={{
-            position: strategy,
-            top: y ?? 0,
-            left: x ?? 0,
-            display: "inline-block",
-            pointerEvents: open ? "auto" : "none",
-          }}
-        >
-          {title}
-          {(popoverMode || openAsPopover) && (
-            <CloseButton onClick={(): void => handleClose()} tabIndex={-1}>
-              <Close />
-            </CloseButton>
-          )}
-          {showArrow && (
-            <FloatingArrow
-              ref={arrowRef}
-              context={context}
-              fill={theme.colors.box.tooltip.pill}
-              stroke={"hsla(0, 0%, 0%, 0.2)"}
-              strokeWidth={shouldShowArrowBorder ? 1 : 0}
-            />
-          )}
-        </TooltipBox>
-      </FloatingPortal>
+      {mounted && (
+        <FloatingPortal preserveTabOrder={false}>
+          <TooltipBox
+            ref={mergedFloatingRef}
+            role="tooltip"
+            onKeyDown={handleTooltipKeyDown}
+            onMouseLeave={handleTooltipMouseLeave}
+            $maxWidth={effectiveMaxWidth}
+            $placement={computedPlacement}
+            $visible={open}
+            $animationDuration={effectiveAnimationDuration}
+            $fadeDuration={effectiveFadeDuration}
+            $followCursor={effectiveFollowCursor}
+            $animationDistance={effectiveAnimationDistance}
+            $openAsPopover={openAsPopover}
+            $showArrow={showArrow}
+            style={{
+              position: strategy,
+              top: y ?? 0,
+              left: x ?? 0,
+            }}
+          >
+            {title}
+
+            {(popoverMode || openAsPopover) && (
+              <CloseButton onClick={(): void => handleClose()} tabIndex={-1}>
+                <Close />
+              </CloseButton>
+            )}
+
+            {showArrow && (
+              <FloatingArrow
+                ref={arrowRef}
+                context={context}
+                fill={theme.colors.box.tooltip.pill}
+                stroke="hsla(0, 0%, 0%, 0.2)"
+                strokeWidth={shouldShowArrowBorder ? 1 : 0}
+              />
+            )}
+          </TooltipBox>
+        </FloatingPortal>
+      )}
     </>
   );
 };
