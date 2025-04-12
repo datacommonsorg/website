@@ -125,12 +125,20 @@ class PlaceExplorerTestMixin():
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
                          expected_topics=topics_for_ca)
+<<<<<<< Updated upstream
 
     demographics = find_elem(
         self.driver,
         by=By.CSS_SELECTOR,
         value='.item-list-item[data-testid="Demographics"] a')
     demographics.click()
+=======
+    
+
+    demographics = find_elem(self.driver,by=By.CSS_SELECTOR, value='data-testid="Demographics"')
+    demographics_link = demographics.find_element(By.TAG_NAME, 'a')
+    demographics_link.click()
+>>>>>>> Stashed changes
     self.driver.get(self.driver.current_url)
 
     # Wait until the new page has loaded and check for text

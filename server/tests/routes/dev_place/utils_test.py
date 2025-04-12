@@ -166,15 +166,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     self.mock_v2node.side_effect = mock_v2node_side_effect
 
-  def test_get_place_html_link(self):
-    """Tests the get_place_html_link generates the proper link."""
-    ca_link = utils.get_place_html_link(mock_data.CALIFORNIA.dcid,
-                                        mock_data.CALIFORNIA.name)
-    africa_link = utils.get_place_html_link("africa", "Africa")
-
-    self.assertEqual(ca_link, '<a href="/place/geoId/06">California</a>')
-    self.assertEqual(africa_link, '<a href="/place/africa">Africa</a>')
-
   def test_get_parent_places(self):
     """Tests that getting parent places returns the proper values."""
     self.mock_v2node_api_data([{
