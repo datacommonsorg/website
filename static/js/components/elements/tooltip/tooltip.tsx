@@ -1,3 +1,137 @@
+/**
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * A full-featured tooltip and popover component.
+ *
+ * This component provides tooltip and popover functionality.
+ *
+ * It can except both simple strings or complex React nodes
+ * for both the tooltip trigger and the tooltip content.
+ *
+ * By default:
+ * - On desktop devices: behaves as a standard tooltip that appears
+ *   on hover
+ * - On touch devices: behaves as a popover that appears on tap and
+ *   includes a close button
+ *
+ * The component can be explicitly set to "popover" mode, thereby
+ * behaving as a popover on all devices.
+ *
+ * The tooltips can contain interactive elements such as links or buttons.
+ * The user will be able to interact with those elements with either
+ * the mouse or the keyboard in both tooltip and popover mode.
+ *
+ * Difference between tooltip and popover:
+ * - Tooltip: appears on hover and disappears when hover ends
+ * - Popover: made visible explicitly by clicking or <enter>. Remains
+ *   open until the popover is dismissed.
+ *
+ * Note that an exception to the interactivity of the tooltip is when
+ * the tooltip is in "followCursor" mode, as by design the mouse can
+ * never enter the tooltip.
+ *
+ * Note: When the tooltip trigger is an element with primary click
+ * functionality (such as a button or a link), it is recommended to set
+ * `disableTouchListener` to true to prevent the tooltip from
+ * interfering with the element's primary action on touch devices. When
+ * using this approach, ensure the tooltip content is non-critical.
+ *
+ * Descriptions of the options available can be found in the comments
+ * annotating the interface for the tooltip.
+ *
+ * Some example usages of the tooltip:
+ *
+ * // Basic tooltip with text trigger and text content
+ * <Tooltip title="A simple tooltip, text trigger, text content">
+ *   Text Trigger
+ * </Tooltip>
+ *
+ * // Basic tooltip with text trigger and text content
+ * <Tooltip title="A simple tooltip with an arrow" showArrow>
+ *   Text Trigger
+ * </Tooltip>
+ *
+ * // Tooltip with button trigger
+ * // Touch popovers are disabled as the button has its own action
+ * <Tooltip
+ *   title="This is a button"
+ *   disableTouchListener
+ * >
+ *   <button onClick={(): void => console.log("click")}>
+ *     Hover me
+ *   </button>
+ * </Tooltip>
+ *
+ * // Tooltip with rich content that follows cursor.
+ * // as well as an icon trigger and an arrow.
+ * <Tooltip
+ *   title={
+ *     <>
+ *       <h2>Follow Cursor</h2>
+ *       <p>This tooltip follows the cursor.</p>
+ *     </>
+ *   }
+ *   followCursor
+ *   showArrow
+ * >
+ *   <InfoSpark />
+ * </Tooltip>
+ *
+ * // Tooltip with rich content and custom placement
+ * <Tooltip
+ *   title={
+ *     <>
+ *       <h2>Another icon tooltip</h2>
+ *       <p>
+ *         <em>This cursor is to the left.</em>
+ *         <br />
+ *         <a href={"https://google.com"}>
+ *           A link that can be clicked in both mobile and not.
+ *         </a>
+ *       </p>
+ *     </>
+ *   }
+ *   placement="left"
+ *   showArrow
+ * >
+ *   <ScatterPlot />
+ * </Tooltip>
+ *
+ * // "Popover" mode, meaning tooltips are treated as popovers
+ * // even in desktop.
+ * <Tooltip
+ *   title={
+ *     <>
+ *       <h1>Popover</h1>
+ *       <p>
+ *         This is always a popover
+ *         <br />
+ *         <a href={"https://google.com"}>
+ *           A link that can be clicked in both mobile and desktop.
+ *         </a>
+ *       </p>
+ *     </>
+ *   }
+ *   mode="popover"
+ * >
+ *   <InfoSpark />
+ * </Tooltip>
+ */
+
 import styled from "@emotion/styled";
 import type { Placement } from "@floating-ui/react";
 import { arrow, FloatingArrow } from "@floating-ui/react";
@@ -77,7 +211,7 @@ const TOOLTIP_DEFAULT_CLOSE_DELAY = 0;
 const TOOLTIP_DEFAULT_TRIGGER_BUFFER = 10;
 
 /*
- * The visible tooltip box that appears when the user activates
+ * The tooltip box that appears when the user activates
  * the trigger.
  */
 const TooltipBox = styled.div<{
@@ -189,6 +323,9 @@ const TooltipBox = styled.div<{
   }}
 `;
 
+/*
+ * The close button at the top-right of popovers
+ */
 const CloseButton = styled.button`
   position: absolute;
   top: ${theme.spacing.sm}px;
@@ -202,13 +339,20 @@ const CloseButton = styled.button`
   }
 `;
 
-const BasicString = styled.span`
+/*
+ * A styled wrapper around simple string triggers.
+ */
+const SimpleStringTrigger = styled.span`
   display: inline-block;
   padding: 0;
   margin: 0;
   ${theme.typography.family.text}
   ${theme.typography.text.sm}
 `;
+
+/*
+ * Tooltip Helper Functions
+ */
 
 const isTouchDevice = (): boolean =>
   "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -246,6 +390,10 @@ function mergeHandlers<T extends (...args: any[]) => void>(
   };
 }
 
+/*
+ * The primary exported Tooltip component. This implements the core
+ * tooltip functionality and renders the trigger and tooltip on the page.
+ */
 export const Tooltip = ({
   title,
   children,
@@ -385,6 +533,9 @@ export const Tooltip = ({
     };
   }, [open, popoverMode, openAsPopover, handleClose]);
 
+  /*
+   * Mouse and touch event handlers
+   */
   const handleMouseEnter = useCallback((): void => {
     if (disableTouchListener && isTouch) {
       return;
@@ -498,6 +649,9 @@ export const Tooltip = ({
     open ? handleClose() : handleOpen(true);
   }, [popoverMode, isTouch, open, handleClose, handleOpen]);
 
+  /*
+   * Keyboard interaction handlers
+   */
   const handleTriggerKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if (e.key === "Escape" && open) {
@@ -704,7 +858,7 @@ export const Tooltip = ({
   let triggerChild: ReactElement;
 
   if (typeof children === "string" || typeof children === "number") {
-    triggerChild = <BasicString>{children}</BasicString>;
+    triggerChild = <SimpleStringTrigger>{children}</SimpleStringTrigger>;
   } else {
     triggerChild = React.Children.only(children) as ReactElement;
   }
