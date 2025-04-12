@@ -30,6 +30,22 @@ export interface Series {
   [key: string]: number;
 }
 
+export interface SnapshotData {
+  date: string;
+  data: {
+    dcid: string;
+    name: string;
+    data: { string: number };
+  }[];
+  sources: string[];
+  exploreUrl: string;
+  statsVars?: string[];
+}
+
+export interface PageHighlight {
+  [title: string]: SnapshotData;
+}
+
 export interface GeoJsonFeatureProperties {
   name: string;
   geoDcid: string;
