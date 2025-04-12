@@ -66,7 +66,7 @@ interface TooltipProps {
 
 const TOOLTIP_Z_INDEX = theme.zIndex.primary;
 const TOOLTIP_DEFAULT_MAX_WIDTH = theme.tooltip.width;
-const TOOLTIP_DEFAULT_DISTANCE = 12;
+const TOOLTIP_DEFAULT_DISTANCE = 15;
 const TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE = 25;
 const TOOLTIP_DEFAULT_SKIDDING = 0;
 const TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING = 0;
@@ -113,30 +113,14 @@ const TooltipBox = styled.div<{
     }
     const baseRadius = theme.radius.tertiary.borderRadius;
     const placementRules = [
-      { prefix: "top-start", rule: "border-bottom-left-radius: 3px;" },
-      { prefix: "top-end", rule: "border-bottom-right-radius: 3px;" },
-      { prefix: "bottom-start", rule: "border-top-left-radius: 3px;" },
-      { prefix: "bottom-end", rule: "border-top-right-radius: 3px;" },
-      { prefix: "left-start", rule: "border-top-right-radius: 3px;" },
-      { prefix: "left-end", rule: "border-bottom-right-radius: 3px;" },
-      { prefix: "right-start", rule: "border-top-left-radius: 3px;" },
-      { prefix: "right-end", rule: "border-bottom-left-radius: 3px;" },
-      {
-        prefix: "top",
-        rule: "border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;",
-      },
-      {
-        prefix: "bottom",
-        rule: "border-top-left-radius: 3px; border-top-left-radius: 3px;",
-      },
-      {
-        prefix: "left",
-        rule: "border-top-right-radius: 3px; border-bottom-right-radius: 3px;",
-      },
-      {
-        prefix: "right",
-        rule: "border-top-left-radius: 3px; border-bottom-left-radius: 3px;",
-      },
+      { prefix: "top-start", rule: "border-bottom-left-radius: 0px;" },
+      { prefix: "top-end", rule: "border-bottom-right-radius: 0px;" },
+      { prefix: "bottom-start", rule: "border-top-left-radius: 0px;" },
+      { prefix: "bottom-end", rule: "border-top-right-radius: 0px;" },
+      { prefix: "left-start", rule: "border-top-right-radius: 0px;" },
+      { prefix: "left-end", rule: "border-bottom-right-radius: 0px;" },
+      { prefix: "right-start", rule: "border-top-left-radius: 0px;" },
+      { prefix: "right-end", rule: "border-bottom-left-radius: 0px;" },
     ];
     const match = placementRules.find(({ prefix }) =>
       $placement.startsWith(prefix)
@@ -344,7 +328,7 @@ export const Tooltip = ({
   const mergedFloatingRef = useMergeRefs([tooltipBoxRef, refs.setFloating]);
   const mergedReferenceRef = useMergeRefs([triggerRef, refs.setReference]);
 
-  const ArrowBorder = !computedPlacement.startsWith("bottom");
+  const shouldShowArrowBorder = !computedPlacement.startsWith("bottom");
 
   const clearCloseTimeout = useCallback((): void => {
     if (closeTimeoutRef.current !== null) {
@@ -814,12 +798,8 @@ export const Tooltip = ({
               ref={arrowRef}
               context={context}
               fill={theme.colors.box.tooltip.pill}
-              stroke={
-                ArrowBorder
-                  ? "hsla(0, 0%, 0%, 0.2)"
-                  : "hsla(100, 100%, 100%, 0.5)"
-              }
-              strokeWidth={1}
+              stroke={"hsla(0, 0%, 0%, 0.2)"}
+              strokeWidth={shouldShowArrowBorder ? 1 : 0}
             />
           )}
         </TooltipBox>

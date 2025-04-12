@@ -42,42 +42,62 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         justify-content: flex-start;
+        gap: 40px;
+        .box {
+          ${theme.radius.tertiary};
+          background: ${theme.colors.background.secondary.light};
+          padding: ${theme.spacing.lg}px;
+        }
+        p {
+          ${theme.typography.family.text};
+          ${theme.typography.text.md};
+        }
       `}
     >
-      <div
-        css={css`
-          display: block;
-          background: red;
-        `}
-      >
+      <div className="box">
+        <p>
+          A button that can be click/tap or hover, with a rich content tooltip
+        </p>
         <Tooltip
           title={
             <>
-              <h1>This is a tooltip</h1>
+              <h1>Tooltip Title</h1>
               <p>
-                <a href={"https://example.com"}>Another link.</a>
-                <br />
-                <em>Some emphasized text</em>
-                <br />
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
                 <a href={"https://google.com"}>
                   A link that can be clicked in both mobile and not.
-                </a>
+                </a>{" "}
+                Voluptatibus <strong>ratione consectetur eligend</strong> i et
+                neque saepe velit <em>architecto dolor.</em>
               </p>
             </>
           }
           disableTouchListener
         >
-          <button onClick={(): void => console.log("click")}>
+          <button
+            onClick={(): void => console.log("click")}
+            css={css`
+              border: 0;
+              ${theme.box.primary}
+              ${theme.elevation.primary}
+              ${theme.typography.family.text};
+              ${theme.typography.text.md};
+              ${theme.radius.primary};
+              ${theme.colors.link.primary.base}
+              line-height: 1rem;
+              display: inline-flex;
+              justify-content: center;
+              align-items: center;
+              gap: ${theme.spacing.sm}px;
+              padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
+            `}
+          >
             Hover over me or tap me
           </button>
         </Tooltip>
       </div>
 
-      <div
-        css={css`
-          background: red;
-        `}
-      >
+      <div css={css``}>
         <Tooltip
           title={
             <>
@@ -92,12 +112,7 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div
-        css={css`
-          display: block;
-          background: red;
-        `}
-      >
+      <div className="box">
         <Tooltip
           title={
             <>
@@ -118,23 +133,13 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div
-        css={css`
-          display: block;
-          background: red;
-        `}
-      >
+      <div className="box">
         <Tooltip title="A simple tooltip, text trigger, text content" showArrow>
           Text Trigger
         </Tooltip>
       </div>
 
-      <div
-        css={css`
-          display: block;
-          background: red;
-        `}
-      >
+      <div className="box">
         <Tooltip
           title={
             <>
@@ -153,12 +158,7 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div
-        css={css`
-          display: block;
-          background: red;
-        `}
-      >
+      <div className="box">
         <Tooltip
           title={
             <>
@@ -178,12 +178,7 @@ export const DemoTooltips = ({ routes }: DemoTooltipsProps): ReactElement => {
         </Tooltip>
       </div>
 
-      <div
-        css={css`
-          display: block;
-          background: red;
-        `}
-      >
+      <div className="box">
         <Tooltip
           title={
             <>
