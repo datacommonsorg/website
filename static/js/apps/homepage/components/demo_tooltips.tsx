@@ -40,6 +40,10 @@ export const DemoTooltips = (): ReactElement => {
         grid-template-columns: repeat(4, 1fr);
         justify-content: flex-start;
         gap: 40px;
+        .grid {
+          display: flex;
+          gap: ${theme.spacing.lg}px;
+        }
         .box {
           ${theme.radius.tertiary};
           background: ${theme.colors.background.secondary.light};
@@ -49,29 +53,46 @@ export const DemoTooltips = (): ReactElement => {
           ${theme.typography.family.text};
           ${theme.typography.text.md};
         }
+        ul {
+          margin: 0 0 20px 20px;
+          padding: 0;
+        }
+        li {
+          ${theme.typography.family.text};
+          ${theme.typography.text.md};
+        }
+        h4 {
+          ${theme.typography.family.heading};
+          ${theme.typography.text.md};
+          font-weight: 900;
+        }
       `}
     >
       <div className="box">
         <Tooltip title="A simple tooltip, text trigger, text content" showArrow>
           Text Trigger
         </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>
+          A simple tooltip with an empty string of text as trigger with the
+          arrow option
+        </p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> Text String Element
+          </li>
+          <li>
+            <strong>Content:</strong> Test string Element
+          </li>
+          <li>
+            <strong>showArrow:</strong> true
+          </li>
+        </ul>
       </div>
 
       <div className="box">
-        <p>
-          A button that can be hovered, with a rich content tooltip. The button
-          has an action on click, so touch popovers are disabled.
-        </p>
-        <h4>Details</h4>
-        <p>
-          <br />
-          <strong>Trigger:</strong> HTML (React) Element
-          <br />
-          <strong>Content:</strong> HTML (React) Element
-          <br />
-          <strong>disableTouchListener:</strong> true
-          <br />
-        </p>
         <Tooltip
           title={
             <>
@@ -106,9 +127,27 @@ export const DemoTooltips = (): ReactElement => {
             Hover me
           </button>
         </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>
+          A button that can be hovered, with a rich content tooltip. The button
+          has an action on click, so touch popovers are disabled.
+        </p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>disableTouchListener:</strong> true
+          </li>
+        </ul>
       </div>
 
-      <div css={css``}>
+      <div className="box">
         <Tooltip
           title={
             <>
@@ -119,8 +158,29 @@ export const DemoTooltips = (): ReactElement => {
           followCursor
           showArrow
         >
-          <InfoSpark />
+          <p>A following cursor tooltip can be used with long elements</p>
         </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>
+          A button that can be hovered, with a rich content tooltip. The button
+          has an action on click, so touch popovers are disabled.
+        </p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>followCursor:</strong> true
+          </li>
+          <li>
+            <strong>showArrow:</strong> true
+          </li>
+        </ul>
       </div>
 
       <div className="box">
@@ -142,45 +202,27 @@ export const DemoTooltips = (): ReactElement => {
         >
           <ScatterPlot />
         </Tooltip>
-      </div>
-
-      <div className="box">
-        <Tooltip
-          title={
-            <>
-              <h2>Another icon tooltip</h2>
-              <p>
-                <em>This one with a link </em>
-                <br />
-                <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
-                </a>
-              </p>
-            </>
-          }
-        >
-          <LocationCity />
-        </Tooltip>
-      </div>
-
-      <div className="box">
-        <Tooltip
-          title={
-            <>
-              <h2>Another icon tooltip</h2>
-              <p>
-                <em>This one is to the right.</em>
-                <br />
-                <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
-                </a>
-              </p>
-            </>
-          }
-          placement={"right"}
-        >
-          <IntegrationInstructions />
-        </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>
+          An element that can be hovered, with a rich content tooltip including
+          clickable links.
+        </p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>showArrow:</strong> true
+          </li>
+          <li>
+            <strong>placement:</strong> left
+          </li>
+        </ul>
       </div>
 
       <div className="box">
@@ -201,6 +243,348 @@ export const DemoTooltips = (): ReactElement => {
         >
           <InfoSpark />
         </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>
+          A popover dialog activated trough click, permament with a close icon,
+          close on click outside or using the ESC key.
+        </p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>mode:</strong> popover
+          </li>
+        </ul>
+      </div>
+
+      <div className="box">
+        <Tooltip
+          title={
+            <>
+              <h2>Another icon tooltip</h2>
+              <p>
+                <em>This one with a link </em>
+                <br />
+                <a href={"https://google.com"}>
+                  A link that can be clicked in both mobile and not.
+                </a>
+              </p>
+            </>
+          }
+          placement="left"
+        >
+          <p>Tooltip appearing on the Left</p>
+        </Tooltip>
+        <Tooltip
+          title={
+            <>
+              <h2>Another icon tooltip</h2>
+              <p>
+                <em>This one with a link </em>
+                <br />
+                <a href={"https://google.com"}>
+                  A link that can be clicked in both mobile and not.
+                </a>
+              </p>
+            </>
+          }
+          placement="right"
+        >
+          <p>Tooltip appearing on the Right</p>
+        </Tooltip>
+        <Tooltip
+          title={
+            <>
+              <h2>Another icon tooltip</h2>
+              <p>
+                <em>This one with a link </em>
+                <br />
+                <a href={"https://google.com"}>
+                  A link that can be clicked in both mobile and not.
+                </a>
+              </p>
+            </>
+          }
+          placement="top"
+        >
+          <p>Tooltip appearing on the Top</p>
+        </Tooltip>
+        <Tooltip
+          title={
+            <>
+              <h2>Another icon tooltip</h2>
+              <p>
+                <em>This one with a link </em>
+                <br />
+                <a href={"https://google.com"}>
+                  A link that can be clicked in both mobile and not.
+                </a>
+              </p>
+            </>
+          }
+          placement="bottom"
+        >
+          <p>Tooltip appearing on the Bottom</p>
+        </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>
+          An element that can be hovered, with a rich content tooltip including
+          clickable links.
+        </p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>placement:</strong> left
+          </li>
+          <li>
+            <strong>placement:</strong> right
+          </li>
+          <li>
+            <strong>placement:</strong> top
+          </li>
+          <li>
+            <strong>placement:</strong> bottom
+          </li>
+        </ul>
+      </div>
+
+      <div className="box">
+        <div className="grid">
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="left-start"
+          >
+            <InfoSpark />
+          </Tooltip>
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="right-start"
+          >
+            <InfoSpark />
+          </Tooltip>
+        </div>
+
+        <div className="grid">
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="left-end"
+          >
+            <InfoSpark />
+          </Tooltip>
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="right-end"
+          >
+            <InfoSpark />
+          </Tooltip>
+        </div>
+
+        <div className="grid">
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="top-start"
+          >
+            <InfoSpark />
+          </Tooltip>
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="bottom-start"
+          >
+            <InfoSpark />
+          </Tooltip>
+        </div>
+
+        <div className="grid">
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="top-end"
+          >
+            <InfoSpark />
+          </Tooltip>
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="bottom-end"
+          >
+            <InfoSpark />
+          </Tooltip>
+        </div>
+
+        <hr />
+        <h4>Description:</h4>
+        <p>An element that can be hovered, starting from multiple directions</p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>placement:</strong> left-start
+          </li>
+          <li>
+            <strong>placement:</strong> left-end
+          </li>
+          <li>
+            <strong>placement:</strong> right-start
+          </li>
+          <li>
+            <strong>placement:</strong> right-end
+          </li>
+          <li>
+            <strong>placement:</strong> top-start
+          </li>
+          <li>
+            <strong>placement:</strong> top-end
+          </li>
+          <li>
+            <strong>placement:</strong> bottom-start
+          </li>
+          <li>
+            <strong>placement:</strong> bottom-end
+          </li>
+        </ul>
+      </div>
+
+      <div className="box">
+        <Tooltip
+          title={
+            <>
+              <h2>Another icon tooltip</h2>
+              <p>
+                <em>This one with a link </em>
+                <br />
+                <a href={"https://google.com"}>
+                  A link that can be clicked in both mobile and not.
+                </a>
+              </p>
+            </>
+          }
+          animationDuration={0}
+          fadeDuration={0}
+        >
+          <p>No Animation</p>
+        </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>A tooltip can be rendered inmediatly without delays</p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>animationDuration:</strong> 0
+          </li>
+          <li>
+            <strong>fadeDuration:</strong> 0
+          </li>
+        </ul>
       </div>
     </div>
   );
