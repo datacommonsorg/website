@@ -617,7 +617,7 @@ function createTriggerNode({
   cursor?: string;
   popoverMode: boolean;
   wrapperComponent?: React.ElementType;
-  triggerRef: (node: any) => void;
+  triggerRef: (node: HTMLDivElement | null) => void;
   handleMouseEnter: () => void;
   handleMouseMove: (e: ReactMouseEvent<HTMLDivElement>) => void;
   handleTriggerMouseLeave: (e: ReactMouseEvent<HTMLDivElement>) => void;
