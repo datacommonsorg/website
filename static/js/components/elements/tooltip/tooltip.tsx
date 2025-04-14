@@ -175,6 +175,9 @@ interface TooltipProps {
   mode?: "tooltip" | "popover";
   // The placement of the cursor relative to the trigger. Default "top".
   placement?: TooltipPlacement;
+  // wrapper for the tooltip trigger if the trigger is not already focusable.
+  // Defaults to a "span", which is safe for inline usage
+  wrapperComponent?: React.ElementType;
   // The tooltip follows the mouse cursor if true. Default false.
   followCursor?: boolean;
   // Whether to show the arrow. Defaults to false.
@@ -490,7 +493,7 @@ function calculateBridgeArea(
 }
 
 /**
- * Checks if a point is inside the an area
+ * Checks if a point is inside an area
  */
 function isPointInArea(
   x: number,
@@ -599,6 +602,7 @@ export const Tooltip = ({
   title,
   children,
   mode = "tooltip",
+  wrapperComponent,
   placement,
   followCursor = false,
   showArrow = false,
@@ -1066,8 +1070,9 @@ export const Tooltip = ({
       ),
     });
   } else {
+    const WrapperComponent = wrapperComponent || "span";
     triggerNode = (
-      <span
+      <WrapperComponent
         ref={mergedReferenceRef}
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
@@ -1084,7 +1089,7 @@ export const Tooltip = ({
         }}
       >
         {triggerChild}
-      </span>
+      </WrapperComponent>
     );
   }
 
