@@ -19,7 +19,7 @@
  *
  * This component provides tooltip and popover functionality.
  *
- * It can except both simple strings or complex React nodes
+ * It can accept both simple strings or complex React nodes
  * for both the tooltip trigger and the tooltip content.
  *
  * By default:
@@ -154,8 +154,10 @@ import React, {
   useState,
 } from "react";
 
+import { useUniqueId } from "../../../shared/hooks/unique_id";
 import theme from "../../../theme/theme";
 import { Close } from "../icons/close";
+import { tooltipBus, TooltipCallback } from "./tooltip_bus";
 
 // Options are: top, top-start, top-end, right, right-start, right-end,
 // bottom, bottom-start, bottom-end, left, left-start, and left-end
@@ -426,8 +428,9 @@ export const Tooltip = ({
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
   triggerBuffer = TOOLTIP_DEFAULT_TRIGGER_BUFFER,
 }: TooltipProps): ReactElement => {
-  const popoverMode = mode === "popover";
+  const tooltipId = useUniqueId("tooltip");
 
+  const popoverMode = mode === "popover";
   const isTouch = isTouchDevice();
   const effectiveFollowCursor = followCursor && !isTouch && !popoverMode;
   const effectiveMaxWidth =
@@ -529,13 +532,15 @@ export const Tooltip = ({
       clearUnmountTimeout();
       setOpenAsPopover(asPopover);
 
+      tooltipBus.emit(tooltipId);
+
       if (!mounted) {
         setMounted(true);
       } else {
         setOpen(true);
       }
     },
-    [mounted, clearCloseTimeout, clearUnmountTimeout]
+    [mounted, clearCloseTimeout, clearUnmountTimeout, tooltipId]
   );
 
   const handleClose = useCallback((): void => {
@@ -979,6 +984,22 @@ export const Tooltip = ({
       </div>
     );
   }
+
+  useEffect(() => {
+    const busCallback: TooltipCallback = (activeTooltipId: string) => {
+      if (
+        activeTooltipId !== tooltipId &&
+        (mounted || open) &&
+        !openAsPopover
+      ) {
+        handleClose();
+      }
+    };
+    tooltipBus.subscribe(busCallback);
+    return () => {
+      tooltipBus.unsubscribe(busCallback);
+    };
+  }, [tooltipId, mounted, open, openAsPopover, handleClose]);
 
   return (
     <>
