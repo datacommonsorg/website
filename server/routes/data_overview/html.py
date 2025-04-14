@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,11 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Place Data overview routing"""
 
-from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
-from server.webdriver.shared_tests.place_explorer_test import \
-    PlaceExplorerTestMixin
+from flask import Blueprint
+
+from server.lib import render as lib_render
+
+bp = Blueprint('data', __name__)
 
 
-class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
-  """Class to test place explorer page. Tests come from PlaceExplorerTestMixin."""
+@bp.route("/data_overview/<path:place>")
+def data_overview(place):
+  return lib_render.render_page("static/data_overview.html",
+                                "data_overview.html",
+                                place_dcid=place)

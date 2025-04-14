@@ -273,6 +273,9 @@ export interface Theme {
     tertiary: {
       borderRadius: string;
     };
+    quaternary: {
+      borderRadius: string;
+    };
   };
   zIndex: {
     primary?: number;

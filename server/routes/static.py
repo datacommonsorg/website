@@ -23,7 +23,6 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import Response
-from flask import send_from_directory
 
 from server.lib.cache import cache
 import server.lib.render as lib_render

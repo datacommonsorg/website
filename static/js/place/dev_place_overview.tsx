@@ -56,7 +56,7 @@ const PlaceOverviewTable = (props: {
   });
 
   return (
-    <div>
+    <div data-testid="place-overview-table">
       <table
         ref={containerRef}
         className="key-demographics-table"
@@ -185,7 +185,9 @@ export const PlaceOverview = (props: {
         `}
       >
         <LocationCity />
-        <span>{intl.formatMessage(pageMessages.SummaryOverview)}</span>
+        <span data-testid="place-overview-summary-title">
+          {intl.formatMessage(pageMessages.SummaryOverview)}
+        </span>
         {placeSummary && (
           <Tooltip
             title={intl.formatMessage(pageMessages.SummaryOverviewTooltip)}

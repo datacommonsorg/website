@@ -318,6 +318,9 @@ const theme: Theme = {
     tertiary: {
       borderRadius: "12px",
     },
+    quaternary: {
+      borderRadius: "8px",
+    },
   },
   zIndex: {
     primary: 9999,
