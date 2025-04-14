@@ -198,6 +198,9 @@ interface TooltipProps {
   // Lateral buffer distance in pixels around the trigger to prevent early closure
   // Defaults to 10px.
   triggerBuffer?: number;
+  // Custom HTML cursors can be used, default will inherit the styles of the element or
+  // pointer in the case of popovers
+  cursor?: string;
 }
 
 const TOOLTIP_Z_INDEX = theme.zIndex.primary;
@@ -347,12 +350,16 @@ const CloseButton = styled.button`
 /*
  * A styled wrapper around simple string triggers.
  */
-const SimpleStringTrigger = styled.span`
+const SimpleStringTrigger = styled.span<{
+  $cursor: string;
+}>`
   display: inline-block;
   padding: 0;
   margin: 0;
   ${theme.typography.family.text}
   ${theme.typography.text.sm}
+  text-decoration: underline ${theme.colors.box.tooltip.text} dashed;
+  cursor: ${({ $cursor }): string => ($cursor ? $cursor : "inherit")};
 `;
 
 /*
@@ -427,6 +434,7 @@ export const Tooltip = ({
   closeDelay,
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
   triggerBuffer = TOOLTIP_DEFAULT_TRIGGER_BUFFER,
+  cursor,
 }: TooltipProps): ReactElement => {
   const tooltipId = useUniqueId("tooltip");
 
@@ -929,7 +937,11 @@ export const Tooltip = ({
   let triggerChild: ReactElement;
 
   if (typeof children === "string" || typeof children === "number") {
-    triggerChild = <SimpleStringTrigger>{children}</SimpleStringTrigger>;
+    triggerChild = (
+      <SimpleStringTrigger $cursor={cursor || "inherit"}>
+        {children}
+      </SimpleStringTrigger>
+    );
   } else {
     triggerChild = React.Children.only(children) as ReactElement;
   }
@@ -977,7 +989,7 @@ export const Tooltip = ({
         tabIndex={0}
         style={{
           display: "inline-block",
-          cursor: popoverMode ? "pointer" : "inherit",
+          cursor: cursor ? cursor : popoverMode ? "pointer" : "inherit",
         }}
       >
         {triggerChild}

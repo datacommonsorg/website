@@ -69,7 +69,11 @@ export const DemoTooltips = (): ReactElement => {
       `}
     >
       <div className="box">
-        <Tooltip title="A simple tooltip, text trigger, text content" showArrow>
+        <Tooltip
+          title="A simple tooltip, text trigger, text content"
+          showArrow
+          cursor={"help"}
+        >
           Text Trigger
         </Tooltip>
         <hr />
@@ -88,6 +92,9 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>showArrow:</strong> true
+          </li>
+          <li>
+            <strong>cursor:</strong> help
           </li>
         </ul>
       </div>
@@ -157,6 +164,7 @@ export const DemoTooltips = (): ReactElement => {
           }
           followCursor
           showArrow
+          cursor={"default"}
         >
           <p>A following cursor tooltip can be used with long elements</p>
         </Tooltip>
@@ -179,6 +187,9 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>showArrow:</strong> true
+          </li>
+          <li>
+            <strong>cursor:</strong> default
           </li>
         </ul>
       </div>
@@ -376,7 +387,7 @@ export const DemoTooltips = (): ReactElement => {
                 </p>
               </>
             }
-            placement="left-start"
+            placement="top-end"
           >
             <InfoSpark />
           </Tooltip>
@@ -393,49 +404,27 @@ export const DemoTooltips = (): ReactElement => {
                 </p>
               </>
             }
-            placement="right-start"
+            placement="bottom-end"
           >
             <InfoSpark />
           </Tooltip>
         </div>
 
-        <div className="grid">
-          <Tooltip
-            title={
-              <>
-                <h2>Another icon tooltip</h2>
-                <p>
-                  <em>This one with a link </em>
-                  <br />
-                  <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
-                  </a>
-                </p>
-              </>
-            }
-            placement="left-end"
-          >
-            <InfoSpark />
-          </Tooltip>
-          <Tooltip
-            title={
-              <>
-                <h2>Another icon tooltip</h2>
-                <p>
-                  <em>This one with a link </em>
-                  <br />
-                  <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
-                  </a>
-                </p>
-              </>
-            }
-            placement="right-end"
-          >
-            <InfoSpark />
-          </Tooltip>
-        </div>
+        <hr />
+        <h4>Description:</h4>
+        <p>An element that can be hovered, starting from multiple directions</p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>placement:</strong> top-end
+          </li>
+          <li>
+            <strong>placement:</strong> bottom-end
+          </li>
+        </ul>
+      </div>
 
+      <div className="box">
         <div className="grid">
           <Tooltip
             title={
@@ -473,6 +462,23 @@ export const DemoTooltips = (): ReactElement => {
           </Tooltip>
         </div>
 
+        <hr />
+        <h4>Description:</h4>
+        <p>An element that can be hovered, starting from multiple directions</p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>placement:</strong> top-start
+          </li>
+          <li>
+            <strong>placement:</strong> bottom-start
+          </li>
+        </ul>
+      </div>
+
+
+
+      <div className="box">
         <div className="grid">
           <Tooltip
             title={
@@ -487,7 +493,7 @@ export const DemoTooltips = (): ReactElement => {
                 </p>
               </>
             }
-            placement="top-end"
+            placement="left-end"
           >
             <InfoSpark />
           </Tooltip>
@@ -504,7 +510,7 @@ export const DemoTooltips = (): ReactElement => {
                 </p>
               </>
             }
-            placement="bottom-end"
+            placement="right-end"
           >
             <InfoSpark />
           </Tooltip>
@@ -516,34 +522,65 @@ export const DemoTooltips = (): ReactElement => {
         <h4>Details:</h4>
         <ul>
           <li>
-            <strong>Trigger:</strong> HTML (React) Element
-          </li>
-          <li>
-            <strong>Content:</strong> HTML (React) Element
-          </li>
-          <li>
-            <strong>placement:</strong> left-start
-          </li>
-          <li>
             <strong>placement:</strong> left-end
-          </li>
-          <li>
-            <strong>placement:</strong> right-start
           </li>
           <li>
             <strong>placement:</strong> right-end
           </li>
+        </ul>
+      </div>
+
+
+
+
+      <div className="box">
+        <div className="grid">
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="left-start"
+          >
+            <InfoSpark />
+          </Tooltip>
+          <Tooltip
+            title={
+              <>
+                <h2>Another icon tooltip</h2>
+                <p>
+                  <em>This one with a link </em>
+                  <br />
+                  <a href={"https://google.com"}>
+                    A link that can be clicked in both mobile and not.
+                  </a>
+                </p>
+              </>
+            }
+            placement="right-start"
+          >
+            <InfoSpark />
+          </Tooltip>
+        </div>
+
+        <hr />
+        <h4>Description:</h4>
+        <p>An element that can be hovered, starting from multiple directions</p>
+        <h4>Details:</h4>
+        <ul>
           <li>
-            <strong>placement:</strong> top-start
+            <strong>placement:</strong> left-start
           </li>
           <li>
-            <strong>placement:</strong> top-end
-          </li>
-          <li>
-            <strong>placement:</strong> bottom-start
-          </li>
-          <li>
-            <strong>placement:</strong> bottom-end
+            <strong>placement:</strong> right-start
           </li>
         </ul>
       </div>
@@ -583,6 +620,42 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>fadeDuration:</strong> 0
+          </li>
+        </ul>
+      </div>
+
+
+      <div className="box">
+        <Tooltip
+          title={
+            <>
+              <h2>Another icon tooltip</h2>
+              <p>
+                <em>This one with a link </em>
+                <br />
+                <a href={"https://google.com"}>
+                  A link that can be clicked in both mobile and not.
+                </a>
+              </p>
+            </>
+          }
+          cursor={"url(/images/google-logo.svg), auto"}
+        >
+          <p>Hello world</p>
+        </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>A custom image cursor can be used</p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>cursor:</strong> url(/images/google-logo.svg), auto
           </li>
         </ul>
       </div>
