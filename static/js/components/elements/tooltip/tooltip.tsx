@@ -595,6 +595,103 @@ function cursorInBufferZone(
 }
 
 /**
+ * Creates the trigger node selectively depending on the nature of the
+ * trigger send into the tooltip via the children.
+ */
+function createTriggerNode({
+  children,
+  cursor,
+  popoverMode,
+  wrapperComponent,
+  triggerRef,
+  handleMouseEnter,
+  handleMouseMove,
+  handleTriggerMouseLeave,
+  handleFocus,
+  handleBlur,
+  handleTouchStart,
+  handleClick,
+  handleTriggerKeyDown,
+}: {
+  children: ReactNode;
+  cursor?: string;
+  popoverMode: boolean;
+  wrapperComponent?: React.ElementType;
+  triggerRef: (node: any) => void;
+  handleMouseEnter: () => void;
+  handleMouseMove: (e: ReactMouseEvent<HTMLDivElement>) => void;
+  handleTriggerMouseLeave: (e: ReactMouseEvent<HTMLDivElement>) => void;
+  handleFocus: () => void;
+  handleBlur: (e: React.FocusEvent<HTMLDivElement>) => void;
+  handleTouchStart: () => void;
+  handleClick: () => void;
+  handleTriggerKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+}): ReactElement {
+  let triggerChild: ReactElement;
+
+  if (typeof children === "string" || typeof children === "number") {
+    triggerChild = (
+      <SimpleStringTrigger $cursor={cursor || "inherit"}>
+        {children}
+      </SimpleStringTrigger>
+    );
+  } else {
+    triggerChild = React.Children.only(children) as ReactElement;
+  }
+
+  if (isTriggerFocusable(triggerChild)) {
+    return React.cloneElement(triggerChild, {
+      ref: triggerRef,
+      onMouseEnter: mergeHandlers(
+        triggerChild.props.onMouseEnter,
+        handleMouseEnter
+      ),
+      onMouseMove: mergeHandlers(
+        triggerChild.props.onMouseMove,
+        handleMouseMove
+      ),
+      onMouseLeave: mergeHandlers(
+        triggerChild.props.onMouseLeave,
+        handleTriggerMouseLeave
+      ),
+      onFocus: mergeHandlers(triggerChild.props.onFocus, handleFocus),
+      onBlur: mergeHandlers(triggerChild.props.onBlur, handleBlur),
+      onTouchStart: mergeHandlers(
+        triggerChild.props.onTouchStart,
+        handleTouchStart
+      ),
+      onClick: mergeHandlers(triggerChild.props.onClick, handleClick),
+      onKeyDown: mergeHandlers(
+        triggerChild.props.onKeyDown,
+        handleTriggerKeyDown
+      ),
+    });
+  } else {
+    const WrapperComponent = wrapperComponent || "span";
+    return (
+      <WrapperComponent
+        ref={triggerRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleTriggerMouseLeave}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onTouchStart={handleTouchStart}
+        onClick={handleClick}
+        onKeyDown={handleTriggerKeyDown}
+        tabIndex={0}
+        style={{
+          display: "inline-block",
+          cursor: cursor ? cursor : popoverMode ? "pointer" : "inherit",
+        }}
+      >
+        {triggerChild}
+      </WrapperComponent>
+    );
+  }
+}
+
+/**
  * The primary exported Tooltip component. This implements the core
  * tooltip functionality and renders the trigger and tooltip on the page.
  */
@@ -1020,69 +1117,21 @@ export const Tooltip = ({
     openAsPopover,
   ]);
 
-  let triggerChild: ReactElement;
-
-  if (typeof children === "string" || typeof children === "number") {
-    triggerChild = (
-      <SimpleStringTrigger $cursor={cursor || "inherit"}>
-        {children}
-      </SimpleStringTrigger>
-    );
-  } else {
-    triggerChild = React.Children.only(children) as ReactElement;
-  }
-
-  let triggerNode: ReactElement;
-  if (isTriggerFocusable(triggerChild)) {
-    triggerNode = React.cloneElement(triggerChild, {
-      ref: mergedReferenceRef,
-      onMouseEnter: mergeHandlers(
-        triggerChild.props.onMouseEnter,
-        handleMouseEnter
-      ),
-      onMouseMove: mergeHandlers(
-        triggerChild.props.onMouseMove,
-        handleMouseMove
-      ),
-      onMouseLeave: mergeHandlers(
-        triggerChild.props.onMouseLeave,
-        handleTriggerMouseLeave
-      ),
-      onFocus: mergeHandlers(triggerChild.props.onFocus, handleFocus),
-      onBlur: mergeHandlers(triggerChild.props.onBlur, handleBlur),
-      onTouchStart: mergeHandlers(
-        triggerChild.props.onTouchStart,
-        handleTouchStart
-      ),
-      onClick: mergeHandlers(triggerChild.props.onClick, handleClick),
-      onKeyDown: mergeHandlers(
-        triggerChild.props.onKeyDown,
-        handleTriggerKeyDown
-      ),
-    });
-  } else {
-    const WrapperComponent = wrapperComponent || "span";
-    triggerNode = (
-      <WrapperComponent
-        ref={mergedReferenceRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleTriggerMouseLeave}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onTouchStart={handleTouchStart}
-        onClick={handleClick}
-        onKeyDown={handleTriggerKeyDown}
-        tabIndex={0}
-        style={{
-          display: "inline-block",
-          cursor: cursor ? cursor : popoverMode ? "pointer" : "inherit",
-        }}
-      >
-        {triggerChild}
-      </WrapperComponent>
-    );
-  }
+  const triggerNode = createTriggerNode({
+    children,
+    cursor,
+    popoverMode,
+    wrapperComponent,
+    triggerRef: mergedReferenceRef,
+    handleMouseEnter,
+    handleMouseMove,
+    handleTriggerMouseLeave,
+    handleFocus,
+    handleBlur,
+    handleTouchStart,
+    handleClick,
+    handleTriggerKeyDown,
+  });
 
   useEffect(() => {
     const busCallback: TooltipCallback = (activeTooltipId: string) => {
