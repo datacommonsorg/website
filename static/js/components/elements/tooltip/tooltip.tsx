@@ -133,7 +133,6 @@
  */
 
 import styled from "@emotion/styled";
-import type { Placement } from "@floating-ui/react";
 import {
   arrow,
   autoUpdate,
@@ -141,6 +140,7 @@ import {
   FloatingArrow,
   FloatingPortal,
   offset,
+  Placement,
   shift,
   useFloating,
   useMergeRefs,
@@ -805,17 +805,8 @@ export const Tooltip = ({
     (e: ReactMouseEvent<HTMLDivElement>) => {
       if (effectiveFollowCursor) {
         refs.setReference({
-          getBoundingClientRect() {
-            return {
-              width: 0,
-              height: 0,
-              x: e.clientX,
-              y: e.clientY,
-              top: e.clientY,
-              left: e.clientX,
-              right: e.clientX,
-              bottom: e.clientY,
-            };
+          getBoundingClientRect(): DOMRect {
+            return new DOMRect(e.clientX, e.clientY, 0, 0);
           },
         });
 
