@@ -134,10 +134,11 @@
 
 import styled from "@emotion/styled";
 import type { Placement } from "@floating-ui/react";
-import { arrow, FloatingArrow } from "@floating-ui/react";
 import {
+  arrow,
   autoUpdate,
   flip,
+  FloatingArrow,
   FloatingPortal,
   offset,
   shift,
@@ -215,7 +216,7 @@ const TOOLTIP_DEFAULT_ANIMATION_DISTANCE = 5;
 const TOOLTIP_DEFAULT_CLOSE_DELAY = 0;
 const TOOLTIP_DEFAULT_TRIGGER_BUFFER = 10;
 
-/*
+/**
  * The tooltip box that appears when the user activates
  * the trigger.
  */
@@ -331,7 +332,7 @@ const TooltipBox = styled.div<{
   }}
 `;
 
-/*
+/**
  * The close button at the top-right of popovers
  */
 const CloseButton = styled.button`
@@ -347,7 +348,7 @@ const CloseButton = styled.button`
   }
 `;
 
-/*
+/**
  * A styled wrapper around simple string triggers.
  */
 const SimpleStringTrigger = styled.span<{
@@ -367,7 +368,7 @@ const SimpleStringTrigger = styled.span<{
 const isTouchDevice = (): boolean =>
   "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-/*
+/**
  * Check if the trigger element focusable in itself (if not, we
  * will wrap it in a focusable element).
  */
@@ -381,7 +382,7 @@ function isTriggerFocusable(child: ReactNode): boolean {
   return typeof props.tabIndex === "number" && props.tabIndex >= 0;
 }
 
-/*
+/**
  * Gets all focusable elements in a node (used for managing tabbing into
  * the tooltip)
  */
@@ -398,11 +399,11 @@ const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
   );
 };
 
-/*
+/**
  * If the trigger element sent is focusable (see above function) then
  * we will not wrap it, and instead merge the tooltip handlers into it
  */
-function mergeHandlers<T extends (...args: any[]) => void>(
+function mergeHandlers<T extends (...args: unknown[]) => void>(
   userHandler: T | undefined,
   ourHandler: T
 ): (...args: Parameters<T>) => void {
@@ -412,7 +413,185 @@ function mergeHandlers<T extends (...args: any[]) => void>(
   };
 }
 
-/*
+/**
+ * Creates a lateral buffer around the tooltip trigger
+ * to increase the area the cursor can move.
+ */
+function addLateralTriggerBuffer(
+  rect: DOMRect,
+  buffer: number,
+  direction: string
+): {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+} {
+  const result = {
+    left: rect.left,
+    right: rect.right,
+    top: rect.top,
+    bottom: rect.bottom,
+  };
+
+  if (direction.startsWith("top") || direction.startsWith("bottom")) {
+    result.left -= buffer;
+    result.right += buffer;
+  } else if (direction.startsWith("left") || direction.startsWith("right")) {
+    result.top -= buffer;
+    result.bottom += buffer;
+  }
+
+  return result;
+}
+
+/**
+ * Calculates the bridge area between tooltip and trigger.
+ * Used to prevent the tooltip from closing when the cursor travels
+ * from the trigger to the tooltip.
+ */
+function calculateBridgeArea(
+  triggerRect: DOMRect,
+  tooltipRect: DOMRect,
+  placement: string
+): {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+} {
+  let bridgeWidth = 0;
+  let bridgeHeight = 0;
+  let bridgeLeft = 0;
+  let bridgeTop = 0;
+
+  if (placement.startsWith("top") || placement.startsWith("bottom")) {
+    bridgeWidth = Math.max(triggerRect.width, tooltipRect.width);
+    bridgeLeft =
+      Math.min(triggerRect.left, tooltipRect.left) -
+      Math.abs(bridgeWidth - Math.max(triggerRect.width, tooltipRect.width)) /
+        2;
+  } else {
+    bridgeHeight = Math.max(triggerRect.height, tooltipRect.height);
+    bridgeTop =
+      Math.min(triggerRect.top, tooltipRect.top) -
+      Math.abs(
+        bridgeHeight - Math.max(triggerRect.height, tooltipRect.height)
+      ) /
+        2;
+  }
+
+  return {
+    left: bridgeLeft,
+    top: bridgeTop,
+    width: bridgeWidth,
+    height: bridgeHeight,
+  };
+}
+
+/**
+ * Checks if a point is inside the an area
+ */
+function isPointInArea(
+  x: number,
+  y: number,
+  area: {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+  }
+): boolean {
+  return x >= area.left && x <= area.right && y >= area.top && y <= area.bottom;
+}
+
+/**
+ * Checks if a point is inside the bridge area between tooltip and trigger
+ */
+function isPointInBridgeArea(
+  x: number,
+  y: number,
+  bridge: { left: number; top: number; width: number; height: number },
+  triggerRect: DOMRect,
+  tooltipRect: DOMRect,
+  placement: string
+): boolean {
+  if (placement.startsWith("top")) {
+    return (
+      x >= bridge.left &&
+      x <= bridge.left + bridge.width &&
+      y >= tooltipRect.bottom &&
+      y <= triggerRect.top
+    );
+  } else if (placement.startsWith("bottom")) {
+    return (
+      x >= bridge.left &&
+      x <= bridge.left + bridge.width &&
+      y >= triggerRect.bottom &&
+      y <= tooltipRect.top
+    );
+  } else if (placement.startsWith("left")) {
+    return (
+      y >= bridge.top &&
+      y <= bridge.top + bridge.height &&
+      x >= tooltipRect.right &&
+      x <= triggerRect.left
+    );
+  } else if (placement.startsWith("right")) {
+    return (
+      y >= bridge.top &&
+      y <= bridge.top + bridge.height &&
+      x >= triggerRect.right &&
+      x <= tooltipRect.left
+    );
+  }
+
+  return false;
+}
+
+/**
+ * Checks the cursor is in the buffer zone (including the bridge zone).
+ */
+function cursorInBufferZone(
+  e: MouseEvent,
+  triggerRef: React.RefObject<HTMLDivElement>,
+  tooltipBoxRef: React.RefObject<HTMLDivElement>,
+  placement: string,
+  triggerBuffer: number
+): boolean {
+  if (
+    triggerRef.current?.contains(e.target as Node) ||
+    tooltipBoxRef.current?.contains(e.target as Node)
+  ) {
+    return true;
+  }
+
+  const triggerRect = triggerRef.current?.getBoundingClientRect();
+  const tooltipRect = tooltipBoxRef.current?.getBoundingClientRect();
+  if (!triggerRect || !tooltipRect) return false;
+
+  const triggerWithBuffer = addLateralTriggerBuffer(
+    triggerRect,
+    triggerBuffer,
+    placement
+  );
+
+  const bridge = calculateBridgeArea(triggerRect, tooltipRect, placement);
+
+  return (
+    isPointInArea(e.clientX, e.clientY, triggerWithBuffer) ||
+    isPointInBridgeArea(
+      e.clientX,
+      e.clientY,
+      bridge,
+      triggerRect,
+      tooltipRect,
+      placement
+    )
+  );
+}
+
+/**
  * The primary exported Tooltip component. This implements the core
  * tooltip functionality and renders the trigger and tooltip on the page.
  */
@@ -812,105 +991,19 @@ export const Tooltip = ({
     [handleClose]
   );
 
-  /*
-   * Bridging and buffering logic to keep tooltip open if you move from trigger
-   * to tooltip or vice versa for normal hover-based tooltips.
-   */
   useEffect(() => {
     if (!open || effectiveFollowCursor || openAsPopover) return;
 
     function onMouseMove(e: MouseEvent): void {
-      if (
-        triggerRef.current?.contains(e.target as Node) ||
-        tooltipBoxRef.current?.contains(e.target as Node)
-      ) {
-        clearCloseTimeout();
-        return;
-      }
+      const shouldKeepOpen = cursorInBufferZone(
+        e,
+        triggerRef,
+        tooltipBoxRef,
+        computedPlacement,
+        triggerBuffer
+      );
 
-      const triggerRect = triggerRef.current?.getBoundingClientRect();
-      const tooltipRect = tooltipBoxRef.current?.getBoundingClientRect();
-      if (!triggerRect || !tooltipRect) return;
-
-      const triggerWithBuffer = {
-        left: triggerRect.left,
-        right: triggerRect.right,
-        top: triggerRect.top,
-        bottom: triggerRect.bottom,
-      };
-
-      if (
-        computedPlacement.startsWith("top") ||
-        computedPlacement.startsWith("bottom")
-      ) {
-        triggerWithBuffer.left -= triggerBuffer;
-        triggerWithBuffer.right += triggerBuffer;
-      } else if (
-        computedPlacement.startsWith("left") ||
-        computedPlacement.startsWith("right")
-      ) {
-        triggerWithBuffer.top -= triggerBuffer;
-        triggerWithBuffer.bottom += triggerBuffer;
-      }
-
-      let [bridgeWidth, bridgeHeight, bridgeLeft, bridgeTop] = [0, 0, 0, 0];
-
-      if (
-        computedPlacement.startsWith("top") ||
-        computedPlacement.startsWith("bottom")
-      ) {
-        bridgeWidth = Math.max(triggerRect.width, tooltipRect.width);
-        bridgeLeft =
-          Math.min(triggerRect.left, tooltipRect.left) -
-          Math.abs(
-            bridgeWidth - Math.max(triggerRect.width, tooltipRect.width)
-          ) /
-            2;
-      } else {
-        bridgeHeight = Math.max(triggerRect.height, tooltipRect.height);
-        bridgeTop =
-          Math.min(triggerRect.top, tooltipRect.top) -
-          Math.abs(
-            bridgeHeight - Math.max(triggerRect.height, tooltipRect.height)
-          ) /
-            2;
-      }
-
-      const inTriggerBuffer =
-        e.clientX >= triggerWithBuffer.left &&
-        e.clientX <= triggerWithBuffer.right &&
-        e.clientY >= triggerWithBuffer.top &&
-        e.clientY <= triggerWithBuffer.bottom;
-
-      let inBridgeArea = false;
-
-      if (computedPlacement.startsWith("top")) {
-        inBridgeArea =
-          e.clientX >= bridgeLeft &&
-          e.clientX <= bridgeLeft + bridgeWidth &&
-          e.clientY >= tooltipRect.bottom &&
-          e.clientY <= triggerRect.top;
-      } else if (computedPlacement.startsWith("bottom")) {
-        inBridgeArea =
-          e.clientX >= bridgeLeft &&
-          e.clientX <= bridgeLeft + bridgeWidth &&
-          e.clientY >= triggerRect.bottom &&
-          e.clientY <= tooltipRect.top;
-      } else if (computedPlacement.startsWith("left")) {
-        inBridgeArea =
-          e.clientY >= bridgeTop &&
-          e.clientY <= bridgeTop + bridgeHeight &&
-          e.clientX >= tooltipRect.right &&
-          e.clientX <= triggerRect.left;
-      } else if (computedPlacement.startsWith("right")) {
-        inBridgeArea =
-          e.clientY >= bridgeTop &&
-          e.clientY <= bridgeTop + bridgeHeight &&
-          e.clientX >= triggerRect.right &&
-          e.clientX <= tooltipRect.left;
-      }
-
-      if (inTriggerBuffer || inBridgeArea) {
+      if (shouldKeepOpen) {
         clearCloseTimeout();
       } else {
         handleCloseWithDelay();
@@ -974,7 +1067,7 @@ export const Tooltip = ({
     });
   } else {
     triggerNode = (
-      <div
+      <span
         ref={mergedReferenceRef}
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
@@ -991,7 +1084,7 @@ export const Tooltip = ({
         }}
       >
         {triggerChild}
-      </div>
+      </span>
     );
   }
 

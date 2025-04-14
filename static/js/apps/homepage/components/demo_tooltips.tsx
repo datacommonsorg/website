@@ -280,66 +280,74 @@ export const DemoTooltips = (): ReactElement => {
       </div>
 
       <div className="box">
-        <Tooltip
-          title={
-            <>
-              <h2>A tooltip with HTML content</h2>
-              <p>
-                <a href={"https://google.com"}>
-                  A link the user can interact with.
-                </a>
-              </p>
-            </>
-          }
-          placement="left"
-        >
-          <p>Tooltip appearing on the Left</p>
-        </Tooltip>
-        <Tooltip
-          title={
-            <>
-              <h2>A tooltip with HTML content</h2>
-              <p>
-                <a href={"https://google.com"}>
-                  A link the user can interact with.
-                </a>
-              </p>
-            </>
-          }
-          placement="right"
-        >
-          <p>Tooltip appearing on the Right</p>
-        </Tooltip>
-        <Tooltip
-          title={
-            <>
-              <h2>A tooltip with HTML content</h2>
-              <p>
-                <a href={"https://google.com"}>
-                  A link the user can interact with.
-                </a>
-              </p>
-            </>
-          }
-          placement="top"
-        >
-          <p>Tooltip appearing on the Top</p>
-        </Tooltip>
-        <Tooltip
-          title={
-            <>
-              <h2>A tooltip with HTML content</h2>
-              <p>
-                <a href={"https://google.com"}>
-                  A link the user can interact with.
-                </a>
-              </p>
-            </>
-          }
-          placement="bottom"
-        >
-          <p>Tooltip appearing on the Bottom</p>
-        </Tooltip>
+        <p>
+          <Tooltip
+            title={
+              <>
+                <h2>A tooltip with HTML content</h2>
+                <p>
+                  <a href={"https://google.com"}>
+                    A link the user can interact with.
+                  </a>
+                </p>
+              </>
+            }
+            placement="left"
+          >
+            <span>Tooltip appearing on the Left</span>
+          </Tooltip>
+        </p>
+        <p>
+          <Tooltip
+            title={
+              <>
+                <h2>A tooltip with HTML content</h2>
+                <p>
+                  <a href={"https://google.com"}>
+                    A link the user can interact with.
+                  </a>
+                </p>
+              </>
+            }
+            placement="right"
+          >
+            <span>Tooltip appearing on the Right</span>
+          </Tooltip>
+        </p>
+        <p>
+          <Tooltip
+            title={
+              <>
+                <h2>A tooltip with HTML content</h2>
+                <p>
+                  <a href={"https://google.com"}>
+                    A link the user can interact with.
+                  </a>
+                </p>
+              </>
+            }
+            placement="top"
+          >
+            <span>Tooltip appearing on the Top</span>
+          </Tooltip>
+        </p>
+        <p>
+          <Tooltip
+            title={
+              <>
+                <h2>A tooltip with HTML content</h2>
+                <p>
+                  <a href={"https://google.com"}>
+                    A link the user can interact with.
+                  </a>
+                </p>
+              </>
+            }
+            placement="bottom"
+          >
+            <span>Tooltip appearing on the Bottom</span>
+          </Tooltip>
+        </p>
         <hr />
         <h4>Description:</h4>
         <p>
