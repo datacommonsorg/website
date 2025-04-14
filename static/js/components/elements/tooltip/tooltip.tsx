@@ -356,8 +356,6 @@ const SimpleStringTrigger = styled.span<{
   display: inline-block;
   padding: 0;
   margin: 0;
-  ${theme.typography.family.text}
-  ${theme.typography.text.sm}
   text-decoration: underline ${theme.colors.box.tooltip.text} dashed;
   cursor: ${({ $cursor }): string => ($cursor ? $cursor : "inherit")};
 `;

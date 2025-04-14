@@ -26,8 +26,6 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { InfoSpark } from "../../../components/elements/icons/info_spark";
-import { IntegrationInstructions } from "../../../components/elements/icons/integration_instructions";
-import { LocationCity } from "../../../components/elements/icons/location_city";
 import { ScatterPlot } from "../../../components/elements/icons/scatter_plot";
 import { Tooltip } from "../../../components/elements/tooltip/tooltip";
 
@@ -68,19 +66,23 @@ export const DemoTooltips = (): ReactElement => {
         }
       `}
     >
-      <div className="box">
-        <Tooltip
-          title="A simple tooltip, text trigger, text content"
-          showArrow
-          cursor={"help"}
-        >
-          Text Trigger
+      <div
+        className="box"
+        css={css`
+          ${theme.typography.family.text}
+          ${theme.typography.text.sm}
+        `}
+      >
+        A simple{" "}
+        <Tooltip title="A simple tooltip, text trigger, text content" showArrow>
+          text trigger
         </Tooltip>
+        .
         <hr />
         <h4>Description:</h4>
         <p>
-          A simple tooltip with an empty string of text as trigger with the
-          arrow option
+          A simple tooltip with an string of text as trigger, with the arrow
+          flag set.
         </p>
         <h4>Details:</h4>
         <ul>
@@ -166,7 +168,10 @@ export const DemoTooltips = (): ReactElement => {
           showArrow
           cursor={"default"}
         >
-          <p>A following cursor tooltip can be used with long elements</p>
+          <p>
+            A cursor that follow the cursor, that can be used with long
+            elements.
+          </p>
         </Tooltip>
         <hr />
         <h4>Description:</h4>
@@ -198,12 +203,13 @@ export const DemoTooltips = (): ReactElement => {
         <Tooltip
           title={
             <>
-              <h2>Another icon tooltip</h2>
+              <h2>A tooltip with HTML content</h2>
               <p>
                 <em>This cursor is to the left.</em>
-                <br />
+              </p>
+              <p>
                 <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
+                  A link the user can interact with.
                 </a>
               </p>
             </>
@@ -241,11 +247,10 @@ export const DemoTooltips = (): ReactElement => {
           title={
             <>
               <h1>Popover</h1>
+              <p>This is always a popover</p>
               <p>
-                This is always a popover
-                <br />
                 <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
+                  A link the user can interact with.
                 </a>
               </p>
             </>
@@ -257,8 +262,8 @@ export const DemoTooltips = (): ReactElement => {
         <hr />
         <h4>Description:</h4>
         <p>
-          A popover dialog activated trough click, permament with a close icon,
-          close on click outside or using the ESC key.
+          A popover dialog activated by clicking, with close icon, closes on
+          click outside or using with the ESC key.
         </p>
         <h4>Details:</h4>
         <ul>
@@ -278,12 +283,10 @@ export const DemoTooltips = (): ReactElement => {
         <Tooltip
           title={
             <>
-              <h2>Another icon tooltip</h2>
+              <h2>A tooltip with HTML content</h2>
               <p>
-                <em>This one with a link </em>
-                <br />
                 <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
+                  A link the user can interact with.
                 </a>
               </p>
             </>
@@ -295,12 +298,10 @@ export const DemoTooltips = (): ReactElement => {
         <Tooltip
           title={
             <>
-              <h2>Another icon tooltip</h2>
+              <h2>A tooltip with HTML content</h2>
               <p>
-                <em>This one with a link </em>
-                <br />
                 <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
+                  A link the user can interact with.
                 </a>
               </p>
             </>
@@ -312,12 +313,10 @@ export const DemoTooltips = (): ReactElement => {
         <Tooltip
           title={
             <>
-              <h2>Another icon tooltip</h2>
+              <h2>A tooltip with HTML content</h2>
               <p>
-                <em>This one with a link </em>
-                <br />
                 <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
+                  A link the user can interact with.
                 </a>
               </p>
             </>
@@ -329,12 +328,10 @@ export const DemoTooltips = (): ReactElement => {
         <Tooltip
           title={
             <>
-              <h2>Another icon tooltip</h2>
+              <h2>A tooltip with HTML content</h2>
               <p>
-                <em>This one with a link </em>
-                <br />
                 <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
+                  A link the user can interact with.
                 </a>
               </p>
             </>
@@ -377,12 +374,10 @@ export const DemoTooltips = (): ReactElement => {
           <Tooltip
             title={
               <>
-                <h2>Another icon tooltip</h2>
+                <h2>A tooltip with HTML content</h2>
                 <p>
-                  <em>This one with a link </em>
-                  <br />
                   <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
+                    A link the user can interact with.
                   </a>
                 </p>
               </>
@@ -394,12 +389,10 @@ export const DemoTooltips = (): ReactElement => {
           <Tooltip
             title={
               <>
-                <h2>Another icon tooltip</h2>
+                <h2>A tooltip with HTML content</h2>
                 <p>
-                  <em>This one with a link </em>
-                  <br />
                   <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
+                    A link the user can interact with.
                   </a>
                 </p>
               </>
@@ -412,7 +405,7 @@ export const DemoTooltips = (): ReactElement => {
 
         <hr />
         <h4>Description:</h4>
-        <p>An element that can be hovered, starting from multiple directions</p>
+        <p>A tooltip with placements.</p>
         <h4>Details:</h4>
         <ul>
           <li>
@@ -429,12 +422,10 @@ export const DemoTooltips = (): ReactElement => {
           <Tooltip
             title={
               <>
-                <h2>Another icon tooltip</h2>
+                <h2>A tooltip with HTML content</h2>
                 <p>
-                  <em>This one with a link </em>
-                  <br />
                   <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
+                    A link the user can interact with.
                   </a>
                 </p>
               </>
@@ -446,12 +437,10 @@ export const DemoTooltips = (): ReactElement => {
           <Tooltip
             title={
               <>
-                <h2>Another icon tooltip</h2>
+                <h2>A tooltip with HTML content</h2>
                 <p>
-                  <em>This one with a link </em>
-                  <br />
                   <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
+                    A link the user can interact with.
                   </a>
                 </p>
               </>
@@ -464,7 +453,7 @@ export const DemoTooltips = (): ReactElement => {
 
         <hr />
         <h4>Description:</h4>
-        <p>An element that can be hovered, starting from multiple directions</p>
+        <p>A tooltip with placements.</p>
         <h4>Details:</h4>
         <ul>
           <li>
@@ -476,19 +465,15 @@ export const DemoTooltips = (): ReactElement => {
         </ul>
       </div>
 
-
-
       <div className="box">
         <div className="grid">
           <Tooltip
             title={
               <>
-                <h2>Another icon tooltip</h2>
+                <h2>A tooltip with HTML content</h2>
                 <p>
-                  <em>This one with a link </em>
-                  <br />
                   <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
+                    A link the user can interact with.
                   </a>
                 </p>
               </>
@@ -500,12 +485,10 @@ export const DemoTooltips = (): ReactElement => {
           <Tooltip
             title={
               <>
-                <h2>Another icon tooltip</h2>
+                <h2>A tooltip with HTML content</h2>
                 <p>
-                  <em>This one with a link </em>
-                  <br />
                   <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
+                    A link the user can interact with.
                   </a>
                 </p>
               </>
@@ -530,20 +513,15 @@ export const DemoTooltips = (): ReactElement => {
         </ul>
       </div>
 
-
-
-
       <div className="box">
         <div className="grid">
           <Tooltip
             title={
               <>
-                <h2>Another icon tooltip</h2>
+                <h2>A tooltip with HTML content</h2>
                 <p>
-                  <em>This one with a link </em>
-                  <br />
                   <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
+                    A link the user can interact with.
                   </a>
                 </p>
               </>
@@ -555,12 +533,10 @@ export const DemoTooltips = (): ReactElement => {
           <Tooltip
             title={
               <>
-                <h2>Another icon tooltip</h2>
+                <h2>A tooltip with HTML content</h2>
                 <p>
-                  <em>This one with a link </em>
-                  <br />
                   <a href={"https://google.com"}>
-                    A link that can be clicked in both mobile and not.
+                    A link the user can interact with.
                   </a>
                 </p>
               </>
@@ -587,18 +563,7 @@ export const DemoTooltips = (): ReactElement => {
 
       <div className="box">
         <Tooltip
-          title={
-            <>
-              <h2>Another icon tooltip</h2>
-              <p>
-                <em>This one with a link </em>
-                <br />
-                <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
-                </a>
-              </p>
-            </>
-          }
+          title={"A simple tooltip with no animation (no fade, no pop effect)."}
           animationDuration={0}
           fadeDuration={0}
         >
@@ -606,7 +571,7 @@ export const DemoTooltips = (): ReactElement => {
         </Tooltip>
         <hr />
         <h4>Description:</h4>
-        <p>A tooltip can be rendered inmediatly without delays</p>
+        <p>A tooltip can be rendered with no animation.</p>
         <h4>Details:</h4>
         <ul>
           <li>
@@ -624,19 +589,11 @@ export const DemoTooltips = (): ReactElement => {
         </ul>
       </div>
 
-
       <div className="box">
         <Tooltip
           title={
             <>
-              <h2>Another icon tooltip</h2>
-              <p>
-                <em>This one with a link </em>
-                <br />
-                <a href={"https://google.com"}>
-                  A link that can be clicked in both mobile and not.
-                </a>
-              </p>
+              <p>This tooltip has a custom cursor.</p>
             </>
           }
           cursor={"url(/images/google-logo.svg), auto"}
