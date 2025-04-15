@@ -38,6 +38,9 @@ export const DemoTooltips = (): ReactElement => {
         grid-template-columns: repeat(4, 1fr);
         justify-content: flex-start;
         gap: 40px;
+        @media (max-width: ${theme.breakpoints.md}px) {
+          grid-template-columns: 1fr;
+        }
         .grid {
           display: flex;
           gap: ${theme.spacing.lg}px;
@@ -94,9 +97,6 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>showArrow:</strong> true
-          </li>
-          <li>
-            <strong>cursor:</strong> help
           </li>
         </ul>
       </div>
