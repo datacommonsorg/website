@@ -340,8 +340,8 @@ const TooltipBox = styled.div<{
  */
 const CloseButton = styled.button`
   position: absolute;
-  top: ${theme.spacing.sm}px;
-  right: ${theme.spacing.sm}px;
+  top: 2px;
+  right: 2px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -449,47 +449,56 @@ function addLateralTriggerBuffer(
 }
 
 /**
- * Calculates the bridge area between tooltip and trigger.
+ * Calculates the safe area that includes the tooltip and the
+ * bridge between the tooltip and the trigger.
  * Used to prevent the tooltip from closing when the cursor travels
  * from the trigger to the tooltip.
  */
-function calculateBridgeArea(
+function calculateSafeArea(
   triggerRect: DOMRect,
   tooltipRect: DOMRect,
   placement: string
 ): {
   left: number;
+  right: number;
   top: number;
-  width: number;
-  height: number;
+  bottom: number;
 } {
-  let bridgeWidth = 0;
-  let bridgeHeight = 0;
-  let bridgeLeft = 0;
-  let bridgeTop = 0;
+  const result = {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  };
 
-  if (placement.startsWith("top") || placement.startsWith("bottom")) {
-    bridgeWidth = Math.max(triggerRect.width, tooltipRect.width);
-    bridgeLeft =
-      Math.min(triggerRect.left, tooltipRect.left) -
-      Math.abs(bridgeWidth - Math.max(triggerRect.width, tooltipRect.width)) /
-        2;
+  if (placement.startsWith("top")) {
+    result.left = Math.min(tooltipRect.left, triggerRect.left);
+    result.right = Math.max(tooltipRect.right, triggerRect.right);
+    result.top = tooltipRect.top;
+    result.bottom = triggerRect.top;
+  } else if (placement.startsWith("bottom")) {
+    result.left = Math.min(tooltipRect.left, triggerRect.left);
+    result.right = Math.max(tooltipRect.right, triggerRect.right);
+    result.top = triggerRect.bottom;
+    result.bottom = tooltipRect.bottom;
+  } else if (placement.startsWith("left")) {
+    result.left = tooltipRect.left;
+    result.right = triggerRect.left;
+    result.top = Math.min(tooltipRect.top, triggerRect.top);
+    result.bottom = Math.max(tooltipRect.bottom, triggerRect.bottom);
+  } else if (placement.startsWith("right")) {
+    result.left = triggerRect.right;
+    result.right = tooltipRect.right;
+    result.top = Math.min(tooltipRect.top, triggerRect.top);
+    result.bottom = Math.max(tooltipRect.bottom, triggerRect.bottom);
   } else {
-    bridgeHeight = Math.max(triggerRect.height, tooltipRect.height);
-    bridgeTop =
-      Math.min(triggerRect.top, tooltipRect.top) -
-      Math.abs(
-        bridgeHeight - Math.max(triggerRect.height, tooltipRect.height)
-      ) /
-        2;
+    result.left = Math.min(tooltipRect.left, triggerRect.left);
+    result.right = Math.max(tooltipRect.right, triggerRect.right);
+    result.top = Math.min(tooltipRect.top, triggerRect.top);
+    result.bottom = Math.max(tooltipRect.bottom, triggerRect.bottom);
   }
 
-  return {
-    left: bridgeLeft,
-    top: bridgeTop,
-    width: bridgeWidth,
-    height: bridgeHeight,
-  };
+  return result;
 }
 
 /**
@@ -509,53 +518,9 @@ function isPointInArea(
 }
 
 /**
- * Checks if a point is inside the bridge area between tooltip and trigger
+ * Checks the cursor is in the safe zone (including the bridge zone and tooltip).
  */
-function isPointInBridgeArea(
-  x: number,
-  y: number,
-  bridge: { left: number; top: number; width: number; height: number },
-  triggerRect: DOMRect,
-  tooltipRect: DOMRect,
-  placement: string
-): boolean {
-  if (placement.startsWith("top")) {
-    return (
-      x >= bridge.left &&
-      x <= bridge.left + bridge.width &&
-      y >= tooltipRect.bottom &&
-      y <= triggerRect.top
-    );
-  } else if (placement.startsWith("bottom")) {
-    return (
-      x >= bridge.left &&
-      x <= bridge.left + bridge.width &&
-      y >= triggerRect.bottom &&
-      y <= tooltipRect.top
-    );
-  } else if (placement.startsWith("left")) {
-    return (
-      y >= bridge.top &&
-      y <= bridge.top + bridge.height &&
-      x >= tooltipRect.right &&
-      x <= triggerRect.left
-    );
-  } else if (placement.startsWith("right")) {
-    return (
-      y >= bridge.top &&
-      y <= bridge.top + bridge.height &&
-      x >= triggerRect.right &&
-      x <= tooltipRect.left
-    );
-  }
-
-  return false;
-}
-
-/**
- * Checks the cursor is in the buffer zone (including the bridge zone).
- */
-function cursorInBufferZone(
+function cursorInSafeZone(
   e: MouseEvent,
   triggerRef: React.RefObject<HTMLDivElement>,
   tooltipBoxRef: React.RefObject<HTMLDivElement>,
@@ -579,19 +544,13 @@ function cursorInBufferZone(
     placement
   );
 
-  const bridge = calculateBridgeArea(triggerRect, tooltipRect, placement);
+  const safeArea = calculateSafeArea(triggerRect, tooltipRect, placement);
 
-  return (
-    isPointInArea(e.clientX, e.clientY, triggerWithBuffer) ||
-    isPointInBridgeArea(
-      e.clientX,
-      e.clientY,
-      bridge,
-      triggerRect,
-      tooltipRect,
-      placement
-    )
-  );
+  const { clientX, clientY } = e;
+  if (isPointInArea(clientX, clientY, triggerWithBuffer)) {
+    return true;
+  }
+  return isPointInArea(clientX, clientY, safeArea);
 }
 
 /**
@@ -890,13 +849,11 @@ export const Tooltip = ({
    * Mouse and touch event handlers
    */
   const handleMouseEnter = useCallback((): void => {
-    if (disableTouchListener && isTouch) {
-      return;
-    }
+    if (isTouch) return;
     if (!popoverMode) {
       handleOpen();
     }
-  }, [disableTouchListener, isTouch, popoverMode, handleOpen]);
+  }, [isTouch, popoverMode, handleOpen]);
 
   const handleMouseMove = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
@@ -953,12 +910,12 @@ export const Tooltip = ({
   );
 
   const handleFocus = useCallback((): void => {
-    if (disableTouchListener && isTouch) return;
+    if (isTouch) return;
 
     if (!popoverMode) {
       handleOpen();
     }
-  }, [disableTouchListener, isTouch, popoverMode, handleOpen]);
+  }, [isTouch, popoverMode, handleOpen]);
 
   const handleBlur = useCallback(
     (e: React.FocusEvent<HTMLDivElement>) => {
@@ -1087,7 +1044,7 @@ export const Tooltip = ({
     if (!open || effectiveFollowCursor || openAsPopover) return;
 
     function onMouseMove(e: MouseEvent): void {
-      const shouldKeepOpen = cursorInBufferZone(
+      const shouldKeepOpen = cursorInSafeZone(
         e,
         triggerRef,
         tooltipBoxRef,
