@@ -2163,6 +2163,10 @@ Number of female Black Or African American With Bachelor or higher Degree,dc/t74
 Number of female Deaths from Assault (Homicide),Count_MortalityEvent_Assault(Homicide)_Female
 Number of female Native Hawaiian Or Other Pacific Islander With Bachelor or higher Degree,dc/v7yl3k9w3h7e8
 Number of female asian With Bachelor or higher Degree,dc/eg6rrdr1tkf76
+Number of female employed in agriculture sector,Count_Person_Agriculture_Employed_Female
+Number of female employed in the community and social service sector,Count_Person_CommunityAndSocialService_Employed_Female
+Number of female employed in the construction sector,Count_Person_ConstructionSector_Employed_Female
+Number of female employed in the financial activities sector,Count_Person_FinancialActivities_Employed_Female
 Number of female full time year around worker,Count_Person_Female_FullTimeYearRoundWorker
 Number of female hispanic or latino With Bachelor or higher Degree,dc/06f0jf8xvzw4f
 Number of female people with disabilities,Count_Person_WithDisability_Female
@@ -2450,6 +2454,10 @@ Number of literate Muslims,indianCensus/Count_Person_Religion_Muslim_Literate
 Number of literate Sikhs,indianCensus/Count_Person_Religion_Sikh_Literate
 Number of literate scheduled caste people,Count_Person_ScheduledCaste_Literate
 Number of literate scheduled tribe people,Count_Person_ScheduledTribe_Literate
+Number of male employed in agriculture sector,Count_Person_Agriculture_Employed_Male
+Number of male employed in the community and social service sector,Count_Person_CommunityAndSocialService_Employed_Male
+Number of male employed in the construction sector,Count_Person_ConstructionSector_Employed_Male
+Number of male employed in the financial activities sector,Count_Person_FinancialActivities_Employed_Male
 Number of male people with disabilities,Count_Person_WithDisability_Male
 Number of males aged 18 or less who reside in college or university student housing,Count_Person_18OrLessYears_Male_ResidesInCollegeOrUniversityStudentHousing
 Number of males enrolled in college undergraduate years,dc/pltrqb2ng8dp8
@@ -2591,9 +2599,16 @@ Number of people attended college for less than 1 year,Count_Person_EducationalA
 Number of people below poverty level in the past 12 months,Count_Person_BelowPovertyLevelInThePast12Months
 Number of people do not speak english at all,Count_Person_SpeakEnglishNotAtAll
 Number of people do not speak english well,Count_Person_SpeakEnglishNotWell
+Number of people employed in agriculture sector,Count_Person_Agriculture_Employed
+Number of people employed in the community and social service sector,Count_Person_CommunityAndSocialService_Employed
+Number of people employed in the construction sector,Count_Person_ConstructionSector_Employed
+Number of people employed in the financial activities sector,Count_Person_FinancialActivities_Employed
 Number of people employed in the manufacturing sector,dc/ndg1xk1e9frc2
+Number of people employed in the transport and storage sector,Count_Person_TransportStorageSector_Employed
+Number of people employed in the utility sector,Count_Person_UtilitySector_Employed
 Number of people enrolled for Aadhaar,Count_Person_Aadhaar_Enrolled
 Number of people living above the poverty level in the past 12 months,Count_Person_AbovePovertyLevelInThePast12Months
+Number of people living in slum area,Count_Person_SlumArea
 Number of people living in urban areas,Count_Person_Urban
 Number of people living in urban areas and below poverty level in the past 12 months,Count_Person_Urban_BelowPovertyLevelInThePast12Months
 Number of people not enrolled in school,Count_Person_NotEnrolledInSchool

@@ -3612,3 +3612,18 @@ Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
 dc/x6l3mg60hpe7c,"Consumer Price Index of Consumer Goods And Services (Seasonally Unadjusted): Urban Consumer; Consumer Price Index for All Urban Consumers"
+Count_Person_Agriculture_Employed,Number of people employed in agriculture sector
+Count_Person_Agriculture_Employed_Female,Number of female employed in agriculture sector
+Count_Person_Agriculture_Employed_Male,Number of male employed in agriculture sector
+Count_Person_CommunityAndSocialService_Employed_Female,Number of female employed in the community and social service sector
+Count_Person_CommunityAndSocialService_Employed_Male,Number of male employed in the community and social service sector
+Count_Person_CommunityAndSocialService_Employed,Number of people employed in the community and social service sector
+Count_Person_ConstructionSector_Employed_Male,Number of male employed in the construction sector
+Count_Person_ConstructionSector_Employed_Female,Number of female employed in the construction sector
+Count_Person_ConstructionSector_Employed,Number of people employed in the construction sector
+Count_Person_FinancialActivities_Employed,Number of people employed in the financial activities sector
+Count_Person_FinancialActivities_Employed_Female,Number of female employed in the financial activities sector
+Count_Person_FinancialActivities_Employed_Male,Number of male employed in the financial activities sector
+Count_Person_TransportStorageSector_Employed,Number of people employed in the transport and storage sector
+Count_Person_UtilitySector_Employed,Number of people employed in the utility sector
+Count_Person_SlumArea,Number of people living in slum area
