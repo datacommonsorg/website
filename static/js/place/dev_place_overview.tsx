@@ -192,7 +192,6 @@ export const PlaceOverview = (props: {
           <Tooltip
             title={intl.formatMessage(pageMessages.SummaryOverviewTooltip)}
             placement="right"
-            showArrow
           >
             <InfoSpark />
           </Tooltip>

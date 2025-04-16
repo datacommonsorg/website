@@ -165,7 +165,6 @@ export const DemoTooltips = (): ReactElement => {
             </>
           }
           followCursor
-          showArrow
           cursor={"default"}
         >
           <p>
@@ -186,9 +185,6 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>Content:</strong> HTML (React) Element
-          </li>
-          <li>
-            <strong>followCursor:</strong> true
           </li>
           <li>
             <strong>showArrow:</strong> true
