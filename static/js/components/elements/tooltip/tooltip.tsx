@@ -259,7 +259,9 @@ const TooltipBox = styled.div<{
   opacity: ${({ $visible }): number => ($visible ? 1 : 0)};
   pointer-events: ${({ $followCursor }): string =>
     $followCursor ? "none" : "auto"};
-  padding: ${theme.spacing.md}px;
+  padding: ${({ $openAsPopover }): string => `${theme.spacing.md}px
+    ${$openAsPopover ? theme.spacing.lg : theme.spacing.md}px
+    ${theme.spacing.md}px ${theme.spacing.md}px `};
 
   ${({ $placement, $showArrow }): string | { borderRadius: string } => {
     if (!$showArrow) {
@@ -348,8 +350,11 @@ const TooltipBox = styled.div<{
  */
 const CloseButton = styled.button`
   position: absolute;
-  top: 2px;
-  right: 2px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  top: 5px;
+  right: 5px;
   background: transparent;
   border: none;
   cursor: pointer;

@@ -212,6 +212,7 @@ export const DemoTooltips = (): ReactElement => {
           }
           placement="left"
           showArrow
+          cursor="help"
         >
           <ScatterPlot />
         </Tooltip>
@@ -234,6 +235,9 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>placement:</strong> left
+          </li>
+          <li>
+            <strong>cursor:</strong> help
           </li>
         </ul>
       </div>
