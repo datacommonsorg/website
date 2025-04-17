@@ -904,7 +904,13 @@ export const Tooltip = ({
       }
       handleCloseWithDelay();
     },
-    [popoverMode, effectiveFollowCursor, refs.floating, handleCloseWithDelay]
+    [
+      openAsPopover,
+      popoverMode,
+      effectiveFollowCursor,
+      refs.floating,
+      handleCloseWithDelay,
+    ]
   );
 
   const handleTooltipMouseLeave = useCallback(
