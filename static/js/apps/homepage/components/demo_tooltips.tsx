@@ -620,6 +620,61 @@ export const DemoTooltips = (): ReactElement => {
           </li>
         </ul>
       </div>
+
+      <div
+        className="box"
+        css={css`
+          ${theme.typography.family.text}
+          ${theme.typography.text.sm}
+        `}
+      >
+        You can apply arbitrary{" "}
+        <Tooltip
+          title={
+            <>
+              <h2>A tooltip with HTML content</h2>
+              <p>
+                <a href={"https://google.com"}>
+                  A link the user can interact with.
+                </a>
+              </p>
+            </>
+          }
+          sx={css`
+            background-color: #000;
+            color: #fff;
+            a {
+              color: hsl(204, 90%, 80%);
+            }
+            .tooltip-close {
+              color: white;
+            }
+          `}
+        >
+          tooltip styles
+        </Tooltip>
+        .
+        <hr />
+        <h4>Description:</h4>
+        <p>
+          Arbitrary styles passed into the component to style the tooltip. Note
+          that styles to the content itself (the text in this case) could also
+          be applied as Emotion directly to the tooltip content inside the title
+          prop.
+        </p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> Test string Element
+          </li>
+          <li>
+            <strong>sx:</strong>&#9001;css to style tooltip&#12297;
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

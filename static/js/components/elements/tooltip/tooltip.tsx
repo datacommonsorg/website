@@ -132,12 +132,16 @@
  * </Tooltip>
  */
 
-import styled from "@emotion/styled";
+/** @jsxImportSource @emotion/react */
+
+import { Theme } from "@emotion/react";
+import styled, { Interpolation } from "@emotion/styled";
 import {
   arrow,
   autoUpdate,
   flip,
   FloatingArrow,
+  FloatingArrowProps,
   FloatingPortal,
   offset,
   Placement,
@@ -205,6 +209,10 @@ interface TooltipProps {
   // Custom HTML cursors can be used, default will inherit the styles of the element or
   // pointer in the case of popovers
   cursor?: string;
+  // Prop to allow the optional overriding of tooltip box styles.
+  sx?: Interpolation<Theme>;
+  // Prop to allow the optional overriding of the arrow styles.
+  arrowProps?: Omit<FloatingArrowProps, "ref" | "context">;
 }
 
 const TOOLTIP_Z_INDEX = theme.zIndex.primary;
@@ -672,6 +680,8 @@ export const Tooltip = ({
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
   triggerBuffer = TOOLTIP_DEFAULT_TRIGGER_BUFFER,
   cursor,
+  sx,
+  arrowProps,
 }: TooltipProps): ReactElement => {
   const tooltipId = useUniqueId("tooltip");
 
@@ -1106,6 +1116,12 @@ export const Tooltip = ({
     };
   }, [tooltipId, mounted, open, openAsPopover, handleClose]);
 
+  const defaultArrowProps = {
+    fill: theme.colors.box.tooltip.pill,
+    stroke: "hsla(0, 0%, 0%, 0.2)",
+    strokeWidth: shouldShowArrowBorder ? 1 : 0,
+  };
+
   return (
     <>
       {triggerNode}
@@ -1131,22 +1147,27 @@ export const Tooltip = ({
               top: y ?? 0,
               left: x ?? 0,
             }}
+            css={sx}
           >
             {title}
 
             {(popoverMode || openAsPopover) && (
-              <CloseButton onClick={(): void => handleClose()} tabIndex={-1}>
+              <CloseButton
+                className="tooltip-close"
+                onClick={(): void => handleClose()}
+                tabIndex={-1}
+              >
                 <Close />
               </CloseButton>
             )}
 
             {showArrow && (
               <FloatingArrow
+                className={"tooltip-arrow"}
                 ref={arrowRef}
                 context={context}
-                fill={theme.colors.box.tooltip.pill}
-                stroke="hsla(0, 0%, 0%, 0.2)"
-                strokeWidth={shouldShowArrowBorder ? 1 : 0}
+                {...defaultArrowProps}
+                {...arrowProps}
               />
             )}
           </TooltipBox>
