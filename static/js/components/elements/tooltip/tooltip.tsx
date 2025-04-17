@@ -882,7 +882,7 @@ export const Tooltip = ({
 
   const handleTriggerMouseLeave = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
-      if (popoverMode) return;
+      if (popoverMode || openAsPopover) return;
 
       if (effectiveFollowCursor) {
         handleCloseWithDelay();
