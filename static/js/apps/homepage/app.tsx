@@ -34,6 +34,7 @@ import {
 } from "../../shared/types/homepage";
 import theme from "../../theme/theme";
 import { BuildYourOwn } from "./components/build_your_own";
+import { DemoDialog } from "./components/demo_dialog";
 import { HomeHero } from "./components/home_hero";
 import { SampleQuestions } from "./components/sample_questions";
 import { Tools } from "./components/tools";
@@ -88,6 +89,10 @@ export function App({
 
       <Section>
         <UnitedNations routes={routes} />
+      </Section>
+
+      <Section>
+        <DemoDialog />
       </Section>
 
       <Separator />
