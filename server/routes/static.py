@@ -23,7 +23,6 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import Response
-from flask import send_from_directory
 
 from server.lib.cache import cache
 import server.lib.render as lib_render
@@ -124,7 +123,11 @@ def version():
 @bp.route('/robots.txt')
 @cache.cached(timeout=TIMEOUT)
 def robots_config():
+  robots_content = ""
   if current_app.config.get('DISABLE_CRAWLERS', False):
-    return Response("User-agent: *\nDisallow: /", mimetype="text/plain")
+    robots_content = "User-agent: *\nDisallow: /"
   else:
-    return send_from_directory("dist", "robots.txt")
+    with current_app.open_resource("dist/robots.txt", 'r') as f:
+      robots_content = f.read()
+
+  return Response(robots_content, mimetype="text/plain")

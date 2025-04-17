@@ -44,16 +44,23 @@ const URL_PARAM_QUERY = "query";
 
 const SAMPLE_QUESTIONS = [
   "What is the mechanism of action of atorvastatin?",
+  "What genes are associated with dopamine via multilink annotation?",
+  "What is the pharmacologic action of Diltiazem?",
   "Is there a complete genome for Monkeypox virus?",
   "What genes does rs429358 regulate?",
   "What is the hg38 genomic location of FGFR1?",
-  "What type of gene is FGFR1?",
   "What is the ICD10 code of meningococcal meningitis?",
+  "What disease is associated with rs7903146?",
   "What is the UMLS CUI for rheumatoid arthritis?",
+  "What genes are associated with rs12777823?",
   "What can you tell me about atorvastatin?",
+  "What are genetic variants with the gene symbol KIF6 that are associated with atorvastatin?",
   "What genetic variants are associated with premature birth?",
   "What is the host of Betapapillomavirus 1?",
+  "What drugs is rs559628884 associated with?",
+  "Are there any drugs that are known to be not associated with rs559628884?",
   "What is the HGNC ID of FGFR1?",
+  "What genetic variants are associated with zonisamide?",
   "What is the concept unique id for rheumatoid arthritis?",
   "What is the chembl ID of acetaminophen?",
   "What genes are associated with Alzheimer's disease?",
@@ -65,6 +72,15 @@ const OVERVIEW_TEXT = `This experiment allows you to explore the Biomedical Data
   interpret your query, search the knowledge graph, and return
   concise answers with links to relevant data. Your feedback is
   invaluable; a link to a feedback form will appear after each query.`;
+
+const NO_DETECTED_ENTITIES = `We were unable to find entities in the knowledge
+graph related to your query. Please try a query related to diseases, drugs, 
+genes, genetic variants, taxons, or viruses.`;
+
+const DETECTED_ENTITIES_BUT_NO_ANSWER = `There was an error or timeout in 
+traversing the knowledge graph. We are unable to summarize an answer for your 
+query. See below for entities found in the knowledge graph related to your 
+query.`;
 
 const FEEDBACK_FORM =
   "https://docs.google.com/forms/d/e/1FAIpQLSdSutPw3trI8X6kJwFESyle4XZ6Efbd5AvPFQaFmMiwSMfBxQ/viewform?usp=pp_url";
@@ -104,6 +120,24 @@ interface DisplayedAnswer {
   footnotes: JSX.Element;
   debugInfo: string;
   displayEntities: JSX.Element;
+}
+
+function getLegalDisclaimer(): JSX.Element {
+  return (
+    <>
+      The use of this experimental UI is subject to the&nbsp;
+      <a
+        href="https://support.google.com/legal/answer/15696323"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Trusted Tester Agreement
+      </a>
+      . You may not share this link with people outside your organization.
+      Don&apos;t hesitate to contact us at support@datacommons.org if you have
+      any questions!
+    </>
+  );
 }
 
 // Headings for Footer and Debug dropdown sections
@@ -345,15 +379,33 @@ function generateRelatedEntityChips(entities: GraphEntity[]): JSX.Element {
 }
 
 function processApiResponse(response: BiomedNlApiResponse): DisplayedAnswer {
-  const formattedAnswer = formatCitationsInResponse(response.answer);
   const feedbackLink = constructFeedbackLink(response);
-  const tripleReferences = formatReferences(response.footnotes);
+
+  if (!response.entities.length) {
+    return {
+      answer: NO_DETECTED_ENTITIES,
+      feedbackLink,
+      footnotes: null,
+      debugInfo: response.debug,
+      displayEntities: null,
+    };
+  }
+
   const formattedEntities = generateRelatedEntityChips(response.entities);
+  if (!response.answer) {
+    return {
+      answer: DETECTED_ENTITIES_BUT_NO_ANSWER,
+      feedbackLink,
+      footnotes: null,
+      debugInfo: response.debug,
+      displayEntities: formattedEntities,
+    };
+  }
 
   return {
-    answer: formattedAnswer,
+    answer: formatCitationsInResponse(response.answer),
     feedbackLink,
-    footnotes: tripleReferences,
+    footnotes: formatReferences(response.footnotes),
     debugInfo: response.debug,
     displayEntities: formattedEntities,
   };
@@ -472,6 +524,7 @@ export function App(): ReactElement {
               <>
                 <h3 className="title">Exploring biomedical data</h3>
                 <p className="overview">{OVERVIEW_TEXT}</p>
+                <p>{getLegalDisclaimer()}</p>
               </>
             </SimpleText>
           </div>

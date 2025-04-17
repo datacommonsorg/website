@@ -35,7 +35,7 @@
     "async": true
   },
   {
-    "url": "/place/country/JPN?hl=ja&force_dev_places=true",
+    "url": "/place/country/JPN?hl=ja",
     "height": 4000,
     "async": true
   },

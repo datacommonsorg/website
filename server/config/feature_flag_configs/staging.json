@@ -25,7 +25,7 @@
   },
   {
     "name": "dynamic_placeholder_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
   },
@@ -34,5 +34,17 @@
     "enabled": false,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
+  },
+  {
+    "name": "show_api_modal",
+    "enabled": false,
+    "owner": "dwnoble",
+    "description": "Feature flag to show the API modal on web components."
+  },
+  {
+    "name": "data_overview",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Enables the data_overview/<place> routes."
   }
 ]

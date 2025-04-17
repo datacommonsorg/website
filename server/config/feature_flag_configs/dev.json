@@ -13,7 +13,7 @@
   },
   {
     "name": "dev_place_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "dwnoble",
     "description": "Feature flag to enable the V2 Place page to GA."
   },
@@ -34,5 +34,17 @@
     "enabled": true,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
+  },
+  {
+    "name": "show_api_modal",
+    "enabled": false,
+    "owner": "dwnoble",
+    "description": "Feature flag to show the API modal on web components."
+  },
+  {
+    "name": "data_overview",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Enables the data_overview/<place> routes."
   }
 ]
