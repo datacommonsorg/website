@@ -23,6 +23,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
 import React, { ReactElement, useState } from "react";
 
 import {
@@ -31,6 +32,26 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/elements/dialog/Dialog";
+
+const StyledDialog = styled(Dialog)`
+  background: hotpink;
+
+  & .dialog-title {
+    color: blue;
+  }
+
+  & .dialog-content {
+    line-height: 1.5;
+  }
+
+  & .dialog-actions button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+`;
 
 export const DemoDialog = (): ReactElement => {
   const theme = useTheme();
@@ -49,13 +70,13 @@ export const DemoDialog = (): ReactElement => {
       >
         Click
       </button>
-      <Dialog open={open} onClose={(): void => setOpen(false)}>
-        <DialogTitle>Sample Dialog</DialogTitle>
+      <StyledDialog open={open} onClose={(): void => setOpen(false)}>
+        <DialogTitle className="custom-title">Sample Dialog</DialogTitle>
         <DialogContent>This is a sample dialog content.</DialogContent>
         <DialogActions>
           <button onClick={(): void => setOpen(false)}>Close</button>
         </DialogActions>
-      </Dialog>
+      </StyledDialog>
     </div>
   );
 };

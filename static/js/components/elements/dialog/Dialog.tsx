@@ -28,11 +28,16 @@ export const useDialogContext = (): DialogContextType => {
 
 interface DialogContainerProps {
   children: ReactNode;
+  className?: string;
 }
 
-const DialogContainer = ({ children }: DialogContainerProps): ReactElement => {
+const DialogContainer = ({
+  children,
+  className,
+}: DialogContainerProps): ReactElement => {
   return ReactDOM.createPortal(
     <div
+      className={`dialog-container ${className || ""}`}
       css={css`
         position: fixed;
         inset: 0;
@@ -50,12 +55,14 @@ interface DialogProps {
   open: boolean;
   onClose: () => void;
   children: ReactNode;
+  className?: string;
 }
 
 export const Dialog = ({
   open,
   onClose,
   children,
+  className,
 }: DialogProps): ReactElement => {
   const [isMounted, setIsMounted] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
@@ -121,6 +128,7 @@ export const Dialog = ({
           role="presentation"
           onClick={onClose}
           onTransitionEnd={handleTransitionEnd}
+          className="dialog-overlay"
           css={css`
             position: fixed;
             inset: 0;
@@ -134,6 +142,7 @@ export const Dialog = ({
 
         <div
           role="dialog"
+          className={`dialog ${className || ""}`}
           aria-modal={shouldShow ? "true" : "false"}
           css={css`
             position: fixed;
@@ -162,15 +171,18 @@ export const Dialog = ({
 
 interface DialogSubComponentProps {
   children: ReactNode;
+  className?: string;
 }
 
 export const DialogTitle = ({
   children,
+  className,
 }: DialogSubComponentProps): ReactElement => {
   const { onClose } = useDialogContext();
 
   return (
     <div
+      className={`dialog-title ${className || ""}`}
       css={css`
         padding: 16px 24px;
         font-size: 20px;
@@ -182,6 +194,7 @@ export const DialogTitle = ({
       <button
         aria-label="close"
         onClick={onClose}
+        className="dialog-close-button"
         css={css`
           position: absolute;
           right: 8px;
@@ -200,8 +213,10 @@ export const DialogTitle = ({
 
 export const DialogContent = ({
   children,
+  className,
 }: DialogSubComponentProps): ReactElement => (
   <div
+    className={`dialog-content ${className || ""}`}
     css={css`
       padding: 8px 24px;
       overflow: auto;
@@ -213,9 +228,11 @@ export const DialogContent = ({
 
 export const DialogActions = ({
   children,
+  className,
 }: DialogSubComponentProps): ReactElement => {
   return (
     <div
+      className={`dialog-actions ${className || ""}`}
       css={css`
         padding: 8px 24px;
         display: flex;
