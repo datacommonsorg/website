@@ -29,12 +29,16 @@ export const useDialogContext = (): DialogContextType => {
 interface DialogContainerProps {
   children: ReactNode;
   className?: string;
+  containerRef?: React.RefObject<HTMLElement>;
 }
 
 const DialogContainer = ({
   children,
   className,
+  containerRef,
 }: DialogContainerProps): ReactElement => {
+  const container = containerRef?.current || document.body;
+
   return ReactDOM.createPortal(
     <div
       className={`dialog-container ${className || ""}`}
@@ -47,7 +51,7 @@ const DialogContainer = ({
     >
       {children}
     </div>,
-    document.body
+    container
   );
 };
 
@@ -56,6 +60,7 @@ interface DialogProps {
   onClose: () => void;
   children: ReactNode;
   className?: string;
+  containerRef?: React.RefObject<HTMLElement>;
 }
 
 export const Dialog = ({
@@ -63,6 +68,7 @@ export const Dialog = ({
   onClose,
   children,
   className,
+  containerRef,
 }: DialogProps): ReactElement => {
   const [isMounted, setIsMounted] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
@@ -123,7 +129,7 @@ export const Dialog = ({
 
   return (
     <DialogContext.Provider value={{ onClose }}>
-      <DialogContainer>
+      <DialogContainer containerRef={containerRef}>
         <div
           role="presentation"
           onClick={onClose}

@@ -15,33 +15,27 @@
  */
 
 /**
- * A component that demos the dialog.
+ * A component that demos different dialog variants.
  */
-
-// TODO (nick-next): Remove this file before PR is merged into master.
 
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useRef, useState } from "react";
 
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../../../components/elements/dialog/Dialog";
+} from "../../../components/elements/dialog/dialog";
 
 const StyledDialog = styled(Dialog)`
   background: hotpink;
 
   & .dialog-title {
     color: blue;
-  }
-
-  & .dialog-content {
-    line-height: 1.5;
   }
 
   & .dialog-actions button {
@@ -53,30 +47,157 @@ const StyledDialog = styled(Dialog)`
   }
 `;
 
+const ContainerWithDialogStyles = styled.div`
+  padding: ${(props): number => props.theme.spacing.sm}px;
+  background-color: hsl(218, 57.1%, 62.5%);
+  color: white;
+
+  & .dialog {
+    max-width: 300px;
+    background-color: #0b0c10;
+  }
+
+  & .dialog-title {
+    background-color: #1f2833;
+    color: white;
+  }
+
+  & .dialog-content {
+    color: #c5c6c7;
+  }
+
+  & .dialog-actions button {
+    background-color: #45a29e;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+  }
+`;
+
 export const DemoDialog = (): ReactElement => {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+
+  const [isSimpleDialogOpen, setIsSimpleDialogOpen] = useState(false);
+  const [isCustomStyledDialogOpen, setIsCustomStyledDialogOpen] =
+    useState(false);
+  const [isContainerStyledDialogOpen, setIsContainerStyledDialogOpen] =
+    useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div>
-      <button
+    <div
+      css={css`
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: flex-start;
+        gap: 10px;
+        @media (max-width: ${theme.breakpoints.md}px) {
+          grid-template-columns: 1fr;
+        }
+        .grid {
+          display: flex;
+          gap: ${theme.spacing.lg}px;
+        }
+        .box {
+          ${theme.radius.tertiary};
+          background: ${theme.colors.background.secondary.light};
+          padding: ${theme.spacing.lg}px;
+        }
+      `}
+    >
+      <div className="box">
+        <button onClick={(): void => setIsSimpleDialogOpen(true)}>
+          Simple Dialog
+        </button>
+
+        <Dialog
+          open={isSimpleDialogOpen}
+          onClose={(): void => setIsSimpleDialogOpen(false)}
+        >
+          <DialogTitle>Simple Dialog</DialogTitle>
+          <DialogContent>
+            <p>This is a minimal dialog with default styling.</p>
+          </DialogContent>
+          <DialogActions>
+            <button onClick={(): void => setIsSimpleDialogOpen(false)}>
+              Close
+            </button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div className="box">
+        <button onClick={(): void => setIsCustomStyledDialogOpen(true)}>
+          Open Custom Styled Dialog
+        </button>
+
+        <StyledDialog
+          open={isCustomStyledDialogOpen}
+          onClose={(): void => setIsCustomStyledDialogOpen(false)}
+        >
+          <DialogTitle>Custom Styled Dialog</DialogTitle>
+          <DialogContent>
+            <p>
+              This is the custom styled dialog that renders to document.body.
+            </p>
+            <p>
+              It uses the hotpink background and blue title defined in
+              StyledDialog.
+            </p>
+          </DialogContent>
+          <DialogActions>
+            <button onClick={(): void => setIsCustomStyledDialogOpen(false)}>
+              Close
+            </button>
+          </DialogActions>
+        </StyledDialog>
+      </div>
+
+      <div
+        className="box"
         css={css`
-          margin-bottom: ${theme.spacing.lg}px;
-          padding: 8px 16px;
-          font-size: 1rem;
-          cursor: pointer;
+          display: flex;
+          flex-direction: column;
+          gap: ${theme.spacing.sm}px;
         `}
-        onClick={(): void => setOpen(true)}
       >
-        Click
-      </button>
-      <StyledDialog open={open} onClose={(): void => setOpen(false)}>
-        <DialogTitle className="custom-title">Sample Dialog</DialogTitle>
-        <DialogContent>This is a sample dialog content.</DialogContent>
-        <DialogActions>
-          <button onClick={(): void => setOpen(false)}>Close</button>
-        </DialogActions>
-      </StyledDialog>
+        <div>
+          <button onClick={(): void => setIsContainerStyledDialogOpen(true)}>
+            Open Container-Styled Dialog
+          </button>
+        </div>
+
+        <ContainerWithDialogStyles ref={containerRef}>
+          <p>
+            The dialog will be inserted into the DOM of container. This
+            container will style the dialog. Note the dialog will still be a
+            modal and will not visually appear inside this container.
+          </p>
+        </ContainerWithDialogStyles>
+
+        <Dialog
+          open={isContainerStyledDialogOpen}
+          onClose={(): void => setIsContainerStyledDialogOpen(false)}
+          containerRef={containerRef}
+        >
+          <DialogTitle>Container-Styled Dialog</DialogTitle>
+          <DialogContent>
+            <p>
+              This dialog inherits styles from the container we mounted it in.
+            </p>
+            <p>Notice the black and blue coloring of this dialog.</p>
+            <p>
+              These styles come from the ContainerWithDialogStyles component.
+            </p>
+          </DialogContent>
+          <DialogActions>
+            <button onClick={(): void => setIsContainerStyledDialogOpen(false)}>
+              Close
+            </button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </div>
   );
 };
