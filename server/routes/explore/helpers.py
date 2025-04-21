@@ -275,14 +275,12 @@ def update_insight_ctx_for_chart_fulfill(request: Dict,
   # iterate through numeric parameters and set in the insight context
   for p in [
       params.Params.MAX_TOPIC_SVS, params.Params.MAX_TOPICS,
-      params.Params.MAX_CHARTS
+      params.Params.MAX_CHARTS, params.Params.CHART_TYPE,
   ]:
     param_val = request.args.get(p, None)
     if param_val != None:
       if param_val.isnumeric():
         param_val = int(param_val)
-      else:
-        param_val = None
     utterance.insight_ctx[p] = param_val
 
 

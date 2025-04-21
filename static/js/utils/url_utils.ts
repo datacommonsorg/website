@@ -66,7 +66,6 @@ export function getUpdatedHash(
       urlParams.set(param, <string>params[param]);
     }
   }
-  // console.log("SO WE GOT" + urlParams.toString());
   return urlParams.toString();
 }
 

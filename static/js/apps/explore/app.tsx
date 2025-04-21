@@ -412,7 +412,8 @@ export function App(props: AppProps): ReactElement {
           disableExploreMore,
           testMode,
           i18n,
-          client
+          client,
+          chartType
         );
       }
       // Merge this with response above. Make calls in parallel
@@ -423,31 +424,19 @@ export function App(props: AppProps): ReactElement {
         disableExploreMore,
         testMode,
         i18n,
-        client
+        client,
+        null
       );
 
-      const [highlightResponse, fulfillResponse] = await Promise.all([
-        highlightPromise,
-        fulfillmentPromise,
-      ]);
-      for (const block of highlightResponse["config"]["categories"][0][
-        "blocks"
-      ]) {
-        for (const cols of block["columns"]) {
-          for (const tile of cols["tiles"]) {
-            delete tile["barTileSpec"];
-            tile["type"] = chartType;
-          }
+      Promise.all([highlightPromise, fulfillmentPromise]).then(
+        ([highlightResponse, fulfillResponse]) => {
+          fulfillResponse["config"]["categories"] = [
+            ...(highlightResponse?.config?.categories || []),
+            ...(fulfillResponse?.config?.categories || []),
+          ];
+          processFulfillData(fulfillResponse);
         }
-      }
-      console.log("\nHighlightResponse: " + JSON.stringify(highlightResponse));
-      console.log("\nfulfillResponse: " + JSON.stringify(fulfillResponse));
-
-      fulfillResponse["config"]["categories"] = highlightResponse["config"][
-        "categories"
-      ].concat(fulfillResponse["config"]["categories"]);
-
-      processFulfillData(fulfillResponse);
+      );
     }
     // Once current query processing is done, run the next autoplay query if
     // there are any more autoplay queries left.
@@ -466,7 +455,8 @@ const fetchFulfillData = async (
   disableExploreMore: string,
   testMode: string,
   i18n: string,
-  client: string
+  client: string,
+  chartType: string
 ) => {
   try {
     const argsMap = new Map<string, string>();
@@ -478,6 +468,9 @@ const fetchFulfillData = async (
     }
     if (client) {
       argsMap.set(URL_HASH_PARAMS.CLIENT, client);
+    }
+    if (chartType) {
+      argsMap.set(URL_HASH_PARAMS.CHART_TYPE, chartType);
     }
     const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
