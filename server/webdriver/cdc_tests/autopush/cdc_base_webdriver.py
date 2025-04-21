@@ -14,10 +14,6 @@
 from server.webdriver.base import WebdriverBaseTest
 from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
 
-# Shared tests that don't work in custom DC are skipped with this reason.
-# Any skipped test should be noted in b/386405593, fixed and unskipped subsequently.
-SKIPPED_TEST_REASON = "Not working in custom DC. See b/386405593"
-
 
 class CdcAutopushTestBase(WebdriverBaseTest):
   """Base class for CDC Autopush webdriver tests."""
