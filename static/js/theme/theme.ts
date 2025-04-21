@@ -309,6 +309,9 @@ const theme: Theme = {
     secondary: {
       borderRadius: "20px",
     },
+    tertiary: {
+      borderRadius: "8px",
+    },
   },
 };
 

@@ -136,7 +136,7 @@ const CategoryItem = (props: {
   const { category, selectedCategoryName, place } = props;
 
   return (
-    <div className="item-list-item">
+    <div className="item-list-item" data-testid={category.name}>
       <LocalizedLink
         href={createPlacePageCategoryHref(category.name, place)}
         className={`item-list-text ${

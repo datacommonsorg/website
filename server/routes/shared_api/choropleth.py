@@ -33,7 +33,6 @@ from server.lib.shared import is_float
 import server.lib.shared as shared
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
-import server.routes.place.api as landing_page_api
 from server.routes.shared_api.place import EQUIVALENT_PLACE_TYPES
 import server.routes.shared_api.place as place_api
 
@@ -429,7 +428,7 @@ def choropleth_data(dcid):
   # we should only be making choropleths for the first stat var
   sv = cc['statsVars'][0]
   cc_sv_data_values = numerator_resp.get('data', {}).get(sv, {})
-  denom = landing_page_api.get_denom(cc, True)
+  denom = get_denom(cc, True)
   cc_denom_data = denominator_resp.get('data', {}).get(denom, {})
   scaling = cc.get('scaling', 1)
   if 'relatedChart' in cc:
@@ -552,3 +551,20 @@ def get_geotiff():
                 as_attachment=True,
                 cache_timeout=0))
   return response
+
+
+def get_denom(cc, related_chart=False):
+  """Get the numerator and denominator map."""
+  # If chart requires denominator, use it for both primary and related charts.
+  if 'denominator' in cc:
+    result = {}
+    if len(cc['denominator']) != len(cc['statsVars']):
+      raise ValueError('Denominator number not matching: %s', cc)
+    for num, denom in zip(cc['statsVars'], cc['denominator']):
+      result[num] = denom
+    return result
+  # For related chart, use the denominator that is specified in the
+  # 'relatedChart' field if present.
+  if related_chart and cc.get('relatedChart', {}).get('scale', False):
+    return cc['relatedChart'].get('denominator', 'Count_Person')
+  return None

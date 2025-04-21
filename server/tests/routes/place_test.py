@@ -69,7 +69,6 @@ class TestPlacePage(unittest.TestCase):
   @patch('server.routes.shared_api.place.parent_places')
   def test_place(self, mock_parent_places, mock_get_place_type_i18n_name,
                  mock_api_place_type, mock_get_i18n_name):
-    mock_feature_flags(app, ['dev_place_ga'], False)
     mock_parent_places.return_value = {
         'geoId/06': [{
             'dcid': 'country/USA',
@@ -137,6 +136,11 @@ class TestPlacePage(unittest.TestCase):
     assert response.status_code == 200
     assert b"<title>California - Environment" in response.data
 
+    response = app.test_client().get(
+        '/place/geoId/06/?category=InvalidCategory', follow_redirects=True)
+    assert response.status_code == 200
+    assert b"<title>California - Data Commons" in response.data
+
     # TODO(beets): construct a better test that doesn't rely on prod.
     response = app.test_client().get('/explore/place?dcid=geoId/06',
                                      follow_redirects=False)
@@ -149,145 +153,6 @@ class TestPlacePage(unittest.TestCase):
           follow_redirects=True)
       assert '/place?dcid=geoId/06&utm_medium=explore&mprop=count&popt=Person&hl=fr' in request.url
       assert response.status_code == 200
-
-
-class TestPlacePageHeaders(unittest.TestCase):
-
-  @patch('server.routes.shared_api.place.get_i18n_name')
-  @patch('server.routes.shared_api.place.api_place_type')
-  @patch('server.routes.shared_api.place.get_place_type_i18n_name')
-  @patch('server.routes.shared_api.place.parent_places')
-  def test_place_page_canonical_header(self, mock_parent_places,
-                                       mock_get_place_type_i18n_name,
-                                       mock_api_place_type, mock_get_i18n_name):
-    mock_feature_flags(app, ['dev_place_ga'], False)
-    mock_parent_places.return_value = {
-        'geoId/06': [{
-            'dcid': 'country/USA',
-            'type': 'Country',
-            'name': 'United States'
-        }]
-    }
-    mock_get_place_type_i18n_name.return_value = 'State'
-    mock_get_i18n_name.return_value = {'geoId/06': 'California'}
-    mock_api_place_type.return_value = 'State'
-
-    # Test main page gives canonical without query parameters
-    response = app.test_client().get('/place/geoId/06', follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
-        'Link')
-
-    # Test "Overview" page gives canonical without query parameters
-    response = app.test_client().get('/place/geoId/06?category=Overview',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
-        'Link')
-
-    # Test category page gives a canonical with category included
-    response = app.test_client().get('/place/geoId/06?category=Health',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="canonical"' in response.headers.get(
-        'Link')
-
-    # Test English locale page gives canonical without locale included (default)
-    response = app.test_client().get('/place/geoId/06?hl=en',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
-        'Link')
-
-    # Test localized main page gives a canonical with locale included
-    response = app.test_client().get('/place/geoId/06?hl=ru',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06?hl=ru>; rel="canonical"' in response.headers.get(
-        'Link')
-
-    # Test localized category page gives a canonical with locale included.
-    response = app.test_client().get('/place/geoId/06?category=Health&hl=ru',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06?category=Health&hl=ru>; rel="canonical"' in response.headers.get(
-        'Link')
-
-    # Test bad category input gives a canonical without category
-    response = app.test_client().get('/place/geoId/06?category=foobar',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
-        'Link')
-
-    # Test bad locale input gives a canonical without locale
-    response = app.test_client().get('/place/geoId/06?hl=foobar',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06>; rel="canonical"' in response.headers.get(
-        'Link')
-
-  @patch('server.routes.shared_api.place.get_i18n_name')
-  @patch('server.routes.shared_api.place.api_place_type')
-  @patch('server.routes.shared_api.place.get_place_type_i18n_name')
-  @patch('server.routes.shared_api.place.parent_places')
-  def test_place_page_alternate_header(self, mock_parent_places,
-                                       mock_get_place_type_i18n_name,
-                                       mock_api_place_type, mock_get_i18n_name):
-    mock_feature_flags(app, ['dev_place_ga'], False)
-    mock_parent_places.return_value = {
-        'geoId/06': [{
-            'dcid': 'country/USA',
-            'type': 'Country',
-            'name': 'United States'
-        }]
-    }
-    mock_get_place_type_i18n_name.return_value = 'State'
-    mock_get_i18n_name.return_value = {'geoId/06': 'California'}
-    mock_api_place_type.return_value = 'State'
-
-    # Test available languages listed as alternates for main page
-    response = app.test_client().get('/place/geoId/06', follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06>; rel="alternate"; hreflang="en"' in response.headers.get(
-        'Link')
-    assert '<https://datacommons.org/place/geoId/06?hl=ru>; rel="alternate"; hreflang="ru"' in response.headers.get(
-        'Link')
-    assert '<https://datacommons.org/place/geoId/06>; rel="alternate"; hreflang="x-default"' in response.headers.get(
-        'Link')
-
-    # Test available languages listed as alternates for category page
-    response = app.test_client().get('/place/geoId/06?category=Health',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="en"' in response.headers.get(
-        'Link')
-    assert '<https://datacommons.org/place/geoId/06?category=Health&hl=ru>; rel="alternate"; hreflang="ru"' in response.headers.get(
-        'Link')
-    assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="x-default"' in response.headers.get(
-        'Link')
-
-    # Test available languages listed as alternates for localized page
-    response = app.test_client().get('/place/geoId/06?category=Health&hl=ru',
-                                     follow_redirects=False)
-    assert response.status_code == 200
-    assert 'Link' in response.headers
-    assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="en"' in response.headers.get(
-        'Link')
-    assert '<https://datacommons.org/place/geoId/06?category=Health&hl=ru>; rel="alternate"; hreflang="ru"' in response.headers.get(
-        'Link')
-    assert '<https://datacommons.org/place/geoId/06?category=Health>; rel="alternate"; hreflang="x-default"' in response.headers.get(
-        'Link')
 
   @patch('server.routes.shared_api.place.get_i18n_name')
   @patch('server.routes.shared_api.place.api_place_type')
@@ -319,3 +184,41 @@ class TestPlacePageHeaders(unittest.TestCase):
     # Test empty list returned for invalid category
     links = get_canonical_links('geoId/06', 'InvalidCategory')
     assert links == []
+
+
+class TestRedirectToPlacePage(unittest.TestCase):
+  """Tests for the redirect_to_place_page function."""
+
+  @patch('flask.url_for')
+  @patch('flask.redirect')
+  def test_redirect_to_place_page(self, mock_redirect, mock_url_for):
+    """Test that redirect_to_place_page properly formats the redirect URL."""
+    from werkzeug.datastructures import MultiDict
+
+    from server.routes.place.html import redirect_to_place_page
+
+    # Setup test data
+    dcid = 'geoId/06'
+    request_args = MultiDict([('dcid', 'geoId/06'), ('category', 'Health'),
+                              ('hl', 'en'), ('utm_medium', 'explore')])
+
+    # Mock url_for to return a specific URL
+    mock_url_for.return_value = '/place/geoId/06?category=Health&hl=en&utm_medium=explore'
+
+    # Need to run within app context
+    with app.app_context():
+      # Call the function
+      redirect_to_place_page(dcid, request_args)
+
+      # Verify url_for was called with correct arguments
+      mock_url_for.assert_called_once_with('place.place',
+                                           category='Health',
+                                           hl='en',
+                                           utm_medium='explore',
+                                           place_dcid='geoId/06',
+                                           _external=True,
+                                           _scheme='http')
+
+      # Verify redirect was called with the URL from url_for
+      mock_redirect.assert_called_once_with(
+          '/place/geoId/06?category=Health&hl=en&utm_medium=explore')
