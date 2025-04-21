@@ -21,10 +21,10 @@ import React, { useRef } from "react";
 
 import { InfoSpark } from "../components/elements/icons/info_spark";
 import { LocationCity } from "../components/elements/icons/location_city";
+import { Tooltip } from "../components/elements/tooltip/tooltip";
 import { GoogleMap } from "../components/google_map";
 import { formatDate, formatNumber, intl } from "../i18n/i18n";
 import { pageMessages } from "../i18n/i18n_place_messages";
-import { InfoTooltipComponent } from "../shared/components";
 import { NamedTypedPlace } from "../shared/types";
 import { isPlaceContainedInUsa } from "./util";
 
@@ -189,12 +189,12 @@ export const PlaceOverview = (props: {
           {intl.formatMessage(pageMessages.SummaryOverview)}
         </span>
         {placeSummary && (
-          <InfoTooltipComponent
-            icon={<InfoSpark />}
-            description={intl.formatMessage(
-              pageMessages.SummaryOverviewTooltip
-            )}
-          />
+          <Tooltip
+            title={intl.formatMessage(pageMessages.SummaryOverviewTooltip)}
+            placement="right"
+          >
+            <InfoSpark />
+          </Tooltip>
         )}
       </div>
       {placeSummary && (
