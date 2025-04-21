@@ -56,7 +56,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     dcids = [p.dcid for p in places]
     state.uttr.counters.info('comparison_place_candidates', dcids)
 
-  chart_type = state.uttr.insight_ctx.get(Params.CHART_TYPE, 'BAR_CHART') or 'BAR_CHART'
+  chart_type = state.uttr.insight_ctx.get(Params.CHART_TYPE,
+                                          'BAR_CHART') or 'BAR_CHART'
 
   found = False
   if not chart_vars.is_topic_peer_group:

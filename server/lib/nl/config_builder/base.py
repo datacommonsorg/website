@@ -63,7 +63,10 @@ class Builder:
       main_place = uttr.rankedCharts[0].places[0]
       metadata.place_dcid.append(main_place.dcid)
       for ch in uttr.rankedCharts:
-        if ch.chart_type in [ChartType.MAP_CHART, ChartType.RANKING_WITH_MAP, ChartType.SCATTER_CHART]:
+        if ch.chart_type in [
+            ChartType.MAP_CHART, ChartType.RANKING_WITH_MAP,
+            ChartType.SCATTER_CHART
+        ]:
           metadata.contained_place_types[main_place.place_type] = ch.place_type
           break
 

@@ -84,11 +84,11 @@ class ChartType(IntEnum):
 
   @staticmethod
   def from_string(chart_type_str: str):
-      """Fetch the ChartType from a string with the same value."""
-      try:
-          return ChartType[chart_type_str]
-      except KeyError:
-          raise ValueError(f"Invalid ChartType string: {chart_type_str}")
+    """Fetch the ChartType from a string with the same value."""
+    try:
+      return ChartType[chart_type_str]
+    except KeyError:
+      raise ValueError(f"Invalid ChartType string: {chart_type_str}")
 
 
 class FulfillmentResult(str, Enum):
