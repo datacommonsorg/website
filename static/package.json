@@ -22,6 +22,9 @@
   "dependencies": {
     "@datacommonsorg/client": "file:../packages/client",
     "@datacommonsorg/web-components": "file:../packages/web-components",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@floating-ui/react": "^0.27.6",
     "@types/d3": "^5.7.2",
     "@types/d3-scale": "^4.0.2",
     "@types/express": "^4.17.17",
@@ -34,8 +37,6 @@
     "@types/react-table": "^7.7.12",
     "@types/reactstrap": "^8.7.1",
     "@types/resize-observer-browser": "^0.1.6",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
     "axios": "^1.8.2",
     "bootstrap": "^4.5.2",
     "canvas": "2.11.2",

@@ -94,6 +94,7 @@ const DC_GRAY_PILL_TEXT = DC_YELLOW;
 const DC_GRAY_PILL_BCKG = "hsl(240, 20.8%, 90.6%)";
 const DC_GRAY_LIGHT = "hsl(0, 0%, 78%)";
 const DC_GRAY_LINING = "hsl(140, 3%, 77%)";
+const DC_GRAY_TOOLTIP = "hsl(213, 43%, 96%)";
 
 const theme: Theme = {
   breakpoints: BREAKPOINTS,
@@ -162,6 +163,11 @@ const theme: Theme = {
         text: DC_GRAY,
         tag: DC_GRAY_PILL_TEXT,
         pill: DC_GRAY_PILL_BCKG,
+      },
+      tooltip: {
+        text: DC_GRAY,
+        tag: DC_BLUE,
+        pill: DC_GRAY_TOOLTIP,
       },
     },
     link: {
@@ -318,8 +324,19 @@ const theme: Theme = {
       borderRadius: "20px",
     },
     tertiary: {
+      borderRadius: "12px",
+    },
+    quaternary: {
       borderRadius: "8px",
     },
+  },
+  zIndex: {
+    primary: 9999,
+    secondary: 999,
+    tertiary: 99,
+  },
+  tooltip: {
+    width: "300px",
   },
 };
 
