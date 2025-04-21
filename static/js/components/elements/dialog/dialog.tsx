@@ -5,6 +5,7 @@ import React, {
   createContext,
   ReactElement,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -31,6 +32,9 @@ interface DialogContainerProps {
   className?: string;
   containerRef?: React.RefObject<HTMLElement>;
 }
+
+const DIALOG_DEFAULT_FADE_IN_DURATION = 150;
+const DIALOG_DEFAULT_FADE_OUT_DURATION = 0;
 
 const DialogContainer = ({
   children,
@@ -61,6 +65,9 @@ interface DialogProps {
   children: ReactNode;
   className?: string;
   containerRef?: React.RefObject<HTMLElement>;
+  keepMounted?: boolean;
+  fadeInDuration?: number;
+  fadeOutDuration?: number;
 }
 
 export const Dialog = ({
@@ -69,63 +76,89 @@ export const Dialog = ({
   children,
   className,
   containerRef,
+  keepMounted = false,
+  fadeInDuration = DIALOG_DEFAULT_FADE_IN_DURATION,
+  fadeOutDuration = DIALOG_DEFAULT_FADE_OUT_DURATION,
 }: DialogProps): ReactElement => {
-  const [isMounted, setIsMounted] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
+  const hasReceivedInteraction = useRef(false);
+  const prevOpenRef = useRef(open);
+
+  const closeTimeoutRef = useRef<number | null>(null);
   const htmlStyleRef = useRef({ overflow: "", paddingRight: "" });
 
-  useEffect(() => {
-    setIsMounted(true);
-
-    const handleEscape = (event: KeyboardEvent): void => {
-      if (event.key === "Escape" && open) {
-        onClose();
-      }
-    };
-
-    const html = document.documentElement;
-
-    if (open) {
-      htmlStyleRef.current = {
-        overflow: html.style.overflow,
-        paddingRight: html.style.paddingRight,
-      };
-
-      const scrollbarWidth = window.innerWidth - html.clientWidth;
-
-      html.style.overflow = "hidden";
-
-      if (scrollbarWidth > 0) {
-        html.style.paddingRight = `${scrollbarWidth}px`;
-      }
-
-      document.addEventListener("keydown", handleEscape);
-      setIsExiting(false);
-
-      return () => {
-        document.removeEventListener("keydown", handleEscape);
-        setIsExiting(true);
-      };
+  const clearCloseTimeout = useCallback(() => {
+    if (closeTimeoutRef.current !== null) {
+      window.clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
     }
+  }, []);
 
-    document.removeEventListener("keydown", handleEscape);
-  }, [open, onClose]);
+  useEffect(() => {
+    if (prevOpenRef.current !== open) {
+      clearCloseTimeout();
 
-  const handleTransitionEnd = (
-    event: React.TransitionEvent<HTMLDivElement>
-  ): void => {
-    if (event.propertyName === "opacity" && !open && isExiting) {
-      const html = document.documentElement;
+      if (open) {
+        setIsClosing(false);
+        setIsVisible(true);
+        hasReceivedInteraction.current = true;
 
+        const html = document.documentElement;
+        htmlStyleRef.current = {
+          overflow: html.style.overflow,
+          paddingRight: html.style.paddingRight,
+        };
+
+        const scrollbarWidth = window.innerWidth - html.clientWidth;
+
+        html.style.overflow = "hidden";
+
+        if (scrollbarWidth > 0) {
+          html.style.paddingRight = `${scrollbarWidth}px`;
+        }
+      } else if (hasReceivedInteraction.current) {
+        setIsClosing(true);
+        setIsVisible(false);
+
+        if (fadeOutDuration > 0) {
+          closeTimeoutRef.current = window.setTimeout(() => {
+            setIsClosing(false);
+            closeTimeoutRef.current = null;
+          }, fadeOutDuration);
+        } else {
+          setIsClosing(false);
+        }
+      }
+
+      prevOpenRef.current = open;
+    }
+  }, [clearCloseTimeout, fadeOutDuration, onClose, open]);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    if (hasReceivedInteraction.current && !isVisible && !isClosing) {
       html.style.overflow = htmlStyleRef.current.overflow;
       html.style.paddingRight = htmlStyleRef.current.paddingRight;
-
-      setIsExiting(false);
     }
-  };
+  }, [isClosing, isVisible]);
 
-  const shouldShow = isMounted && (open || isExiting);
+  useEffect(() => {
+    if (!open) return;
+
+    const handleEscape = (e: KeyboardEvent): void => {
+      if (e.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [open, onClose]);
+
+  const shouldShow = isVisible || isClosing || keepMounted;
 
   return (
     <DialogContext.Provider value={{ onClose }}>
@@ -133,15 +166,15 @@ export const Dialog = ({
         <div
           role="presentation"
           onClick={onClose}
-          onTransitionEnd={handleTransitionEnd}
           className="dialog-overlay"
           css={css`
             position: fixed;
             inset: 0;
             background-color: rgba(0, 0, 0, 0.5);
             pointer-events: ${shouldShow ? "auto" : "none"};
-            opacity: ${open ? 1 : 0};
-            transition: opacity 225ms ease-out;
+            opacity: ${isVisible ? 1 : 0};
+            transition: opacity
+              ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in;
             z-index: 1;
           `}
         />
@@ -162,13 +195,14 @@ export const Dialog = ({
             width: 100%;
             background: #fff;
             border-radius: 4px;
-            opacity: ${open ? 1 : 0};
-            transition: opacity 225ms ease-out;
+            opacity: ${isVisible ? 1 : 0};
+            transition: opacity
+              ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in;
             z-index: 2;
             pointer-events: ${shouldShow ? "auto" : "none"};
           `}
         >
-          {children}
+          {shouldShow && children}
         </div>
       </DialogContainer>
     </DialogContext.Provider>

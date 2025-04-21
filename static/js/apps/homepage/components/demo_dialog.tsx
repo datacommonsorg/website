@@ -180,6 +180,7 @@ export const DemoDialog = (): ReactElement => {
           open={isContainerStyledDialogOpen}
           onClose={(): void => setIsContainerStyledDialogOpen(false)}
           containerRef={containerRef}
+          fadeOutDuration={150}
         >
           <DialogTitle>Container-Styled Dialog</DialogTitle>
           <DialogContent>
