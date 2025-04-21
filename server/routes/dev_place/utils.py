@@ -71,20 +71,6 @@ def get_place_url(place_dcid: str) -> str:
   return flask.url_for('place.place', place_dcid=place_dcid)
 
 
-def get_place_html_link(place_dcid: str, place_name: str) -> str:
-  """Get <a href-place page url> tag linking to the place page for a place
-  
-  Args:
-    place_dcid: dcid of the place to get the url for
-    place_name: name of the place to use as the link's text
-  
-  Returns:
-    An html anchor tag linking to a place page.
-  """
-  url = get_place_url(place_dcid)
-  return f'<a href="{url}">{place_name}</a>'
-
-
 def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
   """Gets the parent places for a given DCID
   

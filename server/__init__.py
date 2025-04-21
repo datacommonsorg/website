@@ -256,9 +256,6 @@ def register_routes_common(app):
   from server.routes.browser import api as browser_api
   app.register_blueprint(browser_api.bp)
 
-  from server.routes.place import api as place_api
-  app.register_blueprint(place_api.bp)
-
   from server.routes.ranking import api as ranking_api
   app.register_blueprint(ranking_api.bp)
 
