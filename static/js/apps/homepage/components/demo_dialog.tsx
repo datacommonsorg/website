@@ -30,6 +30,23 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/elements/dialog/dialog";
+import theme from "../../../theme/theme";
+
+const StyledButton = styled.button`
+  border: 0;
+  ${theme.box.primary}
+  ${theme.elevation.primary}
+  ${theme.typography.family.text};
+  ${theme.typography.text.md};
+  ${theme.radius.primary};
+  ${theme.colors.link.primary.base}
+  line-height: 1rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: ${theme.spacing.sm}px;
+  padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
+`;
 
 const StyledDialog = styled(Dialog)`
   background: hotpink;
@@ -89,15 +106,11 @@ export const DemoDialog = (): ReactElement => {
     <div
       css={css`
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         justify-content: flex-start;
         gap: 10px;
         @media (max-width: ${theme.breakpoints.md}px) {
           grid-template-columns: 1fr;
-        }
-        .grid {
-          display: flex;
-          gap: ${theme.spacing.lg}px;
         }
         .box {
           ${theme.radius.tertiary};
@@ -107,9 +120,9 @@ export const DemoDialog = (): ReactElement => {
       `}
     >
       <div className="box">
-        <button onClick={(): void => setIsSimpleDialogOpen(true)}>
+        <StyledButton onClick={(): void => setIsSimpleDialogOpen(true)}>
           Simple Dialog
-        </button>
+        </StyledButton>
 
         <Dialog
           open={isSimpleDialogOpen}
@@ -120,17 +133,17 @@ export const DemoDialog = (): ReactElement => {
             <p>This is a minimal dialog with default styling.</p>
           </DialogContent>
           <DialogActions>
-            <button onClick={(): void => setIsSimpleDialogOpen(false)}>
+            <StyledButton onClick={(): void => setIsSimpleDialogOpen(false)}>
               Close
-            </button>
+            </StyledButton>
           </DialogActions>
         </Dialog>
       </div>
 
       <div className="box">
-        <button onClick={(): void => setIsCustomStyledDialogOpen(true)}>
+        <StyledButton onClick={(): void => setIsCustomStyledDialogOpen(true)}>
           Open Custom Styled Dialog
-        </button>
+        </StyledButton>
 
         <StyledDialog
           open={isCustomStyledDialogOpen}
@@ -147,9 +160,11 @@ export const DemoDialog = (): ReactElement => {
             </p>
           </DialogContent>
           <DialogActions>
-            <button onClick={(): void => setIsCustomStyledDialogOpen(false)}>
+            <StyledButton
+              onClick={(): void => setIsCustomStyledDialogOpen(false)}
+            >
               Close
-            </button>
+            </StyledButton>
           </DialogActions>
         </StyledDialog>
       </div>
@@ -163,9 +178,11 @@ export const DemoDialog = (): ReactElement => {
         `}
       >
         <div>
-          <button onClick={(): void => setIsContainerStyledDialogOpen(true)}>
+          <StyledButton
+            onClick={(): void => setIsContainerStyledDialogOpen(true)}
+          >
             Open Container-Styled Dialog
-          </button>
+          </StyledButton>
         </div>
 
         <ContainerWithDialogStyles ref={containerRef}>
@@ -193,9 +210,11 @@ export const DemoDialog = (): ReactElement => {
             </p>
           </DialogContent>
           <DialogActions>
-            <button onClick={(): void => setIsContainerStyledDialogOpen(false)}>
+            <StyledButton
+              onClick={(): void => setIsContainerStyledDialogOpen(false)}
+            >
               Close
-            </button>
+            </StyledButton>
           </DialogActions>
         </Dialog>
       </div>
