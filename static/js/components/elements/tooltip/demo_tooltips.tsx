@@ -18,16 +18,16 @@
  * A component that demos the tooltips.
  */
 
-// TODO (nick-next): Remove this file before PR is merged into master.
+// TODO (nick-next): Move this to Storybook when ready.
 
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { InfoSpark } from "../../../components/elements/icons/info_spark";
-import { ScatterPlot } from "../../../components/elements/icons/scatter_plot";
-import { Tooltip } from "../../../components/elements/tooltip/tooltip";
+import { InfoSpark } from "../icons/info_spark";
+import { ScatterPlot } from "../icons/scatter_plot";
+import { Tooltip } from "./tooltip";
 
 export const DemoTooltips = (): ReactElement => {
   const theme = useTheme();
