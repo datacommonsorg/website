@@ -254,9 +254,8 @@ export const DialogTitle = ({
         css={css`
           ${theme.typography.family.heading}
           ${theme.typography.heading.xs}
-          margin: 0;
-          padding: 0;
-          padding-right: ${theme.spacing.xl}px;
+            margin: 0;
+          padding: 0 ${theme.spacing.xl}px 0 0;
         `}
       >
         {children}
@@ -267,20 +266,19 @@ export const DialogTitle = ({
           onClick={onClose}
           className="dialog-close-button"
           css={css`
-              position: absolute;
-              margin: 0;
-              padding: 0;
-              display: block;
-              top: ${theme.spacing.lg}px;
-              right: ${theme.spacing.lg}px;
-              background: transparent;
-              border: none;
-              cursor: pointer;
-              color: ${theme.colors.text.primary.base};
-              width:
-              &:hover {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            display: block;
+            top: ${theme.spacing.lg}px;
+            right: ${theme.spacing.lg}px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: ${theme.colors.text.primary.base};
+            &:hover {
               color: ${theme.colors.link.primary.base};
-          }
+            }
           `}
         >
           <Close />
