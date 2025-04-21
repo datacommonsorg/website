@@ -135,6 +135,7 @@ export const DemoDialog = (): ReactElement => {
         <StyledDialog
           open={isCustomStyledDialogOpen}
           onClose={(): void => setIsCustomStyledDialogOpen(false)}
+          showCloseButton
         >
           <DialogTitle>Custom Styled Dialog</DialogTitle>
           <DialogContent>
@@ -181,6 +182,8 @@ export const DemoDialog = (): ReactElement => {
           onClose={(): void => setIsContainerStyledDialogOpen(false)}
           containerRef={containerRef}
           fadeOutDuration={150}
+          disableEscapeToClose
+          disableOutsideClickToClose
         >
           <DialogTitle>Container-Styled Dialog</DialogTitle>
           <DialogContent>

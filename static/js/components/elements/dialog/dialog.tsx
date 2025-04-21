@@ -15,6 +15,7 @@ import ReactDOM from "react-dom";
 
 interface DialogContextType {
   onClose: () => void;
+  showCloseButton: boolean;
 }
 
 const DialogContext = createContext<DialogContextType | undefined>(undefined);
@@ -34,7 +35,7 @@ interface DialogContainerProps {
 }
 
 const DIALOG_DEFAULT_FADE_IN_DURATION = 150;
-const DIALOG_DEFAULT_FADE_OUT_DURATION = 0;
+const DIALOG_DEFAULT_FADE_OUT_DURATION = 150;
 
 const DialogContainer = ({
   children,
@@ -68,6 +69,9 @@ interface DialogProps {
   keepMounted?: boolean;
   fadeInDuration?: number;
   fadeOutDuration?: number;
+  disableEscapeToClose?: boolean;
+  disableOutsideClickToClose?: boolean;
+  showCloseButton?: boolean;
 }
 
 export const Dialog = ({
@@ -79,6 +83,9 @@ export const Dialog = ({
   keepMounted = false,
   fadeInDuration = DIALOG_DEFAULT_FADE_IN_DURATION,
   fadeOutDuration = DIALOG_DEFAULT_FADE_OUT_DURATION,
+  disableEscapeToClose = false,
+  disableOutsideClickToClose = false,
+  showCloseButton = false,
 }: DialogProps): ReactElement => {
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -134,7 +141,7 @@ export const Dialog = ({
 
       prevOpenRef.current = open;
     }
-  }, [clearCloseTimeout, fadeOutDuration, onClose, open]);
+  }, [clearCloseTimeout, fadeOutDuration, open]);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -145,7 +152,7 @@ export const Dialog = ({
   }, [isClosing, isVisible]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || disableEscapeToClose) return;
 
     const handleEscape = (e: KeyboardEvent): void => {
       if (e.key === "Escape") onClose();
@@ -156,16 +163,22 @@ export const Dialog = ({
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [open, onClose]);
+  }, [open, onClose, disableEscapeToClose]);
 
   const shouldShow = isVisible || isClosing || keepMounted;
 
+  const handleOverlayClick = (): void => {
+    if (!disableOutsideClickToClose) {
+      onClose();
+    }
+  };
+
   return (
-    <DialogContext.Provider value={{ onClose }}>
+    <DialogContext.Provider value={{ onClose, showCloseButton }}>
       <DialogContainer containerRef={containerRef}>
         <div
           role="presentation"
-          onClick={onClose}
+          onClick={handleOverlayClick}
           className="dialog-overlay"
           css={css`
             position: fixed;
@@ -174,7 +187,7 @@ export const Dialog = ({
             pointer-events: ${shouldShow ? "auto" : "none"};
             opacity: ${isVisible ? 1 : 0};
             transition: opacity
-              ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in;
+              ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
             z-index: 1;
           `}
         />
@@ -197,7 +210,7 @@ export const Dialog = ({
             border-radius: 4px;
             opacity: ${isVisible ? 1 : 0};
             transition: opacity
-              ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in;
+              ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
             z-index: 2;
             pointer-events: ${shouldShow ? "auto" : "none"};
           `}
@@ -218,7 +231,7 @@ export const DialogTitle = ({
   children,
   className,
 }: DialogSubComponentProps): ReactElement => {
-  const { onClose } = useDialogContext();
+  const { onClose, showCloseButton } = useDialogContext();
 
   return (
     <div
@@ -231,22 +244,24 @@ export const DialogTitle = ({
       `}
     >
       {children}
-      <button
-        aria-label="close"
-        onClick={onClose}
-        className="dialog-close-button"
-        css={css`
-          position: absolute;
-          right: 8px;
-          top: 8px;
-          background: transparent;
-          border: none;
-          font-size: 10px;
-          cursor: pointer;
-        `}
-      >
-        Close
-      </button>
+      {showCloseButton && (
+        <button
+          aria-label="close"
+          onClick={onClose}
+          className="dialog-close-button"
+          css={css`
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: transparent;
+            border: none;
+            font-size: 10px;
+            cursor: pointer;
+          `}
+        >
+          Close
+        </button>
+      )}
     </div>
   );
 };
