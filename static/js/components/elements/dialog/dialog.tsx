@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import React, {
   createContext,
   ReactElement,
@@ -12,6 +12,8 @@ import React, {
   useState,
 } from "react";
 import ReactDOM from "react-dom";
+
+import { Close } from "../icons/close";
 
 interface DialogContextType {
   onClose: () => void;
@@ -87,6 +89,8 @@ export const Dialog = ({
   disableOutsideClickToClose = false,
   showCloseButton = false,
 }: DialogProps): ReactElement => {
+  const theme = useTheme();
+
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -203,16 +207,19 @@ export const Dialog = ({
             transform: translate(-50%, -50%);
             display: flex;
             flex-direction: column;
+            gap: ${theme.spacing.sm}px;
             max-height: calc(100vh - 64px);
             max-width: 600px;
             width: 100%;
             background: #fff;
-            border-radius: 4px;
             opacity: ${isVisible ? 1 : 0};
             transition: opacity
               ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
             z-index: 2;
             pointer-events: ${shouldShow ? "auto" : "none"};
+            overflow: hidden;
+            ${theme.elevation.primary}
+            ${theme.radius.primary};
           `}
         >
           {shouldShow && children}
@@ -232,34 +239,51 @@ export const DialogTitle = ({
   className,
 }: DialogSubComponentProps): ReactElement => {
   const { onClose, showCloseButton } = useDialogContext();
+  const theme = useTheme();
 
   return (
     <div
       className={`dialog-title ${className || ""}`}
       css={css`
-        padding: 16px 24px;
-        font-size: 20px;
-        font-weight: 500;
-        position: relative;
+        padding: ${theme.spacing.lg}px ${theme.spacing.lg}px
+          ${theme.spacing.sm}px ${theme.spacing.lg}px;
+        overflow: auto;
       `}
     >
-      {children}
+      <h3
+        css={css`
+          ${theme.typography.family.heading}
+          ${theme.typography.heading.xs}
+          margin: 0;
+          padding: 0;
+          padding-right: ${theme.spacing.xl}px;
+        `}
+      >
+        {children}
+      </h3>
       {showCloseButton && (
         <button
           aria-label="close"
           onClick={onClose}
           className="dialog-close-button"
           css={css`
-            position: absolute;
-            right: 8px;
-            top: 8px;
-            background: transparent;
-            border: none;
-            font-size: 10px;
-            cursor: pointer;
+              position: absolute;
+              margin: 0;
+              padding: 0;
+              display: block;
+              top: ${theme.spacing.lg}px;
+              right: ${theme.spacing.lg}px;
+              background: transparent;
+              border: none;
+              cursor: pointer;
+              color: ${theme.colors.text.primary.base};
+              width:
+              &:hover {
+              color: ${theme.colors.link.primary.base};
+          }
           `}
         >
-          Close
+          <Close />
         </button>
       )}
     </div>
@@ -269,29 +293,35 @@ export const DialogTitle = ({
 export const DialogContent = ({
   children,
   className,
-}: DialogSubComponentProps): ReactElement => (
-  <div
-    className={`dialog-content ${className || ""}`}
-    css={css`
-      padding: 8px 24px;
-      overflow: auto;
-    `}
-  >
-    {children}
-  </div>
-);
+}: DialogSubComponentProps): ReactElement => {
+  const theme = useTheme();
+  return (
+    <div
+      className={`dialog-content ${className || ""}`}
+      css={css`
+        padding: 0 ${theme.spacing.lg}px;
+        overflow: auto;
+      `}
+    >
+      {children}
+    </div>
+  );
+};
 
 export const DialogActions = ({
   children,
   className,
 }: DialogSubComponentProps): ReactElement => {
+  const theme = useTheme();
   return (
     <div
       className={`dialog-actions ${className || ""}`}
       css={css`
-        padding: 8px 24px;
+        padding: ${theme.spacing.sm}px ${theme.spacing.lg}px
+          ${theme.spacing.lg}px ${theme.spacing.lg}px;
         display: flex;
         justify-content: flex-end;
+        gap: ${theme.spacing.lg}px;
       `}
     >
       {children}

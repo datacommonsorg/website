@@ -53,6 +53,14 @@ const WIDTH = {
   xl: 1310,
 };
 
+const icon = {
+  xs: 12,
+  sm: 18,
+  md: 24,
+  lg: 32,
+  xl: 48,
+};
+
 const DC_BLACK = "hsl(0, 0%, 18.82%)";
 
 const DC_WHITE = "hsl(255, 100%, 100%)";
