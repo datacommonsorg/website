@@ -851,6 +851,7 @@ Female Population With Stroke By Age,dc/topic/StrokeFemalePopulationByAge
 Female deaths,Count_Death_Female_AsAFractionOf_Count_Person_Female;dc/topic/FemaleMortality
 Female labor force participation rate,Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female
 Female mortality,dc/topic/FemaleMortality
+Female unemployment rate,Count_Person_15To59Years_Unemployed_Male_AsAFractionOf_Count_Person_15To59Years_Male
 Fertility rate,FertilityRate_Person_Female
 Financial Soundness Indicators,dc/topic/sdg_10.5.1
 Fires,dc/topic/Fire
@@ -899,6 +900,10 @@ Gross Domestic Product (GDP) of the wholesale trade industry,Amount_EconomicActi
 Gross National Income Based on Purchasing Power Parity,Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity
 Gross National Income per capita Based on Purchasing Power Parity,Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita
 Group Quarters Residents,dc/topic/GroupQuartersResidents
+Growth rate in gdp of agriculture,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_Agriculture
+Growth rate in gdp of manufacturing sector,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_ManufacturingSector
+Growth rate in gdp of mining quarrying sector,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_MiningQuarrying
+Growth rate in gdp of telecommunications,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_Telecommunications
 Growth rates of household expenditure or income per capita among the bottom 40 per cent of the population and the total population,dc/topic/sdg_10.1.1
 HIV,dc/topic/HIV
 Hard Coal Consumption,Annual_Consumption_Fuel_HardCoal
@@ -979,6 +984,7 @@ Industries By GDP Contribution,dc/topic/IndustriesByGDP
 Industries By Revenue,dc/topic/IndustriesByRevenue
 Infant Mortality,dc/topic/InfantMortality
 Infant mortality,Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent
+Infant mortality rate,Count_MortalityEvent_Infant_AsAFractionOf_Count_BirthEvent_LiveBirth
 Inflation Adjusted GDP,InflationAdjustedGDP
 Information on farming,dc/topic/Agriculture
 Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
@@ -1029,6 +1035,7 @@ Liver Cirrhosis Deaths,WHO/SA_0000001446
 Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 Malaria,dc/topic/Malaria
 "Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
+Malaria mortality rate,Count_MortalityEvent_Malaria_AsAFractionOf_Count_Death
 Male Child mortality for Ages Up to 14 Years,Count_Death_Upto14Years_Male_AsAFractionOf_Count_Person_Upto14Years_Male
 Male Population With Arthritis By Age,dc/topic/ArthritisMalePopulationByAge
 Male Population With Asthma By Age,dc/topic/AsthmaMalePopulationByAge
@@ -1041,6 +1048,7 @@ Male Population With Lung Condition By Age,dc/topic/LungConditionMalePopulationB
 Male Population With Poor Mental Health By Age,dc/topic/MentalHealthNotGoodMalePopulationByAge
 Male Population With Stroke By Age,dc/topic/StrokeMalePopulationByAge
 Male labor force participation rate,Count_Person_15To64Years_Male_InLaborForce_AsFractionOf_Count_Person_15To64Years_Male
+Male unemployment rate,Count_Person_15To59Years_Unemployed_Male_AsAFractionOf_Count_Person_15To59Years_Male
 Malnutrition,dc/topic/Malnutrition
 Manufacturing employment as a proportion of total employment,dc/topic/sdg_9.2.2
 Manufacturing value added as a proportion of GDP and per capita,dc/topic/sdg_9.2.1
@@ -1283,6 +1291,7 @@ Never Married Female Population By Age,dc/topic/NeverMarriedFemalePopulationByAg
 Never Married Male Population By Age,dc/topic/NeverMarriedMalePopulationByAge
 Never Married Population By Age,dc/topic/NeverMarriedPopulationByAge
 Never Married Population by Demographic,dc/topic/NeverMarriedPopulationByDemographic
+Newborn mortality rate,Count_MortalityEvent_Newborn_AsAFractionOf_Count_BirthEvent_LiveBirth
 Nitrogen Dioxide,dc/topic/NitrogenDioxide
 Nitrous Oxide Emissions by Source,dc/topic/Emissions_NitrousOxide_EmissionsbySource
 No Health Insurance,dc/topic/NoHealthInsurance
@@ -2075,6 +2084,7 @@ Number of countries with mechanisms in place to enhance policy coherence of sust
 "Number of countries with migration policies that facilitate orderly, safe, regular and responsible migration and mobility of people",dc/topic/sdg_10.7.2
 "Number of countries with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.2.1
 Number of crimes,Count_CriminalActivities_CombinedCrime
+Number of criminal activities,Count_CriminalIncidents
 Number of cyclones,Count_CycloneEvent
 Number of deaths,Count_Death
 Number of deaths Among American Indians and Alaska Natives,Count_Death_AmericanIndianAndAlaskaNativeAlone
@@ -2438,6 +2448,7 @@ Number of infant deaths among males due to certain conditions originating in the
 Number of infant deaths from certain conditions originating in the perinatal period,Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod
 Number of infant deaths from certain infectious and parasitic diseases,Count_Death_Upto1Years_CertainInfectiousParasiticDiseases
 "Number of infant deaths from congenital malformations, deformations and chromosomal abnormalities",Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities
+Number of intersex people,Count_Person_Intersex
 Number of landslides,Count_DebrisFlowEvent
 Number of larceny theft,Count_CriminalActivities_LarcenyTheft
 Number of laying hens in Farm Inventory,Count_FarmInventory_Layers
@@ -2450,6 +2461,8 @@ Number of literate Muslims,indianCensus/Count_Person_Religion_Muslim_Literate
 Number of literate Sikhs,indianCensus/Count_Person_Religion_Sikh_Literate
 Number of literate scheduled caste people,Count_Person_ScheduledCaste_Literate
 Number of literate scheduled tribe people,Count_Person_ScheduledTribe_Literate
+Number of live births,Count_BirthEvent_LiveBirth
+Number of malaria cases,Count_MedicalConditionIncident_ConditionMalaria
 Number of male people with disabilities,Count_Person_WithDisability_Male
 Number of males aged 18 or less who reside in college or university student housing,Count_Person_18OrLessYears_Male_ResidesInCollegeOrUniversityStudentHousing
 Number of males enrolled in college undergraduate years,dc/pltrqb2ng8dp8
@@ -2513,6 +2526,7 @@ Number of married people who reside in non-institutionalized group quarters,Coun
 Number of married people who reside in nursing facilities,Count_Person_MarriedAndNotSeparated_ResidesInNursingFacilities
 "Number of married people, including separated",Count_Person_NowMarried
 Number of married white people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_WhiteAlone
+Number of maternal mortality,Count_MaternalMortalityEvent
 Number of mobile phone subscriptions per person,Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person
 Number of multi race people with disabilities,Count_Person_WithDisability_TwoOrMoreRaces
 Number of multi races farmers,Count_Person_Producer_TwoOrMoreRaces
@@ -2547,6 +2561,7 @@ Number of never married native people,Count_Person_15OrMoreYears_NeverMarried_Na
 Number of never married single-race people,Count_Person_15OrMoreYears_NeverMarried_OneRace
 Number of never married white people,Count_Person_15OrMoreYears_NeverMarried_WhiteAlone
 "Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations",dc/topic/sdg_3.3.1
+Number of newborn deaths,Count_MortalityEvent_Newborn
 Number of non US citizens,Count_Person_NotAUSCitizen
 Number of non family households that have not received food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_NonfamilyHousehold
 Number of non white females,Count_Person_Female_NonWhite
@@ -2591,9 +2606,21 @@ Number of people attended college for less than 1 year,Count_Person_EducationalA
 Number of people below poverty level in the past 12 months,Count_Person_BelowPovertyLevelInThePast12Months
 Number of people do not speak english at all,Count_Person_SpeakEnglishNotAtAll
 Number of people do not speak english well,Count_Person_SpeakEnglishNotWell
+Number of people employed in Information and communication,Count_Person_15OrMoreYears_InformationAndTelecommunication_Employed
+Number of people employed in Manufacturing,Count_Person_15OrMoreYears_Manufacturing_Employed
+Number of people employed in agriculture,Count_Person_15OrMoreYears_AgricultureHuntingForestryCuttingTrees_Employed
+Number of people employed in agriculture sector,Count_Person_Agriculture_Employed
+Number of people employed in construction sector,Count_Person_ConstructionSector_Employed
+Number of people employed in education sector,Count_Person_15OrMoreYears_EducationSector_Employed
+Number of people employed in manufacturing sector,Count_Person_ManufacturingSector_Employed
+Number of people employed in public administration or defence,Count_Person_15OrMoreYears_PublicAdministrationAndDefence_Employed
+Number of people employed in social work activities,Count_Person_15OrMoreYears_HumanHealthAndSocialWorkActivities_Employed
+Number of people employed in specialized scientific or technical activities,Count_Person_15OrMoreYears_SpecializedScientificAndTechnicalActivities_Employed
 Number of people employed in the manufacturing sector,dc/ndg1xk1e9frc2
+Number of people employed in trade sector,Count_Person_TradeSector_Employed
 Number of people enrolled for Aadhaar,Count_Person_Aadhaar_Enrolled
 Number of people living above the poverty level in the past 12 months,Count_Person_AbovePovertyLevelInThePast12Months
+Number of people living in slums,Count_Person_SlumArea
 Number of people living in urban areas,Count_Person_Urban
 Number of people living in urban areas and below poverty level in the past 12 months,Count_Person_Urban_BelowPovertyLevelInThePast12Months
 Number of people not enrolled in school,Count_Person_NotEnrolledInSchool
@@ -2712,6 +2739,7 @@ Number of people working in the retail trade industry,dc/p69tpsldf99h7
 Number of privately owned Wind Electric Power Generation establishments,dc/evcytmdmc9xgd
 Number of property crime incidents,Count_CriminalActivities_PropertyCrime
 Number of prople with self care disability,Count_Person_SelfCareDifficulty
+Number of public and central hospitals,Count_HealthEstablishment_PublicAndCentralHospital
 Number of rental Housing Units with Cash Rent,Count_HousingUnit_WithCashRent
 Number of rented houses,Count_HousingUnit_RenterOccupied
 Number of renter occupied family households,Count_Household_FamilyHousehold_RenterOccupied
@@ -2759,6 +2787,7 @@ Number of single mother family households with householder age 65 or more years,
 Number of single mother households that have received social security income in the past 12 months,Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold
 Number of single unit married couple family households,Count_Household_MarriedCoupleFamilyHousehold_SingleUnit
 Number of single-mother families with a householder with less than a high school education,Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_SingleMotherFamilyHousehold
+Number of social care facilities,Count_Establishment_SocialCareFacility
 Number of solar installations,Count_SolarInstallation
 Number of solar installations in the commercial sector,Count_SolarInstallation_Commercial
 Number of solar installations in the residential sector,Count_SolarInstallation_Residential
@@ -3169,6 +3198,7 @@ Road Traffic Deaths,dc/topic/RoadTrafficDeaths
 Rural Female Population By Age,dc/topic/RuralFemalePopulationByAge
 Rural Male Population By Age,dc/topic/RuralMalePopulationByAge
 Rural Population By Age,dc/topic/RuralPopulationByAge
+Rural infant mortality rate,Count_MortalityEvent_Infant_Rural
 Rural or urban child immunization,dc/topic/WHOChildImmunizationsByUrbanRural
 SDG Affordable and Clean Energy,dc/topic/sdg_7
 SDG Clean Water and Sanitation,dc/topic/sdg_6
@@ -3236,6 +3266,7 @@ Student Population Demographics,dc/topic/StudentPopulationDemographics
 Student Teacher Ratio,dc/topic/StudentTeacherRatio
 Student demographics,dc/topic/StudentPopulationDemographics
 Student in High School,dc/topic/StudentsInHighSchool
+Student teacher ratio,Percent_Student_AsAFractionOf_Count_Teacher
 Student test performance,dc/c58mvty4nhxdb
 Student to Teacher Ratio,Percent_Student_AsAFractionOf_Count_Teacher
 Students,dc/topic/StudentPopulation
@@ -3317,6 +3348,7 @@ Two Or More Races Population By Age,dc/topic/TwoOrMoreRacesPopulationByAge
 "Undertake reforms to give women equal rights to economic resources, as well as access to ownership and control over land and other forms of property, financial services, inheritance and natural resources, in accordance with national laws",dc/topic/sdg_5.a
 Under‑5 mortality rate,dc/topic/sdg_3.2.1
 Unemployment Rate,dc/topic/UnemploymentRate
+Unemployment rate,UnemploymentRate_Person_15To65Years
 "Unemployment rate, by sex, age and persons with disabilities",dc/topic/sdg_8.5.2
 Unhealthy behaviors,dc/topic/HealthBehavior
 Unintentional Poisonings,dc/topic/UnintentionalPoisonings
@@ -3325,6 +3357,7 @@ Unsentenced detainees as a proportion of overall prison population,dc/topic/sdg_
 Urban Female Population By Age,dc/topic/UrbanFemalePopulationByAge
 Urban Male Population By Age,dc/topic/UrbanMalePopulationByAge
 Urban Population By Age,dc/topic/UrbanPopulationByAge
+Urban infant mortality rate,Count_MortalityEvent_Infant_Urban
 Vaccines,dc/topic/Vaccines
 Vegetal Waste consumption by Fuel,Annual_Consumption_Fuel_VegetalWaste
 Very Old and Very Young Population,dc/topic/VeryOldAndVeryYoungPopulation
