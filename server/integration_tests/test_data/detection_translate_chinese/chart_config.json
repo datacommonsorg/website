@@ -1,16 +1,30 @@
 {
-  "blocked": true,
+  "childEntityType": "City",
+  "classifications": [
+    {
+      "ranking_type": [
+        1
+      ],
+      "type": 2
+    },
+    {
+      "contained_in_place_type": "City",
+      "had_default_type": false,
+      "type": 4
+    }
+  ],
   "client": "test_detect",
-  "config": {},
+  "comparisonEntities": [],
+  "comparisonVariables": [],
   "context": {},
   "debug": {},
-  "failure": "Sorry, could not complete your request.",
-  "place": {
-    "dcid": "",
-    "name": "",
-    "place_type": ""
-  },
-  "userMessages": [
-    "Sorry, could not complete your request."
+  "entities": [
+    "geoId/06085"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "variables": [
+    "dc/topic/PlaceOfBirth"
   ]
 }
