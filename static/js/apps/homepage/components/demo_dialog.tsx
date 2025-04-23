@@ -95,6 +95,8 @@ export const DemoDialog = (): ReactElement => {
   const theme = useTheme();
 
   const [isSimpleDialogOpen, setIsSimpleDialogOpen] = useState(false);
+  const [isFocusTrappingDialogOpen, setIsFocusTrappingDialogOpen] =
+    useState(false);
   const [isCustomStyledDialogOpen, setIsCustomStyledDialogOpen] =
     useState(false);
   const [isContainerStyledDialogOpen, setIsContainerStyledDialogOpen] =
@@ -135,6 +137,47 @@ export const DemoDialog = (): ReactElement => {
           </DialogContent>
           <DialogActions>
             <StyledButton onClick={(): void => setIsSimpleDialogOpen(false)}>
+              Close
+            </StyledButton>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div className="box">
+        <StyledButton onClick={(): void => setIsFocusTrappingDialogOpen(true)}>
+          Focus Trapping
+        </StyledButton>
+
+        <Dialog
+          open={isFocusTrappingDialogOpen}
+          onClose={(): void => setIsFocusTrappingDialogOpen(false)}
+        >
+          <DialogTitle>Simple Dialog</DialogTitle>
+          <DialogContent>
+            <p>
+              This is a dialog with multiple focusable items. Use the tab button
+              to demonstrate focus handling.
+            </p>
+            <div
+              css={css`
+                display: flex;
+                flex-direction: column;
+                gap: ${theme.spacing.sm}px;
+              `}
+            >
+              <button>An inert button</button>
+              <input defaultValue="An input" />
+              <select>
+                <option>One</option>
+                <option>Two</option>
+                <option>Three</option>
+              </select>
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <StyledButton
+              onClick={(): void => setIsFocusTrappingDialogOpen(false)}
+            >
               Close
             </StyledButton>
           </DialogActions>

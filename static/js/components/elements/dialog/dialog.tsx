@@ -94,6 +94,20 @@ interface DialogProps {
   contentCss?: Interpolation<Theme>;
 }
 
+const getFocusableElements = (container: HTMLElement | null): HTMLElement[] => {
+  if (!container) return [];
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [contenteditable], [tabindex]:not([tabindex="-1"])'
+    )
+  ).filter(
+    (el) =>
+      !el.hasAttribute("disabled") &&
+      !el.getAttribute("aria-hidden") &&
+      el.tabIndex !== -1
+  );
+};
+
 export const Dialog = ({
   open,
   onClose,
@@ -123,6 +137,9 @@ export const Dialog = ({
   const closeTimeoutRef = useRef<number | null>(null);
   const htmlStyleRef = useRef({ overflow: "", paddingRight: "" });
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
+
   const clearCloseTimeout = useCallback(() => {
     if (closeTimeoutRef.current !== null) {
       window.clearTimeout(closeTimeoutRef.current);
@@ -138,6 +155,8 @@ export const Dialog = ({
         setIsClosing(false);
         setIsVisible(true);
         hasReceivedInteraction.current = true;
+
+        lastFocusedElementRef.current = document.activeElement as HTMLElement;
 
         const html = document.documentElement;
         htmlStyleRef.current = {
@@ -164,6 +183,9 @@ export const Dialog = ({
         } else {
           setIsClosing(false);
         }
+
+        lastFocusedElementRef.current?.focus();
+        lastFocusedElementRef.current = null;
       }
 
       prevOpenRef.current = open;
@@ -186,11 +208,50 @@ export const Dialog = ({
     };
 
     document.addEventListener("keydown", handleEscape);
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [open, onClose, disableEscapeToClose]);
+
+  useEffect(() => {
+    if (!open || !isVisible) return;
+
+    const node = dialogRef.current;
+    if (!node) return;
+
+    const [first] = getFocusableElements(node);
+    (first || node).focus({ preventScroll: true });
+  }, [open, isVisible]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const node = dialogRef.current;
+    if (!node) return;
+
+    const handleKeyDown = (e: KeyboardEvent): void => {
+      if (e.key !== "Tab") return;
+
+      const elements = getFocusableElements(node);
+      if (elements.length === 0) {
+        e.preventDefault();
+        return;
+      }
+
+      const firstEl = elements[0];
+      const lastEl = elements[elements.length - 1];
+      const active = document.activeElement as HTMLElement;
+
+      if (!e.shiftKey && active === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      } else if (e.shiftKey && active === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   const shouldShow = isVisible || isClosing || keepMounted;
 
@@ -239,8 +300,10 @@ export const Dialog = ({
 
         <div
           role="dialog"
+          ref={dialogRef}
           className={`dialog ${className || ""}`}
           aria-modal={shouldShow ? "true" : "false"}
+          tabIndex={-1}
           css={[
             css`
               position: fixed;
