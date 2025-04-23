@@ -67,6 +67,14 @@ const DialogContainer = ({
   );
 };
 
+const maxWidthPixelMap = {
+  sm: 360,
+  md: 600,
+  lg: 800,
+} as const;
+
+type DialogMaxWidth = keyof typeof maxWidthPixelMap | false;
+
 interface DialogProps {
   open: boolean;
   onClose: () => void;
@@ -79,6 +87,8 @@ interface DialogProps {
   disableEscapeToClose?: boolean;
   disableOutsideClickToClose?: boolean;
   showCloseButton?: boolean;
+  maxWidth?: DialogMaxWidth;
+  fullWidth?: boolean;
   containerCss?: Interpolation<Theme>;
   overlayCss?: Interpolation<Theme>;
   contentCss?: Interpolation<Theme>;
@@ -96,6 +106,8 @@ export const Dialog = ({
   disableEscapeToClose = false,
   disableOutsideClickToClose = false,
   showCloseButton = false,
+  maxWidth = "md",
+  fullWidth = false,
   containerCss,
   overlayCss,
   contentCss,
@@ -182,6 +194,21 @@ export const Dialog = ({
 
   const shouldShow = isVisible || isClosing || keepMounted;
 
+  const widthCss = fullWidth
+    ? css`
+        width: 100%;
+      `
+    : css`
+        width: auto;
+      `;
+
+  const maxWidthCss =
+    maxWidth === false
+      ? css``
+      : css`
+          max-width: min(${maxWidthPixelMap[maxWidth]}px, calc(100vw - 32px));
+        `;
+
   const handleOverlayClick = (): void => {
     if (!disableOutsideClickToClose) {
       onClose();
@@ -224,8 +251,6 @@ export const Dialog = ({
               flex-direction: column;
               gap: ${theme.spacing.sm}px;
               max-height: calc(100vh - 64px);
-              max-width: 600px;
-              width: 100%;
               background: #fff;
               opacity: ${isVisible ? 1 : 0};
               transition: opacity
@@ -236,6 +261,8 @@ export const Dialog = ({
               ${theme.elevation.primary}
               ${theme.radius.primary};
             `,
+            widthCss,
+            maxWidthCss,
             contentCss,
           ]}
         >
