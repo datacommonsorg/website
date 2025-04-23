@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from "@emotion/react";
+import { css, Interpolation, Theme, useTheme } from "@emotion/react";
 import React, {
   createContext,
   ReactElement,
@@ -34,6 +34,7 @@ interface DialogContainerProps {
   children: ReactNode;
   className?: string;
   containerRef?: React.RefObject<HTMLElement>;
+  css?: Interpolation<Theme>;
 }
 
 const DIALOG_DEFAULT_FADE_IN_DURATION = 150;
@@ -43,18 +44,22 @@ const DialogContainer = ({
   children,
   className,
   containerRef,
+  css: baseCss,
 }: DialogContainerProps): ReactElement => {
   const container = containerRef?.current || document.body;
 
   return ReactDOM.createPortal(
     <div
       className={`dialog-container ${className || ""}`}
-      css={css`
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 10000;
-      `}
+      css={[
+        css`
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: 10000;
+        `,
+        baseCss,
+      ]}
     >
       {children}
     </div>,
@@ -74,6 +79,9 @@ interface DialogProps {
   disableEscapeToClose?: boolean;
   disableOutsideClickToClose?: boolean;
   showCloseButton?: boolean;
+  containerCss?: Interpolation<Theme>;
+  overlayCss?: Interpolation<Theme>;
+  contentCss?: Interpolation<Theme>;
 }
 
 export const Dialog = ({
@@ -88,6 +96,9 @@ export const Dialog = ({
   disableEscapeToClose = false,
   disableOutsideClickToClose = false,
   showCloseButton = false,
+  containerCss,
+  overlayCss,
+  contentCss,
 }: DialogProps): ReactElement => {
   const theme = useTheme();
 
@@ -179,48 +190,54 @@ export const Dialog = ({
 
   return (
     <DialogContext.Provider value={{ onClose, showCloseButton }}>
-      <DialogContainer containerRef={containerRef}>
+      <DialogContainer containerRef={containerRef} css={containerCss}>
         <div
           role="presentation"
           onClick={handleOverlayClick}
           className="dialog-overlay"
-          css={css`
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            pointer-events: ${shouldShow ? "auto" : "none"};
-            opacity: ${isVisible ? 1 : 0};
-            transition: opacity
-              ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
-            z-index: 1;
-          `}
+          css={[
+            css`
+              position: fixed;
+              inset: 0;
+              background-color: rgba(0, 0, 0, 0.5);
+              pointer-events: ${shouldShow ? "auto" : "none"};
+              opacity: ${isVisible ? 1 : 0};
+              transition: opacity
+                ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
+              z-index: 1;
+            `,
+            overlayCss,
+          ]}
         />
 
         <div
           role="dialog"
           className={`dialog ${className || ""}`}
           aria-modal={shouldShow ? "true" : "false"}
-          css={css`
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            gap: ${theme.spacing.sm}px;
-            max-height: calc(100vh - 64px);
-            max-width: 600px;
-            width: 100%;
-            background: #fff;
-            opacity: ${isVisible ? 1 : 0};
-            transition: opacity
-              ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
-            z-index: 2;
-            pointer-events: ${shouldShow ? "auto" : "none"};
-            overflow: hidden;
-            ${theme.elevation.primary}
-            ${theme.radius.primary};
-          `}
+          css={[
+            css`
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              display: flex;
+              flex-direction: column;
+              gap: ${theme.spacing.sm}px;
+              max-height: calc(100vh - 64px);
+              max-width: 600px;
+              width: 100%;
+              background: #fff;
+              opacity: ${isVisible ? 1 : 0};
+              transition: opacity
+                ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
+              z-index: 2;
+              pointer-events: ${shouldShow ? "auto" : "none"};
+              overflow: hidden;
+              ${theme.elevation.primary}
+              ${theme.radius.primary};
+            `,
+            contentCss,
+          ]}
         >
           {shouldShow && children}
         </div>
@@ -232,11 +249,13 @@ export const Dialog = ({
 interface DialogSubComponentProps {
   children: ReactNode;
   className?: string;
+  css?: Interpolation<Theme>;
 }
 
 export const DialogTitle = ({
   children,
   className,
+  css: baseCss,
 }: DialogSubComponentProps): ReactElement => {
   const { onClose, showCloseButton } = useDialogContext();
   const theme = useTheme();
@@ -244,11 +263,14 @@ export const DialogTitle = ({
   return (
     <div
       className={`dialog-title ${className || ""}`}
-      css={css`
-        padding: ${theme.spacing.lg}px ${theme.spacing.lg}px
-          ${theme.spacing.sm}px ${theme.spacing.lg}px;
-        overflow: auto;
-      `}
+      css={[
+        css`
+          padding: ${theme.spacing.lg}px ${theme.spacing.lg}px
+            ${theme.spacing.sm}px ${theme.spacing.lg}px;
+          overflow: auto;
+        `,
+        baseCss,
+      ]}
     >
       <h3
         css={css`
@@ -291,15 +313,19 @@ export const DialogTitle = ({
 export const DialogContent = ({
   children,
   className,
+  css: baseCss,
 }: DialogSubComponentProps): ReactElement => {
   const theme = useTheme();
   return (
     <div
       className={`dialog-content ${className || ""}`}
-      css={css`
-        padding: 0 ${theme.spacing.lg}px;
-        overflow: auto;
-      `}
+      css={[
+        css`
+          padding: 0 ${theme.spacing.lg}px;
+          overflow: auto;
+        `,
+        baseCss,
+      ]}
     >
       {children}
     </div>
@@ -309,18 +335,22 @@ export const DialogContent = ({
 export const DialogActions = ({
   children,
   className,
+  css: baseCss,
 }: DialogSubComponentProps): ReactElement => {
   const theme = useTheme();
   return (
     <div
       className={`dialog-actions ${className || ""}`}
-      css={css`
-        padding: ${theme.spacing.sm}px ${theme.spacing.lg}px
-          ${theme.spacing.lg}px ${theme.spacing.lg}px;
-        display: flex;
-        justify-content: flex-end;
-        gap: ${theme.spacing.lg}px;
-      `}
+      css={[
+        css`
+          padding: ${theme.spacing.sm}px ${theme.spacing.lg}px
+            ${theme.spacing.lg}px ${theme.spacing.lg}px;
+          display: flex;
+          justify-content: flex-end;
+          gap: ${theme.spacing.lg}px;
+        `,
+        baseCss,
+      ]}
     >
       {children}
     </div>

@@ -36,7 +36,7 @@ const StyledButton = styled.button`
   border: 0;
   ${theme.box.primary}
   ${theme.elevation.primary}
-  ${theme.typography.family.text};
+    ${theme.typography.family.text};
   ${theme.typography.text.md};
   ${theme.radius.primary};
   ${theme.colors.link.primary.base}
@@ -99,6 +99,7 @@ export const DemoDialog = (): ReactElement => {
     useState(false);
   const [isContainerStyledDialogOpen, setIsContainerStyledDialogOpen] =
     useState(false);
+  const [isPropStyleDialogOpen, setIsPropStyledDialogOpen] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -215,6 +216,75 @@ export const DemoDialog = (): ReactElement => {
           <DialogActions>
             <StyledButton
               onClick={(): void => setIsContainerStyledDialogOpen(false)}
+            >
+              Close
+            </StyledButton>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div className="box">
+        <StyledButton onClick={(): void => setIsPropStyledDialogOpen(true)}>
+          Open Dialog with css Props
+        </StyledButton>
+
+        <Dialog
+          open={isPropStyleDialogOpen}
+          onClose={(): void => setIsPropStyledDialogOpen(false)}
+          overlayCss={css`
+            background-color: rgba(75, 0, 130, 0.7);
+            backdrop-filter: blur(4px);
+          `}
+          contentCss={css`
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+          `}
+        >
+          <DialogTitle
+            css={css`
+              color: white;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+              background-color: rgba(0, 0, 0, 0.1);
+            `}
+          >
+            Dialog styled via props
+          </DialogTitle>
+          <DialogContent
+            css={css`
+              color: white;
+              text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+              padding: ${theme.spacing.lg}px;
+            `}
+          >
+            <p>
+              This dialog showcases how to use props to style different parts.
+              This is an alternative to styled components.
+            </p>
+            <p>
+              Notice the custom overlay with purple tint and blur effect, the
+              gradient background of the dialog content, and the custom styles
+              for each section.
+            </p>
+          </DialogContent>
+          <DialogActions
+            css={css`
+              background-color: rgba(0, 0, 0, 0.1);
+              border-top: 1px solid rgba(255, 255, 255, 0.2);
+              padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
+            `}
+          >
+            <StyledButton
+              onClick={(): void => setIsPropStyledDialogOpen(false)}
+              css={css`
+                background-color: white;
+                color: #ff5e62;
+                font-weight: bold;
+                &:hover {
+                  background-color: rgba(255, 255, 255, 0.9);
+                }
+              `}
             >
               Close
             </StyledButton>
