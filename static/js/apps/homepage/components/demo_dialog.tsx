@@ -36,7 +36,7 @@ const StyledButton = styled.button`
   border: 0;
   ${theme.box.primary}
   ${theme.elevation.primary}
-    ${theme.typography.family.text};
+  ${theme.typography.family.text};
   ${theme.typography.text.md};
   ${theme.radius.primary};
   ${theme.colors.link.primary.base}

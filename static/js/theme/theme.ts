@@ -286,14 +286,14 @@ const theme: Theme = {
     primary: {
       backgroundColor: DC_BONE,
       textDecoration: "none",
-      ["&:hover"]: {
+      ["&:hover:not(:disabled)"]: {
         backgroundColor: DC_BLUE_PILL_BCKG,
       },
     },
     secondary: {
       backgroundColor: DC_BLUE_LIGHTER,
       textDecoration: "none",
-      ["&:hover"]: {
+      ["&:hover:not(:disabled)"]: {
         backgroundColor: DC_BLUE_PILL_BCKG_HOVER,
       },
     },

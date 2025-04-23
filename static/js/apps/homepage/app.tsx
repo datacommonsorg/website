@@ -22,6 +22,7 @@ import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import Partners from "../../components/content/partners";
+import { DemoButtons } from "../../components/elements/button/demo_buttons";
 import { Section } from "../../components/elements/layout/section";
 import { Separator } from "../../components/elements/layout/separator";
 import { Link } from "../../components/elements/link_chip";
@@ -93,6 +94,10 @@ export function App({
 
       <Section>
         <DemoDialog />
+      </Section>
+
+      <Section>
+        <DemoButtons />
       </Section>
 
       <Separator />
