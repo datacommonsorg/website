@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Unit tests for server.routes.dev_place.utils."""
+"""Unit tests for server.routes.place.utils."""
 
 import copy
 import random
@@ -24,17 +24,17 @@ from flask_babel import Babel
 from flask_caching import Cache
 import pytest
 
-from server.routes.dev_place import utils
-from server.routes.dev_place.types import BlockConfig
-from server.routes.dev_place.types import Category
-from server.routes.dev_place.types import Chart
-from server.routes.dev_place.types import Place
-from server.routes.dev_place.types import ServerBlockMetadata
-from server.routes.dev_place.types import ServerChartConfiguration
-from server.routes.dev_place.types import ServerChartMetadata
+from server.routes.place import utils
+from server.routes.place.types import BlockConfig
+from server.routes.place.types import Category
+from server.routes.place.types import Chart
+from server.routes.place.types import Place
+from server.routes.place.types import ServerBlockMetadata
+from server.routes.place.types import ServerChartConfiguration
+from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
-from server.tests.routes.dev_place import mock_data
+from server.tests.routes.place import mock_data
 
 SAMPLE_BLOCK_METADATA = ServerBlockMetadata('PLACE',
                                             [ServerChartMetadata('BAR')],
@@ -69,7 +69,7 @@ def app():
 
 
 class TestUtils(unittest.IsolatedAsyncioTestCase):
-  """Tests for utils within the dev_place api."""
+  """Tests for utils within the place api."""
 
   @pytest.fixture(autouse=True)
   def setup_app_context(self, request):

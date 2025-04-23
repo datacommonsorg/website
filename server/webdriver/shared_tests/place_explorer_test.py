@@ -18,7 +18,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.routes.dev_place.utils import ORDERED_TOPICS
+from server.routes.place.utils import ORDERED_TOPICS
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
@@ -256,7 +256,7 @@ class PlaceExplorerTestMixin():
         self.TIMEOUT_SEC).until(lambda driver: search_input.get_attribute(
             "placeholder") == "Housing in California")
 
-  def test_dev_place_overview_world(self):
+  def test_place_overview_world(self):
     """Ensure place page revamp World page works"""
     self.driver.get(self.url_ + '/place/Earth')
 
@@ -294,7 +294,7 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
-  def test_dev_place_demographics_world(self):
+  def test_place_demographics_world(self):
     """Ensure place page revamp World page works"""
     self.driver.get(self.url_ + '/place/Earth?category=Demographics')
 
@@ -322,7 +322,7 @@ class PlaceExplorerTestMixin():
         len(find_elems(map_geo_regions, by=By.TAG_NAME, value='path')),
         238)  # country count.
 
-  def test_dev_place_overview_world_redirect(self):
+  def test_place_overview_world_redirect(self):
     """Ensure click on place link from the demographics page redirects to the overview page"""
     self.driver.get(self.url_ + '/place/Earth?category=Demographics')
 
@@ -336,7 +336,7 @@ class PlaceExplorerTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.url_to_be(self.url_ + '/place/Earth'))
 
-  def test_dev_place_overview_california(self):
+  def test_place_overview_california(self):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06')
 
@@ -388,7 +388,7 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
-  def test_dev_place_overview_san_mateo_county(self):
+  def test_place_overview_san_mateo_county(self):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06081')
 
@@ -442,7 +442,7 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
-  def test_dev_place_overview_los_angeles(self):
+  def test_place_overview_los_angeles(self):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/0644000')
 
@@ -497,7 +497,7 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
-  def test_dev_place_overview_zip_90003(self):
+  def test_place_overview_zip_90003(self):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/zip/90003')
 
@@ -544,7 +544,7 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
-  def test_dev_place_overview_africa(self):
+  def test_place_overview_africa(self):
     """Ensure experimental dev place page content loads data for a continent."""
     self.driver.get(self.url_ + '/place/africa')
 
@@ -580,7 +580,7 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
-  def test_dev_place_chart_settings(self):
+  def test_place_chart_settings(self):
     """Ensure the charts in the new place page contain the expected settings"""
     self.driver.get(self.url_ + '/place/geoId/06')
 
@@ -618,7 +618,7 @@ class PlaceExplorerTestMixin():
         'United States Of America')
 
   @pytest.mark.skip(reason="Fix theme compile error before re-enabling")
-  def test_dev_place_ai_spark_icon_hover(self):
+  def test_place_ai_spark_icon_hover(self):
     self.driver.get(self.url_ + '/place/geoId/04')
 
     # Find the icon element that triggers the tooltip on hover.

@@ -115,7 +115,7 @@ class PlaceI18nExplorerTestMixin():
                   value='query-search-input').get_attribute('value'),
         'United States Of America')
 
-  def test_dev_place_page_loads_with_locale(self):
+  def test_place_page_loads_with_locale(self):
     """Ensure experimental dev place page content loads data for a continent."""
     self.driver.get(self.url_ + '/place/africa?hl=fr')
 

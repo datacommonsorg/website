@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Unit tests for server.routes.dev_place.overview_table."""
+"""Unit tests for server.routes.place.overview_table."""
 
 import unittest
 from unittest import mock
@@ -23,12 +23,12 @@ from flask_caching import Cache
 import pytest
 
 from server.lib import i18n_messages
-from server.routes.dev_place import api
-from server.routes.dev_place.types import OverviewTableDataRow
-from server.routes.dev_place.types import PlaceOverviewTableApiResponse
+from server.routes.place import api
+from server.routes.place.types import OverviewTableDataRow
+from server.routes.place.types import PlaceOverviewTableApiResponse
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
-from server.tests.routes.dev_place import mock_data
+from server.tests.routes.place import mock_data
 
 
 @pytest.fixture(scope="module")
@@ -130,7 +130,7 @@ class TestOverviewTable(unittest.IsolatedAsyncioTestCase):
       expected = jsonify(PlaceOverviewTableApiResponse(data=[row])).get_json()
 
       response = self.app.test_client().get(
-          f'/api/dev-place/overview-table/geoId/06')
+          f'/api/place/overview-table/geoId/06')
 
       actual = response.get_json()
 
@@ -142,6 +142,6 @@ class TestOverviewTable(unittest.IsolatedAsyncioTestCase):
     with self.app.app_context():
       g.locale = 'en'
 
-      response = self.app.test_client().get(f'/api/dev-place/related-places/')
+      response = self.app.test_client().get(f'/api/place/related-places/')
 
       self.assertEqual(response.status_code, 404)
