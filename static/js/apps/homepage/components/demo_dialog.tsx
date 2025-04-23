@@ -151,6 +151,7 @@ export const DemoDialog = (): ReactElement => {
         <Dialog
           open={isFocusTrappingDialogOpen}
           onClose={(): void => setIsFocusTrappingDialogOpen(false)}
+          keepMounted
         >
           <DialogTitle>Simple Dialog</DialogTitle>
           <DialogContent>

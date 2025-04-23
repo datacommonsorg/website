@@ -253,7 +253,8 @@ export const Dialog = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open]);
 
-  const shouldShow = isVisible || isClosing || keepMounted;
+  const isInteractive = isVisible || isClosing;
+  const shouldShow = isInteractive || keepMounted;
 
   const widthCss = fullWidth
     ? css`
@@ -279,30 +280,33 @@ export const Dialog = ({
   return (
     <DialogContext.Provider value={{ onClose, showCloseButton }}>
       <DialogContainer containerRef={containerRef} css={containerCss}>
-        <div
-          role="presentation"
-          onClick={handleOverlayClick}
-          className="dialog-overlay"
-          css={[
-            css`
-              position: fixed;
-              inset: 0;
-              background-color: rgba(0, 0, 0, 0.5);
-              pointer-events: ${shouldShow ? "auto" : "none"};
-              opacity: ${isVisible ? 1 : 0};
-              transition: opacity
-                ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
-              z-index: 1;
-            `,
-            overlayCss,
-          ]}
-        />
+        {isInteractive && (
+          <div
+            role="presentation"
+            onClick={handleOverlayClick}
+            className="dialog-overlay"
+            css={[
+              css`
+                position: fixed;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                pointer-events: auto;
+                opacity: ${isVisible ? 1 : 0};
+                transition: opacity
+                  ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
+                z-index: 1;
+              `,
+              overlayCss,
+            ]}
+          />
+        )}
 
         <div
           role="dialog"
           ref={dialogRef}
+          inert={!isInteractive ? "" : undefined}
           className={`dialog ${className || ""}`}
-          aria-modal={shouldShow ? "true" : "false"}
+          aria-modal={isInteractive ? "true" : "false"}
           tabIndex={-1}
           css={[
             css`
@@ -319,7 +323,7 @@ export const Dialog = ({
               transition: opacity
                 ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
               z-index: 2;
-              pointer-events: ${shouldShow ? "auto" : "none"};
+              pointer-events: ${isInteractive ? "auto" : "none"};
               overflow: hidden;
               ${theme.elevation.primary}
               ${theme.radius.primary};
@@ -366,7 +370,7 @@ export const DialogTitle = ({
         css={css`
           ${theme.typography.family.heading}
           ${theme.typography.heading.xs}
-            margin: 0;
+          margin: 0;
           padding: 0 ${theme.spacing.xl}px 0 0;
         `}
       >
