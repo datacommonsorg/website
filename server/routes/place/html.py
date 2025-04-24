@@ -28,13 +28,9 @@ from flask_babel import gettext
 from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
-from server.lib.config import GLOBAL_CONFIG_BUCKET
-from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import PLACE_PAGE_GA_FEATURE_FLAG
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
 from server.lib.i18n_messages import get_place_type_in_parent_places_str
-import server.routes.dev_place.utils as utils
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
 from shared.lib.place_summaries import get_shard_filename_by_dcid
@@ -265,7 +261,7 @@ def place(place_dcid):
     place_summary = ""
 
   canonical_links = get_canonical_links(place_dcid, category)
-  return flask.render_template('dev_place.html',
+  return flask.render_template('place.html',
                                canonical_links=canonical_links,
                                category=category,
                                maps_api_key=current_app.config['MAPS_API_KEY'],

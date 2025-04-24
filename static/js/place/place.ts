@@ -18,7 +18,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../i18n/i18n";
-import { DevPlaceMain } from "./dev_place_main";
+import { DevPlaceMain } from "./place_main";
 
 window.addEventListener("load", async (): Promise<void> => {
   // Get locale from metadata

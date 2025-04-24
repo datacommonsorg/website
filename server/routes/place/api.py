@@ -26,15 +26,15 @@ from server.lib.cache import cache
 from server.lib.util import error_response
 from server.lib.util import log_execution_time
 from server.routes import TIMEOUT
-from server.routes.dev_place import utils as place_utils
-from server.routes.dev_place.types import Place
-from server.routes.dev_place.types import PlaceChartsApiResponse
-from server.routes.dev_place.types import PlaceOverviewTableApiResponse
-from server.routes.dev_place.types import RelatedPlacesApiResponse
-from server.routes.dev_place.utils import extract_places_from_dcids
+from server.routes.place import utils as place_utils
+from server.routes.place.types import Place
+from server.routes.place.types import PlaceChartsApiResponse
+from server.routes.place.types import PlaceOverviewTableApiResponse
+from server.routes.place.types import RelatedPlacesApiResponse
+from server.routes.place.utils import extract_places_from_dcids
 
 # Define blueprint
-bp = Blueprint("dev_place_api", __name__, url_prefix='/api/dev-place')
+bp = Blueprint("place_api", __name__, url_prefix='/api/place')
 
 
 @bp.route('/charts/<path:place_dcid>')
