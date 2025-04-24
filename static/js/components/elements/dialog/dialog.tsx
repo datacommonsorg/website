@@ -1,3 +1,145 @@
+/**
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * A dialog component.
+ *
+ * This component provides dialog and modal functionality, with a number
+ * of options for customization.
+ *
+ * A dialog can accept both simple text and React components as children;
+ * however it is highly recommended to use the following child components
+ * to organize the dialog, in this order:
+ *
+ * DialogTitle: For the dialog header/title area
+ * DialogContent: For the main dialog content
+ * DialogActions: For dialog buttons and actions
+ *
+ * The DialogTitle and DialogActions components can be omitted if not
+ * desired.
+ *
+ * The dialog provides keyboard control in the form of focus
+ * trapping and escape-to-close, and it suppresses the scrolling of
+ * the page behind it when the dialog is open.
+ *
+ * A number of options are available to customize the dialog. These
+ * are described in the interface for the component.
+ *
+ * The dialog as a whole and each component part of the dialog can
+ * be styled using either Emotion's styled API or css props. In
+ * practice, the dialog will usually be left without styles in
+ * order to match the theme.
+ *
+ * Some example usages of the dialog:
+ *
+ * // Basic dialog
+ * <Dialog open={open} onClose={handleClose}>
+ *   <DialogTitle>Dialog Title</DialogTitle>
+ *   <DialogContent>
+ *     <p>This is a simple dialog with text content.</p>
+ *   </DialogContent>
+ *   <DialogActions>
+ *     <Button onClick={handleClose}>Cancel</Button>
+ *     <Button onClick={handleConfirm}>Confirm</Button>
+ *   </DialogActions>
+ * </Dialog>
+ *
+ * // Dialog with close button in title
+ * <Dialog open={open} onClose={handleClose} showCloseButton>
+ *   <DialogTitle>Dialog with Close Button</DialogTitle>
+ *   <DialogContent>
+ *     <p>This dialog shows a close button in the title area.</p>
+ *   </DialogContent>
+ * </Dialog>
+ *
+ * // Dialog with a maximum width variant set
+ * <Dialog
+ *   open={open}
+ *   onClose={handleClose}
+ *   maxWidth="lg"
+ * >
+ *   <DialogTitle>Large Dialog</DialogTitle>
+ *   <DialogContent>
+ *     <p>
+ *       This dialog takes up as much space as needed up to
+ *       the width specified by the large variant.
+ *     </p>
+ *   </DialogContent>
+ * </Dialog>
+ *
+ * // Dialog with a maximum width variant and fullWidth set
+ * <Dialog
+ *   open={open}
+ *   onClose={handleClose}
+ *   maxWidth="md"
+ *   fullWidth
+ * >
+ *   <DialogTitle>Medium Dialog</DialogTitle>
+ *   <DialogContent>
+ *     <p>
+ *       This dialog will always be the width specified
+ *       by the medium variant, even if it doesn't need.
+ *       that much space.
+ *     </p>
+ *   </DialogContent>
+ * </Dialog>
+ *
+ * // Dialog with custom styling
+ * <Dialog
+ *   open={open}
+ *   onClose={handleClose}
+ *   containerCss={css`background-color: rgba(0, 0, 0, 0.8);`}
+ *   contentCss={css`background-color: #f5f5f5;`}
+ * >
+ *   <DialogTitle>Styled Dialog</DialogTitle>
+ *   <DialogContent>
+ *     <p>This dialog uses custom styling for the container and content.</p>
+ *   </DialogContent>
+ * </Dialog>
+ *
+ * // Dialog in a specific container
+ * <Dialog
+ *   open={open}
+ *   onClose={handleClose}
+ *   containerRef={myContainerRef}
+ * >
+ *   <DialogTitle>Contained Dialog</DialogTitle>
+ *   <DialogContent>
+ *     <p>This dialog is rendered into a specific container element.</p>
+ *   </DialogContent>
+ * </Dialog>
+ *
+ * // Dialog that remains mounted when closed
+ * <Dialog
+ *   open={open}
+ *   onClose={handleClose}
+ *   keepMounted
+ * >
+ *   <DialogTitle>Persistent Dialog</DialogTitle>
+ *   <DialogContent>
+ *     <p>
+ *       This dialog stays in the DOM even when closed.
+ *       This is useful for content that is complex and
+ *       takes time to load or render, or for when content
+ *       should be persisted even when the dialog is closed.
+ *     </p>
+ *   </DialogContent>
+ * </Dialog>
+ */
+
 /** @jsxImportSource @emotion/react */
 
 import { css, Interpolation, Theme, useTheme } from "@emotion/react";
@@ -76,21 +218,50 @@ const maxWidthPixelMap = {
 type DialogMaxWidth = keyof typeof maxWidthPixelMap | false;
 
 interface DialogProps {
+  // If true, the dialog will be open
   open: boolean;
+  // Callback fired when the dialog requests to be closed.
   onClose: () => void;
+  // Dialog content - typically DialogTitle, DialogContent,
+  // and DialogActions components.
   children: ReactNode;
+  // Additional class name applied to the dialog.
   className?: string;
+  // Reference to a DOM element where the dialog should be rendered.
+  // Defaults: document.body.
   containerRef?: React.RefObject<HTMLElement>;
+  // If true, the dialog will remain in the DOM even when closed.
+  // Default: false
   keepMounted?: boolean;
+  // Duration of the fade-in animation in milliseconds.
+  // Default: 150ms
   fadeInDuration?: number;
+  // Duration of the fade-out animation in milliseconds.
+  // Default: 150ms
   fadeOutDuration?: number;
+  // If true, pressing the escape key will not close the dialog.
+  // Default: false
   disableEscapeToClose?: boolean;
+  // If true, clicking outside the dialog will not close it.
+  // Default: false
   disableOutsideClickToClose?: boolean;
+  // If true, shows a close button in the top-right corner of the dialog.
+  // Requires the use of the DialogTitle component.
+  // Default: false
   showCloseButton?: boolean;
+  // Controls the maximum width of the dialog.
+  // 'sm': 360px, 'md': 600px, 'lg': 800px, false: no maximum width
+  // Default: 'md'
   maxWidth?: DialogMaxWidth;
+  // If true, the dialog will take up the full available width (up to maxWidth
+  // or the size of the screen).
+  // Default: false
   fullWidth?: boolean;
+  // CSS customization for the outer container.
   containerCss?: Interpolation<Theme>;
+  // CSS customization for the overlay/backdrop.
   overlayCss?: Interpolation<Theme>;
+  // CSS customization for the dialog content.
   contentCss?: Interpolation<Theme>;
 }
 
@@ -341,8 +512,11 @@ export const Dialog = ({
 };
 
 interface DialogSubComponentProps {
+  // Content of the dialog component.
   children: ReactNode;
+  // Additional class name applied to the component.
   className?: string;
+  // CSS customization for this component.
   css?: Interpolation<Theme>;
 }
 
