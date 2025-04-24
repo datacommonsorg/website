@@ -130,7 +130,7 @@ class TestOverviewTable(unittest.IsolatedAsyncioTestCase):
       expected = jsonify(PlaceOverviewTableApiResponse(data=[row])).get_json()
 
       response = self.app.test_client().get(
-          f'/api/place/overview-table/geoId/06')
+          '/api/place/overview-table/geoId/06')
 
       actual = response.get_json()
 
@@ -142,6 +142,6 @@ class TestOverviewTable(unittest.IsolatedAsyncioTestCase):
     with self.app.app_context():
       g.locale = 'en'
 
-      response = self.app.test_client().get(f'/api/place/related-places/')
+      response = self.app.test_client().get('/api/place/related-places/')
 
       self.assertEqual(response.status_code, 404)

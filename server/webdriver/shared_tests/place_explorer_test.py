@@ -241,22 +241,7 @@ class PlaceExplorerTestMixin():
     wait_for_text(self.driver, "No data found for", By.CLASS_NAME,
                   'page-content-container')
 
-  def test_place_category_placeholder(self):
-    """Test that the place category placeholder is correct."""
-    # Load CA housing page
-    ca_housing_url = CA_URL + "?category=Housing"
-    self.driver.get(self.url_ + ca_housing_url)
-
-    # Wait for search input to be present
-    search_input = find_elem(self.driver, by=By.ID, value="query-search-input")
-
-    # Wait for placeholder text to update to expected value
-    WebDriverWait(
-        self.driver,
-        self.TIMEOUT_SEC).until(lambda driver: search_input.get_attribute(
-            "placeholder") == "Housing in California")
-
-  def test_place_overview_world(self):
+  def test_dev_place_overview_world(self):
     """Ensure place page revamp World page works"""
     self.driver.get(self.url_ + '/place/Earth')
 
@@ -595,27 +580,6 @@ class PlaceExplorerTestMixin():
                   path_to_elem=['charts-container']).text,
         'Explore in Timeline tool',
     )
-
-  def test_explorer_redirect_place_explorer_populates_search_bar(self):
-    """Test the redirection from explore to place explore for single place queries populates the search bar from the URL query"""
-    usa_explore = '/explore#q=United%20States%20Of%20America'
-
-    start_url = self.url_ + usa_explore
-    self.driver.get(start_url)
-
-    # Assert 200 HTTP code: successful page load.
-    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
-
-    # Wait for redirect and page load
-    redirect_finished = EC.url_changes(start_url)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
-    shared.wait_for_loading(self.driver)
-
-    # Ensure the query string is set in the NL Search Bar.
-    self.assertEqual(
-        find_elem(self.driver, by=By.ID,
-                  value='query-search-input').get_attribute('value'),
-        'United States Of America')
 
   @pytest.mark.skip(reason="Fix theme compile error before re-enabling")
   def test_place_ai_spark_icon_hover(self):

@@ -30,8 +30,8 @@ class TestPlaceAPI(unittest.TestCase):
   @patch('server.services.datacommons.obs_point')
   @patch('server.services.datacommons.obs_point_within')
   def test_place_charts(self, mock_obs_point_within, mock_obs_point,
-                            mock_multiple_property_values,
-                            mock_raw_property_values, mock_parent_places):
+                        mock_multiple_property_values, mock_raw_property_values,
+                        mock_parent_places):
     """Test the place_charts endpoint."""
 
     with app.app_context():
