@@ -154,6 +154,7 @@ def assert_topics(self, driver, path_to_topics, classname, expected_topics):
 
 
 def search_for_california_counties(self, driver):
+  # Type "California" into the search box.
   search_box_input = find_elem(driver, by=By.ID, value='ac')
   search_box_input.send_keys(PLACE_SEARCH_CA)
 
