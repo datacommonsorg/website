@@ -48,12 +48,13 @@ import { useQueryStore } from "../../shared/stores/query_store_hook";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { stringifyFn } from "../../utils/axios";
+import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import {
   extractUrlHashParams,
   getSingleParam,
   getUpdatedHash,
+  UrlHashParams,
 } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
@@ -299,36 +300,17 @@ export function App(props: AppProps): ReactElement {
     setLoadingStatus(LoadingStatus.LOADING);
     const hashParams = queryString.parse(window.location.hash);
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
-    const [
-      query,
-      place,
-      topic,
-      statVar,
-      dc,
-      idx,
-      disableExploreMore,
-      detector,
-      testMode,
-      i18n,
-      includeStopWords,
-      defaultPlace,
-      mode,
-      reranker,
-      maxTopics,
-      maxTopicSvs,
-      maxCharts,
-      chartType,
-    ] = extractUrlHashParams(hashParams);
+    const urlHashParams: UrlHashParams = extractUrlHashParams(hashParams);
 
-    let topicsToUse = toApiList(topic || DEFAULT_TOPIC);
+    let topicsToUse = toApiList(urlHashParams.topic || DEFAULT_TOPIC);
 
     let places = [];
-    if (!place) {
+    if (!urlHashParams.place) {
       places = [DEFAULT_PLACE];
-    } else if (place.includes(URL_DELIM)) {
-      places = toApiList(place);
+    } else if (urlHashParams.place.includes(URL_DELIM)) {
+      places = toApiList(urlHashParams.place);
     } else {
-      places = [place];
+      places = [urlHashParams.place];
     }
 
     let fulfillmentPromise: Promise<any>;
@@ -352,20 +334,20 @@ export function App(props: AppProps): ReactElement {
       fulfillmentPromise = fetchDetectAndFufillData(
         query,
         savedContext.current,
-        dc,
-        idx,
-        disableExploreMore,
-        detector,
-        testMode,
-        i18n,
+        urlHashParams.dc,
+        urlHashParams.idx,
+        urlHashParams.disableExploreMore,
+        urlHashParams.detector,
+        urlHashParams.testMode,
+        urlHashParams.i18n,
         client,
-        defaultPlace,
-        mode,
-        reranker,
-        includeStopWords,
-        maxTopics,
-        maxTopicSvs,
-        maxCharts
+        urlHashParams.defaultPlace,
+        urlHashParams.mode,
+        urlHashParams.reranker,
+        urlHashParams.includeStopWords,
+        urlHashParams.maxTopics,
+        urlHashParams.maxTopicSvs,
+        urlHashParams.maxCharts
       )
         .then((resp) => {
           processFulfillData(resp, query);
@@ -379,26 +361,23 @@ export function App(props: AppProps): ReactElement {
       setStoreQueryString("");
 
       let data = {};
-      if (statVar) {
+      if (urlHashParams.statVars) {
         let statVars = [];
-        if (statVar.includes(URL_DELIM)) {
-          statVars = toApiList(statVar);
+        if (urlHashParams.statVars.includes(URL_DELIM)) {
+          statVars = toApiList(urlHashParams.statVars);
         } else {
-          statVars = [statVar];
+          statVars = [urlHashParams.statVars];
         }
 
-        data = await axios.get("/api/node/propvals", {
-          params: {
-            dcids: statVars,
-            propExpr: "<-relevantVariable",
-          },
-          paramsSerializer: stringifyFn,
+        data = await defaultDataCommonsWebClient.getNodePropvalsIn({
+          dcids: statVars,
+          prop: "relevantVariable",
         });
 
         const allTopics = [];
         for (const sv of statVars) {
-          if (sv in data["data"]) {
-            for (const tpc of data["data"][sv]) {
+          if (sv in data) {
+            for (const tpc of data[sv]) {
               allTopics.push(tpc["dcid"]);
             }
           }
@@ -408,22 +387,22 @@ export function App(props: AppProps): ReactElement {
         highlightPromise = fetchFulfillData(
           places,
           statVars,
-          dc,
-          disableExploreMore,
-          testMode,
-          i18n,
+          urlHashParams.dc,
+          urlHashParams.disableExploreMore,
+          urlHashParams.testMode,
+          urlHashParams.i18n,
           client,
-          chartType
+          urlHashParams.chartType
         );
       }
       // Merge this with response above. Make calls in parallel
       fulfillmentPromise = fetchFulfillData(
         places,
         topicsToUse,
-        dc,
-        disableExploreMore,
-        testMode,
-        i18n,
+        urlHashParams.dc,
+        urlHashParams.disableExploreMore,
+        urlHashParams.testMode,
+        urlHashParams.i18n,
         client,
         null
       );

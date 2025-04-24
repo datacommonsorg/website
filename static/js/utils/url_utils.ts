@@ -103,9 +103,30 @@ export function getSingleParam(input: string | string[]): string {
  * @param hashParams parameters.
  * @returns string array of all parrams.
  */
+export interface UrlHashParams {
+  query: string;
+  place: string;
+  topic: string;
+  statVars: string;
+  dc: string;
+  idx: string;
+  disableExploreMore: string;
+  detector: string;
+  testMode: string;
+  i18n: string;
+  includeStopWords: string;
+  defaultPlace: string;
+  mode: string;
+  reranker: string;
+  maxTopics: string;
+  maxTopicSvs: string;
+  maxCharts: string;
+  chartType: string;
+}
+
 export function extractUrlHashParams(
   hashParams: queryString.ParsedQuery<string>
-): string[] {
+): UrlHashParams {
   const query =
     getSingleParam(hashParams[URL_HASH_PARAMS.QUERY]) ||
     getSingleParam(hashParams[URL_HASH_PARAMS.DEPRECATED_QUERY]);
@@ -133,7 +154,7 @@ export function extractUrlHashParams(
   const maxCharts = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_CHARTS]);
   const chartType = getSingleParam(hashParams[URL_HASH_PARAMS.CHART_TYPE]);
 
-  return [
+  return {
     query,
     place,
     topic,
@@ -152,5 +173,5 @@ export function extractUrlHashParams(
     maxTopicSvs,
     maxCharts,
     chartType,
-  ];
+  };
 }
