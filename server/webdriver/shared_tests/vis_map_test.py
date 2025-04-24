@@ -20,7 +20,6 @@ import server.webdriver.shared as shared
 
 MAP_URL = '/tools/visualization#visType=map'
 URL_HASH_1 = '&place=geoId/06&placeType=County&sv=%7B"dcid"%3A"Count_Person_Female"%7D'
-PLACE_SEARCH_CA = 'California'
 
 
 class VisMapTestMixin():
@@ -175,63 +174,17 @@ class VisMapTestMixin():
     """
     self.driver.get(self.url_ + MAP_URL)
 
-    # Click the start button
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'start-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'start-button').click()
-
-    # Type california into the search box.
-    element_present = EC.presence_of_element_located((By.ID, 'location-field'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element(By.ID, 'ac')
-    search_box_input.send_keys(PLACE_SEARCH_CA)
-
-    # Click on the first result.
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'pac-item'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    first_result = self.driver.find_element(By.CSS_SELECTOR,
-                                            '.pac-item:nth-child(1)')
-    first_result.click()
-
-    # Click continue
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'continue-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'continue-button').click()
-
-    # Wait for place types to load and click on 'County'
-    element_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, '.place-type-selector .form-check-input'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    place_type_inputs = self.driver.find_elements(By.CSS_SELECTOR,
-                                                  '.place-type-selector label')
-    for place_type_input in place_type_inputs:
-      if place_type_input.text == 'County':
-        place_type_input.click()
-        break
-
-    # Click continue
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'continue-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'continue-button').click()
+    shared.search_for_california_counties_vis(self, self.driver)
 
     # Choose stat var
-    shared.wait_for_loading(self.driver)
     shared.click_sv_group(self.driver, "Demographics")
-    element_present = EC.presence_of_element_located(
+    shared.wait_for_loading(self.driver)
+    shared.click_el(
+        self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(
-        By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
     # Click continue
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'continue-button'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CLASS_NAME, 'continue-button').click()
+    shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Assert chart is correct.
     shared.wait_for_loading(self.driver)

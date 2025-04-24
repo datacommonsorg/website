@@ -26,7 +26,6 @@ SCATTER_URL = '/tools/scatter'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
     'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
     '&epd=geoId/06&epn=California&ept=County'
-PLACE_SEARCH_CA = 'California'
 
 
 class ScatterTestMixin():
@@ -80,50 +79,27 @@ class ScatterTestMixin():
     show up.
     """
     self.driver.get(self.url_ + SCATTER_URL)
-
-    # Wait until search box is present and type california into the search box
-    search_box_input = find_elem(self.driver, by=By.ID, value='ac')
-    search_box_input.send_keys(PLACE_SEARCH_CA)
-
-    # Wait until there is at least one result in autocomplete results.
-    self.assertIsNotNone(wait_elem(self.driver, value='pac-item'))
-
-    # Click on the first result.
-    find_elem(self.driver, by=By.CSS_SELECTOR,
-              value='.pac-item:nth-child(1)').click()
     shared.wait_for_loading(self.driver)
-    self.assertIsNotNone(wait_elem(self.driver, value='chip'))
 
-    # Choose place type
-    shared.wait_for_loading(self.driver)
-    place_selector_place_type = find_elem(self.driver,
-                                          by=By.ID,
-                                          value='place-selector-place-type')
-    Select(place_selector_place_type).select_by_value('County')
+    shared.search_for_california_counties(self, self.driver)
 
     # Choose stat vars
-    shared.wait_for_loading(self.driver)
     shared.click_sv_group(self.driver, "Demographics")
 
-    # Click on median age button
+    # Click on median age
     shared.wait_for_loading(self.driver)
-    element_present = EC.presence_of_element_located(
-        (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    find_elem(
+    shared.click_el(
         self.driver,
-        by=By.ID,
-        value='Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
+        (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
-    # Click on median income button
+    # Click on median income
     shared.wait_for_loading(self.driver)
-    find_elem(self.driver,
-              by=By.ID,
-              value='Median_Income_Persondc/g/Demographics-Median_Income_Person'
-             ).click()
+    shared.click_el(
+        self.driver,
+        (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
 
     # Assert chart is correct.
-    scatterplot = find_elem(self.driver, by=By.ID, value='scatterplot')
+    wait_elem(self.driver, by=By.ID, value='scatterplot')
     chart = find_elem(self.driver,
                       by=By.XPATH,
                       value='//*[@id="chart"]/div[1]/div[1]')
@@ -131,7 +107,9 @@ class ScatterTestMixin():
                   find_elem(chart, by=By.XPATH, value='./h3[1]').text)
     self.assertIn("Median Age of Population ",
                   find_elem(chart, by=By.XPATH, value='./h3[2]').text)
-    circles = find_elems(scatterplot, by=By.TAG_NAME, value='circle')
+    circles = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#scatterplot circle')
     self.assertGreater(len(circles), 20)
 
   def test_landing_page_link(self):
@@ -139,12 +117,14 @@ class ScatterTestMixin():
 
     # Click on first link on landing page
     shared.wait_for_loading(self.driver)
-    find_elem(self.driver,
-              by=By.XPATH,
-              value='//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
+    shared.click_el(
+        self.driver,
+        (By.XPATH, '//*[@id="placeholder-container"]/ul/li[1]/a[1]'))
 
     # Assert chart loads
     shared.wait_for_loading(self.driver)
-    chart = find_elem(self.driver, by=By.ID, value='scatterplot')
-    circles = find_elems(chart, by=By.TAG_NAME, value='circle')
+    wait_elem(self.driver, by=By.ID, value='scatterplot')
+    circles = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#scatterplot circle')
     self.assertGreater(len(circles), 1)
