@@ -178,22 +178,18 @@ export interface Theme {
     family: {
       text: {
         fontFamily: string;
-        fontDisplay: string;
         fontStyle: string;
       };
       heading: {
         fontFamily: string;
-        fontDisplay: string;
         fontStyle: string;
       };
       extra?: {
         fontFamily: string;
-        fontDisplay: string;
         fontStyle: string;
       };
       code?: {
         fontFamily: string;
-        fontDisplay: string;
         fontStyle: string;
       };
     };
@@ -244,6 +240,60 @@ export interface Theme {
         | {
             backgroundColor: string;
           };
+    };
+  };
+  button: {
+    type: {
+      primary?: {
+        backgroundColor: string;
+        color: string;
+        border: string;
+        [key: string]:
+          | string
+          | number
+          | {
+              backgroundColor: string;
+              color: string;
+              border: string;
+            };
+      };
+      secondary?: {
+        backgroundColor: string;
+        color: string;
+        border: string;
+        [key: string]:
+          | string
+          | number
+          | {
+              backgroundColor: string;
+              color: string;
+              border: string;
+            };
+      };
+      tertiary?: {
+        backgroundColor: string;
+        color: string;
+        border: string;
+        [key: string]:
+          | string
+          | number
+          | {
+              backgroundColor: string;
+              color: string;
+              border: string;
+            };
+      };
+    };
+    size: {
+      sm?: {
+        padding: string;
+      };
+      md?: {
+        padding: string;
+      };
+      lg?: {
+        padding: string;
+      };
     };
   };
   elevation: {

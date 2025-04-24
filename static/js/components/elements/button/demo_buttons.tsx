@@ -12,11 +12,14 @@ import { Download } from "../icons/download";
 import { Button } from "./button";
 
 const GreenButton = styled(Button)`
+  border-color: #4caf50;
   background-color: #4caf50;
   color: white;
 
-  &:hover:not(:disabled) {
-    background-color: #388e3c;
+  &:hover:not(:disabled):not([aria-disabled]) {
+    border-color: #4caf50;
+    background-color: white;
+    color: #4caf50;
   }
 `;
 
@@ -48,8 +51,8 @@ export const DemoButtons = (): ReactElement => {
 
         .button-group {
           display: flex;
-          flex-direction: column;
-          align-items: flex-start;
+          flex-wrap: wrap;
+          align-items: center;
           gap: 10px;
         }
 
@@ -64,8 +67,18 @@ export const DemoButtons = (): ReactElement => {
         <h3>Basic Button Variants</h3>
         <div className="button-group">
           <Button>Standard Button</Button>
+          <Button variant="inverted">Inverted Button</Button>
           <Button variant="text">Text Button</Button>
+        </div>
+      </div>
+
+      <div className="section">
+        <h3>Disabled Button Variants</h3>
+        <div className="button-group">
           <Button disabled>Disabled Button</Button>
+          <Button variant="inverted" disabled>
+            Disabled Inverted Button
+          </Button>
           <Button variant="text" disabled>
             Disabled Text Button
           </Button>
@@ -73,23 +86,40 @@ export const DemoButtons = (): ReactElement => {
       </div>
 
       <div className="section">
-        <h3>Button with action</h3>
-        <div className="button-group">
-          <div>Click Counter: {counter}</div>
-          <Button onClick={incrementCounter}>Increment Counter</Button>
-        </div>
-      </div>
-
-      <div className="section">
         <h3>Buttons with Icons</h3>
         <div className="button-group">
-          <Button startIcon={<ArrowBack />}>Arrow Button</Button>
+          <Button startIcon={<Download />}>Download</Button>
           <Button endIcon={<Close />}>Close Button</Button>
           <Button startIcon={<ArrowBack />} endIcon={<ArrowForward />}>
-            Double Arrow Button
+            Double Arrow
           </Button>
+
+          <Button variant="inverted" startIcon={<Download />}>
+            Download
+          </Button>
+          <Button variant="inverted" endIcon={<Close />}>
+            Close Button
+          </Button>
+          <Button
+            variant="inverted"
+            startIcon={<ArrowBack />}
+            endIcon={<ArrowForward />}
+          >
+            Double Arrow
+          </Button>
+
           <Button variant="text" startIcon={<Download />}>
             Download
+          </Button>
+          <Button variant="text" endIcon={<Close />}>
+            Close Button
+          </Button>
+          <Button
+            variant="text"
+            startIcon={<ArrowBack />}
+            endIcon={<ArrowForward />}
+          >
+            Double Arrow
           </Button>
         </div>
       </div>
@@ -138,6 +168,14 @@ export const DemoButtons = (): ReactElement => {
           <Button size="sm">Small Button</Button>
           <Button size="md">Medium Button</Button>
           <Button size="lg">Large Button</Button>
+        </div>
+      </div>
+
+      <div className="section">
+        <h3>Button with action</h3>
+        <div className="button-group">
+          <div>Click Counter: {counter}</div>
+          <Button onClick={incrementCounter}>Increment Counter</Button>
         </div>
       </div>
     </div>

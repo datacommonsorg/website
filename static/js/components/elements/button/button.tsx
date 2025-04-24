@@ -15,7 +15,7 @@ import React, {
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
 interface CommonButtonProps {
-  variant?: "standard" | "text";
+  variant?: "standard" | "inverted" | "text";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
   startIcon?: ReactElement<IconComponent>;
@@ -60,8 +60,11 @@ export const Button = forwardRef<
   const theme = useTheme();
 
   const commonStyles = css`
+    ${theme.typography.family.text}
+    ${theme.radius.full}
     border: 0;
-    ${theme.typography.family.text};
+    margin: 0;
+    padding: 0;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -69,41 +72,42 @@ export const Button = forwardRef<
     cursor: pointer;
     opacity: ${disabled ? 0.6 : 1};
     text-decoration: none;
-
-    &:disabled {
+    &:hover {
+      text-decoration: none;
+    }
+    &:disabled,
+    &[aria-disabled="true"] {
       cursor: default;
     }
   `;
 
   const sizeStyles = {
     sm: css`
-      ${theme.typography.text.sm};
+      ${theme.button.size.sm}
+      ${theme.typography.text.sm}
       line-height: 1rem;
-      padding: 6px ${theme.spacing.md}px;
     `,
     md: css`
-      ${theme.typography.text.md};
-      line-height: 1rem;
-      padding: 10px ${theme.spacing.lg}px;
+      ${theme.button.size.md}
+      ${theme.typography.text.md}
+      line-height: 1rem
     `,
     lg: css`
-      ${theme.typography.text.lg};
+      ${theme.button.size.lg}
+      ${theme.typography.text.lg}
       line-height: 1rem;
-      padding: 14px ${theme.spacing.xl}px;
     `,
   };
 
   const variantStyles = {
     standard: css`
-      ${theme.box.primary}
-      ${theme.elevation.primary}
-      ${theme.radius.primary};
-      color: ${theme.colors.link.primary.base};
-      background-color: white;
+      ${theme.button.type.primary}
+    `,
+    inverted: css`
+      ${theme.button.type.secondary}
     `,
     text: css`
-      background: transparent;
-      color: ${theme.colors.link.primary.base};
+      ${theme.button.type.tertiary}
     `,
   };
 

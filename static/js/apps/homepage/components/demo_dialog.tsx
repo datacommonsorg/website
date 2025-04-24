@@ -24,29 +24,16 @@ import { css, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import React, { ReactElement, useRef, useState } from "react";
 
+import { Button } from "../../../components/elements/button/button";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "../../../components/elements/dialog/dialog";
-import theme from "../../../theme/theme";
-
-const StyledButton = styled.button`
-  border: 0;
-  ${theme.box.primary}
-  ${theme.elevation.primary}
-  ${theme.typography.family.text};
-  ${theme.typography.text.md};
-  ${theme.radius.primary};
-  ${theme.colors.link.primary.base}
-  line-height: 1rem;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: ${theme.spacing.sm}px;
-  padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
-`;
+import { Close } from "../../../components/elements/icons/close";
+import { Download } from "../../../components/elements/icons/download";
+import { IntegrationInstructions } from "../../../components/elements/icons/integration_instructions";
 
 const StyledDialog = styled(Dialog)`
   background: hotpink;
@@ -56,11 +43,14 @@ const StyledDialog = styled(Dialog)`
   }
 
   & .dialog-actions button {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 6px 12px;
-    cursor: pointer;
+    color: white;
+    background-color: hotpink;
+    border: 1px solid white;
+    &:hover:not(:disabled):not([aria-disabled]) {
+      background-color: white;
+      border: 1px solid hotpink;
+      color: hotpink;
+    }
   }
 `;
 
@@ -84,10 +74,14 @@ const ContainerWithDialogStyles = styled.div`
   }
 
   & .dialog-actions button {
+    color: white;
     background-color: #45a29e;
-    color: #ffffff;
-    border: none;
-    border-radius: 20px;
+    border: 1px solid #0b0c10;
+    &:hover:not(:disabled):not([aria-disabled]) {
+      background-color: white;
+      border: 1px solid #45a29e;
+      color: #45a29e;
+    }
   }
 `;
 
@@ -123,9 +117,9 @@ export const DemoDialog = (): ReactElement => {
       `}
     >
       <div className="box">
-        <StyledButton onClick={(): void => setIsSimpleDialogOpen(true)}>
+        <Button onClick={(): void => setIsSimpleDialogOpen(true)}>
           Simple Dialog
-        </StyledButton>
+        </Button>
 
         <Dialog
           open={isSimpleDialogOpen}
@@ -136,17 +130,206 @@ export const DemoDialog = (): ReactElement => {
             <p>This is a minimal dialog with default styling.</p>
           </DialogContent>
           <DialogActions>
-            <StyledButton onClick={(): void => setIsSimpleDialogOpen(false)}>
+            <Button onClick={(): void => setIsSimpleDialogOpen(false)}>
               Close
-            </StyledButton>
+            </Button>
           </DialogActions>
         </Dialog>
       </div>
 
       <div className="box">
-        <StyledButton onClick={(): void => setIsFocusTrappingDialogOpen(true)}>
+        <Button onClick={(): void => setIsSimpleDialogOpen(true)}>
+          Simple Dialog Multiple Actions
+        </Button>
+
+        <Dialog
+          open={isSimpleDialogOpen}
+          onClose={(): void => setIsSimpleDialogOpen(false)}
+        >
+          <DialogTitle>Simple Dialog with multiple actions</DialogTitle>
+          <DialogContent>
+            <p>
+              Vivamus eget ex in diam ornare tincidunt quis et eros. Nullam
+              ultrices tincidunt porttitor. Suspendisse eget efficitur ante.
+              Nulla sollicitudin mauris id imperdiet egestas. Pellentesque quis
+              justo arcu. Sed neque lacus, venenatis ut sagittis accumsan,
+              ultrices ac turpis. Donec et hendrerit felis.
+            </p>
+            <p>
+              Vivamus eget ex in diam ornare tincidunt quis et eros. Nullam
+              ultrices tincidunt porttitor. Suspendisse eget efficitur ante.
+              Nulla sollicitudin mauris id imperdiet egestas. Pellentesque quis
+              justo arcu. Sed neque lacus, venenatis ut sagittis accumsan,
+              ultrices ac turpis. Donec et hendrerit felis.
+            </p>
+          </DialogContent>
+          <DialogActions>
+            <Button startIcon={<Download />}>Download</Button>
+            <Button startIcon={<IntegrationInstructions />}>
+              Instructions
+            </Button>
+            <Button onClick={(): void => setIsSimpleDialogOpen(false)}>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div className="box">
+        <Button onClick={(): void => setIsSimpleDialogOpen(true)}>
+          Simple Dialog with way too much content everywhere
+        </Button>
+
+        <Dialog
+          open={isSimpleDialogOpen}
+          onClose={(): void => setIsSimpleDialogOpen(false)}
+        >
+          <DialogTitle>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu purus
+            sapien. Fusce tincidunt urna quis nisi vulputate, vitae vulputate
+            risus bibendum. Etiam ultricies nisl felis, ut auctor est volutpat
+            vel. Suspendisse tempus dapibus suscipit. Sed posuere sodales quam
+            eu facilisis. In neque eros, viverra eu elit quis, efficitur
+            fringilla sapien. Orci varius natoque penatibus et magnis dis
+            parturient montes, nascetur ridiculus mus. Aenean nec sem mollis,
+            cursus erat non, vulputate erat. Duis efficitur dapibus risus quis
+            tincidunt. Nam eu bibendum ligula.
+          </DialogTitle>
+          <DialogContent>
+            <p>
+              Mauris lacinia tristique mauris, in hendrerit odio eleifend sit
+              amet. In sapien nunc, mattis sed scelerisque nec, ornare a urna.
+              In sollicitudin vulputate erat sed fermentum. Fusce mauris massa,
+              cursus non viverra eu, sodales eu ipsum. Mauris tempor hendrerit
+              iaculis. Nullam ullamcorper consectetur elit quis ullamcorper.
+              Pellentesque feugiat nulla ut urna ornare, eget commodo metus
+              dignissim. In eu metus lobortis, feugiat augue a, auctor tortor.
+              Etiam condimentum diam non blandit vulputate. Suspendisse ut lacus
+              dui. Maecenas maximus, magna a pellentesque blandit, justo ipsum
+              imperdiet risus, quis cursus arcu nisi id magna. Phasellus quam
+              dui, consectetur et purus eu, fringilla consectetur massa. Duis
+              tellus quam, suscipit consequat diam eu, posuere consectetur
+              magna.
+            </p>
+            <p>
+              Aliquam blandit pellentesque enim, eu consequat ante facilisis
+              eget. Proin nec sem dui. Nunc faucibus suscipit ligula at ornare.
+              Aenean id tortor justo. Vestibulum molestie elit vel porta
+              faucibus. Nulla facilisi. Donec quis dictum lectus. Ut elementum
+              urna a porttitor consequat. Sed ante erat, vulputate vel diam
+              vitae, fermentum vestibulum velit. Sed imperdiet aliquam lorem,
+              sagittis sodales tortor placerat vel. Nam ornare lorem eget nunc
+              ullamcorper, at mattis erat tincidunt. Duis dolor sem, molestie
+              eleifend neque eget, convallis ullamcorper velit. Donec egestas,
+              ante feugiat sollicitudin tempor, turpis ex elementum libero, quis
+              luctus enim nisl a dui. Sed ut nibh ex. Nulla eget odio tortor.
+              Donec bibendum imperdiet sem eget viverra.
+            </p>
+            <p>
+              Donec ac ante blandit, hendrerit ex nec, feugiat nunc. Suspendisse
+              laoreet mauris neque, ut posuere mi cursus non. Mauris ac nulla
+              diam. Nunc id suscipit arcu. Suspendisse et nibh sed nunc iaculis
+              pellentesque et quis turpis. Cras pretium finibus mi, tempus
+              tristique dolor iaculis et. Vivamus egestas, enim sed laoreet
+              hendrerit, sem eros faucibus ante, ac tincidunt sapien nibh non
+              sapien. Donec molestie varius facilisis. Donec ut orci sit amet
+              elit lobortis lacinia. In in ornare mi, tempor hendrerit augue. In
+              libero nisl, suscipit at lacus et, varius suscipit nulla. Maecenas
+              faucibus, velit auctor auctor aliquam, sem neque ultricies purus,
+              a maximus lacus magna in quam. In semper ligula ut pellentesque
+              imperdiet. Etiam eu nibh euismod, lobortis arcu eu, sollicitudin
+              urna.
+            </p>
+            <p>
+              Suspendisse potenti. Mauris eros sem, elementum ac bibendum vitae,
+              aliquam nec nisi. Cras sit amet eros nunc. Praesent venenatis
+              turpis nulla, ut pellentesque arcu pretium a. Aenean ornare tellus
+              nibh, tincidunt pharetra leo lacinia quis. Morbi et congue ex.
+              Curabitur lobortis volutpat augue, faucibus sagittis dui
+              scelerisque eget.
+            </p>
+            <p>
+              Donec faucibus aliquam ligula vel semper. Duis a rhoncus justo.
+              Sed a aliquet purus, dignissim congue est. Nam non justo
+              consequat, dapibus lorem ac, blandit sapien. Curabitur sed risus
+              ut quam elementum luctus. Suspendisse euismod eros in nunc
+              sollicitudin, id porta metus cursus. Pellentesque eget tellus
+              ullamcorper, elementum nulla sit amet, tempus tellus. In tristique
+              lectus et nisl gravida, vitae tristique purus venenatis. Quisque
+              quis imperdiet orci, eu pretium lorem. Pellentesque sodales semper
+              est non sodales. Phasellus libero velit, efficitur maximus rutrum
+              et, luctus vitae magna. Praesent maximus pellentesque metus, non
+              aliquet eros molestie non. Mauris mollis ante in nunc tempor, vel
+              placerat odio aliquet.
+            </p>
+            <p>
+              Vivamus nec neque tellus. Nullam a dolor tincidunt, dictum elit
+              id, sagittis tellus. Aliquam pretium elit id magna egestas, et
+              vehicula lectus ornare. Nulla vestibulum turpis et rutrum
+              imperdiet. Praesent rhoncus ligula vitae tempor tristique. Sed ac
+              hendrerit arcu. Integer dapibus velit sit amet odio dignissim
+              sodales. Maecenas a velit nec elit semper malesuada. Sed egestas a
+              arcu ut tempor. Pellentesque porta dolor non posuere interdum. Sed
+              vitae velit et nisl luctus vulputate.
+            </p>
+            <p>
+              Suspendisse suscipit mi nunc. Morbi turpis metus, suscipit in
+              efficitur sit amet, accumsan vitae sapien. Quisque sed vehicula
+              magna, vel placerat urna. Fusce convallis, urna et mollis
+              tincidunt, quam magna fringilla tortor, sagittis dapibus ante
+              ipsum ut risus. Aenean sed nisi nec quam finibus fermentum in non
+              turpis. Vivamus cursus, metus vitae aliquam eleifend, sem mi
+              suscipit lectus, ac egestas metus ligula in ligula. Aenean dictum
+              placerat est.
+            </p>
+            <p>
+              Proin a lobortis ligula, et scelerisque odio. Donec imperdiet est
+              eget arcu ultrices, in dictum sapien ultricies. Morbi fermentum ut
+              diam ut fringilla. Suspendisse venenatis lobortis felis vel
+              lacinia. Vivamus non venenatis lacus. Quisque fringilla dui sed
+              feugiat luctus. Pellentesque bibendum posuere urna eget
+              ullamcorper. Aenean tincidunt dictum tincidunt. Vestibulum ipsum
+              mauris, rutrum efficitur hendrerit eget, fringilla at nibh.
+              Maecenas rhoncus euismod libero, sed cursus ex cursus id. Nulla
+              gravida magna non leo placerat feugiat. Ut at accumsan metus
+            </p>
+            <p>
+              Cras varius dolor nec sem commodo dignissim. Morbi hendrerit
+              rutrum enim. Nulla non arcu id ipsum dignissim convallis in vitae
+              felis. Integer vitae tempus lorem, quis rhoncus metus. Sed quis
+              ipsum congue, sollicitudin felis ac, dignissim magna. Cras a
+              rhoncus eros. Sed quis justo turpis. Duis rutrum neque ac odio
+              sollicitudin elementum.
+            </p>
+          </DialogContent>
+          <DialogActions>
+            <Button startIcon={<Download />}>Download</Button>
+            <Button startIcon={<IntegrationInstructions />}>
+              Instructions
+            </Button>
+            <Button startIcon={<Download />}>Download</Button>
+            <Button startIcon={<IntegrationInstructions />}>
+              Instructions
+            </Button>
+            <Button startIcon={<Download />}>Download</Button>
+            <Button startIcon={<IntegrationInstructions />}>
+              Instructions
+            </Button>
+            <Button startIcon={<Download />}>Download</Button>
+            <Button startIcon={<IntegrationInstructions />}>
+              Instructions
+            </Button>
+            <Button onClick={(): void => setIsSimpleDialogOpen(false)}>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div className="box">
+        <Button onClick={(): void => setIsFocusTrappingDialogOpen(true)}>
           Focus Trapping
-        </StyledButton>
+        </Button>
 
         <Dialog
           open={isFocusTrappingDialogOpen}
@@ -176,19 +359,17 @@ export const DemoDialog = (): ReactElement => {
             </div>
           </DialogContent>
           <DialogActions>
-            <StyledButton
-              onClick={(): void => setIsFocusTrappingDialogOpen(false)}
-            >
+            <Button onClick={(): void => setIsFocusTrappingDialogOpen(false)}>
               Close
-            </StyledButton>
+            </Button>
           </DialogActions>
         </Dialog>
       </div>
 
       <div className="box">
-        <StyledButton onClick={(): void => setIsCustomStyledDialogOpen(true)}>
+        <Button onClick={(): void => setIsCustomStyledDialogOpen(true)}>
           Open Custom Styled Dialog
-        </StyledButton>
+        </Button>
 
         <StyledDialog
           open={isCustomStyledDialogOpen}
@@ -206,11 +387,9 @@ export const DemoDialog = (): ReactElement => {
             </p>
           </DialogContent>
           <DialogActions>
-            <StyledButton
-              onClick={(): void => setIsCustomStyledDialogOpen(false)}
-            >
+            <Button onClick={(): void => setIsCustomStyledDialogOpen(false)}>
               Close
-            </StyledButton>
+            </Button>
           </DialogActions>
         </StyledDialog>
       </div>
@@ -224,11 +403,9 @@ export const DemoDialog = (): ReactElement => {
         `}
       >
         <div>
-          <StyledButton
-            onClick={(): void => setIsContainerStyledDialogOpen(true)}
-          >
+          <Button onClick={(): void => setIsContainerStyledDialogOpen(true)}>
             Open Container-Styled Dialog
-          </StyledButton>
+          </Button>
         </div>
 
         <ContainerWithDialogStyles ref={containerRef}>
@@ -258,19 +435,17 @@ export const DemoDialog = (): ReactElement => {
             </p>
           </DialogContent>
           <DialogActions>
-            <StyledButton
-              onClick={(): void => setIsContainerStyledDialogOpen(false)}
-            >
+            <Button onClick={(): void => setIsContainerStyledDialogOpen(false)}>
               Close
-            </StyledButton>
+            </Button>
           </DialogActions>
         </Dialog>
       </div>
 
       <div className="box">
-        <StyledButton onClick={(): void => setIsPropStyledDialogOpen(true)}>
+        <Button onClick={(): void => setIsPropStyledDialogOpen(true)}>
           Open Dialog with css Props
-        </StyledButton>
+        </Button>
 
         <Dialog
           open={isPropStyleDialogOpen}
@@ -319,19 +494,21 @@ export const DemoDialog = (): ReactElement => {
               padding: ${theme.spacing.md}px ${theme.spacing.lg}px;
             `}
           >
-            <StyledButton
+            <Button
               onClick={(): void => setIsPropStyledDialogOpen(false)}
               css={css`
-                background-color: white;
-                color: #ff5e62;
-                font-weight: bold;
-                &:hover {
-                  background-color: rgba(255, 255, 255, 0.9);
+                background-color: #ff5e62;
+                color: white;
+                border-color: white;
+                &:hover:not(:disabled):not([aria-disabled]) {
+                  background-color: white;
+                  color: #ff5e62;
+                  border-color: #ff5e62;
                 }
               `}
             >
               Close
-            </StyledButton>
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

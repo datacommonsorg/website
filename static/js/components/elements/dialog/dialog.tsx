@@ -615,7 +615,7 @@ export const DialogActions = ({
             ${theme.spacing.lg}px ${theme.spacing.lg}px;
           display: flex;
           justify-content: flex-end;
-          gap: ${theme.spacing.lg}px;
+          gap: ${theme.spacing.md}px;
         `,
         baseCss,
       ]}
