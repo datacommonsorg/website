@@ -211,7 +211,7 @@ class DataCommonsWebClient {
 
   /**
    * Gets place charts for the given category
-   * Uses /api/dev-place/charts/<placeDcid> endpoint
+   * Uses /api/place/charts/<placeDcid> endpoint
    * @param params.category [optional] place category
    * @param params.placeDcid place dcid to fetch data for
    */
@@ -224,7 +224,7 @@ class DataCommonsWebClient {
       category: params.category,
       [LOCALE_PARAM]: params.locale,
     });
-    const url = `${this.apiRoot || ""}/api/dev-place/charts/${
+    const url = `${this.apiRoot || ""}/api/place/charts/${
       params.placeDcid
     }?${queryString}`;
     const response = await fetch(url);
@@ -233,7 +233,7 @@ class DataCommonsWebClient {
 
   /**
    * Gets related place info charts for the given place
-   * Uses /api/dev-place/related-places/<placeDcid> endpoint
+   * Uses /api/place/related-places/<placeDcid> endpoint
    * @param params.placeDcid place dcid to fetch data for
    * @param params.locale [optional] locale to fetch data for
    */
@@ -244,7 +244,7 @@ class DataCommonsWebClient {
     const queryString = toURLSearchParams({
       [LOCALE_PARAM]: params.locale,
     });
-    const url = `${this.apiRoot || ""}/api/dev-place/related-places/${
+    const url = `${this.apiRoot || ""}/api/place/related-places/${
       params.placeDcid
     }?${queryString}`;
     const response = await fetch(url);
@@ -253,7 +253,7 @@ class DataCommonsWebClient {
 
   /**
    * Gets place overview table for the given place
-   * Uses /api/dev-place/overview-table/<placeDcid> endpoint
+   * Uses /api/place/overview-table/<placeDcid> endpoint
    * @param params.placeDcid place dcid to fetch data for
    * @param params.locale [optional] locale to fetch data for
    */
@@ -264,7 +264,7 @@ class DataCommonsWebClient {
     const queryString = toURLSearchParams({
       [LOCALE_PARAM]: params.locale,
     });
-    const url = `${this.apiRoot || ""}/api/dev-place/overview-table/${
+    const url = `${this.apiRoot || ""}/api/place/overview-table/${
       params.placeDcid
     }?${queryString}`;
     const response = await fetch(url);

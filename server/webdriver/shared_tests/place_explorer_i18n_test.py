@@ -94,7 +94,7 @@ class PlaceI18nExplorerTestMixin():
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains('アメリカ合衆国 - 人口統計'))
 
-  def test_dev_place_page_loads_with_locale(self):
+  def test_place_page_loads_with_locale(self):
     """Ensure experimental dev place page content loads data for a continent."""
     self.driver.get(self.url_ + '/place/africa?hl=fr')
 

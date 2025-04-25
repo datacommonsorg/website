@@ -31,14 +31,14 @@ from server.lib.i18n_messages import \
     get_place_overview_table_variable_to_locale_message
 from server.lib.i18n_messages import get_place_type_in_parent_places_str
 from server.routes import TIMEOUT
-from server.routes.dev_place.types import BlockConfig
-from server.routes.dev_place.types import Category
-from server.routes.dev_place.types import Chart
-from server.routes.dev_place.types import OverviewTableDataRow
-from server.routes.dev_place.types import Place
-from server.routes.dev_place.types import ServerBlockMetadata
-from server.routes.dev_place.types import ServerChartConfiguration
-from server.routes.dev_place.types import ServerChartMetadata
+from server.routes.place.types import BlockConfig
+from server.routes.place.types import Category
+from server.routes.place.types import Chart
+from server.routes.place.types import OverviewTableDataRow
+from server.routes.place.types import Place
+from server.routes.place.types import ServerBlockMetadata
+from server.routes.place.types import ServerChartConfiguration
+from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
 
