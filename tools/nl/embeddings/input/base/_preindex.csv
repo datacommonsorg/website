@@ -363,6 +363,7 @@ Bio Diesel consumption by Transport Industry,Annual_Consumption_Fuel_TransportIn
 Bio Gasoline consumption by Road Transport,Annual_Consumption_Fuel_RoadTransport_BioGasoline
 Bio Gasoline consumption by Transport Industry,Annual_Consumption_Fuel_TransportIndustry_BioGasoline
 Biodiversity,dc/topic/SDGBiodiversity
+Birth Rate Growth (%),GrowthRate_Count_BirthEvent
 Births,dc/topic/Births
 Black Or African American Female Population By Age,dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge
 Black Or African American Male Population By Age,dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge
@@ -807,6 +808,7 @@ Estimated annual loss due to winter weather,Annual_ExpectedLoss_NaturalHazardImp
 Estimated annual loss from natural disasters,Annual_ExpectedLoss_NaturalHazardImpact
 "Existence of a developed and operationalized national strategy for youth employment, as a distinct strategy or as part of a national employment strategy",dc/topic/sdg_8.b.1
 Existence of independent national human rights institutions in compliance with the Paris Principles,dc/topic/sdg_16.a.1
+Expenditure as % of GDP,Amount_EconomicActivity_ExpenditureActivity_AsAFractionOf_Amount_EconomicActivity_GrossDomesticProduction
 Export Subsidies,dc/topic/ExportSubsidies
 Extent of use of country-owned results frameworks and planning tools by providers of development cooperation,dc/topic/sdg_17.15.1
 Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
@@ -980,6 +982,7 @@ Income Inequality Between males and females,GenderIncomeInequality_Person_15OrMo
 "Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets",dc/topic/sdg_9.3
 Indicator of food price anomalies,dc/topic/sdg_2.c.1
 Individual Income By Industry type,dc/topic/IndividualIncomeByIndustry
+Industrial Production Index,IndustrialProductionIndex_EconomicActivity
 Industries By GDP Contribution,dc/topic/IndustriesByGDP
 Industries By Revenue,dc/topic/IndustriesByRevenue
 Infant Mortality,dc/topic/InfantMortality
@@ -1256,6 +1259,7 @@ Mobilize and significantly increase financial resources from all sources to cons
 Monthly count of electricity consumers,Monthly_Count_ElectricityConsumer
 Mortality,dc/topic/Mortality;dc/topic/WHOMortality
 Mortality Causes,dc/topic/WHOMortalityCauses
+Mortality Rate (5+ per 1000 births),Count_MortalityEvent_5OrMoreYears_AsAFractionOf_Count_BirthEvent_LiveBirth
 Mortality among incarcerated,dc/topic/MortalityAmongIncarcerated
 Mortality among those in jail,dc/topic/MortalityAmongIncarcerated
 Mortality by gender,dc/topic/MortalityByGender
@@ -1438,6 +1442,7 @@ Number of Christian people,indianCensus/Count_Person_Religion_Christian
 Number of Christian workers,indianCensus/Count_Person_Religion_Christian_Workers
 Number of Christians living in rural areas,indianCensus/Count_Person_Religion_Christian_Rural
 Number of Christians living in urban areas,indianCensus/Count_Person_Religion_Christian_Urban
+Number of Clinics,Count_HealthEstablishment_Clinic
 Number of Confirmed Acute Hepatitis C Cases,Count_MedicalConditionIncident_ConditionHepatitisC_AcuteCondition_ConfirmedCase
 Number of Confirmed Cases of Invasive Streptococcus Pneumonia,Count_MedicalConditionIncident_ConditionStreptococcusPneumonia_InvasiveDisease_ConfirmedCase
 Number of Confirmed Cases of Streptococcus Pneumonia,Count_MedicalConditionIncident_ConditionStreptococcusPneumonia_ConfirmedCase
@@ -1448,6 +1453,7 @@ Number of Confirmed Lyme Disease Cases,Count_MedicalConditionIncident_ConditionL
 Number of Congenital Syphilis Cases,Count_MedicalConditionIncident_ConditionCongenitalSyphilis
 Number of Construction establishments,Count_Establishment_NAICSConstruction
 Number of Construction of Buildings establishments,dc/51h3g4mcgj3w4
+Number of Corporate Medical Centers,Count_HealthEstablishment_CorporateMedicalCenter
 Number of Cryptosporidiosis Cases,Count_MedicalConditionIncident_ConditionCryptosporidiosis
 Number of Cyclosporiasis Cases,Count_MedicalConditionIncident_ConditionCyclosporiasis
 Number of Deaths Among American Indian and Alaska Native Females,Count_Death_Female_AmericanIndianAndAlaskaNativeAlone
@@ -1515,6 +1521,7 @@ Number of Deaths from Person To Person Transmission,Count_MedicalConditionIncide
 Number of Deaths from Waterborne Transmission,Count_MedicalConditionIncident_PatientDeceased_WaterborneTransmission
 Number of Dengue Disease Cases,Count_MedicalConditionIncident_ConditionDengueDisease
 Number of Dense Fogs,Count_DenseFogEvent
+Number of Doctors,Count_HealthcareWorker_Doctor
 Number of Earthquakes,Count_EarthquakeEvent
 Number of Education Facility,Count_CivicStructure_EducationFacility
 Number of Educational Services establishments,Count_Establishment_NAICSEducationalServices;dc/kcns4cvt14zx2
@@ -1748,6 +1755,7 @@ Number of Jain workers,indianCensus/Count_Person_Religion_Jain_Workers
 Number of Jains,indianCensus/Count_Person_Religion_Jain
 Number of Jains living in rural areas,indianCensus/Count_Person_Religion_Jain_Rural
 Number of Jains living in urban areas,indianCensus/Count_Person_Religion_Jain_Urban
+Number of Lab Technicians,Count_HealthcareWorker_LaboratoryTechnician
 Number of Labor Force Participants Residing in College or University Student Housing,Count_Person_InLaborForce_ResidesInCollegeOrUniversityStudentHousing
 Number of Labor Force Participants reside in Group Quarters,Count_Person_InLaborForce_ResidesInGroupQuarters
 Number of Labor Force Participants reside in non-institutionalized Group Quarters,Count_Person_InLaborForce_ResidesInNoninstitutionalizedGroupQuarters
@@ -1843,6 +1851,7 @@ Number of NonCongenital Zika Virus Disease Cases,Count_MedicalConditionIncident_
 Number of NonCongenital Zika Virus Infection Cases,Count_MedicalConditionIncident_ConditionZikaVirusInfection_NonCongenitalDisease
 Number of NonNeuroinvasive West Nile Virus Disease Cases,Count_MedicalConditionIncident_ConditionWestNileVirusDisease_NonNeuroinvasiveDisease
 Number of Nuclear Electric Power Generation establishments,dc/eptfljlz7bgbg
+Number of Nurses,Count_HealthcareWorker_Nurse
 Number of Occupied Housing Units,Count_HousingUnit_OccupiedHousingUnit
 Number of Occupied Housing Units with Householders Holding Less Than a High School Diploma,Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_OccupiedHousingUnit
 Number of Occupied Housing Units with Householders Holding Some College or an Associates Degree,Count_HousingUnit_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_OccupiedHousingUnit
@@ -1917,6 +1926,8 @@ Number of People with Associates Degree,Count_Person_EducationalAttainmentAssoci
 Number of People with Bachelors Degree,Count_Person_EducationalAttainmentBachelorsDegree
 Number of People working at home,dc/6rltk4kf75612
 Number of Pertussis Cases,Count_MedicalConditionIncident_ConditionPertussis
+Number of Pharmacists,Count_HealthcareWorker_Pharmacist
+Number of Polyclinics,Count_HealthEstablishment_Polyclinic
 Number of Post Diarrheal Hemolytic Uremic Syndrome Cases,Count_MedicalConditionIncident_ConditionHemolyticUremicSyndrome_PostDiarrheal
 Number of Prescribed Fires,Count_PrescribedFireEvent
 Number of Probable Acute Hepatitis C Cases,Count_MedicalConditionIncident_ConditionHepatitisC_AcuteCondition_ProbableCase
@@ -3311,6 +3322,8 @@ Tornado,dc/topic/Tornado
 Total COVID-19 deaths,CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased
 Total COVID-19 tests performed,CumulativeCount_MedicalTest_ConditionCOVID_19
 Total COVID-19 vaccines administered,CumulativeCount_Vaccine_COVID_19_Administered
+Total Exports,Exports_EconomicActivity
+Total Imports,Imports_EconomicActivity
 Total agricultural output,dc/topic/AgriculturalProduction
 "Total amount of funding for developing countries to promote the development, transfer, dissemination and diffusion of environmentally sound technologies",dc/topic/sdg_17.7.1
 Total amount of gas emissions from farming practices,dc/topic/AgricultureEmissionsByGas
