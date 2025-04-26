@@ -219,7 +219,6 @@ export function TileMetadataModal(
           const provenanceData = provenanceMap[provenanceId];
 
           if (!provenanceData) continue;
-          console.log(provenanceData);
 
           let unit = "Unknown";
           let periodicity = "Unknown";
@@ -285,6 +284,10 @@ export function TileMetadataModal(
     props.statVarToFacet,
     props.facets,
   ]);
+
+  useEffect(() => {
+    setStatVarNames([]);
+  }, [props.facets, props.statVarToFacet]);
 
   const renderMetadataContent = (): ReactElement => {
     if (loading) {
