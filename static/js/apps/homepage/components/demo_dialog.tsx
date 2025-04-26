@@ -31,7 +31,6 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/elements/dialog/dialog";
-import { Close } from "../../../components/elements/icons/close";
 import { Download } from "../../../components/elements/icons/download";
 import { IntegrationInstructions } from "../../../components/elements/icons/integration_instructions";
 
@@ -89,6 +88,10 @@ export const DemoDialog = (): ReactElement => {
   const theme = useTheme();
 
   const [isSimpleDialogOpen, setIsSimpleDialogOpen] = useState(false);
+  const [isMultipleActionsDialogOpen, setIsMultipleActionsDialogOpen] =
+    useState(false);
+  const [isContentDenseDialogOpen, setIsContentDenseDialogOpen] =
+    useState(false);
   const [isFocusTrappingDialogOpen, setIsFocusTrappingDialogOpen] =
     useState(false);
   const [isCustomStyledDialogOpen, setIsCustomStyledDialogOpen] =
@@ -138,15 +141,15 @@ export const DemoDialog = (): ReactElement => {
       </div>
 
       <div className="box">
-        <Button onClick={(): void => setIsSimpleDialogOpen(true)}>
+        <Button onClick={(): void => setIsMultipleActionsDialogOpen(true)}>
           Simple Dialog Multiple Actions
         </Button>
 
         <Dialog
-          open={isSimpleDialogOpen}
-          onClose={(): void => setIsSimpleDialogOpen(false)}
+          open={isMultipleActionsDialogOpen}
+          onClose={(): void => setIsMultipleActionsDialogOpen(false)}
         >
-          <DialogTitle>Simple Dialog with multiple actions</DialogTitle>
+          <DialogTitle>Dialog with multiple actions</DialogTitle>
           <DialogContent>
             <p>
               Vivamus eget ex in diam ornare tincidunt quis et eros. Nullam
@@ -168,7 +171,7 @@ export const DemoDialog = (): ReactElement => {
             <Button startIcon={<IntegrationInstructions />}>
               Instructions
             </Button>
-            <Button onClick={(): void => setIsSimpleDialogOpen(false)}>
+            <Button onClick={(): void => setIsMultipleActionsDialogOpen(false)}>
               Close
             </Button>
           </DialogActions>
@@ -176,13 +179,13 @@ export const DemoDialog = (): ReactElement => {
       </div>
 
       <div className="box">
-        <Button onClick={(): void => setIsSimpleDialogOpen(true)}>
-          Simple Dialog with way too much content everywhere
+        <Button onClick={(): void => setIsContentDenseDialogOpen(true)}>
+          Simple Dialog with Long Content
         </Button>
 
         <Dialog
-          open={isSimpleDialogOpen}
-          onClose={(): void => setIsSimpleDialogOpen(false)}
+          open={isContentDenseDialogOpen}
+          onClose={(): void => setIsContentDenseDialogOpen(false)}
         >
           <DialogTitle>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu purus
@@ -319,7 +322,7 @@ export const DemoDialog = (): ReactElement => {
             <Button startIcon={<IntegrationInstructions />}>
               Instructions
             </Button>
-            <Button onClick={(): void => setIsSimpleDialogOpen(false)}>
+            <Button onClick={(): void => setIsContentDenseDialogOpen(false)}>
               Close
             </Button>
           </DialogActions>
@@ -368,7 +371,7 @@ export const DemoDialog = (): ReactElement => {
 
       <div className="box">
         <Button onClick={(): void => setIsCustomStyledDialogOpen(true)}>
-          Open Custom Styled Dialog
+          Styled API Dialog
         </Button>
 
         <StyledDialog
@@ -404,7 +407,7 @@ export const DemoDialog = (): ReactElement => {
       >
         <div>
           <Button onClick={(): void => setIsContainerStyledDialogOpen(true)}>
-            Open Container-Styled Dialog
+            Container-Styled Dialog
           </Button>
         </div>
 
@@ -444,7 +447,7 @@ export const DemoDialog = (): ReactElement => {
 
       <div className="box">
         <Button onClick={(): void => setIsPropStyledDialogOpen(true)}>
-          Open Dialog with css Props
+          Dialog with CSS Props
         </Button>
 
         <Dialog
