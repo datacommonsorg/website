@@ -99,6 +99,16 @@ export const DemoDialog = (): ReactElement => {
   const [isContainerStyledDialogOpen, setIsContainerStyledDialogOpen] =
     useState(false);
   const [isPropStyleDialogOpen, setIsPropStyledDialogOpen] = useState(false);
+  const [isLoadingDialogOpen, setIsLoadingDialogOpen] = useState(false);
+  const [isDialogLoading, setIsDialogLoading] = useState(false);
+
+  const openLoadingDialog = (): void => {
+    setIsLoadingDialogOpen(true);
+    setIsDialogLoading(true);
+    setTimeout(() => {
+      setIsDialogLoading(false);
+    }, 1000);
+  };
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -510,6 +520,26 @@ export const DemoDialog = (): ReactElement => {
                 }
               `}
             >
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div className="box">
+        <Button onClick={openLoadingDialog}>Loading Dialog Example</Button>
+
+        <Dialog
+          open={isLoadingDialogOpen}
+          loading={isDialogLoading}
+          onClose={(): void => setIsLoadingDialogOpen(false)}
+        >
+          <DialogTitle>Data Loaded</DialogTitle>
+          <DialogContent>
+            <p>Custom content has now loaded</p>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={(): void => setIsLoadingDialogOpen(false)}>
               Close
             </Button>
           </DialogActions>

@@ -156,6 +156,7 @@ import React, {
 import ReactDOM from "react-dom";
 
 import { Close } from "../icons/close";
+import { ProgressActivity } from "../icons/progress_activity";
 
 interface DialogContextType {
   onClose: () => void;
@@ -181,6 +182,7 @@ interface DialogContainerProps {
 
 const DIALOG_DEFAULT_FADE_IN_DURATION = 150;
 const DIALOG_DEFAULT_FADE_OUT_DURATION = 150;
+const DIALOG_DEFAULT_POST_LOAD_FADE_IN_DURATION = 75;
 
 const DialogContainer = ({
   children,
@@ -225,6 +227,10 @@ interface DialogProps {
   // Dialog content - typically DialogTitle, DialogContent,
   // and DialogActions components.
   children: ReactNode;
+  // If true, show a loading spinner rather than the dialog.
+  // This allows dynamic content to load before we display the dialog.
+  // Default: false
+  loading?: boolean;
   // Additional class name applied to the dialog.
   className?: string;
   // Reference to a DOM element where the dialog should be rendered.
@@ -236,6 +242,9 @@ interface DialogProps {
   // Duration of the fade-in animation in milliseconds.
   // Default: 150ms
   fadeInDuration?: number;
+  // Duration of the fade-in animation in milliseconds when coming from loading state.
+  // Default: 50ms
+  fadeInDurationPostLoad?: number;
   // Duration of the fade-out animation in milliseconds.
   // Default: 150ms
   fadeOutDuration?: number;
@@ -282,11 +291,13 @@ const getFocusableElements = (container: HTMLElement | null): HTMLElement[] => {
 export const Dialog = ({
   open,
   onClose,
+  loading = false,
   children,
   className,
   containerRef,
   keepMounted = false,
   fadeInDuration = DIALOG_DEFAULT_FADE_IN_DURATION,
+  fadeInDurationPostLoad = DIALOG_DEFAULT_POST_LOAD_FADE_IN_DURATION,
   fadeOutDuration = DIALOG_DEFAULT_FADE_OUT_DURATION,
   disableEscapeToClose = false,
   disableOutsideClickToClose = false,
@@ -304,6 +315,7 @@ export const Dialog = ({
 
   const hasReceivedInteraction = useRef(false);
   const prevOpenRef = useRef(open);
+  const hasBeenLoadingRef = useRef(false);
 
   const closeTimeoutRef = useRef<number | null>(null);
   const htmlStyleRef = useRef({ overflow: "", paddingRight: "" });
@@ -372,6 +384,12 @@ export const Dialog = ({
   }, [isClosing, isVisible]);
 
   useEffect(() => {
+    if (loading) {
+      hasBeenLoadingRef.current = true;
+    }
+  }, [loading]);
+
+  useEffect(() => {
     if (!open || disableEscapeToClose) return;
 
     const handleEscape = (e: KeyboardEvent): void => {
@@ -427,6 +445,17 @@ export const Dialog = ({
   const isInteractive = isVisible || isClosing;
   const shouldShow = isInteractive || keepMounted;
 
+  const getActiveFadeDuration = (): number => {
+    if (!isVisible) return fadeOutDuration;
+
+    if (hasBeenLoadingRef.current && !loading) {
+      hasBeenLoadingRef.current = false;
+      return fadeInDurationPostLoad;
+    }
+
+    return fadeInDuration;
+  };
+
   const widthCss = fullWidth
     ? css`
         width: 100%;
@@ -472,6 +501,22 @@ export const Dialog = ({
           />
         )}
 
+        {isInteractive && loading && (
+          <div
+            css={css`
+              position: fixed;
+              inset: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              pointer-events: none;
+              z-index: 10001;
+            `}
+          >
+            <ProgressActivity height={"75px"} fill={"hsl(216, 55%, 98%)"} />
+          </div>
+        )}
+
         <div
           role="dialog"
           ref={dialogRef}
@@ -490,9 +535,8 @@ export const Dialog = ({
               gap: ${theme.spacing.sm}px;
               max-height: calc(100vh - 64px);
               background: #fff;
-              opacity: ${isVisible ? 1 : 0};
-              transition: opacity
-                ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
+              opacity: ${isVisible && !loading ? 1 : 0};
+              transition: opacity ${getActiveFadeDuration()}ms ease-in-out;
               z-index: 2;
               pointer-events: ${isInteractive ? "auto" : "none"};
               overflow: hidden;
