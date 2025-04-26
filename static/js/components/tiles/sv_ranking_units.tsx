@@ -345,6 +345,8 @@ export function getRankingUnit(
             apiRoot={apiRoot}
             containerRef={containerRef}
             sources={sources || rankingGroup.sources}
+            facets={rankingGroup.facets}
+            statVarToFacet={rankingGroup.statVarToFacet}
             statVarSpecs={statVarSpecs}
           />
         )
