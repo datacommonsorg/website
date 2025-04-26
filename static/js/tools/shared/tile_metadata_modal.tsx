@@ -15,15 +15,28 @@
  */
 
 /**
- * Displays a modal with links for each stat var to their page in Stat Var Explorer.
- * TODO(beets): Don't update the modal with stat var names if it's already opened.
+ * Displays a modal with comprehensive metadata for a particular chart.
+ *
+ * The modal displays each stat var used in the chart, and for each
+ * stat var, relevant information about the provenance/source used by
+ * that stat var.
+ *
+ * At the bottom of the chart, we display a combined citation section.
  */
 
-import React, { useEffect, useState } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
+import { humanizeIsoDuration } from "../../apps/base/utilities/utilities";
+import { Button } from "../../components/elements/button/button";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../../components/elements/dialog/dialog";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { apiRootToHostname } from "../../utils/url_utils";
@@ -31,6 +44,11 @@ import { apiRootToHostname } from "../../utils/url_utils";
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 
 interface TileMetadataModalPropType {
+  // A full set of the facets used within the chart
+  facets: Record<string, StatMetadata>;
+  // A mapping of which stat var used which facet
+  statVarToFacet?: Record<string, string>;
+  // the stat vars used in the chart
   statVarSpecs: StatVarSpec[];
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
@@ -39,64 +57,372 @@ interface TileMetadataModalPropType {
 // [dcid, name]
 type DcidNameTuple = [string, string];
 
-function MetadataRow(props: {
-  dcid: string;
-  name: string;
-  apiRoot?: string;
-}): JSX.Element {
-  return (
-    <div className="metadata-modal-link">
-      <span className="material-icons-outlined">arrow_forward</span>
-      <a
-        href={
-          apiRootToHostname(props.apiRoot) +
-          SV_EXPLORER_REDIRECT_PREFIX +
-          props.dcid
-        }
-        target="_blank"
-        rel="noreferrer"
-      >
-        {props.name}
-      </a>
-    </div>
-  );
+// Metadata associated with a stat var and provenance/source combination.
+interface StatVarMetadata {
+  statVarId: string; // DCID of the stat var
+  statVarName: string; // Label of the stat var
+  category: string; // Category name of the stat var (e.g., "Demographics")
+  sourceName: string; // Source name
+  provenanceUrl: string; // Provenance source URL
+  provenanceName: string; // Provenance source name
+  dateRangeStart: string; // Start date
+  dateRangeEnd: string; // End date
+  unit: string; // Unit (e.g., "Years")
+  periodicity: string; // Periodicity (e.g., "Yearly")
+  license: string; // License type
+  licenseDcid?: string; // The DCID for the license (for linking)
 }
 
 export function TileMetadataModal(
   props: TileMetadataModalPropType
-): JSX.Element {
+): ReactElement {
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
-  const dcids = new Set<string>();
-  const toggleModal = (): void => setModalOpen(!modalOpen);
+  const [metadataMap, setMetadataMap] = useState<
+    Record<string, StatVarMetadata>
+  >({});
   const dataCommonsClient = getDataCommonsClient(props.apiRoot);
-  if (props.statVarSpecs) {
-    for (const spec of props.statVarSpecs) {
-      dcids.add(spec.statVar);
-      if (spec.denom) {
-        dcids.add(spec.denom);
+
+  const statVarSet = useMemo(() => {
+    const result = new Set<string>();
+    if (props.statVarSpecs) {
+      for (const spec of props.statVarSpecs) {
+        result.add(spec.statVar);
+        if (spec.denom) {
+          result.add(spec.denom);
+        }
       }
     }
-  }
+    return result;
+  }, [props.statVarSpecs]);
 
   useEffect(() => {
-    // Only fetch data once the modal is opened.
     if (!modalOpen) return;
-    if (dcids.size == statVarNames.length) return;
-    (async (): Promise<void> => {
-      const responseObj = await dataCommonsClient.getFirstNodeValues({
-        dcids: [...dcids],
-        prop: "name",
-      });
-      const responseList = new Array<DcidNameTuple>();
-      for (const dcid in responseObj) {
-        responseList.push([dcid, responseObj[dcid]]);
+    if (statVarSet.size === statVarNames.length) return;
+
+    setLoading(true);
+
+    const fetchMetadata = async (): Promise<void> => {
+      try {
+        const statVars = [...statVarSet];
+        if (statVars.length === 0) {
+          return;
+        }
+
+        // Get stat var names from the DCIDs
+        const responseObj = await dataCommonsClient.getFirstNodeValues({
+          dcids: statVars,
+          prop: "name",
+        });
+        const statVarList: DcidNameTuple[] = [];
+        for (const dcid in responseObj) {
+          statVarList.push([dcid, responseObj[dcid]]);
+        }
+        statVarList.sort((a, b) => (a[1] > b[1] ? 1 : -1));
+        setStatVarNames(statVarList);
+
+        // Get stat var categories. This is a two-step process: first we
+        // look up the path to the variable group. Then we look up the group
+        // itself to get the "absoluteName" (the readable name of the category).
+
+        // Step 1: get the category paths
+        const categoryPathPromises = statVars.map((statVarId) =>
+          fetch(
+            `${props.apiRoot || ""}/api/variable/path?dcid=${statVarId}`
+          ).then((response) => response.json())
+        );
+        const categoryPathResults = await Promise.all(categoryPathPromises);
+
+        const categoryPaths = new Set<string>();
+        statVars.forEach((_, index) => {
+          const categoryPath = categoryPathResults[index][1];
+          if (categoryPath) {
+            categoryPaths.add(categoryPath);
+          }
+        });
+
+        // Step 2: from those paths, get the absolute names
+        const categoryInfoMap: Record<string, string> = {};
+        const categoryPromises = Array.from(categoryPaths).map(
+          async (categoryPath) => {
+            const response = await fetch(
+              `${props.apiRoot || ""}/api/variable-group/info`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  dcid: categoryPath,
+                  entities: [],
+                  numEntitiesExistence: 0,
+                }),
+              }
+            );
+            const data = await response.json();
+            categoryInfoMap[categoryPath] =
+              data.absoluteName || categoryPath.split("/").pop();
+          }
+        );
+        await Promise.all(categoryPromises);
+
+        const statVarCategoryMap: Record<string, string> = {};
+        statVars.forEach((statVarId, index) => {
+          const categoryPath = categoryPathResults[index][1];
+          if (categoryPath && categoryInfoMap[categoryPath]) {
+            statVarCategoryMap[statVarId] = categoryInfoMap[categoryPath];
+          } else if (categoryPath) {
+            statVarCategoryMap[statVarId] = categoryPath.split("/").pop();
+          } else {
+            statVarCategoryMap[statVarId] = "Unknown";
+          }
+        });
+
+        // Next we get full information for all the stat vars
+        const dcidsParam = statVars.map((id) => `dcids=${id}`).join("&");
+        const variableResponse = await fetch(
+          `${props.apiRoot || ""}/api/variable/info?${dcidsParam}`
+        );
+        const variableData = await variableResponse.json();
+
+        // we create a set of provenances so that we can look them all up at once
+        const provenances = new Set<string>();
+        statVars.forEach((statVarId) => {
+          const facetId = props.statVarToFacet?.[statVarId];
+          const facetInfo = facetId ? props.facets[facetId] : null;
+          if (facetInfo?.importName) {
+            provenances.add(`dc/base/${facetInfo.importName}`);
+          }
+        });
+
+        const provenanceMap: Record<string, any> = {};
+        const provenancePromises = Array.from(provenances).map((provenanceId) =>
+          fetch(`${props.apiRoot || ""}/api/node/triples/out/${provenanceId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              provenanceMap[provenanceId] = data;
+            })
+        );
+        await Promise.all(provenancePromises);
+
+        const metadata: Record<string, StatVarMetadata> = {};
+
+        for (const statVarId of statVars) {
+          const facetId = props.statVarToFacet?.[statVarId];
+          const facetInfo = facetId ? props.facets[facetId] : null;
+
+          if (!facetInfo?.importName) continue;
+
+          const importName = facetInfo.importName;
+          const provenanceId = `dc/base/${importName}`;
+          const provenanceData = provenanceMap[provenanceId];
+
+          if (!provenanceData) continue;
+          console.log(provenanceData);
+
+          let unit = "Unknown";
+          let periodicity = "Unknown";
+          let dateRangeStart = "Unknown";
+          let dateRangeEnd = "Unknown";
+
+          if (variableData[statVarId]?.provenanceSummary) {
+            const sources = Object.values(
+              variableData[statVarId].provenanceSummary
+            );
+            if (sources.length > 0) {
+              const source = sources[0] as any;
+
+              if (source.seriesSummary && source.seriesSummary.length > 0) {
+                const seriesSummary = source.seriesSummary[0];
+                dateRangeStart = seriesSummary.earliestDate || "Unknown";
+                dateRangeEnd = seriesSummary.latestDate || "Unknown";
+
+                const seriesKey = seriesSummary.seriesKey;
+                if (seriesKey) {
+                  unit = seriesKey.unit || "Unknown";
+                  periodicity = seriesKey.observationPeriod
+                    ? humanizeIsoDuration(seriesKey.observationPeriod)
+                    : "Unknown";
+                }
+              }
+            }
+          }
+
+          metadata[statVarId] = {
+            statVarId,
+            statVarName: responseObj[statVarId] || statVarId,
+            category: statVarCategoryMap[statVarId] || "Unknown",
+            sourceName: provenanceData?.source[0]?.name || "Unknown",
+            provenanceUrl: provenanceData?.url?.[0]?.value || "",
+            provenanceName:
+              provenanceData?.isPartOf?.[0]?.name ||
+              provenanceData?.name?.[0]?.value ||
+              importName ||
+              "Unknown",
+            dateRangeStart,
+            dateRangeEnd,
+            unit,
+            periodicity,
+            license: provenanceData?.licenseType?.[0]?.name || "Unknown",
+            licenseDcid: provenanceData?.licenseType?.[0].dcid,
+          };
+        }
+
+        setMetadataMap(metadata);
+      } catch (error) {
+        console.error("Error fetching metadata:", error);
       }
-      // Sort by name
-      responseList.sort((a, b) => (a[1] > b[1] ? 1 : -1));
-      setStatVarNames(responseList);
-    })();
-  }, [props, modalOpen, dcids, statVarNames.length]);
+    };
+
+    fetchMetadata().finally(() => setLoading(false));
+  }, [
+    modalOpen,
+    statVarSet,
+    statVarNames.length,
+    dataCommonsClient,
+    props.apiRoot,
+    props.statVarToFacet,
+    props.facets,
+  ]);
+
+  const renderMetadataContent = (): ReactElement => {
+    if (loading) {
+      return null;
+    }
+
+    if (statVarNames.length === 0) {
+      return <div>No metadata available.</div>;
+    }
+
+    const uniqueSourcesMap = new Map<
+      string,
+      { url: string; sourceName: string }
+    >();
+    statVarNames.forEach(([statVarId]) => {
+      const metadata = metadataMap[statVarId];
+      if (metadata && metadata.provenanceName) {
+        uniqueSourcesMap.set(metadata.provenanceName, {
+          url: metadata.provenanceUrl,
+          sourceName: metadata.sourceName,
+        });
+      }
+    });
+
+    const sourcesWithUrls = Array.from(uniqueSourcesMap.entries()).map(
+      ([provenanceName, data]) => {
+        const displayText = `${data.sourceName}, ${provenanceName}`;
+        return data.url
+          ? `${displayText} (${data.url.replace(/^https?:\/\//i, "")})`
+          : displayText;
+      }
+    );
+
+    return (
+      <div>
+        {statVarNames.map(([statVarId, displayName]) => {
+          const metadata = metadataMap[statVarId];
+          if (!metadata) return null;
+
+          return (
+            <div key={statVarId}>
+              <h2>{displayName}</h2>
+
+              <div>
+                <div>
+                  <div>
+                    <h4>Source</h4>
+                    <div>
+                      <a
+                        href={metadata.provenanceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {metadata.provenanceUrl.replace(/^https?:\/\//i, "")}
+                      </a>
+                    </div>
+                    <div>
+                      {metadata.sourceName}, {metadata.provenanceName}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4>DCID / Topic</h4>
+                    <div>
+                      <a
+                        href={
+                          apiRootToHostname(props.apiRoot) +
+                          SV_EXPLORER_REDIRECT_PREFIX +
+                          statVarId
+                        }
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {statVarId}
+                      </a>
+                    </div>
+                    <div>{metadata.category}</div>
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <h4>Date range</h4>
+                    <div>
+                      {metadata.dateRangeStart} – {metadata.dateRangeEnd}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4>Unit / Periodicity</h4>
+                    <div>
+                      {metadata.unit} / {metadata.periodicity}
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <h4>License</h4>
+                    <div>
+                      {metadata.licenseDcid ? (
+                        <a
+                          href={`${apiRootToHostname(props.apiRoot)}/browser/${
+                            metadata.licenseDcid
+                          }`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {metadata.license}
+                        </a>
+                      ) : (
+                        metadata.license
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {statVarId !== statVarNames[statVarNames.length - 1][0] && <hr />}
+            </div>
+          );
+        })}
+
+        <div>
+          <h3>Source and citation</h3>
+          <p>
+            Data sources • {sourcesWithUrls.join(", ")} with minor processing by
+            Data Commons.
+          </p>
+          <p>
+            Citation guidance • Please credit all sources listed above. Data
+            provided by third-party sources through Data Commons remains subject
+            to the original provider&apos;s license terms.
+          </p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -109,54 +435,25 @@ export function TileMetadataModal(
       >
         {intl.formatMessage(messages.showMetadata)}
       </a>
-      {modalOpen && (
-        <Modal
-          isOpen={modalOpen}
-          scrollable
-          container={props.containerRef.current}
-          toggle={toggleModal}
-          className="metadata-modal modal-dialog-centered modal-lg"
-        >
-          <ModalHeader toggle={toggleModal} close={<></>}>
-            {intl.formatMessage(messages.chooseVariable)}
-          </ModalHeader>
-          <div className="modal-subtitle">
-            {intl.formatMessage(messages.selectVariable)}
-          </div>
-          <ModalBody>
-            <div className="metadata-modal-links">
-              {statVarNames.length
-                ? statVarNames.map((dcidName, i) => (
-                    <MetadataRow
-                      dcid={dcidName[0]}
-                      name={dcidName[1]}
-                      apiRoot={props.apiRoot}
-                      key={i}
-                    />
-                  ))
-                : // Use DCID as display name as a fallback. Note, might not be displayed in order.
-                  [...dcids].map((dcid, i) => (
-                    <MetadataRow
-                      dcid={dcid}
-                      name={dcid}
-                      apiRoot={props.apiRoot}
-                      key={i}
-                    />
-                  ))}
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              className="modal-close"
-              onClick={(): void => {
-                setModalOpen(false);
-              }}
-            >
-              {intl.formatMessage(messages.close)}
-            </Button>
-          </ModalFooter>
-        </Modal>
-      )}
+      <Dialog
+        open={modalOpen}
+        onClose={(): void => setModalOpen(false)}
+        maxWidth="lg"
+        fullWidth
+        loading={loading}
+      >
+        <DialogTitle>{intl.formatMessage(messages.metadata)}</DialogTitle>
+        <DialogContent>{renderMetadataContent()}</DialogContent>
+        <DialogActions>
+          <Button
+            onClick={(): void => {
+              setModalOpen(false);
+            }}
+          >
+            {intl.formatMessage(messages.close)}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

@@ -21,7 +21,7 @@
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { NL_SOURCE_REPLACEMENTS } from "../constants/app/explore_constants";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
@@ -33,11 +33,16 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../shared/ga_events";
-import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
+import {
+  PointApiResponse,
+  SeriesApiResponse,
+  StatMetadata,
+} from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate, urlToDisplayText } from "../shared/util";
 import { TileMetadataModal } from "../tools/shared/tile_metadata_modal";
+import { TileMetadataModalSimple } from "../tools/shared/tile_metadata_modal_simple";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
@@ -168,7 +173,7 @@ export function getStatVarName(
  * vars in a statVarSpec collection.
  * Different from getStatVarName() in that if a stat var's name is not provided
  * in its spec, will try to query the name though an api call.
- * @param statVarSpecs specs of stat vars to get names for
+ * @param statVarSpec specs of stat vars to get names for
  * @param apiRoot api root to use for api
  * @param getProcessedName If provided, use this function to get the processed
  *        stat var names.
@@ -199,7 +204,7 @@ export async function getStatVarNames(
   });
 
   // Promise that returns an object where key is stat var dcid and value is name
-  let statVarNamesPromise;
+  let statVarNamesPromise: Promise<Record<string, string>>;
   // If all names were provided by statVarSpec or stats_var_labels.json
   // skip propval api call
   if (_.isEmpty(statVarDcids)) {
@@ -338,18 +343,30 @@ export function getTileEventTypeSpecs(
  * Gets the JSX element for displaying a list of sources and stat vars.
  */
 export function TileSources(props: {
-  sources: Set<string> | string[];
+  // the facets that make up the sources of the charts
+  // if given, these will be used to supply the source list, and to populate
+  // the detailed metadata modal. If not supplied, we fall back to a simple
+  // modal display using the sources.
+  facets?: Record<string, StatMetadata>;
+  // A mapping of which stat var used which facet
+  statVarToFacet?: Record<string, string>;
   // If available, the stat vars to link to.
   statVarSpecs?: StatVarSpec[];
+  // The original string sources (urls) - now optional
+  // If given and the facets and mappings are not given, we
+  // fall back to the old sources.
+  sources?: Set<string> | string[];
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
-}): JSX.Element {
-  const { sources, statVarSpecs } = props;
-  if (!sources) {
+}): ReactElement {
+  const { facets, statVarToFacet, statVarSpecs, sources } = props;
+  if (!facets && !sources) {
     return null;
   }
 
-  const sourceList: string[] = Array.from(sources);
+  const sourceList: string[] = facets
+    ? Object.values(facets).map((facet) => facet.provenanceUrl)
+    : Array.from(sources);
   //const seenSourceText = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
     // HACK for updating source for NL interface
@@ -393,11 +410,21 @@ export function TileSources(props: {
             <>
               <span {...{ part: "source-separator" }}> • </span>
               <span {...{ part: "source-show-metadata-link" }}>
-                <TileMetadataModal
-                  apiRoot={props.apiRoot}
-                  containerRef={props.containerRef}
-                  statVarSpecs={statVarSpecs}
-                ></TileMetadataModal>
+                {facets && statVarToFacet ? (
+                  <TileMetadataModal
+                    apiRoot={props.apiRoot}
+                    containerRef={props.containerRef}
+                    statVarSpecs={statVarSpecs}
+                    facets={facets}
+                    statVarToFacet={statVarToFacet}
+                  ></TileMetadataModal>
+                ) : (
+                  <TileMetadataModalSimple
+                    apiRoot={props.apiRoot}
+                    containerRef={props.containerRef}
+                    statVarSpecs={statVarSpecs}
+                  ></TileMetadataModalSimple>
+                )}
               </span>
             </>
           )}
@@ -461,7 +488,7 @@ export function getStatFormat(
 
   let overrideConfig = null;
   if (statMetadata) {
-    const isComplexUnit = !!statMetadata.unit?.match(/\[.+ [0-9]+\]/);
+    const isComplexUnit = !!statMetadata.unit?.match(/\[.+ [0-9]+]/);
     // If complex unit, use the unit part to get the override config, otherwise
     // use the whole unit to get the override config.
     const unitStr = isComplexUnit
@@ -503,7 +530,6 @@ interface DenomInfo {
  * @param denomData population data to use for the calculation
  * @param placeDcid place of the data point
  * @param mainStatDate date of the data point
- * @param mainStatUnit unit of the data point
  */
 export function getDenomInfo(
   svSpec: StatVarSpec,
@@ -598,6 +624,8 @@ export function transformCsvHeader(columnHeader: string): string {
  * all dates set for a subject page config will have the same date
  *
  * @param variables stat var spec variables
+ * @param date optional override date string. When provided, this date is used
+ *             instead of the date from the first variable.
  * @returns first date found or undefined if stat var spec list is empty
  */
 export function getFirstCappedStatVarSpecDate(
