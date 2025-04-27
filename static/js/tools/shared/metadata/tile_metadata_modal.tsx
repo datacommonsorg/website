@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,15 +61,15 @@ type DcidNameTuple = [string, string];
 interface StatVarMetadata {
   statVarId: string; // DCID of the stat var
   statVarName: string; // Label of the stat var
-  category: string; // Category name of the stat var (e.g., "Demographics")
-  sourceName: string; // Source name
-  provenanceUrl: string; // Provenance source URL
-  provenanceName: string; // Provenance source name
-  dateRangeStart: string; // Start date
-  dateRangeEnd: string; // End date
-  unit: string; // Unit (e.g., "Years")
-  periodicity: string; // Periodicity (e.g., "Yearly")
-  license: string; // License type
+  category?: string; // Category name of the stat var (e.g., "Demographics")
+  sourceName?: string; // Source name
+  provenanceUrl?: string; // Provenance source URL
+  provenanceName?: string; // Provenance source name
+  dateRangeStart?: string; // Start date
+  dateRangeEnd?: string; // End date
+  unit?: string; // Unit (e.g., "Years")
+  observationPeriod?: string; // ISO 8601 duration string (e.g., "P1Y")
+  license?: string; // License type
   licenseDcid?: string; // The DCID for the license (for linking)
 }
 
@@ -174,8 +174,6 @@ export function TileMetadataModal(
             statVarCategoryMap[statVarId] = categoryInfoMap[categoryPath];
           } else if (categoryPath) {
             statVarCategoryMap[statVarId] = categoryPath.split("/").pop();
-          } else {
-            statVarCategoryMap[statVarId] = "Unknown";
           }
         });
 
@@ -220,10 +218,10 @@ export function TileMetadataModal(
 
           if (!provenanceData) continue;
 
-          let unit = "Unknown";
-          let periodicity = "Unknown";
-          let dateRangeStart = "Unknown";
-          let dateRangeEnd = "Unknown";
+          let unit: string | undefined;
+          let observationPeriod: string | undefined;
+          let dateRangeStart: string | undefined;
+          let dateRangeEnd: string | undefined;
 
           if (variableData[statVarId]?.provenanceSummary) {
             const sources = Object.values(
@@ -234,15 +232,13 @@ export function TileMetadataModal(
 
               if (source.seriesSummary && source.seriesSummary.length > 0) {
                 const seriesSummary = source.seriesSummary[0];
-                dateRangeStart = seriesSummary.earliestDate || "Unknown";
-                dateRangeEnd = seriesSummary.latestDate || "Unknown";
+                dateRangeStart = seriesSummary.earliestDate;
+                dateRangeEnd = seriesSummary.latestDate;
 
                 const seriesKey = seriesSummary.seriesKey;
                 if (seriesKey) {
-                  unit = seriesKey.unit || "Unknown";
-                  periodicity = seriesKey.observationPeriod
-                    ? humanizeIsoDuration(seriesKey.observationPeriod)
-                    : "Unknown";
+                  unit = seriesKey.unit;
+                  observationPeriod = seriesKey.observationPeriod;
                 }
               }
             }
@@ -251,20 +247,19 @@ export function TileMetadataModal(
           metadata[statVarId] = {
             statVarId,
             statVarName: responseObj[statVarId] || statVarId,
-            category: statVarCategoryMap[statVarId] || "Unknown",
-            sourceName: provenanceData?.source[0]?.name || "Unknown",
-            provenanceUrl: provenanceData?.url?.[0]?.value || "",
+            category: statVarCategoryMap[statVarId],
+            sourceName: provenanceData?.source[0]?.name,
+            provenanceUrl: provenanceData?.url?.[0]?.value,
             provenanceName:
               provenanceData?.isPartOf?.[0]?.name ||
               provenanceData?.name?.[0]?.value ||
-              importName ||
-              "Unknown",
+              importName,
             dateRangeStart,
             dateRangeEnd,
             unit,
-            periodicity,
-            license: provenanceData?.licenseType?.[0]?.name || "Unknown",
-            licenseDcid: provenanceData?.licenseType?.[0].dcid,
+            observationPeriod,
+            license: provenanceData?.licenseType?.[0]?.name,
+            licenseDcid: provenanceData?.licenseType?.[0]?.dcid,
           };
         }
 
@@ -300,7 +295,7 @@ export function TileMetadataModal(
 
     const uniqueSourcesMap = new Map<
       string,
-      { url: string; sourceName: string }
+      { url?: string; sourceName?: string }
     >();
     statVarNames.forEach(([statVarId]) => {
       const metadata = metadataMap[statVarId];
@@ -312,20 +307,27 @@ export function TileMetadataModal(
       }
     });
 
-    const sourcesWithUrls = Array.from(uniqueSourcesMap.entries()).map(
-      ([provenanceName, data]) => {
-        const displayText = `${data.sourceName}, ${provenanceName}`;
+    const citationSources = Array.from(uniqueSourcesMap.entries())
+      .filter(([provenanceName]) => provenanceName)
+      .map(([provenanceName, data]) => {
+        const displayText = data.sourceName
+          ? `${data.sourceName}, ${provenanceName}`
+          : provenanceName;
+
         return data.url
           ? `${displayText} (${data.url.replace(/^https?:\/\//i, "")})`
           : displayText;
-      }
-    );
+      });
 
     return (
       <div>
         {statVarNames.map(([statVarId, displayName]) => {
           const metadata = metadataMap[statVarId];
           if (!metadata) return null;
+
+          const periodicity = metadata.observationPeriod
+            ? humanizeIsoDuration(metadata.observationPeriod)
+            : undefined;
 
           return (
             <div key={statVarId}>
@@ -335,18 +337,24 @@ export function TileMetadataModal(
                 <div>
                   <div>
                     <h4>Source</h4>
-                    <div>
-                      <a
-                        href={metadata.provenanceUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {metadata.provenanceUrl.replace(/^https?:\/\//i, "")}
-                      </a>
-                    </div>
-                    <div>
-                      {metadata.sourceName}, {metadata.provenanceName}
-                    </div>
+                    {metadata.provenanceUrl && (
+                      <div>
+                        <a
+                          href={metadata.provenanceUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {metadata.provenanceUrl.replace(/^https?:\/\//i, "")}
+                        </a>
+                      </div>
+                    )}
+                    {(metadata.sourceName || metadata.provenanceName) && (
+                      <div>
+                        {[metadata.sourceName, metadata.provenanceName]
+                          .filter(Boolean)
+                          .join(", ")}
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -364,46 +372,62 @@ export function TileMetadataModal(
                         {statVarId}
                       </a>
                     </div>
-                    <div>{metadata.category}</div>
+                    {metadata.category && <div>{metadata.category}</div>}
                   </div>
                 </div>
 
                 <div>
-                  <div>
-                    <h4>Date range</h4>
+                  {(metadata.dateRangeStart || metadata.dateRangeEnd) && (
                     <div>
-                      {metadata.dateRangeStart} – {metadata.dateRangeEnd}
+                      <h4>Date range</h4>
+                      <div>
+                        {[metadata.dateRangeStart, metadata.dateRangeEnd]
+                          .filter(Boolean)
+                          .join(" – ")}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  <div>
-                    <h4>Unit / Periodicity</h4>
+                  {(metadata.unit || periodicity) && (
                     <div>
-                      {metadata.unit} / {metadata.periodicity}
+                      <h4>
+                        {metadata.unit && periodicity
+                          ? "Unit / Periodicity"
+                          : metadata.unit
+                          ? "Unit"
+                          : "Periodicity"}
+                      </h4>
+                      <div>
+                        {[metadata.unit, periodicity]
+                          .filter(Boolean)
+                          .join(" / ")}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
-                <div>
+                {(metadata.license || metadata.licenseDcid) && (
                   <div>
-                    <h4>License</h4>
                     <div>
-                      {metadata.licenseDcid ? (
-                        <a
-                          href={`${apiRootToHostname(props.apiRoot)}/browser/${
-                            metadata.licenseDcid
-                          }`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {metadata.license}
-                        </a>
-                      ) : (
-                        metadata.license
-                      )}
+                      <h4>License</h4>
+                      <div>
+                        {metadata.licenseDcid ? (
+                          <a
+                            href={`${apiRootToHostname(
+                              props.apiRoot
+                            )}/browser/${metadata.licenseDcid}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {metadata.license || metadata.licenseDcid}
+                          </a>
+                        ) : (
+                          metadata.license
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {statVarId !== statVarNames[statVarNames.length - 1][0] && <hr />}
@@ -411,18 +435,20 @@ export function TileMetadataModal(
           );
         })}
 
-        <div>
-          <h3>Source and citation</h3>
-          <p>
-            Data sources • {sourcesWithUrls.join(", ")} with minor processing by
-            Data Commons.
-          </p>
-          <p>
-            Citation guidance • Please credit all sources listed above. Data
-            provided by third-party sources through Data Commons remains subject
-            to the original provider&apos;s license terms.
-          </p>
-        </div>
+        {citationSources.length > 0 && (
+          <div>
+            <h3>Source and citation</h3>
+            <p>
+              Data sources • {citationSources.join(", ")} with minor processing
+              by Data Commons.
+            </p>
+            <p>
+              Citation guidance • Please credit all sources listed above. Data
+              provided by third-party sources through Data Commons remains
+              subject to the original provider&apos;s license terms.
+            </p>
+          </div>
+        )}
       </div>
     );
   };
