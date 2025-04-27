@@ -212,9 +212,9 @@ const DialogContainer = ({
 };
 
 const maxWidthPixelMap = {
-  sm: 360,
-  md: 600,
-  lg: 800,
+  sm: 420,
+  md: 640,
+  lg: 960,
 } as const;
 
 type DialogMaxWidth = keyof typeof maxWidthPixelMap | false;
@@ -576,7 +576,6 @@ export const DialogTitle = ({
         css`
           padding: ${theme.spacing.lg}px ${theme.spacing.lg}px
             ${theme.spacing.sm}px ${theme.spacing.lg}px;
-          overflow: auto;
         `,
         baseCss,
       ]}
@@ -655,6 +654,7 @@ export const DialogActions = ({
           padding: ${theme.spacing.sm}px ${theme.spacing.lg}px
             ${theme.spacing.lg}px ${theme.spacing.lg}px;
           display: flex;
+          flex-wrap: wrap;
           justify-content: flex-end;
           gap: ${theme.spacing.md}px;
         `,
