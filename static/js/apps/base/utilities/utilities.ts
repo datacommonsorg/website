@@ -140,6 +140,7 @@ export const extractLabels = (elementId = "metadata-labels"): Labels => {
 };
 
 // TODO(nick-next): Write tests for humanizeIsoDuration
+// TODO(nick-next): Add a parameter for a translation map (for all the relevant pieces like "day")
 /**
  * This function takes an ISO 8601 duration (https://en.wikipedia.org/wiki/ISO_8601#Durations)
  * and converts it to a human-readable format. These durations, such as P1D or P1Y are
