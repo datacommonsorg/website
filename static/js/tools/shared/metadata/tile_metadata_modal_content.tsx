@@ -28,6 +28,9 @@
 import React, { ReactElement } from "react";
 
 import { humanizeIsoDuration } from "../../../apps/base/utilities/utilities";
+import { intl } from "../../../i18n/i18n";
+import { messages } from "../../../i18n/i18n_messages";
+import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { NamedNode } from "../../../shared/types";
 import { apiRootToHostname } from "../../../utils/url_utils";
 import { StatVarMetadata } from "./tile_metadata_modal";
@@ -46,7 +49,11 @@ export const TileMetadataModalContent = ({
   apiRoot,
 }: TileMetadataModalContentProps): ReactElement => {
   if (statVars.length === 0) {
-    return <div>No metadata available.</div>;
+    return (
+      <div>
+        {intl.formatMessage(metadataComponentMessages.NoMetadataAvailable)}
+      </div>
+    );
   }
 
   const uniqueSourcesMap = new Map<
@@ -94,7 +101,7 @@ export const TileMetadataModalContent = ({
             <div>
               <div>
                 <div>
-                  <h4>Source</h4>
+                  <h4>{intl.formatMessage(messages.source)}</h4>
                   {metadata.provenanceUrl && (
                     <div>
                       <a
@@ -116,7 +123,10 @@ export const TileMetadataModalContent = ({
                 </div>
 
                 <div>
-                  <h4>DCID / Topic</h4>
+                  <h4>
+                    {intl.formatMessage(metadataComponentMessages.DCID)} /{" "}
+                    {intl.formatMessage(metadataComponentMessages.Topic)}
+                  </h4>
                   <div>
                     <a
                       href={
@@ -137,7 +147,11 @@ export const TileMetadataModalContent = ({
               <div>
                 {(metadata.dateRangeStart || metadata.dateRangeEnd) && (
                   <div>
-                    <h4>Date range</h4>
+                    <h4>
+                      {intl.formatMessage(
+                        metadataComponentMessages.MetadataDateRange
+                      )}
+                    </h4>
                     <div>
                       {[metadata.dateRangeStart, metadata.dateRangeEnd]
                         .filter(Boolean)
@@ -150,10 +164,16 @@ export const TileMetadataModalContent = ({
                   <div>
                     <h4>
                       {metadata.unit && periodicity
-                        ? "Unit / Periodicity"
+                        ? `${intl.formatMessage(
+                            metadataComponentMessages.Unit
+                          )} / ${intl.formatMessage(
+                            metadataComponentMessages.Periodicity
+                          )}`
                         : metadata.unit
-                        ? "Unit"
-                        : "Periodicity"}
+                        ? intl.formatMessage(metadataComponentMessages.Unit)
+                        : intl.formatMessage(
+                            metadataComponentMessages.Periodicity
+                          )}
                     </h4>
                     <div>
                       {[metadata.unit, periodicity].filter(Boolean).join(" / ")}
@@ -165,7 +185,9 @@ export const TileMetadataModalContent = ({
               {(metadata.license || metadata.licenseDcid) && (
                 <div>
                   <div>
-                    <h4>License</h4>
+                    <h4>
+                      {intl.formatMessage(metadataComponentMessages.License)}
+                    </h4>
                     <div>
                       {metadata.licenseDcid ? (
                         <a
@@ -193,15 +215,17 @@ export const TileMetadataModalContent = ({
 
       {citationSources.length > 0 && (
         <div>
-          <h3>Source and citation</h3>
+          <h3>
+            {intl.formatMessage(metadataComponentMessages.SourceAndCitation)}
+          </h3>
           <p>
-            Data sources • {citationSources.join(", ")} with minor processing by
-            Data Commons.
+            {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
+            {citationSources.join(", ")}{" "}
+            {intl.formatMessage(metadataComponentMessages.MinorProcessing)}
           </p>
           <p>
-            Citation guidance • Please credit all sources listed above. Data
-            provided by third-party sources through Data Commons remains subject
-            to the original provider&apos;s license terms.
+            {intl.formatMessage(metadataComponentMessages.CitationGuidance)} •{" "}
+            {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
           </p>
         </div>
       )}
