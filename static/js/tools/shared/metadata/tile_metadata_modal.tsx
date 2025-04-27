@@ -70,6 +70,29 @@ interface StatVarMetadata {
   licenseDcid?: string; // The DCID for the license (for linking)
 }
 
+// Interfaces for API results. These just contain attributes of the
+// API results used within this component.
+// TODO (nick-next): create full interface
+
+interface SeriesKey {
+  unit?: string;
+  observationPeriod?: string;
+}
+
+interface SeriesSummary {
+  earliestDate?: string;
+  latestDate?: string;
+  seriesKey?: SeriesKey;
+}
+
+interface StatVarProvenanceSummary {
+  seriesSummary?: SeriesSummary[];
+}
+
+interface StatVarProvenanceSummaries {
+  provenanceSummary?: Record<string, StatVarProvenanceSummary>;
+}
+
 export function TileMetadataModal(
   props: TileMetadataModalPropType
 ): ReactElement {
@@ -179,7 +202,8 @@ export function TileMetadataModal(
         const variableResponse = await fetch(
           `${props.apiRoot || ""}/api/variable/info?${dcidsParam}`
         );
-        const variableData = await variableResponse.json();
+        const variableData: Record<string, StatVarProvenanceSummaries> =
+          await variableResponse.json();
 
         // we create a set of provenances so that we can look them all up at once
         const provenances = new Set<string>();
@@ -225,7 +249,7 @@ export function TileMetadataModal(
               variableData[statVarId].provenanceSummary
             );
             if (sources.length > 0) {
-              const source = sources[0] as any;
+              const source = sources[0];
 
               if (source.seriesSummary && source.seriesSummary.length > 0) {
                 const seriesSummary = source.seriesSummary[0];
