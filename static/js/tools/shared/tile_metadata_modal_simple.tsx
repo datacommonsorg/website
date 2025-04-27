@@ -23,8 +23,14 @@
  */
 
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
+import { Button } from "../../components/elements/button/button";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../../components/elements/dialog/dialog";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { StatVarSpec } from "../../shared/types";
@@ -70,7 +76,6 @@ export function TileMetadataModalSimple(
 ): ReactElement {
   const [modalOpen, setModalOpen] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
-  const toggleModal = (): void => setModalOpen(!modalOpen);
   const dataCommonsClient = getDataCommonsClient(props.apiRoot);
 
   const dcids = useMemo(() => {
@@ -116,54 +121,48 @@ export function TileMetadataModalSimple(
       >
         {intl.formatMessage(messages.showMetadata)}
       </a>
-      {modalOpen && (
-        <Modal
-          isOpen={modalOpen}
-          scrollable
-          container={props.containerRef.current}
-          toggle={toggleModal}
-          className="metadata-modal modal-dialog-centered modal-lg"
-        >
-          <ModalHeader toggle={toggleModal} close={<></>}>
-            {intl.formatMessage(messages.chooseVariable)}
-          </ModalHeader>
+      <Dialog
+        open={modalOpen}
+        containerRef={props.containerRef}
+        onClose={(): void => setModalOpen(false)}
+        className="metadata-modal"
+      >
+        <DialogTitle>{intl.formatMessage(messages.chooseVariable)}</DialogTitle>
+        <DialogContent>
           <div className="modal-subtitle">
             {intl.formatMessage(messages.selectVariable)}
           </div>
-          <ModalBody>
-            <div className="metadata-modal-links">
-              {statVarNames.length
-                ? statVarNames.map((dcidName, i) => (
-                    <MetadataRow
-                      dcid={dcidName[0]}
-                      name={dcidName[1]}
-                      apiRoot={props.apiRoot}
-                      key={i}
-                    />
-                  ))
-                : // Use DCID as display name as a fallback. Note, might not be displayed in order.
-                  [...dcids].map((dcid, i) => (
-                    <MetadataRow
-                      dcid={dcid}
-                      name={dcid}
-                      apiRoot={props.apiRoot}
-                      key={i}
-                    />
-                  ))}
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              className="modal-close"
-              onClick={(): void => {
-                setModalOpen(false);
-              }}
-            >
-              {intl.formatMessage(messages.close)}
-            </Button>
-          </ModalFooter>
-        </Modal>
-      )}
+          <div className="metadata-modal-links">
+            {statVarNames.length
+              ? statVarNames.map((dcidName, i) => (
+                  <MetadataRow
+                    dcid={dcidName[0]}
+                    name={dcidName[1]}
+                    apiRoot={props.apiRoot}
+                    key={i}
+                  />
+                ))
+              : // Use DCID as display name as a fallback. Note, might not be displayed in order.
+                [...dcids].map((dcid, i) => (
+                  <MetadataRow
+                    dcid={dcid}
+                    name={dcid}
+                    apiRoot={props.apiRoot}
+                    key={i}
+                  />
+                ))}
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={(): void => {
+              setModalOpen(false);
+            }}
+          >
+            {intl.formatMessage(messages.close)}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
