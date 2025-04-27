@@ -26,7 +26,6 @@
 
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
-import { humanizeIsoDuration } from "../../../apps/base/utilities/utilities";
 import { Button } from "../../../components/elements/button/button";
 import {
   Dialog,
@@ -39,9 +38,7 @@ import { messages } from "../../../i18n/i18n_messages";
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
-import { apiRootToHostname } from "../../../utils/url_utils";
-
-const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
+import { TileMetadataModalContent } from "./tile_metadata_modal_content";
 
 interface TileMetadataModalPropType {
   // A full set of the facets used within the chart
@@ -55,7 +52,7 @@ interface TileMetadataModalPropType {
 }
 
 // Metadata associated with a stat var and provenance/source combination.
-interface StatVarMetadata {
+export interface StatVarMetadata {
   statVarId: string; // DCID of the stat var
   statVarName: string; // Label of the stat var
   category?: string; // Category name of the stat var (e.g., "Demographics")
@@ -72,7 +69,7 @@ interface StatVarMetadata {
 
 // Interfaces for API results. These just contain attributes of the
 // API results used within this component.
-// TODO (nick-next): create full interface
+// TODO (nick-next): create full interfaces
 
 interface SeriesKey {
   unit?: string;
@@ -305,177 +302,6 @@ export function TileMetadataModal(
     setStatVars([]);
   }, [props.facets, props.statVarToFacet]);
 
-  const renderMetadataContent = (): ReactElement => {
-    if (loading) {
-      return null;
-    }
-
-    if (statVars.length === 0) {
-      return <div>No metadata available.</div>;
-    }
-
-    const uniqueSourcesMap = new Map<
-      string,
-      { url?: string; sourceName?: string }
-    >();
-    statVars.forEach((statVar) => {
-      const metadata = metadataMap[statVar.dcid];
-      if (metadata && metadata.provenanceName) {
-        uniqueSourcesMap.set(metadata.provenanceName, {
-          url: metadata.provenanceUrl,
-          sourceName: metadata.sourceName,
-        });
-      }
-    });
-
-    const citationSources = Array.from(uniqueSourcesMap.entries())
-      .filter(([provenanceName]) => provenanceName)
-      .map(([provenanceName, data]) => {
-        const displayText = data.sourceName
-          ? `${data.sourceName}, ${provenanceName}`
-          : provenanceName;
-
-        return data.url
-          ? `${displayText} (${data.url.replace(/^https?:\/\//i, "")})`
-          : displayText;
-      });
-
-    return (
-      <div>
-        {statVars.map((statVar) => {
-          const statVarId = statVar.dcid;
-          const statVarName = statVar.name;
-          const metadata = metadataMap[statVarId];
-          if (!metadata) return null;
-
-          const periodicity = metadata.observationPeriod
-            ? humanizeIsoDuration(metadata.observationPeriod)
-            : undefined;
-
-          return (
-            <div key={statVarId}>
-              <h2>{statVarName}</h2>
-
-              <div>
-                <div>
-                  <div>
-                    <h4>Source</h4>
-                    {metadata.provenanceUrl && (
-                      <div>
-                        <a
-                          href={metadata.provenanceUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {metadata.provenanceUrl.replace(/^https?:\/\//i, "")}
-                        </a>
-                      </div>
-                    )}
-                    {(metadata.sourceName || metadata.provenanceName) && (
-                      <div>
-                        {[metadata.sourceName, metadata.provenanceName]
-                          .filter(Boolean)
-                          .join(", ")}
-                      </div>
-                    )}
-                  </div>
-
-                  <div>
-                    <h4>DCID / Topic</h4>
-                    <div>
-                      <a
-                        href={
-                          apiRootToHostname(props.apiRoot) +
-                          SV_EXPLORER_REDIRECT_PREFIX +
-                          statVarId
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {statVarId}
-                      </a>
-                    </div>
-                    {metadata.category && <div>{metadata.category}</div>}
-                  </div>
-                </div>
-
-                <div>
-                  {(metadata.dateRangeStart || metadata.dateRangeEnd) && (
-                    <div>
-                      <h4>Date range</h4>
-                      <div>
-                        {[metadata.dateRangeStart, metadata.dateRangeEnd]
-                          .filter(Boolean)
-                          .join(" – ")}
-                      </div>
-                    </div>
-                  )}
-
-                  {(metadata.unit || periodicity) && (
-                    <div>
-                      <h4>
-                        {metadata.unit && periodicity
-                          ? "Unit / Periodicity"
-                          : metadata.unit
-                          ? "Unit"
-                          : "Periodicity"}
-                      </h4>
-                      <div>
-                        {[metadata.unit, periodicity]
-                          .filter(Boolean)
-                          .join(" / ")}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {(metadata.license || metadata.licenseDcid) && (
-                  <div>
-                    <div>
-                      <h4>License</h4>
-                      <div>
-                        {metadata.licenseDcid ? (
-                          <a
-                            href={`${apiRootToHostname(
-                              props.apiRoot
-                            )}/browser/${metadata.licenseDcid}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {metadata.license || metadata.licenseDcid}
-                          </a>
-                        ) : (
-                          metadata.license
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {statVarId !== statVars[statVars.length - 1].dcid && <hr />}
-            </div>
-          );
-        })}
-
-        {citationSources.length > 0 && (
-          <div>
-            <h3>Source and citation</h3>
-            <p>
-              Data sources • {citationSources.join(", ")} with minor processing
-              by Data Commons.
-            </p>
-            <p>
-              Citation guidance • Please credit all sources listed above. Data
-              provided by third-party sources through Data Commons remains
-              subject to the original provider&apos;s license terms.
-            </p>
-          </div>
-        )}
-      </div>
-    );
-  };
-
   return (
     <>
       <a
@@ -495,7 +321,14 @@ export function TileMetadataModal(
         loading={loading}
       >
         <DialogTitle>{intl.formatMessage(messages.metadata)}</DialogTitle>
-        <DialogContent>{renderMetadataContent()}</DialogContent>
+        <DialogContent>
+          {!loading && (
+            <TileMetadataModalContent
+              statVars={statVars}
+              metadataMap={metadataMap}
+            />
+          )}
+        </DialogContent>
         <DialogActions>
           <Button
             onClick={(): void => {
