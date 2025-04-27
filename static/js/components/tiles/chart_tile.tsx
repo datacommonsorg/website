@@ -113,6 +113,7 @@ export function ChartTileContainer(
             <TileSources
               apiRoot={props.apiRoot}
               containerRef={containerRef}
+              sources={props.sources}
               facets={props.facets}
               statVarToFacet={props.statVarToFacet}
               statVarSpecs={props.statVarSpecs}
