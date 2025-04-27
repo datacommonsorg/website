@@ -242,11 +242,11 @@ export function TileMetadataModal(
           let dateRangeEnd: string | undefined;
 
           if (variableData[statVarId]?.provenanceSummary) {
-            const sources = Object.values(
-              variableData[statVarId].provenanceSummary
-            );
-            if (sources.length > 0) {
-              const source = sources[0];
+            const source =
+              variableData[statVarId].provenanceSummary?.[provenanceId];
+            if (source) {
+              const source =
+                variableData[statVarId].provenanceSummary?.[provenanceId];
 
               if (source.seriesSummary && source.seriesSummary.length > 0) {
                 const seriesSummary = source.seriesSummary[0];
