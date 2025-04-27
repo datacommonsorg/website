@@ -480,26 +480,23 @@ export const Dialog = ({
   return (
     <DialogContext.Provider value={{ onClose, showCloseButton }}>
       <DialogContainer containerRef={containerRef} css={containerCss}>
-        {isInteractive && (
-          <div
-            role="presentation"
-            onClick={handleOverlayClick}
-            className="dialog-overlay"
-            css={[
-              css`
-                position: fixed;
-                inset: 0;
-                background-color: rgba(0, 0, 0, 0.5);
-                pointer-events: auto;
-                opacity: ${isVisible ? 1 : 0};
-                transition: opacity
-                  ${isVisible ? fadeInDuration : fadeOutDuration}ms ease-in-out;
-                z-index: 1;
-              `,
-              overlayCss,
-            ]}
-          />
-        )}
+        <div
+          role="presentation"
+          onClick={handleOverlayClick}
+          className="dialog-overlay"
+          css={[
+            css`
+              position: fixed;
+              inset: 0;
+              background-color: rgba(0, 0, 0, 0.5);
+              opacity: ${isVisible ? 1 : 0};
+              transition: opacity ${getActiveFadeDuration()}ms ease-in-out;
+              pointer-events: ${isInteractive ? "auto" : "none"};
+              z-index: 1;
+            `,
+            overlayCss,
+          ]}
+        />
 
         {isInteractive && loading && (
           <div
