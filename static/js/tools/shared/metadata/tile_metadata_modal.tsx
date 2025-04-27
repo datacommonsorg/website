@@ -21,7 +21,7 @@
  * stat var, relevant information about the provenance/source used by
  * that stat var.
  *
- * At the bottom of the chart, we display a combined citation section.
+ * At the bottom of the modal, we display a combined citation section.
  */
 
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
@@ -37,7 +37,7 @@ import {
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import { StatMetadata } from "../../../shared/stat_types";
-import { StatVarSpec } from "../../../shared/types";
+import { NamedNode, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { apiRootToHostname } from "../../../utils/url_utils";
 
@@ -53,9 +53,6 @@ interface TileMetadataModalPropType {
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
 }
-
-// [dcid, name]
-type DcidNameTuple = [string, string];
 
 // Metadata associated with a stat var and provenance/source combination.
 interface StatVarMetadata {
@@ -78,7 +75,7 @@ export function TileMetadataModal(
 ): ReactElement {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
+  const [statVars, setStatVars] = useState<NamedNode[]>([]);
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata>
   >({});
@@ -99,7 +96,7 @@ export function TileMetadataModal(
 
   useEffect(() => {
     if (!modalOpen) return;
-    if (statVarSet.size === statVarNames.length) return;
+    if (statVarSet.size === statVars.length) return;
 
     setLoading(true);
 
@@ -115,12 +112,12 @@ export function TileMetadataModal(
           dcids: statVars,
           prop: "name",
         });
-        const statVarList: DcidNameTuple[] = [];
+        const statVarList: NamedNode[] = [];
         for (const dcid in responseObj) {
-          statVarList.push([dcid, responseObj[dcid]]);
+          statVarList.push({ dcid, name: responseObj[dcid] });
         }
-        statVarList.sort((a, b) => (a[1] > b[1] ? 1 : -1));
-        setStatVarNames(statVarList);
+        statVarList.sort((a, b) => (a.name > b.name ? 1 : -1));
+        setStatVars(statVarList);
 
         // Get stat var categories. This is a two-step process: first we
         // look up the path to the variable group. Then we look up the group
@@ -273,7 +270,7 @@ export function TileMetadataModal(
   }, [
     modalOpen,
     statVarSet,
-    statVarNames.length,
+    statVars.length,
     dataCommonsClient,
     props.apiRoot,
     props.statVarToFacet,
@@ -281,7 +278,7 @@ export function TileMetadataModal(
   ]);
 
   useEffect(() => {
-    setStatVarNames([]);
+    setStatVars([]);
   }, [props.facets, props.statVarToFacet]);
 
   const renderMetadataContent = (): ReactElement => {
@@ -289,7 +286,7 @@ export function TileMetadataModal(
       return null;
     }
 
-    if (statVarNames.length === 0) {
+    if (statVars.length === 0) {
       return <div>No metadata available.</div>;
     }
 
@@ -297,8 +294,8 @@ export function TileMetadataModal(
       string,
       { url?: string; sourceName?: string }
     >();
-    statVarNames.forEach(([statVarId]) => {
-      const metadata = metadataMap[statVarId];
+    statVars.forEach((statVar) => {
+      const metadata = metadataMap[statVar.dcid];
       if (metadata && metadata.provenanceName) {
         uniqueSourcesMap.set(metadata.provenanceName, {
           url: metadata.provenanceUrl,
@@ -321,7 +318,9 @@ export function TileMetadataModal(
 
     return (
       <div>
-        {statVarNames.map(([statVarId, displayName]) => {
+        {statVars.map((statVar) => {
+          const statVarId = statVar.dcid;
+          const statVarName = statVar.name;
           const metadata = metadataMap[statVarId];
           if (!metadata) return null;
 
@@ -331,7 +330,7 @@ export function TileMetadataModal(
 
           return (
             <div key={statVarId}>
-              <h2>{displayName}</h2>
+              <h2>{statVarName}</h2>
 
               <div>
                 <div>
@@ -430,7 +429,7 @@ export function TileMetadataModal(
                 )}
               </div>
 
-              {statVarId !== statVarNames[statVarNames.length - 1][0] && <hr />}
+              {statVarId !== statVars[statVars.length - 1].dcid && <hr />}
             </div>
           );
         })}
