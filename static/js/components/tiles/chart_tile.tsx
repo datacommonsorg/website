@@ -27,12 +27,12 @@ import { ChartEmbed } from "../../place/chart_embed";
 import { IconPlaceholder } from "../../shared/components";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
+import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import {
   formatString,
   getChartTitle,
   getMergedSvg,
   ReplacementStrings,
-  TileSources,
 } from "../../utils/tile_utils";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";

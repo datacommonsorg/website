@@ -21,32 +21,16 @@
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { ReactElement } from "react";
 
-import { NL_SOURCE_REPLACEMENTS } from "../constants/app/explore_constants";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
 import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
-import { intl } from "../i18n/i18n";
-import { messages } from "../i18n/i18n_messages";
-import {
-  GA_EVENT_TILE_EXPLORE_MORE,
-  GA_PARAM_URL,
-  triggerGAEvent,
-} from "../shared/ga_events";
-import {
-  PointApiResponse,
-  SeriesApiResponse,
-  StatMetadata,
-} from "../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { getCappedStatVarDate, urlToDisplayText } from "../shared/util";
-import { TileMetadataModal } from "../tools/shared/tile_metadata_modal";
-import { TileMetadataModalSimple } from "../tools/shared/tile_metadata_modal_simple";
+import { getCappedStatVarDate } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
-import { isNlInterface } from "./explore_utils";
 import { getUnit } from "./stat_metadata_utils";
 import { addPerCapitaToTitle } from "./subject_page_utils";
 
@@ -337,101 +321,6 @@ export function getTileEventTypeSpecs(
     relevantEventSpecs[specId] = eventTypeSpec[specId];
   }
   return relevantEventSpecs;
-}
-
-/**
- * Gets the JSX element for displaying a list of sources and stat vars.
- */
-export function TileSources(props: {
-  // the facets that make up the sources of the charts
-  // if given, these will be used to supply the source list, and to populate
-  // the detailed metadata modal. If not supplied, we fall back to a simple
-  // modal display using the sources.
-  facets?: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet?: Record<string, string>;
-  // If available, the stat vars to link to.
-  statVarSpecs?: StatVarSpec[];
-  // The original string sources (urls) - now optional
-  // If given and the facets and mappings are not given, we
-  // fall back to the old sources.
-  sources?: Set<string> | string[];
-  containerRef?: React.RefObject<HTMLElement>;
-  apiRoot?: string;
-}): ReactElement {
-  const { facets, statVarToFacet, statVarSpecs, sources } = props;
-  if (!facets && !sources) {
-    return null;
-  }
-
-  const sourceList: string[] = facets
-    ? Object.values(facets).map((facet) => facet.provenanceUrl)
-    : Array.from(sources);
-  //const seenSourceText = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    // HACK for updating source for NL interface
-    let sourceUrl = source;
-    if (isNlInterface()) {
-      sourceUrl = NL_SOURCE_REPLACEMENTS[source] || source;
-    }
-    const sourceText = urlToDisplayText(sourceUrl);
-    return (
-      <span key={sourceUrl}>
-        {index > 0 ? ", " : ""}
-        <a
-          href={sourceUrl}
-          rel="noreferrer"
-          target="_blank"
-          title={sourceUrl}
-          onClick={(): boolean => {
-            triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
-              [GA_PARAM_URL]: sourceUrl,
-            });
-            return true;
-          }}
-        >
-          {sourceText}
-        </a>
-        {globalThis.viaGoogle
-          ? " " + intl.formatMessage(messages.viaGoogle)
-          : ""}
-      </span>
-    );
-  });
-  return (
-    <>
-      {sourcesJsx.length > 0 && (
-        <div className="sources" {...{ part: "source" }}>
-          {sourcesJsx.length > 1
-            ? intl.formatMessage(messages.sources)
-            : intl.formatMessage(messages.source)}
-          : <span {...{ part: "source-links" }}>{sourcesJsx}</span>
-          {statVarSpecs && statVarSpecs.length > 0 && (
-            <>
-              <span {...{ part: "source-separator" }}> • </span>
-              <span {...{ part: "source-show-metadata-link" }}>
-                {facets && statVarToFacet ? (
-                  <TileMetadataModal
-                    apiRoot={props.apiRoot}
-                    containerRef={props.containerRef}
-                    statVarSpecs={statVarSpecs}
-                    facets={facets}
-                    statVarToFacet={statVarToFacet}
-                  ></TileMetadataModal>
-                ) : (
-                  <TileMetadataModalSimple
-                    apiRoot={props.apiRoot}
-                    containerRef={props.containerRef}
-                    statVarSpecs={statVarSpecs}
-                  ></TileMetadataModalSimple>
-                )}
-              </span>
-            </>
-          )}
-        </div>
-      )}
-    </>
-  );
 }
 
 // Processes a unit string by converting "X^Y" to "X<superscript Y>"

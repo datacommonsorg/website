@@ -24,18 +24,18 @@
 
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
-import { Button } from "../../components/elements/button/button";
+import { Button } from "../../../components/elements/button/button";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../../components/elements/dialog/dialog";
-import { intl } from "../../i18n/i18n";
-import { messages } from "../../i18n/i18n_messages";
-import { StatVarSpec } from "../../shared/types";
-import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { apiRootToHostname } from "../../utils/url_utils";
+} from "../../../components/elements/dialog/dialog";
+import { intl } from "../../../i18n/i18n";
+import { messages } from "../../../i18n/i18n_messages";
+import { StatVarSpec } from "../../../shared/types";
+import { getDataCommonsClient } from "../../../utils/data_commons_client";
+import { apiRootToHostname } from "../../../utils/url_utils";
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 

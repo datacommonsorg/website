@@ -28,6 +28,7 @@ import {
 import { formatNumber, translateUnit } from "../../i18n/i18n";
 import { Observation, StatMetadata } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
@@ -36,7 +37,6 @@ import {
   getNoDataErrorMsg,
   getStatFormat,
   ReplacementStrings,
-  TileSources,
 } from "../../utils/tile_utils";
 
 // units that should be formatted as part of the number
