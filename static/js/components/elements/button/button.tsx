@@ -137,14 +137,18 @@ interface CommonButtonProps {
 interface ButtonElementProps
   extends CommonButtonProps,
     ButtonHTMLAttributes<HTMLButtonElement> {
+  // No href prop for button elements
   href?: undefined;
+  // Click handler for button elements
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 interface AnchorElementProps
   extends CommonButtonProps,
     AnchorHTMLAttributes<HTMLAnchorElement> {
+  // href is required for anchor elements
   href: string;
+  // Click handler for anchor elements
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
