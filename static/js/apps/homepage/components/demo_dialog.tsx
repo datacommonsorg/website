@@ -199,14 +199,7 @@ export const DemoDialog = (): ReactElement => {
         >
           <DialogTitle>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu purus
-            sapien. Fusce tincidunt urna quis nisi vulputate, vitae vulputate
-            risus bibendum. Etiam ultricies nisl felis, ut auctor est volutpat
-            vel. Suspendisse tempus dapibus suscipit. Sed posuere sodales quam
-            eu facilisis. In neque eros, viverra eu elit quis, efficitur
-            fringilla sapien. Orci varius natoque penatibus et magnis dis
-            parturient montes, nascetur ridiculus mus. Aenean nec sem mollis,
-            cursus erat non, vulputate erat. Duis efficitur dapibus risus quis
-            tincidunt. Nam eu bibendum ligula.
+            sapien.
           </DialogTitle>
           <DialogContent>
             <p>
