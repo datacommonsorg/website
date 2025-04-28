@@ -59,6 +59,7 @@ import {
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import { SuccessResult } from "./success_result";
+import { url } from "inspector";
 
 enum LoadingStatus {
   LOADING = "loading",
@@ -205,7 +206,8 @@ export function App(props: AppProps): ReactElement {
   function processFulfillData(
     fulfillData: any,
     userQuery?: string,
-    setPageConfig?: (config: any) => void
+    setPageConfig?: (config: any) => void,
+    isHighlight = false
   ): void {
     setDebugData(fulfillData["debug"]);
     setStoreDebugData(fulfillData["debug"]);
@@ -241,6 +243,7 @@ export function App(props: AppProps): ReactElement {
     };
     let isPendingRedirect = false;
     if (
+      !isHighlight &&
       pageMetadata &&
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
@@ -309,6 +312,7 @@ export function App(props: AppProps): ReactElement {
     const hashParams = queryString.parse(window.location.hash);
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
     const urlHashParams: UrlHashParams = extractUrlHashParams(hashParams);
+    const query = urlHashParams.query;
 
     let topicsToUse = toApiList(urlHashParams.topic || DEFAULT_TOPIC);
 
@@ -423,7 +427,8 @@ export function App(props: AppProps): ReactElement {
           processFulfillData(
             highlightResponse,
             undefined,
-            setHighlightPageMetadata
+            setHighlightPageMetadata,
+            true
           );
         }
       );
