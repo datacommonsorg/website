@@ -201,6 +201,7 @@ export function App(props: AppProps): ReactElement {
    * @param fulfillData The fulfill data from the search API response
    * @param userQuery The user's search query
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function processFulfillData(
     fulfillData: any,
     userQuery?: string,
@@ -320,6 +321,7 @@ export function App(props: AppProps): ReactElement {
       places = [urlHashParams.place];
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let fulfillmentPromise: Promise<any>;
     let highlightPromise: Promise<any>;
 

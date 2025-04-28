@@ -15,9 +15,9 @@ interface HighlightResultProps {
   maxBlock: number;
 }
 
-const HighlightResult: React.FC<HighlightResultProps> = (
+export function HighlightResult(
   props: HighlightResultProps
-) => {
+): React.ReactElement {
   return (
     <div>
       <SubjectPageMainPane
@@ -31,6 +31,4 @@ const HighlightResult: React.FC<HighlightResultProps> = (
       />
     </div>
   );
-};
-
-export default HighlightResult;
+}

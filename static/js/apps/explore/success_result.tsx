@@ -44,7 +44,7 @@ import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "./debug_info";
-import HighlightResult from "./highlight_result";
+import { HighlightResult } from "./highlight_result";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
