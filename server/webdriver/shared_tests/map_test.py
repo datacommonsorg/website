@@ -122,7 +122,11 @@ class MapTestMixin():
         """
     self.driver.get(self.url_ + MAP_URL)
 
-    shared.search_for_california_counties(self, self.driver)
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             place_type="County",
+                             is_new_vis_tools=False)
 
     # Choose stat var
     shared.click_sv_group(self.driver, "Demographics")

@@ -65,7 +65,7 @@ def wait_for_loading(driver):
 
 def click_sv_group(driver, svg_name):
   """In the stat var widget, click on the stat var group titled svg_name."""
-  xpath_selector = f"//span[contains(@class, 'Collapsible__trigger') and .//div[contains(@class, 'node-title')]//span[contains(@class, 'title')][contains(text(), '{svg_name}')]]"
+  xpath_selector = f"//div[contains(@class, 'node-title') and .//*[contains(text(), '{svg_name}')]]"
   click_el(driver, (By.XPATH, xpath_selector))
 
 
@@ -153,10 +153,21 @@ def assert_topics(self, driver, path_to_topics, classname, expected_topics):
     self.assertEqual(item.text, expected_text)
 
 
-def search_for_california_counties(self, driver):
-  # Type "California" into the search box.
+def search_for_places(self,
+                      driver,
+                      search_term,
+                      place_type,
+                      is_new_vis_tools=True):
+  if is_new_vis_tools:
+    _search_for_places(self, driver, search_term, place_type)
+  else:
+    _search_for_places_old(self, driver, search_term, place_type)
+
+
+def _search_for_places_old(self, driver, search_term, place_type):
+  # Type term into the search box.
   search_box_input = find_elem(driver, by=By.ID, value='ac')
-  search_box_input.send_keys(PLACE_SEARCH_CA)
+  search_box_input.send_keys(search_term)
 
   # Wait until there is at least one result in autocomplete results.
   self.assertIsNotNone(wait_elem(driver, value='pac-item'))
@@ -170,18 +181,18 @@ def search_for_california_counties(self, driver):
   place_selector_place_type = find_elem(driver,
                                         by=By.ID,
                                         value='place-selector-place-type')
-  Select(place_selector_place_type).select_by_value('County')
+  Select(place_selector_place_type).select_by_value(place_type)
   wait_for_loading(driver)
 
 
-def search_for_california_counties_vis(self, driver):
+def _search_for_places(self, driver, search_term, place_type):
   # Click start
   click_el(driver, (By.CLASS_NAME, 'start-button'))
 
-  # Type California into the search box.
+  # Type term into the search box.
   wait_elem(self.driver, by=By.ID, value='location-field')
   search_box_input = self.driver.find_element(By.ID, 'ac')
-  search_box_input.send_keys(PLACE_SEARCH_CA)
+  search_box_input.send_keys(search_term)
 
   # Wait until there is at least one result in autocomplete results.
   self.assertIsNotNone(wait_elem(driver, value='pac-item'))
@@ -193,14 +204,14 @@ def search_for_california_counties_vis(self, driver):
   # Click continue
   click_el(driver, (By.CLASS_NAME, 'continue-button'))
 
-  # Wait for place types to load and click on 'County'
+  # Wait for place types to load and click on one
   wait_elem(self.driver,
             by=By.CSS_SELECTOR,
             value='.place-type-selector .form-check-input')
   place_type_inputs = self.driver.find_elements(By.CSS_SELECTOR,
                                                 '.place-type-selector label')
   for place_type_input in place_type_inputs:
-    if place_type_input.text == 'County':
+    if place_type_input.text == place_type:
       place_type_input.click()
       break
 

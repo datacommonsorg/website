@@ -81,7 +81,11 @@ class ScatterTestMixin():
     self.driver.get(self.url_ + SCATTER_URL)
     shared.wait_for_loading(self.driver)
 
-    shared.search_for_california_counties(self, self.driver)
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             place_type="County",
+                             is_new_vis_tools=False)
 
     # Choose stat vars
     shared.click_sv_group(self.driver, "Demographics")

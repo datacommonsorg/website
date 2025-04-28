@@ -161,7 +161,10 @@ class VisScatterTestMixin():
     page_header = self.driver.find_element(By.CSS_SELECTOR, '.info-content h3')
     self.assertEqual(page_header.text, 'Scatter Plot')
 
-    shared.search_for_california_counties_vis(self, self.driver)
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             place_type="County")
 
     # Choose stat vars
     shared.click_sv_group(self.driver, "Demographics")
