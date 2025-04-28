@@ -15,7 +15,7 @@
 from typing import Dict, List
 from unittest import mock
 
-from server.routes.dev_place.types import Place
+from server.routes.place.types import Place
 
 NANTERRE = Place(dcid="wikidataId/Q170507", name="Nanterre", types=["City"])
 ARR_NANTERRE = Place(dcid="wikidataId/Q385728",

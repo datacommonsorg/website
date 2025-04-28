@@ -240,8 +240,8 @@ def register_routes_common(app):
   from server.routes.place import html as place_html
   app.register_blueprint(place_html.bp)
 
-  from server.routes.dev_place import api as dev_place_api
-  app.register_blueprint(dev_place_api.bp)
+  from server.routes.place import api as place_api
+  app.register_blueprint(place_api.bp)
 
   from server.routes.ranking import html as ranking_html
   app.register_blueprint(ranking_html.bp)

@@ -72,7 +72,7 @@ class Category:
 @dataclass
 class PlaceChartsApiResponse:
   """
-  API Response for /api/dev-place/charts/<place_dcid>
+  API Response for /api/place/charts/<place_dcid>
   """
   blocks: List[BlockConfig]
   place: Place
@@ -82,7 +82,7 @@ class PlaceChartsApiResponse:
 @dataclass
 class RelatedPlacesApiResponse:
   """
-  API Response for /api/dev-place/related-places/<place_dcid>
+  API Response for /api/place/related-places/<place_dcid>
   """
   childPlaceType: str
   childPlaces: List[Place]
@@ -170,6 +170,6 @@ class OverviewTableDataRow:
 @dataclass
 class PlaceOverviewTableApiResponse:
   """
-  API Response for /api/dev-place/overview-table/<place_dcid>
+  API Response for /api/place/overview-table/<place_dcid>
   """
   data: List[OverviewTableDataRow]
