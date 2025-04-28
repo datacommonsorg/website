@@ -140,7 +140,9 @@ export const TileMetadataModalContent = ({
                       {statVarId}
                     </a>
                   </div>
-                  {metadata.category && <div>{metadata.category}</div>}
+                  {metadata.categories.length > 0 && (
+                    <div>{metadata.categories.join(", ")}</div>
+                  )}
                 </div>
               </div>
 

@@ -55,7 +55,7 @@ interface TileMetadataModalPropType {
 export interface StatVarMetadata {
   statVarId: string; // DCID of the stat var
   statVarName: string; // Label of the stat var
-  category?: string; // Category name of the stat var (e.g., "Demographics")
+  categories: string[]; // Category names of the stat var (e.g., "Demographics")
   sourceName?: string; // Source name
   provenanceUrl?: string; // Provenance source URL
   provenanceName?: string; // Provenance source name
@@ -153,10 +153,10 @@ export function TileMetadataModal(
 
         const categoryPaths = new Set<string>();
         statVars.forEach((_, index) => {
-          const categoryPath = categoryPathResults[index][1];
-          if (categoryPath) {
-            categoryPaths.add(categoryPath);
-          }
+          const categories: string[] =
+            categoryPathResults[index]?.slice(1) ?? [];
+          const lastDcid = categories[categories.length - 1];
+          if (lastDcid) categoryPaths.add(lastDcid);
         });
 
         // Step 2: from those paths, get the absolute names
@@ -184,14 +184,13 @@ export function TileMetadataModal(
         );
         await Promise.all(categoryPromises);
 
-        const statVarCategoryMap: Record<string, string> = {};
+        const statVarCategoryMap: Record<string, string[]> = {};
         statVars.forEach((statVarId, index) => {
-          const categoryPath = categoryPathResults[index][1];
-          if (categoryPath && categoryInfoMap[categoryPath]) {
-            statVarCategoryMap[statVarId] = categoryInfoMap[categoryPath];
-          } else if (categoryPath) {
-            statVarCategoryMap[statVarId] = categoryPath.split("/").pop();
-          }
+          const categories: string[] =
+            categoryPathResults[index]?.slice(1) ?? [];
+          const lastDcid = categories[categories.length - 1];
+          const topic = lastDcid && categoryInfoMap[lastDcid];
+          statVarCategoryMap[statVarId] = topic ? [topic] : [];
         });
 
         // Next we get full information for all the stat vars
@@ -265,7 +264,7 @@ export function TileMetadataModal(
           metadata[statVarId] = {
             statVarId,
             statVarName: responseObj[statVarId] || statVarId,
-            category: statVarCategoryMap[statVarId],
+            categories: statVarCategoryMap[statVarId],
             sourceName: provenanceData?.source[0]?.name,
             provenanceUrl: provenanceData?.url?.[0]?.value,
             provenanceName:
