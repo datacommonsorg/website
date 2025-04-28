@@ -156,6 +156,15 @@ def search_for_places(self,
                       search_term,
                       place_type,
                       is_new_vis_tools=True):
+  """Interacts with a visualization tool page to manually search for places.
+
+  - Enters the given term in the search bar
+  - Clicks the first autocomplete response
+  - Selects the given place type from the options.
+
+  When is_new_vis_tools=True (default), expects the DOM of the newer version
+  of the visualization tools.
+  """
   if is_new_vis_tools:
     _search_for_places(self, driver, search_term, place_type)
   else:
