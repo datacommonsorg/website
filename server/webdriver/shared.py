@@ -41,8 +41,6 @@ WEB_COMPONENT_TAG_NAMES = [
     'datacommons-scatter'
 ]
 
-PLACE_SEARCH_CA = 'California'
-
 
 def wait_for_loading(driver):
   """
@@ -178,6 +176,7 @@ def _search_for_places_old(self, driver, search_term, place_type):
   self.assertIsNotNone(wait_elem(driver, value='chip'))
 
   # Choose place type
+  wait_for_loading(driver)
   place_selector_place_type = find_elem(driver,
                                         by=By.ID,
                                         value='place-selector-place-type')
