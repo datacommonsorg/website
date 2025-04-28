@@ -187,6 +187,14 @@ export function App(): ReactElement {
         `}
       >
         <div
+          className="warning-banner"
+          css={css`
+            color: ${theme.colors.box.red.text};
+          `}
+        >
+          Google Internal Only
+        </div>
+        <div
           className="inputs"
           css={css`
             display: flex;
