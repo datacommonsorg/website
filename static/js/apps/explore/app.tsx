@@ -100,6 +100,8 @@ export function App(props: AppProps): ReactElement {
   );
   const [query, setQuery] = useState<string>("");
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
+  const [highlightPageMetadata, setHighlightPageMetadata] =
+    useState<SubjectPageMetadata>(null);
   const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
@@ -169,6 +171,7 @@ export function App(props: AppProps): ReactElement {
               exploreContext={exploreContext}
               queryResult={queryResult}
               pageMetadata={pageMetadata}
+              highlightPageMetadata={highlightPageMetadata}
               userMessage={userMessage}
               hideHeaderSearchBar={props.hideHeaderSearchBar}
             />
@@ -198,14 +201,18 @@ export function App(props: AppProps): ReactElement {
    * @param fulfillData The fulfill data from the search API response
    * @param userQuery The user's search query
    */
-  function processFulfillData(fulfillData: any, userQuery?: string): void {
+  function processFulfillData(
+    fulfillData: any,
+    userQuery?: string,
+    setPageConfig?: (config: any) => void
+  ): void {
     setDebugData(fulfillData["debug"]);
     setStoreDebugData(fulfillData["debug"]);
     const userMessage = {
       msgList: fulfillData["userMessages"] || [],
       showForm: !!fulfillData["showForm"],
     };
-    if (!isFulfillDataValid) {
+    if (!isFulfillDataValid(fulfillData)) {
       setUserMessage(userMessage);
       setLoadingStatus(LoadingStatus.FAILED);
       return;
@@ -278,7 +285,7 @@ export function App(props: AppProps): ReactElement {
       }
     }
     savedContext.current = fulfillData["context"] || [];
-    setPageMetadata(pageMetadata);
+    setPageConfig(pageMetadata);
     setUserMessage(userMessage);
     const queryResult = {
       place: mainPlace,
@@ -392,7 +399,8 @@ export function App(props: AppProps): ReactElement {
           urlHashParams.testMode,
           urlHashParams.i18n,
           client,
-          urlHashParams.chartType
+          urlHashParams.chartType,
+          true // Skip related things
         );
       }
       // Merge this with response above. Make calls in parallel
@@ -409,11 +417,12 @@ export function App(props: AppProps): ReactElement {
 
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
-          fulfillResponse["config"]["categories"] = [
-            ...(highlightResponse?.config?.categories || []),
-            ...(fulfillResponse?.config?.categories || []),
-          ];
-          processFulfillData(fulfillResponse);
+          processFulfillData(fulfillResponse, undefined, setPageMetadata);
+          processFulfillData(
+            highlightResponse,
+            undefined,
+            setHighlightPageMetadata
+          );
         }
       );
     }
@@ -435,7 +444,8 @@ const fetchFulfillData = async (
   testMode: string,
   i18n: string,
   client: string,
-  chartType: string
+  chartType: string,
+  skipRelatedThings = false
 ) => {
   try {
     const argsMap = new Map<string, string>();
@@ -458,6 +468,7 @@ const fetchFulfillData = async (
       entities: places,
       variables: topics,
       disableExploreMore,
+      skipRelatedThings,
     });
     if (startTime) {
       const elapsedTime = window.performance
