@@ -583,7 +583,7 @@ export const DialogTitle = ({
       <h3
         css={css`
           ${theme.typography.family.heading}
-          ${theme.typography.heading.xs}
+          ${theme.typography.heading.sm}
           margin: 0;
           padding: 0 ${theme.spacing.xl}px 0 0;
         `}
