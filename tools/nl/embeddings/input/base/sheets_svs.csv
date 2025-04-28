@@ -3651,7 +3651,6 @@ Imports_EconomicActivity, Total Imports
 Count_HealthEstablishment_CorporateMedicalCenter, Number of Corporate Medical Centers
 IndustrialProductionIndex_EconomicActivity, Industrial Production Index
 Count_MortalityEvent_5OrMoreYears_AsAFractionOf_Count_BirthEvent_LiveBirth, Mortality Rate (5+ per 1000 births)
-GrowthRate_Count_BirthEvent, Birth Rate Growth (%)
 Count_HealthcareWorker_Doctor, Number of Doctors
 Count_HealthcareWorker_LaboratoryTechnician, Number of Lab Technicians
 Count_HealthcareWorker_Nurse, Number of Nurses
