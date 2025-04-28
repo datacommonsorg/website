@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { intl } from "../../../i18n/i18n";
+import { periodicityMessages } from "../../../i18n/i18n_periodicity_messages";
 import { Labels, Routes } from "../../../shared/types/base";
 
 // TODO: Revisit the `resolveHref` function after the revamp. Changes to where routes are resolved (Flask/templates) into URLs may make this function unnecessary.
@@ -139,8 +141,6 @@ export const extractLabels = (elementId = "metadata-labels"): Labels => {
   return labels;
 };
 
-// TODO(nick-next): Write tests for humanizeIsoDuration
-// TODO(nick-next): Add a parameter for a translation map (for all the relevant pieces like "day")
 /**
  * This function takes an ISO 8601 duration (https://en.wikipedia.org/wiki/ISO_8601#Durations)
  * and converts it to a human-readable format. These durations, such as P1D or P1Y are
@@ -155,6 +155,9 @@ export const extractLabels = (elementId = "metadata-labels"): Labels => {
  *   PT30M -> "Every 30 minutes"
  *   PT1S  -> "Every second"
  *   P1Y2M -> "Every 1 year and 2 months"
+ *
+ *   Note that these are subject to translation, and this can only be used in a context
+ *   where intl is available.
  */
 export function humanizeIsoDuration(iso: string): string {
   const match = iso.match(
@@ -168,48 +171,57 @@ export function humanizeIsoDuration(iso: string): string {
   );
 
   const units = [
-    { value: years, singular: "year", plural: "years" },
-    { value: months, singular: "month", plural: "months" },
-    { value: weeks, singular: "week", plural: "weeks" },
-    { value: days, singular: "day", plural: "days" },
-    { value: hours, singular: "hour", plural: "hours" },
-    { value: minutes, singular: "minute", plural: "minutes" },
-    { value: seconds, singular: "second", plural: "seconds" },
+    { value: years, messageKey: "yearPeriod" },
+    { value: months, messageKey: "monthPeriod" },
+    { value: weeks, messageKey: "weekPeriod" },
+    { value: days, messageKey: "dayPeriod" },
+    { value: hours, messageKey: "hourPeriod" },
+    { value: minutes, messageKey: "minutePeriod" },
+    { value: seconds, messageKey: "secondPeriod" },
   ];
 
-  const durationUnits = units.filter((unit) => unit.value > 0);
-  if (durationUnits.length === 0) return iso;
+  const activeUnits = units.filter((unit) => unit.value > 0);
 
-  const formattedParts = durationUnits.map((unit) => {
-    const label = unit.value === 1 ? unit.singular : unit.plural;
-    return `${unit.value} ${label}`;
+  if (activeUnits.length === 0) return iso;
+
+  if (activeUnits.length === 1) {
+    const unit = activeUnits[0];
+    return intl.formatMessage(periodicityMessages[unit.messageKey], {
+      count: unit.value,
+    });
+  }
+
+  const formattedParts = activeUnits.map((unit) => {
+    return intl.formatMessage(periodicityMessages[unit.messageKey + "Unit"], {
+      count: unit.value,
+    });
   });
 
-  if (durationUnits.length === 1) {
-    const unit = durationUnits[0];
+  let formattedList: string;
+  if (formattedParts.length === 2) {
+    formattedList = intl.formatMessage(periodicityMessages.listTwo, {
+      0: formattedParts[0],
+      1: formattedParts[1],
+    });
+  } else {
+    const allButLast = formattedParts.slice(0, -1);
+    const lastItem = formattedParts[formattedParts.length - 1];
 
-    if (unit.value === 1) {
-      if (unit.singular === "year") return "Yearly";
-      if (unit.singular === "month") return "Monthly";
-      if (unit.singular === "week") return "Weekly";
-      if (unit.singular === "day") return "Daily";
-      if (unit.singular === "hour") return "Hourly";
-      if (unit.singular === "minute") return "Every minute";
-      if (unit.singular === "second") return "Every second";
+    let itemsList = allButLast[0];
+    for (let i = 1; i < allButLast.length; i++) {
+      itemsList = intl.formatMessage(periodicityMessages.listComma, {
+        0: itemsList,
+        1: allButLast[i],
+      });
     }
 
-    return `Every ${unit.value} ${
-      unit.value === 1 ? unit.singular : unit.plural
-    }`;
+    formattedList = intl.formatMessage(periodicityMessages.listMoreThanTwo, {
+      items: itemsList,
+      lastItem,
+    });
   }
 
-  let result: string;
-  if (formattedParts.length === 2) {
-    result = formattedParts.join(" and ");
-  } else {
-    const lastPart = formattedParts.pop();
-    result = `${formattedParts.join(", ")}, and ${lastPart}`;
-  }
-
-  return `Every ${result}`;
+  return intl.formatMessage(periodicityMessages.multiplePeriod, {
+    units: formattedList,
+  });
 }
