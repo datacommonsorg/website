@@ -4,6 +4,18 @@
     "slug": "agriculture",
     "dataSourceGroups": [
       {
+        "label": "Open Data for Africa",
+        "url": "https://dataportal.opendataforafrica.org/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb);[Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+          }
+        ]
+      },
+      {
         "label": "U.S. Department of Agriculture (USDA)",
         "url": "https://www.usda.gov/",
         "description": null,
@@ -488,14 +500,24 @@
             "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
           },
           {
+            "label": "Ivory Coast Census",
+            "url": "https://cotedivoire.opendataforafrica.org/",
+            "description": "Demographics, economy, education and health data for Ivory Coast at the country and district level."
+          },
+          {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
             "description": "Demographics, health and education data for Kenya at the country, county and town and suburb levels."
           },
           {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
+          },
+          {
             "label": "Rwanda Census",
             "url": "https://rwanda.opendataforafrica.org/",
-            "description": "Demographics, economy and education data for Rwanda at the country, region and district levels."
+            "description": "Demographics, health and education data for Rwanda at the country, region and district levels."
           },
           {
             "label": "SouthAfrica Census",
@@ -596,6 +618,18 @@
             "label": "Canada Statistics",
             "url": "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
             "description": "Statistics on Canada demographics, health, education and economy statistics at the country and subnational levels.\n\n[Terms and conditions](https://www.statcan.gc.ca/en/reference/terms-conditions/general?MM=as)"
+          }
+        ]
+      },
+      {
+        "label": "Statistics Egypt",
+        "url": "https://egypt.opendataforafrica.org",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Egypt Census",
+            "url": "https://egypt.opendataforafrica.org",
+            "description": "Egypt demographics, economy, education and health data at country, district and city level."
           }
         ]
       },
@@ -1071,9 +1105,14 @@
             "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
           },
           {
-            "label": "Rwanda Census",
-            "url": "https://rwanda.opendataforafrica.org/",
-            "description": "Demographics, economy and education data for Rwanda at the country, region and district levels.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb);[Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "label": "Ivory Coast Census",
+            "url": "https://cotedivoire.opendataforafrica.org/",
+            "description": "Demographics, economy, education and health data for Ivory Coast at the country and district level."
+          },
+          {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb);[Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
           }
         ]
       },
@@ -1134,6 +1173,18 @@
             "label": "Canada Statistics",
             "url": "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
             "description": "Statistics on Canada demographics, health, education and economy statistics at the country and subnational levels.\n\n[Terms and conditions](https://www.statcan.gc.ca/en/reference/terms-conditions/general?MM=as)"
+          }
+        ]
+      },
+      {
+        "label": "Statistics Egypt",
+        "url": "https://egypt.opendataforafrica.org",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Egypt Census",
+            "url": "https://egypt.opendataforafrica.org",
+            "description": "Egypt demographics, economy, education and health data at country, district and city level."
           }
         ]
       },
@@ -1387,14 +1438,24 @@
             "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
           },
           {
+            "label": "Ivory Coast Census",
+            "url": "https://cotedivoire.opendataforafrica.org/",
+            "description": "Demographics, economy, education and health data for Ivory Coast at the country and district level."
+          },
+          {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
             "description": "Demographics, health and education data for Kenya at the country, county and town and suburb levels."
           },
           {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
+          },
+          {
             "label": "Rwanda Census",
             "url": "https://rwanda.opendataforafrica.org/",
-            "description": "Demographics, economy and education data for Rwanda at the country, region and district levels."
+            "description": "Demographics, health and education data for Rwanda at the country, region and district levels."
           },
           {
             "label": "SouthAfrica Census",
@@ -1441,6 +1502,18 @@
             "label": "Canada Statistics",
             "url": "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
             "description": "Statistics on Canada demographics, health, education and economy statistics at the country and subnational levels.\n\n[Terms and conditions](https://www.statcan.gc.ca/en/reference/terms-conditions/general?MM=as)"
+          }
+        ]
+      },
+      {
+        "label": "Statistics Egypt",
+        "url": "https://egypt.opendataforafrica.org",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Egypt Census",
+            "url": "https://egypt.opendataforafrica.org",
+            "description": "Egypt demographics, economy, education and health data at country, district and city level."
           }
         ]
       },
@@ -2141,9 +2214,24 @@
             "description": "Demographics, health and education data for Ethiopia at the country, region and district levels."
           },
           {
+            "label": "Ivory Coast Census",
+            "url": "https://cotedivoire.opendataforafrica.org/",
+            "description": "Demographics, economy, education and health data for Ivory Coast at the country and district level."
+          },
+          {
             "label": "Kenya Census",
             "url": "https://kenya.opendataforafrica.org/",
             "description": "Demographics, health and education data for Kenya at the country, county and town and suburb levels."
+          },
+          {
+            "label": "Nigeria Statistics",
+            "url": "https://nigeria.opendataforafrica.org",
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
+          },
+          {
+            "label": "Rwanda Census",
+            "url": "https://rwanda.opendataforafrica.org/",
+            "description": "Demographics, health and education data for Rwanda at the country, region and district levels."
           },
           {
             "label": "SouthAfrica Census",
@@ -2190,6 +2278,18 @@
             "label": "Canada Statistics",
             "url": "https://www150.statcan.gc.ca/n1/en/type/data?MM=1",
             "description": "Statistics on Canada demographics, health, education and economy statistics at the country and subnational levels.\n\n[Terms and conditions](https://www.statcan.gc.ca/en/reference/terms-conditions/general?MM=as)"
+          }
+        ]
+      },
+      {
+        "label": "Statistics Egypt",
+        "url": "https://egypt.opendataforafrica.org",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Egypt Census",
+            "url": "https://egypt.opendataforafrica.org",
+            "description": "Egypt demographics, economy, education and health data at country, district and city level."
           }
         ]
       },
