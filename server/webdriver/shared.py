@@ -208,12 +208,9 @@ def _search_for_places(self, driver, search_term, place_type):
   wait_elem(self.driver,
             by=By.CSS_SELECTOR,
             value='.place-type-selector .form-check-input')
-  place_type_inputs = self.driver.find_elements(By.CSS_SELECTOR,
-                                                '.place-type-selector label')
-  for place_type_input in place_type_inputs:
-    if place_type_input.text == place_type:
-      place_type_input.click()
-      break
+  # Find the specific label by its text using XPath and click it
+  place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
+  click_el(driver, (By.XPATH, place_type_xpath))
 
   # Click continue
   click_el(driver, (By.CLASS_NAME, 'continue-button'))

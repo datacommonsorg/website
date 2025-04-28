@@ -152,12 +152,9 @@ class VisScatterTestMixin():
     self.driver.get(self.url_ + SCATTER_URL.replace('#visType=scatter', ''))
 
     # Click the scatter tab
-    vis_type_options = self.driver.find_elements(By.CLASS_NAME,
-                                                 'vis-type-option')
-    for vis_type in vis_type_options:
-      if 'Scatter' in vis_type.text:
-        vis_type.click()
-        break
+    timeline_tab_xpath = "//*[contains(@class, 'vis-type-option') and .//*[contains(text(), 'Scatter')]]"
+    shared.click_el(self.driver, (By.XPATH, timeline_tab_xpath))
+
     page_header = self.driver.find_element(By.CSS_SELECTOR, '.info-content h3')
     self.assertEqual(page_header.text, 'Scatter Plot')
 
