@@ -192,7 +192,9 @@ export const TileMetadataModalContent = ({
                     {statVarId}
                   </a>
                 </p>
-                {metadata.category && <p>{metadata.category}</p>}
+                {metadata.categories.length > 0 && (
+                  <p>{metadata.categories.join(", ")}</p>
+                )}
               </div>
 
               {(metadata.dateRangeStart || metadata.dateRangeEnd) && (
