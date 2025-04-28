@@ -976,8 +976,8 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
       v["variable_dcid"] for v in place_overview_table_variable_translations
   ]
 
-  # Fetch the most recent observation for each variable
-  resp = dc.obs_point([place_dcid], variables)
+  # Fetch all observations for each variable
+  resp = dc.obs_point([place_dcid], variables, date="")
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
@@ -987,8 +987,10 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
     ordered_facet_observations = resp.get("byVariable", {}).get(
         variable_dcid, {}).get("byEntity", {}).get(place_dcid,
                                                    {}).get("orderedFacets", [])
-    most_recent_facet = ordered_facet_observations[
-        0] if ordered_facet_observations else None
+    # Get the most recent observation for each facet
+    most_recent_facet = max(ordered_facet_observations,
+                            key=lambda x: x.get("latestDate", ""),
+                            default=None)
     if not most_recent_facet:
       continue
 
