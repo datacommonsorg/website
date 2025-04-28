@@ -15,7 +15,7 @@
 from typing import Dict, List
 from unittest import mock
 
-from server.routes.dev_place.types import Place
+from server.routes.place.types import Place
 
 NANTERRE = Place(dcid="wikidataId/Q170507", name="Nanterre", types=["City"])
 ARR_NANTERRE = Place(dcid="wikidataId/Q385728",
@@ -121,9 +121,27 @@ def mock_dc_api_data(stat_var: str,
                      dc_obs_points_within: bool = False,
                      mock_obs_point: mock.Mock = None,
                      mock_obs_point_within: mock.Mock = None,
-                     data: List[int] | None = None,
+                     data: List[int] | List[Dict[str, any]] | None = None,
                      include_facets=False) -> Dict[str, any]:
-  """Mocks the data from the DC API request obs point and obs point within."""
+  """Mocks the data from the DC API request obs point and obs point within.
+
+  data can be a list of observation values or a list of observation dicts.
+
+  Example 1:
+  data = [100, 200, 300]
+
+  Example 2:
+  data = [
+    {
+      "date": "2023-01-01",
+      "value": 100
+    },
+    {
+      "date": "2023-01-02",
+      "value": 200
+    }
+  ]
+  """
   if data is None:
     data = []
 
@@ -146,15 +164,20 @@ def _create_ordered_facets(data, facets):
   ordered_facets = []
   for i, val in enumerate(data):
     facet_id = f"facet_{i}"
-    observation = {
-        "date": f"2023-{i+1:02}-01",
-        "value": val,
-    }
+    if isinstance(val, dict):
+      observation = val
+    else:
+      observation = {
+          "date": f"2023-{i+1:02}-01",
+          "value": val,
+      }
     ordered_facets.append({
         "facetId": facet_id,
         "observations": [observation],
         "provenanceUrl": f"prov.com/{facet_id}",
-        "unit": "count"
+        "unit": "count",
+        "latestDate": observation["date"],
+        "earliestDate": observation["date"]
     })
     facets[facet_id] = {
         "provenanceUrl": f"prov.com/{facet_id}",
