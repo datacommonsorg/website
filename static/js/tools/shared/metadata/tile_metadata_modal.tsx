@@ -65,6 +65,8 @@ export interface StatVarMetadata {
   observationPeriod?: string; // ISO 8601 duration string (e.g., "P1Y")
   license?: string; // License type
   licenseDcid?: string; // The DCID for the license (for linking)
+  measurementMethod?: string; // The DCID for the measurement method
+  measurementMethodDescription?: string; // Measurement method description
 }
 
 // Interfaces for API results. These just contain attributes of the
@@ -74,6 +76,7 @@ export interface StatVarMetadata {
 interface SeriesKey {
   unit?: string;
   observationPeriod?: string;
+  measurementMethod?: string;
 }
 
 interface SeriesSummary {
@@ -201,13 +204,23 @@ export function TileMetadataModal(
         const variableData: Record<string, StatVarProvenanceSummaries> =
           await variableResponse.json();
 
-        // we create a set of provenances so that we can look them all up at once
         const provenances = new Set<string>();
+        const measurementMethods = new Set<string>();
+
         statVars.forEach((statVarId) => {
           const facetId = props.statVarToFacet?.[statVarId];
           const facetInfo = facetId ? props.facets[facetId] : null;
+
           if (facetInfo?.importName) {
-            provenances.add(`dc/base/${facetInfo.importName}`);
+            const provenanceFullPath = `dc/base/${facetInfo.importName}`;
+            provenances.add(provenanceFullPath);
+
+            const summary =
+              variableData[statVarId]?.provenanceSummary?.[provenanceFullPath]
+                ?.seriesSummary;
+            const measurementMethod =
+              summary?.[0]?.seriesKey?.measurementMethod;
+            if (measurementMethod) measurementMethods.add(measurementMethod);
           }
         });
 
@@ -220,6 +233,14 @@ export function TileMetadataModal(
             })
         );
         await Promise.all(provenancePromises);
+
+        let measurementMethodMap: Record<string, string> = {};
+        if (measurementMethods.size) {
+          measurementMethodMap = await dataCommonsClient.getFirstNodeValues({
+            dcids: Array.from(measurementMethods),
+            prop: "description",
+          });
+        }
 
         const metadata: Record<string, StatVarMetadata> = {};
 
@@ -239,6 +260,8 @@ export function TileMetadataModal(
           let observationPeriod: string | undefined;
           let dateRangeStart: string | undefined;
           let dateRangeEnd: string | undefined;
+          let measurementMethod: string | undefined;
+          let measurementMethodDescription: string | undefined;
 
           if (variableData[statVarId]?.provenanceSummary) {
             const source =
@@ -256,6 +279,14 @@ export function TileMetadataModal(
                 if (seriesKey) {
                   unit = seriesKey.unit;
                   observationPeriod = seriesKey.observationPeriod;
+                  measurementMethod = seriesKey.measurementMethod;
+                  if (measurementMethod) {
+                    measurementMethodDescription = measurementMethodMap[
+                      measurementMethod
+                    ]
+                      ? measurementMethodMap[measurementMethod]
+                      : measurementMethod;
+                  }
                 }
               }
             }
@@ -277,6 +308,8 @@ export function TileMetadataModal(
             observationPeriod,
             license: provenanceData?.licenseType?.[0]?.name,
             licenseDcid: provenanceData?.licenseType?.[0]?.dcid,
+            measurementMethod,
+            measurementMethodDescription,
           };
         }
 

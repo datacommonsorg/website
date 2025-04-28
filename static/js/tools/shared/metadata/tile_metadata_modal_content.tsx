@@ -262,8 +262,28 @@ export const TileMetadataModalContent = ({
                   </p>
                 </div>
               )}
+
+              {metadata.measurementMethodDescription && (
+                <div
+                  css={css`
+                    grid-column: 1 / span 2;
+                    @media (max-width: ${theme.breakpoints.sm}px) {
+                      grid-column: 1;
+                    }
+                  `}
+                >
+                  <h4>
+                    {intl.formatMessage(
+                      metadataComponentMessages.MeasuringMethod
+                    )}
+                  </h4>
+                  <p>
+                    {metadata.measurementMethodDescription &&
+                      metadata.measurementMethodDescription}
+                  </p>
+                </div>
+              )}
             </div>
-            {/* {statVarId !== statVars[statVars.length - 1].dcid && <hr />} */}
           </div>
         );
       })}

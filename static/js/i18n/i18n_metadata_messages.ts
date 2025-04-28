@@ -59,6 +59,12 @@ export const metadataComponentMessages = defineMessages({
     description:
       "A label used for the copyright license associated with a dataset. An example copyright license is Creative Commons 4 (https://creativecommons.org/licenses/by/4.0).",
   },
+  MeasuringMethod: {
+    id: "measuringMethod",
+    defaultMessage: "Measuring method",
+    description:
+      "Label for the methodology used to produce the data. Examples are: ACS 5-Year Survey, OECD Regional Statistics.",
+  },
   SourceAndCitation: {
     id: "sourceAndCitation",
     defaultMessage: "Source and citation",
