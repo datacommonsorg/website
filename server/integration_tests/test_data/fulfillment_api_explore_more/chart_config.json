@@ -547,8 +547,7 @@
           "Count_Person_20To34Years_Female_Divorced",
           "Count_Person_35To44Years_Female_Divorced",
           "Count_Person_45To54Years_Female_Divorced",
-          "Count_Person_55To64Years_Female_Divorced",
-          "Count_Person_65OrMoreYears_Female_Divorced"
+          "Count_Person_55To64Years_Female_Divorced"
         ],
         "race": [
           "dc/5f7zv3ydq8ttb",
@@ -569,8 +568,7 @@
           "Count_Person_20To34Years_Male_Divorced",
           "Count_Person_35To44Years_Male_Divorced",
           "Count_Person_45To54Years_Male_Divorced",
-          "Count_Person_55To64Years_Male_Divorced",
-          "Count_Person_65OrMoreYears_Male_Divorced"
+          "Count_Person_55To64Years_Male_Divorced"
         ],
         "race": [
           "dc/4vss7dyxcf7xc",

@@ -949,12 +949,20 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                dc_obs_points_within=False,
                                mock_obs_point=self.mock_obs_point,
                                mock_obs_point_within=self.mock_obs_point_within,
-                               data=[123],
+                               data=[{
+                                   "date": "2024-01-01",
+                                   "value": 100
+                               }, {
+                                   "date": "2025-01-02",
+                                   "value": 200
+                               }, {
+                                   "date": "2023-01-03",
+                                   "value": 150
+                               }],
                                include_facets=True)
     resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
-
     self.assertEqual(len(resp), 1)
     self.assertEqual(resp[0].name, 'Population')
-    self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_0')
-    self.assertEqual(resp[0].value, 123)
+    self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
+    self.assertEqual(resp[0].value, 200)
     self.assertEqual(resp[0].variableDcid, 'Count_Person')

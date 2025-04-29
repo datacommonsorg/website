@@ -23,7 +23,6 @@ import server.webdriver.shared as shared
 
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
-PLACE_SEARCH_CA = 'California'
 
 
 class MapTestMixin():
@@ -123,32 +122,18 @@ class MapTestMixin():
         """
     self.driver.get(self.url_ + MAP_URL)
 
-    # Wait until search box is present and type California
-    search_box_input = find_elem(self.driver, by=By.ID, value='ac')
-    search_box_input.send_keys(PLACE_SEARCH_CA)
-
-    # Wait until there is at least one result in autocomplete results.
-    wait_elem(self.driver, value='pac-item')
-
-    # Click on the first result.
-
-    first_result = find_elem(self.driver,
-                             by=By.CSS_SELECTOR,
-                             value='.pac-item:nth-child(1)')
-    first_result.click()
-    wait_elem(self.driver, value='chip')
-
-    # Wait until place type selector populates with options. Click on 'County'.
-    find_elem(self.driver, by=By.CSS_SELECTOR,
-              value="option[value='County']").click()
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             place_type="County",
+                             is_new_vis_tools=False)
 
     # Choose stat var
-    shared.wait_for_loading(self.driver)
     shared.click_sv_group(self.driver, "Demographics")
-    find_elem(
+    shared.wait_for_loading(self.driver)
+    shared.click_el(
         self.driver,
-        by=By.ID,
-        value='Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
+        (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
     # Assert chart is correct.
     shared.wait_for_loading(self.driver)
