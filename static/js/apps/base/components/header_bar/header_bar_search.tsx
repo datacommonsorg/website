@@ -26,11 +26,6 @@ import {
 } from "../../../../constants/app/explore_constants";
 import { localizeLink } from "../../../../i18n/i18n";
 import {
-  DYNAMIC_PLACEHOLDER_EXPERIMENT,
-  DYNAMIC_PLACEHOLDER_GA,
-  isFeatureEnabled,
-} from "../../../../shared/feature_flags/util";
-import {
   GA_EVENT_NL_SEARCH,
   GA_EVENT_RENDER_NL_SEARCH_BAR,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
