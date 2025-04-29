@@ -70,16 +70,9 @@ const HeaderBarSearch = ({
   // Otherwise, use the query string from the query store.
   const initialValue = searchBarHashMode ? queryString : urlQuery;
 
-  // Initialize whether to let the placeholder show dynamic examples.
-  const EXPERIMENT_ROLLOUT_RATIO = 0.2;
-  const showDynamicPlaceholdersBase =
-    lang === "en" &&
-    (isFeatureEnabled(DYNAMIC_PLACEHOLDER_GA) ||
-      (isFeatureEnabled(DYNAMIC_PLACEHOLDER_EXPERIMENT) &&
-        Math.random() < EXPERIMENT_ROLLOUT_RATIO));
   const theme: Theme = useTheme();
-  const showDynamicPlaceholders =
-    showDynamicPlaceholdersBase && !isMobileByWidth(theme);
+  // Only enable dynamic placeholders on english desktop traffic.
+  const showDynamicPlaceholders = lang === "en" && !isMobileByWidth(theme);
 
   useEffect(() => {
     triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR, {});
