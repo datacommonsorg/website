@@ -964,7 +964,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(len(resp), 1)
     self.assertEqual(resp[0].name, 'Population')
     self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
-    self.assertEqual(resp[0].value, 200) # The most recent value among all facets
+    self.assertEqual(resp[0].value,
+                     200)  # The most recent value among all facets
     self.assertEqual(resp[0].variableDcid, 'Count_Person')
 
   def test_fetch_overview_table_data_single_facets(self):
