@@ -279,18 +279,22 @@ export function App(props: AppProps): ReactElement {
       if (
         !userQuery &&
         !_.isEmpty(pageMetadata.mainTopics) &&
-        pageMetadata.place.name
+        pageMetadata.places.length > 0
       ) {
+        const inPlaces = `in ${pageMetadata.places
+          .map((place) => place.name)
+          .join(", ")
+          .replace(/, ([^,]*)$/, " and $1")}`;
         if (
           pageMetadata.mainTopics.length == 2 &&
           pageMetadata.mainTopics[0].name &&
           pageMetadata.mainTopics[1].name
         ) {
-          const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
+          const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} ${inPlaces}`;
           setQuery(q);
           setStoreQueryString(q);
         } else if (pageMetadata.mainTopics[0].name) {
-          const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
+          const q = `${pageMetadata.mainTopics[0].name} ${inPlaces}`;
           setQuery(q);
           setStoreQueryString(q);
         }
