@@ -267,14 +267,15 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Male_multiple_place_bar_block"
                     ],
-                    "title": "Population: Male, Illiterate (${date})",
+                    "title": "Number of Illiterate Males (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Male, Illiterate"
+            "description": "Number of illiterate males.",
+            "title": "Number of Illiterate Males"
           },
           {
             "columns": [
@@ -335,14 +336,15 @@
                     "statVarKey": [
                       "Count_Person_Illiterate_Female_multiple_place_bar_block"
                     ],
-                    "title": "Population: Female, Illiterate (${date})",
+                    "title": "Number of Illiterate Females (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Illiterate"
+            "description": "Number of illiterate females.",
+            "title": "Number of Illiterate Females"
           },
           {
             "columns": [
@@ -575,11 +577,11 @@
             "statVar": "Count_Person_Houseless_Literate"
           },
           "Count_Person_Illiterate_Female_multiple_place_bar_block": {
-            "name": "Population: Female, Illiterate",
+            "name": "Number of illiterate females",
             "statVar": "Count_Person_Illiterate_Female"
           },
           "Count_Person_Illiterate_Male_multiple_place_bar_block": {
-            "name": "Population: Male, Illiterate",
+            "name": "Number of illiterate males",
             "statVar": "Count_Person_Illiterate_Male"
           },
           "Count_Person_Illiterate_Rural_multiple_place_bar_block": {
