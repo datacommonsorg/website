@@ -20,6 +20,7 @@
 
 import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
+import { url } from "inspector";
 import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
@@ -59,7 +60,6 @@ import {
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import { SuccessResult } from "./success_result";
-import { url } from "inspector";
 
 enum LoadingStatus {
   LOADING = "loading",
@@ -202,12 +202,12 @@ export function App(props: AppProps): ReactElement {
    * @param fulfillData The fulfill data from the search API response
    * @param userQuery The user's search query
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, complexity
   function processFulfillData(
     fulfillData: any,
     userQuery?: string,
-    setPageConfig?: (config: any) => void,
-    isHighlight = false
+    setPageConfig?: (config: SubjectPageMetadata) => void,
+    isHighlight?: boolean
   ): void {
     setDebugData(fulfillData["debug"]);
     setStoreDebugData(fulfillData["debug"]);
@@ -327,6 +327,7 @@ export function App(props: AppProps): ReactElement {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let fulfillmentPromise: Promise<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let highlightPromise: Promise<any>;
 
     const gaTitle = query
