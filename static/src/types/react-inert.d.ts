@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
-export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
-
 /**
- * Helper method to interact with feature flags.
- * @param featureName name of feature for which we want status.
- * @returns Bool describing if the feature is enabled
+ * `inert` disables interaction with an element and removes it from the
+ * accessibility tree.
+ *
+ * This is not available to the typing of earlier versions of React and
+ * so is added in here.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert
  */
-export function isFeatureEnabled(featureName: string): boolean {
-  if (FEATURE_FLAGS && featureName in FEATURE_FLAGS) {
-    return FEATURE_FLAGS[featureName];
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+declare module "react" {
+  interface HTMLAttributes<T> {
+    inert?: boolean | "" | undefined;
   }
-  return false;
 }
+
+export {};
+
+/* eslint-enable @typescript-eslint/no-unused-vars */
