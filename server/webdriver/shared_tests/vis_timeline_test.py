@@ -142,15 +142,8 @@ class VisTimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL.replace('#visType=timeline', ''))
 
     # Click the timeline tab
-    vis_types_clickable = EC.element_to_be_clickable(
-        (By.CLASS_NAME, 'vis-type-option'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(vis_types_clickable)
-    vis_type_options = self.driver.find_elements(By.CLASS_NAME,
-                                                 'vis-type-option')
-    for vis_type in vis_type_options:
-      if 'Timeline' in vis_type.text:
-        vis_type.click()
-        break
+    timeline_tab_xpath = "//*[contains(@class, 'vis-type-option') and .//*[contains(text(), 'Timeline')]]"
+    shared.click_el(self.driver, (By.XPATH, timeline_tab_xpath))
     page_header_locator = (By.CSS_SELECTOR, '.info-content h3')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.text_to_be_present_in_element(page_header_locator, 'Timeline'))

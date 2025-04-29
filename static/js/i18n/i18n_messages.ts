@@ -132,4 +132,14 @@ export const messages = defineMessages({
     description:
       "Placeholder text for the Data Commons search bar query input field",
   },
+  perCapitaErrorMessage: {
+    id: "perCapitaErrorMessage",
+    defaultMessage: "Could not calculate per capita.",
+    description: "Error message for per capita calculation",
+  },
+  noDataErrorMessage: {
+    id: "noDataErrorMessage",
+    defaultMessage: "No data available.",
+    description: "Error message for no data available",
+  },
 });

@@ -88,12 +88,15 @@ export const DemoDialog = (): ReactElement => {
   const theme = useTheme();
 
   const [isSimpleDialogOpen, setIsSimpleDialogOpen] = useState(false);
+  const [isDisabledCloseDialogOpen, setIsDisabledCloseDialogOpen] =
+    useState(false);
   const [isMultipleActionsDialogOpen, setIsMultipleActionsDialogOpen] =
     useState(false);
   const [isContentDenseDialogOpen, setIsContentDenseDialogOpen] =
     useState(false);
   const [isFocusTrappingDialogOpen, setIsFocusTrappingDialogOpen] =
     useState(false);
+  const [isKeepMountedDialogOpen, setIsKeepMountedDialogOpen] = useState(false);
   const [isCustomStyledDialogOpen, setIsCustomStyledDialogOpen] =
     useState(false);
   const [isContainerStyledDialogOpen, setIsContainerStyledDialogOpen] =
@@ -151,6 +154,43 @@ export const DemoDialog = (): ReactElement => {
       </div>
 
       <div className="box">
+        <Button onClick={(): void => setIsDisabledCloseDialogOpen(true)}>
+          Disabled Closing
+        </Button>
+
+        <Dialog
+          open={isDisabledCloseDialogOpen}
+          onClose={(): void => setIsDisabledCloseDialogOpen(false)}
+          disableEscapeToClose
+          disableOutsideClickToClose
+        >
+          <DialogTitle>Disabled Esc/Overlay Close Dialog</DialogTitle>
+          <DialogContent>
+            <p>
+              The only way you can close this is by clicking close below.
+              &quot;Escape to Close&quot; and &quot;Outside Click to Close&quot;
+              have been disabled.
+            </p>
+            <p>
+              These might be disabled if you have a complex form that inside the
+              dialog that takes time and attention to fill, and where you do not
+              want the user to be able to accidentally close it too easily.
+            </p>
+            <p>
+              This can also be used if you want to force the user to close it
+              using one of the button options (for example, if the user must
+              agree to something).
+            </p>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={(): void => setIsDisabledCloseDialogOpen(false)}>
+              I agree to the terms
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div className="box">
         <Button onClick={(): void => setIsMultipleActionsDialogOpen(true)}>
           Simple Dialog Multiple Actions
         </Button>
@@ -199,14 +239,7 @@ export const DemoDialog = (): ReactElement => {
         >
           <DialogTitle>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu purus
-            sapien. Fusce tincidunt urna quis nisi vulputate, vitae vulputate
-            risus bibendum. Etiam ultricies nisl felis, ut auctor est volutpat
-            vel. Suspendisse tempus dapibus suscipit. Sed posuere sodales quam
-            eu facilisis. In neque eros, viverra eu elit quis, efficitur
-            fringilla sapien. Orci varius natoque penatibus et magnis dis
-            parturient montes, nascetur ridiculus mus. Aenean nec sem mollis,
-            cursus erat non, vulputate erat. Duis efficitur dapibus risus quis
-            tincidunt. Nam eu bibendum ligula.
+            sapien.
           </DialogTitle>
           <DialogContent>
             <p>
@@ -347,9 +380,8 @@ export const DemoDialog = (): ReactElement => {
         <Dialog
           open={isFocusTrappingDialogOpen}
           onClose={(): void => setIsFocusTrappingDialogOpen(false)}
-          keepMounted
         >
-          <DialogTitle>Simple Dialog</DialogTitle>
+          <DialogTitle>Form Dialog</DialogTitle>
           <DialogContent>
             <p>
               This is a dialog with multiple focusable items. Use the tab button
@@ -373,6 +405,39 @@ export const DemoDialog = (): ReactElement => {
           </DialogContent>
           <DialogActions>
             <Button onClick={(): void => setIsFocusTrappingDialogOpen(false)}>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
+      <div className="box">
+        <Button onClick={(): void => setIsKeepMountedDialogOpen(true)}>
+          Always Mounted Dialog
+        </Button>
+
+        <Dialog
+          open={isKeepMountedDialogOpen}
+          onClose={(): void => setIsKeepMountedDialogOpen(false)}
+          keepMounted
+        >
+          <DialogTitle>Keep-Mounted Dialog</DialogTitle>
+          <DialogContent>
+            <p>
+              This dialog will always be mounted into the DOM, even when it is
+              closed.
+            </p>
+            <p>
+              By default, the content of a modal will only be mounted when the
+              dialog is opened. However, if a modal takes a long time to render
+              (for example, because it lazy-loads heavy components or fetches
+              data on mount), or if you need to preserve its internal state
+              (such as user input), it can be beneficial to keep it mounted at
+              all times.
+            </p>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={(): void => setIsKeepMountedDialogOpen(false)}>
               Close
             </Button>
           </DialogActions>
@@ -433,9 +498,6 @@ export const DemoDialog = (): ReactElement => {
           open={isContainerStyledDialogOpen}
           onClose={(): void => setIsContainerStyledDialogOpen(false)}
           containerRef={containerRef}
-          fadeOutDuration={150}
-          disableEscapeToClose
-          disableOutsideClickToClose
         >
           <DialogTitle>Container-Styled Dialog</DialogTitle>
           <DialogContent>

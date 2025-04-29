@@ -36,8 +36,6 @@ import { addPerCapitaToTitle } from "./subject_page_utils";
 
 const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
-const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
-const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
 const SUPER_SCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 
 /**
@@ -455,8 +453,8 @@ export function getDenomInfo(
  */
 export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
   return statVarSpec.findIndex((spec) => !!spec.denom) >= 0
-    ? ERROR_MSG_PC
-    : ERROR_MSG_DEFAULT;
+    ? intl.formatMessage(messages.perCapitaErrorMessage)
+    : intl.formatMessage(messages.noDataErrorMessage);
 }
 
 /**

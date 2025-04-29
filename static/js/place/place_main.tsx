@@ -36,7 +36,7 @@ import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
-import { PlaceOverview } from "./dev_place_overview";
+import { PlaceOverview } from "./place_overview";
 import {
   createPlacePageCategoryHref,
   displayNameForPlaceType,

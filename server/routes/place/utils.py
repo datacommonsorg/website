@@ -31,14 +31,14 @@ from server.lib.i18n_messages import \
     get_place_overview_table_variable_to_locale_message
 from server.lib.i18n_messages import get_place_type_in_parent_places_str
 from server.routes import TIMEOUT
-from server.routes.dev_place.types import BlockConfig
-from server.routes.dev_place.types import Category
-from server.routes.dev_place.types import Chart
-from server.routes.dev_place.types import OverviewTableDataRow
-from server.routes.dev_place.types import Place
-from server.routes.dev_place.types import ServerBlockMetadata
-from server.routes.dev_place.types import ServerChartConfiguration
-from server.routes.dev_place.types import ServerChartMetadata
+from server.routes.place.types import BlockConfig
+from server.routes.place.types import Category
+from server.routes.place.types import Chart
+from server.routes.place.types import OverviewTableDataRow
+from server.routes.place.types import Place
+from server.routes.place.types import ServerBlockMetadata
+from server.routes.place.types import ServerChartConfiguration
+from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
 
@@ -976,8 +976,8 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
       v["variable_dcid"] for v in place_overview_table_variable_translations
   ]
 
-  # Fetch the most recent observation for each variable
-  resp = dc.obs_point([place_dcid], variables)
+  # Fetch all observations for each variable
+  resp = dc.obs_point([place_dcid], variables, date="")
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
@@ -987,8 +987,10 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
     ordered_facet_observations = resp.get("byVariable", {}).get(
         variable_dcid, {}).get("byEntity", {}).get(place_dcid,
                                                    {}).get("orderedFacets", [])
-    most_recent_facet = ordered_facet_observations[
-        0] if ordered_facet_observations else None
+    # Get the most recent observation for each facet
+    most_recent_facet = max(ordered_facet_observations,
+                            key=lambda x: x.get("latestDate", ""),
+                            default=None)
     if not most_recent_facet:
       continue
 

@@ -390,6 +390,12 @@ export const Dialog = ({
   }, [loading]);
 
   useEffect(() => {
+    if (!open) {
+      hasBeenLoadingRef.current = false;
+    }
+  }, [open]);
+
+  useEffect(() => {
     if (!open || disableEscapeToClose) return;
 
     const handleEscape = (e: KeyboardEvent): void => {
@@ -447,9 +453,7 @@ export const Dialog = ({
 
   const getActiveFadeDuration = (): number => {
     if (!isVisible) return fadeOutDuration;
-
     if (hasBeenLoadingRef.current && !loading) {
-      hasBeenLoadingRef.current = false;
       return fadeInDurationPostLoad;
     }
 

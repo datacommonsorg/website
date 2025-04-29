@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Unit tests for server.routes.dev_place.place_charts."""
+"""Unit tests for server.routes.place.place_charts."""
 
 import unittest
 from unittest import mock
@@ -23,12 +23,12 @@ from flask_caching import Cache
 import pytest
 
 from server.lib import fetch
-from server.routes.dev_place import api
-from server.routes.dev_place.types import Place
-from server.routes.dev_place.types import RelatedPlacesApiResponse
+from server.routes.place import api
+from server.routes.place.types import Place
+from server.routes.place.types import RelatedPlacesApiResponse
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
-from server.tests.routes.dev_place import mock_data
+from server.tests.routes.place import mock_data
 
 
 @pytest.fixture(scope="module")
@@ -148,7 +148,7 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
       ])
 
       response = self.app.test_client().get(
-          f'/api/dev-place/related-places/geoId/06')
+          '/api/place/related-places/geoId/06')
 
       actual = response.get_json()
       expected = jsonify(
@@ -204,7 +204,7 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
       ])
 
       response = self.app.test_client().get(
-          f'/api/dev-place/related-places/geoId/06?hl=es')
+          '/api/place/related-places/geoId/06?hl=es')
 
       # TODO(gmechali): Verify why test is spitting the out the dcid instead of name. I think it has to do with i18n.
       parent_places_es = [
@@ -248,6 +248,6 @@ class TestRelatedPlaces(unittest.IsolatedAsyncioTestCase):
     with self.app.app_context():
       g.locale = 'en'
 
-      response = self.app.test_client().get(f'/api/dev-place/related-places/')
+      response = self.app.test_client().get('/api/place/related-places/')
 
       self.assertEqual(response.status_code, 404)
