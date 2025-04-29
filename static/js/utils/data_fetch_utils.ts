@@ -29,6 +29,7 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
+import { FacetMetadata } from "../types/facet_metadata";
 import { stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
 
@@ -182,16 +183,70 @@ export function getPointWithin(
  * @param entities list of enitites to get data for
  * @param variables list of variables to get data for
  */
-export function getSeries(
+export async function getSeries(
   apiRoot: string,
   entities: string[],
   variables: string[],
-  facetIds?: string[]
+  facetIds?: string[],
+  highlightFacet?: FacetMetadata
 ): Promise<SeriesApiResponse> {
+  console.log("Entities: ", JSON.stringify(highlightFacet));
   const params = { entities, variables };
   if (facetIds) {
     params["facetIds"] = facetIds;
+  } else if (highlightFacet) {
+    const newFacetId = await getFacets(apiRoot, entities, variables).then(
+      (resp) => {
+        const svDcid = Object.keys(resp)[0];
+        const facets = resp[svDcid];
+        console.log("Facets: ", facets);
+        // Iterate through all the facets, and find a match on the importName property.
+        for (const [facetId, f] of Object.entries(facets)) {
+          console.log("FacetId: " + facetId + " Facet: " + JSON.stringify(f));
+          if (
+            !_.isEmpty(highlightFacet.importName) &&
+            highlightFacet.importName !== f.importName
+          ) {
+            console.log(
+              "Diff in the importName importName" +
+                f.importName +
+                " vs " +
+                highlightFacet.importName
+            );
+            continue;
+          }
+          if (
+            !_.isEmpty(highlightFacet.measurementMethod) &&
+            highlightFacet.measurementMethod !== f.measurementMethod
+          ) {
+            console.log(
+              "Diff in the measurement method" +
+                f.measurementMethod +
+                " vs " +
+                highlightFacet.measurementMethod
+            );
+            continue;
+          }
+          if (
+            !_.isEmpty(highlightFacet.unit) &&
+            highlightFacet.unit !== f.unit
+          ) {
+            console.log(
+              "Diff in the unit" + f.unit + " vs " + highlightFacet.unit
+            );
+            continue;
+          }
+          console.log("Found a match");
+          return facetId;
+        }
+        return null;
+      }
+    );
+    if (newFacetId) {
+      params["facetIds"] = [newFacetId];
+    }
   }
+  //EurostatData_Demographic_Balance_Crude_Rates, WikidataPopulation, OECDRegionalDemography_Population
   return axios
     .post(`${apiRoot || ""}/api/observations/series`, params)
     .then((resp) => resp.data);

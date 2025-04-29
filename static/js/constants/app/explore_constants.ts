@@ -48,6 +48,11 @@ export const URL_HASH_PARAMS = {
   MAX_TOPIC_SVS: "maxTopicSvs",
   MAX_CHARTS: "maxCharts",
   CHART_TYPE: "chartType",
+  IMPORT_NAME: "importName",
+  MEASUREMENT_METHOD: "measurementMethod",
+  OBSERVATION_PERIOD: "observationPeriod",
+  SCALING_FACTOR: "scalingFactor",
+  UNIT: "unit",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL

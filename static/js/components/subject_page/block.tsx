@@ -40,6 +40,7 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
@@ -113,6 +114,7 @@ export interface BlockPropType {
   startWithDenom?: boolean;
   // Whether to render tiles as web components
   showWebComponents?: boolean;
+  highlightFacet?: FacetMetadata;
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
@@ -485,6 +487,7 @@ function renderTiles(
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "RANKING":

@@ -48,6 +48,7 @@ import {
 import { useQueryStore } from "../../shared/stores/query_store_hook";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
@@ -103,6 +104,7 @@ export function App(props: AppProps): ReactElement {
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
   const [highlightPageMetadata, setHighlightPageMetadata] =
     useState<SubjectPageMetadata>(null);
+  const [highlightFacet, setHighlightFacet] = useState<FacetMetadata>(null);
   const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
@@ -173,6 +175,7 @@ export function App(props: AppProps): ReactElement {
               queryResult={queryResult}
               pageMetadata={pageMetadata}
               highlightPageMetadata={highlightPageMetadata}
+              highlightFacet={highlightFacet}
               userMessage={userMessage}
               hideHeaderSearchBar={props.hideHeaderSearchBar}
             />
@@ -327,6 +330,7 @@ export function App(props: AppProps): ReactElement {
     const query = urlHashParams.query;
 
     let topicsToUse = toApiList(urlHashParams.topic || DEFAULT_TOPIC);
+    setHighlightFacet(urlHashParams.facetMetadata);
 
     let places = [];
     if (!urlHashParams.place) {

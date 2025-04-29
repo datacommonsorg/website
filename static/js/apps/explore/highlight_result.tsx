@@ -1,6 +1,7 @@
 import React from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { trimCategory } from "../../utils/subject_page_utils";
 
@@ -13,6 +14,7 @@ const PAGE_ID = "highlight-result";
 interface HighlightResultProps {
   highlightPageMetadata: SubjectPageMetadata;
   maxBlock: number;
+  highlightFacet?: FacetMetadata;
 }
 
 export function HighlightResult(
@@ -20,6 +22,7 @@ export function HighlightResult(
 ): React.ReactElement {
   return (
     <div>
+      <p>Looking for {props.highlightFacet?.importName}</p>
       <SubjectPageMainPane
         id={PAGE_ID}
         place={props.highlightPageMetadata.place}
@@ -28,6 +31,7 @@ export function HighlightResult(
           props.maxBlock
         )}
         showExploreMore={false}
+        highlightFacet={props.highlightFacet}
       />
     </div>
   );
