@@ -28,13 +28,15 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import React, { ReactElement } from "react";
+import { startCase } from "lodash";
+import React, { Fragment, ReactElement, ReactNode } from "react";
 
 import { humanizeIsoDuration } from "../../../apps/base/utilities/utilities";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { NamedNode } from "../../../shared/types";
+import { urlToDisplayText } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
 import { StatVarMetadata } from "./tile_metadata_modal";
 
@@ -73,17 +75,34 @@ export const TileMetadataModalContent = ({
     }
   });
 
-  const citationSources = Array.from(uniqueSourcesMap.entries())
+  const citationSources: ReactNode[] = Array.from(uniqueSourcesMap.entries())
     .filter(([provenanceName]) => provenanceName)
     .map(([provenanceName, data]) => {
-      const displayText = data.sourceName
+      const sourceLabel = data.sourceName
         ? `${data.sourceName}, ${provenanceName}`
         : provenanceName;
 
-      return data.url
-        ? `${displayText} (${data.url.replace(/^https?:\/\//i, "")})`
-        : displayText;
+      if (data.url) {
+        const urlDisplay = data.url.replace(/^https?:\/\//i, "");
+        return (
+          <Fragment key={provenanceName}>
+            {sourceLabel} (
+            <a href={data.url} target="_blank" rel="noreferrer">
+              {urlDisplay}
+            </a>
+            )
+          </Fragment>
+        );
+      }
+
+      return sourceLabel;
     });
+
+  const joinElements = (
+    items: ReactNode[],
+    separator: ReactNode = ", "
+  ): ReactNode[] =>
+    items.flatMap((item, idx) => (idx === 0 ? [item] : [separator, item]));
 
   return (
     <div
@@ -116,6 +135,9 @@ export const TileMetadataModalContent = ({
         const metadata = metadataMap[statVarId];
         if (!metadata) return null;
 
+        const unitDisplay = metadata.unit
+          ? startCase(metadata.unit)
+          : undefined;
         const periodicity = metadata.observationPeriod
           ? humanizeIsoDuration(metadata.observationPeriod)
           : undefined;
@@ -161,7 +183,7 @@ export const TileMetadataModalContent = ({
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {metadata.provenanceUrl.replace(/^https?:\/\//i, "")}
+                      {urlToDisplayText(metadata.provenanceUrl)}
                     </a>
                   </p>
                 )}
@@ -228,7 +250,7 @@ export const TileMetadataModalContent = ({
                         )}
                   </h4>
                   <p>
-                    {[metadata.unit, periodicity].filter(Boolean).join(" / ")}
+                    {[unitDisplay, periodicity].filter(Boolean).join(" / ")}
                   </p>
                 </div>
               )}
@@ -254,10 +276,10 @@ export const TileMetadataModalContent = ({
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {metadata.license || metadata.licenseDcid}
+                        {startCase(metadata.license || metadata.licenseDcid)}
                       </a>
                     ) : (
-                      metadata.license
+                      startCase(metadata.license)
                     )}
                   </p>
                 </div>
@@ -306,7 +328,7 @@ export const TileMetadataModalContent = ({
           </h3>
           <p>
             {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
-            {citationSources.join(", ")}{" "}
+            {joinElements(citationSources)}{" "}
             {intl.formatMessage(metadataComponentMessages.MinorProcessing)}
           </p>
           <p>
