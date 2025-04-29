@@ -191,35 +191,10 @@ export function App(props: AppProps): ReactElement {
     return hasPlace || fulfillData["entities"];
   }
 
-  /**
-   * Process the fulfill data from the search API response.
-   *
-   * This processes the fulfill data by setting up page metadata, debug data, and user
-   * messages for rendering the explore page. However, if the fulfill response only
-   * contains place information, a page overview configuration, but no charts, it will
-   * redirect to /place/{placeDcid} instead.
-   *
-   * @param fulfillData The fulfill data from the search API response
-   * @param userQuery The user's search query
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, complexity
-  function processFulfillData(
-    fulfillData: any,
-    userQuery?: string,
-    setPageConfig?: (config: SubjectPageMetadata) => void,
-    isHighlight?: boolean
-  ): void {
-    setDebugData(fulfillData["debug"]);
-    setStoreDebugData(fulfillData["debug"]);
-    const userMessage = {
-      msgList: fulfillData["userMessages"] || [],
-      showForm: !!fulfillData["showForm"],
-    };
-    if (!isFulfillDataValid(fulfillData)) {
-      setUserMessage(userMessage);
-      setLoadingStatus(LoadingStatus.FAILED);
-      return;
-    }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function extractMainPlaceAndMetadata(
+    fulfillData: any
+  ): [any, SubjectPageMetadata] {
     const mainPlace = {
       dcid: fulfillData["place"]["dcid"],
       name: fulfillData["place"]["name"],
@@ -241,6 +216,39 @@ export function App(props: AppProps): ReactElement {
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
       svSource: fulfillData["svSource"],
     };
+    return [mainPlace, pageMetadata];
+  }
+
+  /**
+   * Process the fulfill data from the search API response.
+   *
+   * This processes the fulfill data by setting up page metadata, debug data, and user
+   * messages for rendering the explore page. However, if the fulfill response only
+   * contains place information, a page overview configuration, but no charts, it will
+   * redirect to /place/{placeDcid} instead.
+   *
+   * @param fulfillData The fulfill data from the search API response
+   * @param userQuery The user's search query
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function processFulfillData(
+    fulfillData: any,
+    userQuery?: string,
+    setPageConfig?: (config: SubjectPageMetadata) => void,
+    isHighlight?: boolean
+  ): void {
+    setDebugData(fulfillData["debug"]);
+    setStoreDebugData(fulfillData["debug"]);
+    const userMessage = {
+      msgList: fulfillData["userMessages"] || [],
+      showForm: !!fulfillData["showForm"],
+    };
+    if (!isFulfillDataValid(fulfillData)) {
+      setUserMessage(userMessage);
+      setLoadingStatus(LoadingStatus.FAILED);
+      return;
+    }
+    const [mainPlace, pageMetadata] = extractMainPlaceAndMetadata(fulfillData);
     let isPendingRedirect = false;
     if (
       !isHighlight &&
@@ -326,9 +334,8 @@ export function App(props: AppProps): ReactElement {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let fulfillmentPromise: Promise<any>;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let highlightPromise: Promise<any>;
+    let fulfillmentPromise: Promise<unknown>;
+    let highlightPromise: Promise<unknown>;
 
     const gaTitle = query
       ? `Q: ${query} - `
