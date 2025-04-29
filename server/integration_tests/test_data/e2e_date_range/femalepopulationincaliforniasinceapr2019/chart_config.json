@@ -34,6 +34,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of females in the population.",
             "title": "Women"
           },
           {
@@ -66,6 +67,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of females in the population.",
             "title": "Women in Counties of California"
           },
           {
@@ -119,6 +121,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of males in the population.",
             "title": "Men in Counties of California"
           },
           {
