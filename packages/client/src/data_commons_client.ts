@@ -457,7 +457,7 @@ class DataCommonsClient {
     dcids: string[];
     prop: string;
   }): Promise<Record<string, string | null>> {
-    const nodePropvals = await this.webClient.getNodePropvalsOut(params);
+    const nodePropvals = await this.webClient.getNodePropvals(params);
     const nodeValues: Record<string, string | null> = {};
     Object.keys(nodePropvals).forEach((nodeDcid) => {
       nodeValues[nodeDcid] =

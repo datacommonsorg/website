@@ -58,8 +58,6 @@ export function getTopics(
           [URL_HASH_PARAMS.PLACE]: placeUrlVal,
           [URL_HASH_PARAMS.QUERY]: "",
           [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_TOPIC,
-          [URL_HASH_PARAMS.STAT_VAR]: "",
-          [URL_HASH_PARAMS.CHART_TYPE]: "",
         })}`,
       });
     }

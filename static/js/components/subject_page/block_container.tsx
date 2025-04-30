@@ -54,7 +54,6 @@ export interface BlockContainerPropType {
   place?: NamedTypedPlace;
   commonSVSpec?: StatVarSpec[];
   infoMessage?: string;
-  disableExploreMore?: boolean;
 }
 
 export function BlockContainer(props: BlockContainerPropType): JSX.Element {
@@ -134,7 +133,7 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
           <ReactMarkdown>{footnote}</ReactMarkdown>
         </footer>
       )}
-      {!props.disableExploreMore && exploreSVSpec.length > 0 && (
+      {exploreSVSpec.length > 0 && (
         <div id="explore-more-section">
           {exploreSVSpec.slice(0, 1).map((spec) => {
             // Only show 1 explore section now.

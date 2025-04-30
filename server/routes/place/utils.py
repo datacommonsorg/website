@@ -995,7 +995,8 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
       continue
 
     observations = most_recent_facet.get("observations", [])
-    most_recent_observation = observations[0] if observations else None
+    # The most recent observation is the last one in the list
+    most_recent_observation = observations[-1] if observations else None
     if not most_recent_observation:
       continue
 
