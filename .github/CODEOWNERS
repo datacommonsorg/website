@@ -1,0 +1,7 @@
+# General rule: all files by default are owned by the general review team
+* @datacommonsorg/core
+
+# Specific rule for a particular file:
+# This line should come AFTER the general rule.
+# The last matching pattern takes precedence.
+server/config/feature_flag_config/production.json    @gmechali @dwnoble @beets @clincoln8 @chejennifer
