@@ -22,7 +22,6 @@ export function HighlightResult(
 ): React.ReactElement {
   return (
     <div>
-      <p>Looking for {props.highlightFacet?.importName}</p>
       <SubjectPageMainPane
         id={PAGE_ID}
         place={props.highlightPageMetadata.place}

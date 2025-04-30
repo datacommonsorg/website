@@ -422,6 +422,7 @@ function renderTiles(
               blockDate,
               blockDenom,
             })}
+            highlightFacet={props.highlightFacet}
           />
         );
       }

@@ -28,6 +28,7 @@ import {
 import { formatNumber, translateUnit } from "../../i18n/i18n";
 import { Observation } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
@@ -55,6 +56,8 @@ export interface HighlightTilePropType {
   statVarSpec: StatVarSpec;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Facet metadata to use for the highlight tile
+  highlightFacet?: FacetMetadata;
 }
 
 export interface HighlightData extends Observation {
@@ -159,10 +162,18 @@ export const fetchData = async (
     props.apiRoot,
     [props.place.dcid],
     [props.statVarSpec.statVar],
-    props.statVarSpec.date
+    props.statVarSpec.date,
+    undefined,
+    props.highlightFacet
   );
   const denomPromise = props.statVarSpec.denom
-    ? getSeries(props.apiRoot, [props.place.dcid], [props.statVarSpec.denom])
+    ? getSeries(
+        props.apiRoot,
+        [props.place.dcid],
+        [props.statVarSpec.denom],
+        [],
+        props.highlightFacet
+      )
     : Promise.resolve(null);
   const [statResp, denomResp] = await Promise.all([statPromise, denomPromise]);
   const mainStatData =

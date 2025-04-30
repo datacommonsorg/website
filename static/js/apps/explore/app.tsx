@@ -236,8 +236,8 @@ export function App(props: AppProps): ReactElement {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function processFulfillData(
     fulfillData: any,
+    setPageConfig: (config: SubjectPageMetadata) => void,
     userQuery?: string,
-    setPageConfig?: (config: SubjectPageMetadata) => void,
     isHighlight?: boolean
   ): void {
     setDebugData(fulfillData["debug"]);
@@ -379,7 +379,7 @@ export function App(props: AppProps): ReactElement {
         urlHashParams.maxCharts
       )
         .then((resp) => {
-          processFulfillData(resp, query);
+          processFulfillData(resp, setPageMetadata, query);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -439,11 +439,11 @@ export function App(props: AppProps): ReactElement {
 
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
-          processFulfillData(fulfillResponse, undefined, setPageMetadata);
+          processFulfillData(fulfillResponse, setPageMetadata, undefined);
           processFulfillData(
             highlightResponse,
-            undefined,
             setHighlightPageMetadata,
+            undefined,
             true
           );
         }

@@ -76,12 +76,14 @@ function getObsUnit(
  */
 function getProcessedPointResponse(
   resp: PointApiResponse,
-  alignedVariables?: string[][]
+  alignedVariables?: string[][],
+  highlightFacet?: FacetMetadata
 ): PointApiResponse {
   const processedResp = {
     facets: resp.facets,
     data: {},
   };
+  // console.log("Response: ", JSON.stringify(resp));
   const variableGroups = alignedVariables || [];
   const groupedSvs = new Set(variableGroups.flat());
   for (const sv of Object.keys(resp.data)) {
@@ -117,6 +119,7 @@ function getProcessedPointResponse(
       });
     }
   }
+  console.log("Processed Response: ", JSON.stringify(processedResp));
   return processedResp;
 }
 
@@ -133,15 +136,48 @@ export function getPoint(
   entities: string[],
   variables: string[],
   date: string,
-  alignedVariables?: string[][]
+  alignedVariables?: string[][],
+  highlightFacet?: FacetMetadata
 ): Promise<PointApiResponse> {
+  if (highlightFacet) {
+    return axios
+      .get<PointAllApiResponse>(`${apiRoot || ""}/api/observations/point/all`, {
+        params: { date, entities, variables },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        console.log("LOOKING FOR ALL FACETS" + JSON.stringify(resp.data));
+        const respData = resp.data;
+        const result = {};
+        for (const svDcid of Object.keys(respData.data)) {
+          result[svDcid] = {};
+          if (_.isEmpty(respData.data[svDcid][FACET_WITHIN_ENTITY])) {
+            continue;
+          }
+          respData.data[svDcid][FACET_WITHIN_ENTITY].forEach((obs) => {
+            if (obs.facet && respData.facets[obs.facet]) {
+              result[svDcid][obs.facet] = respData.facets[obs.facet];
+            }
+          });
+        }
+
+        console.log("REsult: " + JSON.stringify(result));
+        let pointApiResponse: PointApiResponse;
+        return pointApiResponse;
+      });
+  }
+
   return axios
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
       params: { date, entities, variables },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      return getProcessedPointResponse(resp.data, alignedVariables);
+      return getProcessedPointResponse(
+        resp.data,
+        alignedVariables,
+        highlightFacet
+      );
     });
 }
 
@@ -190,7 +226,6 @@ export async function getSeries(
   facetIds?: string[],
   highlightFacet?: FacetMetadata
 ): Promise<SeriesApiResponse> {
-  console.log("Entities: ", JSON.stringify(highlightFacet));
   const params = { entities, variables };
   if (facetIds) {
     params["facetIds"] = facetIds;
@@ -199,44 +234,26 @@ export async function getSeries(
       (resp) => {
         const svDcid = Object.keys(resp)[0];
         const facets = resp[svDcid];
-        console.log("Facets: ", facets);
         // Iterate through all the facets, and find a match on the importName property.
         for (const [facetId, f] of Object.entries(facets)) {
-          console.log("FacetId: " + facetId + " Facet: " + JSON.stringify(f));
           if (
             !_.isEmpty(highlightFacet.importName) &&
             highlightFacet.importName !== f.importName
           ) {
-            console.log(
-              "Diff in the importName importName" +
-                f.importName +
-                " vs " +
-                highlightFacet.importName
-            );
             continue;
           }
           if (
             !_.isEmpty(highlightFacet.measurementMethod) &&
             highlightFacet.measurementMethod !== f.measurementMethod
           ) {
-            console.log(
-              "Diff in the measurement method" +
-                f.measurementMethod +
-                " vs " +
-                highlightFacet.measurementMethod
-            );
             continue;
           }
           if (
             !_.isEmpty(highlightFacet.unit) &&
             highlightFacet.unit !== f.unit
           ) {
-            console.log(
-              "Diff in the unit" + f.unit + " vs " + highlightFacet.unit
-            );
             continue;
           }
-          console.log("Found a match");
           return facetId;
         }
         return null;
