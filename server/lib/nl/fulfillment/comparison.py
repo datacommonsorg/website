@@ -20,7 +20,6 @@ import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
-from server.lib.nl.explore.params import Params
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
@@ -56,9 +55,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     dcids = [p.dcid for p in places]
     state.uttr.counters.info('comparison_place_candidates', dcids)
 
-  chart_type = state.uttr.insight_ctx.get(Params.CHART_TYPE,
-                                          'BAR_CHART') or 'BAR_CHART'
-
   found = False
   if not chart_vars.is_topic_peer_group:
     for i, sv in enumerate(chart_vars.svs):
@@ -78,7 +74,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       cv.svs = [sv]
       sv_place_latest_date = ext.get_sv_place_latest_date([sv], places, None,
                                                           state.exist_checks)
-      found |= add_chart_to_utterance(ChartType.from_string(chart_type),
+      found |= add_chart_to_utterance(ChartType.BAR_CHART,
                                       state,
                                       cv,
                                       exist_places,

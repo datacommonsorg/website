@@ -155,7 +155,6 @@ function renderBlocks(
               place={props.place}
               commonSVSpec={commonSVSpec}
               infoMessage={block.infoMessage}
-              disableExploreMore={!props.showExploreMore}
             >
               <Block
                 id={id}
