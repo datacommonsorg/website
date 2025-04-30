@@ -21,7 +21,6 @@
 // URL hash param keys
 export const URL_HASH_PARAMS = {
   PLACE: "p",
-  STAT_VAR: "sv",
   TOPIC: "t",
   QUERY: "q",
   DC: "dc",
@@ -47,7 +46,6 @@ export const URL_HASH_PARAMS = {
   MAX_TOPICS: "maxTopics",
   MAX_TOPIC_SVS: "maxTopicSvs",
   MAX_CHARTS: "maxCharts",
-  CHART_TYPE: "chartType",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL
