@@ -77,7 +77,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       cv.svs = [sv]
       sv_place_latest_date = ext.get_sv_place_latest_date([sv], places, None,
                                                           state.exist_checks)
-      found |= add_chart_to_utterance(ChartType.from_string(chart_type) if chart_type else ChartType.BAR_CHART,
+      found |= add_chart_to_utterance(ChartType.from_string(chart_type)
+                                      if chart_type else ChartType.BAR_CHART,
                                       state,
                                       cv,
                                       exist_places,
