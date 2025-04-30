@@ -76,6 +76,9 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
     (async (): Promise<void> => {
       try {
         const data = await fetchData(props);
+        if (props.highlightFacet) {
+          console.log("Highlight Tile: data", data);
+        }
         setHighlightData(data);
       } catch {
         setHighlightData(null);
@@ -157,6 +160,7 @@ export function getDescription(
 export const fetchData = async (
   props: HighlightTilePropType
 ): Promise<HighlightData> => {
+  console.log("Calling fetchData");
   // Now assume highlight only talks about one stat var.
   const statPromise = getPoint(
     props.apiRoot,
@@ -176,8 +180,13 @@ export const fetchData = async (
       )
     : Promise.resolve(null);
   const [statResp, denomResp] = await Promise.all([statPromise, denomPromise]);
-  const mainStatData =
-    statResp.data[props.statVarSpec.statVar][props.place.dcid];
+  if (props.highlightFacet) {
+    console.log("Highlight Tile: statResp", statResp);
+  }
+  let mainStatData = statResp.data[props.statVarSpec.statVar][props.place.dcid];
+  if (Array.isArray(mainStatData)) {
+    mainStatData = mainStatData[0];
+  }
   let value = mainStatData.value;
   const facet = statResp.facets[mainStatData.facet];
   const sources = new Set<string>();

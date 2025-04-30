@@ -76,14 +76,13 @@ function getObsUnit(
  */
 function getProcessedPointResponse(
   resp: PointApiResponse,
-  alignedVariables?: string[][],
-  highlightFacet?: FacetMetadata
+  alignedVariables?: string[][]
 ): PointApiResponse {
   const processedResp = {
     facets: resp.facets,
     data: {},
   };
-  // console.log("Response: ", JSON.stringify(resp));
+  console.log("Processed Response Start.");
   const variableGroups = alignedVariables || [];
   const groupedSvs = new Set(variableGroups.flat());
   for (const sv of Object.keys(resp.data)) {
@@ -97,6 +96,7 @@ function getProcessedPointResponse(
       const entityObs = resp.data[variable];
       Object.values(entityObs).forEach((obs) => {
         if (_.isEmpty(obs)) {
+          console.log("Empty observation for variable: ", variable);
           return;
         }
         const unit = getObsUnit(resp.facets, obs);
@@ -119,7 +119,7 @@ function getProcessedPointResponse(
       });
     }
   }
-  console.log("Processed Response: ", JSON.stringify(processedResp));
+  console.log("Processed Response Done." + JSON.stringify(processedResp));
   return processedResp;
 }
 
@@ -131,7 +131,7 @@ function getProcessedPointResponse(
  * @param date date to get the data for
  * @param alignedVariables groups of variables that should have the same unit
  */
-export function getPoint(
+export async function getPoint(
   apiRoot: string,
   entities: string[],
   variables: string[],
@@ -139,45 +139,39 @@ export function getPoint(
   alignedVariables?: string[][],
   highlightFacet?: FacetMetadata
 ): Promise<PointApiResponse> {
-  if (highlightFacet) {
-    return axios
-      .get<PointAllApiResponse>(`${apiRoot || ""}/api/observations/point/all`, {
-        params: { date, entities, variables },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => {
-        console.log("LOOKING FOR ALL FACETS" + JSON.stringify(resp.data));
-        const respData = resp.data;
-        const result = {};
-        for (const svDcid of Object.keys(respData.data)) {
-          result[svDcid] = {};
-          if (_.isEmpty(respData.data[svDcid][FACET_WITHIN_ENTITY])) {
-            continue;
-          }
-          respData.data[svDcid][FACET_WITHIN_ENTITY].forEach((obs) => {
-            if (obs.facet && respData.facets[obs.facet]) {
-              result[svDcid][obs.facet] = respData.facets[obs.facet];
-            }
-          });
-        }
+  let facetIds: string[] | undefined;
 
-        console.log("REsult: " + JSON.stringify(result));
-        let pointApiResponse: PointApiResponse;
-        return pointApiResponse;
-      });
+  if (highlightFacet) {
+    const facetsResponse = await getFacets(apiRoot, entities, variables);
+    for (const svDcid of Object.keys(facetsResponse)) {
+      const facets = facetsResponse[svDcid];
+      for (const [facetId, f] of Object.entries(facets)) {
+        if (
+          (!_.isEmpty(highlightFacet.importName) &&
+            highlightFacet.importName !== f.importName) ||
+          (!_.isEmpty(highlightFacet.measurementMethod) &&
+            highlightFacet.measurementMethod !== f.measurementMethod) ||
+          (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit)
+        ) {
+          continue;
+        }
+        facetIds = [facetId];
+        break;
+      }
+    }
   }
 
+  console.log("Facet IDS" + facetIds);
   return axios
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
-      params: { date, entities, variables },
+      params: { date, entities, variables, facetIds },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      return getProcessedPointResponse(
-        resp.data,
-        alignedVariables,
-        highlightFacet
-      );
+      if (highlightFacet) {
+        console.log("Responseeeeee: ", JSON.stringify(resp.data));
+      }
+      return getProcessedPointResponse(resp.data, alignedVariables);
     });
 }
 
