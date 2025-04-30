@@ -44,6 +44,7 @@ import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "./debug_info";
+import { HighlightResult } from "./highlight_result";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
@@ -67,6 +68,8 @@ interface SuccessResultPropType {
   //if true, there is no header bar search, and so we display search inline
   //if false, there is a header bar search, and so we do not display search inline
   hideHeaderSearchBar: boolean;
+  // Object containing the highlight page metadata only.
+  highlightPageMetadata?: SubjectPageMetadata;
 }
 
 export function SuccessResult(props: SuccessResultPropType): ReactElement {
@@ -179,6 +182,12 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                   placeType: props.exploreContext.childEntityType || "",
                 }}
               >
+                {props.highlightPageMetadata && (
+                  <HighlightResult
+                    highlightPageMetadata={props.highlightPageMetadata}
+                    maxBlock={maxBlock}
+                  />
+                )}
                 <SubjectPageMainPane
                   id={PAGE_ID}
                   place={props.pageMetadata.place}
