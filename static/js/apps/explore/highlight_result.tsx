@@ -22,16 +22,21 @@ export function HighlightResult(
 ): React.ReactElement {
   return (
     <div>
-      <SubjectPageMainPane
-        id={PAGE_ID}
-        place={props.highlightPageMetadata.place}
-        pageConfig={trimCategory(
-          props.highlightPageMetadata.pageConfig,
-          props.maxBlock
-        )}
-        showExploreMore={false}
-        highlightFacet={props.highlightFacet}
-      />
+      <div className="highlight-result-title">
+        <h2>Highlight chart!</h2>
+        <p>This data comes from {props.highlightFacet?.importName}</p>
+        <SubjectPageMainPane
+          id={PAGE_ID}
+          place={props.highlightPageMetadata.place}
+          pageConfig={trimCategory(
+            props.highlightPageMetadata.pageConfig,
+            props.maxBlock
+          )}
+          showExploreMore={false}
+          highlightFacet={props.highlightFacet}
+        />
+      </div>
+      <p>Explore more about this!</p>
     </div>
   );
 }

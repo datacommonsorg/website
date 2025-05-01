@@ -82,7 +82,6 @@ function getProcessedPointResponse(
     facets: resp.facets,
     data: {},
   };
-  console.log("Processed Response Start.");
   const variableGroups = alignedVariables || [];
   const groupedSvs = new Set(variableGroups.flat());
   for (const sv of Object.keys(resp.data)) {
@@ -96,7 +95,6 @@ function getProcessedPointResponse(
       const entityObs = resp.data[variable];
       Object.values(entityObs).forEach((obs) => {
         if (_.isEmpty(obs)) {
-          console.log("Empty observation for variable: ", variable);
           return;
         }
         const unit = getObsUnit(resp.facets, obs);
@@ -119,8 +117,46 @@ function getProcessedPointResponse(
       });
     }
   }
-  console.log("Processed Response Done." + JSON.stringify(processedResp));
   return processedResp;
+}
+
+/**
+ * Gets the data from /api/observations/point endpoint
+ * @param apiRoot api root
+ * @param entities list of entitites to get data for
+ * @param variables list of variables to get data for
+ * @param date date to get the data for
+ *
+ * @returns The Facet ID matching the highlight facet
+ *          or null if no matching facet is found.
+ */
+async function selectFacet(
+  apiRoot: string,
+  entities: string[],
+  variables: string[],
+  highlightFacet?: FacetMetadata
+): Promise<string[] | null> {
+  if (!highlightFacet) {
+    return null;
+  }
+  const facetsResponse = await getFacets(apiRoot, entities, variables);
+  for (const svDcid of Object.keys(facetsResponse)) {
+    const facets = facetsResponse[svDcid];
+    for (const [facetId, f] of Object.entries(facets)) {
+      if (
+        (!_.isEmpty(highlightFacet.importName) &&
+          highlightFacet.importName !== f.importName) ||
+        (!_.isEmpty(highlightFacet.measurementMethod) &&
+          highlightFacet.measurementMethod !== f.measurementMethod) ||
+        (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit)
+      ) {
+        continue;
+      }
+      return [facetId];
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -139,38 +175,19 @@ export async function getPoint(
   alignedVariables?: string[][],
   highlightFacet?: FacetMetadata
 ): Promise<PointApiResponse> {
-  let facetIds: string[] | undefined;
-
-  if (highlightFacet) {
-    const facetsResponse = await getFacets(apiRoot, entities, variables);
-    for (const svDcid of Object.keys(facetsResponse)) {
-      const facets = facetsResponse[svDcid];
-      for (const [facetId, f] of Object.entries(facets)) {
-        if (
-          (!_.isEmpty(highlightFacet.importName) &&
-            highlightFacet.importName !== f.importName) ||
-          (!_.isEmpty(highlightFacet.measurementMethod) &&
-            highlightFacet.measurementMethod !== f.measurementMethod) ||
-          (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit)
-        ) {
-          continue;
-        }
-        facetIds = [facetId];
-        break;
-      }
-    }
-  }
-
-  console.log("Facet IDS" + facetIds);
+  // Optionally get the facet ID required.
+  const facetIds = await selectFacet(
+    apiRoot,
+    entities,
+    variables,
+    highlightFacet
+  );
   return axios
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
       params: { date, entities, variables, facetIds },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      if (highlightFacet) {
-        console.log("Responseeeeee: ", JSON.stringify(resp.data));
-      }
       return getProcessedPointResponse(resp.data, alignedVariables);
     });
 }
@@ -221,43 +238,13 @@ export async function getSeries(
   highlightFacet?: FacetMetadata
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
+  facetIds =
+    facetIds ||
+    (await selectFacet(apiRoot, entities, variables, highlightFacet));
   if (facetIds) {
     params["facetIds"] = facetIds;
-  } else if (highlightFacet) {
-    const newFacetId = await getFacets(apiRoot, entities, variables).then(
-      (resp) => {
-        const svDcid = Object.keys(resp)[0];
-        const facets = resp[svDcid];
-        // Iterate through all the facets, and find a match on the importName property.
-        for (const [facetId, f] of Object.entries(facets)) {
-          if (
-            !_.isEmpty(highlightFacet.importName) &&
-            highlightFacet.importName !== f.importName
-          ) {
-            continue;
-          }
-          if (
-            !_.isEmpty(highlightFacet.measurementMethod) &&
-            highlightFacet.measurementMethod !== f.measurementMethod
-          ) {
-            continue;
-          }
-          if (
-            !_.isEmpty(highlightFacet.unit) &&
-            highlightFacet.unit !== f.unit
-          ) {
-            continue;
-          }
-          return facetId;
-        }
-        return null;
-      }
-    );
-    if (newFacetId) {
-      params["facetIds"] = [newFacetId];
-    }
   }
-  //EurostatData_Demographic_Balance_Crude_Rates, WikidataPopulation, OECDRegionalDemography_Population
+
   return axios
     .post(`${apiRoot || ""}/api/observations/series`, params)
     .then((resp) => resp.data);
