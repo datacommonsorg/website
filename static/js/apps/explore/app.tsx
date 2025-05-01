@@ -191,10 +191,11 @@ export function App(props: AppProps): ReactElement {
     return hasPlace || fulfillData["entities"];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable @typescript-eslint/no-explicit-any
   function extractMainPlaceAndMetadata(
     fulfillData: any
   ): [any, SubjectPageMetadata] {
+    // eslint-enable @typescript-eslint/no-explicit-any
     const mainPlace = {
       dcid: fulfillData["place"]["dcid"],
       name: fulfillData["place"]["name"],
@@ -230,8 +231,8 @@ export function App(props: AppProps): ReactElement {
    * @param fulfillData The fulfill data from the search API response
    * @param userQuery The user's search query
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function processFulfillData(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fulfillData: any,
     setPageConfig: (config: SubjectPageMetadata) => void,
     userQuery?: string,
