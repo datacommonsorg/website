@@ -122,8 +122,22 @@ def mock_dc_api_data(stat_var: str,
                      mock_obs_point: mock.Mock = None,
                      mock_obs_point_within: mock.Mock = None,
                      data: List[int] | List[Dict[str, any]] | None = None,
-                     include_facets=False) -> Dict[str, any]:
+                     include_facets=False,
+                     single_facet=False) -> Dict[str, any]:
   """Mocks the data from the DC API request obs point and obs point within.
+
+  Args:
+    stat_var: The stat var to mock.
+    places: The places to mock.
+    dc_obs_point: If true, the data will be mocked for the obs point.
+    dc_obs_points_within: If true, the data will be mocked for the obs point within.
+    mock_obs_point: The mock object to use for the obs point.
+    mock_obs_point_within: The mock object to use for the obs point within.
+    data: The data to mock.
+    include_facets: If true, the data will be mocked as orderedFacets.
+    single_facet: If include_facets is true.
+      If true, the data will be combined into a single facet in orderedFacets. 
+      If false, the data will be mocked as multiple facets in orderedFacets.
 
   data can be a list of observation values or a list of observation dicts.
 
@@ -145,8 +159,8 @@ def mock_dc_api_data(stat_var: str,
   if data is None:
     data = []
 
-  val = create_mock_data(stat_var, places, data, include_facets)
-  val2 = create_mock_data(stat_var, places, data, include_facets)
+  val = create_mock_data(stat_var, places, data, include_facets, single_facet)
+  val2 = create_mock_data(stat_var, places, data, include_facets, single_facet)
 
   def mock_obs_point_side_effect(entities, variables, date='LATEST'):
     return val
@@ -160,41 +174,63 @@ def mock_dc_api_data(stat_var: str,
     mock_obs_point_within.side_effect = mock_obs_point_within_side_effect
 
 
-def _create_ordered_facets(data, facets):
+def _create_ordered_facets(data, facets, single_facet):
   ordered_facets = []
-  for i, val in enumerate(data):
-    facet_id = f"facet_{i}"
-    if isinstance(val, dict):
-      observation = val
-    else:
-      observation = {
-          "date": f"2023-{i+1:02}-01",
-          "value": val,
-      }
+  if single_facet:
+    facet_id = "facet_1"
+    observations = [
+        o if isinstance(o, dict) else {
+            "date": o,
+            "value": o
+        } for o in data
+    ]
     ordered_facets.append({
         "facetId": facet_id,
-        "observations": [observation],
+        "observations": observations,
         "provenanceUrl": f"prov.com/{facet_id}",
         "unit": "count",
-        "latestDate": observation["date"],
-        "earliestDate": observation["date"]
+        "latestDate": observations[-1]["date"],
+        "earliestDate": observations[0]["date"]
     })
     facets[facet_id] = {
         "provenanceUrl": f"prov.com/{facet_id}",
         "unit": "count"
     }
+  else:
+    for i, val in enumerate(data):
+      facet_id = f"facet_{i}"
+      if isinstance(val, dict):
+        observation = val
+      else:
+        observation = {
+            "date": f"2023-{i+1:02}-01",
+            "value": val,
+        }
+      ordered_facets.append({
+          "facetId": facet_id,
+          "observations": [observation],
+          "provenanceUrl": f"prov.com/{facet_id}",
+          "unit": "count",
+          "latestDate": observation["date"],
+          "earliestDate": observation["date"]
+      })
+      facets[facet_id] = {
+          "provenanceUrl": f"prov.com/{facet_id}",
+          "unit": "count"
+      }
   return ordered_facets
 
 
 def create_mock_data(stat_var: str,
                      places: list[str],
                      data: list,
-                     include_facets: bool = False) -> Dict[str, any]:
+                     include_facets: bool = False,
+                     single_facet: bool = False) -> Dict[str, any]:
   by_entity = {}
   facets = {}
   for place in places:
     if include_facets:
-      ordered_facets = _create_ordered_facets(data, facets)
+      ordered_facets = _create_ordered_facets(data, facets, single_facet)
       by_entity[place] = {"orderedFacets": ordered_facets}
     else:
       by_entity[place] = data

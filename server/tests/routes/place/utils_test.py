@@ -964,5 +964,32 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(len(resp), 1)
     self.assertEqual(resp[0].name, 'Population')
     self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
-    self.assertEqual(resp[0].value, 200)
+    self.assertEqual(resp[0].value,
+                     200)  # The most recent value among all facets
+    self.assertEqual(resp[0].variableDcid, 'Count_Person')
+
+  def test_fetch_overview_table_data_single_facets(self):
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               dc_obs_points_within=False,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[{
+                                   "date": "2021",
+                                   "value": 100
+                               }, {
+                                   "date": "2022",
+                                   "value": 200
+                               }, {
+                                   "date": "2023",
+                                   "value": 150
+                               }],
+                               include_facets=True,
+                               single_facet=True)
+    resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
+    self.assertEqual(len(resp), 1)
+    self.assertEqual(resp[0].name, 'Population')
+    self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
+    self.assertEqual(resp[0].value, 150)  # The latest value
     self.assertEqual(resp[0].variableDcid, 'Count_Person')
