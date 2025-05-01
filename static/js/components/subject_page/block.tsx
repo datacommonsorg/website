@@ -556,6 +556,7 @@ function renderTiles(
               tile.barTileSpec?.variableNameRegex,
               tile.barTileSpec?.defaultVariableName
             )}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "SCATTER": {
