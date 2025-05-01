@@ -61,8 +61,8 @@ const TOOLFORMER_RIG_ALLOWED_CHARTS = new Set(["LINE", "HIGHLIGHT"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
-// Detector to use when handling nl queries
-const QUERY_DETECTOR = "heuristic";
+// Default detector type to use when handling nl queries
+const DEFAULT_QUERY_DETECTOR = "heuristic";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
 
@@ -292,6 +292,7 @@ export async function getQueryResult(
   mode: string,
   varThreshold: string,
   wantRelatedQuestions: boolean,
+  detector: string,
   idx?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
@@ -308,7 +309,9 @@ export async function getQueryResult(
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
   let nlResp = null;
-  let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&detector=${QUERY_DETECTOR}`;
+  let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&detector=${
+    detector || DEFAULT_QUERY_DETECTOR
+  }`;
   const params = {
     client,
     idx,

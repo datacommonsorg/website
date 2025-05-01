@@ -309,6 +309,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const wantRelatedQuestions =
     req.query.relatedQuestions === URL_PARAM_VALUE_TRUTHY;
   const idx = (req.query.idx as string) || "";
+  const detector = (req.query.detector as string) || "";
   getQueryResult(
     query,
     useChartUrl,
@@ -320,6 +321,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
     mode,
     varThreshold,
     wantRelatedQuestions,
+    detector,
     idx
   ).then((result) => {
     res.setHeader("Content-Type", "application/json");
