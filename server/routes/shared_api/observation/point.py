@@ -27,6 +27,13 @@ bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
 
 
 def _filter_point_for_facets(point_data, facet_ids):
+  """Filter the point data to only include the specified facets.
+  Args:
+    point_data: The point data to filter.
+    facet_ids: The list of facet IDs to include in the filtered data.
+  Returns:
+    The filtered point data, including only the specified facets.
+  """
   if not point_data or not point_data.get('data') or not point_data.get(
       'facets'):
     return point_data
@@ -74,7 +81,8 @@ def point():
   """Handler to get the observation point given multiple stat vars and places."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
-  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
+  facet_id = list(filter(lambda x: x != "",
+                         request.args.getlist('facetId'))) or None
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
@@ -85,18 +93,18 @@ def point():
     return fetch_highest_coverage(entities=entities,
                                   variables=variables,
                                   all_facets=False,
-                                  facet_ids=facet_ids)
+                                  facet_ids=facet_id)
 
   # If facet_ids are provided, we need to filter the data after fetching
   # the point data. This is because the fetch.point_core function does not
   # support filtering by facet_ids directly.
-  all_facets = True if facet_ids else False
+  all_facets = True if facet_id else False
   point_data = fetch.point_core(entities, variables, date, all_facets)
 
-  if not facet_ids:
+  if not facet_id:
     return point_data
 
-  return _filter_point_for_facets(point_data, facet_ids)
+  return _filter_point_for_facets(point_data, facet_id)
 
 
 @bp.route('/all')

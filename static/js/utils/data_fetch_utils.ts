@@ -182,9 +182,10 @@ export async function getPoint(
     variables,
     highlightFacet
   );
+  const facetId = facetIds && facetIds.length > 0 ? facetIds[0] : null;
   return axios
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
-      params: { date, entities, variables, facetIds },
+      params: { date, entities, variables, facetId },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
