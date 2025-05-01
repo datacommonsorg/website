@@ -239,11 +239,11 @@ export async function getSeries(
   highlightFacet?: FacetMetadata
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
-  facetIds =
+  const resolvedFacetIds =
     facetIds ||
     (await selectFacet(apiRoot, entities, variables, highlightFacet));
-  if (facetIds) {
-    params["facetIds"] = facetIds;
+  if (resolvedFacetIds) {
+    params["facetIds"] = resolvedFacetIds;
   }
 
   return axios
