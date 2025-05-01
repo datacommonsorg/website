@@ -167,7 +167,7 @@ async function selectFacet(
  * @param date date to get the data for
  * @param alignedVariables groups of variables that should have the same unit
  */
-export async function getPoint(
+export function getPoint(
   apiRoot: string,
   entities: string[],
   variables: string[],
@@ -175,22 +175,19 @@ export async function getPoint(
   alignedVariables?: string[][],
   highlightFacet?: FacetMetadata
 ): Promise<PointApiResponse> {
-  // Optionally get the facet ID required.
-  const facetIds = await selectFacet(
-    apiRoot,
-    entities,
-    variables,
-    highlightFacet
+  return selectFacet(apiRoot, entities, variables, highlightFacet).then(
+    (facetIds) => {
+      const facetId = facetIds && facetIds.length > 0 ? facetIds[0] : null;
+      return axios
+        .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
+          params: { date, entities, variables, facetId },
+          paramsSerializer: stringifyFn,
+        })
+        .then((resp) => {
+          return getProcessedPointResponse(resp.data, alignedVariables);
+        });
+    }
   );
-  const facetId = facetIds && facetIds.length > 0 ? facetIds[0] : null;
-  return axios
-    .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
-      params: { date, entities, variables, facetId },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      return getProcessedPointResponse(resp.data, alignedVariables);
-    });
 }
 
 /**
