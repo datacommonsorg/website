@@ -82,6 +82,14 @@ class ChartType(IntEnum):
   ANSWER = 8
   ENTITY_OVERVIEW = 9
 
+  @staticmethod
+  def from_string(chart_type_str: str):
+    """Fetch the ChartType from a string with the same value."""
+    try:
+      return ChartType[chart_type_str]
+    except KeyError:
+      raise ValueError(f"Invalid ChartType string: {chart_type_str}")
+
 
 class FulfillmentResult(str, Enum):
   """Where is a variable or place from?"""
