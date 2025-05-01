@@ -20,7 +20,6 @@
 
 import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
-import { url } from "inspector";
 import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
@@ -469,7 +468,7 @@ const fetchFulfillData = async (
   client: string,
   chartType: string,
   skipRelatedThings = false
-) => {
+): Promise<unknown> => {
   try {
     const argsMap = new Map<string, string>();
     if (testMode) {
@@ -529,7 +528,7 @@ const fetchDetectAndFufillData = async (
   maxTopics: string,
   maxTopicSvs: string,
   maxCharts: string
-) => {
+): Promise<unknown> => {
   const fieldsMap = {
     [URL_HASH_PARAMS.DETECTOR]: detector,
     [URL_HASH_PARAMS.TEST_MODE]: testMode,

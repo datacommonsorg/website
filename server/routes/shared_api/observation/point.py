@@ -27,7 +27,8 @@ bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
 
 
 def _filter_point_for_facets(point_data, facet_ids):
-  if not point_data or not point_data.get('data') or not point_data.get('facets'):
+  if not point_data or not point_data.get('data') or not point_data.get(
+      'facets'):
     return point_data
 
   # Filter the data based on the provided facet_ids
@@ -36,25 +37,31 @@ def _filter_point_for_facets(point_data, facet_ids):
     for stat_var, entity_data in point_data['data'].items():
       filtered_data[stat_var] = {}
       for entity_id, observations in entity_data.items():
-        filtered_data[stat_var][entity_id] = [obs for obs in observations if obs.get('facet') in facet_ids]
+        filtered_data[stat_var][entity_id] = [
+            obs for obs in observations if obs.get('facet') in facet_ids
+        ]
 
     # Remove empty entries from filtered_data
     filtered_data = {
         stat_var: {
-        entity_id: observations
-        for entity_id, observations in entity_data.items() if observations
-        }
-        for stat_var, entity_data in filtered_data.items() if entity_data
+            entity_id: observations
+            for entity_id, observations in entity_data.items()
+            if observations
+        } for stat_var, entity_data in filtered_data.items() if entity_data
     }
-    
+
     # Determine which facets are actually present in the filtered_data
     active_facets_in_filtered_data = set()
     for _, entity_data_val in filtered_data.items():
-        for _, observations_val in entity_data_val.items():
-            for obs in observations_val:
-                active_facets_in_filtered_data.add(obs.get('facet'))
-    
-    final_facets_info = {f_id: point_data['facets'][f_id] for f_id in active_facets_in_filtered_data if f_id in point_data.get('facets', {})}
+      for _, observations_val in entity_data_val.items():
+        for obs in observations_val:
+          active_facets_in_filtered_data.add(obs.get('facet'))
+
+    final_facets_info = {
+        f_id: point_data['facets'][f_id]
+        for f_id in active_facets_in_filtered_data
+        if f_id in point_data.get('facets', {})
+    }
     point_to_return = {'facets': final_facets_info, 'data': filtered_data}
     return point_to_return
 
