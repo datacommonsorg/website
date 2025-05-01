@@ -228,7 +228,7 @@ export function getPointWithin(
  * @param entities list of enitites to get data for
  * @param variables list of variables to get data for
  */
-export async function getSeries(
+export function getSeries(
   apiRoot: string,
   entities: string[],
   variables: string[],
@@ -236,16 +236,17 @@ export async function getSeries(
   highlightFacet?: FacetMetadata
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
-  const resolvedFacetIds =
-    facetIds ||
-    (await selectFacet(apiRoot, entities, variables, highlightFacet));
-  if (resolvedFacetIds) {
-    params["facetIds"] = resolvedFacetIds;
-  }
+  return selectFacet(apiRoot, entities, variables, highlightFacet).then(
+    (resolvedFacetIds) => {
+      if (facetIds || resolvedFacetIds) {
+        params["facetIds"] = facetIds || resolvedFacetIds;
+      }
 
-  return axios
-    .post(`${apiRoot || ""}/api/observations/series`, params)
-    .then((resp) => resp.data);
+      return axios
+        .post(`${apiRoot || ""}/api/observations/series`, params)
+        .then((resp) => resp.data);
+    }
+  );
 }
 
 /**
