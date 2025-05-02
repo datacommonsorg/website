@@ -137,7 +137,7 @@ async function selectFacet(
   highlightFacet?: FacetMetadata
 ): Promise<string[] | null> {
   if (!highlightFacet) {
-    return Promise.resolve(null);
+    return null;
   }
   const facetsResponse = await getFacets(apiRoot, entities, variables);
   for (const svDcid of Object.keys(facetsResponse)) {
@@ -156,7 +156,7 @@ async function selectFacet(
     }
   }
 
-  return Promise.resolve(null);
+  return null;
 }
 
 /**
@@ -175,19 +175,19 @@ export function getPoint(
   alignedVariables?: string[][],
   highlightFacet?: FacetMetadata
 ): Promise<PointApiResponse> {
-  return selectFacet(apiRoot, entities, variables, highlightFacet).then(
-    (facetIds) => {
-      const facetId = facetIds && facetIds.length > 0 ? facetIds[0] : null;
-      return axios
-        .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
-          params: { date, entities, variables, facetId },
-          paramsSerializer: stringifyFn,
-        })
-        .then((resp) => {
-          return getProcessedPointResponse(resp.data, alignedVariables);
-        });
-    }
-  );
+  return Promise.resolve(
+    selectFacet(apiRoot, entities, variables, highlightFacet)
+  ).then((facetIds) => {
+    const facetId = facetIds && facetIds.length > 0 ? facetIds[0] : null;
+    return axios
+      .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
+        params: { date, entities, variables, facetId },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        return getProcessedPointResponse(resp.data, alignedVariables);
+      });
+  });
 }
 
 /**
@@ -236,17 +236,17 @@ export function getSeries(
   highlightFacet?: FacetMetadata
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
-  return selectFacet(apiRoot, entities, variables, highlightFacet).then(
-    (resolvedFacetIds) => {
-      if (facetIds || resolvedFacetIds) {
-        params["facetIds"] = facetIds || resolvedFacetIds;
-      }
-
-      return axios
-        .post(`${apiRoot || ""}/api/observations/series`, params)
-        .then((resp) => resp.data);
+  return Promise.resolve(
+    selectFacet(apiRoot, entities, variables, highlightFacet)
+  ).then((resolvedFacetIds) => {
+    if (facetIds || resolvedFacetIds) {
+      params["facetIds"] = facetIds || resolvedFacetIds;
     }
-  );
+
+    return axios
+      .post(`${apiRoot || ""}/api/observations/series`, params)
+      .then((resp) => resp.data);
+  });
 }
 
 /**
