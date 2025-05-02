@@ -137,7 +137,7 @@ async function selectFacet(
   highlightFacet?: FacetMetadata
 ): Promise<string[] | null> {
   if (!highlightFacet) {
-    return null;
+    return Promise.resolve(null);
   }
   const facetsResponse = await getFacets(apiRoot, entities, variables);
   for (const svDcid of Object.keys(facetsResponse)) {
@@ -156,7 +156,7 @@ async function selectFacet(
     }
   }
 
-  return null;
+  return Promise.resolve(null);
 }
 
 /**
