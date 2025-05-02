@@ -15,5 +15,6 @@
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
 
+
 class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
   """Class to test explore page. Tests come from ExplorePageTestMixin."""

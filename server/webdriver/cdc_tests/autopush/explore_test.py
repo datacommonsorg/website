@@ -14,8 +14,7 @@
 
 from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
     CdcAutopushTestBase
-from server.webdriver.shared_tests.explore_test import \
-    ExplorePageTestMixin
+from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
 
 
 class TestExplorePage(ExplorePageTestMixin, CdcAutopushTestBase):
