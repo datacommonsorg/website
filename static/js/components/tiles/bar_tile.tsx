@@ -316,12 +316,11 @@ export const fetchData = async (
       props.places,
       [FILTER_STAT_VAR],
       "",
-      undefined,
-      props.highlightFacet
+      undefined
     );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
-      : getSeries(apiRoot, props.places, denomSvs, [], props.highlightFacet);
+      : getSeries(apiRoot, props.places, denomSvs, []);
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     statPromise = getPointWithin(
       apiRoot,
