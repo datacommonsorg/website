@@ -191,10 +191,11 @@ export function App(props: AppProps): ReactElement {
     return hasPlace || fulfillData["entities"];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  /* eslint-disable */
   function extractMainPlaceAndMetadata(
     fulfillData: any
   ): [any, SubjectPageMetadata] {
+    /* eslint-enable */
     const mainPlace = {
       dcid: fulfillData["place"]["dcid"],
       name: fulfillData["place"]["name"],
@@ -230,11 +231,11 @@ export function App(props: AppProps): ReactElement {
    * @param fulfillData The fulfill data from the search API response
    * @param userQuery The user's search query
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function processFulfillData(
+    /* eslint-disable-next-line */
     fulfillData: any,
+    setPageConfig: (config: SubjectPageMetadata) => void,
     userQuery?: string,
-    setPageConfig?: (config: SubjectPageMetadata) => void,
     isHighlight?: boolean
   ): void {
     setDebugData(fulfillData["debug"]);
@@ -333,7 +334,6 @@ export function App(props: AppProps): ReactElement {
       places = [urlHashParams.place];
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let fulfillmentPromise: Promise<unknown>;
     let highlightPromise: Promise<unknown>;
 
@@ -371,7 +371,7 @@ export function App(props: AppProps): ReactElement {
         urlHashParams.maxCharts
       )
         .then((resp) => {
-          processFulfillData(resp, query);
+          processFulfillData(resp, setPageMetadata, query);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -431,11 +431,11 @@ export function App(props: AppProps): ReactElement {
 
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
-          processFulfillData(fulfillResponse, undefined, setPageMetadata);
+          processFulfillData(fulfillResponse, setPageMetadata, undefined);
           processFulfillData(
             highlightResponse,
-            undefined,
             setHighlightPageMetadata,
+            undefined,
             true
           );
         }
