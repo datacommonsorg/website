@@ -39,6 +39,7 @@ import { NamedNode } from "../../../shared/types";
 import { urlToDisplayText } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
 import { StatVarMetadata } from "./tile_metadata_modal";
+import { ArrowOutward } from "../../../components/elements/icons/arrow_outward";
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 
@@ -195,6 +196,7 @@ export const TileMetadataModalContent = ({
                       rel="noreferrer"
                     >
                       {urlToDisplayText(metadata.provenanceUrl)}
+                      <ArrowOutward />
                     </a>
                   </p>
                 )}
