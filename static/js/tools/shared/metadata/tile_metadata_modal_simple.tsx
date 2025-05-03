@@ -21,6 +21,7 @@
  *
  * If facets are provided, TileMetadataModal is used.
  */
+
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
@@ -138,7 +139,7 @@ export function TileMetadataModalSimple(
               width: 100%;
               display: flex;
               flex-direction: column;
-              flex-gap: ${theme.spacing.lg};
+              flex: ${theme.spacing.lg};
               h4 {
                 ${theme.typography.family.text}
                 ${theme.typography.text.md}
@@ -161,10 +162,9 @@ export function TileMetadataModalSimple(
                 padding: 0;
                 display: block;
                 li {
-                  display: block;
+                  display: flex;
                   margin: 0 0 ${theme.spacing.md}px 0;
                   padding: 0;
-                  display: flex;
                   gap: ${theme.spacing.xs}px;
                   color: ${theme.colors.link.primary.base};
                   svg {

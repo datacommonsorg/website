@@ -114,13 +114,13 @@ export function TileSources(props: {
                     statVarSpecs={statVarSpecs}
                     facets={facets}
                     statVarToFacet={statVarToFacet}
-                  ></TileMetadataModal>
+                  />
                 ) : (
                   <TileMetadataModalSimple
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}
                     statVarSpecs={statVarSpecs}
-                  ></TileMetadataModalSimple>
+                  />
                 )}
               </span>
             </>
