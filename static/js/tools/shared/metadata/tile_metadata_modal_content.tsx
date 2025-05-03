@@ -56,9 +56,7 @@ export const TileMetadataModalContent = ({
   const theme = useTheme();
   if (statVars.length === 0) {
     return (
-      <div>
-        {intl.formatMessage(metadataComponentMessages.NoMetadataAvailable)}
-      </div>
+      <p>{intl.formatMessage(metadataComponentMessages.NoMetadataAvailable)}</p>
     );
   }
   const uniqueSourcesMap = new Map<

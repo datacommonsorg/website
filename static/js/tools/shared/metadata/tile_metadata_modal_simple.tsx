@@ -21,7 +21,9 @@
  *
  * If facets are provided, TileMetadataModal is used.
  */
+/** @jsxImportSource @emotion/react */
 
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { Button } from "../../../components/elements/button/button";
@@ -31,6 +33,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../../components/elements/dialog/dialog";
+import { ArrowForward } from "../../../components/elements/icons/arrow_forward";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import { StatVarSpec } from "../../../shared/types";
@@ -54,8 +57,8 @@ function MetadataRow(props: {
   apiRoot?: string;
 }): ReactElement {
   return (
-    <div className="metadata-modal-link">
-      <span className="material-icons-outlined">arrow_forward</span>
+    <li>
+      <ArrowForward />
       <a
         href={
           apiRootToHostname(props.apiRoot) +
@@ -67,13 +70,14 @@ function MetadataRow(props: {
       >
         {props.name}
       </a>
-    </div>
+    </li>
   );
 }
 
 export function TileMetadataModalSimple(
   props: TileMetadataModalSimpleProps
 ): ReactElement {
+  const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
   const dataCommonsClient = getDataCommonsClient(props.apiRoot);
@@ -129,28 +133,72 @@ export function TileMetadataModalSimple(
       >
         <DialogTitle>{intl.formatMessage(messages.chooseVariable)}</DialogTitle>
         <DialogContent>
-          <div className="modal-subtitle">
-            {intl.formatMessage(messages.selectVariable)}
-          </div>
-          <div className="metadata-modal-links">
-            {statVarNames.length
-              ? statVarNames.map((dcidName, i) => (
-                  <MetadataRow
-                    dcid={dcidName[0]}
-                    name={dcidName[1]}
-                    apiRoot={props.apiRoot}
-                    key={i}
-                  />
-                ))
-              : // Use DCID as display name as a fallback. Note, might not be displayed in order.
-                [...dcids].map((dcid, i) => (
-                  <MetadataRow
-                    dcid={dcid}
-                    name={dcid}
-                    apiRoot={props.apiRoot}
-                    key={i}
-                  />
-                ))}
+          <div
+            css={css`
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              flex-gap: ${theme.spacing.lg};
+              h4 {
+                ${theme.typography.family.text}
+                ${theme.typography.text.md}
+                font-weight: 900;
+                margin: 0;
+              }
+              p,
+              li {
+                ${theme.typography.family.text}
+                ${theme.typography.text.md}
+                white-space: pre-wrap;
+                word-break: break-word;
+              }
+              a {
+                white-space: pre-wrap;
+                word-break: break-word;
+              }
+              ul {
+                margin: 0;
+                padding: 0;
+                display: block;
+                li {
+                  display: block;
+                  margin: 0 0 ${theme.spacing.md}px 0;
+                  padding: 0;
+                  display: flex;
+                  gap: ${theme.spacing.xs}px;
+                  color: ${theme.colors.link.primary.base};
+                  svg {
+                    display: block;
+                    margin-top: ${theme.spacing.xs}px;
+                  }
+                  a {
+                    display: block;
+                  }
+                }
+              }
+            `}
+          >
+            <p>{intl.formatMessage(messages.selectVariable)}</p>
+            <ul>
+              {statVarNames.length
+                ? statVarNames.map((dcidName, i) => (
+                    <MetadataRow
+                      dcid={dcidName[0]}
+                      name={dcidName[1]}
+                      apiRoot={props.apiRoot}
+                      key={i}
+                    />
+                  ))
+                : // Use DCID as display name as a fallback. Note, might not be displayed in order.
+                  [...dcids].map((dcid, i) => (
+                    <MetadataRow
+                      dcid={dcid}
+                      name={dcid}
+                      apiRoot={props.apiRoot}
+                      key={i}
+                    />
+                  ))}
+            </ul>
           </div>
         </DialogContent>
         <DialogActions>
