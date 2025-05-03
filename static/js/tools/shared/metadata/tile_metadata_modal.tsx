@@ -35,6 +35,7 @@ import {
 } from "../../../components/elements/dialog/dialog";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
+import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
@@ -363,6 +364,14 @@ export function TileMetadataModal(
         </DialogContent>
         <DialogActions>
           <Button
+            onClick={(): void => {
+              setModalOpen(false);
+            }}
+          >
+            {intl.formatMessage(metadataComponentMessages.CopyCitation)}
+          </Button>
+          <Button
+            variant="text"
             onClick={(): void => {
               setModalOpen(false);
             }}

@@ -95,4 +95,10 @@ export const metadataComponentMessages = defineMessages({
     description:
       "Text providing guidance on citing data sources in academic work, publications, or other derivative uses.",
   },
+  CopyCitation: {
+    id: "copyCitation",
+    defaultMessage: "Copy Citation",
+    description:
+      "Label for the button that copies the citation to the clipboard when clicked. The copied text will contain one or more sources. Citation is akin to the definition here https://en.wikipedia.org/wiki/Citation.",
+  },
 });
