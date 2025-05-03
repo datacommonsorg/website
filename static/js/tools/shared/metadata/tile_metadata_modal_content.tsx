@@ -140,6 +140,19 @@ export const TileMetadataModalContent = ({
           ? humanizeIsoDuration(metadata.observationPeriod)
           : undefined;
 
+        const hasDateRange = !!(
+          metadata.dateRangeStart || metadata.dateRangeEnd
+        );
+        const hasUnit = !!unitDisplay;
+        const hasPeriodicity = !!periodicity;
+
+        const optionalFieldsCount = [
+          hasDateRange,
+          hasUnit,
+          hasPeriodicity,
+        ].filter(Boolean).length;
+        const measurementMethodSpan = optionalFieldsCount % 2 === 0;
+
         return (
           <div
             key={statVarId}
@@ -217,7 +230,7 @@ export const TileMetadataModalContent = ({
                 )}
               </div>
 
-              {(metadata.dateRangeStart || metadata.dateRangeEnd) && (
+              {hasDateRange && (
                 <div>
                   <h4>
                     {intl.formatMessage(
@@ -232,23 +245,45 @@ export const TileMetadataModalContent = ({
                 </div>
               )}
 
-              {(metadata.unit || periodicity) && (
+              {hasPeriodicity && (
                 <div>
                   <h4>
-                    {metadata.unit && periodicity
-                      ? `${intl.formatMessage(
-                          metadataComponentMessages.Unit
-                        )} / ${intl.formatMessage(
-                          metadataComponentMessages.Periodicity
-                        )}`
-                      : metadata.unit
-                      ? intl.formatMessage(metadataComponentMessages.Unit)
-                      : intl.formatMessage(
-                          metadataComponentMessages.Periodicity
-                        )}
+                    {intl.formatMessage(
+                      metadataComponentMessages.PublicationCadence
+                    )}
+                  </h4>
+                  <p>{periodicity}</p>
+                </div>
+              )}
+
+              {hasUnit && (
+                <div>
+                  <h4>{intl.formatMessage(metadataComponentMessages.Unit)}</h4>
+                  <p>{unitDisplay}</p>
+                </div>
+              )}
+
+              {metadata.measurementMethodDescription && (
+                <div
+                  css={css`
+                    ${measurementMethodSpan
+                      ? `
+                          grid-column: 1 / span 2;
+                          @media (max-width: ${theme.breakpoints.sm}px) {
+                            grid-column: 1;
+                          }
+                        `
+                      : ""}
+                  `}
+                >
+                  <h4>
+                    {intl.formatMessage(
+                      metadataComponentMessages.MeasuringMethod
+                    )}
                   </h4>
                   <p>
-                    {[unitDisplay, periodicity].filter(Boolean).join(" / ")}
+                    {metadata.measurementMethodDescription &&
+                      metadata.measurementMethodDescription}
                   </p>
                 </div>
               )}
@@ -279,27 +314,6 @@ export const TileMetadataModalContent = ({
                     ) : (
                       startCase(metadata.license)
                     )}
-                  </p>
-                </div>
-              )}
-
-              {metadata.measurementMethodDescription && (
-                <div
-                  css={css`
-                    grid-column: 1 / span 2;
-                    @media (max-width: ${theme.breakpoints.sm}px) {
-                      grid-column: 1;
-                    }
-                  `}
-                >
-                  <h4>
-                    {intl.formatMessage(
-                      metadataComponentMessages.MeasuringMethod
-                    )}
-                  </h4>
-                  <p>
-                    {metadata.measurementMethodDescription &&
-                      metadata.measurementMethodDescription}
                   </p>
                 </div>
               )}

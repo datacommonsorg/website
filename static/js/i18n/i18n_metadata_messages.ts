@@ -47,11 +47,11 @@ export const metadataComponentMessages = defineMessages({
     description:
       "Label for the unit that describes the data. Example units are: Years, Gallons Per Year.",
   },
-  Periodicity: {
-    id: "periodicity",
-    defaultMessage: "Periodicity",
+  PublicationCadence: {
+    id: "publicationCadence",
+    defaultMessage: "Publication Cadence",
     description:
-      "Label for periodicity information. Example periodicities are: Yearly, Monthly.",
+      "Label for the cadence of publication. This is the rate of publication of the data. Example are: Yearly, Monthly.",
   },
   License: {
     id: "license",
