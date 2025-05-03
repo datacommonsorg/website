@@ -43,6 +43,7 @@ import { apiRootToHostname } from "../../../utils/url_utils";
 import { StatVarMetadata } from "./tile_metadata_modal";
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
+const SOURCE_URL_TRUNCATION_POINT = 50;
 
 interface TileMetadataModalContentProps {
   statVars: NamedNode[];
@@ -142,6 +143,20 @@ export const TileMetadataModalContent = ({
         const metadata = metadataMap[statVarId];
         if (!metadata) return null;
 
+        let sourceUrl: string | undefined;
+        let isSourceUrlTruncated = false;
+        if (metadata.provenanceUrl) {
+          const sourceUrlWithoutProtocol = prepareSourceUrl(
+            metadata.provenanceUrl
+          );
+          sourceUrl = truncateText(
+            sourceUrlWithoutProtocol,
+            SOURCE_URL_TRUNCATION_POINT,
+            "middle"
+          );
+          isSourceUrlTruncated = sourceUrl !== sourceUrlWithoutProtocol;
+        }
+
         const unitDisplay = metadata.unit
           ? startCase(metadata.unit)
           : undefined;
@@ -198,20 +213,27 @@ export const TileMetadataModalContent = ({
                 <h4>{intl.formatMessage(messages.source)}</h4>
                 {metadata.provenanceUrl && (
                   <p>
-                    <Tooltip title={metadata.provenanceUrl}>
+                    {isSourceUrlTruncated ? (
+                      <Tooltip title={metadata.provenanceUrl}>
+                        <a
+                          href={metadata.provenanceUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {sourceUrl}
+                          <ArrowOutward />
+                        </a>
+                      </Tooltip>
+                    ) : (
                       <a
                         href={metadata.provenanceUrl}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {truncateText(
-                          prepareSourceUrl(metadata.provenanceUrl),
-                          50,
-                          "middle"
-                        )}
+                        {sourceUrl}
                         <ArrowOutward />
                       </a>
-                    </Tooltip>
+                    )}
                   </p>
                 )}
                 {(metadata.sourceName || metadata.provenanceName) && (
