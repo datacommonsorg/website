@@ -19,6 +19,9 @@
  * clipboard functionality.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css } from "@emotion/react";
 import React, { forwardRef, useEffect, useState } from "react";
 
 import {
@@ -34,6 +37,22 @@ export type CopyCitationButtonProps = Omit<ButtonElementProps, "onClick"> & {
   // optional "onClick" that, if given, will run in addition to the copy logic
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
+
+const iconWrapper = css`
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  & > svg {
+    position: absolute;
+    inset: 0;
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+  & .hidden {
+    opacity: 0;
+    transform: scale(0);
+  }
+`;
 
 export const CopyCitationButton = forwardRef<
   HTMLButtonElement,
@@ -65,17 +84,22 @@ export const CopyCitationButton = forwardRef<
 
   useEffect(() => {
     if (!copied) return;
-    const id = window.setTimeout(() => setCopied(false), 3000);
-    return (): void => window.clearTimeout(id);
+    const id = setTimeout(() => setCopied(false), 1500);
+    return (): void => clearTimeout(id);
   }, [copied]);
 
   return (
     <Button
-      startIcon={!copied ? <ContentCopy /> : <Check />}
       ref={ref}
       disabled={disabled}
       {...rest}
       onClick={handleClick}
+      startIcon={
+        <span css={iconWrapper}>
+          <ContentCopy className={copied ? "hidden" : undefined} />
+          <Check className={!copied ? "hidden" : undefined} />
+        </span>
+      }
     >
       {children}
     </Button>
