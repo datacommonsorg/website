@@ -215,7 +215,7 @@ interface TooltipProps {
   arrowProps?: Omit<FloatingArrowProps, "ref" | "context">;
 }
 
-const TOOLTIP_Z_INDEX = theme.zIndex.primary;
+const TOOLTIP_Z_INDEX = theme.zIndex.tooltip;
 const TOOLTIP_DEFAULT_MAX_WIDTH = theme.tooltip.width;
 const TOOLTIP_DEFAULT_DISTANCE = 15;
 const TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE = 25;

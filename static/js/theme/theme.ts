@@ -384,9 +384,8 @@ const theme: Theme = {
     },
   },
   zIndex: {
-    primary: 9999,
-    secondary: 999,
-    tertiary: 99,
+    tooltip: 15000,
+    dialog: 10000,
   },
   tooltip: {
     width: "300px",

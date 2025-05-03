@@ -328,9 +328,8 @@ export interface Theme {
     };
   };
   zIndex: {
-    primary?: number;
-    secondary?: number;
-    tertiary?: number;
+    tooltip: number;
+    dialog: number;
   };
   tooltip: {
     width?: string;
