@@ -64,7 +64,7 @@ export function randDomId(): string {
   return Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
-    .substr(2, 10);
+    .slice(2, 12);
 }
 
 /** Determines if the width corresponds to mobile based on themes. */
@@ -77,7 +77,7 @@ export function isMobileByWidth(theme: Theme | null): boolean {
 
 /**
  * Downloads a file under a given filename.
- * @param filename name to download the file to
+ * @param fileName name to download the file to
  * @param file the file to download
  */
 export function downloadFile(fileName: string, file: Blob | File): void {
@@ -94,8 +94,8 @@ export function downloadFile(fileName: string, file: Blob | File): void {
 
 /**
  * Saves csv to filename.
- * @param {filename} string
- * @param {contents} string
+ * @param filename
+ * @param contents
  * @return void
  */
 export function saveToFile(filename: string, contents: string): void {
