@@ -41,6 +41,11 @@ import { NamedNode, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { buildCitationParts, citationToPlainText } from "./citations";
 import { CopyCitationButton } from "./copy_citation_button";
+import {
+  Provenance,
+  StatVarMetadata,
+  StatVarProvenanceSummaries,
+} from "./metadata";
 import { TileMetadataModalContent } from "./tile_metadata_modal_content";
 
 interface TileMetadataModalPropType {
@@ -52,48 +57,6 @@ interface TileMetadataModalPropType {
   statVarSpecs: StatVarSpec[];
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
-}
-
-// Metadata associated with a stat var and provenance/source combination.
-export interface StatVarMetadata {
-  statVarId: string; // DCID of the stat var
-  statVarName: string; // Label of the stat var
-  categories: string[]; // Category names of the stat var (e.g., "Demographics")
-  sourceName?: string; // Source name
-  provenanceUrl?: string; // Provenance source URL
-  provenanceName?: string; // Provenance source name
-  dateRangeStart?: string; // Start date
-  dateRangeEnd?: string; // End date
-  unit?: string; // Unit (e.g., "Years")
-  observationPeriod?: string; // ISO 8601 duration string (e.g., "P1Y")
-  license?: string; // License type
-  licenseDcid?: string; // The DCID for the license (for linking)
-  measurementMethod?: string; // The DCID for the measurement method
-  measurementMethodDescription?: string; // Measurement method description
-}
-
-// Interfaces for API results. These just contain attributes of the
-// API results used within this component.
-// TODO (nick-next): create full interfaces
-
-interface SeriesKey {
-  unit?: string;
-  observationPeriod?: string;
-  measurementMethod?: string;
-}
-
-interface SeriesSummary {
-  earliestDate?: string;
-  latestDate?: string;
-  seriesKey?: SeriesKey;
-}
-
-interface StatVarProvenanceSummary {
-  seriesSummary?: SeriesSummary[];
-}
-
-interface StatVarProvenanceSummaries {
-  provenanceSummary?: Record<string, StatVarProvenanceSummary>;
 }
 
 export function TileMetadataModal(
@@ -227,7 +190,7 @@ export function TileMetadataModal(
           }
         });
 
-        const provenanceMap: Record<string, any> = {};
+        const provenanceMap: Record<string, Provenance> = {};
         const provenancePromises = Array.from(provenances).map((provenanceId) =>
           fetch(`${props.apiRoot || ""}/api/node/triples/out/${provenanceId}`)
             .then((response) => response.json())
@@ -260,6 +223,7 @@ export function TileMetadataModal(
           if (!provenanceData) continue;
 
           let unit: string | undefined;
+          let releaseFrequency: string | undefined;
           let observationPeriod: string | undefined;
           let dateRangeStart: string | undefined;
           let dateRangeEnd: string | undefined;
@@ -272,6 +236,8 @@ export function TileMetadataModal(
             if (source) {
               const source =
                 variableData[statVarId].provenanceSummary?.[provenanceId];
+
+              releaseFrequency = source.releaseFrequency;
 
               if (source.seriesSummary && source.seriesSummary.length > 0) {
                 const seriesSummary = source.seriesSummary[0];
@@ -300,7 +266,7 @@ export function TileMetadataModal(
             statVarName: responseObj[statVarId] || statVarId,
             categories: statVarCategoryMap[statVarId],
             sourceName: provenanceData?.source[0]?.name,
-            provenanceUrl: provenanceData?.url?.[0]?.value,
+            provenanceUrl: provenanceData?.sourceDataUrl?.[0]?.value,
             provenanceName:
               provenanceData?.isPartOf?.[0]?.name ||
               provenanceData?.name?.[0]?.value ||
@@ -309,6 +275,7 @@ export function TileMetadataModal(
             dateRangeEnd,
             unit,
             observationPeriod,
+            periodicity: releaseFrequency,
             license: provenanceData?.licenseType?.[0]?.name,
             licenseDcid: provenanceData?.licenseType?.[0]?.dcid,
             measurementMethod,

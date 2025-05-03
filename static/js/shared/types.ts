@@ -32,6 +32,11 @@ export interface NamedTypedNode {
   provenanceId?: string;
 }
 
+export interface ProvenanceLiteral {
+  provenanceId: string;
+  value: string;
+}
+
 export type NamedPlace = NamedNode;
 export type NamedTypedPlace = NamedTypedNode;
 

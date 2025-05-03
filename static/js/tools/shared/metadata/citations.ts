@@ -23,7 +23,7 @@ import { intl } from "../../../i18n/i18n";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { NamedNode } from "../../../shared/types";
 import { stripProtocol } from "../../../shared/util";
-import { StatVarMetadata } from "./tile_metadata_modal";
+import { StatVarMetadata } from "./metadata";
 
 export interface CitationPart {
   label: string;
