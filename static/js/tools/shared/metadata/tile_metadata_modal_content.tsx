@@ -160,8 +160,8 @@ export const TileMetadataModalContent = ({
         const unitDisplay = metadata.unit
           ? startCase(metadata.unit)
           : undefined;
-        const periodicity = metadata.observationPeriod
-          ? humanizeIsoDuration(metadata.observationPeriod)
+        const periodicity = metadata.periodicity
+          ? humanizeIsoDuration(metadata.periodicity)
           : undefined;
 
         const hasDateRange = !!(

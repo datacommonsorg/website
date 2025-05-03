@@ -234,9 +234,6 @@ export function TileMetadataModal(
             const source =
               variableData[statVarId].provenanceSummary?.[provenanceId];
             if (source) {
-              const source =
-                variableData[statVarId].provenanceSummary?.[provenanceId];
-
               releaseFrequency = source.releaseFrequency;
 
               if (source.seriesSummary && source.seriesSummary.length > 0) {
@@ -266,7 +263,7 @@ export function TileMetadataModal(
             statVarName: responseObj[statVarId] || statVarId,
             categories: statVarCategoryMap[statVarId],
             sourceName: provenanceData?.source[0]?.name,
-            provenanceUrl: provenanceData?.sourceDataUrl?.[0]?.value,
+            provenanceUrl: provenanceData?.url?.[0]?.value,
             provenanceName:
               provenanceData?.isPartOf?.[0]?.name ||
               provenanceData?.name?.[0]?.value ||
