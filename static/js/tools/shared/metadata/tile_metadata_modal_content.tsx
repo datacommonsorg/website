@@ -118,7 +118,7 @@ export const TileMetadataModalContent = ({
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: ${theme.spacing.lg};
+        gap: ${theme.spacing.lg}px;
         h4 {
           ${theme.typography.family.text}
           ${theme.typography.text.md}
@@ -183,7 +183,6 @@ export const TileMetadataModalContent = ({
             css={css`
               display: block;
               width: 100%;
-              margin-bottom: ${theme.spacing.xl}px;
             `}
           >
             <h3
@@ -203,7 +202,7 @@ export const TileMetadataModalContent = ({
               css={css`
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: ${theme.spacing.sm}px ${theme.spacing.lg}px;
+                gap: 0 ${theme.spacing.lg}px;
                 @media (max-width: ${theme.breakpoints.sm}px) {
                   grid-template-columns: 1fr;
                 }
@@ -219,6 +218,9 @@ export const TileMetadataModalContent = ({
                           href={metadata.provenanceUrl}
                           target="_blank"
                           rel="noreferrer"
+                          css={css`
+                            margin-right: ${theme.spacing.xs}px;
+                          `}
                         >
                           {sourceUrl}
                           <ArrowOutward />
@@ -229,6 +231,9 @@ export const TileMetadataModalContent = ({
                         href={metadata.provenanceUrl}
                         target="_blank"
                         rel="noreferrer"
+                        css={css`
+                          margin-right: ${theme.spacing.xs}px;
+                        `}
                       >
                         {sourceUrl}
                         <ArrowOutward />

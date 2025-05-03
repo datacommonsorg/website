@@ -139,7 +139,7 @@ export function TileMetadataModalSimple(
               width: 100%;
               display: flex;
               flex-direction: column;
-              flex: ${theme.spacing.lg};
+              gap: ${theme.spacing.lg}px;
               h4 {
                 ${theme.typography.family.text}
                 ${theme.typography.text.md}
