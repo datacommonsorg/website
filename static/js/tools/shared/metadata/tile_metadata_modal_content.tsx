@@ -41,7 +41,7 @@ import { NamedNode } from "../../../shared/types";
 import { stripProtocol, truncateText } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
 import { buildCitationParts } from "./citations";
-import { StatVarMetadata } from "./tile_metadata_modal";
+import { StatVarMetadata } from "./metadata";
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 const SOURCE_URL_TRUNCATION_POINT = 50;
