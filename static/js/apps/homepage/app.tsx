@@ -22,7 +22,6 @@ import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import Partners from "../../components/content/partners";
-import { DemoButtons } from "../../components/elements/button/demo_buttons";
 import { Section } from "../../components/elements/layout/section";
 import { Separator } from "../../components/elements/layout/separator";
 import { Link } from "../../components/elements/link_chip";
@@ -35,7 +34,6 @@ import {
 } from "../../shared/types/homepage";
 import theme from "../../theme/theme";
 import { BuildYourOwn } from "./components/build_your_own";
-import { DemoDialog } from "./components/demo_dialog";
 import { HomeHero } from "./components/home_hero";
 import { SampleQuestions } from "./components/sample_questions";
 import { Tools } from "./components/tools";
@@ -90,14 +88,6 @@ export function App({
 
       <Section>
         <UnitedNations routes={routes} />
-      </Section>
-
-      <Section>
-        <DemoDialog />
-      </Section>
-
-      <Section>
-        <DemoButtons />
       </Section>
 
       <Separator />

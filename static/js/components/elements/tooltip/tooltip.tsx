@@ -290,6 +290,10 @@ const TooltipBox = styled.div<{
     return theme.radius.tertiary;
   }}
 
+  ${theme.typography.family.text}
+  ${theme.typography.text.sm}
+  white-space: pre-wrap;
+  word-break: break-word;
   h1,
   h2,
   h3,
@@ -301,13 +305,15 @@ const TooltipBox = styled.div<{
     ${theme.typography.family.heading}
     ${theme.typography.text.sm}
     font-weight: 600;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
   p,
   li {
     padding: 0;
     margin: 0;
-    ${theme.typography.family.text}
-    ${theme.typography.text.sm}
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   ${({
