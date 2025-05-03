@@ -29,7 +29,7 @@
 
 import { css, useTheme } from "@emotion/react";
 import { startCase } from "lodash";
-import React, { Fragment, ReactElement, ReactNode } from "react";
+import React, { Fragment, ReactElement, ReactNode, useMemo } from "react";
 
 import { humanizeIsoDuration } from "../../../apps/base/utilities/utilities";
 import { ArrowOutward } from "../../../components/elements/icons/arrow_outward";
@@ -40,6 +40,7 @@ import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages"
 import { NamedNode } from "../../../shared/types";
 import { stripProtocol, truncateText } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
+import { buildCitationParts } from "./citations";
 import { StatVarMetadata } from "./tile_metadata_modal";
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
@@ -57,6 +58,12 @@ export const TileMetadataModalContent = ({
   apiRoot,
 }: TileMetadataModalContentProps): ReactElement => {
   const theme = useTheme();
+
+  const citationParts = useMemo(
+    () => buildCitationParts(statVars, metadataMap),
+    [statVars, metadataMap]
+  );
+
   if (statVars.length === 0) {
     return (
       <p>{intl.formatMessage(metadataComponentMessages.NoMetadataAvailable)}</p>
@@ -83,28 +90,21 @@ export const TileMetadataModalContent = ({
       : withoutProtocol;
   };
 
-  const citationSources: ReactNode[] = Array.from(uniqueSourcesMap.entries())
-    .filter(([provenanceName]) => provenanceName)
-    .map(([provenanceName, data]) => {
-      const sourceLabel = data.sourceName
-        ? `${data.sourceName}, ${provenanceName}`
-        : provenanceName;
-
-      if (data.url) {
-        const urlDisplay = stripProtocol(data.url);
-        return (
-          <Fragment key={provenanceName}>
-            {sourceLabel} (
-            <a href={data.url} target="_blank" rel="noreferrer">
-              {urlDisplay}
-            </a>
-            )
-          </Fragment>
-        );
-      }
-
-      return sourceLabel;
-    });
+  const citationSources: ReactNode[] = citationParts.map(({ label, url }) => {
+    if (url) {
+      const urlDisplay = stripProtocol(url);
+      return (
+        <Fragment key={label}>
+          {label} (
+          <a href={url} target="_blank" rel="noreferrer">
+            {urlDisplay}
+          </a>
+          )
+        </Fragment>
+      );
+    }
+    return label;
+  });
 
   const joinElements = (
     items: ReactNode[],
@@ -378,8 +378,7 @@ export const TileMetadataModalContent = ({
           </h3>
           <p>
             {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
-            {joinElements(citationSources)}{" "}
-            {intl.formatMessage(metadataComponentMessages.MinorProcessing)}
+            {joinElements(citationSources)}
           </p>
           <p>
             {intl.formatMessage(metadataComponentMessages.CitationGuidance)} •{" "}

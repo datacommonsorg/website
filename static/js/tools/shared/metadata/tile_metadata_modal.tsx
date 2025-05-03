@@ -39,6 +39,8 @@ import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages"
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
+import { buildCitationParts, citationToPlainText } from "./citations";
+import { CopyCitationButton } from "./copy_citation_button";
 import { TileMetadataModalContent } from "./tile_metadata_modal_content";
 
 interface TileMetadataModalPropType {
@@ -335,6 +337,15 @@ export function TileMetadataModal(
     setStatVars([]);
   }, [props.facets, props.statVarToFacet]);
 
+  const citationParts = useMemo(
+    () => buildCitationParts(statVars, metadataMap),
+    [statVars, metadataMap]
+  );
+  const citationText = useMemo(
+    () => citationToPlainText(citationParts),
+    [citationParts]
+  );
+
   return (
     <>
       <a
@@ -363,13 +374,9 @@ export function TileMetadataModal(
           )}
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={(): void => {
-              setModalOpen(false);
-            }}
-          >
+          <CopyCitationButton citationToCopy={citationText}>
             {intl.formatMessage(metadataComponentMessages.CopyCitation)}
-          </Button>
+          </CopyCitationButton>
           <Button
             variant="text"
             onClick={(): void => {
