@@ -16,7 +16,7 @@
 
 //TODO(nick-next): Add language-specific tests when translations available
 
-import { humanizeIsoDuration } from "../apps/base/utilities/utilities";
+import { humanizeIsoDuration } from "../shared/periodicity";
 
 test("humanizeIsoDuration with English defaults", () => {
   const cases = [

@@ -31,12 +31,12 @@ import { css, useTheme } from "@emotion/react";
 import { startCase } from "lodash";
 import React, { Fragment, ReactElement, ReactNode, useMemo } from "react";
 
-import { humanizeIsoDuration } from "../../../apps/base/utilities/utilities";
 import { ArrowOutward } from "../../../components/elements/icons/arrow_outward";
 import { Tooltip } from "../../../components/elements/tooltip/tooltip";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
+import { humanizeIsoDuration } from "../../../shared/periodicity";
 import { NamedNode } from "../../../shared/types";
 import { stripProtocol, truncateText } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
