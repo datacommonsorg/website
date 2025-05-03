@@ -33,6 +33,7 @@ import React, { Fragment, ReactElement, ReactNode } from "react";
 
 import { humanizeIsoDuration } from "../../../apps/base/utilities/utilities";
 import { ArrowOutward } from "../../../components/elements/icons/arrow_outward";
+import { Tooltip } from "../../../components/elements/tooltip/tooltip";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
@@ -197,18 +198,20 @@ export const TileMetadataModalContent = ({
                 <h4>{intl.formatMessage(messages.source)}</h4>
                 {metadata.provenanceUrl && (
                   <p>
-                    <a
-                      href={metadata.provenanceUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {truncateText(
-                        prepareSourceUrl(metadata.provenanceUrl),
-                        50,
-                        "middle"
-                      )}
-                      <ArrowOutward />
-                    </a>
+                    <Tooltip title={metadata.provenanceUrl}>
+                      <a
+                        href={metadata.provenanceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {truncateText(
+                          prepareSourceUrl(metadata.provenanceUrl),
+                          50,
+                          "middle"
+                        )}
+                        <ArrowOutward />
+                      </a>
+                    </Tooltip>
                   </p>
                 )}
                 {(metadata.sourceName || metadata.provenanceName) && (
