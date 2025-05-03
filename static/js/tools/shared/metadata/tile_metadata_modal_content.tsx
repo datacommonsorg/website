@@ -32,14 +32,14 @@ import { startCase } from "lodash";
 import React, { Fragment, ReactElement, ReactNode } from "react";
 
 import { humanizeIsoDuration } from "../../../apps/base/utilities/utilities";
+import { ArrowOutward } from "../../../components/elements/icons/arrow_outward";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { NamedNode } from "../../../shared/types";
-import { urlToDisplayText } from "../../../shared/util";
+import { stripProtocol, truncateText } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
 import { StatVarMetadata } from "./tile_metadata_modal";
-import { ArrowOutward } from "../../../components/elements/icons/arrow_outward";
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 
@@ -74,6 +74,13 @@ export const TileMetadataModalContent = ({
     }
   });
 
+  const prepareSourceUrl = (url: string): string => {
+    const withoutProtocol = stripProtocol(url);
+    return withoutProtocol.endsWith("/")
+      ? withoutProtocol.slice(0, -1)
+      : withoutProtocol;
+  };
+
   const citationSources: ReactNode[] = Array.from(uniqueSourcesMap.entries())
     .filter(([provenanceName]) => provenanceName)
     .map(([provenanceName, data]) => {
@@ -82,7 +89,7 @@ export const TileMetadataModalContent = ({
         : provenanceName;
 
       if (data.url) {
-        const urlDisplay = data.url.replace(/^https?:\/\//i, "");
+        const urlDisplay = stripProtocol(data.url);
         return (
           <Fragment key={provenanceName}>
             {sourceLabel} (
@@ -109,7 +116,7 @@ export const TileMetadataModalContent = ({
         width: 100%;
         display: flex;
         flex-direction: column;
-        flex-gap: ${theme.spacing.lg};
+        gap: ${theme.spacing.lg};
         h4 {
           ${theme.typography.family.text}
           ${theme.typography.text.md}
@@ -195,7 +202,11 @@ export const TileMetadataModalContent = ({
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {urlToDisplayText(metadata.provenanceUrl)}
+                      {truncateText(
+                        prepareSourceUrl(metadata.provenanceUrl),
+                        50,
+                        "middle"
+                      )}
                       <ArrowOutward />
                     </a>
                   </p>
