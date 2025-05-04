@@ -56,6 +56,7 @@ interface TileMetadataModalPropType {
   // the stat vars used in the chart
   statVarSpecs: StatVarSpec[];
   containerRef?: React.RefObject<HTMLElement>;
+  // root URL used to generate stat var explorer and license links
   apiRoot?: string;
 }
 
