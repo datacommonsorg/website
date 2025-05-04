@@ -96,7 +96,9 @@ export function TileMetadataModal(
           return;
         }
 
-        // Get stat var names from the DCIDs
+        /*
+         1. We retrieve the full stat var names from the DCIDs
+         */
         const responseObj = await dataCommonsClient.getFirstNodeValues({
           dcids: statVars,
           prop: "name",
@@ -108,11 +110,14 @@ export function TileMetadataModal(
         statVarList.sort((a, b) => (a.name > b.name ? 1 : -1));
         setStatVars(statVarList);
 
-        // Get stat var categories. This is a two-step process: first we
-        // look up the path to the variable group. Then we look up the group
-        // itself to get the "absoluteName" (the readable name of the category).
+        /*
+        2.  We get the stat var categories (e.g., "Demographics").
+            This is a two-step process: first we look up the path to the variable
+            group. We then look up the group itself to get the "absoluteName", which
+            is the readable name of the category.
+         */
 
-        // Step 1: get the category paths
+        // 1 a. get the category paths
         const categoryPathPromises = statVars.map((statVarId) =>
           fetch(
             `${props.apiRoot || ""}/api/variable/path?dcid=${statVarId}`
@@ -128,7 +133,7 @@ export function TileMetadataModal(
           if (lastDcid) categoryPaths.add(lastDcid);
         });
 
-        // Step 2: from those paths, get the absolute names
+        // 1 b. from those paths, get the absolute names
         const categoryInfoMap: Record<string, string> = {};
         const categoryPromises = Array.from(categoryPaths).map(
           async (categoryPath) => {
@@ -162,7 +167,11 @@ export function TileMetadataModal(
           statVarCategoryMap[statVarId] = topic ? [topic] : [];
         });
 
-        // Next we get full information for all the stat vars
+        /*
+          3.  We now pull the full stat var information for each stat var. The
+              results contain a lookup for each stat var of the sources, and under
+              that, information we need about the stat var-source combo
+         */
         const dcidsParam = statVars.map((id) => `dcids=${id}`).join("&");
         const variableResponse = await fetch(
           `${props.apiRoot || ""}/api/variable/info?${dcidsParam}`
@@ -190,6 +199,10 @@ export function TileMetadataModal(
           }
         });
 
+        /*
+          4.  We now look up the base information about each source (provenance).
+              This gives us some of the core information we need about the source itself.
+         */
         const provenanceMap: Record<string, Provenance> = {};
         const provenancePromises = Array.from(provenances).map((provenanceId) =>
           fetch(`${props.apiRoot || ""}/api/node/triples/out/${provenanceId}`)
@@ -200,6 +213,10 @@ export function TileMetadataModal(
         );
         await Promise.all(provenancePromises);
 
+        /*
+          5.  We now look up some attributes of required fields for which we have only the dcid.
+              Currently, this is the description of the measurement method.
+         */
         let measurementMethodMap: Record<string, string> = {};
         if (measurementMethods.size) {
           measurementMethodMap = await dataCommonsClient.getFirstNodeValues({
@@ -210,6 +227,10 @@ export function TileMetadataModal(
 
         const metadata: Record<string, StatVarMetadata> = {};
 
+        /*
+          With all the data collected together above, we collate it into a final
+          data structure that we send into the metadata content for actual display.
+         */
         for (const statVarId of statVars) {
           const facetId = props.statVarToFacet?.[statVarId];
           const facetInfo = facetId ? props.facets[facetId] : null;
