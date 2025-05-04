@@ -33,7 +33,8 @@ export const metadataComponentMessages = defineMessages({
     id: "topic",
     defaultMessage: "Topic",
     description:
-      "A label used for topic categories that can be applied to a dataset. Example topics include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
+      "A label used for topic categories that can be applied to a dataset. Example topics include " +
+      "Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
   },
   MetadataDateRange: {
     id: "metadataDateRange",
@@ -51,19 +52,22 @@ export const metadataComponentMessages = defineMessages({
     id: "publicationCadence",
     defaultMessage: "Publication Cadence",
     description:
-      "Label for the cadence of publication. This is the rate of publication of the data. Example are: Yearly, Monthly.",
+      "Label for the cadence of publication. This is the rate of publication of the data. " +
+      "Example are: Yearly, Monthly.",
   },
   License: {
     id: "license",
     defaultMessage: "License",
     description:
-      "A label used for the copyright license associated with a dataset. An example copyright license is Creative Commons 4 (https://creativecommons.org/licenses/by/4.0).",
+      "A label used for the copyright license associated with a dataset. An example copyright " +
+      "license is Creative Commons 4 (https://creativecommons.org/licenses/by/4.0).",
   },
   MeasuringMethod: {
     id: "measuringMethod",
     defaultMessage: "Measuring method",
     description:
-      "Label for the methodology used to produce the data. Examples are: ACS 5-Year Survey, OECD Regional Statistics.",
+      "Label for the methodology used to produce the data. Examples are: ACS 5-Year Survey, " +
+      "OECD Regional Statistics.",
   },
   SourceAndCitation: {
     id: "sourceAndCitation",
@@ -80,7 +84,8 @@ export const metadataComponentMessages = defineMessages({
     id: "minorProcessing",
     defaultMessage: "with minor processing by Data Commons",
     description:
-      "Text indicating data was processed by Data Commons. This will appear in the citation section of the metadata modal after the list of sources.",
+      "Text indicating data was processed by Data Commons. This will appear in the citation " +
+      "section of the metadata modal after the list of sources.",
   },
   CitationGuidance: {
     id: "citationGuidance",
@@ -91,7 +96,8 @@ export const metadataComponentMessages = defineMessages({
   PleaseCredit: {
     id: "pleaseCredit",
     defaultMessage:
-      "Please credit all sources listed above. Data provided by third-party sources through Data Commons remains subject to the original provider's license terms.",
+      "Please credit all sources listed above. Data provided by third-party sources through Data Commons remains " +
+      "subject to the original provider's license terms.",
     description:
       "Text providing guidance on citing data sources in academic work, publications, or other derivative uses.",
   },
@@ -99,6 +105,8 @@ export const metadataComponentMessages = defineMessages({
     id: "copyCitation",
     defaultMessage: "Copy Citation",
     description:
-      "Label for the button that copies the citation to the clipboard when clicked. The copied text will contain one or more sources. Citation is akin to the definition here https://en.wikipedia.org/wiki/Citation.",
+      "Label for the button that copies the citation to the clipboard when clicked. " +
+      "The copied text will contain one or more sources. Citation is akin to the " +
+      "definition here https://en.wikipedia.org/wiki/Citation.",
   },
 });
