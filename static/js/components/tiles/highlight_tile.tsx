@@ -19,16 +19,15 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../../constants/css_constants";
 import { formatNumber, translateUnit } from "../../i18n/i18n";
-import { Observation, StatMetadata } from "../../shared/stat_types";
+import { Observation } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
@@ -37,6 +36,7 @@ import {
   getNoDataErrorMsg,
   getStatFormat,
   ReplacementStrings,
+  TileSources,
 } from "../../utils/tile_utils";
 
 // units that should be formatted as part of the number
@@ -58,17 +58,12 @@ export interface HighlightTilePropType {
 }
 
 export interface HighlightData extends Observation {
-  // A set of string sources (URLs)
   sources: Set<string>;
-  // A full set of the facets used within the chart
-  facets: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet: Record<string, string>;
   numFractionDigits?: number;
   errorMsg: string;
 }
 
-export function HighlightTile(props: HighlightTilePropType): ReactElement {
+export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   const containerRef = useRef(null);
   const [highlightData, setHighlightData] = useState<HighlightData | undefined>(
     null
@@ -132,8 +127,6 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
           apiRoot={props.apiRoot}
           containerRef={containerRef}
           sources={props.sources || highlightData.sources}
-          facets={highlightData.facets}
-          statVarToFacet={highlightData.statVarToFacet}
           statVarSpecs={[props.statVarSpec]}
         />
       )}
@@ -175,17 +168,7 @@ export const fetchData = async (
   const mainStatData =
     statResp.data[props.statVarSpec.statVar][props.place.dcid];
   let value = mainStatData.value;
-
-  const facets: Record<string, StatMetadata> = {};
-  const statVarToFacet: Record<string, string> = {};
-
   const facet = statResp.facets[mainStatData.facet];
-
-  if (mainStatData.facet && facet) {
-    facets[mainStatData.facet] = facet;
-    statVarToFacet[props.statVarSpec.statVar] = mainStatData.facet;
-  }
-
   const sources = new Set<string>();
   if (facet && facet.provenanceUrl) {
     sources.add(facet.provenanceUrl);
@@ -225,14 +208,13 @@ export const fetchData = async (
       value *= scaling;
     }
   }
-  return {
+  const result: HighlightData = {
     value,
     date: mainStatData.date,
     numFractionDigits: numFractionDigitsUsed,
     unitDisplayName: unit,
     sources,
-    facets,
-    statVarToFacet,
     errorMsg,
   };
+  return result;
 };

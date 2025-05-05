@@ -204,12 +204,8 @@ export const DemoTooltips = (): ReactElement => {
                 <em>This cursor is to the left.</em>
               </p>
               <p>
-                <a
-                  href={
-                    "https://data.bls.gov/cew/doc/titles/industry/industry_titles.htm"
-                  }
-                >
-                  https://data.bls.gov/cew/doc/titles/industry/industry_titles.htm
+                <a href={"https://google.com"}>
+                  A link the user can interact with.
                 </a>
               </p>
             </>

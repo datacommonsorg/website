@@ -27,13 +27,7 @@ import { ChartEventDetail } from "@datacommonsorg/web-components";
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React, {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
@@ -50,11 +44,7 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
-import {
-  PointApiResponse,
-  SeriesApiResponse,
-  StatMetadata,
-} from "../../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
   DataPointMetadata,
   NamedPlace,
@@ -195,17 +185,12 @@ export interface MapChartData {
   layerData: MapLayerData[];
   // props used when fetching this data
   props: MapTilePropType;
-  // A set of string sources (URLs)
   sources: Set<string>;
-  // A full set of the facets used within the chart
-  facets?: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet?: Record<string, string>;
   // Set if the component receives a date value from a subscribed event
   dateOverride?: string;
 }
 
-export function MapTile(props: MapTilePropType): ReactElement {
+export function MapTile(props: MapTilePropType): JSX.Element {
   const svgContainer = useRef<HTMLDivElement>(null);
   const errorMsgContainer = useRef<HTMLDivElement>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -326,8 +311,6 @@ export function MapTile(props: MapTilePropType): ReactElement {
       subtitle={props.subtitle}
       apiRoot={props.apiRoot}
       sources={props.sources || (mapChartData && mapChartData.sources)}
-      facets={mapChartData?.facets}
-      statVarToFacet={mapChartData?.statVarToFacet}
       forwardRef={containerRef}
       replacementStrings={
         mapChartData && getReplacementStrings(props, mapChartData)
@@ -542,7 +525,8 @@ export const fetchData = async (
       return null;
     }
   }
-  return rawToChart(rawDataArray, props, dateOverride);
+  const mapChartData = rawToChart(rawDataArray, props, dateOverride);
+  return mapChartData;
 };
 
 function rawToChart(
@@ -554,8 +538,6 @@ function rawToChart(
   const dates: Set<string> = new Set();
   const layerData = [];
   const sources: Set<string> = new Set();
-  const facets: Record<string, StatMetadata> = {};
-  const statVarToFacet: Record<string, string> = {};
   let isUsaPlace = true; // whether all layers are about USA places
 
   for (const rawData of rawDataArray) {
@@ -598,15 +580,6 @@ function rawToChart(
     );
     const dataValues = {};
     const metadata = {};
-
-    for (const placeDcid in placeStat) {
-      const facetId = placeStat[placeDcid].facet;
-      if (facetId && metadataMap[facetId]) {
-        facets[facetId] = metadataMap[facetId];
-        statVarToFacet[rawData.variable.statVar] = facetId;
-      }
-    }
-
     for (const placeDcid of childPlaces) {
       const placeChartData = getPlaceChartData(
         placeStat,
@@ -674,8 +647,6 @@ function rawToChart(
     layerData,
     props,
     sources,
-    facets,
-    statVarToFacet,
     dateOverride,
   };
 }

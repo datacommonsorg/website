@@ -195,13 +195,13 @@ const DialogContainer = ({
   return ReactDOM.createPortal(
     <div
       className={`dialog-container ${className || ""}`}
-      css={(theme): Interpolation<Theme> => [
-        {
-          position: "fixed",
-          inset: 0,
-          pointerEvents: "none",
-          zIndex: theme.zIndex.dialog,
-        },
+      css={[
+        css`
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: 10000;
+        `,
         baseCss,
       ]}
     >
