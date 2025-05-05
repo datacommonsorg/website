@@ -10,66 +10,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Unemployed"
+                      "Median_Income_Household"
                     ],
-                    "title": "Population: Unemployed in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Unemployed in Washington",
-                    "statVarKey": [
-                      "Count_Person_Unemployed"
-                    ],
-                    "title": "Population: Unemployed in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Unemployed"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate in Washington",
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Unemployment Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_15OrMoreYears_NoIncome"
-                    ],
-                    "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Household Median Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -82,16 +25,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_NoIncome"
+                      "Median_Income_Household"
                     ],
-                    "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Household Median Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington"
+            "title": "Household Median Income in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -99,9 +41,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_NoIncome"
+                      "Median_Income_Household"
                     ],
-                    "title": "Population of Working Age With No Income in Washington",
+                    "title": "Household Median Income in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -109,18 +51,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Population of Working Age With No Income in Washington",
+                    "description": "Household Median Income in Washington",
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_NoIncome"
+                      "Median_Income_Household"
                     ],
-                    "title": "Population of Working Age With No Income in Washington",
+                    "title": "Household Median Income in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population of Working Age With No Income"
+            "title": "Household Median Income"
           },
           {
             "columns": [
@@ -128,96 +69,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Employed"
+                      "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Population With Current Employment in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population With Current Employment in Washington",
-                    "statVarKey": [
-                      "Count_Person_Employed"
-                    ],
-                    "title": "Population With Current Employment in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population With Current Employment"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
-                    ],
-                    "title": "State Unemployment Insurance Claims in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "State Unemployment Insurance Claims in Washington",
-                    "statVarKey": [
-                      "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
-                    ],
-                    "title": "State Unemployment Insurance Claims in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "State Unemployment Insurance Claims"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_WithEarnings"
-                    ],
-                    "title": "Population: 16 Years or More, With Earnings in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16 Years or More, With Earnings in Washington",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_WithEarnings"
-                    ],
-                    "title": "Population: 16 Years or More, With Earnings in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16 Years or More, With Earnings"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_15OrMoreYears_WithIncome"
-                    ],
-                    "title": "Population: 15 Years or More, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Median Family Household Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -230,16 +84,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_WithIncome"
+                      "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Population: 15 Years or More, With Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Median Family Household Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 15 Years or More, With Income in Census Zip Code Tabulation Areas of Washington"
+            "title": "Median Family Household Income in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -247,9 +100,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_WithIncome"
+                      "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Population: 15 Years or More, With Income in Washington",
+                    "title": "Median Family Household Income in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -257,18 +110,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 15 Years or More, With Income in Washington",
+                    "description": "Median Family Household Income in Washington",
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_WithIncome"
+                      "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Population: 15 Years or More, With Income in Washington",
+                    "title": "Median Family Household Income in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 15 Years or More, With Income"
+            "title": "Median Family Household Income"
           },
           {
             "columns": [
@@ -276,9 +128,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Male_DidNotWork"
+                      "Median_Income_Person"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Individual Median Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -291,16 +143,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Male_DidNotWork"
+                      "Median_Income_Person"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Individual Median Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington"
+            "title": "Individual Median Income in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -308,9 +159,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Male_DidNotWork"
+                      "Median_Income_Person"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
+                    "title": "Individual Median Income in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -318,18 +169,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16-64 Years, Male, Did Not Work in Washington",
+                    "description": "Individual Median Income in Washington",
                     "statVarKey": [
-                      "Count_Person_Male_DidNotWork"
+                      "Median_Income_Person"
                     ],
-                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
+                    "title": "Individual Median Income in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Male, Did Not Work"
+            "title": "Individual Median Income"
           },
           {
             "columns": [
@@ -337,95 +187,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_NotInLaborForce"
+                      "Mean_Income_Household"
                     ],
-                    "title": "Population: 16 Years or More, Not in Labor Force in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16 Years or More, Not in Labor Force in Washington",
-                    "statVarKey": [
-                      "Count_Person_NotInLaborForce"
-                    ],
-                    "title": "Population: 16 Years or More, Not in Labor Force in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16 Years or More, Not in Labor Force"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow"
-                    ],
-                    "title": "Insured Unemployment Rate in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Insured Unemployment Rate in Washington",
-                    "statVarKey": [
-                      "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow"
-                    ],
-                    "title": "Insured Unemployment Rate in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Insured Unemployment Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population in the Labor Force in Washington",
-                    "statVarKey": [
-                      "Count_Person_InLaborForce"
-                    ],
-                    "title": "Population in the Labor Force in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population in the Labor Force"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/dyhxtqe2pxhl5"
-                    ],
-                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Average Income for Households in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -438,16 +202,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "dc/dyhxtqe2pxhl5"
+                      "Mean_Income_Household"
                     ],
-                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Average Income for Households in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington"
+            "title": "Average Income for Households in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -455,9 +218,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/dyhxtqe2pxhl5"
+                      "Mean_Income_Household"
                     ],
-                    "title": "Population: No Income, Foreign Born in Washington",
+                    "title": "Average Income for Households in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -465,18 +228,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: No Income, Foreign Born in Washington",
+                    "description": "Average Income for Households in Washington",
                     "statVarKey": [
-                      "dc/dyhxtqe2pxhl5"
+                      "Mean_Income_Household"
                     ],
-                    "title": "Population: No Income, Foreign Born in Washington",
+                    "title": "Average Income for Households in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: No Income, Foreign Born"
+            "title": "Average Income for Households"
           },
           {
             "columns": [
@@ -484,9 +246,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_NotEnrolledInSchool"
+                      "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Average Income for Family Households in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -499,16 +261,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_NotEnrolledInSchool"
+                      "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Average Income for Family Households in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington"
+            "title": "Average Income for Family Households in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -516,9 +277,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_NotEnrolledInSchool"
+                      "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Population Not Currently Enrolled in School in Washington",
+                    "title": "Average Income for Family Households in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -526,18 +287,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Not Currently Enrolled in School in Washington",
+                    "description": "Average Income for Family Households in Washington",
                     "statVarKey": [
-                      "Count_Person_NotEnrolledInSchool"
+                      "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Population Not Currently Enrolled in School in Washington",
+                    "title": "Average Income for Family Households in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population Not Currently Enrolled in School"
+            "title": "Average Income for Family Households"
           },
           {
             "columns": [
@@ -545,28 +305,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSTotalAllIndustries"
+                      "Median_Earnings_Person_Female",
+                      "Median_Earnings_Person_Male"
                     ],
-                    "title": "Workers in All Industries in Washington",
+                    "title": "Median Household Income by Gender in Washington",
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Workers in All Industries in Washington",
-                    "statVarKey": [
-                      "Count_Worker_NAICSTotalAllIndustries"
-                    ],
-                    "title": "Workers in All Industries in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Workers in All Industries"
+            "title": "Median Household Income by Gender"
           },
           {
             "columns": [
@@ -574,9 +322,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Median Married Couple Family Household Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -589,16 +337,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Median Married Couple Family Household Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington"
+            "title": "Median Married Couple Family Household Income in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -606,9 +353,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
+                    "title": "Median Married Couple Family Household Income in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -616,80 +363,600 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
+                    "description": "Median Married Couple Family Household Income in Washington",
                     "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
+                    "title": "Median Married Couple Family Household Income in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Full Time Year Round Worker"
+            "title": "Median Married Couple Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in Washington",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone"
+                    ],
+                    "title": "Median Income of White Households in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone"
+                    ],
+                    "title": "Median Income of White Households in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of White Households in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Median Income of American Indian or Alaska Native Households in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Median Income of American Indian or Alaska Native Households in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of American Indian or Alaska Native Households in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceAsianAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Median Household Income by Race in Washington (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Nonfamily Household Median Income in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Nonfamily Household Median Income in Washington",
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Nonfamily Household Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Average Income for Nonfamily Households in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Average Income for Nonfamily Households in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Nonfamily Households in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Average Income for Nonfamily Households in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Average Income for Nonfamily Households in Washington",
+                    "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Average Income for Nonfamily Households in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Nonfamily Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Men (15 Years or Older) With Income in Washington",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households With Food Stamps in the Past Year in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income for Households With Food Stamps in the Past Year in Washington",
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households With Food Stamps in the Past Year"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income: Less Than High School Graduate in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income: Less Than High School Graduate in Washington",
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income: Less Than High School Graduate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households Without Food Stamps in the Past Year in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income for Households Without Food Stamps in the Past Year in Washington",
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households Without Food Stamps in the Past Year"
           }
         ],
         "statVarSpec": {
-          "Count_Person_15OrMoreYears_NoIncome": {
-            "name": "Population of Working Age With No Income",
-            "statVar": "Count_Person_15OrMoreYears_NoIncome"
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
           },
-          "Count_Person_15OrMoreYears_WithIncome": {
-            "name": "Population: 15 Years or More, With Income",
-            "statVar": "Count_Person_15OrMoreYears_WithIncome"
+          "Mean_Income_Household_FamilyHousehold": {
+            "name": "Average Income for Family Households",
+            "statVar": "Mean_Income_Household_FamilyHousehold"
           },
-          "Count_Person_16OrMoreYears_WithEarnings": {
-            "name": "Population: 16 Years or More, With Earnings",
-            "statVar": "Count_Person_16OrMoreYears_WithEarnings"
+          "Mean_Income_Household_NonfamilyHousehold": {
+            "name": "Average Income for Nonfamily Households",
+            "statVar": "Mean_Income_Household_NonfamilyHousehold"
           },
-          "Count_Person_Employed": {
-            "name": "Population With Current Employment",
-            "statVar": "Count_Person_Employed"
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
           },
-          "Count_Person_FullTimeYearRoundWorker": {
-            "name": "Population: 16 - 64 Years, Full Time Year Round Worker",
-            "statVar": "Count_Person_FullTimeYearRoundWorker"
+          "Median_Earnings_Person_Female": {
+            "name": "Median Earnings for Women",
+            "statVar": "Median_Earnings_Person_Female"
           },
-          "Count_Person_InLaborForce": {
-            "name": "Population in the Labor Force",
-            "statVar": "Count_Person_InLaborForce"
+          "Median_Earnings_Person_Male": {
+            "name": "Median Earnings for Men",
+            "statVar": "Median_Earnings_Person_Male"
           },
-          "Count_Person_Male_DidNotWork": {
-            "name": "Population: 16 - 64 Years, Male, Did Not Work",
-            "statVar": "Count_Person_Male_DidNotWork"
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
           },
-          "Count_Person_NotEnrolledInSchool": {
-            "name": "Population Not Currently Enrolled in School",
-            "statVar": "Count_Person_NotEnrolledInSchool"
+          "Median_Income_Household_FamilyHousehold": {
+            "name": "Median Family Household Income",
+            "statVar": "Median_Income_Household_FamilyHousehold"
           },
-          "Count_Person_NotInLaborForce": {
-            "name": "Population: 16 Years or More, Not in Labor Force",
-            "statVar": "Count_Person_NotInLaborForce"
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+            "name": "Median Income of American Indian or Alaska Native Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
           },
-          "Count_Person_Unemployed": {
-            "name": "Population: Unemployed",
-            "statVar": "Count_Person_Unemployed"
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Median Income of American Indian or Alaska Native Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
           },
-          "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
-            "name": "State Unemployment Insurance Claims",
-            "statVar": "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+          "Median_Income_Household_HouseholderRaceAsianAlone_multiple_place_bar_block": {
+            "name": "Median Income of Asian Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAsianAlone"
           },
-          "Count_Worker_NAICSTotalAllIndustries": {
-            "name": "Workers in All Industries",
-            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Median Income of Black or African American Households",
+            "statVar": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
           },
-          "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow": {
-            "name": "Insured Unemployment Rate",
-            "statVar": "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow"
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Median Income of Hispanic or Latino Households",
+            "statVar": "Median_Income_Household_HouseholderRaceHispanicOrLatino"
           },
-          "UnemploymentRate_Person": {
-            "name": "Unemployment Rate",
-            "statVar": "UnemploymentRate_Person"
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Median Income of Native Hawaiian or Other Pacific Islander Households",
+            "statVar": "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
           },
-          "dc/dyhxtqe2pxhl5": {
-            "name": "Population: No Income, Foreign Born",
-            "statVar": "dc/dyhxtqe2pxhl5"
+          "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Median Income of Household: Some Other Race Alone",
+            "statVar": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
+          },
+          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Median Income of Household: Two or More Races",
+            "statVar": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAlone": {
+            "name": "Median Income of White Households",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Median Income of Household: White Alone Not Hispanic or Latino",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
+            "name": "Median Income of White Households",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
+          },
+          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Median Married Couple Family Household Income",
+            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold": {
+            "name": "Nonfamily Household Median Income",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Household_WithFoodStampsInThePast12Months": {
+            "name": "Median Income for Households With Food Stamps in the Past Year",
+            "statVar": "Median_Income_Household_WithFoodStampsInThePast12Months"
+          },
+          "Median_Income_Household_WithoutFoodStampsInThePast12Months": {
+            "name": "Median Income for Households Without Food Stamps in the Past Year",
+            "statVar": "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+            "name": "Median Income of Men (15 Years or Older) With Income",
+            "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+          },
+          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome": {
+            "name": "Median Income: Less Than High School Graduate",
+            "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
           }
         }
       }
@@ -1076,28 +1343,65 @@
         }
       ]
     },
-    "childTopics": [],
-    "exploreMore": {
-      "Count_Person_FullTimeYearRoundWorker": {
-        "gender": [
-          "Count_Person_Female_FullTimeYearRoundWorker",
-          "Count_Person_Male_FullTimeYearRoundWorker"
+    "childTopics": [
+      {
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
         ]
       },
-      "Count_Person_NotInLaborForce": {
-        "residenceType": [
-          "Count_Person_NotInLaborForce_ResidesInAdultCorrectionalFacilities",
-          "Count_Person_NotInLaborForce_ResidesInCollegeOrUniversityStudentHousing",
-          "Count_Person_NotInLaborForce_ResidesInGroupQuarters",
-          "Count_Person_NotInLaborForce_ResidesInNoninstitutionalizedGroupQuarters",
-          "Count_Person_NotInLaborForce_ResidesInNursingFacilities"
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Mean_Income_Household": {
+        "householdType": [
+          "Mean_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+          "Mean_Income_Household_NonfamilyHousehold"
+        ]
+      },
+      "Median_Earnings_Person": {
+        "gender": [
+          "Median_Earnings_Person_Female",
+          "Median_Earnings_Person_Male"
+        ]
+      },
+      "Median_Income_Household": {
+        "benefitsStatus": [
+          "Median_Income_Household_WithFoodStampsInThePast12Months",
+          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+        ],
+        "householderRace": [
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+          "Median_Income_Household_HouseholderRaceAsianAlone",
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+          "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone",
+          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
+          "Median_Income_Household_HouseholderRaceWhiteAlone",
+          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
         ]
       }
     },
     "mainTopics": [
       {
-        "dcid": "dc/topic/UnemploymentRate",
-        "name": "Unemployment Rate",
+        "dcid": "dc/topic/Income",
+        "name": "Income",
         "types": [
           "Topic"
         ]
@@ -1106,15 +1410,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EmploymentEquity",
-        "name": "Employment Equity",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
@@ -1474,21 +1771,51 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Jobs",
-        "name": "Jobs",
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/UnpaidFamilyWorkers",
-        "name": "Unpaid Family Workers",
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "svSource": "PAST_QUERY",
+  "userMessages": [
+    "See relevant statistics based on the previous query."
+  ]
 }

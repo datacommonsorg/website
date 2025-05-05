@@ -9,34 +9,13 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/0677000",
-                      "geoId/5363000"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_ForeignBorn_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Foreign Born (${date})",
-                    "type": "BAR"
+                    "type": "PLACE_OVERVIEW"
                   }
                 ]
               }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Foreign Born"
+            ]
           }
-        ],
-        "statVarSpec": {
-          "Count_Person_5OrMoreYears_ForeignBorn_multiple_place_bar_block": {
-            "name": "Population: Foreign Born",
-            "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
-          }
-        }
+        ]
       }
     ],
     "metadata": {
@@ -70,16 +49,68 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {},
-    "mainTopics": [],
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [],
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
+  "showForm": true,
+  "svSource": "UNRECOGNIZED",
   "userMessages": [
-    "See comparisons based on places in the previous query."
+    "Could not recognize any topic from the query. See available topic categories for Sunnyvale."
   ]
 }
