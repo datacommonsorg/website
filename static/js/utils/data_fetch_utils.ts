@@ -178,7 +178,7 @@ export function getPoint(
   return selectFacet(apiRoot, entities, variables, highlightFacet).then(
     (facetIds) => {
       const facetIdList = !_.isEmpty(facetIds) ? facetIds : null;
-      const params: Record<string, any> = { date, entities, variables };
+      const params: Record<string, unknown> = { date, entities, variables };
       if (!_.isEmpty(facetIdList)) {
         params["facetId"] = facetIdList;
       }
