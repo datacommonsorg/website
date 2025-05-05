@@ -26,7 +26,7 @@ from shared.lib.constants import DATE_LATEST
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
 
 
-def _filter_point_for_facets(point_data, facet_ids):
+def _filter_point_for_facets(point_data, facet_ids: list[str]):
   """Filter the point data to only include the specified facets.
   Args:
     point_data: The point data to filter.
