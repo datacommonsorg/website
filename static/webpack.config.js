@@ -37,8 +37,14 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
-    datagemma: [__dirname + "/js/apps/datagemma/main.ts", __dirname + "/css/datagemma.scss"],
-    biomed_nl: [__dirname + "/js/apps/biomed_nl/main.ts", __dirname + "/css/biomed_nl.scss"],
+    datagemma: [
+      __dirname + "/js/apps/datagemma/main.ts",
+      __dirname + "/css/datagemma.scss",
+    ],
+    biomed_nl: [
+      __dirname + "/js/apps/biomed_nl/main.ts",
+      __dirname + "/css/biomed_nl.scss",
+    ],
     diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
@@ -48,17 +54,13 @@ const config = {
     mcf_playground: __dirname + "/js/mcf_playground.js",
     queryStore: path.resolve(__dirname, "js/shared/stores/query_store.ts"),
     base: [__dirname + "/js/apps/base/main.ts", __dirname + "/css/core.scss"],
-    place: [
-      __dirname + "/js/place/place.ts",
-      __dirname + "/css/place/place_page.scss",
-    ],
     place_landing: [
       __dirname + "/js/place/place_landing.ts",
       __dirname + "/css/place/place_landing.scss",
     ],
-    dev_place: [
-      __dirname + "/js/place/dev_place.ts",
-      __dirname + "/css/place/dev_place_page.scss",
+    place: [
+      __dirname + "/js/place/place.ts",
+      __dirname + "/css/place/place_page.scss",
     ],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
@@ -138,8 +140,10 @@ const config = {
       __dirname + "/js/apps/build/main.ts",
       __dirname + "/css/build.scss",
     ],
-    data: [
-      __dirname + "/js/apps/data/main.ts",
+    data: [__dirname + "/js/apps/data/main.ts"],
+    data_overview: [
+      __dirname + "/js/apps/data_overview/main.ts",
+      __dirname + "/css/data_overview.scss",
     ],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",

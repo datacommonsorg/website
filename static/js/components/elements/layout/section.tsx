@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@
 
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from "@emotion/react";
+import { css, Theme, useTheme } from "@emotion/react";
+import { Interpolation } from "@emotion/styled";
 import React, { ReactElement, ReactNode } from "react";
 
 interface SectionProps {
@@ -29,6 +30,10 @@ interface SectionProps {
   variant?: "standard" | "small" | "large" | "compact";
   //a variant that determines the background color of the section
   colorVariant?: "base" | "light" | "dark";
+  //prop to allow the optional addition to an overriding of attributes that style the primary section container.
+  sx?: Interpolation<Theme>;
+  //prop to allow the optional addition to an overriding of attributes that style the inner section container.
+  innerSx?: Interpolation<Theme>;
   //the content of the section
   children?: ReactNode;
 }
@@ -36,6 +41,8 @@ interface SectionProps {
 export const Section = ({
   colorVariant = "base",
   variant = "standard",
+  sx,
+  innerSx,
   children,
 }: SectionProps): ReactElement => {
   const theme = useTheme();
@@ -52,29 +59,35 @@ export const Section = ({
 
   return (
     <section
-      css={css`
-        background-color: ${color};
-      `}
+      css={[
+        css`
+          background-color: ${color};
+        `,
+        sx,
+      ]}
     >
       <div
-        css={css`
-          margin: auto;
-          width: 100%;
-          max-width: ${theme.width.xl}px;
-          padding: ${padding}px 0;
-          @media (max-width: ${theme.breakpoints.xl}px) {
-            padding: ${padding}px ${theme.spacing.lg}px;
-          }
-          @media (max-width: ${theme.breakpoints.lg}px) {
-            max-width: ${theme.width.lg}px;
-          }
-          @media (max-width: ${theme.breakpoints.md}px) {
-            max-width: 100%;
-          }
-          @media (max-width: ${theme.breakpoints.sm}px) {
-            padding: ${theme.spacing.xl}px ${theme.spacing.lg}px;
-          }
-        `}
+        css={[
+          css`
+            margin: auto;
+            width: 100%;
+            max-width: ${theme.width.xl}px;
+            padding: ${padding}px 0;
+            @media (max-width: ${theme.breakpoints.xl}px) {
+              padding: ${padding}px ${theme.spacing.lg}px;
+            }
+            @media (max-width: ${theme.breakpoints.lg}px) {
+              max-width: ${theme.width.lg}px;
+            }
+            @media (max-width: ${theme.breakpoints.md}px) {
+              max-width: 100%;
+            }
+            @media (max-width: ${theme.breakpoints.sm}px) {
+              padding: ${theme.spacing.xl}px ${theme.spacing.lg}px;
+            }
+          `,
+          innerSx,
+        ]}
       >
         {children}
       </div>
