@@ -177,10 +177,14 @@ export function getPoint(
 ): Promise<PointApiResponse> {
   return selectFacet(apiRoot, entities, variables, highlightFacet).then(
     (facetIds) => {
-      const facetId = !_.isEmpty(facetIds) ? facetIds : null;
+      const facetIdList = !_.isEmpty(facetIds) ? facetIds : null;
+      const params: Record<string, any> = { date, entities, variables };
+      if (!_.isEmpty(facetIdList)) {
+        params["facetId"] = facetIdList;
+      }
       return axios
         .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
-          params: { date, entities, variables, facetId },
+          params,
           paramsSerializer: stringifyFn,
         })
         .then((resp) => {
@@ -239,8 +243,10 @@ export function getSeries(
   return Promise.resolve(
     selectFacet(apiRoot, entities, variables, highlightFacet)
   ).then((resolvedFacetIds) => {
-    if (facetIds || resolvedFacetIds) {
-      params["facetIds"] = facetIds || resolvedFacetIds;
+    if (!_.isEmpty(facetIds)) {
+      params["facetIds"] = facetIds;
+    } else if (!_.isEmpty(resolvedFacetIds)) {
+      params["facetIds"] = resolvedFacetIds;
     }
 
     return axios
