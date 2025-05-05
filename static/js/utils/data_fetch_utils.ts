@@ -137,7 +137,7 @@ async function selectFacet(
   highlightFacet?: FacetMetadata
 ): Promise<string[] | null> {
   if (!highlightFacet) {
-    return null;
+    return [];
   }
   const facetsResponse = await getFacets(apiRoot, entities, variables);
   for (const svDcid of Object.keys(facetsResponse)) {
@@ -156,7 +156,7 @@ async function selectFacet(
     }
   }
 
-  return null;
+  return [];
 }
 
 /**
@@ -175,19 +175,19 @@ export function getPoint(
   alignedVariables?: string[][],
   highlightFacet?: FacetMetadata
 ): Promise<PointApiResponse> {
-  return Promise.resolve(
-    selectFacet(apiRoot, entities, variables, highlightFacet)
-  ).then((facetIds) => {
-    const facetId = facetIds && facetIds.length > 0 ? facetIds[0] : null;
-    return axios
-      .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
-        params: { date, entities, variables, facetId },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => {
-        return getProcessedPointResponse(resp.data, alignedVariables);
-      });
-  });
+  return selectFacet(apiRoot, entities, variables, highlightFacet).then(
+    (facetIds) => {
+      const facetId = !_.isEmpty(facetIds) ? facetIds : null;
+      return axios
+        .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
+          params: { date, entities, variables, facetId },
+          paramsSerializer: stringifyFn,
+        })
+        .then((resp) => {
+          return getProcessedPointResponse(resp.data, alignedVariables);
+        });
+    }
+  );
 }
 
 /**
