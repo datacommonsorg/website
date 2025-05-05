@@ -23,8 +23,6 @@ export function HighlightResult(
   return (
     <div>
       <div className="highlight-result-title">
-        <h2>Highlight chart!</h2>
-        <p>This data comes from {props.highlightFacet?.importName}</p>
         <SubjectPageMainPane
           id={PAGE_ID}
           place={props.highlightPageMetadata.place}
@@ -36,7 +34,6 @@ export function HighlightResult(
           highlightFacet={props.highlightFacet}
         />
       </div>
-      <p>Explore more about this!</p>
     </div>
   );
 }

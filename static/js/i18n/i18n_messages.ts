@@ -136,4 +136,10 @@ export const messages = defineMessages({
     defaultMessage: "No data available.",
     description: "Error message for no data available",
   },
+  placesAndLastPlace: {
+    id: "places_and_last_place",
+    defaultMessage: "{places} and {lastPlace}",
+    description:
+      "Text to display when we have a list of places, and need to add 'and' before the last place. For example, 'California, Texas, and New York'.",
+  },
 });

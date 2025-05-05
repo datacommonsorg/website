@@ -34,6 +34,7 @@ import {
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
 import { intl, localizeLink } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -284,10 +285,12 @@ export function App(props: AppProps): ReactElement {
         !_.isEmpty(pageMetadata.mainTopics) &&
         pageMetadata.places.length > 0
       ) {
-        const inPlaces = `in ${pageMetadata.places
-          .map((place) => place.name)
-          .join(", ")
-          .replace(/, ([^,]*)$/, " and $1")}`;
+        // If there are multiple places, join them with commas and "and".
+        const placeNames = pageMetadata.places.map((place) => place.name);
+        const inPlaces = intl.formatMessage(messages.placesAndLastPlace, {
+          places: placeNames.slice(0, -1).join(", "),
+          lastPlace: placeNames[placeNames.length - 1],
+        });
         if (
           pageMetadata.mainTopics.length == 2 &&
           pageMetadata.mainTopics[0].name &&
