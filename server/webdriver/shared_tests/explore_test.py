@@ -13,17 +13,10 @@
 # limitations under the License.
 
 import pytest
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
-from server.routes.place.utils import ORDERED_TOPICS
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
-from server.webdriver.base_utils import find_elems
-from server.webdriver.base_utils import scroll_to_elem
-from server.webdriver.base_utils import wait_for_text
 
 EXPLORE_URL = '/explore'
 
