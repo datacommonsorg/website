@@ -19,19 +19,20 @@
  */
 
 import _ from "lodash";
-import React, { MutableRefObject, useRef } from "react";
+import React, { MutableRefObject, ReactElement, useRef } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { IconPlaceholder } from "../../shared/components";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
+import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import {
   formatString,
   getChartTitle,
   getMergedSvg,
   ReplacementStrings,
-  TileSources,
 } from "../../utils/tile_utils";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";
@@ -39,7 +40,12 @@ interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
   title: string;
+  // A set of string sources (URLs)
   sources: Set<string> | string[];
+  // A full set of the facets used within the chart
+  facets?: Record<string, StatMetadata>;
+  // A mapping of which stat var used which facet
+  statVarToFacet?: Record<string, string>;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
@@ -69,7 +75,9 @@ interface ChartTileContainerProp {
   chartHeight?: number;
 }
 
-export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
+export function ChartTileContainer(
+  props: ChartTileContainerProp
+): ReactElement {
   const containerRef = useRef<HTMLDivElement>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   // on initial loading, hide the title text
@@ -106,6 +114,8 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
               apiRoot={props.apiRoot}
               containerRef={containerRef}
               sources={props.sources}
+              facets={props.facets}
+              statVarToFacet={props.statVarToFacet}
               statVarSpecs={props.statVarSpecs}
             />
           )}

@@ -20,7 +20,13 @@
 
 import { isDateInRange, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import _ from "lodash";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
@@ -31,7 +37,7 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
-import { SeriesApiResponse } from "../../shared/stat_types";
+import { SeriesApiResponse, StatMetadata } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import {
@@ -113,14 +119,19 @@ export interface LineTilePropType {
 
 export interface LineChartData {
   dataGroup: DataGroup[];
+  // A set of string sources (URLs)
   sources: Set<string>;
+  // A full set of the facets used within the chart
+  facets: Record<string, StatMetadata>;
+  // A mapping of which stat var used which facet
+  statVarToFacet: Record<string, string>;
   unit: string;
   // props used when fetching this data
   props: LineTilePropType;
   errorMsg: string;
 }
 
-export function LineTile(props: LineTilePropType): JSX.Element {
+export function LineTile(props: LineTilePropType): ReactElement {
   const svgContainer = useRef(null);
   const [chartData, setChartData] = useState<LineChartData | undefined>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -166,6 +177,8 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(props, chartData)}
       sources={props.sources || (chartData && chartData.sources)}
+      facets={chartData?.facets}
+      statVarToFacet={chartData?.statVarToFacet}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.statVarSpec}
@@ -399,6 +412,8 @@ function rawToChart(
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
+  const facets: Record<string, StatMetadata> = {};
+  const statVarToFacet: Record<string, string> = {};
   const allDates = new Set<string>();
   // TODO: make a new wrapper to fetch series data & do the processing there.
   const unit2count = {};
@@ -458,6 +473,8 @@ function rawToChart(
           : statVarDcidToName[spec.statVar];
         dataGroups.push(new DataGroup(label, dataPoints));
         sources.add(raw.facets[series.facet].provenanceUrl);
+        facets[series.facet] = raw.facets[series.facet];
+        statVarToFacet[spec.statVar] = series.facet;
       }
     }
   }
@@ -470,6 +487,8 @@ function rawToChart(
   return {
     dataGroup: dataGroups,
     sources,
+    facets,
+    statVarToFacet,
     unit,
     props,
     errorMsg,

@@ -24,7 +24,13 @@ import {
   ChartSortOption,
 } from "@datacommonsorg/web-components";
 import _ from "lodash";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint } from "../../chart/base";
@@ -39,7 +45,11 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { PLACE_TYPES } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
-import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
+import {
+  PointApiResponse,
+  SeriesApiResponse,
+  StatMetadata,
+} from "../../shared/stat_types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
@@ -121,7 +131,12 @@ export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
 
 export interface BarChartData {
   dataGroup: DataGroup[];
+  // A set of string sources (URLs)
   sources: Set<string>;
+  // A full set of the facets used within the chart
+  facets: Record<string, StatMetadata>;
+  // A mapping of which stat var used which facet
+  statVarToFacet: Record<string, string>;
   unit: string;
   dateRange: string;
   props: BarTilePropType;
@@ -133,7 +148,7 @@ export interface BarChartData {
   dateOverride?: string;
 }
 
-export function BarTile(props: BarTilePropType): JSX.Element {
+export function BarTile(props: BarTilePropType): ReactElement {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [dateOverride, setDateOverride] = useState(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
@@ -207,6 +222,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(barChartData)}
       sources={props.sources || (barChartData && barChartData.sources)}
+      facets={barChartData?.facets}
+      statVarToFacet={barChartData?.statVarToFacet}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.variables}
@@ -415,6 +432,8 @@ function rawToChart(
   const raw = _.cloneDeep(statData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
+  const facets: Record<string, StatMetadata> = {};
+  const statVarToFacet: Record<string, string> = {};
   // Track original order of stat vars in props, to maintain 1:1 pairing of
   // colors to stat var labels even after sorting
   const statVarOrder = props.variables.map(
@@ -441,6 +460,8 @@ function rawToChart(
       dates.add(stat.date);
       if (raw.facets[stat.facet]) {
         sources.add(raw.facets[stat.facet].provenanceUrl);
+        facets[stat.facet] = raw.facets[stat.facet];
+        statVarToFacet[statVar] = stat.facet;
       }
       if (spec.denom) {
         const denomInfo = getDenomInfo(spec, denomData, placeDcid, stat.date);
@@ -521,6 +542,8 @@ function rawToChart(
   return {
     dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
+    facets,
+    statVarToFacet,
     dateRange: getDateRange(Array.from(dates)),
     unit,
     props,
