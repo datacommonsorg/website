@@ -174,6 +174,7 @@ export function axiosMock(): void {
     .calledWith("/api/observations/series", {
       variables: ["Count_Person"],
       entities: ["geoId/05"],
+      facetIds: [],
     })
     .mockResolvedValue({
       data: {
