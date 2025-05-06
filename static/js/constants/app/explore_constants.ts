@@ -50,10 +50,10 @@ export const URL_HASH_PARAMS = {
   CHART_TYPE: "chartType",
 
   // The following are used for Facet selection.
-  IMPORT_NAME: "importName",
-  MEASUREMENT_METHOD: "measurementMethod",
-  OBSERVATION_PERIOD: "observationPeriod",
-  SCALING_FACTOR: "scalingFactor",
+  IMPORT_NAME: "imp",
+  MEASUREMENT_METHOD: "mm",
+  OBSERVATION_PERIOD: "op",
+  SCALING_FACTOR: "sf",
   UNIT: "unit",
 };
 export const CLIENT_TYPES = {
