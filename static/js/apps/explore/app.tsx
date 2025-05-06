@@ -20,7 +20,6 @@
 
 import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
-import { url } from "inspector";
 import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
@@ -35,6 +34,7 @@ import {
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
 import { intl, localizeLink } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -48,6 +48,7 @@ import {
 import { useQueryStore } from "../../shared/stores/query_store_hook";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
@@ -103,6 +104,7 @@ export function App(props: AppProps): ReactElement {
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
   const [highlightPageMetadata, setHighlightPageMetadata] =
     useState<SubjectPageMetadata>(null);
+  const [highlightFacet, setHighlightFacet] = useState<FacetMetadata>(null);
   const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
@@ -173,6 +175,7 @@ export function App(props: AppProps): ReactElement {
               queryResult={queryResult}
               pageMetadata={pageMetadata}
               highlightPageMetadata={highlightPageMetadata}
+              highlightFacet={highlightFacet}
               userMessage={userMessage}
               hideHeaderSearchBar={props.hideHeaderSearchBar}
             />
@@ -280,18 +283,24 @@ export function App(props: AppProps): ReactElement {
       if (
         !userQuery &&
         !_.isEmpty(pageMetadata.mainTopics) &&
-        pageMetadata.place.name
+        pageMetadata.places.length > 0
       ) {
+        // If there are multiple places, join them with commas and "and".
+        const placeNames = pageMetadata.places.map((place) => place.name);
+        const inPlaces = intl.formatMessage(messages.inPlacesAndLastPlace, {
+          places: placeNames.slice(0, -1).join(", "),
+          lastPlace: placeNames[placeNames.length - 1],
+        });
         if (
           pageMetadata.mainTopics.length == 2 &&
           pageMetadata.mainTopics[0].name &&
           pageMetadata.mainTopics[1].name
         ) {
-          const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
+          const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} ${inPlaces}`;
           setQuery(q);
           setStoreQueryString(q);
         } else if (pageMetadata.mainTopics[0].name) {
-          const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
+          const q = `${pageMetadata.mainTopics[0].name} ${inPlaces}`;
           setQuery(q);
           setStoreQueryString(q);
         }
@@ -324,6 +333,7 @@ export function App(props: AppProps): ReactElement {
     const query = urlHashParams.query;
 
     let topicsToUse = toApiList(urlHashParams.topic || DEFAULT_TOPIC);
+    setHighlightFacet(urlHashParams.facetMetadata);
 
     let places = [];
     if (!urlHashParams.place) {
@@ -461,7 +471,7 @@ const fetchFulfillData = async (
   client: string,
   chartType: string,
   skipRelatedThings = false
-) => {
+): Promise<unknown> => {
   try {
     const argsMap = new Map<string, string>();
     if (testMode) {
@@ -521,7 +531,7 @@ const fetchDetectAndFufillData = async (
   maxTopics: string,
   maxTopicSvs: string,
   maxCharts: string
-) => {
+): Promise<unknown> => {
   const fieldsMap = {
     [URL_HASH_PARAMS.DETECTOR]: detector,
     [URL_HASH_PARAMS.TEST_MODE]: testMode,

@@ -21,6 +21,7 @@
 import queryString from "query-string";
 
 import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
+import { FacetMetadata } from "../types/facet_metadata";
 
 /**
  * Returns token for URL param.
@@ -122,6 +123,40 @@ export interface UrlHashParams {
   maxTopicSvs: string;
   maxCharts: string;
   chartType: string;
+  facetMetadata?: FacetMetadata;
+}
+
+export function extractFacetMetadataUrlHashParams(
+  hashParams: queryString.ParsedQuery<string>
+): FacetMetadata | undefined {
+  const importName = getSingleParam(hashParams[URL_HASH_PARAMS.IMPORT_NAME]);
+  const measurementMethod = getSingleParam(
+    hashParams[URL_HASH_PARAMS.MEASUREMENT_METHOD]
+  );
+  const observationPeriod = getSingleParam(
+    hashParams[URL_HASH_PARAMS.OBSERVATION_PERIOD]
+  );
+  const scalingFactor = getSingleParam(
+    hashParams[URL_HASH_PARAMS.SCALING_FACTOR]
+  );
+  const unit = getSingleParam(hashParams[URL_HASH_PARAMS.UNIT]);
+
+  if (
+    importName ||
+    measurementMethod ||
+    observationPeriod ||
+    scalingFactor ||
+    unit
+  ) {
+    return {
+      importName,
+      measurementMethod,
+      observationPeriod,
+      scalingFactor: Number(scalingFactor),
+      unit,
+    };
+  }
+  return undefined;
 }
 
 export function extractUrlHashParams(
@@ -153,6 +188,7 @@ export function extractUrlHashParams(
   const maxTopicSvs = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPIC_SVS]);
   const maxCharts = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_CHARTS]);
   const chartType = getSingleParam(hashParams[URL_HASH_PARAMS.CHART_TYPE]);
+  const facetMetadata = extractFacetMetadataUrlHashParams(hashParams);
 
   return {
     query,
@@ -173,5 +209,6 @@ export function extractUrlHashParams(
     maxTopicSvs,
     maxCharts,
     chartType,
+    facetMetadata,
   };
 }

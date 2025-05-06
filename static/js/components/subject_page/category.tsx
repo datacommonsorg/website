@@ -22,6 +22,7 @@ import ReactMarkdown from "react-markdown";
 
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import {
   CategoryConfig,
   EventTypeSpec,
@@ -50,6 +51,7 @@ export interface CategoryPropType {
   showExploreMore?: boolean;
   // Whether to render tiles as web components
   showWebComponents?: boolean;
+  highlightFacet?: FacetMetadata;
 }
 
 export const Category = memo(function Category(
@@ -172,6 +174,7 @@ function renderBlocks(
                 denom={block.denom}
                 startWithDenom={block.startWithDenom}
                 showWebComponents={props.showWebComponents}
+                highlightFacet={props.highlightFacet}
               />
             </BlockContainer>
           </ErrorBoundary>
