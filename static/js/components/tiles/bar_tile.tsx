@@ -39,9 +39,8 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { PLACE_TYPES } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
-
+import { FacetMetadata } from "../../types/facet_metadata";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
