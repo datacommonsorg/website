@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import "./setup/typings";
+
 import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
