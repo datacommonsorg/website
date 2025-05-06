@@ -344,6 +344,7 @@ export function TileMetadataModal(
         {intl.formatMessage(messages.showMetadata)}
       </a>
       <Dialog
+        containerRef={props.containerRef}
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
         maxWidth="lg"
