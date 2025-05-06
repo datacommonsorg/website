@@ -30,7 +30,8 @@ class ExplorePageTestMixin():
     shared.wait_for_loading(self.driver)
 
     # Check that the page title is correct
-    self.assertEqual(self.driver.title, 'Explore - Data Commons')
+    title_text = "Explore - " + self.dc_title_string
+    self.assertEqual(self.driver.title, title_text)
 
     place_callout_link = find_elem(self.driver, By.CLASS_NAME,
                                    'place-callout-link')
