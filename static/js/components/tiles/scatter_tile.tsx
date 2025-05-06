@@ -21,13 +21,7 @@
 import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import axios from "axios";
 import _ from "lodash";
-import React, {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
@@ -42,11 +36,7 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
-import {
-  PointApiResponse,
-  SeriesApiResponse,
-  StatMetadata,
-} from "../../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 import { getStatWithinPlace } from "../../tools/scatter/util";
@@ -117,12 +107,7 @@ interface ScatterChartData {
   xStatVar: StatVarSpec;
   yStatVar: StatVarSpec;
   points: { [placeDcid: string]: Point };
-  // A set of string sources (URLs)
   sources: Set<string>;
-  // A full set of the facets used within the chart
-  facets: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet: Record<string, string>;
   xUnit: string;
   yUnit: string;
   xDate: string;
@@ -135,7 +120,7 @@ interface ScatterChartData {
   yStatVarName: string;
 }
 
-export function ScatterTile(props: ScatterTilePropType): ReactElement {
+export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const tooltip = useRef(null);
   const [scatterChartData, setScatterChartData] = useState<
@@ -198,8 +183,6 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       sources={props.sources || (scatterChartData && scatterChartData.sources)}
-      facets={scatterChartData?.facets}
-      statVarToFacet={scatterChartData?.statVarToFacet}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.statVarSpec}
@@ -243,7 +226,6 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
 /**
  * Returns callback for fetching chart CSV data
  * @param props Chart properties
- * @param scatterChartData Chart data
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(
@@ -388,34 +370,11 @@ function rawToChart(
     return;
   }
   const points = {};
-
   const sources: Set<string> = new Set();
-  const facets: Record<string, StatMetadata> = {};
-  const statVarToFacet: Record<string, string> = {};
-
   const xDates: Set<string> = new Set();
   const yDates: Set<string> = new Set();
   const xUnitScaling = getStatFormat(xStatVar, rawData.placeStats);
   const yUnitScaling = getStatFormat(yStatVar, rawData.placeStats);
-
-  const metadataMap = rawData.placeStats.facets || {};
-
-  for (const place in xPlacePointStat) {
-    const facetId = xPlacePointStat[place].facet;
-    if (facetId && metadataMap[facetId]) {
-      facets[facetId] = metadataMap[facetId];
-      statVarToFacet[xStatVar.statVar] = facetId;
-    }
-  }
-
-  for (const place in yPlacePointStat) {
-    const facetId = yPlacePointStat[place].facet;
-    if (facetId && metadataMap[facetId]) {
-      facets[facetId] = metadataMap[facetId];
-      statVarToFacet[yStatVar.statVar] = facetId;
-    }
-  }
-
   for (const place in xPlacePointStat) {
     const namedPlace = {
       dcid: place,
@@ -491,8 +450,6 @@ function rawToChart(
     yStatVar,
     points,
     sources,
-    facets,
-    statVarToFacet,
     xUnit: xUnitScaling.unit,
     yUnit: yUnitScaling.unit,
     xDate: getDateRange(Array.from(xDates)),
@@ -508,7 +465,7 @@ function getTooltipElement(
   point: Point,
   xLabel: string,
   yLabel: string
-): ReactElement {
+): JSX.Element {
   return (
     <>
       <header>

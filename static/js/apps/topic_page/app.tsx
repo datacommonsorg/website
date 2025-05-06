@@ -18,7 +18,6 @@
  * Main component for topic pages.
  */
 
-import { ThemeProvider } from "@emotion/react";
 import React, { useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
@@ -30,7 +29,6 @@ import {
 import { intl } from "../../i18n/i18n";
 import { SdgContext } from "../../shared/context";
 import { NamedTypedPlace } from "../../shared/types";
-import theme from "../../theme/theme";
 import { TopicsSummary } from "../../types/app/topic_page_types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { PageSelector } from "./page_selector";
@@ -67,46 +65,44 @@ export function App(props: AppPropType): JSX.Element {
   const searchParams = new URLSearchParams(location.search);
   const showWebComponents = !!searchParams.get(SHOW_WEB_COMPONENTS_URL_PARAM);
   return (
-    <ThemeProvider theme={theme}>
-      <RawIntlProvider value={intl}>
-        <SdgContext.Provider value={value}>
-          <div className="row">
+    <RawIntlProvider value={intl}>
+      <SdgContext.Provider value={value}>
+        <div className="row">
+          {props.topic === "sdg" && (
+            <div>
+              <img src="/images/un.jpg" className="col-12" />
+            </div>
+          )}
+          <div className="col-md-3x col-lg-3 order-last order-lg-0">
             {props.topic === "sdg" && (
-              <div>
-                <img src="/images/un.jpg" className="col-12" />
-              </div>
-            )}
-            <div className="col-md-3x col-lg-3 order-last order-lg-0">
-              {props.topic === "sdg" && (
-                <SdgSubjectPageSidebar
-                  id={PAGE_ID}
-                  categories={props.pageConfig.categories}
-                />
-              )}
-              {props.topic !== "sdg" && (
-                <SubjectPageSidebar
-                  id={PAGE_ID}
-                  categories={props.pageConfig.categories}
-                />
-              )}
-            </div>
-            <div className="row col-md-9x col-lg-9">
-              <PageSelector
-                selectedPlace={props.place}
-                morePlaces={props.morePlaces}
-                selectedTopic={props.topic}
-                topicsSummary={props.topicsSummary}
-              />
-              <SubjectPageMainPane
+              <SdgSubjectPageSidebar
                 id={PAGE_ID}
-                place={props.place}
-                pageConfig={props.pageConfig}
-                showWebComponents={showWebComponents}
+                categories={props.pageConfig.categories}
               />
-            </div>
+            )}
+            {props.topic !== "sdg" && (
+              <SubjectPageSidebar
+                id={PAGE_ID}
+                categories={props.pageConfig.categories}
+              />
+            )}
           </div>
-        </SdgContext.Provider>
-      </RawIntlProvider>
-    </ThemeProvider>
+          <div className="row col-md-9x col-lg-9">
+            <PageSelector
+              selectedPlace={props.place}
+              morePlaces={props.morePlaces}
+              selectedTopic={props.topic}
+              topicsSummary={props.topicsSummary}
+            />
+            <SubjectPageMainPane
+              id={PAGE_ID}
+              place={props.place}
+              pageConfig={props.pageConfig}
+              showWebComponents={showWebComponents}
+            />
+          </div>
+        </div>
+      </SdgContext.Provider>
+    </RawIntlProvider>
   );
 }
