@@ -29,6 +29,7 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
+import { FacetMetadata } from "../types/facet_metadata";
 import { stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
 
@@ -120,6 +121,45 @@ function getProcessedPointResponse(
 }
 
 /**
+ * Gets the data from /api/observations/point endpoint
+ * @param apiRoot api root
+ * @param entities list of entitites to get data for
+ * @param variables list of variables to get data for
+ * @param date date to get the data for
+ *
+ * @returns The Facet ID matching the highlight facet
+ *          or null if no matching facet is found.
+ */
+async function selectFacet(
+  apiRoot: string,
+  entities: string[],
+  variables: string[],
+  highlightFacet?: FacetMetadata
+): Promise<string[] | null> {
+  if (!highlightFacet) {
+    return [];
+  }
+  const facetsResponse = await getFacets(apiRoot, entities, variables);
+  for (const svDcid of Object.keys(facetsResponse)) {
+    const facets = facetsResponse[svDcid];
+    for (const [facetId, f] of Object.entries(facets)) {
+      if (
+        (!_.isEmpty(highlightFacet.importName) &&
+          highlightFacet.importName !== f.importName) ||
+        (!_.isEmpty(highlightFacet.measurementMethod) &&
+          highlightFacet.measurementMethod !== f.measurementMethod) ||
+        (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit)
+      ) {
+        continue;
+      }
+      return [facetId];
+    }
+  }
+
+  return [];
+}
+
+/**
  * Gets and processes the data from /api/observations/point endpoint
  * @param apiRoot api root
  * @param entities list of entitites to get data for
@@ -132,16 +172,26 @@ export function getPoint(
   entities: string[],
   variables: string[],
   date: string,
-  alignedVariables?: string[][]
+  alignedVariables?: string[][],
+  highlightFacet?: FacetMetadata
 ): Promise<PointApiResponse> {
-  return axios
-    .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
-      params: { date, entities, variables },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      return getProcessedPointResponse(resp.data, alignedVariables);
-    });
+  return selectFacet(apiRoot, entities, variables, highlightFacet).then(
+    (facetIds) => {
+      const facetIdList = !_.isEmpty(facetIds) ? facetIds : null;
+      const params: Record<string, unknown> = { date, entities, variables };
+      if (!_.isEmpty(facetIdList)) {
+        params["facetId"] = facetIdList;
+      }
+      return axios
+        .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
+          params,
+          paramsSerializer: stringifyFn,
+        })
+        .then((resp) => {
+          return getProcessedPointResponse(resp.data, alignedVariables);
+        });
+    }
+  );
 }
 
 /**
@@ -186,15 +236,23 @@ export function getSeries(
   apiRoot: string,
   entities: string[],
   variables: string[],
-  facetIds?: string[]
+  facetIds?: string[],
+  highlightFacet?: FacetMetadata
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
-  if (facetIds) {
-    params["facetIds"] = facetIds;
-  }
-  return axios
-    .post(`${apiRoot || ""}/api/observations/series`, params)
-    .then((resp) => resp.data);
+  return Promise.resolve(
+    selectFacet(apiRoot, entities, variables, highlightFacet)
+  ).then((resolvedFacetIds) => {
+    if (!_.isEmpty(facetIds)) {
+      params["facetIds"] = facetIds;
+    } else if (!_.isEmpty(resolvedFacetIds)) {
+      params["facetIds"] = resolvedFacetIds;
+    }
+
+    return axios
+      .post(`${apiRoot || ""}/api/observations/series`, params)
+      .then((resp) => resp.data);
+  });
 }
 
 /**
