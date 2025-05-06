@@ -16,8 +16,6 @@
 
 export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
-export const DYNAMIC_PLACEHOLDER_EXPERIMENT = "dynamic_placeholder_experiment";
-export const DYNAMIC_PLACEHOLDER_GA = "dynamic_placeholder_ga";
 
 /**
  * Helper method to interact with feature flags.
