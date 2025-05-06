@@ -207,7 +207,9 @@ export const TileMetadataStatVarSection = ({
             <h4>
               {intl.formatMessage(metadataComponentMessages.PublicationCadence)}
             </h4>
-            <p>{periodicity}</p>
+            <p>
+              {periodicity} ({metadata.periodicity})
+            </p>
           </div>
         )}
 

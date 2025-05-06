@@ -50,7 +50,7 @@ export const metadataComponentMessages = defineMessages({
   },
   PublicationCadence: {
     id: "publicationCadence",
-    defaultMessage: "Publication Cadence",
+    defaultMessage: "Publication cadence",
     description:
       "Label for the cadence of publication. This is the rate of publication of the data. " +
       "Example are: Yearly, Monthly.",
