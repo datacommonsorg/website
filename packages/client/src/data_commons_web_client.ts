@@ -50,11 +50,36 @@ class DataCommonsWebClient {
    * @param params.dcids List of DCIDs to fetch property values for
    * @param params.prop Property name to fetch
    */
-  async getNodePropvals(params: {
+  async getNodePropvalsOut(params: {
     dcids: string[];
     prop: string;
   }): Promise<ApiNodePropvalOutResponse> {
     const url = `${this.apiRoot || ""}/api/node/propvals/out`;
+    const response = await fetch(url, {
+      body: JSON.stringify({
+        dcids: params.dcids,
+        prop: params.prop,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "post",
+    });
+
+    return (await response.json()) as ApiNodePropvalOutResponse;
+  }
+
+  /**
+   * Fetches all node property values for the given property name
+   * Uses /api/node/propvals/in endpoint
+   * @param params.dcids List of DCIDs to fetch property values for
+   * @param params.prop Property name to fetch
+   */
+  async getNodePropvalsIn(params: {
+    dcids: string[];
+    prop: string;
+  }): Promise<ApiNodePropvalOutResponse> {
+    const url = `${this.apiRoot || ""}/api/node/propvals/in`;
     const response = await fetch(url, {
       body: JSON.stringify({
         dcids: params.dcids,

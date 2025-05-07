@@ -40,6 +40,7 @@ import { messages } from "../../i18n/i18n_messages";
 import { PLACE_TYPES } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
@@ -113,6 +114,8 @@ interface BarTileSpecificSpec {
   subscribe?: string;
   // Optional: Disable the entity href link for this component
   disableEntityLink?: boolean;
+  // Metadata for the facet to highlight.
+  highlightFacet?: FacetMetadata;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -300,11 +303,24 @@ export const fetchData = async (
   let denomPromise: Promise<SeriesApiResponse>;
   let filterPromise: Promise<PointApiResponse>;
   if ("places" in props && !_.isEmpty(props.places)) {
-    statPromise = getPoint(apiRoot, props.places, statSvs, date, [statSvs]);
-    filterPromise = getPoint(apiRoot, props.places, [FILTER_STAT_VAR], "");
+    statPromise = getPoint(
+      apiRoot,
+      props.places,
+      statSvs,
+      date,
+      [statSvs],
+      props.highlightFacet
+    );
+    filterPromise = getPoint(
+      apiRoot,
+      props.places,
+      [FILTER_STAT_VAR],
+      "",
+      undefined
+    );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
-      : getSeries(apiRoot, props.places, denomSvs);
+      : getSeries(apiRoot, props.places, denomSvs, []);
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     statPromise = getPointWithin(
       apiRoot,
@@ -431,7 +447,9 @@ function rawToChart(
       if (!raw.data[statVar] || _.isEmpty(raw.data[statVar][placeDcid])) {
         continue;
       }
-      const stat = raw.data[statVar][placeDcid];
+      const stat = Array.isArray(raw.data[statVar][placeDcid])
+        ? raw.data[statVar][placeDcid][0]
+        : raw.data[statVar][placeDcid];
       const dataPoint = {
         label: statVarNames[statVar],
         value: stat.value || 0,
