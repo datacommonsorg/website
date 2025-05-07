@@ -253,12 +253,6 @@ def place(place_dcid):
 
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
-  # Place summaries are currently only supported in English
-  if g.locale == DEFAULT_LOCALE:
-    place_summary = get_place_summaries(place_dcid).get(place_dcid,
-                                                        {}).get("summary", "")
-  else:
-    place_summary = ""
 
   canonical_links = get_canonical_links(place_dcid, category)
   return flask.render_template('place.html',
@@ -267,7 +261,6 @@ def place(place_dcid):
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                place_dcid=place_dcid,
                                place_name=place_name,
-                               place_summary=place_summary,
                                sample_questions=json.dumps(
                                    current_app.config.get(
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))
