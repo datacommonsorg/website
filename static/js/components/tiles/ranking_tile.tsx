@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import {
@@ -28,11 +28,7 @@ import {
 } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { useLazyLoad } from "../../shared/hooks";
-import {
-  PointApiResponse,
-  SeriesApiResponse,
-  StatMetadata,
-} from "../../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import {
@@ -81,7 +77,7 @@ export interface RankingTilePropType
 }
 
 // TODO: Use ChartTileContainer like other tiles.
-export function RankingTile(props: RankingTilePropType): ReactElement {
+export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -317,21 +313,6 @@ function transformRankingDataForMultiColumn(
   rankingData[sortSv].svName = statVarSpecs.map((spec) =>
     getStatVarName(spec.statVar, [spec])
   );
-
-  const facets = svs
-    .map((sv) => rankingData[sv].facets)
-    .find((f) => f !== undefined);
-  const statVarToFacet = svs
-    .map((sv) => rankingData[sv].statVarToFacet)
-    .find((s) => s !== undefined);
-
-  if (facets) {
-    rankingData[sortSv].facets = facets;
-  }
-  if (statVarToFacet) {
-    rankingData[sortSv].statVarToFacet = statVarToFacet;
-  }
-
   return { [sortSv]: rankingData[sortSv] };
 }
 
@@ -351,9 +332,6 @@ function pointApiToPerSvRankingData(
     // might not display.
     const sources = new Set<string>();
     const dates = new Set<string>();
-    const facets: Record<string, StatMetadata> = {};
-    const statVarToFacet: Record<string, string> = {};
-
     const { unit, scaling } = getStatFormat(spec, statData);
     for (const place in statData.data[spec.statVar]) {
       const statPoint = statData.data[spec.statVar][place];
@@ -378,9 +356,6 @@ function pointApiToPerSvRankingData(
       rankingPoints.push(rankingPoint);
       dates.add(statPoint.date);
       if (statPoint.facet && statData.facets[statPoint.facet]) {
-        facets[statPoint.facet] = statData.facets[statPoint.facet];
-        statVarToFacet[spec.statVar] = statPoint.facet;
-
         const statPointSource = statData.facets[statPoint.facet].provenanceUrl;
         if (statPointSource) {
           sources.add(statPointSource);
@@ -397,8 +372,6 @@ function pointApiToPerSvRankingData(
       scaling: [scaling],
       numDataPoints,
       sources,
-      facets,
-      statVarToFacet,
       dateRange: getDateRange(Array.from(dates)),
       svName: [getStatVarName(spec.statVar, [spec])],
     };
@@ -410,7 +383,6 @@ function pointApiToPerSvRankingData(
  * Gets the number of ranking lists that will be shown
  * @param rankingTileSpec ranking tile specifications
  * @param rankingData ranking data to be shown
- * @param statVarSpecs an array of stat var specs
  */
 function getNumRankingLists(
   rankingTileSpec: RankingTileSpec,

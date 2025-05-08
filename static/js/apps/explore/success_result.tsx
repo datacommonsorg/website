@@ -35,6 +35,7 @@ import {
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import {
   isPlaceOverviewOnly,
@@ -70,6 +71,8 @@ interface SuccessResultPropType {
   hideHeaderSearchBar: boolean;
   // Object containing the highlight page metadata only.
   highlightPageMetadata?: SubjectPageMetadata;
+  // Facet for highlight
+  highlightFacet?: FacetMetadata;
 }
 
 export function SuccessResult(props: SuccessResultPropType): ReactElement {
@@ -185,6 +188,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 {props.highlightPageMetadata && (
                   <HighlightResult
                     highlightPageMetadata={props.highlightPageMetadata}
+                    highlightFacet={props.highlightFacet}
                     maxBlock={maxBlock}
                   />
                 )}

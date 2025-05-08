@@ -31,7 +31,6 @@ import { formatNumber, intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
-import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import {
   DisasterEventPoint,
   DisasterEventPointData,
@@ -45,6 +44,7 @@ import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
+import { TileSources } from "../../utils/tile_utils";
 import { ChartFooter } from "./chart_footer";
 
 const DEFAULT_RANKING_COUNT = 10;
