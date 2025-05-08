@@ -347,7 +347,7 @@ export function getRankingUnit(
             containerRef={containerRef}
             sources={sources || rankingGroup.sources}
             facets={rankingGroup.facets}
-            statVarToFacet={rankingGroup.statVarToFacet}
+            statVarToFacets={rankingGroup.statVarToFacets}
             statVarSpecs={statVarSpecs}
           />
         )

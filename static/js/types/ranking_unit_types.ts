@@ -15,6 +15,7 @@
  */
 
 import { StatMetadata } from "../shared/stat_types";
+import { StatVarFacetMap } from "../shared/types";
 
 /**
  * Types used by RankingUnit component
@@ -45,8 +46,8 @@ export interface RankingGroup {
   sources: Set<string>;
   // A full set of the facets used within the chart
   facets?: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet?: Record<string, string>;
+  // A mapping of which stat var used which facets
+  statVarToFacets?: StatVarFacetMap;
   numDataPoints?: number;
   dateRange: string;
   // Optional for storing the processed rankingData

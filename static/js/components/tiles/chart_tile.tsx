@@ -26,7 +26,7 @@ import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { IconPlaceholder } from "../../shared/components";
 import { StatMetadata } from "../../shared/stat_types";
-import { StatVarSpec } from "../../shared/types";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import {
   formatString,
@@ -44,8 +44,8 @@ interface ChartTileContainerProp {
   sources: Set<string> | string[];
   // A full set of the facets used within the chart
   facets?: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet?: Record<string, string>;
+  // A mapping of which stat var used which facets
+  statVarToFacets?: StatVarFacetMap;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
@@ -115,7 +115,7 @@ export function ChartTileContainer(
               containerRef={containerRef}
               sources={props.sources}
               facets={props.facets}
-              statVarToFacet={props.statVarToFacet}
+              statVarToFacets={props.statVarToFacets}
               statVarSpecs={props.statVarSpecs}
             />
           )}

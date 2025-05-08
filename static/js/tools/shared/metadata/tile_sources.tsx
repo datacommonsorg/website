@@ -33,7 +33,7 @@ import {
   triggerGAEvent,
 } from "../../../shared/ga_events";
 import { StatMetadata } from "../../../shared/stat_types";
-import { StatVarSpec } from "../../../shared/types";
+import { StatVarFacetMap, StatVarSpec } from "../../../shared/types";
 import { urlToDisplayText } from "../../../shared/util";
 import { isNlInterface } from "../../../utils/explore_utils";
 import { TileMetadataModal } from "./tile_metadata_modal";
@@ -45,8 +45,8 @@ export function TileSources(props: {
   // the detailed metadata modal. If not supplied, we fall back to a simple
   // modal display using the sources.
   facets?: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet?: Record<string, string>;
+  // A mapping of which stat var used which facets
+  statVarToFacets?: StatVarFacetMap;
   // If available, the stat vars to link to.
   statVarSpecs?: StatVarSpec[];
   // The original string sources (urls) - now optional
@@ -56,7 +56,7 @@ export function TileSources(props: {
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
 }): ReactElement {
-  const { facets, statVarToFacet, statVarSpecs, sources } = props;
+  const { facets, statVarToFacets, statVarSpecs, sources } = props;
   if (!facets && !sources) {
     return null;
   }
@@ -107,13 +107,13 @@ export function TileSources(props: {
             <>
               <span {...{ part: "source-separator" }}> • </span>
               <span {...{ part: "source-show-metadata-link" }}>
-                {facets && statVarToFacet ? (
+                {facets && statVarToFacets ? (
                   <TileMetadataModal
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}
                     statVarSpecs={statVarSpecs}
                     facets={facets}
-                    statVarToFacet={statVarToFacet}
+                    statVarToFacets={statVarToFacets}
                   />
                 ) : (
                   <TileMetadataModalSimple

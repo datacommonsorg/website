@@ -38,7 +38,11 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
 import { SeriesApiResponse, StatMetadata } from "../../shared/stat_types";
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import {
+  NamedTypedPlace,
+  StatVarFacetMap,
+  StatVarSpec,
+} from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import {
   getContextStatVar,
@@ -123,8 +127,8 @@ export interface LineChartData {
   sources: Set<string>;
   // A full set of the facets used within the chart
   facets: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet: Record<string, string>;
+  // A mapping of which stat var used which facets
+  statVarToFacets: StatVarFacetMap;
   unit: string;
   // props used when fetching this data
   props: LineTilePropType;
@@ -178,7 +182,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       replacementStrings={getReplacementStrings(props, chartData)}
       sources={props.sources || (chartData && chartData.sources)}
       facets={chartData?.facets}
-      statVarToFacet={chartData?.statVarToFacet}
+      statVarToFacets={chartData?.statVarToFacets}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.statVarSpec}
@@ -413,7 +417,7 @@ function rawToChart(
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
   const facets: Record<string, StatMetadata> = {};
-  const statVarToFacet: Record<string, string> = {};
+  const statVarToFacets: StatVarFacetMap = {};
   const allDates = new Set<string>();
   // TODO: make a new wrapper to fetch series data & do the processing there.
   const unit2count = {};
@@ -474,7 +478,10 @@ function rawToChart(
         dataGroups.push(new DataGroup(label, dataPoints));
         sources.add(raw.facets[series.facet].provenanceUrl);
         facets[series.facet] = raw.facets[series.facet];
-        statVarToFacet[spec.statVar] = series.facet;
+        if (!statVarToFacets[spec.statVar]) {
+          statVarToFacets[spec.statVar] = new Set<string>();
+        }
+        statVarToFacets[spec.statVar].add(series.facet);
       }
     }
   }
@@ -488,7 +495,7 @@ function rawToChart(
     dataGroup: dataGroups,
     sources,
     facets,
-    statVarToFacet,
+    statVarToFacets,
     unit,
     props,
     errorMsg,

@@ -37,7 +37,7 @@ import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { StatMetadata } from "../../../shared/stat_types";
-import { NamedNode, StatVarSpec } from "../../../shared/types";
+import { NamedNode, StatVarFacetMap, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { buildCitationParts, citationToPlainText } from "./citations";
 import { CopyCitationButton } from "./copy_citation_button";
@@ -51,8 +51,8 @@ import { TileMetadataModalContent } from "./tile_metadata_modal_content";
 interface TileMetadataModalPropType {
   // A full set of the facets used within the chart
   facets: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet?: Record<string, string>;
+  // A mapping of which stat var used which facets
+  statVarToFacets?: StatVarFacetMap;
   // the stat vars used in the chart
   statVarSpecs: StatVarSpec[];
   containerRef?: React.RefObject<HTMLElement>;
@@ -67,7 +67,7 @@ export function TileMetadataModal(
   const [loading, setLoading] = useState(false);
   const [statVars, setStatVars] = useState<NamedNode[]>([]);
   const [metadataMap, setMetadataMap] = useState<
-    Record<string, StatVarMetadata>
+    Record<string, StatVarMetadata[]>
   >({});
   const dataCommonsClient = getDataCommonsClient(props.apiRoot);
 
@@ -184,20 +184,24 @@ export function TileMetadataModal(
         const measurementMethods = new Set<string>();
 
         statVars.forEach((statVarId) => {
-          const facetId = props.statVarToFacet?.[statVarId];
-          const facetInfo = facetId ? props.facets[facetId] : null;
+          const facetIdSet =
+            props.statVarToFacets?.[statVarId] || new Set<string>();
 
-          if (facetInfo?.importName) {
-            const provenanceFullPath = `dc/base/${facetInfo.importName}`;
-            provenances.add(provenanceFullPath);
+          facetIdSet.forEach((facetId) => {
+            const facetInfo = props.facets[facetId];
 
-            const summary =
-              variableData[statVarId]?.provenanceSummary?.[provenanceFullPath]
-                ?.seriesSummary;
-            const measurementMethod =
-              summary?.[0]?.seriesKey?.measurementMethod;
-            if (measurementMethod) measurementMethods.add(measurementMethod);
-          }
+            if (facetInfo?.importName) {
+              const provenanceFullPath = `dc/base/${facetInfo.importName}`;
+              provenances.add(provenanceFullPath);
+
+              const summary =
+                variableData[statVarId]?.provenanceSummary?.[provenanceFullPath]
+                  ?.seriesSummary;
+              const measurementMethod =
+                summary?.[0]?.seriesKey?.measurementMethod;
+              if (measurementMethod) measurementMethods.add(measurementMethod);
+            }
+          });
         });
 
         /*
@@ -226,80 +230,85 @@ export function TileMetadataModal(
           });
         }
 
-        const metadata: Record<string, StatVarMetadata> = {};
+        const metadata: Record<string, StatVarMetadata[]> = {};
 
         /*
           With all the data collected together above, we collate it into a final
           data structure that we send into the metadata content for actual display.
          */
         for (const statVarId of statVars) {
-          const facetId = props.statVarToFacet?.[statVarId];
-          const facetInfo = facetId ? props.facets[facetId] : null;
+          const facetIdSet =
+            props.statVarToFacets?.[statVarId] || new Set<string>();
+          metadata[statVarId] = [];
 
-          if (!facetInfo?.importName) continue;
+          for (const facetId of facetIdSet) {
+            const facetInfo = props.facets[facetId];
 
-          const importName = facetInfo.importName;
-          const provenanceId = `dc/base/${importName}`;
-          const provenanceData = provenanceMap[provenanceId];
+            if (!facetInfo?.importName) continue;
 
-          if (!provenanceData) continue;
+            const importName = facetInfo.importName;
+            const provenanceId = `dc/base/${importName}`;
+            const provenanceData = provenanceMap[provenanceId];
 
-          let unit: string | undefined;
-          let releaseFrequency: string | undefined;
-          let observationPeriod: string | undefined;
-          let dateRangeStart: string | undefined;
-          let dateRangeEnd: string | undefined;
-          let measurementMethod: string | undefined;
-          let measurementMethodDescription: string | undefined;
+            if (!provenanceData) continue;
 
-          if (variableData[statVarId]?.provenanceSummary) {
-            const source =
-              variableData[statVarId].provenanceSummary?.[provenanceId];
-            if (source) {
-              releaseFrequency = source.releaseFrequency;
+            let unit: string | undefined;
+            let releaseFrequency: string | undefined;
+            let observationPeriod: string | undefined;
+            let dateRangeStart: string | undefined;
+            let dateRangeEnd: string | undefined;
+            let measurementMethod: string | undefined;
+            let measurementMethodDescription: string | undefined;
 
-              if (source.seriesSummary && source.seriesSummary.length > 0) {
-                const seriesSummary = source.seriesSummary[0];
-                dateRangeStart = seriesSummary.earliestDate;
-                dateRangeEnd = seriesSummary.latestDate;
+            if (variableData[statVarId]?.provenanceSummary) {
+              const source =
+                variableData[statVarId].provenanceSummary?.[provenanceId];
+              if (source) {
+                releaseFrequency = source.releaseFrequency;
 
-                const seriesKey = seriesSummary.seriesKey;
-                if (seriesKey) {
-                  unit = seriesKey.unit;
-                  observationPeriod = seriesKey.observationPeriod;
-                  measurementMethod = seriesKey.measurementMethod;
-                  if (measurementMethod) {
-                    measurementMethodDescription = measurementMethodMap[
-                      measurementMethod
-                    ]
-                      ? measurementMethodMap[measurementMethod]
-                      : measurementMethod;
+                if (source.seriesSummary && source.seriesSummary.length > 0) {
+                  const seriesSummary = source.seriesSummary[0];
+                  dateRangeStart = seriesSummary.earliestDate;
+                  dateRangeEnd = seriesSummary.latestDate;
+
+                  const seriesKey = seriesSummary.seriesKey;
+                  if (seriesKey) {
+                    unit = seriesKey.unit;
+                    observationPeriod = seriesKey.observationPeriod;
+                    measurementMethod = seriesKey.measurementMethod;
+                    if (measurementMethod) {
+                      measurementMethodDescription = measurementMethodMap[
+                        measurementMethod
+                      ]
+                        ? measurementMethodMap[measurementMethod]
+                        : measurementMethod;
+                    }
                   }
                 }
               }
             }
-          }
 
-          metadata[statVarId] = {
-            statVarId,
-            statVarName: responseObj[statVarId] || statVarId,
-            categories: statVarCategoryMap[statVarId],
-            sourceName: provenanceData?.source[0]?.name,
-            provenanceUrl: provenanceData?.url?.[0]?.value,
-            provenanceName:
-              provenanceData?.isPartOf?.[0]?.name ||
-              provenanceData?.name?.[0]?.value ||
-              importName,
-            dateRangeStart,
-            dateRangeEnd,
-            unit,
-            observationPeriod,
-            periodicity: releaseFrequency,
-            license: provenanceData?.licenseType?.[0]?.name,
-            licenseDcid: provenanceData?.licenseType?.[0]?.dcid,
-            measurementMethod,
-            measurementMethodDescription,
-          };
+            metadata[statVarId].push({
+              statVarId,
+              statVarName: responseObj[statVarId] || statVarId,
+              categories: statVarCategoryMap[statVarId],
+              sourceName: provenanceData?.source[0]?.name,
+              provenanceUrl: provenanceData?.url?.[0]?.value,
+              provenanceName:
+                provenanceData?.isPartOf?.[0]?.name ||
+                provenanceData?.name?.[0]?.value ||
+                importName,
+              dateRangeStart,
+              dateRangeEnd,
+              unit,
+              observationPeriod,
+              periodicity: releaseFrequency,
+              license: provenanceData?.licenseType?.[0]?.name,
+              licenseDcid: provenanceData?.licenseType?.[0]?.dcid,
+              measurementMethod,
+              measurementMethodDescription,
+            });
+          }
         }
 
         setMetadataMap(metadata);
@@ -315,13 +324,13 @@ export function TileMetadataModal(
     statVars.length,
     dataCommonsClient,
     props.apiRoot,
-    props.statVarToFacet,
+    props.statVarToFacets,
     props.facets,
   ]);
 
   useEffect(() => {
     setStatVars([]);
-  }, [props.facets, props.statVarToFacet]);
+  }, [props.facets, props.statVarToFacets]);
 
   const citationParts = useMemo(
     () => buildCitationParts(statVars, metadataMap),
@@ -357,6 +366,7 @@ export function TileMetadataModal(
             <TileMetadataModalContent
               statVars={statVars}
               metadataMap={metadataMap}
+              apiRoot={props.apiRoot}
             />
           )}
         </DialogContent>

@@ -42,9 +42,8 @@ import { StatVarMetadata } from "./metadata";
 interface TileMetadataStatVarSectionProps {
   // the stat var node (consisting of the stat var dcid and name)
   statVar: NamedNode;
-  // the metadata for this section (a mix of stat var and source metadata)
-  // with the key being the stat var dcid.
-  metadata: StatVarMetadata;
+  // the list of metadata for this section (a mix of stat var and source metadata)
+  metadataList: StatVarMetadata[];
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
 }
@@ -54,11 +53,11 @@ const SOURCE_URL_TRUNCATION_POINT = 50;
 
 export const TileMetadataStatVarSection = ({
   statVar,
-  metadata,
+  metadataList,
   apiRoot,
 }: TileMetadataStatVarSectionProps): ReactElement | null => {
   const theme = useTheme();
-  if (!metadata) return null;
+  if (!metadataList || metadataList.length === 0) return null;
 
   const prepareSourceUrl = (url: string): string => {
     const withoutProtocol = stripProtocol(url);
@@ -66,32 +65,6 @@ export const TileMetadataStatVarSection = ({
       ? withoutProtocol.slice(0, -1)
       : withoutProtocol;
   };
-
-  let sourceUrl: string | undefined;
-  let isSourceUrlTruncated = false;
-  if (metadata.provenanceUrl) {
-    const sourceUrlWithoutProtocol = prepareSourceUrl(metadata.provenanceUrl);
-    sourceUrl = truncateText(
-      sourceUrlWithoutProtocol,
-      SOURCE_URL_TRUNCATION_POINT,
-      "middle"
-    );
-    isSourceUrlTruncated = sourceUrl !== sourceUrlWithoutProtocol;
-  }
-
-  const unitDisplay = metadata.unit ? startCase(metadata.unit) : undefined;
-  const periodicity = metadata.periodicity
-    ? humanizeIsoDuration(metadata.periodicity)
-    : undefined;
-
-  const hasDateRange = !!(metadata.dateRangeStart || metadata.dateRangeEnd);
-  const hasUnit = !!unitDisplay;
-  const hasPeriodicity = !!periodicity;
-
-  const optionalFieldsCount = [hasDateRange, hasUnit, hasPeriodicity].filter(
-    Boolean
-  ).length;
-  const measurementMethodSpan = optionalFieldsCount % 2 === 0;
 
   return (
     <div
@@ -116,157 +89,216 @@ export const TileMetadataStatVarSection = ({
 
       <div
         css={css`
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 0 ${theme.spacing.lg}px;
-          @media (max-width: ${theme.breakpoints.sm}px) {
-            grid-template-columns: 1fr;
-          }
+          display: flex;
+          flex-direction: column;
+          gap: ${theme.spacing.md}px;
+          margin-top: ${theme.spacing.md}px;
         `}
       >
-        <div>
-          <h4>{intl.formatMessage(messages.source)}</h4>
-          {metadata.provenanceUrl && (
-            <p>
-              {isSourceUrlTruncated ? (
-                <Tooltip title={metadata.provenanceUrl}>
-                  <a
-                    href={metadata.provenanceUrl}
-                    target="_blank"
-                    rel="noreferrer"
+        {metadataList.map((metadata) => {
+          let sourceUrl: string | undefined;
+          let isSourceUrlTruncated = false;
+          if (metadata.provenanceUrl) {
+            const sourceUrlWithoutProtocol = prepareSourceUrl(
+              metadata.provenanceUrl
+            );
+            sourceUrl = truncateText(
+              sourceUrlWithoutProtocol,
+              SOURCE_URL_TRUNCATION_POINT,
+              "middle"
+            );
+            isSourceUrlTruncated = sourceUrl !== sourceUrlWithoutProtocol;
+          }
+
+          const unitDisplay = metadata.unit
+            ? startCase(metadata.unit)
+            : undefined;
+          const periodicity = metadata.periodicity
+            ? humanizeIsoDuration(metadata.periodicity)
+            : undefined;
+
+          const hasDateRange = !!(
+            metadata.dateRangeStart || metadata.dateRangeEnd
+          );
+          const hasUnit = !!unitDisplay;
+          const hasPeriodicity = !!periodicity;
+
+          const optionalFieldsCount = [
+            hasDateRange,
+            hasUnit,
+            hasPeriodicity,
+          ].filter(Boolean).length;
+          const measurementMethodSpan = optionalFieldsCount % 2 === 0;
+
+          return (
+            <div key={`${metadata.statVarId}-${metadata.provenanceName}`}>
+              <div
+                css={css`
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  gap: 0 ${theme.spacing.lg}px;
+                  @media (max-width: ${theme.breakpoints.sm}px) {
+                    grid-template-columns: 1fr;
+                  }
+                `}
+              >
+                <div>
+                  <h4>{intl.formatMessage(messages.source)}</h4>
+                  {metadata.provenanceUrl && (
+                    <p>
+                      {isSourceUrlTruncated ? (
+                        <Tooltip title={metadata.provenanceUrl}>
+                          <a
+                            href={metadata.provenanceUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            css={css`
+                              margin-right: ${theme.spacing.xs}px;
+                            `}
+                          >
+                            {sourceUrl}
+                            <ArrowOutward />
+                          </a>
+                        </Tooltip>
+                      ) : (
+                        <a
+                          href={metadata.provenanceUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          css={css`
+                            margin-right: ${theme.spacing.xs}px;
+                          `}
+                        >
+                          {sourceUrl}
+                          <ArrowOutward />
+                        </a>
+                      )}
+                    </p>
+                  )}
+                  {(metadata.sourceName || metadata.provenanceName) && (
+                    <p>
+                      {[metadata.sourceName, metadata.provenanceName]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <h4>
+                    {intl.formatMessage(metadataComponentMessages.DCID)} /{" "}
+                    {intl.formatMessage(metadataComponentMessages.Topic)}
+                  </h4>
+                  <p>
+                    <a
+                      href={
+                        apiRootToHostname(apiRoot) +
+                        SV_EXPLORER_REDIRECT_PREFIX +
+                        statVar.dcid
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {statVar.dcid}
+                    </a>
+                  </p>
+                  {metadata.categories && metadata.categories.length > 0 && (
+                    <p>{metadata.categories.join(", ")}</p>
+                  )}
+                </div>
+
+                {hasDateRange && (
+                  <div>
+                    <h4>
+                      {intl.formatMessage(
+                        metadataComponentMessages.MetadataDateRange
+                      )}
+                    </h4>
+                    <p>
+                      {[metadata.dateRangeStart, metadata.dateRangeEnd]
+                        .filter(Boolean)
+                        .join(" – ")}
+                    </p>
+                  </div>
+                )}
+
+                {hasPeriodicity && (
+                  <div>
+                    <h4>
+                      {intl.formatMessage(
+                        metadataComponentMessages.PublicationCadence
+                      )}
+                    </h4>
+                    <p>
+                      {periodicity} ({metadata.periodicity})
+                    </p>
+                  </div>
+                )}
+
+                {hasUnit && (
+                  <div>
+                    <h4>
+                      {intl.formatMessage(metadataComponentMessages.Unit)}
+                    </h4>
+                    <p>{unitDisplay}</p>
+                  </div>
+                )}
+
+                {metadata.measurementMethodDescription && (
+                  <div
                     css={css`
-                      margin-right: ${theme.spacing.xs}px;
+                      ${measurementMethodSpan
+                        ? `
+                          grid-column: 1 / span 2;
+                          @media (max-width: ${theme.breakpoints.sm}px) {
+                            grid-column: 1;
+                          }
+                        `
+                        : ""}
                     `}
                   >
-                    {sourceUrl}
-                    <ArrowOutward />
-                  </a>
-                </Tooltip>
-              ) : (
-                <a
-                  href={metadata.provenanceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  css={css`
-                    margin-right: ${theme.spacing.xs}px;
-                  `}
-                >
-                  {sourceUrl}
-                  <ArrowOutward />
-                </a>
-              )}
-            </p>
-          )}
-          {(metadata.sourceName || metadata.provenanceName) && (
-            <p>
-              {[metadata.sourceName, metadata.provenanceName]
-                .filter(Boolean)
-                .join(", ")}
-            </p>
-          )}
-        </div>
+                    <h4>
+                      {intl.formatMessage(
+                        metadataComponentMessages.MeasuringMethod
+                      )}
+                    </h4>
+                    <p>{metadata.measurementMethodDescription}</p>
+                  </div>
+                )}
 
-        <div>
-          <h4>
-            {intl.formatMessage(metadataComponentMessages.DCID)} /{" "}
-            {intl.formatMessage(metadataComponentMessages.Topic)}
-          </h4>
-          <p>
-            <a
-              href={
-                apiRootToHostname(apiRoot) +
-                SV_EXPLORER_REDIRECT_PREFIX +
-                statVar.dcid
-              }
-              target="_blank"
-              rel="noreferrer"
-            >
-              {statVar.dcid}
-            </a>
-          </p>
-          {metadata.categories.length > 0 && (
-            <p>{metadata.categories.join(", ")}</p>
-          )}
-        </div>
-
-        {hasDateRange && (
-          <div>
-            <h4>
-              {intl.formatMessage(metadataComponentMessages.MetadataDateRange)}
-            </h4>
-            <p>
-              {[metadata.dateRangeStart, metadata.dateRangeEnd]
-                .filter(Boolean)
-                .join(" – ")}
-            </p>
-          </div>
-        )}
-
-        {hasPeriodicity && (
-          <div>
-            <h4>
-              {intl.formatMessage(metadataComponentMessages.PublicationCadence)}
-            </h4>
-            <p>
-              {periodicity} ({metadata.periodicity})
-            </p>
-          </div>
-        )}
-
-        {hasUnit && (
-          <div>
-            <h4>{intl.formatMessage(metadataComponentMessages.Unit)}</h4>
-            <p>{unitDisplay}</p>
-          </div>
-        )}
-
-        {metadata.measurementMethodDescription && (
-          <div
-            css={css`
-              ${measurementMethodSpan
-                ? `
-                    grid-column: 1 / span 2;
-                    @media (max-width: ${theme.breakpoints.sm}px) {
-                      grid-column: 1;
-                    }
-                  `
-                : ""}
-            `}
-          >
-            <h4>
-              {intl.formatMessage(metadataComponentMessages.MeasuringMethod)}
-            </h4>
-            <p>{metadata.measurementMethodDescription}</p>
-          </div>
-        )}
-
-        {(metadata.license || metadata.licenseDcid) && (
-          <div
-            css={css`
-              grid-column: 1 / span 2;
-              @media (max-width: ${theme.breakpoints.sm}px) {
-                grid-column: 1;
-              }
-            `}
-          >
-            <h4>{intl.formatMessage(metadataComponentMessages.License)}</h4>
-            <p>
-              {metadata.licenseDcid ? (
-                <a
-                  href={`${apiRootToHostname(apiRoot)}/browser/${
-                    metadata.licenseDcid
-                  }`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {startCase(metadata.license || metadata.licenseDcid)}
-                </a>
-              ) : (
-                startCase(metadata.license)
-              )}
-            </p>
-          </div>
-        )}
+                {(metadata.license || metadata.licenseDcid) && (
+                  <div
+                    css={css`
+                      grid-column: 1 / span 2;
+                      @media (max-width: ${theme.breakpoints.sm}px) {
+                        grid-column: 1;
+                      }
+                    `}
+                  >
+                    <h4>
+                      {intl.formatMessage(metadataComponentMessages.License)}
+                    </h4>
+                    <p>
+                      {metadata.licenseDcid ? (
+                        <a
+                          href={`${apiRootToHostname(apiRoot)}/browser/${
+                            metadata.licenseDcid
+                          }`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {startCase(metadata.license || metadata.licenseDcid)}
+                        </a>
+                      ) : (
+                        startCase(metadata.license)
+                      )}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

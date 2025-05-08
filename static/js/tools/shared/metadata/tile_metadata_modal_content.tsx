@@ -43,7 +43,7 @@ interface TileMetadataModalContentProps {
   statVars: NamedNode[];
   // a map of the metadata for this section (a mix of stat var
   // and source metadata), with the key being the stat var dcid.
-  metadataMap: Record<string, StatVarMetadata>;
+  metadataMap: Record<string, StatVarMetadata[]>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
 }
@@ -65,19 +65,22 @@ export const TileMetadataModalContent = ({
       <p>{intl.formatMessage(metadataComponentMessages.NoMetadataAvailable)}</p>
     );
   }
+
   const uniqueSourcesMap = new Map<
     string,
     { url?: string; sourceName?: string }
   >();
-  statVars.forEach((statVar) => {
-    const metadata = metadataMap[statVar.dcid];
-    if (metadata && metadata.provenanceName) {
-      uniqueSourcesMap.set(metadata.provenanceName, {
-        url: metadata.provenanceUrl,
-        sourceName: metadata.sourceName,
-      });
-    }
-  });
+
+  for (const statVarId in metadataMap) {
+    metadataMap[statVarId].forEach((metadata) => {
+      if (metadata && metadata.provenanceName) {
+        uniqueSourcesMap.set(metadata.provenanceName, {
+          url: metadata.provenanceUrl,
+          sourceName: metadata.sourceName,
+        });
+      }
+    });
+  }
 
   const citationSources: ReactNode[] = citationParts.map(({ label, url }) => {
     if (url) {
@@ -130,7 +133,7 @@ export const TileMetadataModalContent = ({
         <TileMetadataStatVarSection
           key={statVar.dcid}
           statVar={statVar}
-          metadata={metadataMap[statVar.dcid]}
+          metadataList={metadataMap[statVar.dcid] || []}
           apiRoot={apiRoot}
         />
       ))}

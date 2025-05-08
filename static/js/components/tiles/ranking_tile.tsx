@@ -33,7 +33,7 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { StatVarSpec } from "../../shared/types";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import {
   RankingData,
@@ -321,15 +321,15 @@ function transformRankingDataForMultiColumn(
   const facets = svs
     .map((sv) => rankingData[sv].facets)
     .find((f) => f !== undefined);
-  const statVarToFacet = svs
-    .map((sv) => rankingData[sv].statVarToFacet)
+  const statVarToFacets = svs
+    .map((sv) => rankingData[sv].statVarToFacets)
     .find((s) => s !== undefined);
 
   if (facets) {
     rankingData[sortSv].facets = facets;
   }
-  if (statVarToFacet) {
-    rankingData[sortSv].statVarToFacet = statVarToFacet;
+  if (statVarToFacets) {
+    rankingData[sortSv].statVarToFacets = statVarToFacets;
   }
 
   return { [sortSv]: rankingData[sortSv] };
@@ -352,7 +352,7 @@ function pointApiToPerSvRankingData(
     const sources = new Set<string>();
     const dates = new Set<string>();
     const facets: Record<string, StatMetadata> = {};
-    const statVarToFacet: Record<string, string> = {};
+    const statVarToFacets: StatVarFacetMap = {};
 
     const { unit, scaling } = getStatFormat(spec, statData);
     for (const place in statData.data[spec.statVar]) {
@@ -379,7 +379,10 @@ function pointApiToPerSvRankingData(
       dates.add(statPoint.date);
       if (statPoint.facet && statData.facets[statPoint.facet]) {
         facets[statPoint.facet] = statData.facets[statPoint.facet];
-        statVarToFacet[spec.statVar] = statPoint.facet;
+        if (!statVarToFacets[spec.statVar]) {
+          statVarToFacets[spec.statVar] = new Set<string>();
+        }
+        statVarToFacets[spec.statVar].add(statPoint.facet);
 
         const statPointSource = statData.facets[statPoint.facet].provenanceUrl;
         if (statPointSource) {
@@ -398,7 +401,7 @@ function pointApiToPerSvRankingData(
       numDataPoints,
       sources,
       facets,
-      statVarToFacet,
+      statVarToFacets,
       dateRange: getDateRange(Array.from(dates)),
       svName: [getStatVarName(spec.statVar, [spec])],
     };

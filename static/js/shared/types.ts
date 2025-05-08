@@ -214,6 +214,10 @@ export interface StatVarSpec {
   facetId?: string;
 }
 
+export type StatVarFacetMap = {
+  [statVarId: string]: Set<string>;
+};
+
 export interface SampleDates {
   facetDates: Record<string, Array<string>>;
   bestFacet: string;

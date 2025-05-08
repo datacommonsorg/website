@@ -47,7 +47,11 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import {
+  NamedTypedPlace,
+  StatVarFacetMap,
+  StatVarSpec,
+} from "../../shared/types";
 import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
@@ -121,8 +125,8 @@ interface ScatterChartData {
   sources: Set<string>;
   // A full set of the facets used within the chart
   facets: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet: Record<string, string>;
+  // A mapping of which stat var used which facets
+  statVarToFacets: StatVarFacetMap;
   xUnit: string;
   yUnit: string;
   xDate: string;
@@ -199,7 +203,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       sources={props.sources || (scatterChartData && scatterChartData.sources)}
       facets={scatterChartData?.facets}
-      statVarToFacet={scatterChartData?.statVarToFacet}
+      statVarToFacets={scatterChartData?.statVarToFacets}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.statVarSpec}
@@ -391,7 +395,7 @@ function rawToChart(
 
   const sources: Set<string> = new Set();
   const facets: Record<string, StatMetadata> = {};
-  const statVarToFacet: Record<string, string> = {};
+  const statVarToFacets: StatVarFacetMap = {};
 
   const xDates: Set<string> = new Set();
   const yDates: Set<string> = new Set();
@@ -404,7 +408,10 @@ function rawToChart(
     const facetId = xPlacePointStat[place].facet;
     if (facetId && metadataMap[facetId]) {
       facets[facetId] = metadataMap[facetId];
-      statVarToFacet[xStatVar.statVar] = facetId;
+      if (!statVarToFacets[xStatVar.statVar]) {
+        statVarToFacets[xStatVar.statVar] = new Set();
+      }
+      statVarToFacets[xStatVar.statVar].add(facetId);
     }
   }
 
@@ -412,7 +419,10 @@ function rawToChart(
     const facetId = yPlacePointStat[place].facet;
     if (facetId && metadataMap[facetId]) {
       facets[facetId] = metadataMap[facetId];
-      statVarToFacet[yStatVar.statVar] = facetId;
+      if (!statVarToFacets[yStatVar.statVar]) {
+        statVarToFacets[yStatVar.statVar] = new Set();
+      }
+      statVarToFacets[yStatVar.statVar].add(facetId);
     }
   }
 
@@ -492,7 +502,7 @@ function rawToChart(
     points,
     sources,
     facets,
-    statVarToFacet,
+    statVarToFacets,
     xUnit: xUnitScaling.unit,
     yUnit: yUnitScaling.unit,
     xDate: getDateRange(Array.from(xDates)),

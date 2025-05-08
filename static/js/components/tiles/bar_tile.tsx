@@ -50,6 +50,7 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
+import { StatVarFacetMap } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
@@ -135,8 +136,8 @@ export interface BarChartData {
   sources: Set<string>;
   // A full set of the facets used within the chart
   facets: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet: Record<string, string>;
+  // A mapping of which stat var used which facets
+  statVarToFacets: StatVarFacetMap;
   unit: string;
   dateRange: string;
   props: BarTilePropType;
@@ -223,7 +224,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       replacementStrings={getReplacementStrings(barChartData)}
       sources={props.sources || (barChartData && barChartData.sources)}
       facets={barChartData?.facets}
-      statVarToFacet={barChartData?.statVarToFacet}
+      statVarToFacets={barChartData?.statVarToFacets}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.variables}
@@ -433,7 +434,7 @@ function rawToChart(
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
   const facets: Record<string, StatMetadata> = {};
-  const statVarToFacet: Record<string, string> = {};
+  const statVarToFacets: StatVarFacetMap = {};
   // Track original order of stat vars in props, to maintain 1:1 pairing of
   // colors to stat var labels even after sorting
   const statVarOrder = props.variables.map(
@@ -461,7 +462,10 @@ function rawToChart(
       if (raw.facets[stat.facet]) {
         sources.add(raw.facets[stat.facet].provenanceUrl);
         facets[stat.facet] = raw.facets[stat.facet];
-        statVarToFacet[statVar] = stat.facet;
+        if (!statVarToFacets[statVar]) {
+          statVarToFacets[statVar] = new Set();
+        }
+        statVarToFacets[statVar].add(stat.facet);
       }
       if (spec.denom) {
         const denomInfo = getDenomInfo(spec, denomData, placeDcid, stat.date);
@@ -543,7 +547,7 @@ function rawToChart(
     dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
     facets,
-    statVarToFacet,
+    statVarToFacets,
     dateRange: getDateRange(Array.from(dates)),
     unit,
     props,

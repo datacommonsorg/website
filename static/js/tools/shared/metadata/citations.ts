@@ -37,31 +37,34 @@ export interface CitationPart {
  */
 export function buildCitationParts(
   statVars: NamedNode[],
-  metadataMap: Record<string, StatVarMetadata>
+  metadataMap: Record<string, StatVarMetadata[]>
 ): CitationPart[] {
   const seen = new Set<string>();
   const parts: CitationPart[] = [];
 
   statVars.forEach((statVar) => {
-    const metadata = metadataMap[statVar.dcid];
-    if (
-      !metadata ||
-      !metadata.provenanceName ||
-      seen.has(metadata.provenanceName)
-    )
-      return;
+    const metadataList = metadataMap[statVar.dcid] || [];
 
-    seen.add(metadata.provenanceName);
+    metadataList.forEach((metadata) => {
+      if (
+        !metadata ||
+        !metadata.provenanceName ||
+        seen.has(metadata.provenanceName)
+      )
+        return;
 
-    const label = metadata.sourceName
-      ? `${metadata.sourceName}, ${metadata.provenanceName}`
-      : metadata.provenanceName;
+      seen.add(metadata.provenanceName);
 
-    const part: CitationPart = { label };
-    if (metadata.provenanceUrl) {
-      part.url = metadata.provenanceUrl.replace(/\/$/, "");
-    }
-    parts.push(part);
+      const label = metadata.sourceName
+        ? `${metadata.sourceName}, ${metadata.provenanceName}`
+        : metadata.provenanceName;
+
+      const part: CitationPart = { label };
+      if (metadata.provenanceUrl) {
+        part.url = metadata.provenanceUrl.replace(/\/$/, "");
+      }
+      parts.push(part);
+    });
   });
 
   parts.push({

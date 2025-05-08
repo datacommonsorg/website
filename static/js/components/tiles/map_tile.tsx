@@ -59,6 +59,7 @@ import {
   DataPointMetadata,
   NamedPlace,
   NamedTypedPlace,
+  StatVarFacetMap,
   StatVarSpec,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
@@ -199,8 +200,8 @@ export interface MapChartData {
   sources: Set<string>;
   // A full set of the facets used within the chart
   facets?: Record<string, StatMetadata>;
-  // A mapping of which stat var used which facet
-  statVarToFacet?: Record<string, string>;
+  // A mapping of which stat var used which facets
+  statVarToFacets?: StatVarFacetMap;
   // Set if the component receives a date value from a subscribed event
   dateOverride?: string;
 }
@@ -327,7 +328,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
       apiRoot={props.apiRoot}
       sources={props.sources || (mapChartData && mapChartData.sources)}
       facets={mapChartData?.facets}
-      statVarToFacet={mapChartData?.statVarToFacet}
+      statVarToFacets={mapChartData?.statVarToFacets}
       forwardRef={containerRef}
       replacementStrings={
         mapChartData && getReplacementStrings(props, mapChartData)
@@ -555,7 +556,7 @@ function rawToChart(
   const layerData = [];
   const sources: Set<string> = new Set();
   const facets: Record<string, StatMetadata> = {};
-  const statVarToFacet: Record<string, string> = {};
+  const statVarToFacets: StatVarFacetMap = {};
   let isUsaPlace = true; // whether all layers are about USA places
 
   for (const rawData of rawDataArray) {
@@ -603,7 +604,10 @@ function rawToChart(
       const facetId = placeStat[placeDcid].facet;
       if (facetId && metadataMap[facetId]) {
         facets[facetId] = metadataMap[facetId];
-        statVarToFacet[rawData.variable.statVar] = facetId;
+        if (!statVarToFacets[rawData.variable.statVar]) {
+          statVarToFacets[rawData.variable.statVar] = new Set();
+        }
+        statVarToFacets[rawData.variable.statVar].add(facetId);
       }
     }
 
@@ -675,7 +679,7 @@ function rawToChart(
     props,
     sources,
     facets,
-    statVarToFacet,
+    statVarToFacets,
     dateOverride,
   };
 }
