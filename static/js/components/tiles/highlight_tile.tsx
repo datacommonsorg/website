@@ -32,8 +32,8 @@ import {
   StatVarFacetMap,
   StatVarSpec,
 } from "../../shared/types";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
