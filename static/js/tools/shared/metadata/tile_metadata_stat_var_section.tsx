@@ -25,6 +25,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
 import { startCase } from "lodash";
 import React, { ReactElement } from "react";
 
@@ -66,26 +67,44 @@ export const TileMetadataStatVarSection = ({
       : withoutProtocol;
   };
 
+  const ContentWrapper = styled.div`
+    && {
+      h4 {
+        ${theme.typography.family.text}
+        ${theme.typography.text.md}
+          font-weight: 900;
+        margin: 0;
+      }
+      p {
+        ${theme.typography.family.text}
+        ${theme.typography.text.md}
+          white-space: pre-wrap;
+        word-break: break-word;
+      }
+      a {
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+    }
+  `;
+
   return (
     <div
       key={statVar.dcid}
       css={css`
         display: block;
         width: 100%;
-      `}
-    >
-      <h3
-        css={css`
+        && > h3 {
           ${theme.typography.family.text}
           ${theme.typography.text.lg}
           display: block;
           padding: 0 0 ${theme.spacing.sm}px 0;
           margin: 0 0 ${theme.spacing.md}px 0;
           border-bottom: 1px solid ${theme.colors.border.primary.light};
-        `}
-      >
-        {statVar.name}
-      </h3>
+        }
+      `}
+    >
+      <h3> {statVar.name} </h3>
 
       <div
         css={css`
@@ -142,7 +161,7 @@ export const TileMetadataStatVarSection = ({
                   }
                 `}
               >
-                <div>
+                <ContentWrapper>
                   <h4>{intl.formatMessage(messages.source)}</h4>
                   {metadata.provenanceUrl && (
                     <p>
@@ -153,10 +172,22 @@ export const TileMetadataStatVarSection = ({
                             target="_blank"
                             rel="noreferrer"
                             css={css`
-                              margin-right: ${theme.spacing.xs}px;
+                              display: grid;
+                              grid-template-columns: 1fr min-content;
+                              width: 100%;
+                              align-items: center;
                             `}
                           >
-                            {sourceUrl}
+                            <span
+                              css={css`
+                                flex: 1;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                              `}
+                            >
+                              {metadata.provenanceUrl}
+                            </span>
                             <ArrowOutward />
                           </a>
                         </Tooltip>
@@ -166,10 +197,22 @@ export const TileMetadataStatVarSection = ({
                           target="_blank"
                           rel="noreferrer"
                           css={css`
-                            margin-right: ${theme.spacing.xs}px;
+                            display: grid;
+                            grid-template-columns: 1fr min-content;
+                            width: 100%;
+                            align-items: center;
                           `}
                         >
-                          {sourceUrl}
+                          <span
+                            css={css`
+                              flex: 1;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              white-space: nowrap;
+                            `}
+                          >
+                            {metadata.provenanceUrl}
+                          </span>
                           <ArrowOutward />
                         </a>
                       )}
@@ -182,9 +225,9 @@ export const TileMetadataStatVarSection = ({
                         .join(", ")}
                     </p>
                   )}
-                </div>
+                </ContentWrapper>
 
-                <div>
+                <ContentWrapper>
                   <h4>
                     {intl.formatMessage(metadataComponentMessages.DCID)} /{" "}
                     {intl.formatMessage(metadataComponentMessages.Topic)}
@@ -205,10 +248,10 @@ export const TileMetadataStatVarSection = ({
                   {metadata.categories && metadata.categories.length > 0 && (
                     <p>{metadata.categories.join(", ")}</p>
                   )}
-                </div>
+                </ContentWrapper>
 
                 {hasDateRange && (
-                  <div>
+                  <ContentWrapper>
                     <h4>
                       {intl.formatMessage(
                         metadataComponentMessages.MetadataDateRange
@@ -219,11 +262,11 @@ export const TileMetadataStatVarSection = ({
                         .filter(Boolean)
                         .join(" – ")}
                     </p>
-                  </div>
+                  </ContentWrapper>
                 )}
 
                 {hasPeriodicity && (
-                  <div>
+                  <ContentWrapper>
                     <h4>
                       {intl.formatMessage(
                         metadataComponentMessages.PublicationCadence
@@ -232,20 +275,20 @@ export const TileMetadataStatVarSection = ({
                     <p>
                       {periodicity} ({metadata.periodicity})
                     </p>
-                  </div>
+                  </ContentWrapper>
                 )}
 
                 {hasUnit && (
-                  <div>
+                  <ContentWrapper>
                     <h4>
                       {intl.formatMessage(metadataComponentMessages.Unit)}
                     </h4>
                     <p>{unitDisplay}</p>
-                  </div>
+                  </ContentWrapper>
                 )}
 
                 {metadata.measurementMethodDescription && (
-                  <div
+                  <ContentWrapper
                     css={css`
                       ${measurementMethodSpan
                         ? `
@@ -263,11 +306,11 @@ export const TileMetadataStatVarSection = ({
                       )}
                     </h4>
                     <p>{metadata.measurementMethodDescription}</p>
-                  </div>
+                  </ContentWrapper>
                 )}
 
                 {(metadata.license || metadata.licenseDcid) && (
-                  <div
+                  <ContentWrapper
                     css={css`
                       grid-column: 1 / span 2;
                       @media (max-width: ${theme.breakpoints.sm}px) {
@@ -293,7 +336,7 @@ export const TileMetadataStatVarSection = ({
                         startCase(metadata.license)
                       )}
                     </p>
-                  </div>
+                  </ContentWrapper>
                 )}
               </div>
             </div>

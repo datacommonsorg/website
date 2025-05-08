@@ -580,20 +580,19 @@ export const DialogTitle = ({
         css`
           padding: ${theme.spacing.lg}px ${theme.spacing.lg}px
             ${theme.spacing.sm}px ${theme.spacing.lg}px;
+          && {
+            h3 {
+              ${theme.typography.family.heading}
+              ${theme.typography.heading.sm}
+              margin: 0;
+              padding: 0 ${theme.spacing.xl}px 0 0;
+            }
+          }
         `,
         baseCss,
       ]}
     >
-      <h3
-        css={css`
-          ${theme.typography.family.heading}
-          ${theme.typography.heading.sm}
-          margin: 0;
-          padding: 0 ${theme.spacing.xl}px 0 0;
-        `}
-      >
-        {children}
-      </h3>
+      <h3>{children}</h3>
       {showCloseButton && (
         <button
           aria-label="close"

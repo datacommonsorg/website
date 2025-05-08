@@ -111,22 +111,6 @@ export const TileMetadataModalContent = ({
         display: flex;
         flex-direction: column;
         gap: ${theme.spacing.lg}px;
-        h4 {
-          ${theme.typography.family.text}
-          ${theme.typography.text.md}
-          font-weight: 900;
-          margin: 0;
-        }
-        p {
-          ${theme.typography.family.text}
-          ${theme.typography.text.md}
-          white-space: pre-wrap;
-          word-break: break-word;
-        }
-        a {
-          white-space: pre-wrap;
-          word-break: break-word;
-        }
       `}
     >
       {statVars.map((statVar) => (
@@ -143,15 +127,27 @@ export const TileMetadataModalContent = ({
           css={css`
             padding: ${theme.spacing.xl}px 0 0 0;
             border-top: 1px solid ${theme.colors.border.primary.light};
+            && {
+              h3 {
+                ${theme.typography.family.heading}
+                ${theme.typography.heading.xs}
+                margin: 0 0 ${theme.spacing.sm}px 0;
+                padding: 0 0 0 0;
+              }
+              p {
+                ${theme.typography.family.text}
+                ${theme.typography.text.md}
+                white-space: pre-wrap;
+                word-break: break-word;
+                a {
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                }
+              }
+            }
           `}
         >
-          <h3
-            css={css`
-              ${theme.typography.family.heading}
-              ${theme.typography.heading.xs}
-              margin: 0 0 ${theme.spacing.sm}px 0;
-            `}
-          >
+          <h3>
             {intl.formatMessage(metadataComponentMessages.SourceAndCitation)}
           </h3>
           <p>

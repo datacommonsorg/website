@@ -140,39 +140,41 @@ export function TileMetadataModalSimple(
               display: flex;
               flex-direction: column;
               gap: ${theme.spacing.lg}px;
-              h4 {
-                ${theme.typography.family.text}
-                ${theme.typography.text.md}
+              && {
+                h4 {
+                  ${theme.typography.family.text}
+                  ${theme.typography.text.md}
                 font-weight: 900;
-                margin: 0;
-              }
-              p,
-              li {
-                ${theme.typography.family.text}
-                ${theme.typography.text.md}
-                white-space: pre-wrap;
-                word-break: break-word;
-              }
-              a {
-                white-space: pre-wrap;
-                word-break: break-word;
-              }
-              ul {
-                margin: 0;
-                padding: 0;
-                display: block;
+                  margin: 0;
+                }
+                p,
                 li {
-                  display: flex;
-                  margin: 0 0 ${theme.spacing.md}px 0;
+                  ${theme.typography.family.text}
+                  ${theme.typography.text.md}
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                }
+                a {
+                  white-space: pre-wrap;
+                  word-break: break-word;
+                }
+                ul {
+                  margin: 0;
                   padding: 0;
-                  gap: ${theme.spacing.xs}px;
-                  color: ${theme.colors.link.primary.base};
-                  svg {
-                    display: block;
-                    margin-top: ${theme.spacing.xs}px;
-                  }
-                  a {
-                    display: block;
+                  display: block;
+                  li {
+                    display: flex;
+                    margin: 0 0 ${theme.spacing.md}px 0;
+                    padding: 0;
+                    gap: ${theme.spacing.xs}px;
+                    color: ${theme.colors.link.primary.base};
+                    svg {
+                      display: block;
+                      margin-top: ${theme.spacing.xs}px;
+                    }
+                    a {
+                      display: block;
+                    }
                   }
                 }
               }
