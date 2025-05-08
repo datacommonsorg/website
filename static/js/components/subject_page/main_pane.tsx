@@ -25,6 +25,7 @@ import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { SdgContext } from "../../shared/context";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
@@ -48,6 +49,7 @@ interface SubjectPageMainPanePropType {
   showWebComponents?: boolean;
   // Default enclosed place type
   defaultEnclosedPlaceType?: string;
+  highlightFacet?: FacetMetadata;
 }
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
@@ -102,6 +104,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
                   showExploreMore={props.showExploreMore}
                   parentPlaces={props.parentPlaces}
                   showWebComponents={props.showWebComponents}
+                  highlightFacet={props.highlightFacet}
                 />
               </ErrorBoundary>
             );

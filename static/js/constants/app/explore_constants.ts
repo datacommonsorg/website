@@ -48,6 +48,13 @@ export const URL_HASH_PARAMS = {
   MAX_TOPIC_SVS: "maxTopicSvs",
   MAX_CHARTS: "maxCharts",
   CHART_TYPE: "chartType",
+
+  // The following are used for Facet selection.
+  IMPORT_NAME: "imp",
+  MEASUREMENT_METHOD: "mm",
+  OBSERVATION_PERIOD: "op",
+  SCALING_FACTOR: "sf",
+  UNIT: "unit",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL

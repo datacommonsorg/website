@@ -44,6 +44,7 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
+import { FacetMetadata } from "../../types/facet_metadata";
 import {
   getContextStatVar,
   getHash,
@@ -119,6 +120,8 @@ export interface LineTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Metadata for the facet to highlight.
+  highlightFacet?: FacetMetadata;
 }
 
 export interface LineChartData {
@@ -331,7 +334,13 @@ export const fetchData = async (
     } else {
       const placeDcids = getPlaceDcids(props);
       dataPromises.push(
-        getSeries(props.apiRoot, placeDcids, facetToVariable[facetId], facetIds)
+        getSeries(
+          props.apiRoot,
+          placeDcids,
+          facetToVariable[facetId],
+          undefined,
+          props.highlightFacet
+        )
       );
     }
   }
