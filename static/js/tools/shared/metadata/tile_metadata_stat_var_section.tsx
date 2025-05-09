@@ -30,13 +30,12 @@ import { startCase } from "lodash";
 import React, { ReactElement } from "react";
 
 import { ArrowOutward } from "../../../components/elements/icons/arrow_outward";
-import { Tooltip } from "../../../components/elements/tooltip/tooltip";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { humanizeIsoDuration } from "../../../shared/periodicity";
 import { NamedNode } from "../../../shared/types";
-import { stripProtocol, truncateText } from "../../../shared/util";
+import { stripProtocol } from "../../../shared/util";
 import { apiRootToHostname } from "../../../utils/url_utils";
 import { StatVarMetadata } from "./metadata";
 
@@ -50,7 +49,6 @@ interface TileMetadataStatVarSectionProps {
 }
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
-const SOURCE_URL_TRUNCATION_POINT = 50;
 
 export const TileMetadataStatVarSection = ({
   statVar,
@@ -115,18 +113,9 @@ export const TileMetadataStatVarSection = ({
         `}
       >
         {metadataList.map((metadata) => {
-          let sourceUrl: string | undefined;
-          let isSourceUrlTruncated = false;
+          let sourceUrl: string = metadata.provenanceUrl;
           if (metadata.provenanceUrl) {
-            const sourceUrlWithoutProtocol = prepareSourceUrl(
-              metadata.provenanceUrl
-            );
-            sourceUrl = truncateText(
-              sourceUrlWithoutProtocol,
-              SOURCE_URL_TRUNCATION_POINT,
-              "middle"
-            );
-            isSourceUrlTruncated = sourceUrl !== sourceUrlWithoutProtocol;
+            sourceUrl = prepareSourceUrl(metadata.provenanceUrl);
           }
 
           const unitDisplay = metadata.unit
@@ -165,57 +154,29 @@ export const TileMetadataStatVarSection = ({
                   <h4>{intl.formatMessage(messages.source)}</h4>
                   {metadata.provenanceUrl && (
                     <p>
-                      {isSourceUrlTruncated ? (
-                        <Tooltip title={metadata.provenanceUrl}>
-                          <a
-                            href={metadata.provenanceUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            css={css`
-                              display: grid;
-                              grid-template-columns: 1fr min-content;
-                              width: 100%;
-                              align-items: center;
-                            `}
-                          >
-                            <span
-                              css={css`
-                                flex: 1;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                              `}
-                            >
-                              {metadata.provenanceUrl}
-                            </span>
-                            <ArrowOutward />
-                          </a>
-                        </Tooltip>
-                      ) : (
-                        <a
-                          href={metadata.provenanceUrl}
-                          target="_blank"
-                          rel="noreferrer"
+                      <a
+                        href={metadata.provenanceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        css={css`
+                          display: grid;
+                          grid-template-columns: 1fr min-content;
+                          width: 100%;
+                          align-items: center;
+                        `}
+                      >
+                        <span
                           css={css`
-                            display: grid;
-                            grid-template-columns: 1fr min-content;
-                            width: 100%;
-                            align-items: center;
+                            flex: 1;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                           `}
                         >
-                          <span
-                            css={css`
-                              flex: 1;
-                              overflow: hidden;
-                              text-overflow: ellipsis;
-                              white-space: nowrap;
-                            `}
-                          >
-                            {metadata.provenanceUrl}
-                          </span>
-                          <ArrowOutward />
-                        </a>
-                      )}
+                          {sourceUrl}
+                        </span>
+                        <ArrowOutward />
+                      </a>
                     </p>
                   )}
                   {(metadata.sourceName || metadata.provenanceName) && (

@@ -580,13 +580,11 @@ export const DialogTitle = ({
         css`
           padding: ${theme.spacing.lg}px ${theme.spacing.lg}px
             ${theme.spacing.sm}px ${theme.spacing.lg}px;
-          && {
-            h3 {
-              ${theme.typography.family.heading}
-              ${theme.typography.heading.sm}
+          && h3 {
+            ${theme.typography.family.heading}
+            ${theme.typography.heading.sm}
               margin: 0;
-              padding: 0 ${theme.spacing.xl}px 0 0;
-            }
+            padding: 0 ${theme.spacing.xl}px 0 0;
           }
         `,
         baseCss,
