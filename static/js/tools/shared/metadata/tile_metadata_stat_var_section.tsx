@@ -70,13 +70,13 @@ export const TileMetadataStatVarSection = ({
       h4 {
         ${theme.typography.family.text}
         ${theme.typography.text.md}
-          font-weight: 900;
+              font-weight: 900;
         margin: 0;
       }
       p {
         ${theme.typography.family.text}
         ${theme.typography.text.md}
-          white-space: pre-wrap;
+              white-space: pre-wrap;
         word-break: break-word;
       }
       a {
@@ -95,7 +95,7 @@ export const TileMetadataStatVarSection = ({
         && > h3 {
           ${theme.typography.family.text}
           ${theme.typography.text.lg}
-          display: block;
+              display: block;
           padding: 0 0 ${theme.spacing.sm}px 0;
           margin: 0 0 ${theme.spacing.md}px 0;
           border-bottom: 1px solid ${theme.colors.border.primary.light};
@@ -143,10 +143,10 @@ export const TileMetadataStatVarSection = ({
               <div
                 css={css`
                   display: grid;
-                  grid-template-columns: 1fr 1fr;
+                  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
                   gap: 0 ${theme.spacing.lg}px;
                   @media (max-width: ${theme.breakpoints.sm}px) {
-                    grid-template-columns: 1fr;
+                    grid-template-columns: minmax(0, 1fr);
                   }
                 `}
               >
@@ -159,23 +159,29 @@ export const TileMetadataStatVarSection = ({
                         target="_blank"
                         rel="noreferrer"
                         css={css`
-                          display: grid;
-                          grid-template-columns: 1fr min-content;
-                          width: 100%;
+                          display: flex;
                           align-items: center;
+                          overflow: hidden;
+                          white-space: nowrap;
+                          min-width: 0;
                         `}
                       >
                         <span
                           css={css`
-                            flex: 1;
+                            flex: 0 1 auto;
                             overflow: hidden;
                             text-overflow: ellipsis;
                             white-space: nowrap;
+                            min-width: 0;
                           `}
                         >
                           {sourceUrl}
                         </span>
-                        <ArrowOutward />
+                        <ArrowOutward
+                          css={css`
+                            flex-shrink: 0;
+                          `}
+                        />
                       </a>
                     </p>
                   )}
