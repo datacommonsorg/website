@@ -170,6 +170,10 @@ export class DatacommonsMapComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  // Optional: Locale to use for this component
+  @property()
+  locale?: string;
+
   render(): HTMLDivElement {
     let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
     if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
@@ -261,6 +265,6 @@ export class DatacommonsMapComponent extends LitElement {
       geoJsonProp: this.geoJsonProp,
       subscribe: this.subscribe,
     };
-    return createWebComponentElement(MapTile, mapTileProps);
+    return createWebComponentElement(MapTile, mapTileProps, this.locale);
   }
 }
