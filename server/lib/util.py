@@ -82,7 +82,8 @@ UN_GEOJSON_PROP = 'geoJsonCoordinatesUN'
 # place + place type combination.
 # To generate cached geojson files, follow instructions/use the endpoint here:
 # https://github.com/chejennifer/website/blob/generateCacheGeojsons/server/routes/api/choropleth.py#L201-L273
-# TODO: add 'LatinAmericaAndCaribbean' and 'SubSaharanAfrica' for UN_GEOJSON_PROP.
+# To update the UN geojson files, follow instructions here:
+# https://github.com/datacommonsorg/data/tree/master/scripts/un/boundaries
 CACHED_GEOJSON_FILES = {
     "Earth": {
         "Country": {
