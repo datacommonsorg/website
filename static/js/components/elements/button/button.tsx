@@ -134,7 +134,7 @@ interface CommonButtonProps {
   children?: ReactNode;
 }
 
-interface ButtonElementProps
+export interface ButtonElementProps
   extends CommonButtonProps,
     ButtonHTMLAttributes<HTMLButtonElement> {
   // No href prop for button elements
@@ -143,7 +143,7 @@ interface ButtonElementProps
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-interface AnchorElementProps
+export interface AnchorElementProps
   extends CommonButtonProps,
     AnchorHTMLAttributes<HTMLAnchorElement> {
   // href is required for anchor elements
@@ -152,7 +152,7 @@ interface AnchorElementProps
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
-type ButtonProps = ButtonElementProps | AnchorElementProps;
+export type ButtonProps = ButtonElementProps | AnchorElementProps;
 
 export const Button = forwardRef<
   HTMLButtonElement | HTMLAnchorElement,

@@ -18,6 +18,8 @@
  * Stat API related types.
  */
 
+// TODO (nick-next): combine this with the new FacetMetadata.
+
 export interface StatMetadata {
   importName?: string;
   provenanceUrl?: string;
