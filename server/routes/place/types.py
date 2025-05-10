@@ -173,3 +173,11 @@ class PlaceOverviewTableApiResponse:
   API Response for /api/place/overview-table/<place_dcid>
   """
   data: List[OverviewTableDataRow]
+
+
+@dataclass
+class PlaceSummaryApiResponse:
+  """
+  API Response for /api/place/summary/<place_dcid>
+  """
+  summary: str

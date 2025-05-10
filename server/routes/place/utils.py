@@ -17,7 +17,7 @@ import asyncio
 import copy
 import random
 import re
-from typing import Callable, Dict, List, Set, Tuple
+from typing import Any, Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
@@ -41,6 +41,87 @@ from server.routes.place.types import ServerChartConfiguration
 from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
+
+# Variables to highlight in place summaries
+PLACE_SUMMARY_VARIABLES = [{
+    "dcid": "Count_Person",
+    "unit": "",
+    "scaling": "",
+    "name": "population",
+    "computePerCapita": False
+}, {
+    "dcid": "Median_Age_Person",
+    "unit": "",
+    "scaling": "",
+    "name": "median age",
+    "computePerCapita": False
+}, {
+    "dcid": "Median_Income_Person",
+    "unit": "$",
+    "scaling": "",
+    "name": "median income",
+    "computePerCapita": False
+}, {
+    "dcid": "UnemploymentRate_Person",
+    "unit": "%",
+    "scaling": "",
+    "name": "unemployment rate",
+    "computePerCapita": False
+}, {
+    "dcid": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+    "unit": "$",
+    "scaling": "",
+    "name": "nominal GDP per capita",
+    "computePerCapita": False
+}, {
+    "dcid": "GiniIndex_EconomicActivity",
+    "unit": "",
+    "scaling": "",
+    "name": "Gini index",
+    "computePerCapita": False
+}, {
+    "dcid": "LifeExpectancy_Person",
+    "unit": "",
+    "scaling": "",
+    "name": "life expectancy",
+    "computePerCapita": False
+}, {
+    "dcid": "Percent_Person_Obesity",
+    "unit": "%",
+    "scaling": "",
+    "name": "percentage of people with obesity",
+    "computePerCapita": False
+}, {
+    "dcid": "Percent_Person_BingeDrinking",
+    "unit": "%",
+    "scaling": "",
+    "name": "percentage of people who binge drink",
+    "computePerCapita": False
+}, {
+    "dcid": "Percent_Person_Smoking",
+    "unit": "%",
+    "scaling": "",
+    "name": "percentage of people who smoke",
+    "computePerCapita": False
+}, {
+    "dcid": "Amount_Consumption_Energy_PerCapita",
+    "unit": "kgoe",
+    "scaling": "",
+    "name": "energy consumption per capita",
+    "computePerCapita": False
+}, {
+    "dcid": "Amount_Emissions_CarbonDioxide_PerCapita",
+    "unit": "t",
+    "scaling": "",
+    "name": "carbon dioxide emissions per capita",
+    "computePerCapita": False
+}]
+
+# Template for the first sentence in the summary
+_TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}."
+
+# Template for sharing the value of a stat var
+_TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} was {value} in {year}."
 
 # Parent place types to include in listing of containing places at top of page
 PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
@@ -73,7 +154,7 @@ def get_place_url(place_dcid: str) -> str:
 
 def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
   """Gets the parent places for a given DCID
-  
+
   Args:
     dcid: dcid of the place to get parents for
     
@@ -215,7 +296,7 @@ async def filter_chart_config_for_data_existence(
     parent_place_dcid: str) -> List[ServerChartConfiguration]:
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
-  
+
   Args:
       chart_config (List[Dict]): A list of chart configurations, where each configuration includes statistical variable DCIDs under the key 'variables'.
       place_dcid (str): dcid for the place of interest.
@@ -977,7 +1058,7 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   ]
 
   # Fetch all observations for each variable
-  resp = dc.obs_point([place_dcid], variables, date="")
+  resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
@@ -1020,6 +1101,39 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   return data_rows
 
 
+def fetch_most_recent_observation(place_dcid: str,
+                                  variable_dcids: List[str],
+                                  date: str = "LATEST") -> Any:
+  """
+  Fetches the most recent observation for a given place and variable DCIDs.
+  """
+  resp = dc.obs_point([place_dcid], variable_dcids, date=date)
+  facets = resp.get("facets", {})
+
+  for variable_dcid in variable_dcids:
+    ordered_facet_observations = resp.get("byVariable", {}).get(
+        variable_dcid, {}).get("byEntity", {}).get(place_dcid,
+                                                   {}).get("orderedFacets", [])
+    # Get the most recent observation for each facet
+    most_recent_facet = max(ordered_facet_observations,
+                            key=lambda x: x.get("latestDate", ""),
+                            default=None)
+    if not most_recent_facet:
+      continue
+
+    observations = most_recent_facet.get("observations", [])
+    most_recent_observation = observations[-1] if observations else None
+    if not most_recent_observation:
+      continue
+
+    facet_id = most_recent_facet.get("facetId", "")
+    date = most_recent_observation.get("date", "")
+    value = most_recent_observation.get("value", "")
+    provenance_url = facets.get(facet_id, {}).get("provenanceUrl", "")
+
+  return most_recent_observation
+
+
 def dedupe_preserve_order(lists: List[List[str]]) -> List[str]:
   """Removes duplicate DCIDs in the list of list provided.
   Returns the list of string DCIDs with the order preserved."""
@@ -1043,3 +1157,206 @@ def extract_places_from_dcids(all_places_by_dcid: Dict[str, Place],
       for dcid in dcids
       if not all_places_by_dcid[dcid].dissolved
   ]
+
+
+def needs_the(name):
+  """
+  Heuristic to determine if the name should be preceded by "the" in a sentence.
+  Used to generate the first sentence of the place summary. Works in English
+  only.
+
+  For example, "the United States" or "the United Kingdom", but not "Chicago" or "Illinois".
+
+  Args:
+    name: The name of the place
+
+  Returns:
+    True if the name should be preceded by "the", False otherwise.
+  """
+  # Use "the" for plural country names or compound republics/unions
+  return bool(
+      re.search(
+          r"\b(States|Republic|Kingdom|Emirates|Islands|Union|Federation|Netherlands|Congo)\b",
+          name))
+
+
+def add_the_if_needed(name):
+  """
+  Adds "the" to the given English place name if needed. Used to generate the
+  first sentence of the place summary.
+
+  Args:
+    name: The name of the place
+
+  Returns:
+    The name with "the" if needed, otherwise the original name.
+  """
+  return f"the {name}" if needs_the(name) else name
+
+
+def split_camel_case(s):
+  """
+  Splits a camel case string into a list of words.
+
+  Example: "CongressionalDistrict" -> "congressional district"
+
+  Args:
+    s: The string to split
+
+  Returns:
+    A list of words
+  """
+  if not s:
+    return ""
+  parts = re.findall(r'[A-Z]?[a-z]+|[A-Z]+(?=[A-Z]|$)', s)
+  return " ".join([part.lower() for part in parts])
+
+
+def capitalize_first_letter(s):
+  """
+  Capitalizes the first letter of the given string.
+  """
+  return s[0].upper() + s[1:]
+
+
+def _generate_place_summary_first_sentence(place: Place,
+                                           parent_places: List[Place]) -> str:
+  """Generates the first sentence of the place summary.
+
+  Args:
+    place: Place object to generate the first sentence for
+    parent_places: List of parent places of the place
+
+  Returns:
+    A dict of place dcid -> list with starter sentence as only entry
+  """
+
+  place_type = place.types[0] if place.types else ""
+
+  # filter parent places to add to sentences
+  parents_to_display = []
+  for parent in parent_places:
+    if not parent.name or not parent.types:
+      continue
+
+    if place_type == "Country":
+      # For Country summaries, only use Continent as parent place
+      if "Continent" in parent.types:
+        parents_to_display.append(parent.name)
+
+    elif "State" in parent.types or "Country" in parent.types:
+      parents_to_display.append(parent.name)
+
+  if place.name and place_type and parents_to_display:
+    # format parent places for display
+    parent_str = ", ".join(parents_to_display)
+    if len(parents_to_display) == 1:
+      parent_str = add_the_if_needed(parent_str)
+
+    # add starting sentence
+    sentence = _TEMPLATE_STARTING_SENTENCE.format(
+        place_name=capitalize_first_letter(add_the_if_needed(place.name)),
+        place_type=split_camel_case(place_type),
+        parent_places=parent_str)
+    return sentence
+  return ""
+
+
+def format_stat_var_value(value: float, unit: str) -> str:
+  """Format a stat var observation to print nicely in a sentence
+
+  Args:
+    value: numeric value to format
+    unit: unit of the stat var
+
+  Returns:
+    The value formatted with the unit
+  """
+  if value is None:
+    return ""
+  # Format to max 2 decimal places, removing trailing zeros
+  value = float('{:.2f}'.format(value).rstrip('0').rstrip('.'))
+  formatted_value = f"{value:,.2f}".rstrip("0").rstrip(".")
+  if unit == "$":
+    return f"{unit}{formatted_value}"
+  return f"{formatted_value}{unit}"
+
+
+async def _fetch_summary_data(
+    place_dcid: str, variable_dcids: List[str],
+    locale: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
+  """
+  Fetches the place, parent places, and place observations for the given place DCID.
+
+  Args:
+    place_dcid: The DCID of the place to fetch summary data for
+    variable_dcids: The DCIDs of the variables to fetch observations for
+    locale: The locale to fetch the data in
+
+  """
+  place = asyncio.to_thread(fetch_place, place_dcid, locale)
+  parent_places = asyncio.to_thread(get_parent_places, place_dcid, locale)
+  place_observations = asyncio.to_thread(dc.obs_point, [place_dcid],
+                                         variable_dcids,
+                                         date="LATEST")
+  return await asyncio.gather(place, parent_places, place_observations)
+
+
+async def generate_place_summary(place_dcid: str, locale: str) -> str:
+  """
+  Generates a place summary for the given place DCID.
+  """
+  # Only generate summary in English
+  if locale and locale != DEFAULT_LOCALE:
+    return ""
+
+  # Fetch all observations for each variable
+  variable_dcids = [v["dcid"] for v in PLACE_SUMMARY_VARIABLES]
+
+  place, parent_places, place_observations = await _fetch_summary_data(
+      place_dcid, variable_dcids, locale)
+  variable_observations = []
+
+  # Iterate over each variable and extract the most recent observation
+  for variable in PLACE_SUMMARY_VARIABLES:
+    variable_dcid = variable["dcid"]
+    ordered_facet_observations = place_observations.get("byVariable", {}).get(
+        variable_dcid, {}).get("byEntity", {}).get(place.dcid,
+                                                   {}).get("orderedFacets", [])
+    if not ordered_facet_observations:
+      continue
+
+    most_recent_facet = max(ordered_facet_observations,
+                            key=lambda x: x.get("latestDate", ""),
+                            default=None)
+    if not most_recent_facet:
+      continue
+
+    facet_id = most_recent_facet.get("facetId", "")
+    facet = place_observations.get("facets", {}).get(facet_id, {})
+
+    observations = most_recent_facet.get("observations", [])
+    most_recent_observation = observations[-1] if observations else None
+    if not most_recent_observation:
+      continue
+
+    variable_observations.append({
+        "variable": variable_dcid,
+        "variable_name": variable["name"],
+        "unit": variable["unit"],
+        "observation": most_recent_observation,
+        "facet": facet,
+    })
+  sentences = [_generate_place_summary_first_sentence(place, parent_places)]
+  for variable_observation in variable_observations:
+    sentences.append(
+        _TEMPLATE_VALUE_SENTENCE.format(
+            stat_var_name=variable_observation["variable_name"],
+            place_name=add_the_if_needed(place.name),
+            value=format_stat_var_value(
+                variable_observation["observation"]["value"],
+                variable_observation["unit"]),
+            year=variable_observation["observation"]["date"][:4]))
+
+  summary = " ".join(sentences)
+  return summary

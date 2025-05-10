@@ -30,6 +30,7 @@ from server.routes.place import utils as place_utils
 from server.routes.place.types import Place
 from server.routes.place.types import PlaceChartsApiResponse
 from server.routes.place.types import PlaceOverviewTableApiResponse
+from server.routes.place.types import PlaceSummaryApiResponse
 from server.routes.place.types import RelatedPlacesApiResponse
 from server.routes.place.utils import extract_places_from_dcids
 
@@ -221,3 +222,14 @@ def overview_table(place_dcid: str):
   data_rows = place_utils.fetch_overview_table_data(place_dcid)
 
   return jsonify(PlaceOverviewTableApiResponse(data=data_rows))
+
+
+@bp.route('/summary/<path:place_dcid>')
+@log_execution_time
+@cache.cached(timeout=TIMEOUT, query_string=True)
+async def place_summary(place_dcid: str):
+  """
+  Fetches and returns place summary data for the specified place.
+  """
+  summary = await place_utils.generate_place_summary(place_dcid, g.locale)
+  return jsonify(PlaceSummaryApiResponse(summary=summary))
