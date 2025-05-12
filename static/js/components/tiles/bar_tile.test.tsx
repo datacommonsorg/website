@@ -26,12 +26,14 @@ jest.mock("./use_draw_on_resize", () => ({
   }),
 }));
 
+import { ThemeProvider } from "@emotion/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
 import Cheerio from "cheerio";
 import Enzyme, { mount } from "enzyme";
 import React from "react";
 
+import theme from "../../theme/theme";
 import { BarTile } from "./bar_tile";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -132,24 +134,26 @@ describe("BarTile", () => {
   it("Bar tile with non-place entities should render", async () => {
     mockAxios();
     const wrapper = mount(
-      <BarTile
-        barHeight={200}
-        className={"some-class"}
-        id={"bar-id"}
-        variables={[
-          {
-            denom: "",
-            log: false,
-            scaling: 1,
-            statVar: "sector_property",
-            unit: "",
-          },
-        ]}
-        svgChartHeight={200}
-        title={"Chart Title"}
-        enclosedPlaceType={"NAICSEnum"}
-        parentPlace={"NAICSEnum"}
-      />
+      <ThemeProvider theme={theme}>
+        <BarTile
+          barHeight={200}
+          className={"some-class"}
+          id={"bar-id"}
+          variables={[
+            {
+              denom: "",
+              log: false,
+              scaling: 1,
+              statVar: "sector_property",
+              unit: "",
+            },
+          ]}
+          svgChartHeight={200}
+          title={"Chart Title"}
+          enclosedPlaceType={"NAICSEnum"}
+          parentPlace={"NAICSEnum"}
+        />
+      </ThemeProvider>
     );
     await act(async () => {
       await wrapper.update();
