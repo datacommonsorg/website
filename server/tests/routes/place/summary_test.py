@@ -148,7 +148,7 @@ class TestPlaceSummary(unittest.IsolatedAsyncioTestCase):
       self.mock_obs_point.return_value = generate_mock_obs_point_data(
           place.dcid, stat_var_data)
 
-      expected_summary = "90210 is a census zip code tabulation area in California, United States of America. The population in 90210 was 19,652 in 2023. The median age in 90210 was 51.2 in 2023. The median income in 90210 was $78,750 in 2023. The percentage of people with obesity in 90210 was 21.6% in 2022. The percentage of people who binge drink in 90210 was 17.3% in 2022. The percentage of people who smoke in 90210 was 7.2% in 2022."
+      expected_summary = "90210 is a census zip code tabulation area in California, the United States of America. The population in 90210 was 19,652 in 2023. The median age in 90210 was 51.2 in 2023. The median income in 90210 was $78,750 in 2023. The percentage of people with obesity in 90210 was 21.6% in 2022. The percentage of people who binge drink in 90210 was 17.3% in 2022. The percentage of people who smoke in 90210 was 7.2% in 2022."
 
       actual_summary = await place_utils.generate_place_summary(
           place.dcid, g.locale)

@@ -16,21 +16,17 @@
 import json
 import logging
 import os
-import re
-import time
 from typing import List, Set
 from urllib.parse import urlencode
 
 import flask
 from flask import current_app
 from flask import g
-from flask_babel import gettext
 from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
-from server.lib.i18n_messages import get_place_type_in_parent_places_str
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
 from shared.lib.place_summaries import get_shard_filename_by_dcid

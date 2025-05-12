@@ -30,7 +30,11 @@ from server.lib.i18n_messages import get_other_places_in_parent_place_str
 from server.lib.i18n_messages import \
     get_place_overview_table_variable_to_locale_message
 from server.lib.i18n_messages import get_place_type_in_parent_places_str
+from server.lib.util import add_the_if_needed
+from server.lib.util import capitalize_first_letter
+from server.lib.util import split_camel_case
 from server.routes import TIMEOUT
+from server.routes.place.config import PLACE_SUMMARY_VARIABLES
 from server.routes.place.types import BlockConfig
 from server.routes.place.types import Category
 from server.routes.place.types import Chart
@@ -41,81 +45,6 @@ from server.routes.place.types import ServerChartConfiguration
 from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
-
-# Variables to highlight in place summaries
-PLACE_SUMMARY_VARIABLES = [{
-    "dcid": "Count_Person",
-    "unit": "",
-    "scaling": "",
-    "name": "population",
-    "computePerCapita": False
-}, {
-    "dcid": "Median_Age_Person",
-    "unit": "",
-    "scaling": "",
-    "name": "median age",
-    "computePerCapita": False
-}, {
-    "dcid": "Median_Income_Person",
-    "unit": "$",
-    "scaling": "",
-    "name": "median income",
-    "computePerCapita": False
-}, {
-    "dcid": "UnemploymentRate_Person",
-    "unit": "%",
-    "scaling": "",
-    "name": "unemployment rate",
-    "computePerCapita": False
-}, {
-    "dcid": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
-    "unit": "$",
-    "scaling": "",
-    "name": "nominal GDP per capita",
-    "computePerCapita": False
-}, {
-    "dcid": "GiniIndex_EconomicActivity",
-    "unit": "",
-    "scaling": "",
-    "name": "Gini index",
-    "computePerCapita": False
-}, {
-    "dcid": "LifeExpectancy_Person",
-    "unit": "",
-    "scaling": "",
-    "name": "life expectancy",
-    "computePerCapita": False
-}, {
-    "dcid": "Percent_Person_Obesity",
-    "unit": "%",
-    "scaling": "",
-    "name": "percentage of people with obesity",
-    "computePerCapita": False
-}, {
-    "dcid": "Percent_Person_BingeDrinking",
-    "unit": "%",
-    "scaling": "",
-    "name": "percentage of people who binge drink",
-    "computePerCapita": False
-}, {
-    "dcid": "Percent_Person_Smoking",
-    "unit": "%",
-    "scaling": "",
-    "name": "percentage of people who smoke",
-    "computePerCapita": False
-}, {
-    "dcid": "Amount_Consumption_Energy_PerCapita",
-    "unit": "kgoe",
-    "scaling": "",
-    "name": "energy consumption per capita",
-    "computePerCapita": False
-}, {
-    "dcid": "Amount_Emissions_CarbonDioxide_PerCapita",
-    "unit": "t",
-    "scaling": "",
-    "name": "carbon dioxide emissions per capita",
-    "computePerCapita": False
-}]
 
 # Template for the first sentence in the summary
 _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}."
@@ -1065,24 +994,19 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   for item in place_overview_table_variable_translations:
     variable_dcid = item["variable_dcid"]
     name = item["translated_name"]
-    ordered_facet_observations = resp.get("byVariable", {}).get(
-        variable_dcid, {}).get("byEntity", {}).get(place_dcid,
-                                                   {}).get("orderedFacets", [])
-    # Get the most recent observation for each facet
-    most_recent_facet = max(ordered_facet_observations,
-                            key=lambda x: x.get("latestDate", ""),
-                            default=None)
-    if not most_recent_facet:
+    most_recent_facet_observations = extract_most_recent_facet_observations(
+        resp, place_dcid, variable_dcid)
+    if not most_recent_facet_observations:
       continue
 
-    observations = most_recent_facet.get("observations", [])
+    observations = most_recent_facet_observations.get("observations", [])
     # The most recent observation is the last one in the list
     most_recent_observation = observations[-1] if observations else None
     if not most_recent_observation:
       continue
 
-    facet_id = most_recent_facet.get("facetId", "")
-    date = most_recent_observation.get("date", "")
+    facet_id = most_recent_facet_observations.get("facetId", "")
+    date = most_recent_facet_observations.get("latestDate", "")
     value = most_recent_observation.get("value", "")
     provenance_url = facets.get(facet_id, {}).get("provenanceUrl", "")
     # Use the unit from the facet if available, otherwise use the unit from the variable definition
@@ -1101,37 +1025,74 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   return data_rows
 
 
-def fetch_most_recent_observation(place_dcid: str,
-                                  variable_dcids: List[str],
-                                  date: str = "LATEST") -> Any:
+def extract_most_recent_facet_observations(
+    place_observations_response: Dict[str, Any], place_dcid: str,
+    variable_dcid: str) -> Dict[str, Any] | None:
   """
-  Fetches the most recent observation for a given place and variable DCIDs.
+  Extracts the most recent facet observations from a place observations response for a given place and variable DCIDs.
+
+  Example:
+
+  place_observations_response = {
+    "byVariable": {
+      "Count_Person": {
+        "byEntity": {
+          "country/EXAMPLE": {
+            "orderedFacets": [
+              {
+                "facetId": "facet_id_1",
+                "latestDate": "2024-01-01",
+                "observations": [
+                  {
+                    "date": "2024-01-01",
+                    "value": "500000"
+                  }
+                ]
+              },
+              {
+                "facetId": "facet_id_2",
+                "latestDate": "2023-01-01",
+                "observations": [
+                  {
+                    "date": "2023-01-01",
+                    "value": "400000"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+
+  extract_most_recent_facet_observations(place_observations_response, "country/EXAMPLE", "Count_Person")
+
+  Returns:
+    {
+      "facetId": "facet_id_1",
+      "latestDate": "2024-01-01",
+      "observations": [
+        {
+          "date": "2024-01-01",
+          "value": "500000"
+        }
+      ]
+    }
   """
-  resp = dc.obs_point([place_dcid], variable_dcids, date=date)
-  facets = resp.get("facets", {})
 
-  for variable_dcid in variable_dcids:
-    ordered_facet_observations = resp.get("byVariable", {}).get(
-        variable_dcid, {}).get("byEntity", {}).get(place_dcid,
-                                                   {}).get("orderedFacets", [])
-    # Get the most recent observation for each facet
-    most_recent_facet = max(ordered_facet_observations,
-                            key=lambda x: x.get("latestDate", ""),
-                            default=None)
-    if not most_recent_facet:
-      continue
+  ordered_facet_observations = place_observations_response.get(
+      "byVariable", {}).get(variable_dcid,
+                            {}).get("byEntity",
+                                    {}).get(place_dcid,
+                                            {}).get("orderedFacets", [])
 
-    observations = most_recent_facet.get("observations", [])
-    most_recent_observation = observations[-1] if observations else None
-    if not most_recent_observation:
-      continue
+  # Get the most recent observation for each facet
+  most_recent_facet = max(ordered_facet_observations,
+                          key=lambda x: x.get("latestDate", ""),
+                          default=None)
 
-    facet_id = most_recent_facet.get("facetId", "")
-    date = most_recent_observation.get("date", "")
-    value = most_recent_observation.get("value", "")
-    provenance_url = facets.get(facet_id, {}).get("provenanceUrl", "")
-
-  return most_recent_observation
+  return most_recent_facet
 
 
 def dedupe_preserve_order(lists: List[List[str]]) -> List[str]:
@@ -1159,69 +1120,14 @@ def extract_places_from_dcids(all_places_by_dcid: Dict[str, Place],
   ]
 
 
-def needs_the(name):
-  """
-  Heuristic to determine if the name should be preceded by "the" in a sentence.
-  Used to generate the first sentence of the place summary. Works in English
-  only.
-
-  For example, "the United States" or "the United Kingdom", but not "Chicago" or "Illinois".
-
-  Args:
-    name: The name of the place
-
-  Returns:
-    True if the name should be preceded by "the", False otherwise.
-  """
-  # Use "the" for plural country names or compound republics/unions
-  return bool(
-      re.search(
-          r"\b(States|Republic|Kingdom|Emirates|Islands|Union|Federation|Netherlands|Congo)\b",
-          name))
-
-
-def add_the_if_needed(name):
-  """
-  Adds "the" to the given English place name if needed. Used to generate the
-  first sentence of the place summary.
-
-  Args:
-    name: The name of the place
-
-  Returns:
-    The name with "the" if needed, otherwise the original name.
-  """
-  return f"the {name}" if needs_the(name) else name
-
-
-def split_camel_case(s):
-  """
-  Splits a camel case string into a list of words.
-
-  Example: "CongressionalDistrict" -> "congressional district"
-
-  Args:
-    s: The string to split
-
-  Returns:
-    A list of words
-  """
-  if not s:
-    return ""
-  parts = re.findall(r'[A-Z]?[a-z]+|[A-Z]+(?=[A-Z]|$)', s)
-  return " ".join([part.lower() for part in parts])
-
-
-def capitalize_first_letter(s):
-  """
-  Capitalizes the first letter of the given string.
-  """
-  return s[0].upper() + s[1:]
-
-
 def _generate_place_summary_first_sentence(place: Place,
                                            parent_places: List[Place]) -> str:
   """Generates the first sentence of the place summary.
+
+  Examples:
+    "San Francisco is a city in California, the United States of America."
+    "California is a state in the United States of America."
+    "The United States of America is a country in North America."
 
   Args:
     place: Place object to generate the first sentence for
@@ -1230,36 +1136,40 @@ def _generate_place_summary_first_sentence(place: Place,
   Returns:
     A dict of place dcid -> list with starter sentence as only entry
   """
+  if not place.name or not place.types:
+    return ""
 
-  place_type = place.types[0] if place.types else ""
+  place_type = place.types[0]
 
-  # filter parent places to add to sentences
-  parents_to_display = []
-  for parent in parent_places:
-    if not parent.name or not parent.types:
-      continue
+  if place_type == "Country":
+    # For Country summaries, only use Continent as parent place
+    # Example: "The United States of America is a country in North America."
+    parent_names_to_display = [
+        p.name for p in parent_places if "Continent" in p.types
+    ]
+  else:
+    # For non-country place types, use state/admin1 and country as parent places
+    # Example1: "California is a state in the United States of America."
+    # Example2: "San Francisco is a city in California, the United States of America."
+    parent_types_to_display = set(["State", "AdministrativeArea1", "Country"])
+    parent_names_to_display = [
+        p.name
+        for p in parent_places
+        if bool(set(p.types) & parent_types_to_display)
+    ]
 
-    if place_type == "Country":
-      # For Country summaries, only use Continent as parent place
-      if "Continent" in parent.types:
-        parents_to_display.append(parent.name)
+  if not parent_names_to_display:
+    return ""
 
-    elif "State" in parent.types or "Country" in parent.types:
-      parents_to_display.append(parent.name)
+  # format parent places for display
+  parent_str = ", ".join([add_the_if_needed(name) for name in parent_names_to_display])
 
-  if place.name and place_type and parents_to_display:
-    # format parent places for display
-    parent_str = ", ".join(parents_to_display)
-    if len(parents_to_display) == 1:
-      parent_str = add_the_if_needed(parent_str)
-
-    # add starting sentence
-    sentence = _TEMPLATE_STARTING_SENTENCE.format(
-        place_name=capitalize_first_letter(add_the_if_needed(place.name)),
-        place_type=split_camel_case(place_type),
-        parent_places=parent_str)
-    return sentence
-  return ""
+  # add starting sentence
+  sentence = _TEMPLATE_STARTING_SENTENCE.format(
+      place_name=capitalize_first_letter(add_the_if_needed(place.name)),
+      place_type=split_camel_case(place_type),
+      parent_places=parent_str)
+  return sentence
 
 
 def format_stat_var_value(value: float, unit: str) -> str:
@@ -1320,22 +1230,15 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
   # Iterate over each variable and extract the most recent observation
   for variable in PLACE_SUMMARY_VARIABLES:
     variable_dcid = variable["dcid"]
-    ordered_facet_observations = place_observations.get("byVariable", {}).get(
-        variable_dcid, {}).get("byEntity", {}).get(place.dcid,
-                                                   {}).get("orderedFacets", [])
-    if not ordered_facet_observations:
+    most_recent_facet_observations = extract_most_recent_facet_observations(
+        place_observations, place.dcid, variable_dcid)
+    if not most_recent_facet_observations:
       continue
 
-    most_recent_facet = max(ordered_facet_observations,
-                            key=lambda x: x.get("latestDate", ""),
-                            default=None)
-    if not most_recent_facet:
-      continue
-
-    facet_id = most_recent_facet.get("facetId", "")
+    facet_id = most_recent_facet_observations.get("facetId", "")
     facet = place_observations.get("facets", {}).get(facet_id, {})
 
-    observations = most_recent_facet.get("observations", [])
+    observations = most_recent_facet_observations.get("observations", [])
     most_recent_observation = observations[-1] if observations else None
     if not most_recent_observation:
       continue
