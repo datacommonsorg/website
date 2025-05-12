@@ -23,6 +23,8 @@ import _ from "lodash";
 import React from "react";
 
 import {
+  GA_EVENT_STATVAR_SEARCH_SELECTION,
+  GA_EVENT_STATVAR_SEARCH_START,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
   GA_PARAM_SEARCH_TERM,
   triggerGAEvent,
@@ -205,6 +207,9 @@ export class StatVarHierarchySearch extends React.Component<
     if (query === "") {
       this.props.onSelectionChange("");
     }
+    if (this.state.query === "") {
+      triggerGAEvent(GA_EVENT_STATVAR_SEARCH_START, {});
+    } 
     this.setState({
       query: event.target.value,
       showNoResultsMessage: false,

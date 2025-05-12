@@ -206,6 +206,18 @@ export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
  */
 export const GA_EVENT_AUTOCOMPLETE_TRIGGERED = "autocomplete_trigger";
 
+/**
+ * Triggered on start of StatVar search.
+ * Parameters: None
+ */
+export const GA_EVENT_STATVAR_SEARCH_START = "statvar_search_start";
+
+/**
+ * Triggered on selections of StatVar search results.
+ * Parameters: None
+ */
+export const GA_EVENT_STATVAR_SEARCH_SELECTION = "statvar_search_select";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
