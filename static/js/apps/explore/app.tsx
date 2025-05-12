@@ -287,7 +287,6 @@ export function App(props: AppProps): ReactElement {
       ) {
         // If there are multiple places, join them with commas and "and".
         const placeNames = pageMetadata.places?.map((place) => place.name);
-        console.log("placeNames", placeNames);
         const inPlaces =
           placeNames?.length > 1
             ? intl.formatMessage(messages.inPlacesAndLastPlace, {
