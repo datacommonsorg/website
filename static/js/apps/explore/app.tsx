@@ -286,11 +286,17 @@ export function App(props: AppProps): ReactElement {
         pageMetadata.places.length > 0
       ) {
         // If there are multiple places, join them with commas and "and".
-        const placeNames = pageMetadata.places.map((place) => place.name);
-        const inPlaces = intl.formatMessage(messages.inPlacesAndLastPlace, {
-          places: placeNames.slice(0, -1).join(", "),
-          lastPlace: placeNames[placeNames.length - 1],
-        });
+        const placeNames = pageMetadata.places?.map((place) => place.name);
+        console.log("placeNames", placeNames);
+        const inPlaces =
+          placeNames?.length > 1
+            ? intl.formatMessage(messages.inPlacesAndLastPlace, {
+                places: placeNames.slice(0, -1).join(", "),
+                lastPlace: placeNames[placeNames.length - 1] || "",
+              })
+            : intl.formatMessage(messages.inPlace, {
+                place: placeNames[0] || "",
+              });
         if (
           pageMetadata.mainTopics.length == 2 &&
           pageMetadata.mainTopics[0].name &&
