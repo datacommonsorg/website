@@ -80,6 +80,7 @@ export function TileMetadataModalSimple(
 ): ReactElement {
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
   const dataCommonsClient = getDataCommonsClient(props.apiRoot);
 
@@ -100,6 +101,7 @@ export function TileMetadataModalSimple(
     // Only fetch data once the modal is opened.
     if (!modalOpen) return;
     if (dcids.size == statVarNames.length) return;
+    setLoading(true);
     (async (): Promise<void> => {
       const responseObj = await dataCommonsClient.getFirstNodeValues({
         dcids: [...dcids],
@@ -112,6 +114,7 @@ export function TileMetadataModalSimple(
       // Sort by name
       responseList.sort((a, b) => (a[1] > b[1] ? 1 : -1));
       setStatVarNames(responseList);
+      setLoading(false);
     })();
   }, [props, modalOpen, dcids, statVarNames.length, dataCommonsClient]);
 
@@ -131,6 +134,7 @@ export function TileMetadataModalSimple(
         containerRef={props.containerRef}
         onClose={(): void => setModalOpen(false)}
         className="metadata-modal"
+        loading={loading}
       >
         <DialogTitle>{intl.formatMessage(messages.chooseVariable)}</DialogTitle>
         <DialogContent>

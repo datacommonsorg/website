@@ -16,6 +16,7 @@
 
 export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
+export const METADATA_FEATURE_FLAG = "metadata_modal";
 
 /**
  * Helper method to interact with feature flags.
