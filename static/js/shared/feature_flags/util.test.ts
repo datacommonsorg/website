@@ -13,6 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * Tests for the feature flag system.
+ *
+ * Feature flags are set for each environment in
+ * server/config/feature_flag_configs/<environment>.json
+ *
+ * Feature flags can be overridden manually through URL parameters:
+ * - To enable a feature: add ?enable_<feature_name> to the URL
+ * - To disable a feature: add ?disable_<feature_name> to the URL
+ *
+ * Example URLs:
+ * - https://datacommons.org/explore?enable_autocomplete
+ * - https://datacommons.org/explore?disable_autocomplete
+ *
+ * These URL overrides take precedence over the environment-specific flag settings
+ */
 import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
 import {
   DISABLE_FEATURE_FLAG_PREFIX,
@@ -49,6 +66,7 @@ describe("isFeatureEnabled", () => {
     globalThis.FEATURE_FLAGS = originalFeatureFlags;
   });
 
+  // Test URL parameter overrides
   test("returns true when enable param is present", () => {
     window.location.search = `?${enableParam}`;
     expect(isFeatureEnabled(featureName)).toBe(true);
@@ -69,6 +87,7 @@ describe("isFeatureEnabled", () => {
     expect(isFeatureEnabled(featureName)).toBe(false);
   });
 
+  // Test environment-specific feature flag settings
   test("returns true when feature flag is enabled in FEATURE_FLAGS", () => {
     window.location.search = "";
     globalThis.FEATURE_FLAGS = { [featureName]: true };
