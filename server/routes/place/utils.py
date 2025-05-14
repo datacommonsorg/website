@@ -1162,7 +1162,8 @@ def _generate_place_summary_first_sentence(place: Place,
     return ""
 
   # format parent places for display
-  parent_str = ", ".join([add_the_if_needed(name) for name in parent_names_to_display])
+  parent_str = ", ".join(
+      [add_the_if_needed(name) for name in parent_names_to_display])
 
   # add starting sentence
   sentence = _TEMPLATE_STARTING_SENTENCE.format(
