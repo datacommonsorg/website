@@ -1102,4 +1102,6 @@ def capitalize_first_letter(s):
   Note: Python's built-in str.capitalize() method downcases everything except
   the first letter, so it would return "The united states" in the above case.
   """
+  if len(s) == 0:
+    return s
   return s[0].upper() + s[1:]
