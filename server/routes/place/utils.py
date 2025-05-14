@@ -34,7 +34,7 @@ from server.lib.util import add_the_if_needed
 from server.lib.util import capitalize_first_letter
 from server.lib.util import split_camel_case
 from server.routes import TIMEOUT
-from server.routes.place.config import PLACE_SUMMARY_VARIABLES
+from server.routes.place.summary_config import PLACE_SUMMARY_VARIABLES
 from server.routes.place.types import BlockConfig
 from server.routes.place.types import Category
 from server.routes.place.types import Chart
