@@ -148,4 +148,10 @@ export const messages = defineMessages({
     description:
       "Text to display when we have a list of places, and need to add 'and' before the last place. For example, 'California, Texas, and New York'.",
   },
+  inPlace: {
+    id: "in_place",
+    defaultMessage: "in {place}",
+    description:
+      "Text to display when we have a single place, and need to add the 'in' before the place. For example, 'in California'.",
+  },
 });
