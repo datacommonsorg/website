@@ -28,6 +28,10 @@ import { NL_SOURCE_REPLACEMENTS } from "../../../constants/app/explore_constants
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
 import {
+  isFeatureEnabled,
+  METADATA_FEATURE_FLAG,
+} from "../../../shared/feature_flags/util";
+import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
   triggerGAEvent,
@@ -60,6 +64,8 @@ export function TileSources(props: {
   if (!facets && !sources) {
     return null;
   }
+
+  const allowNewMetadataModal = isFeatureEnabled(METADATA_FEATURE_FLAG);
 
   const sourceList: string[] = facets
     ? Object.values(facets).map((facet) => facet.provenanceUrl)
@@ -107,7 +113,7 @@ export function TileSources(props: {
             <>
               <span {...{ part: "source-separator" }}> • </span>
               <span {...{ part: "source-show-metadata-link" }}>
-                {facets && statVarToFacets ? (
+                {allowNewMetadataModal && facets && statVarToFacets ? (
                   <TileMetadataModal
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}
