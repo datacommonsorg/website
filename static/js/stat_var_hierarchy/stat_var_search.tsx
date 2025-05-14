@@ -26,9 +26,9 @@ import {
   GA_EVENT_STATVAR_SEARCH_SELECTION,
   GA_EVENT_STATVAR_SEARCH_START,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+  GA_PARAM_QUERY,
   GA_PARAM_SEARCH_SELECTION_NAME,
   GA_PARAM_SEARCH_TERM,
-  GA_PARAM_QUERY,
   triggerGAEvent,
 } from "../shared/ga_events";
 import { NamedNode, SvgSearchResult } from "../shared/types";
@@ -213,7 +213,7 @@ export class StatVarHierarchySearch extends React.Component<
     // trigger Google Analytics event
     if (this.state.query === "") {
       triggerGAEvent(GA_EVENT_STATVAR_SEARCH_START, {});
-    } 
+    }
     this.setState({
       query: event.target.value,
       showNoResultsMessage: false,
@@ -285,7 +285,7 @@ export class StatVarHierarchySearch extends React.Component<
     // Trigger Google Analytics event to track a successful search
     triggerGAEvent(GA_EVENT_STATVAR_SEARCH_SELECTION, {
       [GA_PARAM_QUERY]: this.state.query,
-      [GA_PARAM_SEARCH_SELECTION_NAME]: displayName
+      [GA_PARAM_SEARCH_SELECTION_NAME]: displayName,
     });
     this.setState({
       query: displayName,
