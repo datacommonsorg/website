@@ -14,18 +14,45 @@
  * limitations under the License.
  */
 
-export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
+export function getFeatureFlags() {
+  return globalThis.FEATURE_FLAGS;
+}
+
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
 export const METADATA_FEATURE_FLAG = "metadata_modal";
+export const ENABLE_FEATURE_FLAG_PREFIX = "enable_";
+export const DISABLE_FEATURE_FLAG_PREFIX = "disable_";
 
 /**
- * Helper method to interact with feature flags.
+ * Helper method to check if a feature is enabled with feature flags.
+ *
+ * Feature flags are set for each environment in
+ * server/config/feature_flag_configs/<environment>.json
+ *
+ * Feature flags can be overridden and enabled or disabled manually
+ * by adding ?enable_<feature_name> or ?disable_<feature_name> to the URL.
+ *
+ * Example:
+ * https://datacommons.org/explore?enable_autocomplete will enable the autocomplete feature.
+ * https://datacommons.org/explore?disable_autocomplete will disable the autocomplete feature.
+ *
  * @param featureName name of feature for which we want status.
  * @returns Bool describing if the feature is enabled
  */
 export function isFeatureEnabled(featureName: string): boolean {
-  if (FEATURE_FLAGS && featureName in FEATURE_FLAGS) {
-    return FEATURE_FLAGS[featureName];
+  // Check URL params for feature flag overrides
+  const urlParams = new URLSearchParams(window.location.search);
+  const enableParam = `${ENABLE_FEATURE_FLAG_PREFIX}${featureName}`;
+  const disableParam = `${DISABLE_FEATURE_FLAG_PREFIX}${featureName}`;
+  if (urlParams.has(enableParam)) {
+    return true;
+  }
+  if (urlParams.has(disableParam)) {
+    return false;
+  }
+  const featureFlags = getFeatureFlags();
+  if (featureFlags && featureName in featureFlags) {
+    return featureFlags[featureName];
   }
   return false;
 }
