@@ -190,28 +190,8 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                     highlightPageMetadata={props.highlightPageMetadata}
                     highlightFacet={props.highlightFacet}
                     maxBlock={maxBlock}
+                    apiRoot={props.exploreContext.apiRoot}
                   />
-                )}
-                {props.highlightPageMetadata && (
-                  <div
-                    className="related-data-explore"
-                    style={{
-                      margin: "20px 0",
-                      padding: "10px",
-                      backgroundColor: "#f9f9f9",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <p
-                      style={{
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                        color: "#333",
-                      }}
-                    >
-                      Here is more related data to explore:
-                    </p>
-                  </div>
                 )}
                 <SubjectPageMainPane
                   id={PAGE_ID}

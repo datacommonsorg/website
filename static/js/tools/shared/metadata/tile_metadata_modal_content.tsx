@@ -122,7 +122,7 @@ export const TileMetadataModalContent = ({
         />
       ))}
 
-      {citationSources.length > 0 && (
+      {citationSources.length >= 0 && (
         <div
           css={css`
             padding: ${theme.spacing.xl}px 0 0 0;

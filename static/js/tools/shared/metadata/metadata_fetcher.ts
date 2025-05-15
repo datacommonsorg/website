@@ -52,7 +52,6 @@ export async function fetchMetadata(
   const statVarList: NamedNode[] = [];
   try {
     const statVars = [...statVarSet];
-    console.log("SO NOW STAT VARS", statVars);
     if (statVars.length === 0) {
       return;
     }
