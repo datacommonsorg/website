@@ -21,27 +21,21 @@
  * server/config/feature_flag_configs/<environment>.json
  *
  * Feature flags can be overridden manually through URL parameters:
- * - To enable a feature: add ?enable_<feature_name> to the URL
- * - To disable a feature: add ?disable_<feature_name> to the URL
+ * - To enable a feature or features: add ?enable_feature=<feature_name> to the URL
  *
  * Example URLs:
- * - https://datacommons.org/explore?enable_autocomplete
- * - https://datacommons.org/explore?disable_autocomplete
+ * - https://datacommons.org/explore?enable_feature=testFeature
+ * - https://datacommons.org/explore?enable_feature=testFeature&enable_feature=otherFeature
  *
  * These URL overrides take precedence over the environment-specific flag settings
  */
 import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
 
-import {
-  DISABLE_FEATURE_FLAG_PREFIX,
-  ENABLE_FEATURE_FLAG_PREFIX,
-  isFeatureEnabled,
-} from "./util";
+import { ENABLE_FEATURE_URL_PARAM, isFeatureEnabled } from "./util";
 
 describe("isFeatureEnabled", () => {
   const featureName = "testFeature";
-  const enableParam = `${ENABLE_FEATURE_FLAG_PREFIX}${featureName}`;
-  const disableParam = `${DISABLE_FEATURE_FLAG_PREFIX}${featureName}`;
+  const otherFeatureName = "otherFeature";
 
   // Store original window.location and FEATURE_FLAGS
   const originalLocation = window.location;
@@ -69,12 +63,12 @@ describe("isFeatureEnabled", () => {
 
   // Test URL parameter overrides
   test("returns true when enable param is present", () => {
-    window.location.search = `?${enableParam}`;
+    window.location.search = `?${ENABLE_FEATURE_URL_PARAM}=${featureName}`;
     expect(isFeatureEnabled(featureName)).toBe(true);
   });
 
-  test("returns false when disable param is present", () => {
-    window.location.search = `?${disableParam}`;
+  test("returns false when different URL params are present", () => {
+    window.location.search = `?${ENABLE_FEATURE_URL_PARAM}=INVALID_${featureName}`;
     expect(isFeatureEnabled(featureName)).toBe(false);
   });
 
@@ -83,9 +77,11 @@ describe("isFeatureEnabled", () => {
     expect(isFeatureEnabled(featureName)).toBe(false);
   });
 
-  test("returns false when different URL params are present", () => {
-    window.location.search = "?someOtherParam=true";
-    expect(isFeatureEnabled(featureName)).toBe(false);
+  test("returns true when multiple features are enabled", () => {
+    window.location.search = `?${ENABLE_FEATURE_URL_PARAM}=${featureName}&${ENABLE_FEATURE_URL_PARAM}=${otherFeatureName}`;
+    expect(isFeatureEnabled(featureName)).toBe(true);
+    expect(isFeatureEnabled(otherFeatureName)).toBe(true);
+    expect(isFeatureEnabled("invalidFeature")).toBe(false);
   });
 
   // Test environment-specific feature flag settings

@@ -18,10 +18,23 @@ export function getFeatureFlags() {
   return globalThis.FEATURE_FLAGS;
 }
 
+// Feature flag names
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
 export const METADATA_FEATURE_FLAG = "metadata_modal";
-export const ENABLE_FEATURE_FLAG_PREFIX = "enable_";
-export const DISABLE_FEATURE_FLAG_PREFIX = "disable_";
+
+// Feature flag URL parameters
+export const ENABLE_FEATURE_URL_PARAM = "enable_feature";
+
+/**
+ * Returns true if the feature is enabled by the URL parameter.
+ * @param featureName name of feature for which we want status.
+ * @returns true if the feature is enabled by the URL parameter, false otherwise.
+ */
+export function getFeatureOverride(featureName: string): boolean {
+  const urlParams = new URLSearchParams(window.location.search);
+  const enabledFeatures = urlParams.getAll(ENABLE_FEATURE_URL_PARAM);
+  return enabledFeatures.includes(featureName);
+}
 
 /**
  * Helper method to check if a feature is enabled with feature flags.
@@ -41,15 +54,10 @@ export const DISABLE_FEATURE_FLAG_PREFIX = "disable_";
  */
 export function isFeatureEnabled(featureName: string): boolean {
   // Check URL params for feature flag overrides
-  const urlParams = new URLSearchParams(window.location.search);
-  const enableParam = `${ENABLE_FEATURE_FLAG_PREFIX}${featureName}`;
-  const disableParam = `${DISABLE_FEATURE_FLAG_PREFIX}${featureName}`;
-  if (urlParams.has(enableParam)) {
+  if (getFeatureOverride(featureName)) {
     return true;
   }
-  if (urlParams.has(disableParam)) {
-    return false;
-  }
+  // Check if the feature flag is enabled in server config
   const featureFlags = getFeatureFlags();
   if (featureFlags && featureName in featureFlags) {
     return featureFlags[featureName];
