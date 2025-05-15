@@ -23,7 +23,8 @@
 
 # Instructions for running the script
 echo "This script will add a new feature flag to all feature flag config files except production.json."
-echo "Ensure 'jq' is installed on your system before running the script.\n"
+echo "Ensure 'jq' is installed on your system before running the script."
+echo
 
 read -p "Enter Feature Flag Name: " feature_flag_name
 read -p "Enter Feature Flag Description: " feature_flag_description
