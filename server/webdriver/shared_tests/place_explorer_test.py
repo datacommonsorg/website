@@ -482,6 +482,17 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
+  def test_place_overview_usa_summary(self):
+    """Test that the USA place page shows the correct summary text."""
+    self.driver.get(self.url_ + '/place/country/USA')
+
+    # Find the place summary text and verify it contains the expected string
+    summary_elem = find_elem(self.driver,
+                             by=By.CSS_SELECTOR,
+                             value='.place-summary')
+    self.assertIn("The United States of America is a country in North America.",
+                  summary_elem.text)
+
   def test_place_overview_zip_90003(self):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/zip/90003')
