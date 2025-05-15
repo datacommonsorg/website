@@ -22,6 +22,7 @@ import json
 import logging
 from operator import itemgetter
 import os
+import re
 import time
 from typing import Dict, List, Set
 import urllib
@@ -1051,3 +1052,56 @@ def error_response(message, status_code=400):
       "code": status_code,
   }
   return jsonify(error_response), status_code
+
+
+def add_the_if_needed(name):
+  """
+  Heuristic to determine if the name should be preceded by "the" in a sentence.
+  Used to generate the first sentence of the place summary. Works in English
+  only.
+
+  For example, "the United States" or "the United Kingdom", but not "Chicago" or "Illinois".
+
+  Args:
+    name: The name of the place
+
+  Returns:
+    The name with "the" prepended if needed, otherwise the original name.
+  """
+  needs_the = bool(
+      re.search(
+          r"\b(States|Republic|Kingdom|Emirates|Islands|Union|Federation|Netherlands|Congo)\b",
+          name))
+  return f"the {name}" if needs_the else name
+
+
+def split_camel_case(s):
+  """
+  Splits a camel case string into a list of words.
+
+  Example: "CongressionalDistrict" -> "congressional district"
+
+  Args:
+    s: The string to split
+
+  Returns:
+    A list of words
+  """
+  if not s:
+    return ""
+  parts = re.findall(r'[A-Z]?[a-z]+|[A-Z]+(?=[A-Z]|$)', s)
+  return " ".join([part.lower() for part in parts])
+
+
+def capitalize_first_letter(s):
+  """
+  Capitalizes the first letter of the given string.
+
+  Example: "the United States" -> "The United States"
+
+  Note: Python's built-in str.capitalize() method downcases everything except
+  the first letter, so it would return "The united states" in the above case.
+  """
+  if len(s) == 0:
+    return s
+  return s[0].upper() + s[1:]
