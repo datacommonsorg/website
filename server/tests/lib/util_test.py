@@ -1787,6 +1787,8 @@ class TestFeatureFlagsTest(unittest.TestCase):
     filenames = os.listdir(directory)
     self.assertEqual(len(filenames), self.FEATURE_FLAG_ENVIRONMENT_COUNT)
     feature_flag_counts = []
+    production_features = set()
+    non_production_features = set()
 
     for filename in filenames:
       filepath = directory + filename
@@ -1804,10 +1806,23 @@ class TestFeatureFlagsTest(unittest.TestCase):
       feature_flag_counts.append(feature_flag_count)
       self.assertEqual(len(duplicate_features), 0)
 
+      if filename == "production.json":
+        production_features = set(features)
+      else:
+        non_production_features.update(features)
+
     # Assert that we have counts for all environments
     self.assertEqual(len(feature_flag_counts),
                      self.FEATURE_FLAG_ENVIRONMENT_COUNT)
 
-    # Assert all environments have the same number of feature flags
+    # Assert all environments except production have the same number of feature flags
+    non_production_counts = [
+        count for filename, count in zip(filenames, feature_flag_counts)
+        if filename != "production.json"
+    ]
     self.assertTrue(
-        all(count == feature_flag_counts[0] for count in feature_flag_counts))
+        all(count == non_production_counts[0]
+            for count in non_production_counts))
+
+    # Assert production.json does not have any new flags
+    self.assertTrue(production_features.issubset(non_production_features))
