@@ -55,13 +55,14 @@ This script uploads the feature flag configuration files from the Github master 
 * This script assumes you have the Google Cloud SDK installed and configured.
 * The script expects a JSON file named `dev.json`, `staging.json`, or `production.json` in the current directory.
 * The script can be modified to upload different files or perform additional actions after the deployment.
+* The script skips the production.json file. Updates to these files cause immediate restarts to the Kubernetes pods. Production changes should be done separately.
 
 ## Adding a New Flag
 
 1. **Add flag in flag configurations**: Check the flags in the Github master branch [`server/config/feature_flag_configs`](https://github.com/datacommonsorg/website/tree/master/server/config/feature_flag_configs). The flag must be added to all environments.
     * TIP: Use [this script](https://github.com/datacommonsorg/website/tree/master/scripts/create_feature_flag.sh) to add a new flag to each config file.
     > ```
-    > ./scripts/create_feature_flag.sh <flag_name> <owner> <description>
+    > ./scripts/create_feature_flag.sh
     > ```
 2. **Define flag in server layer**: Add your flag constant to [feature_flags.py](https://github.com/datacommonsorg/website/blob/master/server/lib/feature_flags.py#L19) helper file for use in the API layer.
 3. **Define flag in client layer**: Add your flag constant to [feature_flags/util.ts](https://github.com/datacommonsorg/website/blob/master/static/js/shared/feature_flags/util.ts#L18) helper file for use in the client layer.

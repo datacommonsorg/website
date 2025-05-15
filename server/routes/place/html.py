@@ -16,21 +16,17 @@
 import json
 import logging
 import os
-import re
-import time
 from typing import List, Set
 from urllib.parse import urlencode
 
 import flask
 from flask import current_app
 from flask import g
-from flask_babel import gettext
 from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
-from server.lib.i18n_messages import get_place_type_in_parent_places_str
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
 from shared.lib.place_summaries import get_shard_filename_by_dcid
@@ -253,12 +249,6 @@ def place(place_dcid):
 
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
-  # Place summaries are currently only supported in English
-  if g.locale == DEFAULT_LOCALE:
-    place_summary = get_place_summaries(place_dcid).get(place_dcid,
-                                                        {}).get("summary", "")
-  else:
-    place_summary = ""
 
   canonical_links = get_canonical_links(place_dcid, category)
   return flask.render_template('place.html',
@@ -267,7 +257,6 @@ def place(place_dcid):
                                maps_api_key=current_app.config['MAPS_API_KEY'],
                                place_dcid=place_dcid,
                                place_name=place_name,
-                               place_summary=place_summary,
                                sample_questions=json.dumps(
                                    current_app.config.get(
                                        'HOMEPAGE_SAMPLE_QUESTIONS', [])))
