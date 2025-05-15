@@ -36,7 +36,7 @@ TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
     'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
     SKIP_CHECK, SKIP_CHECK,
-    'https://www2.census.gov/programs-surveys/popest/tables'
+    'https://www.census.gov/programs-surveys/popest.html'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
 
