@@ -50,14 +50,16 @@ describe("isFeatureEnabled", () => {
       },
       writable: true,
     });
+    // Make a copy of the original FEATURE_FLAGS object
+    globalThis.FEATURE_FLAGS = { ...originalFeatureFlags };
   });
 
   afterEach(() => {
     // Restore window.location and FEATURE_FLAGS
     Object.defineProperty(window, "location", {
       value: originalLocation,
-      writable: true,
     });
+    // Restore the original FEATURE_FLAGS object
     globalThis.FEATURE_FLAGS = originalFeatureFlags;
   });
 

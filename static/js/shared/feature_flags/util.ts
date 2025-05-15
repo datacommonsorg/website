@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-export function getFeatureFlags() {
-  return globalThis.FEATURE_FLAGS;
-}
-
 // Feature flag names
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
 export const METADATA_FEATURE_FLAG = "metadata_modal";
@@ -37,17 +33,25 @@ export function getFeatureOverride(featureName: string): boolean {
 }
 
 /**
+ * Returns the feature flags for the current environment.
+ * @returns
+ */
+export function getFeatureFlags(): Record<string, boolean> {
+  return globalThis.FEATURE_FLAGS as Record<string, boolean>;
+}
+
+/**
  * Helper method to check if a feature is enabled with feature flags.
  *
  * Feature flags are set for each environment in
  * server/config/feature_flag_configs/<environment>.json
  *
- * Feature flags can be overridden and enabled or disabled manually
- * by adding ?enable_<feature_name> or ?disable_<feature_name> to the URL.
+ * Feature flags can be overridden and enabled manually
+ * by adding ?enable_feature=<feature_name> to the URL.
  *
  * Example:
- * https://datacommons.org/explore?enable_autocomplete will enable the autocomplete feature.
- * https://datacommons.org/explore?disable_autocomplete will disable the autocomplete feature.
+ * https://datacommons.org/explore?enable_feature=autocomplete will enable the autocomplete feature.
+ * https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal will enable both the autocomplete and metadata_modal features.
  *
  * @param featureName name of feature for which we want status.
  * @returns Bool describing if the feature is enabled
