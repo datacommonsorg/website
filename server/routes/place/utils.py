@@ -15,6 +15,7 @@
 
 import asyncio
 import copy
+import logging
 import random
 import re
 from typing import Any, Callable, Dict, List, Set, Tuple
@@ -45,7 +46,6 @@ from server.routes.place.types import ServerChartConfiguration
 from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -1270,27 +1270,29 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
 
 
 def safe_obs_point(entities, variables, date=None):
-    """
+  """
     Calls dc.obs_point with error handling.
     If an error occurs, returns a dict with an empty byVariable key.
     """
-    try:
-        return dc.obs_point(entities, variables, date)
-    except Exception as e:
-        logger.error(f"Error in obs_point call: {str(e)}", exc_info=True)
-        return {
-          "byVariable": {}
-        }
+  try:
+    return dc.obs_point(entities, variables, date)
+  except Exception as e:
+    logger.error(f"Error in obs_point call: {str(e)}", exc_info=True)
+    return {"byVariable": {}}
 
-def safe_obs_point_within(ancestor_entity, descendent_type, variables, date=None, facet_ids=None):
-    """
+
+def safe_obs_point_within(ancestor_entity,
+                          descendent_type,
+                          variables,
+                          date=None,
+                          facet_ids=None):
+  """
     Calls dc.obs_point_within with error handling.
     If an error occurs, returns a dict with an empty byVariable key.
     """
-    try:
-        return dc.obs_point_within(ancestor_entity, descendent_type, variables, date, facet_ids)
-    except Exception as e:
-        logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)
-        return {
-          "byVariable": {}
-        }
+  try:
+    return dc.obs_point_within(ancestor_entity, descendent_type, variables,
+                               date, facet_ids)
+  except Exception as e:
+    logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)
+    return {"byVariable": {}}
