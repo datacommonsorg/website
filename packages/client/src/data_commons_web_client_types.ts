@@ -218,3 +218,10 @@ export interface OverviewTableDataRow {
 export interface PlaceOverviewTableApiResponse {
   data: OverviewTableDataRow[];
 }
+
+/**
+ * Website API response for /api/place/summary/<place_dcid>
+ */
+export interface PlaceSummaryApiResponse {
+  summary: string;
+}

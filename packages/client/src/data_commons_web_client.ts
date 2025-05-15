@@ -23,6 +23,7 @@ import {
   ObservationDatesApiResponse,
   PlaceChartsApiResponse,
   PlaceOverviewTableApiResponse,
+  PlaceSummaryApiResponse,
   PointApiResponse,
   RelatedPlacesApiResponse,
   SeriesApiResponse,
@@ -294,6 +295,26 @@ class DataCommonsWebClient {
     }?${queryString}`;
     const response = await fetch(url);
     return (await response.json()) as PlaceOverviewTableApiResponse;
+  }
+
+  /**
+   * Gets place summary for the given place
+   * Uses /api/place/summary/<placeDcid> endpoint
+   * @param params.placeDcid place dcid to fetch data for
+   * @param params.locale [optional] locale to fetch data for
+   */
+  async getPlaceSummary(params: {
+    placeDcid: string;
+    locale?: string;
+  }): Promise<PlaceSummaryApiResponse> {
+    const queryString = toURLSearchParams({
+      [LOCALE_PARAM]: params.locale,
+    });
+    const url = `${this.apiRoot || ""}/api/place/summary/${
+      params.placeDcid
+    }?${queryString}`;
+    const response = await fetch(url);
+    return (await response.json()) as PlaceSummaryApiResponse;
   }
 }
 
