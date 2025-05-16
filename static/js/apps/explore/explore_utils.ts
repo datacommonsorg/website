@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { BlockConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-
 /**
  * Checks if the fulfill data is valid.
  * @param fulfillData - The fulfill data to validate.
