@@ -25,7 +25,6 @@ import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
-import { block } from "sharp";
 
 import { Spinner } from "../../components/spinner";
 import {
@@ -208,7 +207,6 @@ export function App(props: AppProps): ReactElement {
     /* eslint-disable-next-line */
     fulfillData: any,
     pageMetadata: SubjectPageMetadata,
-    // setPageConfig: (config: SubjectPageMetadata) => void,
     userQuery?: string,
     isHighlight?: boolean
   ): void {
