@@ -17,7 +17,9 @@ import os
 import unittest
 from unittest import mock
 
-from server.services.datacommons import v2node
+from flask import Flask
+
+from server.services.datacommons import nl_search_vars
 from server.services.datacommons import v2node_paginated
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -167,4 +169,53 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
 
     self.assertEqual(v2node_paginated(['dc/1', 'dc/2'], '->', max_pages=3),
                      response_with_no_data_for_dcids)
+    assert mock_post.call_count == 1
+
+
+class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
+
+  def setUp(self):
+    self.app = Flask(__name__)
+    self.app.config['NL_ROOT'] = 'fake_root'
+    self.app_context = self.app.app_context()
+    self.app_context.push()
+
+  def tearDown(self):
+    self.app_context.pop()
+
+  @mock.patch('server.services.datacommons.post')
+  def test_without_skip_topics(self, mock_post):
+    idx_param = 'fake_index'
+
+    def side_effect(url, data):
+      assert url.endswith(f'/api/search_vars?idx={idx_param}')
+      self.assertEqual(data, {'queries': ['foo', 'bar']})
+      return {}
+
+    mock_post.side_effect = side_effect
+
+    nl_search_vars(
+        queries=['foo', 'bar'],
+        index_types=[idx_param],
+    )
+
+    assert mock_post.call_count == 1
+
+  @mock.patch('server.services.datacommons.post')
+  def test_with_skip_topics(self, mock_post):
+    idx_param = 'fake_index'
+
+    def side_effect(url, data):
+      assert url.endswith(f'/api/search_vars?idx={idx_param}&skip_topics=true')
+      self.assertEqual(data, {'queries': ['foo', 'bar']})
+      return {}
+
+    mock_post.side_effect = side_effect
+
+    nl_search_vars(
+        queries=['foo', 'bar'],
+        index_types=[idx_param],
+        skip_topics='true',
+    )
+
     assert mock_post.call_count == 1

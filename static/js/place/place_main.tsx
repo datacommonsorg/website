@@ -345,7 +345,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
       dcid: pageMetadata.dataset.placeDcid,
       types: [],
     });
-    setPlaceSummary(pageMetadata.dataset.placeSummary);
   }, []);
 
   /**
@@ -365,10 +364,15 @@ export const DevPlaceMain = (): React.JSX.Element => {
     (async (): Promise<void> => {
       try {
         const [
+          placeSummaryApiResponse,
           placeChartsApiResponse,
           relatedPlacesApiResponse,
           placeOverviewTableApiResponse,
         ] = await Promise.all([
+          defaultDataCommonsWebClient.getPlaceSummary({
+            locale,
+            placeDcid: place.dcid,
+          }),
           defaultDataCommonsWebClient.getPlaceCharts({
             category,
             locale,
@@ -384,6 +388,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
           }),
         ]);
         setReceivedApiResponse(true);
+        setPlaceSummary(placeSummaryApiResponse.summary);
         setPlaceChartsApiResponse(placeChartsApiResponse);
         setPlaceOverviewTableApiResponse(placeOverviewTableApiResponse);
 
