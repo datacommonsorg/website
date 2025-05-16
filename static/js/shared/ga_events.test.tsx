@@ -84,6 +84,7 @@ import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
 import {
+  GA_EVENT_STATVAR_HIERARCHY_CLICK,
   GA_EVENT_STATVAR_SEARCH_TRIGGERED,
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_EVENT_TOOL_CHART_PLOT,
@@ -92,6 +93,7 @@ import {
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
   GA_PARAM_PLACE_DCID,
   GA_PARAM_SEARCH_TERM,
+  GA_PARAM_SOURCE,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
@@ -103,6 +105,7 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
   GA_VALUE_TOOL_CHART_OPTION_SWAP,
+  GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY
 } from "./ga_events";
 import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
@@ -608,13 +611,20 @@ describe("test ga event tool stat var click", () => {
       target: { checked: true },
     });
     await waitFor(() => {
-      // Check gtag is called once.
-      expect(mockgtag.mock.calls.length).toEqual(1);
+      // Check gtag is called.
+      expect(mockgtag.mock.calls.length).toEqual(2);
+      // Check that the first event called is GA_EVENT_STATVAR_HIERARCHY_CLICK
+      expect(mockgtag.mock.calls[0]).toEqual([
+        "event",
+        GA_EVENT_STATVAR_HIERARCHY_CLICK,
+        {},
+      ]);
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
         "event",
         GA_EVENT_TOOL_STAT_VAR_CLICK,
         {
+          [GA_PARAM_SOURCE]: GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY,
           [GA_PARAM_STAT_VAR]: STAT_VAR_3,
         },
       ]);
