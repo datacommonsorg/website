@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-
 import { BlockConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 /**
  * Checks if the fulfill data is valid.
  * @param fulfillData - The fulfill data to validate.
  * @returns boolean indicating if the fulfill data is valid.
-*/
+ */
 /* eslint-disable */
 export function isFulfillDataValid(fulfillData: any): boolean {
   /* eslint-enable */
