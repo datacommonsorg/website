@@ -87,9 +87,11 @@ export interface Provenance {
  * in one of the provenance summaries of a stat var API call.
  */
 export interface SeriesKey {
-  unit?: string;
-  observationPeriod?: string;
   measurementMethod?: string;
+  observationPeriod?: string;
+  scalingFactor?: string;
+  unit?: string;
+  isDcAggregate?: boolean;
 }
 
 /**
