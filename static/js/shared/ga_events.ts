@@ -206,6 +206,20 @@ export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
  */
 export const GA_EVENT_AUTOCOMPLETE_TRIGGERED = "autocomplete_trigger";
 
+/**
+ * Triggered on start of StatVar search.
+ * Parameters: None
+ */
+export const GA_EVENT_STATVAR_SEARCH_TRIGGERED = "statvar_search_trigger";
+
+/**
+ * Triggered on selections of a StatVar search result.
+ * Parameters:
+ *    "query": <sample query>
+ *    "search_selection": <DCID of the selected search result>
+ */
+export const GA_EVENT_STATVAR_SEARCH_SELECTION = "statvar_search_select";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -225,6 +239,7 @@ export const GA_PARAM_PLACE = "place";
 export const GA_PARAM_TIMING_MS = "time_ms";
 export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
+export const GA_PARAM_SEARCH_SELECTION = "search_selection";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
