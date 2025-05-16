@@ -101,6 +101,9 @@ export function extractMetadata(
   mainPlace: any
 ): SubjectPageMetadata {
   /* eslint-enable */
+  if (!isFulfillDataValid(fulfillData)) {
+    return null;
+  }
   const relatedThings = fulfillData["relatedThings"] || {};
   const pageMetadata: SubjectPageMetadata = {
     place: mainPlace,

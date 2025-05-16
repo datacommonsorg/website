@@ -417,19 +417,23 @@ export function App(props: AppProps): ReactElement {
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
           const mainPlace = extractMainPlace(fulfillResponse);
+          let mainPageMetadata = extractMetadata(fulfillResponse, mainPlace);
+
           const highlightPageMetadataResp = extractMetadata(
             highlightResponse,
             mainPlace
           );
-          setHighlightPageMetadata(highlightPageMetadataResp);
 
-          let mainPageMetadata = extractMetadata(fulfillResponse, mainPlace);
-          mainPageMetadata = filterBlocksFromPageMetadata(
-            mainPageMetadata,
-            highlightPageMetadataResp.pageConfig.categories.flatMap(
-              (category) => category.blocks || []
-            )
-          );
+          if (highlightPageMetadataResp) {
+            setHighlightPageMetadata(highlightPageMetadataResp);
+            mainPageMetadata = filterBlocksFromPageMetadata(
+              mainPageMetadata,
+              highlightPageMetadataResp.pageConfig.categories.flatMap(
+                (category) => category.blocks || []
+              )
+            );
+          }
+
           setPageMetadata(mainPageMetadata);
           processFulfillData(fulfillResponse, mainPageMetadata, query);
         }
