@@ -69,3 +69,15 @@ This script uploads the feature flag configuration files from the Github master 
 4. **Check flag value and implement your feature**
 5. **Deploy & update GCS Flag files**: Once your code reaches production, you can enable your flags and run the script to update the GCS flag files.
 6. **Restart Kubernetes**: The script to update the GCS flag files will prompt you to restart Kubernetes, on restart the new flags will be applied and your feature will be enabled.
+
+## Manually enable feature flags
+
+Feature flags can be enabled manually on any datacommons.org page using the `enable_feature` URL parameter.
+
+For example, to enable the "autocomplete" feature:
+ - Enable: https://datacommons.org/explore?enable_feature=autocomplete
+
+To enable both the autocomplete and metadata_modal features:
+ - Disable: https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal
+ 
+These URL overrides take precedence over the environment-specific feature flag settings defined in server/config/feature_flag_configs/<environment>.json
