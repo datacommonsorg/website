@@ -84,6 +84,7 @@ import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
 import {
+  GA_EVENT_STATVAR_SEARCH_TRIGGERED,
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_EVENT_TOOL_CHART_PLOT,
   GA_EVENT_TOOL_PLACE_ADD,
@@ -696,8 +697,14 @@ describe("test ga event tool stat var search no result", () => {
       { target: { value: STAT_VAR_1 } }
     );
     await waitFor(() => {
-      // Check the gtag is called once.
-      expect(mockgtag.mock.calls.length).toEqual(1);
+      // Check the gtag is called.
+      expect(mockgtag.mock.calls.length).toEqual(2);
+      // Check that the first event is GA_EVENT_STATVAR_SEARCH_TRIGGERED
+      expect(mockgtag.mock.calls[0]).toEqual([
+        "event",
+        GA_EVENT_STATVAR_SEARCH_TRIGGERED,
+        {},
+      ]);
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
         "event",
