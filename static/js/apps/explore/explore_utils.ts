@@ -41,12 +41,8 @@ export function isFulfillDataValid(fulfillData: any): boolean {
  */
 export function filterBlocksFromPageMetadata(
   pageMetadata: SubjectPageMetadata,
-  highlightPageMetadata: SubjectPageMetadata
+  blocksToRemove: BlockConfig[]
 ): SubjectPageMetadata {
-  const blocksToRemove: BlockConfig[] =
-    highlightPageMetadata.pageConfig.categories.flatMap(
-      (category) => category.blocks
-    );
   // Filter out all blocks that exactly match the blocks in the page metadata
   // and return the new page metadata.
   const newPageMetadata = { ...pageMetadata };
@@ -76,22 +72,33 @@ export function filterBlocksFromPageMetadata(
   return newPageMetadata;
 }
 
-/* eslint-disable */
+/**
+ * Extracts the main place from the fulfill data.
+ *
+ * @param fulfillData - The fulfill data to extract from.
+ * @returns The main place extracted from the fulfill data.
+ */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function extractMainPlace(fulfillData: any): any {
+  /* eslint-enable */
+  return {
+    dcid: fulfillData["place"]["dcid"],
+    name: fulfillData["place"]["name"],
+    types: [fulfillData["place"]["place_type"]],
+  };
+}
 /**
  * Extracts the main place and metadata from the fulfill data.
  *
  * @param fulfillData - The fulfill data to extract from.
  * @returns A tuple containing the main place and metadata.
  */
-export function extractMainPlaceAndMetadata(
-    fulfillData: any
-  ): [any, SubjectPageMetadata] {
-    /* eslint-enable */
-  const mainPlace = {
-    dcid: fulfillData["place"]["dcid"],
-    name: fulfillData["place"]["name"],
-    types: [fulfillData["place"]["place_type"]],
-  };
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function extractMetadata(
+  fulfillData: any,
+  mainPlace: any
+): SubjectPageMetadata {
+  /* eslint-enable */
   const relatedThings = fulfillData["relatedThings"] || {};
   const pageMetadata: SubjectPageMetadata = {
     place: mainPlace,
@@ -108,5 +115,5 @@ export function extractMainPlaceAndMetadata(
     sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
     svSource: fulfillData["svSource"],
   };
-  return [mainPlace, pageMetadata];
+  return pageMetadata;
 }

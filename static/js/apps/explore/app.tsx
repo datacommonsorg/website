@@ -25,6 +25,7 @@ import queryString from "query-string";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
+import { block } from "sharp";
 
 import { Spinner } from "../../components/spinner";
 import {
@@ -49,6 +50,7 @@ import { useQueryStore } from "../../shared/stores/query_store_hook";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { BlockConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
@@ -61,7 +63,8 @@ import {
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import {
-  extractMainPlaceAndMetadata,
+  extractMainPlace,
+  extractMetadata,
   filterBlocksFromPageMetadata,
   isFulfillDataValid,
 } from "./explore_utils";
@@ -204,11 +207,11 @@ export function App(props: AppProps): ReactElement {
   function processFulfillData(
     /* eslint-disable-next-line */
     fulfillData: any,
-    setPageConfig: (config: SubjectPageMetadata) => void,
+    pageMetadata: SubjectPageMetadata,
+    // setPageConfig: (config: SubjectPageMetadata) => void,
     userQuery?: string,
-    isHighlight?: boolean,
-    highlightPageMetadata?: SubjectPageMetadata
-  ): SubjectPageMetadata | undefined {
+    isHighlight?: boolean
+  ): void {
     setDebugData(fulfillData["debug"]);
     setStoreDebugData(fulfillData["debug"]);
     const userMessage = {
@@ -219,19 +222,6 @@ export function App(props: AppProps): ReactElement {
       setUserMessage(userMessage);
       setLoadingStatus(LoadingStatus.FAILED);
       return;
-    }
-    const [mainPlace, pageMetadata] = extractMainPlaceAndMetadata(fulfillData);
-    let newPageMetadata = pageMetadata;
-    if (highlightPageMetadata) {
-      newPageMetadata = filterBlocksFromPageMetadata(
-        pageMetadata,
-        highlightPageMetadata
-      );
-    }
-
-    setPageConfig(newPageMetadata);
-    if (isHighlight) {
-      return pageMetadata;
     }
     let isPendingRedirect = false;
     if (
@@ -294,7 +284,7 @@ export function App(props: AppProps): ReactElement {
     savedContext.current = fulfillData["context"] || [];
     setUserMessage(userMessage);
     const queryResult = {
-      place: mainPlace,
+      place: pageMetadata.place,
       config: pageMetadata.pageConfig,
       svSource: fulfillData["svSource"],
       placeSource: fulfillData["placeSource"],
@@ -365,7 +355,10 @@ export function App(props: AppProps): ReactElement {
         urlHashParams.maxCharts
       )
         .then((resp) => {
-          processFulfillData(resp, setPageMetadata, query);
+          const mainPlace = extractMainPlace(resp);
+          const mainPageMetadata = extractMetadata(resp, mainPlace);
+          setPageMetadata(mainPageMetadata);
+          processFulfillData(resp, mainPageMetadata, query);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -425,22 +418,22 @@ export function App(props: AppProps): ReactElement {
 
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
-          let hh = undefined;
-          if (highlightResponse) {
-            hh = processFulfillData(
-              highlightResponse,
-              setHighlightPageMetadata,
-              undefined,
-              true
-            );
-          }
-          processFulfillData(
-            fulfillResponse,
-            setPageMetadata,
-            undefined,
-            false,
-            hh
+          const mainPlace = extractMainPlace(fulfillResponse);
+          const highlightPageMetadataResp = extractMetadata(
+            highlightResponse,
+            mainPlace
           );
+          setHighlightPageMetadata(highlightPageMetadataResp);
+
+          let mainPageMetadata = extractMetadata(fulfillResponse, mainPlace);
+          mainPageMetadata = filterBlocksFromPageMetadata(
+            mainPageMetadata,
+            highlightPageMetadataResp.pageConfig.categories.flatMap(
+              (category) => category.blocks || []
+            )
+          );
+          setPageMetadata(mainPageMetadata);
+          processFulfillData(fulfillResponse, mainPageMetadata, query);
         }
       );
     }
