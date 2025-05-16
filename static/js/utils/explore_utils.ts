@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { BlockConfig } from "../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../types/subject_page_types";
 
 /**

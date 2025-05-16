@@ -60,6 +60,11 @@ import {
 } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
+import {
+  extractMainPlaceAndMetadata,
+  filterBlocksFromPageMetadata,
+  isFulfillDataValid,
+} from "./explore_utils";
 import { SuccessResult } from "./success_result";
 
 enum LoadingStatus {
@@ -185,44 +190,6 @@ export function App(props: AppProps): ReactElement {
     </ThemeProvider>
   );
 
-  function isFulfillDataValid(fulfillData: any): boolean {
-    if (!fulfillData) {
-      return false;
-    }
-    const hasPlace = fulfillData["place"] && fulfillData["place"]["dcid"];
-    // Fulfill data needs to have either a place or entities
-    return hasPlace || fulfillData["entities"];
-  }
-
-  /* eslint-disable */
-  function extractMainPlaceAndMetadata(
-    fulfillData: any
-  ): [any, SubjectPageMetadata] {
-    /* eslint-enable */
-    const mainPlace = {
-      dcid: fulfillData["place"]["dcid"],
-      name: fulfillData["place"]["name"],
-      types: [fulfillData["place"]["place_type"]],
-    };
-    const relatedThings = fulfillData["relatedThings"] || {};
-    const pageMetadata: SubjectPageMetadata = {
-      place: mainPlace,
-      places: fulfillData["places"],
-      pageConfig: fulfillData["config"],
-      childPlaces: relatedThings["childPlaces"],
-      peerPlaces: relatedThings["peerPlaces"],
-      parentPlaces: relatedThings["parentPlaces"],
-      parentTopics: relatedThings["parentTopics"],
-      childTopics: relatedThings["childTopics"],
-      peerTopics: relatedThings["peerTopics"],
-      exploreMore: relatedThings["exploreMore"],
-      mainTopics: relatedThings["mainTopics"],
-      sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
-      svSource: fulfillData["svSource"],
-    };
-    return [mainPlace, pageMetadata];
-  }
-
   /**
    * Process the fulfill data from the search API response.
    *
@@ -239,8 +206,9 @@ export function App(props: AppProps): ReactElement {
     fulfillData: any,
     setPageConfig: (config: SubjectPageMetadata) => void,
     userQuery?: string,
-    isHighlight?: boolean
-  ): void {
+    isHighlight?: boolean,
+    highlightPageMetadata?: SubjectPageMetadata
+  ): SubjectPageMetadata | undefined {
     setDebugData(fulfillData["debug"]);
     setStoreDebugData(fulfillData["debug"]);
     const userMessage = {
@@ -253,6 +221,18 @@ export function App(props: AppProps): ReactElement {
       return;
     }
     const [mainPlace, pageMetadata] = extractMainPlaceAndMetadata(fulfillData);
+    let newPageMetadata = pageMetadata;
+    if (highlightPageMetadata) {
+      newPageMetadata = filterBlocksFromPageMetadata(
+        pageMetadata,
+        highlightPageMetadata
+      );
+    }
+
+    setPageConfig(newPageMetadata);
+    if (isHighlight) {
+      return pageMetadata;
+    }
     let isPendingRedirect = false;
     if (
       !isHighlight &&
@@ -312,7 +292,6 @@ export function App(props: AppProps): ReactElement {
       }
     }
     savedContext.current = fulfillData["context"] || [];
-    setPageConfig(pageMetadata);
     setUserMessage(userMessage);
     const queryResult = {
       place: mainPlace,
@@ -446,12 +425,21 @@ export function App(props: AppProps): ReactElement {
 
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
-          processFulfillData(fulfillResponse, setPageMetadata, undefined);
+          let hh = undefined;
+          if (highlightResponse) {
+            hh = processFulfillData(
+              highlightResponse,
+              setHighlightPageMetadata,
+              undefined,
+              true
+            );
+          }
           processFulfillData(
-            highlightResponse,
-            setHighlightPageMetadata,
+            fulfillResponse,
+            setPageMetadata,
             undefined,
-            true
+            false,
+            hh
           );
         }
       );
