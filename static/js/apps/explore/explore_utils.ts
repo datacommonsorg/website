@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { BlockConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
@@ -22,8 +21,10 @@ import { SubjectPageMetadata } from "../../types/subject_page_types";
  * Checks if the fulfill data is valid.
  * @param fulfillData - The fulfill data to validate.
  * @returns boolean indicating if the fulfill data is valid.
- */
+*/
+/* eslint-disable */
 export function isFulfillDataValid(fulfillData: any): boolean {
+  /* eslint-enable */
   if (!fulfillData) {
     return false;
   }
@@ -79,7 +80,7 @@ export function filterBlocksFromPageMetadata(
  * @param fulfillData - The fulfill data to extract from.
  * @returns The main place extracted from the fulfill data.
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable */
 export function extractMainPlace(fulfillData: any): any {
   /* eslint-enable */
   return {
@@ -94,7 +95,7 @@ export function extractMainPlace(fulfillData: any): any {
  * @param fulfillData - The fulfill data to extract from.
  * @returns A tuple containing the main place and metadata.
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable */
 export function extractMetadata(
   fulfillData: any,
   mainPlace: any
