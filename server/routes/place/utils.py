@@ -15,7 +15,6 @@
 
 import asyncio
 import copy
-import logging
 import random
 import re
 from typing import Any, Callable, Dict, List, Set, Tuple
@@ -46,8 +45,6 @@ from server.routes.place.types import ServerChartConfiguration
 from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
-
-logger = logging.getLogger(__name__)
 
 # Template for the first sentence in the summary
 _TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}."
@@ -241,12 +238,12 @@ async def filter_chart_config_for_data_existence(
     """Fetches and processes observation data concurrently."""
 
     current_place_obs_point_task = asyncio.to_thread(
-        safe_obs_point, [place_dcid], current_place_stat_var_dcids)
+        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids)
     child_places_obs_point_within_task = asyncio.to_thread(
-        safe_obs_point_within, place_dcid, child_place_type,
+        dc.safe_obs_point_within, place_dcid, child_place_type,
         child_places_stat_var_dcids)
     peer_places_obs_point_within_task = asyncio.to_thread(
-        safe_obs_point_within, parent_place_dcid, place_type,
+        dc.safe_obs_point_within, parent_place_dcid, place_type,
         peer_places_stat_var_dcids)
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
@@ -1267,32 +1264,3 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
 
   summary = " ".join(sentences)
   return summary
-
-
-def safe_obs_point(entities, variables, date=None):
-  """
-    Calls dc.obs_point with error handling.
-    If an error occurs, returns a dict with an empty byVariable key.
-    """
-  try:
-    return dc.obs_point(entities, variables, date)
-  except Exception as e:
-    logger.error(f"Error in obs_point call: {str(e)}", exc_info=True)
-    return {"byVariable": {}}
-
-
-def safe_obs_point_within(ancestor_entity,
-                          descendent_type,
-                          variables,
-                          date=None,
-                          facet_ids=None):
-  """
-    Calls dc.obs_point_within with error handling.
-    If an error occurs, returns a dict with an empty byVariable key.
-    """
-  try:
-    return dc.obs_point_within(ancestor_entity, descendent_type, variables,
-                               date, facet_ids)
-  except Exception as e:
-    logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)
-    return {"byVariable": {}}
