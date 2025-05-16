@@ -352,7 +352,11 @@ export class StatVarHierarchy extends React.Component<
   }
 
   // Add or remove a stat var and its path from the state.
-  private togglePath(sv: string, path?: string[], searchSelection: boolean = false): void {
+  private togglePath(
+    sv: string,
+    path?: string[],
+    searchSelection = false
+  ): void {
     if (sv in this.state.svPath) {
       const tmp = _.cloneDeep(this.state.svPath);
       delete tmp[sv];
@@ -368,8 +372,9 @@ export class StatVarHierarchy extends React.Component<
         if (sv) {
           console.log("triggering GA event");
           triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_CLICK, {
-            [GA_PARAM_SOURCE]: searchSelection ? GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH 
-            : GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY,
+            [GA_PARAM_SOURCE]: searchSelection
+              ? GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH
+              : GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY,
             [GA_PARAM_STAT_VAR]: sv,
           });
         }

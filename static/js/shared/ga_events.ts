@@ -63,10 +63,10 @@ export const GA_EVENT_TOOL_CHART_PLOT = "tool_chart_plot";
 /**
  * Event name: tool_stat_var_click
  * Triggered when: a stat var is selected in the stat var hierarchy.
- * Parameters with value: { 
+ * Parameters with value: {
  *                         source: "sv_search" | "sv_hierarchy",
  *                         stat_var: "Median_Income_Household",
- *                        }     
+ *                        }
  */
 export const GA_EVENT_TOOL_STAT_VAR_CLICK = "tool_stat_var_click";
 /**

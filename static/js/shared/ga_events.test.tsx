@@ -105,7 +105,7 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
   GA_VALUE_TOOL_CHART_OPTION_SWAP,
-  GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY
+  GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY,
 } from "./ga_events";
 import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
