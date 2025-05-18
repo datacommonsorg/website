@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
@@ -48,7 +48,7 @@ const COLORS = [
 function getSvChips(
   statVars: ContextStatVar[],
   appContext: AppContextType
-): JSX.Element {
+): ReactElement {
   return (
     <div className="timeline-chip-section">
       {statVars.map((sv, idx) => {
@@ -81,20 +81,19 @@ function groupStatVars(appContext: AppContextType): {
 } {
   const statVarInfo = {};
   appContext.statVars.forEach((sv) => (statVarInfo[sv.dcid] = sv.info));
-  const lineChartGrouping = getStatVarGroups(
+  return getStatVarGroups(
     appContext.statVars.map((sv) => sv.dcid),
     statVarInfo,
     new Set(
       appContext.statVars.filter((sv) => sv.isPerCapita).map((sv) => sv.dcid)
     )
   );
-  return lineChartGrouping;
 }
 
 function getFacetSelector(
   appContext: AppContextType,
   chartSvInfo: ContextStatVar[]
-): JSX.Element {
+): ReactElement {
   const svFacetId = {};
   chartSvInfo.forEach((sv) => {
     svFacetId[sv.dcid] = sv.facetId;
@@ -104,14 +103,13 @@ function getFacetSelector(
     appContext.places.map((place) => place.dcid),
     chartSvInfo.map((sv) => sv.dcid)
   ).then((resp) => {
-    const result = chartSvInfo.map((sv) => {
+    return chartSvInfo.map((sv) => {
       return {
         dcid: sv.dcid,
         name: sv.info.title || sv.dcid,
         metadataMap: resp[sv.dcid] || {},
       };
     });
-    return result;
   });
   const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
   const onSvFacetIdUpdated = (svFacetId: Record<string, string>): void => {
@@ -142,7 +140,7 @@ function getFacetSelector(
 function getChartArea(
   appContext: AppContextType,
   chartHeight: number
-): JSX.Element {
+): ReactElement {
   const lineChartGrouping = groupStatVars(appContext);
   return (
     <>
@@ -177,22 +175,22 @@ function getChartArea(
               },
             ];
         return (
-          <div className="chart timeline" key={chartId}>
-            {getSvChips(chartSvInfo, appContext)}
-            <LineTile
-              comparisonPlaces={appContext.places.map((place) => place.dcid)}
-              id={`vis-tool-timeline-${chartId}`}
-              title=""
-              statVarSpec={chartSvSpecs}
-              svgChartHeight={chartHeight}
-              place={appContext.places[0]}
-              colors={COLORS}
-              showTooltipOnHover={true}
-            />
-            <ChartFooter
-              inputSections={[{ inputs: chartPCInputs }]}
-              facetSelector={getFacetSelector(appContext, chartSvInfo)}
-            />
+          <div key={chartId}>
+            <div>{getFacetSelector(appContext, chartSvInfo)}</div>
+            <div className="chart timeline">
+              {getSvChips(chartSvInfo, appContext)}
+              <LineTile
+                comparisonPlaces={appContext.places.map((place) => place.dcid)}
+                id={`vis-tool-timeline-${chartId}`}
+                title=""
+                statVarSpec={chartSvSpecs}
+                svgChartHeight={chartHeight}
+                place={appContext.places[0]}
+                colors={COLORS}
+                showTooltipOnHover={true}
+              />
+              <ChartFooter inputSections={[{ inputs: chartPCInputs }]} />
+            </div>
           </div>
         );
       })}
@@ -200,7 +198,7 @@ function getChartArea(
   );
 }
 
-function getInfoContent(): JSX.Element {
+function getInfoContent(): ReactElement {
   const hideExamples = _.isEmpty(window.infoConfig["timeline"]);
   return (
     <div className="info-content">

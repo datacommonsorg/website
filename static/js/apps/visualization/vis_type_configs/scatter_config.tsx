@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
 import { FacetSelector } from "../../../shared/facet_selector";
@@ -97,7 +97,7 @@ function getDisplayInputs(appContext: AppContextType): InputInfo[] {
   ];
 }
 
-function getFacetSelector(appContext: AppContextType): JSX.Element {
+function getFacetSelector(appContext: AppContextType): ReactElement {
   const statVars = appContext.statVars.slice(0, 2);
   const svFacetId = {};
   statVars.forEach((sv) => {
@@ -147,7 +147,7 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
 function getChartArea(
   appContext: AppContextType,
   chartHeight: number
-): JSX.Element {
+): ReactElement {
   // If any svs do not allow per capita, hide the per capita inputs.
   const hidePcInputs =
     appContext.statVars.filter((sv) => !sv.info.pcAllowed).length > 0;
@@ -155,45 +155,47 @@ function getChartArea(
     (sv) => sv.info.title || sv.dcid
   );
   return (
-    <div className="chart scatter">
-      <ScatterTile
-        id="vis-tool-scatter"
-        title={
-          statVarLabels[0] +
-          " (${yDate}) vs " +
-          statVarLabels[1] +
-          " (${xDate})"
-        }
-        place={appContext.places[0]}
-        enclosedPlaceType={appContext.enclosedPlaceType}
-        statVarSpec={appContext.statVars.map((sv) =>
-          getStatVarSpec(sv, VisType.SCATTER)
-        )}
-        svgChartHeight={chartHeight}
-        scatterTileSpec={{
-          showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
-          showQuadrants: appContext.displayOptions.scatterQuadrants,
-        }}
-      />
-      <ChartFooter
-        inputSections={[
-          {
-            label: "Y-axis:",
-            inputs: getAxisInputs(0, appContext, hidePcInputs),
-          },
-          {
-            label: "X-axis:",
-            inputs: getAxisInputs(1, appContext, hidePcInputs),
-          },
-          { label: "Display:", inputs: getDisplayInputs(appContext) },
-        ]}
-        facetSelector={getFacetSelector(appContext)}
-      />
+    <div>
+      <div>{getFacetSelector(appContext)}</div>
+      <div className="chart scatter">
+        <ScatterTile
+          id="vis-tool-scatter"
+          title={
+            statVarLabels[0] +
+            " (${yDate}) vs " +
+            statVarLabels[1] +
+            " (${xDate})"
+          }
+          place={appContext.places[0]}
+          enclosedPlaceType={appContext.enclosedPlaceType}
+          statVarSpec={appContext.statVars.map((sv) =>
+            getStatVarSpec(sv, VisType.SCATTER)
+          )}
+          svgChartHeight={chartHeight}
+          scatterTileSpec={{
+            showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
+            showQuadrants: appContext.displayOptions.scatterQuadrants,
+          }}
+        />
+        <ChartFooter
+          inputSections={[
+            {
+              label: "Y-axis:",
+              inputs: getAxisInputs(0, appContext, hidePcInputs),
+            },
+            {
+              label: "X-axis:",
+              inputs: getAxisInputs(1, appContext, hidePcInputs),
+            },
+            { label: "Display:", inputs: getDisplayInputs(appContext) },
+          ]}
+        />
+      </div>
     </div>
   );
 }
 
-function getInfoContent(): JSX.Element {
+function getInfoContent(): ReactElement {
   const hideExamples = _.isEmpty(window.infoConfig["scatter"]);
   return (
     <div className="info-content">

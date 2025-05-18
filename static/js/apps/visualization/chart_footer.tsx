@@ -18,7 +18,7 @@
  * Chart Footer used for Vis tool charts
  */
 
-import React from "react";
+import React, { ReactElement, useMemo } from "react";
 import { Input } from "reactstrap";
 
 import {
@@ -36,13 +36,22 @@ export interface InputInfo {
 
 interface ChartFooterPropType {
   inputSections: { label?: string; inputs: InputInfo[] }[];
-  facetSelector: React.ReactNode;
 }
 
-export function ChartFooter(props: ChartFooterPropType): JSX.Element {
+export function ChartFooter(props: ChartFooterPropType): ReactElement {
+  const sections = useMemo(
+    () =>
+      props.inputSections.filter(
+        (section) => Array.isArray(section.inputs) && section.inputs.length > 0
+      ),
+    [props.inputSections]
+  );
+  if (sections.length === 0) {
+    return null;
+  }
   return (
     <div className="chart-footer-options">
-      {props.inputSections.map((inputSection, sectionIdx) => {
+      {sections.map((inputSection, sectionIdx) => {
         return (
           <div className="option-section" key={`section-${sectionIdx}`}>
             {inputSection.label && (
@@ -75,7 +84,6 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
           </div>
         );
       })}
-      {props.facetSelector}
     </div>
   );
 }

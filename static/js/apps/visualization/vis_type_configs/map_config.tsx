@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
@@ -36,7 +36,7 @@ import { AppContextType } from "../app_context";
 import { ChartFooter } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
 
-function getFacetSelector(appContext: AppContextType): JSX.Element {
+function getFacetSelector(appContext: AppContextType): ReactElement {
   const statVar = appContext.statVars[0];
   const svFacetId = { [statVar.dcid]: statVar.facetId };
   const facetListPromise = getFacetsWithin(
@@ -82,7 +82,7 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
 export function getChartArea(
   appContext: AppContextType,
   chartHeight: number
-): JSX.Element {
+): ReactElement {
   const perCapitaInputs = appContext.statVars[0].info.pcAllowed
     ? [
         {
@@ -101,7 +101,8 @@ export function getChartArea(
     appContext.statVars[0].info.title || appContext.statVars[0].dcid;
   const statVarSpec = getStatVarSpec(appContext.statVars[0], VisType.MAP);
   return (
-    <>
+    <div>
+      <div>{getFacetSelector(appContext)}</div>
       <div className="chart">
         <MapTile
           id="vis-tool-map"
@@ -112,10 +113,7 @@ export function getChartArea(
           title={statVarLabel + " (${date})"}
           allowZoom={true}
         />
-        <ChartFooter
-          inputSections={[{ inputs: perCapitaInputs }]}
-          facetSelector={getFacetSelector(appContext)}
-        />
+        <ChartFooter inputSections={[{ inputs: perCapitaInputs }]} />
       </div>
       <div className="chart">
         <RankingTile
@@ -141,11 +139,11 @@ export function getChartArea(
           }}
         />
       </div>
-    </>
+    </div>
   );
 }
 
-function getInfoContent(): JSX.Element {
+function getInfoContent(): ReactElement {
   const hideExamples = _.isEmpty(window.infoConfig["map"]);
   return (
     <div className="info-content">
