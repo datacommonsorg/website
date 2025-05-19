@@ -30,8 +30,8 @@ CDC_TEST_BASE_URL = os.environ.get('CDC_TEST_BASE_URL',
 print(f'Running CDC tests against base URL: {CDC_TEST_BASE_URL}')
 
 
-class CdcAutopushTestBase(WebdriverBaseTest):
-  """Base class for CDC Autopush webdriver tests."""
+class CdcTestBase(WebdriverBaseTest):
+  """Base class for CDC webdriver tests."""
   dc_title_string = "Custom Data Commons"
 
   @classmethod

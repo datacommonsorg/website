@@ -11,10 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
-    CdcAutopushTestBase
-from server.webdriver.shared_tests.ranking_test import RankingTestMixin
+
+from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
+from server.webdriver.shared_tests.download_test import DownloadTestMixin
 
 
-class TestRanking(RankingTestMixin, CdcAutopushTestBase):
-  """Class to test the ranking page for Custom DC. Tests come from RankingTestMixin."""
+class TestDownload(DownloadTestMixin, CdcTestBase):
+  """Class to test the download tool for Custom DC. Tests come from DownloadTestMixin"""

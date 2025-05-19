@@ -11,10 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
-    CdcAutopushTestBase
-from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
+
+from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
+from server.webdriver.shared_tests.place_explorer_test import \
+    PlaceExplorerTestMixin
 
 
-class TestHomepage(HomepageTestMixin, CdcAutopushTestBase):
-  """Class to test the home page for Custom DC. Tests come from HomepageTestMixin."""
+class TestPlaceExplorer(PlaceExplorerTestMixin, CdcTestBase):
+  """Class to test the place explorer page for Custom DC. Tests come from PlaceExplorerTestMixin."""
