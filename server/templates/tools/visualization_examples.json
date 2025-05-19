@@ -11,11 +11,11 @@
         "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FIND%26placeType%3DAdministrativeArea2%26sv%3D%7B\"dcid\"%3A\"DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45\"%7D"
       }]
     }, {
-      "header": "Carbon Dioxide Emissions",
+      "header": "Carbon Dioxide Emissions Per Capita",
       "preposition": "across",
       "examples": [{
         "text": "countries",
-        "url": "/tools/visualization?#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B\"dcid\"%3A\"worldBank%2FEN_ATM_CO2E_PC\"%7D"
+        "url": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B\"dcid\"%3A\"Amount_Emissions_CarbonDioxide_PerCapita\"%7D"
       }]
     }, {
       "header": "Median Age",
