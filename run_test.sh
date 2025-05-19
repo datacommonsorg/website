@@ -41,13 +41,21 @@ function start_servers() {
   }
 # On exit, assign status code to a variable and call cleanup.
   trap 'exit_with=$?; cleanup' EXIT
-  ./run_servers.sh --verbose &
+  local mode="$1" # Get the mode argument
+  if [[ "$mode" == "cdc" ]]; then
+    echo "Starting servers using run_cdc_dev.sh..."
+    startup_wait_sec=10
+    ./run_cdc_dev.sh &
+  else
+    startup_wait_sec=3
+    ./run_servers.sh --verbose &
+  fi
   # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
   # Wait a few seconds and make sure the server script subprocess hasn't failed.
   # Tests will time out eventually if health checks for website and NL servers
   # don't pass, but this is quicker if the servers fail to start up immediately.
-  sleep 3
+  sleep $startup_wait_sec
   if ! ps -p $SERVERS_PID > /dev/null; then
     echo "Server script not running after 3 seconds."
     exit 1
@@ -61,6 +69,35 @@ function stop_servers() {
     kill $SERVERS_PID
   fi
   trap - EXIT
+}
+
+# Ensures that the CDC test environment file exists, fetching it from GCP Secret Manager if not.
+function ensure_cdc_test_env_file {
+  local cdc_env_file_path="$RUN_CDC_DEV_ENV_FILE"
+  local secret_name="cdc-test-env-file"
+  local project_id="${GOOGLE_CLOUD_PROJECT:-datcom-website-dev}"
+
+  if [[ -z "$cdc_env_file_path" ]]; then
+    echo "Error: RUN_CDC_DEV_ENV_FILE is not set. Cannot ensure CDC test env file."
+    exit 1
+  fi
+
+  if [ ! -f "$cdc_env_file_path" ]; then
+    echo "File $cdc_env_file_path does not exist. Attempting to fetch from GCP Secret Manager..."
+    echo "Secret: $secret_name, Project: $project_id"
+
+    # Ensure the target directory exists
+    mkdir -p "$(dirname "$cdc_env_file_path")"
+
+    # Fetch the secret
+    if gcloud secrets versions access latest --secret="$secret_name" --project="$project_id" > "$cdc_env_file_path"; then
+      echo "Successfully fetched $cdc_env_file_path from GCP Secret Manager."
+    else
+      echo "Error: Failed to fetch $secret_name from GCP Secret Manager for project $project_id."
+      rm -f "$cdc_env_file_path" # Clean up potentially empty/partial file
+      exit 1
+    fi
+  fi
 }
 
 # Run test for client side code.
@@ -190,6 +227,34 @@ function run_webdriver_test {
   deactivate
 }
 
+# Run test for webdriver automation test codes.
+function run_cdc_webdriver_test {
+  if [ ! -d server/dist  ]
+  then
+    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    exit 1
+  fi
+  export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
+  ensure_cdc_test_env_file
+  export CDC_TEST_BASE_URL="http://localhost:8080"
+  if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
+    export FLAKE_FINDER=true
+  fi
+  start_servers "cdc"
+  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export FLASK_ENV=webdriver
+  export ENABLE_MODEL=true
+  source .env/bin/activate
+  if [[ "$FLAKE_FINDER" == "true" ]]; then
+    python3 -m pytest -n auto server/webdriver/cdc_tests/ ${@}
+  else
+    # TODO: Stop using reruns once tests are deflaked.
+    python3 -m pytest -n auto --reruns 2 server/webdriver/cdc_tests/ ${@}
+  fi
+  stop_servers
+  deactivate
+}
+
 # Run test for screenshot test codes.
 function run_screenshot_test {
   source .env/bin/activate
@@ -266,6 +331,7 @@ function help {
   echo "Usage: $0 -pwblcsaf"
   echo "-p              Run server python tests"
   echo "-w              Run webdriver tests"
+  echo "--cdc           Run Custom DC webdriver tests"
   echo "--explore       Run explore integration tests"
   echo "--nl            Run nl integration tests"
   echo "--setup_python  Setup python environment"
@@ -284,7 +350,7 @@ command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p | -w | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a)
+    -p | -w | --cdc | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a)
         if [[ -n "$command" ]]; then
             # If a command has already been set, break the loop to process it with the collected extra_args
             break
@@ -315,6 +381,10 @@ case "$command" in
   -w)
       echo -e "### Running webdriver tests"
       run_webdriver_test "${extra_args[@]}"
+      ;;
+  --cdc)
+      echo -e "### Running Custom DC webdriver tests"
+      run_cdc_webdriver_test "${extra_args[@]}"
       ;;
   --explore)
       echo --explore "### Running explore page integration tests"
