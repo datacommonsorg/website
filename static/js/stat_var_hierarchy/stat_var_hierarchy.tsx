@@ -355,7 +355,7 @@ export class StatVarHierarchy extends React.Component<
   private togglePath(
     sv: string,
     path?: string[],
-    isSearchSelection = false
+    isSearchSelection?: boolean
   ): void {
     if (sv in this.state.svPath) {
       const tmp = _.cloneDeep(this.state.svPath);
