@@ -49,6 +49,7 @@ import { useQueryStore } from "../../shared/stores/query_store_hook";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { BlockConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
@@ -60,6 +61,12 @@ import {
 } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
+import {
+  extractMainPlace,
+  extractMetadata,
+  filterBlocksFromPageMetadata,
+  isFulfillDataValid,
+} from "./explore_utils";
 import { SuccessResult } from "./success_result";
 
 enum LoadingStatus {
@@ -185,44 +192,6 @@ export function App(props: AppProps): ReactElement {
     </ThemeProvider>
   );
 
-  function isFulfillDataValid(fulfillData: any): boolean {
-    if (!fulfillData) {
-      return false;
-    }
-    const hasPlace = fulfillData["place"] && fulfillData["place"]["dcid"];
-    // Fulfill data needs to have either a place or entities
-    return hasPlace || fulfillData["entities"];
-  }
-
-  /* eslint-disable */
-  function extractMainPlaceAndMetadata(
-    fulfillData: any
-  ): [any, SubjectPageMetadata] {
-    /* eslint-enable */
-    const mainPlace = {
-      dcid: fulfillData["place"]["dcid"],
-      name: fulfillData["place"]["name"],
-      types: [fulfillData["place"]["place_type"]],
-    };
-    const relatedThings = fulfillData["relatedThings"] || {};
-    const pageMetadata: SubjectPageMetadata = {
-      place: mainPlace,
-      places: fulfillData["places"],
-      pageConfig: fulfillData["config"],
-      childPlaces: relatedThings["childPlaces"],
-      peerPlaces: relatedThings["peerPlaces"],
-      parentPlaces: relatedThings["parentPlaces"],
-      parentTopics: relatedThings["parentTopics"],
-      childTopics: relatedThings["childTopics"],
-      peerTopics: relatedThings["peerTopics"],
-      exploreMore: relatedThings["exploreMore"],
-      mainTopics: relatedThings["mainTopics"],
-      sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
-      svSource: fulfillData["svSource"],
-    };
-    return [mainPlace, pageMetadata];
-  }
-
   /**
    * Process the fulfill data from the search API response.
    *
@@ -237,7 +206,7 @@ export function App(props: AppProps): ReactElement {
   function processFulfillData(
     /* eslint-disable-next-line */
     fulfillData: any,
-    setPageConfig: (config: SubjectPageMetadata) => void,
+    pageMetadata: SubjectPageMetadata,
     userQuery?: string,
     isHighlight?: boolean
   ): void {
@@ -252,7 +221,6 @@ export function App(props: AppProps): ReactElement {
       setLoadingStatus(LoadingStatus.FAILED);
       return;
     }
-    const [mainPlace, pageMetadata] = extractMainPlaceAndMetadata(fulfillData);
     let isPendingRedirect = false;
     if (
       !isHighlight &&
@@ -312,10 +280,9 @@ export function App(props: AppProps): ReactElement {
       }
     }
     savedContext.current = fulfillData["context"] || [];
-    setPageConfig(pageMetadata);
     setUserMessage(userMessage);
     const queryResult = {
-      place: mainPlace,
+      place: pageMetadata.place,
       config: pageMetadata.pageConfig,
       svSource: fulfillData["svSource"],
       placeSource: fulfillData["placeSource"],
@@ -386,7 +353,10 @@ export function App(props: AppProps): ReactElement {
         urlHashParams.maxCharts
       )
         .then((resp) => {
-          processFulfillData(resp, setPageMetadata, query);
+          const mainPlace = extractMainPlace(resp);
+          const mainPageMetadata = extractMetadata(resp, mainPlace);
+          setPageMetadata(mainPageMetadata);
+          processFulfillData(resp, mainPageMetadata, query);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -446,13 +416,26 @@ export function App(props: AppProps): ReactElement {
 
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
-          processFulfillData(fulfillResponse, setPageMetadata, undefined);
-          processFulfillData(
+          const mainPlace = extractMainPlace(fulfillResponse);
+          let mainPageMetadata = extractMetadata(fulfillResponse, mainPlace);
+
+          const highlightPageMetadataResp = extractMetadata(
             highlightResponse,
-            setHighlightPageMetadata,
-            undefined,
-            true
+            mainPlace
           );
+
+          if (highlightPageMetadataResp) {
+            setHighlightPageMetadata(highlightPageMetadataResp);
+            mainPageMetadata = filterBlocksFromPageMetadata(
+              mainPageMetadata,
+              highlightPageMetadataResp.pageConfig.categories.flatMap(
+                (category) => category.blocks || []
+              )
+            );
+          }
+
+          setPageMetadata(mainPageMetadata);
+          processFulfillData(fulfillResponse, mainPageMetadata, query);
         }
       );
     }

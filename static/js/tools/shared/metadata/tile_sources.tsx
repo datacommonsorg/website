@@ -68,8 +68,10 @@ export function TileSources(props: {
   const allowNewMetadataModal = isFeatureEnabled(METADATA_FEATURE_FLAG);
 
   const sourceList: string[] = facets
-    ? Object.values(facets).map((facet) => facet.provenanceUrl)
-    : Array.from(sources);
+    ? Array.from(
+        new Set(Object.values(facets).map((facet) => facet.provenanceUrl))
+      )
+    : Array.from(new Set(sources));
   //const seenSourceText = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
     // HACK for updating source for NL interface

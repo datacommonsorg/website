@@ -60,6 +60,9 @@ export function getTopics(
           [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_TOPIC,
           [URL_HASH_PARAMS.STAT_VAR]: "",
           [URL_HASH_PARAMS.CHART_TYPE]: "",
+          [URL_HASH_PARAMS.IMPORT_NAME]: "",
+          [URL_HASH_PARAMS.MEASUREMENT_METHOD]: "",
+          [URL_HASH_PARAMS.UNIT]: "",
         })}`,
       });
     }
