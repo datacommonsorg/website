@@ -240,7 +240,7 @@ async def filter_chart_config_for_data_existence(
     current_place_obs_point_task = asyncio.to_thread(
         dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids)
     child_places_obs_point_within_task = asyncio.to_thread(
-        dc.safe_obs_point_within, place_dcid, child_place_type,
+        dc.obs_point_within, place_dcid, child_place_type,
         child_places_stat_var_dcids)
     peer_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, parent_place_dcid, place_type,

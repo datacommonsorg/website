@@ -600,6 +600,10 @@ class PlaceExplorerTestMixin():
     wait_for_text(self.driver, "No data found for Tulum.", By.CSS_SELECTOR,
                   '.page-content-container')
 
+    # Assert text Place in Tulum Municipality is present
+    wait_for_text(self.driver, "Place in Tulum Municipality", By.CSS_SELECTOR,
+                  '.page-content-container .subheader')
+
   @pytest.mark.skip(reason="Fix theme compile error before re-enabling")
   def test_place_ai_spark_icon_hover(self):
     self.driver.get(self.url_ + '/place/geoId/04')

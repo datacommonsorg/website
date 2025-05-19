@@ -517,7 +517,7 @@ def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
   return post(url, req)
 
 
-def safe_obs_point(entities, variables, date=None):
+def safe_obs_point(entities, variables, date='LATEST'):
   """
     Calls obs_point with error handling.
     If an error occurs, returns a dict with an empty byVariable key.
@@ -529,17 +529,17 @@ def safe_obs_point(entities, variables, date=None):
     return {"byVariable": {}}
 
 
-def safe_obs_point_within(ancestor_entity,
-                          descendent_type,
+def safe_obs_point_within(parent_entity,
+                          child_type,
                           variables,
-                          date=None,
+                          date='LATEST',
                           facet_ids=None):
   """
-    Calls obs_point_within with error handling.
-    If an error occurs, returns a dict with an empty byVariable key.
-    """
+  Calls obs_point_within with error handling.
+  If an error occurs, returns a dict with an empty byVariable key.
+  """
   try:
-    return obs_point_within(ancestor_entity, descendent_type, variables, date,
+    return obs_point_within(parent_entity, child_type, variables, date,
                             facet_ids)
   except Exception as e:
     logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)
