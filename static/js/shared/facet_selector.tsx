@@ -38,9 +38,10 @@ const MINUS_HTML = <i className="material-icons">remove</i>;
 const PLUS_HTML = <i className="material-icons">add</i>;
 const SELECTOR_PREFIX = "source-selector";
 const MAX_FACETS_UNGROUPED = 3;
-// Best Available means the facet is picked by the API and different facets
-// can be used for different data points.
-const EMPTY_METADATA_TITLE = "Best Available";
+// The "EMPTY_METADATA_TITLE" option means the facet is picked by the API and
+// different facets can be used for different data points.
+const EMPTY_METADATA_TITLE =
+  "Plot data points by combining data from the datasets listed below for maximal coverage";
 
 // The information needed in SourceSelector component for a single stat var to
 // get the list of available facets
