@@ -28,7 +28,13 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import React, { Fragment, ReactElement, ReactNode, useMemo } from "react";
+import React, {
+  Fragment,
+  ReactElement,
+  ReactNode,
+  useMemo,
+  useRef,
+} from "react";
 
 import { intl } from "../../../i18n/i18n";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
@@ -54,6 +60,9 @@ export const TileMetadataModalContent = ({
   apiRoot,
 }: TileMetadataModalContentProps): ReactElement => {
   const theme = useTheme();
+
+  const scrollToCitation = useRef<HTMLHeadingElement | null>(null);
+  const scrollToTop = useRef<HTMLHeadingElement | null>(null);
 
   const citationParts = useMemo(
     () => buildCitationParts(statVars, metadataMap),
@@ -133,6 +142,9 @@ export const TileMetadataModalContent = ({
                 ${theme.typography.heading.xs}
                 margin: 0 0 ${theme.spacing.sm}px 0;
                 padding: 0 0 0 0;
+                ${statVars.length > 4
+                  ? "display: flex; justify-content: space-between;"
+                  : ""}
               }
               p {
                 ${theme.typography.family.text}
@@ -147,8 +159,21 @@ export const TileMetadataModalContent = ({
             }
           `}
         >
-          <h3>
+          <h3 ref={scrollToCitation} id="citation">
             {intl.formatMessage(metadataComponentMessages.SourceAndCitation)}
+            {statVars.length > 4 && (
+              <p>
+                <a
+                  href="#top"
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                    e.preventDefault();
+                    scrollToTop.current?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Jump to Top
+                </a>
+              </p>
+            )}
           </h3>
           <p>
             {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}

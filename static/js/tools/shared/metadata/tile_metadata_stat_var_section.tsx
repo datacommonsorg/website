@@ -67,6 +67,9 @@ export const TileMetadataStatVarSection = ({
 
   const ContentWrapper = styled.div`
     && {
+      display: flex;
+      flex-direction: column;
+      gap: ${theme.spacing.xs}px;
       h4 {
         ${theme.typography.family.text}
         ${theme.typography.text.md}
@@ -78,6 +81,7 @@ export const TileMetadataStatVarSection = ({
         ${theme.typography.text.md}
               white-space: pre-wrap;
         word-break: break-word;
+        margin: 0;
       }
       a {
         white-space: pre-wrap;
@@ -95,24 +99,37 @@ export const TileMetadataStatVarSection = ({
         && > h3 {
           ${theme.typography.family.text}
           ${theme.typography.text.lg}
-              display: block;
+          ${metadataList.length > 1
+            ? "display: flex; justify-content: space-between;"
+            : "display: block;"}
           padding: 0 0 ${theme.spacing.sm}px 0;
           margin: 0 0 ${theme.spacing.md}px 0;
           border-bottom: 1px solid ${theme.colors.border.primary.light};
         }
       `}
     >
-      <h3> {statVar.name} </h3>
+      <h3>
+        {statVar.name}
+        {metadataList.length > 1 && (
+          <small
+            css={css`
+              ${theme.typography.family.text}
+              ${theme.typography.text.md}
+            `}
+          >
+            {metadataList.length} Sources
+          </small>
+        )}
+      </h3>
 
       <div
         css={css`
           display: flex;
           flex-direction: column;
-          gap: ${theme.spacing.md}px;
           margin-top: ${theme.spacing.md}px;
         `}
       >
-        {metadataList.map((metadata) => {
+        {metadataList.map((metadata, index) => {
           let sourceUrl: string = metadata.provenanceUrl;
           if (metadata.provenanceUrl) {
             sourceUrl = prepareSourceUrl(metadata.provenanceUrl);
@@ -139,12 +156,21 @@ export const TileMetadataStatVarSection = ({
           const measurementMethodSpan = optionalFieldsCount % 2 === 0;
 
           return (
-            <div key={`${metadata.statVarId}-${metadata.provenanceName}`}>
+            <div
+              key={`${metadata.statVarId}-${metadata.provenanceName}`}
+              css={css`
+                ${metadataList.length > 1
+                  ? index % 2 === 1
+                    ? `padding: ${theme.spacing.md}px;`
+                    : `padding: ${theme.spacing.md}px; background-color: ${theme.colors.background.secondary.light};`
+                  : `padding: 0;`}
+              `}
+            >
               <div
                 css={css`
                   display: grid;
                   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-                  gap: 0 ${theme.spacing.lg}px;
+                  gap: ${theme.spacing.md}px ${theme.spacing.lg}px;
                   @media (max-width: ${theme.breakpoints.sm}px) {
                     grid-template-columns: minmax(0, 1fr);
                   }
@@ -152,6 +178,13 @@ export const TileMetadataStatVarSection = ({
               >
                 <ContentWrapper>
                   <h4>{intl.formatMessage(messages.source)}</h4>
+                  {(metadata.sourceName || metadata.provenanceName) && (
+                    <p>
+                      {[metadata.sourceName, metadata.provenanceName]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </p>
+                  )}
                   {metadata.provenanceUrl && (
                     <p>
                       <a
@@ -185,20 +218,16 @@ export const TileMetadataStatVarSection = ({
                       </a>
                     </p>
                   )}
-                  {(metadata.sourceName || metadata.provenanceName) && (
-                    <p>
-                      {[metadata.sourceName, metadata.provenanceName]
-                        .filter(Boolean)
-                        .join(", ")}
-                    </p>
-                  )}
                 </ContentWrapper>
 
                 <ContentWrapper>
                   <h4>
-                    {intl.formatMessage(metadataComponentMessages.DCID)} /{" "}
-                    {intl.formatMessage(metadataComponentMessages.Topic)}
+                    {intl.formatMessage(metadataComponentMessages.Topic)}/{" "}
+                    {intl.formatMessage(metadataComponentMessages.DCID)}
                   </h4>
+                  {metadata.categories && metadata.categories.length > 0 && (
+                    <p>{metadata.categories.join(", ")}</p>
+                  )}
                   <p>
                     <a
                       href={
@@ -212,9 +241,6 @@ export const TileMetadataStatVarSection = ({
                       {statVar.dcid}
                     </a>
                   </p>
-                  {metadata.categories && metadata.categories.length > 0 && (
-                    <p>{metadata.categories.join(", ")}</p>
-                  )}
                 </ContentWrapper>
 
                 {hasDateRange && (
