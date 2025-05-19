@@ -244,8 +244,10 @@ def place(place_dcid):
 
   if should_redirect:
     redirect_args['place_dcid'] = place_dcid
-    return flask.redirect(flask.url_for('place.place', **redirect_args),
-                          code=301)
+    url = flask.url_for('place.place',
+                        **redirect_args,
+                        scheme=current_app.config.get('SCHEME', 'https'))
+    return flask.redirect(url, code=301)
 
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
