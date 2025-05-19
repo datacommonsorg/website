@@ -11,7 +11,7 @@
         "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FIND%26placeType%3DAdministrativeArea2%26sv%3D%7B\"dcid\"%3A\"DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45\"%7D"
       }]
     }, {
-      "header": "Carbon Dioxide Emissions Per Capita",
+      "header": "Carbon Dioxide Emissions",
       "preposition": "across",
       "examples": [{
         "text": "countries",
