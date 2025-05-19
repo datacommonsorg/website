@@ -347,7 +347,7 @@ export class StatVarHierarchy extends React.Component<
         searchSelectionCleared,
         expandedPath: searchSelectionCleared ? this.state.focusPath : [],
       });
-      this.togglePath(selection, path, true);
+      this.togglePath(selection, path, /*isSearchSelection=*/ true);
     });
   }
 
@@ -355,7 +355,7 @@ export class StatVarHierarchy extends React.Component<
   private togglePath(
     sv: string,
     path?: string[],
-    searchSelection = false
+    isSearchSelection: boolean = false
   ): void {
     if (sv in this.state.svPath) {
       const tmp = _.cloneDeep(this.state.svPath);
@@ -367,12 +367,10 @@ export class StatVarHierarchy extends React.Component<
     } else {
       if (this.props.selectSV) {
         this.props.selectSV(sv);
-        console.log("Stat var selected: ", sv);
         // Trigger GA event if sv is not empty
         if (sv) {
-          console.log("triggering GA event");
           triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_CLICK, {
-            [GA_PARAM_SOURCE]: searchSelection
+            [GA_PARAM_SOURCE]: isSearchSelection
               ? GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH
               : GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY,
             [GA_PARAM_STAT_VAR]: sv,
