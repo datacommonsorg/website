@@ -17,6 +17,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import find_elem
 import server.webdriver.shared as shared
 
 TIMELINE_URL = '/tools/visualization#visType=timeline'
@@ -219,3 +220,38 @@ class VisTimelineTestMixin():
     self.assertEqual(len(charts), 1)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 3)
+
+  def test_select_different_facet(self):
+    """Test selecting a different facet of the metadata and verify the line changes."""
+    self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
+
+    # Wait until the chart has loaded
+    shared.wait_for_loading(self.driver)
+
+    original_source_text = find_elem(self.driver, value='source-links').text
+
+    # Click on the button to open the source selector modal
+    find_elem(self.driver, 'source-selector-open-modal-button').click()
+
+    shared.wait_for_loading(self.driver)
+
+    first_source_title = find_elems(self.driver, value='source-selector-trigger-title')[0]
+    self.assertIsNotNone(first_source_title)
+    first_source_title.click()
+
+    # Find the div that contains the text "OECD" and click on it
+    oecd_option = find_elem(self.driver, by=By.XPATH,
+    value='//div[contains(@class, "source-selector-option-title") and contains(text(), "OECD")]'
+    )
+    oecd_option.click()
+
+    # Click the modal-footer button to apply the changes
+    modal_footer_button = find_element(self.driver, value='modal-footer')
+    modal_footer_button.click()
+
+    # Wait for the chart to reload
+    shared.wait_for_loading(self.driver)
+
+    # Verify the source text has changed
+    updated_source_text = find_elem(self.driver, value='source-links').text
+    self.assertNotEqual(original_source_text, updated_source_text)
