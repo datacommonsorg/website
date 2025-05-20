@@ -50,6 +50,17 @@ steps:
       - |
         ./run_test.sh -w
 
+  # Run the Custom DC webdriver tests
+  - id: flask_cdc_webdriver_test
+    name: gcr.io/datcom-ci/full-env:2025-05-20
+    entrypoint: /bin/sh
+    waitFor: ["package_js", "setup_python"]
+    args:
+      - -c
+      - |
+        git submodule update --init --recursive
+        ./run_test.sh --cdc
+
 timeout: 1800s # 30 minutes
 
 options:
