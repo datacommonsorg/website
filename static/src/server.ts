@@ -20,6 +20,7 @@ import _ from "lodash";
 import sharp from "sharp";
 
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
+import type {} from "../js/theme/emotion";
 import {
   EventTypeSpec,
   TileConfig,
@@ -44,6 +45,7 @@ import {
 } from "../nodejs_server/tiles/scatter_tile";
 import { decompressChartProps } from "../nodejs_server/tiles/utils";
 import { TileResult } from "../nodejs_server/types";
+import type {} from "./types/react-inert";
 
 const app = express();
 const APP_CONFIGS = {
@@ -309,6 +311,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const wantRelatedQuestions =
     req.query.relatedQuestions === URL_PARAM_VALUE_TRUTHY;
   const idx = (req.query.idx as string) || "";
+  const detector = (req.query.detector as string) || "";
   getQueryResult(
     query,
     useChartUrl,
@@ -320,6 +323,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
     mode,
     varThreshold,
     wantRelatedQuestions,
+    detector,
     idx
   ).then((result) => {
     res.setHeader("Content-Type", "application/json");

@@ -18,6 +18,19 @@
  * The interface for the default Emotion theme for Data Commons
  */
 
+export interface TextVariant {
+  fontSize: string;
+  lineHeight: string;
+  fontWeight: number;
+  [key: string]:
+    | string
+    | number
+    | {
+        fontSize?: string;
+        lineHeight?: string;
+      };
+}
+
 export interface Theme {
   breakpoints: {
     xs: number;
@@ -137,6 +150,11 @@ export interface Theme {
         tag: string;
         pill: string;
       };
+      tooltip: {
+        text: string;
+        tag: string;
+        pill: string;
+      };
     };
     link?: {
       primary?: {
@@ -160,150 +178,36 @@ export interface Theme {
     family: {
       text: {
         fontFamily: string;
-        fontDisplay: string;
         fontStyle: string;
       };
       heading: {
         fontFamily: string;
-        fontDisplay: string;
         fontStyle: string;
       };
       extra?: {
         fontFamily: string;
-        fontDisplay: string;
         fontStyle: string;
       };
       code?: {
         fontFamily: string;
-        fontDisplay: string;
         fontStyle: string;
       };
     };
     // Text Variants
     text: {
-      xs: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
-      sm: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
-      md: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
-      lg: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
-      xl: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
+      xs: TextVariant;
+      sm: TextVariant;
+      md: TextVariant;
+      lg: TextVariant;
+      xl: TextVariant;
     };
     // heading Variants
     heading: {
-      xs: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
-      sm: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
-      md: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
-      lg: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
-      xl: {
-        fontSize: string;
-        lineHeight: string;
-        fontWeight: number;
-        [key: string]:
-          | string
-          | number
-          | {
-              fontSize?: string;
-              lineHeight?: string;
-            };
-      };
+      xs: TextVariant;
+      sm: TextVariant;
+      md: TextVariant;
+      lg: TextVariant;
+      xl: TextVariant;
     };
   };
   box: {
@@ -338,6 +242,60 @@ export interface Theme {
           };
     };
   };
+  button: {
+    type: {
+      primary?: {
+        backgroundColor: string;
+        color: string;
+        border: string;
+        [key: string]:
+          | string
+          | number
+          | {
+              backgroundColor: string;
+              color: string;
+              border: string;
+            };
+      };
+      secondary?: {
+        backgroundColor: string;
+        color: string;
+        border: string;
+        [key: string]:
+          | string
+          | number
+          | {
+              backgroundColor: string;
+              color: string;
+              border: string;
+            };
+      };
+      tertiary?: {
+        backgroundColor: string;
+        color: string;
+        border: string;
+        [key: string]:
+          | string
+          | number
+          | {
+              backgroundColor: string;
+              color: string;
+              border: string;
+            };
+      };
+    };
+    size: {
+      sm?: {
+        padding: string;
+      };
+      md?: {
+        padding: string;
+      };
+      lg?: {
+        padding: string;
+      };
+    };
+  };
   elevation: {
     none: {
       boxShadow: string;
@@ -362,5 +320,18 @@ export interface Theme {
     secondary: {
       borderRadius: string;
     };
+    tertiary: {
+      borderRadius: string;
+    };
+    quaternary: {
+      borderRadius: string;
+    };
+  };
+  zIndex: {
+    tooltip: number;
+    dialog: number;
+  };
+  tooltip: {
+    width?: string;
   };
 }

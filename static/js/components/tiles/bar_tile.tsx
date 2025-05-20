@@ -24,7 +24,13 @@ import {
   ChartSortOption,
 } from "@datacommonsorg/web-components";
 import _ from "lodash";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint } from "../../chart/base";
@@ -39,7 +45,13 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { PLACE_TYPES } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
-import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
+import {
+  PointApiResponse,
+  SeriesApiResponse,
+  StatMetadata,
+} from "../../shared/stat_types";
+import { StatVarFacetMap } from "../../shared/types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
@@ -113,6 +125,8 @@ interface BarTileSpecificSpec {
   subscribe?: string;
   // Optional: Disable the entity href link for this component
   disableEntityLink?: boolean;
+  // Metadata for the facet to highlight.
+  highlightFacet?: FacetMetadata;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -121,7 +135,12 @@ export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
 
 export interface BarChartData {
   dataGroup: DataGroup[];
+  // A set of string sources (URLs)
   sources: Set<string>;
+  // A full set of the facets used within the chart
+  facets: Record<string, StatMetadata>;
+  // A mapping of which stat var used which facets
+  statVarToFacets: StatVarFacetMap;
   unit: string;
   dateRange: string;
   props: BarTilePropType;
@@ -133,7 +152,7 @@ export interface BarChartData {
   dateOverride?: string;
 }
 
-export function BarTile(props: BarTilePropType): JSX.Element {
+export function BarTile(props: BarTilePropType): ReactElement {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [dateOverride, setDateOverride] = useState(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
@@ -207,6 +226,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       isLoading={isLoading}
       replacementStrings={getReplacementStrings(barChartData)}
       sources={props.sources || (barChartData && barChartData.sources)}
+      facets={barChartData?.facets}
+      statVarToFacets={barChartData?.statVarToFacets}
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.variables}
@@ -300,11 +321,24 @@ export const fetchData = async (
   let denomPromise: Promise<SeriesApiResponse>;
   let filterPromise: Promise<PointApiResponse>;
   if ("places" in props && !_.isEmpty(props.places)) {
-    statPromise = getPoint(apiRoot, props.places, statSvs, date, [statSvs]);
-    filterPromise = getPoint(apiRoot, props.places, [FILTER_STAT_VAR], "");
+    statPromise = getPoint(
+      apiRoot,
+      props.places,
+      statSvs,
+      date,
+      [statSvs],
+      props.highlightFacet
+    );
+    filterPromise = getPoint(
+      apiRoot,
+      props.places,
+      [FILTER_STAT_VAR],
+      "",
+      undefined
+    );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
-      : getSeries(apiRoot, props.places, denomSvs);
+      : getSeries(apiRoot, props.places, denomSvs, []);
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     statPromise = getPointWithin(
       apiRoot,
@@ -415,6 +449,8 @@ function rawToChart(
   const raw = _.cloneDeep(statData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
+  const facets: Record<string, StatMetadata> = {};
+  const statVarToFacets: StatVarFacetMap = {};
   // Track original order of stat vars in props, to maintain 1:1 pairing of
   // colors to stat var labels even after sorting
   const statVarOrder = props.variables.map(
@@ -431,7 +467,9 @@ function rawToChart(
       if (!raw.data[statVar] || _.isEmpty(raw.data[statVar][placeDcid])) {
         continue;
       }
-      const stat = raw.data[statVar][placeDcid];
+      const stat = Array.isArray(raw.data[statVar][placeDcid])
+        ? raw.data[statVar][placeDcid][0]
+        : raw.data[statVar][placeDcid];
       const dataPoint = {
         label: statVarNames[statVar],
         value: stat.value || 0,
@@ -441,6 +479,11 @@ function rawToChart(
       dates.add(stat.date);
       if (raw.facets[stat.facet]) {
         sources.add(raw.facets[stat.facet].provenanceUrl);
+        facets[stat.facet] = raw.facets[stat.facet];
+        if (!statVarToFacets[statVar]) {
+          statVarToFacets[statVar] = new Set();
+        }
+        statVarToFacets[statVar].add(stat.facet);
       }
       if (spec.denom) {
         const denomInfo = getDenomInfo(spec, denomData, placeDcid, stat.date);
@@ -521,6 +564,8 @@ function rawToChart(
   return {
     dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
+    facets,
+    statVarToFacets,
     dateRange: getDateRange(Array.from(dates)),
     unit,
     props,

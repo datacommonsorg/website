@@ -15,10 +15,10 @@
  */
 
 import { PointApiResponse } from "@datacommonsorg/client";
-import React from "react";
+import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
-import { StyleSheetManager } from "styled-components";
 
+import { WrappedTile } from "../js/utils/wrapped_tile";
 import {
   DEFAULT_API_ENDPOINT,
   MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
@@ -68,7 +68,7 @@ export function convertBooleanAttribute(attributeValue: string): boolean {
  * @returns HTML Element containing the tile wrapped as a web component
  */
 export function createWebComponentElement(
-  tile: (props: any) => JSX.Element,
+  tile: (props: any) => ReactElement,
   tileProps: any
 ): HTMLDivElement {
   const container = document.createElement("div");
@@ -88,14 +88,10 @@ export function createWebComponentElement(
 
   // Create mount point and render tile in it
   const mountPoint = document.createElement("div");
-  const tileElement = React.createElement(tile, tileProps);
-  // Wrap tile in a StyleSheetManager to support styled-components styles
-  const wrappedTileElement = React.createElement(
-    StyleSheetManager,
-    { target: styleHost },
-    tileElement
+  ReactDOM.render(
+    React.createElement(WrappedTile, { Tile: tile, tileProps, styleHost }),
+    mountPoint
   );
-  ReactDOM.render(wrappedTileElement, mountPoint);
   container.appendChild(mountPoint);
 
   return container;
