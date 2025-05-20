@@ -63,7 +63,10 @@ export const GA_EVENT_TOOL_CHART_PLOT = "tool_chart_plot";
 /**
  * Event name: tool_stat_var_click
  * Triggered when: a stat var is selected in the stat var hierarchy.
- * Parameters with value: { stat_var: "Median_Income_Household" }
+ * Parameters with value: {
+ *                         source: "sv_search" | "sv_hierarchy",
+ *                         stat_var: "Median_Income_Household",
+ *                        }
  */
 export const GA_EVENT_TOOL_STAT_VAR_CLICK = "tool_stat_var_click";
 /**
@@ -206,6 +209,26 @@ export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
  */
 export const GA_EVENT_AUTOCOMPLETE_TRIGGERED = "autocomplete_trigger";
 
+/**
+ * Triggered on start of StatVar search.
+ * Parameters: None
+ */
+export const GA_EVENT_STATVAR_SEARCH_TRIGGERED = "statvar_search_trigger";
+
+/**
+ * Triggered on selections of a StatVar search result.
+ * Parameters:
+ *    "query": <sample query>
+ *    "search_selection": <DCID of the selected search result>
+ */
+export const GA_EVENT_STATVAR_SEARCH_SELECTION = "statvar_search_select";
+
+/**
+ * Triggered when any node on the StatVar hierarchy is clicked.
+ * Parameters: None
+ */
+export const GA_EVENT_STATVAR_HIERARCHY_CLICK = "statvar_hierarchy_click";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -225,6 +248,7 @@ export const GA_PARAM_PLACE = "place";
 export const GA_PARAM_TIMING_MS = "time_ms";
 export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
+export const GA_PARAM_SEARCH_SELECTION = "search_selection";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -255,3 +279,5 @@ export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
 export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
 export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
+export const GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY = "sv_hierarchy";
+export const GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH = "sv_search";

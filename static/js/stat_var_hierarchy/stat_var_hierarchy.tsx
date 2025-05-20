@@ -27,7 +27,10 @@ import React from "react";
 import { Context } from "../shared/context";
 import {
   GA_EVENT_TOOL_STAT_VAR_CLICK,
+  GA_PARAM_SOURCE,
   GA_PARAM_STAT_VAR,
+  GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY,
+  GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH,
   triggerGAEvent,
 } from "../shared/ga_events";
 import {
@@ -344,12 +347,16 @@ export class StatVarHierarchy extends React.Component<
         searchSelectionCleared,
         expandedPath: searchSelectionCleared ? this.state.focusPath : [],
       });
-      this.togglePath(selection, path);
+      this.togglePath(selection, path, /*isSearchSelection=*/ true);
     });
   }
 
   // Add or remove a stat var and its path from the state.
-  private togglePath(sv: string, path?: string[]): void {
+  private togglePath(
+    sv: string,
+    path?: string[],
+    isSearchSelection?: boolean
+  ): void {
     if (sv in this.state.svPath) {
       const tmp = _.cloneDeep(this.state.svPath);
       delete tmp[sv];
@@ -360,9 +367,15 @@ export class StatVarHierarchy extends React.Component<
     } else {
       if (this.props.selectSV) {
         this.props.selectSV(sv);
-        triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_CLICK, {
-          [GA_PARAM_STAT_VAR]: sv,
-        });
+        // Trigger GA event if sv is not empty
+        if (sv) {
+          triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_CLICK, {
+            [GA_PARAM_SOURCE]: isSearchSelection
+              ? GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH
+              : GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY,
+            [GA_PARAM_STAT_VAR]: sv,
+          });
+        }
       }
       const svPath = RADIO_BUTTON_TYPES.has(this.props.type)
         ? { [sv]: path }

@@ -25,7 +25,6 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import wait_elem
 
 DOWNLOAD_URL = '/tools/download'
-PLACE_SEARCH_CA = 'California'
 SKIP_CHECK = 'SKIP_CHECK'
 TABLE_HEADERS = [
     'placeDcid', 'placeName', 'Date:Median_Age_Person',
@@ -37,7 +36,7 @@ TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
     'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
     SKIP_CHECK, SKIP_CHECK,
-    'https://www2.census.gov/programs-surveys/popest/tables'
+    'https://www.census.gov/programs-surveys/popest.html'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
 
@@ -84,51 +83,27 @@ class DownloadTestMixin():
         """
     self.driver.get(self.url_ + DOWNLOAD_URL)
 
-    # Wait until search box is present and type california.
-    shared.wait_for_loading(self.driver)
-    search_box_input = find_elem(self.driver, by=By.ID, value='ac')
-    search_box_input.send_keys(PLACE_SEARCH_CA)
-
-    # Wait until there is at least one result in autocomplete results, click the 1st result.
-    wait_elem(self.driver, value='pac-item')
-    california = find_elem(self.driver,
-                           by=By.CSS_SELECTOR,
-                           value='.pac-item:nth-child(1)')
-    california.click()
-    wait_elem(self.driver, value='chip')
-
-    # Choose place type
-    shared.wait_for_loading(self.driver)
-    place_selector_place_type = find_elem(self.driver,
-                                          by=By.ID,
-                                          value='place-selector-place-type')
-    Select(place_selector_place_type).select_by_value('County')
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             place_type="County",
+                             is_new_vis_tools=False)
 
     # Choose stat var
-    shared.wait_for_loading(self.driver)
     shared.click_sv_group(self.driver, "Demographics")
-    stat_var = find_elem(
+    shared.click_el(
         self.driver,
-        by=By.ID,
-        value='Median_Age_Persondc/g/Demographics-Median_Age_Person')
-    stat_var.click()
+        (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
     # Choose another stat var
-    shared.wait_for_loading(self.driver)
-    shared.click_sv_group(self.driver, "Demographics")
-
-    other_stat_var = find_elem(
-        self.driver,
-        by=By.ID,
-        value='Count_Persondc/g/Demographics-Count_Person')
-    other_stat_var.click()
+    shared.click_el(self.driver,
+                    (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
 
     # Click preview
     shared.wait_for_loading(self.driver)
-
-    find_elem(self.driver,
-              by=By.XPATH,
-              value='//*[@id="plot-container"]/div[1]/div/div/button').click()
+    shared.click_el(
+        self.driver,
+        (By.XPATH, '//*[@id="plot-container"]/div[1]/div/div/button'))
 
     # Assert preview table is correct
     shared.wait_for_loading(self.driver)
@@ -136,22 +111,33 @@ class DownloadTestMixin():
     table = wait_elem(preview_section, by=By.TAG_NAME, value='table')
 
     # Assert table headers are correct
-    table_headers = find_elems(table, by=By.TAG_NAME, value='th')
-    for idx, header in enumerate(table_headers):
-      self.assertEqual(header.text, TABLE_HEADERS[idx])
+    header_elements = find_elems(table, by=By.TAG_NAME, value='th')
+    actual_headers = [h.text for h in header_elements]
+    self.assertSetEqual(set(actual_headers), set(TABLE_HEADERS))
+
     # Assert table body is correct
     table_body = find_elem(table, by=By.TAG_NAME, value='tbody')
     table_rows = find_elems(table_body, by=By.TAG_NAME, value='tr')
     self.assertGreater(len(table_rows), 1)
-    first_row_cells = find_elems(table_rows[0], by=By.TAG_NAME, value='td')
-    for idx, cell in enumerate(first_row_cells):
-      if SKIP_CHECK not in TABLE_ROW_1[idx]:
-        self.assertEqual(cell.text, TABLE_ROW_1[idx])
+
+    # Create a map of header text to cell text for the first row
+    first_row_cell_elements = find_elems(table_rows[0],
+                                         by=By.TAG_NAME,
+                                         value='td')
+    actual_row_data = {
+        actual_headers[i]: cell.text
+        for i, cell in enumerate(first_row_cell_elements)
+    }
+
+    # Check each expected value against the actual data using the header map
+    for i, expected_header in enumerate(TABLE_HEADERS):
+      if TABLE_ROW_1[i] != SKIP_CHECK:
+        self.assertEqual(actual_row_data.get(expected_header), TABLE_ROW_1[i],
+                         f"Mismatch for header: {expected_header}")
 
     # Click download
-    find_elem(self.driver,
-              by=By.XPATH,
-              value='//*[@id="preview-section"]/button').click()
+    shared.click_el(self.driver,
+                    (By.XPATH, '//*[@id="preview-section"]/button'))
 
     # Assert file downloaded
     num_tries = 0

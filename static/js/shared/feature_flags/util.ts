@@ -14,19 +14,57 @@
  * limitations under the License.
  */
 
-export const FEATURE_FLAGS = globalThis.FEATURE_FLAGS;
+// Feature flag names
 export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
-export const DYNAMIC_PLACEHOLDER_EXPERIMENT = "dynamic_placeholder_experiment";
-export const DYNAMIC_PLACEHOLDER_GA = "dynamic_placeholder_ga";
+export const METADATA_FEATURE_FLAG = "metadata_modal";
+
+// Feature flag URL parameters
+export const ENABLE_FEATURE_URL_PARAM = "enable_feature";
 
 /**
- * Helper method to interact with feature flags.
+ * Returns true if the feature is enabled by the URL parameter.
+ * @param featureName name of feature for which we want status.
+ * @returns true if the feature is enabled by the URL parameter, false otherwise.
+ */
+export function getFeatureOverride(featureName: string): boolean {
+  const urlParams = new URLSearchParams(window.location.search);
+  const enabledFeatures = urlParams.getAll(ENABLE_FEATURE_URL_PARAM);
+  return enabledFeatures.includes(featureName);
+}
+
+/**
+ * Returns the feature flags for the current environment.
+ * @returns
+ */
+export function getFeatureFlags(): Record<string, boolean> {
+  return globalThis.FEATURE_FLAGS as Record<string, boolean>;
+}
+
+/**
+ * Helper method to check if a feature is enabled with feature flags.
+ *
+ * Feature flags are set for each environment in
+ * server/config/feature_flag_configs/<environment>.json
+ *
+ * Feature flags can be overridden and enabled manually
+ * by adding ?enable_feature=<feature_name> to the URL.
+ *
+ * Example:
+ * https://datacommons.org/explore?enable_feature=autocomplete will enable the autocomplete feature.
+ * https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal will enable both the autocomplete and metadata_modal features.
+ *
  * @param featureName name of feature for which we want status.
  * @returns Bool describing if the feature is enabled
  */
 export function isFeatureEnabled(featureName: string): boolean {
-  if (FEATURE_FLAGS && featureName in FEATURE_FLAGS) {
-    return FEATURE_FLAGS[featureName];
+  // Check URL params for feature flag overrides
+  if (getFeatureOverride(featureName)) {
+    return true;
+  }
+  // Check if the feature flag is enabled in server config
+  const featureFlags = getFeatureFlags();
+  if (featureFlags && featureName in featureFlags) {
+    return featureFlags[featureName];
   }
   return false;
 }

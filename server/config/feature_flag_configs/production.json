@@ -40,5 +40,17 @@
     "enabled": false,
     "owner": "dwnoble",
     "description": "Feature flag to show the API modal on web components."
+  },
+  {
+    "name": "data_overview",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Enables the data_overview/<place> routes."
+  },
+  {
+    "name": "metadata_modal",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   }
 ]
