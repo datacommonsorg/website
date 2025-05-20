@@ -56,15 +56,21 @@ function start_servers() {
     fi
     exit $exit_with
   }
-# On exit, assign status code to a variable and call cleanup.
+  # On exit, assign status code to a variable and call cleanup.
   trap 'exit_with=$?; cleanup' EXIT
   local mode="$1" # Get the mode argument
-  if [[ "$mode" == "cdc" ]]; then
-    echo "Starting servers using run_cdc_dev.sh..."
+  if [[ -n "$STARTUP_WAIT_SEC" ]]; then
+    startup_wait_sec="$STARTUP_WAIT_SEC"
+  elif [[ "$mode" == "cdc" ]]; then
     startup_wait_sec=10
-    ./run_cdc_dev.sh &
   else
     startup_wait_sec=3
+  fi
+  if [[ "$mode" == "cdc" ]]; then
+    echo "Starting servers using run_cdc_dev.sh..."
+    ./run_cdc_dev.sh &
+  else
+    echo "Starting servers using run_servers.sh..."
     ./run_servers.sh --verbose &
   fi
   # Store the ID of the subprocess that is running website and NL servers.
@@ -72,7 +78,7 @@ function start_servers() {
   # Wait a few seconds and make sure the server script subprocess hasn't failed.
   # Tests will time out eventually if health checks for website and NL servers
   # don't pass, but this is quicker if the servers fail to start up immediately.
-  sleep $startup_wait_sec
+  sleep "$startup_wait_sec"
   if ! ps -p $SERVERS_PID > /dev/null; then
     echo "Server script not running after $startup_wait_sec seconds."
     exit 1
@@ -349,6 +355,7 @@ function help {
   echo "-p              Run server python tests"
   echo "-w              Run webdriver tests"
   echo "--cdc           Run Custom DC webdriver tests"
+  echo "                Respects the STARTUP_WAIT_SEC environment variable for startup wait time (default 10)."
   echo "--explore       Run explore integration tests"
   echo "--nl            Run nl integration tests"
   echo "--setup_python  Setup python environment"

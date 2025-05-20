@@ -77,6 +77,7 @@ steps:
       - -c
       - |
         git submodule update --init --recursive
+        export STARTUP_WAIT_SEC=60
         ./run_test.sh --cdc
 
 timeout: 1800s # 30 minutes
