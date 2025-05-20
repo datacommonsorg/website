@@ -16,6 +16,7 @@ from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elems
 
 EXPLORE_URL = '/explore'
 
@@ -77,3 +78,32 @@ class ExplorePageTestMixin():
                               'highlight-result-title')
     line_chart = find_elem(highlight_div, By.CLASS_NAME, 'bar-chart')
     self.assertIsNotNone(line_chart)
+
+  def test_highlight_chart_clears(self):
+    """Test the highlight chart for France GDP timeline clears after topic selected."""
+    highlight_params = "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country%2FFRA___country%2FITA&chartType=BAR_CHART"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
+
+    shared.wait_for_loading(self.driver)
+
+    place_callout = find_elem(self.driver, By.ID, 'place-callout')
+    self.assertIn('France, Italy', place_callout.text)
+
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
+    line_chart = find_elem(highlight_div, By.CLASS_NAME, 'bar-chart')
+    self.assertIsNotNone(line_chart)
+
+    # Click on the topic button
+    topic_buttons = find_elem(self.driver, By.CLASS_NAME, 'explore-relevant-topics')
+    self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
+    
+    topic_button_list = find_elems(self.driver, By.CLASS_NAME, 'item-list-text')
+    self.assertGreater(len(topic_button_list), 0, "No topic buttons found in the list")
+    
+    topic_button_list[0].click()
+
+    shared.wait_for_loading(self.driver)
+    # Check that the highlight chart is cleared
+    highlight_divs = find_elems(self.driver, By.CLASS_NAME, 'highlight-result-title')
+    self.assertEqual(len(highlight_divs), 0)

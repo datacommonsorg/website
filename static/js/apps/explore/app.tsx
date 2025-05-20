@@ -202,7 +202,7 @@ export function App(props: AppProps): ReactElement {
    * @param mainPageMetadata The main page metadata to set
    * @param highlightPageMetadata Optional highlight page metadata to set
    */
-  function updatePageContent(
+  function updatePageMetadata(
     mainPageMetadata: SubjectPageMetadata,
     highlightPageMetadata?: SubjectPageMetadata
   ): void {
@@ -377,7 +377,7 @@ export function App(props: AppProps): ReactElement {
         .then((resp) => {
           const mainPlace = extractMainPlace(resp);
           const mainPageMetadata = extractMetadata(resp, mainPlace);
-          updatePageContent(mainPageMetadata);
+          updatePageMetadata(mainPageMetadata);
           processFulfillData(resp, mainPageMetadata, query);
         })
         .catch(() => {
@@ -455,7 +455,7 @@ export function App(props: AppProps): ReactElement {
             );
           }
 
-          updatePageContent(mainPageMetadata, highlightPageMetadataResp);
+          updatePageMetadata(mainPageMetadata, highlightPageMetadataResp);
           processFulfillData(fulfillResponse, mainPageMetadata, query);
         }
       );
