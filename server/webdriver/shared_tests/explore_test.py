@@ -59,6 +59,11 @@ class ExplorePageTestMixin():
                                    'place-callout-link')
     self.assertEqual(place_callout_link.text, 'France')
 
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
+    line_chart = find_elem(highlight_div, By.CLASS_NAME, 'line-chart')
+    self.assertIsNotNone(line_chart)
+
   def test_highlight_chart_france_italy_gdp_timeline(self):
     """Test the highlight chart for France GDP timeline."""
     highlight_params = "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country%2FFRA___country%2FITA&chartType=TIMELINE_WITH_HIGHLIGHT"
