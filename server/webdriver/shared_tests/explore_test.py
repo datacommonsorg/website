@@ -95,15 +95,18 @@ class ExplorePageTestMixin():
     self.assertIsNotNone(line_chart)
 
     # Click on the topic button
-    topic_buttons = find_elem(self.driver, By.CLASS_NAME, 'explore-relevant-topics')
+    topic_buttons = find_elem(self.driver, By.CLASS_NAME,
+                              'explore-relevant-topics')
     self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
-    
+
     topic_button_list = find_elems(self.driver, By.CLASS_NAME, 'item-list-text')
-    self.assertGreater(len(topic_button_list), 0, "No topic buttons found in the list")
-    
+    self.assertGreater(len(topic_button_list), 0,
+                       "No topic buttons found in the list")
+
     topic_button_list[0].click()
 
     shared.wait_for_loading(self.driver)
     # Check that the highlight chart is cleared
-    highlight_divs = find_elems(self.driver, By.CLASS_NAME, 'highlight-result-title')
+    highlight_divs = find_elems(self.driver, By.CLASS_NAME,
+                                'highlight-result-title')
     self.assertEqual(len(highlight_divs), 0)
