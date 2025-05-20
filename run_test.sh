@@ -68,7 +68,7 @@ function start_servers() {
   fi
   if [[ "$mode" == "cdc" ]]; then
     echo "Starting servers using run_cdc_dev.sh..."
-    ./run_cdc_dev.sh &
+    ./run_cdc_dev.sh --verbose &
   else
     echo "Starting servers using run_servers.sh..."
     ./run_servers.sh --verbose &
