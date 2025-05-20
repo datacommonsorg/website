@@ -193,6 +193,28 @@ export function App(props: AppProps): ReactElement {
   );
 
   /**
+   * Update the page content with the given metadata.
+   *
+   * This function updates the page metadata and highlight page metadata
+   * based on the provided parameters. If no highlight page metadata is
+   * provided, it sets the highlight page metadata to null.
+   *
+   * @param mainPageMetadata The main page metadata to set
+   * @param highlightPageMetadata Optional highlight page metadata to set
+   */
+  function updatePageMetadata(
+    mainPageMetadata: SubjectPageMetadata,
+    highlightPageMetadata?: SubjectPageMetadata
+  ): void {
+    setPageMetadata(mainPageMetadata);
+    if (highlightPageMetadata) {
+      setHighlightPageMetadata(highlightPageMetadata);
+    } else {
+      setHighlightPageMetadata(null);
+    }
+  }
+
+  /**
    * Process the fulfill data from the search API response.
    *
    * This processes the fulfill data by setting up page metadata, debug data, and user
@@ -363,7 +385,7 @@ export function App(props: AppProps): ReactElement {
         .then((resp) => {
           const mainPlace = extractMainPlace(resp);
           const mainPageMetadata = extractMetadata(resp, mainPlace);
-          setPageMetadata(mainPageMetadata);
+          updatePageMetadata(mainPageMetadata);
           processFulfillData(resp, mainPageMetadata, query);
         })
         .catch(() => {
@@ -433,7 +455,6 @@ export function App(props: AppProps): ReactElement {
           );
 
           if (highlightPageMetadataResp) {
-            setHighlightPageMetadata(highlightPageMetadataResp);
             mainPageMetadata = filterBlocksFromPageMetadata(
               mainPageMetadata,
               highlightPageMetadataResp.pageConfig.categories.flatMap(
@@ -442,7 +463,7 @@ export function App(props: AppProps): ReactElement {
             );
           }
 
-          setPageMetadata(mainPageMetadata);
+          updatePageMetadata(mainPageMetadata, highlightPageMetadataResp);
           processFulfillData(fulfillResponse, mainPageMetadata, query);
         }
       );
