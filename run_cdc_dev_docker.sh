@@ -459,30 +459,7 @@ fi
 
 # Handle invalid option combinations and reset to valid (most are silently 
 # ignored and handled by the case statement)
-# Missing variables from input
-#-------------------------------------------------------------
-# Missing required custom image for build and upload
-if [ "$ACTIONS" != "run" ] && [ -z "$IMAGE" ]; then
-  echo -e "${RED}ERROR:${NC} Missing an image name and tag for build and/or upload.\nPlease use the -'-image' or '-i' option with the name and tag of the custom image you are building or have already built.\n" 1>&2
-  exit 1
-fi
-
-# Missing package for upload; not an error, just info
-if [[ "$ACTIONS" == *"upload"* ]] && [ -z "$PACKAGE" ]; then
-  echo -e "${YELLOW}INFO:${NC} No '--package' option specified."
-  echo -e "The target image will use the same name and tag as the source image '$IMAGE'.\n"
-  sleep 3
-  # Assign image name
-  PACKAGE=$IMAGE
-fi
-
-# Handle invalid option combinations and reset to valid (most are silently 
-# ignored and handled by the case statement)
 #--------------------------------------------------------------------
-if [ "$data_hybrid" == true ]; then
-  ACTIONS="run"
-  CONTAINER="data"
-elif [ "$SCHEMA_UPDATE" == true ]; then
 if [ "$data_hybrid" == true ]; then
   ACTIONS="run"
   CONTAINER="data"
