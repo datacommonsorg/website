@@ -63,16 +63,33 @@ const ICONS = {
 
 const DC_BLACK = "hsl(0, 0%, 18.82%)";
 
-const DC_BLACK_00 = "hsl(0, 0.00%, 0%)";
-const DC_BLACK_10 = "hsl(0, 0.00%, 10%)";
-const DC_BLACK_20 = "hsl(0, 0.00%, 20%)";
-const DC_BLACK_30 = "hsl(0, 0.00%, 30%)";
-const DC_BLACK_40 = "hsl(0, 0.00%, 40%)";
-const DC_BLACK_50 = "hsl(0, 0.00%, 50%)";
-const DC_BLACK_60 = "hsl(0, 0.00%, 60%)";
-const DC_BLACK_70 = "hsl(0, 0.00%, 70%)";
-const DC_BLACK_80 = "hsl(0, 0.00%, 80%)";
-const DC_BLACK_90 = "hsl(0, 0.00%, 90%)";
+const DC_BLACKS = {
+  A000: "hsl(0, 0.00%, 0%)",
+  A100: "hsl(0, 0.00%, 10%)",
+  A200: "hsl(0, 0.00%, 20%)",
+  A300: "hsl(0, 0.00%, 30%)",
+  A400: "hsl(0, 0.00%, 40%)",
+  A500: "hsl(0, 0.00%, 50%)",
+  A600: "hsl(0, 0.00%, 60%)",
+  A700: "hsl(0, 0.00%, 70%)",
+  A800: "hsl(0, 0.00%, 80%)",
+  A900: "hsl(0, 0.00%, 90%)",
+  A950: "hsl(0, 0.00%, 95%)",
+};
+
+const DC_PRIMARY = {
+  A000: "hsl(217, 90%, 0%)",
+  A100: "hsl(217, 90%, 10%)",
+  A200: "hsl(217, 90%, 20%)",
+  A300: "hsl(217, 90%, 30%)",
+  A400: "hsl(217, 90%, 40%)",
+  A500: "hsl(217, 90%, 50%)",
+  A600: "hsl(217, 90%, 60%)",
+  A700: "hsl(217, 90%, 70%)",
+  A800: "hsl(217, 90%, 80%)",
+  A900: "hsl(217, 90%, 90%)",
+  A950: "hsl(217, 90%, 95%)",
+};
 
 const DC_WHITE = "hsl(255, 100%, 100%)";
 const DC_BONE = "hsl(216, 55%, 98%)";
@@ -112,6 +129,8 @@ const theme: Theme = {
   sections: SECTIONS,
   width: WIDTH,
   colors: {
+    blacks: DC_BLACKS,
+    primary: DC_PRIMARY,
     text: {
       primary: {
         base: DC_BLACK,
@@ -120,7 +139,7 @@ const theme: Theme = {
       },
       secondary: {
         base: DC_GRAY,
-        dark: DC_BLACK_80,
+        dark: DC_BLACKS.A800,
         light: DC_GRAY_PILL_BCKG,
       },
     },
@@ -140,12 +159,12 @@ const theme: Theme = {
       primary: {
         base: DC_WHITE,
         dark: DC_BLUE_DARK,
-        light: DC_BLACK_80,
+        light: DC_BLACKS.A800,
       },
     },
     tabs: {
       selected: DC_BLUE,
-      unselected: DC_BLACK_30,
+      unselected: DC_BLACKS.A300,
       lining: DC_GRAY_LINING,
     },
     box: {
@@ -188,7 +207,7 @@ const theme: Theme = {
       },
       secondary: {
         base: DC_GRAY,
-        light: DC_BLACK_80,
+        light: DC_BLACKS.A800,
         dark: DC_BLACK,
       },
     },
@@ -311,7 +330,7 @@ const theme: Theme = {
       primary: {
         color: DC_BLUE,
         backgroundColor: DC_WHITE,
-        border: `1px solid ${DC_BLACK_70}`,
+        border: `1px solid ${DC_BLACKS.A700}`,
         ["&:hover:not(:disabled):not([aria-disabled])"]: {
           backgroundColor: DC_WHITE,
           color: DC_BLUE,

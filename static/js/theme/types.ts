@@ -61,6 +61,32 @@ export interface Theme {
     xl: number;
   };
   colors: {
+    blacks?: {
+      A000: string;
+      A100: string;
+      A200: string;
+      A300: string;
+      A400: string;
+      A500: string;
+      A600: string;
+      A700: string;
+      A800: string;
+      A900: string;
+      A950: string;
+    };
+    primary?: {
+      A000: string;
+      A100: string;
+      A200: string;
+      A300: string;
+      A400: string;
+      A500: string;
+      A600: string;
+      A700: string;
+      A800: string;
+      A900: string;
+      A950: string;
+    };
     text?: {
       primary?: {
         base?: string;

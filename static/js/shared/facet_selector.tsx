@@ -18,6 +18,9 @@
  * Component to edit the facet for a list of stat vars.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, Theme, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import Collapsible from "react-collapsible";
@@ -70,6 +73,7 @@ interface FacetSelectorPropType {
 }
 
 export function FacetSelector(props: FacetSelectorPropType): ReactElement {
+  const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
   const [facetList, setFacetList] = useState<FacetSelectorFacetInfo[] | null>(
     null
@@ -120,7 +124,18 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
 
   return (
     <>
-      <Button onClick={(): void => setModalOpen(true)}>
+      <Button
+        shape="box"
+        variant="inverted"
+        onClick={(): void => setModalOpen(true)}
+        css={css`
+          background-color: ${theme.colors.primary.A950};
+          border-color: ${theme.colors.primary.A950};
+          &:hover:not(:disabled):not([aria-disabled]) {
+            background-color: ${theme.colors.primary.A950};
+          }
+        `}
+      >
         Select a dataset [{totalFacetOptionCount}]
       </Button>
       <Dialog
@@ -148,7 +163,22 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
                   )}
                   open={facetList.length < 2}
                 >
-                  <div className={`${SELECTOR_PREFIX}-options-section`}>
+                  <div
+                    className={`${SELECTOR_PREFIX}-options-section`}
+                    css={css`
+                      position: relative;
+                      && {
+                        .row {
+                          margin: 0;
+                        }
+                        input[type="radio"],
+                        input[type="checkbox"] {
+                          position: inherit;
+                          margin: 0 24px 0 0;
+                        }
+                      }
+                    `}
+                  >
                     {getFacetOptionJsx(
                       facetInfo,
                       "",
