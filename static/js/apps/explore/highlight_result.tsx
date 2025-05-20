@@ -1,8 +1,13 @@
-import React from "react";
+import React, { Fragment, ReactNode } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { StatMetadata } from "../../shared/stat_types";
 import { NamedNode, StatVarFacetMap } from "../../shared/types";
+import { stripProtocol } from "../../shared/util";
+import {
+  buildCitationParts,
+  CitationPart,
+} from "../../tools/shared/metadata/citations";
 import { StatVarMetadata } from "../../tools/shared/metadata/metadata";
 import { fetchMetadata } from "../../tools/shared/metadata/metadata_fetcher";
 import { TileMetadataModalContent } from "../../tools/shared/metadata/tile_metadata_modal_content";
@@ -95,12 +100,25 @@ export function HighlightResult(
       setMetadataMap(metadata);
       setStatVarList(statVarList);
       console.log("metadataMap", metadata);
+      console.log("statVarList", statVarList);
     };
     fetchData();
   }, [props]);
 
-  const optionDan = false;
-  const optionAdriana = true;
+  const optionDan = true;
+  const optionAdriana = false;
+
+  const joinElements = (
+    items: ReactNode[],
+    separator: ReactNode = ", "
+  ): ReactNode[] =>
+    items.flatMap((item, idx) => (idx === 0 ? [item] : [separator, item]));
+
+  const generateCitationSources = (citationParts: CitationPart[]): string[] => {
+    return citationParts.map(({ label }) => label);
+  };
+
+  // const citationSources = generateCitationSources();
 
   React.useEffect(() => {
     setPageConfig(props.highlightPageMetadata.pageConfig);
@@ -108,12 +126,25 @@ export function HighlightResult(
 
   React.useEffect(() => {
     if (pageConfig && optionDan) {
-      const met =
-        metadataMap && metadataMap["Count_Person"]
-          ? metadataMap["Count_Person"][0]
-          : null;
-      const desc = met?.sourceName + ", with minor processing by Data Commons";
-      pageConfig.categories[0].blocks[0].description = desc;
+      // const met =
+      //   metadataMap && metadataMap["Count_Person"]
+      //     ? metadataMap["Count_Person"][0]
+      //     : null;
+      // const citationParts = buildCitationParts(statVarList, metadataMap);
+
+      console.log(
+        "citationParts",
+        joinElements(
+          generateCitationSources(
+            buildCitationParts(statVarList, metadataMap, true)
+          )
+        )
+      );
+      // const desc = met?.sourceName + ", with minor processing by Data Commons";
+      pageConfig.categories[0].blocks[0].description = generateCitationSources(
+        buildCitationParts(statVarList, metadataMap, true)
+      ).join(", ");
+      // "United States Census Bureau, American Community Survey (ACS) (data.census.gov/cedsci/table?q=S2601A&tid=ACSST5Y2019.S2601A), with minor processing by Data Commons.";
       setPageConfig(JSON.parse(JSON.stringify(pageConfig)));
     }
   }, [metadataMap]);
@@ -130,6 +161,14 @@ export function HighlightResult(
           />
         </div>
       )}
+      <br></br>
+      <br></br>
+      {/* {optionDan &&
+        joinElements(
+          generateCitationSources(
+            buildCitationParts(statVarList, metadataMap, true)
+          )
+        )} */}
       <SubjectPageMainPane
         id={PAGE_ID}
         place={props.highlightPageMetadata.place}

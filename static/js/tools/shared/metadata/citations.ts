@@ -37,7 +37,8 @@ export interface CitationPart {
  */
 export function buildCitationParts(
   statVars: NamedNode[],
-  metadataMap: Record<string, StatVarMetadata[]>
+  metadataMap: Record<string, StatVarMetadata[]>,
+  skipUrls = false
 ): CitationPart[] {
   const seen = new Set<string>();
   const parts: CitationPart[] = [];
@@ -60,7 +61,7 @@ export function buildCitationParts(
         : metadata.provenanceName;
 
       const part: CitationPart = { label };
-      if (metadata.provenanceUrl) {
+      if (!skipUrls && metadata.provenanceUrl) {
         part.url = metadata.provenanceUrl.replace(/\/$/, "");
       }
       parts.push(part);
