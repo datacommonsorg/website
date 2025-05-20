@@ -71,17 +71,8 @@ Options:
   image name and tag.
 
 -container|-c all|service|data
--container|-c all|service|data
   Optional: The containers to run.
   Default with 'run' and 'build_run': all: Run all containers. Other options are:
-  * service: Only run the service container. You can use this if you have not made 
-    any changes to your data, or   you are only running the service container 
-    locally (with the data container in the cloud) Exclusive with '--schema-update'.
-  * data: Only run the data container. This is only valid if you are running the 
-    data container locally (with the service container in the cloud).
-    Only valid with 'run' and 'build_run'. Ignored otherwise.
-  For "hybrid" setups, the script will infer the correct container to run from the 
-  env.list file; this setting will be ignored.
   * service: Only run the service container. You can use this if you have not made 
     any changes to your data, or   you are only running the service container 
     locally (with the data container in the cloud) Exclusive with '--schema-update'.
@@ -96,9 +87,6 @@ Options:
   Default: stable: run the prebuilt 'stable' image provided by Data Commons team.
   Other options:
   * latest: Run the 'latest' release provided by Data Commons team. 
-    If you specify this with an additional '--image' option, the option applies 
-    only to the data container. Otherise, it applies to both containers. 
-    Only valid with 'run' and 'build_run'. Ignored otherwise.
     If you specify this with an additional '--image' option, the option applies 
     only to the data container. Otherise, it applies to both containers. 
     Only valid with 'run' and 'build_run'. Ignored otherwise.
@@ -119,9 +107,7 @@ Options:
   schema update mode, which skips embeddings generation and completes much faster.
   Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers. 
   Ignored otherwise.
-  Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers. 
-  Ignored otherwise.
-
+  
 Examples:
 
 ./run_cdc_dev_docker.sh
@@ -283,7 +269,6 @@ fi
 ############################################################
 
 # Check application default credentials. Needed for hybrid setups and docker tag/push.
-# Check application default credentials. Needed for hybrid setups and docker tag/push.
 check_app_credentials() {
   echo -e "Checking for valid Cloud application default credentials...\n"
   # Attempt to print the access token
@@ -370,7 +355,6 @@ while true; do
         shift 2
       else
         echo -e "${RED}ERROR:${NC} That is not a valid container option. Valid options are 'all' or 'service' or 'data'\n" 1>&2
-        echo -e "${RED}ERROR:${NC} That is not a valid container option. Valid options are 'all' or 'service' or 'data'\n" 1>&2
         exit 1
       fi
       ;;
@@ -379,7 +363,6 @@ while true; do
         RELEASE="$2"
         shift 2
       else
-        echo -e "${RED}ERROR:${NC} That is not a valid release option. Valid options are 'stable' or 'latest'\n" 1>&2
         echo -e "${RED}ERROR:${NC} That is not a valid release option. Valid options are 'stable' or 'latest'\n" 1>&2
         exit 1
       fi
@@ -425,18 +408,6 @@ fi
 
 # Get options from the selected env.list file
 source "$ENV_FILE"
-
-# Set variables for hybrid mode
-#----------------------------------------------------
-# Determine hybrid mode and set a variable to true for use throughout the script
-if [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
-  service_hybrid=true
-elif [[ "$INPUT_DIR" != *"gs://"* ]] && [[ "$OUTPUT_DIR" == *"gs://"* ]]; then
-  data_hybrid=true
-elif [[ "$INPUT_DIR" == *"gs://"* ]] && [[ "$OUTPUT_DIR" != *"gs://"* ]]; then
-  echo -e "${RED}ERROR:$NC Invalid data directory settings in env.list file. Please set your OUTPUT_DIR to a Cloud Path or your INPUT_DIR to a local path.\n" 1>&2
-  exit 1
-fi
 
 # Set variables for hybrid mode
 #----------------------------------------------------
@@ -530,17 +501,6 @@ if [ "$service_hybrid" == true ]; then
   CONTAINER="service"
 fi  
 
-if [ "$service_hybrid" == true ]; then
-  if [ "$ACTIONS" != "run" ] &&  [ "$ACTIONS" != "build_run" ]; then
-    echo -e "${RED}ERROR: ${NC}Invalid action for running in "hybrid" service mode.\n Valid options are 'run' or 'build_run'.\n" 1>&2
-    exit 1
-  fi
-  if [ -n "$IMAGE" ]; then
-    RELEASE=''
-  fi
-  CONTAINER="service"
-fi
-
 # Call Docker commands
 ######################################
 case "$ACTIONS" in
@@ -548,7 +508,6 @@ case "$ACTIONS" in
     build
     ;;
   "build_run")
-    build
     build
     if [ "$CONTAINER" == "service" ]; then
       run_service
@@ -567,8 +526,6 @@ case "$ACTIONS" in
   "run")
     if [ "$CONTAINER" == "service" ]; then
       run_service
-    elif [ "$CONTAINER" == "data" ]; then
-      run_data
     elif [ "$CONTAINER" == "data" ]; then
       run_data
     else
