@@ -19,8 +19,8 @@
 
 # Make sure the following are run before running this script:
 # ./run_test.sh -b
+# ./run_test.sh --setup_all
 # ./scripts/update_git_submodules.sh
-# pip3 install -r import/simple/requirements.txt
 
 set -e
 
@@ -62,6 +62,16 @@ if lsof -i :8081 > /dev/null 2>&1; then
 fi
 if lsof -i :12345 > /dev/null 2>&1; then
   echo "Port 12345 (for mixer) is already in use. Please stop the process using that port."
+  exit 1
+fi
+
+# If .env_website or .env_nl folder doesn't exist, print an error and exit
+if [ ! -d ".env_website" ]; then
+  echo "Error: .env_website not found. Please run ./run_test.sh --setup_website first."
+  exit 1
+fi
+if [ ! -d ".env_nl" ]; then
+  echo "Error: .env_nl not found. Please run ./run_test.sh --setup_nl first."
   exit 1
 fi
 
@@ -166,10 +176,7 @@ cd ..
 # Start NL server.
 NL_PID=""
 if [[ $ENABLE_MODEL == "true" ]]; then
-  python3 -m venv .env_nl
   source .env_nl/bin/activate
-  echo "installing nl_server/requirements.txt"
-  pip3 install -r nl_server/requirements.txt -q
   echo "Starting NL Server..."
   nl_command="python3 nl_app.py 6060"
   if [[ "$VERBOSE" == "true" ]]; then
@@ -183,14 +190,7 @@ else
   echo "$ENABLE_MODEL is not true, NL server will not be started."
 fi
 
-# Activate python env for website.
-python3 -m venv .env_website
 source .env_website/bin/activate
-echo "installing server/requirements.txt"
-pip3 install -r server/requirements.txt -q
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-
-# Start website server
 echo "Starting Website Server..."
 website_command="python3 web_app.py 8080"
 if [[ "$VERBOSE" == "true" ]]; then

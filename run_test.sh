@@ -27,6 +27,23 @@ function setup_python {
   deactivate
 }
 
+function setup_website_python {
+  python3 -m venv .env_website
+  source .env_website/bin/activate
+  echo "installing server/requirements.txt"
+  pip3 install -r server/requirements.txt -q
+  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  deactivate
+}
+
+function setup_nl_python {
+  python3 -m venv .env_nl
+  source .env_nl/bin/activate
+  echo "installing nl_server/requirements.txt"
+  pip3 install -r nl_server/requirements.txt -q
+  deactivate
+}
+
 # Start website and NL servers in a subprocess and ensure they are stopped
 # if the test script exits before stop_servers is called.
 function start_servers() {
@@ -57,7 +74,7 @@ function start_servers() {
   # don't pass, but this is quicker if the servers fail to start up immediately.
   sleep $startup_wait_sec
   if ! ps -p $SERVERS_PID > /dev/null; then
-    echo "Server script not running after 3 seconds."
+    echo "Server script not running after $startup_wait_sec seconds."
     exit 1
   fi
 }
@@ -335,6 +352,9 @@ function help {
   echo "--explore       Run explore integration tests"
   echo "--nl            Run nl integration tests"
   echo "--setup_python  Setup python environment"
+  echo "--setup_website Setup website python requirements"
+  echo "--setup_nl      Setup NL python requirements"
+  echo "--setup_all     Setup all python venvs"
   echo "-g              Update integration test golden files"
   echo "-o              Build for production (ignores dev dependencies)"
   echo "-b              Run client install and build"
@@ -350,7 +370,7 @@ command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p | -w | --cdc | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a)
+    -p | -w | --cdc | --explore | --nl | --setup_python | --setup_website | --setup_nl | --setup_all | -g | -o | -b | -l | -c | -s | -f | -a)
         if [[ -n "$command" ]]; then
             # If a command has already been set, break the loop to process it with the collected extra_args
             break
@@ -397,6 +417,20 @@ case "$command" in
   --setup_python)
       echo --setup_python "### Set up python environment"
       setup_python
+      ;;
+  --setup_website)
+      echo --setup_website "### Set up website python requirements"
+      setup_website_python
+      ;;
+  --setup_nl)
+      echo --setup_nl "### Set up NL python requirements"
+      setup_nl_python
+      ;;
+  --setup_all)
+      echo --setup_all "### Set up all Python venvs"
+      setup_python
+      setup_website_python
+      setup_nl_python
       ;;
   -g)
       echo -e "### Updating integration test goldens"

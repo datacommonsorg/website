@@ -32,13 +32,31 @@ steps:
         ./run_test.sh -b
 
   - id: setup_python
-    name: python:3.11.3
+    name: python:3.11.4
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
       - -c
       - |
         ./run_test.sh --setup_python
+
+  - id: setup_website
+    name: python:3.11.4
+    entrypoint: /bin/bash
+    waitFor: ["-"]
+    args:
+      - -c
+      - |
+        ./run_test.sh --setup_website
+
+  - id: setup_nl
+    name: python:3.11.4
+    entrypoint: /bin/bash
+    waitFor: ["-"]
+    args:
+      - -c
+      - |
+        ./run_test.sh --setup_nl
 
   # Run the webdriver tests
   - id: flask_webdriver_test
@@ -54,7 +72,7 @@ steps:
   - id: flask_cdc_webdriver_test
     name: gcr.io/datcom-ci/full-env:2025-05-20
     entrypoint: /bin/sh
-    waitFor: ["package_js", "setup_python"]
+    waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
     args:
       - -c
       - |
