@@ -3,7 +3,7 @@
     "label": "Tools",
     "subMenu": [
       {
-        "href": "{place.place}",
+        "href": "{place.place_explorer}",
         "label": "Place Explorer"
       },
       {

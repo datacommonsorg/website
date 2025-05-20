@@ -57,14 +57,8 @@ jest.mock("../chart/draw_utils", () => {
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import axios from "axios";
 import React from "react";
-import { IntlProvider } from "react-intl";
 
-import { getColorFn } from "../chart/base";
-import { appendLegendElem } from "../chart/draw_utils";
 import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
-import { Chart as PlaceChart } from "../place/chart";
-import { ChartHeader } from "../place/chart_header";
-import { Menu } from "../place/menu";
 import { DataPointMetadata } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
@@ -90,27 +84,16 @@ import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
 import {
-  GA_EVENT_PLACE_CATEGORY_CLICK,
-  GA_EVENT_PLACE_CHART_CLICK,
+  GA_EVENT_STATVAR_SEARCH_TRIGGERED,
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_EVENT_TOOL_CHART_PLOT,
   GA_EVENT_TOOL_PLACE_ADD,
   GA_EVENT_TOOL_STAT_VAR_CLICK,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
-  GA_PARAM_PLACE_CATEGORY_CLICK,
-  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
-  GA_PARAM_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_DCID,
   GA_PARAM_SEARCH_TERM,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
-  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
-  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
-  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
-  GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
-  GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
-  GA_VALUE_PLACE_CHART_CLICK_EXPORT,
-  GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
@@ -408,227 +391,6 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   jest.clearAllMocks();
-});
-
-describe("test ga event place category click", () => {
-  test("call gtag when place category is clicked in the sidebar", async () => {
-    // Mock gtag and render the component.
-    const mockgtag = jest.fn();
-    window.gtag = mockgtag;
-    const menu = render(
-      <Menu
-        categories={{
-          Economics: CATEGORY,
-        }}
-        dcid={PLACE_DCID}
-        selectCategory={CATEGORY}
-        pageChart={{ Economics: { "": [] } }}
-      ></Menu>
-    );
-    // Prevent window navigation.
-    const category = menu.getByText(CATEGORY);
-    category.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click the category in the sidebar.
-    fireEvent.click(category);
-    await waitFor(() => {
-      // Check the parameters passed to gtag.
-      expect(mockgtag.mock.lastCall).toEqual([
-        "event",
-        GA_EVENT_PLACE_CATEGORY_CLICK,
-        {
-          [GA_PARAM_PLACE_CATEGORY_CLICK]: CATEGORY,
-          [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
-            GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
-        },
-      ]);
-      // Check gtag is called once.
-      expect(mockgtag.mock.calls.length).toEqual(1);
-    });
-  });
-  test("call gtag when place category is clicked from chart header", async () => {
-    // Mock gtag and render the component.
-    const mockgtag = jest.fn();
-    window.gtag = mockgtag;
-    const chartHeader = render(
-      <ChartHeader
-        text={CATEGORY}
-        place={PLACE_DCID}
-        isOverview={true}
-        categoryStrings={{
-          Economics: CATEGORY,
-        }}
-      ></ChartHeader>
-    );
-    // Prevent window navigation.
-    const category = chartHeader.getByText(CATEGORY);
-    category.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click the category in the chart header.
-    fireEvent.click(category);
-    await waitFor(() => {
-      // Check the parameters passed to gtag.
-      expect(mockgtag.mock.lastCall).toEqual([
-        "event",
-        GA_EVENT_PLACE_CATEGORY_CLICK,
-        {
-          [GA_PARAM_PLACE_CATEGORY_CLICK]: CATEGORY,
-          [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
-            GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
-        },
-      ]);
-      // Check gtag is called once.
-      expect(mockgtag.mock.calls.length).toEqual(1);
-    });
-  });
-  test("call gtag when place category is clicked from more charts", async () => {
-    // Mock gtag and render the component.
-    const mockgtag = jest.fn();
-    window.gtag = mockgtag;
-    const chartHeader = render(
-      <ChartHeader
-        text={CATEGORY}
-        place={PLACE_DCID}
-        isOverview={true}
-        categoryStrings={{
-          Economics: CATEGORY,
-        }}
-      ></ChartHeader>
-    );
-    // Prevent window navigation.
-    const category = chartHeader.getByText("More charts ›");
-    category.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click more charts.
-    fireEvent.click(category);
-    await waitFor(() => {
-      // Check the parameters passed to gtag.
-      expect(mockgtag.mock.calls).toContainEqual([
-        "event",
-        GA_EVENT_PLACE_CATEGORY_CLICK,
-        {
-          [GA_PARAM_PLACE_CATEGORY_CLICK]: CATEGORY,
-          [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
-            GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
-        },
-      ]);
-      // Check gtag is called once.
-      expect(mockgtag.mock.calls.length).toEqual(1);
-    });
-  });
-});
-
-describe("test ga event place chart click", () => {
-  test("call gtag when place chart is clicked", async () => {
-    // Mock gtag and render the component.
-    const mockgtag = jest.fn();
-    window.gtag = mockgtag;
-    const chart = render(
-      <IntlProvider locale="en">
-        <PlaceChart {...PLACE_CHART_PROPS} />
-      </IntlProvider>
-    );
-    // Prevent window navigation.
-    const chartSource = chart.getByText(SOURCES);
-    chartSource.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click data sources.
-    fireEvent.click(chartSource);
-    await waitFor(() => {
-      // Check the parameters passed to gtag.
-      expect(mockgtag.mock.lastCall).toEqual([
-        "event",
-        GA_EVENT_PLACE_CHART_CLICK,
-        {
-          [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
-        },
-      ]);
-      // Check gtag is called once.
-      expect(mockgtag.mock.calls.length).toEqual(1);
-    });
-    // Prevent window navigation.
-    const chartExport = chart.getByText("Export");
-    chartExport.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click export.
-    fireEvent.click(chartExport);
-    await waitFor(() => {
-      // Check the parameters passed to gtag.
-      expect(mockgtag.mock.lastCall).toEqual([
-        "event",
-        GA_EVENT_PLACE_CHART_CLICK,
-        {
-          [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPORT,
-        },
-      ]);
-      // Check gtag is called once, two times in total.
-      expect(mockgtag.mock.calls.length).toEqual(2);
-    });
-    // Prevent window navigation.
-    const chartExplore = chart.getByText("Explore More ›");
-    chartExplore.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click exlore more.
-    fireEvent.click(chartExplore);
-    await waitFor(() => {
-      // Check the parameters passed to gtag.
-      expect(mockgtag.mock.calls).toContainEqual([
-        "event",
-        GA_EVENT_PLACE_CHART_CLICK,
-        {
-          [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
-        },
-      ]);
-      // Check gtag is called once, three times in total.
-      expect(mockgtag.mock.calls.length).toEqual(3);
-    });
-
-    //Render the component.
-    const statVarChip = render(<div id={ID} />);
-    appendLegendElem(statVarChip.baseElement, getColorFn([""]), [
-      { label: STAT_VAR_1 },
-    ]);
-    // Prevent window navigation.
-    const chartStatVarChip = statVarChip.getByText(STAT_VAR_1);
-    chartStatVarChip.addEventListener(
-      "click",
-      (event) => event.preventDefault(),
-      false
-    );
-    // Click the stat var chip.
-    fireEvent.click(chartStatVarChip);
-    await waitFor(() => {
-      // Check the parameters passed to the gtag.
-      expect(mockgtag.mock.calls).toContainEqual([
-        "event",
-        GA_EVENT_PLACE_CHART_CLICK,
-        {
-          [GA_PARAM_PLACE_CHART_CLICK]:
-            GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
-        },
-      ]);
-      // Check gtag is called once, four times in total.
-      expect(mockgtag.mock.calls.length).toEqual(4);
-    });
-  });
 });
 
 describe("test ga event tool chart plot", () => {
@@ -935,8 +697,14 @@ describe("test ga event tool stat var search no result", () => {
       { target: { value: STAT_VAR_1 } }
     );
     await waitFor(() => {
-      // Check the gtag is called once.
-      expect(mockgtag.mock.calls.length).toEqual(1);
+      // Check the gtag is called.
+      expect(mockgtag.mock.calls.length).toEqual(2);
+      // Check that the first event is GA_EVENT_STATVAR_SEARCH_TRIGGERED
+      expect(mockgtag.mock.calls[0]).toEqual([
+        "event",
+        GA_EVENT_STATVAR_SEARCH_TRIGGERED,
+        {},
+      ]);
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
         "event",

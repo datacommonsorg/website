@@ -6,6 +6,18 @@
     "description": "Feature flag to enable place autocomplete."
   },
   {
+    "name": "biomed_nl",
+    "enabled": false,
+    "owner": "calinc",
+    "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
+  },
+  {
+    "name": "data_overview",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Enables the data_overview/<place> routes."
+  },
+  {
     "name": "dev_place_experiment",
     "enabled": true,
     "owner": "gmechali",
@@ -25,15 +37,15 @@
   },
   {
     "name": "dynamic_placeholder_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
   },
   {
-    "name": "biomed_nl",
+    "name": "metadata_modal",
     "enabled": false,
-    "owner": "calinc",
-    "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
+    "owner": "nick-next",
+    "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   },
   {
     "name": "show_api_modal",

@@ -16,9 +16,8 @@
 from flask import current_app
 
 AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
-PLACE_PAGE_EXPERIMENT_FEATURE_FLAG = 'dev_place_experiment'
-PLACE_PAGE_GA_FEATURE_FLAG = 'dev_place_ga'
 BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
+DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
 
 
 def is_feature_enabled(feature_name: str, app=None) -> bool:
