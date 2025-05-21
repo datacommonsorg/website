@@ -33,15 +33,15 @@ def main():
       }
       dcid_data = response_data[dcid]["arcs"]
 
-      for property in properties_to_extract:
-        new_row[property] = ''
+      for prop_name in properties_to_extract:
+        new_row[prop_name] = ''
         # Property values are encoded as an array of nodes - take the first node as the value
-        first_node = dcid_data[property]["nodes"][0]
+        first_node = dcid_data[prop_name]["nodes"][0]
 
-        if property == "name":  # For the "name" property, the node field is "value"
-          new_row[property] = first_node.get("value")
+        if prop_name == "name":  # For the "name" property, the node field is "value"
+          new_row[prop_name] = first_node.get("value")
         else:  # For other properties, the node field is "name"
-          new_row[property] = first_node.get("name")
+          new_row[prop_name] = first_node.get("name")
 
       if "constraintProperties" in dcid_data:
         curr_constraint_properties = []
