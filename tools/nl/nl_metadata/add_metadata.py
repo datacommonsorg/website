@@ -2,9 +2,12 @@
 from datacommons_client.client import DataCommonsClient
 import pandas as pd
 
+# Register data commons API key here
+key = "4ApAbPslihLXLS8BhyQJgRAb5f1w3EUssDEq26cdFQfsrh82"
+
 
 def main():
-  client = DataCommonsClient()
+  client = DataCommonsClient(api_key=key)
   embeddings = pd.read_csv("tools/nl/embeddings/input/base/sheets_svs.csv")
 
   # Extract common metadata properties from all StatVars
@@ -64,8 +67,9 @@ def main():
       new_embeddings.append(new_row)
 
   new_embeddings_df = pd.DataFrame(new_embeddings)
-  new_embeddings_df.to_csv("tools/nl/nl_metadata/alyssaguo_statvars.csv",
-                           index=False)
+  new_embeddings_df.to_json("tools/nl/nl_metadata/alyssaguo_statvars.json",
+                            orient="records",
+                            lines=True)
 
 
 if __name__ == "__main__":
