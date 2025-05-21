@@ -396,7 +396,7 @@ def get_nl_no_percapita_vars():
 
 def get_feature_flag_bucket_name(environment: str) -> str:
   """Returns the bucket name containing the feature flags."""
-  if environment in ['integration_test', 'test', 'webdriver']:
+  if environment in ['integration_test', 'test', 'webdriver', 'custom_test']:
     env_for_bucket = 'autopush'
   elif environment == 'production':
     env_for_bucket = 'prod'
@@ -625,9 +625,9 @@ def flatten_obs_series_response(obs_series_response):
   """
   Flatten the observation series response into a list of dictionaries.
 
-  This function processes an observation series response, extracting and 
-  flattening the nested data structure into a simple list of dictionaries. 
-  Each dictionary in the list represents a single observation with the 
+  This function processes an observation series response, extracting and
+  flattening the nested data structure into a simple list of dictionaries.
+  Each dictionary in the list represents a single observation with the
   following keys: 'variable', 'entity', 'date', 'value', and 'facet'.
 
   Example:
@@ -676,10 +676,10 @@ def flattened_observations_to_dates_by_variable(
   """
   Group flattened observation data by variable, then date, then facet, and count entities for each facet.
 
-  This function takes a list of flattened observation dictionaries and organizes them into a nested 
-  structure grouped by variable, date, and facet. The resulting structure provides counts of entities 
+  This function takes a list of flattened observation dictionaries and organizes them into a nested
+  structure grouped by variable, date, and facet. The resulting structure provides counts of entities
   for each facet on each date for each variable.
-                  
+
   Example:
   >>> flattened_observations = [
           {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
@@ -765,7 +765,7 @@ def get_series_dates_from_entities(entities: List[str], variables: List[str]):
                     - 'facet' (str): The facet ID.
                     - 'count' (int): The number of entities for this facet on this date.
         - 'facets' (dict): The facets information from the observation series response.
-        
+
   Example:
   >>> entities = ["country/USA", "country/CAN"]
   >>> variables = ["Count_Person", "Count_Household"]
@@ -1000,11 +1000,11 @@ def fetch_highest_coverage(variables: List[str],
 def post_body_cache_key():
   """
   Builds flask cache key for GET and POST requests.
-  
+
   GET: Key is URL path + query string parameters. Example: '/test?key=value'
   POST: (Requires Content-Type:application/json): Key is URL path + query string
   + JSON body. Example: '/test?key=value,{"jsonkey":"jsonvalue"}'
-  
+
   """
   full_path = request.full_path
   if request.method == 'POST':
