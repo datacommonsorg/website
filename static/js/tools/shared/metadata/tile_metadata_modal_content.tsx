@@ -170,7 +170,7 @@ export const TileMetadataModalContent = ({
                     scrollToTop.current?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >
-                  Jump to Top
+                  Jump to top
                 </a>
               </p>
             )}

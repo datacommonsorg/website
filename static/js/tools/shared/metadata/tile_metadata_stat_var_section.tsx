@@ -117,7 +117,7 @@ export const TileMetadataStatVarSection = ({
               ${theme.typography.text.md}
             `}
           >
-            {metadataList.length} Sources
+            {metadataList.length} sources
           </small>
         )}
       </h3>
@@ -158,21 +158,9 @@ export const TileMetadataStatVarSection = ({
           return (
             <div
               key={`${metadata.statVarId}-${metadata.provenanceName}`}
-              // css={css`
-              //   ${metadataList.length > 1
-              //     ? index % 2 === 1
-              //       ? `padding: ${theme.spacing.md}px;`
-              //       : `padding: ${theme.spacing.md}px; background-color: ${theme.colors.background.secondary.light};`
-              //     : `padding: 0;`}
-              // `}
-              // css={css`
-              //   ${metadataList.length > 1
-              //     ? `padding:${theme.spacing.md}px  0; &:after{display:block;content:''; width: 25%; border-bottom:1px solid #ccc; padding-top: 24px;} &:last-of-type{ &:after{ display: none; }}`
-              //     : `padding: 0;`}
-              // `}
               css={css`
                 ${metadataList.length > 1
-                  ? `padding:${theme.spacing.md}px  0; margin-bottom:${theme.spacing.md}px; border-bottom:1px dashed #ccc; &:last-of-type{ border:none; margin-bottom: 0; }`
+                  ? `padding:${theme.spacing.md}px  0; margin-bottom:${theme.spacing.sm}px; border-bottom:1px dashed ${theme.colors.border.primary.light}; &:last-of-type{ border:none; margin-bottom: 0; }`
                   : `padding: 0;`}
               `}
             >
@@ -232,7 +220,7 @@ export const TileMetadataStatVarSection = ({
 
                 <ContentWrapper>
                   <h4>
-                    {intl.formatMessage(metadataComponentMessages.Topic)}/
+                    {intl.formatMessage(metadataComponentMessages.Topic)} /{" "}
                     {intl.formatMessage(metadataComponentMessages.DCID)}
                   </h4>
                   {metadata.categories && metadata.categories.length > 0 && (
