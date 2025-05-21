@@ -69,12 +69,12 @@ export const TileMetadataStatVarSection = ({
     && {
       display: flex;
       flex-direction: column;
-      gap: ${theme.spacing.xs}px;
+      gap: 0;
       h4 {
         ${theme.typography.family.text}
         ${theme.typography.text.md}  
         font-weight: 900;
-        margin: 0;
+        margin: 0 0 ${theme.spacing.xs}px 0;
       }
       p {
         ${theme.typography.family.text}
