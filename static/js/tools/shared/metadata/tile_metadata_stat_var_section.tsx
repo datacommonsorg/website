@@ -72,14 +72,14 @@ export const TileMetadataStatVarSection = ({
       gap: ${theme.spacing.xs}px;
       h4 {
         ${theme.typography.family.text}
-        ${theme.typography.text.md}
-              font-weight: 900;
+        ${theme.typography.text.md}  
+        font-weight: 900;
         margin: 0;
       }
       p {
         ${theme.typography.family.text}
         ${theme.typography.text.md}
-              white-space: pre-wrap;
+        white-space: pre-wrap;
         word-break: break-word;
         margin: 0;
       }
@@ -129,7 +129,7 @@ export const TileMetadataStatVarSection = ({
           margin-top: ${theme.spacing.md}px;
         `}
       >
-        {metadataList.map((metadata, index) => {
+        {metadataList.map((metadata) => {
           let sourceUrl: string = metadata.provenanceUrl;
           if (metadata.provenanceUrl) {
             sourceUrl = prepareSourceUrl(metadata.provenanceUrl);
