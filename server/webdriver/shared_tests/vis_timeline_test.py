@@ -12,11 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import time
+
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elems
 import server.webdriver.shared as shared
 
 TIMELINE_URL = '/tools/visualization#visType=timeline'
@@ -219,3 +223,49 @@ class VisTimelineTestMixin():
     self.assertEqual(len(charts), 1)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 3)
+
+  def test_select_different_facet(self):
+    """Test selecting a different facet of the metadata and verify the line changes."""
+    self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
+
+    shared.wait_for_loading(self.driver)
+
+    original_source_text = find_elems(self.driver,
+                                      value='sources',
+                                      path_to_elem=['chart'])[0].text
+    self.assertEqual(original_source_text, 'Source: census.gov • Show metadata')
+
+    # Click on the button to open the source selector modal
+    find_elem(self.driver, value='source-selector-open-modal-button').click()
+
+    shared.wait_for_loading(self.driver)
+
+    first_sv = find_elem(self.driver, value='source-selector-trigger').click()
+
+    shared.wait_for_loading(self.driver)
+
+    source_options = find_elems(
+        self.driver,
+        value='source-selector-option-title',
+        path_to_elem=['source-selector-options-section'])
+    self.assertEqual(len(source_options), 18)
+
+    radio = find_elem(source_options[8], by=By.TAG_NAME, value='input')
+    radio.click()
+
+    # Click the modal-footer button to apply the changes
+    modal_footer_button = find_elem(self.driver,
+                                    value='btn-primary',
+                                    path_to_elem=['modal-footer'])
+    modal_footer_button.click()
+
+    # Wait for the chart to reload
+    shared.wait_for_loading(self.driver)
+
+    # Verify the source text has changed
+    updated_source_text = find_elem(self.driver,
+                                    value='sources',
+                                    path_to_elem=['chart']).text
+    self.assertEqual(
+        updated_source_text,
+        'Sources: census.gov, data-explorer.oecd.org • Show metadata')
