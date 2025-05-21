@@ -268,12 +268,17 @@ function run_cdc_webdriver_test {
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
   source .env/bin/activate
+  local rerun_options=""
   if [[ "$FLAKE_FINDER" == "true" ]]; then
-    python3 -m pytest -n auto server/webdriver/cdc_tests/ ${@}
+    rerun_options=""
   else
     # TODO: Stop using reruns once tests are deflaked.
-    python3 -m pytest -n auto --reruns 2 server/webdriver/cdc_tests/ ${@}
+    rerun_options="--reruns 2"
   fi
+
+  python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
+
   stop_servers
   deactivate
 }
