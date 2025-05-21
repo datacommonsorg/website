@@ -117,7 +117,8 @@ export const TileMetadataStatVarSection = ({
               ${theme.typography.text.md}
             `}
           >
-            {metadataList.length} sources
+            {metadataList.length}{" "}
+            {intl.formatMessage(messages.sourcesLowercase)}
           </small>
         )}
       </h3>
@@ -161,8 +162,10 @@ export const TileMetadataStatVarSection = ({
               key={`${metadata.statVarId}-${metadata.provenanceName}`}
               css={css`
                 ${metadataList.length > 1
-                  ? `padding-bottom:${theme.spacing.md}px; border-bottom:1px dashed ${theme.colors.border.primary.light}; &:last-of-type{ border:none; margin-bottom: 0; }`
-                  : ``}
+                  ? `padding-bottom:${theme.spacing.md}px; 
+                     border-bottom:1px dashed ${theme.colors.border.primary.light}; 
+                     &:last-of-type{ border:none; margin-bottom: 0; }`
+                  : ""}
               `}
             >
               <div
