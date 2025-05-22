@@ -228,9 +228,14 @@ export function getPointWithin(
 
 /**
  * Gets the data from /api/observations/series endpoint.
+ *
+ * Note that for now there are two ways to fetch a single facet, either via facetIds or given a highlightFacet. Only one of the two should be provided.
  * @param apiRoot api root
  * @param entities list of enitites to get data for
  * @param variables list of variables to get data for
+ * @param facetIds list of facet ids to get data for
+ * @param highlightFacet the facet to highlight
+ * @returns The data for the given entities and variables, matching the provided facet if applicable.
  */
 export function getSeries(
   apiRoot: string,
