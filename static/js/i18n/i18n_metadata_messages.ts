@@ -103,7 +103,7 @@ export const metadataComponentMessages = defineMessages({
   },
   CopyCitation: {
     id: "copyCitation",
-    defaultMessage: "Copy Citation",
+    defaultMessage: "Copy citation",
     description:
       "Label for the button that copies the citation to the clipboard when clicked. " +
       "The copied text will contain one or more sources. Citation is akin to the " +

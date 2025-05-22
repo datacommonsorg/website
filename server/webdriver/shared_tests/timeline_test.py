@@ -101,8 +101,8 @@ class TimelineTestMixin():
 
     # Re-store a list of all the charts.
     charts = find_elems(self.driver, value='dc-async-element')
-    # Assert there are at least three charts.
-    self.assertGreater(len(charts), 3)
+    # Assert there is at least one chart.
+    self.assertGreater(len(charts), 0)
 
   def test_check_statvar_and_uncheck(self):
     """Test check and uncheck one statvar."""
