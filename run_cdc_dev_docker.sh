@@ -119,9 +119,7 @@ Options:
   schema update mode, which skips embeddings generation and completes much faster.
   Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers. 
   Ignored otherwise.
-  Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers. 
-  Ignored otherwise.
-
+  
 Examples:
 
 ./run_cdc_dev_docker.sh
@@ -199,13 +197,20 @@ run_data() {
    check_app_credentials
     echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text} and writing output to Google Cloud...${NC}\n"
     docker run -it \
-    --env-file $ENV_FILE \
+    --env-file "$ENV_FILE" \
     ${schema_update//\"/} \
     -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
     -v $HOME/.config/gcloud/application_default_credentials.json:/gcp/creds.json:ro \
     -v $INPUT_DIR:$INPUT_DIR \
     gcr.io/datcom-ci/datacommons-data:${RELEASE}
   else
+    echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text}...${NC}\n"
+    docker run -it \
+    --env-file "$ENV_FILE" \
+    ${schema_update//\"/} \
+    -v $INPUT_DIR:$INPUT_DIR \
+    -v $OUTPUT_DIR:$OUTPUT_DIR \
+    gcr.io/datcom-ci/datacommons-data:${RELEASE}
   echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text}...${NC}\n"
   docker run -i \
    --env-file $ENV_FILE \
@@ -224,7 +229,7 @@ run_service() {
     if [ -n "$IMAGE" ]; then
       echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}' reading data in Google Cloud...${NC}\n"
       docker run -it \
-      --env-file $ENV_FILE \
+      --env-file "$ENV_FILE" \
       -p 8080:8080 \
       -e DEBUG=true \
       -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
@@ -239,7 +244,7 @@ run_service() {
       fi
       echo -e "${GREEN}Starting Docker services container with '${RELEASE}' release reading data in Google Cloud...${NC}\n"
       docker run -it \
-      --env-file $ENV_FILE \
+      --env-file "$ENV_FILE" \
       -p 8080:8080 \
       -e DEBUG=true \
       -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
@@ -251,7 +256,7 @@ run_service() {
   # Custom-built image
   if [ -n "$IMAGE" ]; then
     echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}'...${NC}\n"
-    docker run -i \
+    docker run -it \
     --env-file "$ENV_FILE" \
     -p 8080:8080 \
     -e DEBUG=true \
@@ -266,7 +271,7 @@ run_service() {
      docker pull gcr.io/datcom-ci/datacommons-services:latest
     fi
     echo -e "${GREEN}Starting Docker services container with '${RELEASE}' release...${NC}\n"
-    docker run -i \
+    docker run -it \
     --env-file "$ENV_FILE" \
     -p 8080:8080 \
     -e DEBUG=true \
@@ -538,7 +543,7 @@ if [ "$service_hybrid" == true ]; then
     RELEASE=''
   fi
   CONTAINER="service"
-fi
+fi  
 
 # Call Docker commands
 ######################################
