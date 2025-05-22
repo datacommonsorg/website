@@ -15,10 +15,13 @@
  */
 
 /**
- * Chart Footer used for Vis tool charts
+ * Chart header used for Vis tool charts
+ *
+ * This contains options such as the per-capita selector, as well as
+ * the facet selector button.
  */
 
-import React from "react";
+import React, { ReactElement, useMemo } from "react";
 import { Input } from "reactstrap";
 
 import {
@@ -34,15 +37,23 @@ export interface InputInfo {
   gaEventParam?: string;
 }
 
-interface ChartFooterPropType {
+interface ChartHeaderProps {
   inputSections: { label?: string; inputs: InputInfo[] }[];
   facetSelector: React.ReactNode;
 }
 
-export function ChartFooter(props: ChartFooterPropType): JSX.Element {
+export function ChartHeader(props: ChartHeaderProps): ReactElement {
+  const sections = useMemo(
+    () =>
+      props.inputSections.filter(
+        (section) => Array.isArray(section.inputs) && section.inputs.length > 0
+      ),
+    [props.inputSections]
+  );
+
   return (
     <div className="chart-footer-options">
-      {props.inputSections.map((inputSection, sectionIdx) => {
+      {sections.map((inputSection, sectionIdx) => {
         return (
           <div className="option-section" key={`section-${sectionIdx}`}>
             {inputSection.label && (
