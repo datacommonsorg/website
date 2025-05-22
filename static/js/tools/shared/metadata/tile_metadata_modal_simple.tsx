@@ -133,6 +133,8 @@ export function TileMetadataModalSimple(
         open={modalOpen}
         containerRef={props.containerRef}
         onClose={(): void => setModalOpen(false)}
+        maxWidth="md"
+        fullWidth
         className="metadata-modal"
         loading={loading}
       >
