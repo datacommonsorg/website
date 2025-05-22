@@ -320,7 +320,15 @@ export function App(props: AppProps): ReactElement {
 
   async function handleHashChange(): Promise<void> {
     setLoadingStatus(LoadingStatus.LOADING);
-    const hashParams = queryString.parse(window.location.hash);
+    let hashParams: Record<string, string | string[]>;
+    if (window.location.hash) {
+      hashParams = queryString.parse(window.location.hash);
+    } else {
+      hashParams = Object.fromEntries(
+        new URLSearchParams(window.location.search)
+      );
+    }
+
     let client = getSingleParam(hashParams[URL_HASH_PARAMS.CLIENT]);
     const urlHashParams: UrlHashParams = extractUrlHashParams(hashParams);
     const query = urlHashParams.query;
