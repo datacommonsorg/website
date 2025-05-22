@@ -66,7 +66,6 @@ def extract_constraint_properties(new_row: EmbeddingRow, dcid_data) -> Embedding
   """
   if "constraintProperties" not in dcid_data:
     return new_row
-  
   for constrained_prop_node in dcid_data["constraintProperties"]["nodes"]:
     # Use the "name" field if it exists, otherwise fall back on "dcid"
     # Some constraintProperties nodes have both "name" and "dcid", others only have "dcid"
