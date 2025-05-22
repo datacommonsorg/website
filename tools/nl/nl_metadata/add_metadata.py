@@ -22,7 +22,7 @@ STATIC_PROPERTIES = [
 ]
 BATCH_SIZE = 100
 
-type EmbeddingRow = Dict[str, str]
+EmbeddingRow: type = Dict[str, str]
 
 def batch_df(original_df, batch_size: int):
   """
