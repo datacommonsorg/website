@@ -47,6 +47,7 @@ function getFacetInfo(
  * @param url - The URL to fetch metadata from.
  * @returns A promise that resolves to the fetched metadata.
  */
+/* eslint-disable complexity */
 export async function fetchMetadata(
   statVarSet: Set<string>,
   facets: FacetResponse | Record<string, StatMetadata>,

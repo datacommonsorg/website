@@ -38,7 +38,7 @@ export interface CitationPart {
 export function buildCitationParts(
   statVars: NamedNode[],
   metadataMap: Record<string, StatVarMetadata[]>,
-  skipUrls = false
+  skipUrls?: boolean
 ): CitationPart[] {
   const seen = new Set<string>();
   const parts: CitationPart[] = [];
