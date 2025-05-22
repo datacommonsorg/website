@@ -8,10 +8,10 @@ This script retrives the metadata from the data commons API and adds it to the e
 To run this script, register your data commons API key to DC_API_KEY, then run the script as normal.
 """
 
-import pandas as pd
 from typing import Dict, List
 
 from datacommons_client.client import DataCommonsClient
+import pandas as pd
 
 # Register data commons API key here
 DC_API_KEY = ""
