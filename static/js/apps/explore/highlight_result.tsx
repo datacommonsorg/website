@@ -136,7 +136,7 @@ export function HighlightResult(
   }, [statVarList, metadataMap, props.highlightPageMetadata.pageConfig]);
 
   return (
-    <div>
+    <div className="highlight-result-title">
       <SubjectPageMainPane
         id={PAGE_ID}
         place={props.highlightPageMetadata.place}
