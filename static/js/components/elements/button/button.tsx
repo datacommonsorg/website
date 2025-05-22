@@ -115,8 +115,7 @@ interface CommonButtonProps {
   // 'inverted': a filled button.
   // 'text': a text-only button (no outline or fill).
   // Default: 'standard'
-  variant?: "standard" | "inverted" | "text" | "filled";
-  shape?: "rounded" | "box";
+  variant?: "standard" | "inverted" | "text" | "flat";
   // The size of the button.
   // Default: 'md'
   size?: "sm" | "md" | "lg";
@@ -161,7 +160,6 @@ export const Button = forwardRef<
 >((props: ButtonProps, ref) => {
   const {
     variant = "standard",
-    shape = "rounded",
     size = "md",
     disabled = false,
     startIcon,
@@ -212,24 +210,18 @@ export const Button = forwardRef<
     `,
   };
 
-  const shapeStyles = {
-    rounded: css`
-      ${theme.radius.full};
-    `,
-    box: css`
-      ${theme.radius.quaternary};
-    `,
-  };
-
   const variantStyles = {
     standard: css`
-      ${theme.button.type.primary}
+      ${theme.button.variant.standard}
     `,
     inverted: css`
-      ${theme.button.type.secondary}
+      ${theme.button.variant.inverted}
     `,
     text: css`
-      ${theme.button.type.tertiary}
+      ${theme.button.variant.text}
+    `,
+    flat: css`
+      ${theme.button.variant.flat}
     `,
   };
 
@@ -248,14 +240,8 @@ export const Button = forwardRef<
                 e.preventDefault()
             : onClick
         }
-        className={`button button-${shape} button-${variant} button-${size} ${className}`}
-        css={[
-          commonStyles,
-          shapeStyles[shape],
-          sizeStyles[size],
-          variantStyles[variant],
-          baseCss,
-        ]}
+        className={`button button-${variant} button-${size} ${className}`}
+        css={[commonStyles, sizeStyles[size], variantStyles[variant], baseCss]}
         {...anchorProps}
         aria-disabled={disabled ? true : undefined}
       >
@@ -274,14 +260,8 @@ export const Button = forwardRef<
       type="button"
       disabled={disabled}
       onClick={onClick}
-      className={`button button-${shape} button-${variant} button-${size} ${className}`}
-      css={[
-        commonStyles,
-        shapeStyles[shape],
-        sizeStyles[size],
-        variantStyles[variant],
-        baseCss,
-      ]}
+      className={`button button-${variant} button-${size} ${className}`}
+      css={[commonStyles, sizeStyles[size], variantStyles[variant], baseCss]}
       {...buttonProps}
     >
       {startIcon && <span className="button-start-icon">{startIcon}</span>}

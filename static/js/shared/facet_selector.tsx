@@ -124,18 +124,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
 
   return (
     <>
-      <Button
-        shape="box"
-        variant="inverted"
-        onClick={(): void => setModalOpen(true)}
-        css={css`
-          background-color: ${theme.colors.primary.A950};
-          border-color: ${theme.colors.primary.A950};
-          &:hover:not(:disabled):not([aria-disabled]) {
-            background-color: ${theme.colors.primary.A950};
-          }
-        `}
-      >
+      <Button variant="flat" onClick={(): void => setModalOpen(true)}>
         Select a dataset [{totalFacetOptionCount}]
       </Button>
       <Dialog
