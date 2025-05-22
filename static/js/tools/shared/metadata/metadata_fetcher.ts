@@ -227,23 +227,35 @@ export async function fetchMetadata(
           if (source) {
             releaseFrequency = source.releaseFrequency;
 
-            if (source.seriesSummary && source.seriesSummary.length > 0) {
-              const seriesSummary = source.seriesSummary[0];
-              dateRangeStart = seriesSummary.earliestDate;
-              dateRangeEnd = seriesSummary.latestDate;
+            /*
+                  We look up the series key that matches the attributes
+                  associated with the facets.
+                 */
+            const matchedSeries = source.seriesSummary?.find((series) => {
+              const key = series.seriesKey ?? {};
+              return (
+                (facetInfo.measurementMethod == null ||
+                  key.measurementMethod === facetInfo.measurementMethod) &&
+                (facetInfo.observationPeriod == null ||
+                  key.observationPeriod === facetInfo.observationPeriod) &&
+                (facetInfo.unit == null || key.unit === facetInfo.unit) &&
+                (facetInfo.scalingFactor == null ||
+                  key.scalingFactor === facetInfo.scalingFactor)
+              );
+            });
 
-              const seriesKey = seriesSummary.seriesKey;
-              if (seriesKey) {
-                unit = seriesKey.unit;
-                observationPeriod = seriesKey.observationPeriod;
-                measurementMethod = seriesKey.measurementMethod;
-                if (measurementMethod) {
-                  measurementMethodDescription = measurementMethodMap[
-                    measurementMethod
-                  ]
-                    ? measurementMethodMap[measurementMethod]
-                    : measurementMethod;
-                }
+            if (matchedSeries) {
+              dateRangeStart = matchedSeries.earliestDate;
+              dateRangeEnd = matchedSeries.latestDate;
+
+              const key = matchedSeries.seriesKey ?? {};
+              unit = key.unit;
+              observationPeriod = key.observationPeriod;
+              measurementMethod = key.measurementMethod;
+
+              if (measurementMethod) {
+                measurementMethodDescription =
+                  measurementMethodMap[measurementMethod] || measurementMethod;
               }
             }
           }
@@ -253,7 +265,7 @@ export async function fetchMetadata(
           statVarId,
           statVarName: responseObj[statVarId] || statVarId,
           categories: statVarCategoryMap[statVarId],
-          sourceName: provenanceData?.source[0]?.name,
+          sourceName: provenanceData?.source?.[0]?.name,
           provenanceUrl: provenanceData?.url?.[0]?.value,
           provenanceName:
             provenanceData?.isPartOf?.[0]?.name ||

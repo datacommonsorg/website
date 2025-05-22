@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { NamedNode, StatVarFacetMap } from "../../shared/types";
@@ -77,18 +77,33 @@ async function doMetadataFetch(props: HighlightResultProps): Promise<{
   );
 }
 
-export function HighlightResult(
-  props: HighlightResultProps
-): React.ReactElement {
-  const [metadataMap, setMetadataMap] = React.useState<
+/**
+ * Component to render the highlight result section of the page.
+ *
+ * This component fetches metadata and statistical variable information,
+ * processes the page configuration, and renders the main pane with the
+ * processed data.
+ *
+ * @param props - The properties for the HighlightResult component.
+ * @param props.highlightPageMetadata - Metadata for the highlight page, including
+ * the page configuration and place information.
+ * @param props.maxBlock - The maximum number of blocks to display in the trimmed
+ * category configuration.
+ * @param props.highlightFacet - The facet to highlight in the rendered page.
+ *
+ * @returns A React element rendering the highlight result section.
+ */
+export function HighlightResult(props: HighlightResultProps): ReactElement {
+  const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
-  const [statVarList, setStatVarList] = React.useState<NamedNode[]>([]);
-  const [pageConfig, setPageConfig] = React.useState(
+  const [statVarList, setStatVarList] = useState<NamedNode[]>([]);
+  const [pageConfig, setPageConfig] = useState(
     props.highlightPageMetadata.pageConfig
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Fetch metadata and stat var list when component mounts or props change
     const fetchData = async (): Promise<void> => {
       doMetadataFetch(props).then(({ metadata, statVarList }) => {
         setMetadataMap(metadata);
@@ -104,7 +119,8 @@ export function HighlightResult(
     return citationParts.map(({ label }) => label);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Process the page config and update the description for each block if we have metadata for it.
     if (
       !pageConfig ||
       pageConfig.categories.length === 0 ||
