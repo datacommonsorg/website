@@ -133,6 +133,9 @@ export const TileMetadataModalContent = ({
                 ${theme.typography.heading.xs}
                 margin: 0 0 ${theme.spacing.sm}px 0;
                 padding: 0 0 0 0;
+                ${statVars.length > 4
+                  ? "display: flex; justify-content: space-between;"
+                  : ""}
               }
               p {
                 ${theme.typography.family.text}
