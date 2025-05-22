@@ -92,17 +92,6 @@ def stat_var():
   return redirect('https://datacommons.org/tools/statvar', code=302)
 
 
-# This is used to handle explore more link from Google search. Do not remove.
-# arg params from search: mprop, dcid, popt
-@bp.route('/explore/place')
-def explore():
-  return redirect('https://datacommons.org' +
-                  url_for('place.place',
-                          place_dcid=request.args.get('dcid'),
-                          _scheme=current_app.config.get('SCHEME', 'https')),
-                  code=302)
-
-
 @bp.route('/insights/')
 def insights():
   return redirect(
