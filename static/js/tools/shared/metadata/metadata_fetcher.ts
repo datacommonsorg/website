@@ -22,6 +22,7 @@ import { DataCommonsClient } from "@datacommonsorg/client";
 
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarFacetMap } from "../../../shared/types";
+import { FacetResponse } from "../../../utils/data_fetch_utils";
 import {
   Provenance,
   StatVarMetadata,
@@ -34,6 +35,13 @@ import {
 
 // TODO(gmechali): Splitting up this function into smaller ones might be helpful for maintainability.
 
+function getFacetInfo(
+  statVarDcid: string,
+  facetId: string,
+  facets: FacetResponse | Record<string, StatMetadata>
+): StatMetadata | undefined {
+  return facets[statVarDcid]?.[facetId] || facets[facetId];
+}
 /**
  * Fetch metadata from a given URL.
  * @param url - The URL to fetch metadata from.
@@ -41,7 +49,7 @@ import {
  */
 export async function fetchMetadata(
   statVarSet: Set<string>,
-  facets: Record<string, StatMetadata>,
+  facets: FacetResponse | Record<string, StatMetadata>,
   dataCommonsClient: DataCommonsClient,
   statVarToFacets?: StatVarFacetMap,
   apiRoot?: string
@@ -142,7 +150,7 @@ export async function fetchMetadata(
       const facetIdSet = statVarToFacets?.[statVarId] || new Set<string>();
 
       facetIdSet.forEach((facetId) => {
-        const facetInfo = facets[facetId];
+        const facetInfo = getFacetInfo(statVarId, facetId, facets);
 
         if (facetInfo?.importName) {
           const provenanceFullPath = `dc/base/${facetInfo.importName}`;
@@ -194,7 +202,7 @@ export async function fetchMetadata(
       metadata[statVarId] = [];
 
       for (const facetId of facetIdSet) {
-        const facetInfo = facets[facetId];
+        const facetInfo = getFacetInfo(statVarId, facetId, facets);
 
         if (!facetInfo?.importName) continue;
 

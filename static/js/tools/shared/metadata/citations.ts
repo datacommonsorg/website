@@ -68,9 +68,11 @@ export function buildCitationParts(
     });
   });
 
-  parts.push({
-    label: intl.formatMessage(metadataComponentMessages.MinorProcessing),
-  });
+  if (parts.length != 0) {
+    parts.push({
+      label: intl.formatMessage(metadataComponentMessages.MinorProcessing),
+    });
+  }
 
   return parts;
 }

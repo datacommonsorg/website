@@ -31,38 +31,37 @@ async function doMetadataFetch(props: HighlightResultProps): Promise<{
   metadata: Record<string, StatVarMetadata[]>;
   statVarList: NamedNode[];
 }> {
+  // Only do this if we have a highlight facet.
+  if (!props.highlightFacet) {
+    return;
+  }
+
+  // Fetch the requested stat vars.
   const statVarSet = new Set<string>();
-  if (props.highlightPageMetadata.pageConfig.categories[0].statVarSpec) {
-    for (const spec of Object.values(
-      props.highlightPageMetadata.pageConfig.categories[0].statVarSpec
-    )) {
-      statVarSet.add(spec.statVar);
-      if (spec.denom) {
-        statVarSet.add(spec.denom);
+  for (const category of props.highlightPageMetadata.pageConfig.categories) {
+    if (category.statVarSpec) {
+      for (const spec of Object.values(category.statVarSpec)) {
+        statVarSet.add(spec.statVar);
+        if (spec.denom) {
+          statVarSet.add(spec.denom);
+        }
       }
     }
   }
 
   const dataCommonsClient = getDataCommonsClient(props.apiRoot);
 
-  const statVarArray = Array.from(statVarSet);
   const facets: FacetResponse = await getFacets(
     props.apiRoot,
     [props.highlightPageMetadata.place.dcid],
-    statVarArray
+    Array.from(statVarSet)
   );
 
-  console.log("facets", JSON.stringify(facets));
-  // console.log("HighlightFacet", JSON.stringify(props.highlightFacet));
   const statVarFacetMap: StatVarFacetMap = {};
   for (const statVar in facets) {
-    // if props.highlightFacet is not null, match the right facet then add it to statVarFacetMap
-    // for (const facet of facets[statVar]) {
     const facet = facets[statVar];
-    console.log("Facet is ", facet);
     for (const facetId in facet) {
-      if (facet[facetId].importName === props.highlightFacet?.importName) {
-        console.log(`Found matching facet for ${statVar}: ${facet.importName}`);
+      if (facet[facetId].importName === props.highlightFacet.importName) {
         statVarFacetMap[statVar] = new Set([facetId]);
         break;
       }
@@ -71,7 +70,7 @@ async function doMetadataFetch(props: HighlightResultProps): Promise<{
 
   return fetchMetadata(
     statVarSet,
-    facets["Count_Person"],
+    facets,
     dataCommonsClient,
     statVarFacetMap,
     props.apiRoot
@@ -118,14 +117,23 @@ export function HighlightResult(
       props.highlightPageMetadata.pageConfig
     );
 
-    const highlightChartDescription = generateCitationSources(
-      buildCitationParts(statVarList, metadataMap, true)
-    ).join(", ");
+    for (const category of pageConfigCopy.categories) {
+      const categoryStatVars: NamedNode[] = category.statVarSpec
+        ? Object.values(category.statVarSpec).map((spec) => ({
+            dcid: spec.statVar,
+            name: spec.statVar,
+          }))
+        : [];
+      const blockCitations = generateCitationSources(
+        buildCitationParts(categoryStatVars, metadataMap, true)
+      ).join(", ");
 
-    pageConfigCopy.categories[0].blocks[0].description =
-      highlightChartDescription;
+      for (const block of category.blocks) {
+        block.description = blockCitations;
+      }
+    }
     setPageConfig(pageConfigCopy);
-  }, [statVarList, metadataMap]);
+  }, [statVarList, metadataMap, props.highlightPageMetadata.pageConfig]);
 
   return (
     <div>
