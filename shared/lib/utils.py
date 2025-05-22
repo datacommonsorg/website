@@ -201,4 +201,4 @@ def escape_strings(data):
 
 def is_test_env() -> bool:
   env = os.environ.get('FLASK_ENV', '')
-  return env in ['integration_test', 'test', 'webdriver']
+  return env in ['integration_test', 'test', 'webdriver', 'custom_test']

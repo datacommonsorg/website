@@ -11,18 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.base import WebdriverBaseTest
-from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
 
-# Shared tests that don't work in custom DC are skipped with this reason.
-# Any skipped test should be noted in b/386405593, fixed and unskipped subsequently.
-SKIPPED_TEST_REASON = "Not working in custom DC. See b/386405593"
+from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
+from server.webdriver.shared_tests.place_explorer_test import \
+    PlaceExplorerTestMixin
 
 
-class CdcAutopushTestBase(WebdriverBaseTest):
-  """Base class for CDC Autopush webdriver tests."""
-  dc_title_string = "Custom Data Commons"
-
-  @classmethod
-  def get_class_server_url(cls):
-    return CDC_AUTOPUSH_URL
+class TestPlaceExplorer(PlaceExplorerTestMixin, CdcTestBase):
+  """Class to test the place explorer page for Custom DC. Tests come from PlaceExplorerTestMixin."""
