@@ -22,7 +22,7 @@ STATIC_PROPERTIES = [
 ]
 BATCH_SIZE = 100
 
-EmbeddingRow: type = Dict[str, str]
+type EmbeddingRow= Dict[str, str]
 
 def batch_df(original_df, batch_size: int):
   """
@@ -73,21 +73,17 @@ def extract_constraint_properties(new_row: EmbeddingRow, dcid_data) -> Embedding
       constrained_prop = constrained_prop_node["name"]
     else:
       constrained_prop = constrained_prop_node["dcid"]
-    
     first_value_node = dcid_data[constrained_prop]["nodes"][0]
     if "name" in first_value_node:
       new_row[constrained_prop] = first_value_node.get("name")
     else:
       new_row[constrained_prop] = first_value_node.get("dcid")
-  
   return new_row
 
 def main():
   client = DataCommonsClient(api_key=DC_API_KEY)
   embeddings = pd.read_csv(STAT_VAR_SHEET)
-
   new_embeddings: List[EmbeddingRow] = []
-
   batched_list = batch_df(embeddings, BATCH_SIZE)
 
   for curr_batch in batched_list:
@@ -98,7 +94,6 @@ def main():
     dcid_sentence_tuples = zip(*curr_batch.to_dict("list").values())
     for dcid, sentence in dcid_sentence_tuples:
       dcid_data = response_data[dcid]["arcs"]
-
       new_row: EmbeddingRow = extract_metadata(dcid, sentence, dcid_data, STATIC_PROPERTIES)
       new_embeddings.append(new_row)
 
