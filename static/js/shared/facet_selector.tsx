@@ -20,6 +20,7 @@
 
 /** @jsxImportSource @emotion/react */
 
+import { css } from "@emotion/react";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import Collapsible from "react-collapsible";
@@ -125,7 +126,13 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
 
   return (
     <>
-      <Button variant="flat" onClick={(): void => setModalOpen(true)}>
+      <Button
+        variant="flat"
+        onClick={(): void => setModalOpen(true)}
+        css={css`
+          flex-shrink: 0;
+        `}
+      >
         Select a dataset [{totalFacetOptionCount}]
       </Button>
       <Modal
