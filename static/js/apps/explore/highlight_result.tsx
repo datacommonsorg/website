@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { NamedNode, StatVarFacetMap } from "../../shared/types";
@@ -31,11 +31,6 @@ async function doMetadataFetch(props: HighlightResultProps): Promise<{
   metadata: Record<string, StatVarMetadata[]>;
   statVarList: NamedNode[];
 }> {
-  // Only do this if we have a highlight facet.
-  if (!props.highlightFacet) {
-    return;
-  }
-
   // Fetch the requested stat vars.
   const statVarSet = new Set<string>();
   for (const category of props.highlightPageMetadata.pageConfig.categories) {
@@ -77,6 +72,15 @@ async function doMetadataFetch(props: HighlightResultProps): Promise<{
   );
 }
 
+function generateCitationSources(
+  statVars: NamedNode[],
+  metadataMap: Record<string, StatVarMetadata[]>
+): string {
+  return buildCitationParts(statVars, metadataMap, true)
+    .map(({ label }) => label)
+    .join(", ");
+}
+
 /**
  * Component to render the highlight result section of the page.
  *
@@ -97,41 +101,29 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
-  const [statVarList, setStatVarList] = useState<NamedNode[]>([]);
-  const [pageConfig, setPageConfig] = useState(
-    props.highlightPageMetadata.pageConfig
-  );
 
   useEffect(() => {
     // Fetch metadata and stat var list when component mounts or props change
     const fetchData = async (): Promise<void> => {
-      doMetadataFetch(props).then(({ metadata, statVarList }) => {
+      doMetadataFetch(props).then(({ metadata }) => {
         setMetadataMap(metadata);
-        setStatVarList(statVarList);
       });
     };
-    fetchData();
-
-    setPageConfig(props.highlightPageMetadata.pageConfig);
+    void fetchData();
   }, [props]);
 
-  const generateCitationSources = (citationParts: CitationPart[]): string[] => {
-    return citationParts.map(({ label }) => label);
-  };
-
-  useEffect(() => {
+  const pageConfig = useMemo(() => {
     // Process the page config and update the description for each block if we have metadata for it.
-    if (
-      !pageConfig ||
-      pageConfig.categories.length === 0 ||
-      pageConfig.categories[0].blocks.length === 0
-    ) {
-      return;
-    }
-
     const pageConfigCopy = structuredClone(
       props.highlightPageMetadata.pageConfig
     );
+
+    if (
+      pageConfigCopy.categories.length === 0 ||
+      pageConfigCopy.categories[0].blocks.length === 0
+    ) {
+      return pageConfigCopy;
+    }
 
     for (const category of pageConfigCopy.categories) {
       const categoryStatVars: NamedNode[] = category.statVarSpec
@@ -141,15 +133,16 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
           }))
         : [];
       const blockCitations = generateCitationSources(
-        buildCitationParts(categoryStatVars, metadataMap, true)
-      ).join(", ");
+        categoryStatVars,
+        metadataMap
+      );
 
       for (const block of category.blocks) {
         block.description = blockCitations;
       }
     }
-    setPageConfig(pageConfigCopy);
-  }, [statVarList, metadataMap, props.highlightPageMetadata.pageConfig]);
+    return pageConfigCopy;
+  }, [metadataMap, props.highlightPageMetadata.pageConfig]);
 
   return (
     <div className="highlight-result-title">

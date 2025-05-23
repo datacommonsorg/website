@@ -62,7 +62,7 @@ export async function fetchMetadata(
   try {
     const statVars = [...statVarSet];
     if (statVars.length === 0) {
-      return;
+      return { metadata: {}, statVarList: [] };
     }
 
     /*
