@@ -212,8 +212,8 @@ const DialogContainer = ({
 };
 
 const maxWidthPixelMap = {
-  sm: 420,
-  md: 640,
+  sm: 580,
+  md: 720,
   lg: 960,
 } as const;
 
@@ -534,7 +534,7 @@ export const Dialog = ({
               display: flex;
               flex-direction: column;
               gap: ${theme.spacing.sm}px;
-              max-height: calc(100vh - 64px);
+              max-height: 70vh;
               background: #fff;
               opacity: ${isVisible && !loading ? 1 : 0};
               transition: opacity ${getActiveFadeDuration()}ms ease-in-out;

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -116,6 +117,7 @@ class MapTestMixin():
                   self.TIMEOUT_SEC).until(EC.title_contains(new_page_title))
     self.assertEqual(new_page_title, self.driver.title)
 
+  @pytest.mark.one_at_a_time
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
         show up.
