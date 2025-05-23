@@ -11,11 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
-    CdcAutopushTestBase
-from server.webdriver.shared_tests.place_landing_test import \
-    PlaceLandingTestMixin
+from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
+from server.webdriver.shared_tests.stat_var_hierarchy_test import \
+    StatVarHierarchyTestMixin
 
 
-class TestPlaceLanding(PlaceLandingTestMixin, CdcAutopushTestBase):
-  """Class to test the place landing page for Custom DC. Tests come from PlaceLandingTestMixin."""
+class TestStatVarHierarchy(StatVarHierarchyTestMixin, CdcTestBase):
+  """Class to test the stat var hierarchy page for Custom DC. Tests come from StatVarHierarchyTestMixin."""

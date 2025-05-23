@@ -11,10 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
-    CdcAutopushTestBase
-from server.webdriver.shared_tests.timeline_test import TimelineTestMixin
+from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
+from server.webdriver.shared_tests.scatter_test import ScatterTestMixin
 
 
-class TestTimeline(TimelineTestMixin, CdcAutopushTestBase):
-  """Class to test the timeline page for Custom DC. Tests come from TimelineTestMixin."""
+class TestScatter(ScatterTestMixin, CdcTestBase):
+  """Class to test the scatter page for Custom DC. Tests come from ScatterTestMixin."""
