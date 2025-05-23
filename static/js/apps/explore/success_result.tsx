@@ -190,6 +190,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                     highlightPageMetadata={props.highlightPageMetadata}
                     highlightFacet={props.highlightFacet}
                     maxBlock={maxBlock}
+                    apiRoot={props.exploreContext.apiRoot}
                   />
                 )}
                 <SubjectPageMainPane
