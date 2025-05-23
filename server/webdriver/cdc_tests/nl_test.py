@@ -16,11 +16,10 @@ from selenium.webdriver.common.by import By
 
 from server.integration_tests.explore_test import ExploreTest
 from server.webdriver.base_utils import find_elem
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
-    CdcAutopushTestBase
+from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 
 
-class CdcAutopushNLTest(ExploreTest, CdcAutopushTestBase):
+class CdcNLTest(ExploreTest, CdcTestBase):
   """Class to test the natural language queries for Custom DC."""
 
   def test_cdc_nl(self):
