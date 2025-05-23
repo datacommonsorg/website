@@ -2,10 +2,7 @@ import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { NamedNode, StatVarFacetMap } from "../../shared/types";
-import {
-  buildCitationParts,
-  CitationPart,
-} from "../../tools/shared/metadata/citations";
+import { buildCitationParts } from "../../tools/shared/metadata/citations";
 import { StatVarMetadata } from "../../tools/shared/metadata/metadata";
 import { fetchMetadata } from "../../tools/shared/metadata/metadata_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
