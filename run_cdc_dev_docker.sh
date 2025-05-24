@@ -184,7 +184,7 @@ run_data() {
   if [ "$data_hybrid" == true ]; then
     check_app_credentials
     echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text} and writing output to Google Cloud...${NC}\n"
-    docker run -i \
+    docker run -it \
     --env-file "$ENV_FILE" \
     ${schema_update//\"/} \
     -e GOOGLE_APPLICATION_CREDENTIALS=/gcp/creds.json \
@@ -193,7 +193,7 @@ run_data() {
     gcr.io/datcom-ci/datacommons-data:${RELEASE}
   else
     echo -e "${GREEN}Starting Docker data container with '$RELEASE' release${schema_update_text}...${NC}\n"
-    docker run -i \
+    docker run -it \
     --env-file "$ENV_FILE" \
     ${schema_update//\"/} \
     -v $INPUT_DIR:$INPUT_DIR \
@@ -209,7 +209,7 @@ run_service() {
     # Custom-built image
     if [ -n "$IMAGE" ]; then
       echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}' reading data in Google Cloud...${NC}\n"
-      docker run -i \
+      docker run -it \
       --env-file "$ENV_FILE" \
       -p 8080:8080 \
       -e DEBUG=true \
@@ -224,7 +224,7 @@ run_service() {
         docker pull gcr.io/datcom-ci/datacommons-services:latest
       fi
       echo -e "${GREEN}Starting Docker services container with '${RELEASE}' release reading data in Google Cloud...${NC}\n"
-      docker run -i \
+      docker run -it \
       --env-file "$ENV_FILE" \
       -p 8080:8080 \
       -e DEBUG=true \
@@ -238,7 +238,7 @@ run_service() {
   # Custom-built image
   if [ -n "$IMAGE" ]; then
     echo -e "${GREEN}Starting Docker services container with custom image '${IMAGE}'...${NC}\n"
-    docker run -i \
+    docker run -it \
     --env-file "$ENV_FILE" \
     -p 8080:8080 \
     -e DEBUG=true \
@@ -253,7 +253,7 @@ run_service() {
      docker pull gcr.io/datcom-ci/datacommons-services:latest
     fi
     echo -e "${GREEN}Starting Docker services container with '${RELEASE}' release...${NC}\n"
-    docker run -i \
+    docker run -it \
     --env-file "$ENV_FILE" \
     -p 8080:8080 \
     -e DEBUG=true \
