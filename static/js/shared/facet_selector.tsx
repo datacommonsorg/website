@@ -20,12 +20,12 @@
 
 /** @jsxImportSource @emotion/react */
 
-import { css, Theme, useTheme } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
-import Collapsible from "react-collapsible";
 import { FormGroup, Input, Label } from "reactstrap";
 
+import theme from "../../../static/js/theme/theme";
 import { Button } from "../components/elements/button/button";
 import {
   Dialog,
@@ -35,12 +35,6 @@ import {
 } from "../components/elements/dialog/dialog";
 import { StatMetadata } from "./stat_types";
 
-const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
-const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
-const MINUS_HTML = <i className="material-icons">remove</i>;
-const PLUS_HTML = <i className="material-icons">add</i>;
-const SELECTOR_PREFIX = "source-selector";
-const MAX_FACETS_UNGROUPED = 3;
 // The "EMPTY_METADATA_TITLE" option means the facet is picked by the API and
 // different facets can be used for different data points.
 const EMPTY_METADATA_TITLE =
@@ -140,47 +134,24 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
           {errorMessage && <div>{errorMessage}</div>}
           {showSourceOptions &&
             facetList.map((facetInfo) => {
-              const selectedFacetId = modalSelections[facetInfo.dcid];
               return (
-                <Collapsible
-                  key={facetInfo.dcid}
-                  trigger={getSVTriggerJsx(false, facetInfo, selectedFacetId)}
-                  triggerWhenOpen={getSVTriggerJsx(
-                    true,
+                <div key={facetInfo.dcid}>
+                  <p>
+                    Select the data source that you would like to use to plot: {" "}
+                    {facetInfo.name}
+                  </p>
+                  {getFacetOptionJsx(
                     facetInfo,
-                    selectedFacetId
+                    "",
+                    modalSelections,
+                    setModalSelections
                   )}
-                  open={facetList.length < 2}
-                >
-                  <div
-                    className={`${SELECTOR_PREFIX}-options-section`}
-                    css={css`
-                      position: relative;
-                      && {
-                        .row {
-                          margin: 0;
-                        }
-                        input[type="radio"],
-                        input[type="checkbox"] {
-                          position: inherit;
-                          margin: 0 24px 0 0;
-                        }
-                      }
-                    `}
-                  >
-                    {getFacetOptionJsx(
-                      facetInfo,
-                      "",
-                      modalSelections,
-                      setModalSelections
-                    )}
-                    {getFacetOptionSectionJsx(
-                      facetInfo,
-                      modalSelections,
-                      setModalSelections
-                    )}
-                  </div>
-                </Collapsible>
+                  {getFacetOptionSectionJsx(
+                    facetInfo,
+                    modalSelections,
+                    setModalSelections
+                  )}
+                </div>
               );
             })}
         </DialogContent>
@@ -246,9 +217,24 @@ function getFacetOptionJsx(
   }
   const selectedFacetId = modalSelections[facetInfo.dcid] || "";
   return (
-    <FormGroup radio="true" row key={facetInfo.dcid + facetId}>
-      <Label radio="true" className={`${SELECTOR_PREFIX}-option`}>
-        <div className={`${SELECTOR_PREFIX}-option-title`}>
+    <FormGroup radio="true" key={facetInfo.dcid + facetId}>
+      <Label
+        radio="true"
+        css={css`
+          margin: 0;
+          padding: 0;
+          position: relative;
+        `}
+      >
+        <p
+          css={css`
+            ${theme.typography.family.text}
+            ${theme.typography.text.md}
+            font-weight: 900;
+            margin: 0;
+            padding: 0;
+          `}
+        >
           <Input
             type="radio"
             name={facetInfo.dcid}
@@ -259,22 +245,42 @@ function getFacetOptionJsx(
                 [facetInfo.dcid]: facetId,
               });
             }}
+            css={css`
+              position: relative;
+              margin: 0;
+              padding: 0;
+            `}
           />
-          <div>{facetTitle}</div>
-        </div>
-        <div className={`${SELECTOR_PREFIX}-option-details`}>
-          {metadata.importName && <div>importName: {metadata.importName}</div>}
-          {metadata.measurementMethod && (
-            <div>measurementMethod: {metadata.measurementMethod}</div>
+          {facetTitle}
+        </p>
+        <ul
+          css={css`
+            ${theme.typography.family.text}
+            ${theme.typography.text.md}
+            margin: 0;
+            padding: 0;
+            li {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+            }
+          `}
+        >
+          {metadata.importName && <li>Import Name • {metadata.importName}</li>}
+          {metadata.provenanceUrl && (
+            <li>Provenance • {metadata.provenanceUrl}</li>
           )}
-          {metadata.observationPeriod && (
-            <div>observationPeriod: {metadata.observationPeriod}</div>
+          {metadata.measurementMethod && (
+            <li>Measurement Method • {metadata.measurementMethod}</li>
           )}
           {metadata.scalingFactor && (
-            <div>scalingFactor: {metadata.scalingFactor}</div>
+            <li>Scaling Factor • {metadata.scalingFactor}</li>
           )}
-          {metadata.unit && <div>unit: {metadata.unit}</div>}
-        </div>
+          {metadata.unit && <li>Unit • {metadata.unit}</li>}
+          {metadata.observationPeriod && (
+            <li>Range • {metadata.observationPeriod}</li>
+          )}
+        </ul>
       </Label>
     </FormGroup>
   );
@@ -301,7 +307,7 @@ function getFacetOptionSectionJsx(
       importNameToFacetOptions[importName] = [];
     }
     importNameToFacetOptions[importName].push(facetId);
-    if (importNameToFacetOptions[importName].length > MAX_FACETS_UNGROUPED) {
+    if (importNameToFacetOptions[importName].length > 2) {
       shouldShowSections = true;
     }
   });
@@ -310,11 +316,18 @@ function getFacetOptionSectionJsx(
     return (
       <>
         {sortedImportNames.map((importName) => (
-          <Collapsible
-            key={facetInfo.dcid + importName}
-            trigger={getImportTriggerJsx(false, importName)}
-            triggerWhenOpen={getImportTriggerJsx(true, importName)}
-          >
+          <div key={facetInfo.dcid + importName}>
+            <h4
+              css={css`
+                ${theme.typography.family.text}
+                ${theme.typography.text.lg}
+                font-weight: 900;
+                margin: 0;
+                padding: 0;
+              `}
+            >
+              {importName} <span>{importNameToFacetOptions.length}</span>
+            </h4>
             {importNameToFacetOptions[importName].map((facetId) =>
               getFacetOptionJsx(
                 facetInfo,
@@ -323,7 +336,7 @@ function getFacetOptionSectionJsx(
                 setModalSelections
               )
             )}
-          </Collapsible>
+          </div>
         ))}
         {facetOptionsNoImportName.map(
           (facetId) =>
@@ -351,51 +364,4 @@ function getFacetOptionSectionJsx(
       </>
     );
   }
-}
-
-/**
- * Gets the element for the trigger for a collapsible stat var section
- */
-function getSVTriggerJsx(
-  opened: boolean,
-  facetInfo: FacetSelectorFacetInfo,
-  selectedFacetId: string
-): ReactElement {
-  const metadata = facetInfo.metadataMap[selectedFacetId] || {};
-  let facetTitle = getFacetTitle(metadata);
-  if (facetInfo.displayNames && selectedFacetId in facetInfo.displayNames) {
-    facetTitle = facetInfo.displayNames[selectedFacetId];
-  }
-  return (
-    <div
-      className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-sv-trigger-${
-        opened ? "opened" : "closed"
-      }`}
-    >
-      <div className={`${SELECTOR_PREFIX}-trigger-title`}>
-        {facetInfo.name}
-        <div className={`${SELECTOR_PREFIX}-trigger-byline`}>
-          source: {facetTitle}
-        </div>
-      </div>
-      {opened ? UP_ARROW_HTML : DOWN_ARROW_HTML}
-    </div>
-  );
-}
-
-/**
- * Gets the element for the trigger for a collapsible import section in the list
- * of facet options
- */
-function getImportTriggerJsx(opened: boolean, title: string): ReactElement {
-  return (
-    <div
-      className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-import-trigger-${
-        opened ? "opened" : "closed"
-      }`}
-    >
-      {opened ? MINUS_HTML : PLUS_HTML}
-      <div className={`${SELECTOR_PREFIX}-trigger-title`}>{title}</div>
-    </div>
-  );
 }
