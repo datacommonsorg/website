@@ -36,6 +36,12 @@ export const messages = defineMessages({
     description:
       "Title indicating that the chart data comes from the following multiple sources",
   },
+  sourcesLowercase: {
+    id: "sources.lowercase",
+    defaultMessage: "sources",
+    description:
+      "Same as “Sources” but in lowercase (for sentence-case labels)",
+  },
   source: {
     id: "source",
     defaultMessage: "Source",
