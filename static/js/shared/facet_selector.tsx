@@ -132,12 +132,21 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         <DialogTitle>Select a dataset</DialogTitle>
         <DialogContent>
           {errorMessage && <div>{errorMessage}</div>}
+          <p>Select the data source that you would like to use to plot:</p>
           {showSourceOptions &&
             facetList.map((facetInfo) => {
               return (
                 <div key={facetInfo.dcid}>
-                  <p>
-                    Select the data source that you would like to use to plot: {" "}
+                  <p
+                    css={css`
+                      ${theme.typography.family.text}
+                      ${theme.typography.text.md}
+                      font-weight: 900;
+                      margin: 0;
+                      padding: 0;
+                      background: green;
+                    `}
+                  >
                     {facetInfo.name}
                   </p>
                   {getFacetOptionJsx(
@@ -182,23 +191,7 @@ function getFacetTitle(metadata: StatMetadata): string {
   if (_.isEmpty(metadata)) {
     return EMPTY_METADATA_TITLE;
   }
-  let result = `[${metadata.importName}]`;
-  let first = true;
-  for (const text of [
-    metadata.measurementMethod,
-    metadata.observationPeriod,
-    metadata.scalingFactor,
-    metadata.unit,
-  ]) {
-    if (text) {
-      if (!first) {
-        result += ", ";
-      }
-      result += text;
-      first = false;
-    }
-  }
-  return result;
+  return metadata.importName;
 }
 
 /**
@@ -266,10 +259,6 @@ function getFacetOptionJsx(
             }
           `}
         >
-          {metadata.importName && <li>Import Name • {metadata.importName}</li>}
-          {metadata.provenanceUrl && (
-            <li>Provenance • {metadata.provenanceUrl}</li>
-          )}
           {metadata.measurementMethod && (
             <li>Measurement Method • {metadata.measurementMethod}</li>
           )}
@@ -278,7 +267,7 @@ function getFacetOptionJsx(
           )}
           {metadata.unit && <li>Unit • {metadata.unit}</li>}
           {metadata.observationPeriod && (
-            <li>Range • {metadata.observationPeriod}</li>
+            <li>Observation Period • {metadata.observationPeriod}</li>
           )}
         </ul>
       </Label>
@@ -307,9 +296,7 @@ function getFacetOptionSectionJsx(
       importNameToFacetOptions[importName] = [];
     }
     importNameToFacetOptions[importName].push(facetId);
-    if (importNameToFacetOptions[importName].length > 2) {
-      shouldShowSections = true;
-    }
+    shouldShowSections = true;
   });
   if (shouldShowSections) {
     const sortedImportNames = Object.keys(importNameToFacetOptions).sort();
@@ -317,17 +304,18 @@ function getFacetOptionSectionJsx(
       <>
         {sortedImportNames.map((importName) => (
           <div key={facetInfo.dcid + importName}>
-            <h4
+            {/* <p
               css={css`
                 ${theme.typography.family.text}
-                ${theme.typography.text.lg}
+                ${theme.typography.text.md}
                 font-weight: 900;
                 margin: 0;
                 padding: 0;
+                background: red;
               `}
             >
               {importName} <span>{importNameToFacetOptions.length}</span>
-            </h4>
+            </p> */}
             {importNameToFacetOptions[importName].map((facetId) =>
               getFacetOptionJsx(
                 facetInfo,
