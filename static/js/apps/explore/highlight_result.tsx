@@ -26,7 +26,10 @@ import { buildCitationParts } from "../../tools/shared/metadata/citations";
 import { StatVarMetadata } from "../../tools/shared/metadata/metadata";
 import { fetchMetadata } from "../../tools/shared/metadata/metadata_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
-import { SubjectPageMetadata } from "../../types/subject_page_types";
+import {
+  ProcessedSubjectPageConfig,
+  SubjectPageMetadata,
+} from "../../types/subject_page_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getFacets } from "../../utils/data_fetch_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
@@ -138,7 +141,7 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
     // Process the page config and set metadata summary for each block when loaded
     const pageConfigCopy = structuredClone(
       props.highlightPageMetadata.pageConfig
-    );
+    ) as ProcessedSubjectPageConfig;
 
     if (
       metadataLoadingState === true ||

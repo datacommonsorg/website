@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 import { NamedTypedNode } from "../shared/types";
-import { SubjectPageConfig } from "../types/subject_page_proto_types";
-import { ChildPlacesByType } from "./../shared/types";
+import { ChildPlacesByType } from "../shared/types";
+import {
+  BlockConfig,
+  CategoryConfig,
+  SubjectPageConfig,
+} from "./subject_page_proto_types";
 
 export interface SubjectPageMetadata {
   /**
@@ -51,4 +55,28 @@ export interface SubjectPageMetadata {
   mainTopics?: NamedTypedNode[];
   sessionId?: string;
   svSource?: string;
+}
+
+/*
+  An extension of the BlockConfig from the API to add the metadataSummary
+  that will be populated in the front end.
+ */
+export interface ProcessedBlockConfig extends BlockConfig {
+  metadataSummary?: string;
+}
+
+/*
+  An extension of the CategoryConfig from the API to extend
+  the block attribute as ProcessedBlockConfig
+ */
+export interface ProcessedCategoryConfig extends CategoryConfig {
+  blocks: ProcessedBlockConfig[];
+}
+
+/*
+  An extension of the SubjectPageConfig from the API to extend
+  the categories attribute as ProcessedCategoryConfig
+ */
+export interface ProcessedSubjectPageConfig extends SubjectPageConfig {
+  categories: ProcessedCategoryConfig[];
 }

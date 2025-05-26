@@ -27,9 +27,9 @@ import { SdgContext } from "../../shared/context";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { FacetMetadata } from "../../types/facet_metadata";
 import {
-  CategoryConfig,
-  SubjectPageConfig,
-} from "../../types/subject_page_proto_types";
+  ProcessedCategoryConfig,
+  ProcessedSubjectPageConfig,
+} from "../../types/subject_page_types";
 import { getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
@@ -41,7 +41,7 @@ interface SubjectPageMainPanePropType {
   // The place to show the page for.
   place: NamedTypedPlace;
   // Config of the page
-  pageConfig: SubjectPageConfig;
+  pageConfig: ProcessedSubjectPageConfig;
   // Height, in px, for the tile SVG charts.
   svgChartHeight?: number;
   // parent places of the place to show the page for.
@@ -89,7 +89,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
     <div id="subject-page-main-pane">
       <DataFetchContextProvider id={props.id}>
         {data &&
-          data.map((category: CategoryConfig, idx: number) => {
+          data.map((category: ProcessedCategoryConfig, idx: number) => {
             const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
             // TODO: just use DataFetchContextProvider for fetching data and
             // remove DataContext.
