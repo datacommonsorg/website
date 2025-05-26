@@ -35,11 +35,6 @@ import {
 } from "../components/elements/dialog/dialog";
 import { StatMetadata } from "./stat_types";
 
-// The "EMPTY_METADATA_TITLE" option means the facet is picked by the API and
-// different facets can be used for different data points.
-const EMPTY_METADATA_TITLE =
-  "Plot data points by combining data from the datasets listed below for maximal coverage";
-
 // The information needed in SourceSelector component for a single stat var to
 // get the list of available facets
 export interface FacetSelectorFacetInfo {
@@ -125,41 +120,79 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
         loading={loading}
-        maxWidth="lg"
+        maxWidth="md"
         fullWidth
         showCloseButton
       >
         <DialogTitle>Select a dataset</DialogTitle>
         <DialogContent>
           {errorMessage && <div>{errorMessage}</div>}
-          <p>Select the data source that you would like to use to plot:</p>
+          {facetList.length > 1 && (
+            <p
+              css={css`
+                ${theme.typography.family.text}
+                ${theme.typography.text.md}
+                margin: 0 0 ${theme.spacing.md}px;
+                padding: 0;
+              `}
+            >
+              Select the data source that you would like to use to plot:
+            </p>
+          )}
           {showSourceOptions &&
             facetList.map((facetInfo) => {
               return (
                 <div key={facetInfo.dcid}>
-                  <p
+                  {facetList.length == 1 && (
+                    <p
+                      css={css`
+                        ${theme.typography.family.text}
+                        ${theme.typography.text.md}
+                        margin: 0;
+                        padding: 0;
+                      `}
+                    >
+                      Select the data source that you would like to use to plot:{" "}
+                      <span>
+                        &ldquo;
+                        {facetInfo.name}
+                        &rdquo;
+                      </span>
+                    </p>
+                  )}
+                  {facetList.length > 1 && (
+                    <p
+                      css={css`
+                        ${theme.typography.family.text}
+                        ${theme.typography.text.md}
+                        font-weight: 900;
+                        margin: 0;
+                        padding: 0;
+                      `}
+                    >
+                      {facetInfo.name}
+                    </p>
+                  )}
+                  <div
                     css={css`
-                      ${theme.typography.family.text}
-                      ${theme.typography.text.md}
-                      font-weight: 900;
-                      margin: 0;
-                      padding: 0;
-                      background: green;
+                      padding: ${theme.spacing.lg}px ${theme.spacing.xl}px;
+                      display: flex;
+                      flex-direction: column;
+                      gap: ${theme.spacing.md}px;
                     `}
                   >
-                    {facetInfo.name}
-                  </p>
-                  {getFacetOptionJsx(
-                    facetInfo,
-                    "",
-                    modalSelections,
-                    setModalSelections
-                  )}
-                  {getFacetOptionSectionJsx(
-                    facetInfo,
-                    modalSelections,
-                    setModalSelections
-                  )}
+                    {getFacetOptionJsx(
+                      facetInfo,
+                      "",
+                      modalSelections,
+                      setModalSelections
+                    )}
+                    {getFacetOptionSectionJsx(
+                      facetInfo,
+                      modalSelections,
+                      setModalSelections
+                    )}
+                  </div>
                 </div>
               );
             })}
@@ -189,13 +222,13 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
  */
 function getFacetTitle(metadata: StatMetadata): string {
   if (_.isEmpty(metadata)) {
-    return EMPTY_METADATA_TITLE;
+    return "Plot data points by combining data from the datasets listed below for maximal coverage";
   }
   return metadata.importName;
 }
 
 /**
- * Gets the element for a single facet option
+ * Gets the element for a single facet options
  */
 function getFacetOptionJsx(
   facetInfo: FacetSelectorFacetInfo,
@@ -210,66 +243,84 @@ function getFacetOptionJsx(
   }
   const selectedFacetId = modalSelections[facetInfo.dcid] || "";
   return (
-    <FormGroup radio="true" key={facetInfo.dcid + facetId}>
+    <FormGroup
+      radio="true"
+      key={facetInfo.dcid + facetId}
+      css={css`
+        margin: 0;
+        padding: 0;
+      `}
+    >
       <Label
         radio="true"
         css={css`
+          display: flex;
+          gap: ${theme.spacing.md}px;
+          align-items: center;
           margin: 0;
           padding: 0;
           position: relative;
         `}
       >
-        <p
+        <Input
+          type="radio"
+          name={facetInfo.dcid}
+          defaultChecked={selectedFacetId === facetId}
+          onClick={(): void => {
+            setModalSelections({
+              ...modalSelections,
+              [facetInfo.dcid]: facetId,
+            });
+          }}
           css={css`
-            ${theme.typography.family.text}
-            ${theme.typography.text.md}
-            font-weight: 900;
+            position: relative;
+            margin: 0;
+            padding: 0;
+          `}
+        />
+        <div
+          css={css`
+            position: relative;
             margin: 0;
             padding: 0;
           `}
         >
-          <Input
-            type="radio"
-            name={facetInfo.dcid}
-            defaultChecked={selectedFacetId === facetId}
-            onClick={(): void => {
-              setModalSelections({
-                ...modalSelections,
-                [facetInfo.dcid]: facetId,
-              });
-            }}
+          <p
             css={css`
-              position: relative;
+              ${theme.typography.family.text}
+              ${theme.typography.text.md}
               margin: 0;
               padding: 0;
             `}
-          />
-          {facetTitle}
-        </p>
-        <ul
-          css={css`
-            ${theme.typography.family.text}
-            ${theme.typography.text.md}
-            margin: 0;
-            padding: 0;
-            li {
-              list-style: none;
+          >
+            {facetTitle}
+          </p>
+          <ul
+            css={css`
+              ${theme.typography.family.text}
+              ${theme.typography.text.sm}
+              color: ${theme.colors.text.secondary.base};
               margin: 0;
               padding: 0;
-            }
-          `}
-        >
-          {metadata.measurementMethod && (
-            <li>Measurement Method • {metadata.measurementMethod}</li>
-          )}
-          {metadata.scalingFactor && (
-            <li>Scaling Factor • {metadata.scalingFactor}</li>
-          )}
-          {metadata.unit && <li>Unit • {metadata.unit}</li>}
-          {metadata.observationPeriod && (
-            <li>Observation Period • {metadata.observationPeriod}</li>
-          )}
-        </ul>
+              li {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+              }
+            `}
+          >
+            {metadata.measurementMethod && (
+              <li>Measurement Method • {metadata.measurementMethod}</li>
+            )}
+            {metadata.scalingFactor && (
+              <li>Scaling Factor • {metadata.scalingFactor}</li>
+            )}
+            {metadata.unit && <li>Unit • {metadata.unit}</li>}
+            {metadata.observationPeriod && (
+              <li>Observation Period • {metadata.observationPeriod}</li>
+            )}
+          </ul>
+        </div>
       </Label>
     </FormGroup>
   );
@@ -303,19 +354,21 @@ function getFacetOptionSectionJsx(
     return (
       <>
         {sortedImportNames.map((importName) => (
-          <div key={facetInfo.dcid + importName}>
-            {/* <p
-              css={css`
-                ${theme.typography.family.text}
-                ${theme.typography.text.md}
-                font-weight: 900;
+          <div
+            key={facetInfo.dcid + importName}
+            css={css`
+              display: flex;
+              flex-direction: column;
+              gap: ${theme.spacing.md}px;
+              border-bottom: 1px dashed #ddd;
+              padding-bottom: ${theme.spacing.md}px;
+              &:last-of-type {
+                border: none;
                 margin: 0;
                 padding: 0;
-                background: red;
-              `}
-            >
-              {importName} <span>{importNameToFacetOptions.length}</span>
-            </p> */}
+              }
+            `}
+          >
             {importNameToFacetOptions[importName].map((facetId) =>
               getFacetOptionJsx(
                 facetInfo,
