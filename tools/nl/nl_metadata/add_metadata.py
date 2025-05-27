@@ -146,8 +146,8 @@ def create_sv_metadata():
 
   for curr_batch in batched_list:
     curr_batch_dict = curr_batch.set_index("dcid")["sentence"].to_dict()
-    sv_metadata_list = extract_metadata(sv_metadata_list,
-                                        client,
+    sv_metadata_list = extract_metadata(client,
+                                        sv_metadata_list,
                                         curr_batch=curr_batch_dict)
 
   export_to_json(sv_metadata_list)

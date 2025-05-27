@@ -25,8 +25,8 @@ class StatVarMetadata:
 
   dcid: str
   sentence: str
-  measuredProperty: str = ""
-  name: str = ""
-  populationType: str = ""
-  statType: str = ""
+  measuredProperty: str | None = None
+  name: str | None = None
+  populationType: str | None = None
+  statType: str | None = None
   constraintProperties: dict[str, str] = field(default_factory=dict)
