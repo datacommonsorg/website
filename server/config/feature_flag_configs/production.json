@@ -9,24 +9,28 @@
     "name": "dev_place_experiment",
     "enabled": true,
     "owner": "gmechali",
+    "deprecated": true,
     "description": "Feature flag to enable the V2 place page only for the experiment places."
   },
   {
     "name": "dev_place_ga",
     "enabled": true,
     "owner": "dwnoble",
+    "deprecated": true,
     "description": "Feature flag to enable the V2 Place page to GA."
   },
   {
     "name": "dynamic_placeholder_experiment",
     "enabled": true,
     "owner": "gmechali",
+    "deprecated": true,
     "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
   },
   {
     "name": "dynamic_placeholder_ga",
     "enabled": true,
     "owner": "gmechali",
+    "deprecated": true,
     "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
   },
   {
