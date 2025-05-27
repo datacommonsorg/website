@@ -76,7 +76,7 @@ export const TileMetadataStatVarSection = ({
       p {
         ${theme.typography.family.text}
         ${theme.typography.text.md}
-              white-space: pre-wrap;
+        white-space: pre-wrap;
         word-break: break-word;
       }
       a {

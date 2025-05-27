@@ -291,6 +291,8 @@ function getFacetOptionJsx(
               ${theme.typography.text.md}
               margin: 0;
               padding: 0;
+              white-space: pre-wrap;
+              word-break: break-word;
             `}
           >
             {facetTitle}
@@ -299,13 +301,15 @@ function getFacetOptionJsx(
             css={css`
               ${theme.typography.family.text}
               ${theme.typography.text.sm}
-            color: ${theme.colors.text.secondary.base};
+              color: ${theme.colors.text.secondary.base};
               margin: 0;
               padding: 0;
               li {
                 list-style: none;
                 margin: 0;
                 padding: 0;
+                white-space: pre-wrap;
+                word-break: break-word;
               }
             `}
           >
