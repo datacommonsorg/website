@@ -9,21 +9,23 @@ To run this script, register your data commons API key to DC_API_KEY, then run t
 """
 
 from typing import Dict, List
-import pandas as pd
 
 from datacommons_client.client import DataCommonsClient
+import pandas as pd
 from sv_types import StatVarMetadata
 
 # Register data commons API key here
-# DC_API_KEY = ""
+DC_API_KEY = ""
 
 BATCH_SIZE = 100
-STAT_VAR_SHEET = "../embeddings/input/base/sheets_svs.csv"
+STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
+EXPORTED_SV_FILE = "tools/nl/nl_metadata/alyssaguo_statvars.json"
 # These are the properties common to evey stat var
 MEASURED_PROPERTY = "measuredProperty"
 NAME = "name"
 POPULATION_TYPE = "populationType"
 STAT_TYPE = "statType"
+
 
 def split_into_batches(original_df) -> List[pd.DataFrame]:
   """
@@ -35,9 +37,13 @@ def split_into_batches(original_df) -> List[pd.DataFrame]:
     batched_df_list.append(original_df[i:i + BATCH_SIZE])
   return batched_df_list
 
+
 def get_prop_value(prop_data) -> str:
   """
-  Extracts the value from the property data.
+  Extracts the property value from the property data.
+  For the "name" property, the value is stored in the "value" field.
+  For other properties, the value is stored in the "name" field.
+  If neither field exists, fall back on the "dcid" field.
   """
   first_node = prop_data["nodes"][0]
   if "value" in first_node:
@@ -47,56 +53,63 @@ def get_prop_value(prop_data) -> str:
   else:
     return first_node.get("dcid")
 
-def extract_metadata(new_embeddings: List[StatVarMetadata], client: DataCommonsClient, curr_batch: Dict[str, str]) -> List[StatVarMetadata]:
+
+def extract_metadata(new_embeddings: List[StatVarMetadata],
+                     client: DataCommonsClient,
+                     curr_batch: Dict[str, str]) -> List[StatVarMetadata]:
   """
-  Extracts the metadata for a given list of DCIDs from the data commons API. 
+  Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API. 
   Adds the new metadata to the existing new_embeddings list as additional StatVarMetadata objects, and returns the updated list.
   """
-  response = client.node.fetch(node_dcids=list(curr_batch.keys()), expression="->*")
+  response = client.node.fetch(node_dcids=list(curr_batch.keys()),
+                               expression="->*")
   response_data = response.to_dict().get("data", {})
 
   if not response_data:
-    raise ValueError("No data found for the given DCIDs.")  
-  
+    raise ValueError("No data found for the given DCIDs.")
+
   for dcid, sentence in curr_batch.items():
-    new_row = StatVarMetadata(dcid=dcid, sentence=sentence) 
+    new_row = StatVarMetadata(dcid=dcid, sentence=sentence)
     dcid_data = response_data[dcid]["arcs"]
 
     new_row.name = get_prop_value(dcid_data[NAME])
     new_row.measuredProperty = get_prop_value(dcid_data[MEASURED_PROPERTY])
     new_row.populationType = get_prop_value(dcid_data[POPULATION_TYPE])
     new_row.statType = get_prop_value(dcid_data[STAT_TYPE])
-    
+
     new_row = extract_constraint_properties(new_row, dcid_data)
     new_embeddings.append(new_row)
-  
+
   return new_embeddings
 
-def extract_constraint_properties(new_row: StatVarMetadata, dcid_data) -> StatVarMetadata:
+
+def extract_constraint_properties(new_row: StatVarMetadata,
+                                  dcid_data) -> StatVarMetadata:
   """
   Extracts the constraint properties from the data commons API response and adds them to the new row.
   """
   if "constraintProperties" not in dcid_data:
     return new_row
-  
+
   constraint_dcid_to_name: Dict[str, str] = {}
   for constrained_prop_node in dcid_data["constraintProperties"]["nodes"]:
     # Use the "name" field if it exists, otherwise fall back on "dcid"
     # Some constraintProperties nodes have both "name" and "dcid", others only have "dcid"
     constraint_dcid = constrained_prop_node["dcid"]
-    constraint_dcid_to_name[constraint_dcid] = constrained_prop_node["name"] if "name" in constrained_prop_node else constraint_dcid
-    
+    constraint_dcid_to_name[constraint_dcid] = constrained_prop_node[
+        "name"] if "name" in constrained_prop_node else constraint_dcid
+
   for dcid, name in constraint_dcid_to_name.items():
     new_row.constraintProperties[name] = get_prop_value(dcid_data[dcid])
-  
+
   return new_row
+
 
 def export_to_json(new_embeddings: List[StatVarMetadata]):
   """
-  Exports the new embeddings to a JSON file.
+  Flattens the embeddings so that constraintProperties become top-level entries, and exports the new embeddings to a JSON file.
   """
-  flattened_embeddings: List[Dict[str, str]] = [
-    {
+  flattened_embeddings: List[Dict[str, str]] = [{
       "dcid": embedding.dcid,
       "sentence": embedding.sentence,
       "name": embedding.name,
@@ -104,11 +117,10 @@ def export_to_json(new_embeddings: List[StatVarMetadata]):
       "populationType": embedding.populationType,
       "statType": embedding.statType,
       **embedding.constraintProperties
-    }
-    for embedding in new_embeddings
-  ]
+  } for embedding in new_embeddings]
   new_embeddings_df = pd.DataFrame(flattened_embeddings)
-  new_embeddings_df.to_json("./ipynb_alyssaguo_statvars.json", orient="records", lines=True)
+  new_embeddings_df.to_json(EXPORTED_SV_FILE, orient="records", lines=True)
+
 
 def main():
   client = DataCommonsClient(api_key=DC_API_KEY)
@@ -118,8 +130,10 @@ def main():
 
   for curr_batch in batched_list:
     curr_batch_dict = curr_batch.set_index("dcid")["sentence"].to_dict()
-    new_embeddings = extract_metadata(new_embeddings, client, curr_batch=curr_batch_dict)
-  
+    new_embeddings = extract_metadata(new_embeddings,
+                                      client,
+                                      curr_batch=curr_batch_dict)
+
   export_to_json(new_embeddings)
 
 
