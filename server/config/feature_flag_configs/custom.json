@@ -18,30 +18,6 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
-    "name": "dev_place_experiment",
-    "enabled": true,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the V2 place page only for the experiment places."
-  },
-  {
-    "name": "dev_place_ga",
-    "enabled": true,
-    "owner": "dwnoble",
-    "description": "Feature flag to enable the V2 Place page to GA."
-  },
-  {
-    "name": "dynamic_placeholder_experiment",
-    "enabled": false,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
-  },
-  {
-    "name": "dynamic_placeholder_ga",
-    "enabled": false,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
-  },
-  {
     "name": "metadata_modal",
     "enabled": false,
     "owner": "nick-next",
