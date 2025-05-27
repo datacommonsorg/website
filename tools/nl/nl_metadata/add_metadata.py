@@ -1,3 +1,16 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 """
 This script retrives the metadata from the data commons API and adds it to the existing NL Stat Vars (SVs) in the following stages:
 1. Import the existing NL SVs, and separate the table into batches of up to 100 SVs.
@@ -27,7 +40,7 @@ POPULATION_TYPE = "populationType"
 STAT_TYPE = "statType"
 
 
-def split_into_batches(original_df) -> List[pd.DataFrame]:
+def split_into_batches(original_df: pd.DataFrame) -> List[pd.DataFrame]:
   """
   Splits a dataframe into batches of a given size.
   Ex. [1, 2, 3, 4, 5, 6] with BATCH_SIZE = 2 becomes [[1, 2], [3, 4], [5, 6]]
@@ -54,12 +67,12 @@ def get_prop_value(prop_data) -> str:
     return first_node.get("dcid")
 
 
-def extract_metadata(new_embeddings: List[StatVarMetadata],
-                     client: DataCommonsClient,
+def extract_metadata(client: DataCommonsClient,
+                     sv_metadata_list: List[StatVarMetadata],
                      curr_batch: Dict[str, str]) -> List[StatVarMetadata]:
   """
   Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API. 
-  Adds the new metadata to the existing new_embeddings list as additional StatVarMetadata objects, and returns the updated list.
+  Adds the new metadata to the existing sv_metadata_list as additional StatVarMetadata objects, and returns the updated list.
   """
   response = client.node.fetch(node_dcids=list(curr_batch.keys()),
                                expression="->*")
@@ -78,9 +91,9 @@ def extract_metadata(new_embeddings: List[StatVarMetadata],
     new_row.statType = get_prop_value(dcid_data[STAT_TYPE])
 
     new_row = extract_constraint_properties(new_row, dcid_data)
-    new_embeddings.append(new_row)
+    sv_metadata_list.append(new_row)
 
-  return new_embeddings
+  return sv_metadata_list
 
 
 def extract_constraint_properties(new_row: StatVarMetadata,
@@ -105,11 +118,11 @@ def extract_constraint_properties(new_row: StatVarMetadata,
   return new_row
 
 
-def export_to_json(new_embeddings: List[StatVarMetadata]):
+def export_to_json(sv_metadata_list: List[StatVarMetadata]):
   """
-  Flattens the embeddings so that constraintProperties become top-level entries, and exports the new embeddings to a JSON file.
+  Flattens the StatVarMetadata so that constraintProperties become top-level entries, and exports the new metadata to a JSONL file.
   """
-  flattened_embeddings: List[Dict[str, str]] = [{
+  flattened_sv_metadata: List[Dict[str, str]] = [{
       "dcid": embedding.dcid,
       "sentence": embedding.sentence,
       "name": embedding.name,
@@ -117,24 +130,27 @@ def export_to_json(new_embeddings: List[StatVarMetadata]):
       "populationType": embedding.populationType,
       "statType": embedding.statType,
       **embedding.constraintProperties
-  } for embedding in new_embeddings]
-  new_embeddings_df = pd.DataFrame(flattened_embeddings)
-  new_embeddings_df.to_json(EXPORTED_SV_FILE, orient="records", lines=True)
+  } for embedding in sv_metadata_list]
+  sv_metadata_df = pd.DataFrame(flattened_sv_metadata)
+  sv_metadata_df.to_json(EXPORTED_SV_FILE, orient="records", lines=True)
 
 
-def main():
+def create_sv_metadata():
+  """
+  Creates SV metadata JSONL file by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
+  """
   client = DataCommonsClient(api_key=DC_API_KEY)
   stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
-  new_embeddings: List[StatVarMetadata] = []
+  sv_metadata_list: List[StatVarMetadata] = []
   batched_list = split_into_batches(stat_var_sentences)
 
   for curr_batch in batched_list:
     curr_batch_dict = curr_batch.set_index("dcid")["sentence"].to_dict()
-    new_embeddings = extract_metadata(new_embeddings,
-                                      client,
-                                      curr_batch=curr_batch_dict)
+    sv_metadata_list = extract_metadata(sv_metadata_list,
+                                        client,
+                                        curr_batch=curr_batch_dict)
 
-  export_to_json(new_embeddings)
+  export_to_json(sv_metadata_list)
 
 
-main()
+create_sv_metadata()
