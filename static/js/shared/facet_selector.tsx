@@ -299,7 +299,7 @@ function getFacetOptionJsx(
             css={css`
               ${theme.typography.family.text}
               ${theme.typography.text.sm}
-              color: ${theme.colors.text.secondary.base};
+            color: ${theme.colors.text.secondary.base};
               margin: 0;
               padding: 0;
               li {
@@ -360,13 +360,6 @@ function getFacetOptionSectionJsx(
               display: flex;
               flex-direction: column;
               gap: ${theme.spacing.md}px;
-              border-bottom: 1px dashed #ddd;
-              padding-bottom: ${theme.spacing.md}px;
-              &:last-of-type {
-                border: none;
-                margin: 0;
-                padding: 0;
-              }
             `}
           >
             {importNameToFacetOptions[importName].map((facetId) =>
