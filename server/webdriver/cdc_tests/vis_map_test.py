@@ -11,11 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
-    CdcAutopushTestBase
-from server.webdriver.shared_tests.download_test import DownloadTestMixin
+from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
+from server.webdriver.shared_tests.vis_map_test import VisMapTestMixin
 
 
-class TestDownload(DownloadTestMixin, CdcAutopushTestBase):
-  """Class to test the download tool for Custom DC. Tests come from DownloadTestMixin"""
+class TestVisMap(VisMapTestMixin, CdcTestBase):
+  """Class to test the map visualization page for Custom DC. Tests come from VisMapTestMixin."""

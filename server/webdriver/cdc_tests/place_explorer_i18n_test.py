@@ -1,4 +1,4 @@
-# Copyright 2025 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
-    CdcAutopushTestBase
-from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
+from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
+from server.webdriver.shared_tests.place_explorer_i18n_test import \
+    PlaceI18nExplorerTestMixin
 
 
-class TestExplorePage(ExplorePageTestMixin, CdcAutopushTestBase):
-  """Class to test the explore page for Custom DC. Tests come from ExplorePageTestMixin."""
+class TestPlaceExplorerI18n(PlaceI18nExplorerTestMixin, CdcTestBase):
+  """Class to test the i18n place explorer page for Custom DC. Tests come from PlaceI18nExplorerTestMixin."""
