@@ -333,12 +333,13 @@ export const fetchData = async (
       );
     } else {
       const placeDcids = getPlaceDcids(props);
+      // Note that for now there are two ways to select the facet, via facetIds or highlightFacet. At most only one should be provided.
       dataPromises.push(
         getSeries(
           props.apiRoot,
           placeDcids,
           facetToVariable[facetId],
-          undefined,
+          facetIds,
           props.highlightFacet
         )
       );
