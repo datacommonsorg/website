@@ -53,7 +53,23 @@ export const metadataComponentMessages = defineMessages({
     defaultMessage: "Publication cadence",
     description:
       "Label for the cadence of publication. This is the rate of publication of the data. " +
-      "Example are: Yearly, Monthly.",
+      "Examples are: Yearly, Monthly.",
+  },
+  ObservationPeriod: {
+    id: "observationPeriod",
+    defaultMessage: "Observation period",
+    description:
+      "The time period over which an observation is made." +
+      "Examples are: Yearly, Monthly. " +
+      "See: https://docs.datacommons.org/glossary.html#observation-period.",
+  },
+  ScalingFactor: {
+    id: "scalingFactor",
+    defaultMessage: "Scaling factor",
+    description:
+      "In conjunction with the measurement denominator, scaling factor indicates the multiplication " +
+      "factor applied to the value. " +
+      "See: https://docs.datacommons.org/glossary.html#scaling-factor.",
   },
   License: {
     id: "license",

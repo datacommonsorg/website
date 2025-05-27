@@ -33,6 +33,10 @@ import {
   DialogContent,
   DialogTitle,
 } from "../components/elements/dialog/dialog";
+import { intl } from "../i18n/i18n";
+import { facetSelectionComponentMessages } from "../i18n/i18n_facet_selection_messages";
+import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
+import { humanizeIsoDuration } from "./periodicity";
 import { StatMetadata } from "./stat_types";
 
 // The information needed in SourceSelector component for a single stat var to
@@ -114,7 +118,8 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
   return (
     <>
       <Button variant="flat" onClick={(): void => setModalOpen(true)}>
-        Select a dataset [{totalFacetOptionCount}]
+        {intl.formatMessage(facetSelectionComponentMessages.SelectDataset)} [
+        {totalFacetOptionCount}]
       </Button>
       <Dialog
         open={modalOpen}
@@ -124,7 +129,9 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         fullWidth
         showCloseButton
       >
-        <DialogTitle>Select a dataset</DialogTitle>
+        <DialogTitle>
+          {intl.formatMessage(facetSelectionComponentMessages.SelectDataset)}
+        </DialogTitle>
         <DialogContent>
           {errorMessage && <div>{errorMessage}</div>}
           {facetList.length > 1 && (
@@ -136,7 +143,10 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
                 padding: 0;
               `}
             >
-              Select the data source that you would like to use to plot:
+              {intl.formatMessage(
+                facetSelectionComponentMessages.SelectDatasetPromptMessage
+              )}
+              :
             </p>
           )}
           {showSourceOptions &&
@@ -152,7 +162,10 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
                         padding: 0;
                       `}
                     >
-                      Select the data source that you would like to use to plot:{" "}
+                      {intl.formatMessage(
+                        facetSelectionComponentMessages.SelectDatasetPromptMessage
+                      )}
+                      :{" "}
                       <span>
                         &ldquo;
                         {facetInfo.name}
@@ -198,7 +211,9 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
             })}
         </DialogContent>
         <DialogActions>
-          <Button onClick={onConfirm}>Update</Button>
+          <Button onClick={onConfirm}>
+            {intl.formatMessage(facetSelectionComponentMessages.Update)}
+          </Button>
         </DialogActions>
       </Dialog>
     </>
@@ -222,7 +237,9 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
  */
 function getFacetTitle(metadata: StatMetadata): string {
   if (_.isEmpty(metadata)) {
-    return "Plot data points by combining data from the datasets listed below for maximal coverage";
+    return intl.formatMessage(
+      facetSelectionComponentMessages.CombinedDatasetOption
+    );
   }
   return metadata.importName;
 }
@@ -314,14 +331,27 @@ function getFacetOptionJsx(
             `}
           >
             {metadata.measurementMethod && (
-              <li>Measurement Method • {metadata.measurementMethod}</li>
+              <li>
+                {intl.formatMessage(metadataComponentMessages.MeasuringMethod)}{" "}
+                • {metadata.measurementMethod}
+              </li>
             )}
             {metadata.scalingFactor && (
               <li>Scaling Factor • {metadata.scalingFactor}</li>
             )}
-            {metadata.unit && <li>Unit • {metadata.unit}</li>}
+            {metadata.unit && (
+              <li>
+                {intl.formatMessage(metadataComponentMessages.Unit)} •{" "}
+                {metadata.unit}
+              </li>
+            )}
             {metadata.observationPeriod && (
-              <li>Observation Period • {metadata.observationPeriod}</li>
+              <li>
+                {intl.formatMessage(
+                  metadataComponentMessages.ObservationPeriod
+                )}{" "}
+                • {humanizeIsoDuration(metadata.observationPeriod)}
+              </li>
             )}
           </ul>
         </div>
