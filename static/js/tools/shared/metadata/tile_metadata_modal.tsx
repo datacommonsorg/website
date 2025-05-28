@@ -163,9 +163,11 @@ export function TileMetadataModal(
           )}
         </DialogContent>
         <DialogActions>
-          <CopyCitationButton citationToCopy={citationText}>
-            {intl.formatMessage(metadataComponentMessages.CopyCitation)}
-          </CopyCitationButton>
+          {!error && (
+            <CopyCitationButton citationToCopy={citationText}>
+              {intl.formatMessage(metadataComponentMessages.CopyCitation)}
+            </CopyCitationButton>
+          )}
           <Button
             variant="text"
             onClick={(): void => {
