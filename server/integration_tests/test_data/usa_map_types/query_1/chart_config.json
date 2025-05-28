@@ -589,6 +589,20 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q122853535",
+          "name": "Mayfield",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q14946652",
+          "name": "Lexington",
+          "types": [
+            "City"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q1911837",
           "name": "Cambrian Park",
           "types": [
@@ -598,6 +612,27 @@
         {
           "dcid": "wikidataId/Q2214519",
           "name": "Sunol-Midtown",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q4733495",
+          "name": "Alma",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q7144355",
+          "name": "Patchen",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q8038293",
+          "name": "Wrights",
           "types": [
             "City"
           ]
