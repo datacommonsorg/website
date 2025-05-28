@@ -34,6 +34,12 @@ import {
  * This module contains helper functions for fetching and processing metadata.
  */
 
+/*
+  TODO (nick-next): provide options on degree of metadata returned, in order
+      to accommodate requests such as those for just enough information
+      to build citations.
+ */
+
 /**
  * Retrieves facet information for a given stat variable and facet ID.
  *
@@ -53,6 +59,12 @@ function getFacetInfo(
 /**
  * Determines if a series summary matches the criteria defined in a facet.
  * Compares measurement method, observation period, unit, and scaling factor.
+ *
+ * This function is run on series entries from a list of series summaries
+ * that have already been limited to a particular import id. Because of
+ * that, it determines whether there is a match based only the series key
+ * which only can contain the attributes above (that vary within a
+ * provenance).
  *
  * @param series - The series summary whose key will be checked for a match
  * @param facet - The facet whose attributes will be checked against the key
@@ -108,7 +120,6 @@ async function fetchStatVarNames(
   for (const dcid in responseObj) {
     statVarList.push({ dcid, name: responseObj[dcid] });
   }
-  statVarList.sort((a, b) => (a.name > b.name ? 1 : -1));
 
   return statVarList;
 }
