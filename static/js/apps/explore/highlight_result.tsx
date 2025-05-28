@@ -117,13 +117,14 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
-  const [metadataLoadingState, setMetadataLoadingState] = useState<
-    boolean | undefined
-  >(true);
+  const [metadataLoadingState, setMetadataLoadingState] = useState(false);
 
   useEffect(() => {
     // Fetch metadata when component mounts or props change
     const fetchData = async (): Promise<void> => {
+      if (!props.highlightFacet) {
+        return;
+      }
       try {
         setMetadataLoadingState(true);
         const { metadata } = await doMetadataFetch(props);
