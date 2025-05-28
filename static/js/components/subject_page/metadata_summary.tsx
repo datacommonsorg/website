@@ -47,6 +47,7 @@ export function MetadataSummary({
 
   return (
     <div
+      className="metadata-summary"
       css={css`
         ${theme.typography.text.sm};
       `}

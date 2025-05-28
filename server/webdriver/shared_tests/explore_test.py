@@ -13,6 +13,8 @@
 # limitations under the License.
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
@@ -95,11 +97,16 @@ class ExplorePageTestMixin():
     bar_chart = find_elem(highlight_div, By.CLASS_NAME, 'bar-chart')
     self.assertIsNotNone(bar_chart)
 
-    block_description = find_elems(self.driver, value='block-desc')[0]
-    self.assertEqual(
-        block_description.text,
-        'World Bank, World Development Indicators, with minor processing by Data Commons'
+    expected_citation = (
+        "World Bank, World Development Indicators, with minor processing by Data Commons"
     )
+
+    citation_locator = (By.CLASS_NAME, "metadata-summary")
+    wait = WebDriverWait(self.driver, self.TIMEOUT_SEC)
+
+    wait.until(EC.presence_of_element_located(citation_locator))
+    wait.until(
+        EC.text_to_be_present_in_element(citation_locator, expected_citation))
 
   def test_highlight_chart_clears(self):
     """Test the highlight chart for France GDP timeline clears after topic selected."""
