@@ -9,31 +9,43 @@
               {
                 "tiles": [
                   {
-                    "description": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less in Los Angeles County",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06085",
+                      "geoId/06081",
+                      "geoId/06041",
+                      "geoId/06075",
+                      "geoId/06001",
+                      "geoId/06013",
+                      "geoId/06061"
                     ],
-                    "title": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less in Los Angeles County",
-                    "type": "HIGHLIGHT"
+                    "statVarKey": [
+                      "Median_Income_Household_multiple_place_bar_block"
+                    ],
+                    "title": "Household Median Income (${date}) - Top 7 of 58",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less"
+            "title": "Household Median Income"
           }
         ],
         "statVarSpec": {
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
+          "Median_Income_Household_multiple_place_bar_block": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06037"
+        "geoId/06085"
       ]
     }
   },
@@ -410,12 +422,34 @@
         }
       ]
     },
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/NoHealthInsuranceByIncome",
-        "name": "No Health Insurance by Income",
+        "dcid": "dc/topic/Income",
+        "name": "Income",
         "types": [
           "Topic"
         ]
@@ -424,8 +458,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/NoHealthInsurance",
-        "name": "No Health Insurance",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
@@ -785,22 +819,52 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/NoHealthInsuranceByGender",
-        "name": "No Health Insurance by Gender",
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/NoHealthInsuranceByRace",
-        "name": "No Health Insurance by Race",
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
+  "svSource": "PAST_QUERY",
   "test": "filter_test",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics based on the previous query."
+  ]
 }
