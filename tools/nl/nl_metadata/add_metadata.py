@@ -144,14 +144,6 @@ def get_alt_sentences(
 
     new_metadata_list = json.loads(response.text, strict=False)
     sv_metadata_list.extend(new_metadata_list)
-  except types.StopCandidateException as e:
-    print(
-        f"Exception occurred while getting alt sentences for the batch starting at SV row number {len(sv_metadata_list)}. Gemini stopped generating content: {e}"
-    )
-  except types.BrokenResponseError as e:
-    print(
-        f"Exception occurred while getting alt sentences for the batch starting at SV row number {len(sv_metadata_list)}. Gemini response was broken: {e}"
-    )
   except json.JSONDecodeError as e:
     print(
         f"Exception occurred while getting alt sentences for the batch starting at SV row number {len(sv_metadata_list)}. Error decoding Gemini response into JSON: {e}"
