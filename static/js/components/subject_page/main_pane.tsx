@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,17 @@
  */
 
 import _ from "lodash";
-import React, { memo, useContext } from "react";
+import React, { memo, ReactElement, useContext } from "react";
 
 import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { SdgContext } from "../../shared/context";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { FacetMetadata } from "../../types/facet_metadata";
-import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import {
+  CategoryConfig,
+  SubjectPageConfig,
+} from "../../types/subject_page_proto_types";
 import { getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
@@ -49,12 +52,15 @@ interface SubjectPageMainPanePropType {
   showWebComponents?: boolean;
   // Default enclosed place type
   defaultEnclosedPlaceType?: string;
+  // The facet to highlight in the rendered page (optional)
   highlightFacet?: FacetMetadata;
+  // Metadata loading state: true (loading), false (loaded), undefined (no metadata)
+  metadataLoadingState?: boolean;
 }
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   props: SubjectPageMainPanePropType
-): JSX.Element {
+): ReactElement {
   const { sdgIndex } = useContext(SdgContext);
 
   // TODO(shifucun): Further clean up default place type, child place type etc
@@ -75,7 +81,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   if (!_.isEmpty(props.pageConfig) && !_.isEmpty(props.pageConfig.categories)) {
     data = props.pageConfig.categories;
   }
-  if (sdgIndex != null) {
+  if (data && sdgIndex !== null) {
     data = data.slice(sdgIndex, sdgIndex + 1);
   }
 
@@ -83,7 +89,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
     <div id="subject-page-main-pane">
       <DataFetchContextProvider id={props.id}>
         {data &&
-          data.map((category, idx) => {
+          data.map((category: CategoryConfig, idx: number) => {
             const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
             // TODO: just use DataFetchContextProvider for fetching data and
             // remove DataContext.
@@ -105,6 +111,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
                   parentPlaces={props.parentPlaces}
                   showWebComponents={props.showWebComponents}
                   highlightFacet={props.highlightFacet}
+                  metadataLoadingState={props.metadataLoadingState}
                 />
               </ErrorBoundary>
             );

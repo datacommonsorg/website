@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * A container for blocks of all types.
  */
 
-import React, { useContext } from "react";
+import React, { ReactElement, useContext } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { Item, ItemList } from "../../apps/explore/item_list";
@@ -26,6 +26,7 @@ import { ExploreContext } from "../../shared/context";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
+import { MetadataSummary } from "./metadata_summary";
 
 const DELIM = "___";
 
@@ -55,9 +56,13 @@ export interface BlockContainerPropType {
   commonSVSpec?: StatVarSpec[];
   infoMessage?: string;
   disableExploreMore?: boolean;
+  // Metadata loading state: true (loading), false (loaded), undefined (no metadata)
+  metadataLoadingState?: boolean;
+  // The metadata summary (based on the citation)
+  metadataSummary?: string;
 }
 
-export function BlockContainer(props: BlockContainerPropType): JSX.Element {
+export function BlockContainer(props: BlockContainerPropType): ReactElement {
   const exploreData = useContext(ExploreContext);
 
   let footnote: string;
@@ -128,6 +133,10 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       )}
       {title && <h3>{title}</h3>}
       {description && <p className="block-desc">{description}</p>}
+      <MetadataSummary
+        metadataSummary={props.metadataSummary}
+        metadataLoadingState={props.metadataLoadingState}
+      />
       {props.children}
       {footnote && (
         <footer className="block-footer">
