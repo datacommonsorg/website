@@ -23,8 +23,10 @@ import ReactMarkdown from "react-markdown";
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { FacetMetadata } from "../../types/facet_metadata";
-import { EventTypeSpec } from "../../types/subject_page_proto_types";
-import { ProcessedCategoryConfig } from "../../types/subject_page_types";
+import {
+  CategoryConfig,
+  EventTypeSpec,
+} from "../../types/subject_page_proto_types";
 import { getId } from "../../utils/subject_page_utils";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 import { ErrorBoundary } from "../error_boundary";
@@ -35,7 +37,7 @@ import { StatVarProvider } from "./stat_var_provider";
 
 export interface CategoryPropType {
   id: string;
-  config: ProcessedCategoryConfig;
+  config: CategoryConfig;
   /**
    * The place to show the page for.
    */

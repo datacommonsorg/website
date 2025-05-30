@@ -14,11 +14,7 @@
  * limitations under the License.
  */
 import { ChildPlacesByType, NamedTypedNode } from "../shared/types";
-import {
-  BlockConfig,
-  CategoryConfig,
-  SubjectPageConfig,
-} from "./subject_page_proto_types";
+import { SubjectPageConfig } from "./subject_page_proto_types";
 
 export interface SubjectPageMetadata {
   /**
@@ -54,28 +50,4 @@ export interface SubjectPageMetadata {
   mainTopics?: NamedTypedNode[];
   sessionId?: string;
   svSource?: string;
-}
-
-/*
-  An extension of the BlockConfig from the API to add the metadataSummary
-  that will be populated in the front end.
- */
-export interface ProcessedBlockConfig extends BlockConfig {
-  metadataSummary?: string;
-}
-
-/*
-  An extension of the CategoryConfig from the API to extend
-  the block attribute as ProcessedBlockConfig
- */
-export interface ProcessedCategoryConfig extends CategoryConfig {
-  blocks: ProcessedBlockConfig[];
-}
-
-/*
-  An extension of the SubjectPageConfig from the API to extend
-  the categories attribute as ProcessedCategoryConfig
- */
-export interface ProcessedSubjectPageConfig extends SubjectPageConfig {
-  categories: ProcessedCategoryConfig[];
 }
