@@ -22,8 +22,6 @@
  * does not show the "Copy citation" button.
  */
 
-import "@testing-library/jest-dom/extend-expect";
-
 import { ThemeProvider } from "@emotion/react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
@@ -80,7 +78,7 @@ describe("TileMetadataModal - error path", () => {
     fireEvent.click(screen.getByText("Show metadata"));
 
     await waitFor(() =>
-      expect(screen.getByText("Error loading metadata.")).toBeInTheDocument()
+      expect(screen.queryByText("Error loading metadata.")).not.toBeNull()
     );
 
     expect(screen.queryByText("Copy citation")).toBeNull();
