@@ -661,7 +661,7 @@
         },
         {
           "dcid": "nuts/TR421",
-          "name": "Kocaeli",
+          "name": "Kocaeli Province",
           "types": [
             "EurostatNUTS3"
           ]
@@ -752,7 +752,7 @@
         },
         {
           "dcid": "nuts/TR631",
-          "name": "Hatay",
+          "name": "Hatay Province",
           "types": [
             "EurostatNUTS3"
           ]
