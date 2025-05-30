@@ -83,30 +83,30 @@ class ExplorePageTestMixin():
     self.assertIsNotNone(line_chart)
 
   def test_highlight_chart_france_italy_gdp_bar_chart(self):
-    """Test the highlight chart for France GDP timeline."""
-    highlight_params = "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country%2FFRA___country%2FITA&chartType=BAR_CHART&imp=WorldDevelopmentIndicators"
+    """Test the highlight chart for France + Italy nominal GDP bar chart."""
+    highlight_params = (
+        "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+        "&p=country%2FFRA___country%2FITA"
+        "&chartType=BAR_CHART"
+        "&imp=WorldDevelopmentIndicators")
     self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
     shared.wait_for_loading(self.driver)
 
-    place_callout = find_elem(self.driver, By.ID, 'place-callout')
-    self.assertIn('France, Italy', place_callout.text)
+    place_callout = find_elem(self.driver, By.ID, "place-callout")
+    self.assertIn("France, Italy", place_callout.text)
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
-                              'highlight-result-title')
-    bar_chart = find_elem(highlight_div, By.CLASS_NAME, 'bar-chart')
+                              "highlight-result-title")
+    bar_chart = find_elem(highlight_div, By.CLASS_NAME, "bar-chart")
     self.assertIsNotNone(bar_chart)
 
     expected_citation = (
         "World Bank, World Development Indicators, with minor processing by Data Commons"
     )
 
-    citation_locator = (By.CLASS_NAME, "metadata-summary")
-    wait = WebDriverWait(self.driver, self.TIMEOUT_SEC)
-
-    wait.until(EC.presence_of_element_located(citation_locator))
-    wait.until(
-        EC.text_to_be_present_in_element(citation_locator, expected_citation))
+    wait_for_text(self.driver, expected_citation, By.CLASS_NAME,
+                  "metadata-summary")
 
   def test_highlight_chart_clears(self):
     """Test the highlight chart for France GDP timeline clears after topic selected."""
