@@ -14,10 +14,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -86,18 +86,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Uganda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
@@ -127,6 +115,18 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
                     "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
+                    ],
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -188,11 +188,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/UGA",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Uganda",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -200,11 +200,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -350,6 +350,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
@@ -367,18 +379,6 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
                     "title": "Rwanda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -471,11 +471,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/UGA",
-      "name": "Uganda",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/SEN",
       "name": "Senegal",
       "place_type": "Country"
@@ -488,6 +483,11 @@
     {
       "dcid": "country/GIN",
       "name": "Guinea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/BEN",
+      "name": "Benin",
       "place_type": "Country"
     },
     {
