@@ -36,7 +36,7 @@ export interface FacetMetadata {
   /**
    * A factor used to scale the data values for the facet.
    */
-  scalingFactor?: number;
+  scalingFactor?: string;
 
   /**
    * The unit of measurement for the data represented by the facet.
