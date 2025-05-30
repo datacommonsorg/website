@@ -376,6 +376,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q120971341",
+          "name": "Chandigarh",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q1353",
           "name": "Delhi",
           "types": [
@@ -441,6 +448,13 @@
         {
           "dcid": "wikidataId/Q1599",
           "name": "Nagaland",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q200130",
+          "name": "Azad Kashmir",
           "types": [
             "AdministrativeArea1"
           ]
@@ -539,6 +553,13 @@
         {
           "dcid": "wikidataId/Q77997266",
           "name": "Dadra and Nagar Haveli and Daman and Diu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q9357528",
+          "name": "National Capital Territory of Delhi",
           "types": [
             "AdministrativeArea1"
           ]

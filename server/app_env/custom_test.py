@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,10 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
-    CdcAutopushTestBase
-from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
+
+from server.app_env import custom
+from server.app_env import local
 
 
-class TestHomepage(HomepageTestMixin, CdcAutopushTestBase):
-  """Class to test the home page for Custom DC. Tests come from HomepageTestMixin."""
+class Config(custom.Config):
+  NAME = "Custom Data Commons (Test)"
+
+
+class LocalConfig(Config, local.Config):
+  pass
+
+
+class ComposeConfig(Config, local.Config):
+  pass

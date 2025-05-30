@@ -82,7 +82,7 @@ class ExplorePageTestMixin():
 
   def test_highlight_chart_france_italy_gdp_bar_chart(self):
     """Test the highlight chart for France GDP timeline."""
-    highlight_params = "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country%2FFRA___country%2FITA&chartType=BAR_CHART"
+    highlight_params = "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country%2FFRA___country%2FITA&chartType=BAR_CHART&imp=WorldDevelopmentIndicators"
     self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
     shared.wait_for_loading(self.driver)
@@ -92,8 +92,14 @@ class ExplorePageTestMixin():
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
                               'highlight-result-title')
-    line_chart = find_elem(highlight_div, By.CLASS_NAME, 'bar-chart')
-    self.assertIsNotNone(line_chart)
+    bar_chart = find_elem(highlight_div, By.CLASS_NAME, 'bar-chart')
+    self.assertIsNotNone(bar_chart)
+
+    block_description = find_elems(self.driver, value='block-desc')[0]
+    self.assertEqual(
+        block_description.text,
+        'World Bank, World Development Indicators, with minor processing by Data Commons'
+    )
 
   def test_highlight_chart_clears(self):
     """Test the highlight chart for France GDP timeline clears after topic selected."""
