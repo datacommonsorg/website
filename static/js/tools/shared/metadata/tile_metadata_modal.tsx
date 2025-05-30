@@ -100,6 +100,7 @@ export function TileMetadataModal(
         setStatVars(resp.statVarList);
       })
       .catch(() => {
+        console.error("Error loading metadata");
         setError(true);
       })
       .finally(() => {
