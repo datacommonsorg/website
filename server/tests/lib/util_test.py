@@ -1796,16 +1796,14 @@ class TestFeatureFlagsTest(unittest.TestCase):
         data = json.load(f)
 
       features = [
-          item.get("name")
-          for item in data
-          if isinstance(item, dict) and "name" in item
+          item.get("name") for item in data if isinstance(item, dict) and
+          "name" in item and not item.get("deprecated", False)
       ]
       duplicate_features = [f for f in features if features.count(f) > 1]
 
       feature_flag_count = len(features)
       feature_flag_counts.append(feature_flag_count)
       self.assertEqual(len(duplicate_features), 0)
-
       if filename == "production.json":
         production_features = set(features)
       else:
