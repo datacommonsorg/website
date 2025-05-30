@@ -148,7 +148,11 @@ async function selectFacet(
           highlightFacet.importName !== f.importName) ||
         (!_.isEmpty(highlightFacet.measurementMethod) &&
           highlightFacet.measurementMethod !== f.measurementMethod) ||
-        (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit)
+        (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
+        (!_.isEmpty(highlightFacet.observationPeriod) &&
+          highlightFacet.observationPeriod !== f.observationPeriod) ||
+        (!_.isEmpty(highlightFacet.scalingFactor) &&
+          highlightFacet.scalingFactor !== f.scalingFactor)
       ) {
         continue;
       }
