@@ -52,8 +52,8 @@ export const URL_HASH_PARAMS = {
   // The following are used for Facet selection.
   IMPORT_NAME: "imp",
   MEASUREMENT_METHOD: "mm",
-  OBSERVATION_PERIOD: "op",
-  SCALING_FACTOR: "sf",
+  OBSERVATION_PERIOD: "obsPer",
+  SCALING_FACTOR: "scaling",
   UNIT: "unit",
 };
 export const CLIENT_TYPES = {
