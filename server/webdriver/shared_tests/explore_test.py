@@ -13,12 +13,11 @@
 # limitations under the License.
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import wait_for_text
 
 EXPLORE_URL = '/explore'
 

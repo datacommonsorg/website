@@ -129,7 +129,7 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
         setMetadataMap(metadata);
         setMetadataLoadingState(false);
       } catch (err) {
-        // TODO (nick-next): Look at using GA to report this error.
+        // TODO (nick-next): Look at routing these errors back to GCP cloud logging
         console.error("Error fetching metadata:", err);
         setMetadataLoadingState(false);
       }
