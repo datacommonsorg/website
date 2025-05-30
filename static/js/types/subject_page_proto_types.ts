@@ -197,6 +197,7 @@ export interface DisasterBlockSpec {
 export interface BlockConfig {
   title?: string;
   description?: string;
+  metadataSummary?: string;
   footnote?: string;
   columns: ColumnConfig[];
   type?: string;
