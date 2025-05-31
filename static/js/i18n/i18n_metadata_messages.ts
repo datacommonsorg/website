@@ -23,6 +23,11 @@ export const metadataComponentMessages = defineMessages({
     description:
       "Message shown when no metadata is available for a statistical variable.",
   },
+  MetadataError: {
+    id: "metadataError",
+    defaultMessage: "Error loading metadata.",
+    description: "Message shown when the call to fetch the metadata failed.",
+  },
   DCID: {
     id: "dcid",
     defaultMessage: "DCID",
