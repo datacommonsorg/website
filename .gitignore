@@ -5,6 +5,7 @@ __pycache__/
 .env/
 .env_website/
 .env_nl/
+.env_nl
 screenshots/*.png
 screenshots/screenshot_url.json
 
