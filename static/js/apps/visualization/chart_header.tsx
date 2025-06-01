@@ -62,7 +62,7 @@ export function ChartHeader(props: ChartHeaderProps): ReactElement {
         display: flex;
         justify-content: space-between;
         padding: ${theme.spacing.md}px;
-        gap: ${theme.spacing.xl}px;
+        gap: ${theme.spacing.md}px;
         align-items: center;
         border-bottom: 1px solid ${theme.colors.box.tooltip.pill};
         @media (max-width: ${theme.breakpoints.lg}px) {
@@ -82,44 +82,29 @@ export function ChartHeader(props: ChartHeaderProps): ReactElement {
           flex-wrap: wrap;
           gap: ${theme.spacing.md}px;
           align-items: center;
+          justify-content: flex-end;
+          container-name: charts;
+          @media (max-width: ${theme.breakpoints.lg}px) {
+            justify-content: flex-start;
+          }
         `}
       >
         {sections.map((inputSection, sectionIdx) => {
           return (
             <div
               key={`section-${sectionIdx}`}
-              // css={css`
-              //   display: flex;
-              //   flex-wrap: wrap;
-              //   flex-shrink: 3;
-              //   align-items: center;
-              //   padding: ${theme.spacing.sm}px ${theme.spacing.md}px;
-              //   gap: ${theme.spacing.sm}px;
-              //   background: ${theme.colors.box.tooltip.pill};
-              //   ${theme.typography.family.text}
-              //   ${theme.typography.text.sm}
-              //   @media (max-width: ${theme.breakpoints.sm}px) {
-              //     flex-basis: 100%;
-              //   }
-              // `}
               css={css`
                 display: flex;
                 flex-wrap: wrap;
                 flex-shrink: 3;
                 align-items: center;
+                padding: ${theme.spacing.sm}px ${theme.spacing.md}px;
                 gap: ${theme.spacing.sm}px;
+                background: ${theme.colors.box.tooltip.pill};
                 ${theme.typography.family.text}
                 ${theme.typography.text.sm}
-                padding: 0 ${theme.spacing.md}px 0 0;
-                border-right: 1px solid ${theme.colors.border.primary.light};
-                &:last-of-type {
-                  border: none;
-                }
                 @media (max-width: ${theme.breakpoints.sm}px) {
-                  padding: 0 0 ${theme.spacing.md}px 0;
-                  border-right: 0;
                   flex-basis: 100%;
-                  border-bottom: 1px solid ${theme.colors.border.primary.light};
                 }
               `}
             >
