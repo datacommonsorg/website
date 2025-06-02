@@ -17,6 +17,7 @@ from selenium.webdriver.common.by import By
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import wait_for_text
 
 EXPLORE_URL = '/explore'
 
@@ -81,25 +82,30 @@ class ExplorePageTestMixin():
     self.assertIsNotNone(line_chart)
 
   def test_highlight_chart_france_italy_gdp_bar_chart(self):
-    """Test the highlight chart for France GDP timeline."""
-    highlight_params = "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country%2FFRA___country%2FITA&chartType=BAR_CHART&imp=WorldDevelopmentIndicators"
+    """Test the highlight chart for France + Italy nominal GDP bar chart."""
+    highlight_params = (
+        "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+        "&p=country%2FFRA___country%2FITA"
+        "&chartType=BAR_CHART"
+        "&imp=WorldDevelopmentIndicators")
     self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
     shared.wait_for_loading(self.driver)
 
-    place_callout = find_elem(self.driver, By.ID, 'place-callout')
-    self.assertIn('France, Italy', place_callout.text)
+    place_callout = find_elem(self.driver, By.ID, "place-callout")
+    self.assertIn("France, Italy", place_callout.text)
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
-                              'highlight-result-title')
-    bar_chart = find_elem(highlight_div, By.CLASS_NAME, 'bar-chart')
+                              "highlight-result-title")
+    bar_chart = find_elem(highlight_div, By.CLASS_NAME, "bar-chart")
     self.assertIsNotNone(bar_chart)
 
-    block_description = find_elems(self.driver, value='block-desc')[0]
-    self.assertEqual(
-        block_description.text,
-        'World Bank, World Development Indicators, with minor processing by Data Commons'
+    expected_citation = (
+        "World Bank, World Development Indicators, with minor processing by Data Commons"
     )
+
+    wait_for_text(self.driver, expected_citation, By.CLASS_NAME,
+                  "metadata-summary")
 
   def test_highlight_chart_clears(self):
     """Test the highlight chart for France GDP timeline clears after topic selected."""
