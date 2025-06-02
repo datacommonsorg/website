@@ -16,11 +16,12 @@ This script retrives the metadata from the data commons API and adds it to the e
 1. Import the existing NL SVs, and separate the table into batches of up to 100 SVs.
 2. For each batch, call the data commons API to fetch the metadata for all DCIDs in the batch
 3. For each SV in the batch, extract the common metadata fields and add to a new row. Also extract any constraintProperties.
-4. For each SV, call the Gemini API to generate approximately 5 alternative sentences based on the metadata.
+4. Optionally, call the Gemini API to generate approximately 5 alternative sentences per SV based on the metadata.
 5. Create a new dataframe with the new SVs, and export it as a JSON file alyssaguo_statvars.json.
 
 To run this script, register your data commons API key to DC_API_KEY in DOTENV_FILE_PATH (.env_nl), then run the script using the command ./add_metadata.py
 """
+import argparse
 import json
 import os
 from typing import Dict, List
@@ -30,17 +31,27 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 import pandas as pd
-from sv_constants import BATCH_SIZE
-from sv_constants import DOTENV_FILE_PATH
-from sv_constants import EXPORTED_SV_FILE
-from sv_constants import GEMINI_MODEL
 from sv_constants import GEMINI_PROMPT
-from sv_constants import MEASURED_PROPERTY
-from sv_constants import NAME
-from sv_constants import POPULATION_TYPE
-from sv_constants import STAT_TYPE
-from sv_constants import STAT_VAR_SHEET
 from sv_types import StatVarMetadata
+
+DOTENV_FILE_PATH = ".env_nl/.env"
+
+BATCH_SIZE = 100
+STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
+EXPORTED_SV_FILE = "tools/nl/nl_metadata/alyssaguo_statvars.json"
+
+# These are the properties common to evey stat var
+MEASURED_PROPERTY = "measuredProperty"
+NAME = "name"
+POPULATION_TYPE = "populationType"
+STAT_TYPE = "statType"
+
+# Constants used for Gemini API calls
+GEMINI_MODEL = "gemini-2.5-flash-preview-05-20"
+GEMINI_TEMPERATURE = 1
+GEMINI_TOP_P = 1
+GEMINI_SEED = 0
+GEMINI_MAX_OUTPUT_TOKENS = 65535
 
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
 DC_API_KEY = os.getenv("DC_API_KEY")
@@ -124,9 +135,9 @@ def extract_constraint_properties(new_row: StatVarMetadata,
   return new_row
 
 
-def get_alt_sentences(
+def generate_alt_sentences(
     gemini_client: genai.Client, gemini_config: types.GenerateContentConfig,
-    sv_metadata_list: List[Dict[str, str]],
+    sv_metadata_list: List[StatVarMetadata],
     metadata_dicts: List[Dict[str, str]]) -> List[Dict[str, str]]:
   """
   Calls the Gemini API to generate alternative sentences for a batch of SV metadata.
@@ -151,8 +162,30 @@ def get_alt_sentences(
 
   return sv_metadata_list
 
+def flatten_metadata(
+    sv_metadata_list: List[Dict[str, str]],
+    curr_batch_metadata: List[StatVarMetadata],
+    alt_sentences: Dict[str, List[str]] | None) -> List[Dict[str, str]]:
+  """
+  Flattens the StatVarMetadata so that constraintProperties become top-level entries, and adds the altSentences if provided.
+  """
+  for metadata in curr_batch_metadata:
+    flattened_metadata: Dict[str, str] = {
+        "dcid": metadata.dcid,
+        "sentence": metadata.sentence,
+        "name": metadata.name,
+        "measuredProperty": metadata.measuredProperty,
+        "populationType": metadata.populationType,
+        "statType": metadata.statType,
+        **metadata.constraintProperties
+    }
+    if alt_sentences and metadata.dcid in alt_sentences:
+      flattened_metadata["altSentences"] = alt_sentences[metadata.dcid]
+    sv_metadata_list.append(flattened_metadata)
+  
+  return sv_metadata_list
 
-def create_sv_metadata():
+def create_sv_metadata(generateAltSentences: bool) -> None:
   """
   Creates SV metadata JSONL file by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
   """
@@ -163,10 +196,10 @@ def create_sv_metadata():
       location="global",
   )
   gemini_config = types.GenerateContentConfig(
-      temperature=1,
-      top_p=1,
-      seed=0,
-      max_output_tokens=65535,
+      temperature = GEMINI_TEMPERATURE,
+      top_p = GEMINI_TOP_P,
+      seed = GEMINI_SEED,
+      max_output_tokens = GEMINI_MAX_OUTPUT_TOKENS,
       response_mime_type="application/json",
   )
   stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
@@ -178,20 +211,18 @@ def create_sv_metadata():
         "dcid")["sentence"].to_dict()
     curr_batch_metadata: List[StatVarMetadata] = extract_metadata(
         client, curr_batch=curr_batch_dict)
-    metadata_dicts: List[Dict[str, str]] = [{
-        "dcid": sv_metadata.dcid,
-        "sentence": sv_metadata.sentence,
-        "name": sv_metadata.name,
-        "measuredProperty": sv_metadata.measuredProperty,
-        "populationType": sv_metadata.populationType,
-        "statType": sv_metadata.statType,
-        **sv_metadata.constraintProperties
-    } for sv_metadata in curr_batch_metadata]
-    sv_metadata_list = get_alt_sentences(gemini_client, gemini_config,
-                                         sv_metadata_list, metadata_dicts)
+    alt_sentences: Dict[str, List[str]] | None = None
+    if generateAltSentences:
+      alt_sentences = generate_alt_sentences(gemini_client, gemini_config,
+                                             curr_batch_metadata)
+    sv_metadata_list = flatten_metadata(
+        sv_metadata_list, curr_batch_metadata, alt_sentences)
 
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
   sv_metadata_df.to_json(EXPORTED_SV_FILE, orient="records", lines=True)
 
-
-create_sv_metadata()
+parser = argparse.ArgumentParser("./add_metadata.py")
+parser.add_argument("-generateAltSentences", help="Whether to generate alternative sentences for the SVs using the Gemini API.",
+                    type=bool, default=False)
+args = parser.parse_args()
+create_sv_metadata(args.generateAltSentences)
