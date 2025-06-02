@@ -801,12 +801,6 @@
           "Mean_Income_Household_MarriedCoupleFamilyHousehold",
           "Mean_Income_Household_NonfamilyHousehold"
         ]
-      },
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-        ]
       }
     },
     "mainTopics": [

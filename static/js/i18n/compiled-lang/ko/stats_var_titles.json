@@ -2,7 +2,7 @@
   "AirPollutant_Cancer_Risk": [
     {
       "type": 0,
-      "value": "Air Toxics Cancer Risk"
+      "value": "공기 중 독성으로 인한 암 발병 위험"
     }
   ],
   "AirQualityIndex_AirPollutant": [
@@ -122,37 +122,37 @@
   "Annual_Average_RetailPrice_Electricity": [
     {
       "type": 0,
-      "value": "Annual Electricity Generation"
+      "value": "연간 전기 발전량"
     }
   ],
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
+      "value": "이산화탄소 배출량(대형 시설, 비생물)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
-      "value": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
+      "value": "연간 온실 가스 배출량(대형 시설, 비생물)"
     }
   ],
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Methane Emissions (Large Facilities, Non-biogenic)"
+      "value": "메탄 배출량(대형 시설, 비생물)"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
+      "value": "아산화질소 배출량(대형 시설, 비생물)"
     }
   ],
   "Annual_Generation_Electricity": [
     {
       "type": 0,
-      "value": "Annual Electricity Generation"
+      "value": "연간 전기 발전량"
     }
   ],
   "Count_CriminalActivities_Arson": [
@@ -182,43 +182,43 @@
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+      "value": "형사 사건 수(장애 증오 범죄)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+      "value": "형사 사건 수(민족 증오 범죄)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
+      "value": "형사 사건 수(성별 증오 범죄)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
+      "value": "형사 사건 수(인종 증오 범죄)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+      "value": "형사 사건 수(종교 증오 범죄)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+      "value": "형사 사건 수(성적 지향 증오 범죄)"
     }
   ],
   "Count_CriminalIncidents_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes)"
+      "value": "형사 사건 수(증오 범죄)"
     }
   ],
   "Count_CycloneEvent": [
@@ -1280,25 +1280,25 @@
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+      "value": "최고 기온 변화(RCP 2.6, 기준 연도 2016년)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+      "value": "최고 기온 변화(RCP 4.5, 기준 연도 2016년)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+      "value": "최고 기온 변화(RCP 6.0, 기준 연도 2016년)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+      "value": "최고 기온 변화(RCP 8.5, 기준 연도 2016년)"
     }
   ],
   "FertilityRate_Person_Female": [
@@ -1334,19 +1334,19 @@
   "Mean_Concentration_AirPollutant_DieselPM": [
     {
       "type": 0,
-      "value": "Mean Diesel PM Concentration"
+      "value": "평균 디젤 미세먼지(PM) 농도"
     }
   ],
   "Mean_Concentration_AirPollutant_Ozone": [
     {
       "type": 0,
-      "value": "Mean Ozone Concentration"
+      "value": "평균 오존 농도"
     }
   ],
   "Mean_Concentration_AirPollutant_PM2.5": [
     {
       "type": 0,
-      "value": "Mean PM2.5 Concentration"
+      "value": "평균 초미세먼지(PM2.5) 농도"
     }
   ],
   "Mean_WagesDaily_Worker": [
@@ -1526,7 +1526,7 @@
   "PalmerDroughtSeverityIndex_Atmosphere": [
     {
       "type": 0,
-      "value": "The Palmer Drought Severity Index"
+      "value": "파머가뭄지수"
     }
   ],
   "Percent_Person_18To64Years_Female_NoHealthInsurance": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water Withdrawal Rate"
+      "value": "취수율"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,9 @@
  */
 
 import _ from "lodash";
+import { URLSearchParams } from "url";
 
+import { Theme } from "../theme/types";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
 
 // This has to be in sync with server/__init__.py
@@ -35,6 +37,8 @@ export const placeExplorerCategories = [
   "demographics_new",
   "economics_new",
 ];
+
+const SEARCH_PARAMS_TO_PROPAGATE = new Set(["hl"]);
 
 const NO_DATE_CAP_RCP_STATVARS = [
   // This stat var only has data for 2100. while other stat vars along the same
@@ -60,12 +64,20 @@ export function randDomId(): string {
   return Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
-    .substr(2, 10);
+    .slice(2, 12);
+}
+
+/** Determines if the width corresponds to mobile based on themes. */
+export function isMobileByWidth(theme: Theme | null): boolean {
+  if (theme === null) {
+    return false;
+  }
+  return window.innerWidth <= (theme?.breakpoints?.sm ?? 768);
 }
 
 /**
  * Downloads a file under a given filename.
- * @param filename name to download the file to
+ * @param fileName name to download the file to
  * @param file the file to download
  */
 export function downloadFile(fileName: string, file: Blob | File): void {
@@ -82,8 +94,8 @@ export function downloadFile(fileName: string, file: Blob | File): void {
 
 /**
  * Saves csv to filename.
- * @param {filename} string
- * @param {contents} string
+ * @param filename
+ * @param contents
  * @return void
  */
 export function saveToFile(filename: string, contents: string): void {
@@ -113,6 +125,62 @@ export function urlToDisplayText(url: string): string {
     .replace("https://", "")
     .replace("www.", "")
     .split(/[/?#]/)[0];
+}
+
+/**
+ * This function removes the protocol from a url.
+ *
+ * Example:
+ *
+ * stripProtocol("https://datacommons.org")
+ *  -> "datacommons.org"
+ */
+export function stripProtocol(url: string): string {
+  if (!url) {
+    return "";
+  }
+  return url.replace(/^https?:\/\//i, "");
+}
+
+/**
+ * This function truncates a string to `maxLength`, replacing
+ * the excised fragment with `omission`.
+ *
+ * If maxLength is less omission.length or str is already
+ * short enough, the function returns str unchanged.
+ *
+ * Example:
+ *
+ * truncateText(
+ *  "datacatalog.worldbank.org/dataset/world-development-indicators",'
+ *   50, "middle")
+ *  -> "datacatalog.worldbank.org…d-development-indicators"
+ *
+ */
+export function truncateText(
+  str: string,
+  maxLength: number,
+  position: "start" | "middle" | "end" = "end",
+  omission = "…"
+): string {
+  if (maxLength <= omission.length || str.length <= maxLength) {
+    return str;
+  }
+
+  const charactersToKeep = maxLength - omission.length;
+
+  switch (position) {
+    case "start":
+      return omission + str.slice(str.length - charactersToKeep);
+    case "middle": {
+      const front = Math.ceil(charactersToKeep / 2);
+      const back = Math.floor(charactersToKeep / 2);
+      return str.slice(0, front) + omission + str.slice(str.length - back);
+    }
+    case "end":
+    default:
+      return str.slice(0, charactersToKeep) + omission;
+  }
 }
 
 export function isDateTooFar(date: string): boolean {
@@ -197,4 +265,51 @@ export function stripPatternFromQuery(query: string, pattern: string): string {
   // E.g.: query: "population of Calif", pattern: "Calif",
   // returns "population of "
   return query.replace(regex, "");
+}
+
+/**
+ * Extracts all flags to propagate from the URL.
+ */
+export function extractFlagsToPropagate(url: string): URLSearchParams {
+  try {
+    const parsedUrl = new URL(url);
+    const searchParams = parsedUrl.searchParams;
+
+    for (const key of searchParams.keys()) {
+      if (!SEARCH_PARAMS_TO_PROPAGATE.has(key)) {
+        searchParams.delete(key);
+      }
+    }
+    return searchParams;
+  } catch (error) {
+    console.error("Invalid URL provided:", error);
+    return new URLSearchParams();
+  }
+}
+
+/**
+ * Redirects to the destination URL while preserving the URL parameters in the originURL.
+ *
+ * @param originUrl Current URL from which to extract URL parameters
+ * @param destinationUrl Desitnation URL to follow
+ * @param overrideParams Parameters to override.
+ */
+export function redirect(
+  originUrl: string,
+  destinationUrl: string,
+  overrideParams: URLSearchParams = new URLSearchParams()
+): void {
+  const originParams = extractFlagsToPropagate(originUrl);
+
+  // Override parameters in originParams if necessary.
+  overrideParams.forEach((value, key) => {
+    originParams.set(key, value);
+  });
+
+  let finalUrl = destinationUrl;
+  if (originParams.size > 0) {
+    finalUrl += "?" + originParams.toString();
+  }
+
+  window.open(finalUrl, "_self");
 }

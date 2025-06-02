@@ -144,3 +144,18 @@ def wait_elem(driver,
         EC.presence_of_element_located((by, value)))
   except:
     return None
+
+
+def wait_for_text(driver,
+                  text,
+                  by: str,
+                  value: str,
+                  timeout_seconds: float = TIMEOUT):
+  """
+  Waits for a text to be present in the element specified by by and value.
+
+  Returns:
+    The element that contains the text. If not found, returns None.
+  """
+  condition = EC.text_to_be_present_in_element((by, value), text)
+  return WebDriverWait(driver, timeout_seconds).until(condition)

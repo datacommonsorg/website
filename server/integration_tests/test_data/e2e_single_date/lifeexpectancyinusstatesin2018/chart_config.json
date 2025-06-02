@@ -656,7 +656,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1151455814"
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1123266408"
                     ],
                     "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
                     "type": "LINE"
@@ -878,9 +878,9 @@
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
-          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1151455814": {
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1123266408": {
             "date": "2018",
-            "facetId": "1151455814",
+            "facetId": "1123266408",
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },

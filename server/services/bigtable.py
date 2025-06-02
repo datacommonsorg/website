@@ -59,15 +59,6 @@ def get_project_id():
   return project_id
 
 
-def write_feedback(session_id: str, data: Dict):
-  project_id = get_project_id()
-  row_key = get_row_key(session_id, project_id)
-  table = current_app.config['NL_TABLE']
-  row = table.direct_row(row_key)
-  row.set_cell(_COLUMN_FAMILY, _COL_FEEDBACK.encode(), json.dumps(data))
-  table.mutate_rows([row])
-
-
 async def write_row(session_info: Dict, data: Dict, ctr: Dict):
   if not session_info.get('id', None):
     return

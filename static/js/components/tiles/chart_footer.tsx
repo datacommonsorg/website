@@ -21,7 +21,7 @@
 import React, { useState } from "react";
 
 import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { messages } from "../../i18n/i18n_messages";
 import {
   GA_EVENT_TILE_DOWNLOAD,
   GA_EVENT_TILE_EXPLORE_MORE,
@@ -63,7 +63,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     props.handleEmbed();
                   }}
                 >
-                  {intl.formatMessage(tileMessages.download)}
+                  {intl.formatMessage(messages.download)}
                 </a>
               </div>
             )}
@@ -81,7 +81,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     return true;
                   }}
                 >
-                  {intl.formatMessage(tileMessages.exploreLink, {
+                  {intl.formatMessage(messages.exploreLink, {
                     toolName: props.exploreLink.displayText,
                   })}
                 </a>

@@ -14,10 +14,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -86,18 +86,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Uganda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
@@ -127,6 +115,18 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
                     "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
+                    ],
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -188,11 +188,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/UGA",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Uganda",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -200,11 +200,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/BEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Benin",
                     "type": "LINE"
                   }
                 ]
@@ -350,6 +350,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
@@ -367,18 +379,6 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
                     "title": "Rwanda",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -471,11 +471,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/UGA",
-      "name": "Uganda",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/SEN",
       "name": "Senegal",
       "place_type": "Country"
@@ -488,6 +483,11 @@
     {
       "dcid": "country/GIN",
       "name": "Guinea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/BEN",
+      "name": "Benin",
       "place_type": "Country"
     },
     {
@@ -504,7 +504,49 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+        "economicSector": [
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AccommodationAndFoodSector",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AdministrativeAndSupportServices",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AgriculturalSupportActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_Agriculture",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AgricultureForestryFishingSector",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AirTransportAndSupportServices",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AllEconomicActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_AnimalProduction",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ArtsEntertainmentRecreation",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ConstructionSector",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_Education",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ElectricitySupply",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_EmployerHouseholdActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FinancialActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FinancialAndInsuranceActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FinancialIntermediationServicesIndirectlyMeasured",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FishingAquaculture",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_FoodBeveragesTobaccoManufacture",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ForestryLogging",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_HumanHealthAndSocialWork",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_InformationAndCommunication",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_InsuranceActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_LandTransport",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ManufacturingSector",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_MiningQuarrying",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_OtherManufacturingAndRepair",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_OtherServiceSector",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_OtherTransportPostalCourierActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ProductTaxes",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_ProfessionalScientificTechnicalActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_PublicAdministrationAndDefence",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_PublishingBroadcastingInformationActivities",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_RealEstate",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_Telecommunications",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_TransportStorageSector",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_WaterSupplySewerageWasteManagement",
+          "Nominal_Amount_EconomicActivity_GrossDomesticProduction_WholesaleRetailTradeAndRepair"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/GDP",

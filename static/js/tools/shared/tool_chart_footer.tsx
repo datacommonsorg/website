@@ -23,7 +23,7 @@ import React, { useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { messages } from "../../i18n/i18n_messages";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
@@ -84,7 +84,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
             <div className={`${SELECTOR_PREFIX}-metadata`}>
               <span>Data from {getSourcesJsx(props.sources)}</span>
               {globalThis.viaGoogle
-                ? " " + intl.formatMessage(tileMessages.viaGoogle)
+                ? " " + intl.formatMessage(messages.viaGoogle)
                 : ""}
             </div>
           )}

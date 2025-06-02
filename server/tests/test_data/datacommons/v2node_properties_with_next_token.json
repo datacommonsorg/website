@@ -1,0 +1,11 @@
+{
+    "data": {
+        "dc/1": {
+            "properties": ["property1", "property2"]
+        },
+        "dc/2": {
+            "properties": ["property1"]
+        }
+    },
+    "nextToken": "nextTokenKey"
+}

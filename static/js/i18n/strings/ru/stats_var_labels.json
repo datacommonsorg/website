@@ -1,10 +1,4 @@
 {
-  "AirPollutant_Cancer_Risk": {
-    "defaultMessage": "Air Toxics Cancer Risk"
-  },
-  "AirQualityIndex_AirPollutant": {
-    "defaultMessage": "AQI"
-  },
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": {
     "defaultMessage": "Потребление алкоголя в чистом спирте"
   },
@@ -42,7 +36,7 @@
     "defaultMessage": "ВНД по ППС на душу населения"
   },
   "Amount_Emissions_CarbonDioxide_PerCapita": {
-    "defaultMessage": "Carbon Dioxide Emissions"
+    "defaultMessage": "Выбросы углекислого газа"
   },
   "Amount_Remittance_InwardRemittance": {
     "defaultMessage": "Внутренние переводы"
@@ -59,24 +53,6 @@
   "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
     "defaultMessage": "Рыночная капитализация отечественных компаний (в % от ВВП)"
   },
-  "Annual_Average_RetailPrice_Electricity": {
-    "defaultMessage": "Electricity Price"
-  },
-  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Greenhouse Gas (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide (Large Facilities, Non-biogenic)"
-  },
-  "Annual_Generation_Electricity": {
-    "defaultMessage": "Annual Electricity Generation"
-  },
   "Count_CriminalActivities_Arson": {
     "defaultMessage": "Поджог"
   },
@@ -89,26 +65,26 @@
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "Насильственные преступления"
   },
-  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Hate Crimes (Motivated by Disability)"
-  },
-  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Hate Crimes (Motivated by Ethnicity)"
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "Преступления на почве ненависти"
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
-    "defaultMessage": "Hate Crimes (Motivated by Gender)"
+    "defaultMessage": "Преступления (на почве гендерной ненависти)"
   },
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
-    "defaultMessage": "Hate Crimes (Motivated by Race)"
+    "defaultMessage": "Преступления (на почве расовой ненависти)"
   },
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
-    "defaultMessage": "Hate Crimes (Motivated by Religion)"
+    "defaultMessage": "Преступления (на почве религиозной ненависти)"
+  },
+  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
+    "defaultMessage": "Преступления (на почве этнической ненависти)"
   },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
-    "defaultMessage": "Hate Crimes (Motivated by Sexual Orientation)"
+    "defaultMessage": "Преступления (на почве ненависти к людям с иной секс. ориентацией)"
   },
-  "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Hate Crimes"
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "Преступления (на почве ненависти к инвалидам)"
   },
   "Count_CycloneEvent": {
     "defaultMessage": "Циклон"
@@ -638,18 +614,6 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "Общее количество летальных исходов от COVID-19"
   },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
-    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 2.6"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
-    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 4.5"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
-    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 6.0"
-  },
-  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
-    "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 8.5"
-  },
   "FertilityRate_Person_Female": {
     "defaultMessage": "Коэффициент суммарной рождаемости"
   },
@@ -664,15 +628,6 @@
   },
   "LifeExpectancy_Person": {
     "defaultMessage": "Средняя продолжительность жизни"
-  },
-  "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Diesel PM"
-  },
-  "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Ozone"
-  },
-  "Mean_Concentration_AirPollutant_PM2.5": {
-    "defaultMessage": "PM2.5"
   },
   "Mean_WagesDaily_Worker": {
     "defaultMessage": "Средний заработок в день"
@@ -761,9 +716,6 @@
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
     "defaultMessage": "Мужчина"
   },
-  "PalmerDroughtSeverityIndex_Atmosphere": {
-    "defaultMessage": "PDSI"
-  },
   "Percent_Person_18To64Years_Female_NoHealthInsurance": {
     "defaultMessage": "Женщина"
   },
@@ -839,9 +791,6 @@
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "Городские жители"
   },
-  "WithdrawalRate_Water": {
-    "defaultMessage": "Water Withdrawal Rate"
-  },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "Буддисты"
   },
@@ -865,5 +814,56 @@
   },
   "indianCensus/Count_Person_Religion_Sikh": {
     "defaultMessage": "Сикхи"
+  },
+  "AirQualityIndex_AirPollutant": {
+    "defaultMessage": "AQI"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
+    "defaultMessage": "Макс. изменение температуры с 2006 года по сценарию RCP 2.6"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
+    "defaultMessage": "Макс. изменение температуры с 2006 года по сценарию RCP 4.5"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
+    "defaultMessage": "Макс. изменение температуры с 2006 года по сценарию RCP 6.0"
+  },
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
+    "defaultMessage": "Макс. изменение температуры с 2006 года по сценарию RCP 8.5"
+  },
+  "Mean_Concentration_AirPollutant_PM2.5": {
+    "defaultMessage": "PM2.5"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Озон"
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Твердые частицы дизельного топлива"
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "Углекислый газ (небиогенные выбросы на крупных объектах)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Метан (небиогенные выбросы на крупных объектах)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "Оксид азота (небиогенные выбросы на крупных объектах)"
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Парниковый газ (небиогенные выбросы на крупных объектах)"
+  },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Объем забора воды"
+  },
+  "PalmerDroughtSeverityIndex_Atmosphere": {
+    "defaultMessage": "PDSI"
+  },
+  "AirPollutant_Cancer_Risk": {
+    "defaultMessage": "Риск возникновения рака из-за загрязнения воздуха"
+  },
+  "Annual_Generation_Electricity": {
+    "defaultMessage": "Ежегодное производство электроэнергии"
+  },
+  "Annual_Average_RetailPrice_Electricity": {
+    "defaultMessage": "Стоимость электроэнергии"
   }
 }

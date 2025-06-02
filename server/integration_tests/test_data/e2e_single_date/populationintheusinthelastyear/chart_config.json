@@ -75,6 +75,27 @@
                       "startDate": "2024"
                     },
                     "statVarKey": [
+                      "Count_Person_Female_3999249536",
+                      "Count_Person_Male_3999249536"
+                    ],
+                    "title": "Population by Gender in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2024"
+                    },
+                    "statVarKey": [
                       "Count_Person_Employed_3707913853"
                     ],
                     "title": "Population With Current Employment in United States",
@@ -205,7 +226,7 @@
                     "statVarKey": [
                       "Count_Person_ResidesInHousehold_1926704588"
                     ],
-                    "title": "Population: Household in United States",
+                    "title": "Total Number of People Residing in Households in United States",
                     "type": "LINE"
                   }
                 ]
@@ -213,18 +234,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Household in United States",
+                    "description": "Total Number of People Residing in Households in United States",
                     "statVarKey": [
                       "Count_Person_ResidesInHousehold"
                     ],
-                    "title": "Population: Household in United States",
+                    "title": "Total Number of People Residing in Households in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Household"
+            "title": "Total Number of People Residing in Households"
           }
         ],
         "statVarSpec": {
@@ -246,6 +267,11 @@
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
           },
+          "Count_Person_Female_3999249536": {
+            "facetId": "3999249536",
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
           "Count_Person_InLaborForce": {
             "name": "Population in the Labor Force",
             "statVar": "Count_Person_InLaborForce"
@@ -255,13 +281,18 @@
             "name": "Population in the Labor Force",
             "statVar": "Count_Person_InLaborForce"
           },
+          "Count_Person_Male_3999249536": {
+            "facetId": "3999249536",
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
           "Count_Person_ResidesInHousehold": {
-            "name": "Population: Household",
+            "name": "Total number of people residing in households",
             "statVar": "Count_Person_ResidesInHousehold"
           },
           "Count_Person_ResidesInHousehold_1926704588": {
             "facetId": "1926704588",
-            "name": "Population: Household",
+            "name": "Total number of people residing in households",
             "statVar": "Count_Person_ResidesInHousehold"
           }
         }
@@ -700,7 +731,14 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person": {
+        "gender": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Demographics",

@@ -1,0 +1,10 @@
+{
+    "data": {
+        "dc/1": {
+            "properties": ["property3", "property4"]
+        },
+        "dc/2": {
+            "properties": ["property3"]
+        }
+    }
+}

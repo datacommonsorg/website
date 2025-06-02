@@ -208,6 +208,7 @@ function formatNumber(
       formatOptions.currencyDisplay = "code";
       break;
     case "$":
+    case "USD":
     case "USDollar":
       formatOptions.style = "currency";
       formatOptions.currency = "USD";
@@ -359,7 +360,7 @@ function translateUnit(unit: string): string {
  *
  * @return formatted date string
  */
-function formatDate(dateString: string, locale?: string) {
+function formatDate(dateString: string, locale?: string): string {
   // Regex to match:
   //  - Year (required): 4 digits
   //  - Optional month: -MM

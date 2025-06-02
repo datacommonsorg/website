@@ -1,0 +1,41 @@
+{
+    "data": {
+        "dc/1": {
+            "arcs": {
+                "property1": {
+                    "nodes": [{
+                        "name": "node1",
+                        "types": ["Gene"],
+                        "dcid": "dc/node1",
+                        "provenanceId": "dc/prov1"
+                    }, {
+                        "name": "node4",
+                        "types": ["Gene"],
+                        "dcid": "dc/node4",
+                        "provenanceId": "dc/prov2"
+                    }]
+                },
+                "property2": {
+                    "nodes": [{
+                        "name": "node2",
+                        "types": ["Gene"],
+                        "dcid": "dc/node2",
+                        "provenanceId": "dc/prov1"
+                    }]
+                }
+            }
+        },
+        "dc/2": {
+            "arcs": {
+                "property1": {
+                    "nodes": [{
+                        "name": "node3",
+                        "types": ["Gene"],
+                        "dcid": "dc/node3",
+                        "provenanceId": "dc/prov1"
+                    }]
+                }
+            }
+        }
+    }
+}

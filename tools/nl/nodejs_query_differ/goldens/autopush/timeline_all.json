@@ -1,7 +1,7 @@
 {
   "charts": [
     {
-      "dataCsv": "label,Average Income for Family Households\r\n2019,105819\r\n2018,103731\r\n2017,99878\r\n2016,96309\r\n2015,93044\r\n2014,90140\r\n2013,86449\r\n2012,83141\r\n2011,79594\r\n2010,75645",
+      "dataCsv": "label,Average Income for Family Households\r\n2023,127444\r\n2022,122601\r\n2021,111910\r\n2020,106573\r\n2019,105819\r\n2018,103731\r\n2017,99878\r\n2016,96309\r\n2015,93044\r\n2014,90140\r\n2013,86449\r\n2012,83141\r\n2011,79594\r\n2010,75645",
       "legend": [
         "Average Income for Family Households"
       ],
@@ -21,14 +21,14 @@
         "Mean_Income_Household_FamilyHousehold"
       ],
       "highlight": {
-        "date": "2019",
-        "value": 105819
+        "date": "2023",
+        "value": 127444
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,Average Income for Family Households\r\n1,Williams County,126095\r\n2,Dunn County,122699\r\n3,Divide County,118649\r\n4,Mountrail County,118316\r\n5,McKenzie County,117604\r\n49,Pierce County,76245\r\n50,McIntosh County,75949\r\n51,Rolette County,72908\r\n52,Benson County,69206\r\n53,Sioux County,56872",
+      "dataCsv": "rank,place,Average Income for Family Households\r\n1,Dunn County,165537\r\n2,McKenzie County,157621\r\n3,Burke County,154110\r\n4,Griggs County,141696\r\n5,Williams County,141246\r\n49,Benson County,92950\r\n50,McIntosh County,90956\r\n51,Logan County,88683\r\n52,Rolette County,81160\r\n53,Sioux County,65710",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -39,7 +39,7 @@
           "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
         }
       ],
-      "title": "Average Income for Family Households in Counties of North Dakota (2019)",
+      "title": "Average Income for Family Households in Counties of North Dakota (2023)",
       "type": "TABLE",
       "unit": "Infl. adj. USD (CY)",
       "vars": [
@@ -49,7 +49,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,Median Family Household Income\r\n2019,86249\r\n2018,83272\r\n2017,80091\r\n2016,77277\r\n2015,74708\r\n2014,72770\r\n2013,70767\r\n2012,68293\r\n2011,65871\r\n2010,62920",
+      "dataCsv": "label,Median Family Household Income\r\n2023,103383\r\n2022,100188\r\n2021,92066\r\n2020,86798\r\n2019,86249\r\n2018,83272\r\n2017,80091\r\n2016,77277\r\n2015,74708\r\n2014,72770\r\n2013,70767\r\n2012,68293\r\n2011,65871\r\n2010,62920",
       "legend": [
         "Median Family Household Income"
       ],
@@ -69,14 +69,14 @@
         "Median_Income_Household_FamilyHousehold"
       ],
       "highlight": {
-        "date": "2019",
-        "value": 86249
+        "date": "2023",
+        "value": 103383
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,Median Family Household Income\r\n1,Dunn County,107625\r\n2,Williams County,100650\r\n3,Mercer County,97866\r\n4,Stark County,96087\r\n5,Burleigh County,95104\r\n49,Sheridan County,64000\r\n50,Kidder County,63716\r\n51,Benson County,54962\r\n52,Rolette County,53285\r\n53,Sioux County,42619",
+      "dataCsv": "rank,place,Median Family Household Income\r\n1,Dunn County,127656\r\n2,Burke County,117171\r\n3,McKenzie County,113550\r\n4,Burleigh County,113220\r\n5,Foster County,112837\r\n49,Slope County,79250\r\n50,Logan County,74453\r\n51,Benson County,72933\r\n52,Rolette County,65508\r\n53,Sioux County,42500",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -87,7 +87,7 @@
           "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
         }
       ],
-      "title": "Median Family Household Income in Counties of North Dakota (2019)",
+      "title": "Median Family Household Income in Counties of North Dakota (2023)",
       "type": "TABLE",
       "unit": "Infl. adj. USD (CY)",
       "vars": [
@@ -97,7 +97,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,Average Income for Households\r\n2019,85476\r\n2018,84043\r\n2017,81334\r\n2016,78828\r\n2015,76185\r\n2014,73272\r\n2013,70235\r\n2012,67426\r\n2011,64106\r\n2010,60581",
+      "dataCsv": "label,Average Income for Households\r\n2023,100487\r\n2022,97221\r\n2021,89443\r\n2020,85506\r\n2019,85476\r\n2018,84043\r\n2017,81334\r\n2016,78828\r\n2015,76185\r\n2014,73272\r\n2013,70235\r\n2012,67426\r\n2011,64106\r\n2010,60581",
       "legend": [
         "Average Income for Households"
       ],
@@ -117,14 +117,14 @@
         "Mean_Income_Household"
       ],
       "highlight": {
-        "date": "2019",
-        "value": 85476
+        "date": "2023",
+        "value": 100487
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,Average Income for Households\r\n1,Williams County,112921\r\n2,Dunn County,106893\r\n3,McKenzie County,105700\r\n4,Mountrail County,100606\r\n5,Billings County,98764\r\n49,Pierce County,65582\r\n50,Benson County,65093\r\n51,Sheridan County,64388\r\n52,Rolette County,61600\r\n53,Sioux County,53928",
+      "dataCsv": "rank,place,Average Income for Households\r\n1,McKenzie County,131562\r\n2,Dunn County,131547\r\n3,Burke County,129023\r\n4,Williams County,119610\r\n5,Divide County,110444\r\n49,Rolette County,74414\r\n50,Eddy County,74107\r\n51,Adams County,73927\r\n52,Kidder County,72356\r\n53,Sioux County,64425",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -135,7 +135,7 @@
           "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
         }
       ],
-      "title": "Average Income for Households in Counties of North Dakota (2019)",
+      "title": "Average Income for Households in Counties of North Dakota (2023)",
       "type": "TABLE",
       "unit": "Infl. adj. USD (CY)",
       "vars": [
@@ -145,7 +145,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,Median Married Couple Family Household Income\r\n2019,96825\r\n2018,93643\r\n2017,89787\r\n2016,86919\r\n2015,84437\r\n2014,82236\r\n2013,79820\r\n2012,76946\r\n2011,73585\r\n2010,69952",
+      "dataCsv": "label,Median Married Couple Family Household Income\r\n2023,115532\r\n2022,112182\r\n2021,103532\r\n2020,97587\r\n2019,96825\r\n2018,93643\r\n2017,89787\r\n2016,86919\r\n2015,84437\r\n2014,82236\r\n2013,79820\r\n2012,76946\r\n2011,73585\r\n2010,69952",
       "legend": [
         "Median Married Couple Family Household Income"
       ],
@@ -165,14 +165,14 @@
         "Median_Income_Household_MarriedCoupleFamilyHousehold"
       ],
       "highlight": {
-        "date": "2019",
-        "value": 96825
+        "date": "2023",
+        "value": 115532
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,Median Married Couple Family Household Income\r\n1,Williams County,114939\r\n2,Dunn County,110000\r\n3,McKenzie County,109798\r\n4,Burleigh County,108658\r\n5,Stark County,105861\r\n49,Logan County,69342\r\n50,McIntosh County,69010\r\n51,Sheridan County,69000\r\n52,Kidder County,65625\r\n53,Sioux County,63375",
+      "dataCsv": "rank,place,Median Married Couple Family Household Income\r\n1,McKenzie County,140208\r\n2,Williams County,133417\r\n3,Dunn County,131875\r\n4,Burke County,129750\r\n5,Traill County,124479\r\n49,Renville County,85694\r\n50,McIntosh County,85208\r\n51,Kidder County,82950\r\n52,Logan County,75074\r\n53,Sioux County,71912",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -183,7 +183,7 @@
           "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
         }
       ],
-      "title": "Median Married Couple Family Household Income in Counties of North Dakota (2019)",
+      "title": "Median Married Couple Family Household Income in Counties of North Dakota (2023)",
       "type": "TABLE",
       "unit": "Infl. adj. USD (CY)",
       "vars": [
@@ -193,7 +193,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,Average Income for Nonfamily Households\r\n2019,52462\r\n2018,51729\r\n2017,50416\r\n2016,49357\r\n2015,47072\r\n2014,44346\r\n2013,42235\r\n2012,40393\r\n2011,37461\r\n2010,34769",
+      "dataCsv": "label,Average Income for Nonfamily Households\r\n2023,60032\r\n2022,57629\r\n2021,53615\r\n2020,52239\r\n2019,52462\r\n2018,51729\r\n2017,50416\r\n2016,49357\r\n2015,47072\r\n2014,44346\r\n2013,42235\r\n2012,40393\r\n2011,37461\r\n2010,34769",
       "legend": [
         "Average Income for Nonfamily Households"
       ],
@@ -213,14 +213,14 @@
         "Mean_Income_Household_NonfamilyHousehold"
       ],
       "highlight": {
-        "date": "2019",
-        "value": 52462
+        "date": "2023",
+        "value": 60032
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,Average Income for Nonfamily Households\r\n1,McKenzie County,83059\r\n2,Williams County,80472\r\n3,Cavalier County,77149\r\n4,Dunn County,73967\r\n5,Mercer County,68320\r\n49,Divide County,39224\r\n50,Sioux County,38695\r\n51,Griggs County,37770\r\n52,Nelson County,36831\r\n53,Rolette County,31345",
+      "dataCsv": "rank,place,Average Income for Nonfamily Households\r\n1,McKenzie County,89519\r\n2,Burke County,80852\r\n3,Williams County,78516\r\n4,Mountrail County,76138\r\n5,Divide County,75975\r\n49,Stutsman County,45571\r\n50,Pierce County,44415\r\n51,Nelson County,38588\r\n52,Adams County,36093\r\n53,Grant County,35473",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -231,7 +231,7 @@
           "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
         }
       ],
-      "title": "Average Income for Nonfamily Households in Counties of North Dakota (2019)",
+      "title": "Average Income for Nonfamily Households in Counties of North Dakota (2023)",
       "type": "TABLE",
       "unit": "Infl. adj. USD (CY)",
       "vars": [
@@ -385,7 +385,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,Average Income for Married Couple Family Households\r\n2019,117934\r\n2018,115706\r\n2017,111105\r\n2016,107344\r\n2015,103913\r\n2014,100467\r\n2013,95868\r\n2012,92261\r\n2011,88071\r\n2010,83619",
+      "dataCsv": "label,Average Income for Married Couple Family Households\r\n2023,140942\r\n2022,135909\r\n2021,124575\r\n2020,118195\r\n2019,117934\r\n2018,115706\r\n2017,111105\r\n2016,107344\r\n2015,103913\r\n2014,100467\r\n2013,95868\r\n2012,92261\r\n2011,88071\r\n2010,83619",
       "legend": [
         "Average Income for Married Couple Family Households"
       ],
@@ -405,14 +405,14 @@
         "Mean_Income_Household_MarriedCoupleFamilyHousehold"
       ],
       "highlight": {
-        "date": "2019",
-        "value": 117934
+        "date": "2023",
+        "value": 140942
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,Average Income for Married Couple Family Households\r\n1,Burleigh County,129824\r\n2,Cass County,129532\r\n3,Grand Forks County,111270\r\n4,Ward County,110209\r\n3,Grand Forks County,111270\r\n4,Ward County,110209",
+      "dataCsv": "rank,place,Average Income for Married Couple Family Households\r\n1,Cass County,154838\r\n2,Burleigh County,145802\r\n3,Grand Forks County,137961\r\n4,Ward County,121314\r\n3,Grand Forks County,137961\r\n4,Ward County,121314",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -423,7 +423,7 @@
           "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
         }
       ],
-      "title": "Average Income for Married Couple Family Households in Counties of North Dakota (2019)",
+      "title": "Average Income for Married Couple Family Households in Counties of North Dakota (2021 to 2023)",
       "type": "TABLE",
       "unit": "Infl. adj. USD (CY)",
       "vars": [
@@ -433,7 +433,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,Median Family Household Income,Median Married Couple Family Household Income,Nonfamily Household Median Income\r\n2019,86249,96825,38642\r\n2018,83272,93643,37577\r\n2017,80091,89787,35907\r\n2016,77277,86919,35176\r\n2015,74708,84437,33751\r\n2014,72770,82236,32577\r\n2013,70767,79820,31330\r\n2012,68293,76946,30195\r\n2011,65871,73585,27555\r\n2010,62920,69952,26089",
+      "dataCsv": "label,Median Family Household Income,Median Married Couple Family Household Income,Nonfamily Household Median Income\r\n2023,103383,115532,45414\r\n2022,100188,112182,44337\r\n2021,92066,103532,40439\r\n2020,86798,97587,39781\r\n2019,86249,96825,38642\r\n2018,83272,93643,37577\r\n2017,80091,89787,35907\r\n2016,77277,86919,35176\r\n2015,74708,84437,33751\r\n2014,72770,82236,32577\r\n2013,70767,79820,31330\r\n2012,68293,76946,30195\r\n2011,65871,73585,27555\r\n2010,62920,69952,26089",
       "legend": [
         "Median Family Household Income",
         "Median Married Couple Family Household Income",
@@ -460,7 +460,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "label,Median Earnings for Women,Median Earnings for Men\r\n2022,35363,50887\r\n2021,32468,46371\r\n2020,31451,45099\r\n2019,30532,45562\r\n2018,29336,43923\r\n2017,27702,42039\r\n2016,26342,41306\r\n2015,25300,40496\r\n2014,24504,39027\r\n2013,23627,37415\r\n2012,22443,35930\r\n2011,21497,34078\r\n2010,20593,32340",
+      "dataCsv": "label,Median Earnings for Women,Median Earnings for Men\r\n2023,36874,52600\r\n2022,35363,50887\r\n2021,32468,46371\r\n2020,31451,45099\r\n2019,30532,45562\r\n2018,29336,43923\r\n2017,27702,42039\r\n2016,26342,41306\r\n2015,25300,40496\r\n2014,24504,39027\r\n2013,23627,37415\r\n2012,22443,35930\r\n2011,21497,34078\r\n2010,20593,32340",
       "legend": [
         "Median Earnings for Women",
         "Median Earnings for Men"

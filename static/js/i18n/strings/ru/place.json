@@ -2,6 +2,21 @@
   "alert-no_data_for_place": {
     "defaultMessage": "К сожалению, у нас нет данных о локации {placeName}"
   },
+  "category_in_place": {
+    "defaultMessage": "{category} ({placeName})"
+  },
+  "chart-title-with-per-capita-and-date": {
+    "defaultMessage": "{variableName} (на душу населения на {date})"
+  },
+  "chart-title-with-per-capita-no-date": {
+    "defaultMessage": "{variableName} (на душу населения)"
+  },
+  "chart-title-with-two-variables": {
+    "defaultMessage": "{variable1} – {variable2}"
+  },
+  "chart-title-with-two-variables-and-location": {
+    "defaultMessage": "{place} {placeType}: {variable1} – {variable2}"
+  },
   "chart_clause-other_placeType": {
     "defaultMessage": "{chartTitle}: другие {placeType}"
   },
@@ -15,7 +30,7 @@
     "defaultMessage": "{chartTitle}: {placeType} около локации {placeName}"
   },
   "chart_clause-rankings_in_place": {
-    "defaultMessage": "{variable}: rankings in {placeName}"
+    "defaultMessage": "{variable}: рейтинг ({placeName})"
   },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{variable} в локации {placeName}"
@@ -24,7 +39,7 @@
     "defaultMessage": "(прерывистая линия обозначает недостающие данные)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "Подробнее… "
+    "defaultMessage": "Ещё ›"
   },
   "chart_metadata-export": {
     "defaultMessage": "Экспорт"
@@ -38,6 +53,21 @@
   "child_places_menu-places_in_place": {
     "defaultMessage": "Места в локации {placeName}"
   },
+  "chooseVariable": {
+    "defaultMessage": "Выберите переменную, метаданные которой хотите просмотреть"
+  },
+  "close": {
+    "defaultMessage": "Закрыть"
+  },
+  "dateRange": {
+    "defaultMessage": "{minDate}–{maxDate}"
+  },
+  "disasterTool": {
+    "defaultMessage": "Инструмент \"Стихийное бедствие\""
+  },
+  "download": {
+    "defaultMessage": "Скачать"
+  },
   "embed_citation": {
     "defaultMessage": "Данные от {sources} через Data Commons"
   },
@@ -50,23 +80,56 @@
   "embed_export_chart_link": {
     "defaultMessage": "Экспортировать диаграмму"
   },
+  "enterQuery": {
+    "defaultMessage": "Введите вопрос, который нужно изучить"
+  },
+  "exploreLink": {
+    "defaultMessage": "Поиск с помощью инструмента \"{toolName}\""
+  },
+  "explore_data_on": {
+    "defaultMessage": "Изучить данные по вопросу… \"{sampleQuestion}\""
+  },
   "header-overview": {
     "defaultMessage": "Обзор"
+  },
+  "key_demographics": {
+    "defaultMessage": "Ключевые демографические данные"
+  },
+  "knowledge_graph": {
+    "defaultMessage": "Сеть знаний"
   },
   "link-return_to_overview": {
     "defaultMessage": "Назад к обзору"
   },
+  "loading": {
+    "defaultMessage": "Загрузка…"
+  },
+  "mapTool": {
+    "defaultMessage": "Инструмент \"Карта\""
+  },
   "more_charts": {
     "defaultMessage": "Другие диаграммы"
   },
+  "more_charts_link": {
+    "defaultMessage": "Другие диаграммы"
+  },
+  "no_charts": {
+    "defaultMessage": "Данные в категории \"{category}\" ({place}) не найдены."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeName}: {placeType}"
+  },
+  "place_not_found": {
+    "defaultMessage": "Местоположение \"{placeDcid}\" не найдено."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Рейтинги"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} из {total}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{placeType} ({parentPlaces})"
   },
   "plural_administrative_area": {
     "defaultMessage": "Административные районы"
@@ -79,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "Города"
+  },
+  "plural_continent": {
+    "defaultMessage": "Континенты"
   },
   "plural_country": {
     "defaultMessage": "Страны"
@@ -149,14 +215,35 @@
   "ranking-subtitle_top_percapita": {
     "defaultMessage": "{placeName}: {pluralPlaceType}, топ-{rankSize}, на душу населения"
   },
+  "ranking-tile-latest-data-available-footer": {
+    "defaultMessage": "Основано на последних данных. Некоторые места могут отсутствовать из-за неполной отчетности за этот год."
+  },
+  "ranking-tile-latest-data-footer": {
+    "defaultMessage": "В таблицу включены данные за несколько лет. Они позволяют получить полное представление о местах."
+  },
   "ranking_table-header_rank": {
     "defaultMessage": "Место"
   },
   "ranking_table-header_value": {
     "defaultMessage": "Значение"
   },
+  "relevant_topics": {
+    "defaultMessage": "Подходящие темы"
+  },
+  "scatterTool": {
+    "defaultMessage": "Инструмент Scatter"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Поиск другого места"
+  },
+  "seePerCapita": {
+    "defaultMessage": "На душу населения"
+  },
+  "selectVariable": {
+    "defaultMessage": "Выберите переменную, данные которой хотите просмотреть. При нажатии на ссылки ниже проводник статистических переменных откроется в новой вкладке."
+  },
+  "showMetadata": {
+    "defaultMessage": "Показать метаданные"
   },
   "singular_administrative_area": {
     "defaultMessage": "Административный район"
@@ -169,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "Город"
+  },
+  "singular_continent": {
+    "defaultMessage": "Континент"
   },
   "singular_country": {
     "defaultMessage": "Страна"
@@ -197,7 +287,34 @@
   "singular_zip_code": {
     "defaultMessage": "Почтовый индекс"
   },
+  "snap-to-latest-data-checkbox-label": {
+    "defaultMessage": "Перейти к информации с максимальным охватом"
+  },
+  "snap-to-latest-data-help-tooltip": {
+    "defaultMessage": "При выборе этого параметра показываются самые актуальные данные с наибольшим покрытием. Некоторые места могут отсутствовать из-за неполной отчетности за этот год."
+  },
+  "snap-to-latest-data-overlap-help-tooltip": {
+    "defaultMessage": "Данные с максимальным покрытием также являются новейшими для этой таблицы."
+  },
+  "source": {
+    "defaultMessage": "Источник"
+  },
+  "sources": {
+    "defaultMessage": "Источники"
+  },
+  "summary_overview": {
+    "defaultMessage": "Общие сведения"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "Мы используем ИИ, чтобы создать сводку на основе полученных данных (ссылка есть на каждой диаграмме). Мы стараемся давать точные сведения, но тем не менее проверяйте сводку и обращайтесь к исходным данным."
+  },
   "the_world": {
     "defaultMessage": "в мире"
+  },
+  "timelineTool": {
+    "defaultMessage": "Инструмент \"Хронология\""
+  },
+  "viaGoogle": {
+    "defaultMessage": "через Google"
   }
 }

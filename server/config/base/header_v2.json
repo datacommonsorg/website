@@ -107,7 +107,7 @@
           },
           {
             "title": "Data Sources",
-            "url": "https://docs.datacommons.org/datasets/",
+            "url": "{static.data}",
             "description": "Get familiar with the data available in Data Commons"
           }
         ]

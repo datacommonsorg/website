@@ -218,38 +218,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
-                    "title": "Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
-                    "title": "Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -260,6 +228,7 @@
                     ],
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block",
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block",
                       "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block",
                       "Count_Death_CertainInfectiousParasiticDiseases_multiple_place_bar_block",
                       "Count_Death_Neoplasms_multiple_place_bar_block",
@@ -275,7 +244,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Causes of Death"
           },
           {
@@ -560,7 +528,7 @@
                       "startDate": "2020"
                     },
                     "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1151455814"
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1123266408"
                     ],
                     "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
                     "type": "LINE"
@@ -774,8 +742,8 @@
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
-          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1151455814": {
-            "facetId": "1151455814",
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1123266408": {
+            "facetId": "1123266408",
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
@@ -787,10 +755,6 @@
             "facetId": "1113810078",
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
-          },
-          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod": {
-            "name": "Deaths Due To Certain Conditions Originating in The Perinatal Period",
-            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
           },
           "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female": {
             "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
@@ -839,6 +803,10 @@
           "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block": {
             "name": "Deaths From Diseases of the Circulatory System",
             "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
+            "name": "% of Suicide Events",
+            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
             "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
@@ -1349,6 +1317,7 @@
       },
       "Count_Death_AsAFractionOfCount_Person": {
         "causeOfDeath": [
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
           "Count_MortalityEvent_Assault(Homicide)_AsAFractionOf_Count_Person",
           "Count_MortalityEvent_ICD10/A00-B99_AsAFractionOf_Count_Person",
           "Count_MortalityEvent_ICD10/C00-D48_AsAFractionOf_Count_Person",

@@ -73,7 +73,7 @@ Amount_Remittance_OutwardRemittance,Amount of Outward Remittance
 Amount_Stock,Stock market capitalization
 Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,Stock market capitalization as a Proportion of Nominal GDP
 AmountFarmInventory_WinterWheatForGrain,Amount of Winter Wheat grown for Grain production
-Amout_FarmInventory_CornForGrain,Amount of Corn grown for grain production
+Amount_FarmInventory_CornForGrain,Amount of Corn grown for grain production
 Annual_Amount_Emissions_Acetaldehyde_SCC_1_ExternalCombustion,amount of acetaldehyde emissions from External Combustion
 Annual_Amount_Emissions_Acetaldehyde_SCC_2_InternalCombustionEngines,amount of acetaldehyde emissions from Internal Combustion Engines
 Annual_Amount_Emissions_Acetaldehyde_SCC_21_StationarySourceFuelCombustion,amount of acetaldehyde emissions from Stationary Source Fuel Combustion
@@ -1838,7 +1838,7 @@ Count_MortalityEvent_Assault(Homicide),Number of Deaths from Assault (Homicide)
 Count_MortalityEvent_Assault(Homicide)_Female,Number of female Deaths from Assault (Homicide)
 Count_MortalityEvent_Diabetes,number of deaths from diabetes
 Count_MortalityEvent_Diabetes_Female,number of female deaths from diabetes
-Count_MortalityEvent_Diabetes_Memale,number of male deaths from diabetes
+Count_MortalityEvent_Diabetes_Male,number of male deaths from diabetes
 Count_MortalityEvent_HeartDiseaseExcludingHypertension,Number of Deaths from Heart Disease Excluding Hypertension
 Count_MortalityEvent_IntentionalSelf-Harm(Suicide),Number of Intentional Self-Harm (Suicide) Deaths
 Count_MortalityEvent_IntentionalSelf-Harm(Suicide)_Female,Number of Intentional Self-Harm (Suicide) Deaths in Females
@@ -2198,6 +2198,7 @@ Count_Person_Employed_NACE/F,Number of employed people in Construction
 Count_Person_Employed_NACE/J,Number of employed people in Information and communication
 Count_Person_Employed_NACE/K,Number of employed people in Financial and insurance activities
 Count_Person_Employed_NACE/L,Number of employed people in Real estate activities
+Count_Person_Employed_TotalNonfarm,"Total nonfarm payroll"
 Count_Person_EnrolledInCollegeOrGraduateSchool,Number of students Enrolled in College or Graduate School
 Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInAdultCorrectionalFacilities,Number of people Enrolled in College or Graduate School and Resides in Adult Correctional Facilities
 Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInCollegeOrUniversityStudentHousing,Number of people Enrolled in College or Graduate School and Resides in College or University Student Housing
@@ -3387,6 +3388,7 @@ sdg/ER_PTD_FRHWTR,Average proportion of Freshwater Key Biodiversity Areas covere
 sdg/ER_PTD_MTN,Average proportion of Mountain Key Biodiversity Areas covered by protected areas
 sdg/ER_PTD_TERR,Average proportion of Terrestrial Key Biodiversity Areas covered by protected areas
 sdg/ER_RSK_LST,Red List Index
+sdg/FP_CPI_TOTL_ZG,"Annual inflation rate as measured by the consumer price index"
 sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F,Proportion of females of reproductive age who have their need for family planning satisfied with modern methods
 sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F,Proportion of females aged 15-49 years with anaemia
 sdg/SH_STA_MORT.SEX--F,Maternal mortality
@@ -3602,7 +3604,44 @@ worldBank/4_1_SHARE_RE_IN_ELECTRICITY,Renewable electricity share of total elect
 worldBank/EG_ELC_ACCS_RU_ZS,percentage of rural population with access to electricity
 worldBank/EG_ELC_ACCS_UR_ZS,percentage of urban population with access to electricity
 worldBank/EG_ELC_ACCS_ZS,percentage of population with access to electricity
+worldBank/FR_INR_DPST,"Deposit interest rate"
+worldBank/FR_INR_LEND,"Lending interest rate"
+worldBank/FR_INR_RINR,"Real lending interest rate"
 sdg/SG_GEN_PARL.SEX--F,proportion of seats held by women in national parliaments
 Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
+dc/x6l3mg60hpe7c,"Consumer Price Index of Consumer Goods And Services (Seasonally Unadjusted): Urban Consumer; Consumer Price Index for All Urban Consumers"
+Count_Person_15OrMoreYears_EducationSector_Employed,Number of people employed in the education sector
+Count_Person_15OrMoreYears_Manufacturing_Employed,Number of people employed in manufacturing
+Count_Person_15OrMoreYears_SpecializedScientificAndTechnicalActivities_Employed,Number of people employed in specialized scientific or technical activities
+Count_Person_15OrMoreYears_AgricultureHuntingForestryCuttingTrees_Employed,"Number of people employed in agriculture, forestry or fishing"
+Count_Person_15OrMoreYears_HumanHealthAndSocialWorkActivities_Employed,Number of people employed in human health and social work activities
+Count_Person_15OrMoreYears_PublicAdministrationAndDefence_Employed,Number of people employed in public administration or defence
+Count_Person_15OrMoreYears_InformationAndTelecommunication_Employed,Number of people employed in information and communication
+Count_MortalityEvent_Infant_Rural,Rural infant mortality
+Count_MortalityEvent_Infant_Urban,Urban infant mortality
+Count_MedicalConditionIncident_ConditionMalaria,Number of malaria cases
+Count_MortalityEvent_Malaria_AsAFractionOf_Count_Death,Malaria mortality rate
+Count_HealthEstablishment_PublicAndCentralHospital,Number of public and central hospitals
+Count_CriminalIncidents,Number of criminal incidents
+Count_Establishment_SocialCareFacility,Number of social care facilities
+Percent_Student_AsAFractionOf_Count_Teacher,Student to Teacher Ratio
+Count_Person_Agriculture_Employed,Number of people employed in the agriculture sector
+Count_Person_ConstructionSector_Employed,Number of people employed in the construction sector
+Count_Person_ManufacturingSector_Employed,Number of people employed in the manufacturing sector
+Count_Person_TradeSector_Employed,Number of people employed in the trade sector
+Count_Person_SlumArea,Number of people living in slums
+UnemploymentRate_Person_15To65Years,Unemployment rate
+Count_MortalityEvent_Newborn_AsAFractionOf_Count_BirthEvent_LiveBirth,Newborn mortality rate
+Count_MortalityEvent_Infant_AsAFractionOf_Count_BirthEvent_LiveBirth,Infant mortality rate
+Count_MaternalMortalityEvent,Number of maternal deaths
+Count_Person_Intersex,Number of intersex people
+Count_MortalityEvent_Newborn,Number of newborn deaths
+Count_BirthEvent_LiveBirth,Number of live births
+GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_Telecommunications,Growth rate of GDP in telecommunications
+GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_Agriculture,Growth rate of GDP in agriculture
+GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_ManufacturingSector,Growth rate of GDP in the manufacturing sector
+GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_MiningQuarrying,Growth rate of GDP in the mining and quarrying sector
+Count_Person_15To59Years_Unemployed_Male_AsAFractionOf_Count_Person_15To59Years_Male,Male unemployment rate
+Count_Person_15To59Years_Unemployed_Male_AsAFractionOf_Count_Person_15To59Years_Male,Female unemployment rate

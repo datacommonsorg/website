@@ -37,8 +37,10 @@ import {
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { FacetMetadata } from "../../types/facet_metadata";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
@@ -112,23 +114,10 @@ export interface BlockPropType {
   startWithDenom?: boolean;
   // Whether to render tiles as web components
   showWebComponents?: boolean;
+  highlightFacet?: FacetMetadata;
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
-const rankingTileLatestDataFooter = intl.formatMessage({
-  defaultMessage:
-    "This ranking includes data from several years for a comprehensive view of places.",
-  description:
-    "Description of a chart that shows data points from various years.",
-  id: "ranking-tile-latest-data-footer",
-});
-const rankingTileLatestDataAvailableFooter = intl.formatMessage({
-  defaultMessage:
-    "Ranking based on latest data available. Some places may be missing due to incomplete reporting that year.",
-  description:
-    "Description of a chart that shows the most recently available data.",
-  id: "ranking-tile-latest-data-available-footer",
-});
 
 /**
  * Helper for determining if we should snap the charts in this block to the
@@ -243,7 +232,7 @@ export function Block(props: BlockPropType): JSX.Element {
     if (!isEligibleForSnapToHighestCoverage) {
       return;
     }
-    (async () => {
+    (async (): Promise<void> => {
       const enableSnapToHighestCoverage =
         await shouldEnableSnapToHighestCoverage(
           props.place.dcid,
@@ -265,9 +254,11 @@ export function Block(props: BlockPropType): JSX.Element {
               <Input
                 type="checkbox"
                 checked={useDenom}
-                onChange={() => setUseDenom(!useDenom)}
+                onChange={(): void => setUseDenom(!useDenom)}
               />
-              <span>See per capita</span>
+              <span data-testid="see-per-capita">
+                {intl.formatMessage(messages.seePerCapita)}
+              </span>
             </label>
           </span>
         )}
@@ -277,7 +268,7 @@ export function Block(props: BlockPropType): JSX.Element {
               <Input
                 checked={snapToHighestCoverage}
                 disabled={!enableSnapToLatestData}
-                onChange={() =>
+                onChange={(): void =>
                   setSnapToHighestCoverage(!snapToHighestCoverage)
                 }
                 type="checkbox"
@@ -362,7 +353,7 @@ export function Block(props: BlockPropType): JSX.Element {
       {isNlInterface() && props.columns.length > NL_NUM_BLOCKS_SHOWN && (
         <div
           className="show-more-expando"
-          onClick={(e) => {
+          onClick={(e): void => {
             onShowMore();
             e.preventDefault();
           }}
@@ -377,7 +368,7 @@ export function Block(props: BlockPropType): JSX.Element {
 
   // Removes HIDE_COLUMN_CLASS from all columns in this block and hides the
   // show more button.
-  function onShowMore() {
+  function onShowMore(): void {
     const columns = columnSectionRef.current.getElementsByClassName(
       HIDE_COLUMN_CLASS
     ) as HTMLCollectionOf<HTMLElement>;
@@ -431,6 +422,7 @@ function renderTiles(
               blockDate,
               blockDenom,
             })}
+            highlightFacet={props.highlightFacet}
           />
         );
       }
@@ -496,6 +488,7 @@ function renderTiles(
             startDate={tile.lineTileSpec?.startDate}
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "RANKING":
@@ -518,9 +511,11 @@ function renderTiles(
             hideFooter={tile.hideFooter}
             footnote={
               blockDate == DATE_LATEST
-                ? rankingTileLatestDataFooter
+                ? intl.formatMessage(messages.rankingTileLatestDataFooter)
                 : blockDate === DATE_HIGHEST_COVERAGE
-                ? rankingTileLatestDataAvailableFooter
+                ? intl.formatMessage(
+                    messages.rankingTileLatestDataAvailableFooter
+                  )
                 : undefined
             }
           />
@@ -561,6 +556,7 @@ function renderTiles(
               tile.barTileSpec?.variableNameRegex,
               tile.barTileSpec?.defaultVariableName
             )}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "SCATTER": {

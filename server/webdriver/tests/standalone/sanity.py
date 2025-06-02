@@ -49,7 +49,6 @@ flags.DEFINE_string(
 flags.DEFINE_string("url", None, "URL to start testing from.", required=True)
 
 _TEST_PARAM = "test=sanity"
-_DOCSITE_URL = "https://docs.datacommons.org"
 
 
 def url_with_test_param(url: str):
@@ -164,9 +163,9 @@ class WebsiteSanityTest:
             ))
         return
 
-      # There is a button in the topic section that leads to the docs site,
-      # don't include it as an explore landing page.
-      if topic_url_elem.get_attribute("href").startswith(_DOCSITE_URL):
+      # There is a button in the topic section that leads to the data sources
+      # page. don't include it as an explore landing page.
+      if topic_url_elem.get_attribute("href").endswith("/data"):
         continue
 
       explore_landing_pages.append(

@@ -2,7 +2,7 @@
   "AirPollutant_Cancer_Risk": [
     {
       "type": 0,
-      "value": "Air Toxics Cancer Risk"
+      "value": "Риск возникновения рака из-за загрязнения воздуха"
     }
   ],
   "AirQualityIndex_AirPollutant": [
@@ -86,7 +86,7 @@
   "Amount_Emissions_CarbonDioxide_PerCapita": [
     {
       "type": 0,
-      "value": "Carbon Dioxide Emissions"
+      "value": "Выбросы углекислого газа"
     }
   ],
   "Amount_Remittance_InwardRemittance": [
@@ -122,37 +122,37 @@
   "Annual_Average_RetailPrice_Electricity": [
     {
       "type": 0,
-      "value": "Electricity Price"
+      "value": "Стоимость электроэнергии"
     }
   ],
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Carbon Dioxide (Large Facilities, Non-biogenic)"
+      "value": "Углекислый газ (небиогенные выбросы на крупных объектах)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
-      "value": "Greenhouse Gas (Large Facilities, Non-biogenic)"
+      "value": "Парниковый газ (небиогенные выбросы на крупных объектах)"
     }
   ],
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Methane (Large Facilities, Non-biogenic)"
+      "value": "Метан (небиогенные выбросы на крупных объектах)"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Nitrous Oxide (Large Facilities, Non-biogenic)"
+      "value": "Оксид азота (небиогенные выбросы на крупных объектах)"
     }
   ],
   "Annual_Generation_Electricity": [
     {
       "type": 0,
-      "value": "Annual Electricity Generation"
+      "value": "Ежегодное производство электроэнергии"
     }
   ],
   "Count_CriminalActivities_Arson": [
@@ -182,43 +182,43 @@
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Disability)"
+      "value": "Преступления (на почве ненависти к инвалидам)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Ethnicity)"
+      "value": "Преступления (на почве этнической ненависти)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Gender)"
+      "value": "Преступления (на почве гендерной ненависти)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Race)"
+      "value": "Преступления (на почве расовой ненависти)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Religion)"
+      "value": "Преступления (на почве религиозной ненависти)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Sexual Orientation)"
+      "value": "Преступления (на почве ненависти к людям с иной секс. ориентацией)"
     }
   ],
   "Count_CriminalIncidents_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes"
+      "value": "Преступления на почве ненависти"
     }
   ],
   "Count_CycloneEvent": [
@@ -1280,25 +1280,25 @@
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 2.6"
+      "value": "Макс. изменение температуры с 2006 года по сценарию RCP 2.6"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 4.5"
+      "value": "Макс. изменение температуры с 2006 года по сценарию RCP 4.5"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 6.0"
+      "value": "Макс. изменение температуры с 2006 года по сценарию RCP 6.0"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 8.5"
+      "value": "Макс. изменение температуры с 2006 года по сценарию RCP 8.5"
     }
   ],
   "FertilityRate_Person_Female": [
@@ -1334,13 +1334,13 @@
   "Mean_Concentration_AirPollutant_DieselPM": [
     {
       "type": 0,
-      "value": "Diesel PM"
+      "value": "Твердые частицы дизельного топлива"
     }
   ],
   "Mean_Concentration_AirPollutant_Ozone": [
     {
       "type": 0,
-      "value": "Ozone"
+      "value": "Озон"
     }
   ],
   "Mean_Concentration_AirPollutant_PM2.5": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water Withdrawal Rate"
+      "value": "Объем забора воды"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

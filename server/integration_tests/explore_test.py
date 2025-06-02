@@ -805,4 +805,4 @@ def _del_field(d: dict, path: str):
 
 # Helper function to consistently format float scores.
 def _format_scores(scores):
-  return [float("{:.6f}".format(score)) for score in scores]
+  return [float("{:.5f}".format(score)) for score in scores]

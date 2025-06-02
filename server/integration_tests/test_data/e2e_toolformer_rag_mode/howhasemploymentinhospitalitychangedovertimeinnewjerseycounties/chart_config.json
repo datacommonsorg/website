@@ -613,11 +613,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/34017",
+                    "placeDcidOverride": "geoId/34035",
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
-                    "title": "Hudson County",
+                    "title": "Somerset County",
                     "type": "LINE"
                   }
                 ]
@@ -625,11 +625,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/34035",
+                    "placeDcidOverride": "geoId/34017",
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
-                    "title": "Somerset County",
+                    "title": "Hudson County",
                     "type": "LINE"
                   }
                 ]
@@ -673,11 +673,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/34013",
+                    "placeDcidOverride": "geoId/34019",
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
-                    "title": "Essex County",
+                    "title": "Hunterdon County",
                     "type": "LINE"
                   }
                 ]
@@ -685,11 +685,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/34019",
+                    "placeDcidOverride": "geoId/34013",
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc_1429745441"
                     ],
-                    "title": "Hunterdon County",
+                    "title": "Essex County",
                     "type": "LINE"
                   }
                 ]

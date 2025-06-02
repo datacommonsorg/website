@@ -98,3 +98,5 @@ class Config:
   # Whether to enable BigQuery for instance. This is primarily used for
   # accessing the observation browser pages.
   ENABLE_BQ = False
+  # Whether to block all crawlers like GoogleBot from access to entire site
+  DISABLE_CRAWLERS = False

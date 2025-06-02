@@ -1189,6 +1189,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q5245735",
+          "name": "Deadwood",
+          "types": [
+            "City"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q822230",
           "name": "Squaw Valley",
           "types": [

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
+import styled from "@emotion/styled";
 import React from "react";
-import styled from "styled-components";
 
 /**
  * Chip component to display a selected item with the ability to remove the item

@@ -119,7 +119,7 @@ export function HeaderAndSearchBox(): JSX.Element {
           <h3>
             Find relationships between{" "}
             <a href="/browser/bio">25 biomedical categories</a> sourced from{" "}
-            <a href="https://docs.datacommons.org/datasets/Biomedical.html">
+            <a href="https://datacommons.org/data/biomedical">
               18 trusted sources
             </a>
             , including NIH NCBI and EMBL-EBI

@@ -13,7 +13,6 @@
 # limitations under the License.
 
 steps:
-
   # Trigger downstream builds that listen for changes to multiple repos.
   - id: update-repo-version
     name: "gcr.io/cloud-builders/git"
@@ -34,12 +33,25 @@ steps:
       - -c
       - |
         set -e
+        echo "Starting web server build at $(date)"
+        start_time=$(date +%s)
+
         docker build -f build/web_server/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-website:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-website:latest \
           .
+        build_end_time=$(date +%s)
+        build_duration=$((build_end_time - start_time))
+        echo "Web server build completed at $(date). Build took ${build_duration} seconds"
+
+        echo "Starting web server image push at $(date)"
         docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-website:latest
+        push_end_time=$(date +%s)
+        push_duration=$((push_end_time - build_end_time))
+        total_duration=$((push_end_time - start_time))
+        echo "Web server image push completed at $(date). Push took ${push_duration} seconds"
+        echo "Total time: ${total_duration} seconds"
     waitFor: ["-"]
 
   - id: push-nl-server
@@ -112,4 +124,4 @@ steps:
 timeout: 3600s
 
 options:
-  machineType: "E2_HIGHCPU_8"
+  machineType: "E2_HIGHCPU_32"

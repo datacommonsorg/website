@@ -145,12 +145,13 @@ section {
 
     .header-menu {
       display: flex;
-      max-width: 450px;
+      max-width: 475px;
       &-list {
         display: flex;
         align-items: stretch;
         list-style: none;
         margin: 0;
+        padding: 0;
         @include media-breakpoint-up(xl) {
           gap: calc(#{var.$spacing} * 4);
         }
@@ -171,9 +172,10 @@ section {
             align-items: center;
             background-color: transparent;
             .menu-main-label {
-              font-size: 0.875rem;
               color: #474747;
+              font-size: 0.875rem;
               transition: color 0.3s ease-in-out;
+              white-space: nowrap;
             }
             .menu-arrow-icon {
               margin: 0;
@@ -188,12 +190,13 @@ section {
           }
 
           .menu-main-link {
-            display: flex;
             align-items: center;
-            padding: 8px 0;
             color: #474747;
-            transition: color 0.3s ease-in-out;
+            display: flex;
             font-size: 0.875rem;
+            padding: 8px 0;
+            transition: color 0.3s ease-in-out;
+            white-space: nowrap;
           }
 
           &:hover {
@@ -400,6 +403,9 @@ section {
     .menu-main-link {
       font-size: 0.875rem;
       color: #5e5e5e;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .menu-toggle {
@@ -417,7 +423,8 @@ section {
       @media (max-width: 340px) {
         font-size: 24px;
       }
-      &.menu-toggle-close, &.menu-toggle-back {
+      &.menu-toggle-close,
+      &.menu-toggle-back {
         font-size: 24px;
       }
     }
@@ -636,7 +643,12 @@ section {
       flex-wrap: nowrap;
       align-items: center;
       gap: 4px;
-      padding: 4px 24px;
+      @include media-breakpoint-down(sm) {
+        padding: 4px 6px;
+      }
+      @include media-breakpoint-up(sm) {
+        padding: 4px 24px;
+      }
 
       #rich-search-button {
         cursor: pointer;
@@ -660,13 +672,20 @@ section {
         border: none;
         color: var(--gm-3-ref-neutral-neutral-40);
         font-family: var(--font-family-sans-serif);
-        font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: 24px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 13px;
+        }
+
+        @include media-breakpoint-up(sm) {
+          font-size: 16px;
+        }
       }
 
       .search-input-text:focus {
@@ -727,7 +746,7 @@ section {
       .search-input-result-section:hover {
         background-color: var(--gm-3-sys-light-surface-container-high);
       }
-    } 
+    }
 
     .result-divider {
       margin: 0;
@@ -738,7 +757,6 @@ section {
     border-color: var(--gm-3-ref-neutral-neutral-20);
   }
 
- 
   .search-box-section-active,
   .search-box-section-active:hover {
     border-color: var(--gm-3-sys-light-primary);
@@ -766,7 +784,7 @@ section {
   margin: auto;
   max-width: 1310px;
   @include media-breakpoint-down(lg) {
-    max-width: 100%!important;
+    max-width: 100% !important;
     padding: 20px calc(#{var.$spacing} * 3);
   }
   @media (max-width: 580px) {

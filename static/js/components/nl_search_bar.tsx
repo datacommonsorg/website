@@ -27,11 +27,12 @@ interface NlSearchBarPropType {
   variant?: "standard" | "header-inline";
   allowEmptySearch?: boolean;
   inputId: string;
-  onSearch: (q: string) => void;
+  onSearch: (q: string, dynamicPlaceholdersEnabled: boolean) => void;
   initialValue: string;
-  placeholder: string;
+  placeholder?: string;
   shouldAutoFocus?: boolean;
   feedbackLink?: string;
+  enableDynamicPlaceholders?: boolean;
 }
 
 // an interface for the implementation of variants of the natural language search, passing shared common components
@@ -40,18 +41,18 @@ export interface NlSearchBarImplementationProps {
   value: string;
   //a boolean flag for invalid search entries
   invalid: boolean;
-  //the placeholder text
-  placeholder: string;
   //the id of the input
   inputId: string;
   //the change event (used to trigger appropriate state changes in this parent)
   onChange: (newValue: string) => void;
   //a function to be called once a search is run
-  onSearch: () => void;
+  onSearch: (dynamicPlaceholdersEnabled: boolean) => void;
   //the autofocus attribute of the input will be set to shouldAutoFocus
   shouldAutoFocus?: boolean;
   //an optional feedback link
   feedbackLink?: string;
+  // Whether to enable dynamic placeholders.
+  enableDynamicPlaceholders?: boolean;
 }
 
 export function NlSearchBar(props: NlSearchBarPropType): ReactElement {
@@ -62,19 +63,18 @@ export function NlSearchBar(props: NlSearchBarPropType): ReactElement {
     setInvalid(false);
   }, [props.initialValue]);
 
-  function handleSearch(): void {
+  function handleSearch(dynamicPlaceholdersEnabled: boolean): void {
     if (!props.allowEmptySearch && !value) {
       setInvalid(true);
       return;
     }
 
-    props.onSearch(value);
+    props.onSearch(value, dynamicPlaceholdersEnabled);
   }
 
   const commonProps: NlSearchBarImplementationProps = {
     value,
     invalid,
-    placeholder: props.placeholder,
     inputId: props.inputId,
     onChange: (newValue: string) => {
       setValue(newValue);
@@ -83,6 +83,7 @@ export function NlSearchBar(props: NlSearchBarPropType): ReactElement {
     onSearch: handleSearch,
     shouldAutoFocus: props.shouldAutoFocus,
     feedbackLink: props.feedbackLink,
+    enableDynamicPlaceholders: props.enableDynamicPlaceholders,
   };
 
   const variant = props.variant || "standard";

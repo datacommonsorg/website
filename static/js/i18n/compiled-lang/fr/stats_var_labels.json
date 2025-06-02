@@ -2,13 +2,13 @@
   "AirPollutant_Cancer_Risk": [
     {
       "type": 0,
-      "value": "Air Toxics Cancer Risk"
+      "value": "Risque de cancer généré par la pollution atmosphérique"
     }
   ],
   "AirQualityIndex_AirPollutant": [
     {
       "type": 0,
-      "value": "AQI"
+      "value": "IQA"
     }
   ],
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
@@ -86,7 +86,7 @@
   "Amount_Emissions_CarbonDioxide_PerCapita": [
     {
       "type": 0,
-      "value": "Carbon Dioxide Emissions"
+      "value": "Émissions de dioxyde de carbone"
     }
   ],
   "Amount_Remittance_InwardRemittance": [
@@ -122,37 +122,37 @@
   "Annual_Average_RetailPrice_Electricity": [
     {
       "type": 0,
-      "value": "Electricity Price"
+      "value": "Prix de l'électricité"
     }
   ],
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Carbon Dioxide (Large Facilities, Non-biogenic)"
+      "value": "Dioxyde de carbone (grandes installations, non biogénique)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
-      "value": "Greenhouse Gas (Large Facilities, Non-biogenic)"
+      "value": "Gaz à effet de serre (grandes installations, non biogéniques)"
     }
   ],
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Methane (Large Facilities, Non-biogenic)"
+      "value": "Méthane (grandes installations, non biogénique)"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Nitrous Oxide (Large Facilities, Non-biogenic)"
+      "value": "Protoxyde d'azote (grandes installations, non biogénique)"
     }
   ],
   "Annual_Generation_Electricity": [
     {
       "type": 0,
-      "value": "Annual Electricity Generation"
+      "value": "Production annuelle d'électricité"
     }
   ],
   "Count_CriminalActivities_Arson": [
@@ -182,43 +182,43 @@
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Disability)"
+      "value": "Crimes de haine (motivés par le handicap)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Ethnicity)"
+      "value": "Crimes de haine (motivés par l'origine ethnique)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Gender)"
+      "value": "Crimes de haine (motivés par le genre)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Race)"
+      "value": "Crimes de haine (motivés par l'origine ethnique)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Religion)"
+      "value": "Crimes de haine (motivés par la religion)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes (Motivated by Sexual Orientation)"
+      "value": "Crimes de haine (motivés par l'orientation sexuelle)"
     }
   ],
   "Count_CriminalIncidents_IsHateCrime": [
     {
       "type": 0,
-      "value": "Hate Crimes"
+      "value": "Crimes de haine"
     }
   ],
   "Count_CycloneEvent": [
@@ -1280,25 +1280,25 @@
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 2.6"
+      "value": "Changement de température max., année de base 2006, scénario RCP 2.6"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 4.5"
+      "value": "Changement de température max., année de base 2006, scénario RCP 4.5"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 6.0"
+      "value": "Changement de température max., année de base 2006, scénario RCP 6.0"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": [
     {
       "type": 0,
-      "value": "Max Temperature Change, Base Year 2006, RCP 8.5"
+      "value": "Changement de température max., année de base 2006, scénario RCP 8.5"
     }
   ],
   "FertilityRate_Person_Female": [
@@ -1334,7 +1334,7 @@
   "Mean_Concentration_AirPollutant_DieselPM": [
     {
       "type": 0,
-      "value": "Diesel PM"
+      "value": "Particules fines de diesel"
     }
   ],
   "Mean_Concentration_AirPollutant_Ozone": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water Withdrawal Rate"
+      "value": "Taux de prélèvement d'eau"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

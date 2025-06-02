@@ -1,0 +1,28 @@
+{
+    "data": {
+        "dc0": {
+            "arcs": {
+                "property1": {
+                    "nodes": [{
+                        "name": "node1",
+                        "types": ["Gene"],
+                        "dcid": "dc/node1",
+                        "provenanceId": "dc/prov1"
+                    }]
+                }
+            }
+        },
+        "dc4999": {
+            "arcs": {
+                "property1": {
+                    "nodes": [{
+                        "name": "node1",
+                        "types": ["Gene"],
+                        "dcid": "dc/node1",
+                        "provenanceId": "dc/prov1"
+                    }]
+                }
+            }
+        }
+    }
+}

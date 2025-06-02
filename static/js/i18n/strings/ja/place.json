@@ -2,6 +2,21 @@
   "alert-no_data_for_place": {
     "defaultMessage": "{placeName} に関するデータはありません"
   },
+  "category_in_place": {
+    "defaultMessage": "{placeName} の {category}"
+  },
+  "chart-title-with-per-capita-and-date": {
+    "defaultMessage": "{variableName}（{date} における 1 人あたり）"
+  },
+  "chart-title-with-per-capita-no-date": {
+    "defaultMessage": "{variableName}（1 人あたり）"
+  },
+  "chart-title-with-two-variables": {
+    "defaultMessage": "{variable1} と {variable2}"
+  },
+  "chart-title-with-two-variables-and-location": {
+    "defaultMessage": "{place} の {placeType} における {variable1} と {variable2}"
+  },
   "chart_clause-other_placeType": {
     "defaultMessage": "{chartTitle}: その他の {placeType}"
   },
@@ -15,7 +30,7 @@
     "defaultMessage": "{chartTitle}: {placeName} 付近の {placeType}"
   },
   "chart_clause-rankings_in_place": {
-    "defaultMessage": "{variable}: rankings in {placeName}"
+    "defaultMessage": "{variable}: {placeName} でのランキング"
   },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{placeName} の {variable}"
@@ -24,7 +39,7 @@
     "defaultMessage": "（点線はデータの不足を示しています）"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": " をもっと見る"
+    "defaultMessage": "もっと見る ›"
   },
   "chart_metadata-export": {
     "defaultMessage": "エクスポート"
@@ -38,6 +53,21 @@
   "child_places_menu-places_in_place": {
     "defaultMessage": "{placeName} の地域"
   },
+  "chooseVariable": {
+    "defaultMessage": "メタデータを表示する変数を選択してください"
+  },
+  "close": {
+    "defaultMessage": "閉じる"
+  },
+  "dateRange": {
+    "defaultMessage": "{minDate}～{maxDate}"
+  },
+  "disasterTool": {
+    "defaultMessage": "災害ツール"
+  },
+  "download": {
+    "defaultMessage": "ダウンロード"
+  },
   "embed_citation": {
     "defaultMessage": "情報提供元: {sources}（Data Commons 経由）"
   },
@@ -50,23 +80,56 @@
   "embed_export_chart_link": {
     "defaultMessage": "このグラフをエクスポート"
   },
+  "enterQuery": {
+    "defaultMessage": "質問を入力して検索"
+  },
+  "exploreLink": {
+    "defaultMessage": "{toolName} で探索"
+  },
+  "explore_data_on": {
+    "defaultMessage": "データを確認する... 「{sampleQuestion}」"
+  },
   "header-overview": {
     "defaultMessage": "概要"
+  },
+  "key_demographics": {
+    "defaultMessage": "主なユーザー層"
+  },
+  "knowledge_graph": {
+    "defaultMessage": "ナレッジグラフ"
   },
   "link-return_to_overview": {
     "defaultMessage": "概要に戻る"
   },
+  "loading": {
+    "defaultMessage": "読み込んでいます..."
+  },
+  "mapTool": {
+    "defaultMessage": "マップツール"
+  },
   "more_charts": {
     "defaultMessage": "その他のグラフ"
   },
+  "more_charts_link": {
+    "defaultMessage": "その他のグラフ"
+  },
+  "no_charts": {
+    "defaultMessage": "{place} の {category} に関するデータは見つかりませんでした。"
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} 内の {placeType}"
+  },
+  "place_not_found": {
+    "defaultMessage": "場所「{placeDcid}」が見つかりません。"
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "ランキング"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank}/{total}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{parentPlaces} の {placeType}"
   },
   "plural_administrative_area": {
     "defaultMessage": "行政区域"
@@ -79,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "都市"
+  },
+  "plural_continent": {
+    "defaultMessage": "大陸"
   },
   "plural_country": {
     "defaultMessage": "国"
@@ -149,14 +215,35 @@
   "ranking-subtitle_top_percapita": {
     "defaultMessage": "{placeName} 内の上位 {rankSize} 件の {pluralPlaceType}（1 人あたり）"
   },
+  "ranking-tile-latest-data-available-footer": {
+    "defaultMessage": "使用可能な最新のデータに基づくランキング。一部の地域は、対象の年の報告が不完全なため、欠落している可能性があります。"
+  },
+  "ranking-tile-latest-data-footer": {
+    "defaultMessage": "このランキングには、場所についての包括的な視点を得るために、数年間のデータが含まれています。"
+  },
   "ranking_table-header_rank": {
     "defaultMessage": "ランク"
   },
   "ranking_table-header_value": {
     "defaultMessage": "値"
   },
+  "relevant_topics": {
+    "defaultMessage": "関連トピック"
+  },
+  "scatterTool": {
+    "defaultMessage": "散布図ツール"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "別の場所を検索する"
+  },
+  "seePerCapita": {
+    "defaultMessage": "1 人あたりのデータを表示"
+  },
+  "selectVariable": {
+    "defaultMessage": "リストから変数を選択すると、その詳細が表示されます。以下のリンクをクリックすると、新しいタブで統計変数エクスプローラが開きます。"
+  },
+  "showMetadata": {
+    "defaultMessage": "メタデータを表示"
   },
   "singular_administrative_area": {
     "defaultMessage": "行政区域"
@@ -169,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "都市"
+  },
+  "singular_continent": {
+    "defaultMessage": "大陸"
   },
   "singular_country": {
     "defaultMessage": "国"
@@ -197,7 +287,34 @@
   "singular_zip_code": {
     "defaultMessage": "郵便番号"
   },
+  "snap-to-latest-data-checkbox-label": {
+    "defaultMessage": "カバレッジが最も高い日付にスナップする"
+  },
+  "snap-to-latest-data-help-tooltip": {
+    "defaultMessage": "[最もカバレッジの高い日付にスナップ] では、カバレッジが最大の最新のデータが表示されます。一部の地域は、対象の年の報告が不完全なため、欠落している可能性があります。"
+  },
+  "snap-to-latest-data-overlap-help-tooltip": {
+    "defaultMessage": "カバレッジが最も高いデータは、このグラフで利用できる最新のデータでもあります。"
+  },
+  "source": {
+    "defaultMessage": "出典"
+  },
+  "sources": {
+    "defaultMessage": "ソース"
+  },
+  "summary_overview": {
+    "defaultMessage": "概要"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "AI を使用して、ソースデータ（各グラフにリンク）の分析情報を要約しています。正確性を重視していますが、ソースデータも参照しながら要約を確認してください。"
+  },
   "the_world": {
     "defaultMessage": "世界"
+  },
+  "timelineTool": {
+    "defaultMessage": "タイムライン ツール"
+  },
+  "viaGoogle": {
+    "defaultMessage": "Google 経由"
   }
 }

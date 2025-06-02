@@ -30,12 +30,16 @@ import React, {
 } from "react";
 import { Input, InputGroup } from "reactstrap";
 
+import { intl } from "../../i18n/i18n";
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
+  GA_PARAM_DYNAMIC_PLACEHOLDER,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { useQueryStore } from "../../shared/stores/query_store_hook";
+import { redirect } from "../../shared/util";
 import { stripPatternFromQuery } from "../../shared/util";
 import {
   useInsideClickAlerter,
@@ -44,6 +48,10 @@ import {
 import { ArrowForward } from "../elements/icons/arrow_forward";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
+import {
+  enableDynamicPlacehoder,
+  placeholderMessages,
+} from "./dynamic_placeholder_helper";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
@@ -60,13 +68,13 @@ interface AutoCompleteInputPropType {
   enableAutoComplete?: boolean;
   value: string;
   invalid: boolean;
-  placeholder: string;
   inputId: string;
   onChange: (query: string) => void;
-  onSearch: () => void;
+  onSearch: (dynamicPlaceholdersEnabled: boolean) => void;
   feedbackLink: string;
   shouldAutoFocus: boolean;
   barType: string;
+  enableDynamicPlaceholders?: boolean;
 }
 
 function convertJSONToAutoCompleteResults(
@@ -92,6 +100,10 @@ export function AutoCompleteInput(
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [inputActive, setInputActive] = useState(false);
+  const [dynamicPlaceholdersDone, setDynamicPlaceholdersDone] = useState(false);
+  const [dynamicPlaceholdersEnabled, setDynamicPlaceholdersEnabled] =
+    useState(false);
+  const [sampleQuestionText, setSampleQuestionText] = useState("");
   const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
     useState("");
   // Used to reduce sensitivity to scrolling for autocomplete result dismissal.
@@ -103,6 +115,8 @@ export function AutoCompleteInput(
   const isHeaderBar = props.barType == "header";
   let lang = "";
 
+  const { placeholder } = useQueryStore();
+
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
     window.addEventListener("scroll", () => {
@@ -111,7 +125,23 @@ export function AutoCompleteInput(
 
     const urlParams = new URLSearchParams(window.location.search);
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
+
+    // Start cycling through sample questions when the component mounts.
+    if (!inputText && props.enableDynamicPlaceholders) {
+      enableDynamicPlacehoder(
+        setSampleQuestionText,
+        setDynamicPlaceholdersEnabled,
+        setDynamicPlaceholdersDone
+      );
+    }
   }, []);
+
+  const placeholderText =
+    !inputActive && dynamicPlaceholdersEnabled && !dynamicPlaceholdersDone
+      ? intl.formatMessage(placeholderMessages.exploreDataPlaceholder, {
+          sampleQuestion: sampleQuestionText,
+        })
+      : placeholder;
 
   // Whenever any of the scrollY states change, recompute to see if we need to hide the results.
   // We only hide the results when the user has scrolled past 15% of the window height since the autocomplete request.
@@ -155,7 +185,7 @@ export function AutoCompleteInput(
     setResults({ placeResults: [], svResults: [] });
     setHoveredIdx(-1);
     controller.current.abort(); // Ensure autocomplete responses can't come back.
-    props.onSearch();
+    props.onSearch(dynamicPlaceholdersEnabled);
   }
 
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -311,11 +341,13 @@ export function AutoCompleteInput(
       if (result.dcid) {
         triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
           [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+          [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(enableDynamicPlacehoder),
         });
 
-        const url = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
-        window.open(url, "_self");
-        return;
+        const overrideParams = new URLSearchParams();
+        overrideParams.set("q", result.name);
+        const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
+        return redirect(window.location.href, destinationUrl, overrideParams);
       }
     }
 
@@ -346,8 +378,8 @@ export function AutoCompleteInput(
             <Input
               id={props.inputId}
               invalid={props.invalid}
-              placeholder={props.placeholder}
-              aria-label={props.placeholder}
+              placeholder={placeholderText}
+              aria-label={placeholderText}
               value={inputText}
               onChange={onInputChange}
               onKeyDown={(event): void => handleKeydownEvent(event)}

@@ -30,11 +30,11 @@ import { AutoCompleteInput } from "./auto_complete_input";
 const NlSearchBarHeaderInline = ({
   value,
   invalid,
-  placeholder,
   inputId,
   onChange,
   onSearch,
   shouldAutoFocus,
+  enableDynamicPlaceholders,
 }: NlSearchBarImplementationProps): ReactElement => {
   const [autocompleteEnabled, setAutoCompleteEnabled] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
@@ -52,13 +52,13 @@ const NlSearchBarHeaderInline = ({
         enableAutoComplete={autocompleteEnabled}
         value={value}
         invalid={invalid}
-        placeholder={placeholder}
         inputId={inputId}
         onChange={onChange}
         onSearch={onSearch}
         feedbackLink=""
         shouldAutoFocus={shouldAutoFocus}
         barType="header"
+        enableDynamicPlaceholders={enableDynamicPlaceholders}
       />
     </div>
   );

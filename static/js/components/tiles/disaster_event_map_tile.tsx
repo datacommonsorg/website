@@ -36,7 +36,7 @@ import {
   GeoJsonFeatureProperties,
 } from "../../chart/types";
 import { intl } from "../../i18n/i18n";
-import { tileMessages } from "../../i18n/i18n_tile_messages";
+import { messages } from "../../i18n/i18n_messages";
 import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
@@ -199,7 +199,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
       exploreLink={
         props.showExploreMore
           ? {
-              displayText: intl.formatMessage(tileMessages.disasterTool),
+              displayText: intl.formatMessage(messages.disasterTool),
               url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
             }
           : null

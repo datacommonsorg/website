@@ -34,6 +34,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of females in the population.",
             "title": "Women"
           },
           {
@@ -66,6 +67,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of females in the population.",
             "title": "Women in Counties of California"
           },
           {
@@ -119,6 +121,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of males in the population.",
             "title": "Men in Counties of California"
           },
           {
@@ -354,7 +357,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance_3376114862"
+                      "Count_Person_Female_WithHealthInsurance_1704193675"
                     ],
                     "title": "Women With Health Insurance in California",
                     "type": "LINE"
@@ -992,8 +995,8 @@
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
-          "Count_Person_Female_WithHealthInsurance_3376114862": {
-            "facetId": "3376114862",
+          "Count_Person_Female_WithHealthInsurance_1704193675": {
+            "facetId": "1704193675",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },

@@ -18,6 +18,12 @@ import { defineMessages } from "react-intl";
 
 // Strings to use in place page
 export const singularPlaceTypeMessages = defineMessages({
+  Continent: {
+    id: "singular_continent",
+    defaultMessage: "Continent",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Continent. An example use is 'A Continent in the world' to describe 'Europe'. Please maintain capitalization.",
+  },
   Country: {
     id: "singular_country",
     defaultMessage: "Country",
@@ -81,6 +87,12 @@ export const singularPlaceTypeMessages = defineMessages({
 });
 
 export const pluralPlaceTypeMessages = defineMessages({
+  Continent: {
+    id: "plural_continent",
+    defaultMessage: "Continents",
+    description:
+      "A label or header for a collection of places of type Continent (see https://en.wikipedia.org/wiki/Continent). Some examples: 'Continents in the world', 'Median Age: Other Continents', or 'Ranking by Population for Continents in the world'. Please maintain capitalization.",
+  },
   Country: {
     id: "plural_country",
     defaultMessage: "Countries",
@@ -157,9 +169,16 @@ export const pageMessages = defineMessages({
   },
   SummaryOverview: {
     id: "summary_overview",
-    defaultMessage: "Summary overview",
+    defaultMessage: "Summary",
     description:
-      "Header text for the Summary overview section for the current place. Summary overview will include a plain-text description of the place, a map, and a table of key statistics.",
+      "Header text for the summary section for the current place. Summary will include a plain-text description of the place, a map, and a table of key statistics.",
+  },
+  SummaryOverviewTooltip: {
+    id: "summary_overview_tooltip",
+    defaultMessage:
+      "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data.",
+    description:
+      "Informational tooltip text for the AI-generated summary for the current place. AI sumamry is generated from the data sources linked on each chart.",
   },
   KeyDemographics: {
     id: "key_demographics",
@@ -178,5 +197,29 @@ export const pageMessages = defineMessages({
     defaultMessage: "Places in {placeName}",
     description:
       'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
+  },
+  placeTypeInPlaces: {
+    id: "place_type_in_places",
+    defaultMessage: "{placeType} in {parentPlaces}",
+    description:
+      'Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows "State in USA, North America, World". Please leave the {placeType} and {parentPlaces} variables unchanged in the resulting translation.',
+  },
+  categoryInPlace: {
+    id: "category_in_place",
+    defaultMessage: "{category} in {placeName}",
+    description:
+      'Used for the placeholder in the search bar, set it as "Category in Place". For example, when in the economics page for the Austria place page, it will show "{Economics} in {Austria}".',
+  },
+  placeNotFound: {
+    id: "place_not_found",
+    defaultMessage: 'Place "{placeDcid}" not found.',
+    description:
+      'Text to display on a 404 page when a place ID is not found. Example: "Place "dcid:geoId/04" not found.". Please leave the {placeDcid} variable unchanged in the resulting translation.',
+  },
+  noCharts: {
+    id: "no_charts",
+    defaultMessage: "No {category} data found for {place}.",
+    description:
+      'Text to display when a category has no charts. Example: "No Economics data found for Austria.". Please leave the {category} and {place} variables unchanged in the resulting translation.',
   },
 });

@@ -2,6 +2,21 @@
   "alert-no_data_for_place": {
     "defaultMessage": "माफ़ करें, हमारे पास {placeName} के बारे में कोई डेटा नहीं है"
   },
+  "category_in_place": {
+    "defaultMessage": "{placeName} के लिए, {category} से जुड़ा डेटा"
+  },
+  "chart-title-with-per-capita-and-date": {
+    "defaultMessage": "{variableName} (प्रति व्यक्ति के हिसाब से, {date} में)"
+  },
+  "chart-title-with-per-capita-no-date": {
+    "defaultMessage": "{variableName} (प्रति व्यक्ति)"
+  },
+  "chart-title-with-two-variables": {
+    "defaultMessage": "{variable1} बनाम {variable2}"
+  },
+  "chart-title-with-two-variables-and-location": {
+    "defaultMessage": "{place} के {placeType} में {variable1} बनाम {variable2}"
+  },
   "chart_clause-other_placeType": {
     "defaultMessage": "{chartTitle}: अन्य {placeType}"
   },
@@ -15,7 +30,7 @@
     "defaultMessage": "{chartTitle}: {placeName} के आस-पास की {placeType}"
   },
   "chart_clause-rankings_in_place": {
-    "defaultMessage": "{variable}: rankings in {placeName}"
+    "defaultMessage": "{variable}: {placeName} में रैंकिंग"
   },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{placeName} में {variable}"
@@ -24,7 +39,7 @@
     "defaultMessage": "(बिंदुओं वाली लाइन वह डेटा बताती है जो मौजूद नहीं है)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "ज़्यादा  एक्सप्लोर करें"
+    "defaultMessage": "ज़्यादा एक्सप्लोर करें ›"
   },
   "chart_metadata-export": {
     "defaultMessage": "एक्सपोर्ट करें"
@@ -38,6 +53,21 @@
   "child_places_menu-places_in_place": {
     "defaultMessage": "{placeName} में जगहें"
   },
+  "chooseVariable": {
+    "defaultMessage": "मेटाडेटा देखने के लिए कोई वैरिएबल चुनें"
+  },
+  "close": {
+    "defaultMessage": "बंद करें"
+  },
+  "dateRange": {
+    "defaultMessage": "{minDate} से {maxDate} तक"
+  },
+  "disasterTool": {
+    "defaultMessage": "आपदा की जानकारी देने वाला टूल"
+  },
+  "download": {
+    "defaultMessage": "डाउनलोड करें"
+  },
   "embed_citation": {
     "defaultMessage": "Data Commons के ज़रिए {sources} से मिला डेटा"
   },
@@ -50,23 +80,56 @@
   "embed_export_chart_link": {
     "defaultMessage": "यह चार्ट भेजें"
   },
+  "enterQuery": {
+    "defaultMessage": "जानकारी पाने के लिए कोई सवाल पूछें"
+  },
+  "exploreLink": {
+    "defaultMessage": "{toolName} में एक्सप्लोर करें"
+  },
+  "explore_data_on": {
+    "defaultMessage": "इससे जुड़ा डेटा देखें... \"{sampleQuestion}\""
+  },
   "header-overview": {
     "defaultMessage": "खास जानकारी"
+  },
+  "key_demographics": {
+    "defaultMessage": "अहम डेमोग्राफ़िक्स"
+  },
+  "knowledge_graph": {
+    "defaultMessage": "नॉलेज ग्राफ़"
   },
   "link-return_to_overview": {
     "defaultMessage": "खास जानकारी वाले पेज पर वापस जाएं"
   },
+  "loading": {
+    "defaultMessage": "लोड हो रहा है..."
+  },
+  "mapTool": {
+    "defaultMessage": "मैप टूल"
+  },
   "more_charts": {
     "defaultMessage": "और चार्ट देखें"
   },
+  "more_charts_link": {
+    "defaultMessage": "और चार्ट"
+  },
+  "no_charts": {
+    "defaultMessage": "{place} के लिए, {category} से जुड़ा कोई डेटा नहीं मिला."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeName} में {placeType}"
+  },
+  "place_not_found": {
+    "defaultMessage": "\"{placeDcid}\" जगह की जानकारी नहीं मिली."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "रैंकिंग (में)"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{total} में से {rank}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{parentPlaces} में {placeType}"
   },
   "plural_administrative_area": {
     "defaultMessage": "प्रशासकीय क्षेत्र"
@@ -79,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "शहर"
+  },
+  "plural_continent": {
+    "defaultMessage": "महाद्वीप"
   },
   "plural_country": {
     "defaultMessage": "देश"
@@ -149,14 +215,35 @@
   "ranking-subtitle_top_percapita": {
     "defaultMessage": "प्रति व्यक्ति के हिसाब से {placeName} में टॉप {rankSize} {pluralPlaceType}"
   },
+  "ranking-tile-latest-data-available-footer": {
+    "defaultMessage": "सबसे नए डेटा के आधार पर रैंकिंग तय की गई है. उस साल की पूरी रिपोर्ट न होने की वजह से, शायद कुछ जगहों की जानकारी मौजूद न हो."
+  },
+  "ranking-tile-latest-data-footer": {
+    "defaultMessage": "इस रैंकिंग में कई सालों का डेटा शामिल है, ताकि जगहों की पूरी जानकारी मिल सके."
+  },
   "ranking_table-header_rank": {
     "defaultMessage": "रैंक"
   },
   "ranking_table-header_value": {
     "defaultMessage": "मान"
   },
+  "relevant_topics": {
+    "defaultMessage": "काम के विषय"
+  },
+  "scatterTool": {
+    "defaultMessage": "स्कैटर टूल"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "कोई दूसरी जगह खोजें"
+  },
+  "seePerCapita": {
+    "defaultMessage": "प्रति व्यक्ति से जुड़ा डेटा देखें"
+  },
+  "selectVariable": {
+    "defaultMessage": "किसी वैरिएबल को सूची में से चुनकर, उससे जुड़ी जानकारी देखें. नीचे दिए गए लिंक की मदद से नए टैब में स्टैटिस्टिकल वैरिएबल एक्सप्लोरर खोले जा सकते हैं."
+  },
+  "showMetadata": {
+    "defaultMessage": "मेटाडेटा दिखाएं"
   },
   "singular_administrative_area": {
     "defaultMessage": "प्रशासकीय क्षेत्र"
@@ -169,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "शहर"
+  },
+  "singular_continent": {
+    "defaultMessage": "महाद्वीप"
   },
   "singular_country": {
     "defaultMessage": "देश"
@@ -197,7 +287,34 @@
   "singular_zip_code": {
     "defaultMessage": "पिन कोड"
   },
+  "snap-to-latest-data-checkbox-label": {
+    "defaultMessage": "सबसे ज़्यादा कवरेज वाली तारीख दिखाएं"
+  },
+  "snap-to-latest-data-help-tooltip": {
+    "defaultMessage": "'सबसे ज़्यादा कवरेज वाली तारीख दिखाएं' में, ज़्यादा से ज़्यादा कवरेज वाला नया डेटा दिखाया जाता है. उस साल की पूरी रिपोर्ट न होने की वजह से, शायद कुछ जगहों की जानकारी मौजूद न हो."
+  },
+  "snap-to-latest-data-overlap-help-tooltip": {
+    "defaultMessage": "सबसे ज़्यादा कवरेज वाला डेटा, इस चार्ट के लिए सबसे नया डेटा भी होता है."
+  },
+  "source": {
+    "defaultMessage": "सोर्स"
+  },
+  "sources": {
+    "defaultMessage": "स्रोत"
+  },
+  "summary_overview": {
+    "defaultMessage": "खास जानकारी"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "हम सोर्स से जुटाए गए अपने डेटा से अहम जानकारी पाने के लिए, एआई का इस्तेमाल करते हैं. हर चार्ट पर इस डेटा का लिंक मौजूद है. हमारा मकसद सटीक जानकारी देना है. इसलिए, कृपया जानकारी की समीक्षा करें और सोर्स डेटा देखें."
+  },
   "the_world": {
     "defaultMessage": "दुनिया में"
+  },
+  "timelineTool": {
+    "defaultMessage": "टाइमलाइन टूल"
+  },
+  "viaGoogle": {
+    "defaultMessage": "Google से"
   }
 }

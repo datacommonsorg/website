@@ -26,19 +26,24 @@ import React, { ReactElement } from "react";
 import { HeroColumns } from "../../../components/content/hero_columns";
 import { LinkChips } from "../../../components/content/link_chips";
 import { Link } from "../../../components/elements/link_chip";
-
+import { Routes } from "../../../shared/types/base";
 interface HomeHeroProps {
   //an array of links to be rendered by the component
   linkChips: Link[];
+  //the routes dictionary - this is used to convert routes to resolved urls
+  routes: Routes;
 }
 
-export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
+export const HomeHero = ({
+  linkChips,
+  routes,
+}: HomeHeroProps): ReactElement => {
   const theme = useTheme();
 
   linkChips.push({
     id: "data-sources",
     title: "See all available data sources",
-    url: "https://docs.datacommons.org/datasets/",
+    url: routes["static.data"],
     variant: "flat",
   });
 

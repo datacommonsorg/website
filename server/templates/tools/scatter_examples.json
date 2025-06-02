@@ -30,11 +30,11 @@
       "url": "#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=geoId/06&ept=County&ct=1"
     }]
   }, {
-    "header": "Literate Population Per Capita vs. Schools Per Capita",
+    "header": "Literate Population Per Capita vs. Population Below Poverty Level Per Capita",
     "preposition": "for",
     "examples": [{
       "text": "states in India",
-      "url": "#&svx=Count_School&pcx=1&dx=Count_Person&svy=Count_Person_Literate&pcy=1&dy=Count_Person&epd=country/IND&ept=AdministrativeArea1&ct=1"
+      "url": "#&svx=Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person&pcx=1&dx=Count_Person&svy=Count_Person_Literate&pcy=1&dy=Count_Person&epd=country/IND&ept=AdministrativeArea1&ct=1"
     }]
   }, {
     "header": "Asians Per Capita vs. Median Income",

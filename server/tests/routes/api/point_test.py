@@ -119,7 +119,8 @@ class TestApiPointWithin(unittest.TestCase):
 
       if url.endswith('/v2/node') and data == {
           'nodes': ['testUnit'],
-          'property': '->*'
+          'property': '->*',
+          'nextToken': ''
       }:
         return {
             'data': {

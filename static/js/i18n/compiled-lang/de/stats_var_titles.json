@@ -2,13 +2,13 @@
   "AirPollutant_Cancer_Risk": [
     {
       "type": 0,
-      "value": "Air Toxics Cancer Risk"
+      "value": "Krebsrisiko durch Luftverschmutzung"
     }
   ],
   "AirQualityIndex_AirPollutant": [
     {
       "type": 0,
-      "value": "AQI"
+      "value": "LQI"
     }
   ],
   "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears": [
@@ -122,37 +122,37 @@
   "Annual_Average_RetailPrice_Electricity": [
     {
       "type": 0,
-      "value": "Annual Electricity Generation"
+      "value": "Jährliche Stromerzeugung"
     }
   ],
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
+      "value": "Kohlendioxidemissionen (große Anlagen, nicht biogen)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
-      "value": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
+      "value": "Jährliche Treibhausgasemissionen (große Anlagen, nicht biogen)"
     }
   ],
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Methane Emissions (Large Facilities, Non-biogenic)"
+      "value": "Methanemissionen (große Anlagen, nicht biogen)"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
+      "value": "Distickstoffmonoxid-Emissionen (große Anlagen, nicht biogen)"
     }
   ],
   "Annual_Generation_Electricity": [
     {
       "type": 0,
-      "value": "Annual Electricity Generation"
+      "value": "Jährliche Stromerzeugung"
     }
   ],
   "Count_CriminalActivities_Arson": [
@@ -182,43 +182,43 @@
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+      "value": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen mit Behinderung)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+      "value": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen anderer ethnischer Herkunft)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
+      "value": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen anderen Geschlechts)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
+      "value": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen anderer Hautfarbe)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+      "value": "Anzahl krimineller Vorfälle (religiös motivierte Hasskriminalität)"
     }
   ],
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+      "value": "Anzahl krimineller Vorfälle (Hasskriminalität gegenüber Menschen anderer sexueller Orientierung)"
     }
   ],
   "Count_CriminalIncidents_IsHateCrime": [
     {
       "type": 0,
-      "value": "Number of Criminal Incidents (Hate Crimes)"
+      "value": "Anzahl krimineller Vorfälle (Hasskriminalität)"
     }
   ],
   "Count_CycloneEvent": [
@@ -1280,25 +1280,25 @@
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 2.6, Base Year 2016)"
+      "value": "Max. Temperaturänderung (RCP2.6, Basisjahr 2016)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 4.5, Base Year 2016)"
+      "value": "Max. Temperaturänderung (RCP4.5, Basisjahr 2016)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 6.0, Base Year 2016)"
+      "value": "Max. Temperaturänderung (RCP6.0, Basisjahr 2016)"
     }
   ],
   "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": [
     {
       "type": 0,
-      "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
+      "value": "Max. Temperaturänderung (RCP8.5, Basisjahr 2016)"
     }
   ],
   "FertilityRate_Person_Female": [
@@ -1334,19 +1334,19 @@
   "Mean_Concentration_AirPollutant_DieselPM": [
     {
       "type": 0,
-      "value": "Mean Diesel PM Concentration"
+      "value": "Durchschnittliche Konzentration von Dieselpartikeln"
     }
   ],
   "Mean_Concentration_AirPollutant_Ozone": [
     {
       "type": 0,
-      "value": "Mean Ozone Concentration"
+      "value": "Durchschnittliche Ozonkonzentration"
     }
   ],
   "Mean_Concentration_AirPollutant_PM2.5": [
     {
       "type": 0,
-      "value": "Mean PM2.5 Concentration"
+      "value": "Durchschnittliche PM2,5-Konzentration"
     }
   ],
   "Mean_WagesDaily_Worker": [
@@ -1430,13 +1430,13 @@
   "Median_Age_Person_HispanicOrLatino": [
     {
       "type": 0,
-      "value": "Medianwerte für das Alter (Hispano- oder Lateinamerikaner)"
+      "value": "Medianwert für das Alter (Hispano- oder Lateinamerikaner)"
     }
   ],
   "Median_Age_Person_Male": [
     {
       "type": 0,
-      "value": "Medianwert des Alters (Männer)"
+      "value": "Medianwert für das Alter (Männer)"
     }
   ],
   "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone": [
@@ -1466,49 +1466,49 @@
   "Median_Income_Household": [
     {
       "type": 0,
-      "value": "Mittleres Haushaltseinkommen"
+      "value": "Medianwert für das Haushaltseinkommen"
     }
   ],
   "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
     {
       "type": 0,
-      "value": "Mittleres Haushaltseinkommen (Angehörige der indigenen Völker Amerikas/Alaskas)"
+      "value": "Medianwert für das Haushaltseinkommen (Angehörige der indigenen Völker Amerikas/Alaskas)"
     }
   ],
   "Median_Income_Household_HouseholderRaceAsianAlone": [
     {
       "type": 0,
-      "value": "Mittleres Haushaltseinkommen (asiatisch)"
+      "value": "Medianwert für das Haushaltseinkommen (asiatisch)"
     }
   ],
   "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone": [
     {
       "type": 0,
-      "value": "Mittleres Haushaltseinkommen (Schwarz oder afroamerikanisch)"
+      "value": "Medianwert für das Haushaltseinkommen (Schwarz oder afroamerikanisch)"
     }
   ],
   "Median_Income_Household_HouseholderRaceHispanicOrLatino": [
     {
       "type": 0,
-      "value": "Mittleres Haushaltseinkommen (Hispano- oder Lateinamerikaner)"
+      "value": "Medianwert für das Haushaltseinkommen (Hispano- oder Lateinamerikaner)"
     }
   ],
   "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone": [
     {
       "type": 0,
-      "value": "Mittleres Haushaltseinkommen (Hawaiianisch oder Pazifikinsulaner)"
+      "value": "Medianwert für das Haushaltseinkommen (Hawaiianisch oder Pazifikinsulaner)"
     }
   ],
   "Median_Income_Household_HouseholderRaceWhiteAlone": [
     {
       "type": 0,
-      "value": "Mittleres Haushaltseinkommen (Weiß)"
+      "value": "Medianwert für das Haushaltseinkommen (Weiß)"
     }
   ],
   "Median_Income_Person": [
     {
       "type": 0,
-      "value": "Mittleres individuelles Einkommen"
+      "value": "Medianwert für das individuelle Einkommen"
     }
   ],
   "Median_Income_Person_15OrMoreYears_Female_WithIncome": [
@@ -1520,13 +1520,13 @@
   "Median_Income_Person_15OrMoreYears_Male_WithIncome": [
     {
       "type": 0,
-      "value": "Mittleres individuelles Einkommen (Männer)"
+      "value": "Medianwert für das individuelle Einkommen (Männer)"
     }
   ],
   "PalmerDroughtSeverityIndex_Atmosphere": [
     {
       "type": 0,
-      "value": "The Palmer Drought Severity Index"
+      "value": "Der Palmer-Dürre-Index"
     }
   ],
   "Percent_Person_18To64Years_Female_NoHealthInsurance": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water Withdrawal Rate"
+      "value": "Wasserentnahmerate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

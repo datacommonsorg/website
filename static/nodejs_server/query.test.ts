@@ -220,7 +220,8 @@ test("getQueryResult", async () => {
       "bard",
       "",
       "",
-      false
+      false,
+      ""
     );
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);

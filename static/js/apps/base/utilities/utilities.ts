@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,15 @@
 
 import { Labels, Routes } from "../../../shared/types/base";
 
-//TODO: Revisit the `resolveHref` function after the revamp. Changes to where routes are resolved (Flask/templates) into URLs may make this function unnecessary.
-/*
-  This function takes a string that may contain a route from the template wrapped in {}.
-  The string may be a pure URL with no route, a route such as "{static.homepage}", or
-  a route embedded into a string such as "{tools.visualization}#visType=timeline".
-  The function will return the string with the route converted.
-
-  The purpose of the function is to flexibly resolve strings from sources such as JSON that may contain
-  either routes or raw URLs and to return the final URL.
+// TODO: Revisit the `resolveHref` function after the revamp. Changes to where routes are resolved (Flask/templates) into URLs may make this function unnecessary.
+/**
+ * This function takes a string that may contain a route from the template wrapped in {}.
+ * The string may be a pure URL with no route, a route such as "{static.homepage}", or
+ * a route embedded into a string such as "{tools.visualization}#visType=timeline".
+ * The function will return the string with the route converted.
+ *
+ * The purpose of the function is to flexibly resolve strings from sources such as JSON that may contain
+ * either routes or raw URLs and to return the final URL.
  */
 export const resolveHref = (href: string, routes: Routes): string => {
   const regex = /{([^}]+)}/;
@@ -50,10 +50,10 @@ export const resolveHref = (href: string, routes: Routes): string => {
   }
 };
 
-/*
-  This function takes a string that may contain spaces and capital letters and returns a slugged version
-  of the string in kebab-case. It is used to convert labels into slugs that can be used as part of html
-  ids (used currently in React components where labels are converted into Ids that previously were hard-coded).
+/**
+ * This function takes a string that may contain spaces and capital letters and returns a slugged version
+ * of the string in kebab-case. It is used to convert labels into slugs that can be used as part of html
+ * ids (used currently in React components where labels are converted into Ids that previously were hard-coded).
  */
 export const slugify = (text: string): string => {
   return text
@@ -65,13 +65,13 @@ export const slugify = (text: string): string => {
     .replace(/--+/g, "-");
 };
 
-/*
-  This function takes the id of a data container div and returns a route dictionary from the pairs in the container.
-  The referenced data container should be of the form:
-  <div id="metadata-routes" class="d-none">
-    <div data-route="static.route1" data-value="{{ url_for('static.route1') }}"></div>
-    <div data-route="static.route2" data-value="{{ url_for('static.route2') }}"></div>
-  </div>
+/**
+ * This function takes the id of a data container div and returns a route dictionary from the pairs in the container.
+ * The referenced data container should be of the form:
+ * <div id="metadata-routes" class="d-none">
+ *   <div data-route="static.route1" data-value="{{ url_for('static.route1') }}"></div>
+ *   <div data-route="static.route2" data-value="{{ url_for('static.route2') }}"></div>
+ * </div>
  */
 export const extractRoutes = (elementId = "metadata-routes"): Routes => {
   const routeElements = document.getElementById(elementId)?.children;
@@ -100,12 +100,12 @@ export const extractRoutes = (elementId = "metadata-routes"): Routes => {
   return routes;
 };
 
-/*
-  This function takes the id of a data container div and returns a label dictionary from the pairs in the container.
-  The referenced data container should be of the form:
-  <div id="metadata-labels" class="d-none">
-    <div data-label="Phrase to be translated" data-value="{% trans %}Phrase to be translated{% endtrans %}"></div>
-  </div>
+/**
+ * This function takes the id of a data container div and returns a label dictionary from the pairs in the container.
+ * The referenced data container should be of the form:
+ * <div id="metadata-labels" class="d-none">
+ *   <div data-label="Phrase to be translated" data-value="{% trans %}Phrase to be translated{% endtrans %}"></div>
+ * </div>
  */
 export const extractLabels = (elementId = "metadata-labels"): Labels => {
   const labelElements = document.getElementById(elementId)?.children;

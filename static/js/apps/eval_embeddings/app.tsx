@@ -43,6 +43,12 @@ interface appState {
   embeddings: Record<string, EmbeddingObject[]>;
 }
 
+interface EmbeddingResult {
+  embeddings: number[];
+  sentence: string;
+  statVar: string;
+}
+
 export function App(props: AppPropType): JSX.Element {
   const descriptionElem = useRef<HTMLTextAreaElement>(null);
   const queryElem = useRef<HTMLTextAreaElement>(null);
@@ -208,7 +214,10 @@ export function App(props: AppPropType): JSX.Element {
   );
 }
 
-const fetchEmbeddings = async (lines: string[][], modelNames: string[]) => {
+const fetchEmbeddings = async (
+  lines: string[][],
+  modelNames: string[]
+): Promise<{ [key: string]: EmbeddingResult[] }> => {
   const sentence2sv = {};
   for (const line of lines) {
     if (line.length < 2) {

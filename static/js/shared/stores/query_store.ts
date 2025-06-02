@@ -26,12 +26,14 @@ type Listener = (store: QueryStore, changeType: ChangeType) => void;
 export type ChangeType =
   | "debugObject"
   | "queryString"
+  | "placeholderString"
   | "handleSearchFunction"
   | "queryResult";
 
 export class QueryStore {
   private debugObject: any = null;
   private queryString: string | null = null;
+  private placeholderString: string | null = null;
   private handleSearchFunction: ((q: string) => void) | null = null;
   private queryResult: QueryResult | null = null;
   private listeners: Listener[] = [];
@@ -44,6 +46,11 @@ export class QueryStore {
   setQueryString(queryString: string): void {
     this.queryString = queryString;
     this.notifyListeners("queryString");
+  }
+
+  setPlaceholderString(placeholderText: string): void {
+    this.placeholderString = placeholderText;
+    this.notifyListeners("placeholderString");
   }
 
   setHandleSearchFunction(func: (q: string) => void): void {
@@ -62,6 +69,10 @@ export class QueryStore {
 
   getQueryString(): string | null {
     return this.queryString;
+  }
+
+  getPlaceholderString(): string | null {
+    return this.placeholderString;
   }
 
   getHandleSearchFunction(): ((q: string) => void) | null {

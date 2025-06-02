@@ -117,9 +117,9 @@ def detect_and_fulfill():
   utterance.insight_ctx[
       Params.EXP_MORE_DISABLED.value] = request.get_json().get(
           Params.EXP_MORE_DISABLED, "")
-  utterance.insight_ctx[Params.DC.value] = dc_name
   utterance.insight_ctx[Params.SKIP_RELATED_THINGS] = request.args.get(
       Params.SKIP_RELATED_THINGS.value, '') == 'true'
+  helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
 
   # Important to setup utterance for explore flow (this is really the only difference
   # between NL and Explore).
@@ -128,36 +128,6 @@ def detect_and_fulfill():
   utterance.counters.timeit('setup_for_explore', start)
 
   return _fulfill_with_chart_config(utterance, debug_logs)
-
-
-#
-# NOTE: `feedbackData` contains the logged payload.
-#
-# There are two types of feedback:
-# (1) Query-level: when `queryId` key is set
-# (2) Chart-level: when `chartId` field is set
-#
-# `chartId` is a json object that specifies the
-# location of a chart in the session by means of:
-#
-#   queryIdx, categoryIdx, blockIdx, columnIdx, tileIdx
-#
-# The last 4 are indexes into the corresponding fields in
-# the chart-config object (logged while processing the query),
-# and of type SubjectPageConfig proto.
-#
-@bp.route('/feedback', methods=['POST'])
-def feedback():
-  if (not current_app.config['LOG_QUERY']):
-    flask.abort(404)
-
-  session_id = request.json['sessionId']
-  feedback_data = request.json['feedbackData']
-  try:
-    bt.write_feedback(session_id, feedback_data)
-    return '', 200
-  except Exception as e:
-    return f'Failed to record feedback data {e}', 500
 
 
 #
@@ -253,5 +223,5 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                                client=client,
                                mode=mode)
   utterance.insight_ctx = insight_ctx
-  utterance.insight_ctx[Params.DC.value] = dc_name
+  helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
   return _fulfill_with_chart_config(utterance, debug_logs)

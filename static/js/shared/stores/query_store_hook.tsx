@@ -21,6 +21,8 @@
 
 import { useEffect, useState } from "react";
 
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import { QueryResult } from "../../types/app/explore_types";
 import { ChangeType, QueryStore } from "./query_store";
 
@@ -30,14 +32,23 @@ interface QueryStoreData {
   queryResult: QueryResult | null;
   debugData: any;
   setQueryString: (query: string) => void;
+  setPlaceholderString: (query: string) => void;
   setQueryResult: (result: QueryResult) => void;
   setDebugData: (data: any) => void;
+}
+
+/**
+ * Returns the default placeholder string for the query store.
+ * This is used when the user has not entered a query string.
+ */
+function getDefaultPlaceholderString(): string {
+  return intl.formatMessage(messages.enterQuery);
 }
 
 export const useQueryStore = (): QueryStoreData => {
   const [queryString, setQueryStringState] = useState<string>("");
   const [placeholder, setPlaceholderState] = useState<string>(
-    "Enter a question to explore"
+    getDefaultPlaceholderString()
   );
   const [queryResult, setQueryResultState] = useState<QueryResult>(null);
   const [debugData, setDebugDataState] = useState<any>({});
@@ -52,6 +63,10 @@ export const useQueryStore = (): QueryStoreData => {
    */
   useEffect(() => {
     const queryStore = (globalThis.queryStore as QueryStore) || null;
+
+    if (queryStore == null) {
+      return;
+    }
 
     const handleStoreUpdate = (
       store: typeof queryStore,
@@ -73,6 +88,11 @@ export const useQueryStore = (): QueryStoreData => {
         if (newQueryResult !== null) {
           setQueryResultState(newQueryResult);
         }
+      } else if (changeType === "placeholderString") {
+        const placeholderString = store.getPlaceholderString();
+        if (placeholder !== null) {
+          setPlaceholderState(placeholderString);
+        }
       }
     };
 
@@ -87,6 +107,11 @@ export const useQueryStore = (): QueryStoreData => {
   const setQueryString = (query: string): void => {
     setQueryStringState(query);
     globalThis.queryStore.setQueryString(query);
+  };
+
+  const setPlaceholderString = (placeholder: string): void => {
+    setPlaceholderState(placeholder);
+    globalThis.queryStore?.setPlaceholderString(placeholder);
   };
 
   const setQueryResult = (result: QueryResult): void => {
@@ -105,6 +130,7 @@ export const useQueryStore = (): QueryStoreData => {
     queryResult,
     debugData,
     setQueryString,
+    setPlaceholderString,
     setQueryResult,
     setDebugData,
   };

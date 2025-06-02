@@ -21,7 +21,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
-import { formatNumber } from "../i18n/i18n";
+import { formatNumber, localizeLink } from "../i18n/i18n";
 import {
   GA_EVENT_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_CHART_CLICK,
@@ -138,10 +138,9 @@ export function addXAxis(
       .style("cursor", "pointer")
       .style("text-decoration", "underline")
       .on("click", function () {
-        window.open(
-          `${apiRoot || ""}${(<SVGElement>this).dataset.link}`,
-          "_blank"
-        );
+        const link = `${apiRoot || ""}${(<SVGElement>this).dataset.link}`;
+        const localizedUrl = localizeLink(link);
+        window.open(localizedUrl, "_blank");
       });
   }
 

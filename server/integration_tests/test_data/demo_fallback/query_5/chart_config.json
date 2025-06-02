@@ -527,6 +527,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Area_Farm"
+                    ],
+                    "title": "Total Farm Area in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "description": "Total Farm Area in United States",
                     "statVarKey": [
                       "Area_Farm"
@@ -541,6 +552,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Farm"
+                    ],
+                    "title": "Farms in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -559,6 +581,17 @@
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Income_Farm"
+                    ],
+                    "title": "Total Farm Income in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -1235,16 +1268,9 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNaturalResourcesMining_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNondurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue"
         ]
       },
       "dc/1wf1h5esex2d": {

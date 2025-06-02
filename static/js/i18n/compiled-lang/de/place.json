@@ -9,6 +9,92 @@
       "value": "placeName"
     }
   ],
+  "category_in_place": [
+    {
+      "type": 1,
+      "value": "category"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    }
+  ],
+  "chart-title-with-per-capita-and-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (pro Kopf in "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "chart-title-with-per-capita-no-date": [
+    {
+      "type": 1,
+      "value": "variableName"
+    },
+    {
+      "type": 0,
+      "value": " (pro Kopf)"
+    }
+  ],
+  "chart-title-with-two-variables": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " im Vergleich zu "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    }
+  ],
+  "chart-title-with-two-variables-and-location": [
+    {
+      "type": 1,
+      "value": "variable1"
+    },
+    {
+      "type": 0,
+      "value": " im Vergleich zu "
+    },
+    {
+      "type": 1,
+      "value": "variable2"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": ", "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    }
+  ],
   "chart_clause-other_placeType": [
     {
       "type": 1,
@@ -84,7 +170,7 @@
     },
     {
       "type": 0,
-      "value": ": rankings in "
+      "value": ": Rankings in "
     },
     {
       "type": 1,
@@ -114,7 +200,7 @@
   "chart_metadata-explore_more": [
     {
       "type": 0,
-      "value": "Weitere  entdecken"
+      "value": "Mehr entdecken ›"
     }
   ],
   "chart_metadata-export": [
@@ -149,6 +235,44 @@
       "value": "placeName"
     }
   ],
+  "chooseVariable": [
+    {
+      "type": 0,
+      "value": "Wähle eine Variable aus, um die Metadaten anzusehen"
+    }
+  ],
+  "close": [
+    {
+      "type": 0,
+      "value": "Schließen"
+    }
+  ],
+  "dateRange": [
+    {
+      "type": 1,
+      "value": "minDate"
+    },
+    {
+      "type": 0,
+      "value": " bis "
+    },
+    {
+      "type": 1,
+      "value": "maxDate"
+    }
+  ],
+  "disasterTool": [
+    {
+      "type": 0,
+      "value": "Katastrophen-Tool"
+    }
+  ],
+  "download": [
+    {
+      "type": 0,
+      "value": "Herunterladen"
+    }
+  ],
   "embed_citation": [
     {
       "type": 0,
@@ -181,10 +305,56 @@
       "value": "Dieses Diagramm exportieren"
     }
   ],
+  "enterQuery": [
+    {
+      "type": 0,
+      "value": "Frage eingeben, um zu suchen"
+    }
+  ],
+  "exploreLink": [
+    {
+      "type": 0,
+      "value": "In "
+    },
+    {
+      "type": 1,
+      "value": "toolName"
+    },
+    {
+      "type": 0,
+      "value": " erkunden"
+    }
+  ],
+  "explore_data_on": [
+    {
+      "type": 0,
+      "value": "Suche Daten zu… „"
+    },
+    {
+      "type": 1,
+      "value": "sampleQuestion"
+    },
+    {
+      "type": 0,
+      "value": "“"
+    }
+  ],
   "header-overview": [
     {
       "type": 0,
       "value": "Übersicht"
+    }
+  ],
+  "key_demographics": [
+    {
+      "type": 0,
+      "value": "Wichtige demografische Merkmale"
+    }
+  ],
+  "knowledge_graph": [
+    {
+      "type": 0,
+      "value": "Knowledge Graph"
     }
   ],
   "link-return_to_overview": [
@@ -193,10 +363,50 @@
       "value": "Zurück zur Übersicht"
     }
   ],
+  "loading": [
+    {
+      "type": 0,
+      "value": "Wird geladen…"
+    }
+  ],
+  "mapTool": [
+    {
+      "type": 0,
+      "value": "Karten-Tool"
+    }
+  ],
   "more_charts": [
     {
       "type": 0,
       "value": "Weitere Diagramme"
+    }
+  ],
+  "more_charts_link": [
+    {
+      "type": 0,
+      "value": "Weitere Diagramme"
+    }
+  ],
+  "no_charts": [
+    {
+      "type": 0,
+      "value": "Keine "
+    },
+    {
+      "type": 1,
+      "value": "category"
+    },
+    {
+      "type": 0,
+      "value": "-Daten für "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": " gefunden."
     }
   ],
   "place_breadcrumb": [
@@ -211,6 +421,20 @@
     {
       "type": 1,
       "value": "placeName"
+    }
+  ],
+  "place_not_found": [
+    {
+      "type": 0,
+      "value": "Ort „"
+    },
+    {
+      "type": 1,
+      "value": "placeDcid"
+    },
+    {
+      "type": 0,
+      "value": "“ nicht gefunden."
     }
   ],
   "place_page_ranking_table-ranking_in": [
@@ -231,6 +455,20 @@
     {
       "type": 1,
       "value": "total"
+    }
+  ],
+  "place_type_in_places": [
+    {
+      "type": 1,
+      "value": "placeType"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "parentPlaces"
     }
   ],
   "plural_administrative_area": [
@@ -259,6 +497,12 @@
     {
       "type": 0,
       "value": "Städte"
+    }
+  ],
+  "plural_continent": [
+    {
+      "type": 0,
+      "value": "Kontinente"
     }
   ],
   "plural_country": [
@@ -583,6 +827,18 @@
       "value": ", pro Kopf"
     }
   ],
+  "ranking-tile-latest-data-available-footer": [
+    {
+      "type": 0,
+      "value": "Ranking basierend auf den neuesten verfügbaren Daten. Einige Orte fehlen möglicherweise aufgrund unvollständiger Daten für dieses Jahr."
+    }
+  ],
+  "ranking-tile-latest-data-footer": [
+    {
+      "type": 0,
+      "value": "Dieses Ranking enthält Daten aus mehreren Jahren für eine umfassende Übersicht zu den Orten"
+    }
+  ],
   "ranking_table-header_rank": [
     {
       "type": 0,
@@ -595,10 +851,40 @@
       "value": "Wert"
     }
   ],
+  "relevant_topics": [
+    {
+      "type": 0,
+      "value": "Relevante Themen"
+    }
+  ],
+  "scatterTool": [
+    {
+      "type": 0,
+      "value": "Streudiagramm"
+    }
+  ],
   "search_bar_placeholder-search_again": [
     {
       "type": 0,
       "value": "Nach einem anderen Ort suchen"
+    }
+  ],
+  "seePerCapita": [
+    {
+      "type": 0,
+      "value": "Pro Kopf ansehen"
+    }
+  ],
+  "selectVariable": [
+    {
+      "type": 0,
+      "value": "Wähle eine Variable aus der Liste aus, um die Details anzusehen. Über die unten stehenden Links wird der Explorer für statistische Variablen in einem neuen Tab geöffnet."
+    }
+  ],
+  "showMetadata": [
+    {
+      "type": 0,
+      "value": "Metadaten anzeigen"
     }
   ],
   "singular_administrative_area": [
@@ -627,6 +913,12 @@
     {
       "type": 0,
       "value": "Stadt"
+    }
+  ],
+  "singular_continent": [
+    {
+      "type": 0,
+      "value": "Kontinent"
     }
   ],
   "singular_country": [
@@ -691,10 +983,64 @@
       "value": "Postleitzahl"
     }
   ],
+  "snap-to-latest-data-checkbox-label": [
+    {
+      "type": 0,
+      "value": "Datum mit der höchsten Abdeckung anzeigen"
+    }
+  ],
+  "snap-to-latest-data-help-tooltip": [
+    {
+      "type": 0,
+      "value": "Mit „Datum mit der höchsten Abdeckung anzeigen“ werden die aktuellsten Daten mit der maximalen Abdeckung angezeigt. Einige Orte fehlen möglicherweise aufgrund unvollständiger Daten für dieses Jahr."
+    }
+  ],
+  "snap-to-latest-data-overlap-help-tooltip": [
+    {
+      "type": 0,
+      "value": "Die Daten zur höchsten Abdeckung sind auch die neuesten Daten, die für dieses Diagramm verfügbar sind."
+    }
+  ],
+  "source": [
+    {
+      "type": 0,
+      "value": "Quelle"
+    }
+  ],
+  "sources": [
+    {
+      "type": 0,
+      "value": "Quellen"
+    }
+  ],
+  "summary_overview": [
+    {
+      "type": 0,
+      "value": "Übersicht der Zusammenfassung"
+    }
+  ],
+  "summary_overview_tooltip": [
+    {
+      "type": 0,
+      "value": "Wir verwenden KI, um Erkenntnisse aus unseren Datenquellen zusammenzufassen (in jedem Diagramm verlinkt). Bitte überprüfen Sie die Zusammenfassung und die Quelldaten."
+    }
+  ],
   "the_world": [
     {
       "type": 0,
       "value": "weltweit"
+    }
+  ],
+  "timelineTool": [
+    {
+      "type": 0,
+      "value": "Zeitachsen-Tool"
+    }
+  ],
+  "viaGoogle": [
+    {
+      "type": 0,
+      "value": "über Google"
     }
   ]
 }

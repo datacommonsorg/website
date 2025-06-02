@@ -29,6 +29,8 @@ import {
 } from "../i18n/i18n_place_messages";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { isMobileByWidth } from "../shared/util";
+import { Theme } from "../theme/types";
 import {
   BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
@@ -36,6 +38,10 @@ import {
   TileConfig,
 } from "../types/subject_page_proto_types";
 
+const DEFAULT_BAR_CHART_ITEMS_MOBILE = 8;
+const DEFAULT_BAR_CHART_ITEMS = 15;
+
+/**
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
  */
@@ -172,13 +178,11 @@ function getEnclosedPlaceTypeOverride(
 /**
  * Creates a href for a place page category.
  * @param category The category to create a href for.
- * @param forceDevPlaces Whether to force dev places.
  * @param place The place to create a href for.
  * @returns The href for the place page category.
  */
 export function createPlacePageCategoryHref(
   category: string,
-  forceDevPlaces: boolean,
   place: NamedTypedPlace
 ): string {
   const href = `/place/${place.dcid}`;
@@ -188,10 +192,7 @@ export function createPlacePageCategoryHref(
   if (!isOverview) {
     params.set("category", category);
   }
-  if (forceDevPlaces) {
-    params.set("force_dev_places", "true");
-  }
-  return params.size > 0 ? `${href}?${params.toString()}` : href;
+  return localizeLink(params.size > 0 ? `${href}?${params.toString()}` : href);
 }
 
 /**
@@ -209,7 +210,7 @@ export function placeChartsApiResponsesToPageConfig(
   peersWithinParent: string[],
   place: Place,
   isOverview: boolean,
-  forceDevPlaces: boolean
+  theme: Theme
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
@@ -228,6 +229,9 @@ export function placeChartsApiResponsesToPageConfig(
       const blocks = blocksByCategory[categoryName];
       const newblocks: SubjectPageBlockConfig[] = [];
       const statVarSpec: Record<string, StatVarSpec> = {};
+      const defaultBarChartItems = isMobileByWidth(theme)
+        ? DEFAULT_BAR_CHART_ITEMS_MOBILE
+        : DEFAULT_BAR_CHART_ITEMS;
 
       blocks.forEach((block: BlockConfig) => {
         let blockTitle;
@@ -284,7 +288,9 @@ export function placeChartsApiResponsesToPageConfig(
               rankingCount: maxPlacesCount,
             };
           } else if (tileConfig.type === "BAR") {
-            maxPlacesCount = chart.maxPlaces ? chart.maxPlaces : 15;
+            maxPlacesCount = chart.maxPlaces
+              ? chart.maxPlaces
+              : defaultBarChartItems;
             tileConfig.barTileSpec = {
               maxPlaces: maxPlacesCount,
               sort: "DESCENDING",
@@ -340,9 +346,7 @@ export function placeChartsApiResponsesToPageConfig(
           categoryNameToCategory[categoryName].translatedName || categoryName,
       };
       if (isOverview && categoryNameToCategory[categoryName].hasMoreCharts) {
-        category.url = localizeLink(
-          createPlacePageCategoryHref(categoryName, forceDevPlaces, place)
-        );
+        category.url = createPlacePageCategoryHref(categoryName, place);
         category.linkText = intl.formatMessage(pageMessages.MoreCharts);
       }
       return category;

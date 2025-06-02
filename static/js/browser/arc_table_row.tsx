@@ -23,6 +23,7 @@ import _ from "lodash";
 import React from "react";
 
 import { GoogleMap } from "../components/google_map";
+import { getOutArcRowElementId } from "../utils/browser_utils";
 import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
@@ -36,6 +37,9 @@ interface ArcTableRowPropType {
   src?: URL;
   // If set to true, will not add a link to the property node.
   noPropLink?: boolean;
+  // Index of the property label; the same property can be listed multiple times
+  // in an arc table. This index differentiates them.
+  propIndex?: number;
 }
 
 interface ArcTableRowStateType {
@@ -100,7 +104,17 @@ export class ArcTableRow extends React.Component<
   render(): JSX.Element {
     return (
       <tr>
-        <td className="property-column">
+        <td
+          className="property-column"
+          id={
+            this.props.propIndex == undefined
+              ? undefined
+              : getOutArcRowElementId(
+                  this.props.propertyLabel,
+                  this.props.propIndex
+                )
+          }
+        >
           {this.props.noPropLink ? (
             this.props.propertyLabel
           ) : (

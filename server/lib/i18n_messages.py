@@ -115,7 +115,7 @@ def get_place_type_to_locale_message_plural() -> Dict[str, str]:
 # Strings to use in place page
 def get_place_type_in_parent_places_str(place_type: str,
                                         parent_places: str) -> str:
-  # TRANSLATORS: Label for a place type in a parent place. For example: "Country in North America"
+  # TRANSLATORS: Label for a place type in a parent place. For example: "Country in North America". Please leave the variables `%(placeType)s` and `%(parentPlaces)s` unchanged in the translation.
   return gettext('%(placeType)s in %(parentPlaces)s',
                  placeType=place_type,
                  parentPlaces=parent_places)
@@ -123,7 +123,7 @@ def get_place_type_in_parent_places_str(place_type: str,
 
 def get_other_places_in_parent_place_str(place_type: str,
                                          parent_place: str) -> str:
-  # TRANSLATORS: Label for other places in a parent place. For example: "Other States in United States of America"
+  # TRANSLATORS: Label for other places in a parent place. For example: "Other States in United States of America". Please leave the variables `%(placeType)s` and `%(parentPlace)s` unchanged in the translation.
   return gettext('Other %(placeType)s in %(parentPlace)s',
                  placeType=place_type,
                  parentPlace=parent_place)

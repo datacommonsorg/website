@@ -1324,10 +1324,6 @@
     "childTopics": [],
     "exploreMore": {
       "Count_Household_FamilyHousehold": {
-        "benefitsStatus": [
-          "Count_Household_WithFoodStampsInThePast12Months_FamilyHousehold",
-          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold"
-        ],
         "familyIncome": [
           "Count_Household_0.5OrLessRatioToPovertyLine_FamilyHousehold",
           "Count_Household_1.25OrLessRatioToPovertyLine_FamilyHousehold",

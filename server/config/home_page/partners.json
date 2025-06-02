@@ -2,7 +2,7 @@
   {
     "id": "unSdg",
     "title": "United Nations Sustainable Development Goals",
-    "sprite-index": 5,
+    "sprite-index": 2,
     "url": "https://unstats.un.org/UNSDWebsite/undatacommons/sdgs"
   },
   {
@@ -12,27 +12,9 @@
     "url": "https://datacommons.techsoup.org/"
   },
   {
-    "id": "feedingAmerica",
-    "title": "Feeding America",
-    "sprite-index": 1,
-    "url": "https://datacommons.feedingamerica.org"
-  },
-  {
-    "id": "iit",
-    "title": "Indian Institute of Technology",
-    "sprite-index": 2,
-    "url": "https://datacommons.iitm.ac.in/"
-  },
-  {
-    "id": "rff",
-    "title": "Resources for the Future",
-    "sprite-index": 3,
-    "url": "https://datacommons.rff.org"
-  },
-  {
     "id": "stanford",
     "title": "Stanford University",
-    "sprite-index": 4,
+    "sprite-index": 1,
     "url": "https://datacommons.stanford.edu"
   }
 ]

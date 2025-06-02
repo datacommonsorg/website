@@ -137,6 +137,7 @@ function deploy_website() {
   done
   helm upgrade --install dc-website deploy/helm_charts/dc_website \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
+  --debug \
   --atomic \
   --timeout 15m \
   --set website.image.tag="$WEBSITE_HASH" \

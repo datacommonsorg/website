@@ -2,6 +2,21 @@
   "alert-no_data_for_place": {
     "defaultMessage": "No tenemos datos sobre {placeName}"
   },
+  "category_in_place": {
+    "defaultMessage": "{category} en {placeName}"
+  },
+  "chart-title-with-per-capita-and-date": {
+    "defaultMessage": "{variableName} (per cápita en {date})"
+  },
+  "chart-title-with-per-capita-no-date": {
+    "defaultMessage": "{variableName} (per cápita)"
+  },
+  "chart-title-with-two-variables": {
+    "defaultMessage": "{variable1} y {variable2}"
+  },
+  "chart-title-with-two-variables-and-location": {
+    "defaultMessage": "{variable1} y {variable2} en {placeType} de {place}"
+  },
   "chart_clause-other_placeType": {
     "defaultMessage": "{chartTitle}: otros {placeType}"
   },
@@ -15,7 +30,7 @@
     "defaultMessage": "{chartTitle}: {placeType} cerca de {placeName}"
   },
   "chart_clause-rankings_in_place": {
-    "defaultMessage": "{variable}: rankings in {placeName}"
+    "defaultMessage": "{variable}: clasificaciones de {placeName}"
   },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{variable} en {placeName}"
@@ -24,7 +39,7 @@
     "defaultMessage": "(la línea de puntos indica que faltan datos)"
   },
   "chart_metadata-explore_more": {
-    "defaultMessage": "Ver más "
+    "defaultMessage": "Ver más ›"
   },
   "chart_metadata-export": {
     "defaultMessage": "Exportar"
@@ -38,6 +53,21 @@
   "child_places_menu-places_in_place": {
     "defaultMessage": "Sitios de {placeName}"
   },
+  "chooseVariable": {
+    "defaultMessage": "Elige una variable para ver sus metadatos"
+  },
+  "close": {
+    "defaultMessage": "Cerrar"
+  },
+  "dateRange": {
+    "defaultMessage": "Del {minDate} al {maxDate}"
+  },
+  "disasterTool": {
+    "defaultMessage": "Herramienta de desastres"
+  },
+  "download": {
+    "defaultMessage": "Descargar"
+  },
   "embed_citation": {
     "defaultMessage": "Datos de {sources} obtenidos a través de Data Commons"
   },
@@ -50,23 +80,56 @@
   "embed_export_chart_link": {
     "defaultMessage": "Exportar este gráfico"
   },
+  "enterQuery": {
+    "defaultMessage": "Introduce una pregunta para explorar"
+  },
+  "exploreLink": {
+    "defaultMessage": "Explorar en {toolName}"
+  },
+  "explore_data_on": {
+    "defaultMessage": "Consulta datos sobre... \"{sampleQuestion}\""
+  },
   "header-overview": {
     "defaultMessage": "Vista general"
+  },
+  "key_demographics": {
+    "defaultMessage": "Datos demográficos clave"
+  },
+  "knowledge_graph": {
+    "defaultMessage": "Gráfico de conocimiento"
   },
   "link-return_to_overview": {
     "defaultMessage": "Volver a la descripción general"
   },
+  "loading": {
+    "defaultMessage": "Cargando..."
+  },
+  "mapTool": {
+    "defaultMessage": "Herramienta de mapas"
+  },
   "more_charts": {
     "defaultMessage": "Más gráficos"
   },
+  "more_charts_link": {
+    "defaultMessage": "Más gráficos"
+  },
+  "no_charts": {
+    "defaultMessage": "No se han encontrado datos de {category} para {place}."
+  },
   "place_breadcrumb": {
     "defaultMessage": "{placeType} de {placeName}"
+  },
+  "place_not_found": {
+    "defaultMessage": "No se ha encontrado el lugar \"{placeDcid}\"."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Clasificaciones"
   },
   "place_page_ranking_table-ranking_value": {
     "defaultMessage": "{rank} de {total}"
+  },
+  "place_type_in_places": {
+    "defaultMessage": "{placeType} de {parentPlaces}"
   },
   "plural_administrative_area": {
     "defaultMessage": "Áreas administrativas"
@@ -79,6 +142,9 @@
   },
   "plural_city": {
     "defaultMessage": "Ciudades"
+  },
+  "plural_continent": {
+    "defaultMessage": "Continentes"
   },
   "plural_country": {
     "defaultMessage": "Países"
@@ -149,14 +215,35 @@
   "ranking-subtitle_top_percapita": {
     "defaultMessage": "Primeros {rankSize} {pluralPlaceType} de {placeName}, per cápita"
   },
+  "ranking-tile-latest-data-available-footer": {
+    "defaultMessage": "Clasificación basada en los datos más recientes disponibles. Puede que falten algunos sitios debido a que los datos de ese año no se han enviado por completo."
+  },
+  "ranking-tile-latest-data-footer": {
+    "defaultMessage": "Esta clasificación incluye datos de varios años para ofrecer una visión completa de los lugares."
+  },
   "ranking_table-header_rank": {
     "defaultMessage": "Clasificación"
   },
   "ranking_table-header_value": {
     "defaultMessage": "Valor"
   },
+  "relevant_topics": {
+    "defaultMessage": "Temas relevantes"
+  },
+  "scatterTool": {
+    "defaultMessage": "Herramienta de dispersión"
+  },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Busca otro sitio"
+  },
+  "seePerCapita": {
+    "defaultMessage": "Ver per cápita"
+  },
+  "selectVariable": {
+    "defaultMessage": "Selecciona una variable de la lista para ver sus detalles. Los enlaces de abajo abren el explorador de variables estadísticas en una nueva pestaña."
+  },
+  "showMetadata": {
+    "defaultMessage": "Mostrar metadatos"
   },
   "singular_administrative_area": {
     "defaultMessage": "Área administrativa"
@@ -169,6 +256,9 @@
   },
   "singular_city": {
     "defaultMessage": "Ciudad"
+  },
+  "singular_continent": {
+    "defaultMessage": "Continente"
   },
   "singular_country": {
     "defaultMessage": "País"
@@ -197,7 +287,34 @@
   "singular_zip_code": {
     "defaultMessage": "Código postal"
   },
+  "snap-to-latest-data-checkbox-label": {
+    "defaultMessage": "Ajustar a la fecha con la cobertura más alta"
+  },
+  "snap-to-latest-data-help-tooltip": {
+    "defaultMessage": "La opción Ajustar a la fecha con la cobertura más alta muestra los datos más recientes con la máxima cobertura. Puede que falten algunos sitios debido a que los datos de ese año no se han enviado por completo."
+  },
+  "snap-to-latest-data-overlap-help-tooltip": {
+    "defaultMessage": "Los datos de la cobertura más alta también son los datos más recientes disponibles para este gráfico."
+  },
+  "source": {
+    "defaultMessage": "Fuente"
+  },
+  "sources": {
+    "defaultMessage": "Fuentes"
+  },
+  "summary_overview": {
+    "defaultMessage": "Resumen general"
+  },
+  "summary_overview_tooltip": {
+    "defaultMessage": "Usamos la IA para resumir las estadísticas de los datos que utilizamos (vinculados en cada gráfico). Aunque nos esforzamos por ofrecer datos precisos, te recomendamos que revises el resumen y consultes los datos de origen."
+  },
   "the_world": {
     "defaultMessage": "el mundo"
+  },
+  "timelineTool": {
+    "defaultMessage": "Herramienta de cronología"
+  },
+  "viaGoogle": {
+    "defaultMessage": "con Google"
   }
 }
