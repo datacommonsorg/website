@@ -62,6 +62,7 @@ export function TileMetadataModal(
 ): ReactElement {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [statVars, setStatVars] = useState<NamedNode[]>([]);
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
@@ -86,6 +87,7 @@ export function TileMetadataModal(
     if (statVarSet.size === statVars.length) return;
 
     setLoading(true);
+    setError(false);
     fetchMetadata(
       statVarSet,
       props.facets,
@@ -96,6 +98,10 @@ export function TileMetadataModal(
       .then((resp) => {
         setMetadataMap(resp.metadata);
         setStatVars(resp.statVarList);
+      })
+      .catch(() => {
+        console.error("Error loading metadata");
+        setError(true);
       })
       .finally(() => {
         setLoading(false);
@@ -112,6 +118,7 @@ export function TileMetadataModal(
 
   useEffect(() => {
     setStatVars([]);
+    setError(false);
   }, [props.facets, props.statVarToFacets]);
 
   const citationParts = useMemo(
@@ -144,18 +151,24 @@ export function TileMetadataModal(
       >
         <DialogTitle>{intl.formatMessage(messages.metadata)}</DialogTitle>
         <DialogContent>
-          {!loading && (
-            <TileMetadataModalContent
-              statVars={statVars}
-              metadataMap={metadataMap}
-              apiRoot={props.apiRoot}
-            />
+          {error ? (
+            <p>{intl.formatMessage(metadataComponentMessages.MetadataError)}</p>
+          ) : (
+            !loading && (
+              <TileMetadataModalContent
+                statVars={statVars}
+                metadataMap={metadataMap}
+                apiRoot={props.apiRoot}
+              />
+            )
           )}
         </DialogContent>
         <DialogActions>
-          <CopyCitationButton citationToCopy={citationText}>
-            {intl.formatMessage(metadataComponentMessages.CopyCitation)}
-          </CopyCitationButton>
+          {!error && (
+            <CopyCitationButton citationToCopy={citationText}>
+              {intl.formatMessage(metadataComponentMessages.CopyCitation)}
+            </CopyCitationButton>
+          )}
           <Button
             variant="text"
             onClick={(): void => {
