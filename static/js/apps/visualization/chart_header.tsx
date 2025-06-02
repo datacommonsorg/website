@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 
 /** @jsxImportSource @emotion/react */
 
-import { css, Theme, useTheme } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useMemo } from "react";
 import { Input } from "reactstrap";
 
@@ -101,11 +101,8 @@ export function ChartHeader(props: ChartHeaderProps): ReactElement {
                 padding: ${theme.spacing.sm}px ${theme.spacing.md}px;
                 gap: ${theme.spacing.sm}px;
                 background: ${theme.colors.box.tooltip.pill};
-                ${theme.typography.family.text}
-                ${theme.typography.text.sm}
-                @media (max-width: ${theme.breakpoints.sm}px) {
-                  flex-basis: 100%;
-                }
+                ${theme.typography.family.text};
+                ${theme.typography.text.sm};
               `}
             >
               {inputSection.label && (
