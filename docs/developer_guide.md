@@ -118,7 +118,7 @@ Start the flask webserver locally at localhost:8080
 ./run_server.sh
 ```
 
-To enable language models required by the NL interface: 
+To enable NL search, language models must be enabled via `-m`:
 
 ```bash
 ./run_server.sh -m
