@@ -19,7 +19,7 @@ This script retrives the metadata from the data commons API and adds it to the e
 4. Optionally, call the Gemini API to generate approximately 5 alternative sentences per SV based on the metadata.
 5. Create a new dataframe with the new SVs, and export it as a JSON file alyssaguo_statvars.json.
 
-To run this script, register your data commons API key to DC_API_KEY in DOTENV_FILE_PATH (.env_nl), then run the script using the command ./add_metadata.py
+To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./add_metadata.py
 """
 import argparse
 import json
