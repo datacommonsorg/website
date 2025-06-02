@@ -118,6 +118,12 @@ Start the flask webserver locally at localhost:8080
 ./run_server.sh
 ```
 
+To enable language models, necessary for the NL interface: 
+
+```bash
+./run_server.sh -m
+```
+
 If you don't have access to DataCommons maps API, can bring up website without
 place search functionality
 
@@ -134,12 +140,6 @@ The following example will start localhost on port 8081. The default is 8080.
 
 Please note the strict syntax requirements for the script, and leave a space
 after the flag. So: `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
-
-To enable language models
-
-```bash
-./run_server.sh -m
-```
 
 #### 🛠️ Troubleshooting server startup
 <details>
