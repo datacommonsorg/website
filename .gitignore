@@ -106,3 +106,5 @@ build/cdc/dev/.env
 *.tfvars
 deploy/terraform-custom-datacommons/modules/backend.tf
 
+# NL tools ignores
+tools/nl/nl_metadata/.env

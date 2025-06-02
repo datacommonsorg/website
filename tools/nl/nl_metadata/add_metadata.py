@@ -34,7 +34,7 @@ import pandas as pd
 from sv_constants import GEMINI_PROMPT
 from sv_types import StatVarMetadata
 
-DOTENV_FILE_PATH = ".env_nl/.env"
+DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
@@ -137,30 +137,31 @@ def extract_constraint_properties(new_row: StatVarMetadata,
 
 def generate_alt_sentences(
     gemini_client: genai.Client, gemini_config: types.GenerateContentConfig,
-    sv_metadata_list: List[StatVarMetadata],
-    metadata_dicts: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    sv_metadata: List[StatVarMetadata]) -> Dict[str, List[str]]:
   """
   Calls the Gemini API to generate alternative sentences for a batch of SV metadata.
-  Appends the new metadata (including altSentences) to the existing sv_metadata_list and returns it.
+  Returns the alt sentences as a dictionary mapping DCID to the list of sentences.
   """
   prompt_with_metadata = types.Part.from_text(text=(GEMINI_PROMPT +
-                                                    str(metadata_dicts)))
+                                                    str(sv_metadata)))
 
   model_input = [types.Content(role="user", parts=[prompt_with_metadata])]
+  alt_sentences: Dict[str, List[str]] = {}
 
   try:
-    response = gemini_client.models.generate_content(model=GEMINI_MODEL,
-                                                     contents=model_input,
-                                                     config=gemini_config)
+    # Returns a GenerateContentResponse object, where the .text field contains the output from Gemini
+    # Output is formatted as a JSON string representing a Dict mapping DCID to a list of alt sentences
+    response: types.GenerateContentResponse = gemini_client.models.generate_content(
+        model=GEMINI_MODEL, contents=model_input, config=gemini_config)
 
-    new_metadata_list = json.loads(response.text, strict=False)
-    sv_metadata_list.extend(new_metadata_list)
+    alt_sentences = json.loads(response.text, strict=False)
   except json.JSONDecodeError as e:
     print(
-        f"Exception occurred while getting alt sentences for the batch starting at SV row number {len(sv_metadata_list)}. Error decoding Gemini response into JSON: {e}"
+        f"Exception occurred while generating alt sentences for the batch starting at DCID {sv_metadata[0].dcid}. Error decoding Gemini response into JSON: {e}"
     )
 
-  return sv_metadata_list
+  return alt_sentences
+
 
 def flatten_metadata(
     sv_metadata_list: List[Dict[str, str]],
@@ -182,8 +183,9 @@ def flatten_metadata(
     if alt_sentences and metadata.dcid in alt_sentences:
       flattened_metadata["altSentences"] = alt_sentences[metadata.dcid]
     sv_metadata_list.append(flattened_metadata)
-  
+
   return sv_metadata_list
+
 
 def create_sv_metadata(generateAltSentences: bool) -> None:
   """
@@ -196,10 +198,10 @@ def create_sv_metadata(generateAltSentences: bool) -> None:
       location="global",
   )
   gemini_config = types.GenerateContentConfig(
-      temperature = GEMINI_TEMPERATURE,
-      top_p = GEMINI_TOP_P,
-      seed = GEMINI_SEED,
-      max_output_tokens = GEMINI_MAX_OUTPUT_TOKENS,
+      temperature=GEMINI_TEMPERATURE,
+      top_p=GEMINI_TOP_P,
+      seed=GEMINI_SEED,
+      max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
       response_mime_type="application/json",
   )
   stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
@@ -215,14 +217,19 @@ def create_sv_metadata(generateAltSentences: bool) -> None:
     if generateAltSentences:
       alt_sentences = generate_alt_sentences(gemini_client, gemini_config,
                                              curr_batch_metadata)
-    sv_metadata_list = flatten_metadata(
-        sv_metadata_list, curr_batch_metadata, alt_sentences)
+    sv_metadata_list = flatten_metadata(sv_metadata_list, curr_batch_metadata,
+                                        alt_sentences)
 
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
   sv_metadata_df.to_json(EXPORTED_SV_FILE, orient="records", lines=True)
 
+
 parser = argparse.ArgumentParser("./add_metadata.py")
-parser.add_argument("-generateAltSentences", help="Whether to generate alternative sentences for the SVs using the Gemini API.",
-                    type=bool, default=False)
+parser.add_argument(
+    "-generateAltSentences",
+    help=
+    "Whether to generate alternative sentences for the SVs using the Gemini API.",
+    type=bool,
+    default=False)
 args = parser.parse_args()
 create_sv_metadata(args.generateAltSentences)
