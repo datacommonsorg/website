@@ -812,7 +812,7 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click the update button.
-    fireEvent.click(timelineToolChart.getByText(/^Select a dataset/));
+    fireEvent.click(timelineToolChart.getByText("Edit Source"));
     await waitFor(() =>
       expect(timelineToolChart.getByText("Update")).toBeTruthy()
     );
@@ -967,7 +967,7 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click the update button.
-    fireEvent.click(scatterToolChart.getByText(/^Select a dataset/));
+    fireEvent.click(scatterToolChart.getByText("Edit Source"));
     await waitFor(() =>
       expect(scatterToolChart.getByText("Update")).toBeTruthy()
     );
@@ -1019,7 +1019,7 @@ describe("test ga event tool chart plot option", () => {
     });
 
     // Click the update button.
-    fireEvent.click(mapToolChart.getByText(/^Select a dataset/));
+    fireEvent.click(mapToolChart.getByText("Edit Source"));
     await waitFor(() => expect(mapToolChart.getByText("Update")).toBeTruthy());
     fireEvent.click(mapToolChart.getByText("Update"));
     await waitFor(() => {
