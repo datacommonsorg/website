@@ -20,7 +20,6 @@ This script retrives the metadata from the data commons API and adds it to the e
 5. Create a new dataframe with the new SVs, and export it as a JSON file alyssaguo_statvars.json.
 
 To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./add_metadata.py
-To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./add_metadata.py
 """
 import argparse
 import asyncio
@@ -32,21 +31,15 @@ from datacommons_client.client import DataCommonsClient
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from dotenv import load_dotenv
-from google import genai
-from google.genai import types
 import pandas as pd
-from sv_constants import GEMINI_PROMPT
 from sv_constants import GEMINI_PROMPT
 from sv_types import StatVarMetadata
 
-DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
 EXPORTED_SV_FILE = "tools/nl/nl_metadata/alyssaguo_statvars.json"
-
 
 # These are the properties common to evey stat var
 MEASURED_PROPERTY = "measuredProperty"
@@ -64,7 +57,6 @@ GEMINI_MAX_OUTPUT_TOKENS = 65535
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
 DC_API_KEY = os.getenv("DC_API_KEY")
 
-
 def extract_flag() -> argparse.Namespace:
   """
   Extracts the -generateAltSentences flag from the command line arguments.
@@ -78,35 +70,6 @@ def extract_flag() -> argparse.Namespace:
       default=False)
   args = parser.parse_args()
   return args
-
-
-def split_into_batches(
-    original_df: pd.DataFrame | List) -> List[pd.DataFrame] | List[List]:
-# Constants used for Gemini API calls
-GEMINI_MODEL = "gemini-2.5-flash-preview-05-20"
-GEMINI_TEMPERATURE = 1
-GEMINI_TOP_P = 1
-GEMINI_SEED = 0
-GEMINI_MAX_OUTPUT_TOKENS = 65535
-
-load_dotenv(dotenv_path=DOTENV_FILE_PATH)
-DC_API_KEY = os.getenv("DC_API_KEY")
-
-
-def extract_flag() -> argparse.Namespace:
-  """
-  Extracts the -generateAltSentences flag from the command line arguments.
-  """
-  parser = argparse.ArgumentParser(description="./add_metadata.py")
-  parser.add_argument(
-      "-generateAltSentences",
-      help=
-      "Whether to generate alternative sentences for the SVs using the Gemini API.",
-      type=bool,
-      default=False)
-  args = parser.parse_args()
-  return args
-
 
 def split_into_batches(
     original_df: pd.DataFrame | List) -> List[pd.DataFrame] | List[List]:
@@ -135,16 +98,11 @@ def get_prop_value(prop_data) -> str:
   else:
     return first_node.get("dcid")
 
-
-def extract_metadata(
-    client: DataCommonsClient, curr_batch: Dict[str, str],
-    sv_metadata_list: List[StatVarMetadata]) -> List[StatVarMetadata]:
 def extract_metadata(
     client: DataCommonsClient, curr_batch: Dict[str, str],
     sv_metadata_list: List[StatVarMetadata]) -> List[StatVarMetadata]:
   """
   Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API. 
-  Adds the new metadata to a new list of StatVarMetadata objects, and returns the list.
   Adds the new metadata to a new list of StatVarMetadata objects, and returns the list.
   """
   response = client.node.fetch(node_dcids=list(curr_batch.keys()),
@@ -191,7 +149,6 @@ def extract_constraint_properties(new_row: StatVarMetadata,
   return new_row
 
 
-def create_sv_metadata() -> List[StatVarMetadata]:
 def create_sv_metadata() -> List[StatVarMetadata]:
   """
   Creates SV metadata by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
