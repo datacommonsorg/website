@@ -430,6 +430,8 @@ message Block {
   }
   // Message to be displayed to the user
   string info_message = 9;
+  // Metadata summary associated with the block
+  string metadata_summary = 10;
 }
 
 message Category {

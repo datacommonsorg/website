@@ -1,3 +1,23 @@
+/**
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Component to show the Subject Page for the highlight only.
+ */
+
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
@@ -6,14 +26,11 @@ import { buildCitationParts } from "../../tools/shared/metadata/citations";
 import { StatVarMetadata } from "../../tools/shared/metadata/metadata";
 import { fetchMetadata } from "../../tools/shared/metadata/metadata_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getFacets } from "../../utils/data_fetch_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
-
-/**
- * Component to show the Subject Page for the highlight only.
- */
 
 const PAGE_ID = "highlight-result";
 
@@ -98,24 +115,36 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
+  const [metadataLoadingState, setMetadataLoadingState] = useState(false);
 
   useEffect(() => {
-    // Fetch metadata and stat var list when component mounts or props change
+    // Fetch metadata when component mounts or props change
     const fetchData = async (): Promise<void> => {
-      doMetadataFetch(props).then(({ metadata }) => {
+      if (!props.highlightFacet) {
+        return;
+      }
+      try {
+        setMetadataLoadingState(true);
+        const { metadata } = await doMetadataFetch(props);
         setMetadataMap(metadata);
-      });
+        setMetadataLoadingState(false);
+      } catch (err) {
+        // TODO (nick-next): Look at routing these errors back to GCP cloud logging
+        console.error("Error fetching metadata:", err);
+        setMetadataLoadingState(false);
+      }
     };
     void fetchData();
   }, [props]);
 
   const pageConfig = useMemo(() => {
-    // Process the page config and update the description for each block if we have metadata for it.
+    // Process the page config and set metadata summary for each block when loaded
     const pageConfigCopy = structuredClone(
       props.highlightPageMetadata.pageConfig
-    );
+    ) as SubjectPageConfig;
 
     if (
+      metadataLoadingState === true ||
       pageConfigCopy.categories.length === 0 ||
       pageConfigCopy.categories[0].blocks.length === 0
     ) {
@@ -135,11 +164,15 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
       );
 
       for (const block of category.blocks) {
-        block.description = blockCitations;
+        block.metadataSummary = blockCitations;
       }
     }
     return pageConfigCopy;
-  }, [metadataMap, props.highlightPageMetadata.pageConfig]);
+  }, [
+    metadataMap,
+    props.highlightPageMetadata.pageConfig,
+    metadataLoadingState,
+  ]);
 
   return (
     <div className="highlight-result-title">
@@ -149,6 +182,7 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
         pageConfig={trimCategory(pageConfig, props.maxBlock)}
         showExploreMore={false}
         highlightFacet={props.highlightFacet}
+        metadataLoadingState={metadataLoadingState}
       />
     </div>
   );
