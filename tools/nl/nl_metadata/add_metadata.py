@@ -16,12 +16,13 @@ This script retrives the metadata from the data commons API and adds it to the e
 1. Import the existing NL SVs, and separate the table into batches of up to 100 SVs.
 2. For each batch, call the data commons API to fetch the metadata for all DCIDs in the batch
 3. For each SV in the batch, extract the common metadata fields and add to a new row. Also extract any constraintProperties.
-4. Optionally, call the Gemini API to generate approximately 5 alternative sentences per SV based on the metadata.
+4. Optionally, call the Gemini API in parallel batches to generate approximately 5 alternative sentences per SV based on the metadata.
 5. Create a new dataframe with the new SVs, and export it as a JSON file alyssaguo_statvars.json.
 
 To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./add_metadata.py
 """
 import argparse
+import asyncio
 import json
 import os
 from typing import Dict, List
@@ -169,11 +170,11 @@ def create_sv_metadata() -> List[StatVarMetadata]:
   return sv_metadata_list
 
 
-def generate_alt_sentences(
+async def generate_alt_sentences(
     gemini_client: genai.Client, gemini_config: types.GenerateContentConfig,
     sv_metadata: List[StatVarMetadata]) -> Dict[str, List[str]]:
   """
-  Calls the Gemini API to generate alternative sentences for a batch of SV metadata.
+  Calls the Gemini API to generate alternative sentences for a list of SV metadata.
   Returns the alt sentences as a dictionary mapping DCID to the list of sentences.
   """
   prompt_with_metadata = types.Part.from_text(text=(GEMINI_PROMPT +
@@ -185,7 +186,7 @@ def generate_alt_sentences(
   try:
     # Returns a GenerateContentResponse object, where the .text field contains the output from Gemini
     # Output is formatted as a JSON string representing a Dict mapping DCID to a list of alt sentences
-    response: types.GenerateContentResponse = gemini_client.models.generate_content(
+    response: types.GenerateContentResponse = await gemini_client.aio.models.generate_content(
         model=GEMINI_MODEL, contents=model_input, config=gemini_config)
 
     alt_sentences = json.loads(response.text, strict=False)
@@ -197,10 +198,12 @@ def generate_alt_sentences(
   return alt_sentences
 
 
-def create_generated_sentences(
-    sv_metadata_list: List[StatVarMetadata]) -> List[StatVarMetadata]:
+async def batch_generate_alt_sentences(
+    sv_metadata_list: List[StatVarMetadata]) -> Dict[str, List[str]]:
   """
-  Populates generatedSentences for each SV by taking the SV metadata list, and calling the relevant helper function to generate altSentences using Gemini.
+  Separates sv_metadata_list into batches of 100 entries, and executes multiple parallel calls to generate_alt_sentences
+  using Gemini and existing SV metadata. Flattens the list of results, and returns the generated altSentences
+  as a dictionary mapping DCID to the list of altSentences.
   """
   gemini_client = genai.Client(
       vertexai=True,
@@ -216,19 +219,40 @@ def create_generated_sentences(
   )
   batched_list: List[List[StatVarMetadata]] = split_into_batches(
       sv_metadata_list)
-  metadata_with_sentences: List[StatVarMetadata] = []
+
+  tasks_to_parallelize: List[asyncio.Task] = []
   for curr_batch in batched_list:
-    alt_sentences = generate_alt_sentences(gemini_client, gemini_config,
-                                           curr_batch)
-    for metadata in curr_batch:
-      if metadata.dcid in alt_sentences:
-        metadata.generatedSentences = alt_sentences[metadata.dcid]
-      else:
-        print(
-            f"No alternative sentences generated for DCID {metadata.dcid}. Falling back to empty list."
-        )
-        metadata.generatedSentences = []
-      metadata_with_sentences.append(metadata)
+    tasks_to_parallelize.append(
+        generate_alt_sentences(gemini_client, gemini_config, curr_batch))
+
+  batched_alt_sentences: List[Dict[str, List[str]]] = await asyncio.gather(
+      *tasks_to_parallelize)
+
+  dcid_to_alt_sentences: Dict[str, List[str]] = {}
+  for alt_sentence_batch in batched_alt_sentences:
+    dcid_to_alt_sentences.update(alt_sentence_batch)
+  return dcid_to_alt_sentences
+
+
+async def create_generated_sentences(
+    sv_metadata_list: List[StatVarMetadata]) -> List[StatVarMetadata]:
+  """
+  Populates generatedSentences for each SV by taking the SV metadata list, and calling the relevant helper function to generate altSentences using Gemini.
+  """
+  metadata_with_sentences: List[StatVarMetadata] = []
+  dcid_to_alt_sentences: Dict[
+      str, List[str]] = await batch_generate_alt_sentences(sv_metadata_list)
+
+  for metadata in sv_metadata_list:
+    if metadata.dcid in dcid_to_alt_sentences:
+      metadata.generatedSentences = dcid_to_alt_sentences[metadata.dcid]
+    else:
+      print(
+          f"No alternative sentences generated for DCID {metadata.dcid}. Falling back to empty list."
+      )
+      metadata.generatedSentences = []
+    metadata_with_sentences.append(metadata)
+
   return metadata_with_sentences
 
 
@@ -236,22 +260,39 @@ def export_to_json(sv_metadata_list: List[StatVarMetadata]) -> None:
   """
   Exports the SV metadata list to a JSON file.
   """
-  flattened_metadata: Dict[str, str | List[str]] = [{
-      "dcid": metadata.dcid,
-      "sentence": metadata.sentence,
-      "generatedSentences": metadata.generatedSentences,
-      "name": metadata.name,
-      "measuredProperty": metadata.measuredProperty,
-      "populationType": metadata.populationType,
-      "statType": metadata.statType,
-      **metadata.constraintProperties
-  } for metadata in sv_metadata_list]
+  flattened_metadata: Dict[str, str | List[str]] = [
+      {
+          "dcid":
+              metadata.dcid,
+          "sentence":
+              metadata.sentence,
+          "generatedSentences":
+              metadata.generatedSentences,
+          "name":
+              metadata.name,
+          "measuredProperty":
+              metadata.measuredProperty,
+          "populationType":
+              metadata.populationType,
+          "statType":
+              metadata.statType,
+          "constraintProperties": [
+              f"{key}: {value}"
+              for key, value in metadata.constraintProperties.items()
+          ]
+      }
+      for metadata in sv_metadata_list
+  ]
   sv_metadata_df = pd.DataFrame(flattened_metadata)
   sv_metadata_df.to_json(EXPORTED_SV_FILE, orient="records", lines=True)
 
 
-args: argparse.Namespace = extract_flag()
-sv_metadata_list = create_sv_metadata()
-if args.generateAltSentences:
-  sv_metadata_list = create_generated_sentences(sv_metadata_list)
-export_to_json(sv_metadata_list)
+async def main():
+  args: argparse.Namespace = extract_flag()
+  sv_metadata_list = create_sv_metadata()
+  if args.generateAltSentences:
+    sv_metadata_list = await create_generated_sentences(sv_metadata_list)
+  export_to_json(sv_metadata_list)
+
+
+asyncio.run(main())
