@@ -152,8 +152,8 @@ class VisMapTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
                          "Count_Person_Female")
-    update_button = self.driver.find_element(By.CSS_SELECTOR,
-                                             '.modal-footer .btn')
+    update_button = self.driver.find_element(
+        By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,

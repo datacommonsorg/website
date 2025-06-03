@@ -129,8 +129,8 @@ class VisScatterTestMixin():
     # Update the source for the Count_Person_Female sv
     shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
                          "Count_Person_Female")
-    update_button = self.driver.find_element(By.CSS_SELECTOR,
-                                             '.modal-footer .btn')
+    update_button = self.driver.find_element(
+        By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
     # Check that results are correct

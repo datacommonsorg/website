@@ -181,7 +181,10 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
             })}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={onConfirm}>
+          <Button
+            onClick={onConfirm}
+            className={`${SELECTOR_PREFIX}-update-source-button`}
+          >
             Update
           </Button>
         </ModalFooter>
