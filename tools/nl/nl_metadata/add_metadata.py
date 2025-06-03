@@ -153,7 +153,7 @@ def extract_constraint_properties(new_row: StatVarMetadata,
 
 def create_sv_metadata() -> List[StatVarMetadata]:
   """
-  Creates SV metadata JSONL file by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
+  Creates SV metadata by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
   """
   client = DataCommonsClient(api_key=DC_API_KEY)
   stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
@@ -161,10 +161,10 @@ def create_sv_metadata() -> List[StatVarMetadata]:
   batched_list = split_into_batches(stat_var_sentences)
 
   for curr_batch in batched_list:
-    curr_batch_dict: Dict[str, str] = curr_batch.set_index(
+    dcid_to_sentence: Dict[str, str] = curr_batch.set_index(
         "dcid")["sentence"].to_dict()
     sv_metadata_list: List[StatVarMetadata] = extract_metadata(
-        client, curr_batch_dict, sv_metadata_list)
+        client, dcid_to_sentence, sv_metadata_list)
 
   return sv_metadata_list
 
