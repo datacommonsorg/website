@@ -57,6 +57,7 @@ GEMINI_MAX_OUTPUT_TOKENS = 65535
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
 DC_API_KEY = os.getenv("DC_API_KEY")
 
+
 def extract_flag() -> argparse.Namespace:
   """
   Extracts the -generateAltSentences flag from the command line arguments.
@@ -70,6 +71,7 @@ def extract_flag() -> argparse.Namespace:
       default=False)
   args = parser.parse_args()
   return args
+
 
 def split_into_batches(
     original_df: pd.DataFrame | List) -> List[pd.DataFrame] | List[List]:
@@ -97,6 +99,7 @@ def get_prop_value(prop_data) -> str:
     return first_node.get("name")
   else:
     return first_node.get("dcid")
+
 
 def extract_metadata(
     client: DataCommonsClient, curr_batch: Dict[str, str],
@@ -217,13 +220,13 @@ async def batch_generate_alt_sentences(
   batched_list: List[List[StatVarMetadata]] = split_into_batches(
       sv_metadata_list)
 
-  tasks_to_parallelize: List[asyncio.Task] = []
+  parallel_tasks: List[asyncio.Task] = []
   for curr_batch in batched_list:
-    tasks_to_parallelize.append(
+    parallel_tasks.append(
         generate_alt_sentences(gemini_client, gemini_config, curr_batch))
 
   batched_alt_sentences: List[Dict[str, List[str]]] = await asyncio.gather(
-      *tasks_to_parallelize)
+      *parallel_tasks)
 
   dcid_to_alt_sentences: Dict[str, List[str]] = {}
   for alt_sentence_batch in batched_alt_sentences:
