@@ -133,8 +133,7 @@ class VisMapTestMixin():
 
     # Click per capita and assert results are correct.
     per_capita_checkbox = self.driver.find_element(
-        By.CSS_SELECTOR,
-        '.chart-footer-options .chart-option .form-check-input')
+        By.CSS_SELECTOR, '.chart-options .option-inputs .form-check-input')
     per_capita_checkbox.click()
     shared.wait_for_loading(self.driver)
     self.assertEqual(len(self.get_chart_map_regions()), 58)

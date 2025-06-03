@@ -93,6 +93,7 @@ export function ChartHeader(props: ChartHeaderProps): ReactElement {
           return (
             <div
               key={`section-${sectionIdx}`}
+              className="chart-options"
               css={css`
                 display: flex;
                 flex-wrap: wrap;
