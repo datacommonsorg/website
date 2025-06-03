@@ -187,23 +187,11 @@ def flatten_metadata(
   return sv_metadata_list
 
 
-def create_sv_metadata(generateAltSentences: bool) -> None:
+def create_sv_metadata(generateAltSentences: bool) -> List[StatVarMetadata]:
   """
   Creates SV metadata JSONL file by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
   """
   client = DataCommonsClient(api_key=DC_API_KEY)
-  gemini_client = genai.Client(
-      vertexai=True,
-      project="datcom-website-dev",
-      location="global",
-  )
-  gemini_config = types.GenerateContentConfig(
-      temperature=GEMINI_TEMPERATURE,
-      top_p=GEMINI_TOP_P,
-      seed=GEMINI_SEED,
-      max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
-      response_mime_type="application/json",
-  )
   stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
   sv_metadata_list: List[Dict[str, str]] = []
   batched_list = split_into_batches(stat_var_sentences)
@@ -220,16 +208,52 @@ def create_sv_metadata(generateAltSentences: bool) -> None:
     sv_metadata_list = flatten_metadata(sv_metadata_list, curr_batch_metadata,
                                         alt_sentences)
 
+  return sv_metadata_list
+
+def export_to_json(sv_metadata_list: List[StatVarMetadata]) -> None:
+  """
+  Exports the SV metadata list to a JSON file.
+  """
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
   sv_metadata_df.to_json(EXPORTED_SV_FILE, orient="records", lines=True)
 
+def extract_flag() -> argparse.Namespace:
+  """
+  Extracts the --generateAltSentences flag from the command line arguments.
+  """
+  parser = argparse.ArgumentParser(description="Add metadata to NL Stat Vars")
+  parser.add_argument(
+      "--generateAltSentences",
+      action="store_true",
+      help="Generate alternative sentences for each SV using Gemini API")
+  args = parser.parse_args()
+  return args
 
-parser = argparse.ArgumentParser("./add_metadata.py")
-parser.add_argument(
-    "-generateAltSentences",
-    help=
-    "Whether to generate alternative sentences for the SVs using the Gemini API.",
-    type=bool,
-    default=False)
-args = parser.parse_args()
-create_sv_metadata(args.generateAltSentences)
+def gemini_helper(sv_metadata_list: List[StatVarMetadata]) -> List[StatVarMetadata]:
+  """
+  Helper function to generate alternative sentences using Gemini API.
+  This is a placeholder for future use if needed.
+  """
+  gemini_client = genai.Client(
+      vertexai=True,
+      project="datcom-website-dev",
+      location="global",
+  )
+  gemini_config = types.GenerateContentConfig(
+      temperature=GEMINI_TEMPERATURE,
+      top_p=GEMINI_TOP_P,
+      seed=GEMINI_SEED,
+      max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
+      response_mime_type="application/json",
+  )
+  # make batches
+  # call generate_alt_sentences for each batch
+  # add alt sentences to sv_metadata_list based on dcid
+  # return sv_metadata_list with alt sentences added
+
+args = extract_flag()
+sv_metadata_list = create_sv_metadata()
+if args.generateAltSentences:
+  alt_sentences = generate_alt_sentences(gemini_client, gemini_config,
+                                             sv_metadata_list)
+export_to_json(sv_metadata_list)

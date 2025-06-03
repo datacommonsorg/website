@@ -25,6 +25,7 @@ class StatVarMetadata:
 
   dcid: str
   sentence: str
+  generatedSentences: list[str] = field(default_factory=list)
   measuredProperty: str | None = None
   name: str | None = None
   populationType: str | None = None
