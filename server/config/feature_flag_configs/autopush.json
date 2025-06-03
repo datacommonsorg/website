@@ -52,5 +52,11 @@
     "enabled": false,
     "owner": "dwnoble",
     "description": "Feature flag to show the API modal on web components."
+  },
+  {
+    "name": "factcheck_redirect",
+    "enabled": true,
+    "owner": "dwnoble",
+    "description": "Feature flag to redirect the Fact Check page to the new ClaimReview page."
   }
 ]
