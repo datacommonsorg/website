@@ -253,9 +253,10 @@ class VisTimelineTestMixin():
     radio.click()
 
     # Click the modal-footer button to apply the changes
-    modal_footer_button = find_elem(self.driver,
-                                    value='btn-primary',
-                                    path_to_elem=['modal-footer'])
+    modal_footer_button = find_elem(
+        self.driver,
+        value='source-selector-update-source-button',
+        path_to_elem=['modal-footer'])
     modal_footer_button.click()
 
     # Wait for the chart to reload
