@@ -42,6 +42,12 @@
     "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
   },
   {
+    "name": "factcheck_redirect",
+    "enabled": false,
+    "owner": "dwnoble",
+    "description": "Feature flag to redirect the Fact Check page to the new ClaimReview page."
+  },
+  {
     "name": "metadata_modal",
     "enabled": false,
     "owner": "nick-next",
@@ -52,11 +58,5 @@
     "enabled": false,
     "owner": "dwnoble",
     "description": "Feature flag to show the API modal on web components."
-  },
-  {
-    "name": "factcheck_redirect",
-    "enabled": false,
-    "owner": "dwnoble",
-    "description": "Feature flag to redirect the Fact Check page to the new ClaimReview page."
   }
 ]
