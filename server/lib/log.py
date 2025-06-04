@@ -61,7 +61,7 @@ class ExtremeCallLogger:
         if random.random() * 100 < log_percentage:
             try:
                 payload_str = json.dumps(self.request, sort_keys=True)
-                logging.info("POST Request Payload: URL=%s, Payload=%s", self.url, payload_str)
+                logging.info("Request Payload: URL=%s, Payload=%s", self.url, payload_str)
             except TypeError:
                 pass  # Silently ignore serialization errors
 
@@ -74,6 +74,7 @@ class ExtremeCallLogger:
         log_percentage=current_app.config.get('LOG_DC_REQUEST_PAYLOAD_PERCENTAGE', 0)
     )
    
+    # Error msgs
     cases = []
 
     # Always log long calls.
@@ -81,9 +82,10 @@ class ExtremeCallLogger:
     if dur > _MAX_DURATION_SECS:
       cases.append(f'long-call: {dur}s')
 
+    # If request is set, then check for known schema things
     nvars = 0
     nents = 0
-    if self.request: 
+    if self.request:
       nents = len(self.request.get('nodes', []))
       if not nents:
         nents = len(self.request.get('entity', {}).get('dcids', []))
@@ -93,11 +95,11 @@ class ExtremeCallLogger:
       if nvars > _VAR_LIMIT:
         cases.append(f'big-req: {nvars} vars')
 
+    # If response is set, check byte limit
     if resp:
       if resp.status_code != 200:
-        content_snippet = str(resp.content[:200]) if resp.content else ""
         cases.append(
-            f'failed-call: {resp.reason} - {nents} entities, {nvars} vars - {content_snippet}'
+            f'failed-call: {resp.reason} - {nents} entities, {nvars} vars - {resp.content}'
         )
       else:
         if len(resp.text) > _BYTE_LIMIT:
@@ -107,3 +109,4 @@ class ExtremeCallLogger:
       msg = ' | '.join(cases)
       stack = ''.join(traceback.format_stack(limit=10))
       logging.warning(f'ExtremeCall # {msg} #\nStack Trace:\n{stack}')
+  
