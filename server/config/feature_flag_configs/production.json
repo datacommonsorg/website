@@ -43,6 +43,7 @@
     "name": "show_api_modal",
     "enabled": false,
     "owner": "dwnoble",
+    "deprecated": true,
     "description": "Feature flag to show the API modal on web components."
   },
   {
