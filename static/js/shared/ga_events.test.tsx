@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import theme from "../theme/theme";
-
 jest.mock("axios");
 jest.mock("../chart/draw_d3_map");
 jest.mock("../chart/draw_map_utils");
@@ -56,12 +54,12 @@ jest.mock("../chart/draw_utils", () => {
   };
 });
 
-import { ThemeProvider } from "@emotion/react";
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import axios from "axios";
 import React from "react";
 
 import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
+import { DataPointMetadata } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
 import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
@@ -111,7 +109,6 @@ import {
 } from "./ga_events";
 import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
-import { DataPointMetadata } from "./types";
 import { NamedTypedPlace, StatVarHierarchyType, StatVarSummary } from "./types";
 
 const CATEGORY = "Economics";
@@ -407,11 +404,9 @@ describe("test ga event tool chart plot", () => {
 
     // When the component is mounted.
     const { rerender } = render(
-      <ThemeProvider theme={theme}>
-        <MapContext.Provider value={MAP_CONTEXT}>
-          <MapToolChart {...MAP_PROPS} />
-        </MapContext.Provider>
-      </ThemeProvider>
+      <MapContext.Provider value={MAP_CONTEXT}>
+        <MapToolChart {...MAP_PROPS} />
+      </MapContext.Provider>
     );
     await waitFor(() => {
       // Check the parameters passed to gtag.
@@ -429,11 +424,9 @@ describe("test ga event tool chart plot", () => {
 
     // When the component is rerendered with the same props.
     rerender(
-      <ThemeProvider theme={theme}>
-        <MapContext.Provider value={MAP_CONTEXT}>
-          <MapToolChart {...MAP_PROPS} />
-        </MapContext.Provider>
-      </ThemeProvider>
+      <MapContext.Provider value={MAP_CONTEXT}>
+        <MapToolChart {...MAP_PROPS} />
+      </MapContext.Provider>
     );
     await waitFor(() =>
       // Check gtag is not called.
@@ -443,11 +436,9 @@ describe("test ga event tool chart plot", () => {
     // When stat var changes.
     MAP_CONTEXT.statVar.value.dcid = STAT_VAR_2;
     rerender(
-      <ThemeProvider theme={theme}>
-        <MapContext.Provider value={MAP_CONTEXT}>
-          <MapToolChart {...MAP_PROPS} />
-        </MapContext.Provider>
-      </ThemeProvider>
+      <MapContext.Provider value={MAP_CONTEXT}>
+        <MapToolChart {...MAP_PROPS} />
+      </MapContext.Provider>
     );
     await waitFor(() => {
       // Check gtag is called once, two time in total.
@@ -473,11 +464,7 @@ describe("test ga event tool chart plot", () => {
       .mockImplementation(() => Promise.resolve(null));
 
     // When the component is mounted.
-    const { rerender } = render(
-      <ThemeProvider theme={theme}>
-        <TimelineToolChart {...TIMELINE_PROPS} />)
-      </ThemeProvider>
-    );
+    const { rerender } = render(<TimelineToolChart {...TIMELINE_PROPS} />);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -493,11 +480,7 @@ describe("test ga event tool chart plot", () => {
     });
 
     // When the component is rerendered with the same props.
-    rerender(
-      <ThemeProvider theme={theme}>
-        <TimelineToolChart {...TIMELINE_PROPS} />
-      </ThemeProvider>
-    );
+    rerender(<TimelineToolChart {...TIMELINE_PROPS} />);
     await waitFor(() =>
       // Check gtag is called.
       expect(mockgtag.mock.calls.length).toEqual(1)
@@ -505,11 +488,7 @@ describe("test ga event tool chart plot", () => {
 
     // When stat var changes.
     TIMELINE_PROPS.statVarInfos = { [STAT_VAR_2]: { title: null } };
-    rerender(
-      <ThemeProvider theme={theme}>
-        <TimelineToolChart {...TIMELINE_PROPS} />
-      </ThemeProvider>
-    );
+    rerender(<TimelineToolChart {...TIMELINE_PROPS} />);
     await waitFor(() => {
       // Check gtag is called once, two time in total.
       expect(mockgtag.mock.calls.length).toEqual(2);
@@ -531,11 +510,9 @@ describe("test ga event tool chart plot", () => {
 
     // When the component is mounted.
     const { rerender } = render(
-      <ThemeProvider theme={theme}>
-        <ScatterContext.Provider value={SCATTER_CONTEXT}>
-          <ScatterToolChart {...SCATTER_PROPS} />
-        </ScatterContext.Provider>
-      </ThemeProvider>
+      <ScatterContext.Provider value={SCATTER_CONTEXT}>
+        <ScatterToolChart {...SCATTER_PROPS} />
+      </ScatterContext.Provider>
     );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
@@ -553,11 +530,9 @@ describe("test ga event tool chart plot", () => {
 
     // When the component is rerendered with the same props.
     rerender(
-      <ThemeProvider theme={theme}>
-        <ScatterContext.Provider value={SCATTER_CONTEXT}>
-          <ScatterToolChart {...SCATTER_PROPS} />
-        </ScatterContext.Provider>
-      </ThemeProvider>
+      <ScatterContext.Provider value={SCATTER_CONTEXT}>
+        <ScatterToolChart {...SCATTER_PROPS} />
+      </ScatterContext.Provider>
     );
     await waitFor(() =>
       // Check gtag is not called.
@@ -578,11 +553,9 @@ describe("test ga event tool chart plot", () => {
       },
     ];
     rerender(
-      <ThemeProvider theme={theme}>
-        <ScatterContext.Provider value={SCATTER_CONTEXT}>
-          <ScatterToolChart {...SCATTER_PROPS} />
-        </ScatterContext.Provider>
-      </ThemeProvider>
+      <ScatterContext.Provider value={SCATTER_CONTEXT}>
+        <ScatterToolChart {...SCATTER_PROPS} />
+      </ScatterContext.Provider>
     );
     await waitFor(() => {
       // Check gtag is called once, two times in total.
@@ -765,11 +738,7 @@ describe("test ga event tool chart plot option", () => {
       .mockImplementation(() => Promise.resolve(null));
 
     // Render the component.
-    const timelineToolChart = render(
-      <ThemeProvider theme={theme}>
-        <TimelineToolChart {...TIMELINE_PROPS} />
-      </ThemeProvider>
-    );
+    const timelineToolChart = render(<TimelineToolChart {...TIMELINE_PROPS} />);
     // Wait for gtag event tool chart plot to be called.
     await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
 
@@ -837,11 +806,9 @@ describe("test ga event tool chart plot option", () => {
 
     // Render the component.
     const scatterToolChart = render(
-      <ThemeProvider theme={theme}>
-        <ScatterContext.Provider value={SCATTER_CONTEXT}>
-          <ScatterToolChart {...SCATTER_PROPS} />
-        </ScatterContext.Provider>
-      </ThemeProvider>
+      <ScatterContext.Provider value={SCATTER_CONTEXT}>
+        <ScatterToolChart {...SCATTER_PROPS} />
+      </ScatterContext.Provider>
     );
     // Wait for gtag event tool chart plot to be called.
     await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
@@ -992,11 +959,9 @@ describe("test ga event tool chart plot option", () => {
 
     // Render the component.
     const mapToolChart = render(
-      <ThemeProvider theme={theme}>
-        <MapContext.Provider value={MAP_CONTEXT}>
-          <MapToolChart {...MAP_PROPS} />
-        </MapContext.Provider>
-      </ThemeProvider>
+      <MapContext.Provider value={MAP_CONTEXT}>
+        <MapToolChart {...MAP_PROPS} />
+      </MapContext.Provider>
     );
     await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
 
