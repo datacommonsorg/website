@@ -38,7 +38,7 @@ _MAX_DURATION_SECS = 2
 
 # Usage:
 #
-# call_logger = ExtremeCallLogger(request, url=url_if_post) # Pass URL for POSTs
+# call_logger = ExtremeCallLogger(request, url)
 #
 # ... make the call ....
 #
