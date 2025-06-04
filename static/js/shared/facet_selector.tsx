@@ -122,20 +122,20 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
 
   return (
     <>
-      {!loading && (
-        <Button
-          className={`${SELECTOR_PREFIX}-open-modal-button`}
-          variant="flat"
-          onClick={(): void => setModalOpen(true)}
-          css={css`
-            flex-shrink: 0;
-          `}
-        >
-          {`Select a dataset${
-            totalFacetOptionCount > 0 ? ` [${totalFacetOptionCount}]` : ""
-          }`}
-        </Button>
-      )}
+      <Button
+        className={`${SELECTOR_PREFIX}-open-modal-button`}
+        variant="flat"
+        onClick={(): void => setModalOpen(true)}
+        disabled={loading}
+        css={css`
+          flex-shrink: 0;
+          visibility: ${loading ? "hidden" : "visible"};
+        `}
+      >
+        {`Select a dataset${
+          totalFacetOptionCount > 0 ? ` [${totalFacetOptionCount}]` : ""
+        }`}
+      </Button>
       <Modal
         isOpen={modalOpen}
         className={`${SELECTOR_PREFIX}-modal`}
