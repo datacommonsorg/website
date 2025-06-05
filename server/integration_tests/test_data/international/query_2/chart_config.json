@@ -497,6 +497,13 @@
     "childPlaces": {
       "AdministrativeArea1": [
         {
+          "dcid": "country/HKG",
+          "name": "Hong Kong",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "country/MAC",
           "name": "Macau",
           "types": [
@@ -518,6 +525,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q15019",
+          "name": "Sha Tin District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q15175",
           "name": "Guangdong",
           "types": [
@@ -526,7 +540,21 @@
         },
         {
           "dcid": "wikidataId/Q15176",
-          "name": "Guangxi Zhuang Autonomous Region",
+          "name": "Guangxi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q155697",
+          "name": "Sai Kung District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q157669",
+          "name": "Yau Tsim Mong District",
           "types": [
             "AdministrativeArea1"
           ]
@@ -569,6 +597,13 @@
         {
           "dcid": "wikidataId/Q21208",
           "name": "Hebei",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q312485",
+          "name": "Central and Western District",
           "types": [
             "AdministrativeArea1"
           ]
@@ -701,14 +736,42 @@
         },
         {
           "dcid": "wikidataId/Q57251",
-          "name": "Taiwan Province, People's Republic of China",
+          "name": "Taiwan",
           "types": [
             "AdministrativeArea1"
           ]
         },
         {
           "dcid": "wikidataId/Q57448",
-          "name": "Ningxia Hui Autonomous Region",
+          "name": "Ningxia",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q655626",
+          "name": "Sham Shui Po District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q727054",
+          "name": "Eastern District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q752523",
+          "name": "Islands District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q868032",
+          "name": "North District",
           "types": [
             "AdministrativeArea1"
           ]
@@ -721,6 +784,48 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q871442",
+          "name": "Yuen Long District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q875773",
+          "name": "Kwun Tong District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q877132",
+          "name": "Kwai Tsing District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q877813",
+          "name": "Tai Po District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q878503",
+          "name": "Wong Tai Sin District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q878514",
+          "name": "Tsuen Wan District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q956",
           "name": "Beijing",
           "types": [
@@ -728,8 +833,15 @@
           ]
         },
         {
-          "dcid": "wikidataId/Q986431",
-          "name": "Southern District",
+          "dcid": "wikidataId/Q986383",
+          "name": "Tuen Mun District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q986415",
+          "name": "Kowloon City District",
           "types": [
             "AdministrativeArea1"
           ]
