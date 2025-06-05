@@ -5,7 +5,8 @@
     "owner": "gmechali",
     "description": "Feature flag to enable place autocomplete."
   },
-  {    "name": "biomed_nl",
+  {
+    "name": "biomed_nl",
     "enabled": false,
     "owner": "calinc",
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
