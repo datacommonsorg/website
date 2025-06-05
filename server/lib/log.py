@@ -58,7 +58,10 @@ class ExtremeCallLogger:
     Fails silently on serialization errors.
     """
     if log_enabled and self.url and isinstance(self.request, dict):
-      if random.random() * 100 < log_percentage:
+      # Bandit B311: Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+      # Ref: https://bandit.readthedocs.io/en/latest/plugins/b311_random.html
+      # This usage is for sampling, not for security, so it's safe to ignore.
+      if random.random() * 100 < log_percentage:  # nosec B311
         try:
           payload_str = json.dumps(self.request, sort_keys=True)
           logging.info("Request Payload: URL=%s, Payload=%s", self.url,
