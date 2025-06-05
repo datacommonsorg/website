@@ -114,8 +114,9 @@ interface CommonButtonProps {
   // 'standard': an outlined button
   // 'inverted': a filled button.
   // 'text': a text-only button (no outline or fill).
+  // 'flat': a filled, borderless button (fill but no outline).
   // Default: 'standard'
-  variant?: "standard" | "inverted" | "text";
+  variant?: "standard" | "inverted" | "text" | "flat";
   // The size of the button.
   // Default: 'md'
   size?: "sm" | "md" | "lg";
@@ -174,7 +175,6 @@ export const Button = forwardRef<
 
   const commonStyles = css`
     ${theme.typography.family.text}
-    ${theme.radius.full}
     border: 0;
     margin: 0;
     padding: 0;
@@ -208,19 +208,21 @@ export const Button = forwardRef<
     lg: css`
       ${theme.button.size.lg}
       ${theme.typography.text.lg}
-      line-height: 1rem;
     `,
   };
 
   const variantStyles = {
     standard: css`
-      ${theme.button.type.primary}
+      ${theme.button.variant.standard}
     `,
     inverted: css`
-      ${theme.button.type.secondary}
+      ${theme.button.variant.inverted}
     `,
     text: css`
-      ${theme.button.type.tertiary}
+      ${theme.button.variant.text}
+    `,
+    flat: css`
+      ${theme.button.variant.flat}
     `,
   };
 

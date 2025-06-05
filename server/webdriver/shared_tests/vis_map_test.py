@@ -133,8 +133,7 @@ class VisMapTestMixin():
 
     # Click per capita and assert results are correct.
     per_capita_checkbox = self.driver.find_element(
-        By.CSS_SELECTOR,
-        '.chart-footer-options .chart-option .form-check-input')
+        By.CSS_SELECTOR, '.chart-options .option-inputs .form-check-input')
     per_capita_checkbox.click()
     shared.wait_for_loading(self.driver)
     self.assertEqual(len(self.get_chart_map_regions()), 58)
@@ -152,8 +151,8 @@ class VisMapTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
                          "Count_Person_Female")
-    update_button = self.driver.find_element(By.CSS_SELECTOR,
-                                             '.modal-footer .btn')
+    update_button = self.driver.find_element(
+        By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
