@@ -18,12 +18,12 @@
 # debug info including the function call stack.
 #
 
+import json
 import logging
 import os
 import random
 import time
 import traceback
-import json
 
 from flask import current_app
 import requests
@@ -49,7 +49,7 @@ class ExtremeCallLogger:
 
   def __init__(self, request: dict = None, url: str = None):
     self.request = request
-    self.url = url # Store URL for potential payload logging
+    self.url = url  # Store URL for potential payload logging
     self.start = time.time()
 
   def _try_log_payload(self, log_enabled: bool, log_percentage: int):
@@ -58,22 +58,23 @@ class ExtremeCallLogger:
     Fails silently on serialization errors.
     """
     if log_enabled and self.url and isinstance(self.request, dict):
-        if random.random() * 100 < log_percentage:
-            try:
-                payload_str = json.dumps(self.request, sort_keys=True)
-                logging.info("Request Payload: URL=%s, Payload=%s", self.url, payload_str)
-            except TypeError:
-                pass  # Silently ignore serialization errors
+      if random.random() * 100 < log_percentage:
+        try:
+          payload_str = json.dumps(self.request, sort_keys=True)
+          logging.info("Request Payload: URL=%s, Payload=%s", self.url,
+                       payload_str)
+        except TypeError:
+          pass  # Silently ignore serialization errors
 
   def finish(self, resp: requests.Response = None):
     if os.environ.get('FLASK_ENV') in ['production', 'custom']:
       return
 
-    self._try_log_payload( 
+    self._try_log_payload(
         log_enabled=current_app.config.get('LOG_DC_REQUEST_PAYLOAD'),
-        log_percentage=current_app.config.get('LOG_DC_REQUEST_PAYLOAD_PERCENTAGE', 0)
-    )
-   
+        log_percentage=current_app.config.get(
+            'LOG_DC_REQUEST_PAYLOAD_PERCENTAGE', 0))
+
     # Error msgs
     cases = []
 
@@ -109,4 +110,3 @@ class ExtremeCallLogger:
       msg = ' | '.join(cases)
       stack = ''.join(traceback.format_stack(limit=10))
       logging.warning(f'ExtremeCall # {msg} #\nStack Trace:\n{stack}')
-  
