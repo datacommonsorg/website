@@ -82,6 +82,7 @@ const DC_BLUE_DARK = "hsl(217, 90%, 15%)";
 const DC_BLUE_LIGHT = "hsl(218, 57%, 63%)";
 const DC_BLUE_LIGHTER = "hsl(204, 100%, 88%)";
 const DC_BLUE_WHITE = "hsl(220, 100%, 98%)";
+const DC_BLUE_WHITE_LIGHT = "hsl(217, 90%, 95%)";
 
 const DC_BLUE_PILL_TEXT = "hsl(217, 90%, 15%)";
 const DC_BLUE_PILL_BCKG = "hsl(218, 92%, 95%)";
@@ -307,33 +308,47 @@ const theme: Theme = {
     },
   },
   button: {
-    type: {
-      primary: {
+    variant: {
+      standard: {
         color: DC_BLUE,
         backgroundColor: DC_WHITE,
         border: `1px solid ${DC_BLACK_70}`,
+        borderRadius: `1000px`,
         ["&:hover:not(:disabled):not([aria-disabled])"]: {
           backgroundColor: DC_WHITE,
           color: DC_BLUE,
           border: `1px solid ${DC_BLUE}`,
         },
       },
-      secondary: {
+      inverted: {
         color: DC_BLUE,
         backgroundColor: DC_BLUE_LIGHTER,
         border: `1px solid ${DC_BLUE_LIGHTER}`,
+        borderRadius: `1000px`,
         ["&:hover:not(:disabled):not([aria-disabled])"]: {
           backgroundColor: DC_BLUE_LIGHTER,
           color: DC_BLUE,
           border: `1px solid ${DC_BLUE}`,
         },
       },
-      tertiary: {
+      text: {
         color: DC_BLUE,
         backgroundColor: "transparent",
         border: `1px solid transparent`,
+        borderRadius: `1000px`,
         ["&:hover:not(:disabled):not([aria-disabled])"]: {
           backgroundColor: "transparent",
+          color: DC_BLUE,
+          border: `1px solid ${DC_BLUE}`,
+        },
+      },
+      flat: {
+        color: DC_BLUE,
+        backgroundColor: DC_BLUE_WHITE_LIGHT,
+        border: `1px solid ${DC_BLUE_WHITE_LIGHT}`,
+        borderRadius: `8px`,
+        ["&:hover:not(:disabled):not([aria-disabled])"]: {
+          backgroundColor: DC_BLUE_WHITE_LIGHT,
           color: DC_BLUE,
           border: `1px solid ${DC_BLUE}`,
         },
