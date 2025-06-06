@@ -61,6 +61,19 @@ export interface Theme {
     xl: number;
   };
   colors: {
+    blacks?: {
+      A000: string;
+      A100: string;
+      A200: string;
+      A300: string;
+      A400: string;
+      A500: string;
+      A600: string;
+      A700: string;
+      A800: string;
+      A900: string;
+      A950: string;
+    };
     text?: {
       primary?: {
         base?: string;
@@ -243,11 +256,12 @@ export interface Theme {
     };
   };
   button: {
-    type: {
-      primary?: {
+    variant: {
+      standard?: {
         backgroundColor: string;
         color: string;
         border: string;
+        borderRadius: string;
         [key: string]:
           | string
           | number
@@ -257,10 +271,11 @@ export interface Theme {
               border: string;
             };
       };
-      secondary?: {
+      inverted?: {
         backgroundColor: string;
         color: string;
         border: string;
+        borderRadius: string;
         [key: string]:
           | string
           | number
@@ -270,10 +285,25 @@ export interface Theme {
               border: string;
             };
       };
-      tertiary?: {
+      text?: {
         backgroundColor: string;
         color: string;
         border: string;
+        borderRadius: string;
+        [key: string]:
+          | string
+          | number
+          | {
+              backgroundColor: string;
+              color: string;
+              border: string;
+            };
+      };
+      flat?: {
+        backgroundColor: string;
+        color: string;
+        border: string;
+        borderRadius: string;
         [key: string]:
           | string
           | number

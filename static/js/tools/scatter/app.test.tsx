@@ -16,8 +16,11 @@
 
 /* eslint-disable camelcase */
 
+import theme from "../../theme/theme";
+
 jest.mock("axios");
 
+import { ThemeProvider } from "@emotion/react";
 import { act, waitFor } from "@testing-library/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
@@ -51,9 +54,11 @@ function TestApp(): JSX.Element {
     });
   }, []);
   return (
-    <Context.Provider value={context}>
-      <App />
-    </Context.Provider>
+    <ThemeProvider theme={theme}>
+      <Context.Provider value={context}>
+        <App />
+      </Context.Provider>
+    </ThemeProvider>
   );
 }
 
