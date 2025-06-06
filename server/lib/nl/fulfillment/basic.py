@@ -76,6 +76,11 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
                       places: List[Place], chart_origin: ChartOriginType,
                       rank: int) -> bool:
   added = False
+  # TODO(gmechali): Consider making is_highlight a part of the utterance.
+  # We use the chart type parameter as a proxy to determine if a specific chart
+  # was requested, and should be used as the highlight chart. On highlight chart
+  # cases, we don't want to show any other chart.
+  is_highlight = bool(state.uttr.insight_ctx.get(params.Params.CHART_TYPE))
 
   # For peer-groups, add multi-line charts.
   max_rank_and_map_charts = _get_max_rank_and_map_charts(chart_vars, state)
@@ -102,7 +107,11 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
     if state.place_type:
       # If this is SDG, unless user has asked for ranking, do not return!
       added_child_type_charts = False
-      if not is_special_dc or state.ranking_types:
+
+      # TODO(gmechali): Refactor this code for more explicit logic.
+      # The is_highlight check is to avoid showing the related contained-in
+      # chart when the user has asked for a specific chart.
+      if not is_highlight and not is_special_dc or state.ranking_types:
         ranking_orig = state.ranking_types
         if not state.ranking_types:
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]

@@ -19,10 +19,13 @@ import urllib.request
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import TIMEOUT
+from server.webdriver.base_utils import wait_elem
 
 LOADING_WAIT_TIME_SEC = 3
 MAX_NUM_SPINNERS = 3
@@ -60,11 +63,8 @@ def wait_for_loading(driver):
 
 def click_sv_group(driver, svg_name):
   """In the stat var widget, click on the stat var group titled svg_name."""
-  sv_groups = driver.find_elements(By.CLASS_NAME, 'node-title')
-  for group in sv_groups:
-    if svg_name in group.text:
-      group.click()
-      break
+  xpath_selector = f"//div[contains(@class, 'node-title') and .//*[contains(text(), '{svg_name}')]]"
+  click_el(driver, (By.XPATH, xpath_selector))
 
 
 def click_el(driver, element_locator):
@@ -149,3 +149,77 @@ def assert_topics(self, driver, path_to_topics, classname, expected_topics):
   # Iterate through the elements and assert their text content
   for item, expected_text in zip(item_list_items, expected_topics):
     self.assertEqual(item.text, expected_text)
+
+
+def search_for_places(self,
+                      driver,
+                      search_term,
+                      place_type,
+                      is_new_vis_tools=True):
+  """Interacts with a visualization tool page to manually search for places.
+
+  - Enters the given term in the search bar
+  - Clicks the first autocomplete response
+  - Selects the given place type from the options.
+
+  When is_new_vis_tools=True (default), expects the DOM of the newer version
+  of the visualization tools.
+  """
+  if is_new_vis_tools:
+    _search_for_places(self, driver, search_term, place_type)
+  else:
+    _search_for_places_old(self, driver, search_term, place_type)
+
+
+def _search_for_places_old(self, driver, search_term, place_type):
+  # Type term into the search box.
+  search_box_input = find_elem(driver, by=By.ID, value='ac')
+  search_box_input.send_keys(search_term)
+
+  # Wait until there is at least one result in autocomplete results.
+  self.assertIsNotNone(wait_elem(driver, value='pac-item'))
+
+  # Click on the first result.
+  click_el(driver, (By.CSS_SELECTOR, '.pac-item:nth-child(1)'))
+  wait_for_loading(driver)
+  self.assertIsNotNone(wait_elem(driver, value='chip'))
+
+  # Choose place type
+  wait_for_loading(driver)
+  place_selector_place_type = find_elem(driver,
+                                        by=By.ID,
+                                        value='place-selector-place-type')
+  Select(place_selector_place_type).select_by_value(place_type)
+  wait_for_loading(driver)
+
+
+def _search_for_places(self, driver, search_term, place_type):
+  # Click start
+  click_el(driver, (By.CLASS_NAME, 'start-button'))
+
+  # Type term into the search box.
+  wait_elem(self.driver, by=By.ID, value='location-field')
+  search_box_input = self.driver.find_element(By.ID, 'ac')
+  search_box_input.send_keys(search_term)
+
+  # Wait until there is at least one result in autocomplete results.
+  self.assertIsNotNone(wait_elem(driver, value='pac-item'))
+
+  # Click on the first result.
+  click_el(driver, (By.CSS_SELECTOR, '.pac-item:nth-child(1)'))
+  wait_for_loading(driver)
+
+  # Click continue
+  click_el(driver, (By.CLASS_NAME, 'continue-button'))
+
+  # Wait for place types to load and click on one
+  wait_elem(self.driver,
+            by=By.CSS_SELECTOR,
+            value='.place-type-selector .form-check-input')
+  # Find the specific label by its text using XPath and click it
+  place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
+  click_el(driver, (By.XPATH, place_type_xpath))
+
+  # Click continue
+  click_el(driver, (By.CLASS_NAME, 'continue-button'))
+  wait_for_loading(self.driver)

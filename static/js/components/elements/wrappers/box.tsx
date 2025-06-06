@@ -46,7 +46,7 @@ export const Box = ({
     <div
       css={[
         css`
-          ${theme.radius.tertiary}
+          ${theme.radius.quaternary}
           background-color: ${color};
           border: 1px solid ${theme.colors.border.primary.light};
           width: 100%;

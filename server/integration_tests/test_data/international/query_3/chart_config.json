@@ -280,7 +280,7 @@
         },
         {
           "dcid": "nuts/ES113",
-          "name": "Ourense Province",
+          "name": "Ourense",
           "types": [
             "EurostatNUTS3"
           ]
@@ -308,7 +308,7 @@
         },
         {
           "dcid": "nuts/ES211",
-          "name": "Araba / \u00c1lava",
+          "name": "Araba/\u00c1lava",
           "types": [
             "EurostatNUTS3"
           ]
@@ -378,7 +378,7 @@
         },
         {
           "dcid": "nuts/ES412",
-          "name": "Burgos Province",
+          "name": "Burgos",
           "types": [
             "EurostatNUTS3"
           ]
@@ -399,7 +399,7 @@
         },
         {
           "dcid": "nuts/ES415",
-          "name": "Salamanca Province",
+          "name": "Province of Salamanca",
           "types": [
             "EurostatNUTS3"
           ]
@@ -413,7 +413,7 @@
         },
         {
           "dcid": "nuts/ES417",
-          "name": "Soria",
+          "name": "Soria Province",
           "types": [
             "EurostatNUTS3"
           ]
@@ -441,7 +441,7 @@
         },
         {
           "dcid": "nuts/ES422",
-          "name": "Ciudad Real Province",
+          "name": "Ciudad Real",
           "types": [
             "EurostatNUTS3"
           ]
@@ -469,7 +469,7 @@
         },
         {
           "dcid": "nuts/ES431",
-          "name": "Badajoz Province",
+          "name": "Badajoz",
           "types": [
             "EurostatNUTS3"
           ]
@@ -497,14 +497,14 @@
         },
         {
           "dcid": "nuts/ES513",
-          "name": "Lleida Province",
+          "name": "Lleida",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES514",
-          "name": "Tarragona Province",
+          "name": "Province of Tarragona",
           "types": [
             "EurostatNUTS3"
           ]
@@ -525,7 +525,7 @@
         },
         {
           "dcid": "nuts/ES523",
-          "name": "Valencia / Val\u00e8ncia",
+          "name": "Province of Valencia",
           "types": [
             "EurostatNUTS3"
           ]
@@ -574,14 +574,14 @@
         },
         {
           "dcid": "nuts/ES614",
-          "name": "Granada Province",
+          "name": "Granada",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES615",
-          "name": "Huelva Province",
+          "name": "Huelva",
           "types": [
             "EurostatNUTS3"
           ]

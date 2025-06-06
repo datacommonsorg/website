@@ -59,6 +59,8 @@ class Params(str, Enum):
   MAX_TOPICS = 'maxTopics'
   # The maximum number of charts blocks to return in the resulting chart config
   MAX_CHARTS = 'maxCharts'
+  # The type of the chart to return in the resulting chart config
+  CHART_TYPE = 'chartType'
 
 
 class DCNames(str, Enum):

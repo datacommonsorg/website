@@ -31,6 +31,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of females in the population.",
             "title": "Women"
           },
           {
@@ -63,6 +64,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of females in the population.",
             "title": "Women in States of United States of America"
           },
           {
@@ -113,6 +115,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of males in the population.",
             "title": "Men in States of United States of America"
           },
           {

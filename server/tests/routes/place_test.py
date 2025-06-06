@@ -141,11 +141,6 @@ class TestPlacePage(unittest.TestCase):
     assert response.status_code == 200
     assert b"<title>California - Data Commons" in response.data
 
-    # TODO(beets): construct a better test that doesn't rely on prod.
-    response = app.test_client().get('/explore/place?dcid=geoId/06',
-                                     follow_redirects=False)
-    assert response.status_code == 302
-
     test_client = app.test_client()
     with test_client:
       response = test_client.get(

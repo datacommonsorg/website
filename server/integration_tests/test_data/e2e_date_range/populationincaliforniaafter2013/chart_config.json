@@ -75,7 +75,7 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_PerArea_1151455814"
+                      "Count_Person_PerArea_3300708475"
                     ],
                     "title": "Population Density in California",
                     "type": "LINE"
@@ -473,6 +473,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of females in the population.",
             "title": "Women in Counties of California"
           },
           {
@@ -505,6 +506,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Total number of males in the population.",
             "title": "Men in Counties of California"
           },
           {
@@ -1593,8 +1595,8 @@
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
           },
-          "Count_Person_PerArea_1151455814": {
-            "facetId": "1151455814",
+          "Count_Person_PerArea_3300708475": {
+            "facetId": "3300708475",
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
           },

@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Number of People Unemployed in Washington",
+                    "title": "Population: Unemployed in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of People Unemployed in Washington",
+                    "description": "Population: Unemployed in Washington",
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Number of People Unemployed in Washington",
+                    "title": "Population: Unemployed in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Number of People Unemployed"
+            "title": "Population: Unemployed"
           },
           {
             "columns": [
@@ -668,7 +668,7 @@
             "statVar": "Count_Person_NotInLaborForce"
           },
           "Count_Person_Unemployed": {
-            "name": "Number of people unemployed",
+            "name": "Population: Unemployed",
             "statVar": "Count_Person_Unemployed"
           },
           "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
