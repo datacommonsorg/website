@@ -16,15 +16,18 @@
 
 /**
  * Component to edit the facet for a list of stat vars.
+ *
+ * Note: This is the old version of the facet selector, used in the footer for
+ * the old tools.
  */
 
-/** @jsxImportSource @emotion/react */
+// TODO (nick-next): remove if/when old tools are converted.
 
-import { css } from "@emotion/react";
 import _ from "lodash";
-import React, { ReactElement, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
 import {
+  Button,
   FormGroup,
   Input,
   Label,
@@ -34,7 +37,6 @@ import {
   ModalHeader,
 } from "reactstrap";
 
-import { Button } from "../components/elements/button/button";
 import { StatMetadata } from "./stat_types";
 
 const MODAL_MAX_WIDTH = "90vw";
@@ -44,10 +46,9 @@ const MINUS_HTML = <i className="material-icons">remove</i>;
 const PLUS_HTML = <i className="material-icons">add</i>;
 const SELECTOR_PREFIX = "source-selector";
 const MAX_FACETS_UNGROUPED = 3;
-// The "EMPTY_METADATA_TITLE" option means the facet is picked by the API and
-// different facets can be used for different data points.
-const EMPTY_METADATA_TITLE =
-  "Plot data points by combining data from the datasets listed below for maximal coverage";
+// Best Available means the facet is picked by the API and different facets
+// can be used for different data points.
+const EMPTY_METADATA_TITLE = "Best Available";
 
 // The information needed in SourceSelector component for a single stat var to
 // get the list of available facets
@@ -75,24 +76,12 @@ interface FacetSelectorPropType {
   ) => void;
 }
 
-export function FacetSelector(props: FacetSelectorPropType): ReactElement {
+export function FacetSelectorLegacy(props: FacetSelectorPropType): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
-  const [facetList, setFacetList] = useState<FacetSelectorFacetInfo[] | null>(
-    null
-  );
+  const [facetList, setFacetList] = useState(null);
   const [modalSelections, setModalSelections] = useState(props.svFacetId);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-
-  const totalFacetOptionCount = useMemo(() => {
-    if (!facetList) return 0;
-    return facetList.reduce((sum: number, facetInfo) => {
-      const count = Object.keys(facetInfo.metadataMap).filter(
-        (facetId) => facetId !== ""
-      ).length;
-      return sum + count;
-    }, 0);
-  }, [facetList]);
 
   useEffect(() => {
     setLoading(true);
@@ -119,22 +108,15 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
   }, [props.svFacetId, modalOpen]);
 
   const showSourceOptions = facetList && !errorMessage;
-
   return (
     <>
       <Button
         className={`${SELECTOR_PREFIX}-open-modal-button`}
-        variant="flat"
+        size="sm"
+        color="light"
         onClick={(): void => setModalOpen(true)}
-        disabled={loading}
-        css={css`
-          flex-shrink: 0;
-          visibility: ${loading ? "hidden" : "visible"};
-        `}
       >
-        {`Select a dataset${
-          totalFacetOptionCount > 0 ? ` [${totalFacetOptionCount}]` : ""
-        }`}
+        Edit {Object.keys(props.svFacetId).length > 1 ? "Sources" : "Source"}
       </Button>
       <Modal
         isOpen={modalOpen}
@@ -181,10 +163,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
             })}
         </ModalBody>
         <ModalFooter>
-          <Button
-            onClick={onConfirm}
-            className={`${SELECTOR_PREFIX}-update-source-button`}
-          >
+          <Button color="primary" onClick={onConfirm}>
             Update
           </Button>
         </ModalFooter>
@@ -239,7 +218,7 @@ function getFacetOptionJsx(
   facetId: string,
   modalSelections: Record<string, string>,
   setModalSelections: (selections: Record<string, string>) => void
-): ReactElement {
+): JSX.Element {
   const metadata = facetInfo.metadataMap[facetId] || {};
   let facetTitle = getFacetTitle(metadata);
   if (facetInfo.displayNames && facetId in facetInfo.displayNames) {
@@ -288,7 +267,7 @@ function getFacetOptionSectionJsx(
   facetInfo: FacetSelectorFacetInfo,
   modalSelections: Record<string, string>,
   setModalSelections: (selections: Record<string, string>) => void
-): ReactElement {
+): JSX.Element {
   const importNameToFacetOptions: Record<string, string[]> = {};
   const facetOptionsNoImportName: string[] = [];
   let shouldShowSections = false;
@@ -361,7 +340,7 @@ function getSVTriggerJsx(
   opened: boolean,
   facetInfo: FacetSelectorFacetInfo,
   selectedFacetId: string
-): ReactElement {
+): JSX.Element {
   const metadata = facetInfo.metadataMap[selectedFacetId] || {};
   let facetTitle = getFacetTitle(metadata);
   if (facetInfo.displayNames && selectedFacetId in facetInfo.displayNames) {
@@ -388,7 +367,7 @@ function getSVTriggerJsx(
  * Gets the element for the trigger for a collapsible import section in the list
  * of facet options
  */
-function getImportTriggerJsx(opened: boolean, title: string): ReactElement {
+function getImportTriggerJsx(opened: boolean, title: string): JSX.Element {
   return (
     <div
       className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-import-trigger-${

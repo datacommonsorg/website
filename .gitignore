@@ -7,6 +7,8 @@ __pycache__/
 .env_nl/
 screenshots/*.png
 screenshots/screenshot_url.json
+.gemini
+
 
 # Production static files
 **/dist/**
@@ -106,3 +108,5 @@ build/cdc/dev/.env
 *.tfvars
 deploy/terraform-custom-datacommons/modules/backend.tf
 
+# NL tools ignores
+tools/nl/nl_metadata/.env
