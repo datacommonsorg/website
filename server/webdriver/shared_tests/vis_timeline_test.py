@@ -93,8 +93,7 @@ class VisTimelineTestMixin():
 
     # Click per capita and assert results are correct
     per_capita_checkbox = self.driver.find_element(
-        By.CSS_SELECTOR,
-        '.chart-footer-options .chart-option .form-check-input')
+        By.CSS_SELECTOR, '.chart-options .option-inputs .form-check-input')
     per_capita_checkbox.click()
     shared.wait_for_loading(self.driver)
     element_present = EC.presence_of_element_located(
@@ -126,8 +125,8 @@ class VisTimelineTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     shared.select_source(self.driver, "OECDRegionalStatistics",
                          'Count_Person_Female')
-    update_button = self.driver.find_element(By.CSS_SELECTOR,
-                                             '.modal-footer .btn')
+    update_button = self.driver.find_element(
+        By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
     chart_sources = self.driver.find_element(By.CLASS_NAME, 'sources')
@@ -254,9 +253,10 @@ class VisTimelineTestMixin():
     radio.click()
 
     # Click the modal-footer button to apply the changes
-    modal_footer_button = find_elem(self.driver,
-                                    value='btn-primary',
-                                    path_to_elem=['modal-footer'])
+    modal_footer_button = find_elem(
+        self.driver,
+        value='source-selector-update-source-button',
+        path_to_elem=['modal-footer'])
     modal_footer_button.click()
 
     # Wait for the chart to reload

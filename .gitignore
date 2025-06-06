@@ -7,6 +7,8 @@ __pycache__/
 .env_nl/
 screenshots/*.png
 screenshots/screenshot_url.json
+.gemini
+
 
 # Production static files
 **/dist/**

@@ -15,9 +15,12 @@
  */
 
 /* eslint-disable camelcase */
+import theme from "../../theme/theme";
+
 jest.mock("axios");
 jest.setTimeout(100000);
 
+import { ThemeProvider } from "@emotion/react";
 import { waitFor } from "@testing-library/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
@@ -63,7 +66,11 @@ test("Loading options from URL", async () => {
   // Mock all the async axios calls
   axiosMock();
   // Render the component
-  const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
+  const wrapper = mount(
+    <ThemeProvider theme={theme}>
+      <Page infoPlaces={INFO_PLACES} />
+    </ThemeProvider>
+  );
   await waitForComponentUpdates(wrapper);
   // Check that preview table shows up on click and matches snapshot
   wrapper.find(".get-data-button").at(0).simulate("click");
@@ -107,7 +114,11 @@ test("Manually updating options", async () => {
   // Mock all the async axios calls
   axiosMock();
   // Render the component
-  const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
+  const wrapper = mount(
+    <ThemeProvider theme={theme}>
+      <Page infoPlaces={INFO_PLACES} />
+    </ThemeProvider>
+  );
   await waitForComponentUpdates(wrapper);
   // Choose place type
   wrapper
