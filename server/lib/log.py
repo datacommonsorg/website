@@ -48,26 +48,34 @@ _MAX_DURATION_SECS = 2
 class ExtremeCallLogger:
 
   def __init__(self, request: dict = None, url: str = None):
+    """Initializes the ExtremeCallLogger.
+
+    Args:
+      request: The request payload as a dictionary.
+      url: The URL being called.
+    """
     self.request = request
     self.url = url  # Store URL for potential payload logging
     self.start = time.time()
 
   def _try_log_payload(self, log_enabled: bool, log_percentage: int):
-    """
-    Logs request payload if enabled and conditions are met.    
-    Fails silently on serialization errors.
+    """Logs request payload if conditions are met.
+
+    Conditions for logging are:
+    1. Logging is enabled.
+    2. A URL is provided.
+    3. The request is a dictionary.
+    4. A random sampling check passes.
     """
     if log_enabled and self.url and isinstance(self.request, dict):
-      # Bandit B311: Standard pseudo-random generators are not suitable for security/cryptographic purposes.
-      # Ref: https://bandit.readthedocs.io/en/latest/plugins/b311_random.html
-      # This usage is for sampling, not for security, so it's safe to ignore.
       if random.random() * 100 < log_percentage:  # nosec B311
         try:
           payload_str = json.dumps(self.request, sort_keys=True)
           logging.info("Request Payload: URL=%s, Payload=%s", self.url,
                        payload_str)
         except TypeError:
-          pass  # Silently ignore serialization errors
+          logging.warning("Failed to serialize request payload for URL: %s",
+                          self.url)
 
   def finish(self, resp: requests.Response = None):
     if os.environ.get('FLASK_ENV') in ['production', 'custom']:
