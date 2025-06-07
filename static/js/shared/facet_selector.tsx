@@ -125,9 +125,11 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
           visibility: ${loading ? "hidden" : "visible"};
         `}
       >
-        {`Select a dataset${
-          totalFacetOptionCount > 0 ? ` [${totalFacetOptionCount}]` : ""
-        }`}
+        {intl.formatMessage(
+          facetList && facetList.length > 1
+            ? facetSelectionComponentMessages.SelectDatasets
+            : facetSelectionComponentMessages.SelectDataset
+        ) + (totalFacetOptionCount > 0 ? ` [${totalFacetOptionCount}]` : "")}
       </Button>
       <Dialog
         open={modalOpen}
@@ -138,7 +140,11 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         showCloseButton
       >
         <DialogTitle>
-          {intl.formatMessage(facetSelectionComponentMessages.SelectDataset)}
+          {intl.formatMessage(
+            facetList?.length > 1
+              ? facetSelectionComponentMessages.SelectDatasets
+              : facetSelectionComponentMessages.SelectDataset
+          )}
         </DialogTitle>
         <DialogContent>
           {errorMessage && <div>{errorMessage}</div>}
@@ -152,7 +158,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
               `}
             >
               {intl.formatMessage(
-                facetSelectionComponentMessages.SelectDatasetPromptMessage
+                facetSelectionComponentMessages.SelectDatasetsPromptMessage
               )}
               :
             </p>

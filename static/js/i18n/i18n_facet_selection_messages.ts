@@ -24,12 +24,27 @@ export const facetSelectionComponentMessages = defineMessages({
       "Label for button and related dialog that allows the user to select a dataset.  A dataset " +
       "here refers to the facet used to supply data to the chart",
   },
+  SelectDatasets: {
+    id: "selectDatasets",
+    defaultMessage: "Select datasets",
+    description:
+      "Label for button and related dialog that allows the user to select datasets. for multiple " +
+      "stat vars. A dataset here refers to the facet used to supply data to the chart",
+  },
   SelectDatasetPromptMessage: {
     id: "selectDatasetPromptMessage",
     defaultMessage: "Select the data source that you would like to use to plot",
     description:
       "Prompt message that appears in the dataset selection dialog, introducing the list of " +
       "facets that the user can choose from.",
+  },
+  SelectDatasetsPromptMessage: {
+    id: "selectDatasetsPromptMessage",
+    defaultMessage:
+      "Select the data sources that you would like to use to build the chart",
+    description:
+      "Prompt message that appears in the dataset selection dialog when there are multiple stat " +
+      "vars, introducing the list of facets that the user can choose from.",
   },
   Update: {
     id: "update",
