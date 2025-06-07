@@ -69,6 +69,7 @@ export const DemoButtons = (): ReactElement => {
           <Button>Standard Button</Button>
           <Button variant="inverted">Inverted Button</Button>
           <Button variant="text">Text Button</Button>
+          <Button variant="flat">Flat Button</Button>
         </div>
       </div>
 
