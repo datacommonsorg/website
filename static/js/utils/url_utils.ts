@@ -152,7 +152,7 @@ export function extractFacetMetadataUrlHashParams(
       importName,
       measurementMethod,
       observationPeriod,
-      scalingFactor: Number(scalingFactor),
+      scalingFactor,
       unit,
     };
   }

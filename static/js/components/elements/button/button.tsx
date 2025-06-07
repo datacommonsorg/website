@@ -114,6 +114,7 @@ interface CommonButtonProps {
   // 'standard': an outlined button
   // 'inverted': a filled button.
   // 'text': a text-only button (no outline or fill).
+  // 'flat': a filled, borderless button (fill but no outline).
   // Default: 'standard'
   variant?: "standard" | "inverted" | "text" | "flat";
   // The size of the button.

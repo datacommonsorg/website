@@ -31,7 +31,7 @@ import { getStatVarGroups } from "../../../utils/app/timeline_utils";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { getFacets } from "../../../utils/data_fetch_utils";
 import { AppContextType, ContextStatVar } from "../app_context";
-import { ChartFooter } from "../chart_footer";
+import { ChartHeader } from "../chart_header";
 import { VisType } from "../vis_type_configs";
 
 const COLORS = [
@@ -175,22 +175,22 @@ function getChartArea(
               },
             ];
         return (
-          <div key={chartId}>
-            <div>{getFacetSelector(appContext, chartSvInfo)}</div>
-            <div className="chart timeline">
-              {getSvChips(chartSvInfo, appContext)}
-              <LineTile
-                comparisonPlaces={appContext.places.map((place) => place.dcid)}
-                id={`vis-tool-timeline-${chartId}`}
-                title=""
-                statVarSpec={chartSvSpecs}
-                svgChartHeight={chartHeight}
-                place={appContext.places[0]}
-                colors={COLORS}
-                showTooltipOnHover={true}
-              />
-              <ChartFooter inputSections={[{ inputs: chartPCInputs }]} />
-            </div>
+          <div className="chart timeline" key={chartId}>
+            <ChartHeader
+              inputSections={[{ inputs: chartPCInputs }]}
+              facetSelector={getFacetSelector(appContext, chartSvInfo)}
+            />
+            {getSvChips(chartSvInfo, appContext)}
+            <LineTile
+              comparisonPlaces={appContext.places.map((place) => place.dcid)}
+              id={`vis-tool-timeline-${chartId}`}
+              title=""
+              statVarSpec={chartSvSpecs}
+              svgChartHeight={chartHeight}
+              place={appContext.places[0]}
+              colors={COLORS}
+              showTooltipOnHover={true}
+            />
           </div>
         );
       })}

@@ -33,7 +33,7 @@ import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
-import { ChartFooter } from "../chart_footer";
+import { ChartHeader } from "../chart_header";
 import { VisType } from "../vis_type_configs";
 
 function getFacetSelector(appContext: AppContextType): ReactElement {
@@ -101,9 +101,12 @@ export function getChartArea(
     appContext.statVars[0].info.title || appContext.statVars[0].dcid;
   const statVarSpec = getStatVarSpec(appContext.statVars[0], VisType.MAP);
   return (
-    <div>
-      <div>{getFacetSelector(appContext)}</div>
+    <>
       <div className="chart">
+        <ChartHeader
+          inputSections={[{ inputs: perCapitaInputs }]}
+          facetSelector={getFacetSelector(appContext)}
+        />
         <MapTile
           id="vis-tool-map"
           place={appContext.places[0]}
@@ -113,7 +116,6 @@ export function getChartArea(
           title={statVarLabel + " (${date})"}
           allowZoom={true}
         />
-        <ChartFooter inputSections={[{ inputs: perCapitaInputs }]} />
       </div>
       <div className="chart">
         <RankingTile
@@ -139,7 +141,7 @@ export function getChartArea(
           }}
         />
       </div>
-    </div>
+    </>
   );
 }
 

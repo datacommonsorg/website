@@ -34,7 +34,7 @@ import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
-import { ChartFooter, InputInfo } from "../chart_footer";
+import { ChartHeader, InputInfo } from "../chart_header";
 import { VisType } from "../vis_type_configs";
 
 function getAxisInputs(
@@ -155,42 +155,40 @@ function getChartArea(
     (sv) => sv.info.title || sv.dcid
   );
   return (
-    <div>
-      <div>{getFacetSelector(appContext)}</div>
-      <div className="chart scatter">
-        <ScatterTile
-          id="vis-tool-scatter"
-          title={
-            statVarLabels[0] +
-            " (${yDate}) vs " +
-            statVarLabels[1] +
-            " (${xDate})"
-          }
-          place={appContext.places[0]}
-          enclosedPlaceType={appContext.enclosedPlaceType}
-          statVarSpec={appContext.statVars.map((sv) =>
-            getStatVarSpec(sv, VisType.SCATTER)
-          )}
-          svgChartHeight={chartHeight}
-          scatterTileSpec={{
-            showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
-            showQuadrants: appContext.displayOptions.scatterQuadrants,
-          }}
-        />
-        <ChartFooter
-          inputSections={[
-            {
-              label: "Y-axis:",
-              inputs: getAxisInputs(0, appContext, hidePcInputs),
-            },
-            {
-              label: "X-axis:",
-              inputs: getAxisInputs(1, appContext, hidePcInputs),
-            },
-            { label: "Display:", inputs: getDisplayInputs(appContext) },
-          ]}
-        />
-      </div>
+    <div className="chart scatter">
+      <ChartHeader
+        inputSections={[
+          {
+            label: "Y-axis:",
+            inputs: getAxisInputs(0, appContext, hidePcInputs),
+          },
+          {
+            label: "X-axis:",
+            inputs: getAxisInputs(1, appContext, hidePcInputs),
+          },
+          { label: "Display:", inputs: getDisplayInputs(appContext) },
+        ]}
+        facetSelector={getFacetSelector(appContext)}
+      />
+      <ScatterTile
+        id="vis-tool-scatter"
+        title={
+          statVarLabels[0] +
+          " (${yDate}) vs " +
+          statVarLabels[1] +
+          " (${xDate})"
+        }
+        place={appContext.places[0]}
+        enclosedPlaceType={appContext.enclosedPlaceType}
+        statVarSpec={appContext.statVars.map((sv) =>
+          getStatVarSpec(sv, VisType.SCATTER)
+        )}
+        svgChartHeight={chartHeight}
+        scatterTileSpec={{
+          showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
+          showQuadrants: appContext.displayOptions.scatterQuadrants,
+        }}
+      />
     </div>
   );
 }

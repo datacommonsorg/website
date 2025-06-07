@@ -39,6 +39,8 @@ import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
 import { humanizeIsoDuration } from "./periodicity";
 import { StatMetadata } from "./stat_types";
 
+const SELECTOR_PREFIX = "source-selector";
+
 // The information needed in SourceSelector component for a single stat var to
 // get the list of available facets
 export interface FacetSelectorFacetInfo {
@@ -111,15 +113,21 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
 
   const showSourceOptions = facetList && !errorMessage;
 
-  if (totalFacetOptionCount === 0) {
-    return null;
-  }
-
   return (
     <>
-      <Button variant="flat" onClick={(): void => setModalOpen(true)}>
-        {intl.formatMessage(facetSelectionComponentMessages.SelectDataset)} [
-        {totalFacetOptionCount}]
+      <Button
+        className={`${SELECTOR_PREFIX}-open-modal-button`}
+        variant="flat"
+        onClick={(): void => setModalOpen(true)}
+        disabled={loading}
+        css={css`
+          flex-shrink: 0;
+          visibility: ${loading ? "hidden" : "visible"};
+        `}
+      >
+        {`Select a dataset${
+          totalFacetOptionCount > 0 ? ` [${totalFacetOptionCount}]` : ""
+        }`}
       </Button>
       <Dialog
         open={modalOpen}
@@ -211,8 +219,11 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
             })}
         </DialogContent>
         <DialogActions>
-          <Button onClick={onConfirm}>
-            {intl.formatMessage(facetSelectionComponentMessages.Update)}
+          <Button
+            onClick={onConfirm}
+            className={`${SELECTOR_PREFIX}-update-source-button`}
+          >
+            Update
           </Button>
         </DialogActions>
       </Dialog>

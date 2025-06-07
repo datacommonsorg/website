@@ -21,10 +21,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -58,10 +58,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -105,10 +105,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -141,10 +141,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -176,10 +176,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -218,10 +218,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -262,7 +262,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Germany, Ethiopia, Morocco, Kenya, Uganda, Senegal, Mali, Guinea, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Germany, Ethiopia, Morocco, Kenya, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas"
           },
           {
@@ -280,7 +280,6 @@
                       "country/DEU",
                       "country/ETH",
                       "country/KEN",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
@@ -297,7 +296,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Morocco and Ghana\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Morocco, Ghana and Benin\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas"
           },
           {
@@ -324,7 +323,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Ethiopia, Morocco, Kenya, Ghana, Uganda, Senegal, Mali, Guinea, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Ethiopia, Morocco, Kenya, Ghana, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Fuel Combustion for Refrigeration Air Conditioning, Greenhouse Gas"
           },
           {
@@ -344,10 +343,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -380,10 +379,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -416,10 +415,10 @@
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
-                      "country/UGA",
                       "country/SEN",
                       "country/MLI",
                       "country/GIN",
+                      "country/BEN",
                       "country/RWA",
                       "country/SOM"
                     ],
@@ -461,7 +460,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Morocco, Ghana, Uganda, Senegal, Mali, Guinea, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Morocco, Ghana, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Petrochemical Production, Greenhouse Gas"
           }
         ],
@@ -642,11 +641,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/UGA",
-      "name": "Uganda",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/SEN",
       "name": "Senegal",
       "place_type": "Country"
@@ -659,6 +653,11 @@
     {
       "dcid": "country/GIN",
       "name": "Guinea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/BEN",
+      "name": "Benin",
       "place_type": "Country"
     }
   ],

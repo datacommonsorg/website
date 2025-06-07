@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
+import theme from "../../theme/theme";
+
 jest.mock("axios");
 jest.mock("../../chart/draw_bar");
 jest.mock("../../chart/draw_histogram");
 jest.mock("../../chart/draw_line");
 jest.mock("../../chart/draw_utils");
 
+import { ThemeProvider } from "@emotion/react";
 import { waitFor } from "@testing-library/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import Enzyme, { mount, ReactWrapper } from "enzyme";
@@ -67,7 +70,11 @@ test("Single place and single stat var", async () => {
   // Mock all the async axios call
   axiosMock();
   // Do the actual render!
-  const wrapper = mount(<Page />);
+  const wrapper = mount(
+    <ThemeProvider theme={theme}>
+      <Page />
+    </ThemeProvider>
+  );
   await waitForComponentUpdates(wrapper);
   // Check that one chart is on the page and it matches snapshot
   expect(
@@ -143,7 +150,11 @@ test("statVar not in PV-tree", async () => {
   // mock all the async axios call
   axiosMock();
   // Do the actual render!
-  const wrapper = mount(<Page />);
+  const wrapper = mount(
+    <ThemeProvider theme={theme}>
+      <Page />
+    </ThemeProvider>
+  );
   await waitForComponentUpdates(wrapper);
   // Check that one chart is on the page and it matches snapshot
   expect(
@@ -171,7 +182,11 @@ test("chart options", async () => {
   axiosMock();
 
   // Do the actual render!
-  const wrapper = mount(<Page />);
+  const wrapper = mount(
+    <ThemeProvider theme={theme}>
+      <Page />
+    </ThemeProvider>
+  );
   await waitForComponentUpdates(wrapper);
   // Set per capita to true
   wrapper.find("#count-none-ratio").at(0).simulate("change");

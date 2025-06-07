@@ -228,6 +228,7 @@ export function App(props: AppProps): ReactElement {
     /* eslint-disable-next-line */
     fulfillData: any,
     pageMetadata: SubjectPageMetadata,
+    allowRedirect: boolean,
     userQuery?: string,
     isHighlight?: boolean
   ): void {
@@ -249,7 +250,8 @@ export function App(props: AppProps): ReactElement {
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
-      isPendingRedirect = shouldSkipPlaceOverview(pageMetadata);
+      isPendingRedirect =
+        allowRedirect && shouldSkipPlaceOverview(pageMetadata);
       if (isPendingRedirect) {
         const placeDcid = pageMetadata.place.dcid;
         // If the user has a query, append it to the url
@@ -385,7 +387,12 @@ export function App(props: AppProps): ReactElement {
           const mainPlace = extractMainPlace(resp);
           const mainPageMetadata = extractMetadata(resp, mainPlace);
           updatePageMetadata(mainPageMetadata);
-          processFulfillData(resp, mainPageMetadata, query);
+          processFulfillData(
+            resp,
+            mainPageMetadata,
+            /*allowRedirect=*/ true,
+            query
+          );
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -445,6 +452,7 @@ export function App(props: AppProps): ReactElement {
 
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
+          let allowRedirect = true;
           const mainPlace = extractMainPlace(fulfillResponse);
           let mainPageMetadata = extractMetadata(fulfillResponse, mainPlace);
 
@@ -460,10 +468,16 @@ export function App(props: AppProps): ReactElement {
                 (category) => category.blocks || []
               )
             );
+            allowRedirect = false;
           }
 
           updatePageMetadata(mainPageMetadata, highlightPageMetadataResp);
-          processFulfillData(fulfillResponse, mainPageMetadata, query);
+          processFulfillData(
+            fulfillResponse,
+            mainPageMetadata,
+            allowRedirect,
+            query
+          );
         }
       );
     }
