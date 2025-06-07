@@ -223,7 +223,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
             onClick={onConfirm}
             className={`${SELECTOR_PREFIX}-update-source-button`}
           >
-            Update
+            {intl.formatMessage(facetSelectionComponentMessages.Update)}
           </Button>
         </DialogActions>
       </Dialog>
