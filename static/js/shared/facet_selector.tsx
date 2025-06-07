@@ -172,8 +172,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
                     >
                       {intl.formatMessage(
                         facetSelectionComponentMessages.SelectDatasetPromptMessage
-                      )}
-                      :{" "}
+                      )}{" "}
                       <span>
                         &ldquo;
                         {facetInfo.name}
