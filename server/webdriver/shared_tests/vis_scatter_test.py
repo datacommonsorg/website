@@ -115,7 +115,8 @@ class VisScatterTestMixin():
         By.CLASS_NAME, 'source-selector-open-modal-button')
     edit_source_button.click()
     element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'modal-body'))
+        (By.CSS_SELECTOR,
+         '.source-selector-facet-options-section input[type="radio"]'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     source_option_sections = self.driver.find_elements(
         By.CLASS_NAME, 'source-selector-options-section')

@@ -194,6 +194,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
                     </p>
                   )}
                   <div
+                    className={`${SELECTOR_PREFIX}-facet-options-section`}
                     css={css`
                       padding: ${theme.spacing.lg}px ${theme.spacing.xl}px;
                       display: flex;
@@ -306,6 +307,7 @@ function getFacetOptionJsx(
           `}
         />
         <div
+          className={`${SELECTOR_PREFIX}-facet-option-title`}
           css={css`
             position: relative;
             margin: 0;
