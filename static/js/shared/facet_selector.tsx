@@ -133,7 +133,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
         loading={loading}
-        maxWidth="md"
+        maxWidth="sm"
         fullWidth
         showCloseButton
       >
