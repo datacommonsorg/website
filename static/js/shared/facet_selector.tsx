@@ -142,7 +142,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         </DialogTitle>
         <DialogContent>
           {errorMessage && <div>{errorMessage}</div>}
-          {facetList.length > 1 && (
+          {facetList?.length > 1 && (
             <p
               css={css`
                 ${theme.typography.family.text}
