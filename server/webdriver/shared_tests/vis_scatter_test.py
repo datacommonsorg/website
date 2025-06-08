@@ -119,13 +119,8 @@ class VisScatterTestMixin():
          '.source-selector-facet-options-section input[type="radio"]'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     source_option_sections = self.driver.find_elements(
-        By.CLASS_NAME, 'source-selector-options-section')
+        By.CLASS_NAME, 'source-selector-facet-options-section')
     self.assertEqual(len(source_option_sections), 2)
-    # Open the selection section for each sv
-    self.driver.find_elements(By.CLASS_NAME,
-                              'source-selector-trigger')[0].click()
-    self.driver.find_elements(By.CLASS_NAME,
-                              'source-selector-trigger')[1].click()
     # Update the source for the Count_Person_Female sv
     shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
                          "Count_Person_Female")
