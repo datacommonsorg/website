@@ -41,10 +41,10 @@ export const facetSelectionComponentMessages = defineMessages({
   SelectDatasetsPromptMessage: {
     id: "selectDatasetsPromptMessage",
     defaultMessage:
-      "Select the data sources that you would like to use to build the chart",
+      "Select the data sources that you would like to use to build the plot",
     description:
       "Prompt message that appears in the dataset selection dialog when there are multiple stat " +
-      "vars, introducing the list of facets that the user can choose from.",
+      "vars, each introducing the list of facets that the user can choose from.",
   },
   Update: {
     id: "update",

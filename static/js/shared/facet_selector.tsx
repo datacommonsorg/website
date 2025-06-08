@@ -368,7 +368,8 @@ function getFacetOptionJsx(
                 {intl.formatMessage(
                   metadataComponentMessages.ObservationPeriod
                 )}{" "}
-                • {humanizeIsoDuration(metadata.observationPeriod)}
+                • {humanizeIsoDuration(metadata.observationPeriod)} (
+                {metadata.observationPeriod})
               </li>
             )}
           </ul>
