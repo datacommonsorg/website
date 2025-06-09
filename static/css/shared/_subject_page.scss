@@ -73,7 +73,7 @@ article.category {
   }
 }
 
-.subtopic:first-of-type {
+.subtopic:is(:first-of-type) {
   border-top: none;
 }
 
