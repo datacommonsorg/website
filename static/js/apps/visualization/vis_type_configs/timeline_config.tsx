@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,13 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback } from "react";
 
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
 import { FacetSelector } from "../../../shared/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
+import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarGroups } from "../../../utils/app/timeline_utils";
@@ -90,29 +91,37 @@ function groupStatVars(appContext: AppContextType): {
   );
 }
 
-function getFacetSelector(
-  appContext: AppContextType,
-  chartSvInfo: ContextStatVar[]
-): ReactElement {
+interface ChartFacetSelectorProps {
+  appContext: AppContextType;
+  chartSvInfo: ContextStatVar[];
+}
+
+function ChartFacetSelector({
+  appContext,
+  chartSvInfo,
+}: ChartFacetSelectorProps): ReactElement {
+  const fetchFacets = useCallback(async () => {
+    const resp = await getFacets(
+      "",
+      appContext.places.map((place) => place.dcid),
+      chartSvInfo.map((sv) => sv.dcid)
+    );
+    return chartSvInfo.map((sv) => ({
+      dcid: sv.dcid,
+      name: sv.info.title || sv.dcid,
+      metadataMap: resp[sv.dcid] || {},
+    }));
+  }, [appContext, chartSvInfo]);
+
+  const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
+
   const svFacetId = {};
   chartSvInfo.forEach((sv) => {
     svFacetId[sv.dcid] = sv.facetId;
   });
-  const facetListPromise = getFacets(
-    "",
-    appContext.places.map((place) => place.dcid),
-    chartSvInfo.map((sv) => sv.dcid)
-  ).then((resp) => {
-    return chartSvInfo.map((sv) => {
-      return {
-        dcid: sv.dcid,
-        name: sv.info.title || sv.dcid,
-        metadataMap: resp[sv.dcid] || {},
-      };
-    });
-  });
-  const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
+
   const onSvFacetIdUpdated = (svFacetId: Record<string, string>): void => {
+    const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
     const facetsChanged = chartSvInfo.filter(
       (sv): boolean => sv.facetId !== svFacetId[sv.dcid]
     );
@@ -131,7 +140,9 @@ function getFacetSelector(
   return (
     <FacetSelector
       svFacetId={svFacetId}
-      facetListPromise={facetListPromise}
+      facetList={facetList}
+      loading={loading}
+      error={!!error}
       onSvFacetIdUpdated={onSvFacetIdUpdated}
     />
   );
@@ -178,7 +189,12 @@ function getChartArea(
           <div className="chart timeline" key={chartId}>
             <ChartHeader
               inputSections={[{ inputs: chartPCInputs }]}
-              facetSelector={getFacetSelector(appContext, chartSvInfo)}
+              facetSelector={
+                <ChartFacetSelector
+                  appContext={appContext}
+                  chartSvInfo={chartSvInfo}
+                />
+              }
             />
             {getSvChips(chartSvInfo, appContext)}
             <LineTile

@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,8 +58,12 @@ export interface FacetSelectorFacetInfo {
 interface FacetSelectorPropType {
   // Map of sv to selected facet id
   svFacetId: Record<string, string>;
-  // Promise that returns the available facet for each stat var
-  facetListPromise: Promise<FacetSelectorFacetInfo[]>;
+  // The list of available facets for each stat var
+  facetList: FacetSelectorFacetInfo[] | null;
+  // Whether the facet information is currently being loaded
+  loading: boolean;
+  // An error message to display if the fetch fails
+  error: boolean;
   // Callback function that is run when new facets are selected
   onSvFacetIdUpdated: (
     svFacetId: Record<string, string>,
@@ -67,15 +71,16 @@ interface FacetSelectorPropType {
   ) => void;
 }
 
-export function FacetSelector(props: FacetSelectorPropType): ReactElement {
+export function FacetSelector({
+  svFacetId,
+  facetList,
+  loading,
+  error,
+  onSvFacetIdUpdated,
+}: FacetSelectorPropType): ReactElement {
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
-  const [facetList, setFacetList] = useState<FacetSelectorFacetInfo[] | null>(
-    null
-  );
-  const [modalSelections, setModalSelections] = useState(props.svFacetId);
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [modalSelections, setModalSelections] = useState(svFacetId);
 
   const totalFacetOptionCount = useMemo(() => {
     if (!facetList) return 0;
@@ -88,30 +93,14 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
   }, [facetList]);
 
   useEffect(() => {
-    setLoading(true);
-    props.facetListPromise
-      .then((resp) => {
-        setFacetList(resp);
-        setErrorMessage("");
-        setLoading(false);
-      })
-      .catch(() => {
-        setErrorMessage(
-          "Sorry, there was an error retrieving available sources."
-        );
-        setLoading(false);
-      });
-  }, [props.facetListPromise]);
-
-  useEffect(() => {
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
     if (!modalOpen) {
-      setModalSelections(props.svFacetId);
+      setModalSelections(svFacetId);
     }
-  }, [props.svFacetId, modalOpen]);
+  }, [svFacetId, modalOpen]);
 
-  const showSourceOptions = facetList && !errorMessage;
+  const showSourceOptions = facetList && !error;
 
   return (
     <>
@@ -147,7 +136,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
           )}
         </DialogTitle>
         <DialogContent>
-          {errorMessage && <div>{errorMessage}</div>}
+          {error && <div>{facetSelectionComponentMessages.DatasetError}</div>}
           {facetList?.length > 1 && (
             <p
               css={css`
@@ -167,7 +156,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
             facetList.map((facetInfo) => {
               return (
                 <div key={facetInfo.dcid}>
-                  {facetList.length == 1 && (
+                  {facetList.length === 1 && (
                     <p
                       css={css`
                         ${theme.typography.family.text}
@@ -244,7 +233,7 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         metadataMap[selectedFacetId] = facetInfo.metadataMap[selectedFacetId];
       }
     });
-    props.onSvFacetIdUpdated(modalSelections, metadataMap);
+    onSvFacetIdUpdated(modalSelections, metadataMap);
     setModalOpen(false);
   }
 }
