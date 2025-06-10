@@ -17,29 +17,29 @@
                     "comparisonPlaces": [
                       "geoId/0644000",
                       "geoId/0666000",
-                      "geoId/0668000",
                       "geoId/0627000",
-                      "geoId/0669000",
-                      "geoId/0603526",
+                      "geoId/0667000",
+                      "geoId/0668000",
+                      "geoId/0664000",
                       "geoId/0643000"
                     ],
                     "statVarKey": [
-                      "Count_Person_HispanicOrLatino_multiple_place_bar_block"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Hispanic Population (${date}) - Top 7 of 291",
+                    "title": "Population Below Poverty Line (${date}) - Top 7 of 83",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Hispanic Population"
+            "title": "Population Below Poverty Line"
           }
         ],
         "statVarSpec": {
-          "Count_Person_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic Population",
-            "statVar": "Count_Person_HispanicOrLatino"
+          "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           }
         }
       }
@@ -423,85 +423,62 @@
         }
       ]
     },
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/PovertyByGender",
+        "name": "Poverty by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByRace",
+        "name": "Poverty by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
+        "name": "Poverty by Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {
-      "Count_Person_HispanicOrLatino": {
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
         "age": [
-          "Count_Person_0To4Years_HispanicOrLatino",
-          "Count_Person_0Years_HispanicOrLatino",
-          "Count_Person_10To14Years_HispanicOrLatino",
-          "Count_Person_10Years_HispanicOrLatino",
-          "Count_Person_11Years_HispanicOrLatino",
-          "Count_Person_12Years_HispanicOrLatino",
-          "Count_Person_13Years_HispanicOrLatino",
-          "Count_Person_14Years_HispanicOrLatino",
-          "Count_Person_15OrMoreYears_HispanicOrLatino",
-          "Count_Person_15To19Years_HispanicOrLatino",
-          "Count_Person_15Years_HispanicOrLatino",
-          "Count_Person_16OrMoreYears_HispanicOrLatino",
-          "Count_Person_16To19Years_HispanicOrLatino",
-          "Count_Person_16Years_HispanicOrLatino",
-          "Count_Person_17Years_HispanicOrLatino",
-          "Count_Person_18To64Years_HispanicOrLatino",
-          "Count_Person_18Years_HispanicOrLatino",
-          "Count_Person_19Years_HispanicOrLatino",
-          "Count_Person_1OrMoreYears_HispanicOrLatino",
-          "Count_Person_1Years_HispanicOrLatino",
-          "Count_Person_20To24Years_HispanicOrLatino",
-          "Count_Person_20Years_HispanicOrLatino",
-          "Count_Person_21To64Years_HispanicOrLatino",
-          "Count_Person_21Years_HispanicOrLatino",
-          "Count_Person_22Years_HispanicOrLatino",
-          "Count_Person_23Years_HispanicOrLatino",
-          "Count_Person_24Years_HispanicOrLatino",
-          "Count_Person_25OrMoreYears_HispanicOrLatino",
-          "Count_Person_25To29Years_HispanicOrLatino",
-          "Count_Person_25Years_HispanicOrLatino",
-          "Count_Person_26Years_HispanicOrLatino",
-          "Count_Person_27Years_HispanicOrLatino",
-          "Count_Person_28Years_HispanicOrLatino",
-          "Count_Person_29Years_HispanicOrLatino",
-          "Count_Person_2Years_HispanicOrLatino",
-          "Count_Person_30To34Years_HispanicOrLatino",
-          "Count_Person_30Years_HispanicOrLatino",
-          "Count_Person_3OrMoreYears_HispanicOrLatino",
-          "Count_Person_5OrMoreYears_HispanicOrLatino"
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5OrMoreYears_BelowPovertyLevelInThePast12Months",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Upto6Years_BelowPovertyLevelInThePast12Months"
         ],
-        "detailedLevelOfSchool": [
-          "dc/0jtctjm33mgh1",
-          "dc/1v84c9j8gg1g6",
-          "dc/1wynb0rv84jy9",
-          "dc/3kex5wnwcehj6",
-          "dc/3s0q1pjxf4d56",
-          "dc/5rk9h9zvbyz5",
-          "dc/68cg2z97cpl7d",
-          "dc/6m11q7bk4qge",
-          "dc/7g77dy8hfb1rg",
-          "dc/9cqv67nn7pn1b",
-          "dc/cc8wk2n0ywd9",
-          "dc/gcsgte71jdvl2",
-          "dc/m18kt4h10rhv9",
-          "dc/rrp56w0hvs6x6",
-          "dc/sdc1bw2pxc46g",
-          "dc/w0empn05hck9",
-          "dc/w56by78w2crr2",
-          "dc/xnmh7xgwghej",
-          "dc/zvr6djt1p9gj3"
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
         ],
-        "residenceType": [
-          "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities",
-          "Count_Person_HispanicOrLatino_ResidesInCollegeOrUniversityStudentHousing",
-          "Count_Person_HispanicOrLatino_ResidesInGroupQuarters",
-          "Count_Person_HispanicOrLatino_ResidesInInstitutionalizedGroupQuarters",
-          "Count_Person_HispanicOrLatino_ResidesInNoninstitutionalizedGroupQuarters",
-          "Count_Person_HispanicOrLatino_ResidesInNursingFacilities"
+        "race": [
+          "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
         ]
       }
     },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Race",
-        "name": "Population by Race",
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
         "types": [
           "Topic"
         ]
@@ -510,8 +487,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
         "types": [
           "Topic"
         ]
@@ -871,50 +848,52 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Age",
-        "name": "Age",
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Gender",
-        "name": "Gender",
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Language",
-        "name": "Language Spoken At Home",
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/MaritalStatus",
-        "name": "Marital Status",
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Nationality",
-        "name": "Nationality",
+        "dcid": "dc/topic/Income",
+        "name": "Income",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Veterans",
-        "name": "Veterans",
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
+  "svSource": "PAST_QUERY",
   "test": "filter_test",
-  "userMessages": []
+  "userMessages": [
+    "See relevant statistics based on the previous query."
+  ]
 }
