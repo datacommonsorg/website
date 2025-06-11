@@ -35,6 +35,7 @@ import {
 } from "../components/elements/dialog/dialog";
 import { intl } from "../i18n/i18n";
 import { facetSelectionComponentMessages } from "../i18n/i18n_facet_selection_messages";
+import { messages } from "../i18n/i18n_messages";
 import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
 import { humanizeIsoDuration } from "./periodicity";
 import { StatMetadata } from "./stat_types";
@@ -137,7 +138,6 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         loading={loading}
         maxWidth="sm"
         fullWidth
-        showCloseButton
       >
         <DialogTitle>
           {intl.formatMessage(
@@ -230,6 +230,14 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
             className={`${SELECTOR_PREFIX}-update-source-button`}
           >
             {intl.formatMessage(facetSelectionComponentMessages.Update)}
+          </Button>
+          <Button
+            variant="text"
+            onClick={(): void => {
+              setModalOpen(false);
+            }}
+          >
+            {intl.formatMessage(messages.close)}
           </Button>
         </DialogActions>
       </Dialog>
@@ -336,7 +344,7 @@ function getFacetOptionJsx(
             css={css`
               ${theme.typography.family.text}
               ${theme.typography.text.sm}
-              color: ${theme.colors.text.secondary.base};
+              color: ${theme.colors.text.tertiary.base};
               margin: 0;
               padding: 0;
               li {
