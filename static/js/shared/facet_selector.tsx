@@ -21,7 +21,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import _ from "lodash";
+import _, { startCase } from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
@@ -35,6 +35,7 @@ import {
 } from "../components/elements/dialog/dialog";
 import { intl } from "../i18n/i18n";
 import { facetSelectionComponentMessages } from "../i18n/i18n_facet_selection_messages";
+import { messages } from "../i18n/i18n_messages";
 import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
 import { humanizeIsoDuration } from "./periodicity";
 import { StatMetadata } from "./stat_types";
@@ -220,6 +221,14 @@ export function FacetSelector({
           >
             {intl.formatMessage(facetSelectionComponentMessages.Update)}
           </Button>
+          <Button
+            variant="text"
+            onClick={(): void => {
+              setModalOpen(false);
+            }}
+          >
+            {intl.formatMessage(messages.close)}
+          </Button>
         </DialogActions>
       </Dialog>
     </>
@@ -239,18 +248,6 @@ export function FacetSelector({
 }
 
 /**
- * Given the metadata for a facet, gets a title for the facet
- */
-function getFacetTitle(metadata: StatMetadata): string {
-  if (_.isEmpty(metadata)) {
-    return intl.formatMessage(
-      facetSelectionComponentMessages.CombinedDatasetOption
-    );
-  }
-  return metadata.importName;
-}
-
-/**
  * Gets the element for a single facet options
  */
 function getFacetOptionJsx(
@@ -260,11 +257,29 @@ function getFacetOptionJsx(
   setModalSelections: (selections: Record<string, string>) => void
 ): ReactElement {
   const metadata = facetInfo.metadataMap[facetId] || {};
-  let facetTitle = getFacetTitle(metadata);
-  if (facetInfo.displayNames && facetId in facetInfo.displayNames) {
-    facetTitle = facetInfo.displayNames[facetId];
+  let primaryTitle: string;
+  let firstDetailItem: string | undefined;
+
+  if (_.isEmpty(metadata)) {
+    primaryTitle = intl.formatMessage(
+      facetSelectionComponentMessages.CombinedDatasetOption
+    );
+  } else {
+    const sourceTitle =
+      (facetInfo.displayNames && facetInfo.displayNames[facetId]) ||
+      metadata.sourceName ||
+      metadata.importName;
+    primaryTitle = metadata.provenanceName || sourceTitle;
+    if (primaryTitle !== sourceTitle) {
+      firstDetailItem = sourceTitle;
+    }
   }
+
   const selectedFacetId = modalSelections[facetInfo.dcid] || "";
+  const dateRange = [metadata.dateRangeStart, metadata.dateRangeEnd]
+    .filter(Boolean)
+    .join(" – ");
+
   return (
     <FormGroup
       radio="true"
@@ -319,13 +334,13 @@ function getFacetOptionJsx(
               word-break: break-word;
             `}
           >
-            {facetTitle}
+            {primaryTitle}
           </p>
           <ul
             css={css`
               ${theme.typography.family.text}
-              ${theme.typography.text.sm}
-              color: ${theme.colors.text.secondary.base};
+              ${theme.typography.text.sm}  
+              color: #75797b;
               margin: 0;
               padding: 0;
               li {
@@ -337,20 +352,18 @@ function getFacetOptionJsx(
               }
             `}
           >
-            {metadata.measurementMethod && (
+            {firstDetailItem && <li>{firstDetailItem}</li>}
+            {metadata.measurementMethodDescription && (
+              <li>{metadata.measurementMethodDescription}</li>
+            )}
+            {metadata.unitDisplayName && (
               <li>
-                {intl.formatMessage(metadataComponentMessages.MeasuringMethod)}{" "}
-                • {metadata.measurementMethod}
+                {intl.formatMessage(metadataComponentMessages.Unit)} •{" "}
+                {startCase(metadata.unitDisplayName)}
               </li>
             )}
             {metadata.scalingFactor && (
               <li>Scaling Factor • {metadata.scalingFactor}</li>
-            )}
-            {metadata.unit && (
-              <li>
-                {intl.formatMessage(metadataComponentMessages.Unit)} •{" "}
-                {metadata.unit}
-              </li>
             )}
             {metadata.observationPeriod && (
               <li>
@@ -359,6 +372,14 @@ function getFacetOptionJsx(
                 )}{" "}
                 • {humanizeIsoDuration(metadata.observationPeriod)} (
                 {metadata.observationPeriod})
+              </li>
+            )}
+            {dateRange && (
+              <li>
+                {intl.formatMessage(
+                  metadataComponentMessages.MetadataDateRange
+                )}{" "}
+                • {dateRange}
               </li>
             )}
           </ul>

@@ -28,8 +28,10 @@ import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events
 import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
+import { fetchFacetsWithMetadata } from "../../../tools/shared/metadata/metadata_fetcher";
 import { getStatVarGroups } from "../../../utils/app/timeline_utils";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { getFacets } from "../../../utils/data_fetch_utils";
 import { AppContextType, ContextStatVar } from "../app_context";
 import { ChartHeader } from "../chart_header";
@@ -100,18 +102,23 @@ function ChartFacetSelector({
   appContext,
   chartSvInfo,
 }: ChartFacetSelectorProps): ReactElement {
+  const dataCommonsClient = getDataCommonsClient();
   const fetchFacets = useCallback(async () => {
-    const resp = await getFacets(
+    const baseFacets = await getFacets(
       "",
       appContext.places.map((place) => place.dcid),
       chartSvInfo.map((sv) => sv.dcid)
     );
+    const enrichedFacets = await fetchFacetsWithMetadata(
+      baseFacets,
+      dataCommonsClient
+    );
     return chartSvInfo.map((sv) => ({
       dcid: sv.dcid,
       name: sv.info.title || sv.dcid,
-      metadataMap: resp[sv.dcid] || {},
+      metadataMap: enrichedFacets[sv.dcid] || {},
     }));
-  }, [appContext, chartSvInfo]);
+  }, [appContext, chartSvInfo, dataCommonsClient]);
 
   const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
 

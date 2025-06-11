@@ -32,7 +32,9 @@ import {
 import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
+import { fetchFacetsWithMetadata } from "../../../tools/shared/metadata/metadata_fetcher";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
 import { ChartHeader, InputInfo } from "../chart_header";
@@ -105,6 +107,7 @@ interface ChartFacetSelectorProps {
 function ChartFacetSelector({
   appContext,
 }: ChartFacetSelectorProps): ReactElement {
+  const dataCommonsClient = getDataCommonsClient();
   const statVars = useMemo(
     () => appContext.statVars.slice(0, 2),
     [appContext.statVars]
@@ -126,15 +129,24 @@ function ChartFacetSelector({
       )
     );
     const facetResp = await Promise.all(facetListPromises);
-    return statVars.map((sv, idx) => {
+    const baseFacets = Object.assign({}, ...facetResp);
+    const enrichedFacets = await fetchFacetsWithMetadata(
+      baseFacets,
+      dataCommonsClient
+    );
+    return statVars.map((sv) => {
       return {
         dcid: sv.dcid,
         name: sv.info.title || sv.dcid,
-        metadataMap:
-          idx < facetResp.length ? facetResp[idx][sv.dcid] || {} : {},
+        metadataMap: enrichedFacets[sv.dcid] || {},
       };
     });
-  }, [appContext.enclosedPlaceType, appContext.places, statVars]);
+  }, [
+    appContext.enclosedPlaceType,
+    appContext.places,
+    statVars,
+    dataCommonsClient,
+  ]);
 
   const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
 
