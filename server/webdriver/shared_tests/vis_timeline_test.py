@@ -237,26 +237,20 @@ class VisTimelineTestMixin():
     # Click on the button to open the source selector modal
     find_elem(self.driver, value='source-selector-open-modal-button').click()
 
-    shared.wait_for_loading(self.driver)
-
-    first_sv = find_elem(self.driver, value='source-selector-trigger').click()
-
-    shared.wait_for_loading(self.driver)
-
-    source_options = find_elems(
-        self.driver,
-        value='source-selector-option-title',
-        path_to_elem=['source-selector-options-section'])
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(lambda d: d.find_elements(
+                      By.CSS_SELECTOR, '.source-selector-facet-option-title'))
+    source_options = self.driver.find_elements(
+        By.CSS_SELECTOR, '.source-selector-facet-option-title')
     self.assertEqual(len(source_options), 18)
 
-    radio = find_elem(source_options[8], by=By.TAG_NAME, value='input')
-    radio.click()
+    source_options[7].click()
 
     # Click the modal-footer button to apply the changes
     modal_footer_button = find_elem(
         self.driver,
         value='source-selector-update-source-button',
-        path_to_elem=['modal-footer'])
+        path_to_elem=['dialog-actions'])
     modal_footer_button.click()
 
     # Wait for the chart to reload
