@@ -73,8 +73,12 @@ article.category {
   }
 }
 
-.subtopic:is(:first-of-type) {
+.subtopic:first-of-type {
   border-top: none;
+}
+
+.subtopic:last-of-type {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .subtopic.notitle:not(:first-of-type) {
