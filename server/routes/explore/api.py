@@ -23,6 +23,7 @@ from flask import current_app
 from flask import request
 
 from server.lib.nl.common import serialize
+import server.lib.nl.common.bad_words as bad_words
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
@@ -34,6 +35,7 @@ import server.lib.nl.explore.fulfiller_bridge as nl_fulfillment
 from server.lib.nl.explore.params import Clients
 from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import Params
+import server.lib.nl.explore.related as llm
 from server.lib.util import get_nl_disaster_config
 from server.routes.explore import helpers
 import server.services.bigtable as bt
@@ -128,6 +130,38 @@ def detect_and_fulfill():
   utterance.counters.timeit('setup_for_explore', start)
 
   return _fulfill_with_chart_config(utterance, debug_logs)
+
+
+#
+# The follow up question endpoint that generates the questions under "Keep Exploring"
+# based off of the initial query and topics found in the related topics.
+#
+@bp.route('/follow-up', methods=['POST'])
+def follow_up_questions():
+  debug_logs = {}
+
+  initial_query = request.args.get('q', '')
+  related_topics = request.get_json().get('relatedTopics', [])
+  if not related_topics:
+    return {'follow_up_questions': [], 'debug': debug_logs}
+
+  #Calls Gemini to generate the follow up questions
+  generated_questions = llm.followup_with_geminipro(
+      query=initial_query, related_topics=related_topics)
+
+  if not generated_questions:
+    debug_logs[
+        'ERROR'] = 'Error while calling Gemini to generate the follow up questions.'
+    return {'follow_up_questions': [], 'debug': debug_logs}
+
+  #Checks for adversarial questions
+  safe_generated_questions = [
+      question for question in generated_questions
+      if bad_words.is_safe(query=question,
+                           bad_words=current_app.config['NL_BAD_WORDS'])
+  ]
+
+  return {'follow_up_questions': safe_generated_questions, 'debug': debug_logs}
 
 
 #
