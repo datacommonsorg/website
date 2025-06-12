@@ -18,7 +18,6 @@ from unittest.mock import patch
 
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.explore.related import followup_with_geminipro
-from server.lib.nl.explore.related import FollowUpQuestions
 from server.lib.nl.explore.utils import _RETRIES
 from web_app import app
 
