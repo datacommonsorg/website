@@ -105,7 +105,7 @@ class Builder:
       if footnote:
         self.block.footnote = footnote
 
-    if cv.svs and self.enable_pc(cv):
+    if cv.svs and self.enable_pc(cv) and false:
       self.block.denom = 'Count_Person'
       if self.default_per_capita:
         self.block.start_with_denom = True

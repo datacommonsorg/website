@@ -245,6 +245,8 @@ export function Block(props: BlockPropType): JSX.Element {
     })();
   }, [props]);
 
+  // TODO(gmechali): Disable denom from here?
+
   return (
     <>
       <div className="block-controls">
