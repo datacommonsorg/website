@@ -59,7 +59,7 @@ DC_API_KEY = os.getenv("DC_API_KEY")
 
 def extract_flag() -> argparse.Namespace:
   """
-  Extracts the -generateAltSentences flag from the command line arguments.
+  Extracts the -generateAltSentences and -language flags from the command line arguments.
   """
   parser = argparse.ArgumentParser(description="./add_metadata.py")
   parser.add_argument(
@@ -70,7 +70,8 @@ def extract_flag() -> argparse.Namespace:
       default=False)
   parser.add_argument(
     "-language",
-    help="The language to return the metadata results in",
+    help="The language to return the metadata results in. Currently supports English, French, and Spanish.",
+    choices=["English", "French", "Spanish"],
     type=str,
     default="English"
   )
@@ -78,12 +79,12 @@ def extract_flag() -> argparse.Namespace:
   return args
 
 def get_language_settings(target_language: str) -> str:
-  EXPORTED_SV_FILE = f"tools/nl/nl_metadata/alyssaguo_statvars_{target_language.lower()}.json"
+  EXPORTED_SV_FILE = f"tools/nl/nl_metadata/alyssaguo_statvars_{target_language}.json"
 
   match target_language.lower():
-    case "french":
+    case "French":
       language_schema = json.dumps(frenchSchema)
-    case "spanish":
+    case "Spanish":
       language_schema = json.dumps(spanishSchema)
     case _:
       language_schema = json.dumps(englishSchema)
