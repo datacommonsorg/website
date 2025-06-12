@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
@@ -74,6 +75,7 @@ class ScatterTestMixin():
     circles = find_elems(scatterplot, by=By.TAG_NAME, value='circle')
     self.assertGreater(len(circles), 20)
 
+  @pytest.mark.one_at_a_time
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
     show up.

@@ -36,11 +36,23 @@ export const messages = defineMessages({
     description:
       "Title indicating that the chart data comes from the following multiple sources",
   },
+  sourcesLowercase: {
+    id: "sources.lowercase",
+    defaultMessage: "sources",
+    description:
+      "Same as “Sources” but in lowercase (for sentence-case labels)",
+  },
   source: {
     id: "source",
     defaultMessage: "Source",
     description:
       "Title indicating that the chart data comes from the following single source",
+  },
+  metadata: {
+    id: "metadata",
+    defaultMessage: "Metadata",
+    description:
+      "Title for metadata section (such as in dialog), akin to definition here https://en.wikipedia.org/wiki/Metadata",
   },
   showMetadata: {
     id: "showMetadata",
@@ -135,5 +147,17 @@ export const messages = defineMessages({
     id: "noDataErrorMessage",
     defaultMessage: "No data available.",
     description: "Error message for no data available",
+  },
+  inPlacesAndLastPlace: {
+    id: "in_places_and_last_place",
+    defaultMessage: "in {places} and {lastPlace}",
+    description:
+      "Text to display when we have a list of places, and need to add 'and' before the last place. For example, 'California, Texas, and New York'.",
+  },
+  inPlace: {
+    id: "in_place",
+    defaultMessage: "in {place}",
+    description:
+      "Text to display when we have a single place, and need to add the 'in' before the place. For example, 'in California'.",
   },
 });

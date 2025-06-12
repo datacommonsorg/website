@@ -44,4 +44,6 @@ def search_vector():
   if not queries:
     flask.abort(400, 'Must provide a `queries` in POST data')
 
-  return dc.nl_search_vars(queries, idx.split(','))
+  return dc.nl_search_vars(queries,
+                           idx.split(','),
+                           skip_topics=request.args.get('skip_topics', ''))

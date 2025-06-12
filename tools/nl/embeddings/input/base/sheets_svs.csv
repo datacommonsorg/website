@@ -73,7 +73,7 @@ Amount_Remittance_OutwardRemittance,Amount of Outward Remittance
 Amount_Stock,Stock market capitalization
 Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,Stock market capitalization as a Proportion of Nominal GDP
 AmountFarmInventory_WinterWheatForGrain,Amount of Winter Wheat grown for Grain production
-Amout_FarmInventory_CornForGrain,Amount of Corn grown for grain production
+Amount_FarmInventory_CornForGrain,Amount of Corn grown for grain production
 Annual_Amount_Emissions_Acetaldehyde_SCC_1_ExternalCombustion,amount of acetaldehyde emissions from External Combustion
 Annual_Amount_Emissions_Acetaldehyde_SCC_2_InternalCombustionEngines,amount of acetaldehyde emissions from Internal Combustion Engines
 Annual_Amount_Emissions_Acetaldehyde_SCC_21_StationarySourceFuelCombustion,amount of acetaldehyde emissions from Stationary Source Fuel Combustion
@@ -1838,7 +1838,7 @@ Count_MortalityEvent_Assault(Homicide),Number of Deaths from Assault (Homicide)
 Count_MortalityEvent_Assault(Homicide)_Female,Number of female Deaths from Assault (Homicide)
 Count_MortalityEvent_Diabetes,number of deaths from diabetes
 Count_MortalityEvent_Diabetes_Female,number of female deaths from diabetes
-Count_MortalityEvent_Diabetes_Memale,number of male deaths from diabetes
+Count_MortalityEvent_Diabetes_Male,number of male deaths from diabetes
 Count_MortalityEvent_HeartDiseaseExcludingHypertension,Number of Deaths from Heart Disease Excluding Hypertension
 Count_MortalityEvent_IntentionalSelf-Harm(Suicide),Number of Intentional Self-Harm (Suicide) Deaths
 Count_MortalityEvent_IntentionalSelf-Harm(Suicide)_Female,Number of Intentional Self-Harm (Suicide) Deaths in Females

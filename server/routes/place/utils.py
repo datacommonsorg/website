@@ -17,7 +17,7 @@ import asyncio
 import copy
 import random
 import re
-from typing import Callable, Dict, List, Set, Tuple
+from typing import Any, Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
@@ -30,7 +30,11 @@ from server.lib.i18n_messages import get_other_places_in_parent_place_str
 from server.lib.i18n_messages import \
     get_place_overview_table_variable_to_locale_message
 from server.lib.i18n_messages import get_place_type_in_parent_places_str
+from server.lib.util import add_the_if_needed
+from server.lib.util import capitalize_first_letter
+from server.lib.util import split_camel_case
 from server.routes import TIMEOUT
+from server.routes.place.summary_config import PLACE_SUMMARY_VARIABLES
 from server.routes.place.types import BlockConfig
 from server.routes.place.types import Category
 from server.routes.place.types import Chart
@@ -41,6 +45,12 @@ from server.routes.place.types import ServerChartConfiguration
 from server.routes.place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
+
+# Template for the first sentence in the summary
+_TEMPLATE_STARTING_SENTENCE = "{place_name} is a {place_type} in {parent_places}."
+
+# Template for sharing the value of a stat var
+_TEMPLATE_VALUE_SENTENCE = "The {stat_var_name} in {place_name} was {value} in {year}."
 
 # Parent place types to include in listing of containing places at top of page
 PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
@@ -73,7 +83,7 @@ def get_place_url(place_dcid: str) -> str:
 
 def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
   """Gets the parent places for a given DCID
-  
+
   Args:
     dcid: dcid of the place to get parents for
     
@@ -215,7 +225,7 @@ async def filter_chart_config_for_data_existence(
     parent_place_dcid: str) -> List[ServerChartConfiguration]:
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
-  
+
   Args:
       chart_config (List[Dict]): A list of chart configurations, where each configuration includes statistical variable DCIDs under the key 'variables'.
       place_dcid (str): dcid for the place of interest.
@@ -977,31 +987,26 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   ]
 
   # Fetch all observations for each variable
-  resp = dc.obs_point([place_dcid], variables, date="")
+  resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
   for item in place_overview_table_variable_translations:
     variable_dcid = item["variable_dcid"]
     name = item["translated_name"]
-    ordered_facet_observations = resp.get("byVariable", {}).get(
-        variable_dcid, {}).get("byEntity", {}).get(place_dcid,
-                                                   {}).get("orderedFacets", [])
-    # Get the most recent observation for each facet
-    most_recent_facet = max(ordered_facet_observations,
-                            key=lambda x: x.get("latestDate", ""),
-                            default=None)
-    if not most_recent_facet:
+    most_recent_facet_observations = extract_most_recent_facet_observations(
+        resp, place_dcid, variable_dcid)
+    if not most_recent_facet_observations:
       continue
 
-    observations = most_recent_facet.get("observations", [])
+    observations = most_recent_facet_observations.get("observations", [])
     # The most recent observation is the last one in the list
     most_recent_observation = observations[-1] if observations else None
     if not most_recent_observation:
       continue
 
-    facet_id = most_recent_facet.get("facetId", "")
-    date = most_recent_observation.get("date", "")
+    facet_id = most_recent_facet_observations.get("facetId", "")
+    date = most_recent_facet_observations.get("latestDate", "")
     value = most_recent_observation.get("value", "")
     provenance_url = facets.get(facet_id, {}).get("provenanceUrl", "")
     # Use the unit from the facet if available, otherwise use the unit from the variable definition
@@ -1018,6 +1023,76 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
         ))
 
   return data_rows
+
+
+def extract_most_recent_facet_observations(
+    place_observations_response: Dict[str, Any], place_dcid: str,
+    variable_dcid: str) -> Dict[str, Any] | None:
+  """
+  Extracts the most recent facet observations from a place observations response for a given place and variable DCIDs.
+
+  Example:
+
+  place_observations_response = {
+    "byVariable": {
+      "Count_Person": {
+        "byEntity": {
+          "country/EXAMPLE": {
+            "orderedFacets": [
+              {
+                "facetId": "facet_id_1",
+                "latestDate": "2024-01-01",
+                "observations": [
+                  {
+                    "date": "2024-01-01",
+                    "value": "500000"
+                  }
+                ]
+              },
+              {
+                "facetId": "facet_id_2",
+                "latestDate": "2023-01-01",
+                "observations": [
+                  {
+                    "date": "2023-01-01",
+                    "value": "400000"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+
+  extract_most_recent_facet_observations(place_observations_response, "country/EXAMPLE", "Count_Person")
+
+  Returns:
+    {
+      "facetId": "facet_id_1",
+      "latestDate": "2024-01-01",
+      "observations": [
+        {
+          "date": "2024-01-01",
+          "value": "500000"
+        }
+      ]
+    }
+  """
+
+  ordered_facet_observations = place_observations_response.get(
+      "byVariable", {}).get(variable_dcid,
+                            {}).get("byEntity",
+                                    {}).get(place_dcid,
+                                            {}).get("orderedFacets", [])
+
+  # Get the most recent observation for each facet
+  most_recent_facet = max(ordered_facet_observations,
+                          key=lambda x: x.get("latestDate", ""),
+                          default=None)
+
+  return most_recent_facet
 
 
 def dedupe_preserve_order(lists: List[List[str]]) -> List[str]:
@@ -1043,3 +1118,149 @@ def extract_places_from_dcids(all_places_by_dcid: Dict[str, Place],
       for dcid in dcids
       if not all_places_by_dcid[dcid].dissolved
   ]
+
+
+def _generate_place_summary_first_sentence(place: Place,
+                                           parent_places: List[Place]) -> str:
+  """Generates the first sentence of the place summary.
+
+  Examples:
+    "San Francisco is a city in California, the United States of America."
+    "California is a state in the United States of America."
+    "The United States of America is a country in North America."
+
+  Args:
+    place: Place object to generate the first sentence for
+    parent_places: List of parent places of the place
+
+  Returns:
+    A dict of place dcid -> list with starter sentence as only entry
+  """
+  if not place.name or not place.types:
+    return ""
+
+  place_type = place.types[0]
+
+  if place_type == "Country":
+    # For Country summaries, only use Continent as parent place
+    # Example: "The United States of America is a country in North America."
+    parent_names_to_display = [
+        p.name for p in parent_places if "Continent" in p.types
+    ]
+  else:
+    # For non-country place types, use state/admin1 and country as parent places
+    # Example1: "California is a state in the United States of America."
+    # Example2: "San Francisco is a city in California, the United States of America."
+    parent_types_to_display = set(["State", "AdministrativeArea1", "Country"])
+    parent_names_to_display = [
+        p.name
+        for p in parent_places
+        if bool(set(p.types) & parent_types_to_display)
+    ]
+
+  if not parent_names_to_display:
+    return ""
+
+  # format parent places for display
+  parent_str = ", ".join(
+      [add_the_if_needed(name) for name in parent_names_to_display])
+
+  # add starting sentence
+  sentence = _TEMPLATE_STARTING_SENTENCE.format(
+      place_name=capitalize_first_letter(add_the_if_needed(place.name)),
+      place_type=split_camel_case(place_type),
+      parent_places=parent_str)
+  return sentence
+
+
+def format_stat_var_value(value: float, unit: str) -> str:
+  """Format a stat var observation to print nicely in a sentence
+
+  Args:
+    value: numeric value to format
+    unit: unit of the stat var
+
+  Returns:
+    The value formatted with the unit
+  """
+  if value is None:
+    return ""
+  # Format to max 2 decimal places, removing trailing zeros
+  value = float('{:.2f}'.format(value).rstrip('0').rstrip('.'))
+  formatted_value = f"{value:,.2f}".rstrip("0").rstrip(".")
+  if unit == "$":
+    return f"{unit}{formatted_value}"
+  return f"{formatted_value}{unit}"
+
+
+async def _fetch_summary_data(
+    place_dcid: str, variable_dcids: List[str],
+    locale: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
+  """
+  Fetches the place, parent places, and place observations for the given place DCID.
+
+  Args:
+    place_dcid: The DCID of the place to fetch summary data for
+    variable_dcids: The DCIDs of the variables to fetch observations for
+    locale: The locale to fetch the data in
+
+  """
+  place = asyncio.to_thread(fetch_place, place_dcid, locale)
+  parent_places = asyncio.to_thread(get_parent_places, place_dcid, locale)
+  place_observations = asyncio.to_thread(dc.obs_point, [place_dcid],
+                                         variable_dcids,
+                                         date="LATEST")
+  return await asyncio.gather(place, parent_places, place_observations)
+
+
+async def generate_place_summary(place_dcid: str, locale: str) -> str:
+  """
+  Generates a place summary for the given place DCID.
+  """
+  # Only generate summary in English
+  if locale and locale != DEFAULT_LOCALE:
+    return ""
+
+  # Fetch all observations for each variable
+  variable_dcids = [v["dcid"] for v in PLACE_SUMMARY_VARIABLES]
+
+  place, parent_places, place_observations = await _fetch_summary_data(
+      place_dcid, variable_dcids, locale)
+  variable_observations = []
+
+  # Iterate over each variable and extract the most recent observation
+  for variable in PLACE_SUMMARY_VARIABLES:
+    variable_dcid = variable["dcid"]
+    most_recent_facet_observations = extract_most_recent_facet_observations(
+        place_observations, place.dcid, variable_dcid)
+    if not most_recent_facet_observations:
+      continue
+
+    facet_id = most_recent_facet_observations.get("facetId", "")
+    facet = place_observations.get("facets", {}).get(facet_id, {})
+
+    observations = most_recent_facet_observations.get("observations", [])
+    most_recent_observation = observations[-1] if observations else None
+    if not most_recent_observation:
+      continue
+
+    variable_observations.append({
+        "variable": variable_dcid,
+        "variable_name": variable["name"],
+        "unit": variable["unit"],
+        "observation": most_recent_observation,
+        "facet": facet,
+    })
+  sentences = [_generate_place_summary_first_sentence(place, parent_places)]
+  for variable_observation in variable_observations:
+    sentences.append(
+        _TEMPLATE_VALUE_SENTENCE.format(
+            stat_var_name=variable_observation["variable_name"],
+            place_name=add_the_if_needed(place.name),
+            value=format_stat_var_value(
+                variable_observation["observation"]["value"],
+                variable_observation["unit"]),
+            year=variable_observation["observation"]["date"][:4]))
+
+  summary = " ".join(sentences)
+  return summary

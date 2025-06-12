@@ -65,7 +65,7 @@ def post_wrapper(url, req_str: str):
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
-  call_logger = log.ExtremeCallLogger(req)
+  call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
   call_logger.finish(response)
   if response.status_code != 200:
@@ -389,12 +389,17 @@ def resolve(nodes, prop):
   return post(url, {'nodes': nodes, 'property': prop})
 
 
-def nl_search_vars(queries, index_types: List[str], reranker=''):
+def nl_search_vars(queries,
+                   index_types: List[str],
+                   reranker='',
+                   skip_topics=''):
   """Search sv from NL server."""
   idx_params = ','.join(index_types)
   url = f'{current_app.config["NL_ROOT"]}/api/search_vars?idx={idx_params}'
   if reranker:
     url = f'{url}&reranker={reranker}'
+  if skip_topics:
+    url = f'{url}&skip_topics={skip_topics}'
   return post(url, {'queries': queries})
 
 

@@ -14,6 +14,7 @@
 import os
 import tempfile
 
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
@@ -36,7 +37,7 @@ TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
     'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
     SKIP_CHECK, SKIP_CHECK,
-    'https://www2.census.gov/programs-surveys/popest/tables'
+    'https://www.census.gov/programs-surveys/popest.html'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
 
@@ -77,6 +78,7 @@ class DownloadTestMixin():
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
 
+  @pytest.mark.one_at_a_time
   def test_manually_enter_options(self):
     """
         Test entering options will show preview and allow download of a file

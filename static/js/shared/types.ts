@@ -32,6 +32,11 @@ export interface NamedTypedNode {
   provenanceId?: string;
 }
 
+export interface ProvenanceLiteral {
+  provenanceId: string;
+  value: string;
+}
+
 export type NamedPlace = NamedNode;
 export type NamedTypedPlace = NamedTypedNode;
 
@@ -208,6 +213,10 @@ export interface StatVarSpec {
   noPerCapita?: boolean;
   facetId?: string;
 }
+
+export type StatVarFacetMap = {
+  [statVarId: string]: Set<string>;
+};
 
 export interface SampleDates {
   facetDates: Record<string, Array<string>>;

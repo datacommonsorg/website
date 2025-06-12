@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ export function randDomId(): string {
   return Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
-    .substr(2, 10);
+    .slice(2, 12);
 }
 
 /** Determines if the width corresponds to mobile based on themes. */
@@ -77,7 +77,7 @@ export function isMobileByWidth(theme: Theme | null): boolean {
 
 /**
  * Downloads a file under a given filename.
- * @param filename name to download the file to
+ * @param fileName name to download the file to
  * @param file the file to download
  */
 export function downloadFile(fileName: string, file: Blob | File): void {
@@ -94,8 +94,8 @@ export function downloadFile(fileName: string, file: Blob | File): void {
 
 /**
  * Saves csv to filename.
- * @param {filename} string
- * @param {contents} string
+ * @param filename
+ * @param contents
  * @return void
  */
 export function saveToFile(filename: string, contents: string): void {
@@ -125,6 +125,62 @@ export function urlToDisplayText(url: string): string {
     .replace("https://", "")
     .replace("www.", "")
     .split(/[/?#]/)[0];
+}
+
+/**
+ * This function removes the protocol from a url.
+ *
+ * Example:
+ *
+ * stripProtocol("https://datacommons.org")
+ *  -> "datacommons.org"
+ */
+export function stripProtocol(url: string): string {
+  if (!url) {
+    return "";
+  }
+  return url.replace(/^https?:\/\//i, "");
+}
+
+/**
+ * This function truncates a string to `maxLength`, replacing
+ * the excised fragment with `omission`.
+ *
+ * If maxLength is less omission.length or str is already
+ * short enough, the function returns str unchanged.
+ *
+ * Example:
+ *
+ * truncateText(
+ *  "datacatalog.worldbank.org/dataset/world-development-indicators",'
+ *   50, "middle")
+ *  -> "datacatalog.worldbank.org…d-development-indicators"
+ *
+ */
+export function truncateText(
+  str: string,
+  maxLength: number,
+  position: "start" | "middle" | "end" = "end",
+  omission = "…"
+): string {
+  if (maxLength <= omission.length || str.length <= maxLength) {
+    return str;
+  }
+
+  const charactersToKeep = maxLength - omission.length;
+
+  switch (position) {
+    case "start":
+      return omission + str.slice(str.length - charactersToKeep);
+    case "middle": {
+      const front = Math.ceil(charactersToKeep / 2);
+      const back = Math.floor(charactersToKeep / 2);
+      return str.slice(0, front) + omission + str.slice(str.length - back);
+    }
+    case "end":
+    default:
+      return str.slice(0, charactersToKeep) + omission;
+  }
 }
 
 export function isDateTooFar(date: string): boolean {
