@@ -34,7 +34,7 @@ class StatVarMetadata:
 
 type SVMetadataDict = dict[str, str | list[str]]
 
-englishSchema: dict = {
+englishSchema: SVMetadataDict = {
     "dcid": "",
     "sentence": "",
     "generatedSentences": [],
@@ -45,7 +45,7 @@ englishSchema: dict = {
     "constraintProperties": []
 }
 
-frenchSchema: dict = {
+frenchSchema: SVMetadataDict = {
     "dcid": "",
     "phrase": "",
     "phrasesGenerees": [],
@@ -56,7 +56,7 @@ frenchSchema: dict = {
     "contraintes": []
 }
 
-spanishSchema: dict = {
+spanishSchema: SVMetadataDict = {
     "dcid": "",
     "frase": "",
     "frasesGeneradas": [],
