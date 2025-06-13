@@ -92,7 +92,6 @@ def get_language_settings(target_language: str) -> str:
       language_schema = json.dumps(spanishSchema)
     case _:
       language_schema = json.dumps(englishSchema)
-  
   return exported_sv_file, get_gemini_prompt(target_language, language_schema)
 
 def split_into_batches(
