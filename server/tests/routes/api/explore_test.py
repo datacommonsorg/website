@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,20 +17,19 @@ from unittest.mock import DEFAULT
 from unittest.mock import patch
 
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
-from server.lib.nl.explore.related import followup_with_geminipro
-from server.lib.nl.explore.utils import _RETRIES
+from server.lib.nl.explore.related import generate_follow_up_questions
 from web_app import app
 
 
-class TestExplore(unittest.TestCase):
+class TestFollowUpQuestions(unittest.TestCase):
 
-  @patch('server.routes.explore.api.llm.followup_with_geminipro', autospec=True)
+  @patch('server.routes.explore.api.related.generate_follow_up_questions',
+         autospec=True)
   def test_follow_up_questions_typical(self, mock):
     query = "What is the rate of education in El Paso?"
     related_topics = [
         "Educational Attachment", "School Type", "Housing", "Commute"
     ]
-    debug = {}
 
     expected_questions = [
         'What is the school dropout rate in El Paso?',
@@ -40,21 +39,24 @@ class TestExplore(unittest.TestCase):
     ]
     mock.return_value = expected_questions
 
-    resp = app.test_client().post(f'api/explore/follow-up?q={query}',
-                                  json={'relatedTopics': related_topics})
+    resp = app.test_client().post(f'api/explore/follow-up-questions',
+                                  json={
+                                      'q': query,
+                                      'relatedTopics': related_topics
+                                  })
 
+    assert resp.status_code == 200
     assert resp.json['follow_up_questions'] == expected_questions
-    assert resp.json['debug'] == debug
 
   @patch('server.routes.explore.api.bad_words.is_safe', autospec=True)
-  @patch('server.routes.explore.api.llm.followup_with_geminipro', autospec=True)
+  @patch('server.routes.explore.api.related.generate_follow_up_questions',
+         autospec=True)
   def test_follow_up_questions_excludes_adversarial(self, mock_gemini,
                                                     mock_safe):
     query = "What is the rate of education in El Paso?"
     related_topics = [
         "Educational Attachment", "School Type", "Housing", "Commute"
     ]
-    debug = {}
 
     expected_questions = [
         'What is the school dropout rate in El Paso?',
@@ -66,45 +68,63 @@ class TestExplore(unittest.TestCase):
     #Labels do not match the actual adversarial label of each query, it is simply for testing purposes.
     mock_safe.side_effect = [False, True, False, True]
 
-    resp = app.test_client().post(f'api/explore/follow-up?q={query}',
-                                  json={'relatedTopics': related_topics})
+    resp = app.test_client().post(f'api/explore/follow-up-questions',
+                                  json={
+                                      'q': query,
+                                      'relatedTopics': related_topics
+                                  })
 
+    assert resp.status_code == 200
     assert resp.json['follow_up_questions'] == expected_questions[1:4:2]
-    assert resp.json['debug'] == debug
 
   def test_follow_up_questions_empty_related_topics(self):
     query = "What is the rate of education in El Paso?"
     related_topics = []
     expected_questions = []
-    debug = {}
-    resp = app.test_client().post(f'api/explore/follow-up?q={query}',
-                                  json={'relatedTopics': related_topics})
+    resp = app.test_client().post(f'api/explore/follow-up-questions',
+                                  json={
+                                      'q': query,
+                                      'relatedTopics': related_topics
+                                  })
 
+    assert resp.status_code == 200
     assert resp.json['follow_up_questions'] == expected_questions
-    assert resp.json['debug'] == debug
 
-  @patch('server.routes.explore.api.llm.followup_with_geminipro', autospec=True)
+  def test_follow_up_questions_empty_query(self):
+    query = ""
+    related_topics = ["Housing", "Commute"]
+    expected_questions = []
+    resp = app.test_client().post(f'api/explore/follow-up-questions',
+                                  json={
+                                      'q': query,
+                                      'relatedTopics': related_topics
+                                  })
+
+    assert resp.status_code == 200
+    assert resp.json['follow_up_questions'] == expected_questions
+
+  @patch('server.routes.explore.api.related.generate_follow_up_questions',
+         autospec=True)
   def test_follow_up_questions_error_gemini_call(self, mock):
     query = "What is the rate of education in El Paso?"
     related_topics = [
         "Educational Attachment", "School Type", "Housing", "Commute"
     ]
     expected_questions = []
-    debug = {
-        'ERROR':
-            'Error while calling Gemini to generate the follow up questions.'
-    }
 
     mock.return_value = expected_questions
     app.config['NL_BAD_WORDS'] = EMPTY_BANNED_WORDS
-    resp = app.test_client().post(f'api/explore/follow-up?q={query}',
-                                  json={'relatedTopics': related_topics})
+    resp = app.test_client().post(f'api/explore/follow-up-questions',
+                                  json={
+                                      'q': query,
+                                      'relatedTopics': related_topics
+                                  })
 
+    assert resp.status_code == 500
     assert resp.json['follow_up_questions'] == expected_questions
-    assert resp.json['debug'] == debug
 
   @patch('google.genai.Client', autospec=True)
-  def test_followup_with_geminipro_typical(self, mock_gemini):
+  def test_generate_follow_up_questions_typical(self, mock_gemini):
     query = "What is the rate of education in El Paso?"
     related_topics = [
         "Educational Attachment", "School Type", "Housing", "Commute"
@@ -118,11 +138,11 @@ class TestExplore(unittest.TestCase):
     mock_gemini.return_value.models.generate_content.return_value.parsed.questions = expected_questions
     app.config['LLM_API_KEY'] = ""
     with app.app_context():
-      assert expected_questions == followup_with_geminipro(
+      assert expected_questions == generate_follow_up_questions(
           query=query, related_topics=related_topics)
 
   @patch('google.genai.Client', autospec=True)
-  def test_followup_with_geminipro_retry_once(self, mock_gemini):
+  def test_generate_follow_up_questions_retry_once(self, mock_gemini):
     query = "What is the rate of education in El Paso?"
     related_topics = [
         "Educational Attachment", "School Type", "Housing", "Commute"
@@ -139,22 +159,29 @@ class TestExplore(unittest.TestCase):
     ]
     app.config['LLM_API_KEY'] = ""
     with app.app_context():
-      assert expected_questions == followup_with_geminipro(
+      assert expected_questions == generate_follow_up_questions(
           query=query, related_topics=related_topics)
 
   @patch('google.genai.Client', autospec=True)
-  def test_followup_wtih_geminipro_error_request(self, mock_gemini):
+  def test_generate_follow_up_questions_error_request(self, mock_gemini):
     query = "What is the rate of education in Mountain View?"
     related_topics = ["Education"]
-    mock_gemini.return_value.models.generate_content.side_effect = [None
-                                                                   ] * _RETRIES
+    mock_gemini.return_value.models.generate_content.side_effect = [
+        None, None, None
+    ]
     app.config['LLM_API_KEY'] = ""
     with app.app_context():
-      assert [] == followup_with_geminipro(query=query,
-                                           related_topics=related_topics)
+      assert [] == generate_follow_up_questions(query=query,
+                                                related_topics=related_topics)
 
-  def test_followup_wtih_geminipro_no_related_topics(self):
+  def test_generate_follow_up_questions_empty_related_topics(self):
     query = "What is the rate of education in Mountain View?"
     related_topics = []
-    assert [] == followup_with_geminipro(query=query,
-                                         related_topics=related_topics)
+    assert [] == generate_follow_up_questions(query=query,
+                                              related_topics=related_topics)
+
+  def test_generate_follow_up_questions_empty_query(self):
+    query = ""
+    related_topics = ["Housing", "Commute"]
+    assert [] == generate_follow_up_questions(query=query,
+                                              related_topics=related_topics)
