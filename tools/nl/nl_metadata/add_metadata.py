@@ -39,6 +39,8 @@ DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
+EXPORTED_FILE_DIR = "tools/nl/nl_metadata/"
+EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
 
 # These are the properties common to evey stat var
 MEASURED_PROPERTY = "measuredProperty"
@@ -52,6 +54,8 @@ GEMINI_TEMPERATURE = 1
 GEMINI_TOP_P = 1
 GEMINI_SEED = 0
 GEMINI_MAX_OUTPUT_TOKENS = 65535
+MAX_RETRIES = 5
+RETRY_DELAY_SECONDS = 2
 
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
 DC_API_KEY = os.getenv("DC_API_KEY")
@@ -71,7 +75,7 @@ def extract_flag() -> argparse.Namespace:
   parser.add_argument(
     "-language",
     help="The language to return the metadata results in. Currently supports English, French, and Spanish.",
-    choices=["English", "French", "Spanish"],
+    choices=["English", "French", "Spanish"], # TODO: Add support for more languages
     type=str,
     default="English"
   )
@@ -79,9 +83,9 @@ def extract_flag() -> argparse.Namespace:
   return args
 
 def get_language_settings(target_language: str) -> str:
-  EXPORTED_SV_FILE = f"tools/nl/nl_metadata/alyssaguo_statvars_{target_language}.json"
+  exported_sv_file = f"{EXPORTED_FILE_DIR}{EXPORTED_FILENAME_PREFIX}_{target_language}.json"
 
-  match target_language.lower():
+  match target_language:
     case "French":
       language_schema = json.dumps(frenchSchema)
     case "Spanish":
@@ -89,7 +93,7 @@ def get_language_settings(target_language: str) -> str:
     case _:
       language_schema = json.dumps(englishSchema)
   
-  return EXPORTED_SV_FILE, get_gemini_prompt(target_language, language_schema)
+  return exported_sv_file, get_gemini_prompt(target_language, language_schema)
 
 def split_into_batches(
     original_df: pd.DataFrame | List) -> List[pd.DataFrame] | List[List]:
@@ -195,8 +199,6 @@ async def generate_alt_sentences(
   Calls the Gemini API to generate alternative sentences for a list of SV metadata.
   Returns the alt sentences as a list of dictionaries.
   """
-  MAX_RETRIES = 5
-  RETRY_DELAY_SECONDS = 2
   prompt_with_metadata = types.Part.from_text(text=(gemini_prompt +
                                                     str(sv_metadata)))
 
@@ -271,7 +273,7 @@ def export_to_json(sv_metadata_list: List[SVMetadataDict], exported_sv_file: str
 
 async def main():
   args: argparse.Namespace = extract_flag()
-  exported_sv_file = "tools/nl/nl_metadata/alyssaguo_statvars.json"
+  exported_sv_file = f"{EXPORTED_FILE_DIR}{EXPORTED_FILENAME_PREFIX}.json"
 
   sv_metadata_list: List[SVMetadataDict] = create_sv_metadata()
   if args.generateAltSentences:
