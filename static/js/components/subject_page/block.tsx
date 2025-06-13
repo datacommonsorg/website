@@ -259,7 +259,6 @@ export function Block(props: BlockPropType): JSX.Element {
       }
       return denom;
     }
-    console.log("Props.denom", props.denom);
     setDenomToUse(shouldUseDenom(props.denom, props.highlightFacet));
   }, [props.denom, props.highlightFacet]);
 
