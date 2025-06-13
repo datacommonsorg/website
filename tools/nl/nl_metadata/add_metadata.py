@@ -75,7 +75,7 @@ def extract_flag() -> argparse.Namespace:
   parser.add_argument(
     "-language",
     help="The language to return the metadata results in. Currently supports English, French, and Spanish.",
-    choices=["English", "French", "Spanish"], # TODO: Add support for more languages
+    choices=["English", "French", "Spanish"], # TODO: Add support for passing multiple languages at once
     type=str,
     default="English"
   )
