@@ -248,7 +248,6 @@ export function Block(props: BlockPropType): JSX.Element {
     })();
   }, [props]);
 
-
   useEffect(() => {
     function shouldUseDenom(
       denom: string | undefined,
@@ -339,29 +338,29 @@ export function Block(props: BlockPropType): JSX.Element {
                 tiles={
                   props.showWebComponents
                     ? renderWebComponents(
-                      column.tiles,
-                      props,
-                      id,
-                      minIdxToHide,
-                      overridePlaceTypes,
-                      columnTileClassName,
-                      denomToUse,
-                      snapToHighestCoverage
-                        ? DATE_HIGHEST_COVERAGE
-                        : undefined
-                    )
+                        column.tiles,
+                        props,
+                        id,
+                        minIdxToHide,
+                        overridePlaceTypes,
+                        columnTileClassName,
+                        denomToUse,
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
+                          : undefined
+                      )
                     : renderTiles(
-                      column.tiles,
-                      props,
-                      id,
-                      minIdxToHide,
-                      overridePlaceTypes,
-                      columnTileClassName,
-                      denomToUse,
-                      snapToHighestCoverage
-                        ? DATE_HIGHEST_COVERAGE
-                        : undefined
-                    )
+                        column.tiles,
+                        props,
+                        id,
+                        minIdxToHide,
+                        overridePlaceTypes,
+                        columnTileClassName,
+                        denomToUse,
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
+                          : undefined
+                      )
                 }
               />
             );
@@ -530,10 +529,10 @@ function renderTiles(
               blockDate == DATE_LATEST
                 ? intl.formatMessage(messages.rankingTileLatestDataFooter)
                 : blockDate === DATE_HIGHEST_COVERAGE
-                  ? intl.formatMessage(
+                ? intl.formatMessage(
                     messages.rankingTileLatestDataAvailableFooter
                   )
-                  : undefined
+                : undefined
             }
           />
         );
@@ -797,9 +796,9 @@ function renderWebComponents(
             }
             className={className}
             {...(props.showExploreMore &&
-              props.place.types.every(
-                (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
-              )
+            props.place.types.every(
+              (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+            )
               ? { showExploreMore: true }
               : {})}
             {...(tile.mapTileSpec?.geoJsonProp

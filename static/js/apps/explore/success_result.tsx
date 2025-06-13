@@ -128,8 +128,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
   const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
   return (
-    <div
-      className='row explore-charts'>
+    <div className="row explore-charts">
       {props.hideHeaderSearchBar && (
         <div className="search-section-container" ref={searchSectionRef}>
           <div className="search-section-content container">
@@ -154,7 +153,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
         />
         {props.pageMetadata && !_.isEmpty(props.pageMetadata.pageConfig) && (
           <>
-          <ResultHeaderSection
+            <ResultHeaderSection
               pageMetadata={props.pageMetadata}
               placeUrlVal={placeUrlVal}
               hideRelatedTopics={false}
