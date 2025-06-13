@@ -36,6 +36,7 @@ const NO_PLACE_EXPLORER_TYPES = new Set([
   "ContinentalUnion",
 ]);
 
+// TODO(gmechali): Deprecate this tile entirely. We no longer show it.
 export function PlaceOverviewTile(
   props: PlaceOverviewTilePropType
 ): JSX.Element {

@@ -129,10 +129,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
   const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
   return (
     <div
-      className={`row explore-charts${
-        placeOverviewOnly ? " place-overview-only" : ""
-      }`}
-    >
+      className='row explore-charts'>
       {props.hideHeaderSearchBar && (
         <div className="search-section-container" ref={searchSectionRef}>
           <div className="search-section-content container">
@@ -157,13 +154,11 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
         />
         {props.pageMetadata && !_.isEmpty(props.pageMetadata.pageConfig) && (
           <>
-            {!placeOverviewOnly && (
-              <ResultHeaderSection
-                pageMetadata={props.pageMetadata}
-                placeUrlVal={placeUrlVal}
-                hideRelatedTopics={false}
-              />
-            )}
+          <ResultHeaderSection
+              pageMetadata={props.pageMetadata}
+              placeUrlVal={placeUrlVal}
+              hideRelatedTopics={false}
+            />
             <RankingUnitUrlFuncContext.Provider
               value={(
                 dcid: string,

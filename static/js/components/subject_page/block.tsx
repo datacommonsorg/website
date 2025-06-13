@@ -259,13 +259,14 @@ export function Block(props: BlockPropType): JSX.Element {
       }
       return denom;
     }
+    console.log("Props.denom", props.denom);
     setDenomToUse(shouldUseDenom(props.denom, props.highlightFacet));
   }, [props.denom, props.highlightFacet]);
 
   return (
     <>
       <div className="block-controls">
-        {_.isEmpty(denomToUse) && (
+        {!_.isEmpty(denomToUse) && (
           <span className="block-toggle">
             <label>
               <Input
@@ -681,9 +682,6 @@ function renderTiles(
             {tile.description}
           </p>
         );
-      case "PLACE_OVERVIEW":
-        // TODO(gmechali): Switch to server-side redirection
-        return <PlaceOverviewTile key={id} place={place} />;
       case "ANSWER_MESSAGE":
         return (
           <AnswerMessageTile
