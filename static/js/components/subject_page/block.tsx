@@ -198,6 +198,7 @@ export function Block(props: BlockPropType): JSX.Element {
     setShowSnapToHighestCoverageCheckbox,
   ] = useState(false);
   const [enableSnapToLatestData, setEnableSnapToLatestData] = useState(true);
+  const [denomToUse, setDenomToUse] = useState<string>("");
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
   const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
@@ -241,16 +242,30 @@ export function Block(props: BlockPropType): JSX.Element {
           props.statVarProvider
         );
       setEnableSnapToLatestData(enableSnapToHighestCoverage);
-      setShowSnapToHighestCoverageCheckbox(true);
+
+      // We want to disable the block controls for the highlight chart.
+      setShowSnapToHighestCoverageCheckbox(!props.highlightFacet);
     })();
   }, [props]);
 
-  // TODO(gmechali): Disable denom from here?
+
+  useEffect(() => {
+    function shouldUseDenom(
+      denom: string | undefined,
+      highlightFacet: FacetMetadata | undefined
+    ): string {
+      if (highlightFacet || !denom) {
+        return "";
+      }
+      return denom;
+    }
+    setDenomToUse(shouldUseDenom(props.denom, props.highlightFacet));
+  }, [props.denom, props.highlightFacet]);
 
   return (
     <>
       <div className="block-controls">
-        {props.denom && (
+        {_.isEmpty(denomToUse) && (
           <span className="block-toggle">
             <label>
               <Input
@@ -324,29 +339,29 @@ export function Block(props: BlockPropType): JSX.Element {
                 tiles={
                   props.showWebComponents
                     ? renderWebComponents(
-                        column.tiles,
-                        props,
-                        id,
-                        minIdxToHide,
-                        overridePlaceTypes,
-                        columnTileClassName,
-                        useDenom ? props.denom : "",
-                        snapToHighestCoverage
-                          ? DATE_HIGHEST_COVERAGE
-                          : undefined
-                      )
+                      column.tiles,
+                      props,
+                      id,
+                      minIdxToHide,
+                      overridePlaceTypes,
+                      columnTileClassName,
+                      denomToUse,
+                      snapToHighestCoverage
+                        ? DATE_HIGHEST_COVERAGE
+                        : undefined
+                    )
                     : renderTiles(
-                        column.tiles,
-                        props,
-                        id,
-                        minIdxToHide,
-                        overridePlaceTypes,
-                        columnTileClassName,
-                        useDenom ? props.denom : "",
-                        snapToHighestCoverage
-                          ? DATE_HIGHEST_COVERAGE
-                          : undefined
-                      )
+                      column.tiles,
+                      props,
+                      id,
+                      minIdxToHide,
+                      overridePlaceTypes,
+                      columnTileClassName,
+                      denomToUse,
+                      snapToHighestCoverage
+                        ? DATE_HIGHEST_COVERAGE
+                        : undefined
+                    )
                 }
               />
             );
@@ -515,10 +530,10 @@ function renderTiles(
               blockDate == DATE_LATEST
                 ? intl.formatMessage(messages.rankingTileLatestDataFooter)
                 : blockDate === DATE_HIGHEST_COVERAGE
-                ? intl.formatMessage(
+                  ? intl.formatMessage(
                     messages.rankingTileLatestDataAvailableFooter
                   )
-                : undefined
+                  : undefined
             }
           />
         );
@@ -785,9 +800,9 @@ function renderWebComponents(
             }
             className={className}
             {...(props.showExploreMore &&
-            props.place.types.every(
-              (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
-            )
+              props.place.types.every(
+                (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+              )
               ? { showExploreMore: true }
               : {})}
             {...(tile.mapTileSpec?.geoJsonProp
