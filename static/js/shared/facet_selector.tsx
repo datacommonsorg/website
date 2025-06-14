@@ -20,6 +20,10 @@
 
 /** @jsxImportSource @emotion/react */
 
+/* TODO (nick-next): Refactor: Parent should resolve the promise and pass `facetList`
+  and `loading` props.
+ */
+
 import { css, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
@@ -120,10 +124,12 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         className={`${SELECTOR_PREFIX}-open-modal-button`}
         variant="flat"
         onClick={(): void => setModalOpen(true)}
-        disabled={loading}
+        disabled={loading || !totalFacetOptionCount}
         css={css`
           flex-shrink: 0;
-          visibility: ${loading ? "hidden" : "visible"};
+          visibility: ${loading || !totalFacetOptionCount
+            ? "hidden"
+            : "visible"};
         `}
       >
         {intl.formatMessage(
