@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
+import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
 import { Chip } from "../../shared/chip";
-import { FacetSelectorLegacy } from "../../shared/facet_selector_legacy";
+import { FacetSelector } from "../../shared/facet_selector";
 import { PlaceSelector } from "../../shared/place_selector";
 import { PointAllApiResponse, StatMetadata } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
+import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
@@ -174,7 +176,7 @@ export function Page(props: PagePropType): ReactElement {
     _.isEmpty(validationErrors.incompleteSelectionMessage) && !showPreview;
   return (
     // TODO: Try to move the options into a separate component.
-    <>
+    <ThemeProvider theme={theme}>
       <StatVarChooser
         statVars={selectedOptions.selectedStatVars}
         placeDcid={selectedOptions.selectedPlace.dcid}
@@ -356,7 +358,7 @@ export function Page(props: PagePropType): ReactElement {
             </div>
             {!shouldHideSourceSelector() && (
               <div className="download-option-section">
-                <FacetSelectorLegacy
+                <FacetSelector
                   svFacetId={selectedOptions.selectedFacets}
                   facetListPromise={facetListPromise}
                   onSvFacetIdUpdated={(svFacetId): void => {
@@ -396,7 +398,7 @@ export function Page(props: PagePropType): ReactElement {
         )}
         {showInfo && <Info infoPlaces={props.infoPlaces} />}
       </div>
-    </>
+    </ThemeProvider>
   );
 
   function selectStatVar(dcid: string, info: StatVarInfo): void {
