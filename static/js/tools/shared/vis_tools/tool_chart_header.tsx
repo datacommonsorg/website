@@ -17,7 +17,9 @@
 /**
  * Footer for charts created by the different tools
  */
+/** @jsxImportSource @emotion/react */
 
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import {
@@ -42,7 +44,19 @@ interface ToolChartHeaderProps {
 
 export function ToolChartHeader(props: ToolChartHeaderProps): ReactElement {
   return (
-    <div>
+    <div
+      css={css`
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-bottom: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 15px;
+        font-size: 0.8rem;
+        border-radius: 0;
+        background: white;
+      `}
+    >
       <FacetSelector
         svFacetId={props.svFacetId}
         facetListPromise={Promise.resolve(props.facetList)}
