@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import React, { Component, createRef, RefObject } from "react";
+import { ThemeProvider } from "@emotion/react";
+import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
 import {
@@ -25,6 +26,7 @@ import {
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ChartRegion } from "./chart_region";
@@ -128,7 +130,7 @@ class Page extends Component<unknown, PageStateType> {
       .appendChild(this.svHierarchyContainerRef.current);
   }
 
-  render(): JSX.Element {
+  render(): ReactElement {
     const numPlaces = Object.keys(this.state.placeName).length;
     const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
     const namedPlaces: NamedPlace[] = [];
@@ -158,7 +160,7 @@ class Page extends Component<unknown, PageStateType> {
         sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
     }
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <StatVarWidget
           openSvHierarchyModal={this.state.showSvHierarchyModal}
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
@@ -225,7 +227,7 @@ class Page extends Component<unknown, PageStateType> {
             )}
           </Container>
         </div>
-      </>
+      </ThemeProvider>
     );
   }
 }
