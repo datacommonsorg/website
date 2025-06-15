@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 
 /**
- * Footer for charts created by the different tools
+ * Header for charts created by the original vis tools
  */
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from "@emotion/react";
+import { css } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import {
@@ -53,7 +53,7 @@ export function ToolChartHeader(props: ToolChartHeaderProps): ReactElement {
         align-items: flex-start;
         padding: 15px;
         font-size: 0.8rem;
-        border-radius: 0;
+        border-radius: 0.25rem 0.25rem 0 0;
         background: white;
       `}
     >
