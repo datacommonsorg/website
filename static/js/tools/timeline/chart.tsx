@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import _ from "lodash";
-import React, { Component } from "react";
+import React, { Component, ReactElement } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
@@ -33,7 +33,8 @@ import {
 } from "../../shared/ga_events";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
-import { ToolChartFooter } from "../shared/tool_chart_footer";
+import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
+import { ToolChartHeader } from "../shared/vis_tools/tool_chart_header";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
 import {
   convertToDelta,
@@ -96,7 +97,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.state = { rawData: null, statData: null, ipccModels: null };
   }
 
-  render(): JSX.Element {
+  render(): ReactElement {
     const statVars = Object.keys(this.props.statVarInfos);
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
@@ -117,6 +118,11 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     }
     return (
       <div className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
+        <ToolChartHeader
+          svFacetId={svFacetId}
+          facetList={facetList}
+          onSvFacetIdUpdated={(svFacetId): void => setMetahash(svFacetId)}
+        />
         <div className="card">
           <div className="statVarChipRegion">
             {statVars.map((statVar) => {
@@ -150,9 +156,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          svFacetId={svFacetId}
-          facetList={facetList}
-          onSvFacetIdUpdated={(svFacetId): void => setMetahash(svFacetId)}
           hideIsRatio={false}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean): void =>

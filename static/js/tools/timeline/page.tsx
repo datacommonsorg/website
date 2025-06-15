@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import React, { Component, createRef, RefObject } from "react";
+import { ThemeProvider } from "@emotion/react";
+import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
 import {
@@ -25,6 +26,7 @@ import {
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ChartRegion } from "./chart_region";
@@ -72,63 +74,7 @@ class Page extends Component<unknown, PageStateType> {
     this.fetchDataAndRender();
   }
 
-  private fetchDataAndRender(): void {
-    const places = Array.from(
-      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep)
-    );
-    const statVars = Array.from(
-      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
-    );
-    let statVarInfoPromise = Promise.resolve({});
-    if (statVars.length !== 0) {
-      statVarInfoPromise = getStatVarInfo(statVars);
-    }
-    let placesPromise = Promise.resolve({});
-    if (places.length !== 0) {
-      placesPromise = getPlaceNames(places);
-    }
-    Promise.all([statVarInfoPromise, placesPromise]).then(
-      ([statVarInfo, placeName]) => {
-        // Schemaless stat vars are not associated with any triples.
-        // Assign the measured property to be the DCID so the chart can be
-        // grouped (by measured property).
-        for (const statVar of statVars) {
-          if (!(statVar in statVarInfo)) {
-            statVarInfo[statVar] = { mprop: statVar };
-          }
-        }
-        this.setState({
-          statVarInfo,
-          placeName,
-        });
-      }
-    );
-  }
-
-  private toggleSvHierarchyModal(): void {
-    this.setState({
-      showSvHierarchyModal: !this.state.showSvHierarchyModal,
-    });
-  }
-
-  private onSvHierarchyModalOpened(): void {
-    if (
-      this.svHierarchyModalRef.current &&
-      this.svHierarchyContainerRef.current
-    ) {
-      this.svHierarchyModalRef.current.appendChild(
-        this.svHierarchyContainerRef.current
-      );
-    }
-  }
-
-  private onSvHierarchyModalClosed(): void {
-    document
-      .getElementById("explore")
-      .appendChild(this.svHierarchyContainerRef.current);
-  }
-
-  render(): JSX.Element {
+  render(): ReactElement {
     const numPlaces = Object.keys(this.state.placeName).length;
     const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
     const namedPlaces: NamedPlace[] = [];
@@ -158,7 +104,7 @@ class Page extends Component<unknown, PageStateType> {
         sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
     }
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <StatVarWidget
           openSvHierarchyModal={this.state.showSvHierarchyModal}
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
@@ -225,8 +171,64 @@ class Page extends Component<unknown, PageStateType> {
             )}
           </Container>
         </div>
-      </>
+      </ThemeProvider>
     );
+  }
+
+  private fetchDataAndRender(): void {
+    const places = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep)
+    );
+    const statVars = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
+    );
+    let statVarInfoPromise = Promise.resolve({});
+    if (statVars.length !== 0) {
+      statVarInfoPromise = getStatVarInfo(statVars);
+    }
+    let placesPromise = Promise.resolve({});
+    if (places.length !== 0) {
+      placesPromise = getPlaceNames(places);
+    }
+    Promise.all([statVarInfoPromise, placesPromise]).then(
+      ([statVarInfo, placeName]) => {
+        // Schemaless stat vars are not associated with any triples.
+        // Assign the measured property to be the DCID so the chart can be
+        // grouped (by measured property).
+        for (const statVar of statVars) {
+          if (!(statVar in statVarInfo)) {
+            statVarInfo[statVar] = { mprop: statVar };
+          }
+        }
+        this.setState({
+          statVarInfo,
+          placeName,
+        });
+      }
+    );
+  }
+
+  private toggleSvHierarchyModal(): void {
+    this.setState({
+      showSvHierarchyModal: !this.state.showSvHierarchyModal,
+    });
+  }
+
+  private onSvHierarchyModalOpened(): void {
+    if (
+      this.svHierarchyModalRef.current &&
+      this.svHierarchyContainerRef.current
+    ) {
+      this.svHierarchyModalRef.current.appendChild(
+        this.svHierarchyContainerRef.current
+      );
+    }
+  }
+
+  private onSvHierarchyModalClosed(): void {
+    document
+      .getElementById("explore")
+      .appendChild(this.svHierarchyContainerRef.current);
   }
 }
 

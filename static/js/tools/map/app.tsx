@@ -18,10 +18,12 @@
  * Main app component for map explorer.
  */
 
-import React, { useEffect, useState } from "react";
+import { ThemeProvider } from "@emotion/react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import theme from "../../theme/theme";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
@@ -40,7 +42,7 @@ import {
   updateHashStatVar,
 } from "./util";
 
-function App(): JSX.Element {
+function App(): ReactElement {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
 
@@ -70,7 +72,7 @@ function App(): JSX.Element {
   );
 }
 
-export function AppWithContext(): JSX.Element {
+export function AppWithContext(): ReactElement {
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
   );
@@ -80,9 +82,11 @@ export function AppWithContext(): JSX.Element {
   window.onhashchange = (): void => applyHash(store);
 
   return (
-    <Context.Provider value={store}>
-      <App />
-    </Context.Provider>
+    <ThemeProvider theme={theme}>
+      <Context.Provider value={store}>
+        <App />
+      </Context.Provider>
+    </ThemeProvider>
   );
 }
 
