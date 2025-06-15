@@ -74,62 +74,6 @@ class Page extends Component<unknown, PageStateType> {
     this.fetchDataAndRender();
   }
 
-  private fetchDataAndRender(): void {
-    const places = Array.from(
-      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep)
-    );
-    const statVars = Array.from(
-      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
-    );
-    let statVarInfoPromise = Promise.resolve({});
-    if (statVars.length !== 0) {
-      statVarInfoPromise = getStatVarInfo(statVars);
-    }
-    let placesPromise = Promise.resolve({});
-    if (places.length !== 0) {
-      placesPromise = getPlaceNames(places);
-    }
-    Promise.all([statVarInfoPromise, placesPromise]).then(
-      ([statVarInfo, placeName]) => {
-        // Schemaless stat vars are not associated with any triples.
-        // Assign the measured property to be the DCID so the chart can be
-        // grouped (by measured property).
-        for (const statVar of statVars) {
-          if (!(statVar in statVarInfo)) {
-            statVarInfo[statVar] = { mprop: statVar };
-          }
-        }
-        this.setState({
-          statVarInfo,
-          placeName,
-        });
-      }
-    );
-  }
-
-  private toggleSvHierarchyModal(): void {
-    this.setState({
-      showSvHierarchyModal: !this.state.showSvHierarchyModal,
-    });
-  }
-
-  private onSvHierarchyModalOpened(): void {
-    if (
-      this.svHierarchyModalRef.current &&
-      this.svHierarchyContainerRef.current
-    ) {
-      this.svHierarchyModalRef.current.appendChild(
-        this.svHierarchyContainerRef.current
-      );
-    }
-  }
-
-  private onSvHierarchyModalClosed(): void {
-    document
-      .getElementById("explore")
-      .appendChild(this.svHierarchyContainerRef.current);
-  }
-
   render(): ReactElement {
     const numPlaces = Object.keys(this.state.placeName).length;
     const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
@@ -229,6 +173,62 @@ class Page extends Component<unknown, PageStateType> {
         </div>
       </ThemeProvider>
     );
+  }
+
+  private fetchDataAndRender(): void {
+    const places = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep)
+    );
+    const statVars = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
+    );
+    let statVarInfoPromise = Promise.resolve({});
+    if (statVars.length !== 0) {
+      statVarInfoPromise = getStatVarInfo(statVars);
+    }
+    let placesPromise = Promise.resolve({});
+    if (places.length !== 0) {
+      placesPromise = getPlaceNames(places);
+    }
+    Promise.all([statVarInfoPromise, placesPromise]).then(
+      ([statVarInfo, placeName]) => {
+        // Schemaless stat vars are not associated with any triples.
+        // Assign the measured property to be the DCID so the chart can be
+        // grouped (by measured property).
+        for (const statVar of statVars) {
+          if (!(statVar in statVarInfo)) {
+            statVarInfo[statVar] = { mprop: statVar };
+          }
+        }
+        this.setState({
+          statVarInfo,
+          placeName,
+        });
+      }
+    );
+  }
+
+  private toggleSvHierarchyModal(): void {
+    this.setState({
+      showSvHierarchyModal: !this.state.showSvHierarchyModal,
+    });
+  }
+
+  private onSvHierarchyModalOpened(): void {
+    if (
+      this.svHierarchyModalRef.current &&
+      this.svHierarchyContainerRef.current
+    ) {
+      this.svHierarchyModalRef.current.appendChild(
+        this.svHierarchyContainerRef.current
+      );
+    }
+  }
+
+  private onSvHierarchyModalClosed(): void {
+    document
+      .getElementById("explore")
+      .appendChild(this.svHierarchyContainerRef.current);
   }
 }
 
