@@ -359,6 +359,7 @@ export function Page(props: PagePropType): ReactElement {
             {!shouldHideSourceSelector() && (
               <div className="download-option-section">
                 <FacetSelector
+                  mode="download"
                   svFacetId={selectedOptions.selectedFacets}
                   facetListPromise={facetListPromise}
                   onSvFacetIdUpdated={(svFacetId): void => {

@@ -61,6 +61,8 @@ export interface FacetSelectorFacetInfo {
 }
 
 interface FacetSelectorPropType {
+  // the mode of the facet selector determines the copy used in the instructions
+  mode?: "chart" | "download";
   // Map of sv to selected facet id
   svFacetId: Record<string, string>;
   // Promise that returns the available facet for each stat var
@@ -164,7 +166,9 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
               `}
             >
               {intl.formatMessage(
-                facetSelectionComponentMessages.SelectDatasetsPromptMessage
+                props.mode === "download"
+                  ? facetSelectionComponentMessages.SelectDatasetsForDownloadPromptMessage
+                  : facetSelectionComponentMessages.SelectDatasetsForChartsPromptMessage
               )}
               :
             </p>
@@ -183,7 +187,9 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
                       `}
                     >
                       {intl.formatMessage(
-                        facetSelectionComponentMessages.SelectDatasetPromptMessage
+                        props.mode === "download"
+                          ? facetSelectionComponentMessages.SelectDatasetForDownloadPromptMessage
+                          : facetSelectionComponentMessages.SelectDatasetForChartsPromptMessage
                       )}{" "}
                       <span>
                         &ldquo;
@@ -218,12 +224,14 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
                       facetInfo,
                       "",
                       modalSelections,
-                      setModalSelections
+                      setModalSelections,
+                      props.mode
                     )}
                     {getFacetOptionSectionJsx(
                       facetInfo,
                       modalSelections,
-                      setModalSelections
+                      setModalSelections,
+                      props.mode
                     )}
                   </div>
                 </div>
@@ -266,10 +274,15 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
 /**
  * Given the metadata for a facet, gets a title for the facet
  */
-function getFacetTitle(metadata: StatMetadata): string {
+function getFacetTitle(
+  metadata: StatMetadata,
+  mode?: "chart" | "download"
+): string {
   if (_.isEmpty(metadata)) {
     return intl.formatMessage(
-      facetSelectionComponentMessages.CombinedDatasetOption
+      mode === "download"
+        ? facetSelectionComponentMessages.CombinedDatasetForDownloadOption
+        : facetSelectionComponentMessages.CombinedDatasetForChartsOption
     );
   }
   return metadata.importName;
@@ -282,10 +295,11 @@ function getFacetOptionJsx(
   facetInfo: FacetSelectorFacetInfo,
   facetId: string,
   modalSelections: Record<string, string>,
-  setModalSelections: (selections: Record<string, string>) => void
+  setModalSelections: (selections: Record<string, string>) => void,
+  mode?: "chart" | "download"
 ): ReactElement {
   const metadata = facetInfo.metadataMap[facetId] || {};
-  let facetTitle = getFacetTitle(metadata);
+  let facetTitle = getFacetTitle(metadata, mode);
   if (facetInfo.displayNames && facetId in facetInfo.displayNames) {
     facetTitle = facetInfo.displayNames[facetId];
   }
@@ -399,7 +413,8 @@ function getFacetOptionJsx(
 function getFacetOptionSectionJsx(
   facetInfo: FacetSelectorFacetInfo,
   modalSelections: Record<string, string>,
-  setModalSelections: (selections: Record<string, string>) => void
+  setModalSelections: (selections: Record<string, string>) => void,
+  mode?: "chart" | "download"
 ): ReactElement {
   const importNameToFacetOptions: Record<string, string[]> = {};
   const facetOptionsNoImportName: string[] = [];
@@ -434,7 +449,8 @@ function getFacetOptionSectionJsx(
                 facetInfo,
                 facetId,
                 modalSelections,
-                setModalSelections
+                setModalSelections,
+                mode
               )
             )}
           </div>
@@ -446,7 +462,8 @@ function getFacetOptionSectionJsx(
               facetInfo,
               facetId,
               modalSelections,
-              setModalSelections
+              setModalSelections,
+              mode
             )
         )}
       </>
@@ -459,7 +476,8 @@ function getFacetOptionSectionJsx(
             facetInfo,
             facetId,
             modalSelections,
-            setModalSelections
+            setModalSelections,
+            mode
           )
         )}
       </>
