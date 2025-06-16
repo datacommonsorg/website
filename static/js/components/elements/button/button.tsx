@@ -116,7 +116,7 @@ interface CommonButtonProps {
   // 'text': a text-only button (no outline or fill).
   // 'flat': a filled, borderless button (fill but no outline).
   // Default: 'standard'
-  variant?: "standard" | "inverted" | "text" | "flat" | "rounded";
+  variant?: "standard" | "inverted" | "text" | "flat";
   // The size of the button.
   // Default: 'md'
   size?: "sm" | "md" | "lg";
@@ -223,9 +223,6 @@ export const Button = forwardRef<
     `,
     flat: css`
       ${theme.button.variant.flat}
-    `,
-    rounded: css`
-      ${theme.button.variant.rounded}
     `,
   };
 

@@ -313,20 +313,6 @@ export interface Theme {
               border: string;
             };
       };
-      rounded?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
     };
     size: {
       sm?: {

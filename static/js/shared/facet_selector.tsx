@@ -124,11 +124,12 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
     <>
       <Button
         className={`${SELECTOR_PREFIX}-open-modal-button`}
-        variant="rounded"
+        variant="flat"
         size="sm"
         onClick={(): void => setModalOpen(true)}
         disabled={loading || !totalFacetOptionCount}
         css={css`
+          font-size: 13px;
           flex-shrink: 0;
           visibility: ${loading || !totalFacetOptionCount
             ? "hidden"
