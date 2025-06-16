@@ -74,15 +74,15 @@ If no related topics are given, do not return anything.
 
 Generate only one question per topic in the related topics list. Make them succinct, general, and simple in relation to the topic provided.
 
-Avoid commenting on correlations between the original question and the topics.
-Avoid any other words apart from the generated follow up questions.
-Avoid asking ranges of years in the questions.
-Avoid vague comparison.
-Avoid questions that ask about correlations, relationships, or comparisons.
-For example, the question "How does income equity compare to wealth equity in countries with the lowest Gini index?" should instead be a simpler version such as "What is the income equity across countries?"
-Avoid questions that ask for a metric about places with a certain condition.
-For example, the question "What is the sustainability performance of countries with the most greenhouse gas emissions?" should instead be a simpler version such as "What is the sustainability performance of countries?"
+Avoid any other words apart from the generated follow up questions. Your entire response should only be the questions themselves, with each question on a new line.
 
+Avoid asking for data within a specific year or range of years. The questions should be timeless.
+
+Avoid questions that ask about correlations, relationships, or comparisons between the original question and the given topics. Each question must be simple and focus on a single variable.
+For example, the question "How does income equity compare to wealth equity in countries with the lowest Gini index?" should instead be a simpler version such as "What is the income equity across countries?"
+
+Avoid questions that ask for a metric about places that meet a certain condition.
+For example, the question "What is the sustainability performance of countries with the most greenhouse gas emissions?" should instead be a simpler version such as "What is the sustainability performance of countries?"
 If you are referring to a place or entity from the initial query, be sure to explicitly state the place or entity in the generated questions.
 
 """
@@ -332,7 +332,7 @@ def generate_follow_up_questions(query: str,
 
   gemini_api_key = current_app.config["LLM_API_KEY"]
   gemini = genai.Client(api_key=gemini_api_key)
-  for i in range(_GEMINI_CALL_RETRIES):
+  for _ in range(_GEMINI_CALL_RETRIES):
     try:
       gemini_response = gemini.models.generate_content(
           model=_GEMINI_MODEL,

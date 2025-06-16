@@ -39,7 +39,7 @@ class TestFollowUpQuestions(unittest.TestCase):
     ]
     mock.return_value = expected_questions
 
-    resp = app.test_client().post(f'api/explore/follow-up-questions',
+    resp = app.test_client().post('api/explore/follow-up-questions',
                                   json={
                                       'q': query,
                                       'relatedTopics': related_topics
@@ -68,7 +68,7 @@ class TestFollowUpQuestions(unittest.TestCase):
     #Labels do not match the actual adversarial label of each query, it is simply for testing purposes.
     mock_safe.side_effect = [False, True, False, True]
 
-    resp = app.test_client().post(f'api/explore/follow-up-questions',
+    resp = app.test_client().post('api/explore/follow-up-questions',
                                   json={
                                       'q': query,
                                       'relatedTopics': related_topics
@@ -81,7 +81,7 @@ class TestFollowUpQuestions(unittest.TestCase):
     query = "What is the rate of education in El Paso?"
     related_topics = []
     expected_questions = []
-    resp = app.test_client().post(f'api/explore/follow-up-questions',
+    resp = app.test_client().post('api/explore/follow-up-questions',
                                   json={
                                       'q': query,
                                       'relatedTopics': related_topics
@@ -94,7 +94,7 @@ class TestFollowUpQuestions(unittest.TestCase):
     query = ""
     related_topics = ["Housing", "Commute"]
     expected_questions = []
-    resp = app.test_client().post(f'api/explore/follow-up-questions',
+    resp = app.test_client().post('api/explore/follow-up-questions',
                                   json={
                                       'q': query,
                                       'relatedTopics': related_topics
@@ -114,7 +114,7 @@ class TestFollowUpQuestions(unittest.TestCase):
 
     mock.return_value = expected_questions
     app.config['NL_BAD_WORDS'] = EMPTY_BANNED_WORDS
-    resp = app.test_client().post(f'api/explore/follow-up-questions',
+    resp = app.test_client().post('api/explore/follow-up-questions',
                                   json={
                                       'q': query,
                                       'relatedTopics': related_topics
