@@ -32,9 +32,8 @@ class StatVarMetadata:
   statType: str | None = None
   constraintProperties: list[str] = field(default_factory=list)
 
-type SVMetadataDict = dict[str, str | list[str]]
 
-englishSchema: SVMetadataDict = {
+englishSchema: dict[str, str | list[str]] = {
     "dcid": "",
     "sentence": "",
     "generatedSentences": [],
@@ -45,7 +44,7 @@ englishSchema: SVMetadataDict = {
     "constraintProperties": []
 }
 
-frenchSchema: SVMetadataDict = {
+frenchSchema: dict[str, str | list[str]] = {
     "dcid": "",
     "phrase": "",
     "phrasesGenerees": [],
@@ -56,7 +55,7 @@ frenchSchema: SVMetadataDict = {
     "contraintes": []
 }
 
-spanishSchema: SVMetadataDict = {
+spanishSchema: dict[str, str | list[str]] = {
     "dcid": "",
     "frase": "",
     "frasesGeneradas": [],
