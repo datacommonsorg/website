@@ -18,10 +18,12 @@
  * Main app component for scatter.
  */
 
-import React, { useContext, useEffect, useState } from "react";
+import { ThemeProvider } from "@emotion/react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
+import theme from "../../theme/theme";
 import { ChartLoader } from "./chart_loader";
 import {
   Axis,
@@ -40,7 +42,7 @@ import {
   updateHash,
 } from "./util";
 
-function App(): JSX.Element {
+function App(): ReactElement {
   const { x, y, place, isLoading } = useContext(Context);
   const showChart = shouldShowChart(x.value, y.value, place.value);
   const showChooseStatVarMessage = shouldShowChooseStatVarMessage(
@@ -94,7 +96,7 @@ function App(): JSX.Element {
   );
 }
 
-function AppWithContext(): JSX.Element {
+function AppWithContext(): ReactElement {
   const store = useContextStore();
 
   useEffect(() => applyHash(store), []);
@@ -102,9 +104,11 @@ function AppWithContext(): JSX.Element {
   window.onhashchange = (): void => applyHash(store);
 
   return (
-    <Context.Provider value={store}>
-      <App />
-    </Context.Provider>
+    <ThemeProvider theme={theme}>
+      <Context.Provider value={store}>
+        <App />
+      </Context.Provider>
+    </ThemeProvider>
   );
 }
 

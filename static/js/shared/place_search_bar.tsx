@@ -102,7 +102,7 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
         country: this.props.countryRestrictions,
       };
     }
-    if (google.maps) {
+    if (google.maps?.places) {
       this.ac = new google.maps.places.Autocomplete(
         this.inputElem.current,
         options

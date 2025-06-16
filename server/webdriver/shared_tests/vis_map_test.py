@@ -147,7 +147,8 @@ class VisMapTestMixin():
         By.CLASS_NAME, 'source-selector-open-modal-button')
     edit_source_button.click()
     element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'modal-body'))
+        (By.CSS_SELECTOR,
+         '.source-selector-facet-options-section input[type="radio"]'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
                          "Count_Person_Female")

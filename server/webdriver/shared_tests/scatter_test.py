@@ -66,8 +66,8 @@ class ScatterTestMixin():
 
     # Assert chart is correct.
     chart = find_elem(self.driver,
-                      by=By.XPATH,
-                      value='//*[@id="chart"]/div[1]/div[1]')
+                      by=By.CSS_SELECTOR,
+                      value='#chart .chart-card .chart-title')
     self.assertIn("Population Asian Alone Per Capita ",
                   find_elem(chart, by=By.XPATH, value='./h3[1]').text)
     self.assertIn("Median Income of a Population ",
@@ -107,8 +107,8 @@ class ScatterTestMixin():
     # Assert chart is correct.
     wait_elem(self.driver, by=By.ID, value='scatterplot')
     chart = find_elem(self.driver,
-                      by=By.XPATH,
-                      value='//*[@id="chart"]/div[1]/div[1]')
+                      by=By.CSS_SELECTOR,
+                      value='#chart .chart-card .chart-title')
     self.assertIn("Median Income of a Population ",
                   find_elem(chart, by=By.XPATH, value='./h3[1]').text)
     self.assertIn("Median Age of Population ",

@@ -101,6 +101,7 @@ const DC_YELLOW_PILL_TEXT = "hsl(3, 71%, 15%)";
 const DC_YELLOW_PILL_BCKG = "hsl(40, 100%, 91%)";
 
 const DC_GRAY = "hsl(160, 2%, 27%)";
+const DC_GRAY_LIGHT = "hsl(0, 0%, 48%)";
 const DC_GRAY_LINING = "hsl(140, 3%, 77%)";
 const DC_GRAY_TOOLTIP = "hsl(213, 43%, 96%)";
 
@@ -123,6 +124,9 @@ const theme: Theme = {
         base: DC_GRAY,
         dark: DC_BLACK_80,
         light: DC_GRAY_PILL_BCKG,
+      },
+      tertiary: {
+        base: DC_GRAY_LIGHT,
       },
     },
     background: {
