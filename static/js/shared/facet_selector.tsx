@@ -226,18 +226,18 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={onConfirm}
-            className={`${SELECTOR_PREFIX}-update-source-button`}
-          >
-            {intl.formatMessage(facetSelectionComponentMessages.Update)}
-          </Button>
-          <Button
             variant="text"
             onClick={(): void => {
               setModalOpen(false);
             }}
           >
-            {intl.formatMessage(messages.close)}
+            {intl.formatMessage(messages.cancel)}
+          </Button>
+          <Button
+            onClick={onConfirm}
+            className={`${SELECTOR_PREFIX}-update-source-button`}
+          >
+            {intl.formatMessage(facetSelectionComponentMessages.Update)}
           </Button>
         </DialogActions>
       </Dialog>
