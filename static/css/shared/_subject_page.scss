@@ -77,6 +77,10 @@ article.category {
   border-top: none;
 }
 
+.highlight-result-title .subtopic:last-of-type {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
 .subtopic.notitle:not(:first-of-type) {
   border-top: 0.5px dotted #dee2e6 !important;
 }
