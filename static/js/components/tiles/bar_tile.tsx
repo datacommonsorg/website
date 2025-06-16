@@ -683,7 +683,7 @@ function getHyperlink(props: BarTilePropType): string {
       : "parentPlace" in props
       ? [props.parentPlace]
       : [];
-  const hl = `${props.apiRoot || ""}/explore#sv=Count_Person&chartType=BAR_CHART&p=${placeDcids.join("___")}`;
+  const hl = `${props.apiRoot || ""}/explore#sv=${props.variables.map((v) => v.statVar)}&chartType=BAR_CHART&p=${placeDcids.join("___")}`;
   console.log("Hyperlink function called with props:", hl);
   return hl;
 }

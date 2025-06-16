@@ -533,7 +533,7 @@ function getExploreLink(props: LineTilePropType): {
 
 // New function to get a hyperlink (URL only)
 function getHyperlink(props: LineTilePropType): string {
-  const hl = `${props.apiRoot || ""}/explore#sv=Count_Person&chartType=TIMELINE_WITH_HIGHLIGHT&places=${getPlaceDcids(
+  const hl = `${props.apiRoot || ""}/explore#sv=${props.statVarSpec.map((v) => v.statVar).join('___')}&chartType=TIMELINE_WITH_HIGHLIGHT&p=${getPlaceDcids(
     props
   ).join(",")}`;
   console.log("Hyperlink function called with props:", hl);

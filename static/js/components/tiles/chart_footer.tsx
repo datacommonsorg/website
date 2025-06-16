@@ -53,16 +53,14 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
         <div className="main-footer-section">
             <div className="outlinks">
             {props.hyperlink && (
-              <div className="outlink-item custom-link-outlink">
+              <a
+                className="outlink-item custom-link-outlink"
+                href={props.hyperlink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <span className="material-icons-outlined">link</span>
-                <a
-                  href={props.hyperlink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Custom Link
-                </a>
-              </div>
+              </a>
             )}
             {props.handleEmbed && (
               <div className="outlink-item download-outlink">
