@@ -208,7 +208,8 @@
 .chart-card.card {
   border-bottom: none;
   margin-bottom: 0;
-  border-radius: 0.25rem 0.25rem 0 0;
+  border-radius: 0;
+  padding-top: 30px;
 }
 
 #plot-options {
