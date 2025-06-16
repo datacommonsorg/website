@@ -16,8 +16,8 @@ This script retrives the metadata from the data commons API and adds it to the e
 1. Import the existing NL SVs, and separate the table into batches of up to 100 SVs.
 2. For each batch, call the data commons API to fetch the metadata for all DCIDs in the batch
 3. For each SV in the batch, extract the common metadata fields and add to a new row. Also extract any constraintProperties.
-4. Optionally, call the Gemini API in parallel batches to generate approximately 5 alternative sentences per SV based on the metadata.
-5. Create a new dataframe with the new SVs, and export it as a JSON file alyssaguo_statvars.json.
+4. Optionally, call the Gemini API in parallel batches to generate approximately 5 alternative sentences per SV based on the metadata. Also translate the metadata if a target language is specified.
+5. Create a new dataframe with the new SVs, and export it as a JSON file alyssaguo_statvars_{target_language}.json.
 
 To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./add_metadata.py
 """
@@ -29,17 +29,21 @@ from typing import Dict, List
 
 from datacommons_client.client import DataCommonsClient
 from dotenv import load_dotenv
+from gemini_prompt import get_gemini_prompt
 from google import genai
 from google.genai import types
 import pandas as pd
-from sv_constants import GEMINI_PROMPT
+from sv_types import englishSchema
+from sv_types import frenchSchema
+from sv_types import spanishSchema
 from sv_types import StatVarMetadata
 
 DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
-EXPORTED_SV_FILE = "tools/nl/nl_metadata/alyssaguo_statvars.json"
+EXPORTED_FILE_DIR = "tools/nl/nl_metadata/"
+EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
 
 # These are the properties common to evey stat var
 MEASURED_PROPERTY = "measuredProperty"
@@ -53,6 +57,8 @@ GEMINI_TEMPERATURE = 1
 GEMINI_TOP_P = 1
 GEMINI_SEED = 0
 GEMINI_MAX_OUTPUT_TOKENS = 65535
+MAX_RETRIES = 5
+RETRY_DELAY_SECONDS = 2
 
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
 DC_API_KEY = os.getenv("DC_API_KEY")
@@ -60,7 +66,7 @@ DC_API_KEY = os.getenv("DC_API_KEY")
 
 def extract_flag() -> argparse.Namespace:
   """
-  Extracts the -generateAltSentences flag from the command line arguments.
+  Extracts the -generateAltSentences and -language flags from the command line arguments.
   """
   parser = argparse.ArgumentParser(description="./add_metadata.py")
   parser.add_argument(
@@ -69,8 +75,29 @@ def extract_flag() -> argparse.Namespace:
       "Whether to generate alternative sentences for the SVs using the Gemini API.",
       type=bool,
       default=False)
+  parser.add_argument(
+      "-language",
+      help=
+      "The language to return the metadata results in. Currently supports English, French, and Spanish.",
+      choices=["English", "French", "Spanish"
+              ],  # TODO: Add support for passing multiple languages at once
+      type=str,
+      default="English")
   args = parser.parse_args()
   return args
+
+
+def get_language_settings(target_language: str) -> str:
+  exported_sv_file = f"{EXPORTED_FILE_DIR}{EXPORTED_FILENAME_PREFIX}_{target_language}.json"
+
+  match target_language:
+    case "French":
+      language_schema = json.dumps(frenchSchema)
+    case "Spanish":
+      language_schema = json.dumps(spanishSchema)
+    case _:
+      language_schema = json.dumps(englishSchema)
+  return exported_sv_file, get_gemini_prompt(target_language, language_schema)
 
 
 def split_into_batches(
@@ -103,10 +130,11 @@ def get_prop_value(prop_data) -> str:
 
 def extract_metadata(
     client: DataCommonsClient, curr_batch: Dict[str, str],
-    sv_metadata_list: List[StatVarMetadata]) -> List[StatVarMetadata]:
+    sv_metadata_list: List[dict[str, str | list[str]]]
+) -> List[dict[str, str | list[str]]]:
   """
   Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API. 
-  Adds the new metadata to a new list of StatVarMetadata objects, and returns the list.
+  Adds the new metadata to the existing list sv_metadata_list, and returns the list.
   """
   response = client.node.fetch(node_dcids=list(curr_batch.keys()),
                                expression="->*")
@@ -125,7 +153,7 @@ def extract_metadata(
     new_row.statType = get_prop_value(dcid_data[STAT_TYPE])
 
     new_row = extract_constraint_properties(new_row, dcid_data)
-    sv_metadata_list.append(new_row)
+    sv_metadata_list.append(new_row.__dict__)
 
   return sv_metadata_list
 
@@ -147,24 +175,25 @@ def extract_constraint_properties(new_row: StatVarMetadata,
         "name"] if "name" in constrained_prop_node else constraint_dcid
 
   for dcid, name in constraint_dcid_to_name.items():
-    new_row.constraintProperties[name] = get_prop_value(dcid_data[dcid])
+    new_row.constraintProperties.append(
+        f"{name}: {get_prop_value(dcid_data[dcid])}")
 
   return new_row
 
 
-def create_sv_metadata() -> List[StatVarMetadata]:
+def create_sv_metadata() -> List[dict[str, str | list[str]]]:
   """
   Creates SV metadata by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
   """
   client = DataCommonsClient(api_key=DC_API_KEY)
   stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
-  sv_metadata_list: List[StatVarMetadata] = []
+  sv_metadata_list: List[dict[str, str | list[str]]] = []
   batched_list = split_into_batches(stat_var_sentences)
 
   for curr_batch in batched_list:
     dcid_to_sentence: Dict[str, str] = curr_batch.set_index(
         "dcid")["sentence"].to_dict()
-    sv_metadata_list: List[StatVarMetadata] = extract_metadata(
+    sv_metadata_list: List[dict[str, str | list[str]]] = extract_metadata(
         client, dcid_to_sentence, sv_metadata_list)
 
   return sv_metadata_list
@@ -172,34 +201,45 @@ def create_sv_metadata() -> List[StatVarMetadata]:
 
 async def generate_alt_sentences(
     gemini_client: genai.Client, gemini_config: types.GenerateContentConfig,
-    sv_metadata: List[StatVarMetadata]) -> Dict[str, List[str]]:
+    gemini_prompt: str, sv_metadata: List[dict[str, str | list[str]]]
+) -> List[dict[str, str | list[str]]]:
   """
   Calls the Gemini API to generate alternative sentences for a list of SV metadata.
-  Returns the alt sentences as a dictionary mapping DCID to the list of sentences.
+  Returns the alt sentences as a list of dictionaries.
   """
-  prompt_with_metadata = types.Part.from_text(text=(GEMINI_PROMPT +
+  prompt_with_metadata = types.Part.from_text(text=(gemini_prompt +
                                                     str(sv_metadata)))
 
   model_input = [types.Content(role="user", parts=[prompt_with_metadata])]
-  alt_sentences: Dict[str, List[str]] = {}
+  results: List[dict[str, str | list[str]]] = []
 
-  try:
-    # Returns a GenerateContentResponse object, where the .text field contains the output from Gemini
-    # Output is formatted as a JSON string representing a Dict mapping DCID to a list of alt sentences
-    response: types.GenerateContentResponse = await gemini_client.aio.models.generate_content(
-        model=GEMINI_MODEL, contents=model_input, config=gemini_config)
+  for attempt in range(MAX_RETRIES):
+    try:
+      # Returns a GenerateContentResponse object, where the .text field contains the output from Gemini
+      # Output is formatted as a JSON string representing a Dict mapping DCID to a list of alt sentences
+      response: types.GenerateContentResponse = await gemini_client.aio.models.generate_content(
+          model=GEMINI_MODEL, contents=model_input, config=gemini_config)
 
-    alt_sentences = json.loads(response.text, strict=False)
-  except json.JSONDecodeError as e:
-    print(
-        f"Exception occurred while generating alt sentences for the batch starting at DCID {sv_metadata[0].dcid}. Error decoding Gemini response into JSON: {e}"
-    )
+      results = json.loads(response.text, strict=False)
+      return results
+    except json.JSONDecodeError as e:
+      batch_start_dcid = sv_metadata[0]["dcid"]
+      print(
+          f"Attempt {attempt + 1} failed. Exception occurred while generating alt sentences for the batch starting at DCID {batch_start_dcid}. Error decoding Gemini response into JSON: {e}"
+      )
+      if attempt + 1 == MAX_RETRIES:
+        print(
+            f"All {MAX_RETRIES} retry attempts failed for the batch starting at DCID {batch_start_dcid}."
+        )
+        break
 
-  return alt_sentences
+      await asyncio.sleep(RETRY_DELAY_SECONDS)
+  return results  # Return an empty list if all attempts fail
 
 
 async def batch_generate_alt_sentences(
-    sv_metadata_list: List[StatVarMetadata]) -> Dict[str, List[str]]:
+    sv_metadata_list: List[dict[str, str | list[str]]],
+    gemini_prompt: str) -> Dict[str, List[str]]:
   """
   Separates sv_metadata_list into batches of 100 entries, and executes multiple parallel calls to generate_alt_sentences
   using Gemini and existing SV metadata. Flattens the list of results, and returns the generated altSentences
@@ -217,82 +257,45 @@ async def batch_generate_alt_sentences(
       max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
       response_mime_type="application/json",
   )
-  batched_list: List[List[StatVarMetadata]] = split_into_batches(
+  batched_list: List[List[dict[str, str | list[str]]]] = split_into_batches(
       sv_metadata_list)
 
   parallel_tasks: List[asyncio.Task] = []
   for curr_batch in batched_list:
     parallel_tasks.append(
-        generate_alt_sentences(gemini_client, gemini_config, curr_batch))
+        generate_alt_sentences(gemini_client, gemini_config, gemini_prompt,
+                               curr_batch))
 
-  batched_alt_sentences: List[Dict[str, List[str]]] = await asyncio.gather(
-      *parallel_tasks)
+  batched_results: List[List[dict[str,
+                                  str | list[str]]]] = await asyncio.gather(
+                                      *parallel_tasks)
 
-  dcid_to_alt_sentences: Dict[str, List[str]] = {}
-  for alt_sentence_batch in batched_alt_sentences:
-    dcid_to_alt_sentences.update(alt_sentence_batch)
-  return dcid_to_alt_sentences
-
-
-async def create_generated_sentences(
-    sv_metadata_list: List[StatVarMetadata]) -> List[StatVarMetadata]:
-  """
-  Populates generatedSentences for each SV by taking the SV metadata list, and calling the relevant helper function to generate altSentences using Gemini.
-  """
-  metadata_with_sentences: List[StatVarMetadata] = []
-  dcid_to_alt_sentences: Dict[
-      str, List[str]] = await batch_generate_alt_sentences(sv_metadata_list)
-
-  for metadata in sv_metadata_list:
-    if metadata.dcid in dcid_to_alt_sentences:
-      metadata.generatedSentences = dcid_to_alt_sentences[metadata.dcid]
-    else:
-      print(
-          f"No alternative sentences generated for DCID {metadata.dcid}. Falling back to empty list."
-      )
-      metadata.generatedSentences = []
-    metadata_with_sentences.append(metadata)
-
-  return metadata_with_sentences
+  results: List[dict[str, str | list[str]]] = []
+  for batch in batched_results:
+    results.extend(batch)
+  return results
 
 
-def export_to_json(sv_metadata_list: List[StatVarMetadata]) -> None:
+def export_to_json(sv_metadata_list: List[dict[str, str | list[str]]],
+                   exported_sv_file: str) -> None:
   """
   Exports the SV metadata list to a JSON file.
   """
-  flattened_metadata: Dict[str, str | List[str]] = [
-      {
-          "dcid":
-              metadata.dcid,
-          "sentence":
-              metadata.sentence,
-          "generatedSentences":
-              metadata.generatedSentences,
-          "name":
-              metadata.name,
-          "measuredProperty":
-              metadata.measuredProperty,
-          "populationType":
-              metadata.populationType,
-          "statType":
-              metadata.statType,
-          "constraintProperties": [
-              f"{key}: {value}"
-              for key, value in metadata.constraintProperties.items()
-          ]
-      }
-      for metadata in sv_metadata_list
-  ]
-  sv_metadata_df = pd.DataFrame(flattened_metadata)
-  sv_metadata_df.to_json(EXPORTED_SV_FILE, orient="records", lines=True)
+  sv_metadata_df = pd.DataFrame(sv_metadata_list)
+  sv_metadata_df.to_json(exported_sv_file, orient="records", lines=True)
 
 
 async def main():
   args: argparse.Namespace = extract_flag()
-  sv_metadata_list = create_sv_metadata()
+  exported_sv_file = f"{EXPORTED_FILE_DIR}{EXPORTED_FILENAME_PREFIX}.json"
+
+  sv_metadata_list: List[dict[str, str | list[str]]] = create_sv_metadata()
   if args.generateAltSentences:
-    sv_metadata_list = await create_generated_sentences(sv_metadata_list)
-  export_to_json(sv_metadata_list)
+    target_language = args.language
+    exported_sv_file, gemini_prompt = get_language_settings(target_language)
+    sv_metadata_list = await batch_generate_alt_sentences(
+        sv_metadata_list, gemini_prompt)
+  export_to_json(sv_metadata_list, exported_sv_file)
 
 
 asyncio.run(main())
