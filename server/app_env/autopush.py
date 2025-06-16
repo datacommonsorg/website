@@ -25,3 +25,5 @@ class Config(_base.Config):
   HIDE_DEBUG = False
   USE_MEMCACHE = False
   ENABLE_BQ = True
+  LOG_DC_REQUEST_PAYLOAD = True
+  LOG_DC_REQUEST_PAYLOAD_PERCENTAGE = 100

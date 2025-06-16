@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
@@ -33,10 +33,10 @@ import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
-import { ChartFooter } from "../chart_footer";
+import { ChartHeader } from "../chart_header";
 import { VisType } from "../vis_type_configs";
 
-function getFacetSelector(appContext: AppContextType): JSX.Element {
+function getFacetSelector(appContext: AppContextType): ReactElement {
   const statVar = appContext.statVars[0];
   const svFacetId = { [statVar.dcid]: statVar.facetId };
   const facetListPromise = getFacetsWithin(
@@ -82,7 +82,7 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
 export function getChartArea(
   appContext: AppContextType,
   chartHeight: number
-): JSX.Element {
+): ReactElement {
   const perCapitaInputs = appContext.statVars[0].info.pcAllowed
     ? [
         {
@@ -103,6 +103,10 @@ export function getChartArea(
   return (
     <>
       <div className="chart">
+        <ChartHeader
+          inputSections={[{ inputs: perCapitaInputs }]}
+          facetSelector={getFacetSelector(appContext)}
+        />
         <MapTile
           id="vis-tool-map"
           place={appContext.places[0]}
@@ -111,10 +115,6 @@ export function getChartArea(
           svgChartHeight={chartHeight}
           title={statVarLabel + " (${date})"}
           allowZoom={true}
-        />
-        <ChartFooter
-          inputSections={[{ inputs: perCapitaInputs }]}
-          facetSelector={getFacetSelector(appContext)}
         />
       </div>
       <div className="chart">
@@ -145,7 +145,7 @@ export function getChartArea(
   );
 }
 
-function getInfoContent(): JSX.Element {
+function getInfoContent(): ReactElement {
   const hideExamples = _.isEmpty(window.infoConfig["map"]);
   return (
     <div className="info-content">

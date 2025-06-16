@@ -66,7 +66,7 @@ def post_wrapper(url, req_str: str):
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
-  call_logger = log.ExtremeCallLogger(req)
+  call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
   call_logger.finish(response)
   if response.status_code != 200:

@@ -25,9 +25,9 @@ import { FormGroup, Input, Label } from "reactstrap";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import {
-  FacetSelector,
   FacetSelectorFacetInfo,
-} from "../../shared/facet_selector";
+  FacetSelectorLegacy,
+} from "../../shared/facet_selector_legacy";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_PARAM_TOOL_CHART_OPTION,
@@ -130,7 +130,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
             </span>
           )}
           {props.children}
-          <FacetSelector
+          <FacetSelectorLegacy
             svFacetId={props.svFacetId}
             facetListPromise={Promise.resolve(props.facetList)}
             onSvFacetIdUpdated={(svFacetId): void => {
