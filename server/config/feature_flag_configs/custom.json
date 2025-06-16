@@ -42,6 +42,18 @@
     "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
   },
   {
+    "name": "follow_up_questions_experiment",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Enables the follow up questions generated from related topics as an experiment."
+  },
+  {
+    "name": "follow_up_questions_ga",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Enables the follow up questions generated from related topics to general audience."
+  },
+  {
     "name": "metadata_modal",
     "enabled": false,
     "owner": "nick-next",
