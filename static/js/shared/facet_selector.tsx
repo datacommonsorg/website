@@ -118,7 +118,8 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
     <>
       <Button
         className={`${SELECTOR_PREFIX}-open-modal-button`}
-        variant="flat"
+        variant="rounded"
+        size="sm"
         onClick={(): void => setModalOpen(true)}
         disabled={loading}
         css={css`

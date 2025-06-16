@@ -357,10 +357,21 @@ const theme: Theme = {
           border: `1px solid ${DC_BLUE}`,
         },
       },
+      rounded: {
+        color: DC_BLUE,
+        backgroundColor: DC_BLUE_WHITE_LIGHT,
+        border: `1px solid ${DC_BLUE_WHITE_LIGHT}`,
+        borderRadius: `100px`,
+        ["&:hover:not(:disabled):not([aria-disabled])"]: {
+          backgroundColor: DC_BLUE_WHITE_LIGHT,
+          color: DC_BLUE,
+          border: `1px solid ${DC_BLUE}`,
+        },
+      },
     },
     size: {
       sm: {
-        padding: `6px ${SPACING.md}px`,
+        padding: `7px ${SPACING.md}px`,
       },
       md: {
         padding: `11px ${SPACING.md}px 9px`,
