@@ -153,14 +153,15 @@ export function FacetSelector({
               `}
             >
               {intl.formatMessage(
-                facetSelectionComponentMessages.SelectDatasetsPromptMessage
+                mode === "download"
+                  ? facetSelectionComponentMessages.SelectDatasetsForDownloadPromptMessage
+                  : facetSelectionComponentMessages.SelectDatasetsForChartsPromptMessage
               )}
               :
             </p>
           )}
           {showSourceOptions &&
             facetList.map((facetInfo) => {
-              const selectedFacetId = modalSelections[facetInfo.dcid];
               return (
                 <div key={facetInfo.dcid}>
                   {facetList.length === 1 && (
@@ -173,7 +174,9 @@ export function FacetSelector({
                       `}
                     >
                       {intl.formatMessage(
-                        facetSelectionComponentMessages.SelectDatasetPromptMessage
+                        mode === "download"
+                          ? facetSelectionComponentMessages.SelectDatasetForDownloadPromptMessage
+                          : facetSelectionComponentMessages.SelectDatasetForChartsPromptMessage
                       )}{" "}
                       <span>
                         &ldquo;
