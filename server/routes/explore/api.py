@@ -143,20 +143,20 @@ def follow_up_questions():
 
   initial_query = request.get_json().get('q', '')
   related_topics = request.get_json().get('relatedTopics', [])
-  if not related_topics or not initial_query:
-    return Response(json.dumps({'follow_up_questions': []}),
-                    200,
+
+  if not initial_query:
+    return Response(json.dumps({'error': 'Missing query in request.'}),
+                    400,
+                    mimetype="application/json")
+  if not related_topics:
+    return Response(json.dumps({'error': 'Missing related topics in request.'}),
+                    400,
                     mimetype="application/json")
 
   generated_questions = related.generate_follow_up_questions(
       query=initial_query, related_topics=related_topics)
 
-  if not generated_questions:
-    return Response(json.dumps({'follow_up_questions': []}),
-                    500,
-                    mimetype="application/json")
-
-  #Checks for adversarial questions
+  # Checks for adversarial questions
   safe_generated_questions = [
       question for question in generated_questions
       if bad_words.is_safe(query=question,

@@ -80,28 +80,26 @@ class TestFollowUpQuestions(unittest.TestCase):
   def test_follow_up_questions_empty_related_topics(self):
     query = "What is the rate of education in El Paso?"
     related_topics = []
-    expected_questions = []
     resp = app.test_client().post('api/explore/follow-up-questions',
                                   json={
                                       'q': query,
                                       'relatedTopics': related_topics
                                   })
 
-    assert resp.status_code == 200
-    assert resp.json['follow_up_questions'] == expected_questions
+    assert resp.status_code == 400
+    assert resp.json['error'] == 'Missing related topics in request.'
 
   def test_follow_up_questions_empty_query(self):
     query = ""
     related_topics = ["Housing", "Commute"]
-    expected_questions = []
     resp = app.test_client().post('api/explore/follow-up-questions',
                                   json={
                                       'q': query,
                                       'relatedTopics': related_topics
                                   })
 
-    assert resp.status_code == 200
-    assert resp.json['follow_up_questions'] == expected_questions
+    assert resp.status_code == 400
+    assert resp.json['error'] == 'Missing query in request.'
 
   @patch('server.routes.explore.api.related.generate_follow_up_questions',
          autospec=True)
@@ -120,7 +118,7 @@ class TestFollowUpQuestions(unittest.TestCase):
                                       'relatedTopics': related_topics
                                   })
 
-    assert resp.status_code == 500
+    assert resp.status_code == 200
     assert resp.json['follow_up_questions'] == expected_questions
 
   @patch('google.genai.Client', autospec=True)
