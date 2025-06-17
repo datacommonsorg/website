@@ -125,9 +125,11 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
       <Button
         className={`${SELECTOR_PREFIX}-open-modal-button`}
         variant="flat"
+        size="sm"
         onClick={(): void => setModalOpen(true)}
         disabled={loading || !totalFacetOptionCount}
         css={css`
+          font-size: 13px;
           flex-shrink: 0;
           visibility: ${loading || !totalFacetOptionCount
             ? "hidden"
@@ -240,18 +242,18 @@ export function FacetSelector(props: FacetSelectorPropType): ReactElement {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={onConfirm}
-            className={`${SELECTOR_PREFIX}-update-source-button`}
-          >
-            {intl.formatMessage(facetSelectionComponentMessages.Update)}
-          </Button>
-          <Button
             variant="text"
             onClick={(): void => {
               setModalOpen(false);
             }}
           >
-            {intl.formatMessage(messages.close)}
+            {intl.formatMessage(messages.cancel)}
+          </Button>
+          <Button
+            onClick={onConfirm}
+            className={`${SELECTOR_PREFIX}-update-source-button`}
+          >
+            {intl.formatMessage(facetSelectionComponentMessages.Update)}
           </Button>
         </DialogActions>
       </Dialog>
