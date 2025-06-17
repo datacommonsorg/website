@@ -33,6 +33,10 @@ class Config:
   # Eanbling this to "True" requires adding "bigtable/user" acccess for the
   # service account in datcom-store IAM settings
   LOG_QUERY = False
+  # Whether to log request payload for datacommons.py requests
+  LOG_DC_REQUEST_PAYLOAD = False
+  # Percentage of requests to log payload for (0-100)
+  LOG_DC_REQUEST_PAYLOAD_PERCENTAGE = 0
   # Whether to show topic page
   SHOW_TOPIC = False
   # Whether to show disaster page

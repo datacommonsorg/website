@@ -72,10 +72,18 @@ export const messages = defineMessages({
     description:
       "Subtitle for the metadata modal showing the list of variables to show source information for",
   },
+  cancel: {
+    id: "cancel",
+    defaultMessage: "Cancel",
+    description:
+      "Button to close a modal or other interactive element without applying changes",
+  },
   close: {
     id: "close",
     defaultMessage: "Close",
-    description: "Button to close the metadata modal",
+    description:
+      "Button to close a modal or other interactive element. Unlike 'Cancel', this doesn not imply abandoning " +
+      "changes; it simply dismisses the dialog. It is used when there are no contrasting actions.",
   },
   download: {
     id: "download",

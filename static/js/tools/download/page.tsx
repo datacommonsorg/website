@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
+import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
 import { Chip } from "../../shared/chip";
 import { FacetSelector } from "../../shared/facet_selector";
 import { PlaceSelector } from "../../shared/place_selector";
 import { PointAllApiResponse, StatMetadata } from "../../shared/stat_types";
-import { getStatVarInfo } from "../../shared/stat_var";
+import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
+import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
-import { StatVarInfo } from "../timeline/chart_region";
 import { Info, InfoPlace } from "./info";
 import { Preview } from "./preview";
 import { StatVarChooser } from "./stat_var_chooser";
@@ -80,7 +81,7 @@ interface PagePropType {
   infoPlaces: [InfoPlace, InfoPlace];
 }
 
-export function Page(props: PagePropType): JSX.Element {
+export function Page(props: PagePropType): ReactElement {
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
   const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);
   const [previewDisabled, setPreviewDisabled] = useState(false);
@@ -175,7 +176,7 @@ export function Page(props: PagePropType): JSX.Element {
     _.isEmpty(validationErrors.incompleteSelectionMessage) && !showPreview;
   return (
     // TODO: Try to move the options into a separate component.
-    <>
+    <ThemeProvider theme={theme}>
       <StatVarChooser
         statVars={selectedOptions.selectedStatVars}
         placeDcid={selectedOptions.selectedPlace.dcid}
@@ -358,6 +359,7 @@ export function Page(props: PagePropType): JSX.Element {
             {!shouldHideSourceSelector() && (
               <div className="download-option-section">
                 <FacetSelector
+                  mode="download"
                   svFacetId={selectedOptions.selectedFacets}
                   facetListPromise={facetListPromise}
                   onSvFacetIdUpdated={(svFacetId): void => {
@@ -397,7 +399,7 @@ export function Page(props: PagePropType): JSX.Element {
         )}
         {showInfo && <Info infoPlaces={props.infoPlaces} />}
       </div>
-    </>
+    </ThemeProvider>
   );
 
   function selectStatVar(dcid: string, info: StatVarInfo): void {

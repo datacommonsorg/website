@@ -18,39 +18,15 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
-    "name": "dev_place_experiment",
-    "enabled": true,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the V2 place page only for the experiment places."
-  },
-  {
-    "name": "dev_place_ga",
-    "enabled": true,
+    "name": "factcheck_redirect",
+    "enabled": false,
     "owner": "dwnoble",
-    "description": "Feature flag to enable the V2 Place page to GA."
-  },
-  {
-    "name": "dynamic_placeholder_experiment",
-    "enabled": true,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the dynamic placeholder experiment in the NL search bar."
-  },
-  {
-    "name": "dynamic_placeholder_ga",
-    "enabled": true,
-    "owner": "gmechali",
-    "description": "Feature flag to enable the dynamic placeholder GA rollout in the NL search bar."
+    "description": "Feature flag to redirect the Fact Check page to the new ClaimReview page."
   },
   {
     "name": "metadata_modal",
     "enabled": false,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
-  },
-  {
-    "name": "show_api_modal",
-    "enabled": false,
-    "owner": "dwnoble",
-    "description": "Feature flag to show the API modal on web components."
   }
 ]
