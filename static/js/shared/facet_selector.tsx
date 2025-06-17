@@ -57,6 +57,8 @@ export interface FacetSelectorFacetInfo {
 }
 
 interface FacetSelectorPropType {
+  // the mode of the facet selector determines the copy used in the instructions
+  mode?: "chart" | "download";
   // Map of sv to selected facet id
   svFacetId: Record<string, string>;
   // The list of available facets for each stat var
@@ -73,6 +75,7 @@ interface FacetSelectorPropType {
 }
 
 export function FacetSelector({
+  mode,
   svFacetId,
   facetList,
   loading,
@@ -108,9 +111,11 @@ export function FacetSelector({
       <Button
         className={`${SELECTOR_PREFIX}-open-modal-button`}
         variant="flat"
+        size="sm"
         onClick={(): void => setModalOpen(true)}
         disabled={loading}
         css={css`
+          font-size: 13px;
           flex-shrink: 0;
           visibility: ${loading ? "hidden" : "visible"};
         `}
@@ -155,6 +160,7 @@ export function FacetSelector({
           )}
           {showSourceOptions &&
             facetList.map((facetInfo) => {
+              const selectedFacetId = modalSelections[facetInfo.dcid];
               return (
                 <div key={facetInfo.dcid}>
                   {facetList.length === 1 && (
@@ -202,12 +208,14 @@ export function FacetSelector({
                       facetInfo,
                       "",
                       modalSelections,
-                      setModalSelections
+                      setModalSelections,
+                      mode
                     )}
                     {getFacetOptionSectionJsx(
                       facetInfo,
                       modalSelections,
-                      setModalSelections
+                      setModalSelections,
+                      mode
                     )}
                   </div>
                 </div>
@@ -216,18 +224,18 @@ export function FacetSelector({
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={onConfirm}
-            className={`${SELECTOR_PREFIX}-update-source-button`}
-          >
-            {intl.formatMessage(facetSelectionComponentMessages.Update)}
-          </Button>
-          <Button
             variant="text"
             onClick={(): void => {
               setModalOpen(false);
             }}
           >
-            {intl.formatMessage(messages.close)}
+            {intl.formatMessage(messages.cancel)}
+          </Button>
+          <Button
+            onClick={onConfirm}
+            className={`${SELECTOR_PREFIX}-update-source-button`}
+          >
+            {intl.formatMessage(facetSelectionComponentMessages.Update)}
           </Button>
         </DialogActions>
       </Dialog>
@@ -254,7 +262,8 @@ function getFacetOptionJsx(
   facetInfo: FacetSelectorFacetInfo,
   facetId: string,
   modalSelections: Record<string, string>,
-  setModalSelections: (selections: Record<string, string>) => void
+  setModalSelections: (selections: Record<string, string>) => void,
+  mode?: "chart" | "download"
 ): ReactElement {
   const metadata = facetInfo.metadataMap[facetId] || {};
   let primaryTitle: string;
@@ -262,7 +271,9 @@ function getFacetOptionJsx(
 
   if (_.isEmpty(metadata)) {
     primaryTitle = intl.formatMessage(
-      facetSelectionComponentMessages.CombinedDatasetOption
+      mode === "download"
+        ? facetSelectionComponentMessages.CombinedDatasetForDownloadOption
+        : facetSelectionComponentMessages.CombinedDatasetForChartsOption
     );
   } else {
     const sourceTitle =
@@ -395,7 +406,8 @@ function getFacetOptionJsx(
 function getFacetOptionSectionJsx(
   facetInfo: FacetSelectorFacetInfo,
   modalSelections: Record<string, string>,
-  setModalSelections: (selections: Record<string, string>) => void
+  setModalSelections: (selections: Record<string, string>) => void,
+  mode?: "chart" | "download"
 ): ReactElement {
   const importNameToFacetOptions: Record<string, string[]> = {};
   const facetOptionsNoImportName: string[] = [];
@@ -430,7 +442,8 @@ function getFacetOptionSectionJsx(
                 facetInfo,
                 facetId,
                 modalSelections,
-                setModalSelections
+                setModalSelections,
+                mode
               )
             )}
           </div>
@@ -442,7 +455,8 @@ function getFacetOptionSectionJsx(
               facetInfo,
               facetId,
               modalSelections,
-              setModalSelections
+              setModalSelections,
+              mode
             )
         )}
       </>
@@ -455,7 +469,8 @@ function getFacetOptionSectionJsx(
             facetInfo,
             facetId,
             modalSelections,
-            setModalSelections
+            setModalSelections,
+            mode
           )
         )}
       </>

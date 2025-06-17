@@ -38,7 +38,7 @@ pytest-rerunfailures==10.2
 pytest-xdist==3.2.1
 PyYAML==6.0.1
 redis==4.5.4
-requests==2.31.0
+requests==2.32.4
 selenium==4.21.0
 typing-extensions==4.12.2
 webdriver-manager==4.0.0

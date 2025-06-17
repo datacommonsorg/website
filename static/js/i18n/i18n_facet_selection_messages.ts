@@ -28,29 +28,47 @@ export const facetSelectionComponentMessages = defineMessages({
     defaultMessage: "Select a dataset",
     description:
       "Label for button and related dialog that allows the user to select a dataset.  A dataset " +
-      "here refers to the facet used to supply data to the chart",
+      "here refers to the facet used to supply data to the chart.",
   },
   SelectDatasets: {
     id: "selectDatasets",
     defaultMessage: "Select datasets",
     description:
       "Label for button and related dialog that allows the user to select datasets. for multiple " +
-      "stat vars. A dataset here refers to the facet used to supply data to the chart",
+      "stat vars. A dataset here refers to the facet used to supply data to the chart.",
   },
-  SelectDatasetPromptMessage: {
-    id: "selectDatasetPromptMessage",
+  SelectDatasetForChartsPromptMessage: {
+    id: "selectDatasetForChartsPromptMessage",
     defaultMessage: "Select the data source that you would like to use to plot",
     description:
       "Prompt message that appears in the dataset selection dialog, introducing the list of " +
-      "facets that the user can choose from.",
+      "facets that the user can choose from. This will be used when choosing data to plot charts.",
   },
-  SelectDatasetsPromptMessage: {
-    id: "selectDatasetsPromptMessage",
+  SelectDatasetsForChartsPromptMessage: {
+    id: "selectDatasetsForChartsPromptMessage",
     defaultMessage:
       "Select the data sources that you would like to use to build the plot",
     description:
       "Prompt message that appears in the dataset selection dialog when there are multiple stat " +
-      "vars, each introducing the list of facets that the user can choose from.",
+      "vars, each introducing the list of facets that the user can choose from. This will be " +
+      "used when choosing data to plot charts.",
+  },
+  SelectDatasetForDownloadPromptMessage: {
+    id: "selectDatasetForDownloadPromptMessage",
+    defaultMessage:
+      "Select the data source that you would like to use to download the data for",
+    description:
+      "Prompt message that appears in the dataset selection dialog, introducing the list of " +
+      "facets that the user can choose from. This will be used when choosing data to download.",
+  },
+  SelectDatasetsForDownloadPromptMessage: {
+    id: "selectDatasetsForDownloadPromptMessage",
+    defaultMessage:
+      "Select the data sources that you would like to use to download the data",
+    description:
+      "Prompt message that appears in the dataset selection dialog when there are multiple stat " +
+      "vars, each introducing the list of facets that the user can choose from. This will be " +
+      "used when choosing data to download.",
   },
   Update: {
     id: "update",
@@ -59,13 +77,22 @@ export const facetSelectionComponentMessages = defineMessages({
       "Text of action button at the bottom of the dataset selection dialog that updates the dataset " +
       "selection with the newly selected facet.",
   },
-  CombinedDatasetOption: {
-    id: "combinedDatasetOption",
+  CombinedDatasetForChartsOption: {
+    id: "combinedDatasetForChartsOption",
     defaultMessage:
       "Plot data points by combining data from the datasets listed below for maximal coverage",
     description:
       "The first option that appears at the top of each respective list of facets connected to a stat var. " +
       "This option indicates that the various facets will be combined automatically to provide best " +
-      "possible coverage.",
+      "possible coverage. This will be used when choosing data to plot charts.",
+  },
+  CombinedDatasetForDownloadOption: {
+    id: "combinedDatasetForDownloadOption",
+    defaultMessage:
+      "Combine data from the datasets listed below for maximal coverage",
+    description:
+      "The first option that appears at the top of each respective list of facets connected to a stat var. " +
+      "This option indicates that the various facets will be combined automatically to provide best " +
+      "possible coverage. This will be used when choosing data to download.",
   },
 });
