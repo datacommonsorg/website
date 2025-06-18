@@ -20,7 +20,13 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, {
+  ReactElement,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
 import {
   getCappedStatVarDate,
@@ -57,7 +63,7 @@ import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
 import { CHART_LOADER_SCREEN, getRankingLink, shouldShowBorder } from "./util";
 
-export function ChartLoader(): JSX.Element {
+export function ChartLoader(): ReactElement {
   // +++++++  Context
   const { dateCtx, placeInfo, statVar, display } = useContext(Context);
 
@@ -107,7 +113,8 @@ export function ChartLoader(): JSX.Element {
     dispatchSources,
     dispatchMetadata
   );
-  const facetList = useComputeFacetList(chartStore);
+  const { facetList, facetLoading, facetError } =
+    useComputeFacetList(chartStore);
   const { sampleDates, sampleFacet } = useComputeSampleDates(chartStore);
   const legendDomain = useComputeLegendDomain(chartStore, sampleFacet);
 
@@ -156,7 +163,7 @@ export function ChartLoader(): JSX.Element {
     placeInfo.value.enclosedPlaceType,
   ]);
 
-  function renderContent(): JSX.Element {
+  function renderContent(): ReactElement {
     if (!renderReady(mapType)) {
       return null;
     }
@@ -223,6 +230,8 @@ export function ChartLoader(): JSX.Element {
               ? chartStore.borderGeoJson.data
               : undefined
           }
+          facetLoading={facetLoading}
+          facetError={facetError}
         >
           {display.value.showTimeSlider &&
             sampleDates &&
