@@ -23,10 +23,8 @@ To run this script, make a copy of .env.sample and register your data commons an
 """
 import argparse
 import asyncio
-from dotenv import load_dotenv
 import json
 import os
-import pandas as pd
 from typing import Dict, List
 
 from datacommons_client.client import DataCommonsClient
@@ -89,12 +87,10 @@ def extract_flag() -> argparse.Namespace:
               ],  # TODO: Add support for passing multiple languages at once
       type=str,
       default="English")
-  parser.add_argument(
-    "-saveToGCS",
-    help=
-    "Whether to save results to GCS."
-    type=bool
-    default=False)
+  parser.add_argument("-saveToGCS",
+                      help="Whether to save results to GCS.",
+                      type=bool,
+                      default=False)
   args = parser.parse_args()
   return args
 
