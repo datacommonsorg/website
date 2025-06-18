@@ -33,6 +33,7 @@ from datacommons_client.client import DataCommonsClient
 from dotenv import load_dotenv
 from gemini_prompt import get_gemini_prompt
 from google import genai
+from google.cloud import storage
 from google.genai import types
 import pandas as pd
 from sv_types import englishSchema
@@ -46,6 +47,9 @@ BATCH_SIZE = 100
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
 EXPORTED_FILE_DIR = "tools/nl/nl_metadata/"
 EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
+GCS_PROJECT_ID = "datcom-website-dev"
+GCS_BUCKET = "gmechali_csv_testing"
+GCS_FILE_DIR = "StatVar Metadata"
 
 # These are the properties common to evey stat var
 MEASURED_PROPERTY = "measuredProperty"
@@ -85,6 +89,12 @@ def extract_flag() -> argparse.Namespace:
               ],  # TODO: Add support for passing multiple languages at once
       type=str,
       default="English")
+  parser.add_argument(
+    "-saveToGCS",
+    help=
+    "Whether to save results to GCS."
+    type=bool
+    default=False)
   args = parser.parse_args()
   return args
 
@@ -279,12 +289,21 @@ async def batch_generate_alt_sentences(
 
 
 def export_to_json(sv_metadata_list: List[dict[str, str | list[str]]],
-                   exported_sv_file: str) -> None:
+                   exported_sv_file: str, shouldSaveToGCS: bool) -> None:
   """
   Exports the SV metadata list to a JSON file.
   """
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
   sv_metadata_df.to_json(exported_sv_file, orient="records", lines=True)
+  if shouldSaveToGCS:
+    gcs_client = storage.Client(project=GCS_PROJECT_ID)
+    bucket = gcs_client.bucket(GCS_BUCKET)
+    file_path = f"{GCS_FILE_DIR}/{exported_sv_file}"
+    json_data = sv_metadata_df.to_json(orient="records", lines=True)
+    blob = bucket.blob(file_path)
+    blob.upload_from_string(json_data, content_type="application/json")
+
+    print(f"SV metadata saved to gs://{GCS_FILE_DIR}/{file_path}")
 
 
 async def main():
@@ -297,7 +316,7 @@ async def main():
     exported_sv_file, gemini_prompt = get_language_settings(target_language)
     sv_metadata_list = await batch_generate_alt_sentences(
         sv_metadata_list, gemini_prompt)
-  export_to_json(sv_metadata_list, exported_sv_file)
+  export_to_json(sv_metadata_list, exported_sv_file, args.saveToGCS)
 
 
 asyncio.run(main())
