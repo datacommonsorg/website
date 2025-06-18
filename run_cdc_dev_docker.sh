@@ -107,7 +107,7 @@ Options:
   schema update mode, which skips embeddings generation and completes much faster.
   Only valid with 'run' and 'build_run' actions and 'all' or 'data' containers. 
   Ignored otherwise.
-
+  
 Examples:
 
 ./run_cdc_dev_docker.sh
@@ -476,7 +476,7 @@ if [ "$service_hybrid" == true ]; then
     RELEASE=''
   fi
   CONTAINER="service"
-fi
+fi  
 
 # Call Docker commands
 ######################################
