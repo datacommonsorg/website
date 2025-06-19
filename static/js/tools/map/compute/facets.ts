@@ -28,14 +28,14 @@ import { useAllStatReady } from "../ready_hooks";
 
 export function useComputeFacetList(chartStore: ChartStore): {
   facetList: FacetSelectorFacetInfo[];
-  facetLoading: boolean;
-  facetError: boolean;
+  facetListLoading: boolean;
+  facetListError: boolean;
 } {
   const { statVar } = useContext(Context);
   const allStatReady = useAllStatReady(chartStore);
   const [facetList, setFacetList] = useState([]);
-  const [facetLoading, setFacetLoading] = useState(false);
-  const [facetError, setFacetError] = useState(false);
+  const [facetListLoading, setFacetListLoading] = useState(false);
+  const [facetListError, setFacetListError] = useState(false);
   const dataCommonsClient = getDataCommonsClient();
 
   useEffect(() => {
@@ -44,14 +44,14 @@ export function useComputeFacetList(chartStore: ChartStore): {
       return;
     }
 
-    setFacetLoading(true);
-    setFacetError(false);
+    setFacetListLoading(true);
+    setFacetListError(false);
 
     const allStatData = chartStore.allStat.data;
     const svDcid = statVar.value.dcid;
     if (!svDcid) {
       setFacetList([]);
-      setFacetLoading(false);
+      setFacetListLoading(false);
       return;
     }
 
@@ -72,7 +72,7 @@ export function useComputeFacetList(chartStore: ChartStore): {
       .then((enrichedMap) => {
         if (!enrichedMap[svDcid]) {
           setFacetList([]);
-          setFacetLoading(false);
+          setFacetListLoading(false);
           return;
         }
         const finalFacetList = [
@@ -83,13 +83,13 @@ export function useComputeFacetList(chartStore: ChartStore): {
           },
         ];
         setFacetList(finalFacetList);
-        setFacetLoading(false);
+        setFacetListLoading(false);
       })
       .catch(() => {
-        setFacetError(true);
-        setFacetLoading(false);
+        setFacetListError(true);
+        setFacetListLoading(false);
       });
   }, [allStatReady, chartStore.allStat.data, statVar.value, dataCommonsClient]);
 
-  return { facetList, facetLoading, facetError };
+  return { facetList, facetListLoading, facetListError };
 }

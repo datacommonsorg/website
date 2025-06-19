@@ -113,7 +113,7 @@ export function ChartLoader(): ReactElement {
     dispatchSources,
     dispatchMetadata
   );
-  const { facetList, facetLoading, facetError } =
+  const { facetList, facetListLoading, facetListError } =
     useComputeFacetList(chartStore);
   const { sampleDates, sampleFacet } = useComputeSampleDates(chartStore);
   const legendDomain = useComputeLegendDomain(chartStore, sampleFacet);
@@ -230,8 +230,8 @@ export function ChartLoader(): ReactElement {
               ? chartStore.borderGeoJson.data
               : undefined
           }
-          facetLoading={facetLoading}
-          facetError={facetError}
+          facetListLoading={facetListLoading}
+          facetListError={facetListError}
         >
           {display.value.showTimeSlider &&
             sampleDates &&
