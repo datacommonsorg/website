@@ -43,11 +43,11 @@ DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
-EXPORTED_FILE_DIR = "tools/nl/nl_metadata/"
+EXPORTED_FILE_DIR = "tools/nl/nl_metadata"
 EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
 GCS_PROJECT_ID = "datcom-website-dev"
-GCS_BUCKET = "gmechali_csv_testing"
-GCS_FILE_DIR = "StatVar Metadata"
+GCS_BUCKET = "gmechali_csv_testing"  # TODO: Change to a dedicated bucket once we productionize
+GCS_FILE_DIR = "statvar_metadata"
 
 # These are the properties common to evey stat var
 MEASURED_PROPERTY = "measuredProperty"
@@ -96,7 +96,7 @@ def extract_flag() -> argparse.Namespace:
 
 
 def get_language_settings(target_language: str) -> str:
-  exported_sv_file = f"{EXPORTED_FILE_DIR}{EXPORTED_FILENAME_PREFIX}_{target_language}.json"
+  exported_sv_file = f"{EXPORTED_FILENAME_PREFIX}_{target_language}.json"
 
   match target_language:
     case "French":
@@ -289,22 +289,25 @@ def export_to_json(sv_metadata_list: List[dict[str, str | list[str]]],
   """
   Exports the SV metadata list to a JSON file.
   """
+  file_path = f"{EXPORTED_FILE_DIR}/{exported_sv_file}"
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
-  sv_metadata_df.to_json(exported_sv_file, orient="records", lines=True)
+  sv_metadata_json = sv_metadata_df.to_json(orient="records", lines=True)
+  with open(file_path, "w") as f:
+    f.write(sv_metadata_json)
+
   if shouldSaveToGCS:
     gcs_client = storage.Client(project=GCS_PROJECT_ID)
     bucket = gcs_client.bucket(GCS_BUCKET)
     file_path = f"{GCS_FILE_DIR}/{exported_sv_file}"
-    json_data = sv_metadata_df.to_json(orient="records", lines=True)
     blob = bucket.blob(file_path)
-    blob.upload_from_string(json_data, content_type="application/json")
+    blob.upload_from_string(sv_metadata_json, content_type="application/json")
 
-    print(f"SV metadata saved to gs://{GCS_FILE_DIR}/{file_path}")
+    print(f"SV metadata saved to gs://{GCS_BUCKET}/{file_path}")
 
 
 async def main():
   args: argparse.Namespace = extract_flag()
-  exported_sv_file = f"{EXPORTED_FILE_DIR}{EXPORTED_FILENAME_PREFIX}.json"
+  exported_sv_file = f"{EXPORTED_FILENAME_PREFIX}.json"
 
   sv_metadata_list: List[dict[str, str | list[str]]] = create_sv_metadata()
   if args.generateAltSentences:
