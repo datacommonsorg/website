@@ -150,7 +150,8 @@ class VisMapTestMixin():
         (By.CSS_SELECTOR,
          '.source-selector-facet-options-section input[type="radio"]'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    shared.select_source(self.driver, "Wonder: Mortality, Underlying Cause Of Death",
+    shared.select_source(self.driver,
+                         "Wonder: Mortality, Underlying Cause Of Death",
                          "Count_Person_Female")
     update_button = self.driver.find_element(
         By.CLASS_NAME, 'source-selector-update-source-button')
