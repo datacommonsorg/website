@@ -11,17 +11,17 @@ jobs:
   update-submodules:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Needed to push changes
-      pull-requests: write # Needed to create pull requests
+      # These permissions are for the default GITHUB_TOKEN used by checkout and create-pull-request.
+      # The PAT used for merging has its own permissions (repo scope) and bypasses these.
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Important: checkout with a token that has write permissions
-          # The GITHUB_TOKEN has write permissions by default for the current repo
-          token: ${{ secrets.GITHUB_TOKEN }}
-          submodules: recursive # Initialize and update submodules
+          token: ${{ secrets.GITHUB_TOKEN }} # Uses the default, limited GITHUB_TOKEN for checkout
+          submodules: recursive
 
       - name: Configure Git
         run: |
@@ -65,15 +65,37 @@ jobs:
           fi
 
       - name: Create Pull Request
+        id: cpr # Give this step an ID to reference its outputs (specifically the PR number)
         if: steps.update_submodules.outputs.submodules_updated == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} # Uses the default GITHUB_TOKEN for creating the PR
           commit-message: "chore: Update submodules [skip ci]"
           title: "chore: Update submodules"
           body: "This PR automatically updates the `mixer` and `import` submodules to their latest `master` branches."
           branch: "chore/update-submodules" # New branch for the PR
           base: "master" # Target branch for the PR
           labels: automated-pr, dependencies
-          add-paths: 'mixer,import' # Explicitly add paths to be included in the PR
-          delete-branch: true # Delete the branch after PR merge
+          add-paths: 'mixer,import'
+          delete-branch: true # The source branch will be deleted by this action if the PR is merged
+
+      - name: Auto-Merge Pull Request with PAT (Bypassing Reviews)
+        # This step runs only if a PR was successfully created in the previous step
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+          # IMPORTANT: Provide your PAT to the GITHUB_TOKEN environment variable for the 'gh' CLI.
+          # The 'gh' CLI will use this token for authentication for this step.
+          GITHUB_TOKEN: ${{ secrets.AUTO_MERGE_PAT }}
+        run: |
+          PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
+
+          echo "Attempting to merge PR #$PR_NUMBER using PAT and --admin flag..."
+
+          # The 'gh' (GitHub CLI) is pre-installed on GitHub Actions runners.
+          # --admin: This flag is crucial. It tells 'gh' to bypass branch protection rules
+          #          (like required reviews or passing status checks).
+          # --squash: Specifies the merge method (you can also use --merge or --rebase).
+          # --delete-branch: Deletes the source branch of the PR after merging.
+          gh pr merge "$PR_NUMBER" --admin --squash --delete-branch
+
+          echo "Pull request #$PR_NUMBER merged successfully."
