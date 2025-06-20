@@ -248,23 +248,23 @@ export function Block(props: BlockPropType): JSX.Element {
     })();
   }, [props]);
 
-  useEffect(() => {
-    function shouldUseDenom(
-      denom: string | undefined,
-      highlightFacet: FacetMetadata | undefined
-    ): string {
-      if (highlightFacet || !denom) {
-        return "";
-      }
-      return denom;
-    }
-    setDenomToUse(shouldUseDenom(props.denom, props.highlightFacet));
-  }, [props.denom, props.highlightFacet]);
+  // useEffect(() => {
+  //   function shouldUseDenom(
+  //     denom: string | undefined,
+  //     highlightFacet: FacetMetadata | undefined
+  //   ): string {
+  //     if (highlightFacet || !denom) {
+  //       return "";
+  //     }
+  //     return denom;
+  //   }
+  //   setDenomToUse(shouldUseDenom(props.denom, props.highlightFacet));
+  // }, [props.denom, props.highlightFacet]);
 
   return (
     <>
       <div className="block-controls">
-        {!_.isEmpty(denomToUse) && (
+        {props.denom && (
           <span className="block-toggle">
             <label>
               <Input
@@ -344,7 +344,7 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        denomToUse,
+                        useDenom ? props.denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
                           : undefined
@@ -356,7 +356,7 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        denomToUse,
+                        useDenom ? props.denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
                           : undefined
