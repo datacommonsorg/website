@@ -219,6 +219,7 @@
                 ]
               }
             ],
+            "description": "Measure a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
             "title": "Nominal GDP Per Capita"
           },
           {
