@@ -34,6 +34,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices.",
             "title": "GDP (Nominal Value) in Eurostat Nuts 3 Places of Spain"
           },
           {
@@ -63,6 +64,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices.",
             "title": "GDP (Nominal Value)"
           },
           {
@@ -91,6 +93,7 @@
                 ]
               }
             ],
+            "description": "Measure a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
             "title": "Nominal GDP Per Capita"
           },
           {
@@ -119,6 +122,7 @@
                 ]
               }
             ],
+            "description": "Measures the percentage change in a country's gross domestic product (GDP) over a specific period.",
             "title": "Growth Rate of GDP"
           },
           {
@@ -150,6 +154,7 @@
                 ]
               }
             ],
+            "description": "Measure of a country's total economic output per person, calculated by dividing the nominal GDP by the population.",
             "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain"
           },
           {
@@ -178,6 +183,7 @@
                 ]
               }
             ],
+            "description": "Measure of a country's total economic output per person, calculated by dividing the nominal GDP by the population.",
             "title": "Economic Activity: Nominal GDP (Nominal, Per Capita)"
           },
           {
