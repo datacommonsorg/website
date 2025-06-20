@@ -294,6 +294,15 @@ function getFacetOptionJsx(
     .filter(Boolean)
     .join(" – ");
 
+  let observationPeriodDisplay: string;
+  if (metadata.observationPeriod) {
+    const humanizedPeriod = humanizeIsoDuration(metadata.observationPeriod);
+    observationPeriodDisplay =
+      humanizedPeriod !== metadata.observationPeriod
+        ? `${humanizedPeriod} (${metadata.observationPeriod})`
+        : humanizedPeriod;
+  }
+
   return (
     <FormGroup
       radio="true"
@@ -379,13 +388,12 @@ function getFacetOptionJsx(
             {metadata.scalingFactor && (
               <li>Scaling Factor • {metadata.scalingFactor}</li>
             )}
-            {metadata.observationPeriod && (
+            {observationPeriodDisplay && (
               <li>
                 {intl.formatMessage(
                   metadataComponentMessages.ObservationPeriod
                 )}{" "}
-                • {humanizeIsoDuration(metadata.observationPeriod)} (
-                {metadata.observationPeriod})
+                • {observationPeriodDisplay}
               </li>
             )}
             {dateRange && (
