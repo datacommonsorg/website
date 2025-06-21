@@ -176,6 +176,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       apiRoot={props.apiRoot}
       className={`${props.className} line-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={getHyperlink(props)}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
       errorMsg={chartData && chartData.errorMsg}
@@ -512,6 +513,7 @@ function rawToChart(
   };
 }
 
+
 function getExploreLink(props: LineTilePropType): {
   displayText: string;
   url: string;
@@ -527,4 +529,13 @@ function getExploreLink(props: LineTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+// New function to get a hyperlink (URL only)
+function getHyperlink(props: LineTilePropType): string {
+  const hl = `${props.apiRoot || ""}/explore#sv=${props.statVarSpec.map((v) => v.statVar).join('___')}&chartType=TIMELINE_WITH_HIGHLIGHT&p=${getPlaceDcids(
+    props
+  ).join(",")}`;
+  console.log("Hyperlink function called with props:", hl);
+  return hl;
 }
