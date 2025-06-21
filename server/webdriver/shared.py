@@ -81,12 +81,19 @@ def click_el(driver, element_locator):
 
 def select_source(driver, source_name, sv_dcid):
   """With the source selector modal open, choose the source with name
-    source_name for variable with dcid sv_dcid"""
+  source_name for variable with dcid sv_dcid. source_name can be a string
+  or a list of strings, to allow for differences due to feature flags."""
+  if isinstance(source_name, str):
+    source_names_to_check = [source_name]
+  else:
+    source_names_to_check = source_name
+
   wait_for_loading(driver)
   source_options = driver.find_elements(By.NAME, sv_dcid)
   for option in source_options:
     parent = option.find_element(By.XPATH, '..')
-    if source_name in parent.text:
+    parent_text = parent.text
+    if any(name in parent_text for name in source_names_to_check):
       option.click()
       wait_for_loading(driver)
       break

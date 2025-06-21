@@ -122,8 +122,10 @@ class VisScatterTestMixin():
         By.CLASS_NAME, 'source-selector-facet-options-section')
     self.assertEqual(len(source_option_sections), 2)
     # Update the source for the Count_Person_Female sv
-    shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
-                         "Count_Person_Female")
+    shared.select_source(self.driver, [
+        "Wonder: Mortality, Underlying Cause Of Death",
+        "CDC_Mortality_UnderlyingCause"
+    ], "Count_Person_Female")
     update_button = self.driver.find_element(
         By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()

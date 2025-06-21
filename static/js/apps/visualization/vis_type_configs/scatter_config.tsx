@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useCallback, useMemo } from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
 import { FacetSelector } from "../../../shared/facet_selector";
@@ -29,9 +29,12 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
 } from "../../../shared/ga_events";
+import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
+import { fetchFacetsWithMetadata } from "../../../tools/shared/metadata/metadata_fetcher";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
 import { ChartHeader, InputInfo } from "../chart_header";
@@ -97,31 +100,56 @@ function getDisplayInputs(appContext: AppContextType): InputInfo[] {
   ];
 }
 
-function getFacetSelector(appContext: AppContextType): ReactElement {
-  const statVars = appContext.statVars.slice(0, 2);
+interface ChartFacetSelectorProps {
+  appContext: AppContextType;
+}
+
+function ChartFacetSelector({
+  appContext,
+}: ChartFacetSelectorProps): ReactElement {
+  const dataCommonsClient = getDataCommonsClient();
+  const statVars = useMemo(
+    () => appContext.statVars.slice(0, 2),
+    [appContext.statVars]
+  );
+
   const svFacetId = {};
   statVars.forEach((sv) => {
     svFacetId[sv.dcid] = sv.facetId;
   });
-  const facetListPromises = statVars.map((sv) =>
-    getFacetsWithin(
-      "",
-      appContext.places[0].dcid,
-      appContext.enclosedPlaceType,
-      [sv.dcid],
-      sv.date
-    )
-  );
-  const facetListPromise = Promise.all(facetListPromises).then((facetResp) => {
-    return statVars.map((sv, idx) => {
+
+  const fetchFacets = useCallback(async () => {
+    const facetListPromises = statVars.map((sv) =>
+      getFacetsWithin(
+        "",
+        appContext.places[0].dcid,
+        appContext.enclosedPlaceType,
+        [sv.dcid],
+        sv.date
+      )
+    );
+    const facetResp = await Promise.all(facetListPromises);
+    const baseFacets = Object.assign({}, ...facetResp);
+    const enrichedFacets = await fetchFacetsWithMetadata(
+      baseFacets,
+      dataCommonsClient
+    );
+    return statVars.map((sv) => {
       return {
         dcid: sv.dcid,
         name: sv.info.title || sv.dcid,
-        metadataMap:
-          idx < facetResp.length ? facetResp[idx][sv.dcid] || {} : {},
+        metadataMap: enrichedFacets[sv.dcid] || {},
       };
     });
-  });
+  }, [
+    appContext.enclosedPlaceType,
+    appContext.places,
+    statVars,
+    dataCommonsClient,
+  ]);
+
+  const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
+
   const onSvFacetIdUpdated = (svFacetId: Record<string, string>): void => {
     const facetsChanged = statVars.filter(
       (sv) => sv.facetId !== svFacetId[sv.dcid]
@@ -135,10 +163,13 @@ function getFacetSelector(appContext: AppContextType): ReactElement {
     });
     appContext.setStatVars(newStatVars);
   };
+
   return (
     <FacetSelector
       svFacetId={svFacetId}
-      facetListPromise={facetListPromise}
+      facetList={facetList}
+      loading={loading}
+      error={!!error}
       onSvFacetIdUpdated={onSvFacetIdUpdated}
     />
   );
@@ -168,7 +199,7 @@ function getChartArea(
           },
           { label: "Display:", inputs: getDisplayInputs(appContext) },
         ]}
-        facetSelector={getFacetSelector(appContext)}
+        facetSelector={<ChartFacetSelector appContext={appContext} />}
       />
       <ScatterTile
         id="vis-tool-scatter"

@@ -68,6 +68,8 @@ interface ChartPropsType {
   sources: Set<string>;
   svFacetId: Record<string, string>;
   facetList: FacetSelectorFacetInfo[];
+  facetListLoading: boolean;
+  facetListError: boolean;
   onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
 }
 
@@ -172,6 +174,8 @@ export function Chart(props: ChartPropsType): ReactElement {
       <ToolChartHeader
         svFacetId={props.svFacetId}
         facetList={props.facetList}
+        facetListLoading={props.facetListLoading}
+        facetListError={props.facetListError}
         onSvFacetIdUpdated={props.onSvFacetIdUpdated}
       />
       <Card className="chart-card">

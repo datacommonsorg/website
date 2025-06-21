@@ -19,8 +19,9 @@
  * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
+import { DataCommonsClient as DataCommonsClientType } from "@datacommonsorg/client";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
@@ -35,8 +36,10 @@ import {
 } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
-import { getSeriesWithin } from "../../utils/data_fetch_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
+import { FacetResponse, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
+import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
 import { Chart } from "./chart";
 import {
   Axis,
@@ -56,8 +59,10 @@ type Cache = {
   statVarsData: Record<string, EntityObservation>;
   allStatVarsData: Record<string, EntityObservationList>;
   metadataMap: Record<string, StatMetadata>;
+  facetSelectorMetadata: FacetResponse;
   populationData: SeriesApiResponse;
   noDataError: boolean;
+  error: boolean;
   xAxis: Axis;
   yAxis: Axis;
   place: PlaceInfo;
@@ -70,8 +75,8 @@ type ChartData = {
   yUnit: string;
 };
 
-export function ChartLoader(): JSX.Element {
-  const { x, y, place, display } = useContext(Context);
+export function ChartLoader(): ReactElement {
+  const { x, y, place, display, isLoading } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
 
@@ -85,13 +90,11 @@ export function ChartLoader(): JSX.Element {
 
   const xFacetInfo = getFacetInfo(
     xVal,
-    cache.allStatVarsData,
-    cache.metadataMap
+    cache.facetSelectorMetadata[xVal.statVarDcid]
   );
   const yFacetInfo = getFacetInfo(
     yVal,
-    cache.allStatVarsData,
-    cache.metadataMap
+    cache.facetSelectorMetadata[yVal.statVarDcid]
   );
   const onSvFacetIdUpdated = (update): void => {
     for (const sv of Object.keys(update)) {
@@ -106,7 +109,7 @@ export function ChartLoader(): JSX.Element {
     <>
       {shouldRenderChart && (
         <>
-          {cache.noDataError || _.isEmpty(chartData.points) ? (
+          {cache.noDataError || cache.error || _.isEmpty(chartData.points) ? (
             <div className="error-message">
               Sorry, no data available. Try different stat vars or place
               options.
@@ -130,8 +133,10 @@ export function ChartLoader(): JSX.Element {
                   [x.value.statVarDcid]: x.value.metahash,
                   [y.value.statVarDcid]: y.value.metahash,
                 }}
-                facetList={[xFacetInfo, yFacetInfo]}
                 onSvFacetIdUpdated={onSvFacetIdUpdated}
+                facetList={[xFacetInfo, yFacetInfo]}
+                facetListLoading={isLoading.areDataLoading}
+                facetListError={cache.error}
               />
             </>
           )}
@@ -148,6 +153,7 @@ function useCache(): Cache {
   const { x, y, place, isLoading } = useContext(Context);
 
   const [cache, setCache] = useState(null);
+  const dataCommonsClient = getDataCommonsClient();
 
   const xVal = x.value;
   const yVal = y.value;
@@ -162,9 +168,9 @@ function useCache(): Cache {
       !isLoading.areDataLoading &&
       !areDataLoaded(cache, xVal, yVal, placeVal)
     ) {
-      loadData(x, y, placeVal, isLoading, setCache);
+      void loadData(x, y, placeVal, isLoading, setCache, dataCommonsClient);
     }
-  }, [xVal, yVal, placeVal]);
+  }, [xVal, yVal, placeVal, dataCommonsClient]);
 
   return cache;
 }
@@ -174,16 +180,17 @@ function useCache(): Cache {
  * @param x
  * @param y
  * @param place
- * @param date
  * @param isLoading
  * @param setCache
+ * @param dataCommonsClient
  */
 async function loadData(
   x: AxisWrapper,
   y: AxisWrapper,
   place: PlaceInfo,
   isLoading: IsLoadingWrapper,
-  setCache: (cache: Cache) => void
+  setCache: (cache: Cache) => void,
+  dataCommonsClient: DataCommonsClientType
 ): Promise<void> {
   isLoading.setAreDataLoading(true);
   const statResponsePromise: Promise<PointApiResponse> = getStatWithinPlace(
@@ -208,28 +215,68 @@ async function loadData(
     place.enclosedPlaceType,
     Array.from(populationSvList)
   );
-  Promise.all([statResponsePromise, statAllResponsePromise, populationPromise])
-    .then(([statResponse, statAllResponse, populationData]) => {
-      let metadataMap = statResponse.facets || {};
-      metadataMap = Object.assign(metadataMap, statAllResponse.facets);
-      const allStatVarsData = statAllResponse.data;
-      const cache = {
-        allStatVarsData,
-        metadataMap,
-        noDataError: _.isEmpty(statResponse.data),
-        populationData,
-        statVarsData: statResponse.data,
-        xAxis: x.value,
-        yAxis: y.value,
-        place,
-      };
-      isLoading.setAreDataLoading(false);
-      setCache(cache);
-    })
-    .catch(() => {
-      alert("Error fetching data.");
-      isLoading.setAreDataLoading(false);
+  try {
+    const [statResponse, statAllResponse, populationData] = await Promise.all([
+      statResponsePromise,
+      statAllResponsePromise,
+      populationPromise,
+    ]);
+
+    const metadataMap = {
+      ...(statResponse.facets || {}),
+      ...(statAllResponse.facets || {}),
+    };
+
+    const baseFacets: FacetResponse = {};
+    const statVars = [x.value.statVarDcid, y.value.statVarDcid];
+    for (const sv of statVars) {
+      baseFacets[sv] = {};
+      if (statAllResponse.data[sv]) {
+        for (const placeDcid in statAllResponse.data[sv]) {
+          for (const obs of statAllResponse.data[sv][placeDcid]) {
+            if (metadataMap[obs.facet]) {
+              baseFacets[sv][obs.facet] = metadataMap[obs.facet];
+            }
+          }
+        }
+      }
+    }
+    const facetSelectorMetadata = await fetchFacetsWithMetadata(
+      baseFacets,
+      dataCommonsClient
+    );
+
+    const allStatVarsData = statAllResponse.data;
+    const cache: Cache = {
+      allStatVarsData,
+      metadataMap,
+      facetSelectorMetadata,
+      noDataError: _.isEmpty(statResponse.data),
+      error: false,
+      populationData,
+      statVarsData: statResponse.data,
+      xAxis: x.value,
+      yAxis: y.value,
+      place,
+    };
+    setCache(cache);
+  } catch {
+    setCache({
+      statVarsData: {},
+      allStatVarsData: {},
+      metadataMap: {},
+      facetSelectorMetadata: {},
+      populationData: null,
+      noDataError: true,
+      error: true,
+      xAxis: x.value,
+      yAxis: y.value,
+      place,
     });
+    alert("Error fetching data.");
+  } finally {
+    isLoading.setAreDataLoading(false);
+  }
 }
 
 /**
@@ -368,22 +415,13 @@ function getChartData(
 
 function getFacetInfo(
   axis: Axis,
-  allStatVarsData: Record<string, EntityObservationList>,
-  metadataMap: Record<string, StatMetadata>
+  metadataMapForSv: Record<string, StatMetadata>
 ): FacetSelectorFacetInfo {
-  const filteredMetadataMap: Record<string, StatMetadata> = {};
-  const sv = axis.statVarDcid;
-  for (const place in allStatVarsData[sv]) {
-    for (const obs of allStatVarsData[sv][place]) {
-      if (obs.facet in metadataMap) {
-        filteredMetadataMap[obs.facet] = metadataMap[obs.facet];
-      }
-    }
-  }
+  const metadataMap = metadataMapForSv || {};
   return {
-    dcid: sv,
-    metadataMap: filteredMetadataMap,
-    name: axis.statVarInfo.title || sv,
+    dcid: axis.statVarDcid,
+    metadataMap,
+    name: axis.statVarInfo.title || axis.statVarDcid,
   };
 }
 /**
@@ -404,8 +442,10 @@ function areStatVarInfoLoaded(x: Axis, y: Axis): boolean {
 /**
  * Checks if the population (for per capita) and statvar data
  * have been loaded for both axes.
+ * @param cache
  * @param x
  * @param y
+ * @param place
  */
 function areDataLoaded(
   cache: Cache,
@@ -439,6 +479,9 @@ function areDataLoaded(
 
 /**
  * Saves data to a CSV file.
+ * @param x
+ * @param y
+ * @param place
  * @param points
  */
 function downloadData(
