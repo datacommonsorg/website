@@ -1,0 +1,84 @@
+{
+  "inputFiles": {
+    "alaska_hospitals.csv": {
+      "importType": "entities",
+      "rowEntityType": "Hospital",
+      "idColumn": "facilityId",
+      "provenance": "Unplanned Hospital Visits",
+      "entityColumns": [
+        "State"
+      ]
+    },
+    "alaska_hospitals_unplanned_visits.csv": {
+      "importType": "observations",
+      "entityType": "Hospital",
+      "provenance": "Unplanned Hospital Visits",
+      "observationProperties": {
+        "observationPeriod": "P3Y"
+      }
+    }
+  },
+  "entities": {
+    "Hospital": {
+      "name": "Hospital"
+    }
+  },
+  "variables": {
+    "cms/EDAC_30_AMI_TOTAL": {
+      "name": "Count of heart attack patients",
+      "description": "Per-hospital total number of heart attack patients",
+      "searchDescriptions": [
+        "Total number of heart attack patients, by hospital, over 3-year period"
+      ],
+      "group": "Alaska Hospitals"
+    },
+    "cms/EDAC_30_AMI_RETURN": {
+      "name": "Count of heart attack patients returned",
+      "description": "Per-hospital number of heart attack patients returned unplanned in a 30-day period",
+      "searchDescriptions": [
+        "Number of heart attack patients returned to hospital, unplanned, within 30 days. Measured over a 3-year period"
+      ],
+      "group": "Alaska Hospitals"
+    },
+    "cms/EDAC_30_HF_TOTAL": {
+      "name": "Count of heart failure patients",
+      "description": "Per-hospital number of heart failure patients",
+      "searchDescriptions": [
+        "Total number of heart failure patients, by hospital, over a 3-year period"
+      ],
+      "group": "Alaska Hospitals"
+    },
+    "cms/EDAC_30_HF_RETURN": {
+      "name": "Count of heart failure patients returned",
+      "description": "Per-hospital number of heart failure patients returned unplanned in a 30-day period",
+      "searchDescriptions": [
+        "Number of heart failure patients returned to hospital, unplanned, within 30 days. Measured over a 3-year period"
+      ],
+      "group": "Alaska Hospitals"
+    },
+    "cms/EDAC_30_PN_TOTAL": {
+      "name": "Count of pneumonia patients",
+      "description": "Per-hospital number of pneumonia patients",
+      "searchDescriptions": [
+        "Total number of pneumonia patients, by hospital, over a 3-year period"
+      ],
+      "group": "Alaska Hospitals"
+    },
+    "cms/EDAC_30_PN_RETURN": {
+      "name": "Count of pneumonia patients returned",
+      "description": "Per-hospital number of pneumonia patients returned unplanned in a 30-day period",
+      "searchDescriptions": [
+        "Number of pneumonia patients returned to hospital, unplanned, within 30 days. Measured over a 3-year period"
+      ],
+      "group": "Alaska Hospitals"
+    }
+  },
+  "sources": {
+    "Center for Medicare and Medicaid Services": {
+      "url": "https://data.cms.gov",
+      "provenances": {
+        "Unplanned Hospital Visits": "https://data.cms.gov/provider-data/dataset/632h-zaca"
+      }
+    }
+  }
+}
