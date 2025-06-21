@@ -46,13 +46,13 @@
     "USStateQuarterlyIndustryGDP_NAICS_23",
     "USStateQuarterlyIndustryGDP_NAICS_51",
     "dc/topic/sdg_8.1.1",
+    "Amount_EconomicActivity_ExpenditureActivity_AsAFractionOf_Amount_EconomicActivity_GrossDomesticProduction",
     "USStateQuarterlyIndustryGDP_NAICS_311_316&322_326",
     "dc/topic/IndustriesByGDP",
     "dc/topic/sdg_8.2.1",
     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_ManufacturingSector",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
-    "USStateQuarterlyIndustryGDP_NAICS_22",
-    "dc/topic/GlobalEconomicActivity"
+    "USStateQuarterlyIndustryGDP_NAICS_22"
   ]
 }
