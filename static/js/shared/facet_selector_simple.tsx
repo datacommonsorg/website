@@ -59,6 +59,8 @@ export interface FacetSelectorFacetInfo {
 }
 
 interface FacetSelectorSimpleProps {
+  // the variant, with small being used for the old tools, standard elsewhere
+  variant?: "standard" | "small";
   // the mode of the facet selector determines the copy used in the instructions
   mode?: "chart" | "download";
   // Map of sv to selected facet id
@@ -77,6 +79,7 @@ interface FacetSelectorSimpleProps {
 }
 
 export function FacetSelectorSimple({
+  variant = "standard",
   mode,
   svFacetId,
   facetList,
@@ -117,7 +120,7 @@ export function FacetSelectorSimple({
         onClick={(): void => setModalOpen(true)}
         disabled={loading}
         css={css`
-          font-size: 13px;
+          ${variant === "small" ? "font-size: 13px;" : ""}
           flex-shrink: 0;
           visibility: ${loading ? "hidden" : "visible"};
         `}

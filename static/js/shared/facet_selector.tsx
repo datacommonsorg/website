@@ -43,6 +43,8 @@ export interface FacetSelectorFacetInfo {
 }
 
 interface FacetSelectorPropType {
+  // the variant, with small being used for the old tools, standard elsewhere
+  variant?: "standard" | "small";
   // the mode of the facet selector determines the copy used in the instructions
   mode?: "chart" | "download";
   // Map of sv to selected facet id

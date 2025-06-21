@@ -62,6 +62,7 @@ export function ToolChartHeader(props: ToolChartHeaderProps): ReactElement {
       `}
     >
       <FacetSelector
+        variant="small"
         svFacetId={props.svFacetId}
         facetList={props.facetList}
         loading={props.facetListLoading}
