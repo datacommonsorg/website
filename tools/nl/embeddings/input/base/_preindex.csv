@@ -848,6 +848,7 @@ Female Population With Kidney Disease By Age,dc/topic/KidneyDiseaseFemalePopulat
 Female Population With Lung Condition By Age,dc/topic/LungConditionFemalePopulationByAge
 Female Population With Poor Mental Health By Age,dc/topic/MentalHealthNotGoodFemalePopulationByAge
 Female Population With Stroke By Age,dc/topic/StrokeFemalePopulationByAge
+Female Unemployment Rate (15-19 years),Count_Person_15To19Years_Unemployed_Female_AsAFractionOf_Count_Person_15To19Years_Female
 Female deaths,Count_Death_Female_AsAFractionOf_Count_Person_Female;dc/topic/FemaleMortality
 Female labor force participation rate,Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female
 Female mortality,dc/topic/FemaleMortality
@@ -1047,6 +1048,7 @@ Male Population With Kidney Disease By Age,dc/topic/KidneyDiseaseMalePopulationB
 Male Population With Lung Condition By Age,dc/topic/LungConditionMalePopulationByAge
 Male Population With Poor Mental Health By Age,dc/topic/MentalHealthNotGoodMalePopulationByAge
 Male Population With Stroke By Age,dc/topic/StrokeMalePopulationByAge
+Male Unemployment Rate (15-19 years),Count_Person_15To19Years_Unemployed_Male_AsAFractionOf_Count_Person_15To19Years_Male
 Male labor force participation rate,Count_Person_15To64Years_Male_InLaborForce_AsFractionOf_Count_Person_15To64Years_Male
 Male unemployment rate,Count_Person_15To59Years_Unemployed_Male_AsAFractionOf_Count_Person_15To59Years_Male
 Malnutrition,dc/topic/Malnutrition
@@ -3311,6 +3313,17 @@ Tornado,dc/topic/Tornado
 Total COVID-19 deaths,CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased
 Total COVID-19 tests performed,CumulativeCount_MedicalTest_ConditionCOVID_19
 Total COVID-19 vaccines administered,CumulativeCount_Vaccine_COVID_19_Administered
+Total Number of Fracture Cases,Count_MedicalConditionIncident_Fracture
+Total Number of Graduates from Private Higher Institutes,Count_Person_Graduate_PrivateHigherInstitute
+Total Number of Graduates from Private Universities,Count_Person_Graduate_PrivateUniversity
+Total Number of Graduates from Upper Medium Technical Institutes,Count_Person_Graduate_UpperMediumTechnicalInstitute
+Total Number of Male Doctors in Privately Owned Establishments,Count_Person_PrivatelyOwnedEstablishment_Male_DoctorOccupation
+Total Number of Public and Central Hospital Beds,Count_Bed_PublicAndCentralHospital
+Total Number of Public and Central Hospitals,Count_HealthEstablishment_PublicAndCentralHospital
+Total Number of Rural Live Births,Count_BirthEvent_LiveBirth_Rural
+Total Number of Specialty Hospitals,Count_HealthEstablishment_SpecialtyHospital
+Total Number of Urban Infant Deaths,Count_MortalityEvent_Infant_Urban
+Total Number of Urban Live Births,Count_BirthEvent_LiveBirth_Urban
 Total agricultural output,dc/topic/AgriculturalProduction
 "Total amount of funding for developing countries to promote the development, transfer, dissemination and diffusion of environmentally sound technologies",dc/topic/sdg_17.7.1
 Total amount of gas emissions from farming practices,dc/topic/AgricultureEmissionsByGas
@@ -3346,6 +3359,7 @@ Two Or More Races Population By Age,dc/topic/TwoOrMoreRacesPopulationByAge
 "Undertake reforms to give women equal rights to economic resources, as well as access to ownership and control over land and other forms of property, financial services, inheritance and natural resources, in accordance with national laws",dc/topic/sdg_5.a
 Under‑5 mortality rate,dc/topic/sdg_3.2.1
 Unemployment Rate,dc/topic/UnemploymentRate
+Unemployment Rate (15-19 years),Count_Person_15To19Years_Unemployed_AsAFractionOf_Count_Person_15To19Years
 Unemployment rate,UnemploymentRate_Person_15To65Years
 "Unemployment rate, by sex, age and persons with disabilities",dc/topic/sdg_8.5.2
 Unhealthy behaviors,dc/topic/HealthBehavior
