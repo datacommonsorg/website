@@ -186,6 +186,7 @@ export function Block(props: BlockPropType): JSX.Element {
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
   const [useDenom, setUseDenom] = useState(props.startWithDenom);
+  const [denom, setDenom] = useState<string>("");
   const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
     props.columns,
     props.statVarProvider
@@ -247,10 +248,18 @@ export function Block(props: BlockPropType): JSX.Element {
     })();
   }, [props]);
 
+  useEffect(() => {
+    setDenom(props.denom || "");
+    if (props.highlightFacet) {
+      setDenom("");
+    }
+
+  }, [props.highlightFacet, props.denom]);
+
   return (
     <>
       <div className="block-controls">
-        {props.denom && (
+        { denom && (
           <span className="block-toggle">
             <label>
               <Input
@@ -316,38 +325,38 @@ export function Block(props: BlockPropType): JSX.Element {
             const shouldHideColumn = idx >= minIdxToHide;
             return (
               <Column
-                shouldHideColumn={shouldHideColumn}
-                key={id}
-                id={id}
-                config={column}
-                width={columnWidth}
-                tiles={
-                  props.showWebComponents
-                    ? renderWebComponents(
-                        column.tiles,
-                        props,
-                        id,
-                        minIdxToHide,
-                        overridePlaceTypes,
-                        columnTileClassName,
-                        useDenom ? props.denom : "",
-                        snapToHighestCoverage
-                          ? DATE_HIGHEST_COVERAGE
-                          : undefined
-                      )
-                    : renderTiles(
-                        column.tiles,
-                        props,
-                        id,
-                        minIdxToHide,
-                        overridePlaceTypes,
-                        columnTileClassName,
-                        useDenom ? props.denom : "",
-                        snapToHighestCoverage
-                          ? DATE_HIGHEST_COVERAGE
-                          : undefined
-                      )
-                }
+              shouldHideColumn={shouldHideColumn}
+              key={id}
+              id={id}
+              config={column}
+              width={columnWidth}
+              tiles={
+                props.showWebComponents
+                ? renderWebComponents(
+                  column.tiles,
+                  props,
+                  id,
+                  minIdxToHide,
+                  overridePlaceTypes,
+                  columnTileClassName,
+                  useDenom ? denom : "",
+                  snapToHighestCoverage
+                    ? DATE_HIGHEST_COVERAGE
+                    : undefined
+                  )
+                : renderTiles(
+                  column.tiles,
+                  props,
+                  id,
+                  minIdxToHide,
+                  overridePlaceTypes,
+                  columnTileClassName,
+                  useDenom ? denom : "",
+                  snapToHighestCoverage
+                    ? DATE_HIGHEST_COVERAGE
+                    : undefined
+                  )
+              }
               />
             );
           })}
