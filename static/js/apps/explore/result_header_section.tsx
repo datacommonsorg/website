@@ -58,11 +58,16 @@ export function ResultHeaderSection(
         {getPlaceHeader()}
         {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
-      {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && !showFollowUpQuestions && (
-        <div className="explore-topics-box">
-          <ItemList items={topicList} showRelevantTopicLabel={true}></ItemList>
-        </div>
-      )}
+      {!_.isEmpty(props.pageMetadata.mainTopics) &&
+        !_.isEmpty(topicList) &&
+        !showFollowUpQuestions && (
+          <div className="explore-topics-box">
+            <ItemList
+              items={topicList}
+              showRelevantTopicLabel={true}
+            ></ItemList>
+          </div>
+        )}
     </>
   );
 
