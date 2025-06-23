@@ -25,6 +25,7 @@ import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
+import { showFollowUpQuestions } from "./success_result";
 
 interface ResultHeaderSectionPropType {
   placeUrlVal: string;
@@ -57,7 +58,7 @@ export function ResultHeaderSection(
         {getPlaceHeader()}
         {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
-      {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
+      {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && !showFollowUpQuestions && (
         <div className="explore-topics-box">
           <ItemList items={topicList} showRelevantTopicLabel={true}></ItemList>
         </div>
