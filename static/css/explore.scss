@@ -24,6 +24,7 @@
 @import "./shared/story_block";
 @import "./shared/story_chart";
 @import "./nl_interface";
+@import "./base";
 
 #main {
   height: auto;
@@ -224,7 +225,7 @@
   justify-content: center;
   align-self: stretch;
   color: #212529;
-  font-family: Google Sans;
+  font-family: Google Sans, $font-family-sans-serif;
   font-size: 22px;
   font-style: normal;
   font-weight: 400;
@@ -244,12 +245,11 @@
   align-self: stretch;
   color: var(--gm-3-sys-light-primary);
 
-  /* GM3/Static/body/large-emphasized */
-  font-family: var(--Static-Body-Large-Font, "Google Sans Text");
-  font-size: var(--Static-Body-Large-Size, 16px);
+  font-family: Google Sans Text, $font-family-sans-serif;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: var(--Static-Body-Large-Line-Height, 24px); /* 150% */
+  line-height: 24px 
 }
 
 .related-places,
