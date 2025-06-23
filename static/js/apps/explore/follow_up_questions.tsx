@@ -19,7 +19,7 @@
  */
 import axios from "axios";
 import _ from "lodash";
-import React, { ReactElement,useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 
 import {
   DEFAULT_TOPIC,
