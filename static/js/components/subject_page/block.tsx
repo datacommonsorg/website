@@ -253,13 +253,12 @@ export function Block(props: BlockPropType): JSX.Element {
     if (props.highlightFacet) {
       setDenom("");
     }
-
   }, [props.highlightFacet, props.denom]);
 
   return (
     <>
       <div className="block-controls">
-        { denom && (
+        {denom && (
           <span className="block-toggle">
             <label>
               <Input
@@ -325,38 +324,38 @@ export function Block(props: BlockPropType): JSX.Element {
             const shouldHideColumn = idx >= minIdxToHide;
             return (
               <Column
-              shouldHideColumn={shouldHideColumn}
-              key={id}
-              id={id}
-              config={column}
-              width={columnWidth}
-              tiles={
-                props.showWebComponents
-                ? renderWebComponents(
-                  column.tiles,
-                  props,
-                  id,
-                  minIdxToHide,
-                  overridePlaceTypes,
-                  columnTileClassName,
-                  useDenom ? denom : "",
-                  snapToHighestCoverage
-                    ? DATE_HIGHEST_COVERAGE
-                    : undefined
-                  )
-                : renderTiles(
-                  column.tiles,
-                  props,
-                  id,
-                  minIdxToHide,
-                  overridePlaceTypes,
-                  columnTileClassName,
-                  useDenom ? denom : "",
-                  snapToHighestCoverage
-                    ? DATE_HIGHEST_COVERAGE
-                    : undefined
-                  )
-              }
+                shouldHideColumn={shouldHideColumn}
+                key={id}
+                id={id}
+                config={column}
+                width={columnWidth}
+                tiles={
+                  props.showWebComponents
+                    ? renderWebComponents(
+                        column.tiles,
+                        props,
+                        id,
+                        minIdxToHide,
+                        overridePlaceTypes,
+                        columnTileClassName,
+                        useDenom ? denom : "",
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
+                          : undefined
+                      )
+                    : renderTiles(
+                        column.tiles,
+                        props,
+                        id,
+                        minIdxToHide,
+                        overridePlaceTypes,
+                        columnTileClassName,
+                        useDenom ? denom : "",
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
+                          : undefined
+                      )
+                }
               />
             );
           })}
