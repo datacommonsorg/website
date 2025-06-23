@@ -224,7 +224,7 @@
   justify-content: center;
   align-self: stretch;
   color: #212529;
-  font-family: "Google Sans";
+  font-family: Google Sans;
   font-size: 22px;
   font-style: normal;
   font-weight: 400;
@@ -250,7 +250,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: var(--Static-Body-Large-Line-Height, 24px); /* 150% */
-  letter-spacing: var(--Static-Body-Large-Tracking, 0px);
 }
 
 .related-places,
