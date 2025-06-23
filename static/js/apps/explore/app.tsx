@@ -462,12 +462,27 @@ export function App(props: AppProps): ReactElement {
           );
 
           if (highlightPageMetadataResp) {
+            
+            console.log("TADATASTTST");
             mainPageMetadata = filterBlocksFromPageMetadata(
               mainPageMetadata,
               highlightPageMetadataResp.pageConfig.categories.flatMap(
                 (category) => category.blocks || []
               )
             );
+            if (shouldSkipPlaceOverview(mainPageMetadata)) {
+              console.log("HIGHLIGHT PAGE METADATA SKIPPPP");
+              updatePageMetadata(
+                highlightPageMetadataResp,
+                null
+              );
+              processFulfillData(
+                fulfillResponse,
+                highlightPageMetadataResp,
+                /*allowRedirect=*/ false,
+                query)
+                return;
+            }
             allowRedirect = false;
           }
 
