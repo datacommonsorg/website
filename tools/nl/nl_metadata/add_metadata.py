@@ -23,6 +23,7 @@ To run this script, make a copy of .env.sample and register your data commons an
 """
 import argparse
 import asyncio
+import csv
 import json
 import os
 from typing import Dict, List
@@ -31,6 +32,7 @@ from datacommons_client.client import DataCommonsClient
 from dotenv import load_dotenv
 from gemini_prompt import get_gemini_prompt
 from google import genai
+from google.cloud import bigquery
 from google.cloud import storage
 from google.genai import types
 import pandas as pd
@@ -42,7 +44,10 @@ from sv_types import StatVarMetadata
 DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
-STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
+BIGQUERY_QUERY = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable`"
+STAT_VAR_SHEET = "tools/nl/nl_metadata/all_stat_vars.csv"
+MISSING_NAME_SV_SHEET = "tools/nl/nl_metadata/missing_name_stat_vars.csv"
+STAT_VAR_SENTENCES_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
 EXPORTED_FILE_DIR = "tools/nl/nl_metadata"
 EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
 GCS_PROJECT_ID = "datcom-website-dev"
@@ -70,7 +75,7 @@ DC_API_KEY = os.getenv("DC_API_KEY")
 
 def extract_flag() -> argparse.Namespace:
   """
-  Extracts the -generateAltSentences and -language flags from the command line arguments.
+  Extracts the -generateAltSentences, -language amd -saveToGCS flags from the command line arguments.
   """
   parser = argparse.ArgumentParser(description="./add_metadata.py")
   parser.add_argument(
@@ -91,9 +96,53 @@ def extract_flag() -> argparse.Namespace:
                       help="Whether to save results to GCS.",
                       type=bool,
                       default=False)
+  parser.add_argument(
+    "-pullFromBigQuery",
+    help="Whether to pull all SVs from BigQuery instead of the local CSV file.",
+    type=bool,
+    default=False)
   args = parser.parse_args()
   return args
 
+def get_bigquery_statvars() -> None:
+  """
+  Fetches all the SVs from BigQuery and saves them to a local CSV file. 
+  Also exports the list of SVs with missing names to a separate CSV file.
+  """
+  client = bigquery.Client()
+  query_job = client.query(BIGQUERY_QUERY)
+  results = query_job.result(page_size=10000)
+
+  missing_name_ids = []
+  iteration: int = 1
+
+  for page in results.pages:
+    page_records = []
+    for row in page:
+        # Skip if name is missing or empty
+        if not row.name:
+            missing_name_ids.append(row.id)
+            continue
+
+        # Collect constraint properties
+        constraint_properties = []
+        for i in range(1, 11):
+            prop = getattr(row, f"p{i}", None)
+            val = getattr(row, f"v{i}", None)
+            if prop and val:
+                constraint_properties.append(f"{prop}: {val}")
+
+        record = {
+            "dcid": row.id,
+            "measuredProperty": row.measured_prop,
+            "name": row.name,
+            "populationType": row.population_type,
+            "statType": row.stat_type,
+            "constraintProperties": constraint_properties,
+        }
+        page_records.append(record)
+
+    print(f"Processed {len(page_records)} records in this page.")
 
 def get_language_settings(target_language: str) -> str:
   exported_sv_file = f"{EXPORTED_FILENAME_PREFIX}_{target_language}.json"
@@ -194,7 +243,7 @@ def create_sv_metadata() -> List[dict[str, str | list[str]]]:
   Creates SV metadata by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
   """
   client = DataCommonsClient(api_key=DC_API_KEY)
-  stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
+  stat_var_sentences = pd.read_csv(STAT_VAR_SENTENCES_SHEET)
   sv_metadata_list: List[dict[str, str | list[str]]] = []
   batched_list = split_into_batches(stat_var_sentences)
 

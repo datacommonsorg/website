@@ -24,7 +24,7 @@ class StatVarMetadata:
     """
 
   dcid: str
-  sentence: str
+  sentence: str | None = None
   generatedSentences: list[str] | None = None
   measuredProperty: str | None = None
   name: str | None = None
@@ -32,21 +32,18 @@ class StatVarMetadata:
   statType: str | None = None
   constraintProperties: list[str] = field(default_factory=list)
 
-
 englishSchema: dict[str, str | list[str]] = {
     "dcid": "",
-    "sentence": "",
     "generatedSentences": [],
     "name": "",
     "measuredProperty": "",
     "populationType": "",
     "statType": "",
-    "constraintProperties": []
+    "constraintProperties": [],
 }
 
 frenchSchema: dict[str, str | list[str]] = {
     "dcid": "",
-    "phrase": "",
     "phrasesGenerees": [],
     "nom": "",
     "proprieteMesuree": "",
@@ -57,7 +54,6 @@ frenchSchema: dict[str, str | list[str]] = {
 
 spanishSchema: dict[str, str | list[str]] = {
     "dcid": "",
-    "frase": "",
     "frasesGeneradas": [],
     "nombre": "",
     "propiedadMedida": "",
