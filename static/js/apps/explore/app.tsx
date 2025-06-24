@@ -456,34 +456,30 @@ export function App(props: AppProps): ReactElement {
           const mainPlace = extractMainPlace(fulfillResponse);
           let mainPageMetadata = extractMetadata(fulfillResponse, mainPlace);
 
-          const highlightPageMetadataResp = extractMetadata(
+          let highlightPageMetadataResp = extractMetadata(
             highlightResponse,
             mainPlace
           );
 
           if (highlightPageMetadataResp) {
-            
-            console.log("TADATASTTST");
-            mainPageMetadata = filterBlocksFromPageMetadata(
-              mainPageMetadata,
-              highlightPageMetadataResp.pageConfig.categories.flatMap(
-                (category) => category.blocks || []
-              )
-            );
-            if (shouldSkipPlaceOverview(mainPageMetadata)) {
-              console.log("HIGHLIGHT PAGE METADATA SKIPPPP");
-              updatePageMetadata(
-                highlightPageMetadataResp,
-                null
-              );
-              processFulfillData(
-                fulfillResponse,
-                highlightPageMetadataResp,
-                /*allowRedirect=*/ false,
-                query)
-                return;
-            }
+            // If we have a highlight response, prevent any place page redirection.
             allowRedirect = false;
+
+            if (shouldSkipPlaceOverview(mainPageMetadata)) {
+              // If the main page metadata is just a place overview, this means it has no data. We can skip
+              // the main page metadata and just use the highlight page metadata.
+              mainPageMetadata = highlightPageMetadataResp;
+              highlightPageMetadataResp = null;
+            } else {
+              // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
+              mainPageMetadata = filterBlocksFromPageMetadata(
+                mainPageMetadata,
+                highlightPageMetadataResp.pageConfig.categories.flatMap(
+                  (category) => category.blocks || []
+                )
+              );
+            }
+
           }
 
           updatePageMetadata(mainPageMetadata, highlightPageMetadataResp);
