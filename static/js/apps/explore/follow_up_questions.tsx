@@ -26,17 +26,18 @@ import {
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { getTopics } from "../../utils/app/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 
 // Number of follow up questions displayed
 const FOLLOW_UP_QUESTIONS_LIMIT = 10;
 
-export interface Question {
+interface Question {
   text: string;
   url: string;
 }
 
-export interface FollowUpQuestionsPropType {
+interface FollowUpQuestionsPropType {
   query: string;
   pageMetadata: SubjectPageMetadata;
 }
@@ -45,12 +46,9 @@ export function FollowUpQuestions(
   props: FollowUpQuestionsPropType
 ): ReactElement {
   // Gets the name of all related topics while removing the Root topic.
-  const relatedTopics = []
-    .concat(props.pageMetadata?.childTopics || [])
-    .concat(props.pageMetadata?.peerTopics || [])
-    .concat(props.pageMetadata?.parentTopics || [])
-    .filter((topic) => topic.dcid != DEFAULT_TOPIC || topic.name)
-    .map((topic) => topic.name)
+  // Empty string can be passed since only the topic name will be used, which is stored in the property `text`.
+  const relatedTopics = getTopics(props.pageMetadata, "")
+    .map((topic) => topic.text)
     .slice(0, FOLLOW_UP_QUESTIONS_LIMIT);
 
   if (_.isEmpty(relatedTopics) || _.isEmpty(props.query)) {
@@ -61,7 +59,7 @@ export function FollowUpQuestions(
   useEffect(() => {
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
-        setFollowUpQuestions(value.followUpQuestions);
+        setFollowUpQuestions(value);
       })
       .catch(() => {
         setFollowUpQuestions([]);
@@ -94,15 +92,12 @@ export function FollowUpQuestions(
   );
 }
 
-// Full result from /api/explore/follow-up-questions
-interface FollowUpQuestionsResult {
-  followUpQuestions: Question[];
-}
-
+//  Parses request from /api/explore/follow-up-questions by creating a
+//  url with the generated question as the query.
 const getFollowUpQuestions = async (
   query: string,
   relatedTopics: string[]
-): Promise<FollowUpQuestionsResult> => {
+): Promise<Question[]> => {
   const url = "/api/explore/follow-up-questions";
   const body = {
     q: query,
@@ -110,15 +105,13 @@ const getFollowUpQuestions = async (
   };
   return await axios.post(url, body).then((resp) => {
     const data = resp.data;
-    return {
-      followUpQuestions: data.follow_up_questions.map((question) => {
-        return {
-          text: question,
-          url: `/explore/#${getUpdatedHash({
-            [URL_HASH_PARAMS.QUERY]: question,
-          })}`,
-        };
-      }),
-    };
+    return data.follow_up_questions.map((question) => {
+      return {
+        text: question,
+        url: `/explore/#${getUpdatedHash({
+          [URL_HASH_PARAMS.QUERY]: question,
+        })}`,
+      };
+    });
   });
 };

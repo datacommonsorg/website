@@ -61,7 +61,7 @@ const PAGE_ID = "explore";
 
 const EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO = 0.2;
 
-export const showFollowUpQuestions =
+const showFollowUpQuestions =
   isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA) ||
   (isFeatureEnabled(FOLLOW_UP_QUESTIONS_EXPERIMENT) &&
     Math.random() < EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO);
@@ -175,6 +175,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 pageMetadata={props.pageMetadata}
                 placeUrlVal={placeUrlVal}
                 hideRelatedTopics={false}
+                showFollowUpQuestions={showFollowUpQuestions}
               />
             )}
             <RankingUnitUrlFuncContext.Provider

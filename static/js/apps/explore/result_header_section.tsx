@@ -25,12 +25,12 @@ import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
-import { showFollowUpQuestions } from "./success_result";
 
 interface ResultHeaderSectionPropType {
   placeUrlVal: string;
   pageMetadata: SubjectPageMetadata;
   hideRelatedTopics: boolean;
+  showFollowUpQuestions: boolean;
 }
 
 export function ResultHeaderSection(
@@ -60,7 +60,7 @@ export function ResultHeaderSection(
       </div>
       {!_.isEmpty(props.pageMetadata.mainTopics) &&
         !_.isEmpty(topicList) &&
-        !showFollowUpQuestions && (
+        !props.showFollowUpQuestions && (
           <div className="explore-topics-box">
             <ItemList
               items={topicList}
