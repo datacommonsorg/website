@@ -479,7 +479,6 @@ export function App(props: AppProps): ReactElement {
                 )
               );
             }
-
           }
 
           updatePageMetadata(mainPageMetadata, highlightPageMetadataResp);
