@@ -186,6 +186,7 @@ export function Block(props: BlockPropType): JSX.Element {
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
   const [useDenom, setUseDenom] = useState(props.startWithDenom);
+  const [denom, setDenom] = useState<string>("");
   const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
     props.columns,
     props.statVarProvider
@@ -198,7 +199,6 @@ export function Block(props: BlockPropType): JSX.Element {
     setShowSnapToHighestCoverageCheckbox,
   ] = useState(false);
   const [enableSnapToLatestData, setEnableSnapToLatestData] = useState(true);
-  const [denomToUse, setDenomToUse] = useState<string>("");
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
   const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
@@ -249,22 +249,16 @@ export function Block(props: BlockPropType): JSX.Element {
   }, [props]);
 
   useEffect(() => {
-    function shouldUseDenom(
-      denom: string | undefined,
-      highlightFacet: FacetMetadata | undefined
-    ): string {
-      if (highlightFacet || !denom) {
-        return "";
-      }
-      return denom;
+    setDenom(props.denom || "");
+    if (props.highlightFacet) {
+      setDenom("");
     }
-    setDenomToUse(shouldUseDenom(props.denom, props.highlightFacet));
-  }, [props.denom, props.highlightFacet]);
+  }, [props.highlightFacet, props.denom]);
 
   return (
     <>
       <div className="block-controls">
-        {!_.isEmpty(denomToUse) && (
+        {denom && (
           <span className="block-toggle">
             <label>
               <Input
@@ -344,7 +338,7 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        denomToUse,
+                        useDenom ? denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
                           : undefined
@@ -356,7 +350,7 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        denomToUse,
+                        useDenom ? denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
                           : undefined
