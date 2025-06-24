@@ -31,37 +31,18 @@ jobs:
       - name: Update submodules to latest
         id: update_submodules
         run: |
-          SUBMODULES_UPDATED=false
+          # update all submodules
+          git submodule update --remote --merge
 
-          echo "Checking mixer submodule..."
-          (cd mixer && git fetch origin && git checkout master && git pull origin master)
-          MIXER_STATUS=$(git diff --submodule=diff HEAD^ mixer | wc -l)
-          if [ "$MIXER_STATUS" -ne "0" ]; then
-            echo "mixer submodule has updates."
-            SUBMODULES_UPDATED=true
-          else
-            echo "mixer submodule is already up-to-date."
-          fi
-
-          echo "Checking import submodule..."
-          (cd import && git fetch origin && git checkout master && git pull origin master)
-          IMPORT_STATUS=$(git diff --submodule=diff HEAD^ import | wc -l)
-          if [ "$IMPORT_STATUS" -ne "0" ]; then
-            echo "import submodule has updates."
-            SUBMODULES_UPDATED=true
-          else
-            echo "import submodule is already up-to-date."
-          fi
-
-          if [ "$SUBMODULES_UPDATED" = "true" ]; then
-            echo "Committing updated submodules..."
-            git add mixer import
-            git commit -m "chore: Update submodules [skip ci]"
-            echo "Changes committed."
-            echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
-          else
+          # Check if there are any changes to submodules
+          if [[ -z $(git status --porcelain) ]]; then
             echo "No submodule updates found."
             echo "submodules_updated=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Submodules updated. Committing changes."
+            git add mixer import # Add only the submodules if they are the only changes expected
+            git commit -m "chore: Update submodules [skip ci]"
+            echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Create Pull Request
