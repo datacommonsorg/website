@@ -1,0 +1,60 @@
+name: Update Submodules
+
+on:
+  schedule:
+    # Run every day at midnight EST (00:00 EST / 05:00 UTC)
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+    # Allows manual triggering of the workflow
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to push changes
+      pull-requests: write # Needed to create pull requests
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Important: checkout with a token that has write permissions
+          # The GITHUB_TOKEN has write permissions by default for the current repo
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: recursive # Initialize and update submodules
+
+      - name: Configure Git
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+
+      - name: Update submodules to latest
+        id: update_submodules
+        run: |
+          # update all submodules
+          git submodule update --remote --merge
+
+          # Check if there are any changes to submodules
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No submodule updates found."
+            echo "submodules_updated=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Submodules updated. Committing changes."
+            git add mixer import # Add only the submodules if they are the only changes expected
+            git commit -m "chore: Update submodules [skip ci]"
+            echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Pull Request
+        if: steps.update_submodules.outputs.submodules_updated == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: Update submodules [skip ci]"
+          title: "chore: Update submodules"
+          body: "This PR automatically updates the `mixer` and `import` submodules to their latest `master` branches."
+          branch: "chore/update-submodules" # New branch for the PR
+          base: "master" # Target branch for the PR
+          labels: automated-pr, dependencies
+          add-paths: 'mixer,import' # Explicitly add paths to be included in the PR
+          delete-branch: true # Delete the branch after PR merge
