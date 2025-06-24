@@ -31,6 +31,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices",
             "title": "GDP (Nominal Value)"
           },
           {
@@ -157,6 +158,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices",
             "title": "Increase in GDP (Nominal Value) Over Time (Absolute Change)"
           },
           {
@@ -283,6 +285,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices",
             "title": "Increase in GDP (Nominal Value) Over Time (Percent Change)"
           },
           {
@@ -409,6 +412,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices",
             "title": "Increase in GDP (Nominal Value) Over Time (Per Capita Change)"
           }
         ],

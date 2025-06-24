@@ -101,6 +101,7 @@ const DC_YELLOW_PILL_TEXT = "hsl(3, 71%, 15%)";
 const DC_YELLOW_PILL_BCKG = "hsl(40, 100%, 91%)";
 
 const DC_GRAY = "hsl(160, 2%, 27%)";
+const DC_GRAY_LIGHT = "hsl(0, 0%, 48%)";
 const DC_GRAY_LINING = "hsl(140, 3%, 77%)";
 const DC_GRAY_TOOLTIP = "hsl(213, 43%, 96%)";
 
@@ -123,6 +124,9 @@ const theme: Theme = {
         base: DC_GRAY,
         dark: DC_BLACK_80,
         light: DC_GRAY_PILL_BCKG,
+      },
+      tertiary: {
+        base: DC_GRAY_LIGHT,
       },
     },
     background: {
@@ -346,7 +350,7 @@ const theme: Theme = {
         color: DC_BLUE,
         backgroundColor: DC_BLUE_WHITE_LIGHT,
         border: `1px solid ${DC_BLUE_WHITE_LIGHT}`,
-        borderRadius: `8px`,
+        borderRadius: "100px",
         ["&:hover:not(:disabled):not([aria-disabled])"]: {
           backgroundColor: DC_BLUE_WHITE_LIGHT,
           color: DC_BLUE,
@@ -356,7 +360,7 @@ const theme: Theme = {
     },
     size: {
       sm: {
-        padding: `6px ${SPACING.md}px`,
+        padding: `7px ${SPACING.md}px`,
       },
       md: {
         padding: `11px ${SPACING.md}px 9px`,

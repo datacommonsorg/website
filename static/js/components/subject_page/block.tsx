@@ -241,7 +241,9 @@ export function Block(props: BlockPropType): JSX.Element {
           props.statVarProvider
         );
       setEnableSnapToLatestData(enableSnapToHighestCoverage);
-      setShowSnapToHighestCoverageCheckbox(true);
+
+      // We want to disable the block controls for the highlight chart.
+      setShowSnapToHighestCoverageCheckbox(!props.highlightFacet);
     })();
   }, [props]);
 

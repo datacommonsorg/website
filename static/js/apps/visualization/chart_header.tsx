@@ -103,7 +103,7 @@ export function ChartHeader(props: ChartHeaderProps): ReactElement {
                 gap: ${theme.spacing.sm}px;
                 background: ${theme.colors.box.tooltip.pill};
                 ${theme.typography.family.text};
-                ${theme.typography.text.sm};
+                font-size: 13px;
               `}
             >
               {inputSection.label && (
