@@ -174,8 +174,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
               <ResultHeaderSection
                 pageMetadata={props.pageMetadata}
                 placeUrlVal={placeUrlVal}
-                hideRelatedTopics={false}
-                showFollowUpQuestions={showFollowUpQuestions}
+                hideRelatedTopics={showFollowUpQuestions}
               />
             )}
             <RankingUnitUrlFuncContext.Provider

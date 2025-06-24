@@ -21,10 +21,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useState } from "react";
 
-import {
-  DEFAULT_TOPIC,
-  URL_HASH_PARAMS,
-} from "../../constants/app/explore_constants";
+import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
@@ -45,18 +42,14 @@ interface FollowUpQuestionsPropType {
 export function FollowUpQuestions(
   props: FollowUpQuestionsPropType
 ): ReactElement {
-  // Gets the name of all related topics while removing the Root topic.
-  // Empty string can be passed since only the topic name will be used, which is stored in the property `text`.
-  const relatedTopics = getTopics(props.pageMetadata, "")
-    .map((topic) => topic.text)
-    .slice(0, FOLLOW_UP_QUESTIONS_LIMIT);
-
-  if (_.isEmpty(relatedTopics) || _.isEmpty(props.query)) {
-    return <></>;
-  }
-
   const [followUpQuestions, setFollowUpQuestions] = useState(null);
   useEffect(() => {
+    // Gets the name of all related topics while removing the Root topic.
+    // Empty string can be passed since only the topic name will be used, which is stored in the property `text`.
+    const relatedTopics = getTopics(props.pageMetadata, "")
+      .map((topic) => topic.text)
+      .slice(0, FOLLOW_UP_QUESTIONS_LIMIT);
+
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
         setFollowUpQuestions(value);
@@ -64,11 +57,11 @@ export function FollowUpQuestions(
       .catch(() => {
         setFollowUpQuestions([]);
       });
-  }, []);
+  }, [props.query, props.pageMetadata]);
 
   return (
-    <div>
-      {followUpQuestions && (
+    <>
+      {!_.isEmpty(followUpQuestions) && (
         <div className="follow-up-questions-container">
           <div className="follow-up-questions-inner">
             <span className="follow-up-questions-title">Keep Exploring</span>
@@ -88,16 +81,18 @@ export function FollowUpQuestions(
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
-//  Parses request from /api/explore/follow-up-questions by creating a
-//  url with the generated question as the query.
+// Gets followup questions from the /api/explore/follow-up-questions endpoint and processes the response
 const getFollowUpQuestions = async (
   query: string,
   relatedTopics: string[]
 ): Promise<Question[]> => {
+  if (_.isEmpty(query) || _.isEmpty(relatedTopics)) {
+    return [];
+  }
   const url = "/api/explore/follow-up-questions";
   const body = {
     q: query,

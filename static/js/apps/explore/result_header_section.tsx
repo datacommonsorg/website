@@ -30,7 +30,6 @@ interface ResultHeaderSectionPropType {
   placeUrlVal: string;
   pageMetadata: SubjectPageMetadata;
   hideRelatedTopics: boolean;
-  showFollowUpQuestions: boolean;
 }
 
 export function ResultHeaderSection(
@@ -58,16 +57,11 @@ export function ResultHeaderSection(
         {getPlaceHeader()}
         {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
-      {!_.isEmpty(props.pageMetadata.mainTopics) &&
-        !_.isEmpty(topicList) &&
-        !props.showFollowUpQuestions && (
-          <div className="explore-topics-box">
-            <ItemList
-              items={topicList}
-              showRelevantTopicLabel={true}
-            ></ItemList>
-          </div>
-        )}
+      {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
+        <div className="explore-topics-box">
+          <ItemList items={topicList} showRelevantTopicLabel={true}></ItemList>
+        </div>
+      )}
     </>
   );
 
