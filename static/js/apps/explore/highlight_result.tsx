@@ -30,10 +30,7 @@ import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getFacets } from "../../utils/data_fetch_utils";
-import {
-  isPlaceOverviewOnly,
-  shouldSkipPlaceOverview,
-} from "../../utils/explore_utils";
+import { isPlaceOverviewOnly } from "../../utils/explore_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 
 const PAGE_ID = "highlight-result";
