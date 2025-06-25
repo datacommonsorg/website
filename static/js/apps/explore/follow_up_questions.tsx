@@ -26,6 +26,7 @@ import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
+import { GA_EVENT_RELATED_TOPICS_CLICK, GA_PARAM_RELATED_TOPICS_MODE, GA_VALUE_RELATED_TOPICS_EXPERIMENT, triggerGAEvent } from "../../shared/ga_events";
 
 // Number of follow up questions displayed
 const FOLLOW_UP_QUESTIONS_LIMIT = 10;
@@ -80,6 +81,7 @@ export function FollowUpQuestions(
                   <a
                     className="follow-up-questions-list-text"
                     href={question.url}
+                    onClick={() => onQuestionClicked(GA_VALUE_RELATED_TOPICS_EXPERIMENT)}
                   >
                     {question.text}
                     <br></br>
@@ -118,4 +120,10 @@ const getFollowUpQuestions = async (
       };
     });
   });
+};
+
+export const onQuestionClicked = (mode: string) => {
+  triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK,{
+    [GA_PARAM_RELATED_TOPICS_MODE]: mode,
+  })
 };
