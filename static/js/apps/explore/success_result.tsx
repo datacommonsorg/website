@@ -34,6 +34,11 @@ import {
   ExploreContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
+import {
+  FOLLOW_UP_QUESTIONS_EXPERIMENT,
+  FOLLOW_UP_QUESTIONS_GA,
+  isFeatureEnabled,
+} from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
@@ -45,6 +50,7 @@ import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "./debug_info";
+import { FollowUpQuestions } from "./follow_up_questions";
 import { HighlightResult } from "./highlight_result";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
@@ -52,6 +58,13 @@ import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
 
 const PAGE_ID = "explore";
+
+const EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO = 0.2;
+
+const showFollowUpQuestions =
+  isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA) ||
+  (isFeatureEnabled(FOLLOW_UP_QUESTIONS_EXPERIMENT) &&
+    Math.random() < EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO);
 
 interface SuccessResultPropType {
   //the query string that brought up the given results
@@ -161,7 +174,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
               <ResultHeaderSection
                 pageMetadata={props.pageMetadata}
                 placeUrlVal={placeUrlVal}
-                hideRelatedTopics={false}
+                hideRelatedTopics={showFollowUpQuestions}
               />
             )}
             <RankingUnitUrlFuncContext.Provider
@@ -206,6 +219,12 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 <ScrollToTopButton />
               </ExploreContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
+            {showFollowUpQuestions && (
+              <FollowUpQuestions
+                query={props.query}
+                pageMetadata={props.pageMetadata}
+              />
+            )}
             {!emptyPlaceOverview &&
               !_.isEmpty(props.pageMetadata.childPlaces) && (
                 <RelatedPlace
