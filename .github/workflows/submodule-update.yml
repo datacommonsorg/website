@@ -37,8 +37,6 @@ jobs:
           git submodule update --init
 
           # Loop through each submodule and handle potential "unrelated histories"
-          # We use 'git submodule status --recursive' to also catch nested submodules
-          # if that becomes a concern in the future, otherwise, 'git submodule status' is fine.
           git submodule status | while read -r status sha path; do
             echo "Processing submodule: $path"
             (
