@@ -21,18 +21,79 @@ jobs:
           # Important: checkout with a token that has write permissions
           # The GITHUB_TOKEN has write permissions by default for the current repo
           token: ${{ secrets.GITHUB_TOKEN }}
-          submodules: recursive # Initialize and update submodules
 
       - name: Configure Git
         run: |
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
 
-      - name: Update submodules to latest
+      - name: Robustly update submodules to latest
         id: update_submodules
+        shell: bash
         run: |
-          # update all submodules
-          git submodule update --remote --merge
+          set -euo pipefail
+
+          echo "Attempting to update all submodules..."
+          git submodule update --init
+
+          # Loop through each submodule and handle potential "unrelated histories"
+          # We use 'git submodule status --recursive' to also catch nested submodules
+          # if that becomes a concern in the future, otherwise, 'git submodule status' is fine.
+          git submodule status | while read -r status sha path; do
+            echo "Processing submodule: $path"
+            (
+              cd "$path" || { echo "Error: Could not enter submodule directory $path"; exit 1; }
+
+              # Get the remote URL and the currently tracked branch
+              # Try to get the configured branch for the submodule from .gitmodules or .git/config
+              submodule_branch=$(git config --file ../.gitmodules submodule."$path".branch || \
+                                 git config branch.$(git rev-parse --abbrev-ref HEAD).remote || \
+                                 echo "main") # Default to 'main' if not explicitly configured
+
+              echo "  Fetching from origin/$submodule_branch for $path..."
+              # Attempt to fetch the specific branch. If it fails, fetch all.
+              if ! git fetch origin "$submodule_branch"; then
+                echo "  Warning: Failed to fetch origin/$submodule_branch for $path. This might indicate the branch doesn't exist remotely or other network issues."
+                echo "  Attempting to fetch all branches for $path as a fallback."
+                git fetch origin || { echo "  Error: Could not fetch from origin for $path. Skipping update for this submodule."; exit 0; }
+              fi
+
+              # Check if the fetched branch exists and reset to it
+              if git show-ref --verify --quiet "refs/remotes/origin/$submodule_branch"; then
+                  echo "  Resetting $path to origin/$submodule_branch..."
+                  if ! git reset --hard "origin/$submodule_branch"; then
+                      echo "  Error: Failed to hard reset $path to origin/$submodule_branch. Skipping update for this submodule."
+                      exit 1
+                  fi
+              else
+                  echo "  Warning: Remote branch origin/$submodule_branch not found for $path. Attempting to update to the latest commit on remote main/master or configured branch."
+                  # This part handles cases where the default branch might be master/main or another configured branch
+                  if git show-ref --verify --quiet "refs/remotes/origin/main"; then
+                      echo "  Resetting $path to origin/main..."
+                      if ! git reset --hard "origin/main"; then
+                          echo "  Error: Failed to hard reset $path to origin/main. Skipping update for this submodule."
+                          exit 1
+                      fi
+                  elif git show-ref --verify --quiet "refs/remotes/origin/master"; then
+                      echo "  Resetting $path to origin/master..."
+                      if ! git reset --hard "origin/master"; then
+                          echo "  Error: Failed to hard reset $path to origin/master. Skipping update for this submodule."
+                          exit 1
+                      fi
+                  else
+                      echo "  Error: No recognizable remote branch (origin/$submodule_branch, origin/main, or origin/master) found for $path. Cannot update this submodule reliably."
+                      exit 1
+                  fi
+              fi
+
+              echo "  Submodule $path updated successfully."
+            ) || { echo "Failed to process submodule $path"; exit 1; } # Exit the outer script if a submodule fails
+          done
+
+          # After updating all submodules individually, ensure the main repository's submodule pointers are correct.
+          # This command ensures the .gitmodules and the index reflect the new submodule commits.
+          echo "Updating main repository's submodule pointers..."
+          git submodule update --recursive --no-fetch
 
           # Check if there are any changes to submodules
           if [[ -z $(git status --porcelain) ]]; then
@@ -40,7 +101,7 @@ jobs:
             echo "submodules_updated=false" >> "$GITHUB_OUTPUT"
           else
             echo "Submodules updated. Committing changes."
-            git add mixer import # Add only the submodules if they are the only changes expected
+            git add mixer import
             git commit -m "chore: Update submodules [skip ci]"
             echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
           fi
