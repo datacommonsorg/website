@@ -311,6 +311,8 @@ function getFacetOptionJsx(
         : humanizedPeriod;
   }
 
+  const facetOptionId = `${facetInfo.dcid}-${facetId}-option`;
+
   return (
     <FormGroup
       radio="true"
@@ -322,7 +324,7 @@ function getFacetOptionJsx(
     >
       <Label
         radio="true"
-        for={facetInfo.dcid}
+        for={facetOptionId}
         css={css`
           display: flex;
           gap: ${theme.spacing.md}px;
@@ -340,7 +342,7 @@ function getFacetOptionJsx(
         <Input
           type="radio"
           name={facetInfo.dcid}
-          id={facetInfo.dcid}
+          id={facetOptionId}
           defaultChecked={selectedFacetId === facetId}
           onClick={(): void => {
             setModalSelections({
