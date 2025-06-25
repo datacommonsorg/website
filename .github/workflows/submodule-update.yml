@@ -101,7 +101,7 @@ jobs:
             echo "submodules_updated=false" >> "$GITHUB_OUTPUT"
           else
             echo "Submodules updated. Committing changes."
-            git add mixer import
+            git add mixer import # Add only the submodules if they are the only changes expected
             git commit -m "chore: Update submodules [skip ci]"
             echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
           fi
