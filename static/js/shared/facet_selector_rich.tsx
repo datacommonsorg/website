@@ -204,10 +204,9 @@ export function FacetSelectorRich({
                   <div
                     className={`${SELECTOR_PREFIX}-facet-options-section`}
                     css={css`
-                      padding: ${theme.spacing.lg}px ${theme.spacing.xl}px;
                       display: flex;
                       flex-direction: column;
-                      gap: ${theme.spacing.md}px;
+                      padding: ${theme.spacing.md}px 0;
                     `}
                   >
                     {getFacetOptionJsx(
@@ -317,18 +316,25 @@ function getFacetOptionJsx(
     >
       <Label
         radio="true"
+        for={facetInfo.dcid}
         css={css`
           display: flex;
           gap: ${theme.spacing.md}px;
-          align-items: center;
+          align-items: flex-start;
           margin: 0;
-          padding: 0;
+          padding: ${theme.spacing.sm}px ${theme.spacing.xl}px;
           position: relative;
+          cursor: pointer;
+          &:hover,
+          &:checked {
+            background: ${theme.colors.background.primary.light};
+          }
         `}
       >
         <Input
           type="radio"
           name={facetInfo.dcid}
+          id={facetInfo.dcid}
           defaultChecked={selectedFacetId === facetId}
           onClick={(): void => {
             setModalSelections({
@@ -338,7 +344,7 @@ function getFacetOptionJsx(
           }}
           css={css`
             position: relative;
-            margin: 0;
+            margin: 5px 0 0 0;
             padding: 0;
           `}
         />
@@ -366,7 +372,7 @@ function getFacetOptionJsx(
             css={css`
               ${theme.typography.family.text}
               ${theme.typography.text.sm}  
-              color: #75797b;
+              color: ${theme.colors.text.tertiary.dark};
               margin: 0;
               padding: 0;
               li {
