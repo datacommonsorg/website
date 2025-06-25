@@ -24,6 +24,7 @@ from flask import current_app
 from flask import request
 from flask import Response
 
+from server.lib.cache import cache
 from server.lib.nl.common import serialize
 import server.lib.nl.common.bad_words as bad_words
 import server.lib.nl.common.constants as constants
@@ -39,7 +40,6 @@ from server.lib.nl.explore.params import Clients
 from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import Params
 from server.lib.util import get_nl_disaster_config
-from server.lib.cache import cache
 from server.lib.util import post_body_cache_key
 from server.routes import TIMEOUT
 from server.routes.explore import helpers
@@ -142,8 +142,7 @@ def detect_and_fulfill():
 # based off of the initial query and topics found in the related topics.
 #
 @bp.route('/follow-up-questions', methods=['POST'])
-@cache.cached(timeout=TIMEOUT,
-              make_cache_key=post_body_cache_key)
+@cache.cached(timeout=TIMEOUT, make_cache_key=post_body_cache_key)
 def follow_up_questions():
 
   initial_query = request.get_json().get('q', '')
