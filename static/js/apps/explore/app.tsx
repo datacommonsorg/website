@@ -465,19 +465,19 @@ export function App(props: AppProps): ReactElement {
             // If we have a highlight response, prevent any place page redirection.
             allowRedirect = false;
 
+            // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
+            mainPageMetadata = filterBlocksFromPageMetadata(
+              mainPageMetadata,
+              highlightPageMetadataResp.pageConfig.categories.flatMap(
+                (category) => category.blocks || []
+              )
+            );
+
             if (shouldSkipPlaceOverview(mainPageMetadata)) {
               // If the main page metadata is just a place overview, this means it has no data. We can skip
               // the main page metadata and just use the highlight page metadata.
               mainPageMetadata = highlightPageMetadataResp;
               highlightPageMetadataResp = null;
-            } else {
-              // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
-              mainPageMetadata = filterBlocksFromPageMetadata(
-                mainPageMetadata,
-                highlightPageMetadataResp.pageConfig.categories.flatMap(
-                  (category) => category.blocks || []
-                )
-              );
             }
           }
 

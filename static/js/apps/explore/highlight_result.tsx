@@ -30,6 +30,10 @@ import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getFacets } from "../../utils/data_fetch_utils";
+import {
+  isPlaceOverviewOnly,
+  shouldSkipPlaceOverview,
+} from "../../utils/explore_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 
 const PAGE_ID = "highlight-result";
@@ -120,7 +124,10 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
   useEffect(() => {
     // Fetch metadata when component mounts or props change
     const fetchData = async (): Promise<void> => {
-      if (!props.highlightFacet) {
+      if (
+        !props.highlightFacet ||
+        isPlaceOverviewOnly(props.highlightPageMetadata)
+      ) {
         return;
       }
       try {
