@@ -7,10 +7,13 @@ exports[`Single place and single stat var 1`] = `
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
-    <div class=\\"chart-svg\\"></div>
+    <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
   <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\"></div>
+    <div class=\\"chart-footer-metadata-section\\">
+      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/\\">census.gov</a></span></span></div>
+      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusACS5yrSurvey</span></div>
+    </div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-age-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
@@ -25,10 +28,13 @@ exports[`Single place and single stat var 2`] = `
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
-    <div class=\\"chart-svg\\"></div>
+    <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
   <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\"></div>
+    <div class=\\"chart-footer-metadata-section\\">
+      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span></div>
+      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusPEPSurvey</span></div>
+    </div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
@@ -40,10 +46,13 @@ exports[`Single place and single stat var 2`] = `
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
-    <div class=\\"chart-svg\\"></div>
+    <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
   <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\"></div>
+    <div class=\\"chart-footer-metadata-section\\">
+      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/\\">census.gov</a></span></span></div>
+      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusACS5yrSurvey</span></div>
+    </div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-age-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
@@ -58,10 +67,13 @@ exports[`Single place and single stat var 3`] = `
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
-    <div class=\\"chart-svg\\"></div>
+    <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
   <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\"></div>
+    <div class=\\"chart-footer-metadata-section\\">
+      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span></div>
+      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusPEPSurvey</span></div>
+    </div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
@@ -114,10 +126,13 @@ exports[`chart options 1`] = `
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
-    <div class=\\"chart-svg\\"></div>
+    <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
   <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\"></div>
+    <div class=\\"chart-footer-metadata-section\\">
+      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span></div>
+      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusPEPSurvey</span></div>
+    </div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
@@ -132,10 +147,13 @@ exports[`statVar not in PV-tree 1`] = `
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\"></span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
-    <div class=\\"chart-svg\\"></div>
+    <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   </div>
   <div class=\\"chart-footer-container no-bottom-border\\">
-    <div class=\\"chart-footer-metadata-section\\"></div>
+    <div class=\\"chart-footer-metadata-section\\">
+      <div class=\\"chart-footer-metadata\\"><span>Data from <span><a href=\\"https://www.census.gov/programs-surveys/popest.html\\">census.gov</a></span></span></div>
+      <div class=\\"chart-footer-metadata\\"><span>Measurement method: CensusPEPSurvey</span></div>
+    </div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
   <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-none-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count-none\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span></div>
