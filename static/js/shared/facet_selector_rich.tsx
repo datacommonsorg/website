@@ -135,7 +135,6 @@ export function FacetSelectorRich({
         loading={loading}
         maxWidth="sm"
         fullWidth
-        showCloseButton
       >
         <DialogTitle>
           {intl.formatMessage(
