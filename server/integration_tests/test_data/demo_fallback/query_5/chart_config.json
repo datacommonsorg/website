@@ -31,6 +31,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices.",
             "title": "GDP (Nominal Value)"
           },
           {
@@ -59,6 +60,7 @@
                 ]
               }
             ],
+            "description": "Measure a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
             "title": "Nominal GDP Per Capita"
           },
           {
@@ -88,6 +90,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Inflation-adjusted measure reflecting the value of all goods and services produced by an economy, typically on an annual basis.",
             "title": "GDP (Real Value)"
           },
           {
@@ -156,6 +159,7 @@
                 ]
               }
             ],
+            "description": "Measures the percentage change in a country's gross domestic product (GDP) over a specific period.",
             "title": "Growth Rate of GDP"
           },
           {
@@ -340,6 +344,7 @@
                 ]
               }
             ],
+            "description": "Percentage of the labor force actively seeking work but unable to find employment.",
             "title": "Unemployment Rate"
           },
           {

@@ -59,6 +59,7 @@
                 ]
               }
             ],
+            "description": "Percentage of the labor force actively seeking work but unable to find employment.",
             "title": "Unemployment Rate"
           },
           {
