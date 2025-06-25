@@ -19,7 +19,6 @@
  * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
-import { DataCommonsClient as DataCommonsClientType } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 
@@ -36,11 +35,10 @@ import {
 } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
-import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
-import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
 import { Chart } from "./chart";
+import { useFacetMetadata } from "./compute/facet_metadata";
 import {
   Axis,
   AxisWrapper,
@@ -59,7 +57,7 @@ type Cache = {
   statVarsData: Record<string, EntityObservation>;
   allStatVarsData: Record<string, EntityObservationList>;
   metadataMap: Record<string, StatMetadata>;
-  facetSelectorMetadata: FacetResponse;
+  baseFacets: FacetResponse;
   populationData: SeriesApiResponse;
   noDataError: boolean;
   error: boolean;
@@ -76,9 +74,12 @@ type ChartData = {
 };
 
 export function ChartLoader(): ReactElement {
-  const { x, y, place, display, isLoading } = useContext(Context);
+  const { x, y, place, display } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
+
+  const { facetSelectorMetadata, facetListLoading, facetListError } =
+    useFacetMetadata(cache?.baseFacets || null);
 
   const xVal = x.value;
   const yVal = y.value;
@@ -90,11 +91,11 @@ export function ChartLoader(): ReactElement {
 
   const xFacetInfo = getFacetInfo(
     xVal,
-    cache.facetSelectorMetadata[xVal.statVarDcid]
+    facetSelectorMetadata[xVal.statVarDcid]
   );
   const yFacetInfo = getFacetInfo(
     yVal,
-    cache.facetSelectorMetadata[yVal.statVarDcid]
+    facetSelectorMetadata[yVal.statVarDcid]
   );
   const onSvFacetIdUpdated = (update): void => {
     for (const sv of Object.keys(update)) {
@@ -135,8 +136,8 @@ export function ChartLoader(): ReactElement {
                 }}
                 onSvFacetIdUpdated={onSvFacetIdUpdated}
                 facetList={[xFacetInfo, yFacetInfo]}
-                facetListLoading={isLoading.areDataLoading}
-                facetListError={cache.error}
+                facetListLoading={facetListLoading}
+                facetListError={facetListError}
               />
             </>
           )}
@@ -153,7 +154,6 @@ function useCache(): Cache {
   const { x, y, place, isLoading } = useContext(Context);
 
   const [cache, setCache] = useState(null);
-  const dataCommonsClient = getDataCommonsClient();
 
   const xVal = x.value;
   const yVal = y.value;
@@ -168,9 +168,9 @@ function useCache(): Cache {
       !isLoading.areDataLoading &&
       !areDataLoaded(cache, xVal, yVal, placeVal)
     ) {
-      void loadData(x, y, placeVal, isLoading, setCache, dataCommonsClient);
+      void loadData(x, y, placeVal, isLoading, setCache);
     }
-  }, [xVal, yVal, placeVal, dataCommonsClient]);
+  }, [xVal, yVal, placeVal]);
 
   return cache;
 }
@@ -182,15 +182,13 @@ function useCache(): Cache {
  * @param place
  * @param isLoading
  * @param setCache
- * @param dataCommonsClient
  */
 async function loadData(
   x: AxisWrapper,
   y: AxisWrapper,
   place: PlaceInfo,
   isLoading: IsLoadingWrapper,
-  setCache: (cache: Cache) => void,
-  dataCommonsClient: DataCommonsClientType
+  setCache: (cache: Cache) => void
 ): Promise<void> {
   isLoading.setAreDataLoading(true);
   const statResponsePromise: Promise<PointApiResponse> = getStatWithinPlace(
@@ -241,16 +239,12 @@ async function loadData(
         }
       }
     }
-    const facetSelectorMetadata = await fetchFacetsWithMetadata(
-      baseFacets,
-      dataCommonsClient
-    );
 
     const allStatVarsData = statAllResponse.data;
     const cache: Cache = {
       allStatVarsData,
       metadataMap,
-      facetSelectorMetadata,
+      baseFacets,
       noDataError: _.isEmpty(statResponse.data),
       error: false,
       populationData,
@@ -265,7 +259,7 @@ async function loadData(
       statVarsData: {},
       allStatVarsData: {},
       metadataMap: {},
-      facetSelectorMetadata: {},
+      baseFacets: {},
       populationData: null,
       noDataError: true,
       error: true,

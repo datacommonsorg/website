@@ -96,6 +96,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.loadRawData = this.loadRawData.bind(this);
     this.processData = this.processData.bind(this);
+    this.enrichFacets = this.enrichFacets.bind(this);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.minYear = urlParams.get("minYear");
@@ -296,29 +297,40 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       facetListLoading: true,
       rawData: null,
     });
+
     const places = Object.keys(this.props.placeNameMap);
     const statVars = Object.keys(this.props.statVarInfos);
+
     try {
       const rawData = await fetchRawData(places, statVars, this.props.denom);
       this.props.onMetadataMapUpdate(rawData.metadataMap);
 
-      const enrichedFacets = await fetchFacetsWithMetadata(
-        rawData.metadataMap,
-        this.dataCommonsClient
-      );
-
-      const facetList = this.getFacetList(statVars, enrichedFacets);
-      this.setState({
-        rawData,
-        facetList,
-        facetListLoading: false,
+      this.setState({ rawData }, () => {
+        void this.enrichFacets(statVars, rawData.metadataMap);
       });
-    } catch (error) {
+    } catch {
       this.setState({
+        rawData: null,
         facetListError: true,
         facetListLoading: false,
-        rawData: null,
       });
+    }
+  }
+
+  private async enrichFacets(
+    statVars: string[],
+    metadataMap: Record<string, Record<string, StatMetadata>>
+  ): Promise<void> {
+    try {
+      const enriched = await fetchFacetsWithMetadata(
+        metadataMap,
+        this.dataCommonsClient
+      );
+      const facetList = this.getFacetList(statVars, enriched);
+      this.setState({ facetList, facetListLoading: false });
+    } catch {
+      console.error("Error loading datasets for selection.");
+      this.setState({ facetListLoading: false, facetListError: true });
     }
   }
 

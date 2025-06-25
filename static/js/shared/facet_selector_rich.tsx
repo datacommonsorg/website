@@ -145,7 +145,11 @@ export function FacetSelectorRich({
           )}
         </DialogTitle>
         <DialogContent>
-          {error && <div>{facetSelectionComponentMessages.DatasetError}</div>}
+          {error && (
+            <div>
+              {intl.formatMessage(facetSelectionComponentMessages.DatasetError)}
+            </div>
+          )}
           {facetList?.length > 1 && (
             <p
               css={css`
@@ -234,14 +238,16 @@ export function FacetSelectorRich({
               setModalOpen(false);
             }}
           >
-            {intl.formatMessage(messages.cancel)}
+            {intl.formatMessage(error ? messages.close : messages.cancel)}
           </Button>
-          <Button
-            onClick={onConfirm}
-            className={`${SELECTOR_PREFIX}-update-source-button`}
-          >
-            {intl.formatMessage(facetSelectionComponentMessages.Update)}
-          </Button>
+          {!error && (
+            <Button
+              onClick={onConfirm}
+              className={`${SELECTOR_PREFIX}-update-source-button`}
+            >
+              {intl.formatMessage(facetSelectionComponentMessages.Update)}
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </>
