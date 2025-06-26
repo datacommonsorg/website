@@ -96,7 +96,7 @@ class TimelineTestMixin():
     try:
       find_elem(self.driver,
                 by=By.XPATH,
-                value='//*[text()="Median age of Population"]').click()
+                value='//*[text()="Median age of population"]').click()
     except Exception:
       find_elem(self.driver,
                 by=By.XPATH,
