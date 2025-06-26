@@ -76,7 +76,7 @@ class VisScatterTestMixin():
         By.CSS_SELECTOR, '.selected-option-chip.stat-var .chip-content')
     self.assertTrue(
         'Population Without Health Insurance' in stat_var_chips[0].text)
-    self.assertTrue('Female Population' in stat_var_chips[1].text)
+    self.assertTrue('female population' in stat_var_chips[1].text.lower())
 
     # Assert chart is correct.
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
@@ -180,7 +180,7 @@ class VisScatterTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.scatter-chart .chart-headers h4')
-    self.assertIn("Median Age of Population ", chart_title.text)
+    self.assertIn("Median age of population ", chart_title.text.lower())
     self.assertIn(" vs Median Income of a Population ", chart_title.text)
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
