@@ -1,9 +1,10 @@
 name: Update Submodules
 
 on:
-  schedule:
-    # Run every day at midnight EST (00:00 EST / 05:00 UTC)
-    - cron: '0 5 * * *'
+  # Uncomment when ready! 
+  # schedule:
+  # Run every day at midnight EST (00:00 EST / 05:00 UTC)
+  # - cron: '0 5 * * *'
   workflow_dispatch:
     # Allows manual triggering of the workflow
 
@@ -13,6 +14,7 @@ jobs:
     permissions:
       contents: write # Needed to push changes
       pull-requests: write # Needed to create pull requests
+      issues: write # Needed for label creation
 
     steps:
       - name: Checkout repository
