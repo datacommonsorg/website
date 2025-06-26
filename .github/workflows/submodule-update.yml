@@ -13,6 +13,7 @@ jobs:
     permissions:
       contents: write # Needed to push changes
       pull-requests: write # Needed to create pull requests
+      issues: write # Needed for label creation
 
     steps:
       - name: Checkout repository
