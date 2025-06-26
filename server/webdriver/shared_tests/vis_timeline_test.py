@@ -79,10 +79,11 @@ class VisTimelineTestMixin():
     stat_var_chips = self.driver.find_elements(
         By.CSS_SELECTOR, '.selected-option-chip.stat-var .chip-content')
     self.assertEqual(len(stat_var_chips), 3)
-    self.assertTrue('median age of population' in stat_var_chips[0].text.lower())
+    self.assertTrue(
+        'median age of population' in stat_var_chips[0].text.lower())
     self.assertTrue('female population' in stat_var_chips[1].text.lower())
     self.assertTrue('male population' in stat_var_chips[2].text.lower())
-    
+
     # Assert charts are correct
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
     self.assertEqual(len(charts), 2)
