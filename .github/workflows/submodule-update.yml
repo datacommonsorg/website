@@ -24,6 +24,7 @@ jobs:
           # The GITHUB_TOKEN has write permissions by default for the current repo
           token: ${{ secrets.GITHUB_TOKEN }}
           submodules: recursive # Initialize and update submodules
+          fetch-depth: 0 # Fetch all history for all branches and tags
 
       - name: Configure Git
         run: |
