@@ -289,7 +289,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,Mean Income Deficit of Household: Family Household\r\n2022,11587\r\n2021,11145\r\n2020,10436\r\n2019,10311\r\n2018,10095\r\n2017,9868\r\n2016,9703\r\n2015,9487\r\n2014,9353\r\n2013,8959\r\n2012,8746\r\n2011,8539\r\n2010,8376",
+      "dataCsv": "label,Mean Income Deficit of Household: Family Household\r\n2023,11891\r\n2022,11587\r\n2021,11145\r\n2020,10436\r\n2019,10311\r\n2018,10095\r\n2017,9868\r\n2016,9703\r\n2015,9487\r\n2014,9353\r\n2013,8959\r\n2012,8746\r\n2011,8539\r\n2010,8376",
       "legend": [
         "Mean Income Deficit of Household: Family Household"
       ],
@@ -299,7 +299,7 @@
       "srcs": [
         {
           "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
+          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2023.S1702"
         }
       ],
       "title": "Mean Income Deficit of Household: Family Household in North Dakota",
@@ -309,14 +309,14 @@
         "Mean_IncomeDeficit_Household_FamilyHousehold"
       ],
       "highlight": {
-        "date": "2022",
-        "value": 11587
+        "date": "2023",
+        "value": 11891
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,Mean Income Deficit of Household: Family Household\r\n1,Steele County,25719\r\n2,Ransom County,25146\r\n3,Benson County,19229\r\n4,Sioux County,18880\r\n5,Rolette County,16405\r\n46,Logan County,5108\r\n47,Slope County,4293\r\n48,Renville County,4256\r\n49,Billings County,3653\r\n50,Griggs County,1966",
+      "dataCsv": "rank,place,Mean Income Deficit of Household: Family Household\r\n1,Steele County,25719\r\n2,Ransom County,25146\r\n3,Dunn County,21474\r\n4,Benson County,19044\r\n5,Sioux County,18449\r\n46,Sheridan County,5426\r\n47,Burke County,5400\r\n48,Logan County,5108\r\n49,Renville County,4256\r\n50,Billings County,3750",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -324,10 +324,10 @@
       "srcs": [
         {
           "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
+          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2023.S1702"
         }
       ],
-      "title": "Mean Income Deficit of Household: Family Household in Counties of North Dakota (2013 to 2022)",
+      "title": "Mean Income Deficit of Household: Family Household in Counties of North Dakota (2013 to 2023)",
       "type": "TABLE",
       "unit": "USD",
       "vars": [
@@ -554,7 +554,7 @@
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "label,Mean Income Deficit of Household: Married Couple Family Household\r\n2022,9894\r\n2021,9392\r\n2020,8665\r\n2019,8812\r\n2018,8920\r\n2017,8599\r\n2016,8639\r\n2015,8711\r\n2014,8645\r\n2013,8072\r\n2012,8075\r\n2011,7641\r\n2010,7201",
+      "dataCsv": "label,Mean Income Deficit of Household: Married Couple Family Household\r\n2023,10289\r\n2022,9894\r\n2021,9392\r\n2020,8665\r\n2019,8812\r\n2018,8920\r\n2017,8599\r\n2016,8639\r\n2015,8711\r\n2014,8645\r\n2013,8072\r\n2012,8075\r\n2011,7641\r\n2010,7201",
       "legend": [
         "Mean Income Deficit of Household: Married Couple Family Household"
       ],
@@ -564,7 +564,7 @@
       "srcs": [
         {
           "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
+          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2023.S1702"
         }
       ],
       "title": "Mean Income Deficit of Household: Married Couple Family Household in North Dakota",
@@ -574,14 +574,14 @@
         "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
       ],
       "highlight": {
-        "date": "2022",
-        "value": 9894
+        "date": "2023",
+        "value": 10289
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,Mean Income Deficit of Household: Married Couple Family Household\r\n1,Steele County,25719\r\n2,Ransom County,22740\r\n3,Sioux County,21674\r\n4,Traill County,18967\r\n5,Williams County,17531\r\n46,Bottineau County,3847\r\n47,Burke County,3700\r\n48,Billings County,3653\r\n49,Griggs County,2550\r\n50,Renville County,2026",
+      "dataCsv": "rank,place,Mean Income Deficit of Household: Married Couple Family Household\r\n1,Dunn County,27656\r\n2,Steele County,25719\r\n3,Ransom County,22740\r\n4,Sioux County,20688\r\n5,Traill County,18967\r\n46,Emmons County,5075\r\n47,Richland County,4703\r\n48,Billings County,3750\r\n49,Burke County,3700\r\n50,Renville County,2026",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -589,10 +589,10 @@
       "srcs": [
         {
           "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
+          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2023.S1702"
         }
       ],
-      "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of North Dakota (2013 to 2022)",
+      "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of North Dakota (2013 to 2023)",
       "type": "TABLE",
       "unit": "USD",
       "vars": [
