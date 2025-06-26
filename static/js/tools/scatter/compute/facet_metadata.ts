@@ -26,11 +26,22 @@ import { FacetResponse } from "../../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "../../shared/metadata/metadata_fetcher";
 
 type FacetMetadataReturn = {
+  // the enriched facets (or empty on error)
   facetSelectorMetadata: FacetResponse;
+  // true while metadata is loading
   facetListLoading: boolean;
+  // true if the metadata fetch failed
   facetListError: boolean;
 };
 
+/**
+ * This hook takes a mapping of stat vars to facets, and enriches each facet
+ * with the metadata required to display the rich dataset select dialog.
+ *
+ * @param baseFacets A map of stat vars to facets.
+ * @returns An object containing the enriched facet data, loading state, and
+ * error state.
+ */
 export function useFacetMetadata(
   baseFacets: FacetResponse | null
 ): FacetMetadataReturn {
