@@ -79,7 +79,7 @@ Amount of Carbon Dioxide Emissions from Steel Manufacturing,Annual_Emissions_Car
 Amount of Carbon Dioxide Emissions from Transportation,Annual_Emissions_CarbonDioxide_Transportation
 Amount of Carbon Dioxide Emissions from Waste Management,Annual_Emissions_CarbonDioxide_WasteManagement
 Amount of Corn grown for Silage (green fodder) or Greenchop,Amount_FarmInventory_CornForSilageOrGreenchop
-Amount of Corn grown for grain production,Amout_FarmInventory_CornForGrain
+Amount of Corn grown for grain production,Amount_FarmInventory_CornForGrain
 Amount of Dry Edible Bean grown,Amount_FarmInventory_DryEdibleBeans
 Amount of Durum Wheat grown for grain production,Amount_FarmInventory_DurumWheatForGrain
 Amount of Forage grown,Amount_FarmInventory_Forage
@@ -851,7 +851,6 @@ Female Population With Stroke By Age,dc/topic/StrokeFemalePopulationByAge
 Female deaths,Count_Death_Female_AsAFractionOf_Count_Person_Female;dc/topic/FemaleMortality
 Female labor force participation rate,Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female
 Female mortality,dc/topic/FemaleMortality
-Female unemployment rate,Count_Person_15To59Years_Unemployed_Male_AsAFractionOf_Count_Person_15To59Years_Male
 Fertility rate,FertilityRate_Person_Female
 Financial Soundness Indicators,dc/topic/sdg_10.5.1
 Fires,dc/topic/Fire
@@ -2462,7 +2461,6 @@ Number of literate Sikhs,indianCensus/Count_Person_Religion_Sikh_Literate
 Number of literate scheduled caste people,Count_Person_ScheduledCaste_Literate
 Number of literate scheduled tribe people,Count_Person_ScheduledTribe_Literate
 Number of live births,Count_BirthEvent_LiveBirth
-Number of malaria cases,Count_MedicalConditionIncident_ConditionMalaria
 Number of male people with disabilities,Count_Person_WithDisability_Male
 Number of males aged 18 or less who reside in college or university student housing,Count_Person_18OrLessYears_Male_ResidesInCollegeOrUniversityStudentHousing
 Number of males enrolled in college undergraduate years,dc/pltrqb2ng8dp8
@@ -4434,7 +4432,7 @@ number of hispanic or latino females living below poverty level in the past 12 m
 number of hispanic or latino living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino
 number of hispanic or latino people,Count_Person_HispanicOrLatino
 number of households,Count_Household
-number of male deaths from diabetes,Count_MortalityEvent_Diabetes_Memale
+number of male deaths from diabetes,Count_MortalityEvent_Diabetes_Male
 number of males,Count_Person_Male
 number of males aged 65 Years or More and reside in Nursing Facilities,Count_Person_65OrMoreYears_Male_ResidesInNursingFacilities
 number of males who are actively enrolled in any educational institution,Count_Person_3OrMoreYears_Male_EnrolledInSchool
