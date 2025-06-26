@@ -177,6 +177,8 @@ const MAP_PROPS = {
       name: STAT_VAR_1,
     },
   ],
+  facetListError: false,
+  facetListLoading: false,
   sampleDates: [],
   metahash: "",
   onPlay: (): null => null,
@@ -247,6 +249,8 @@ const SCATTER_PROPS = {
       metadataMap: {},
     },
   ],
+  facetListLoading: false,
+  facetListError: false,
   onSvFacetIdUpdated: (): null => null,
 };
 
@@ -1018,6 +1022,8 @@ describe("test ga event for the FacetSelector component", () => {
         <ToolChartHeader
           svFacetId={svFacetId}
           facetList={mockFacetList}
+          facetListLoading={false}
+          facetListError={false}
           onSvFacetIdUpdated={mockOnSvFacetIdUpdated}
         />
       </ThemeProvider>
