@@ -111,7 +111,7 @@ class ScatterTestMixin():
                       value='#chart .chart-card .chart-title')
     self.assertIn("Median Income of a Population ",
                   find_elem(chart, by=By.XPATH, value='./h3[1]').text)
-    self.assertIn("Median Age of Population ",
+    self.assertIn("Median age of population ",
                   find_elem(chart, by=By.XPATH, value='./h3[2]').text)
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
