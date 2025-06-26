@@ -21,6 +21,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useState } from "react";
 
+import { Loading } from "../../components/elements/loading";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
@@ -43,25 +44,33 @@ export function FollowUpQuestions(
   props: FollowUpQuestionsPropType
 ): ReactElement {
   const [followUpQuestions, setFollowUpQuestions] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     // Gets the name of all related topics while removing the Root topic.
     // Empty string can be passed since only the topic name will be used, which is stored in the property `text`.
     const relatedTopics = getTopics(props.pageMetadata, "")
       .map((topic) => topic.text)
       .slice(0, FOLLOW_UP_QUESTIONS_LIMIT);
-
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
         setFollowUpQuestions(value);
       })
       .catch(() => {
         setFollowUpQuestions([]);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [props.query, props.pageMetadata]);
 
   return (
     <>
-      {!_.isEmpty(followUpQuestions) && (
+      {loading && (
+        <div className="loading-container">
+          <Loading />
+        </div>
+      )}
+      {!loading && !_.isEmpty(followUpQuestions) && (
         <div className="follow-up-questions-container">
           <div className="follow-up-questions-inner">
             <span className="follow-up-questions-title">Keep Exploring</span>
