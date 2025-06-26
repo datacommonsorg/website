@@ -99,7 +99,7 @@ class VisScatterTestMixin():
         'Population Without Health Insurance (%)' in y_axis_label.text)
     x_axis_label = self.driver.find_element(By.CSS_SELECTOR,
                                             '#scatterplot .x-axis-label')
-    self.assertTrue('Female Population (%)' in x_axis_label.text)
+    self.assertTrue('female population (%)' in x_axis_label.text.lower())
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
