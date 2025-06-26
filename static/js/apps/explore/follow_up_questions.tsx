@@ -23,10 +23,16 @@ import React, { ReactElement, useEffect, useState } from "react";
 
 import { Loading } from "../../components/elements/loading";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
+import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
+import {
+  GA_EVENT_RELATED_TOPICS_CLICK,
+  GA_PARAM_RELATED_TOPICS_MODE,
+  GA_VALUE_RELATED_TOPICS_EXPERIMENT,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { GA_EVENT_RELATED_TOPICS_CLICK, GA_PARAM_RELATED_TOPICS_MODE, GA_VALUE_RELATED_TOPICS_EXPERIMENT, triggerGAEvent } from "../../shared/ga_events";
 
 // Number of follow up questions displayed
 const FOLLOW_UP_QUESTIONS_LIMIT = 10;
@@ -81,7 +87,9 @@ export function FollowUpQuestions(
                   <a
                     className="follow-up-questions-list-text"
                     href={question.url}
-                    onClick={() => onQuestionClicked(GA_VALUE_RELATED_TOPICS_EXPERIMENT)}
+                    onClick={(): void =>
+                      onQuestionClicked(GA_VALUE_RELATED_TOPICS_EXPERIMENT)
+                    }
                   >
                     {question.text}
                     <br></br>
@@ -114,16 +122,18 @@ const getFollowUpQuestions = async (
     return data.follow_up_questions.map((question) => {
       return {
         text: question,
-        url: `/explore/#${getUpdatedHash({
-          [URL_HASH_PARAMS.QUERY]: question,
-        })}`,
+        url: `/explore/?enable_feature=${FOLLOW_UP_QUESTIONS_GA}#${getUpdatedHash(
+          {
+            [URL_HASH_PARAMS.QUERY]: question,
+          }
+        )}`,
       };
     });
   });
 };
 
-export const onQuestionClicked = (mode: string) => {
-  triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK,{
+export const onQuestionClicked = (mode: string): void => {
+  triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK, {
     [GA_PARAM_RELATED_TOPICS_MODE]: mode,
-  })
+  });
 };
