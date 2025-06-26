@@ -141,7 +141,7 @@ class MapTestMixin():
     shared.wait_for_loading(self.driver)
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
-        'Median Age of Population ',
+        'Median age of population ',
         find_elem(self.driver,
                   by=By.XPATH,
                   value='//*[@id="map-chart"]/div/div[1]/h3').text)
