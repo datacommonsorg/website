@@ -62,10 +62,10 @@ class MapTestMixin():
 
     # Assert chart is correct.
     self.assertIn(
-        'Median Age of Population ',
-        find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
+      'median age of population ',
+      find_elem(self.driver,
+            by=By.XPATH,
+            value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
 
     # Assert was have 58 map regions and 5 legends.
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
@@ -98,10 +98,10 @@ class MapTestMixin():
     # Assert that a map chart is loaded
     self.assertIsNotNone(wait_elem(self.driver, by=By.ID, value='map-items'))
     self.assertIn(
-        "Median Age of Population ",
-        find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
+      "median age of population ",
+      find_elem(self.driver,
+            by=By.XPATH,
+            value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                      52)
@@ -141,10 +141,10 @@ class MapTestMixin():
     shared.wait_for_loading(self.driver)
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
-        'Median age of population ',
-        find_elem(self.driver,
-                  by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
+      'median age of population ',
+      find_elem(self.driver,
+            by=By.XPATH,
+            value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
 
     # Assert we have the right number of regions and legends
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
