@@ -23,12 +23,10 @@ To run this script, make a copy of .env.sample and register your data commons an
 """
 import argparse
 import asyncio
-import csv
 import json
 import os
 from typing import Dict, List
 
-from datacommons_client.client import DataCommonsClient
 from dotenv import load_dotenv
 from gemini_prompt import get_gemini_prompt
 from google import genai
@@ -44,10 +42,8 @@ from sv_types import StatVarMetadata
 DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
-BIGQUERY_QUERY = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable`"
-STAT_VAR_SHEET = "tools/nl/nl_metadata/all_stat_vars.csv"
-MISSING_NAME_SV_SHEET = "tools/nl/nl_metadata/missing_name_stat_vars.csv"
-STAT_VAR_SENTENCES_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
+PAGE_SIZE = 3000
+BIGQUERY_QUERY = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL"
 EXPORTED_FILE_DIR = "tools/nl/nl_metadata"
 EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
 GCS_PROJECT_ID = "datcom-website-dev"
@@ -61,12 +57,12 @@ POPULATION_TYPE = "populationType"
 STAT_TYPE = "statType"
 
 # Constants used for Gemini API calls
-GEMINI_MODEL = "gemini-2.5-flash-preview-05-20"
+GEMINI_MODEL = "gemini-2.5-flash"
 GEMINI_TEMPERATURE = 1
 GEMINI_TOP_P = 1
 GEMINI_SEED = 0
 GEMINI_MAX_OUTPUT_TOKENS = 65535
-MAX_RETRIES = 5
+MAX_RETRIES = 3
 RETRY_DELAY_SECONDS = 2
 
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
@@ -75,7 +71,9 @@ DC_API_KEY = os.getenv("DC_API_KEY")
 
 def extract_flag() -> argparse.Namespace:
   """
-  Extracts the -generateAltSentences, -language amd -saveToGCS flags from the command line arguments.
+  Extracts the --generateAltSentences, -language amd --saveToGCS flags from the command line arguments.
+  Note that for --generateAltSentences and --saveToGCS, if these flags are present in the command line, 
+  they will be set to True.
   """
   parser = argparse.ArgumentParser(description="./add_metadata.py")
   parser.add_argument(
@@ -96,56 +94,53 @@ def extract_flag() -> argparse.Namespace:
                       help="Whether to save results to GCS.",
                       action="store_true",
                       default=False)
-  parser.add_argument(
-    "-pullFromBigQuery",
-    help="Whether to pull all SVs from BigQuery instead of the local CSV file.",
-    type=bool,
-    default=False)
   args = parser.parse_args()
   return args
 
-def get_bigquery_statvars() -> None:
+async def get_bigquery_statvars(
+    should_generate_alt_sentences: bool, gemini_prompt: str,
+    exported_sv_file: str, should_save_to_gcs: bool
+) -> None:
   """
-  Fetches all the SVs from BigQuery and saves them to a local CSV file. 
-  Also exports the list of SVs with missing names to a separate CSV file.
+  Fetches all the SVs from BigQuery, batches them into pages of PAGE_SIZE, and processes each page into its own exported metadata file.
   """
   client = bigquery.Client()
   query_job = client.query(BIGQUERY_QUERY)
-  results = query_job.result(page_size=10000)
+  results = query_job.result(page_size=PAGE_SIZE)
 
-  missing_name_ids = []
   iteration: int = 1
 
   for page in results.pages:
-    page_records = []
-    for row in page:
-        # Skip if name is missing or empty
-        if not row.name:
-            missing_name_ids.append(row.id)
-            continue
-
+    page_svs: List[Dict[str, str | List[str]]] = []
+    for statvar in page:
         # Collect constraint properties
         constraint_properties = []
         for i in range(1, 11):
-            prop = getattr(row, f"p{i}", None)
-            val = getattr(row, f"v{i}", None)
+            prop = getattr(statvar, f"p{i}", None)
+            val = getattr(statvar, f"v{i}", None)
             if prop and val:
                 constraint_properties.append(f"{prop}: {val}")
 
-        record = {
-            "dcid": row.id,
-            "measuredProperty": row.measured_prop,
-            "name": row.name,
-            "populationType": row.population_type,
-            "statType": row.stat_type,
+        sv_entry = {
+            "dcid": statvar.id,
+            "measuredProperty": statvar.measured_prop,
+            "name": statvar.name,
+            "populationType": statvar.population_type,
+            "statType": statvar.stat_type,
             "constraintProperties": constraint_properties,
         }
-        page_records.append(record)
+        page_svs.append(sv_entry)
+    
+    if should_generate_alt_sentences:
+      print(f"Starting to generate alt sentences for batch number {iteration}")
+      page_svs = await batch_generate_alt_sentences(page_svs, gemini_prompt)
+    curr_file = f"{exported_sv_file}_{iteration}"
+    export_to_json(page_svs, curr_file, should_save_to_gcs)
+    print(f"Exported {len(page_svs)} statvars to {curr_file}.")
+    iteration += 1
 
-    print(f"Processed {len(page_records)} records in this page.")
-
-def get_language_settings(target_language: str) -> str:
-  exported_sv_file = f"{EXPORTED_FILENAME_PREFIX}_{target_language}.json"
+def get_language_settings(target_language: str) -> tuple[str, str]:
+  exported_sv_file = f"{EXPORTED_FILENAME_PREFIX}_{target_language}"
 
   match target_language:
     case "French":
@@ -168,143 +163,60 @@ def split_into_batches(
     batched_df_list.append(original_df[i:i + BATCH_SIZE])
   return batched_df_list
 
-
-def get_prop_value(prop_data) -> str:
-  """
-  Extracts the property value from the property data.
-  For the "name" property, the value is stored in the "value" field.
-  For other properties, the value is stored in the "name" field.
-  If neither field exists, fall back on the "dcid" field.
-  """
-  first_node = prop_data["nodes"][0]
-  if "value" in first_node:
-    return first_node.get("value")
-  elif "name" in first_node:
-    return first_node.get("name")
-  else:
-    return first_node.get("dcid")
-
-
-def extract_metadata(
-    client: DataCommonsClient, curr_batch: Dict[str, str],
-    sv_metadata_list: List[dict[str, str | list[str]]]
-) -> List[dict[str, str | list[str]]]:
-  """
-  Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API. 
-  Adds the new metadata to the existing list sv_metadata_list, and returns the list.
-  """
-  response = client.node.fetch(node_dcids=list(curr_batch.keys()),
-                               expression="->*")
-  response_data = response.to_dict().get("data", {})
-
-  if not response_data:
-    raise ValueError("No data found for the given DCIDs.")
-
-  for dcid, sentence in curr_batch.items():
-    new_row = StatVarMetadata(dcid=dcid, sentence=sentence)
-    dcid_data = response_data[dcid]["arcs"]
-
-    new_row.name = get_prop_value(dcid_data[NAME])
-    new_row.measuredProperty = get_prop_value(dcid_data[MEASURED_PROPERTY])
-    new_row.populationType = get_prop_value(dcid_data[POPULATION_TYPE])
-    new_row.statType = get_prop_value(dcid_data[STAT_TYPE])
-
-    new_row = extract_constraint_properties(new_row, dcid_data)
-    sv_metadata_list.append(new_row.__dict__)
-
-  return sv_metadata_list
-
-
-def extract_constraint_properties(new_row: StatVarMetadata,
-                                  dcid_data) -> StatVarMetadata:
-  """
-  Extracts the constraint properties from the data commons API response and adds them to the new row.
-  """
-  if "constraintProperties" not in dcid_data:
-    return new_row
-
-  constraint_dcid_to_name: Dict[str, str] = {}
-  for constrained_prop_node in dcid_data["constraintProperties"]["nodes"]:
-    # Use the "name" field if it exists, otherwise fall back on "dcid"
-    # Some constraintProperties nodes have both "name" and "dcid", others only have "dcid"
-    constraint_dcid = constrained_prop_node["dcid"]
-    constraint_dcid_to_name[constraint_dcid] = constrained_prop_node[
-        "name"] if "name" in constrained_prop_node else constraint_dcid
-
-  for dcid, name in constraint_dcid_to_name.items():
-    new_row.constraintProperties.append(
-        f"{name}: {get_prop_value(dcid_data[dcid])}")
-
-  return new_row
-
-
-def create_sv_metadata() -> List[dict[str, str | list[str]]]:
-  """
-  Creates SV metadata by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
-  """
-  client = DataCommonsClient(api_key=DC_API_KEY)
-  stat_var_sentences = pd.read_csv(STAT_VAR_SENTENCES_SHEET)
-  sv_metadata_list: List[dict[str, str | list[str]]] = []
-  batched_list = split_into_batches(stat_var_sentences)
-
-  for curr_batch in batched_list:
-    dcid_to_sentence: Dict[str, str] = curr_batch.set_index(
-        "dcid")["sentence"].to_dict()
-    sv_metadata_list: List[dict[str, str | list[str]]] = extract_metadata(
-        client, dcid_to_sentence, sv_metadata_list)
-
-  return sv_metadata_list
-
-
 async def generate_alt_sentences(
     gemini_client: genai.Client, gemini_config: types.GenerateContentConfig,
-    gemini_prompt: str, sv_metadata: List[dict[str, str | list[str]]]
+    gemini_prompt: str, sv_metadata: List[dict[str, str | list[str]]], index: int
 ) -> List[dict[str, str | list[str]]]:
   """
   Calls the Gemini API to generate alternative sentences for a list of SV metadata.
   Returns the alt sentences as a list of dictionaries.
   """
+  await asyncio.sleep(5 * index) # Stagger each Gemini API call by 5 seconds to prevent 429 errors from spiked usage.
   prompt_with_metadata = types.Part.from_text(text=(gemini_prompt +
                                                     str(sv_metadata)))
 
   model_input = [types.Content(role="user", parts=[prompt_with_metadata])]
-  results: List[dict[str, str | list[str]]] = []
+  results: List[StatVarMetadata] = []
+  batch_start_dcid = sv_metadata[0]["dcid"]
 
   for attempt in range(MAX_RETRIES):
     try:
-      # Returns a GenerateContentResponse object, where the .text field contains the output from Gemini
-      # Output is formatted as a JSON string representing a Dict mapping DCID to a list of alt sentences
+      # Returns a GenerateContentResponse object, where the .parsed field contains the output from Gemini,
+      # formatted as List[StatVarMetadata] as specified by response_schema in gemini_config
       response: types.GenerateContentResponse = await gemini_client.aio.models.generate_content(
           model=GEMINI_MODEL, contents=model_input, config=gemini_config)
 
-      results = json.loads(response.text, strict=False)
-      return results
-    except json.JSONDecodeError as e:
-      batch_start_dcid = sv_metadata[0]["dcid"]
+      results = response.parsed
+      return [sv.__dict__ for sv in results]
+    except AttributeError as e:
       print(
-          f"Attempt {attempt + 1} failed. Exception occurred while generating alt sentences for the batch starting at DCID {batch_start_dcid}. Error decoding Gemini response into JSON: {e}"
+          f"AttributeError: Attempt {attempt + 1}/{MAX_RETRIES} failed. No parsed results returned by Gemini for the batch starting at DCID {batch_start_dcid}."
       )
+    except Exception as e:
+      if e.code == 429:
+        print(f"Resource exhausted (HTTP 429). Attempt {attempt + 1}/{MAX_RETRIES} failed for the batch starting at DCID {batch_start_dcid}.")
+      else:
+        print(f"Unexpected error encountered for attempt {attempt + 1}/{MAX_RETRIES} for the batch starting at DCID {batch_start_dcid}. Error: {e} ")
+    finally:
       if attempt + 1 == MAX_RETRIES:
         print(
             f"All {MAX_RETRIES} retry attempts failed for the batch starting at DCID {batch_start_dcid}."
         )
-        break
+        return sv_metadata
 
+      print(f"Retrying after {RETRY_DELAY_SECONDS} seconds...")
       await asyncio.sleep(RETRY_DELAY_SECONDS)
-  return results  # Return an empty list if all attempts fail
-
 
 async def batch_generate_alt_sentences(
     sv_metadata_list: List[dict[str, str | list[str]]],
-    gemini_prompt: str) -> Dict[str, List[str]]:
+    gemini_prompt: str) -> List[dict[str, str | list[str]]]:
   """
   Separates sv_metadata_list into batches of 100 entries, and executes multiple parallel calls to generate_alt_sentences
-  using Gemini and existing SV metadata. Flattens the list of results, and returns the generated altSentences
-  as a dictionary mapping DCID to the list of altSentences.
+  using Gemini and existing SV metadata. Flattens the list of results, and returns the metadata as a list of dictionaries.
   """
   gemini_client = genai.Client(
       vertexai=True,
-      project="datcom-website-dev",
+      project=GCS_PROJECT_ID,
       location="global",
   )
   gemini_config = types.GenerateContentConfig(
@@ -313,15 +225,17 @@ async def batch_generate_alt_sentences(
       seed=GEMINI_SEED,
       max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
       response_mime_type="application/json",
+      response_schema=list[StatVarMetadata]
   )
   batched_list: List[List[dict[str, str | list[str]]]] = split_into_batches(
       sv_metadata_list)
 
   parallel_tasks: List[asyncio.Task] = []
-  for curr_batch in batched_list:
+  for index in range(len(batched_list)):
+    curr_batch = batched_list[index]
     parallel_tasks.append(
         generate_alt_sentences(gemini_client, gemini_config, gemini_prompt,
-                               curr_batch))
+                               curr_batch, index))
 
   batched_results: List[List[dict[str,
                                   str | list[str]]]] = await asyncio.gather(
@@ -332,39 +246,34 @@ async def batch_generate_alt_sentences(
     results.extend(batch)
   return results
 
-
 def export_to_json(sv_metadata_list: List[dict[str, str | list[str]]],
-                   exported_sv_file: str, shouldSaveToGCS: bool) -> None:
+                   exported_sv_file: str, should_save_to_gcs: bool) -> None:
   """
   Exports the SV metadata list to a JSON file.
   """
-  file_path = f"{EXPORTED_FILE_DIR}/{exported_sv_file}"
+  file_name = f"{exported_sv_file}.json"
+  local_file_path = f"{EXPORTED_FILE_DIR}/{file_name}"
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
   sv_metadata_json = sv_metadata_df.to_json(orient="records", lines=True)
-  with open(file_path, "w") as f:
+  with open(local_file_path, "w") as f:
     f.write(sv_metadata_json)
+  print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
 
-  if shouldSaveToGCS:
+  if should_save_to_gcs:
     gcs_client = storage.Client(project=GCS_PROJECT_ID)
     bucket = gcs_client.bucket(GCS_BUCKET)
-    file_path = f"{GCS_FILE_DIR}/{exported_sv_file}"
-    blob = bucket.blob(file_path)
+    gcs_file_path = f"{GCS_FILE_DIR}/{file_name}"
+    blob = bucket.blob(gcs_file_path)
     blob.upload_from_string(sv_metadata_json, content_type="application/json")
 
-    print(f"SV metadata saved to gs://{GCS_BUCKET}/{file_path}")
+    print(f"{len(sv_metadata_list)} statvars saved to gs://{GCS_BUCKET}/{gcs_file_path}")
 
 
 async def main():
   args: argparse.Namespace = extract_flag()
-  exported_sv_file = f"{EXPORTED_FILENAME_PREFIX}.json"
+  target_language = args.language
+  exported_sv_file, gemini_prompt = get_language_settings(target_language)
 
-  sv_metadata_list: List[dict[str, str | list[str]]] = create_sv_metadata()
-  if args.generateAltSentences:
-    target_language = args.language
-    exported_sv_file, gemini_prompt = get_language_settings(target_language)
-    sv_metadata_list = await batch_generate_alt_sentences(
-        sv_metadata_list, gemini_prompt)
-  export_to_json(sv_metadata_list, exported_sv_file, args.saveToGCS)
-
+  await get_bigquery_statvars(args.generateAltSentences, gemini_prompt, exported_sv_file, args.saveToGCS)
 
 asyncio.run(main())
