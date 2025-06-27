@@ -108,7 +108,7 @@ async def get_bigquery_statvars(should_generate_alt_sentences: bool,
   query_job = client.query(BIGQUERY_QUERY)
   results = query_job.result(page_size=PAGE_SIZE)
 
-  iteration: int = 1
+  page_number: int = 1
 
   for page in results.pages:
     page_svs: list[dict[str, str | list[str]]] = []
@@ -132,11 +132,11 @@ async def get_bigquery_statvars(should_generate_alt_sentences: bool,
       page_svs.append(sv_entry)
 
     if should_generate_alt_sentences:
-      print(f"Starting to generate alt sentences for batch number {iteration}")
+      print(f"Starting to generate alt sentences for batch number {page_number}")
       page_svs = await batch_generate_alt_sentences(page_svs, gemini_prompt)
-    exported_filename = f"{exported_sv_file}_{iteration}"
+    exported_filename = f"{exported_sv_file}_{page_number}"
     export_to_json(page_svs, exported_filename, should_save_to_gcs)
-    iteration += 1
+    page_number += 1
 
 
 def get_language_settings(target_language: str) -> tuple[str, str]:
