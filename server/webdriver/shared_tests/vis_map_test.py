@@ -109,12 +109,12 @@ class VisMapTestMixin():
     # Assert stat var is correct.
     stat_var_chip = self.driver.find_element(
         By.CSS_SELECTOR, '.selected-option-chip.stat-var .chip-content')
-    self.assertTrue('Female Population' in stat_var_chip.text)
+    self.assertTrue('female population' in stat_var_chip.text.lower())
 
     # Assert chart is correct.
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Female Population ", chart_title.text)
+    self.assertIn("female population ", chart_title.text.lower())
     self.assertEqual(len(self.get_chart_map_regions()), 58)
 
     # Assert rankings are correct.
@@ -150,15 +150,17 @@ class VisMapTestMixin():
         (By.CSS_SELECTOR,
          '.source-selector-facet-options-section input[type="radio"]'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
-                         "Count_Person_Female")
+    shared.select_source(self.driver, [
+        "Wonder: Mortality, Underlying Cause Of Death",
+        "CDC_Mortality_UnderlyingCause"
+    ], "Count_Person_Female")
     update_button = self.driver.find_element(
         By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Female Population ", chart_title.text)
+    self.assertIn("female population ", chart_title.text.lower())
     chart_source = self.driver.find_element(
         By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
     self.assertTrue("wonder.cdc.gov" in chart_source.text)
@@ -193,7 +195,7 @@ class VisMapTestMixin():
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Median Age of Population ", chart_title.text)
+    self.assertIn("median age of population ", chart_title.text.lower())
     self.assertEqual(len(self.get_chart_map_regions()), 58)
 
     # Assert rankings are correct.

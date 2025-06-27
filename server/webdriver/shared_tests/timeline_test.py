@@ -92,9 +92,15 @@ class TimelineTestMixin():
     shared.click_sv_group(self.driver, "Demographics")
 
     # Uncheck median age statvar, and the number of charts will become two.
-    find_elem(self.driver,
-              by=By.XPATH,
-              value='//*[text()="Median Age of Population"]').click()
+    # Try both possible text variants for the statvar label.
+    try:
+      find_elem(self.driver,
+                by=By.XPATH,
+                value='//*[text()="Median age of population"]').click()
+    except Exception:
+      find_elem(self.driver,
+                by=By.XPATH,
+                value='//*[text()="Median Age of Population"]').click()
 
     # Check if there is a way to find the chart region refreshed.
     shared.wait_for_loading(self.driver)
