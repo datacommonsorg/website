@@ -237,7 +237,7 @@ async def batch_generate_alt_sentences(
       seed=GEMINI_SEED,
       max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
       response_mime_type="application/json",
-      response_schema=list[StatVarMetadata])
+      response_schema=list[StatVarMetadata]) # TODO: Add response_schemas in French/Spanish
   batched_list: list[list[dict[str, str | list[str]]]] = split_into_batches(
       sv_metadata_list)
 
