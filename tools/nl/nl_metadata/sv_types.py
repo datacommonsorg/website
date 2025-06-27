@@ -13,6 +13,7 @@
 # limitations under the License.
 from pydantic import BaseModel
 
+
 class StatVarMetadata(BaseModel):
   """
     A class to structure and normalize metadata pulled for statistical variables from BigQuery and Gemini.
@@ -28,6 +29,7 @@ class StatVarMetadata(BaseModel):
   populationType: str
   statType: str
   constraintProperties: list[str]
+
 
 englishSchema: dict[str, str | list[str]] = {
     "dcid": "",

@@ -97,10 +97,10 @@ def extract_flag() -> argparse.Namespace:
   args = parser.parse_args()
   return args
 
-async def get_bigquery_statvars(
-    should_generate_alt_sentences: bool, gemini_prompt: str,
-    exported_sv_file: str, should_save_to_gcs: bool
-) -> None:
+
+async def get_bigquery_statvars(should_generate_alt_sentences: bool,
+                                gemini_prompt: str, exported_sv_file: str,
+                                should_save_to_gcs: bool) -> None:
   """
   Fetches all the SVs from BigQuery, batches them into pages of PAGE_SIZE, and processes each page into its own exported metadata file.
   """
@@ -113,24 +113,24 @@ async def get_bigquery_statvars(
   for page in results.pages:
     page_svs: List[Dict[str, str | List[str]]] = []
     for statvar in page:
-        # Collect constraint properties
-        constraint_properties = []
-        for i in range(1, 11):
-            prop = getattr(statvar, f"p{i}", None)
-            val = getattr(statvar, f"v{i}", None)
-            if prop and val:
-                constraint_properties.append(f"{prop}: {val}")
+      # Collect constraint properties
+      constraint_properties = []
+      for i in range(1, 11):
+        prop = getattr(statvar, f"p{i}", None)
+        val = getattr(statvar, f"v{i}", None)
+        if prop and val:
+          constraint_properties.append(f"{prop}: {val}")
 
-        sv_entry = {
-            "dcid": statvar.id,
-            "measuredProperty": statvar.measured_prop,
-            "name": statvar.name,
-            "populationType": statvar.population_type,
-            "statType": statvar.stat_type,
-            "constraintProperties": constraint_properties,
-        }
-        page_svs.append(sv_entry)
-    
+      sv_entry = {
+          "dcid": statvar.id,
+          "measuredProperty": statvar.measured_prop,
+          "name": statvar.name,
+          "populationType": statvar.population_type,
+          "statType": statvar.stat_type,
+          "constraintProperties": constraint_properties,
+      }
+      page_svs.append(sv_entry)
+
     if should_generate_alt_sentences:
       print(f"Starting to generate alt sentences for batch number {iteration}")
       page_svs = await batch_generate_alt_sentences(page_svs, gemini_prompt)
@@ -138,6 +138,7 @@ async def get_bigquery_statvars(
     export_to_json(page_svs, curr_file, should_save_to_gcs)
     print(f"Exported {len(page_svs)} statvars to {curr_file}.")
     iteration += 1
+
 
 def get_language_settings(target_language: str) -> tuple[str, str]:
   exported_sv_file = f"{EXPORTED_FILENAME_PREFIX}_{target_language}"
@@ -163,15 +164,18 @@ def split_into_batches(
     batched_df_list.append(original_df[i:i + BATCH_SIZE])
   return batched_df_list
 
+
 async def generate_alt_sentences(
     gemini_client: genai.Client, gemini_config: types.GenerateContentConfig,
-    gemini_prompt: str, sv_metadata: List[dict[str, str | list[str]]], index: int
-) -> List[dict[str, str | list[str]]]:
+    gemini_prompt: str, sv_metadata: List[dict[str, str | list[str]]],
+    index: int) -> List[dict[str, str | list[str]]]:
   """
   Calls the Gemini API to generate alternative sentences for a list of SV metadata.
   Returns the alt sentences as a list of dictionaries.
   """
-  await asyncio.sleep(5 * index) # Stagger each Gemini API call by 5 seconds to prevent 429 errors from spiked usage.
+  await asyncio.sleep(
+      5 * index
+  )  # Stagger each Gemini API call by 5 seconds to prevent 429 errors from spiked usage.
   prompt_with_metadata = types.Part.from_text(text=(gemini_prompt +
                                                     str(sv_metadata)))
 
@@ -187,25 +191,33 @@ async def generate_alt_sentences(
           model=GEMINI_MODEL, contents=model_input, config=gemini_config)
 
       results = response.parsed
+      if not results:
+        raise ValueError("Gemini returned no parsed content (None or empty).")
+      
       return [sv.__dict__ for sv in results]
-    except AttributeError as e:
+    except ValueError as e:
       print(
-          f"AttributeError: Attempt {attempt + 1}/{MAX_RETRIES} failed. No parsed results returned by Gemini for the batch starting at DCID {batch_start_dcid}."
+          f"ValueError: {e} Attempt {attempt + 1}/{MAX_RETRIES} failed for the batch starting at DCID {batch_start_dcid}."
       )
     except Exception as e:
       if e.code == 429:
-        print(f"Resource exhausted (HTTP 429). Attempt {attempt + 1}/{MAX_RETRIES} failed for the batch starting at DCID {batch_start_dcid}.")
-      else:
-        print(f"Unexpected error encountered for attempt {attempt + 1}/{MAX_RETRIES} for the batch starting at DCID {batch_start_dcid}. Error: {e} ")
-    finally:
-      if attempt + 1 == MAX_RETRIES:
         print(
-            f"All {MAX_RETRIES} retry attempts failed for the batch starting at DCID {batch_start_dcid}."
+            f"Resource exhausted (HTTP 429). Attempt {attempt + 1}/{MAX_RETRIES} failed for the batch starting at DCID {batch_start_dcid}."
         )
-        return sv_metadata
+      else:
+        print(
+            f"Unexpected error encountered for attempt {attempt + 1}/{MAX_RETRIES} for the batch starting at DCID {batch_start_dcid}. Error: {e} "
+        )
 
-      print(f"Retrying after {RETRY_DELAY_SECONDS} seconds...")
-      await asyncio.sleep(RETRY_DELAY_SECONDS)
+    if attempt + 1 == MAX_RETRIES:
+      print(
+          f"All {MAX_RETRIES} retry attempts failed for the batch starting at DCID {batch_start_dcid}."
+      )
+      return sv_metadata
+
+    print(f"Retrying after {RETRY_DELAY_SECONDS} seconds...")
+    await asyncio.sleep(RETRY_DELAY_SECONDS)
+
 
 async def batch_generate_alt_sentences(
     sv_metadata_list: List[dict[str, str | list[str]]],
@@ -225,14 +237,12 @@ async def batch_generate_alt_sentences(
       seed=GEMINI_SEED,
       max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
       response_mime_type="application/json",
-      response_schema=list[StatVarMetadata]
-  )
+      response_schema=list[StatVarMetadata])
   batched_list: List[List[dict[str, str | list[str]]]] = split_into_batches(
       sv_metadata_list)
 
   parallel_tasks: List[asyncio.Task] = []
-  for index in range(len(batched_list)):
-    curr_batch = batched_list[index]
+  for index, curr_batch in enumerate(batched_list):
     parallel_tasks.append(
         generate_alt_sentences(gemini_client, gemini_config, gemini_prompt,
                                curr_batch, index))
@@ -245,6 +255,7 @@ async def batch_generate_alt_sentences(
   for batch in batched_results:
     results.extend(batch)
   return results
+
 
 def export_to_json(sv_metadata_list: List[dict[str, str | list[str]]],
                    exported_sv_file: str, should_save_to_gcs: bool) -> None:
@@ -266,7 +277,9 @@ def export_to_json(sv_metadata_list: List[dict[str, str | list[str]]],
     blob = bucket.blob(gcs_file_path)
     blob.upload_from_string(sv_metadata_json, content_type="application/json")
 
-    print(f"{len(sv_metadata_list)} statvars saved to gs://{GCS_BUCKET}/{gcs_file_path}")
+    print(
+        f"{len(sv_metadata_list)} statvars saved to gs://{GCS_BUCKET}/{gcs_file_path}"
+    )
 
 
 async def main():
@@ -274,6 +287,8 @@ async def main():
   target_language = args.language
   exported_sv_file, gemini_prompt = get_language_settings(target_language)
 
-  await get_bigquery_statvars(args.generateAltSentences, gemini_prompt, exported_sv_file, args.saveToGCS)
+  await get_bigquery_statvars(args.generateAltSentences, gemini_prompt,
+                              exported_sv_file, args.saveToGCS)
+
 
 asyncio.run(main())
