@@ -132,7 +132,8 @@ async def get_bigquery_statvars(should_generate_alt_sentences: bool,
       page_svs.append(sv_entry)
 
     if should_generate_alt_sentences:
-      print(f"Starting to generate alt sentences for batch number {page_number}")
+      print(
+          f"Starting to generate alt sentences for batch number {page_number}")
       page_svs = await batch_generate_alt_sentences(page_svs, gemini_prompt)
     exported_filename = f"{exported_sv_file}_{page_number}"
     export_to_json(page_svs, exported_filename, should_save_to_gcs)
@@ -193,7 +194,7 @@ async def generate_alt_sentences(
       results = response.parsed
       if not results:
         raise ValueError("Gemini returned no parsed content (None or empty).")
-      
+
       return [sv.model_dump() for sv in results]
     except ValueError as e:
       print(
@@ -237,7 +238,8 @@ async def batch_generate_alt_sentences(
       seed=GEMINI_SEED,
       max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
       response_mime_type="application/json",
-      response_schema=list[StatVarMetadata]) # TODO: Add response_schemas in French/Spanish
+      response_schema=list[StatVarMetadata]
+  )  # TODO: Add response_schemas in French/Spanish
   batched_list: list[list[dict[str, str | list[str]]]] = split_into_batches(
       sv_metadata_list)
 
