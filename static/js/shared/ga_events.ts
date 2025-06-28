@@ -138,6 +138,12 @@ export const GA_EVENT_NL_FULFILL = "explore_fulfill";
 export const GA_EVENT_RELATED_TOPICS_CLICK = "related_topics_click";
 
 /**
+ * Triggered once when the Follow Up Questions component is in view.
+ * Parameters: None
+ */
+export const GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW = "follow_up_questions_view";
+
+/**
  * Triggered when "download" button is clicked on a tile.
  * Parameters:
  *    "type": "Timeline Tool" | "Scatter Tool" | "Map Tool" | ""

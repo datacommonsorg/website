@@ -20,6 +20,7 @@ import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 
 // By default will lazy load components that overlap the viewport
 const DEFAULT_LAZY_LOAD_ROOT_MARGIN = "0px";
+const DEFAULT_ON_SCREEN_ROOT_MARGIN = "0px";
 
 /**
  * Custom React hook that tracks whether a referenced element is in close
@@ -81,4 +82,50 @@ export const useLazyLoad = (
     };
   }, [observer]);
   return { shouldLoad, containerRef };
+};
+
+/**
+ * Custom React hook that tracks whether a referenced element is in close
+ * proximity to the viewport.
+ * When the element comes close to the view (within specified margin) view, it
+ * sets a flag `isOnScreen` to true.
+ *
+ * Usage:
+ * const ref = useRef(null);
+ * const isOnScreen = useOnScreen(ref)
+ *
+ * <div ref={ref}>
+ *   {isOnScreen ? "On Screen": "Not On Screen"}
+ * </div>
+ *
+ * @param {MutableRefObject<HTMLDivElement | null>} ref - A reference to the element whose visibility is in question.
+ * @param {string} rootMargin - Optional root margin configuration for the IntersectionObserver. Will set the onScreen flag
+ * to true when the component is within this margin of the viewport (Default: "0px")
+ *
+ * @returns {boolen} A boolean flag indicating wheter the element is on screen.
+ *
+ */
+export const useOnScreen = (
+  ref: MutableRefObject<HTMLDivElement | null>,
+  rootMargin?: string
+): boolean => {
+  const [isOnScreen, setOnScreen] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setOnScreen(entry.isIntersecting);
+      },
+      {
+        rootMargin: rootMargin || DEFAULT_ON_SCREEN_ROOT_MARGIN,
+      }
+    );
+
+    observer.observe(ref.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, [ref, rootMargin]);
+
+  return isOnScreen;
 };
