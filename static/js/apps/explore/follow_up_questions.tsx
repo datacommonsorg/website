@@ -65,11 +65,10 @@ export function FollowUpQuestions(
       .slice(0, FOLLOW_UP_QUESTIONS_LIMIT);
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
-        console.error(value)
         setFollowUpQuestions(value);
       })
       .catch(() => {
-        setFollowUpQuestions([{text:"What is the health equity in Mountain View?",url:""}]);
+        setFollowUpQuestions([]);
       })
       .finally(() => {
         setLoading(false);
