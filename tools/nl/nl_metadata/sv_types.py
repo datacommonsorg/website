@@ -16,7 +16,7 @@ from pydantic import BaseModel
 
 class StatVarMetadata(BaseModel):
   """
-    A class to structure and normalize metadata pulled for statistical variables from BigQuery and Gemini.
+    A class to structure and normalize metadata pulled for statistical variables from the Data Commons API, BigQuery and Gemini.
     Some static fields are common across all stat vars (i.e. dcid, measuredProperty, name, populationType, statType),
     whereas constraintProperties are dynamic and can vary for each stat var. The generatedSentences field is generated 
     by Gemini and contains a list of sentences that describe the stat var in a natural language format.
