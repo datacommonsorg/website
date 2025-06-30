@@ -142,18 +142,26 @@ export function FacetSelectorRich({
           ) + (totalFacetOptionCount > 0 ? ` (${totalFacetOptionCount})` : "")}
         </Button>
       ) : (
-        <span
+        <p
           css={css`
-            ${variant === "small" ? "font-size: 13px;" : ""}
-            color: ${theme.colors.text.tertiary.base};
+            ${variant === "small"
+              ? "font-size: 13px;"
+              : theme.typography.text.sm}
+            ${theme.typography.family.text}
+            ${theme.button.size.md}
+            padding-left: ${theme.spacing.sm}px;
+            border: 1px solid transparent;
+            line-height: 1rem;
+            color: ${theme.colors.text.primary.base};
             flex-shrink: 0;
             visibility: ${loading ? "hidden" : "visible"};
+            margin: 0;
           `}
         >
           {intl.formatMessage(
             facetSelectionComponentMessages.NoAlternativeDatasets
           )}
-        </span>
+        </p>
       )}
       <Dialog
         open={modalOpen}
@@ -240,6 +248,7 @@ export function FacetSelectorRich({
                       css={css`
                         padding: ${theme.spacing.md}px 0 ${theme.spacing.md}px
                           ${theme.spacing.xxl}px;
+                        margin-left: ${theme.spacing.md}px;
                       `}
                     >
                       <FacetOptionContent

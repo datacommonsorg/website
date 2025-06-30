@@ -41,7 +41,7 @@ export const facetSelectionComponentMessages = defineMessages({
   },
   NoAlternativeDatasets: {
     id: "noAlternativeDatasets",
-    defaultMessage: "Only 1 dataset available",
+    defaultMessage: "Displaying all the datasets available",
     description:
       "Text displayed in place of the dataset select button when no stat var has more than " +
       "one dataset associated with it, and therefore there is nothing for the user to select. ",
