@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           # Use the PAT from your robot account for write permissions
-          token: ${{ secrets.ROBOT_TOKEN }}
+          token: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
           submodules: recursive # Initialize and update submodules
           fetch-depth: 0 # Fetch all history for all branches and tags
 
@@ -52,7 +52,7 @@ jobs:
         if: steps.update_submodules.outputs.submodules_updated == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.ROBOT_TOKEN }}
+          token: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
           commit-message: "chore: Update submodules [skip ci]"
           title: "chore: Update submodules"
           body: "This PR automatically updates the `mixer` and `import` submodules to their latest `master` branches."
