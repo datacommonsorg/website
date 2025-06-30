@@ -23,16 +23,18 @@ class StatVarMetadata(BaseModel):
     """
 
   dcid: str
-  generatedSentences: list[str]
-  measuredProperty: str
-  name: str
-  populationType: str
-  statType: str
-  constraintProperties: list[str]
+  sentence: str | None = None
+  generatedSentences: list[str] | None = None
+  measuredProperty: str | None = None
+  name: str | None = None
+  populationType: str | None = None
+  statType: str | None = None
+  constraintProperties: list[str] | None = None
 
 
 englishSchema: dict[str, str | list[str]] = {
     "dcid": "",
+    "sentence": "",
     "generatedSentences": [],
     "name": "",
     "measuredProperty": "",
@@ -43,6 +45,7 @@ englishSchema: dict[str, str | list[str]] = {
 
 frenchSchema: dict[str, str | list[str]] = {
     "dcid": "",
+    "phrase": "",
     "phrasesGenerees": [],
     "nom": "",
     "proprieteMesuree": "",
@@ -53,6 +56,7 @@ frenchSchema: dict[str, str | list[str]] = {
 
 spanishSchema: dict[str, str | list[str]] = {
     "dcid": "",
+    "frase": "",
     "frasesGeneradas": [],
     "nombre": "",
     "propiedadMedida": "",

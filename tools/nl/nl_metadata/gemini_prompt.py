@@ -35,11 +35,12 @@ def get_gemini_prompt(target_language: str, schema_json_string: str) -> str:
   **Example for `target_language: "Spanish"`:**
 
   *Input Metadata:*
-  Note that the input metadata is given as a list of Python dictionaries. 
+  Note that the input metadata is given as a list of Python dictionaries. The 'sentence' field in the schema is optional, and if missing from input data, should not be present in the output.
   ```python
   [
       {{
           "dcid": "Count_Student_PreKindergarten",
+          "sentence": "Number of Students Enrolled in Pre Kindergarten Programs",
           "name": "Count of Student: Pre Kindergarten",
           "measuredProperty": "count",
           "populationType": "Student",
@@ -50,6 +51,7 @@ def get_gemini_prompt(target_language: str, schema_json_string: str) -> str:
       }},
       {{
           "dcid": "Count_Person",
+          "sentence": "population count",
           "name": "Total population",
           "measuredProperty": "count",
           "populationType": "Person",
@@ -64,6 +66,7 @@ def get_gemini_prompt(target_language: str, schema_json_string: str) -> str:
   [
   {{
       "dcid": "Count_Student_PreKindergarten",
+      "frase": "Número de estudiantes inscritos en programas de preescolar",
       "frasesGeneradas": [
           "Total de estudiantes en programas de preescolar",
           "Cantidad de alumnos en educación preescolar",
@@ -79,6 +82,7 @@ def get_gemini_prompt(target_language: str, schema_json_string: str) -> str:
   }},
   {{
       "dcid": "Count_Person",
+      "frase": "conteo de población",
       "frasesGeneradas": [
           "Total de la población",
           "Número total de personas",
