@@ -206,6 +206,11 @@ export function FacetSelectorRich({
                 (id) => id !== ""
               );
               const hasOnlyOneSource = facetIds.length === 1;
+              const sourceFacetId = hasOnlyOneSource ? facetIds[0] : null;
+              const facetOptionId = sourceFacetId
+                ? `${facetInfo.dcid}-${sourceFacetId}-option`
+                : null;
+
               return (
                 <div key={facetInfo.dcid}>
                   {facetList.length === 1 && (
@@ -246,15 +251,61 @@ export function FacetSelectorRich({
                     <div
                       className={`${SELECTOR_PREFIX}-facet-options-section`}
                       css={css`
-                        padding: ${theme.spacing.md}px 0 ${theme.spacing.md}px
-                          ${theme.spacing.xxl}px;
-                        margin-left: ${theme.spacing.md}px;
+                        display: flex;
+                        flex-direction: column;
+                        padding: ${theme.spacing.md}px 0;
                       `}
                     >
-                      <FacetOptionContent
-                        facetInfo={facetInfo}
-                        facetId={facetIds[0]}
-                      />
+                      <FormGroup
+                        radio="true"
+                        key={facetInfo.dcid + sourceFacetId}
+                        css={css`
+                          margin: 0;
+                          padding: 0;
+                        `}
+                      >
+                        <Label
+                          radio="true"
+                          for={facetOptionId}
+                          css={css`
+                            display: flex;
+                            gap: ${theme.spacing.md}px;
+                            align-items: flex-start;
+                            margin: 0;
+                            padding: ${theme.spacing.sm}px ${theme.spacing.xl}px;
+                            position: relative;
+                            cursor: pointer;
+                            &:hover,
+                            &:checked {
+                              background: ${theme.colors.background.primary
+                                .light};
+                            }
+                          `}
+                        >
+                          <Input
+                            type="radio"
+                            name={facetInfo.dcid}
+                            id={facetOptionId}
+                            defaultChecked={true}
+                            onClick={(): void => {
+                              setModalSelections({
+                                ...modalSelections,
+                                [facetInfo.dcid]: "",
+                              });
+                            }}
+                            css={css`
+                              position: relative;
+                              margin: 5px 0 0 0;
+                              padding: 0;
+                            `}
+                          />
+                          <FacetOptionContent
+                            facetInfo={facetInfo}
+                            facetId={sourceFacetId}
+                            mode={mode}
+                          />
+                        </Label>
+                      </FormGroup>
                     </div>
                   ) : (
                     <div
