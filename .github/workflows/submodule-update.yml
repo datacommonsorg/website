@@ -1,9 +1,10 @@
 name: Update Submodules
 
 on:
-  schedule:
-    # Run every day at midnight EST (00:00 EST / 05:00 UTC)
-    - cron: '0 5 * * *'
+  # Uncomment when ready! 
+  # schedule:
+  # Run every day at midnight EST (00:00 EST / 05:00 UTC)
+  # - cron: '0 5 * * *'
   workflow_dispatch:
     # Allows manual triggering of the workflow
 
@@ -11,91 +12,71 @@ jobs:
   update-submodules:
     runs-on: ubuntu-latest
     permissions:
-      # These permissions are for the default GITHUB_TOKEN used by checkout and create-pull-request.
-      # The PAT used for merging has its own permissions (repo scope) and bypasses these.
-      contents: write
-      pull-requests: write
+      contents: write # Needed to push changes
+      pull-requests: write # Needed to create pull requests
+      issues: write # Needed for label creation
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # Uses the default, limited GITHUB_TOKEN for checkout
-          submodules: recursive
+          # Use the PAT from your robot account for write permissions
+          token: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
+          submodules: recursive # Initialize and update submodules
+          fetch-depth: 0 # Fetch all history for all branches and tags
 
       - name: Configure Git
         run: |
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
+          # Set the Git user to your robot account's details
+          git config user.name "datacommons-robot-author"
+          git config user.email "datacommons-robot-author@users.noreply.github.com"
 
       - name: Update submodules to latest
         id: update_submodules
         run: |
-          SUBMODULES_UPDATED=false
+          # update all submodules
+          git submodule update --remote --merge
 
-          echo "Checking mixer submodule..."
-          (cd mixer && git fetch origin && git checkout master && git pull origin master)
-          MIXER_STATUS=$(git diff --submodule=diff HEAD^ mixer | wc -l)
-          if [ "$MIXER_STATUS" -ne "0" ]; then
-            echo "mixer submodule has updates."
-            SUBMODULES_UPDATED=true
-          else
-            echo "mixer submodule is already up-to-date."
-          fi
-
-          echo "Checking import submodule..."
-          (cd import && git fetch origin && git checkout master && git pull origin master)
-          IMPORT_STATUS=$(git diff --submodule=diff HEAD^ import | wc -l)
-          if [ "$IMPORT_STATUS" -ne "0" ]; then
-            echo "import submodule has updates."
-            SUBMODULES_UPDATED=true
-          else
-            echo "import submodule is already up-to-date."
-          fi
-
-          if [ "$SUBMODULES_UPDATED" = "true" ]; then
-            echo "Committing updated submodules..."
-            git add mixer import
-            git commit -m "chore: Update submodules [skip ci]"
-            echo "Changes committed."
-            echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
-          else
+          # Check if there are any changes to submodules
+          if [[ -z $(git status --porcelain) ]]; then
             echo "No submodule updates found."
             echo "submodules_updated=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Submodules updated. Committing changes."
+            git add mixer import # Add only the submodules if they are the only changes expected
+            git commit -m "chore: Update submodules [skip ci]"
+            echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Create Pull Request
-        id: cpr # Give this step an ID to reference its outputs (specifically the PR number)
         if: steps.update_submodules.outputs.submodules_updated == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # Uses the default GITHUB_TOKEN for creating the PR
+          token: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
           commit-message: "chore: Update submodules [skip ci]"
           title: "chore: Update submodules"
           body: "This PR automatically updates the `mixer` and `import` submodules to their latest `master` branches."
           branch: "chore/update-submodules" # New branch for the PR
           base: "master" # Target branch for the PR
           labels: automated-pr, dependencies
-          add-paths: 'mixer,import'
-          delete-branch: true # The source branch will be deleted by this action if the PR is merged
+          add-paths: 'mixer,import' # Explicitly add paths to be included in the PR
+          delete-branch: true # Delete the branch after PR merge
 
       - name: Auto-Merge Pull Request with PAT (Bypassing Reviews)
         # This step runs only if a PR was successfully created in the previous step
         if: steps.cpr.outputs.pull-request-number != ''
         env:
-          # IMPORTANT: Provide your PAT to the GITHUB_TOKEN environment variable for the 'gh' CLI.
-          # The 'gh' CLI will use this token for authentication for this step.
-          GITHUB_TOKEN: ${{ secrets.AUTO_MERGE_PAT }}
+         GITHUB_TOKEN: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
         run: |
-          PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
+         PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
 
-          echo "Attempting to merge PR #$PR_NUMBER using PAT and --admin flag..."
+         echo "Attempting to merge PR #$PR_NUMBER using PAT and --admin flag..."
 
-          # The 'gh' (GitHub CLI) is pre-installed on GitHub Actions runners.
-          # --admin: This flag is crucial. It tells 'gh' to bypass branch protection rules
-          #          (like required reviews or passing status checks).
-          # --squash: Specifies the merge method (you can also use --merge or --rebase).
-          # --delete-branch: Deletes the source branch of the PR after merging.
-          gh pr merge "$PR_NUMBER" --admin --squash --delete-branch
+         # The 'gh' (GitHub CLI) is pre-installed on GitHub Actions runners.
+         # --admin: This flag is crucial. It tells 'gh' to bypass branch protection rules
+         #          (like required reviews or passing status checks).
+         # --squash: Specifies the merge method (you can also use --merge or --rebase).
+         # --delete-branch: Deletes the source branch of the PR after merging.
+         gh pr merge "$PR_NUMBER" --admin --squash --delete-branch
 
-          echo "Pull request #$PR_NUMBER merged successfully."
+         echo "Pull request #$PR_NUMBER merged successfully."
