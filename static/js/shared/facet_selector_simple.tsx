@@ -101,6 +101,15 @@ export function FacetSelectorSimple({
     }, 0);
   }, [facetList]);
 
+  const hasAlternativeSources = useMemo(() => {
+    if (loading || !facetList) {
+      return false;
+    }
+    return facetList.some(
+      (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
+    );
+  }, [facetList, loading]);
+
   useEffect(() => {
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
@@ -113,24 +122,41 @@ export function FacetSelectorSimple({
 
   return (
     <>
-      <Button
-        className={`${SELECTOR_PREFIX}-open-modal-button`}
-        variant="flat"
-        size="sm"
-        onClick={(): void => setModalOpen(true)}
-        disabled={loading}
-        css={css`
-          ${variant === "small" ? "font-size: 13px;" : ""}
-          flex-shrink: 0;
-          visibility: ${loading ? "hidden" : "visible"};
-        `}
-      >
-        {intl.formatMessage(
-          facetList && facetList.length > 1
-            ? facetSelectionComponentMessages.SelectDatasets
-            : facetSelectionComponentMessages.SelectDataset
-        ) + (totalFacetOptionCount > 0 ? ` [${totalFacetOptionCount}]` : "")}
-      </Button>
+      {hasAlternativeSources ? (
+        <Button
+          className={`${SELECTOR_PREFIX}-open-modal-button`}
+          variant="flat"
+          size="sm"
+          onClick={(): void => setModalOpen(true)}
+          disabled={loading}
+          css={css`
+            ${variant === "small" ? "font-size: 13px;" : ""}
+            flex-shrink: 0;
+            visibility: ${loading ? "hidden" : "visible"};
+          `}
+        >
+          {intl.formatMessage(
+            mode === "download"
+              ? facetList && facetList.length > 1
+                ? facetSelectionComponentMessages.SelectDatasets
+                : facetSelectionComponentMessages.SelectDataset
+              : facetSelectionComponentMessages.ExploreOtherDatasets
+          ) + (totalFacetOptionCount > 0 ? ` (${totalFacetOptionCount})` : "")}
+        </Button>
+      ) : (
+        <span
+          css={css`
+            ${variant === "small" ? "font-size: 13px;" : ""}
+            color: ${theme.colors.text.tertiary.base};
+            flex-shrink: 0;
+            visibility: ${loading ? "hidden" : "visible"};
+          `}
+        >
+          {intl.formatMessage(
+            facetSelectionComponentMessages.NoAlternativeDatasets
+          )}
+        </span>
+      )}
       <Dialog
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
@@ -159,7 +185,7 @@ export function FacetSelectorSimple({
               {intl.formatMessage(
                 mode === "download"
                   ? facetSelectionComponentMessages.SelectDatasetsForDownloadPromptMessage
-                  : facetSelectionComponentMessages.SelectDatasetsForChartsPromptMessage
+                  : facetSelectionComponentMessages.ExploreOtherDatasetsMultipleStatVarsPromptMessage
               )}
               :
             </p>
@@ -180,7 +206,7 @@ export function FacetSelectorSimple({
                       {intl.formatMessage(
                         mode === "download"
                           ? facetSelectionComponentMessages.SelectDatasetForDownloadPromptMessage
-                          : facetSelectionComponentMessages.SelectDatasetForChartsPromptMessage
+                          : facetSelectionComponentMessages.ExploreOtherDatasetsSingleStatVarPromptMessage
                       )}{" "}
                       <span>
                         &ldquo;
