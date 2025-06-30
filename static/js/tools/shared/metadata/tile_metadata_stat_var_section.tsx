@@ -140,20 +140,28 @@ export const TileMetadataStatVarSection = ({
           const unitDisplay = metadata.unit
             ? startCase(metadata.unit)
             : undefined;
-          const periodicity = metadata.periodicity
-            ? humanizeIsoDuration(metadata.periodicity)
-            : undefined;
+
+          let observationPeriodDisplay: string;
+          if (metadata.observationPeriod) {
+            const humanizedPeriod = humanizeIsoDuration(
+              metadata.observationPeriod
+            );
+            observationPeriodDisplay =
+              humanizedPeriod !== metadata.observationPeriod
+                ? `${humanizedPeriod} (${metadata.observationPeriod})`
+                : humanizedPeriod;
+          }
 
           const hasDateRange = !!(
             metadata.dateRangeStart || metadata.dateRangeEnd
           );
           const hasUnit = !!unitDisplay;
-          const hasPeriodicity = !!periodicity;
+          const hasObservationPeriod = !!observationPeriodDisplay;
 
           const optionalFieldsCount = [
             hasDateRange,
             hasUnit,
-            hasPeriodicity,
+            hasObservationPeriod,
           ].filter(Boolean).length;
           const measurementMethodSpan = optionalFieldsCount % 2 === 0;
 
@@ -260,16 +268,14 @@ export const TileMetadataStatVarSection = ({
                   </ContentWrapper>
                 )}
 
-                {hasPeriodicity && (
+                {hasObservationPeriod && (
                   <ContentWrapper>
                     <h4>
                       {intl.formatMessage(
-                        metadataComponentMessages.PublicationCadence
+                        metadataComponentMessages.ObservationPeriod
                       )}
                     </h4>
-                    <p>
-                      {periodicity} ({metadata.periodicity})
-                    </p>
+                    <p>{observationPeriodDisplay}</p>
                   </ContentWrapper>
                 )}
 
