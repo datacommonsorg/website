@@ -108,7 +108,19 @@ def extract_flag() -> argparse.Namespace:
   return args
 
 
-def create_sv_metadata_bigquery() -> None:
+def split_into_batches(
+    original_df: pd.DataFrame | list) -> list[pd.DataFrame] | list[list]:
+  """
+  Splits a dataframe into batches of a given size.
+  Ex. [1, 2, 3, 4, 5, 6] with BATCH_SIZE = 2 becomes [[1, 2], [3, 4], [5, 6]]
+  """
+  batched_df_list = []
+  for i in range(0, len(original_df), BATCH_SIZE):
+    batched_df_list.append(original_df[i:i + BATCH_SIZE])
+  return batched_df_list
+
+
+def create_sv_metadata_bigquery() -> Iterator:
   """
   Fetches all the SVs from BigQuery, batches them into pages of PAGE_SIZE, and processes each page into its own exported metadata file.
   """
@@ -140,18 +152,6 @@ def get_language_settings(target_language: str) -> tuple[str, str]:
     case _:
       language_schema = json.dumps(englishSchema)
   return exported_sv_file, get_gemini_prompt(target_language, language_schema)
-
-
-def split_into_batches(
-    original_df: pd.DataFrame | list) -> list[pd.DataFrame] | list[list]:
-  """
-  Splits a dataframe into batches of a given size.
-  Ex. [1, 2, 3, 4, 5, 6] with BATCH_SIZE = 2 becomes [[1, 2], [3, 4], [5, 6]]
-  """
-  batched_df_list = []
-  for i in range(0, len(original_df), BATCH_SIZE):
-    batched_df_list.append(original_df[i:i + BATCH_SIZE])
-  return batched_df_list
 
 
 def get_prop_value(prop_data) -> str:
@@ -252,24 +252,6 @@ def extract_constraint_properties(statvar_data,
         f"{name}: {get_prop_value(statvar_data[dcid])}")
 
   return constraint_properties
-
-
-def create_sv_metadata() -> list[dict[str, str | list[str]]]:
-  """
-  Creates SV metadata by taking the existing SV sheet, and calling the relevant helper functions to add metadata for the SVs.
-  """
-  client = DataCommonsClient(api_key=DC_API_KEY)
-  stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
-  sv_metadata_list: list[dict[str, str | list[str]]] = []
-  batched_list = split_into_batches(stat_var_sentences)
-
-  for curr_batch in batched_list:
-    dcid_to_sentence: dict[str, str] = curr_batch.set_index(
-        "dcid")["sentence"].to_dict()
-    sv_metadata_list: list[dict[str, str | list[str]]] = extract_metadata(
-        client, dcid_to_sentence, sv_metadata_list)
-
-  return sv_metadata_list
 
 
 async def generate_alt_sentences(
