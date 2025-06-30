@@ -74,10 +74,10 @@ def extract_flag() -> argparse.Namespace:
   """
   parser = argparse.ArgumentParser(description="./add_metadata.py")
   parser.add_argument(
-      "-generateAltSentences",
+      "--generateAltSentences",
       help=
       "Whether to generate alternative sentences for the SVs using the Gemini API.",
-      type=bool,
+      action="store_true",
       default=False)
   parser.add_argument(
       "-language",
@@ -87,9 +87,9 @@ def extract_flag() -> argparse.Namespace:
               ],  # TODO: Add support for passing multiple languages at once
       type=str,
       default="English")
-  parser.add_argument("-saveToGCS",
+  parser.add_argument("--saveToGCS",
                       help="Whether to save results to GCS.",
-                      type=bool,
+                      action="store_true",
                       default=False)
   args = parser.parse_args()
   return args

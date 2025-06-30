@@ -19,6 +19,9 @@
 import theme from "../../theme/theme";
 
 jest.mock("axios");
+jest.mock("../../tools/shared/metadata/metadata_fetcher", () => ({
+  fetchFacetsWithMetadata: jest.fn().mockResolvedValue({}),
+}));
 
 import { ThemeProvider } from "@emotion/react";
 import { act, waitFor } from "@testing-library/react";

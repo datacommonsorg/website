@@ -17,6 +17,12 @@
 import { defineMessages } from "react-intl";
 
 export const facetSelectionComponentMessages = defineMessages({
+  DatasetError: {
+    id: "datasetError",
+    defaultMessage: "Error loading datasets for selection.",
+    description:
+      "Message shown when the call to get available datasets failed.",
+  },
   SelectDataset: {
     id: "selectDataset",
     defaultMessage: "Select a dataset",

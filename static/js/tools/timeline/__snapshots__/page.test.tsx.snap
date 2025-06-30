@@ -2,7 +2,7 @@
 
 exports[`Single place and single stat var 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
-  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset [1]</button></div>
+  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset</button></div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -23,7 +23,7 @@ exports[`Single place and single stat var 1`] = `
 
 exports[`Single place and single stat var 2`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
-  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset [1]</button></div>
+  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset</button></div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -41,7 +41,7 @@ exports[`Single place and single stat var 2`] = `
   <div class=\\"feedback-link\\"><a href=\\"/feedback\\">Feedback</a></div>
 </div>
 <div class=\\"chart-container dc-async-element-holder\\">
-  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset [1]</button></div>
+  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset</button></div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -62,7 +62,7 @@ exports[`Single place and single stat var 2`] = `
 
 exports[`Single place and single stat var 3`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
-  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset [1]</button></div>
+  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset</button></div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -121,7 +121,7 @@ exports[`Single place and single stat var 4`] = `
 
 exports[`chart options 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
-  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset [1]</button></div>
+  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset</button></div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -142,7 +142,7 @@ exports[`chart options 1`] = `
 
 exports[`statVar not in PV-tree 1`] = `
 "<div class=\\"chart-container dc-async-element-holder\\">
-  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset [1]</button></div>
+  <div class=\\"css-1w3kops\\"><button type=\\"button\\" class=\\"button button-flat button-sm source-selector-open-modal-button css-1t9rw4w\\">Select a dataset</button></div>
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
       <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\"></span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
