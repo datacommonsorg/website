@@ -20,16 +20,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Important: checkout with a token that has write permissions
-          # The GITHUB_TOKEN has write permissions by default for the current repo
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use the PAT from your robot account for write permissions
+          token: ${{ secrets.ROBOT_TOKEN }}
           submodules: recursive # Initialize and update submodules
           fetch-depth: 0 # Fetch all history for all branches and tags
 
       - name: Configure Git
         run: |
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
+          # Set the Git user to your robot account's details
+          git config user.name "datacommons-robot-author"
+          git config user.email "datacommons-robot-author@users.noreply.github.com"
 
       - name: Update submodules to latest
         id: update_submodules
@@ -52,7 +52,7 @@ jobs:
         if: steps.update_submodules.outputs.submodules_updated == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ROBOT_TOKEN }}
           commit-message: "chore: Update submodules [skip ci]"
           title: "chore: Update submodules"
           body: "This PR automatically updates the `mixer` and `import` submodules to their latest `master` branches."
