@@ -20,6 +20,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 import { Loading } from "../../components/elements/loading";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
@@ -28,10 +29,9 @@ import {
   GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW,
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_PARAM_RELATED_TOPICS_MODE,
-  GA_VALUE_RELATED_TOPICS_EXPERIMENT,
+  GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { useOnScreen } from "../../shared/hooks";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
@@ -52,11 +52,17 @@ interface FollowUpQuestionsPropType {
 export function FollowUpQuestions(
   props: FollowUpQuestionsPropType
 ): ReactElement {
-  const ref = useRef(null);
-  const isOnScreen = useOnScreen(ref);
-  const [hasReportedView, setReportedView] = useState(false);
   const [followUpQuestions, setFollowUpQuestions] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { ref } = useInView({
+    triggerOnce: true,
+    rootMargin: "0px",
+    onChange: (inView) => {
+      if (inView) {
+        onComponentInitialView();
+      }
+    },
+  });
   useEffect(() => {
     // Gets the name of all related topics while removing the Root topic.
     // Empty string can be passed since only the topic name will be used, which is stored in the property `text`.
@@ -75,11 +81,6 @@ export function FollowUpQuestions(
       });
   }, [props.query, props.pageMetadata]);
 
-  if (isOnScreen && !hasReportedView) {
-    onComponentView();
-    setReportedView(true);
-  }
-
   return (
     <div ref={ref}>
       {loading && (
@@ -97,9 +98,7 @@ export function FollowUpQuestions(
                   <a
                     className="follow-up-questions-list-text"
                     href={question.url}
-                    onClick={(): void =>
-                      onQuestionClicked(GA_VALUE_RELATED_TOPICS_EXPERIMENT)
-                    }
+                    onClick={(): void => onQuestionClicked()}
                   >
                     {question.text}
                     <br></br>
@@ -142,12 +141,12 @@ const getFollowUpQuestions = async (
   });
 };
 
-export const onQuestionClicked = (mode: string): void => {
+const onQuestionClicked = (): void => {
   triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK, {
-    [GA_PARAM_RELATED_TOPICS_MODE]: mode,
+    [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS,
   });
 };
 
-export const onComponentView = (): void => {
+const onComponentInitialView = (): void => {
   triggerGAEvent(GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW, {});
 };

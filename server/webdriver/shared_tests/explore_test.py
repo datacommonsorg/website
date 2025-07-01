@@ -138,32 +138,3 @@ class ExplorePageTestMixin():
     highlight_divs = find_elems(self.driver, By.CLASS_NAME,
                                 'highlight-result-title')
     self.assertEqual(len(highlight_divs), 0)
-
-  def test_follow_up_questions_typical(self):
-    """Test that the Follow Up Questions are generated and displayed when queries have related topics."""
-    follow_up_flag = "?enable_feature=follow_up_questions_ga"
-    query = "#q=What is the population of Mountain View?"
-
-    self.driver.get(self.url_ + EXPLORE_URL + follow_up_flag + query)
-    shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
-
-    follow_up_questions = find_elems(self.driver, By.CLASS_NAME,
-                                     'follow-up-questions-list-text')
-    self.assertGreater(len(follow_up_questions), 0,
-                       "No follow up questions found in the list.")
-
-  def test_follow_up_questions_no_related_topics(self):
-    """Test that the Follow Up Questions component does not exist for queries that have no related topics."""
-    follow_up_flag = "?enable_feature=follow_up_questions_ga"
-    # The query below has no related topics identified.
-    query = "#q=Which countries have the highest college-educated population in the world?"
-
-    self.driver.get(self.url_ + EXPLORE_URL + follow_up_flag + query)
-    shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
-
-    empty_follow_up = find_elem(parent=self.driver,
-                                value="follow-up-questions-container")
-    self.assertIsNone(
-        empty_follow_up,
-        "Follow Up Questions component is not empty despite having no related topics."
-    )

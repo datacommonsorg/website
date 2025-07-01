@@ -19,7 +19,6 @@
  */
 
 import React, { ReactElement } from "react";
-import { GA_EVENT_RELATED_TOPICS_CLICK,GA_PARAM_RELATED_TOPICS_MODE,GA_VALUE_RELATED_TOPICS_CURRENT,triggerGAEvent } from "../../shared/ga_events";
 
 export interface Item {
   text: string;
@@ -29,7 +28,7 @@ export interface Item {
 interface ItemListPropType {
   items: Item[];
   showRelevantTopicLabel?: boolean;
-  trackRelatedTopicExperiment?: boolean;
+  onItemClicked?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
 export function ItemList(props: ItemListPropType): ReactElement {
@@ -42,7 +41,11 @@ export function ItemList(props: ItemListPropType): ReactElement {
         {props.items.map((item, idx) => {
           return (
             <div key={idx} className="item-list-item">
-              <a className="item-list-text" href={item.url} onClick={() => props.trackRelatedTopicExperiment ? onTopicClicked(GA_VALUE_RELATED_TOPICS_CURRENT) : undefined}>
+              <a
+                className="item-list-text"
+                href={item.url}
+                onClick={props.onItemClicked}
+              >
                 {item.text}
               </a>
             </div>
@@ -52,9 +55,3 @@ export function ItemList(props: ItemListPropType): ReactElement {
     </div>
   );
 }
-
-export const onTopicClicked = (mode: string): void => {
-  triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK, {
-    [GA_PARAM_RELATED_TOPICS_MODE]: mode,
-  });
-};

@@ -296,5 +296,11 @@ export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
 export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY = "sv_hierarchy";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH = "sv_search";
-export const GA_VALUE_RELATED_TOPICS_EXPERIMENT = "related_topics_experiment";
-export const GA_VALUE_RELATED_TOPICS_CURRENT = "related_topics_current";
+// The parameter to record the location where a related topic was clicked. In this case,
+// the topic was clicked through the question URLs displayed in the Follow Up Questions component.
+export const GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS =
+  "related_topics_display_questions";
+// The parameter to record the location where a related topic was clicked. In this case,
+// the topic was clicked through the related topic URLs displayed at the top of the page under the Result Header.
+export const GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS =
+  "related_topics_display_topics";

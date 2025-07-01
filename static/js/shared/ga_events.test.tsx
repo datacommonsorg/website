@@ -65,7 +65,13 @@ jest.mock("../utils/app/explore_utils", () => {
 });
 
 import { ThemeProvider } from "@emotion/react";
-import { cleanup, fireEvent, render, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import axios from "axios";
 import React from "react";
 
@@ -112,8 +118,8 @@ import {
   GA_PARAM_SOURCE,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
-  GA_VALUE_RELATED_TOPICS_CURRENT,
-  GA_VALUE_RELATED_TOPICS_EXPERIMENT,
+  GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS,
+  GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
@@ -129,6 +135,7 @@ import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
 import { DataPointMetadata } from "./types";
 import { NamedTypedPlace, StatVarHierarchyType, StatVarSummary } from "./types";
+import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 
 const CATEGORY = "Economics";
 const PLACE_DCID = "geoId/05";
@@ -287,7 +294,7 @@ const PAGE_METADATA_PROPS = {
     },
     categories: [],
   },
-  mainTopics: [{name: PLACE_NAME,dcid: PLACE_DCID,types:[]}]
+  mainTopics: [{ name: PLACE_NAME, dcid: PLACE_DCID, types: [] }],
 };
 
 const FOLLOW_UP_QUESTIONS_PROPS = {
@@ -1107,16 +1114,21 @@ describe("test ga event for Related Topics experiment", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
-    axios.post = jest.fn().mockImplementation(() => Promise.resolve({data:{follow_up_questions:[QUERY]}}));
-    
+    axios.post = jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve({ data: { follow_up_questions: [QUERY] } })
+      );
+
     // Render follow up component
     const followUp = render(
       <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
     );
-    
+    mockAllIsIntersecting(false);
+
     // Wait for questions to render
     await waitForElementToBeRemoved(followUp.getByText("Loading..."));
-    
+
     // Click question url
     fireEvent.click(followUp.getByText(QUERY));
 
@@ -1125,7 +1137,8 @@ describe("test ga event for Related Topics experiment", () => {
         "event",
         GA_EVENT_RELATED_TOPICS_CLICK,
         {
-          [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_EXPERIMENT,
+          [GA_PARAM_RELATED_TOPICS_MODE]:
+            GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS,
         }
       );
     });
@@ -1148,7 +1161,8 @@ describe("test ga event for Related Topics experiment", () => {
         "event",
         GA_EVENT_RELATED_TOPICS_CLICK,
         {
-          [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_CURRENT,
+          [GA_PARAM_RELATED_TOPICS_MODE]:
+            GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS,
         }
       );
     });
@@ -1160,7 +1174,7 @@ describe("test ga event for Related Topics experiment", () => {
 
     // Render follow up component
     render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
-
+    mockAllIsIntersecting(true);
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
         "event",
