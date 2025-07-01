@@ -55,7 +55,7 @@ class FollowUpQuestions(BaseModel):
 
 _GEMINI_CALL_RETRIES = 3
 
-_GEMINI_MODEL = "gemini-2.5-pro-preview-06-05"
+_GEMINI_MODEL = "gemini-2.5-flash"
 
 _RELATED_QUESTIONS_PROMPT = """
 Imagine you are a dynamic, trusted, and factual UI copywriter. Use the following tone of voice guidelines as an approach to this task.
