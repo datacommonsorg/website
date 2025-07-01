@@ -57,7 +57,7 @@ jobs:
           commit-message: "chore: Update submodules [skip ci]"
           title: "chore: Update submodules"
           body: "This PR automatically updates the `mixer` and `import` submodules to their latest `master` branches."
-          branch: "chore/update-submodules" # New branch for the PR
+          branch: "chore/update-submodules-$(date +'%Y-%m-%d')" # New branch for the PR
           base: "master" # Target branch for the PR
           labels: automated-pr, dependencies
           add-paths: 'mixer,import' # Explicitly add paths to be included in the PR
