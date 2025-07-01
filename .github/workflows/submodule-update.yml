@@ -1,7 +1,7 @@
 name: Update Submodules
 
 on:
-  # Uncomment when ready! 
+  # Uncomment when ready!
   # schedule:
   # Run every day at midnight EST (00:00 EST / 05:00 UTC)
   # - cron: '0 5 * * *'
@@ -49,6 +49,10 @@ jobs:
             echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Get current date
+        id: date
+        run: echo "today=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+
       - name: Create Pull Request
         if: steps.update_submodules.outputs.submodules_updated == 'true'
         uses: peter-evans/create-pull-request@v6
@@ -57,7 +61,8 @@ jobs:
           commit-message: "chore: Update submodules [skip ci]"
           title: "chore: Update submodules"
           body: "This PR automatically updates the `mixer` and `import` submodules to their latest `master` branches."
-          branch: "chore/update-submodules-$(date +'%Y-%m-%d')" # New branch for the PR
+          # Use the date from the previous step
+          branch: "chore/update-submodules-${{ steps.date.outputs.today }}" # New branch for the PR
           base: "master" # Target branch for the PR
           labels: automated-pr, dependencies
           add-paths: 'mixer,import' # Explicitly add paths to be included in the PR
