@@ -10,6 +10,7 @@ on:
 
 jobs:
   update-submodules:
+    if: github.repository == 'datacommonsorg/website'
     runs-on: ubuntu-latest
     permissions:
       contents: write # Needed to push changes
