@@ -20,7 +20,6 @@ import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 
 // By default will lazy load components that overlap the viewport
 const DEFAULT_LAZY_LOAD_ROOT_MARGIN = "0px";
-const DEFAULT_ON_SCREEN_ROOT_MARGIN = "0px";
 
 /**
  * Custom React hook that tracks whether a referenced element is in close

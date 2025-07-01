@@ -74,6 +74,7 @@ import {
 } from "@testing-library/react";
 import axios from "axios";
 import React from "react";
+import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 
 import { FollowUpQuestions } from "../apps/explore/follow_up_questions";
 import { ResultHeaderSection } from "../apps/explore/result_header_section";
@@ -135,7 +136,6 @@ import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
 import { DataPointMetadata } from "./types";
 import { NamedTypedPlace, StatVarHierarchyType, StatVarSummary } from "./types";
-import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 
 const CATEGORY = "Economics";
 const PLACE_DCID = "geoId/05";

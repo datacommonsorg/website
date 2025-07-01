@@ -68,7 +68,7 @@ export function ResultHeaderSection(
           <ItemList
             items={topicList}
             showRelevantTopicLabel={true}
-            onItemClicked={() => {
+            onItemClicked={(): void => {
               triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK, {
                 [GA_PARAM_RELATED_TOPICS_MODE]:
                   GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS,
