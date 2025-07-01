@@ -2261,7 +2261,7 @@
   },
   "Count_Death_AsAFractionOfCount_Person": {
     "blocklist": [],
-    "title": "Deaths Per Capita"
+    "title": "Death Rate"
   },
   "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod": {
     "blocklist": [],
