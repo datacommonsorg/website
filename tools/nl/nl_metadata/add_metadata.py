@@ -122,7 +122,7 @@ def split_into_batches(
 
 def create_sv_metadata_bigquery() -> Iterator:
   """
-  Fetches all the SVs from BigQuery, batches them into pages of PAGE_SIZE, and processes each page into its own exported metadata file.
+  Fetches all the SVs from BigQuery, and returns them in batches of PAGE_SIZE (3000).
   """
   client = bigquery.Client()
   query_job = client.query(BIGQUERY_QUERY)
@@ -131,7 +131,10 @@ def create_sv_metadata_bigquery() -> Iterator:
   return results.pages
 
 
-def create_sv_metadata_dc_api() -> dict[str, str]:
+def create_sv_metadata_nl() -> list[dict[str, str]]:
+  """
+  Fetches the SVs and their sentences from the STAT_VAR_SHEET currently used for NL, and returns them as dictionaries in batches of BATCH_SIZE (100).
+  """
   stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
   batched_list: list[pd.DataFrame] = split_into_batches(stat_var_sentences)
   batched_dicts: list[dict[str, str]] = [
@@ -170,72 +173,85 @@ def get_prop_value(prop_data) -> str:
     return first_node.get("dcid")
 
 
+def flatten_dc_api_response(
+    dc_api_metadata,
+    dcid_to_sentence: dict[str, str]) -> list[dict[str, str | list[str]]]:
+  """
+  Flattens the data commons API response into a list of stat vars with their metadata.
+  """
+  sv_metadata_list = []
+  for dcid, sentence in dcid_to_sentence.items():
+    new_row = StatVarMetadata(dcid=dcid, sentence=sentence)
+    dcid_data = dc_api_metadata[dcid]["arcs"]
+
+    new_row.name = get_prop_value(dcid_data[NAME])
+    new_row.measuredProperty = get_prop_value(dcid_data[MEASURED_PROPERTY])
+    new_row.populationType = get_prop_value(dcid_data[POPULATION_TYPE])
+    new_row.statType = get_prop_value(dcid_data[STAT_TYPE])
+    new_row.constraintProperties = extract_constraint_properties_dc_api(
+        dcid_data)
+
+    sv_metadata_list.append(new_row.__dict__)
+
+  return sv_metadata_list
+
+
 def extract_metadata(
     batched_metadata: Page | list[dict[str, str]],
     use_bigquery: bool = False,
 ) -> list[dict[str, str | list[str]]]:
   """
-  Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API. 
-  Adds the new metadata to the existing list sv_metadata_list, and returns the list.
+  Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API, or from BigQuery. 
+  Normalizes the new metadata to type StatVarMetadata, and returns it as a list of dictionaries.
   """
   sv_metadata_list = []
-  if use_bigquery:
-    for row in batched_metadata:
-      constraint_properties = extract_constraint_properties(row, use_bigquery)
-      sv_entry = {
-          "dcid": row.id,
-          "measuredProperty": row.measured_prop,
-          "name": row.name,
-          "populationType": row.population_type,
-          "statType": row.stat_type,
-          "constraintProperties": constraint_properties,
-      }
-      sv_metadata_list.append(sv_entry)
-    return sv_metadata_list
-
   client = DataCommonsClient(api_key=DC_API_KEY)
+
   for curr_batch in batched_metadata:
-    response = client.node.fetch(node_dcids=list(curr_batch.keys()),
-                                 expression="->*")
-    response_data = response.to_dict().get("data", {})
-
-    if not response_data:
-      raise ValueError("No data found for the given DCIDs.")
-
-    for dcid, sentence in curr_batch.items():
-      new_row = StatVarMetadata(dcid=dcid, sentence=sentence)
-      dcid_data = response_data[dcid]["arcs"]
-
-      new_row.name = get_prop_value(dcid_data[NAME])
-      new_row.measuredProperty = get_prop_value(dcid_data[MEASURED_PROPERTY])
-      new_row.populationType = get_prop_value(dcid_data[POPULATION_TYPE])
-      new_row.statType = get_prop_value(dcid_data[STAT_TYPE])
-      new_row.constraintProperties = extract_constraint_properties(
-          dcid_data, use_bigquery)
-
+    if use_bigquery:  # curr_batch is a bigquery.table.Row corresponding to a single SV
+      constraint_properties = extract_constraint_properties_bigquery(curr_batch)
+      new_row = StatVarMetadata(dcid=curr_batch.id,
+                                name=curr_batch.name,
+                                measuredProperty=curr_batch.measured_prop,
+                                populationType=curr_batch.population_type,
+                                statType=curr_batch.stat_type,
+                                constraintProperties=constraint_properties)
       sv_metadata_list.append(new_row.__dict__)
+
+    else:  # curr_batch is a dict[str, str] corresponding to a batch of 100 SVs
+      response = client.node.fetch(node_dcids=list(curr_batch.keys()),
+                                   expression="->*")
+      response_data = response.to_dict().get("data", {})
+
+      if not response_data:
+        raise ValueError("No data found for the given DCIDs.")
+
+      curr_batch_metadata = flatten_dc_api_response(response_data, curr_batch)
+      sv_metadata_list.extend(curr_batch_metadata)
 
   return sv_metadata_list
 
 
-def extract_constraint_properties(statvar_data,
-                                  use_bigquery: bool = False) -> list[str, str]:
+def extract_constraint_properties_bigquery(
+    statvar_data: bigquery.table.Row) -> list[str]:
+  """
+  Extracts the constraint properties from the BigQuery statvar_data and returns them as a list of strings.
+  The constraint properties are stored in BQ as key-value pairs in separate columns going from p1, v1, ..., p10, v10.
+  """
+  constraint_properties = []
+  for i in range(1, 11):
+    prop = getattr(statvar_data, f"p{i}", None)
+    val = getattr(statvar_data, f"v{i}", None)
+    if prop and val:
+      constraint_properties.append(f"{prop}: {val}")
+  return constraint_properties
+
+
+def extract_constraint_properties_dc_api(statvar_data) -> list[str]:
   """
   Extracts the constraint properties from the data commons API response and adds them to the new row.
   """
   constraint_properties = []
-  if use_bigquery:  # statvar_data is a bigquery.table.Row
-    # Constraint properties are stored in BQ as key-value pairs in separate columns going from p1, v1, ..., p10, v10
-    # Hence the for loop here goes from 1-10 to check if constraint properties are populated in each of these columns.
-    for i in range(1, 11):
-      prop = getattr(statvar_data, f"p{i}", None)
-      val = getattr(statvar_data, f"v{i}", None)
-      if prop and val:
-        constraint_properties.append(f"{prop}: {val}")
-
-    return constraint_properties
-
-  # statvar_data is data from the DC API
   if "constraintProperties" not in statvar_data:
     return constraint_properties
 
@@ -372,9 +388,14 @@ async def main():
   args: argparse.Namespace = extract_flag()
 
   if args.useBigQuery:
+    # Fetch from all 700,000+ SVs from BigQuery
+    # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
     sv_metadata_iter: Iterator = create_sv_metadata_bigquery()
   else:
-    sv_metadata_iter: list[dict[str, str]] = list[create_sv_metadata_dc_api()]
+    # Fetch from only the ~3600 SVs currently used for NL
+    # SV Metadata is returned from create_sv_metadata_nl as a list of dictionaries, where each dictionary contains up to BATCH_SIZE (100) SVs.
+    # Wrap all the SVs in a list to normalize against BigQuery's page iterator - all 3600 SVs can be treated as one "page"
+    sv_metadata_iter: list[list[dict[str, str]]] = [create_sv_metadata_nl()]
 
   target_language = args.language
   exported_sv_file, gemini_prompt = get_language_settings(target_language)
