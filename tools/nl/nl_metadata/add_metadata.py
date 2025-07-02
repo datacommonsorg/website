@@ -94,11 +94,10 @@ def extract_flag() -> argparse.Namespace:
               ],  # TODO: Add support for passing multiple languages at once
       type=str,
       default="English")
-  parser.add_argument(
-      "--saveToGCS",
-      help="Whether to save results to GCS.",
-      action="store_true",
-      default=False)
+  parser.add_argument("--saveToGCS",
+                      help="Whether to save results to GCS.",
+                      action="store_true",
+                      default=False)
   parser.add_argument(
       "--useBigQuery",
       help=
