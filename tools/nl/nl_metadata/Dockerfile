@@ -20,4 +20,4 @@ COPY . .
 
 # Define the command to run your application
 # This is the command that gets executed when the job starts
-CMD ["python", "add_metadata.py", "--generateAltSentences", "--saveToGCS"]
+CMD ["python", "add_metadata.py", "--generateAltSentences", "--saveToGCS", "--useBigQuery", "--maxStatVars=10000"]
