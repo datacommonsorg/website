@@ -67,3 +67,22 @@ jobs:
           labels: automated-pr, dependencies
           add-paths: 'mixer,import' # Explicitly add paths to be included in the PR
           delete-branch: true # Delete the branch after PR merge
+
+      - name: Auto-Merge Pull Request with PAT (Bypassing Reviews)
+        # This step runs only if a PR was successfully created in the previous step
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+         GITHUB_TOKEN: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
+        run: |
+         PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
+
+         echo "Attempting to merge PR #$PR_NUMBER using PAT and --admin flag..."
+
+         # The 'gh' (GitHub CLI) is pre-installed on GitHub Actions runners.
+         # --admin: This flag is crucial. It tells 'gh' to bypass branch protection rules
+         #          (like required reviews or passing status checks).
+         # --squash: Specifies the merge method (you can also use --merge or --rebase).
+         # --delete-branch: Deletes the source branch of the PR after merging.
+         gh pr merge "$PR_NUMBER" --admin --squash --delete-branch
+
+         echo "Pull request #$PR_NUMBER merged successfully."
