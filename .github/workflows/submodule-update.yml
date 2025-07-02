@@ -1,7 +1,7 @@
 name: Update Submodules
 
 on:
-  # Uncomment when ready! 
+  # Uncomment when ready!
   # schedule:
   # Run every day at midnight EST (00:00 EST / 05:00 UTC)
   # - cron: '0 5 * * *'
@@ -49,7 +49,12 @@ jobs:
             echo "submodules_updated=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Get current date
+        id: date
+        run: echo "today=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+
       - name: Create Pull Request
+        id: cpr
         if: steps.update_submodules.outputs.submodules_updated == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
@@ -57,8 +62,28 @@ jobs:
           commit-message: "chore: Update submodules [skip ci]"
           title: "chore: Update submodules"
           body: "This PR automatically updates the `mixer` and `import` submodules to their latest `master` branches."
-          branch: "chore/update-submodules-$(date +'%Y-%m-%d')" # New branch for the PR
+          # Use the date from the previous step
+          branch: "chore/update-submodules-${{ steps.date.outputs.today }}" # New branch for the PR
           base: "master" # Target branch for the PR
           labels: automated-pr, dependencies
           add-paths: 'mixer,import' # Explicitly add paths to be included in the PR
           delete-branch: true # Delete the branch after PR merge
+
+      - name: Auto-Merge Pull Request with PAT (Bypassing Reviews)
+        # This step runs only if a PR was successfully created in the previous step
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+         GITHUB_TOKEN: ${{ secrets.SUBMOD_UPDATE_TOKEN }}
+        run: |
+         PR_NUMBER=${{ steps.cpr.outputs.pull-request-number }}
+
+         echo "Attempting to merge PR #$PR_NUMBER using PAT and --admin flag..."
+
+         # The 'gh' (GitHub CLI) is pre-installed on GitHub Actions runners.
+         # --admin: This flag is crucial. It tells 'gh' to bypass branch protection rules
+         #          (like required reviews or passing status checks).
+         # --squash: Specifies the merge method (you can also use --merge or --rebase).
+         # --delete-branch: Deletes the source branch of the PR after merging.
+         gh pr merge "$PR_NUMBER" --admin --squash --delete-branch
+
+         echo "Pull request #$PR_NUMBER merged successfully."
