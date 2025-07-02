@@ -79,4 +79,4 @@ jobs:
          # --delete-branch: Deletes the source branch of the PR after merging.
          gh pr merge "$PR_NUMBER" --admin --squash --delete-branch
 
-          echo "Pull request #$PR_NUMBER merged successfully."
+         echo "Pull request #$PR_NUMBER merged successfully."
