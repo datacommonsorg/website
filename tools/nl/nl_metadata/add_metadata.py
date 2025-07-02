@@ -144,11 +144,12 @@ def split_into_batches(
   return batched_df_list
 
 
-def create_sv_metadata_bigquery(query: str) -> Iterator:
+def create_sv_metadata_bigquery(max_stat_vars: int | None = None) -> Iterator:
   """
   Fetches all the SVs from BigQuery, and returns them in batches of PAGE_SIZE (3000).
   """
   client = bigquery.Client()
+  query = get_bq_query(max_stat_vars)
   query_job = client.query(query)
   results = query_job.result(page_size=PAGE_SIZE)
 
@@ -416,8 +417,7 @@ async def main():
   if args.useBigQuery:
     # Fetch from all 700,000+ SVs from BigQuery
     # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
-    query = get_bq_query(args.maxStatVars)
-    sv_metadata_iter: Iterator = create_sv_metadata_bigquery(query)
+    sv_metadata_iter: Iterator = create_sv_metadata_bigquery(args.maxStatVars)
   else:
     # Fetch from only the ~3600 SVs currently used for NL
     # SV Metadata is returned from create_sv_metadata_nl as a list of dictionaries, where each dictionary contains up to BATCH_SIZE (100) SVs.
