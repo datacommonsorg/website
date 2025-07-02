@@ -54,6 +54,7 @@ jobs:
         run: echo "today=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request
+        id: cpr
         if: steps.update_submodules.outputs.submodules_updated == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
