@@ -1,10 +1,9 @@
 name: Update Submodules
 
 on:
-  # Uncomment when ready!
-  # schedule:
-  # Run every day at midnight EST (00:00 EST / 05:00 UTC)
-  # - cron: '0 5 * * *'
+  schedule:
+  Run every day at midnight EST (00:00 EST / 05:00 UTC)
+  - cron: '0 5 * * *'
   workflow_dispatch:
     # Allows manual triggering of the workflow
 
