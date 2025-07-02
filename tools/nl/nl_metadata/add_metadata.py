@@ -75,8 +75,8 @@ DC_API_KEY = os.getenv("DC_API_KEY")
 
 def extract_flag() -> argparse.Namespace:
   """
-  Extracts the --generateAltSentences, -language, --saveToGCS and --useBigQuery flags from the command line arguments.
-  Note that for --generateAltSentences, --saveToGCS, and --useBigQuery, if these flags are present in the command line, 
+  Defines and extracts the script flags from the command line arguments.
+  Note that for boolean flags (--generateAltSentences, --saveToGCS, and --useBigQuery), if these flags are present in the command line, 
   they will be set to True.
   """
   parser = argparse.ArgumentParser(description="./add_metadata.py")
@@ -87,7 +87,7 @@ def extract_flag() -> argparse.Namespace:
       action="store_true",
       default=False)
   parser.add_argument(
-      "-language",
+      "--language",
       help=
       "The language to return the metadata results in. Currently supports English, French, and Spanish.",
       choices=["English", "French", "Spanish"
@@ -104,8 +104,31 @@ def extract_flag() -> argparse.Namespace:
       "Whether to pull all 700,000+ statvars from BigQuery. If false/unspecified, only statvars used for NL will be used.",
       action="store_true",
       default=False)
+  parser.add_argument(
+      "--maxStatVars",
+      help=
+      "The maximum number of statvars to process from BigQuery. If specified, will limit the number of statvars processed to this number.",
+      type=int,
+      default=None)
+  parser.add_argument(
+      "--gcsFolder",
+      help=
+      "The folder in the GCS bucket to save the results to. Defaults to 'statvar_metadata'.",
+      type=str,
+      default=GCS_FILE_DIR)
   args = parser.parse_args()
   return args
+
+
+def get_bq_query(limit: int | None = None) -> str:
+  """
+  Returns the BigQuery query to fetch the SVs.
+  If limit is specified, adds a LIMIT clause to the query.
+  """
+  query = BIGQUERY_QUERY
+  if limit is not None:
+    query += f" LIMIT {limit}"
+  return query
 
 
 def split_into_batches(
@@ -120,12 +143,13 @@ def split_into_batches(
   return batched_df_list
 
 
-def create_sv_metadata_bigquery() -> Iterator:
+def create_sv_metadata_bigquery(max_stat_vars: int | None = None) -> Iterator:
   """
   Fetches all the SVs from BigQuery, and returns them in batches of PAGE_SIZE (3000).
   """
   client = bigquery.Client()
-  query_job = client.query(BIGQUERY_QUERY)
+  query = get_bq_query(max_stat_vars)
+  query_job = client.query(query)
   results = query_job.result(page_size=PAGE_SIZE)
 
   return results.pages
@@ -360,7 +384,9 @@ async def batch_generate_alt_sentences(
 
 
 def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
-                   exported_filename: str, should_save_to_gcs: bool) -> None:
+                   exported_filename: str,
+                   should_save_to_gcs: bool,
+                   gcs_folder: str = GCS_FILE_DIR) -> None:
   """
   Exports the SV metadata list to a JSON file.
   """
@@ -375,7 +401,7 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
   if should_save_to_gcs:
     gcs_client = storage.Client(project=GCS_PROJECT_ID)
     bucket = gcs_client.bucket(GCS_BUCKET)
-    gcs_file_path = f"{GCS_FILE_DIR}/{filename}"
+    gcs_file_path = f"{gcs_folder}/{filename}"
     blob = bucket.blob(gcs_file_path)
     blob.upload_from_string(sv_metadata_json, content_type="application/json")
 
@@ -390,7 +416,7 @@ async def main():
   if args.useBigQuery:
     # Fetch from all 700,000+ SVs from BigQuery
     # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
-    sv_metadata_iter: Iterator = create_sv_metadata_bigquery()
+    sv_metadata_iter: Iterator = create_sv_metadata_bigquery(args.maxStatVars)
   else:
     # Fetch from only the ~3600 SVs currently used for NL
     # SV Metadata is returned from create_sv_metadata_nl as a list of dictionaries, where each dictionary contains up to BATCH_SIZE (100) SVs.
@@ -410,7 +436,8 @@ async def main():
       full_metadata = await batch_generate_alt_sentences(
           full_metadata, gemini_prompt)
     exported_filename = f"{exported_sv_file}_{page_number}"
-    export_to_json(full_metadata, exported_filename, args.saveToGCS)
+    export_to_json(full_metadata, exported_filename, args.saveToGCS,
+                   args.gcsFolder)
     page_number += 1
 
 
