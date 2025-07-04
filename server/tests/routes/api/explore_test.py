@@ -134,7 +134,7 @@ class TestFollowUpQuestions(unittest.TestCase):
         'What is the average commute time in El Paso?'
     ]
     mock_gemini.return_value.models.generate_content.return_value.parsed.questions = expected_questions
-    app.config['LLM_API_KEY'] = ""
+    app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():
       assert expected_questions == generate_follow_up_questions(
           query=query, related_topics=related_topics)
@@ -155,7 +155,7 @@ class TestFollowUpQuestions(unittest.TestCase):
     mock_gemini.return_value.models.generate_content.side_effect = [
         None, DEFAULT
     ]
-    app.config['LLM_API_KEY'] = ""
+    app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():
       assert expected_questions == generate_follow_up_questions(
           query=query, related_topics=related_topics)
@@ -167,7 +167,7 @@ class TestFollowUpQuestions(unittest.TestCase):
     mock_gemini.return_value.models.generate_content.side_effect = [
         None, None, None
     ]
-    app.config['LLM_API_KEY'] = ""
+    app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():
       assert [] == generate_follow_up_questions(query=query,
                                                 related_topics=related_topics)
@@ -183,3 +183,10 @@ class TestFollowUpQuestions(unittest.TestCase):
     related_topics = ["Housing", "Commute"]
     assert [] == generate_follow_up_questions(query=query,
                                               related_topics=related_topics)
+
+  def test_generate_follow_up_questions_no_api_key(self):
+    query = "MOCK QUERY"
+    related_topics = ["Housing", "Commute"]
+    with app.app_context():
+      assert [] == generate_follow_up_questions(query=query,
+                                                related_topics=related_topics)

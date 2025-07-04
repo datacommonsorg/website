@@ -130,6 +130,20 @@ export const GA_EVENT_NL_DETECT_FULFILL = "explore_detect_fulfill";
 export const GA_EVENT_NL_FULFILL = "explore_fulfill";
 
 /**
+ * Triggered when users click on a related topics url to keep exploring.
+ * It could either be the current Related Topics chip or the experimental Follow Up Questions.
+ * Parameters:
+ *   "related_topics_mode" : "related_topics_experiment" || "related_topics_current"
+ */
+export const GA_EVENT_RELATED_TOPICS_CLICK = "related_topics_click";
+
+/**
+ * Triggered once when the Follow Up Questions component is in view.
+ * Parameters: None
+ */
+export const GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW = "follow_up_questions_view";
+
+/**
  * Triggered when "download" button is clicked on a tile.
  * Parameters:
  *    "type": "Timeline Tool" | "Scatter Tool" | "Map Tool" | ""
@@ -249,6 +263,7 @@ export const GA_PARAM_TIMING_MS = "time_ms";
 export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
 export const GA_PARAM_SEARCH_SELECTION = "search_selection";
+export const GA_PARAM_RELATED_TOPICS_MODE = "related_topics_mode";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -281,3 +296,9 @@ export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
 export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY = "sv_hierarchy";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH = "sv_search";
+// Parameter value for GA_PARAM_RELATED_TOPICS_MODE to represent the Follow Up Questions mode.
+export const GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS =
+  "related_topics_display_questions";
+// Parameter value for GA_PARAM_RELATED_TOPICS_MODE to represent the Related Topics mode in the Result Header.
+export const GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS =
+  "related_topics_display_topics";

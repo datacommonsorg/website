@@ -331,6 +331,9 @@ def generate_follow_up_questions(query: str,
     return []
 
   gemini_api_key = current_app.config["LLM_API_KEY"]
+  if not gemini_api_key:
+    return []
+
   gemini = genai.Client(api_key=gemini_api_key)
   for _ in range(_GEMINI_CALL_RETRIES):
     try:
