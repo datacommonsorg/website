@@ -57,8 +57,9 @@ export interface FacetSelectorFacetInfo {
 }
 
 interface FacetSelectorRichProps {
-  // the variant, with small being used for the old tools, standard elsewhere
-  variant?: "standard" | "small";
+  // the variant with small used for the old tools, inline as an inline
+  // text button and standard elsewhere
+  variant?: "standard" | "small" | "inline";
   // the mode of the facet selector determines the copy used in the instructions
   mode?: "chart" | "download";
   // Map of sv to selected facet id
