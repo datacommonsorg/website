@@ -23,7 +23,14 @@ import "../../../library";
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { FormattedMessage } from "react-intl";
 import { Input, UncontrolledTooltip } from "reactstrap";
 
@@ -39,11 +46,16 @@ import {
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import { FacetSelector } from "../../shared/facet_selector";
+import { usePromiseResolver } from "../../shared/hooks/promise_resolver";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { fetchFacetsWithMetadata } from "../../tools/shared/metadata/metadata_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
+import { getFacets } from "../../utils/data_fetch_utils";
 import { isNlInterface } from "../../utils/explore_utils";
 import {
   addPerCapitaToTitle,
@@ -118,6 +130,14 @@ export interface BlockPropType {
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
+const CHART_TILES_WITH_FACET_SELECTOR = new Set([
+  "LINE",
+  //"HIGHLIGHT",
+  "SCATTER",
+  //"MAP",
+  //"RANKING",
+  //"BAR",
+]);
 
 /**
  * Helper for determining if we should snap the charts in this block to the
@@ -180,7 +200,47 @@ async function shouldEnableSnapToHighestCoverage(
   return !isHighestCoverageDateEqualToLatestDates;
 }
 
-export function Block(props: BlockPropType): JSX.Element {
+/**
+ * Helper for determining if a block contains tiles eligible for block-level
+ * facet selection, and if so, that these blocks share common stat vars.
+ *
+ * @returns boolean - true if block contains eligible tiles that share stat vars
+ */
+function blockEligibleForFacetSelector(columns: ColumnConfig[]): boolean {
+  const allChartTiles = _.flatten(columns.map((c) => c.tiles)).filter((t) =>
+    CHART_TILES_WITH_FACET_SELECTOR.has(t.type)
+  );
+  if (allChartTiles.length < 1) {
+    return false;
+  }
+  const firstSvKey = JSON.stringify(allChartTiles[0].statVarKey.slice().sort());
+  for (const tile of allChartTiles) {
+    const currentSvKey = JSON.stringify(tile.statVarKey.slice().sort());
+    if (currentSvKey !== firstSvKey) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * This helper gets the list of stat var specs for a block, assuming all stat
+ * vars are have already been determined to be consistent across its tiles.
+ *
+ * @returns StatVarSpec[]
+ */
+function getBlockStatVarSpecs(
+  columns: ColumnConfig[],
+  statVarProvider: StatVarProvider
+): StatVarSpec[] {
+  const allTiles = _.flatten(columns.map((c) => c.tiles));
+  if (allTiles.length < 1) {
+    return [];
+  }
+  return statVarProvider.getSpecList(allTiles[0].statVarKey);
+}
+
+export function Block(props: BlockPropType): ReactElement {
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
@@ -199,9 +259,147 @@ export function Block(props: BlockPropType): JSX.Element {
     setShowSnapToHighestCoverageCheckbox,
   ] = useState(false);
   const [enableSnapToLatestData, setEnableSnapToLatestData] = useState(true);
+  const [facetOverrides, setFacetOverrides] = useState<Record<string, string>>(
+    {}
+  );
+  const [showFacetSelector, setShowFacetSelector] = useState(false);
+  const [blockSVs, setBlockSVs] = useState<StatVarSpec[]>([]);
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
   const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
+
+  const dataCommonsClient = useMemo(() => getDataCommonsClient(), []);
+
+  /*
+    A map of stat var ids to stat var spec, to facilitate the memoization
+    provided by getStatVarSpec.
+   */
+  const tileSpecCache = useRef<Map<string, StatVarSpec[]>>(new Map());
+
+  /**
+   * The helper keeps a per-block cache (tileSpecCache) so that identical inputs
+   * return a stable array instance. This prevents block-level re-renders from
+   * triggering refetches in the child unless one of the following changes: the stat
+   * var key itself, the snap-to-highest-coverage setting, the denom or a facet override.
+   *
+   * @param svKey - The statVarKey array from the tile config.
+   * @returns StatVarSpec[] - An array of StatVarSpec objects with memoized references
+   */
+  const getStatVarSpec = useCallback(
+    (svKey: string[]) => {
+      const key = JSON.stringify({
+        svKey,
+        blockDate: snapToHighestCoverage ? DATE_HIGHEST_COVERAGE : undefined,
+        blockDenom: useDenom ? denom : "",
+        facetOverrides,
+      });
+
+      if (tileSpecCache.current.has(key)) {
+        return tileSpecCache.current.get(key);
+      }
+
+      const list = props.statVarProvider
+        .getSpecList(svKey, {
+          blockDate: snapToHighestCoverage ? DATE_HIGHEST_COVERAGE : undefined,
+          blockDenom: useDenom ? denom : "",
+        })
+        .map((spec) => ({
+          ...spec,
+          facetId: facetOverrides[spec.statVar] || spec.facetId,
+        }));
+
+      tileSpecCache.current.set(key, list);
+      return list;
+    },
+    [
+      snapToHighestCoverage,
+      useDenom,
+      denom,
+      facetOverrides,
+      props.statVarProvider,
+    ]
+  );
+
+  /**
+   * This helper is a convenience wrapper for getStatVarSpec, used when a tile
+   * has exactly one stat var. It returns the first (and only) element so callers
+   * don’t have to index zero each time.
+   *
+   * @param svDcid a single stat var dcid.
+   * @returns A single StatVarSpec object memoized as per getStatVarSpec
+   */
+  const getSingleStatVarSpec = useCallback(
+    (svDcid: string) => getStatVarSpec([svDcid])[0],
+    [getStatVarSpec]
+  );
+
+  /*
+    This hook prepares the block level stat vars. It determines if we
+    have tiles that allow block-level facet selection, and if all those
+    tiles share the same stat vars. If so, we set the block level stat vars
+    and enable the facet selector.
+   */
+  useEffect(() => {
+    const hasConsistentSv = blockEligibleForFacetSelector(props.columns);
+    setShowFacetSelector(hasConsistentSv);
+    if (hasConsistentSv) {
+      setBlockSVs(getBlockStatVarSpecs(props.columns, props.statVarProvider));
+    } else {
+      setBlockSVs([]);
+    }
+  }, [props.columns, props.statVarProvider]);
+
+  /**
+   * A function that fetches all facet metadata shared by eligible tiles in this block.
+   *
+   * (1) If blockSVs is empty, the block contains no facet-eligible tiles, so
+   *     we return null.
+   * (2) Otherwise we pull the base facets for each place/stat var pair and then enrich
+   *     them.
+   *
+   * @returns FacetSelectorFacetInfo[] | null - an array of the enriched facets or null
+   */
+  const fetchFacets = useCallback(async () => {
+    if (_.isEmpty(blockSVs)) {
+      return null;
+    }
+    const allTiles = _.flatten(props.columns.map((c) => c.tiles));
+    const placeDcids = new Set<string>([props.place.dcid]);
+    allTiles.forEach((tile) => {
+      if (tile.placeDcidOverride) {
+        placeDcids.add(tile.placeDcidOverride);
+      }
+      getComparisonPlaces(tile, props.place)?.forEach((p) => placeDcids.add(p));
+    });
+
+    const baseFacets = await getFacets(
+      undefined,
+      Array.from(placeDcids),
+      blockSVs.map((sv) => sv.statVar)
+    );
+    const enrichedFacets = await fetchFacetsWithMetadata(
+      baseFacets,
+      dataCommonsClient
+    );
+    return blockSVs.map((sv) => ({
+      dcid: sv.statVar,
+      name: sv.name || sv.statVar,
+      metadataMap: enrichedFacets[sv.statVar] || {},
+    }));
+  }, [blockSVs, props.columns, props.place, dataCommonsClient]);
+
+  const {
+    data: facetList,
+    loading: facetsLoading,
+    error: facetsError,
+  } = usePromiseResolver(fetchFacets);
+
+  const onSvFacetIdUpdated = useCallback(
+    (svFacetId: Record<string, string>): void => {
+      setFacetOverrides((prev) => ({ ...prev, ...svFacetId }));
+    },
+    []
+  );
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -315,6 +513,15 @@ export function Block(props: BlockPropType): JSX.Element {
             </UncontrolledTooltip>
           </span>
         )}
+        {showFacetSelector && (
+          <FacetSelector
+            svFacetId={facetOverrides}
+            facetList={facetList}
+            loading={facetsLoading}
+            error={!!facetsError}
+            onSvFacetIdUpdated={onSvFacetIdUpdated}
+          />
+        )}
       </div>
       <div className="block-body row" ref={columnSectionRef}>
         {props.columns &&
@@ -349,6 +556,8 @@ export function Block(props: BlockPropType): JSX.Element {
                         id,
                         minIdxToHide,
                         overridePlaceTypes,
+                        getStatVarSpec,
+                        getSingleStatVarSpec,
                         columnTileClassName,
                         useDenom ? denom : "",
                         snapToHighestCoverage
@@ -395,10 +604,12 @@ function renderTiles(
   columnId: string,
   minIdxToHide: number,
   overridePlaces: Record<string, NamedTypedPlace>,
+  getStatVarSpec: (svKey: string[]) => StatVarSpec[],
+  getSingleStatVarSpec: (sv: string) => StatVarSpec,
   tileClassName?: string,
   blockDenom?: string,
   blockDate?: string
-): JSX.Element {
+): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
   }
@@ -428,10 +639,7 @@ function renderTiles(
             key={id}
             description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             highlightFacet={props.highlightFacet}
           />
         );
@@ -448,10 +656,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={
@@ -479,10 +684,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             comparisonPlaces={comparisonPlaces}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getStatVarSpec(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -511,10 +713,7 @@ function renderTiles(
             title={title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
-            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            variables={getStatVarSpec(tile.statVarKey)}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -555,10 +754,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             useLollipop={tile.barTileSpec?.useLollipop}
-            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            variables={getStatVarSpec(tile.statVarKey)}
             xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
             placeNameProp={tile.placeNameProp}
@@ -570,12 +766,11 @@ function renderTiles(
           />
         );
       case "SCATTER": {
-        const statVarSpec = props.statVarProvider.getSpecList(tile.statVarKey, {
-          blockDate,
-          blockDenom,
-        });
         title = blockDenom
-          ? addPerCapitaToVersusTitle(tile.title, statVarSpec)
+          ? addPerCapitaToVersusTitle(
+              tile.title,
+              getStatVarSpec(tile.statVarKey)
+            )
           : tile.title;
         return (
           <ScatterTile
@@ -587,7 +782,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={statVarSpec}
+            statVarSpec={getStatVarSpec(tile.statVarKey)}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
             }
@@ -730,7 +925,7 @@ function renderWebComponents(
   tileClassName?: string,
   blockDenom?: string,
   blockDate?: string
-): JSX.Element {
+): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
   }
