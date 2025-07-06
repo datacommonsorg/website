@@ -147,6 +147,10 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
   >(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
+  /*
+    TODO: (nick-next) destructure the props similarly to highlight to
+          allow a complete dependency array.
+   */
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;
