@@ -206,7 +206,12 @@ async function shouldEnableSnapToHighestCoverage(
  *
  * @returns boolean - true if block contains eligible tiles that share stat vars
  */
-function blockEligibleForFacetSelector(columns: ColumnConfig[]): boolean {
+function blockEligibleForFacetSelector(
+  columns: ColumnConfig[],
+  isWebComponentBlock: boolean
+): boolean {
+  if (isWebComponentBlock) return false;
+
   const allChartTiles = _.flatten(columns.map((c) => c.tiles)).filter((t) =>
     CHART_TILES_WITH_FACET_SELECTOR.has(t.type)
   );
@@ -340,7 +345,10 @@ export function Block(props: BlockPropType): ReactElement {
     and enable the facet selector.
    */
   useEffect(() => {
-    const blockEligible = blockEligibleForFacetSelector(props.columns);
+    const blockEligible = blockEligibleForFacetSelector(
+      props.columns,
+      !!props.showWebComponents
+    );
     const newList = blockEligible
       ? getBlockStatVarSpecs(props.columns, props.statVarProvider)
       : [];
@@ -351,7 +359,7 @@ export function Block(props: BlockPropType): ReactElement {
       return newList;
     });
     setShowFacetSelector(blockEligible);
-  }, [props.columns, props.statVarProvider]);
+  }, [props.columns, props.showWebComponents, props.statVarProvider]);
 
   /**
    * A function that fetches all facet metadata shared by eligible tiles in this block.
