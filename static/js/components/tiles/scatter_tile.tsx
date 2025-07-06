@@ -166,7 +166,16 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
         setIsLoading(false);
       }
     })();
-  }, [props, scatterChartData, shouldLoad]);
+  }, [
+    props.lazyLoad,
+    props.apiRoot,
+    props.place.dcid,
+    props.placeNameProp,
+    props.enclosedPlaceType,
+    props.statVarSpec,
+    scatterChartData,
+    shouldLoad,
+  ]);
 
   const drawFn = useCallback(() => {
     if (!scatterChartData || !areDataPropsEqual()) {
