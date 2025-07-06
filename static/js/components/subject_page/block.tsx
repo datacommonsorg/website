@@ -132,7 +132,7 @@ export interface BlockPropType {
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
 const CHART_TILES_WITH_FACET_SELECTOR = new Set([
   "LINE",
-  //"HIGHLIGHT",
+  "HIGHLIGHT",
   "SCATTER",
   //"MAP",
   //"RANKING",
@@ -340,13 +340,17 @@ export function Block(props: BlockPropType): ReactElement {
     and enable the facet selector.
    */
   useEffect(() => {
-    const hasConsistentSv = blockEligibleForFacetSelector(props.columns);
-    setShowFacetSelector(hasConsistentSv);
-    if (hasConsistentSv) {
-      setBlockSVs(getBlockStatVarSpecs(props.columns, props.statVarProvider));
-    } else {
-      setBlockSVs([]);
-    }
+    const blockEligible = blockEligibleForFacetSelector(props.columns);
+    const newList = blockEligible
+      ? getBlockStatVarSpecs(props.columns, props.statVarProvider)
+      : [];
+    setBlockSVs((prev) => {
+      if (prev.length === 0 && newList.length === 0) {
+        return prev;
+      }
+      return newList;
+    });
+    setShowFacetSelector(blockEligible);
   }, [props.columns, props.statVarProvider]);
 
   /**
