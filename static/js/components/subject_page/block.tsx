@@ -478,7 +478,7 @@ export function Block(props: BlockPropType): ReactElement {
           </span>
         )}
         {showFacetSelector && (
-          <div className="block-modal">
+          <div className="block-modal-trigger">
             {!facetsLoading && (denom || showSnapToHighestCoverageCheckbox) && (
               <span>•</span>
             )}

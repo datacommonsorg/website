@@ -59,6 +59,24 @@ article.category {
   p {
     font-size: 0.95rem;
   }
+
+  .block-modal-trigger {
+    align-items: center;
+    display: flex;
+    gap: 6px;
+
+    span, p {
+      font-size: 14px !important;
+      line-height: 14px !important;
+      margin: 0;
+      padding: 0;
+    }
+
+    span {
+      transform: translateX(-4px);
+    }
+  }
+
 }
 
 .subtopic {
@@ -115,23 +133,6 @@ article.category {
   padding: 14px 0;
 }
 
-.block-modal {
-  align-items: center;
-  display: flex;
-  gap: 6px;
-
-  & > span, & > p {
-    font-size: 14px!important;
-    line-height: 14px!important;
-    margin: 0;
-    padding: 0;
-  }
-  
-  & > span {
-    transform: translateX(-4px);
-  }
-}
-
 .block-toggle {
   align-items: center;
   display: flex;
@@ -158,7 +159,7 @@ article.category {
     align-items: center;
     display: flex;
     font-size: 14px;
-    line-height: 14px!important;
+    line-height: 14px !important;
   }
 
   .material-icons {
