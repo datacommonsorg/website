@@ -85,6 +85,7 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
+import { useStatVarSpec } from "./stat_var_spec";
 
 // Lazy load tiles (except map) when they are within 1000px of the viewport
 const EXPLORE_LAZY_LOAD_MARGIN = "1000px";
@@ -275,67 +276,12 @@ export function Block(props: BlockPropType): ReactElement {
 
   const dataCommonsClient = useMemo(() => getDataCommonsClient(), []);
 
-  /*
-    A map of stat var ids to stat var spec, to facilitate the memoization
-    provided by getStatVarSpec.
-   */
-  const tileSpecCache = useRef<Map<string, StatVarSpec[]>>(new Map());
-
-  /**
-   * The helper keeps a per-block cache (tileSpecCache) so that identical inputs
-   * return a stable array instance. This prevents block-level re-renders from
-   * triggering refetches in the child unless one of the following changes: the stat
-   * var key itself, the snap-to-highest-coverage setting, the denom or a facet override.
-   *
-   * @param svKey - The statVarKey array from the tile config.
-   * @returns StatVarSpec[] - An array of StatVarSpec objects with memoized references
-   */
-  const getStatVarSpec = useCallback(
-    (svKey: string[]) => {
-      const key = JSON.stringify({
-        svKey,
-        blockDate: snapToHighestCoverage ? DATE_HIGHEST_COVERAGE : undefined,
-        blockDenom: useDenom ? denom : "",
-        facetOverrides,
-      });
-
-      if (tileSpecCache.current.has(key)) {
-        return tileSpecCache.current.get(key);
-      }
-
-      const list = props.statVarProvider
-        .getSpecList(svKey, {
-          blockDate: snapToHighestCoverage ? DATE_HIGHEST_COVERAGE : undefined,
-          blockDenom: useDenom ? denom : "",
-        })
-        .map((spec) => ({
-          ...spec,
-          facetId: facetOverrides[spec.statVar] || spec.facetId,
-        }));
-
-      tileSpecCache.current.set(key, list);
-      return list;
-    },
-    [
-      snapToHighestCoverage,
-      useDenom,
-      denom,
-      facetOverrides,
-      props.statVarProvider,
-    ]
-  );
-
-  /**
-   * This helper is a convenience wrapper for getStatVarSpec, used when a tile
-   * has exactly one stat var. It returns the first (and only) element so callers
-   * don’t have to index zero each time.
-   *
-   * @param svDcid a single stat var dcid.
-   * @returns A single StatVarSpec object memoized as per getStatVarSpec
-   */
-  const getSingleStatVarSpec = useCallback(
-    (svDcid: string) => getStatVarSpec([svDcid])[0],
-    [getStatVarSpec]
+  const { getStatVarSpec, getSingleStatVarSpec } = useStatVarSpec(
+    snapToHighestCoverage,
+    useDenom,
+    denom,
+    facetOverrides,
+    props.statVarProvider
   );
 
   /*
