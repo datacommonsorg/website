@@ -112,17 +112,27 @@ article.category {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  padding: 14px 0;
+}
+
+.block-modal {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+  span, p {
+    font-size: 14px!important;
+    line-height: 14px!important;
+  }
 }
 
 .block-toggle {
   align-items: center;
   display: flex;
-  padding: 14px 0;
 
   label {
     align-items: center;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 0;
 
     .label-disabled {
@@ -141,6 +151,7 @@ article.category {
     align-items: center;
     display: flex;
     font-size: 14px;
+    line-height: 14px!important;
   }
 
   .material-icons {

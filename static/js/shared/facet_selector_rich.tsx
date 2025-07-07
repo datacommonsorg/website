@@ -89,6 +89,7 @@ export function FacetSelectorRich({
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSelections, setModalSelections] = useState(svFacetId);
+  const facetVariant = variant;
 
   const totalFacetOptionCount = useMemo(() => {
     if (!facetList) return 0;
@@ -127,7 +128,8 @@ export function FacetSelectorRich({
           ${variant === "small" ? "font-size: 13px;" : theme.typography.text.sm}
           ${theme.typography.family.text}
           ${theme.button.size.md}
-          padding-left: ${theme.spacing.sm}px;
+          padding: ${facetVariant === "inline" ? "0px" : "inherit"};
+          padding-left: ${facetVariant === "inline" ? "0" : theme.spacing.sm}px;
           border: 1px solid transparent;
           line-height: 1rem;
           color: ${theme.colors.text.primary.base};
@@ -149,7 +151,7 @@ export function FacetSelectorRich({
     <>
       <Button
         className={`${SELECTOR_PREFIX}-open-modal-button`}
-        variant="flat"
+        variant={`${facetVariant === "inline" ? "text" : "flat"}`}
         size="sm"
         onClick={(): void => setModalOpen(true)}
         disabled={loading}
@@ -157,6 +159,12 @@ export function FacetSelectorRich({
           ${variant === "small" ? "font-size: 13px;" : ""}
           flex-shrink: 0;
           visibility: ${loading ? "hidden" : "visible"};
+          ${facetVariant === "inline" ? "padding: 0;" : ""}
+          &:hover:not(:disabled):not([aria-disabled]) {
+            ${facetVariant === "inline"
+              ? "text-decoration: underline; border: 1px solid transparent;"
+              : ""}
+          }
         `}
       >
         {intl.formatMessage(

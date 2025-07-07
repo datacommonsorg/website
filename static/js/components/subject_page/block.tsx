@@ -472,13 +472,17 @@ export function Block(props: BlockPropType): ReactElement {
           </span>
         )}
         {showFacetSelector && (
-          <FacetSelector
-            svFacetId={facetOverrides}
-            facetList={facetList}
-            loading={facetsLoading}
-            error={!!facetsError}
-            onSvFacetIdUpdated={onSvFacetIdUpdated}
-          />
+          <div className="block-modal">
+            {(denom || showSnapToHighestCoverageCheckbox) && <span>•</span>}
+            <FacetSelector
+              svFacetId={facetOverrides}
+              facetList={facetList}
+              loading={facetsLoading}
+              error={!!facetsError}
+              onSvFacetIdUpdated={onSvFacetIdUpdated}
+              variant="inline"
+            />
+          </div>
         )}
       </div>
       <div className="block-body row" ref={columnSectionRef}>
