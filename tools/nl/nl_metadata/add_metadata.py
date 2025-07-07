@@ -46,9 +46,9 @@ DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
 PAGE_SIZE = 3000
-# BigQuery query to fetch the SVs. Excludes oecd SVs because they are not present in the data commons KG.
+# BigQuery query to fetch the SVs. Excludes experimental SVs because they are not present in the prod data commons KG.
 # Also excludes SVs with null names, as these don't have enough metadata for Gemini to generate alt sentences.
-BIGQUERY_QUERY = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL AND NOT STARTS_WITH(id, \"oecd\")"
+BIGQUERY_QUERY_BASE = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL AND prov_id != \"dc/base/ExperimentalStatVars\""
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
 EXPORTED_FILE_DIR = "tools/nl/nl_metadata"
 EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
@@ -118,16 +118,45 @@ def extract_flag() -> argparse.Namespace:
       "The folder in the GCS bucket to save the results to. Defaults to 'statvar_metadata'.",
       type=str,
       default=GCS_FILE_DIR)
+  parser.add_argument(
+      "--totalJobs",
+      help=
+      "The total number of jobs to run in parallel, each using a different Gemini API key.",
+      type=int,
+      default=5)
+  parser.add_argument(
+      "--currJob",
+      help=
+      "The current job number (0-indexed) to run. Should be within the range [0, totalJobs).",
+      type=int,
+      default=0)
   args = parser.parse_args()
   return args
 
 
-def get_bq_query(limit: int | None = None) -> str:
+def verify_args(args: argparse.Namespace) -> None:
   """
-  Returns the BigQuery query to fetch the SVs.
+  Verifies the command line arguments passed to the script.
+  Raises an error if any of the arguments are invalid.
+  """
+  if args.totalJobs <= 0:
+    raise ValueError("Total number of jobs must be greater than 0.")
+  if args.currJob < 0 or args.currJob >= args.totalJobs:
+    raise ValueError(
+        f"Current job number must be within the range [0, {args.totalJobs}).")
+  if args.maxStatVars is not None and args.maxStatVars <= 0:
+    raise ValueError("maxStatVars must be a positive integer.")
+
+
+def get_bq_query(num_partitions: int,
+                 curr_partition: int,
+                 limit: int | None = None) -> str:
+  """
+  Returns the BigQuery query to fetch the SVs. 
+  Uses the FARM_FINGERPRINT function to partition the SVs into num_partitions, and only fetches the SVs in the current partition.
   If limit is specified, adds a LIMIT clause to the query.
   """
-  query = BIGQUERY_QUERY
+  query = BIGQUERY_QUERY_BASE + f" AND MOD(ABS(FARM_FINGERPRINT(id)), {num_partitions}) = {curr_partition}"
   if limit is not None:
     query += f" LIMIT {limit}"
   return query
@@ -145,12 +174,14 @@ def split_into_batches(
   return batched_df_list
 
 
-def create_sv_metadata_bigquery(max_stat_vars: int | None = None) -> Iterator:
+def create_sv_metadata_bigquery(num_partitions: int,
+                                curr_partition: int,
+                                max_stat_vars: int | None = None) -> Iterator:
   """
   Fetches all the SVs from BigQuery, and returns them in batches of PAGE_SIZE (3000).
   """
   client = bigquery.Client()
-  query = get_bq_query(max_stat_vars)
+  query = get_bq_query(num_partitions, curr_partition, max_stat_vars)
   query_job = client.query(query)
   results = query_job.result(page_size=PAGE_SIZE)
 
@@ -416,11 +447,13 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
 
 async def main():
   args: argparse.Namespace = extract_flag()
+  verify_args(args)
 
   if args.useBigQuery:
     # Fetch from all 700,000+ SVs from BigQuery
     # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
-    sv_metadata_iter: Iterator = create_sv_metadata_bigquery(args.maxStatVars)
+    sv_metadata_iter: Iterator = create_sv_metadata_bigquery(
+        args.totalJobs, args.currJob, args.maxStatVars)
   else:
     # Fetch from only the ~3600 SVs currently used for NL
     # SV Metadata is returned from create_sv_metadata_nl as a list of dictionaries, where each dictionary contains up to BATCH_SIZE (100) SVs.
@@ -439,7 +472,7 @@ async def main():
           f"Starting to generate alt sentences for batch number {page_number}")
       full_metadata = await batch_generate_alt_sentences(
           full_metadata, gemini_prompt)
-    exported_filename = f"{exported_sv_file}_{page_number}"
+    exported_filename = f"{exported_sv_file}_job{args.currJob}_{page_number}"
     export_to_json(full_metadata, exported_filename, args.saveToGCS,
                    args.gcsFolder)
     page_number += 1
