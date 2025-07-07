@@ -124,7 +124,7 @@ def extract_flag() -> argparse.Namespace:
       help=
       "The total number of jobs to run in parallel, each using a different Gemini API key. Only used if --useBigQuery is specified.",
       type=int,
-      default=5)
+      default=1)
   parser.add_argument(
       "--currJob",
       help=
@@ -473,7 +473,9 @@ async def main():
           f"Starting to generate alt sentences for batch number {page_number}")
       full_metadata = await batch_generate_alt_sentences(
           full_metadata, gemini_prompt)
-    exported_filename = f"{exported_sv_file}_job{args.currJob}_{page_number}"
+    exported_filename = f"{exported_sv_file}_{page_number}"
+    if args.totalJobs > 1:
+      exported_filename = f"{exported_sv_file}_job{args.currJob}_{page_number}"
     export_to_json(full_metadata, exported_filename, args.saveToGCS,
                    args.gcsFolder)
     page_number += 1
