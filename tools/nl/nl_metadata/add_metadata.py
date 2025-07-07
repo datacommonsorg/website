@@ -120,15 +120,15 @@ def extract_flag() -> argparse.Namespace:
       type=str,
       default=GCS_FILE_DIR)
   parser.add_argument(
-      "--totalJobs",
+      "--totalPartitions",
       help=
-      "The total number of jobs to run in parallel, each using a different Gemini API key. Only used if --useBigQuery is specified.",
+      "The total number of partitions to run in parallel, each using a different Gemini API key. Only used if --useBigQuery is specified.",
       type=int,
       default=1)
   parser.add_argument(
-      "--currJob",
+      "--currPartition",
       help=
-      "The current job number (0-indexed) to run. Should be within the range [0, totalJobs). Only used if --useBigQuery is specified.",
+      "The current partition number (0-indexed) to run. Should be within the range [0, totalPartitions). Only used if --useBigQuery is specified.",
       type=int,
       default=0)
   args = parser.parse_args()
@@ -140,11 +140,11 @@ def verify_args(args: argparse.Namespace) -> None:
   Verifies the command line arguments passed to the script.
   Raises an error if any of the arguments are invalid.
   """
-  if args.totalJobs <= 0:
-    raise ValueError("Total number of jobs must be greater than 0.")
-  if args.currJob < 0 or args.currJob >= args.totalJobs:
+  if args.totalPartitions <= 0:
+    raise ValueError("Total number of partitions must be greater than 0.")
+  if args.currPartition < 0 or args.currPartition >= args.totalPartitions:
     raise ValueError(
-        f"Current job number must be within the range [0, {args.totalJobs}).")
+        f"Current partition number must be within the range [0, {args.totalPartitions}).")
   if args.maxStatVars is not None and args.maxStatVars <= 0:
     raise ValueError("maxStatVars must be a positive integer.")
 
@@ -454,7 +454,7 @@ async def main():
     # Fetch from all 700,000+ SVs from BigQuery
     # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
     sv_metadata_iter: Iterator = create_sv_metadata_bigquery(
-        args.totalJobs, args.currJob, args.maxStatVars)
+        args.totalPartitions, args.currPartition, args.maxStatVars)
   else:
     # Fetch from only the ~3600 SVs currently used for NL
     # SV Metadata is returned from create_sv_metadata_nl as a list of dictionaries, where each dictionary contains up to BATCH_SIZE (100) SVs.
@@ -474,8 +474,8 @@ async def main():
       full_metadata = await batch_generate_alt_sentences(
           full_metadata, gemini_prompt)
     exported_filename = f"{exported_sv_file}_{page_number}"
-    if args.totalJobs > 1:
-      exported_filename = f"{exported_sv_file}_job{args.currJob}_{page_number}"
+    if args.totalPartitions > 1:
+      exported_filename = f"{exported_sv_file}_partition{args.currPartition}_{page_number}"
     export_to_json(full_metadata, exported_filename, args.saveToGCS,
                    args.gcsFolder)
     page_number += 1
