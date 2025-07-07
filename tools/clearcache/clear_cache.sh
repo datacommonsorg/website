@@ -51,17 +51,11 @@ clear_cache_env() {
 
 # Main script logic
 if [ -z "$1" ]; then
-  echo "Usage: $0 [undata|stanford|prod|dev|staging]"
+  echo "Usage: $0 [prod|dev|staging]"
   exit 1
 fi
 
 case "$1" in
-  undata)
-    clear_cache_env datcom-recon-autopush datacommons-us-central1-a us-central1-a us-central1
-    ;;
-  stanford)
-    clear_cache_env datcom-stanford website-us-central1 us-central1
-    ;;
   dev)
     clear_cache_env datcom-website-dev website-us-central1 us-central1
     ;;
@@ -74,7 +68,7 @@ case "$1" in
     ;;
   *)
     echo "Invalid environment: $1"
-    echo "Usage: $0 [stanford|prod|dev]"
+    echo "Usage: $0 [prod|dev|staging]"
     exit 1
     ;;
 esac
