@@ -25,6 +25,7 @@ import server.webdriver.shared as shared
 
 TIMELINE_URL = '/tools/visualization#visType=timeline'
 URL_HASH_1 = '&place=geoId/06___geoId/08&sv=%7B"dcid"%3A"Median_Age_Person"%7D___%7B"dcid"%3A"Count_Person_Female"%7D___%7B"dcid"%3A"Count_Person_Male"%7D'
+URL_HASH_2 = '&place=geoId/06___geoId/08&placeType=County&sv=%7B"dcid"%3A"LifeExpectancy_Person"%7D'
 PLACE_SEARCH_CA = 'California'
 PLACE_SEARCH_USA = 'USA'
 
@@ -79,9 +80,10 @@ class VisTimelineTestMixin():
     stat_var_chips = self.driver.find_elements(
         By.CSS_SELECTOR, '.selected-option-chip.stat-var .chip-content')
     self.assertEqual(len(stat_var_chips), 3)
-    self.assertTrue('Median Age of Population' in stat_var_chips[0].text)
-    self.assertTrue('Female Population' in stat_var_chips[1].text)
-    self.assertTrue('Male Population' in stat_var_chips[2].text)
+    self.assertTrue(
+        'median age of population' in stat_var_chips[0].text.lower())
+    self.assertTrue('female population' in stat_var_chips[1].text.lower())
+    self.assertTrue('male population' in stat_var_chips[2].text.lower())
 
     # Assert charts are correct
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
@@ -137,6 +139,25 @@ class VisTimelineTestMixin():
     self.assertEqual(len(chart_lines), 4)
     chart_lines = charts[1].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 2)
+
+  def test_no_facet_choices_available(self):
+    """Test that for a stat var with only one source, we show a message
+    instead of the source selector modal button.
+    """
+    self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_2)
+
+    # Wait until the chart has loaded
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+
+    # Find the chart timeline container element
+    chart_timeline = find_elem(self.driver,
+                               value='.chart.timeline',
+                               by=By.CSS_SELECTOR)
+
+    # Check for the existence of the message
+    header_message = chart_timeline.find_element(
+        By.XPATH, ".//header/p[text()='Displaying all the datasets available']")
+    self.assertIsNotNone(header_message)
 
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to

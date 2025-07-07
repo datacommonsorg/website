@@ -56,6 +56,8 @@ interface ChartProps {
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
   facetList: FacetSelectorFacetInfo[];
+  facetListLoading: boolean;
+  facetListError: boolean;
   geoRaster: any;
   mapType: MAP_TYPE;
   children: ReactNode;
@@ -99,6 +101,8 @@ export function Chart(props: ChartProps): ReactElement {
         onSvFacetIdUpdated={(svFacetId): void =>
           statVar.setMetahash(svFacetId[statVar.value.dcid])
         }
+        facetListLoading={props.facetListLoading}
+        facetListError={props.facetListError}
       />
       <Card className="chart-section-card">
         <Container id={SECTION_CONTAINER_ID} fluid={true}>
