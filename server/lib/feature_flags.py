@@ -19,6 +19,7 @@ AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
 BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
 STANDARDIZED_VIS_TOOL_FEATURE_FLAG = 'standardized_vis_tool'
+FEATURE_FLAG_URL_OVERRIDE_PARAM = 'enable_feature'
 
 
 def is_feature_enabled(feature_name: str, app=None) -> bool:
