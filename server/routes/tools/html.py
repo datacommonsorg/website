@@ -20,8 +20,8 @@ from flask import current_app
 from flask import g
 from flask import request
 
-from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_PARAM
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
