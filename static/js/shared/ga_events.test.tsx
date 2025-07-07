@@ -1058,11 +1058,16 @@ describe("test ga event for the FacetSelector component", () => {
         name: STAT_VAR_1,
         metadataMap: {
           facet1: {
-            importName: "Test Import",
-            measurementMethod: "Test Method",
+            importName: "Test Import One",
+            measurementMethod: "Test Method One",
             observationPeriod: "P1Y",
             scalingFactor: "1",
             unit: "USD",
+          },
+          facet2: {
+            importName: "Test Import One",
+            measurementMethod: "Test Method One",
+            observationPeriod: "P1M",
           },
         },
       },
@@ -1084,11 +1089,11 @@ describe("test ga event for the FacetSelector component", () => {
     );
 
     await waitFor(() => {
-      const button = getByText(/Select (?:a\s+)?dataset/i);
+      const button = getByText(/Explore other datasets/i);
       expect((button as HTMLButtonElement).disabled).toBe(false);
     });
 
-    fireEvent.click(getByText(/Select (?:a\s+)?dataset/i));
+    fireEvent.click(getByText(/Explore other datasets/i));
 
     await waitFor(() => {
       expect(getByText("Update")).toBeTruthy();
