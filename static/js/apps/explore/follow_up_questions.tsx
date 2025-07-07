@@ -54,7 +54,7 @@ export function FollowUpQuestions(
 ): ReactElement {
   const [followUpQuestions, setFollowUpQuestions] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { ref } = useInView({
+  const { ref: inViewRef } = useInView({
     triggerOnce: true,
     rootMargin: "0px",
     onChange: (inView) => {
@@ -82,7 +82,7 @@ export function FollowUpQuestions(
   }, [props.query, props.pageMetadata]);
 
   return (
-    <div ref={ref}>
+    <div ref={inViewRef}>
       {loading && (
         <div className="loading-container">
           <Loading />
