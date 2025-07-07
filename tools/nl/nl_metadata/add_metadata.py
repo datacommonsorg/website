@@ -30,12 +30,12 @@ import os
 from datacommons_client.client import DataCommonsClient
 from dotenv import load_dotenv
 from gemini_prompt import get_gemini_prompt
-from google import genai
 from google.api_core.page_iterator import Iterator
 from google.api_core.page_iterator import Page
 from google.cloud import bigquery
 from google.cloud import storage
 from google.genai import types
+import google.genai as genai
 import pandas as pd
 from sv_types import englishSchema
 from sv_types import frenchSchema
@@ -46,7 +46,9 @@ DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
 PAGE_SIZE = 3000
-BIGQUERY_QUERY = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL"
+# BigQuery query to fetch the SVs. Excludes oecd SVs because they are not present in the data commons KG. 
+# Also excludes SVs with null names, as these don't have enough metadata for Gemini to generate alt sentences.
+BIGQUERY_QUERY = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL AND NOT STARTS_WITH(id, \"oecd\")"
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
 EXPORTED_FILE_DIR = "tools/nl/nl_metadata"
 EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
@@ -394,9 +396,6 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
   local_file_path = f"{EXPORTED_FILE_DIR}/{filename}"
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
   sv_metadata_json = sv_metadata_df.to_json(orient="records", lines=True)
-  with open(local_file_path, "w") as f:
-    f.write(sv_metadata_json)
-  print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
 
   if should_save_to_gcs:
     gcs_client = storage.Client(project=GCS_PROJECT_ID)
@@ -408,6 +407,11 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
     print(
         f"{len(sv_metadata_list)} statvars saved to gs://{GCS_BUCKET}/{gcs_file_path}"
     )
+    return
+  
+  with open(local_file_path, "w") as f:
+    f.write(sv_metadata_json)
+  print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
 
 
 async def main():
