@@ -13,7 +13,8 @@
 # limitations under the License.
 """
 This script retrives the metadata from the data commons API or BigQuery (BQ) table and exports it in the following stages:
-1. Import the existing data commons SVs from either the existing NL SVs or BigQuery. If importing from BQ, separate the table into pages of up to 3000 SVs.
+1. Import the existing data commons SVs from either the existing NL SVs or BigQuery. 
+   If importing from BQ, separate the table into {num_partitions} and only process the SVs from {curr_partition} as specified by flag arguments, returning the data in pages of up to 3000 SVs.
 2. For each page, extract the metadata (either from DC API or BQ) and any constraintProperties to store in a list. 
 3. Optionally, call the Gemini API in parallel batches of up to 100 SVs each to generate approximately 5 alternative sentences per SV based on the metadata. 
    Also translate the metadata if a target language is specified.
@@ -121,13 +122,13 @@ def extract_flag() -> argparse.Namespace:
   parser.add_argument(
       "--totalJobs",
       help=
-      "The total number of jobs to run in parallel, each using a different Gemini API key.",
+      "The total number of jobs to run in parallel, each using a different Gemini API key. Only used if --useBigQuery is specified.",
       type=int,
       default=5)
   parser.add_argument(
       "--currJob",
       help=
-      "The current job number (0-indexed) to run. Should be within the range [0, totalJobs).",
+      "The current job number (0-indexed) to run. Should be within the range [0, totalJobs). Only used if --useBigQuery is specified.",
       type=int,
       default=0)
   args = parser.parse_args()
