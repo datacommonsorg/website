@@ -22,6 +22,12 @@ import _ from "lodash";
 import React from "react";
 
 import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
+import {
+  GA_EVENT_RELATED_TOPICS_CLICK,
+  GA_PARAM_RELATED_TOPICS_MODE,
+  GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
@@ -59,7 +65,16 @@ export function ResultHeaderSection(
       </div>
       {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
         <div className="explore-topics-box">
-          <ItemList items={topicList} showRelevantTopicLabel={true}></ItemList>
+          <ItemList
+            items={topicList}
+            showRelevantTopicLabel={true}
+            onItemClicked={(): void => {
+              triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK, {
+                [GA_PARAM_RELATED_TOPICS_MODE]:
+                  GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS,
+              });
+            }}
+          ></ItemList>
         </div>
       )}
     </>
