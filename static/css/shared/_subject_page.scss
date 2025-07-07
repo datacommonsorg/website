@@ -111,8 +111,14 @@ article.category {
 .block-controls {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 7px;
   padding: 14px 0;
+}
+
+.block-controls-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .block-modal {

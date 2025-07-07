@@ -47,6 +47,10 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { FacetSelector } from "../../shared/facet_selector";
+import {
+  isFeatureEnabled,
+  METADATA_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import { usePromiseResolver } from "../../shared/hooks/promise_resolver";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { fetchFacetsWithMetadata } from "../../tools/shared/metadata/metadata_fetcher";
@@ -211,7 +215,9 @@ function blockEligibleForFacetSelector(
   columns: ColumnConfig[],
   isWebComponentBlock: boolean
 ): boolean {
-  if (isWebComponentBlock) return false;
+  if (isWebComponentBlock || !isFeatureEnabled(METADATA_FEATURE_FLAG)) {
+    return false;
+  }
 
   const allChartTiles = _.flatten(columns.map((c) => c.tiles)).filter((t) =>
     CHART_TILES_WITH_FACET_SELECTOR.has(t.type)
@@ -414,66 +420,74 @@ export function Block(props: BlockPropType): ReactElement {
   return (
     <>
       <div className="block-controls">
-        {denom && (
-          <span className="block-toggle">
-            <label>
-              <Input
-                type="checkbox"
-                checked={useDenom}
-                onChange={(): void => setUseDenom(!useDenom)}
-              />
-              <span data-testid="see-per-capita">
-                {intl.formatMessage(messages.seePerCapita)}
+        {(denom || showSnapToHighestCoverageCheckbox) && (
+          <div className="block-controls-inner">
+            {denom && (
+              <span className="block-toggle">
+                <label>
+                  <Input
+                    type="checkbox"
+                    checked={useDenom}
+                    onChange={(): void => setUseDenom(!useDenom)}
+                  />
+                  <span data-testid="see-per-capita">
+                    {intl.formatMessage(messages.seePerCapita)}
+                  </span>
+                </label>
               </span>
-            </label>
-          </span>
-        )}
-        {showSnapToHighestCoverageCheckbox && (
-          <span className="block-toggle">
-            <label>
-              <Input
-                checked={snapToHighestCoverage}
-                disabled={!enableSnapToLatestData}
-                onChange={(): void =>
-                  setSnapToHighestCoverage(!snapToHighestCoverage)
-                }
-                type="checkbox"
-              />
-              <span className={enableSnapToLatestData ? "" : "label-disabled"}>
-                <FormattedMessage
-                  description="Checkbox label for an option that tells a chart visualization to show the latest data available"
-                  defaultMessage="Snap to date with highest coverage"
-                  id="snap-to-latest-data-checkbox-label"
-                />
+            )}
+            {showSnapToHighestCoverageCheckbox && (
+              <span className="block-toggle">
+                <label>
+                  <Input
+                    checked={snapToHighestCoverage}
+                    disabled={!enableSnapToLatestData}
+                    onChange={(): void =>
+                      setSnapToHighestCoverage(!snapToHighestCoverage)
+                    }
+                    type="checkbox"
+                  />
+                  <span
+                    className={enableSnapToLatestData ? "" : "label-disabled"}
+                  >
+                    <FormattedMessage
+                      description="Checkbox label for an option that tells a chart visualization to show the latest data available"
+                      defaultMessage="Snap to date with highest coverage"
+                      id="snap-to-latest-data-checkbox-label"
+                    />
+                  </span>
+                </label>
+                <span className="material-icons" ref={snapToLatestDataInfoRef}>
+                  help_outlined
+                </span>
+                <UncontrolledTooltip
+                  className="dc-tooltip"
+                  placement="auto"
+                  target={snapToLatestDataInfoRef}
+                >
+                  {enableSnapToLatestData ? (
+                    <FormattedMessage
+                      description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
+                      defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
+                      id="snap-to-latest-data-help-tooltip"
+                    />
+                  ) : (
+                    <FormattedMessage
+                      description="Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
+                      defaultMessage="The highest coverage data is also the latest data available for this chart."
+                      id="snap-to-latest-data-overlap-help-tooltip"
+                    />
+                  )}
+                </UncontrolledTooltip>
               </span>
-            </label>
-            <span className="material-icons" ref={snapToLatestDataInfoRef}>
-              help_outlined
-            </span>
-            <UncontrolledTooltip
-              className="dc-tooltip"
-              placement="auto"
-              target={snapToLatestDataInfoRef}
-            >
-              {enableSnapToLatestData ? (
-                <FormattedMessage
-                  description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
-                  defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
-                  id="snap-to-latest-data-help-tooltip"
-                />
-              ) : (
-                <FormattedMessage
-                  description="Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
-                  defaultMessage="The highest coverage data is also the latest data available for this chart."
-                  id="snap-to-latest-data-overlap-help-tooltip"
-                />
-              )}
-            </UncontrolledTooltip>
-          </span>
+            )}
+          </div>
         )}
         {showFacetSelector && (
           <div className="block-modal">
-            {(denom || showSnapToHighestCoverageCheckbox) && <span>•</span>}
+            {!facetsLoading && (denom || showSnapToHighestCoverageCheckbox) && (
+              <span>•</span>
+            )}
             <FacetSelector
               svFacetId={facetOverrides}
               facetList={facetList}
