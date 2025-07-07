@@ -46,7 +46,7 @@ DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 BATCH_SIZE = 100
 PAGE_SIZE = 3000
-# BigQuery query to fetch the SVs. Excludes oecd SVs because they are not present in the data commons KG. 
+# BigQuery query to fetch the SVs. Excludes oecd SVs because they are not present in the data commons KG.
 # Also excludes SVs with null names, as these don't have enough metadata for Gemini to generate alt sentences.
 BIGQUERY_QUERY = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL AND NOT STARTS_WITH(id, \"oecd\")"
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
@@ -408,7 +408,7 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
         f"{len(sv_metadata_list)} statvars saved to gs://{GCS_BUCKET}/{gcs_file_path}"
     )
     return
-  
+
   with open(local_file_path, "w") as f:
     f.write(sv_metadata_json)
   print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
