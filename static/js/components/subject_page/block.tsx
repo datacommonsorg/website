@@ -186,6 +186,7 @@ export function Block(props: BlockPropType): JSX.Element {
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
   const [useDenom, setUseDenom] = useState(props.startWithDenom);
+  const [denom, setDenom] = useState<string>("");
   const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
     props.columns,
     props.statVarProvider
@@ -241,14 +242,23 @@ export function Block(props: BlockPropType): JSX.Element {
           props.statVarProvider
         );
       setEnableSnapToLatestData(enableSnapToHighestCoverage);
-      setShowSnapToHighestCoverageCheckbox(true);
+
+      // We want to disable the block controls for the highlight chart.
+      setShowSnapToHighestCoverageCheckbox(!props.highlightFacet);
     })();
   }, [props]);
+
+  useEffect(() => {
+    setDenom(props.denom || "");
+    if (props.highlightFacet) {
+      setDenom("");
+    }
+  }, [props.highlightFacet, props.denom]);
 
   return (
     <>
       <div className="block-controls">
-        {props.denom && (
+        {denom && (
           <span className="block-toggle">
             <label>
               <Input
@@ -328,7 +338,7 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        useDenom ? props.denom : "",
+                        useDenom ? denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
                           : undefined
@@ -340,7 +350,7 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        useDenom ? props.denom : "",
+                        useDenom ? denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
                           : undefined

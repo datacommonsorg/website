@@ -136,6 +136,7 @@
                 ]
               }
             ],
+            "description": "Percentage of the labor force actively seeking work but unable to find employment.",
             "title": "Unemployment Rate"
           },
           {
@@ -167,6 +168,7 @@
                 ]
               }
             ],
+            "description": "Percentage of the labor force actively seeking work but unable to find employment.",
             "title": "Unemployment Rate in Cities of Placer County"
           },
           {
@@ -493,6 +495,13 @@
         {
           "dcid": "geoId/0677728",
           "name": "Tahoma",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q5245735",
+          "name": "Deadwood",
           "types": [
             "City"
           ]

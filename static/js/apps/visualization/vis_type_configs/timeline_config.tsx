@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +19,22 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement, useCallback } from "react";
 
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
 import { FacetSelector } from "../../../shared/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
+import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
+import { fetchFacetsWithMetadata } from "../../../tools/shared/metadata/metadata_fetcher";
 import { getStatVarGroups } from "../../../utils/app/timeline_utils";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { getFacets } from "../../../utils/data_fetch_utils";
 import { AppContextType, ContextStatVar } from "../app_context";
-import { ChartFooter } from "../chart_footer";
+import { ChartHeader } from "../chart_header";
 import { VisType } from "../vis_type_configs";
 
 const COLORS = [
@@ -48,7 +51,7 @@ const COLORS = [
 function getSvChips(
   statVars: ContextStatVar[],
   appContext: AppContextType
-): JSX.Element {
+): ReactElement {
   return (
     <div className="timeline-chip-section">
       {statVars.map((sv, idx) => {
@@ -81,40 +84,51 @@ function groupStatVars(appContext: AppContextType): {
 } {
   const statVarInfo = {};
   appContext.statVars.forEach((sv) => (statVarInfo[sv.dcid] = sv.info));
-  const lineChartGrouping = getStatVarGroups(
+  return getStatVarGroups(
     appContext.statVars.map((sv) => sv.dcid),
     statVarInfo,
     new Set(
       appContext.statVars.filter((sv) => sv.isPerCapita).map((sv) => sv.dcid)
     )
   );
-  return lineChartGrouping;
 }
 
-function getFacetSelector(
-  appContext: AppContextType,
-  chartSvInfo: ContextStatVar[]
-): JSX.Element {
+interface ChartFacetSelectorProps {
+  appContext: AppContextType;
+  chartSvInfo: ContextStatVar[];
+}
+
+function ChartFacetSelector({
+  appContext,
+  chartSvInfo,
+}: ChartFacetSelectorProps): ReactElement {
+  const dataCommonsClient = getDataCommonsClient();
+  const fetchFacets = useCallback(async () => {
+    const baseFacets = await getFacets(
+      "",
+      appContext.places.map((place) => place.dcid),
+      chartSvInfo.map((sv) => sv.dcid)
+    );
+    const enrichedFacets = await fetchFacetsWithMetadata(
+      baseFacets,
+      dataCommonsClient
+    );
+    return chartSvInfo.map((sv) => ({
+      dcid: sv.dcid,
+      name: sv.info.title || sv.dcid,
+      metadataMap: enrichedFacets[sv.dcid] || {},
+    }));
+  }, [appContext, chartSvInfo, dataCommonsClient]);
+
+  const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
+
   const svFacetId = {};
   chartSvInfo.forEach((sv) => {
     svFacetId[sv.dcid] = sv.facetId;
   });
-  const facetListPromise = getFacets(
-    "",
-    appContext.places.map((place) => place.dcid),
-    chartSvInfo.map((sv) => sv.dcid)
-  ).then((resp) => {
-    const result = chartSvInfo.map((sv) => {
-      return {
-        dcid: sv.dcid,
-        name: sv.info.title || sv.dcid,
-        metadataMap: resp[sv.dcid] || {},
-      };
-    });
-    return result;
-  });
-  const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
+
   const onSvFacetIdUpdated = (svFacetId: Record<string, string>): void => {
+    const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
     const facetsChanged = chartSvInfo.filter(
       (sv): boolean => sv.facetId !== svFacetId[sv.dcid]
     );
@@ -133,7 +147,9 @@ function getFacetSelector(
   return (
     <FacetSelector
       svFacetId={svFacetId}
-      facetListPromise={facetListPromise}
+      facetList={facetList}
+      loading={loading}
+      error={!!error}
       onSvFacetIdUpdated={onSvFacetIdUpdated}
     />
   );
@@ -142,7 +158,7 @@ function getFacetSelector(
 function getChartArea(
   appContext: AppContextType,
   chartHeight: number
-): JSX.Element {
+): ReactElement {
   const lineChartGrouping = groupStatVars(appContext);
   return (
     <>
@@ -178,6 +194,15 @@ function getChartArea(
             ];
         return (
           <div className="chart timeline" key={chartId}>
+            <ChartHeader
+              inputSections={[{ inputs: chartPCInputs }]}
+              facetSelector={
+                <ChartFacetSelector
+                  appContext={appContext}
+                  chartSvInfo={chartSvInfo}
+                />
+              }
+            />
             {getSvChips(chartSvInfo, appContext)}
             <LineTile
               comparisonPlaces={appContext.places.map((place) => place.dcid)}
@@ -189,10 +214,6 @@ function getChartArea(
               colors={COLORS}
               showTooltipOnHover={true}
             />
-            <ChartFooter
-              inputSections={[{ inputs: chartPCInputs }]}
-              facetSelector={getFacetSelector(appContext, chartSvInfo)}
-            />
           </div>
         );
       })}
@@ -200,7 +221,7 @@ function getChartArea(
   );
 }
 
-function getInfoContent(): JSX.Element {
+function getInfoContent(): ReactElement {
   const hideExamples = _.isEmpty(window.infoConfig["timeline"]);
   return (
     <div className="info-content">

@@ -256,6 +256,7 @@
                 ]
               }
             ],
+            "description": "Measure of how quickly the number of individuals in a population changes over a given period.",
             "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey"
           },
           {
@@ -284,6 +285,7 @@
                 ]
               }
             ],
+            "description": "Measure of how quickly the number of individuals in a population changes over a given period.",
             "title": "Rate of Population Growth"
           },
           {
@@ -661,7 +663,7 @@
         },
         {
           "dcid": "nuts/TR421",
-          "name": "Kocaeli",
+          "name": "Kocaeli Province",
           "types": [
             "EurostatNUTS3"
           ]
@@ -752,7 +754,7 @@
         },
         {
           "dcid": "nuts/TR631",
-          "name": "Hatay",
+          "name": "Hatay Province",
           "types": [
             "EurostatNUTS3"
           ]

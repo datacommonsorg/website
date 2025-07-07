@@ -16,8 +16,14 @@
 
 /* eslint-disable camelcase */
 
-jest.mock("axios");
+import theme from "../../theme/theme";
 
+jest.mock("axios");
+jest.mock("../../tools/shared/metadata/metadata_fetcher", () => ({
+  fetchFacetsWithMetadata: jest.fn().mockResolvedValue({}),
+}));
+
+import { ThemeProvider } from "@emotion/react";
 import { act, waitFor } from "@testing-library/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
@@ -51,9 +57,11 @@ function TestApp(): JSX.Element {
     });
   }, []);
   return (
-    <Context.Provider value={context}>
-      <App />
-    </Context.Provider>
+    <ThemeProvider theme={theme}>
+      <Context.Provider value={context}>
+        <App />
+      </Context.Provider>
+    </ThemeProvider>
   );
 }
 

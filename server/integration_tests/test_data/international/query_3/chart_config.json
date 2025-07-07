@@ -34,6 +34,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices.",
             "title": "GDP (Nominal Value) in Eurostat Nuts 3 Places of Spain"
           },
           {
@@ -63,6 +64,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices.",
             "title": "GDP (Nominal Value)"
           },
           {
@@ -91,6 +93,7 @@
                 ]
               }
             ],
+            "description": "Measure a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
             "title": "Nominal GDP Per Capita"
           },
           {
@@ -119,6 +122,7 @@
                 ]
               }
             ],
+            "description": "Measures the percentage change in a country's gross domestic product (GDP) over a specific period.",
             "title": "Growth Rate of GDP"
           },
           {
@@ -150,6 +154,7 @@
                 ]
               }
             ],
+            "description": "Measure of a country's total economic output per person, calculated by dividing the nominal GDP by the population.",
             "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain"
           },
           {
@@ -178,6 +183,7 @@
                 ]
               }
             ],
+            "description": "Measure of a country's total economic output per person, calculated by dividing the nominal GDP by the population.",
             "title": "Economic Activity: Nominal GDP (Nominal, Per Capita)"
           },
           {
@@ -280,7 +286,7 @@
         },
         {
           "dcid": "nuts/ES113",
-          "name": "Ourense Province",
+          "name": "Ourense",
           "types": [
             "EurostatNUTS3"
           ]
@@ -308,7 +314,7 @@
         },
         {
           "dcid": "nuts/ES211",
-          "name": "Araba / \u00c1lava",
+          "name": "Araba/\u00c1lava",
           "types": [
             "EurostatNUTS3"
           ]
@@ -378,7 +384,7 @@
         },
         {
           "dcid": "nuts/ES412",
-          "name": "Burgos Province",
+          "name": "Burgos",
           "types": [
             "EurostatNUTS3"
           ]
@@ -399,7 +405,7 @@
         },
         {
           "dcid": "nuts/ES415",
-          "name": "Salamanca Province",
+          "name": "Province of Salamanca",
           "types": [
             "EurostatNUTS3"
           ]
@@ -413,7 +419,7 @@
         },
         {
           "dcid": "nuts/ES417",
-          "name": "Soria",
+          "name": "Soria Province",
           "types": [
             "EurostatNUTS3"
           ]
@@ -441,7 +447,7 @@
         },
         {
           "dcid": "nuts/ES422",
-          "name": "Ciudad Real Province",
+          "name": "Ciudad Real",
           "types": [
             "EurostatNUTS3"
           ]
@@ -469,7 +475,7 @@
         },
         {
           "dcid": "nuts/ES431",
-          "name": "Badajoz Province",
+          "name": "Badajoz",
           "types": [
             "EurostatNUTS3"
           ]
@@ -497,14 +503,14 @@
         },
         {
           "dcid": "nuts/ES513",
-          "name": "Lleida Province",
+          "name": "Lleida",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES514",
-          "name": "Tarragona Province",
+          "name": "Province of Tarragona",
           "types": [
             "EurostatNUTS3"
           ]
@@ -525,7 +531,7 @@
         },
         {
           "dcid": "nuts/ES523",
-          "name": "Valencia / Val\u00e8ncia",
+          "name": "Province of Valencia",
           "types": [
             "EurostatNUTS3"
           ]
@@ -574,14 +580,14 @@
         },
         {
           "dcid": "nuts/ES614",
-          "name": "Granada Province",
+          "name": "Granada",
           "types": [
             "EurostatNUTS3"
           ]
         },
         {
           "dcid": "nuts/ES615",
-          "name": "Huelva Province",
+          "name": "Huelva",
           "types": [
             "EurostatNUTS3"
           ]

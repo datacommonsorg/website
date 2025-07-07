@@ -19,37 +19,26 @@
  */
 
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
-import { intl } from "../../i18n/i18n";
-import { messages } from "../../i18n/i18n_messages";
-import {
-  FacetSelector,
-  FacetSelectorFacetInfo,
-} from "../../shared/facet_selector";
+import { intl } from "../../../i18n/i18n";
+import { messages } from "../../../i18n/i18n_messages";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_PARAM_TOOL_CHART_OPTION,
-  GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   triggerGAEvent,
-} from "../../shared/ga_events";
-import { urlToDisplayText } from "../../shared/util";
+} from "../../../shared/ga_events";
+import { urlToDisplayText } from "../../../shared/util";
 
-interface ToolChartFooterPropType {
+interface ToolChartFooterProps {
   // Id of the chart this footer is being added to.
   chartId: string;
   // Sources the chart got its data from.
   sources: Set<string>;
   // Measurement methods of the data of the chart.
   mMethods: Set<string>;
-  // Map of stat var to facet id of the selected source for that variable.
-  svFacetId: Record<string, string>;
-  // Source selector information for a list of stat vars.
-  facetList: FacetSelectorFacetInfo[];
-  // callback when mapping of stat var dcid to facet id is updated.
-  onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
   // Whether to hide isRatio option.
   hideIsRatio: boolean;
   // Whether or not the chart is showing per capita calculation.
@@ -65,7 +54,7 @@ const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const SELECTOR_PREFIX = "chart-footer";
 const FEEDBACK_LINK = "/feedback";
 
-export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
+export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
   const mMethods = !_.isEmpty(props.mMethods)
     ? Array.from(props.mMethods).join(", ")
     : "";
@@ -130,17 +119,6 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
             </span>
           )}
           {props.children}
-          <FacetSelector
-            svFacetId={props.svFacetId}
-            facetListPromise={Promise.resolve(props.facetList)}
-            onSvFacetIdUpdated={(svFacetId): void => {
-              props.onSvFacetIdUpdated(svFacetId);
-              triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                [GA_PARAM_TOOL_CHART_OPTION]:
-                  GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
-              });
-            }}
-          />
         </div>
       )}
       <div className="feedback-link">
@@ -150,10 +128,10 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
   );
 }
 
-function getSourcesJsx(sources: Set<string>): JSX.Element[] {
+function getSourcesJsx(sources: Set<string>): ReactElement[] {
   const sourceList: string[] = Array.from(sources);
   const seenSourceText = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
+  return sourceList.map((source, index) => {
     const sourceText = urlToDisplayText(source);
     if (seenSourceText.has(sourceText)) {
       return null;
@@ -168,5 +146,4 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
       </span>
     );
   });
-  return sourcesJsx;
 }

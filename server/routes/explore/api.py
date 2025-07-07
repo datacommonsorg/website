@@ -14,6 +14,7 @@
 """Endpoints for Datacommons NL"""
 
 import copy
+import json
 import time
 from typing import Dict
 
@@ -21,8 +22,11 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
+from flask import Response
 
+from server.lib.cache import cache
 from server.lib.nl.common import serialize
+import server.lib.nl.common.bad_words as bad_words
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
@@ -30,11 +34,14 @@ import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as config_builder
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.utils import create_utterance
+from server.lib.nl.explore import related
 import server.lib.nl.explore.fulfiller_bridge as nl_fulfillment
 from server.lib.nl.explore.params import Clients
 from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import Params
 from server.lib.util import get_nl_disaster_config
+from server.lib.util import post_body_cache_key
+from server.routes import TIMEOUT
 from server.routes.explore import helpers
 import server.services.bigtable as bt
 
@@ -128,6 +135,41 @@ def detect_and_fulfill():
   utterance.counters.timeit('setup_for_explore', start)
 
   return _fulfill_with_chart_config(utterance, debug_logs)
+
+
+#
+# The follow up question endpoint that generates questions
+# based off of the initial query and topics found in the related topics.
+#
+@bp.route('/follow-up-questions', methods=['POST'])
+@cache.cached(timeout=TIMEOUT, make_cache_key=post_body_cache_key)
+def follow_up_questions():
+
+  initial_query = request.get_json().get('q', '')
+  related_topics = request.get_json().get('relatedTopics', [])
+
+  if not initial_query:
+    return Response(json.dumps({'error': 'Missing query in request.'}),
+                    400,
+                    mimetype="application/json")
+  if not related_topics:
+    return Response(json.dumps({'error': 'Missing related topics in request.'}),
+                    400,
+                    mimetype="application/json")
+
+  generated_questions = related.generate_follow_up_questions(
+      query=initial_query, related_topics=related_topics)
+
+  # Checks for adversarial questions
+  safe_generated_questions = [
+      question for question in generated_questions
+      if bad_words.is_safe(query=question,
+                           bad_words=current_app.config['NL_BAD_WORDS'])
+  ]
+
+  return Response(json.dumps({'follow_up_questions': safe_generated_questions}),
+                  200,
+                  mimetype="application/json")
 
 
 #

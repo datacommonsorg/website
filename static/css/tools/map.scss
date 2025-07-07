@@ -291,7 +291,8 @@
 .chart-section-card.card {
   margin-bottom: 0;
   border-bottom: none;
-  border-radius: 0.25rem 0.25rem 0 0;
+  border-radius: 0;
+  padding-top: 30px;
 }
 
 #map-chart {
