@@ -74,6 +74,7 @@ RETRY_DELAY_SECONDS = 2
 
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
 DC_API_KEY = os.getenv("DC_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
 def extract_flag() -> argparse.Namespace:
@@ -89,6 +90,11 @@ def extract_flag() -> argparse.Namespace:
       "Whether to generate alternative sentences for the SVs using the Gemini API.",
       action="store_true",
       default=False)
+  parser.add_argument(
+      "--geminiApiKey",
+      help="The Gemini API key to use for generating alternative sentences.",
+      type=str,
+      default=GEMINI_API_KEY)  # Default to the key in .env
   parser.add_argument(
       "--language",
       help=
@@ -144,7 +150,8 @@ def verify_args(args: argparse.Namespace) -> None:
     raise ValueError("Total number of partitions must be greater than 0.")
   if args.currPartition < 0 or args.currPartition >= args.totalPartitions:
     raise ValueError(
-        f"Current partition number must be within the range [0, {args.totalPartitions}).")
+        f"Current partition number must be within the range [0, {args.totalPartitions})."
+    )
   if args.maxStatVars is not None and args.maxStatVars <= 0:
     raise ValueError("maxStatVars must be a positive integer.")
 
@@ -379,17 +386,13 @@ async def generate_alt_sentences(
 
 
 async def batch_generate_alt_sentences(
-    sv_metadata_list: list[dict[str, str | list[str]]],
+    sv_metadata_list: list[dict[str, str | list[str]]], gemini_api_key: str,
     gemini_prompt: str) -> list[dict[str, str | list[str]]]:
   """
   Separates sv_metadata_list into batches of 100 entries, and executes multiple parallel calls to generate_alt_sentences
   using Gemini and existing SV metadata. Flattens the list of results, and returns the metadata as a list of dictionaries.
   """
-  gemini_client = genai.Client(
-      vertexai=True,
-      project=GCS_PROJECT_ID,
-      location="global",
-  )
+  gemini_client = genai.Client(api_key=gemini_api_key)
   gemini_config = types.GenerateContentConfig(
       temperature=GEMINI_TEMPERATURE,
       top_p=GEMINI_TOP_P,
@@ -472,7 +475,7 @@ async def main():
       print(
           f"Starting to generate alt sentences for batch number {page_number}")
       full_metadata = await batch_generate_alt_sentences(
-          full_metadata, gemini_prompt)
+          full_metadata, args.geminiApiKey, gemini_prompt)
     exported_filename = f"{exported_sv_file}_{page_number}"
     if args.totalPartitions > 1:
       exported_filename = f"{exported_sv_file}_partition{args.currPartition}_{page_number}"
