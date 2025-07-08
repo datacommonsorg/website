@@ -123,6 +123,7 @@ export interface UrlHashParams {
   maxTopicSvs: string;
   maxCharts: string;
   chartType: string;
+  origin: string;
   facetMetadata?: FacetMetadata;
 }
 
@@ -188,6 +189,7 @@ export function extractUrlHashParams(
   const maxTopicSvs = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPIC_SVS]);
   const maxCharts = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_CHARTS]);
   const chartType = getSingleParam(hashParams[URL_HASH_PARAMS.CHART_TYPE]);
+  const origin = getSingleParam(hashParams[URL_HASH_PARAMS.ORIGIN]);
   const facetMetadata = extractFacetMetadataUrlHashParams(hashParams);
 
   return {
@@ -209,6 +211,7 @@ export function extractUrlHashParams(
     maxTopicSvs,
     maxCharts,
     chartType,
+    origin,
     facetMetadata,
   };
 }
