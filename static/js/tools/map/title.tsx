@@ -20,23 +20,15 @@
 
 import React, { useContext } from "react";
 
-import {
-  isFeatureEnabled,
-  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
+import { intl, LocalizedLink } from "../../i18n/i18n";
 import { Context } from "./context";
 import { ifShowChart } from "./util";
 
 export function Title(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
-  const useStandardizedTitle = isFeatureEnabled(
-    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
-  );
   return (
     <>
-      {!ifShowChart(statVar.value, placeInfo.value) && useStandardizedTitle ? (
-        <StandardizedTitle />
-      ) : (
+      {!ifShowChart(statVar.value, placeInfo.value) && (
         <>
           <div className="app-header">
             <h1 className="mb-4">Map Explorer</h1>
@@ -50,16 +42,41 @@ export function Title(): JSX.Element {
   );
 }
 
-function StandardizedTitle(): JSX.Element {
+/**
+ * Title component with updated text and styling to improve UX
+ *
+ * TODO(juliawu): Once migration to old tools is complete, replace the Title
+ *                component with this one.
+ */
+export function StandardizedTitle(): JSX.Element {
   return (
     <div className="standardized-vis-tool-wrapper">
       <div className="standardized-vis-tool-header">
-        <h1>Map Explorer</h1>
-        <a href="/tools/visualization#visType%3Dmap">Switch tool version</a>
+        <h1>
+          {intl.formatMessage({
+            id: "map_visualization_tool_name",
+            defaultMessage: "Map Explorer",
+            description: "name of the tool that plots maps",
+          })}
+        </h1>
+        <LocalizedLink
+          href="/tools/visualization#visType%3Dmap"
+          text={intl.formatMessage({
+            id: "switch_tool_version",
+            defaultMessage: "Switch tool version",
+            description:
+              "label on button allowing users to switch to an earlier version of our tools",
+          })}
+        ></LocalizedLink>
       </div>
       <div className="standardized-vis-tool-subheader">
-        The map explorer helps you visualize how a statistical variable can vary
-        across geographic regions.
+        {intl.formatMessage({
+          id: "map_visualization_tool_description",
+          defaultMessage:
+            "The map explorer helps you visualize how a statistical variable can vary across geographic regions.",
+          description:
+            "a description of what our map explorer tool is used for",
+        })}
       </div>
     </div>
   );

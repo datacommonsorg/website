@@ -121,6 +121,10 @@ body {
   }
 }
 
+/** TODO(juliawu): Once migration to old visualization tools is complete,
+                   use these styles as default and remove the extra
+                   `class="standardized-vis-tool"` from map.html, scatter.html,
+                   and timeline.html. */
 .standardized-vis-tool {
   .standardized-vis-tool-wrapper {
     width: 100%;

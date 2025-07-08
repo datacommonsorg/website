@@ -23,13 +23,17 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
-import { Title } from "./title";
+import { StandardizedTitle, Title } from "./title";
 import {
   ALLOW_LEAFLET_URL_ARG,
   applyHashDate,
@@ -45,6 +49,9 @@ import {
 function App(): ReactElement {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
+  const useStandardizedUi = isFeatureEnabled(
+    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+  );
 
   return (
     <React.StrictMode>
@@ -54,9 +61,7 @@ function App(): ReactElement {
       />
       <div id="plot-container" className={ASYNC_ELEMENT_HOLDER_CLASS}>
         <Container fluid={true}>
-          <Row>
-            <Title />
-          </Row>
+          <Row>{useStandardizedUi ? <StandardizedTitle /> : <Title />}</Row>
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
