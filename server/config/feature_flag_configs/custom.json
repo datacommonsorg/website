@@ -40,5 +40,17 @@
     "enabled": false,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
+  },
+  {
+    "name": "overall_explanation_experiment",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Enables the overall explanation generated from query and relevant stat vars as an experiment."
+  },
+  {
+    "name": "overall_explanation_general_audience",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Enables the overall explanation generated from query and relevant stat vars to general audience."
   }
 ]
