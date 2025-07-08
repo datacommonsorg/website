@@ -1,4 +1,3 @@
-
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,23 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import requests
-import json
-from absl import app
-from absl import flags
 import csv
 from dataclasses import dataclass
-from typing import Dict, List, Set, Tuple
+import json
 import os
+from typing import Dict, List, Set, Tuple
 
+from absl import app
+from absl import flags
+import requests
 
 FLAGS = flags.FLAGS
 flags.DEFINE_string('input_folder', 'input',
                     'The input directory of files with queries to get svs for')
-flags.DEFINE_string('output_folder', 'output',
-                    'The output directory to save results of getting svs for each query')
-flags.DEFINE_string('topic_cache', 'topic_cache.json',
-                    'file path to a copy of the topic cache at server/config/nl_page/topic_cache.json')
+flags.DEFINE_string(
+    'output_folder', 'output',
+    'The output directory to save results of getting svs for each query')
+flags.DEFINE_string(
+    'topic_cache', 'topic_cache.json',
+    'file path to a copy of the topic cache at server/config/nl_page/topic_cache.json'
+)
 
 _MAX_TOPICS_DEPTH = 3
 _DEFAULT_SVGS_TO_QUERY = ['', 'SDG']
@@ -48,6 +50,7 @@ _SVG_TO_EMBEDDING_IDX = {
 _DEFAULT_PLACE = 'USA'
 _VAR_LIMIT = 100
 _TOPIC_PREFIX = 'dc/topic'
+
 
 @dataclass
 class QueryInfo:
@@ -71,7 +74,7 @@ class VarInfo:
 
 
 def get_queries(input_folder) -> List[QuerySet]:
-    """
+  """
     Parses all CSV files in the specified input folder and constructs a list of QuerySet objects.
 
     Each CSV file is expected to contain rows with the following columns:
@@ -86,24 +89,24 @@ def get_queries(input_folder) -> List[QuerySet]:
     Returns:
       List[QuerySet]: A list of QuerySet objects, one for each CSV file in the input folder.
     """
-    results = []
-    for filename in os.listdir(input_folder):
-      with open(f'{input_folder}/{filename}', 'r') as f:
-        filename_no_ext = filename.split('.')[0]
-        reader = csv.DictReader(f)
-        query_info: Dict[str, QueryInfo] = {}
-        for row in reader:
-          query_num = row.get('query_num', '')
-          query_str = row.get('query')
-          var_string = row.get('var_string').strip()
-          groups = filter(lambda x: x != '', row.get('groups').strip().split(','))
-          if not query_num in query_info:
-            query_info[query_num] = QueryInfo(query_num, query_str, {})
-          if not var_string in query_info[query_num].var_str_to_grps:
-            query_info[query_num].var_str_to_grps[var_string] = set()
-          query_info[query_num].var_str_to_grps[var_string].update(groups)
-        results.append(QuerySet(filename_no_ext, query_info))
-    return results
+  results = []
+  for filename in os.listdir(input_folder):
+    with open(f'{input_folder}/{filename}', 'r') as f:
+      filename_no_ext = filename.split('.')[0]
+      reader = csv.DictReader(f)
+      query_info: Dict[str, QueryInfo] = {}
+      for row in reader:
+        query_num = row.get('query_num', '')
+        query_str = row.get('query')
+        var_string = row.get('var_string').strip()
+        groups = filter(lambda x: x != '', row.get('groups').strip().split(','))
+        if not query_num in query_info:
+          query_info[query_num] = QueryInfo(query_num, query_str, {})
+        if not var_string in query_info[query_num].var_str_to_grps:
+          query_info[query_num].var_str_to_grps[var_string] = set()
+        query_info[query_num].var_str_to_grps[var_string].update(groups)
+      results.append(QuerySet(filename_no_ext, query_info))
+  return results
 
 
 def get_topic_cache(topic_cache_file) -> Dict[str, List[str]]:
@@ -121,13 +124,16 @@ def get_topic_cache(topic_cache_file) -> Dict[str, List[str]]:
   with open(topic_cache_file, 'r') as f:
     topic_cache = json.load(f)
     for node in topic_cache.get('nodes', []):
-      children = node.get('memberList', []) + node.get('relevantVariableList', [])
+      children = node.get('memberList', []) + node.get('relevantVariableList',
+                                                       [])
       for dcid in node.get('dcid', []):
         result[dcid] = children
   return result
 
 
-def get_topic_strings(var_list: List[str], topic_cache: Dict[str, List[str]]) -> Tuple[Dict[str, List[str]], Set[str]]:
+def get_topic_strings(
+    var_list: List[str],
+    topic_cache: Dict[str, List[str]]) -> Tuple[Dict[str, List[str]], Set[str]]:
   """
   Processes a list of variable names to extract and format topic strings, and identifies statistical variables (SVs) included in the topics.
 
@@ -162,9 +168,13 @@ def get_topic_strings(var_list: List[str], topic_cache: Dict[str, List[str]]) ->
       # if the node is not found in the topic cache, assume it is a sv
       if not topic_cache.get(curr_node):
         topic_svs.add(curr_node)
-      next_nodes.extend([(curr_lvl + 1, n) for n in topic_cache.get(curr_node, [])])
+      next_nodes.extend([
+          (curr_lvl + 1, n) for n in topic_cache.get(curr_node, [])
+      ])
   # remove top level topics that are found within other topics
-  filtered_topic_strs = {k: v for k, v in topic_strs.items() if k not in top_level_topics_to_remove}
+  filtered_topic_strs = {
+      k: v for k, v in topic_strs.items() if k not in top_level_topics_to_remove
+  }
   return filtered_topic_strs, topic_svs
 
 
@@ -185,7 +195,8 @@ def get_vars_from_nl_response(query_response) -> List[VarInfo]:
   debug_sv_info = debug_info.get('sv_matching', {})
   for idx, v in enumerate(debug_sv_info.get('SV', [])):
     var_to_score[v] = debug_sv_info['CosineScore'][idx]
-  for v in debug_info.get('counters', {}).get('INFO', {}).get('filtered_svs', [[]])[0]:
+  for v in debug_info.get('counters', {}).get('INFO',
+                                              {}).get('filtered_svs', [[]])[0]:
     var_set.add(v)
   for multi in debug_sv_info.get('MultiSV', {}).get('Candidates', []):
     for p in multi.get('Parts', []):
@@ -218,7 +229,10 @@ def get_var_dcids(var_string, svg_list):
     embedding_idx = _SVG_TO_EMBEDDING_IDX.get(svg)
     idx_param = f'&idx={embedding_idx}' if embedding_idx else ''
     request_query = f'{var_string} {_DEFAULT_PLACE}'
-    nl_response = requests.post(f'http://localhost:8080/api/explore/detect?q={request_query}{idx_param}', json={}, timeout=None)
+    nl_response = requests.post(
+        f'http://localhost:8080/api/explore/detect?q={request_query}{idx_param}',
+        json={},
+        timeout=None)
     var_list.extend(get_vars_from_nl_response(nl_response.json()))
   trimmed_vars = get_trimmed_vars(var_list)
   return trimmed_vars
@@ -247,7 +261,8 @@ def get_trimmed_vars(var_list: List[VarInfo]) -> List[str]:
   return trimmed_vars
 
 
-def get_merged_var_str_to_grps(query_info: List[QueryInfo]) -> Dict[str, Set[str]]:
+def get_merged_var_str_to_grps(
+    query_info: List[QueryInfo]) -> Dict[str, Set[str]]:
   """
   Merges the `var_str_to_grps` mappings from a list of `QueryInfo` objects into a single dictionary.
 
@@ -268,7 +283,8 @@ def get_merged_var_str_to_grps(query_info: List[QueryInfo]) -> Dict[str, Set[str
   return merged_var_str_to_grps
 
 
-def get_dcids_for_var_strs(merged_var_str_to_grps: Dict[str, Set[str]], topic_cache: Dict[str, List[str]]):
+def get_dcids_for_var_strs(merged_var_str_to_grps: Dict[str, Set[str]],
+                           topic_cache: Dict[str, List[str]]):
   """
   Retrieves DCIDs for a set of variable strings, handling topic-based substitutions and error tracking.
 
@@ -296,17 +312,18 @@ def get_dcids_for_var_strs(merged_var_str_to_grps: Dict[str, Set[str]], topic_ca
     topic_strings, svs_in_topics = get_topic_strings(var_list, topic_cache)
     var_dcids[var_str] = []
     for v in var_list:
-        if v in svs_in_topics:
-          continue
-        if v in topic_strings:
-          for t_string in topic_strings[v]:
-            var_dcids[var_str].append(t_string)
-        else:
-          var_dcids[var_str].append(v)
+      if v in svs_in_topics:
+        continue
+      if v in topic_strings:
+        for t_string in topic_strings[v]:
+          var_dcids[var_str].append(t_string)
+      else:
+        var_dcids[var_str].append(v)
   return var_dcids, errors
 
 
-def get_vars(query_info: Dict[str, QueryInfo],  topic_cache: Dict[str, List[str]]):
+def get_vars(query_info: Dict[str, QueryInfo], topic_cache: Dict[str,
+                                                                 List[str]]):
   """
   Retrieves variable DCIDs for each variable string in the provided queries.
 
@@ -320,14 +337,16 @@ def get_vars(query_info: Dict[str, QueryInfo],  topic_cache: Dict[str, List[str]
       - An object representing any errors encountered during variable DCID retrieval.
   """
   merged_var_str_to_grps = get_merged_var_str_to_grps(list(query_info.values()))
-  var_dcids, errors = get_dcids_for_var_strs(merged_var_str_to_grps, topic_cache)
+  var_dcids, errors = get_dcids_for_var_strs(merged_var_str_to_grps,
+                                             topic_cache)
 
   results = []
   for q in list(query_info.values()):
     for var_str in q.var_str_to_grps.keys():
       curr_sv_results = var_dcids.get(var_str)
       if curr_sv_results:
-        results.extend([[q.query_num, q.query_str, var_str, sv] for sv in curr_sv_results])
+        results.extend(
+            [[q.query_num, q.query_str, var_str, sv] for sv in curr_sv_results])
       else:
         results.extend([q.query_num, q.query_str, var_str, ''])
   return results, errors
@@ -340,10 +359,10 @@ def main(_):
     print(f'generating results for {qs.filename}')
     var_results, errors = get_vars(qs.query_info, topic_cache)
     with open(f'{FLAGS.output_folder}/{qs.filename}_vars.csv', 'w') as f:
-        writer = csv.writer(f)
-        writer.writerows(var_results)
+      writer = csv.writer(f)
+      writer.writerows(var_results)
     with open(f'{FLAGS.output_folder}/{qs.filename}_errors.txt', 'w') as f:
-        f.write(json.dumps(errors))
+      f.write(json.dumps(errors))
     print(f'finished generating results for {qs.filename}')
 
 
