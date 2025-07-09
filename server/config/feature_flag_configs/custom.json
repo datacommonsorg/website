@@ -48,9 +48,9 @@
     "description": "Enables the overall explanation generated from query and relevant stat vars as an experiment."
   },
   {
-    "name": "overall_explanation_general_audience",
+    "name": "overall_explanation_general_availability",
     "enabled": false,
     "owner": "javiervazquez",
-    "description": "Enables the overall explanation generated from query and relevant stat vars to general audience."
+    "description": "Makes the overall explanation feature, generated from query and relevant stat vars, generally available."
   }
 ]
