@@ -14,24 +14,25 @@
 """Module for overall explanation."""
 
 import logging
-
 from typing import List
+
 from flask import current_app
 from google import genai
 from pydantic import BaseModel
 
-class OverallExplanation(BaseModel):
-#   """The overall explanation generated based on a query and relevant stat vars
 
-#   Attributes:
-#     explanation: A string containing the generated explanation.
-#   """
+class OverallExplanation(BaseModel):
+  #   """The overall explanation generated based on a query and relevant stat vars
+
+  #   Attributes:
+  #     explanation: A string containing the generated explanation.
+  #   """
   explanation: str
 
 
-_GEMINI_CALL_RETRIES = 3
+_EXPLANATION_GEMINI_CALL_RETRIES = 3
 
-_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17"
+_EXPLANATION_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17"
 
 OVERALL_EXPLANATION_PROMPT = """
 Imagine you are a dynamic, trusted, and factual UI copywriter. Use the following tone of voice guidelines as an approach to this task.
@@ -58,31 +59,31 @@ The available statistical variables are the following: {stat_vars}
 
 """
 
-def generate_overall_explanation(query: str,
-                                 stat_vars: List[str]) -> str:
-#   """ Generates overall explanation based on the initial query and relevant stat vars
 
-#       Args:
-#       query: The initial query made by the user.
-#       stat_vars: The relevant statistical variables that were identified.
+def generate_overall_explanation(query: str, stat_vars: List[str]) -> str:
+  #   """ Generates overall explanation based on the initial query and relevant stat vars
 
-#       Returns:
-#       A string containing the generated explanation.
-#   """
+  #       Args:
+  #       query: The initial query made by the user.
+  #       stat_vars: The relevant statistical variables that were identified.
+
+  #       Returns:
+  #       A string containing the generated explanation.
+  #   """
   if not stat_vars or not query:
-    return []
+    return ""
 
   gemini_api_key = current_app.config["LLM_API_KEY"]
   if not gemini_api_key:
-    return []
+    return ""
 
   gemini = genai.Client(api_key=gemini_api_key)
-  for _ in range(_GEMINI_CALL_RETRIES):
+  for _ in range(_EXPLANATION_GEMINI_CALL_RETRIES):
     try:
       gemini_response = gemini.models.generate_content(
-          model=_GEMINI_MODEL,
-          contents=OVERALL_EXPLANATION_PROMPT.format(
-              initial_query=query, stat_vars=stat_vars),
+          model=_EXPLANATION_GEMINI_MODEL,
+          contents=OVERALL_EXPLANATION_PROMPT.format(initial_query=query,
+                                                     stat_vars=stat_vars),
           config={
               "response_mime_type": "application/json",
               "response_schema": OverallExplanation
@@ -96,4 +97,4 @@ def generate_overall_explanation(query: str,
           exc_info=True)
       continue
 
-  return []
+  return ""

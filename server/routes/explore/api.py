@@ -34,8 +34,8 @@ import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as config_builder
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.utils import create_utterance
-from server.lib.nl.explore import related
 from server.lib.nl.explore import explanation
+from server.lib.nl.explore import related
 import server.lib.nl.explore.fulfiller_bridge as nl_fulfillment
 from server.lib.nl.explore.params import Clients
 from server.lib.nl.explore.params import DCNames
@@ -188,7 +188,8 @@ def overall_explanation():
                     400,
                     mimetype="application/json")
   if not stat_vars:
-    return Response(json.dumps({'error': 'Missing statistical variables in request.'}),
+    return Response(json.dumps(
+        {'error': 'Missing statistical variables in request.'}),
                     400,
                     mimetype="application/json")
 
