@@ -42,15 +42,15 @@
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   },
   {
-    "name": "overall_explanation_experiment",
+    "name": "result_explanation_experiment",
     "enabled": false,
     "owner": "javiervazquez",
-    "description": "Enables the overall explanation generated from query and relevant stat vars as an experiment."
+    "description": "Enables the result explanation generated from query and relevant stat vars as an experiment."
   },
   {
-    "name": "overall_explanation_general_availability",
+    "name": "result_explanation_general_availability",
     "enabled": false,
     "owner": "javiervazquez",
-    "description": "Makes the overall explanation feature, generated from query and relevant stat vars, generally available."
+    "description": "Makes the result explanation feature, generated from query and relevant stat vars, generally available."
   }
 ]
