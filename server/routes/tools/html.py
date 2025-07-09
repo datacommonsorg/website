@@ -42,8 +42,8 @@ def get_example_file(tool):
                       'templates/tools/{}_examples.json'.format(tool))
 
 
-def should_hide_header_search_bar() -> bool:
-  """Determine whether to hide the global search bar in the header"""
+def is_standardized_ui_enabled() -> bool:
+  """Determine if the standardized vis tool UI feature flag is enabled."""
   url_override_present = request.args.get(
       FEATURE_FLAG_URL_OVERRIDE_PARAM) == STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   return is_feature_enabled(
@@ -57,7 +57,7 @@ def timeline():
     return flask.render_template(
         'tools/timeline.html',
         info_json=info_json,
-        is_hide_header_search_bar=should_hide_header_search_bar(),
+        use_standardized_ui=is_standardized_ui_enabled(),
         maps_api_key=current_app.config['MAPS_API_KEY'],
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
@@ -81,7 +81,7 @@ def map():
         'tools/map.html',
         maps_api_key=current_app.config['MAPS_API_KEY'],
         info_json=info_json,
-        is_hide_header_search_bar=should_hide_header_search_bar(),
+        use_standardized_ui=is_standardized_ui_enabled(),
         allow_leaflet=allow_leaflet,
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
@@ -94,7 +94,7 @@ def scatter():
     return flask.render_template(
         'tools/scatter.html',
         info_json=info_json,
-        is_hide_header_search_bar=should_hide_header_search_bar(),
+        use_standardized_ui=is_standardized_ui_enabled(),
         maps_api_key=current_app.config['MAPS_API_KEY'],
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))

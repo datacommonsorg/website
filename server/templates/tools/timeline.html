@@ -16,6 +16,7 @@
 {%- extends BASE_HTML -%}
 
 {% set is_hide_full_footer = true %}
+{% set is_hide_header_search_bar = use_standardized_ui %}
 {% set title = "Timelines Explorer" %}
 {% set main_id = 'main-timeline' %}
 {% set page_id = 'page-timeline' %}
@@ -28,7 +29,11 @@
 
 {% block content %}
 <div id="metadata" class="d-none"></div>
+{% if use_standardized_ui %}
+<div id="main-pane" class="standardized-tool-ui"></div>
+{% else %}
 <div id="main-pane"></div>
+{% endif %}
 <script>
   infoConfig = {{info_json|tojson|safe}};
 </script>

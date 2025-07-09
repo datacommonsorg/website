@@ -29,14 +29,12 @@ export function Title(): JSX.Element {
   return (
     <>
       {!ifShowChart(statVar.value, placeInfo.value) && (
-        <>
-          <div className="app-header">
-            <h1 className="mb-4">Map Explorer</h1>
-            <a href="/tools/visualization#visType%3Dmap">
-              Go back to the new Data Commons
-            </a>
-          </div>
-        </>
+        <div className="app-header">
+          <h1 className="mb-4">Map Explorer</h1>
+          <a href="/tools/visualization#visType%3Dmap">
+            Go back to the new Data Commons
+          </a>
+        </div>
       )}
     </>
   );
@@ -50,8 +48,8 @@ export function Title(): JSX.Element {
  */
 export function StandardizedTitle(): JSX.Element {
   return (
-    <div className="standardized-vis-tool-wrapper">
-      <div className="standardized-vis-tool-header">
+    <div className="standardized-tool-wrapper">
+      <div className="standardized-tool-header">
         <h1>
           {intl.formatMessage({
             id: "map_visualization_tool_name",
@@ -69,7 +67,7 @@ export function StandardizedTitle(): JSX.Element {
           })}
         ></LocalizedLink>
       </div>
-      <div className="standardized-vis-tool-subheader">
+      <div className="standardized-tool-subheader">
         {intl.formatMessage({
           id: "map_visualization_tool_description",
           defaultMessage:
