@@ -139,9 +139,6 @@ const CHART_TILES_WITH_FACET_SELECTOR = new Set([
   "LINE",
   "HIGHLIGHT",
   "SCATTER",
-  //"MAP",
-  //"RANKING",
-  //"BAR",
 ]);
 
 /**
@@ -358,6 +355,15 @@ export function Block(props: BlockPropType): ReactElement {
     error: facetsError,
   } = usePromiseResolver(fetchFacets);
 
+  const hasAlternativeSources = useMemo(() => {
+    if (facetsLoading || !facetList) {
+      return false;
+    }
+    return facetList.some(
+      (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
+    );
+  }, [facetList, facetsLoading]);
+
   const onSvFacetIdUpdated = useCallback(
     (svFacetId: Record<string, string>): void => {
       setFacetOverrides((prev) => ({ ...prev, ...svFacetId }));
@@ -477,7 +483,7 @@ export function Block(props: BlockPropType): ReactElement {
             </UncontrolledTooltip>
           </span>
         )}
-        {showFacetSelector && (
+        {showFacetSelector && hasAlternativeSources && (
           <div className="block-modal-trigger">
             {!facetsLoading && (denom || showSnapToHighestCoverageCheckbox) && (
               <span>•</span>

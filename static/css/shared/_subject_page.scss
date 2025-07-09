@@ -64,6 +64,7 @@ article.category {
     align-items: center;
     display: flex;
     gap: 6px;
+    padding: 14px 0;
 
     span, p {
       font-size: 14px !important;
@@ -130,12 +131,12 @@ article.category {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  padding: 14px 0;
 }
 
 .block-toggle {
   align-items: center;
   display: flex;
+  padding: 14px 0;
 
   label {
     align-items: center;
