@@ -20,7 +20,6 @@ from flask import current_app
 from flask import g
 from flask import request
 
-from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_PARAM
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import STANDARDIZED_VIS_TOOL_FEATURE_FLAG
 
@@ -42,14 +41,6 @@ def get_example_file(tool):
                       'templates/tools/{}_examples.json'.format(tool))
 
 
-def is_standardized_ui_enabled() -> bool:
-  """Determine if the standardized vis tool UI feature flag is enabled."""
-  url_override_present = request.args.get(
-      FEATURE_FLAG_URL_OVERRIDE_PARAM) == STANDARDIZED_VIS_TOOL_FEATURE_FLAG
-  return is_feature_enabled(
-      STANDARDIZED_VIS_TOOL_FEATURE_FLAG) or url_override_present
-
-
 @bp.route('/timeline')
 def timeline():
   with open(get_example_file('timeline')) as f:
@@ -57,7 +48,8 @@ def timeline():
     return flask.render_template(
         'tools/timeline.html',
         info_json=info_json,
-        use_standardized_ui=is_standardized_ui_enabled(),
+        use_standardized_ui=is_feature_enabled(
+            STANDARDIZED_VIS_TOOL_FEATURE_FLAG, request=request),
         maps_api_key=current_app.config['MAPS_API_KEY'],
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
@@ -81,7 +73,8 @@ def map():
         'tools/map.html',
         maps_api_key=current_app.config['MAPS_API_KEY'],
         info_json=info_json,
-        use_standardized_ui=is_standardized_ui_enabled(),
+        use_standardized_ui=is_feature_enabled(
+            STANDARDIZED_VIS_TOOL_FEATURE_FLAG, request=request),
         allow_leaflet=allow_leaflet,
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
@@ -94,7 +87,8 @@ def scatter():
     return flask.render_template(
         'tools/scatter.html',
         info_json=info_json,
-        use_standardized_ui=is_standardized_ui_enabled(),
+        use_standardized_ui=is_feature_enabled(
+            STANDARDIZED_VIS_TOOL_FEATURE_FLAG, request=request),
         maps_api_key=current_app.config['MAPS_API_KEY'],
         sample_questions=json.dumps(
             current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))

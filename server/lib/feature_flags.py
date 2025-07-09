@@ -22,8 +22,14 @@ STANDARDIZED_VIS_TOOL_FEATURE_FLAG = 'standardized_vis_tool'
 FEATURE_FLAG_URL_OVERRIDE_PARAM = 'enable_feature'
 
 
-def is_feature_enabled(feature_name: str, app=None) -> bool:
+def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   """Returns whether the feature with `feature_name` is enabled."""
   if not app:
     app = current_app
-  return app.config['FEATURE_FLAGS'].get(feature_name, False)
+  # check if a URL param override for the feature is present
+  url_override_present = False
+  if request:
+    url_override_present = request.args.get(
+        FEATURE_FLAG_URL_OVERRIDE_PARAM) == feature_name
+  return app.config['FEATURE_FLAGS'].get(feature_name,
+                                         False) or url_override_present
