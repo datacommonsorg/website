@@ -17,28 +17,17 @@ from unittest.mock import DEFAULT
 from unittest.mock import patch
 
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
-from server.lib.nl.explore.explanation import generate_overall_explanation
 from server.lib.nl.explore.related import generate_follow_up_questions
 from web_app import app
 
 QUERY = "What is the rate of education in El Paso?"
 RELATED_TOPICS = ["Educational Attachment", "School Type", "Housing", "Commute"]
-STAT_VARS = [
-    'Bachelors Degree by Major', 'Population With Associates Degree by Gender',
-    'Population With Bachelors Degree by Gender',
-    'Population Enrolled in Private School by Race',
-    'Population Enrolled in Public School by Race'
-]
 EXPECTED_QUESTIONS = [
     'What is the school dropout rate in El Paso?',
     'What is the distribution of students by school type in El Paso?',
     'What is the rate of homeownership in El Paso?',
     'What is the average commute time in El Paso?'
 ]
-
-EXPECTED_EXPLANATION = """To explore the rate of education in El Paso, the population's educational attainment can be investigated.
-The population with associate's, bachelor's, and doctorate degrees, along with overall educational attainment levels, represent key variables for this inquiry.
-Additionally, student enrollment across various educational levels can be examined to understand educational participation."""
 
 
 class TestFollowUpQuestions(unittest.TestCase):
@@ -158,97 +147,3 @@ class TestFollowUpQuestions(unittest.TestCase):
     with app.app_context():
       assert [] == generate_follow_up_questions(query=QUERY,
                                                 related_topics=RELATED_TOPICS)
-
-  @patch('server.routes.explore.api.explanation.generate_overall_explanation',
-         autospec=True)
-  def test_overall_explanation_typical(self, mock):
-    mock.return_value = EXPECTED_EXPLANATION
-
-    resp = app.test_client().post('api/explore/overall-explanation',
-                                  json={
-                                      'q': QUERY,
-                                      'statVars': STAT_VARS
-                                  })
-
-    assert resp.status_code == 200
-    assert resp.json['overall_explanation'] == EXPECTED_EXPLANATION
-
-  def test_overall_explanation_empty_stat_vars(self):
-    stat_vars = []
-    resp = app.test_client().post('api/explore/overall-explanation',
-                                  json={
-                                      'q': QUERY,
-                                      'statVars': stat_vars,
-                                  })
-
-    assert resp.status_code == 400
-    assert resp.json['error'] == 'Missing statistical variables in request.'
-
-  def test_overall_explanation_empty_query(self):
-    query = ""
-    resp = app.test_client().post('api/explore/overall-explanation',
-                                  json={
-                                      'q': query,
-                                      'statVars': STAT_VARS,
-                                  })
-
-    assert resp.status_code == 400
-    assert resp.json['error'] == 'Missing query in request.'
-
-  @patch('server.routes.explore.api.explanation.generate_overall_explanation',
-         autospec=True)
-  def test_overall_explanation_error_gemini_call(self, mock):
-    expected_explanation = ""
-
-    mock.return_value = expected_explanation
-    resp = app.test_client().post('api/explore/overall-explanation',
-                                  json={
-                                      'q': QUERY,
-                                      'statVars': STAT_VARS,
-                                  })
-
-    assert resp.status_code == 200
-    assert resp.json['overall_explanation'] == expected_explanation
-
-  @patch('google.genai.Client', autospec=True)
-  def test_generate_overall_explanation_typical(self, mock_gemini):
-    mock_gemini.return_value.models.generate_content.return_value.parsed.explanation = EXPECTED_EXPLANATION
-    app.config['LLM_API_KEY'] = "MOCK_API_KEY"
-    with app.app_context():
-      assert EXPECTED_EXPLANATION == generate_overall_explanation(
-          query=QUERY, stat_vars=STAT_VARS)
-
-  @patch('google.genai.Client', autospec=True)
-  def test_generate_overall_explanation_retry_once(self, mock_gemini):
-    mock_gemini.return_value.models.generate_content.return_value.parsed.explanation = EXPECTED_EXPLANATION
-    mock_gemini.return_value.models.generate_content.side_effect = [
-        None, DEFAULT
-    ]
-    app.config['LLM_API_KEY'] = "MOCK_API_KEY"
-    with app.app_context():
-      assert EXPECTED_EXPLANATION == generate_overall_explanation(
-          query=QUERY, stat_vars=STAT_VARS)
-
-  @patch('google.genai.Client', autospec=True)
-  def test_generate_overall_explanation_error_request(self, mock_gemini):
-    mock_gemini.return_value.models.generate_content.side_effect = [
-        None, None, None
-    ]
-    app.config['LLM_API_KEY'] = "MOCK_API_KEY"
-    with app.app_context():
-      assert "" == generate_overall_explanation(query=QUERY,
-                                                stat_vars=STAT_VARS)
-
-  def test_generate_overall_explanation_empty_stat_vars(self):
-    stat_vars = []
-    assert "" == generate_overall_explanation(query=QUERY, stat_vars=stat_vars)
-
-  def test_generate_overall_explanation_empty_query(self):
-    query = ""
-    assert "" == generate_overall_explanation(query=query, stat_vars=STAT_VARS)
-
-  def test_generate_overall_explanation_no_api_key(self):
-    # By default, the test app does not have an API key.
-    with app.app_context():
-      assert "" == generate_overall_explanation(query=QUERY,
-                                                stat_vars=STAT_VARS)

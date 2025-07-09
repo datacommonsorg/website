@@ -173,12 +173,12 @@ def follow_up_questions():
                   mimetype="application/json")
 
 
-# The overall explanation endpoint that generates an introductory paragraph
+# The result explanation endpoint that generates an introductory paragraph
 # based off of the initial query and relevant statistical variables.
 #
-@bp.route('/overall-explanation', methods=['POST'])
+@bp.route('/result-explanation', methods=['POST'])
 @cache.cached(timeout=TIMEOUT, make_cache_key=post_body_cache_key)
-def overall_explanation():
+def result_explanation():
 
   initial_query = request.get_json().get('q', '')
   stat_vars = request.get_json().get('statVars', [])
@@ -193,10 +193,16 @@ def overall_explanation():
                     400,
                     mimetype="application/json")
 
-  generated_explanation = explanation.generate_overall_explanation(
+  generated_explanation = explanation.generate_result_explanation(
       query=initial_query, stat_vars=stat_vars)
 
-  return Response(json.dumps({'overall_explanation': generated_explanation}),
+  if not generated_explanation:
+    return Response(json.dumps(
+        {'error': "Result explanation could not be generated at this time."}),
+                    503,
+                    mimetype="application/json")
+
+  return Response(json.dumps({'result_explanation': generated_explanation}),
                   200,
                   mimetype="application/json")
 
