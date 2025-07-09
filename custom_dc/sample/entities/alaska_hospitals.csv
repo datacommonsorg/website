@@ -1,0 +1,22 @@
+facilityId,name,address,city,State,zipCode,county
+cms/20001,Providence Alaska Medical Center,3200 Providence Drive,Anchorage,geoId/02,99508,Anchorage
+cms/20006,Mat-Su Regional Medical Center,2500 South Woodworth Loop,Palmer,geoId/02,99645,Matanuska-Susitna
+cms/20008,Bartlett Regional Hospital,3260 Hospital Dr,Juneau,geoId/02,99801,Juneau
+cms/20012,Fairbanks Memorial Hospital,1650 Cowles Street,Fairbanks,geoId/02,99701,Fairbanks North Star
+cms/20017,Alaska Regional Hospital,2801 Debarr Road,Anchorage,geoId/02,99508,Anchorage
+cms/20018,Yukon Kuskokwim Delta Reg Hospital,Po Box 287,Bethel,geoId/02,99559,Bethel
+cms/20024,Central Peninsula General Hospital,250 Hospital Place,Soldotna,geoId/02,99669,Kenai Peninsula
+cms/20026,Alaska Native Medical Center,4315 Diplomacy Dr,Anchorage,geoId/02,99508,Anchorage
+cms/21301,Providence Valdez Medical Center,Po Box 550,Valdez,geoId/02,99686,Valdez-Cordova
+cms/21302,Providence Seward Hospital,"417 First Avenue, Po Box 365",Seward,geoId/02,99664,Kenai Peninsula
+cms/21304,Petersburg Medical Center,Po Box 589,Petersburg,geoId/02,99833,Petersburg Borough
+cms/21305,Searhc Wrangell Medical Center-Cah,232 Wood Street,Wrangell,geoId/02,99929,Wrangell City And Borough
+cms/21306,Providence Kodiak Island Medical Ctr,1915 East Rezanof Drive,Kodiak,geoId/02,99615,Kodiak Island Borough
+cms/21307,Cordova Community Medical Center,Po Box 160 - 602 Chase Avenue,Cordova,geoId/02,99574,Valdez-Cordova
+cms/21308,Norton Sound Regional Hospital,1000 Greg Kruschek Avenue (P O Box 966),Nome,geoId/02,99762,Nome
+cms/21309,Bristol Bay Area Health Corporation,P O Box 130,Dillingham,geoId/02,99576,Dillingham
+cms/21310,Maniilaq Health Center,Po Box 43,Kotzebue,geoId/02,99752,Northwest Artic Borough
+cms/21311,Peacehealth Ketchikan Medical Center,3100 Tongass Avenue,Ketchikan,geoId/02,99901,Ketchikan Gateway
+cms/21312,Samuel Simmonds Memorial Hospital,7000 Uula St,Barrow,geoId/02,99723,North Slope Borouh
+cms/21313,South Peninsula Hospital,4300 Bartlett St,Homer,geoId/02,99603,Kenai Peninsula
+cms/21314,Southeast Alaska Regional Health Consortium,222 Tongass Dr,Sitka,geoId/02,99835,Sitka Borough
