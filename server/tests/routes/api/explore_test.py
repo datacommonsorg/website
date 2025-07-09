@@ -36,7 +36,7 @@ EXPECTED_QUESTIONS = [
     'What is the average commute time in El Paso?'
 ]
 
-EXPECTED_EXPLANATION = """To explore the rate of education in El Paso, the population's educational attainment can be investigated. 
+EXPECTED_EXPLANATION = """To explore the rate of education in El Paso, the population's educational attainment can be investigated.
 The population with associate's, bachelor's, and doctorate degrees, along with overall educational attainment levels, represent key variables for this inquiry.
 Additionally, student enrollment across various educational levels can be examined to understand educational participation."""
 
