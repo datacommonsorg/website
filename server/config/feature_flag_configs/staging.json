@@ -25,7 +25,7 @@
   },
   {
     "name": "follow_up_questions_experiment",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics as an experiment."
   },

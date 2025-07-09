@@ -81,3 +81,11 @@ To enable both the autocomplete and metadata_modal features:
  - Disable: https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal
  
 These URL overrides take precedence over the environment-specific feature flag settings defined in server/config/feature_flag_configs/<environment>.json
+
+### Propagating Feature Flags
+
+This override can be utilized to propagate the feature flags into future pages.
+
+For example, the following anchor element would maintain the "autocomplete" feature enabled:
+
+`<a href="https://datacommons.org/explore?enable_feature=autocomplete">Autocomplete Still Enabled<a/>`
