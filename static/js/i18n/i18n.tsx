@@ -407,9 +407,22 @@ function formatDate(dateString: string, locale?: string): string {
   return date.toLocaleDateString(locale || intl.locale, options);
 }
 
+
+/**
+ * Fetch locale from the URL
+ *
+ * Used to get the current locale set by a ?hl= url parameter.
+ * If the parameter is not present, defaults to the "en" locale.
+ */
+function getLocaleFromUrl(): string {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("hl") || "en";
+}
+
 export {
   formatDate,
   formatNumber,
+  getLocaleFromUrl,
   intl,
   loadLocaleData,
   LocalizedLink,
