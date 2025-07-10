@@ -33,7 +33,11 @@
 
 {% block content %}
   <div id="metadata" class="d-none" data-footer="{{ config['MAP_TOOL_FOOTER'] }}"></div>
+  {% if use_standardized_ui %}
+  <div id="main-pane" class="standardized-vis-tool"></div>
+  {% else %}
   <div id="main-pane"></div>
+  {% endif %}
   <script>
     infoConfig = {{info_json|tojson|safe}};
     globalThis.minStatVarGeoCoverage = {{ config['MIN_STAT_VAR_GEO_COVERAGE'] | int(1) }};
