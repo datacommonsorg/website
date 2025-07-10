@@ -23,7 +23,13 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import { intl } from "../../i18n/i18n";
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
+import { ToolHeader } from "../shared/tool_header";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
@@ -45,6 +51,9 @@ import {
 function App(): ReactElement {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
+  const useStandardizedUi = isFeatureEnabled(
+    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+  );
 
   return (
     <React.StrictMode>
@@ -55,7 +64,25 @@ function App(): ReactElement {
       <div id="plot-container" className={ASYNC_ELEMENT_HOLDER_CLASS}>
         <Container fluid={true}>
           <Row>
-            <Title />
+            {useStandardizedUi ? (
+              <ToolHeader
+                title={intl.formatMessage({
+                  id: "map_visualization_tool_name",
+                  defaultMessage: "Map Explorer",
+                  description: "name of the tool that plots maps",
+                })}
+                subtitle={intl.formatMessage({
+                  id: "map_visualization_tool_description",
+                  defaultMessage:
+                    "The map explorer helps you visualize how a statistical variable can vary across geographic regions.",
+                  description:
+                    "a description of what our map explorer tool is used for",
+                })}
+                switchToolsUrl="/tools/visualization#visType%3Dmap"
+              />
+            ) : (
+              <Title />
+            )}
           </Row>
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
