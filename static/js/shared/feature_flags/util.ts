@@ -19,9 +19,8 @@ export const AUTOCOMPLETE_FEATURE_FLAG = "autocomplete";
 export const METADATA_FEATURE_FLAG = "metadata_modal";
 export const FOLLOW_UP_QUESTIONS_EXPERIMENT = "follow_up_questions_experiment";
 export const FOLLOW_UP_QUESTIONS_GA = "follow_up_questions_ga";
-export const RESULT_EXPLANATION_EXPERIMENT = "result_explanation_experiment";
-export const RESULT_EXPLANATION_GENERAL_AVAILABILITY =
-  "result_explanation_general_availability";
+export const PAGE_OVERVIEW_EXPERIMENT = "page_overview_experiment";
+export const PAGE_OVERVIEW_GA = "page_overview_ga";
 
 // Feature flag URL parameters
 export const ENABLE_FEATURE_URL_PARAM = "enable_feature";
