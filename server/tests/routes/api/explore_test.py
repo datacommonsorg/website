@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import unittest
-from unittest.mock import DEFAULT
+from unittest.mock import Mock
 from unittest.mock import patch
 
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
@@ -113,9 +113,10 @@ class TestFollowUpQuestions(unittest.TestCase):
 
   @patch('google.genai.Client', autospec=True)
   def test_generate_follow_up_questions_retry_once(self, mock_gemini):
-    mock_gemini.return_value.models.generate_content.return_value.parsed.questions = EXPECTED_QUESTIONS
+    successful_client_response = Mock()
+    successful_client_response.parsed.questions = EXPECTED_QUESTIONS
     mock_gemini.return_value.models.generate_content.side_effect = [
-        None, DEFAULT
+        None, successful_client_response
     ]
     app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():

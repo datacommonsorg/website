@@ -24,11 +24,11 @@ from server.lib.nl.explore.gemini_prompts import RESULT_EXPLANATION_PROMPT
 
 
 class ResultExplanation(BaseModel):
-  #   """The result explanation generated based on a query and relevant stat vars
+  """The result explanation generated based on a query and relevant stat vars
 
-  #   Attributes:
-  #     explanation: A string containing the generated explanation.
-  #   """
+  Attributes:
+    explanation: A string containing the generated explanation.
+  """
   explanation: str
 
 
@@ -39,15 +39,15 @@ _EXPLANATION_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17"
 
 def generate_result_explanation(query: str,
                                 stat_vars: List[str]) -> Optional[str]:
-  #   """ Generates result explanation based on the initial query and relevant stat vars
+  """ Generates result explanation based on the initial query and relevant stat vars
 
-  #       Args:
-  #       query: The initial query made by the user.
-  #       stat_vars: The relevant statistical variables that were identified.
+      Args:
+      query: The initial query made by the user.
+      stat_vars: The relevant statistical variables that were identified.
 
-  #       Returns:
-  #       A string containing the generated explanation.
-  #   """
+      Returns:
+      A string containing the generated explanation.
+  """
   if not stat_vars or not query:
     return None
 

@@ -20,10 +20,9 @@ Data-driven and factual: The emphasis is on presenting statistical and factual d
 Concise and purposeful: Aim to explain the connection between the variable and the initial user research question. The sentences are generally short and focused on the key relationship between the variable and the research question, while maintaining neutrality and avoiding implications of direct causation.
 Straightforward: The writing is clear and to the point, avoiding jargon or overly complex language.  The information is presented in a way that is understandable to an entry level data analyst or data enthusiast.
 
-Write three concise sentences addressing the reserch question by introducing the statistical variables that are found to be relevant to the question.
+Write three concise sentences addressing the research question by introducing the statistical variables that are found to be relevant to the question.
 The first sentence should introduce the research question and connect it to the variable topics without directly addressing the user or the `user's question`. For instance, you can use "To explore $research_question..." or a similar introduction.
 The second sentence should highlight how the statistical variables are relevant to exploring the question. For instance, one may emphasize  potential relationships found in the question and variables. 
-The last sentence should end the paragraph by cordially stating that it is a starting point, glimpse or something similar.
 Maintain a clear, simple, elegant, friendly, and succinct tone. The sentences are intended to guide exploration, not claim a complete answer.
 Crucially, write all sentences as if the analysis can be performed rather than the analysis is already performed.
 Use a passive voice.
