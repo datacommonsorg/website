@@ -407,7 +407,6 @@ function formatDate(dateString: string, locale?: string): string {
   return date.toLocaleDateString(locale || intl.locale, options);
 }
 
-
 /**
  * Fetch locale from the URL
  *

@@ -290,7 +290,8 @@ export function updateHash(context: ContextType): void {
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
-    history.pushState({}, "", `${SCATTER_URL_PATH}#${newHash}`);
+    const queryParams = window.location.search;
+    history.pushState({}, "", `${SCATTER_URL_PATH}${queryParams}#${newHash}`);
   }
 }
 
