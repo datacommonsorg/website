@@ -41,6 +41,7 @@ import {
   GA_EVENT_PAGE_VIEW,
   GA_PARAM_PLACE,
   GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
   GA_PARAM_TIMING_MS,
   GA_PARAM_TOPIC,
   triggerGAEvent,
@@ -359,6 +360,7 @@ export function App(props: AppProps): ReactElement {
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${gaTitle}${document.title}`,
       page_location: window.location.href.replace("#", "?"),
+      [GA_PARAM_SOURCE]: urlHashParams.origin,
     });
     /* eslint-enable camelcase */
     if (query) {

@@ -52,5 +52,11 @@
     "enabled": false,
     "owner": "javiervazquez",
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
+  },
+  {
+    "name": "standardized_vis_tool",
+    "enabled": false,
+    "owner": "juliawu",
+    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   }
 ]
