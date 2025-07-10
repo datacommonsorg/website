@@ -35,7 +35,7 @@ def get_gemini_prompt(target_language: str, schema_json_string: str) -> str:
   **Example for `target_language: "Spanish"`:**
 
   *Input Metadata:*
-  Note that the input metadata is given as a list of Python dictionaries. 
+  Note that the input metadata is given as a list of Python dictionaries. The 'sentence' field in the schema is optional, and if missing from input data, should not be present in the output.
   ```python
   [
       {{

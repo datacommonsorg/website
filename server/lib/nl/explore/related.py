@@ -55,7 +55,7 @@ class FollowUpQuestions(BaseModel):
 
 _GEMINI_CALL_RETRIES = 3
 
-_GEMINI_MODEL = "gemini-2.5-pro-preview-06-05"
+_GEMINI_MODEL = "gemini-2.5-flash"
 
 _RELATED_QUESTIONS_PROMPT = """
 Imagine you are a dynamic, trusted, and factual UI copywriter. Use the following tone of voice guidelines as an approach to this task.
@@ -331,6 +331,9 @@ def generate_follow_up_questions(query: str,
     return []
 
   gemini_api_key = current_app.config["LLM_API_KEY"]
+  if not gemini_api_key:
+    return []
+
   gemini = genai.Client(api_key=gemini_api_key)
   for _ in range(_GEMINI_CALL_RETRIES):
     try:
