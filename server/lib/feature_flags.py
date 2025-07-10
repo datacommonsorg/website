@@ -26,7 +26,7 @@ def is_feature_override_enabled(feature_name: str, request=None) -> bool:
   """Check if a URL param override for a feature is present.
 
   Args:
-    featureName: feature flag string to look for in the URL
+    feature_name: feature flag string to look for in the URL
     request: HTTP request as a flask.Request object
   
   Returns:
