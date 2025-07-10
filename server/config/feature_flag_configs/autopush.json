@@ -40,5 +40,11 @@
     "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
+  },
+  {
+    "name": "standardized_vis_tool",
+    "enabled": false,
+    "owner": "juliawu",
+    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   }
 ]
