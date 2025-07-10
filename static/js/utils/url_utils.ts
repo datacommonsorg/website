@@ -56,19 +56,23 @@ export function getUrlTokenOrDefault(param: string, def: string): string {
  */
 export function getUpdatedHash(
   params: Record<string, string | string[]>
+  // urlHash: string = window.location.hash
 ): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  // console.log("URL HASH SPLIT " + urlHash.split("#"));
+  // console.log("URL PARAMS " + urlParams.toString());
   // Remove all existing params not present in the new params
   Array.from(urlParams.keys()).forEach((key) => {
-    if (!(key in params) && !(key in PARAMS_TO_PERSIST)) {
+    if (!(key in params) && !PARAMS_TO_PERSIST.has(key)) {
       urlParams.delete(key);
     }
   });
 
   for (const param in params) {
-    urlParams.delete(param);
     const value = params[param];
     if (!value || (Array.isArray(value) && value.length === 0)) {
+      // If the value is empty, remove the param
+      urlParams.delete(param);
       continue;
     }
     if (Array.isArray(value)) {

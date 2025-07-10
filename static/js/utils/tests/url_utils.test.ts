@@ -17,15 +17,15 @@
 import { getUpdatedHash } from "../url_utils";
 
 describe("getUpdatedHash", () => {
-  const originalHash = window.location.hash;
+  const originalHash = "#foo=bar&baz=qux&hl=en&enable_feature=1";
 
   beforeEach(() => {
     // Set up a default hash for each test
-    window.location.hash = "#foo=bar&baz=qux&hl=en&enable_feature=1";
+    window.location.hash = originalHash;
   });
 
   afterAll(() => {
-    window.location.hash = originalHash;
+    window.location.hash = originalHash; // Reset to original hash after tests
   });
 
   test("updates single param and removes others", () => {
@@ -76,7 +76,6 @@ describe("getUpdatedHash", () => {
   });
 
   test("works with empty hash", () => {
-    window.location.hash = "";
     const params = { foo: "bar" };
     const result = getUpdatedHash(params);
     expect(result).toContain("foo=bar");
