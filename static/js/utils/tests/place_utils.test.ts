@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getPlaceNames } from "./place_utils";
+import { getPlaceNames } from "../place_utils";
 
 test("get place names", () => {
   const dcids = ["geoId/4459000", "country/USA"];
