@@ -142,7 +142,7 @@ class Page extends Component<unknown, PageStateType> {
                   subtitle={intl.formatMessage({
                     id: "scatter_visualization_tool_description",
                     defaultMessage:
-                      "The timeliens explorer helps you explore trends for statistical variables.",
+                      "The timelines explorer helps you explore trends for statistical variables.",
                     description:
                       "a description of what our timelines explorer tool is used for",
                   })}
