@@ -83,8 +83,8 @@ function App(): ReactElement {
                   })}
                   subtitle={intl.formatMessage({
                     id: "scatter_visualization_tool_description",
-                    defaultMessage:
-                      "The scatter plot explorer helps you visualize the correlation between two statistical variables.",
+                    defaultMessage: `The scatter plot explorer helps you
+                      visualize the correlation between two statistical variables.`,
                     description:
                       "a description of what our scatter plot explorer tool is used for",
                   })}
