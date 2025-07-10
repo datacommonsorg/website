@@ -24,7 +24,7 @@ import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
 import { FacetMetadata } from "../types/facet_metadata";
 
 // Hash params that should be persisted across pages.
-const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature"]);
+const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature", "aq"]);
 
 /**
  * Returns token for URL param.
