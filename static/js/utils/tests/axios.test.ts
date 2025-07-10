@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { stringifyFn } from "../axios";
+import { stringifyFn } from "./axios";
 
 test("stringfy url params", () => {
   const params = {
