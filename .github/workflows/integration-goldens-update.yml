@@ -67,7 +67,6 @@ jobs:
         exit 1
       shell: bash
 
-    # --- NEW DEBUGGING STEP ---
     - name: Display NL Server Logs if startup failed
       if: failure() && steps.wait_for_server.outcome == 'failure'
       run: |
