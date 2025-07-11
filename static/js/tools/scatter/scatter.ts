@@ -18,19 +18,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import {
-  isFeatureEnabled,
-  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
 import { getLocaleFromUrl } from "../../utils/url_utils";
 import { AppWithContext } from "./app";
 
 window.addEventListener("load", (): void => {
-  // Adjust page styling if using the standardized UI feature flag is enabled
-  // TODO(juliawu): Remove this logic once vis tool unification launches
-  if (isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
-    document.getElementById("main-pane").className = "standardized-vis-tool";
-  }
   const locale = getLocaleFromUrl();
   loadLocaleData(locale, [
     import(`../../i18n/compiled-lang/${locale}/units.json`),
