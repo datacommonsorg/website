@@ -1,6 +1,5 @@
 name: Integration Test Goldens
 
-
 on:
   workflow_dispatch: # Allows you to run the workflow manually from the GitHub UI
 
@@ -66,7 +65,6 @@ jobs:
         echo "Running your command to update goldens..."
         ./run_test.sh -g
       shell: bash
-      needs: wait_for_server
 
     - name: Stop NL Server
       if: always()
@@ -91,7 +89,7 @@ jobs:
         branch: nl-golden-update-${{ github.run_id }}
         base: master
         add-paths: |
-          server/integration-tests/test_data/*
+          server/integration-tests/test_data/**
         labels: |
           automated-pr
           goldens
