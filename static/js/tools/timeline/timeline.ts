@@ -21,7 +21,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { getLocaleFromUrl, loadLocaleData } from "../../i18n/i18n";
+import { loadLocaleData } from "../../i18n/i18n";
+import { getLocaleFromUrl } from "../../utils/url_utils";
 import { Page } from "./page";
 
 window.addEventListener("load", (): void => {

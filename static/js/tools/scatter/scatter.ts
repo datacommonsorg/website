@@ -17,11 +17,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { getLocaleFromUrl, loadLocaleData } from "../../i18n/i18n";
+import { loadLocaleData } from "../../i18n/i18n";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
 } from "../../shared/feature_flags/util";
+import { getLocaleFromUrl } from "../../utils/url_utils";
 import { AppWithContext } from "./app";
 
 window.addEventListener("load", (): void => {
