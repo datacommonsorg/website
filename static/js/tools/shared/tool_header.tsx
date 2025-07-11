@@ -23,6 +23,7 @@ import { css } from "@emotion/react";
 import React from "react";
 
 import { intl, LocalizedLink } from "../../i18n/i18n";
+import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
 
 interface ToolHeaderProps {
   title: string; // Name of the tool to use as a title
@@ -77,12 +78,9 @@ export function ToolHeader(props: ToolHeaderProps): JSX.Element {
               }
             `}
             href={props.switchToolsUrl}
-            text={intl.formatMessage({
-              id: "switch_tool_version",
-              defaultMessage: "Switch tool version",
-              description:
-                "label on button allowing users to switch to an earlier version of our tools",
-            })}
+            text={intl.formatMessage(
+              visualizationToolMessages.switchToolVersion
+            )}
           ></LocalizedLink>
         )}
       </div>

@@ -19,6 +19,7 @@ import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
+import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
@@ -133,26 +134,19 @@ class Page extends Component<unknown, PageStateType> {
             {numPlaces === 0 &&
               (useStandardizedUi ? (
                 <ToolHeader
-                  title={intl.formatMessage({
-                    id: "timeline_visualization_tool_name",
-                    defaultMessage: "Timelines Explorer",
-                    description:
-                      "name of the tool that plots line charts, specifically a variable over time",
-                  })}
-                  subtitle={intl.formatMessage({
-                    id: "scatter_visualization_tool_description",
-                    defaultMessage:
-                      "The timelines explorer helps you explore trends for statistical variables.",
-                    description:
-                      "a description of what our timelines explorer tool is used for",
-                  })}
+                  title={intl.formatMessage(
+                    visualizationToolMessages.timelineToolTitle
+                  )}
+                  subtitle={intl.formatMessage(
+                    visualizationToolMessages.timelineToolSubtitle
+                  )}
                   switchToolsUrl="/tools/visualization#visType%3Dtimeline"
                 />
               ) : (
                 <div className="app-header">
                   <h1 className="mb-4">Timelines Explorer</h1>
                   <a href="/tools/visualization#visType%3Dtimeline">
-                    Go back to the new Data Commons
+                    Go back to the new Timelines Explorer
                   </a>
                 </div>
               ))}

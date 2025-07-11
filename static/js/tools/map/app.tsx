@@ -24,6 +24,7 @@ import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { intl } from "../../i18n/i18n";
+import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
@@ -66,18 +67,12 @@ function App(): ReactElement {
           <Row>
             {useStandardizedUi ? (
               <ToolHeader
-                title={intl.formatMessage({
-                  id: "map_visualization_tool_name",
-                  defaultMessage: "Map Explorer",
-                  description: "name of the tool that plots maps",
-                })}
-                subtitle={intl.formatMessage({
-                  id: "map_visualization_tool_description",
-                  defaultMessage:
-                    "The map explorer helps you visualize how a statistical variable can vary across geographic regions.",
-                  description:
-                    "a description of what our map explorer tool is used for",
-                })}
+                title={intl.formatMessage(
+                  visualizationToolMessages.mapToolTitle
+                )}
+                subtitle={intl.formatMessage(
+                  visualizationToolMessages.mapToolSubtitle
+                )}
                 switchToolsUrl="/tools/visualization#visType%3Dmap"
               />
             ) : (
