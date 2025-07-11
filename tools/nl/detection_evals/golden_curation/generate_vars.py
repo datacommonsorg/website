@@ -15,12 +15,15 @@
 import csv
 from dataclasses import dataclass
 import json
-import os
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List
 
 from absl import app
 from absl import flags
 import requests
+from utils import get_hierarchy_format
+from utils import get_merged_var_str_dict
+from utils import get_queries
+from utils import QueryInfo
 
 FLAGS = flags.FLAGS
 flags.DEFINE_string('input_folder', 'input',
@@ -53,60 +56,9 @@ _TOPIC_PREFIX = 'dc/topic'
 
 
 @dataclass
-class QueryInfo:
-  query_num: str
-  query_str: str
-  # the variable part of the query and the list of variable groups that the
-  # variable should belong to
-  var_str_to_grps: Dict[str, Set[str]]
-
-
-@dataclass
-class QuerySet:
-  filename: str
-  query_info: Dict[str, QueryInfo]
-
-
-@dataclass
 class VarInfo:
   dcid: str
   score: str
-
-
-def get_queries(input_folder) -> List[QuerySet]:
-  """
-    Parses all CSV files in the specified input folder and constructs a list of QuerySet objects.
-
-    Each CSV file is expected to contain rows with the following columns:
-      - 'query_num': Identifier for the query.
-      - 'query': The query string.
-      - 'var_string': A variable string associated with the query.
-      - 'groups': A comma-separated list of group names.
-
-    Args:
-      input_folder (str): Path to the folder containing input CSV files.
-
-    Returns:
-      List[QuerySet]: A list of QuerySet objects, one for each CSV file in the input folder.
-    """
-  results = []
-  for filename in os.listdir(input_folder):
-    with open(f'{input_folder}/{filename}', 'r') as f:
-      filename_no_ext = filename.split('.')[0]
-      reader = csv.DictReader(f)
-      query_info: Dict[str, QueryInfo] = {}
-      for row in reader:
-        query_num = row.get('query_num', '')
-        query_str = row.get('query')
-        var_string = row.get('var_string').strip()
-        groups = filter(lambda x: x != '', row.get('groups').strip().split(','))
-        if not query_num in query_info:
-          query_info[query_num] = QueryInfo(query_num, query_str, {})
-        if not var_string in query_info[query_num].var_str_to_grps:
-          query_info[query_num].var_str_to_grps[var_string] = set()
-        query_info[query_num].var_str_to_grps[var_string].update(groups)
-      results.append(QuerySet(filename_no_ext, query_info))
-  return results
 
 
 def get_topic_cache(topic_cache_file) -> Dict[str, List[str]]:
@@ -129,53 +81,6 @@ def get_topic_cache(topic_cache_file) -> Dict[str, List[str]]:
       for dcid in node.get('dcid', []):
         result[dcid] = children
   return result
-
-
-def get_topic_strings(
-    var_list: List[str],
-    topic_cache: Dict[str, List[str]]) -> Tuple[Dict[str, List[str]], Set[str]]:
-  """
-  Processes a list of variable names to extract and format topic strings, and identifies statistical variables (SVs) included in the topics.
-
-  Args:
-    var_list (List[str]): A list of variable dcids, some of which may represent topics (identified by a specific prefix).
-    topic_cache (Dict[str, List[str]]): A mapping from topic dcid to their child topics or SVs.
-
-  Returns:
-    Tuple[Dict[str, List[str]], Set[str]]:
-      - A dictionary mapping each top-level topic to a list of formatted topic strings, excluding topics that are nested within others.
-      - A set of SVs (statistical variables) that are included as children of topics
-  """
-  var_topics = list(filter(lambda x: x.startswith(_TOPIC_PREFIX), var_list))
-  topic_strs: Dict[str, List[str]] = {}
-  topic_svs: Set[str] = set()
-  # list of top level topics to remove because they are found within another topic
-  top_level_topics_to_remove: Set[str] = set()
-  for topic in var_topics:
-    topic_strs[topic] = []
-    next_nodes = [(0, topic)]
-    while next_nodes:
-      curr_lvl, curr_node = next_nodes.pop()
-      if curr_lvl > _MAX_TOPICS_DEPTH:
-        continue
-      if curr_lvl > 0:
-        top_level_topics_to_remove.add(curr_node)
-      curr_node_str = ''
-      for _ in range(curr_lvl):
-        curr_node_str += '-->'
-      curr_node_str += curr_node
-      topic_strs[topic].append(curr_node_str)
-      # if the node is not found in the topic cache, assume it is a sv
-      if not topic_cache.get(curr_node):
-        topic_svs.add(curr_node)
-      next_nodes.extend([
-          (curr_lvl + 1, n) for n in topic_cache.get(curr_node, [])
-      ])
-  # remove top level topics that are found within other topics
-  filtered_topic_strs = {
-      k: v for k, v in topic_strs.items() if k not in top_level_topics_to_remove
-  }
-  return filtered_topic_strs, topic_svs
 
 
 def get_vars_from_nl_response(query_response) -> List[VarInfo]:
@@ -261,36 +166,14 @@ def get_trimmed_vars(var_list: List[VarInfo]) -> List[str]:
   return trimmed_vars
 
 
-def get_merged_var_str_to_grps(
-    query_info: List[QueryInfo]) -> Dict[str, Set[str]]:
-  """
-  Merges the `var_str_to_grps` mappings from a list of `QueryInfo` objects into a single dictionary.
-
-  For each variable string (`var_str`) found in any `QueryInfo`'s `var_str_to_grps`, collects all associated group names into a set, ensuring that each group is only listed once per variable string.
-
-  Args:
-    query_info (List[QueryInfo]): A list of `QueryInfo` objects, each containing a `var_str_to_grps` mapping.
-
-  Returns:
-    Dict[str, Set[str]]: A dictionary mapping each variable string to a set of all group names associated with it across all provided `QueryInfo` objects.
-  """
-  merged_var_str_to_grps = {}
-  for qi in query_info:
-    for var_str, grps in qi.var_str_to_grps.items():
-      if not var_str in merged_var_str_to_grps:
-        merged_var_str_to_grps[var_str] = set()
-      merged_var_str_to_grps[var_str].update(grps)
-  return merged_var_str_to_grps
-
-
-def get_dcids_for_var_strs(merged_var_str_to_grps: Dict[str, Set[str]],
+def get_dcids_for_var_strs(merged_var_str_to_grps: Dict[str, List[str]],
                            topic_cache: Dict[str, List[str]]):
   """
   Retrieves DCIDs for a set of variable strings, handling topic-based substitutions and error tracking.
 
   Args:
-    merged_var_str_to_grps (Dict[str, Set[str]]): 
-      A mapping from variable strings to sets of svgs. Each variable string may be associated with multiple groups.
+    merged_var_str_to_grps (Dict[str, List[str]]): 
+      A mapping from variable strings to list of svgs. Each variable string may be associated with multiple groups.
     topic_cache (Dict[str, List[str]]): 
       A cache mapping topic dcids to children topics or statistical variables.
 
@@ -302,20 +185,22 @@ def get_dcids_for_var_strs(merged_var_str_to_grps: Dict[str, Set[str]],
   var_dcids = {}
   errors = []
   for var_str, grps in merged_var_str_to_grps.items():
-    grps_to_query = list(grps) + _DEFAULT_SVGS_TO_QUERY
+    grps_to_query = grps + _DEFAULT_SVGS_TO_QUERY
     try:
       var_list = get_var_dcids(var_str, grps_to_query)
     except Exception as e:
       errors.append(var_str)
       print(e)
       continue
-    topic_strings, svs_in_topics = get_topic_strings(var_list, topic_cache)
+    var_topics = list(filter(lambda x: x.startswith(_TOPIC_PREFIX), var_list))
+    topic_strs, children_nodes = get_hierarchy_format(var_topics, topic_cache,
+                                                      _MAX_TOPICS_DEPTH)
     var_dcids[var_str] = []
     for v in var_list:
-      if v in svs_in_topics:
+      if not v.startswith(_TOPIC_PREFIX) and v in children_nodes:
         continue
-      if v in topic_strings:
-        for t_string in topic_strings[v]:
+      if v in topic_strs:
+        for t_string in topic_strs[v]:
           var_dcids[var_str].append(t_string)
       else:
         var_dcids[var_str].append(v)
@@ -336,7 +221,8 @@ def get_vars(query_info: Dict[str, QueryInfo], topic_cache: Dict[str,
       - A list of lists, representing csv rows where each inner list (row) contains the query number, query string, variable string, and the corresponding variable DCID.
       - An object representing any errors encountered during variable DCID retrieval.
   """
-  merged_var_str_to_grps = get_merged_var_str_to_grps(list(query_info.values()))
+  merged_var_str_to_grps = get_merged_var_str_dict(
+      [qi.var_str_to_grps for qi in query_info.values()])
   var_dcids, errors = get_dcids_for_var_strs(merged_var_str_to_grps,
                                              topic_cache)
 
