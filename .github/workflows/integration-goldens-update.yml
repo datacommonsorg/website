@@ -87,7 +87,7 @@ jobs:
           This pull request updates the golden files automatically via the GitHub Actions workflow.
           Please review the changes carefully.
         branch: nl-golden-update-${{ github.run_id }}
-        base: gmechalitest
+        base: dwnoble-patch-1
         add-paths: |
           server/integration-tests/test_data/**
         labels: |
