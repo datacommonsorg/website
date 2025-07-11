@@ -7,7 +7,7 @@ through manual checks.
 ## Generate Vars
 
 This auto-curates a list of variable dcids (including all the variables in the
-Data Commons knowledge graph) that match a given query. The list of variables will be their dcid unless the variable is under a topic. For variables under a topic, the number of --> preceding the variable will show its depth within the topic hierarchy. See example [input file](./input/var_example.csv) [output file](./output/var_example_vars.csv)
+Data Commons knowledge graph) that match a given query. The list of variables will be their dcid unless the variable is under a topic. For variables under a topic, the number of --> preceding the variable will show its depth within the topic hierarchy. See example [input file](./example_input/var_example.csv) [output file](./example_output/var_example_vars.csv)
 
 ### Prerequisites
 
@@ -29,7 +29,7 @@ Data Commons knowledge graph) that match a given query. The list of variables wi
 
 ## Generate StatVarGroups (SVGs)
 
-This auto-curates a list of svg dcids that match a given query. To show the hierarchy of svgs, the number of --> preceding the svg will show its depth within the svg hierarchy. See example [input file](./input/svg_example.csv) [output file](./output/svg_example_svgs.csv)
+This auto-curates a list of svg dcids that match a given query. To show the hierarchy of svgs, the number of --> preceding the svg will show its depth within the svg hierarchy. See example [input file](./example_input/svg_example.csv) [output file](./example_output/svg_example_svgs.csv)
 
 ### Prerequisites
 
