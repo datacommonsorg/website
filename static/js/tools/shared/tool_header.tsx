@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @jsxImportSource @emotion/react */
 
 /**
  * Title component for the tools
  */
 
+import { css } from "@emotion/react";
 import React from "react";
 
 import { intl, LocalizedLink } from "../../i18n/i18n";
@@ -30,11 +32,50 @@ interface ToolHeaderProps {
 
 export function ToolHeader(props: ToolHeaderProps): JSX.Element {
   return (
-    <div className="standardized-tool-header-wrapper">
-      <div className="standardized-tool-header">
-        <h1>{props.title}</h1>
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 32px;
+        width: 100%;
+      `}
+    >
+      <div
+        css={css`
+          align-items: flex-end;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+        `}
+      >
+        <h1
+          css={css`
+            margin-bottom: 0;
+          `}
+        >
+          {props.title}
+        </h1>
         {props.switchToolsUrl && (
           <LocalizedLink
+            css={css`
+              display: flex;
+              align-items: center;
+              font-size: 14px;
+              height: fit-content;
+              line-height: 21px;
+              font-weight: 400;
+              border: 1px solid #747775;
+              border-radius: 100px;
+              padding: 8px 16px;
+              text-decoration: none;
+
+              :hover {
+                outline: 1px solid var(--dc-primary);
+                border-color: var(--dc-primary);
+              }
+            `}
             href={props.switchToolsUrl}
             text={intl.formatMessage({
               id: "switch_tool_version",
@@ -46,7 +87,15 @@ export function ToolHeader(props: ToolHeaderProps): JSX.Element {
         )}
       </div>
       {props.subtitle && (
-        <div className="standardized-tool-subheader">{props.subtitle}</div>
+        <div
+          css={css`
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+          `}
+        >
+          {props.subtitle}
+        </div>
       )}
     </div>
   );

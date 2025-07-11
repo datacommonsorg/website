@@ -62,7 +62,6 @@ function App(): ReactElement {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
-  console.log(useStandardizedUi);
   return (
     <>
       <StatVarChooser
