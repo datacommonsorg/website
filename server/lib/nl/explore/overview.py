@@ -50,7 +50,7 @@ def generate_page_overview(query: str, stat_vars: List[str]) -> Optional[str]:
   if not stat_vars or not query:
     return None
 
-  gemini_api_key = current_app.config["LLM_API_KEY"]
+  gemini_api_key = current_app.config.get("LLM_API_KEY")
   if not gemini_api_key:
     return None
 

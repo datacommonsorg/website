@@ -300,7 +300,7 @@ def generate_follow_up_questions(query: str,
   if not related_topics or not query:
     return []
 
-  gemini_api_key = current_app.config["LLM_API_KEY"]
+  gemini_api_key = current_app.config.get("LLM_API_KEY")
   if not gemini_api_key:
     return []
 
