@@ -339,6 +339,7 @@ export function getRankingUnit(
       svNames={
         rankingMetadata.showMultiColumn ? rankingGroup.svName : undefined
       }
+      statVar={statVar}
       onHoverToggled={onHoverToggled}
       headerChild={
         errorMsg ? null : (

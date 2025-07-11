@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getHighlightedJSX } from "./search_utils";
+import { getHighlightedJSX } from "../search_utils";
 
 test("getHighlightedJSX", () => {
   const cases: {

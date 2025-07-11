@@ -48,6 +48,7 @@ export const URL_HASH_PARAMS = {
   MAX_TOPIC_SVS: "maxTopicSvs",
   MAX_CHARTS: "maxCharts",
   CHART_TYPE: "chartType",
+  ORIGIN: "origin",
 
   // The following are used for Facet selection.
   IMPORT_NAME: "imp",
