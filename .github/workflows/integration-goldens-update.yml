@@ -1,0 +1,97 @@
+name: Integration Test Goldens
+
+on:
+  workflow_dispatch: # Allows you to run the workflow manually from the GitHub UI
+
+jobs:
+  update-goldens:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # Required to push changes back to the repository
+      pull-requests: write # Required to create a pull request
+      issues: write # Required for label creation
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11+
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install Python dependencies
+      run: |
+        ./run_test.sh --setup_python
+
+    - name: Set up Node.js 18.4.0
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.4.0'
+
+    - name: Install Protoc 3.21.12
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y protobuf-compiler
+        protoc --version | grep "3.21.12" || { echo "Protoc version mismatch!"; exit 1; }
+
+    - name: Start NL Server in background
+      run: |
+        rm -rf ~/.datacommons
+        rm -rf /tmp/datcom-nl-models
+        rm -rf /tmp/datcom-nl-models-dev
+
+        ./run_nl_server.sh -p 6060 &
+        SERVER_PID=$!
+        echo "NL Server started with PID: $SERVER_PID on port 6060"
+        echo "SERVER_PID=$SERVER_PID" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Wait for NL Server to be ready
+      id: wait_for_server
+      run: |
+        for i in $(seq 1 30); do
+          nc -z localhost 6060 && echo "NL Server ready on port 6060!" && exit 0
+          echo "Waiting for NL Server (attempt $i/30)..."
+          sleep 10
+        done
+        echo "NL Server did not start in time on port 6060."
+        exit 1
+      shell: bash
+
+    - name: Update goldens
+      run: |
+        echo "Running your command to update goldens..."
+        ./run_test.sh -g
+      shell: bash
+
+    - name: Stop NL Server
+      if: always()
+      run: |
+        if [ -n "$SERVER_PID" ]; then
+          echo "Stopping NL Server with PID: $SERVER_PID"
+          kill $SERVER_PID
+        else
+          echo "No server PID found to stop."
+        fi
+      shell: bash
+
+    - name: Create Pull Request for Golden Updates
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'feat: Update goldens from GitHub Actions workflow'
+        title: 'Golden Updates from CI'
+        body: |
+          This pull request updates the golden files automatically via the GitHub Actions workflow.
+          Please review the changes carefully.
+        branch: nl-golden-update-${{ github.run_id }}
+        base: dwnoble-patch-1
+        add-paths: |
+          server/integration-tests/test_data/**
+        labels: |
+          automated-pr
+          goldens
+        reviewers: gmechali
+        draft: false
