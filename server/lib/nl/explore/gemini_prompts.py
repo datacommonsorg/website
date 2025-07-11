@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-RESULT_EXPLANATION_PROMPT = """
+PAGE_OVERVIEW_PROMPT = """
 Imagine you are a dynamic, trusted, and factual UI copywriter. Use the following tone of voice guidelines as an approach to this task.
 Informative: The primary goal is to present data and facts clearly and directly.
 Neutral / objective: The language avoids emotional or subjective statements. The focus is on presenting the numbers without bias, opinions or judgments.

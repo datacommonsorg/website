@@ -16,7 +16,7 @@ import unittest
 from unittest.mock import Mock
 from unittest.mock import patch
 
-from server.lib.nl.explore.explanation import generate_result_explanation
+from server.lib.nl.explore.overview import generate_page_overview
 from web_app import app
 
 QUERY = "What is the rate of education in El Paso?"
@@ -26,30 +26,30 @@ STAT_VARS = [
     'Population Enrolled in Private School by Race',
     'Population Enrolled in Public School by Race'
 ]
-EXPECTED_EXPLANATION = """To explore the rate of education in El Paso, the population's educational attainment can be investigated.
+EXPECTED_OVERVIEW = """To explore the rate of education in El Paso, the population's educational attainment can be investigated.
 The population with associate's, bachelor's, and doctorate degrees, along with overall educational attainment levels, represent key variables for this inquiry.
 Additionally, student enrollment across various educational levels can be examined to understand educational participation."""
 
 
-class TestResultExplanation(unittest.TestCase):
+class TestPageOverview(unittest.TestCase):
 
-  @patch('server.routes.explore.api.explanation.generate_result_explanation',
+  @patch('server.routes.explore.api.overview.generate_page_overview',
          autospec=True)
-  def test_result_explanation_typical(self, mock):
-    mock.return_value = EXPECTED_EXPLANATION
+  def test_page_overview_typical(self, mock):
+    mock.return_value = EXPECTED_OVERVIEW
 
-    resp = app.test_client().post('api/explore/result-explanation',
+    resp = app.test_client().post('api/explore/page-overview',
                                   json={
                                       'q': QUERY,
                                       'statVars': STAT_VARS
                                   })
 
     assert resp.status_code == 200
-    assert resp.json['result_explanation'] == EXPECTED_EXPLANATION
+    assert resp.json['page_overview'] == EXPECTED_OVERVIEW
 
-  def test_result_explanation_empty_stat_vars(self):
+  def test_page_overview_empty_stat_vars(self):
     stat_vars = []
-    resp = app.test_client().post('api/explore/result-explanation',
+    resp = app.test_client().post('api/explore/page-overview',
                                   json={
                                       'q': QUERY,
                                       'statVars': stat_vars,
@@ -58,9 +58,9 @@ class TestResultExplanation(unittest.TestCase):
     assert resp.status_code == 400
     assert resp.json['error'] == 'Missing statistical variables in request.'
 
-  def test_result_explanation_empty_query(self):
+  def test_page_overview_empty_query(self):
     query = ""
-    resp = app.test_client().post('api/explore/result-explanation',
+    resp = app.test_client().post('api/explore/page-overview',
                                   json={
                                       'q': query,
                                       'statVars': STAT_VARS,
@@ -69,13 +69,13 @@ class TestResultExplanation(unittest.TestCase):
     assert resp.status_code == 400
     assert resp.json['error'] == 'Missing query in request.'
 
-  @patch('server.routes.explore.api.explanation.generate_result_explanation',
+  @patch('server.routes.explore.api.overview.generate_page_overview',
          autospec=True)
-  def test_result_explanation_error_gemini_call(self, mock):
-    expected_explanation = ""
+  def test_page_overview_error_gemini_call(self, mock):
+    expected_overview = ""
 
-    mock.return_value = expected_explanation
-    resp = app.test_client().post('api/explore/result-explanation',
+    mock.return_value = expected_overview
+    resp = app.test_client().post('api/explore/page-overview',
                                   json={
                                       'q': QUERY,
                                       'statVars': STAT_VARS,
@@ -83,34 +83,33 @@ class TestResultExplanation(unittest.TestCase):
 
     assert resp.status_code == 503
     assert resp.json[
-        'error'] == "Result explanation could not be generated at this time."
+        'error'] == "Page overview could not be generated at this time."
 
   @patch('google.genai.Client', autospec=True)
-  def test_generate_result_explanation_typical(self, mock_gemini):
-    mock_gemini.return_value.models.generate_content.return_value.parsed.explanation = EXPECTED_EXPLANATION
+  def test_generate_page_overview_typical(self, mock_gemini):
+    mock_gemini.return_value.models.generate_content.return_value.parsed.overview = EXPECTED_OVERVIEW
     app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():
-      assert EXPECTED_EXPLANATION == generate_result_explanation(
-          query=QUERY, stat_vars=STAT_VARS)
+      assert EXPECTED_OVERVIEW == generate_page_overview(query=QUERY,
+                                                         stat_vars=STAT_VARS)
 
   @patch('google.genai.Client', autospec=True)
-  def test_generate_result_explanation_retry_once(self, mock_gemini):
+  def test_generate_page_overview_retry_once(self, mock_gemini):
     successful_client_response = Mock()
-    successful_client_response.parsed.explanation = EXPECTED_EXPLANATION
+    successful_client_response.parsed.overview = EXPECTED_OVERVIEW
     mock_gemini.return_value.models.generate_content.side_effect = [
         None, successful_client_response
     ]
     app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():
-      assert EXPECTED_EXPLANATION == generate_result_explanation(
-          query=QUERY, stat_vars=STAT_VARS)
+      assert EXPECTED_OVERVIEW == generate_page_overview(query=QUERY,
+                                                         stat_vars=STAT_VARS)
 
   @patch('google.genai.Client', autospec=True)
-  def test_generate_result_explanation_error_request(self, mock_gemini):
+  def test_generate_page_overview_error_request(self, mock_gemini):
     mock_gemini.return_value.models.generate_content.side_effect = [
         None, None, None
     ]
     app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():
-      assert None == generate_result_explanation(query=QUERY,
-                                                 stat_vars=STAT_VARS)
+      assert None == generate_page_overview(query=QUERY, stat_vars=STAT_VARS)

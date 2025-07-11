@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Module for result explanation."""
+"""Module for page overview."""
 
 import logging
 from typing import List, Optional
@@ -20,33 +20,32 @@ from flask import current_app
 from google import genai
 from pydantic import BaseModel
 
-from server.lib.nl.explore.gemini_prompts import RESULT_EXPLANATION_PROMPT
+from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
 
 
-class ResultExplanation(BaseModel):
-  """The result explanation generated based on a query and relevant stat vars
+class PageOverview(BaseModel):
+  """The page overview generated based on a query and relevant stat vars
 
   Attributes:
-    explanation: A string containing the generated explanation.
+    overview: A string containing the generated overview.
   """
-  explanation: str
+  overview: str
 
 
-_EXPLANATION_GEMINI_CALL_RETRIES = 3
+_OVERVIEW_GEMINI_CALL_RETRIES = 3
 
-_EXPLANATION_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17"
+_OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17"
 
 
-def generate_result_explanation(query: str,
-                                stat_vars: List[str]) -> Optional[str]:
-  """ Generates result explanation based on the initial query and relevant stat vars
+def generate_page_overview(query: str, stat_vars: List[str]) -> Optional[str]:
+  """ Generates page overview based on the initial query and relevant stat vars
 
       Args:
       query: The initial query made by the user.
       stat_vars: The relevant statistical variables that were identified.
 
       Returns:
-      A string containing the generated explanation.
+      A string containing the generated overview.
   """
   if not stat_vars or not query:
     return None
@@ -56,22 +55,22 @@ def generate_result_explanation(query: str,
     return None
 
   gemini = genai.Client(api_key=gemini_api_key)
-  for _ in range(_EXPLANATION_GEMINI_CALL_RETRIES):
+  for _ in range(_OVERVIEW_GEMINI_CALL_RETRIES):
     try:
       gemini_response = gemini.models.generate_content(
-          model=_EXPLANATION_GEMINI_MODEL,
-          contents=RESULT_EXPLANATION_PROMPT.format(initial_query=query,
-                                                    stat_vars=stat_vars),
+          model=_OVERVIEW_GEMINI_MODEL,
+          contents=PAGE_OVERVIEW_PROMPT.format(initial_query=query,
+                                               stat_vars=stat_vars),
           config={
               "response_mime_type": "application/json",
-              "response_schema": ResultExplanation
+              "response_schema": PageOverview
           })
 
-      generated_explanation = gemini_response.parsed.explanation
-      return generated_explanation
+      generated_overview = gemini_response.parsed.overview
+      return generated_overview
     except Exception as e:
       logging.error(
-          f'[explore_result_explanation]: Initial Query: {query} | Statistical Variables: {stat_vars} | Exception Caught: {e}',
+          f'[explore_page_overview]: Initial Query: {query} | Statistical Variables: {stat_vars} | Exception Caught: {e}',
           exc_info=True)
       continue
 
