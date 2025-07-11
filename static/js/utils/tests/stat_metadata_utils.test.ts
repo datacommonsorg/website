@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getUnit } from "./stat_metadata_utils";
+import { getUnit } from "../stat_metadata_utils";
 
 test("getUnit", () => {
   const testUnit = "Millimeter";

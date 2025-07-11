@@ -64,7 +64,7 @@ def scatter():
 @bp.route('/nlnext/')
 @bp.route('/nlnext')
 def nlnext():
-  return redirect(url_for('nl.page'), code=302)
+  return redirect(url_for('explore.page'), code=302)
 
 
 @bp.route('/datasets')
