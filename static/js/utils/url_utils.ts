@@ -23,6 +23,9 @@ import queryString from "query-string";
 import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
 import { FacetMetadata } from "../types/facet_metadata";
 
+// Hash params that should be persisted across pages.
+const PARAMS_TO_PERSIST = new Set(["hl", "enable_feature", "aq"]);
+
 /**
  * Returns token for URL param.
  * @param param URL param
@@ -55,16 +58,24 @@ export function getUpdatedHash(
   params: Record<string, string | string[]>
 ): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  // Remove all existing params not present in the new params
+  Array.from(urlParams.keys()).forEach((key) => {
+    if (!(key in params) && !PARAMS_TO_PERSIST.has(key)) {
+      urlParams.delete(key);
+    }
+  });
+
   for (const param in params) {
-    if (!params[param]) {
+    const value = params[param];
+    if (!value || (Array.isArray(value) && value.length === 0)) {
+      // If the value is empty, remove the param
       urlParams.delete(param);
       continue;
     }
-    if (Array.isArray(params[param])) {
-      urlParams.delete(param);
-      (<string[]>params[param]).forEach((v) => urlParams.append(param, v));
+    if (Array.isArray(value)) {
+      value.forEach((v) => urlParams.append(param, v));
     } else {
-      urlParams.set(param, <string>params[param]);
+      urlParams.set(param, value as string);
     }
   }
   return urlParams.toString();
@@ -123,6 +134,7 @@ export interface UrlHashParams {
   maxTopicSvs: string;
   maxCharts: string;
   chartType: string;
+  origin: string;
   facetMetadata?: FacetMetadata;
 }
 
@@ -188,6 +200,7 @@ export function extractUrlHashParams(
   const maxTopicSvs = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_TOPIC_SVS]);
   const maxCharts = getSingleParam(hashParams[URL_HASH_PARAMS.MAX_CHARTS]);
   const chartType = getSingleParam(hashParams[URL_HASH_PARAMS.CHART_TYPE]);
+  const origin = getSingleParam(hashParams[URL_HASH_PARAMS.ORIGIN]);
   const facetMetadata = extractFacetMetadataUrlHashParams(hashParams);
 
   return {
@@ -209,6 +222,7 @@ export function extractUrlHashParams(
     maxTopicSvs,
     maxCharts,
     chartType,
+    origin,
     facetMetadata,
   };
 }

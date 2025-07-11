@@ -40,5 +40,23 @@
     "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
+  },
+  {
+    "name": "page_overview_experiment",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Enables the page overview generated from query and relevant stat vars as an experiment."
+  },
+  {
+    "name": "page_overview_ga",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
+  },
+  {
+    "name": "standardized_vis_tool",
+    "enabled": false,
+    "owner": "juliawu",
+    "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   }
 ]
