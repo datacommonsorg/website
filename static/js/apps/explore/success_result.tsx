@@ -181,11 +181,14 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
               value={(
                 dcid: string,
                 placeType?: string,
-                apiRoot?: string
+                apiRoot?: string,
+                statVar?: string
               ): string => {
                 return `${apiRoot || ""}/explore/#${getUpdatedHash({
                   [URL_HASH_PARAMS.PLACE]: dcid,
-                  [URL_HASH_PARAMS.TOPIC]: topicUrlVal,
+                  [URL_HASH_PARAMS.TOPIC]: [statVar, topicUrlVal]
+                    .filter(Boolean)
+                    .join("___"),
                   [URL_HASH_PARAMS.QUERY]: "",
                   [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RANKING_PLACE,
                 })}`;
