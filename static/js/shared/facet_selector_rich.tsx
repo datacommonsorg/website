@@ -478,6 +478,11 @@ function FacetOptionContent({
         {metadata.scalingFactor && (
           <li>Scaling Factor • {metadata.scalingFactor}</li>
         )}
+        {metadata.isDcAggregate && (
+          <li>
+            {intl.formatMessage(metadataComponentMessages.DataCommonsAggregate)}
+          </li>
+        )}
         {observationPeriodDisplay && (
           <li>
             {intl.formatMessage(metadataComponentMessages.ObservationPeriod)} •{" "}
