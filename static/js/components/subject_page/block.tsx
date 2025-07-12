@@ -53,13 +53,14 @@ import {
 } from "../../shared/feature_flags/util";
 import { usePromiseResolver } from "../../shared/hooks/promise_resolver";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { fetchFacetsWithMetadata } from "../../tools/shared/metadata/metadata_fetcher";
+import {
+  fetchFacetChoices,
+  fetchFacetChoicesWithin,
+} from "../../tools/shared/facet_choice_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
-import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getFacets } from "../../utils/data_fetch_utils";
 import { isNlInterface } from "../../utils/explore_utils";
 import {
   addPerCapitaToTitle,
@@ -243,10 +244,13 @@ function getBlockStatVarSpecs(
   statVarProvider: StatVarProvider
 ): StatVarSpec[] {
   const allTiles = _.flatten(columns.map((c) => c.tiles));
-  if (allTiles.length < 1) {
+  const firstEligibleTile = allTiles.find((t) =>
+    CHART_TILES_WITH_FACET_SELECTOR.has(t.type)
+  );
+  if (!firstEligibleTile) {
     return [];
   }
-  return statVarProvider.getSpecList(allTiles[0].statVarKey);
+  return statVarProvider.getSpecList(firstEligibleTile.statVarKey);
 }
 
 export function Block(props: BlockPropType): ReactElement {
@@ -277,8 +281,6 @@ export function Block(props: BlockPropType): ReactElement {
   const expandoRef = useRef(null);
   const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
 
-  const dataCommonsClient = useMemo(() => getDataCommonsClient(), []);
-
   const { getStatVarSpec, getSingleStatVarSpec } = useStatVarSpec(
     snapToHighestCoverage,
     useDenom,
@@ -302,7 +304,7 @@ export function Block(props: BlockPropType): ReactElement {
       ? getBlockStatVarSpecs(props.columns, props.statVarProvider)
       : [];
     setBlockSVs((prev) => {
-      if (prev.length === 0 && newList.length === 0) {
+      if (_.isEqual(prev, newList)) {
         return prev;
       }
       return newList;
@@ -324,30 +326,35 @@ export function Block(props: BlockPropType): ReactElement {
     if (_.isEmpty(blockSVs)) {
       return null;
     }
-    const allTiles = _.flatten(props.columns.map((c) => c.tiles));
-    const placeDcids = new Set<string>([props.place.dcid]);
-    allTiles.forEach((tile) => {
-      if (tile.placeDcidOverride) {
-        placeDcids.add(tile.placeDcidOverride);
-      }
-      getComparisonPlaces(tile, props.place)?.forEach((p) => placeDcids.add(p));
-    });
+    const isWithinPlaceFetch = !!props.enclosedPlaceType;
 
-    const baseFacets = await getFacets(
-      undefined,
-      Array.from(placeDcids),
-      blockSVs.map((sv) => sv.statVar)
-    );
-    const enrichedFacets = await fetchFacetsWithMetadata(
-      baseFacets,
-      dataCommonsClient
-    );
-    return blockSVs.map((sv) => ({
-      dcid: sv.statVar,
-      name: sv.name || sv.statVar,
-      metadataMap: enrichedFacets[sv.statVar] || {},
-    }));
-  }, [blockSVs, props.columns, props.place, dataCommonsClient]);
+    if (isWithinPlaceFetch) {
+      return fetchFacetChoicesWithin(
+        props.place.dcid,
+        props.enclosedPlaceType,
+        blockSVs.map((sv) => ({
+          dcid: sv.statVar,
+          name: sv.name,
+          date: sv.date,
+        }))
+      );
+    } else {
+      const allTiles = _.flatten(props.columns.map((c) => c.tiles));
+      const placeDcids = new Set<string>([props.place.dcid]);
+      allTiles.forEach((tile) => {
+        if (tile.placeDcidOverride) {
+          placeDcids.add(tile.placeDcidOverride);
+        }
+        getComparisonPlaces(tile, props.place)?.forEach((p) =>
+          placeDcids.add(p)
+        );
+      });
+      return fetchFacetChoices(
+        Array.from(placeDcids),
+        blockSVs.map((sv) => ({ dcid: sv.statVar, name: sv.name }))
+      );
+    }
+  }, [blockSVs, props.columns, props.enclosedPlaceType, props.place]);
 
   const {
     data: facetList,
