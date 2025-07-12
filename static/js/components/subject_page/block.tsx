@@ -23,7 +23,14 @@ import "../../../library";
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { FormattedMessage } from "react-intl";
 import { Input, UncontrolledTooltip } from "reactstrap";
 
@@ -39,7 +46,17 @@ import {
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import { FacetSelector } from "../../shared/facet_selector";
+import {
+  isFeatureEnabled,
+  METADATA_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
+import { usePromiseResolver } from "../../shared/hooks/promise_resolver";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import {
+  fetchFacetChoices,
+  fetchFacetChoicesWithin,
+} from "../../tools/shared/facet_choice_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
@@ -73,6 +90,7 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
+import { useStatVarSpec } from "./stat_var_spec";
 
 // Lazy load tiles (except map) when they are within 1000px of the viewport
 const EXPLORE_LAZY_LOAD_MARGIN = "1000px";
@@ -118,6 +136,11 @@ export interface BlockPropType {
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
+const CHART_TILES_WITH_FACET_SELECTOR = new Set([
+  "LINE",
+  "HIGHLIGHT",
+  "SCATTER",
+]);
 
 /**
  * Helper for determining if we should snap the charts in this block to the
@@ -180,7 +203,57 @@ async function shouldEnableSnapToHighestCoverage(
   return !isHighestCoverageDateEqualToLatestDates;
 }
 
-export function Block(props: BlockPropType): JSX.Element {
+/**
+ * Helper for determining if a block contains tiles eligible for block-level
+ * facet selection, and if so, that these blocks share common stat vars.
+ *
+ * @returns boolean - true if block contains eligible tiles that share stat vars
+ */
+function blockEligibleForFacetSelector(
+  columns: ColumnConfig[],
+  isWebComponentBlock: boolean
+): boolean {
+  if (isWebComponentBlock || !isFeatureEnabled(METADATA_FEATURE_FLAG)) {
+    return false;
+  }
+
+  const allChartTiles = _.flatten(columns.map((c) => c.tiles)).filter((t) =>
+    CHART_TILES_WITH_FACET_SELECTOR.has(t.type)
+  );
+  if (allChartTiles.length < 1) {
+    return false;
+  }
+  const firstSvKey = JSON.stringify(allChartTiles[0].statVarKey.slice().sort());
+  for (const tile of allChartTiles) {
+    const currentSvKey = JSON.stringify(tile.statVarKey.slice().sort());
+    if (currentSvKey !== firstSvKey) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * This helper gets the list of stat var specs for a block, assuming all stat
+ * vars are have already been determined to be consistent across its tiles.
+ *
+ * @returns StatVarSpec[]
+ */
+function getBlockStatVarSpecs(
+  columns: ColumnConfig[],
+  statVarProvider: StatVarProvider
+): StatVarSpec[] {
+  const allTiles = _.flatten(columns.map((c) => c.tiles));
+  const firstEligibleTile = allTiles.find((t) =>
+    CHART_TILES_WITH_FACET_SELECTOR.has(t.type)
+  );
+  if (!firstEligibleTile) {
+    return [];
+  }
+  return statVarProvider.getSpecList(firstEligibleTile.statVarKey);
+}
+
+export function Block(props: BlockPropType): ReactElement {
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
@@ -199,9 +272,111 @@ export function Block(props: BlockPropType): JSX.Element {
     setShowSnapToHighestCoverageCheckbox,
   ] = useState(false);
   const [enableSnapToLatestData, setEnableSnapToLatestData] = useState(true);
+  const [facetOverrides, setFacetOverrides] = useState<Record<string, string>>(
+    {}
+  );
+  const [showFacetSelector, setShowFacetSelector] = useState(false);
+  const [blockSVs, setBlockSVs] = useState<StatVarSpec[]>([]);
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
   const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
+
+  const { getStatVarSpec, getSingleStatVarSpec } = useStatVarSpec(
+    snapToHighestCoverage,
+    useDenom,
+    denom,
+    facetOverrides,
+    props.statVarProvider
+  );
+
+  /*
+    This hook prepares the block level stat vars. It determines if we
+    have tiles that allow block-level facet selection, and if all those
+    tiles share the same stat vars. If so, we set the block level stat vars
+    and enable the facet selector.
+   */
+  useEffect(() => {
+    const blockEligible = blockEligibleForFacetSelector(
+      props.columns,
+      !!props.showWebComponents
+    );
+    const newList = blockEligible
+      ? getBlockStatVarSpecs(props.columns, props.statVarProvider)
+      : [];
+    setBlockSVs((prev) => {
+      if (_.isEqual(prev, newList)) {
+        return prev;
+      }
+      return newList;
+    });
+    setShowFacetSelector(blockEligible);
+  }, [props.columns, props.showWebComponents, props.statVarProvider]);
+
+  /**
+   * A function that fetches all facet metadata shared by eligible tiles in this block.
+   *
+   * (1) If blockSVs is empty, the block contains no facet-eligible tiles, so
+   *     we return null.
+   * (2) Otherwise we pull the base facets for each place/stat var pair and then enrich
+   *     them.
+   *
+   * @returns FacetSelectorFacetInfo[] | null - an array of the enriched facets or null
+   */
+  const fetchFacets = useCallback(async () => {
+    if (_.isEmpty(blockSVs)) {
+      return null;
+    }
+    const isWithinPlaceFetch = !!props.enclosedPlaceType;
+
+    if (isWithinPlaceFetch) {
+      return fetchFacetChoicesWithin(
+        props.place.dcid,
+        props.enclosedPlaceType,
+        blockSVs.map((sv) => ({
+          dcid: sv.statVar,
+          name: sv.name,
+          date: sv.date,
+        }))
+      );
+    } else {
+      const allTiles = _.flatten(props.columns.map((c) => c.tiles));
+      const placeDcids = new Set<string>([props.place.dcid]);
+      allTiles.forEach((tile) => {
+        if (tile.placeDcidOverride) {
+          placeDcids.add(tile.placeDcidOverride);
+        }
+        getComparisonPlaces(tile, props.place)?.forEach((p) =>
+          placeDcids.add(p)
+        );
+      });
+      return fetchFacetChoices(
+        Array.from(placeDcids),
+        blockSVs.map((sv) => ({ dcid: sv.statVar, name: sv.name }))
+      );
+    }
+  }, [blockSVs, props.columns, props.enclosedPlaceType, props.place]);
+
+  const {
+    data: facetList,
+    loading: facetsLoading,
+    error: facetsError,
+  } = usePromiseResolver(fetchFacets);
+
+  const hasAlternativeSources = useMemo(() => {
+    if (facetsLoading || !facetList) {
+      return false;
+    }
+    return facetList.some(
+      (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
+    );
+  }, [facetList, facetsLoading]);
+
+  const onSvFacetIdUpdated = useCallback(
+    (svFacetId: Record<string, string>): void => {
+      setFacetOverrides((prev) => ({ ...prev, ...svFacetId }));
+    },
+    []
+  );
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -315,6 +490,21 @@ export function Block(props: BlockPropType): JSX.Element {
             </UncontrolledTooltip>
           </span>
         )}
+        {showFacetSelector && hasAlternativeSources && (
+          <div className="block-modal-trigger">
+            {!facetsLoading && (denom || showSnapToHighestCoverageCheckbox) && (
+              <span>•</span>
+            )}
+            <FacetSelector
+              svFacetId={facetOverrides}
+              facetList={facetList}
+              loading={facetsLoading}
+              error={!!facetsError}
+              onSvFacetIdUpdated={onSvFacetIdUpdated}
+              variant="inline"
+            />
+          </div>
+        )}
       </div>
       <div className="block-body row" ref={columnSectionRef}>
         {props.columns &&
@@ -349,6 +539,8 @@ export function Block(props: BlockPropType): JSX.Element {
                         id,
                         minIdxToHide,
                         overridePlaceTypes,
+                        getStatVarSpec,
+                        getSingleStatVarSpec,
                         columnTileClassName,
                         useDenom ? denom : "",
                         snapToHighestCoverage
@@ -395,10 +587,12 @@ function renderTiles(
   columnId: string,
   minIdxToHide: number,
   overridePlaces: Record<string, NamedTypedPlace>,
+  getStatVarSpec: (svKey: string[]) => StatVarSpec[],
+  getSingleStatVarSpec: (sv: string) => StatVarSpec,
   tileClassName?: string,
   blockDenom?: string,
   blockDate?: string
-): JSX.Element {
+): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
   }
@@ -428,10 +622,7 @@ function renderTiles(
             key={id}
             description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             highlightFacet={props.highlightFacet}
           />
         );
@@ -448,10 +639,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={
@@ -479,10 +667,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             comparisonPlaces={comparisonPlaces}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getStatVarSpec(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -511,10 +696,7 @@ function renderTiles(
             title={title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
-            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            variables={getStatVarSpec(tile.statVarKey)}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -555,10 +737,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             useLollipop={tile.barTileSpec?.useLollipop}
-            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            variables={getStatVarSpec(tile.statVarKey)}
             xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
             placeNameProp={tile.placeNameProp}
@@ -570,12 +749,11 @@ function renderTiles(
           />
         );
       case "SCATTER": {
-        const statVarSpec = props.statVarProvider.getSpecList(tile.statVarKey, {
-          blockDate,
-          blockDenom,
-        });
         title = blockDenom
-          ? addPerCapitaToVersusTitle(tile.title, statVarSpec)
+          ? addPerCapitaToVersusTitle(
+              tile.title,
+              getStatVarSpec(tile.statVarKey)
+            )
           : tile.title;
         return (
           <ScatterTile
@@ -587,7 +765,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={statVarSpec}
+            statVarSpec={getStatVarSpec(tile.statVarKey)}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
             }
@@ -730,7 +908,7 @@ function renderWebComponents(
   tileClassName?: string,
   blockDenom?: string,
   blockDate?: string
-): JSX.Element {
+): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
   }

@@ -22,10 +22,7 @@ import _ from "lodash";
 import ReactDOMServer from "react-dom/server";
 
 import { getPointsList } from "../../js/components/ranking_unit";
-import {
-  fetchData,
-  RankingTilePropType,
-} from "../../js/components/tiles/ranking_tile";
+import { fetchData } from "../../js/components/tiles/ranking_tile";
 import {
   getRankingUnit,
   getRankingUnitPoints,
@@ -37,34 +34,9 @@ import { TileConfig } from "../../js/types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../../js/utils/chart_csv_utils";
 import { getPlaceNames } from "../../js/utils/place_utils";
 import { htmlToSvg } from "../../js/utils/svg_utils";
-import {
-  CHART_ID,
-  FONT_FAMILY,
-  FONT_SIZE,
-  SVG_HEIGHT,
-  SVG_WIDTH,
-} from "../constants";
+import { FONT_FAMILY, FONT_SIZE, SVG_HEIGHT, SVG_WIDTH } from "../constants";
 import { TileResult } from "../types";
 import { getProcessedSvg, getSources } from "./utils";
-
-function getTileProp(
-  id: string,
-  tileConfig: TileConfig,
-  place: string,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
-  apiRoot: string
-): RankingTilePropType {
-  return {
-    id,
-    title: tileConfig.title,
-    parentPlace: place,
-    enclosedPlaceType,
-    variables: statVarSpec,
-    rankingMetadata: tileConfig.rankingTileSpec,
-    apiRoot,
-  };
-}
 
 function getRankingChartSvg(
   rankingGroup: RankingGroup,
@@ -196,16 +168,14 @@ export async function getRankingTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string
 ): Promise<TileResult[]> {
-  const tileProp = getTileProp(
-    id,
-    tileConfig,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    apiRoot
-  );
   try {
-    const rankingData = await fetchData(tileProp);
+    const rankingData = await fetchData(
+      statVarSpec,
+      tileConfig.rankingTileSpec,
+      enclosedPlaceType,
+      place,
+      apiRoot
+    );
     const placeDcids = new Set<string>();
     Object.values(rankingData).forEach((rankingGroup) => {
       rankingGroup.points.forEach((point) => {
@@ -280,16 +250,14 @@ export async function getRankingChart(
   apiRoot: string,
   containerRef: React.RefObject<HTMLElement>
 ): Promise<SVGSVGElement> {
-  const tileProp = getTileProp(
-    CHART_ID,
-    tileConfig,
-    place,
-    enclosedPlaceType,
-    statVarSpec,
-    apiRoot
-  );
   try {
-    const rankingData = await fetchData(tileProp);
+    const rankingData = await fetchData(
+      statVarSpec,
+      tileConfig.rankingTileSpec,
+      enclosedPlaceType,
+      place,
+      apiRoot
+    );
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
       return getRankingChartSvg(
