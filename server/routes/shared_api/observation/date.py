@@ -36,7 +36,8 @@ def observation_dates():
   variable = request.args.get('variable')
   if not variable:
     return 'error: must provide a variable field', 400
-  return dc.get_series_dates(parent_entity, child_type, [variable])
+  return util.get_series_dates_from_entities_within(parent_entity, child_type,
+                                                    [variable])
 
 
 @bp.route('/api/observation-dates/entities')

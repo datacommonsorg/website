@@ -21,6 +21,7 @@ from parameterized import parameterized
 import server.lib.nl.common.utils as utils
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Date
+import server.lib.util as util
 import server.services.datacommons as dc
 
 TEST_FACET_DATA_YYYY = {
@@ -358,9 +359,10 @@ class TestGetContainedInLatestDate(unittest.TestCase):
                                       }
                                   }
                          ]])
-  @patch.object(dc, 'get_series_dates')
-  def test_main(self, date_range, expected, mock_series_dates):
-    mock_series_dates.return_value = TEST_SERIES_DATES_API_RESPONSE
+  @patch.object(util, 'get_series_dates_from_entities_within')
+  def test_main(self, date_range, expected,
+                mock_get_series_dates_from_entities_within):
+    mock_get_series_dates_from_entities_within.return_value = TEST_SERIES_DATES_API_RESPONSE
     result = utils.get_contained_in_latest_date(['p1'],
                                                 ContainedInPlaceType.COUNTY,
                                                 ['sv1', 'sv2', 'sv3'],
