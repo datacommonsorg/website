@@ -226,3 +226,23 @@ export function extractUrlHashParams(
     facetMetadata,
   };
 }
+
+/**
+ * Get the value of a query parameter from the current URL
+ * @param parameter name of the query parameter to fetch the value of
+ * @returns the value of the query parameter if set, otherwise null
+ */
+export function getQueryParamFromUrl(parameter: string): string | null {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(parameter);
+}
+
+/**
+ * Fetch locale from the URL
+ *
+ * Used to get the current locale set by a ?hl= url parameter.
+ * If the parameter is not present, defaults to the "en" locale.
+ */
+export function getLocaleFromUrl(): string {
+  return getQueryParamFromUrl("hl") || "en";
+}
