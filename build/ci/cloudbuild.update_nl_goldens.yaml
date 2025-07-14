@@ -177,7 +177,7 @@ steps:
 
 availableSecrets:
   secretManager:
-  - versionName: projects/datcom-ci/secrets/github-pr-token/versions/latest
+  - versionName: projects/datcom-ci/secrets/Github-write-token/versions/latest
     env: 'Github-write-token'
 
 substitutions:
