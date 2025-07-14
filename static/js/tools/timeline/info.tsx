@@ -17,6 +17,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
+import { InfoBox } from "../shared/info_box";
 import { MemoizedInfoExamples } from "../shared/info_examples";
 
 class Info extends Component {
@@ -49,3 +50,24 @@ class Info extends Component {
 }
 
 export const MemoizedInfo = React.memo(Info);
+
+export function StandardizedInfo(): JSX.Element {
+  return (
+    <InfoBox>
+      <h2>Follow these steps:</h2>
+      <ol>
+        <li>
+          Type your desired location(s) (city, state, country, county) into the
+          search box above, then select the place from the displayed results.
+        </li>
+        <li>
+          Pick a statistical variable{" "}
+          <span className="d-none d-lg-inline">in the left pane</span>
+          <span className="d-lg-none">
+            using the &quot;Select variable&quot; button above
+          </span>
+        </li>
+      </ol>
+    </InfoBox>
+  );
+}

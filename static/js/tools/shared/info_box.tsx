@@ -59,8 +59,8 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
           css={css`
             color: var(--GM3-ref-neutral-neutral20, #303030);
             font-size: 22px;
-            line-height: 28px;
             font-weight: 400;
+            line-height: 28px;
 
             h2 {
               font-size: 24px;
@@ -69,7 +69,7 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
             }
             ol,
             ul {
-              margin: 16px 0;
+              margin: 24px 0;
             }
             li {
               margin: 24px 0;

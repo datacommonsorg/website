@@ -34,7 +34,7 @@ import { InfoBox } from "../shared/info_box";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
-import { Info } from "./info";
+import { Info, StandardizedInfo } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
 import { Title } from "./title";
@@ -83,30 +83,7 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          <Row>
-            {useStandardizedUi ? (
-              <InfoBox>
-                <h2>Follow these steps:</h2>
-                <ol>
-                  <li>
-                    Enter your desired location (county or state) into the
-                    search box above, and then select the type of place you want
-                    to plot.
-                  </li>
-                  <li>
-                    Pick a statistical variable{" "}
-                    <span className="d-none d-lg-inline">in the left pane</span>
-                    <span className="d-lg-none">
-                      using the &quot;Select variable&quot; button above
-                    </span>
-                    .
-                  </li>
-                </ol>
-              </InfoBox>
-            ) : (
-              <Info />
-            )}
-          </Row>
+          <Row>{useStandardizedUi ? <StandardizedInfo /> : <Info />}</Row>
           <Row id="chart-row">
             <ChartLoader />
           </Row>

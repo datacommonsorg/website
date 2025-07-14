@@ -37,7 +37,7 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartRegion } from "./chart_region";
-import { MemoizedInfo } from "./info";
+import { MemoizedInfo, StandardizedInfo } from "./info";
 import {
   addToken,
   getTokensFromUrl,
@@ -182,7 +182,8 @@ class Page extends Component<unknown, PageStateType> {
                 </Col>
               </Row>
             </Card>
-            {numPlaces === 0 && <MemoizedInfo />}
+            {numPlaces === 0 &&
+              (useStandardizedUi ? <StandardizedInfo /> : <MemoizedInfo />)}
             {numPlaces !== 0 && numStatVarInfo !== 0 && (
               <div id="chart-region">
                 <ChartRegion

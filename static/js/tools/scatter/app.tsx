@@ -39,7 +39,7 @@ import {
   PlaceInfo,
   useContextStore,
 } from "./context";
-import { MemoizedInfo } from "./info";
+import { MemoizedInfo, StandardizedInfo } from "./info";
 import { PlaceOptions } from "./place_and_type_options";
 import { StatVarChooser } from "./statvar";
 import {
@@ -103,7 +103,7 @@ function App(): ReactElement {
           )}
           {showInfo && (
             <Row>
-              <MemoizedInfo />
+              {useStandardizedUi ? <StandardizedInfo /> : <MemoizedInfo />}
             </Row>
           )}
           {showChart && (

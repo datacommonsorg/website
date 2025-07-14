@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React, { useContext } from "react";
 
+import { InfoBox } from "../shared/info_box";
 import { MemoizedInfoExamples } from "../shared/info_examples";
 import { Context } from "./context";
 import { ifShowChart } from "./util";
@@ -66,5 +67,27 @@ export function Info(): JSX.Element {
         </div>
       )}
     </>
+  );
+}
+
+export function StandardizedInfo(): JSX.Element {
+  return (
+    <InfoBox>
+      <h2>Follow these steps:</h2>
+      <ol>
+        <li>
+          Enter your desired location (county or state) into the search box
+          above, and then select the type of sub-regions you want to plot.
+        </li>
+        <li>
+          Pick a statistical variable{" "}
+          <span className="d-none d-lg-inline">in the left pane</span>
+          <span className="d-lg-none">
+            using the &quot;Select variable&quot; button above
+          </span>
+          .
+        </li>
+      </ol>
+    </InfoBox>
   );
 }

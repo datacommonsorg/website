@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React from "react";
 
+import { InfoBox } from "../shared/info_box";
 import { MemoizedInfoExamples } from "../shared/info_examples";
 
 function Info(): JSX.Element {
@@ -59,3 +60,26 @@ function Info(): JSX.Element {
 }
 
 export const MemoizedInfo = React.memo(Info);
+
+export function StandardizedInfo(): JSX.Element {
+  return (
+    <InfoBox>
+      <h2>Follow these steps:</h2>
+      <ol>
+        <li>
+          Enter your desired location (e.g. city, state, county, or country)
+          into the search box above, and then select the type of sub-regions you
+          want to plot.
+        </li>
+        <li>
+          Pick a statistical variable{" "}
+          <span className="d-none d-lg-inline">in the left pane</span>
+          <span className="d-lg-none">
+            using the &quot;Select variable&quot; button above
+          </span>
+          .
+        </li>
+      </ol>
+    </InfoBox>
+  );
+}

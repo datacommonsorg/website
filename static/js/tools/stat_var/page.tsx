@@ -31,6 +31,7 @@ import {
 } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
 import { getUrlToken, updateHash } from "../../utils/url_utils";
+import { InfoBox } from "../shared/info_box";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
