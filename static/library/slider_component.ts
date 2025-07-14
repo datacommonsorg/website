@@ -326,6 +326,11 @@ export class DatacommonsSliderComponent extends LitElement {
   @state()
   private _value: number;
 
+  /**
+   * Flag to prevent self-triggering when dispatching events
+   */
+  private _isDispatching = false;
+
   connectedCallback(): void {
     super.connectedCallback();
     if (this.min && this.max) {
@@ -348,6 +353,98 @@ export class DatacommonsSliderComponent extends LitElement {
     }
     this._showTrendsSummaryEnabled = false;
     this.fetchObservationDates();
+
+    // Subscribe to events on the same channel
+    this.subscribeToEvents();
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    // Clean up event listeners
+    this.unsubscribeFromEvents();
+  }
+
+  private subscribeToEvents(): void {
+    if (!this.publish) {
+      return;
+    }
+
+    // Listen for events on the same channel we publish to
+    document.addEventListener(
+      this.publish,
+      this.handleExternalEvent.bind(this)
+    );
+  }
+
+  private unsubscribeFromEvents(): void {
+    if (!this.publish) {
+      return;
+    }
+
+    document.removeEventListener(
+      this.publish,
+      this.handleExternalEvent.bind(this)
+    );
+  }
+
+  private handleExternalEvent(event: CustomEvent): void {
+    // Prevent self-triggering
+    if (this._isDispatching) {
+      return;
+    }
+
+    try {
+      // Validate event structure
+      if (!event.detail || typeof event.detail !== "object") {
+        console.warn(
+          `[datacommons-slider] Invalid event structure received on channel '${this.publish}':`,
+          event
+        );
+        return;
+      }
+
+      const { property, value } = event.detail;
+
+      // Only handle date property updates
+      if (property !== "date") {
+        return;
+      }
+
+      // Validate date value
+      if (typeof value !== "string" || !value) {
+        console.warn(
+          `[datacommons-slider] Invalid date value received:`,
+          value
+        );
+        return;
+      }
+
+      // Check if the date is within our available range
+      if (!this._dates || this._dates.length === 0) {
+        console.warn(
+          `[datacommons-slider] No dates available to validate against`
+        );
+        return;
+      }
+
+      const dateIndex = this._dates.indexOf(value);
+      if (dateIndex === -1) {
+        console.warn(
+          `[datacommons-slider] Date '${value}' is not in available range:`,
+          this._dates
+        );
+        return;
+      }
+
+      // Update the slider value
+      this._value = dateIndex;
+      this.requestUpdate();
+    } catch (error) {
+      console.error(
+        `[datacommons-slider] Error handling external event:`,
+        error
+      );
+    }
   }
 
   render(): TemplateResult {
@@ -480,6 +577,8 @@ export class DatacommonsSliderComponent extends LitElement {
     this._value = newValue;
     const dateValue =
       this._value < this._dates.length ? this._dates[this._value] : undefined;
+
+    this._isDispatching = true;
     this.dispatchEvent(
       new CustomEvent<ChartEventDetail>(this.publish, {
         bubbles: true,
@@ -489,6 +588,7 @@ export class DatacommonsSliderComponent extends LitElement {
         },
       })
     );
+    this._isDispatching = false;
   }
 
   private onSliderInput(e: Event): void {
@@ -505,6 +605,8 @@ export class DatacommonsSliderComponent extends LitElement {
     const dispatchedDateValue = this._showTrendsSummaryEnabled
       ? DATE_LATEST
       : dateValue;
+
+    this._isDispatching = true;
     this.dispatchEvent(
       new CustomEvent<ChartEventDetail>(this.publish, {
         bubbles: true,
@@ -514,6 +616,7 @@ export class DatacommonsSliderComponent extends LitElement {
         },
       })
     );
+    this._isDispatching = false;
   }
 
   private async fetchObservationDates(): Promise<void> {
