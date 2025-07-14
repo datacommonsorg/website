@@ -30,6 +30,7 @@ import {
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
+import { InfoBox } from "../shared/info_box";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
@@ -83,7 +84,28 @@ function App(): ReactElement {
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
           <Row>
-            <Info />
+            {useStandardizedUi ? (
+              <InfoBox>
+                <h2>Follow these steps:</h2>
+                <ol>
+                  <li>
+                    Enter your desired location (county or state) into the
+                    search box above, and then select the type of place you want
+                    to plot.
+                  </li>
+                  <li>
+                    Pick a statistical variable{" "}
+                    <span className="d-none d-lg-inline">in the left pane</span>
+                    <span className="d-lg-none">
+                      using the &quot;Select variable&quot; button above
+                    </span>
+                    .
+                  </li>
+                </ol>
+              </InfoBox>
+            ) : (
+              <Info />
+            )}
           </Row>
           <Row id="chart-row">
             <ChartLoader />
