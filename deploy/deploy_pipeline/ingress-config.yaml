@@ -1,0 +1,27 @@
+apiVersion: v1
+data:
+  rules: |
+    dc-mixer-default:
+      - /*
+    dc-mixer-node:
+      - /v2/node
+    dc-mixer-observation:
+      - /v2/observation
+    dc-mixer-svg:
+      - /place/stat-var-group/*
+      - /stat-var/*
+      - /v1/variable/*
+      - /v1/bulk/info/variable-group
+      - /v1/bulk/info/variable
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: dc-website
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-05-24T17:56:44Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: ingress-config
+  namespace: website
+  resourceVersion: "55719"
+  uid: 6302a162-1cf9-42d0-b12a-1dfcc10d43e0

@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  hostProject: datcom-website-dev
+  serviceName: website-esp.endpoints.datcom-website-dev.cloud.goog
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: dc-mixer
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-05-24T16:33:38Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: dc-mixer-mixer-config
+  namespace: website
+  resourceVersion: "3322"
+  uid: a0760c45-0c2f-463f-a0a0-f5ee3e5de389
