@@ -58,5 +58,11 @@
     "enabled": false,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
+  },
+  {
+    "name": "use_vai_for_statvar_search",
+    "enabled": false,
+    "owner": "alyssaguo",
+    "description": "Enables using the Vertex AI search application for stat var searches."
   }
 ]
