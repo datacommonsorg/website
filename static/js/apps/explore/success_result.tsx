@@ -38,6 +38,8 @@ import {
   FOLLOW_UP_QUESTIONS_EXPERIMENT,
   FOLLOW_UP_QUESTIONS_GA,
   isFeatureEnabled,
+  PAGE_OVERVIEW_EXPERIMENT,
+  PAGE_OVERVIEW_GA,
 } from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
@@ -57,15 +59,22 @@ import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
+import { PageOverview } from "./page_overview";
 
 const PAGE_ID = "explore";
 
 const EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO = 0.2;
+const EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO = 0.2;
 
 const showFollowUpQuestions =
   isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA) ||
   (isFeatureEnabled(FOLLOW_UP_QUESTIONS_EXPERIMENT) &&
     Math.random() < EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO);
+
+const showPageOverview =
+  isFeatureEnabled(PAGE_OVERVIEW_GA) ||
+  (isFeatureEnabled(PAGE_OVERVIEW_EXPERIMENT) &&
+    Math.random() < EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO);
 
 interface SuccessResultPropType {
   //the query string that brought up the given results
@@ -178,6 +187,11 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 placeUrlVal={placeUrlVal}
                 hideRelatedTopics={showFollowUpQuestions}
               />
+            )}
+            {showPageOverview && (
+              <PageOverview
+              query={props.query}
+              pageMetadata={props.pageMetadata}/>
             )}
             <RankingUnitUrlFuncContext.Provider
               value={(
