@@ -11,23 +11,10 @@ jobs:
       contents: write # Required to push changes back to the repository
       pull-requests: write # Required to create a pull request
       issues: write # Required for label creation
-      id-token: write # Required to fetch OIDC ID token
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    # NEW STEP: Authenticate to Google Cloud
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v2'
-      with:
-        # Replace with your GCP project ID
-        project_id: 'datcom-website-dev' # Or 'datcom-nl' if that's where the models are
-        # Replace with the service account email created in Step 1
-        workload_identity_provider: 'projects/YOUR_PROJECT_NUMBER/locations/global/workloadIdentityPools/github-pool/providers/github-actions'
-        # Replace with the service account email created in Step 1
-        service_account: 'github-actions-nl-server@YOUR_PROJECT_ID.iam.gserviceaccount.com'
 
     - name: Set up Python 3.11+
       uses: actions/setup-python@v5
