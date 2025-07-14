@@ -117,8 +117,6 @@ steps:
   waitFor: ['-'] # Run always, after all other steps, regardless of their success/failure
 
 # Step 8: Commit and Create Pull Request
-# This step requires your GitHub PAT from Secret Manager.
-# The Cloud Build service account must have Secret Manager Secret Accessor role.
 - name: 'gcr.io/cloud-builders/git' # Use the git builder
   id: 'create-pr'
   entrypoint: 'bash'
