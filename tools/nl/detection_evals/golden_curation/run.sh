@@ -22,6 +22,8 @@ shift
 
 if [ "$MODE" = "vars" ]; then
     python3 generate_vars.py "$@"
+elif [ "$MODE" = "svgs" ]; then
+    python3 generate_svgs.py "$@"
 else
     echo "Unknown mode: $MODE"
     exit 1

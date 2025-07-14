@@ -38,13 +38,20 @@ jobs:
 
     - name: Start NL Server in background
       run: |
+        # Clear NL server cache/models before starting
         rm -rf ~/.datacommons
         rm -rf /tmp/datcom-nl-models
         rm -rf /tmp/datcom-nl-models-dev
 
-        ./run_nl_server.sh -p 6060 &
+        # --- IMPORTANT CHANGE HERE ---
+        # Redirect stdout and stderr to a log file
+        # Use 'tee' to also see output in real-time, if possible, but redirecting to file is key
+        # 'nohup' can be used if you want to ensure it continues even if the parent shell exits,
+        # but for GitHub Actions '&' is usually sufficient.
+        # Add a placeholder for the log file, e.g., 'nl_server.log'
+        ./run_nl_server.sh -p 6060 > nl_server.log 2>&1 &
         SERVER_PID=$!
-        echo "NL Server started with PID: $SERVER_PID on port 6060"
+        echo "NL Server started with PID: $SERVER_PID on port 6060, logging to nl_server.log"
         echo "SERVER_PID=$SERVER_PID" >> $GITHUB_ENV
       shell: bash
 
@@ -58,6 +65,14 @@ jobs:
         done
         echo "NL Server did not start in time on port 6060."
         exit 1
+      shell: bash
+
+    - name: Display NL Server Logs if startup failed
+      if: failure() && steps.wait_for_server.outcome == 'failure'
+      run: |
+        echo "--- NL Server (nl_server.log) Contents ---"
+        cat nl_server.log
+        echo "------------------------------------------"
       shell: bash
 
     - name: Update goldens
