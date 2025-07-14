@@ -61,7 +61,7 @@
   },
   {
     "name": "vai_for_statvar_search",
-    "enabled": false,
+    "enabled": true,
     "owner": "alyssaguo",
     "description": "Enables using the Vertex AI search application for stat var searches."
   }

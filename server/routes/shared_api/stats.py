@@ -13,24 +13,52 @@
 # limitations under the License.
 
 import json
+import logging
 
 from flask import Blueprint
 from flask import current_app
 from flask import request
 from flask import Response
+from google.api_core.client_options import ClientOptions
+from google.cloud import discoveryengine_v1 as discoveryengine
 
 from server.lib import fetch
 from server.lib import shared
 from server.lib.cache import cache
+from server.lib.feature_flags import is_feature_enabled
+from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
 
 # TODO(shifucun): add unittest for this module
 
+# Constants for Vertex AI Search Application
+VAI_PROJECT_ID = "datcom-website-dev"
+VAI_LOCATION = "global"
+VAI_ENGINE_ID = "stat-var-search-bq-data_1751939744678"
+
 # Define blueprint
 bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 
+client = discoveryengine.SearchServiceClient()
+serving_config = f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/collections/default_collection/engines/{VAI_ENGINE_ID}/servingConfigs/default_config"
+
+def search_vertexai(query: str) -> discoveryengine.services.search_service.pagers.SearchPager:
+  """Search statvars using Vertex AI search application."""
+  logging.info("in search_vertexai with query: %s", query)
+  search_request = discoveryengine.SearchRequest(
+    serving_config=serving_config,
+    query=query,
+    spell_correction_spec=discoveryengine.SearchRequest.SpellCorrectionSpec(
+      mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO
+    ),
+  )
+
+  page_result = client.search(search_request)
+  logging.info("search_vertexai done")
+
+  return page_result
 
 @bp.route('/stat-var-property')
 def stat_var_property():
@@ -105,6 +133,9 @@ def stat_var_property():
               make_cache_key=lib_util.post_body_cache_key)
 def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
+  use_vai = is_feature_enabled(
+     VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG, request=request)
+  logging.info("feature flag use_vai: " + str(use_vai))
   if request.method == 'GET':
     query = request.args.get("query")
     places = request.args.getlist("places")
@@ -113,5 +144,23 @@ def search_statvar():
     query = request.json.get("query")
     places = request.json.get("places")
     sv_only = request.json.get("svOnly")
-  result = dc.search_statvar(query, places, sv_only)
+  if use_vai and len(places) == 0:
+    search_results = search_vertexai(query)
+    statVars = []
+    for response in search_results:
+      dcid = response.document.struct_data.get("dcid")
+      name = response.document.struct_data.get("name")
+      if dcid and name:
+        statVars.append({
+            "name": name,
+            "dcid": dcid
+        })
+      if len(statVars) >= 100:
+        break
+
+    result = {
+      "statVars": statVars
+    }
+  else:
+    result = dc.search_statvar(query, places, sv_only)
   return Response(json.dumps(result), 200, mimetype='application/json')

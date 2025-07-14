@@ -28,6 +28,7 @@ export function getStatVarSearchResults(
   places: string[],
   svOnly: boolean
 ): Promise<StatVarSearchResult> {
+  console.log("getStatVarSearchResults", query, places, svOnly);
   const url = "/api/stats/stat-var-search";
   const payload = {
     query,
@@ -35,6 +36,7 @@ export function getStatVarSearchResults(
     svOnly,
   };
   return axios.post(url, payload).then((resp) => {
+    console.log("getStatVarSearchResults response", resp);
     const data = resp.data;
     return {
       matches: data.matches || [],
