@@ -21,6 +21,8 @@
 import _ from "lodash";
 import React, { useContext } from "react";
 
+import { intl } from "../../i18n/i18n";
+import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
 import { InfoBox } from "../shared/info_box";
 import { MemoizedInfoExamples } from "../shared/info_examples";
 import { Context } from "./context";
@@ -73,19 +75,26 @@ export function Info(): JSX.Element {
 export function StandardizedInfo(): JSX.Element {
   return (
     <InfoBox>
-      <h2>Follow these steps:</h2>
+      <h2>
+        {intl.formatMessage(visualizationToolMessages.infoBoxInstructionHeader)}
+      </h2>
       <ol>
         <li>
-          Enter your desired location (county or state) into the search box
-          above, and then select the type of sub-regions you want to plot.
+          {intl.formatMessage(
+            visualizationToolMessages.infoBoxInstructionsPlacesIn
+          )}
         </li>
         <li>
-          Pick a statistical variable{" "}
-          <span className="d-none d-lg-inline">in the left pane</span>
-          <span className="d-lg-none">
-            using the &quot;Select variable&quot; button above
+          <span className="d-none d-lg-inline">
+            {intl.formatMessage(
+              visualizationToolMessages.infoBoxInstructionsVariableDesktop
+            )}
           </span>
-          .
+          <span className="d-lg-none">
+            {intl.formatMessage(
+              visualizationToolMessages.infoBoxInstructionsVariableMobile
+            )}
+          </span>
         </li>
       </ol>
     </InfoBox>

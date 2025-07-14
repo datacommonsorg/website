@@ -17,6 +17,8 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
+import { intl } from "../../i18n/i18n";
+import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
 import { InfoBox } from "../shared/info_box";
 import { MemoizedInfoExamples } from "../shared/info_examples";
 
@@ -54,17 +56,25 @@ export const MemoizedInfo = React.memo(Info);
 export function StandardizedInfo(): JSX.Element {
   return (
     <InfoBox>
-      <h2>Follow these steps:</h2>
+      <h2>
+        {intl.formatMessage(visualizationToolMessages.infoBoxInstructionHeader)}
+      </h2>
       <ol>
         <li>
-          Type your desired location(s) (city, state, country, county) into the
-          search box above, then select the place from the displayed results.
+          {intl.formatMessage(
+            visualizationToolMessages.infoBoxInstructionsPlaces
+          )}
         </li>
         <li>
-          Pick a statistical variable{" "}
-          <span className="d-none d-lg-inline">in the left pane</span>
-          <span className="d-lg-none">
-            using the &quot;Select variable&quot; button above
+          <span className="d-none d-lg-inline">
+            {intl.formatMessage(
+              visualizationToolMessages.infoBoxInstructionsMultiVariableDesktop
+            )}
+          </span>
+          <span className="d-inline d-lg-none">
+            {intl.formatMessage(
+              visualizationToolMessages.infoBoxInstructionsMultiVariableMobile
+            )}
           </span>
         </li>
       </ol>

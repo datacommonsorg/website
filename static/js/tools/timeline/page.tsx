@@ -174,7 +174,7 @@ class Page extends Component<unknown, PageStateType> {
                   />
                 </Col>
               </Row>
-              <Row className="d-lg-none">
+              <Row className="d-inline d-lg-none">
                 <Col>
                   <Button color="primary" onClick={this.toggleSvHierarchyModal}>
                     Select variables

@@ -58,4 +58,49 @@ export const visualizationToolMessages = defineMessages({
     description:
       "a description of what our timelines explorer tool is used for",
   },
+  infoBoxInstructionHeader: {
+    id: "info_box_instruction_header",
+    defaultMessage: "Follow these steps:",
+    description: "heading for a set of instructions on how to use our tools",
+  },
+  infoBoxInstructionsPlacesIn: {
+    id: "info_box_instruction_places_in",
+    defaultMessage:
+      "Enter your desired location (e.g. city, state, country) into the search box above, and then select the type of sub-region you want to plot.",
+    description:
+      "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g. plot cities in France).",
+  },
+  infoBoxInstructionsPlaces: {
+    id: "info_box_instruction_places",
+    defaultMessage:
+      "Type your desired location(s) (e.g. city, state, country) into the search box above, then select the place from the displayed results.",
+    description:
+      "instructions for how to enter a list of places to plot using our chart visualization tools",
+  },
+  infoBoxInstructionsVariableDesktop: {
+    id: "info_box_instruction_variable_desktop",
+    defaultMessage: "Pick a statistical variable in the left panel.",
+    description:
+      "An instruction for users to interact with a UI element on the left side of the page",
+  },
+  infoBoxInstructionsVariableMobile: {
+    id: "info_box_instruction_variable_desktop",
+    defaultMessage:
+      'Pick a statistical variable using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
+  infoBoxInstructionsMultiVariableDesktop: {
+    id: "info_box_instruction_variable_desktop",
+    defaultMessage: "Pick statistical variables in the left panel.",
+    description:
+      "An instruction for users to interact with a UI element on the left side of the page to select multiple statistical variables",
+  },
+  infoBoxInstructionsMultiVariableMobile: {
+    id: "info_box_instruction_variable_desktop",
+    defaultMessage:
+      'Pick statistical variables using the "select variables" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variables' to select multiple statistical variable to plot",
+  },
 });

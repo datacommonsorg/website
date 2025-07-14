@@ -78,7 +78,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
       getEnclosedPlaceTypes={getAllChildPlaceTypes}
       customSearchPlaceholder={"Enter a country or state to get started"}
     >
-      <Row className="d-lg-none">
+      <Row className="d-inline d-lg-none">
         <Col>
           <Button color="primary" onClick={props.toggleSvHierarchyModal}>
             Select variable

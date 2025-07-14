@@ -140,7 +140,7 @@ class Page extends Component<unknown, PageStateType> {
               <>
                 <Info />
                 <Button
-                  className="d-lg-none"
+                  className="d-inline d-lg-none"
                   color="primary"
                   onClick={this.toggleSvHierarchyModal}
                 >
