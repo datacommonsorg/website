@@ -76,6 +76,12 @@ export const metadataComponentMessages = defineMessages({
       "factor applied to the value. " +
       "See: https://docs.datacommons.org/glossary.html#scaling-factor.",
   },
+  DataCommonsAggregate: {
+    id: "dataCommonsAggregate",
+    defaultMessage: "Data Commons aggregate",
+    description:
+      "Indicates that a data set is an aggregate derived by Data Commons from another data set.",
+  },
   License: {
     id: "license",
     defaultMessage: "License",
