@@ -12,13 +12,24 @@ steps:
     - |
       set -euxo pipefail
 
+      # Configure Git to use the token for all GitHub HTTPS operations
+      # This tells Git to rewrite 'https://github.com/' URLs to include the token for authentication.
+      git config --global url."https://oauth2:${Github-write-token}@github.com/".insteadOf "https://github.com/"
+      
+      # Ensure that the credential helper is set to store for later uses (optional but good practice)
+      git config --global credential.helper store
+      echo "https://oauth2:${Github-write-token}@github.com" > /root/.git-credentials
+      chmod 600 /root/.git-credentials
+
+      # Clean up existing workspace
       rm -rf /workspace/* /workspace/.[!.]*
-      repo_url="https://oauth2:${Github-write-token}@github.com/${_GITHUB_ORG}/${_GITHUB_REPO}.git"
+      
+      # Now clone using the standard HTTPS URL; Git will use the configured credential helper
+      echo "Cloning repository ${_GITHUB_ORG}/${_GITHUB_REPO} branch chore/update-submodules..."
+      # Note: You can remove the oauth2:${Github-write-token}@ from the URL here
+      # because the global config handles it.
+      git clone "https://github.com/${_GITHUB_ORG}/${_GITHUB_REPO}.git" /workspace --branch chore/update-submodules --single-branch --depth 1
 
-      echo "Cloning repository ${_GITHUB_ORG}/${_GITHUB_REPO} branch dwnoble-patch-1..."
-      git clone "${repo_url}" /workspace --branch chore/update-submodules --single-branch --depth 1
-
-      cd /workspace
 
       echo "Git repository detected. Unshallowing clone..."
       git config --global --add safe.directory /workspace
@@ -28,10 +39,6 @@ steps:
       git config user.name "datacommons-robot-author"
       git config user.email "datacommons-robot-author@users.noreply.github.com"
 
-
-# Step 2: Run NL Server and Tests (Your combined step)
-# This step remains largely the same, but now it can rely on the full Git history
-# if `run_test.sh -g` needs it for any reason.
 - name: 'python:3.11.4'
   id: 'run-nl-tests'
   entrypoint: 'bash'
@@ -57,46 +64,11 @@ steps:
       rm -rf /tmp/datcom-nl-models || true
       rm -rf /tmp/datcom-nl-models-dev || true
 
-      echo "Starting NL Server in background for test duration..."
-      nohup ./run_nl_server.sh -p 6060 > nl_server.log 2>&1 &
-      server_pid=$!
-      echo "NL Server started with PID: ${server_pid} on port 6060, logging to nl_server.log"
-
-      echo "Giving server a moment to start the process before checking the port..."
-      sleep 5
-
-      echo "Waiting for NL Server to be ready..."
-      for i in $(seq 1 30); do
-        if nc -z localhost 6060; then
-          echo "NL Server ready on port 6060!"
-          break
-        fi
-        echo "Waiting for NL Server (attempt ${i}/30)..."
-        sleep 10
-        if [ $i -eq 30 ]; then
-          echo "ERROR: NL Server did not start in time on port 6060. Dumping logs."
-          cat nl_server.log
-          exit 1
-        fi
-      done
-
-      echo "NL Server is ready. Running goldens update command..."
+      # echo "NL Server is ready. Running goldens update command..."
       ./run_test.sh -g
+      git status --porcelain 
 
       echo "Goldens update completed. Cleaning up NL Server..."
-      if kill "${server_pid}"; then
-        echo "NL Server with PID ${server_pid} stopped cleanly."
-      else
-        echo "Failed to stop NL Server with PID ${server_pid}. It may have already exited."
-      fi
-      sleep 2
-      if ps -p "${server_pid}" > /dev/null; then
-          echo "NL Server PID ${server_pid} is still running after kill. Force killing..."
-          kill -9 "${server_pid}" || true
-      fi
-
-      echo "Copying NL server log for potential debugging in subsequent steps (if needed)."
-      cp nl_server.log /workspace/nl_server_final.log
   env:
     - 'GCP_PROJECT_ID=datcom-website-dev'
   waitFor: ['unshallow-git-clone']
@@ -120,7 +92,7 @@ steps:
 - name: 'ubuntu'
   id: 'create-pr'
   entrypoint: 'bash'
-  secretEnv: ['Github-write-token'] # Still need this if you're not using the GitHub App method for gh CLI
+  secretEnv: ['Github-write-token']
   args:
     - '-c'
     - |
@@ -128,11 +100,16 @@ steps:
 
       apt-get update && apt-get install -y git gh
       cd /workspace || { echo "Failed to change directory to /workspace."; exit 1; }
+      git config --global url."https://oauth2:${Github-write-token}@github.com/".insteadOf "https://github.com/"
+      echo "https://oauth2:${Github-write-token}@github.com" > /root/.git-credentials
+      chmod 600 /root/.git-credentials
+      git config --global credential.helper store
 
-      echo "Checking for changes in website/server/integration-tests/test_data/..."
+      echo "Checking for changes in server/integration_tests/test_data/..."
       ls -la
-      if git diff --exit-code --quiet -- website/server/integration-tests/test_data/; then
-        echo "No changes detected in goldens in website/server/integration-tests/test_data/. Skipping PR creation."
+      git status --porcelain
+      if git diff --exit-code --quiet -- server/integration_tests/test_data/; then
+        echo "No changes detected in goldens in server/integration_tests/test_data/. Skipping PR creation."
         exit 0
       fi
       echo "Changes detected in goldens. Proceeding with PR creation."
@@ -141,19 +118,17 @@ steps:
       git checkout -b "nl-golden-update-${build_id_safe}"
 
       ls -la
-      git add website/server/integration-tests/test_data/
+      git add server/integration_tests/test_data/
       git commit -m "feat: Update goldens from Cloud Build workflow (build ${build_id_safe})"
 
-      # Configure git remote if not done in unshallow step
-      # If you used the git config credential.helper in the unshallow step,
-      # this git push should already be authenticated.
-      REPO_FULL_NAME="${_GITHUB_ORG}/${_GITHUB_REPO}"
-      g_remote_url="https://oauth2:${Github-write-token}@github.com/${REPO_FULL_NAME}.git" # This part might be redundant if using App method fully
+      repo_full_name="${_GITHUB_ORG}/${_GITHUB_REPO}"
+      # REMOVE THE GITHUB TOKEN FROM THE URL HERE.
+      # The global 'insteadOf' config from the first step should handle authentication.
+      # You should set the remote URL to the standard HTTPS path.
+      g_remote_url="https://github.com/${repo_full_name}.git" # <--- CORRECTED LINE
 
-      # Ensure 'origin' remote is correctly configured, using the token for this specific push.
-      # If you configured git credentials via /etc/git-secrets/oauth/github-oauth-token earlier,
-      # then this `set-url` might not be necessary, or you'd just do `git remote set-url origin https://github.com/${REPO_FULL_NAME}.git`
-      # without the token in the URL.
+      # Ensure 'origin' remote is correctly configured.
+      # Now, Git will automatically rewrite this URL using the 'insteadOf' rule.
       if ! git remote get-url origin > /dev/null 2>&1; then
           git remote add origin "${g_remote_url}"
       else
@@ -164,18 +139,15 @@ steps:
 
       echo "Pushed changes to branch: nl-golden-update-${build_id_safe}"
 
-      # Install gh CLI for PR creation
       apt-get update && apt-get install -y gh
 
-      # Authenticate gh CLI with your PAT from Secret Manager
-      # This is the line that needs the Github-write-token for the GitHub API curl if not using GitHub App method
       export GH_TOKEN="${Github-write-token}"
 
       pr_title="Golden Updates from CI (Cloud Build ${build_id_safe})"
       pr_body="This pull request updates the golden files automatically via the Cloud Build workflow. Please review the changes carefully. [Cloud Build Log](https://console.cloud.google.com/cloud-build/builds/${BUILD_ID}?project=${PROJECT_ID})"
       base_branch="chore/update-submodules"
 
-      echo "Creating PR for ${REPO_FULL_NAME} from nl-golden-update-${build_id_safe} to ${base_branch} using gh CLI"
+      echo "Creating PR for ${repo_full_name} from nl-golden-update-${build_id_safe} to ${base_branch} using gh CLI"
 
       gh pr create \
         --repo "${_GITHUB_ORG}/${_GITHUB_REPO}" \
