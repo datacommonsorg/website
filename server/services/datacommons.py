@@ -23,6 +23,7 @@ import requests
 
 from server.lib import log
 from server.lib.cache import cache
+from server.lib.cache import should_bypass_cache
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
@@ -31,7 +32,7 @@ from server.services.discovery import get_service_url
 cfg = libconfig.get_config()
 
 
-@cache.memoize(timeout=TIMEOUT)
+@cache.memoize(timeout=TIMEOUT, unless=should_bypass_cache)
 def get(url: str):
   headers = {'Content-Type': 'application/json'}
   dc_api_key = current_app.config.get('DC_API_KEY', '')
@@ -57,7 +58,7 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-@cache.memoize(timeout=TIMEOUT)
+@cache.memoize(timeout=TIMEOUT, unless=should_bypass_cache)
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
   headers = {'Content-Type': 'application/json'}

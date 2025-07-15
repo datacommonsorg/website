@@ -15,6 +15,7 @@
 import os
 from pathlib import Path
 
+from flask import request
 from flask_caching import Cache
 
 import server.lib.config as lib_config
@@ -65,3 +66,16 @@ if cfg.USE_MEMCACHE or REDIS_HOST:
 else:
   # For some instance with fast updated data, we may not want to use memcache.
   cache = Cache(config={'CACHE_TYPE': 'NullCache'})
+
+
+def should_bypass_cache():
+  """Check if cache should be bypassed based on request header.
+  
+  Returns:
+    True if X-Bypass-Cache header is set to '1', False otherwise.
+  """
+  try:
+    return request.headers.get('X-Bypass-Cache') == '1'
+  except RuntimeError:
+    # Request context not available
+    return False
