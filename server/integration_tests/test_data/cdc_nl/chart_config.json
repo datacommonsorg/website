@@ -60,7 +60,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "europe",
-    "name": "Europe",
+    "name": "Eurdsope",
     "place_type": "Continent"
   },
   "placeFallback": {},
@@ -93,7 +93,7 @@
           "dcid": "country/AND",
           "name": "Andorra",
           "types": [
-            "Country"
+            "Coundstry"
           ]
         },
         {
