@@ -330,7 +330,7 @@ export class DatacommonsSliderComponent extends LitElement {
    * Flag to prevent self-triggering when dispatching events
    */
   @state()
-  private _isDispatching: boolean = false;
+  private _isDispatching = false;
 
   connectedCallback(): void {
     super.connectedCallback();
