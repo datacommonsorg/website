@@ -68,14 +68,16 @@ else:
   cache = Cache(config={'CACHE_TYPE': 'NullCache'})
 
 
-def should_bypass_cache():
-  """Check if cache should be bypassed based on request header.
+def should_skip_cache():
+  """Check if cache should be skipped based on request header.
   
   Returns:
-    True if X-Bypass-Cache header is set to '1', False otherwise.
+    True if X-Skip-Cache header is set to 'true', False otherwise.
+    Always returns False on any error to ensure caching remains functional.
   """
   try:
-    return request.headers.get('X-Bypass-Cache') == '1'
-  except RuntimeError:
-    # Request context not available
+    skip_cache_header = request.headers.get('X-Skip-Cache')
+    return skip_cache_header is not None and skip_cache_header == 'true'
+  except Exception:
+    # Any error should default to False to preserve normal caching behavior
     return False
