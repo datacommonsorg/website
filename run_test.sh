@@ -337,7 +337,7 @@ function update_integration_test_golden {
     export ENV_PREFIX=Staging
   fi
   echo "Using ENV_PREFIX=$ENV_PREFIX"
-  # start_servers
+  start_servers
   # Should update topic cache first as it's used by the following tests.
   python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
   python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
