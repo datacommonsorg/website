@@ -40,8 +40,6 @@ steps:
   args:
     - '-c'
     - |
-      set -euxo pipefail
-
       echo "Setting up Python virtual environment..."
       python3 -m venv .venv
       source .venv/bin/activate
@@ -70,8 +68,6 @@ steps:
   args:
     - '-c'
     - |
-      set -euxo pipefail
-
       apt-get update && apt-get install -y git gh
       cd /workspace || { echo "Failed to change directory to /workspace."; exit 1; }
 
