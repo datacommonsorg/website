@@ -1,7 +1,7 @@
 substitutions:
   _GITHUB_ORG: 'datacommonsorg'
   _GITHUB_REPO: 'website'
-  _GITHUB_BRANCH: 'chore/update-submodules'
+  _GITHUB_BRANCH: 'master'
   _GITHUB_AUTHOR: 'datacommons-robot-author'
 
 availableSecrets:
