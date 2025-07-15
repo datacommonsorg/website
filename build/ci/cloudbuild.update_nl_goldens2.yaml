@@ -1,34 +1,30 @@
 substitutions:
   _GITHUB_ORG: 'datacommonsorg'
   _GITHUB_REPO: 'website'
+  _GITHUB_BRANCH: 'chore/update-submodules'
+  _GITHUB_AUTHOR: 'datacommons-robot-author'
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/879489846695/secrets/GH_PAT/versions/1
+    env: 'ghsecret'
+
 
 steps:
 - name: 'gcr.io/cloud-builders/git'
   id: 'unshallow-git-clone'
   entrypoint: 'bash'
-  secretEnv: ['Github-write-token']
+  secretEnv: ['ghsecret']
   args:
     - '-c'
     - |
-      set -euxo pipefail
-
-      # Configure Git to use the token for all GitHub HTTPS operations
-      # This tells Git to rewrite 'https://github.com/' URLs to include the token for authentication.
-      git config --global url."https://oauth2:${Github-write-token}@github.com/".insteadOf "https://github.com/"
-      
-      # Ensure that the credential helper is set to store for later uses (optional but good practice)
+      git config --global url."https://${_GITHUB_AUTHOR}:${ghsecret}@github.com/".insteadOf "https://github.com/"
       git config --global credential.helper store
-      echo "https://oauth2:${Github-write-token}@github.com" > /root/.git-credentials
+      echo "https://${_GITHUB_AUTHOR}:${ghsecret}@github.com" > /root/.git-credentials
       chmod 600 /root/.git-credentials
 
-      # Clean up existing workspace
       rm -rf /workspace/* /workspace/.[!.]*
-      
-      # Now clone using the standard HTTPS URL; Git will use the configured credential helper
-      echo "Cloning repository ${_GITHUB_ORG}/${_GITHUB_REPO} branch chore/update-submodules..."
-      # Note: You can remove the oauth2:${Github-write-token}@ from the URL here
-      # because the global config handles it.
-      git clone "https://github.com/${_GITHUB_ORG}/${_GITHUB_REPO}.git" /workspace --branch chore/update-submodules --single-branch --depth 1
+      git clone "https://github.com/${_GITHUB_ORG}/${_GITHUB_REPO}.git" /workspace --branch "${_GITHUB_BRANCH}" --single-branch --depth 1
 
 
       echo "Git repository detected. Unshallowing clone..."
@@ -36,8 +32,8 @@ steps:
       git fetch --unshallow
       echo "Git clone unshallowed successfully."
 
-      git config user.name "datacommons-robot-author"
-      git config user.email "datacommons-robot-author@users.noreply.github.com"
+      git config user.name "${_GITHUB_AUTHOR}"
+      git config user.email "${_GITHUB_AUTHOR}@users.noreply.github.com"
 
 - name: 'python:3.11.4'
   id: 'run-nl-tests'
@@ -66,33 +62,15 @@ steps:
 
       # echo "NL Server is ready. Running goldens update command..."
       ./run_test.sh -g
-      git status --porcelain 
-
       echo "Goldens update completed. Cleaning up NL Server..."
   env:
     - 'GCP_PROJECT_ID=datcom-website-dev'
   waitFor: ['unshallow-git-clone']
 
-# Step 3: Display NL Server Logs if the combined step failed
-- name: 'ubuntu'
-  id: 'display-nl-server-logs-on-failure'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |
-      echo "--- Contents of NL Server Log (nl_server_final.log) ---"
-      if [ -f "/workspace/nl_server_final.log" ]; then
-        cat /workspace/nl_server_final.log
-      else
-        echo "NL server log file not found at /workspace/nl_server_final.log"
-      fi
-      echo "----------------------------------------------------"
-  waitFor: ['run-nl-tests']
-
 - name: 'ubuntu'
   id: 'create-pr'
   entrypoint: 'bash'
-  secretEnv: ['Github-write-token']
+  secretEnv: ['ghsecret']
   args:
     - '-c'
     - |
@@ -100,8 +78,8 @@ steps:
 
       apt-get update && apt-get install -y git gh
       cd /workspace || { echo "Failed to change directory to /workspace."; exit 1; }
-      git config --global url."https://oauth2:${Github-write-token}@github.com/".insteadOf "https://github.com/"
-      echo "https://oauth2:${Github-write-token}@github.com" > /root/.git-credentials
+      git config --global url."https://${_GITHUB_AUTHOR}:${ghsecret}@github.com/".insteadOf "https://github.com/"
+      echo "https://${_GITHUB_AUTHOR}:${ghsecret}@github.com" > /root/.git-credentials
       chmod 600 /root/.git-credentials
       git config --global credential.helper store
 
@@ -122,46 +100,36 @@ steps:
       git commit -m "feat: Update goldens from Cloud Build workflow (build ${build_id_safe})"
 
       repo_full_name="${_GITHUB_ORG}/${_GITHUB_REPO}"
-      # REMOVE THE GITHUB TOKEN FROM THE URL HERE.
-      # The global 'insteadOf' config from the first step should handle authentication.
-      # You should set the remote URL to the standard HTTPS path.
       g_remote_url="https://github.com/${repo_full_name}.git" # <--- CORRECTED LINE
 
-      # Ensure 'origin' remote is correctly configured.
-      # Now, Git will automatically rewrite this URL using the 'insteadOf' rule.
       if ! git remote get-url origin > /dev/null 2>&1; then
           git remote add origin "${g_remote_url}"
       else
           git remote set-url origin "${g_remote_url}"
       fi
 
-      git push origin "HEAD:nl-golden-update-${build_id_safe}"
+      echo "Checking gh CLI authentication status..."
+      export GH_TOKEN="${ghsecret}"
 
+      git push origin "HEAD:nl-golden-update-${build_id_safe}"
       echo "Pushed changes to branch: nl-golden-update-${build_id_safe}"
 
       apt-get update && apt-get install -y gh
 
-      export GH_TOKEN="${Github-write-token}"
-
       pr_title="Golden Updates from CI (Cloud Build ${build_id_safe})"
       pr_body="This pull request updates the golden files automatically via the Cloud Build workflow. Please review the changes carefully. [Cloud Build Log](https://console.cloud.google.com/cloud-build/builds/${BUILD_ID}?project=${PROJECT_ID})"
-      base_branch="chore/update-submodules"
 
-      echo "Creating PR for ${repo_full_name} from nl-golden-update-${build_id_safe} to ${base_branch} using gh CLI"
+      echo "Creating PR for ${repo_full_name} from nl-golden-update-${build_id_safe} to ${_GITHUB_BRANCH} using gh CLI"
 
-      gh pr create \
+      pr_url=$(gh pr create \
         --repo "${_GITHUB_ORG}/${_GITHUB_REPO}" \
         --title "${pr_title}" \
         --body "${pr_body}" \
-        --base "${base_branch}" \
+        --base "${_GITHUB_BRANCH}" \
         --head "nl-golden-update-${build_id_safe}" \
         --label "automated-pr" \
-        --label "goldens" \
-        --json url
-      echo "PR creation command sent using gh CLI."
-  waitFor: ['run-nl-tests']
+        --label "goldens")
 
-availableSecrets:
-  secretManager:
-  - versionName: projects/datcom-ci/secrets/Github-write-token/versions/latest
-    env: 'Github-write-token'
+      echo "PR creation command sent using gh CLI."
+      echo "Pull Request URL: ${pr_url}"
+  waitFor: ['run-nl-tests']
