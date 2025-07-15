@@ -111,8 +111,8 @@ steps:
 
       apt-get update && apt-get install -y gh
 
-      pr_title="Golden Updates from CI (Cloud Build ${build_id_safe})"
-      pr_body="This pull request updates the golden files automatically via the Cloud Build workflow. Please review the changes carefully. [Cloud Build Log](https://console.cloud.google.com/cloud-build/builds/${BUILD_ID}?project=${PROJECT_ID})"
+      pr_title="Automated Integration Test Goldens Update from CI"
+      pr_body="This pull request updates the golden files automatically via Cloud Build. Please review the changes carefully. [Cloud Build Log](https://console.cloud.google.com/cloud-build/builds/${BUILD_ID}?project=${PROJECT_ID})"
 
       echo "Creating PR for ${repo_full_name} from nl-golden-update-${build_id_safe} to ${_GITHUB_BRANCH} using gh CLI"
 
@@ -124,6 +124,5 @@ steps:
         --head "nl-golden-update-${build_id_safe}" \
         --label "automated-pr")
 
-      echo "PR creation command sent using gh CLI."
-      echo "Pull Request URL: ${pr_url}"
+      echo "PR creation command sent using gh CLI. Pull Request URL: ${pr_url}"
   waitFor: ['run-nl-tests']
