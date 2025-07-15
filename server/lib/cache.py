@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 from pathlib import Path
 
@@ -78,6 +79,7 @@ def should_skip_cache():
   try:
     skip_cache_header = request.headers.get('X-Skip-Cache')
     return skip_cache_header is not None and skip_cache_header == 'true'
-  except Exception:
+  except Exception as e:
+    logging.debug("Error checking X-Skip-Cache header.", exc_info=True)
     # Any error should default to False to preserve normal caching behavior
     return False
