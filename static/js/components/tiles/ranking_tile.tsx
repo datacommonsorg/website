@@ -86,20 +86,44 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const embedModalElement = useRef<ChartEmbed>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
+
+  const {
+    variables,
+    rankingMetadata,
+    enclosedPlaceType,
+    parentPlace,
+    apiRoot,
+    lazyLoad,
+  } = props;
+
   useEffect(() => {
-    if (props.lazyLoad && !shouldLoad) {
+    if (lazyLoad && !shouldLoad) {
       return;
     }
     (async (): Promise<void> => {
       try {
         setIsLoading(true);
-        const rankingData = await fetchData(props);
+        const rankingData = await fetchData(
+          variables,
+          rankingMetadata,
+          enclosedPlaceType,
+          parentPlace,
+          apiRoot
+        );
         setRankingData(rankingData);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [props, shouldLoad]);
+  }, [
+    lazyLoad,
+    apiRoot,
+    enclosedPlaceType,
+    parentPlace,
+    rankingMetadata,
+    shouldLoad,
+    variables,
+  ]);
 
   const numRankingLists = getNumRankingLists(
     props.rankingMetadata,
@@ -208,7 +232,11 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
 }
 
 export async function fetchData(
-  props: RankingTilePropType
+  variables: StatVarSpec[],
+  rankingMetadata: RankingTileSpec,
+  enclosedPlaceType: string,
+  parentPlace: string,
+  apiRoot: string
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -217,7 +245,7 @@ export async function fetchData(
       [EMPTY_FACET_ID_KEY]: [],
     },
   };
-  for (const spec of props.variables) {
+  for (const spec of variables) {
     const variableDate = getCappedStatVarDate(spec.statVar, spec.date);
     const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
     if (!dateFacetToVariable[variableDate]) {
@@ -248,9 +276,9 @@ export async function fetchData(
       }
       statPromises.push(
         getPointWithin(
-          props.apiRoot,
-          props.enclosedPlaceType,
-          props.parentPlace,
+          apiRoot,
+          enclosedPlaceType,
+          parentPlace,
           dateFacetToVariable[date][facetId],
           dateParam,
           [],
@@ -268,24 +296,19 @@ export async function fetchData(
     });
     return mergedResponse;
   });
-  const denoms = props.variables.map((spec) => spec.denom).filter((sv) => !!sv);
+  const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
   const denomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
-    : getSeriesWithin(
-        props.apiRoot,
-        props.parentPlace,
-        props.enclosedPlaceType,
-        denoms
-      );
+    : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
   return Promise.all([statPromise, denomPromise]).then(
     ([statResp, denomResp]) => {
       const rankingData = pointApiToPerSvRankingData(
         statResp,
         denomResp,
-        props.variables
+        variables
       );
-      if (props.rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, props.variables);
+      if (rankingMetadata.showMultiColumn) {
+        return transformRankingDataForMultiColumn(rankingData, variables);
       }
       return rankingData;
     }
