@@ -1,41 +1,33 @@
-# cloudbuild.yaml
-
 substitutions:
   _GITHUB_ORG: 'datacommonsorg'
   _GITHUB_REPO: 'website'
 
 steps:
-# Step 1: Ensure full Git history is available (unshallow the clone)
-# This step is essential because Cloud Build's default is a shallow clone.
-# It MUST run at the beginning, before any git command needing history.
-- name: 'gcr.io/cloud-builders/git' # Use the dedicated git builder
+- name: 'gcr.io/cloud-builders/git'
   id: 'unshallow-git-clone'
   entrypoint: 'bash'
+  secretEnv: ['Github-write-token']
   args:
     - '-c'
     - |
-      set -euxo pipefail # Fail immediately if any command fails
+      set -euxo pipefail
 
-      cd /workspace || { echo "ERROR: Failed to change directory to /workspace."; exit 1; }
+      rm -rf /workspace/* /workspace/.[!.]*
+      repo_url="https://oauth2:${Github-write-token}@github.com/${_GITHUB_ORG}/${_GITHUB_REPO}.git"
 
-      echo "Current working directory for git: $(pwd)"
-      # Confirm .git is now present (it should be if --repo was used for submit)
-      ls -la .git || { echo "CRITICAL ERROR: .git directory still not found! Check build trigger/submit command."; exit 1; }
-      git rev-parse --is-inside-work-tree || { echo "CRITICAL ERROR: Not detected as a git work tree."; exit 1; }
+      echo "Cloning repository ${_GITHUB_ORG}/${_GITHUB_REPO} branch dwnoble-patch-1..."
+      git clone "${repo_url}" /workspace --branch chore/update-submodules --single-branch --depth 1
+
+      cd /workspace
+
       echo "Git repository detected. Unshallowing clone..."
-
-      # Configure git to avoid "fatal: detected dubious ownership" in some CI environments
       git config --global --add safe.directory /workspace
-
-      # Unshallow the clone
-      git fetch --unshallow || { echo "Failed to unshallow clone."; exit 1; }
+      git fetch --unshallow
       echo "Git clone unshallowed successfully."
-      git status # Verify git is happy now
 
-      # Configure user for subsequent commit operations
       git config user.name "datacommons-robot-author"
       git config user.email "datacommons-robot-author@users.noreply.github.com"
-  # No `waitFor` needed as this should be the first operation on the source code.
+
 
 # Step 2: Run NL Server and Tests (Your combined step)
 # This step remains largely the same, but now it can rely on the full Git history
@@ -55,14 +47,10 @@ steps:
 
       echo "Installing Python and NL dependencies..."
       ./run_test.sh --setup_python
-      ./run_test.sh --setup_nl
 
       echo "Installing Protoc 3.21.12 and netcat..."
       apt-get update && apt-get install -y protobuf-compiler netcat-traditional || apt-get install -y netcat-openbsd
       protoc --version | grep "3.21.12" || { echo "Protoc version mismatch!"; exit 1; }
-
-      echo "Activating virtual environment for server startup..."
-      source .venv/bin/activate
 
       echo "Clearing NL server cache/models..."
       rm -rf /builder/home/.datacommons || true
@@ -111,7 +99,7 @@ steps:
       cp nl_server.log /workspace/nl_server_final.log
   env:
     - 'GCP_PROJECT_ID=datcom-website-dev'
-  waitFor: ['unshallow-git-clone'] # Ensure tests run after unshallowing
+  waitFor: ['unshallow-git-clone']
 
 # Step 3: Display NL Server Logs if the combined step failed
 - name: 'ubuntu'
@@ -129,8 +117,7 @@ steps:
       echo "----------------------------------------------------"
   waitFor: ['run-nl-tests']
 
-# Step 4: Commit and Create Pull Request (using gh CLI for better auth and PR creation)
-- name: 'ubuntu' # Stick with ubuntu for direct shell control and git/gh CLI
+- name: 'ubuntu'
   id: 'create-pr'
   entrypoint: 'bash'
   secretEnv: ['Github-write-token'] # Still need this if you're not using the GitHub App method for gh CLI
@@ -139,11 +126,13 @@ steps:
     - |
       set -euxo pipefail
 
+      apt-get update && apt-get install -y git gh
       cd /workspace || { echo "Failed to change directory to /workspace."; exit 1; }
 
-      echo "Checking for changes in server/integration-tests/test_data/..."
-      if git diff --exit-code --quiet server/integration-tests/test_data/; then
-        echo "No changes detected in goldens in server/integration-tests/test_data/. Skipping PR creation."
+      echo "Checking for changes in website/server/integration-tests/test_data/..."
+      ls -la
+      if git diff --exit-code --quiet -- website/server/integration-tests/test_data/; then
+        echo "No changes detected in goldens in website/server/integration-tests/test_data/. Skipping PR creation."
         exit 0
       fi
       echo "Changes detected in goldens. Proceeding with PR creation."
@@ -151,7 +140,8 @@ steps:
       build_id_safe=$(echo "${BUILD_ID}" | tr -cd '[:alnum:]-')
       git checkout -b "nl-golden-update-${build_id_safe}"
 
-      git add server/integration-tests/test_data/
+      ls -la
+      git add website/server/integration-tests/test_data/
       git commit -m "feat: Update goldens from Cloud Build workflow (build ${build_id_safe})"
 
       # Configure git remote if not done in unshallow step
@@ -183,7 +173,7 @@ steps:
 
       pr_title="Golden Updates from CI (Cloud Build ${build_id_safe})"
       pr_body="This pull request updates the golden files automatically via the Cloud Build workflow. Please review the changes carefully. [Cloud Build Log](https://console.cloud.google.com/cloud-build/builds/${BUILD_ID}?project=${PROJECT_ID})"
-      base_branch="dwnoble-patch-1"
+      base_branch="chore/update-submodules"
 
       echo "Creating PR for ${REPO_FULL_NAME} from nl-golden-update-${build_id_safe} to ${base_branch} using gh CLI"
 
@@ -195,9 +185,9 @@ steps:
         --head "nl-golden-update-${build_id_safe}" \
         --label "automated-pr" \
         --label "goldens" \
-        --json url # Output the URL of the PR for logs
+        --json url
       echo "PR creation command sent using gh CLI."
-  waitFor: ['stop-nl-server'] # Wait for server to stop, then create PR
+  waitFor: ['run-nl-tests']
 
 availableSecrets:
   secretManager:
