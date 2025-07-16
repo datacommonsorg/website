@@ -118,9 +118,27 @@ $small-font-size: 0.75rem;
   line-height: 1.8;
 }
 
+.load-more-button:hover,
 .search-result-value:hover {
   cursor: pointer;
   background-color: var(--dc-gray-lite);
+}
+
+.load-more-button {
+  border: none;
+  box-shadow: none;
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
+  padding: 0;
+}
+
+.load-more-text {
+  color: #7b7b7b;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: underline;
+  padding: 0.4rem 15px 0 15px;
 }
 
 .highlighted-node-title {

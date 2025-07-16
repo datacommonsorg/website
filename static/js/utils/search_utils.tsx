@@ -26,17 +26,17 @@ import { StatVarSearchResult } from "../shared/types";
 export function getStatVarSearchResults(
   query: string,
   places: string[],
-  svOnly: boolean
+  svOnly: boolean,
+  limit: number = 100,
 ): Promise<StatVarSearchResult> {
-  console.log("getStatVarSearchResults", query, places, svOnly);
   const url = "/api/stats/stat-var-search";
   const payload = {
     query,
     places,
     svOnly,
+    limit,
   };
   return axios.post(url, payload).then((resp) => {
-    console.log("getStatVarSearchResults response", resp);
     const data = resp.data;
     return {
       matches: data.matches || [],

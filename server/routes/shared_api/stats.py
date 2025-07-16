@@ -44,19 +44,20 @@ bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 client = discoveryengine.SearchServiceClient()
 serving_config = f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/collections/default_collection/engines/{VAI_ENGINE_ID}/servingConfigs/default_config"
 
-def search_vertexai(query: str) -> discoveryengine.services.search_service.pagers.SearchPager:
+def search_vertexai(query: str, page_token: str | None = None) -> discoveryengine.services.search_service.pagers.SearchPager:
   """Search statvars using Vertex AI search application."""
-  logging.info("in search_vertexai with query: %s", query)
   search_request = discoveryengine.SearchRequest(
     serving_config=serving_config,
     query=query,
+    page_token=page_token,
+    page_size=100,
     spell_correction_spec=discoveryengine.SearchRequest.SpellCorrectionSpec(
       mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO
     ),
+    relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW
   )
 
   page_result = client.search(search_request)
-  logging.info("search_vertexai done")
 
   return page_result
 
@@ -135,27 +136,33 @@ def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
   use_vai = is_feature_enabled(
      VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG, request=request)
-  logging.info("feature flag use_vai: " + str(use_vai))
   if request.method == 'GET':
     query = request.args.get("query")
     places = request.args.getlist("places")
     sv_only = request.args.get("svOnly", False)
+    limit = request.args.get("limit", 100)
   else:  # Method is POST
     query = request.json.get("query")
     places = request.json.get("places")
     sv_only = request.json.get("svOnly")
+    limit = request.json.get("limit", 100)
   if use_vai and len(places) == 0:
-    search_results = search_vertexai(query)
     statVars = []
-    for response in search_results:
-      dcid = response.document.struct_data.get("dcid")
-      name = response.document.struct_data.get("name")
-      if dcid and name:
-        statVars.append({
-            "name": name,
-            "dcid": dcid
-        })
-      if len(statVars) >= 100:
+    page_token = None
+    while len(statVars) < limit:
+      search_results = search_vertexai(query, page_token)
+      for response in search_results.results:
+        dcid = response.document.struct_data.get("dcid")
+        name = response.document.struct_data.get("name")
+        if dcid and name:
+          statVars.append({
+              "name": name,
+              "dcid": dcid,
+          })
+        if len(statVars) >= limit:
+          break
+      page_token = search_results.next_page_token
+      if not page_token:
         break
 
     result = {
