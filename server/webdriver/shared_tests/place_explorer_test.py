@@ -17,6 +17,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium import webdriver
+from percy import percy_snapshot
+
+import time
+
 
 from server.routes.place.utils import ORDERED_TOPICS
 from server.webdriver import shared
@@ -68,6 +73,9 @@ class PlaceExplorerTestMixin():
         (By.CLASS_NAME, 'subheader'), 'Country in')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subheader_present)
 
+    percy_snapshot(self.driver, 'Page Serve USA')
+
+
   def test_page_serve_mtv(self):
     """Test the place explorer page for MTV can be loaded successfullly."""
     place_type_title = "City in Santa Clara County, California, United States of America, North America, World"
@@ -109,6 +117,8 @@ class PlaceExplorerTestMixin():
         By.CSS_SELECTOR, '[data-testid="place-overview-table"]').text
     self.assertIn("Unemployment Rate", table_text)
 
+    percy_snapshot(self.driver, 'Page Serve MTV')
+
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
     title_text = "Median age by gender: states near California"
@@ -140,6 +150,8 @@ class PlaceExplorerTestMixin():
     # Assert that Demographics is part of the new url
     self.assertTrue("Demographics" in self.driver.current_url)
 
+    percy_snapshot(self.driver, 'Place Explorer Demographics Link')
+
   def test_demographics_redirect_link(self):
     """Test a place page with demographics after a redirect."""
     # Load California's Demographics page.
@@ -156,6 +168,8 @@ class PlaceExplorerTestMixin():
     # Wait for place name to show correct text
     wait_for_text(self.driver, "California • Demographics", By.CSS_SELECTOR,
                   '[data-testid="place-name"]')
+
+    percy_snapshot(self.driver, 'Place Explorer Demographics Redirect Link')
 
   def test_explorer_redirect_place_explorer(self):
     """Test the redirection from explore to place explore for single place queries"""
@@ -179,6 +193,8 @@ class PlaceExplorerTestMixin():
     # Assert page title is correct.
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains('United States of America'))
+
+    percy_snapshot(self.driver, 'Place Explorer Redirect from Explore')
 
   def test_canonical_links_in_html_head(self):
     """Test that canonical and alternate language links are present in HTML head"""
@@ -229,6 +245,8 @@ class PlaceExplorerTestMixin():
         '<link rel="canonical" href="https://datacommons.org/place/geoId/06">',
         page_source)
 
+    percy_snapshot(self.driver, 'Place Explorer Canonical Links')
+
   def test_neighborhood_no_data(self):
     """Test that neighborhood place page shows correct type and no data message."""
     # Load neighborhood page
@@ -240,6 +258,8 @@ class PlaceExplorerTestMixin():
     # Wait for no data message to appear
     wait_for_text(self.driver, "No data found for", By.CLASS_NAME,
                   'page-content-container')
+
+    percy_snapshot(self.driver, 'Place Explorer Neighborhood No Data')
 
   def test_dev_place_overview_world(self):
     """Ensure place page revamp World page works"""
@@ -279,6 +299,8 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
+    percy_snapshot(self.driver, 'Place Explorer World Overview')
+
   def test_place_demographics_world(self):
     """Ensure place page revamp World page works"""
     self.driver.get(self.url_ + '/place/Earth?category=Demographics')
@@ -307,6 +329,8 @@ class PlaceExplorerTestMixin():
         len(find_elems(map_geo_regions, by=By.TAG_NAME, value='path')),
         238)  # country count.
 
+    percy_snapshot(self.driver, 'Place Explorer World Demographics')
+
   def test_place_overview_world_redirect(self):
     """Ensure click on place link from the demographics page redirects to the overview page"""
     self.driver.get(self.url_ + '/place/Earth?category=Demographics')
@@ -320,6 +344,8 @@ class PlaceExplorerTestMixin():
     # Wait for URL change and page load
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.url_to_be(self.url_ + '/place/Earth'))
+
+    percy_snapshot(self.driver, 'Place Explorer World Overview Redirect')
 
   def test_place_overview_california(self):
     """Ensure experimental dev place page content loads"""
@@ -372,6 +398,8 @@ class PlaceExplorerTestMixin():
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
+
+    percy_snapshot(self.driver, 'Place Explorer California Overview')
 
   def test_place_overview_san_mateo_county(self):
     """Ensure experimental dev place page content loads"""
@@ -426,6 +454,8 @@ class PlaceExplorerTestMixin():
     for category_container in category_containers:
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
+
+    percy_snapshot(self.driver, 'Place Explorer San Mateo County Overview')
 
   def test_place_overview_los_angeles(self):
     """Ensure experimental dev place page content loads"""
@@ -482,6 +512,8 @@ class PlaceExplorerTestMixin():
       chart_containers = find_elems(category_container, value='chart-container')
       self.assertGreater(len(chart_containers), 0)
 
+    percy_snapshot(self.driver, 'Place Explorer Los Angeles Overview')
+
   def test_place_overview_usa_summary(self):
     """Test that the USA place page shows the correct summary text."""
     self.driver.get(self.url_ + '/place/country/USA')
@@ -492,6 +524,8 @@ class PlaceExplorerTestMixin():
                              value='.place-summary')
     self.assertIn("The United States of America is a country in North America.",
                   summary_elem.text)
+
+    percy_snapshot(self.driver, 'Place Explorer USA Summary')
 
   def test_place_overview_zip_90003(self):
     """Ensure experimental dev place page content loads"""

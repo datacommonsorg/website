@@ -14,6 +14,7 @@
 
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from percy import percy_snapshot
 
 
 class HomepageTestMixin():
@@ -27,3 +28,5 @@ class HomepageTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(self.dc_title_string))
     self.assertIn("- " + self.dc_title_string, self.driver.title)
+
+    percy_snapshot(self.driver, 'Homepage EN')

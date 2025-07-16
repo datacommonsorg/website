@@ -19,6 +19,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
+from percy import percy_snapshot
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
@@ -77,6 +78,7 @@ class DownloadTestMixin():
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
+    percy_snapshot(self.driver, 'Download Tool Page')
 
   @pytest.mark.one_at_a_time
   def test_manually_enter_options(self):
@@ -151,3 +153,4 @@ class DownloadTestMixin():
         break
       num_tries += 1
     self.assertEqual(downloaded_files[0], "California_County.csv")
+    percy_snapshot(self.driver, 'Download Preview Table')

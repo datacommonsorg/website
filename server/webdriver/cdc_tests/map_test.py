@@ -11,9 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from percy import percy_snapshot
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 from server.webdriver.shared_tests.map_test import MapTestMixin
 
 
 class TestMap(MapTestMixin, CdcTestBase):
   """Class to test the home page for Custom DC. Tests come from MapTestMixin."""
+  dc_title_string = "Custom Data Commons"

@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+from percy import percy_snapshot
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 from server.webdriver.shared_tests.place_landing_test import \
     PlaceLandingTestMixin
@@ -18,3 +20,4 @@ from server.webdriver.shared_tests.place_landing_test import \
 
 class TestPlaceLanding(PlaceLandingTestMixin, CdcTestBase):
   """Class to test the place landing page for Custom DC. Tests come from PlaceLandingTestMixin."""
+  dc_title_string = "Custom Data Commons"

@@ -17,7 +17,7 @@ from selenium.webdriver.common.by import By
 from server.integration_tests.explore_test import ExploreTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
-
+from percy import percy_snapshot
 
 class CdcNLTest(ExploreTest, CdcTestBase):
   """Class to test the natural language queries for Custom DC."""
@@ -26,6 +26,7 @@ class CdcNLTest(ExploreTest, CdcTestBase):
     """Run Query on custom DC stat var."""
     self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])
 
+
   def test_ensure_inline_search_bar_is_displayed(self):
     """Test that the inline search bar is displayed for custom dc pages."""
     self.driver.get(self.url_ + '/explore')
@@ -33,3 +34,7 @@ class CdcNLTest(ExploreTest, CdcTestBase):
         find_elem(self.driver,
                   by=By.CSS_SELECTOR,
                   value='.explore-container .search-bar').is_displayed())
+
+    percy_snapshot(self.driver, 'CDC NL Page')
+                   
+

@@ -34,6 +34,7 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     empty_follow_up = shared.find_elem(parent=self.driver,
                                        value="follow-up-questions-container")
     self.assertIsNone(
+        percy_snapshot(self.driver, 'CDC Explore no follow up'),
         empty_follow_up,
         "Follow Up Questions component is not empty despite the flag not being activated."
     )
