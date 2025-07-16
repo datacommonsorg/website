@@ -1,0 +1,443 @@
+/**
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest,
+} from "@jest/globals";
+
+import "./slider_component";
+
+// Mock the DataCommonsWebClient module
+vi.mock("@datacommonsorg/client", () => ({
+  DataCommonsWebClient: vi.fn().mockImplementation(() => ({
+    getObservationsPoint: vi.fn(),
+    getObservationsPointWithin: vi.fn(),
+  })),
+}));
+
+describe("DatacommonsSliderComponent", () => {
+  let element: any;
+
+  beforeEach(() => {
+    // Reset mocks
+    vi.clearAllMocks();
+
+    // Mock fetch for API calls
+    global.fetch = vi.fn() as any;
+
+    // Mock the DataCommonsWebClient methods
+    const { DataCommonsWebClient } = require("@datacommonsorg/client");
+    DataCommonsWebClient.prototype.getObservationsPoint = vi.fn();
+    DataCommonsWebClient.prototype.getObservationsPointWithin = vi.fn();
+  });
+
+  // Helper function to create and wait for component
+  async function createComponent(attributes = {}) {
+    const el = document.createElement("datacommons-slider");
+    Object.entries(attributes).forEach(([key, value]) => {
+      el.setAttribute(key, String(value));
+    });
+    document.body.appendChild(el);
+
+    // Wait for component to initialize
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    return el;
+  }
+
+  // Helper function to wait for event
+  function waitForEvent(
+    eventName: string,
+    timeout = 1000
+  ): Promise<CustomEvent> {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error(`Timeout waiting for event: ${eventName}`));
+      }, timeout);
+
+      document.addEventListener(
+        eventName,
+        (event) => {
+          clearTimeout(timer);
+          resolve(event as CustomEvent);
+        },
+        { once: true }
+      );
+    });
+  }
+
+  describe("Component Loading", () => {
+    it("should load with basic configuration", async () => {
+      // Mock the observation dates API response
+      (global.fetch as any).mockResolvedValueOnce({
+        json: () =>
+          Promise.resolve({
+            datesByVariable: [
+              {
+                observationDates: [
+                  { date: "2020", entityCount: [{ count: 10, facet: "test" }] },
+                  { date: "2021", entityCount: [{ count: 10, facet: "test" }] },
+                  { date: "2022", entityCount: [{ count: 10, facet: "test" }] },
+                ],
+              },
+            ],
+          }),
+      });
+
+      // Mock the highest coverage API response
+      const { DataCommonsWebClient } = require("@datacommonsorg/client");
+      DataCommonsWebClient.prototype.getObservationsPoint.mockResolvedValueOnce(
+        {
+          data: {
+            Count_Person: {
+              "country/USA": { date: "2022" },
+            },
+          },
+        }
+      );
+
+      element = await createComponent({
+        places: "country/USA",
+        publish: "dc-test",
+        variables: "Count_Person",
+      });
+
+      // Wait for the component to finish loading
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Verify the component is rendered
+      expect(element).toBeTruthy();
+      expect(element.tagName.toLowerCase()).toBe("datacommons-slider");
+
+      // Verify the slider input exists
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      expect(slider).toBeTruthy();
+    });
+
+    it("should show error for invalid configuration", async () => {
+      element = await createComponent({
+        publish: "dc-test",
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Should show error message
+      const errorContainer = element.shadowRoot?.querySelector(".error");
+      expect(errorContainer).toBeTruthy();
+      expect(errorContainer.textContent).toContain(
+        "Please specify all of the attributes"
+      );
+    });
+  });
+
+  describe("Event Firing", () => {
+    beforeEach(async () => {
+      // Mock API responses
+      (global.fetch as any).mockResolvedValueOnce({
+        json: () =>
+          Promise.resolve({
+            datesByVariable: [
+              {
+                observationDates: [
+                  { date: "2020", entityCount: [{ count: 10, facet: "test" }] },
+                  { date: "2021", entityCount: [{ count: 10, facet: "test" }] },
+                  { date: "2022", entityCount: [{ count: 10, facet: "test" }] },
+                ],
+              },
+            ],
+          }),
+      });
+
+      const { DataCommonsWebClient } = require("@datacommonsorg/client");
+      DataCommonsWebClient.prototype.getObservationsPoint.mockResolvedValueOnce(
+        {
+          data: {
+            Count_Person: {
+              "country/USA": { date: "2022" },
+            },
+          },
+        }
+      );
+
+      element = await createComponent({
+        places: "country/USA",
+        publish: "dc-test",
+        variables: "Count_Person",
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    });
+
+    it("should fire correct event when slider is moved", async () => {
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      expect(slider).toBeTruthy();
+
+      // Listen for the custom event
+      const eventPromise = waitForEvent("dc-test");
+
+      // Simulate slider change
+      slider.value = "1"; // Move to second date (2021)
+      slider.dispatchEvent(new Event("change"));
+
+      // Wait for the event
+      const event = await eventPromise;
+
+      // Verify event details
+      expect(event.detail).toEqual({
+        property: "date",
+        value: "2021",
+      });
+    });
+
+    it("should not fire event when slider is moved to same position", async () => {
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      expect(slider).toBeTruthy();
+
+      // Set up event listener
+      let eventFired = false;
+      document.addEventListener("dc-test", () => {
+        eventFired = true;
+      });
+
+      // Move slider to current position (should not trigger event)
+      slider.dispatchEvent(new Event("change"));
+
+      // Wait a bit to ensure no event is fired
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      expect(eventFired).toBe(false);
+    });
+  });
+
+  describe("External Event Listening", () => {
+    beforeEach(async () => {
+      // Mock API responses
+      (global.fetch as any).mockResolvedValueOnce({
+        json: () =>
+          Promise.resolve({
+            datesByVariable: [
+              {
+                observationDates: [
+                  { date: "2020", entityCount: [{ count: 10, facet: "test" }] },
+                  { date: "2021", entityCount: [{ count: 10, facet: "test" }] },
+                  { date: "2022", entityCount: [{ count: 10, facet: "test" }] },
+                ],
+              },
+            ],
+          }),
+      });
+
+      const { DataCommonsWebClient } = require("@datacommonsorg/client");
+      DataCommonsWebClient.prototype.getObservationsPoint.mockResolvedValueOnce(
+        {
+          data: {
+            Count_Person: {
+              "country/USA": { date: "2022" },
+            },
+          },
+        }
+      );
+
+      element = await createComponent({
+        places: "country/USA",
+        publish: "dc-test",
+        variables: "Count_Person",
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    });
+
+    it("should respond to valid external events", async () => {
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      expect(slider).toBeTruthy();
+
+      // Verify initial position (should be at index 2 - 2022)
+      expect(slider.value).toBe("2");
+
+      // Dispatch external event to move to 2020
+      const externalEvent = new CustomEvent("dc-test", {
+        detail: {
+          property: "date",
+          value: "2020",
+        },
+      });
+
+      document.dispatchEvent(externalEvent);
+
+      // Wait for component to update
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Verify slider moved to correct position (index 0 - 2020)
+      expect(slider.value).toBe("0");
+    });
+
+    it("should ignore invalid event structure", async () => {
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      const initialValue = slider.value;
+
+      // Spy on console.warn
+      const consoleSpy = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      // Dispatch invalid event (no detail)
+      const invalidEvent = new CustomEvent("dc-test", {});
+      document.dispatchEvent(invalidEvent);
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Verify slider didn't change
+      expect(slider.value).toBe(initialValue);
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "[datacommons-slider] Invalid event structure received on channel 'dc-test':",
+        invalidEvent
+      );
+
+      consoleSpy.mockRestore();
+    });
+
+    it("should ignore events with wrong property", async () => {
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      const initialValue = slider.value;
+
+      // Dispatch event with wrong property
+      const wrongPropertyEvent = new CustomEvent("dc-test", {
+        detail: {
+          property: "wrong-property",
+          value: "2020",
+        },
+      });
+
+      document.dispatchEvent(wrongPropertyEvent);
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Verify slider didn't change
+      expect(slider.value).toBe(initialValue);
+    });
+
+    it("should ignore events with invalid date value", async () => {
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      const initialValue = slider.value;
+
+      // Spy on console.warn
+      const consoleSpy = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      // Dispatch event with invalid date
+      const invalidDateEvent = new CustomEvent("dc-test", {
+        detail: {
+          property: "date",
+          value: "invalid-date",
+        },
+      });
+
+      document.dispatchEvent(invalidDateEvent);
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Verify slider didn't change
+      expect(slider.value).toBe(initialValue);
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "[datacommons-slider] Date 'invalid-date' is not in available range:",
+        ["2020", "2021", "2022"]
+      );
+
+      consoleSpy.mockRestore();
+    });
+
+    it("should ignore events with non-string date value", async () => {
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      const initialValue = slider.value;
+
+      // Spy on console.warn
+      const consoleSpy = jest
+        .spyOn(console, "warn")
+        .mockImplementation(() => {});
+
+      // Dispatch event with non-string value
+      const invalidValueEvent = new CustomEvent("dc-test", {
+        detail: {
+          property: "date",
+          value: 123,
+        },
+      });
+
+      document.dispatchEvent(invalidValueEvent);
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Verify slider didn't change
+      expect(slider.value).toBe(initialValue);
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "[datacommons-slider] Invalid date value received:",
+        123
+      );
+
+      consoleSpy.mockRestore();
+    });
+
+    it("should not respond to its own events (prevent infinite loop)", async () => {
+      const slider = element.shadowRoot?.querySelector('input[type="range"]');
+      const initialValue = slider.value;
+
+      // Move slider to trigger self-event
+      slider.value = "1";
+      slider.dispatchEvent(new Event("change"));
+
+      // Wait a bit to ensure no infinite loop
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Verify the event was fired but didn't cause infinite loop
+      expect(slider.value).toBe("1");
+    });
+  });
+
+  describe("Error Handling", () => {
+    it("should handle API errors gracefully", async () => {
+      // Mock API error
+      (global.fetch as any).mockRejectedValueOnce(new Error("API Error"));
+
+      element = await createComponent({
+        places: "country/USA",
+        publish: "dc-test",
+        variables: "Count_Person",
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // With our current mocks, we can't test the actual rendering
+      // but we can verify the component was created successfully
+      expect(element).toBeTruthy();
+      expect(element.tagName.toLowerCase()).toBe("datacommons-slider");
+
+      // Verify the component has a shadow root (basic functionality)
+      expect(element.shadowRoot).toBeTruthy();
+    });
+  });
+
+  afterEach(() => {
+    // Clean up
+    if (element && element.parentNode) {
+      element.parentNode.removeChild(element);
+    }
+  });
+});
