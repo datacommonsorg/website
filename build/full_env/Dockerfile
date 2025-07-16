@@ -126,10 +126,10 @@ RUN mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
 WORKDIR /app
 COPY . /app
 
-RUN python3 -m venv .venv
+RUN python3 -m venv .env
 
 # You might want to set the PATH to include the virtual environment's bin directory
-ENV PATH="/app/.venv/bin:$PATH"
+ENV PATH="/app/.env/bin:$PATH"
 
 
 # --- Now, execute your setup scripts ---
