@@ -32,33 +32,35 @@ import server.services.datacommons as dc
 
 # TODO(shifucun): add unittest for this module
 
+# Define blueprint
+bp = Blueprint("stats", __name__, url_prefix='/api/stats')
+
 # Constants for Vertex AI Search Application
 VAI_PROJECT_ID = "datcom-website-dev"
 VAI_LOCATION = "global"
 VAI_ENGINE_ID = "stat-var-search-bq-data_1751939744678"
+vai_client = discoveryengine.SearchServiceClient()
+vai_serving_config = f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/collections/default_collection/engines/{VAI_ENGINE_ID}/servingConfigs/default_config"
 
-# Define blueprint
-bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 
-client = discoveryengine.SearchServiceClient()
-serving_config = f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/collections/default_collection/engines/{VAI_ENGINE_ID}/servingConfigs/default_config"
-
-def search_vertexai(query: str, page_token: str | None = None) -> discoveryengine.services.search_service.pagers.SearchPager:
+def search_vertexai(
+    query: str,
+    page_token: str | None = None
+) -> discoveryengine.services.search_service.pagers.SearchPager:
   """Search statvars using Vertex AI search application."""
   search_request = discoveryengine.SearchRequest(
-    serving_config=serving_config,
-    query=query,
-    page_token=page_token,
-    page_size=100,
-    spell_correction_spec=discoveryengine.SearchRequest.SpellCorrectionSpec(
-      mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO
-    ),
-    relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW
-  )
+      serving_config=serving_config,
+      query=query,
+      page_token=page_token,
+      page_size=100,
+      spell_correction_spec=discoveryengine.SearchRequest.SpellCorrectionSpec(
+          mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO),
+      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
 
   page_result = client.search(search_request)
 
   return page_result
+
 
 @bp.route('/stat-var-property')
 def stat_var_property():
@@ -133,8 +135,8 @@ def stat_var_property():
               make_cache_key=lib_util.post_body_cache_key)
 def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
-  use_vai = is_feature_enabled(
-     VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG, request=request)
+  use_vai = is_feature_enabled(VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG,
+                               request=request)
   if request.method == 'GET':
     query = request.args.get("query")
     places = request.args.getlist("places")
@@ -164,9 +166,7 @@ def search_statvar():
       if not page_token:
         break
 
-    result = {
-      "statVars": statVars
-    }
+    result = {"statVars": statVars}
   else:
     result = dc.search_statvar(query, places, sv_only)
   return Response(json.dumps(result), 200, mimetype='application/json')

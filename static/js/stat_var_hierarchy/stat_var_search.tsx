@@ -39,7 +39,7 @@ import {
 
 // Limits for the number of SV search results to fetch from Vertex AI.
 const MAX_INITIAL_RESULTS = 100;
-const MAX_TOTAL_RESULTS = 1000; 
+const MAX_TOTAL_RESULTS = 1000;
 
 interface StatVarHierarchySearchPropType {
   entities: string[];
@@ -175,7 +175,7 @@ export class StatVarHierarchySearch extends React.Component<
                   {this.state.showLoadMoreButton && (
                     <button
                       className="load-more-button"
-                      onClick={this.handleLoadMoreResults} 
+                      onClick={this.handleLoadMoreResults}
                     >
                       {this.state.showMoreResultsLoading ? (
                         <div className="sv-search-loading">
@@ -183,9 +183,9 @@ export class StatVarHierarchySearch extends React.Component<
                           <span>Loading</span>
                         </div>
                       ) : (
-                      <div className="load-more-text">
-                        Load More Results (up to 1000 total)
-                      </div>
+                        <div className="load-more-text">
+                          Load More Results (up to 1000 total)
+                        </div>
                       )}
                     </button>
                   )}
@@ -252,35 +252,38 @@ export class StatVarHierarchySearch extends React.Component<
     }
   };
 
-  private search = (query: string, limit: number = MAX_INITIAL_RESULTS) => (): void => {
-    getStatVarSearchResults(query, this.props.entities, false, limit)
-      .then((data) => {
-        const currQuery = this.state.query;
-        if (query === currQuery) {
+  private search =
+    (query: string, limit: number = MAX_INITIAL_RESULTS) =>
+    (): void => {
+      getStatVarSearchResults(query, this.props.entities, false, limit)
+        .then((data) => {
+          const currQuery = this.state.query;
+          if (query === currQuery) {
+            this.setState({
+              matches: data.matches,
+              showNoResultsMessage:
+                _.isEmpty(data.statVarGroups) &&
+                _.isEmpty(data.statVars) &&
+                !_.isEmpty(query),
+              svgResults: data.statVarGroups,
+              svResults: data.statVars,
+              showLoadMoreButton:
+                data.statVars.length === limit && limit === MAX_INITIAL_RESULTS,
+              showMoreResultsLoading: false,
+            });
+          }
+        })
+        .catch(() => {
           this.setState({
-            matches: data.matches,
-            showNoResultsMessage:
-              _.isEmpty(data.statVarGroups) &&
-              _.isEmpty(data.statVars) &&
-              !_.isEmpty(query),
-            svgResults: data.statVarGroups,
-            svResults: data.statVars,
-            showLoadMoreButton: data.statVars.length === limit && limit === MAX_INITIAL_RESULTS,
+            matches: [],
+            showNoResultsMessage: true,
+            svgResults: [],
+            svResults: [],
+            showLoadMoreButton: false,
             showMoreResultsLoading: false,
           });
-        }
-      })
-      .catch(() => {
-        this.setState({
-          matches: [],
-          showNoResultsMessage: true,
-          svgResults: [],
-          svResults: [],
-          showLoadMoreButton: false,
-          showMoreResultsLoading: false,
         });
-      });
-  };
+    };
 
   private onInputClear = (): void => {
     this.props.onSelectionChange("");
