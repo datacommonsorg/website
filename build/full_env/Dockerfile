@@ -52,7 +52,6 @@ FROM google/cloud-sdk:469.0.0-slim as gcloud-builder
 # Using debian:bookworm-slim as a minimal base for the final image.
 FROM debian:bookworm-slim
 
-RUN echo "DEBUG: Listing build context..." && ls -la && ls -la /app /
 
 # Install common utilities needed for the combined environment,
 # including build-essential for some tools, and tools for Chrome/ChromeDriver.
