@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # Stage 1: Python Builder
 # Uses a specific Python patch version on a slim Debian Bookworm base
 FROM python:3.11.4-slim-bookworm as python-builder
@@ -52,6 +51,8 @@ FROM google/cloud-sdk:469.0.0-slim as gcloud-builder
 # Final Stage: Combine all components + Chrome/ChromeDriver
 # Using debian:bookworm-slim as a minimal base for the final image.
 FROM debian:bookworm-slim
+
+RUN echo "DEBUG: Listing build context..." && ls -la && ls -la /app /
 
 # Install common utilities needed for the combined environment,
 # including build-essential for some tools, and tools for Chrome/ChromeDriver.
@@ -121,3 +122,21 @@ ENV PATH="/usr/local/go/bin:${GOPATH}/bin:/usr/local/bin:/usr/lib/google-cloud-s
 RUN mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
     go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0 && \
     go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
+
+
+WORKDIR /app
+
+COPY run_test.sh ./
+COPY requirements.txt ./
+COPY package.json ./
+COPY static/ static/
+
+# --- Now, execute your setup scripts ---
+# Ensure run_test.sh is executable
+RUN chmod +x run_test.sh
+
+# Run the setup scripts. These will now execute *during the Docker image build*.
+RUN ./run_test.sh --setup_python
+RUN ./run_test.sh -b
+RUN ./run_test.sh --setup_website
+RUN ./run_test.sh --setup_nl

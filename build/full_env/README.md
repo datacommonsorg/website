@@ -20,9 +20,9 @@ This container includes:
 To generate the Docker image and push it to GCS:
 
 1. Change the version date in cloudbuild.yaml
-2. Run (from this directory):
+2. Run (from the website directory):
 
 ```bash
 gcloud config set project datcom-ci
-gcloud builds submit . --config=cloudbuild.yaml
+gcloud builds submit . --config=/build/full_env/cloudbuild.yaml
 ```
