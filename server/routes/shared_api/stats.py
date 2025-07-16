@@ -18,7 +18,6 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 from flask import Response
-from google.api_core.client_options import ClientOptions
 from google.cloud import discoveryengine_v1 as discoveryengine
 
 from server.lib import fetch
@@ -49,7 +48,7 @@ def search_vertexai(
 ) -> discoveryengine.services.search_service.pagers.SearchPager:
   """Search statvars using Vertex AI search application."""
   search_request = discoveryengine.SearchRequest(
-      serving_config=serving_config,
+      serving_config=vai_serving_config,
       query=query,
       page_token=page_token,
       page_size=100,
@@ -57,7 +56,7 @@ def search_vertexai(
           mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO),
       relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
 
-  page_result = client.search(search_request)
+  page_result = vai_client.search(search_request)
 
   return page_result
 
@@ -135,8 +134,8 @@ def stat_var_property():
               make_cache_key=lib_util.post_body_cache_key)
 def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
-  use_vai = is_feature_enabled(VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG,
-                               request=request)
+  is_vai_enabled = is_feature_enabled(VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG,
+                                      request=request)
   if request.method == 'GET':
     query = request.args.get("query")
     places = request.args.getlist("places")
@@ -147,7 +146,7 @@ def search_statvar():
     places = request.json.get("places")
     sv_only = request.json.get("svOnly")
     limit = request.json.get("limit", 100)
-  if use_vai and len(places) == 0:
+  if is_vai_enabled and len(places) == 0:
     statVars = []
     page_token = None
     while len(statVars) < limit:
