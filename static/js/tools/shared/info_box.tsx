@@ -93,6 +93,10 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
   );
 }
 
+/**
+ * An instruction box for our map, scatter, and timeline tool to display
+ * on their landing pages.
+ */
 interface VisToolInstructionsBoxProps {
   multiPlace?: boolean;
   multiVariable?: boolean;
