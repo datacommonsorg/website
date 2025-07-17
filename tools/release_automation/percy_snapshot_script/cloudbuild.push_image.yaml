@@ -1,0 +1,14 @@
+
+substitutions:
+  _VERS: "2025-07-17"
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - "--build-arg=VERS=${_VERS}"
+      - --tag=gcr.io/datcom-ci/percy-runner:latest
+      - "."
+
+images:
+  - "gcr.io/datcom-ci/percy-runner:latest"

@@ -1,0 +1,15 @@
+steps:
+  - name: 'gcr.io/datcom-ci/percy-runner@sha256:14daeb8c8f9094da7901afa07e9a8852e0510034cec9a93d8d0f90c43fff0efd'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        percy exec -- python3 per_environment_percy_snapshots.py --env=staging
+    secretEnv: ['percy_token']
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/879489846695/secrets/PERCY_TOKEN_RELEASES/versions/latest
+      env: 'percy_token'
