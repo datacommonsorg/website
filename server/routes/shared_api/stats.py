@@ -140,12 +140,13 @@ def search_statvar():
     query = request.args.get("query")
     places = request.args.getlist("places")
     sv_only = request.args.get("svOnly", False)
-    limit = request.args.get("limit", 100)
+    limit = int(request.args.get("limit", 100))
   else:  # Method is POST
     query = request.json.get("query")
     places = request.json.get("places")
     sv_only = request.json.get("svOnly")
-    limit = request.json.get("limit", 100)
+    limit = int(request.json.get("limit", 100))
+
   if is_vai_enabled and len(places) == 0:
     statVars = []
     page_token = None
