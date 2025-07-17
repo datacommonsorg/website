@@ -16,26 +16,39 @@
 
 import * as d3 from "d3";
 import React, { ReactElement, RefObject } from "react";
-import { Button } from "reactstrap";
 
 import { wrap } from "../chart/base";
+import { Button } from "../components/elements/button/button";
+import { CopyToClipboardButton } from "../components/elements/button/copy_to_clipboard_button";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "../components/elements/dialog/dialog";
+import { Download } from "../components/elements/icons/download";
 import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import { intl } from "../i18n/i18n";
+import { chartComponentMessages } from "../i18n/i18n_chart_messages";
+import { messages } from "../i18n/i18n_messages";
+import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
 import {
   GA_EVENT_TILE_DOWNLOAD_CSV,
   GA_EVENT_TILE_DOWNLOAD_IMG,
   triggerGAEvent,
 } from "../shared/ga_events";
+import { StatMetadata } from "../shared/stat_types";
+import { StatVarFacetMap, StatVarSpec } from "../shared/types";
 import { saveToFile, urlToDisplayText } from "../shared/util";
+import {
+  buildCitationParts,
+  citationToPlainText,
+} from "../tools/shared/metadata/citations";
+import { fetchMetadata } from "../tools/shared/metadata/metadata_fetcher";
+import { getDataCommonsClient } from "../utils/data_commons_client";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;
@@ -47,9 +60,15 @@ const XLINKNS = "http://www.w3.org/1999/xlink";
 
 interface ChartEmbedPropsType {
   container?: HTMLElement;
+  statVarSpecs?: StatVarSpec[];
+  facets?: Record<string, StatMetadata>;
+  statVarToFacets?: StatVarFacetMap;
+  apiRoot?: string;
 }
 interface ChartEmbedStateType {
   modal: boolean;
+  loading: boolean;
+  citation: string;
   svgXml: string;
   dataCsv: string;
   chartDate: string;
@@ -78,6 +97,8 @@ class ChartEmbed extends React.Component<
     super(props);
     this.state = {
       modal: false,
+      loading: false,
+      citation: "",
       svgXml: "",
       dataCsv: "",
       chartDate: "",
@@ -128,19 +149,89 @@ class ChartEmbed extends React.Component<
     chartDate: string,
     sources: string[]
   ): void {
-    this.setState({
-      chartWidth,
-      chartHeight,
-      chartHtml,
-      chartTitle,
-      chartDate,
-      // Clear cached dataCSV to force CSV to refresh
-      dataCsv: "",
-      getDataCsv,
-      modal: true,
-      sources,
-      svgXml,
-    });
+    if (this.state.modal) {
+      return;
+    }
+    this.setState(
+      {
+        chartWidth,
+        chartHeight,
+        chartHtml,
+        chartTitle,
+        chartDate,
+        // Clear cached dataCSV to force CSV to refresh
+        dataCsv: "",
+        getDataCsv,
+        modal: true,
+        loading: true,
+        citation: "",
+        sources,
+        svgXml,
+      },
+      () => this.loadModalData(getDataCsv)
+    );
+  }
+
+  /**
+   * Fetches CSV data and citation metadata when the dialog is opened.
+   */
+  private async loadModalData(
+    getDataCsv: () => Promise<string>
+  ): Promise<void> {
+    try {
+      const getCitationPromise = async (): Promise<string> => {
+        const { statVarSpecs, facets, statVarToFacets, apiRoot } = this.props;
+        if (!statVarSpecs || !facets || !statVarToFacets) {
+          return "";
+        }
+        const statVarSet = new Set<string>();
+        for (const spec of statVarSpecs) {
+          statVarSet.add(spec.statVar);
+          if (spec.denom) {
+            statVarSet.add(spec.denom);
+          }
+        }
+        if (statVarSet.size === 0) {
+          return "";
+        }
+        const dataCommonsClient = getDataCommonsClient(apiRoot);
+        const metadataResp = await fetchMetadata(
+          statVarSet,
+          facets,
+          dataCommonsClient,
+          statVarToFacets,
+          apiRoot
+        );
+        const citationParts = buildCitationParts(
+          metadataResp.statVarList,
+          metadataResp.metadata
+        );
+        return citationToPlainText(citationParts);
+      };
+
+      const [dataCsv, citation] = await Promise.all([
+        getDataCsv(),
+        getCitationPromise(),
+      ]);
+
+      this.setState(
+        {
+          dataCsv: dataCsv || "Error fetching CSV.",
+          citation,
+          loading: false,
+        },
+        () => {
+          this.onOpened();
+        }
+      );
+    } catch (error) {
+      console.error("Failed to load modal data:", error);
+      this.setState({
+        dataCsv: "Error fetching CSV.",
+        citation: "Error fetching citation information.",
+        loading: false,
+      });
+    }
   }
 
   /**
@@ -389,37 +480,11 @@ class ChartEmbed extends React.Component<
     saveToFile(`${basename}.csv`, this.state.dataCsv);
   }
 
-  async componentDidUpdate(
-    prevProps: ChartEmbedPropsType,
-    prevState: ChartEmbedStateType
-  ): Promise<void> {
+  componentDidUpdate(prevProps: ChartEmbedPropsType): void {
     if (this.props.container !== prevProps.container) {
       (
         this.containerRef as React.MutableRefObject<HTMLElement | null>
       ).current = this.props.container;
-    }
-    if (this.state.modal && !prevState.modal) {
-      setTimeout(() => {
-        this.onOpened();
-      }, 0);
-    }
-    if (!this.state.dataCsv && this.state.getDataCsv) {
-      try {
-        const dataCsv = await this.state.getDataCsv();
-        if (!dataCsv) {
-          this.setState({
-            dataCsv: "Error fetching CSV",
-          });
-          return;
-        }
-        this.setState({
-          dataCsv,
-        });
-      } catch (e) {
-        this.setState({
-          dataCsv: "Error fetching CSV",
-        });
-      }
     }
   }
 
@@ -431,14 +496,10 @@ class ChartEmbed extends React.Component<
         maxWidth="lg"
         fullWidth
         containerRef={this.containerRef}
+        loading={this.state.loading}
       >
         <DialogTitle>
-          {intl.formatMessage({
-            id: "embed_export_chart_link",
-            defaultMessage: "Export this chart",
-            description:
-              "Text for the hyperlink text that will let users export data and export charts.",
-          })}
+          {intl.formatMessage(chartComponentMessages.ChartDownloadDialogTitle)}
         </DialogTitle>
         <DialogContent>
           <div
@@ -452,31 +513,33 @@ class ChartEmbed extends React.Component<
             ref={this.textareaElement}
             onClick={this.onClickTextarea}
           ></textarea>
+          {this.state.citation && (
+            <div>
+              <p>
+                {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
+                {this.state.citation}
+              </p>
+              <p>
+                {intl.formatMessage(metadataComponentMessages.CitationGuidance)}{" "}
+                • {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
+              </p>
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
           {this.state.chartDownloadXml && (
-            <>
-              <Button color="primary" onClick={this.onDownloadSvg}>
-                {intl.formatMessage({
-                  id: "embed_download_chart_link",
-                  defaultMessage: "Download Chart Image",
-                  description:
-                    "Text for the hyperlink text that will download the chart image.",
-                })}
-              </Button>{" "}
-            </>
+            <Button startIcon={<Download />} onClick={this.onDownloadSvg}>
+              {intl.formatMessage(chartComponentMessages.DownloadSVG)}
+            </Button>
           )}
-          <Button
-            color="primary"
-            onClick={this.onDownloadData}
-            disabled={!this.state.dataCsv}
-          >
-            {intl.formatMessage({
-              id: "embed_download_csv_link",
-              defaultMessage: "Download Data as CSV",
-              description:
-                "Text for the hyperlink text that will download the data as a CSV.",
-            })}
+          <Button startIcon={<Download />} onClick={this.onDownloadData}>
+            {intl.formatMessage(chartComponentMessages.DownloadCSV)}
+          </Button>
+          <CopyToClipboardButton valueToCopy={this.state.dataCsv}>
+            {intl.formatMessage(chartComponentMessages.CopyValues)}
+          </CopyToClipboardButton>
+          <Button variant="text" onClick={this.toggle}>
+            {intl.formatMessage(messages.close)}
           </Button>
         </DialogActions>
       </Dialog>
