@@ -79,6 +79,12 @@
   }
 }
 
+// Eliminates the extra padding at the bottom of Explore charts
+// to provide spacing consistency with other components.
+[id^="explore_cat_"].category.col-12 {
+  padding-bottom: 0 !important;
+}
+
 #explore-more-section {
   padding: 24px;
   border-radius: var(--border-radius-primary);
@@ -241,7 +247,6 @@
 }
 
 .follow-up-questions-list-text {
-  height: 23px;
   align-self: stretch;
   color: var(--gm-3-sys-light-primary);
   font-family: Google Sans Text, $font-family-sans-serif;
