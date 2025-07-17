@@ -41,17 +41,18 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
   return (
     <div
       css={css`
+        margin-bottom: ${theme.spacing.lg}px;
         width: 100%;
       `}
     >
       <div
         css={css`
-          display: flex;
-          flex-direction: row;
-          gap: ${theme.spacing.md}px;
-          font-size: ${theme.infoBox.icon.size};
           background-color: ${theme.infoBox.backgroundColor};
           border-radius: ${theme.radius.secondary.borderRadius};
+          display: flex;
+          flex-direction: row;
+          font-size: ${theme.infoBox.icon.size};
+          gap: ${theme.spacing.md}px;
           padding: ${theme.spacing.lg}px;
         `}
       >

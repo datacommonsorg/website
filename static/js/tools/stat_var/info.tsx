@@ -31,7 +31,7 @@ class Info extends Component {
           <span className="d-none d-lg-inline">
             select a variable from the left panel
           </span>
-          <span className="d-lg-none">
+          <span className="d-inline d-lg-none">
             click the &quot;Select variable&quot; button below
           </span>
           . Need more specific data? Filter by choosing a data source above.
