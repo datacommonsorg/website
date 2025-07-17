@@ -30,7 +30,6 @@ steps:
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
-
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/sh
@@ -43,7 +42,7 @@ steps:
   - id: flask_cdc_webdriver_test
     name: gcr.io/datcom-ci/full-env:latest
     entrypoint: /bin/sh
-    waitFor: ["-"]
+    waitFor: ["package_js"]
     args:
       - -c
       - |

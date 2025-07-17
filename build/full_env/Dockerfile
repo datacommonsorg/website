@@ -124,11 +124,13 @@ RUN mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
 
 
 WORKDIR /app
+COPY . /app
 
-COPY run_test.sh ./
-COPY requirements.txt ./
-COPY package.json ./
-COPY static/ static/
+RUN python3 -m venv .env
+
+# You might want to set the PATH to include the virtual environment's bin directory
+ENV PATH="/app/.env/bin:$PATH"
+
 
 # --- Now, execute your setup scripts ---
 # Ensure run_test.sh is executable
