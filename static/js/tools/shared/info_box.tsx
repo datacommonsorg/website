@@ -46,27 +46,25 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
     >
       <div
         css={css`
+          display: flex;
+          flex-direction: row;
+          gap: ${theme.spacing.md}px;
+          font-size: ${theme.infoBox.icon.size};
           background-color: ${theme.infoBox.backgroundColor};
           border-radius: ${theme.radius.secondary.borderRadius};
-          display: flex;
-          flex-direction: column;
-          gap: ${theme.spacing.md}px;
-          margin-bottom: ${theme.spacing.lg}px;
           padding: ${theme.spacing.lg}px;
         `}
       >
+        {props.icon || (
+          <Reminder fill={`${theme.colors.text.primary.base}`} fillAxisOn />
+        )}
         <div
           css={css`
-            align-items: center;
             display: flex;
-            flex-direction: row;
-            gap: ${theme.spacing.md}px;
-            font-size: ${theme.infoBox.icon.size};
+            flex-direction: column;
+            gap: ${theme.spacing.sm}px;
           `}
         >
-          {props.icon || (
-            <Reminder fill={`${theme.colors.text.primary.base}`} fillAxisOn />
-          )}
           <div
             css={css`
               ${theme.infoBox.heading}
@@ -74,22 +72,21 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
           >
             {props.heading}
           </div>
-        </div>
-        <div
-          css={css`
-            color: ${theme.colors.text.primary.base};
-            ${theme.typography.text.lg};
-            margin-left: ${theme.infoBox.icon.size};
-            ol,
-            ul {
-              margin: ${theme.spacing.lg}px 0;
-            }
-            li {
-              margin: ${theme.spacing.lg}px 0;
-            }
-          `}
-        >
-          {props.children}
+          <div
+            css={css`
+              color: ${theme.colors.text.primary.base};
+              ${theme.typography.text.lg};
+              ol,
+              ul {
+                margin: ${theme.spacing.lg}px 0;
+              }
+              li {
+                margin: ${theme.spacing.lg}px 0;
+              }
+            `}
+          >
+            {props.children}
+          </div>
         </div>
       </div>
     </div>
