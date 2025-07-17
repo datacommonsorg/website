@@ -17,9 +17,6 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
-import { intl } from "../../i18n/i18n";
-import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
-import { InfoBox } from "../shared/info_box";
 import { MemoizedInfoExamples } from "../shared/info_examples";
 
 class Info extends Component {
@@ -52,32 +49,3 @@ class Info extends Component {
 }
 
 export const MemoizedInfo = React.memo(Info);
-
-export function StandardizedInfo(): JSX.Element {
-  return (
-    <InfoBox>
-      <h2>
-        {intl.formatMessage(visualizationToolMessages.infoBoxInstructionHeader)}
-      </h2>
-      <ol>
-        <li>
-          {intl.formatMessage(
-            visualizationToolMessages.infoBoxInstructionsPlaces
-          )}
-        </li>
-        <li>
-          <span className="d-none d-lg-inline">
-            {intl.formatMessage(
-              visualizationToolMessages.infoBoxInstructionsMultiVariableDesktop
-            )}
-          </span>
-          <span className="d-inline d-lg-none">
-            {intl.formatMessage(
-              visualizationToolMessages.infoBoxInstructionsMultiVariableMobile
-            )}
-          </span>
-        </li>
-      </ol>
-    </InfoBox>
-  );
-}

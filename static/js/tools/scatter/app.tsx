@@ -30,6 +30,7 @@ import {
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
+import { VisToolInstructionsBox } from "../shared/info_box";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartLoader } from "./chart_loader";
 import {
@@ -39,7 +40,7 @@ import {
   PlaceInfo,
   useContextStore,
 } from "./context";
-import { MemoizedInfo, StandardizedInfo } from "./info";
+import { MemoizedInfo } from "./info";
 import { PlaceOptions } from "./place_and_type_options";
 import { StatVarChooser } from "./statvar";
 import {
@@ -103,7 +104,11 @@ function App(): ReactElement {
           )}
           {showInfo && (
             <Row>
-              {useStandardizedUi ? <StandardizedInfo /> : <MemoizedInfo />}
+              {useStandardizedUi ? (
+                <VisToolInstructionsBox multiVariable />
+              ) : (
+                <MemoizedInfo />
+              )}
             </Row>
           )}
           {showChart && (

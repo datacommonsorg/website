@@ -372,6 +372,21 @@ const theme: Theme = {
       },
     },
   },
+  infoBox: {
+    backgroundColor: "hsl(204, 100%, 88%, 33%)",
+    icon: {
+      size: "2rem",
+    },
+    heading: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      fontWeight: 500,
+      [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.75rem",
+      },
+    },
+  },
   elevation: {
     none: {
       boxShadow: "none",

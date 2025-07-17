@@ -326,6 +326,11 @@ export interface Theme {
       };
     };
   };
+  infoBox: {
+    backgroundColor: string;
+    heading: TextVariant;
+    icon: { size: string };
+  };
   elevation: {
     none: {
       boxShadow: string;

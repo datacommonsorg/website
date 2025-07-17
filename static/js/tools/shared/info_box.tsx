@@ -19,60 +19,73 @@
  * Box with info or instructions to display on tool landing pages
  */
 
-import { css } from "@emotion/react";
-import React from "react";
+import { css, useTheme } from "@emotion/react";
+import React, { ComponentType, ReactElement, SVGProps } from "react";
+
+import { Reminder } from "../../components/elements/icons/reminder";
+import { intl } from "../../i18n/i18n";
+import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
+
+type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
 interface InfoBoxProps {
   children?: React.ReactNode;
-  // material symbol icon name of the icon to show on top left of the box
+  heading?: React.ReactNode | string;
+  // icon component to show on top left of the box
   // if not provided, defaults to the "reminder" icon
-  icon?: string;
+  icon?: ReactElement<IconComponent>;
 }
 
 export function InfoBox(props: InfoBoxProps): JSX.Element {
+  const theme = useTheme();
   return (
-    <div>
+    <div
+      css={css`
+        width: 100%;
+      `}
+    >
       <div
         css={css`
-          background-color: #c2e7ff33;
-          border-radius: 16px;
+          background-color: ${theme.infoBox.backgroundColor};
+          border-radius: ${theme.radius.secondary.borderRadius};
           display: flex;
-          flex-direction: row;
-          gap: 16px;
-          margin-bottom: 24px;
-          padding: 20px 24px;
-
-          .icon {
-            font-size: 32px;
-          }
+          flex-direction: column;
+          gap: ${theme.spacing.md}px;
+          margin-bottom: ${theme.spacing.lg}px;
+          padding: ${theme.spacing.lg}px;
         `}
       >
-        <i
-          className="material-symbols-outlined"
-          css={css`
-            font-size: 28px;
-          `}
-        >
-          {props.icon || "reminder"}
-        </i>
         <div
           css={css`
-            color: var(--GM3-ref-neutral-neutral20, #303030);
-            font-size: 22px;
-            font-weight: 400;
-            line-height: 28px;
-
-            h2 {
-              font-size: 24px;
-              font-weight: 500;
-              line-height: 28px;
-            }
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            gap: ${theme.spacing.md}px;
+            font-size: ${theme.infoBox.icon.size};
+          `}
+        >
+          {props.icon || (
+            <Reminder fill={`${theme.colors.text.primary.base}`} fillAxisOn />
+          )}
+          <div
+            css={css`
+              ${theme.infoBox.heading}
+            `}
+          >
+            {props.heading}
+          </div>
+        </div>
+        <div
+          css={css`
+            color: ${theme.colors.text.primary.base};
+            ${theme.typography.text.lg};
+            margin-left: ${theme.infoBox.icon.size};
             ol,
             ul {
-              margin: 24px 0;
+              margin: ${theme.spacing.lg}px 0;
             }
             li {
-              margin: 24px 0;
+              margin: ${theme.spacing.lg}px 0;
             }
           `}
         >
@@ -80,5 +93,63 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
         </div>
       </div>
     </div>
+  );
+}
+
+interface VisToolInstructionsBoxProps {
+  multiPlace?: boolean;
+  multiVariable?: boolean;
+}
+
+export function VisToolInstructionsBox(
+  props: VisToolInstructionsBoxProps
+): JSX.Element {
+  return (
+    <InfoBox
+      heading={intl.formatMessage(
+        visualizationToolMessages.infoBoxInstructionHeader
+      )}
+    >
+      <ol>
+        <li>
+          {props.multiPlace
+            ? intl.formatMessage(
+                visualizationToolMessages.infoBoxInstructionsPlaces
+              )
+            : intl.formatMessage(
+                visualizationToolMessages.infoBoxInstructionsPlacesIn
+              )}
+        </li>
+        <li>
+          {props.multiVariable ? (
+            <>
+              <span className="d-none d-lg-inline">
+                {intl.formatMessage(
+                  visualizationToolMessages.infoBoxInstructionsMultiVariableDesktop
+                )}
+              </span>
+              <span className="d-inline d-lg-none">
+                {intl.formatMessage(
+                  visualizationToolMessages.infoBoxInstructionsMultiVariableMobile
+                )}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="d-none d-lg-inline">
+                {intl.formatMessage(
+                  visualizationToolMessages.infoBoxInstructionsVariableDesktop
+                )}
+              </span>
+              <span className="d-inline d-lg-none">
+                {intl.formatMessage(
+                  visualizationToolMessages.infoBoxInstructionsVariableMobile
+                )}
+              </span>
+            </>
+          )}
+        </li>
+      </ol>
+    </InfoBox>
   );
 }

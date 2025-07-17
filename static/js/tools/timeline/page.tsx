@@ -34,10 +34,11 @@ import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
+import { VisToolInstructionsBox } from "../shared/info_box";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartRegion } from "./chart_region";
-import { MemoizedInfo, StandardizedInfo } from "./info";
+import { MemoizedInfo } from "./info";
 import {
   addToken,
   getTokensFromUrl,
@@ -183,7 +184,11 @@ class Page extends Component<unknown, PageStateType> {
               </Row>
             </Card>
             {numPlaces === 0 &&
-              (useStandardizedUi ? <StandardizedInfo /> : <MemoizedInfo />)}
+              (useStandardizedUi ? (
+                <VisToolInstructionsBox multiPlace multiVariable />
+              ) : (
+                <MemoizedInfo />
+              ))}
             {numPlaces !== 0 && numStatVarInfo !== 0 && (
               <div id="chart-region">
                 <ChartRegion

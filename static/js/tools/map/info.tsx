@@ -21,9 +21,6 @@
 import _ from "lodash";
 import React, { useContext } from "react";
 
-import { intl } from "../../i18n/i18n";
-import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
-import { InfoBox } from "../shared/info_box";
 import { MemoizedInfoExamples } from "../shared/info_examples";
 import { Context } from "./context";
 import { ifShowChart } from "./util";
@@ -69,34 +66,5 @@ export function Info(): JSX.Element {
         </div>
       )}
     </>
-  );
-}
-
-export function StandardizedInfo(): JSX.Element {
-  return (
-    <InfoBox>
-      <h2>
-        {intl.formatMessage(visualizationToolMessages.infoBoxInstructionHeader)}
-      </h2>
-      <ol>
-        <li>
-          {intl.formatMessage(
-            visualizationToolMessages.infoBoxInstructionsPlacesIn
-          )}
-        </li>
-        <li>
-          <span className="d-none d-lg-inline">
-            {intl.formatMessage(
-              visualizationToolMessages.infoBoxInstructionsVariableDesktop
-            )}
-          </span>
-          <span className="d-lg-none">
-            {intl.formatMessage(
-              visualizationToolMessages.infoBoxInstructionsVariableMobile
-            )}
-          </span>
-        </li>
-      </ol>
-    </InfoBox>
   );
 }
