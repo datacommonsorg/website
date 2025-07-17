@@ -15,10 +15,16 @@
  */
 
 import * as d3 from "d3";
-import React from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import React, { ReactElement, RefObject } from "react";
+import { Button } from "reactstrap";
 
 import { wrap } from "../chart/base";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "../components/elements/dialog/dialog";
 import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
@@ -29,7 +35,7 @@ import {
   GA_EVENT_TILE_DOWNLOAD_IMG,
   triggerGAEvent,
 } from "../shared/ga_events";
-import { randDomId, saveToFile, urlToDisplayText } from "../shared/util";
+import { saveToFile, urlToDisplayText } from "../shared/util";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;
@@ -64,9 +70,9 @@ class ChartEmbed extends React.Component<
   ChartEmbedPropsType,
   ChartEmbedStateType
 > {
-  private modalId: string;
-  private svgContainerElement: React.RefObject<HTMLDivElement>;
-  private textareaElement: React.RefObject<HTMLTextAreaElement>;
+  private readonly svgContainerElement: React.RefObject<HTMLDivElement>;
+  private readonly textareaElement: React.RefObject<HTMLTextAreaElement>;
+  private readonly containerRef: RefObject<HTMLElement>;
 
   constructor(props: unknown) {
     super(props);
@@ -83,9 +89,15 @@ class ChartEmbed extends React.Component<
       chartDownloadXml: "",
       getDataCsv: undefined,
     };
-    this.modalId = randDomId();
     this.svgContainerElement = React.createRef();
     this.textareaElement = React.createRef();
+    this.containerRef = React.createRef();
+
+    if (this.containerRef.current !== this.props.container) {
+      (
+        this.containerRef as React.MutableRefObject<HTMLElement | null>
+      ).current = this.props.container;
+    }
 
     this.toggle = this.toggle.bind(this);
     this.onOpened = this.onOpened.bind(this);
@@ -320,9 +332,8 @@ class ChartEmbed extends React.Component<
     if (this.state.chartHtml) {
       const chartDownloadXml = this.decorateChartHtml();
       const imageElement = document.createElement("img");
-      const chartBase64 =
+      imageElement.src =
         "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
-      imageElement.src = chartBase64;
       this.svgContainerElement.current.append(imageElement);
       imageElement.className = ASYNC_ELEMENT_CLASS;
       this.setState({ chartDownloadXml });
@@ -331,9 +342,8 @@ class ChartEmbed extends React.Component<
     if (this.state.svgXml) {
       const chartDownloadXml = this.decorateSvgChart();
       const imageElement = document.createElement("img");
-      const chartBase64 =
+      imageElement.src =
         "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
-      imageElement.src = chartBase64;
       imageElement.className = ASYNC_ELEMENT_CLASS;
       this.svgContainerElement.current.append(imageElement);
       this.setState({ chartDownloadXml });
@@ -379,7 +389,20 @@ class ChartEmbed extends React.Component<
     saveToFile(`${basename}.csv`, this.state.dataCsv);
   }
 
-  async componentDidUpdate(): Promise<void> {
+  async componentDidUpdate(
+    prevProps: ChartEmbedPropsType,
+    prevState: ChartEmbedStateType
+  ): Promise<void> {
+    if (this.props.container !== prevProps.container) {
+      (
+        this.containerRef as React.MutableRefObject<HTMLElement | null>
+      ).current = this.props.container;
+    }
+    if (this.state.modal && !prevState.modal) {
+      setTimeout(() => {
+        this.onOpened();
+      }, 0);
+    }
     if (!this.state.dataCsv && this.state.getDataCsv) {
       try {
         const dataCsv = await this.state.getDataCsv();
@@ -400,25 +423,24 @@ class ChartEmbed extends React.Component<
     }
   }
 
-  public render(): JSX.Element {
+  public render(): ReactElement {
     return (
-      <Modal
-        isOpen={this.state.modal}
-        toggle={this.toggle}
-        className="modal-dialog-centered modal-lg"
-        container={this.props.container}
-        onOpened={this.onOpened}
-        id={this.modalId}
+      <Dialog
+        open={this.state.modal}
+        onClose={this.toggle}
+        maxWidth="lg"
+        fullWidth
+        containerRef={this.containerRef}
       >
-        <ModalHeader toggle={this.toggle}>
+        <DialogTitle>
           {intl.formatMessage({
             id: "embed_export_chart_link",
             defaultMessage: "Export this chart",
             description:
               "Text for the hyperlink text that will let users export data and export charts.",
           })}
-        </ModalHeader>
-        <ModalBody>
+        </DialogTitle>
+        <DialogContent>
           <div
             ref={this.svgContainerElement}
             className={`modal-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -430,8 +452,8 @@ class ChartEmbed extends React.Component<
             ref={this.textareaElement}
             onClick={this.onClickTextarea}
           ></textarea>
-        </ModalBody>
-        <ModalFooter>
+        </DialogContent>
+        <DialogActions>
           {this.state.chartDownloadXml && (
             <>
               <Button color="primary" onClick={this.onDownloadSvg}>
@@ -456,8 +478,8 @@ class ChartEmbed extends React.Component<
                 "Text for the hyperlink text that will download the data as a CSV.",
             })}
           </Button>
-        </ModalFooter>
-      </Modal>
+        </DialogActions>
+      </Dialog>
     );
   }
 }
