@@ -21,6 +21,7 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.shared_tests.place_explorer_i18n_test import \
     PlaceI18nExplorerTestMixin
+from percy import percy_snapshot
 
 
 class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
@@ -46,3 +47,6 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
         find_elem(self.driver, by=By.ID,
                   value='query-search-input').get_attribute('value'),
         'United States Of America')
+
+    percy_snapshot(
+        self.driver, self.dc_title_string + ' Place Explorer Redirect Search Bar')

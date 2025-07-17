@@ -19,4 +19,3 @@ from server.webdriver.shared_tests.vis_timeline_test import \
 
 class TestVisTimeline(VisTimelineTestMixin, CdcTestBase):
   """Class to test the timeline visualization page for Custom DC. Tests come from VisTimelineTestMixin."""
-  dc_title_string = "Custom Data Commons"

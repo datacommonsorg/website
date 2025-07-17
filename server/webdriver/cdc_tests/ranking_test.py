@@ -18,4 +18,3 @@ from server.webdriver.shared_tests.ranking_test import RankingTestMixin
 
 class TestRanking(RankingTestMixin, CdcTestBase):
   """Class to test the ranking page for Custom DC. Tests come from RankingTestMixin."""
-  dc_title_string = "Custom Data Commons"

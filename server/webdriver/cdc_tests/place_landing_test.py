@@ -20,4 +20,3 @@ from server.webdriver.shared_tests.place_landing_test import \
 
 class TestPlaceLanding(PlaceLandingTestMixin, CdcTestBase):
   """Class to test the place landing page for Custom DC. Tests come from PlaceLandingTestMixin."""
-  dc_title_string = "Custom Data Commons"

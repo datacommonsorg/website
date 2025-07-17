@@ -39,7 +39,7 @@ class ExplorePageTestMixin():
     place_callout_link = find_elem(self.driver, By.CLASS_NAME,
                                    'place-callout-link')
     self.assertEqual(place_callout_link.text, 'California')
-    percy_snapshot(self.driver, 'Explore Page Landing')
+    percy_snapshot(self.driver, self.dc_title_string + ' Explore Page Landing')
 
   def test_highlight_chart_france_gdp_timeline(self):
     """Test the highlight chart for France GDP timeline."""
@@ -51,6 +51,8 @@ class ExplorePageTestMixin():
     place_callout_link = find_elem(self.driver, By.CLASS_NAME,
                                    'place-callout-link')
     self.assertEqual(place_callout_link.text, 'France')
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Explore Highlight Chart France GDP Timeline')
 
   def test_highlight_chart_as_url_params(self):
     """Test the highlight chart for France GDP timeline."""
@@ -68,7 +70,7 @@ class ExplorePageTestMixin():
     line_chart = find_elem(highlight_div, By.CLASS_NAME, 'line-chart')
     self.assertIsNotNone(line_chart)
 
-    percy_snapshot(self.driver, 'Explore Highlight Chart')
+    percy_snapshot(self.driver, self.dc_title_string + ' Explore Highlight Chart')
 
   def test_highlight_chart_france_italy_gdp_timeline(self):
     """Test the highlight chart for France GDP timeline."""
@@ -84,6 +86,8 @@ class ExplorePageTestMixin():
                               'highlight-result-title')
     line_chart = find_elem(highlight_div, By.CLASS_NAME, 'line-chart')
     self.assertIsNotNone(line_chart)
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Explore Highlight Chart France Italy GDP Timeline')
 
   def test_highlight_chart_france_italy_gdp_bar_chart(self):
     """Test the highlight chart for France + Italy nominal GDP bar chart."""
@@ -111,7 +115,7 @@ class ExplorePageTestMixin():
     wait_for_text(self.driver, expected_citation, By.CLASS_NAME,
                   "metadata-summary")
 
-    percy_snapshot(self.driver, 'Explore Highlight Chart France Italy GDP Bar')
+    percy_snapshot(self.driver, self.dc_title_string + ' Explore Highlight Chart France Italy GDP Bar')
 
   def test_highlight_chart_clears(self):
     """Test the highlight chart for France GDP timeline clears after topic selected."""
@@ -145,4 +149,4 @@ class ExplorePageTestMixin():
                                 'highlight-result-title')
     self.assertEqual(len(highlight_divs), 0)
 
-    percy_snapshot(self.driver, 'Explore Highlight Chart Cleared')
+    percy_snapshot(self.driver, self.dc_title_string + ' Explore Highlight Chart Cleared')

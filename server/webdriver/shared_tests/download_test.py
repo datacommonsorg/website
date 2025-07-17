@@ -78,7 +78,7 @@ class DownloadTestMixin():
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
-    percy_snapshot(self.driver, 'Download Tool Page')
+    percy_snapshot(self.driver, self.dc_title_string + ' Download Tool Page')
 
   @pytest.mark.one_at_a_time
   def test_manually_enter_options(self):
@@ -153,4 +153,4 @@ class DownloadTestMixin():
         break
       num_tries += 1
     self.assertEqual(downloaded_files[0], "California_County.csv")
-    percy_snapshot(self.driver, 'Download Preview Table')
+    percy_snapshot(self.driver, self.dc_title_string + ' Download Preview Table')

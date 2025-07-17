@@ -19,6 +19,7 @@ import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from percy import percy_snapshot
 
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
@@ -102,6 +103,8 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     in_arc_cards = in_arc_section.find_elements(By.CLASS_NAME, 'card')
     self.assertTrue(len(in_arc_cards) > 0)
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Browser MTV Page')
+
   def test_observation_table_redirect(self):
     """Test that the observation table observation row links can redirect properly"""
     # Load California population browser page.
@@ -153,6 +156,8 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
         find_elem(node, by=By.XPATH, value='.//h2[2]').text,
         'typeOf: StatVarObservation')  # typeOf_subtitle
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Observation Table Redirect')
+
   def test_observation_chart_redirect(self):
     """Test that the observation chart observation node links can redirect properly"""
     # Load California population browser page.
@@ -196,3 +201,5 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     self.assertEqual(
         find_elem(node, by=By.XPATH, value='.//h2[2]').text,
         'typeOf: StatVarObservation')  # typeOf_subtitle
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Observation Chart Redirect')

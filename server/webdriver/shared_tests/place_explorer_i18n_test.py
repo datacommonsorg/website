@@ -65,7 +65,7 @@ class PlaceI18nExplorerTestMixin():
     self.assertTrue("Demographics" in self.driver.current_url)
     self.assertTrue("&hl=fr" in self.driver.current_url)
 
-    percy_snapshot(self.driver, 'Place Explorer Demographics Link in FR')
+    percy_snapshot(self.driver, self.dc_title_string + ' Place Explorer Demographics Link in FR')
 
   def test_explorer_redirect_place_explorer(self):
     """Test the redirection from explore to place explore for single place queries keeps the locale and query string"""
@@ -91,7 +91,7 @@ class PlaceI18nExplorerTestMixin():
                   self.TIMEOUT_SEC).until(EC.title_contains('États-Unis'))
 
     percy_snapshot(self.driver,
-                    'Place Explorer Redirect from Explore with Locale')
+                    self.dc_title_string + ' Place Explorer Redirect from Explore with Locale')
 
   def test_localized_place_page_title(self):
     """Test localized place page title is correct for the locale."""
@@ -101,7 +101,7 @@ class PlaceI18nExplorerTestMixin():
                   self.TIMEOUT_SEC).until(EC.title_contains('アメリカ合衆国 - 人口統計'))
 
     percy_snapshot(self.driver,
-                    'Place Explorer Localized Page Title in Japanese')
+                    self.dc_title_string + ' Place Explorer Localized Page Title in Japanese')
 
   def test_place_page_loads_with_locale(self):
     """Ensure experimental dev place page content loads data for a continent."""
@@ -136,7 +136,7 @@ class PlaceI18nExplorerTestMixin():
     self.assertEqual(download_link.text, "Télécharger")
 
     percy_snapshot(self.driver,
-                    'Place Explorer Africa Page with Locale in French')
+                   self.dc_title_string + ' Place Explorer Africa Page with Locale in French')
 
   def test_japan_in_japanese(self):
     """Test translations from various sources are displayed correctly."""
@@ -222,4 +222,4 @@ class PlaceI18nExplorerTestMixin():
     self.assertListEqual(
         self.driver.find_elements(By.CLASS_NAME, 'explore-more'), [])
 
-    percy_snapshot(self.driver, 'Place Explorer Japan in Japanese')
+    percy_snapshot(self.driver, self.dc_title_string + ' Place Explorer Japan in Japanese')

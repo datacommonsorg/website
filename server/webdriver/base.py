@@ -22,6 +22,7 @@ set_up_macos_for_tests()
 # Please refer to README.md to see the order of method execution during test.
 class WebdriverBaseTest(NLWebServerTestCase):
   """Base test class to setup the server."""
+  self.dc_title_string = "Data Commons"
 
   def setUp(self, preferences=None):
     """Runs at the beginning of every individual test."""

@@ -20,7 +20,7 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
-
+from percy import percy_snapshot
 
 class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
   """Tests for Homepage. Some tests come from HomepageTestMixin."""
@@ -38,6 +38,8 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
         find_elem(self.driver, by=By.ID, value='hero').text.startswith(
             "Data Commons brings together the world's public data, making it simple to explore"
         ))
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Homepage EN by CSS')
 
   def test_homepage_it(self):
     """Test homepage in IT."""
@@ -112,3 +114,6 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     self.assertEqual(
         len(find_elems(self.driver, value='search-input-result-section')), 5)
+
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Homepage Autocomplete')

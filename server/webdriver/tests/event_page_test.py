@@ -19,6 +19,7 @@ import urllib.request
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from percy import percy_snapshot
 
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
@@ -90,6 +91,8 @@ class TestEventPage(BaseDcWebdriverTest):
     self.assertGreater(len(charts), 4)
     self.assertEqual(len(find_elems(charts[0], value='line')), 1)
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Cyclone Nicole Event Page')
+
   def test_page_fire(self):
     """Test a fire event page can be loaded successfully"""
 
@@ -143,6 +146,8 @@ class TestEventPage(BaseDcWebdriverTest):
     # assert there are 4+ charts, and the first line has data
     self.assertGreater(len(charts), 4)
     self.assertEqual(len(find_elems(charts[0], value='line')), 1)
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Fire Event Page')
 
   def test_page_drought(self):
     """Test a drought event page can be loaded successfully"""
@@ -199,3 +204,5 @@ class TestEventPage(BaseDcWebdriverTest):
     # assert there are 4+ charts, and the first line has data
     self.assertGreater(len(charts), 5)
     self.assertEqual(len(find_elems(charts[0], value='line')), 1)
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Drought Event Page')

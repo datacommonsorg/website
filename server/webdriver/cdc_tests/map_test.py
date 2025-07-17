@@ -18,4 +18,3 @@ from server.webdriver.shared_tests.map_test import MapTestMixin
 
 class TestMap(MapTestMixin, CdcTestBase):
   """Class to test the home page for Custom DC. Tests come from MapTestMixin."""
-  dc_title_string = "Custom Data Commons"

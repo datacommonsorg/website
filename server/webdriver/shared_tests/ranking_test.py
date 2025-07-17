@@ -15,6 +15,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from percy import percy_snapshot
 
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
@@ -59,6 +60,8 @@ class RankingTestMixin():
     self.assertEqual([x_text[i].text for i in range(-1, 1)],
                      ['Montserrat', 'United States of America'])
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Ranking North America Population')
+
   def test_population_bottom_ranking_hi(self):
     """Test translations are displayed correctly in hindi, as well as bottom rankings rendered correctly."""
     self.driver.get(
@@ -89,6 +92,8 @@ class RankingTestMixin():
                      ['रैंक', 'देश', 'मान'])
     self.assertGreater(len(find_elems(table, by=By.XPATH, value='.//tbody/tr')),
                        0)
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Ranking India Population Bottom')
 
   def test_population_top_ranking_ko(self):
     """Test translations are displayed correctly in korean, as well as top rankings rendered correctly."""
@@ -125,3 +130,5 @@ class RankingTestMixin():
                         value='text')
     self.assertGreater(len(y_text), 1)
     self.assertEqual(y_text[0].text, '0')
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Ranking Korea Population Top')

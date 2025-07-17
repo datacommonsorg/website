@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+availableSecrets:
+  secretManager:
+  - versionName: projects/879489846695/secrets/PERCY_TOKEN/versions/latest
+    env: 'percy_token'
+
 steps:
   - id: package_js
     name: gcr.io/datcom-ci/node:2024-11-19
@@ -29,6 +34,8 @@ steps:
         # ./run_test.sh -b will build client packages.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
+
+        export PERCY_TOKEN=${percy_token}
 
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15

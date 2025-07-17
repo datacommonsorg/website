@@ -18,6 +18,7 @@ from server.webdriver import shared
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 from server.webdriver.shared_tests.explore_test import EXPLORE_URL
 from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
+from percy import percy_snapshot
 
 
 class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
@@ -42,3 +43,5 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     topic_buttons = shared.find_elem(self.driver, By.CLASS_NAME,
                                      'explore-relevant-topics')
     self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Explore Page No Follow Up Questions')

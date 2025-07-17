@@ -20,6 +20,7 @@ from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.shared_tests.explore_test import EXPLORE_URL
 from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
+from percy import percy_snapshot
 
 
 class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
@@ -38,6 +39,8 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     self.assertGreater(len(follow_up_questions), 0,
                        "No follow up questions found in the list.")
 
+    percy_snapshot(self.driver, 'Explore Follow Up Questions Typical')
+
   def test_follow_up_questions_no_related_topics(self):
     """Test that the Follow Up Questions component does not exist for queries that have no related topics."""
     follow_up_flag = "?enable_feature=follow_up_questions_ga"
@@ -53,3 +56,5 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         empty_follow_up,
         "Follow Up Questions component is not empty despite having no related topics."
     )
+
+    percy_snapshot(self.driver, 'Explore no follow up questions')

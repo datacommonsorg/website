@@ -18,4 +18,3 @@ from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
 
 class TestHomepage(HomepageTestMixin, CdcTestBase):
   """Class to test the home page for Custom DC. Tests come from HomepageTestMixin."""
-  dc_title_string = "Custom Data Commons"

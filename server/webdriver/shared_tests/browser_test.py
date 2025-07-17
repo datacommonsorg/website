@@ -60,7 +60,7 @@ class BrowserTestMixin():
                   value="//h1[text()='Knowledge Graph']/following-sibling::p").
         text.startswith("The Data Commons Knowledge Graph is constructed"))
     
-    percy_snapshot(self.driver, 'Browser Landing Page')
+    percy_snapshot(self.driver, self.dc_title_string + ' Browser Landing Page')
 
   def test_page_serve_ca_population(self):
     """Test the browser page for California population can be loaded successfully."""
@@ -107,7 +107,7 @@ class BrowserTestMixin():
                                      value='//*[@id="node-content"]/div[2]')
     self.assertGreater(len(find_elems(observations_section, value='card')), 0)
 
-    percy_snapshot(self.driver, 'Browser California Population Page')
+    percy_snapshot(self.driver, self.dc_title_string + ' Browser California Population Page')
 
   def test_page_serve_austrobaileya(self):
     """Test the browser page for Austrobaileya scandens can be loaded successfully."""
@@ -156,7 +156,7 @@ class BrowserTestMixin():
                               value='browser-image-section')
     image = find_elem(image_section, By.TAG_NAME, 'img')
     self.assertIsNotNone(image)
-    percy_snapshot(self.driver, 'Browser Austrobaileya Page')
+    percy_snapshot(self.driver, self.dc_title_string + ''Timeline Page Landing')Browser Austrobaileya Page')
 
 
   def test_stat_var_hierarchy(self):
@@ -194,4 +194,4 @@ class BrowserTestMixin():
     self.assertTrue(
         len(find_elems(charts_section, value='observation-chart')) > 0)
 
-    percy_snapshot(self.driver, 'Browser State Var Hierarchy')
+    percy_snapshot(self.driver, self.dc_title_string + ''Timeline Page Landing')Browser State Var Hierarchy')

@@ -18,4 +18,3 @@ from server.webdriver.shared_tests.vis_map_test import VisMapTestMixin
 
 class TestVisMap(VisMapTestMixin, CdcTestBase):
   """Class to test the map visualization page for Custom DC. Tests come from VisMapTestMixin."""
-  dc_title_string = "Custom Data Commons"

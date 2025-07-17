@@ -17,6 +17,7 @@ import urllib.request
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from percy import percy_snapshot
 
 from server.webdriver.base import WebdriverBaseTest
 from server.webdriver.base_utils import find_elem
@@ -68,3 +69,5 @@ class TestCharts(WebdriverBaseTest):
     # Assert first article has svg with at least 2 points.
     self.assertGreater(len(find_elems(event_maps[0], value='map-points-layer')),
                        2)
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Disaster Page Brazil')

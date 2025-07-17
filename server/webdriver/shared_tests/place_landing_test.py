@@ -15,6 +15,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from percy import percy_snapshot
 
 
 class PlaceLandingTestMixin():
@@ -59,6 +60,8 @@ class PlaceLandingTestMixin():
     self.assertEqual(map_search.get_attribute('placeholder'),
                      'Enter a country, state, county or city')
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Place Landing Page EN')
+
   def test_place_landing_ru(self):
     """Test place landing page in RU."""
 
@@ -98,3 +101,5 @@ class PlaceLandingTestMixin():
                                           '//*[@id="place-autocomplete"]')
     self.assertEqual(map_search.get_attribute('placeholder'),
                      'Укажите страну, штат, округ или город')
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Place Landing Page RU')

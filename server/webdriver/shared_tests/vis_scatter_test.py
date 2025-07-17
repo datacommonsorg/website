@@ -15,6 +15,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from percy import percy_snapshot
 
 from server.webdriver.base_utils import find_elems
 import server.webdriver.shared as shared
@@ -53,6 +54,8 @@ class VisScatterTestMixin():
     selected_tab = self.driver.find_element(
         By.CSS_SELECTOR, ".vis-type-selector .selected .label")
     self.assertEqual(selected_tab.text, 'Scatter Plot')
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Scatter Page Landing')
 
   def test_charts_from_url(self):
     """Given the url directly, test the page shows up correctly"""
@@ -142,6 +145,8 @@ class VisScatterTestMixin():
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Scatter Page Charts From URL')
+
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
     show up.
@@ -189,6 +194,8 @@ class VisScatterTestMixin():
                          value='#scatterplot circle')
     self.assertGreater(len(circles), 20)
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Scatter California Median Age Income Chart')
+
   def test_landing_page_link(self):
     """Test one of the links on the landing page
     """
@@ -206,3 +213,4 @@ class VisScatterTestMixin():
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
+    percy_snapshot(self.driver, self.dc_title_string + ' Scatter Tool Page Landing Link')
