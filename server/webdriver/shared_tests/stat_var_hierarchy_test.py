@@ -14,12 +14,12 @@
 
 import re
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
-from percy import percy_snapshot
 
 MAP_URL = '/tools/map'
 
@@ -84,4 +84,6 @@ class StatVarHierarchyTestMixin():
 
     self.assertGreater(count_initial, count_filter)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Stat Var Hierarchy Filtered by Place')
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Stat Var Hierarchy Filtered by Place')

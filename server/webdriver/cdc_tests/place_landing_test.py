@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from percy import percy_snapshot
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 from server.webdriver.shared_tests.place_landing_test import \
     PlaceLandingTestMixin

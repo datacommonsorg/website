@@ -14,10 +14,10 @@
 
 import time
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from percy import percy_snapshot
 
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
@@ -69,7 +69,8 @@ class TimelineTestMixin():
     # Assert no card is present since no search has been performed.
     self.assertEqual(len(charts), 0)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Original Page No Charts')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Original Page No Charts')
 
   def test_charts_from_url_directly_and_uncheck_statvar(self):
     """Given the url directly, test the menu and charts are shown correctly.
@@ -115,7 +116,8 @@ class TimelineTestMixin():
     # Assert there is at least one chart.
     self.assertGreater(len(charts), 0)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Page Charts From URL')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Page Charts From URL')
 
   def test_check_statvar_and_uncheck(self):
     """Test check and uncheck one statvar."""
@@ -165,7 +167,9 @@ class TimelineTestMixin():
         value='//*[@id="chart-region"]/div[@class="chart-container"]')
     self.assertEqual(len(charts), 0)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Page Check Uncheck Statvar')
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Timeline Page Check Uncheck Statvar')
 
   def test_place_search_box_and_remove_place(self):
     """Test the timeline tool place search can work correctly."""
@@ -247,4 +251,5 @@ class TimelineTestMixin():
     self.assertEqual(len(charts), 1)
     self.assertEqual(len(lines), 1)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Page Place Search Box')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Page Place Search Box')

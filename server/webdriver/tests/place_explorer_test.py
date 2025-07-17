@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from percy import percy_snapshot  
 
 from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
@@ -44,8 +44,8 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         self.TIMEOUT_SEC).until(lambda driver: search_input.get_attribute(
             "placeholder") == "Housing in California")
 
-  percy_snapshot(
-      self.driver, self.dc_title_string + ' Place Explorer Category Placeholder')
+    percy_snapshot(self.driver,
+                 self.dc_title_string + ' Place Explorer Category Placeholder')
 
   def test_explorer_redirect_place_explorer_populates_search_bar(self):
     """Test the redirection from explore to place explore for single place queries populates the search bar from the URL query"""
@@ -68,5 +68,5 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                   value='query-search-input').get_attribute('value'),
         'United States Of America')
 
-    percy_snapshot(
-        self.driver, self.dc_title_string + ' Place Explorer Redirect Search Bar')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Place Explorer Redirect Search Bar')

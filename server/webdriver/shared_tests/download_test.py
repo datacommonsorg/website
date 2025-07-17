@@ -14,12 +14,12 @@
 import os
 import tempfile
 
+from percy import percy_snapshot
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
-from percy import percy_snapshot
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
@@ -153,4 +153,5 @@ class DownloadTestMixin():
         break
       num_tries += 1
     self.assertEqual(downloaded_files[0], "California_County.csv")
-    percy_snapshot(self.driver, self.dc_title_string + ' Download Preview Table')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Download Preview Table')

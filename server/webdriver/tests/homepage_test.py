@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -20,7 +21,7 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
-from percy import percy_snapshot
+
 
 class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
   """Tests for Homepage. Some tests come from HomepageTestMixin."""
@@ -114,6 +115,5 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     self.assertEqual(
         len(find_elems(self.driver, value='search-input-result-section')), 5)
-
 
     percy_snapshot(self.driver, self.dc_title_string + ' Homepage Autocomplete')

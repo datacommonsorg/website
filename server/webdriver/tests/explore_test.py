@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
@@ -20,7 +21,6 @@ from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.shared_tests.explore_test import EXPLORE_URL
 from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
-from percy import percy_snapshot
 
 
 class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):

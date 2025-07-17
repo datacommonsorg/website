@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from percy import percy_snapshot
 
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
@@ -59,7 +59,7 @@ class BrowserTestMixin():
                   by=By.XPATH,
                   value="//h1[text()='Knowledge Graph']/following-sibling::p").
         text.startswith("The Data Commons Knowledge Graph is constructed"))
-    
+
     percy_snapshot(self.driver, self.dc_title_string + ' Browser Landing Page')
 
   def test_page_serve_ca_population(self):
@@ -107,7 +107,8 @@ class BrowserTestMixin():
                                      value='//*[@id="node-content"]/div[2]')
     self.assertGreater(len(find_elems(observations_section, value='card')), 0)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Browser California Population Page')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Browser California Population Page')
 
   def test_page_serve_austrobaileya(self):
     """Test the browser page for Austrobaileya scandens can be loaded successfully."""
@@ -156,8 +157,8 @@ class BrowserTestMixin():
                               value='browser-image-section')
     image = find_elem(image_section, By.TAG_NAME, 'img')
     self.assertIsNotNone(image)
-    percy_snapshot(self.driver, self.dc_title_string + ''Timeline Page Landing')Browser Austrobaileya Page')
-
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Browser Austrobaileya Page')
 
   def test_stat_var_hierarchy(self):
     """Test that the stat var hierarchy can search properly"""
@@ -194,4 +195,5 @@ class BrowserTestMixin():
     self.assertTrue(
         len(find_elems(charts_section, value='observation-chart')) > 0)
 
-    percy_snapshot(self.driver, self.dc_title_string + ''Timeline Page Landing')Browser State Var Hierarchy')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Browser State Var Hierarchy')

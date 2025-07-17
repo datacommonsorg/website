@@ -15,11 +15,11 @@
 import urllib
 import urllib.request
 
+from percy import percy_snapshot
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from percy import percy_snapshot
 
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
@@ -156,7 +156,8 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
         find_elem(node, by=By.XPATH, value='.//h2[2]').text,
         'typeOf: StatVarObservation')  # typeOf_subtitle
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Observation Table Redirect')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Observation Table Redirect')
 
   def test_observation_chart_redirect(self):
     """Test that the observation chart observation node links can redirect properly"""
@@ -202,4 +203,5 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
         find_elem(node, by=By.XPATH, value='.//h2[2]').text,
         'typeOf: StatVarObservation')  # typeOf_subtitle
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Observation Chart Redirect')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Observation Chart Redirect')

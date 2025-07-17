@@ -16,10 +16,10 @@ import unittest
 import urllib
 import urllib.request
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from percy import percy_snapshot
 
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
@@ -91,7 +91,8 @@ class TestEventPage(BaseDcWebdriverTest):
     self.assertGreater(len(charts), 4)
     self.assertEqual(len(find_elems(charts[0], value='line')), 1)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Cyclone Nicole Event Page')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Cyclone Nicole Event Page')
 
   def test_page_fire(self):
     """Test a fire event page can be loaded successfully"""

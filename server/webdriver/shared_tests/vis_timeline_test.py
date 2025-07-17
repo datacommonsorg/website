@@ -14,11 +14,11 @@
 
 import time
 
+from percy import percy_snapshot
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from percy import percy_snapshot
 
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
@@ -62,7 +62,8 @@ class VisTimelineTestMixin():
         By.CSS_SELECTOR, ".vis-type-selector .selected .label")
     self.assertEqual(selected_tab.text, 'Timeline')
 
-    percy_snapshot(self.driver, self.dc_title_string + '  Vis Timeline Page Landing')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + '  Vis Timeline Page Landing')
 
   @pytest.mark.skip(reason="fix this test later")
   def test_charts_from_url(self):
@@ -143,7 +144,8 @@ class VisTimelineTestMixin():
     chart_lines = charts[1].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 2)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Page Charts From URL')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Page Charts From URL')
 
   def test_no_facet_choices_available(self):
     """Test that for a stat var with only one source, we show a message
@@ -164,7 +166,8 @@ class VisTimelineTestMixin():
         By.XPATH, ".//header/p[text()='Displaying all the datasets available']")
     self.assertIsNotNone(header_message)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Page No Facet Choices')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Page No Facet Choices')
 
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
@@ -233,7 +236,9 @@ class VisTimelineTestMixin():
     chart_lines = charts[1].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 2)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline California Median Age Income Chart')
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Timeline California Median Age Income Chart')
 
   def test_landing_page_link(self):
     """Test one of the links on the landing page
@@ -253,7 +258,8 @@ class VisTimelineTestMixin():
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 3)
 
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Tool Page Landing Link')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Tool Page Landing Link')
 
   def test_select_different_facet(self):
     """Test selecting a different facet of the metadata and verify the line changes."""
@@ -295,4 +301,6 @@ class VisTimelineTestMixin():
     self.assertEqual(
         updated_source_text,
         'Sources: census.gov, data-explorer.oecd.org • Show metadata')
-    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Page Select Different Facet')
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Timeline Page Select Different Facet')

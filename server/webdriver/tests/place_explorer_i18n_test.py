@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -21,7 +22,6 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.shared_tests.place_explorer_i18n_test import \
     PlaceI18nExplorerTestMixin
-from percy import percy_snapshot
 
 
 class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
@@ -48,5 +48,5 @@ class TestPlaceI18nExplorer(PlaceI18nExplorerTestMixin, BaseDcWebdriverTest):
                   value='query-search-input').get_attribute('value'),
         'United States Of America')
 
-    percy_snapshot(
-        self.driver, self.dc_title_string + ' Place Explorer Redirect Search Bar')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Place Explorer Redirect Search Bar')

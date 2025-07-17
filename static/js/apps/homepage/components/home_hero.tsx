@@ -55,8 +55,7 @@ export const HomeHero = ({
             ${theme.typography.heading.lg}
           `}
         >
-           the world&apos;s public data, making it
-          simple to explore
+          the world&apos;s public data, making it simple to explore
         </h1>
       </HeroColumns.Left>
       <HeroColumns.Right>

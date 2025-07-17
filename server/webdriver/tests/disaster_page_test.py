@@ -14,10 +14,10 @@
 
 import urllib.request
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from percy import percy_snapshot
 
 from server.webdriver.base import WebdriverBaseTest
 from server.webdriver.base_utils import find_elem
