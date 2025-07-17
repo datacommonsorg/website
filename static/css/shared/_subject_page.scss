@@ -59,6 +59,25 @@ article.category {
   p {
     font-size: 0.95rem;
   }
+
+  .block-modal-trigger {
+    align-items: center;
+    display: flex;
+    gap: 6px;
+    padding: 14px 0;
+
+    span, p {
+      font-size: 14px !important;
+      line-height: 14px !important;
+      margin: 0;
+      padding: 0;
+    }
+
+    span {
+      transform: translateX(-4px);
+    }
+  }
+
 }
 
 .subtopic {
@@ -122,7 +141,7 @@ article.category {
   label {
     align-items: center;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 0;
 
     .label-disabled {
@@ -141,6 +160,7 @@ article.category {
     align-items: center;
     display: flex;
     font-size: 14px;
+    line-height: 14px !important;
   }
 
   .material-icons {
