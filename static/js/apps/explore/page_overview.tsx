@@ -17,10 +17,17 @@
 /**
  * Component for rendering the generated follow up questions.
  */
+
+// TODO: Erase this
+// <div>
+//     {/* <span className="page-overview-span"><div dangerouslySetInnerHTML={{ __html: pageOverview}} /></span> */}
+// </div>
+
 import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useState } from "react";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { Loading } from "../../components/elements/loading";
 
 
 interface PageOverviewPropType {
@@ -30,21 +37,34 @@ interface PageOverviewPropType {
 
 export function PageOverview(props: PageOverviewPropType): ReactElement {
     const [pageOverview, setPageOverview] = useState("")
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         const statVars = getRelevantStatVars(props.pageMetadata);
     getPageOverview(props.query,statVars)
     .then((value) => {
+        console.log(value)
         setPageOverview(value);
     })
     .catch(() => {
+        console.log("error")
         setPageOverview("");
+    })
+    .finally(() => {
+      setLoading(false);
     })
     }, [props.query,props.pageMetadata])
 
     return (
-        <div>
-            <span className="page-overview-span">{pageOverview}</span>
-        </div>
+      <>
+        {loading && (
+          <div className="page-overview-loading">
+            <Loading />
+          </div>
+        )}
+        {pageOverview && (
+          <div className="page-overview-container" dangerouslySetInnerHTML={{ __html: pageOverview}} />
+        )}
+      </> 
     )
 }
 
@@ -62,7 +82,9 @@ const getPageOverview = async (
     statVars: statVars,
   };
   return await axios.post(url, body).then((resp) => {
-    return resp.data.page_overview;
+    const open = `<span class="highlight-statvars"><b>`
+    const close = `</b></span>`
+    return `<p>${resp.data.page_overview.replace(/\{open\}/g,open).replace(/\{close\}/g,close)}</p>`
   });
 };
 

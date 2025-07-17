@@ -12,6 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# PAGE_OVERVIEW_PROMPT = """
+# Imagine you are a dynamic, trusted, and factual UI copywriter. Use the following tone of voice guidelines as an approach to this task.
+# Informative: The primary goal is to present data and facts clearly and directly.
+# Neutral / objective: The language avoids emotional or subjective statements. The focus is on presenting the numbers without bias, opinions or judgments.
+# Data-driven and factual: The emphasis is on presenting statistical and factual data supported by source citations.
+# Concise and purposeful: Aim to explain the connection between the variable and the initial user research question. The sentences are generally short and focused on the key relationship between the variable and the research question, while maintaining neutrality and avoiding implications of direct causation.
+# Straightforward: The writing is clear and to the point, avoiding jargon or overly complex language.  The information is presented in a way that is understandable to an entry level data analyst or data enthusiast.
+
+# Write three concise sentences addressing the research question by introducing the statistical variables that are found to be relevant to the question.
+# The first sentence should introduce the research question and connect it to the variable topics without directly addressing the user or the `user's question`. For instance, you can use "To explore $research_question..." or a similar introduction.
+# The second sentence should highlight how the statistical variables are relevant to exploring the question. For instance, one may emphasize  potential relationships found in the question and variables. 
+# Maintain a clear, simple, elegant, friendly, and succinct tone. The sentences are intended to guide exploration, not claim a complete answer.
+# Crucially, write all sentences as if the analysis can be performed rather than the analysis is already performed.
+# Use a passive voice.
+
+# Avoid injecting the code variable name into the sentence, instead replace the name with a human readable version.
+# Avoid using the word 'analysis', instead jump straight into the variables and the relationships.
+# Avoid using the word 'we'.
+
+# The research question is the following: {initial_query}
+# The available statistical variables are the following: {stat_vars}
+
+# """
+
 PAGE_OVERVIEW_PROMPT = """
 Imagine you are a dynamic, trusted, and factual UI copywriter. Use the following tone of voice guidelines as an approach to this task.
 Informative: The primary goal is to present data and facts clearly and directly.
@@ -20,21 +44,30 @@ Data-driven and factual: The emphasis is on presenting statistical and factual d
 Concise and purposeful: Aim to explain the connection between the variable and the initial user research question. The sentences are generally short and focused on the key relationship between the variable and the research question, while maintaining neutrality and avoiding implications of direct causation.
 Straightforward: The writing is clear and to the point, avoiding jargon or overly complex language.  The information is presented in a way that is understandable to an entry level data analyst or data enthusiast.
 
-Write three concise sentences addressing the research question by introducing the statistical variables that are found to be relevant to the question.
-The first sentence should introduce the research question and connect it to the variable topics without directly addressing the user or the `user's question`. For instance, you can use "To explore $research_question..." or a similar introduction.
-The second sentence should highlight how the statistical variables are relevant to exploring the question. For instance, one may emphasize  potential relationships found in the question and variables. 
-Maintain a clear, simple, elegant, friendly, and succinct tone. The sentences are intended to guide exploration, not claim a complete answer.
-Crucially, write all sentences as if the analysis can be performed rather than the analysis is already performed.
+Write a paragraph of around 70 words addressing the research question by introducing the statistical variables provided that are found to be relevant to the question.
+Introduce the research question and connect it to the variable topics without directly addressing the user or the `user's question`. 
+Highlight how the statistical variables are relevant to exploring the question. For instance, one may emphasize  potential relationships found in the question and variables.
+Maintain a clear, simple, elegant, friendly, and succinct tone. The paragraph is intended to guide exploration, not claim a complete answer.
+If the relationship between variable and questions is not a direct answer, explore potential pathways.
+Write as if the analysis can be performed rather than the analysis is already performed.
 Use a passive voice.
 
-Avoid injecting the code variable name into the sentence, instead replace the name with a human readable version.
+Avoid using the code variable name, instead replace the name with a human readable version.
+CRUCIALLY, mark these human readable versions with a open curly brace, a word literal, and a closed curly brace.
+When marking before, the word literal should be 'open'. When marking after, the word literal should be 'close'. Ensure this is followed before and after every human readable variable. 
+For instance,for the variable "Population in the Labor Force in Counties of Texas", we would produce "OPEN_MARKINGTexas labor force populationCLOSE_MARKING".
+IMPORTANT! Have the human readable version! DOUBLE CHECK THAT NO CODE VARIABLE NAME IS USED!
 Avoid using the word 'analysis', instead jump straight into the variables and the relationships.
 Avoid using the word 'we'.
+
+Once written, review the generated paragraph for redundancy, focusing on simplicity and friendliness.
 
 The research question is the following: {initial_query}
 The available statistical variables are the following: {stat_vars}
 
+
 """
+
 
 RELATED_QUESTIONS_PROMPT = """
 Imagine you are a dynamic, trusted, and factual UI copywriter. Use the following tone of voice guidelines as an approach to this task.
