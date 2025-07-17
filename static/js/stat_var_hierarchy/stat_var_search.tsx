@@ -38,8 +38,8 @@ import {
 } from "../utils/search_utils";
 
 // Limits for the number of SV search results to fetch from Vertex AI.
-const MAX_INITIAL_RESULTS = 100;
-const MAX_TOTAL_RESULTS = 1000;
+export const MAX_INITIAL_RESULTS = 100;
+export const MAX_TOTAL_RESULTS = 1000;
 
 interface StatVarHierarchySearchPropType {
   entities: string[];

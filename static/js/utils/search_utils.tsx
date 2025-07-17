@@ -27,7 +27,7 @@ export function getStatVarSearchResults(
   query: string,
   places: string[],
   svOnly: boolean,
-  limit: number = 100
+  limit = 100
 ): Promise<StatVarSearchResult> {
   const url = "/api/stats/stat-var-search";
   const payload = {

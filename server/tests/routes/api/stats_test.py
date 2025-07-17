@@ -149,31 +149,47 @@ class TestApiStatsProperty(unittest.TestCase):
         }
     }
 
+
 class MockVertexAIResult:
-    def __init__(self, results, next_page_token=None):
-        self.results = results
-        self.next_page_token = next_page_token
+
+  def __init__(self, results, next_page_token=None):
+    self.results = results
+    self.next_page_token = next_page_token
+
 
 class MockResponseItem:
-    def __init__(self, document_data):
-        self.document = MockDocument(document_data)
+
+  def __init__(self, document_data):
+    self.document = MockDocument(document_data)
+
 
 class MockDocument:
-    def __init__(self, struct_data):
-        self.struct_data = struct_data
+
+  def __init__(self, struct_data):
+    self.struct_data = struct_data
+
 
 class TestSearchStatVar(unittest.TestCase):
 
   @mock.patch('server.lib.feature_flags.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.search_vertexai')
-  def test_search_statvar_dc_single_token_vai_disabled(self, mock_search_vertexai, mock_search_dc, mock_is_feature_enabled):
+  def test_search_statvar_dc_single_token_vai_disabled(self,
+                                                       mock_search_vertexai,
+                                                       mock_search_dc,
+                                                       mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is disabled."""
     expected_query = 'person'
     expected_places = ["geoId/06"]
     expected_result = {'statVarGroups': ['group_1', 'group_2']}
     expected_sv_only_result = {'statVars': [{'name': 'sv1', 'dcid': 'sv1'}]}
-    expected_no_places_result = {'statVarGroups': ['group_3'], 'statVars': [{'name': 'sv2', 'dcid': 'sv2'}]}
+    expected_no_places_result = {
+        'statVarGroups': ['group_3'],
+        'statVars': [{
+            'name': 'sv2',
+            'dcid': 'sv2'
+        }]
+    }
 
     def search_dc_side_effect(query, places, sv_only):
       if query == expected_query and places == expected_places and not sv_only:
@@ -187,9 +203,10 @@ class TestSearchStatVar(unittest.TestCase):
 
     with app.app_context():
       mock_is_feature_enabled.return_value = False
-      mock_search_vertexai.side_effect = ValueError("Vertex AI search not expected in this test.")
+      mock_search_vertexai.side_effect = ValueError(
+          "Vertex AI search not expected in this test.")
       mock_search_dc.side_effect = search_dc_side_effect
-    
+
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&places=geoId/06')
       mock_search_vertexai.assert_not_called()
@@ -202,8 +219,7 @@ class TestSearchStatVar(unittest.TestCase):
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_sv_only_result
-      response = app.test_client().get(
-          'api/stats/stat-var-search?query=person')
+      response = app.test_client().get('api/stats/stat-var-search?query=person')
       mock_search_vertexai.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
@@ -212,7 +228,10 @@ class TestSearchStatVar(unittest.TestCase):
   @mock.patch('server.lib.feature_flags.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.search_vertexai')
-  def test_search_statvar_vai_enabled_places_specified(self, mock_search_vertexai, mock_search_dc, mock_is_feature_enabled):
+  def test_search_statvar_vai_enabled_places_specified(self,
+                                                       mock_search_vertexai,
+                                                       mock_search_dc,
+                                                       mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is enabled, but places are specified (i.e. should fall back to DC search)."""
     expected_query = 'person'
     expected_places = ["geoId/06"]
@@ -226,9 +245,10 @@ class TestSearchStatVar(unittest.TestCase):
 
     with app.app_context():
       mock_is_feature_enabled.return_value = True
-      mock_search_vertexai.side_effect = ValueError("Vertex AI search not expected in this test.")
+      mock_search_vertexai.side_effect = ValueError(
+          "Vertex AI search not expected in this test.")
       mock_search_dc.side_effect = search_dc_side_effect
-    
+
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&places=geoId/06&svOnly=1')
       mock_search_vertexai.assert_not_called()
@@ -239,44 +259,73 @@ class TestSearchStatVar(unittest.TestCase):
   @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.search_vertexai')
-  def test_search_statvar_vai_enabled(self, mock_search_vertexai, mock_search_dc, mock_is_feature_enabled):
+  def test_search_statvar_vai_enabled(self, mock_search_vertexai,
+                                      mock_search_dc, mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is enabled and should be called."""
     expected_query = 'person'
-    vai_response_page_one = MockVertexAIResult(
-      results=[
-        MockResponseItem(document_data={'dcid': 'sv1', 'name': 'sv1'}),
-        MockResponseItem(document_data={'dcid': 'sv2', 'name': 'sv2'}),
-        MockResponseItem(document_data={'dcid': 'sv3', 'name': 'sv3'})
-      ],
-      next_page_token='page_two'
-    )
-    vai_response_page_two = MockVertexAIResult(
-      results=[
-        MockResponseItem(document_data={'dcid': 'sv4', 'name': 'sv4'}),
-        MockResponseItem(document_data={'dcid': 'sv5', 'name': 'sv5'}),
-        MockResponseItem(document_data={'dcid': 'sv6', 'name': 'sv6'})
-      ],
-      next_page_token=None
-    )    
-    expected_response_limit_one = {
-      'statVars': [{'dcid': 'sv1', 'name': 'sv1'}]
-    }
+    vai_response_page_one = MockVertexAIResult(results=[
+        MockResponseItem(document_data={
+            'dcid': 'sv1',
+            'name': 'sv1'
+        }),
+        MockResponseItem(document_data={
+            'dcid': 'sv2',
+            'name': 'sv2'
+        }),
+        MockResponseItem(document_data={
+            'dcid': 'sv3',
+            'name': 'sv3'
+        })
+    ],
+                                               next_page_token='page_two')
+    vai_response_page_two = MockVertexAIResult(results=[
+        MockResponseItem(document_data={
+            'dcid': 'sv4',
+            'name': 'sv4'
+        }),
+        MockResponseItem(document_data={
+            'dcid': 'sv5',
+            'name': 'sv5'
+        }),
+        MockResponseItem(document_data={
+            'dcid': 'sv6',
+            'name': 'sv6'
+        })
+    ],
+                                               next_page_token=None)
+    expected_response_limit_one = {'statVars': [{'dcid': 'sv1', 'name': 'sv1'}]}
     expected_response_page_one = {
-      'statVars': [
-        {'dcid': 'sv1', 'name': 'sv1'}, 
-        {'dcid': 'sv2', 'name': 'sv2'}, 
-        {'dcid': 'sv3', 'name': 'sv3'}
-      ]
+        'statVars': [{
+            'dcid': 'sv1',
+            'name': 'sv1'
+        }, {
+            'dcid': 'sv2',
+            'name': 'sv2'
+        }, {
+            'dcid': 'sv3',
+            'name': 'sv3'
+        }]
     }
     expected_response_all = {
-      'statVars': [
-        {'dcid': 'sv1', 'name': 'sv1'},
-        {'dcid': 'sv2', 'name': 'sv2'},
-        {'dcid': 'sv3', 'name': 'sv3'},
-        {'dcid': 'sv4', 'name': 'sv4'},
-        {'dcid': 'sv5', 'name': 'sv5'},
-        {'dcid': 'sv6', 'name': 'sv6'}
-      ]
+        'statVars': [{
+            'dcid': 'sv1',
+            'name': 'sv1'
+        }, {
+            'dcid': 'sv2',
+            'name': 'sv2'
+        }, {
+            'dcid': 'sv3',
+            'name': 'sv3'
+        }, {
+            'dcid': 'sv4',
+            'name': 'sv4'
+        }, {
+            'dcid': 'sv5',
+            'name': 'sv5'
+        }, {
+            'dcid': 'sv6',
+            'name': 'sv6'
+        }]
     }
 
     def search_vai_side_effect(query, token):
@@ -286,14 +335,15 @@ class TestSearchStatVar(unittest.TestCase):
         return vai_response_page_two
       else:
         return []
-    
+
     with app.app_context():
       mock_is_feature_enabled.return_value = True
       mock_search_vertexai.side_effect = search_vai_side_effect
-      mock_search_dc.side_effect = ValueError("DC search not expected in this test.")
-    
+      mock_search_dc.side_effect = ValueError(
+          "DC search not expected in this test.")
+
       response = app.test_client().get(
-            'api/stats/stat-var-search?query=person&limit=1')
+          'api/stats/stat-var-search?query=person&limit=1')
       mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
@@ -310,4 +360,3 @@ class TestSearchStatVar(unittest.TestCase):
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_response_all
-

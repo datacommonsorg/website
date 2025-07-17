@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-import { expect } from "@jest/globals";
+import { expect, jest } from "@jest/globals";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import Enzyme, { shallow } from "enzyme";
 import _ from "lodash";
 import React from "react";
 
-import { StatVarHierarchySearch } from "./stat_var_search";
+import { getStatVarSearchResults } from "../utils/search_utils";
+import {
+  MAX_INITIAL_RESULTS,
+  MAX_TOTAL_RESULTS,
+  StatVarHierarchySearch,
+} from "./stat_var_search";
 
 Enzyme.configure({ adapter: new Adapter() });
 test("getResultCountString", () => {
@@ -81,4 +86,148 @@ test("getResultCountString", () => {
       throw e;
     }
   }
+});
+
+jest.mock("../utils/search_utils", () => {
+  const originalModule = jest.requireActual(
+    "../utils/search_utils"
+  ) as typeof import("../utils/search_utils");
+  return {
+    getStatVarSearchResults: jest.fn(),
+    getHighlightedJSX: originalModule.getHighlightedJSX,
+  };
+});
+
+describe("StatVarHierarchySearch Component - search method", () => {
+  let wrapper: any;
+  let instance: StatVarHierarchySearch;
+  let mockGetStatVarSearchResults: jest.Mock;
+
+  const createMockResponse = (numSvResults: number) => ({
+    matches: [],
+    statVarGroups: [],
+    statVars: Array(numSvResults).fill({ name: "sv", dcid: "sv" }),
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    wrapper = shallow(
+      <StatVarHierarchySearch entities={[]} onSelectionChange={_.noop} />
+    );
+    instance = wrapper.instance() as StatVarHierarchySearch;
+
+    mockGetStatVarSearchResults = getStatVarSearchResults as jest.Mock;
+
+    jest.spyOn(instance, "setState");
+
+    instance.state = {
+      query: "",
+      matches: [],
+      showNoResultsMessage: false,
+      showResults: true,
+      svgResults: [],
+      svResults: [],
+      showLoadMoreButton: false,
+      showMoreResultsLoading: false,
+    };
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test("showLoadMoreButton is false when less than MAX_INITIAL_RESULTS are returned", async () => {
+    const query = "less_than_max";
+    const returnedResults = MAX_INITIAL_RESULTS - 10;
+
+    mockGetStatVarSearchResults.mockResolvedValue(
+      createMockResponse(returnedResults)
+    );
+
+    wrapper.setState({
+      query,
+    });
+
+    (instance as any).search(query, MAX_INITIAL_RESULTS)();
+
+    await new Promise(process.nextTick);
+
+    const setStateCall = (instance.setState as jest.Mock).mock.calls[0][0];
+
+    expect(setStateCall.svResults.length).toEqual(returnedResults);
+    expect(setStateCall.showLoadMoreButton).toBe(false);
+    expect(setStateCall.showMoreResultsLoading).toBe(false);
+
+    expect(mockGetStatVarSearchResults).toHaveBeenCalledWith(
+      query,
+      [],
+      false,
+      MAX_INITIAL_RESULTS
+    );
+  });
+
+  test("showLoadMoreButton is true when exactly MAX_INITIAL_RESULTS are returned", async () => {
+    const query = "exactly_max";
+    const returnedResults = MAX_INITIAL_RESULTS;
+
+    mockGetStatVarSearchResults.mockResolvedValue(
+      createMockResponse(returnedResults)
+    );
+
+    wrapper.setState({
+      query,
+    });
+
+    (instance as any).search(query, MAX_INITIAL_RESULTS)();
+
+    await new Promise(process.nextTick);
+
+    const setStateCall = (instance.setState as jest.Mock).mock.calls[0][0];
+
+    expect(setStateCall.svResults.length).toEqual(returnedResults);
+    expect(setStateCall.showLoadMoreButton).toBe(true);
+    expect(setStateCall.showMoreResultsLoading).toBe(false);
+
+    expect(mockGetStatVarSearchResults).toHaveBeenCalledWith(
+      query,
+      [],
+      false,
+      MAX_INITIAL_RESULTS
+    );
+  });
+
+  test("showLoadMoreButton is false once more results are loaded", async () => {
+    const query = "load_more_scenario";
+    const returnedResults = MAX_TOTAL_RESULTS;
+
+    mockGetStatVarSearchResults.mockResolvedValue(
+      createMockResponse(returnedResults)
+    );
+
+    wrapper.setState({
+      query,
+      showResults: true,
+      svResults: [{ name: "existing_sv", dcid: "existing_sv" }],
+      showLoadMoreButton: true,
+      showMoreResultsLoading: true,
+    });
+
+    (instance as any).search(query, MAX_TOTAL_RESULTS)();
+
+    await new Promise(process.nextTick);
+
+    const setStateCall = (instance.setState as jest.Mock).mock.calls[0][0];
+
+    expect(setStateCall.svResults.length).toEqual(returnedResults);
+    expect(setStateCall.showLoadMoreButton).toBe(false);
+    expect(setStateCall.showMoreResultsLoading).toBe(false);
+
+    expect(mockGetStatVarSearchResults).toHaveBeenCalledWith(
+      query,
+      [],
+      false,
+      returnedResults
+    );
+  });
 });
