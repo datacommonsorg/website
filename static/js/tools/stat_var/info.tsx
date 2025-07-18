@@ -21,19 +21,22 @@
 import React, { Component } from "react";
 
 import { InfoBox } from "../../components/content/info_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 
 class Info extends Component {
   render(): JSX.Element {
     return (
       <InfoBox>
-        To start,{" "}
         <span className="d-none d-lg-inline">
-          select a variable from the left panel
+          {intl.formatMessage(toolMessages.statVarExplorerInstructionsDesktop)}
         </span>
         <span className="d-inline d-lg-none">
-          click the &quot;Select variable&quot; button below
-        </span>
-        . Need more specific data? Filter by choosing a data source above.
+          {intl.formatMessage(
+            toolMessages.infoBoxInstructionsMultiVariableMobile
+          )}
+        </span>{" "}
+        {intl.formatMessage(toolMessages.statVarExplorerInstructionsDataSource)}
       </InfoBox>
     );
   }

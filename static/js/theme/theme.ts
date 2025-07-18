@@ -376,9 +376,11 @@ const theme: Theme = {
   infoBox: {
     backgroundColor: DC_BLUE_LIGHTEST,
     icon: {
-      fontSize: "2rem",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
       [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
-        fontSize: "1.5rem",
+        fontSize: "1.35rem",
+        lineHeight: "1.5rem",
       },
     },
     heading: {

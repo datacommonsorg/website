@@ -19,7 +19,7 @@ import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
-import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
@@ -136,10 +136,10 @@ class Page extends Component<unknown, PageStateType> {
               (useStandardizedUi ? (
                 <ToolHeader
                   title={intl.formatMessage(
-                    visualizationToolMessages.timelineToolTitle
+                    toolMessages.timelineToolTitle
                   )}
                   subtitle={intl.formatMessage(
-                    visualizationToolMessages.timelineToolSubtitle
+                    toolMessages.timelineToolSubtitle
                   )}
                   switchToolsUrl="/tools/visualization#visType%3Dtimeline"
                 />

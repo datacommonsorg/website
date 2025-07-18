@@ -24,7 +24,7 @@ import React from "react";
 
 import { InfoBox } from "../../../components/content/info_box";
 import { intl } from "../../../i18n/i18n";
-import { visualizationToolMessages } from "../../../i18n/i18n_vis_tool_messages";
+import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
 interface VisToolInstructionsBoxProps {
   multiPlace?: boolean;
@@ -37,17 +37,17 @@ export function VisToolInstructionsBox(
   return (
     <InfoBox
       heading={intl.formatMessage(
-        visualizationToolMessages.infoBoxInstructionHeader
+        toolMessages.infoBoxInstructionHeader
       )}
     >
       <ol>
         <li>
           {props.multiPlace
             ? intl.formatMessage(
-                visualizationToolMessages.infoBoxInstructionsPlaces
+                toolMessages.infoBoxInstructionsPlaces
               )
             : intl.formatMessage(
-                visualizationToolMessages.infoBoxInstructionsPlacesIn
+                toolMessages.infoBoxInstructionsPlacesIn
               )}
         </li>
         <li>
@@ -55,12 +55,12 @@ export function VisToolInstructionsBox(
             <>
               <span className="d-none d-lg-inline">
                 {intl.formatMessage(
-                  visualizationToolMessages.infoBoxInstructionsMultiVariableDesktop
+                  toolMessages.infoBoxInstructionsMultiVariableDesktop
                 )}
               </span>
               <span className="d-inline d-lg-none">
                 {intl.formatMessage(
-                  visualizationToolMessages.infoBoxInstructionsMultiVariableMobile
+                  toolMessages.infoBoxInstructionsMultiVariableMobile
                 )}
               </span>
             </>
@@ -68,12 +68,12 @@ export function VisToolInstructionsBox(
             <>
               <span className="d-none d-lg-inline">
                 {intl.formatMessage(
-                  visualizationToolMessages.infoBoxInstructionsVariableDesktop
+                  toolMessages.infoBoxInstructionsVariableDesktop
                 )}
               </span>
               <span className="d-inline d-lg-none">
                 {intl.formatMessage(
-                  visualizationToolMessages.infoBoxInstructionsVariableMobile
+                  toolMessages.infoBoxInstructionsVariableMobile
                 )}
               </span>
             </>

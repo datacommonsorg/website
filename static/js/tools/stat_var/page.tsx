@@ -143,6 +143,7 @@ class Page extends Component<unknown, PageStateType> {
                 <Button
                   className="d-inline d-lg-none"
                   color="primary"
+                  id="select-variable-button"
                   onClick={this.toggleSvHierarchyModal}
                 >
                   Select variable

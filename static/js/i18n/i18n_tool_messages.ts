@@ -16,7 +16,7 @@
 
 import { defineMessages } from "react-intl";
 
-export const visualizationToolMessages = defineMessages({
+export const toolMessages = defineMessages({
   switchToolVersion: {
     id: "switch_tool_version",
     defaultMessage: "Switch tool version",
@@ -102,5 +102,24 @@ export const visualizationToolMessages = defineMessages({
       'Pick statistical variables using the "select variables" button above.',
     description:
       "An instruction for users to use a button labeled 'select variables' to select multiple statistical variable to plot",
+  },
+  statVarExplorerInstructionsDesktop: {
+    id: "stat_var_explorer_instructions_desktop",
+    defaultMessage: "To start, select a variable from the left panel.",
+    description:
+      "An instruction for users to interact with a UI element on the left side of the screen to select a variable to display in our statistical variable explorer tool",
+  },
+  statVarExplorerInstructionsMobile: {
+    id: "stat_var_explorer_instructions_mobile",
+    defaultMessage: 'To start, click the "Select variable" button below.',
+    description:
+      "An instruction for users to click on a button UI element to select a variable to display in our statistical variable explorer tool",
+  },
+  statVarExplorerInstructionsDataSource: {
+    id: "stat_var_explorer_instructions_data_source",
+    defaultMessage:
+      "Need more specific data? Filter by choosing a data source above.",
+    description:
+      "An instruction for users to select a data source to use in our statistical variable explorer tool",
   },
 });

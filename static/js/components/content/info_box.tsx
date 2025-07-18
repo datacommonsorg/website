@@ -64,26 +64,28 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
           css={css`
             display: flex;
             flex-direction: column;
-            gap: ${theme.spacing.sm}px;
+            gap: ${theme.spacing.md}px;
           `}
         >
-          <div
-            css={css`
-              ${theme.infoBox.heading}
-            `}
-          >
-            {props.heading}
-          </div>
+          {props.heading && (
+            <div
+              css={css`
+                ${theme.infoBox.heading}
+              `}
+            >
+              {props.heading}
+            </div>
+          )}
           <div
             css={css`
               color: ${theme.colors.text.primary.base};
               ${theme.typography.text.lg};
               ol,
               ul {
-                margin: ${theme.spacing.lg}px 0;
-              }
-              li {
-                margin: ${theme.spacing.lg}px 0;
+                display: flex;
+                flex-direction: column;
+                gap: ${theme.spacing.lg}px;
+                margin: 0;
               }
             `}
           >

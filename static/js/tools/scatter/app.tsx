@@ -24,7 +24,7 @@ import { Container, Row } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
 import { intl } from "../../i18n/i18n";
-import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
@@ -77,10 +77,10 @@ function App(): ReactElement {
               {useStandardizedUi ? (
                 <ToolHeader
                   title={intl.formatMessage(
-                    visualizationToolMessages.scatterToolTitle
+                    toolMessages.scatterToolTitle
                   )}
                   subtitle={intl.formatMessage(
-                    visualizationToolMessages.scatterToolSubtitle
+                    toolMessages.scatterToolSubtitle
                   )}
                   switchToolsUrl="/tools/visualization#visType%3Dscatter"
                 />

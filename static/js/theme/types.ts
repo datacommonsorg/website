@@ -331,10 +331,12 @@ export interface Theme {
     heading: TextVariant;
     icon: {
       fontSize: string;
+      lineHeight: string;
       [key: string]:
         | string
         | {
             fontSize?: string;
+            lineHeight?: string;
           };
     };
   };
