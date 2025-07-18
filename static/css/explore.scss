@@ -79,6 +79,12 @@
   }
 }
 
+/* Eliminates the extra padding at the bottom of Explore charts
+to provide spacing consistency with other components. */
+[id^="explore_cat_"].category.col-12 {
+  padding-bottom: 0 !important;
+}
+
 #explore-more-section {
   padding: 24px;
   border-radius: var(--border-radius-primary);
@@ -256,7 +262,7 @@
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
   background: var(--loading-background);
-  margin-bottom: 24px;
+  margin-bottom: 31px;
   width: 100%;
   color: var(--gm-3-ref-neutral-neutral-50) !important
 }
@@ -268,7 +274,7 @@
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
   background: var(--gm-3-white);
-  margin-bottom: 24px;
+  margin-bottom: 31px;
   width: 100%;
 }
 
