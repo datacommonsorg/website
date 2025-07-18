@@ -30,7 +30,7 @@ import {
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
-import { VisToolInstructionsBox } from "../shared/info_box";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";

@@ -329,7 +329,14 @@ export interface Theme {
   infoBox: {
     backgroundColor: string;
     heading: TextVariant;
-    icon: { size: string };
+    icon: {
+      fontSize: string;
+      [key: string]:
+        | string
+        | {
+            fontSize?: string;
+          };
+    };
   };
   elevation: {
     none: {

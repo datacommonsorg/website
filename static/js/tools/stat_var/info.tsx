@@ -20,22 +20,20 @@
 
 import React, { Component } from "react";
 
-import { InfoBox } from "../shared/info_box";
+import { InfoBox } from "../../components/content/info_box";
 
 class Info extends Component {
   render(): JSX.Element {
     return (
       <InfoBox>
-        <p>
-          To start,{" "}
-          <span className="d-none d-lg-inline">
-            select a variable from the left panel
-          </span>
-          <span className="d-inline d-lg-none">
-            click the &quot;Select variable&quot; button below
-          </span>
-          . Need more specific data? Filter by choosing a data source above.
-        </p>
+        To start,{" "}
+        <span className="d-none d-lg-inline">
+          select a variable from the left panel
+        </span>
+        <span className="d-inline d-lg-none">
+          click the &quot;Select variable&quot; button below
+        </span>
+        . Need more specific data? Filter by choosing a data source above.
       </InfoBox>
     );
   }

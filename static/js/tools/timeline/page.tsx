@@ -34,7 +34,7 @@ import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
-import { VisToolInstructionsBox } from "../shared/info_box";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartRegion } from "./chart_region";
