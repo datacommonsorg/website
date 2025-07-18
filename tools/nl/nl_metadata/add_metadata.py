@@ -27,6 +27,7 @@ import argparse
 import asyncio
 import json
 import os
+import typing
 
 from datacommons_client.client import DataCommonsClient
 from dotenv import load_dotenv
@@ -140,12 +141,13 @@ def extract_flag() -> argparse.Namespace:
   parser.add_argument(
     "--failedAttemptsPath",
     help="Path to a JSON file (or folder of files) containing previously failed SV metadata to re-process. If --useGCS is also specified, the file should be in the GCS bucket. " \
-    "Note that the specified file should contain all metadata - if this flag is used, neither BQ nor the DC API will be called.",
+    "Note that the specified file should contain all metadata - If this flag is used, neither BQ nor the DC API will be called.",
     type=str,
     default=None
   )
   args = parser.parse_args()
   return args
+
 
 def verify_gcs_path_exists(gcs_path: str) -> bool:
   """
@@ -155,12 +157,13 @@ def verify_gcs_path_exists(gcs_path: str) -> bool:
   gcs_client = storage.Client(project=GCS_PROJECT_ID)
   bucket = gcs_client.bucket(GCS_BUCKET)
 
-  if gcs_path.endswith('/'): # Path is a folder
-    blobs = list(bucket.list_blobs(prefix=gcs_path, max_results=1))
-    return len(blobs) > 0
-  else: # Path is a file
+  if gcs_path.endswith('.json'):  # Path is a file
     blob = bucket.blob(gcs_path)
     return blob.exists()
+  else:  # Path is a folder
+    blobs = list(bucket.list_blobs(prefix=gcs_path, max_results=1))
+    return len(blobs) > 0
+
 
 def verify_args(args: argparse.Namespace) -> None:
   """
@@ -176,11 +179,12 @@ def verify_args(args: argparse.Namespace) -> None:
   if args.maxStatVars is not None and args.maxStatVars <= 0:
     raise ValueError("maxStatVars must be a positive integer.")
   if args.failedAttemptsPath is not None:
-    if not args.failedAttemptsPath.endswith(".json") and not args.failedAttemptsPath.endswith("/"):
-      raise ValueError(
-          "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
-      )
     if args.useGCS:
+      if not args.failedAttemptsPath.endswith(
+          ".json") and not args.failedAttemptsPath.endswith("/"):
+        raise ValueError(
+            "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
+        )
       if not verify_gcs_path_exists(args.failedAttemptsPath):
         raise ValueError(
             f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
@@ -207,56 +211,70 @@ def get_bq_query(num_partitions: int,
 
 
 def split_into_batches(
-    original_df: pd.DataFrame | list) -> list[pd.DataFrame] | list[list]:
+    original_df: pd.DataFrame | list,
+    batch_size: int = BATCH_SIZE) -> list[pd.DataFrame] | list[list]:
   """
   Splits a dataframe into batches of a given size.
   Ex. [1, 2, 3, 4, 5, 6] with BATCH_SIZE = 2 becomes [[1, 2], [3, 4], [5, 6]]
   """
   batched_df_list = []
-  for i in range(0, len(original_df), BATCH_SIZE):
-    batched_df_list.append(original_df[i:i + BATCH_SIZE])
+  for i in range(0, len(original_df), batch_size):
+    batched_df_list.append(original_df[i:i + batch_size])
   return batched_df_list
 
-def read_sv_metadata_failed_attempts(failed_attempts_path: str, use_gcs: bool) -> list[dict[str, str | list[str]]]:
-    """
+
+def read_sv_metadata_failed_attempts(
+    failed_attempts_path: str,
+    use_gcs: bool) -> list[dict[str, str | list[str]]]:
+  """
     Reads previously failed SV metadata from either GCS or a local file path.
     """
-    sv_metadata_to_process: list[dict[str, str | list[str]]] = []
+  sv_metadata_to_process: list[dict[str, str | list[str]]] = []
 
-    if use_gcs:
-        gcs_client = storage.Client(project=GCS_PROJECT_ID)
-        bucket = gcs_client.bucket(GCS_BUCKET)
+  # print(failed_attempts_path)
+  # print(os.listdir(failed_attempts_path))
+  def read_jsonl(file: typing.TextIO | list[str],
+                 metadata_list: list[dict[str, str | list[str]]]):
+    """
+        Reads a JSONL file and appends each line as a dictionary to the metadata_list.
+        """
+    for line in file:
+      entry = json.loads(line)
+      metadata_list.append(entry)
+    return metadata_list
 
-        blobs = []
-        if failed_attempts_path.endswith('/'):  # Treat as a folder prefix
-            blobs = list(bucket.list_blobs(prefix=failed_attempts_path))
-        else:  # Treat as a specific file
-            blobs = [bucket.blob(failed_attempts_path)]
+  if use_gcs:
+    gcs_client = storage.Client(project=GCS_PROJECT_ID)
+    bucket = gcs_client.bucket(GCS_BUCKET)
 
-        for blob in blobs:
-            if blob.name.endswith(".json"):
-                print(f"Processing failed attempts from GCS: {blob.name}")
-                failed_data_str = blob.download_as_text()
-                failed_entries = json.loads(failed_data_str)
-                for entry in failed_entries:
-                    sv_metadata_to_process.append(entry['metadata'])
-    else:  # Read from local file system
-        if os.path.isdir(failed_attempts_path):
-            for filename in os.listdir(failed_attempts_path):
-                if filename.endswith(".json"):
-                    local_file_path = os.path.join(failed_attempts_path, filename)
-                    print(f"Processing failed attempts from local file: {local_file_path}")
-                    with open(local_file_path, 'r') as f:
-                        failed_entries = json.load(f)
-                        for entry in failed_entries:
-                            sv_metadata_to_process.append(entry['metadata'])
-        else:
-            print(f"Processing failed attempts from local file: {failed_attempts_path}")
-            with open(failed_attempts_path, 'r') as f:
-                failed_entries = json.load(f)
-                for entry in failed_entries:
-                    sv_metadata_to_process.append(entry['metadata'])
-    return sv_metadata_to_process
+    blobs = []
+    if failed_attempts_path.endswith('.json'):  # Treat as a specific file
+      blobs = [bucket.blob(failed_attempts_path)]
+    else:  # Treat as a folder prefix
+      blobs = list(bucket.list_blobs(prefix=failed_attempts_path))
+
+    for blob in blobs:
+      if blob.name.endswith(".json"):
+        print(f"Processing failed attempts from GCS: {blob.name}")
+        failed_data_str = blob.download_as_text()
+        sv_metadata_to_process = read_jsonl(failed_data_str.splitlines(),
+                                            sv_metadata_to_process)
+  else:  # Read from local file system
+    if os.path.isdir(failed_attempts_path):
+      for filename in os.listdir(failed_attempts_path):
+        if filename.endswith(".json"):
+          local_file_path = os.path.join(failed_attempts_path, filename)
+          print(
+              f"Processing failed attempts from local file: {local_file_path}")
+          with open(local_file_path, 'r') as f:
+            sv_metadata_to_process = read_jsonl(f, sv_metadata_to_process)
+    else:
+      print(
+          f"Processing failed attempts from local file: {failed_attempts_path}")
+      with open(failed_attempts_path, 'r') as f:
+        sv_metadata_to_process = read_jsonl(f, sv_metadata_to_process)
+  return split_into_batches(sv_metadata_to_process, PAGE_SIZE)
+
 
 def create_sv_metadata_bigquery(num_partitions: int,
                                 curr_partition: int,
@@ -465,8 +483,8 @@ async def generate_alt_sentences(
 
 async def batch_generate_alt_sentences(
     sv_metadata_list: list[dict[str, str | list[str]]], gemini_api_key: str,
-    gemini_prompt: str) -> tuple[list[dict[str, str | list[str]]], list[dict[str, str | list[str]]]
-                                 ]:
+    gemini_prompt: str
+) -> tuple[list[dict[str, str | list[str]]], list[dict[str, str | list[str]]]]:
   """
   Separates sv_metadata_list into batches of 100 entries, and executes multiple parallel calls to generate_alt_sentences
   using Gemini and existing SV metadata. Flattens the list of results, and returns the metadata as a list of dictionaries.
@@ -501,7 +519,9 @@ async def batch_generate_alt_sentences(
       results.extend(batch)
     else:
       starting_dcid = batch[0]["dcid"]
-      print(f"Added failed batch starting at DCID {starting_dcid} to failed results.")
+      print(
+          f"Added failed batch starting at DCID {starting_dcid} to failed results."
+      )
       failed_results.extend(batch)
   return results, failed_results
 
@@ -541,7 +561,9 @@ async def main():
   verify_args(args)
 
   if args.failedAttemptsPath is not None:
-    pass
+    sv_metadata_iter: list[list[dict[
+        str, str | list[str]]]] = read_sv_metadata_failed_attempts(
+            args.failedAttemptsPath, args.useGCS)
   elif args.useBigQuery:
     # Fetch from all 700,000+ SVs from BigQuery
     # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
@@ -563,26 +585,25 @@ async def main():
       full_metadata = sv_metadata_list
     else:
       full_metadata: list[dict[str, str | list[str]]] = extract_metadata(
-        sv_metadata_list, args.useBigQuery)
-      
+          sv_metadata_list, args.useBigQuery)
     failed_metadata: list[dict[str, str | list[str]]] = []
     if args.generateAltSentences:
       print(
           f"Starting to generate alt sentences for batch number {page_number}")
       full_metadata, failed_metadata = await batch_generate_alt_sentences(
           full_metadata, args.geminiApiKey, gemini_prompt)
-    
+
     exported_filename = f"{exported_sv_file}_{page_number}"
-    failed_filename= f"failures/failed_batch_{page_number}"
+    failed_filename = f"failures/failed_batch_{page_number}"
     if args.totalPartitions > 1:
       exported_filename = f"{exported_sv_file}_partition{args.currPartition}_{page_number}"
       failed_filename = f"failures/failed_batch_partition{args.currPartition}_{page_number}"
-    
+
     export_to_json(full_metadata, exported_filename, args.useGCS,
                    args.gcsFolder)
     if failed_metadata:
       export_to_json(failed_metadata, failed_filename, args.useGCS,
-                   args.gcsFolder)
+                     args.gcsFolder)
     page_number += 1
 
 
