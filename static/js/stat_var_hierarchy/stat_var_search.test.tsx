@@ -19,6 +19,9 @@ import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import Enzyme, { shallow } from "enzyme";
 import _ from "lodash";
 import React from "react";
+import {
+  cleanup
+} from "@testing-library/react";
 
 import { getStatVarSearchResults } from "../utils/search_utils";
 import {
@@ -98,9 +101,10 @@ jest.mock("../utils/search_utils", () => {
   };
 });
 
-describe("StatVarHierarchySearch Component - search method", () => {
-  let wrapper: any;
-  let instance: StatVarHierarchySearch;
+describe("StatVarHierarchySearch Component", () => {
+  const wrapper: Enzyme.ShallowWrapper = shallow(
+    <StatVarHierarchySearch entities={[]} onSelectionChange={_.noop} />
+  );
   let mockGetStatVarSearchResults: jest.Mock;
 
   const createMockResponse = (numSvResults: number) => ({
@@ -110,54 +114,40 @@ describe("StatVarHierarchySearch Component - search method", () => {
   });
 
   beforeEach(() => {
-    jest.clearAllMocks();
-
-    wrapper = shallow(
-      <StatVarHierarchySearch entities={[]} onSelectionChange={_.noop} />
-    );
-    instance = wrapper.instance() as StatVarHierarchySearch;
+    jest.useFakeTimers(); // Enable Jest's fake timers to control setTimeout
 
     mockGetStatVarSearchResults = getStatVarSearchResults as jest.Mock;
-
-    jest.spyOn(instance, "setState");
-
-    instance.state = {
-      query: "",
-      matches: [],
-      showNoResultsMessage: false,
-      showResults: true,
-      svgResults: [],
-      svResults: [],
-      showLoadMoreButton: false,
-      showMoreResultsLoading: false,
-    };
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    cleanup();
+    jest.runAllTimers();
+    jest.useRealTimers();
+    jest.clearAllMocks();
   });
 
-  test("showLoadMoreButton is false when less than MAX_INITIAL_RESULTS are returned", async () => {
-    const query = "less_than_max";
-    const returnedResults = MAX_INITIAL_RESULTS - 10;
+  const simulateInput = (query: string) => {
+    wrapper.find('input.statvar-search-input').simulate('change', { target: { value: query } });
+    wrapper.update();
+  };
 
-    mockGetStatVarSearchResults.mockResolvedValue(
-      createMockResponse(returnedResults)
-    );
+  it('Should not show the "Load More Results" button when less than MAX_INITIAL_RESULTS are returned', async () => {
+    const query = 'less_than_max';
+    const numResults = MAX_INITIAL_RESULTS - 10;
+    mockGetStatVarSearchResults.mockResolvedValueOnce(createMockResponse(numResults));
 
-    wrapper.setState({
-      query,
-    });
+    simulateInput(query);
+    jest.advanceTimersByTime(300); 
+    expect(mockGetStatVarSearchResults).toHaveBeenCalledTimes(1);
+    await Promise.resolve();
+    wrapper.update();
 
-    (instance as any).search(query, MAX_INITIAL_RESULTS)();
-
-    await new Promise(process.nextTick);
-
-    const setStateCall = (instance.setState as jest.Mock).mock.calls[0][0];
-
-    expect(setStateCall.svResults.length).toEqual(returnedResults);
-    expect(setStateCall.showLoadMoreButton).toBe(false);
-    expect(setStateCall.showMoreResultsLoading).toBe(false);
+    expect(wrapper.find('.statvar-hierarchy-search-results').exists()).toBe(true);
+    expect(wrapper.find('.sv-search-loading').exists()).toBe(false);
+    expect(wrapper.find('.no-results-message').exists()).toBe(false);
+    expect(wrapper.find('.sv-search-results').exists()).toBe(true);
+    expect(wrapper.find('.search-result-value').length).toEqual(numResults);
+    expect(wrapper.find('.load-more-button').exists()).toBe(false);
 
     expect(mockGetStatVarSearchResults).toHaveBeenCalledWith(
       query,
@@ -167,27 +157,24 @@ describe("StatVarHierarchySearch Component - search method", () => {
     );
   });
 
-  test("showLoadMoreButton is true when exactly MAX_INITIAL_RESULTS are returned", async () => {
-    const query = "exactly_max";
-    const returnedResults = MAX_INITIAL_RESULTS;
+  it('Should show the "Load More Results" button when exactly MAX_INITIAL_RESULTS are returned', async () => {
+    const query = 'exactly_max';
+    mockGetStatVarSearchResults.mockResolvedValue(createMockResponse(MAX_INITIAL_RESULTS));
 
-    mockGetStatVarSearchResults.mockResolvedValue(
-      createMockResponse(returnedResults)
-    );
+    simulateInput(query);
+    jest.advanceTimersByTime(300);
+    await Promise.resolve();
+    wrapper.update();
 
-    wrapper.setState({
-      query,
-    });
+    expect(wrapper.find('.statvar-hierarchy-search-results').exists()).toBe(true);
+    expect(wrapper.find('.sv-search-loading').exists()).toBe(false);
+    expect(wrapper.find('.no-results-message').exists()).toBe(false);
+    expect(wrapper.find('.sv-search-results').exists()).toBe(true);
+    expect(wrapper.find('.search-result-value').length).toEqual(MAX_INITIAL_RESULTS);
+    expect(wrapper.find('.load-more-button').exists()).toBe(true);
+    expect(wrapper.find('.load-more-button').text()).toContain('Load More Results');
+    expect(wrapper.find('.sv-search-loading').exists()).toBe(false);
 
-    (instance as any).search(query, MAX_INITIAL_RESULTS)();
-
-    await new Promise(process.nextTick);
-
-    const setStateCall = (instance.setState as jest.Mock).mock.calls[0][0];
-
-    expect(setStateCall.svResults.length).toEqual(returnedResults);
-    expect(setStateCall.showLoadMoreButton).toBe(true);
-    expect(setStateCall.showMoreResultsLoading).toBe(false);
 
     expect(mockGetStatVarSearchResults).toHaveBeenCalledWith(
       query,
@@ -197,37 +184,39 @@ describe("StatVarHierarchySearch Component - search method", () => {
     );
   });
 
-  test("showLoadMoreButton is false once more results are loaded", async () => {
-    const query = "load_more_scenario";
-    const returnedResults = MAX_TOTAL_RESULTS;
+  it('Should load MAX_TOTAL_RESULTS when the Load More button is clicked, and remove the button after loading', async () => {
+    const query = 'load_all';
+    mockGetStatVarSearchResults.mockResolvedValueOnce(createMockResponse(MAX_INITIAL_RESULTS));
+    mockGetStatVarSearchResults.mockResolvedValueOnce(createMockResponse(MAX_TOTAL_RESULTS));
 
-    mockGetStatVarSearchResults.mockResolvedValue(
-      createMockResponse(returnedResults)
-    );
+    simulateInput(query);
+    jest.advanceTimersByTime(300);
+    await Promise.resolve();
+    wrapper.update();
 
-    wrapper.setState({
-      query,
-      showResults: true,
-      svResults: [{ name: "existing_sv", dcid: "existing_sv" }],
-      showLoadMoreButton: true,
-      showMoreResultsLoading: true,
-    });
+    expect(wrapper.find('.search-result-value').length).toEqual(MAX_INITIAL_RESULTS);
+    expect(wrapper.find('.load-more-button').exists()).toBe(true);
+    expect(wrapper.find('.load-more-button').text()).toContain('Load More Results');
+    expect(mockGetStatVarSearchResults).toHaveBeenCalledTimes(1);
+    expect(mockGetStatVarSearchResults).toHaveBeenCalledWith(query, [], false, MAX_INITIAL_RESULTS);
 
-    (instance as any).search(query, MAX_TOTAL_RESULTS)();
+    wrapper.find('.load-more-button').simulate('click');
+    wrapper.update();
 
-    await new Promise(process.nextTick);
+    expect(wrapper.find('.search-result-value').length).toEqual(MAX_INITIAL_RESULTS);
+    expect(wrapper.find('.load-more-button').exists()).toBe(true);
+    expect(wrapper.find('.load-more-button').text()).toContain('Loading');
+    expect(wrapper.find('.load-more-button #sv-search-spinner').exists()).toBe(true);
 
-    const setStateCall = (instance.setState as jest.Mock).mock.calls[0][0];
+    await Promise.resolve();
+    wrapper.update();
 
-    expect(setStateCall.svResults.length).toEqual(returnedResults);
-    expect(setStateCall.showLoadMoreButton).toBe(false);
-    expect(setStateCall.showMoreResultsLoading).toBe(false);
+    expect(mockGetStatVarSearchResults).toHaveBeenCalledTimes(2);
+    expect(mockGetStatVarSearchResults).toHaveBeenCalledWith(query, [], false, MAX_TOTAL_RESULTS);
 
-    expect(mockGetStatVarSearchResults).toHaveBeenCalledWith(
-      query,
-      [],
-      false,
-      returnedResults
-    );
+    expect(wrapper.find('.search-result-value').length).toEqual(MAX_TOTAL_RESULTS);
+    expect(wrapper.find('.load-more-button').exists()).toBe(false); 
+    expect(wrapper.find('.sv-search-loading').exists()).toBe(false); 
+    expect(wrapper.find('.no-results-message').exists()).toBe(false);
   });
 });
