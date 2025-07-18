@@ -66,14 +66,14 @@ export const visualizationToolMessages = defineMessages({
   infoBoxInstructionsPlacesIn: {
     id: "info_box_instruction_places_in",
     defaultMessage:
-      "Enter your desired location (e.g. city, state, country) into the search box above, and then select the type of sub-region you want to plot.",
+      "Enter your desired location (e.g., California, Canada, Europe) into the search box above, and then select the type of sub-region (e.g., City, State, Country) you want to plot.",
     description:
-      "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g. plot cities in France).",
+      "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France).",
   },
   infoBoxInstructionsPlaces: {
     id: "info_box_instruction_places",
     defaultMessage:
-      "Type your desired location(s) (e.g. city, state, country) into the search box above, then select the place from the displayed results.",
+      "Type your desired location(s) (e.g., London, Mexico, Africa) into the search box above, then select the place from the displayed results.",
     description:
       "instructions for how to enter a list of places to plot using our chart visualization tools",
   },
@@ -84,20 +84,20 @@ export const visualizationToolMessages = defineMessages({
       "An instruction for users to interact with a UI element on the left side of the page",
   },
   infoBoxInstructionsVariableMobile: {
-    id: "info_box_instruction_variable_desktop",
+    id: "info_box_instruction_variable_mobile",
     defaultMessage:
       'Pick a statistical variable using the "select variable" button above.',
     description:
       "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
   },
   infoBoxInstructionsMultiVariableDesktop: {
-    id: "info_box_instruction_variable_desktop",
+    id: "info_box_instruction_multi_variable_desktop",
     defaultMessage: "Pick statistical variables in the left panel.",
     description:
       "An instruction for users to interact with a UI element on the left side of the page to select multiple statistical variables",
   },
   infoBoxInstructionsMultiVariableMobile: {
-    id: "info_box_instruction_variable_desktop",
+    id: "info_box_instruction_multi_variable_mobile",
     defaultMessage:
       'Pick statistical variables using the "select variables" button above.',
     description:
