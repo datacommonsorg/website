@@ -32,9 +32,7 @@ class Info extends Component {
           {intl.formatMessage(toolMessages.statVarExplorerInstructionsDesktop)}
         </span>
         <span className="d-inline d-lg-none">
-          {intl.formatMessage(
-            toolMessages.infoBoxInstructionsMultiVariableMobile
-          )}
+          {intl.formatMessage(toolMessages.statVarExplorerInstructionsMobile)}
         </span>{" "}
         {intl.formatMessage(toolMessages.statVarExplorerInstructionsDataSource)}
       </InfoBox>

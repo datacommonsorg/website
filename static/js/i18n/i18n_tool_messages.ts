@@ -52,7 +52,7 @@ export const toolMessages = defineMessages({
       "name of the tool that plots line charts, specifically a variable over time",
   },
   timelineToolSubtitle: {
-    id: "scatter_visualization_tool_description",
+    id: "timeline_visualization_tool_description",
     defaultMessage:
       "The timelines explorer helps you explore trends for statistical variables.",
     description:
@@ -73,7 +73,7 @@ export const toolMessages = defineMessages({
   infoBoxInstructionsPlaces: {
     id: "info_box_instruction_places",
     defaultMessage:
-      "Type your desired location(s) (e.g., London, Mexico, Africa) into the search box above, then select the place from the displayed results.",
+      "Type your desired location(s) (e.g., London, Mexico, Africa) into the search box above, and then select the place from the displayed results.",
     description:
       "instructions for how to enter a list of places to plot using our chart visualization tools",
   },

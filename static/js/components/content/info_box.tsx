@@ -22,7 +22,7 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ComponentType, ReactElement, SVGProps } from "react";
 
-import { ReminderFilled } from "../../components/elements/icons/reminder";
+import { ReminderFilled } from "../elements/icons/reminder";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
