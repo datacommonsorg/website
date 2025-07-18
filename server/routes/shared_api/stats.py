@@ -35,6 +35,7 @@ import server.services.datacommons as dc
 bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 
 # Constants for Vertex AI Search Application
+# TODO: Move the VAI app to a different GCP project and figure out a better way to authenticate (ex. use API keys)
 VAI_PROJECT_ID = "datcom-website-dev"
 VAI_LOCATION = "global"
 VAI_ENGINE_ID = "stat-var-search-bq-data_1751939744678"
