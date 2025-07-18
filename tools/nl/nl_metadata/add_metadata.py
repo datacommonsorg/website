@@ -13,11 +13,12 @@
 # limitations under the License.
 """
 This script retrives the metadata from the data commons API or BigQuery (BQ) table and exports it in the following stages:
-1. Import the existing data commons SVs from either the existing NL SVs or BigQuery. 
+1. Import the existing data commons SVs from either the existing NL SVs or BigQuery, or from a user-specified file path. 
    If importing from BQ, separate the table into {num_partitions} and only process the SVs from {curr_partition} as specified by flag arguments, returning the data in pages of up to 3000 SVs.
-2. For each page, extract the metadata (either from DC API or BQ) and any constraintProperties to store in a list. 
+2. For each page, extract the metadata (either from DC API or BQ) and any constraintProperties to store in a list. Skip this step if reading previously failed attempts from a user-specified file.
 3. Optionally, call the Gemini API in parallel batches of up to 100 SVs each to generate approximately 5 alternative sentences per SV based on the metadata. 
    Also translate the metadata if a target language is specified.
+   If this step fails after MAX_RETRIES, the failed metadata will be saved to a separate file.
 4. Create a new dataframe with the SVs and their full metadata, and export it as a JSON file sv_complete_metadata_{target_language}_{page_number}.json.
    If the flag --useGCS is specified, also save to cloud storage.
 
@@ -70,7 +71,7 @@ GEMINI_TEMPERATURE = 1
 GEMINI_TOP_P = 1
 GEMINI_SEED = 0
 GEMINI_MAX_OUTPUT_TOKENS = 65535
-MAX_RETRIES = 1
+MAX_RETRIES = 3
 RETRY_DELAY_SECONDS = 2
 
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
