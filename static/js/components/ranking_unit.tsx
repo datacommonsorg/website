@@ -79,6 +79,7 @@ interface RankingUnitPropType {
   apiRoot?: string;
   entityType?: string;
   isLoading?: boolean;
+  statVar?: string;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -202,7 +203,8 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                             href={urlFunc(
                               point.placeDcid,
                               props.entityType,
-                              props.apiRoot
+                              props.apiRoot,
+                              props.statVar
                             )}
                             text={
                               <PlaceName

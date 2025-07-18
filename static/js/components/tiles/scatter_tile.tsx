@@ -147,6 +147,10 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
   >(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
+  /*
+    TODO: (nick-next) destructure the props similarly to highlight to
+          allow a complete dependency array.
+   */
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;
@@ -166,7 +170,16 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
         setIsLoading(false);
       }
     })();
-  }, [props, scatterChartData, shouldLoad]);
+  }, [
+    props.lazyLoad,
+    props.apiRoot,
+    props.place.dcid,
+    props.placeNameProp,
+    props.enclosedPlaceType,
+    props.statVarSpec,
+    scatterChartData,
+    shouldLoad,
+  ]);
 
   const drawFn = useCallback(() => {
     if (!scatterChartData || !areDataPropsEqual()) {

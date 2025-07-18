@@ -23,7 +23,14 @@ import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
+import { intl } from "../../i18n/i18n";
+import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
+import { ToolHeader } from "../shared/tool_header";
 import { ChartLoader } from "./chart_loader";
 import {
   Axis,
@@ -53,6 +60,9 @@ function App(): ReactElement {
   const showInfo = !showChart && !showChooseStatVarMessage;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
+  const useStandardizedUi = isFeatureEnabled(
+    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+  );
   return (
     <>
       <StatVarChooser
@@ -63,12 +73,24 @@ function App(): ReactElement {
         <Container fluid={true}>
           {!showChart && (
             <Row>
-              <div className="app-header">
-                <h1 className="mb-4">Scatter Plot Explorer</h1>
-                <a href="/tools/visualization#visType%3Dscatter">
-                  Go back to the new Data Commons
-                </a>
-              </div>
+              {useStandardizedUi ? (
+                <ToolHeader
+                  title={intl.formatMessage(
+                    visualizationToolMessages.scatterToolTitle
+                  )}
+                  subtitle={intl.formatMessage(
+                    visualizationToolMessages.scatterToolSubtitle
+                  )}
+                  switchToolsUrl="/tools/visualization#visType%3Dscatter"
+                />
+              ) : (
+                <div className="app-header">
+                  <h1 className="mb-4">Scatter Plot Explorer</h1>
+                  <a href="/tools/visualization#visType%3Dscatter">
+                    Go back to the new Scatter Plot Explorer
+                  </a>
+                </div>
+              )}
             </Row>
           )}
           <Row>
