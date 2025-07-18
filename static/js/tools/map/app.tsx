@@ -30,8 +30,8 @@ import {
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
-import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ToolHeader } from "../shared/tool_header";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
@@ -68,12 +68,8 @@ function App(): ReactElement {
           <Row>
             {useStandardizedUi ? (
               <ToolHeader
-                title={intl.formatMessage(
-                  toolMessages.mapToolTitle
-                )}
-                subtitle={intl.formatMessage(
-                  toolMessages.mapToolSubtitle
-                )}
+                title={intl.formatMessage(toolMessages.mapToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.mapToolSubtitle)}
                 switchToolsUrl="/tools/visualization#visType%3Dmap"
               />
             ) : (

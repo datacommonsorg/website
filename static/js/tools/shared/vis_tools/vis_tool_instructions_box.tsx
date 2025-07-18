@@ -36,19 +36,13 @@ export function VisToolInstructionsBox(
 ): JSX.Element {
   return (
     <InfoBox
-      heading={intl.formatMessage(
-        toolMessages.infoBoxInstructionHeader
-      )}
+      heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
     >
       <ol>
         <li>
           {props.multiPlace
-            ? intl.formatMessage(
-                toolMessages.infoBoxInstructionsPlaces
-              )
-            : intl.formatMessage(
-                toolMessages.infoBoxInstructionsPlacesIn
-              )}
+            ? intl.formatMessage(toolMessages.infoBoxInstructionsPlaces)
+            : intl.formatMessage(toolMessages.infoBoxInstructionsPlacesIn)}
         </li>
         <li>
           {props.multiVariable ? (

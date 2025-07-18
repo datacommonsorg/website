@@ -22,7 +22,7 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ComponentType, ReactElement, SVGProps } from "react";
 
-import { Reminder } from "../../components/elements/icons/reminder";
+import { ReminderFilled } from "../../components/elements/icons/reminder";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -57,9 +57,7 @@ export function InfoBox(props: InfoBoxProps): JSX.Element {
           }
         `}
       >
-        {props.icon || (
-          <Reminder fill={theme.colors.text.primary.base} fillAxisOn />
-        )}
+        {props.icon || <ReminderFilled fill={theme.colors.text.primary.base} />}
         <div
           css={css`
             display: flex;

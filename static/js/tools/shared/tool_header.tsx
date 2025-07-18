@@ -78,9 +78,7 @@ export function ToolHeader(props: ToolHeaderProps): JSX.Element {
               }
             `}
             href={props.switchToolsUrl}
-            text={intl.formatMessage(
-              toolMessages.switchToolVersion
-            )}
+            text={intl.formatMessage(toolMessages.switchToolVersion)}
           ></LocalizedLink>
         )}
       </div>
