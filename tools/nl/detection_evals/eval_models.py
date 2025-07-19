@@ -87,12 +87,14 @@ class NlQueryEvalScore(BaseModel):
     date_score: Optional[float] = None
     place_score: Optional[float] = None
     variable_score: Optional[float] = None
+    variable_precision: Optional[float] = None
+    variable_recall: Optional[float] = None
     total_score: Optional[float] = None
 
     def model_dump(self, **kwargs) -> dict:
         """Override model_dump to convert np.nan to None in the output."""
         data = super().model_dump(**kwargs)
-        return clean_nan_values(data)
+        return NlQueryEvalScore._clean_nan_values(data)
 
     @model_validator(mode="before")
     @classmethod
@@ -101,19 +103,19 @@ class NlQueryEvalScore(BaseModel):
         Pre-process the input data to convert any np.nan values to None
         before the main validation runs.
         """
-        return clean_nan_values(data)
+        return NlQueryEvalScore._clean_nan_values(data)
 
-
-def clean_nan_values(data):
-    """
-    Pre-process the input data to convert any np.nan values to None
-    before the main validation runs.
-    """
-    if isinstance(data, dict):
-        for key, value in data.items():
-            # This check handles both scalar nan and lists containing nan
-            if isinstance(value, (list, np.ndarray)):
-                data[key] = [None if pd.isna(item) else item for item in value]
-            elif pd.isna(value):
-                data[key] = None
-    return data
+    @staticmethod
+    def _clean_nan_values(data):
+        """
+        Pre-process the input data to convert any np.nan values to None
+        before the main validation runs.
+        """
+        if isinstance(data, dict):
+            for key, value in data.items():
+                # This check handles both scalar nan and lists containing nan
+                if isinstance(value, (list, np.ndarray)):
+                    data[key] = [None if pd.isna(item) else item for item in value]
+                elif pd.isna(value):
+                    data[key] = None
+        return data
