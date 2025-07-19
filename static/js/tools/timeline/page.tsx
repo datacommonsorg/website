@@ -19,7 +19,7 @@ import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
-import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
@@ -36,6 +36,7 @@ import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartRegion } from "./chart_region";
 import { MemoizedInfo } from "./info";
 import {
@@ -134,11 +135,9 @@ class Page extends Component<unknown, PageStateType> {
             {numPlaces === 0 &&
               (useStandardizedUi ? (
                 <ToolHeader
-                  title={intl.formatMessage(
-                    visualizationToolMessages.timelineToolTitle
-                  )}
+                  title={intl.formatMessage(toolMessages.timelineToolTitle)}
                   subtitle={intl.formatMessage(
-                    visualizationToolMessages.timelineToolSubtitle
+                    toolMessages.timelineToolSubtitle
                   )}
                   switchToolsUrl="/tools/visualization#visType%3Dtimeline"
                 />
@@ -174,7 +173,7 @@ class Page extends Component<unknown, PageStateType> {
                   />
                 </Col>
               </Row>
-              <Row className="d-lg-none">
+              <Row className="d-inline d-lg-none">
                 <Col>
                   <Button color="primary" onClick={this.toggleSvHierarchyModal}>
                     Select variables
@@ -182,7 +181,12 @@ class Page extends Component<unknown, PageStateType> {
                 </Col>
               </Row>
             </Card>
-            {numPlaces === 0 && <MemoizedInfo />}
+            {numPlaces === 0 &&
+              (useStandardizedUi ? (
+                <VisToolInstructionsBox multiPlace multiVariable />
+              ) : (
+                <MemoizedInfo />
+              ))}
             {numPlaces !== 0 && numStatVarInfo !== 0 && (
               <div id="chart-region">
                 <ChartRegion

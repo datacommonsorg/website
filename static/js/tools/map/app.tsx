@@ -24,13 +24,14 @@ import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { intl } from "../../i18n/i18n";
-import { visualizationToolMessages } from "../../i18n/i18n_vis_tool_messages";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
@@ -67,12 +68,8 @@ function App(): ReactElement {
           <Row>
             {useStandardizedUi ? (
               <ToolHeader
-                title={intl.formatMessage(
-                  visualizationToolMessages.mapToolTitle
-                )}
-                subtitle={intl.formatMessage(
-                  visualizationToolMessages.mapToolSubtitle
-                )}
+                title={intl.formatMessage(toolMessages.mapToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.mapToolSubtitle)}
                 switchToolsUrl="/tools/visualization#visType%3Dmap"
               />
             ) : (
@@ -82,9 +79,7 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          <Row>
-            <Info />
-          </Row>
+          <Row>{useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}</Row>
           <Row id="chart-row">
             <ChartLoader />
           </Row>

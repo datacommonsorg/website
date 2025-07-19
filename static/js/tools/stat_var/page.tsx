@@ -18,6 +18,7 @@
  * Top-level wrapper component for Stat Var Explorer page.
  */
 
+import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
@@ -29,6 +30,7 @@ import {
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
+import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
 import { getUrlToken, updateHash } from "../../utils/url_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
@@ -110,7 +112,7 @@ class Page extends Component<unknown, PageStateType> {
     const svs = this.state.statVar ? { [this.state.statVar]: {} } : {};
     const entities = this.state.entity.dcid ? [this.state.entity] : [];
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <StatVarWidget
           openSvHierarchyModal={this.state.showSvHierarchyModal}
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
@@ -139,8 +141,9 @@ class Page extends Component<unknown, PageStateType> {
               <>
                 <Info />
                 <Button
-                  className="d-lg-none"
+                  className="d-inline d-lg-none"
                   color="primary"
+                  id="select-variable-button"
                   onClick={this.toggleSvHierarchyModal}
                 >
                   Select variable
@@ -172,7 +175,7 @@ class Page extends Component<unknown, PageStateType> {
             )}
           </div>
         </div>
-      </>
+      </ThemeProvider>
     );
   }
 
