@@ -22,6 +22,7 @@
 $header-desktop-height: 96px;
 $header-mobile-height: 142px;
 $header-mobile-height-xs: 128px;
+$header-mobile-no-search-height: 68px;
 $header-max-width: 1728px;
 
 // Component Variables
@@ -59,16 +60,19 @@ section {
   }
 }
 
-.no-header-search-bar {
+body.no-header-search-bar {
   #main {
     .navbar-menu-mobile {
-      height: $header-desktop-height !important;
+      height: $header-mobile-no-search-height !important;
+    }
+    @media (max-width: 1068px) {
+      padding-top: $header-mobile-no-search-height !important;
     }
     @media (max-width: 620px) {
-      padding-top: $header-desktop-height !important;
+      padding-top: $header-mobile-no-search-height !important;
     }
     @media (max-width: 340px) {
-      padding-top: $header-desktop-height !important;
+      padding-top: $header-mobile-no-search-height !important;
     }
   }
 }
