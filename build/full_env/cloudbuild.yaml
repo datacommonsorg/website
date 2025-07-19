@@ -12,18 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-substitutions:
-  _VERS: "2025-05-20"
-
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - build
-      - "--build-arg=VERS=${_VERS}"
-      - --tag=gcr.io/datcom-ci/full-env:${_VERS}
-      - --tag=gcr.io/datcom-ci/full-env:latest
+      - "--tag=gcr.io/datcom-ci/full-env:latest"
+      - "-f"
+      - "build/full_env/Dockerfile"
       - "."
 
 images:
-  - "gcr.io/datcom-ci/full-env:${_VERS}"
   - "gcr.io/datcom-ci/full-env:latest"
