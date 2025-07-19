@@ -37,6 +37,10 @@ import {
   getStatVarSearchResults,
 } from "../utils/search_utils";
 
+// Limits for the number of SV search results to fetch from Vertex AI.
+export const MAX_INITIAL_RESULTS = 100;
+export const MAX_TOTAL_RESULTS = 1000;
+
 interface StatVarHierarchySearchPropType {
   entities: string[];
   // Optional label to add above the search box
@@ -51,6 +55,8 @@ interface StatVarHierarchySearchStateType {
   matches: string[];
   showResults: boolean;
   showNoResultsMessage: boolean;
+  showLoadMoreButton: boolean;
+  showMoreResultsLoading: boolean;
 }
 
 export class StatVarHierarchySearch extends React.Component<
@@ -68,11 +74,14 @@ export class StatVarHierarchySearch extends React.Component<
       showResults: false,
       svResults: [],
       svgResults: [],
+      showLoadMoreButton: false,
+      showMoreResultsLoading: false,
     };
     this.onInputChanged = this.onInputChanged.bind(this);
     this.search = this.search.bind(this);
     this.onResultSelected = this.onResultSelected.bind(this);
     this.onInputClear = this.onInputClear.bind(this);
+    this.handleLoadMoreResults = this.handleLoadMoreResults.bind(this);
   }
 
   // Triggered when no result is showed to a search term and send data to google analytics.
@@ -148,12 +157,12 @@ export class StatVarHierarchySearch extends React.Component<
               )}
               {!_.isEmpty(this.state.svResults) && (
                 <div className="sv-search-results">
-                  {this.state.svResults.map((sv) => {
+                  {this.state.svResults.map((sv, index) => {
                     return (
                       <div
                         className="search-result-value"
                         onClick={this.onResultSelected(sv.dcid)}
-                        key={sv.dcid}
+                        key={`${sv.dcid}-${index}`}
                       >
                         {getHighlightedJSX(
                           sv.dcid,
@@ -163,6 +172,23 @@ export class StatVarHierarchySearch extends React.Component<
                       </div>
                     );
                   })}
+                  {this.state.showLoadMoreButton && (
+                    <button
+                      className="load-more-button"
+                      onClick={this.handleLoadMoreResults}
+                    >
+                      {this.state.showMoreResultsLoading ? (
+                        <div className="sv-search-loading">
+                          <div id="sv-search-spinner"></div>
+                          <span>Loading</span>
+                        </div>
+                      ) : (
+                        <div className="load-more-text">
+                          Load More Results (up to 1000 total)
+                        </div>
+                      )}
+                    </button>
+                  )}
                 </div>
               )}
               {this.state.showNoResultsMessage && (
@@ -226,31 +252,38 @@ export class StatVarHierarchySearch extends React.Component<
     }
   };
 
-  private search = (query: string) => (): void => {
-    getStatVarSearchResults(query, this.props.entities, false)
-      .then((data) => {
-        const currQuery = this.state.query;
-        if (query === currQuery) {
+  private search =
+    (query: string, limit: number = MAX_INITIAL_RESULTS) =>
+    (): void => {
+      getStatVarSearchResults(query, this.props.entities, false, limit)
+        .then((data) => {
+          const currQuery = this.state.query;
+          if (query === currQuery) {
+            this.setState({
+              matches: data.matches,
+              showNoResultsMessage:
+                _.isEmpty(data.statVarGroups) &&
+                _.isEmpty(data.statVars) &&
+                !_.isEmpty(query),
+              svgResults: data.statVarGroups,
+              svResults: data.statVars,
+              showLoadMoreButton:
+                data.statVars.length === limit && limit === MAX_INITIAL_RESULTS,
+              showMoreResultsLoading: false,
+            });
+          }
+        })
+        .catch(() => {
           this.setState({
-            matches: data.matches,
-            showNoResultsMessage:
-              _.isEmpty(data.statVarGroups) &&
-              _.isEmpty(data.statVars) &&
-              !_.isEmpty(query),
-            svgResults: data.statVarGroups,
-            svResults: data.statVars,
+            matches: [],
+            showNoResultsMessage: true,
+            svgResults: [],
+            svResults: [],
+            showLoadMoreButton: false,
+            showMoreResultsLoading: false,
           });
-        }
-      })
-      .catch(() => {
-        this.setState({
-          matches: [],
-          showNoResultsMessage: true,
-          svgResults: [],
-          svResults: [],
         });
-      });
-  };
+    };
 
   private onInputClear = (): void => {
     this.props.onSelectionChange("");
@@ -260,6 +293,8 @@ export class StatVarHierarchySearch extends React.Component<
       showResults: false,
       svResults: [],
       svgResults: [],
+      showLoadMoreButton: false,
+      showMoreResultsLoading: false,
     });
   };
 
@@ -292,6 +327,8 @@ export class StatVarHierarchySearch extends React.Component<
       showResults: false,
       svResults: [],
       svgResults: [],
+      showLoadMoreButton: false,
+      showMoreResultsLoading: false,
     });
   };
 
@@ -335,4 +372,9 @@ export class StatVarHierarchySearch extends React.Component<
     });
     return svgResultJsx;
   }
+
+  private handleLoadMoreResults = (): void => {
+    this.setState({ showMoreResultsLoading: true });
+    this.search(this.state.query, MAX_TOTAL_RESULTS)();
+  };
 }
