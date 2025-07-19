@@ -244,7 +244,7 @@ function run_webdriver_test {
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
   else
     # TODO: Stop using reruns once tests are deflaked.
-    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    npx percy exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
   fi
   stop_servers
   deactivate

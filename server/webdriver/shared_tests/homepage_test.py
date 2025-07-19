@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -27,3 +28,5 @@ class HomepageTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(self.dc_title_string))
     self.assertIn("- " + self.dc_title_string, self.driver.title)
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Homepage EN')

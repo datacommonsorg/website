@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -88,6 +89,8 @@ class VisMapTestMixin():
     selected_tab = self.driver.find_element(
         By.CSS_SELECTOR, ".vis-type-selector .selected .label")
     self.assertEqual(selected_tab.text, 'Map Explorer')
+
+    percy_snapshot(self.driver, self.dc_title_string + 'Map Page Landing')
 
   def test_charts_from_url(self):
     """Given the url directly, test the page shows up correctly"""
@@ -170,6 +173,9 @@ class VisMapTestMixin():
     self.assertIn(' County, CA', ranking_items[0].text)
     self.assertIn(' County, CA', ranking_items[9].text)
 
+    percy_snapshot(self.driver,
+                   self.dc_title_string + 'Map Page Charts From URL')
+
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
     show up.
@@ -212,6 +218,9 @@ class VisMapTestMixin():
     self.assertEqual(ranking_items[0].text, 'Sierra County, CA')
     self.assertEqual(ranking_items[9].text, 'Kern County, CA')
 
+    percy_snapshot(self.driver,
+                   self.dc_title_string + 'Map California Median Age Chart')
+
   def test_landing_page_link(self):
     """Test one of the links on the landing page
     """
@@ -230,3 +239,6 @@ class VisMapTestMixin():
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertGreater(len(map_regions), 1)
+
+    percy_snapshot(self.driver,
+                   self.dc_title_string + 'Map Tool Page Landing Link')

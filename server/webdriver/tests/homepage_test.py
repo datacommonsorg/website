@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -38,6 +39,8 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
         find_elem(self.driver, by=By.ID, value='hero').text.startswith(
             "Data Commons brings together the world's public data, making it simple to explore"
         ))
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Homepage EN by CSS')
 
   def test_homepage_it(self):
     """Test homepage in IT."""
@@ -112,3 +115,5 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
     self.assertEqual(
         len(find_elems(self.driver, value='search-input-result-section')), 5)
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Homepage Autocomplete')

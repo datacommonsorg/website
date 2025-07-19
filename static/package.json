@@ -101,6 +101,7 @@
   },
   "devDependencies": {
     "@formatjs/cli": "^2.13.12",
+    "@percy/cli": "^1.31.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.9",
     "@types/enzyme": "^3.10.14",

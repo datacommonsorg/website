@@ -14,6 +14,7 @@
 
 import re
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
@@ -82,3 +83,7 @@ class StatVarHierarchyTestMixin():
     count_filter = int(count_text.replace('(', '').replace(')', ''))
 
     self.assertGreater(count_initial, count_filter)
+
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Stat Var Hierarchy Filtered by Place')

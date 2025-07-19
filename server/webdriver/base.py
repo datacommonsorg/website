@@ -30,6 +30,7 @@ class WebdriverBaseTest(NLWebServerTestCase):
     self.driver = create_driver(preferences)
     # The URL of the Data Commons server.
     self.url_ = self.get_server_url()
+    self.dc_title_string = "Data Commons"
 
   def tearDown(self):
     """Runs at the end of every individual test."""

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
@@ -34,10 +35,15 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     empty_follow_up = shared.find_elem(parent=self.driver,
                                        value="follow-up-questions-container")
     self.assertIsNone(
-        empty_follow_up,
+        percy_snapshot(self.driver,
+                       'CDC Explore no follow up'), empty_follow_up,
         "Follow Up Questions component is not empty despite the flag not being activated."
     )
     # While Related Topics section should appear
     topic_buttons = shared.find_elem(self.driver, By.CLASS_NAME,
                                      'explore-relevant-topics')
     self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
+
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Explore Page No Follow Up Questions')
