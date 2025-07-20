@@ -136,13 +136,18 @@ export interface BlockPropType {
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
-const CHART_TILES_WITH_FACET_SELECTOR = new Set([
-  "LINE",
-  "HIGHLIGHT",
-  "SCATTER",
-  "BAR",
-]);
-const CHART_TILES_WITH_GROUPED_STAT_VAR_FACETS = new Set(["BAR"]);
+
+const FACET_ELIGIBLE_TILE_GROUPS = [
+  new Set(["LINE", "HIGHLIGHT"]),
+  new Set(["SCATTER"]),
+  new Set(["BAR"]),
+];
+
+const FACET_ELIGIBLE_TILES = new Set(
+  _.flatten(FACET_ELIGIBLE_TILE_GROUPS.map((group) => Array.from(group)))
+);
+
+const FACET_GROUPING_ELIGIBLE_TILES = new Set(["BAR"]);
 
 /**
  * Helper for determining if we should snap the charts in this block to the
@@ -208,6 +213,8 @@ async function shouldEnableSnapToHighestCoverage(
 /**
  * Helper for determining if a block contains tiles eligible for block-level
  * facet selection, and if so, that these blocks share common stat vars.
+ * If a block ever has tile types that are not compatible in terms of
+ * sharing a facet selector (i.e., LINE and SCATTER), we return false.
  *
  * @returns boolean - true if block contains eligible tiles that share stat vars
  */
@@ -220,9 +227,16 @@ function blockEligibleForFacetSelector(
   }
 
   const allChartTiles = _.flatten(columns.map((c) => c.tiles)).filter((t) =>
-    CHART_TILES_WITH_FACET_SELECTOR.has(t.type)
+    FACET_ELIGIBLE_TILES.has(t.type)
   );
   if (allChartTiles.length < 1) {
+    return false;
+  }
+  const firstTileType = allChartTiles[0].type;
+  const compatibilityGroup = FACET_ELIGIBLE_TILE_GROUPS.find((group) =>
+    group.has(firstTileType)
+  );
+  if (!allChartTiles.every((tile) => compatibilityGroup.has(tile.type))) {
     return false;
   }
   const firstSvKey = JSON.stringify(allChartTiles[0].statVarKey.slice().sort());
@@ -247,7 +261,7 @@ function getBlockStatVarSpecs(
 ): StatVarSpec[] {
   const allTiles = _.flatten(columns.map((c) => c.tiles));
   const firstEligibleTile = allTiles.find((t) =>
-    CHART_TILES_WITH_FACET_SELECTOR.has(t.type)
+    FACET_ELIGIBLE_TILES.has(t.type)
   );
   if (!firstEligibleTile) {
     return [];
@@ -294,7 +308,7 @@ export function Block(props: BlockPropType): ReactElement {
   const shouldGroupFacetSelections = useMemo(() => {
     const allTiles = _.flatten(props.columns.map((c) => c.tiles));
     return allTiles.some((tile) =>
-      CHART_TILES_WITH_GROUPED_STAT_VAR_FACETS.has(tile.type)
+      FACET_GROUPING_ELIGIBLE_TILES.has(tile.type)
     );
   }, [props.columns]);
 
@@ -333,7 +347,7 @@ export function Block(props: BlockPropType): ReactElement {
   function determineWithinPlaceFetch(columns: ColumnConfig[]): boolean {
     const allTiles = _.flatten(columns.map((c) => c.tiles));
     const firstEligibleTile = allTiles.find((tile) =>
-      ["LINE", "BAR", "SCATTER"].includes(tile.type)
+      FACET_ELIGIBLE_TILES.has(tile.type)
     );
 
     if (!firstEligibleTile) {
@@ -344,6 +358,7 @@ export function Block(props: BlockPropType): ReactElement {
       case "SCATTER":
         return true;
       case "LINE":
+      case "HIGHLIGHT":
         return !!firstEligibleTile.enclosedPlaceTypeOverride;
       case "BAR":
         return _.isEmpty(firstEligibleTile.comparisonPlaces);
