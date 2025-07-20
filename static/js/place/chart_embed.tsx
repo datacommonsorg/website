@@ -47,8 +47,9 @@ import { StatMetadata } from "../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../shared/types";
 import { saveToFile, urlToDisplayText } from "../shared/util";
 import {
+  buildCitationNodes,
   buildCitationParts,
-  citationToPlainText,
+  CitationPart,
 } from "../tools/shared/metadata/citations";
 import { fetchMetadata } from "../tools/shared/metadata/metadata_fetcher";
 import { getDataCommonsClient } from "../utils/data_commons_client";
@@ -71,7 +72,7 @@ interface ChartEmbedPropsType {
 interface ChartEmbedStateType {
   modal: boolean;
   loading: boolean;
-  citation: string;
+  citation: CitationPart[];
   svgXml: string;
   dataCsv: string;
   chartDate: string;
@@ -104,7 +105,7 @@ class ChartEmbed extends React.Component<
     this.state = {
       modal: false,
       loading: false,
-      citation: "",
+      citation: [],
       svgXml: "",
       dataCsv: "",
       chartDate: "",
@@ -170,7 +171,7 @@ class ChartEmbed extends React.Component<
         getDataCsv,
         modal: true,
         loading: true,
-        citation: "",
+        citation: [],
         sources,
         svgXml,
       },
@@ -185,10 +186,10 @@ class ChartEmbed extends React.Component<
     getDataCsv: () => Promise<string>
   ): Promise<void> {
     try {
-      const getCitationPromise = async (): Promise<string> => {
+      const getCitationPromise = async (): Promise<CitationPart[]> => {
         const { statVarSpecs, facets, statVarToFacets, apiRoot } = this.props;
         if (!statVarSpecs || !facets || !statVarToFacets) {
-          return "";
+          return [];
         }
         const statVarSet = new Set<string>();
         for (const spec of statVarSpecs) {
@@ -198,7 +199,7 @@ class ChartEmbed extends React.Component<
           }
         }
         if (statVarSet.size === 0) {
-          return "";
+          return [];
         }
         const dataCommonsClient = getDataCommonsClient(apiRoot);
         const metadataResp = await fetchMetadata(
@@ -208,11 +209,10 @@ class ChartEmbed extends React.Component<
           statVarToFacets,
           apiRoot
         );
-        const citationParts = buildCitationParts(
+        return buildCitationParts(
           metadataResp.statVarList,
           metadataResp.metadata
         );
-        return citationToPlainText(citationParts);
       };
 
       const [dataCsv, citation] = await Promise.all([
@@ -234,7 +234,7 @@ class ChartEmbed extends React.Component<
       console.error("Failed to load modal data:", error);
       this.setState({
         dataCsv: "Error fetching CSV.",
-        citation: "Error fetching citation information.",
+        citation: [],
         loading: false,
       });
     }
@@ -560,7 +560,7 @@ class ChartEmbed extends React.Component<
               `}
             ></textarea>
           </div>
-          {this.state.citation && (
+          {this.state.citation.length > 0 && (
             <div
               css={css`
                 width: 100%;
@@ -587,7 +587,7 @@ class ChartEmbed extends React.Component<
               <h3>Source and citation</h3>
               <p>
                 {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
-                {this.state.citation}
+                {buildCitationNodes(this.state.citation)}
               </p>
               <p>
                 {intl.formatMessage(metadataComponentMessages.CitationGuidance)}{" "}
