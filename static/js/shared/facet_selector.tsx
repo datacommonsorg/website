@@ -61,6 +61,10 @@ interface FacetSelectorPropType {
     svFacetId: Record<string, string>,
     metadataMap: Record<string, StatMetadata>
   ) => void;
+  // If set, when a facet is selected for one stat var, the corresponding
+  // facet is selected for all other stat vars. This only applies if all
+  // stat vars have the same facet choices.
+  allowSelectionGrouping?: boolean;
 }
 
 export function FacetSelector(props: FacetSelectorPropType): ReactElement {

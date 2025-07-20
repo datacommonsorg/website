@@ -140,7 +140,9 @@ const CHART_TILES_WITH_FACET_SELECTOR = new Set([
   "LINE",
   "HIGHLIGHT",
   "SCATTER",
+  "BAR",
 ]);
+const CHART_TILES_WITH_GROUPED_STAT_VAR_FACETS = new Set(["BAR"]);
 
 /**
  * Helper for determining if we should snap the charts in this block to the
@@ -289,6 +291,13 @@ export function Block(props: BlockPropType): ReactElement {
     props.statVarProvider
   );
 
+  const shouldGroupFacetSelections = useMemo(() => {
+    const allTiles = _.flatten(props.columns.map((c) => c.tiles));
+    return allTiles.some((tile) =>
+      CHART_TILES_WITH_GROUPED_STAT_VAR_FACETS.has(tile.type)
+    );
+  }, [props.columns]);
+
   /*
     This hook prepares the block level stat vars. It determines if we
     have tiles that allow block-level facet selection, and if all those
@@ -313,6 +322,37 @@ export function Block(props: BlockPropType): ReactElement {
   }, [props.columns, props.showWebComponents, props.statVarProvider]);
 
   /**
+   * A function that looks at the tiles in the block and determines
+   * whether the fetch type for the chart associated with facet
+   * selection is will use the "within" version of the fetch. This
+   * is then used to ensure the facet selector uses the appropriate
+   * call to gather the facets.
+   *
+   * @param columns
+   */
+  function determineWithinPlaceFetch(columns: ColumnConfig[]): boolean {
+    const allTiles = _.flatten(columns.map((c) => c.tiles));
+    const firstEligibleTile = allTiles.find((tile) =>
+      ["LINE", "BAR", "SCATTER"].includes(tile.type)
+    );
+
+    if (!firstEligibleTile) {
+      return false;
+    }
+
+    switch (firstEligibleTile.type) {
+      case "SCATTER":
+        return true;
+      case "LINE":
+        return !!firstEligibleTile.enclosedPlaceTypeOverride;
+      case "BAR":
+        return _.isEmpty(firstEligibleTile.comparisonPlaces);
+      default:
+        return false;
+    }
+  }
+
+  /**
    * A function that fetches all facet metadata shared by eligible tiles in this block.
    *
    * (1) If blockSVs is empty, the block contains no facet-eligible tiles, so
@@ -326,7 +366,7 @@ export function Block(props: BlockPropType): ReactElement {
     if (_.isEmpty(blockSVs)) {
       return null;
     }
-    const isWithinPlaceFetch = !!props.enclosedPlaceType;
+    const isWithinPlaceFetch = determineWithinPlaceFetch(props.columns);
 
     if (isWithinPlaceFetch) {
       return fetchFacetChoicesWithin(
@@ -502,6 +542,7 @@ export function Block(props: BlockPropType): ReactElement {
               error={!!facetsError}
               onSvFacetIdUpdated={onSvFacetIdUpdated}
               variant="inline"
+              allowSelectionGrouping={shouldGroupFacetSelections}
             />
           </div>
         )}

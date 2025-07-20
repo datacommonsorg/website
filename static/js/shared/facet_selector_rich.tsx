@@ -75,6 +75,10 @@ interface FacetSelectorRichProps {
     svFacetId: Record<string, string>,
     metadataMap: Record<string, StatMetadata>
   ) => void;
+  // If set, when a facet is selected for one stat var, the corresponding
+  // facet is selected for all other stat vars. This only applies if all
+  // stat vars have the same facet choices.
+  allowSelectionGrouping?: boolean;
 }
 
 export function FacetSelectorRich({
@@ -85,6 +89,7 @@ export function FacetSelectorRich({
   loading,
   error,
   onSvFacetIdUpdated,
+  allowSelectionGrouping = false,
 }: FacetSelectorRichProps): ReactElement {
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
@@ -110,6 +115,20 @@ export function FacetSelectorRich({
     );
   }, [facetList, loading]);
 
+  const areFacetSelectionsGrouped = useMemo(() => {
+    if (!allowSelectionGrouping || !facetList || facetList.length < 2) {
+      return false;
+    }
+    const firstFacetKeys = Object.keys(facetList[0].metadataMap).sort();
+    for (let i = 1; i < facetList.length; i++) {
+      const currentFacetKeys = Object.keys(facetList[i].metadataMap).sort();
+      if (!_.isEqual(firstFacetKeys, currentFacetKeys)) {
+        return false;
+      }
+    }
+    return true;
+  }, [facetList, allowSelectionGrouping]);
+
   useEffect(() => {
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
@@ -117,6 +136,26 @@ export function FacetSelectorRich({
       setModalSelections(svFacetId);
     }
   }, [svFacetId, modalOpen]);
+
+  const handleSelectionChange = (
+    clickedDcid: string,
+    clickedFacetId: string
+  ): void => {
+    if (!areFacetSelectionsGrouped || !facetList) {
+      setModalSelections({
+        ...modalSelections,
+        [clickedDcid]: clickedFacetId,
+      });
+      return;
+    }
+    const newSelections: Record<string, string> = {};
+    for (const facetInfo of facetList) {
+      newSelections[facetInfo.dcid] =
+        clickedFacetId in facetInfo.metadataMap ? clickedFacetId : "";
+    }
+
+    setModalSelections(newSelections);
+  };
 
   if (!hasAlternativeSources) {
     if (mode === "download") {
@@ -299,12 +338,9 @@ export function FacetSelectorRich({
                             name={facetInfo.dcid}
                             id={facetOptionId}
                             defaultChecked={true}
-                            onClick={(): void => {
-                              setModalSelections({
-                                ...modalSelections,
-                                [facetInfo.dcid]: "",
-                              });
-                            }}
+                            onClick={(): void =>
+                              handleSelectionChange(facetInfo.dcid, "")
+                            }
                             css={css`
                               position: relative;
                               margin: 5px 0 0 0;
@@ -332,13 +368,13 @@ export function FacetSelectorRich({
                         facetInfo,
                         "",
                         modalSelections,
-                        setModalSelections,
+                        handleSelectionChange,
                         mode
                       )}
                       {getFacetOptionSectionJsx(
                         facetInfo,
                         modalSelections,
-                        setModalSelections,
+                        handleSelectionChange,
                         mode
                       )}
                     </div>
@@ -507,7 +543,7 @@ function getFacetOptionJsx(
   facetInfo: FacetSelectorFacetInfo,
   facetId: string,
   modalSelections: Record<string, string>,
-  setModalSelections: (selections: Record<string, string>) => void,
+  onSelectionChange: (dcid: string, facetId: string) => void,
   mode?: "chart" | "download"
 ): ReactElement {
   const selectedFacetId = modalSelections[facetInfo.dcid] || "";
@@ -543,12 +579,10 @@ function getFacetOptionJsx(
           type="radio"
           name={facetInfo.dcid}
           id={facetOptionId}
-          defaultChecked={selectedFacetId === facetId}
-          onClick={(): void => {
-            setModalSelections({
-              ...modalSelections,
-              [facetInfo.dcid]: facetId,
-            });
+          checked={selectedFacetId === facetId}
+          value={facetId}
+          onChange={(): void => {
+            onSelectionChange(facetInfo.dcid, facetId);
           }}
           css={css`
             position: relative;
@@ -572,7 +606,7 @@ function getFacetOptionJsx(
 function getFacetOptionSectionJsx(
   facetInfo: FacetSelectorFacetInfo,
   modalSelections: Record<string, string>,
-  setModalSelections: (selections: Record<string, string>) => void,
+  onSelectionChange: (dcid: string, facetId: string) => void,
   mode?: "chart" | "download"
 ): ReactElement {
   const importNameToFacetOptions: Record<string, string[]> = {};
@@ -608,7 +642,7 @@ function getFacetOptionSectionJsx(
                 facetInfo,
                 facetId,
                 modalSelections,
-                setModalSelections,
+                onSelectionChange,
                 mode
               )
             )}
@@ -621,7 +655,7 @@ function getFacetOptionSectionJsx(
               facetInfo,
               facetId,
               modalSelections,
-              setModalSelections,
+              onSelectionChange,
               mode
             )
         )}
@@ -635,7 +669,7 @@ function getFacetOptionSectionJsx(
             facetInfo,
             facetId,
             modalSelections,
-            setModalSelections,
+            onSelectionChange,
             mode
           )
         )}
