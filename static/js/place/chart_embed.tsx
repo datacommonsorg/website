@@ -532,6 +532,7 @@ class ChartEmbed extends React.Component<
                 & > img {
                   width: 100%;
                   height: auto;
+                  max-height: 220px;
                   border: 1px solid ${theme.colors.border.primary.light};
                   ${theme.radius.tertiary};
                   padding: ${theme.spacing.md}px;
@@ -553,6 +554,9 @@ class ChartEmbed extends React.Component<
                 ${theme.typography.family.code};
                 ${theme.typography.text.sm};
                 padding: ${theme.spacing.md}px;
+                &:focus {
+                  outline: none;
+                }
               `}
             ></textarea>
           </div>
