@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, Theme, ThemeContext } from "@emotion/react";
 import * as d3 from "d3";
 import React, { ReactElement, RefObject } from "react";
 
@@ -92,6 +95,9 @@ class ChartEmbed extends React.Component<
   private readonly svgContainerElement: React.RefObject<HTMLDivElement>;
   private readonly textareaElement: React.RefObject<HTMLTextAreaElement>;
   private readonly containerRef: RefObject<HTMLElement>;
+
+  static contextType = ThemeContext;
+  declare context: Theme;
 
   constructor(props: unknown) {
     super(props);
@@ -489,6 +495,8 @@ class ChartEmbed extends React.Component<
   }
 
   public render(): ReactElement {
+    const theme = this.context;
+
     return (
       <Dialog
         open={this.state.modal}
@@ -503,16 +511,40 @@ class ChartEmbed extends React.Component<
         </DialogTitle>
         <DialogContent>
           <div
-            ref={this.svgContainerElement}
-            className={`modal-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
-          ></div>
-          <textarea
-            className="copy-svg modal-textarea mt-3"
-            value={this.state.dataCsv}
-            readOnly
-            ref={this.textareaElement}
-            onClick={this.onClickTextarea}
-          ></textarea>
+            css={css`
+              display: flex;
+              width: 100%;
+              gap: 30px;
+              margin-bottom: 30px;
+            `}
+          >
+            <div
+              ref={this.svgContainerElement}
+              className={`${ASYNC_ELEMENT_HOLDER_CLASS}`}
+              css={css`
+                overflow: hidden;
+                & > svg,
+                & > img {
+                  width: 100%;
+                  height: auto;
+                  border: 1px solid ${theme.box.primary.backgroundColor};
+                }
+              `}
+            ></div>
+            <textarea
+              id={"copy-svg"}
+              value={this.state.dataCsv}
+              readOnly
+              ref={this.textareaElement}
+              onClick={this.onClickTextarea}
+              css={css`
+                overflow-x: hidden;
+                width: 100%;
+                height: auto;
+                padding: 10px;
+              `}
+            ></textarea>
+          </div>
           {this.state.citation && (
             <div>
               <p>
