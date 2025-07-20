@@ -16,7 +16,7 @@
 
 /** @jsxImportSource @emotion/react */
 
-import { css, Theme, ThemeContext } from "@emotion/react";
+import { css, ThemeContext } from "@emotion/react";
 import * as d3 from "d3";
 import React, { ReactElement, RefObject } from "react";
 
@@ -46,6 +46,7 @@ import {
 import { StatMetadata } from "../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../shared/types";
 import { saveToFile, urlToDisplayText } from "../shared/util";
+import { Theme } from "../theme/types";
 import {
   buildCitationNodes,
   buildCitationParts,
@@ -93,12 +94,13 @@ class ChartEmbed extends React.Component<
   ChartEmbedPropsType,
   ChartEmbedStateType
 > {
+  static contextType: React.Context<Theme> =
+    ThemeContext as React.Context<Theme>;
+  declare context: Theme;
+
   private readonly svgContainerElement: React.RefObject<HTMLDivElement>;
   private readonly textareaElement: React.RefObject<HTMLTextAreaElement>;
   private readonly containerRef: RefObject<HTMLElement>;
-
-  static contextType = ThemeContext;
-  declare context: Theme;
 
   constructor(props: unknown) {
     super(props);
@@ -132,6 +134,14 @@ class ChartEmbed extends React.Component<
     this.onDownloadSvg = this.onDownloadSvg.bind(this);
     this.onDownloadData = this.onDownloadData.bind(this);
     this.onClickTextarea = this.onClickTextarea.bind(this);
+  }
+
+  componentDidUpdate(prevProps: ChartEmbedPropsType): void {
+    if (this.props.container !== prevProps.container) {
+      (
+        this.containerRef as React.MutableRefObject<HTMLElement | null>
+      ).current = this.props.container;
+    }
   }
 
   /**
@@ -176,6 +186,200 @@ class ChartEmbed extends React.Component<
         svgXml,
       },
       () => this.loadModalData(getDataCsv)
+    );
+  }
+
+  /**
+   * Callback for after the modal has been rendered and added to the DOM.
+   */
+  public onOpened(): void {
+    if (!this.svgContainerElement.current) {
+      return;
+    }
+    // if (this.textareaElement.current) {
+    //   this.textareaElement.current.style.width =
+    //     this.state.chartWidth + CHART_PADDING * 2 + "px";
+    // }
+
+    if (this.state.chartHtml) {
+      const chartDownloadXml = this.decorateChartHtml();
+      const imageElement = document.createElement("img");
+      imageElement.src =
+        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
+      this.svgContainerElement.current.append(imageElement);
+      imageElement.className = ASYNC_ELEMENT_CLASS;
+      this.setState({ chartDownloadXml });
+    }
+
+    if (this.state.svgXml) {
+      const chartDownloadXml = this.decorateSvgChart();
+      const imageElement = document.createElement("img");
+      imageElement.src =
+        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
+      imageElement.className = ASYNC_ELEMENT_CLASS;
+      this.svgContainerElement.current.append(imageElement);
+      this.setState({ chartDownloadXml });
+    }
+  }
+
+  /**
+   * On click handler on the text area.
+   * - If the user clicks on the text area and doesn't drag the mouse,
+   *   select all of the text (to help them copy and paste)
+   * - If the user clicks and drags, don't select all of the text and allow them
+   *   to make their selection
+   */
+  public onClickTextarea(): void {
+    const selection = window.getSelection().toString();
+    // User is trying to select specific text.
+    if (selection) {
+      return;
+    }
+    // User single-clicked without dragging. Select the entire CSV text
+    this.textareaElement.current.focus();
+    this.textareaElement.current.setSelectionRange(
+      0,
+      this.textareaElement.current.value.length
+    );
+  }
+
+  /**
+   * On click handler for "Copy SVG to clipboard button".
+   */
+  public onDownloadSvg(): void {
+    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
+    const basename = this.state.chartTitle || "chart";
+    saveToFile(`${basename}.svg`, this.state.chartDownloadXml);
+  }
+
+  /**
+   * On click handler for "Download Data" button.
+   */
+  public onDownloadData(): void {
+    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {});
+    const basename = this.state.chartTitle || "export";
+    saveToFile(`${basename}.csv`, this.state.dataCsv);
+  }
+
+  public render(): ReactElement {
+    const theme = this.context;
+
+    return (
+      <Dialog
+        open={this.state.modal}
+        onClose={this.toggle}
+        maxWidth="lg"
+        fullWidth
+        containerRef={this.containerRef}
+        loading={this.state.loading}
+      >
+        <DialogTitle>
+          {intl.formatMessage(chartComponentMessages.ChartDownloadDialogTitle)}
+        </DialogTitle>
+        <DialogContent>
+          <div
+            css={css`
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              width: 100%;
+              gap: ${theme.spacing.lg}px;
+              margin-bottom: ${theme.spacing.lg}px;
+              @media (max-width: ${theme.breakpoints.md}px) {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+              }
+            `}
+          >
+            <div
+              ref={this.svgContainerElement}
+              className={`${ASYNC_ELEMENT_HOLDER_CLASS}`}
+              css={css`
+                overflow: hidden;
+                & > svg,
+                & > img {
+                  width: 100%;
+                  height: auto;
+                  max-height: 220px;
+                  border: 1px solid ${theme.colors.border.primary.light};
+                  ${theme.radius.tertiary};
+                  padding: ${theme.spacing.md}px;
+                }
+              `}
+            ></div>
+            <textarea
+              id={"copy-svg"}
+              value={this.state.dataCsv}
+              readOnly
+              ref={this.textareaElement}
+              onClick={this.onClickTextarea}
+              css={css`
+                overflow-x: hidden;
+                width: 100%;
+                height: auto;
+                border: 1px solid ${theme.colors.border.primary.light};
+                ${theme.radius.tertiary};
+                ${theme.typography.family.code};
+                ${theme.typography.text.sm};
+                padding: ${theme.spacing.md}px;
+                &:focus {
+                  outline: none;
+                }
+              `}
+            ></textarea>
+          </div>
+          {this.state.citation.length > 0 && (
+            <div
+              css={css`
+                width: 100%;
+                && {
+                  h3 {
+                    ${theme.typography.family.heading}
+                    ${theme.typography.heading.xs}
+                    margin: 0 0 ${theme.spacing.sm}px 0;
+                    padding: 0 0 0 0;
+                  }
+                  p {
+                    ${theme.typography.family.text}
+                    ${theme.typography.text.md}
+                    white-space: pre-wrap;
+                    word-break: break-word;
+                    a {
+                      white-space: pre-wrap;
+                      word-break: break-word;
+                    }
+                  }
+                }
+              `}
+            >
+              <h3>Source and citation</h3>
+              <p>
+                {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
+                {buildCitationNodes(this.state.citation)}
+              </p>
+              <p>
+                {intl.formatMessage(metadataComponentMessages.CitationGuidance)}{" "}
+                • {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
+              </p>
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button variant="text" onClick={this.toggle}>
+            {intl.formatMessage(messages.close)}
+          </Button>
+          {this.state.chartDownloadXml && (
+            <Button startIcon={<Download />} onClick={this.onDownloadSvg}>
+              {intl.formatMessage(chartComponentMessages.DownloadSVG)}
+            </Button>
+          )}
+          <Button startIcon={<Download />} onClick={this.onDownloadData}>
+            {intl.formatMessage(chartComponentMessages.DownloadCSV)}
+          </Button>
+          <CopyToClipboardButton valueToCopy={this.state.dataCsv}>
+            {intl.formatMessage(chartComponentMessages.CopyValues)}
+          </CopyToClipboardButton>
+        </DialogActions>
+      </Dialog>
     );
   }
 
@@ -412,208 +616,6 @@ class ChartEmbed extends React.Component<
     container.innerHTML = "";
 
     return svgXml;
-  }
-
-  /**
-   * Callback for after the modal has been rendered and added to the DOM.
-   */
-  public onOpened(): void {
-    if (!this.svgContainerElement.current) {
-      return;
-    }
-    // if (this.textareaElement.current) {
-    //   this.textareaElement.current.style.width =
-    //     this.state.chartWidth + CHART_PADDING * 2 + "px";
-    // }
-
-    if (this.state.chartHtml) {
-      const chartDownloadXml = this.decorateChartHtml();
-      const imageElement = document.createElement("img");
-      imageElement.src =
-        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
-      this.svgContainerElement.current.append(imageElement);
-      imageElement.className = ASYNC_ELEMENT_CLASS;
-      this.setState({ chartDownloadXml });
-    }
-
-    if (this.state.svgXml) {
-      const chartDownloadXml = this.decorateSvgChart();
-      const imageElement = document.createElement("img");
-      imageElement.src =
-        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
-      imageElement.className = ASYNC_ELEMENT_CLASS;
-      this.svgContainerElement.current.append(imageElement);
-      this.setState({ chartDownloadXml });
-    }
-  }
-
-  /**
-   * On click handler on the text area.
-   * - If the user clicks on the text area and doesn't drag the mouse,
-   *   select all of the text (to help them copy and paste)
-   * - If the user clicks and drags, don't select all of the text and allow them
-   *   to make their selection
-   */
-  public onClickTextarea(): void {
-    const selection = window.getSelection().toString();
-    // User is trying to select specific text.
-    if (selection) {
-      return;
-    }
-    // User single-clicked without dragging. Select the entire CSV text
-    this.textareaElement.current.focus();
-    this.textareaElement.current.setSelectionRange(
-      0,
-      this.textareaElement.current.value.length
-    );
-  }
-
-  /**
-   * On click handler for "Copy SVG to clipboard button".
-   */
-  public onDownloadSvg(): void {
-    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
-    const basename = this.state.chartTitle || "chart";
-    saveToFile(`${basename}.svg`, this.state.chartDownloadXml);
-  }
-
-  /**
-   * On click handler for "Download Data" button.
-   */
-  public onDownloadData(): void {
-    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {});
-    const basename = this.state.chartTitle || "export";
-    saveToFile(`${basename}.csv`, this.state.dataCsv);
-  }
-
-  componentDidUpdate(prevProps: ChartEmbedPropsType): void {
-    if (this.props.container !== prevProps.container) {
-      (
-        this.containerRef as React.MutableRefObject<HTMLElement | null>
-      ).current = this.props.container;
-    }
-  }
-
-  public render(): ReactElement {
-    const theme = this.context;
-
-    return (
-      <Dialog
-        open={this.state.modal}
-        onClose={this.toggle}
-        maxWidth="lg"
-        fullWidth
-        containerRef={this.containerRef}
-        loading={this.state.loading}
-      >
-        <DialogTitle>
-          {intl.formatMessage(chartComponentMessages.ChartDownloadDialogTitle)}
-        </DialogTitle>
-        <DialogContent>
-          <div
-            css={css`
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              width: 100%;
-              gap: ${theme.spacing.lg}px;
-              margin-bottom: ${theme.spacing.lg}px;
-              @media (max-width: ${theme.breakpoints.md}px) {
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr 1fr;
-              }
-            `}
-          >
-            <div
-              ref={this.svgContainerElement}
-              className={`${ASYNC_ELEMENT_HOLDER_CLASS}`}
-              css={css`
-                overflow: hidden;
-                & > svg,
-                & > img {
-                  width: 100%;
-                  height: auto;
-                  max-height: 220px;
-                  border: 1px solid ${theme.colors.border.primary.light};
-                  ${theme.radius.tertiary};
-                  padding: ${theme.spacing.md}px;
-                }
-              `}
-            ></div>
-            <textarea
-              id={"copy-svg"}
-              value={this.state.dataCsv}
-              readOnly
-              ref={this.textareaElement}
-              onClick={this.onClickTextarea}
-              css={css`
-                overflow-x: hidden;
-                width: 100%;
-                height: auto;
-                border: 1px solid ${theme.colors.border.primary.light};
-                ${theme.radius.tertiary};
-                ${theme.typography.family.code};
-                ${theme.typography.text.sm};
-                padding: ${theme.spacing.md}px;
-                &:focus {
-                  outline: none;
-                }
-              `}
-            ></textarea>
-          </div>
-          {this.state.citation.length > 0 && (
-            <div
-              css={css`
-                width: 100%;
-                && {
-                  h3 {
-                    ${theme.typography.family.heading}
-                    ${theme.typography.heading.xs}
-                    margin: 0 0 ${theme.spacing.sm}px 0;
-                    padding: 0 0 0 0;
-                  }
-                  p {
-                    ${theme.typography.family.text}
-                    ${theme.typography.text.md}
-                    white-space: pre-wrap;
-                    word-break: break-word;
-                    a {
-                      white-space: pre-wrap;
-                      word-break: break-word;
-                    }
-                  }
-                }
-              `}
-            >
-              <h3>Source and citation</h3>
-              <p>
-                {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
-                {buildCitationNodes(this.state.citation)}
-              </p>
-              <p>
-                {intl.formatMessage(metadataComponentMessages.CitationGuidance)}{" "}
-                • {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
-              </p>
-            </div>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button variant="text" onClick={this.toggle}>
-            {intl.formatMessage(messages.close)}
-          </Button>
-          {this.state.chartDownloadXml && (
-            <Button startIcon={<Download />} onClick={this.onDownloadSvg}>
-              {intl.formatMessage(chartComponentMessages.DownloadSVG)}
-            </Button>
-          )}
-          <Button startIcon={<Download />} onClick={this.onDownloadData}>
-            {intl.formatMessage(chartComponentMessages.DownloadCSV)}
-          </Button>
-          <CopyToClipboardButton valueToCopy={this.state.dataCsv}>
-            {intl.formatMessage(chartComponentMessages.CopyValues)}
-          </CopyToClipboardButton>
-        </DialogActions>
-      </Dialog>
-    );
   }
 }
 
