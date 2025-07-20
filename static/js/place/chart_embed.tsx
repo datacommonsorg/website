@@ -421,10 +421,10 @@ class ChartEmbed extends React.Component<
     if (!this.svgContainerElement.current) {
       return;
     }
-    if (this.textareaElement.current) {
-      this.textareaElement.current.style.width =
-        this.state.chartWidth + CHART_PADDING * 2 + "px";
-    }
+    // if (this.textareaElement.current) {
+    //   this.textareaElement.current.style.width =
+    //     this.state.chartWidth + CHART_PADDING * 2 + "px";
+    // }
 
     if (this.state.chartHtml) {
       const chartDownloadXml = this.decorateChartHtml();
@@ -512,10 +512,15 @@ class ChartEmbed extends React.Component<
         <DialogContent>
           <div
             css={css`
-              display: flex;
+              display: grid;
+              grid-template-columns: 1fr 1fr;
               width: 100%;
-              gap: 30px;
-              margin-bottom: 30px;
+              gap: ${theme.spacing.lg}px;
+              margin-bottom: ${theme.spacing.lg}px;
+              @media (max-width: ${theme.breakpoints.md}px) {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+              }
             `}
           >
             <div
@@ -527,7 +532,9 @@ class ChartEmbed extends React.Component<
                 & > img {
                   width: 100%;
                   height: auto;
-                  border: 1px solid ${theme.box.primary.backgroundColor};
+                  border: 1px solid ${theme.colors.border.primary.light};
+                  ${theme.radius.tertiary};
+                  padding: ${theme.spacing.md}px;
                 }
               `}
             ></div>
@@ -541,12 +548,39 @@ class ChartEmbed extends React.Component<
                 overflow-x: hidden;
                 width: 100%;
                 height: auto;
-                padding: 10px;
+                border: 1px solid ${theme.colors.border.primary.light};
+                ${theme.radius.tertiary};
+                ${theme.typography.family.code};
+                ${theme.typography.text.sm};
+                padding: ${theme.spacing.md}px;
               `}
             ></textarea>
           </div>
           {this.state.citation && (
-            <div>
+            <div
+              css={css`
+                width: 100%;
+                && {
+                  h3 {
+                    ${theme.typography.family.heading}
+                    ${theme.typography.heading.xs}
+                    margin: 0 0 ${theme.spacing.sm}px 0;
+                    padding: 0 0 0 0;
+                  }
+                  p {
+                    ${theme.typography.family.text}
+                    ${theme.typography.text.md}
+                    white-space: pre-wrap;
+                    word-break: break-word;
+                    a {
+                      white-space: pre-wrap;
+                      word-break: break-word;
+                    }
+                  }
+                }
+              `}
+            >
+              <h3>Source and citation</h3>
               <p>
                 {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
                 {this.state.citation}
@@ -559,6 +593,9 @@ class ChartEmbed extends React.Component<
           )}
         </DialogContent>
         <DialogActions>
+          <Button variant="text" onClick={this.toggle}>
+            {intl.formatMessage(messages.close)}
+          </Button>
           {this.state.chartDownloadXml && (
             <Button startIcon={<Download />} onClick={this.onDownloadSvg}>
               {intl.formatMessage(chartComponentMessages.DownloadSVG)}
@@ -570,9 +607,6 @@ class ChartEmbed extends React.Component<
           <CopyToClipboardButton valueToCopy={this.state.dataCsv}>
             {intl.formatMessage(chartComponentMessages.CopyValues)}
           </CopyToClipboardButton>
-          <Button variant="text" onClick={this.toggle}>
-            {intl.formatMessage(messages.close)}
-          </Button>
         </DialogActions>
       </Dialog>
     );
