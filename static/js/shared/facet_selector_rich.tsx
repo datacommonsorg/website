@@ -97,13 +97,18 @@ export function FacetSelectorRich({
   const facetVariant = variant;
 
   const totalFacetOptionCount = useMemo(() => {
-    if (!facetList) return 0;
-    return facetList.reduce((sum: number, facetInfo) => {
-      const count = Object.keys(facetInfo.metadataMap).filter(
-        (facetId) => facetId !== ""
-      ).length;
-      return sum + count;
-    }, 0);
+    if (!facetList) {
+      return 0;
+    }
+    const uniqueFacetIds = new Set<string>();
+    facetList.forEach((facetInfo) => {
+      Object.keys(facetInfo.metadataMap).forEach((facetId) => {
+        if (facetId !== "") {
+          uniqueFacetIds.add(facetId);
+        }
+      });
+    });
+    return uniqueFacetIds.size;
   }, [facetList]);
 
   const hasAlternativeSources = useMemo(() => {
