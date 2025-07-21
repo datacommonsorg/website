@@ -67,15 +67,14 @@ class TestFeatureFlags(unittest.TestCase):
     self.assertTrue(
         is_feature_override_disabled(TEST_FEATURE_FLAG,
                                      request=response.request))
-    # Return False if request does not include enable override
+    # Return False if request does not include disable override
     response = self.client.get(
         f"/?{FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM}=INVALID_{TEST_FEATURE_FLAG}"
     )
-    # return False if request is not provided
     self.assertFalse(
         is_feature_override_disabled(TEST_FEATURE_FLAG,
                                      request=response.request))
-    # Return false if request is not provided
+    # Return False if request is not provided
     self.assertFalse(
         is_feature_override_disabled(TEST_FEATURE_FLAG, request=None))
 
