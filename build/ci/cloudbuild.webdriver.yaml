@@ -18,10 +18,10 @@ availableSecrets:
     env: 'percy_token'
 
 steps:
+  # Build the static files
   - id: package_js
     name: gcr.io/datcom-ci/node:2024-11-19
     entrypoint: /bin/bash
-    secretEnv: ['percy_token']
     waitFor: ["-"]
     args:
       - -c
@@ -36,63 +36,55 @@ steps:
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
-        export PERCY_TOKEN=${percy_token}
-
-
-  - id: setup_python_env
-    name: gcr.io/datcom-ci/full-env:latest
+  - id: setup_python
+    name: python:3.11.4
     entrypoint: /bin/bash
-    waitFor: ["package_js"]
+    waitFor: ["-"]
     args:
       - -c
       - |
-        # Check if Python is available. If not, install it.
-        if ! command -v python3 &> /dev/null
-        then
-            echo "Python3 not found, installing..."
-            # Adjust installation command based on the base image's OS (e.g., apt, yum, apk)
-            # For Debian/Ubuntu-based images like many Google Cloud Build images:
-            apt-get update && apt-get install -y python3 python3-venv python3-pip
-        fi
+        ./run_test.sh --setup_python
 
-        # Create the virtual environment if it doesn't exist
-        if [ ! -d ".env" ]; then
-            python3 -m venv .env
-        fi
+  - id: setup_website
+    name: python:3.11.4
+    entrypoint: /bin/bash
+    waitFor: ["-"]
+    args:
+      - -c
+      - |
+        ./run_test.sh --setup_website
 
-        # Activate the virtual environment
-        . .env/bin/activate
+  - id: setup_nl
+    name: python:3.11.4
+    entrypoint: /bin/bash
+    waitFor: ["-"]
+    args:
+      - -c
+      - |
+        ./run_test.sh --setup_nl
 
-        # Install Python dependencies
-        # Assuming you have a requirements.txt file in your repository root
-        if [ -f "requirements.txt" ]; then
-            pip install -r requirements.txt
-        else
-            echo "requirements.txt not found. Skipping pip install."
-            # Consider adding a warning or error if dependencies are expected
-        fi
-        # You might also need to install specific packages here
-        # pip install selenium flask ...
-        deactivate # Deactivate after setup, as each subsequent step will activate again.
-
+  # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/sh
-    waitFor: ["setup_python_env"]
+    waitFor: ["package_js", "setup_python"]
+    secretEnv: ['percy_token']
     args:
       - -c
       - |
-        . .env/bin/activate
+        export PERCY_TOKEN=${percy_token}
         ./run_test.sh -w
 
+  # Run the Custom DC webdriver tests
   - id: flask_cdc_webdriver_test
-    name: gcr.io/datcom-ci/full-env:latest
+    name: gcr.io/datcom-ci/full-env:2025-05-20
     entrypoint: /bin/sh
-    waitFor: ["setup_python_env"]
+    waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
+    secretEnv: ['percy_token']
     args:
       - -c
       - |
-        . .env/bin/activate
+        export PERCY_TOKEN=${percy_token}
         export STARTUP_WAIT_SEC=60
         ./run_test.sh --cdc
 
