@@ -17,12 +17,13 @@
 import unittest
 from unittest.mock import patch
 
+from server.__init__ import create_app
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import is_feature_override_disabled
 from server.lib.feature_flags import is_feature_override_enabled
-from web_app import app
+from server.tests.utils import mock_feature_flags
 
 TEST_FEATURE_FLAG = "test_feature_flag"
 
@@ -32,7 +33,8 @@ class TestFeatureFlags(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls):
-    cls.client = app.test_client()
+    cls.app = create_app()
+    cls.client = cls.app.test_client()
 
   def test_is_feature_override_enabled_helper(self):
     """Tests the is_feature_override_enabled helper function."""
@@ -75,39 +77,36 @@ class TestFeatureFlags(unittest.TestCase):
 
   def test_feature_flag_enabled_by_app_config(self):
     """Should return true if feature flag is enabled in config"""
-    with patch.dict(app.config, {'FEATURE_FLAGS': {TEST_FEATURE_FLAG: True}}):
-      self.assertTrue(is_feature_enabled(TEST_FEATURE_FLAG, app=app))
+    mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True)
+    self.assertTrue(is_feature_enabled(TEST_FEATURE_FLAG, app=self.app))
 
   def test_feature_flag_disabled_when_not_in_config(self):
     """Should default to False if feature is not in config."""
-    app.config = {'FEATURE_FLAGS': {"Invalid_flag": True}}
-    self.assertFalse(is_feature_enabled(TEST_FEATURE_FLAG, app=app))
+    self.assertFalse(is_feature_enabled(TEST_FEATURE_FLAG, app=self.app))
 
   def test_url_enable_override_wins_over_config(self):
     """Should return True if URL enable override is provided"""
-    # Config says False
-    with patch.dict(app.config, {'FEATURE_FLAGS': {TEST_FEATURE_FLAG: False}}):
-      # But request says True
-      response = self.client.get(
-          f"/?{FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM}={TEST_FEATURE_FLAG}")
-      # The override should win
-      self.assertTrue(
-          is_feature_enabled(TEST_FEATURE_FLAG,
-                             app=app,
-                             request=response.request))
+    # Config says False but request says True
+    response = self.client.get(
+        f"/?{FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM}={TEST_FEATURE_FLAG}")
+    # The override should win
+    self.assertTrue(
+        is_feature_enabled(TEST_FEATURE_FLAG,
+                           app=self.app,
+                           request=response.request))
 
   def test_url_disable_override_wins_over_config(self):
     """Should return False if URL disable override is provided"""
     # Config says False
-    with patch.dict(app.config, {'FEATURE_FLAGS': {TEST_FEATURE_FLAG: True}}):
-      # But request says True
-      response = self.client.get(
-          f"/?{FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM}={TEST_FEATURE_FLAG}")
-      # The override should win
-      self.assertFalse(
-          is_feature_enabled(TEST_FEATURE_FLAG,
-                             app=app,
-                             request=response.request))
+    mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True)
+    # But request says True
+    response = self.client.get(
+        f"/?{FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM}={TEST_FEATURE_FLAG}")
+    # The override should win
+    self.assertFalse(
+        is_feature_enabled(TEST_FEATURE_FLAG,
+                           app=self.app,
+                           request=response.request))
 
 
 if __name__ == '__main__':
