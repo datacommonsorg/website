@@ -179,22 +179,21 @@ def verify_args(args: argparse.Namespace) -> None:
     )
   if args.maxStatVars is not None and args.maxStatVars <= 0:
     raise ValueError("maxStatVars must be a positive integer.")
-  if args.failedAttemptsPath is not None:
-    if args.useGCS:
-      if not args.failedAttemptsPath.endswith(
-          ".json") and not args.failedAttemptsPath.endswith("/"):
-        raise ValueError(
-            "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
-        )
-      if not verify_gcs_path_exists(args.failedAttemptsPath):
-        raise ValueError(
-            f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
-        )
-    else:
-      if not os.path.exists(args.failedAttemptsPath):
-        raise ValueError(
-            f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
-        )
+  if args.failedAttemptsPath and not args.failedAttemptsPath.endswith(
+      ".json", "/"):
+    raise ValueError(
+        "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
+    )
+  if args.failedAttemptsPath and args.useGCS and not verify_gcs_path_exists(
+      args.failedAttemptsPath):
+    raise ValueError(
+        f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
+    )
+  elif args.failedAttemptsPath and not args.useGcs and not os.path.exists(
+      args.failedAttemptsPath):
+    raise ValueError(
+        f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
+    )
 
 
 def get_bq_query(num_partitions: int,
@@ -228,17 +227,15 @@ def read_sv_metadata_failed_attempts(
     failed_attempts_path: str,
     use_gcs: bool) -> list[dict[str, str | list[str]]]:
   """
-    Reads previously failed SV metadata from either GCS or a local file path.
-    """
+  Reads previously failed SV metadata from either GCS or a local file path.
+  """
   sv_metadata_to_process: list[dict[str, str | list[str]]] = []
 
-  # print(failed_attempts_path)
-  # print(os.listdir(failed_attempts_path))
   def read_jsonl(file: typing.TextIO | list[str],
                  metadata_list: list[dict[str, str | list[str]]]):
     """
-        Reads a JSONL file and appends each line as a dictionary to the metadata_list.
-        """
+    Reads a JSONL file and appends each line as a dictionary to the metadata_list.
+    """
     for line in file:
       entry = json.loads(line)
       metadata_list.append(entry)
