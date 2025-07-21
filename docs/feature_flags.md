@@ -1,8 +1,9 @@
 # Feature Flags in Data Commons
 
-Feature flags allow us to rapidly deploy flag-gated changes per environment, outside of the typical build schedule. 
+Feature flags allow us to rapidly deploy flag-gated changes per environment, outside of the typical build schedule.
 
 ## Deployment
+
 This script automates the deployment of feature flags from `master` to a Google Cloud Storage (GCS) bucket and optionally restarts a Kubernetes deployment.
 
 ### Usage
@@ -10,7 +11,6 @@ This script automates the deployment of feature flags from `master` to a Google 
 ```bash
 ./scripts/update_gcs_feature_flags.sh <environment>
 ```
-
 
 Where `<environment>` is one of:
 
@@ -61,7 +61,7 @@ This script uploads the feature flag configuration files from the Github master 
 
 1. **Add flag in flag configurations**: Check the flags in the Github master branch [`server/config/feature_flag_configs`](https://github.com/datacommonsorg/website/tree/master/server/config/feature_flag_configs). The flag must be added to all environments.
     * TIP: Use [this script](https://github.com/datacommonsorg/website/tree/master/scripts/create_feature_flag.sh) to add a new flag to each config file.
-    > ```
+    > ```bash
     > ./scripts/create_feature_flag.sh
     > ```
 2. **Define flag in server layer**: Add your flag constant to [feature_flags.py](https://github.com/datacommonsorg/website/blob/master/server/lib/feature_flags.py#L19) helper file for use in the API layer.
@@ -70,16 +70,24 @@ This script uploads the feature flag configuration files from the Github master 
 5. **Deploy & update GCS Flag files**: Once your code reaches production, you can enable your flags and run the script to update the GCS flag files.
 6. **Restart Kubernetes**: The script to update the GCS flag files will prompt you to restart Kubernetes, on restart the new flags will be applied and your feature will be enabled.
 
-## Manually enable feature flags
+## Manually enable or disable feature flags
 
 Feature flags can be enabled manually on any datacommons.org page using the `enable_feature` URL parameter.
 
 For example, to enable the "autocomplete" feature:
- - Enable: https://datacommons.org/explore?enable_feature=autocomplete
+
+* Enable: https://datacommons.org/explore?enable_feature=autocomplete
 
 To enable both the autocomplete and metadata_modal features:
- - Disable: https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal
- 
+
+* Enable: https://datacommons.org/explore?enable_feature=autocomplete&enable_feature=metadata_modal
+
+To manually disable a feature flag, use the `disable_feature` URL parameter.
+
+For example, to disable the "autocomplete" feature:
+
+* Disable: https://datacommons.org/explore?disable_feature=autocomplete
+
 These URL overrides take precedence over the environment-specific feature flag settings defined in server/config/feature_flag_configs/<environment>.json
 
 ### Propagating Feature Flags
