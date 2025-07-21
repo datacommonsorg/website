@@ -239,12 +239,23 @@ function run_webdriver_test {
     export FLAKE_FINDER=true
   fi
   source .env/bin/activate
+
+  # Set PERCY_ENABLE based on the BUILD_ID environment variable (Google Cloud Build)
+  if [[ -n "$BUILD_ID" ]]; then
+    export PERCY_ENABLE=1
+    echo "Running on Google Cloud Build, PERCY_ENABLE set to 1."
+  else
+    export PERCY_ENABLE=0
+    echo "Not running on Google Cloud Build, PERCY_ENABLE set to 0."
+  fi
+
   start_servers
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
   else
     # TODO: Stop using reruns once tests are deflaked.
-    npx percy exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    python_command="python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ \"${@}\""
+    [[ "$PERCY_ENABLE" == "1" ]] && npx percy exec -- "$python_command" || eval "$python_command"
   fi
   stop_servers
   deactivate
