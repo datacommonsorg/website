@@ -38,6 +38,43 @@ steps:
 
         export PERCY_TOKEN=${percy_token}
 
+
+  - id: setup_python_env
+    name: gcr.io/datcom-ci/full-env:latest
+    entrypoint: /bin/bash
+    waitFor: ["package_js"]
+    args:
+      - -c
+      - |
+        # Check if Python is available. If not, install it.
+        if ! command -v python3 &> /dev/null
+        then
+            echo "Python3 not found, installing..."
+            # Adjust installation command based on the base image's OS (e.g., apt, yum, apk)
+            # For Debian/Ubuntu-based images like many Google Cloud Build images:
+            apt-get update && apt-get install -y python3 python3-venv python3-pip
+        fi
+
+        # Create the virtual environment if it doesn't exist
+        if [ ! -d ".env" ]; then
+            python3 -m venv .env
+        fi
+
+        # Activate the virtual environment
+        . .env/bin/activate
+
+        # Install Python dependencies
+        # Assuming you have a requirements.txt file in your repository root
+        if [ -f "requirements.txt" ]; then
+            pip install -r requirements.txt
+        else
+            echo "requirements.txt not found. Skipping pip install."
+            # Consider adding a warning or error if dependencies are expected
+        fi
+        # You might also need to install specific packages here
+        # pip install selenium flask ...
+        deactivate # Deactivate after setup, as each subsequent step will activate again.
+
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/sh
@@ -45,6 +82,7 @@ steps:
     args:
       - -c
       - |
+        . .env/bin/activate
         ./run_test.sh -w
 
   - id: flask_cdc_webdriver_test
@@ -54,6 +92,7 @@ steps:
     args:
       - -c
       - |
+        . .env/bin/activate
         export STARTUP_WAIT_SEC=60
         ./run_test.sh --cdc
 
