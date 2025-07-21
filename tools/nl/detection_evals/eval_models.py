@@ -3,6 +3,7 @@ import json
 from enum import Enum, auto
 from typing import Any, Dict, List, Optional
 
+import numpy as np
 import pandas as pd
 from pydantic import (
     BaseModel,
@@ -75,6 +76,8 @@ class EvalMetadata(BaseModel):
     golden_epoch: str
     scrape_epoch: str
     score_epoch: str
+    description: Optional[str] = None
+    change_log: Optional[str] = None
 
 
 class NlQueryEvalScore(BaseModel):
