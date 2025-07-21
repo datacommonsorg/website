@@ -18,11 +18,6 @@
  * Component for rendering the generated follow up questions.
  */
 
-// TODO: Erase this
-// <div>
-//     {/* <span className="page-overview-span"><div dangerouslySetInnerHTML={{ __html: pageOverview}} /></span> */}
-// </div>
-
 import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useState } from "react";
@@ -36,7 +31,7 @@ interface PageOverviewPropType {
 }
 
 export function PageOverview(props: PageOverviewPropType): ReactElement {
-    const [pageOverview, setPageOverview] = useState("")
+    const [pageOverview, setPageOverview] = useState([])
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const statVars = getRelevantStatVars(props.pageMetadata);
@@ -47,7 +42,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
     })
     .catch(() => {
         console.log("error")
-        setPageOverview("");
+        setPageOverview([]);
     })
     .finally(() => {
       setLoading(false);
@@ -62,29 +57,55 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
           </div>
         )}
         {pageOverview && (
-          <div className="page-overview-container" dangerouslySetInnerHTML={{ __html: pageOverview}} />
+          <div className="page-overview-container">
+            {pageOverview}
+          </div>
         )}
       </> 
     )
 }
 
-// Gets page overview from the /api/explore/page-overview endpoint and processes the response
 const getPageOverview = async (
   query: string,
   statVars: string[]
-): Promise<string> => {
+): Promise<Array<React.ReactNode>> => {
   if (_.isEmpty(query) || _.isEmpty(statVars)) {
-    return "";
+    return [];
   }
   const url = "/api/explore/page-overview";
   const body = {
     q: query,
-    statVars: statVars,
+    statVars: statVars.map((stat,idx)=> {
+      return {
+        "statistical_variable_name":stat,
+        "statistical_variable_index":idx,
+      }
+    }),
   };
   return await axios.post(url, body).then((resp) => {
-    const open = `<span class="highlight-statvars"><b>`
-    const close = `</b></span>`
-    return `<p>${resp.data.page_overview.replace(/\{open\}/g,open).replace(/\{close\}/g,close)}</p>`
+    console.log(resp.data.page_overview);
+    const preprocessed_overview = resp.data.page_overview;
+    const split_overview = preprocessed_overview.split(/\{open\}(.*?)\{close\}/)
+    return split_overview.map((part,index) => {
+      const id = `page_overview_${index}`
+      const hasIndex = part.match(/\[(\d+)\]/)
+      if (hasIndex){
+        const chartIndex = hasIndex[1];
+        const targetId = `explore_cat_0_blk_${chartIndex}`;
+        return <a
+          key={id}
+          className="highlight-statvars"
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default anchor jump
+            scrollToStatVar(targetId);
+          }}
+        >{part.substring(part.indexOf("]")+1)}</a>
+      } else {
+        return <span
+        key={id}
+        >{part}</span>
+      }
+    })
   });
 };
 
@@ -94,3 +115,10 @@ const getRelevantStatVars = (pageMetadata: SubjectPageMetadata): string[] => {
         return block.title;
     })
 }
+
+const scrollToStatVar= (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth'});
+    }
+  };
