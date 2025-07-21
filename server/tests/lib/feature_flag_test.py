@@ -15,7 +15,6 @@
 # Tests for feature flag utility functions
 
 import unittest
-from unittest.mock import patch
 
 from server.__init__ import create_app
 from server.lib.feature_flags import FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM
@@ -35,6 +34,11 @@ class TestFeatureFlags(unittest.TestCase):
   def setUpClass(cls):
     cls.app = create_app()
     cls.client = cls.app.test_client()
+
+  @classmethod
+  def tearDownClass(cls):
+    cls.app = None
+    cls.client = None
 
   def test_is_feature_override_enabled_helper(self):
     """Tests the is_feature_override_enabled helper function."""
