@@ -238,7 +238,7 @@ function run_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  setup_website_python
+  source .env/bin/activate
 
   # Set PERCY_ENABLE based on the BUILD_ID environment variable (Google Cloud Build)
   if [[ -n "$BUILD_ID" ]]; then
@@ -274,7 +274,6 @@ function run_cdc_webdriver_test {
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
-  setup_website_python
   start_servers "cdc"
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export FLASK_ENV=webdriver
