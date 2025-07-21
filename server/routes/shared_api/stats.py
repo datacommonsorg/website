@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import logging
 
 from flask import Blueprint
 from flask import current_app
@@ -156,11 +157,15 @@ def search_statvar():
       for response in search_results.results:
         dcid = response.document.struct_data.get("dcid")
         name = response.document.struct_data.get("name")
-        if dcid and name:
-          statVars.append({
-              "name": name,
-              "dcid": dcid,
-          })
+        if not dcid or not name:
+          logging.warning(
+              f"There's an issue with DCID or name for the stat var search result: {response.document.struct_data}"
+          )
+          continue
+        statVars.append({
+            "name": name,
+            "dcid": dcid,
+        })
         if len(statVars) >= limit:
           break
       page_token = search_results.next_page_token
