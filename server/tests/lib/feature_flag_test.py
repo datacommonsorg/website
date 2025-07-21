@@ -101,9 +101,9 @@ class TestFeatureFlags(unittest.TestCase):
 
   def test_url_disable_override_wins_over_config(self):
     """Should return False if URL disable override is provided"""
-    # Config says False
+    # Config says True
     mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True)
-    # But request says True
+    # But request says False
     response = self.client.get(
         f"/?{FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM}={TEST_FEATURE_FLAG}")
     # The override should win
