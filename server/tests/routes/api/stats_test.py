@@ -277,3 +277,43 @@ class TestSearchStatVar(unittest.TestCase):
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_all
+
+  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
+  @mock.patch('server.routes.shared_api.stats.search_vertexai')
+  def test_search_statvar_vai_missing_data(self, mock_search_vertexai,
+                                           mock_search_dc,
+                                           mock_is_feature_enabled):
+    """Tests behaviour when Vertex AI search is enabled and returns incomplete StatVar data."""
+    expected_query = 'person'
+    vai_response = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_MISSING_DATA
+    expected_result = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
+
+    def search_vai_side_effect(query, token):
+      if query == expected_query and not token:
+        return vai_response
+      else:
+        return []
+
+    with app.app_context(), self.assertLogs(level='WARNING') as cm:
+      mock_is_feature_enabled.return_value = True
+      mock_search_vertexai.side_effect = search_vai_side_effect
+      mock_search_dc.side_effect = ValueError(
+          "DC search not expected in this test.")
+
+      response = app.test_client().get('api/stats/stat-var-search?query=person')
+      self.assertEqual(len(cm.output), 2)
+      self.assertEqual(cm.records[0].levelname, 'WARNING')
+      self.assertEqual(
+          cm.records[0].message,
+          'There\'s an issue with DCID or name for the stat var search result: {\'name\': \'sv2\'}'
+      )
+      self.assertEqual(cm.records[1].levelname, 'WARNING')
+      self.assertEqual(
+          cm.records[1].message,
+          'There\'s an issue with DCID or name for the stat var search result: {\'dcid\': \'sv3\'}'
+      )
+      mock_search_dc.assert_not_called()
+      assert response.status_code == 200
+      result = json.loads(response.data)
+      assert result == expected_result

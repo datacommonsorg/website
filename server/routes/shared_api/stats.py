@@ -35,6 +35,8 @@ import server.services.datacommons as dc
 # Define blueprint
 bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 
+logger = logging.getLogger(__name__)
+
 # Constants for Vertex AI Search Application
 # TODO: Move the VAI app to a different GCP project and figure out a better way to authenticate (ex. use API keys)
 VAI_PROJECT_ID = "datcom-website-dev"
@@ -158,7 +160,7 @@ def search_statvar():
         dcid = response.document.struct_data.get("dcid")
         name = response.document.struct_data.get("name")
         if not dcid or not name:
-          logging.warning(
+          logger.warning(
               f"There's an issue with DCID or name for the stat var search result: {response.document.struct_data}"
           )
           continue

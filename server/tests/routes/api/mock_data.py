@@ -709,6 +709,19 @@ VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_TWO = MockVertexAIResult(
     ],
     next_page_token=None)
 
+VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_MISSING_DATA = MockVertexAIResult(
+    results=[
+        MockResponseItem(document_data={
+            'dcid': 'sv1',
+            'name': 'sv1'
+        }),
+        MockResponseItem(document_data={'name': 'sv2'}),
+        MockResponseItem(document_data={
+            'dcid': 'sv3',
+        })
+    ],
+    next_page_token=None)
+
 VERTEX_AI_STAT_VAR_SEARCH_RESULT_PAGE_ONE = {
     'statVars': [{
         'dcid': 'sv1',
