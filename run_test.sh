@@ -245,7 +245,7 @@ function run_webdriver_test {
     export PERCY_ENABLE=1
     echo "Running on Google Cloud Build, PERCY_ENABLE set to 1."
   else
-    export PERCY_ENABLE=0
+    export PERCY_ENABLE=1
     echo "Not running on Google Cloud Build, PERCY_ENABLE set to 0."
   fi
 
