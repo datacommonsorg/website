@@ -72,6 +72,7 @@ steps:
     args:
       - -c
       - |
+        source .env/bin/activate
         export PERCY_TOKEN=${percy_token}
         npx percy exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ 
 
