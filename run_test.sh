@@ -234,7 +234,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export GOOGLE_CLOUD_PROJECT=datcom-ci
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi

@@ -73,7 +73,7 @@ steps:
       - -c
       - |
         export PERCY_TOKEN=${percy_token}
-        ./run_test.sh -w
+        npx percy exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ 
 
   # # Run the Custom DC webdriver tests
   # - id: flask_cdc_webdriver_test
