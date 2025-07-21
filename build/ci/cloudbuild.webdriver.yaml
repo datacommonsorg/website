@@ -78,7 +78,7 @@ steps:
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/sh
-    waitFor: ["package_js"]
+    waitFor: ["setup_python_env"]
     args:
       - -c
       - |
@@ -88,7 +88,7 @@ steps:
   - id: flask_cdc_webdriver_test
     name: gcr.io/datcom-ci/full-env:latest
     entrypoint: /bin/sh
-    waitFor: ["package_js"]
+    waitFor: ["setup_python_env"]
     args:
       - -c
       - |
