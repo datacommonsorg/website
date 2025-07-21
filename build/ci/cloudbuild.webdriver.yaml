@@ -21,6 +21,7 @@ steps:
   - id: package_js
     name: gcr.io/datcom-ci/node:2024-11-19
     entrypoint: /bin/bash
+    secretEnv: ['percy_token']
     waitFor: ["-"]
     args:
       - -c
