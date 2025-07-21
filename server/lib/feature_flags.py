@@ -35,7 +35,9 @@ def is_feature_override_enabled(feature_name: str, request=None) -> bool:
   """
   if request is None:
     return False
-  return request.args.get(FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM) == feature_name
+  return request.args.get(
+      FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM) == feature_name
+
 
 def is_feature_override_disabled(feature_name: str, request=None) -> bool:
   """Check if a URL param to manually disable a feature is present.
@@ -49,7 +51,9 @@ def is_feature_override_disabled(feature_name: str, request=None) -> bool:
   """
   if request is None:
     return False
-  return request.args.get(FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM) == feature_name
+  return request.args.get(
+      FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM) == feature_name
+
 
 def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   """Returns whether the feature with `feature_name` is enabled.
@@ -62,7 +66,7 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
 
   if is_feature_override_enabled(feature_name, request):
     return True
-  
+
   if is_feature_override_disabled(feature_name, request):
     return False
 

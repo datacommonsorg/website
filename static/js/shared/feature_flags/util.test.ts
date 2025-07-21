@@ -31,7 +31,11 @@
  */
 import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
 
-import { ENABLE_FEATURE_URL_PARAM, isFeatureEnabled } from "./util";
+import {
+  DISABLE_FEATURE_URL_PARAM,
+  ENABLE_FEATURE_URL_PARAM,
+  isFeatureEnabled,
+} from "./util";
 
 describe("isFeatureEnabled", () => {
   const featureName = "testFeature";
@@ -78,12 +82,15 @@ describe("isFeatureEnabled", () => {
     window.location.search = "";
     expect(isFeatureEnabled(featureName)).toBe(false);
   });
-
   test("returns true when multiple features are enabled", () => {
     window.location.search = `?${ENABLE_FEATURE_URL_PARAM}=${featureName}&${ENABLE_FEATURE_URL_PARAM}=${otherFeatureName}`;
     expect(isFeatureEnabled(featureName)).toBe(true);
     expect(isFeatureEnabled(otherFeatureName)).toBe(true);
     expect(isFeatureEnabled("invalidFeature")).toBe(false);
+  });
+  test("returns false when disable param is present", () => {
+    window.location.search = `/${DISABLE_FEATURE_URL_PARAM}=${featureName}`;
+    expect(isFeatureEnabled(featureName)).toBe(false);
   });
 
   // Test environment-specific feature flag settings
