@@ -20,7 +20,7 @@ Data-driven and factual: The emphasis is on presenting statistical and factual d
 Concise and purposeful: Aim to explain the connection between the variable and the initial user research question. The sentences are generally short and focused on the key relationship between the variable and the research question, while maintaining neutrality and avoiding implications of direct causation.
 Straightforward: The writing is clear and to the point, avoiding jargon or overly complex language.  The information is presented in a way that is understandable to an entry level data analyst or data enthusiast.
 
-Write a paragraph of around 70 words addressing the research question by introducing the statistical variables provided that are found to be relevant to the question.
+Write a paragraph from 40 to 80 words addressing the research question by introducing the statistical variables provided that are found to be relevant to the question.
 Introduce the research question and connect it to the variable topics without directly addressing the user or the `user's question`. 
 Highlight how the statistical variables are relevant to exploring the question. For instance, one may emphasize  potential relationships found in the question and variables.
 Maintain a clear, simple, elegant, friendly, and succinct tone. The paragraph is intended to guide exploration, not claim a complete answer.
@@ -38,6 +38,7 @@ Avoid using the word 'analysis', instead jump straight into the variables and th
 Avoid using the word 'we'.
 
 Once written, review the generated paragraph for redundancy, focusing on simplicity and friendliness.
+CRITICAL! Write everything in sentence case except for acronyms.
 
 The research question is the following: {initial_query}
 The available statistical variables are the following: {stat_vars}

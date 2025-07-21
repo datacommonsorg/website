@@ -34,7 +34,7 @@ class PageOverview(BaseModel):
 
 _OVERVIEW_GEMINI_CALL_RETRIES = 3
 
-_OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17"
+_OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash"#"gemini-2.5-flash-lite-preview-06-17"
 
 
 def generate_page_overview(query: str, stat_vars: List[str]) -> Optional[str]:
