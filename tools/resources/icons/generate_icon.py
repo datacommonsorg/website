@@ -17,6 +17,12 @@
 # With the -r or --react flag, only the React component will be created.
 # With the -f or --flask flag, the version for use in the Jinja templates will be created
 # With no flag given, both will be created.
+#
+# This script also supports creating "filled" icons, where the fill axis = 1
+# For a visual, see https://developers.google.com/fonts/docs/material_symbols#fill_axis
+# With the --include_filled flag, the FILL axis = 1 version of the icon will also be created
+# With the --filled_only flag, only the FILL axis = 1 version of the icon will be created
+# With no flag given, no filled icon will be created.
 
 import argparse
 from datetime import datetime
@@ -45,6 +51,16 @@ def parse_arguments():
       '--flask',
       action='store_true',
       help='Generate only the SVG version for use in Jinja templates')
+  parser.add_argument(
+    '--include_filled',
+    action='store_true',
+    help='Also generate a filled version of the icon',
+  )
+  parser.add_argument(
+    '--filled_only',
+    action='store_true',
+    help='Only generate the filled version of the icon',
+  )
   return parser.parse_args()
 
 
@@ -58,12 +74,14 @@ def convert_snake_to_title(icon_name):
   return ' '.join(x.capitalize() for x in components)
 
 
-def download_svg(icon_name):
+def download_svg(icon_name, filled: bool = False ):
   """
     Downloads the requested SVG from the Material Design icon repository.
     """
   base_url = 'https://raw.githubusercontent.com/google/material-design-icons/refs/heads/master/symbols/web'
   svg_url = f'{base_url}/{icon_name}/materialsymbolsoutlined/{icon_name}_24px.svg'
+  if filled:
+    svg_url = f'{base_url}/{icon_name}/materialsymbolsoutlined/{icon_name}_fill1_24px.svg'
 
   print(f'Downloading SVG from: {svg_url}')
   response = requests.get(svg_url)
@@ -149,6 +167,8 @@ def main():
   icon_name = args.icon_name.lower()
   generate_react_svg = args.react or not (args.react or args.flask)
   generate_flask_svg = args.flask or not (args.react or args.flask)
+  generate_filled_icon = args.include_filled or args.filled_only
+  generate_base_icon = not args.filled_only
 
   script_dir = os.path.dirname(os.path.abspath(__file__))
   root_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..'))

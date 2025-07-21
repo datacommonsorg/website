@@ -30,3 +30,12 @@ export const {{ icon component name }} = (
 ): ReactElement => (
   {{ svg }}
 );
+
+{% if filled_svg %}
+export const {{ icon component name }}Filled = (
+  props: React.SVGProps<SVGSVGElement>
+): ReactElement => (
+  {{ filled_svg }}
+);
+
+{% endif %}
