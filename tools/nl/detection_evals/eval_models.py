@@ -84,7 +84,6 @@ class NlQueryEvalScore(BaseModel):
     id: int
     query: str
     golden_type: GoldenType
-    metadata: EvalMetadata
     golden_response: NlGolden
     scraped_response: NlApiScrape
     date_score: Optional[float] = None
