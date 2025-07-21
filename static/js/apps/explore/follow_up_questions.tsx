@@ -91,7 +91,7 @@ export function FollowUpQuestions(
       {!loading && !_.isEmpty(followUpQuestions) && (
         <div className="follow-up-questions-container">
           <div className="follow-up-questions-inner">
-            <span className="follow-up-questions-title">Keep Exploring</span>
+            <span className="follow-up-questions-title">Keep exploring</span>
             {followUpQuestions.map((question, idx) => {
               return (
                 <div key={idx} className="follow-up-questions-list-item">
