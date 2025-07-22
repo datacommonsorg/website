@@ -81,6 +81,7 @@ const DC_BLUE = "hsl(217, 90%, 43%)";
 const DC_BLUE_DARK = "hsl(217, 90%, 15%)";
 const DC_BLUE_LIGHT = "hsl(218, 57%, 63%)";
 const DC_BLUE_LIGHTER = "hsl(204, 100%, 88%)";
+const DC_BLUE_LIGHTEST = "hsl(204, 100%, 88%, 33%)";
 const DC_BLUE_WHITE = "hsl(220, 100%, 98%)";
 const DC_BLUE_WHITE_LIGHT = "hsl(217, 90%, 95%)";
 
@@ -373,6 +374,26 @@ const theme: Theme = {
       },
       lg: {
         padding: `15px ${SPACING.lg}px`,
+      },
+    },
+  },
+  infoBox: {
+    backgroundColor: DC_BLUE_LIGHTEST,
+    icon: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.5rem",
+      },
+    },
+    heading: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      fontWeight: 500,
+      [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.75rem",
       },
     },
   },
