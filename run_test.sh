@@ -313,27 +313,31 @@ function run_cdc_webdriver_test {
     pytest_rerun_options="--reruns 2"
   fi
 
-  # Construct the base pytest command(s) and then wrap with Percy if enabled
-  local pytest_base_command_part="python3 -m pytest"
+  local pytest_base_command="python3 -m pytest"
   local pytest_target_dir="server/webdriver/cdc_tests/"
   local script_extra_args=("${@}") # Capture all extra args passed to the function
 
-  # --- Execute Test Commands ---
-  local command_prefix=""
+  # Construct individual pytest commands
+  local pytest_one_at_a_time_cmd="${pytest_base_command} ${pytest_rerun_options} -m \"one_at_a_time\" \"${pytest_target_dir}\" \"${script_extra_args[@]}\""
+  local pytest_not_one_at_a_time_cmd="${pytest_base_command} -n auto ${pytest_rerun_options} -m \"not one_at_a_time\" \"${pytest_target_dir}\" \"${script_extra_args[@]}\""
+
   if [[ "$should_run_percy" == "true" ]]; then
-    command_prefix="npx @percy/cli exec --"
-    echo "Tests will be run with Percy."
+    echo "Tests will be run with Percy as a single build."
+    # Use a single npx @percy/cli exec -- bash -c to run both commands
+    npx @percy/cli exec -- bash -c " \
+      echo \"Running 'one_at_a_time' tests...\"; \
+      ${pytest_one_at_a_time_cmd}; \
+      echo \"Running 'not one_at_a_time' tests...\"; \
+      ${pytest_not_one_at_a_time_cmd} \
+    "
   else
     echo "Tests will be run without Percy."
+    echo "Running 'one_at_a_time' tests..."
+    ${pytest_one_at_a_time_cmd}
+
+    echo "Running 'not one_at_a_time' tests..."
+    ${pytest_not_one_at_a_time_cmd}
   fi
-
-  echo "Running 'one_at_a_time' tests..."
-  ${command_prefix} ${pytest_base_command_part} ${pytest_rerun_options} -m "one_at_a_time" "${pytest_target_dir}" "${script_extra_args[@]}"
-
-  echo "Running 'not one_at_a_time' tests..."
-  ${command_prefix} ${pytest_base_command_part} -n auto ${pytest_rerun_options} -m "not one_at_a_time" "${pytest_target_dir}" "${script_extra_args[@]}"
-  # --- End Execute Test Commands ---
-
   stop_servers
   deactivate
 }
