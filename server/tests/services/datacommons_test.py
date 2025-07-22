@@ -19,6 +19,8 @@ from unittest import mock
 
 from flask import Flask
 
+from server.lib.cache import cache
+from server.lib.cache import should_skip_cache
 from server.services.datacommons import nl_search_vars
 from server.services.datacommons import v2node_paginated
 
@@ -219,3 +221,40 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
     )
 
     assert mock_post.call_count == 1
+
+
+class TestServiceDataCommonsCacheSkip(unittest.TestCase):
+
+  def setUp(self):
+    # Create Flask app
+    self.app = Flask(__name__)
+
+    # Initialize cache with the test app
+    cache.init_app(self.app)
+
+    # Push app context
+    self.app_context = self.app.app_context()
+    self.app_context.push()
+
+  def tearDown(self):
+    # Pop context
+    self.app_context.pop()
+
+  def test_should_skip_cache_with_true_header(self):
+    """Test that should_skip_cache() returns True for 'true' (case-insensitive)"""
+    test_cases = ['true', 'TRUE', 'True', 'tRuE']
+    for value in test_cases:
+      with self.app.test_request_context(headers={'X-Skip-Cache': value}):
+        self.assertTrue(should_skip_cache(), f"Failed for value: {value}")
+
+  def test_should_skip_cache_with_false_values(self):
+    """Test that should_skip_cache() returns False for false/invalid values"""
+    test_cases = ['false', '', '1', '0', 'yes', 'no', 'invalid', 'True ']
+    for value in test_cases:
+      with self.app.test_request_context(headers={'X-Skip-Cache': value}):
+        self.assertFalse(should_skip_cache(), f"Failed for value: '{value}'")
+
+  def test_should_skip_cache_with_no_header(self):
+    """Test that should_skip_cache() returns False when no X-Skip-Cache header"""
+    with self.app.test_request_context():
+      self.assertFalse(should_skip_cache())

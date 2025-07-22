@@ -69,7 +69,7 @@ export async function getHighlightTileResult(
 ): Promise<TileResult> {
   const tileProp = getTileProp(tileConfig, place, statVarSpec, apiRoot);
   try {
-    const highlightData = await fetchData(tileProp);
+    const highlightData = await fetchData(place, statVarSpec, null, apiRoot);
     const result: TileResult = {
       dataCsv: getDataCsv(tileProp, highlightData),
       highlight: {

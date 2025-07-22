@@ -55,7 +55,7 @@ class TestFollowUpQuestions(unittest.TestCase):
     mock_gemini.return_value = EXPECTED_QUESTIONS
     #Labels do not match the actual adversarial label of each query, it is simply for testing purposes.
     mock_safe.side_effect = [False, True, False, True]
-
+    app.config['NL_BAD_WORDS'] = EMPTY_BANNED_WORDS
     resp = app.test_client().post('api/explore/follow-up-questions',
                                   json={
                                       'q': QUERY,
