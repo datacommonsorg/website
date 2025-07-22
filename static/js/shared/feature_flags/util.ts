@@ -45,8 +45,8 @@ export function isFeatureOverrideEnabled(featureName: string): boolean {
  */
 export function isFeatureOverrideDisabled(featureName: string): boolean {
   const urlParams = new URLSearchParams(window.location.search);
-  const enabledFeatures = urlParams.getAll(DISABLE_FEATURE_URL_PARAM);
-  return enabledFeatures.includes(featureName);
+  const disabledFeatures = urlParams.getAll(DISABLE_FEATURE_URL_PARAM);
+  return disabledFeatures.includes(featureName);
 }
 
 /**
@@ -77,11 +77,11 @@ export function getFeatureFlags(): Record<string, boolean> {
  * @returns Bool describing if the feature is enabled
  */
 export function isFeatureEnabled(featureName: string): boolean {
-  // Check URL params for feature flag overrides
+  // Check URL params for feature flag enable overrides
   if (isFeatureOverrideEnabled(featureName)) {
     return true;
   }
-  // Check URL params for feature flag overrides
+  // Check URL params for feature flag disable overrides
   if (isFeatureOverrideDisabled(featureName)) {
     return false;
   }
