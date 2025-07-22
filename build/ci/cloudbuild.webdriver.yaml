@@ -81,23 +81,24 @@ steps:
         export PERCY_TOKEN=${percy_token}
         ./run_test.sh -w
 
-  # # Run the Custom DC webdriver tests. 
-  # - id: flask_cdc_webdriver_test
-  #   name: gcr.io/datcom-ci/full-env:2025-05-20
-  #   entrypoint: /bin/sh
-  #   waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
-  #   secretEnv: ['percy_token']
-  #   env:
-  #     - 'PERCY_TARGET_BRANCH=${_BASE_BRANCH}'
-  #     - 'PERCY_PULL_REQUEST=${_PR_NUMBER}'
-  #     - 'PERCY_BRANCH=${_HEAD_BRANCH}'
-  #   args:
-  #     - -c
-  #     - |
-  #       apt-get update && apt-get install -y nodejs npm
-  #       export PERCY_TOKEN=${percy_token}
-  #       export STARTUP_WAIT_SEC=60
-  #       ./run_test.sh --cdc
+  # secretEnv: ['percy_token']
+  # Run the Custom DC webdriver tests. 
+  - id: flask_cdc_webdriver_test
+    name: gcr.io/datcom-ci/full-env:2025-05-20
+    entrypoint: /bin/sh
+    waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
+    env:
+      - 'PERCY_TARGET_BRANCH=${_BASE_BRANCH}'
+      - 'PERCY_PULL_REQUEST=${_PR_NUMBER}'
+      - 'PERCY_BRANCH=${_HEAD_BRANCH}'
+    args:
+      - -c
+      - |
+        git submodule update --init --recursive
+        apt-get update && apt-get install -y nodejs npm
+        # export PERCY_TOKEN=${percy_token}
+        export STARTUP_WAIT_SEC=60
+        ./run_test.sh --cdc
 
 timeout: 1800s # 30 minutes
 
