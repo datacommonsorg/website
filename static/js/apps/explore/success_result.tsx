@@ -42,6 +42,7 @@ import {
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { getTopics } from "../../utils/app/explore_utils";
 import {
   isPlaceOverviewOnly,
   shouldSkipPlaceOverview,
@@ -140,6 +141,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
   }, []);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
   const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
+  const relatedTopics = getTopics(props.pageMetadata, "");
   return (
     <div
       className={`row explore-charts${
@@ -222,7 +224,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 <ScrollToTopButton />
               </ExploreContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {showFollowUpQuestions && (
+            {showFollowUpQuestions && !_.isEmpty(relatedTopics) && (
               <FollowUpQuestions
                 query={props.query}
                 pageMetadata={props.pageMetadata}
