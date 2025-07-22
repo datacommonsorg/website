@@ -73,6 +73,7 @@ steps:
     args:
       - -c
       - |
+        apt-get update && apt-get install -y nodejs npm
         export PERCY_TOKEN=${percy_token}
         ./run_test.sh -w
 
