@@ -31,12 +31,10 @@ steps:
         # This step is done for speed, downloading the delta files is faster than downloading the entire dependencies.
         rm -rf static/node_modules
         cp -r /resources/node_modules -d static/
-        cp .env .env
 
         # ./run_test.sh -b will build client packages.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
-        npm install --save-dev @percy/cli # 🚀 Add this line!
 
 
   - id: setup_python

@@ -234,7 +234,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
-  export GOOGLE_CLOUD_PROJECT=datcom-ci
+  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
@@ -242,9 +242,9 @@ function run_webdriver_test {
 
   # # Set PERCY_ENABLE based on the BUILD_ID environment variable (Google Cloud Build)
   # if [[ -n "$BUILD_ID" ]]; then
-  export PERCY_ENABLE=1
-  export PERCY_TOKEN="${PERCY_TOKEN}"
-  echo "Percy token is set to ${PERCY_TOKEN}"
+  # export PERCY_ENABLE=1
+  # export PERCY_TOKEN="${PERCY_TOKEN}"
+  # echo "Percy token is set to ${PERCY_TOKEN}"
   #   echo "Running on Google Cloud Build, PERCY_ENABLE set to 1."
   # else
   #   export PERCY_ENABLE=0
@@ -256,8 +256,9 @@ function run_webdriver_test {
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
   else
     # TODO: Stop using reruns once tests are deflaked.
-    python_command="python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ \"${@}\""
-    [[ "$PERCY_ENABLE" == "1" ]] && npx percy exec -- "$python_command" || eval "$python_command"
+    # python_command="python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ \"${@}\""
+    # [[ "$PERCY_ENABLE" == "1" ]] && npx percy exec -- "$python_command" || eval "$python_command"
+    npx percy exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
   fi
   stop_servers
   deactivate
