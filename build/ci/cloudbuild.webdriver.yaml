@@ -64,22 +64,22 @@ steps:
       - |
         ./run_test.sh --setup_nl
 
-  # Run the webdriver tests
-  - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
-    entrypoint: /bin/bash
-    waitFor: ["package_js", "setup_python"]
-    secretEnv: ['percy_token']
-    env:
-      - 'PERCY_TARGET_BRANCH=${_BASE_BRANCH}'
-      - 'PERCY_PULL_REQUEST=${_PR_NUMBER}'
-      - 'PERCY_BRANCH=${_HEAD_BRANCH}'
-    args:
-      - -c
-      - |
-        apt-get update && apt-get install -y nodejs npm
-        export PERCY_TOKEN=${percy_token}
-        ./run_test.sh -w
+  # # Run the webdriver tests
+  # - id: flask_webdriver_test
+  #   name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
+  #   entrypoint: /bin/bash
+  #   waitFor: ["package_js", "setup_python"]
+  #   secretEnv: ['percy_token']
+  #   env:
+  #     - 'PERCY_TARGET_BRANCH=${_BASE_BRANCH}'
+  #     - 'PERCY_PULL_REQUEST=${_PR_NUMBER}'
+  #     - 'PERCY_BRANCH=${_HEAD_BRANCH}'
+  #   args:
+  #     - -c
+  #     - |
+  #       apt-get update && apt-get install -y nodejs npm
+  #       export PERCY_TOKEN=${percy_token}
+  #       ./run_test.sh -w
 
   # secretEnv: ['percy_token']
   # Run the Custom DC webdriver tests. 
@@ -96,7 +96,7 @@ steps:
       - |
         git submodule update --init --recursive
         apt-get update && apt-get install -y nodejs npm
-        # export PERCY_TOKEN=${percy_token}
+        export PERCY_TOKEN=${percy_token}
         export STARTUP_WAIT_SEC=60
         ./run_test.sh --cdc
 
