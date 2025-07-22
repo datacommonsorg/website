@@ -239,23 +239,39 @@ function run_webdriver_test {
     export FLAKE_FINDER=true
   fi
   source .env/bin/activate
-
-  # # Set PERCY_ENABLE based on the BUILD_ID environment variable (Google Cloud Build)
-  # if [[ -n "$BUILD_ID" ]]; then
-  # export PERCY_ENABLE=1
   export PERCY_TOKEN="${PERCY_TOKEN}"
-  echo "Percy token is set to ${PERCY_TOKEN}"
-  #   echo "Running on Google Cloud Build, PERCY_ENABLE set to 1."
-  # else
-  #   export PERCY_ENABLE=0
-  #   echo "Not running on Google Cloud Build, PERCY_ENABLE set to 0."
-  # fi
+
+  # Determine if Percy should be enabled
+  should_run_percy=false
+  if [ -n "${PERCY_TOKEN}" ]; then
+    export PERCY_ENABLE=1
+    should_run_percy=true
+    echo "PERCY_TOKEN is not empty. Percy will be enabled."
+  else
+    export PERCY_ENABLE=0
+    echo "PERCY_TOKEN is empty. Percy will be disabled."
+  fi
 
   start_servers
-  if [[ "$FLAKE_FINDER" == "true" ]]; then
-    python3 -m pytest -n auto server/webdriver/tests/ ${@}
+
+  # Construct the base pytest command
+  pytest_command="python3 -m pytest -n auto server/webdriver/tests/"
+
+  # Add --reruns 2 if FLAKE_FINDER is NOT true
+  if [[ "$FLAKE_FINDER" != "true" ]]; then
+    pytest_command+=" --reruns 2"
+  fi
+
+  # Append any additional arguments passed to the script
+  pytest_command+=" ${@}"
+
+  # Execute the command, conditionally with Percy
+  if [[ "$should_run_percy" == "true" ]]; then
+    echo "Executing command with Percy: npx @percy/cli exec -- ${pytest_command}"
+    npx @percy/cli exec -- ${pytest_command}
   else
-    npx @percy/cli exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    echo "Executing command without Percy: ${pytest_command}"
+    ${pytest_command}
   fi
   stop_servers
   deactivate
