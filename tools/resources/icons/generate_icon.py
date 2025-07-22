@@ -40,6 +40,7 @@ export const {{ icon component name }} = (
   );
 """
 
+
 def parse_arguments():
   parser = argparse.ArgumentParser(
       description=
@@ -59,14 +60,14 @@ def parse_arguments():
       action='store_true',
       help='Generate only the SVG version for use in Jinja templates')
   parser.add_argument(
-    '--include_filled',
-    action='store_true',
-    help='Also generate a filled version of the icon',
+      '--include_filled',
+      action='store_true',
+      help='Also generate a filled version of the icon',
   )
   parser.add_argument(
-    '--filled_only',
-    action='store_true',
-    help='Only generate the filled version of the icon',
+      '--filled_only',
+      action='store_true',
+      help='Only generate the filled version of the icon',
   )
   return parser.parse_args()
 
@@ -81,7 +82,7 @@ def convert_snake_to_title(icon_name):
   return ' '.join(x.capitalize() for x in components)
 
 
-def download_svg(icon_name, filled: bool = False ):
+def download_svg(icon_name: str, filled: bool = False) -> str:
   """
     Downloads the requested SVG from the Material Design icon repository.
     """
@@ -93,14 +94,14 @@ def download_svg(icon_name, filled: bool = False ):
   print(f'Downloading SVG from: {svg_url}')
   response = requests.get(svg_url)
   if response.status_code == 200:
-    print('SVG download complete.') 
+    print('SVG download complete.')
     return response.text
   else:
     print(f'Error: Failed to download SVG. Status Code: {response.status_code}')
     return None
 
 
-def process_svg(svg_content):
+def process_svg(svg_content: str) -> str:
   """
     Processes the SVG content to prepare to allow it to be styled through CSS similar to how a font is
     """
@@ -128,20 +129,20 @@ def process_svg(svg_content):
   return processed_svg
 
 
-def save_svg(svg_content, output_path):
+def save_svg(svg_content: str, output_path: str) -> None:
   os.makedirs(os.path.dirname(output_path), exist_ok=True)
   with open(output_path, 'w', encoding='utf-8') as f:
     f.write(svg_content)
   print(f'Saved SVG to {output_path}')
 
 
-def generate_react_component(icon_name, svg_content):
+def generate_react_component(icon_name: str, svg_content: str) -> str:
   """
     Generates a React .tsx component for the icon based on the template found in "component_template.txt"
     """
   if not svg_content:
     return ""
-  
+
   component_name = convert_snake_to_camel(icon_name)
 
   svg_tag_start = svg_content.find('<svg')
@@ -151,11 +152,17 @@ def generate_react_component(icon_name, svg_content):
   svg_with_props = (svg_content[:svg_tag_end] + ' {...props}' +
                     svg_content[svg_tag_end:])
 
-  component = REACT_COMPONENT_TEMPLATE.replace('{{ icon component name }}', component_name)
+  component = REACT_COMPONENT_TEMPLATE.replace('{{ icon component name }}',
+                                               component_name)
   component = component.replace('{{ svg }}', svg_with_props)
   return component
 
-def write_react_component_to_file(icon_name, react_dir, template_path, react_component, filled_react_component):
+
+def write_react_component_to_file(icon_name: str,
+                                  react_dir: str,
+                                  template_path: str,
+                                  react_component: str = "",
+                                  filled_react_component: str = "") -> None:
   try:
     with open(template_path, 'r', encoding='utf-8') as template_file:
       template = template_file.read()
@@ -169,9 +176,12 @@ def write_react_component_to_file(icon_name, react_dir, template_path, react_com
     icon_title = convert_snake_to_title(icon_name)
     current_year = datetime.now().year
     component_file_content = template.replace('{{ year }}', str(current_year))
-    component_file_content = component_file_content.replace('{{ icon name }}', icon_title)
-    component_file_content = component_file_content.replace('{{ react component }}', react_component)
-    component_file_content = component_file_content.replace('{{ filled react component }}', filled_react_component)
+    component_file_content = component_file_content.replace(
+        '{{ icon name }}', icon_title)
+    component_file_content = component_file_content.replace(
+        '{{ react component }}', react_component)
+    component_file_content = component_file_content.replace(
+        '{{ filled react component }}', filled_react_component)
     f.write(component_file_content)
   print(f'Generated React component at {component_path}')
 
@@ -204,17 +214,16 @@ def main():
     processed_svg = process_svg(svg_content)
     if not processed_svg:
       sys.exit(1)
-  
+
   filled_processed_svg = ""
   if generate_filled_icon:
     filled_svg_content = download_svg(icon_name, filled=True)
     if not filled_svg_content:
       sys.exit(1)
-    
+
     filled_processed_svg = process_svg(filled_svg_content)
     if not filled_processed_svg:
       sys.exit(1)
-
 
   if generate_flask_svg:
     if processed_svg:
@@ -226,9 +235,10 @@ def main():
 
   if generate_react_svg:
     react_component = generate_react_component(icon_name, processed_svg)
-    filled_component = generate_react_component(filled_icon_name, filled_processed_svg)
-    write_react_component_to_file(icon_name, react_icons_dir,
-                             template_path, react_component, filled_component)
+    filled_component = generate_react_component(filled_icon_name,
+                                                filled_processed_svg)
+    write_react_component_to_file(icon_name, react_icons_dir, template_path,
+                                  react_component, filled_component)
 
 
 if __name__ == '__main__':
