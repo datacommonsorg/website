@@ -284,9 +284,21 @@ function run_cdc_webdriver_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
+
+  local should_run_percy=false
+  if [ -n "${PERCY_TOKEN}" ]; then
+    export PERCY_ENABLE=1
+    should_run_percy=true
+    echo "PERCY_TOKEN is not empty. Percy will be enabled."
+  else
+    export PERCY_ENABLE=0
+    echo "PERCY_TOKEN is empty. Percy will be disabled."
+  fi
+
   export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
   ensure_cdc_test_env_file
   export CDC_TEST_BASE_URL="http://localhost:8080"
+
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
@@ -295,16 +307,32 @@ function run_cdc_webdriver_test {
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
   source .env/bin/activate
-  local rerun_options=""
-  if [[ "$FLAKE_FINDER" == "true" ]]; then
-    rerun_options=""
-  else
+  local pytest_rerun_options=""
+  if [[ "$FLAKE_FINDER" != "true" ]]; then
     # TODO: Stop using reruns once tests are deflaked.
-    rerun_options="--reruns 2"
+    pytest_rerun_options="--reruns 2"
   fi
 
-  python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
-  python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  # Construct the base pytest command(s) and then wrap with Percy if enabled
+  local pytest_base_command_part="python3 -m pytest"
+  local pytest_target_dir="server/webdriver/cdc_tests/"
+  local script_extra_args=("${@}") # Capture all extra args passed to the function
+
+  # --- Execute Test Commands ---
+  local command_prefix=""
+  if [[ "$should_run_percy" == "true" ]]; then
+    command_prefix="npx @percy/cli exec --"
+    echo "Tests will be run with Percy."
+  else
+    echo "Tests will be run without Percy."
+  fi
+
+  echo "Running 'one_at_a_time' tests..."
+  ${command_prefix} ${pytest_base_command_part} ${pytest_rerun_options} -m "one_at_a_time" "${pytest_target_dir}" "${script_extra_args[@]}"
+
+  echo "Running 'not one_at_a_time' tests..."
+  ${command_prefix} ${pytest_base_command_part} -n auto ${pytest_rerun_options} -m "not one_at_a_time" "${pytest_target_dir}" "${script_extra_args[@]}"
+  # --- End Execute Test Commands ---
 
   stop_servers
   deactivate
