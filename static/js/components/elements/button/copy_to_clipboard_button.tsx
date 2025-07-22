@@ -24,16 +24,13 @@
 import { css } from "@emotion/react";
 import React, { forwardRef, useEffect, useState } from "react";
 
-import {
-  Button,
-  ButtonElementProps,
-} from "../../../components/elements/button/button";
-import { Check } from "../../../components/elements/icons/check";
-import { ContentCopy } from "../../../components/elements/icons/content_copy";
+import { Check } from "../icons/check";
+import { ContentCopy } from "../icons/content_copy";
+import { Button, ButtonElementProps } from "./button";
 
-export type CopyCitationButtonProps = Omit<ButtonElementProps, "onClick"> & {
-  // the content of the citation that will be copied to the clipboard
-  citationToCopy: string;
+export type CopyToClipboardButtonProps = Omit<ButtonElementProps, "onClick"> & {
+  // the content that will be copied to the clipboard
+  valueToCopy: string;
   // optional "onClick" that, if given, will run in addition to the copy logic
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
@@ -54,17 +51,11 @@ const iconWrapper = css`
   }
 `;
 
-export const CopyCitationButton = forwardRef<
+export const CopyToClipboardButton = forwardRef<
   HTMLButtonElement,
-  CopyCitationButtonProps
->((props: CopyCitationButtonProps, ref) => {
-  const {
-    citationToCopy,
-    children,
-    disabled = false,
-    onClick,
-    ...rest
-  } = props;
+  CopyToClipboardButtonProps
+>((props: CopyToClipboardButtonProps, ref) => {
+  const { valueToCopy, children, disabled = false, onClick, ...rest } = props;
 
   const [copied, setCopied] = useState(false);
 
@@ -79,7 +70,7 @@ export const CopyCitationButton = forwardRef<
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     onClick?.(e);
-    if (!disabled) void copyToClipboard(citationToCopy);
+    if (!disabled) void copyToClipboard(valueToCopy);
   };
 
   useEffect(() => {
@@ -106,4 +97,4 @@ export const CopyCitationButton = forwardRef<
   );
 });
 
-CopyCitationButton.displayName = "CopyCitationButton";
+CopyToClipboardButton.displayName = "CopyButton";
