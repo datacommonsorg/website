@@ -39,7 +39,9 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     self.assertGreater(len(follow_up_questions), 0,
                        "No follow up questions found in the list.")
 
-    percy_snapshot(self.driver, 'Explore Follow Up Questions Typical')
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Explore Follow Up Questions Typical')
 
   def test_follow_up_questions_no_related_topics(self):
     """Test that the Follow Up Questions component does not exist for queries that have no related topics."""
@@ -48,6 +50,12 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     query = "#q=Which countries have the highest college-educated population in the world?"
 
     self.driver.get(self.url_ + EXPLORE_URL + follow_up_flag + query)
+
+    empty_loading = find_elem(parent=self.driver, value="loading-container")
+    self.assertIsNone(
+        empty_loading,
+        "Follow Up Questions component is not empty despite having no related topics."
+    )
     shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
 
     empty_follow_up = find_elem(parent=self.driver,
@@ -57,4 +65,5 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         "Follow Up Questions component is not empty despite having no related topics."
     )
 
-    percy_snapshot(self.driver, 'Explore no follow up questions')
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Explore no follow up questions')
