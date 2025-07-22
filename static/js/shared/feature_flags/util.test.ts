@@ -31,7 +31,11 @@
  */
 import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
 
-import { ENABLE_FEATURE_URL_PARAM, isFeatureEnabled } from "./util";
+import {
+  DISABLE_FEATURE_URL_PARAM,
+  ENABLE_FEATURE_URL_PARAM,
+  isFeatureEnabled,
+} from "./util";
 
 describe("isFeatureEnabled", () => {
   const featureName = "testFeature";
@@ -97,5 +101,19 @@ describe("isFeatureEnabled", () => {
     window.location.search = "";
     globalThis.FEATURE_FLAGS = { [featureName]: false };
     expect(isFeatureEnabled(featureName)).toBe(false);
+  });
+
+  // Test disabling feature flags
+  test("returns false when disable param is present", () => {
+    window.location.search = `?${DISABLE_FEATURE_URL_PARAM}=${featureName}`;
+    globalThis.FEATURE_FLAGS = { [featureName]: true };
+    expect(isFeatureEnabled(featureName)).toBe(false);
+  });
+
+  test("keyword in url but not as a query parameter does not override", () => {
+    // test case: url is missing the '?' in front
+    window.location.href = `/${DISABLE_FEATURE_URL_PARAM}=${featureName}`;
+    globalThis.FEATURE_FLAGS = { [featureName]: true };
+    expect(isFeatureEnabled(featureName)).toBe(true);
   });
 });
