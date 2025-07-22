@@ -133,15 +133,16 @@ export const GA_EVENT_NL_FULFILL = "explore_fulfill";
  * Triggered when users click on a related topics url to keep exploring.
  * It could either be the current Related Topics chip or the experimental Follow Up Questions.
  * Parameters:
- *   "related_topics_mode" : "related_topics_experiment" || "related_topics_current"
+ *   "related_topics_mode" : "related_topics_generated_questions" || "related_topics_header_topics"
  */
 export const GA_EVENT_RELATED_TOPICS_CLICK = "related_topics_click";
 
 /**
  * Triggered once when the Follow Up Questions component is in view.
- * Parameters: None
+ * Parameters:
+ *  "related_topics_mode" : "related_topics_generated_questions" || "related_topics_header_topics"
  */
-export const GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW = "follow_up_questions_view";
+export const GA_EVENT_RELATED_TOPICS_VIEW = "related_topics_view";
 
 /**
  * Triggered when "download" button is clicked on a tile.
@@ -297,8 +298,8 @@ export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY = "sv_hierarchy";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH = "sv_search";
 // Parameter value for GA_PARAM_RELATED_TOPICS_MODE to represent the Follow Up Questions mode.
-export const GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS =
-  "related_topics_display_questions";
+export const GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS =
+  "related_topics_generated_questions";
 // Parameter value for GA_PARAM_RELATED_TOPICS_MODE to represent the Related Topics mode in the Result Header.
-export const GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS =
-  "related_topics_display_topics";
+export const GA_VALUE_RELATED_TOPICS_HEADER_TOPICS =
+  "related_topics_header_topics";
