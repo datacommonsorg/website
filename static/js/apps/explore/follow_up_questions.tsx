@@ -26,14 +26,12 @@ import { Loading } from "../../components/elements/loading";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
-  GA_EVENT_COMPONENT_IMPRESSION,
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
-  GA_PARAM_COMPONENT,
-  GA_PARAM_PAGE_SOURCE,
   GA_PARAM_RELATED_TOPICS_MODE,
-  GA_VALUE_PAGE_SOURCE_EXPLORE,
   GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+  GA_VALUE_SEARCH_SOURCE_EXPLORE,
+  triggerComponentImpression,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
@@ -76,7 +74,10 @@ export function FollowUpQuestions(
     );
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
-        onComponentSuccessfulRender();
+        triggerComponentImpression(
+          GA_VALUE_SEARCH_SOURCE_EXPLORE,
+          GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS
+        );
         setFollowUpQuestions(value);
       })
       .catch(() => {
@@ -156,12 +157,5 @@ const onQuestionClicked = (): void => {
 const onComponentInitialView = (): void => {
   triggerGAEvent(GA_EVENT_RELATED_TOPICS_VIEW, {
     [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
-  });
-};
-
-const onComponentSuccessfulRender = (): void => {
-  triggerGAEvent(GA_EVENT_COMPONENT_IMPRESSION, {
-    [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_SOURCE_EXPLORE,
-    [GA_PARAM_COMPONENT]: GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
   });
 };

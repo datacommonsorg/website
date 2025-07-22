@@ -122,9 +122,9 @@ import {
   GA_PARAM_SOURCE,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
-  GA_VALUE_PAGE_SOURCE_EXPLORE,
   GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
   GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+  GA_VALUE_SEARCH_SOURCE_EXPLORE,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
@@ -1225,16 +1225,14 @@ describe("test ga event for Related Topics experiment", () => {
       );
 
     // Render follow up component
-    const followUp = render(
-      <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
-    );
+    render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
 
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
         "event",
         GA_EVENT_COMPONENT_IMPRESSION,
         {
-          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_SOURCE_EXPLORE,
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE,
           [GA_PARAM_COMPONENT]: GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
         }
       );
