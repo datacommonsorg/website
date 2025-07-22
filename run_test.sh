@@ -243,8 +243,8 @@ function run_webdriver_test {
   # # Set PERCY_ENABLE based on the BUILD_ID environment variable (Google Cloud Build)
   # if [[ -n "$BUILD_ID" ]]; then
   # export PERCY_ENABLE=1
-  # export PERCY_TOKEN="${PERCY_TOKEN}"
-  # echo "Percy token is set to ${PERCY_TOKEN}"
+  export PERCY_TOKEN="${PERCY_TOKEN}"
+  echo "Percy token is set to ${PERCY_TOKEN}"
   #   echo "Running on Google Cloud Build, PERCY_ENABLE set to 1."
   # else
   #   export PERCY_ENABLE=0
