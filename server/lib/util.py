@@ -401,7 +401,6 @@ def load_redirects() -> Dict[str, str]:
   bucket = storage_client.get_bucket(bucket_name)
   redirection_mapping = json.loads(
       bucket.get_blob("redirects.json").download_as_bytes())
-  print("HELLO, we found: ", redirection_mapping)
   return redirection_mapping
 
 
