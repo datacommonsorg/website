@@ -95,7 +95,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
       onPlaceSelected={place.setEnclosingPlace}
       onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
     >
-      <div className="d-lg-none" id="btn-sv-widget-modal">
+      <div className="d-inline d-lg-none" id="btn-sv-widget-modal">
         <div className="btn btn-primary" onClick={props.toggleSvHierarchyModal}>
           Select variables
         </div>
