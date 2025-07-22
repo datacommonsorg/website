@@ -104,6 +104,7 @@ def insights():
 def demo():
   return redirect('/link/demo', code=302)
 
+
 @bp.route('/link/<path:name>')
 def link(name):
   redirection_mapping = current_app.config.get('REDIRECTS', {})

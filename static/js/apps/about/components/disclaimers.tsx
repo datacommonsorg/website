@@ -15,6 +15,7 @@
  */
 
 import React, { ReactElement } from "react";
+
 import { TextColumns } from "../../../components/content/text_columns";
 
 /**
@@ -24,18 +25,38 @@ import { TextColumns } from "../../../components/content/text_columns";
 export const Disclaimers = (): ReactElement => {
   return (
     <div>
-        <h6>Disclaimers</h6>
-        <br />
-        <TextColumns>
+      <h6>Disclaimers</h6>
+      <br />
+      <TextColumns>
         <TextColumns.Left>
-            <p>All data and information provided by Google Data Commons is offered "as is" and is intended for informational and research purposes only. It is not intended as professional advice of any kind (e.g., financial, investment, legal, tax, medical) and should not be relied upon as the sole basis for any decisions. Users should exercise their own judgment and discretion when interpreting and using the data.</p>
-            <p>Google does not endorse any specific use of the data or guarantee the suitability of any analysis or derivative work created using Data Commons. Google will not be liable for any damages or losses arising from the use of, or reliance on, the information provided through Data Commons.</p>
+          <p>
+            All data and information provided by Google Data Commons is offered
+            &ldquo;as is&rdquo; and is intended for informational and research
+            purposes only. It is not intended as professional advice of any kind
+            (e.g., financial, investment, legal, tax, medical) and should not be
+            relied upon as the sole basis for any decisions. Users should
+            exercise their own judgment and discretion when interpreting and
+            using the data.
+          </p>
+          <p>
+            Google does not endorse any specific use of the data or guarantee
+            the suitability of any analysis or derivative work created using
+            Data Commons. Google will not be liable for any damages or losses
+            arising from the use of, or reliance on, the information provided
+            through Data Commons.
+          </p>
         </TextColumns.Left>
         <TextColumns.Right>
-            <p>Data in Data Commons is compiled from various third-party providers. While efforts are made to clean, normalize, and join data at scale, Google does not guarantee the accuracy, adequacy, or completeness of any data. Google is not responsible for errors, omissions, delays, or interruptions in data, or for any actions taken in reliance thereon. Data refresh frequency varies by source.</p>
+          <p>
+            Data in Data Commons is compiled from various third-party providers.
+            While efforts are made to clean, normalize, and join data at scale,
+            Google does not guarantee the accuracy, adequacy, or completeness of
+            any data. Google is not responsible for errors, omissions, delays,
+            or interruptions in data, or for any actions taken in reliance
+            thereon. Data refresh frequency varies by source.
+          </p>
         </TextColumns.Right>
-        </TextColumns>
+      </TextColumns>
     </div>
-
   );
 };

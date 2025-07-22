@@ -18,18 +18,18 @@
  * Main component for the about your own Data Commons page
  */
 
-import { ThemeProvider, css } from "@emotion/react";
+import { css, ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Section } from "../../components/elements/layout/section";
 import { Routes } from "../../shared/types/base";
 import theme from "../../theme/theme";
 import { Collaborations } from "./components/collaborations";
+import { Disclaimers } from "./components/disclaimers";
 import { SplashQuote } from "./components/splash_quote";
 import { StayInTouch } from "./components/stay_in_touch";
 import { WhoCanUse } from "./components/who_can_use";
 import { WhyDataCommons } from "./components/why_data_commons";
-import { Disclaimers } from "./components/disclaimers";
 
 interface AppProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -67,8 +67,7 @@ export function App({ routes }: AppProps): ReactElement {
         css={css`
           border: none;
           border-top: 1px solid #919191;
-          margin: 0px auto;
-          width: 75%;
+          max-width: 1310px;
         `}
       ></hr>
       <Section>
