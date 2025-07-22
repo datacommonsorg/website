@@ -25,7 +25,8 @@ from server.lib import fetch
 from server.lib import shared
 from server.lib.cache import cache
 from server.lib.feature_flags import is_feature_enabled
-from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG, VAI_MEDIUM_RELEVANCE_FEATURE_FLAG
+from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
+from server.lib.feature_flags import VAI_MEDIUM_RELEVANCE_FEATURE_FLAG
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
@@ -59,8 +60,9 @@ def search_vertexai(
       page_size=100,
       spell_correction_spec=discoveryengine.SearchRequest.SpellCorrectionSpec(
           mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO),
-      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM if is_medium_relevance_enabled 
-      else discoveryengine.SearchRequest.RelevanceThreshold.LOW)
+      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.
+      MEDIUM if is_medium_relevance_enabled else
+      discoveryengine.SearchRequest.RelevanceThreshold.LOW)
 
   page_result = vai_client.search(search_request)
 
@@ -159,7 +161,8 @@ def search_statvar():
     statVars = []
     page_token = None
     while len(statVars) < limit:
-      search_results = search_vertexai(query, page_token, is_vai_medium_relevance_enabled)
+      search_results = search_vertexai(query, page_token,
+                                       is_vai_medium_relevance_enabled)
       for response in search_results.results:
         dcid = response.document.struct_data.get("dcid")
         name = response.document.struct_data.get("name")
