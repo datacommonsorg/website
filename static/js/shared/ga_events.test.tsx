@@ -1225,7 +1225,9 @@ describe("test ga event for Related Topics experiment", () => {
       );
 
     // Render follow up component
-    const followUp = render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
+    const followUp = render(
+      <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+    );
 
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
