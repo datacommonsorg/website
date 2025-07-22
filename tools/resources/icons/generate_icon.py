@@ -130,16 +130,52 @@ def process_svg(svg_content: str) -> str:
 
 
 def save_svg(svg_content: str, output_path: str) -> None:
+  """Write SVG content to a file
+
+  Args:
+      svg_content: SVG content to write
+      output_path: file path to write SVG to
+  """
+  if not svg_content:
+    return
   os.makedirs(os.path.dirname(output_path), exist_ok=True)
   with open(output_path, 'w', encoding='utf-8') as f:
     f.write(svg_content)
   print(f'Saved SVG to {output_path}')
 
 
-def generate_react_component(icon_name: str, svg_content: str) -> str:
+def get_processed_svg(icon_name: str, filled: bool = False) -> str:
+  """Get SVG content for a icon that can be styled through CSS
+
+  Args:
+      icon_name: name of the icon
+      filled: whether to get the filled version of the icon
+
+  Returns:
+      SVG content that has attributes added so it can be styled through CSS
+      similar to how a font is
   """
-    Generates a React .tsx component for the icon based on the template found in "component_template.txt"
-    """
+  svg_content = download_svg(icon_name, filled)
+  if not svg_content:
+    sys.exit(1)
+
+  processed_svg = process_svg(svg_content)
+  if not processed_svg:
+    sys.exit(1)
+  return processed_svg
+
+
+def generate_react_component(icon_name: str, svg_content: str) -> str:
+  """Generates a React functional component for the icon
+  
+  Args:
+    icon_name: name of the icon in snake_case
+    svg_content: SVG content for the react component to display
+
+  Returns:
+    A react functional component that can be inserted into a template.
+    If no svg_content is provided, returns empty string.
+  """
   if not svg_content:
     return ""
 
@@ -163,6 +199,15 @@ def write_react_component_to_file(icon_name: str,
                                   template_path: str,
                                   react_component: str = "",
                                   filled_react_component: str = "") -> None:
+  """Write react component(s) to a .tsx file based on a template file
+
+  Args:
+      icon_name: name of the icon in snake_case
+      react_dir: directory to write the .tsx file to
+      template_path: path to a template file to base the new file on
+      react_component: react functional component for the base icon
+      filled_react_component: react functional component for the filled icon
+  """
   try:
     with open(template_path, 'r', encoding='utf-8') as template_file:
       template = template_file.read()
@@ -187,6 +232,7 @@ def write_react_component_to_file(icon_name: str,
 
 
 def main():
+  # Parse flags
   args = parse_arguments()
   icon_name = args.icon_name.lower()
   filled_icon_name = f"{icon_name}_filled"
@@ -195,45 +241,29 @@ def main():
   generate_filled_icon = args.include_filled or args.filled_only
   generate_base_icon = not args.filled_only
 
+  # Get directory paths
   script_dir = os.path.dirname(os.path.abspath(__file__))
+  template_path = os.path.join(script_dir, 'component_template.txt')
   root_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..'))
-
   html_icons_dir = os.path.join(root_dir, 'server', 'templates', 'resources',
                                 'icons')
   react_icons_dir = os.path.join(root_dir, 'static', 'js', 'components',
                                  'elements', 'icons')
 
-  template_path = os.path.join(script_dir, 'component_template.txt')
-
-  processed_svg = ""
-  if generate_base_icon:
-    svg_content = download_svg(icon_name, filled=False)
-    if not svg_content:
-      sys.exit(1)
-
-    processed_svg = process_svg(svg_content)
-    if not processed_svg:
-      sys.exit(1)
-
-  filled_processed_svg = ""
-  if generate_filled_icon:
-    filled_svg_content = download_svg(icon_name, filled=True)
-    if not filled_svg_content:
-      sys.exit(1)
-
-    filled_processed_svg = process_svg(filled_svg_content)
-    if not filled_processed_svg:
-      sys.exit(1)
+  # Download and process SVGs from Material Design icon repository
+  processed_svg = get_processed_svg(icon_name) if generate_base_icon else None
+  filled_processed_svg = get_processed_svg(
+      icon_name, filled=True) if generate_filled_icon else None
 
   if generate_flask_svg:
-    if processed_svg:
-      html_svg_path = os.path.join(html_icons_dir, f'{icon_name}.svg')
-      save_svg(processed_svg, html_svg_path)
-    if filled_svg_content:
-      html_svg_path = os.path.join(html_icons_dir, f'{icon_name}_filled.svg')
-      save_svg(filled_processed_svg, html_svg_path)
+    # Save SVGs to file
+    html_svg_path = os.path.join(html_icons_dir, f'{icon_name}.svg')
+    save_svg(processed_svg, html_svg_path)
+    html_svg_path = os.path.join(html_icons_dir, f'{icon_name}_filled.svg')
+    save_svg(filled_processed_svg, html_svg_path)
 
   if generate_react_svg:
+    # Write react component to .tsx file
     react_component = generate_react_component(icon_name, processed_svg)
     filled_component = generate_react_component(filled_icon_name,
                                                 filled_processed_svg)
