@@ -15,11 +15,14 @@
 
 from flask import current_app
 
+# URL Query Parameters
+FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM = 'enable_feature'
+FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
+
+# Feature Flags
 AUTOCOMPLETE_FEATURE_FLAG = 'autocomplete'
 BIOMED_NL_FEATURE_FLAG = 'biomed_nl'
 DATA_OVERVIEW_FEATURE_FLAG = 'data_overview'
-FEATURE_FLAG_URL_OVERRIDE_ENABLE_PARAM = 'enable_feature'
-FEATURE_FLAG_URL_OVERRIDE_DISABLE_PARAM = 'disable_feature'
 STANDARDIZED_VIS_TOOL_FEATURE_FLAG = 'standardized_vis_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 

@@ -110,7 +110,3 @@ class TestFeatureFlags(unittest.TestCase):
         is_feature_enabled(TEST_FEATURE_FLAG,
                            app=self.app,
                            request=response.request))
-
-
-if __name__ == '__main__':
-  unittest.main()
