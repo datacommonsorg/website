@@ -36,7 +36,8 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
                                        value="follow-up-questions-container")
     self.assertIsNone(
         percy_snapshot(self.driver,
-                       self.dc_title_string + ' Explore no follow up'), empty_follow_up,
+                       self.dc_title_string + ' Explore no follow up'),
+        empty_follow_up,
         "Follow Up Questions component is not empty despite the flag not being activated."
     )
     # While Related Topics section should appear

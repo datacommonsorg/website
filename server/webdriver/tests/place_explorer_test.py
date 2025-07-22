@@ -44,8 +44,9 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
         self.TIMEOUT_SEC).until(lambda driver: search_input.get_attribute(
             "placeholder") == "Housing in California")
 
-    percy_snapshot(self.driver,
-                 self.dc_title_string + ' Place Explorer Category Placeholder')
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Place Explorer Category Placeholder')
 
   def test_explorer_redirect_place_explorer_populates_search_bar(self):
     """Test the redirection from explore to place explore for single place queries populates the search bar from the URL query"""
