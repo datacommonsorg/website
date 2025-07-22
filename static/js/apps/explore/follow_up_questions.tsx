@@ -37,7 +37,7 @@ import { getTopics } from "../../utils/app/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 
 // Number of follow up questions displayed
-const FOLLOW_UP_QUESTIONS_LIMIT = 10;
+const FOLLOW_UP_QUESTIONS_LIMIT = 6;
 
 interface Question {
   text: string;
@@ -66,9 +66,10 @@ export function FollowUpQuestions(
   useEffect(() => {
     // Gets the name of all related topics while removing the Root topic.
     // Empty string can be passed since only the topic name will be used, which is stored in the property `text`.
-    const relatedTopics = getTopics(props.pageMetadata, "")
-      .map((topic) => topic.text)
-      .slice(0, FOLLOW_UP_QUESTIONS_LIMIT);
+    const relatedTopics = _.sampleSize(
+      getTopics(props.pageMetadata, "").map((topic) => topic.text),
+      FOLLOW_UP_QUESTIONS_LIMIT
+    );
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
         setFollowUpQuestions(value);

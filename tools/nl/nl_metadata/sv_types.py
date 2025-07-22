@@ -30,6 +30,7 @@ class StatVarMetadata(BaseModel):
   populationType: str | None = None
   statType: str | None = None
   constraintProperties: list[str] | None = None
+  numConstraints: int | None = None
 
 
 englishSchema: dict[str, str | list[str]] = {
@@ -41,6 +42,7 @@ englishSchema: dict[str, str | list[str]] = {
     "populationType": "",
     "statType": "",
     "constraintProperties": [],
+    "numConstraints": 0
 }
 
 frenchSchema: dict[str, str | list[str]] = {
@@ -51,7 +53,8 @@ frenchSchema: dict[str, str | list[str]] = {
     "proprieteMesuree": "",
     "typePopulation": "",
     "typeStatistique": "",
-    "contraintes": []
+    "contraintes": [],
+    "numContraintes": 0
 }
 
 spanishSchema: dict[str, str | list[str]] = {
@@ -62,5 +65,6 @@ spanishSchema: dict[str, str | list[str]] = {
     "propiedadMedida": "",
     "tipoPoblacion": "",
     "tipoEstadistico": "",
-    "restricciones": []
+    "restricciones": [],
+    "numRestricciones": 0
 }

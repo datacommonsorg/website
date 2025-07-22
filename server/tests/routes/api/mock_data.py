@@ -638,3 +638,121 @@ MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES = {
         'nameWithLanguage': []
     }
 }
+
+DC_STAT_VAR_SEARCH_RESPONSE_SVG = {'statVarGroups': ['group_1', 'group_2']}
+DC_STAT_VAR_SEARCH_RESPONSE_NO_PLACES = {
+    'statVarGroups': ['group_3'],
+    'statVars': [{
+        'name': 'sv2',
+        'dcid': 'sv2'
+    }]
+}
+STAT_VAR_SEARCH_RESPONSE_SV_ONLY = {
+    'statVars': [{
+        'name': 'sv1',
+        'dcid': 'sv1'
+    }]
+}
+
+
+# Mock classes for Vertex AI search results returned from discoveryengine
+class MockVertexAIResult:
+
+  def __init__(self, results, next_page_token=None):
+    self.results = results
+    self.next_page_token = next_page_token
+
+
+class MockResponseItem:
+
+  def __init__(self, document_data):
+    self.document = MockDocument(document_data)
+
+
+class MockDocument:
+
+  def __init__(self, struct_data):
+    self.struct_data = struct_data
+
+
+VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_ONE = MockVertexAIResult(
+    results=[
+        MockResponseItem(document_data={
+            'dcid': 'sv1',
+            'name': 'sv1'
+        }),
+        MockResponseItem(document_data={
+            'dcid': 'sv2',
+            'name': 'sv2'
+        }),
+        MockResponseItem(document_data={
+            'dcid': 'sv3',
+            'name': 'sv3'
+        })
+    ],
+    next_page_token='page_two')
+
+VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_TWO = MockVertexAIResult(
+    results=[
+        MockResponseItem(document_data={
+            'dcid': 'sv4',
+            'name': 'sv4'
+        }),
+        MockResponseItem(document_data={
+            'dcid': 'sv5',
+            'name': 'sv5'
+        }),
+        MockResponseItem(document_data={
+            'dcid': 'sv6',
+            'name': 'sv6'
+        })
+    ],
+    next_page_token=None)
+
+VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_MISSING_DATA = MockVertexAIResult(
+    results=[
+        MockResponseItem(document_data={
+            'dcid': 'sv1',
+            'name': 'sv1'
+        }),
+        MockResponseItem(document_data={'name': 'sv2'}),
+        MockResponseItem(document_data={
+            'dcid': 'sv3',
+        })
+    ],
+    next_page_token=None)
+
+VERTEX_AI_STAT_VAR_SEARCH_RESULT_PAGE_ONE = {
+    'statVars': [{
+        'dcid': 'sv1',
+        'name': 'sv1'
+    }, {
+        'dcid': 'sv2',
+        'name': 'sv2'
+    }, {
+        'dcid': 'sv3',
+        'name': 'sv3'
+    }]
+}
+
+VERTEX_AI_STAT_VAR_SEARCH_RESULT_ALL = {
+    'statVars': [{
+        'dcid': 'sv1',
+        'name': 'sv1'
+    }, {
+        'dcid': 'sv2',
+        'name': 'sv2'
+    }, {
+        'dcid': 'sv3',
+        'name': 'sv3'
+    }, {
+        'dcid': 'sv4',
+        'name': 'sv4'
+    }, {
+        'dcid': 'sv5',
+        'name': 'sv5'
+    }, {
+        'dcid': 'sv6',
+        'name': 'sv6'
+    }]
+}
