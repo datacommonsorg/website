@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +18,7 @@
  * Main component for the about your own Data Commons page
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { ThemeProvider, css } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { Section } from "../../components/elements/layout/section";
@@ -29,6 +29,7 @@ import { SplashQuote } from "./components/splash_quote";
 import { StayInTouch } from "./components/stay_in_touch";
 import { WhoCanUse } from "./components/who_can_use";
 import { WhyDataCommons } from "./components/why_data_commons";
+import { Disclaimers } from "./components/disclaimers";
 
 interface AppProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -60,6 +61,18 @@ export function App({ routes }: AppProps): ReactElement {
 
       <Section>
         <StayInTouch routes={routes} />
+      </Section>
+
+      <hr
+        css={css`
+          border: none;
+          border-top: 1px solid #919191;
+          margin: 0px auto;
+          width: 75%;
+        `}
+      ></hr>
+      <Section>
+        <Disclaimers />
       </Section>
     </ThemeProvider>
   );
