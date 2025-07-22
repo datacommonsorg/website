@@ -88,10 +88,6 @@ describe("isFeatureEnabled", () => {
     expect(isFeatureEnabled(otherFeatureName)).toBe(true);
     expect(isFeatureEnabled("invalidFeature")).toBe(false);
   });
-  test("returns false when disable param is present", () => {
-    window.location.search = `/${DISABLE_FEATURE_URL_PARAM}=${featureName}`;
-    expect(isFeatureEnabled(featureName)).toBe(false);
-  });
 
   // Test environment-specific feature flag settings
   test("returns true when feature flag is enabled in FEATURE_FLAGS", () => {
@@ -104,5 +100,18 @@ describe("isFeatureEnabled", () => {
     window.location.search = "";
     globalThis.FEATURE_FLAGS = { [featureName]: false };
     expect(isFeatureEnabled(featureName)).toBe(false);
+  });
+
+  // Test disabling feature flags
+  test("returns false when disable param is present", () => {
+    window.location.search = `/?${DISABLE_FEATURE_URL_PARAM}=${featureName}`;
+    globalThis.FEATURE_FLAGS = { [featureName]: true };
+    expect(isFeatureEnabled(featureName)).toBe(false);
+  });
+  test("keyword in url but not as a query parameter does not override", () => {
+    // test case: url is missing the '?' in front
+    window.location.search = `/${DISABLE_FEATURE_URL_PARAM}=${featureName}`;
+    globalThis.FEATURE_FLAGS = { [featureName]: true };
+    expect(isFeatureEnabled(featureName)).toBe(true);
   });
 });
