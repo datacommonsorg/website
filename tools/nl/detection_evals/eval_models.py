@@ -15,7 +15,7 @@
 # Pydantic Models for NL detection evals
 #
 # To use in colab, use the following two lines of code:
-# !wget https://raw.githubusercontent.com/clincoln8/datcom-website/refs/heads/nl-pyd/tools/nl/detection_evals/eval_models.py
+# !wget https://raw.githubusercontent.com/datacommonsorg/datcom-website/refs/heads/master/tools/nl/detection_evals/eval_models.py
 # from eval_models import *
 
 import json
