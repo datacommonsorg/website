@@ -13,13 +13,14 @@
 # limitations under the License.
 """
 This script retrives the metadata from the data commons API or BigQuery (BQ) table and exports it in the following stages:
-1. Import the existing data commons SVs from either the existing NL SVs or BigQuery. 
+1. Import the existing data commons SVs from either the existing NL SVs or BigQuery, or from a user-specified file path. 
    If importing from BQ, separate the table into {num_partitions} and only process the SVs from {curr_partition} as specified by flag arguments, returning the data in pages of up to 3000 SVs.
-2. For each page, extract the metadata (either from DC API or BQ) and any constraintProperties to store in a list. 
+2. For each page, extract the metadata (either from DC API or BQ) and any constraintProperties to store in a list. Skip this step if reading previously failed attempts from a user-specified file.
 3. Optionally, call the Gemini API in parallel batches of up to 100 SVs each to generate approximately 5 alternative sentences per SV based on the metadata. 
    Also translate the metadata if a target language is specified.
+   If this step fails after MAX_RETRIES, the failed metadata will be saved to a separate file.
 4. Create a new dataframe with the SVs and their full metadata, and export it as a JSON file sv_complete_metadata_{target_language}_{page_number}.json.
-   If the flag --saveToGCS is specified, also save to cloud storage.
+   If the flag --useGCS is specified, also save to cloud storage.
 
 To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./add_metadata.py
 """
@@ -27,6 +28,7 @@ import argparse
 import asyncio
 import json
 import os
+import typing
 
 from datacommons_client.client import DataCommonsClient
 from dotenv import load_dotenv
@@ -80,7 +82,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 def extract_flag() -> argparse.Namespace:
   """
   Defines and extracts the script flags from the command line arguments.
-  Note that for boolean flags (--generateAltSentences, --saveToGCS, and --useBigQuery), if these flags are present in the command line, 
+  Note that for boolean flags (--generateAltSentences, --useGCS, and --useBigQuery), if these flags are present in the command line, 
   they will be set to True.
   """
   parser = argparse.ArgumentParser(description="./add_metadata.py")
@@ -103,8 +105,8 @@ def extract_flag() -> argparse.Namespace:
               ],  # TODO: Add support for passing multiple languages at once
       type=str,
       default="English")
-  parser.add_argument("--saveToGCS",
-                      help="Whether to save results to GCS.",
+  parser.add_argument("--useGCS",
+                      help="Whether to save results to/read input from GCS.",
                       action="store_true",
                       default=False)
   parser.add_argument(
@@ -137,8 +139,31 @@ def extract_flag() -> argparse.Namespace:
       "The current partition number (0-indexed) to run. Should be within the range [0, totalPartitions). Only used if --useBigQuery is specified.",
       type=int,
       default=0)
+  parser.add_argument(
+    "--failedAttemptsPath",
+    help="Path to a JSON file (or folder of files) containing previously failed SV metadata to re-process. If --useGCS is also specified, the file should be in the GCS bucket. " \
+    "Note that the specified file should contain all metadata - If this flag is used, neither BQ nor the DC API will be called.",
+    type=str,
+    default=None
+  )
   args = parser.parse_args()
   return args
+
+
+def verify_gcs_path_exists(gcs_path: str) -> bool:
+  """
+  Verifies that the GCS path exists.
+  Returns True if the path exists, False otherwise.
+  """
+  gcs_client = storage.Client(project=GCS_PROJECT_ID)
+  bucket = gcs_client.bucket(GCS_BUCKET)
+
+  if gcs_path.endswith('.json'):  # Path is a file
+    blob = bucket.blob(gcs_path)
+    return blob.exists()
+  else:  # Path is a folder
+    blobs = list(bucket.list_blobs(prefix=gcs_path, max_results=1))
+    return len(blobs) > 0
 
 
 def verify_args(args: argparse.Namespace) -> None:
@@ -154,6 +179,21 @@ def verify_args(args: argparse.Namespace) -> None:
     )
   if args.maxStatVars is not None and args.maxStatVars <= 0:
     raise ValueError("maxStatVars must be a positive integer.")
+  if args.failedAttemptsPath and not args.failedAttemptsPath.endswith(
+      ".json", "/"):
+    raise ValueError(
+        "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
+    )
+  if args.failedAttemptsPath and args.useGCS and not verify_gcs_path_exists(
+      args.failedAttemptsPath):
+    raise ValueError(
+        f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
+    )
+  elif args.failedAttemptsPath and not args.useGcs and not os.path.exists(
+      args.failedAttemptsPath):
+    raise ValueError(
+        f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
+    )
 
 
 def get_bq_query(num_partitions: int,
@@ -171,15 +211,67 @@ def get_bq_query(num_partitions: int,
 
 
 def split_into_batches(
-    original_df: pd.DataFrame | list) -> list[pd.DataFrame] | list[list]:
+    original_df: pd.DataFrame | list,
+    batch_size: int = BATCH_SIZE) -> list[pd.DataFrame] | list[list]:
   """
   Splits a dataframe into batches of a given size.
   Ex. [1, 2, 3, 4, 5, 6] with BATCH_SIZE = 2 becomes [[1, 2], [3, 4], [5, 6]]
   """
   batched_df_list = []
-  for i in range(0, len(original_df), BATCH_SIZE):
-    batched_df_list.append(original_df[i:i + BATCH_SIZE])
+  for i in range(0, len(original_df), batch_size):
+    batched_df_list.append(original_df[i:i + batch_size])
   return batched_df_list
+
+
+def read_sv_metadata_failed_attempts(
+    failed_attempts_path: str,
+    use_gcs: bool) -> list[dict[str, str | list[str]]]:
+  """
+  Reads previously failed SV metadata from either GCS or a local file path.
+  """
+  sv_metadata_to_process: list[dict[str, str | list[str]]] = []
+
+  def read_jsonl(file: typing.TextIO | list[str],
+                 metadata_list: list[dict[str, str | list[str]]]):
+    """
+    Reads a JSONL file and appends each line as a dictionary to the metadata_list.
+    """
+    for line in file:
+      entry = json.loads(line)
+      metadata_list.append(entry)
+    return metadata_list
+
+  if use_gcs:
+    gcs_client = storage.Client(project=GCS_PROJECT_ID)
+    bucket = gcs_client.bucket(GCS_BUCKET)
+
+    blobs = []
+    if failed_attempts_path.endswith('.json'):  # Treat as a specific file
+      blobs = [bucket.blob(failed_attempts_path)]
+    else:  # Treat as a folder prefix
+      blobs = list(bucket.list_blobs(prefix=failed_attempts_path))
+
+    for blob in blobs:
+      if blob.name.endswith(".json"):
+        print(f"Processing failed attempts from GCS: {blob.name}")
+        failed_data_str = blob.download_as_text()
+        sv_metadata_to_process = read_jsonl(failed_data_str.splitlines(),
+                                            sv_metadata_to_process)
+  else:  # Read from local file system
+    if os.path.isdir(failed_attempts_path):
+      for filename in os.listdir(failed_attempts_path):
+        if filename.endswith(".json"):
+          local_file_path = os.path.join(failed_attempts_path, filename)
+          print(
+              f"Processing failed attempts from local file: {local_file_path}")
+          with open(local_file_path, 'r') as f:
+            sv_metadata_to_process = read_jsonl(f, sv_metadata_to_process)
+    else:
+      print(
+          f"Processing failed attempts from local file: {failed_attempts_path}")
+      with open(failed_attempts_path, 'r') as f:
+        sv_metadata_to_process = read_jsonl(f, sv_metadata_to_process)
+  return split_into_batches(sv_metadata_to_process, PAGE_SIZE)
 
 
 def create_sv_metadata_bigquery(num_partitions: int,
@@ -255,6 +347,7 @@ def flatten_dc_api_response(
     new_row.statType = get_prop_value(dcid_data[STAT_TYPE])
     new_row.constraintProperties = extract_constraint_properties_dc_api(
         dcid_data)
+    new_row.numConstraints = len(new_row.constraintProperties)
 
     sv_metadata_list.append(new_row.__dict__)
 
@@ -280,7 +373,8 @@ def extract_metadata(
                                 measuredProperty=curr_batch.measured_prop,
                                 populationType=curr_batch.population_type,
                                 statType=curr_batch.stat_type,
-                                constraintProperties=constraint_properties)
+                                constraintProperties=constraint_properties,
+                                numConstraints=len(constraint_properties))
       sv_metadata_list.append(new_row.__dict__)
 
     else:  # curr_batch is a dict[str, str] corresponding to a batch of 100 SVs
@@ -377,7 +471,7 @@ async def generate_alt_sentences(
 
     if attempt + 1 == MAX_RETRIES:
       print(
-          f"All {MAX_RETRIES} retry attempts failed for the batch starting at DCID {batch_start_dcid}."
+          f"All {MAX_RETRIES} retry attempts failed for the batch starting at DCID {batch_start_dcid}. Returning original sv_metadata."
       )
       return sv_metadata
 
@@ -387,7 +481,8 @@ async def generate_alt_sentences(
 
 async def batch_generate_alt_sentences(
     sv_metadata_list: list[dict[str, str | list[str]]], gemini_api_key: str,
-    gemini_prompt: str) -> list[dict[str, str | list[str]]]:
+    gemini_prompt: str
+) -> tuple[list[dict[str, str | list[str]]], list[dict[str, str | list[str]]]]:
   """
   Separates sv_metadata_list into batches of 100 entries, and executes multiple parallel calls to generate_alt_sentences
   using Gemini and existing SV metadata. Flattens the list of results, and returns the metadata as a list of dictionaries.
@@ -415,9 +510,18 @@ async def batch_generate_alt_sentences(
                                       *parallel_tasks)
 
   results: list[dict[str, str | list[str]]] = []
+  failed_results: list[dict[str, str | list[str]]] = []
+
   for batch in batched_results:
-    results.extend(batch)
-  return results
+    if batch[0]["generatedSentences"] is not None:
+      results.extend(batch)
+    else:
+      starting_dcid = batch[0]["dcid"]
+      print(
+          f"Added failed batch starting at DCID {starting_dcid} to failed results."
+      )
+      failed_results.extend(batch)
+  return results, failed_results
 
 
 def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
@@ -444,6 +548,7 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
     )
     return
 
+  os.makedirs(f"{EXPORTED_FILE_DIR}/failures", exist_ok=True)
   with open(local_file_path, "w") as f:
     f.write(sv_metadata_json)
   print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
@@ -453,7 +558,11 @@ async def main():
   args: argparse.Namespace = extract_flag()
   verify_args(args)
 
-  if args.useBigQuery:
+  if args.failedAttemptsPath is not None:
+    sv_metadata_iter: list[list[dict[
+        str, str | list[str]]]] = read_sv_metadata_failed_attempts(
+            args.failedAttemptsPath, args.useGCS)
+  elif args.useBigQuery:
     # Fetch from all 700,000+ SVs from BigQuery
     # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
     sv_metadata_iter: Iterator = create_sv_metadata_bigquery(
@@ -469,18 +578,30 @@ async def main():
 
   page_number: int = 1
   for sv_metadata_list in sv_metadata_iter:
-    full_metadata: list[dict[str, str | list[str]]] = extract_metadata(
-        sv_metadata_list, args.useBigQuery)
+    # When re-running failed attempts, sv_metadata_list already contains the full metadata.
+    if args.failedAttemptsPath is not None:
+      full_metadata = sv_metadata_list
+    else:
+      full_metadata: list[dict[str, str | list[str]]] = extract_metadata(
+          sv_metadata_list, args.useBigQuery)
+    failed_metadata: list[dict[str, str | list[str]]] = []
     if args.generateAltSentences:
       print(
           f"Starting to generate alt sentences for batch number {page_number}")
-      full_metadata = await batch_generate_alt_sentences(
+      full_metadata, failed_metadata = await batch_generate_alt_sentences(
           full_metadata, args.geminiApiKey, gemini_prompt)
+
     exported_filename = f"{exported_sv_file}_{page_number}"
+    failed_filename = f"failures/failed_batch_{page_number}"
     if args.totalPartitions > 1:
       exported_filename = f"{exported_sv_file}_partition{args.currPartition}_{page_number}"
-    export_to_json(full_metadata, exported_filename, args.saveToGCS,
+      failed_filename = f"failures/failed_batch_partition{args.currPartition}_{page_number}"
+
+    export_to_json(full_metadata, exported_filename, args.useGCS,
                    args.gcsFolder)
+    if failed_metadata:
+      export_to_json(failed_metadata, failed_filename, args.useGCS,
+                     args.gcsFolder)
     page_number += 1
 
 
