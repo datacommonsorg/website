@@ -20,24 +20,22 @@
 
 import React, { Component } from "react";
 
+import { InfoBox } from "../../components/content/info_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
+
 class Info extends Component {
   render(): JSX.Element {
     return (
-      <div id="placeholder-container">
-        <div className="start-instruction-tile">
-          <i className="material-symbols-outlined icon">reminder</i>
-          <p className="start-instruction-text">
-            To start,{" "}
-            <span className="d-none d-lg-inline">
-              select a variable from the left panel
-            </span>
-            <span className="d-lg-none">
-              click the &quot;Select variable&quot; button below
-            </span>
-            . Need more specific data? Filter by choosing a data source above.
-          </p>
-        </div>
-      </div>
+      <InfoBox>
+        <span className="d-none d-lg-inline">
+          {intl.formatMessage(toolMessages.statVarExplorerInstructionsDesktop)}
+        </span>
+        <span className="d-inline d-lg-none">
+          {intl.formatMessage(toolMessages.statVarExplorerInstructionsMobile)}
+        </span>{" "}
+        {intl.formatMessage(toolMessages.statVarExplorerInstructionsDataSource)}
+      </InfoBox>
     );
   }
 }
