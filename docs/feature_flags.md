@@ -71,7 +71,8 @@ This script uploads the feature flag configuration files from the Github master 
 6. **Restart Kubernetes**: The script to update the GCS flag files will prompt you to restart Kubernetes, on restart the new flags will be applied and your feature will be enabled.
 
 ## Manually enable or disable feature flags
-> [!NOTE:]
+
+> [!NOTE]
 > Manually enabling or disabling currently only works for client side code. On the server side, you'll need to
 > propagate the feature flag in request arguments.
 
