@@ -41,6 +41,19 @@ To generate only the React component run either of the following commands:
 ./run.sh --react arrow_forward
 ```
 
+The script can also generate "filled" versions of the icon where the `FILL` axis
+is set to `FILL=1`. To also generate a filled version of the icon, use:
+
+```bash
+./run.sh --include_filled arrow_forward
+```
+
+To generate only the filled version of the icon, use:
+
+```bash
+./run.sh --filled_only arrow_forward
+```
+
 It is recommended to run the prettier on the generated `.tsx` file.
 
 ## Produce manually
