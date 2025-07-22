@@ -70,6 +70,10 @@ steps:
     entrypoint: /bin/bash
     waitFor: ["package_js", "setup_python"]
     secretEnv: ['percy_token']
+    env:
+      - 'PERCY_TARGET_BRANCH=${_BASE_BRANCH}'
+      - 'PERCY_PULL_REQUEST=${_PR_NUMBER}'
+      - 'PERCY_BRANCH=${_HEAD_BRANCH}'
     args:
       - -c
       - |
@@ -83,6 +87,10 @@ steps:
     entrypoint: /bin/sh
     waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
     secretEnv: ['percy_token']
+    env:
+      - 'PERCY_TARGET_BRANCH=${_BASE_BRANCH}'
+      - 'PERCY_PULL_REQUEST=${_PR_NUMBER}'
+      - 'PERCY_BRANCH=${_HEAD_BRANCH}'
     args:
       - -c
       - |
