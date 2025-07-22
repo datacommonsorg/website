@@ -255,7 +255,7 @@ function run_webdriver_test {
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
   else
-    npx percy exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    npx @percy/cli exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
   fi
   stop_servers
   deactivate
