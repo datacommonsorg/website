@@ -35,6 +35,14 @@ export function triggerGAEvent(
 export const GA_EVENT_PAGE_VIEW = "page_view";
 
 /**
+ * Triggered when a component to track is rendered.
+ * Parameters:
+ *  page_source : "explore",
+ *  component: "related_topics_generated_questions"
+ */
+export const GA_EVENT_COMPONENT_IMPRESSION = "component_impression";
+
+/**
  * Event name: place_category_click
  * Triggered when: users click on the category redirect link in the place explorer page.
  * Parameters with value: {
@@ -265,6 +273,8 @@ export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
 export const GA_PARAM_SEARCH_SELECTION = "search_selection";
 export const GA_PARAM_RELATED_TOPICS_MODE = "related_topics_mode";
+export const GA_PARAM_PAGE_SOURCE = "page_source";
+export const GA_PARAM_COMPONENT = "component";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -291,6 +301,7 @@ export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG =
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
+export const GA_VALUE_PAGE_SOURCE_EXPLORE = "explore";
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
 export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
