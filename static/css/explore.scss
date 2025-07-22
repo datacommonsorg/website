@@ -251,11 +251,11 @@
 }
 
 .loading-container {
-  padding: 24px;
+  padding: 1em;
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
   background: var(--loading-background);
-  margin-bottom: 31px;
+  margin-bottom: 1.5em;
   width: 100%;
   color: var(--gm-3-ref-neutral-neutral-50) !important
 }
@@ -263,11 +263,11 @@
 .related-places,
 .user-message-container,
 .follow-up-questions-container {
-  padding: 24px;
+  padding: 1em;
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
   background: var(--gm-3-white);
-  margin-bottom: 31px;
+  margin-bottom: 1.5em;
   width: 100%;
 }
 

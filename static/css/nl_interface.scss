@@ -495,6 +495,14 @@ h3,
   color: $text-color;
 }
 
+.subtopic {
+  padding: 1.5em 0 !important;
+
+}
+.subtopic:last-of-type {
+  padding: 1.5em 0 0 0 !important;
+}
+
 .block .show-more-expando {
   margin-top: 12px;
 }
@@ -792,7 +800,7 @@ $loading-dot-color: #999;
 }
 
 #subject-page-main-pane .col-12 {
-  padding-bottom: 0 !important;
+  padding-bottom: 1.5em !important;
 }
 
 .examples-container {
