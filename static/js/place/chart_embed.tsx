@@ -84,6 +84,7 @@ interface ChartEmbedStateType {
   sources: string[];
   chartDownloadXml: string;
   getDataCsv?: () => Promise<string>;
+  dataError: boolean;
 }
 
 /**
@@ -118,6 +119,7 @@ class ChartEmbed extends React.Component<
       sources: [],
       chartDownloadXml: "",
       getDataCsv: undefined,
+      dataError: false,
     };
     this.svgContainerElement = React.createRef();
     this.textareaElement = React.createRef();
@@ -179,6 +181,7 @@ class ChartEmbed extends React.Component<
         // Clear cached dataCSV to force CSV to refresh
         dataCsv: "",
         getDataCsv,
+        dataError: false,
         modal: true,
         loading: true,
         citation: [],
@@ -196,10 +199,6 @@ class ChartEmbed extends React.Component<
     if (!this.svgContainerElement.current) {
       return;
     }
-    // if (this.textareaElement.current) {
-    //   this.textareaElement.current.style.width =
-    //     this.state.chartWidth + CHART_PADDING * 2 + "px";
-    // }
 
     if (this.state.chartHtml) {
       const chartDownloadXml = this.decorateChartHtml();
@@ -351,7 +350,11 @@ class ChartEmbed extends React.Component<
                 }
               `}
             >
-              <h3>Source and citation</h3>
+              <h3>
+                {intl.formatMessage(
+                  metadataComponentMessages.SourceAndCitation
+                )}
+              </h3>
               <p>
                 {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
                 {buildCitationNodes(this.state.citation)}
@@ -372,12 +375,16 @@ class ChartEmbed extends React.Component<
               {intl.formatMessage(chartComponentMessages.DownloadSVG)}
             </Button>
           )}
-          <Button startIcon={<Download />} onClick={this.onDownloadData}>
-            {intl.formatMessage(chartComponentMessages.DownloadCSV)}
-          </Button>
-          <CopyToClipboardButton valueToCopy={this.state.dataCsv}>
-            {intl.formatMessage(chartComponentMessages.CopyValues)}
-          </CopyToClipboardButton>
+          {!this.state.dataError && (
+            <>
+              <Button startIcon={<Download />} onClick={this.onDownloadData}>
+                {intl.formatMessage(chartComponentMessages.DownloadCSV)}
+              </Button>
+              <CopyToClipboardButton valueToCopy={this.state.dataCsv}>
+                {intl.formatMessage(chartComponentMessages.CopyValues)}
+              </CopyToClipboardButton>
+            </>
+          )}
         </DialogActions>
       </Dialog>
     );
@@ -389,6 +396,23 @@ class ChartEmbed extends React.Component<
   private async loadModalData(
     getDataCsv: () => Promise<string>
   ): Promise<void> {
+    let dataCsv: string;
+    let dataFetchError = false;
+
+    try {
+      dataCsv = await getDataCsv();
+      if (!dataCsv) {
+        dataFetchError = true;
+        console.error("Error fetching data: Result was empty.");
+        dataCsv = intl.formatMessage(chartComponentMessages.DataError);
+      }
+    } catch (error) {
+      dataFetchError = true;
+      console.error("Error fetching data");
+      dataCsv = intl.formatMessage(chartComponentMessages.DataError);
+    }
+
+    let citation: CitationPart[];
     try {
       const getCitationPromise = async (): Promise<CitationPart[]> => {
         const { statVarSpecs, facets, statVarToFacets, apiRoot } = this.props;
@@ -418,30 +442,22 @@ class ChartEmbed extends React.Component<
           metadataResp.metadata
         );
       };
-
-      const [dataCsv, citation] = await Promise.all([
-        getDataCsv(),
-        getCitationPromise(),
-      ]);
-
-      this.setState(
-        {
-          dataCsv: dataCsv || "Error fetching CSV.",
-          citation,
-          loading: false,
-        },
-        () => {
-          this.onOpened();
-        }
-      );
+      citation = await getCitationPromise();
     } catch (error) {
-      console.error("Failed to load modal data:", error);
-      this.setState({
-        dataCsv: "Error fetching CSV.",
-        citation: [],
-        loading: false,
-      });
+      console.error("Error loading citation");
+      citation = [];
     }
+    this.setState(
+      {
+        dataCsv,
+        citation,
+        dataError: dataFetchError,
+        loading: false,
+      },
+      () => {
+        this.onOpened();
+      }
+    );
   }
 
   /**

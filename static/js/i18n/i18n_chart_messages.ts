@@ -37,6 +37,11 @@ export const chartComponentMessages = defineMessages({
     id: "copyValues",
     defaultMessage: "Copy values",
     description:
-      "Label for the button that copies the chart values to the clipboard when clicked. ",
+      "Label for the button that copies the chart values to the clipboard when clicked.",
+  },
+  DataError: {
+    id: "dataError",
+    defaultMessage: "Error fetching data.",
+    description: "Error message for no when the CSV data fetch fails.",
   },
 });
