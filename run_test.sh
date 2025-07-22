@@ -255,10 +255,7 @@ function run_webdriver_test {
   if [[ "$FLAKE_FINDER" == "true" ]]; then
     python3 -m pytest -n auto server/webdriver/tests/ ${@}
   else
-    # TODO: Stop using reruns once tests are deflaked.
-    # python_command="python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ \"${@}\""
-    # [[ "$PERCY_ENABLE" == "1" ]] && npx percy exec -- "$python_command" || eval "$python_command"
-    npx percy exec -- python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
   fi
   stop_servers
   deactivate
