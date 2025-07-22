@@ -153,7 +153,7 @@ class TestApiStatsProperty(unittest.TestCase):
 
 class TestSearchStatVar(unittest.TestCase):
 
-  @mock.patch('server.lib.feature_flags.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.search_vertexai')
   def test_search_statvar_dc_single_token_vai_disabled(self,
@@ -201,7 +201,7 @@ class TestSearchStatVar(unittest.TestCase):
       result = json.loads(response.data)
       assert result == expected_no_places_result
 
-  @mock.patch('server.lib.feature_flags.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.search_vertexai')
   def test_search_statvar_vai_enabled_places_specified(self,
@@ -245,7 +245,7 @@ class TestSearchStatVar(unittest.TestCase):
     expected_result_page_one = mock_data.VERTEX_AI_STAT_VAR_SEARCH_RESULT_PAGE_ONE
     expected_result_all = mock_data.VERTEX_AI_STAT_VAR_SEARCH_RESULT_ALL
 
-    def search_vai_side_effect(query, token):
+    def search_vai_side_effect(query, token, _=None):
       if query == expected_query and not token:
         return vai_response_page_one
       elif query == expected_query and token == 'page_two':
@@ -289,7 +289,7 @@ class TestSearchStatVar(unittest.TestCase):
     vai_response = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_MISSING_DATA
     expected_result = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
 
-    def search_vai_side_effect(query, token):
+    def search_vai_side_effect(query, token, _=None):
       if query == expected_query and not token:
         return vai_response
       else:
