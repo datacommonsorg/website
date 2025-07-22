@@ -16,6 +16,7 @@ import json
 import unittest
 from unittest import mock
 
+import server.tests.routes.api.mock_data as mock_data
 from web_app import app
 
 
@@ -152,30 +153,167 @@ class TestApiStatsProperty(unittest.TestCase):
 
 class TestSearchStatVar(unittest.TestCase):
 
+  @mock.patch('server.lib.feature_flags.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
-  def test_search_statvar_single_token(self, mock_search_result):
+  @mock.patch('server.routes.shared_api.stats.search_vertexai')
+  def test_search_statvar_dc_single_token_vai_disabled(self,
+                                                       mock_search_vertexai,
+                                                       mock_search_dc,
+                                                       mock_is_feature_enabled):
+    """Tests behaviour when Vertex AI search is disabled."""
     expected_query = 'person'
     expected_places = ["geoId/06"]
-    expected_result = {'statVarGroups': ['group_1', 'group_2']}
-    expected_sv_only_result = {'statVars': [{'name': 'sv1', 'dcid': 'sv1'}]}
+    expected_result = mock_data.DC_STAT_VAR_SEARCH_RESPONSE_SVG
+    expected_sv_only_result = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
+    expected_no_places_result = mock_data.DC_STAT_VAR_SEARCH_RESPONSE_NO_PLACES
 
-    def side_effect(query, places, sv_only):
+    def search_dc_side_effect(query, places, sv_only):
       if query == expected_query and places == expected_places and not sv_only:
         return expected_result
       elif query == expected_query and places == expected_places and sv_only:
         return expected_sv_only_result
+      elif query == expected_query and places == [] and not sv_only:
+        return expected_no_places_result
       else:
         return []
 
     with app.app_context():
-      mock_search_result.side_effect = side_effect
+      mock_is_feature_enabled.return_value = False
+      mock_search_vertexai.side_effect = ValueError(
+          "Vertex AI search not expected in this test.")
+      mock_search_dc.side_effect = search_dc_side_effect
+
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&places=geoId/06')
+      mock_search_vertexai.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&places=geoId/06&svOnly=1')
+      mock_search_vertexai.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_sv_only_result
+      response = app.test_client().get('api/stats/stat-var-search?query=person')
+      mock_search_vertexai.assert_not_called()
+      assert response.status_code == 200
+      result = json.loads(response.data)
+      assert result == expected_no_places_result
+
+  @mock.patch('server.lib.feature_flags.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
+  @mock.patch('server.routes.shared_api.stats.search_vertexai')
+  def test_search_statvar_vai_enabled_places_specified(self,
+                                                       mock_search_vertexai,
+                                                       mock_search_dc,
+                                                       mock_is_feature_enabled):
+    """Tests behaviour when Vertex AI search is enabled, but places are specified (i.e. should fall back to DC search)."""
+    expected_query = 'person'
+    expected_places = ["geoId/06"]
+    expected_result = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
+
+    def search_dc_side_effect(query, places, sv_only):
+      if query == expected_query and places == expected_places and sv_only:
+        return expected_result
+      else:
+        return []
+
+    with app.app_context():
+      mock_is_feature_enabled.return_value = True
+      mock_search_vertexai.side_effect = ValueError(
+          "Vertex AI search not expected in this test.")
+      mock_search_dc.side_effect = search_dc_side_effect
+
+      response = app.test_client().get(
+          'api/stats/stat-var-search?query=person&places=geoId/06&svOnly=1')
+      mock_search_vertexai.assert_not_called()
+      assert response.status_code == 200
+      result = json.loads(response.data)
+      assert result == expected_result
+
+  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
+  @mock.patch('server.routes.shared_api.stats.search_vertexai')
+  def test_search_statvar_vai_enabled(self, mock_search_vertexai,
+                                      mock_search_dc, mock_is_feature_enabled):
+    """Tests behaviour when Vertex AI search is enabled and should be called."""
+    expected_query = 'person'
+    vai_response_page_one = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_ONE
+    vai_response_page_two = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_TWO
+    expected_result_limit_one = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
+    expected_result_page_one = mock_data.VERTEX_AI_STAT_VAR_SEARCH_RESULT_PAGE_ONE
+    expected_result_all = mock_data.VERTEX_AI_STAT_VAR_SEARCH_RESULT_ALL
+
+    def search_vai_side_effect(query, token):
+      if query == expected_query and not token:
+        return vai_response_page_one
+      elif query == expected_query and token == 'page_two':
+        return vai_response_page_two
+      else:
+        return []
+
+    with app.app_context():
+      mock_is_feature_enabled.return_value = True
+      mock_search_vertexai.side_effect = search_vai_side_effect
+      mock_search_dc.side_effect = ValueError(
+          "DC search not expected in this test.")
+
+      response = app.test_client().get(
+          'api/stats/stat-var-search?query=person&limit=1')
+      mock_search_dc.assert_not_called()
+      assert response.status_code == 200
+      result = json.loads(response.data)
+      assert result == expected_result_limit_one
+      response = app.test_client().get(
+          'api/stats/stat-var-search?query=person&limit=3')
+      mock_search_dc.assert_not_called()
+      assert response.status_code == 200
+      result = json.loads(response.data)
+      assert result == expected_result_page_one
+      response = app.test_client().get(
+          'api/stats/stat-var-search?query=person&limit=10')
+      mock_search_dc.assert_not_called()
+      assert response.status_code == 200
+      result = json.loads(response.data)
+      assert result == expected_result_all
+
+  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
+  @mock.patch('server.routes.shared_api.stats.search_vertexai')
+  def test_search_statvar_vai_missing_data(self, mock_search_vertexai,
+                                           mock_search_dc,
+                                           mock_is_feature_enabled):
+    """Tests behaviour when Vertex AI search is enabled and returns incomplete StatVar data."""
+    expected_query = 'person'
+    vai_response = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_MISSING_DATA
+    expected_result = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
+
+    def search_vai_side_effect(query, token):
+      if query == expected_query and not token:
+        return vai_response
+      else:
+        return []
+
+    with app.app_context(), self.assertLogs(level='WARNING') as cm:
+      mock_is_feature_enabled.return_value = True
+      mock_search_vertexai.side_effect = search_vai_side_effect
+      mock_search_dc.side_effect = ValueError(
+          "DC search not expected in this test.")
+
+      response = app.test_client().get('api/stats/stat-var-search?query=person')
+      self.assertEqual(len(cm.output), 2)
+      self.assertEqual(cm.records[0].levelname, 'WARNING')
+      self.assertEqual(
+          cm.records[0].message,
+          'There\'s an issue with DCID or name for the stat var search result: {\'name\': \'sv2\'}'
+      )
+      self.assertEqual(cm.records[1].levelname, 'WARNING')
+      self.assertEqual(
+          cm.records[1].message,
+          'There\'s an issue with DCID or name for the stat var search result: {\'dcid\': \'sv3\'}'
+      )
+      mock_search_dc.assert_not_called()
+      assert response.status_code == 200
+      result = json.loads(response.data)
+      assert result == expected_result
