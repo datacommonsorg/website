@@ -192,6 +192,7 @@ try:
     try:
       WebDriverWait(driver, WAIT_TIMEOUT).until(
           EC.presence_of_element_located((By.TAG_NAME, "body")))
+      time.sleep(5)  # Additional sleep to ensure the page is fully rendered
       print(f"Page '{name}' appears to have loaded (body element found).")
     except TimeoutException:
       print(

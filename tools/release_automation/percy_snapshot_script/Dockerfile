@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir selenium percy-selenium
+RUN pip3 install --no-cache-dir selenium percy-selenium google-cloud-secret-manager
 
 # Install Percy CLI globally and add to PATH
 RUN npm install -g @percy/cli
