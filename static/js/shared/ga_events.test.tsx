@@ -104,8 +104,8 @@ import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
 import { FacetSelectorFacetInfo } from "./facet_selector";
 import {
-  GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW,
   GA_EVENT_RELATED_TOPICS_CLICK,
+  GA_EVENT_RELATED_TOPICS_VIEW,
   GA_EVENT_STATVAR_HIERARCHY_CLICK,
   GA_EVENT_STATVAR_SEARCH_TRIGGERED,
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
@@ -119,8 +119,8 @@ import {
   GA_PARAM_SOURCE,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
-  GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS,
-  GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS,
+  GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+  GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
@@ -1143,12 +1143,12 @@ describe("test ga event for Related Topics experiment", () => {
         GA_EVENT_RELATED_TOPICS_CLICK,
         {
           [GA_PARAM_RELATED_TOPICS_MODE]:
-            GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS,
+            GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
         }
       );
     });
   });
-  test("triggers GA event when Related Topics URL is clicked", async () => {
+  test("triggers GA event when Header Related Topics URL is clicked", async () => {
     // Mock gtag
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
@@ -1166,8 +1166,7 @@ describe("test ga event for Related Topics experiment", () => {
         "event",
         GA_EVENT_RELATED_TOPICS_CLICK,
         {
-          [GA_PARAM_RELATED_TOPICS_MODE]:
-            GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS,
+          [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
         }
       );
     });
@@ -1183,8 +1182,29 @@ describe("test ga event for Related Topics experiment", () => {
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
         "event",
-        GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW,
-        {}
+        GA_EVENT_RELATED_TOPICS_VIEW,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]:
+            GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Header RelatedTopics component is viewed", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render result header component
+    render(<ResultHeaderSection {...RESULT_HEADER_SECTION_PROPS} />);
+    mockAllIsIntersecting(true);
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_VIEW,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+        }
       );
     });
   });
