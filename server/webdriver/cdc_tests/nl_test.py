@@ -35,4 +35,4 @@ class CdcNLTest(ExploreTest, CdcTestBase):
                   by=By.CSS_SELECTOR,
                   value='.explore-container .search-bar').is_displayed())
 
-    percy_snapshot(self.driver, 'CDC NL Page')
+    percy_snapshot(self.driver, self.dc_title_string + ' NL Page')
