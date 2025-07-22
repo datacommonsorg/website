@@ -153,7 +153,7 @@ class TestApiStatsProperty(unittest.TestCase):
 
 class TestSearchStatVar(unittest.TestCase):
 
-  @mock.patch('server.lib.feature_flags.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.search_vertexai')
   def test_search_statvar_dc_single_token_vai_disabled(self,
@@ -201,7 +201,7 @@ class TestSearchStatVar(unittest.TestCase):
       result = json.loads(response.data)
       assert result == expected_no_places_result
 
-  @mock.patch('server.lib.feature_flags.is_feature_enabled')
+  @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.search_vertexai')
   def test_search_statvar_vai_enabled_places_specified(self,
