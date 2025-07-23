@@ -30,7 +30,7 @@ import {
   GA_EVENT_RELATED_TOPICS_VIEW,
   GA_PARAM_RELATED_TOPICS_MODE,
   GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
-  GA_VALUE_SEARCH_SOURCE_EXPLORE,
+  GA_VALUE_PAGE_EXPLORE,
   triggerComponentImpression,
   triggerGAEvent,
 } from "../../shared/ga_events";
@@ -75,7 +75,7 @@ export function FollowUpQuestions(
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
         triggerComponentImpression(
-          GA_VALUE_SEARCH_SOURCE_EXPLORE,
+          GA_VALUE_PAGE_EXPLORE,
           GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS
         );
         setFollowUpQuestions(value);
