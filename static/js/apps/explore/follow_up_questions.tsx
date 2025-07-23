@@ -23,7 +23,10 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { Loading } from "../../components/elements/loading";
-import { CLIENT_TYPES, URL_HASH_PARAMS } from "../../constants/app/explore_constants";
+import {
+  CLIENT_TYPES,
+  URL_HASH_PARAMS,
+} from "../../constants/app/explore_constants";
 import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
