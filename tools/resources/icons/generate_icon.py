@@ -32,6 +32,7 @@ import xml.etree.ElementTree as ET
 
 import requests
 
+REACT_FILE_TEMPLATE_FILENAME = "react_component_file_template.txt"
 REACT_COMPONENT_TEMPLATE = """
 export const {{ icon component name }} = (
     props: React.SVGProps<SVGSVGElement>
@@ -236,7 +237,7 @@ def main():
 
   # Get directory paths
   script_dir = os.path.dirname(os.path.abspath(__file__))
-  template_path = os.path.join(script_dir, 'component_template.txt')
+  template_path = os.path.join(script_dir, REACT_FILE_TEMPLATE_FILENAME)
   root_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..'))
   html_icons_dir = os.path.join(root_dir, 'server', 'templates', 'resources',
                                 'icons')

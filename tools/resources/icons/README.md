@@ -54,6 +54,11 @@ To generate only the filled version of the icon, use:
 ./run.sh --filled_only arrow_forward
 ```
 
+> [!WARN]
+> If the base icon already exists in our codebase, using `--filled_only` will
+> OVERWRITE the current base icon with the filled icon. To add a filled icon
+> without deleting the base icon, use `--include_filled` instead.
+
 It is recommended to run the prettier on the generated `.tsx` file.
 
 ## Produce manually
