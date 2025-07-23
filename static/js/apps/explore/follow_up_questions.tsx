@@ -23,7 +23,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { Loading } from "../../components/elements/loading";
-import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
+import { CLIENT_TYPES, URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
@@ -135,6 +135,7 @@ const getFollowUpQuestions = async (
         url: `/explore/?enable_feature=${FOLLOW_UP_QUESTIONS_GA}#${getUpdatedHash(
           {
             [URL_HASH_PARAMS.QUERY]: question,
+            [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_QUESTION,
           }
         )}`,
       };
