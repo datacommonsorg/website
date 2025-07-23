@@ -449,7 +449,7 @@ export const Dialog = ({
   }, [open]);
 
   const isInteractive = isVisible || isClosing;
-  const shouldShow = isInteractive || keepMounted;
+  const shouldShow = open || isInteractive || keepMounted;
 
   const getActiveFadeDuration = (): number => {
     if (!isVisible) return fadeOutDuration;

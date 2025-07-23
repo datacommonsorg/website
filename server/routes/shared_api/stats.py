@@ -26,6 +26,7 @@ from server.lib import shared
 from server.lib.cache import cache
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.feature_flags import VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG
+from server.lib.feature_flags import VAI_MEDIUM_RELEVANCE_FEATURE_FLAG
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
@@ -48,7 +49,8 @@ vai_serving_config = f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/collec
 
 def search_vertexai(
     query: str,
-    page_token: str | None = None
+    page_token: str | None = None,
+    is_medium_relevance_enabled: bool = False
 ) -> discoveryengine.services.search_service.pagers.SearchPager:
   """Search statvars using Vertex AI search application."""
   search_request = discoveryengine.SearchRequest(
@@ -58,7 +60,9 @@ def search_vertexai(
       page_size=100,
       spell_correction_spec=discoveryengine.SearchRequest.SpellCorrectionSpec(
           mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO),
-      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
+      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.
+      MEDIUM if is_medium_relevance_enabled else
+      discoveryengine.SearchRequest.RelevanceThreshold.LOW)
 
   page_result = vai_client.search(search_request)
 
@@ -140,6 +144,8 @@ def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
   is_vai_enabled = is_feature_enabled(VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG,
                                       request=request)
+  is_vai_medium_relevance_enabled = is_feature_enabled(
+      VAI_MEDIUM_RELEVANCE_FEATURE_FLAG, request=request)
   if request.method == 'GET':
     query = request.args.get("query")
     places = request.args.getlist("places")
@@ -155,7 +161,8 @@ def search_statvar():
     statVars = []
     page_token = None
     while len(statVars) < limit:
-      search_results = search_vertexai(query, page_token)
+      search_results = search_vertexai(query, page_token,
+                                       is_vai_medium_relevance_enabled)
       for response in search_results.results:
         dcid = response.document.struct_data.get("dcid")
         name = response.document.struct_data.get("name")

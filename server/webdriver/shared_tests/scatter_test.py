@@ -23,7 +23,8 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
-SCATTER_URL = '/tools/scatter'
+# TODO(juliawu): Remove disabled feature once new UI is rolled out to production
+SCATTER_URL = '/tools/scatter?disable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
     'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
     '&epd=geoId/06&epn=California&ept=County'
