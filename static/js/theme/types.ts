@@ -326,6 +326,20 @@ export interface Theme {
       };
     };
   };
+  infoBox: {
+    backgroundColor: string;
+    heading: TextVariant;
+    icon: {
+      fontSize: string;
+      lineHeight: string;
+      [key: string]:
+        | string
+        | {
+            fontSize?: string;
+            lineHeight?: string;
+          };
+    };
+  };
   elevation: {
     none: {
       boxShadow: string;
