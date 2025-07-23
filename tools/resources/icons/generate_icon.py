@@ -32,7 +32,7 @@ import xml.etree.ElementTree as ET
 
 import requests
 
-REACT_FILE_TEMPLATE_FILENAME = "react_component_file_template.txt"
+REACT_FILE_TEMPLATE_FILENAME = 'react_component_file_template.txt'
 REACT_COMPONENT_TEMPLATE = """
 export const {{ icon component name }} = (
     props: React.SVGProps<SVGSVGElement>
@@ -84,9 +84,18 @@ def convert_snake_to_title(icon_name):
 
 
 def download_svg(icon_name: str, filled: bool = False) -> str:
+  """Downloads the requested SVG from the Material Design icon repository.
+
+  Args:
+    icon_name: The name of the icon in snake_case (e.g., chevron_left).
+    filled: Whether to download the filled version of the icon.
+
+  Returns:
+      The SVG content as a string.
+
+  Raises:
+      ValueError: If the icon cannot be downloaded (e.g., due to a 404 error).
   """
-    Downloads the requested SVG from the Material Design icon repository.
-    """
   base_url = 'https://raw.githubusercontent.com/google/material-design-icons/refs/heads/master/symbols/web'
   svg_url = f'{base_url}/{icon_name}/materialsymbolsoutlined/{icon_name}_24px.svg'
   if filled:
@@ -102,9 +111,20 @@ def download_svg(icon_name: str, filled: bool = False) -> str:
 
 
 def process_svg(svg_content: str) -> str:
+  """Processes the SVG content.
+
+  This function takes raw SVG content, parses it, and modifies it to allow for
+  styling via CSS (e.g., setting the fill color to 'currentColor').
+
+  Args:
+    svg_content: The raw SVG content as a string.
+
+  Returns:
+    The processed SVG content as a string.
+
+  Raises:
+    ValueError: If the SVG content is malformed and cannot be parsed.
   """
-    Processes the SVG content to prepare to allow it to be styled through CSS similar to how a font is
-    """
 
   ET.register_namespace('', "http://www.w3.org/2000/svg")
 
@@ -129,11 +149,11 @@ def process_svg(svg_content: str) -> str:
 
 
 def save_svg(svg_content: str, output_path: str) -> None:
-  """Write SVG content to a file
+  """Writes SVG content to a file.
 
   Args:
-      svg_content: SVG content to write
-      output_path: file path to write SVG to
+      svg_content: SVG content to write.
+      output_path: File path to write SVG to.
   """
   if not svg_content:
     return
@@ -144,15 +164,20 @@ def save_svg(svg_content: str, output_path: str) -> None:
 
 
 def get_processed_svg(icon_name: str, filled: bool = False) -> str:
-  """Get SVG content for a icon that can be styled through CSS
+  """Downloads and processes an SVG icon.
+
+  This function orchestrates the downloading and processing of an SVG icon. It
+  calls the `download_svg` and `process_svg` functions.
 
   Args:
-      icon_name: name of the icon
-      filled: whether to get the filled version of the icon
+    icon_name: The name of the icon in snake_case (e.g., chevron_left).
+    filled: Whether to get the filled version of the icon.
 
   Returns:
-      SVG content that has attributes added so it can be styled through CSS
-      similar to how a font is
+      The processed SVG content as a string.
+
+  Raises:
+      ValueError: If the icon cannot be downloaded or the SVG is malformed.
   """
   svg_content = download_svg(icon_name, filled)
   return process_svg(svg_content)
@@ -162,8 +187,8 @@ def generate_react_component(icon_name: str, svg_content: str) -> str:
   """Generates a React functional component for the icon
   
   Args:
-    icon_name: name of the icon in snake_case
-    svg_content: SVG content for the react component to display
+    icon_name: Name of the icon in snake_case.
+    svg_content: SVG content for the react component to display.
 
   Returns:
     A react functional component that can be inserted into a template.
@@ -192,14 +217,14 @@ def write_react_component_to_file(icon_name: str,
                                   template_path: str,
                                   react_component: str = "",
                                   filled_react_component: str = "") -> None:
-  """Write react component(s) to a .tsx file based on a template file
+  """Writes react component(s) to a .tsx file based on a template file.
 
   Args:
-      icon_name: name of the icon in snake_case
-      react_dir: directory to write the .tsx file to
-      template_path: path to a template file to base the new file on
-      react_component: react functional component for the base icon
-      filled_react_component: react functional component for the filled icon
+      icon_name: Name of the icon in snake_case.
+      react_dir: Directory to write the .tsx file to.
+      template_path: Path to a template file to base the new file on.
+      react_component: React functional component for the base icon.
+      filled_react_component: React functional component for the filled icon.
   """
   try:
     with open(template_path, 'r', encoding='utf-8') as template_file:
@@ -244,13 +269,9 @@ def main():
                                  'elements', 'icons')
 
   # Download and process SVGs from Material Design icon repository
-  try:
-    processed_svg = get_processed_svg(icon_name) if generate_base_icon else None
-    filled_processed_svg = get_processed_svg(
-        icon_name, filled=True) if generate_filled_icon else None
-  except ValueError as e:
-    print(e)
-    sys.exit(1)
+  processed_svg = get_processed_svg(icon_name) if generate_base_icon else None
+  filled_processed_svg = get_processed_svg(
+      icon_name, filled=True) if generate_filled_icon else None
 
   if generate_flask_svg:
     # Save SVGs to file
@@ -269,4 +290,8 @@ def main():
 
 
 if __name__ == '__main__':
-  main()
+  try:
+    main()
+  except ValueError as e:
+    print(e)
+    sys.exit(1)
