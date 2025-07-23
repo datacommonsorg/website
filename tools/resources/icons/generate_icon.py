@@ -98,8 +98,7 @@ def download_svg(icon_name: str, filled: bool = False) -> str:
     print('SVG download complete.')
     return response.text
   raise ValueError(
-      f'Failed to download SVG: {svg_url}, Status Code: {response.status_code}'
-  )
+      f'Failed to download SVG: {svg_url}, Status Code: {response.status_code}')
 
 
 def process_svg(svg_content: str) -> str:
