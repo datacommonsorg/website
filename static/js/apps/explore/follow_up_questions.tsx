@@ -32,7 +32,9 @@ import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
   GA_PARAM_RELATED_TOPICS_MODE,
+  GA_VALUE_PAGE_EXPLORE,
   GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+  triggerComponentImpression,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
@@ -75,6 +77,10 @@ export function FollowUpQuestions(
     );
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
+        triggerComponentImpression(
+          GA_VALUE_PAGE_EXPLORE,
+          GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS
+        );
         setFollowUpQuestions(value);
       })
       .catch(() => {
