@@ -96,9 +96,9 @@ def download_svg(icon_name: str, filled: bool = False) -> str:
   if response.status_code == 200:
     print('SVG download complete.')
     return response.text
-  else:
-    print(f'Error: Failed to download SVG. Status Code: {response.status_code}')
-    return None
+  raise ValueError(
+      f'Failed to download SVG: {svg_url}, Status Code: {response.status_code}'
+  )
 
 
 def process_svg(svg_content: str) -> str:
@@ -111,8 +111,7 @@ def process_svg(svg_content: str) -> str:
   try:
     root = ET.fromstring(svg_content)
   except ET.ParseError as e:
-    print(f'Error parsing SVG: {e}')
-    return None
+    raise ValueError(f'Error parsing SVG: {e}')
 
   if 'width' in root.attrib:
     del root.attrib['width']
@@ -156,13 +155,7 @@ def get_processed_svg(icon_name: str, filled: bool = False) -> str:
       similar to how a font is
   """
   svg_content = download_svg(icon_name, filled)
-  if not svg_content:
-    sys.exit(1)
-
-  processed_svg = process_svg(svg_content)
-  if not processed_svg:
-    sys.exit(1)
-  return processed_svg
+  return process_svg(svg_content)
 
 
 def generate_react_component(icon_name: str, svg_content: str) -> str:
@@ -251,9 +244,13 @@ def main():
                                  'elements', 'icons')
 
   # Download and process SVGs from Material Design icon repository
-  processed_svg = get_processed_svg(icon_name) if generate_base_icon else None
-  filled_processed_svg = get_processed_svg(
-      icon_name, filled=True) if generate_filled_icon else None
+  try:
+    processed_svg = get_processed_svg(icon_name) if generate_base_icon else None
+    filled_processed_svg = get_processed_svg(
+        icon_name, filled=True) if generate_filled_icon else None
+  except ValueError as e:
+    print(e)
+    sys.exit(1)
 
   if generate_flask_svg:
     # Save SVGs to file
