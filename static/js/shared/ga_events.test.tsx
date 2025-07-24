@@ -104,6 +104,7 @@ import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
 import { FacetSelectorFacetInfo } from "./facet_selector";
 import {
+  GA_EVENT_COMPONENT_IMPRESSION,
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
   GA_EVENT_STATVAR_HIERARCHY_CLICK,
@@ -113,12 +114,15 @@ import {
   GA_EVENT_TOOL_PLACE_ADD,
   GA_EVENT_TOOL_STAT_VAR_CLICK,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+  GA_PARAM_COMPONENT,
+  GA_PARAM_PAGE_SOURCE,
   GA_PARAM_PLACE_DCID,
   GA_PARAM_RELATED_TOPICS_MODE,
   GA_PARAM_SEARCH_TERM,
   GA_PARAM_SOURCE,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_PAGE_EXPLORE,
   GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
   GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
@@ -1204,6 +1208,32 @@ describe("test ga event for Related Topics experiment", () => {
         GA_EVENT_RELATED_TOPICS_VIEW,
         {
           [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Follow Up Questions component renders questions", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve({ data: { follow_up_questions: [QUERY] } })
+      );
+
+    // Render follow up component
+    render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_COMPONENT_IMPRESSION,
+        {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
         }
       );
     });
