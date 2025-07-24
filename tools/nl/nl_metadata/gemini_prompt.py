@@ -11,11 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """
 Defines two different prompts to be used to prompt Gemini to generate alternative sentences/translate metadata for statistical variables.
 Currently, the first prompt is in use in add_metadata.py.
 """
+
 
 def get_gemini_prompt(schema_json_string: str) -> str:
   return f"""You are an expert linguist and a creative writer specializing in generating semantically rich and diverse descriptions of statistical variables for a state-of-the-art search application.
@@ -183,7 +183,9 @@ def get_gemini_prompt(schema_json_string: str) -> str:
   **Metadata to process:**\n
   """
 
-def get_gemini_prompt_with_translations(target_language: str, schema_json_string: str) -> str:
+
+def get_gemini_prompt_with_translations(target_language: str,
+                                        schema_json_string: str) -> str:
   return f"""You are an expert linguist and a creative writer specializing in generating semantically rich and diverse descriptions of statistical variables for a state-of-the-art search application.
 
   **Primary Goal:**
