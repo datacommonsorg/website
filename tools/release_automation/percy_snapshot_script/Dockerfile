@@ -24,9 +24,6 @@ RUN apt-get update && apt-get install -y \
     nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-RUN pip3 install --no-cache-dir selenium percy-selenium google-cloud-secret-manager
-
 # Install Percy CLI globally and add to PATH
 RUN npm install -g @percy/cli
 
@@ -36,7 +33,13 @@ ENV PATH="/usr/local/bin:$PATH"
 # Default working directory
 WORKDIR /app
 
+# Copy requirements.txt and install Python dependencies
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Copy the Python script and the URLs file
 COPY per_environment_percy_snapshots.py ./
+COPY urls.json ./
 
 # Entrypoint override (for Cloud Build)
 ENTRYPOINT ["bash"]
