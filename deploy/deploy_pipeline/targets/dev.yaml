@@ -1,0 +1,16 @@
+# clouddeploy/targets/dev.yaml
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: website-dev-target
+description: Development GKE cluster for the website in project datcom-website-dev
+gke:
+  cluster: projects/datcom-website-dev/locations/us-central1/clusters/website-us-central1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: mixer-dev-target
+description: Development GKE cluster for the mixer in project datcom-mixer-dev
+gke:
+  cluster: projects/datcom-mixer-dev/locations/us-central1/clusters/mixer-us-central1

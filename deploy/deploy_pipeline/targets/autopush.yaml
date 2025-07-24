@@ -1,0 +1,16 @@
+# clouddeploy/targets/autopush.yaml
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: website-autopush-target
+description: Autopush GKE cluster for the website in project datcom-website-autopush
+gke:
+  cluster: projects/datcom-website-autopush/locations/us-central1/clusters/website-us-central1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: mixer-autopush-target
+description: Autopush GKE cluster for the mixer in project datcom-mixer-autopush
+gke:
+  cluster: projects/datcom-mixer-autopush/locations/us-central1/clusters/mixer-us-central1

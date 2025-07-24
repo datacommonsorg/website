@@ -1,0 +1,12 @@
+# clouddeploy/pipeline.yaml
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: website-mixer-pipeline
+description: Main delivery pipeline for website and mixer
+serialPipeline:
+  stages:
+    - targetId: website-dev-target
+      profiles: [website-dev]
+    - targetId: mixer-dev-target
+      profiles: [mixer-dev]
