@@ -49,5 +49,5 @@ gcloud builds submit --project=datcom-ci --config=cloudbuild.push_image.yaml .
 This step triggers the Google Cloud Build Action to run the percy runner on a specific environment.
 
 ```bash
-gcloud builds submit --config cloudbuild.yaml --substitutions=_ENVIRONMENT=production .
+gcloud builds submit --project=datcom-ci --config cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=production .
 ```
