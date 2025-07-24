@@ -20,6 +20,8 @@ steps:
       - |
         cd /app
         export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
         percy exec -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
     secretEnv: ['percy_token']
 
