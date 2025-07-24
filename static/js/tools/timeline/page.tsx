@@ -36,6 +36,8 @@ import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkWall } from "../shared/vis_tools/chart_link_wall";
+import { landingPageLinks } from "../shared/vis_tools/landing_page_example_links";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartRegion } from "./chart_region";
 import { MemoizedInfo } from "./info";
@@ -183,7 +185,10 @@ class Page extends Component<unknown, PageStateType> {
             </Card>
             {numPlaces === 0 &&
               (useStandardizedUi ? (
-                <VisToolInstructionsBox multiPlace multiVariable />
+                <>
+                  <VisToolInstructionsBox multiPlace multiVariable />
+                  <ChartLinkWall links={landingPageLinks.timelineLinks} />
+                </>
               ) : (
                 <MemoizedInfo />
               ))}

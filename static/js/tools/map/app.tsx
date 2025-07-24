@@ -31,6 +31,8 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkWall } from "../shared/vis_tools/chart_link_wall";
+import { landingPageLinks } from "../shared/vis_tools/landing_page_example_links";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
@@ -80,6 +82,11 @@ function App(): ReactElement {
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
           <Row>{useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}</Row>
+          {useStandardizedUi && (
+            <Row>
+              <ChartLinkWall links={landingPageLinks.mapLinks}></ChartLinkWall>
+            </Row>
+          )}
           <Row id="chart-row">
             <ChartLoader />
           </Row>

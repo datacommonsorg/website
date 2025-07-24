@@ -79,6 +79,7 @@ const DC_BONE = "hsl(216, 55%, 98%)";
 
 const DC_BLUE = "hsl(217, 90%, 43%)";
 const DC_BLUE_DARK = "hsl(217, 90%, 15%)";
+const DC_BLUE_MID_DARK = "hsl(203, 100%, 23%)";
 const DC_BLUE_LIGHT = "hsl(218, 57%, 63%)";
 const DC_BLUE_LIGHTER = "hsl(204, 100%, 88%)";
 const DC_BLUE_LIGHTEST = "hsl(204, 100%, 88%, 33%)";
@@ -205,6 +206,11 @@ const theme: Theme = {
         base: DC_BLUE,
         light: DC_BLUE_LIGHT,
         dark: DC_BLUE_DARK,
+      },
+      secondary: {
+        base: DC_BLUE_LIGHTER,
+        light: DC_BLUE_LIGHTEST,
+        dark: DC_BLUE_MID_DARK,
       },
     },
   },

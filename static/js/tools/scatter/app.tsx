@@ -31,6 +31,8 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkWall } from "../shared/vis_tools/chart_link_wall";
+import { landingPageLinks } from "../shared/vis_tools/landing_page_example_links";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import {
@@ -101,13 +103,24 @@ function App(): ReactElement {
             </Row>
           )}
           {showInfo && (
-            <Row>
+            <>
               {useStandardizedUi ? (
-                <VisToolInstructionsBox multiVariable />
+                <>
+                  <Row>
+                    <VisToolInstructionsBox multiVariable />
+                  </Row>
+                  <Row>
+                    <ChartLinkWall
+                      links={landingPageLinks.scatterLinks}
+                    ></ChartLinkWall>
+                  </Row>
+                </>
               ) : (
-                <MemoizedInfo />
+                <Row>
+                  <MemoizedInfo />
+                </Row>
               )}
-            </Row>
+            </>
           )}
           {showChart && (
             <Row id="chart-row">
