@@ -1,0 +1,254 @@
+[
+  {
+    "path": "/version",
+    "name": "Version page"
+  },
+  {
+    "path": "/",
+    "name": "Home page"
+  },
+  {
+    "path": "/place/country/USA?topic=Demographics&seed=1",
+    "name": "US Demographics"
+  },
+  {
+    "path": "/place/geoId/0649670?seed=1",
+    "name": "Mountain View Place Page"
+  },
+  {
+    "path": "/place/geoId/06085",
+    "name": "Santa Clara County Place Page"
+  },
+  {
+    "path": "/place/geoId/06?category=Demographics&seed=1",
+    "name": "California Demographics"
+  },
+  {
+    "path": "/place/country/IND?hl=hi&seed=1",
+    "name": "India Place Page in Hindi"
+  },
+  {
+    "path": "/place/country/JPN?hl=ja",
+    "name": "Japan Place Page in Japanese"
+  },
+  {
+    "path": "/place/geoId/1304000/?utm_medium=explore&mprop=count&popt=Person&hl=en&seed=1",
+    "name": "Atlanta Place Page with mprop"
+  },
+  {
+    "path": "/browser/geoId/06",
+    "name": "California Browser Page"
+  },
+  {
+    "path": "/browser/geoId/06085?statVar=Count_Person_AsianAlone",
+    "name": "Santa Clara County Asian Population Count"
+  },
+  {
+    "path": "/disasters/Earth",
+    "name": "Earth Disasters"
+  },
+  {
+    "path": "/disasters/country/BRA",
+    "name": "Brazil Disasters"
+  },
+  {
+    "path": "/tools/timeline#&place=geoId/0606000,geoId/2511000&statsVar=Median_Age_Person",
+    "name": "Median Age Timeline in Berkeley and Cambridge"
+  },
+  {
+    "path": "/tools/visualization#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F2511000%26placeType%3DCensusZipCodeTabulationArea%26sv%3D%7B%22dcid%22%3A%22Median_Age_Person%22%7D",
+    "name": "Median Age Timeline Visualization for Zip codes in Berkeley and Cambridge"
+  },
+  {
+    "path": "/ranking/Median_Income_Person/County/country/USA",
+    "name": "US County Median Income Ranking"
+  },
+  {
+    "path": "/tools/map#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility",
+    "name": "US State Carbon Dioxide Emissions Map"
+  },
+  {
+    "path": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22Annual_Emissions_GreenhouseGas_NonBiogenic%22%7D",
+    "name": "US State Greenhouse Gas Emissions Map Visualization"
+  },
+  {
+    "path": "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DPercent_Person_WithCoronaryHeartDisease%26dy%3DCount_Person%26epd%3DgeoId%2F12%26ept%3DCounty%26pp%3D",
+    "name": "Heart Disease vs. Temperature Scatter Plot in Florida Counties"
+  },
+  {
+    "path": "/tools/visualization?#visType%3Dscatter%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22Percent_Person_WithCoronaryHeartDisease%22%7D___%7B%22dcid%22%3A%22DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%22%7D",
+    "name": "Heart Disease vs. Temperature Scatter Plot Visualization in US Counties"
+  },
+  {
+    "path": "/tools/statvar#sv=Mean_WagesDaily_Worker",
+    "name": "Mean Daily Worker Wages Statistics"
+  },
+  {
+    "path": "/tools/map#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
+    "name": "US County Temperature Change Map"
+  },
+  {
+    "path": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%22%7D",
+    "name": "US County Temperature Change Map Visualization"
+  },
+  {
+    "path": "/tools/map#%26sv%3DMaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_GFDL-CM4_SSP245%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2",
+    "name": "India Temperature Probability Map"
+  },
+  {
+    "path": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F08%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22Count_Person_EducationalAttainmentBachelorsDegreeOrHigher%22%2C%22pc%22%3A%221%22%7D",
+    "name": "Colorado County Higher Education Map Visualization"
+  },
+  {
+    "path": "/tools/visualization#visType=timeline",
+    "name": "Timeline Visualization Tool"
+  },
+  {
+    "path": "/tools/visualization#visType=map",
+    "name": "Map Visualization Tool"
+  },
+  {
+    "path": "/tools/visualization#visType=scatter",
+    "name": "Scatter Plot Visualization Tool"
+  },
+  {
+    "path": "/browser/fire/irwinId/04745f7c-3f8b-47a4-8efe-c8f3c84742d9",
+    "name": "Fire Incident Browser (Specific ID)"
+  },
+  {
+    "path": "/explore/economics",
+    "name": "Explore Economics"
+  },
+  {
+    "path": "/explore/demographics",
+    "name": "Explore Demographics"
+  },
+  {
+    "path": "/explore/health",
+    "name": "Explore Health"
+  },
+  {
+    "path": "/explore/sustainability",
+    "name": "Explore Sustainability"
+  },
+  {
+    "path": "/explore/education-housing-commute",
+    "name": "Explore Education, Housing & Commute"
+  },
+  {
+    "path": "/explore/equity",
+    "name": "Explore Equity"
+  },
+  {
+    "path": "/explore/sdg",
+    "name": "Explore SDG (Sustainable Development Goals)"
+  },
+  {
+    "path": "/explore/#q=Obesity+vs+Unemployment+in+the+US+counties&mb=3&test=screenshot",
+    "name": "Explore: Obesity vs. Unemployment in US Counties"
+  },
+  {
+    "path": "/explore/#q=Businesses+by+industry+in+New+York+State&mb=3&test=screenshot",
+    "name": "Explore: Businesses by Industry in New York State"
+  },
+  {
+    "path": "/explore/#q=Health+equity+in+Santa+Clara+County&mb=3&test=screenshot",
+    "name": "Explore: Health Equity in Santa Clara County"
+  },
+  {
+    "path": "/explore/#q=Incarceration+rates+by+race+in+the+US&mb=3&test=screenshot",
+    "name": "Explore: Incarceration Rates by Race in the US"
+  },
+  {
+    "path": "/explore/#q=health+behaviors+in+India+vs+Norway&mb=3&test=screenshot",
+    "name": "Explore: Health Behaviors in India vs. Norway"
+  },
+  {
+    "path": "/explore/#q=High+blood+pressure+vs+Asthma+in+Alabama&mb=3&test=screenshot",
+    "name": "Explore: High Blood Pressure vs. Asthma in Alabama"
+  },
+  {
+    "path": "/explore/#q=School+Enrollment+in+California&mb=3&test=screenshot",
+    "name": "Explore: School Enrollment in California"
+  },
+  {
+    "path": "/explore/#q=Student+demographics+among+schools+in+Sunnyvale&mb=3&test=screenshot",
+    "name": "Explore: Student Demographics in Sunnyvale Schools"
+  },
+  {
+    "path": "/explore#q=Housing+in+Oakland&mb=3&test=screenshot",
+    "name": "Explore: Housing in Oakland"
+  },
+  {
+    "path": "/explore/#q=Compare+modes+of+commute+between+NYC+and+Chicago&mb=3&test=screenshot",
+    "name": "Explore: Commute Modes NYC vs. Chicago"
+  },
+  {
+    "path": "/explore/#q=Rental+prices+in+Oakland+vs+Berkeley&mb=3&test=screenshot",
+    "name": "Explore: Rental Prices in Oakland vs. Berkeley"
+  },
+  {
+    "path": "/explore/#q=Median+home+value+vs.+hypertension+in+US+counties&mb=3&test=screenshot",
+    "name": "Explore: Median Home Value vs. Hypertension in US Counties"
+  },
+  {
+    "path": "/explore/#q=Gender+distribution+in+the+US&mb=3&test=screenshot",
+    "name": "Explore: Gender Distribution in the US"
+  },
+  {
+    "path": "/explore/#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&mb=3&test=screenshot",
+    "name": "Explore: Foreign Born Population vs. PhD Holders in California Counties"
+  },
+  {
+    "path": "/explore/#q=Green+jobs+in+the+US&mb=3&test=screenshot",
+    "name": "Explore: Green Jobs in the US"
+  },
+  {
+    "path": "/explore/#q=AQI+vs+blood+pressure+in+New+Jersey&mb=3&test=screenshot",
+    "name": "Explore: AQI vs. Blood Pressure in New Jersey"
+  },
+  {
+    "path": "/topic/dev/geoId/06",
+    "name": "California Development Topic"
+  },
+  {
+    "path": "/topic/dev/asia",
+    "name": "Asia Development Topic"
+  },
+  {
+    "path": "/topic/dev/geoId/06?wc=true",
+    "name": "California Development Topic (Wildcard)"
+  },
+  {
+    "path": "/topic/dev/asia?wc=true",
+    "name": "Asia Development Topic (Wildcard)"
+  },
+  {
+    "path": "/topic/equity/country/USA?wc=true",
+    "name": "US Equity Topic (Wildcard)"
+  },
+  {
+    "path": "/explore/education-housing-commute",
+    "name": "Explore Education, Housing & Commute"
+  },
+  {
+    "path": "/explore/demographics",
+    "name": "Explore Demographics"
+  },
+  {
+    "path": "/explore#t=dc/topic/Language&p=country/USA",
+    "name": "Explore: Language in USA"
+  },
+  {
+    "path": "/explore#client=ui_landing&q=How+does+PM2.5+correlate+with+asthma+across+US+counties",
+    "name": "Explore: PM2.5 vs. Asthma in US Counties"
+  },
+  {
+    "path": "/explore#q=Which%20state%20in%20the%20US%20has%20the%20most%20Tamil%20speakers%3F",
+    "name": "Explore: US State with Most Tamil Speakers"
+  },
+  {
+    "path": "/explore#q=Show%20me%20the%20breakdown%20of%20businesses%20by%20industry%20type%20in%20the%20US.",
+    "name": "Explore: Businesses by Industry in the US"
+  }
+]
