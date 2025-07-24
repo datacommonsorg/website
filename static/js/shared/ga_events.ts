@@ -29,10 +29,33 @@ export function triggerGAEvent(
 }
 
 /**
+ * A helper function to trigger Google Analytics events for component impressions.
+ * @param pageSource The path of the page where the component was successfully rendered.
+ * @param component A descriptive name of the component to track for impressions.
+ */
+export function triggerComponentImpression(
+  pageSource: string,
+  component: string
+): void {
+  triggerGAEvent(GA_EVENT_COMPONENT_IMPRESSION, {
+    [GA_PARAM_PAGE_SOURCE]: pageSource,
+    [GA_PARAM_COMPONENT]: component,
+  });
+}
+
+/**
  * Triggered on soft page navigations. To track all page views (and disable GA page view tracking), set
  * manual_ga_pageview: true in the Jinja page render.
  */
 export const GA_EVENT_PAGE_VIEW = "page_view";
+
+/**
+ * Triggered when a component to track is rendered.
+ * Parameters:
+ *  page_source : "explore",
+ *  component: "related_topics_generated_questions"
+ */
+export const GA_EVENT_COMPONENT_IMPRESSION = "component_impression";
 
 /**
  * Event name: place_category_click
@@ -265,6 +288,8 @@ export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
 export const GA_PARAM_SEARCH_SELECTION = "search_selection";
 export const GA_PARAM_RELATED_TOPICS_MODE = "related_topics_mode";
+export const GA_PARAM_PAGE_SOURCE = "page_source";
+export const GA_PARAM_COMPONENT = "component";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -291,7 +316,7 @@ export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG =
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
-export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
+export const GA_VALUE_PAGE_EXPLORE = "explore";
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
 export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
 export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
