@@ -43,7 +43,7 @@ interface VisToolInstructionsBoxProps {
  * Helper function to determine which variation on the instructions for
  * inputting a place the box should show.
  * @param props props passed into VisToolInstructionsBox
- * @returns a i18n formatted string to display in the instructions
+ * @returns an i18n formatted string to display in the instructions
  */
 function getPlaceInstructionToShow(props: VisToolInstructionsBoxProps): string {
   let instruction = toolMessages.infoBoxInstructionsPlacesIn;
