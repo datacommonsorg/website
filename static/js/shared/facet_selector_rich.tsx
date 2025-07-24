@@ -21,11 +21,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import _, { startCase } from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
-import { FormGroup, Input, Label } from "reactstrap";
 
-import theme from "../../../static/js/theme/theme";
 import { Button } from "../components/elements/button/button";
 import {
   Dialog,
@@ -36,11 +33,11 @@ import {
 import { intl } from "../i18n/i18n";
 import { facetSelectionComponentMessages } from "../i18n/i18n_facet_selection_messages";
 import { messages } from "../i18n/i18n_messages";
-import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
-import { humanizeIsoDuration } from "./periodicity";
+import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
+import { FacetSelectorStandardContent } from "./facet_selector_standard_content";
 import { StatMetadata } from "./stat_types";
 
-const SELECTOR_PREFIX = "source-selector";
+export const SELECTOR_PREFIX = "source-selector";
 
 // The information needed in SourceSelector component for a single stat var to
 // get the list of available facets
@@ -120,20 +117,6 @@ export function FacetSelectorRich({
     );
   }, [facetList, loading]);
 
-  const areFacetSelectionsGrouped = useMemo(() => {
-    if (!allowSelectionGrouping || !facetList || facetList.length < 2) {
-      return false;
-    }
-    const firstFacetKeys = Object.keys(facetList[0].metadataMap).sort();
-    for (let i = 1; i < facetList.length; i++) {
-      const currentFacetKeys = Object.keys(facetList[i].metadataMap).sort();
-      if (!_.isEqual(firstFacetKeys, currentFacetKeys)) {
-        return false;
-      }
-    }
-    return true;
-  }, [facetList, allowSelectionGrouping]);
-
   useEffect(() => {
     // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
@@ -146,19 +129,19 @@ export function FacetSelectorRich({
     clickedDcid: string,
     clickedFacetId: string
   ): void => {
-    if (!areFacetSelectionsGrouped || !facetList) {
-      setModalSelections({
-        ...modalSelections,
-        [clickedDcid]: clickedFacetId,
-      });
-      return;
-    }
-    const newSelections: Record<string, string> = {};
-    for (const facetInfo of facetList) {
-      newSelections[facetInfo.dcid] =
-        clickedFacetId in facetInfo.metadataMap ? clickedFacetId : "";
-    }
+    setModalSelections({
+      ...modalSelections,
+      [clickedDcid]: clickedFacetId,
+    });
+  };
 
+  const handleGroupedSelectionChange = (clickedFacetId: string): void => {
+    const newSelections: Record<string, string> = {};
+    if (facetList) {
+      for (const facetInfo of facetList) {
+        newSelections[facetInfo.dcid] = clickedFacetId;
+      }
+    }
     setModalSelections(newSelections);
   };
 
@@ -190,6 +173,18 @@ export function FacetSelectorRich({
   }
 
   const showSourceOptions = facetList && !error;
+
+  function onConfirm(): void {
+    const metadataMap = {};
+    facetList.forEach((facetInfo: FacetSelectorFacetInfo) => {
+      const selectedFacetId = modalSelections[facetInfo.dcid];
+      if (selectedFacetId && selectedFacetId in facetInfo.metadataMap) {
+        metadataMap[selectedFacetId] = facetInfo.metadataMap[selectedFacetId];
+      }
+    });
+    onSvFacetIdUpdated(modalSelections, metadataMap);
+    setModalOpen(false);
+  }
 
   return (
     <>
@@ -239,154 +234,22 @@ export function FacetSelectorRich({
               {intl.formatMessage(facetSelectionComponentMessages.DatasetError)}
             </div>
           )}
-          {facetList?.length > 1 && (
-            <p
-              css={css`
-                ${theme.typography.family.text}
-                ${theme.typography.text.md}
-                margin: 0 0 ${theme.spacing.md}px;
-                padding: 0;
-              `}
-            >
-              {intl.formatMessage(
-                mode === "download"
-                  ? facetSelectionComponentMessages.SelectDatasetsForDownloadPromptMessage
-                  : facetSelectionComponentMessages.ExploreOtherDatasetsMultipleStatVarsPromptMessage
-              )}
-              :
-            </p>
-          )}
           {showSourceOptions &&
-            facetList.map((facetInfo) => {
-              const facetIds = Object.keys(facetInfo.metadataMap).filter(
-                (id) => id !== ""
-              );
-              const hasOnlyOneSource = facetIds.length === 1;
-              const sourceFacetId = hasOnlyOneSource ? facetIds[0] : null;
-              const facetOptionId = sourceFacetId
-                ? `${facetInfo.dcid}-${sourceFacetId}-option`
-                : null;
-
-              return (
-                <div key={facetInfo.dcid}>
-                  {facetList.length === 1 && (
-                    <p
-                      css={css`
-                        ${theme.typography.family.text}
-                        ${theme.typography.text.md}
-                        margin: 0;
-                        padding: 0;
-                      `}
-                    >
-                      {intl.formatMessage(
-                        mode === "download"
-                          ? facetSelectionComponentMessages.SelectDatasetForDownloadPromptMessage
-                          : facetSelectionComponentMessages.ExploreOtherDatasetsSingleStatVarPromptMessage
-                      )}{" "}
-                      <span>
-                        &ldquo;
-                        {facetInfo.name}
-                        &rdquo;
-                      </span>
-                    </p>
-                  )}
-                  {facetList.length > 1 && (
-                    <p
-                      css={css`
-                        ${theme.typography.family.text}
-                        ${theme.typography.text.md}
-                        font-weight: 900;
-                        margin: 0;
-                        padding: 0;
-                      `}
-                    >
-                      {facetInfo.name}
-                    </p>
-                  )}
-                  {hasOnlyOneSource ? (
-                    <div
-                      className={`${SELECTOR_PREFIX}-facet-options-section`}
-                      css={css`
-                        display: flex;
-                        flex-direction: column;
-                        padding: ${theme.spacing.md}px 0;
-                      `}
-                    >
-                      <FormGroup
-                        radio="true"
-                        key={facetInfo.dcid + sourceFacetId}
-                        css={css`
-                          margin: 0;
-                          padding: 0;
-                        `}
-                      >
-                        <Label
-                          radio="true"
-                          for={facetOptionId}
-                          css={css`
-                            display: flex;
-                            gap: ${theme.spacing.md}px;
-                            align-items: flex-start;
-                            margin: 0;
-                            padding: ${theme.spacing.sm}px ${theme.spacing.xl}px;
-                            position: relative;
-                            cursor: pointer;
-                            &:hover,
-                            &:checked {
-                              background: ${theme.colors.background.primary
-                                .light};
-                            }
-                          `}
-                        >
-                          <Input
-                            type="radio"
-                            name={facetInfo.dcid}
-                            id={facetOptionId}
-                            defaultChecked={true}
-                            onClick={(): void =>
-                              handleSelectionChange(facetInfo.dcid, "")
-                            }
-                            css={css`
-                              position: relative;
-                              margin: 5px 0 0 0;
-                              padding: 0;
-                            `}
-                          />
-                          <FacetOptionContent
-                            facetInfo={facetInfo}
-                            facetId={sourceFacetId}
-                            mode={mode}
-                          />
-                        </Label>
-                      </FormGroup>
-                    </div>
-                  ) : (
-                    <div
-                      className={`${SELECTOR_PREFIX}-facet-options-section`}
-                      css={css`
-                        display: flex;
-                        flex-direction: column;
-                        padding: ${theme.spacing.md}px 0;
-                      `}
-                    >
-                      {getFacetOptionJsx(
-                        facetInfo,
-                        "",
-                        modalSelections,
-                        handleSelectionChange,
-                        mode
-                      )}
-                      {getFacetOptionSectionJsx(
-                        facetInfo,
-                        modalSelections,
-                        handleSelectionChange,
-                        mode
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+            (allowSelectionGrouping ? (
+              <FacetSelectorGroupedContent
+                facetList={facetList}
+                modalSelections={modalSelections}
+                onSelectionChange={handleGroupedSelectionChange}
+                mode={mode}
+              />
+            ) : (
+              <FacetSelectorStandardContent
+                facetList={facetList}
+                modalSelections={modalSelections}
+                onSelectionChange={handleSelectionChange}
+                mode={mode}
+              />
+            ))}
         </DialogContent>
         <DialogActions>
           <Button
@@ -409,276 +272,4 @@ export function FacetSelectorRich({
       </Dialog>
     </>
   );
-
-  function onConfirm(): void {
-    const metadataMap = {};
-    facetList.forEach((facetInfo: FacetSelectorFacetInfo) => {
-      const selectedFacetId = modalSelections[facetInfo.dcid];
-      if (selectedFacetId) {
-        metadataMap[selectedFacetId] = facetInfo.metadataMap[selectedFacetId];
-      }
-    });
-    onSvFacetIdUpdated(modalSelections, metadataMap);
-    setModalOpen(false);
-  }
-}
-
-/**
- * Renders the title and details for a given facet option.
- */
-function FacetOptionContent({
-  facetInfo,
-  facetId,
-  mode,
-}: {
-  facetInfo: FacetSelectorFacetInfo;
-  facetId: string;
-  mode?: "chart" | "download";
-}): ReactElement {
-  const metadata = facetInfo.metadataMap[facetId] || {};
-  let primaryTitle: string;
-  let firstDetailItem: string | undefined;
-
-  if (_.isEmpty(metadata)) {
-    primaryTitle = intl.formatMessage(
-      mode === "download"
-        ? facetSelectionComponentMessages.CombinedDatasetForDownloadOption
-        : facetSelectionComponentMessages.CombinedDatasetForChartsOption
-    );
-  } else {
-    const sourceTitle =
-      (facetInfo.displayNames && facetInfo.displayNames[facetId]) ||
-      metadata.sourceName ||
-      metadata.importName;
-    primaryTitle = metadata.provenanceName || sourceTitle;
-    if (primaryTitle !== sourceTitle) {
-      firstDetailItem = sourceTitle;
-    }
-  }
-
-  const dateRange = [metadata.dateRangeStart, metadata.dateRangeEnd]
-    .filter(Boolean)
-    .join(" – ");
-
-  let observationPeriodDisplay: string;
-  if (metadata.observationPeriod) {
-    const humanizedPeriod = humanizeIsoDuration(metadata.observationPeriod);
-    observationPeriodDisplay =
-      humanizedPeriod !== metadata.observationPeriod
-        ? `${humanizedPeriod} (${metadata.observationPeriod})`
-        : humanizedPeriod;
-  }
-
-  return (
-    <div
-      className={`${SELECTOR_PREFIX}-facet-option-title`}
-      css={css`
-        position: relative;
-        margin: 0;
-        padding: 0;
-      `}
-    >
-      <p
-        css={css`
-          ${theme.typography.family.text}
-          ${theme.typography.text.md}
-          margin: 0;
-          padding: 0;
-          white-space: pre-wrap;
-          word-break: break-word;
-        `}
-      >
-        {primaryTitle}
-      </p>
-      <ul
-        css={css`
-          ${theme.typography.family.text}
-          ${theme.typography.text.sm}
-          color: ${theme.colors.text.tertiary.dark};
-          margin: 0;
-          padding: 0;
-          li {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            white-space: pre-wrap;
-            word-break: break-word;
-          }
-        `}
-      >
-        {firstDetailItem && <li>{firstDetailItem}</li>}
-        {metadata.measurementMethodDescription && (
-          <li>{metadata.measurementMethodDescription}</li>
-        )}
-        {metadata.unitDisplayName && (
-          <li>
-            {intl.formatMessage(metadataComponentMessages.Unit)} •{" "}
-            {startCase(metadata.unitDisplayName)}
-          </li>
-        )}
-        {metadata.scalingFactor && (
-          <li>Scaling Factor • {metadata.scalingFactor}</li>
-        )}
-        {metadata.isDcAggregate && (
-          <li>
-            {intl.formatMessage(metadataComponentMessages.DataCommonsAggregate)}
-          </li>
-        )}
-        {observationPeriodDisplay && (
-          <li>
-            {intl.formatMessage(metadataComponentMessages.ObservationPeriod)} •{" "}
-            {observationPeriodDisplay}
-          </li>
-        )}
-        {dateRange && (
-          <li>
-            {intl.formatMessage(metadataComponentMessages.MetadataDateRange)} •{" "}
-            {dateRange}
-          </li>
-        )}
-      </ul>
-    </div>
-  );
-}
-
-/**
- * Gets the element for a single facet options
- */
-function getFacetOptionJsx(
-  facetInfo: FacetSelectorFacetInfo,
-  facetId: string,
-  modalSelections: Record<string, string>,
-  onSelectionChange: (dcid: string, facetId: string) => void,
-  mode?: "chart" | "download"
-): ReactElement {
-  const selectedFacetId = modalSelections[facetInfo.dcid] || "";
-  const facetOptionId = `${facetInfo.dcid}-${facetId}-option`;
-
-  return (
-    <FormGroup
-      radio="true"
-      key={facetInfo.dcid + facetId}
-      css={css`
-        margin: 0;
-        padding: 0;
-      `}
-    >
-      <Label
-        radio="true"
-        for={facetOptionId}
-        css={css`
-          display: flex;
-          gap: ${theme.spacing.md}px;
-          align-items: flex-start;
-          margin: 0;
-          padding: ${theme.spacing.sm}px ${theme.spacing.xl}px;
-          position: relative;
-          cursor: pointer;
-          &:hover,
-          &:checked {
-            background: ${theme.colors.background.primary.light};
-          }
-        `}
-      >
-        <Input
-          type="radio"
-          name={facetInfo.dcid}
-          id={facetOptionId}
-          checked={selectedFacetId === facetId}
-          value={facetId}
-          onChange={(): void => {
-            onSelectionChange(facetInfo.dcid, facetId);
-          }}
-          css={css`
-            position: relative;
-            margin: 5px 0 0 0;
-            padding: 0;
-          `}
-        />
-        <FacetOptionContent
-          facetInfo={facetInfo}
-          facetId={facetId}
-          mode={mode}
-        />
-      </Label>
-    </FormGroup>
-  );
-}
-
-/**
- * Gets the element for facet options section for a single stat var
- */
-function getFacetOptionSectionJsx(
-  facetInfo: FacetSelectorFacetInfo,
-  modalSelections: Record<string, string>,
-  onSelectionChange: (dcid: string, facetId: string) => void,
-  mode?: "chart" | "download"
-): ReactElement {
-  const importNameToFacetOptions: Record<string, string[]> = {};
-  const facetOptionsNoImportName: string[] = [];
-  let shouldShowSections = false;
-  Object.keys(facetInfo.metadataMap).forEach((facetId) => {
-    const importName = facetInfo.metadataMap[facetId].importName;
-    if (!importName) {
-      facetOptionsNoImportName.push(facetId);
-      return;
-    }
-    if (!(importName in importNameToFacetOptions)) {
-      importNameToFacetOptions[importName] = [];
-    }
-    importNameToFacetOptions[importName].push(facetId);
-    shouldShowSections = true;
-  });
-  if (shouldShowSections) {
-    const sortedImportNames = Object.keys(importNameToFacetOptions).sort();
-    return (
-      <>
-        {sortedImportNames.map((importName) => (
-          <div
-            key={facetInfo.dcid + importName}
-            css={css`
-              display: flex;
-              flex-direction: column;
-              gap: ${theme.spacing.md}px;
-            `}
-          >
-            {importNameToFacetOptions[importName].map((facetId) =>
-              getFacetOptionJsx(
-                facetInfo,
-                facetId,
-                modalSelections,
-                onSelectionChange,
-                mode
-              )
-            )}
-          </div>
-        ))}
-        {facetOptionsNoImportName.map(
-          (facetId) =>
-            facetId in facetInfo.metadataMap &&
-            getFacetOptionJsx(
-              facetInfo,
-              facetId,
-              modalSelections,
-              onSelectionChange,
-              mode
-            )
-        )}
-      </>
-    );
-  } else {
-    return (
-      <>
-        {Object.keys(facetInfo.metadataMap).map((facetId) =>
-          getFacetOptionJsx(
-            facetInfo,
-            facetId,
-            modalSelections,
-            onSelectionChange,
-            mode
-          )
-        )}
-      </>
-    );
-  }
 }
