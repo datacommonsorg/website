@@ -26,10 +26,10 @@ import { Loading } from "../../components/elements/loading";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
-  GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW,
   GA_EVENT_RELATED_TOPICS_CLICK,
+  GA_EVENT_RELATED_TOPICS_VIEW,
   GA_PARAM_RELATED_TOPICS_MODE,
-  GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS,
+  GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
@@ -37,7 +37,7 @@ import { getTopics } from "../../utils/app/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 
 // Number of follow up questions displayed
-const FOLLOW_UP_QUESTIONS_LIMIT = 10;
+const FOLLOW_UP_QUESTIONS_LIMIT = 6;
 
 interface Question {
   text: string;
@@ -66,9 +66,10 @@ export function FollowUpQuestions(
   useEffect(() => {
     // Gets the name of all related topics while removing the Root topic.
     // Empty string can be passed since only the topic name will be used, which is stored in the property `text`.
-    const relatedTopics = getTopics(props.pageMetadata, "")
-      .map((topic) => topic.text)
-      .slice(0, FOLLOW_UP_QUESTIONS_LIMIT);
+    const relatedTopics = _.sampleSize(
+      getTopics(props.pageMetadata, "").map((topic) => topic.text),
+      FOLLOW_UP_QUESTIONS_LIMIT
+    );
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
         setFollowUpQuestions(value);
@@ -91,7 +92,7 @@ export function FollowUpQuestions(
       {!loading && !_.isEmpty(followUpQuestions) && (
         <div className="follow-up-questions-container">
           <div className="follow-up-questions-inner">
-            <span className="follow-up-questions-title">Keep Exploring</span>
+            <span className="follow-up-questions-title">Keep exploring</span>
             {followUpQuestions.map((question, idx) => {
               return (
                 <div key={idx} className="follow-up-questions-list-item">
@@ -143,10 +144,12 @@ const getFollowUpQuestions = async (
 
 const onQuestionClicked = (): void => {
   triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK, {
-    [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS,
+    [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
   });
 };
 
 const onComponentInitialView = (): void => {
-  triggerGAEvent(GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW, {});
+  triggerGAEvent(GA_EVENT_RELATED_TOPICS_VIEW, {
+    [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+  });
 };

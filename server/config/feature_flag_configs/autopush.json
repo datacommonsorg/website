@@ -55,7 +55,7 @@
   },
   {
     "name": "standardized_vis_tool",
-    "enabled": false,
+    "enabled": true,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
@@ -64,5 +64,11 @@
     "enabled": false,
     "owner": "alyssaguo",
     "description": "Enables using the Vertex AI search application for stat var searches."
+  },
+  {
+    "name": "vai_medium_relevance_threshold",
+    "enabled": false,
+    "owner": "alyssaguo",
+    "description": "Enables setting the relevance threshold to \"MEDIUM\" for Vertex AI stat var search application."
   }
 ]

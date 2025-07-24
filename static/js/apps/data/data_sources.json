@@ -1059,6 +1059,18 @@
         ]
       },
       {
+        "label": "Google",
+        "url": "https://www.google.com/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Sustainability Energy and Transport Financial Incentives",
+            "url": "https://www.google.com/",
+            "description": "A set of energy and transportation related financial incentives offered by government and utility organizations.\n\nData made publicly available under the standard [Google terms of service](https://policies.google.com/terms?hl=en)."
+          }
+        ]
+      },
+      {
         "label": "India Ministry of Statistics and Programme Implementation",
         "url": "https://mospi.gov.in/",
         "description": null,
@@ -1687,18 +1699,6 @@
         ]
       },
       {
-        "label": "U.S. National Renewable Energy Laboratory (NREL)",
-        "url": "https://www.nrel.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "RE Atlas",
-            "url": "https://maps.nrel.gov/re-atlas",
-            "description": "Data Commons has imported the potential for solar energy generation in different counties in the U.S.\n\n[Disclaimer](https://maps.nrel.gov/re-atlas/)."
-          }
-        ]
-      },
-      {
         "label": "United Nations (UN)",
         "url": "https://www.un.org/en/",
         "description": null,
@@ -1829,6 +1829,18 @@
             "label": "Randolph Glacier Inventory",
             "url": "https://www.glims.org/RGI/rgi60_dl.html",
             "description": "A global inventory of glaciers, including surface areas."
+          }
+        ]
+      },
+      {
+        "label": "Google",
+        "url": "https://www.google.com/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Sustainability Energy and Transport Financial Incentives",
+            "url": "https://www.google.com/",
+            "description": "A set of energy and transportation related financial incentives offered by government and utility organizations.\n\nData made publicly available under the standard [Google terms of service](https://policies.google.com/terms?hl=en)."
           }
         ]
       },
