@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider } from "@emotion/react";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
@@ -185,10 +185,16 @@ class Page extends Component<unknown, PageStateType> {
             </Card>
             {numPlaces === 0 &&
               (useStandardizedUi ? (
-                <>
+                <div
+                  css={css`
+                    display: flex;
+                    flex-direction: column;
+                    gap: ${theme.spacing.md}px;
+                  `}
+                >
                   <VisToolInstructionsBox multiPlace multiVariable />
                   <ChartLinkWall links={landingPageLinks.timelineLinks} />
-                </>
+                </div>
               ) : (
                 <MemoizedInfo />
               ))}

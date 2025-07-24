@@ -18,7 +18,7 @@
  * Main app component for scatter.
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider, useTheme } from "@emotion/react";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
@@ -66,6 +66,7 @@ function App(): ReactElement {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
+  const theme = useTheme();
   return (
     <>
       <StatVarChooser
@@ -109,10 +110,12 @@ function App(): ReactElement {
                   <Row>
                     <VisToolInstructionsBox multiVariable />
                   </Row>
-                  <Row>
-                    <ChartLinkWall
-                      links={landingPageLinks.scatterLinks}
-                    ></ChartLinkWall>
+                  <Row
+                    css={css`
+                      margin-top: ${theme.spacing.md}px;
+                    `}
+                  >
+                    <ChartLinkWall links={landingPageLinks.scatterLinks} />
                   </Row>
                 </>
               ) : (

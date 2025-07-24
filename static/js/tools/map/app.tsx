@@ -18,7 +18,7 @@
  * Main app component for map explorer.
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
@@ -58,6 +58,7 @@ function App(): ReactElement {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
+  const theme = useTheme();
 
   return (
     <React.StrictMode>
@@ -83,8 +84,12 @@ function App(): ReactElement {
           </Row>
           <Row>{useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}</Row>
           {useStandardizedUi && (
-            <Row>
-              <ChartLinkWall links={landingPageLinks.mapLinks}></ChartLinkWall>
+            <Row
+              css={css`
+                margin-top: ${theme.spacing.md}px;
+              `}
+            >
+              <ChartLinkWall links={landingPageLinks.mapLinks} />
             </Row>
           )}
           <Row id="chart-row">
