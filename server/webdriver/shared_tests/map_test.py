@@ -23,7 +23,8 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
-MAP_URL = '/tools/map'
+# TODO(juliawu): Remove disabled feature once new UI is rolled out to production
+MAP_URL = '/tools/map?disable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
 
 

@@ -131,7 +131,14 @@ export function ChartTileContainer(
         footnote={props.footnote}
       ></ChartFooter>
       {showEmbed && (
-        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+        <ChartEmbed
+          container={containerRef.current}
+          ref={embedModalElement}
+          statVarSpecs={props.statVarSpecs}
+          facets={props.facets}
+          statVarToFacets={props.statVarToFacets}
+          apiRoot={props.apiRoot}
+        />
       )}
     </div>
   );
