@@ -27,8 +27,33 @@ import { intl } from "../../../i18n/i18n";
 import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
 interface VisToolInstructionsBoxProps {
+  // Whether to mention only a limited subset of place types in the examples.
+  // Only applied if multiPlace is false.
+  // (Some of the tools don't necessarily support all place types)
+  limitPlaceOptions?: boolean;
+  // Whether to show instructions for plotting a list of multiple places instead
+  // of <child place> in <parent place>
   multiPlace?: boolean;
+  // Whether to show instructions for plotting multiple statistical variables
+  // instead of just one
   multiVariable?: boolean;
+}
+
+/**
+ * Helper function to determine which variation on the instructions for
+ * inputting a place the box should show.
+ * @param props props passed into VisToolInstructionsBox
+ * @returns a i18n formatted string to display in the instructions
+ */
+function getPlaceInstructionToShow(props: VisToolInstructionsBoxProps): string {
+  let instruction = toolMessages.infoBoxInstructionsPlacesIn;
+  if (props.limitPlaceOptions) {
+    instruction = toolMessages.infoBoxInstructionsPlacesInLimitedOptions;
+  }
+  if (props.multiPlace) {
+    instruction = toolMessages.infoBoxInstructionsMultiPlace;
+  }
+  return intl.formatMessage(instruction);
 }
 
 export function VisToolInstructionsBox(
@@ -39,11 +64,7 @@ export function VisToolInstructionsBox(
       heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
     >
       <ol>
-        <li>
-          {props.multiPlace
-            ? intl.formatMessage(toolMessages.infoBoxInstructionsPlaces)
-            : intl.formatMessage(toolMessages.infoBoxInstructionsPlacesIn)}
-        </li>
+        <li>{getPlaceInstructionToShow(props)}</li>
         <li>
           {props.multiVariable ? (
             <>

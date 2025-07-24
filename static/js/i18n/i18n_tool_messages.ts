@@ -63,19 +63,26 @@ export const toolMessages = defineMessages({
     defaultMessage: "Follow these steps:",
     description: "heading for a set of instructions on how to use our tools",
   },
+  infoBoxInstructionsPlacesInLimitedOptions: {
+    id: "info_box_instruction_places_in_limited_options",
+    defaultMessage:
+      "Enter your desired location (country or state) into the search box above, and then select the type of place you want to plot.",
+    description:
+      "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot States in USA).",
+  },
   infoBoxInstructionsPlacesIn: {
     id: "info_box_instruction_places_in",
     defaultMessage:
-      "Enter your desired location (e.g., California, Canada, Europe) into the search box above, and then select the type of sub-region (e.g., City, State, Country) you want to plot.",
+      "Enter your desired location (city, state, county, or country) into the search box above, and then select the type of place you want to plot.",
     description:
-      "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France).",
+      "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France)",
   },
-  infoBoxInstructionsPlaces: {
-    id: "info_box_instruction_places",
+  infoBoxInstructionsMultiPlace: {
+    id: "info_box_instruction_multi_place",
     defaultMessage:
-      "Type your desired location(s) (e.g., London, Mexico, Africa) into the search box above, and then select the place from the displayed results.",
+      "Enter your desired location(s) (city, state, county, or country) into the search box above, and then select the place from the displayed results.",
     description:
-      "instructions for how to enter a list of places to plot using our chart visualization tools",
+      "Instructions for how to enter a list of places to plot using our chart visualization tools",
   },
   infoBoxInstructionsVariableDesktop: {
     id: "info_box_instruction_variable_desktop",
