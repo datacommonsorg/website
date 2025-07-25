@@ -18,6 +18,7 @@ steps:
       - build
       - --tag=gcr.io/datcom-ci/percy-runner:latest
       - "."
+    dir: "tools/release_automation/percy_snapshot_script"
 
 images:
   - "gcr.io/datcom-ci/percy-runner:latest"
