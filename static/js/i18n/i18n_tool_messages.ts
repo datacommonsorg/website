@@ -99,7 +99,7 @@ export const toolMessages = defineMessages({
   },
   infoBoxInstructionsMultiVariableDesktop: {
     id: "info_box_instruction_multi_variable_desktop",
-    defaultMessage: "Pick statistical variables in the left panel.",
+    defaultMessage: "Pick statistical variables in the left pane.",
     description:
       "An instruction for users to interact with a UI element on the left side of the page to select multiple statistical variables",
   },
@@ -112,7 +112,7 @@ export const toolMessages = defineMessages({
   },
   statVarExplorerInstructionsDesktop: {
     id: "stat_var_explorer_instructions_desktop",
-    defaultMessage: "To start, select a variable from the left panel.",
+    defaultMessage: "To start, select a variable from the left pane.",
     description:
       "An instruction for users to interact with a UI element on the left side of the screen to select a variable to display in our statistical variable explorer tool",
   },
