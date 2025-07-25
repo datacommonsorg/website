@@ -311,7 +311,10 @@ def get_language_settings(target_language: str) -> tuple[str, str]:
       language_schema = json.dumps(spanishSchema)
     case _:
       language_schema = json.dumps(englishSchema)
-  return exported_sv_file, get_gemini_prompt(target_language, language_schema)
+
+  # return exported_sv_file, get_gemini_prompt_with_translations(target_language, language_schema) # Use this prompt if translations are needed
+  return exported_sv_file, get_gemini_prompt(
+      language_schema)  # Use this prompt for English-only results
 
 
 def get_prop_value(prop_data) -> str:
