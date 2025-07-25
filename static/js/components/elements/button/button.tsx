@@ -185,6 +185,7 @@ export const Button = forwardRef<
     cursor: pointer;
     opacity: ${disabled ? 0.6 : 1};
     text-decoration: none;
+    text-align: center;
     &:hover {
       text-decoration: none;
     }

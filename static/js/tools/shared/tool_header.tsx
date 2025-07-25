@@ -19,10 +19,11 @@
  * Title component for the tools
  */
 
-import { css } from "@emotion/react";
+import { css, useTheme } from "@emotion/react";
 import React from "react";
 
-import { intl, LocalizedLink } from "../../i18n/i18n";
+import { Button } from "../../components/elements/button/button";
+import { intl, localizeLink } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
 
 interface ToolHeaderProps {
@@ -32,6 +33,7 @@ interface ToolHeaderProps {
 }
 
 export function ToolHeader(props: ToolHeaderProps): JSX.Element {
+  const theme = useTheme();
   return (
     <div
       css={css`
@@ -59,27 +61,14 @@ export function ToolHeader(props: ToolHeaderProps): JSX.Element {
           {props.title}
         </h1>
         {props.switchToolsUrl && (
-          <LocalizedLink
+          <Button
+            href={localizeLink(props.switchToolsUrl)}
             css={css`
-              display: flex;
-              align-items: center;
-              font-size: 14px;
-              height: fit-content;
-              line-height: 21px;
-              font-weight: 400;
-              border: 1px solid #747775;
-              border-radius: 100px;
-              padding: 8px 16px;
-              text-decoration: none;
-
-              :hover {
-                outline: 1px solid var(--dc-primary);
-                border-color: var(--dc-primary);
-              }
+              ${theme.typography.text.sm}
             `}
-            href={props.switchToolsUrl}
-            text={intl.formatMessage(toolMessages.switchToolVersion)}
-          ></LocalizedLink>
+          >
+            {intl.formatMessage(toolMessages.switchToolVersion)}
+          </Button>
         )}
       </div>
       {props.subtitle && (
