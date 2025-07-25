@@ -31,8 +31,7 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
-import { ChartLinkWall } from "../shared/vis_tools/chart_link_wall";
-import { landingPageLinks } from "../shared/vis_tools/landing_page_example_links";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import {
@@ -112,10 +111,10 @@ function App(): ReactElement {
                   </Row>
                   <Row
                     css={css`
-                      margin-top: ${theme.spacing.md}px;
+                      margin-top: ${theme.spacing.xl}px;
                     `}
                   >
-                    <ChartLinkWall links={landingPageLinks.scatterLinks} />
+                    <ChartLinkChips toolType="scatter" />
                   </Row>
                 </>
               ) : (

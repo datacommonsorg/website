@@ -122,4 +122,10 @@ export const toolMessages = defineMessages({
     description:
       "An instruction for users to select a data source to use in our statistical variable explorer tool",
   },
+  ExamplesHeader: {
+    id: "vis_tool_examples_header",
+    defaultMessage: "Need ideas? Try these:",
+    description:
+      "Invitation for users to explore some example charts and visualizations.",
+  },
 });
