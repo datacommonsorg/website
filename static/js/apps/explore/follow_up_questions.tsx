@@ -23,13 +23,18 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { Loading } from "../../components/elements/loading";
-import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
+import {
+  CLIENT_TYPES,
+  URL_HASH_PARAMS,
+} from "../../constants/app/explore_constants";
 import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
   GA_PARAM_RELATED_TOPICS_MODE,
+  GA_VALUE_PAGE_EXPLORE,
   GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+  triggerComponentImpression,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
@@ -72,6 +77,10 @@ export function FollowUpQuestions(
     );
     getFollowUpQuestions(props.query, relatedTopics)
       .then((value) => {
+        triggerComponentImpression(
+          GA_VALUE_PAGE_EXPLORE,
+          GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS
+        );
         setFollowUpQuestions(value);
       })
       .catch(() => {
@@ -135,6 +144,7 @@ const getFollowUpQuestions = async (
         url: `/explore?enable_feature=${FOLLOW_UP_QUESTIONS_GA}#${getUpdatedHash(
           {
             [URL_HASH_PARAMS.QUERY]: question,
+            [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_QUESTION,
           }
         )}`,
       };
