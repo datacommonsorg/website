@@ -63,22 +63,22 @@ export const toolMessages = defineMessages({
     defaultMessage: "Follow these steps:",
     description: "heading for a set of instructions on how to use our tools",
   },
-  infoBoxInstructionsPlacesInLimitedOptions: {
-    id: "info_box_instruction_places_in_limited_options",
+  infoBoxInstructionsPlacesMap: {
+    id: "info_box_instruction_places_map",
     defaultMessage:
       "Enter your desired location (country or state) into the search box above, and then select the type of place you want to plot.",
     description:
       "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot States in USA).",
   },
-  infoBoxInstructionsPlacesIn: {
-    id: "info_box_instruction_places_in",
+  infoBoxInstructionsPlacesScatter: {
+    id: "info_box_instruction_places_scatter",
     defaultMessage:
       "Enter your desired location (city, state, county, or country) into the search box above, and then select the type of place you want to plot.",
     description:
       "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France)",
   },
-  infoBoxInstructionsMultiPlace: {
-    id: "info_box_instruction_multi_place",
+  infoBoxInstructionsPlacesTimeline: {
+    id: "info_box_instruction_places_timeline",
     defaultMessage:
       "Enter your desired location(s) (city, state, county, or country) into the search box above, and then select the place from the displayed results.",
     description:
@@ -86,7 +86,7 @@ export const toolMessages = defineMessages({
   },
   infoBoxInstructionsVariableDesktop: {
     id: "info_box_instruction_variable_desktop",
-    defaultMessage: "Pick a statistical variable in the left panel.",
+    defaultMessage: "Pick a statistical variable in the left pane.",
     description:
       "An instruction for users to interact with a UI element on the left side of the page",
   },

@@ -27,16 +27,8 @@ import { intl } from "../../../i18n/i18n";
 import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
 interface VisToolInstructionsBoxProps {
-  // Whether to mention only a limited subset of place types in the examples.
-  // Only applied if multiPlace is false.
-  // (Some of the tools don't necessarily support all place types)
-  limitPlaceOptions?: boolean;
-  // Whether to show instructions for plotting a list of multiple places instead
-  // of <child place> in <parent place>
-  multiPlace?: boolean;
-  // Whether to show instructions for plotting multiple statistical variables
-  // instead of just one
-  multiVariable?: boolean;
+  // Which tool the instructions are for
+  toolType: "map" | "scatter" | "timeline";
 }
 
 /**
@@ -46,14 +38,17 @@ interface VisToolInstructionsBoxProps {
  * @returns an i18n formatted string to display in the instructions
  */
 function getPlaceInstructionToShow(props: VisToolInstructionsBoxProps): string {
-  let instruction = toolMessages.infoBoxInstructionsPlacesIn;
-  if (props.limitPlaceOptions) {
-    instruction = toolMessages.infoBoxInstructionsPlacesInLimitedOptions;
+  switch (props.toolType) {
+    case "map": {
+      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesMap);
+    }
+    case "scatter": {
+      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesScatter);
+    }
+    default: {
+      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesTimeline);
+    }
   }
-  if (props.multiPlace) {
-    instruction = toolMessages.infoBoxInstructionsMultiPlace;
-  }
-  return intl.formatMessage(instruction);
 }
 
 export function VisToolInstructionsBox(
@@ -66,20 +61,7 @@ export function VisToolInstructionsBox(
       <ol>
         <li>{getPlaceInstructionToShow(props)}</li>
         <li>
-          {props.multiVariable ? (
-            <>
-              <span className="d-none d-lg-inline">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsMultiVariableDesktop
-                )}
-              </span>
-              <span className="d-inline d-lg-none">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsMultiVariableMobile
-                )}
-              </span>
-            </>
-          ) : (
+          {props.toolType == "map" ? (
             <>
               <span className="d-none d-lg-inline">
                 {intl.formatMessage(
@@ -89,6 +71,19 @@ export function VisToolInstructionsBox(
               <span className="d-inline d-lg-none">
                 {intl.formatMessage(
                   toolMessages.infoBoxInstructionsVariableMobile
+                )}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="d-none d-lg-inline">
+                {intl.formatMessage(
+                  toolMessages.infoBoxInstructionsMultiVariableDesktop
+                )}
+              </span>
+              <span className="d-inline d-lg-none">
+                {intl.formatMessage(
+                  toolMessages.infoBoxInstructionsMultiVariableMobile
                 )}
               </span>
             </>

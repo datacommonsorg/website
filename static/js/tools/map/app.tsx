@@ -81,7 +81,7 @@ function App(): ReactElement {
           </Row>
           <Row>
             {useStandardizedUi ? (
-              <VisToolInstructionsBox limitPlaceOptions />
+              <VisToolInstructionsBox toolType="map" />
             ) : (
               <Info />
             )}
