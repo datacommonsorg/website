@@ -24,14 +24,14 @@ import { css, useTheme } from "@emotion/react";
 import _, { startCase } from "lodash";
 import React, { ReactElement } from "react";
 
-import { Info } from "../components/elements/icons/info";
-import { Tooltip } from "../components/elements/tooltip/tooltip";
-import { intl } from "../i18n/i18n";
-import { facetSelectionComponentMessages } from "../i18n/i18n_facet_selection_messages";
-import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
+import { Info } from "../../components/elements/icons/info";
+import { Tooltip } from "../../components/elements/tooltip/tooltip";
+import { intl } from "../../i18n/i18n";
+import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
+import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
+import { humanizeIsoDuration } from "../periodicity";
+import { StatMetadata } from "../stat_types";
 import { SELECTOR_PREFIX } from "./facet_selector_rich";
-import { humanizeIsoDuration } from "./periodicity";
-import { StatMetadata } from "./stat_types";
 
 interface FacetOptionContentProps {
   // The metadata for the facet.

@@ -46,7 +46,7 @@ import {
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
-import { FacetSelector } from "../../shared/facet_selector";
+import { FacetSelector } from "../../shared/facet_selector/facet_selector";
 import {
   isFeatureEnabled,
   METADATA_FEATURE_FLAG,

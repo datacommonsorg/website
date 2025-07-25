@@ -27,12 +27,12 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useMemo } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
-import { intl } from "../i18n/i18n";
-import { facetSelectionComponentMessages } from "../i18n/i18n_facet_selection_messages";
+import { intl } from "../../i18n/i18n";
+import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
+import { StatMetadata } from "../stat_types";
 import { FacetOptionContent } from "./facet_option_content";
 import { FacetSelectorFacetInfo } from "./facet_selector";
 import { SELECTOR_PREFIX } from "./facet_selector_rich";
-import { StatMetadata } from "./stat_types";
 
 interface FacetSelectorGroupedContentProps {
   facetList: FacetSelectorFacetInfo[];

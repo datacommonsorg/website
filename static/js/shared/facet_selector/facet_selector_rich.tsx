@@ -23,19 +23,19 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
-import { Button } from "../components/elements/button/button";
+import { Button } from "../../components/elements/button/button";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../components/elements/dialog/dialog";
-import { intl } from "../i18n/i18n";
-import { facetSelectionComponentMessages } from "../i18n/i18n_facet_selection_messages";
-import { messages } from "../i18n/i18n_messages";
+} from "../../components/elements/dialog/dialog";
+import { intl } from "../../i18n/i18n";
+import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
+import { messages } from "../../i18n/i18n_messages";
+import { StatMetadata } from "../stat_types";
 import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
 import { FacetSelectorStandardContent } from "./facet_selector_standard_content";
-import { StatMetadata } from "./stat_types";
 
 export const SELECTOR_PREFIX = "source-selector";
 
