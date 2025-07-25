@@ -218,6 +218,10 @@ const theme: Theme = {
         fontFamily: "'Google Sans', Arial, sans-serif",
         fontStyle: "normal",
       },
+      code: {
+        fontFamily: "Courier, Monaco, Lucida Console, Courier New, monospace",
+        fontStyle: "normal",
+      },
     },
     text: {
       xs: {

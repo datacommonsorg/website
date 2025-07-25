@@ -27,6 +27,7 @@
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { Button } from "../../../components/elements/button/button";
+import { CopyToClipboardButton } from "../../../components/elements/button/copy_to_clipboard_button";
 import {
   Dialog,
   DialogActions,
@@ -40,7 +41,6 @@ import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarFacetMap, StatVarSpec } from "../../../shared/types";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { buildCitationParts, citationToPlainText } from "./citations";
-import { CopyCitationButton } from "./copy_citation_button";
 import { StatVarMetadata } from "./metadata";
 import { fetchMetadata } from "./metadata_fetcher";
 import { TileMetadataModalContent } from "./tile_metadata_modal_content";
@@ -173,9 +173,9 @@ export function TileMetadataModal(
             {intl.formatMessage(messages.close)}
           </Button>
           {!error && (
-            <CopyCitationButton citationToCopy={citationText}>
+            <CopyToClipboardButton valueToCopy={citationText}>
               {intl.formatMessage(metadataComponentMessages.CopyCitation)}
-            </CopyCitationButton>
+            </CopyToClipboardButton>
           )}
         </DialogActions>
       </Dialog>
