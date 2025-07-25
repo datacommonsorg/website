@@ -49,6 +49,27 @@ interface FacetOptionContentProps {
   totalStatVars?: number;
 }
 
+interface StatVarTooltipContentProps {
+  items: { dcid: string; name: string }[];
+}
+
+const StatVarTooltipContent = ({
+  items,
+}: StatVarTooltipContentProps): ReactElement => (
+  <ul
+    css={css`
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    `}
+  >
+    {items.map((sv) => (
+      <li key={sv.dcid}>{sv.name}</li>
+    ))}
+  </ul>
+);
+
 export function FacetOptionContent({
   metadata = {},
   displayName,
@@ -129,62 +150,30 @@ export function FacetOptionContent({
           totalStatVars &&
           applicableStatVars.length < totalStatVars && (
             <li>
-              {((): ReactElement => {
-                const applicableCount = applicableStatVars.length;
-                if (applicableCount === 1) {
-                  return (
-                    <>
-                      {intl.formatMessage(
-                        facetSelectionComponentMessages.AvailableStatVarsSingleMessage
-                      )}{" "}
-                      {applicableStatVars[0].name}
-                    </>
-                  );
-                }
-                if (applicableCount > 1) {
-                  const tooltipContent = (
-                    <ul
-                      css={css`
-                        list-style: none;
-                        padding: 0;
-                        margin: 0;
-                        text-align: left;
-                      `}
-                    >
-                      {applicableStatVars.map((sv) => (
-                        <li key={sv.dcid}>{sv.name}</li>
-                      ))}
-                    </ul>
-                  );
-                  return (
-                    <span
-                      css={css`
-                        display: inline-flex;
-                        align-items: center;
-                        gap: ${theme.spacing.xs}px;
-                      `}
-                    >
-                      {intl.formatMessage(
-                        facetSelectionComponentMessages.AvailableStatVarsMultipleMessage,
-                        {
-                          count: applicableCount,
-                          total: totalStatVars,
-                        }
-                      )}
-                      <Tooltip
-                        title={tooltipContent}
-                        sxTrigger={css`
-                          display: inline-flex;
-                          align-items: center;
-                        `}
-                      >
-                        <Info />
-                      </Tooltip>
-                    </span>
-                  );
-                }
-                return null;
-              })()}
+              <span
+                css={css`
+                  display: inline-flex;
+                  align-items: center;
+                  gap: ${theme.spacing.xs}px;
+                `}
+              >
+                {intl.formatMessage(
+                  facetSelectionComponentMessages.AvailableStatVarsMultipleMessage,
+                  {
+                    count: applicableStatVars.length,
+                    total: totalStatVars,
+                  }
+                )}
+                <Tooltip
+                  title={<StatVarTooltipContent items={applicableStatVars} />}
+                  sxTrigger={css`
+                    display: inline-flex;
+                    align-items: center;
+                  `}
+                >
+                  <Info />
+                </Tooltip>
+              </span>
             </li>
           )}
         {firstDetailItem && <li>{firstDetailItem}</li>}
