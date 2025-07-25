@@ -21,6 +21,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
+import { isEqual } from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { Button } from "../../components/elements/button/button";
@@ -34,6 +35,7 @@ import { intl } from "../../i18n/i18n";
 import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
 import { messages } from "../../i18n/i18n_messages";
 import { StatMetadata } from "../stat_types";
+import { FacetSelectorDebugFlag } from "./facet_selector_debug_flag";
 import { FacetSelectorGroupedContent } from "./facet_selector_grouped_content";
 import { FacetSelectorStandardContent } from "./facet_selector_standard_content";
 
@@ -145,6 +147,22 @@ export function FacetSelectorRich({
     setModalSelections(newSelections);
   };
 
+  function areFacetsConsistent(
+    facetList: FacetSelectorFacetInfo[] | null
+  ): boolean {
+    if (!facetList || facetList.length <= 1) {
+      return true;
+    }
+    const firstFacetIds = Object.keys(facetList[0].metadataMap).sort();
+    for (let i = 1; i < facetList.length; i++) {
+      const currentFacetIds = Object.keys(facetList[i].metadataMap).sort();
+      if (!isEqual(firstFacetIds, currentFacetIds)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   if (!hasAlternativeSources) {
     if (mode === "download") {
       return null;
@@ -173,6 +191,11 @@ export function FacetSelectorRich({
   }
 
   const showSourceOptions = facetList && !error;
+  const showInconsistentFacetFlag =
+    allowSelectionGrouping &&
+    !loading &&
+    !error &&
+    !areFacetsConsistent(facetList);
 
   function onConfirm(): void {
     const metadataMap = {};
@@ -214,6 +237,9 @@ export function FacetSelectorRich({
             : facetSelectionComponentMessages.ExploreOtherDatasets
         ) + (totalFacetOptionCount > 0 ? ` (${totalFacetOptionCount})` : "")}
       </Button>
+      {showInconsistentFacetFlag && (
+        <FacetSelectorDebugFlag message="The facet choices in this chart are not consistent across statistical variables." />
+      )}
       <Dialog
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
