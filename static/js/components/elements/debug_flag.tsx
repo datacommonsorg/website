@@ -23,18 +23,16 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { FlagFilled } from "../../components/elements/icons/flag";
-import { Tooltip } from "../../components/elements/tooltip/tooltip";
+import { FlagFilled } from "./icons/flag";
+import { Tooltip } from "./tooltip/tooltip";
 
 const DEBUG_PARAM = "dbg";
 
-interface FacetSelectorDebugFlagProps {
+interface DebugFlagProps {
   message: string;
 }
 
-export function FacetSelectorDebugFlag({
-  message,
-}: FacetSelectorDebugFlagProps): ReactElement | null {
+export function DebugFlag({ message }: DebugFlagProps): ReactElement | null {
   const theme = useTheme();
 
   const getDebugParam = (): string | null => {
