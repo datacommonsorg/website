@@ -103,7 +103,7 @@ function App(): ReactElement {
           {showInfo && (
             <Row>
               {useStandardizedUi ? (
-                <VisToolInstructionsBox multiVariable />
+                <VisToolInstructionsBox toolType="scatter" />
               ) : (
                 <MemoizedInfo />
               )}

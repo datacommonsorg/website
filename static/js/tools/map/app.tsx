@@ -79,7 +79,13 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          <Row>{useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}</Row>
+          <Row>
+            {useStandardizedUi ? (
+              <VisToolInstructionsBox toolType="map" />
+            ) : (
+              <Info />
+            )}
+          </Row>
           <Row id="chart-row">
             <ChartLoader />
           </Row>
