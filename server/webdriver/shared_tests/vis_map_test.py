@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -230,3 +231,25 @@ class VisMapTestMixin():
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertGreater(len(map_regions), 1)
+
+  def test_hover_tooltip(self):
+    """Test hover tooltip shows up correctly."""
+    self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
+
+    # Wait until the chart has loaded.
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+
+    # Find the map region for Kern County (geoId/06029)
+    kern_county = self.driver.find_element(
+        By.XPATH,
+        '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]',
+    )
+
+    # Hover over the region using ActionChains
+    actions = ActionChains(self.driver)
+    actions.move_to_element(kern_county).perform()
+
+    # Wait for tooltip to appear and verify contents
+    tooltip = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located((By.ID, "tooltip")))
+    self.assertIn("Female population", tooltip.text)
