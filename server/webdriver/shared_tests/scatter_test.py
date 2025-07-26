@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -49,6 +50,8 @@ class ScatterTestMixin():
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Scatter Page Landing')
+
   def test_charts_from_url(self):
     """Given the url directly, test the page shows up correctly"""
     # Load Scatter Tool page with Statistical Variables.
@@ -75,6 +78,10 @@ class ScatterTestMixin():
                   find_elem(chart, by=By.XPATH, value='./h3[2]').text)
     circles = find_elems(scatterplot, by=By.TAG_NAME, value='circle')
     self.assertGreater(len(circles), 20)
+
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Scatter California Population Chart')
 
   @pytest.mark.one_at_a_time
   def test_manually_enter_options(self):
@@ -119,6 +126,10 @@ class ScatterTestMixin():
                          value='#scatterplot circle')
     self.assertGreater(len(circles), 20)
 
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Scatter California Median Age Income Chart')
+
   def test_landing_page_link(self):
     self.driver.get(self.url_ + SCATTER_URL)
 
@@ -135,3 +146,7 @@ class ScatterTestMixin():
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
     self.assertGreater(len(circles), 1)
+
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Scatter Tool Landing Page Link Chart Loaded')

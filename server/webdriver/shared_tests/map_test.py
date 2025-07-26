@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -45,6 +46,8 @@ class MapTestMixin():
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
+
+    percy_snapshot(self.driver, self.dc_title_string + ' Map Page Landing')
 
   def test_charts_from_url(self):
     """Given the url directly, test the page shows up correctly"""
@@ -118,6 +121,9 @@ class MapTestMixin():
                   self.TIMEOUT_SEC).until(EC.title_contains(new_page_title))
     self.assertEqual(new_page_title, self.driver.title)
 
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Map Tool Page with URL Params')
+
   @pytest.mark.one_at_a_time
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
@@ -153,6 +159,9 @@ class MapTestMixin():
     chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
     self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
 
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Map Tool Page with Manual Options')
+
   def test_landing_page_link(self):
     """Test for landing page link."""
     self.driver.get(self.url_ + MAP_URL)
@@ -169,3 +178,7 @@ class MapTestMixin():
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertGreater(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                        1)
+
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Map Tool Landing Page Link Chart Loaded')

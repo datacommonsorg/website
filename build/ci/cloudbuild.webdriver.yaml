@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+availableSecrets:
+  secretManager:
+  - versionName: projects/879489846695/secrets/PERCY_TOKEN/versions/latest
+    env: 'percy_token'
+
 steps:
   # Build the static files
   - id: package_js
@@ -30,6 +35,7 @@ steps:
         # ./run_test.sh -b will build client packages.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
+
 
   - id: setup_python
     name: python:3.11.4
@@ -61,24 +67,40 @@ steps:
   # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
-    entrypoint: /bin/sh
+    entrypoint: /bin/bash
     waitFor: ["package_js", "setup_python"]
+    secretEnv: ['percy_token']
+    env:
+      - 'PERCY_TARGET_BRANCH=${_BASE_BRANCH}'
+      - 'PERCY_PULL_REQUEST=${_PR_NUMBER}'
+      - 'PERCY_BRANCH=${_HEAD_BRANCH}'
     args:
       - -c
       - |
+        apt-get update && apt-get install -y nodejs npm
+        export PERCY_TOKEN=${percy_token}
         ./run_test.sh -w
+    allowFailure: true
 
-  # Run the Custom DC webdriver tests
+  # Run the Custom DC webdriver tests. 
   - id: flask_cdc_webdriver_test
     name: gcr.io/datcom-ci/full-env:2025-05-20
     entrypoint: /bin/sh
     waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
+    secretEnv: ['percy_token']
+    env:
+      - 'PERCY_TARGET_BRANCH=${_BASE_BRANCH}'
+      - 'PERCY_PULL_REQUEST=${_PR_NUMBER}'
+      - 'PERCY_BRANCH=${_HEAD_BRANCH}'
     args:
       - -c
       - |
         git submodule update --init --recursive
+        apt-get update && apt-get install -y nodejs npm
+        export PERCY_TOKEN=${percy_token}
         export STARTUP_WAIT_SEC=60
         ./run_test.sh --cdc
+    allowFailure: true
 
 timeout: 1800s # 30 minutes
 

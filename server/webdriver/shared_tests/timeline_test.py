@@ -14,6 +14,7 @@
 
 import time
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -54,6 +55,8 @@ class TimelineTestMixin():
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
 
+    percy_snapshot(self.driver, self.dc_title_string + ' Timeline Page Landing')
+
   def test_charts_original(self):
     """Test the original timeline page. No charts in this page."""
     # Load Timeline Tool page.
@@ -66,6 +69,9 @@ class TimelineTestMixin():
 
     # Assert no card is present since no search has been performed.
     self.assertEqual(len(charts), 0)
+
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Original Page No Charts')
 
   def test_charts_from_url_directly_and_uncheck_statvar(self):
     """Given the url directly, test the menu and charts are shown correctly.
@@ -110,6 +116,9 @@ class TimelineTestMixin():
     charts = find_elems(self.driver, value='dc-async-element')
     # Assert there is at least one chart.
     self.assertGreater(len(charts), 0)
+
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Page Charts From URL')
 
   def test_check_statvar_and_uncheck(self):
     """Test check and uncheck one statvar."""
@@ -158,6 +167,10 @@ class TimelineTestMixin():
         by=By.XPATH,
         value='//*[@id="chart-region"]/div[@class="chart-container"]')
     self.assertEqual(len(charts), 0)
+
+    percy_snapshot(
+        self.driver,
+        self.dc_title_string + ' Timeline Page Check Uncheck Statvar')
 
   def test_place_search_box_and_remove_place(self):
     """Test the timeline tool place search can work correctly."""
@@ -238,3 +251,6 @@ class TimelineTestMixin():
     # Assert number of charts and lines is correct.
     self.assertEqual(len(charts), 1)
     self.assertEqual(len(lines), 1)
+
+    percy_snapshot(self.driver,
+                   self.dc_title_string + ' Timeline Page Place Search Box')

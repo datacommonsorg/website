@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from percy import percy_snapshot
 from selenium.webdriver.common.by import By
 
 from server.integration_tests.explore_test import ExploreTest
@@ -33,3 +34,5 @@ class CdcNLTest(ExploreTest, CdcTestBase):
         find_elem(self.driver,
                   by=By.CSS_SELECTOR,
                   value='.explore-container .search-bar').is_displayed())
+
+    percy_snapshot(self.driver, self.dc_title_string + ' NL Page')

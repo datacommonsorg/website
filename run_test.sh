@@ -239,12 +239,39 @@ function run_webdriver_test {
     export FLAKE_FINDER=true
   fi
   source .env/bin/activate
-  start_servers
-  if [[ "$FLAKE_FINDER" == "true" ]]; then
-    python3 -m pytest -n auto server/webdriver/tests/ ${@}
+  export PERCY_TOKEN="${PERCY_TOKEN}"
+
+  # Determine if Percy should be enabled
+  should_run_percy=false
+  if [ -n "${PERCY_TOKEN}" ]; then
+    export PERCY_ENABLE=1
+    should_run_percy=true
+    echo "PERCY_TOKEN is not empty. Percy will be enabled."
   else
-    # TODO: Stop using reruns once tests are deflaked.
-    python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+    export PERCY_ENABLE=0
+    echo "PERCY_TOKEN is empty. Percy will be disabled."
+  fi
+
+  start_servers
+
+  # Construct the base pytest command
+  pytest_command="python3 -m pytest -n auto server/webdriver/tests/"
+
+  # Add --reruns 2 if FLAKE_FINDER is NOT true
+  if [[ "$FLAKE_FINDER" != "true" ]]; then
+    pytest_command+=" --reruns 2"
+  fi
+
+  # Append any additional arguments passed to the script
+  pytest_command+=" ${@}"
+
+  # Execute the command, conditionally with Percy
+  if [[ "$should_run_percy" == "true" ]]; then
+    echo "Executing command with Percy: npx @percy/cli exec -- ${pytest_command}"
+    npx @percy/cli exec -- ${pytest_command}
+  else
+    echo "Executing command without Percy: ${pytest_command}"
+    ${pytest_command}
   fi
   stop_servers
   deactivate
@@ -257,9 +284,21 @@ function run_cdc_webdriver_test {
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
+
+  local should_run_percy=false
+  if [ -n "${PERCY_TOKEN}" ]; then
+    export PERCY_ENABLE=1
+    should_run_percy=true
+    echo "PERCY_TOKEN is not empty. Percy will be enabled."
+  else
+    export PERCY_ENABLE=0
+    echo "PERCY_TOKEN is empty. Percy will be disabled."
+  fi
+
   export RUN_CDC_DEV_ENV_FILE="build/cdc/dev/.env-test"
   ensure_cdc_test_env_file
   export CDC_TEST_BASE_URL="http://localhost:8080"
+
   if [[ " ${extra_args[@]} " =~ " --flake-finder " ]]; then
     export FLAKE_FINDER=true
   fi
@@ -268,17 +307,37 @@ function run_cdc_webdriver_test {
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
   source .env/bin/activate
-  local rerun_options=""
-  if [[ "$FLAKE_FINDER" == "true" ]]; then
-    rerun_options=""
-  else
+  local pytest_rerun_options=""
+  if [[ "$FLAKE_FINDER" != "true" ]]; then
     # TODO: Stop using reruns once tests are deflaked.
-    rerun_options="--reruns 2"
+    pytest_rerun_options="--reruns 2"
   fi
 
-  python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
-  python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  local pytest_base_command="python3 -m pytest"
+  local pytest_target_dir="server/webdriver/cdc_tests/"
+  local script_extra_args=("${@}") # Capture all extra args passed to the function
 
+  # Construct individual pytest commands
+  local pytest_one_at_a_time_cmd="${pytest_base_command} ${pytest_rerun_options} -m \"one_at_a_time\" \"${pytest_target_dir}\" \"${script_extra_args[@]}\""
+  local pytest_not_one_at_a_time_cmd="${pytest_base_command} -n auto ${pytest_rerun_options} -m \"not one_at_a_time\" \"${pytest_target_dir}\" \"${script_extra_args[@]}\""
+
+  if [[ "$should_run_percy" == "true" ]]; then
+    echo "Tests will be run with Percy as a single build."
+    # Use a single npx @percy/cli exec -- bash -c to run both commands
+    npx @percy/cli exec -- bash -c " \
+      echo \"Running 'one_at_a_time' tests...\"; \
+      ${pytest_one_at_a_time_cmd}; \
+      echo \"Running 'not one_at_a_time' tests...\"; \
+      ${pytest_not_one_at_a_time_cmd} \
+    "
+  else
+    echo "Tests will be run without Percy."
+    echo "Running 'one_at_a_time' tests..."
+    ${pytest_one_at_a_time_cmd}
+
+    echo "Running 'not one_at_a_time' tests..."
+    ${pytest_not_one_at_a_time_cmd}
+  fi
   stop_servers
   deactivate
 }

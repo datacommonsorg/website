@@ -28,6 +28,7 @@ langdetect==1.0.9
 markupsafe==2.1.2
 numpy==2.2.4
 parameterized==0.8.1
+percy-selenium==2.1.2
 pillow==10.4.0
 protobuf==4.25.3
 pydantic==2.10.6
