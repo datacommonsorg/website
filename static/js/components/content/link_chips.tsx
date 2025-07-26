@@ -40,6 +40,8 @@ interface LinkChipsProps {
   section: string;
   //an array of links to be rendered by the component
   linkChips: Link[];
+  //typography size from theme to use for text within chips
+  chipTextSize?: "md" | "sm";
 }
 
 export const LinkChips = ({
@@ -49,6 +51,7 @@ export const LinkChips = ({
   containerSx,
   section,
   linkChips,
+  chipTextSize = "md",
 }: LinkChipsProps): ReactElement => {
   const theme = useTheme();
 
@@ -67,6 +70,9 @@ export const LinkChips = ({
   linkChips.forEach((chip) => {
     if (!chip.variant) {
       chip.variant = variant;
+    }
+    if (!chip.textSize) {
+      chip.textSize = chipTextSize;
     }
   });
 

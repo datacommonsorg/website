@@ -18,7 +18,7 @@
  * Main app component for map explorer.
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
@@ -31,6 +31,7 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
@@ -56,6 +57,7 @@ function App(): ReactElement {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
+  const theme = useTheme();
 
   return (
     <React.StrictMode>
@@ -80,6 +82,15 @@ function App(): ReactElement {
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
           <Row>{useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}</Row>
+          {useStandardizedUi && (
+            <Row
+              css={css`
+                margin-top: ${theme.spacing.xl}px;
+              `}
+            >
+              <ChartLinkChips toolType="map" />
+            </Row>
+          )}
           <Row id="chart-row">
             <ChartLoader />
           </Row>
