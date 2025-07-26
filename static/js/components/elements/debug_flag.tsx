@@ -16,8 +16,9 @@
 
 /**
  * If hideDebug is false (the same flag that the general debug tool uses),
- * then we display a flag if the chart is in grouped mode and not all of
- * the facets are completely shared across the stat vars.
+ * and a message is provided, then we display a flag with a tooltip that
+ * displays the message. This can be used anywhere in the app to provide
+ * short debugging messages to people in a debugging environment.
  */
 
 import { css, useTheme } from "@emotion/react";
@@ -50,7 +51,7 @@ export function DebugFlag({ message }: DebugFlagProps): ReactElement | null {
     (document.getElementById("metadata").dataset.hideDebug !== "False" &&
       !debugParam);
 
-  if (hideDebug) {
+  if (hideDebug || !message) {
     return null;
   }
 
