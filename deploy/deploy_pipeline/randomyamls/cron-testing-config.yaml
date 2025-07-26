@@ -1,0 +1,19 @@
+apiVersion: v1
+data:
+  enableAdversarial: "true"
+  enableSanity: "true"
+  nodejsApiRoot: http://website-nodejs-service:8080
+  screenshotDomain: dev.datacommons.org
+  webApiRoot: http://website-service:8080
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: dc-website
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-05-24T17:56:44Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: cron-testing-config
+  namespace: website
+  resourceVersion: "220768178"
+  uid: ced825f3-cb1b-408f-bae5-1f3d25c0fc17

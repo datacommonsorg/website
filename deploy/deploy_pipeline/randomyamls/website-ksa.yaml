@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    iam.gke.io/gcp-service-account: website-robot@datcom-website-dev.iam.gserviceaccount.com
+  creationTimestamp: "2024-05-24T16:31:49Z"
+  name: website-ksa
+  namespace: website
+  resourceVersion: "2217"
+  uid: daa92c17-f9da-45ad-bf0e-cbe5709416ec

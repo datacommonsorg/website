@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig"}}'
+    cloud.google.com/neg: '{"ingress":true}'
+    cloud.google.com/neg-status: '{"network_endpoint_groups":{"8080":"k8s1-7178e0cc-website-website-service-8080-d17d7086"},"zones":["us-central1-b","us-central1-c","us-central1-f"]}'
+    meta.helm.sh/release-name: dc-website
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-05-24T17:56:45Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: website-service
+  namespace: website
+  resourceVersion: "120739739"
+  uid: 4bcf9c04-ec7b-418c-a807-3fd02efe44dc
+spec:
+  clusterIP: 10.3.104.65
+  clusterIPs:
+  - 10.3.104.65
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 32348
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: website-app
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

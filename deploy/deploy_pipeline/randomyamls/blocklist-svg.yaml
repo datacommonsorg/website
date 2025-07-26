@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  blocklist_svg.json: '[]'
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: dc-website
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-05-24T17:56:44Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: blocklist-svg
+  namespace: website
+  resourceVersion: "55720"
+  uid: 4efd182d-ae0f-4d90-a199-a1a094e7fef7
