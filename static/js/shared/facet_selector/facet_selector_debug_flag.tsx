@@ -21,7 +21,6 @@
  */
 
 import { css, useTheme } from "@emotion/react";
-import queryString from "query-string";
 import React, { ReactElement } from "react";
 
 import { FlagFilled } from "../../components/elements/icons/flag";
@@ -38,7 +37,15 @@ export function FacetSelectorDebugFlag({
 }: FacetSelectorDebugFlagProps): ReactElement | null {
   const theme = useTheme();
 
-  const debugParam = queryString.parse(window.location.hash)[DEBUG_PARAM];
+  const getDebugParam = (): string | null => {
+    if (typeof window === "undefined") {
+      return null;
+    }
+    return new URLSearchParams(window.location.hash.slice(1)).get(DEBUG_PARAM);
+  };
+
+  const debugParam = getDebugParam();
+
   const hideDebug =
     !document.getElementById("metadata") ||
     !document.getElementById("metadata").dataset ||
