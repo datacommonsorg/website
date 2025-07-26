@@ -166,7 +166,7 @@ export function FacetOptionContent({
                 )}
                 <Tooltip
                   title={<StatVarTooltipContent items={applicableStatVars} />}
-                  sxTrigger={css`
+                  triggerCss={css`
                     display: inline-flex;
                     align-items: center;
                   `}

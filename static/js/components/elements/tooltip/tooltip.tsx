@@ -209,10 +209,10 @@ interface TooltipProps {
   // Custom HTML cursors can be used, default will inherit the styles of the element or
   // pointer in the case of popovers
   cursor?: string;
-  // Prop to allow the optional overriding of tooltip box styles.
-  sx?: Interpolation<Theme>;
-  // Prop to allow the optional overriding of tooltip trigger styles.
-  sxTrigger?: Interpolation<Theme>;
+  // Prop to allow the optional overriding of tooltip box CSS.
+  boxCss?: Interpolation<Theme>;
+  // Prop to allow the optional overriding of tooltip trigger CSS.
+  triggerCss?: Interpolation<Theme>;
   // Prop to allow the optional overriding of the arrow styles.
   arrowProps?: Omit<FloatingArrowProps, "ref" | "context">;
 }
@@ -592,7 +592,7 @@ function createTriggerNode({
   handleTouchStart,
   handleClick,
   handleTriggerKeyDown,
-  sxTrigger,
+  triggerCss,
 }: {
   children: ReactNode;
   cursor?: string;
@@ -607,7 +607,7 @@ function createTriggerNode({
   handleTouchStart: () => void;
   handleClick: () => void;
   handleTriggerKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-  sxTrigger?: Interpolation<Theme>;
+  triggerCss?: Interpolation<Theme>;
 }): ReactElement {
   let triggerChild: ReactElement;
 
@@ -624,7 +624,7 @@ function createTriggerNode({
   if (isTriggerFocusable(triggerChild)) {
     return React.cloneElement(triggerChild, {
       ref: triggerRef,
-      css: sxTrigger,
+      css: triggerCss,
       onMouseEnter: mergeHandlers(
         triggerChild.props.onMouseEnter,
         handleMouseEnter
@@ -659,7 +659,7 @@ function createTriggerNode({
             display: "inline-block",
             cursor: cursor ? cursor : popoverMode ? "pointer" : "inherit",
           },
-          sxTrigger,
+          triggerCss,
         ]}
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
@@ -699,8 +699,8 @@ export const Tooltip = ({
   maxWidth = TOOLTIP_DEFAULT_MAX_WIDTH,
   triggerBuffer = TOOLTIP_DEFAULT_TRIGGER_BUFFER,
   cursor,
-  sx,
-  sxTrigger,
+  boxCss,
+  triggerCss,
   arrowProps,
 }: TooltipProps): ReactElement => {
   const tooltipId = useUniqueId("tooltip");
@@ -1124,7 +1124,7 @@ export const Tooltip = ({
     handleTouchStart,
     handleClick,
     handleTriggerKeyDown,
-    sxTrigger,
+    triggerCss,
   });
 
   useEffect(() => {
@@ -1174,7 +1174,7 @@ export const Tooltip = ({
               top: y ?? 0,
               left: x ?? 0,
             }}
-            css={sx}
+            css={boxCss}
           >
             {title}
 
