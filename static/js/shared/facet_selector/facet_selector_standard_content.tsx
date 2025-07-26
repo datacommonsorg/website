@@ -121,7 +121,7 @@ export function FacetSelectorStandardContent({
                 <FacetOption
                   facetInfo={facetInfo}
                   facetId={sourceFacetId}
-                  isChecked={true} // Only one option, so it's always selected
+                  isChecked={true}
                   onSelectionChange={(): void =>
                     onSelectionChange(facetInfo.dcid, "")
                   }
@@ -131,7 +131,7 @@ export function FacetSelectorStandardContent({
                 <>
                   <FacetOption
                     facetInfo={facetInfo}
-                    facetId={""} // The "combined" option
+                    facetId={""}
                     isChecked={(modalSelections[facetInfo.dcid] || "") === ""}
                     onSelectionChange={(): void =>
                       onSelectionChange(facetInfo.dcid, "")

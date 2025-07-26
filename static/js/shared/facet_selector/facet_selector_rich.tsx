@@ -15,7 +15,13 @@
  */
 
 /**
- * Component to edit the facet for a list of stat vars.
+ * Component to allow the facet selection for a chart. It will render
+ * an interface where the user can select either:
+ *
+ * 1. Standard mode: a facet for each stat var, where each stat var may
+ *    be given its own stat var.
+ * 2. Grouped mode: a single facet list, where only one facet is chosen
+ *    (and this facet is applied to all stat vars).
  */
 
 /** @jsxImportSource @emotion/react */
