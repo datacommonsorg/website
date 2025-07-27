@@ -218,6 +218,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       apiRoot={props.apiRoot}
       className={`${props.className} bar-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hyperlink={getHyperlink(props)}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
       errorMsg={barChartData && barChartData.errorMsg}
@@ -670,4 +671,19 @@ function getExploreLink(props: BarTilePropType): {
     displayText: intl.formatMessage(messages.timelineTool),
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+
+// New function to get a hyperlink (URL only)
+function getHyperlink(props: BarTilePropType): string {
+  // Get the place dcids from props
+  const placeDcids =
+    "places" in props
+      ? props.places
+      : "parentPlace" in props
+      ? [props.parentPlace]
+      : [];
+  const hl = `${props.apiRoot || ""}/explore#sv=${props.variables.map((v) => v.statVar)}&chartType=BAR_CHART&p=${placeDcids.join("___")}`;
+  console.log("Hyperlink function called with props:", hl);
+  return hl;
 }
