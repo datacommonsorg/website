@@ -11,7 +11,7 @@
           {
             "label": "Nigeria Statistics",
             "url": "https://nigeria.opendataforafrica.org",
-            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb); Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
           }
         ]
       },
@@ -527,7 +527,7 @@
           {
             "label": "Uganda Bureau of Statistics (UBOS)",
             "url": "https://uganda.opendataforafrica.org/",
-            "description": "Demographics, health and education data for Uganda at the country, region and district levels.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb); Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "description": "Demographics, health and education data for Uganda at the country, region and district levels."
           }
         ]
       },
@@ -1059,6 +1059,18 @@
         ]
       },
       {
+        "label": "Google",
+        "url": "https://www.google.com/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Sustainability Energy and Transport Financial Incentives",
+            "url": "https://www.google.com/",
+            "description": "A set of energy and transportation related financial incentives offered by government and utility organizations.\n\nData made publicly available under the standard [Google terms of service](https://policies.google.com/terms?hl=en)."
+          }
+        ]
+      },
+      {
         "label": "India Ministry of Statistics and Programme Implementation",
         "url": "https://mospi.gov.in/",
         "description": null,
@@ -1124,7 +1136,7 @@
           {
             "label": "Nigeria Statistics",
             "url": "https://nigeria.opendataforafrica.org",
-            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb); Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "description": "Demographics, health, agriculture, education and economy statistics for Nigeria."
           }
         ]
       },
@@ -1233,6 +1245,11 @@
             "description": "U.S. consumer price index broken down by categories of consumers."
           },
           {
+            "label": "Consumer Price Index by Category",
+            "url": "https://www.bls.gov/cpi/tables/supplemental-files/",
+            "description": "U.S. consumer price index broken down by categories of consumers."
+          },
+          {
             "label": "Current Employment Statistics (CES)",
             "url": "https://www.bls.gov/ces",
             "description": "Industry estimates of nonfarm employment, hours, and earnings of workers on payrolls."
@@ -1338,9 +1355,9 @@
             "description": "Number of U.S. businesses and amount of revenue, by business payroll status, industry, operation type, and tax status."
           },
           {
-            "label": "Monhtly Retail Sales US Census",
+            "label": "Monthly Retail Sales US Census",
             "url": "https://www.census.gov/retail/index.html",
-            "description": "The Advance Monthly and Monthly Retail Trade Surveys (MARTS and MRTS), the Annual Retail Trade Survey (ARTS), and the Quarterly E-Commerce Report work together to produce the most comprehensive data available on retail economic activity in the United States.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+            "description": "The Advance Monthly and Monthly Retail Trade Surveys (MARTS and MRTS), the Annual Retail Trade Survey (ARTS), and the Quarterly E-Commerce Report work together to produce the most comprehensive estimates available on retail economic activity in the United States.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
           }
         ]
       },
@@ -1358,6 +1375,11 @@
             "label": "World Bank Datasets",
             "url": "https://data.worldbank.org",
             "description": "Datasets related to demographics, economy, education, etc."
+          },
+          {
+            "label": "World Bank International Debt Statistics",
+            "url": "https://databank.worldbank.org/source/international-debt-statistics",
+            "description": "World Bank international debt statistics."
           },
           {
             "label": "World Development Indicators",
@@ -1487,7 +1509,7 @@
           {
             "label": "Uganda Bureau of Statistics (UBOS)",
             "url": "https://uganda.opendataforafrica.org/",
-            "description": "Demographics, health and education data for Uganda at the country, region and district levels.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb); Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "description": "Demographics, health and education data for Uganda at the country, region and district levels."
           }
         ]
       },
@@ -1677,18 +1699,6 @@
         ]
       },
       {
-        "label": "U.S. National Renewable Energy Laboratory (NREL)",
-        "url": "https://www.nrel.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "RE Atlas",
-            "url": "https://maps.nrel.gov/re-atlas",
-            "description": "Data Commons has imported the potential for solar energy generation in different counties in the U.S.\n\n[Disclaimer](https://maps.nrel.gov/re-atlas/)."
-          }
-        ]
-      },
-      {
         "label": "United Nations (UN)",
         "url": "https://www.un.org/en/",
         "description": null,
@@ -1819,6 +1829,18 @@
             "label": "Randolph Glacier Inventory",
             "url": "https://www.glims.org/RGI/rgi60_dl.html",
             "description": "A global inventory of glaciers, including surface areas."
+          }
+        ]
+      },
+      {
+        "label": "Google",
+        "url": "https://www.google.com/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Sustainability Energy and Transport Financial Incentives",
+            "url": "https://www.google.com/",
+            "description": "A set of energy and transportation related financial incentives offered by government and utility organizations.\n\nData made publicly available under the standard [Google terms of service](https://policies.google.com/terms?hl=en)."
           }
         ]
       },
@@ -2263,7 +2285,7 @@
           {
             "label": "Uganda Bureau of Statistics (UBOS)",
             "url": "https://uganda.opendataforafrica.org/",
-            "description": "Demographics, health and education data for Uganda at the country, region and district levels.\n\nUBOS [terms of use](https://uganda.opendataforafrica.org/dqgjtcb); Kenya Census [terms of use](https://kenya.opendataforafrica.org/gdlkmgb)"
+            "description": "Demographics, health and education data for Uganda at the country, region and district levels."
           }
         ]
       },

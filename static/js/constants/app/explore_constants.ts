@@ -48,12 +48,13 @@ export const URL_HASH_PARAMS = {
   MAX_TOPIC_SVS: "maxTopicSvs",
   MAX_CHARTS: "maxCharts",
   CHART_TYPE: "chartType",
+  ORIGIN: "origin",
 
   // The following are used for Facet selection.
   IMPORT_NAME: "imp",
   MEASUREMENT_METHOD: "mm",
-  OBSERVATION_PERIOD: "op",
-  SCALING_FACTOR: "sf",
+  OBSERVATION_PERIOD: "obsPer",
+  SCALING_FACTOR: "scaling",
   UNIT: "unit",
 };
 export const CLIENT_TYPES = {
@@ -69,6 +70,8 @@ export const CLIENT_TYPES = {
   RELATED_PLACE: "ui_related_place",
   // User clicked on a related topic
   RELATED_TOPIC: "ui_related_topic",
+  // User clicked on a generated question from a related topic
+  RELATED_QUESTION: "ui_related_question",
 };
 // Dcid of the default topic to use
 export const DEFAULT_TOPIC = "dc/topic/Root";

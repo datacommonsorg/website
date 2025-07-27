@@ -23,6 +23,11 @@ export const metadataComponentMessages = defineMessages({
     description:
       "Message shown when no metadata is available for a statistical variable.",
   },
+  MetadataError: {
+    id: "metadataError",
+    defaultMessage: "Error loading metadata.",
+    description: "Message shown when the call to fetch the metadata failed.",
+  },
   DCID: {
     id: "dcid",
     defaultMessage: "DCID",
@@ -53,7 +58,29 @@ export const metadataComponentMessages = defineMessages({
     defaultMessage: "Publication cadence",
     description:
       "Label for the cadence of publication. This is the rate of publication of the data. " +
-      "Example are: Yearly, Monthly.",
+      "Examples are: Yearly, Monthly.",
+  },
+  ObservationPeriod: {
+    id: "observationPeriod",
+    defaultMessage: "Observation period",
+    description:
+      "The time period over which an observation is made." +
+      "Examples are: Yearly, Monthly. " +
+      "See: https://docs.datacommons.org/glossary.html#observation-period.",
+  },
+  ScalingFactor: {
+    id: "scalingFactor",
+    defaultMessage: "Scaling factor",
+    description:
+      "In conjunction with the measurement denominator, scaling factor indicates the multiplication " +
+      "factor applied to the value. " +
+      "See: https://docs.datacommons.org/glossary.html#scaling-factor.",
+  },
+  DataCommonsAggregate: {
+    id: "dataCommonsAggregate",
+    defaultMessage: "Data Commons aggregate",
+    description:
+      "Indicates that a data set is an aggregate derived by Data Commons from another data set.",
   },
   License: {
     id: "license",

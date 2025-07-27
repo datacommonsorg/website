@@ -31,6 +31,9 @@ def open_svgs(svgs: List[str]) -> Dict[str, variable.SV]:
 
 
 def _get_svg_info(svgs, processed, result, level=0):
+  # Don't do anything if the list of svgs is empty
+  if not svgs:
+    return
   resp = dc.get_variable_group_info(svgs[:MAX_SVGS_IN_CALL], [])
   recurse_nodes = set()
   for data in resp.get('data', []):

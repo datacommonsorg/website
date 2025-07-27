@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
-import React, { Component, createRef, RefObject } from "react";
+import { ThemeProvider } from "@emotion/react";
+import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import {
   GA_EVENT_TOOL_PLACE_ADD,
   GA_PARAM_PLACE_DCID,
@@ -25,8 +32,11 @@ import {
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
+import { ToolHeader } from "../shared/tool_header";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartRegion } from "./chart_region";
 import { MemoizedInfo } from "./info";
 import {
@@ -70,6 +80,126 @@ class Page extends Component<unknown, PageStateType> {
   componentDidMount(): void {
     window.addEventListener("hashchange", this.fetchDataAndRender);
     this.fetchDataAndRender();
+  }
+
+  render(): ReactElement {
+    const numPlaces = Object.keys(this.state.placeName).length;
+    const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
+    const namedPlaces: NamedPlace[] = [];
+    for (const place in this.state.placeName) {
+      namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
+    }
+    const statVarTokens = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
+    );
+    const statVars = statVarTokens.map((sv) =>
+      sv.includes("|") ? sv.split("|")[0] : sv
+    );
+
+    const deselectSVs = (svList: string[]): void => {
+      const availableSVs = statVars.filter((sv) => svList.indexOf(sv) === -1);
+      const statVarTokenInfo = {
+        name: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
+        sep: statVarSep,
+        tokens: new Set(availableSVs),
+      };
+      setTokensToUrl([statVarTokenInfo]);
+    };
+
+    const svToSvInfo = {};
+    for (const sv of statVars) {
+      svToSvInfo[sv] =
+        sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
+    }
+
+    const useStandardizedUi = isFeatureEnabled(
+      STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+    );
+
+    return (
+      <ThemeProvider theme={theme}>
+        <StatVarWidget
+          openSvHierarchyModal={this.state.showSvHierarchyModal}
+          openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
+          collapsible={true}
+          svHierarchyType={StatVarHierarchyType.SCATTER}
+          sampleEntities={namedPlaces}
+          deselectSVs={deselectSVs}
+          selectedSVs={svToSvInfo}
+          selectSV={(sv): void =>
+            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
+          }
+        />
+        <div id="plot-container">
+          <Container fluid={true}>
+            {numPlaces === 0 &&
+              (useStandardizedUi ? (
+                <ToolHeader
+                  title={intl.formatMessage(toolMessages.timelineToolTitle)}
+                  subtitle={intl.formatMessage(
+                    toolMessages.timelineToolSubtitle
+                  )}
+                  switchToolsUrl="/tools/visualization#visType%3Dtimeline"
+                />
+              ) : (
+                <div className="app-header">
+                  <h1 className="mb-4">Timelines Explorer</h1>
+                  <a href="/tools/visualization#visType%3Dtimeline">
+                    Go back to the new Timelines Explorer
+                  </a>
+                </div>
+              ))}
+            <Card id="place-search">
+              <Row>
+                <Col sm={12}>
+                  <p>Select places:</p>
+                </Col>
+                <Col sm={12}>
+                  <SearchBar
+                    places={this.state.placeName}
+                    addPlace={(place): void => {
+                      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
+                      triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
+                        [GA_PARAM_PLACE_DCID]: place,
+                      });
+                    }}
+                    removePlace={(place): void => {
+                      removeToken(
+                        TIMELINE_URL_PARAM_KEYS.PLACE,
+                        placeSep,
+                        place
+                      );
+                    }}
+                  />
+                </Col>
+              </Row>
+              <Row className="d-inline d-lg-none">
+                <Col>
+                  <Button color="primary" onClick={this.toggleSvHierarchyModal}>
+                    Select variables
+                  </Button>
+                </Col>
+              </Row>
+            </Card>
+            {numPlaces === 0 &&
+              (useStandardizedUi ? (
+                <VisToolInstructionsBox multiPlace multiVariable />
+              ) : (
+                <MemoizedInfo />
+              ))}
+            {numPlaces !== 0 && numStatVarInfo !== 0 && (
+              <div id="chart-region">
+                <ChartRegion
+                  placeName={this.state.placeName}
+                  statVarInfo={this.state.statVarInfo}
+                  statVarOrder={statVars}
+                ></ChartRegion>
+              </div>
+            )}
+          </Container>
+        </div>
+      </ThemeProvider>
+    );
   }
 
   private fetchDataAndRender(): void {
@@ -126,107 +256,6 @@ class Page extends Component<unknown, PageStateType> {
     document
       .getElementById("explore")
       .appendChild(this.svHierarchyContainerRef.current);
-  }
-
-  render(): JSX.Element {
-    const numPlaces = Object.keys(this.state.placeName).length;
-    const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
-    const namedPlaces: NamedPlace[] = [];
-    for (const place in this.state.placeName) {
-      namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
-    }
-    const statVarTokens = Array.from(
-      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
-    );
-    const statVars = statVarTokens.map((sv) =>
-      sv.includes("|") ? sv.split("|")[0] : sv
-    );
-
-    const deselectSVs = (svList: string[]): void => {
-      const availableSVs = statVars.filter((sv) => svList.indexOf(sv) === -1);
-      const statVarTokenInfo = {
-        name: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
-        sep: statVarSep,
-        tokens: new Set(availableSVs),
-      };
-      setTokensToUrl([statVarTokenInfo]);
-    };
-
-    const svToSvInfo = {};
-    for (const sv of statVars) {
-      svToSvInfo[sv] =
-        sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
-    }
-    return (
-      <>
-        <StatVarWidget
-          openSvHierarchyModal={this.state.showSvHierarchyModal}
-          openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
-          collapsible={true}
-          svHierarchyType={StatVarHierarchyType.SCATTER}
-          sampleEntities={namedPlaces}
-          deselectSVs={deselectSVs}
-          selectedSVs={svToSvInfo}
-          selectSV={(sv): void =>
-            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
-          }
-        />
-        <div id="plot-container">
-          <Container fluid={true}>
-            {numPlaces === 0 && (
-              <div className="app-header">
-                <h1 className="mb-4">Timelines Explorer</h1>
-                <a href="/tools/visualization#visType%3Dtimeline">
-                  Go back to the new Data Commons
-                </a>
-              </div>
-            )}
-            <Card id="place-search">
-              <Row>
-                <Col sm={12}>
-                  <p>Select places:</p>
-                </Col>
-                <Col sm={12}>
-                  <SearchBar
-                    places={this.state.placeName}
-                    addPlace={(place): void => {
-                      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
-                      triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
-                        [GA_PARAM_PLACE_DCID]: place,
-                      });
-                    }}
-                    removePlace={(place): void => {
-                      removeToken(
-                        TIMELINE_URL_PARAM_KEYS.PLACE,
-                        placeSep,
-                        place
-                      );
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row className="d-lg-none">
-                <Col>
-                  <Button color="primary" onClick={this.toggleSvHierarchyModal}>
-                    Select variables
-                  </Button>
-                </Col>
-              </Row>
-            </Card>
-            {numPlaces === 0 && <MemoizedInfo />}
-            {numPlaces !== 0 && numStatVarInfo !== 0 && (
-              <div id="chart-region">
-                <ChartRegion
-                  placeName={this.state.placeName}
-                  statVarInfo={this.state.statVarInfo}
-                  statVarOrder={statVars}
-                ></ChartRegion>
-              </div>
-            )}
-          </Container>
-        </div>
-      </>
-    );
   }
 }
 

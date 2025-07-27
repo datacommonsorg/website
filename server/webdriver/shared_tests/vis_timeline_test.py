@@ -25,6 +25,7 @@ import server.webdriver.shared as shared
 
 TIMELINE_URL = '/tools/visualization#visType=timeline'
 URL_HASH_1 = '&place=geoId/06___geoId/08&sv=%7B"dcid"%3A"Median_Age_Person"%7D___%7B"dcid"%3A"Count_Person_Female"%7D___%7B"dcid"%3A"Count_Person_Male"%7D'
+URL_HASH_2 = '&place=geoId/06___geoId/08&placeType=County&sv=%7B"dcid"%3A"LifeExpectancy_Person"%7D'
 PLACE_SEARCH_CA = 'California'
 PLACE_SEARCH_USA = 'USA'
 
@@ -79,9 +80,10 @@ class VisTimelineTestMixin():
     stat_var_chips = self.driver.find_elements(
         By.CSS_SELECTOR, '.selected-option-chip.stat-var .chip-content')
     self.assertEqual(len(stat_var_chips), 3)
-    self.assertTrue('Median Age of Population' in stat_var_chips[0].text)
-    self.assertTrue('Female Population' in stat_var_chips[1].text)
-    self.assertTrue('Male Population' in stat_var_chips[2].text)
+    self.assertTrue(
+        'median age of population' in stat_var_chips[0].text.lower())
+    self.assertTrue('female population' in stat_var_chips[1].text.lower())
+    self.assertTrue('male population' in stat_var_chips[2].text.lower())
 
     # Assert charts are correct
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
@@ -93,8 +95,7 @@ class VisTimelineTestMixin():
 
     # Click per capita and assert results are correct
     per_capita_checkbox = self.driver.find_element(
-        By.CSS_SELECTOR,
-        '.chart-footer-options .chart-option .form-check-input')
+        By.CSS_SELECTOR, '.chart-options .option-inputs .form-check-input')
     per_capita_checkbox.click()
     shared.wait_for_loading(self.driver)
     element_present = EC.presence_of_element_located(
@@ -126,8 +127,8 @@ class VisTimelineTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     shared.select_source(self.driver, "OECDRegionalStatistics",
                          'Count_Person_Female')
-    update_button = self.driver.find_element(By.CSS_SELECTOR,
-                                             '.modal-footer .btn')
+    update_button = self.driver.find_element(
+        By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
     chart_sources = self.driver.find_element(By.CLASS_NAME, 'sources')
@@ -138,6 +139,25 @@ class VisTimelineTestMixin():
     self.assertEqual(len(chart_lines), 4)
     chart_lines = charts[1].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 2)
+
+  def test_no_facet_choices_available(self):
+    """Test that for a stat var with only one source, we show a message
+    instead of the source selector modal button.
+    """
+    self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_2)
+
+    # Wait until the chart has loaded
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+
+    # Find the chart timeline container element
+    chart_timeline = find_elem(self.driver,
+                               value='.chart.timeline',
+                               by=By.CSS_SELECTOR)
+
+    # Check for the existence of the message
+    header_message = chart_timeline.find_element(
+        By.XPATH, ".//header/p[text()='Displaying all the datasets available']")
+    self.assertIsNotNone(header_message)
 
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
@@ -238,25 +258,20 @@ class VisTimelineTestMixin():
     # Click on the button to open the source selector modal
     find_elem(self.driver, value='source-selector-open-modal-button').click()
 
-    shared.wait_for_loading(self.driver)
-
-    first_sv = find_elem(self.driver, value='source-selector-trigger').click()
-
-    shared.wait_for_loading(self.driver)
-
-    source_options = find_elems(
-        self.driver,
-        value='source-selector-option-title',
-        path_to_elem=['source-selector-options-section'])
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(lambda d: d.find_elements(
+                      By.CSS_SELECTOR, '.source-selector-facet-option-title'))
+    source_options = self.driver.find_elements(
+        By.CSS_SELECTOR, '.source-selector-facet-option-title')
     self.assertEqual(len(source_options), 18)
 
-    radio = find_elem(source_options[8], by=By.TAG_NAME, value='input')
-    radio.click()
+    source_options[7].click()
 
     # Click the modal-footer button to apply the changes
-    modal_footer_button = find_elem(self.driver,
-                                    value='btn-primary',
-                                    path_to_elem=['modal-footer'])
+    modal_footer_button = find_elem(
+        self.driver,
+        value='source-selector-update-source-button',
+        path_to_elem=['dialog-actions'])
     modal_footer_button.click()
 
     # Wait for the chart to reload

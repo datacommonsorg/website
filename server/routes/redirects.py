@@ -64,7 +64,7 @@ def scatter():
 @bp.route('/nlnext/')
 @bp.route('/nlnext')
 def nlnext():
-  return redirect(url_for('nl.page'), code=302)
+  return redirect(url_for('explore.page'), code=302)
 
 
 @bp.route('/datasets')
@@ -105,14 +105,7 @@ def demo():
   return redirect('/link/demo', code=302)
 
 
-def load_redirects(name):
-  local_file = gcs.maybe_download(
-      gcs.make_path(GLOBAL_CONFIG_BUCKET, 'redirects.json'))
-  with open(local_file) as fp:
-    mapping = json.load(fp)
-    return mapping.get(name, '/')
-
-
 @bp.route('/link/<path:name>')
 def link(name):
-  return redirect(load_redirects(name), code=302)
+  redirection_mapping = current_app.config.get('REDIRECTS', {})
+  return redirect(redirection_mapping.get(name, '/'), code=302)

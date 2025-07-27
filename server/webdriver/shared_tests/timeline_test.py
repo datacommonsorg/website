@@ -23,7 +23,8 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
-TIMELINE_URL = '/tools/timeline'
+# TODO(juliawu): Remove disabled feature once new UI is rolled out to production
+TIMELINE_URL = '/tools/timeline?disable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&statsVar=Median_Age_Person__Median_Income_Person__Count_Person_Upto5Years'\
     '__Count_Person_5To17Years&place=geoId/06,geoId/08'
 GEO_URL_1 = '#&place=geoId/06'
@@ -92,9 +93,15 @@ class TimelineTestMixin():
     shared.click_sv_group(self.driver, "Demographics")
 
     # Uncheck median age statvar, and the number of charts will become two.
-    find_elem(self.driver,
-              by=By.XPATH,
-              value='//*[text()="Median Age of Population"]').click()
+    # Try both possible text variants for the statvar label.
+    try:
+      find_elem(self.driver,
+                by=By.XPATH,
+                value='//*[text()="Median age of population"]').click()
+    except Exception:
+      find_elem(self.driver,
+                by=By.XPATH,
+                value='//*[text()="Median Age of Population"]').click()
 
     # Check if there is a way to find the chart region refreshed.
     shared.wait_for_loading(self.driver)

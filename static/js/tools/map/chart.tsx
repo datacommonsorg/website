@@ -19,7 +19,7 @@
  */
 
 import * as d3 from "d3";
-import React, { ReactNode, useContext, useEffect } from "react";
+import React, { ReactElement, ReactNode, useContext, useEffect } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
@@ -30,9 +30,10 @@ import {
   GA_PARAM_STAT_VAR,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { StatVarInfo } from "../../shared/stat_var";
 import { DataPointMetadata, NamedPlace } from "../../shared/types";
-import { ToolChartFooter } from "../shared/tool_chart_footer";
-import { StatVarInfo } from "../timeline/chart_region";
+import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
+import { ToolChartHeader } from "../shared/vis_tools/tool_chart_header";
 import { Context } from "./context";
 import { D3Map } from "./d3_map";
 // import { LeafletMap } from "./leaflet_map";
@@ -55,6 +56,8 @@ interface ChartProps {
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
   facetList: FacetSelectorFacetInfo[];
+  facetListLoading: boolean;
+  facetListError: boolean;
   geoRaster: any;
   mapType: MAP_TYPE;
   children: ReactNode;
@@ -67,7 +70,7 @@ const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 export const SECTION_CONTAINER_ID = "map-chart";
 
-export function Chart(props: ChartProps): JSX.Element {
+export function Chart(props: ChartProps): ReactElement {
   const { placeInfo, statVar, display } = useContext(Context);
 
   const mainSvInfo: StatVarInfo =
@@ -92,6 +95,15 @@ export function Chart(props: ChartProps): JSX.Element {
 
   return (
     <div className="chart-section-container">
+      <ToolChartHeader
+        svFacetId={{ [statVarDcid]: statVar.value.metahash }}
+        facetList={props.facetList}
+        onSvFacetIdUpdated={(svFacetId): void =>
+          statVar.setMetahash(svFacetId[statVar.value.dcid])
+        }
+        facetListLoading={props.facetListLoading}
+        facetListError={props.facetListError}
+      />
       <Card className="chart-section-card">
         <Container id={SECTION_CONTAINER_ID} fluid={true}>
           <div id="map-chart-screen" className="screen">
@@ -168,11 +180,6 @@ export function Chart(props: ChartProps): JSX.Element {
         chartId="map"
         sources={props.sources}
         mMethods={null}
-        svFacetId={{ [statVarDcid]: statVar.value.metahash }}
-        facetList={props.facetList}
-        onSvFacetIdUpdated={(svFacetId): void =>
-          statVar.setMetahash(svFacetId[statVar.value.dcid])
-        }
         hideIsRatio={props.mapType === MAP_TYPE.LEAFLET}
         isPerCapita={statVar.value.perCapita}
         onIsPerCapitaUpdated={(isPerCapita: boolean): void =>

@@ -41,6 +41,7 @@ import {
   GA_EVENT_PAGE_VIEW,
   GA_PARAM_PLACE,
   GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
   GA_PARAM_TIMING_MS,
   GA_PARAM_TOPIC,
   triggerGAEvent,
@@ -228,6 +229,7 @@ export function App(props: AppProps): ReactElement {
     /* eslint-disable-next-line */
     fulfillData: any,
     pageMetadata: SubjectPageMetadata,
+    allowRedirect: boolean,
     userQuery?: string,
     isHighlight?: boolean
   ): void {
@@ -249,7 +251,8 @@ export function App(props: AppProps): ReactElement {
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
-      isPendingRedirect = shouldSkipPlaceOverview(pageMetadata);
+      isPendingRedirect =
+        allowRedirect && shouldSkipPlaceOverview(pageMetadata);
       if (isPendingRedirect) {
         const placeDcid = pageMetadata.place.dcid;
         // If the user has a query, append it to the url
@@ -357,6 +360,7 @@ export function App(props: AppProps): ReactElement {
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${gaTitle}${document.title}`,
       page_location: window.location.href.replace("#", "?"),
+      [GA_PARAM_SOURCE]: urlHashParams.origin,
     });
     /* eslint-enable camelcase */
     if (query) {
@@ -385,7 +389,12 @@ export function App(props: AppProps): ReactElement {
           const mainPlace = extractMainPlace(resp);
           const mainPageMetadata = extractMetadata(resp, mainPlace);
           updatePageMetadata(mainPageMetadata);
-          processFulfillData(resp, mainPageMetadata, query);
+          processFulfillData(
+            resp,
+            mainPageMetadata,
+            /*allowRedirect=*/ true,
+            query
+          );
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -445,25 +454,42 @@ export function App(props: AppProps): ReactElement {
 
       Promise.all([highlightPromise, fulfillmentPromise]).then(
         ([highlightResponse, fulfillResponse]) => {
+          let allowRedirect = true;
           const mainPlace = extractMainPlace(fulfillResponse);
           let mainPageMetadata = extractMetadata(fulfillResponse, mainPlace);
 
-          const highlightPageMetadataResp = extractMetadata(
+          let highlightPageMetadataResp = extractMetadata(
             highlightResponse,
             mainPlace
           );
 
           if (highlightPageMetadataResp) {
+            // If we have a highlight response, prevent any place page redirection.
+            allowRedirect = false;
+
+            // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
             mainPageMetadata = filterBlocksFromPageMetadata(
               mainPageMetadata,
               highlightPageMetadataResp.pageConfig.categories.flatMap(
                 (category) => category.blocks || []
               )
             );
+
+            if (shouldSkipPlaceOverview(mainPageMetadata)) {
+              // If the main page metadata is just a place overview, this means it has no data. We can skip
+              // the main page metadata and just use the highlight page metadata.
+              mainPageMetadata = highlightPageMetadataResp;
+              highlightPageMetadataResp = null;
+            }
           }
 
           updatePageMetadata(mainPageMetadata, highlightPageMetadataResp);
-          processFulfillData(fulfillResponse, mainPageMetadata, query);
+          processFulfillData(
+            fulfillResponse,
+            mainPageMetadata,
+            allowRedirect,
+            query
+          );
         }
       );
     }
