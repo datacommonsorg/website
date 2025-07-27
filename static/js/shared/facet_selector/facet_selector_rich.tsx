@@ -86,20 +86,17 @@ interface FacetSelectorRichProps {
   allowSelectionGrouping?: boolean;
 }
 
-export function FacetSelectorRich({
-  variant = "standard",
-  mode,
-  svFacetId,
-  facetList,
-  loading,
-  error,
-  onSvFacetIdUpdated,
-  allowSelectionGrouping = false,
-}: FacetSelectorRichProps): ReactElement {
+export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
+  const {
+    variant = "standard",
+    mode,
+    facetList,
+    loading,
+    error,
+    allowSelectionGrouping = false,
+  } = props;
   const theme = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalSelections, setModalSelections] = useState(svFacetId);
-  const facetVariant = variant;
 
   const totalFacetOptionCount = useMemo(() => {
     if (!facetList) {
@@ -125,34 +122,6 @@ export function FacetSelectorRich({
     );
   }, [facetList, loading]);
 
-  useEffect(() => {
-    // If modal is closed without updating facets, we want to reset the
-    // selections in the modal.
-    if (!modalOpen) {
-      setModalSelections(svFacetId);
-    }
-  }, [svFacetId, modalOpen]);
-
-  const handleSelectionChange = (
-    clickedDcid: string,
-    clickedFacetId: string
-  ): void => {
-    setModalSelections({
-      ...modalSelections,
-      [clickedDcid]: clickedFacetId,
-    });
-  };
-
-  const handleGroupedSelectionChange = (clickedFacetId: string): void => {
-    const newSelections: Record<string, string> = {};
-    if (facetList) {
-      for (const facetInfo of facetList) {
-        newSelections[facetInfo.dcid] = clickedFacetId;
-      }
-    }
-    setModalSelections(newSelections);
-  };
-
   function areFacetsConsistent(
     facetList: FacetSelectorFacetInfo[] | null
   ): boolean {
@@ -173,53 +142,20 @@ export function FacetSelectorRich({
     if (mode === "download") {
       return null;
     }
-    return (
-      <p
-        css={css`
-          ${variant === "small" ? "font-size: 13px;" : theme.typography.text.sm}
-          ${theme.typography.family.text}
-          ${theme.button.size.md}
-          padding: ${facetVariant === "inline" ? "0px" : "inherit"};
-          padding-left: ${facetVariant === "inline" ? "0" : theme.spacing.sm}px;
-          border: 1px solid transparent;
-          line-height: 1rem;
-          color: ${theme.colors.text.primary.base};
-          flex-shrink: 0;
-          visibility: ${loading ? "hidden" : "visible"};
-          margin: 0;
-        `}
-      >
-        {intl.formatMessage(
-          facetSelectionComponentMessages.NoAlternativeDatasets
-        )}
-      </p>
-    );
+    return <NoFacetChoicesMessage variant={variant} loading={loading} />;
   }
 
-  const showSourceOptions = facetList && !error;
   const showInconsistentFacetFlag =
     allowSelectionGrouping &&
     !loading &&
     !error &&
     !areFacetsConsistent(facetList);
 
-  function onConfirm(): void {
-    const metadataMap = {};
-    facetList.forEach((facetInfo: FacetSelectorFacetInfo) => {
-      const selectedFacetId = modalSelections[facetInfo.dcid];
-      if (selectedFacetId && selectedFacetId in facetInfo.metadataMap) {
-        metadataMap[selectedFacetId] = facetInfo.metadataMap[selectedFacetId];
-      }
-    });
-    onSvFacetIdUpdated(modalSelections, metadataMap);
-    setModalOpen(false);
-  }
-
   return (
     <>
       <Button
         className={`${SELECTOR_PREFIX}-open-modal-button`}
-        variant={`${facetVariant === "inline" ? "text" : "flat"}`}
+        variant={`${variant === "inline" ? "text" : "flat"}`}
         size="sm"
         onClick={(): void => setModalOpen(true)}
         disabled={loading}
@@ -227,9 +163,9 @@ export function FacetSelectorRich({
           ${variant === "small" ? "font-size: 13px;" : ""}
           flex-shrink: 0;
           visibility: ${loading ? "hidden" : "visible"};
-          ${facetVariant === "inline" ? "padding: 0;" : ""}
+          ${variant === "inline" ? "padding: 0;" : ""}
           &:hover:not(:disabled):not([aria-disabled]) {
-            ${facetVariant === "inline"
+            ${variant === "inline"
               ? "text-decoration: underline; border: 1px solid transparent;"
               : ""}
           }
@@ -254,62 +190,155 @@ export function FacetSelectorRich({
           <DebugFlag message="This chart’s facet choices are not consistent across all statistical variables." />
         </div>
       )}
-      <Dialog
+      <FacetSelectorModal
+        {...props}
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
-        loading={loading}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle>
-          {intl.formatMessage(
-            facetList?.length > 1
-              ? facetSelectionComponentMessages.SelectDatasets
-              : facetSelectionComponentMessages.SelectDataset
-          )}
-        </DialogTitle>
-        <DialogContent>
-          {error && (
-            <div>
-              {intl.formatMessage(facetSelectionComponentMessages.DatasetError)}
-            </div>
-          )}
-          {showSourceOptions &&
-            (allowSelectionGrouping ? (
-              <FacetSelectorGroupedContent
-                facetList={facetList}
-                modalSelections={modalSelections}
-                onSelectionChange={handleGroupedSelectionChange}
-                mode={mode}
-              />
-            ) : (
-              <FacetSelectorStandardContent
-                facetList={facetList}
-                modalSelections={modalSelections}
-                onSelectionChange={handleSelectionChange}
-                mode={mode}
-              />
-            ))}
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="text"
-            onClick={(): void => {
-              setModalOpen(false);
-            }}
-          >
-            {intl.formatMessage(error ? messages.close : messages.cancel)}
-          </Button>
-          {!error && (
-            <Button
-              onClick={onConfirm}
-              className={`${SELECTOR_PREFIX}-update-source-button`}
-            >
-              {intl.formatMessage(facetSelectionComponentMessages.Update)}
-            </Button>
-          )}
-        </DialogActions>
-      </Dialog>
+      />
     </>
+  );
+}
+
+function NoFacetChoicesMessage({
+  variant,
+  loading,
+}: Pick<FacetSelectorRichProps, "variant" | "loading">): ReactElement | null {
+  const theme = useTheme();
+  return (
+    <p
+      css={css`
+        ${variant === "small" ? "font-size: 13px;" : theme.typography.text.sm}
+        ${theme.typography.family.text}
+        ${theme.button.size.md}
+        padding: ${variant === "inline" ? "0px" : "inherit"};
+        padding-left: ${variant === "inline" ? "0" : theme.spacing.sm}px;
+        border: 1px solid transparent;
+        line-height: 1rem;
+        color: ${theme.colors.text.primary.base};
+        flex-shrink: 0;
+        visibility: ${loading ? "hidden" : "visible"};
+        margin: 0;
+      `}
+    >
+      {intl.formatMessage(
+        facetSelectionComponentMessages.NoAlternativeDatasets
+      )}
+    </p>
+  );
+}
+
+function FacetSelectorModal(
+  props: FacetSelectorRichProps & {
+    open: boolean;
+    onClose: () => void;
+  }
+): ReactElement {
+  const {
+    open,
+    onClose,
+    loading,
+    error,
+    facetList,
+    svFacetId,
+    onSvFacetIdUpdated,
+    allowSelectionGrouping,
+    mode,
+  } = props;
+  const [modalSelections, setModalSelections] = useState(svFacetId);
+
+  useEffect(() => {
+    // If modal is closed without updating facets, we want to reset the
+    // selections in the modal.
+    if (!open) {
+      setModalSelections(svFacetId);
+    }
+  }, [svFacetId, open]);
+
+  const handleSelectionChange = (
+    clickedDcid: string,
+    clickedFacetId: string
+  ): void => {
+    setModalSelections({
+      ...modalSelections,
+      [clickedDcid]: clickedFacetId,
+    });
+  };
+
+  const handleGroupedSelectionChange = (clickedFacetId: string): void => {
+    const newSelections: Record<string, string> = {};
+    if (facetList) {
+      for (const facetInfo of facetList) {
+        newSelections[facetInfo.dcid] = clickedFacetId;
+      }
+    }
+    setModalSelections(newSelections);
+  };
+
+  function onConfirm(): void {
+    const metadataMap = {};
+    facetList.forEach((facetInfo: FacetSelectorFacetInfo) => {
+      const selectedFacetId = modalSelections[facetInfo.dcid];
+      if (selectedFacetId && selectedFacetId in facetInfo.metadataMap) {
+        metadataMap[selectedFacetId] = facetInfo.metadataMap[selectedFacetId];
+      }
+    });
+    onSvFacetIdUpdated(modalSelections, metadataMap);
+    onClose();
+  }
+
+  const showSourceOptions = facetList && !error;
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      loading={loading}
+      maxWidth="sm"
+      fullWidth
+    >
+      <DialogTitle>
+        {intl.formatMessage(
+          facetList?.length > 1
+            ? facetSelectionComponentMessages.SelectDatasets
+            : facetSelectionComponentMessages.SelectDataset
+        )}
+      </DialogTitle>
+      <DialogContent>
+        {error && (
+          <div>
+            {intl.formatMessage(facetSelectionComponentMessages.DatasetError)}
+          </div>
+        )}
+        {showSourceOptions &&
+          (allowSelectionGrouping ? (
+            <FacetSelectorGroupedContent
+              facetList={facetList}
+              modalSelections={modalSelections}
+              onSelectionChange={handleGroupedSelectionChange}
+              mode={mode}
+            />
+          ) : (
+            <FacetSelectorStandardContent
+              facetList={facetList}
+              modalSelections={modalSelections}
+              onSelectionChange={handleSelectionChange}
+              mode={mode}
+            />
+          ))}
+      </DialogContent>
+      <DialogActions>
+        <Button variant="text" onClick={onClose}>
+          {intl.formatMessage(error ? messages.close : messages.cancel)}
+        </Button>
+        {!error && (
+          <Button
+            onClick={onConfirm}
+            className={`${SELECTOR_PREFIX}-update-source-button`}
+          >
+            {intl.formatMessage(facetSelectionComponentMessages.Update)}
+          </Button>
+        )}
+      </DialogActions>
+    </Dialog>
   );
 }
