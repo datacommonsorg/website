@@ -274,7 +274,6 @@ function FacetOptionSection({
             css={css`
               display: flex;
               flex-direction: column;
-              gap: ${theme.spacing.md}px;
             `}
           >
             {importNameToFacetOptions[importName].map((facetId) => (
