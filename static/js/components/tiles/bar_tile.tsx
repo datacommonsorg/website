@@ -309,7 +309,7 @@ export const fetchData = async (
 ): Promise<BarChartData> => {
   /*
    In order to accommodate facet selection while keeping the stat var/facet relationship,
-   we group stat vars by their
+   we group stat vars by their facets.
   */
   const svsByFacet = _.groupBy(props.variables, (spec) => spec.facetId || "");
   // Assume all variables will have the same date
