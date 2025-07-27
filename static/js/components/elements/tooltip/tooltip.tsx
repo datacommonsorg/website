@@ -656,7 +656,7 @@ function createTriggerNode({
         ref={triggerRef}
         css={[
           {
-            display: "inline-block",
+            display: "inline-flex",
             cursor: cursor ? cursor : popoverMode ? "pointer" : "inherit",
           },
           triggerCss,

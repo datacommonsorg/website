@@ -174,10 +174,6 @@ export function FacetOptionContent({
                 )}
                 <Tooltip
                   title={<StatVarTooltipContent items={applicableStatVars} />}
-                  triggerCss={css`
-                    display: inline-flex;
-                    align-items: center;
-                  `}
                 >
                   <InfoFilled
                     css={css`
