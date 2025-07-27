@@ -56,10 +56,24 @@ export function DebugFlag({ message }: DebugFlagProps): ReactElement | null {
   }
 
   return (
-    <Tooltip title={message}>
+    <Tooltip
+      title={message}
+      triggerCss={css`
+        cursor: pointer;
+        padding: 0 ${theme.spacing.xs}px;
+        transform: translateY(-1px);
+        &:hover {
+          & > svg {
+            transform: rotate(-20deg);
+            color: ${theme.colors.error.primary.light};
+          }
+        }
+      `}
+    >
       <FlagFilled
         css={css`
-          color: ${theme.colors.box.red.text};
+          transition: transform 0.2s ease-in-out;
+          color: ${theme.colors.error.primary.base};
         `}
       />
     </Tooltip>

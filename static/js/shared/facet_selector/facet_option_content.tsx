@@ -58,14 +58,22 @@ const StatVarTooltipContent = ({
 }: StatVarTooltipContentProps): ReactElement => (
   <ul
     css={css`
-      list-style: none;
+      list-style: disc;
       padding: 0;
-      margin: 0;
+      margin: 0 0 0 12px;
       text-align: left;
     `}
   >
     {items.map((sv) => (
-      <li key={sv.dcid}>{sv.name}</li>
+      <li
+        key={sv.dcid}
+        css={css`
+          padding: 0;
+          margin: 0;
+        `}
+      >
+        {sv.name}
+      </li>
     ))}
   </ul>
 );
@@ -155,6 +163,7 @@ export function FacetOptionContent({
                   display: inline-flex;
                   align-items: center;
                   gap: ${theme.spacing.xs}px;
+                  color: ${theme.colors.link.primary.dark};
                 `}
               >
                 {intl.formatMessage(
@@ -171,7 +180,11 @@ export function FacetOptionContent({
                     align-items: center;
                   `}
                 >
-                  <Info />
+                  <Info
+                    css={css`
+                      color: ${theme.colors.link.primary.base};
+                    `}
+                  />
                 </Tooltip>
               </span>
             </li>

@@ -55,7 +55,7 @@ export function FacetSelectorStandardContent({
           css={css`
             ${theme.typography.family.text}
             ${theme.typography.text.md}
-              margin: 0 0 ${theme.spacing.md}px;
+            margin: 0;
             padding: 0;
           `}
         >
@@ -75,7 +75,16 @@ export function FacetSelectorStandardContent({
         const sourceFacetId = hasOnlyOneSource ? facetIds[0] : null;
 
         return (
-          <div key={facetInfo.dcid}>
+          <div
+            key={facetInfo.dcid}
+            css={css`
+              display: flex;
+              flex-direction: column;
+              gap: ${facetList.length > 1
+                ? theme.spacing.sm
+                : theme.spacing.lg}px;
+            `}
+          >
             {facetList.length > 1 ? (
               <p
                 css={css`
@@ -114,7 +123,6 @@ export function FacetSelectorStandardContent({
               css={css`
                 display: flex;
                 flex-direction: column;
-                padding: ${theme.spacing.md}px 0;
               `}
             >
               {hasOnlyOneSource ? (

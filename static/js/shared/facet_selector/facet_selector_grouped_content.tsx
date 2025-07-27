@@ -103,7 +103,7 @@ export function FacetSelectorGroupedContent({
         css={css`
           ${theme.typography.family.text}
           ${theme.typography.text.md}
-            margin: 0 0 ${theme.spacing.md}px;
+          margin: 0;
           padding: 0;
         `}
       >
@@ -117,7 +117,6 @@ export function FacetSelectorGroupedContent({
         css={css`
           display: flex;
           flex-direction: column;
-          padding: ${theme.spacing.md}px 0;
         `}
       >
         <GroupedFacetOption

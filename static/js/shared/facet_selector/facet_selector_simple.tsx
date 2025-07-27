@@ -190,7 +190,7 @@ export function FacetSelectorSimple({
               css={css`
                 ${theme.typography.family.text}
                 ${theme.typography.text.md}
-                  margin: 0 0 ${theme.spacing.md}px;
+                margin: 0;
                 padding: 0;
               `}
             >
@@ -211,7 +211,7 @@ export function FacetSelectorSimple({
                       css={css`
                         ${theme.typography.family.text}
                         ${theme.typography.text.md}
-                          margin: 0;
+                        margin: 0;
                         padding: 0;
                       `}
                     >
@@ -232,7 +232,7 @@ export function FacetSelectorSimple({
                       css={css`
                         ${theme.typography.family.text}
                         ${theme.typography.text.md}
-                          font-weight: 900;
+                        font-weight: 900;
                         margin: 0;
                         padding: 0;
                       `}
@@ -246,7 +246,6 @@ export function FacetSelectorSimple({
                       padding: ${theme.spacing.lg}px ${theme.spacing.xl}px;
                       display: flex;
                       flex-direction: column;
-                      gap: ${theme.spacing.md}px;
                     `}
                   >
                     {getFacetOptionJsx(

@@ -102,7 +102,7 @@ export const TileMetadataModalContent = ({
       {citationParts.length > 0 && (
         <div
           css={css`
-            padding: ${theme.spacing.xl}px 0 0 0;
+            padding: ${theme.spacing.lg}px 0 0 0;
             border-top: 1px solid ${theme.colors.border.primary.light};
             && {
               h3 {
