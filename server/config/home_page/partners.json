@@ -12,6 +12,12 @@
     "url": "https://datacommons.techsoup.org/"
   },
   {
+    "id": "feedingAmerica",
+    "title": "Feeding America",
+    "sprite-index": 1,
+    "url": "https://insights.feedingamerica.org"
+  },
+  {
     "id": "stanford",
     "title": "Stanford University",
     "sprite-index": 1,
