@@ -244,7 +244,15 @@ export function FacetSelectorRich({
         ) + (totalFacetOptionCount > 0 ? ` (${totalFacetOptionCount})` : "")}
       </Button>
       {showInconsistentFacetFlag && (
-        <DebugFlag message="This chart’s facet choices are not consistent across all statistical variables." />
+        <div
+          css={css`
+            display: inline-flex;
+            padding-left: ${theme.spacing.xs}px;
+            transform: translateY(-1px);
+          `}
+        >
+          <DebugFlag message="This chart’s facet choices are not consistent across all statistical variables." />
+        </div>
       )}
       <Dialog
         open={modalOpen}

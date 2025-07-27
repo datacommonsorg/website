@@ -61,7 +61,6 @@ export function DebugFlag({ message }: DebugFlagProps): ReactElement | null {
       triggerCss={css`
         cursor: pointer;
         padding: 0 ${theme.spacing.xs}px;
-        transform: translateY(-1px);
         &:hover {
           & > svg {
             transform: rotate(-20deg);

@@ -24,7 +24,7 @@ import { css, useTheme } from "@emotion/react";
 import _, { startCase } from "lodash";
 import React, { ReactElement } from "react";
 
-import { Info } from "../../components/elements/icons/info";
+import { InfoFilled } from "../../components/elements/icons/info";
 import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { intl } from "../../i18n/i18n";
 import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
@@ -163,7 +163,6 @@ export function FacetOptionContent({
                   display: inline-flex;
                   align-items: center;
                   gap: ${theme.spacing.xs}px;
-                  color: ${theme.colors.link.primary.dark};
                 `}
               >
                 {intl.formatMessage(
@@ -180,7 +179,7 @@ export function FacetOptionContent({
                     align-items: center;
                   `}
                 >
-                  <Info
+                  <InfoFilled
                     css={css`
                       color: ${theme.colors.link.primary.base};
                     `}
