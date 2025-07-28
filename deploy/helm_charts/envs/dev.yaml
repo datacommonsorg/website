@@ -11,30 +11,46 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 # DNS
 ip: 34.149.114.214
 domain: dev.datacommons.org
-
 # Helm config
 project: "datcom-website-dev"
 cluster_prefix: "website"
-
 namespace:
   name: "website"
-
 website:
   flaskEnv: dev
   replicas: 5
+  image:
+    project: "datcom-ci"
+    pullPolicy: Always
+    tag: "" # Skaffold's tagPolicy will typically inject this
+  githash: "" # Leave empty, Skaffold/build process will handle
+  evalTool:
+    enabled: false
+  dataGemma:
+    enabled: false
+  nodePool: "" # Set if you use a specific node pool
   redis:
     enabled: false
+
+  placeSummary:
+    enabled: true # Ensure this is true to enable place summary ConfigMaps
+    data:
+      # These values are now empty placeholders. The content is read by .Files.Get.
+      country: ""
+      geoid_0_2: ""
+      geoid_3_5: ""
+      geoid_6_9: ""
+      wikidataid: ""
+      others: ""
 
 serviceAccount:
   name: website-ksa
 
 ingress:
   enabled: true
-
 serviceGroups:
   recon: null
   svg:
@@ -45,7 +61,6 @@ serviceGroups:
     replicas: 3
   default:
     replicas: 3
-
 nl:
   enabled: true
   env:
@@ -78,12 +93,9 @@ nl:
         prediction_endpoint_id: "284894457873039360"
     enable_reranking: true
 
+svg:
+  blocklistFile: []
+
 nodejs:
   enabled: true
   replicas: 2
-
-cronTesting:
-  enabled: true
-  screenshotDomain: "dev.datacommons.org"
-  nodePool: "default-pool"
-  schedule: "* * 31 2 *" # invalid day for month -> never run automatically

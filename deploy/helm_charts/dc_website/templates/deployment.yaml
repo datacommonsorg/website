@@ -81,7 +81,7 @@ spec:
         {{- end }}
       containers:
         - name: website
-          image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-website:{{ .Values.website.image.tag }}"
+          image:  "gcr.io/datcom-ci/datacommons-website:a08233a"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:
@@ -145,7 +145,7 @@ spec:
               value: "dummy"
         {{- if .Values.nl.enabled }}
         - name: nl
-          image: gcr.io/datcom-ci/datacommons-nl:{{ .Values.website.image.tag }}
+          image: gcr.io/datcom-ci/datacommons-nl:a08233a
           resources:
             limits:
               memory: {{ .Values.nl.memory }}
@@ -222,7 +222,7 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
         - name: nodejs
-          image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-nodejs:{{ .Values.website.image.tag }}"
+          image: "gcr.io/datcom-ci/datacommons-nodejs:a08233a"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:
