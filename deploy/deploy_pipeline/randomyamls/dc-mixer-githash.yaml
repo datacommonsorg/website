@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  mixer_hash.txt: 47fedac
+kind: ConfigMap
+metadata:
+  annotations:
+    meta.helm.sh/release-name: dc-mixer
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-05-24T16:33:38Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: dc-mixer-githash
+  namespace: website
+  resourceVersion: "318408370"
+  uid: bdf45a19-d876-46d4-8867-ccfa054bd0f2

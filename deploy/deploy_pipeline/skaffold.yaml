@@ -1,0 +1,40 @@
+# skaffold.yaml
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: website-mixer-app
+build:
+  artifacts:
+    - image: us-central1-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website
+      context: ./path/to/your/website/code # Path to your website's Dockerfile and context
+    - image: us-central1-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer
+      context: ./path/to/your/mixer/code # Path to your mixer's Dockerfile and context
+deploy:
+  kubectl:
+    manifests:
+      - cron-testing-config.yaml
+      - place-summary-config-country.yaml
+      - place-summary-config-geoid-0-2.yaml
+      - ingress-config.yaml
+      - dc-mixer-githash.yaml
+      - dc-mixer-store-config.yaml
+      - dc-mixer-schema-mapping.yaml
+      - dc-mixer-mixer-config.yaml
+      - nl-config.yaml
+      - blocklist-svg.yaml
+      # Add any other Deployment, Service, etc., YAMLs for website and mixer here
+profiles:
+  - name: website-dev
+    deploy:
+      kubectl:
+        manifests:
+          - website-deployment.yaml # Assuming you have a website deployment manifest
+          - website-service.yaml    # Assuming you have a website service manifest
+          # ... other website-specific YAMLs
+  - name: mixer-dev
+    deploy:
+      kubectl:
+        manifests:
+          - mixer-deployment.yaml # Assuming you have a mixer deployment manifest
+          - mixer-service.yaml    # Assuming you have a mixer service manifest
+          # ... other mixer-specific YAMLs

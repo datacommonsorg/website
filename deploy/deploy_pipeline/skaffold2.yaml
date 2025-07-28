@@ -1,0 +1,55 @@
+# skaffold.yaml
+apiVersion: skaffold/v4beta7
+kind: Config
+metadata:
+  name: website-mixer-app
+
+build:
+  artifacts:
+    # Ensure these images are built if your Helm chart uses them.
+    # If Helm chart manages image names, you might configure it there.
+    - image: us-central1-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website
+      context: ./path/to/your/website/code # Path to your website's Dockerfile and context
+    - image: us-central1-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer
+      context: ./path/to/your/mixer/code # Path to your mixer's Dockerfile and context
+
+# Use 'manifests.helm' to specify your Helm chart(s)
+manifests:
+  helm:
+    releases:
+      - name: website-mixer-release # A name for your Helm release
+        chartPath: ./charts/website-mixer # 🎯 **IMPORTANT**: Path to your main Helm chart directory
+
+# The 'deploy' section tells Skaffold to apply the rendered Kubernetes manifests.
+deploy:
+  kubectl: {} # This tells Skaffold to use kubectl to apply the rendered manifests from Helm
+
+profiles:
+  - name: website-dev # This profile will be used for your development environment
+    manifests:
+      helm:
+        releases:
+          - name: website-mixer-release
+            chartPath: ./charts/website-mixer
+            valuesFiles:
+              - ./dev.yaml # 🎯 **CRUCIAL**: Point to your dev.yaml for this profile
+    # If your Helm chart expects image tags to be passed as values,
+    # you might configure 'build' to inject them here or rely on Helm's image pulling logic.
+    # For example:
+    # build:
+    #   artifacts:
+    #     - image: us-central1-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website
+    #       imageStrategy:
+    #         helm:
+    #           values:
+    #             image.tag: "{{.TAG}}" # Assuming your Helm chart has image.tag
+  # If you have a separate mixer profile, you'd define it similarly,
+  # potentially with its own chart or different values.
+  # - name: mixer-dev
+  #   manifests:
+  #     helm:
+  #       releases:
+  #         - name: mixer-release
+  #           chartPath: ./charts/mixer
+  #           valuesFiles:
+  #             - ./mixer-dev.yaml # Example for a separate mixer values file

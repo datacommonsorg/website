@@ -1,0 +1,16 @@
+# clouddeploy/targets/staging.yaml
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: website-staging-target
+description: Staging GKE cluster for the website in project datcom-website-staging
+gke:
+  cluster: projects/datcom-website-staging/locations/us-central1/clusters/website-us-central1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: mixer-staging-target
+description: Staging GKE cluster for the mixer in project datcom-mixer-staging
+gke:
+  cluster: projects/datcom-mixer-staging/locations/us-central1/clusters/mixer-us-central1

@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,18 +13,20 @@
 # limitations under the License.
 
 # Skaffold (https://skaffold.dev/docs/quickstart/) configuration file that is
-# used to deploy website in a local Minikube cluster.
-# There are 3 steps involved here:
-#   build: builds website, mixer and api-compiler image.
-#   deploy: deploy website, mixer, esp, api-comipler to minikube.
-#   portFoward: expose the service in host port.
+# used to deploy website in a local Minikube cluster or to a GKE cluster with Cloud Deploy.
+#
+# For local development:
+# skaffold run -p local
+#
+# For Cloud Deploy, the profiles are selected by the clouddeploy.yaml
 
-apiVersion: skaffold/v2beta10
+apiVersion: skaffold/v4beta7
 kind: Config
 metadata:
   name: website
 build:
   artifacts:
+    # Artifacts for local development
     - image: datacommons/website
       context: .
       docker:
@@ -46,14 +48,44 @@ build:
       context: mixer
       docker:
         dockerfile: esp/Dockerfile
-deploy:
-  kubeContext: minikube
-  kustomize:
-    paths:
-      - deploy/overlays/local
-portForward:
-  - resourceType: service
-    resourceName: website-service-local
-    namespace: website
-    port: 8080
-    localPort: 8080
+    # Artifacts for Cloud Deploy
+    - image: gcr.io/datcom-ci/datacommons-website
+      context: build/web_server
+    - image: gcr.io/datcom-ci/datacommons-nodejs
+      context: build/nodejs_server
+    - image: gcr.io/datcom-ci/datacommons-mixer
+      context: mixer/build/ci
+  tagPolicy:
+    sha256: {}
+
+profiles:
+  - name: local
+    manifests:
+      kustomize:
+        paths:
+          - deploy/overlays/local
+    deploy:
+      kubeContext: minikube
+    portForward:
+      - resourceType: service
+        resourceName: website-service-local
+        namespace: website
+        port: 8080
+        localPort: 8080
+
+  - name: datacommons-website-dev
+    manifests:
+      helm:
+        releases:
+          - name: datacommons-website-release
+            chartPath: deploy/helm_charts/dc_website
+            valuesFiles:
+              - deploy/helm_charts/envs/dev.yaml
+  - name: datacommons-mixer-dev
+    manifests:
+      helm:
+        releases:
+          - name: datacommons-mixer-release
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_dev.yaml

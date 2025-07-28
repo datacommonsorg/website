@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.gcp.kubernetes.io/pre-shared-cert: dc-website-cert
+    ingress.kubernetes.io/backends: '{"k8s1-7178e0cc-website-website-nodejs-service-8080-d7234d3c":"HEALTHY","k8s1-7178e0cc-website-website-service-8080-d17d7086":"HEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s2-fr-66vvj060-website-website-ingress-17saahxk
+    ingress.kubernetes.io/https-forwarding-rule: k8s2-fs-66vvj060-website-website-ingress-17saahxk
+    ingress.kubernetes.io/https-target-proxy: k8s2-ts-66vvj060-website-website-ingress-17saahxk
+    ingress.kubernetes.io/ssl-cert: dc-website-cert
+    ingress.kubernetes.io/target-proxy: k8s2-tp-66vvj060-website-website-ingress-17saahxk
+    ingress.kubernetes.io/url-map: k8s2-um-66vvj060-website-website-ingress-17saahxk
+    kubernetes.io/ingress.global-static-ip-name: dc-website-ip
+    meta.helm.sh/release-name: dc-website
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-05-24T22:24:47Z"
+  finalizers:
+  - networking.gke.io/ingress-finalizer-V2
+  generation: 3
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: website-ingress
+  namespace: website
+  resourceVersion: "344440576"
+  uid: e120f535-e589-4b55-998c-2e5436f83d14
+spec:
+  defaultBackend:
+    service:
+      name: website-service
+      port:
+        number: 8080
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: website-nodejs-service
+            port:
+              number: 8080
+        path: /nodejs/*
+        pathType: ImplementationSpecific
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.149.114.214
