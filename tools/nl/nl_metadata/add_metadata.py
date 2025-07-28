@@ -536,7 +536,7 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
   """
   if not sv_metadata_list:
     return
-  
+
   filename = f"{exported_filename}.json"
   local_file_path = f"{EXPORTED_FILE_DIR}/{filename}"
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
@@ -606,7 +606,7 @@ async def main():
     export_to_json(full_metadata, exported_filename, args.useGCS,
                    args.gcsFolder)
     export_to_json(failed_metadata, failed_filename, args.useGCS,
-                     args.gcsFolder)
+                   args.gcsFolder)
     page_number += 1
 
 
