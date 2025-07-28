@@ -91,7 +91,7 @@ def execute_cloud_run_jobs(api_keys: list[str], gcs_folder: str):
         f"--args={args_string}"
     ]
 
-    print(f"Executing gcloud command...")
+    print("Executing gcloud command...")
     try:
       subprocess.run(command, check=True, text=True, capture_output=True)
       print(f"✅ Job Execution {i+1}/{total_partitions} completed successfully.")
