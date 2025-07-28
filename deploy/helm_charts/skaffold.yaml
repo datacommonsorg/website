@@ -33,7 +33,7 @@ manifests:
       - name: datacommons-website-release
         chartPath: ./helm_charts/dc_website
       - name: datacommons-mixer-release
-        chartPath: ../mixer/deploy/helm_charts/
+        chartPath: ../mixer/deploy/helm_charts/mixer
 
 profiles:
   - name: datacommons-website-dev
