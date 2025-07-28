@@ -43,7 +43,7 @@ profiles:
           - name: datacommons-website-release
             chartPath: ./helm_charts/dc_website
             valuesFiles:
-              - ./helm_charts/envs/dev.yaml
+              - ./envs/dev.yaml
   - name: datacommons-mixer-dev
     manifests:
       helm:
