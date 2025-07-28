@@ -23,8 +23,8 @@ Then, run this script using the command `python ./run_add_metadata.py`
 """
 
 import argparse
-import subprocess
 import os
+import subprocess
 
 from dotenv import load_dotenv
 
@@ -33,6 +33,7 @@ GCS_REGION = "us-central1"
 DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
+
 
 def extract_flag() -> argparse.Namespace:
   """
@@ -48,8 +49,9 @@ def extract_flag() -> argparse.Namespace:
   args = parser.parse_args()
   return args
 
+
 def execute_cloud_run_jobs(api_keys: list[str], gcs_folder: str):
-    """
+  """
     Executes the 'stat-var-metadata-generator' Cloud Run job with dynamic partitioning.
     For each API key provided, this script triggers a separate Cloud Run job execution.
 
@@ -57,51 +59,55 @@ def execute_cloud_run_jobs(api_keys: list[str], gcs_folder: str):
         api_keys: A list of API keys to be used for the job executions.
         gcs_folder: The GCS folder name to be passed as an argument to the job.
     """
-    if not api_keys:
-        print("Error: No API keys provided.")
-        return
+  if not api_keys:
+    print("Error: No API keys provided.")
+    return
 
-    total_partitions = len(api_keys)
+  total_partitions = len(api_keys)
 
-    print(f"🚀 Starting {total_partitions} Cloud Run job executions for '{GCS_JOB_NAME}'...")
+  print(
+      f"🚀 Starting {total_partitions} Cloud Run job executions for '{GCS_JOB_NAME}'..."
+  )
 
-    for i, api_key_value in enumerate(api_keys):
-        curr_partition = i
-        print(f"\n--- Starting Job Execution {i+1}/{total_partitions} (Partition {curr_partition}) ---")
+  for i, api_key_value in enumerate(api_keys):
+    curr_partition = i
+    print(
+        f"\n--- Starting Job Execution {i+1}/{total_partitions} (Partition {curr_partition}) ---"
+    )
 
-        container_args_list = (
-            "add_metadata.py",
-            "--generateAltSentences,"
-            "--useGCS,"
-            "--useBigQuery,"
-            f"--totalPartitions={total_partitions},"
-            f"--currPartition={curr_partition},"
-            f"--gcsFolder={gcs_folder}",
-            f"--geminiApiKey={api_key_value}"
-        )
+    container_args_list = ("add_metadata.py", "--generateAltSentences,"
+                           "--useGCS,"
+                           "--useBigQuery,"
+                           f"--totalPartitions={total_partitions},"
+                           f"--currPartition={curr_partition},"
+                           f"--gcsFolder={gcs_folder}",
+                           f"--geminiApiKey={api_key_value}")
 
-        args_string = ",".join(container_args_list)
-        command = [
-            "gcloud", "run", "jobs", "execute", GCS_JOB_NAME,
-            f"--region={GCS_REGION}",
-            f"--update-env-vars=GEMINI_API_KEY={api_key_value}",
-            f"--args={args_string}"
-        ]
-        
-        print(f"Executing gcloud command...")
-        try:
-            subprocess.run(command, check=True, text=True, capture_output=True)
-            print(f"✅ Job Execution {i+1}/{total_partitions} completed successfully.")
-        
-        except subprocess.CalledProcessError as e:
-            print(f"❌ Error executing job {i+1}/{total_partitions}.")
-            print(f"Stderr: {e.stderr}")
-        except FileNotFoundError:
-            print("❌ Error: 'gcloud' command not found.")
-            print("Please ensure the Google Cloud SDK is installed and in your system's PATH.")
-            return
+    args_string = ",".join(container_args_list)
+    command = [
+        "gcloud", "run", "jobs", "execute", GCS_JOB_NAME,
+        f"--region={GCS_REGION}",
+        f"--update-env-vars=GEMINI_API_KEY={api_key_value}",
+        f"--args={args_string}"
+    ]
+
+    print(f"Executing gcloud command...")
+    try:
+      subprocess.run(command, check=True, text=True, capture_output=True)
+      print(f"✅ Job Execution {i+1}/{total_partitions} completed successfully.")
+
+    except subprocess.CalledProcessError as e:
+      print(f"❌ Error executing job {i+1}/{total_partitions}.")
+      print(f"Stderr: {e.stderr}")
+    except FileNotFoundError:
+      print("❌ Error: 'gcloud' command not found.")
+      print(
+          "Please ensure the Google Cloud SDK is installed and in your system's PATH."
+      )
+      return
+
 
 if __name__ == "__main__":
-    args: argparse.Namespace = extract_flag()
-    api_keys = [key for key in os.getenv("GEMINI_API_KEYS", "").split(",") if key]
-    execute_cloud_run_jobs(api_keys=api_keys, gcs_folder=args.gcsFolder)
+  args: argparse.Namespace = extract_flag()
+  api_keys = [key for key in os.getenv("GEMINI_API_KEYS", "").split(",") if key]
+  execute_cloud_run_jobs(api_keys=api_keys, gcs_folder=args.gcsFolder)
