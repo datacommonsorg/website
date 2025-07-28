@@ -49,19 +49,18 @@ Write up related follow up questions that the user might find interesting to bro
 The original research question from the user  is: {initial_query}.
 The follow up questions should be based on the following list of topics and statistical variables for the same location.
 RELATED TOPICS START: {related_topics}. RELATED TOPICS END.
-If no related topics are given, do not return anything.
+CRUCIALLY, if no related topics are given, do not return anything.
 
 Generate only one question per topic in the related topics list. Make them succinct, general, and simple in relation to the topic provided.
 
 Avoid any other words apart from the generated follow up questions. Your entire response should only be the questions themselves, with each question on a new line.
-
 Avoid asking for data within a specific year or range of years. The questions should be timeless.
-
-Avoid questions that ask about correlations, relationships, or comparisons between the original question and the given topics. Each question must be simple and focus on a single variable.
-For example, the question "How does income equity compare to wealth equity in countries with the lowest Gini index?" should instead be a simpler version such as "What is the income equity across countries?"
-
+Each question must be simple and focus on a single variable.
 Avoid questions that ask for a metric about places that meet a certain condition.
-For example, the question "What is the sustainability performance of countries with the most greenhouse gas emissions?" should instead be a simpler version such as "What is the sustainability performance of countries?"
-If you are referring to a place or entity from the initial query, be sure to explicitly state the place or entity in the generated questions.
+
+When generating the questions, have them be extremely varied. Have diversity in the words used.
+For inspiration, have the following question categories: ["Ranking","Maps","Comparison","Correlation","TimeDelta","Increase","Decrease"]
+
+Crucially, ensure all questions are grammatically correct such as the casing.
 
 """

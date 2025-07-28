@@ -180,7 +180,7 @@ def verify_args(args: argparse.Namespace) -> None:
   if args.maxStatVars is not None and args.maxStatVars <= 0:
     raise ValueError("maxStatVars must be a positive integer.")
   if args.failedAttemptsPath and not args.failedAttemptsPath.endswith(
-      ".json", "/"):
+      (".json", "/")):
     raise ValueError(
         "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
     )
@@ -189,7 +189,7 @@ def verify_args(args: argparse.Namespace) -> None:
     raise ValueError(
         f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
     )
-  elif args.failedAttemptsPath and not args.useGcs and not os.path.exists(
+  elif args.failedAttemptsPath and not args.useGCS and not os.path.exists(
       args.failedAttemptsPath):
     raise ValueError(
         f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
@@ -311,7 +311,10 @@ def get_language_settings(target_language: str) -> tuple[str, str]:
       language_schema = json.dumps(spanishSchema)
     case _:
       language_schema = json.dumps(englishSchema)
-  return exported_sv_file, get_gemini_prompt(target_language, language_schema)
+
+  # return exported_sv_file, get_gemini_prompt_with_translations(target_language, language_schema) # Use this prompt if translations are needed
+  return exported_sv_file, get_gemini_prompt(
+      language_schema)  # Use this prompt for English-only results
 
 
 def get_prop_value(prop_data) -> str:
@@ -531,6 +534,9 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
   """
   Exports the SV metadata list to a JSON file.
   """
+  if not sv_metadata_list:
+    return
+
   filename = f"{exported_filename}.json"
   local_file_path = f"{EXPORTED_FILE_DIR}/{filename}"
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
@@ -599,9 +605,8 @@ async def main():
 
     export_to_json(full_metadata, exported_filename, args.useGCS,
                    args.gcsFolder)
-    if failed_metadata:
-      export_to_json(failed_metadata, failed_filename, args.useGCS,
-                     args.gcsFolder)
+    export_to_json(failed_metadata, failed_filename, args.useGCS,
+                   args.gcsFolder)
     page_number += 1
 
 
