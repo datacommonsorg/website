@@ -30,6 +30,8 @@ website:
     enabled: false
 
 mixer:
+  serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+  hostProject: "datcom-website-dev"
   enableOtlp: true
 
 serviceAccount:
@@ -51,6 +53,8 @@ serviceGroups:
 
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -81,8 +85,13 @@ nl:
         prediction_endpoint_id: "284894457873039360"
     enable_reranking: true
 
+svg:
+  blocklistFile: []
+
 nodejs:
   enabled: true
+  image:
+    tag: ""
   replicas: 2
 
 cronTesting:
