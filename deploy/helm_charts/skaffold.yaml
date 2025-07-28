@@ -19,10 +19,13 @@ metadata:
   name: website-mixer-app
 build:
   artifacts:
-    - image: gcr.io/datacommons-website:latest
+    - image: gcr.io/datacommons-website
       context: ../../build/web_server
-    - image: gcr.io/datacommons-mixer:latest
+    - image: gcr.io/datacommons-mixer
       context: ../../mixer/build/ci
+  tagPolicy:
+    sha256: {}
+
 
 manifests:
   helm:
