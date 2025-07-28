@@ -80,7 +80,7 @@ export const toolMessages = defineMessages({
   infoBoxInstructionsPlacesTimeline: {
     id: "info_box_instruction_places_timeline",
     defaultMessage:
-      "Enter your desired location(s) (city, state, county, or country) into the search box above, and then select the place from the displayed results.",
+      "Enter your desired location(s) (city, state, county, or country) into the search box above.",
     description:
       "Instructions for how to enter a list of places to plot using our chart visualization tools",
   },
