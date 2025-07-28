@@ -19,9 +19,9 @@ metadata:
 description: My application delivery pipeline for DataCommons Website
 serialPipeline:
   stages:
-    - targetId: website-dev-cluster
+    - targetId: datacommons-website-dev
       profiles: [datacommons-website-dev]
-    - targetId: mixer-dev-cluster
+    - targetId: datacommons-mixer-dev
       profiles: [datacommons-mixer-dev]
 ---
 
@@ -40,4 +40,4 @@ metadata:
   name: datacommons-mixer-dev
 description: Development GKE cluster for the mixer in project datcom-mixer-dev
 gke:
-  cluster: projects/datcom-mixer-dev/locations/us-central1/clusters/mixer-us-central1
+  cluster: projects/datcom-mixer-dev-316822/locations/us-central1/clusters/mixer-us-central1

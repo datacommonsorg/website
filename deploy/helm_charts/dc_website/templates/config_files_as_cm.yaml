@@ -72,7 +72,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   catalog.yaml: |
-    {{- .Files.Get "deploy/nl/catalog.yaml" | nindent 4 }}
+    {{- .Files.Get "nl/catalog.yaml" | nindent 4 }}
   env.yaml: |
     {{- toYaml .Values.nl.env | nindent 4 }}
 {{- end }}

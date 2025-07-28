@@ -21,10 +21,10 @@ spec:
       maxUnavailable: 100%
       {{ else }}
       # maximum number of Pods that can be created over the desired number of Pods
-      # 25% of default pods (+1 in case default < 4)
+      # 25% of default pods (1 in case default < 4)
       maxSurge: {{ div .Values.website.replicas 4 | add 1 }}
       # Maximum number of pods that can be unavailable during the update process
-      # 25% of default pods (+1 in case default < 4)
+      # 25% of default pods (1 in case default < 4)
       maxUnavailable: {{ div .Values.website.replicas 4 | add 1 }}
       {{- end }}
   selector:
@@ -81,7 +81,7 @@ spec:
         {{- end }}
       containers:
         - name: website
-          image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-website:{{ .Values.website.image.tag }}"
+          image:  "gcr.io/datcom-ci/datacommons-website:a08233a"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:
@@ -100,9 +100,9 @@ spec:
             periodSeconds: 10
           resources:
             limits:
-              memory: "4G"
+              memory: "2G"
             requests:
-              memory: "4G"
+              memory: "2G"
           volumeMounts:
             - name: ingress-config
               mountPath: /datacommons/ingress
@@ -112,6 +112,20 @@ spec:
             {{- end }}
             - name: blocklist-svg
               mountPath: /datacommons/svg
+            {{- if .Values.website.placeSummary.enabled }}
+            - name: place-summary-config-country
+              mountPath: /datacommons/place-summary/country_
+            - name: place-summary-config-geoid-0-2
+              mountPath: /datacommons/place-summary/geoId_0-2
+            - name: place-summary-config-geoid-3-5
+              mountPath: /datacommons/place-summary/geoId_3-5
+            - name: place-summary-config-geoid-6-9
+              mountPath: /datacommons/place-summary/geoId_6-9
+            - name: place-summary-config-wikidataid
+              mountPath: /datacommons/place-summary/wikidataId_
+            - name: place-summary-config-others
+              mountPath: /datacommons/place-summary/others
+            {{- end }}
           env:
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
@@ -131,7 +145,7 @@ spec:
               value: "dummy"
         {{- if .Values.nl.enabled }}
         - name: nl
-          image: gcr.io/datcom-ci/datacommons-nl:{{ .Values.website.image.tag }}
+          image: gcr.io/datcom-ci/datacommons-nl:a08233a
           resources:
             limits:
               memory: {{ .Values.nl.memory }}
@@ -185,10 +199,10 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       # maximum number of Pods that can be created over the desired number of Pods
-      # 25% of default pods (+1 in case default < 4)
+      # 25% of default pods (1 in case default < 4)
       maxSurge: {{ div .Values.nodejs.replicas 4 | add 1 }}
       # Maximum number of pods that can be unavailable during the update process
-      # 25% of default pods (+1 in case default < 4)
+      # 25% of default pods (1 in case default < 4)
       maxUnavailable: {{ div .Values.nodejs.replicas 4 | add 1 }}
   selector:
     matchLabels:
@@ -207,7 +221,7 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
         - name: nodejs
-          image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-nodejs:{{ .Values.website.image.tag }}"
+          image:  "gcr.io/datcom-ci/datacommons-nodejs:a08233a"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:

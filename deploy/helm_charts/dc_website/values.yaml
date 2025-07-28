@@ -135,7 +135,7 @@ serviceGroups:
 ###############################################################################
 nl:
   enabled: false
-  memory: "2G"
+  memory: "4G"
   workers: 1
   catalog: {}
   env:

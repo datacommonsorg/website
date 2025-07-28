@@ -49,9 +49,11 @@ build:
       docker:
         dockerfile: esp/Dockerfile
     # Artifacts for Cloud Deploy
-    - image: gcr.io/datacommons-website
+    - image: gcr.io/datcom-ci/datacommons-website
       context: build/web_server
-    - image: gcr.io/datacommons-mixer
+    - image: gcr.io/datcom-ci/datacommons-nodejs
+      context: build/nodejs_server
+    - image: gcr.io/datcom-ci/datacommons-mixer
       context: mixer/build/ci
   tagPolicy:
     sha256: {}
