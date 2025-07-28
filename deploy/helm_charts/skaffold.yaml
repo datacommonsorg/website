@@ -19,16 +19,19 @@ metadata:
   name: website-mixer-app
 build:
   artifacts:
-    # Just list the image names Skaffold expects to find.
-    # The actual tags will be provided by the --images flag at release creation.
-    - image: us-central1-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website
-    - image: us-central1-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer
+    - image: gcr.io/datacommons-website:latest
+      context: ../../build/web_server
+    - image: gcr.io/datacommons-mixer:latest
+      context: ../../mixer/build/ci
 
 manifests:
   helm:
     releases:
       - name: datacommons-website-release
         chartPath: ./helm_charts/dc_website
+      - name: datacommons-mixer-release
+        chartPath: ../mixer/deploy/helm_charts/
+
 profiles:
   - name: datacommons-website-dev
     manifests:
