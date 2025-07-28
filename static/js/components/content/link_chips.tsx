@@ -77,7 +77,11 @@ export const LinkChips = ({
   });
 
   return (
-    <>
+    <div
+      css={css`
+        width: 100%;
+      `}
+    >
       {header && (
         <header
           css={css`
@@ -108,6 +112,6 @@ export const LinkChips = ({
           <LinkChip key={linkChip.id} section={section} linkChip={linkChip} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
