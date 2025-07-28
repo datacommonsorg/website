@@ -1,3 +1,4 @@
+# helm_charts/dc_website/templates/config_maps.yaml
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -14,75 +15,6 @@ data:
     {{- end }}
   {{- end }}
 
-{{- if .Values.website.placeSummary.enabled }}
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: place-summary-config-country
-  namespace: {{ .Values.namespace.name }}
-data:
-  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.country | quote }}
-
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: place-summary-config-geoid-0-2
-  namespace: {{ .Values.namespace.name }}
-data:
-  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_0_2 | quote }}
-
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: place-summary-config-geoid-3-5
-  namespace: {{ .Values.namespace.name }}
-data:
-  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_3_5 | quote }}
-
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: place-summary-config-geoid-6-9
-  namespace: {{ .Values.namespace.name }}
-data:
-  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_6_9 | quote }}
-
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: place-summary-config-wikidataid
-  namespace: {{ .Values.namespace.name }}
-data:
-  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.wikidataid | quote }}
-
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: place-summary-config-others
-  namespace: {{ .Values.namespace.name }}
-data:
-  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.others | quote }}
-{{- end }}
-
-
-{{- if .Values.nl.enabled }}
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: nl-config
-  namespace: {{ .Values.namespace.name }}
-data:
-  catalog.yaml: {{ required "NL catalog file is required" .Values.nl.catalog | quote }}
-  env.yaml: {{ toYaml .Values.nl.env | quote }}
-{{- end }}
-
 {{- if .Values.website.redis.enabled }}
 ---
 kind: ConfigMap
@@ -93,7 +25,6 @@ metadata:
 data:
   redis.json: {{ required "Redis config file is required" .Values.website.redis.configFile | quote }}
 {{- end }}
-
 
 ---
 kind: ConfigMap
