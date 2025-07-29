@@ -673,6 +673,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population in States of United States"
           },
           {
@@ -704,6 +705,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population"
           }
         ],
