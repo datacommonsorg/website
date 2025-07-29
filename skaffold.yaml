@@ -81,6 +81,15 @@ profiles:
             chartPath: deploy/helm_charts/dc_website
             valuesFiles:
               - deploy/helm_charts/envs/dev.yaml
+            setValues:
+              serviceAccount.name: website-ksa
+          - name: dc-mixer
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_dev.yaml
+            namespace: website
+            setValues:
+              serviceAccount.name: website-ksa
   - name: datacommons-mixer-dev
     manifests:
       helm:
@@ -89,3 +98,4 @@ profiles:
             chartPath: mixer/deploy/helm_charts/mixer
             valuesFiles:
               - mixer/deploy/helm_charts/envs/mixer_dev.yaml
+            createNamespace: true

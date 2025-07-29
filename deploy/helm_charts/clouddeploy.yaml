@@ -16,11 +16,20 @@ apiVersion: deploy.cloud.google.com/v1
 kind: DeliveryPipeline
 metadata:
   name: datacommons-website-release-pipeline
-description: My application delivery pipeline for DataCommons Website
+description: My application delivery pipeline for DataCommons Website (and associated Mixer)
 serialPipeline:
   stages:
     - targetId: datacommons-website-dev
       profiles: [datacommons-website-dev]
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: datacommons-mixer-release-pipeline
+description: My application delivery pipeline for DataCommons Mixer API cluster
+serialPipeline:
+  stages:
     - targetId: datacommons-mixer-dev
       profiles: [datacommons-mixer-dev]
 ---
@@ -33,7 +42,6 @@ description: Development GKE cluster for the website in project datcom-website-d
 gke:
   cluster: projects/datcom-website-dev/locations/us-central1/clusters/website-us-central1
 ---
-
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
