@@ -86,7 +86,11 @@ function App(): ReactElement {
           </Row>
           {showInstructions && (
             <Row>
-              {useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}
+              {useStandardizedUi ? (
+                <VisToolInstructionsBox toolType="map" />
+              ) : (
+                <Info />
+              )}
             </Row>
           )}
           {showChart && (
