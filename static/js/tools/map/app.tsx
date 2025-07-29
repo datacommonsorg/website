@@ -57,8 +57,10 @@ function App(): ReactElement {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
-  const { statVar, placeInfo } = useContext(Context);
-  const showInstructions = !ifShowChart(statVar.value, placeInfo.value);
+
+  const { placeInfo, statVar } = useContext(Context);
+  const showChart = ifShowChart(statVar.value, placeInfo.value);
+  const showInstructions = !showChart;
 
   return (
     <React.StrictMode>
@@ -82,16 +84,20 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          <Row>
-            {useStandardizedUi && showInstructions ? (
-              <VisToolInstructionsBox toolType="map" />
-            ) : (
-              <Info />
-            )}
-          </Row>
-          <Row id="chart-row">
-            <ChartLoader />
-          </Row>
+          {showInstructions && (
+            <Row>
+              {useStandardizedUi ? (
+                <VisToolInstructionsBox toolType="map" />
+              ) : (
+                <Info />
+              )}
+            </Row>
+          )}
+          {showChart && (
+            <Row id="chart-row">
+              <ChartLoader />
+            </Row>
+          )}
         </Container>
       </div>
     </React.StrictMode>
