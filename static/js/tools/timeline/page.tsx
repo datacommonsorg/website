@@ -183,7 +183,7 @@ class Page extends Component<unknown, PageStateType> {
             </Card>
             {numPlaces === 0 &&
               (useStandardizedUi ? (
-                <VisToolInstructionsBox multiPlace multiVariable />
+                <VisToolInstructionsBox toolType="timeline" />
               ) : (
                 <MemoizedInfo />
               ))}

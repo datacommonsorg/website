@@ -59,7 +59,6 @@ function App(): ReactElement {
   );
 
   const { placeInfo, statVar } = useContext(Context);
-
   const showChart = ifShowChart(statVar.value, placeInfo.value);
   const showInstructions = !showChart;
 

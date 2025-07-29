@@ -27,8 +27,28 @@ import { intl } from "../../../i18n/i18n";
 import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
 interface VisToolInstructionsBoxProps {
-  multiPlace?: boolean;
-  multiVariable?: boolean;
+  // Which tool the instructions are for
+  toolType: "map" | "scatter" | "timeline";
+}
+
+/**
+ * Helper function to determine which variation on the instructions for
+ * inputting a place the box should show.
+ * @param props props passed into VisToolInstructionsBox
+ * @returns an i18n formatted string to display in the instructions
+ */
+function getPlaceInstructionToShow(props: VisToolInstructionsBoxProps): string {
+  switch (props.toolType) {
+    case "map": {
+      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesMap);
+    }
+    case "scatter": {
+      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesScatter);
+    }
+    default: {
+      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesTimeline);
+    }
+  }
 }
 
 export function VisToolInstructionsBox(
@@ -39,26 +59,9 @@ export function VisToolInstructionsBox(
       heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
     >
       <ol>
+        <li>{getPlaceInstructionToShow(props)}</li>
         <li>
-          {props.multiPlace
-            ? intl.formatMessage(toolMessages.infoBoxInstructionsPlaces)
-            : intl.formatMessage(toolMessages.infoBoxInstructionsPlacesIn)}
-        </li>
-        <li>
-          {props.multiVariable ? (
-            <>
-              <span className="d-none d-lg-inline">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsMultiVariableDesktop
-                )}
-              </span>
-              <span className="d-inline d-lg-none">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsMultiVariableMobile
-                )}
-              </span>
-            </>
-          ) : (
+          {props.toolType == "map" ? (
             <>
               <span className="d-none d-lg-inline">
                 {intl.formatMessage(
@@ -68,6 +71,19 @@ export function VisToolInstructionsBox(
               <span className="d-inline d-lg-none">
                 {intl.formatMessage(
                   toolMessages.infoBoxInstructionsVariableMobile
+                )}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="d-none d-lg-inline">
+                {intl.formatMessage(
+                  toolMessages.infoBoxInstructionsMultiVariableDesktop
+                )}
+              </span>
+              <span className="d-inline d-lg-none">
+                {intl.formatMessage(
+                  toolMessages.infoBoxInstructionsMultiVariableMobile
                 )}
               </span>
             </>
