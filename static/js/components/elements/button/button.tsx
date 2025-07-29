@@ -193,6 +193,12 @@ export const Button = forwardRef<
     &[aria-disabled="true"] {
       cursor: default;
     }
+
+    .button-start-icon,
+    .button-end-icon {
+      display: inline-flex;
+      align-items: center;
+    }
   `;
 
   const sizeStyles = {
