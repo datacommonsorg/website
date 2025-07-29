@@ -350,7 +350,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   lib_cache.cache.init_app(app)
   lib_cache.model_cache.init_app(app)
   app.config['FEATURE_FLAGS'] = libutil.load_feature_flags()
-  app.config['REDIRECTS'] = libutil.load_redirects() if not cfg.CUSTOM
+  app.config['REDIRECTS'] = libutil.load_redirects() if not cfg.CUSTOM else {}
 
   # Configure ingress
   # See deployment yamls.
