@@ -19,7 +19,7 @@
  */
 
 import { ThemeProvider } from "@emotion/react";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
@@ -44,6 +44,7 @@ import {
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
+  ifShowChart,
   MAP_URL_PATH,
   updateHashDisplay,
   updateHashPlaceInfo,
@@ -56,6 +57,8 @@ function App(): ReactElement {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
+  const { statVar, placeInfo } = useContext(Context);
+  const showInstructions = !ifShowChart(statVar.value, placeInfo.value);
 
   return (
     <React.StrictMode>
@@ -79,7 +82,13 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          <Row>{useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}</Row>
+          <Row>
+            {useStandardizedUi && showInstructions ? (
+              <VisToolInstructionsBox toolType="map" />
+            ) : (
+              <Info />
+            )}
+          </Row>
           <Row id="chart-row">
             <ChartLoader />
           </Row>
