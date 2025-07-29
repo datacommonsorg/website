@@ -1351,7 +1351,15 @@
         ]
       }
     ],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []
