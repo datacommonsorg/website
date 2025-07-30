@@ -136,7 +136,7 @@
                 ]
               }
             ],
-            "description": "Measure of how quickly the number of individuals in a population changes over a given period.",
+            "description": "The percentage change in the total number of people in a population over a specific period.",
             "title": "Rate of Population Growth"
           },
           {
@@ -204,6 +204,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population"
           }
         ],

@@ -539,6 +539,7 @@
                       "maxVariables": 15
                     },
                     "comparisonPlaces": [
+                      "country/MEX",
                       "country/NGA",
                       "country/PAK"
                     ],
@@ -552,7 +553,6 @@
                 ]
               }
             ],
-            "infoMessage": "Data for \"Mexico\" is currently unavailable. See the following statistics on the other places.",
             "title": "Proportion of People With Legally Recognized Documentation of Their Rights to Land Out of Total Adult Population, by Sex (%)"
           },
           {
@@ -565,19 +565,20 @@
                       "maxVariables": 15
                     },
                     "comparisonPlaces": [
+                      "country/MEX",
                       "country/NGA",
                       "country/PAK"
                     ],
                     "statVarKey": [
-                      "sdg/SP_LGL_LNDSTR_multiple_place_bar_block"
+                      "sdg/SP_LGL_LNDSTR_multiple_place_bar_block",
+                      "sdg/SP_LGL_LNDSTR.SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population (${date})",
+                    "title": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population, by Sex (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "infoMessage": "Data for \"Mexico\" is currently unavailable. See the following statistics on the other places.",
             "title": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population, by Sex (%)"
           },
           {
@@ -1093,7 +1094,6 @@
                     },
                     "comparisonPlaces": [
                       "country/MEX",
-                      "country/NGA",
                       "country/PAK"
                     ],
                     "statVarKey": [
@@ -1106,6 +1106,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: BOOST initiative. Country-Data available at: https://www.Worldbank.Org/En/Programs/Boost-Portal/Country-Data; data extracted on 01 april 2022; expenditure by function of government (COFOG) - IMF data. Data available at: https://data.Imf.org/regular.Aspx?Key=61037799; data extracted on 01 april 2022; government finace statistics (GFS) database. Data available at: https://data.Imf.Org/; data extracted on 01 april 2022; IMF; data extracted on 01 april 2022;...132 more chars",
+            "infoMessage": "Data for \"Nigeria\" is currently unavailable. See the following statistics on the other places.",
             "title": "Proportion of Total Government Spending on Essential Services, Education"
           },
           {
@@ -1373,6 +1374,10 @@
           "sdg/SP_LGL_LNDDOC_multiple_place_bar_block": {
             "name": "Proportion of people with legally recognized documentation of their rights to land out of total adult population",
             "statVar": "sdg/SP_LGL_LNDDOC"
+          },
+          "sdg/SP_LGL_LNDSTR.SEX--F_multiple_place_bar_block": {
+            "name": "Proportion of people with secure tenure rights to land out of total adult population [Female]",
+            "statVar": "sdg/SP_LGL_LNDSTR.SEX--F"
           },
           "sdg/SP_LGL_LNDSTR_multiple_place_bar_block": {
             "name": "Proportion of people with secure tenure rights to land out of total adult population",
@@ -2198,6 +2203,15 @@
         }
       ],
       "sdg/SP_LGL_LNDSTR": [
+        {
+          "dcid": "dc/topic/sdg_1.4.2",
+          "name": "1.4.2: Proportion of total adult population with secure tenure rights to land, (a) with legally recognized documentation, and (b) who perceive their rights to land as secure, by sex and type of tenure",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_LGL_LNDSTR.SEX--F": [
         {
           "dcid": "dc/topic/sdg_1.4.2",
           "name": "1.4.2: Proportion of total adult population with secure tenure rights to land, (a) with legally recognized documentation, and (b) who perceive their rights to land as secure, by sex and type of tenure",

@@ -573,6 +573,13 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
       }
     ],
     "exploreMore": {
@@ -721,6 +728,13 @@
     ],
     "peerTopics": [
       {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
         "types": [
@@ -730,13 +744,6 @@
       {
         "dcid": "dc/topic/Income",
         "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
         "types": [
           "Topic"
         ]

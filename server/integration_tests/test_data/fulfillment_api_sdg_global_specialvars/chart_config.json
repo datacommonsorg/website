@@ -9,24 +9,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
-                    "statVarKey": [
-                      "sdg/SG_REG_CENSUSN"
-                    ],
-                    "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
-            "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "sdg/SG_REG_CENSUSN"
                     ],
