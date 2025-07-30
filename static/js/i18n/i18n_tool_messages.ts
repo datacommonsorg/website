@@ -136,3 +136,62 @@ export const toolMessages = defineMessages({
       "Invitation for users to explore some example charts and visualizations.",
   },
 });
+
+export const VisToolExampleChartMessages = defineMessages({
+  waterWithdrawalRateInUsa: {
+    id: "water_withdrawal_rate_in_the_usa",
+    defaultMessage: "Water withdrawal rate in the USA",
+    description:
+      "Title of a map plotting the statistical variable 'water withdrawal rates' in US states.",
+  },
+  unemploymentRateInNewJersey: {
+    id: "unemployment_rate_in_new_jersey",
+    defaultMessage: "Unemployment rate in New Jersey",
+    description:
+      "Title of a map plotting the statistical variable 'unemployment rate' in counties of New Jersey",
+  },
+  medianIncomeInTexas: {
+    id: "median_income_in_texas",
+    defaultMessage: "Median Income in Texas",
+    description:
+      "Title of a map plotting the statistical variable 'median income' in counties of Texas",
+  },
+  attainmentOfBachelorDegreeInColorado: {
+    id: "attainment_of_bachelor_degree_in_colorado",
+    defaultMessage: "Attainment of bachelor's degree in Colorado",
+    description:
+      "Title of a map plotting the statistical variable 'bachelors degree attainment' for counties of Colorado",
+  },
+  coronaryHeartDiseaseVsProjectedTemperatureRise: {
+    id: "prevalence_of_coronary_heart_disease_vs_projected_temperature_rise_in_the_usa",
+    defaultMessage:
+      "Prevalence of coronary heart disease vs. projected temperature rise in the USA",
+    description:
+      "Title of a scatter plot showing the correlation between coronary heart disease and projected temperature rise in the USA",
+  },
+  literatePopulationVsPopulationBelowPovertyLevel: {
+    id: "literate_population_per_capita_vs_population_below_poverty_level_per_capita_for_states_in_india",
+    defaultMessage:
+      "Literate population per capita vs. population below poverty level per capita for states in India",
+    description:
+      "Title of a scatter plot showing the correlation between the literate population per capita and population below poverty level per capita for states in India",
+  },
+  waterWithdrawalRateInCalifornia: {
+    id: "water_withdrawal_rate_in_california",
+    defaultMessage: "Water withdrawal rate in California",
+    description:
+      "Title of a line chart plotting the statistical variable 'water withdrawal rate' in California",
+  },
+  universityTownsByIncome: {
+    id: "university_towns_by_income",
+    defaultMessage: "University towns by income",
+    description:
+      "Title of a line chart plotting the statistical variable 'income' in a set of towns known for having a university",
+  },
+  berkeleyAndPiedmontPoverty: {
+    id: "berkeley_and_piedmont_poverty",
+    defaultMessage: "Berkeley & Piedmont poverty",
+    description:
+      "Title of a line chart plotting the statistical variable 'poverty' for both Berkeley, USA and Piedmont, USA",
+  },
+});
