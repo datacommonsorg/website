@@ -112,6 +112,7 @@ steps:
       echo "PR creation command sent using gh CLI. Pull Request URL: ${pr_url}"
   waitFor: ['run-nl-tests']
 
+# TODO: Replace with a user service account. Default sevice account cannot be set in cloudbuild config
 # options:
 #   service_account: 'projects/879489846695/serviceAccounts/879489846695@cloudbuild.gserviceaccount.com'
 #   logging: CLOUD_LOGGING_ONLY
