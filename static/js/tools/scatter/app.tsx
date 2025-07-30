@@ -139,7 +139,7 @@ function App(): ReactElement {
 function AppWithContext(): ReactElement {
   const store = useContextStore();
 
-  useEffect(() => applyHash(store), [store]);
+  useEffect(() => applyHash(store), []);
   useEffect(() => updateHash(store), [store]);
   window.onhashchange = (): void => applyHash(store);
 
