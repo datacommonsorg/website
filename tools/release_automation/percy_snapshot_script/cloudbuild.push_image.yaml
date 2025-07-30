@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# NL Metadata sample environment file
-#
-# Instructions:
-# - Copy this file to tools/nl/nl_metadata/.env
-# - Replace the environment variables below with actual api key values
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - --tag=gcr.io/datcom-ci/percy-runner:latest
+      - "."
+    dir: "tools/release_automation/percy_snapshot_script"
 
-DC_API_KEY=YOUR-DC-API-KEY-HERE
-GEMINI_API_KEY=YOUR-GEMINI-API-KEY-HERE
-GEMINI_API_KEYS="YOUR-GEMINI-KEY-1,YOUR-GEMINI-KEY-2,YOUR-GEMINI-KEY-3,..."
+images:
+  - "gcr.io/datcom-ci/percy-runner:latest"

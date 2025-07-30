@@ -107,7 +107,7 @@ function App(): ReactElement {
               {useStandardizedUi ? (
                 <>
                   <Row>
-                    <VisToolInstructionsBox multiVariable />
+                    <VisToolInstructionsBox toolType="scatter" />
                   </Row>
                   <Row
                     css={css`
@@ -139,7 +139,7 @@ function App(): ReactElement {
 function AppWithContext(): ReactElement {
   const store = useContextStore();
 
-  useEffect(() => applyHash(store), []);
+  useEffect(() => applyHash(store), [store]);
   useEffect(() => updateHash(store), [store]);
   window.onhashchange = (): void => applyHash(store);
 

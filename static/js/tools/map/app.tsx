@@ -19,7 +19,7 @@
  */
 
 import { css, ThemeProvider, useTheme } from "@emotion/react";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
@@ -45,6 +45,7 @@ import {
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
+  ifShowChart,
   MAP_URL_PATH,
   updateHashDisplay,
   updateHashPlaceInfo,
@@ -58,6 +59,9 @@ function App(): ReactElement {
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
   const theme = useTheme();
+  const { placeInfo, statVar } = useContext(Context);
+  const showChart = ifShowChart(statVar.value, placeInfo.value);
+  const showInstructions = !showChart;
 
   return (
     <React.StrictMode>
@@ -81,19 +85,29 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          <Row>{useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}</Row>
-          {useStandardizedUi && (
-            <Row
-              css={css`
-                margin-top: ${theme.spacing.xl}px;
-              `}
-            >
-              <ChartLinkChips toolType="map" />
+          {showInstructions && (
+            <Row>
+              {useStandardizedUi ? (
+                <>
+                  <VisToolInstructionsBox toolType="map" />
+                  <div
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="map" />
+                  </div>
+                </>
+              ) : (
+                <Info />
+              )}
             </Row>
           )}
-          <Row id="chart-row">
-            <ChartLoader />
-          </Row>
+          {showChart && (
+            <Row id="chart-row">
+              <ChartLoader />
+            </Row>
+          )}
         </Container>
       </div>
     </React.StrictMode>

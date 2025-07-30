@@ -141,7 +141,7 @@ const getFollowUpQuestions = async (
     return data.follow_up_questions.map((question) => {
       return {
         text: question,
-        url: `/explore/?enable_feature=${FOLLOW_UP_QUESTIONS_GA}#${getUpdatedHash(
+        url: `/explore?enable_feature=${FOLLOW_UP_QUESTIONS_GA}#${getUpdatedHash(
           {
             [URL_HASH_PARAMS.QUERY]: question,
             [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_QUESTION,

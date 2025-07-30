@@ -185,7 +185,7 @@ class Page extends Component<unknown, PageStateType> {
             {numPlaces === 0 &&
               (useStandardizedUi ? (
                 <>
-                  <VisToolInstructionsBox multiPlace multiVariable />
+                  <VisToolInstructionsBox toolType="timeline" />
                   <div
                     css={css`
                       margin-top: ${theme.spacing.xl}px;
