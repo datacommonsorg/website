@@ -131,7 +131,7 @@ spec:
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
             - name: WEBSITE_HASH
-              value: {{ .Values.website.githash | quote }}
+              value: {{ .Values.website.image.tag | quote }}
             - name: ENABLE_MODEL
               value: {{ .Values.nl.enabled | quote }}
             - name: ENABLE_EVAL_TOOL
@@ -235,7 +235,7 @@ spec:
               memory: "2G"
           env:
             - name: WEBSITE_HASH
-              value: {{ .Values.website.githash | quote }}
+              value: {{ .Values.website.image.tag | quote }}
             - name: NODE_ENV
               value: {{ .Values.nodejs.env }}
             - name: API_ROOT

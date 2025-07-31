@@ -101,8 +101,8 @@ serviceGroups:
       - "/v1/bulk/info/variable"
     replicas: 1
     resources:
-      memoryRequest: "8G"
-      memoryLimit: "8G"
+      memoryRequest: "4G"
+      memoryLimit: "4G"
     cacheSVG: true
     nodePool:
   observation:
