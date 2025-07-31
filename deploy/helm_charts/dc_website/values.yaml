@@ -73,7 +73,7 @@ mixer:
   image:
     project: "datcom-ci"
     pullPolicy: Always
-    tag:
+    tag: ""
 
     hostProject:
     serviceName:
@@ -101,8 +101,8 @@ serviceGroups:
       - "/v1/bulk/info/variable"
     replicas: 1
     resources:
-      memoryRequest: "4G"
-      memoryLimit: "4G"
+      memoryRequest: "8G"
+      memoryLimit: "8G"
     cacheSVG: true
     nodePool:
   observation:
