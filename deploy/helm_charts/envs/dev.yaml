@@ -45,6 +45,7 @@ serviceGroups:
     replicas: 3
   default:
     replicas: 3
+
 nl:
   enabled: true
   image:
