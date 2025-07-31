@@ -1,0 +1,55 @@
+steps:
+# Get the commit hash for the main repository (website)
+- name: 'gcr.io/cloud-builders/git'
+  id: 'get-website-hash'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    WEBSITE_HASH=$$(git rev-parse --short HEAD)
+    echo "WEBSITE_HASH=$WEBSITE_HASH" > /workspace/env.properties
+
+# Get the commit hash for the mixer submodule
+- name: 'gcr.io/cloud-builders/git'
+  id: 'get-mixer-hash'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    cd mixer
+    MIXER_HASH=$$(git rev-parse --short HEAD)
+    echo "MIXER_HASH=$MIXER_HASH" >> /workspace/env.properties
+  
+# Trigger the datacommons-mixer-release-pipeline
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'deploy-mixer'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    source /workspace/env.properties
+    gcloud deploy releases create automated-release-$(date +"%Y%m%d-%H%M%S") \
+      --delivery-pipeline=datacommons-mixer-release-pipeline \
+      --region=us-central1 \
+      --skaffold-file=skaffold.yaml \
+      --images=gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_HASH \
+      --deploy-parameters=mixer.githash=$MIXER_HASH \
+      --project=datcom-ci
+
+# Trigger the datacommons-website-release-pipeline. This step will run in parallel with the mixer deployment.
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'deploy-website'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    source /workspace/env.properties
+    gcloud deploy releases create automated-release-$(date +"%Y%m%d-%H%M%S") \
+      --delivery-pipeline=datacommons-website-release-pipeline \
+      --region=us-central1 \
+      --skaffold-file=skaffold.yaml \
+      --images=gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$WEBSITE_HASH,gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_HASH,gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$WEBSITE_HASH,gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$WEBSITE_HASH \
+      --deploy-parameters=mixer.githash=$MIXER_HASH,website.githash=$WEBSITE_HASH \
+      --project=datcom-ci
+
+timeout: 1800s
