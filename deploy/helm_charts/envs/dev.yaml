@@ -26,6 +26,8 @@ namespace:
 website:
   flaskEnv: dev
   replicas: 5
+  redis:
+    enabled: false
 
 serviceAccount:
   name: website-ksa
@@ -87,6 +89,7 @@ nodejs:
   replicas: 2
 
 cronTesting:
+  enabled: true
   screenshotDomain: "dev.datacommons.org"
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically
