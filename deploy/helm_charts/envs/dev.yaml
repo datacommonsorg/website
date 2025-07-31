@@ -55,9 +55,35 @@ nl:
   enabled: true
   image:
     tag: ""
-  # The catalog file contains the single source of truth for NL models.
-  # The helm chart will load this file into a configmap.
-  catalogFile: "deploy/nl/catalog.yaml"
+  env:
+    default_indexes:
+      - base_uae_mem
+    enabled_indexes:
+      - base_uae_mem
+      - bio_ft
+      - medium_ft
+      - base_mistral_mem
+      - sdg_ft
+      - undata_ft
+      - undata_ilo_ft
+    vertex_ai_models:
+      uae-large-v1-model:
+        project_id: datcom-nl
+        location: us-central1
+        prediction_endpoint_id: "1400502935879680000"
+      sfr-embedding-mistral-model:
+        project_id: datcom-website-dev
+        location: us-central1
+        prediction_endpoint_id: "224012300019826688"
+      cross-encoder-ms-marco-miniilm-l6-v2:
+        project_id: datcom-website-dev
+        location: us-central1
+        prediction_endpoint_id: "3977846152316846080"
+      cross-encoder-mxbai-rerank-base-v1:
+        project_id: datcom-website-dev
+        location: us-central1
+        prediction_endpoint_id: "284894457873039360"
+    enable_reranking: true
 
 svg:
   blocklistFile: []
