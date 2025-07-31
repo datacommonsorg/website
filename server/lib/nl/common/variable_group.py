@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
-
 from server.lib.nl.common import variable
 import server.services.datacommons as dc
 
@@ -23,42 +21,55 @@ MAX_SVG_LEVELS = 5
 
 
 # Given a list of StatVarGroups, open them up into variables.
-def open_svgs(svgs: List[str]) -> Dict[str, variable.SV]:
-  result = {}
+def open_svgs(svgroups: list[str]) -> dict[str, variable.SV]:
+  """Returns a dictionary of the descendant SV node objects keyed by dcid."""
+  descendant_stat_vars = {}
   processed = set()
-  _get_svg_info(sorted(svgs), processed, result, level=0)
-  return result
+  _get_svg_info(sorted(svgroups), processed, descendant_stat_vars, level=0)
+  return descendant_stat_vars
 
 
-def _get_svg_info(svgs, processed, result, level=0):
-  # Don't do anything if the list of svgs is empty
-  if not svgs:
+def _get_svg_info(
+    groups_to_open: list[str],
+    processed_groups: set,
+    sv_nodes: dict[str, variable.SV],
+    level: int = 0,
+):
+  """Fetches child stat vars and stat var groups for the first
+    MAX_SVGS_IN_CALL groups listed in `groups_to_open`.
+
+    Child groups are added to `recurse_nodes` to be processed in a recursive
+    call. Child stat vars are added to `sv_nodes`, keyed by dcid.
+    """
+  # Don't do anything if the list of groups is empty
+  if not groups_to_open:
     return
-  resp = dc.get_variable_group_info(svgs[:MAX_SVGS_IN_CALL], [])
+
+  # NOTE: This arbitrarily cuts off the explored groups, not every descendant
+  # is visited of the inital groups.
+  resp = dc.get_variable_group_info(groups_to_open[:MAX_SVGS_IN_CALL], [])
+
   recurse_nodes = set()
-  for data in resp.get('data', []):
-    svg_id = data.get('node', '')
-    if not svg_id:
+  for data in resp.get("data", []):
+    if not (group_dcid := data.get("node")) or group_dcid in processed_groups:
+      continue
+    processed_groups.add(group_dcid)
+
+    if not (info := data.get("info")):
       continue
 
-    info = data.get('info', '')
-    if not info:
-      continue
-
-    if svg_id in processed:
-      continue
-    processed.add(svg_id)
-
-    for csv in info.get('childStatVars', []):
-      if not csv.get('id'):
+    for child_sv in info.get("childStatVars", []):
+      if not (child_sv_dcid := child_sv.get("id")):
         continue
-      result[csv['id']] = variable.parse_sv(csv['id'],
-                                            csv.get('definition', ''))
+      sv_nodes[child_sv_dcid] = variable.parse_sv(
+          child_sv_dcid, child_sv.get("definition", ""))
 
-    for csvg in info.get('childStatVarGroups', []):
-      if not csvg.get('id'):
+    for child_group in info.get("childStatVarGroups", []):
+      if (not (child_group_dcid := child_group.get("id")) or
+          child_group_dcid in processed_groups):
         continue
-      recurse_nodes.add(csvg['id'])
+      recurse_nodes.add(child_group_dcid)
 
   if recurse_nodes and level <= MAX_SVG_LEVELS:
-    _get_svg_info(sorted(list(recurse_nodes)), processed, result, level + 1)
+    _get_svg_info(sorted(list(recurse_nodes)), processed_groups, sv_nodes,
+                  level + 1)
