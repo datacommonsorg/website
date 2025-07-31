@@ -17,8 +17,8 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -54,8 +54,8 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -101,8 +101,8 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -137,8 +137,8 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -172,8 +172,8 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -214,8 +214,8 @@
                     },
                     "comparisonPlaces": [
                       "country/USA",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -262,7 +262,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Germany, Ethiopia, Morocco, Kenya, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Germany, Morocco, Ethiopia, Kenya, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas"
           },
           {
@@ -323,7 +323,7 @@
               }
             ],
             "denom": "Count_Person",
-            "infoMessage": "Data for \"Ethiopia, Morocco, Kenya, Ghana, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "infoMessage": "Data for \"Morocco, Ethiopia, Kenya, Ghana, Senegal, Mali, Guinea, Benin, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
             "title": "Annual Amount of Emissions: Fuel Combustion for Refrigeration Air Conditioning, Greenhouse Gas"
           },
           {
@@ -339,8 +339,8 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -375,8 +375,8 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -411,8 +411,8 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -621,13 +621,13 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
+      "dcid": "country/MAR",
+      "name": "Morocco",
       "place_type": "Country"
     },
     {
-      "dcid": "country/MAR",
-      "name": "Morocco",
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
       "place_type": "Country"
     },
     {
