@@ -13,7 +13,6 @@
 # limitations under the License.
 
 steps:
-  # Build the static files
   - id: package_js
     name: gcr.io/datcom-ci/node:2024-11-19
     entrypoint: /bin/bash
@@ -31,52 +30,22 @@ steps:
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
-  - id: setup_python
-    name: python:3.11.4
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        ./run_test.sh --setup_python
-
-  - id: setup_website
-    name: python:3.11.4
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        ./run_test.sh --setup_website
-
-  - id: setup_nl
-    name: python:3.11.4
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        ./run_test.sh --setup_nl
-
-  # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/sh
-    waitFor: ["package_js", "setup_python"]
+    waitFor: ["package_js"]
     args:
       - -c
       - |
         ./run_test.sh -w
 
-  # Run the Custom DC webdriver tests
   - id: flask_cdc_webdriver_test
-    name: gcr.io/datcom-ci/full-env:2025-05-20
+    name: gcr.io/datcom-ci/full-env:latest
     entrypoint: /bin/sh
-    waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
+    waitFor: ["package_js"]
     args:
       - -c
       - |
-        git submodule update --init --recursive
         export STARTUP_WAIT_SEC=60
         ./run_test.sh --cdc
 
