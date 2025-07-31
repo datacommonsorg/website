@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider } from "@emotion/react";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
@@ -36,6 +36,7 @@ import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartRegion } from "./chart_region";
 import { MemoizedInfo } from "./info";
@@ -183,7 +184,16 @@ class Page extends Component<unknown, PageStateType> {
             </Card>
             {numPlaces === 0 &&
               (useStandardizedUi ? (
-                <VisToolInstructionsBox multiPlace multiVariable />
+                <>
+                  <VisToolInstructionsBox toolType="timeline" />
+                  <div
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="timeline" />
+                  </div>
+                </>
               ) : (
                 <MemoizedInfo />
               ))}

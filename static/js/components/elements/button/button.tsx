@@ -185,12 +185,19 @@ export const Button = forwardRef<
     cursor: pointer;
     opacity: ${disabled ? 0.6 : 1};
     text-decoration: none;
+    text-align: center;
     &:hover {
       text-decoration: none;
     }
     &:disabled,
     &[aria-disabled="true"] {
       cursor: default;
+    }
+
+    .button-start-icon,
+    .button-end-icon {
+      display: inline-flex;
+      align-items: center;
     }
   `;
 
