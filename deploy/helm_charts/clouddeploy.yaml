@@ -21,6 +21,16 @@ serialPipeline:
   stages:
     - targetId: datacommons-website-dev
       profiles: [datacommons-website-dev]
+      deployParameters:
+      - values:
+        website.githash: ${WEBSITE_GITHASH}
+        mixer.githash: ${MIXER_GITHASH}
+    - targetId: datacommons-website-autopush
+      profiles: [datacommons-website-autopush]
+      deployParameters:
+      - values:
+        website.githash: ${WEBSITE_GITHASH}
+        mixer.githash: ${MIXER_GITHASH}
 ---
 
 apiVersion: deploy.cloud.google.com/v1
@@ -32,6 +42,14 @@ serialPipeline:
   stages:
     - targetId: datacommons-mixer-dev
       profiles: [datacommons-mixer-dev]
+      deployParameters:
+      - values:
+        mixer.githash: ${MIXER_GITHASH}
+    - targetId: datacommons-mixer-autopush
+      profiles: [datacommons-mixer-autopush]
+      deployParameters:
+      - values:
+        mixer.githash: ${MIXER_GITHASH}
 ---
 
 apiVersion: deploy.cloud.google.com/v1
@@ -49,3 +67,20 @@ metadata:
 description: Development GKE cluster for the mixer in project datcom-mixer-dev
 gke:
   cluster: projects/datcom-mixer-dev-316822/locations/us-central1/clusters/mixer-us-central1
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: datacommons-website-autopush
+description: Development GKE cluster for the website in project datcom-website-autopush
+gke:
+  cluster: projects/datcom-website-autopush/locations/us-central1/clusters/website-us-central1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: datacommons-mixer-autopush
+description: Development GKE cluster for the mixer in project datcom-mixer-autopush
+gke:
+  cluster: projects/datcom-mixer-autopush/locations/us-central1/clusters/mixer-us-central1
