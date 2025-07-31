@@ -263,6 +263,34 @@
               {
                 "tiles": [
                   {
+                    "description": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population in United States of America",
+                    "statVarKey": [
+                      "sdg/SP_LGL_LNDSTR"
+                    ],
+                    "title": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_LGL_LNDSTR"
+                    ],
+                    "title": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "description": "Number of Deaths and Missing Persons Attributed to Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_MMHN"
@@ -814,35 +842,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Total Government Spending on Essential Services, Education in United States of America",
-                    "statVarKey": [
-                      "sdg/SD_XPD_ESED"
-                    ],
-                    "title": "Proportion of Total Government Spending on Essential Services, Education in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SD_XPD_ESED"
-                    ],
-                    "title": "Proportion of Total Government Spending on Essential Services, Education in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: BOOST initiative. Country-Data available at: https://www.Worldbank.Org/En/Programs/Boost-Portal/Country-Data; data extracted on 01 april 2022; expenditure by function of government (COFOG) - IMF data. Data available at: https://data.Imf.org/regular.Aspx?Key=61037799; data extracted on 01 april 2022; government finace statistics (GFS) database. Data available at: https://data.Imf.Org/; data extracted on 01 april 2022; IMF; data extracted on 01 april 2022;...132 more chars",
-            "title": "Proportion of Total Government Spending on Essential Services, Education"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "description": "Proportion of Total Government Spending on Health in United States of America",
                     "statVarKey": [
                       "sdg/SG_XPD_HLTH"
@@ -901,10 +900,6 @@
           "sdg/DC_ODA_POVDLG": {
             "name": "Official development assistance grants for poverty reduction",
             "statVar": "sdg/DC_ODA_POVDLG"
-          },
-          "sdg/SD_XPD_ESED": {
-            "name": "Proportion of total government spending on essential services, education",
-            "statVar": "sdg/SD_XPD_ESED"
           },
           "sdg/SG_DSR_LGRGSR": {
             "name": "Score of adoption and implementation of national Disaster Risk Reduction strategies in line with the Sendai Framework",
@@ -1013,6 +1008,10 @@
           "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
             "name": "Proportion of population using basic sanitation services [Urban]",
             "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
+          },
+          "sdg/SP_LGL_LNDSTR": {
+            "name": "Proportion of people with secure tenure rights to land out of total adult population",
+            "statVar": "sdg/SP_LGL_LNDSTR"
           },
           "sdg/VC_DSR_AFFCT": {
             "name": "Number of people affected by disaster",
@@ -1394,15 +1393,6 @@
           ]
         }
       ],
-      "sdg/SD_XPD_ESED": [
-        {
-          "dcid": "dc/topic/sdg_1.a.2",
-          "name": "1.a.2: Proportion of total government spending on essential services (education, health and social protection)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
       "sdg/SG_DSR_LGRGSR": [
         {
           "dcid": "dc/topic/sdg_1.5.3",
@@ -1697,6 +1687,15 @@
         {
           "dcid": "dc/topic/sdg_1.4.1",
           "name": "1.4.1: Proportion of population living in households with access to basic services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_LGL_LNDSTR": [
+        {
+          "dcid": "dc/topic/sdg_1.4.2",
+          "name": "1.4.2: Proportion of total adult population with secure tenure rights to land, (a) with legally recognized documentation, and (b) who perceive their rights to land as secure, by sex and type of tenure",
           "types": [
             "Topic"
           ]
