@@ -11,46 +11,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 # DNS
 ip: 34.149.114.214
 domain: dev.datacommons.org
+
 # Helm config
 project: "datcom-website-dev"
 cluster_prefix: "website"
+
 namespace:
   name: "website"
+
 website:
   flaskEnv: dev
   replicas: 5
-  image:
-    project: "datcom-ci"
-    pullPolicy: Always
-    tag: ""
-  githash: ""
-  evalTool:
-    enabled: false
-  dataGemma:
-    enabled: false
-  nodePool: "" # Set if you use a specific node pool
-  redis:
-    enabled: false
-
-  placeSummary:
-    enabled: true # Ensure this is true to enable place summary ConfigMaps
-    data:
-      # These values are now empty placeholders. The content is read by .Files.Get.
-      country: ""
-      geoid_0_2: ""
-      geoid_3_5: ""
-      geoid_6_9: ""
-      wikidataid: ""
-      others: ""
 
 serviceAccount:
   name: website-ksa
 
 ingress:
   enabled: true
+
 serviceGroups:
   recon: null
   svg:
@@ -103,3 +85,8 @@ nodejs:
   image:
     tag: ""
   replicas: 2
+
+cronTesting:
+  screenshotDomain: "dev.datacommons.org"
+  nodePool: "default-pool"
+  schedule: "* * 31 2 *" # invalid day for month -> never run automatically
