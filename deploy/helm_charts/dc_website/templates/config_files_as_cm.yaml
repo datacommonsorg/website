@@ -75,7 +75,9 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   catalog.yaml: |
-    {{- .Files.Get "nl/catalog.yaml" | nindent 4 }}
-  env.yaml: |
+    {{- if .Values.nl.catalogFile }}
+    {{- .Files.Get .Values.nl.catalogFile | nindent 4 }}
+    {{- else }}
     {{- toYaml .Values.nl.env | nindent 4 }}
+    {{- end }}
 {{- end }}
