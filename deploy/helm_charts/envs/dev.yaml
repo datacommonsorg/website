@@ -25,8 +25,8 @@ website:
   image:
     project: "datcom-ci"
     pullPolicy: Always
-    tag: "7016d48"
-  githash: "" # Leave empty, Skaffold/build process will handle
+    tag: ""
+  githash: ""
   evalTool:
     enabled: false
   dataGemma:
