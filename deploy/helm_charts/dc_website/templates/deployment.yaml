@@ -145,7 +145,7 @@ spec:
               value: "dummy"
         {{- if .Values.nl.enabled }}
         - name: nl
-          image: "gcr.io/datcom-ci/datacommons-nl:{{ .Values.website.image.tag | default .Chart.AppVersion }}"
+          image: "gcr.io/datcom-ci/datacommons-nl:{{ .Values.nl.image.tag | default .Chart.AppVersion }}"
           resources:
             limits:
               memory: {{ .Values.nl.memory }}
@@ -222,7 +222,7 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
         - name: nodejs
-          image: "gcr.io/datcom-ci/datacommons-nodejs:{{ .Values.website.image.tag | default .Chart.AppVersion }}"
+          image: "gcr.io/datcom-ci/datacommons-nodejs:{{ .Values.nodejs.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:

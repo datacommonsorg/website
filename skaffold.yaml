@@ -51,6 +51,8 @@ build:
     # Artifacts for Cloud Deploy
     - image: gcr.io/datcom-ci/datacommons-website
       context: build/web_server
+    - image: gcr.io/datcom-ci/datacommons-nl
+      context: build/nl_server
     - image: gcr.io/datcom-ci/datacommons-nodejs
       context: build/nodejs_server
     - image: gcr.io/datcom-ci/datacommons-mixer
@@ -98,6 +100,7 @@ profiles:
               ingress.enabled: "true"
               mixer.hostProject: "datcom-website-dev"
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+              mixer.githash: ${MIXER_GITHASH}
   - name: datacommons-mixer-dev
     manifests:
       helm:
@@ -117,6 +120,7 @@ profiles:
               ingress.enabled: "true"
               mixer.hostProject: "datcom-mixer-dev-316822"
               mixer.serviceName: "dev.api.datacommons.org"
+              mixer.githash: ${MIXER_GITHASH}
 
   - name: datacommons-website-autopush
     manifests:

@@ -25,7 +25,7 @@ website:
   image:
     project: "datcom-ci"
     pullPolicy: Always
-    tag: "" # Skaffold's tagPolicy will typically inject this
+    tag: "7016d48"
   githash: "" # Leave empty, Skaffold/build process will handle
   evalTool:
     enabled: false
@@ -63,6 +63,8 @@ serviceGroups:
     replicas: 3
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -98,4 +100,6 @@ svg:
 
 nodejs:
   enabled: true
+  image:
+    tag: ""
   replicas: 2
