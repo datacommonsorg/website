@@ -140,12 +140,15 @@ profiles:
             namespace: website
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
+              kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
               mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
               mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: website-ksa
               ingress.enabled: "true"
+              mixer.useRedis: "false"
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-website-autopush"
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
@@ -160,6 +163,8 @@ profiles:
             namespace: mixer
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
+              kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
               mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
               mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version

@@ -22,7 +22,8 @@ metadata:
   name: redis-config
   namespace: {{ .Values.namespace.name }}
 data:
-  redis.json: {{ required "Redis config file is required" .Values.website.redis.configFile | quote }}
+  redis.json: |-
+{{ required "Redis config file is required" .Values.website.redis.configFile | indent 4 }}
 {{- end }}
 
 
