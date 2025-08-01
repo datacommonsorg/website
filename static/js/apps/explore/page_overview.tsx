@@ -21,9 +21,21 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useState } from "react";
-import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { Loading } from "../../components/elements/loading";
 
+import { Loading } from "../../components/elements/loading";
+import { SubjectPageMetadata } from "../../types/subject_page_types";
+
+const GLOBAL_CAPTURE_LINK_GROUP = /<([^<>]+)>/g;
+const CAPTURE_LINK_GROUP = /<([^<>]+)>/;
+const SPLIT_LINKS = /(<[^<>]+>)/;
+const CHECK_MARKERS_EXIST = /<|>/;
+const GLOBAL_MARKERS = /<|>/g;
+
+type ChartIndex = {
+  title: string;
+  block: number;
+  category: number;
+};
 
 interface PageOverviewPropType {
   query: string;
@@ -31,43 +43,39 @@ interface PageOverviewPropType {
 }
 
 export function PageOverview(props: PageOverviewPropType): ReactElement {
-    const [pageOverview, setPageOverview] = useState([])
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        const statVars = getRelevantStatVars(props.pageMetadata);
-    getPageOverview(props.query,statVars)
-    .then((value) => {
-        console.log(value)
+  const [pageOverview, setPageOverview] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const statVars = getRelevantStatVars(props.pageMetadata);
+    getPageOverview(props.query, statVars)
+      .then((value) => {
         setPageOverview(value);
-    })
-    .catch(() => {
-        console.log("error")
+      })
+      .catch(() => {
         setPageOverview([]);
-    })
-    .finally(() => {
-      setLoading(false);
-    })
-    }, [props.query,props.pageMetadata])
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [props.query, props.pageMetadata]);
 
-    return (
-      <>
-        {loading && (
-          <div className="page-overview-loading">
-            <Loading />
-          </div>
-        )}
-        {pageOverview && (
-          <div className="page-overview-container">
-            {pageOverview}
-          </div>
-        )}
-      </> 
-    )
+  return (
+    <>
+      {loading && (
+        <div className="page-overview-loading">
+          <Loading />
+        </div>
+      )}
+      {pageOverview && (
+        <div className="page-overview-inner">{pageOverview}</div>
+      )}
+    </>
+  );
 }
 
 const getPageOverview = async (
   query: string,
-  statVars: string[]
+  statVars: Array<ChartIndex>
 ): Promise<Array<React.ReactNode>> => {
   if (_.isEmpty(query) || _.isEmpty(statVars)) {
     return [];
@@ -75,50 +83,91 @@ const getPageOverview = async (
   const url = "/api/explore/page-overview";
   const body = {
     q: query,
-    statVars: statVars.map((stat,idx)=> {
-      return {
-        "statistical_variable_name":stat,
-        "statistical_variable_index":idx,
-      }
+    statVars: statVars.map((stat) => {
+      return stat.title;
     }),
   };
   return await axios.post(url, body).then((resp) => {
-    console.log(resp.data.page_overview);
-    const preprocessed_overview = resp.data.page_overview;
-    const split_overview = preprocessed_overview.split(/\{open\}(.*?)\{close\}/)
-    return split_overview.map((part,index) => {
-      const id = `page_overview_${index}`
-      const hasIndex = part.match(/\[(\d+)\]/)
-      if (hasIndex){
-        const chartIndex = hasIndex[1];
-        const targetId = `explore_cat_0_blk_${chartIndex}`;
-        return <a
-          key={id}
-          className="highlight-statvars"
-          onClick={(e) => {
-            e.preventDefault(); // Prevent default anchor jump
-            scrollToStatVar(targetId);
-          }}
-        >{part.substring(part.indexOf("]")+1)}</a>
+    // Check link syntax in overview
+    const preprocessedOverview = resp.data.page_overview;
+    const testStatSyntax = preprocessedOverview.replace(
+      GLOBAL_CAPTURE_LINK_GROUP,
+      "$1"
+    );
+    if (CHECK_MARKERS_EXIST.test(testStatSyntax)) {
+      const cleanedOverview = testStatSyntax.replace(GLOBAL_MARKERS, "");
+      return <span>{cleanedOverview}</span>;
+    }
+    // Create Maps to speed up string look ups
+    const preprocessedStatVarIndices = resp.data.stat_var_links;
+    const substringsToStatVarIndex = new Map<string, string>();
+    for (const statVarIdx of preprocessedStatVarIndices) {
+      substringsToStatVarIndex.set(
+        statVarIdx.natural_language,
+        statVarIdx.stat_var_title
+      );
+    }
+    const titleToCatNBlockIndex = new Map<string, ChartIndex>();
+    for (const statVarChart of statVars) {
+      titleToCatNBlockIndex.set(statVarChart.title, statVarChart);
+    }
+
+    const splitOverview = preprocessedOverview.split(SPLIT_LINKS);
+    return splitOverview.map((part, index) => {
+      const partId = `page_overview_${index}`;
+      const formatMatch = part.match(CAPTURE_LINK_GROUP);
+      // If substring matches our link list and the title exists in our input, return a link else a span
+      if (formatMatch) {
+        const naturalLanguageStatVar = formatMatch[1];
+        const naturalLanguageMatch = substringsToStatVarIndex.has(
+          naturalLanguageStatVar
+        );
+        const titleMatch =
+          naturalLanguageMatch &&
+          titleToCatNBlockIndex.has(
+            substringsToStatVarIndex.get(naturalLanguageStatVar)
+          );
+        if (titleMatch) {
+          const chartTitle = substringsToStatVarIndex.get(
+            naturalLanguageStatVar
+          );
+          const categoryIndex = titleToCatNBlockIndex.get(chartTitle).category;
+          const blockIndex = titleToCatNBlockIndex.get(chartTitle).block;
+          const targetId = `explore_cat_${categoryIndex}_blk_${blockIndex}`;
+          return (
+            <a
+              key={partId}
+              className="highlight-statvars"
+              onClick={(): void => scrollToStatVar(targetId)}
+            >
+              {naturalLanguageStatVar}
+            </a>
+          );
+        } else {
+          return <span key={partId}>{naturalLanguageStatVar}</span>;
+        }
       } else {
-        return <span
-        key={id}
-        >{part}</span>
+        return <span key={partId}>{part}</span>;
       }
-    })
+    });
   });
 };
 
-// TODO (javiervazquez) : Fix the constant index
-const getRelevantStatVars = (pageMetadata: SubjectPageMetadata): string[] => {
-    return pageMetadata.pageConfig.categories[0].blocks.map((block) => {
-        return block.title;
-    })
-}
+const getRelevantStatVars = (
+  pageMetadata: SubjectPageMetadata
+): Array<ChartIndex> => {
+  return pageMetadata.pageConfig.categories.flatMap((category, categoryIndex) =>
+    category.blocks.map((block, blockIndex) => ({
+      title: block.title,
+      category: categoryIndex,
+      block: blockIndex,
+    }))
+  );
+};
 
-const scrollToStatVar= (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth'});
-    }
-  };
+const scrollToStatVar = (id): void => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};

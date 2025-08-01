@@ -55,11 +55,11 @@ import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "./debug_info";
 import { FollowUpQuestions } from "./follow_up_questions";
 import { HighlightResult } from "./highlight_result";
+import { PageOverview } from "./page_overview";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
-import { PageOverview } from "./page_overview";
 
 const PAGE_ID = "explore";
 
@@ -75,7 +75,7 @@ const showPageOverview =
   isFeatureEnabled(PAGE_OVERVIEW_GA) ||
   (isFeatureEnabled(PAGE_OVERVIEW_EXPERIMENT) &&
     Math.random() < EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO);
-
+console.log("this is showPageOverview " + showPageOverview);
 interface SuccessResultPropType {
   //the query string that brought up the given results
   query: string;
@@ -190,8 +190,9 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
             )}
             {showPageOverview && (
               <PageOverview
-              query={props.query}
-              pageMetadata={props.pageMetadata}/>
+                query={props.query}
+                pageMetadata={props.pageMetadata}
+              />
             )}
             <RankingUnitUrlFuncContext.Provider
               value={(

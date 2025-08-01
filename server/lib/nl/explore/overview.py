@@ -23,21 +23,34 @@ from pydantic import BaseModel
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
 
 
+class StatVarLink(BaseModel):
+  """A structure to map the generated overview links to Stat Var charts.
+  Attributes:
+    stat_var_title: The title of the chart in which the stat var is displayed.
+    natural_language: The natural language version of stat_var_title used in the page overview.
+  """
+  stat_var_title: str
+  natural_language: str
+
+
 class PageOverview(BaseModel):
   """The page overview generated based on a query and relevant stat vars
 
   Attributes:
     overview: A string containing the generated overview.
+    variable_index: A list of StatVarLinks that contain the chart title and how it was used in the overview.
   """
   overview: str
+  stat_var_links: list[StatVarLink]
 
 
 _OVERVIEW_GEMINI_CALL_RETRIES = 3
 
-_OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash"#"gemini-2.5-flash-lite-preview-06-17"
+_OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash-lite"
 
 
-def generate_page_overview(query: str, stat_vars: List[str]) -> Optional[str]:
+def generate_page_overview(
+    query: str, stat_vars: List[str]) -> tuple[Optional[str], Optional[str]]:
   """ Generates page overview based on the initial query and relevant stat vars
 
       Args:
@@ -48,11 +61,11 @@ def generate_page_overview(query: str, stat_vars: List[str]) -> Optional[str]:
       A string containing the generated overview.
   """
   if not stat_vars or not query:
-    return None
+    return None, None
 
   gemini_api_key = current_app.config.get("LLM_API_KEY")
   if not gemini_api_key:
-    return None
+    return None, None
 
   gemini = genai.Client(api_key=gemini_api_key)
   for _ in range(_OVERVIEW_GEMINI_CALL_RETRIES):
@@ -67,11 +80,12 @@ def generate_page_overview(query: str, stat_vars: List[str]) -> Optional[str]:
           })
 
       generated_overview = gemini_response.parsed.overview
-      return generated_overview
+      stat_var_links = gemini_response.parsed.stat_var_links
+      return generated_overview, stat_var_links
     except Exception as e:
       logging.error(
           f'[explore_page_overview]: Initial Query: {query} | Statistical Variables: {stat_vars} | Exception Caught: {e}',
           exc_info=True)
       continue
 
-  return None
+  return None, None

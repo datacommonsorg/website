@@ -250,7 +250,7 @@
   line-height: 24px; 
 }
 
-.page-overview-container {
+.page-overview-inner {
   justify-content: center;
   align-self: stretch;
 
@@ -263,12 +263,23 @@
   line-height: var(--Static-Title-Large-Line-Height, 28px); /* 127.273% */
   letter-spacing: var(--Static-Title-Large-Tracking, 0px);
   .highlight-statvars{
-    color: var(--gm-3-sys-light-primary) !important;
+    color: var(--gm-3-sys-light-primary);
   }
 }
 
 .page-overview-loading {
-  height: 111px;
+  min-height: 100px;
+}
+
+@media (max-width: 620px) {
+  .page-overview-loading{
+    min-height: 150px;
+  }
+}
+@media (max-width: 340px) {
+  .page-overview-loading{
+    min-height: 200px;
+  }
 }
 
 .loading-container {
