@@ -52,6 +52,8 @@ serviceAccount:
 
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -95,6 +97,8 @@ serviceGroups:
 
 nodejs:
   enabled: true
+  image:
+    tag: ""
   replicas: 12
 
 cronTesting:
