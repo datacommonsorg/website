@@ -15,7 +15,7 @@
  */
 
 /**
- * Component for rendering the generated follow up questions.
+ * Component for rendering the generated page overview.
  */
 
 import axios from "axios";
@@ -94,6 +94,7 @@ const getPageOverview = async (
       GLOBAL_CAPTURE_LINK_GROUP,
       "$1"
     );
+    // If the markers still exist, the links were not marked properly so the overview with no links is returned
     if (CHECK_MARKERS_EXIST.test(testStatSyntax)) {
       const cleanedOverview = testStatSyntax.replace(GLOBAL_MARKERS, "");
       return <span>{cleanedOverview}</span>;

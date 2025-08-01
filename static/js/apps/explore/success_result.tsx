@@ -75,7 +75,7 @@ const showPageOverview =
   isFeatureEnabled(PAGE_OVERVIEW_GA) ||
   (isFeatureEnabled(PAGE_OVERVIEW_EXPERIMENT) &&
     Math.random() < EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO);
-console.log("this is showPageOverview " + showPageOverview);
+
 interface SuccessResultPropType {
   //the query string that brought up the given results
   query: string;

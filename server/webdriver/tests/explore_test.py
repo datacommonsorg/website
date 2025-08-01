@@ -62,10 +62,10 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
 
   def test_page_overview_typical(self):
     """Test that a Page Overview is generated and displayed."""
-    follow_up_flag = "?enable_feature=page_overview_ga"
+    page_overview_flag = "?enable_feature=page_overview_ga"
     query = "#q=What is the population of Mountain View?"
 
-    self.driver.get(self.url_ + EXPLORE_URL + follow_up_flag + query)
+    self.driver.get(self.url_ + EXPLORE_URL + page_overview_flag + query)
     shared.wait_elem(driver=self.driver, value="page-overview-inner")
 
     self.assertIsNotNone(
