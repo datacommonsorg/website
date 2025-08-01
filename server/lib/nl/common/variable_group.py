@@ -46,7 +46,7 @@ def _get_svg_info(
     return
 
   # NOTE: This arbitrarily cuts off the explored groups, not every descendant
-  # is visited of the inital groups.
+  # of the inital groups is visited.
   resp = dc.get_variable_group_info(groups_to_open[:MAX_SVGS_IN_CALL], [])
 
   recurse_nodes = set()
