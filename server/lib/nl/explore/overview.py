@@ -38,7 +38,7 @@ class PageOverview(BaseModel):
 
   Attributes:
     overview: A string containing the generated overview.
-    variable_index: A list of StatVarLinks that contain the chart title and how it was used in the overview.
+    stat_var_links: A list of StatVarLinks that contain the chart title and how it was used in the overview.
   """
   overview: str
   stat_var_links: list[StatVarLink]
