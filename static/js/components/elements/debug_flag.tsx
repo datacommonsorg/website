@@ -30,10 +30,16 @@ import { Tooltip } from "./tooltip/tooltip";
 const DEBUG_PARAM = "dbg";
 
 interface DebugFlagProps {
+  // the message displayed when the user hovers over the flag
   message: string;
+  // if true, shows a [debug] tag in front of the message. Defaults to true
+  showDebugPrefix?: boolean;
 }
 
-export function DebugFlag({ message }: DebugFlagProps): ReactElement | null {
+export function DebugFlag({
+  message,
+  showDebugPrefix = true,
+}: DebugFlagProps): ReactElement | null {
   const theme = useTheme();
 
   const getDebugParam = (): string | null => {
@@ -57,7 +63,20 @@ export function DebugFlag({ message }: DebugFlagProps): ReactElement | null {
 
   return (
     <Tooltip
-      title={message}
+      title={
+        <span>
+          {showDebugPrefix && (
+            <span
+              css={css`
+                color: ${theme.colors.error.primary.base};
+              `}
+            >
+              [debug]&nbsp;
+            </span>
+          )}
+          {message}
+        </span>
+      }
       triggerCss={css`
         cursor: pointer;
         padding: 0 ${theme.spacing.xs}px;
