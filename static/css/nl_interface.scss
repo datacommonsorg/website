@@ -497,11 +497,21 @@ h3,
 
 .subtopic {
   padding: 1.5em 0;
+  scroll-margin-top: $header-desktop-height;
 }
 .subtopic:last-of-type {
   padding: 1.5em 0 0 0;
 }
-
+@media (max-width: 620px) {
+  .subtopic{
+    scroll-margin-top: $header-mobile-height !important; 
+  }
+}
+@media (max-width: 340px) {
+  .subtopic{
+    scroll-margin-top: $header-mobile-height-xs !important;
+  }
+}
 .block .show-more-expando {
   margin-top: 12px;
 }

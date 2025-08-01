@@ -31,6 +31,13 @@ $h3-font-size: 1.2rem;
 
 $headings-font-weight: 600;
 
+$header-desktop-height: 96px;
+$header-mobile-height: 142px;
+$header-mobile-height-xs: 128px;
+$header-mobile-no-search-height: 68px;
+$header-max-width: 1728px;
+
+
 /*
   If the grid-breakpoints change, the TypeScript equivalent should be updated:
   `static/js/shared/hooks/breakpoints.tsx`, `export const BREAKPOINTS`

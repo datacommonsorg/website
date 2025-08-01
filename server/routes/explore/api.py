@@ -193,16 +193,22 @@ def page_overview():
                     400,
                     mimetype="application/json")
 
-  generated_overview = overview.generate_page_overview(query=initial_query,
-                                                       stat_vars=stat_vars)
+  generated_overview, stat_var_links = overview.generate_page_overview(
+      query=initial_query, stat_vars=stat_vars)
 
-  if not generated_overview:
+  if not generated_overview or not stat_var_links:
     return Response(json.dumps(
         {'error': "Page overview could not be generated at this time."}),
                     503,
                     mimetype="application/json")
 
-  return Response(json.dumps({'page_overview': generated_overview}),
+  return Response(json.dumps({
+      'page_overview':
+          generated_overview,
+      'stat_var_links': [
+          stat_var_link.model_dump() for stat_var_link in stat_var_links
+      ]
+  }),
                   200,
                   mimetype="application/json")
 
