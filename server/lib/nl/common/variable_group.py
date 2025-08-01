@@ -22,34 +22,36 @@ MAX_SVG_LEVELS = 5
 
 # Given a list of StatVarGroups, open them up into variables.
 def open_svgs(svgroups: list[str]) -> dict[str, variable.SV]:
-  """Returns a dictionary of the descendant SV node objects keyed by dcid."""
-  descendant_stat_vars = {}
-  processed = set()
-  _get_svg_info(sorted(svgroups), processed, descendant_stat_vars, level=0)
-  return descendant_stat_vars
+  """Returns a dictionary of the descendant SV nodes keyed by dcid."""
+  return _get_descendant_sv_nodes(sorted(svgroups),
+                                  processed_groups=set(),
+                                  level=0)
 
 
-def _get_svg_info(
+def _get_descendant_sv_nodes(
     groups_to_open: list[str],
     processed_groups: set,
-    sv_nodes: dict[str, variable.SV],
     level: int = 0,
-):
+) -> dict[str, variable.SV]:
   """Fetches child stat vars and stat var groups for the first
-    MAX_SVGS_IN_CALL groups listed in `groups_to_open`.
+    MAX_SVGS_IN_CALL SVGroups in `groups_to_open`.
 
-    Child groups are added to `recurse_nodes` to be processed in a recursive
-    call. Child stat vars are added to `sv_nodes`, keyed by dcid.
+    Child groups are added to `recurse_groups` to be processed in a recursive
+    call.
+
+    Returns a dict of descendant stat var (SV) nodes, keyed by dcid.
     """
+
   # Don't do anything if the list of groups is empty
   if not groups_to_open:
-    return
+    return {}
 
   # NOTE: This arbitrarily cuts off the explored groups, not every descendant
   # of the inital groups is visited.
   resp = dc.get_variable_group_info(groups_to_open[:MAX_SVGS_IN_CALL], [])
 
-  recurse_nodes = set()
+  sv_nodes = {}
+  recurse_groups = set()
   for data in resp.get("data", []):
     if not (group_dcid := data.get("node")) or group_dcid in processed_groups:
       continue
@@ -68,8 +70,10 @@ def _get_svg_info(
       if (not (child_group_dcid := child_group.get("id")) or
           child_group_dcid in processed_groups):
         continue
-      recurse_nodes.add(child_group_dcid)
+      recurse_groups.add(child_group_dcid)
 
-  if recurse_nodes and level <= MAX_SVG_LEVELS:
-    _get_svg_info(sorted(list(recurse_nodes)), processed_groups, sv_nodes,
-                  level + 1)
+  if recurse_groups and level <= MAX_SVG_LEVELS:
+    sv_nodes.update(
+        _get_descendant_sv_nodes(sorted(list(recurse_groups)), processed_groups,
+                                 level + 1))
+  return sv_nodes
