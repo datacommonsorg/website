@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # #### Stage 1: Build mixer. ####
-FROM golang:1.20.7 AS mixer
+FROM golang:1.23.11 AS mixer
 
 WORKDIR /workspace
 
