@@ -683,9 +683,333 @@
             ],
             "denom": "Count_Person",
             "title": "Increase in Categories of Jobs Over Time (Per Capita Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Male",
+                      "Count_Person_InLaborForce_Female"
+                    ],
+                    "title": "Labor Force by Gender in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Labor Force by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Male_growth_abs"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Female_growth_abs"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Labor Force by Gender Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Female_growth_pct"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Male_growth_pct"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Labor Force by Gender Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Male_growth_pc"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Male in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_Female_growth_pc"
+                    ],
+                    "title": "Population: 16 Years or More, in Labor Force, Female in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Labor Force by Gender Over Time (Per Capita Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries",
+                      "dc/p69tpsldf99h7",
+                      "Count_Worker_NAICSAccommodationFoodServices",
+                      "Count_Worker_NAICSWholesaleTrade",
+                      "dc/w5ve4140t8xsb",
+                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker",
+                      "dc/34t2kjrwbjd31",
+                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+                    ],
+                    "title": "Employment by Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Employment by Industry"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries_growth_abs"
+                    ],
+                    "title": "Workers in All Industries in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/w5ve4140t8xsb_growth_abs"
+                    ],
+                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_abs"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/34t2kjrwbjd31_growth_abs"
+                    ],
+                    "title": "Population Working in the Petroleum and Coal Products Manufacturing Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Employment by Industry Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pct"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/34t2kjrwbjd31_growth_pct"
+                    ],
+                    "title": "Population Working in the Petroleum and Coal Products Manufacturing Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/w5ve4140t8xsb_growth_pct"
+                    ],
+                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries_growth_pct"
+                    ],
+                    "title": "Workers in All Industries in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Employment by Industry Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries_growth_pc"
+                    ],
+                    "title": "Workers in All Industries in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/w5ve4140t8xsb_growth_pc"
+                    ],
+                    "title": "Population of Person: Machinery Manufacturing (NAICS/333) in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pc"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/34t2kjrwbjd31_growth_pc"
+                    ],
+                    "title": "Population Working in the Petroleum and Coal Products Manufacturing Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Employment by Industry Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {
+          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker": {
+            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          },
+          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_abs": {
+            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          },
+          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pc": {
+            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          },
+          "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker_growth_pct": {
+            "name": "Population: 16 Years or More, Civilian, No Health Insurance, Non Institutionalized, Public Administration (NAICS/92), Worker",
+            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_NAICSPublicAdministration_Worker"
+          },
+          "Count_Person_InLaborForce_Female": {
+            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "statVar": "Count_Person_InLaborForce_Female"
+          },
+          "Count_Person_InLaborForce_Female_growth_abs": {
+            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "statVar": "Count_Person_InLaborForce_Female"
+          },
+          "Count_Person_InLaborForce_Female_growth_pc": {
+            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "statVar": "Count_Person_InLaborForce_Female"
+          },
+          "Count_Person_InLaborForce_Female_growth_pct": {
+            "name": "Population: 16 Years or More, in Labor Force, Female",
+            "statVar": "Count_Person_InLaborForce_Female"
+          },
+          "Count_Person_InLaborForce_Male": {
+            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "statVar": "Count_Person_InLaborForce_Male"
+          },
+          "Count_Person_InLaborForce_Male_growth_abs": {
+            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "statVar": "Count_Person_InLaborForce_Male"
+          },
+          "Count_Person_InLaborForce_Male_growth_pc": {
+            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "statVar": "Count_Person_InLaborForce_Male"
+          },
+          "Count_Person_InLaborForce_Male_growth_pct": {
+            "name": "Population: 16 Years or More, in Labor Force, Male",
+            "statVar": "Count_Person_InLaborForce_Male"
+          },
           "Count_Worker_NAICSAccommodationFoodServices": {
             "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
@@ -926,6 +1250,22 @@
             "name": "Real Estate and Rental and Leasing Workers",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
+          "Count_Worker_NAICSTotalAllIndustries": {
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          },
+          "Count_Worker_NAICSTotalAllIndustries_growth_abs": {
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          },
+          "Count_Worker_NAICSTotalAllIndustries_growth_pc": {
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          },
+          "Count_Worker_NAICSTotalAllIndustries_growth_pct": {
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          },
           "Count_Worker_NAICSUtilities": {
             "name": "Utilities Workers",
             "statVar": "Count_Worker_NAICSUtilities"
@@ -958,6 +1298,22 @@
             "name": "Wholesale Trade Workers",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
           },
+          "dc/34t2kjrwbjd31": {
+            "name": "Population Working in the Petroleum and Coal Products Manufacturing Industry",
+            "statVar": "dc/34t2kjrwbjd31"
+          },
+          "dc/34t2kjrwbjd31_growth_abs": {
+            "name": "Population Working in the Petroleum and Coal Products Manufacturing Industry",
+            "statVar": "dc/34t2kjrwbjd31"
+          },
+          "dc/34t2kjrwbjd31_growth_pc": {
+            "name": "Population Working in the Petroleum and Coal Products Manufacturing Industry",
+            "statVar": "dc/34t2kjrwbjd31"
+          },
+          "dc/34t2kjrwbjd31_growth_pct": {
+            "name": "Population Working in the Petroleum and Coal Products Manufacturing Industry",
+            "statVar": "dc/34t2kjrwbjd31"
+          },
           "dc/8p97n7l96lgg8": {
             "name": "Transportation And Warehousing Workers",
             "statVar": "dc/8p97n7l96lgg8"
@@ -989,6 +1345,22 @@
           "dc/p69tpsldf99h7_growth_pct": {
             "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
+          },
+          "dc/w5ve4140t8xsb": {
+            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "statVar": "dc/w5ve4140t8xsb"
+          },
+          "dc/w5ve4140t8xsb_growth_abs": {
+            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "statVar": "dc/w5ve4140t8xsb"
+          },
+          "dc/w5ve4140t8xsb_growth_pc": {
+            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "statVar": "dc/w5ve4140t8xsb"
+          },
+          "dc/w5ve4140t8xsb_growth_pct": {
+            "name": "Population of Person: Machinery Manufacturing (NAICS/333)",
+            "statVar": "dc/w5ve4140t8xsb"
           }
         }
       }
@@ -1206,16 +1578,22 @@
     },
     "childTopics": [],
     "exploreMore": {
-      "Count_Worker_NAICSProfessionalScientificTechnicalServices": {
-        "establishmentOwnership": [
-          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSProfessionalScientificTechnicalServices",
-          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSProfessionalScientificTechnicalServices"
+      "Count_Person_InLaborForce_Female": {
+        "maritalStatus": [
+          "Count_Person_InLaborForce_Female_Divorced",
+          "Count_Person_InLaborForce_Female_MarriedAndNotSeparated",
+          "Count_Person_InLaborForce_Female_NeverMarried",
+          "Count_Person_InLaborForce_Female_Separated",
+          "Count_Person_InLaborForce_Female_Widowed"
         ]
       },
-      "dc/8p97n7l96lgg8": {
-        "establishmentOwnership": [
-          "dc/wkn0fmqw6ezxc",
-          "dc/wnrvlpncdkj38"
+      "Count_Person_InLaborForce_Male": {
+        "maritalStatus": [
+          "Count_Person_InLaborForce_Male_Divorced",
+          "Count_Person_InLaborForce_Male_MarriedAndNotSeparated",
+          "Count_Person_InLaborForce_Male_NeverMarried",
+          "Count_Person_InLaborForce_Male_Separated",
+          "Count_Person_InLaborForce_Male_Widowed"
         ]
       }
     },
