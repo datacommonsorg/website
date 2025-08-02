@@ -24,6 +24,8 @@ namespace:
   name: "website"
 
 website:
+  iap:
+    enabled: false
   flaskEnv: staging
   replicas: 6
   enableModel: true
@@ -38,7 +40,12 @@ website:
       }
 
 ingress:
-  enabled: false
+  enabled: true
+  name: "website-ingress"
+  ipName: "website-staging-ip"
+  certName: "website-certificate"
+  annotations:
+    ingress.gcp.kubernetes.io/custom-response-headers: "X-Robots-Tag: noindex, nofollow"
 
 serviceAccount:
   name: website-ksa
