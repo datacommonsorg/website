@@ -1,0 +1,119 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+steps:
+# Get the commit hash for the main repository (website)
+- name: 'gcr.io/cloud-builders/git'
+  id: 'get-website-hash'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    WEBSITE_HASH=$$(git rev-parse --short HEAD)
+    echo "WEBSITE_HASH=$WEBSITE_HASH" > /workspace/env.properties
+
+# Get the commit hash for the mixer submodule
+- name: 'gcr.io/cloud-builders/git'
+  id: 'get-mixer-hash'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    cd mixer
+    MIXER_HASH=$$(git rev-parse --short HEAD)
+    echo "MIXER_HASH=$MIXER_HASH" >> /workspace/env.properties
+  
+# Export hashes as environment variables for subsequent steps
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'source-hashes'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - 'source /workspace/env.properties'
+
+# Deploy Cloud Endpoints Service. This must happen before the mixer is deployed.
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'deploy-esp'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    set -e
+    source /workspace/env.properties
+    # Assuming autopush for this automated script. This could be parameterized.
+    ENV="autopush"
+    PROJECT_ID=$(yq eval '.project' deploy/helm_charts/envs/$ENV.yaml)
+    ESP_SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
+    API_TITLE=$ESP_SERVICE_NAME
+
+    # Create the endpoints config from the template
+    cp gke/endpoints.yaml.tpl endpoints.yaml
+    yq eval -i '.name = env(ESP_SERVICE_NAME)' endpoints.yaml
+    yq eval -i '.title = env(API_TITLE)' endpoints.yaml
+
+    # Download the mixer's protobuf definition
+    gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
+
+    # Deploy the service configuration to Cloud Endpoints
+    CONFIG_ID=$(gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID 2>&1 | awk -F'[][]' '/Service Configuration/ {print $2}')
+
+    # Download the full service config as JSON
+    curl -o "/tmp/service_config.json" -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+      "https://servicemanagement.googleapis.com/v1/services/$ESP_SERVICE_NAME/configs/$CONFIG_ID?view=FULL"
+
+    # Get GKE credentials to create the configmap
+    LOCATION=$(yq eval '.region' deploy/helm_charts/envs/$ENV.yaml)
+    CLUSTER_PREFIX=$(yq eval '.cluster_prefix' deploy/helm_charts/envs/$ENV.yaml)
+    CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
+    gcloud container clusters get-credentials $CLUSTER_NAME --region=$LOCATION --project=$PROJECT_ID
+
+    # Create the configmap in the cluster
+    kubectl delete configmap service-config-configmap -n website --ignore-not-found
+    kubectl create configmap service-config-configmap -n website \
+      --from-file=service_config.json=/tmp/service_config.json
+  
+# Trigger the datacommons-mixer-release-pipeline
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'deploy-mixer'
+  waitFor: ['deploy-esp']
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    source /workspace/env.properties
+    gcloud deploy releases create automated-release-$(date +"%Y%m%d-%H%M%S") \
+      --delivery-pipeline=datacommons-mixer-release-pipeline \
+      --region=us-central1 \
+      --skaffold-file=skaffold.yaml \
+      --images=gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_HASH \
+      --deploy-parameters=mixer.githash=$MIXER_HASH \
+      --project=datcom-ci
+
+# Trigger the datacommons-website-release-pipeline. This step will run in parallel with the mixer deployment.
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'deploy-website'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    source /workspace/env.properties
+    gcloud deploy releases create automated-release-$(date +"%Y%m%d-%H%M%S") \
+      --delivery-pipeline=datacommons-website-release-pipeline \
+      --region=us-central1 \
+      --skaffold-file=skaffold.yaml \
+      --images=gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$WEBSITE_HASH,gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_HASH,gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$WEBSITE_HASH,gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$WEBSITE_HASH \
+      --deploy-parameters=mixer.githash=$MIXER_HASH,website.githash=$WEBSITE_HASH \
+      --project=datcom-ci
+
+timeout: 1800s

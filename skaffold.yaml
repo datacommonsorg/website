@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,18 +13,20 @@
 # limitations under the License.
 
 # Skaffold (https://skaffold.dev/docs/quickstart/) configuration file that is
-# used to deploy website in a local Minikube cluster.
-# There are 3 steps involved here:
-#   build: builds website, mixer and api-compiler image.
-#   deploy: deploy website, mixer, esp, api-comipler to minikube.
-#   portFoward: expose the service in host port.
+# used to deploy website in a local Minikube cluster or to a GKE cluster with Cloud Deploy.
+#
+# For local development:
+# skaffold run -p local
+#
+# For Cloud Deploy, the profiles are selected by the clouddeploy.yaml
 
-apiVersion: skaffold/v2beta10
+apiVersion: skaffold/v4beta7
 kind: Config
 metadata:
   name: website
 build:
   artifacts:
+    # Artifacts for local development
     - image: datacommons/website
       context: .
       docker:
@@ -46,14 +48,182 @@ build:
       context: mixer
       docker:
         dockerfile: esp/Dockerfile
-deploy:
-  kubeContext: minikube
-  kustomize:
-    paths:
-      - deploy/overlays/local
-portForward:
-  - resourceType: service
-    resourceName: website-service-local
-    namespace: website
-    port: 8080
-    localPort: 8080
+    # Artifacts for Cloud Deploy
+    - image: gcr.io/datcom-ci/datacommons-website
+      context: build/web_server
+    - image: gcr.io/datcom-ci/datacommons-nl
+      context: build/nl_server
+    - image: gcr.io/datcom-ci/datacommons-nodejs
+      context: build/nodejs_server
+    - image: gcr.io/datcom-ci/datacommons-mixer
+      context: mixer/build/ci
+  tagPolicy:
+    sha256: {}
+
+profiles:
+  - name: local
+    manifests:
+      kustomize:
+        paths:
+          - deploy/overlays/local
+    deploy:
+      kubeContext: minikube
+    portForward:
+      - resourceType: service
+        resourceName: website-service-local
+        namespace: website
+        port: 8080
+        localPort: 8080
+
+  - name: datacommons-website-dev
+    manifests:
+      helm:
+        releases:
+          - name: datacommons-website-release
+            chartPath: deploy/helm_charts/dc_website
+            valuesFiles:
+              - deploy/helm_charts/envs/dev.yaml
+            setValues:
+              serviceAccount.name: website-ksa
+          - name: dc-mixer
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_dev.yaml
+            namespace: website
+            setFiles:
+              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
+              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
+            setValues:
+              serviceAccount.name: website-ksa
+              ingress.enabled: "true"
+              mixer.hostProject: "datcom-website-dev"
+              mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+              mixer.githash: ${MIXER_GITHASH}
+  - name: datacommons-mixer-dev
+    manifests:
+      helm:
+        releases:
+          - name: mixer-dev
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_dev.yaml
+            namespace: mixer
+            setFiles:
+              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
+              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
+            setValues:
+              serviceAccount.name: mixer-ksa
+              ingress.enabled: "true"
+              mixer.hostProject: "datcom-mixer-dev-316822"
+              mixer.serviceName: "dev.api.datacommons.org"
+              mixer.githash: ${MIXER_GITHASH}
+
+  - name: datacommons-website-autopush
+    manifests:
+      helm:
+        releases:
+          - name: datacommons-website-release
+            chartPath: deploy/helm_charts/dc_website
+            valuesFiles:
+              - deploy/helm_charts/envs/autopush.yaml
+            setValues:
+              serviceAccount.name: website-ksa
+              website.githash: ${WEBSITE_GITHASH}
+          - name: dc-mixer
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_autopush.yaml
+            namespace: website
+            setFiles:
+              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
+              kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
+              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
+              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
+            setValues:
+              serviceAccount.name: website-ksa
+              ingress.enabled: "true"
+              mixer.useRedis: "false"
+              mixer.githash: ${MIXER_GITHASH}
+              mixer.hostProject: "datcom-website-autopush"
+              mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+  - name: datacommons-mixer-autopush
+    manifests:
+      helm:
+        releases:
+          - name: mixer-autopush
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_autopush.yaml
+            namespace: mixer
+            setFiles:
+              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
+              kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
+              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
+              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
+            setValues:
+              serviceAccount.name: mixer-ksa
+              ingress.enabled: "true"
+              mixer.githash: ${MIXER_GITHASH}
+              mixer.hostProject: "datcom-mixer-autopush"
+              mixer.serviceName: "autopush.api.datacommons.org"
+
+  - name: datacommons-website-staging
+    manifests:
+      helm:
+        releases:
+          - name: datacommons-website-release
+            chartPath: deploy/helm_charts/dc_website
+            valuesFiles:
+              - deploy/helm_charts/envs/staging.yaml
+            setValues:
+              serviceAccount.name: website-ksa
+              website.githash: ${WEBSITE_GITHASH}
+          - name: dc-mixer
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_staging.yaml
+            namespace: website
+            setFiles:
+              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
+              kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
+              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
+              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
+            setValues:
+              serviceAccount.name: website-ksa
+              ingress.enabled: "true"
+              mixer.useRedis: "false"
+              mixer.githash: ${MIXER_GITHASH}
+              mixer.hostProject: "datcom-website-staging"
+              mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
+  - name: datacommons-mixer-staging
+    manifests:
+      helm:
+        releases:
+          - name: mixer-staging
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_staging.yaml
+            namespace: mixer
+            setFiles:
+              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
+              kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
+              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
+              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
+            setValues:
+              serviceAccount.name: mixer-ksa
+              ingress.enabled: "true"
+              mixer.githash: ${MIXER_GITHASH}
+              mixer.hostProject: "datcom-mixer-staging"
+              mixer.serviceName: "staging.api.datacommons.org"
