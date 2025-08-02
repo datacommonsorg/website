@@ -24,7 +24,7 @@ import React, { ReactElement, useCallback } from "react";
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
 import { RankingTile } from "../../../components/tiles/ranking_tile";
-import { FacetSelector } from "../../../shared/facet_selector";
+import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatMetadata } from "../../../shared/stat_types";
