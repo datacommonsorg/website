@@ -141,6 +141,7 @@ const FACET_ELIGIBLE_TILE_GROUPS = [
   new Set(["LINE", "HIGHLIGHT"]),
   new Set(["SCATTER"]),
   new Set(["BAR"]),
+  new Set(["MAP", "RANKING"]),
 ];
 
 const FACET_ELIGIBLE_TILES = new Set(
@@ -160,8 +161,12 @@ const FACET_GROUPING_ELIGIBLE_TILES = new Set(["BAR"]);
  */
 function eligibleForSnapToHighestCoverage(
   columns: ColumnConfig[],
-  statVarProvider: StatVarProvider
+  statVarProvider: StatVarProvider,
+  highlightFacet?: FacetMetadata
 ): boolean {
+  if (highlightFacet) {
+    return false;
+  }
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
   const statVarKeys = _.flatten(tiles.map((tile) => tile.statVarKey));
   const tileTypes = _.flatten(
@@ -169,13 +174,13 @@ function eligibleForSnapToHighestCoverage(
   );
   const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
 
-  const isEligibleForSnapToHighestCoverage =
+  return (
     !_.find<StatVarSpec>(statVarSpecs, (statVarSpec) => !!statVarSpec.date) &&
     !_.find(
       tileTypes,
       (tileType) => tileType !== "MAP" && tileType !== "RANKING"
-    );
-  return isEligibleForSnapToHighestCoverage;
+    )
+  );
 }
 
 /**
@@ -191,7 +196,8 @@ async function shouldEnableSnapToHighestCoverage(
   placeDcid: string,
   enclosedPlaceType: string,
   columns: ColumnConfig[],
-  statVarProvider: StatVarProvider
+  statVarProvider: StatVarProvider,
+  facetIds?: string[]
 ): Promise<boolean> {
   // Check if highest coverage & latest date observations are the same
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
@@ -200,9 +206,11 @@ async function shouldEnableSnapToHighestCoverage(
   const variableDcids = statVarSpecs.map((svs) => svs.statVar);
   const isHighestCoverageDateEqualToLatestDates =
     await highestCoverageDatesEqualLatestDates(
+      "",
       placeDcid,
       enclosedPlaceType,
-      variableDcids
+      variableDcids,
+      facetIds
     );
 
   // Only enable the snap to highest coverage checkbox if the highest coverage
@@ -278,7 +286,8 @@ export function Block(props: BlockPropType): ReactElement {
   const [denom, setDenom] = useState<string>("");
   const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
     props.columns,
-    props.statVarProvider
+    props.statVarProvider,
+    props.highlightFacet
   );
   const [snapToHighestCoverage, setSnapToHighestCoverage] = useState(
     isEligibleForSnapToHighestCoverage
@@ -356,6 +365,7 @@ export function Block(props: BlockPropType): ReactElement {
 
     switch (firstEligibleTile.type) {
       case "SCATTER":
+      case "MAP":
         return true;
       case "LINE":
       case "HIGHLIGHT":
@@ -463,20 +473,27 @@ export function Block(props: BlockPropType): ReactElement {
     if (!isEligibleForSnapToHighestCoverage) {
       return;
     }
+    setShowSnapToHighestCoverageCheckbox(false);
     (async (): Promise<void> => {
       const enableSnapToHighestCoverage =
         await shouldEnableSnapToHighestCoverage(
           props.place.dcid,
           props.enclosedPlaceType,
           props.columns,
-          props.statVarProvider
+          props.statVarProvider,
+          Object.values(facetOverrides)
         );
       setEnableSnapToLatestData(enableSnapToHighestCoverage);
-
-      // We want to disable the block controls for the highlight chart.
-      setShowSnapToHighestCoverageCheckbox(!props.highlightFacet);
+      setShowSnapToHighestCoverageCheckbox(true);
     })();
-  }, [props]);
+  }, [
+    isEligibleForSnapToHighestCoverage,
+    facetOverrides,
+    props.place.dcid,
+    props.enclosedPlaceType,
+    props.columns,
+    props.statVarProvider,
+  ]);
 
   useEffect(() => {
     setDenom(props.denom || "");
