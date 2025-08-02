@@ -18,6 +18,8 @@
  * Component for rendering a default block (block with no type).
  */
 
+/** @jsxImportSource @emotion/react */
+
 // Import web components
 import "../../../library";
 
@@ -31,8 +33,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { FormattedMessage } from "react-intl";
-import { Input, UncontrolledTooltip } from "reactstrap";
+import { Input } from "reactstrap";
 
 import { getVariableNameProcessingFn } from "../../../library/utils";
 import { TimeScaleOption } from "../../chart/types";
@@ -44,6 +45,7 @@ import {
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { intl } from "../../i18n/i18n";
+import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { FacetSelector } from "../../shared/facet_selector/facet_selector";
@@ -75,6 +77,8 @@ import {
   getComparisonPlaces,
   getHighlightTileDescription,
 } from "../../utils/tile_utils";
+import { Help } from "../elements/icons/help";
+import { Tooltip } from "../elements/tooltip/tooltip";
 import { AnswerMessageTile } from "../tiles/answer_message_tile";
 import { AnswerTableTile } from "../tiles/answer_table_tile";
 import { BarTile } from "../tiles/bar_tile";
@@ -304,7 +308,6 @@ export function Block(props: BlockPropType): ReactElement {
   const [blockSVs, setBlockSVs] = useState<StatVarSpec[]>([]);
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
-  const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
 
   const { getStatVarSpec, getSingleStatVarSpec } = useStatVarSpec(
     snapToHighestCoverage,
@@ -531,35 +534,20 @@ export function Block(props: BlockPropType): ReactElement {
                 type="checkbox"
               />
               <span className={enableSnapToLatestData ? "" : "label-disabled"}>
-                <FormattedMessage
-                  description="Checkbox label for an option that tells a chart visualization to show the latest data available"
-                  defaultMessage="Snap to date with highest coverage"
-                  id="snap-to-latest-data-checkbox-label"
-                />
+                {intl.formatMessage(
+                  chartComponentMessages.SnapToDateHighestCoverageLabel
+                )}
               </span>
             </label>
-            <span className="material-icons" ref={snapToLatestDataInfoRef}>
-              help_outlined
-            </span>
-            <UncontrolledTooltip
-              className="dc-tooltip"
-              placement="auto"
-              target={snapToLatestDataInfoRef}
-            >
-              {enableSnapToLatestData ? (
-                <FormattedMessage
-                  description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
-                  defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
-                  id="snap-to-latest-data-help-tooltip"
-                />
-              ) : (
-                <FormattedMessage
-                  description="Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
-                  defaultMessage="The highest coverage data is also the latest data available for this chart."
-                  id="snap-to-latest-data-overlap-help-tooltip"
-                />
+            <Tooltip
+              title={intl.formatMessage(
+                enableSnapToLatestData
+                  ? chartComponentMessages.SnapToDateHighestCoverageTooltip
+                  : chartComponentMessages.SnapToDateHighestCoverageOverlapTooltip
               )}
-            </UncontrolledTooltip>
+            >
+              <Help className="material-icons" />
+            </Tooltip>
           </span>
         )}
         {showFacetSelector && hasAlternativeSources && (
