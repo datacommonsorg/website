@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -20,6 +21,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 class PlaceLandingTestMixin():
   """Mixins to test the place landing page."""
 
+  @pytest.mark.smoke_test
   def test_place_landing_en(self):
     """Test place landing page in EN."""
 

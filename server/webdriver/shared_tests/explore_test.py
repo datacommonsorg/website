@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
@@ -25,6 +26,7 @@ EXPLORE_URL = '/explore'
 class ExplorePageTestMixin():
   """Mixins to test the explore page."""
 
+  @pytest.mark.smoke_test
   def test_explore_page(self):
     """Test the explore page."""
     self.driver.get(self.url_ + EXPLORE_URL)

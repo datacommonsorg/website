@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -32,6 +33,7 @@ SEARCH_INPUT = 'male asian count '
 class BrowserTestMixin():
   """Mixins to test browser page."""
 
+  @pytest.mark.smoke_test
   def test_page_landing(self):
     """Test the browser landing page can be loaded successfully."""
     title_text = "Knowledge Graph - " + self.dc_title_string
