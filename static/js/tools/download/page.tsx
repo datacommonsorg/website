@@ -24,7 +24,7 @@ import { Chip } from "../../shared/chip";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
-} from "../../shared/facet_selector";
+} from "../../shared/facet_selector/facet_selector";
 import { PlaceSelector } from "../../shared/place_selector";
 import { PointAllApiResponse } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
