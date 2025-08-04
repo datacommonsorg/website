@@ -55,14 +55,12 @@ function ChartFacetSelector({
         {
           dcid: statVar.dcid,
           name: statVar.info.title || statVar.dcid,
-          date: statVar.date,
         },
       ]
     );
   }, [
     appContext.enclosedPlaceType,
     appContext.places,
-    statVar.date,
     statVar.dcid,
     statVar.info.title,
   ]);
