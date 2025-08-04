@@ -42,7 +42,7 @@ website:
 ingress:
   enabled: true
   name: "website-ingress"
-  ipName: "website-staging-ip"
+  ipName: "website-ip"
   certName: "website-certificate"
   annotations:
     ingress.gcp.kubernetes.io/custom-response-headers: "X-Robots-Tag: noindex, nofollow"
