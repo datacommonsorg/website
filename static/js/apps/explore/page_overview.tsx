@@ -31,7 +31,7 @@ const SPLIT_LINKS = /(<[^<>]+>)/;
 const CHECK_MARKERS_EXIST = /<|>/;
 const GLOBAL_MARKERS = /<|>/g;
 
-type ChartIndex = {
+type StatVarChartLocation = {
   title: string;
   block: number;
   category: number;
@@ -75,16 +75,16 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
 
 const getPageOverview = async (
   query: string,
-  statVars: Array<ChartIndex>
+  statVarChartLocations: Array<StatVarChartLocation>
 ): Promise<Array<React.ReactNode>> => {
-  if (_.isEmpty(query) || _.isEmpty(statVars)) {
+  if (_.isEmpty(query) || _.isEmpty(statVarChartLocations)) {
     return [];
   }
   const url = "/api/explore/page-overview";
   const body = {
     q: query,
-    statVars: statVars.map((stat) => {
-      return stat.title;
+    statVars: statVarChartLocations.map((statVarChart) => {
+      return statVarChart.title;
     }),
   };
   return await axios.post(url, body).then((resp) => {
@@ -100,63 +100,59 @@ const getPageOverview = async (
       return <span>{cleanedOverview}</span>;
     }
     // Create Maps to speed up string look ups
-    const preprocessedStatVarIndices = resp.data.stat_var_links;
-    const substringsToStatVarIndex = new Map<string, string>();
-    for (const statVarIdx of preprocessedStatVarIndices) {
-      substringsToStatVarIndex.set(
-        statVarIdx.natural_language,
-        statVarIdx.stat_var_title
-      );
-    }
-    const titleToCatNBlockIndex = new Map<string, ChartIndex>();
-    for (const statVarChart of statVars) {
-      titleToCatNBlockIndex.set(statVarChart.title, statVarChart);
-    }
+    const statVarOverviewExcerptsToTitle = new Map<string, string>(
+      resp.data.stat_var_links.map((link) => [
+        link.natural_language,
+        link.stat_var_title,
+      ])
+    );
+    const chartTitleToPageLocation = new Map<string, StatVarChartLocation>(
+      statVarChartLocations.map((statVarChart) => [
+        statVarChart.title,
+        statVarChart,
+      ])
+    );
 
+    // Adding capture groups to regex split delimiter causes them to appear in the output array, thus including annotated stat vars.
     const splitOverview = preprocessedOverview.split(SPLIT_LINKS);
     return splitOverview.map((part, index) => {
       const partId = `page_overview_${index}`;
       const formatMatch = part.match(CAPTURE_LINK_GROUP);
-      // If substring matches our link list and the title exists in our input, return a link else a span
-      if (formatMatch) {
-        const naturalLanguageStatVar = formatMatch[1];
-        const naturalLanguageMatch = substringsToStatVarIndex.has(
-          naturalLanguageStatVar
-        );
-        const titleMatch =
-          naturalLanguageMatch &&
-          titleToCatNBlockIndex.has(
-            substringsToStatVarIndex.get(naturalLanguageStatVar)
-          );
-        if (titleMatch) {
-          const chartTitle = substringsToStatVarIndex.get(
-            naturalLanguageStatVar
-          );
-          const categoryIndex = titleToCatNBlockIndex.get(chartTitle).category;
-          const blockIndex = titleToCatNBlockIndex.get(chartTitle).block;
-          const targetId = `explore_cat_${categoryIndex}_blk_${blockIndex}`;
-          return (
-            <a
-              key={partId}
-              className="highlight-statvars"
-              onClick={(): void => scrollToStatVar(targetId)}
-            >
-              {naturalLanguageStatVar}
-            </a>
-          );
-        } else {
-          return <span key={partId}>{naturalLanguageStatVar}</span>;
-        }
-      } else {
+
+      // If substring doesn't match our link list or the title doesn't exist in our input, return a regular span to avoid faulty links.
+      if (!formatMatch) {
         return <span key={partId}>{part}</span>;
       }
+
+      const statVarOverviewExcerpt = formatMatch[1];
+      const chartTitle = statVarOverviewExcerptsToTitle.get(
+        statVarOverviewExcerpt
+      );
+      if (!chartTitle) {
+        return <span key={partId}>{statVarOverviewExcerpt}</span>;
+      }
+
+      const chartIndex = chartTitleToPageLocation.get(chartTitle);
+      if (!chartIndex) {
+        return <span key={partId}>{statVarOverviewExcerpt}</span>;
+      }
+      const targetId = `explore_cat_${chartIndex.category}_blk_${chartIndex.block}`;
+      return (
+        <a
+          key={partId}
+          className="highlight-statvars"
+          onClick={(): void => scrollToStatVar(targetId)}
+        >
+          {statVarOverviewExcerpt}
+        </a>
+      );
     });
   });
 };
 
 const getRelevantStatVars = (
   pageMetadata: SubjectPageMetadata
-): Array<ChartIndex> => {
+): Array<StatVarChartLocation> => {
   return pageMetadata.pageConfig.categories.flatMap((category, categoryIndex) =>
     category.blocks.map((block, blockIndex) => ({
       title: block.title,

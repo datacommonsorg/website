@@ -30,7 +30,7 @@ EXPECTED_OVERVIEW = """To explore the rate of education in El Paso, the populati
 The population with <associate's>, <bachelor's>, and doctorate degrees, along with overall educational attainment levels, represent key variables for this inquiry.
 Additionally, <student enrollment> across various educational levels can be examined to understand educational participation."""
 
-EXPECTED_STATVARLINKS = [
+EXPECTED_STATVAR_LINKS = [
     StatVarLink(stat_var_title="Population With Associates Degree by Gender",
                 natural_language="associate's"),
     StatVarLink(stat_var_title="Population With Bachelors Degree by Gender",
@@ -45,7 +45,7 @@ class TestPageOverview(unittest.TestCase):
   @patch('server.routes.explore.api.overview.generate_page_overview',
          autospec=True)
   def test_page_overview_typical(self, mock):
-    mock.return_value = EXPECTED_OVERVIEW, EXPECTED_STATVARLINKS
+    mock.return_value = EXPECTED_OVERVIEW, EXPECTED_STATVAR_LINKS
 
     resp = app.test_client().post('api/explore/page-overview',
                                   json={
@@ -56,7 +56,7 @@ class TestPageOverview(unittest.TestCase):
     assert resp.status_code == 200
     assert resp.json['page_overview'] == EXPECTED_OVERVIEW
     assert resp.json['stat_var_links'] == [
-        stat_var_link.model_dump() for stat_var_link in EXPECTED_STATVARLINKS
+        stat_var_link.model_dump() for stat_var_link in EXPECTED_STATVAR_LINKS
     ]
 
   def test_page_overview_empty_stat_vars(self):
@@ -86,7 +86,7 @@ class TestPageOverview(unittest.TestCase):
   def test_page_overview_error_gemini_call_no_overview(self, mock):
     expected_overview = None
 
-    mock.return_value = expected_overview, EXPECTED_STATVARLINKS
+    mock.return_value = expected_overview, EXPECTED_STATVAR_LINKS
     resp = app.test_client().post('api/explore/page-overview',
                                   json={
                                       'q': QUERY,
@@ -100,9 +100,9 @@ class TestPageOverview(unittest.TestCase):
   @patch('server.routes.explore.api.overview.generate_page_overview',
          autospec=True)
   def test_page_overview_error_gemini_call_no_statvarlinks(self, mock):
-    expected_statvarlinks = None
+    expected_statvar_links = None
 
-    mock.return_value = EXPECTED_OVERVIEW, expected_statvarlinks
+    mock.return_value = EXPECTED_OVERVIEW, expected_statvar_links
     resp = app.test_client().post('api/explore/page-overview',
                                   json={
                                       'q': QUERY,
@@ -116,25 +116,25 @@ class TestPageOverview(unittest.TestCase):
   @patch('google.genai.Client', autospec=True)
   def test_generate_page_overview_typical(self, mock_gemini):
     mock_gemini.return_value.models.generate_content.return_value.parsed.overview = EXPECTED_OVERVIEW
-    mock_gemini.return_value.models.generate_content.return_value.parsed.stat_var_links = EXPECTED_STATVARLINKS
+    mock_gemini.return_value.models.generate_content.return_value.parsed.stat_var_links = EXPECTED_STATVAR_LINKS
     app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():
       assert (EXPECTED_OVERVIEW,
-              EXPECTED_STATVARLINKS) == generate_page_overview(
+              EXPECTED_STATVAR_LINKS) == generate_page_overview(
                   query=QUERY, stat_vars=STAT_VARS)
 
   @patch('google.genai.Client', autospec=True)
   def test_generate_page_overview_retry_once(self, mock_gemini):
     successful_client_response = Mock()
     successful_client_response.parsed.overview = EXPECTED_OVERVIEW
-    successful_client_response.parsed.stat_var_links = EXPECTED_STATVARLINKS
+    successful_client_response.parsed.stat_var_links = EXPECTED_STATVAR_LINKS
     mock_gemini.return_value.models.generate_content.side_effect = [
         None, successful_client_response
     ]
     app.config['LLM_API_KEY'] = "MOCK_API_KEY"
     with app.app_context():
       assert (EXPECTED_OVERVIEW,
-              EXPECTED_STATVARLINKS) == generate_page_overview(
+              EXPECTED_STATVAR_LINKS) == generate_page_overview(
                   query=QUERY, stat_vars=STAT_VARS)
 
   @patch('google.genai.Client', autospec=True)

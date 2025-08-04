@@ -50,17 +50,20 @@ _OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash-lite"
 
 
 def generate_page_overview(
-    query: str, stat_vars: List[str]) -> tuple[Optional[str], Optional[str]]:
+    query: str,
+    stat_var_titles: List[str]) -> tuple[Optional[str], Optional[str]]:
   """ Generates page overview based on the initial query and relevant stat vars
 
       Args:
       query: The initial query made by the user.
-      stat_vars: The relevant statistical variables that were identified.
+      stat_var_titles: The title of charts for statistical variables that are relevant to the query.
 
       Returns:
-      A string containing the generated overview.
+      A tuple containing two items:
+        - A string for the generated overview with the stat vars mentioned being marked by angle brackets.
+        - A list of StatVarLinks that contain how the stat var was used in the overview and the stat var chart title.
   """
-  if not stat_vars or not query:
+  if not stat_var_titles or not query:
     return None, None
 
   gemini_api_key = current_app.config.get("LLM_API_KEY")
@@ -73,7 +76,7 @@ def generate_page_overview(
       gemini_response = gemini.models.generate_content(
           model=_OVERVIEW_GEMINI_MODEL,
           contents=PAGE_OVERVIEW_PROMPT.format(initial_query=query,
-                                               stat_vars=stat_vars),
+                                               stat_var_titles=stat_var_titles),
           config={
               "response_mime_type": "application/json",
               "response_schema": PageOverview
@@ -84,7 +87,7 @@ def generate_page_overview(
       return generated_overview, stat_var_links
     except Exception as e:
       logging.error(
-          f'[explore_page_overview]: Initial Query: {query} | Statistical Variables: {stat_vars} | Exception Caught: {e}',
+          f'[explore_page_overview]: Initial Query: {query} | Statistical Variables: {stat_var_titles} | Exception Caught: {e}',
           exc_info=True)
       continue
 

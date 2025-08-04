@@ -23,7 +23,7 @@ Straightforward: The writing is clear and to the point, avoiding jargon or overl
 The task is in two parts:
 Part 1:
 Write a paragraph from 40 to 80 words addressing a research question by introducing a series of statistical variables rendered as charts that were found to be relevant to the question.
-Introduce the research question but do not do it verbatum. Connect the user question it to the statistical variables without directly using terms like 'the user', or `user's question`. Use a wider variety of words other than "Explore". 
+Introduce the research question but do not do it verbatim. Connect the user question to the statistical variables without directly using terms like 'the user', or `user's question`. Use a wider variety of words other than "Explore". 
 Highlight how the statistical variables are relevant to exploring the question. 
 Maintain a clear, simple, elegant, friendly, and succinct tone. The paragraph is intended to guide exploration, not claim a complete answer.
 If the relationship between variable and questions is not a direct answer, explore potential pathways.
@@ -68,7 +68,7 @@ Explanation:  "The comparison of USA and China's Gross Domestic Product (GDP) ca
 StatVarIndex:[{{stat_var_title: "GDP (Nominal Value)",natural_language: "GDP nominal value"}},{{stat_var_title:"Nominal GDP Per Capita",natural_language:"nominal GDP per capita"}},{{stat_var_title:"Growth Rate of GDP",natural_language:"growth rate of GDP"}}]
 
 The research question is the following: {initial_query}
-The available statistical variables are the following: {stat_vars}
+The available statistical variables are the following: {stat_var_titles}
 Do not include ```json ``` in the output.
 """
 
