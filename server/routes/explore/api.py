@@ -194,7 +194,7 @@ def page_overview():
                     mimetype="application/json")
 
   generated_overview, stat_var_links = overview.generate_page_overview(
-      query=initial_query, stat_vars=stat_vars)
+      query=initial_query, stat_var_titles=stat_vars)
 
   if not generated_overview or not stat_var_links:
     return Response(json.dumps(

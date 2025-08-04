@@ -113,14 +113,14 @@ const getPageOverview = async (
       ])
     );
 
-    // Adding capture groups to regex split delimiter causes them to appear in the output array, 
+    // Adding capture groups to regex split delimiter causes them to appear in the output array,
     // thus including annotated stat vars.
     const splitOverview = preprocessedOverview.split(SPLIT_LINKS);
     return splitOverview.map((part, index) => {
       const partId = `page_overview_${index}`;
       const formatMatch = part.match(CAPTURE_LINK_GROUP);
 
-      // If substring doesn't match our link list or the title doesn't exist in our input, 
+      // If substring doesn't match our link list or the title doesn't exist in our input,
       // return a regular span to avoid faulty links.
       if (!formatMatch) {
         return <span key={partId}>{part}</span>;
