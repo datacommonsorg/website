@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
@@ -73,3 +74,56 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                   by=By.CLASS_NAME,
                   value="page-overview-inner"),
         "No page overview was generated.")
+
+  def test_bar_select_different_facet(self):
+    """Tests that the facet selector on a bar chart can be used to update the source."""
+    search_params = "#q=Age%20distribution%20in%20the%20united%20states"
+    self.driver.get(self.url_ + EXPLORE_URL + search_params)
+
+    shared.wait_for_loading(self.driver)
+
+    # Isolate the "Age Distribution" bar chart
+    all_chart_blocks = find_elems(self.driver, By.CLASS_NAME, 'block.subtopic')
+    chart_block = None
+    for block in all_chart_blocks:
+      header = find_elem(block, By.TAG_NAME, 'h3')
+      if header and header.text == "Age Distribution":
+        chart_block = block
+        break
+    self.assertIsNotNone(chart_block,
+                         "Could not find the 'Age Distribution' chart block.")
+
+    original_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
+    self.assertEqual(
+        original_source_text,
+        'Sources: data.census.gov, census.gov, data.census.gov • Show metadata')
+
+    # Click on the button to open the facet selector modal
+    facet_button = find_elem(chart_block, By.CLASS_NAME,
+                             'source-selector-open-modal-button')
+    self.assertIsNotNone(facet_button, "Facet selector button not found")
+    facet_button.click()
+
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(lambda d: d.find_elements(
+                      By.CSS_SELECTOR, '.source-selector-facet-option-title'))
+    source_options = self.driver.find_elements(
+        By.CSS_SELECTOR, '.source-selector-facet-option-title')
+    self.assertEqual(len(source_options), 14)
+
+    source_options[1].click()
+
+    # Click the modal-footer button to apply the changes
+    modal_footer_button = find_elem(
+        self.driver,
+        value='source-selector-update-source-button',
+        path_to_elem=['dialog-actions'])
+    modal_footer_button.click()
+
+    # Wait for the chart to reload
+    shared.wait_for_loading(self.driver)
+
+    # Verify the source text has changed
+    updated_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
+    self.assertEqual(updated_source_text,
+                     "Source: wonder.cdc.gov • Show metadata")

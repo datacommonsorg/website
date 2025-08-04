@@ -207,6 +207,13 @@ const theme: Theme = {
         dark: DC_BLUE_DARK,
       },
     },
+    error: {
+      primary: {
+        base: DC_RED,
+        light: DC_YELLOW,
+        dark: DC_RED_PILL_TEXT,
+      },
+    },
   },
   typography: {
     family: {

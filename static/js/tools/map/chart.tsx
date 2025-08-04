@@ -23,7 +23,7 @@ import React, { ReactElement, ReactNode, useContext, useEffect } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
-import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_PLOT,
   GA_PARAM_PLACE_DCID,

@@ -102,7 +102,7 @@ import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
-import { FacetSelectorFacetInfo } from "./facet_selector";
+import { FacetSelectorFacetInfo } from "./facet_selector/facet_selector";
 import {
   GA_EVENT_COMPONENT_IMPRESSION,
   GA_EVENT_RELATED_TOPICS_CLICK,
