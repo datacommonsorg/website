@@ -45,13 +45,13 @@ export const chartComponentMessages = defineMessages({
     description: "Error message for no when the CSV data fetch fails.",
   },
   SnapToDateHighestCoverageLabel: {
-    id: "snapToLatestDateHighestCoverageLabel",
+    id: "snap-to-latest-data-checkbox-label",
     defaultMessage: "Snap to date with highest coverage",
     description:
       "Checkbox label for an option that tells a chart visualization to show the latest data available.",
   },
   SnapToDateHighestCoverageTooltip: {
-    id: "snapToLatestDateHighestCoverageLabel",
+    id: "snap-to-latest-data-help-tooltip",
     defaultMessage:
       "'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year.",
     description:
@@ -59,7 +59,7 @@ export const chartComponentMessages = defineMessages({
       "is displayed in a chart.",
   },
   SnapToDateHighestCoverageOverlapTooltip: {
-    id: "snapToLatestDateHighestCoverageLabel",
+    id: "snap-to-latest-data-overlap-help-tooltip",
     defaultMessage:
       "The highest coverage data is also the latest data available for this chart.",
     description:
