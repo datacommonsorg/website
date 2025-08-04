@@ -27,24 +27,37 @@ metadata:
 customActions:
   - name: clear-website-cache
     containers:
-      - name: gcloud
-        image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
+      - name: gcloud-website
+        image: gcr.io/datcom-ci/datacommons-website:latest # Use your built website image
         command: ["/bin/bash"]
         args:
           - "-c"
           - |
+            cd /workspace
+
+            # Install gcloud CLI in the container
+            apt-get update && apt-get install -y curl
+            curl https://sdk.cloud.google.com | bash
+
             ENV=$(echo $CLOUD_DEPLOY_TARGET_ID | awk -F- '{print $NF}')
             gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=website,_ENVIRONMENT=$ENV --project=datcom-ci
   - name: clear-mixer-cache
     containers:
-      - name: gcloud
-        image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
+      - name: gcloud-mixer
+        image: gcr.io/datcom-ci/datacommons-website:latest
         command: ["/bin/bash"]
         args:
           - "-c"
           - |
+            cd /workspace
+
+            # Install gcloud CLI in the container
+            apt-get update && apt-get install -y curl
+            curl https://sdk.cloud.google.com | bash
+
             ENV=$(echo $CLOUD_DEPLOY_TARGET_ID | awk -F- '{print $NF}')
             gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=mixer,_ENVIRONMENT=$ENV --project=datcom-ci
+
 build:
   artifacts:
     # Artifacts for local development
@@ -122,8 +135,6 @@ profiles:
               mixer.hostProject: "datcom-website-dev"
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
               mixer.githash: ${MIXER_GITHASH}
-    postdeploy:
-      - name: clear-website-cache
   - name: datacommons-mixer-dev
     manifests:
       helm:
@@ -144,8 +155,6 @@ profiles:
               mixer.hostProject: "datcom-mixer-dev-316822"
               mixer.serviceName: "dev.api.datacommons.org"
               mixer.githash: ${MIXER_GITHASH}
-    postdeploy:
-      - name: clear-mixer-cache
 
   - name: datacommons-website-autopush
     manifests:
@@ -177,8 +186,6 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-website-autopush"
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
-    postdeploy:
-      - name: clear-website-cache
   - name: datacommons-mixer-autopush
     manifests:
       helm:
@@ -254,5 +261,3 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-mixer-staging"
               mixer.serviceName: "staging.api.datacommons.org"
-    postdeploy:
-      - name: clear-mixer-cache
