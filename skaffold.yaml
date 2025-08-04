@@ -24,6 +24,27 @@ apiVersion: skaffold/v4beta7
 kind: Config
 metadata:
   name: website
+customActions:
+  - name: clear-website-cache
+    containers:
+      - name: gcloud
+        image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
+        command: ["/bin/bash"]
+        args:
+          - "-c"
+          - |
+            ENV=$(echo $CLOUD_DEPLOY_TARGET_ID | awk -F- '{print $NF}')
+            gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=website,_ENVIRONMENT=$ENV --project=datcom-ci
+  - name: clear-mixer-cache
+    containers:
+      - name: gcloud
+        image: gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
+        command: ["/bin/bash"]
+        args:
+          - "-c"
+          - |
+            ENV=$(echo $CLOUD_DEPLOY_TARGET_ID | awk -F- '{print $NF}')
+            gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=mixer,_ENVIRONMENT=$ENV --project=datcom-ci
 build:
   artifacts:
     # Artifacts for local development
@@ -98,6 +119,8 @@ profiles:
               ingress.enabled: "true"
               mixer.hostProject: "datcom-website-dev"
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+    postdeploy:
+      - name: clear-website-cache
   - name: datacommons-mixer-dev
     manifests:
       helm:
@@ -117,6 +140,8 @@ profiles:
               ingress.enabled: "true"
               mixer.hostProject: "datcom-mixer-dev-316822"
               mixer.serviceName: "dev.api.datacommons.org"
+    postdeploy:
+      - name: clear-mixer-cache
 
   - name: datacommons-website-autopush
     manifests:
@@ -145,6 +170,8 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-website-autopush"
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+    postdeploy:
+      - name: clear-website-cache
   - name: datacommons-mixer-autopush
     manifests:
       helm:
@@ -165,3 +192,5 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-mixer-autopush"
               mixer.serviceName: "autopush.api.datacommons.org"
+    postdeploy:
+      - name: clear-mixer-cache
