@@ -38,6 +38,7 @@ customActions:
             # Install gcloud CLI in the container
             apt-get update && apt-get install -y curl
             curl https://sdk.cloud.google.com | bash
+            export PATH="$PATH:$HOME/google-cloud-sdk/bin"
 
             ENV=$(echo $CLOUD_DEPLOY_TARGET_ID | awk -F- '{print $NF}')
             gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=website,_ENVIRONMENT=$ENV --project=datcom-ci
@@ -54,6 +55,7 @@ customActions:
             # Install gcloud CLI in the container
             apt-get update && apt-get install -y curl
             curl https://sdk.cloud.google.com | bash
+            export PATH="$PATH:$HOME/google-cloud-sdk/bin"
 
             ENV=$(echo $CLOUD_DEPLOY_TARGET_ID | awk -F- '{print $NF}')
             gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=mixer,_ENVIRONMENT=$ENV --project=datcom-ci
