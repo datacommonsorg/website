@@ -20,10 +20,12 @@
 
 import axios, { AxiosResponse } from "axios";
 import _ from "lodash";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useCallback, useEffect, useState } from "react";
 
 import { Loading } from "../../components/elements/loading";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { GA_EVENT_PAGE_OVERVIEW_CLICK, GA_PARAM_CLICK_TRACKING_MODE, GA_VALUE_INITIAL_VIEW, GA_VALUE_PAGE_EXPLORE, GA_VALUE_PAGE_OVERVIEW, GA_VALUE_TOTAL_VIEWS, triggerComponentImpression, triggerComponentView, triggerGAEvent } from "../../shared/ga_events";
+import { useInView } from "react-intersection-observer";
 
 const GLOBAL_CAPTURE_LINK_GROUP = /<([^<>]+)>/g;
 const CAPTURE_LINK_GROUP = /<([^<>]+)>/;
@@ -58,12 +60,31 @@ interface PageOverviewPostBody {
 export function PageOverview(props: PageOverviewPropType): ReactElement {
   const [pageOverview, setPageOverview] = useState<Array<React.ReactNode>>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [hasInitialView, setHasInitalView] = useState<boolean>(false);
+  const [hasInitialClick, setHasInitalClick] = useState<boolean>(false);
+  
+  const { ref: inViewRef } = useInView({
+    rootMargin: "0px",
+    onChange: (inView) => {
+      if (inView) {
+        if (!hasInitialView){
+          triggerComponentView(GA_VALUE_PAGE_EXPLORE,GA_VALUE_PAGE_OVERVIEW,GA_VALUE_INITIAL_VIEW);
+          setHasInitalView(true);
+        };
+        triggerComponentView(GA_VALUE_PAGE_EXPLORE,GA_VALUE_PAGE_OVERVIEW,GA_VALUE_TOTAL_VIEWS);
+      }
+    },
+  });
+
   useEffect(() => {
+    console.log("Rendered!")
+    triggerComponentImpression(GA_VALUE_PAGE_EXPLORE,GA_VALUE_PAGE_OVERVIEW)
     const statVars: Array<StatVarChartLocation> = getRelevantStatVars(
       props.pageMetadata
     );
     getPageOverview(props.query, statVars)
       .then((value: Array<React.ReactNode>) => {
+        console.log("Viewed")
         setPageOverview(value);
       })
       .catch(() => {
@@ -81,8 +102,8 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
           <Loading />
         </div>
       )}
-      {pageOverview && (
-        <div className="page-overview-inner">{pageOverview}</div>
+      {!_.isEmpty(pageOverview) && (
+        <div ref={inViewRef} className="page-overview-inner">{pageOverview}</div>
       )}
     </>
   );
@@ -191,4 +212,10 @@ const scrollToStatVar = (id: string): void => {
   if (element) {
     element.scrollIntoView({ behavior: "smooth", block: "start" });
   }
+};
+
+const onQuestionClicked = (clickingMode): void => {
+  triggerGAEvent(GA_EVENT_PAGE_OVERVIEW_CLICK, {
+    [GA_PARAM_CLICK_TRACKING_MODE]: clickingMode,
+  });
 };
