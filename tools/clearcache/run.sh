@@ -115,6 +115,9 @@ fi
 
 if [ ! -f "$VALUES_FILE" ]; then
   echo "Error: Values file not found at $VALUES_FILE"
+  if [ "$TARGET" == "mixer" ]; then
+    echo "Hint: If this is a mixer environment, ensure submodules are updated."
+  fi
   exit 1
 fi
 
@@ -138,8 +141,11 @@ for LOCATION in "${LOCATIONS[@]}"; do
   CLUSTER_NAME="${CLUSTER_PREFIX}-${LOCATION}"
   if [ "$TARGET" == "website" ]; then
     clear_website_cache "$PROJECT_ID" "$CLUSTER_NAME" "$LOCATION"
-  else
+  elif [ "$TARGET" == "mixer" ]; then
     clear_mixer_cache "$PROJECT_ID" "$CLUSTER_NAME" "$LOCATION"
+  else
+    echo "Error: Invalid target. Target must be 'website' or 'mixer'."
+    exit 1
   fi
 done
 
