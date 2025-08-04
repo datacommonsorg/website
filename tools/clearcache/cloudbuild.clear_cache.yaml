@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,18 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-substitutions:
-  _VERS: "2025-07-31"
-
 steps:
-  - name: "gcr.io/cloud-builders/docker"
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
     args:
-      - build
-      - "--build-arg=VERS=${_VERS}"
-      - --tag=gcr.io/datcom-ci/full-env:${_VERS}
-      - --tag=gcr.io/datcom-ci/full-env:latest
-      - "."
+      - 'tools/clearcache/run.sh'
+      - '${_TARGET}'
+      - '${_ENVIRONMENT}'
+    id: 'run-clear-cache-script'
 
-images:
-  - "gcr.io/datcom-ci/full-env:${_VERS}"
-  - "gcr.io/datcom-ci/full-env:latest"
+# Substitutions for the build trigger
+substitutions:
+  _TARGET: ""       # The target to clear cache for ('website' or 'mixer')
+  _ENVIRONMENT: ""  # The environment to clear ('dev', 'staging', 'prod', 'autopush')

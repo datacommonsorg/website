@@ -25,7 +25,7 @@ import React, { ReactElement } from "react";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
-} from "../../../shared/facet_selector";
+} from "../../../shared/facet_selector/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_PARAM_TOOL_CHART_OPTION,

@@ -24,7 +24,7 @@ import React, { ReactElement, useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
-import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   EntityObservation,
   EntityObservationList,
