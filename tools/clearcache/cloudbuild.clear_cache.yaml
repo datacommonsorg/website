@@ -1,4 +1,3 @@
-#!/bin/bash
 # Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,11 +16,12 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
-      # Adjust the path to where your script is located within the repository
-      - 'tools/nl/clear_cache.sh'
-      - '${_ENVIRONMENT}' # Pass the environment parameter directly to your script
+      - 'tools/clearcache/run.sh'
+      - '${_TARGET}'
+      - '${_ENVIRONMENT}'
     id: 'run-clear-cache-script'
 
 # Substitutions for the build trigger
 substitutions:
-  _ENVIRONMENT: "" # This will be the only parameter you provide (e.g., "dev", "prod")
+  _TARGET: ""       # The target to clear cache for ('website' or 'mixer')
+  _ENVIRONMENT: ""  # The environment to clear ('dev', 'staging', 'prod', 'autopush')
