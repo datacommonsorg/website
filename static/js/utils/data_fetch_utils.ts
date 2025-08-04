@@ -125,8 +125,8 @@ function getProcessedPointResponse(
  * @param apiRoot api root
  * @param entities list of entitites to get data for
  * @param variables list of variables to get data for
- * @param date date to get the data for
- *
+ * @param highlightFacet a single facet (given by the facet keys) that is
+ *        used to indicate the facet to be used in this fetch.
  * @returns The Facet ID matching the highlight facet
  *          or null if no matching facet is found.
  */
@@ -213,6 +213,9 @@ export function getPoint(
  * @param variables list of variables to get data for
  * @param date date to get the data for
  * @param alignedVariables groups of variables that should have the same unit
+ * @param facetIds an array of facet ids that if given, will be used in
+ *        the fetch. This is an alternative way to specify the facets to
+ *        complement highlightFacet, and will take priority if both are given.
  */
 export function getPointWithin(
   apiRoot: string,
@@ -277,6 +280,8 @@ export function getSeries(
  * @param parentEntity parent place to get the data for
  * @param childType place type to get the data for
  * @param variables variables to get data for
+ * @param facetIds an array of facet ids that if given, will be used in
+ *        the fetch.
  * @returns
  */
 export function getSeriesWithin(
