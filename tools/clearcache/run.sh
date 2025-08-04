@@ -21,6 +21,8 @@
 #   - TARGET: The target to clear cache for ('website' or 'mixer').
 #   - ENVIRONMENT: The environment to clear ('dev', 'staging', 'prod', 'autopush').
 
+# TODO: Move this over to a helper repo to be shared across mixer and website.
+
 set -e
 
 # Function to install yq if it's not already in the environment
