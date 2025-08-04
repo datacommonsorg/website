@@ -107,13 +107,16 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         path_to_elem=['dialog-actions'])
     modal_footer_button.click()
 
-    # Wait for the chart to reload
-    shared.wait_for_loading(self.driver)
+    # Wait for the source text to update.
+    expected_source_text = "Source: wonder.cdc.gov • Show metadata"
+    wait_for_text(driver=chart_block,
+                  text=expected_source_text,
+                  by=By.CLASS_NAME,
+                  value='sources')
 
     # Verify the source text has changed
     updated_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
-    self.assertEqual(updated_source_text,
-                     "Source: wonder.cdc.gov • Show metadata")
+    self.assertEqual(updated_source_text, expected_source_text)
 
   def test_map_select_different_facet(self):
     """Tests that the facet selector on a map chart can be used to update the source."""
@@ -163,13 +166,16 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         path_to_elem=['dialog-actions'])
     modal_footer_button.click()
 
-    # Wait for the chart to reload
-    shared.wait_for_loading(self.driver)
+    # Wait for the source text to update.
+    expected_source_text = "Source: wonder.cdc.gov • Show metadata"
+    wait_for_text(driver=chart_block,
+                  text=expected_source_text,
+                  by=By.CLASS_NAME,
+                  value='sources')
 
     # Verify the source text has changed
     updated_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
-    self.assertEqual(updated_source_text,
-                     "Source: wonder.cdc.gov • Show metadata")
+    self.assertEqual(updated_source_text, expected_source_text)
 
   def test_map_toggle_highest_coverage(self):
     """Tests that the 'highest coverage' toggle on a map chart can be used to update the date."""
