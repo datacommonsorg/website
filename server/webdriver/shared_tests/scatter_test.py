@@ -23,7 +23,8 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
-SCATTER_URL = '/tools/scatter'
+# TODO(juliawu): Remove disabled feature once new UI is rolled out to production
+SCATTER_URL = '/tools/scatter?disable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
     'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
     '&epd=geoId/06&epn=California&ept=County'
@@ -109,10 +110,10 @@ class ScatterTestMixin():
     chart = find_elem(self.driver,
                       by=By.CSS_SELECTOR,
                       value='#chart .chart-card .chart-title')
-    self.assertIn("Median Income of a Population ",
-                  find_elem(chart, by=By.XPATH, value='./h3[1]').text)
-    self.assertIn("Median age of population ",
-                  find_elem(chart, by=By.XPATH, value='./h3[2]').text)
+    self.assertIn("median income of a population ",
+                  find_elem(chart, by=By.XPATH, value='./h3[1]').text.lower())
+    self.assertIn("median age of population ",
+                  find_elem(chart, by=By.XPATH, value='./h3[2]').text.lower())
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')

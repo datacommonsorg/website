@@ -28,13 +28,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import React, { Fragment, ReactElement, ReactNode, useMemo } from "react";
+import React, { ReactElement, useMemo } from "react";
 
 import { intl } from "../../../i18n/i18n";
 import { metadataComponentMessages } from "../../../i18n/i18n_metadata_messages";
 import { NamedNode } from "../../../shared/types";
-import { stripProtocol } from "../../../shared/util";
-import { buildCitationParts } from "./citations";
+import { buildCitationNodes, buildCitationParts } from "./citations";
 import { StatVarMetadata } from "./metadata";
 import { TileMetadataStatVarSection } from "./tile_metadata_stat_var_section";
 
@@ -82,28 +81,6 @@ export const TileMetadataModalContent = ({
     });
   }
 
-  const citationSources: ReactNode[] = citationParts.map(({ label, url }) => {
-    if (url) {
-      const urlDisplay = stripProtocol(url);
-      return (
-        <Fragment key={label}>
-          {label} (
-          <a href={url} target="_blank" rel="noreferrer">
-            {urlDisplay}
-          </a>
-          )
-        </Fragment>
-      );
-    }
-    return label;
-  });
-
-  const joinElements = (
-    items: ReactNode[],
-    separator: ReactNode = ", "
-  ): ReactNode[] =>
-    items.flatMap((item, idx) => (idx === 0 ? [item] : [separator, item]));
-
   return (
     <div
       css={css`
@@ -122,10 +99,10 @@ export const TileMetadataModalContent = ({
         />
       ))}
 
-      {citationSources.length > 0 && (
+      {citationParts.length > 0 && (
         <div
           css={css`
-            padding: ${theme.spacing.xl}px 0 0 0;
+            padding: ${theme.spacing.lg}px 0 0 0;
             border-top: 1px solid ${theme.colors.border.primary.light};
             && {
               h3 {
@@ -155,7 +132,7 @@ export const TileMetadataModalContent = ({
           </h3>
           <p>
             {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
-            {joinElements(citationSources)}
+            {buildCitationNodes(citationParts)}
           </p>
           <p>
             {intl.formatMessage(metadataComponentMessages.CitationGuidance)} •{" "}

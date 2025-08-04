@@ -1,19 +1,8 @@
 # Tool to clear the website cache
 
-To clear cache for production, run:
+The script `clear_cache.sh` allows you to clear the cache for all the required instances.
+It takes in the desired environment as a parameter [undata|stanford|prod|dev|staging]
 
 ```bash
-./clear_prod.sh
-```
-
-To clear cache for stanford, run:
-
-```bash
-./clear_stanford.sh
-```
-
-To clear cache for other instance, run:
-
-```bash
-./run.sh <PROJECT_ID> <CLUSTER_NAME> <LOCATION>
+./clear_cache.sh [undata|stanford|prod|dev|staging]
 ```

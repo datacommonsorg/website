@@ -137,6 +137,13 @@ export interface Theme {
         dark?: string;
       };
     };
+    error?: {
+      primary?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
+    };
     box: {
       blue: {
         text: string;
@@ -324,6 +331,20 @@ export interface Theme {
       lg?: {
         padding: string;
       };
+    };
+  };
+  infoBox: {
+    backgroundColor: string;
+    heading: TextVariant;
+    icon: {
+      fontSize: string;
+      lineHeight: string;
+      [key: string]:
+        | string
+        | {
+            fontSize?: string;
+            lineHeight?: string;
+          };
     };
   };
   elevation: {

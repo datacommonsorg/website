@@ -81,6 +81,7 @@ const DC_BLUE = "hsl(217, 90%, 43%)";
 const DC_BLUE_DARK = "hsl(217, 90%, 15%)";
 const DC_BLUE_LIGHT = "hsl(218, 57%, 63%)";
 const DC_BLUE_LIGHTER = "hsl(204, 100%, 88%)";
+const DC_BLUE_LIGHTEST = "hsl(204, 100%, 88%, 33%)";
 const DC_BLUE_WHITE = "hsl(220, 100%, 98%)";
 const DC_BLUE_WHITE_LIGHT = "hsl(217, 90%, 95%)";
 
@@ -206,6 +207,13 @@ const theme: Theme = {
         dark: DC_BLUE_DARK,
       },
     },
+    error: {
+      primary: {
+        base: DC_RED,
+        light: DC_YELLOW,
+        dark: DC_RED_PILL_TEXT,
+      },
+    },
   },
   typography: {
     family: {
@@ -215,6 +223,10 @@ const theme: Theme = {
       },
       heading: {
         fontFamily: "'Google Sans', Arial, sans-serif",
+        fontStyle: "normal",
+      },
+      code: {
+        fontFamily: "Courier, Monaco, Lucida Console, Courier New, monospace",
         fontStyle: "normal",
       },
     },
@@ -369,6 +381,26 @@ const theme: Theme = {
       },
       lg: {
         padding: `15px ${SPACING.lg}px`,
+      },
+    },
+  },
+  infoBox: {
+    backgroundColor: DC_BLUE_LIGHTEST,
+    icon: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.5rem",
+      },
+    },
+    heading: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      fontWeight: 500,
+      [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.75rem",
       },
     },
   },

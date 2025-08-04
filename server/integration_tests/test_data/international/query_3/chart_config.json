@@ -93,7 +93,7 @@
                 ]
               }
             ],
-            "description": "Measure a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
+            "description": "Measure of a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
             "title": "Nominal GDP Per Capita"
           },
           {
@@ -122,7 +122,7 @@
                 ]
               }
             ],
-            "description": "Measures the percentage change in a country's gross domestic product (GDP) over a specific period.",
+            "description": "The percentage change in a country's gross domestic product (GDP) over a specific period.",
             "title": "Growth Rate of GDP"
           },
           {
@@ -192,6 +192,67 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "dc/nm9hcklgg5zb3"
+                    ],
+                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/nm9hcklgg5zb3"
+                    ],
+                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Employed in Eurostat Nuts 3 Places of Spain"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/nm9hcklgg5zb3"
+                    ],
+                    "title": "Population: Employed in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Employed in Spain",
+                    "statVarKey": [
+                      "dc/nm9hcklgg5zb3"
+                    ],
+                    "title": "Population: Employed in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Employed"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/EN_MAT_DOMCMPG"
                     ],
                     "title": "Domestic Material Consumption Per Unit of GDP in Spain",
@@ -232,6 +293,10 @@
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          },
+          "dc/nm9hcklgg5zb3": {
+            "name": "Population: Employed",
+            "statVar": "dc/nm9hcklgg5zb3"
           },
           "sdg/EN_MAT_DOMCMPG": {
             "name": "Domestic material consumption per unit of GDP",

@@ -55,12 +55,29 @@ jest.mock("../chart/draw_utils", () => {
     wrap: jest.fn(),
   };
 });
+jest.mock("../utils/app/explore_utils", () => {
+  const originalModule = jest.requireActual("../utils/app/explore_utils");
+  return {
+    __esModule: true,
+    ...originalModule,
+    getTopics: jest.fn().mockImplementation(() => [{ text: TOPIC, url: "" }]),
+  };
+});
 
 import { ThemeProvider } from "@emotion/react";
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import axios from "axios";
 import React from "react";
+import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 
+import { FollowUpQuestions } from "../apps/explore/follow_up_questions";
+import { ResultHeaderSection } from "../apps/explore/result_header_section";
 import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
@@ -85,8 +102,11 @@ import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
-import { FacetSelectorFacetInfo } from "./facet_selector";
+import { FacetSelectorFacetInfo } from "./facet_selector/facet_selector";
 import {
+  GA_EVENT_COMPONENT_IMPRESSION,
+  GA_EVENT_RELATED_TOPICS_CLICK,
+  GA_EVENT_RELATED_TOPICS_VIEW,
   GA_EVENT_STATVAR_HIERARCHY_CLICK,
   GA_EVENT_STATVAR_SEARCH_TRIGGERED,
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
@@ -94,11 +114,17 @@ import {
   GA_EVENT_TOOL_PLACE_ADD,
   GA_EVENT_TOOL_STAT_VAR_CLICK,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+  GA_PARAM_COMPONENT,
+  GA_PARAM_PAGE_SOURCE,
   GA_PARAM_PLACE_DCID,
+  GA_PARAM_RELATED_TOPICS_MODE,
   GA_PARAM_SEARCH_TERM,
   GA_PARAM_SOURCE,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_PAGE_EXPLORE,
+  GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+  GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
@@ -125,6 +151,8 @@ const SOURCES = "sources";
 const ID = "a";
 const NUMBER = 123;
 const PLACE_ADDED = "africa";
+const QUERY = "What is the health equity in Mountain View?";
+const TOPIC = "Health Equity";
 
 // Props for place explorer chart.
 const PLACE_CHART_PROPS = {
@@ -252,6 +280,36 @@ const SCATTER_PROPS = {
   facetListLoading: false,
   facetListError: false,
   onSvFacetIdUpdated: (): null => null,
+};
+
+const PAGE_METADATA_PROPS = {
+  place: {
+    name: PLACE_NAME,
+    dcid: PLACE_DCID,
+    types: [],
+  },
+  places: [],
+  pageConfig: {
+    metadata: {
+      topicId: "",
+      topicName: "",
+      containedPlaceTypes: {},
+      eventTypeSpec: {},
+    },
+    categories: [],
+  },
+  mainTopics: [{ name: PLACE_NAME, dcid: PLACE_DCID, types: [] }],
+};
+
+const FOLLOW_UP_QUESTIONS_PROPS = {
+  query: QUERY,
+  pageMetadata: PAGE_METADATA_PROPS,
+};
+
+const RESULT_HEADER_SECTION_PROPS = {
+  placeUrlVal: "",
+  pageMetadata: PAGE_METADATA_PROPS,
+  hideRelatedTopics: false,
 };
 
 const MAP_CONTEXT = {
@@ -1004,11 +1062,16 @@ describe("test ga event for the FacetSelector component", () => {
         name: STAT_VAR_1,
         metadataMap: {
           facet1: {
-            importName: "Test Import",
-            measurementMethod: "Test Method",
+            importName: "Test Import One",
+            measurementMethod: "Test Method One",
             observationPeriod: "P1Y",
             scalingFactor: "1",
             unit: "USD",
+          },
+          facet2: {
+            importName: "Test Import One",
+            measurementMethod: "Test Method One",
+            observationPeriod: "P1M",
           },
         },
       },
@@ -1030,11 +1093,11 @@ describe("test ga event for the FacetSelector component", () => {
     );
 
     await waitFor(() => {
-      const button = getByText(/Select (?:a\s+)?dataset/i);
+      const button = getByText(/Explore other datasets/i);
       expect((button as HTMLButtonElement).disabled).toBe(false);
     });
 
-    fireEvent.click(getByText(/Select (?:a\s+)?dataset/i));
+    fireEvent.click(getByText(/Explore other datasets/i));
 
     await waitFor(() => {
       expect(getByText("Update")).toBeTruthy();
@@ -1048,6 +1111,129 @@ describe("test ga event for the FacetSelector component", () => {
         GA_EVENT_TOOL_CHART_OPTION_CLICK,
         {
           [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+        }
+      );
+    });
+  });
+});
+
+describe("test ga event for Related Topics experiment", () => {
+  test("triggers GA event when FollowUpQuestion URL is clicked", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    axios.post = jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve({ data: { follow_up_questions: [QUERY] } })
+      );
+
+    // Render follow up component
+    const followUp = render(
+      <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+    );
+    mockAllIsIntersecting(false);
+
+    // Wait for questions to render
+    await waitForElementToBeRemoved(followUp.getByText("Loading..."));
+
+    // Click question url
+    fireEvent.click(followUp.getByText(QUERY));
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_CLICK,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]:
+            GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Header Related Topics URL is clicked", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render result header component
+    const resultHeader = render(
+      <ResultHeaderSection {...RESULT_HEADER_SECTION_PROPS} />
+    );
+
+    // Click related topic url
+    fireEvent.click(resultHeader.getByText(TOPIC));
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_CLICK,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when FollowUpQuestion component is viewed", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render follow up component
+    render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
+    mockAllIsIntersecting(true);
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_VIEW,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]:
+            GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Header RelatedTopics component is viewed", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render result header component
+    render(<ResultHeaderSection {...RESULT_HEADER_SECTION_PROPS} />);
+    mockAllIsIntersecting(true);
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_RELATED_TOPICS_VIEW,
+        {
+          [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Follow Up Questions component renders questions", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve({ data: { follow_up_questions: [QUERY] } })
+      );
+
+    // Render follow up component
+    render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_COMPONENT_IMPRESSION,
+        {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS,
         }
       );
     });

@@ -20,8 +20,16 @@
 
 import _ from "lodash";
 import React from "react";
+import { useInView } from "react-intersection-observer";
 
 import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
+import {
+  GA_EVENT_RELATED_TOPICS_CLICK,
+  GA_EVENT_RELATED_TOPICS_VIEW,
+  GA_PARAM_RELATED_TOPICS_MODE,
+  GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
@@ -35,6 +43,15 @@ interface ResultHeaderSectionPropType {
 export function ResultHeaderSection(
   props: ResultHeaderSectionPropType
 ): JSX.Element {
+  const { ref: inViewRef } = useInView({
+    triggerOnce: true,
+    rootMargin: "0px",
+    onChange: (inView) => {
+      if (inView) {
+        onComponentInitialView();
+      }
+    },
+  });
   const topicList = props.hideRelatedTopics
     ? []
     : getTopics(props.pageMetadata, props.placeUrlVal);
@@ -58,8 +75,17 @@ export function ResultHeaderSection(
         {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
       {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
-        <div className="explore-topics-box">
-          <ItemList items={topicList} showRelevantTopicLabel={true}></ItemList>
+        <div className="explore-topics-box" ref={inViewRef}>
+          <ItemList
+            items={topicList}
+            showRelevantTopicLabel={true}
+            onItemClicked={(): void => {
+              triggerGAEvent(GA_EVENT_RELATED_TOPICS_CLICK, {
+                [GA_PARAM_RELATED_TOPICS_MODE]:
+                  GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+              });
+            }}
+          ></ItemList>
         </div>
       )}
     </>
@@ -94,3 +120,9 @@ export function ResultHeaderSection(
     );
   }
 }
+
+const onComponentInitialView = (): void => {
+  triggerGAEvent(GA_EVENT_RELATED_TOPICS_VIEW, {
+    [GA_PARAM_RELATED_TOPICS_MODE]: GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
+  });
+};

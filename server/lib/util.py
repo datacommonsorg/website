@@ -394,6 +394,16 @@ def get_nl_no_percapita_vars():
     return nopc_vars
 
 
+def load_redirects() -> Dict[str, str]:
+  """Loads the redirects mapping from GCS."""
+  storage_client = storage.Client()
+  bucket_name = "datcom-website-config"
+  bucket = storage_client.get_bucket(bucket_name)
+  redirection_mapping = json.loads(
+      bucket.get_blob("redirects.json").download_as_bytes())
+  return redirection_mapping
+
+
 def get_feature_flag_bucket_name(environment: str) -> str:
   """Returns the bucket name containing the feature flags."""
   if environment in ['integration_test', 'test', 'webdriver', 'custom_test']:
