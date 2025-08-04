@@ -220,7 +220,7 @@
 
 .follow-up-questions-title {
   display: flex;
-  height: 28px;
+  padding: 0 0 1em 0;
   flex-direction: column;
   justify-content: center;
   align-self: stretch;
@@ -285,11 +285,11 @@
 }
 
 .loading-container {
-  padding: 1.5em;
-  border-radius: var(--border-radius-primary);
-  border: var(--border-primary);
-  background: var(--loading-background);
-  margin-bottom: 1.5em;
+  // padding: 1.5em;
+  // border-radius: var(--border-radius-primary);
+  // border: var(--border-primary);
+  // background: var(--loading-background);
+  // margin-bottom: 1em;
   width: 100%;
   color: var(--gm-3-ref-neutral-neutral-50) !important
 }
