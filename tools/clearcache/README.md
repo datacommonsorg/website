@@ -2,6 +2,8 @@
 
 This directory contains a script and a Cloud Build configuration to clear the Redis cache for the website and mixer applications.
 
+TODO: Move this over to a helper repo to be shared across mixer and website.
+
 ## Manual Execution
 
 The `run.sh` script allows you to clear the cache for a specific target (`website` or `mixer`) and environment (`dev`, `staging`, `prod`, or `autopush`).

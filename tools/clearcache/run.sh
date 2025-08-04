@@ -23,6 +23,15 @@
 
 set -e
 
+# Function to install yq if it's not already in the environment
+install_yq() {
+  if ! command -v yq &> /dev/null;
+ then
+    echo "yq not found, installing..."
+    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq && chmod +x /usr/local/bin/yq
+  fi
+}
+
 # Function to clear the website cache
 clear_website_cache() {
   local PROJECT_ID=$1
@@ -83,6 +92,8 @@ clear_mixer_cache() {
   echo "--- Mixer cache clearing complete for $PROJECT_ID ---"
 }
 
+install_yq
+
 TARGET=$1
 ENVIRONMENT=$2
 
@@ -93,53 +104,41 @@ if [ -z "$TARGET" ] || [ -z "$ENVIRONMENT" ]; then
   exit 1
 fi
 
-case "$TARGET" in
-  website)
-    case "$ENVIRONMENT" in
-      dev)
-        clear_website_cache "datcom-website-dev" "website-us-central1" "us-central1"
-        ;;
-      staging)
-        clear_website_cache "datcom-website-staging" "website-us-central1" "us-central1"
-        ;;
-      prod)
-        clear_website_cache "datcom-website-prod" "website-us-central1" "us-central1"
-        clear_website_cache "datcom-website-prod" "website-us-west1" "us-west1"
-        ;;
-      autopush)
-        clear_website_cache "datcom-website-autopush" "website-us-central1" "us-central1"
-        ;;
-      *)
-        echo "Invalid environment for website: $ENVIRONMENT"
-        exit 1
-        ;;
-    esac
-    ;;
-  mixer)
-    case "$ENVIRONMENT" in
-      dev)
-        clear_mixer_cache "datcom-mixer-dev" "mixer-us-central1" "us-central1"
-        ;;
-      staging)
-        clear_mixer_cache "datcom-mixer-staging" "mixer-us-central1" "us-central1"
-        ;;
-      prod)
-        clear_mixer_cache "datcom-mixer" "mixer-us-central1" "us-central1"
-        ;;
-      autopush)
-        clear_mixer_cache "datcom-mixer-autopush" "mixer-us-central1" "us-central1"
-        ;;
-      *)
-        echo "Invalid environment for mixer: $ENVIRONMENT"
-        exit 1
-        ;;
-    esac
-    ;;
-  *)
-    echo "Invalid target: $TARGET"
-    echo "Usage: $0 <TARGET> <ENVIRONMENT>"
-    exit 1
-    ;;
-esac
+VALUES_FILE=""
+if [ "$TARGET" == "website" ]; then
+  VALUES_FILE="deploy/helm_charts/envs/$ENVIRONMENT.yaml"
+else
+  VALUES_FILE="mixer/deploy/helm_charts/envs/mixer_$ENVIRONMENT.yaml"
+fi
+
+if [ ! -f "$VALUES_FILE" ]; then
+  echo "Error: Values file not found at $VALUES_FILE"
+  exit 1
+fi
+
+PROJECT_ID=$(yq e '.project' "$VALUES_FILE")
+CLUSTER_PREFIX=$(yq e '.cluster_prefix' "$VALUES_FILE")
+
+if [ -z "$PROJECT_ID" ] || [ -z "$CLUSTER_PREFIX" ]; then
+  echo "Error: Could not extract project or cluster_prefix from $VALUES_FILE"
+  exit 1
+fi
+
+LOCATIONS=()
+if [ "$ENVIRONMENT" == "prod" ]; then
+  # TODO: Start reading locations from helm charts once configured properly.
+  LOCATIONS=("us-central1" "us-west1")
+else
+  LOCATIONS=("us-central1")
+fi
+
+for LOCATION in "${LOCATIONS[@]}"; do
+  CLUSTER_NAME="${CLUSTER_PREFIX}-${LOCATION}"
+  if [ "$TARGET" == "website" ]; then
+    clear_website_cache "$PROJECT_ID" "$CLUSTER_NAME" "$LOCATION"
+  else
+    clear_mixer_cache "$PROJECT_ID" "$CLUSTER_NAME" "$LOCATION"
+  fi
+done
 
 exit 0
