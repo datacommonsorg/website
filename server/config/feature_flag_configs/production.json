@@ -12,6 +12,18 @@
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
   {
+    "name": "follow_up_questions_experiment",
+    "enabled": true,
+    "owner": "javiervazquez",
+    "description": "Enables the follow up questions generated from related topics as an experiment."
+  },
+  {
+    "name": "follow_up_questions_ga",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "Enables the follow up questions generated from related topics to general audience."
+  },
+  {
     "name": "show_api_modal",
     "enabled": false,
     "owner": "dwnoble",
