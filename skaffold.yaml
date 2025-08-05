@@ -114,16 +114,6 @@ profiles:
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
               mixer.githash: ${MIXER_GITHASH}
   - name: datacommons-mixer-dev
-    customActions:
-      - name: clear-mixer-cache
-        containers:
-          - name: gcloud-mixer
-            image: gcr.io/datcom-ci/datacommons-clearcache:latest
-            command: ["/bin/bash"]
-            args:
-              - "-c"
-              - |
-                ./tools/clearcache/run.sh mixer dev
     manifests:
       helm:
         releases:
@@ -215,6 +205,8 @@ profiles:
               ingress.enabled: "true"
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-mixer-autopush"
+              project: datcom-mixer-autopush
+              cluster_prefix: mixer
               mixer.serviceName: "autopush.api.datacommons.org"
 
   - name: datacommons-website-staging
@@ -228,6 +220,15 @@ profiles:
               - "-c"
               - |
                 ./tools/clearcache/run.sh website staging
+      - name: run-percy-snapshots
+        containers:
+          - name: gcloud-website2
+            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                gcloud builds submit --config tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=staging --project=datcom-ci 
     manifests:
       helm:
         releases:
@@ -259,15 +260,15 @@ profiles:
               mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
   - name: datacommons-mixer-staging
     customActions:
-      - name: clear-mixer-cache
+      - name: update-nl-integration-test-goldens
         containers:
-          - name: gcloud-mixer
+          - name: gcloud-website
             image: gcr.io/datcom-ci/datacommons-clearcache:latest
             command: ["/bin/bash"]
             args:
               - "-c"
               - |
-                ./tools/clearcache/run.sh mixer staging
+                gcloud builds submit --config build/ci/cloudbuild.update_nl_goldens.yaml --project=datcom-ci 
     manifests:
       helm:
         releases:

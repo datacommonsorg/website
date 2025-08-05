@@ -48,7 +48,7 @@ serialPipeline:
       strategy:
         standard:
           postdeploy:
-            actions: ["clear-website-cache"]
+            actions: ["clear-website-cache", "run-percy-snapshots"]
 ---
 
 apiVersion: deploy.cloud.google.com/v1
@@ -63,10 +63,6 @@ serialPipeline:
       deployParameters:
       - values:
         mixer.githash: ${MIXER_GITHASH}
-      strategy:
-        standard:
-          postdeploy:
-            actions: ["clear-mixer-cache"]
     - targetId: datacommons-mixer-autopush
       profiles: [datacommons-mixer-autopush]
       deployParameters:
@@ -84,7 +80,7 @@ serialPipeline:
       strategy:
         standard:
           postdeploy:
-            actions: ["clear-mixer-cache"]
+            actions: ["update-nl-integration-test-goldens"]
 ---
 
 apiVersion: deploy.cloud.google.com/v1
