@@ -85,6 +85,15 @@ export const GA_EVENT_COMPONENT_IMPRESSION = "component_impression";
 export const GA_EVENT_COMPONENT_VIEW = "component_view";
 
 /**
+ * Triggered when unloading a page to track the total amount of time a component was viewed.
+ * Parameters:
+ *  page_source: "explore",
+ *  component: "page_overview",
+ *  total_view_time: The duration in which the component was on screen in ms.
+ */
+export const GA_EVENT_TOTAL_COMPONENT_VIEW_TIME = "total_component_view_time";
+
+/**
  * Event name: place_category_click
  * Triggered when: users click on the category redirect link in the place explorer page.
  * Parameters with value: {
@@ -326,6 +335,7 @@ export const GA_PARAM_PAGE_SOURCE = "page_source";
 export const GA_PARAM_COMPONENT = "component";
 export const GA_PARAM_VIEW_TRACKING_MODE = "view_tracking_mode";
 export const GA_PARAM_CLICK_TRACKING_MODE = "click_tracking_mode";
+export const GA_PARAM_TOTAL_VIEW_TIME = "total_view_time";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
