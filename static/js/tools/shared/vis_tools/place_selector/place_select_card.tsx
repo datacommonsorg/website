@@ -15,7 +15,7 @@
  */
 
 /**
- * Styling wrapper around the place selectors of our visualization tools
+ * Card for selecting place(s) in our visualization tools
  */
 
 import { css, useTheme } from "@emotion/react";
@@ -86,11 +86,15 @@ export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
         >
           <SearchBar
             places={props.selectedPlaces}
-            addPlace={(e): void => {
-              selectPlace(e, props.onPlaceSelected);
+            addPlace={(placeDcid): void => {
+              selectPlace(placeDcid, props.onPlaceSelected);
             }}
-            removePlace={(e): void =>
-              unselectPlace(e, props.onPlaceSelected, props.onPlaceUnselected)
+            removePlace={(placeDcid): void =>
+              unselectPlace(
+                placeDcid,
+                props.onPlaceSelected,
+                props.onPlaceUnselected
+              )
             }
             numPlacesLimit={props.numPlacesLimit}
           />
@@ -109,21 +113,33 @@ export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
   );
 }
 
+/**
+ * Callback function for selecting a place.
+ * @param placeDcid dcid of the place that is being selected.
+ * @param onPlaceSelected function to run when place is selected.
+ */
 function selectPlace(
   placeDcid: string,
   onPlaceSelected?: (placeDcid: string) => void
 ): void {
+  // Log event in Google Analytics
   triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
     [GA_PARAM_PLACE_DCID]: placeDcid,
   });
   onPlaceSelected?.(placeDcid);
 }
 
+/**
+ * Callback function for deselecting a place.
+ * @param placeDcid dcid of the place that is being deselected.
+ * @param onPlaceSelected function to run when a place is selected.
+ * @param onPlaceUnselected function to run when a place is deselected.
+ */
 function unselectPlace(
   placeDcid: string,
   onPlaceSelected?: (placeDcid: string) => void,
   onPlaceUnselected?: (placeDcid: string) => void
 ): void {
   onPlaceUnselected?.(placeDcid);
-  onPlaceSelected?.("");
+  onPlaceSelected?.(""); // Clear selection
 }

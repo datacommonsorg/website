@@ -35,40 +35,59 @@ import {
   USA_CHILD_PLACE_TYPES,
 } from "./place_select_constants";
 
-export function loadChildPlaceTypes(
+type NamedTypedCallbackFn = (place: NamedTypedPlace) => void;
+type PlaceDcidCallbackFn = (placeDcid: string) => void;
+
+/**
+ * Get child place types of a selected place.
+ *
+ * Alerts if there are no child place types.
+ *
+ * @param selectedPlace place to get child place types for.
+ * @returns array of place types the selected place encloses.
+ */
+export async function loadChildPlaceTypes(
   selectedPlace: NamedTypedPlace
 ): Promise<string[]> {
-  return getParentPlacesPromise(selectedPlace.dcid)
-    .then((parentPlaces) => {
-      const newChildPlaceTypes = getEnclosedPlaceTypes(
-        selectedPlace,
-        parentPlaces
-      );
-      if (_.isEmpty(newChildPlaceTypes)) {
-        alert(
-          `Sorry, we don't support ${selectedPlace.name}. Please select a different place.`
-        );
-        return [];
-      }
-      return newChildPlaceTypes;
-    })
-    .catch(() => {
-      return [];
-    });
-}
-
-function getEnclosedPlaceTypes(
-  place: NamedTypedPlace,
-  parentPlaces: NamedTypedPlace[]
-): string[] {
-  if (place.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-    return CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]];
-  }
-  if (_.isEmpty(place.types)) {
+  const parentPlaces = await getParentPlacesPromise(selectedPlace.dcid);
+  const newChildPlaceTypes = getEnclosedPlaceTypes(selectedPlace, parentPlaces);
+  if (_.isEmpty(newChildPlaceTypes)) {
+    alert(
+      `Sorry, we don't support ${selectedPlace.name}. Please select a different place.`
+    );
     return [];
   }
-  const isUSPlace = isChildPlaceOf(place.dcid, USA_PLACE_DCID, parentPlaces);
-  for (const type of place.types) {
+  return newChildPlaceTypes;
+}
+
+/**
+ * Get child place types of a selected place given its parent places.
+ *
+ * Note: This function uses a containment hierarchy specified by
+ * place_select_constants.ts instead of reading the knowledge graph.
+ * Requires the parent places of the selected place to determine if the
+ * selected place is within the US, which gets special handling.
+ *
+ * @param selectedPlace place to get child place types for.
+ * @param parentPlaces parent places of the selected place.
+ * @returns array of place types the selected place encloses.
+ */
+function getEnclosedPlaceTypes(
+  selectedPlace: NamedTypedPlace,
+  parentPlaces: NamedTypedPlace[]
+): string[] {
+  if (selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    return CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]];
+  }
+  if (_.isEmpty(selectedPlace.types)) {
+    return [];
+  }
+  const isUSPlace = isChildPlaceOf(
+    selectedPlace.dcid,
+    USA_PLACE_DCID,
+    parentPlaces
+  );
+  for (const type of selectedPlace.types) {
     if (isUSPlace) {
       if (type in USA_CHILD_PLACE_TYPES) {
         return USA_CHILD_PLACE_TYPES[type];
@@ -82,18 +101,22 @@ function getEnclosedPlaceTypes(
   return [];
 }
 
-type NamedTypedCallbackFn = (place: NamedTypedPlace) => void;
-type PlaceDcidCallbackFn = (placeDcid: string) => void;
+/**
+ * Convert a function that expects namedTypedPlace as input to a
+ * function that expects the dcid of the namedTypedPlace as input.
+ *
+ * @param namedTypedFn function to convert
+ * @returns new function with place dcid as input
+ */
 export function getPlaceDcidCallback(
-  namedTypedCallback: NamedTypedCallbackFn
+  namedTypedFn: NamedTypedCallbackFn
 ): PlaceDcidCallbackFn {
-  function placeDcidCallback(placeDcid: string): void {
-    if (!namedTypedCallback) {
+  async function placeDcidFn(placeDcid: string): Promise<void> {
+    if (!namedTypedFn) {
       return;
     }
-    getNamedTypedPlace(placeDcid).then((namedTypedPlace) => {
-      namedTypedCallback(namedTypedPlace);
-    });
+    const namedTypedPlace = await getNamedTypedPlace(placeDcid);
+    namedTypedFn(namedTypedPlace);
   }
-  return placeDcidCallback;
+  return placeDcidFn;
 }

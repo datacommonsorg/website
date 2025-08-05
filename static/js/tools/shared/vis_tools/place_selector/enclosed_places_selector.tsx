@@ -15,7 +15,7 @@
  */
 
 /**
- * Styling wrapper around the place selectors of our visualization tools
+ * Card for selecting places in a parent place for our visualization tools.
  */
 
 import _ from "lodash";
@@ -34,23 +34,23 @@ import {
 } from "./place_select_utils";
 
 interface EnclosedPlacesSelectorProps {
-  // Child react nodes to render inside the card
+  // Child react nodes to render inside the card.
   children?: ReactNode;
-  // Current selected enclosed place type
+  // Current selected enclosed place type.
   enclosedPlaceType: string;
-  // Callback to run when a place type is selected
+  // Callback to run when a place type is selected.
   onEnclosedPlaceTypeSelected: (placeType: string) => void;
-  // Callback to run when a place is selected
+  // Callback to run when a place is selected.
   onPlaceSelected: (place: NamedTypedPlace) => void;
-  // Callback to run when a place is unselected
+  // Callback to run when a place is unselected.
   onPlaceUnselected?: (place: NamedTypedPlace) => void;
-  // Text to show before the search bar
+  // Text to show before the search bar.
   searchBarInstructionText?: string;
-  // Selected enclosing place
+  // Selected enclosing place.
   selectedParentPlace: NamedTypedPlace;
-  // Text to show on button that toggles stat var hierarchy modal
+  // Text to show on button that toggles stat var hierarchy modal.
   toggleSvHierarchyModalText: string;
-  // Callback to toggle stat var hierarchy modal
+  // Callback to toggle stat var hierarchy modal.
   toggleSvHierarchyModalCallback: () => void;
 }
 
@@ -59,8 +59,10 @@ export function EnclosedPlacesSelector(
 ): JSX.Element {
   const [childPlaceTypes, setChildPlaceTypes] = useState([]);
 
+  // Handles fetching childPlaceTypes to populate place type dropdown.
   useEffect(() => {
     if (!props.selectedParentPlace?.dcid) {
+      // Place has not been selected, do nothing.
       setChildPlaceTypes([]);
       return;
     }
@@ -74,7 +76,8 @@ export function EnclosedPlacesSelector(
       return;
     }
 
-    const fetchAndSetChildPlaceTypes = async () => {
+    // Fetch the valid child types of the parent type.
+    const fetchAndSetChildPlaceTypes = async (): Promise<void> => {
       const newChildPlaceTypes = await loadChildPlaceTypes(
         props.selectedParentPlace
       );
@@ -130,6 +133,7 @@ export function EnclosedPlacesSelector(
           ))}
         </CustomInput>
       </div>
+      {props.children}
     </PlaceSelectCard>
   );
 }
