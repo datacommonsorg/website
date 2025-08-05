@@ -22,11 +22,16 @@ import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 import { Button, Col, Row } from "reactstrap";
 
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import { PlaceSelector } from "../../shared/place_selector";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
+import { EnclosedPlacesSelector } from "../shared/vis_tools/place_selector/enclosed_places_selector";
 import { Context, PlaceInfoWrapper } from "./context";
 import { getAllChildPlaceTypes } from "./util";
 
@@ -37,6 +42,9 @@ interface PlaceOptionsProps {
 
 export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
   const { placeInfo } = useContext(Context);
+  const useStandardizedUi = isFeatureEnabled(
+    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+  );
 
   useEffect(() => {
     if (!placeInfo.value.selectedPlace.dcid) {
@@ -68,6 +76,19 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
     placeInfo.value.parentPlaces,
     placeInfo.value.enclosedPlaceType,
   ]);
+
+  if (useStandardizedUi) {
+    return (
+      <EnclosedPlacesSelector
+        enclosedPlaceType={placeInfo.value.enclosedPlaceType}
+        onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
+        onPlaceSelected={placeInfo.setSelectedPlace}
+        selectedParentPlace={placeInfo.value.selectedPlace}
+        toggleSvHierarchyModalText={"Select variable"}
+        toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
+      />
+    );
+  }
 
   return (
     <PlaceSelector
