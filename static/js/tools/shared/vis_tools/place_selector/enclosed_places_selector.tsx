@@ -1,0 +1,135 @@
+/**
+ * Copyright 2025 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Styling wrapper around the place selectors of our visualization tools
+ */
+
+import _ from "lodash";
+import React, { ReactNode, useEffect, useState } from "react";
+import { CustomInput } from "reactstrap";
+
+import { NamedTypedPlace } from "../../../../shared/types";
+import {
+  ENCLOSED_PLACE_TYPE_NAMES,
+  getNamedTypedPlace,
+} from "../../../../utils/place_utils";
+import { PlaceSelectCard } from "./place_select_card";
+import {
+  getPlaceDcidCallback,
+  loadChildPlaceTypes,
+} from "./place_select_utils";
+
+interface EnclosedPlacesSelectorProps {
+  // Child react nodes to render inside the card
+  children?: ReactNode;
+  // Current selected enclosed place type
+  enclosedPlaceType: string;
+  // Callback to run when a place type is selected
+  onEnclosedPlaceTypeSelected: (placeType: string) => void;
+  // Callback to run when a place is selected
+  onPlaceSelected: (place: NamedTypedPlace) => void;
+  // Callback to run when a place is unselected
+  onPlaceUnselected?: (place: NamedTypedPlace) => void;
+  // Text to show before the search bar
+  searchBarInstructionText?: string;
+  // Selected enclosing place
+  selectedParentPlace: NamedTypedPlace;
+  // Text to show on button that toggles stat var hierarchy modal
+  toggleSvHierarchyModalText: string;
+  // Callback to toggle stat var hierarchy modal
+  toggleSvHierarchyModalCallback: () => void;
+}
+
+export function EnclosedPlacesSelector(
+  props: EnclosedPlacesSelectorProps
+): JSX.Element {
+  const [childPlaceTypes, setChildPlaceTypes] = useState([]);
+
+  useEffect(() => {
+    if (!props.selectedParentPlace?.dcid) {
+      setChildPlaceTypes([]);
+      return;
+    }
+
+    // If the selected parent place doesn't have types, fetch them.
+    // This will trigger a re-render, and the effect will run again.
+    if (!props.selectedParentPlace.types) {
+      getNamedTypedPlace(props.selectedParentPlace.dcid).then((place) => {
+        props.onPlaceSelected(place);
+      });
+      return;
+    }
+
+    const fetchAndSetChildPlaceTypes = async () => {
+      const newChildPlaceTypes = await loadChildPlaceTypes(
+        props.selectedParentPlace
+      );
+      if (!_.isEqual(newChildPlaceTypes, childPlaceTypes)) {
+        setChildPlaceTypes(newChildPlaceTypes);
+      }
+    };
+
+    fetchAndSetChildPlaceTypes();
+  }, [props.selectedParentPlace]);
+
+  // Handles auto-selection when there is only one child place type.
+  useEffect(() => {
+    if (childPlaceTypes.length === 1 && !props.enclosedPlaceType) {
+      props.onEnclosedPlaceTypeSelected(childPlaceTypes[0]);
+    }
+  }, [childPlaceTypes, props.enclosedPlaceType]);
+
+  return (
+    <PlaceSelectCard
+      onPlaceSelected={getPlaceDcidCallback(props.onPlaceSelected)}
+      onPlaceUnselected={getPlaceDcidCallback(props.onPlaceUnselected)}
+      numPlacesLimit={1}
+      searchBarInstructionText={
+        props.searchBarInstructionText || "Enter a place"
+      }
+      selectedPlaces={
+        props.selectedParentPlace.dcid
+          ? {
+              [props.selectedParentPlace.dcid]: props.selectedParentPlace.name,
+            }
+          : {}
+      }
+      toggleSvHierarchyModalText={props.toggleSvHierarchyModalText}
+      toggleSvHierarchyModalCallback={props.toggleSvHierarchyModalCallback}
+    >
+      <div>of type</div>
+      <div>
+        <CustomInput
+          id={"place-type-selector"}
+          type="select"
+          value={props.enclosedPlaceType}
+          onChange={(event): void =>
+            props.onEnclosedPlaceTypeSelected(event.target.value)
+          }
+          className="pac-target-input"
+        >
+          <option value="">Select a place type</option>
+          {childPlaceTypes.map((type) => (
+            <option value={type} key={type}>
+              {ENCLOSED_PLACE_TYPE_NAMES[type] || type}
+            </option>
+          ))}
+        </CustomInput>
+      </div>
+    </PlaceSelectCard>
+  );
+}

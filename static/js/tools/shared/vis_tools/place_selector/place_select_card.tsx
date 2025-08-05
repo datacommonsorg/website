@@ -36,7 +36,9 @@ interface PlaceSelectCardProps {
   // Callback to run when a place is selected
   onPlaceSelected: (placeDcid: string) => void;
   // Callback to run when a place is unselected
-  onPlaceUnselected: (placeDcid: string) => void;
+  onPlaceUnselected?: (placeDcid: string) => void;
+  // Max number of places that can be selected in the search bar
+  numPlacesLimit?: number;
   // Text to show before the search bar
   searchBarInstructionText: string;
   // Mapping of [dcid]: placeName of currently selected places
@@ -90,6 +92,7 @@ export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
             removePlace={(e): void =>
               unselectPlace(e, props.onPlaceSelected, props.onPlaceUnselected)
             }
+            numPlacesLimit={props.numPlacesLimit}
           />
         </div>
         {props.children}
@@ -107,20 +110,20 @@ export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
 }
 
 function selectPlace(
-  dcid: string,
+  placeDcid: string,
   onPlaceSelected?: (placeDcid: string) => void
 ): void {
   triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
-    [GA_PARAM_PLACE_DCID]: dcid,
+    [GA_PARAM_PLACE_DCID]: placeDcid,
   });
-  onPlaceSelected?.(dcid);
+  onPlaceSelected?.(placeDcid);
 }
 
 function unselectPlace(
-  dcid: string,
-  onPlaceSelected?: (place: string) => void,
-  onPlaceUnselected?: (place: string) => void
+  placeDcid: string,
+  onPlaceSelected?: (placeDcid: string) => void,
+  onPlaceUnselected?: (placeDcid: string) => void
 ): void {
-  onPlaceUnselected?.(dcid);
+  onPlaceUnselected?.(placeDcid);
   onPlaceSelected?.("");
 }

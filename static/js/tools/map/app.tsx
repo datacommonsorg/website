@@ -32,6 +32,7 @@ import {
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
+import { EnclosedPlacesSelector } from "../shared/vis_tools/place_selector/enclosed_places_selector";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
@@ -83,7 +84,18 @@ function App(): ReactElement {
             )}
           </Row>
           <Row>
-            <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
+            {useStandardizedUi ? (
+              <EnclosedPlacesSelector
+                enclosedPlaceType={placeInfo.value.enclosedPlaceType}
+                onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
+                onPlaceSelected={placeInfo.setSelectedPlace}
+                selectedParentPlace={placeInfo.value.selectedPlace}
+                toggleSvHierarchyModalText={"Select variable"}
+                toggleSvHierarchyModalCallback={toggleSvModalCallback}
+              />
+            ) : (
+              <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
+            )}
           </Row>
           {showInstructions && (
             <Row>
