@@ -205,7 +205,7 @@ def page_overview():
   return Response(json.dumps({
       'pageOverview':
           generated_overview,
-      'statVarLinks': [
+      'statVarChartLinks': [
           stat_var_link.model_dump(by_alias=True)
           for stat_var_link in stat_var_links
       ]

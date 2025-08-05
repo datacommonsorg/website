@@ -43,9 +43,9 @@ The paragraph should read naturally without knowing it is a variable.
 DOUBLE CHECK THAT NO CODE VARIABLE NAME IS USED!
 
 Part 2:
-Write a StatVarLink where the stat var title is the name of the statistical variable used and natural_language is an exact copy of how it is used in the explanation from Part 1.
+Write a StatVarChartLink where the stat var title is the name of the statistical variable used and natural_language is an exact copy of how it is used in the explanation from Part 1.
 For instance, the variable "Population in the Labor Force" could be used in the sentence like "For the labor force population of...".
-This would be marked in the StatVarLink with:
+This would be marked in the StatVarChartLink with:
 {{stat_var_title: "Population in the Labor Force",
   natural_language: "labor force population",
 }}.

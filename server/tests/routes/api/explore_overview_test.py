@@ -17,7 +17,7 @@ from unittest.mock import Mock
 from unittest.mock import patch
 
 from server.lib.nl.explore.overview import generate_page_overview
-from server.lib.nl.explore.overview import StatVarLink
+from server.lib.nl.explore.overview import StatVarChartLink
 from web_app import app
 
 QUERY = "What is the rate of education in El Paso?"
@@ -31,12 +31,15 @@ The population with <associate's>, <bachelor's>, and doctorate degrees, along wi
 Additionally, <student enrollment> across various educational levels can be examined to understand educational participation."""
 
 EXPECTED_STATVAR_LINKS = [
-    StatVarLink(stat_var_title="Population With Associates Degree by Gender",
-                natural_language="associate's"),
-    StatVarLink(stat_var_title="Population With Bachelors Degree by Gender",
-                natural_language="bachelor's"),
-    StatVarLink(stat_var_title="Population Enrolled in Public School by Race",
-                natural_language="student enrollment")
+    StatVarChartLink(
+        stat_var_title="Population With Associates Degree by Gender",
+        natural_language="associate's"),
+    StatVarChartLink(
+        stat_var_title="Population With Bachelors Degree by Gender",
+        natural_language="bachelor's"),
+    StatVarChartLink(
+        stat_var_title="Population Enrolled in Public School by Race",
+        natural_language="student enrollment")
 ]
 
 
@@ -55,7 +58,7 @@ class TestPageOverview(unittest.TestCase):
 
     assert resp.status_code == 200
     assert resp.json['pageOverview'] == EXPECTED_OVERVIEW
-    assert resp.json['statVarLinks'] == [
+    assert resp.json['statVarChartLinks'] == [
         stat_var_link.model_dump(by_alias=True)
         for stat_var_link in EXPECTED_STATVAR_LINKS
     ]
@@ -100,7 +103,7 @@ class TestPageOverview(unittest.TestCase):
 
   @patch('server.routes.explore.api.overview.generate_page_overview',
          autospec=True)
-  def test_page_overview_error_gemini_call_no_statvarlinks(self, mock):
+  def test_page_overview_error_gemini_call_no_stat_var_chart_links(self, mock):
     expected_statvar_links = None
 
     mock.return_value = EXPECTED_OVERVIEW, expected_statvar_links

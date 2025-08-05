@@ -44,7 +44,7 @@ interface PageOverviewPropType {
 
 interface PageOverviewApiResponse {
   pageOverview: string;
-  statVarLinks: Array<{
+  statVarChartLinks: Array<{
     naturalLanguage: string;
     statVarTitle: string;
   }>;
@@ -121,7 +121,7 @@ const getPageOverview = async (
       }
       // Create Maps to speed up string look ups
       const statVarOverviewExcerptsToTitle = new Map<string, string>(
-        resp.data.statVarLinks.map((link) => [
+        resp.data.statVarChartLinks.map((link) => [
           link.naturalLanguage,
           link.statVarTitle,
         ])

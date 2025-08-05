@@ -25,7 +25,7 @@ from pydantic.alias_generators import to_camel
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
 
 
-class StatVarLink(BaseModel):
+class StatVarChartLink(BaseModel):
   """A structure to map the generated overview links to Stat Var charts.
   Attributes:
     stat_var_title: The title of the chart in which the stat var is displayed.
@@ -42,10 +42,10 @@ class PageOverview(BaseModel):
 
   Attributes:
     overview: A string containing the generated overview.
-    stat_var_links: A list of StatVarLinks that contain the chart title and how it was used in the overview.
+    stat_var_links: A list of StatVarChartLinks that contain the chart title and how it was used in the overview.
   """
   overview: str
-  stat_var_links: list[StatVarLink]
+  stat_var_links: list[StatVarChartLink]
 
 
 _OVERVIEW_GEMINI_CALL_RETRIES = 3
@@ -65,7 +65,7 @@ def generate_page_overview(
       Returns:
       A tuple containing two items:
         - A string for the generated overview with the stat vars mentioned being marked by angle brackets.
-        - A list of StatVarLinks that contain how the stat var was used in the overview and the stat var chart title.
+        - A list of StatVarChartLinks that contain how the stat var was used in the overview and the stat var chart title.
   """
   if not stat_var_titles or not query:
     return None, None
