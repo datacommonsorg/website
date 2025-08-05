@@ -24,41 +24,7 @@ apiVersion: skaffold/v4beta7
 kind: Config
 metadata:
   name: website
-customActions:
-  - name: clear-website-cache
-    containers:
-      - name: gcloud-website
-        image: gcr.io/datcom-ci/datacommons-website:latest # Use your built website image
-        command: ["/bin/bash"]
-        args:
-          - "-c"
-          - |
-            cd /workspace
 
-            # Install gcloud CLI in the container
-            apt-get update && apt-get install -y curl
-            curl https://sdk.cloud.google.com | bash
-            export PATH="$PATH:$HOME/google-cloud-sdk/bin"
-
-            ENV=$(echo $CLOUD_DEPLOY_TARGET_ID | awk -F- '{print $NF}')
-            gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=website,_ENVIRONMENT=$ENV --project=datcom-ci
-  - name: clear-mixer-cache
-    containers:
-      - name: gcloud-mixer
-        image: gcr.io/datcom-ci/datacommons-website:latest
-        command: ["/bin/bash"]
-        args:
-          - "-c"
-          - |
-            cd /workspace
-
-            # Install gcloud CLI in the container
-            apt-get update && apt-get install -y curl
-            curl https://sdk.cloud.google.com | bash
-            export PATH="$PATH:$HOME/google-cloud-sdk/bin"
-
-            ENV=$(echo $CLOUD_DEPLOY_TARGET_ID | awk -F- '{print $NF}')
-            gcloud builds submit --config tools/clearcache/cloudbuild.clear_cache.yaml --substitutions=_TARGET=mixer,_ENVIRONMENT=$ENV --project=datcom-ci
 
 build:
   artifacts:
@@ -112,6 +78,16 @@ profiles:
         localPort: 8080
 
   - name: datacommons-website-dev
+    customActions:
+      - name: clear-website-cache
+        containers:
+          - name: gcloud-website
+            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./tools/clearcache/run.sh website dev
     manifests:
       helm:
         releases:
@@ -138,6 +114,16 @@ profiles:
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
               mixer.githash: ${MIXER_GITHASH}
   - name: datacommons-mixer-dev
+    customActions:
+      - name: clear-mixer-cache
+        containers:
+          - name: gcloud-mixer
+            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./tools/clearcache/run.sh mixer dev
     manifests:
       helm:
         releases:
@@ -159,6 +145,16 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
 
   - name: datacommons-website-autopush
+    customActions:
+      - name: clear-website-cache
+        containers:
+          - name: gcloud-website
+            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./tools/clearcache/run.sh website autopush
     manifests:
       helm:
         releases:
@@ -189,6 +185,16 @@ profiles:
               mixer.hostProject: "datcom-website-autopush"
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
   - name: datacommons-mixer-autopush
+    customActions:
+      - name: clear-mixer-cache
+        containers:
+          - name: gcloud-mixer
+            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./tools/clearcache/run.sh mixer autopush
     manifests:
       helm:
         releases:
@@ -212,6 +218,16 @@ profiles:
               mixer.serviceName: "autopush.api.datacommons.org"
 
   - name: datacommons-website-staging
+    customActions:
+      - name: clear-website-cache
+        containers:
+          - name: gcloud-website
+            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./tools/clearcache/run.sh website staging
     manifests:
       helm:
         releases:
@@ -242,6 +258,16 @@ profiles:
               mixer.hostProject: "datcom-website-staging"
               mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
   - name: datacommons-mixer-staging
+    customActions:
+      - name: clear-mixer-cache
+        containers:
+          - name: gcloud-mixer
+            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./tools/clearcache/run.sh mixer staging
     manifests:
       helm:
         releases:

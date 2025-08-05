@@ -23,7 +23,7 @@
 
 # TODO: Move this over to a helper repo to be shared across mixer and website.
 
-set -e
+set -ex
 
 # Function to install yq if it's not already in the environment
 install_yq() {
@@ -39,9 +39,10 @@ clear_website_cache() {
   local PROJECT_ID=$1
   local CLUSTER_NAME=$2
   local LOCATION=$3
-  local REDIS_REGION=${4:-$LOCATION}
+  local CACHE_NAME=$4
+  local REDIS_REGION=$LOCATION
 
-  echo "--- Clearing website cache for Project: $PROJECT_ID, Cluster: $CLUSTER_NAME, Location: $LOCATION ---"
+  echo "--- Clearing website cache for Project: $PROJECT_ID, Cluster: $CLUSTER_NAME, Location: $LOCATION, Cache: $CACHE_NAME ---"
   gcloud config set project "$PROJECT_ID"
   gcloud container clusters get-credentials "$CLUSTER_NAME" --location="$LOCATION" --project="$PROJECT_ID"
 
@@ -53,9 +54,9 @@ clear_website_cache() {
   fi
 
   local HOST
-  HOST=$(gcloud redis instances describe webserver-cache --region="$REDIS_REGION" --format="get(host)")
+  HOST=$(gcloud redis instances describe $CACHE_NAME --region="$REDIS_REGION" --format="get(host)")
   if [ -z "$HOST" ]; then
-    echo "Error: Could not find Redis instance 'webserver-cache' in region '$REDIS_REGION'. Exiting."
+    echo "Error: Could not find Redis instance '$CACHE_NAME' in region '$REDIS_REGION'. Exiting."
     return 1
   fi
 
@@ -69,9 +70,10 @@ clear_mixer_cache() {
   local PROJECT_ID=$1
   local CLUSTER_NAME=$2
   local LOCATION=$3
-  local REDIS_REGION=${4:-$LOCATION}
+  local CACHE_NAME=$4
+  local REDIS_REGION=$LOCATION
 
-  echo "--- Clearing mixer cache for Project: $PROJECT_ID, Cluster: $CLUSTER_NAME, Location: $LOCATION ---"
+  echo "--- Clearing mixer cache for Project: $PROJECT_ID, Cluster: $CLUSTER_NAME, Location: $LOCATION, Cache: $CACHE_NAME ---"
   gcloud config set project "$PROJECT_ID"
   gcloud container clusters get-credentials "$CLUSTER_NAME" --location="$LOCATION" --project="$PROJECT_ID"
 
@@ -83,9 +85,9 @@ clear_mixer_cache() {
   fi
 
   local HOST
-  HOST=$(gcloud redis instances describe mixer-cache --region="$REDIS_REGION" --format="get(host)")
+  HOST=$(gcloud redis instances describe $CACHE_NAME --region="$REDIS_REGION" --format="get(host)")
   if [ -z "$HOST" ]; then
-    echo "Error: Could not find Redis instance 'mixer-cache' in region '$REDIS_REGION'. Exiting."
+    echo "Error: Could not find Redis instance '$CACHE_NAME' in region '$REDIS_REGION'. Exiting."
     return 1
   fi
 
@@ -137,12 +139,23 @@ else
   LOCATIONS=("us-central1")
 fi
 
+CACHE_NAME=""
+if [ "$TARGET" == "website" ]; then
+  if [ "$ENVIRONMENT" == "dev" ]; then
+    CACHE_NAME="website-cache"
+  else
+    CACHE_NAME="webserver-cache"
+  fi
+elif [ "$TARGET" == "mixer" ]; then
+  CACHE_NAME="mixer-cache"
+fi
+
 for LOCATION in "${LOCATIONS[@]}"; do
   CLUSTER_NAME="${CLUSTER_PREFIX}-${LOCATION}"
   if [ "$TARGET" == "website" ]; then
-    clear_website_cache "$PROJECT_ID" "$CLUSTER_NAME" "$LOCATION"
+    clear_website_cache "$PROJECT_ID" "$CLUSTER_NAME" "$LOCATION" "$CACHE_NAME"
   elif [ "$TARGET" == "mixer" ]; then
-    clear_mixer_cache "$PROJECT_ID" "$CLUSTER_NAME" "$LOCATION"
+    clear_mixer_cache "$PROJECT_ID" "$CLUSTER_NAME" "$LOCATION" "$CACHE_NAME"
   else
     echo "Error: Invalid target. Target must be 'website' or 'mixer'."
     exit 1
