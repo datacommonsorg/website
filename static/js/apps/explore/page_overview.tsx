@@ -18,7 +18,7 @@
  * Component for rendering the generated page overview.
  */
 
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useState } from "react";
 
@@ -42,13 +42,28 @@ interface PageOverviewPropType {
   pageMetadata: SubjectPageMetadata;
 }
 
+interface PageOverviewApiResponse {
+  pageOverview: string;
+  statVarLinks: Array<{
+    naturalLanguage: string;
+    statVarTitle: string;
+  }>;
+}
+
+interface PageOverviewPostBody {
+  q: string;
+  statVars: string[];
+}
+
 export function PageOverview(props: PageOverviewPropType): ReactElement {
-  const [pageOverview, setPageOverview] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [pageOverview, setPageOverview] = useState<Array<React.ReactNode>>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    const statVars = getRelevantStatVars(props.pageMetadata);
+    const statVars: Array<StatVarChartLocation> = getRelevantStatVars(
+      props.pageMetadata
+    );
     getPageOverview(props.query, statVars)
-      .then((value) => {
+      .then((value: Array<React.ReactNode>) => {
         setPageOverview(value);
       })
       .catch(() => {
@@ -81,75 +96,82 @@ const getPageOverview = async (
     return [];
   }
   const url = "/api/explore/page-overview";
-  const body = {
+  const body: PageOverviewPostBody = {
     q: query,
     statVars: statVarChartLocations.map((statVarChart) => {
       return statVarChart.title;
     }),
   };
-  return await axios.post(url, body).then((resp) => {
-    // Check link syntax in overview
-    const preprocessedOverview = resp.data.page_overview;
-    const testStatSyntax = preprocessedOverview.replace(
-      GLOBAL_CAPTURE_LINK_GROUP,
-      "$1"
-    );
-    // If the markers still exist, the links were not marked properly so the overview with no links is returned
-    if (CHECK_MARKERS_EXIST.test(testStatSyntax)) {
-      const cleanedOverview = testStatSyntax.replace(GLOBAL_MARKERS, "");
-      return <span>{cleanedOverview}</span>;
-    }
-    // Create Maps to speed up string look ups
-    const statVarOverviewExcerptsToTitle = new Map<string, string>(
-      resp.data.stat_var_links.map((link) => [
-        link.natural_language,
-        link.stat_var_title,
-      ])
-    );
-    const chartTitleToPageLocation = new Map<string, StatVarChartLocation>(
-      statVarChartLocations.map((statVarChart) => [
-        statVarChart.title,
-        statVarChart,
-      ])
-    );
-
-    // Adding capture groups to regex split delimiter causes them to appear in the output array,
-    // thus including annotated stat vars.
-    const splitOverview = preprocessedOverview.split(SPLIT_LINKS);
-    return splitOverview.map((part, index) => {
-      const partId = `page_overview_${index}`;
-      const formatMatch = part.match(CAPTURE_LINK_GROUP);
-
-      // If substring doesn't match our link list or the title doesn't exist in our input,
-      // return a regular span to avoid faulty links.
-      if (!formatMatch) {
-        return <span key={partId}>{part}</span>;
-      }
-
-      const statVarOverviewExcerpt = formatMatch[1];
-      const chartTitle = statVarOverviewExcerptsToTitle.get(
-        statVarOverviewExcerpt
+  return await axios
+    .post<PageOverviewApiResponse>(url, body)
+    .then((resp: AxiosResponse<PageOverviewApiResponse>) => {
+      // Check link syntax in overview
+      const preprocessedOverview: string = resp.data.pageOverview;
+      const testStatSyntax: string = preprocessedOverview.replace(
+        GLOBAL_CAPTURE_LINK_GROUP,
+        "$1"
       );
-      if (!chartTitle) {
-        return <span key={partId}>{statVarOverviewExcerpt}</span>;
+      // If the markers still exist, the links were not marked properly so the overview with no links is returned
+      if (CHECK_MARKERS_EXIST.test(testStatSyntax)) {
+        const cleanedOverview: string = testStatSyntax.replace(
+          GLOBAL_MARKERS,
+          ""
+        );
+        return [<span key="page_overview_0">{cleanedOverview}</span>];
       }
-
-      const chartIndex = chartTitleToPageLocation.get(chartTitle);
-      if (!chartIndex) {
-        return <span key={partId}>{statVarOverviewExcerpt}</span>;
-      }
-      const targetId = `explore_cat_${chartIndex.category}_blk_${chartIndex.block}`;
-      return (
-        <a
-          key={partId}
-          className="highlight-statvars"
-          onClick={(): void => scrollToStatVar(targetId)}
-        >
-          {statVarOverviewExcerpt}
-        </a>
+      // Create Maps to speed up string look ups
+      const statVarOverviewExcerptsToTitle = new Map<string, string>(
+        resp.data.statVarLinks.map((link) => [
+          link.naturalLanguage,
+          link.statVarTitle,
+        ])
       );
+      const chartTitleToPageLocation = new Map<string, StatVarChartLocation>(
+        statVarChartLocations.map((statVarChart) => [
+          statVarChart.title,
+          statVarChart,
+        ])
+      );
+
+      // Adding capture groups to regex split delimiter causes them to appear in the output array,
+      // thus including annotated stat vars.
+      const splitOverview: Array<string> =
+        preprocessedOverview.split(SPLIT_LINKS);
+      return splitOverview.map((part, index) => {
+        const partId = `page_overview_${index}`;
+        const formatMatch: RegExpMatchArray | null =
+          part.match(CAPTURE_LINK_GROUP);
+
+        // If substring doesn't match our link list or the title doesn't exist in our input,
+        // return a regular span to avoid faulty links.
+        if (!formatMatch) {
+          return <span key={partId}>{part}</span>;
+        }
+
+        const statVarOverviewExcerpt: string = formatMatch[1];
+        const chartTitle: string | undefined =
+          statVarOverviewExcerptsToTitle.get(statVarOverviewExcerpt);
+        if (!chartTitle) {
+          return <span key={partId}>{statVarOverviewExcerpt}</span>;
+        }
+
+        const chartIndex: StatVarChartLocation | undefined =
+          chartTitleToPageLocation.get(chartTitle);
+        if (!chartIndex) {
+          return <span key={partId}>{statVarOverviewExcerpt}</span>;
+        }
+        const targetId = `explore_cat_${chartIndex.category}_blk_${chartIndex.block}`;
+        return (
+          <a
+            key={partId}
+            className="highlight-statvars"
+            onClick={(): void => scrollToStatVar(targetId)}
+          >
+            {statVarOverviewExcerpt}
+          </a>
+        );
+      });
     });
-  });
 };
 
 const getRelevantStatVars = (
@@ -164,7 +186,7 @@ const getRelevantStatVars = (
   );
 };
 
-const scrollToStatVar = (id): void => {
+const scrollToStatVar = (id: string): void => {
   const element = document.getElementById(id);
   if (element) {
     element.scrollIntoView({ behavior: "smooth", block: "start" });

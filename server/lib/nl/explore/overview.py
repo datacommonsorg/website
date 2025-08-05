@@ -19,6 +19,8 @@ from typing import List, Optional
 from flask import current_app
 from google import genai
 from pydantic import BaseModel
+from pydantic import ConfigDict
+from pydantic.alias_generators import to_camel
 
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
 
@@ -31,6 +33,8 @@ class StatVarLink(BaseModel):
   """
   stat_var_title: str
   natural_language: str
+
+  model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
 
 
 class PageOverview(BaseModel):

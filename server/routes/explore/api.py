@@ -203,10 +203,11 @@ def page_overview():
                     mimetype="application/json")
 
   return Response(json.dumps({
-      'page_overview':
+      'pageOverview':
           generated_overview,
-      'stat_var_links': [
-          stat_var_link.model_dump() for stat_var_link in stat_var_links
+      'statVarLinks': [
+          stat_var_link.model_dump(by_alias=True)
+          for stat_var_link in stat_var_links
       ]
   }),
                   200,

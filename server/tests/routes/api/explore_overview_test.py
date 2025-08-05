@@ -54,9 +54,10 @@ class TestPageOverview(unittest.TestCase):
                                   })
 
     assert resp.status_code == 200
-    assert resp.json['page_overview'] == EXPECTED_OVERVIEW
-    assert resp.json['stat_var_links'] == [
-        stat_var_link.model_dump() for stat_var_link in EXPECTED_STATVAR_LINKS
+    assert resp.json['pageOverview'] == EXPECTED_OVERVIEW
+    assert resp.json['statVarLinks'] == [
+        stat_var_link.model_dump(by_alias=True)
+        for stat_var_link in EXPECTED_STATVAR_LINKS
     ]
 
   def test_page_overview_empty_stat_vars(self):
