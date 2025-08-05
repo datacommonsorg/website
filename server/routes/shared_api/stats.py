@@ -37,6 +37,7 @@ import server.services.datacommons as dc
 bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # Constants for Vertex AI Search Application
 # TODO: Move the VAI app to a different GCP project and figure out a better way to authenticate (ex. use API keys)
@@ -157,7 +158,9 @@ def search_statvar():
     sv_only = request.json.get("svOnly")
     limit = int(request.json.get("limit", 100))
 
-  if is_vai_enabled and len(places) == 0:
+  if is_vai_enabled:
+    # statVarDcids = []
+    # statVarNames = []
     statVars = []
     page_token = None
     while len(statVars) < limit:
@@ -172,8 +175,8 @@ def search_statvar():
           )
           continue
         statVars.append({
-            "name": name,
-            "dcid": dcid,
+            'dcid': dcid,
+            'name': name,
         })
         if len(statVars) >= limit:
           break
@@ -181,7 +184,7 @@ def search_statvar():
       if not page_token:
         break
 
-    result = {"statVars": statVars}
+    result = dc.filter_statvars(statVars, places)
   else:
     result = dc.search_statvar(query, places, sv_only)
   return Response(json.dumps(result), 200, mimetype='application/json')
