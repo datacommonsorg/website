@@ -655,7 +655,8 @@
         "race": [
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
         ]
       },
       "Count_Person_Male_BelowPovertyLevelInThePast12Months": {

@@ -22,7 +22,7 @@ import _ from "lodash";
 import React, { ReactElement, useCallback, useMemo } from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
-import { FacetSelector } from "../../../shared/facet_selector";
+import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import {
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
