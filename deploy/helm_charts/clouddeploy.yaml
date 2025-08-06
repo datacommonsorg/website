@@ -27,6 +27,8 @@ serialPipeline:
         mixer.githash: ${MIXER_GITHASH}
       strategy:
         standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-dev"]
           postdeploy:
             actions: ["clear-website-cache"]
     - targetId: datacommons-website-autopush

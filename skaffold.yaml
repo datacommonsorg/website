@@ -79,6 +79,15 @@ profiles:
 
   - name: datacommons-website-dev
     customActions:
+      - name: deploy-cloud-esp-dev
+        containers:
+          - name: gcloud-website0
+            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./scripts/deploy_cloud_esp.sh dev 2214b4e
       - name: clear-website-cache
         containers:
           - name: gcloud-website
@@ -111,6 +120,7 @@ profiles:
               serviceAccount.name: website-ksa
               ingress.enabled: "true"
               mixer.hostProject: "datcom-website-dev"
+              project: "datcom-website-dev"
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
               mixer.githash: ${MIXER_GITHASH}
   - name: datacommons-mixer-dev
@@ -257,6 +267,7 @@ profiles:
               mixer.useRedis: "false"
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-website-staging"
+              project: "datcom-website-staging"
               mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
   - name: datacommons-mixer-staging
     customActions:
