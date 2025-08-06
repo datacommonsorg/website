@@ -113,8 +113,8 @@ profiles:
             namespace: website
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
-              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
-              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              # # schemaConfigs.base_mcf: mixer/deploy/mapping/base.mcf
+              # # schemaConfigs.encode_mcf: mixer/deploy/mapping/encode.mcf
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: website-ksa
@@ -134,8 +134,8 @@ profiles:
             namespace: mixer
             setFiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
-              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
-              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              # schemaConfigs.base_mcf: mixer/deploy/mapping/base.mcf
+              # schemaConfigs.encode_mcf: mixer/deploy/mapping/encode.mcf
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: mixer-ksa
@@ -174,8 +174,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
-              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
-              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              # schemaConfigs.base_mcf: mixer/deploy/mapping/base.mcf
+              # schemaConfigs.encode_mcf: mixer/deploy/mapping/encode.mcf
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: website-ksa
@@ -207,8 +207,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
-              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
-              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              # schemaConfigs.base_mcf: mixer/deploy/mapping/base.mcf
+              # schemaConfigs.encode_mcf: mixer/deploy/mapping/encode.mcf
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: mixer-ksa
@@ -258,8 +258,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
-              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
-              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              # schemaConfigs.base_mcf: mixer/deploy/mapping/base.mcf
+              # schemaConfigs.encode_mcf: mixer/deploy/mapping/encode.mcf
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: website-ksa
@@ -292,8 +292,8 @@ profiles:
               kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
-              mixer.schemaConfigs."base.mcf": mixer/deploy/mapping/base.mcf
-              mixer.schemaConfigs."encode.mcf": mixer/deploy/mapping/encode.mcf
+              # # schemaConfigs.base_mcf: mixer/deploy/mapping/base.mcf
+              # # schemaConfigs.encode_mcf: mixer/deploy/mapping/encode.mcf
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: mixer-ksa

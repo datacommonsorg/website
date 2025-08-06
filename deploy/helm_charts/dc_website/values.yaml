@@ -78,8 +78,6 @@ mixer:
     hostProject:
     serviceName:
 
-    schemaConfigs:
-
 esp:
   image:
     repository: gcr.io/endpoints-release/endpoints-runtime
