@@ -64,6 +64,7 @@ export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
           align-items: center;
           flex-grow: 1;
           gap: ${theme.spacing.md}px ${theme.spacing.sm}px;
+          flex-wrap: wrap;
         `}
       >
         <div>{props.searchBarInstructionText}</div>

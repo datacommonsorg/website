@@ -18,10 +18,18 @@
  * Place options for selecting the child place type and the enclosing place.
  */
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 
+import { Button } from "../../components/elements/button/button";
+import { Public } from "../../components/elements/icons/public";
+import { ScatterPlot } from "../../components/elements/icons/scatter_plot";
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import { PlaceSelector } from "../../shared/place_selector";
 import {
   getEnclosedPlacesPromise,
@@ -29,6 +37,7 @@ import {
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { getAllChildPlaceTypes } from "../map/util";
+import { EnclosedPlacesSelector } from "../shared/vis_tools/place_selector/enclosed_places_selector";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 interface PlaceAndTypeOptionsProps {
@@ -38,6 +47,10 @@ interface PlaceAndTypeOptionsProps {
 
 function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
+  const useStandardizedUi = isFeatureEnabled(
+    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+  );
+  const theme = useTheme();
 
   /**
    * Watch and update place info
@@ -88,6 +101,50 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
     }
   }, [place.value, display]);
 
+  if (useStandardizedUi) {
+    return (
+      <EnclosedPlacesSelector
+        enclosedPlaceType={place.value.enclosedPlaceType}
+        onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
+        onPlaceSelected={place.setEnclosingPlace}
+        selectedParentPlace={place.value.enclosingPlace}
+        toggleSvHierarchyModalText={"Select variables"}
+        toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
+      >
+        <div
+          css={css`
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            border: 1px solid ${theme.colors.border.primary.light};
+            overflow: hidden;
+            flex-shrink: 0;
+          `}
+        >
+          <Button
+            variant={
+              display.chartType === ScatterChartType.SCATTER ? "flat" : "text"
+            }
+            onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
+            startIcon={<ScatterPlot />}
+            css={css`
+              border-radius: 0;
+            `}
+          />
+          <Button
+            variant={
+              display.chartType === ScatterChartType.MAP ? "flat" : "text"
+            }
+            onClick={(): void => display.setChartType(ScatterChartType.MAP)}
+            startIcon={<Public />}
+            css={css`
+              border-radius: 0;
+            `}
+          />
+        </div>
+      </EnclosedPlacesSelector>
+    );
+  }
   return (
     <PlaceSelector
       selectedPlace={place.value.enclosingPlace}
