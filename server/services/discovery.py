@@ -143,7 +143,6 @@ endpoints = Endpoints([
     '/v1/place/ranking',
     '/v1/place/related',
     '/v1/variable/search',
-    '/v1/variable/filter',
     '/v1/internal/page/bio',
     '/v1/internal/page/place',
     '/v1/bulk/find/entities',
@@ -154,6 +153,7 @@ endpoints = Endpoints([
     '/v2/node',
     '/v2/resolve',
     '/v2/event',
+    '/v2/variable/filter',
 ])
 
 

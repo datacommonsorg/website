@@ -37,7 +37,6 @@ import server.services.datacommons as dc
 bp = Blueprint("stats", __name__, url_prefix='/api/stats')
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 # Constants for Vertex AI Search Application
 # TODO: Move the VAI app to a different GCP project and figure out a better way to authenticate (ex. use API keys)
@@ -158,12 +157,16 @@ def search_statvar():
     sv_only = request.json.get("svOnly")
     limit = int(request.json.get("limit", 100))
 
+  logging.info(
+      f"Stat var search with query: {query}, places: {places}, svOnly: {sv_only}, limit: {limit}"
+  )
   if is_vai_enabled:
-    # statVarDcids = []
-    # statVarNames = []
     statVars = []
     page_token = None
-    while len(statVars) < limit:
+    # If filtering by places, fetch 3x the number of results to act as a buffer for filtering.
+    # No buffer if the limit is set to 1000, as otherwise VAI search would take too long.
+    initial_limit = limit * 3 if limit == 100 and len(places) else limit
+    while len(statVars) < initial_limit:
       search_results = search_vertexai(query, page_token,
                                        is_vai_medium_relevance_enabled)
       for response in search_results.results:
@@ -175,10 +178,10 @@ def search_statvar():
           )
           continue
         statVars.append({
-            'dcid': dcid,
-            'name': name,
+            "name": name,
+            "dcid": dcid,
         })
-        if len(statVars) >= limit:
+        if len(statVars) >= initial_limit:
           break
       page_token = search_results.next_page_token
       if not page_token:
