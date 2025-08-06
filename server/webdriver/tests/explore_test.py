@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
+import warnings
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -204,13 +207,39 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     if not initial_header:
       self.fail("The chart's inner header (h4) did not appear.")
 
-    self.assertIn("(2021)", initial_header.text,
-                  "The chart's date is not (2021) as expected.")
+    # Regex to pull the last parenthesis from the header (the date or date range)
+    regex = r'\([^()]*\)\s*$'
 
-    # Find and click the toggle
+    initial_date_match = re.search(regex, initial_header.text)
+    self.assertIsNotNone(initial_date_match,
+                         "Could not find date part in initial header.")
+    initial_date_part = initial_date_match.group(0)
+    self.assertNotIn(
+        "to", initial_date_part,
+        f"Initial date '{initial_date_part}' should be a single date, but contains 'to'."
+    )
+
+    # Find the toggle.
     toggle_label = find_elem(
         chart_block, By.XPATH,
-        "//label[normalize-space()='Snap to date with highest coverage']")
+        ".//label[normalize-space()='Snap to date with highest coverage']")
+
+    # Verify that the toggle is not disabled.
+    toggle_input = find_elem(toggle_label, By.TAG_NAME, 'input')
+    self.assertIsNotNone(
+        toggle_input,
+        "Could not find the toggle's input element inside the label.")
+
+    # If the toggle is disabled, the chart has become one the highest coverage data is
+    # also the latest data, in which case we cannot toggle. In this case we consider the
+    # test to have passed so future data ingestion does not break it.
+    if not toggle_input.is_enabled():
+      warnings.warn(
+          "Toggle is disabled because latest date has highest coverage. "
+          "Test needs to be updated to account for data ingestion.",)
+      return
+
+    # Click the toggle
     toggle_label.click()
 
     # Wait for the chart to reload
@@ -223,7 +252,11 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     if not updated_header:
       self.fail(
           "The chart's inner header (h4) did not reappear after toggling.")
-
+    updated_date_match = re.search(regex, updated_header.text)
+    self.assertIsNotNone(updated_date_match,
+                         "Could not find date part in updated header.")
+    updated_date_part = updated_date_match.group(0)
     self.assertIn(
-        "(2021 to 2023)", updated_header.text,
-        "The chart's date did not update to '(2021 to 2023)' after toggling.")
+        "to", updated_date_part,
+        f"Updated date '{updated_date_part}' should be a date range, but does not contain 'to'."
+    )
