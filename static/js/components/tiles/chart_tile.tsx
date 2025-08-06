@@ -59,6 +59,8 @@ interface ChartTileContainerProp {
   isInitialLoading?: boolean;
   // Object used for the explore link
   exploreLink?: { displayText: string; url: string };
+  // Optional: Hyperlink
+  hyperlink?: string;
   // Optional: Error message
   errorMsg?: string;
   // Text to show in footer
@@ -128,6 +130,7 @@ export function ChartTileContainer(
       <ChartFooter
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
+        hyperlink={props.hyperlink}
         footnote={props.footnote}
       ></ChartFooter>
       {showEmbed && (
