@@ -14,3 +14,4 @@ COPY . /workspace
 
 # Make the run.sh script executable
 RUN chmod +x /workspace/tools/clearcache/run.sh
+RUN chmod +x /workspace/scripts/deploy_cloud_esp.sh
