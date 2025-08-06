@@ -88,7 +88,7 @@ COPY deploy/nl/. /datacommons/nl/
 
 
 # #### Stage 3: Build static website assets. ####
-FROM --platform=linux/amd64 node:20 as static
+FROM --platform=linux/amd64 node:22-slim as static
 
 WORKDIR /workspace
 

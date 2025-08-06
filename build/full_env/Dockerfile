@@ -21,7 +21,7 @@ FROM python:3.11.4-slim-bookworm AS python-builder
 # Uses a specific Node.js patch version. Note: This specific patch version's slim image
 # might be based on Debian Bullseye, not Bookworm, leading to a slight mix of Debian releases.
 # If strict Bookworm consistency is preferred over exact patch version, consider 'node:18-slim-bookworm'.
-FROM node:18.4.0-slim AS node-builder
+FROM node:22.18.0-slim AS node-builder
 
 # Stage 3: Go Builder
 # Uses a specific Go patch version on a Debian Bookworm base

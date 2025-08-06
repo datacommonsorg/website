@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:18.14.0-slim
+FROM node:22.18.0-slim
 
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y python3 pkg-config build-essential libpixman-1-dev libcairo2-dev libpango1.0-dev
