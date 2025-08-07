@@ -16,10 +16,10 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - build
-      - --tag=gcr.io/datcom-ci/datacommons-clearcache:latest
+      - --tag=gcr.io/datcom-ci/datacommons-script-runner:latest
       - "."
       - -f
-      - "tools/clearcache/Dockerfile"
+      - "tools/script_runner/Dockerfile"
 
 images:
-  - "gcr.io/datcom-ci/datacommons-clearcache:latest"
+  - "gcr.io/datcom-ci/datacommons-script-runner:latest"
