@@ -617,3 +617,24 @@ class PlaceExplorerTestMixin():
     # Assert that the tooltip element is visible.
     self.assertTrue(tooltip_element.is_displayed())
     self.assertIn("We use AI to summarize", tooltip_element.text)
+
+  def test_place_page_has_no_xss_vulnerability(self):
+    """Test that the place page does not have XSS vulnerability."""
+    # Intercept alerts before page load
+    self.driver.get("about:blank")
+    self.driver.execute_script("""
+        window.alertTriggered = false;
+        window.alert = function(msg) {
+            window.alertTriggered = true;
+        };
+    """)
+
+    # Now navigate to the test URL
+    self.driver.get(self.url_ + '/place/%22%3E%3Csvg%2Fonload%3D%22alert(document.domain)%22')
+
+    # Wait for expected text
+    wait_for_text(self.driver, "Place not found.", By.ID, 'place-page-content')
+
+    # Check if alert was triggered
+    alert_triggered = self.driver.execute_script("return window.alertTriggered;")
+    self.assertFalse(alert_triggered, "XSS vulnerability detected! `alert()` was triggered.")
