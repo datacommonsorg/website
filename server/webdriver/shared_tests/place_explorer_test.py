@@ -109,7 +109,7 @@ class PlaceExplorerTestMixin():
         By.CSS_SELECTOR, '[data-testid="place-overview-table"]').text
     self.assertIn("Unemployment Rate", table_text)
 
-  pytest.mark.skip(reason="Wait")
+  @pytest.mark.skip(reason="Wait")
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
     title_text = "Median age by gender: states near California"
