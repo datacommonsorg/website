@@ -164,18 +164,18 @@ class TestSearchStatVar(unittest.TestCase):
                                                        mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is disabled."""
     expected_query = 'person'
-    expected_places = ["geoId/06"]
+    expected_entities = ["geoId/06"]
     expected_result = mock_data.DC_STAT_VAR_SEARCH_RESPONSE_SVG
     expected_sv_only_result = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
-    expected_no_places_result = mock_data.DC_STAT_VAR_SEARCH_RESPONSE_NO_PLACES
+    expected_no_entities_result = mock_data.DC_STAT_VAR_SEARCH_RESPONSE_NO_ENTITIES
 
-    def search_dc_side_effect(query, places, sv_only):
-      if query == expected_query and places == expected_places and not sv_only:
+    def search_dc_side_effect(query, entities, sv_only):
+      if query == expected_query and entities == expected_entities and not sv_only:
         return expected_result
-      elif query == expected_query and places == expected_places and sv_only:
+      elif query == expected_query and entities == expected_entities and sv_only:
         return expected_sv_only_result
-      elif query == expected_query and places == [] and not sv_only:
-        return expected_no_places_result
+      elif query == expected_query and entities == [] and not sv_only:
+        return expected_no_entities_result
       else:
         return []
 
@@ -188,13 +188,13 @@ class TestSearchStatVar(unittest.TestCase):
       mock_search_dc.side_effect = search_dc_side_effect
 
       response = app.test_client().get(
-          'api/stats/stat-var-search?query=person&places=geoId/06')
+          'api/stats/stat-var-search?query=person&entities=geoId/06')
       mock_search_vertexai.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result
       response = app.test_client().get(
-          'api/stats/stat-var-search?query=person&places=geoId/06&svOnly=1')
+          'api/stats/stat-var-search?query=person&entities=geoId/06&svOnly=1')
       mock_search_vertexai.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
@@ -203,7 +203,7 @@ class TestSearchStatVar(unittest.TestCase):
       mock_search_vertexai.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
-      assert result == expected_no_places_result
+      assert result == expected_no_entities_result
 
   @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
@@ -214,7 +214,7 @@ class TestSearchStatVar(unittest.TestCase):
                                       mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is enabled and should be called."""
     expected_query = 'person'
-    expected_places = ["geoId/06"]
+    expected_entities = ["geoId/06"]
     vai_response_page_one = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_ONE
     vai_response_page_two = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_TWO
     expected_result_limit_one = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
@@ -230,10 +230,10 @@ class TestSearchStatVar(unittest.TestCase):
       else:
         return []
 
-    def filter_statvars_side_effect(stat_vars, places):
-      if places == []:
+    def filter_statvars_side_effect(stat_vars, entities):
+      if entities == []:
         return {'statVars': stat_vars}
-      elif places == expected_places:
+      elif entities == expected_entities:
         return expected_result_filtered
       else:
         return {}
@@ -267,7 +267,7 @@ class TestSearchStatVar(unittest.TestCase):
       assert result == expected_result_all
 
       response = app.test_client().get(
-          'api/stats/stat-var-search?query=person&places=geoId/06')
+          'api/stats/stat-var-search?query=person&entities=geoId/06')
       mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)

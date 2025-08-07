@@ -148,22 +148,22 @@ def search_statvar():
       VAI_MEDIUM_RELEVANCE_FEATURE_FLAG, request=request)
   if request.method == 'GET':
     query = request.args.get("query")
-    places = request.args.getlist("places")
+    entities = request.args.getlist("entities")
     sv_only = request.args.get("svOnly", False)
     limit = int(request.args.get("limit", 100))
   else:  # Method is POST
     query = request.json.get("query")
-    places = request.json.get("places")
+    entities = request.json.get("entities")
     sv_only = request.json.get("svOnly")
     limit = int(request.json.get("limit", 100))
 
   if is_vai_enabled:
     statVars = []
     page_token = None
-    # If filtering by places, fetch 3x the number of results to act as a buffer for filtering.
+    # If filtering by entities, fetch 3x the number of results to act as a buffer for filtering.
     # No buffer if the limit is set to 1000, as otherwise VAI search would take too long.
     # TODO: Add the ability to load more results when filtering by sources.
-    initial_limit = limit * 3 if limit == 100 and len(places) else limit
+    initial_limit = limit * 3 if limit == 100 and len(entities) else limit
     while len(statVars) < initial_limit:
       search_results = search_vertexai(query, page_token,
                                        is_vai_medium_relevance_enabled)
@@ -185,7 +185,7 @@ def search_statvar():
       if not page_token:
         break
 
-    result = dc.filter_statvars(statVars, places)
+    result = dc.filter_statvars(statVars, entities)
   else:
-    result = dc.search_statvar(query, places, sv_only)
+    result = dc.search_statvar(query, entities, sv_only)
   return Response(json.dumps(result), 200, mimetype='application/json')

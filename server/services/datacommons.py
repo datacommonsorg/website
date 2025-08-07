@@ -509,11 +509,11 @@ def search_statvar(query, places, sv_only):
   })
 
 
-def filter_statvars(stat_vars, places):
+def filter_statvars(stat_vars, entities):
   url = get_service_url('/v2/variable/filter')
   return post(url, {
       'stat_vars': stat_vars,
-      'entities': places,
+      'entities': entities,
   })
 
 

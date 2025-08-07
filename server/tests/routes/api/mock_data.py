@@ -640,7 +640,7 @@ MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES = {
 }
 
 DC_STAT_VAR_SEARCH_RESPONSE_SVG = {'statVarGroups': ['group_1', 'group_2']}
-DC_STAT_VAR_SEARCH_RESPONSE_NO_PLACES = {
+DC_STAT_VAR_SEARCH_RESPONSE_NO_ENTITIES = {
     'statVarGroups': ['group_3'],
     'statVars': [{
         'name': 'sv2',
