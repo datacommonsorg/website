@@ -82,7 +82,7 @@ profiles:
       - name: deploy-cloud-esp-dev
         containers:
           - name: gcloud-website0
-            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -91,7 +91,7 @@ profiles:
       - name: clear-website-cache
         containers:
           - name: gcloud-website
-            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -145,7 +145,7 @@ profiles:
       - name: clear-website-cache
         containers:
           - name: gcloud-website
-            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -183,7 +183,7 @@ profiles:
       - name: clear-mixer-cache
         containers:
           - name: gcloud-mixer
-            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -216,7 +216,7 @@ profiles:
       - name: clear-website-cache
         containers:
           - name: gcloud-website
-            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -225,7 +225,7 @@ profiles:
       - name: run-percy-snapshots
         containers:
           - name: gcloud-website2
-            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
             command: ["/bin/bash"]
             args:
               - "-c"
@@ -264,7 +264,7 @@ profiles:
       - name: update-nl-integration-test-goldens
         containers:
           - name: gcloud-website
-            image: gcr.io/datcom-ci/datacommons-clearcache:latest
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
             command: ["/bin/bash"]
             args:
               - "-c"
