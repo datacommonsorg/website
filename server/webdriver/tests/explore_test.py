@@ -80,9 +80,8 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                          "Could not find the 'Age Distribution' chart block.")
 
     original_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
-    self.assertEqual(
-        original_source_text,
-        'Sources: census.gov, data.census.gov • Show metadata')
+    self.assertEqual(original_source_text,
+                     'Sources: census.gov, data.census.gov • Show metadata')
 
     # Click on the button to open the facet selector modal
     facet_button = find_elem(chart_block, By.CLASS_NAME,
