@@ -97,13 +97,6 @@ def _enable_datagemma() -> bool:
 
 
 def register_routes_base_dc(app):
-  @app.route('/robots.txt')
-  def robots_txt():
-    if app.config.get('ENV') == 'production':
-      return 'User-agent: *\nDisallow:', 200, {'Content-Type': 'text/plain'}
-    else:
-      return 'User-agent: *\nDisallow: /', 200, {'Content-Type': 'text/plain'}
-
   # apply the blueprints for all apps
   from server.routes.dev import html as dev_html
   app.register_blueprint(dev_html.bp)
