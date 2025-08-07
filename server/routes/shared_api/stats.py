@@ -157,9 +157,6 @@ def search_statvar():
     sv_only = request.json.get("svOnly")
     limit = int(request.json.get("limit", 100))
 
-  logging.info(
-      f"Stat var search with query: {query}, places: {places}, svOnly: {sv_only}, limit: {limit}"
-  )
   if is_vai_enabled:
     statVars = []
     page_token = None
