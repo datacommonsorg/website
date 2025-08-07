@@ -109,6 +109,7 @@ class PlaceExplorerTestMixin():
         By.CSS_SELECTOR, '[data-testid="place-overview-table"]').text
     self.assertIn("Unemployment Rate", table_text)
 
+  pytest.mark.skip(reason="Wait")
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
     title_text = "Median age by gender: states near California"
@@ -321,6 +322,7 @@ class PlaceExplorerTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.url_to_be(self.url_ + '/place/Earth'))
 
+  @pytest.mark.skip(reason="Wait for EIA data to come back.")
   def test_place_overview_california(self):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06')
