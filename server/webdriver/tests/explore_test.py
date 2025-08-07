@@ -82,7 +82,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     original_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
     self.assertEqual(
         original_source_text,
-        'Sources: data.census.gov, census.gov, data.census.gov • Show metadata')
+        'Sources: census.gov, data.census.gov • Show metadata')
 
     # Click on the button to open the facet selector modal
     facet_button = find_elem(chart_block, By.CLASS_NAME,
