@@ -282,7 +282,6 @@ class ChartEmbed extends React.Component<
               grid-template-columns: 1fr 1fr;
               width: 100%;
               gap: ${theme.spacing.lg}px;
-              margin-bottom: ${theme.spacing.lg}px;
               @media (max-width: ${theme.breakpoints.md}px) {
                 grid-template-columns: 1fr;
                 grid-template-rows: 1fr 1fr;

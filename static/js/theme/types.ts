@@ -137,6 +137,13 @@ export interface Theme {
         dark?: string;
       };
     };
+    error?: {
+      primary?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
+    };
     box: {
       blue: {
         text: string;

@@ -18,7 +18,7 @@
  * File to contain helper functions for fetching facet choices for UI components.
  */
 
-import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getFacets, getFacetsWithin } from "../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "./metadata/metadata_fetcher";
