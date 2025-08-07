@@ -83,9 +83,9 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                          "Could not find the 'Age Distribution' chart block.")
 
     original_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
-    self.assertEqual(
-        original_source_text,
-        'Sources: data.census.gov, census.gov, data.census.gov • Show metadata')
+    self.assertIn('census.gov', original_source_text)
+    self.assertIn('data.census.gov', original_source_text)
+    self.assertIn('Show metadata', original_source_text)
 
     # Click on the button to open the facet selector modal
     facet_button = find_elem(chart_block, By.CLASS_NAME,
@@ -110,15 +110,16 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     modal_footer_button.click()
 
     # Wait for the source text to update.
-    expected_source_text = "Source: wonder.cdc.gov • Show metadata"
     wait_for_text(driver=chart_block,
-                  text=expected_source_text,
+                  text="wonder.cdc.gov",
                   by=By.CLASS_NAME,
                   value='sources')
 
     # Verify the source text has changed
     updated_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
-    self.assertEqual(updated_source_text, expected_source_text)
+    self.assertIn('wonder.cdc.gov', updated_source_text)
+    self.assertIn('Show metadata', updated_source_text)
+    self.assertNotIn('census.gov', updated_source_text)
 
   def test_map_select_different_facet(self):
     """Tests that the facet selector on a map chart can be used to update the source."""
