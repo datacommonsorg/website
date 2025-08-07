@@ -42,12 +42,15 @@ website:
       }
 
 mixer:
-  serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
-  hostProject: "datcom-website-autopush"
+  # serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+  # hostProject: "datcom-website-autopush"
   cacheSVFormula: true
 
 serviceAccount:
   name: website-ksa
+
+ingress:
+  enabled: true
 
 nl:
   enabled: true
