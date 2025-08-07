@@ -24,8 +24,6 @@ namespace:
   name: "website"
 
 website:
-  iap:
-    enabled: true
   flaskEnv: autopush
   replicas: 15
   nodePool: "default-pool"
