@@ -69,7 +69,7 @@ COPY nl_requirements.txt ./nl_requirements.txt
 RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
 RUN pip3 install --upgrade pip setuptools \
-    && pip3 install torch==2.3.0 --extra-index-url https://download.pytorch.org/whl/cpu \
+    && pip3 install torch==2.8.0 --extra-index-url https://download.pytorch.org/whl/cpu \
     && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
     && pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
 
