@@ -21,7 +21,7 @@ function setup_python {
   source .env/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
-  pip3 install torch==2.3.0 --extra-index-url https://download.pytorch.org/whl/cpu
+  pip3 install torch==2.8.0 --extra-index-url https://download.pytorch.org/whl/cpu
   echo "installing nl_server/requirements.txt"
   pip3 install -r nl_server/requirements.txt -q
   deactivate
@@ -32,7 +32,7 @@ function setup_website_python {
   source .env_website/bin/activate
   echo "installing server/requirements.txt"
   pip3 install -r server/requirements.txt -q
-  pip3 install torch==2.3.0 --extra-index-url https://download.pytorch.org/whl/cpu
+  pip3 install torch==2.8.0 --extra-index-url https://download.pytorch.org/whl/cpu
   deactivate
 }
 
