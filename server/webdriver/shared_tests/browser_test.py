@@ -106,7 +106,6 @@ class BrowserTestMixin():
                                      value='//*[@id="node-content"]/div[2]')
     self.assertGreater(len(find_elems(observations_section, value='card')), 0)
 
-  @pytest.mark.skip(reason="Moved to experimental.")
   def test_page_serve_austrobaileya(self):
     """Test the browser page for Austrobaileya scandens can be loaded successfully."""
     title_text = ("Austrobaileya scandens C.T.White - Knowledge Graph - " +
