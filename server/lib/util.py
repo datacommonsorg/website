@@ -857,7 +857,7 @@ def get_series_dates_from_entities(entities: List[str], variables: List[str]):
 
 
 def _get_highest_coverage_date(observation_dates_by_variable,
-                               facet_ids: Set[str], max_dates_to_check: int,
+                               max_dates_to_check: int,
                                max_years_to_check: int) -> str | None:
   """
   Heuristic for fetching "latest date with highest coverage":
@@ -878,7 +878,7 @@ def _get_highest_coverage_date(observation_dates_by_variable,
   recent_date_counts_dict = {}
   for observation_entity_counts_by_date in observation_dates_by_variable:
     recent_date_counts = _get_recent_date_counts(
-        observation_entity_counts_by_date, facet_ids, max_dates_to_check,
+        observation_entity_counts_by_date, max_dates_to_check,
         max_years_to_check)
     for date_count in recent_date_counts:
       date_count_date = date_count["date"]
@@ -896,7 +896,7 @@ def _get_highest_coverage_date(observation_dates_by_variable,
 
 
 def _get_recent_date_counts(observation_entity_counts_by_date,
-                            facet_ids: Set[str], max_dates_to_check: int,
+                            max_dates_to_check: int,
                             max_years_to_check: int) -> List[Dict]:
   # Get observation dates in descending order
   descending_observation_dates = [
@@ -926,19 +926,68 @@ def _get_recent_date_counts(observation_entity_counts_by_date,
                          max_dates_to_check)
   observation_dates = descending_observation_dates[:obs_dates_cutoff]
 
-  # finds the greatest entity (observation) count among all facets in the
+  # finds the greatest entity (observation) count among the facets in the
   # given list of observation dates
-  date_counts = [{
-      'date':
-          obs['date'],
-      'count':
-          max([
-              entity_count_item for entity_count_item in obs['entityCount'] if
-              (len(facet_ids) == 0 or entity_count_item['facet'] in facet_ids)
-          ],
-              key=lambda item: item['count'])['count']
-  } for obs in observation_dates]
+  date_counts = []
+  for obs in observation_dates:
+    entity_counts = obs.get('entityCount', [])
+
+    count = 0
+    if entity_counts:
+      count = max(entity_counts,
+                  key=lambda item: item.get('count', 0)).get('count', 0)
+
+    date_counts.append({'date': obs.get('date'), 'count': count})
+
   return date_counts
+
+
+def _filter_series_dates_by_facet(series_dates_response: Dict,
+                                  facet_ids: List[str]) -> Dict:
+  """
+    Filters a series dates response object in-place to keep only provided facets.
+
+    This function removes data for non-matching facets from each date's
+    entityCount, as well as removing the facet from the facet listing.
+
+    Args:
+      series_dates_response: The response object from a get_series_dates or
+        get_series_dates_from_entities call.
+      facet_ids: The facets that we want to include in the final data set.
+
+    Returns:
+      The mutated series_dates_response object containing only the data and
+      facets from the list of facets given.
+    """
+  facet_ids_set = set(facet_ids)
+  used_facets = set()
+  for var_data in series_dates_response.get("datesByVariable", []):
+    if "observationDates" in var_data:
+      filtered_observation_dates = []
+      for date_data in var_data["observationDates"]:
+        if "entityCount" in date_data:
+          filtered_entity_count_list = [
+              entity_count for entity_count in date_data["entityCount"]
+              if entity_count.get("facet") in facet_ids_set
+          ]
+          date_data["entityCount"] = filtered_entity_count_list
+
+          for entity_count in filtered_entity_count_list:
+            used_facets.add(entity_count.get("facet"))
+
+        if date_data.get("entityCount"):
+          filtered_observation_dates.append(date_data)
+
+      var_data["observationDates"] = filtered_observation_dates
+
+  if "facets" in series_dates_response:
+    series_dates_response["facets"] = {
+        fid: finfo
+        for fid, finfo in series_dates_response["facets"].items()
+        if fid in used_facets
+    }
+
+  return series_dates_response
 
 
 def fetch_highest_coverage(variables: List[str],
@@ -983,12 +1032,13 @@ def fetch_highest_coverage(variables: List[str],
   else:
     series_dates_response = dc.get_series_dates(parent_entity, child_type,
                                                 variables)
-  facet_ids_set = set(facet_ids or [])
+  if facet_ids:
+    series_dates_response = _filter_series_dates_by_facet(
+        series_dates_response, facet_ids)
 
   observation_dates_by_variable = series_dates_response['datesByVariable']
   highest_coverage_date = _get_highest_coverage_date(
       observation_dates_by_variable,
-      facet_ids=facet_ids_set,
       max_dates_to_check=MAX_DATES_TO_CHECK,
       max_years_to_check=MAX_YEARS_TO_CHECK)
 
