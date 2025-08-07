@@ -141,12 +141,6 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ipName }}
     ingress.gcp.kubernetes.io/pre-shared-cert: {{ .Values.ingress.certName }}
     {{- end }}
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
-    {{- end }}
 spec:
   defaultBackend:
     service:
