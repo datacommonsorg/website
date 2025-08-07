@@ -162,6 +162,7 @@ def search_statvar():
     page_token = None
     # If filtering by places, fetch 3x the number of results to act as a buffer for filtering.
     # No buffer if the limit is set to 1000, as otherwise VAI search would take too long.
+    # TODO: Add the ability to load more results when filtering by sources.
     initial_limit = limit * 3 if limit == 100 and len(places) else limit
     while len(statVars) < initial_limit:
       search_results = search_vertexai(query, page_token,
