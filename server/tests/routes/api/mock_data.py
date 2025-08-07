@@ -756,3 +756,16 @@ VERTEX_AI_STAT_VAR_SEARCH_RESULT_ALL = {
         'name': 'sv6'
     }]
 }
+
+VERTEX_AI_STAT_VAR_FILTER_RESULT = {
+    'statVars': [{
+        'dcid': 'sv1',
+        'name': 'sv1'
+    }, {
+        'dcid': 'sv2',
+        'name': 'sv2'
+    }, {
+        'dcid': 'sv3',
+        'name': 'sv3'
+    }]
+}

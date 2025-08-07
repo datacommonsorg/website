@@ -216,11 +216,13 @@ class TestSearchStatVar(unittest.TestCase):
     # TODO: Add test cases for place filtering
 
     expected_query = 'person'
+    expected_places = ["geoId/06"]
     vai_response_page_one = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_ONE
     vai_response_page_two = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_TWO
     expected_result_limit_one = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
     expected_result_page_one = mock_data.VERTEX_AI_STAT_VAR_SEARCH_RESULT_PAGE_ONE
     expected_result_all = mock_data.VERTEX_AI_STAT_VAR_SEARCH_RESULT_ALL
+    expected_result_filtered = mock_data.VERTEX_AI_STAT_VAR_FILTER_RESULT
 
     def search_vai_side_effect(query, token, _=None):
       if query == expected_query and not token:
@@ -230,8 +232,13 @@ class TestSearchStatVar(unittest.TestCase):
       else:
         return []
 
-    def filter_statvars_side_effect(stat_vars, _):
-      return {'statVars': stat_vars}
+    def filter_statvars_side_effect(stat_vars, places):
+      if places == []:
+        return {'statVars': stat_vars}
+      elif places == expected_places:
+        return expected_result_filtered
+      else:
+        return {}
 
     with app.app_context():
       mock_is_feature_enabled.return_value = True
@@ -246,18 +253,27 @@ class TestSearchStatVar(unittest.TestCase):
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_limit_one
+      
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&limit=3')
       mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_page_one
+      
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&limit=10')
       mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_all
+
+      response = app.test_client().get(
+          'api/stats/stat-var-search?query=person&places=geoId/06')
+      mock_search_dc.assert_not_called()
+      assert response.status_code == 200
+      result = json.loads(response.data)
+      assert result == expected_result_filtered
 
   @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
