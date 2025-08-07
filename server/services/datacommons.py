@@ -508,6 +508,7 @@ def search_statvar(query, places, sv_only):
       "sv_only": sv_only,
   })
 
+
 def filter_statvars(stat_vars, places):
   url = get_service_url('/v2/variable/filter')
   return post(url, {
