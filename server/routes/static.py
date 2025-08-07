@@ -122,8 +122,12 @@ def version():
 
 @bp.route('/robots.txt')
 @cache.cached(timeout=TIMEOUT)
-def robots_config(): 
-  if current_app.config.get('ENV') == 'production':
-    return 'User-agent: *\nDisallow:', 200, {'Content-Type': 'text/plain'}
+def robots_config():
+  robots_content = ""
+  if current_app.config.get('DISABLE_CRAWLERS', False):
+    robots_content = "User-agent: *\nDisallow: /"
   else:
-    return 'User-agent: *\nDisallow: /', 200, {'Content-Type': 'text/plain'}
+    with current_app.open_resource("dist/robots.txt", 'r') as f:
+      robots_content = f.read()
+
+  return Response(robots_content, mimetype="text/plain")
