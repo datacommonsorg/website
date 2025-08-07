@@ -630,11 +630,15 @@ class PlaceExplorerTestMixin():
     """)
 
     # Now navigate to the test URL
-    self.driver.get(self.url_ + '/place/%22%3E%3Csvg%2Fonload%3D%22alert(document.domain)%22')
+    self.driver.get(
+        self.url_ +
+        '/place/%22%3E%3Csvg%2Fonload%3D%22alert(document.domain)%22')
 
     # Wait for expected text
     wait_for_text(self.driver, "Place not found.", By.ID, 'place-page-content')
 
     # Check if alert was triggered
-    alert_triggered = self.driver.execute_script("return window.alertTriggered;")
-    self.assertFalse(alert_triggered, "XSS vulnerability detected! `alert()` was triggered.")
+    alert_triggered = self.driver.execute_script(
+        "return window.alertTriggered;")
+    self.assertFalse(alert_triggered,
+                     "XSS vulnerability detected! `alert()` was triggered.")

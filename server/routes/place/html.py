@@ -13,12 +13,12 @@
 # limitations under the License.
 """Place Explorer related handlers."""
 
+import html
 import json
 import logging
 import os
 from typing import List, Set
 from urllib.parse import urlencode
-import html
 
 import flask
 from flask import current_app
