@@ -213,8 +213,6 @@ class TestSearchStatVar(unittest.TestCase):
                                       mock_filter_statvars, mock_search_dc,
                                       mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is enabled and should be called."""
-    # TODO: Add test cases for place filtering
-
     expected_query = 'person'
     expected_places = ["geoId/06"]
     vai_response_page_one = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_PAGE_ONE
@@ -253,14 +251,14 @@ class TestSearchStatVar(unittest.TestCase):
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_limit_one
-      
+
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&limit=3')
       mock_search_dc.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result_page_one
-      
+
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&limit=10')
       mock_search_dc.assert_not_called()
