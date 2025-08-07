@@ -9,9 +9,7 @@ sentence-transformers==2.7.0
 spacy==3.7.4
 torch==2.2.2
 torchvision
-# TODO: this is pinned because latest huggingface_hub is not compatible with
-# sentence-transformers v2.2.2. Look into upgrading sentence-transformers to
-# v2.3.0 or newer
+# TODO: Look into upgrading huggingface_hub. Previously pinned due to sentence-transformers which has now been bumped.
 huggingface_hub==0.25.2
 transformers==4.45.2
 safetensors==0.4.3
