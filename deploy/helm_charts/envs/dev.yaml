@@ -29,10 +29,10 @@ website:
   redis:
     enabled: false
 
-# mixer:
-#   serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
-#   hostProject: "datcom-website-dev"
-#   project: "datcom-website-dev"
+mixer:
+  serviceName:
+  hostProject:
+  project:
 
 serviceAccount:
   name: website-ksa
