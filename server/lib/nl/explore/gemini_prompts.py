@@ -67,6 +67,11 @@ Stat Vars: ['GDP (Nominal Value)', 'Nominal GDP Per Capita', 'Growth Rate of GDP
 Explanation:  "The comparison of USA and China's Gross Domestic Product (GDP) can be explored using several key economic indicators. The <GDP nominal value> provides a direct measure of each country's total economic output. Additionally, examining the <nominal GDP per capita> offers insight into the average economic output per person, while the <growth rate of GDP> indicates the pace of economic expansion for each nation. These variables are relevant for understanding the scale and trajectory of each economy."
 StatVarIndex:[{{stat_var_title: "GDP (Nominal Value)",natural_language: "GDP nominal value"}},{{stat_var_title:"Nominal GDP Per Capita",natural_language:"nominal GDP per capita"}},{{stat_var_title:"Growth Rate of GDP",natural_language:"growth rate of GDP"}}]
 
+4. Initial Query: "How does the crime of Mountain View related to its economy?"
+Stat Vars: ['Criminal Activities','Aggravated Assault Cases','Arson Crimes']
+Explanation: "To investigate the relationship between Mountain View's economy and criminal activity, data on <criminal activities>, <aggravated assault cases>, and <arson crimes> can be examined. These variables provide insights into the prevalence of different types of criminal events. Their trends may offer a contextual understanding of how crime statistics correlate with economic conditions in the area, though they do not establish direct causation."
+StatVarIndex:[{{stat_var_title: "Criminal Activities, natural_language: "criminal activites"}},{{stat_var_title: "Aggravated Assault Cases", natural_language: "aggravated assault cases"}},{{stat_var_title: "Arson Crimes",natural_language: "arson crimes"}}]
+
 The research question is the following: {initial_query}
 The available statistical variables are the following: {stat_var_titles}
 Do not include ```json ``` in the output.
