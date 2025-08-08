@@ -9,24 +9,8 @@ RUN apt-get update && apt-get install -y wget && \
 # Set the working directory
 WORKDIR /workspace
 
-# Copy the tools and scripts directories
-COPY tools/ /workspace/tools/
-COPY scripts/ /workspace/scripts/
-
-# Copy top-level scripts
-COPY run_cdc_dev_docker.sh /workspace/
-COPY run_cdc_dev.sh /workspace/
-COPY run_cdc_tests.sh /workspace/
-COPY run_experimental.sh /workspace/
-COPY run_nl_server.sh /workspace/
-COPY run_npm.sh /workspace/
-COPY run_sdg_sanity.sh /workspace/
-COPY run_server.sh /workspace/
-COPY run_servers.sh /workspace/
-COPY run_test.sh /workspace/
-COPY run_website_adversarial.sh /workspace/
-COPY run_website_sanity.sh /workspace/
-COPY run_website_screenshot.sh /workspace/
+# Copy everything from the current directory to /workspace in the container
+COPY . /workspace
 
 # Make all shell scripts executable.
 # This is more robust than chmod-ing individual files.

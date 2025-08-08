@@ -42,8 +42,8 @@ website:
       }
 
 mixer:
-  serviceName:
-  hostProject:
+  serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+  hostProject: "datcom-website-autopush"
   cacheSVFormula: true
 
 serviceAccount:

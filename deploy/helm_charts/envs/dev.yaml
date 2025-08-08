@@ -30,9 +30,8 @@ website:
     enabled: false
 
 mixer:
-  serviceName:
-  hostProject:
-  project:
+  serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+  hostProject: "datcom-website-dev"
 
 serviceAccount:
   name: website-ksa

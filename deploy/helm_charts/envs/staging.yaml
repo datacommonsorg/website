@@ -37,6 +37,10 @@ website:
         }
       }
 
+mixer:
+  serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
+  hostProject: "datcom-website-staging"
+
 ingress:
   enabled: false
 

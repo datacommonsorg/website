@@ -87,7 +87,7 @@ profiles:
             args:
               - "-c"
               - |
-                ./scripts/deploy_cloud_esp.sh dev 2214b4e
+                ./scripts/deploy_cloud_esp.sh dev f85f02a
       - name: clear-website-cache
         containers:
           - name: gcloud-website
