@@ -13,6 +13,7 @@
 # limitations under the License.
 """Place Explorer related handlers."""
 
+import html
 import json
 import logging
 import os
@@ -132,7 +133,7 @@ def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
   query_params = {}
   if place_category and place_category != 'Overview':
     query_params['category'] = place_category
-  canonical_url = PROD_PLACE_PAGE_BASE_URL + place_dcid
+  canonical_url = PROD_PLACE_PAGE_BASE_URL + html.escape(place_dcid)
   if query_params:
     canonical_url += '?' + urlencode(query_params)
   links.append(f'<link rel="canonical" href="{canonical_url}">')
@@ -148,7 +149,7 @@ def get_canonical_links(place_dcid: str, place_category: str) -> List[str]:
       query_params['category'] = place_category
     if lang != DEFAULT_LOCALE:
       query_params['hl'] = lang
-    url = PROD_PLACE_PAGE_BASE_URL + place_dcid
+    url = PROD_PLACE_PAGE_BASE_URL + html.escape(place_dcid)
     if query_params:
       url += '?' + urlencode(query_params)
     links.append(f'<link rel="alternate" hreflang="{lang}" href="{url}">')
