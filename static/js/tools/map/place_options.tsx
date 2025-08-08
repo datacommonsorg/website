@@ -18,6 +18,7 @@
  * Place options for selecting the enclosing place and enclosed place type.
  */
 
+import { css, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 import { Button, Col, Row } from "reactstrap";
@@ -45,6 +46,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
+  const theme = useTheme();
 
   useEffect(() => {
     if (!placeInfo.value.selectedPlace.dcid) {
@@ -79,14 +81,21 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
 
   if (useStandardizedUi) {
     return (
-      <EnclosedPlacesSelector
-        enclosedPlaceType={placeInfo.value.enclosedPlaceType}
-        onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
-        onPlaceSelected={placeInfo.setSelectedPlace}
-        selectedParentPlace={placeInfo.value.selectedPlace}
-        toggleSvHierarchyModalText={"Select variable"}
-        toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
-      />
+      <div
+        css={css`
+          margin-bottom: ${theme.spacing.md}px;
+          width: 100%;
+        `}
+      >
+        <EnclosedPlacesSelector
+          enclosedPlaceType={placeInfo.value.enclosedPlaceType}
+          onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
+          onPlaceSelected={placeInfo.setSelectedPlace}
+          selectedParentPlace={placeInfo.value.selectedPlace}
+          toggleSvHierarchyModalText={"Select variable"}
+          toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
+        />
+      </div>
     );
   }
 

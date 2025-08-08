@@ -113,32 +113,35 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
       >
         <div
           css={css`
+            border-radius: 0.25rem;
+            border: 1px solid ${theme.colors.border.primary.light};
             display: flex;
             flex-direction: row;
-            flex-wrap: nowrap;
-            border: 1px solid ${theme.colors.border.primary.light};
-            overflow: hidden;
             flex-shrink: 0;
+            flex-wrap: nowrap;
+            overflow: hidden;
           `}
         >
           <Button
+            id="scatter-chart-type-selector-scatter"
             variant={
               display.chartType === ScatterChartType.SCATTER ? "flat" : "text"
             }
             onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
             startIcon={<ScatterPlot />}
             css={css`
-              border-radius: 0;
+              border-radius: 0.25rem;
             `}
           />
           <Button
+            id="scatter-chart-type-selector-map"
             variant={
               display.chartType === ScatterChartType.MAP ? "flat" : "text"
             }
             onClick={(): void => display.setChartType(ScatterChartType.MAP)}
             startIcon={<Public />}
             css={css`
-              border-radius: 0;
+              border-radius: 0.25rem;
             `}
           />
         </div>

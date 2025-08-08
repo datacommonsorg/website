@@ -103,6 +103,7 @@ export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
         {props.children}
         <div className="d-inline d-lg-none">
           <Button
+            id="toggle-stat-var-hierarchy-modal-button"
             variant="inverted"
             onClick={props.toggleSvHierarchyModalCallback}
           >
