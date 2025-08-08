@@ -94,6 +94,7 @@ serialPipeline:
       deployParameters:
       - values:
         mixer.githash: ${MIXER_GITHASH}
+        MIXER_GITHASH: ${MIXER_GITHASH}
       strategy:
         standard:
           predeploy:
