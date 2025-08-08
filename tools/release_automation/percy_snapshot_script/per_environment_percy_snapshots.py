@@ -27,6 +27,7 @@ import json
 import time
 import os
 import concurrent.futures
+import shutil
 
 from percy import percy_snapshot
 from selenium import webdriver
@@ -59,6 +60,11 @@ def setup_webdriver():
         driver = webdriver.Chrome(service=service, options=chrome_options)
         return driver
     except Exception as e:
+        if "zip file" in str(e).lower():
+            print("⚠️ Corrupted driver zip detected. Retrying after cache clear.")
+            shutil.rmtree(os.path.expanduser("~/.wdm"), ignore_errors=True)
+            service = Service(ChromeDriverManager().install())
+            return webdriver.Chrome(service=service, options=chrome_options)
         raise RuntimeError(f"Failed to set up WebDriver: {e}")
 
 def load_urls(base_url: str):
@@ -144,26 +150,35 @@ def main():
         if not base_url:
             raise ValueError(f"Invalid environment: {environment}")
         
-        urls_to_snapshot = load_urls(base_url)
+        # Load all URLs
+        all_urls = list(load_urls(base_url).items())
+        total_urls = len(all_urls)
 
-        # Use ProcessPoolExecutor for parallel execution
-        # `max_workers` is set to the number of available cores.
-        print(f"\nStarting parallel Percy snapshot process with {os.cpu_count()} workers... 📸")
+        # Get sharding info from environment variables
+        shard_index = int(os.getenv("SHARD_INDEX", "0"))
+        total_shards = int(os.getenv("TOTAL_SHARDS", "1"))
+
+        # Divide the workload
+        chunk_size = (total_urls + total_shards - 1) // total_shards
+        start = shard_index * chunk_size
+        end = min(start + chunk_size, total_urls)
+        shard_urls = all_urls[start:end]
+
+        print(f"\n🔀 Shard {shard_index + 1}/{total_shards}: processing {len(shard_urls)} of {total_urls} URLs (index {start} to {end - 1})")
+
+        # Run the snapshots in parallel within the shard
         with concurrent.futures.ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
-            # Submit tasks to the executor
-            futures = [executor.submit(take_single_snapshot, name, url) for name, url in urls_to_snapshot.items()]
-            
-            # Wait for all tasks to complete
+            futures = [executor.submit(take_single_snapshot, name, url) for name, url in shard_urls]
             results = [f.result() for f in concurrent.futures.as_completed(futures)]
-            
+
             if all(results):
-                print("\nAll snapshots completed successfully! ✅")
+                print(f"\n✅ Shard {shard_index + 1}/{total_shards} completed all snapshots successfully.")
             else:
-                print("\nSome snapshots failed. Check logs for details. ❌")
+                print(f"\n❌ Shard {shard_index + 1}/{total_shards} encountered snapshot failures.")
                 exit(1)
 
     except Exception as e:
-        print(f"An unexpected error occurred in the main process: {e} 💥")
+        print(f"💥 An unexpected error occurred in shard {shard_index + 1}: {e}")
         exit(1)
 
 if __name__ == "__main__":
