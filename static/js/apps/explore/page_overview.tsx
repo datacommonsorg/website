@@ -160,6 +160,8 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
         // Google Analytics treats any value in a custom dimension that resembles a number as a number,
         // even if it was originally formatted as text.
         triggerGAEvent(GA_EVENT_TOTAL_ANCHOR_COUNT, {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
           [GA_PARAM_COUNT_ANCHOR_ELEMENTS]: anchorCount.toString(),
         });
       })

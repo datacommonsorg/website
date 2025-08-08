@@ -313,7 +313,9 @@ export const GA_EVENT_PAGE_OVERVIEW_CLICK = "page_overview_click";
 /**
  * Triggered when the page overview loads from the API request
  * Parameters:
- *    "count_anchor_elements": Total number of anchor elements displayed in the page overview.
+ *    "page_source": "explore"
+ *    "component": "page_overview"
+ *    "count_anchor_elements": Total number of anchor elements displayed.
  */
 export const GA_EVENT_TOTAL_ANCHOR_COUNT = "total_anchor_count";
 

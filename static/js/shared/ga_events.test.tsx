@@ -1573,6 +1573,8 @@ describe("test ga event for Page Overview experiment", () => {
         "event",
         GA_EVENT_TOTAL_ANCHOR_COUNT,
         {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
           [GA_PARAM_COUNT_ANCHOR_ELEMENTS]: "3",
         }
       );
