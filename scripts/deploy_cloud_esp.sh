@@ -18,13 +18,14 @@
 
 set -e
 
-if [[ $# -ne 2 ]]; then
-  echo "Usage: $0 <ENV> <MIXER_HASH>"
+if [[ $# -ne 3 ]]; then
+  echo "Usage: $0 <ENV> <DEPLOYMENT> <MIXER_HASH>"
   exit 1
 fi
 
 ENV=$1
-MIXER_HASH=$2
+DEPLOYMENT=$2 # Whether it's for mixer or website
+MIXER_HASH=$3
 echo "Deploying Cloud Endpoints for environment: $ENV with mixer hash: $MIXER_HASH"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -32,10 +33,10 @@ ROOT="$(dirname "$DIR")"
 cd $ROOT
 
 # These variables are sourced from the helm values file.
-HELM_VALUES_FILE="$ROOT/deploy/helm_charts/envs/$ENV.yaml"
-if [ ! -f "$HELM_VALUES_FILE" ]; then
-    # The mixer profiles have a different path
-    HELM_VALUES_FILE="$ROOT/mixer/deploy/helm_charts/envs/mixer_$ENV.yaml"
+if [[ "$DEPLOYMENT" == "mixer" ]]; then
+  HELM_VALUES_FILE="$ROOT/mixer/deploy/helm_charts/envs/mixer_$ENV.yaml"
+elif [[ "$DEPLOYMENT" == "website" ]]; then
+  HELM_VALUES_FILE="$ROOT/deploy/helm_charts/envs/$ENV.yaml"
 fi
 
 if [ ! -f "$HELM_VALUES_FILE" ]; then
@@ -83,7 +84,9 @@ echo "Downloading mixer-grpc.$MIXER_HASH.pb..."
 gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
 
 echo "Deploying service configuration..."
-CONFIG_ID=$(gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID 2>&1 | awk -F'[][]' '/Service Configuration/ {print $2}')
+GCLOUD_OUTPUT=$(gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID 2>&1)
+echo "gcloud output: $GCLOUD_OUTPUT"
+CONFIG_ID=$(echo "$GCLOUD_OUTPUT" | awk -F'[][]' '/Service Configuration/ {print $2}')
 
 if [[ -z "$CONFIG_ID" ]]; then
     echo "Failed to deploy endpoint and get CONFIG_ID"
@@ -97,8 +100,8 @@ curl -o "/tmp/service_config.json" -H "Authorization: Bearer $(gcloud auth print
   "https://servicemanagement.googleapis.com/v1/services/$SERVICE_NAME/configs/$CONFIG_ID?view=FULL"
 
 echo "Creating/Updating service-config-configmap..."
-kubectl delete configmap service-config-configmap -n website --ignore-not-found
-kubectl create configmap service-config-configmap -n website \
+kubectl delete configmap service-config-configmap -n $DEPLOYMENT --ignore-not-found
+kubectl create configmap service-config-configmap -n $DEPLOYMENT \
   --from-file=service_config.json=/tmp/service_config.json
 
 echo "Cloud Endpoints deployment complete."

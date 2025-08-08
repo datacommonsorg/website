@@ -25,6 +25,7 @@ serialPipeline:
       - values:
         website.githash: ${WEBSITE_GITHASH}
         mixer.githash: ${MIXER_GITHASH}
+        MIXER_GITHASH: ${MIXER_GITHASH}
       strategy:
         standard:
           predeploy:
@@ -37,8 +38,11 @@ serialPipeline:
       - values:
         website.githash: ${WEBSITE_GITHASH}
         mixer.githash: ${MIXER_GITHASH}
+        MIXER_GITHASH: ${MIXER_GITHASH}
       strategy:
         standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-autopush"]
           postdeploy:
             actions: ["clear-website-cache"]
     - targetId: datacommons-website-staging
@@ -47,8 +51,11 @@ serialPipeline:
       - values:
         website.githash: ${WEBSITE_GITHASH}
         mixer.githash: ${MIXER_GITHASH}
+        MIXER_GITHASH: ${MIXER_GITHASH}
       strategy:
         standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-staging"]
           postdeploy:
             actions: ["clear-website-cache", "run-percy-snapshots"]
 ---
@@ -65,13 +72,21 @@ serialPipeline:
       deployParameters:
       - values:
         mixer.githash: ${MIXER_GITHASH}
+        MIXER_GITHASH: ${MIXER_GITHASH}
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-mixer-dev"]
     - targetId: datacommons-mixer-autopush
       profiles: [datacommons-mixer-autopush]
       deployParameters:
       - values:
         mixer.githash: ${MIXER_GITHASH}
+        MIXER_GITHASH: ${MIXER_GITHASH}
       strategy:
         standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-mixer-autopush"]
           postdeploy:
             actions: ["clear-mixer-cache"]
     - targetId: datacommons-mixer-staging
@@ -81,6 +96,8 @@ serialPipeline:
         mixer.githash: ${MIXER_GITHASH}
       strategy:
         standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-mixer-staging"]
           postdeploy:
             actions: ["update-nl-integration-test-goldens"]
 ---

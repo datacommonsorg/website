@@ -87,7 +87,7 @@ profiles:
             args:
               - "-c"
               - |
-                ./scripts/deploy_cloud_esp.sh dev f85f02a
+                ./scripts/deploy_cloud_esp.sh dev website ${MIXER_GITHASH}
       - name: clear-website-cache
         containers:
           - name: gcloud-website
@@ -122,6 +122,16 @@ profiles:
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
               mixer.githash: ${MIXER_GITHASH}
   - name: datacommons-mixer-dev
+    customActions:
+      - name: deploy-cloud-esp-mixer-dev
+        containers:
+          - name: gcloud-website0
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./scripts/deploy_cloud_esp.sh dev mixer ${MIXER_GITHASH}
     manifests:
       helm:
         releases:
@@ -142,6 +152,15 @@ profiles:
 
   - name: datacommons-website-autopush
     customActions:
+      - name: deploy-cloud-esp-autopush
+        containers:
+          - name: gcloud-website0
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./scripts/deploy_cloud_esp.sh autopush website ${MIXER_GITHASH}
       - name: clear-website-cache
         containers:
           - name: gcloud-website
@@ -180,6 +199,15 @@ profiles:
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
   - name: datacommons-mixer-autopush
     customActions:
+      - name: deploy-cloud-esp-mixer-autopush
+        containers:
+          - name: gcloud-website0
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./scripts/deploy_cloud_esp.sh autopush mixer ${MIXER_GITHASH}
       - name: clear-mixer-cache
         containers:
           - name: gcloud-mixer
@@ -213,6 +241,15 @@ profiles:
 
   - name: datacommons-website-staging
     customActions:
+      - name: deploy-cloud-esp-staging
+        containers:
+          - name: gcloud-website0
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./scripts/deploy_cloud_esp.sh staging website ${MIXER_GITHASH}
       - name: clear-website-cache
         containers:
           - name: gcloud-website
@@ -261,6 +298,15 @@ profiles:
               mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
   - name: datacommons-mixer-staging
     customActions:
+      - name: deploy-cloud-esp-mixer-staging
+        containers:
+          - name: gcloud-website0
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./scripts/deploy_cloud_esp.sh staging mixer ${MIXER_GITHASH}
       - name: update-nl-integration-test-goldens
         containers:
           - name: gcloud-website
