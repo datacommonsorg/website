@@ -31,12 +31,13 @@ import concurrent.futures
 from percy import percy_snapshot
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+
 
 # --- Configuration Constants ---
 WAIT_TIMEOUT = 15
@@ -46,18 +47,18 @@ URLS_FILE = "urls.json"
 
 # --- Revised setup_webdriver function ---
 def setup_webdriver():
-  """Initializes and returns a Chrome WebDriver instance with common options."""
-  chrome_options = Options()
-  chrome_options.add_argument("--headless")
-  chrome_options.add_argument("--no-sandbox")
-  chrome_options.add_argument("--disable-dev-shm-usage")
-  chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--window-size=1920,1080")
 
-  try:
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
-    return driver
+    try:
+        # Proper way to use ChromeDriverManager with Service
+        service = Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service, options=chrome_options)
+        return driver
   except Exception as e:
-      # ... (rest of the error handling remains the same)
       raise RuntimeError(f"Failed to set up WebDriver: {e}")
 
 def load_urls(base_url: str):
