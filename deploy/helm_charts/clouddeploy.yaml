@@ -196,7 +196,7 @@ description: Production GKE cluster for the website in us-central1
 gke:
   cluster: projects/datcom-website-prod/locations/us-central1/clusters/website-us-central1
 ---
-apiVersion: deploy.google.com/v1
+apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
   name: website-prod-west
