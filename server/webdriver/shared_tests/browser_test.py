@@ -23,6 +23,9 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import scroll_to_elem
 from server.webdriver.base_utils import wait_elem
 
+import logging
+logging.basicConfig(level=logging.INFO)
+
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
 AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
@@ -172,6 +175,13 @@ class BrowserTestMixin():
 
     first_result = find_elem(sv_hierarchy_results_section, By.XPATH,
                              './div[2]/div[1]')
+    test = find_elem(sv_hierarchy_results_section, By.XPATH, "./div[1]")
+    logging.info(test)
+    test2 = find_elem(sv_hierarchy_results_section, By.XPATH, "./div[2]")
+    logging.info(test2)
+    test3 = find_elem(sv_hierarchy_results_section, By.XPATH, "./div[2]/div[1]")
+    logging.info(test3)
+
     first_result.click()
 
     # Assert that the section Count_Person_Male_AsianAlone opened and shows at least one chart
