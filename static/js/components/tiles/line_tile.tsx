@@ -37,7 +37,11 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
-import { SeriesApiResponse, StatMetadata } from "../../shared/stat_types";
+import {
+  Series,
+  SeriesApiResponse,
+  StatMetadata,
+} from "../../shared/stat_types";
 import {
   NamedTypedPlace,
   StatVarFacetMap,
@@ -464,6 +468,14 @@ function rawToChart(
       if (spec.denom) {
         const denomSeries = raw.data[spec.denom][placeDcid];
         obsList = computeRatio(obsList, denomSeries.series);
+        if (denomSeries?.facet) {
+          sources.add(raw.facets[denomSeries.facet].provenanceUrl);
+          facets[denomSeries.facet] = raw.facets[denomSeries.facet];
+          if (!statVarToFacets[spec.denom]) {
+            statVarToFacets[spec.denom] = new Set<string>();
+          }
+          statVarToFacets[spec.denom].add(denomSeries.facet);
+        }
       }
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];

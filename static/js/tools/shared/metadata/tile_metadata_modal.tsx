@@ -69,6 +69,18 @@ export function TileMetadataModal(
   >({});
   const dataCommonsClient = getDataCommonsClient(props.apiRoot);
 
+  const denomStatVarDcids = useMemo(() => {
+    const result = new Set<string>();
+    if (props.statVarSpecs) {
+      for (const spec of props.statVarSpecs) {
+        if (spec.denom) {
+          result.add(spec.denom);
+        }
+      }
+    }
+    return result;
+  }, [props.statVarSpecs]);
+
   const statVarSet = useMemo(() => {
     const result = new Set<string>();
     if (props.statVarSpecs) {
@@ -96,8 +108,21 @@ export function TileMetadataModal(
       props.apiRoot
     )
       .then((resp) => {
+        // Sort stat vars: non-denominators first, then denominators.
+        // Secondary sort is alphabetical.
+        const sortedStatVars = resp.statVarList.sort((a, b) => {
+          const aIsDenom = denomStatVarDcids.has(a.dcid);
+          const bIsDenom = denomStatVarDcids.has(b.dcid);
+          if (aIsDenom && !bIsDenom) {
+            return 1;
+          }
+          if (!aIsDenom && bIsDenom) {
+            return -1;
+          }
+          return a.name.localeCompare(b.name);
+        });
         setMetadataMap(resp.metadata);
-        setStatVars(resp.statVarList);
+        setStatVars(sortedStatVars);
       })
       .catch(() => {
         console.error("Error loading metadata");
@@ -114,6 +139,7 @@ export function TileMetadataModal(
     props.apiRoot,
     props.statVarToFacets,
     props.facets,
+    denomStatVarDcids,
   ]);
 
   useEffect(() => {
@@ -158,6 +184,7 @@ export function TileMetadataModal(
               <TileMetadataModalContent
                 statVars={statVars}
                 metadataMap={metadataMap}
+                denomStatVarDcids={denomStatVarDcids}
                 apiRoot={props.apiRoot}
               />
             )
