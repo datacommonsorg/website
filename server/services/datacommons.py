@@ -509,6 +509,14 @@ def search_statvar(query, places, sv_only):
   })
 
 
+def filter_statvars(stat_vars, entities):
+  url = get_service_url('/v2/variable/filter')
+  return post(url, {
+      'stat_vars': stat_vars,
+      'entities': entities,
+  })
+
+
 def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
   req = {'node': dcid, 'category': category, 'seed': seed}
   if new_stat_vars:

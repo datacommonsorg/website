@@ -167,11 +167,11 @@ class BrowserTestMixin():
     # Search for "male asian " and select the first result
     search_input.send_keys(SEARCH_INPUT)
     wait_elem(self.driver, By.ID, 'sv-search-spinner')
-    sv_hierarchy_results_section = scroll_to_elem(
-        self.driver, value='statvar-hierarchy-search-results')
+    sv_hierarchy_results_section = scroll_to_elem(self.driver,
+                                                  value='sv-search-results')
 
-    first_result = find_elem(sv_hierarchy_results_section, By.XPATH,
-                             './div[2]/div[1]')
+    first_result = find_elem(sv_hierarchy_results_section, By.XPATH, './div[1]')
+
     first_result.click()
 
     # Assert that the section Count_Person_Male_AsianAlone opened and shows at least one chart
