@@ -40,9 +40,9 @@ logger = logging.getLogger(__name__)
 
 # Constants for Vertex AI Search Application
 # TODO: Move the VAI app to a different GCP project and figure out a better way to authenticate (ex. use API keys)
-VAI_PROJECT_ID = "datcom-website-dev"
+VAI_PROJECT_ID = "datcom-nl"
 VAI_LOCATION = "global"
-VAI_ENGINE_ID = "stat-var-search-bq-data_1751939744678"
+VAI_ENGINE_ID = "full-statvar-search-prod_1753469819363"
 vai_client = discoveryengine.SearchServiceClient()
 vai_serving_config = f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/collections/default_collection/engines/{VAI_ENGINE_ID}/servingConfigs/default_config"
 
