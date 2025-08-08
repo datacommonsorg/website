@@ -335,3 +335,91 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-mixer-staging"
               mixer.serviceName: "staging.api.datacommons.org"
+  - name: mixer-prod
+    customActions:
+      - name: deploy-cloud-esp-mixer-prod
+        containers:
+          - name: gcloud-website0
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./scripts/deploy_cloud_esp.sh prod mixer ${MIXER_GITHASH}
+    manifests:
+      helm:
+        releases:
+          - name: mixer-prod
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_prod.yaml
+            namespace: mixer
+            setFiles:
+              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
+              kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
+              kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
+            setValues:
+              serviceAccount.name: mixer-ksa
+              ingress.enabled: "true"
+              mixer.githash: ${MIXER_GITHASH}
+              mixer.hostProject: "datcom-mixer"
+              mixer.serviceName: "api.datacommons.org"
+
+  - name: website-prod
+    customActions:
+      - name: deploy-cloud-esp-prod
+        containers:
+          - name: gcloud-website0
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./scripts/deploy_cloud_esp.sh prod website ${MIXER_GITHASH}
+      - name: clear-website-cache
+        containers:
+          - name: gcloud-website
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                ./tools/clearcache/run.sh website prod
+      - name: run-percy-snapshots
+        containers:
+          - name: gcloud-website2
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - |
+                gcloud builds submit --config tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=production --project=datcom-ci 
+    manifests:
+      helm:
+        releases:
+          - name: datacommons-website-release
+            chartPath: deploy/helm_charts/dc_website
+            valuesFiles:
+              - deploy/helm_charts/envs/prod.yaml
+            setValues:
+              serviceAccount.name: website-ksa
+              website.githash: ${WEBSITE_GITHASH}
+          - name: dc-mixer
+            chartPath: mixer/deploy/helm_charts/mixer
+            valuesFiles:
+              - mixer/deploy/helm_charts/envs/mixer_prod.yaml
+            namespace: website
+            setFiles:
+              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
+              kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
+              kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
+              kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
+            setValues:
+              serviceAccount.name: website-ksa
+              ingress.enabled: "true"
+              mixer.useRedis: "false"
+              mixer.githash: ${MIXER_GITHASH}
+              mixer.hostProject: "datcom-website-prod"
+              project: "datcom-website-prod"
+              mixer.serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
