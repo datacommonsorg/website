@@ -310,6 +310,13 @@ export const GA_EVENT_STATVAR_HIERARCHY_CLICK = "statvar_hierarchy_click";
  */
 export const GA_EVENT_PAGE_OVERVIEW_CLICK = "page_overview_click";
 
+/**
+ * Triggered when the page overview loads from the API request
+ * Parameters:
+ *    "count_anchor_elements": Total number of anchor elements displayed in the page overview.
+ */
+export const GA_EVENT_TOTAL_ANCHOR_COUNT = "total_anchor_count";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -336,6 +343,7 @@ export const GA_PARAM_COMPONENT = "component";
 export const GA_PARAM_VIEW_TRACKING_MODE = "view_tracking_mode";
 export const GA_PARAM_CLICK_TRACKING_MODE = "click_tracking_mode";
 export const GA_PARAM_TOTAL_VIEW_TIME = "total_view_time";
+export const GA_PARAM_COUNT_ANCHOR_ELEMENTS = "count_anchor_elements";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";

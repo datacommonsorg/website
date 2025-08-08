@@ -117,9 +117,11 @@ import {
   GA_EVENT_TOOL_PLACE_ADD,
   GA_EVENT_TOOL_STAT_VAR_CLICK,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+  GA_EVENT_TOTAL_ANCHOR_COUNT,
   GA_EVENT_TOTAL_COMPONENT_VIEW_TIME,
   GA_PARAM_CLICK_TRACKING_MODE,
   GA_PARAM_COMPONENT,
+  GA_PARAM_COUNT_ANCHOR_ELEMENTS,
   GA_PARAM_PAGE_SOURCE,
   GA_PARAM_PLACE_DCID,
   GA_PARAM_RELATED_TOPICS_MODE,
@@ -1498,6 +1500,35 @@ describe("test ga event for Page Overview experiment", () => {
         {
           [GA_PARAM_CLICK_TRACKING_MODE]:
             GA_VALUE_TOTAL_CLICKS,
+        }
+      );
+    });
+  });
+  test("triggers GA event when Page Overview loads counting anchor elements", async () => {
+    // Mock gtag
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Mock Flask route
+    axios.post = jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve({ data: { pageOverview: PAGE_OVERVIEW ,statVarChartLinks: STAT_VAR_CHART_LINKS } })
+      );
+
+    // Render page overview component
+    const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
+
+    // Wait for overview to render
+    await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
+
+    await waitFor(() => {
+      expect(mockgtag).toHaveBeenCalledWith(
+        "event",
+        GA_EVENT_TOTAL_ANCHOR_COUNT,
+        {
+          [GA_PARAM_COUNT_ANCHOR_ELEMENTS]:
+            "3",
         }
       );
     });

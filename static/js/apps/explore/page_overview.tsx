@@ -24,7 +24,7 @@ import React, { ReactElement, useCallback, useEffect, useRef, useState } from "r
 
 import { Loading } from "../../components/elements/loading";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { GA_EVENT_PAGE_OVERVIEW_CLICK, GA_EVENT_TOTAL_COMPONENT_VIEW_TIME, GA_PARAM_CLICK_TRACKING_MODE, GA_PARAM_COMPONENT, GA_PARAM_PAGE_SOURCE, GA_PARAM_TOTAL_VIEW_TIME, GA_VALUE_INITIAL_CLICK, GA_VALUE_INITIAL_VIEW, GA_VALUE_PAGE_EXPLORE, GA_VALUE_PAGE_OVERVIEW, GA_VALUE_TOTAL_CLICKS, GA_VALUE_TOTAL_VIEWS, triggerComponentImpression, triggerComponentView, triggerGAEvent } from "../../shared/ga_events";
+import { GA_EVENT_PAGE_OVERVIEW_CLICK, GA_EVENT_TOTAL_ANCHOR_COUNT, GA_EVENT_TOTAL_COMPONENT_VIEW_TIME, GA_PARAM_CLICK_TRACKING_MODE, GA_PARAM_COMPONENT, GA_PARAM_COUNT_ANCHOR_ELEMENTS, GA_PARAM_PAGE_SOURCE, GA_PARAM_TOTAL_VIEW_TIME, GA_VALUE_INITIAL_CLICK, GA_VALUE_INITIAL_VIEW, GA_VALUE_PAGE_EXPLORE, GA_VALUE_PAGE_OVERVIEW, GA_VALUE_TOTAL_CLICKS, GA_VALUE_TOTAL_VIEWS, triggerComponentImpression, triggerComponentView, triggerGAEvent } from "../../shared/ga_events";
 import { useInView } from "react-intersection-observer";
 
 const GLOBAL_CAPTURE_LINK_GROUP = /<([^<>]+)>/g;
@@ -108,6 +108,8 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
       viewStartTime.current = null;
     };
     
+    // Google Analytics treats any value in a custom dimension that resembles a number as a number, 
+    // even if it was originally formatted as text.
     triggerGAEvent(GA_EVENT_TOTAL_COMPONENT_VIEW_TIME, {
       [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
       [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
@@ -123,6 +125,17 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
     getPageOverview(props.query, statVars, trackComponentClicks)
       .then((value: Array<React.ReactNode>) => {
         setPageOverview(value);
+        
+        // Count anchor elements after they are set
+        const anchorCount = value.filter(
+          (el): el is React.ReactElement =>
+            React.isValidElement(el) && el.type === "a"
+        ).length;
+        // Google Analytics treats any value in a custom dimension that resembles a number as a number, 
+        // even if it was originally formatted as text.
+        triggerGAEvent(GA_EVENT_TOTAL_ANCHOR_COUNT,{
+          [GA_PARAM_COUNT_ANCHOR_ELEMENTS]: anchorCount.toString()
+        });
       })
       .catch(() => {
         setPageOverview([]);
