@@ -41,3 +41,18 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     topic_buttons = shared.find_elem(self.driver, By.CLASS_NAME,
                                      'explore-relevant-topics')
     self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
+
+  def test_success_result_with_no_page_overview(self):
+    """Test success result when page overview is not enabled."""
+    query = "#q=What is the population of Mountain View?"
+
+    self.driver.get(self.url_ + EXPLORE_URL + query)
+    shared.wait_elem(driver=self.driver, value="page-overview-inner")
+
+    # Page Overview should not be present
+    empty_page_overview = shared.find_elem(parent=self.driver,
+                                           value="page-overview-inner")
+    self.assertIsNone(
+        empty_page_overview,
+        "Page Overview component is not empty despite the flag not being activated."
+    )

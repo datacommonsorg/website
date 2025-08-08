@@ -64,6 +64,20 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         "Follow Up Questions component is not empty despite having no related topics."
     )
 
+  def test_page_overview_typical(self):
+    """Test that a Page Overview is generated and displayed."""
+    page_overview_flag = "?enable_feature=page_overview_ga"
+    query = "#q=What is the population of Mountain View?"
+
+    self.driver.get(self.url_ + EXPLORE_URL + page_overview_flag + query)
+    shared.wait_elem(driver=self.driver, value="page-overview-inner")
+
+    self.assertIsNotNone(
+        find_elem(parent=self.driver,
+                  by=By.CLASS_NAME,
+                  value="page-overview-inner"),
+        "No page overview was generated.")
+
   def test_bar_select_different_facet(self):
     """Tests that the facet selector on a bar chart can be used to update the source."""
     search_params = "#q=Age%20distribution%20in%20the%20united%20states"
