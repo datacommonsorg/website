@@ -19,8 +19,22 @@ from typing import List, Optional
 from flask import current_app
 from google import genai
 from pydantic import BaseModel
+from pydantic import ConfigDict
+from pydantic.alias_generators import to_camel
 
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
+
+
+class StatVarChartLink(BaseModel):
+  """A structure to map the generated overview links to Stat Var charts.
+  Attributes:
+    stat_var_title: The title of the chart in which the stat var is displayed.
+    natural_language: The natural language version of stat_var_title used in the page overview.
+  """
+  stat_var_title: str
+  natural_language: str
+
+  model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
 
 
 class PageOverview(BaseModel):
@@ -28,31 +42,37 @@ class PageOverview(BaseModel):
 
   Attributes:
     overview: A string containing the generated overview.
+    stat_var_links: A list of StatVarChartLinks that contain the chart title and how it was used in the overview.
   """
   overview: str
+  stat_var_links: list[StatVarChartLink]
 
 
 _OVERVIEW_GEMINI_CALL_RETRIES = 3
 
-_OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash-lite-preview-06-17"
+_OVERVIEW_GEMINI_MODEL = "gemini-2.5-flash-lite"
 
 
-def generate_page_overview(query: str, stat_vars: List[str]) -> Optional[str]:
+def generate_page_overview(
+    query: str,
+    stat_var_titles: List[str]) -> tuple[Optional[str], Optional[str]]:
   """ Generates page overview based on the initial query and relevant stat vars
 
       Args:
       query: The initial query made by the user.
-      stat_vars: The relevant statistical variables that were identified.
+      stat_var_titles: The title of charts for statistical variables that are relevant to the query.
 
       Returns:
-      A string containing the generated overview.
+      A tuple containing two items:
+        - A string for the generated overview with the stat vars mentioned being marked by angle brackets.
+        - A list of StatVarChartLinks that contain how the stat var was used in the overview and the stat var chart title.
   """
-  if not stat_vars or not query:
-    return None
+  if not stat_var_titles or not query:
+    return None, None
 
   gemini_api_key = current_app.config.get("LLM_API_KEY")
   if not gemini_api_key:
-    return None
+    return None, None
 
   gemini = genai.Client(api_key=gemini_api_key)
   for _ in range(_OVERVIEW_GEMINI_CALL_RETRIES):
@@ -60,18 +80,19 @@ def generate_page_overview(query: str, stat_vars: List[str]) -> Optional[str]:
       gemini_response = gemini.models.generate_content(
           model=_OVERVIEW_GEMINI_MODEL,
           contents=PAGE_OVERVIEW_PROMPT.format(initial_query=query,
-                                               stat_vars=stat_vars),
+                                               stat_var_titles=stat_var_titles),
           config={
               "response_mime_type": "application/json",
               "response_schema": PageOverview
           })
 
       generated_overview = gemini_response.parsed.overview
-      return generated_overview
+      stat_var_links = gemini_response.parsed.stat_var_links
+      return generated_overview, stat_var_links
     except Exception as e:
       logging.error(
-          f'[explore_page_overview]: Initial Query: {query} | Statistical Variables: {stat_vars} | Exception Caught: {e}',
+          f'[explore_page_overview]: Initial Query: {query} | Statistical Variables: {stat_var_titles} | Exception Caught: {e}',
           exc_info=True)
       continue
 
-  return None
+  return None, None
