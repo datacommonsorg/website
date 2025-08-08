@@ -83,7 +83,7 @@ steps:
     kubectl create configmap service-config-configmap -n website \
       --from-file=service_config.json=/tmp/service_config.json
   
-# Trigger the datacommons-mixer-release-pipeline
+# Trigger the datacommons-mixer
 - name: 'gcr.io/cloud-builders/gcloud'
   id: 'deploy-mixer'
   waitFor: ['deploy-esp']
@@ -93,14 +93,14 @@ steps:
   - |
     source /workspace/env.properties
     gcloud deploy releases create automated-release-$(date +"%Y%m%d-%H%M%S") \
-      --delivery-pipeline=datacommons-mixer-release-pipeline \
+      --delivery-pipeline=datacommons-mixer \
       --region=us-central1 \
       --skaffold-file=skaffold.yaml \
       --images=gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_HASH \
       --deploy-parameters=mixer.githash=$MIXER_HASH \
       --project=datcom-ci
 
-# Trigger the datacommons-website-release-pipeline. This step will run in parallel with the mixer deployment.
+# Trigger the datacommons-website. This step will run in parallel with the mixer deployment.
 - name: 'gcr.io/cloud-builders/gcloud'
   id: 'deploy-website'
   entrypoint: 'bash'
@@ -109,7 +109,7 @@ steps:
   - |
     source /workspace/env.properties
     gcloud deploy releases create automated-release-$(date +"%Y%m%d-%H%M%S") \
-      --delivery-pipeline=datacommons-website-release-pipeline \
+      --delivery-pipeline=datacommons-website \
       --region=us-central1 \
       --skaffold-file=skaffold.yaml \
       --images=gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$WEBSITE_HASH,gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$MIXER_HASH,gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$WEBSITE_HASH,gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$WEBSITE_HASH \

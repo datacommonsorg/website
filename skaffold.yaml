@@ -77,7 +77,7 @@ profiles:
         port: 8080
         localPort: 8080
 
-  - name: datacommons-website-dev
+  - name: website-dev
     customActions:
       - name: deploy-cloud-esp-dev
         containers:
@@ -121,7 +121,7 @@ profiles:
               project: "datcom-website-dev"
               mixer.serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
               mixer.githash: ${MIXER_GITHASH}
-  - name: datacommons-mixer-dev
+  - name: mixer-dev
     customActions:
       - name: deploy-cloud-esp-mixer-dev
         containers:
@@ -150,7 +150,7 @@ profiles:
               mixer.serviceName: "dev.api.datacommons.org"
               mixer.githash: ${MIXER_GITHASH}
 
-  - name: datacommons-website-autopush
+  - name: website-autopush
     customActions:
       - name: deploy-cloud-esp-autopush
         containers:
@@ -197,7 +197,7 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
               mixer.hostProject: "datcom-website-autopush"
               mixer.serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
-  - name: datacommons-mixer-autopush
+  - name: mixer-autopush
     customActions:
       - name: deploy-cloud-esp-mixer-autopush
         containers:
@@ -239,7 +239,7 @@ profiles:
               cluster_prefix: mixer
               mixer.serviceName: "autopush.api.datacommons.org"
 
-  - name: datacommons-website-staging
+  - name: website-staging
     customActions:
       - name: deploy-cloud-esp-staging
         containers:
@@ -296,7 +296,7 @@ profiles:
               mixer.hostProject: "datcom-website-staging"
               project: "datcom-website-staging"
               mixer.serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
-  - name: datacommons-mixer-staging
+  - name: mixer-staging
     customActions:
       - name: deploy-cloud-esp-mixer-staging
         containers:
