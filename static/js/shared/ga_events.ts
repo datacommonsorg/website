@@ -52,7 +52,7 @@ export function triggerComponentImpression(
 export function triggerComponentView(
   pageSource: string,
   component: string,
-  trackingMode: string,
+  trackingMode: string
 ): void {
   triggerGAEvent(GA_EVENT_COMPONENT_VIEW, {
     [GA_PARAM_PAGE_SOURCE]: pageSource,
@@ -305,7 +305,7 @@ export const GA_EVENT_STATVAR_HIERARCHY_CLICK = "statvar_hierarchy_click";
 
 /**
  * Triggered when an embedded link in the Page Overview is clicked.
- * Parameters: 
+ * Parameters:
  *    "click_tracking_mode": "initial_click" | "total_clicks"
  */
 export const GA_EVENT_PAGE_OVERVIEW_CLICK = "page_overview_click";

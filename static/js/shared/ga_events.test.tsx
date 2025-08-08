@@ -74,10 +74,11 @@ import {
 } from "@testing-library/react";
 import axios from "axios";
 import React from "react";
-import { act } from 'react-dom/test-utils';
+import { act } from "react-dom/test-utils";
 import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
-import { PageOverview } from "../apps/explore/page_overview";
+
 import { FollowUpQuestions } from "../apps/explore/follow_up_questions";
+import { PageOverview } from "../apps/explore/page_overview";
 import { ResultHeaderSection } from "../apps/explore/result_header_section";
 import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
@@ -171,16 +172,19 @@ const PAGE_OVERVIEW = `To explore the rate of education in El Paso, the populati
 The population with <associate's>, <bachelor's>, and doctorate degrees, along with overall educational attainment levels, represent key variables for this inquiry.
 Additionally, <student enrollment> across various educational levels can be examined to understand educational participation.`;
 const STAT_VAR_CHART_LINKS = [
-    {
-        statVarTitle: "Population With Associates Degree by Gender",
-        naturalLanguage: "associate's"},
-    {
-        statVarTitle: "Population With Bachelors Degree by Gender",
-        naturalLanguage: "bachelor's"},
-    {
-        statVarTitle: "Population Enrolled in Public School by Race",
-        naturalLanguage: "student enrollment"}
-]
+  {
+    statVarTitle: "Population With Associates Degree by Gender",
+    naturalLanguage: "associate's",
+  },
+  {
+    statVarTitle: "Population With Bachelors Degree by Gender",
+    naturalLanguage: "bachelor's",
+  },
+  {
+    statVarTitle: "Population Enrolled in Public School by Race",
+    naturalLanguage: "student enrollment",
+  },
+];
 // Props for place explorer chart.
 const PLACE_CHART_PROPS = {
   category: CATEGORY,
@@ -323,7 +327,31 @@ const PAGE_METADATA_PROPS = {
       containedPlaceTypes: {},
       eventTypeSpec: {},
     },
-    categories: [{title:"",blocks:[{columns:[],title:"Population With Associates Degree by Gender",category:0,index:0},{columns:[],title:"Population With Bachelors Degree by Gender",category:0,index:1},{columns:[],title:"Population Enrolled in Public School by Race",category:0,index:2}]}],
+    categories: [
+      {
+        title: "",
+        blocks: [
+          {
+            columns: [],
+            title: "Population With Associates Degree by Gender",
+            category: 0,
+            index: 0,
+          },
+          {
+            columns: [],
+            title: "Population With Bachelors Degree by Gender",
+            category: 0,
+            index: 1,
+          },
+          {
+            columns: [],
+            title: "Population Enrolled in Public School by Race",
+            category: 0,
+            index: 2,
+          },
+        ],
+      },
+    ],
   },
   mainTopics: [{ name: PLACE_NAME, dcid: PLACE_DCID, types: [] }],
 };
@@ -336,7 +364,7 @@ const FOLLOW_UP_QUESTIONS_PROPS = {
 const PAGE_OVERVIEW_PROPS = {
   query: QUERY,
   pageMetadata: PAGE_METADATA_PROPS,
-}
+};
 
 const RESULT_HEADER_SECTION_PROPS = {
   placeUrlVal: "",
@@ -1165,7 +1193,9 @@ describe("test ga event for Related Topics experiment", () => {
     const followUp = render(
       <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
     );
-    act(() => {mockAllIsIntersecting(false);});
+    act(() => {
+      mockAllIsIntersecting(false);
+    });
 
     // Wait for questions to render
     await waitForElementToBeRemoved(followUp.getByText("Loading..."));
@@ -1214,7 +1244,9 @@ describe("test ga event for Related Topics experiment", () => {
 
     // Render follow up component
     render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
-    act(() => {mockAllIsIntersecting(true)});
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
         "event",
@@ -1233,7 +1265,9 @@ describe("test ga event for Related Topics experiment", () => {
 
     // Render result header component
     render(<ResultHeaderSection {...RESULT_HEADER_SECTION_PROPS} />);
-    act(() => {mockAllIsIntersecting(true)});
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
         "event",
@@ -1280,16 +1314,16 @@ describe("test ga event for Page Overview experiment", () => {
 
     // Render page overview component
     render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
-    act(() => {mockAllIsIntersecting(true)});
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
         "event",
         GA_EVENT_COMPONENT_IMPRESSION,
         {
-          [GA_PARAM_PAGE_SOURCE]:
-            GA_VALUE_PAGE_EXPLORE,
-          [GA_PARAM_COMPONENT]:
-            GA_VALUE_PAGE_OVERVIEW,
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
         }
       );
     });
@@ -1300,32 +1334,30 @@ describe("test ga event for Page Overview experiment", () => {
     window.gtag = mockgtag;
 
     // Mock Flask route
-    axios.post = jest
-      .fn()
-      .mockImplementation(() =>
-        Promise.resolve({ data: { pageOverview: PAGE_OVERVIEW ,statVarChartLinks: STAT_VAR_CHART_LINKS } })
-      );
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
 
     // Render page overview component
     const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
 
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
-    act(() => {mockAllIsIntersecting(true)});
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
 
     await waitFor(() => {
-      expect(mockgtag).toHaveBeenCalledWith(
-        "event",
-        GA_EVENT_COMPONENT_VIEW,
-        {
-          [GA_PARAM_PAGE_SOURCE]:
-            GA_VALUE_PAGE_EXPLORE,
-          [GA_PARAM_COMPONENT]:
-            GA_VALUE_PAGE_OVERVIEW, 
-          [GA_PARAM_VIEW_TRACKING_MODE]:
-            GA_VALUE_INITIAL_VIEW,
-        }
-      );
+      expect(mockgtag).toHaveBeenCalledWith("event", GA_EVENT_COMPONENT_VIEW, {
+        [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+        [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+        [GA_PARAM_VIEW_TRACKING_MODE]: GA_VALUE_INITIAL_VIEW,
+      });
     });
   });
   test("triggers GA event when Page Overview is viewed twice", async () => {
@@ -1334,11 +1366,14 @@ describe("test ga event for Page Overview experiment", () => {
     window.gtag = mockgtag;
 
     // Mock Flask route
-    axios.post = jest
-      .fn()
-      .mockImplementation(() =>
-        Promise.resolve({ data: { pageOverview: PAGE_OVERVIEW ,statVarChartLinks: STAT_VAR_CHART_LINKS } })
-      );
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
 
     // Render page overview component
     const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
@@ -1346,39 +1381,35 @@ describe("test ga event for Page Overview experiment", () => {
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
 
-    act(() => {mockAllIsIntersecting(true)});
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
     await waitFor(() => {
-      expect(mockgtag).toHaveBeenCalledWith(
-        "event",
-        GA_EVENT_COMPONENT_VIEW,
-        {
-          [GA_PARAM_PAGE_SOURCE]:
-            GA_VALUE_PAGE_EXPLORE,
-          [GA_PARAM_COMPONENT]:
-            GA_VALUE_PAGE_OVERVIEW, 
-          [GA_PARAM_VIEW_TRACKING_MODE]:
-            GA_VALUE_TOTAL_VIEWS,
-        }
-      );
+      expect(mockgtag).toHaveBeenCalledWith("event", GA_EVENT_COMPONENT_VIEW, {
+        [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+        [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+        [GA_PARAM_VIEW_TRACKING_MODE]: GA_VALUE_TOTAL_VIEWS,
+      });
     });
     // Mock scrolling back to the component
-    act(() => {mockAllIsIntersecting(false);mockAllIsIntersecting(true)});
+    act(() => {
+      mockAllIsIntersecting(false);
+      mockAllIsIntersecting(true);
+    });
 
     await waitFor(() => {
-      expect(mockgtag).toHaveBeenNthCalledWith(4,
+      expect(mockgtag).toHaveBeenNthCalledWith(
+        4,
         "event",
         GA_EVENT_COMPONENT_VIEW,
         {
-          [GA_PARAM_PAGE_SOURCE]:
-            GA_VALUE_PAGE_EXPLORE,
-          [GA_PARAM_COMPONENT]:
-            GA_VALUE_PAGE_OVERVIEW, 
-          [GA_PARAM_VIEW_TRACKING_MODE]:
-            GA_VALUE_TOTAL_VIEWS,
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+          [GA_PARAM_VIEW_TRACKING_MODE]: GA_VALUE_TOTAL_VIEWS,
         }
       );
     });
-  })
+  });
   test("triggers GA event before unload, recording the view time of Page Overview", async () => {
     // Mock gtag
     const mockgtag = jest.fn();
@@ -1388,26 +1419,31 @@ describe("test ga event for Page Overview experiment", () => {
     const fiveSecondsLater = startTime + 5000; // 5 seconds in milliseconds
 
     // Set up the spy
-    const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => startTime);
+    const dateSpy = jest.spyOn(Date, "now").mockImplementation(() => startTime);
 
     // Mock Flask route
-    axios.post = jest
-      .fn()
-      .mockImplementation(() =>
-        Promise.resolve({ data: { pageOverview: PAGE_OVERVIEW ,statVarChartLinks: STAT_VAR_CHART_LINKS } })
-      );
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
 
     // Render page overview component
     const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
-    
+
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
 
-    act(() => {mockAllIsIntersecting(true)});
-    
+    act(() => {
+      mockAllIsIntersecting(true);
+    });
+
     dateSpy.mockReturnValueOnce(fiveSecondsLater);
 
-    fireEvent(window, new Event('beforeunload'));
+    fireEvent(window, new Event("beforeunload"));
 
     dateSpy.mockRestore();
 
@@ -1416,27 +1452,27 @@ describe("test ga event for Page Overview experiment", () => {
         "event",
         GA_EVENT_TOTAL_COMPONENT_VIEW_TIME,
         {
-          [GA_PARAM_PAGE_SOURCE]:
-            GA_VALUE_PAGE_EXPLORE,
-          [GA_PARAM_COMPONENT]:
-            GA_VALUE_PAGE_OVERVIEW, 
-          [GA_PARAM_TOTAL_VIEW_TIME]:
-            fiveSecondsLater.toString(),
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+          [GA_PARAM_TOTAL_VIEW_TIME]: fiveSecondsLater.toString(),
         }
       );
     });
-  })
+  });
   test("triggers GA event when Page Overview link is clicked", async () => {
     // Mock gtag
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
     // Mock Flask route
-    axios.post = jest
-      .fn()
-      .mockImplementation(() =>
-        Promise.resolve({ data: { pageOverview: PAGE_OVERVIEW ,statVarChartLinks: STAT_VAR_CHART_LINKS } })
-      );
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
 
     // Render page overview component
     const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
@@ -1445,15 +1481,16 @@ describe("test ga event for Page Overview experiment", () => {
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
 
     // Click scroll link
-    fireEvent.click(pageOverview.getByText(STAT_VAR_CHART_LINKS[0].naturalLanguage));
+    fireEvent.click(
+      pageOverview.getByText(STAT_VAR_CHART_LINKS[0].naturalLanguage)
+    );
 
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
         "event",
         GA_EVENT_PAGE_OVERVIEW_CLICK,
         {
-          [GA_PARAM_CLICK_TRACKING_MODE]:
-            GA_VALUE_INITIAL_CLICK,
+          [GA_PARAM_CLICK_TRACKING_MODE]: GA_VALUE_INITIAL_CLICK,
         }
       );
     });
@@ -1464,11 +1501,14 @@ describe("test ga event for Page Overview experiment", () => {
     window.gtag = mockgtag;
 
     // Mock Flask route
-    axios.post = jest
-      .fn()
-      .mockImplementation(() =>
-        Promise.resolve({ data: { pageOverview: PAGE_OVERVIEW ,statVarChartLinks: STAT_VAR_CHART_LINKS } })
-      );
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
 
     // Render page overview component
     const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
@@ -1477,29 +1517,32 @@ describe("test ga event for Page Overview experiment", () => {
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
 
     // Click scroll link
-    fireEvent.click(pageOverview.getByText(STAT_VAR_CHART_LINKS[0].naturalLanguage));
+    fireEvent.click(
+      pageOverview.getByText(STAT_VAR_CHART_LINKS[0].naturalLanguage)
+    );
 
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
         "event",
         GA_EVENT_PAGE_OVERVIEW_CLICK,
         {
-          [GA_PARAM_CLICK_TRACKING_MODE]:
-            GA_VALUE_TOTAL_CLICKS,
+          [GA_PARAM_CLICK_TRACKING_MODE]: GA_VALUE_TOTAL_CLICKS,
         }
       );
     });
 
     // Click scroll link
-    fireEvent.click(pageOverview.getByText(STAT_VAR_CHART_LINKS[1].naturalLanguage));
+    fireEvent.click(
+      pageOverview.getByText(STAT_VAR_CHART_LINKS[1].naturalLanguage)
+    );
 
     await waitFor(() => {
-      expect(mockgtag).toHaveBeenNthCalledWith(4,
+      expect(mockgtag).toHaveBeenNthCalledWith(
+        4,
         "event",
         GA_EVENT_PAGE_OVERVIEW_CLICK,
         {
-          [GA_PARAM_CLICK_TRACKING_MODE]:
-            GA_VALUE_TOTAL_CLICKS,
+          [GA_PARAM_CLICK_TRACKING_MODE]: GA_VALUE_TOTAL_CLICKS,
         }
       );
     });
@@ -1510,11 +1553,14 @@ describe("test ga event for Page Overview experiment", () => {
     window.gtag = mockgtag;
 
     // Mock Flask route
-    axios.post = jest
-      .fn()
-      .mockImplementation(() =>
-        Promise.resolve({ data: { pageOverview: PAGE_OVERVIEW ,statVarChartLinks: STAT_VAR_CHART_LINKS } })
-      );
+    axios.post = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          pageOverview: PAGE_OVERVIEW,
+          statVarChartLinks: STAT_VAR_CHART_LINKS,
+        },
+      })
+    );
 
     // Render page overview component
     const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
@@ -1527,8 +1573,7 @@ describe("test ga event for Page Overview experiment", () => {
         "event",
         GA_EVENT_TOTAL_ANCHOR_COUNT,
         {
-          [GA_PARAM_COUNT_ANCHOR_ELEMENTS]:
-            "3",
+          [GA_PARAM_COUNT_ANCHOR_ELEMENTS]: "3",
         }
       );
     });
