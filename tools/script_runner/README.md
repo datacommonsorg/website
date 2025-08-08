@@ -11,5 +11,5 @@ The `cloudbuild.push_image.yaml` file defines a Cloud Build job that builds and 
 You can trigger the build using the `gcloud` command-line tool.
 
 ```bash
-gcloud builds submit --config tools/script_runner/cloudbuild.push_image.yaml
+gcloud builds submit --config tools/script_runner/cloudbuild.push_image.yaml --project=datcom-ci
 ```
