@@ -1,2 +1,3 @@
-selenium
+selenium>=4.0
 percy-selenium
+webdriver-manager
