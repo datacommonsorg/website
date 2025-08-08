@@ -60,11 +60,11 @@ export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
     >
       <div
         css={css`
-          display: flex;
           align-items: center;
+          display: flex;
           flex-grow: 1;
-          gap: ${theme.spacing.md}px ${theme.spacing.sm}px;
           flex-wrap: wrap;
+          gap: ${theme.spacing.md}px ${theme.spacing.sm}px;
         `}
       >
         <div>{props.searchBarInstructionText}</div>
@@ -79,8 +79,8 @@ export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
 
             // Override old search icon styling
             #search-icon {
-              position: relative !important;
               margin: 0 -32px 0 16px !important;
+              position: relative !important;
               top: 0 !important;
             }
           `}
