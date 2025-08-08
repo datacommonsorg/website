@@ -58,8 +58,8 @@ def setup_webdriver():
         service = Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=chrome_options)
         return driver
-  except Exception as e:
-      raise RuntimeError(f"Failed to set up WebDriver: {e}")
+    except Exception as e:
+        raise RuntimeError(f"Failed to set up WebDriver: {e}")
 
 def load_urls(base_url: str):
     """Loads URLs from a JSON file and constructs full URLs."""
