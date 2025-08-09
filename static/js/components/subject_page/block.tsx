@@ -430,15 +430,6 @@ export function Block(props: BlockPropType): ReactElement {
     error: facetsError,
   } = usePromiseResolver(fetchFacets);
 
-  const hasAlternativeSources = useMemo(() => {
-    if (facetsLoading || !facetList) {
-      return false;
-    }
-    return facetList.some(
-      (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
-    );
-  }, [facetList, facetsLoading]);
-
   const onSvFacetIdUpdated = useCallback(
     (svFacetId: Record<string, string>): void => {
       setFacetOverrides((prev) => ({ ...prev, ...svFacetId }));
@@ -550,7 +541,7 @@ export function Block(props: BlockPropType): ReactElement {
             </Tooltip>
           </span>
         )}
-        {showFacetSelector && hasAlternativeSources && (
+        {showFacetSelector && (
           <div className="block-modal-trigger">
             {!facetsLoading && (denom || showSnapToHighestCoverageCheckbox) && (
               <span>•</span>
