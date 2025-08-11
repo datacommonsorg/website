@@ -100,22 +100,22 @@ export function FollowUpQuestions(
         </div>
       )}
       {!loading && !_.isEmpty(followUpQuestions) && (
-          <div className="follow-up-questions-inner">
-            {followUpQuestions.map((question, idx) => {
-              return (
-                <div key={idx} className="follow-up-questions-list-item">
-                  <a
-                    className="follow-up-questions-list-text"
-                    href={question.url}
-                    onClick={(): void => onQuestionClicked()}
-                  >
-                    {question.text}
-                    <br></br>
-                  </a>
-                </div>
-              );
-            })}
-          </div>
+        <div className="follow-up-questions-inner">
+          {followUpQuestions.map((question, idx) => {
+            return (
+              <div key={idx} className="follow-up-questions-list-item">
+                <a
+                  className="follow-up-questions-list-text"
+                  href={question.url}
+                  onClick={(): void => onQuestionClicked()}
+                >
+                  {question.text}
+                  <br></br>
+                </a>
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );
