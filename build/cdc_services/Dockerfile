@@ -49,7 +49,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/mixer cmd/main.go
 
 
 # #### Stage 2: Build python servers (website and NL). ####
-FROM --platform=linux/amd64 python:3.11.4-slim as py-servers
+FROM --platform=linux/amd64 python:3.11.4-slim AS py-servers
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
@@ -88,7 +88,7 @@ COPY deploy/nl/. /datacommons/nl/
 
 
 # #### Stage 3: Build static website assets. ####
-FROM --platform=linux/amd64 node:22-slim as static
+FROM --platform=linux/amd64 node:22 AS static
 
 WORKDIR /workspace
 
