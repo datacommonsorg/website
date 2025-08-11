@@ -17,6 +17,46 @@
 import { defineMessages } from "react-intl";
 
 export const chartComponentMessages = defineMessages({
+  ApiDialogButtonText: {
+    id: "apiDialogButtonText",
+    defaultMessage: "API",
+    description:
+      "Label for button to open a dialog to view and copy API endpoints calls.",
+  },
+  ApiDialogTitle: {
+    id: "apiDialogTitle",
+    defaultMessage: "API code",
+    description:
+      "Label for the title of the dialog to view and copy API endpoints calls.",
+  },
+  ApiDialogIntroduction: {
+    id: "apiDialogIntroduction",
+    defaultMessage:
+      "Here is the REST V2 API code to access this data. The results are provided in JSON format. To get started using the code below, first <apiKeyLink>obtain an API key</apiKeyLink>. For more details, check the <apiDocsLink>API documentation</apiDocsLink>.",
+    description:
+      "Introduction text for the API dialog, explaining how to use the code snippets and linking to documentation.",
+  },
+  ApiDialogCopy: {
+    id: "apiCopy",
+    defaultMessage: "Copy",
+    description:
+      "Label for button to that will copy a single endpoint to the clipboard.",
+  },
+  ApiDialogCopyAll: {
+    id: "apiCopyAll",
+    defaultMessage: "Copy All",
+    description:
+      "Label for button to that will copy all endpoint calls to the clipboard. " +
+      "This will display when there is more than one endpoint in the API dialog.",
+  },
+  ApiDialogDenomHelperText: {
+    id: "apiDialogDenomHelperText",
+    defaultMessage: "(for per capita calculations)",
+    description:
+      "The text that will display after a stat var name in API dialog, when " +
+      "that stat var is used as a denom. The text should indicate that the " +
+      "previous stat var is used for per capita calculations.",
+  },
   ChartDownloadDialogTitle: {
     id: "chartDownloadDialogTitle",
     defaultMessage: "Download this chart",
