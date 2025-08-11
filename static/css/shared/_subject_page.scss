@@ -65,6 +65,12 @@ article.category {
     display: flex;
     gap: 6px;
     padding: 14px 0;
+    width: auto;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    &.show {
+      opacity: 1;
+    }
 
     span, p {
       font-size: 14px !important;
@@ -130,13 +136,19 @@ article.category {
 .block-controls {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 
 .block-toggle {
   align-items: center;
   display: flex;
   padding: 14px 0;
+  width: auto;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  &.show {
+    opacity: 1;
+  }
 
   label {
     align-items: center;

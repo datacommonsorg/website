@@ -499,8 +499,29 @@ export function Block(props: BlockPropType): ReactElement {
   return (
     <>
       <div className="block-controls">
+        {showFacetSelector && (
+          <div
+            className={`block-modal-trigger ${
+              !facetsLoading ? "show" : facetsLoading == true ? "hide" : "show"
+            }`}
+          >
+            <FacetSelector
+              svFacetId={facetOverrides}
+              facetList={facetList}
+              loading={facetsLoading}
+              error={!!facetsError}
+              onSvFacetIdUpdated={onSvFacetIdUpdated}
+              variant="inline"
+              allowSelectionGrouping={shouldGroupFacetSelections}
+            />
+          </div>
+        )}
         {denom && (
-          <span className="block-toggle">
+          <span
+            className={`block-toggle ${
+              !facetsLoading ? "show" : facetsLoading == true ? "hide" : "show"
+            }`}
+          >
             <label>
               <Input
                 type="checkbox"
@@ -514,7 +535,11 @@ export function Block(props: BlockPropType): ReactElement {
           </span>
         )}
         {showSnapToHighestCoverageCheckbox && (
-          <span className="block-toggle">
+          <span
+            className={`block-toggle ${
+              !facetsLoading ? "show" : facetsLoading == true ? "hide" : "show"
+            }`}
+          >
             <label>
               <Input
                 checked={snapToHighestCoverage}
@@ -540,22 +565,6 @@ export function Block(props: BlockPropType): ReactElement {
               <Help className="material-icons" />
             </Tooltip>
           </span>
-        )}
-        {showFacetSelector && (
-          <div className="block-modal-trigger">
-            {!facetsLoading && (denom || showSnapToHighestCoverageCheckbox) && (
-              <span>•</span>
-            )}
-            <FacetSelector
-              svFacetId={facetOverrides}
-              facetList={facetList}
-              loading={facetsLoading}
-              error={!!facetsError}
-              onSvFacetIdUpdated={onSvFacetIdUpdated}
-              variant="inline"
-              allowSelectionGrouping={shouldGroupFacetSelections}
-            />
-          </div>
         )}
       </div>
       <div className="block-body row" ref={columnSectionRef}>
