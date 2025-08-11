@@ -23,7 +23,7 @@ import _ from "lodash";
 import React, {
   ReactElement,
   useCallback,
-  useEffect,
+  useEffect, useMemo,
   useRef,
   useState,
 } from "react";
@@ -37,6 +37,11 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+  ObservationSpecOptions,
+} from "../../shared/observation_specs";
 import { SeriesApiResponse, StatMetadata } from "../../shared/stat_types";
 import {
   NamedTypedPlace,
@@ -170,6 +175,35 @@ export function LineTile(props: LineTilePropType): ReactElement {
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
+
+  const getObservationSpecs = useMemo(() => {
+    if (!chartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const options: ObservationSpecOptions = {
+        statVarSpecs: props.statVarSpec,
+        statVarToFacets: chartData.statVarToFacets,
+      };
+      if (props.enclosedPlaceType) {
+        options.entityExpression = `${props.place.dcid}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      } else {
+        options.placeDcids =
+          props.comparisonPlaces && props.comparisonPlaces.length > 0
+            ? props.comparisonPlaces
+            : [props.place.dcid];
+      }
+
+      return buildObservationSpecs(options);
+    };
+  }, [
+    chartData,
+    props.statVarSpec,
+    props.enclosedPlaceType,
+    props.place,
+    props.comparisonPlaces,
+  ]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
@@ -178,6 +212,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={chartData && chartData.errorMsg}
       id={props.id}
       isInitialLoading={_.isNull(chartData)}

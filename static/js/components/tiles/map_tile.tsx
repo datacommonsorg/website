@@ -31,6 +31,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -50,6 +51,10 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -321,6 +326,29 @@ export function MapTile(props: MapTilePropType): ReactElement {
     };
   }, [props.subscribe]);
 
+  const getObservationSpecs = useMemo(() => {
+    if (!mapChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const layers = getDataSpec(props);
+      return layers.flatMap((layer) => {
+        const date = getCappedStatVarDate(
+          layer.variable.statVar,
+          mapChartData.dateOverride || layer.variable.date
+        );
+        const entityExpression = `${layer.parentPlace}<-containedInPlace+{typeOf:${layer.enclosedPlaceType}}`;
+
+        return buildObservationSpecs({
+          statVarSpecs: [layer.variable],
+          statVarToFacets: mapChartData.statVarToFacets,
+          entityExpression,
+          defaultDate: date,
+        });
+      });
+    };
+  }, [mapChartData, props]);
+
   return (
     <ChartTileContainer
       id={props.id}
@@ -366,6 +394,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
         }
         return dataRowsToCsv(rows, CSV_FIELD_DELIMITER, transformCsvHeader);
       }}
+      getObservationSpecs={getObservationSpecs}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       errorMsg={!_.isEmpty(mapChartData) && mapChartData.errorMsg}

@@ -28,6 +28,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -45,6 +46,10 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { PLACE_TYPES } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -212,6 +217,33 @@ export function BarTile(props: BarTilePropType): ReactElement {
       }
     };
   }, [props.subscribe]);
+
+  const getObservationSpecs = useMemo(() => {
+    if (!barChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const defaultDate = getFirstCappedStatVarSpecDate(props.variables);
+      if ("places" in props && !_.isEmpty(props.places)) {
+        return buildObservationSpecs({
+          statVarSpecs: props.variables,
+          statVarToFacets: barChartData.statVarToFacets,
+          placeDcids: props.places,
+          defaultDate,
+        });
+      } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+        const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+        return buildObservationSpecs({
+          statVarSpecs: props.variables,
+          statVarToFacets: barChartData.statVarToFacets,
+          entityExpression,
+          defaultDate,
+        });
+      }
+      return [];
+    };
+  }, [barChartData, props]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
@@ -220,6 +252,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={barChartData && barChartData.errorMsg}
       id={props.id}
       isInitialLoading={_.isNull(barChartData)}
