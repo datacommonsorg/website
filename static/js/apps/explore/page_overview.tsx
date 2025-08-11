@@ -23,6 +23,10 @@ import _ from "lodash";
 import React, { ReactElement, useEffect, useState } from "react";
 
 import { Loading } from "../../components/elements/loading";
+import {
+  isFeatureEnabled,
+  PAGE_OVERVIEW_LINKS,
+} from "../../shared/feature_flags/util";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 
 const GLOBAL_CAPTURE_LINK_GROUP = /<([^<>]+)>/g;
@@ -112,7 +116,10 @@ const getPageOverview = async (
         "$1"
       );
       // If the markers still exist, the links were not marked properly so the overview with no links is returned
-      if (CHECK_MARKERS_EXIST.test(testStatSyntax)) {
+      if (
+        CHECK_MARKERS_EXIST.test(testStatSyntax) ||
+        !isFeatureEnabled(PAGE_OVERVIEW_LINKS)
+      ) {
         const cleanedOverview: string = testStatSyntax.replace(
           GLOBAL_MARKERS,
           ""
