@@ -29,7 +29,7 @@ serialPipeline:
       strategy:
         standard:
           predeploy:
-            actions: ["deploy-cloud-esp-dev"]
+            actions: ["deploy-cloud-esp-dev", "update-bigtable-info"]
           postdeploy:
             actions: ["clear-website-cache"]
     - targetId: website-autopush
@@ -42,7 +42,7 @@ serialPipeline:
       strategy:
         standard:
           predeploy:
-            actions: ["deploy-cloud-esp-autopush"]
+            actions: ["deploy-cloud-esp-autopush", "update-bigtable-info"]
           postdeploy:
             actions: ["clear-website-cache"]
     - targetId: website-staging
@@ -90,7 +90,7 @@ serialPipeline:
       strategy:
         standard:
           predeploy:
-            actions: ["deploy-cloud-esp-mixer-dev"]
+            actions: ["deploy-cloud-esp-mixer-dev", "update-bigtable-info"]
     - targetId: mixer-autopush
       profiles: [mixer-autopush]
       deployParameters:
@@ -185,8 +185,8 @@ description: A multi-target for production deployments to multiple clusters
 requireApproval: true
 multiTarget:
   targetIds:
-  - website-prod-us-central1
-  - website-prod-us-west1
+  - website-prod-central
+  - website-prod-west
 ---
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
