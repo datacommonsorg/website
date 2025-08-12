@@ -504,7 +504,7 @@ export function Block(props: BlockPropType): ReactElement {
         }`}
       >
         {showFacetSelector && (
-          <div className={`block-modal-trigger`}>
+          <div className="block-modal-trigger">
             <FacetSelector
               svFacetId={facetOverrides}
               facetList={facetList}
@@ -517,7 +517,7 @@ export function Block(props: BlockPropType): ReactElement {
           </div>
         )}
         {denom && (
-          <div className={`block-toggle`}>
+          <div className="block-toggle">
             <label>
               <Input
                 type="checkbox"
@@ -531,7 +531,7 @@ export function Block(props: BlockPropType): ReactElement {
           </div>
         )}
         {showSnapToHighestCoverageCheckbox && (
-          <div className={`block-toggle`}>
+          <div className="block-toggle">
             <label>
               <Input
                 checked={snapToHighestCoverage}
