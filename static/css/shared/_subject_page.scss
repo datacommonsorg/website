@@ -20,6 +20,7 @@
 
 @forward "tiles";
 @use "../base";
+
 @import "node_modules/bootstrap/scss/functions";
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
@@ -69,6 +70,7 @@ article.category {
     gap: 6px;
     padding: 14px 0;
     width: auto;
+
     @include media-breakpoint-down(sm) {
       padding: 7px 0;
     }
@@ -140,9 +142,11 @@ article.category {
   gap: 1.1rem;
   opacity: 0;
   transition: opacity .3s ease-in-out;
+
   &.show {
     opacity: 1;
   }
+
   @include media-breakpoint-down(sm) {
     flex-direction: column;
     gap: 0;
@@ -155,6 +159,7 @@ article.category {
   display: flex;
   padding: 14px 0;
   width: auto;
+
   @include media-breakpoint-down(sm) {
     padding: 7px 0;
   }

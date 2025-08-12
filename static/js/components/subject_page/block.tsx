@@ -498,11 +498,7 @@ export function Block(props: BlockPropType): ReactElement {
 
   return (
     <>
-      <div
-        className={`block-controls ${
-          !facetsLoading ? "show" : facetsLoading == true ? "hide" : "show"
-        }`}
-      >
+      <div className={`block-controls ${!facetsLoading ? "show" : ""}`}>
         {showFacetSelector && (
           <div className="block-modal-trigger">
             <FacetSelector
