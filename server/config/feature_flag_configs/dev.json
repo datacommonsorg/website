@@ -54,6 +54,12 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
+    "name": "page_overview_links",
+    "enabled": true,
+    "owner": "javiervazquez",
+    "description": "A flag to guard if the embedded links in the overview are enabled."
+  },
+  {
     "name": "standardized_vis_tool",
     "enabled": false,
     "owner": "juliawu",
@@ -61,7 +67,7 @@
   },
   {
     "name": "vai_for_statvar_search",
-    "enabled": false,
+    "enabled": true,
     "owner": "alyssaguo",
     "description": "Enables using the Vertex AI search application for stat var searches."
   },
