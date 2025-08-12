@@ -121,7 +121,6 @@ profiles:
               - mixer/deploy/helm_charts/envs/mixer_dev.yaml
             namespace: website
             setFiles:
-              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: website-ksa
@@ -158,7 +157,6 @@ profiles:
               - mixer/deploy/helm_charts/envs/mixer_dev.yaml
             namespace: mixer
             setFiles:
-              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
             setValues:
               serviceAccount.name: mixer-ksa
@@ -211,7 +209,6 @@ profiles:
               - mixer/deploy/helm_charts/envs/mixer_autopush.yaml
             namespace: website
             setFiles:
-              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
@@ -251,7 +248,6 @@ profiles:
               - mixer/deploy/helm_charts/envs/mixer_autopush.yaml
             namespace: mixer
             setFiles:
-              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
@@ -309,7 +305,6 @@ profiles:
               - mixer/deploy/helm_charts/envs/mixer_staging.yaml
             namespace: website
             setFiles:
-              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
@@ -350,7 +345,6 @@ profiles:
               - mixer/deploy/helm_charts/envs/mixer_staging.yaml
             namespace: mixer
             setFiles:
-              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
@@ -380,7 +374,6 @@ profiles:
               - mixer/deploy/helm_charts/envs/mixer_prod.yaml
             namespace: mixer
             setFiles:
-              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
@@ -436,7 +429,6 @@ profiles:
               - mixer/deploy/helm_charts/envs/mixer_prod.yaml
             namespace: website
             setFiles:
-              kgStoreConfig.baseBigtableInfo: mixer/deploy/storage/base_bigtable_info.yaml
               kgStoreConfig.spannerGraphInfo: mixer/deploy/storage/spanner_graph_info.yaml
               kgStoreConfig.redisInfo: mixer/deploy/storage/redis_info.yaml
               kgStoreConfig.bigqueryVersion: mixer/deploy/storage/bigquery.version
