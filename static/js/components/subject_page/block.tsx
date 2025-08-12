@@ -498,13 +498,13 @@ export function Block(props: BlockPropType): ReactElement {
 
   return (
     <>
-      <div className="block-controls">
+      <div
+        className={`block-controls ${
+          !facetsLoading ? "show" : facetsLoading == true ? "hide" : "show"
+        }`}
+      >
         {showFacetSelector && (
-          <div
-            className={`block-modal-trigger ${
-              !facetsLoading ? "show" : facetsLoading == true ? "hide" : "show"
-            }`}
-          >
+          <div className={`block-modal-trigger`}>
             <FacetSelector
               svFacetId={facetOverrides}
               facetList={facetList}
@@ -517,11 +517,7 @@ export function Block(props: BlockPropType): ReactElement {
           </div>
         )}
         {denom && (
-          <span
-            className={`block-toggle ${
-              !facetsLoading ? "show" : facetsLoading == true ? "hide" : "show"
-            }`}
-          >
+          <div className={`block-toggle`}>
             <label>
               <Input
                 type="checkbox"
@@ -532,14 +528,10 @@ export function Block(props: BlockPropType): ReactElement {
                 {intl.formatMessage(messages.seePerCapita)}
               </span>
             </label>
-          </span>
+          </div>
         )}
         {showSnapToHighestCoverageCheckbox && (
-          <span
-            className={`block-toggle ${
-              !facetsLoading ? "show" : facetsLoading == true ? "hide" : "show"
-            }`}
-          >
+          <div className={`block-toggle`}>
             <label>
               <Input
                 checked={snapToHighestCoverage}
@@ -564,7 +556,7 @@ export function Block(props: BlockPropType): ReactElement {
             >
               <Help className="material-icons" />
             </Tooltip>
-          </span>
+          </div>
         )}
       </div>
       <div className="block-body row" ref={columnSectionRef}>
