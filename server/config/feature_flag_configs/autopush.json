@@ -60,6 +60,12 @@
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
   {
+    "name": "stat_var_autocomplete_search_bar",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Enable stat var autocompletion in the NL SEarch bar"
+  },
+  {
     "name": "vai_for_statvar_search",
     "enabled": true,
     "owner": "alyssaguo",
