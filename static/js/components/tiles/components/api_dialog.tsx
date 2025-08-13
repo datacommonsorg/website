@@ -96,8 +96,8 @@ const ApiCallTextArea = ({ value }: ApiCallTextAreaProps): ReactElement => {
       `}
     >
       <CopyToClipboardButton
-        valueToCopy={"hello world"}
-        variant="text"
+        valueToCopy={value}
+        variant="light"
         size="md"
         css={css`
           position: absolute;
@@ -112,6 +112,7 @@ const ApiCallTextArea = ({ value }: ApiCallTextAreaProps): ReactElement => {
         css={css`
           width: 100%;
           border: 1px solid ${theme.colors.border.primary.light};
+          color: ${theme.colors.text.tertiary.base};
           ${theme.radius.tertiary};
           ${theme.typography.family.code};
           ${theme.typography.text.sm};

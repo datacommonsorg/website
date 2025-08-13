@@ -371,6 +371,17 @@ const theme: Theme = {
           border: `1px solid ${DC_BLUE}`,
         },
       },
+      light: {
+        color: DC_GRAY_LIGHT,
+        backgroundColor: "transparent",
+        border: "none",
+        borderRadius: "none",
+        ["&:hover:not(:disabled):not([aria-disabled])"]: {
+          backgroundColor: "transparent",
+          color: DC_BLUE,
+          border: "none",
+        },
+      },
     },
     size: {
       sm: {
