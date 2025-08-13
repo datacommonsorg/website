@@ -23,7 +23,8 @@ import _ from "lodash";
 import React, {
   ReactElement,
   useCallback,
-  useEffect, useMemo,
+  useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -37,11 +38,6 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
-import {
-  Series,
-  SeriesApiResponse,
-  StatMetadata,
-} from "../../shared/stat_types";
 import {
   buildObservationSpecs,
   ObservationSpec,
