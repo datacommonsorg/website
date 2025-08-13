@@ -21,11 +21,11 @@ from google.cloud import discoveryengine_v1 as discoveryengine
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
 
 # Constants for Vertex AI Search Application
-VAI_PROJECT_ID = "datcom-website-dev"
+VAI_PROJECT_ID = "datcom-nl"
 VAI_LOCATION = "global"
 
 # Constants for SearchRequest
-VAI_SEARCH_ENGINE_ID = "alyssaguo-statvar-recognit_1749050492364"
+VAI_SEARCH_ENGINE_ID = "nl-statvar-search-prod_1753469590396"
 VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
 
 # Constants for CompleteQueryRequest
