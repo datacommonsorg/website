@@ -241,7 +241,6 @@
 }
 
 .follow-up-questions-list-text {
-  height: 23px;
   align-self: stretch;
   color: var(--gm-3-sys-light-primary);
   font-family: Google Sans Text, $font-family-sans-serif;
@@ -251,12 +250,46 @@
   line-height: 24px; 
 }
 
+.page-overview-inner {
+  justify-content: center;
+  align-self: stretch;
+  padding-top: 1.5em;
+  color: var(--gem-ref-palette--neutral20);
+  font-family: var(--Static-Title-Large-Font, "Google Sans");
+  font-size: var(--Static-Title-Large-Size, 22px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Static-Title-Large-Line-Height, 28px); /* 127.273% */
+  letter-spacing: var(--Static-Title-Large-Tracking, 0);
+
+  .highlight-statvars{
+    color: var(--gm-3-sys-light-primary);
+  }
+}
+
+.page-overview-loading {
+  padding-top: 1.5em;
+  min-height: 100px;
+}
+
+@media (max-width: 620px) {
+  .page-overview-loading{
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 340px) {
+  .page-overview-loading{
+    min-height: 200px;
+  }
+}
+
 .loading-container {
-  padding: 24px;
+  padding: 1.5em;
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
   background: var(--loading-background);
-  margin-bottom: 24px;
+  margin-bottom: 1.5em;
   width: 100%;
   color: var(--gm-3-ref-neutral-neutral-50) !important
 }
@@ -264,16 +297,17 @@
 .related-places,
 .user-message-container,
 .follow-up-questions-container {
-  padding: 24px;
+  padding: 1.5em;
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
   background: var(--gm-3-white);
-  margin-bottom: 24px;
+  margin-bottom: 1.5em;
   width: 100%;
 }
 
 .related-places .related-places-callout {
   margin-bottom: 16px;
+  font-size: 22px;
 }
 
 .user-message-container {

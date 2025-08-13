@@ -204,6 +204,8 @@ export interface MapChartData {
   statVarToFacets?: StatVarFacetMap;
   // Set if the component receives a date value from a subscribed event
   dateOverride?: string;
+  // A mapping of stat var to the name of the variable
+  statVarToVariableName: Record<string, string>;
 }
 
 export function MapTile(props: MapTilePropType): ReactElement {
@@ -448,6 +450,7 @@ export const fetchData = async (
     return null;
   }
   const rawDataArray = [];
+  const allStatVarToVariableNames: Record<string, string> = {};
   for (const layer of layers) {
     // TODO: Currently we make one set of data fetches per layer.
     //       We should switch to concurrent/batch calls across all layers.
@@ -517,13 +520,15 @@ export const fetchData = async (
           borderGeoJsonPromise,
         ]);
       // Get human-readable name of variable to display as label
-      const statVarDcidToName = await getStatVarNames(
+      const statVarToVariableName = await getStatVarNames(
         [layer.variable],
         props.apiRoot,
         props.getProcessedSVNameFn
       );
+      // Update the mapping of stat var to variable name
+      Object.assign(allStatVarToVariableNames, statVarToVariableName);
       layer.variable.name =
-        layer.variable.name || statVarDcidToName[layer.variable.statVar];
+        layer.variable.name || statVarToVariableName[layer.variable.statVar];
       // Only draw borders for containing places without 'wall to wall' coverage
       const borderGeoJson = shouldShowBorder(layer.enclosedPlaceType)
         ? borderGeoJsonData
@@ -543,12 +548,18 @@ export const fetchData = async (
       return null;
     }
   }
-  return rawToChart(rawDataArray, props, dateOverride);
+  return rawToChart(
+    rawDataArray,
+    props,
+    allStatVarToVariableNames,
+    dateOverride
+  );
 };
 
 function rawToChart(
   rawDataArray: RawData[],
   props: MapTilePropType,
+  statVarToVariableName: Record<string, string>,
   dateOverride?: string
 ): MapChartData {
   const allDataValues = [];
@@ -681,6 +692,7 @@ function rawToChart(
     facets,
     statVarToFacets,
     dateOverride,
+    statVarToVariableName,
   };
 }
 

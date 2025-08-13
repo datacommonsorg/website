@@ -281,6 +281,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population"
           },
           {
@@ -312,6 +313,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population in Cities of East Carroll Parish"
           },
           {
@@ -340,6 +342,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population"
           },
           {
@@ -371,6 +374,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population in Cities of East Carroll Parish"
           },
           {

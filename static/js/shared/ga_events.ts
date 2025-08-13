@@ -29,10 +29,33 @@ export function triggerGAEvent(
 }
 
 /**
+ * A helper function to trigger Google Analytics events for component impressions.
+ * @param pageSource The path of the page where the component was successfully rendered.
+ * @param component A descriptive name of the component to track for impressions.
+ */
+export function triggerComponentImpression(
+  pageSource: string,
+  component: string
+): void {
+  triggerGAEvent(GA_EVENT_COMPONENT_IMPRESSION, {
+    [GA_PARAM_PAGE_SOURCE]: pageSource,
+    [GA_PARAM_COMPONENT]: component,
+  });
+}
+
+/**
  * Triggered on soft page navigations. To track all page views (and disable GA page view tracking), set
  * manual_ga_pageview: true in the Jinja page render.
  */
 export const GA_EVENT_PAGE_VIEW = "page_view";
+
+/**
+ * Triggered when a component to track is rendered.
+ * Parameters:
+ *  page_source : "explore",
+ *  component: "related_topics_generated_questions"
+ */
+export const GA_EVENT_COMPONENT_IMPRESSION = "component_impression";
 
 /**
  * Event name: place_category_click
@@ -133,15 +156,16 @@ export const GA_EVENT_NL_FULFILL = "explore_fulfill";
  * Triggered when users click on a related topics url to keep exploring.
  * It could either be the current Related Topics chip or the experimental Follow Up Questions.
  * Parameters:
- *   "related_topics_mode" : "related_topics_experiment" || "related_topics_current"
+ *   "related_topics_mode" : "related_topics_generated_questions" || "related_topics_header_topics"
  */
 export const GA_EVENT_RELATED_TOPICS_CLICK = "related_topics_click";
 
 /**
  * Triggered once when the Follow Up Questions component is in view.
- * Parameters: None
+ * Parameters:
+ *  "related_topics_mode" : "related_topics_generated_questions" || "related_topics_header_topics"
  */
-export const GA_EVENT_FOLLOW_UP_QUESTIONS_VIEW = "follow_up_questions_view";
+export const GA_EVENT_RELATED_TOPICS_VIEW = "related_topics_view";
 
 /**
  * Triggered when "download" button is clicked on a tile.
@@ -264,6 +288,8 @@ export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
 export const GA_PARAM_SEARCH_SELECTION = "search_selection";
 export const GA_PARAM_RELATED_TOPICS_MODE = "related_topics_mode";
+export const GA_PARAM_PAGE_SOURCE = "page_source";
+export const GA_PARAM_COMPONENT = "component";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -290,15 +316,15 @@ export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG =
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
-export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
+export const GA_VALUE_PAGE_EXPLORE = "explore";
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
 export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
 export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_HIERARCHY = "sv_hierarchy";
 export const GA_VALUE_TOOL_STAT_VAR_OPTION_SEARCH = "sv_search";
 // Parameter value for GA_PARAM_RELATED_TOPICS_MODE to represent the Follow Up Questions mode.
-export const GA_VALUE_RELATED_TOPICS_DISPLAY_QUESTIONS =
-  "related_topics_display_questions";
+export const GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS =
+  "related_topics_generated_questions";
 // Parameter value for GA_PARAM_RELATED_TOPICS_MODE to represent the Related Topics mode in the Result Header.
-export const GA_VALUE_RELATED_TOPICS_DISPLAY_TOPICS =
-  "related_topics_display_topics";
+export const GA_VALUE_RELATED_TOPICS_HEADER_TOPICS =
+  "related_topics_header_topics";

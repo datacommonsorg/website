@@ -24,17 +24,15 @@ import React, { ReactElement, useCallback } from "react";
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
 import { RankingTile } from "../../../components/tiles/ranking_tile";
-import { FacetSelector } from "../../../shared/facet_selector";
+import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
 import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
+import { fetchFacetChoicesWithin } from "../../../tools/shared/facet_choice_fetcher";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
-import { fetchFacetsWithMetadata } from "../../../tools/shared/metadata/metadata_fetcher";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
-import { getDataCommonsClient } from "../../../utils/data_commons_client";
-import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
 import { ChartHeader } from "../chart_header";
 import { VisType } from "../vis_type_configs";
@@ -46,36 +44,25 @@ interface ChartFacetSelectorProps {
 function ChartFacetSelector({
   appContext,
 }: ChartFacetSelectorProps): ReactElement {
-  const dataCommonsClient = getDataCommonsClient();
   const statVar = appContext.statVars[0];
   const svFacetId = { [statVar.dcid]: statVar.facetId };
 
   const fetchFacets = useCallback(async () => {
-    const baseFacets = await getFacetsWithin(
-      "",
+    return fetchFacetChoicesWithin(
       appContext.places[0].dcid,
       appContext.enclosedPlaceType,
-      [statVar.dcid],
-      statVar.date
+      [
+        {
+          dcid: statVar.dcid,
+          name: statVar.info.title || statVar.dcid,
+        },
+      ]
     );
-    const enrichedFacets = await fetchFacetsWithMetadata(
-      baseFacets,
-      dataCommonsClient
-    );
-    return [
-      {
-        dcid: statVar.dcid,
-        name: statVar.info.title || statVar.dcid,
-        metadataMap: enrichedFacets[statVar.dcid] || {},
-      },
-    ];
   }, [
     appContext.enclosedPlaceType,
     appContext.places,
-    statVar.date,
     statVar.dcid,
     statVar.info.title,
-    dataCommonsClient,
   ]);
 
   const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
