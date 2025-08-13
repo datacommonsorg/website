@@ -1,6 +1,3 @@
-import json
-import os
-import re
 import requests
 
 SITEMAP_OUTPUT_PATH = "../../static/sitemap/stat_vars.txt"
