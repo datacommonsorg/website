@@ -13,32 +13,24 @@
 # limitations under the License.
 
 import logging
-import re
-from typing import Dict, List
+from typing import List
 
 from google.cloud import discoveryengine_v1 as discoveryengine
+
+logger = logging.getLogger(__name__)
+from google.cloud import language_v1
 
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
 
 # Constants for Vertex AI Search Application
 VAI_PROJECT_ID = "datcom-nl"
 VAI_LOCATION = "global"
-
-# Constants for SearchRequest
 VAI_SEARCH_ENGINE_ID = "nl-statvar-search-prod_1753469590396"
 VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
 
-# Constants for CompleteQueryRequest
-VAI_COMPLETION_DATA_STORE_ID = "alyssaguo-statvars_1749050472293"
-
 SEARCH_CLIENT = discoveryengine.SearchServiceClient()
-COMPLETION_CLIENT = discoveryengine.CompletionServiceClient()
-
-LIMIT = 3
-MAX_NUM_OF_QUERIES = 6
-SKIP_AUTOCOMPLETE_TRIGGER = [
-    "tell", "me", "show", "about", "which", "what", "when", "how", "the"
-]
+LANGUAGE_CLIENT = language_v1.LanguageServiceClient()
+LIMIT = 5
 
 SERVING_CONFIG_PATH = (
     f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
@@ -46,110 +38,94 @@ SERVING_CONFIG_PATH = (
     f"servingConfigs/{VAI_SEARCH_SERVING_CONFIG_ID}"
 )
 
-DATA_STORE_PATH = (
-    f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
-    f"collections/default_collection/dataStores/{VAI_COMPLETION_DATA_STORE_ID}"
-)
+def analyze_query_concepts(query: str) -> List[str]:
+  """Uses the NL API to extract a list of relevant concepts from a query."""
+  # Words that are often extracted as entities but are too generic for a good search.
+  STOP_WORDS = {}
+  #     "people", "person", "place", "places", "city", "cities", "country",
+  #     "countries", "county", "counties", "state", "states", "area", "areas",
+  #     "region", "regions", "world", "earth", "me", "i"
+  # }
 
+  try:
+    document = language_v1.Document(
+        content=query, type_=language_v1.Document.Type.PLAIN_TEXT)
+    response = LANGUAGE_CLIENT.analyze_entities(
+        document=document, encoding_type=language_v1.EncodingType.UTF8)
 
-def find_stat_var_queries(user_query: str) -> List[str]:
-  rgx = re.compile(r'\s+')
-  words_in_query = re.split(rgx, user_query)
-  queries = []
-  cumulative = ""
+    # Find all relevant entities, filtering out generic types and stop words.
+    good_entities = []
+    logger.info("NL API response for query '%s': %s", query, response)
+    for entity in response.entities:
+      if entity.name.lower() in STOP_WORDS:
+        continue
+      if entity.type_ in [
+          language_v1.Entity.Type.LOCATION,
+          language_v1.Entity.Type.ADDRESS,
+          language_v1.Entity.Type.NUMBER, language_v1.Entity.Type.PRICE,
+          language_v1.Entity.Type.DATE, language_v1.Entity.Type.PHONE_NUMBER
+      ]:
+        continue
+      good_entities.append(entity)
 
-  last_word = words_in_query[-1].lower().strip()
-  if last_word in SKIP_AUTOCOMPLETE_TRIGGER or (
-      last_word == "" and
-      len(words_in_query) > 1 and
-      words_in_query[-2].lower().strip() in SKIP_AUTOCOMPLETE_TRIGGER):
-    return []
-
-  for word in reversed(words_in_query):
-    if len(queries) >= MAX_NUM_OF_QUERIES:
-      break
-
-    if len(cumulative) > 0:
-      cumulative = word + " " + cumulative
-    else:
-      cumulative = word
-
-    queries.append(cumulative)
-
-  queries.reverse()
-  return queries
-
-
-# This is the main function used by the application.
-def search_stat_vars(query: str) -> List[ScoredPrediction]:
-  if not query:
-    return []
-
-  queries = find_stat_var_queries(query)
-  if not queries:
-    return []
-
-  sv_to_queries: Dict[str, List[str]] = {}
-  sv_to_name: Dict[str, str] = {}
-  sv_to_rank: Dict[str, int] = {}
-
-  for q in queries:
-    request = discoveryengine.SearchRequest(
-        serving_config=SERVING_CONFIG_PATH,
-        query=q,
-        page_size=LIMIT,
-        relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
-
-    try:
-      response = SEARCH_CLIENT.search(request)
-    except Exception as e:
-      logging.error("SearchRequest failed for query '%s': %s", q, e)
+    if not good_entities:
       return []
 
-    for i, result in enumerate(response.results):
-      dcid = result.document.struct_data.get("dcid")
-      name = result.document.struct_data.get("name")
-      if not dcid or not name:
-        continue
+    # Sort entities by their position in the original query.
+    good_entities.sort(key=lambda e: e.mentions[0].text.begin_offset)
 
-      if dcid not in sv_to_queries:
-        sv_to_queries[dcid] = []
-        sv_to_name[dcid] = name
-        sv_to_rank[dcid] = i
-      sv_to_queries[dcid].append(q)
-      sv_to_rank[dcid] = min(sv_to_rank[dcid], i)
+    # Get the start of the first entity and the end of the last entity.
+    start_offset = good_entities[0].mentions[0].text.begin_offset
+    last_mention = good_entities[-1].mentions[0]
+    end_offset = last_mention.text.begin_offset + len(last_mention.text.content)
+
+    # Extract the full phrase from the original query.
+    extracted_phrase = query[start_offset:end_offset]
+
+    logging.info("NL API extracted phrase '%s' from query '%s'",
+                 extracted_phrase, query)
+    # Return a list containing the single, contiguous phrase.
+    return [extracted_phrase.strip()]
+
+  except Exception as e:
+    logging.error("NL API request failed for query '%s': %s", query, e)
+    return []
+
+
+def search_stat_vars(query: str, concepts: List[str]) -> List[ScoredPrediction]:
+  if not query or not concepts:
+    return []
+
+  # Join the concepts to form a search query. In this new logic, there will only be one concept.
+  search_query = " ".join(concepts)
+  # The matched query for replacement should also be this phrase.
+  matched_query = search_query
+
+  request = discoveryengine.SearchRequest(
+      serving_config=SERVING_CONFIG_PATH,
+      query=search_query,
+      page_size=LIMIT,
+      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM)
+
+  try:
+    response = SEARCH_CLIENT.search(request)
+  except Exception as e:
+    logging.error("SearchRequest failed for query '%s': %s", search_query, e)
+    return []
 
   results: List[ScoredPrediction] = []
-  for dcid, matched_queries in sv_to_queries.items():
-    matched_queries.sort(key=len, reverse=True)
-    longest_query = matched_queries[0]
-    score = sv_to_rank[dcid] - len(longest_query) * 0.01
+  for i, result in enumerate(response.results):
+    dcid = result.document.struct_data.get("dcid")
+    name = result.document.struct_data.get("name")
+    if not dcid or not name:
+      continue
+
+    score = i  # Simple rank-based score
     results.append(
-        ScoredPrediction(description=sv_to_name[dcid],
+        ScoredPrediction(description=name,
                          place_id=None,
                          place_dcid=dcid,
-                         matched_query=longest_query,
+                         matched_query=matched_query,
                          score=score))
 
-  results.sort(key=lambda x: x.score)
   return results
-
-
-# This is a separate function for testing the CompleteQuery API.
-# It is not currently used by the application.
-def _test_complete_query(query: str):
-  if not query:
-    return
-
-  logging.info("Testing CompleteQuery API with query: '%s'", query)
-  request = discoveryengine.CompleteQueryRequest(data_store=DATA_STORE_PATH,
-                                                 query=query,
-                                                 user_pseudo_id='user-gemini-123',
-                                                 include_tail_suggestions=True)
-  try:
-    response = COMPLETION_CLIENT.complete_query(request)
-    logging.info("CompleteQuery response: %s", response)
-    return response
-  except Exception as e:
-    logging.error("CompleteQueryRequest failed: %s", e)
-    return None

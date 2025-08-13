@@ -35,23 +35,23 @@ def autocomplete():
   lang = request.args.get('hl')
   query = request.args.get('query')
 
-  # Location Search
-  # Extract subqueries from the user input.
-  queries = helpers.find_queries(query)
+  # Always perform location search
+  place_queries = helpers.find_queries(query)
+  place_predictions = helpers.predict(place_queries, lang)
+  place_predictions = helpers.fetch_place_id_to_dcid(place_predictions)
 
-  # Send requests to the Google Maps Predictions API.
-  prediction_responses = helpers.predict(queries, lang)
-
-  # Augment responses with place DCID.
-  prediction_responses = helpers.fetch_place_id_to_dcid(prediction_responses)
-
-  # Stat Var Search (behind a feature flag)
+  # Analyze for stat var concepts and perform search if enabled
   sv_predictions = []
-  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE):
-    sv_predictions = stat_vars.search_stat_vars(query)
+  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE) or True:
+    sv_concepts = stat_vars.analyze_query_concepts(query)
+    sv_predictions = stat_vars.search_stat_vars(query, sv_concepts)
+    # If strong stat var concepts were found, boost their scores to rank them higher
+    if sv_concepts:
+      for p in sv_predictions:
+        p.score -= 100  # Apply a large score boost
 
   # Combine and sort all predictions
-  all_predictions = prediction_responses + sv_predictions
+  all_predictions = place_predictions + sv_predictions
   all_predictions.sort(key=helpers.get_score)
 
   final_predictions = []

@@ -39,8 +39,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
-import { redirect } from "../../shared/util";
-import { stripPatternFromQuery } from "../../shared/util";
+import { redirect, stripPatternFromQuery } from "../../shared/util";
 import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
@@ -107,10 +106,7 @@ export function AutoCompleteInput(
   const [sampleQuestionText, setSampleQuestionText] = useState("");
   const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
     useState("");
-  // Used to reduce sensitivity to scrolling for autocomplete result dismissal.
-  // Tracks the last scrollY value at time of autocomplete request.
   const [lastScrollYOnTrigger, setLastScrollYOnTrigger] = useState(0);
-  // Tracks the last scrollY value for current height offsett.
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const isHeaderBar = props.barType == "header";
@@ -119,7 +115,6 @@ export function AutoCompleteInput(
   const { placeholder } = useQueryStore();
 
   useEffect(() => {
-    // One time initialization of event listener to clear suggested results on scroll.
     window.addEventListener("scroll", () => {
       setLastScrollY(window.scrollY);
     });
@@ -127,7 +122,6 @@ export function AutoCompleteInput(
     const urlParams = new URLSearchParams(window.location.search);
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
 
-    // Start cycling through sample questions when the component mounts.
     if (!inputText && props.enableDynamicPlaceholders) {
       enableDynamicPlacehoder(
         setSampleQuestionText,
@@ -144,10 +138,6 @@ export function AutoCompleteInput(
         })
       : placeholder;
 
-  // Whenever any of the scrollY states change, recompute to see if we need to hide the results.
-  // We only hide the results when the user has scrolled past 15% of the window height since the autocomplete request.
-  // It allows the user to navigate through the page without being annoyed by the results,
-  // and to scroll through the results without them disappearing.
   useEffect(() => {
     if (
       results.length > 0 &&
@@ -158,16 +148,11 @@ export function AutoCompleteInput(
   }, [lastScrollY, lastScrollYOnTrigger, results]);
 
   useEffect(() => {
-    // For the first load when q= param is set, we want to ensure the
-    // props.value is propagated if it doesn't match input text.
-    // Afterwards, the onInputchange method is responsible for updating
-    // the text.
     if (props.value != inputText) {
       changeText(props.value);
     }
   }, [props.value]);
 
-  // Clear suggested results when click registered outside of component.
   useOutsideClickAlerter(wrapperRef, () => {
     setResults([]);
     setInputActive(false);
@@ -178,14 +163,13 @@ export function AutoCompleteInput(
   });
 
   useEffect(() => {
-    // TriggerSearch state used to ensure onSearch only called after text updated.
     executeQuery();
   }, [triggerSearch, setTriggerSearch]);
 
   function executeQuery(): void {
     setResults([]);
     setHoveredIdx(-1);
-    controller.current.abort(); // Ensure autocomplete responses can't come back.
+    controller.current.abort();
     props.onSearch(dynamicPlaceholdersEnabled);
   }
 
@@ -203,33 +187,25 @@ export function AutoCompleteInput(
 
     let lastSelection = lastAutoCompleteSelection;
     if (selectionApplied) {
-      // Trigger Google Analytics event to track the index of the selected autocomplete result.
       triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
         [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
       });
-
-      // Reset all suggestion results.
       setResults([]);
       setHoveredIdx(-1);
-      // Set the autocomplete selection.
       setLastAutoCompleteSelection(results[hoveredIdx].name);
       return;
     } else if (_.isEmpty(currentText)) {
-      // Reset all suggestion results.
       setResults([]);
       setLastAutoCompleteSelection("");
       setHoveredIdx(-1);
       return;
     } else if (!currentText.includes(lastAutoCompleteSelection)) {
-      // If the user backspaces into the last selection, reset it.
       lastSelection = "";
       setLastAutoCompleteSelection(lastSelection);
-      // fall through
     }
 
     let queryForAutoComplete = currentText;
     if (!_.isEmpty(lastSelection)) {
-      // if the last selection is still present, only send what comes after to autocomplete.
       const splitQuery = queryForAutoComplete.split(lastSelection);
       if (splitQuery.length == 2) {
         queryForAutoComplete = splitQuery[1].trim();
@@ -241,12 +217,9 @@ export function AutoCompleteInput(
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
     setLastScrollYOnTrigger(window.scrollY);
-    // Abort the previous request
     if (controller.current) {
       controller.current.abort();
     }
-
-    // Create a new AbortController for the current request
     controller.current = new AbortController();
 
     await axios
@@ -267,13 +240,11 @@ export function AutoCompleteInput(
       });
   }, []);
 
-  // memoize the debounce call with useMemo
   const sendDebouncedAutoCompleteRequest = useMemo(() => {
     return _.debounce(triggerAutoCompleteRequest, DEBOUNCE_INTERVAL_MS);
   }, []);
 
   function changeText(text: string): void {
-    // Update text in Input without triggering search.
     setInputText(text);
     props.onChange(text);
   }
@@ -281,7 +252,6 @@ export function AutoCompleteInput(
   function handleKeydownEvent(
     event: React.KeyboardEvent<HTMLDivElement>
   ): void {
-    // Navigate through the suggested results.
     switch (event.key) {
       case "Enter":
         event.preventDefault();
@@ -302,10 +272,19 @@ export function AutoCompleteInput(
     }
   }
 
+  function escapeRegExp(string: string): string {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+  }
+
   function replaceQueryWithSelection(
     query: string,
     result: AutoCompleteResult
   ): string {
+    if (result.matchType === STAT_VAR_SEARCH) {
+      // For stat vars, do a case-insensitive replacement of the matched concept.
+      const regex = new RegExp(escapeRegExp(result.matchedQuery), "i");
+      return query.replace(regex, result.name);
+    }
     if (result.matchType === LOCATION_SEARCH) {
       // For locations, replace only the last word of the matched query.
       const patternWords = result.matchedQuery.trim().split(" ");
@@ -318,7 +297,7 @@ export function AutoCompleteInput(
         return prefix + result.name;
       }
     }
-    // For stat vars (and as a fallback), replace the whole matched query.
+    // Fallback for any other case.
     return stripPatternFromQuery(query, result.matchedQuery) + result.name;
   }
 
@@ -332,7 +311,6 @@ export function AutoCompleteInput(
   }
 
   function selectResult(result: AutoCompleteResult, idx: number): void {
-    // Trigger Google Analytics event to track the index of the selected autocomplete result.
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
     });
@@ -351,9 +329,6 @@ export function AutoCompleteInput(
       result.matchType == LOCATION_SEARCH &&
       stripPatternFromQuery(baseInput, result.matchedQuery).trim() === ""
     ) {
-      // If this is a location result, and the matchedQuery matches the base input
-      // then that means there are no other parts of the query, so it's a place only
-      // redirection.
       if (result.dcid) {
         triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
           [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
@@ -420,4 +395,3 @@ export function AutoCompleteInput(
     </>
   );
 }
-
