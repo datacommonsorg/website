@@ -216,7 +216,7 @@ export function ApiDialog({
           );
           const title =
             observationSpec.role === "denominator"
-              ? `${statVarNames} (for per capita calculations)`
+              ? `${statVarNames} ${chartComponentMessages.ApiDialogDenomHelperText}`
               : statVarNames;
 
           return (
