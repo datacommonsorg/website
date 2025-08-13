@@ -430,15 +430,6 @@ export function Block(props: BlockPropType): ReactElement {
     error: facetsError,
   } = usePromiseResolver(fetchFacets);
 
-  const hasAlternativeSources = useMemo(() => {
-    if (facetsLoading || !facetList) {
-      return false;
-    }
-    return facetList.some(
-      (facetInfo) => Object.keys(facetInfo.metadataMap).length > 1
-    );
-  }, [facetList, facetsLoading]);
-
   const onSvFacetIdUpdated = useCallback(
     (svFacetId: Record<string, string>): void => {
       setFacetOverrides((prev) => ({ ...prev, ...svFacetId }));
@@ -507,9 +498,22 @@ export function Block(props: BlockPropType): ReactElement {
 
   return (
     <>
-      <div className="block-controls">
+      <div className={`block-controls ${!facetsLoading ? "show" : ""}`}>
+        {showFacetSelector && (
+          <div className="block-modal-trigger">
+            <FacetSelector
+              svFacetId={facetOverrides}
+              facetList={facetList}
+              loading={facetsLoading}
+              error={!!facetsError}
+              onSvFacetIdUpdated={onSvFacetIdUpdated}
+              variant="inline"
+              allowSelectionGrouping={shouldGroupFacetSelections}
+            />
+          </div>
+        )}
         {denom && (
-          <span className="block-toggle">
+          <div className="block-toggle">
             <label>
               <Input
                 type="checkbox"
@@ -520,10 +524,10 @@ export function Block(props: BlockPropType): ReactElement {
                 {intl.formatMessage(messages.seePerCapita)}
               </span>
             </label>
-          </span>
+          </div>
         )}
         {showSnapToHighestCoverageCheckbox && (
-          <span className="block-toggle">
+          <div className="block-toggle">
             <label>
               <Input
                 checked={snapToHighestCoverage}
@@ -548,22 +552,6 @@ export function Block(props: BlockPropType): ReactElement {
             >
               <Help className="material-icons" />
             </Tooltip>
-          </span>
-        )}
-        {showFacetSelector && hasAlternativeSources && (
-          <div className="block-modal-trigger">
-            {!facetsLoading && (denom || showSnapToHighestCoverageCheckbox) && (
-              <span>•</span>
-            )}
-            <FacetSelector
-              svFacetId={facetOverrides}
-              facetList={facetList}
-              loading={facetsLoading}
-              error={!!facetsError}
-              onSvFacetIdUpdated={onSvFacetIdUpdated}
-              variant="inline"
-              allowSelectionGrouping={shouldGroupFacetSelections}
-            />
           </div>
         )}
       </div>
