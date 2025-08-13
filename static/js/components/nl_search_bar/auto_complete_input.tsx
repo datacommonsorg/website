@@ -55,7 +55,9 @@ import {
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
+const STAT_VAR_EXPLORER_PREFIX = "/tools/statvar#sv=";
 const LOCATION_SEARCH = "location_search";
+const STAT_VAR_SEARCH = "stat_var_search";
 
 export interface AutoCompleteResult {
   dcid: string;
@@ -304,6 +306,19 @@ export function AutoCompleteInput(
     query: string,
     result: AutoCompleteResult
   ): string {
+    if (result.matchType === LOCATION_SEARCH) {
+      // For locations, replace only the last word of the matched query.
+      const patternWords = result.matchedQuery.trim().split(" ");
+      const lastWordOfPattern = patternWords[patternWords.length - 1];
+      const lastWordIndex = query
+        .toLowerCase()
+        .lastIndexOf(lastWordOfPattern.toLowerCase());
+      if (lastWordIndex !== -1) {
+        const prefix = query.substring(0, lastWordIndex);
+        return prefix + result.name;
+      }
+    }
+    // For stat vars (and as a fallback), replace the whole matched query.
     return stripPatternFromQuery(query, result.matchedQuery) + result.name;
   }
 
@@ -321,6 +336,16 @@ export function AutoCompleteInput(
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
     });
+
+    if (
+      result.matchType === STAT_VAR_SEARCH &&
+      stripPatternFromQuery(baseInput, result.matchedQuery).trim() === ""
+    ) {
+      if (result.dcid) {
+        window.location.href = STAT_VAR_EXPLORER_PREFIX + result.dcid;
+        return;
+      }
+    }
 
     if (
       result.matchType == LOCATION_SEARCH &&

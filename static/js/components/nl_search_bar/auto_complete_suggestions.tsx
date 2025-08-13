@@ -43,11 +43,16 @@ export function AutoCompleteSuggestions(
   const [triggered, setTriggered] = useState(false);
 
   function getIcon(result: AutoCompleteResult, baseInput: string): ReactElement {
+    const isExactMatch =
+      stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "";
     if (result.matchType === "stat_var_search") {
-      return <ScatterPlot />;
-    }
-    if (stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "") {
-      return <span className="material-icons-outlined">location_on</span>;
+      if (isExactMatch) {
+        return <ScatterPlot />;
+      }
+    } else if (result.matchType === "location_search") {
+      if (isExactMatch) {
+        return <span className="material-icons-outlined">location_on</span>;
+      }
     }
     return <Search />;
   }

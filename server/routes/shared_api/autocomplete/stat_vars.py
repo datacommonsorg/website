@@ -23,12 +23,17 @@ from server.routes.shared_api.autocomplete.types import ScoredPrediction
 # Constants for Vertex AI Search Application
 VAI_PROJECT_ID = "datcom-website-dev"
 VAI_LOCATION = "global"
-VAI_ENGINE_ID = "alyssaguo-statvar-recognit_1749050492364"
-VAI_SERVING_CONFIG_ID = "default_config"
-VAI_DATA_STORE_ID = "alyssaguo-statvars_1749050472293"
 
-VAI_CLIENT = discoveryengine.SearchServiceClient()
-VAI_CLIENT2 = discoveryengine.CompleteQueryServiceClient()
+# Constants for SearchRequest
+VAI_SEARCH_ENGINE_ID = "alyssaguo-statvar-recognit_1749050492364"
+VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
+
+# Constants for CompleteQueryRequest
+VAI_COMPLETION_DATA_STORE_ID = "alyssaguo-statvars_1749050472293"
+
+SEARCH_CLIENT = discoveryengine.SearchServiceClient()
+COMPLETION_CLIENT = discoveryengine.CompletionServiceClient()
+
 LIMIT = 3
 MAX_NUM_OF_QUERIES = 6
 SKIP_AUTOCOMPLETE_TRIGGER = [
@@ -37,15 +42,15 @@ SKIP_AUTOCOMPLETE_TRIGGER = [
 
 SERVING_CONFIG_PATH = (
     f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
-    f"collections/default_collection/engines/{VAI_ENGINE_ID}/"
-    f"servingConfigs/{VAI_SERVING_CONFIG_ID}"
+    f"collections/default_collection/engines/{VAI_SEARCH_ENGINE_ID}/"
+    f"servingConfigs/{VAI_SEARCH_SERVING_CONFIG_ID}"
 )
 
-DATA_STORE_CONFIG_PATH = (
+DATA_STORE_PATH = (
     f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
-    f"collections/default_collection/dataStoers/{VAI_ENGINE_ID}/"
-    f"dataStores/{VAI_DATA_STORE_ID}"
+    f"collections/default_collection/dataStores/{VAI_COMPLETION_DATA_STORE_ID}"
 )
+
 
 def find_stat_var_queries(user_query: str) -> List[str]:
   rgx = re.compile(r'\s+')
@@ -75,6 +80,7 @@ def find_stat_var_queries(user_query: str) -> List[str]:
   return queries
 
 
+# This is the main function used by the application.
 def search_stat_vars(query: str) -> List[ScoredPrediction]:
   if not query:
     return []
@@ -92,16 +98,12 @@ def search_stat_vars(query: str) -> List[ScoredPrediction]:
         serving_config=SERVING_CONFIG_PATH,
         query=q,
         page_size=LIMIT,
-        relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM)
-      request2 = discoveryengine.CompleteQueryRequest(
-        data_store=DATA_STORE_CONFIG_PATH,
-        query=q)
+        relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
 
     try:
-      response = VAI_CLIENT.search(request)
-      response2 = VAI_CLIENT2.complete_query(request)
+      response = SEARCH_CLIENT.search(request)
     except Exception as e:
-      logging.error("SearchRequest failed: %s", e, exc_info=True)
+      logging.error("SearchRequest failed for query '%s': %s", q, e)
       return []
 
     for i, result in enumerate(response.results):
@@ -131,3 +133,23 @@ def search_stat_vars(query: str) -> List[ScoredPrediction]:
 
   results.sort(key=lambda x: x.score)
   return results
+
+
+# This is a separate function for testing the CompleteQuery API.
+# It is not currently used by the application.
+def _test_complete_query(query: str):
+  if not query:
+    return
+
+  logging.info("Testing CompleteQuery API with query: '%s'", query)
+  request = discoveryengine.CompleteQueryRequest(data_store=DATA_STORE_PATH,
+                                                 query=query,
+                                                 user_pseudo_id='user-gemini-123',
+                                                 include_tail_suggestions=True)
+  try:
+    response = COMPLETION_CLIENT.complete_query(request)
+    logging.info("CompleteQuery response: %s", response)
+    return response
+  except Exception as e:
+    logging.error("CompleteQueryRequest failed: %s", e)
+    return None
