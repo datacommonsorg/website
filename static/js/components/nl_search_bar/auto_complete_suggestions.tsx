@@ -26,6 +26,8 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { stripPatternFromQuery } from "../../shared/util";
+import { ScatterPlot } from "../elements/icons/scatter_plot";
+import { Search } from "../elements/icons/search";
 import { AutoCompleteResult } from "./auto_complete_input";
 
 interface AutoCompleteSuggestionsPropType {
@@ -40,11 +42,14 @@ export function AutoCompleteSuggestions(
 ): ReactElement {
   const [triggered, setTriggered] = useState(false);
 
-  function getIcon(query: string, matchedQuery: string): string {
-    if (query.trim() == matchedQuery.trim()) {
-      return "location_on";
+  function getIcon(result: AutoCompleteResult, baseInput: string): ReactElement {
+    if (result.matchType === "stat_var_search") {
+      return <ScatterPlot />;
     }
-    return "search";
+    if (stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "") {
+      return <span className="material-icons-outlined">location_on</span>;
+    }
+    return <Search />;
   }
 
   useEffect(() => {
@@ -73,8 +78,8 @@ export function AutoCompleteSuggestions(
                 key={"search-input-result-" + result.dcid}
                 onClick={(): void => props.onClick(result, idx)}
               >
-                <span className="material-icons-outlined search-result-icon">
-                  {getIcon(props.baseInput, result.matchedQuery)}
+                <span className="search-result-icon">
+                  {getIcon(result, props.baseInput)}
                 </span>
                 <div className="query-result">
                   <span>
