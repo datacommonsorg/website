@@ -16,7 +16,6 @@ import json
 import logging
 import re
 from typing import Dict, List
-import unicodedata
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -117,173 +116,48 @@ def execute_maps_request(query: str, language: str) -> Dict:
   return json.loads(response.text)
 
 
-def bag_of_letters(text: str) -> Dict:
-  """Creates a bag-of-letters representation of a given string.
-    Returns:
-    dict: A dictionary where keys are letters and values are their counts.
-    """
-  bag = {}
-  for char in text.lower():
-    if char.isalpha():
-      bag[char] = bag.get(char, 0) + 1
-  return bag
-
-
-# TODO(gmechali): Look into a better typo algo e.g Levenshtein distance.
-def off_by_one_letter(str1_word: str, name_word: str) -> bool:
-  """Function to do off by one check.
-  Returns whether the two strings are off by at most one letter.
-  """
-  offby = 0
-  str1_bag = bag_of_letters(str1_word)
-  str2_bag = bag_of_letters(name_word)
-  for key, value in str1_bag.items():
-    if key in str2_bag:
-      offby += abs(str2_bag[key] - value)
-    else:
-      offby += value
-
-  # Add to offby for letters in str2 but not str1.
-  for key, value in str2_bag.items():
-    if key not in str1_bag:
-      offby += value
-
-  return offby <= 1
-
-
-def sanitize_and_replace_non_ascii(string: str) -> str:
-  """Sanitize and replace non ascii.
-  Returns:
-    String sanitized and without accents, cedillas, or enye."""
-  nfkd_form = unicodedata.normalize('NFKD', string)
-  return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
-
-
-def get_match_score(match_string: str, name: str) -> float:
-  """Computes a 'score' based on the matching words in two strings. Lowest
-  score is best match.
-  Returns:
-    Float score."""
-  name = sanitize_and_replace_non_ascii(name)
-  match_string = sanitize_and_replace_non_ascii(match_string)
-
-  rgx = re.compile(r'[\s|,]+')
-  words_in_name = re.split(rgx, name)
-  words_in_str1 = re.split(rgx, match_string)
-
-  score = 0
-  start_index = 0
-  for str1_idx, str1_word in enumerate(words_in_str1):
-    str1_word = str1_word.lower()
-    found_match = False
-    for idx, name_word in enumerate(words_in_name):
-      if idx < start_index:
-        continue
-
-      name_word = name_word.lower()
-      if idx == 0 and str1_idx == 0 and name_word.startswith(str1_word):
-        # boost score for start of query.
-        score -= 0.25
-
-      if str1_word == name_word:
-        start_index = idx + 1
-        score -= 1
-        found_match = True
-        break
-      elif str1_word in name_word:
-        start_index = idx + 1
-        score -= 0.5
-        found_match = True
-        break
-      elif off_by_one_letter(str1_word, name_word):
-        start_index = idx + 1
-        found_match = True
-        score -= 0.25
-
-    if not found_match:
-      score += 1
-
-  return score
-
-
-def score_below_zero(pred: ScoredPrediction) -> bool:
-  """Returns whether the score is below 0."""
-  return pred.score < 0
-
-
-def prepend_custom_places_hack(responses: List[ScoredPrediction],
-                               queries: List[str]) -> List[ScoredPrediction]:
-  """Prepend custom places as responses in order to hack it in autocomplete.
-  Returns:
-    List of scored predictions."""
-
-  if len(queries) == 0:
-    return responses
-
-  custom_places_responses = []
-  single_word_query = queries[-1]
-  for place in CUSTOM_PLACES:
-    scored_prediction = ScoredPrediction(description=place['description'],
-                                         place_id=None,
-                                         matched_query=single_word_query,
-                                         place_dcid=place['place_dcid'],
-                                         score=get_match_score(
-                                             single_word_query,
-                                             place['description']))
-    custom_places_responses.append(scored_prediction)
-
-  if len(queries) > 1:
-    two_word_query = queries[-2]
-    # If we have a 2 two word query, also place the two word custom places as responses.
-    for place in TWO_WORD_CUSTOM_PLACES:
-      scored_prediction = ScoredPrediction(description=place['description'],
-                                           place_id=None,
-                                           matched_query=two_word_query,
-                                           place_dcid=place['place_dcid'],
-                                           score=get_match_score(
-                                               two_word_query,
-                                               place['description']))
-      custom_places_responses.append(scored_prediction)
-
-  # Only keep custom places with a score below 0 as it implies it's close to the query.
-  custom_places_responses = list(
-      filter(score_below_zero, custom_places_responses))
-  return custom_places_responses + responses
-
+def get_score(p: ScoredPrediction) -> float:
+  """Returns the score."""
+  return p.score
 
 def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
-  """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
-  Returns:
-      List of json objects containing predictions from all queries issued after deduping.
-  """
-  all_responses = []
-  for query in queries:
-    predictions_for_query = execute_maps_request(query, lang)['predictions']
+  """Trigger maps prediction api requests and process the output."""
+  # A dictionary from a place_id to a list of sub-queries that returned it.
+  place_id_to_queries: Dict[str, List[str]] = {}
+  # A dictionary from a place_id to its description.
+  place_id_to_description: Dict[str, str] = {}
+  # A dictionary from a place_id to its best rank.
+  place_id_to_rank: Dict[str, int] = {}
 
-    for pred in predictions_for_query:
-      scored_prediction = ScoredPrediction(description=pred['description'],
-                                           place_id=pred['place_id'],
-                                           place_dcid=None,
-                                           matched_query=query,
-                                           score=get_match_score(
-                                               query, pred['description']))
-      all_responses.append(scored_prediction)
+  for q in queries:
+    predictions_for_query = execute_maps_request(q, lang)['predictions']
 
-  all_responses.sort(key=get_score)
-  logging.info("[Place_Autocomplete] Received %d total place predictions.",
-               len(all_responses))
+    for i, pred in enumerate(predictions_for_query):
+      place_id = pred['place_id']
+      if place_id not in place_id_to_queries:
+        place_id_to_queries[place_id] = []
+        place_id_to_description[place_id] = pred['description']
+        place_id_to_rank[place_id] = i
+      place_id_to_queries[place_id].append(q)
+      place_id_to_rank[place_id] = min(place_id_to_rank[place_id], i)
 
-  responses = []
-  place_ids = set()
-  index = 0
-  while len(responses) < 2 * DISPLAYED_RESPONSE_COUNT_LIMIT and index < len(
-      all_responses):
-    if all_responses[index].place_id not in place_ids:
-      responses.append(all_responses[index])
-      place_ids.add(all_responses[index].place_id)
-    index += 1
+  # For each place, find the longest sub-query that returned it.
+  # This will be the matched_query.
+  results: List[ScoredPrediction] = []
+  for place_id, matched_queries in place_id_to_queries.items():
+    matched_queries.sort(key=len, reverse=True)
+    longest_query = matched_queries[0]
+    # The score is based on the rank, lower is better.
+    # Add a small factor for the length of the matched query.
+    score = place_id_to_rank[place_id] - len(longest_query) * 0.01
+    results.append(
+        ScoredPrediction(description=place_id_to_description[place_id],
+                         place_id=place_id,
+                         place_dcid=None,
+                         matched_query=longest_query,
+                         score=score))
 
-  return responses
+  return results
 
 
 def fetch_place_id_to_dcid(
@@ -308,8 +182,3 @@ def fetch_place_id_to_dcid(
                len(place_id_to_dcid))
 
   return prediction_responses
-
-
-def get_score(p: ScoredPrediction) -> float:
-  """Returns the score."""
-  return p.score

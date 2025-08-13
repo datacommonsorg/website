@@ -95,8 +95,7 @@ export function AutoCompleteInput(
   const controller = useRef(new AbortController());
   const [baseInput, setBaseInput] = useState("");
   const [inputText, setInputText] = useState("");
-  // TODO(gmechali): Implement stat var search.
-  const [results, setResults] = useState({ placeResults: [], svResults: [] });
+  const [results, setResults] = useState<AutoCompleteResult[]>([]);
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [inputActive, setInputActive] = useState(false);
@@ -149,12 +148,12 @@ export function AutoCompleteInput(
   // and to scroll through the results without them disappearing.
   useEffect(() => {
     if (
-      results.placeResults.length > 0 &&
+      results.length > 0 &&
       Math.abs(lastScrollY - lastScrollYOnTrigger) > window.outerHeight * 0.15
     ) {
-      setResults({ placeResults: [], svResults: [] });
+      setResults([]);
     }
-  }, [lastScrollY, lastScrollYOnTrigger]);
+  }, [lastScrollY, lastScrollYOnTrigger, results]);
 
   useEffect(() => {
     // For the first load when q= param is set, we want to ensure the
@@ -168,7 +167,7 @@ export function AutoCompleteInput(
 
   // Clear suggested results when click registered outside of component.
   useOutsideClickAlerter(wrapperRef, () => {
-    setResults({ placeResults: [], svResults: [] });
+    setResults([]);
     setInputActive(false);
   });
 
@@ -182,7 +181,7 @@ export function AutoCompleteInput(
   }, [triggerSearch, setTriggerSearch]);
 
   function executeQuery(): void {
-    setResults({ placeResults: [], svResults: [] });
+    setResults([]);
     setHoveredIdx(-1);
     controller.current.abort(); // Ensure autocomplete responses can't come back.
     props.onSearch(dynamicPlaceholdersEnabled);
@@ -197,8 +196,8 @@ export function AutoCompleteInput(
 
     const selectionApplied =
       hoveredIdx >= 0 &&
-      hoveredIdx < results.placeResults.length &&
-      currentText.trim().endsWith(results.placeResults[hoveredIdx].name);
+      hoveredIdx < results.length &&
+      currentText.trim().endsWith(results[hoveredIdx].name);
 
     let lastSelection = lastAutoCompleteSelection;
     if (selectionApplied) {
@@ -208,14 +207,14 @@ export function AutoCompleteInput(
       });
 
       // Reset all suggestion results.
-      setResults({ placeResults: [], svResults: [] });
+      setResults([]);
       setHoveredIdx(-1);
       // Set the autocomplete selection.
-      setLastAutoCompleteSelection(results.placeResults[hoveredIdx].name);
+      setLastAutoCompleteSelection(results[hoveredIdx].name);
       return;
     } else if (_.isEmpty(currentText)) {
       // Reset all suggestion results.
-      setResults({ placeResults: [], svResults: [] });
+      setResults([]);
       setLastAutoCompleteSelection("");
       setHoveredIdx(-1);
       return;
@@ -254,12 +253,9 @@ export function AutoCompleteInput(
       })
       .then((response) => {
         if (!controller.current.signal.aborted) {
-          setResults({
-            placeResults: convertJSONToAutoCompleteResults(
-              response["data"]["predictions"]
-            ),
-            svResults: [],
-          });
+          setResults(
+            convertJSONToAutoCompleteResults(response.data.predictions || [])
+          );
         }
       })
       .catch((err) => {
@@ -288,7 +284,7 @@ export function AutoCompleteInput(
       case "Enter":
         event.preventDefault();
         if (hoveredIdx >= 0) {
-          selectResult(results.placeResults[hoveredIdx], hoveredIdx);
+          selectResult(results[hoveredIdx], hoveredIdx);
         } else {
           executeQuery();
         }
@@ -299,9 +295,7 @@ export function AutoCompleteInput(
         break;
       case "ArrowDown":
         event.preventDefault();
-        processArrowKey(
-          Math.min(hoveredIdx + 1, results.placeResults.length - 1)
-        );
+        processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
     }
   }
@@ -317,10 +311,7 @@ export function AutoCompleteInput(
     setHoveredIdx(selectedIndex);
     const textDisplayed =
       selectedIndex >= 0
-        ? replaceQueryWithSelection(
-            baseInput,
-            results.placeResults[selectedIndex]
-          )
+        ? replaceQueryWithSelection(baseInput, results[selectedIndex])
         : baseInput;
     changeText(textDisplayed);
   }
@@ -360,13 +351,13 @@ export function AutoCompleteInput(
     <>
       <div
         className={`search-box-section ${
-          results.placeResults.length == 0 ? "radiused" : "unradiused"
+          results.length == 0 ? "radiused" : "unradiused"
         } ${inputActive ? "search-box-section-active" : ""}`}
         ref={wrapperRef}
       >
         <div
           className={`search-bar${props.value ? " non-empty" : ""} ${
-            results.placeResults.length == 0 ? "radiused" : "unradiused"
+            results.length == 0 ? "radiused" : "unradiused"
           }`}
         >
           <InputGroup className="search-bar-content">
@@ -392,10 +383,10 @@ export function AutoCompleteInput(
             </div>
           </InputGroup>
         </div>
-        {props.enableAutoComplete && !_.isEmpty(results.placeResults) && (
+        {props.enableAutoComplete && !_.isEmpty(results) && (
           <AutoCompleteSuggestions
             baseInput={baseInput}
-            allResults={results.placeResults}
+            allResults={results}
             hoveredIdx={hoveredIdx}
             onClick={selectResult}
           />
@@ -404,3 +395,4 @@ export function AutoCompleteInput(
     </>
   );
 }
+
