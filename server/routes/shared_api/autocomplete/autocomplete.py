@@ -14,20 +14,13 @@
 
 import logging
 
-from flask import Blueprint
-from flask import jsonify
-from flask import request
+from flask import Blueprint, jsonify, request
 
-import logging
-
-from flask import Blueprint
-from flask import jsonify
-from flask import request
-
-from server.routes.shared_api.autocomplete import helpers
-from server.routes.shared_api.autocomplete import stat_vars
-from server.routes.shared_api.autocomplete.types import AutoCompleteApiResponse
-from server.routes.shared_api.autocomplete.types import AutoCompleteResult
+from server.lib.feature_flags import (
+    ENABLE_STAT_VAR_AUTOCOMPLETE, is_feature_enabled)
+from server.routes.shared_api.autocomplete import helpers, stat_vars
+from server.routes.shared_api.autocomplete.types import (
+    AutoCompleteApiResponse, AutoCompleteResult)
 
 # Define blueprint
 bp = Blueprint("autocomplete", __name__, url_prefix='/api')
@@ -52,8 +45,10 @@ def autocomplete():
   # Augment responses with place DCID.
   prediction_responses = helpers.fetch_place_id_to_dcid(prediction_responses)
 
-  # Stat Var Search
-  sv_predictions = stat_vars.search_stat_vars(query)
+  # Stat Var Search (behind a feature flag)
+  sv_predictions = []
+  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE):
+    sv_predictions = stat_vars.search_stat_vars(query)
 
   # Combine and sort all predictions
   all_predictions = prediction_responses + sv_predictions
@@ -74,8 +69,7 @@ def autocomplete():
       if len(final_predictions) == helpers.DISPLAYED_RESPONSE_COUNT_LIMIT:
         break
 
-  logging.info(
-      "[Autocomplete] Returning a total of %d predictions.",
-      len(final_predictions))
+  logging.info("[Autocomplete] Returning a total of %d predictions.",
+               len(final_predictions))
 
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))
