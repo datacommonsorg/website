@@ -352,7 +352,7 @@ class PlaceExplorerTestMixin():
 
     topics_for_ca = [
         "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
-        "Housing", "Environment"
+        "Housing", "Environment", "Energy"
     ]
     shared.assert_topics(self,
                          self.driver,
@@ -363,7 +363,7 @@ class PlaceExplorerTestMixin():
     # And that the categories have data in the overview
     topics_in_overview = [
         "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
-        "Housing"
+        "Housing", "Energy"
     ]
     block_titles = find_elems(self.driver, value='block-title-text')
     self.assertEqual([block.text for block in block_titles], topics_in_overview)
