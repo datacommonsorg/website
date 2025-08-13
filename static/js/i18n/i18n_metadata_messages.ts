@@ -96,6 +96,21 @@ export const metadataComponentMessages = defineMessages({
       "Label for the methodology used to produce the data. Examples are: ACS 5-Year Survey, " +
       "OECD Regional Statistics.",
   },
+  Notes: {
+    id: "notes",
+    defaultMessage: "Notes",
+    description:
+      "Label for the notes section. This contains information about the data that does not fit in " +
+      "other section.",
+  },
+  PerCapitaNote: {
+    id: "perCapitaNote",
+    defaultMessage:
+      "This statistical variable was used to calculate the per capita value. “Per capita” means “per person.” To calculate a per capita value, a total amount is divided by the number of people as represented by this variable.",
+    description:
+      "Label for the notes section. This contains information about the data that does not fit in " +
+      "other section.",
+  },
   SourceAndCitation: {
     id: "sourceAndCitation",
     defaultMessage: "Source and citation",
