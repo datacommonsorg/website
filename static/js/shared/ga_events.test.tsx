@@ -510,16 +510,21 @@ const STAT_VAR_HIERARCHY_PROPS = {
   selectSV: (): null => null,
   deselectSV: (): null => null,
 };
+const originalFeatureFlags = globalThis.FEATURE_FLAGS;
 
 beforeEach(() => {
   jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null));
   jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve(null));
+  // Make a copy of the original FEATURE_FLAGS object
+  globalThis.FEATURE_FLAGS = { ...originalFeatureFlags };
 });
 
 // Unmount react trees that were mounted with render and clear all mocks.
 afterEach(() => {
   cleanup();
   jest.clearAllMocks();
+  // Restore the original FEATURE_FLAGS object
+  globalThis.FEATURE_FLAGS = originalFeatureFlags;
 });
 
 describe("test ga event tool chart plot", () => {
@@ -1464,6 +1469,8 @@ describe("test ga event for Page Overview experiment", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
+    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: true };
+
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
       Promise.resolve({
@@ -1499,6 +1506,8 @@ describe("test ga event for Page Overview experiment", () => {
     // Mock gtag
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
+
+    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: true };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
@@ -1551,6 +1560,8 @@ describe("test ga event for Page Overview experiment", () => {
     // Mock gtag
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
+
+    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: true };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
