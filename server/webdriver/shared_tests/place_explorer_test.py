@@ -118,7 +118,7 @@ class PlaceExplorerTestMixin():
     # Find demographic link in explore topics box
     topics_for_ca = [
         "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
-        "Housing", "Environment"
+        "Housing", "Environment", "Energy"
     ]
     shared.assert_topics(self,
                          self.driver,
