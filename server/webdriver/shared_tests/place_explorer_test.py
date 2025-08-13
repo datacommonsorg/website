@@ -116,15 +116,11 @@ class PlaceExplorerTestMixin():
     self.driver.get(self.url_ + CA_URL)
 
     # Find demographic link in explore topics box
-    topics_for_ca = [
-        "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
-        "Housing", "Environment"
-    ]
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=topics_for_ca)
+                         expected_topics=ORDERED_TOPICS)
 
     demographics = find_elem(
         self.driver,
@@ -350,20 +346,16 @@ class PlaceExplorerTestMixin():
                        value='key-demographics-row',
                        path_to_elem=['key-demographics-table'])), 4)
 
-    topics_for_ca = [
-        "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
-        "Housing", "Environment"
-    ]
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
                          classname='item-list-item',
-                         expected_topics=topics_for_ca)
+                         expected_topics=ORDERED_TOPICS)
 
     # And that the categories have data in the overview
     topics_in_overview = [
         "Economics", "Health", "Equity", "Crime", "Education", "Demographics",
-        "Housing"
+        "Housing", "Energy"
     ]
     block_titles = find_elems(self.driver, value='block-title-text')
     self.assertEqual([block.text for block in block_titles], topics_in_overview)
