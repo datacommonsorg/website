@@ -89,24 +89,43 @@ const ApiCallTextArea = ({ value }: ApiCallTextAreaProps): ReactElement => {
   }, [value]);
 
   return (
-    <textarea
-      ref={textareaRef}
+    <div
       css={css`
         width: 100%;
-        border: 1px solid ${theme.colors.border.primary.light};
-        ${theme.radius.tertiary};
-        ${theme.typography.family.code};
-        ${theme.typography.text.sm};
-        padding: ${theme.spacing.md}px;
-        overflow-y: hidden;
-        resize: none;
-        &:focus {
-          outline: none;
-        }
+        position: relative;
       `}
-      readOnly
-      value={value}
-    />
+    >
+      <CopyToClipboardButton
+        valueToCopy={"hello world"}
+        variant="text"
+        size="md"
+        css={css`
+          position: absolute;
+          top: ${theme.spacing.md}px;
+          right: ${theme.spacing.md}px;
+          z-index: 1;
+          padding: ${theme.spacing.xs}px;
+        `}
+      ></CopyToClipboardButton>
+      <textarea
+        ref={textareaRef}
+        css={css`
+          width: 100%;
+          border: 1px solid ${theme.colors.border.primary.light};
+          ${theme.radius.tertiary};
+          ${theme.typography.family.code};
+          ${theme.typography.text.sm};
+          padding: ${theme.spacing.md}px;
+          overflow-y: hidden;
+          resize: none;
+          &:focus {
+            outline: none;
+          }
+        `}
+        readOnly
+        value={value}
+      />
+    </div>
   );
 };
 
