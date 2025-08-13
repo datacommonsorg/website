@@ -175,6 +175,11 @@ export function ApiDialog({
     [apiCalls]
   );
 
+  const numeratorSpecsCount = useMemo(
+    () => specs.filter((s) => s.role !== "denominator").length,
+    [specs]
+  );
+
   return (
     <Dialog
       open={open}
@@ -202,39 +207,37 @@ export function ApiDialog({
           />
         </p>
 
-        {specs.length === 1 ? (
-          <ApiCallTextArea value={apiCalls[0] || ""} />
-        ) : (
-          specs.map((observationSpec, index) => {
-            const statVarNames = getStatVarListString(
-              observationSpec.statVarDcids,
-              statVarNameMap
-            );
-            const title =
-              observationSpec.role === "denominator"
-                ? `${statVarNames} (for per capita calculations)`
-                : statVarNames;
+        {specs.map((observationSpec, index) => {
+          const showHeader =
+            observationSpec.role === "denominator" || numeratorSpecsCount > 1;
+          const statVarNames = getStatVarListString(
+            observationSpec.statVarDcids,
+            statVarNameMap
+          );
+          const title =
+            observationSpec.role === "denominator"
+              ? `${statVarNames} (for per capita calculations)`
+              : statVarNames;
 
-            return (
-              <div
-                key={index}
-                css={css`
+          return (
+            <div
+              key={index}
+              css={css`
+                display: block;
+                width: 100%;
+                && > h3 {
+                  ${theme.typography.family.text}
+                  ${theme.typography.text.lg}
                   display: block;
-                  width: 100%;
-                  && > h3 {
-                    ${theme.typography.family.text}
-                    ${theme.typography.text.lg}
-                    display: block;
-                    margin: 0 0 ${theme.spacing.sm}px 0;
-                  }
-                `}
-              >
-                <h3>{title}</h3>
-                <ApiCallTextArea value={apiCalls[index] || ""} />
-              </div>
-            );
-          })
-        )}
+                  margin: 0 0 ${theme.spacing.sm}px 0;
+                }
+              `}
+            >
+              {showHeader && <h3>{title}</h3>}
+              <ApiCallTextArea value={apiCalls[index] || ""} />
+            </div>
+          );
+        })}
       </DialogContent>
       <DialogActions>
         <Button variant="text" onClick={onClose}>
