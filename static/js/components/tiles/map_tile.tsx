@@ -49,7 +49,7 @@ import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import { USA_PLACE_DCID } from "../../shared/constants";
+import { DATE_HIGHEST_COVERAGE, USA_PLACE_DCID } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
 import {
   buildObservationSpecs,
@@ -333,17 +333,28 @@ export function MapTile(props: MapTilePropType): ReactElement {
     return (): ObservationSpec[] => {
       const layers = getDataSpec(props);
       return layers.flatMap((layer) => {
-        const date = getCappedStatVarDate(
-          layer.variable.statVar,
-          mapChartData.dateOverride || layer.variable.date
-        );
+        let date: string;
+        const effectiveDate = mapChartData.dateOverride || layer.variable.date;
+        if (effectiveDate === DATE_HIGHEST_COVERAGE) {
+          // If the date is HIGHEST_COVERAGE, we get all data. This is because
+          // the V2 API does not have a HIGHEST_COVERAGE concept.
+          date = "";
+        } else {
+          // Otherwise, if the date is blank, we ask for the latest.
+          date = effectiveDate || "LATEST";
+        }
+        const finalDate = getCappedStatVarDate(layer.variable.statVar, date);
+        const updatedSpec: StatVarSpec = {
+          ...layer.variable,
+          date: finalDate,
+        };
+
         const entityExpression = `${layer.parentPlace}<-containedInPlace+{typeOf:${layer.enclosedPlaceType}}`;
 
         return buildObservationSpecs({
-          statVarSpecs: [layer.variable],
+          statVarSpecs: [updatedSpec],
           statVarToFacets: mapChartData.statVarToFacets,
           entityExpression,
-          defaultDate: date,
         });
       });
     };

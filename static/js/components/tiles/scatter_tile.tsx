@@ -212,7 +212,8 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
     }
     return (): ObservationSpec[] => {
       const entityExpression = `${props.place.dcid}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
-      const defaultDate = getFirstCappedStatVarSpecDate(props.statVarSpec);
+      const defaultDate =
+        getFirstCappedStatVarSpecDate(props.statVarSpec) || "LATEST";
       return buildObservationSpecs({
         statVarSpecs: props.statVarSpec,
         statVarToFacets: scatterChartData.statVarToFacets,

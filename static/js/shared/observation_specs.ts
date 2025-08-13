@@ -122,7 +122,7 @@ export function buildObservationSpecs(
 
   for (const svSpec of statVarSpecs) {
     // we group the numerator first.
-    const effectiveDate = svSpec.date ?? defaultDate;
+    const effectiveDate = svSpec.date || defaultDate;
     // the `/v2/observation` does not have highest coverage capacity so we convert to "".
     const resolvedDate =
       effectiveDate === "HIGHEST_COVERAGE" ? "" : effectiveDate ?? "";
@@ -194,7 +194,9 @@ export function observationSpecToCurl(
 
   const params: string[] = [];
 
-  params.push(`"date": "${spec.date ?? ""}"`);
+  if (spec.date) {
+    params.push(`"date": "${spec.date}"`);
+  }
 
   params.push(
     `"variable": {"dcids": [${spec.statVarDcids

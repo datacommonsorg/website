@@ -223,7 +223,8 @@ export function BarTile(props: BarTilePropType): ReactElement {
       return undefined;
     }
     return (): ObservationSpec[] => {
-      const defaultDate = getFirstCappedStatVarSpecDate(props.variables);
+      const defaultDate =
+        getFirstCappedStatVarSpecDate(props.variables) || "LATEST";
       if ("places" in props && !_.isEmpty(props.places)) {
         return buildObservationSpecs({
           statVarSpecs: props.variables,

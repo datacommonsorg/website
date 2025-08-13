@@ -19,7 +19,7 @@ import { defineMessages } from "react-intl";
 export const chartComponentMessages = defineMessages({
   ApiDialogButtonText: {
     id: "apiDialogButtonText",
-    defaultMessage: "API",
+    defaultMessage: "API code",
     description:
       "Label for button to open a dialog to view and copy API endpoints calls.",
   },
