@@ -25,6 +25,10 @@ import { useInView } from "react-intersection-observer";
 
 import { Loading } from "../../components/elements/loading";
 import {
+  isFeatureEnabled,
+  PAGE_OVERVIEW_LINKS,
+} from "../../shared/feature_flags/util";
+import {
   GA_EVENT_PAGE_OVERVIEW_CLICK,
   GA_EVENT_TOTAL_ANCHOR_COUNT,
   GA_EVENT_TOTAL_COMPONENT_VIEW_TIME,
@@ -223,7 +227,10 @@ const getPageOverview = async (
         "$1"
       );
       // If the markers still exist, the links were not marked properly so the overview with no links is returned
-      if (CHECK_MARKERS_EXIST.test(testStatSyntax)) {
+      if (
+        CHECK_MARKERS_EXIST.test(testStatSyntax) ||
+        !isFeatureEnabled(PAGE_OVERVIEW_LINKS)
+      ) {
         const cleanedOverview: string = testStatSyntax.replace(
           GLOBAL_MARKERS,
           ""
