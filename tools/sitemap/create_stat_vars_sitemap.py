@@ -8,15 +8,23 @@ SITEMAP_OUTPUT_PATH = "../../static/sitemap/stat_vars.txt"
 def get_stat_vars_from_github():
     stat_vars = []
     api_url = "https://api.github.com/repos/datacommonsorg/schema/contents/stat_vars"
-    response = requests.get(api_url)
-    if response.status_code == 200:
+    try:
+        response = requests.get(api_url)
+        response.raise_for_status()
         files = response.json()
         for file in files:
             if file['name'].endswith('.mcf'):
                 file_url = file['download_url']
-                file_content = requests.get(file_url).text
-                dcids = extract_dcids(file_content)
-                stat_vars.extend(dcids)
+                try:
+                    file_content_response = requests.get(file_url)
+                    file_content_response.raise_for_status()
+                    file_content = file_content_response.text
+                    dcids = extract_dcids(file_content)
+                    stat_vars.extend(dcids)
+                except requests.exceptions.RequestException as e:
+                    print(f"Warning: Failed to download {file['name']}: {e}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error: Failed to get stat vars from GitHub: {e}")
     return stat_vars
 
 def extract_dcids(content):
