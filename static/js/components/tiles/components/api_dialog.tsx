@@ -231,7 +231,9 @@ export function ApiDialog({
           );
           const title =
             observationSpec.role === "denominator"
-              ? `${statVarNames} ${chartComponentMessages.ApiDialogDenomHelperText}`
+              ? `${statVarNames} ${intl.formatMessage(
+                  chartComponentMessages.ApiDialogDenomHelperText
+                )}`
               : statVarNames;
 
           return (
