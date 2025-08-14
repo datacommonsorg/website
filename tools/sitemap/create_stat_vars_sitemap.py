@@ -44,5 +44,8 @@ def create_sitemap(stat_vars):
 
 if __name__ == '__main__':
   stat_vars = get_stat_vars_from_github()
-  create_sitemap(stat_vars)
-  print(f"Sitemap created successfully at {SITEMAP_OUTPUT_PATH}")
+  if stat_vars:
+    create_sitemap(stat_vars)
+    print(f"Sitemap created successfully at {SITEMAP_OUTPUT_PATH}")
+  else:
+    print("Warning: No stat vars found or an error occurred. Sitemap not created.")
