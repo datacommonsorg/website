@@ -29,10 +29,12 @@ def get_stat_vars_from_github():
 
 def extract_dcids(content):
   dcids = []
-  for line in content.split('\n'):
+  for line in content.splitlines():
     if line.startswith('Node: dcid:'):
-      dcid = line.split('Node: dcid:')[1]
-      dcids.append(dcid)
+      _, _, dcid = line.partition('Node: dcid:')
+      dcid = dcid.strip()
+      if dcid:
+        dcids.append(dcid)
   return dcids
 
 def create_sitemap(stat_vars):
