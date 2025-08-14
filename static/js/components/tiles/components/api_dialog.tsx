@@ -105,6 +105,7 @@ const ApiCallTextArea = ({ value }: ApiCallTextAreaProps): ReactElement => {
           right: ${theme.spacing.md}px;
           z-index: 1;
           padding: ${theme.spacing.xs}px;
+          cursor: pointer;
         `}
       ></CopyToClipboardButton>
       <textarea
@@ -193,7 +194,21 @@ export function ApiDialog({
         {intl.formatMessage(chartComponentMessages.ApiDialogTitle)}
       </DialogTitle>
       <DialogContent>
-        <p>
+        <p
+          css={css`
+            && {
+              ${theme.typography.family.text}
+              ${theme.typography.text.md}
+              white-space: pre-wrap;
+              word-break: break-word;
+              margin-bottom: 0;
+              a {
+                white-space: pre-wrap;
+                word-break: break-word;
+              }
+            }
+          `}
+        >
           <FormattedMessage
             {...chartComponentMessages.ApiDialogIntroduction}
             values={{
@@ -229,7 +244,7 @@ export function ApiDialog({
                   ${theme.typography.family.text}
                   ${theme.typography.text.lg}
                   display: block;
-                  margin: 0 0 ${theme.spacing.sm}px 0;
+                  margin: 0 0 ${theme.spacing.md}px 0;
                 }
               `}
             >
