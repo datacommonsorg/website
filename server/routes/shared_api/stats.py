@@ -153,7 +153,7 @@ def search_statvar():
     limit = int(request.args.get("limit", 100))
   else:  # Method is POST
     query = request.json.get("query")
-    entities = request.json.get("entities")
+    entities = request.json.get("entities", [])
     sv_only = request.json.get("svOnly")
     limit = int(request.json.get("limit", 100))
 
