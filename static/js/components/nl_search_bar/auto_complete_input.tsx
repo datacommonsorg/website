@@ -95,6 +95,7 @@ export function AutoCompleteInput(
   const wrapperRef = useRef(null);
   const controller = useRef(new AbortController());
   const [baseInput, setBaseInput] = useState("");
+  const [baseInputLastQuery, setBaseInputLastQuery] = useState("");
   const [inputText, setInputText] = useState("");
   const [results, setResults] = useState<AutoCompleteResult[]>([]);
   const [hoveredIdx, setHoveredIdx] = useState(-1);
@@ -205,10 +206,44 @@ export function AutoCompleteInput(
     }
 
     let queryForAutoComplete = currentText;
-    if (!_.isEmpty(lastSelection)) {
-      const splitQuery = queryForAutoComplete.split(lastSelection);
-      if (splitQuery.length == 2) {
-        queryForAutoComplete = splitQuery[1].trim();
+    const locationTriggers = [" in ", " near ", " from ", " at "];
+    const separators = [" vs ", " versus ", " and ", " by "];
+    let queryFound = false;
+
+    // First, check for location triggers, as they are most specific
+    for (const trigger of locationTriggers) {
+      const lastIndex = queryForAutoComplete
+        .toLowerCase()
+        .lastIndexOf(trigger.toLowerCase());
+      if (lastIndex !== -1) {
+        queryForAutoComplete = queryForAutoComplete.substring(
+          lastIndex + trigger.length
+        );
+        queryFound = true;
+        break;
+      }
+    }
+
+    // If no location trigger, check for general separators
+    if (!queryFound) {
+      for (const sep of separators) {
+        const lastIndex = queryForAutoComplete
+          .toLowerCase()
+          .lastIndexOf(sep.toLowerCase());
+        if (lastIndex !== -1) {
+          queryForAutoComplete = queryForAutoComplete.substring(
+            lastIndex + sep.length
+          );
+          queryFound = true;
+          break;
+        }
+      }
+    }
+
+    if (!queryFound && !_.isEmpty(lastSelection)) {
+      const splitQuery = currentText.split(lastSelection);
+      if (splitQuery.length > 1) {
+        queryForAutoComplete = splitQuery[splitQuery.length - 1].trim();
       }
     }
 
@@ -231,6 +266,7 @@ export function AutoCompleteInput(
           setResults(
             convertJSONToAutoCompleteResults(response.data.predictions || [])
           );
+          setBaseInputLastQuery(query);
         }
       })
       .catch((err) => {
@@ -272,18 +308,20 @@ export function AutoCompleteInput(
     }
   }
 
-  function escapeRegExp(string: string): string {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
-  }
-
   function replaceQueryWithSelection(
     query: string,
     result: AutoCompleteResult
   ): string {
     if (result.matchType === STAT_VAR_SEARCH) {
-      // For stat vars, do a case-insensitive replacement of the matched concept.
-      const regex = new RegExp(escapeRegExp(result.matchedQuery), "i");
-      return query.replace(regex, result.name);
+      // For stat vars, do a case-insensitive replacement of the last occurrence of
+      // the matched concept.
+      const lowerCaseQuery = query.toLowerCase();
+      const lowerCaseMatchedQuery = result.matchedQuery.toLowerCase();
+      const lastIndex = lowerCaseQuery.lastIndexOf(lowerCaseMatchedQuery);
+      if (lastIndex !== -1) {
+        const prefix = query.substring(0, lastIndex);
+        return prefix + result.name;
+      }
     }
     if (result.matchType === LOCATION_SEARCH) {
       // For locations, replace only the last word of the matched query.
@@ -386,6 +424,7 @@ export function AutoCompleteInput(
         {props.enableAutoComplete && !_.isEmpty(results) && (
           <AutoCompleteSuggestions
             baseInput={baseInput}
+            baseInputLastQuery={baseInputLastQuery}
             allResults={results}
             hoveredIdx={hoveredIdx}
             onClick={selectResult}

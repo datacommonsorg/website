@@ -313,3 +313,7 @@ export function redirect(
 
   window.open(finalUrl, "_self");
 }
+
+export function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}

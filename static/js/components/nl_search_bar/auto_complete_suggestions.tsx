@@ -25,7 +25,7 @@ import {
   GA_PARAM_QUERY,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { stripPatternFromQuery } from "../../shared/util";
+import { escapeRegExp, stripPatternFromQuery } from "../../shared/util";
 import { ScatterPlot } from "../elements/icons/scatter_plot";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteResult } from "./auto_complete_input";
@@ -33,6 +33,7 @@ import { AutoCompleteResult } from "./auto_complete_input";
 interface AutoCompleteSuggestionsPropType {
   allResults: AutoCompleteResult[];
   baseInput: string;
+  baseInputLastQuery: string;
   onClick: (result: AutoCompleteResult, idx: number) => void;
   hoveredIdx: number;
 }
@@ -84,15 +85,30 @@ export function AutoCompleteSuggestions(
                 onClick={(): void => props.onClick(result, idx)}
               >
                 <span className="search-result-icon">
-                  {getIcon(result, props.baseInput)}
+                  {getIcon(result, props.baseInputLastQuery)}
                 </span>
                 <div className="query-result">
                   <span>
-                    {stripPatternFromQuery(
-                      props.baseInput,
-                      result.matchedQuery
-                    )}
-                    <span className="query-suggestion">{result.name}</span>
+                    {(() => {
+                      if (!result.matchedQuery) {
+                        return (
+                          <span className="query-suggestion">{result.name}</span>
+                        );
+                      }
+                      const regex = new RegExp(
+                        escapeRegExp(result.matchedQuery),
+                        "i"
+                      );
+                      const fullText = props.baseInput.replace(regex, result.name);
+                      const parts = fullText.split(result.name);
+                      return (
+                        <>
+                          {parts[0]}
+                          <span className="query-suggestion">{result.name}</span>
+                          {parts.length > 1 && parts[1]}
+                        </>
+                      );
+                    })()}
                   </span>
                 </div>
               </div>

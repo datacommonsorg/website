@@ -29,8 +29,13 @@ VAI_SEARCH_ENGINE_ID = "nl-statvar-search-prod_1753469590396"
 VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
 
 SEARCH_CLIENT = discoveryengine.SearchServiceClient()
+COMPLETE_CLIENT = discoveryengine.CompletionServiceClient()
 LANGUAGE_CLIENT = language_v1.LanguageServiceClient()
 LIMIT = 5
+
+# Note: The data store ID for completions may be different from the search engine ID.
+# Using the ID from the user's initial curl command.
+VAI_DATA_STORE_ID = "nl-statvar-search-prod_1753469569408"
 
 SERVING_CONFIG_PATH = (
     f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
@@ -38,58 +43,50 @@ SERVING_CONFIG_PATH = (
     f"servingConfigs/{VAI_SEARCH_SERVING_CONFIG_ID}"
 )
 
+DATA_STORE_PATH = (
+    f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
+    f"collections/default_collection/dataStores/{VAI_DATA_STORE_ID}"
+)
+
 def analyze_query_concepts(query: str) -> List[str]:
-  """Uses the NL API to extract a list of relevant concepts from a query."""
-  # Words that are often extracted as entities but are too generic for a good search.
-  STOP_WORDS = {}
-  #     "people", "person", "place", "places", "city", "cities", "country",
-  #     "countries", "county", "counties", "state", "states", "area", "areas",
-  #     "region", "regions", "world", "earth", "me", "i"
-  # }
+  """
+  Uses the NL API to extract key concepts from a query using Part-of-Speech
+  tagging. This is used to remove conversational filler.
+  """
+  # Tags to keep: Adjectives, Nouns, Numbers, and foreign/unknown words.
+  # This preserves important descriptors while removing filler like "how many",
+  # "what is", etc.
+  KEEP_TAGS = {
+      language_v1.PartOfSpeech.Tag.ADJ,
+      language_v1.PartOfSpeech.Tag.NOUN,
+      language_v1.PartOfSpeech.Tag.NUM,
+      language_v1.PartOfSpeech.Tag.X,
+  }
 
   try:
     document = language_v1.Document(
         content=query, type_=language_v1.Document.Type.PLAIN_TEXT)
-    response = LANGUAGE_CLIENT.analyze_entities(
+    response = LANGUAGE_CLIENT.analyze_syntax(
         document=document, encoding_type=language_v1.EncodingType.UTF8)
 
-    # Find all relevant entities, filtering out generic types and stop words.
-    good_entities = []
-    logger.info("NL API response for query '%s': %s", query, response)
-    for entity in response.entities:
-      if entity.name.lower() in STOP_WORDS:
-        continue
-      if entity.type_ in [
-          language_v1.Entity.Type.LOCATION,
-          language_v1.Entity.Type.ADDRESS,
-          language_v1.Entity.Type.NUMBER, language_v1.Entity.Type.PRICE,
-          language_v1.Entity.Type.DATE, language_v1.Entity.Type.PHONE_NUMBER
-      ]:
-        continue
-      good_entities.append(entity)
+    kept_words = []
+    for token in response.tokens:
+      if token.part_of_speech.tag in KEEP_TAGS:
+        kept_words.append(token.text.content)
 
-    if not good_entities:
+    if not kept_words:
       return []
 
-    # Sort entities by their position in the original query.
-    good_entities.sort(key=lambda e: e.mentions[0].text.begin_offset)
-
-    # Get the start of the first entity and the end of the last entity.
-    start_offset = good_entities[0].mentions[0].text.begin_offset
-    last_mention = good_entities[-1].mentions[0]
-    end_offset = last_mention.text.begin_offset + len(last_mention.text.content)
-
-    # Extract the full phrase from the original query.
-    extracted_phrase = query[start_offset:end_offset]
-
+    # Join the kept words to form the cleaned query concept.
+    extracted_phrase = " ".join(kept_words)
     logging.info("NL API extracted phrase '%s' from query '%s'",
                  extracted_phrase, query)
-    # Return a list containing the single, contiguous phrase.
-    return [extracted_phrase.strip()]
+    return [extracted_phrase]
 
   except Exception as e:
     logging.error("NL API request failed for query '%s': %s", query, e)
-    return []
+    # Fallback to returning the original query if the API fails.
+    return [query.strip()] if query else []
 
 
 def search_stat_vars(query: str, concepts: List[str]) -> List[ScoredPrediction]:
@@ -105,14 +102,23 @@ def search_stat_vars(query: str, concepts: List[str]) -> List[ScoredPrediction]:
       serving_config=SERVING_CONFIG_PATH,
       query=search_query,
       page_size=LIMIT,
-      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM)
+      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
+  complete_request = discoveryengine.CompleteQueryRequest(
+      data_store=DATA_STORE_PATH,
+      query=query,
+      include_tail_suggestions=True)
 
+  logger.info(f"Complete query request: {complete_request}")
   try:
+    complete_response = COMPLETE_CLIENT.complete_query(complete_request)
     response = SEARCH_CLIENT.search(request)
   except Exception as e:
+    logging.error("Complete failed for query '%s': %s", complete_request, e)
     logging.error("SearchRequest failed for query '%s': %s", search_query, e)
     return []
 
+  print(f"Complete response: {complete_response}")
+  print(f"end complete response")
   results: List[ScoredPrediction] = []
   for i, result in enumerate(response.results):
     dcid = result.document.struct_data.get("dcid")
