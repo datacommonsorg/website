@@ -19,7 +19,13 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import {
@@ -27,7 +33,12 @@ import {
   INITIAL_LOADING_CLASS,
 } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { DATE_HIGHEST_COVERAGE } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -125,6 +136,45 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     variables,
   ]);
 
+  const getObservationSpecs = useMemo(() => {
+    if (!rankingData) {
+      return undefined;
+    }
+    const allStatVarToFacets: StatVarFacetMap = {};
+    for (const sv in rankingData) {
+      if (rankingData[sv].statVarToFacets) {
+        Object.assign(allStatVarToFacets, rankingData[sv].statVarToFacets);
+      }
+    }
+
+    return (): ObservationSpec[] => {
+      const updatedStatVarSpecs = props.variables.map((spec) => {
+        // If the date is HIGHEST_COVERAGE, we get all data. This is because
+        // the V2 API does not have a HIGHEST_COVERAGE concept.
+        // Otherwise, if the date is blank, we ask for the latest.
+        const effectiveDate =
+          spec.date === DATE_HIGHEST_COVERAGE
+            ? DATE_HIGHEST_COVERAGE
+            : "LATEST";
+        const finalDate = getCappedStatVarDate(spec.statVar, effectiveDate);
+
+        return { ...spec, date: finalDate };
+      });
+
+      const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      return buildObservationSpecs({
+        statVarSpecs: updatedStatVarSpecs,
+        statVarToFacets: allStatVarToFacets,
+        entityExpression,
+      });
+    };
+  }, [
+    rankingData,
+    props.parentPlace,
+    props.enclosedPlaceType,
+    props.variables,
+  ]);
+
   const numRankingLists = getNumRankingLists(
     props.rankingMetadata,
     rankingData,
@@ -210,6 +260,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               entityType={props.enclosedPlaceType}
               errorMsg={errorMsg}
               footnote={props.footnote}
+              getObservationSpecs={getObservationSpecs}
               hideFooter={props.hideFooter}
               isLoading={isLoading}
               key={statVar}

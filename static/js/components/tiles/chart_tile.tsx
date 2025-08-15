@@ -25,6 +25,7 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { IconPlaceholder } from "../../shared/components";
+import { ObservationSpec } from "../../shared/observation_specs";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
@@ -53,7 +54,10 @@ interface ChartTileContainerProp {
   // callback function for getting the chart data as a csv. Only used for
   // embedding.
   getDataCsv?: () => Promise<string>;
-  // Extra classes to add to the container.
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
   className?: string;
   // Whether or not this is the initial loading state.
   isInitialLoading?: boolean;
@@ -126,10 +130,14 @@ export function ChartTileContainer(
         {props.children}
       </div>
       <ChartFooter
+        apiRoot={props.apiRoot}
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
         footnote={props.footnote}
-      ></ChartFooter>
+        getObservationSpecs={props.getObservationSpecs}
+        containerRef={containerRef}
+      />
+
       {showEmbed && (
         <ChartEmbed
           container={containerRef.current}
