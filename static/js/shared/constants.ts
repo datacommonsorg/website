@@ -186,6 +186,13 @@ export const PLACE_TYPES = new Set([
 ]);
 
 /**
+ *  the API root of the REST v2 API for display purposes, when no
+ *  other is available.
+ *  TODO: (nick-next): look into getting this from the server configs
+ */
+export const DEFAULT_API_ROOT = "https://api.datacommons.org";
+
+/**
  * date query param value for requesting latest overall available for
  * /api/observations/point/* endpoints
  */

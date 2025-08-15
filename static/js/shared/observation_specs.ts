@@ -23,6 +23,7 @@
  * hydrated into other formats.
  */
 
+import { DEFAULT_API_ROOT } from "./constants";
 import { StatVarFacetMap, StatVarSpec } from "./types";
 
 /*
@@ -121,56 +122,104 @@ export function buildObservationSpecs(
     : `expr:${entityExpression}`;
 
   for (const svSpec of statVarSpecs) {
-    // we group the numerator first.
-    const effectiveDate = svSpec.date || defaultDate;
-    // the `/v2/observation` does not have highest coverage capacity so we convert to "".
-    const resolvedDate =
-      effectiveDate === "HIGHEST_COVERAGE" ? "" : effectiveDate ?? "";
-    const numeratorFacetIds = svSpec.facetId ? [svSpec.facetId] : undefined;
-    const facetGroupKey = numeratorFacetIds
-      ? numeratorFacetIds.sort().join(",")
-      : "";
-    const numeratorGroupKey = `num|date:${resolvedDate}|${entityGroupKey}|facet:${facetGroupKey}`;
+    groupNumerator(
+      svSpec,
+      defaultDate,
+      entityPayload,
+      entityGroupKey,
+      numeratorGroups
+    );
 
-    let numeratorGroup = numeratorGroups.get(numeratorGroupKey);
-    if (!numeratorGroup) {
-      numeratorGroup = {
-        role: "numerator",
-        statVarDcids: [],
-        date: resolvedDate,
-        ...entityPayload,
-        filter: numeratorFacetIds ? { facetIds: numeratorFacetIds } : undefined,
-      };
-      numeratorGroups.set(numeratorGroupKey, numeratorGroup);
-    }
-    if (!numeratorGroup.statVarDcids.includes(svSpec.statVar)) {
-      numeratorGroup.statVarDcids.push(svSpec.statVar);
-    }
-
-    // we then group the denominators
     if (svSpec.denom) {
-      const denomFacetIds = getFacetIdsFromMap(svSpec.denom, statVarToFacets);
-      const denomFacetKey = denomFacetIds ? denomFacetIds.sort().join(",") : "";
-      const denomGroupKey = `${svSpec.denom}|${entityGroupKey}|${denomFacetKey}`;
-
-      let denomGroup = denominatorGroups.get(denomGroupKey);
-      if (!denomGroup) {
-        denomGroup = {
-          role: "denominator",
-          statVarDcids: [svSpec.denom],
-          date: "",
-          ...entityPayload,
-          filter: denomFacetIds ? { facetIds: denomFacetIds } : undefined,
-          appliesTo: [svSpec.statVar],
-        };
-        denominatorGroups.set(denomGroupKey, denomGroup);
-      } else if (!denomGroup.appliesTo?.includes(svSpec.statVar)) {
-        denomGroup.appliesTo.push(svSpec.statVar);
-      }
+      groupDenominator(
+        svSpec,
+        statVarToFacets,
+        entityPayload,
+        entityGroupKey,
+        denominatorGroups
+      );
     }
   }
 
   return [...numeratorGroups.values(), ...denominatorGroups.values()];
+}
+
+/**
+ * Groups a numerator statistical variable into the appropriate observation spec.
+ * @param svSpec The statistical variable specification.
+ * @param defaultDate A default date to use if none is specified in svSpec.
+ * @param entityPayload The shared entity dcids or expression for the query.
+ * @param entityGroupKey A key representing the entity part of the query.
+ * @param numeratorGroups A map for grouping numerators.
+ */
+function groupNumerator(
+  svSpec: StatVarSpec,
+  defaultDate: string | undefined,
+  entityPayload: { entityDcids?: string[] } | { entityExpression?: string },
+  entityGroupKey: string,
+  numeratorGroups: Map<string, ObservationSpec>
+): void {
+  const effectiveDate = svSpec.date || defaultDate;
+  const resolvedDate =
+    effectiveDate === "HIGHEST_COVERAGE" ? "" : effectiveDate ?? "";
+  const facetIds = svSpec.facetId ? [svSpec.facetId] : undefined;
+  const facetGroupKey = facetIds ? facetIds.join(",") : "";
+  const groupKey = `num|date:${resolvedDate}|${entityGroupKey}|facet:${facetGroupKey}`;
+
+  let group = numeratorGroups.get(groupKey);
+  if (!group) {
+    group = {
+      role: "numerator",
+      statVarDcids: [],
+      date: resolvedDate,
+      ...entityPayload,
+      filter: facetIds ? { facetIds } : undefined,
+    };
+    numeratorGroups.set(groupKey, group);
+  }
+
+  if (!group.statVarDcids.includes(svSpec.statVar)) {
+    group.statVarDcids.push(svSpec.statVar);
+  }
+}
+
+/**
+ * Groups a denominator statistical variable into the appropriate observation spec.
+ * @param svSpec The statistical variable specification containing the denominator.
+ * @param statVarToFacets A map of stat vars to their facets.
+ * @param entityPayload The shared entity dcids or expression for the query.
+ * @param entityGroupKey A key representing the entity part of the query.
+ * @param denominatorGroups A map for grouping denominators.
+ */
+function groupDenominator(
+  svSpec: StatVarSpec,
+  statVarToFacets: StatVarFacetMap | undefined,
+  entityPayload: { entityDcids?: string[] } | { entityExpression?: string },
+  entityGroupKey: string,
+  denominatorGroups: Map<string, ObservationSpec>
+): void {
+  if (!svSpec.denom) {
+    return;
+  }
+  const denomDcid = svSpec.denom;
+  const facetIds = getFacetIdsFromMap(denomDcid, statVarToFacets);
+  const facetKey = facetIds ? facetIds.sort().join(",") : "";
+  const groupKey = `${denomDcid}|${entityGroupKey}|${facetKey}`;
+
+  let group = denominatorGroups.get(groupKey);
+  if (!group) {
+    group = {
+      role: "denominator",
+      statVarDcids: [denomDcid],
+      date: "",
+      ...entityPayload,
+      filter: facetIds ? { facetIds } : undefined,
+      appliesTo: [svSpec.statVar],
+    };
+    denominatorGroups.set(groupKey, group);
+  } else if (!group.appliesTo?.includes(svSpec.statVar)) {
+    group.appliesTo.push(svSpec.statVar);
+  }
 }
 
 /**
@@ -182,9 +231,9 @@ export function buildObservationSpecs(
  */
 export function observationSpecToCurl(
   spec: ObservationSpec,
-  apiRoot: string
+  apiRoot?: string
 ): string {
-  const apiUrl = `${(apiRoot || "https://api.datacommons.org").replace(
+  const apiUrl = `${(apiRoot || DEFAULT_API_ROOT).replace(
     /\/$/,
     ""
   )}/v2/observation`;

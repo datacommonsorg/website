@@ -30,9 +30,8 @@ import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { ApiDialog } from "./api_dialog";
 
 interface ApiButtonProps {
-  // API root for data fetch; this will be used to create the
-  // API endpoint call with the correct API root.
-  // If not provided, it will be "https://api.datacommons.org"
+  // API root for data fetch; if provided, this will be used to create
+  // the API endpoint call with that API root.
   apiRoot?: string;
   // A callback function passed through from the chart that will collate
   // a set of observation specs relevant to the chart. These

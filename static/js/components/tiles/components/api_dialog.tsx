@@ -62,9 +62,8 @@ interface ApiDialogProps {
   specs: ObservationSpec[];
   //a lookup of stat var DCIDs to names
   statVarNameMap: Record<string, string>;
-  // API root for data fetch; this will be used to create the
-  // API endpoint call with the correct API root.
-  // If not provided, it will be "https://api.datacommons.org"
+  // API root for data fetch; if provided, this will be used to create
+  // the API endpoint call with that API root.
   apiRoot?: string;
   // A ref to the chart container element.
   containerRef?: RefObject<HTMLElement>;
