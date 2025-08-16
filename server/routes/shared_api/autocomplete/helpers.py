@@ -169,7 +169,8 @@ def fetch_place_id_to_dcid(
 
   place_ids = []
   for prediction in prediction_responses:
-    place_ids.append(prediction.place_id)
+    if prediction.place_id:
+      place_ids.append(prediction.place_id)
 
   place_id_to_dcid = dict()
   if place_ids:

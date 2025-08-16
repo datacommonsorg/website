@@ -49,14 +49,19 @@ def _custom_rank_predictions(predictions: List[ScoredPrediction],
   """Ranks a list of predictions based on a custom scoring algorithm."""
   for pred in predictions:
     # Lower score is better.
-    # The base score is the rank from the underlying API.
     new_score = pred.score
 
     # Boost scores based on the source of the suggestion.
-    if pred.source == 'core_concept_sv':
-      new_score -= 50  # Major boost for core concepts
-    elif pred.source == 'ngram_place':
-      new_score -= 10  # Minor boost for places found via n-grams
+    if pred.source == 'ngram_place':
+      # Give a large boost for high-quality (low score) n-gram place results.
+      # The boost diminishes as the quality of the match decreases.
+      new_score -= (50 / (pred.score + 1))
+    elif pred.source == 'core_concept_sv':
+      # Give a solid, consistent boost for core concepts.
+      new_score -= 30
+    elif pred.source == 'ngram_sv':
+      # Give a small boost for stat vars found via n-grams.
+      new_score -= 5
 
     # Boost based on how much of the original query was matched.
     if pred.matched_query:
@@ -80,7 +85,7 @@ def autocomplete():
   logging.info(f'[Autocomplete] Original Query: {original_query}')
 
   # Task A: Core Concept Stat Var Search
-  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE):
+  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE) or True:
     concept_result = stat_vars.analyze_query_concepts(original_query)
     logging.info(f'[Autocomplete] Concept Result: {concept_result}')
     if concept_result:
@@ -99,14 +104,16 @@ def autocomplete():
   logging.info(f'[Autocomplete] N-gram queries: {ngram_queries}')
   for ngram_query in ngram_queries:
     # Search for places using the n-gram
-    place_predictions = helpers.predict([ngram_query], lang, source='ngram_place')
+    place_predictions = helpers.predict([ngram_query],
+                                        lang,
+                                        source='ngram_place')
     logging.info(
         f'[Autocomplete] Found {len(place_predictions)} place predictions for n-gram: "{ngram_query}"'
     )
     all_predictions.extend(place_predictions)
 
     # Search for stat vars using the n-gram
-    if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE):
+    if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE) or True:
       sv_ngram_predictions = stat_vars.search_stat_vars(ngram_query)
       logging.info(
           f'[Autocomplete] Found {len(sv_ngram_predictions)} SV predictions for n-gram: "{ngram_query}"'
@@ -142,8 +149,7 @@ def autocomplete():
           dcid=prediction.place_dcid)
       final_predictions.append(current_prediction)
 
-      if len(final_predictions) == helpers.DISPLAYED_RESPONSE_COUNT_LIMIT:
-        break
+  # No longer limiting to 5, will send a larger list to the frontend.
 
   logging.info("[Autocomplete] Returning a total of %d predictions.",
                len(final_predictions))

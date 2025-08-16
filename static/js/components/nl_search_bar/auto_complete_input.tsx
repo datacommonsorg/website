@@ -262,12 +262,13 @@ export function AutoCompleteInput(
         signal: controller.current.signal,
       })
       .then((response) => {
-        if (!controller.current.signal.aborted) {
-          setResults(
-            convertJSONToAutoCompleteResults(response.data.predictions || [])
-          );
-          setBaseInputLastQuery(query);
+        if (controller.current.signal.aborted) {
+          return;
         }
+        setResults(
+          convertJSONToAutoCompleteResults(response.data.predictions || [])
+        );
+        setBaseInputLastQuery(query);
       })
       .catch((err) => {
         if (!axios.isCancel(err)) {
@@ -278,7 +279,7 @@ export function AutoCompleteInput(
 
   const sendDebouncedAutoCompleteRequest = useMemo(() => {
     return _.debounce(triggerAutoCompleteRequest, DEBOUNCE_INTERVAL_MS);
-  }, []);
+  }, [triggerAutoCompleteRequest]);
 
   function changeText(text: string): void {
     setInputText(text);
