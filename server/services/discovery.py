@@ -139,7 +139,6 @@ endpoints = Endpoints([
     '/v1/bulk/info/variable',
     '/v1/bulk/info/variable-group',
     '/v1/bulk/observation-dates/linked',
-    '/v1/variable/ancestors',
     '/v1/place/ranking',
     '/v1/place/related',
     '/v1/variable/search',
