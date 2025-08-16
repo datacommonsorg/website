@@ -186,6 +186,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 pageMetadata={props.pageMetadata}
                 placeUrlVal={placeUrlVal}
                 hideRelatedTopics={showFollowUpQuestions}
+                query={props.query}
               />
             )}
             {showPageOverview && (

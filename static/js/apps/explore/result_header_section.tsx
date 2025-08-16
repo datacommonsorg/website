@@ -22,7 +22,10 @@ import _ from "lodash";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
-import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
+import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
+//import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
@@ -38,6 +41,7 @@ interface ResultHeaderSectionPropType {
   placeUrlVal: string;
   pageMetadata: SubjectPageMetadata;
   hideRelatedTopics: boolean;
+  query: string;
 }
 
 export function ResultHeaderSection(
@@ -55,7 +59,7 @@ export function ResultHeaderSection(
   const topicList = props.hideRelatedTopics
     ? []
     : getTopics(props.pageMetadata, props.placeUrlVal);
-
+  /*
   let topicNameStr = "";
   if (
     !_.isEmpty(props.pageMetadata.mainTopics) &&
@@ -66,13 +70,16 @@ export function ResultHeaderSection(
     } else {
       topicNameStr = `${props.pageMetadata.mainTopics[0].name}`;
     }
-  }
+  }*/
 
   return (
     <>
-      <div id="place-callout">
-        {getPlaceHeader()}
-        {topicNameStr && <span> • {topicNameStr}</span>}
+      <div id="place-callout">{getPlaceHeader()}</div>
+      <div id="search-query">
+        <div className="eyebrow">
+          {intl.formatMessage(messages.searchQuestionIntroduction)}
+        </div>
+        {props.query}
       </div>
       {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
         <div className="explore-topics-box" ref={inViewRef}>
@@ -99,24 +106,31 @@ export function ResultHeaderSection(
       return <></>;
     }
 
-    if (numPlaces === 1) {
-      return (
-        <a className="place-callout-link" href={`/place/${places[0].dcid}`}>
-          {places[0].name}
-        </a>
-      );
-    }
+    const placesToDisplay = places.slice(0, 2);
+
     return (
-      <>
-        <a className="place-callout-link" href={`/place/${places[0].dcid}`}>
-          {places[0].name}
-        </a>
-        {", "}
-        <a className="place-callout-link" href={`/place/${places[1].dcid}`}>
-          {places[1].name}
-        </a>
-        {numPlaces > 2 && <>&nbsp;and more</>}
-      </>
+      <div id="place-callout" className="place-header">
+        <span>{intl.formatMessage(messages.allAbout)}</span>
+        {placesToDisplay.map((place, index) => (
+          <React.Fragment key={place.dcid}>
+            {index > 0 && <span>|</span>}
+            <a className="place-callout-link" href={`/place/${place.dcid}`}>
+              {place.name}
+            </a>
+            <span>•</span>
+            <span>{intl.formatMessage(metadataComponentMessages.DCID)}</span>
+            <a className="place-callout-link" href={`/place/${place.dcid}`}>
+              {place.dcid}
+            </a>
+          </React.Fragment>
+        ))}
+        {numPlaces > 2 && (
+          <>
+            <span>|</span>
+            <span>and more</span>
+          </>
+        )}
+      </div>
     );
   }
 }

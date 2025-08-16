@@ -168,4 +168,26 @@ export const messages = defineMessages({
     description:
       "Text to display when we have a single place, and need to add the 'in' before the place. For example, 'in California'.",
   },
+  allAbout: {
+    id: "all_about",
+    defaultMessage: "All about",
+    description:
+      "Text to display in the header section of explore page search results to introduce a link to  the primary places " +
+      "relating to the search. For example 'All about California'.",
+  },
+  andMore: {
+    id: "and_more",
+    defaultMessage: "and more",
+    description:
+      "Text appended to the list of relevant places in the search result header. It is used when there are more than " +
+      "two places, following the first two names. For example: 'California, Texas, and more'.",
+  },
+  searchQuestionIntroduction: {
+    id: "search_question_introduction",
+    defaultMessage: "Data related to your research question",
+    description:
+      "Text that displays above the user-inputted query to introduce that query. For example, if the query " +
+      "is 'How does health equity look in San Francisco', then the page will display: " +
+      "Data related to your research question 'How does health equity look in San Francisco'",
+  },
 });
