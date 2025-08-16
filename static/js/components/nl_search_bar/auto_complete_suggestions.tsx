@@ -59,6 +59,8 @@ export function AutoCompleteSuggestions(
   }
 
   useEffect(() => {
+    console.log("Base input:", props.baseInput);
+    console.log("Result name:", props.allResults);
     if (!triggered && props.allResults.length > 0) {
       setTriggered(true);
       triggerGAEvent(GA_EVENT_AUTOCOMPLETE_TRIGGERED, {
@@ -101,6 +103,8 @@ export function AutoCompleteSuggestions(
                       );
                       const fullText = props.baseInput.replace(regex, result.name);
                       const parts = fullText.split(result.name);
+                      console.log("Matched Query:", result.matchedQuery);
+                      // console.log("Parts:", parts);
                       return (
                         <>
                           {parts[0]}

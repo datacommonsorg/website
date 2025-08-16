@@ -120,7 +120,7 @@ def get_score(p: ScoredPrediction) -> float:
   """Returns the score."""
   return p.score
 
-def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
+def predict(queries: List[str], lang: str, source: str) -> List[ScoredPrediction]:
   """Trigger maps prediction api requests and process the output."""
   # A dictionary from a place_id to a list of sub-queries that returned it.
   place_id_to_queries: Dict[str, List[str]] = {}
@@ -155,7 +155,8 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
                          place_id=place_id,
                          place_dcid=None,
                          matched_query=longest_query,
-                         score=score))
+                         score=score,
+                         source=source))
 
   return results
 
