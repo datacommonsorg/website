@@ -18,10 +18,14 @@
  * Component for the result header section
  */
 
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import _ from "lodash";
-import React from "react";
+import React, { ReactElement } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { InfoFilled } from "../../components/elements/icons/info";
+import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
@@ -35,7 +39,45 @@ import {
 } from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
+import { Place } from "../data_overview/place_data";
 import { ItemList } from "./item_list";
+
+interface AdditionalPlaceTooltipContentProps {
+  items: Place[];
+}
+
+const AdditionalPlaceTooltipContent = ({
+  items,
+}: AdditionalPlaceTooltipContentProps): ReactElement => (
+  <ul
+    css={css`
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    `}
+  >
+    {items.map((place) => (
+      <li
+        key={place.dcid}
+        css={css`
+          padding: 0;
+          margin: 0;
+          white-space: nowrap;
+        `}
+      >
+        <a className="place-callout-link" href={`/place/${place.dcid}`}>
+          {place.name}
+        </a>
+        <span>•</span>
+        <span>{intl.formatMessage(metadataComponentMessages.DCID)}</span>
+        <a className="place-callout-link" href={`/place/${place.dcid}`}>
+          {place.dcid}
+        </a>
+      </li>
+    ))}
+  </ul>
+);
 
 interface ResultHeaderSectionPropType {
   placeUrlVal: string;
@@ -107,6 +149,7 @@ export function ResultHeaderSection(
     }
 
     const placesToDisplay = places.slice(0, 2);
+    const morePlaces = places.slice(2);
 
     return (
       <div id="place-callout" className="place-header">
@@ -127,7 +170,14 @@ export function ResultHeaderSection(
         {numPlaces > 2 && (
           <>
             <span>|</span>
-            <span>and more</span>
+            <Tooltip
+              title={<AdditionalPlaceTooltipContent items={morePlaces} />}
+              placement="bottom"
+            >
+              <span>
+                {intl.formatMessage(messages.andMore)} <InfoFilled />
+              </span>
+            </Tooltip>
           </>
         )}
       </div>
