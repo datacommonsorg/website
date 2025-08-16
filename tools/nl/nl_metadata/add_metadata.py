@@ -610,4 +610,5 @@ async def main():
     page_number += 1
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+  asyncio.run(main())

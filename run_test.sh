@@ -207,6 +207,11 @@ function run_py_test {
   pip3 install -r tools/nl/embeddings/requirements.txt -q
   python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
 
+  # Tests within tools/nl/nl_metadata
+  echo "Running tests within tools/nl/nl_metadata:"
+  pip3 install -r tools/nl/nl_metadata/requirements.txt -q
+  python3 -m pytest -n auto tools/nl/nl_metadata/ -s ${@}
+
   pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
