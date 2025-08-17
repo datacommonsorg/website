@@ -98,7 +98,7 @@ def autocomplete():
   logging.info(f'[Autocomplete] Original Query: {original_query}')
 
   # Task A: Core Concept Stat Var Search
-  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE):
+  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE, request=request):
     concept_result = stat_vars.analyze_query_concepts(original_query)
     logging.info(f'[Autocomplete] Concept Result: {concept_result}')
     if concept_result:
@@ -131,7 +131,7 @@ def autocomplete():
     all_predictions.extend(place_predictions)
 
     # Search for stat vars using the n-gram
-    if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE):
+    if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE, request=request):
       sv_ngram_predictions = stat_vars.search_stat_vars(ngram_query)
       logging.info(
           f'[Autocomplete] Found {len(sv_ngram_predictions)} SV predictions for n-gram: "{ngram_query}"'

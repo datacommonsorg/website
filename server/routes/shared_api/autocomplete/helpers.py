@@ -147,19 +147,8 @@ def get_match_score(match_string: str, name: str) -> float:
 def get_custom_place_suggestions(query: str) -> List[ScoredPrediction]:
   """Generates suggestions from the hardcoded list of custom places."""
   custom_places_responses = []
-  # Check for single-word custom places (e.g., Europe)
+  # Check for custom places (e.g., Europe, North America)
   for place in CUSTOM_PLACES:
-    score = get_match_score(query, place['description'])
-    if score < 0:
-      custom_places_responses.append(
-          ScoredPrediction(description=place['description'],
-                           place_id=None,
-                           matched_query=query,
-                           place_dcid=place['place_dcid'],
-                           score=score,
-                           source='custom_place'))
-  # Check for two-word custom places (e.g., North America)
-  for place in TWO_WORD_CUSTOM_PLACES:
     score = get_match_score(query, place['description'])
     if score < 0:
       custom_places_responses.append(

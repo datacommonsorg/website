@@ -27,7 +27,7 @@ class ScoredPrediction:
   place_dcid: Optional[str]
   matched_query: Optional[str]
   score: float
-  source: str
+  source: Optional[str] = None
 
 
 @dataclass

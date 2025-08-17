@@ -96,19 +96,56 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
 
   # Tests for NL Search Bar AutoComplete feature.
   def test_homepage_autocomplete(self):
-    """Test homepage autocomplete."""
+    """Test homepage autocomplete functionality."""
 
-    self.driver.get(self.url_ + '/?ac_on=true')
+    self.driver.get(self.url_ + '/?ac_on=true&enable_feature=enable_stat_var_autocomplete')
 
     # Assert page title is correct
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(self.dc_title_string))
 
-    # Type california into the search box.
     search_box_input = find_elem(self.driver,
                                  by=By.ID,
                                  value='query-search-input')
-    search_box_input.send_keys("California")
 
-    self.assertEqual(
-        len(find_elems(self.driver, value='search-input-result-section')), 5)
+    # Test 1: Simple place search
+    search_box_input.send_keys("California")
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located(
+            (By.CLASS_NAME, 'search-input-result-section')))
+    results = find_elems(self.driver, value='search-input-result-section')
+    self.assertGreater(len(results), 0)
+    search_box_input.clear()
+
+    # Test 2: Complex query with place at the end
+    search_box_input.send_keys("Population of Calif")
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located(
+            (By.CLASS_NAME, 'search-input-result-section')))
+    first_result = find_elem(self.driver,
+                             by=By.CLASS_NAME,
+                             value='search-input-result-section')
+    self.assertIn("California", first_result.text)
+    search_box_input.clear()
+
+    # Test 3: Load More stat var results
+    search_box_input.send_keys("gdp")
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located(
+            (By.CLASS_NAME, 'search-input-result-section')))
+    initial_results = find_elems(self.driver,
+                                 value='search-input-result-section')
+    initial_count = len(initial_results)
+    self.assertGreater(initial_count, 0)
+
+    # Find and click the load more button
+    load_more_button = find_elem(self.driver, by=By.CLASS_NAME, value='load-more-button')
+    self.assertIsNotNone(load_more_button)
+    load_more_button.click()
+
+    # Wait for new results to load, which means more result sections appear
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        lambda d: len(find_elems(d, value='search-input-result-section')) > initial_count
+    )
+    final_results = find_elems(self.driver, value='search-input-result-section')
+    self.assertGreater(len(final_results), initial_count)
