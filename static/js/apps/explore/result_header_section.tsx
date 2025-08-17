@@ -78,7 +78,6 @@ const AdditionalPlaceTooltipContent = ({
           gap: ${theme.spacing.xs}px;
         `}
       >
-        <strong>•</strong>
         <a className="place-callout-link" href={`/place/${place.dcid}`}>
           {place.name}
         </a>
@@ -142,6 +141,7 @@ export function ResultHeaderSection(
         css={css`
           ${theme.typography.family.heading}
           ${theme.typography.heading.lg}
+          margin-bottom: ${theme.spacing.md}px;
         `}
       >
         {props.query}
@@ -214,7 +214,7 @@ export function ResultHeaderSection(
                   `}
                 >
                   {intl.formatMessage(messages.andMore, {
-                    places: placesToDisplay.length,
+                    places: morePlaces.length,
                   })}
                 </span>
               </Tooltip>
