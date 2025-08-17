@@ -25,6 +25,7 @@ import server.webdriver.shared as shared
 
 # TODO(juliawu): Remove disabled feature once new UI is rolled out to production
 TIMELINE_URL = '/tools/timeline?disable_feature=standardized_vis_tool'
+STANDARDIZED_TIMELINE_URL = '/tools/timeline?enable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&statsVar=Median_Age_Person__Median_Income_Person__Count_Person_Upto5Years'\
     '__Count_Person_5To17Years&place=geoId/06,geoId/08'
 GEO_URL_1 = '#&place=geoId/06'
@@ -238,3 +239,96 @@ class TimelineTestMixin():
     # Assert number of charts and lines is correct.
     self.assertEqual(len(charts), 1)
     self.assertEqual(len(lines), 1)
+
+
+class StandardizedTimelineTestMixin():
+
+  def test_server_and_page(self):
+    """Test the server can run successfully."""
+    title_text = "Timeline Explorer - " + self.dc_title_string
+    self.driver.get(self.url_ + STANDARDIZED_TIMELINE_URL)
+
+    # Assert 200 HTTP code: successful page load.
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
+
+    # Assert 200 HTTP code: successful JS generation.
+    self.assertEqual(shared.safe_url_open(self.url_ + '/map.js'), 200)
+
+    # Assert page title is correct.
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(EC.title_contains(title_text))
+    self.assertEqual(title_text, self.driver.title)
+
+  def test_can_enter_and_remove_places(self):
+    """Test that multiple places can be entered in the place search bar and
+    that removing a chip also removes the place."""
+    # Load map page and wait for it to load
+    self.driver.get(self.url_ + STANDARDIZED_TIMELINE_URL)
+    shared.wait_for_loading(self.driver)
+
+    # Search for California
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             is_new_vis_tools=False)
+
+    # Assert these values are in the URL
+    current_url = self.driver.current_url
+    self.assertTrue("place=geoId%2F06"
+                    in current_url)  # look for "place=geoId/06"
+
+    # Search for Texas
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="Texas",
+                             is_new_vis_tools=False)
+
+    # Assert both California and Texas are in the URL
+    current_url = self.driver.current_url
+    self.assertTrue("geoId%2F06" in current_url)  # look for "geoId/06"
+    self.assertTrue("geoId%2F48" in current_url)  # look for "geoId/48"
+
+    # Remove California by clicking the X on the chip
+    # California is the first chip
+    shared.click_el(self.driver, (By.CLASS_NAME, "chip-action"))
+
+    # Assert only Texas is in the URL
+    current_url = self.driver.current_url
+    self.assertTrue("geoId%2F48" in current_url)  # look for "geoId/48"
+    self.assertFalse("geoId%2F06"
+                     in current_url)  # "geoId/06" should be removed from url
+
+  @pytest.mark.one_at_a_time
+  def test_manually_enter_options_results_in_chart(self):
+    """Test entering place and stat var options manually will cause chart to
+    show up.
+    """
+    self.driver.get(self.url_ + STANDARDIZED_TIMELINE_URL)
+
+    shared.search_for_places(self,
+                             self.driver,
+                             search_term="California",
+                             is_new_vis_tools=False)
+
+    # Choose stat var
+    shared.click_sv_group(self.driver, "Demographics")
+    shared.wait_for_loading(self.driver)
+    shared.click_el(
+        self.driver,
+        (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
+
+    # Assert chart is correct.
+    shared.wait_for_loading(self.driver)
+    self.assertIn(
+        'median age of population ',
+        find_elem(
+            self.driver,
+            by=By.XPATH,
+            value='//*[@id="statVarChipRegion"]/div/div[1]/h3').text.lower())
+
+    # Assert we have the right number of lines and legends
+    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
+    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
+                     58)
+    chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
+    self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
