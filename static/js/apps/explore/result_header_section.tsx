@@ -19,12 +19,14 @@
  */
 
 /** @jsxImportSource @emotion/react */
+
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import _ from "lodash";
 import React, { ReactElement } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { InfoFilled } from "../../components/elements/icons/info";
+// import { InfoFilled } from "../../components/elements/icons/info";
 import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
@@ -37,10 +39,28 @@ import {
   GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import theme from "../../theme/theme";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { Place } from "../data_overview/place_data";
 import { ItemList } from "./item_list";
+
+const PlaceInfo = styled.p`
+  ${theme.typography.family.text}
+  ${theme.typography.text.sm}
+  display: flex;
+  gap: ${theme.spacing.xs}px;
+  padding: 0;
+  margin: 0 0 0 ${theme.spacing.xs}px;
+  text-align: left;
+`;
+
+const PlaceSeparator = styled.p`
+  ${theme.typography.family.text}
+  ${theme.typography.text.sm}
+  padding: 0;
+  margin: 0;
+`;
 
 interface AdditionalPlaceTooltipContentProps {
   items: Place[];
@@ -49,23 +69,16 @@ interface AdditionalPlaceTooltipContentProps {
 const AdditionalPlaceTooltipContent = ({
   items,
 }: AdditionalPlaceTooltipContentProps): ReactElement => (
-  <ul
-    css={css`
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      text-align: left;
-    `}
-  >
+  <>
     {items.map((place) => (
-      <li
+      <p
         key={place.dcid}
         css={css`
-          padding: 0;
-          margin: 0;
-          white-space: nowrap;
+          display: flex;
+          gap: ${theme.spacing.xs}px;
         `}
       >
+        <strong>•</strong>
         <a className="place-callout-link" href={`/place/${place.dcid}`}>
           {place.name}
         </a>
@@ -74,9 +87,9 @@ const AdditionalPlaceTooltipContent = ({
         <a className="place-callout-link" href={`/place/${place.dcid}`}>
           {place.dcid}
         </a>
-      </li>
+      </p>
     ))}
-  </ul>
+  </>
 );
 
 interface ResultHeaderSectionPropType {
@@ -116,13 +129,23 @@ export function ResultHeaderSection(
 
   return (
     <>
-      <div id="place-callout">{getPlaceHeader()}</div>
-      <div id="search-query">
-        <div className="eyebrow">
-          {intl.formatMessage(messages.searchQuestionIntroduction)}
-        </div>
+      {getPlaceHeader()}
+      <p
+        css={css`
+          ${theme.typography.family.text}
+          ${theme.typography.text.sm}
+        `}
+      >
+        {intl.formatMessage(messages.searchQuestionIntroduction)}
+      </p>
+      <h3
+        css={css`
+          ${theme.typography.family.heading}
+          ${theme.typography.heading.lg}
+        `}
+      >
         {props.query}
-      </div>
+      </h3>
       {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
         <div className="explore-topics-box" ref={inViewRef}>
           <ItemList
@@ -152,32 +175,50 @@ export function ResultHeaderSection(
     const morePlaces = places.slice(2);
 
     return (
-      <div id="place-callout" className="place-header">
-        <span>{intl.formatMessage(messages.allAbout)}</span>
+      <div
+        css={css`
+          display: flex;
+          justify-content: flex-end;
+          width: 100%;
+        `}
+      >
+        <PlaceInfo>{intl.formatMessage(messages.allAbout)}</PlaceInfo>
         {placesToDisplay.map((place, index) => (
           <React.Fragment key={place.dcid}>
-            {index > 0 && <span>|</span>}
-            <a className="place-callout-link" href={`/place/${place.dcid}`}>
-              {place.name}
-            </a>
-            <span>•</span>
-            <span>{intl.formatMessage(metadataComponentMessages.DCID)}</span>
-            <a className="place-callout-link" href={`/place/${place.dcid}`}>
-              {place.dcid}
-            </a>
+            {index > 0 && <PlaceSeparator>,</PlaceSeparator>}
+            <PlaceInfo>
+              <a className="place-callout-link" href={`/place/${place.dcid}`}>
+                {place.name}
+              </a>
+              <span>•</span>
+              {intl.formatMessage(metadataComponentMessages.DCID)}
+              <a className="place-callout-link" href={`/place/${place.dcid}`}>
+                {place.dcid}
+              </a>
+            </PlaceInfo>
           </React.Fragment>
         ))}
         {numPlaces > 2 && (
           <>
-            <span>|</span>
-            <Tooltip
-              title={<AdditionalPlaceTooltipContent items={morePlaces} />}
-              placement="bottom"
-            >
-              <span>
-                {intl.formatMessage(messages.andMore)} <InfoFilled />
-              </span>
-            </Tooltip>
+            <PlaceSeparator>,</PlaceSeparator>
+            <PlaceInfo>
+              <Tooltip
+                title={<AdditionalPlaceTooltipContent items={morePlaces} />}
+                placement="bottom"
+                showArrow
+              >
+                <span
+                  css={css`
+                    color: ${theme.colors.link.primary.base};
+                    cursor: pointer;
+                  `}
+                >
+                  {intl.formatMessage(messages.andMore, {
+                    places: placesToDisplay.length,
+                  })}
+                </span>
+              </Tooltip>
+            </PlaceInfo>
           </>
         )}
       </div>

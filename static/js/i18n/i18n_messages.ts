@@ -177,7 +177,7 @@ export const messages = defineMessages({
   },
   andMore: {
     id: "and_more",
-    defaultMessage: "and more",
+    defaultMessage: "and {places} more",
     description:
       "Text appended to the list of relevant places in the search result header. It is used when there are more than " +
       "two places, following the first two names. For example: 'California, Texas, and more'.",
