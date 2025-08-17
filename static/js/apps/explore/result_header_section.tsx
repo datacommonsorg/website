@@ -175,6 +175,11 @@ export function ResultHeaderSection(
           display: flex;
           justify-content: flex-end;
           width: 100%;
+          @media (max-width: ${theme.breakpoints.md}px) {
+            justify-content: flex-start;
+            margin-bottom: ${theme.spacing.md}px;
+            flex-wrap: wrap;
+          }
         `}
       >
         <PlaceInfo>{intl.formatMessage(messages.allAbout)}</PlaceInfo>
@@ -197,6 +202,7 @@ export function ResultHeaderSection(
             <Tooltip
               title={<AdditionalPlaceTooltipContent items={morePlaces} />}
               placement="bottom-end"
+              distance={10}
             >
               <span
                 css={css`
