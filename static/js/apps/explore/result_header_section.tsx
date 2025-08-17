@@ -31,7 +31,6 @@ import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
-//import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
@@ -110,18 +109,6 @@ export function ResultHeaderSection(
   const topicList = props.hideRelatedTopics
     ? []
     : getTopics(props.pageMetadata, props.placeUrlVal);
-  /*
-  let topicNameStr = "";
-  if (
-    !_.isEmpty(props.pageMetadata.mainTopics) &&
-    props.pageMetadata.mainTopics[0].dcid !== DEFAULT_TOPIC
-  ) {
-    if (props.pageMetadata.mainTopics.length == 2) {
-      topicNameStr = `${props.pageMetadata.mainTopics[0].name} vs. ${props.pageMetadata.mainTopics[1].name}`;
-    } else {
-      topicNameStr = `${props.pageMetadata.mainTopics[0].name}`;
-    }
-  }*/
 
   return (
     <>
