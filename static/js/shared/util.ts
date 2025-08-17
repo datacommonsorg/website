@@ -259,12 +259,12 @@ export function removeSpinner(containerId: string): void {
  * @returns the query with the pattern removed if it was found.
  */
 export function stripPatternFromQuery(query: string, pattern: string): string {
-  const regex = new RegExp("(?:.(?!" + pattern + "))+([,;\\s])?$", "i");
-
-  // Returns the query without the pattern parameter.
-  // E.g.: query: "population of Calif", pattern: "Calif",
-  // returns "population of "
-  return query.replace(regex, "");
+  // If the query ends with the pattern (case-insensitive), remove it.
+  if (query.toLowerCase().endsWith(pattern.toLowerCase())) {
+    return query.substring(0, query.length - pattern.length);
+  }
+  // Otherwise, return the original query.
+  return query;
 }
 
 /**
@@ -312,4 +312,8 @@ export function redirect(
   }
 
   window.open(finalUrl, "_self");
+}
+
+export function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

@@ -13,121 +13,132 @@
 # limitations under the License.
 
 import logging
-import re
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from google.cloud import discoveryengine_v1 as discoveryengine
+
+logger = logging.getLogger(__name__)
+from google.cloud import language_v1
 
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
 
 # Constants for Vertex AI Search Application
-VAI_PROJECT_ID = "datcom-website-dev"
+VAI_PROJECT_ID = "datcom-nl"
 VAI_LOCATION = "global"
-VAI_ENGINE_ID = "stat-var-search-bq-data_1751939744678"
-VAI_SERVING_CONFIG = (
-    f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/collections/"
-    f"default_collection/engines/{VAI_ENGINE_ID}/servingConfigs/default_config"
+VAI_SEARCH_ENGINE_ID = "nl-statvar-search-prod_1753469590396"
+VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
+
+SEARCH_CLIENT = discoveryengine.SearchServiceClient()
+COMPLETE_CLIENT = discoveryengine.CompletionServiceClient()
+LANGUAGE_CLIENT = language_v1.LanguageServiceClient()
+LIMIT = 5
+
+# Note: The data store ID for completions may be different from the search engine ID.
+# Using the ID from the user's initial curl command.
+VAI_DATA_STORE_ID = "nl-statvar-search-prod_1753469569408"
+
+SERVING_CONFIG_PATH = (
+    f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
+    f"collections/default_collection/engines/{VAI_SEARCH_ENGINE_ID}/"
+    f"servingConfigs/{VAI_SEARCH_SERVING_CONFIG_ID}"
 )
-VAI_CLIENT = discoveryengine.SearchServiceClient()
-LIMIT = 3
-MAX_NUM_OF_QUERIES = 6
-SKIP_AUTOCOMPLETE_TRIGGER = [
-    "tell", "me", "show", "about", "which", "what", "when", "how", "the"
-]
 
+DATA_STORE_PATH = (
+    f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
+    f"collections/default_collection/dataStores/{VAI_DATA_STORE_ID}"
+)
 
-def find_stat_var_queries(user_query: str) -> List[str]:
-  rgx = re.compile(r'\s+')
-  words_in_query = re.split(rgx, user_query)
-  queries = []
-  cumulative = ""
+def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
+  """
+  Uses the NL API to extract key concepts from a query using Part-of-Speech
+  tagging.
+  Returns a dictionary with the cleaned query and the original phrase, or None.
+  """
+  # Tags to keep: Adjectives, Nouns, Numbers, and foreign/unknown words.
+  KEEP_TAGS = {
+      language_v1.PartOfSpeech.Tag.ADJ,
+      language_v1.PartOfSpeech.Tag.NOUN,
+      language_v1.PartOfSpeech.Tag.NUM,
+      language_v1.PartOfSpeech.Tag.X,
+  }
 
-  last_word = words_in_query[-1].lower().strip()
-  if last_word in SKIP_AUTOCOMPLETE_TRIGGER or (
-      last_word == "" and
-      len(words_in_query) > 1 and
-      words_in_query[-2].lower().strip() in SKIP_AUTOCOMPLETE_TRIGGER):
-    # don't return any queries.
-    return []
+  try:
+    document = language_v1.Document(
+        content=query, type_=language_v1.Document.Type.PLAIN_TEXT)
+    response = LANGUAGE_CLIENT.analyze_syntax(
+        document=document, encoding_type=language_v1.EncodingType.UTF8)
 
-  for word in reversed(words_in_query):
-    # Extract at most 6 subqueries.
-    if len(queries) >= MAX_NUM_OF_QUERIES:
-      break
-
-    # Prepend the current word for the next subquery.
-    if len(cumulative) > 0:
-      cumulative = word + " " + cumulative
-    else:
-      cumulative = word
-
-    queries.append(cumulative)
-
-  # Start by running the longer queries.
-  queries.reverse()
-  return queries
-
-
-def search_stat_vars(query: str) -> List[ScoredPrediction]:
-  if not query:
-    return []
-
-  # Get all sub-queries from the user query.
-  queries = find_stat_var_queries(query)
-  if not queries:
-    return []
-
-  # For each sub-query, call Vertex AI Search.
-  # Keep track of the results per sub-query.
-  # A dictionary from a stat var dcid to a list of sub-queries that returned it.
-  sv_to_queries: Dict[str, List[str]] = {}
-  # A dictionary from a stat var dcid to its name.
-  sv_to_name: Dict[str, str] = {}
-  # A dictionary from a stat var dcid to its best rank.
-  sv_to_rank: Dict[str, int] = {}
-
-  for q in queries:
-    search_request = discoveryengine.SearchRequest(
-        serving_config=VAI_SERVING_CONFIG,
-        query=q,
-        page_size=LIMIT,
-        spell_correction_spec=discoveryengine.SearchRequest.SpellCorrectionSpec(
-            mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO),
-        relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
-
-    search_results = VAI_CLIENT.search(search_request)
-
-    for i, response in enumerate(search_results.results):
-      dcid = response.document.struct_data.get("dcid")
-      name = response.document.struct_data.get("name")
-      if not dcid or not name:
-        logging.warning(
-            "There's an issue with DCID or name for the stat var search result: %s",
-            response.document.struct_data)
+    kept_tokens = []
+    for token in response.tokens:
+      pos = token.part_of_speech
+      # Exclude proper nouns.
+      if pos.tag == language_v1.PartOfSpeech.Tag.NOUN and pos.proper == language_v1.PartOfSpeech.Proper.PROPER:
         continue
+      if pos.tag in KEEP_TAGS:
+        kept_tokens.append(token)
 
-      if dcid not in sv_to_queries:
-        sv_to_queries[dcid] = []
-        sv_to_name[dcid] = name
-        sv_to_rank[dcid] = i
-      sv_to_queries[dcid].append(q)
-      sv_to_rank[dcid] = min(sv_to_rank[dcid], i)
+    if not kept_tokens:
+      return None
 
-  # For each stat var, find the longest sub-query that returned it.
-  # This will be the matched_query.
+    # Join the kept words to form the cleaned query concept.
+    cleaned_query = " ".join([t.text.content for t in kept_tokens])
+
+    # Find the original phrase that spans from the first to the last kept token.
+    first_offset = kept_tokens[0].text.begin_offset
+    last_token = kept_tokens[-1]
+    last_offset = last_token.text.begin_offset + len(last_token.text.content)
+    original_phrase = query[first_offset:last_offset]
+
+    logging.info(
+        "NL API extracted phrase '%s' (cleaned: '%s') from query '%s'",
+        original_phrase, cleaned_query, query)
+
+    print("NL API extracted phrase '%s' (cleaned: '%s') from query '%s'" % (
+        original_phrase, cleaned_query, query))
+    return {
+        "cleaned_query": cleaned_query,
+        "original_phrase": original_phrase,
+    }
+
+  except Exception as e:
+    logging.error("NL API request failed for query '%s': %s", query, e)
+    return None
+
+
+def search_stat_vars(search_query: str) -> List[ScoredPrediction]:
+  if not search_query:
+    return []
+
+  request = discoveryengine.SearchRequest(
+      serving_config=SERVING_CONFIG_PATH,
+      query=search_query,
+      page_size=LIMIT,
+      relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
+
+  try:
+    response = SEARCH_CLIENT.search(request)
+  except Exception as e:
+    logging.error("SearchRequest failed for query '%s': %s", search_query, e)
+    return []
+
   results: List[ScoredPrediction] = []
-  for dcid, matched_queries in sv_to_queries.items():
-    matched_queries.sort(key=len, reverse=True)
-    longest_query = matched_queries[0]
-    # The score is based on the rank, lower is better.
-    # Add a small factor for the length of the matched query.
-    score = sv_to_rank[dcid] - len(longest_query) * 0.01
+  for i, result in enumerate(response.results):
+    dcid = result.document.struct_data.get("dcid")
+    name = result.document.struct_data.get("name")
+    if not dcid or not name:
+      continue
+
+    # The `matched_query` will be populated by the calling function.
+    # The `source` will also be populated by the caller.
+    score = i  # Simple rank-based score
     results.append(
-        ScoredPrediction(description=sv_to_name[dcid],
+        ScoredPrediction(description=name,
                          place_id=None,
                          place_dcid=dcid,
-                         matched_query=longest_query,
-                         score=score))
+                         matched_query=None,
+                         score=score,
+                         source=""))
 
-  results.sort(key=lambda x: x.score)
+  return results
+
   return results
