@@ -54,6 +54,9 @@ const PlaceInfo = styled.p`
   margin: 0 0 0 ${theme.spacing.xs}px;
   text-align: left;
   color: ${theme.colors.text.secondary.base};
+  @media (max-width: ${theme.breakpoints.md}px) {
+    margin: 0 ${theme.spacing.xs}px 0 0;
+  }
 `;
 
 interface AdditionalPlaceTooltipContentProps {
