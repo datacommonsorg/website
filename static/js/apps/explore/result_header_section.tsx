@@ -26,7 +26,7 @@ import _ from "lodash";
 import React, { ReactElement } from "react";
 import { useInView } from "react-intersection-observer";
 
-// import { InfoFilled } from "../../components/elements/icons/info";
+import { KeyboardArrowDown } from "../../components/elements/icons/keyboard_arrow_down";
 import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
@@ -53,13 +53,7 @@ const PlaceInfo = styled.p`
   padding: 0;
   margin: 0 0 0 ${theme.spacing.xs}px;
   text-align: left;
-`;
-
-const PlaceSeparator = styled.p`
-  ${theme.typography.family.text}
-  ${theme.typography.text.sm}
-  padding: 0;
-  margin: 0;
+  color: ${theme.colors.text.secondary.base};
 `;
 
 interface AdditionalPlaceTooltipContentProps {
@@ -133,6 +127,7 @@ export function ResultHeaderSection(
         css={css`
           ${theme.typography.family.text}
           ${theme.typography.text.sm}
+          color: ${theme.colors.text.secondary.base};
         `}
       >
         {intl.formatMessage(messages.searchQuestionIntroduction)}
@@ -171,8 +166,8 @@ export function ResultHeaderSection(
       return <></>;
     }
 
-    const placesToDisplay = places.slice(0, 2);
-    const morePlaces = places.slice(2);
+    const placesToDisplay = places.slice(0, 1);
+    const morePlaces = places.slice(1);
 
     return (
       <div
@@ -183,9 +178,8 @@ export function ResultHeaderSection(
         `}
       >
         <PlaceInfo>{intl.formatMessage(messages.allAbout)}</PlaceInfo>
-        {placesToDisplay.map((place, index) => (
+        {placesToDisplay.map((place) => (
           <React.Fragment key={place.dcid}>
-            {index > 0 && <PlaceSeparator>,</PlaceSeparator>}
             <PlaceInfo>
               <a className="place-callout-link" href={`/place/${place.dcid}`}>
                 {place.name}
@@ -198,28 +192,27 @@ export function ResultHeaderSection(
             </PlaceInfo>
           </React.Fragment>
         ))}
-        {numPlaces > 2 && (
-          <>
-            <PlaceSeparator>,</PlaceSeparator>
-            <PlaceInfo>
-              <Tooltip
-                title={<AdditionalPlaceTooltipContent items={morePlaces} />}
-                placement="bottom"
-                showArrow
+        {numPlaces > 1 && (
+          <PlaceInfo>
+            <Tooltip
+              title={<AdditionalPlaceTooltipContent items={morePlaces} />}
+              placement="bottom-end"
+            >
+              <span
+                css={css`
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  gap: ${theme.spacing.xs}px;
+                `}
               >
-                <span
-                  css={css`
-                    color: ${theme.colors.link.primary.base};
-                    cursor: pointer;
-                  `}
-                >
-                  {intl.formatMessage(messages.andMore, {
-                    places: morePlaces.length,
-                  })}
-                </span>
-              </Tooltip>
-            </PlaceInfo>
-          </>
+                {intl.formatMessage(messages.andMore, {
+                  places: morePlaces.length,
+                })}
+                <KeyboardArrowDown />
+              </span>
+            </Tooltip>
+          </PlaceInfo>
         )}
       </div>
     );
