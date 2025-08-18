@@ -14,6 +14,8 @@
 
 steps:
   - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-0'
+    waitFor: ['-']
     entrypoint: 'bash'
     args:
       - '-c'
@@ -22,7 +24,158 @@ steps:
         export PERCY_TOKEN="$percy_token"
         export PERCY_BRANCH="${_ENVIRONMENT}"
         export PERCY_TARGET_BRANCH="production"
-        percy exec -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+        export SHARD_INDEX=0
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-1'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=1
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-2'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=2
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-3'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=3
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-4'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=4
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-5'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=5
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-6'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=6
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-shard-7'
+    waitFor: ['-']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_BRANCH="${_ENVIRONMENT}"
+        export PERCY_TARGET_BRANCH="production"
+        export SHARD_INDEX=7
+        export TOTAL_SHARDS=8
+        export PERCY_PARALLEL_TOTAL=8
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy exec --parallel -- python3 per_environment_percy_snapshots.py --env=${_ENVIRONMENT}
+    secretEnv: ['percy_token']
+
+  - name: 'gcr.io/datcom-ci/percy-runner:latest'
+    id: 'percy-finalize'
+    waitFor:
+      - 'percy-shard-0'
+      - 'percy-shard-1'
+      - 'percy-shard-2'
+      - 'percy-shard-3'
+      - 'percy-shard-4'
+      - 'percy-shard-5'
+      - 'percy-shard-6'
+      - 'percy-shard-7'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd /app
+        export PERCY_TOKEN="$percy_token"
+        export PERCY_PARALLEL_NONCE="${BUILD_ID}"
+        percy build:finalize
     secretEnv: ['percy_token']
 
 availableSecrets:
@@ -32,3 +185,6 @@ availableSecrets:
 
 substitutions:
   _ENVIRONMENT: 'production'
+
+options:
+  machineType: 'E2_HIGHCPU_8'
