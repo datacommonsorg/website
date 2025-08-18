@@ -105,7 +105,6 @@ async def autocomplete():
     if isinstance(result_list, Exception):
       logging.error(f"[Autocomplete] Task failed: {result_list}")
       continue
-    # Attach metadata to each prediction
     meta = task_metadata[i]
     for p in result_list:
       p.source = meta['source']
@@ -126,7 +125,6 @@ async def autocomplete():
       f'[Autocomplete] Total predictions after ranking: {ranked_predictions}')
 
   # 3. MERGE: Deduplicate and format the final list.
-  # First, fetch all place DCIDs in a single batch.
   places_to_fetch_dcid = [
       p for p in ranked_predictions if p.place_id and not p.place_dcid
   ]
@@ -151,5 +149,4 @@ async def autocomplete():
       f'[Autocomplete] Returning {len(final_predictions)} predictions in {duration_ms:.2f} ms'
   )
 
-  # logging.info(f"[Autocomplete] Final Predictions Sent: {final_predictions}")
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))
