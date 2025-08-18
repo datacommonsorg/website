@@ -32,6 +32,7 @@ website:
 mixer:
   serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
   hostProject: "datcom-website-dev"
+  enableOtlp: true
 
 serviceAccount:
   name: website-ksa
