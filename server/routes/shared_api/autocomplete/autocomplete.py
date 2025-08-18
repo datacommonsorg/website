@@ -122,17 +122,20 @@ async def autocomplete():
   ranked_predictions = helpers.custom_rank_predictions(all_predictions,
                                                      original_query)
   logging.info(
-      f'[Autocomplete] Total predictions after ranking: {len(ranked_predictions)}'
+      f'[Autocomplete] Total predictions after ranking: {ranked_predictions}'
   )
 
   # 3. MERGE: Deduplicate and format the final list.
+  # First, fetch all place DCIDs in a single batch.
+  places_to_fetch_dcid = [
+      p for p in ranked_predictions if p.place_id and not p.place_dcid
+  ]
+  if places_to_fetch_dcid:
+    helpers.fetch_place_id_to_dcid(places_to_fetch_dcid)
+
   final_predictions: List[AutoCompleteResult] = []
   seen_dcids = set()
   for prediction in ranked_predictions:
-    # Fetch DCID for place predictions if not already present.
-    if prediction.place_id and not prediction.place_dcid:
-      helpers.fetch_place_id_to_dcid([prediction])
-
     if prediction.place_dcid and prediction.place_dcid not in seen_dcids:
       seen_dcids.add(prediction.place_dcid)
       is_place = prediction.place_id or prediction.source == 'custom_place'
@@ -148,4 +151,5 @@ async def autocomplete():
       f'[Autocomplete] Returning {len(final_predictions)} predictions in {duration_ms:.2f} ms'
   )
 
+  # logging.info(f"[Autocomplete] Final Predictions Sent: {final_predictions}")
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))

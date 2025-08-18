@@ -174,7 +174,7 @@ def execute_maps_request(query: str, language: str) -> Dict:
 def get_place_predictions(queries: List[str], lang: str,
                         source: str) -> List[ScoredPrediction]:
   """Trigger maps prediction api requests and process the output."""
-  place_id_to_queries: Dict[str, List[str]] = {}
+  place_id_to_best_query: Dict[str, str] = {}
   place_id_to_description: Dict[str, str] = {}
   place_id_to_rank: Dict[str, int] = {}
 
@@ -182,23 +182,23 @@ def get_place_predictions(queries: List[str], lang: str,
     predictions_for_query = execute_maps_request(q, lang).get('predictions', [])
     for i, pred in enumerate(predictions_for_query):
       place_id = pred['place_id']
-      if place_id not in place_id_to_queries:
-        place_id_to_queries[place_id] = []
-        place_id_to_description[place_id] = pred['description']
+      if place_id not in place_id_to_rank or i < place_id_to_rank[place_id]:
         place_id_to_rank[place_id] = i
-      place_id_to_queries[place_id].append(q)
-      place_id_to_rank[place_id] = min(place_id_to_rank[place_id], i)
+        place_id_to_description[place_id] = pred['description']
+        place_id_to_best_query[place_id] = q
+      # If the rank is the same, prefer the shorter query.
+      elif i == place_id_to_rank[place_id]:
+        if len(q) < len(place_id_to_best_query[place_id]):
+          place_id_to_best_query[place_id] = q
 
   results: List[ScoredPrediction] = []
-  for place_id, matched_queries in place_id_to_queries.items():
-    matched_queries.sort(key=len, reverse=True)
-    longest_query = matched_queries[0]
-    score = place_id_to_rank[place_id] - len(longest_query) * 0.01
+  for place_id, best_query in place_id_to_best_query.items():
+    score = place_id_to_rank[place_id] - len(best_query) * 0.01
     results.append(
         ScoredPrediction(description=place_id_to_description[place_id],
                          place_id=place_id,
                          place_dcid=None,
-                         matched_query=longest_query,
+                         matched_query=best_query,
                          score=score,
                          source=source))
 
@@ -242,29 +242,27 @@ def get_ngram_queries(query: str) -> List[str]:
 def custom_rank_predictions(predictions: List[ScoredPrediction],
                              original_query: str) -> List[ScoredPrediction]:
   """Ranks a list of predictions based on a custom scoring algorithm."""
+  logging.info("[Autocomplete] Custom ranking predictions based on source and match quality.")
   for pred in predictions:
     # Lower score is better.
     new_score = pred.score
 
-    # Boost scores based on the source of the suggestion.
-    if pred.source == 'ngram_place':
-      # Give a large boost for high-quality (low score) n-gram place results.
-      # The boost diminishes as the quality of the match decreases.
-      new_score -= (50 / (pred.score + 1))
-    elif pred.source == 'custom_place':
-      # Give a high, consistent boost for curated custom places.
+    # Add a large boost for place suggestions that are a direct prefix match.
+    if pred.source == 'ngram_place' and pred.description.lower().startswith(
+        pred.matched_query.lower()):
+      new_score -= 100
+
+    # Apply other source-based boosts.
+    if pred.source == 'custom_place':
       new_score -= 40
     elif pred.source == 'core_concept_sv':
-      # Give a solid, consistent boost for core concepts.
       new_score -= 30
     elif pred.source == 'ngram_sv':
-      # Give a small boost for stat vars found via n-grams.
-      new_score -= 5
+      new_score -= 25
 
     # Boost based on how much of the original query was matched.
     if pred.matched_query:
-      # Add a small factor for the length of the matched query.
-      new_score -= len(pred.matched_query) * 0.1
+      new_score -= len(pred.matched_query) * 0.5
 
     pred.score = new_score
 
