@@ -716,8 +716,7 @@ body.no-header-search-bar {
     }
 
     .autocomplete-search-input-results-list {
-      max-height: 300px !important;
-      max-width: inherit;
+      max-height: 300px;
       overflow-y: auto;
       padding-bottom: 24px;
       border-bottom-left-radius: 28px;

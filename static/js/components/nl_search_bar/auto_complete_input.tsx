@@ -207,41 +207,8 @@ export function AutoCompleteInput(
     }
 
     let queryForAutoComplete = currentText;
-    const locationTriggers = [" in ", " near ", " from ", " at "];
-    const separators = [" vs ", " versus ", " and ", " by "];
-    let queryFound = false;
 
-    // First, check for location triggers, as they are most specific
-    for (const trigger of locationTriggers) {
-      const lastIndex = queryForAutoComplete
-        .toLowerCase()
-        .lastIndexOf(trigger.toLowerCase());
-      if (lastIndex !== -1) {
-        queryForAutoComplete = queryForAutoComplete.substring(
-          lastIndex + trigger.length
-        );
-        queryFound = true;
-        break;
-      }
-    }
-
-    // If no location trigger, check for general separators
-    if (!queryFound) {
-      for (const sep of separators) {
-        const lastIndex = queryForAutoComplete
-          .toLowerCase()
-          .lastIndexOf(sep.toLowerCase());
-        if (lastIndex !== -1) {
-          queryForAutoComplete = queryForAutoComplete.substring(
-            lastIndex + sep.length
-          );
-          queryFound = true;
-          break;
-        }
-      }
-    }
-
-    if (!queryFound && !_.isEmpty(lastSelection)) {
+    if (!_.isEmpty(lastSelection)) {
       const splitQuery = currentText.split(lastSelection);
       if (splitQuery.length > 1) {
         queryForAutoComplete = splitQuery[splitQuery.length - 1].trim();
