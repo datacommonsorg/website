@@ -15,8 +15,8 @@
 import json
 import logging
 import re
-from typing import Dict, List
 import unicodedata
+from typing import Dict, List
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -29,6 +29,7 @@ MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MIN_CHARACTERS_PER_QUERY = 3
 MAX_NUM_OF_QUERIES = 4
 DISPLAYED_RESPONSE_COUNT_LIMIT = 5
+MAX_NGRAM_SIZE = 5
 
 # Additional places to hack in autocomplete
 TWO_WORD_CUSTOM_PLACES = [{
@@ -225,3 +226,48 @@ def fetch_place_id_to_dcid(
                len(place_id_to_dcid))
 
   return prediction_responses
+
+def get_ngram_queries(query: str) -> List[str]:
+  """Generates n-gram queries from the tail end of a query string."""
+  tokens = query.split()
+  if not tokens:
+    return []
+  # Generate n-grams of size 1 to MAX_NGRAM_SIZE
+  ngrams = []
+  for n in range(1, MAX_NGRAM_SIZE + 1):
+    if n <= len(tokens):
+      ngrams.append(" ".join(tokens[-n:]))
+  return ngrams
+
+
+def custom_rank_predictions(predictions: List[ScoredPrediction],
+                             original_query: str) -> List[ScoredPrediction]:
+  """Ranks a list of predictions based on a custom scoring algorithm."""
+  for pred in predictions:
+    # Lower score is better.
+    new_score = pred.score
+
+    # Boost scores based on the source of the suggestion.
+    if pred.source == 'ngram_place':
+      # Give a large boost for high-quality (low score) n-gram place results.
+      # The boost diminishes as the quality of the match decreases.
+      new_score -= (50 / (pred.score + 1))
+    elif pred.source == 'custom_place':
+      # Give a high, consistent boost for curated custom places.
+      new_score -= 40
+    elif pred.source == 'core_concept_sv':
+      # Give a solid, consistent boost for core concepts.
+      new_score -= 30
+    elif pred.source == 'ngram_sv':
+      # Give a small boost for stat vars found via n-grams.
+      new_score -= 5
+
+    # Boost based on how much of the original query was matched.
+    if pred.matched_query:
+      # Add a small factor for the length of the matched query.
+      new_score -= len(pred.matched_query) * 0.1
+
+    pred.score = new_score
+
+  predictions.sort(key=lambda p: p.score)
+  return predictions
