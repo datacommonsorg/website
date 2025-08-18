@@ -16,35 +16,26 @@ import logging
 from typing import Dict, List, Optional
 
 from google.cloud import discoveryengine_v1 as discoveryengine
-
-logger = logging.getLogger(__name__)
 from google.cloud import language_v1
 
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
+
+logger = logging.getLogger(__name__)
 
 # Constants for Vertex AI Search Application
 VAI_PROJECT_ID = "datcom-nl"
 VAI_LOCATION = "global"
 VAI_SEARCH_ENGINE_ID = "nl-statvar-search-prod_1753469590396"
 VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
+LIMIT = 30
 
 SEARCH_CLIENT = discoveryengine.SearchServiceClient()
-COMPLETE_CLIENT = discoveryengine.CompletionServiceClient()
 LANGUAGE_CLIENT = language_v1.LanguageServiceClient()
-LIMIT = 5
-
-# Note: The data store ID for completions may be different from the search engine ID.
-# Using the ID from the user's initial curl command.
-VAI_DATA_STORE_ID = "nl-statvar-search-prod_1753469569408"
 
 SERVING_CONFIG_PATH = (
     f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
     f"collections/default_collection/engines/{VAI_SEARCH_ENGINE_ID}/"
     f"servingConfigs/{VAI_SEARCH_SERVING_CONFIG_ID}")
-
-DATA_STORE_PATH = (
-    f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
-    f"collections/default_collection/dataStores/{VAI_DATA_STORE_ID}")
 
 
 def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
@@ -53,7 +44,6 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
   tagging.
   Returns a dictionary with the cleaned query and the original phrase, or None.
   """
-  # Tags to keep: Adjectives, Nouns, Numbers, and foreign/unknown words.
   KEEP_TAGS = {
       language_v1.PartOfSpeech.Tag.ADJ,
       language_v1.PartOfSpeech.Tag.NOUN,
@@ -70,7 +60,6 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
     kept_tokens = []
     for token in response.tokens:
       pos = token.part_of_speech
-      # Exclude proper nouns.
       if pos.tag == language_v1.PartOfSpeech.Tag.NOUN and pos.proper == language_v1.PartOfSpeech.Proper.PROPER:
         continue
       if pos.tag in KEEP_TAGS:
@@ -79,10 +68,8 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
     if not kept_tokens:
       return None
 
-    # Join the kept words to form the cleaned query concept.
     cleaned_query = " ".join([t.text.content for t in kept_tokens])
 
-    # Find the original phrase that spans from the first to the last kept token.
     first_offset = kept_tokens[0].text.begin_offset
     last_token = kept_tokens[-1]
     last_offset = last_token.text.begin_offset + len(last_token.text.content)
@@ -91,8 +78,6 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
     logging.info("NL API extracted phrase '%s' (cleaned: '%s') from query '%s'",
                  original_phrase, cleaned_query, query)
 
-    print("NL API extracted phrase '%s' (cleaned: '%s') from query '%s'" %
-          (original_phrase, cleaned_query, query))
     return {
         "cleaned_query": cleaned_query,
         "original_phrase": original_phrase,
@@ -126,17 +111,13 @@ def search_stat_vars(search_query: str) -> List[ScoredPrediction]:
     if not dcid or not name:
       continue
 
-    # The `matched_query` will be populated by the calling function.
-    # The `source` will also be populated by the caller.
-    score = i  # Simple rank-based score
+    score = i
     results.append(
         ScoredPrediction(description=name,
                          place_id=None,
                          place_dcid=dcid,
                          matched_query=None,
                          score=score,
-                         source=""))
-
-  return results
+                         source=None))
 
   return results

@@ -179,8 +179,7 @@ def get_place_predictions(queries: List[str], lang: str,
   place_id_to_rank: Dict[str, int] = {}
 
   for q in queries:
-    predictions_for_query = execute_maps_request(q, lang)['predictions']
-
+    predictions_for_query = execute_maps_request(q, lang).get('predictions', [])
     for i, pred in enumerate(predictions_for_query):
       place_id = pred['place_id']
       if place_id not in place_id_to_queries:

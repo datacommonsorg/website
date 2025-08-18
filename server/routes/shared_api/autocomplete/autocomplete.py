@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import asyncio
 import itertools
 import logging
 import time
@@ -34,8 +35,9 @@ from server.routes.shared_api.autocomplete.types import ScoredPrediction
 # Define blueprint
 bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 
+
 @bp.route('/autocomplete')
-def autocomplete():
+async def autocomplete():
   """Predicts the user query for location and stat vars."""
   start_time = time.time()
   lang = request.args.get('hl')
@@ -49,63 +51,78 @@ def autocomplete():
   if last_word in SKIP_AUTOCOMPLETE_TRIGGER:
     return jsonify(AutoCompleteApiResponse(predictions=[]))
 
-  all_predictions: List[ScoredPrediction] = []
-
-  # 1. FAN-OUT: Generate and execute queries in parallel.
+  # 1. FAN-OUT: Create all concurrent tasks.
   logging.info(f'[Autocomplete] Original Query: {original_query}')
+  tasks = []
+  task_metadata = []
 
   # Task A: Core Concept Stat Var Search
   if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE, request=request):
+    # Note: analyze_query_concepts is synchronous and makes a blocking API call.
+    # We run it once at the start.
     concept_result = stat_vars.analyze_query_concepts(original_query)
     logging.info(f'[Autocomplete] Concept Result: {concept_result}')
     if concept_result:
-      sv_predictions = stat_vars.search_stat_vars(
-          concept_result['cleaned_query'])
-      for p in sv_predictions:
-        p.source = 'core_concept_sv'
-        p.matched_query = concept_result['original_phrase']
-      all_predictions.extend(sv_predictions)
+      tasks.append(
+          asyncio.to_thread(stat_vars.search_stat_vars,
+                            concept_result['cleaned_query']))
+      task_metadata.append({
+          'source': 'core_concept_sv',
+          'original_phrase': concept_result['original_phrase']
+      })
 
   # Task B: N-gram and Custom Place Search
   ngram_queries = helpers.get_ngram_queries(original_query)
   logging.info(f'[Autocomplete] N-gram queries: {ngram_queries}')
 
   for ngram_query in ngram_queries:
-    # Get custom place suggestions using the n-gram
-    custom_place_predictions = helpers.get_custom_place_suggestions(ngram_query)
-    logging.info(
-        f'[Autocomplete] Found {len(custom_place_predictions)} custom place predictions for n-gram: "{ngram_query}"'
-    )
-    all_predictions.extend(custom_place_predictions)
+    # Custom place suggestions
+    tasks.append(
+        asyncio.to_thread(helpers.get_custom_place_suggestions, ngram_query))
+    task_metadata.append({
+        'source': 'custom_place',
+        'matched_query': ngram_query
+    })
 
-    # Search for places using the n-gram
-    place_predictions = helpers.get_place_predictions([ngram_query],
-                                                    lang,
-                                                    source='ngram_place')
-    logging.info(
-        f'[Autocomplete] Found {len(place_predictions)} place predictions for n-gram: "{ngram_query}"'
-    )
-    all_predictions.extend(place_predictions)
+    # Google Maps place predictions
+    tasks.append(
+        asyncio.to_thread(helpers.get_place_predictions, [ngram_query], lang,
+                          'ngram_place'))
+    task_metadata.append({
+        'source': 'ngram_place',
+        'matched_query': ngram_query
+    })
 
-    # Search for stat vars using the n-gram
+    # Stat var n-gram search
     if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE, request=request):
-      sv_ngram_predictions = stat_vars.search_stat_vars(ngram_query)
-      logging.info(
-          f'[Autocomplete] Found {len(sv_ngram_predictions)} SV predictions for n-gram: "{ngram_query}"'
-      )
-      for p in sv_ngram_predictions:
-        p.source = 'ngram_sv'
-        p.matched_query = ngram_query
-      all_predictions.extend(sv_ngram_predictions)
+      tasks.append(asyncio.to_thread(stat_vars.search_stat_vars, ngram_query))
+      task_metadata.append({'source': 'ngram_sv', 'matched_query': ngram_query})
+
+  # Run all tasks concurrently and gather results.
+  all_results_nested = await asyncio.gather(*tasks, return_exceptions=True)
+  all_predictions = []
+  for i, result_list in enumerate(all_results_nested):
+    if isinstance(result_list, Exception):
+      logging.error(f"[Autocomplete] Task failed: {result_list}")
+      continue
+    # Attach metadata to each prediction
+    meta = task_metadata[i]
+    for p in result_list:
+      p.source = meta['source']
+      if meta['source'] == 'core_concept_sv':
+        p.matched_query = meta['original_phrase']
+      else:
+        p.matched_query = meta['matched_query']
+      all_predictions.append(p)
 
   logging.info(
-      f'[Autocomplete] Total predictions before ranking: {len(all_predictions)}'
-  )
+      f'[Autocomplete] Total predictions before ranking: {len(all_predictions)}')
 
   # 2. RANK: Apply custom ranking to all gathered predictions.
-  ranked_predictions = helpers.custom_rank_predictions(all_predictions, original_query)
+  ranked_predictions = helpers.custom_rank_predictions(all_predictions,
+                                                     original_query)
   logging.info(
-      f'[Autocomplete] Total predictions after ranking: {len(ranked_predictions)} '
+      f'[Autocomplete] Total predictions after ranking: {len(ranked_predictions)}'
   )
 
   # 3. MERGE: Deduplicate and format the final list.

@@ -323,26 +323,14 @@ export function replaceQueryWithSelection(
   query: string,
   result: AutoCompleteResult
 ): string {
-  if (result.matchType === "stat_var_search") {
-    // For stat vars, do a case-insensitive replacement of the last occurrence of
-    // the matched concept.
+  if (result.matchType === "stat_var_search" || result.matchType === "location_search") {
+    // For stat vars and locations, do a case-insensitive replacement of the last
+    // occurrence of the matched concept.
     const lowerCaseQuery = query.toLowerCase();
     const lowerCaseMatchedQuery = result.matchedQuery.toLowerCase();
     const lastIndex = lowerCaseQuery.lastIndexOf(lowerCaseMatchedQuery);
     if (lastIndex !== -1) {
       const prefix = query.substring(0, lastIndex);
-      return prefix + result.name;
-    }
-  }
-  if (result.matchType === "location_search") {
-    // For locations, replace only the last word of the matched query.
-    const patternWords = result.matchedQuery.trim().split(" ");
-    const lastWordOfPattern = patternWords[patternWords.length - 1];
-    const lastWordIndex = query
-      .toLowerCase()
-      .lastIndexOf(lastWordOfPattern.toLowerCase());
-    if (lastWordIndex !== -1) {
-      const prefix = query.substring(0, lastWordIndex);
       return prefix + result.name;
     }
   }
