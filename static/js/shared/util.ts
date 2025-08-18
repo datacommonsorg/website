@@ -38,7 +38,7 @@ export const placeExplorerCategories = [
   "economics_new",
 ];
 
-const SEARCH_PARAMS_TO_PROPAGATE = new Set(["hl"]);
+const SEARCH_PARAMS_TO_PROPAGATE = new Set(["hl", "enable_feature", "disable_feature"]);
 
 const NO_DATE_CAP_RCP_STATVARS = [
   // This stat var only has data for 2100. while other stat vars along the same

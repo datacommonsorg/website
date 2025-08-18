@@ -15,8 +15,8 @@
 import json
 import logging
 import re
-import unicodedata
 from typing import Dict, List
+import unicodedata
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -141,9 +141,6 @@ def get_match_score(match_string: str, name: str) -> float:
   return score
 
 
-
-
-
 def get_custom_place_suggestions(query: str) -> List[ScoredPrediction]:
   """Generates suggestions from the hardcoded list of custom places."""
   custom_places_responses = []
@@ -161,9 +158,6 @@ def get_custom_place_suggestions(query: str) -> List[ScoredPrediction]:
   return custom_places_responses
 
 
-
-
-
 def execute_maps_request(query: str, language: str) -> Dict:
   """Execute a request to the Google Maps Prediction API for a given query."""
   request_obj = {
@@ -176,9 +170,8 @@ def execute_maps_request(query: str, language: str) -> Dict:
   return json.loads(response.text)
 
 
-
-
-def predict(queries: List[str], lang: str, source: str) -> List[ScoredPrediction]:
+def predict(queries: List[str], lang: str,
+            source: str) -> List[ScoredPrediction]:
   """Trigger maps prediction api requests and process the output."""
   place_id_to_queries: Dict[str, List[str]] = {}
   place_id_to_description: Dict[str, str] = {}

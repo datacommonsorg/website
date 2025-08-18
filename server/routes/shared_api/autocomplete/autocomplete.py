@@ -16,14 +16,19 @@ import itertools
 import logging
 from typing import List
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint
+from flask import jsonify
+from flask import request
 
-from server.lib.feature_flags import (
-    ENABLE_STAT_VAR_AUTOCOMPLETE, is_feature_enabled)
-from server.routes.shared_api.autocomplete import helpers, stat_vars
-from server.routes.shared_api.autocomplete.helpers import SKIP_AUTOCOMPLETE_TRIGGER
-from server.routes.shared_api.autocomplete.types import (
-    AutoCompleteApiResponse, AutoCompleteResult, ScoredPrediction)
+from server.lib.feature_flags import ENABLE_STAT_VAR_AUTOCOMPLETE
+from server.lib.feature_flags import is_feature_enabled
+from server.routes.shared_api.autocomplete import helpers
+from server.routes.shared_api.autocomplete import stat_vars
+from server.routes.shared_api.autocomplete.helpers import \
+    SKIP_AUTOCOMPLETE_TRIGGER
+from server.routes.shared_api.autocomplete.types import AutoCompleteApiResponse
+from server.routes.shared_api.autocomplete.types import AutoCompleteResult
+from server.routes.shared_api.autocomplete.types import ScoredPrediction
 
 # Define blueprint
 bp = Blueprint("autocomplete", __name__, url_prefix='/api')
@@ -142,12 +147,14 @@ def autocomplete():
       all_predictions.extend(sv_ngram_predictions)
 
   logging.info(
-      f'[Autocomplete] Total predictions before ranking: {len(all_predictions)}')
+      f'[Autocomplete] Total predictions before ranking: {len(all_predictions)}'
+  )
 
   # 2. RANK: Apply custom ranking to all gathered predictions.
   ranked_predictions = _custom_rank_predictions(all_predictions, original_query)
   logging.info(
-      f'[Autocomplete] Total predictions after ranking: {len(ranked_predictions)}')
+      f'[Autocomplete] Total predictions after ranking: {len(ranked_predictions)}'
+  )
 
   # 3. MERGE: Deduplicate and format the final list.
   final_predictions: List[AutoCompleteResult] = []
@@ -162,8 +169,7 @@ def autocomplete():
       is_place = prediction.place_id or prediction.source == 'custom_place'
       current_prediction = AutoCompleteResult(
           name=prediction.description,
-          match_type='location_search'
-          if is_place else 'stat_var_search',
+          match_type='location_search' if is_place else 'stat_var_search',
           matched_query=prediction.matched_query,
           dcid=prediction.place_dcid)
       final_predictions.append(current_prediction)

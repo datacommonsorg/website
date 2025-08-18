@@ -15,17 +15,22 @@
 import unittest
 from unittest import mock
 
-from google.cloud.language_v1.types import AnalyzeSyntaxResponse, PartOfSpeech, Token
+from google.cloud.language_v1.types import AnalyzeSyntaxResponse
+from google.cloud.language_v1.types import PartOfSpeech
+from google.cloud.language_v1.types import TextSpan
+from google.cloud.language_v1.types import Token
 
 from server.routes.shared_api.autocomplete import stat_vars
 
 
-def _mock_token(text, pos_tag, proper=PartOfSpeech.Proper.NOT_PROPER):
-  token = mock.Mock(spec=Token)
-  token.text.content = text
-  token.text.begin_offset = 0
-  token.part_of_speech.tag = pos_tag
-  token.part_of_speech.proper = proper
+def _mock_token(text,
+                pos_tag,
+                begin_offset=0,
+                proper=PartOfSpeech.Proper.NOT_PROPER):
+  # This function now correctly mocks the nested structure of a Token object.
+  token = Token()
+  token.text = TextSpan(content=text, begin_offset=begin_offset)
+  token.part_of_speech = PartOfSpeech(tag=pos_tag, proper=proper)
   return token
 
 
@@ -39,35 +44,44 @@ class TestStatVars(unittest.TestCase):
       response = AnalyzeSyntaxResponse()
       if query == "how many students":
         response.tokens.extend([
-            _mock_token("how", PartOfSpeech.Tag.ADV),
-            _mock_token("many", PartOfSpeech.Tag.ADJ),
-            _mock_token("students", PartOfSpeech.Tag.NOUN),
+            _mock_token("how", PartOfSpeech.Tag.ADV, 0),
+            _mock_token("many", PartOfSpeech.Tag.ADJ, 4),
+            _mock_token("students", PartOfSpeech.Tag.NOUN, 9),
         ])
       elif query == "Black high school students":
         response.tokens.extend([
-            _mock_token("Black", PartOfSpeech.Tag.ADJ),
-            _mock_token("high", PartOfSpeech.Tag.ADJ),
-            _mock_token("school", PartOfSpeech.Tag.NOUN),
-            _mock_token("students", PartOfSpeech.Tag.NOUN),
+            _mock_token("Black", PartOfSpeech.Tag.ADJ, 0),
+            _mock_token("high", PartOfSpeech.Tag.ADJ, 6),
+            _mock_token("school", PartOfSpeech.Tag.NOUN, 11),
+            _mock_token("students", PartOfSpeech.Tag.NOUN, 18),
         ])
       elif query == "population in California":
         response.tokens.extend([
-            _mock_token("population", PartOfSpeech.Tag.NOUN),
-            _mock_token("in", PartOfSpeech.Tag.ADP),
+            _mock_token("population", PartOfSpeech.Tag.NOUN, 0),
+            _mock_token("in", PartOfSpeech.Tag.ADP, 11),
             _mock_token("California",
                         PartOfSpeech.Tag.NOUN,
+                        begin_offset=14,
                         proper=PartOfSpeech.Proper.PROPER),
+        ])
+      elif query == "annual amount of fossil fuel":
+        response.tokens.extend([
+            _mock_token("annual", PartOfSpeech.Tag.ADJ, 0),
+            _mock_token("amount", PartOfSpeech.Tag.NOUN, 7),
+            _mock_token("of", PartOfSpeech.Tag.ADP, 14),
+            _mock_token("fossil", PartOfSpeech.Tag.NOUN, 17),
+            _mock_token("fuel", PartOfSpeech.Tag.NOUN, 24),
         ])
       return response
 
     mock_lang_client.analyze_syntax.side_effect = mock_analyze_syntax
 
-    # Test case 1: Filler words
+    # Test case 1: Adjectives are now removed.
     result1 = stat_vars.analyze_query_concepts("how many students")
     self.assertEqual(result1['cleaned_query'], "many students")
     self.assertEqual(result1['original_phrase'], "many students")
 
-    # Test case 2: Descriptors preserved
+    # Test case 2: Important adjectives are kept by making them part of the noun.
     result2 = stat_vars.analyze_query_concepts("Black high school students")
     self.assertEqual(result2['cleaned_query'], "Black high school students")
 
@@ -75,3 +89,8 @@ class TestStatVars(unittest.TestCase):
     result3 = stat_vars.analyze_query_concepts("population in California")
     self.assertEqual(result3['cleaned_query'], "population")
     self.assertEqual(result3['original_phrase'], "population")
+
+    # Test case 4: Original phrase is correctly extracted
+    result4 = stat_vars.analyze_query_concepts("annual amount of fossil fuel")
+    self.assertEqual(result4['cleaned_query'], "annual amount fossil fuel")
+    self.assertEqual(result4['original_phrase'], "annual amount of fossil fuel")

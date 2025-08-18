@@ -52,7 +52,10 @@ export function AutoCompleteSuggestions(
     setVisibleCount(INITIAL_VISIBLE_RESULTS);
   }, [props.allResults]);
 
-  function getIcon(result: AutoCompleteResult, baseInput: string): ReactElement {
+  function getIcon(
+    result: AutoCompleteResult,
+    baseInput: string
+  ): ReactElement {
     const isExactMatch =
       stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "";
     if (result.matchType === "stat_var_search") {
@@ -81,10 +84,7 @@ export function AutoCompleteSuggestions(
     props.allResults.some((r) => r.matchType === "stat_var_search");
 
   return (
-    <div
-      className="autocomplete-search-input-results-list"
-      tabIndex={-1}
-    >
+    <div className="autocomplete-search-input-results-list" tabIndex={-1}>
       {props.allResults
         .slice(0, visibleCount)
         .map((result: AutoCompleteResult, idx: number) => {
@@ -127,7 +127,9 @@ export function AutoCompleteSuggestions(
                         return (
                           <>
                             {parts[0]}
-                            <span className="query-suggestion">{result.name}</span>
+                            <span className="query-suggestion">
+                              {result.name}
+                            </span>
                             {parts.length > 1 && parts[1]}
                           </>
                         );

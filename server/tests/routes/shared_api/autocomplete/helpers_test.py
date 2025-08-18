@@ -16,6 +16,7 @@ import unittest
 
 from server.routes.shared_api.autocomplete import helpers
 
+
 class TestHelpers(unittest.TestCase):
 
   def test_get_custom_place_suggestions(self):

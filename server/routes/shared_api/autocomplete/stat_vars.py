@@ -40,13 +40,12 @@ VAI_DATA_STORE_ID = "nl-statvar-search-prod_1753469569408"
 SERVING_CONFIG_PATH = (
     f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
     f"collections/default_collection/engines/{VAI_SEARCH_ENGINE_ID}/"
-    f"servingConfigs/{VAI_SEARCH_SERVING_CONFIG_ID}"
-)
+    f"servingConfigs/{VAI_SEARCH_SERVING_CONFIG_ID}")
 
 DATA_STORE_PATH = (
     f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
-    f"collections/default_collection/dataStores/{VAI_DATA_STORE_ID}"
-)
+    f"collections/default_collection/dataStores/{VAI_DATA_STORE_ID}")
+
 
 def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
   """
@@ -63,8 +62,8 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
   }
 
   try:
-    document = language_v1.Document(
-        content=query, type_=language_v1.Document.Type.PLAIN_TEXT)
+    document = language_v1.Document(content=query,
+                                    type_=language_v1.Document.Type.PLAIN_TEXT)
     response = LANGUAGE_CLIENT.analyze_syntax(
         document=document, encoding_type=language_v1.EncodingType.UTF8)
 
@@ -89,12 +88,11 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
     last_offset = last_token.text.begin_offset + len(last_token.text.content)
     original_phrase = query[first_offset:last_offset]
 
-    logging.info(
-        "NL API extracted phrase '%s' (cleaned: '%s') from query '%s'",
-        original_phrase, cleaned_query, query)
+    logging.info("NL API extracted phrase '%s' (cleaned: '%s') from query '%s'",
+                 original_phrase, cleaned_query, query)
 
-    print("NL API extracted phrase '%s' (cleaned: '%s') from query '%s'" % (
-        original_phrase, cleaned_query, query))
+    print("NL API extracted phrase '%s' (cleaned: '%s') from query '%s'" %
+          (original_phrase, cleaned_query, query))
     return {
         "cleaned_query": cleaned_query,
         "original_phrase": original_phrase,

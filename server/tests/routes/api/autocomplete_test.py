@@ -16,7 +16,8 @@ import unittest
 from unittest.mock import patch
 
 from server.routes.shared_api.autocomplete import helpers
-from server.routes.shared_api.autocomplete.autocomplete import _custom_rank_predictions
+from server.routes.shared_api.autocomplete.autocomplete import \
+    _custom_rank_predictions
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
 import server.tests.routes.api.mock_data as mock_data
 from web_app import app
@@ -25,8 +26,8 @@ from web_app import app
 class TestAutocomplete(unittest.TestCase):
 
   def run_autocomplete_query(self, query: str, lang: str):
-    return app.test_client().get(
-        f"/api/autocomplete?query={query}&hl={lang}", json={})
+    return app.test_client().get(f"/api/autocomplete?query={query}&hl={lang}",
+                                 json={})
 
   lang = 'en'
 
@@ -69,7 +70,9 @@ class TestAutocomplete(unittest.TestCase):
     response_dict = json.loads(response.data.decode("utf-8"))
     self.assertEqual(len(response_dict["predictions"]), 5)
 
-  @patch('server.routes.shared_api.autocomplete.autocomplete.is_feature_enabled', return_value=True)
+  @patch(
+      'server.routes.shared_api.autocomplete.autocomplete.is_feature_enabled',
+      return_value=True)
   def test_custom_ranking(self, mock_is_feature_enabled):
     # Test that for a query like "Population of Calif", the place suggestion
     # "California" is ranked higher than the stat var suggestions.

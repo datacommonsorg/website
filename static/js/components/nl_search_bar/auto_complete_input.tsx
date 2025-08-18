@@ -39,7 +39,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
-import { redirect, stripPatternFromQuery } from "../../shared/util";
+import { extractFlagsToPropagate, redirect, stripPatternFromQuery } from "../../shared/util";
 import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
@@ -257,8 +257,12 @@ export function AutoCompleteInput(
     }
     controller.current = new AbortController();
 
+    const urlParams = extractFlagsToPropagate(window.location.href);
+    urlParams.set("query", query);
+    const url = `/api/autocomplete?${urlParams.toString()}`;
+
     await axios
-      .get(`/api/autocomplete?query=${query}&hl=${lang}`, {
+      .get(url, {
         signal: controller.current.signal,
       })
       .then((response) => {
