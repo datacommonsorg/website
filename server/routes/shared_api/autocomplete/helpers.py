@@ -242,20 +242,17 @@ def get_ngram_queries(query: str) -> List[str]:
 def custom_rank_predictions(predictions: List[ScoredPrediction],
                              original_query: str) -> List[ScoredPrediction]:
   """Ranks a list of predictions based on a custom scoring algorithm."""
-  logging.info("[Autocomplete] Custom ranking predictions based on source and match quality.")
   for pred in predictions:
     # Lower score is better.
     new_score = pred.score
 
     # Add a large boost for place suggestions that are a direct prefix match.
-    if pred.source == 'ngram_place' and pred.description.lower().startswith(
+    if pred.source in ['ngram_place', 'custom_place'] and pred.description.lower().startswith(
         pred.matched_query.lower()):
       new_score -= 100
 
     # Apply other source-based boosts.
-    if pred.source == 'custom_place':
-      new_score -= 40
-    elif pred.source == 'core_concept_sv':
+    if pred.source == 'core_concept_sv':
       new_score -= 30
     elif pred.source == 'ngram_sv':
       new_score -= 25
