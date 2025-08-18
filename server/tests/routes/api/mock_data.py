@@ -640,7 +640,7 @@ MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES = {
 }
 
 DC_STAT_VAR_SEARCH_RESPONSE_SVG = {'statVarGroups': ['group_1', 'group_2']}
-DC_STAT_VAR_SEARCH_RESPONSE_NO_PLACES = {
+DC_STAT_VAR_SEARCH_RESPONSE_NO_ENTITIES = {
     'statVarGroups': ['group_3'],
     'statVars': [{
         'name': 'sv2',
@@ -754,5 +754,18 @@ VERTEX_AI_STAT_VAR_SEARCH_RESULT_ALL = {
     }, {
         'dcid': 'sv6',
         'name': 'sv6'
+    }]
+}
+
+VERTEX_AI_STAT_VAR_FILTER_RESULT = {
+    'statVars': [{
+        'dcid': 'sv1',
+        'name': 'sv1'
+    }, {
+        'dcid': 'sv2',
+        'name': 'sv2'
+    }, {
+        'dcid': 'sv3',
+        'name': 'sv3'
     }]
 }
