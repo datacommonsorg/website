@@ -79,14 +79,14 @@ profiles:
 
   - name: website-dev
     customActions:
-      # - name: update-bigtable-info
-      #   containers:
-      #     - name: gcloud-update-bt
-      #       image: gcr.io/datcom-ci/datacommons-script-runner:latest
-      #       command: ["/bin/bash"]
-      #       args:
-      #         - "-c"
-      #         - "./scripts/update_bigtable_info.sh autopush"
+      - name: update-bigtable-info
+        containers:
+          - name: gcloud-update-bt
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - "./scripts/update_bigtable_info.sh autopush"
       - name: deploy-cloud-esp-dev
         containers:
           - name: gcloud-website0
@@ -131,14 +131,14 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
   - name: mixer-dev
     customActions:
-        # - name: update-bigtable-info
-        #   containers:
-        #   - name: gcloud-update-bt
-        #     image: gcr.io/datcom-ci/datacommons-script-runner:latest
-        #     command: ["/bin/bash"]
-        #     args:
-        #       - "-c"
-        #       - "./scripts/update_bigtable_info.sh autopush"
+        - name: update-bigtable-info
+          containers:
+          - name: gcloud-update-bt
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - "./scripts/update_bigtable_info.sh autopush"
         - name: deploy-cloud-esp-mixer-dev
           containers:
           - name: gcloud-website0
@@ -168,14 +168,14 @@ profiles:
 
   - name: website-autopush
     customActions:
-      # - name: update-bigtable-info
-      #   containers:
-      #     - name: gcloud-update-bt
-      #       image: gcr.io/datcom-ci/datacommons-script-runner:latest
-      #       command: ["/bin/bash"]
-      #       args:
-      #         - "-c"
-      #         - "./scripts/update_bigtable_info.sh autopush"
+      - name: update-bigtable-info
+        containers:
+          - name: gcloud-update-bt
+            image: gcr.io/datcom-ci/datacommons-script-runner:latest
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - "./scripts/update_bigtable_info.sh autopush"
       - name: deploy-cloud-esp-autopush
         containers:
           - name: gcloud-website0
