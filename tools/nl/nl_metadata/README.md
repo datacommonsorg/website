@@ -47,7 +47,7 @@ python add_metadata.py [FLAGS]
 **Common Flags:**
 
 *   `--generateAltSentences`: (Optional) If present, the script will call the Gemini API to generate alternative sentences.
-*   `--useBigQuery`: (Optional) Pull all StatVars from the BigQuery `datcom-store.dc_kg_latest.StatisticalVariable` table. If omitted, it processes a smaller, curated list of StatVars used for NL search. This input can be found in `tools/nl/embeddings/input/base/sheests_svs.csv`.
+*   `--useBigQuery`: (Optional) Pull all StatVars from the BigQuery `datcom-store.dc_kg_latest.StatisticalVariable` table. If omitted, it processes a smaller, curated list of StatVars used for NL search. This input can be found in `tools/nl/embeddings/input/base/sheets_svs.csv`.
 *   `--maxStatVars=<NUMBER>`: (Optional) Limits the number of StatVars to process. Useful for quick tests.
 *   `--useGCS`: (Optional) Saves the output files to/reads input files from the GCS bucket `gs://metadata_for_vertexai_search` instead of the local filesystem.
 *   `--failedAttemptsPath=<PATH>`: (Optional) Re-process a file or folder of previously failed metadata generation attempts. See the "Handling Failures" section for more details.
