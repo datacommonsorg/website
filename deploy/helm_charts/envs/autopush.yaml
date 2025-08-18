@@ -46,7 +46,7 @@ mixer:
   hostProject: "datcom-website-autopush"
   cacheSVFormula: true
   enableOtlp: true
-  
+
 serviceAccount:
   name: website-ksa
 

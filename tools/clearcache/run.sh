@@ -27,11 +27,8 @@ set -ex
 
 # Function to install yq if it's not already in the environment
 install_yq() {
-  if ! command -v yq &> /dev/null;
- then
-    echo "yq not found, installing..."
-    curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
-  fi
+  echo "Installing yq..."
+  curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
 }
 
 # Function to clear the website cache
