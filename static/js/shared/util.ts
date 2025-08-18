@@ -17,9 +17,9 @@
 import _ from "lodash";
 import { URLSearchParams } from "url";
 
+import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_input";
 import { Theme } from "../theme/types";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
-import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_input";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -39,7 +39,11 @@ export const placeExplorerCategories = [
   "economics_new",
 ];
 
-const SEARCH_PARAMS_TO_PROPAGATE = new Set(["hl", "enable_feature", "disable_feature"]);
+const SEARCH_PARAMS_TO_PROPAGATE = new Set([
+  "hl",
+  "enable_feature",
+  "disable_feature",
+]);
 
 const NO_DATE_CAP_RCP_STATVARS = [
   // This stat var only has data for 2100. while other stat vars along the same
@@ -323,7 +327,10 @@ export function replaceQueryWithSelection(
   query: string,
   result: AutoCompleteResult
 ): string {
-  if (result.matchType === "stat_var_search" || result.matchType === "location_search") {
+  if (
+    result.matchType === "stat_var_search" ||
+    result.matchType === "location_search"
+  ) {
     // For stat vars and locations, do a case-insensitive replacement of the last
     // occurrence of the matched concept.
     const lowerCaseQuery = query.toLowerCase();

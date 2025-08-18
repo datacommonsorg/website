@@ -116,14 +116,14 @@ async def autocomplete():
       all_predictions.append(p)
 
   logging.info(
-      f'[Autocomplete] Total predictions before ranking: {len(all_predictions)}')
+      f'[Autocomplete] Total predictions before ranking: {len(all_predictions)}'
+  )
 
   # 2. RANK: Apply custom ranking to all gathered predictions.
   ranked_predictions = helpers.custom_rank_predictions(all_predictions,
-                                                     original_query)
+                                                       original_query)
   logging.info(
-      f'[Autocomplete] Total predictions after ranking: {ranked_predictions}'
-  )
+      f'[Autocomplete] Total predictions after ranking: {ranked_predictions}')
 
   # 3. MERGE: Deduplicate and format the final list.
   # First, fetch all place DCIDs in a single batch.

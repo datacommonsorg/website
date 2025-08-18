@@ -93,7 +93,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
   #   hero_msg = self.driver.find_elements(By.CLASS_NAME, 'lead')[0]
   #   self.assertTrue(
   #       hero_msg.text.startswith('Data Commons – это открытая база данных'))
- 
+
   # Tests for NL Search Bar AutoComplete feature.
   def test_homepage_autocomplete_places(self):
     """Test homepage autocomplete for places."""
@@ -105,7 +105,8 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(self.dc_title_string))
 
-    search_box_input = find_elem(self.driver, by=By.ID,
+    search_box_input = find_elem(self.driver,
+                                 by=By.ID,
                                  value='query-search-input')
 
     # Test simple place search
@@ -122,7 +123,8 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.presence_of_element_located(
             (By.CLASS_NAME, 'search-input-result-section')))
-    first_result = find_elem(self.driver, by=By.CLASS_NAME,
+    first_result = find_elem(self.driver,
+                             by=By.CLASS_NAME,
                              value='search-input-result-section')
     self.assertIn("California", first_result.text)
     search_box_input.clear()
@@ -137,22 +139,26 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(self.dc_title_string))
 
-    search_box_input = find_elem(self.driver, by=By.ID,
+    search_box_input = find_elem(self.driver,
+                                 by=By.ID,
                                  value='query-search-input')
 
     # Test autocomplete for stat vars
     search_box_input.send_keys("gdp")
-    initial_results = find_elems(self.driver, value='search-input-result-section')
+    initial_results = find_elems(self.driver,
+                                 value='search-input-result-section')
     self.assertEqual(len(initial_results), 5)
     search_box_input.clear()
 
     # Test load more stat var results
     search_box_input.send_keys("Household Income")
-    initial_results = find_elems(self.driver, value='search-input-result-section')
+    initial_results = find_elems(self.driver,
+                                 value='search-input-result-section')
     self.assertEqual(len(initial_results), 5)
 
     # Click on the "Load More" button to fetch more results
-    load_more_button = find_elem(self.driver, by=By.CLASS_NAME,
+    load_more_button = find_elem(self.driver,
+                                 by=By.CLASS_NAME,
                                  value='load-more-section')
     self.assertIsNotNone(load_more_button)
     initial_count = len(initial_results)

@@ -15,8 +15,8 @@
 import json
 import logging
 import re
-import unicodedata
 from typing import Dict, List
+import unicodedata
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -172,7 +172,7 @@ def execute_maps_request(query: str, language: str) -> Dict:
 
 
 def get_place_predictions(queries: List[str], lang: str,
-                        source: str) -> List[ScoredPrediction]:
+                          source: str) -> List[ScoredPrediction]:
   """Trigger maps prediction api requests and process the output."""
   place_id_to_best_query: Dict[str, str] = {}
   place_id_to_description: Dict[str, str] = {}
@@ -226,6 +226,7 @@ def fetch_place_id_to_dcid(
 
   return prediction_responses
 
+
 def get_ngram_queries(query: str) -> List[str]:
   """Generates n-gram queries from the tail end of a query string."""
   tokens = query.split()
@@ -240,22 +241,23 @@ def get_ngram_queries(query: str) -> List[str]:
 
 
 def custom_rank_predictions(predictions: List[ScoredPrediction],
-                             original_query: str) -> List[ScoredPrediction]:
+                            original_query: str) -> List[ScoredPrediction]:
   """Ranks a list of predictions based on a custom scoring algorithm."""
   for pred in predictions:
     # Lower score is better.
     new_score = pred.score
 
     # Add a large boost for place suggestions that are a direct prefix match.
-    if pred.source in ['ngram_place', 'custom_place'] and pred.description.lower().startswith(
-        pred.matched_query.lower()):
+    if pred.source in [
+        'ngram_place', 'custom_place'
+    ] and pred.description.lower().startswith(pred.matched_query.lower()):
       new_score -= 100
 
     # Apply other source-based boosts.
     if pred.source == 'core_concept_sv':
       new_score -= 30
     elif pred.source == 'ngram_sv':
-      new_score -= 25
+      new_score -= 20
 
     # Boost based on how much of the original query was matched.
     if pred.matched_query:

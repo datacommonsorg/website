@@ -56,7 +56,10 @@ export function AutoCompleteSuggestions(
     setVisibleCount(INITIAL_VISIBLE_RESULTS);
   }, [props.allResults]);
 
-  function getIcon(result: AutoCompleteResult, baseInput: string): ReactElement {
+  function getIcon(
+    result: AutoCompleteResult,
+    baseInput: string
+  ): ReactElement {
     const isExactMatch =
       stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "";
     if (result.matchType === "stat_var_search") {
