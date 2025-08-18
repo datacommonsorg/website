@@ -19,6 +19,7 @@ import { URLSearchParams } from "url";
 
 import { Theme } from "../theme/types";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
+import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_input";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -315,5 +316,36 @@ export function redirect(
 }
 
 export function escapeRegExp(string: string): string {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return string.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+}
+
+export function replaceQueryWithSelection(
+  query: string,
+  result: AutoCompleteResult
+): string {
+  if (result.matchType === "stat_var_search") {
+    // For stat vars, do a case-insensitive replacement of the last occurrence of
+    // the matched concept.
+    const lowerCaseQuery = query.toLowerCase();
+    const lowerCaseMatchedQuery = result.matchedQuery.toLowerCase();
+    const lastIndex = lowerCaseQuery.lastIndexOf(lowerCaseMatchedQuery);
+    if (lastIndex !== -1) {
+      const prefix = query.substring(0, lastIndex);
+      return prefix + result.name;
+    }
+  }
+  if (result.matchType === "location_search") {
+    // For locations, replace only the last word of the matched query.
+    const patternWords = result.matchedQuery.trim().split(" ");
+    const lastWordOfPattern = patternWords[patternWords.length - 1];
+    const lastWordIndex = query
+      .toLowerCase()
+      .lastIndexOf(lastWordOfPattern.toLowerCase());
+    if (lastWordIndex !== -1) {
+      const prefix = query.substring(0, lastWordIndex);
+      return prefix + result.name;
+    }
+  }
+  // Fallback for any other case.
+  return stripPatternFromQuery(query, result.matchedQuery) + result.name;
 }

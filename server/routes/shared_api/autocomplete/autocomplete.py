@@ -34,7 +34,7 @@ from server.routes.shared_api.autocomplete.types import ScoredPrediction
 bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 
 # The maximum number of words to use for n-gram tail-end queries.
-MAX_NGRAM_SIZE = 3
+MAX_NGRAM_SIZE = 5
 
 
 def _get_ngram_queries(query: str) -> List[str]:

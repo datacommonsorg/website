@@ -25,7 +25,11 @@ import {
   GA_PARAM_QUERY,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { escapeRegExp, stripPatternFromQuery } from "../../shared/util";
+import {
+  escapeRegExp,
+  replaceQueryWithSelection,
+  stripPatternFromQuery,
+} from "../../shared/util";
 import { ScatterPlot } from "../elements/icons/scatter_plot";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteResult } from "./auto_complete_input";
@@ -52,10 +56,7 @@ export function AutoCompleteSuggestions(
     setVisibleCount(INITIAL_VISIBLE_RESULTS);
   }, [props.allResults]);
 
-  function getIcon(
-    result: AutoCompleteResult,
-    baseInput: string
-  ): ReactElement {
+  function getIcon(result: AutoCompleteResult, baseInput: string): ReactElement {
     const isExactMatch =
       stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "";
     if (result.matchType === "stat_var_search") {
@@ -84,10 +85,15 @@ export function AutoCompleteSuggestions(
     props.allResults.some((r) => r.matchType === "stat_var_search");
 
   return (
-    <div className="autocomplete-search-input-results-list" tabIndex={-1}>
+    <div
+      className="autocomplete-search-input-results-list scrollable-container"
+      tabIndex={-1}
+    >
       {props.allResults
         .slice(0, visibleCount)
         .map((result: AutoCompleteResult, idx: number) => {
+          const fullText = replaceQueryWithSelection(props.baseInput, result);
+          const parts = fullText.split(result.name);
           return (
             <div key={idx}>
               <div
@@ -107,33 +113,9 @@ export function AutoCompleteSuggestions(
                   </span>
                   <div className="query-result">
                     <span>
-                      {(() => {
-                        if (!result.matchedQuery) {
-                          return (
-                            <span className="query-suggestion">
-                              {result.name}
-                            </span>
-                          );
-                        }
-                        const regex = new RegExp(
-                          escapeRegExp(result.matchedQuery),
-                          "i"
-                        );
-                        const fullText = props.baseInput.replace(
-                          regex,
-                          result.name
-                        );
-                        const parts = fullText.split(result.name);
-                        return (
-                          <>
-                            {parts[0]}
-                            <span className="query-suggestion">
-                              {result.name}
-                            </span>
-                            {parts.length > 1 && parts[1]}
-                          </>
-                        );
-                      })()}
+                      {parts[0]}
+                      <span className="query-suggestion">{result.name}</span>
+                      {parts.length > 1 && parts[1]}
                     </span>
                   </div>
                 </div>

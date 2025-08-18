@@ -39,7 +39,12 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
-import { extractFlagsToPropagate, redirect, stripPatternFromQuery } from "../../shared/util";
+import {
+  extractFlagsToPropagate,
+  redirect,
+  replaceQueryWithSelection,
+  stripPatternFromQuery,
+} from "../../shared/util";
 import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
@@ -111,7 +116,6 @@ export function AutoCompleteInput(
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const isHeaderBar = props.barType == "header";
-  let lang = "";
 
   const { placeholder } = useQueryStore();
 
@@ -119,9 +123,6 @@ export function AutoCompleteInput(
     window.addEventListener("scroll", () => {
       setLastScrollY(window.scrollY);
     });
-
-    const urlParams = new URLSearchParams(window.location.search);
-    lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
 
     if (!inputText && props.enableDynamicPlaceholders) {
       enableDynamicPlacehoder(
@@ -311,37 +312,6 @@ export function AutoCompleteInput(
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
     }
-  }
-
-  function replaceQueryWithSelection(
-    query: string,
-    result: AutoCompleteResult
-  ): string {
-    if (result.matchType === STAT_VAR_SEARCH) {
-      // For stat vars, do a case-insensitive replacement of the last occurrence of
-      // the matched concept.
-      const lowerCaseQuery = query.toLowerCase();
-      const lowerCaseMatchedQuery = result.matchedQuery.toLowerCase();
-      const lastIndex = lowerCaseQuery.lastIndexOf(lowerCaseMatchedQuery);
-      if (lastIndex !== -1) {
-        const prefix = query.substring(0, lastIndex);
-        return prefix + result.name;
-      }
-    }
-    if (result.matchType === LOCATION_SEARCH) {
-      // For locations, replace only the last word of the matched query.
-      const patternWords = result.matchedQuery.trim().split(" ");
-      const lastWordOfPattern = patternWords[patternWords.length - 1];
-      const lastWordIndex = query
-        .toLowerCase()
-        .lastIndexOf(lastWordOfPattern.toLowerCase());
-      if (lastWordIndex !== -1) {
-        const prefix = query.substring(0, lastWordIndex);
-        return prefix + result.name;
-      }
-    }
-    // Fallback for any other case.
-    return stripPatternFromQuery(query, result.matchedQuery) + result.name;
   }
 
   function processArrowKey(selectedIndex: number): void {
