@@ -42,15 +42,21 @@ website:
       }
 
 mixer:
-  hostProject:
-  serviceName:
+  serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+  hostProject: "datcom-website-autopush"
   cacheSVFormula: true
+  enableOtlp: true
 
 serviceAccount:
   name: website-ksa
 
+ingress:
+  enabled: true
+
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -94,6 +100,8 @@ serviceGroups:
 
 nodejs:
   enabled: true
+  image:
+    tag: ""
   replicas: 12
 
 cronTesting:
