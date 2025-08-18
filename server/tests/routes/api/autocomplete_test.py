@@ -16,8 +16,8 @@ import unittest
 from unittest.mock import patch
 
 from server.routes.shared_api.autocomplete import helpers
-from server.routes.shared_api.autocomplete.autocomplete import \
-    _custom_rank_predictions
+from server.routes.shared_api.autocomplete.helpers import \
+    custom_rank_predictions
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
 import server.tests.routes.api.mock_data as mock_data
 from web_app import app
@@ -98,7 +98,7 @@ class TestAutocomplete(unittest.TestCase):
                          source='core_concept_sv'),
     ]
 
-    ranked_predictions = _custom_rank_predictions(predictions, original_query)
+    ranked_predictions = custom_rank_predictions(predictions, original_query)
     self.assertEqual(ranked_predictions[0].description, "California")
 
   # Tests for helpers within autocomplete.
