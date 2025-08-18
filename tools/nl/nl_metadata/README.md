@@ -77,7 +77,7 @@ python run_add_metadata.py --gcsFolder="my_custom_folder"
 
 After starting the job, you can monitor its status in the [Cloud Run section of the GCP Console](https://console.cloud.google.com/run) for the `datcom-nl` project.
 
-For reference, the results of previous experimental runs can be found in the `datcom-website-dev` GCP project, under the `gmechali-csv-testing` GCS bucket.
+For reference, the results of previous experimental runs can be found in the `datcom-website-dev` GCP project, under the `gmechali-csv-testing` GCS bucket. Note that these are purely  historical runs for reference-use only; any future runs should be done in `datcom-nl`.
 
 ### Handling Failures
 
