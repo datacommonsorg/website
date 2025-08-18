@@ -171,8 +171,8 @@ def execute_maps_request(query: str, language: str) -> Dict:
   return json.loads(response.text)
 
 
-def predict(queries: List[str], lang: str,
-            source: str) -> List[ScoredPrediction]:
+def get_place_predictions(queries: List[str], lang: str,
+                        source: str) -> List[ScoredPrediction]:
   """Trigger maps prediction api requests and process the output."""
   place_id_to_queries: Dict[str, List[str]] = {}
   place_id_to_description: Dict[str, str] = {}

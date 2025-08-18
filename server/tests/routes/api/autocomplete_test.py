@@ -31,7 +31,7 @@ class TestAutocomplete(unittest.TestCase):
 
   lang = 'en'
 
-  @patch('server.routes.shared_api.autocomplete.helpers.predict')
+  @patch('server.routes.shared_api.autocomplete.helpers.get_place_predictions')
   @patch('server.routes.shared_api.place.fetch.resolve_id')
   def test_empty_query(self, mock_resolve_ids, mock_predict):
 
@@ -50,7 +50,7 @@ class TestAutocomplete(unittest.TestCase):
     response_dict = json.loads(response.data.decode("utf-8"))
     self.assertEqual(len(response_dict["predictions"]), 0)
 
-  @patch('server.routes.shared_api.autocomplete.helpers.predict')
+  @patch('server.routes.shared_api.autocomplete.helpers.get_place_predictions')
   @patch('server.routes.shared_api.place.fetch.resolve_id')
   def test_single_word_query(self, mock_resolve_ids, mock_predict):
 

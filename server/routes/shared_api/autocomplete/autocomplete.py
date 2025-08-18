@@ -14,6 +14,7 @@
 
 import itertools
 import logging
+import time
 from typing import List
 
 from flask import Blueprint
@@ -36,6 +37,7 @@ bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 @bp.route('/autocomplete')
 def autocomplete():
   """Predicts the user query for location and stat vars."""
+  start_time = time.time()
   lang = request.args.get('hl')
   original_query = request.args.get('query', '')
 
@@ -77,9 +79,9 @@ def autocomplete():
     all_predictions.extend(custom_place_predictions)
 
     # Search for places using the n-gram
-    place_predictions = helpers.predict([ngram_query],
-                                        lang,
-                                        source='ngram_place')
+    place_predictions = helpers.get_place_predictions([ngram_query],
+                                                    lang,
+                                                    source='ngram_place')
     logging.info(
         f'[Autocomplete] Found {len(place_predictions)} place predictions for n-gram: "{ngram_query}"'
     )
@@ -124,9 +126,9 @@ def autocomplete():
           dcid=prediction.place_dcid)
       final_predictions.append(current_prediction)
 
-  # No longer limiting to 5, will send a larger list to the frontend.
-
-  logging.info("[Autocomplete] Returning a total of %d predictions.",
-               len(final_predictions))
+  duration_ms = (time.time() - start_time) * 1000
+  logging.info(
+      f'[Autocomplete] Returning {len(final_predictions)} predictions in {duration_ms:.2f} ms'
+  )
 
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))
