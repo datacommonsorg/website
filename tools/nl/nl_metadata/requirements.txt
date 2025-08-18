@@ -1,4 +1,5 @@
 datacommons-client
+datetime
 google-api-core
 google-cloud
 google-cloud-bigquery
