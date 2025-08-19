@@ -156,9 +156,9 @@ class TestSearchStatVar(unittest.TestCase):
   @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.dc.filter_statvars')
-  @mock.patch('server.routes.shared_api.stats.search_vertexai')
+  @mock.patch('server.lib.vertex_ai.search')
   def test_search_statvar_dc_single_token_vai_disabled(self,
-                                                       mock_search_vertexai,
+                                                       mock_vertex_ai_search,
                                                        mock_filter_statvars,
                                                        mock_search_dc,
                                                        mock_is_feature_enabled):
@@ -181,7 +181,7 @@ class TestSearchStatVar(unittest.TestCase):
 
     with app.app_context():
       mock_is_feature_enabled.return_value = False
-      mock_search_vertexai.side_effect = ValueError(
+      mock_vertex_ai_search.side_effect = ValueError(
           "Vertex AI search not expected in this test.")
       mock_filter_statvars.side_effect = ValueError(
           "dc.filter_statvars not expected in this test.")
@@ -189,18 +189,18 @@ class TestSearchStatVar(unittest.TestCase):
 
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&entities=geoId/06')
-      mock_search_vertexai.assert_not_called()
+      mock_vertex_ai_search.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_result
       response = app.test_client().get(
           'api/stats/stat-var-search?query=person&entities=geoId/06&svOnly=1')
-      mock_search_vertexai.assert_not_called()
+      mock_vertex_ai_search.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_sv_only_result
       response = app.test_client().get('api/stats/stat-var-search?query=person')
-      mock_search_vertexai.assert_not_called()
+      mock_vertex_ai_search.assert_not_called()
       assert response.status_code == 200
       result = json.loads(response.data)
       assert result == expected_no_entities_result
@@ -208,8 +208,8 @@ class TestSearchStatVar(unittest.TestCase):
   @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.dc.filter_statvars')
-  @mock.patch('server.routes.shared_api.stats.search_vertexai')
-  def test_search_statvar_vai_enabled(self, mock_search_vertexai,
+  @mock.patch('server.lib.vertex_ai.search')
+  def test_search_statvar_vai_enabled(self, mock_vertex_ai_search,
                                       mock_filter_statvars, mock_search_dc,
                                       mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is enabled and should be called."""
@@ -222,10 +222,10 @@ class TestSearchStatVar(unittest.TestCase):
     expected_result_all = mock_data.VERTEX_AI_STAT_VAR_SEARCH_RESULT_ALL
     expected_result_filtered = mock_data.VERTEX_AI_STAT_VAR_FILTER_RESULT
 
-    def search_vai_side_effect(query, token, _=None):
-      if query == expected_query and not token:
+    def search_vai_side_effect(query, page_token, **kwargs):
+      if query == expected_query and not page_token:
         return vai_response_page_one
-      elif query == expected_query and token == 'page_two':
+      elif query == expected_query and page_token == 'page_two':
         return vai_response_page_two
       else:
         return []
@@ -240,7 +240,7 @@ class TestSearchStatVar(unittest.TestCase):
 
     with app.app_context():
       mock_is_feature_enabled.return_value = True
-      mock_search_vertexai.side_effect = search_vai_side_effect
+      mock_vertex_ai_search.side_effect = search_vai_side_effect
       mock_filter_statvars.side_effect = filter_statvars_side_effect
       mock_search_dc.side_effect = ValueError(
           "DC search not expected in this test.")
@@ -276,8 +276,8 @@ class TestSearchStatVar(unittest.TestCase):
   @mock.patch('server.routes.shared_api.stats.is_feature_enabled')
   @mock.patch('server.routes.shared_api.stats.dc.search_statvar')
   @mock.patch('server.routes.shared_api.stats.dc.filter_statvars')
-  @mock.patch('server.routes.shared_api.stats.search_vertexai')
-  def test_search_statvar_vai_missing_data(self, mock_search_vertexai,
+  @mock.patch('server.lib.vertex_ai.search')
+  def test_search_statvar_vai_missing_data(self, mock_vertex_ai_search,
                                            mock_filter_statvars, mock_search_dc,
                                            mock_is_feature_enabled):
     """Tests behaviour when Vertex AI search is enabled and returns incomplete StatVar data."""
@@ -285,8 +285,8 @@ class TestSearchStatVar(unittest.TestCase):
     vai_response = mock_data.VERTEX_AI_STAT_VAR_SEARCH_API_RESPONSE_MISSING_DATA
     expected_result = mock_data.STAT_VAR_SEARCH_RESPONSE_SV_ONLY
 
-    def search_vai_side_effect(query, token, _=None):
-      if query == expected_query and not token:
+    def search_vai_side_effect(query, page_token, **kwargs):
+      if query == expected_query and not page_token:
         return vai_response
       else:
         return []
@@ -296,7 +296,7 @@ class TestSearchStatVar(unittest.TestCase):
 
     with app.app_context(), self.assertLogs(level='WARNING') as cm:
       mock_is_feature_enabled.return_value = True
-      mock_search_vertexai.side_effect = search_vai_side_effect
+      mock_vertex_ai_search.side_effect = search_vai_side_effect
       mock_filter_statvars.side_effect = filter_statvars_side_effect
       mock_search_dc.side_effect = ValueError(
           "DC search not expected in this test.")
