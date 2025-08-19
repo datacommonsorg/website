@@ -247,21 +247,26 @@ def custom_rank_predictions(predictions: List[ScoredPrediction],
     # Lower score is better.
     new_score = pred.score
 
-    # Add a large boost for place suggestions that are a direct prefix match.
-    if pred.source in [
-        'ngram_place', 'custom_place'
-    ] and pred.description.lower().startswith(pred.matched_query.lower()):
-      new_score -= 100
+    # Add a large boost for place suggestions that are a direct prefix/full match.
+    if pred.source in ['ngram_place', 'custom_place']:
+      if pred.matched_query.lower() == (pred.description.lower()):
+        new_score -= 30
+      elif pred.description.lower().startswith(pred.matched_query.lower()):
+        new_score -= 20
 
     # Apply other source-based boosts.
     if pred.source == 'core_concept_sv':
-      new_score -= 30
+      new_score -= 20
     elif pred.source == 'ngram_sv':
       new_score -= 20
 
     # Boost based on how much of the original query was matched.
-    if pred.matched_query:
-      new_score -= len(pred.matched_query) * 0.5
+    if pred.source == 'ngram_sv':
+      new_score -= len(pred.matched_query) * 0.2
+    elif pred.source == 'ngram_place':
+      new_score -= len(pred.matched_query) * 0.4
+    elif pred.source == 'custom_place':
+      new_score -= len(pred.matched_query) * 0.6
 
     pred.score = new_score
 
