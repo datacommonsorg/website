@@ -2,9 +2,13 @@
 
 This directory contains scripts to augment metadata with alternative sentences for Data Commons Statistical Variables (StatVars). The primary script, `add_metadata.py`, fetches StatVar metadata, optionally uses the Gemini API to generate alternative natural language sentences, and exports the results to JSONL files.
 
-These generated files are intended to be used as a data source for a Vertex AI Search application to power natural language search over statistical variables.
+These generated files are intended to be used as a data source for a Vertex AI Search application to power natural language search over statistical variables. For an example Vertex AI Search application, see go/sv-search-preview. 
 
 ## Setup
+
+### 0. Developer Environment
+
+Be sure to follow the steps in the [developer guide](https://github.com/datacommonsorg/website/blob/master/docs/developer_guide.md) prior to running this script to ensure that you have the proper versions and setup of python, gcloud, etc.. 
 
 ### 1. Environment Variables
 
@@ -17,7 +21,7 @@ Before running the scripts, you need to set up your API keys.
 2.  Edit the newly created `.env` file and add your API keys:
     *   `DC_API_KEY`: Your Data Commons API key.
     *   `GEMINI_API_KEY`: A single Gemini API key, used for local runs.
-    *   `GEMINI_API_KEYS`: A comma-separated list of Gemini API keys, used for parallelized Cloud Run jobs (`run_add_metadata.py`).
+    *   `GEMINI_API_KEYS`: A comma-separated list of Gemini API keys, used for parallelized Cloud Run jobs (`run_add_metadata.py`). Separate API keys are used per Cloud Run job to prevent 429 (resource exhaustion) errors from Gemini. 
 
 ### 2. GCP Authentication
 
@@ -56,7 +60,7 @@ python add_metadata.py [FLAGS]
 
 For processing the entire set of StatVars from BigQuery, the recommended approach is to use the `run_add_metadata.py` script. This script triggers a `stat-var-metadata-generator` Cloud Run job in the `us-central1` region, which runs the `add_metadata.py` script in a containerized environment.
 
-The script will automatically partition the workload across the number of API keys provided in the `GEMINI_API_KEYS` environment variable, running one job per key in parallel. For reference, a previous run across all 250k stat vars in base DC's BigQuery table took approximately 1 hour for 12 parallel jobs to complete. 
+The script will automatically partition the workload across the number of API keys provided in the `GEMINI_API_KEYS` environment variable, running one job per key in parallel. For reference, a previous run across all 250k stat vars in base DC's BigQuery table took approximately 1 hour for 12 parallel jobs to complete. Separate keys are needed per job to prevent 429 errors (resource exhaustion) from the Gemini API calls. For a list of Gemini API keys created specifically for this purpose, see this [spreadsheet](https://docs.google.com/spreadsheets/d/1DP3RwnwrU6VdDZFsK7FTcEZy--Cag1dQ4JUMWZZZ178/edit?usp=sharing&resourcekey=0-fBIYedZl45MT3gKRnG0Hdg). 
 
 By default, `run_add_metadata.py` executes the Cloud Run job with the following configuration:
 *   Processes the full set of StatVars from BigQuery (`--useBigQuery`).
