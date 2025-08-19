@@ -15,6 +15,7 @@
 # limitations under the License.
 
 # Updates the base_bigtable_info.yaml file with the latest cache versions from GCS.
+# This script is self-contained and does not require external dependencies like yq.
 
 set -e
 
@@ -30,26 +31,30 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 cd $ROOT
 
-BIGTABLE_INFO_FILE="mixer/deploy/storage/base_bigtable_info.yaml"
+# Write to a new, generated file at the root to avoid workspace caching issues.
+OUTPUT_FILE="generated_bigtable_info.yaml"
 
-# Clear and recreate the tables list in the YAML file
-yq eval -i 'del(.tables)' $BIGTABLE_INFO_FILE
-yq eval -i '.tables = []' $BIGTABLE_INFO_FILE
+# Overwrite the file with the static header
+# Note: This assumes the project and instance are static. If they need to be
+# dynamic, this script will need to be updated.
+echo "project: datcom-store" > $OUTPUT_FILE
+echo "instance: prophet-cache" >> $OUTPUT_FILE
+echo "tables:" >> $OUTPUT_FILE
 
-# Loop through the latest version files in GCS and add them to the YAML
+# Loop through the latest version files in GCS and append table names to the YAML
 for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.txt); do
-  export TABLE="$(gsutil cat "$src")"
+  TABLE="$(gsutil cat "$src")"
   # Skip experimental import group for non-autopush environments
   if [[ $TABLE == experimental* ]] && [[ $ENV != "autopush" ]]; then
     continue
   fi
   echo "Adding table: $TABLE"
   if [[ $TABLE != "" ]]; then
-    yq eval -i '.tables += [env(TABLE)]' $BIGTABLE_INFO_FILE
+    # Append the table to the file in YAML list format
+    echo "  - $TABLE" >> $OUTPUT_FILE
   fi
-  cat "$TABLE" | sed 's/^/  /' >> $BIGTABLE_INFO_FILE
 done
 
-echo "Successfully updated $BIGTABLE_INFO_FILE"
-echo "See the updated file"
-cat $BIGTABLE_INFO_FILE
+echo "Successfully generated $OUTPUT_FILE"
+echo "See the generated file:"
+cat $OUTPUT_FILE

@@ -29,8 +29,8 @@ serialPipeline:
       strategy:
         standard:
           predeploy:
-            # actions: ["deploy-cloud-esp-dev"]
-            actions: ["deploy-cloud-esp-dev", "update-bigtable-info"]
+            actions: ["deploy-cloud-esp-dev"]
+            # actions: ["deploy-cloud-esp-dev", "update-bigtable-info", "debug-cat-file"]
           postdeploy:
             actions: ["clear-website-cache"]
     - targetId: website-autopush
@@ -43,8 +43,8 @@ serialPipeline:
       strategy:
         standard:
           predeploy:
-            # actions: ["deploy-cloud-esp-autopush"]
-            actions: ["deploy-cloud-esp-autopush", "update-bigtable-info"]
+            actions: ["deploy-cloud-esp-autopush"]
+            # actions: ["deploy-cloud-esp-autopush", "update-bigtable-info"]
           postdeploy:
             actions: ["clear-website-cache"]
     - targetId: website-staging
@@ -92,8 +92,8 @@ serialPipeline:
       strategy:
         standard:
           predeploy:
-            # actions: ["deploy-cloud-esp-mixer-dev"]
-            actions: ["deploy-cloud-esp-mixer-dev", "update-bigtable-info"]
+            actions: ["deploy-cloud-esp-mixer-dev"]
+            # actions: ["deploy-cloud-esp-mixer-dev", "update-bigtable-info"]
     - targetId: mixer-autopush
       profiles: [mixer-autopush]
       deployParameters:
