@@ -42,7 +42,7 @@ There are two primary ways to run the metadata generation process: locally for s
 
 ### Local Execution (for testing)
 
-You can run `add_metadata.py` directly to process a small number of StatVars. This is useful for testing and debugging.
+You can run `add_metadata.py` directly to process a small number of StatVars. This is useful for testing and debugging. Note that python version 3.11 or later is required to run this script, be sure to follow step 0 to set up your developer environment which will ensure you have the correct version.
 
 ```bash
 python add_metadata.py [FLAGS]
