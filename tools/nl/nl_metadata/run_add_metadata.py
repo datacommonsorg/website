@@ -17,7 +17,7 @@ It reads a list of Gemini API keys to use from the .env file, and based on that 
 
 Before running this script, make a copy of .env.sample and fill in your list of Gemini API keys. Also, make sure that you are authenticated with gcloud:
 1. gcloud auth login
-2. gcloud config set project datcom-website-dev
+2. gcloud config set project datcom-nl
 
 Then, run this script using the command `python ./run_add_metadata.py`
 """
@@ -43,14 +43,14 @@ def extract_flag() -> argparse.Namespace:
   parser.add_argument(
       "--gcsFolder",
       help=
-      "The folder in the GCS bucket to save the results to. Defaults to 'statvar_metadata'.",
+      "The folder in the GCS bucket to save the results to. Defaults to None, meaning the add_metadata.py script will choose 'full_statvar_metadata_staging' as the folder.",
       type=str,
-      default="statvar_metadata")
+      default=None)
   args = parser.parse_args()
   return args
 
 
-def execute_cloud_run_jobs(api_keys: list[str], gcs_folder: str):
+def execute_cloud_run_jobs(api_keys: list[str], gcs_folder: str | None):
   """
     Executes the 'stat-var-metadata-generator' Cloud Run job with dynamic partitioning.
     For each API key provided, this script triggers a separate Cloud Run job execution.
@@ -80,8 +80,9 @@ def execute_cloud_run_jobs(api_keys: list[str], gcs_folder: str):
                            "--useBigQuery,"
                            f"--totalPartitions={total_partitions},"
                            f"--currPartition={curr_partition},"
-                           f"--gcsFolder={gcs_folder}",
                            f"--geminiApiKey={api_key_value}")
+    if gcs_folder:
+      container_args_list += (f"--gcsFolder={gcs_folder}",)
 
     args_string = ",".join(container_args_list)
     command = [
