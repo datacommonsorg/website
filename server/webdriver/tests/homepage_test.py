@@ -147,14 +147,14 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     search_box_input.send_keys("gdp")
     initial_results = find_elems(self.driver,
                                  value='search-input-result-section')
-    self.assertEqual(len(initial_results), 5)
+    self.assertEqual(len(initial_results), 6)
     search_box_input.clear()
 
     # Test load more stat var results
     search_box_input.send_keys("Household Income")
     initial_results = find_elems(self.driver,
                                  value='search-input-result-section')
-    self.assertEqual(len(initial_results), 5)
+    self.assertEqual(len(initial_results), 6)
 
     # Click on the "Load More" button to fetch more results
     load_more_button = find_elem(self.driver,
