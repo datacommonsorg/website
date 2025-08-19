@@ -43,7 +43,7 @@
   },
   {
     "name": "page_overview_experiment",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the page overview generated from query and relevant stat vars as an experiment."
   },
