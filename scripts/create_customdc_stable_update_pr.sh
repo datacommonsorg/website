@@ -179,7 +179,7 @@ export GH_BROWSER="./scripts/echo_to_stderr.sh"
 gh pr create \
   --repo datacommonsorg/website \
   --base customdc_stable \
-  --head "${fork_owner}:${fork_name}:${UPDATE_BRANCH}" \
+  --head "${fork_owner}:${UPDATE_BRANCH}" \
   --title "$current_date Custom DC stable release" \
   --body "$pr_body" \
   --web \

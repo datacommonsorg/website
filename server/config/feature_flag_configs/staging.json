@@ -43,7 +43,7 @@
   },
   {
     "name": "page_overview_experiment",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the page overview generated from query and relevant stat vars as an experiment."
   },
@@ -54,14 +54,26 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
+    "name": "page_overview_links",
+    "enabled": true,
+    "owner": "javiervazquez",
+    "description": "A flag to guard if the embedded links in the overview are enabled."
+  },
+  {
     "name": "standardized_vis_tool",
     "enabled": false,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
   {
-    "name": "vai_for_statvar_search",
+    "name": "stat_var_autocomplete_search_bar",
     "enabled": false,
+    "owner": "gmechali",
+    "description": "Enable stat var autocompletion in the NL Search bar"
+  },
+  {
+    "name": "vai_for_statvar_search",
+    "enabled": true,
     "owner": "alyssaguo",
     "description": "Enables using the Vertex AI search application for stat var searches."
   },

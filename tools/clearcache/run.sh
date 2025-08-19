@@ -30,7 +30,7 @@ install_yq() {
   if ! command -v yq &> /dev/null;
  then
     echo "yq not found, installing..."
-    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq && chmod +x /usr/local/bin/yq
+    curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
   fi
 }
 
