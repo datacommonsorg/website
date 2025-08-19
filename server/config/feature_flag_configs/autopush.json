@@ -67,7 +67,7 @@
   },
   {
     "name": "stat_var_autocomplete_search_bar",
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Enable stat var autocompletion in the NL Search bar"
   },
