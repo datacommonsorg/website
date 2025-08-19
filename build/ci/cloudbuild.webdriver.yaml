@@ -70,7 +70,7 @@ steps:
 
   # Run the Custom DC webdriver tests
   - id: flask_cdc_webdriver_test
-    name: gcr.io/datcom-ci/full-env:2025-05-20
+    name: gcr.io/datcom-ci/full-env:2025-07-31
     entrypoint: /bin/sh
     waitFor: ["package_js", "setup_python", "setup_website", "setup_nl"]
     args:

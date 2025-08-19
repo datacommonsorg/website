@@ -43,6 +43,8 @@ interface TileMetadataModalContentProps {
   // a map of the metadata for this section (a mix of stat var
   // and source metadata), with the key being the stat var dcid.
   metadataMap: Record<string, StatVarMetadata[]>;
+  // a set of stat var dcids that are used as denominators
+  denomStatVarDcids?: Set<string>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
 }
@@ -50,6 +52,7 @@ interface TileMetadataModalContentProps {
 export const TileMetadataModalContent = ({
   statVars,
   metadataMap,
+  denomStatVarDcids,
   apiRoot,
 }: TileMetadataModalContentProps): ReactElement => {
   const theme = useTheme();
@@ -95,6 +98,7 @@ export const TileMetadataModalContent = ({
           key={statVar.dcid}
           statVar={statVar}
           metadataList={metadataMap[statVar.dcid] || []}
+          isDenom={denomStatVarDcids && denomStatVarDcids.has(statVar.dcid)}
           apiRoot={apiRoot}
         />
       ))}
@@ -102,7 +106,7 @@ export const TileMetadataModalContent = ({
       {citationParts.length > 0 && (
         <div
           css={css`
-            padding: ${theme.spacing.xl}px 0 0 0;
+            padding: ${theme.spacing.lg}px 0 0 0;
             border-top: 1px solid ${theme.colors.border.primary.light};
             && {
               h3 {

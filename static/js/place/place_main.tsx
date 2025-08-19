@@ -338,8 +338,11 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setHasError(true);
     }
     // Get place name from page metadata. Use placeDcid if placeName is not set.
-    const placeName =
-      pageMetadata.dataset.placeName || pageMetadata.dataset.placeDcid;
+    const placeName = pageMetadata.dataset.placeName;
+    if (!placeName) {
+      setHasError(true);
+    }
+
     setPlace({
       name: placeName,
       dcid: pageMetadata.dataset.placeDcid,
@@ -436,13 +439,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   }, [place, category, selectedCategory]);
 
   if (hasError) {
-    return (
-      <div>
-        {intl.formatMessage(pageMessages.placeNotFound, {
-          placeDcid: place.dcid,
-        })}
-      </div>
-    );
+    return <div>{intl.formatMessage(pageMessages.placeNotFound)}</div>;
   }
 
   if (!place) {

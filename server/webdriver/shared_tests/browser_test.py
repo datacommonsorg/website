@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -32,6 +33,7 @@ SEARCH_INPUT = 'male asian count '
 class BrowserTestMixin():
   """Mixins to test browser page."""
 
+  @pytest.mark.smoke_test
   def test_page_landing(self):
     """Test the browser landing page can be loaded successfully."""
     title_text = "Knowledge Graph - " + self.dc_title_string
@@ -170,17 +172,19 @@ class BrowserTestMixin():
 
     first_result = find_elem(sv_hierarchy_results_section, By.XPATH,
                              './div[2]/div[1]')
+    first_result_name = first_result.text.strip()
     first_result.click()
 
-    # Assert that the section Count_Person_Male_AsianAlone opened and shows at least one chart
+    # Assert that the highlighted node title matches the search result that was
+    # clicked.
+    highlighted_node_title = find_elem(self.driver, By.CSS_SELECTOR,
+                                       '.highlighted-node-title .title')
+    self.assertEqual(highlighted_node_title.text.strip(), first_result_name)
+
+    # Assert that the section for the clicked stat var opened and shows at
+    # least one chart
     highlighted_sv = find_elem(self.driver, value='highlighted-stat-var')
     wait_elem(highlighted_sv, value='observation-chart')
-    chart_title = find_elem(highlighted_sv,
-                            by=By.XPATH,
-                            value='./div/div/div/h5/a')
-    self.assertEqual(
-        chart_title.text,
-        'Count_Person_Male_AsianAlone for Mountain Viewopen_in_new')
 
     # Assert has at least one observation.
     charts_section = find_elem(self.driver, value='statvars-charts-section')

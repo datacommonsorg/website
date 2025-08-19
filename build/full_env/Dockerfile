@@ -15,17 +15,17 @@
 
 # Stage 1: Python Builder
 # Uses a specific Python patch version on a slim Debian Bookworm base
-FROM python:3.11.4-slim-bookworm as python-builder
+FROM python:3.11.4-slim-bookworm AS python-builder
 
 # Stage 2: Node.js Builder
 # Uses a specific Node.js patch version. Note: This specific patch version's slim image
 # might be based on Debian Bullseye, not Bookworm, leading to a slight mix of Debian releases.
 # If strict Bookworm consistency is preferred over exact patch version, consider 'node:18-slim-bookworm'.
-FROM node:18.4.0-slim as node-builder
+FROM node:18.4.0-slim AS node-builder
 
 # Stage 3: Go Builder
 # Uses a specific Go patch version on a Debian Bookworm base
-FROM golang:1.20.7-bookworm as go-builder
+FROM golang:1.23.11-bookworm as go-builder
 
 # Stage 4: Protoc Builder
 # Downloads and extracts protoc, as there isn't a dedicated "protoc" base image for easy copying.
@@ -44,10 +44,10 @@ RUN apt update && \
 
 # Stage 5: Envoy Builder
 # Uses the official Envoy proxy image for the specified version to get the Envoy binary
-FROM envoyproxy/envoy:v1.31.0 as envoy-builder
+FROM envoyproxy/envoy:v1.31.0 AS envoy-builder
 
-# Stage 6: Google Cloud SDK Builder
-FROM google/cloud-sdk:469.0.0-slim as gcloud-builder
+# Stage 5: Google Cloud SDK Builder
+FROM google/cloud-sdk:469.0.0-slim AS gcloud-builder
 
 # Final Stage: Combine all components + Chrome/ChromeDriver
 # Using debian:bookworm-slim as a minimal base for the final image.
@@ -68,7 +68,7 @@ RUN apt update && apt install -y --no-install-recommends \
     apt clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Set WORKDIR for potential later commands (optional here, but following your example)
+# Set WORKDIR for potential later commands
 WORKDIR /resources
 
 # --- Install Google Chrome ---

@@ -27,20 +27,20 @@ import _ from "lodash";
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
-import theme from "../../../static/js/theme/theme";
-import { Button } from "../components/elements/button/button";
+import theme from "../../../../static/js/theme/theme";
+import { Button } from "../../components/elements/button/button";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "../components/elements/dialog/dialog";
-import { intl } from "../i18n/i18n";
-import { facetSelectionComponentMessages } from "../i18n/i18n_facet_selection_messages";
-import { messages } from "../i18n/i18n_messages";
-import { metadataComponentMessages } from "../i18n/i18n_metadata_messages";
-import { humanizeIsoDuration } from "./periodicity";
-import { StatMetadata } from "./stat_types";
+} from "../../components/elements/dialog/dialog";
+import { intl } from "../../i18n/i18n";
+import { facetSelectionComponentMessages } from "../../i18n/i18n_facet_selection_messages";
+import { messages } from "../../i18n/i18n_messages";
+import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
+import { humanizeIsoDuration } from "../periodicity";
+import { StatMetadata } from "../stat_types";
 
 const SELECTOR_PREFIX = "source-selector";
 
@@ -190,7 +190,7 @@ export function FacetSelectorSimple({
               css={css`
                 ${theme.typography.family.text}
                 ${theme.typography.text.md}
-                  margin: 0 0 ${theme.spacing.md}px;
+                margin: 0;
                 padding: 0;
               `}
             >
@@ -211,7 +211,7 @@ export function FacetSelectorSimple({
                       css={css`
                         ${theme.typography.family.text}
                         ${theme.typography.text.md}
-                          margin: 0;
+                        margin: 0;
                         padding: 0;
                       `}
                     >
@@ -232,7 +232,7 @@ export function FacetSelectorSimple({
                       css={css`
                         ${theme.typography.family.text}
                         ${theme.typography.text.md}
-                          font-weight: 900;
+                        font-weight: 900;
                         margin: 0;
                         padding: 0;
                       `}
@@ -246,7 +246,6 @@ export function FacetSelectorSimple({
                       padding: ${theme.spacing.lg}px ${theme.spacing.xl}px;
                       display: flex;
                       flex-direction: column;
-                      gap: ${theme.spacing.md}px;
                     `}
                   >
                     {getFacetOptionJsx(
