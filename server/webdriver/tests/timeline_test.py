@@ -16,11 +16,6 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.timeline_test import TimelineTestMixin
 from server.webdriver.shared_tests.timeline_test import StandardizedTimelineTestMixin
 
-
-class TestTimeline(StandardizedTimelineTestMixin, BaseDcWebdriverTest):
+class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
+                   BaseDcWebdriverTest):
   """Class to test scatter page. Tests come from TimelineTestMixin."""
-
-
-# class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
-#                    BaseDcWebdriverTest):
-#   """Class to test scatter page. Tests come from TimelineTestMixin."""

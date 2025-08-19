@@ -20,10 +20,5 @@ MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
 PLACE_SEARCH_CA = 'California'
 
-
-class TestMap(StandardizedMapTestMixin, BaseDcWebdriverTest):
+class TestMap(MapTestMixin, StandardizedMapTestMixin, BaseDcWebdriverTest):
   """Class to test map tool. Tests come from MapTestMixin."""
-
-
-# class TestMap(MapTestMixin, StandardizedMapTestMixin, BaseDcWebdriverTest):
-#   """Class to test map tool. Tests come from MapTestMixin."""
