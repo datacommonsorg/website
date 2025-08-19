@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Helper functions for interacting with Vertex AI.
 """
 
@@ -23,14 +22,14 @@ logger = logging.getLogger(__name__)
 vai_client = discoveryengine.SearchServiceClient()
 
 
-def search(project_id: str, location: str, engine_id: str,
-           serving_config_id: str, query: str, page_size: int,
-           page_token: str | None, relevance_threshold: str) -> discoveryengine.services.search_service.pagers.SearchPager:
+def search(
+    project_id: str, location: str, engine_id: str, serving_config_id: str,
+    query: str, page_size: int, page_token: str | None, relevance_threshold: str
+) -> discoveryengine.services.search_service.pagers.SearchPager:
   """Generic search function for a Vertex AI search application."""
-  serving_config = (
-      f"projects/{project_id}/locations/{location}/"
-      f"collections/default_collection/engines/{engine_id}/"
-      f"servingConfigs/{serving_config_id}")
+  serving_config = (f"projects/{project_id}/locations/{location}/"
+                    f"collections/default_collection/engines/{engine_id}/"
+                    f"servingConfigs/{serving_config_id}")
 
   search_request = discoveryengine.SearchRequest(
       serving_config=serving_config,

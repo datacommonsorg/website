@@ -142,9 +142,10 @@ def search_statvar():
     # No buffer if the limit is set to 1000, as otherwise VAI search would take too long.
     # TODO: Add the ability to load more results when filtering by sources.
     initial_limit = limit * 3 if limit == 100 and len(entities) else limit
-    relevance_threshold = (discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM
-                         if is_vai_medium_relevance_enabled else
-                         discoveryengine.SearchRequest.RelevanceThreshold.LOW)
+    relevance_threshold = (
+        discoveryengine.SearchRequest.RelevanceThreshold.MEDIUM
+        if is_vai_medium_relevance_enabled else
+        discoveryengine.SearchRequest.RelevanceThreshold.LOW)
 
     while len(statVars) < initial_limit:
       search_results = vertex_ai.search(project_id=VAI_PROJECT_ID,
