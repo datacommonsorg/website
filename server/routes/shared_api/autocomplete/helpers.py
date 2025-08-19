@@ -100,7 +100,7 @@ def sanitize_and_replace_non_ascii(string: str) -> str:
 
 
 def get_match_score(match_string: str, name: str) -> float:
-  """Computes a 'score' based on the matching words in two strings."""
+  """Computes a 'score' based on the matching words in two strings. The score is used for ranking, lower score is better."""
   name = sanitize_and_replace_non_ascii(name)
   match_string = sanitize_and_replace_non_ascii(match_string)
 

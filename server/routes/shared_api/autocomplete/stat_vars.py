@@ -18,6 +18,7 @@ from typing import Dict, List, Optional
 from google.cloud import discoveryengine_v1 as discoveryengine
 from google.cloud import language_v1
 
+from server.lib import vertex_ai
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
 
 logger = logging.getLogger(__name__)
@@ -29,13 +30,7 @@ VAI_SEARCH_ENGINE_ID = "nl-statvar-search-prod_1753469590396"
 VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
 LIMIT = 30
 
-SEARCH_CLIENT = discoveryengine.SearchServiceClient()
 LANGUAGE_CLIENT = language_v1.LanguageServiceClient()
-
-SERVING_CONFIG_PATH = (
-    f"projects/{VAI_PROJECT_ID}/locations/{VAI_LOCATION}/"
-    f"collections/default_collection/engines/{VAI_SEARCH_ENGINE_ID}/"
-    f"servingConfigs/{VAI_SEARCH_SERVING_CONFIG_ID}")
 
 
 def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
@@ -92,17 +87,15 @@ def search_stat_vars(search_query: str) -> List[ScoredPrediction]:
   if not search_query:
     return []
 
-  request = discoveryengine.SearchRequest(
-      serving_config=SERVING_CONFIG_PATH,
+  response = vertex_ai.search(
+      project_id=VAI_PROJECT_ID,
+      location=VAI_LOCATION,
+      engine_id=VAI_SEARCH_ENGINE_ID,
+      serving_config_id=VAI_SEARCH_SERVING_CONFIG_ID,
       query=search_query,
       page_size=LIMIT,
+      page_token=None,
       relevance_threshold=discoveryengine.SearchRequest.RelevanceThreshold.LOW)
-
-  try:
-    response = SEARCH_CLIENT.search(request)
-  except Exception as e:
-    logging.error("SearchRequest failed for query '%s': %s", search_query, e)
-    return []
 
   results: List[ScoredPrediction] = []
   for i, result in enumerate(response.results):
