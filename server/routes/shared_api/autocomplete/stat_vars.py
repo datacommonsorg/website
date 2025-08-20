@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import threading
 from typing import Dict, List, Optional
 
 from google.cloud import discoveryengine_v1 as discoveryengine
@@ -30,7 +31,10 @@ VAI_SEARCH_ENGINE_ID = "nl-statvar-search-prod_1753469590396"
 VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
 LIMIT = 30
 
-LANGUAGE_CLIENT = language_v1.LanguageServiceClient()
+# Use a global variable to hold the client, initialized to None.
+# This will be initialized once, on first use.
+_language_client = None
+_language_client_lock = threading.Lock()
 
 
 def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
@@ -39,6 +43,15 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
   tagging.
   Returns a dictionary with the cleaned query and the original phrase, or None.
   """
+  global _language_client
+
+  # Lazy initialize the client
+  if not _language_client:
+    with _language_client_lock:
+      # Check again in case another thread initialized it while we were waiting
+      if not _language_client:
+        _language_client = language_v1.LanguageServiceClient()
+
   KEEP_TAGS = {
       language_v1.PartOfSpeech.Tag.ADJ,
       language_v1.PartOfSpeech.Tag.NOUN,
@@ -49,7 +62,7 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
   try:
     document = language_v1.Document(content=query,
                                     type_=language_v1.Document.Type.PLAIN_TEXT)
-    response = LANGUAGE_CLIENT.analyze_syntax(
+    response = _language_client.analyze_syntax(
         document=document, encoding_type=language_v1.EncodingType.UTF8)
 
     kept_tokens = []
