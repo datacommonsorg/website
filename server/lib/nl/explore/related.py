@@ -25,8 +25,9 @@ from pydantic import BaseModel
 
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
+from server.lib.nl.common.gemini_utils import call_structured_output_gemini
 import server.lib.nl.detection.types as dtypes
-from server.lib.nl.explore.gemini_prompts import RELATED_QUESTIONS_PROMPT
+from server.lib.nl.explore.gemini_prompts import FOLLOW_UP_QUESTIONS_PROMPT
 from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import is_sdg
 from server.lib.nl.explore.params import Params
@@ -54,8 +55,8 @@ class FollowUpQuestions(BaseModel):
   questions: List[str]
 
 
-_GEMINI_CALL_RETRIES = 3
-_GEMINI_MODEL = "gemini-2.5-flash"
+_QUESTIONS_GEMINI_CALL_RETRIES = 3
+_QUESTIONS_GEMINI_MODEL = "gemini-2.5-flash"
 
 
 def compute_related_things(state: ftypes.PopulateState,
@@ -304,24 +305,16 @@ def generate_follow_up_questions(query: str,
   if not gemini_api_key:
     return []
 
-  gemini = genai.Client(api_key=gemini_api_key)
-  for _ in range(_GEMINI_CALL_RETRIES):
-    try:
-      gemini_response = gemini.models.generate_content(
-          model=_GEMINI_MODEL,
-          contents=RELATED_QUESTIONS_PROMPT.format(
-              initial_query=query, related_topics=related_topics),
-          config={
-              "response_mime_type": "application/json",
-              "response_schema": FollowUpQuestions
-          })
+  formatted_follow_up_questions_prompt = FOLLOW_UP_QUESTIONS_PROMPT.format(
+      initial_query=query, related_topics=related_topics)
 
-      generated_questions = gemini_response.parsed.questions
-      return generated_questions
-    except Exception as e:
-      logging.error(
-          f'[explore_follow_up_questions]: Initial Query: {query} | Related Topics: {related_topics} | Exception Caught: {e}',
-          exc_info=True)
-      continue
+  follow_up_questions = call_structured_output_gemini(
+      api_key=gemini_api_key,
+      formatted_prompt=formatted_follow_up_questions_prompt,
+      schema=FollowUpQuestions,
+      gemini_model=_QUESTIONS_GEMINI_MODEL,
+      retries=_QUESTIONS_GEMINI_CALL_RETRIES)
+  if not follow_up_questions:
+    return []
 
-  return []
+  return follow_up_questions.questions
