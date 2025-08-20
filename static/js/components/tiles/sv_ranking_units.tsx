@@ -166,6 +166,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
                   footnote={props.footnote}
+                  containerRef={props.containerRef}
+                  getObservationSpecs={props.getObservationSpecs}
                 ></ChartFooter>
               )}
             </div>
@@ -195,6 +197,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
                   footnote={props.footnote}
+                  containerRef={props.containerRef}
+                  getObservationSpecs={props.getObservationSpecs}
                 ></ChartFooter>
               )}
             </div>
