@@ -12,13 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Module for Gemini calls."""
-from typing import Optional
-from pydantic import BaseModel
-from google import genai
 import logging
+from typing import Optional
 
-def call_structured_output_gemini(api_key:str, formatted_prompt:str, schema:BaseModel, gemini_model:str = "gemini-2.5-flash", retries:int = 3) -> Optional[BaseModel]:
-    """A helper for all Gemini structured output generations through the Python Gen AI client.
+from google import genai
+from pydantic import BaseModel
+
+
+def call_structured_output_gemini(api_key: str,
+                                  formatted_prompt: str,
+                                  schema: BaseModel,
+                                  gemini_model: str = "gemini-2.5-flash",
+                                  retries: int = 3) -> Optional[BaseModel]:
+  """A helper for all Gemini structured output generations through the Python Gen AI client.
     Args:
         api_key: A string representing the API key required for authentication with the Gemini service.
         formatted_prompt: A string containing the structured prompt or input to be sent to the Gemini model for generation.
@@ -29,28 +35,28 @@ def call_structured_output_gemini(api_key:str, formatted_prompt:str, schema:Base
     Returns:
     The output of the call after all necessary retries.
     """
-    if not api_key or not formatted_prompt or not schema:
-        return None
-    
-    gemini = genai.Client(api_key=api_key)
-    for _ in range(retries):
-        try:
-            gemini_response = gemini.models.generate_content(
-                model=gemini_model,
-                contents=formatted_prompt,
-                config={  
-                    "response_mime_type": "application/json",
-                    "response_schema": schema
-                })
-
-            if not gemini_response.parsed:
-                continue
-            return gemini_response.parsed
-
-        except Exception as e:
-            logging.error(
-                f"Failure while calling Gemini with {schema.model_json_schema()['title']} schema",
-                exc_info=True)
-            continue
-
+  if not api_key or not formatted_prompt or not schema:
     return None
+
+  gemini = genai.Client(api_key=api_key)
+  for _ in range(retries):
+    try:
+      gemini_response = gemini.models.generate_content(
+          model=gemini_model,
+          contents=formatted_prompt,
+          config={
+              "response_mime_type": "application/json",
+              "response_schema": schema
+          })
+
+      if not gemini_response.parsed:
+        continue
+      return gemini_response.parsed
+
+    except Exception as e:
+      logging.error(
+          f"Failure while calling Gemini with {schema.model_json_schema()['title']} schema | Exception Caught: {e}",
+          exc_info=True)
+      continue
+
+  return None

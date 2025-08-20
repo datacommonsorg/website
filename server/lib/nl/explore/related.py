@@ -23,9 +23,9 @@ from flask import current_app
 from google import genai
 from pydantic import BaseModel
 
+from server.lib.nl.common.gemini_utils import call_structured_output_gemini
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
-from server.lib.nl.common.gemini_utils import call_structured_output_gemini
 import server.lib.nl.detection.types as dtypes
 from server.lib.nl.explore.gemini_prompts import FOLLOW_UP_QUESTIONS_PROMPT
 from server.lib.nl.explore.params import DCNames
