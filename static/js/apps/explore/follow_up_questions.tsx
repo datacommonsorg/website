@@ -92,32 +92,36 @@ export function FollowUpQuestions(
   }, [props.query, props.pageMetadata]);
 
   return (
-    <div ref={inViewRef} className="follow-up-questions-container">
-      <span className="follow-up-questions-title">Keep exploring</span>
-      {loading && (
-        <div className="loading-container">
-          <Loading />
+    <>
+      {(loading || !_.isEmpty(followUpQuestions)) && (
+        <div ref={inViewRef} className="follow-up-questions-container">
+          <span className="follow-up-questions-title">Keep exploring</span>
+          {loading && (
+            <div className="loading-container">
+              <Loading />
+            </div>
+          )}
+          {!loading && !_.isEmpty(followUpQuestions) && (
+            <div className="follow-up-questions-inner">
+              {followUpQuestions.map((question, idx) => {
+                return (
+                  <div key={idx} className="follow-up-questions-list-item">
+                    <a
+                      className="follow-up-questions-list-text"
+                      href={question.url}
+                      onClick={(): void => onQuestionClicked()}
+                    >
+                      {question.text}
+                      <br></br>
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
-      {!loading && !_.isEmpty(followUpQuestions) && (
-        <div className="follow-up-questions-inner">
-          {followUpQuestions.map((question, idx) => {
-            return (
-              <div key={idx} className="follow-up-questions-list-item">
-                <a
-                  className="follow-up-questions-list-text"
-                  href={question.url}
-                  onClick={(): void => onQuestionClicked()}
-                >
-                  {question.text}
-                  <br></br>
-                </a>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 
