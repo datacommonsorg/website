@@ -113,67 +113,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "eia/INTL.4008-8-MMTCD.A"
-                    ],
-                    "title": "CO2 Emissions, Annual in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "eia/INTL.4008-8-MMTCD.A"
-                    ],
-                    "title": "CO2 Emissions, Annual in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "CO2 Emissions, Annual in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "eia/INTL.4008-8-MMTCD.A"
-                    ],
-                    "title": "CO2 Emissions, Annual in the World",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "CO2 Emissions, Annual in the World",
-                    "statVarKey": [
-                      "eia/INTL.4008-8-MMTCD.A"
-                    ],
-                    "title": "CO2 Emissions, Annual in the World",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "CO2 Emissions, Annual"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Amount_Emissions_CarbonDioxide_PerCapita"
                     ],
                     "title": "CO2 Emissions Per Capita in the World (${date})",
@@ -748,10 +687,6 @@
           "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
-          },
-          "eia/INTL.4008-8-MMTCD.A": {
-            "name": "CO2 emissions, Annual",
-            "statVar": "eia/INTL.4008-8-MMTCD.A"
           }
         }
       }

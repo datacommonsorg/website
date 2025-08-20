@@ -173,8 +173,8 @@
                       "startDate": "2024"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_3999249536",
-                      "Count_Person_Male_3999249536"
+                      "Count_Person_Female_2390551605",
+                      "Count_Person_Male_2390551605"
                     ],
                     "title": "Population by Gender in United States",
                     "type": "LINE"
@@ -184,72 +184,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female"
-                    ],
-                    "title": "Women in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female"
-                    ],
-                    "title": "Women in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "The total number of females in a population.",
-            "title": "Women in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male"
-                    ],
-                    "title": "Men in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Male"
-                    ],
-                    "title": "Men in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "The total number of males in a population.",
-            "title": "Men in States of United States"
           },
           {
             "columns": [
@@ -802,12 +736,8 @@
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
           },
-          "Count_Person_Female": {
-            "name": "Women",
-            "statVar": "Count_Person_Female"
-          },
-          "Count_Person_Female_3999249536": {
-            "facetId": "3999249536",
+          "Count_Person_Female_2390551605": {
+            "facetId": "2390551605",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
@@ -877,12 +807,8 @@
             "name": "Population in the Labor Force",
             "statVar": "Count_Person_InLaborForce"
           },
-          "Count_Person_Male": {
-            "name": "Men",
-            "statVar": "Count_Person_Male"
-          },
-          "Count_Person_Male_3999249536": {
-            "facetId": "3999249536",
+          "Count_Person_Male_2390551605": {
+            "facetId": "2390551605",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },

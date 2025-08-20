@@ -107,40 +107,6 @@
                       "country/SOM"
                     ],
                     "statVarKey": [
-                      "eia/INTL.4008-8-MMTCD.A_multiple_place_bar_block"
-                    ],
-                    "title": "CO2 Emissions, Annual (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "CO2 Emissions, Annual"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MAR",
-                      "country/ETH",
-                      "country/KEN",
-                      "country/GHA",
-                      "country/SEN",
-                      "country/MLI",
-                      "country/GIN",
-                      "country/BEN",
-                      "country/RWA",
-                      "country/SOM"
-                    ],
-                    "statVarKey": [
                       "Amount_Emissions_CarbonDioxide_PerCapita_multiple_place_bar_block"
                     ],
                     "title": "CO2 Emissions Per Capita (${date})",
@@ -531,10 +497,6 @@
           "Annual_Emissions_GreenhouseGas_multiple_place_bar_block": {
             "name": "Greenhouse Gas Emissions",
             "statVar": "Annual_Emissions_GreenhouseGas"
-          },
-          "eia/INTL.4008-8-MMTCD.A_multiple_place_bar_block": {
-            "name": "CO2 emissions, Annual",
-            "statVar": "eia/INTL.4008-8-MMTCD.A"
           },
           "sdg/EN_ATM_GHGT_NAIP_multiple_place_bar_block": {
             "name": "Total greenhouse gas emissions without LULUCF for non-Annex I Parties",
