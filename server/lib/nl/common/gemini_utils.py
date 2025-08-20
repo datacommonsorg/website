@@ -49,7 +49,7 @@ def call_structured_output_gemini(api_key:str, formatted_prompt:str, schema:Base
 
         except Exception as e:
             logging.error(
-                f'Failure while calling Gemini with {schema.model_json_schema()['title']} schema',
+                f"Failure while calling Gemini with {schema.model_json_schema()['title']} schema",
                 exc_info=True)
             continue
 
