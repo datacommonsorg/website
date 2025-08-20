@@ -221,4 +221,11 @@ export const pageMessages = defineMessages({
     description:
       'Text to display when a category has no charts. Example: "No Economics data found for Austria.". Please leave the {category} and {place} variables unchanged in the resulting translation.',
   },
+  learnMoreAboutThesePlaces: {
+    id: "learn_more_about_these_places",
+    defaultMessage:
+      "Learn more about {numPlaces, plural, one {<link>this place</link>} other {<link>these # places</link>}}",
+    description:
+      'A phrase where the text "this place" or "these # places" is an interactive element that shows a tooltip with more information.',
+  },
 });

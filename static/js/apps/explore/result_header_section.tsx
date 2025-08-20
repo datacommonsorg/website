@@ -15,22 +15,27 @@
  */
 
 /**
- * Component for the result header section
+ * The primary component displays the header for the results of an
+ * explore page search. This primary component is made up of smaller
+ * child components provided in this file.
  */
 
 /** @jsxImportSource @emotion/react */
 
+import { RelatedPlacesApiResponse } from "@datacommonsorg/client/src/data_commons_web_client_types";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import _ from "lodash";
-import React, { ReactElement } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import { FormattedMessage } from "react-intl";
 
 import { KeyboardArrowDown } from "../../components/elements/icons/keyboard_arrow_down";
+import { Loading } from "../../components/elements/loading";
 import { Tooltip } from "../../components/elements/tooltip/tooltip";
-import { intl } from "../../i18n/i18n";
+import { intl, LocalizedLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import { metadataComponentMessages } from "../../i18n/i18n_metadata_messages";
+import { pageMessages } from "../../i18n/i18n_place_messages";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
@@ -38,15 +43,15 @@ import {
   GA_VALUE_RELATED_TOPICS_HEADER_TOPICS,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { NamedTypedPlace } from "../../shared/types";
 import theme from "../../theme/theme";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
+import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
 import { Place } from "../data_overview/place_data";
 import { ItemList } from "./item_list";
 
 const PlaceInfo = styled.p`
-  ${theme.typography.family.text}
-  ${theme.typography.text.sm}
   display: flex;
   gap: ${theme.spacing.xs}px;
   padding: 0;
@@ -58,34 +63,188 @@ const PlaceInfo = styled.p`
   }
 `;
 
-interface AdditionalPlaceTooltipContentProps {
+interface PlacesTooltipContentProps {
   items: Place[];
+  allParentPlaces: Record<string, NamedTypedPlace[]>;
 }
 
 const AdditionalPlaceTooltipContent = ({
   items,
-}: AdditionalPlaceTooltipContentProps): ReactElement => (
+  allParentPlaces,
+}: PlacesTooltipContentProps): React.JSX.Element => (
   <>
-    {items.map((place) => (
-      <p
-        key={place.dcid}
+    {items.map((place) => {
+      const parentPlaces = allParentPlaces[place.dcid] || [];
+      return (
+        <p
+          key={place.dcid}
+          css={css`
+            display: flex;
+            gap: ${theme.spacing.xs}px;
+          `}
+        >
+          <LocalizedLink
+            className="place-callout-link"
+            href={`/place/${place.dcid}`}
+            text={place.name}
+          />
+          {parentPlaces.map((parent) => (
+            <span key={parent.dcid}>
+              {", "}
+              <LocalizedLink
+                className="place-callout-link"
+                href={`/place/${parent.dcid}`}
+                text={parent.name}
+              />
+            </span>
+          ))}
+          <span>•</span>
+          <span>{intl.formatMessage(pageMessages.KnowledgeGraph)}</span>
+          <LocalizedLink
+            className="place-callout-link"
+            href={`/place/${place.dcid}`}
+            text={place.dcid}
+          />
+        </p>
+      );
+    })}
+  </>
+);
+
+interface SinglePlaceDetailProps {
+  place: NamedTypedPlace;
+  parentPlaces: NamedTypedPlace[];
+}
+
+const SinglePlaceDetail = ({
+  place,
+  parentPlaces,
+}: SinglePlaceDetailProps): React.JSX.Element => {
+  return (
+    <PlaceInfo>
+      {intl.formatMessage(messages.allAbout)}
+      <span>
+        <LocalizedLink
+          className="place-callout-link"
+          href={`/place/${place.dcid}`}
+          text={place.name}
+        />
+        {parentPlaces.map((parent) => (
+          <span key={parent.dcid}>
+            {", "}
+            <LocalizedLink
+              className="place-callout-link"
+              href={`/place/${parent.dcid}`}
+              text={parent.name}
+            />
+          </span>
+        ))}
+      </span>
+      <span>•</span>
+      {intl.formatMessage(pageMessages.KnowledgeGraph)}
+      <LocalizedLink
+        className="place-callout-link"
+        href={`/place/${place.dcid}`}
+        text={place.dcid}
+      />
+    </PlaceInfo>
+  );
+};
+
+interface MultiplePlacesDetailProps {
+  places: NamedTypedPlace[];
+  placeToParentPlaces: Record<string, NamedTypedPlace[]>;
+}
+
+const MultiplePlacesDetail = ({
+  places,
+  placeToParentPlaces,
+}: MultiplePlacesDetailProps): React.JSX.Element => {
+  const TooltipTrigger = (chunks: ReactNode): React.JSX.Element => (
+    <Tooltip
+      title={
+        <AdditionalPlaceTooltipContent
+          items={places}
+          allParentPlaces={placeToParentPlaces}
+        />
+      }
+      placement="bottom-end"
+      distance={10}
+    >
+      <span
         css={css`
+          cursor: pointer;
           display: flex;
+          align-items: center;
           gap: ${theme.spacing.xs}px;
         `}
       >
-        <a className="place-callout-link" href={`/place/${place.dcid}`}>
-          {place.name}
-        </a>
-        <span>•</span>
-        <span>{intl.formatMessage(metadataComponentMessages.DCID)}</span>
-        <a className="place-callout-link" href={`/place/${place.dcid}`}>
-          {place.dcid}
-        </a>
-      </p>
-    ))}
-  </>
-);
+        {chunks}
+        <KeyboardArrowDown />
+      </span>
+    </Tooltip>
+  );
+  TooltipTrigger.displayName = "TooltipTrigger";
+
+  return (
+    <PlaceInfo>
+      <FormattedMessage
+        {...pageMessages.learnMoreAboutThesePlaces}
+        values={{
+          numPlaces: places.length,
+          link: TooltipTrigger,
+        }}
+      />
+    </PlaceInfo>
+  );
+};
+
+interface PlaceHeaderProps {
+  isLoading: boolean;
+  places: NamedTypedPlace[];
+  placeToParentPlaces: Record<string, NamedTypedPlace[]>;
+}
+
+const PlaceHeader = ({
+  isLoading,
+  places,
+  placeToParentPlaces,
+}: PlaceHeaderProps): React.JSX.Element => {
+  const numPlaces = places.length;
+
+  return (
+    <div
+      css={css`
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        min-height: 20px;
+        ${theme.typography.family.text};
+        ${theme.typography.text.sm};
+        @media (max-width: ${theme.breakpoints.md}px) {
+          justify-content: flex-start;
+          margin-bottom: ${theme.spacing.md}px;
+          flex-wrap: wrap;
+        }
+      `}
+    >
+      {isLoading && <Loading />}
+      {!isLoading &&
+        numPlaces > 0 &&
+        (numPlaces === 1 ? (
+          <SinglePlaceDetail
+            place={places[0]}
+            parentPlaces={placeToParentPlaces[places[0].dcid] || []}
+          />
+        ) : (
+          <MultiplePlacesDetail
+            places={places}
+            placeToParentPlaces={placeToParentPlaces}
+          />
+        ))}
+    </div>
+  );
+};
 
 interface ResultHeaderSectionPropType {
   placeUrlVal: string;
@@ -96,7 +255,12 @@ interface ResultHeaderSectionPropType {
 
 export function ResultHeaderSection(
   props: ResultHeaderSectionPropType
-): JSX.Element {
+): React.JSX.Element {
+  const [placeToParentPlaces, setPlaceToParentPlaces] = useState<
+    Record<string, NamedTypedPlace[]>
+  >({});
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const { ref: inViewRef } = useInView({
     triggerOnce: true,
     rootMargin: "0px",
@@ -110,9 +274,53 @@ export function ResultHeaderSection(
     ? []
     : getTopics(props.pageMetadata, props.placeUrlVal);
 
+  useEffect(() => {
+    const places = props.pageMetadata.places;
+    if (!places || places.length === 0) {
+      setIsLoading(false);
+      return;
+    }
+
+    (async (): Promise<void> => {
+      try {
+        const promises = places.map((place) =>
+          defaultDataCommonsWebClient.getRelatedPLaces({
+            placeDcid: place.dcid,
+          })
+        );
+        const responses: RelatedPlacesApiResponse[] = await Promise.all(
+          promises
+        );
+
+        const parentPlacesMap: Record<string, NamedTypedPlace[]> = {};
+        responses.forEach((response, index) => {
+          const placeDcid = places[index].dcid;
+          let parents = response.parentPlaces;
+          if (
+            parents.length > 0 &&
+            parents[parents.length - 1].dcid === "Earth"
+          ) {
+            parents = parents.slice(0, -1);
+          }
+          parentPlacesMap[placeDcid] = parents;
+        });
+        setPlaceToParentPlaces(parentPlacesMap);
+      } catch (error) {
+        console.error("Error fetching parent places:", error);
+        setPlaceToParentPlaces({});
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [props.pageMetadata.places]);
+
   return (
     <>
-      {getPlaceHeader()}
+      <PlaceHeader
+        isLoading={isLoading}
+        places={props.pageMetadata.places}
+        placeToParentPlaces={placeToParentPlaces}
+      />
       <p
         css={css`
           ${theme.typography.family.text}
@@ -147,72 +355,6 @@ export function ResultHeaderSection(
       )}
     </>
   );
-
-  function getPlaceHeader(): JSX.Element {
-    const places = props.pageMetadata.places;
-    const numPlaces = places.length;
-
-    if (numPlaces === 0) {
-      return <></>;
-    }
-
-    const placesToDisplay = places.slice(0, 1);
-    const morePlaces = places.slice(1);
-
-    return (
-      <div
-        css={css`
-          display: flex;
-          justify-content: flex-end;
-          width: 100%;
-          @media (max-width: ${theme.breakpoints.md}px) {
-            justify-content: flex-start;
-            margin-bottom: ${theme.spacing.md}px;
-            flex-wrap: wrap;
-          }
-        `}
-      >
-        <PlaceInfo>{intl.formatMessage(messages.allAbout)}</PlaceInfo>
-        {placesToDisplay.map((place) => (
-          <React.Fragment key={place.dcid}>
-            <PlaceInfo>
-              <a className="place-callout-link" href={`/place/${place.dcid}`}>
-                {place.name}
-              </a>
-              <span>•</span>
-              {intl.formatMessage(metadataComponentMessages.DCID)}
-              <a className="place-callout-link" href={`/place/${place.dcid}`}>
-                {place.dcid}
-              </a>
-            </PlaceInfo>
-          </React.Fragment>
-        ))}
-        {numPlaces > 1 && (
-          <PlaceInfo>
-            <Tooltip
-              title={<AdditionalPlaceTooltipContent items={morePlaces} />}
-              placement="bottom-end"
-              distance={10}
-            >
-              <span
-                css={css`
-                  cursor: pointer;
-                  display: flex;
-                  align-items: center;
-                  gap: ${theme.spacing.xs}px;
-                `}
-              >
-                {intl.formatMessage(messages.andMore, {
-                  places: morePlaces.length,
-                })}
-                <KeyboardArrowDown />
-              </span>
-            </Tooltip>
-          </PlaceInfo>
-        )}
-      </div>
-    );
-  }
 }
 
 const onComponentInitialView = (): void => {
