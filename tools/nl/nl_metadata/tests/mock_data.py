@@ -2,7 +2,7 @@
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# You may not a copy of the License at
 #
 #      http://www.apache.org/licenses/LICENSE-2.0
 #
@@ -13,123 +13,173 @@
 # limitations under the License.
 """Mock data for add_metadata_test.py"""
 
-# Mock for argparse Namespace
-MOCK_ARGS = {
+# Mock for argparse Namespace for the main E2E test
+MOCK_E2E_ARGS = {
     'generateAltSentences': True,
     'geminiApiKey': 'test_key',
-    'language': 'French',
+    'language': 'English',
     'useGCS': True,
     'useBigQuery': True,
-    'maxStatVars': 100,
-    'gcsFolder': 'test_folder',
-    'totalPartitions': 2,
-    'currPartition': 1,
-    'failedAttemptsPath': 'test/path'
+    'maxStatVars': None,
+    'gcsFolder': None,
+    'totalPartitions': 1,
+    'currPartition': 0,
+    'failedAttemptsPath': None
 }
 
-# Mocks for get_prop_value
-PROP_DATA_VALUE = {"nodes": [{"value": "test_value"}]}
-PROP_DATA_NAME = {"nodes": [{"name": "test_name"}]}
-PROP_DATA_DCID = {"nodes": [{"dcid": "test_dcid"}]}
-
-# Mock for flatten_dc_api_response and extract_metadata_dc_api
-DC_API_METADATA = {
-    "dcid1": {
-        "arcs": {
-            "name": {
-                "nodes": [{
-                    "value": "Test Name"
-                }]
-            },
-            "measuredProperty": {
-                "nodes": [{
-                    "name": "Count"
-                }]
-            },
-            "populationType": {
-                "nodes": [{
-                    "name": "Person"
-                }]
-            },
-            "statType": {
-                "nodes": [{
-                    "name": "measuredValue"
-                }]
-            },
-            "constraintProperties": {
-                "nodes": [{
-                    "dcid": "prop1",
-                    "name": "Property 1"
-                }]
-            },
-            "prop1": {
-                "nodes": [{
-                    "value": "value1"
-                }]
-            }
-        }
-    }
-}
-DCID_TO_SENTENCE = {"dcid1": "Test sentence"}
-
-# Mock for extract_constraint_properties_bigquery
-BIGQUERY_ROW_DATA = {
-    'p1': 'prop1',
-    'v1': 'val1',
-    'p2': 'prop2',
-    'v2': 'val2',
-    'p3': None,
-    'v3': None,
-    'p4': 'prop4',
-    'v4': 'val4',
+# Mock for argparse Namespace for the failed attempts E2E test
+MOCK_FAILED_ATTEMPTS_E2E_ARGS = {
+    'generateAltSentences': True,
+    'geminiApiKey': 'test_key',
+    'language': 'English',
+    'useGCS': True,
+    'useBigQuery': False,
+    'maxStatVars': None,
+    'gcsFolder': None,
+    'totalPartitions': 1,
+    'currPartition': 0,
+    'failedAttemptsPath': 'gs://some/failed/path/'
 }
 
-# Mock for extract_constraint_properties_dc_api
-STATVAR_DATA_DC_API = {
-    "constraintProperties": {
-        "nodes": [{
-            "dcid": "prop1",
-            "name": "Property 1"
-        }]
-    },
-    "prop1": {
-        "nodes": [{
-            "value": "value1"
-        }]
-    }
+# Mock for argparse Namespace for the NL E2E test
+MOCK_NL_E2E_ARGS = {
+    'generateAltSentences': True,
+    'geminiApiKey': 'test_key',
+    'language': 'English',
+    'useGCS': True,
+    'useBigQuery': False,
+    'maxStatVars': None,
+    'gcsFolder': None,
+    'totalPartitions': 1,
+    'currPartition': 0,
+    'failedAttemptsPath': None
 }
 
-# Mock for batch_generate_alt_sentences
-GEMINI_SUCCESS_RESPONSE = {
-    "dcid": "dcid1",
-    "generatedSentences": ["alt sentence 1", "alt sentence 2"]
-}
-SV_METADATA_LIST_EMPTY_SENTENCES = [{
-    "dcid": "dcid1",
-    "name": "Test Name",
-    "generatedSentences": None
-}]
-
-# Mock for export_to_json
-SV_METADATA_LIST_MINIMAL = [{"dcid": "dcid1", "name": "Test Name"}]
-
-# Mock for read_sv_metadata_failed_attempts
-FAILED_ATTEMPTS_GCS = '{"dcid": "dcid1"}\n{"dcid": "dcid2"}'
-FAILED_ATTEMPTS_LOCAL = '{"dcid": "dcid1"}\n'
-
-# Mock for create_sv_metadata_nl
-NL_CSV_DATA = {
-    'dcid': ['dcid1', 'dcid2'],
-    'sentence': ['sentence1', 'sentence2']
-}
-
-# Mock for extract_metadata_bigquery
-BIGQUERY_MOCK_ROW_KWARGS = {
+# Mock BigQuery Row data
+BIGQUERY_MOCK_ROW_KWARGS_1 = {
     'id': 'dcid1',
-    'name': 'Test Name',
+    'name': 'Test Name 1',
     'measured_prop': 'Count',
     'population_type': 'Person',
     'stat_type': 'measuredValue',
     'p1': 'prop1',
     'v1': 'val1'
+}
+
+BIGQUERY_MOCK_ROW_KWARGS_2 = {
+    'id': 'dcid2',
+    'name': 'Test Name 2',
+    'measured_prop': 'Count',
+    'population_type': 'Person',
+    'stat_type': 'measuredValue',
+    'p1': 'prop2',
+    'v1': 'val2'
+}
+
+# Mock data for the results of batch_generate_alt_sentences
+GEMINI_SUCCESS_RESULT = {
+    'dcid': 'dcid1',
+    'name': 'Test Name 1',
+    'measuredProperty': 'Count',
+    'populationType': 'Person',
+    'statType': 'measuredValue',
+    'constraintProperties': ['prop1: val1'],
+    'numConstraints': 1,
+    'sentence': None,
+    'generatedSentences': ['alt sentence 1', 'alt sentence 2']
+}
+
+GEMINI_FAILURE_RESULT = {
+    'dcid': 'dcid2',
+    'name': 'Test Name 2',
+    'measuredProperty': 'Count',
+    'populationType': 'Person',
+    'statType': 'measuredValue',
+    'constraintProperties': ['prop2: val2'],
+    'numConstraints': 1,
+    'sentence': None,
+    'generatedSentences': None
+}
+
+# Mock data representing the content of a failed attempts file
+MOCK_FAILED_ATTEMPT_DATA = [{
+    'dcid': 'dcid3',
+    'name': 'Test Name 3',
+    'measuredProperty': 'Count',
+    'populationType': 'Person',
+    'statType': 'measuredValue',
+    'constraintProperties': ['prop3: val3'],
+    'numConstraints': 1,
+    'sentence': None,
+    'generatedSentences': None
+}]
+
+# Mock successful Gemini result for the retried data
+GEMINI_RETRY_SUCCESS_RESULT = {
+    'dcid': 'dcid3',
+    'name': 'Test Name 3',
+    'measuredProperty': 'Count',
+    'populationType': 'Person',
+    'statType': 'measuredValue',
+    'constraintProperties': ['prop3: val3'],
+    'numConstraints': 1,
+    'sentence': None,
+    'generatedSentences': ['alt sentence 3', 'alt sentence 4']
+}
+
+# Mock data for create_sv_metadata_nl
+MOCK_NL_SV_DATA = [{'dcid4': 'NL sentence for dcid4'}]
+
+# Mock DC API response for extract_metadata
+MOCK_DC_API_RESPONSE = {
+    "data": {
+        "dcid4": {
+            "arcs": {
+                "name": {
+                    "nodes": [{
+                        "value": "Test Name 4"
+                    }]
+                },
+                "measuredProperty": {
+                    "nodes": [{
+                        "name": "Count"
+                    }]
+                },
+                "populationType": {
+                    "nodes": [{
+                        "name": "Person"
+                    }]
+                },
+                "statType": {
+                    "nodes": [{
+                        "name": "measuredValue"
+                    }]
+                },
+                "constraintProperties": {
+                    "nodes": [{
+                        "dcid": "prop4",
+                        "name": "Property 4"
+                    }]
+                },
+                "prop4": {
+                    "nodes": [{
+                        "value": "value4"
+                    }]
+                }
+            }
+        }
+    }
+}
+
+# Mock successful Gemini result for the NL data
+GEMINI_NL_SUCCESS_RESULT = {
+    'dcid': 'dcid4',
+    'name': 'Test Name 4',
+    'measuredProperty': 'Count',
+    'populationType': 'Person',
+    'statType': 'measuredValue',
+    'constraintProperties': ['Property 4: value4'],
+    'numConstraints': 1,
+    'sentence': 'NL sentence for dcid4',
+    'generatedSentences': ['alt sentence 5', 'alt sentence 6']
 }
