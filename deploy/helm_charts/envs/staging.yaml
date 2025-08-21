@@ -37,6 +37,9 @@ website:
         }
       }
 
+mixer:
+  enableOtlp: true
+
 ingress:
   enabled: false
 
