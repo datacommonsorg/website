@@ -17,6 +17,7 @@
 import _ from "lodash";
 import { URLSearchParams } from "url";
 
+import { AutoCompleteResult } from "../components/nl_search_bar/auto_complete_input";
 import { Theme } from "../theme/types";
 import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
 
@@ -38,7 +39,11 @@ export const placeExplorerCategories = [
   "economics_new",
 ];
 
-const SEARCH_PARAMS_TO_PROPAGATE = new Set(["hl"]);
+const SEARCH_PARAMS_TO_PROPAGATE = new Set([
+  "hl",
+  "enable_feature",
+  "disable_feature",
+]);
 
 const NO_DATE_CAP_RCP_STATVARS = [
   // This stat var only has data for 2100. while other stat vars along the same
@@ -259,12 +264,12 @@ export function removeSpinner(containerId: string): void {
  * @returns the query with the pattern removed if it was found.
  */
 export function stripPatternFromQuery(query: string, pattern: string): string {
-  const regex = new RegExp("(?:.(?!" + pattern + "))+([,;\\s])?$", "i");
-
-  // Returns the query without the pattern parameter.
-  // E.g.: query: "population of Calif", pattern: "Calif",
-  // returns "population of "
-  return query.replace(regex, "");
+  // If the query ends with the pattern (case-insensitive), remove it.
+  if (query.toLowerCase().endsWith(pattern.toLowerCase())) {
+    return query.substring(0, query.length - pattern.length);
+  }
+  // Otherwise, return the original query.
+  return query;
 }
 
 /**
@@ -312,4 +317,30 @@ export function redirect(
   }
 
   window.open(finalUrl, "_self");
+}
+
+export function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+}
+
+export function replaceQueryWithSelection(
+  query: string,
+  result: AutoCompleteResult
+): string {
+  if (
+    result.matchType === "stat_var_search" ||
+    result.matchType === "location_search"
+  ) {
+    // For stat vars and locations, do a case-insensitive replacement of the last
+    // occurrence of the matched concept.
+    const lowerCaseQuery = query.toLowerCase();
+    const lowerCaseMatchedQuery = result.matchedQuery.toLowerCase();
+    const lastIndex = lowerCaseQuery.lastIndexOf(lowerCaseMatchedQuery);
+    if (lastIndex !== -1) {
+      const prefix = query.substring(0, lastIndex);
+      return prefix + result.name;
+    }
+  }
+  // Fallback for any other case.
+  return stripPatternFromQuery(query, result.matchedQuery) + result.name;
 }
