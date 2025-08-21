@@ -27,8 +27,10 @@
 import createCache from "@emotion/cache";
 import { CacheProvider, ThemeProvider } from "@emotion/react";
 import React, { ReactElement, useMemo } from "react";
+import { RawIntlProvider } from "react-intl";
 import { StyleSheetManager } from "styled-components";
 
+import { intl } from "../i18n/i18n";
 import theme from "../theme/theme";
 
 export interface WrappedTileProps {
@@ -54,9 +56,11 @@ export function WrappedTile({
   return (
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
-        <StyleSheetManager target={styleHost}>
-          <Tile {...tileProps} />
-        </StyleSheetManager>
+        <RawIntlProvider value={intl}>
+          <StyleSheetManager target={styleHost}>
+            <Tile {...tileProps} />
+          </StyleSheetManager>
+        </RawIntlProvider>
       </ThemeProvider>
     </CacheProvider>
   );

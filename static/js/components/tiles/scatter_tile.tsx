@@ -25,6 +25,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -42,6 +43,10 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -201,6 +206,36 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
 
   useDrawOnResize(drawFn, svgContainer.current);
 
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!scatterChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const entityExpression = `${props.place.dcid}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      const defaultDate =
+        getFirstCappedStatVarSpecDate(props.statVarSpec) || "LATEST";
+      return buildObservationSpecs({
+        statVarSpecs: props.statVarSpec,
+        statVarToFacets: scatterChartData.statVarToFacets,
+        entityExpression,
+        defaultDate,
+      });
+    };
+  }, [
+    scatterChartData,
+    props.place,
+    props.enclosedPlaceType,
+    props.statVarSpec,
+  ]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
@@ -209,6 +244,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props, scatterChartData)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={scatterChartData && scatterChartData.errorMsg}
       id={props.id}
       isInitialLoading={_.isNull(scatterChartData)}
