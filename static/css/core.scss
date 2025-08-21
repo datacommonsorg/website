@@ -611,7 +611,6 @@ body.no-header-search-bar {
   flex-direction: column;
   padding-top: 22px;
   flex-shrink: 0;
-  max-width: 75%;
   flex-grow: 2;
   @include media-breakpoint-up(xl) {
     padding-right: 64px;
