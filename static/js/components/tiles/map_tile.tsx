@@ -31,6 +31,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -48,8 +49,12 @@ import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import { USA_PLACE_DCID } from "../../shared/constants";
+import { DATE_HIGHEST_COVERAGE, USA_PLACE_DCID } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -321,6 +326,48 @@ export function MapTile(props: MapTilePropType): ReactElement {
     };
   }, [props.subscribe]);
 
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!mapChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const layers = getDataSpec(props);
+      return layers.flatMap((layer) => {
+        let date: string;
+        const effectiveDate = mapChartData.dateOverride || layer.variable.date;
+        if (effectiveDate === DATE_HIGHEST_COVERAGE) {
+          // If the date is HIGHEST_COVERAGE, we get all data. This is because
+          // the V2 API does not have a HIGHEST_COVERAGE concept.
+          date = "";
+        } else {
+          // Otherwise, if the date is blank, we ask for the latest.
+          date = effectiveDate || "LATEST";
+        }
+        const finalDate = getCappedStatVarDate(layer.variable.statVar, date);
+        const updatedSpec: StatVarSpec = {
+          ...layer.variable,
+          date: finalDate,
+        };
+
+        const entityExpression = `${layer.parentPlace}<-containedInPlace+{typeOf:${layer.enclosedPlaceType}}`;
+
+        return buildObservationSpecs({
+          statVarSpecs: [updatedSpec],
+          statVarToFacets: mapChartData.statVarToFacets,
+          entityExpression,
+        });
+      });
+    };
+  }, [mapChartData, props]);
+
   return (
     <ChartTileContainer
       id={props.id}
@@ -366,6 +413,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
         }
         return dataRowsToCsv(rows, CSV_FIELD_DELIMITER, transformCsvHeader);
       }}
+      getObservationSpecs={getObservationSpecs}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       errorMsg={!_.isEmpty(mapChartData) && mapChartData.errorMsg}
