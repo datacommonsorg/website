@@ -13,6 +13,8 @@
 # limitations under the License.
 
 import collections
+from datetime import datetime
+from datetime import timedelta
 
 from google.cloud import storage
 
@@ -59,10 +61,17 @@ def list_folder(bucket_name, prefix, start_offset='', end_offset=''):
   storage_client = storage.Client()
   bucket = storage_client.get_bucket(bucket_name)
   start_offset = prefix + '/' + start_offset
-  end_offset = prefix + '/' + end_offset
+  final_end_offset = None
+  if end_offset:
+    # The end_offset parameter is exclusive. To make it inclusive, we add one
+    # day to the end_offset date.
+    end_date = datetime.strptime(end_offset, '%Y_%m_%d')
+    next_day = end_date + timedelta(days=1)
+    final_end_offset = prefix + '/' + next_day.strftime('%Y_%m_%d')
+
   blobs = bucket.list_blobs(prefix=prefix,
                             start_offset=start_offset,
-                            end_offset=end_offset)
+                            end_offset=final_end_offset)
   folders = set()
   for blob in blobs:
     parts = blob.name.split('/')
