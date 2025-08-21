@@ -21,8 +21,8 @@ from pydantic import BaseModel
 from pydantic import ConfigDict
 from pydantic.alias_generators import to_camel
 
-from server.lib.nl.common.gemini_utils import call_structured_output_gemini
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
+from server.lib.utils.gemini_utils import call_structured_output_gemini
 
 
 class StatVarChartLink(BaseModel):

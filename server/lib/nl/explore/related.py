@@ -23,7 +23,6 @@ from flask import current_app
 from google import genai
 from pydantic import BaseModel
 
-from server.lib.nl.common.gemini_utils import call_structured_output_gemini
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
@@ -32,6 +31,7 @@ from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import is_sdg
 from server.lib.nl.explore.params import Params
 import server.lib.nl.fulfillment.types as ftypes
+from server.lib.utils.gemini_utils import call_structured_output_gemini
 
 
 @dataclass
