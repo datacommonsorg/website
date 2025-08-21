@@ -177,6 +177,14 @@ export function LineTile(props: LineTilePropType): ReactElement {
 
   useDrawOnResize(drawFn, svgContainer.current);
 
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
   const getObservationSpecs = useMemo(() => {
     if (!chartData) {
       return undefined;
