@@ -611,6 +611,7 @@ body.no-header-search-bar {
   flex-direction: column;
   padding-top: 22px;
   flex-shrink: 0;
+  max-width: 75%;
   flex-grow: 2;
   @include media-breakpoint-up(xl) {
     padding-right: 64px;
@@ -715,6 +716,8 @@ body.no-header-search-bar {
     }
 
     .autocomplete-search-input-results-list {
+      max-height: 300px;
+      overflow-y: auto;
       padding-bottom: 24px;
       border-bottom-left-radius: 28px;
       border-bottom-right-radius: 28px;
