@@ -224,7 +224,7 @@ export const pageMessages = defineMessages({
   learnMoreAboutThesePlaces: {
     id: "learn_more_about_these_places",
     defaultMessage:
-      "Learn more about {numPlaces, plural, one {<link>this place</link>} other {<link>these # places</link>}}",
+      "Learn more about {numPlaces, plural, one {this <link>place</link>} other {these <link># places</link>}}",
     description:
       'A phrase where the text "this place" or "these # places" is an interactive element that shows a tooltip with more information.',
   },

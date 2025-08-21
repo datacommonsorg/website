@@ -51,18 +51,6 @@ import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
 import { Place } from "../data_overview/place_data";
 import { ItemList } from "./item_list";
 
-const PlaceInfo = styled.p`
-  display: flex;
-  gap: ${theme.spacing.xs}px;
-  padding: 0;
-  margin: 0 0 0 ${theme.spacing.xs}px;
-  text-align: left;
-  color: ${theme.colors.text.secondary.base};
-  @media (max-width: ${theme.breakpoints.md}px) {
-    margin: 0 ${theme.spacing.xs}px 0 0;
-  }
-`;
-
 interface PlacesTooltipContentProps {
   items: Place[];
   allParentPlaces: Record<string, NamedTypedPlace[]>;
@@ -72,43 +60,75 @@ const AdditionalPlaceTooltipContent = ({
   items,
   allParentPlaces,
 }: PlacesTooltipContentProps): React.JSX.Element => (
-  <>
+  <ul
+    css={css`
+      display: flex;
+      flex-direction: column;
+      gap: ${theme.spacing.sm}px;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      && li {
+        display: block;
+        border-bottom: 1px solid ${theme.colors.tabs.lining};
+        padding-bottom: ${theme.spacing.sm}px;
+        &:last-of-type {
+          padding-bottom: 0;
+          border-bottom: 0;
+        }
+      }
+    `}
+  >
     {items.map((place) => {
       const parentPlaces = allParentPlaces[place.dcid] || [];
       return (
-        <p
-          key={place.dcid}
-          css={css`
-            display: flex;
-            gap: ${theme.spacing.xs}px;
-          `}
-        >
-          <LocalizedLink
-            className="place-callout-link"
-            href={`/place/${place.dcid}`}
-            text={place.name}
-          />
-          {parentPlaces.map((parent) => (
-            <span key={parent.dcid}>
-              {", "}
-              <LocalizedLink
-                className="place-callout-link"
-                href={`/place/${parent.dcid}`}
-                text={parent.name}
-              />
+        <li key={place.dcid}>
+          <div
+            css={css`
+              display: flex;
+              flex-wrap: wrap;
+            `}
+          >
+            <LocalizedLink
+              className="place-callout-link"
+              href={`/place/${place.dcid}`}
+              text={place.name}
+            />
+            {parentPlaces.map((parent) => (
+              <span key={parent.dcid}>
+                {", "}
+                <LocalizedLink
+                  className="place-callout-link"
+                  href={`/place/${parent.dcid}`}
+                  text={parent.name}
+                />
+              </span>
+            ))}
+          </div>
+          <div
+            css={css`
+              display: flex;
+              gap: ${theme.spacing.xs}px;
+              flex-wrap: wrap;
+            `}
+          >
+            <span
+              css={css`
+                color: ${theme.colors.text.tertiary.dark};
+              `}
+            >
+              {intl.formatMessage(pageMessages.KnowledgeGraph)} • {""}
             </span>
-          ))}
-          <span>•</span>
-          <span>{intl.formatMessage(pageMessages.KnowledgeGraph)}</span>
-          <LocalizedLink
-            className="place-callout-link"
-            href={`/place/${place.dcid}`}
-            text={place.dcid}
-          />
-        </p>
+            <LocalizedLink
+              className="dcid-callout-link"
+              href={`/browser/${place.dcid}`}
+              text={place.dcid}
+            />
+          </div>
+        </li>
       );
     })}
-  </>
+  </ul>
 );
 
 interface SinglePlaceDetailProps {
@@ -121,8 +141,12 @@ const SinglePlaceDetail = ({
   parentPlaces,
 }: SinglePlaceDetailProps): React.JSX.Element => {
   return (
-    <PlaceInfo>
-      {intl.formatMessage(messages.allAbout)}
+    <p
+      css={css`
+        color: ${theme.colors.text.secondary.base};
+      `}
+    >
+      {intl.formatMessage(messages.allAbout)} {""}
       <span>
         <LocalizedLink
           className="place-callout-link"
@@ -140,14 +164,16 @@ const SinglePlaceDetail = ({
           </span>
         ))}
       </span>
-      <span>•</span>
-      {intl.formatMessage(pageMessages.KnowledgeGraph)}
+      <span>
+        {""} • {""}
+      </span>
+      {intl.formatMessage(pageMessages.KnowledgeGraph)} {""}
       <LocalizedLink
         className="place-callout-link"
-        href={`/place/${place.dcid}`}
+        href={`/browser/${place.dcid}`}
         text={place.dcid}
       />
-    </PlaceInfo>
+    </p>
   );
 };
 
@@ -170,6 +196,7 @@ const MultiplePlacesDetail = ({
       }
       placement="bottom-end"
       distance={10}
+      maxWidth={420}
     >
       <span
         css={css`
@@ -177,6 +204,7 @@ const MultiplePlacesDetail = ({
           display: flex;
           align-items: center;
           gap: ${theme.spacing.xs}px;
+          color: ${theme.colors.link.primary.base};
         `}
       >
         {chunks}
@@ -187,7 +215,11 @@ const MultiplePlacesDetail = ({
   TooltipTrigger.displayName = "TooltipTrigger";
 
   return (
-    <PlaceInfo>
+    <p
+      css={css`
+        color: ${theme.colors.text.secondary.base};
+      `}
+    >
       <FormattedMessage
         {...pageMessages.learnMoreAboutThesePlaces}
         values={{
@@ -195,7 +227,7 @@ const MultiplePlacesDetail = ({
           link: TooltipTrigger,
         }}
       />
-    </PlaceInfo>
+    </p>
   );
 };
 
@@ -221,7 +253,7 @@ const PlaceHeader = ({
         min-height: 20px;
         ${theme.typography.family.text};
         ${theme.typography.text.sm};
-        @media (max-width: ${theme.breakpoints.md}px) {
+        @media (max-width: ${theme.breakpoints.lg}px) {
           justify-content: flex-start;
           margin-bottom: ${theme.spacing.md}px;
           flex-wrap: wrap;
