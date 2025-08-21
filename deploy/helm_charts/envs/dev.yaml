@@ -29,6 +29,9 @@ website:
   redis:
     enabled: false
 
+mixer:
+  enableOtlp: true
+
 serviceAccount:
   name: website-ksa
 
