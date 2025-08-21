@@ -35,13 +35,13 @@ div.region-highlighted path {
 
 #tooltip {
   background-color: var(--gm-3-white);
-  color: #3b3b3b;;
+  color: #3b3b3b;
   font-size: 0.8rem;
   border-radius: 3px;
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
   white-space: nowrap;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .choropleth-legend {
