@@ -270,3 +270,38 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         "to", updated_date_part,
         f"Updated date '{updated_date_part}' should be a date range, but does not contain 'to'."
     )
+
+  def test_api_code_dialog(self):
+    """Tests that the API code dialog opens and contains expected text."""
+    search_params = "#q=demographics+in+the+united+states"
+    self.driver.get(self.url_ + EXPLORE_URL + search_params)
+
+    shared.wait_for_loading(self.driver)
+
+    # Isolate the "Population" chart block
+    all_chart_blocks = find_elems(self.driver, By.CLASS_NAME, 'block.subtopic')
+    chart_block = None
+    for block in all_chart_blocks:
+      header = find_elem(block, By.TAG_NAME, 'h3')
+      if header and header.text == "Population":
+        chart_block = block
+        break
+    self.assertIsNotNone(chart_block,
+                         "Could not find the 'Population' chart block.")
+
+    # Find and click the API link inside the chart's footer
+    api_link = find_elem(chart_block, By.CSS_SELECTOR, '.api-outlink a')
+    self.assertIsNotNone(api_link, "Could not find the API link.")
+    api_link.click()
+
+    # Wait for the dialog's textarea to appear and load its content
+    textarea = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        lambda d: d.find_element(By.TAG_NAME, 'textarea'))
+    self.assertIsNotNone(textarea, "API dialog's textarea did not appear.")
+
+    # Get the API endpoint (curl) from the textarea
+    actual_text = textarea.get_attribute('value')
+
+    # Verify that key parts of the API call are present
+    self.assertIn('"variable": {"dcids": ["Count_Person"]},', actual_text)
+    self.assertIn('"entity": {"dcids": ["country/USA"]}', actual_text)
