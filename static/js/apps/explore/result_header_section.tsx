@@ -24,7 +24,6 @@
 
 import { RelatedPlacesApiResponse } from "@datacommonsorg/client/src/data_commons_web_client_types";
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import _ from "lodash";
 import React, { ReactNode, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -36,6 +35,7 @@ import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { intl, LocalizedLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { pageMessages } from "../../i18n/i18n_place_messages";
+import { displayNameForPlaceType } from "../../place/util";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
@@ -81,6 +81,20 @@ const AdditionalPlaceTooltipContent = ({
   >
     {items.map((place) => {
       const parentPlaces = allParentPlaces[place.dcid] || [];
+      const placeLinks = [
+        <LocalizedLink
+          key={place.dcid}
+          href={`/place/${place.dcid}`}
+          text={place.name}
+        />,
+        ...parentPlaces.map((parent) => (
+          <LocalizedLink
+            key={parent.dcid}
+            href={`/place/${parent.dcid}`}
+            text={parent.name}
+          />
+        )),
+      ];
       return (
         <li key={place.dcid}>
           <div
@@ -89,19 +103,10 @@ const AdditionalPlaceTooltipContent = ({
               flex-wrap: wrap;
             `}
           >
-            <LocalizedLink
-              className="place-callout-link"
-              href={`/place/${place.dcid}`}
-              text={place.name}
-            />
-            {parentPlaces.map((parent) => (
-              <span key={parent.dcid}>
-                {", "}
-                <LocalizedLink
-                  className="place-callout-link"
-                  href={`/place/${parent.dcid}`}
-                  text={parent.name}
-                />
+            {placeLinks.map((link, index) => (
+              <span key={link.key}>
+                {link}
+                {index < placeLinks.length - 1 && ", "}
               </span>
             ))}
           </div>
@@ -119,11 +124,7 @@ const AdditionalPlaceTooltipContent = ({
             >
               {intl.formatMessage(pageMessages.KnowledgeGraph)} • {""}
             </span>
-            <LocalizedLink
-              className="dcid-callout-link"
-              href={`/browser/${place.dcid}`}
-              text={place.dcid}
-            />
+            <LocalizedLink href={`/browser/${place.dcid}`} text={place.dcid} />
           </div>
         </li>
       );
@@ -140,6 +141,18 @@ const SinglePlaceDetail = ({
   place,
   parentPlaces,
 }: SinglePlaceDetailProps): React.JSX.Element => {
+  const placeType =
+    place.types && place.types.length > 0
+      ? displayNameForPlaceType(place.types[0])
+      : "";
+
+  const parentPlacesLinks = parentPlaces.map((parent, index) => (
+    <React.Fragment key={parent.dcid}>
+      <LocalizedLink href={`/place/${parent.dcid}`} text={parent.name} />
+      {index < parentPlaces.length - 1 && ", "}
+    </React.Fragment>
+  ));
+
   return (
     <p
       css={css`
@@ -147,32 +160,23 @@ const SinglePlaceDetail = ({
       `}
     >
       {intl.formatMessage(messages.allAbout)} {""}
-      <span>
-        <LocalizedLink
-          className="place-callout-link"
-          href={`/place/${place.dcid}`}
-          text={place.name}
-        />
-        {parentPlaces.map((parent) => (
-          <span key={parent.dcid}>
-            {", "}
-            <LocalizedLink
-              className="place-callout-link"
-              href={`/place/${parent.dcid}`}
-              text={parent.name}
-            />
+      <LocalizedLink href={`/place/${place.dcid}`} text={place.name} />
+      {parentPlaces.length > 0 && (
+        <>
+          {", "}
+          <span>
+            {intl.formatMessage(pageMessages.placeTypeInPlaces, {
+              placeType,
+              parentPlaces: parentPlacesLinks,
+            })}
           </span>
-        ))}
-      </span>
+        </>
+      )}
       <span>
         {""} • {""}
       </span>
       {intl.formatMessage(pageMessages.KnowledgeGraph)} {""}
-      <LocalizedLink
-        className="place-callout-link"
-        href={`/browser/${place.dcid}`}
-        text={place.dcid}
-      />
+      <LocalizedLink href={`/browser/${place.dcid}`} text={place.dcid} />
     </p>
   );
 };
@@ -278,7 +282,7 @@ const PlaceHeader = ({
   );
 };
 
-interface ResultHeaderSectionPropType {
+interface ResultHeaderSectionProps {
   placeUrlVal: string;
   pageMetadata: SubjectPageMetadata;
   hideRelatedTopics: boolean;
@@ -286,8 +290,9 @@ interface ResultHeaderSectionPropType {
 }
 
 export function ResultHeaderSection(
-  props: ResultHeaderSectionPropType
+  props: ResultHeaderSectionProps
 ): React.JSX.Element {
+  const [places, setPlaces] = useState<NamedTypedPlace[]>([]);
   const [placeToParentPlaces, setPlaceToParentPlaces] = useState<
     Record<string, NamedTypedPlace[]>
   >({});
@@ -307,15 +312,15 @@ export function ResultHeaderSection(
     : getTopics(props.pageMetadata, props.placeUrlVal);
 
   useEffect(() => {
-    const places = props.pageMetadata.places;
-    if (!places || places.length === 0) {
+    const initialPlaces = props.pageMetadata.places;
+    if (!initialPlaces || initialPlaces.length === 0) {
       setIsLoading(false);
       return;
     }
 
     (async (): Promise<void> => {
       try {
-        const promises = places.map((place) =>
+        const promises = initialPlaces.map((place) =>
           defaultDataCommonsWebClient.getRelatedPLaces({
             placeDcid: place.dcid,
           })
@@ -325,20 +330,45 @@ export function ResultHeaderSection(
         );
 
         const parentPlacesMap: Record<string, NamedTypedPlace[]> = {};
-        responses.forEach((response, index) => {
-          const placeDcid = places[index].dcid;
+        const newPlaces: NamedTypedPlace[] = [];
+
+        responses.forEach((response) => {
+          newPlaces.push(response.place);
           let parents = response.parentPlaces;
-          if (
-            parents.length > 0 &&
-            parents[parents.length - 1].dcid === "Earth"
-          ) {
-            parents = parents.slice(0, -1);
+          const place = response.place;
+
+          /*
+            We apply the following rules here to truncate the list of parent places:
+            - if it is a country, we truncate at the continent:
+              e.g. United States of America, North America
+            - if it is anything else, we truncate at the Country:
+              e.g. Texas, United States of America.
+            - if we are at a higher level than country, nothing is truncated.
+           */
+          const isCountry = place.types?.includes("Country");
+          let truncateIndex: number;
+
+          if (isCountry) {
+            truncateIndex = parents.findIndex((p) =>
+              p.types?.includes("Continent")
+            );
+          } else {
+            truncateIndex = parents.findIndex((p) =>
+              p.types?.includes("Country")
+            );
           }
-          parentPlacesMap[placeDcid] = parents;
+          if (truncateIndex !== -1) {
+            parents = parents.slice(0, truncateIndex + 1);
+          }
+
+          parentPlacesMap[place.dcid] = parents;
         });
+
         setPlaceToParentPlaces(parentPlacesMap);
+        setPlaces(newPlaces);
       } catch (error) {
         console.error("Error fetching parent places:", error);
+        setPlaces([]);
         setPlaceToParentPlaces({});
       } finally {
         setIsLoading(false);
@@ -350,7 +380,7 @@ export function ResultHeaderSection(
     <>
       <PlaceHeader
         isLoading={isLoading}
-        places={props.pageMetadata.places}
+        places={places}
         placeToParentPlaces={placeToParentPlaces}
       />
       <p
