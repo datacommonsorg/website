@@ -15,12 +15,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import "@testing-library/jest-dom";
+import { jest } from "@jest/globals";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
+import Enzyme, { shallow } from "enzyme";
 import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
 
 import { updateHash } from "../../utils/url_utils";
 import { DatasetSelector } from "./dataset_selector";
+
+Enzyme.configure({ adapter: new Adapter() });
 
 // Mock the updateHash function
 jest.mock("../../utils/url_utils", () => ({
@@ -47,20 +50,21 @@ describe("DatasetSelector", () => {
   });
 
   it("renders the component with initial props", () => {
-    render(<DatasetSelector {...mockProps} />);
-
-    // Check if the labels and inputs are rendered
-    expect(screen.getByText("Filter variables by")).toBeInTheDocument();
-    expect(screen.getByDisplayValue("Source 1")).toBeInTheDocument();
-    expect(screen.getByDisplayValue("Dataset 1")).toBeInTheDocument();
+    const wrapper = shallow(<DatasetSelector {...mockProps} />);
+    expect(
+      wrapper.find("#dataset-selector-source-custom-input").prop("value")
+    ).toEqual("source1");
+    expect(
+      wrapper.find("#dataset-selector-dataset-custom-input").prop("value")
+    ).toEqual("dataset1");
+    expect(wrapper.find("option").length).toBe(6); // 2 sources + 2 datasets + 2 placeholders
   });
 
   it("calls updateHash when a new source is selected", () => {
-    render(<DatasetSelector {...mockProps} />);
-
-    const sourceSelector = screen.getByDisplayValue("Source 1");
-    fireEvent.change(sourceSelector, { target: { value: "source2" } });
-
+    const wrapper = shallow(<DatasetSelector {...mockProps} />);
+    wrapper.find("#dataset-selector-source-custom-input").simulate("change", {
+      currentTarget: { value: "source2" },
+    });
     expect(updateHash).toHaveBeenCalledWith({
       s: "source2",
       d: "",
@@ -68,11 +72,10 @@ describe("DatasetSelector", () => {
   });
 
   it("calls updateHash when a new dataset is selected", () => {
-    render(<DatasetSelector {...mockProps} />);
-
-    const datasetSelector = screen.getByDisplayValue("Dataset 1");
-    fireEvent.change(datasetSelector, { target: { value: "dataset2" } });
-
+    const wrapper = shallow(<DatasetSelector {...mockProps} />);
+    wrapper.find("#dataset-selector-dataset-custom-input").simulate("change", {
+      currentTarget: { value: "dataset2" },
+    });
     expect(updateHash).toHaveBeenCalledWith({
       s: "source1",
       d: "dataset2",
