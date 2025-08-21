@@ -139,6 +139,10 @@ The Cloud Run job runs from a Docker image. If you make any changes to the scrip
     gcloud config set project datcom-nl
     ```
 
+## Running unit tests
+
+A few end-to-end unit tests are defined for the `add_metadata.py` script under `./tests/add_metadata_test.py`. To run this test, run the script `./run_metadata_test.sh` from this directory. Note that these tests are not currently run as part of the script `website/run_test.sh`.
+
 ## API Endpoint Reference
 
 The data indexed in the Vertex AI Search application is consumed by the `/api/stats/stat-var-search` endpoint. This endpoint is defined in `server/routes/shared_api/stats.py`. When a user searches for a statistical variable on the website, this API endpoint queries the Vertex AI Search application to find the most relevant results.
