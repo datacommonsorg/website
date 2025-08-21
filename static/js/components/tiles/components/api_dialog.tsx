@@ -39,6 +39,7 @@ import { intl } from "../../../i18n/i18n";
 import { chartComponentMessages } from "../../../i18n/i18n_chart_messages";
 import { messages } from "../../../i18n/i18n_messages";
 import {
+  isCustomDataCommons,
   ObservationSpec,
   observationSpecToCurl,
 } from "../../../shared/observation_specs";
@@ -180,6 +181,8 @@ export function ApiDialog({
     [specs]
   );
 
+  const isCustomDc = isCustomDataCommons(apiRoot);
+
   return (
     <Dialog
       open={open}
@@ -209,14 +212,29 @@ export function ApiDialog({
           `}
         >
           <FormattedMessage
-            {...chartComponentMessages.ApiDialogIntroduction}
+            {...(isCustomDc
+              ? chartComponentMessages.ApiDialogIntroductionCustomDc
+              : chartComponentMessages.ApiDialogIntroduction)}
             values={{
-              apiKeyLink: createLinkComponent(
-                "https://docs.datacommons.org/api/#obtain-an-api-key"
-              ),
               apiDocsLink: createLinkComponent(
                 "https://docs.datacommons.org/api/"
               ),
+              ...(!isCustomDc && {
+                apiKeyLink: createLinkComponent(
+                  "https://docs.datacommons.org/api/#obtain-an-api-key"
+                ),
+                apiKeyPlaceholder: (
+                  <code
+                    css={css`
+                      color: ${theme.colors.text.code.base};
+                      font-size: 100%;
+                      ${theme.typography.family.code}}
+                    `}
+                  >
+                    ${`{API_KEY}`}
+                  </code>
+                ),
+              }),
             }}
           />
         </p>

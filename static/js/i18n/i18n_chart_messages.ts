@@ -32,9 +32,17 @@ export const chartComponentMessages = defineMessages({
   ApiDialogIntroduction: {
     id: "apiDialogIntroduction",
     defaultMessage:
-      "Here is the REST V2 API code to access this data. The results are provided in JSON format. To get started using the code below, first <apiKeyLink>obtain an API key</apiKeyLink>. For more details, check the <apiDocsLink>API documentation</apiDocsLink>.",
+      "Use the REST V2 API code below to access this data in JSON format. To get started, <apiKeyLink>obtain an API key</apiKeyLink> and replace the {apiKeyPlaceholder} placeholder with your actual key. For more details, check the <apiDocsLink>API documentation</apiDocsLink>.",
     description:
       "Introduction text for the API dialog, explaining how to use the code snippets and linking to documentation.",
+  },
+  ApiDialogIntroductionCustomDc: {
+    id: "apiDialogIntroductionCustomDc",
+    defaultMessage:
+      "Use the REST V2 API code below to access this data in JSON format. For more details, check the <apiDocsLink>API documentation</apiDocsLink>.",
+    description:
+      "Introduction text for the API dialog, explaining how to use the code snippets and linking to documentation. " +
+      "This version is used for custom Data Commons instances, where no API key is required.",
   },
   ApiDialogCopy: {
     id: "apiCopy",

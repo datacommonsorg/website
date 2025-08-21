@@ -70,6 +70,15 @@ export interface ObservationSpecOptions {
 }
 
 /**
+ * Determines if the given API root points to a custom Data Commons instance.
+ * @param apiRoot The root URL for the Data Commons API.
+ * @returns True if the apiRoot is for a custom DC, false otherwise.
+ */
+export function isCustomDataCommons(apiRoot?: string): boolean {
+  return apiRoot && apiRoot !== DEFAULT_API_ROOT;
+}
+
+/**
  * Builds a list of observation specifications.
  * This grouping optimizes API calls by combining variables that share the same
  * date, place, and facet (i.e. information that can be included in a single
@@ -233,7 +242,7 @@ export function observationSpecToCurl(
   spec: ObservationSpec,
   apiRoot?: string
 ): string {
-  const isCustomDc = apiRoot && apiRoot !== DEFAULT_API_ROOT;
+  const isCustomDc = isCustomDataCommons(apiRoot);
 
   const apiUrl = isCustomDc
     ? new URL(`${CUSTOM_DC_API_PATH}/v2/observation`, apiRoot).href

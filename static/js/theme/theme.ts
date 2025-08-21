@@ -131,6 +131,9 @@ const theme: Theme = {
         base: DC_GRAY_LIGHT,
         dark: DC_GRAY_DARK,
       },
+      code: {
+        base: DC_GREEN,
+      },
     },
     background: {
       primary: {

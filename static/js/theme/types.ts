@@ -105,6 +105,11 @@ export interface Theme {
         light?: string;
         dark?: string;
       };
+      code?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
     };
     border?: {
       primary?: {
