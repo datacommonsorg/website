@@ -142,8 +142,8 @@ class TestAddMetadata(unittest.TestCase):
   @patch('builtins.open',
          new_callable=unittest.mock.mock_open,
          read_data=mock_data.FAILED_ATTEMPTS_LOCAL)
-  def test_read_sv_metadata_failed_attempts_local_file(
-      self, mock_open, mock_isdir):
+  def test_read_sv_metadata_failed_attempts_local_file(self, mock_open,
+                                                       mock_isdir):
     """Tests reading failed attempts from a single local file."""
     result = add_metadata.read_sv_metadata_failed_attempts(
         "test_file.json", False)
@@ -195,12 +195,12 @@ class TestAddMetadata(unittest.TestCase):
 
   def test_get_prop_value(self):
     """Tests the extraction of property values from DC API responses."""
-    self.assertEqual(
-        add_metadata.get_prop_value(mock_data.PROP_DATA_VALUE), "test_value")
-    self.assertEqual(
-        add_metadata.get_prop_value(mock_data.PROP_DATA_NAME), "test_name")
-    self.assertEqual(
-        add_metadata.get_prop_value(mock_data.PROP_DATA_DCID), "test_dcid")
+    self.assertEqual(add_metadata.get_prop_value(mock_data.PROP_DATA_VALUE),
+                     "test_value")
+    self.assertEqual(add_metadata.get_prop_value(mock_data.PROP_DATA_NAME),
+                     "test_name")
+    self.assertEqual(add_metadata.get_prop_value(mock_data.PROP_DATA_DCID),
+                     "test_dcid")
 
   def test_flatten_dc_api_response(self):
     """Tests the flattening of the DC API response."""
@@ -348,7 +348,9 @@ class TestAddMetadata(unittest.TestCase):
                                 mock_gcs_client):
     """Tests exporting data to a local JSON file."""
     add_metadata.export_to_json(mock_data.SV_METADATA_LIST_MINIMAL,
-                                "test_file", False, gcs_folder=None)
+                                "test_file",
+                                False,
+                                gcs_folder=None)
     mock_makedirs.assert_called_once_with("tools/nl/nl_metadata/failures",
                                           exist_ok=True)
     mock_open.assert_called_once_with("tools/nl/nl_metadata/test_file.json",
@@ -362,8 +364,8 @@ class TestAddMetadata(unittest.TestCase):
     mock_blob = Mock()
     mock_gcs_client.return_value.bucket.return_value = mock_bucket
     mock_bucket.blob.return_value = mock_blob
-    add_metadata.export_to_json(mock_data.SV_METADATA_LIST_MINIMAL,
-                                "test_file", True, "test_folder")
+    add_metadata.export_to_json(mock_data.SV_METADATA_LIST_MINIMAL, "test_file",
+                                True, "test_folder")
     mock_gcs_client.return_value.bucket.assert_called_once_with(
         add_metadata.GCS_BUCKET)
     mock_bucket.blob.assert_called_once_with("test_folder/test_file.json")
