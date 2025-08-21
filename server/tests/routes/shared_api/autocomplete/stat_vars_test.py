@@ -36,8 +36,8 @@ def _mock_token(text,
 
 class TestStatVars(unittest.TestCase):
 
-  @mock.patch('server.routes.shared_api.autocomplete.stat_vars.LANGUAGE_CLIENT')
-  def test_analyze_query_concepts(self, mock_lang_client):
+  @mock.patch('server.routes.shared_api.autocomplete.stat_vars._get_language_client')
+  def test_analyze_query_concepts(self, mock_get_lang_client):
 
     def mock_analyze_syntax(document, encoding_type):
       query = document.content
@@ -74,7 +74,9 @@ class TestStatVars(unittest.TestCase):
         ])
       return response
 
+    mock_lang_client = mock.Mock()
     mock_lang_client.analyze_syntax.side_effect = mock_analyze_syntax
+    mock_get_lang_client.return_value = mock_lang_client
 
     # Test case 1: Adjectives are now removed.
     result1 = stat_vars.analyze_query_concepts("how many students")
