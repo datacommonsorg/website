@@ -36,7 +36,8 @@ def _mock_token(text,
 
 class TestStatVars(unittest.TestCase):
 
-  @mock.patch('server.routes.shared_api.autocomplete.stat_vars._get_language_client')
+  @mock.patch(
+      'server.routes.shared_api.autocomplete.stat_vars._get_language_client')
   def test_analyze_query_concepts(self, mock_get_lang_client):
 
     def mock_analyze_syntax(document, encoding_type):
