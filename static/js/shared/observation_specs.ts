@@ -23,7 +23,7 @@
  * hydrated into other formats.
  */
 
-import { DEFAULT_API_ROOT } from "./constants";
+import { CUSTOM_DC_API_PATH, DEFAULT_API_ROOT } from "./constants";
 import { StatVarFacetMap, StatVarSpec } from "./types";
 
 /*
@@ -233,10 +233,13 @@ export function observationSpecToCurl(
   spec: ObservationSpec,
   apiRoot?: string
 ): string {
-  const apiUrl = `${(apiRoot || DEFAULT_API_ROOT).replace(
-    /\/$/,
-    ""
-  )}/v2/observation`;
+  const isCustomDc = apiRoot && apiRoot !== DEFAULT_API_ROOT;
+
+  const apiUrl = isCustomDc
+    ? new URL(`${CUSTOM_DC_API_PATH}/v2/observation`, apiRoot).href
+    : `${DEFAULT_API_ROOT}/v2/observation`;
+
+  const authHeader = isCustomDc ? [] : [`  -H "X-API-Key: \${API_KEY}" \\`];
 
   // we always select all fields
   const selectFields = ["entity", "variable", "date", "value", "facet"];
@@ -253,7 +256,7 @@ export function observationSpecToCurl(
       .join(",")}]}`
   );
 
-  // we push a list of entity (place ids or the expression, depending on which is given
+  // we push a list of entity (place ids or the expression, depending on which is given)
   if (spec.entityDcids?.length > 0) {
     params.push(
       `"entity": {"dcids": [${spec.entityDcids
@@ -282,7 +285,7 @@ export function observationSpecToCurl(
 
   return [
     `curl -X POST \\`,
-    `  -H "X-API-Key: {API_KEY}" \\`,
+    ...authHeader,
     `  -H "Content-Type: application/json" \\`,
     `  "${apiUrl}" \\`,
     `  ${dataPayload}`,

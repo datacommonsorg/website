@@ -186,11 +186,14 @@ export const PLACE_TYPES = new Set([
 ]);
 
 /**
- *  the API root of the REST v2 API for display purposes, when no
- *  other is available.
- *  TODO: (nick-next): look into getting this from the server configs
+ *  the API root of the REST v2 API for display purposes when not a custom DC instance
  */
 export const DEFAULT_API_ROOT = "https://api.datacommons.org";
+
+/**
+ *  the path from the root to the API in a custom DC instance
+ */
+export const CUSTOM_DC_API_PATH = "/core/api";
 
 /**
  * date query param value for requesting latest overall available for
