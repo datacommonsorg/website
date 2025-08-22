@@ -31,7 +31,7 @@ from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import is_sdg
 from server.lib.nl.explore.params import Params
 import server.lib.nl.fulfillment.types as ftypes
-from server.lib.utils.gemini_utils import call_structured_output_gemini
+from server.lib.utils.gemini_utils import call_gemini_with_retries
 
 
 @dataclass
@@ -308,7 +308,7 @@ def generate_follow_up_questions(query: str,
   formatted_follow_up_questions_prompt = FOLLOW_UP_QUESTIONS_PROMPT.format(
       initial_query=query, related_topics=related_topics)
 
-  follow_up_questions = call_structured_output_gemini(
+  follow_up_questions = call_gemini_with_retries(
       api_key=gemini_api_key,
       formatted_prompt=formatted_follow_up_questions_prompt,
       schema=FollowUpQuestions,

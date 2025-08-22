@@ -22,7 +22,7 @@ from pydantic import ConfigDict
 from pydantic.alias_generators import to_camel
 
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
-from server.lib.utils.gemini_utils import call_structured_output_gemini
+from server.lib.utils.gemini_utils import call_gemini_with_retries
 
 
 class StatVarChartLink(BaseModel):
@@ -77,7 +77,7 @@ def generate_page_overview(
   formatted_page_overview_prompt = PAGE_OVERVIEW_PROMPT.format(
       initial_query=query, stat_var_titles=stat_var_titles)
 
-  page_overview = call_structured_output_gemini(
+  page_overview = call_gemini_with_retries(
       api_key=gemini_api_key,
       formatted_prompt=formatted_page_overview_prompt,
       schema=PageOverview,
