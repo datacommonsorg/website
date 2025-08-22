@@ -17,6 +17,7 @@ from datetime import datetime
 from datetime import timedelta
 import io
 import json
+import logging
 import os
 import urllib.parse
 
@@ -117,11 +118,21 @@ def home():
   base_date = request.args.get('base_date')
   start_date = request.args.get('start_date')
   end_date = request.args.get('end_date')
-  if not start_date:
+  if start_date:
+    try:
+      datetime.strptime(start_date, "%Y_%m_%d")
+    except ValueError:
+      flask.abort(400,
+                  description="Invalid start_date format. Expected YYYY_MM_DD.")
+  else:
     one_month_ago = datetime.now() - timedelta(days=30)
     start_date = one_month_ago.strftime("%Y_%m_%d")
-  if not end_date:
-    end_date = datetime.now().strftime("%Y_%m_%d")
+  if end_date:
+    try:
+      datetime.strptime(end_date, "%Y_%m_%d")
+    except ValueError:
+      flask.abort(400,
+                  description="Invalid end_date format. Expected YYYY_MM_DD.")
   folders = list_folder(SCREENSHOT_BUCKET, domain, start_date, end_date)
   data = []
   prev_date = ''
