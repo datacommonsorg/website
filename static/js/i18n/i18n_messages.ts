@@ -172,8 +172,8 @@ export const messages = defineMessages({
     id: "all_about",
     defaultMessage: "All about",
     description:
-      "Text to display in the header section of explore page search results to introduce a link to  the primary places " +
-      "relating to the search. For example 'All about California'.",
+      "Text to display in the header section of explore page search results to introduce a link to the " +
+      "primary places relating to the search. For example 'All about California'.",
   },
   searchQuestionIntroduction: {
     id: "search_question_introduction",
