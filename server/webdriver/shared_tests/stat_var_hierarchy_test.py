@@ -14,9 +14,10 @@
 
 import re
 
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
 
@@ -35,15 +36,13 @@ class StatVarHierarchyTestMixin():
         wait_elem(self.driver, by=By.ID, value='hierarchy-section'))
 
     # Get the count of the first category
-    agriculture_category = find_elem(self.driver,
-                                     by=By.XPATH,
-                                     value="//*[text()='Agriculture']")
-    count_text = find_elem(agriculture_category, value='sv-count').text
+    agriculture_count_xpath = "//*[text()='Agriculture']/span[@class='sv-count']"
+    initial_count_text = find_elem(self.driver,
+                                   by=By.XPATH,
+                                   value=agriculture_count_xpath).text
 
     rgx = re.compile(r'\(([0-9]+)\)')
-    count_text = rgx.search(count_text).group(0)
-
-    count_initial = int(count_text.replace('(', '').replace(')', ''))
+    count_initial = int(rgx.search(initial_count_text).group(1))
 
     # Wait until search box is present and Type california
     search_box_input = find_elem(self.driver, by=By.ID, value='ac')
@@ -67,18 +66,18 @@ class StatVarHierarchyTestMixin():
     find_elem(self.driver, by=By.CSS_SELECTOR,
               value="option[value='County']").click()
 
+    # Wait until we see a change in the agricultural count.
+    try:
+      WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+          lambda driver: initial_count_text not in driver.find_element(
+              By.XPATH, agriculture_count_xpath).text)
+    except TimeoutException:
+      self.fail("Stat var count did not update after applying place filter.")
+
     # Get the count after filtering
-    shared.wait_for_loading(self.driver)
+    count_text_after = find_elem(self.driver,
+                                 by=By.XPATH,
+                                 value=agriculture_count_xpath).text
+    count_final = int(rgx.search(count_text_after).group(1))
 
-    agriculture_category = find_elem(self.driver,
-                                     by=By.XPATH,
-                                     value="//*[text()='Agriculture']")
-
-    count_text = find_elem(agriculture_category,
-                           by=By.CLASS_NAME,
-                           value='sv-count').text
-    count_text = rgx.search(count_text).group(0)
-
-    count_filter = int(count_text.replace('(', '').replace(')', ''))
-
-    self.assertGreater(count_initial, count_filter)
+    self.assertGreater(count_initial, count_final)
