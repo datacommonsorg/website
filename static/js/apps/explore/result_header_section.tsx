@@ -89,6 +89,7 @@ const AdditionalPlaceTooltipContent = ({
       const placeLinks = [
         <LocalizedLink
           key={place.dcid}
+          className="place-callout-link"
           href={`/place/${place.dcid}`}
           text={place.name}
         />,
@@ -171,8 +172,12 @@ const SinglePlaceDetail = ({
         color: ${theme.colors.text.secondary.base};
       `}
     >
-      {intl.formatMessage(messages.allAbout)} {""}
-      <LocalizedLink href={`/place/${place.dcid}`} text={place.name} />
+      {intl.formatMessage(messages.allAbout)}{" "}
+      <LocalizedLink
+        className="place-callout-link"
+        href={`/place/${place.dcid}`}
+        text={place.name}
+      />
       {parentPlaces.length > 0 && (
         <>
           {", "}
@@ -275,6 +280,7 @@ const PlaceHeader = ({
 
   return (
     <div
+      id="result-header-place-callout"
       css={css`
         display: flex;
         justify-content: flex-end;
