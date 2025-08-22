@@ -175,13 +175,6 @@ export const messages = defineMessages({
       "Text to display in the header section of explore page search results to introduce a link to  the primary places " +
       "relating to the search. For example 'All about California'.",
   },
-  andMore: {
-    id: "and_more",
-    defaultMessage: "and {places} more",
-    description:
-      "Text appended to the list of relevant places in the search result header. It is used when there are more than " +
-      "two places, following the first two names. For example: 'California, Texas, and more'.",
-  },
   searchQuestionIntroduction: {
     id: "search_question_introduction",
     defaultMessage: "Data related to your research question",
