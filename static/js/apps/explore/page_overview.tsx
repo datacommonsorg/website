@@ -18,12 +18,15 @@
  * Component for rendering the generated page overview.
  */
 
+import { css, useTheme } from "@emotion/react";
 import axios, { AxiosResponse } from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { InfoSpark } from "../../components/elements/icons/info_spark";
 import { Loading } from "../../components/elements/loading";
+import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import {
   isFeatureEnabled,
   PAGE_OVERVIEW_LINKS,
@@ -54,6 +57,9 @@ const CAPTURE_LINK_GROUP = /<([^<>]+)>/;
 const SPLIT_LINKS = /(<[^<>]+>)/;
 const CHECK_MARKERS_EXIST = /<|>/;
 const GLOBAL_MARKERS = /<|>/g;
+
+const PAGE_OVERVIEW_DISCLAIMER =
+  "This introduction was generated with Gemini. All charts and data are provided by the third-party sources cited on each visualization, with minor processing by Data Commons.";
 
 type StatVarChartLocation = {
   title: string;
@@ -86,6 +92,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
   const hasInitialClick = useRef<boolean>(false);
   const viewStartTime = useRef<number | null>(null);
   const totalViewDuration = useRef<number>(0);
+  const theme = useTheme();
 
   const { ref: inViewRef } = useInView({
     rootMargin: "0px",
@@ -194,8 +201,23 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
         </div>
       )}
       {!_.isEmpty(pageOverview) && (
-        <div ref={inViewRef} className="page-overview-inner">
-          {pageOverview}
+        <div
+          ref={inViewRef}
+          className="page-overview-inner"
+          css={css`
+            ${theme.typography.text.lg}
+          `}
+        >
+          <span
+            css={css`
+              margin-right: ${theme.spacing.xs}px;
+            `}
+          >
+            {pageOverview}
+          </span>
+          <Tooltip title={PAGE_OVERVIEW_DISCLAIMER} placement="bottom">
+            <InfoSpark />
+          </Tooltip>
         </div>
       )}
     </>
