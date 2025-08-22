@@ -16,7 +16,8 @@
 from typing import List, Optional
 
 from flask import current_app
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
+from pydantic import ConfigDict
 from pydantic.alias_generators import to_camel
 
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT

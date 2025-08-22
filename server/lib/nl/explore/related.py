@@ -13,10 +13,10 @@
 # limitations under the License.
 """Module for related things."""
 
+from dataclasses import dataclass
 import re
 import time
-from dataclasses import dataclass
-from typing import Dict, List, Set, cast
+from typing import cast, Dict, List, Set
 
 from flask import current_app
 from pydantic import BaseModel
@@ -24,9 +24,11 @@ from pydantic import BaseModel
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
-import server.lib.nl.fulfillment.types as ftypes
 from server.lib.nl.explore.gemini_prompts import FOLLOW_UP_QUESTIONS_PROMPT
-from server.lib.nl.explore.params import DCNames, Params, is_sdg
+from server.lib.nl.explore.params import DCNames
+from server.lib.nl.explore.params import is_sdg
+from server.lib.nl.explore.params import Params
+import server.lib.nl.fulfillment.types as ftypes
 from server.lib.utils.gemini_utils import call_gemini_with_retries
 
 
