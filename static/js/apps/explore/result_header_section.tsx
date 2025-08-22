@@ -48,17 +48,22 @@ import theme from "../../theme/theme";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
-import { Place } from "../data_overview/place_data";
 import { ItemList } from "./item_list";
 
 interface PlacesTooltipContentProps {
-  items: Place[];
-  allParentPlaces: Record<string, NamedTypedPlace[]>;
+  //a list of the places to be rendered in the tooltip
+  places: NamedTypedPlace[];
+  //a mapping of each place to its related places
+  placeToParentPlaces: Record<string, NamedTypedPlace[]>;
 }
 
+/**
+ * Renders the list of places and their parent places inside a tooltip.
+ * This is used whenever we have multiple places.
+ */
 const AdditionalPlaceTooltipContent = ({
-  items,
-  allParentPlaces,
+  places,
+  placeToParentPlaces,
 }: PlacesTooltipContentProps): React.JSX.Element => (
   <ul
     css={css`
@@ -79,8 +84,8 @@ const AdditionalPlaceTooltipContent = ({
       }
     `}
   >
-    {items.map((place) => {
-      const parentPlaces = allParentPlaces[place.dcid] || [];
+    {places.map((place) => {
+      const parentPlaces = placeToParentPlaces[place.dcid] || [];
       const placeLinks = [
         <LocalizedLink
           key={place.dcid}
@@ -133,10 +138,16 @@ const AdditionalPlaceTooltipContent = ({
 );
 
 interface SinglePlaceDetailProps {
+  //the place whose details will be rendered in the header
   place: NamedTypedPlace;
+  //the related places of this parent.
   parentPlaces: NamedTypedPlace[];
 }
 
+/**
+ * Renders details for a single place, including its type and parent places.
+ * This is used when we have a single place.
+ */
 const SinglePlaceDetail = ({
   place,
   parentPlaces,
@@ -183,10 +194,15 @@ const SinglePlaceDetail = ({
 };
 
 interface MultiplePlacesDetailProps {
+  //a list of the places to be rendered in the tooltip
   places: NamedTypedPlace[];
+  //a mapping of each place to its related places
   placeToParentPlaces: Record<string, NamedTypedPlace[]>;
 }
 
+/**
+ * Renders copy to indicate the number of places with a tooltip to view the full list.
+ */
 const MultiplePlacesDetail = ({
   places,
   placeToParentPlaces,
@@ -195,8 +211,8 @@ const MultiplePlacesDetail = ({
     <Tooltip
       title={
         <AdditionalPlaceTooltipContent
-          items={places}
-          allParentPlaces={placeToParentPlaces}
+          places={places}
+          placeToParentPlaces={placeToParentPlaces}
         />
       }
       placement="bottom-end"
@@ -238,11 +254,18 @@ const MultiplePlacesDetail = ({
 };
 
 interface PlaceHeaderProps {
+  //true if the related places are loading
   isLoading: boolean;
+  //a list of the places to be rendered in the header
   places: NamedTypedPlace[];
+  //a mapping of each place to its related places
   placeToParentPlaces: Record<string, NamedTypedPlace[]>;
 }
 
+/**
+ * Renders the header for place information. While the place details are loading, this component shows
+ * a loading state. Once loaded, it will show either the single or multiple place detail components.
+ */
 const PlaceHeader = ({
   isLoading,
   places,
@@ -287,12 +310,19 @@ const PlaceHeader = ({
 };
 
 interface ResultHeaderSectionProps {
+  // the DCID of the first place in the search results
   placeUrlVal: string;
+  // Metadata for the subject page, containing places and topics.
   pageMetadata: SubjectPageMetadata;
+  // Whether to hide the related topics section.
   hideRelatedTopics: boolean;
+  // The user's search query string.
   query: string;
 }
 
+/**
+ * Renders the main header section for a successful search results page.
+ */
 export function ResultHeaderSection(
   props: ResultHeaderSectionProps
 ): React.JSX.Element {
