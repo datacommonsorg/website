@@ -13,8 +13,6 @@
 # limitations under the License.
 
 import collections
-from datetime import datetime
-from datetime import timedelta
 
 from google.cloud import storage
 

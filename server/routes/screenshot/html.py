@@ -17,7 +17,6 @@ from datetime import datetime
 from datetime import timedelta
 import io
 import json
-import logging
 import os
 import urllib.parse
 
