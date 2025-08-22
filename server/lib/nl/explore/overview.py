@@ -13,7 +13,6 @@
 # limitations under the License.
 """Module for page overview."""
 
-import logging
 from typing import List, Optional
 
 from flask import current_app
@@ -23,6 +22,7 @@ from pydantic import ConfigDict
 from pydantic.alias_generators import to_camel
 
 from server.lib.nl.explore.gemini_prompts import PAGE_OVERVIEW_PROMPT
+from server.lib.utils.gemini_utils import call_gemini_with_retries
 
 
 class StatVarChartLink(BaseModel):
@@ -74,25 +74,16 @@ def generate_page_overview(
   if not gemini_api_key:
     return None, None
 
-  gemini = genai.Client(api_key=gemini_api_key)
-  for _ in range(_OVERVIEW_GEMINI_CALL_RETRIES):
-    try:
-      gemini_response = gemini.models.generate_content(
-          model=_OVERVIEW_GEMINI_MODEL,
-          contents=PAGE_OVERVIEW_PROMPT.format(initial_query=query,
-                                               stat_var_titles=stat_var_titles),
-          config={
-              "response_mime_type": "application/json",
-              "response_schema": PageOverview
-          })
+  formatted_page_overview_prompt = PAGE_OVERVIEW_PROMPT.format(
+      initial_query=query, stat_var_titles=stat_var_titles)
 
-      generated_overview = gemini_response.parsed.overview
-      stat_var_links = gemini_response.parsed.stat_var_links
-      return generated_overview, stat_var_links
-    except Exception as e:
-      logging.error(
-          f'[explore_page_overview]: Initial Query: {query} | Statistical Variables: {stat_var_titles} | Exception Caught: {e}',
-          exc_info=True)
-      continue
+  page_overview = call_gemini_with_retries(
+      api_key=gemini_api_key,
+      formatted_prompt=formatted_page_overview_prompt,
+      schema=PageOverview,
+      gemini_model=_OVERVIEW_GEMINI_MODEL,
+      retries=_OVERVIEW_GEMINI_CALL_RETRIES)
+  if not page_overview:
+    return None, None
 
-  return None, None
+  return page_overview.overview, page_overview.stat_var_links
