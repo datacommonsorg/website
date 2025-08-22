@@ -156,6 +156,7 @@ const SinglePlaceDetail = ({
   return (
     <p
       css={css`
+        margin: 0;
         color: ${theme.colors.text.secondary.base};
       `}
     >
@@ -221,6 +222,7 @@ const MultiplePlacesDetail = ({
   return (
     <p
       css={css`
+        margin: 0;
         color: ${theme.colors.text.secondary.base};
       `}
     >
@@ -254,9 +256,11 @@ const PlaceHeader = ({
         display: flex;
         justify-content: flex-end;
         width: 100%;
+        height: auto;
         min-height: 20px;
         ${theme.typography.family.text};
         ${theme.typography.text.sm};
+        transition: height 0.3s ease-in-out;
         @media (max-width: ${theme.breakpoints.lg}px) {
           justify-content: flex-start;
           margin-bottom: ${theme.spacing.md}px;
