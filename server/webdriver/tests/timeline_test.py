@@ -19,8 +19,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 import server.webdriver.shared as shared
+from server.webdriver.shared_tests.timeline_test import \
+    StandardizedTimelineTestMixin
 from server.webdriver.shared_tests.timeline_test import TimelineTestMixin
-from server.webdriver.shared_tests.timeline_test import StandardizedTimelineTestMixin
+
 
 class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
                    BaseDcWebdriverTest):
