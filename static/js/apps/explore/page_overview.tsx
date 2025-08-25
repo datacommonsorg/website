@@ -27,6 +27,8 @@ import { useInView } from "react-intersection-observer";
 import { InfoSpark } from "../../components/elements/icons/info_spark";
 import { Loading } from "../../components/elements/loading";
 import { Tooltip } from "../../components/elements/tooltip/tooltip";
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import {
   isFeatureEnabled,
   PAGE_OVERVIEW_LINKS,
@@ -57,9 +59,6 @@ const CAPTURE_LINK_GROUP = /<([^<>]+)>/;
 const SPLIT_LINKS = /(<[^<>]+>)/;
 const CHECK_MARKERS_EXIST = /<|>/;
 const GLOBAL_MARKERS = /<|>/g;
-
-const PAGE_OVERVIEW_DISCLAIMER =
-  "This introduction was generated with Gemini. All charts and data are provided by the third-party sources cited on each visualization, with minor processing by Data Commons.";
 
 type StatVarChartLocation = {
   title: string;
@@ -215,7 +214,10 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
           >
             {pageOverview}
           </span>
-          <Tooltip title={PAGE_OVERVIEW_DISCLAIMER} placement="bottom">
+          <Tooltip
+            title={intl.formatMessage(messages.explorePageOverviewTooltip)}
+            placement="bottom"
+          >
             <InfoSpark />
           </Tooltip>
         </div>

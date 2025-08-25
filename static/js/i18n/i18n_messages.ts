@@ -168,4 +168,11 @@ export const messages = defineMessages({
     description:
       "Text to display when we have a single place, and need to add the 'in' before the place. For example, 'in California'.",
   },
+  explorePageOverviewTooltip: {
+    id: "explore_page_overview_tooltip",
+    defaultMessage:
+      "This introduction was generated with Gemini. All charts and data are provided by the third-party sources cited on each visualization, with minor processing by Data Commons.",
+    description:
+      "Informational tooltip text for the explore page overview introducing the statistical variables. Summary is generated from the titles of each chart on the page.",
+  },
 });
