@@ -23,7 +23,7 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
-# TODO(juliawu): Remove disabled feature once new UI is rolled out to production
+# TODO(juliawu): Remove feature flags once new UI is rolled out to production
 TIMELINE_URL = '/tools/timeline?disable_feature=standardized_vis_tool'
 STANDARDIZED_TIMELINE_URL = '/tools/timeline?enable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&statsVar=Median_Age_Person__Median_Income_Person__Count_Person_Upto5Years'\

@@ -117,13 +117,12 @@ export function EnclosedPlacesSelector(
       <div>of type</div>
       <div>
         <CustomInput
-          id={"place-selector-place-type"}
+          id={"place-selector-place-type-dropdown"}
           type="select"
           value={props.enclosedPlaceType}
           onChange={(event): void =>
             props.onEnclosedPlaceTypeSelected(event.target.value)
           }
-          className="pac-target-input"
         >
           <option value="">Select a place type</option>
           {childPlaceTypes.map((type) => (
