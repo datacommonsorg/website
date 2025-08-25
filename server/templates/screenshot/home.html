@@ -33,12 +33,18 @@
           "2024_06_06_21_00_05"
         </li>
         <li>
-          start_date (YYYY_MM_DD): the start date to fetch screenshots from. By
-          default is 30 days ago from now.
+          start_date (YYYY_MM_DD): the start date to fetch screenshots from.
+          <ul>
+            <li>Default: 30 days ago</li>
+            <li>Inclusive (screenshots on the start date are included)</li>
+          </ul>
         </li>
         <li>
-          end_date (YYYY_MM_DD): the end date to fetch screenshots from. By
-          default is today.
+          end_date (YYYY_MM_DD): the end date to fetch screenshots until.
+          <ul>
+            <li>Default: none</li>
+            <li>Exclusive (screenshots on the end date are excluded)</li>
+          </ul>
         </li>
       </ul>
     </div>
