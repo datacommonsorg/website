@@ -18,7 +18,7 @@
  * Component for rendering the generated page overview.
  */
 
-import { css, useTheme } from "@emotion/react";
+import { useTheme } from "@emotion/react";
 import axios, { AxiosResponse } from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
@@ -203,14 +203,12 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
         <div
           ref={inViewRef}
           className="page-overview-inner"
-          css={css`
-            ${theme.typography.text.lg}
-          `}
+          css={theme.typography.text.lg}
         >
           <span
-            css={css`
-              margin-right: ${theme.spacing.xs}px;
-            `}
+            css={{
+              marginRight: theme.spacing.xs,
+            }}
           >
             {pageOverview}
           </span>
