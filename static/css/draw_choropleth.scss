@@ -40,7 +40,8 @@ div.region-highlighted path {
   border-radius: 3px;
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: break-word;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
