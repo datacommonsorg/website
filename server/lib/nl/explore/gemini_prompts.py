@@ -77,7 +77,7 @@ The available statistical variables are the following: {stat_var_titles}
 Do not include ```json ``` in the output.
 """
 
-RELATED_QUESTIONS_PROMPT = """
+FOLLOW_UP_QUESTIONS_PROMPT = """
 Imagine you are a dynamic, trusted, and factual UI copywriter. Use the following tone of voice guidelines as an approach to this task.
 
 Informative: The primary goal is to present data and facts clearly and directly.
