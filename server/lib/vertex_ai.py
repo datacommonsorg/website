@@ -15,11 +15,27 @@
 """
 
 import logging
+import threading
 
 from google.cloud import discoveryengine_v1 as discoveryengine
 
 logger = logging.getLogger(__name__)
-vai_client = discoveryengine.SearchServiceClient()
+
+# Use a global variable to hold the client, initialized to None.
+_vai_client = None
+_vai_client_lock = threading.Lock()
+
+
+def _get_search_client():
+  """Initializes and returns a thread-safe singleton client."""
+  global _vai_client
+  # Lazy initialize the client
+  if not _vai_client:
+    with _vai_client_lock:
+      # Check again in case another thread initialized it while we were waiting
+      if not _vai_client:
+        _vai_client = discoveryengine.SearchServiceClient()
+  return _vai_client
 
 
 def search(
@@ -27,6 +43,7 @@ def search(
     query: str, page_size: int, page_token: str | None, relevance_threshold: str
 ) -> discoveryengine.services.search_service.pagers.SearchPager:
   """Generic search function for a Vertex AI search application."""
+  client = _get_search_client()
   serving_config = (f"projects/{project_id}/locations/{location}/"
                     f"collections/default_collection/engines/{engine_id}/"
                     f"servingConfigs/{serving_config_id}")
@@ -41,7 +58,7 @@ def search(
       relevance_threshold=relevance_threshold)
 
   try:
-    page_result = vai_client.search(search_request)
+    page_result = client.search(search_request)
     return page_result
   except Exception as e:
     logger.error("SearchRequest failed for query '%s': %s", query, e)
