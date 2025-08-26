@@ -17,8 +17,11 @@ import json
 from typing import Any, Dict, List, Optional
 
 import flask
-from flask import Blueprint, request
-from pydantic import BaseModel, ConfigDict, Field
+from flask import Blueprint
+from flask import request
+from pydantic import BaseModel
+from pydantic import ConfigDict
+from pydantic import Field
 
 from server.services import datacommons as dc
 
@@ -253,15 +256,14 @@ def search_variables():
   response_query_results: Dict[str, Dict[str, IndexResponse]] = {}
   for query, vars_by_index in vars_by_query_by_index.items():
     response_query_results[query] = {}
-    for index, variables in vars_by_index.items():
+    for index, sv_dcids in vars_by_index.items():
       nl_index_result = nl_results_by_index[index]
       sv_to_sentences = nl_index_result.get("queryResults",
                                             {}).get(query, {}).get(
                                                 "SV_to_Sentences", {})
-      index_response = IndexResponse(
-          model_threshold=nl_index_result.get("scoreThreshold"))
-      
-      for sv_dcid in variables:
+      variables = []
+      topics = []
+      for sv_dcid in sv_dcids:
         if sv_dcid not in sv_dcids_to_enrich:
           continue
         sv_info = sv_info_map.get(sv_dcid, {})
@@ -271,15 +273,18 @@ def search_variables():
             description=sv_info.get("description"),
             scores=[SentenceScore(**s) for s in sv_to_sentences[sv_dcid][:3]])
         if sv_dcid in topic_dcids:
-          index_response.topics.append(sv_result)
+          topics.append(sv_result)
         else:
-          index_response.variables.append(sv_result)
+          variables.append(sv_result)
 
-        if max_candidates_per_index and len(index_response.variables) + len(
-            index_response.topics) >= max_candidates_per_index:
+        if max_candidates_per_index and len(variables) + len(
+            topics) >= max_candidates_per_index:
           break
 
-      response_query_results[query][index] = index_response
+      response_query_results[query][index] = IndexResponse(
+          model_threshold=nl_index_result.get("scoreThreshold"),
+          variables=variables,
+          topics=topics)
 
   # Build the final SearchVariablesResponse object
   response_metadata = ResponseMetadata(threshold_override=threshold_override,)
