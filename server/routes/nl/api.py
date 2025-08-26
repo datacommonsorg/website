@@ -252,15 +252,15 @@ def search_variables():
   #
   response_query_results: Dict[str, Dict[str, IndexResponse]] = {}
   for query, vars_by_index in vars_by_query_by_index.items():
+    response_query_results[query] = {}
     for index, variables in vars_by_index.items():
-      response_query_results[query] = {}
       nl_index_result = nl_results_by_index[index]
-
       sv_to_sentences = nl_index_result.get("queryResults",
                                             {}).get(query, {}).get(
                                                 "SV_to_Sentences", {})
       index_response = IndexResponse(
           model_threshold=nl_index_result.get("scoreThreshold"))
+      
       for sv_dcid in variables:
         if sv_dcid not in sv_dcids_to_enrich:
           continue
