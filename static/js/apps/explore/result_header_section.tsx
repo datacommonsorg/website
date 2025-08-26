@@ -153,9 +153,22 @@ const SinglePlaceDetail = ({
   place,
   parentPlaces,
 }: SinglePlaceDetailProps): React.JSX.Element => {
-  const placeType =
+  const placeLink = (
+    <LocalizedLink
+      className="place-callout-link"
+      href={`/place/${place.dcid}`}
+      text={place.name}
+    />
+  );
+
+  const uppercasePlaceType =
     place.types && place.types.length > 0
       ? displayNameForPlaceType(place.types[0])
+      : "";
+
+  const lowercasePlaceType =
+    place.types && place.types.length > 0
+      ? displayNameForPlaceType(place.types[0], false, true)
       : "";
 
   const parentPlacesLinks = parentPlaces.map((parent, index) => (
@@ -172,22 +185,21 @@ const SinglePlaceDetail = ({
         color: ${theme.colors.text.secondary.base};
       `}
     >
-      {intl.formatMessage(messages.allAbout)}{" "}
-      <LocalizedLink
-        className="place-callout-link"
-        href={`/place/${place.dcid}`}
-        text={place.name}
-      />
-      {parentPlaces.length > 0 && (
-        <>
-          {", "}
-          <span>
-            {intl.formatMessage(pageMessages.placeTypeInPlaces, {
-              placeType,
-              parentPlaces: parentPlacesLinks,
-            })}
-          </span>
-        </>
+      {parentPlaces.length > 0 ? (
+        <FormattedMessage
+          {...messages.allAboutPlaceInPlace}
+          values={{
+            place: placeLink,
+            lowercasePlaceType,
+            uppercasePlaceType,
+            parentPlaces: parentPlacesLinks,
+          }}
+        />
+      ) : (
+        <FormattedMessage
+          {...messages.allAbout}
+          values={{ place: placeLink }}
+        />
       )}
       <span>
         {""} • {""}

@@ -82,7 +82,7 @@ export const messages = defineMessages({
     id: "close",
     defaultMessage: "Close",
     description:
-      "Button to close a modal or other interactive element. Unlike 'Cancel', this doesn not imply abandoning " +
+      "Button to close a modal or other interactive element. Unlike 'Cancel', this does not imply abandoning " +
       "changes; it simply dismisses the dialog. It is used when there are no contrasting actions.",
   },
   download: {
@@ -170,10 +170,20 @@ export const messages = defineMessages({
   },
   allAbout: {
     id: "all_about",
-    defaultMessage: "All about",
+    defaultMessage: "All about {place}",
     description:
-      "Text to display in the header section of explore page search results to introduce a link to the " +
-      "primary places relating to the search. For example 'All about California'.",
+      "Text to display in the header section of explore page search results for a place that has no parent places. " +
+      "For example 'All about World'. The {place} will be a link.",
+  },
+  allAboutPlaceInPlace: {
+    id: "all_about_place_in_place",
+    defaultMessage: "All about {place}, {lowercasePlaceType} in {parentPlaces}",
+    description:
+      "Text to display in the header section of explore page search results for a place that has parent places. " +
+      "For example, for California, it shows 'All about California, state in USA, North America'.  The {place} and " +
+      "each parent place will be a link. Select either {lowercasePlaceType} or {uppercasePlaceType}, as is appropriate " +
+      "to the target language and position of the word in the translated sentence. Please leave the {uppercasePlaceType} or " +
+      "{lowercasePlaceType} and {place} and {parentPlaces} variables unchanged in the resulting translation.",
   },
   searchQuestionIntroduction: {
     id: "search_question_introduction",
