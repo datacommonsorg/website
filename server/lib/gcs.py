@@ -59,7 +59,9 @@ def list_folder(bucket_name, prefix, start_offset='', end_offset=''):
   storage_client = storage.Client()
   bucket = storage_client.get_bucket(bucket_name)
   start_offset = prefix + '/' + start_offset
-  end_offset = prefix + '/' + end_offset
+  if end_offset:
+    end_offset = prefix + '/' + end_offset
+
   blobs = bucket.list_blobs(prefix=prefix,
                             start_offset=start_offset,
                             end_offset=end_offset)
