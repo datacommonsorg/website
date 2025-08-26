@@ -339,6 +339,38 @@ interface ResultHeaderSectionProps {
 }
 
 /**
+ * Truncates the list of parent places based on the type of the primary place.
+ * - if it is a country, we truncate at the continent:
+ *      e.g. United States of America, North America
+ *  - if it is anything else, we truncate at the Country:
+ *      e.g. Texas, United States of America.
+ *  - if we are at a higher level than country, nothing is truncated.
+ * @param place The primary place.
+ * @param parentPlaces The list of parent places to truncate.
+ * @returns A truncated list of parent places.
+ */
+const truncateParentPlaces = (
+  place: NamedTypedPlace,
+  parentPlaces: NamedTypedPlace[]
+): NamedTypedPlace[] => {
+  const isCountry = place.types?.includes("Country");
+  let truncateIndex: number;
+
+  if (isCountry) {
+    truncateIndex = parentPlaces.findIndex((p) =>
+      p.types?.includes("Continent")
+    );
+  } else {
+    truncateIndex = parentPlaces.findIndex((p) => p.types?.includes("Country"));
+  }
+
+  if (truncateIndex !== -1) {
+    return parentPlaces.slice(0, truncateIndex + 1);
+  }
+  return parentPlaces;
+};
+
+/**
  * Renders the main header section for a successful search results page.
  */
 export function ResultHeaderSection(
@@ -386,34 +418,11 @@ export function ResultHeaderSection(
 
         responses.forEach((response) => {
           newPlaces.push(response.place);
-          let parents = response.parentPlaces;
-          const place = response.place;
 
-          /*
-            We apply the following rules here to truncate the list of parent places:
-            - if it is a country, we truncate at the continent:
-              e.g. United States of America, North America
-            - if it is anything else, we truncate at the Country:
-              e.g. Texas, United States of America.
-            - if we are at a higher level than country, nothing is truncated.
-           */
-          const isCountry = place.types?.includes("Country");
-          let truncateIndex: number;
-
-          if (isCountry) {
-            truncateIndex = parents.findIndex((p) =>
-              p.types?.includes("Continent")
-            );
-          } else {
-            truncateIndex = parents.findIndex((p) =>
-              p.types?.includes("Country")
-            );
-          }
-          if (truncateIndex !== -1) {
-            parents = parents.slice(0, truncateIndex + 1);
-          }
-
-          parentPlacesMap[place.dcid] = parents;
+          parentPlacesMap[response.place.dcid] = truncateParentPlaces(
+            response.place,
+            response.parentPlaces
+          );
         });
 
         setPlaceToParentPlaces(parentPlacesMap);
