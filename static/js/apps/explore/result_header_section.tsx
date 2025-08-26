@@ -302,9 +302,10 @@ const PlaceHeader = ({
         ${theme.typography.family.text};
         ${theme.typography.text.sm};
         transition: height 0.3s ease-in-out;
+        padding-bottom: ${theme.spacing.xs}px;
         @media (max-width: ${theme.breakpoints.lg}px) {
+          padding-bottom: ${theme.spacing.sm}px;
           justify-content: flex-start;
-          margin-bottom: ${theme.spacing.md}px;
           flex-wrap: wrap;
         }
       `}
@@ -449,6 +450,7 @@ export function ResultHeaderSection(
           ${theme.typography.family.text}
           ${theme.typography.text.sm}
           color: ${theme.colors.text.secondary.base};
+          padding-top: ${theme.spacing.sm}px;
         `}
       >
         {intl.formatMessage(messages.searchQuestionIntroduction)}
