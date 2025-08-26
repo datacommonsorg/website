@@ -34,13 +34,7 @@ class ApiBaseModel(BaseModel):
   model_config = ConfigDict(populate_by_name=True)
 
 
-class IndexInfo(ApiBaseModel):
-  model_threshold: float = Field(alias="modelThreshold")
-
-
 class ResponseMetadata(ApiBaseModel):
-  index_info: Dict[str, IndexInfo] = Field(alias="indexInfo",
-                                           default_factory=dict)
   threshold_override: Optional[float] = Field(alias="thresholdOverride",
                                               default=None)
 
@@ -57,8 +51,13 @@ class StatVarResult(BaseModel):
   scores: List[SentenceScore]
 
 
+class IndexResponse(ApiBaseModel):
+  model_threshold: float = Field(alias="modelThreshold")
+  variables: List[StatVarResult]
+
+
 class SearchVariablesResponse(ApiBaseModel):
-  results: Dict[str, Dict[str, List[StatVarResult]]] = Field(
+  results: Dict[str, Dict[str, IndexResponse]] = Field(
       alias="queryResults",
       description=
       "A dictionary where the key is the search string and the value is a dictionary from index name to a list of StatVarResult.",
@@ -121,25 +120,23 @@ def search_variables():
         {
           "queryResults": {
             "population of california": {
-              "medium_ft": [
-                {
-                  "dcid": "Count_Person",
-                  "name": "Person Count",
-                  "description": "The total number of individuals...",
-                  "scores": [
-                    {"sentence": "population of", "score": 0.95},
-                    {"sentence": "number of people", "score": 0.92}
-                  ]
-                }
-              ]
+              "medium_ft": {
+                "modelThreshold": 0.75,
+                "variables": [
+                  {
+                    "dcid": "Count_Person",
+                    "name": "Person Count",
+                    "description": "The total number of individuals...",
+                    "scores": [
+                      {"sentence": "population of", "score": 0.95},
+                      {"sentence": "number of people", "score": 0.92}
+                    ]
+                  }
+                ]
+              }
             }
           },
           "responseMetadata": {
-            "indexInfo": {
-              "medium_ft": {
-                "modelThreshold": 0.75
-              }
-            },
             "thresholdOverride": null
           }
         }
@@ -174,7 +171,7 @@ def search_variables():
   # query -> index -> nl_result
   query_results_by_index: Dict[str, Dict[str, Any]] = {}
   # For response metadata
-  index_info: Dict[str, IndexInfo] = {}
+  model_thresholds: Dict[str, float] = {}
 
   # The new call encapsulates the parallelism.
   # The result is a dict: index -> nl_result
@@ -187,7 +184,7 @@ def search_variables():
 
     model_threshold = nl_result.get("scoreThreshold")
     if model_threshold is not None:
-      index_info[index] = IndexInfo(model_threshold=model_threshold)
+      model_thresholds[index] = model_threshold
 
     for query, q_result in nl_result.get("queryResults", {}).items():
       query_results_by_index.setdefault(query, {})[index] = q_result
@@ -205,8 +202,8 @@ def search_variables():
       ranked_svs = q_result.get("SV", [])
 
       threshold_to_use = threshold_override
-      if threshold_to_use is None and index in index_info:
-        threshold_to_use = index_info[index].model_threshold
+      if threshold_to_use is None and index in model_thresholds:
+        threshold_to_use = model_thresholds[index]
 
       for sv_dcid in ranked_svs:
         sentences_data = sv_sentences_map.get(sv_dcid, [])
@@ -239,8 +236,9 @@ def search_variables():
   filtered_sv_dcids = all_sv_dcids_to_check
   if place_dcids and all_sv_dcids_to_check:
     # Filter stat vars by place
-    filtered_result = dc.filter_statvars(list(all_sv_dcids_to_check),
-                                         place_dcids)
+    filtered_result = dc.filter_statvars([{
+        "dcid": sv
+    } for sv in all_sv_dcids_to_check], place_dcids)
     filtered_sv_dcids = {
         sv["dcid"] for sv in filtered_result.get("statVars", [])
     }
@@ -248,22 +246,24 @@ def search_variables():
   # Batch fetch stat var info for all SVs that made it through filtering
   sv_info_map = {}
   if filtered_sv_dcids:
-    sv_info_data = dc.variable_info(list(filtered_sv_dcids))
-    for sv_data in sv_info_data.get("data", []):
-      dcid = sv_data.get("node")
-      if dcid:
-        sv_info_map[dcid] = {
-            "name": sv_data.get("name"),
-            "description": sv_data.get("description"),
-        }
+    sv_info_data = dc.v2node(list(filtered_sv_dcids), "->[name,description]")
+    for dcid, sv_data in sv_info_data.get("data", {}).items():
+      name_nodes = sv_data.get("arcs", {}).get("name", {}).get("nodes", [])
+      name = name_nodes[0].get("value") if name_nodes else None
+
+      description_nodes = (sv_data.get("arcs", {}).get("description",
+                                                       {}).get("nodes", []))
+      description = (description_nodes[0].get("value")
+                     if description_nodes else None)
+
+      sv_info_map[dcid] = {"name": name, "description": description}
 
   # Construct the final response by building Pydantic objects
-  response_query_results: Dict[str, Dict[str, List[StatVarResult]]] = {}
+  response_query_results: Dict[str, Dict[str, IndexResponse]] = {}
   for query, index_results in query_results_by_index.items():
     response_query_results[query] = {}
     for index, q_result in index_results.items():
       sv_results_for_index: List[StatVarResult] = []
-      sv_sentences_map = q_result.get("SV_to_Sentences", {})
       # Need to maintain original ranking from the NL server
       ranked_svs = q_result.get("SV", [])
 
@@ -286,20 +286,22 @@ def search_variables():
                 dcid=sv_dcid,
                 name=info.get("name"),
                 description=info.get("description"),
-                scores=filtered_sentences,
+                scores=filtered_sentences[:3],
             ))
 
       if max_candidates_per_index:
         sv_results_for_index = sv_results_for_index[:max_candidates_per_index]
 
       if sv_results_for_index:
-        response_query_results[query][index] = sv_results_for_index
+        model_threshold = model_thresholds.get(index)
+        if model_threshold is not None:
+          response_query_results[query][index] = IndexResponse(
+              model_threshold=model_threshold,
+              variables=sv_results_for_index,
+          )
 
   # Build the final SearchVariablesResponse object
-  response_metadata = ResponseMetadata(
-      index_info=index_info,
-      threshold_override=threshold_override,
-  )
+  response_metadata = ResponseMetadata(threshold_override=threshold_override,)
   final_response = SearchVariablesResponse(results=response_query_results,
                                            response_metadata=response_metadata)
 

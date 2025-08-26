@@ -16,6 +16,7 @@ import logging
 import os
 from pathlib import Path
 
+from flask import has_request_context
 from flask import request
 from flask_caching import Cache
 
@@ -33,26 +34,26 @@ cache = None
 model_cache = None
 
 redis_config = lib_redis.get_redis_config()
-REDIS_HOST = os.environ.get('REDIS_HOST', '')
+REDIS_HOST = os.environ.get("REDIS_HOST", "")
 
 # Setup model_cache, use redis if available, otherwise use filesystem cache
 # which is good for local development.
 if redis_config:
-  redis_host = redis_config['host']
-  redis_port = redis_config['port']
+  redis_host = redis_config["host"]
+  redis_port = redis_config["port"]
   _redis_cache = Cache(
       config={
-          'CACHE_TYPE': 'RedisCache',
-          'CACHE_REDIS_HOST': redis_host,
-          'CACHE_REDIS_PORT': redis_port,
-          'CACHE_REDIS_URL': 'redis://{}:{}'.format(redis_host, redis_port)
+          "CACHE_TYPE": "RedisCache",
+          "CACHE_REDIS_HOST": redis_host,
+          "CACHE_REDIS_PORT": redis_port,
+          "CACHE_REDIS_URL": "redis://{}:{}".format(redis_host, redis_port),
       })
   model_cache = _redis_cache
 else:
   model_cache = Cache(
       config={
-          'CACHE_TYPE': 'FileSystemCache',
-          'CACHE_DIR': os.path.join(Path(__file__).parents[2], '.cache')
+          "CACHE_TYPE": "FileSystemCache",
+          "CACHE_DIR": os.path.join(Path(__file__).parents[2], ".cache"),
       })
 
 cfg = lib_config.get_config()
@@ -63,23 +64,26 @@ if cfg.USE_MEMCACHE or REDIS_HOST:
   if _redis_cache:
     cache = _redis_cache
   else:
-    cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+    cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
 else:
   # For some instance with fast updated data, we may not want to use memcache.
-  cache = Cache(config={'CACHE_TYPE': 'NullCache'})
+  cache = Cache(config={"CACHE_TYPE": "NullCache"})
 
 
 def should_skip_cache():
   """Check if cache should be skipped based on request header.
-  
-  Returns:
-    True if X-Skip-Cache header is set to 'true', False otherwise.
-    Always returns False on any error to ensure caching remains functional.
-  """
+
+    Returns:
+      True if X-Skip-Cache header is set to 'true', False otherwise.
+      Always returns False on any error to ensure caching remains functional.
+    """
+  if not has_request_context():
+    # Cannot skip cache if there is no request context (e.g., in a thread).
+    return False
   try:
-    skip_cache_header = request.headers.get('X-Skip-Cache')
-    return skip_cache_header is not None and str(
-        skip_cache_header).lower() == 'true'
+    skip_cache_header = request.headers.get("X-Skip-Cache")
+    return (skip_cache_header is not None and
+            str(skip_cache_header).lower() == "true")
   except Exception:
     logging.warning("Error checking X-Skip-Cache header.", exc_info=True)
     # Any error should default to False to preserve normal caching behavior

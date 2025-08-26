@@ -1,8 +1,13 @@
-# Copyright 2023 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
-# You mayS" BASIS,
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -53,20 +58,38 @@ MOCK_FILTER_STATVARS_RESPONSE = {
     }]
 }
 
-# Mock data for dc.variable_info
-MOCK_VARIABLE_INFO_RESPONSE = {
-    "data": [
-        {
-            "node": "SV_1",
-            "name": "SV1 Name",
-            "description": "SV1 Description"
+# Mock data for dc.v2node
+MOCK_V2NODE_RESPONSE = {
+    "data": {
+        "SV_1": {
+            "arcs": {
+                "name": {
+                    "nodes": [{
+                        "value": "SV1 Name"
+                    }]
+                },
+                "description": {
+                    "nodes": [{
+                        "value": "SV1 Description"
+                    }]
+                },
+            }
         },
-        {
-            "node": "SV_2",
-            "name": "SV2 Name",
-            "description": "SV2 Description"
+        "SV_2": {
+            "arcs": {
+                "name": {
+                    "nodes": [{
+                        "value": "SV2 Name"
+                    }]
+                },
+                "description": {
+                    "nodes": [{
+                        "value": "SV2 Description"
+                    }]
+                },
+            }
         },
-    ]
+    }
 }
 
 
@@ -77,9 +100,8 @@ class TestSearchVariables(unittest.TestCase):
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   @patch("server.services.datacommons.filter_statvars")
-  @patch("server.services.datacommons.variable_info")
-  def test_search_variables_full_flow(self, mock_variable_info,
-                                      mock_filter_statvars,
+  @patch("server.services.datacommons.v2node")
+  def test_search_variables_full_flow(self, mock_v2node, mock_filter_statvars,
                                       mock_nl_search_vars_in_parallel):
     # This test covers the main success path:
     # 1. NL search returns 3 SVs.
@@ -92,7 +114,7 @@ class TestSearchVariables(unittest.TestCase):
         "medium_ft": MOCK_NL_SEARCH_VARS_RESPONSE
     }
     mock_filter_statvars.return_value = MOCK_FILTER_STATVARS_RESPONSE
-    mock_variable_info.return_value = MOCK_VARIABLE_INFO_RESPONSE
+    mock_v2node.return_value = MOCK_V2NODE_RESPONSE
 
     response = self.app.get(
         "/api/nl/search-variables?queries=population+of+california&place_dcids=geoId/06&index=medium_ft"
@@ -111,31 +133,29 @@ class TestSearchVariables(unittest.TestCase):
     self.assertCountEqual(filter_call_args[0], ["SV_1", "SV_2"])
     self.assertEqual(filter_call_args[1], ["geoId/06"])
 
-    # Check variable_info call.
-    self.assertEqual(mock_variable_info.call_count, 1)
-    info_call_args, _ = mock_variable_info.call_args
-    self.assertCountEqual(info_call_args[0], ["SV_1", "SV_2"])
+    # Check v2node call.
+    self.assertEqual(mock_v2node.call_count, 1)
+    v2node_call_args, _ = mock_v2node.call_args
+    self.assertCountEqual(v2node_call_args[0], ["SV_1", "SV_2"])
+    self.assertEqual(v2node_call_args[1], "->name,->description")
     # Check the final response structure and content
     self.assertIn("queryResults", data)
-    query_results = data["queryResults"]["population of california"][
+    index_response = data["queryResults"]["population of california"][
         "medium_ft"]
-    self.assertEqual(len(query_results), 2)
+    self.assertEqual(index_response["modelThreshold"], 0.75)
+    variables = index_response["variables"]
+    self.assertEqual(len(variables), 2)
 
     # Check SV_1 (passes all filters)
-    self.assertEqual(query_results[0]["dcid"], "SV_1")
-    self.assertEqual(query_results[0]["name"], "SV1 Name")
-    self.assertEqual(len(query_results[0]["scores"]), 2)
-    self.assertEqual(query_results[0]["scores"][0]["score"], 0.9)  # Sorted
+    self.assertEqual(variables[0]["dcid"], "SV_1")
+    self.assertEqual(variables[0]["name"], "SV1 Name")
+    self.assertEqual(len(variables[0]["scores"]), 2)
+    self.assertEqual(variables[0]["scores"][0]["score"], 0.9)  # Sorted
 
     # Check SV_2 (passes all filters)
-    self.assertEqual(query_results[1]["dcid"], "SV_2")
-    self.assertEqual(query_results[1]["name"], "SV2 Name")
-    self.assertEqual(len(query_results[1]["scores"]), 1)
-
-    # Check metadata
-    self.assertIn("responseMetadata", data)
-    metadata = data["responseMetadata"]
-    self.assertEqual(metadata["indexInfo"]["medium_ft"]["modelThreshold"], 0.75)
+    self.assertEqual(variables[1]["dcid"], "SV_2")
+    self.assertEqual(variables[1]["name"], "SV2 Name")
+    self.assertEqual(len(variables[1]["scores"]), 1)
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   def test_threshold_override(self, mock_nl_search_vars_in_parallel):
@@ -146,27 +166,53 @@ class TestSearchVariables(unittest.TestCase):
         "medium_ft": MOCK_NL_SEARCH_VARS_RESPONSE
     }
 
-    # Mock variable_info to return info for all 3 SVs
-    with patch(
-        "server.services.datacommons.variable_info") as mock_variable_info:
-      mock_variable_info.return_value = {
-          "data": [
-              {
-                  "node": "SV_1",
-                  "name": "SV1 Name",
-                  "description": "SV1 Description",
+    # Mock v2node to return info for all 3 SVs
+    with patch("server.services.datacommons.v2node") as mock_v2node:
+      mock_v2node.return_value = {
+          "data": {
+              "SV_1": {
+                  "arcs": {
+                      "name": {
+                          "nodes": [{
+                              "value": "SV1 Name"
+                          }]
+                      },
+                      "description": {
+                          "nodes": [{
+                              "value": "SV1 Description"
+                          }]
+                      },
+                  }
               },
-              {
-                  "node": "SV_2",
-                  "name": "SV2 Name",
-                  "description": "SV2 Description",
+              "SV_2": {
+                  "arcs": {
+                      "name": {
+                          "nodes": [{
+                              "value": "SV2 Name"
+                          }]
+                      },
+                      "description": {
+                          "nodes": [{
+                              "value": "SV2 Description"
+                          }]
+                      },
+                  }
               },
-              {
-                  "node": "SV_3",
-                  "name": "SV3 Name",
-                  "description": "SV3 Description",
+              "SV_3": {
+                  "arcs": {
+                      "name": {
+                          "nodes": [{
+                              "value": "SV3 Name"
+                          }]
+                      },
+                      "description": {
+                          "nodes": [{
+                              "value": "SV3 Description"
+                          }]
+                      },
+                  }
               },
-          ]
+          }
       }
 
       response = self.app.get(
@@ -175,10 +221,11 @@ class TestSearchVariables(unittest.TestCase):
       self.assertEqual(response.status_code, 200)
       data = json.loads(response.data)
 
-      query_results = data["queryResults"]["population of california"][
+      index_response = data["queryResults"]["population of california"][
           "medium_ft"]
-      self.assertEqual(len(query_results), 3)
-      self.assertEqual(query_results[2]["dcid"], "SV_3")
+      variables = index_response["variables"]
+      self.assertEqual(len(variables), 3)
+      self.assertEqual(variables[2]["dcid"], "SV_3")
       self.assertEqual(data["responseMetadata"]["thresholdOverride"], 0.6)
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
@@ -194,14 +241,24 @@ class TestSearchVariables(unittest.TestCase):
     # Mock filter_statvars to only return SV_1
     mock_filter_statvars.return_value = {"statVars": [{"dcid": "SV_1"}]}
 
-    with patch(
-        "server.services.datacommons.variable_info") as mock_variable_info:
-      mock_variable_info.return_value = {
-          "data": [{
-              "node": "SV_1",
-              "name": "SV1 Name",
-              "description": "SV1 Description",
-          }]
+    with patch("server.services.datacommons.v2node") as mock_v2node:
+      mock_v2node.return_value = {
+          "data": {
+              "SV_1": {
+                  "arcs": {
+                      "name": {
+                          "nodes": [{
+                              "value": "SV1 Name"
+                          }]
+                      },
+                      "description": {
+                          "nodes": [{
+                              "value": "SV1 Description"
+                          }]
+                      },
+                  }
+              }
+          }
       }
 
       response = self.app.get(
@@ -210,10 +267,11 @@ class TestSearchVariables(unittest.TestCase):
       self.assertEqual(response.status_code, 200)
       data = json.loads(response.data)
 
-      query_results = data["queryResults"]["population of california"][
+      index_response = data["queryResults"]["population of california"][
           "medium_ft"]
-      self.assertEqual(len(query_results), 1)
-      self.assertEqual(query_results[0]["dcid"], "SV_1")
+      variables = index_response["variables"]
+      self.assertEqual(len(variables), 1)
+      self.assertEqual(variables[0]["dcid"], "SV_1")
 
   def test_missing_queries_param(self):
     # Test that a 400 error is returned if `queries` is missing.
@@ -232,7 +290,7 @@ class TestSearchVariables(unittest.TestCase):
         "default_index_1": MOCK_NL_SEARCH_VARS_RESPONSE
     }
 
-    with patch("server.services.datacommons.variable_info"):
+    with patch("server.services.datacommons.v2node"):
       response = self.app.get(
           "/api/nl/search-variables?queries=population+of+california")
       self.assertEqual(response.status_code, 200)
@@ -247,14 +305,15 @@ class TestSearchVariables(unittest.TestCase):
     mock_nl_search_vars_in_parallel.return_value = {
         "medium_ft": MOCK_NL_SEARCH_VARS_RESPONSE
     }
-    with patch("server.services.datacommons.variable_info"):
+    with patch("server.services.datacommons.v2node"):
       response = self.app.get(
           "/api/nl/search-variables?queries=population+of+california&threshold=0.6&max_candidates_per_index=1&index=medium_ft"
       )
       self.assertEqual(response.status_code, 200)
       data = json.loads(response.data)
-      query_results = data["queryResults"]["population of california"][
+      index_response = data["queryResults"]["population of california"][
           "medium_ft"]
+      variables = index_response["variables"]
       # Even though 3 SVs pass the threshold, only 1 should be returned.
-      self.assertEqual(len(query_results), 1)
-      self.assertEqual(query_results[0]["dcid"], "SV_1")
+      self.assertEqual(len(variables), 1)
+      self.assertEqual(variables[0]["dcid"], "SV_1")
