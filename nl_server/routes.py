@@ -30,7 +30,7 @@ from nl_server.registry import REGISTRY_KEY
 from shared.lib import constants
 from shared.lib.detected_variables import var_candidates_to_dict
 
-bp = Blueprint("main", __name__, url_prefix="/")
+bp = Blueprint('main', __name__, url_prefix='/')
 
 #
 # A global bool to ensure we keep failing healthz till we
@@ -39,19 +39,19 @@ bp = Blueprint("main", __name__, url_prefix="/")
 default_embeddings_loaded = False
 
 
-@bp.route("/healthz")
+@bp.route('/healthz')
 def healthz():
-  return "NL Server is healthy", 200
+  return 'NL Server is healthy', 200
 
 
-@bp.route("/api/encode", methods=["POST"])
+@bp.route('/api/encode', methods=['POST'])
 def encode():
   """Returns a list of embeddings for each input query.
 
-    Dict[str, List[float]]
-    """
-  model_name = request.json.get("model", "")
-  queries = request.json.get("queries")
+  Dict[str, List[float]]
+  """
+  model_name = request.json.get('model', '')
+  queries = request.json.get('queries')
   if not queries:
     return json.dumps({})
   queries = [str(escape(q)) for q in queries]
@@ -63,78 +63,79 @@ def encode():
   return json.dumps({q: e for q, e in zip(queries, query_embeddings)})
 
 
-@bp.route("/api/search_vars/", methods=["POST"])
+@bp.route('/api/search_vars/', methods=['POST'])
 def search_vars():
   """Returns a dictionary with each input query as key and value as:
 
-    {
-      'SV': List[str]
-      'CosineScore': List[float],
-      'SV_to_Sentences': Dict[str, str]
-    }
-    """
-  queries = request.json.get("queries", [])
+  {
+    'SV': List[str]
+    'CosineScore': List[float],
+    'SV_to_Sentences': Dict[str, str]
+  }
+  """
+  queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
 
+  # TODO: clean up skip topics, may not be used anymore
   skip_topics = False
-  if request.args.get("skip_topics"):
+  if request.args.get('skip_topics'):
     skip_topics = True
 
   reg: Registry = current_app.config[REGISTRY_KEY]
 
-  reranker_name = str(escape(request.args.get("reranker", "")))
+  reranker_name = str(escape(request.args.get('reranker', '')))
   reranker_model = reg.get_reranking_model(
       reranker_name) if reranker_name else None
 
   default_indexes = reg.server_config().default_indexes
-  idx_type_str = str(escape(request.args.get("idx", "")))
+  idx_type_str = str(escape(request.args.get('idx', '')))
   if not idx_type_str:
     idx_types = default_indexes
   else:
-    idx_types = idx_type_str.split(",")
+    idx_types = idx_type_str.split(',')
   if not idx_types:
-    logging.error("No index type is found!")
-    return "No index type is found!", 500
+    logging.error('No index type is found!')
+    return 'No index type is found!', 500
 
   embeddings = _get_indexes(reg, idx_types)
 
-  debug_logs = {"sv_detection_query_index_types": idx_types}
+  debug_logs = {'sv_detection_query_index_types': idx_types}
   results = search.search_vars(embeddings, queries, skip_topics, reranker_model,
                                debug_logs)
   q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
   return json.dumps({
-      "queryResults": q2result,
-      "scoreThreshold": _get_threshold(embeddings),
-      "debugLogs": debug_logs,
+      'queryResults': q2result,
+      'scoreThreshold': _get_threshold(embeddings),
+      'debugLogs': debug_logs
   })
 
 
-@bp.route("/api/detect_verbs/", methods=["GET"])
+@bp.route('/api/detect_verbs/', methods=['GET'])
 def detect_verbs():
   """Returns a list tokens that detected as verbs.
 
-    List[str]
-    """
-  query = str(escape(request.args.get("q")))
+  List[str]
+  """
+  query = str(escape(request.args.get('q')))
   reg: Registry = current_app.config[REGISTRY_KEY]
   return json.dumps(reg.get_attribute_model().detect_verbs(query.strip()))
 
 
-@bp.route("/api/server_config/", methods=["GET"])
+@bp.route('/api/server_config/', methods=['GET'])
 def embeddings_version_map():
   reg: Registry = current_app.config[REGISTRY_KEY]
   server_config = reg.server_config()
   return json.dumps(asdict(server_config))
 
 
-@bp.route("/api/load/", methods=["POST"])
+@bp.route('/api/load/', methods=['POST'])
 def load():
-  additional_catalog_path = request.json.get("additional_catalog_path", None)
+  additional_catalog_path = request.json.get('additional_catalog_path', None)
   try:
     current_app.config[REGISTRY_KEY] = registry.build(
         additional_catalog_path=additional_catalog_path)
   except Exception as e:
-    logging.error(f"Server registry not built due to error: {str(e)}")
+    logging.error(f'Server registry not built due to error: {str(e)}')
   reg: Registry = current_app.config[REGISTRY_KEY]
   server_config = reg.server_config()
   return json.dumps(asdict(server_config))
