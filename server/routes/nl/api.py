@@ -130,10 +130,19 @@ def search_variables():
                     "description": "The total number of individuals...",
                     "scores": [
                       {"sentence": "population of", "score": 0.95},
-                      {"sentence": "number of people", "score": 0.92}
+                      {"sentence": "number of people", "score": 0.92},
                     ]
                   }
-                ]
+                ],
+                "topics": [
+                  {
+                    "dcid": "dc/topic/Race",
+                    "name": "Population by Race",
+                    "scores": [
+                      {"sentence": "population broken down by race", "score": 0.88}
+                    ]
+                  }
+                ],
               }
             }
           },
