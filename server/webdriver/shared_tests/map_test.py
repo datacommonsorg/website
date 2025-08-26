@@ -91,9 +91,7 @@ class MapTestMixin():
 
     # Select State place type
     shared.wait_for_loading(self.driver)
-    place_type_selector = find_elem(self.driver,
-                                    by=By.ID,
-                                    value='place-selector-place-type')
+    place_type_selector = find_elem(self.driver, by=By.ID, value='')
     place_type_selector.click()
     find_elem(place_type_selector, by=By.XPATH, value='./option[2]').click()
 

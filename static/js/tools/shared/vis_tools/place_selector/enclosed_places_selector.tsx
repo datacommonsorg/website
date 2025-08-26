@@ -117,7 +117,7 @@ export function EnclosedPlacesSelector(
       <div>of type</div>
       <div>
         <CustomInput
-          id={"place-selector-place-type-dropdown"}
+          id={"place-selector-place-type"}
           type="select"
           value={props.enclosedPlaceType}
           onChange={(event): void =>

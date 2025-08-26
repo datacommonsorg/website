@@ -269,6 +269,7 @@ class StandardizedTimelineTestMixin():
     shared.search_for_places(self,
                              self.driver,
                              search_term="California",
+                             place_type=None,
                              is_new_vis_tools=False)
 
     # Assert these values are in the URL
@@ -280,6 +281,7 @@ class StandardizedTimelineTestMixin():
     shared.search_for_places(self,
                              self.driver,
                              search_term="Texas",
+                             place_type=None,
                              is_new_vis_tools=False)
 
     # Assert both California and Texas are in the URL
@@ -307,6 +309,7 @@ class StandardizedTimelineTestMixin():
     shared.search_for_places(self,
                              self.driver,
                              search_term="California",
+                             place_type=None,
                              is_new_vis_tools=False)
 
     # Choose stat var
