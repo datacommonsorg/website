@@ -130,14 +130,18 @@ class TestSearchVariables(unittest.TestCase):
     # order is not guaranteed.
     self.assertEqual(mock_filter_statvars.call_count, 1)
     filter_call_args, _ = mock_filter_statvars.call_args
-    self.assertCountEqual(filter_call_args[0], ["SV_1", "SV_2"])
+    self.assertCountEqual(filter_call_args[0], [{
+        'dcid': 'SV_1'
+    }, {
+        'dcid': 'SV_2'
+    }])
     self.assertEqual(filter_call_args[1], ["geoId/06"])
 
     # Check v2node call.
     self.assertEqual(mock_v2node.call_count, 1)
     v2node_call_args, _ = mock_v2node.call_args
     self.assertCountEqual(v2node_call_args[0], ["SV_1", "SV_2"])
-    self.assertEqual(v2node_call_args[1], "->name,->description")
+    self.assertEqual(v2node_call_args[1], "->[name,description]")
     # Check the final response structure and content
     self.assertIn("queryResults", data)
     index_response = data["queryResults"]["population of california"][
@@ -317,3 +321,91 @@ class TestSearchVariables(unittest.TestCase):
       # Even though 3 SVs pass the threshold, only 1 should be returned.
       self.assertEqual(len(variables), 1)
       self.assertEqual(variables[0]["dcid"], "SV_1")
+
+  @patch("server.services.datacommons.nl_search_vars_in_parallel")
+  def test_empty_nl_response(self, mock_nl_search_vars_in_parallel):
+    # Test that if the NL server returns no results, the endpoint handles
+    # it gracefully.
+    mock_nl_search_vars_in_parallel.return_value = {
+        "medium_ft": {
+            "queryResults": {}
+        }
+    }
+
+    response = self.app.get(
+        "/api/nl/search-variables?queries=a+query+with+no+results&index=medium_ft"
+    )
+    self.assertEqual(response.status_code, 200)
+    data = json.loads(response.data)
+
+    # Expect an empty queryResults dictionary
+    self.assertEqual(data["queryResults"], {})
+
+  @patch("server.services.datacommons.nl_search_vars_in_parallel")
+  @patch("server.services.datacommons.filter_statvars")
+  @patch("server.services.datacommons.v2node")
+  def test_multiple_queries_and_indices(self, mock_v2node, mock_filter_statvars,
+                                        mock_nl_search_vars_in_parallel):
+    # This test ensures that multiple queries and indices are handled correctly
+    # in the same request.
+
+    # Mock responses for two different indices
+    mock_nl_search_vars_in_parallel.return_value = {
+        "index1": {
+            "queryResults": {
+                "query1": {
+                    "SV": ["SV_A"],
+                    "SV_to_Sentences": {
+                        "SV_A": [{
+                            "sentence": "sentence a",
+                            "score": 0.9
+                        }]
+                    },
+                }
+            },
+            "scoreThreshold": 0.8,
+        },
+        "index2": {
+            "queryResults": {
+                "query2": {
+                    "SV": ["SV_B"],
+                    "SV_to_Sentences": {
+                        "SV_B": [{
+                            "sentence": "sentence b",
+                            "score": 0.9
+                        }]
+                    },
+                }
+            },
+            "scoreThreshold": 0.8,
+        },
+    }
+    mock_filter_statvars.return_value = {
+        "statVars": [{
+            "dcid": "SV_A"
+        }, {
+            "dcid": "SV_B"
+        }]
+    }
+    mock_v2node.return_value = {
+        "data": {}
+    }  # Assume no extra info for simplicity
+
+    response = self.app.get(
+        "/api/nl/search-variables?queries=query1&queries=query2&index=index1&index=index2"
+    )
+    self.assertEqual(response.status_code, 200)
+    data = json.loads(response.data)
+
+    # Check that the nested dictionary structure is correct
+    self.assertIn("query1", data["queryResults"])
+    self.assertIn("index1", data["queryResults"]["query1"])
+    self.assertEqual(
+        data["queryResults"]["query1"]["index1"]["variables"][0]["dcid"],
+        "SV_A")
+
+    self.assertIn("query2", data["queryResults"])
+    self.assertIn("index2", data["queryResults"]["query2"])
+    self.assertEqual(
+        data["queryResults"]["query2"]["index2"]["variables"][0]["dcid"],
+        "SV_B")
