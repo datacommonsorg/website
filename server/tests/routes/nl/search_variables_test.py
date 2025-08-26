@@ -131,9 +131,9 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(mock_filter_statvars.call_count, 1)
     filter_call_args, _ = mock_filter_statvars.call_args
     self.assertCountEqual(filter_call_args[0], [{
-        'dcid': 'SV_1'
+        "dcid": "SV_1"
     }, {
-        'dcid': 'SV_2'
+        "dcid": "SV_2"
     }])
     self.assertEqual(filter_call_args[1], ["geoId/06"])
 
@@ -409,3 +409,83 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(
         data["queryResults"]["query2"]["index2"]["variables"][0]["dcid"],
         "SV_B")
+
+  @patch("server.services.datacommons.nl_search_vars_in_parallel")
+  @patch("server.services.datacommons.filter_statvars")
+  @patch("server.services.datacommons.v2node")
+  def test_topic_separation_and_filtering(self, mock_v2node,
+                                          mock_filter_statvars,
+                                          mock_nl_search_vars_in_parallel):
+    # This test ensures that topic SVs are separated and bypass the place filter.
+    mock_nl_response = {
+        "queryResults": {
+            "some query": {
+                "SV": ["SV_REGULAR", "dc/topic/MyTopic"],
+                "SV_to_Sentences": {
+                    "SV_REGULAR": [{
+                        "sentence": "regular sv sentence",
+                        "score": 0.9
+                    }],
+                    "dc/topic/MyTopic": [{
+                        "sentence": "topic sentence",
+                        "score": 0.9
+                    }],
+                },
+            }
+        },
+        "scoreThreshold": 0.8,
+    }
+    mock_nl_search_vars_in_parallel.return_value = {
+        "medium_ft": mock_nl_response
+    }
+
+    # filter_statvars should only be called with the regular SV and should keep it.
+    mock_filter_statvars.return_value = {"statVars": [{"dcid": "SV_REGULAR"}]}
+
+    # v2node should be called for both the regular SV and the topic.
+    mock_v2node.return_value = {
+        "data": {
+            "SV_REGULAR": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "Regular SV"
+                        }]
+                    }
+                }
+            },
+            "dc/topic/MyTopic": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "My Topic"
+                        }]
+                    }
+                }
+            },
+        }
+    }
+
+    response = self.app.get(
+        "/api/nl/search-variables?queries=some+query&place_dcids=geoId/06&index=medium_ft"
+    )
+    self.assertEqual(response.status_code, 200)
+    data = json.loads(response.data)
+
+    # Assert that filter_statvars was only called with the regular SV.
+    mock_filter_statvars.assert_called_once_with([{
+        "dcid": "SV_REGULAR"
+    }], ["geoId/06"])
+
+    # Assert that v2node was called with both.
+    self.assertEqual(mock_v2node.call_count, 1)
+    v2node_call_args, _ = mock_v2node.call_args
+    self.assertCountEqual(v2node_call_args[0],
+                          ["SV_REGULAR", "dc/topic/MyTopic"])
+
+    # Check the final response structure.
+    index_response = data["queryResults"]["some query"]["medium_ft"]
+    self.assertEqual(len(index_response["variables"]), 1)
+    self.assertEqual(index_response["variables"][0]["dcid"], "SV_REGULAR")
+    self.assertEqual(len(index_response["topics"]), 1)
+    self.assertEqual(index_response["topics"][0]["dcid"], "dc/topic/MyTopic")

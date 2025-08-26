@@ -54,6 +54,7 @@ class StatVarResult(BaseModel):
 class IndexResponse(ApiBaseModel):
   model_threshold: float = Field(alias="modelThreshold")
   variables: List[StatVarResult]
+  topics: List[StatVarResult] = Field(default_factory=list)
 
 
 class SearchVariablesResponse(ApiBaseModel):
@@ -226,27 +227,35 @@ def search_variables():
           all_sentences.sort(key=lambda s: s.score, reverse=True)
           sv_sentences_after_threshold[query][index][sv_dcid] = all_sentences
 
-  # Now get all unique SVs to do the place check
-  all_sv_dcids_to_check = set()
+  # Get all unique SVs that passed the score threshold.
+  all_svs_after_threshold = set()
   for query_map in sv_sentences_after_threshold.values():
     for index_map in query_map.values():
-      all_sv_dcids_to_check.update(index_map.keys())
+      all_svs_after_threshold.update(index_map.keys())
+
+  # Separate into regular and topic SVs.
+  regular_svs_after_threshold = {
+      sv for sv in all_svs_after_threshold if "/topic/" not in sv
+  }
+  topic_svs_after_threshold = all_svs_after_threshold - regular_svs_after_threshold
 
   # Filter by place if place_dcids are provided
-  filtered_sv_dcids = all_sv_dcids_to_check
-  if place_dcids and all_sv_dcids_to_check:
+  filtered_sv_dcids = regular_svs_after_threshold
+  if place_dcids and regular_svs_after_threshold:
     # Filter stat vars by place
     filtered_result = dc.filter_statvars([{
         "dcid": sv
-    } for sv in all_sv_dcids_to_check], place_dcids)
+    } for sv in regular_svs_after_threshold], place_dcids)
     filtered_sv_dcids = {
         sv["dcid"] for sv in filtered_result.get("statVars", [])
     }
 
   # Batch fetch stat var info for all SVs that made it through filtering
+  # This includes regular SVs that passed the place filter and all topic SVs.
+  sv_dcids_to_enrich = filtered_sv_dcids.union(topic_svs_after_threshold)
   sv_info_map = {}
-  if filtered_sv_dcids:
-    sv_info_data = dc.v2node(list(filtered_sv_dcids), "->[name,description]")
+  if sv_dcids_to_enrich:
+    sv_info_data = dc.v2node(list(sv_dcids_to_enrich), "->[name,description]")
     for dcid, sv_data in sv_info_data.get("data", {}).items():
       name_nodes = sv_data.get("arcs", {}).get("name", {}).get("nodes", [])
       name = name_nodes[0].get("value") if name_nodes else None
@@ -264,40 +273,47 @@ def search_variables():
     response_query_results[query] = {}
     for index, q_result in index_results.items():
       sv_results_for_index: List[StatVarResult] = []
+      topic_results_for_index: List[StatVarResult] = []
       # Need to maintain original ranking from the NL server
       ranked_svs = q_result.get("SV", [])
 
       for sv_dcid in ranked_svs:
-        if sv_dcid not in filtered_sv_dcids:
-          continue
-
         # Get the pre-filtered sentences
+        # If empty, it means this SV for this query/index combo did not pass
+        # the score threshold.
         filtered_sentences = (sv_sentences_after_threshold.get(query, {}).get(
             index, {}).get(sv_dcid))
         if not filtered_sentences:
-          # This can happen if the SV was present in another query/index combo
-          # and made it into filtered_sv_dcids, but for *this* query/index,
-          # it had no sentences that passed the threshold.
+          continue
+
+        is_topic = "/topic/" in sv_dcid
+
+        # For non-topic SVs, they must also pass the place filter.
+        if not is_topic and sv_dcid not in filtered_sv_dcids:
           continue
 
         info = sv_info_map.get(sv_dcid, {})
-        sv_results_for_index.append(
-            StatVarResult(
-                dcid=sv_dcid,
-                name=info.get("name"),
-                description=info.get("description"),
-                scores=filtered_sentences[:3],
-            ))
+        result_obj = StatVarResult(
+            dcid=sv_dcid,
+            name=info.get("name"),
+            description=info.get("description"),
+            scores=filtered_sentences[:3],
+        )
+        if is_topic:
+          topic_results_for_index.append(result_obj)
+        else:
+          sv_results_for_index.append(result_obj)
 
       if max_candidates_per_index:
         sv_results_for_index = sv_results_for_index[:max_candidates_per_index]
 
-      if sv_results_for_index:
+      if sv_results_for_index or topic_results_for_index:
         model_threshold = model_thresholds.get(index)
         if model_threshold is not None:
           response_query_results[query][index] = IndexResponse(
               model_threshold=model_threshold,
               variables=sv_results_for_index,
+              topics=topic_results_for_index,
           )
 
   # Build the final SearchVariablesResponse object
