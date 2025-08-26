@@ -25,7 +25,7 @@ from pydantic import Field
 
 from server.services import datacommons as dc
 
-bp = Blueprint("nl_api", __name__, url_prefix="/api/nl")
+bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
 
 class ApiBaseModel(BaseModel):
@@ -66,27 +66,27 @@ class SearchVariablesResponse(ApiBaseModel):
   response_metadata: ResponseMetadata = Field(alias="responseMetadata")
 
 
-@bp.route("/encode-vector", methods=["POST"])
+@bp.route('/encode-vector', methods=['POST'])
 def encode_vector():
   """Retrieves the embedding vector for a given query and model."""
-  model = request.args.get("model")
-  queries = request.json.get("queries", [])
+  model = request.args.get('model')
+  queries = request.json.get('queries', [])
   return json.dumps(dc.nl_encode(model, queries))
 
 
-@bp.route("/search-vector", methods=["POST"])
+@bp.route('/search-vector', methods=['POST'])
 def search_vector():
   """Performs vector search for a given query and embedding index."""
-  idx = request.args.get("idx")
+  idx = request.args.get('idx')
   if not idx:
-    flask.abort(400, "Must provide an `idx`")
-  queries = request.json.get("queries")
+    flask.abort(400, 'Must provide an `idx`')
+  queries = request.json.get('queries')
   if not queries:
-    flask.abort(400, "Must provide a `queries` in POST data")
+    flask.abort(400, 'Must provide a `queries` in POST data')
 
   return dc.nl_search_vars(queries,
-                           idx.split(","),
-                           skip_topics=request.args.get("skip_topics", ""))
+                           idx.split(','),
+                           skip_topics=request.args.get('skip_topics', ''))
 
 
 @bp.route("/search-variables", methods=["GET"])
