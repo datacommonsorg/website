@@ -319,18 +319,21 @@ class StandardizedTimelineTestMixin():
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
-    # Assert chart is correct.
     shared.wait_for_loading(self.driver)
+
+    # Assert title is correct
+    chart_title_container = find_elem(self.driver,
+                                      by=By.CSS_SELECTOR,
+                                      value='#chart .chart-card .chart-title')
     self.assertIn(
         'median age of population ',
-        find_elem(
-            self.driver,
-            by=By.XPATH,
-            value='//*[@id="statVarChipRegion"]/div/div[1]/h3').text.lower())
+        find_elem(chart_title_container, by=By.XPATH,
+                  value='./h3[2]').text.lower())
 
-    # Assert we have the right number of lines and legends
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
-    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     58)
-    chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
-    self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
+    # Assert number of charts and lines is correct.
+    charts = find_elems(self.driver,
+                        by=By.XPATH,
+                        value='//*[@id="chart-region"]/div')
+    self.assertEqual(len(charts), 1)
+    lines = find_elems(charts[0], value="line")
+    self.assertEqual(len(lines), 1)
