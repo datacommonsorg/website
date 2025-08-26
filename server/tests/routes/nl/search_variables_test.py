@@ -355,6 +355,7 @@ class TestSearchVariables(unittest.TestCase):
             "queryResults": {
                 "query1": {
                     "SV": ["SV_A"],
+                    "CosineScore": [0.9],
                     "SV_to_Sentences": {
                         "SV_A": [{
                             "sentence": "sentence a",
@@ -369,6 +370,7 @@ class TestSearchVariables(unittest.TestCase):
             "queryResults": {
                 "query2": {
                     "SV": ["SV_B"],
+                    "CosineScore": [0.9],
                     "SV_to_Sentences": {
                         "SV_B": [{
                             "sentence": "sentence b",
@@ -421,6 +423,7 @@ class TestSearchVariables(unittest.TestCase):
         "queryResults": {
             "some query": {
                 "SV": ["SV_REGULAR", "dc/topic/MyTopic"],
+                "CosineScore": [0.9, 0.9],
                 "SV_to_Sentences": {
                     "SV_REGULAR": [{
                         "sentence": "regular sv sentence",
