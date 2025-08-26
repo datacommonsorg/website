@@ -31,6 +31,21 @@ export interface TextVariant {
       };
 }
 
+interface ButtonVariant {
+  backgroundColor: string;
+  color: string;
+  border: string;
+  borderRadius: string;
+  [key: string]:
+    | string
+    | number
+    | {
+        backgroundColor: string;
+        color: string;
+        border: string;
+      };
+}
+
 export interface Theme {
   breakpoints: {
     xs: number;
@@ -86,6 +101,11 @@ export interface Theme {
         dark?: string;
       };
       tertiary?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
+      code?: {
         base?: string;
         light?: string;
         dark?: string;
@@ -264,62 +284,11 @@ export interface Theme {
   };
   button: {
     variant: {
-      standard?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      inverted?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      text?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      flat?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
+      standard?: ButtonVariant;
+      inverted?: ButtonVariant;
+      text?: ButtonVariant;
+      flat?: ButtonVariant;
+      light?: ButtonVariant;
     };
     size: {
       sm?: {
