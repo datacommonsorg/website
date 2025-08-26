@@ -370,6 +370,7 @@ const RESULT_HEADER_SECTION_PROPS = {
   placeUrlVal: "",
   pageMetadata: PAGE_METADATA_PROPS,
   hideRelatedTopics: false,
+  query: QUERY,
 };
 
 const MAP_CONTEXT = {
