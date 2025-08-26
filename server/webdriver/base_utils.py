@@ -16,6 +16,7 @@
 from typing import List
 
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -110,6 +111,32 @@ def find_elem(
   """
   elems = find_elems(parent, by, value, path_to_elem)
   return elems[0] if elems else None
+
+
+def find_any_of_elems(
+    parent: webdriver.remote.webelement.WebElement,
+    locators: List[tuple]) -> webdriver.remote.webelement.WebElement | None:
+  """
+  Waits for the first element to be present from a list of locators. This can be
+  used when we do not know which of the given elements will appear, and can be used
+  to distinguish functionality behind feature flags.
+
+  Args:
+    parent: The parent to search inside of.
+    locators: A list of locator tuples, e.g., [(By.ID, 'id'), (By.CLASS_NAME, 'class')].
+
+  Returns:
+    The first of the requested elements that is found, or None if no elements are found.
+  """
+  if not locators:
+    return None
+
+  wait = WebDriverWait(parent, TIMEOUT)
+  try:
+    conditions = [EC.presence_of_element_located(loc) for loc in locators]
+    return wait.until(EC.any_of(*conditions))
+  except TimeoutException:
+    return None
 
 
 def scroll_to_elem(
