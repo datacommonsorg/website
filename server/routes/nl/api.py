@@ -17,11 +17,8 @@ import json
 from typing import Any, Dict, List, Optional
 
 import flask
-from flask import Blueprint
-from flask import request
-from pydantic import BaseModel
-from pydantic import ConfigDict
-from pydantic import Field
+from flask import Blueprint, request
+from pydantic import BaseModel, ConfigDict, Field
 
 from server.services import datacommons as dc
 
@@ -265,7 +262,7 @@ def search_variables():
       index_response = IndexResponse(
           model_threshold=nl_index_result.get("scoreThreshold"))
       for sv_dcid in variables:
-        if sv_dcid not in topic_dcids and sv_dcid not in place_filtered_svs:
+        if sv_dcid not in sv_dcids_to_enrich:
           continue
         sv_info = sv_info_map.get(sv_dcid, {})
         sv_result = StatVarResult(
