@@ -181,9 +181,10 @@ export const messages = defineMessages({
     description:
       "Text to display in the header section of explore page search results for a place that has parent places. " +
       "For example, for California, it shows 'All about California, state in USA, North America'.  The {place} and " +
-      "each parent place will be a link. Select either {lowercasePlaceType} or {uppercasePlaceType}, as is appropriate " +
-      "to the target language and position of the word in the translated sentence. Please leave the {uppercasePlaceType} or " +
-      "{lowercasePlaceType} and {place} and {parentPlaces} variables unchanged in the resulting translation.",
+      "each parent place will be a link. Select either {lowercasePlaceType} or {uppercasePlaceType}, as is " +
+      "appropriate to the target language and position of the word in the translated sentence. Please leave the " +
+      "{uppercasePlaceType} or {lowercasePlaceType} and {place} and {parentPlaces} variables unchanged in the " +
+      "resulting translation.",
   },
   searchQuestionIntroduction: {
     id: "search_question_introduction",
