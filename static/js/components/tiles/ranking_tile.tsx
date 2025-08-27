@@ -114,6 +114,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     (async (): Promise<void> => {
       try {
         setIsLoading(true);
+        console.log("setting rankingData to result of fetchData");
         const rankingData = await fetchData(
           variables,
           rankingMetadata,
@@ -297,6 +298,7 @@ export async function fetchData(
   parentPlace: string,
   apiRoot: string
 ): Promise<RankingData> {
+  console.log("Reaching fetchData in ranking_tile");
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
   const dateFacetToVariable = {
@@ -353,25 +355,45 @@ export async function fetchData(
       mergedResponse.data = Object.assign(mergedResponse.data, resp.data);
       mergedResponse.facets = Object.assign(mergedResponse.facets, resp.facets);
     });
-    return mergedResponse;
+    return { mergedResponse };
   });
   const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
-  const denomPromise = _.isEmpty(denoms)
-    ? Promise.resolve(null)
-    : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
-  return Promise.all([statPromise, denomPromise]).then(
-    ([statResp, denomResp]) => {
+  return statPromise.then((statPromiseResult) => {
+    const { mergedResponse } = statPromiseResult;
+    const denomPromises = [];
+    if (!_.isEmpty(denoms) && mergedResponse.facets) {
+      const facetIds = Object.keys(mergedResponse.facets);
+      // .log("All facetIds: ", facetIds);
+      for (const facetId of facetIds) {
+        // console.log("Facet id in loop: ", facetId);
+        denomPromises.push(
+          getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms, [
+            facetId,
+          ])
+        );
+      }
+    }
+    return Promise.all(denomPromises).then((denomResps) => {
+      // console.log("denomResps after promise: ", denomResps);
+      const denomData: Record<string, SeriesApiResponse> = {};
+      // TODO: handle case where that data doesn't exist
+      denomResps.forEach((resp) => {
+        // should only have one facet per resp because we require only one
+        const facetId = Object.keys(resp.facets)[0];
+        // console.log("Facet ID extracted: ", facetId);
+        denomData[facetId] = resp.data;
+      });
       const rankingData = pointApiToPerSvRankingData(
-        statResp,
-        denomResp,
+        mergedResponse,
+        denomData,
         variables
       );
       if (rankingMetadata.showMultiColumn) {
         return transformRankingDataForMultiColumn(rankingData, variables);
       }
       return rankingData;
-    }
-  );
+    });
+  });
 }
 
 // Reduces RankingData to only the SV used for sorting, to be compatible for multi-column rendering in RankingUnit.
@@ -419,9 +441,13 @@ function transformRankingDataForMultiColumn(
 
 function pointApiToPerSvRankingData(
   statData: PointApiResponse,
-  denomData: SeriesApiResponse,
+  denomData: Record<string, SeriesApiResponse> = {},
   statVarSpecs: StatVarSpec[]
 ): RankingData {
+  // console.log(
+  //   "Reaching pointApiToPerSvRankingData with denomData keys: ",
+  //   Object.keys(denomData)
+  // );
   const rankingData: RankingData = {};
   // Get Ranking data
   for (const spec of statVarSpecs) {
@@ -439,6 +465,9 @@ function pointApiToPerSvRankingData(
     const { unit, scaling } = getStatFormat(spec, statData);
     for (const place in statData.data[spec.statVar]) {
       const statPoint = statData.data[spec.statVar][place];
+      if (place == "geoId/7288293") {
+        console.log("Statpoint data used for geoId/7288293: ", statPoint);
+      }
       const rankingPoint = {
         date: statPoint.date,
         placeDcid: place,
@@ -449,7 +478,15 @@ function pointApiToPerSvRankingData(
         continue;
       }
       if (spec.denom) {
-        const denomInfo = getDenomInfo(spec, denomData, place, statPoint.date);
+        const denomInfo = getDenomInfo(
+          spec,
+          denomData,
+          place,
+          statPoint.date,
+          statPoint.facet
+        );
+        // console.log("denom info: ", denomInfo);
+        // console.log(" for statPoint ", statPoint);
         if (!denomInfo) {
           console.log(`Skipping ${place}, missing ${spec.denom}`);
           continue;

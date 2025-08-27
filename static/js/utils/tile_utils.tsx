@@ -422,14 +422,23 @@ interface DenomInfo {
  */
 export function getDenomInfo(
   svSpec: StatVarSpec,
-  denomData: SeriesApiResponse,
+  denomData: Record<string, SeriesApiResponse>,
   placeDcid: string,
-  mainStatDate: string
+  mainStatDate: string,
+  facetUsed: any // TODO: type
 ): DenomInfo {
-  if (!denomData || !(svSpec.denom in denomData.data)) {
+  const matchingDenomData = denomData[facetUsed];
+  if (!matchingDenomData) {
     return null;
   }
-  const placeDenomData = denomData.data[svSpec.denom][placeDcid];
+  if (!denomData || !(svSpec.denom in matchingDenomData)) {
+    return null;
+  }
+  // to get the correct denomData -- find the one that matches the facetUsed
+  const placeDenomData = matchingDenomData[svSpec.denom][placeDcid];
+  if (placeDcid == "geoId/7288293") {
+    console.log("denom data used for geoId/7288293: ", placeDenomData);
+  }
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
     return null;
   }
@@ -438,10 +447,13 @@ export function getDenomInfo(
   if (!denomObs || !denomObs.value) {
     return null;
   }
-  let source = "";
-  if (denomData.facets[placeDenomData.facet]) {
-    source = denomData.facets[placeDenomData.facet].provenanceUrl;
-  }
+  // TODO: clean up, idk this is right
+  const source = "empty do later";
+  // const source = matchingDenomData.facets[facetUsed].provenanceUrl;
+  // if (denomData.facets[placeDenomData.facet]) {
+  //   source = denomData.facets[placeDenomData.facet].provenanceUrl;
+  // }
+
   return {
     value: denomObs.value,
     date: denomObs.date,
