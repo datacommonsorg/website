@@ -202,7 +202,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
       {!_.isEmpty(pageOverview) && (
         <div
           ref={inViewRef}
-          className="page-overview-inner"
+          data-testid="page-overview-inner"
           css={theme.typography.text.lg}
         >
           <span
