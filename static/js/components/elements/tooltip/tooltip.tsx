@@ -717,13 +717,15 @@ export const Tooltip = ({
   const effectivePlacement = placement || defaultPlacement;
 
   const effectiveSkidding =
-    skidding ?? followCursor
+    skidding ??
+    (followCursor
       ? TOOLTIP_DEFAULT_FOLLOW_CURSOR_SKIDDING
-      : TOOLTIP_DEFAULT_SKIDDING;
+      : TOOLTIP_DEFAULT_SKIDDING);
   const effectiveDistance =
-    distance ?? followCursor
+    distance ??
+    (followCursor
       ? TOOLTIP_DEFAULT_FOLLOW_CURSOR_DISTANCE
-      : TOOLTIP_DEFAULT_DISTANCE;
+      : TOOLTIP_DEFAULT_DISTANCE);
   const effectiveFadeDuration = fadeDuration ?? TOOLTIP_DEFAULT_FADE_DURATION;
   const effectiveAnimationDuration =
     animationDuration ?? TOOLTIP_DEFAULT_ANIMATION_DURATION;

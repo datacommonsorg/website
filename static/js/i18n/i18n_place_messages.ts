@@ -86,6 +86,75 @@ export const singularPlaceTypeMessages = defineMessages({
   },
 });
 
+export const singularLowercasePlaceTypeMessages = defineMessages({
+  Continent: {
+    id: "singular_continent_lowercase",
+    defaultMessage: "continent",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Continent, where it appears inside a sentence. An example use is 'A continent in the world' to describe 'Europe'. Please use lowercase where appropriate in the target language.",
+  },
+  Country: {
+    id: "singular_country_lowercase",
+    defaultMessage: "country",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Country, where it appears inside a sentence. An example use is 'A country in Europe' to describe 'France'. Please use lowercase where appropriate in the target language.",
+  },
+  State: {
+    id: "singular_state_lowercase",
+    defaultMessage: "state",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Constituent_state, generally a subdivision of a country, where it appears inside a sentence. An example use is 'A state in United States' to describe 'California'. Please use lowercase where appropriate in the target language.",
+  },
+  County: {
+    id: "singular_county_lowercase",
+    defaultMessage: "county",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/County, generally a subdivision of a State, where it appears inside a sentence. An example use is 'A county in California' to describe 'San Mateo County'. Please use lowercase where appropriate in the target language.",
+  },
+  City: {
+    id: "singular_city_lowercase",
+    defaultMessage: "city",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/City, generally a place with more people than a town, borough or village, where it appears inside a sentence. An example use is 'A city in France' to describe 'Paris'. Please use lowercase where appropriate in the target language.",
+  },
+  Town: {
+    id: "singular_town_lowercase",
+    defaultMessage: "town",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Town, generally a place with fewer people than a city, but more than a village, where it appears inside a sentence. An example use is 'A town in France' to describe 'Paris'. Please use lowercase where appropriate in the target language.",
+  },
+  Village: {
+    id: "singular_village_lowercase",
+    defaultMessage: "village",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Village, generally a place smaller than a town, where it appears inside a sentence. An example use is 'A village in Harris County' to describe 'Hilshire Village'. Please use lowercase where appropriate in the target language.",
+  },
+  Borough: {
+    id: "singular_borough_lowercase",
+    defaultMessage: "borough",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Borough, similar to a town or city, where it appears inside a sentence. An example use is 'A borough in New York' to describe 'Queens'. Please use lowercase where appropriate in the target language.",
+  },
+  Neighborhood: {
+    id: "singular_neighborhood_lowercase",
+    defaultMessage: "neighborhood",
+    description:
+      "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Neighborhood, generally a place within a town or city, where it appears inside a sentence. An example use is 'A neighborhood in Paris' to describe '8th arrondissement'. Please use lowercase where appropriate in the target language.",
+  },
+  CensusZipCodeTabulationArea: {
+    id: "singular_zip_code_lowercase",
+    defaultMessage: "ZIP Code",
+    description:
+      'A ZIP Code area, for use when it appears inside a sentence. For example, we say that 94539 is "_ZIP Code_ in Alameda County, California, United States of America, North America".',
+  },
+  Place: {
+    id: "singular_place_lowercase",
+    defaultMessage: "place",
+    description:
+      'A general type of place, for use when it appears inside a sentence. It is used as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say "Moscow Oblast is a place in Russia" or "Lincoln Center is a place in New York City". Please use lowercase where appropriate in the target language.',
+  },
+});
+
 export const pluralPlaceTypeMessages = defineMessages({
   Continent: {
     id: "plural_continent",
@@ -103,7 +172,7 @@ export const pluralPlaceTypeMessages = defineMessages({
     id: "plural_state",
     defaultMessage: "States",
     description:
-      "A label or header for a collection of places of type State (generally a subdivision of a Country, see https://en.wikipedia.org/wiki/Constituent_state). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Ranking by Population for Countries in Europe'. Please maintain capitalization.",
+      "A label or header for a collection of places of type State (generally a subdivision of a Country, see https://en.wikipedia.org/wiki/Constituent_state). Some examples: 'States in United States', 'Median Age: Other States', or 'Ranking by Population for States in United States'. Please maintain capitalization.",
   },
   County: {
     id: "plural_county",
@@ -151,7 +220,76 @@ export const pluralPlaceTypeMessages = defineMessages({
     id: "plural_places",
     defaultMessage: "Places",
     description:
-      'General collection of places. It is used when we don"t have a specific place type. Some examples: "_Places_ in Russia" as a header for a section with links to many places contained in Russia, as chart titles, such as "Median Age: _Places_ near Paris" or "Median Age: Other _Places_", or "Ranking for All _Places_ in Russia".',
+      'General collection of places. It is used when we don\'t have a specific place type. Some examples: "_Places_ in Russia" as a header for a section with links to many places contained in Russia, as chart titles, such as "Median Age: _Places_ near Paris" or "Median Age: Other _Places_", or "Ranking for All _Places_ in Russia".',
+  },
+});
+
+export const pluralLowercasePlaceTypeMessages = defineMessages({
+  Continent: {
+    id: "plural_continent_lowercase",
+    defaultMessage: "continents",
+    description:
+      "A collection of places of type continent, for use when it appears inside a sentence. An example use is 'Data for these continents is sparse.' Please use lowercase where appropriate in the target language.",
+  },
+  Country: {
+    id: "plural_country_lowercase",
+    defaultMessage: "countries",
+    description:
+      "A collection of places of type country, for use when it appears inside a sentence. An example use is 'Ranking all countries in Europe.' Please use lowercase where appropriate in the target language.",
+  },
+  State: {
+    id: "plural_state_lowercase",
+    defaultMessage: "states",
+    description:
+      "A collection of places of type state, for use when it appears inside a sentence. An example use is 'Comparing all states in the United States.' Please use lowercase where appropriate in the target language.",
+  },
+  County: {
+    id: "plural_county_lowercase",
+    defaultMessage: "counties",
+    description:
+      "A collection of places of type county, for use when it appears inside a sentence. An example use is 'A list of counties in California.' Please use lowercase where appropriate in the target language.",
+  },
+  City: {
+    id: "plural_city_lowercase",
+    defaultMessage: "cities",
+    description:
+      "A collection of places of type city, for use when it appears inside a sentence. An example use is 'Population of cities in California.' Please use lowercase where appropriate in the target language.",
+  },
+  Town: {
+    id: "plural_town_lowercase",
+    defaultMessage: "towns",
+    description:
+      "A collection of places of type town, for use when it appears inside a sentence. An example use is 'A map showing all towns in the area.' Please use lowercase where appropriate in the target language.",
+  },
+  Village: {
+    id: "plural_village_lowercase",
+    defaultMessage: "villages",
+    description:
+      "A collection of places of type village, for use when it appears inside a sentence. An example use is 'The chart includes many small villages.' Please use lowercase where appropriate in the target language.",
+  },
+  Borough: {
+    id: "plural_borough_lowercase",
+    defaultMessage: "boroughs",
+    description:
+      "A collection of places of type borough, for use when it appears inside a sentence. An example use is 'Data for all five boroughs of New York.' Please use lowercase where appropriate in the target language.",
+  },
+  Neighborhood: {
+    id: "plural_neighborhood_lowercase",
+    defaultMessage: "neighborhoods",
+    description:
+      "A collection of places of type neighborhood, for use when it appears inside a sentence. An example use is 'Exploring the different neighborhoods of Paris.' Please use lowercase where appropriate in the target language.",
+  },
+  CensusZipCodeTabulationArea: {
+    id: "plural_zip_codes_lowercase",
+    defaultMessage: "ZIP Codes",
+    description:
+      'A collection of ZIP Code areas, for use when it appears inside a sentence. For example, "Ranking all _ZIP Codes_ in Santa Clara County".',
+  },
+  Place: {
+    id: "plural_places_lowercase",
+    defaultMessage: "places",
+    description:
+      'A general collection of places, for use when it appears inside a sentence. For example, "This is a list of all places in Russia". Please use lowercase where appropriate in the target language.',
   },
 });
 
@@ -178,7 +316,7 @@ export const pageMessages = defineMessages({
     defaultMessage:
       "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data.",
     description:
-      "Informational tooltip text for the AI-generated summary for the current place. AI sumamry is generated from the data sources linked on each chart.",
+      "Informational tooltip text for the AI-generated summary for the current place. AI summary is generated from the data sources linked on each chart.",
   },
   KeyDemographics: {
     id: "key_demographics",
@@ -220,5 +358,12 @@ export const pageMessages = defineMessages({
     defaultMessage: "No {category} data found for {place}.",
     description:
       'Text to display when a category has no charts. Example: "No Economics data found for Austria.". Please leave the {category} and {place} variables unchanged in the resulting translation.',
+  },
+  learnMoreAboutThesePlaces: {
+    id: "learn_more_about_these_places",
+    defaultMessage:
+      "Learn more about {numPlaces, plural, one {this <link>place</link>} other {these <link># places</link>}}",
+    description:
+      'A phrase where the text "this place" or "these # places" is an interactive element that shows a tooltip with more information.',
   },
 });
