@@ -297,6 +297,7 @@ export async function fetchData(
   parentPlace: string,
   apiRoot: string
 ): Promise<RankingData> {
+  console.log("Reaching fetchData");
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
   const dateFacetToVariable = {
@@ -368,10 +369,13 @@ export async function fetchData(
         );
       }
     }
+    console.log("len of denom series: ", denomPromises.length);
     // for case when we can't find the corresponding facet result, we take the best possible option
-    const defaultDenomPromise = Promise.resolve(
-      getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms)
-    );
+    const defaultDenomPromise = _.isEmpty(denoms)
+      ? Promise.resolve(null)
+      : Promise.resolve(
+          getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms)
+        );
 
     // Add defaultDenomPromise to the array passed to Promise.all
     return Promise.all([...denomPromises, defaultDenomPromise]).then(
@@ -379,6 +383,7 @@ export async function fetchData(
         const denomData: Record<string, SeriesApiResponse> = {};
         // The last element of denomResps is the resolved value of defaultDenomPromise
         const defaultDenomData = denomResps.pop();
+        console.log("defaultDenomData: ", defaultDenomData);
 
         denomResps.forEach((resp) => {
           // should only have one facet per resp because we pass in exactly one
@@ -485,10 +490,10 @@ function pointApiToPerSvRankingData(
         const denomInfo = getDenomInfo(
           spec,
           denomData,
-          defaultDenomData,
           place,
           statPoint.date,
-          statPoint.facet
+          statPoint.facet,
+          defaultDenomData
         );
         if (!denomInfo) {
           console.log(`Skipping ${place}, missing ${spec.denom}`);

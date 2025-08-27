@@ -422,13 +422,19 @@ interface DenomInfo {
  */
 export function getDenomInfo(
   svSpec: StatVarSpec,
-  denomData: Record<string, SeriesApiResponse>,
-  defaultDenomData: SeriesApiResponse,
+  denomData: SeriesApiResponse | Record<string, SeriesApiResponse>,
   placeDcid: string,
   mainStatDate: string,
-  facetUsed: any // TODO: type
+  // only currently used in ranking
+  facetUsed?: any, // TODO: type
+  defaultDenomData?: SeriesApiResponse
 ): DenomInfo {
-  const matchingDenomData = denomData[facetUsed] ?? defaultDenomData;
+  let matchingDenomData: SeriesApiResponse;
+  if ("data" in denomData) {
+    matchingDenomData = denomData as SeriesApiResponse;
+  } else {
+    matchingDenomData = denomData[facetUsed] ?? defaultDenomData;
+  }
   if (!matchingDenomData) {
     return null;
   }
@@ -436,7 +442,15 @@ export function getDenomInfo(
     return null;
   }
   // to get the correct denomData -- find the one that matches the facetUsed
-  const placeDenomData = matchingDenomData[svSpec.denom][placeDcid];
+  if (!matchingDenomData[svSpec.denom][placeDcid]) {
+    console.log(
+      "no facet-specific info, using default instead: ",
+      defaultDenomData[svSpec.denom][placeDcid]
+    );
+  }
+  const placeDenomData =
+    matchingDenomData[svSpec.denom][placeDcid] ??
+    defaultDenomData[svSpec.denom][placeDcid];
   if (placeDcid == "geoId/7288293") {
     console.log("denom data used for geoId/7288293: ", placeDenomData);
   }
