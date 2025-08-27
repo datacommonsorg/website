@@ -114,7 +114,6 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     (async (): Promise<void> => {
       try {
         setIsLoading(true);
-        console.log("setting rankingData to result of fetchData");
         const rankingData = await fetchData(
           variables,
           rankingMetadata,
@@ -298,7 +297,6 @@ export async function fetchData(
   parentPlace: string,
   apiRoot: string
 ): Promise<RankingData> {
-  console.log("Reaching fetchData in ranking_tile");
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
   const dateFacetToVariable = {
@@ -355,17 +353,14 @@ export async function fetchData(
       mergedResponse.data = Object.assign(mergedResponse.data, resp.data);
       mergedResponse.facets = Object.assign(mergedResponse.facets, resp.facets);
     });
-    return { mergedResponse };
+    return mergedResponse;
   });
   const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
-  return statPromise.then((statPromiseResult) => {
-    const { mergedResponse } = statPromiseResult;
+  return statPromise.then((mergedResponse) => {
     const denomPromises = [];
     if (!_.isEmpty(denoms) && mergedResponse.facets) {
       const facetIds = Object.keys(mergedResponse.facets);
-      // .log("All facetIds: ", facetIds);
       for (const facetId of facetIds) {
-        // console.log("Facet id in loop: ", facetId);
         denomPromises.push(
           getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms, [
             facetId,
@@ -373,26 +368,40 @@ export async function fetchData(
         );
       }
     }
-    return Promise.all(denomPromises).then((denomResps) => {
-      // console.log("denomResps after promise: ", denomResps);
-      const denomData: Record<string, SeriesApiResponse> = {};
-      // TODO: handle case where that data doesn't exist
-      denomResps.forEach((resp) => {
-        // should only have one facet per resp because we require only one
-        const facetId = Object.keys(resp.facets)[0];
-        // console.log("Facet ID extracted: ", facetId);
-        denomData[facetId] = resp.data;
-      });
-      const rankingData = pointApiToPerSvRankingData(
-        mergedResponse,
-        denomData,
-        variables
-      );
-      if (rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, variables);
+    // for case when we can't find the corresponding facet result, we take the best possible option
+    const defaultDenomPromise = Promise.resolve(
+      getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms)
+    );
+
+    // Add defaultDenomPromise to the array passed to Promise.all
+    return Promise.all([...denomPromises, defaultDenomPromise]).then(
+      (denomResps) => {
+        const denomData: Record<string, SeriesApiResponse> = {};
+        // The last element of denomResps is the resolved value of defaultDenomPromise
+        const defaultDenomData = denomResps.pop();
+
+        denomResps.forEach((resp) => {
+          // should only have one facet per resp because we pass in exactly one
+          const facetId = Object.keys(resp.facets)[0];
+          // TODO: handle case where that data doesn't exist
+          if (!facetId) {
+            console.log("NO FACET");
+          }
+          denomData[facetId] = resp.data;
+        });
+
+        const rankingData = pointApiToPerSvRankingData(
+          mergedResponse,
+          denomData,
+          defaultDenomData, // Pass the resolved data, not the promise
+          variables
+        );
+        if (rankingMetadata.showMultiColumn) {
+          return transformRankingDataForMultiColumn(rankingData, variables);
+        }
+        return rankingData;
       }
-      return rankingData;
-    });
+    );
   });
 }
 
@@ -442,12 +451,9 @@ function transformRankingDataForMultiColumn(
 function pointApiToPerSvRankingData(
   statData: PointApiResponse,
   denomData: Record<string, SeriesApiResponse> = {},
+  defaultDenomData: SeriesApiResponse,
   statVarSpecs: StatVarSpec[]
 ): RankingData {
-  // console.log(
-  //   "Reaching pointApiToPerSvRankingData with denomData keys: ",
-  //   Object.keys(denomData)
-  // );
   const rankingData: RankingData = {};
   // Get Ranking data
   for (const spec of statVarSpecs) {
@@ -465,9 +471,6 @@ function pointApiToPerSvRankingData(
     const { unit, scaling } = getStatFormat(spec, statData);
     for (const place in statData.data[spec.statVar]) {
       const statPoint = statData.data[spec.statVar][place];
-      if (place == "geoId/7288293") {
-        console.log("Statpoint data used for geoId/7288293: ", statPoint);
-      }
       const rankingPoint = {
         date: statPoint.date,
         placeDcid: place,
@@ -478,15 +481,15 @@ function pointApiToPerSvRankingData(
         continue;
       }
       if (spec.denom) {
+        // find the denom data with the matching facet, and otherwise use the default data
         const denomInfo = getDenomInfo(
           spec,
           denomData,
+          defaultDenomData,
           place,
           statPoint.date,
           statPoint.facet
         );
-        // console.log("denom info: ", denomInfo);
-        // console.log(" for statPoint ", statPoint);
         if (!denomInfo) {
           console.log(`Skipping ${place}, missing ${spec.denom}`);
           continue;

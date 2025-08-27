@@ -423,11 +423,12 @@ interface DenomInfo {
 export function getDenomInfo(
   svSpec: StatVarSpec,
   denomData: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   placeDcid: string,
   mainStatDate: string,
   facetUsed: any // TODO: type
 ): DenomInfo {
-  const matchingDenomData = denomData[facetUsed];
+  const matchingDenomData = denomData[facetUsed] ?? defaultDenomData;
   if (!matchingDenomData) {
     return null;
   }

@@ -75,7 +75,6 @@ class DataCommonsClient {
   facetOverride: FacetOverride;
 
   constructor(params?: DatacommonsClientParams) {
-    console.log("LUCY DCC constructor")
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
     // Initialize DataCommonsWebClient with p.apiRoot since the client will call
@@ -196,7 +195,6 @@ class DataCommonsClient {
       pointApiResponse.facets,
       this.facetOverride
     );
-    console.log("Point API response for params: ", params, ": ", pointApiResponse)
     const entityDcids =
       this.getEntityDcidsFromObservationApiResponse(pointApiResponse);
     // Fetch relevant entity and variable property values
@@ -233,7 +231,6 @@ class DataCommonsClient {
               variables: [TOTAL_POPULATION_VARIABLE],
             });
     }
-    console.log("population API response for params: ", params, TOTAL_POPULATION_VARIABLE, ": ", pointApiResponse)
     const rows = this.getDataRowsFromPointObservations(
       entityDcids,
       params.variables,
@@ -341,7 +338,6 @@ class DataCommonsClient {
    * @returns Data rows list
    */
   async getDataRowSeries(params: GetDataRowSeriesParams): Promise<DataRow[]> {
-    console.log("LUCY Reaching getDataRowSeries")
     // Fetch variable observations
     const seriesApiResponse =
       "parentEntity" in params
