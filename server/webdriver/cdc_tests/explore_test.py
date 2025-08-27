@@ -47,12 +47,11 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     query = "#q=What is the population of Mountain View?"
 
     self.driver.get(self.url_ + EXPLORE_URL + query)
-    shared.wait_elem(driver=self.driver, value="page-overview-inner")
 
     # Page Overview should not be present
-    empty_page_overview = shared.find_elem(parent=self.driver,
-                                           value="page-overview-inner")
     self.assertIsNone(
-        empty_page_overview,
+        shared.wait_elem(driver=self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='[data-testid="page-overview-inner"]'),
         "Page Overview component is not empty despite the flag not being activated."
     )
