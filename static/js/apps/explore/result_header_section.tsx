@@ -451,6 +451,7 @@ export function ResultHeaderSection(
           ${theme.typography.text.sm}
           color: ${theme.colors.text.tertiary.base};
           padding-top: ${theme.spacing.sm}px;
+          margin-bottom: ${theme.spacing.xs}px;
         `}
       >
         {intl.formatMessage(messages.searchQuestionIntroduction)}
