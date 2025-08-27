@@ -160,12 +160,11 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
     );
     getPageOverview(props.query, statVars, trackComponentClicks, theme)
       .then((value: Array<React.ReactNode>) => {
-        setPageOverview(value);
-
         // Count anchor elements after they are set
         const anchorCount = value.filter(
           (el): el is React.ReactElement =>
-            React.isValidElement(el) && el.type === "a"
+            React.isValidElement(el) &&
+            (el.type === "a" || (el.type !== "span" && el.props.onClick))
         ).length;
         // Google Analytics treats any value in a custom dimension that resembles a number as a number,
         // even if it was originally formatted as text.
@@ -174,6 +173,8 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
           [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
           [GA_PARAM_COUNT_ANCHOR_ELEMENTS]: anchorCount.toString(),
         });
+
+        setPageOverview(value);
       })
       .catch(() => {
         setPageOverview([]);

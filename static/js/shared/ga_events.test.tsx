@@ -1319,7 +1319,11 @@ describe("test ga event for Page Overview experiment", () => {
     window.gtag = mockgtag;
 
     // Render page overview component
-    render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
+    render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
     act(() => {
       mockAllIsIntersecting(true);
     });
@@ -1350,7 +1354,11 @@ describe("test ga event for Page Overview experiment", () => {
     );
 
     // Render page overview component
-    const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
 
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
@@ -1382,7 +1390,11 @@ describe("test ga event for Page Overview experiment", () => {
     );
 
     // Render page overview component
-    const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
 
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
@@ -1438,7 +1450,11 @@ describe("test ga event for Page Overview experiment", () => {
     );
 
     // Render page overview component
-    const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
 
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
@@ -1483,7 +1499,11 @@ describe("test ga event for Page Overview experiment", () => {
     );
 
     // Render page overview component
-    const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
 
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
@@ -1521,7 +1541,11 @@ describe("test ga event for Page Overview experiment", () => {
     );
 
     // Render page overview component
-    const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
 
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
@@ -1575,7 +1599,11 @@ describe("test ga event for Page Overview experiment", () => {
     );
 
     // Render page overview component
-    const pageOverview = render(<PageOverview {...PAGE_OVERVIEW_PROPS} />);
+    const pageOverview = render(
+      <ThemeProvider theme={theme}>
+        <PageOverview {...PAGE_OVERVIEW_PROPS} />
+      </ThemeProvider>
+    );
 
     // Wait for overview to render
     await waitForElementToBeRemoved(pageOverview.getByText("Loading..."));
