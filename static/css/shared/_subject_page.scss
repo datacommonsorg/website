@@ -38,7 +38,7 @@
   }
 
   .col-12 {
-    padding: 1em 0 1em 0;
+    padding: 0 0 1em 0;
   }
 }
 
@@ -103,6 +103,7 @@ article.category {
 
 .subtopic:first-of-type {
   border-top: none;
+  padding-top: 0;
 }
 
 .highlight-result-title .subtopic:last-of-type {

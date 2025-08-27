@@ -449,7 +449,7 @@ export function ResultHeaderSection(
         css={css`
           ${theme.typography.family.text}
           ${theme.typography.text.sm}
-          color: ${theme.colors.text.secondary.base};
+          color: ${theme.colors.text.tertiary.base};
           padding-top: ${theme.spacing.sm}px;
         `}
       >
@@ -459,13 +459,19 @@ export function ResultHeaderSection(
         css={css`
           ${theme.typography.family.heading}
           ${theme.typography.heading.lg}
-          margin-bottom: ${theme.spacing.md}px;
+          margin-bottom: ${theme.spacing.md + 2}px;
         `}
       >
         {props.query}
       </h3>
       {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
-        <div className="explore-topics-box" ref={inViewRef}>
+        <div
+          className="explore-topics-box"
+          ref={inViewRef}
+          css={css`
+            margin-bottom: ${theme.spacing.md + 4}px;
+          `}
+        >
           <ItemList
             items={topicList}
             showRelevantTopicLabel={true}
