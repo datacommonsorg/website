@@ -168,16 +168,16 @@ export const messages = defineMessages({
     description:
       "Text to display when we have a single place, and need to add the 'in' before the place. For example, 'in California'.",
   },
-  allAbout: {
-    id: "all_about",
-    defaultMessage: "All about {place}",
+  aboutPlace: {
+    id: "about_place",
+    defaultMessage: "About {place}",
     description:
       "Text to display in the header section of explore page search results for a place that has no parent places. " +
       "For example 'All about World'. The {place} will be a link.",
   },
-  allAboutPlaceInPlace: {
-    id: "all_about_place_in_place",
-    defaultMessage: "All about {place}, {lowercasePlaceType} in {parentPlaces}",
+  aboutPlaceInPlace: {
+    id: "about_place_in_place",
+    defaultMessage: "About {place}, {lowercasePlaceType} in {parentPlaces}",
     description:
       "Text to display in the header section of explore page search results for a place that has parent places. " +
       "For example, for California, it shows 'All about California, state in USA, North America'.  The {place} and " +

@@ -187,7 +187,7 @@ const SinglePlaceDetail = ({
     >
       {parentPlaces.length > 0 ? (
         <FormattedMessage
-          {...messages.allAboutPlaceInPlace}
+          {...messages.aboutPlaceInPlace}
           values={{
             place: placeLink,
             lowercasePlaceType,
@@ -197,7 +197,7 @@ const SinglePlaceDetail = ({
         />
       ) : (
         <FormattedMessage
-          {...messages.allAbout}
+          {...messages.aboutPlace}
           values={{ place: placeLink }}
         />
       )}
