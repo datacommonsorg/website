@@ -250,16 +250,6 @@
   line-height: 24px; 
 }
 
-.page-overview-inner {
-  justify-content: center;
-  align-self: stretch;
-  padding-top: 1.5em;  
-
-  .highlight-statvars{
-    color: var(--gm-3-sys-light-primary);
-  }
-}
-
 .page-overview-loading {
   padding-top: 1.5em;
   min-height: 100px;

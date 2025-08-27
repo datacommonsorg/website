@@ -18,7 +18,7 @@
  * Component for rendering the generated page overview.
  */
 
-import { useTheme } from "@emotion/react";
+import { css, Theme, useTheme } from "@emotion/react";
 import axios, { AxiosResponse } from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
@@ -158,7 +158,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
     const statVars: Array<StatVarChartLocation> = getRelevantStatVars(
       props.pageMetadata
     );
-    getPageOverview(props.query, statVars, trackComponentClicks)
+    getPageOverview(props.query, statVars, trackComponentClicks, theme)
       .then((value: Array<React.ReactNode>) => {
         setPageOverview(value);
 
@@ -190,7 +190,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
         trackTotalViewTimeBeforeUnload
       );
     };
-  }, [props.query, props.pageMetadata]);
+  }, [props.query, props.pageMetadata, theme]);
 
   return (
     <>
@@ -203,7 +203,12 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
         <div
           ref={inViewRef}
           data-testid="page-overview-inner"
-          css={theme.typography.text.lg}
+          css={[
+            theme.typography.text.lg,
+            css`
+              padding-top: 1.5rem;
+            `,
+          ]}
         >
           <span
             css={{
@@ -227,7 +232,8 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
 const getPageOverview = async (
   query: string,
   statVarChartLocations: Array<StatVarChartLocation>,
-  trackingClicks: () => void
+  trackingClicks: () => void,
+  theme: Theme
 ): Promise<Array<React.ReactNode>> => {
   if (_.isEmpty(query) || _.isEmpty(statVarChartLocations)) {
     return [];
@@ -304,7 +310,7 @@ const getPageOverview = async (
         return (
           <a
             key={partId}
-            className="highlight-statvars"
+            css={{ color: theme.colors.link.primary.base, cursor: "pointer" }}
             onClick={(): void => {
               trackingClicks();
               scrollToStatVar(targetId);
