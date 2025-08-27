@@ -16,7 +16,8 @@ from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
-from server.webdriver.shared_tests.explore_test import EXPLORE_URL, ExplorePageTestMixin
+from server.webdriver.shared_tests.explore_test import EXPLORE_URL
+from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
 
 
 class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
@@ -49,6 +50,8 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
 
     # Page Overview should not be present
     self.assertIsNone(
-        shared.wait_elem(driver=self.driver, by=By.CSS_SELECTOR, value='[data-testid="page-overview-inner"]'),
+        shared.wait_elem(driver=self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='[data-testid="page-overview-inner"]'),
         "Page Overview component is not empty despite the flag not being activated."
     )

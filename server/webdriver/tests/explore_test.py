@@ -19,8 +19,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
-from server.webdriver.base_utils import find_elem, find_elems, wait_for_text
-from server.webdriver.shared_tests.explore_test import EXPLORE_URL, ExplorePageTestMixin
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import wait_for_text
+from server.webdriver.shared_tests.explore_test import EXPLORE_URL
+from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
 
 
 class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
@@ -67,9 +70,11 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     query = "#q=What is the population of Mountain View?"
 
     self.driver.get(self.url_ + EXPLORE_URL + page_overview_flag + query)
-    
+
     self.assertIsNotNone(
-       shared.wait_elem(driver=self.driver, by=By.CSS_SELECTOR,value='[data-testid="page-overview-inner"]'),
+        shared.wait_elem(driver=self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='[data-testid="page-overview-inner"]'),
         "No page overview was generated.")
 
   def test_bar_select_different_facet(self):
