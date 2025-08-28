@@ -18,12 +18,21 @@
  * Main app component for scatter.
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider, useTheme } from "@emotion/react";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
+import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
+import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import {
   Axis,
@@ -53,6 +62,10 @@ function App(): ReactElement {
   const showInfo = !showChart && !showChooseStatVarMessage;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
+  const useStandardizedUi = isFeatureEnabled(
+    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+  );
+  const theme = useTheme();
   return (
     <>
       <StatVarChooser
@@ -63,12 +76,22 @@ function App(): ReactElement {
         <Container fluid={true}>
           {!showChart && (
             <Row>
-              <div className="app-header">
-                <h1 className="mb-4">Scatter Plot Explorer</h1>
-                <a href="/tools/visualization#visType%3Dscatter">
-                  Go back to the new Data Commons
-                </a>
-              </div>
+              {useStandardizedUi ? (
+                <ToolHeader
+                  title={intl.formatMessage(toolMessages.scatterToolTitle)}
+                  subtitle={intl.formatMessage(
+                    toolMessages.scatterToolSubtitle
+                  )}
+                  switchToolsUrl="/tools/visualization#visType%3Dscatter"
+                />
+              ) : (
+                <div className="app-header">
+                  <h1 className="mb-4">Scatter Plot Explorer</h1>
+                  <a href="/tools/visualization#visType%3Dscatter">
+                    Go back to the new Scatter Plot Explorer
+                  </a>
+                </div>
+              )}
             </Row>
           )}
           <Row>
@@ -80,9 +103,26 @@ function App(): ReactElement {
             </Row>
           )}
           {showInfo && (
-            <Row>
-              <MemoizedInfo />
-            </Row>
+            <>
+              {useStandardizedUi ? (
+                <>
+                  <Row>
+                    <VisToolInstructionsBox toolType="scatter" />
+                  </Row>
+                  <Row
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="scatter" />
+                  </Row>
+                </>
+              ) : (
+                <Row>
+                  <MemoizedInfo />
+                </Row>
+              )}
+            </>
           )}
           {showChart && (
             <Row id="chart-row">

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -109,12 +110,12 @@ class VisMapTestMixin():
     # Assert stat var is correct.
     stat_var_chip = self.driver.find_element(
         By.CSS_SELECTOR, '.selected-option-chip.stat-var .chip-content')
-    self.assertTrue('Female Population' in stat_var_chip.text)
+    self.assertTrue('female population' in stat_var_chip.text.lower())
 
     # Assert chart is correct.
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Female Population ", chart_title.text)
+    self.assertIn("female population ", chart_title.text.lower())
     self.assertEqual(len(self.get_chart_map_regions()), 58)
 
     # Assert rankings are correct.
@@ -150,15 +151,17 @@ class VisMapTestMixin():
         (By.CSS_SELECTOR,
          '.source-selector-facet-options-section input[type="radio"]'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
-                         "Count_Person_Female")
+    shared.select_source(self.driver, [
+        "Wonder: Mortality, Underlying Cause Of Death",
+        "CDC_Mortality_UnderlyingCause"
+    ], "Count_Person_Female")
     update_button = self.driver.find_element(
         By.CLASS_NAME, 'source-selector-update-source-button')
     update_button.click()
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Female Population ", chart_title.text)
+    self.assertIn("female population ", chart_title.text.lower())
     chart_source = self.driver.find_element(
         By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
     self.assertTrue("wonder.cdc.gov" in chart_source.text)
@@ -193,7 +196,7 @@ class VisMapTestMixin():
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertIn("Median Age of Population ", chart_title.text)
+    self.assertIn("median age of population ", chart_title.text.lower())
     self.assertEqual(len(self.get_chart_map_regions()), 58)
 
     # Assert rankings are correct.
@@ -228,3 +231,25 @@ class VisMapTestMixin():
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertGreater(len(map_regions), 1)
+
+  def test_hover_tooltip(self):
+    """Test hover tooltip shows up correctly."""
+    self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
+
+    # Wait until the chart has loaded.
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+
+    # Find the map region for Kern County (geoId/06029)
+    kern_county = self.driver.find_element(
+        By.XPATH,
+        '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]',
+    )
+
+    # Hover over the region using ActionChains
+    actions = ActionChains(self.driver)
+    actions.move_to_element(kern_county).perform()
+
+    # Wait for tooltip to appear and verify contents
+    tooltip = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located((By.ID, "tooltip")))
+    self.assertIn("Female population", tooltip.text)

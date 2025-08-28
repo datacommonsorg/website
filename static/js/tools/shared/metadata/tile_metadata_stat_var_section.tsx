@@ -44,6 +44,8 @@ interface TileMetadataStatVarSectionProps {
   statVar: NamedNode;
   // the list of metadata for this section (a mix of stat var and source metadata)
   metadataList: StatVarMetadata[];
+  // whether this stat var is used as a denominator
+  isDenom?: boolean;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
 }
@@ -53,6 +55,7 @@ const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 export const TileMetadataStatVarSection = ({
   statVar,
   metadataList,
+  isDenom,
   apiRoot,
 }: TileMetadataStatVarSectionProps): ReactElement | null => {
   const theme = useTheme();
@@ -140,20 +143,28 @@ export const TileMetadataStatVarSection = ({
           const unitDisplay = metadata.unit
             ? startCase(metadata.unit)
             : undefined;
-          const periodicity = metadata.periodicity
-            ? humanizeIsoDuration(metadata.periodicity)
-            : undefined;
+
+          let observationPeriodDisplay: string;
+          if (metadata.observationPeriod) {
+            const humanizedPeriod = humanizeIsoDuration(
+              metadata.observationPeriod
+            );
+            observationPeriodDisplay =
+              humanizedPeriod !== metadata.observationPeriod
+                ? `${humanizedPeriod} (${metadata.observationPeriod})`
+                : humanizedPeriod;
+          }
 
           const hasDateRange = !!(
             metadata.dateRangeStart || metadata.dateRangeEnd
           );
           const hasUnit = !!unitDisplay;
-          const hasPeriodicity = !!periodicity;
+          const hasObservationPeriod = !!observationPeriodDisplay;
 
           const optionalFieldsCount = [
             hasDateRange,
             hasUnit,
-            hasPeriodicity,
+            hasObservationPeriod,
           ].filter(Boolean).length;
           const measurementMethodSpan = optionalFieldsCount % 2 === 0;
 
@@ -260,16 +271,14 @@ export const TileMetadataStatVarSection = ({
                   </ContentWrapper>
                 )}
 
-                {hasPeriodicity && (
+                {hasObservationPeriod && (
                   <ContentWrapper>
                     <h4>
                       {intl.formatMessage(
-                        metadataComponentMessages.PublicationCadence
+                        metadataComponentMessages.ObservationPeriod
                       )}
                     </h4>
-                    <p>
-                      {periodicity} ({metadata.periodicity})
-                    </p>
+                    <p>{observationPeriodDisplay}</p>
                   </ContentWrapper>
                 )}
 
@@ -301,6 +310,26 @@ export const TileMetadataStatVarSection = ({
                       )}
                     </h4>
                     <p>{metadata.measurementMethodDescription}</p>
+                  </ContentWrapper>
+                )}
+
+                {isDenom && (
+                  <ContentWrapper
+                    css={css`
+                      grid-column: 1 / span 2;
+                      @media (max-width: ${theme.breakpoints.sm}px) {
+                        grid-column: 1;
+                      }
+                    `}
+                  >
+                    <h4>
+                      {intl.formatMessage(metadataComponentMessages.Notes)}
+                    </h4>
+                    <p>
+                      {intl.formatMessage(
+                        metadataComponentMessages.PerCapitaNote
+                      )}
+                    </p>
                   </ContentWrapper>
                 )}
 

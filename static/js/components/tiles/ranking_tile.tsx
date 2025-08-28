@@ -19,7 +19,13 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import {
@@ -27,7 +33,12 @@ import {
   INITIAL_LOADING_CLASS,
 } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { DATE_HIGHEST_COVERAGE } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -86,20 +97,91 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const embedModalElement = useRef<ChartEmbed>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
+
+  const {
+    variables,
+    rankingMetadata,
+    enclosedPlaceType,
+    parentPlace,
+    apiRoot,
+    lazyLoad,
+  } = props;
+
   useEffect(() => {
-    if (props.lazyLoad && !shouldLoad) {
+    if (lazyLoad && !shouldLoad) {
       return;
     }
     (async (): Promise<void> => {
       try {
         setIsLoading(true);
-        const rankingData = await fetchData(props);
+        const rankingData = await fetchData(
+          variables,
+          rankingMetadata,
+          enclosedPlaceType,
+          parentPlace,
+          apiRoot
+        );
         setRankingData(rankingData);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [props, shouldLoad]);
+  }, [
+    lazyLoad,
+    apiRoot,
+    enclosedPlaceType,
+    parentPlace,
+    rankingMetadata,
+    shouldLoad,
+    variables,
+  ]);
+
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!rankingData) {
+      return undefined;
+    }
+    const allStatVarToFacets: StatVarFacetMap = {};
+    for (const sv in rankingData) {
+      if (rankingData[sv].statVarToFacets) {
+        Object.assign(allStatVarToFacets, rankingData[sv].statVarToFacets);
+      }
+    }
+
+    return (): ObservationSpec[] => {
+      const updatedStatVarSpecs = props.variables.map((spec) => {
+        // If the date is HIGHEST_COVERAGE, we get all data. This is because
+        // the V2 API does not have a HIGHEST_COVERAGE concept.
+        // Otherwise, if the date is blank, we ask for the latest.
+        const effectiveDate =
+          spec.date === DATE_HIGHEST_COVERAGE
+            ? DATE_HIGHEST_COVERAGE
+            : "LATEST";
+        const finalDate = getCappedStatVarDate(spec.statVar, effectiveDate);
+
+        return { ...spec, date: finalDate };
+      });
+
+      const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      return buildObservationSpecs({
+        statVarSpecs: updatedStatVarSpecs,
+        statVarToFacets: allStatVarToFacets,
+        entityExpression,
+      });
+    };
+  }, [
+    rankingData,
+    props.parentPlace,
+    props.enclosedPlaceType,
+    props.variables,
+  ]);
 
   const numRankingLists = getNumRankingLists(
     props.rankingMetadata,
@@ -186,6 +268,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               entityType={props.enclosedPlaceType}
               errorMsg={errorMsg}
               footnote={props.footnote}
+              getObservationSpecs={getObservationSpecs}
               hideFooter={props.hideFooter}
               isLoading={isLoading}
               key={statVar}
@@ -208,7 +291,11 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
 }
 
 export async function fetchData(
-  props: RankingTilePropType
+  variables: StatVarSpec[],
+  rankingMetadata: RankingTileSpec,
+  enclosedPlaceType: string,
+  parentPlace: string,
+  apiRoot: string
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -217,7 +304,7 @@ export async function fetchData(
       [EMPTY_FACET_ID_KEY]: [],
     },
   };
-  for (const spec of props.variables) {
+  for (const spec of variables) {
     const variableDate = getCappedStatVarDate(spec.statVar, spec.date);
     const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
     if (!dateFacetToVariable[variableDate]) {
@@ -248,9 +335,9 @@ export async function fetchData(
       }
       statPromises.push(
         getPointWithin(
-          props.apiRoot,
-          props.enclosedPlaceType,
-          props.parentPlace,
+          apiRoot,
+          enclosedPlaceType,
+          parentPlace,
           dateFacetToVariable[date][facetId],
           dateParam,
           [],
@@ -268,24 +355,19 @@ export async function fetchData(
     });
     return mergedResponse;
   });
-  const denoms = props.variables.map((spec) => spec.denom).filter((sv) => !!sv);
+  const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
   const denomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
-    : getSeriesWithin(
-        props.apiRoot,
-        props.parentPlace,
-        props.enclosedPlaceType,
-        denoms
-      );
+    : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
   return Promise.all([statPromise, denomPromise]).then(
     ([statResp, denomResp]) => {
       const rankingData = pointApiToPerSvRankingData(
         statResp,
         denomResp,
-        props.variables
+        variables
       );
-      if (props.rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, props.variables);
+      if (rankingMetadata.showMultiColumn) {
+        return transformRankingDataForMultiColumn(rankingData, variables);
       }
       return rankingData;
     }

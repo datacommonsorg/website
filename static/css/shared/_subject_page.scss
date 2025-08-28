@@ -21,6 +21,10 @@
 @forward "tiles";
 @use "../base";
 
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
 /**
  * main pane
  */
@@ -59,6 +63,30 @@ article.category {
   p {
     font-size: 0.95rem;
   }
+
+  .block-modal-trigger {
+    align-items: center;
+    display: flex;
+    gap: 6px;
+    padding: 14px 0;
+    width: auto;
+
+    @include media-breakpoint-down(sm) {
+      padding: 7px 0;
+    }
+
+    span, p {
+      font-size: 14px !important;
+      line-height: 14px !important;
+      margin: 0;
+      padding: 0;
+    }
+
+    span {
+      transform: translateX(-4px);
+    }
+  }
+
 }
 
 .subtopic {
@@ -111,18 +139,35 @@ article.category {
 .block-controls {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 1.1rem;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+
+  &.show {
+    opacity: 1;
+  }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    gap: 0;
+    margin-top: 14px;
+  }
 }
 
 .block-toggle {
   align-items: center;
   display: flex;
   padding: 14px 0;
+  width: auto;
+
+  @include media-breakpoint-down(sm) {
+    padding: 7px 0;
+  }
 
   label {
     align-items: center;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 0;
 
     .label-disabled {
@@ -141,6 +186,7 @@ article.category {
     align-items: center;
     display: flex;
     font-size: 14px;
+    line-height: 14px !important;
   }
 
   .material-icons {
@@ -148,7 +194,6 @@ article.category {
     cursor: default;
     font-size: 16px;
     margin-left: 4px;
-    width: 20px;
   }
 }
 

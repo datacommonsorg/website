@@ -220,7 +220,7 @@
 
 .follow-up-questions-title {
   display: flex;
-  height: 28px;
+  padding: 0 0 1em 0;
   flex-direction: column;
   justify-content: center;
   align-self: stretch;
@@ -241,7 +241,6 @@
 }
 
 .follow-up-questions-list-text {
-  height: 23px;
   align-self: stretch;
   color: var(--gm-3-sys-light-primary);
   font-family: Google Sans Text, $font-family-sans-serif;
@@ -251,12 +250,24 @@
   line-height: 24px; 
 }
 
+.page-overview-loading {
+  padding-top: 1.5em;
+  min-height: 100px;
+}
+
+@media (max-width: 620px) {
+  .page-overview-loading{
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 340px) {
+  .page-overview-loading{
+    min-height: 200px;
+  }
+}
+
 .loading-container {
-  padding: 24px;
-  border-radius: var(--border-radius-primary);
-  border: var(--border-primary);
-  background: var(--loading-background);
-  margin-bottom: 24px;
   width: 100%;
   color: var(--gm-3-ref-neutral-neutral-50) !important
 }
@@ -264,16 +275,17 @@
 .related-places,
 .user-message-container,
 .follow-up-questions-container {
-  padding: 24px;
+  padding: 1.5em;
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
   background: var(--gm-3-white);
-  margin-bottom: 24px;
+  margin-bottom: 1.5em;
   width: 100%;
 }
 
 .related-places .related-places-callout {
   margin-bottom: 16px;
+  font-size: 22px;
 }
 
 .user-message-container {

@@ -81,6 +81,7 @@ const DC_BLUE = "hsl(217, 90%, 43%)";
 const DC_BLUE_DARK = "hsl(217, 90%, 15%)";
 const DC_BLUE_LIGHT = "hsl(218, 57%, 63%)";
 const DC_BLUE_LIGHTER = "hsl(204, 100%, 88%)";
+const DC_BLUE_LIGHTEST = "hsl(204, 100%, 88%, 33%)";
 const DC_BLUE_WHITE = "hsl(220, 100%, 98%)";
 const DC_BLUE_WHITE_LIGHT = "hsl(217, 90%, 95%)";
 
@@ -100,6 +101,7 @@ const DC_YELLOW = "hsl(35, 100%, 29%)";
 const DC_YELLOW_PILL_TEXT = "hsl(3, 71%, 15%)";
 const DC_YELLOW_PILL_BCKG = "hsl(40, 100%, 91%)";
 
+const DC_GRAY_DARK = "hsl(200, 2.9%, 41.2%)";
 const DC_GRAY = "hsl(160, 2%, 27%)";
 const DC_GRAY_LIGHT = "hsl(0, 0%, 48%)";
 const DC_GRAY_LINING = "hsl(140, 3%, 77%)";
@@ -127,6 +129,10 @@ const theme: Theme = {
       },
       tertiary: {
         base: DC_GRAY_LIGHT,
+        dark: DC_GRAY_DARK,
+      },
+      code: {
+        base: DC_GREEN,
       },
     },
     background: {
@@ -204,6 +210,13 @@ const theme: Theme = {
         dark: DC_BLUE_DARK,
       },
     },
+    error: {
+      primary: {
+        base: DC_RED,
+        light: DC_YELLOW,
+        dark: DC_RED_PILL_TEXT,
+      },
+    },
   },
   typography: {
     family: {
@@ -213,6 +226,10 @@ const theme: Theme = {
       },
       heading: {
         fontFamily: "'Google Sans', Arial, sans-serif",
+        fontStyle: "normal",
+      },
+      code: {
+        fontFamily: "Courier, Monaco, Lucida Console, Courier New, monospace",
         fontStyle: "normal",
       },
     },
@@ -357,6 +374,17 @@ const theme: Theme = {
           border: `1px solid ${DC_BLUE}`,
         },
       },
+      light: {
+        color: DC_GRAY_LIGHT,
+        backgroundColor: "transparent",
+        border: "none",
+        borderRadius: "none",
+        ["&:hover:not(:disabled):not([aria-disabled])"]: {
+          backgroundColor: "transparent",
+          color: DC_BLUE,
+          border: "none",
+        },
+      },
     },
     size: {
       sm: {
@@ -367,6 +395,26 @@ const theme: Theme = {
       },
       lg: {
         padding: `15px ${SPACING.lg}px`,
+      },
+    },
+  },
+  infoBox: {
+    backgroundColor: DC_BLUE_LIGHTEST,
+    icon: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.5rem",
+      },
+    },
+    heading: {
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
+      fontWeight: 500,
+      [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
+        fontSize: "1.35rem",
+        lineHeight: "1.75rem",
       },
     },
   },

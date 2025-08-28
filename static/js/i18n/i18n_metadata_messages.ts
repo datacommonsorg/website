@@ -76,6 +76,12 @@ export const metadataComponentMessages = defineMessages({
       "factor applied to the value. " +
       "See: https://docs.datacommons.org/glossary.html#scaling-factor.",
   },
+  DataCommonsAggregate: {
+    id: "dataCommonsAggregate",
+    defaultMessage: "Data Commons aggregate",
+    description:
+      "Indicates that a data set is an aggregate derived by Data Commons from another data set.",
+  },
   License: {
     id: "license",
     defaultMessage: "License",
@@ -89,6 +95,21 @@ export const metadataComponentMessages = defineMessages({
     description:
       "Label for the methodology used to produce the data. Examples are: ACS 5-Year Survey, " +
       "OECD Regional Statistics.",
+  },
+  Notes: {
+    id: "notes",
+    defaultMessage: "Notes",
+    description:
+      "Label for the notes section. This contains information about the data that does not fit in " +
+      "other section.",
+  },
+  PerCapitaNote: {
+    id: "perCapitaNote",
+    defaultMessage:
+      "This statistical variable was used to calculate the per capita value. “Per capita” means “per person.” To calculate a per capita value, a total amount is divided by the number of people as represented by this variable.",
+    description:
+      "Label for the notes section. This contains information about the data that does not fit in " +
+      "other section.",
   },
   SourceAndCitation: {
     id: "sourceAndCitation",

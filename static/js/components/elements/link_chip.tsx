@@ -44,6 +44,8 @@ export interface Link {
   variant?: "elevated" | "flat";
   //the color variant of the link chip
   colorVariant?: "primary" | "grey";
+  //typography size to use from the theme
+  textSize?: "md" | "sm";
 }
 
 interface LinkChipProps {
@@ -97,12 +99,21 @@ export const LinkChip = ({
           }
         `;
 
+  const textSize =
+    linkChip.textSize === "sm"
+      ? css`
+          ${theme.typography.text.sm}
+        `
+      : css`
+          ${theme.typography.text.md}
+        `;
+
   const chipStyles = css`
     ${baseBoxStyle};
     ${colors}
     ${baseElevation};
+    ${textSize};
     ${theme.typography.family.text};
-    ${theme.typography.text.md};
     ${theme.radius.primary};
     line-height: 1rem;
     display: inline-flex;

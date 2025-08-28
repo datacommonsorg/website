@@ -125,8 +125,8 @@ function getProcessedPointResponse(
  * @param apiRoot api root
  * @param entities list of entitites to get data for
  * @param variables list of variables to get data for
- * @param date date to get the data for
- *
+ * @param highlightFacet a single facet (given by the facet keys) that is
+ *        used to indicate the facet to be used in this fetch.
  * @returns The Facet ID matching the highlight facet
  *          or null if no matching facet is found.
  */
@@ -170,6 +170,11 @@ async function selectFacet(
  * @param variables list of variables to get data for
  * @param date date to get the data for
  * @param alignedVariables groups of variables that should have the same unit
+ * @param highlightFacet a single facet (given by the facet keys) that is
+ *        used to indicate the facet to be used in this fetch.
+ * @param facetIds an array of facet ids that if given, will be used in
+ *        the fetch. This is an alternative way to specify the facets to
+ *        complement highlightFacet.
  */
 export function getPoint(
   apiRoot: string,
@@ -177,25 +182,27 @@ export function getPoint(
   variables: string[],
   date: string,
   alignedVariables?: string[][],
-  highlightFacet?: FacetMetadata
+  highlightFacet?: FacetMetadata,
+  facetIds?: string[]
 ): Promise<PointApiResponse> {
-  return selectFacet(apiRoot, entities, variables, highlightFacet).then(
-    (facetIds) => {
-      const facetIdList = !_.isEmpty(facetIds) ? facetIds : null;
-      const params: Record<string, unknown> = { date, entities, variables };
-      if (!_.isEmpty(facetIdList)) {
-        params["facetId"] = facetIdList;
-      }
-      return axios
-        .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
-          params,
-          paramsSerializer: stringifyFn,
-        })
-        .then((resp) => {
-          return getProcessedPointResponse(resp.data, alignedVariables);
-        });
+  const facetPromise = !_.isEmpty(facetIds)
+    ? Promise.resolve(facetIds)
+    : selectFacet(apiRoot, entities, variables, highlightFacet);
+
+  return facetPromise.then((resolvedFacetIds) => {
+    const params: Record<string, unknown> = { date, entities, variables };
+    if (!_.isEmpty(resolvedFacetIds)) {
+      params["facetId"] = resolvedFacetIds;
     }
-  );
+    return axios
+      .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
+        params,
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        return getProcessedPointResponse(resp.data, alignedVariables);
+      });
+  });
 }
 
 /**
@@ -206,6 +213,9 @@ export function getPoint(
  * @param variables list of variables to get data for
  * @param date date to get the data for
  * @param alignedVariables groups of variables that should have the same unit
+ * @param facetIds an array of facet ids that if given, will be used in
+ *        the fetch. This is an alternative way to specify the facets to
+ *        complement highlightFacet, and will take priority if both are given.
  */
 export function getPointWithin(
   apiRoot: string,
@@ -270,6 +280,8 @@ export function getSeries(
  * @param parentEntity parent place to get the data for
  * @param childType place type to get the data for
  * @param variables variables to get data for
+ * @param facetIds an array of facet ids that if given, will be used in
+ *        the fetch.
  * @returns
  */
 export function getSeriesWithin(

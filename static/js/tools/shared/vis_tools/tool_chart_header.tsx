@@ -25,7 +25,7 @@ import React, { ReactElement } from "react";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
-} from "../../../shared/facet_selector";
+} from "../../../shared/facet_selector/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_PARAM_TOOL_CHART_OPTION,
@@ -40,6 +40,10 @@ interface ToolChartHeaderProps {
   facetList: FacetSelectorFacetInfo[];
   // callback when mapping of stat var dcid to facet id is updated.
   onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
+  // Whether the facet information is currently being loaded.
+  facetListLoading: boolean;
+  // An error message to display if the fetch fails.
+  facetListError: boolean;
 }
 
 export function ToolChartHeader(props: ToolChartHeaderProps): ReactElement {
@@ -58,8 +62,11 @@ export function ToolChartHeader(props: ToolChartHeaderProps): ReactElement {
       `}
     >
       <FacetSelector
+        variant="small"
         svFacetId={props.svFacetId}
-        facetListPromise={Promise.resolve(props.facetList)}
+        facetList={props.facetList}
+        loading={props.facetListLoading}
+        error={props.facetListError}
         onSvFacetIdUpdated={(svFacetId): void => {
           props.onSvFacetIdUpdated(svFacetId);
           triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {

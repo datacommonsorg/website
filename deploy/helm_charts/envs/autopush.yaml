@@ -45,6 +45,7 @@ mixer:
   hostProject:
   serviceName:
   cacheSVFormula: true
+  enableOtlp: true
 
 serviceAccount:
   name: website-ksa
