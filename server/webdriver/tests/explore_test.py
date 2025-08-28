@@ -70,12 +70,11 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     query = "#q=What is the population of Mountain View?"
 
     self.driver.get(self.url_ + EXPLORE_URL + page_overview_flag + query)
-    shared.wait_elem(driver=self.driver, value="page-overview-inner")
 
     self.assertIsNotNone(
-        find_elem(parent=self.driver,
-                  by=By.CLASS_NAME,
-                  value="page-overview-inner"),
+        shared.wait_elem(driver=self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='[data-testid="page-overview-inner"]'),
         "No page overview was generated.")
 
   def test_bar_select_different_facet(self):
