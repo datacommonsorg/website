@@ -414,46 +414,46 @@ interface DenomInfo {
 /**
  * Gets information needed to calculate per capita for a single stat data point.
  * Uses the denom value with the closest date to the mainStatDate and returns
- * null if no matching value is found or matching value is 0.
+ * null if no matching value is found or matching value is 0. If available, uses
+ * the denom value that comes from the same facet as the data point. Otherwise, the best
+ * general denom option is used.
  * @param svSpec the stat var spec of the data point to calculate per capita for
- * @param denomData population data to use for the calculation
  * @param placeDcid place of the data point
  * @param mainStatDate date of the data point
+ * @param denomData population data to use for the calculation
+ * @param facetUsed facet used for the data point
  */
 export function getDenomInfo(
   svSpec: StatVarSpec,
+  // this is temporary while the facet-based denom is only used in the ranking tile, ultimately this will be:
+  // denomData: Record<string, SeriesApiResponse>,
   denomData: SeriesApiResponse | Record<string, SeriesApiResponse>,
   placeDcid: string,
   mainStatDate: string,
-  // only currently used in ranking
-  facetUsed?: any, // TODO: type
+  facetUsed?: string,
   defaultDenomData?: SeriesApiResponse
 ): DenomInfo {
+  // (temporary) if denomData is a map, find the one that matches the facet used, otherwise use the regular denomData
   let matchingDenomData: SeriesApiResponse;
   if ("data" in denomData) {
     matchingDenomData = denomData as SeriesApiResponse;
   } else {
-    matchingDenomData = denomData[facetUsed] ?? defaultDenomData;
+    matchingDenomData = denomData[facetUsed];
   }
-  if (!matchingDenomData) {
+  // default to defaultDenomData if no facet-specific denomData is found for a given place
+  if (
+    !matchingDenomData ||
+    !(svSpec.denom in matchingDenomData.data) ||
+    !matchingDenomData.data[svSpec.denom][placeDcid]
+  ) {
+    matchingDenomData = defaultDenomData;
+  }
+
+  if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
     return null;
   }
-  if (!denomData || !(svSpec.denom in matchingDenomData)) {
-    return null;
-  }
-  // to get the correct denomData -- find the one that matches the facetUsed
-  if (!matchingDenomData[svSpec.denom][placeDcid]) {
-    console.log(
-      "no facet-specific info, using default instead: ",
-      defaultDenomData[svSpec.denom][placeDcid]
-    );
-  }
-  const placeDenomData =
-    matchingDenomData[svSpec.denom][placeDcid] ??
-    defaultDenomData[svSpec.denom][placeDcid];
-  if (placeDcid == "geoId/7288293") {
-    console.log("denom data used for geoId/7288293: ", placeDenomData);
-  }
+
+  const placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
     return null;
   }
@@ -462,12 +462,8 @@ export function getDenomInfo(
   if (!denomObs || !denomObs.value) {
     return null;
   }
-  // TODO: clean up, idk this is right
-  const source = "empty do later";
-  // const source = matchingDenomData.facets[facetUsed].provenanceUrl;
-  // if (denomData.facets[placeDenomData.facet]) {
-  //   source = denomData.facets[placeDenomData.facet].provenanceUrl;
-  // }
+
+  const source = matchingDenomData.facets[placeDenomData.facet]?.provenanceUrl;
 
   return {
     value: denomObs.value,

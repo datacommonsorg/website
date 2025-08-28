@@ -297,7 +297,6 @@ export async function fetchData(
   parentPlace: string,
   apiRoot: string
 ): Promise<RankingData> {
-  console.log("Reaching fetchData");
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
   const dateFacetToVariable = {
@@ -357,48 +356,45 @@ export async function fetchData(
     return mergedResponse;
   });
   const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
+  // Make a promise for each facet used in the statResponses -- this ensures consistency in per capita stats
   return statPromise.then((mergedResponse) => {
     const denomPromises = [];
     if (!_.isEmpty(denoms) && mergedResponse.facets) {
       const facetIds = Object.keys(mergedResponse.facets);
-      for (const facetId of facetIds) {
+      facetIds.map((facetId) => {
         denomPromises.push(
           getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms, [
             facetId,
           ])
         );
-      }
+      });
     }
-    console.log("len of denom series: ", denomPromises.length);
-    // for case when we can't find the corresponding facet result, we take the best possible option
+    // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
     const defaultDenomPromise = _.isEmpty(denoms)
-      ? Promise.resolve(null)
-      : Promise.resolve(
-          getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms)
-        );
+      ? null
+      : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
 
-    // Add defaultDenomPromise to the array passed to Promise.all
     return Promise.all([...denomPromises, defaultDenomPromise]).then(
       (denomResps) => {
         const denomData: Record<string, SeriesApiResponse> = {};
-        // The last element of denomResps is the resolved value of defaultDenomPromise
+        // The last element of denomResps is defaultDenomPromise
         const defaultDenomData = denomResps.pop();
-        console.log("defaultDenomData: ", defaultDenomData);
 
         denomResps.forEach((resp) => {
           // should only have one facet per resp because we pass in exactly one
           const facetId = Object.keys(resp.facets)[0];
-          // TODO: handle case where that data doesn't exist
-          if (!facetId) {
-            console.log("NO FACET");
+          if (facetId) {
+            denomData[facetId] = resp;
+          } else {
+            // if the facet isn't found or something goes wrong with the facet-specific denom data, use the default
+            denomData[facetId] = defaultDenomData;
           }
-          denomData[facetId] = resp.data;
         });
 
         const rankingData = pointApiToPerSvRankingData(
           mergedResponse,
           denomData,
-          defaultDenomData, // Pass the resolved data, not the promise
+          defaultDenomData,
           variables
         );
         if (rankingMetadata.showMultiColumn) {
