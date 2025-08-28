@@ -194,4 +194,11 @@ export const messages = defineMessages({
       "is 'How does health equity look in San Francisco', then the page will display: " +
       "Data related to your research question 'How does health equity look in San Francisco'",
   },
+  explorePageOverviewTooltip: {
+    id: "explore_page_overview_tooltip",
+    defaultMessage:
+      "This introduction was generated with Gemini. All charts and data are provided by the third-party sources cited on each visualization, with minor processing by Data Commons.",
+    description:
+      "Informational tooltip text for the explore page overview introducing the statistical variables. Summary is generated from the titles of each chart on the page.",
+  },
 });
