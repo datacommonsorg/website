@@ -17,16 +17,21 @@
 /**
  * Component for rendering the generated follow up questions.
  */
+import { useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { InfoSpark } from "../../components/elements/icons/info_spark";
 import { Loading } from "../../components/elements/loading";
+import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import {
   CLIENT_TYPES,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
@@ -57,6 +62,7 @@ interface FollowUpQuestionsPropType {
 export function FollowUpQuestions(
   props: FollowUpQuestionsPropType
 ): ReactElement {
+  const theme = useTheme();
   const [followUpQuestions, setFollowUpQuestions] = useState(null);
   const [loading, setLoading] = useState(true);
   const { ref: inViewRef } = useInView({
@@ -95,7 +101,24 @@ export function FollowUpQuestions(
     <>
       {(loading || !_.isEmpty(followUpQuestions)) && (
         <div ref={inViewRef} className="follow-up-questions-container">
-          <span className="follow-up-questions-title">Keep exploring</span>
+          <div
+            css={{
+              display: "flex",
+              alignItems: "center",
+              gap: theme.spacing.sm,
+              marginBottom: theme.spacing.md,
+            }}
+          >
+            <span css={theme.typography.heading.xs}>Keep exploring</span>
+            <Tooltip
+              title={intl.formatMessage(
+                messages.exploreFollowUpQuestionsDisclaimer
+              )}
+              placement="bottom"
+            >
+              <InfoSpark />
+            </Tooltip>
+          </div>
           {loading && (
             <div className="loading-container">
               <Loading />
