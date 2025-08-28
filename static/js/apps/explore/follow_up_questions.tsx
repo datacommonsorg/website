@@ -109,7 +109,14 @@ export function FollowUpQuestions(
               marginBottom: theme.spacing.md,
             }}
           >
-            <span css={theme.typography.heading.xs}>Keep exploring</span>
+            <h4
+              css={[
+                theme.typography.heading.xs,
+                { marginBottom: theme.spacing.xs },
+              ]}
+            >
+              Keep exploring
+            </h4>
             <Tooltip
               title={intl.formatMessage(
                 messages.exploreFollowUpQuestionsDisclaimer
