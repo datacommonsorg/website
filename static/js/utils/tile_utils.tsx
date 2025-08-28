@@ -463,7 +463,8 @@ export function getDenomInfo(
     return null;
   }
 
-  const source = matchingDenomData.facets[placeDenomData.facet]?.provenanceUrl;
+  const source =
+    matchingDenomData.facets[placeDenomData.facet]?.provenanceUrl ?? "";
 
   return {
     value: denomObs.value,
