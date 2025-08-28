@@ -451,7 +451,7 @@ function transformRankingDataForMultiColumn(
 
 function pointApiToPerSvRankingData(
   statData: PointApiResponse,
-  denomData: Record<string, SeriesApiResponse> = {},
+  denomData: Record<string, SeriesApiResponse>,
   defaultDenomData: SeriesApiResponse,
   statVarSpecs: StatVarSpec[]
 ): RankingData {
