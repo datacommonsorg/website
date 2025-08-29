@@ -45,12 +45,12 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
   clearContainer,
   getDenomInfo,
+  getDenomResp,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
@@ -86,7 +86,8 @@ interface BivariateTilePropType {
 interface RawData {
   geoJson: GeoJsonData;
   placeStats: PointApiResponse;
-  population: SeriesApiResponse;
+  denomsByFacet: Record<string, SeriesApiResponse>;
+  defaultDenomData: SeriesApiResponse;
   placeNames: { [placeDcid: string]: string };
   parentPlaces: NamedTypedPlace[];
 }
@@ -195,11 +196,12 @@ function getDataCsvCallback(
   };
 }
 
-function getPopulationPromise(
+function getPopulationData(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
-): Promise<SeriesApiResponse> {
+  statVarSpec: StatVarSpec[],
+  placeStats: PointApiResponse
+): [Record<string, SeriesApiResponse>, SeriesApiResponse] {
   const variables = [];
   for (const sv of statVarSpec) {
     if (sv.denom) {
@@ -207,9 +209,18 @@ function getPopulationPromise(
     }
   }
   if (_.isEmpty(variables)) {
-    return Promise.resolve(null);
+    return [null, null];
   } else {
-    return getSeriesWithin("", placeDcid, enclosedPlaceType, variables);
+    // return getSeriesWithin("", placeDcid, enclosedPlaceType, variables);
+    return getDenomResp(
+      variables,
+      placeStats,
+      "",
+      true,
+      null,
+      placeDcid,
+      enclosedPlaceType
+    );
   }
 }
 
@@ -223,7 +234,7 @@ export const fetchData = async (props: BivariateTilePropType) => {
       `/api/choropleth/geojson?placeDcid=${props.place.dcid}&placeType=${props.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  const placeStatsPromise: Promise<PointApiResponse> = getStatWithinPlace(
+  const placeStats: PointApiResponse = await getStatWithinPlace(
     props.place.dcid,
     props.enclosedPlaceType,
     [
@@ -231,10 +242,11 @@ export const fetchData = async (props: BivariateTilePropType) => {
       { statVarDcid: props.statVarSpec[1].statVar },
     ]
   );
-  const populationPromise: Promise<SeriesApiResponse> = getPopulationPromise(
+  const [denomsByFacet, defaultDenomData] = getPopulationData(
     props.place.dcid,
     props.enclosedPlaceType,
-    props.statVarSpec
+    props.statVarSpec,
+    placeStats
   );
   const placeNamesPromise = axios
     .get(
@@ -245,17 +257,15 @@ export const fetchData = async (props: BivariateTilePropType) => {
     .get(`/api/place/parent?dcid=${props.place.dcid}`)
     .then((resp) => resp.data);
   try {
-    const [placeStats, population, placeNames, geoJson, parentPlaces] =
-      await Promise.all([
-        placeStatsPromise,
-        populationPromise,
-        placeNamesPromise,
-        geoJsonPromise,
-        parentPlacesPromise,
-      ]);
+    const [placeNames, geoJson, parentPlaces] = await Promise.all([
+      placeNamesPromise,
+      geoJsonPromise,
+      parentPlacesPromise,
+    ]);
     const rawData = {
       placeStats,
-      population,
+      denomsByFacet,
+      defaultDenomData,
       placeNames,
       geoJson,
       parentPlaces,
@@ -300,7 +310,8 @@ function rawToChart(
       namedPlace,
       xPlacePointStat,
       yPlacePointStat,
-      rawData.population,
+      rawData.denomsByFacet,
+      rawData.defaultDenomData,
       rawData.placeStats.facets
     );
     if (!placeChartData) {
@@ -314,11 +325,16 @@ function rawToChart(
     });
     const point = placeChartData.point;
     if (xStatVar.denom) {
+      // TODO: confirm facet
+      const xFacet = xPlacePointStat[place].facet;
+      console.log("FACET USED X: ", xFacet);
       const denomInfo = getDenomInfo(
         xStatVar,
-        rawData.population,
+        rawData.denomsByFacet,
         place,
-        point.xDate
+        point.xDate,
+        xFacet,
+        rawData.defaultDenomData
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.
@@ -333,11 +349,15 @@ function rawToChart(
       point.xVal *= xUnitScaling.scaling;
     }
     if (yStatVar.denom) {
+      const yFacet = yPlacePointStat[place].facet;
+      console.log("FACET USED Y: ", yFacet);
       const denomInfo = getDenomInfo(
         yStatVar,
-        rawData.population,
+        rawData.denomsByFacet,
         place,
-        point.yDate
+        point.yDate,
+        yFacet,
+        rawData.defaultDenomData
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.
