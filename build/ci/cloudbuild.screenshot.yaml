@@ -18,12 +18,14 @@ steps:
     name: gcr.io/datcom-ci/node:2024-11-19
     entrypoint: /bin/bash
     waitFor: ["-"]
+    env:
+      - IS_CLOUD_BUILD=true
+      - WIREIT_LOGGER=quiet-ci
     args:
       - -c
       - |
         rm -rf static/node_modules
         cp -r /resources/node_modules -d static/
-        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh -b
 
   # Run the screenshot tests

@@ -209,6 +209,9 @@ const config = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.IS_CLOUD_BUILD': JSON.stringify(process.env.IS_CLOUD_BUILD || 'false'),
+    }),
     new NodePolyfillPlugin(),
     new CopyPlugin({
       patterns: [
@@ -228,35 +231,40 @@ const config = {
   ],
 };
 
+// Outputs webpack build progress in a single terminal line (if in a TTY environment).
+var interactiveProgressHandler = (percentage, message, ...args) => {
+  readline.clearLine(process.stdout, 0);
+  readline.cursorTo(process.stdout, 0);
+  if (percentage == 1) {
+    // When compilation is done, add a marker and an empty line.
+    console.info("---------\n");
+  } else {
+    process.stdout.write(
+      `webpack: ${Math.round(percentage * 100)}% ${message} ${args.join(" ")}`
+    );
+  }
+};
+
 // Supported modes are "development" and "production".
 module.exports = (env, argv) => {
   console.log(`#### Building webpack in ${argv.mode} mode`);
 
   config.stats = {
-    preset: 'minimal',
+    preset: "minimal",
     colors: true,
     errorDetails: true,
-    logging: 'warn',
+    logging: "warn",
   };
 
   // Add more logging and debugging options in development mode.
-  if (argv.mode == "development") {
+  if (argv.mode === "development") {
     config.devtool = "source-map";
-    config.stats.preset = 'log';
+    config.stats.preset = "log";
 
-    if (process.stdout.isTTY) {
-      // Only log progress in interactive terminals (it gets too much for build logs).
+    if (process.env.IS_CLOUD_BUILD !== 'true') {
+      // Only log progress outside of cloud where it's useful to see the build starting.
       config.plugins.push(
-        new webpack.ProgressPlugin((percentage, message, ...args) => {
-          readline.clearLine(process.stdout, 0);
-          readline.cursorTo(process.stdout, 0);
-          if (percentage == 1) {
-            // When compilation is done, add a marker and an empty line.
-            console.info("---------\n");
-          } else {
-            process.stdout.write(`webpack: ${Math.round(percentage * 100)}% ${message} ${args.join(" ")}`);
-          }
-        }),
+        new webpack.ProgressPlugin(interactiveProgressHandler)
       );
     }
   }

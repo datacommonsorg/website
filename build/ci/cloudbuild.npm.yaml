@@ -17,6 +17,9 @@ steps:
     name: gcr.io/datcom-ci/node:2023-04-18
     entrypoint: /bin/bash
     waitFor: ["-"]
+    env:
+      - IS_CLOUD_BUILD=true
+      - WIREIT_LOGGER=quiet-ci
     args:
       - -c
       - |
@@ -28,7 +31,6 @@ steps:
 
         # ./run_test.sh -lbc will run lint test, build client packages, and run client tests.
         set -e
-        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh -l
         ./run_test.sh -b
         ./run_test.sh -c
