@@ -15,13 +15,12 @@
  */
 
 const path = require("path");
+const readline = require("readline");
+const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
-// const SimpleProgressPlugin = require("simple-progress-webpack-plugin");
-const webpack = require("webpack");
-const readline = require("readline");
 
 const smp = new SpeedMeasurePlugin();
 
