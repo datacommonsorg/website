@@ -48,6 +48,7 @@ import {
   ObservationSpec,
 } from "../../shared/observation_specs";
 import {
+  FacetStore,
   PointApiResponse,
   SeriesApiResponse,
   StatMetadata,
@@ -117,7 +118,8 @@ export interface ScatterTilePropType {
 
 interface RawData {
   placeStats: PointApiResponse;
-  population: SeriesApiResponse;
+  denomsByFacet: Record<string, SeriesApiResponse>;
+  defaultDenomData: SeriesApiResponse;
   placeNames: { [placeDcid: string]: string };
   statVarNames: { [statVarDcid: string]: string };
 }
@@ -343,12 +345,13 @@ export function getReplacementStrings(
   };
 }
 
-function getPopulationPromise(
+async function getPopulationInfo(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
+  facets: FacetStore,
   apiRoot?: string
-): Promise<SeriesApiResponse> {
+): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const statVars = new Set<string>();
   for (const sv of statVarSpec) {
     if (sv.denom) {
@@ -356,20 +359,51 @@ function getPopulationPromise(
     }
   }
   if (_.isEmpty(statVars)) {
-    return Promise.resolve(null);
-  } else {
+    return [null, null];
+  }
+  // gathering all promises for all facets used in denoms
+  const facetIds = facets ? Object.keys(facets) : [];
+  const denomPromises = facetIds.map((facetId) => {
     return getSeriesWithin(
       apiRoot,
       placeDcid,
       enclosedPlaceType,
-      Array.from(statVars)
+      Array.from(statVars),
+      [facetId]
     );
-  }
+  });
+
+  // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
+  const defaultDenomPromise = getSeriesWithin(
+    apiRoot,
+    placeDcid,
+    enclosedPlaceType,
+    Array.from(statVars)
+  );
+
+  const promiseResults = await Promise.all([
+    ...denomPromises,
+    defaultDenomPromise,
+  ]);
+
+  const defaultDenomData = promiseResults.pop();
+  const facetDenomResults = promiseResults;
+
+  const denomsByFacet: Record<string, SeriesApiResponse> = {};
+  facetDenomResults.forEach((resp, index) => {
+    const requestedFacetId = facetIds[index];
+    // If the response has data, use it.
+    if (resp && !_.isEmpty(resp.facets)) {
+      denomsByFacet[requestedFacetId] = resp;
+    }
+  });
+  return [denomsByFacet, defaultDenomData];
 }
 
 export const fetchData = async (
   props: ScatterTilePropType
 ): Promise<ScatterChartData> => {
+  console.log("fetchData props:", JSON.stringify(props, null, 2));
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
     return;
@@ -391,12 +425,12 @@ export const fetchData = async (
     ],
     props.apiRoot
   );
-  const populationPromise = getPopulationPromise(
-    props.place.dcid,
-    props.enclosedPlaceType,
-    props.statVarSpec,
-    props.apiRoot
-  );
+  // const populationPromise = getPopulationPromise(
+  //   props.place.dcid,
+  //   props.enclosedPlaceType,
+  //   props.statVarSpec,
+  //   props.apiRoot
+  // );
   const placeNamesParams = {
     dcid: props.place.dcid,
     descendentType: props.enclosedPlaceType,
@@ -411,18 +445,38 @@ export const fetchData = async (
     })
     .then((resp) => resp.data);
   try {
-    const [placeStats, population, placeNames] = await Promise.all([
+    const [placeStats, placeNames] = await Promise.all([
       placeStatsPromise,
-      populationPromise,
       placeNamesPromise,
     ]);
+    // HANDLE DENOM/POPULATION HERE
+    // this formats and resolves the query promise
+    console.log("placeStats:", JSON.stringify(placeStats, null, 2));
+    const [denomsByFacet, defaultDenomData] = await getPopulationInfo(
+      props.place.dcid,
+      props.enclosedPlaceType,
+      props.statVarSpec,
+      placeStats.facets,
+      props.apiRoot
+    );
+    console.log("denomsByFacet:", JSON.stringify(denomsByFacet, null, 2));
+    console.log("defaultDenomData:", JSON.stringify(defaultDenomData, null, 2));
     const statVarNames = await getStatVarNames(
       props.statVarSpec,
       props.apiRoot
     );
-    const rawData = { placeStats, population, placeNames, statVarNames };
-    return rawToChart(rawData, props);
+    const rawData = {
+      placeStats,
+      denomsByFacet,
+      defaultDenomData,
+      placeNames,
+      statVarNames,
+    };
+    const result = rawToChart(rawData, props);
+    console.log("fetchData result:", JSON.stringify(result, null, 2));
+    return result;
   } catch (error) {
+    console.error("fetchData error:", error);
     return null;
   }
 };
@@ -431,6 +485,8 @@ function rawToChart(
   rawData: RawData,
   props: ScatterTilePropType
 ): ScatterChartData {
+  console.log("rawToChart rawData:", JSON.stringify(rawData, null, 2));
+  console.log("rawToChart props:", JSON.stringify(props, null, 2));
   const yStatVar = props.statVarSpec[0];
   const xStatVar = props.statVarSpec[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
@@ -485,7 +541,8 @@ function rawToChart(
       namedPlace,
       xPlacePointStat,
       yPlacePointStat,
-      rawData.population,
+      rawData.denomsByFacet,
+      rawData.defaultDenomData,
       rawData.placeStats.facets
     );
     if (!placeChartData) {
@@ -501,11 +558,19 @@ function rawToChart(
     });
     const point = placeChartData.point;
     if (xStatVar.denom) {
+      const xPlaceFacet = xPlacePointStat[place].facet;
+      console.log("xStatVar: ", xStatVar, xPlacePointStat[place].facet);
       const denomInfo = getDenomInfo(
         xStatVar,
-        rawData.population,
+        rawData.denomsByFacet,
         place,
-        point.xDate
+        point.xDate,
+        xPlaceFacet,
+        rawData.defaultDenomData
+      );
+      console.log(
+        `rawToChart x-denom for ${place}:`,
+        JSON.stringify(denomInfo, null, 2)
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.
@@ -516,10 +581,14 @@ function rawToChart(
       point.xPopVal = denomInfo.value;
       sources.add(denomInfo.source);
       const xDenomStatVar = xStatVar.denom;
-      const xDenomSeries = rawData.population.data?.[xDenomStatVar]?.[place];
+      const xDenomSeries =
+        rawData.denomsByFacet[xPlaceFacet]?.data?.[xDenomStatVar]?.[place] ??
+        rawData.defaultDenomData?.data?.[xDenomStatVar]?.[place];
       if (xDenomSeries?.facet) {
         const denomFacetId = xDenomSeries.facet;
-        const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
+        const denomFacetMetadata =
+          rawData.denomsByFacet[xPlaceFacet]?.facets?.[denomFacetId] ??
+          rawData.defaultDenomData.facets?.[denomFacetId];
         if (denomFacetMetadata) {
           facets[denomFacetId] = denomFacetMetadata;
           if (!statVarToFacets[xDenomStatVar]) {
@@ -533,11 +602,18 @@ function rawToChart(
       point.xVal *= xUnitScaling.scaling;
     }
     if (yStatVar.denom) {
+      const yPlaceFacet = yPlacePointStat[place].facet;
       const denomInfo = getDenomInfo(
         yStatVar,
-        rawData.population,
+        rawData.denomsByFacet,
         place,
-        point.yDate
+        point.yDate,
+        yPlaceFacet,
+        rawData.defaultDenomData
+      );
+      console.log(
+        `rawToChart y-denom for ${place}:`,
+        JSON.stringify(denomInfo, null, 2)
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.
@@ -548,10 +624,15 @@ function rawToChart(
       point.yPopVal = denomInfo.value;
       sources.add(denomInfo.source);
       const yDenomStatVar = yStatVar.denom;
-      const yDenomSeries = rawData.population.data?.[yDenomStatVar]?.[place];
+      const yDenomSeries =
+        rawData.denomsByFacet[xStatVar.facetId]?.data?.[yDenomStatVar]?.[
+          place
+        ] ?? rawData.defaultDenomData?.data?.[yDenomStatVar]?.[place];
       if (yDenomSeries?.facet) {
         const denomFacetId = yDenomSeries.facet;
-        const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
+        const denomFacetMetadata =
+          rawData.denomsByFacet[yPlaceFacet].facets?.[denomFacetId] ??
+          rawData.defaultDenomData.facets?.[denomFacetId];
         if (denomFacetMetadata) {
           facets[denomFacetId] = denomFacetMetadata;
           if (!statVarToFacets[yDenomStatVar]) {
