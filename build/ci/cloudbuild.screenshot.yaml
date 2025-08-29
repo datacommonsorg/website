@@ -18,6 +18,9 @@ steps:
     name: gcr.io/datcom-ci/node:2024-11-19
     entrypoint: /bin/bash
     waitFor: ["-"]
+    env:
+      - IS_CLOUD_BUILD=true
+      - WIREIT_LOGGER=quiet-ci
     args:
       - -c
       - |
