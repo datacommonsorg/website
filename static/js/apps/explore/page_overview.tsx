@@ -219,7 +219,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
             {pageOverview}
           </span>
           <Tooltip
-            title={intl.formatMessage(messages.explorePageOverviewTooltip)}
+            title={intl.formatMessage(messages.explorePageOverviewDisclaimer)}
             placement="bottom"
           >
             <InfoSpark />
