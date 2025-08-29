@@ -105,16 +105,11 @@ export function FollowUpQuestions(
             css={{
               display: "flex",
               alignItems: "center",
-              gap: theme.spacing.sm,
+              gap: theme.spacing.xs,
               marginBottom: theme.spacing.md,
             }}
           >
-            <h4
-              css={[
-                theme.typography.heading.xs,
-                { marginBottom: theme.spacing.xs },
-              ]}
-            >
+            <h4 css={[theme.typography.heading.xs, { marginBottom: 0 }]}>
               Keep exploring
             </h4>
             <Tooltip
