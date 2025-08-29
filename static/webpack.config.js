@@ -235,7 +235,7 @@ const config = {
 var interactiveProgressHandler = (percentage, message, ...args) => {
   readline.clearLine(process.stdout, 0);
   readline.cursorTo(process.stdout, 0);
-  if (percentage == 1) {
+  if (percentage === 1) {
     // When compilation is done, add a marker and an empty line.
     console.info("---------\n");
   } else {
