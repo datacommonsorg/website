@@ -427,7 +427,7 @@ export function getDenomInfo(
   svSpec: StatVarSpec,
   // this is temporary while the facet-based denom is only used in the ranking tile, ultimately this will be:
   // denomData: Record<string, SeriesApiResponse>,
-  denomData: SeriesApiResponse | Record<string, SeriesApiResponse>,
+  denomData: Record<string, SeriesApiResponse>,
   placeDcid: string,
   mainStatDate: string,
   facetUsed?: string,
@@ -435,11 +435,7 @@ export function getDenomInfo(
 ): DenomInfo {
   // (temporary) if denomData is a map, find the one that matches the facet used, otherwise use the regular denomData
   let matchingDenomData: SeriesApiResponse;
-  if ("data" in denomData) {
-    matchingDenomData = denomData as SeriesApiResponse;
-  } else {
-    matchingDenomData = denomData[facetUsed];
-  }
+  matchingDenomData = denomData[facetUsed];
   // default to defaultDenomData if no facet-specific denomData is found for a given place
   if (
     !matchingDenomData ||
