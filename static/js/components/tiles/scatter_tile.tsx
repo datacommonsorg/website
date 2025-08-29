@@ -581,6 +581,14 @@ function rawToChart(
       point.xPopVal = denomInfo.value;
       sources.add(denomInfo.source);
       const xDenomStatVar = xStatVar.denom;
+      if (!rawData.denomsByFacet[xPlaceFacet] && rawData.defaultDenomData) {
+        console.log(
+          "Didn't find denom for facet: ",
+          xPlaceFacet,
+          facets[xPlaceFacet],
+          rawData.defaultDenomData.facets?.[xPlaceFacet]
+        );
+      }
       const xDenomSeries =
         rawData.denomsByFacet[xPlaceFacet]?.data?.[xDenomStatVar]?.[place] ??
         rawData.defaultDenomData?.data?.[xDenomStatVar]?.[place];
@@ -624,6 +632,14 @@ function rawToChart(
       point.yPopVal = denomInfo.value;
       sources.add(denomInfo.source);
       const yDenomStatVar = yStatVar.denom;
+      if (!rawData.denomsByFacet[yPlaceFacet] && rawData.defaultDenomData) {
+        console.log(
+          "Didn't find denom for facet: ",
+          yPlaceFacet,
+          facets[yPlaceFacet],
+          rawData.defaultDenomData.facets?.[yPlaceFacet]
+        );
+      }
       const yDenomSeries =
         rawData.denomsByFacet[xStatVar.facetId]?.data?.[yDenomStatVar]?.[
           place
@@ -631,7 +647,7 @@ function rawToChart(
       if (yDenomSeries?.facet) {
         const denomFacetId = yDenomSeries.facet;
         const denomFacetMetadata =
-          rawData.denomsByFacet[yPlaceFacet].facets?.[denomFacetId] ??
+          rawData.denomsByFacet[yPlaceFacet]?.facets?.[denomFacetId] ??
           rawData.defaultDenomData.facets?.[denomFacetId];
         if (denomFacetMetadata) {
           facets[denomFacetId] = denomFacetMetadata;

@@ -231,12 +231,19 @@ export const fetchData = async (
   );
   let numFractionDigitsUsed: number;
   if (statVarSpec.denom) {
+    const denomsByFacet = {};
+    console.log("Highlight facet: ", highlightFacet);
+    console.log("mainStatData.facet: ", mainStatData.facet);
+    console.log("Facet: ", facet);
+    denomsByFacet[mainStatData.facet] = denomResp;
     const denomInfo = getDenomInfo(
       statVarSpec,
-      denomResp,
+      denomsByFacet,
       place.dcid,
-      mainStatData.date
+      mainStatData.date,
+      mainStatData.facet
     );
+    console.log("denom info: ", denomInfo);
     if (denomInfo && value) {
       value /= denomInfo.value;
       sources.add(denomInfo.source);
