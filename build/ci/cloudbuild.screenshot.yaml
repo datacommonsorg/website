@@ -23,6 +23,7 @@ steps:
       - |
         rm -rf static/node_modules
         cp -r /resources/node_modules -d static/
+        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh -b
 
   # Run the screenshot tests

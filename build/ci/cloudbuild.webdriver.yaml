@@ -29,6 +29,7 @@ steps:
 
         # ./run_test.sh -b will build client packages.
         # These js files generated will be necessery for the flask_webdriver_test task.
+        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh -b
 
   - id: setup_python
@@ -66,7 +67,6 @@ steps:
     args:
       - -c
       - |
-        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh -w
 
   # Run the Custom DC webdriver tests
@@ -79,7 +79,6 @@ steps:
       - |
         git submodule update --init --recursive
         export STARTUP_WAIT_SEC=60
-        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh --cdc
 
 timeout: 1800s # 30 minutes
