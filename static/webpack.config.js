@@ -19,6 +19,9 @@ const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+// const SimpleProgressPlugin = require("simple-progress-webpack-plugin");
+const webpack = require("webpack");
+const readline = require("readline");
 
 const smp = new SpeedMeasurePlugin();
 
@@ -226,11 +229,37 @@ const config = {
   ],
 };
 
+// Supported modes are "development" and "production".
 module.exports = (env, argv) => {
-  // If in development, disable optimization.minimize.
-  // development and production are arguments.
-  if (argv.mode === "development") {
+  console.log(`#### Building webpack in ${argv.mode} mode`);
+
+  config.stats = {
+    preset: 'minimal',
+    colors: true,
+    errorDetails: true,
+    logging: 'warn',
+  };
+
+  // Add more logging and debugging options in development mode.
+  if (argv.mode == "development") {
     config.devtool = "source-map";
+    config.stats.preset = 'log';
+
+    if (process.stdout.isTTY) {
+      // Only log progress in interactive terminals (it gets too much for build logs).
+      config.plugins.push(
+        new webpack.ProgressPlugin((percentage, message, ...args) => {
+          readline.clearLine(process.stdout, 0);
+          readline.cursorTo(process.stdout, 0);
+          if (percentage == 1) {
+            // When compilation is done, add a marker and an empty line.
+            console.info("---------\n");
+          } else {
+            process.stdout.write(`webpack: ${Math.round(percentage * 100)}% ${message} ${args.join(" ")}`);
+          }
+        }),
+      );
+    }
   }
 
   return argv.mode === "development" ? config : smp.wrap(config);
