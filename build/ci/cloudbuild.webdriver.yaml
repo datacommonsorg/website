@@ -79,6 +79,7 @@ steps:
       - |
         git submodule update --init --recursive
         export STARTUP_WAIT_SEC=60
+        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh --cdc
 
 timeout: 1800s # 30 minutes
