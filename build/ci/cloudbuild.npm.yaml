@@ -28,6 +28,7 @@ steps:
 
         # ./run_test.sh -lbc will run lint test, build client packages, and run client tests.
         set -e
+        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh -l
         ./run_test.sh -b
         ./run_test.sh -c

@@ -66,6 +66,7 @@ steps:
     args:
       - -c
       - |
+        export WIREIT_LOGGER=quiet-ci
         ./run_test.sh -w
 
   # Run the Custom DC webdriver tests
