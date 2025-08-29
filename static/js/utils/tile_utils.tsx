@@ -31,8 +31,10 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
+import { FacetMetadata } from "../types/facet_metadata";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
+import { getSeries, getSeriesWithin } from "./data_fetch_utils";
 import { getUnit } from "./stat_metadata_utils";
 import { addPerCapitaToTitle } from "./subject_page_utils";
 
@@ -409,6 +411,75 @@ interface DenomInfo {
   value: number;
   date: string;
   source: string;
+}
+
+/**
+ * Fetches a set of responses for given denominator variables,
+  with one response for every facet requested. This is used when calculating per capita
+  results to match the facet of the numerator. 
+  Also returns a defaultDenom result that is used if a given facet does not have the requested variables.
+  @param denoms list of denominator variables to fetch
+  @param statResp a response for the numerator, from which we get facet information
+  @param apiRoot root API string passed into getSeries/getSeriesWithin 
+  @param useSeriesWithin boolean indiciating if getSeries or getSeriesWithin should be used
+  @param allPlaces list of place DCIDs to fetch if using getSeries
+  @param parentPlace parent place for getSeriesWithin
+  @param placeType subplace type for getSeriesWithin
+  @param highlightFacet optional highlight facet passed into getSeriesWithin
+ */
+export async function getDenomResp(
+  denoms: string[],
+  statResp: PointApiResponse,
+  apiRoot: string,
+  useSeriesWithin: boolean,
+  // for series queries
+  allPlaces?: string[],
+  // parent and place type for series within queries
+  parentPlace?: string,
+  placeType?: string,
+  highlightFacet?: FacetMetadata
+): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
+  // fetch the series for each facet
+  const denomPromises = [];
+  if (!_.isEmpty(denoms) && statResp.facets) {
+    const facetIds = Object.keys(statResp.facets);
+    facetIds.map((facetId) => {
+      denomPromises.push(
+        useSeriesWithin
+          ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
+          : getSeries(apiRoot, allPlaces, denoms, [facetId], highlightFacet)
+      );
+    });
+  }
+  // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
+  const defaultDenomPromise = _.isEmpty(denoms)
+    ? null
+    : useSeriesWithin
+    ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
+    : getSeries(apiRoot, allPlaces, denoms, []);
+
+  // organize results into a map from facet to API response
+  const denomsByFacet: Record<string, SeriesApiResponse> = {};
+  // let defaultDenomData: SeriesApiResponse;
+  const denomResults = await Promise.all([
+    ...denomPromises,
+    defaultDenomPromise,
+  ]);
+  // The last element of denomResps is defaultDenomPromise
+  const defaultDenomData = denomResults.pop();
+
+  denomResults.forEach((resp) => {
+    // should only have one facet per resp because we pass in exactly one
+    const facetId = Object.keys(resp.facets)[0];
+    if (facetId) {
+      denomsByFacet[facetId] = resp;
+    } else {
+      // if the facet isn't found or something goes wrong with the facet-specific denom data, use the default
+      denomsByFacet[facetId] = defaultDenomData;
+    }
+  });
+
+  return [denomsByFacet, defaultDenomData];
 }
 
 /**
