@@ -79,11 +79,18 @@
   }
 }
 
-#dc-explore {
-  .col-12 {
+
+#subject-page-main-pane{
+  & > .col-12 {
+    padding-top: 0;
+  }
+  .category.col-12 {
     padding: 0 0 1em 0;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
+
 
 #explore-more-section {
   padding: 24px;
