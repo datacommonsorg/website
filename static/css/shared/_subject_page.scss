@@ -29,18 +29,16 @@
  * main pane
  */
 
-#plage-page-main {
-  .col-12 {
-    padding: 0 0 1em 0;
-  }
-}
-
 #subject-page-main-pane {
   width: 100%;
 
   .block .row {
     margin-left: -15px;
     margin-right: -15px;
+  }
+
+  .col-12 {
+    padding: 0 0 1em 0;
   }
 }
 
