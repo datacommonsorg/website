@@ -670,6 +670,38 @@
         ]
       },
       {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey (ACS)",
+            "url": "https://www.census.gov/programs-surveys/acs",
+            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
+          },
+          {
+            "label": "Cartographic Boundary Files",
+            "url": "https://www.census.gov/programs-surveys/geography/geographies/mapping-files.html",
+            "description": "KML files for U.S. counties, states, congressional districts, etc."
+          },
+          {
+            "label": "Gazetteer Files",
+            "url": "https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html",
+            "description": "Basic geographic information about U.S. counties, county subdivisions, congressional districts, states, etc."
+          },
+          {
+            "label": "Population Estimates Program (PEP)",
+            "url": "https://www.census.gov/programs-surveys/popest/about.html",
+            "description": "Produces yearly estimates of the population for the United States, its states, counties, cities, and towns, as well as for the Commonwealth of Puerto Rico and its municipios. Data Commons imports the total population estimate data for the U.S. at the state, county, and city levels."
+          },
+          {
+            "label": "US Decennial Census - Redistricting data",
+            "url": "https://www.census.gov",
+            "description": "Basic population, race demographics and housing statistics from U.S. redistricting data, mapped down to block-group level.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+          }
+        ]
+      },
+      {
         "label": "U.S. Centers for Disease Control and Prevention (CDC)",
         "url": "https://www.cdc.gov/",
         "description": null,
@@ -862,38 +894,6 @@
         ]
       },
       {
-        "label": "United States Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "American Community Survey (ACS)",
-            "url": "https://www.census.gov/programs-surveys/acs",
-            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
-          },
-          {
-            "label": "Cartographic Boundary Files",
-            "url": "https://www.census.gov/programs-surveys/geography/geographies/mapping-files.html",
-            "description": "KML files for U.S. counties, states, congressional districts, etc."
-          },
-          {
-            "label": "Gazetteer Files",
-            "url": "https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html",
-            "description": "Basic geographic information about U.S. counties, county subdivisions, congressional districts, states, etc."
-          },
-          {
-            "label": "Population Estimates Program (PEP)",
-            "url": "https://www.census.gov/programs-surveys/popest/about.html",
-            "description": "Produces yearly estimates of the population for the United States, its states, counties, cities, and towns, as well as for the Commonwealth of Puerto Rico and its municipios. Data Commons imports the total population estimate data for the U.S. at the state, county, and city levels."
-          },
-          {
-            "label": "US Decennial Census - Redistricting data",
-            "url": "https://www.census.gov",
-            "description": "Basic population, race demographics and housing statistics from U.S. redistricting data, mapped down to block-group level.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
         "label": "United States Federal Election Commission (FEC)",
         "url": "https://www.fec.gov/",
         "description": null,
@@ -963,7 +963,7 @@
         ]
       },
       {
-        "label": "BIS Data Portal",
+        "label": "Bank for International Settlements (BIS)",
         "url": "https://data.bis.org/",
         "description": "Global statistics at the heart of international cooperation.",
         "dataSources": [
@@ -1277,6 +1277,33 @@
         ]
       },
       {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey (ACS)",
+            "url": "https://www.census.gov/programs-surveys/acs",
+            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
+          },
+          {
+            "label": "County Business Patterns",
+            "url": "https://www.census.gov/programs-surveys/cbp/data/datasets.html",
+            "description": "U.S. per-industry number of establishments, employment, payroll and annual payroll, by county, metropolitan statistical area and zip code."
+          },
+          {
+            "label": "Economic Census",
+            "url": "https://www.census.gov/programs-surveys/economic-census/about.html",
+            "description": "Number of U.S. businesses and amount of revenue, by business payroll status, industry, operation type, and tax status."
+          },
+          {
+            "label": "Monthly Retail Sales US Census",
+            "url": "https://www.census.gov/retail/index.html",
+            "description": "The Advance Monthly and Monthly Retail Trade Surveys (MARTS and MRTS), the Annual Retail Trade Survey (ARTS), and the Quarterly E-Commerce Report work together to produce the most comprehensive estimates available on retail economic activity in the United States.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+          }
+        ]
+      },
+      {
         "label": "U.S. Commerce Data Hub",
         "url": "https://data.commerce.gov/",
         "description": null,
@@ -1331,33 +1358,6 @@
             "label": "US Federal Reserve H.15 Interest Rates",
             "url": "https://www.federalreserve.gov/DataDownload/Choose.aspx?rel=H15",
             "description": "U.S. Federal Reserve H.15 interest rates\n\nThis data is in the public domain."
-          }
-        ]
-      },
-      {
-        "label": "United States Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "American Community Survey (ACS)",
-            "url": "https://www.census.gov/programs-surveys/acs",
-            "description": "Covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
-          },
-          {
-            "label": "County Business Patterns",
-            "url": "https://www.census.gov/programs-surveys/cbp/data/datasets.html",
-            "description": "U.S. per-industry number of establishments, employment, payroll and annual payroll, by county, metropolitan statistical area and zip code."
-          },
-          {
-            "label": "Economic Census",
-            "url": "https://www.census.gov/programs-surveys/economic-census/about.html",
-            "description": "Number of U.S. businesses and amount of revenue, by business payroll status, industry, operation type, and tax status."
-          },
-          {
-            "label": "Monthly Retail Sales US Census",
-            "url": "https://www.census.gov/retail/index.html",
-            "description": "The Advance Monthly and Monthly Retail Trade Surveys (MARTS and MRTS), the Annual Retail Trade Survey (ARTS), and the Quarterly E-Commerce Report work together to produce the most comprehensive estimates available on retail economic activity in the United States.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
           }
         ]
       },
@@ -1574,6 +1574,18 @@
         ]
       },
       {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey Education Tabulation (ACS-ED)",
+            "url": "https://nces.ed.gov/programs/edge/demographic/acs",
+            "description": "The National Center for Education Statistics collaborates with the U.S. Census Bureau to create a variety of custom data files that describe the condition of school-age children in the United States at the country, state, and school district levels. ACS-ED is updated annually based on ACS five-year period estimates.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+          }
+        ]
+      },
+      {
         "label": "U.S. Department of Education (ED)",
         "url": "https://www.ed.gov/",
         "description": null,
@@ -1643,18 +1655,6 @@
             "label": "Sri Lanka Census",
             "url": "https://data.humdata.org/group/lka",
             "description": "Sri Lanka demographics, education and agriculture statistics at the country, province and district levels."
-          }
-        ]
-      },
-      {
-        "label": "United States Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "American Community Survey Education Tabulation (ACS-ED)",
-            "url": "https://nces.ed.gov/programs/edge/demographic/acs",
-            "description": "The National Center for Education Statistics collaborates with the U.S. Census Bureau to create a variety of custom data files that describe the condition of school-age children in the United States at the country, state, and school district levels. ACS-ED is updated annually based on ACS five-year period estimates.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
           }
         ]
       },
@@ -2386,6 +2386,18 @@
         ]
       },
       {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Small Area Health Insurance Estimates (SAHIE)",
+            "url": "https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html",
+            "description": "Provides yearly estimates of health insurance coverage status for all U.S. counties and states. Data Commons includes all estimates, available by age, race, sex, and income.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
+          }
+        ]
+      },
+      {
         "label": "U.S. Centers for Disease Control and Prevention (CDC)",
         "url": "https://www.cdc.gov/",
         "description": null,
@@ -2460,18 +2472,6 @@
         ]
       },
       {
-        "label": "United States Census Bureau",
-        "url": "https://www.census.gov/",
-        "description": null,
-        "dataSources": [
-          {
-            "label": "Small Area Health Insurance Estimates (SAHIE)",
-            "url": "https://www.census.gov/data/datasets/time-series/demo/sahie/estimates-acs.html",
-            "description": "Provides yearly estimates of health insurance coverage status for all U.S. counties and states. Data Commons includes all estimates, available by age, race, sex, and income.\n\n[Terms of service](https://www.census.gov/data/developers/about/terms-of-service.html)"
-          }
-        ]
-      },
-      {
         "label": "United States Drug Enforcement Agency (DEA)",
         "url": "https://www.dea.gov/",
         "description": null,
@@ -2514,7 +2514,7 @@
     "slug": "housing",
     "dataSourceGroups": [
       {
-        "label": "United States Census Bureau",
+        "label": "U.S. Census Bureau",
         "url": "https://www.census.gov/",
         "description": null,
         "dataSources": [
