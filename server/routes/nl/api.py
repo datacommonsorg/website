@@ -17,8 +17,11 @@ import json
 from typing import Annotated, Dict, List, Literal, Optional, Union
 
 import flask
-from flask import Blueprint, request
-from pydantic import BaseModel, ConfigDict, Field
+from flask import Blueprint
+from flask import request
+from pydantic import BaseModel
+from pydantic import ConfigDict
+from pydantic import Field
 
 from server.services import datacommons as dc
 
@@ -48,14 +51,14 @@ class IndicatorResult(ApiBaseModel):
 
 class StatVarResult(IndicatorResult):
   """Statistical Variable Result"""
-  indicator_type: Literal["variable"] = Field(alias="indicatorType",
-                                              default="variable")
+  indicator_type: Literal["StatisticalVariable"] = Field(
+      alias="indicatorType", default="StatisticalVariable")
 
 
 class TopicResult(IndicatorResult):
   """Topic Result"""
-  indicator_type: Literal["topic"] = Field(alias="indicatorType",
-                                           default="topic")
+  indicator_type: Literal["Topic"] = Field(alias="indicatorType",
+                                           default="Topic")
 
 
 # Define the discriminated union type.
@@ -142,7 +145,7 @@ def search_variables():
                     "dcid": "Count_Person",
                     "name": "Person Count",
                     "description": "The total number of individuals...",
-                    "indicatorType": "variable",
+                    "indicatorType": "StatisticalVariable",
                     "score": 0.95,
                     "sentences": [
                       "population of",
@@ -153,7 +156,7 @@ def search_variables():
                     "dcid": "dc/topic/Race",
                     "name": "Population by Race",
                     "description": "...",
-                    "indicatorType": "topic",
+                    "indicatorType": "Topic",
                     "score": 0.88,
                     "sentences": [
                       "population broken down by race"
