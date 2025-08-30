@@ -46,7 +46,11 @@ class IndicatorResult(ApiBaseModel):
   # This is the discriminator field. It must be a string in the base model.
   indicator_type: str = Field(alias="indicatorType")
   score: float
-  sentences: list[str] = Field(default_factory=list)
+  sentences: list[str] = Field(
+      default_factory=list,
+      description=
+      "A list of matching sentences from the embeddings index that have a score greater than or equal to the acting threshold."
+  )
 
 
 class StatVarResult(IndicatorResult):
@@ -116,12 +120,15 @@ def search_variables():
     This endpoint orchestrates a multi-step process:
     1.  Searches for indicators (statistical variables and topics) across one or more
         embedding indices based on the provided natural language queries.
-    2.  Filters the resulting indicators based on a cosine score threshold.
+    2.  Filters the resulting indicators based on a cosine score threshold. An
+        indicator is kept if its highest-scoring sentence meets the threshold.
     3.  Enriches the final indicators with metadata like name and description.
 
     The final output is a nested dictionary mapping from query to index name
-    to an `IndexResponse` object which contains a list of filtered, ranked,
-    and enriched `IndicatorResult` objects (StatVarResult or TopicResult).
+    to an `IndexResponse` object. This object contains a list of filtered,
+    ranked, and enriched `IndicatorResult` objects (StatVarResult or TopicResult).
+    For each of these results, the `sentences` list will only contain the
+    original matching sentences that also met or exceeded the threshold.
 
     Args (from query string):
         queries (str, repeated): The natural language queries to search for.
@@ -269,7 +276,7 @@ def search_variables():
         sentences = [
             s['sentence']
             for s in sv_to_sentences.get(dcid, [])
-            if threshold is None or s['score'] >= threshold
+            if s['score'] >= threshold
         ]
 
         # Based on the DCID, create either a TopicResult or a StatVarResult.
