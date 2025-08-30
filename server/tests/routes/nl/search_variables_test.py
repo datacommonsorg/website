@@ -444,15 +444,11 @@ class TestSearchVariables(unittest.TestCase):
     mock_nl_response = {
         "queryResults": {
             "some query": {
-                "SV": ["SV_REGULAR", "dc/topic/MyTopic"],
-                "CosineScore": [0.9, 0.9],
+                "SV": ["SV_REGULAR"],
+                "CosineScore": [0.9],
                 "SV_to_Sentences": {
                     "SV_REGULAR": [{
                         "sentence": "regular sv sentence",
-                        "score": 0.9
-                    }],
-                    "dc/topic/MyTopic": [{
-                        "sentence": "topic sentence",
                         "score": 0.9
                     }],
                 },
