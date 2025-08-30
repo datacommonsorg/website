@@ -31,8 +31,10 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
+import { FacetMetadata } from "../types/facet_metadata";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
+import { getSeries, getSeriesWithin } from "./data_fetch_utils";
 import { getUnit } from "./stat_metadata_utils";
 import { addPerCapitaToTitle } from "./subject_page_utils";
 
@@ -412,24 +414,117 @@ interface DenomInfo {
 }
 
 /**
+ * Fetches a set of responses for given denominator variables,
+  with one response for every facet requested. This is used when calculating per capita
+  results to match the facet of the numerator. 
+  Also returns a defaultDenom result that is used if a given facet does not have the requested variables.
+  @param denoms list of denominator variables to fetch
+  @param statResp a response for the numerator, from which we get facet information
+  @param apiRoot root API string passed into getSeries/getSeriesWithin 
+  @param useSeriesWithin boolean indiciating if getSeries or getSeriesWithin should be used
+  @param allPlaces list of place DCIDs to fetch if using getSeries
+  @param parentPlace parent place for getSeriesWithin
+  @param placeType subplace type for getSeriesWithin
+  @param highlightFacet optional highlight facet passed into getSeriesWithin
+ */
+export async function getDenomResp(
+  denoms: string[],
+  statResp: PointApiResponse,
+  apiRoot: string,
+  useSeriesWithin: boolean,
+  // for series queries
+  allPlaces?: string[],
+  // parent and place type for series within queries
+  parentPlace?: string,
+  placeType?: string,
+  highlightFacet?: FacetMetadata
+): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
+  // fetch the series for each facet
+  const denomPromises = [];
+  if (!_.isEmpty(denoms) && statResp.facets) {
+    const facetIds = Object.keys(statResp.facets);
+    facetIds.map((facetId) => {
+      denomPromises.push(
+        useSeriesWithin
+          ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
+          : getSeries(apiRoot, allPlaces, denoms, [facetId], highlightFacet)
+      );
+    });
+  }
+  // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
+  const defaultDenomPromise = _.isEmpty(denoms)
+    ? null
+    : useSeriesWithin
+    ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
+    : getSeries(apiRoot, allPlaces, denoms, []);
+
+  // organize results into a map from facet to API response
+  const denomsByFacet: Record<string, SeriesApiResponse> = {};
+  // let defaultDenomData: SeriesApiResponse;
+  const denomResults = await Promise.all([
+    ...denomPromises,
+    defaultDenomPromise,
+  ]);
+  // The last element of denomResps is defaultDenomPromise
+  const defaultDenomData = denomResults.pop();
+
+  denomResults.forEach((resp) => {
+    // should only have one facet per resp because we pass in exactly one
+    const facetId = Object.keys(resp.facets)[0];
+    if (facetId) {
+      denomsByFacet[facetId] = resp;
+    } else {
+      // if the facet isn't found or something goes wrong with the facet-specific denom data, use the default
+      denomsByFacet[facetId] = defaultDenomData;
+    }
+  });
+
+  return [denomsByFacet, defaultDenomData];
+}
+
+/**
  * Gets information needed to calculate per capita for a single stat data point.
  * Uses the denom value with the closest date to the mainStatDate and returns
- * null if no matching value is found or matching value is 0.
+ * null if no matching value is found or matching value is 0. If available, uses
+ * the denom value that comes from the same facet as the data point. Otherwise, the best
+ * general denom option is used.
  * @param svSpec the stat var spec of the data point to calculate per capita for
- * @param denomData population data to use for the calculation
  * @param placeDcid place of the data point
  * @param mainStatDate date of the data point
+ * @param denomData population data to use for the calculation
+ * @param facetUsed facet used for the data point
  */
 export function getDenomInfo(
   svSpec: StatVarSpec,
-  denomData: SeriesApiResponse,
+  // this is temporary while the facet-based denom is only used in the ranking tile, ultimately this will be:
+  // denomData: Record<string, SeriesApiResponse>,
+  denomData: SeriesApiResponse | Record<string, SeriesApiResponse>,
   placeDcid: string,
-  mainStatDate: string
+  mainStatDate: string,
+  facetUsed?: string,
+  defaultDenomData?: SeriesApiResponse
 ): DenomInfo {
-  if (!denomData || !(svSpec.denom in denomData.data)) {
+  // (temporary) if denomData is a map, find the one that matches the facet used, otherwise use the regular denomData
+  let matchingDenomData: SeriesApiResponse;
+  if ("data" in denomData) {
+    matchingDenomData = denomData as SeriesApiResponse;
+  } else {
+    matchingDenomData = denomData[facetUsed];
+  }
+  // default to defaultDenomData if no facet-specific denomData is found for a given place
+  if (
+    !matchingDenomData ||
+    !(svSpec.denom in matchingDenomData.data) ||
+    !matchingDenomData.data[svSpec.denom][placeDcid]
+  ) {
+    matchingDenomData = defaultDenomData;
+  }
+
+  if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
     return null;
   }
-  const placeDenomData = denomData.data[svSpec.denom][placeDcid];
+
+  const placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
     return null;
   }
@@ -438,10 +533,10 @@ export function getDenomInfo(
   if (!denomObs || !denomObs.value) {
     return null;
   }
-  let source = "";
-  if (denomData.facets[placeDenomData.facet]) {
-    source = denomData.facets[placeDenomData.facet].provenanceUrl;
-  }
+
+  const source =
+    matchingDenomData.facets[placeDenomData.facet]?.provenanceUrl ?? "";
+
   return {
     value: denomObs.value,
     date: denomObs.date,
