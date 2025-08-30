@@ -14,11 +14,12 @@
 
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.map_test import MapTestMixin
+from server.webdriver.shared_tests.map_test import StandardizedMapTestMixin
 
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
 PLACE_SEARCH_CA = 'California'
 
 
-class TestMap(MapTestMixin, BaseDcWebdriverTest):
+class TestMap(MapTestMixin, StandardizedMapTestMixin, BaseDcWebdriverTest):
   """Class to test map tool. Tests come from MapTestMixin."""

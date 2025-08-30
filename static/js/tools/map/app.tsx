@@ -151,14 +151,18 @@ function updateHash(context: ContextType): void {
   // leaflet flag is part of the search arguments instead of hash, so need to
   // update that separately
   // TODO: forward along all args and then append hash in the url.
-  let args = "";
+  const args = new URLSearchParams(location.search);
   if (context.display.value.allowLeaflet) {
-    args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
+    args.set(`${ALLOW_LEAFLET_URL_ARG}`, "1");
   }
   const newHash = encodeURIComponent(hash);
+  const newArgs = args.toString() ? `?${args.toString()}` : "";
   const currentHash = location.hash.replace("#", "");
   const currentArgs = location.search;
-  if (newHash && (newHash !== currentHash || args !== currentArgs)) {
-    history.pushState({}, "", `${MAP_URL_PATH}${args}#${newHash}`);
+  if (
+    (newHash || newArgs) &&
+    (newHash !== currentHash || newArgs !== currentArgs)
+  ) {
+    history.pushState({}, "", `${MAP_URL_PATH}${newArgs}#${newHash}`);
   }
 }
