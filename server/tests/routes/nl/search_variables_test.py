@@ -436,3 +436,108 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(topic_sv["name"], "My Topic")
     self.assertAlmostEqual(topic_sv["score"], 0.9)
     self.assertEqual(topic_sv["sentences"], ["topic sentence"])
+
+  @patch("server.services.datacommons.nl_search_vars_in_parallel")
+  @patch("server.services.datacommons.v2node")
+  def test_skip_topics(self, mock_v2node, mock_nl_search_vars_in_parallel):
+    # Test that when `skip_topics=true`, topics are filtered out.
+    mock_nl_response = {
+        "queryResults": {
+            "some query": {
+                "SV": ["SV_REGULAR", "dc/topic/MyTopic"],
+                "CosineScore": [0.9, 0.9],
+                "SV_to_Sentences": {
+                    "SV_REGULAR": [{
+                        "sentence": "regular sv sentence",
+                        "score": 0.9
+                    }],
+                    "dc/topic/MyTopic": [{
+                        "sentence": "topic sentence",
+                        "score": 0.9
+                    }],
+                },
+            }
+        },
+        "scoreThreshold": 0.8,
+    }
+    mock_nl_search_vars_in_parallel.return_value = {
+        "medium_ft": mock_nl_response
+    }
+    mock_v2node.return_value = {
+        "data": {
+            "SV_REGULAR": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "Regular SV"
+                        }]
+                    }
+                }
+            }
+        }
+    }
+
+    response = self.app.get(
+        "/api/nl/search-variables?queries=some+query&index=medium_ft&skip_topics=true"
+    )
+    self.assertEqual(response.status_code, 200)
+    data = json.loads(response.data)
+
+    mock_nl_search_vars_in_parallel.assert_called_once_with(
+        ["some query"], ["medium_ft"], skip_topics="true")
+
+    index_response = data["queryResults"]["some query"]["medium_ft"]
+    indicators = index_response["indicators"]
+    self.assertEqual(len(indicators), 1)
+    self.assertEqual(indicators[0]["dcid"], "SV_REGULAR")
+
+  @patch("server.services.datacommons.nl_search_vars_in_parallel")
+  @patch("server.services.datacommons.v2node")
+  def test_partial_enrichment(self, mock_v2node,
+                              mock_nl_search_vars_in_parallel):
+    # Test that if v2node only returns info for some SVs, the others are
+    # still included in the response but with null names/descriptions.
+    mock_nl_search_vars_in_parallel.return_value = {
+        "medium_ft": MOCK_NL_SEARCH_VARS_RESPONSE
+    }
+    # v2node response is missing SV_2
+    mock_v2node.return_value = {
+        "data": {
+            "SV_1": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "SV1 Name"
+                        }]
+                    },
+                    "description": {
+                        "nodes": [{
+                            "value": "SV1 Description"
+                        }]
+                    },
+                }
+            }
+        }
+    }
+
+    response = self.app.get(
+        "/api/nl/search-variables?queries=population+of+california&index=medium_ft"
+    )
+    self.assertEqual(response.status_code, 200)
+    data = json.loads(response.data)
+
+    indicators = data["queryResults"]["population of california"]["medium_ft"][
+        "indicators"]
+    self.assertEqual(len(indicators), 2)
+
+    # SV_1 is fully enriched
+    sv1 = indicators[0]
+    self.assertEqual(sv1["dcid"], "SV_1")
+    self.assertEqual(sv1["name"], "SV1 Name")
+    self.assertEqual(sv1["description"], "SV1 Description")
+
+    # SV_2 is not enriched, so name and description should be null
+    sv2 = indicators[1]
+    self.assertEqual(sv2["dcid"], "SV_2")
+    self.assertIsNone(sv2["name"])
+    self.assertIsNone(sv2["description"])
