@@ -42,7 +42,9 @@ interface PlaceAxisChartData {
  */
 function getPlaceAxisChartData(
   placePointStat: EntityObservation,
-  populationData: SeriesApiResponse,
+  // populationData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   placeDcid: string,
   metadataMap: Record<string, StatMetadata>,
   popBounds?: [number, number],
@@ -50,6 +52,10 @@ function getPlaceAxisChartData(
   scaling?: number
 ): PlaceAxisChartData {
   const obs = placePointStat[placeDcid];
+  // finding the denom data that matches the facet of the current place
+  const populationData = denomsByFacet
+    ? denomsByFacet[obs.facet]
+    : defaultDenomData;
   const denomSeries =
     denom && populationData.data[denom] && populationData.data[denom][placeDcid]
       ? populationData.data[denom][placeDcid]
@@ -80,7 +86,7 @@ function getPlaceAxisChartData(
   }
   let popValue = denomValue;
   let popDate = denomDate;
-  if (!_.isNull(populationData)) {
+  if (populationData) {
     const popSeries = populationData.data[DEFAULT_POPULATION_DCID]
       ? populationData.data[DEFAULT_POPULATION_DCID][placeDcid]
       : null;
@@ -128,7 +134,8 @@ export function getPlaceScatterData(
   namedPlace: NamedPlace,
   xStatVarData: EntityObservation,
   yStatVarData: EntityObservation,
-  populationData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   metadataMap: Record<string, StatMetadata>,
   xDenom?: string,
   yDenom?: string,
@@ -138,7 +145,8 @@ export function getPlaceScatterData(
 ): PlaceScatterData {
   const xChartData = getPlaceAxisChartData(
     xStatVarData,
-    populationData,
+    denomsByFacet,
+    defaultDenomData,
     namedPlace.dcid,
     metadataMap,
     popBounds,
@@ -150,7 +158,8 @@ export function getPlaceScatterData(
   }
   const yChartData = getPlaceAxisChartData(
     yStatVarData,
-    populationData,
+    denomsByFacet,
+    defaultDenomData,
     namedPlace.dcid,
     metadataMap,
     popBounds,

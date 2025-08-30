@@ -356,22 +356,54 @@ export async function fetchData(
     return mergedResponse;
   });
   const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
-  const denomPromise = _.isEmpty(denoms)
-    ? Promise.resolve(null)
-    : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
-  return Promise.all([statPromise, denomPromise]).then(
-    ([statResp, denomResp]) => {
-      const rankingData = pointApiToPerSvRankingData(
-        statResp,
-        denomResp,
-        variables
-      );
-      if (rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, variables);
-      }
-      return rankingData;
+  // Make a promise for each facet used in the statResponses -- this ensures consistency in per capita stats
+  return statPromise.then((mergedResponse) => {
+    const denomPromises = [];
+    if (!_.isEmpty(denoms) && mergedResponse.facets) {
+      const facetIds = Object.keys(mergedResponse.facets);
+      facetIds.map((facetId) => {
+        denomPromises.push(
+          getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms, [
+            facetId,
+          ])
+        );
+      });
     }
-  );
+    // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
+    const defaultDenomPromise = _.isEmpty(denoms)
+      ? null
+      : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
+
+    return Promise.all([...denomPromises, defaultDenomPromise]).then(
+      (denomResps) => {
+        const denomData: Record<string, SeriesApiResponse> = {};
+        // The last element of denomResps is defaultDenomPromise
+        const defaultDenomData = denomResps.pop();
+
+        denomResps.forEach((resp) => {
+          // should only have one facet per resp because we pass in exactly one
+          const facetId = Object.keys(resp.facets)[0];
+          if (facetId) {
+            denomData[facetId] = resp;
+          } else {
+            // if the facet isn't found or something goes wrong with the facet-specific denom data, use the default
+            denomData[facetId] = defaultDenomData;
+          }
+        });
+
+        const rankingData = pointApiToPerSvRankingData(
+          mergedResponse,
+          denomData,
+          defaultDenomData,
+          variables
+        );
+        if (rankingMetadata.showMultiColumn) {
+          return transformRankingDataForMultiColumn(rankingData, variables);
+        }
+        return rankingData;
+      }
+    );
+  });
 }
 
 // Reduces RankingData to only the SV used for sorting, to be compatible for multi-column rendering in RankingUnit.
@@ -419,7 +451,8 @@ function transformRankingDataForMultiColumn(
 
 function pointApiToPerSvRankingData(
   statData: PointApiResponse,
-  denomData: SeriesApiResponse,
+  denomData: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   statVarSpecs: StatVarSpec[]
 ): RankingData {
   const rankingData: RankingData = {};
@@ -449,7 +482,15 @@ function pointApiToPerSvRankingData(
         continue;
       }
       if (spec.denom) {
-        const denomInfo = getDenomInfo(spec, denomData, place, statPoint.date);
+        // find the denom data with the matching facet, and otherwise use the default data
+        const denomInfo = getDenomInfo(
+          spec,
+          denomData,
+          place,
+          statPoint.date,
+          statPoint.facet,
+          defaultDenomData
+        );
         if (!denomInfo) {
           console.log(`Skipping ${place}, missing ${spec.denom}`);
           continue;

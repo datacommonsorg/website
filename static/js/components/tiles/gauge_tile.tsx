@@ -31,6 +31,7 @@ import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import {
   clearContainer,
   getDenomInfo,
+  getDenomResp,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
@@ -159,13 +160,20 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
       [props.statVarSpec.statVar],
       ""
     );
-    const denomResp = props.statVarSpec.denom
-      ? await getSeries(
-          props.apiRoot,
-          [props.place.dcid],
-          [props.statVarSpec.denom]
-        )
-      : null;
+    // const denomResp = props.statVarSpec.denom
+    //   ? await getSeries(
+    //       props.apiRoot,
+    //       [props.place.dcid],
+    //       [props.statVarSpec.denom]
+    //     )
+    //   : null;
+    const [denomsByFacet, defaultDenomData] = getDenomResp(
+      [props.statVarSpec.denom],
+      statResp,
+      props.apiRoot,
+      false,
+      [props.place.dcid]
+    );
     const statVarDcidToName = await getStatVarNames(
       [props.statVarSpec],
       props.apiRoot
@@ -181,9 +189,11 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
     if (props.statVarSpec.denom) {
       const denomInfo = getDenomInfo(
         props.statVarSpec,
-        denomResp,
+        denomsByFacet,
         props.place.dcid,
-        statData.date
+        statData.date,
+        statData.facet,
+        defaultDenomData
       );
       if (denomInfo && value) {
         value /= denomInfo.value;
