@@ -17,11 +17,8 @@ import json
 from typing import Annotated, Dict, List, Literal, Optional, Union
 
 import flask
-from flask import Blueprint
-from flask import request
-from pydantic import BaseModel
-from pydantic import ConfigDict
-from pydantic import Field
+from flask import Blueprint, request
+from pydantic import BaseModel, ConfigDict, Field
 
 from server.services import datacommons as dc
 
@@ -106,6 +103,12 @@ def search_vector():
 @bp.route("/search-variables", methods=["GET"])
 def search_variables():
   """Performs variable search for given queries, with optional filtering.
+
+    **Disclaimer:** This endpoint is designated as experimental and corresponds
+    to the Alpha stability level as defined by Google's AIP-181
+    (https://aip.dev/181). It is not guaranteed to be stable, is subject to
+    change or removal without notice, and should not be relied upon for
+    long-term production use.
 
     This endpoint orchestrates a multi-step process:
     1.  Searches for indicators (statistical variables and topics) across one or more
