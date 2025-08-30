@@ -479,8 +479,9 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
 
-    mock_nl_search_vars_in_parallel.assert_called_once_with(
-        ["some query"], ["medium_ft"], skip_topics="true")
+    mock_nl_search_vars_in_parallel.assert_called_once_with(["some query"],
+                                                            ["medium_ft"],
+                                                            skip_topics="true")
 
     index_response = data["queryResults"]["some query"]["medium_ft"]
     indicators = index_response["indicators"]
