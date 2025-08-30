@@ -14,7 +14,7 @@
 """Endpoints for Datacommons NL Experimentation"""
 
 import json
-from typing import Any, Dict, List, Optional
+from typing import Annotated, Dict, List, Literal, Optional, Union
 
 import flask
 from flask import Blueprint
@@ -39,29 +39,43 @@ class ResponseMetadata(ApiBaseModel):
                                               default=None)
 
 
-class SentenceScore(BaseModel):
-  sentence: str
-  score: float
-
-
-class StatVarResult(BaseModel):
+class IndicatorResult(ApiBaseModel):
   dcid: str
   name: Optional[str] = None
   description: Optional[str] = None
-  scores: List[SentenceScore]
+  # This is the discriminator field. It must be a string in the base model.
+  indicator_type: str = Field(alias="indicatorType")
+  score: float
+  sentences: list[str] = Field(default_factory=list)
+
+
+class StatVarResult(IndicatorResult):
+  """Statistical Variable Result"""
+  indicator_type: Literal["variable"] = Field(alias="indicatorType",
+                                              default="variable")
+
+
+class TopicResult(IndicatorResult):
+  """Topic Result"""
+  indicator_type: Literal["topic"] = Field(alias="indicatorType",
+                                           default="topic")
+
+
+# Define the discriminated union type.
+Indicator = Annotated[Union[StatVarResult, TopicResult],
+                      Field(discriminator="indicator_type")]
 
 
 class IndexResponse(ApiBaseModel):
   model_threshold: float = Field(alias="modelThreshold")
-  variables: List[StatVarResult] = Field(default_factory=list)
-  topics: List[StatVarResult] = Field(default_factory=list)
+  indicators: List[Indicator] = Field(default_factory=list)
 
 
 class SearchVariablesResponse(ApiBaseModel):
   results: Dict[str, Dict[str, IndexResponse]] = Field(
       alias="queryResults",
       description=
-      "A dictionary where the key is the search string and the value is a dictionary from index name to a list of StatVarResult.",
+      "A dictionary where the key is the search string and the value is a dictionary from index name to an IndexResponse object.",
   )
   response_metadata: ResponseMetadata = Field(alias="responseMetadata")
 
@@ -94,27 +108,24 @@ def search_variables():
   """Performs variable search for given queries, with optional filtering.
 
     This endpoint orchestrates a multi-step process:
-    1.  Searches for statistical variables (SVs) across one or more
+    1.  Searches for indicators (statistical variables and topics) across one or more
         embedding indices based on the provided natural language queries.
-    2.  Filters the resulting SVs based on a cosine score threshold.
-    3.  If place DCIDs are provided, it further filters SVs to only those
-        that have data for at least one of the specified places.
-    4.  Enriches the final SVs with metadata like name and description.
+    2.  Filters the resulting indicators based on a cosine score threshold.
+    3.  Enriches the final indicators with metadata like name and description.
 
     The final output is a nested dictionary mapping from query to index name
-    to a list of filtered, ranked, and enriched StatVarResult objects.
+    to an `IndexResponse` object which contains a list of filtered, ranked,
+    and enriched `IndicatorResult` objects (StatVarResult or TopicResult).
 
     Args (from query string):
         queries (str, repeated): The natural language queries to search for.
         index (str, repeated, optional): The embedding indices to query.
             Defaults to the server's default indices if not provided.
-        place_dcids (str, repeated, optional): A list of place DCIDs to
-            filter the search results.
         threshold (float, optional): A score threshold to override the
             model's default.
         max_candidates_per_index (int, optional): The max number of results
             to return per index.
-        skip_topics (bool, optional): Whether to skip topic-based SVs.
+        skip_topics (bool, optional): Whether to skip topic-based indicators.
 
     Returns:
         A JSON response structured like the following example:
@@ -123,23 +134,26 @@ def search_variables():
             "population of california": {
               "medium_ft": {
                 "modelThreshold": 0.75,
-                "variables": [
+                "indicators": [
                   {
                     "dcid": "Count_Person",
                     "name": "Person Count",
                     "description": "The total number of individuals...",
-                    "scores": [
-                      {"sentence": "population of", "score": 0.95},
-                      {"sentence": "number of people", "score": 0.92},
+                    "indicatorType": "variable",
+                    "score": 0.95,
+                    "sentences": [
+                      "population of",
+                      "number of people"
                     ]
-                  }
-                ],
-                "topics": [
+                  },
                   {
                     "dcid": "dc/topic/Race",
                     "name": "Population by Race",
-                    "scores": [
-                      {"sentence": "population broken down by race", "score": 0.88}
+                    "description": "...",
+                    "indicatorType": "topic",
+                    "score": 0.88,
+                    "sentences": [
+                      "population broken down by race"
                     ]
                   }
                 ],
@@ -150,25 +164,34 @@ def search_variables():
             "thresholdOverride": null
           }
         }
-    """
+  """
   #
-  # Step 0: Process inputs
+  # Step 0: Process inputs and fetch default indices if needed
   #
-
-  # `queries` is a required repeated input
   queries = request.args.getlist("queries")
   if not queries:
     flask.abort(400, "`queries` is a required parameter")
-  # `index` is an optional repeated input
   indices = request.args.getlist("index")
-  # `place_dcids` is an optional repeated input
-  place_dcids = request.args.getlist("place_dcids")
-  # `threshold` is an optional float input
-  threshold_override = request.args.get("threshold", type=float)
-  # `max_candidates_per_index` is an optional int that limits candidates from each index.
-  max_candidates_per_index = request.args.get("max_candidates_per_index",
-                                              type=int)
-  # `skip_topics` is an optional bool
+  if not indices:
+    server_config = dc.nl_server_config()
+    indices = server_config.get("default_indexes", [])
+
+  threshold_override = None
+  if "threshold" in request.args:
+    try:
+      threshold_override = float(request.args["threshold"])
+    except ValueError:
+      flask.abort(400, "The `threshold` parameter must be a valid float.")
+
+  max_candidates_per_index = None
+  if "max_candidates_per_index" in request.args:
+    try:
+      max_candidates_per_index = int(request.args["max_candidates_per_index"])
+    except ValueError:
+      flask.abort(
+          400,
+          "The `max_candidates_per_index` parameter must be a valid integer.")
+
   skip_topics = request.args.get(
       "skip_topics",
       default=False,
@@ -176,72 +199,31 @@ def search_variables():
   )
   skip_topics_arg = "true" if skip_topics else ""
 
-  if not indices:
-    server_config = dc.nl_server_config()
-    indices = server_config.get("default_indexes", [])
-
-  #
   # Step 1: Get search results from the NL server in parallel.
   #
   nl_results_by_index = dc.nl_search_vars_in_parallel(
       queries, indices, skip_topics=skip_topics_arg)
 
-  #
-  # Step 2: Process raw results into a list of candidates that pass the
-  # score threshold.
-  #
-  # This will hold all query results keyed by query and index.
-  # query -> index -> variables
-  vars_by_query_by_index: Dict[str, Dict[str, Any]] = {}
-
+  # Step 2: Collect all candidate DCIDs that pass the threshold for enrichment.
+  all_dcids_to_enrich: set[str] = set()
   for index, nl_result in nl_results_by_index.items():
     if not nl_result or "queryResults" not in nl_result:
       continue
 
     threshold = threshold_override if threshold_override else nl_result.get(
-        "scoreThreshold")
+        "scoreThreshold", 0.0)
 
     for query, q_result in nl_result.get("queryResults", {}).items():
-      # Store the original q_result for final assembly.
-      vars_by_query_by_index.setdefault(query, {}).setdefault(index, [])
+      ranked_indicators = zip(q_result.get("SV", []),
+                              q_result.get("CosineScore", []))
+      for dcid, score in ranked_indicators:
+        if score >= threshold:
+          all_dcids_to_enrich.add(dcid)
 
-      ranked_svs = zip(q_result.get("SV", []), q_result.get("CosineScore", []))
-      for sv in ranked_svs:
-        if threshold is not None and sv[1] < threshold:
-          continue
-
-        vars_by_query_by_index[query][index].append(sv[0])
-
-  # Flatten all svs into separate variable and topic lists
-  variable_dcids = set()
-  topic_dcids = set()
-  for index in vars_by_query_by_index.values():
-    for variables in index.values():
-      for var in variables:
-        if "/topic/" in var:
-          topic_dcids.add(var)
-        else:
-          variable_dcids.add(var)
-
-  #
-  # Step 3: Perform place filtering on regular (non-topic) variables.
-  #
-  place_filtered_svs = variable_dcids
-  if place_dcids and variable_dcids:
-    filtered_result = dc.filter_statvars([{
-        "dcid": sv
-    } for sv in variable_dcids], place_dcids)
-    place_filtered_svs = {
-        sv["dcid"] for sv in filtered_result.get("statVars", [])
-    }
-
-  #
-  # Step 4: Enrich the valid candidates with names and descriptions.
-  #
-  sv_dcids_to_enrich = place_filtered_svs.union(topic_dcids)
+  # Step 3: Enrich the valid candidates with names and descriptions.
   sv_info_map = {}
-  if sv_dcids_to_enrich:
-    sv_info_data = dc.v2node(list(sv_dcids_to_enrich), "->[name,description]")
+  if all_dcids_to_enrich:
+    sv_info_data = dc.v2node(list(all_dcids_to_enrich), "->[name,description]")
     for dcid, sv_data in sv_info_data.get("data", {}).items():
       name_nodes = sv_data.get("arcs", {}).get("name", {}).get("nodes", [])
       name = name_nodes[0].get("value") if name_nodes else None
@@ -250,48 +232,72 @@ def search_variables():
       description = desc_nodes[0].get("value") if desc_nodes else None
       sv_info_map[dcid] = {"name": name, "description": description}
 
-  #
-  # Step 5: Assemble the final response, preserving original ranking.
-  #
+  # Step 4: Assemble the final response, preserving original ranking and using
+  # the Pydantic models for validation and serialization.
   response_query_results: Dict[str, Dict[str, IndexResponse]] = {}
-  for query, vars_by_index in vars_by_query_by_index.items():
+  for query in queries:
     response_query_results[query] = {}
-    for index, sv_dcids in vars_by_index.items():
-      nl_index_result = nl_results_by_index[index]
-      sv_to_sentences = nl_index_result.get("queryResults",
-                                            {}).get(query, {}).get(
-                                                "SV_to_Sentences", {})
-      variables = []
-      topics = []
-      for sv_dcid in sv_dcids:
-        if sv_dcid not in sv_dcids_to_enrich:
-          continue
-        sv_info = sv_info_map.get(sv_dcid, {})
-        sv_result = StatVarResult(
-            dcid=sv_dcid,
-            name=sv_info.get("name"),
-            description=sv_info.get("description"),
-            scores=[SentenceScore(**s) for s in sv_to_sentences[sv_dcid][:3]])
-        if sv_dcid in topic_dcids:
-          topics.append(sv_result)
-        else:
-          variables.append(sv_result)
+    for index in indices:
+      nl_result = nl_results_by_index.get(index)
+      if not nl_result or "queryResults" not in nl_result or query not in nl_result[
+          "queryResults"]:
+        continue
 
-        if max_candidates_per_index and len(variables) + len(
-            topics) >= max_candidates_per_index:
+      threshold = threshold_override if threshold_override else nl_result.get(
+          "scoreThreshold", 0.0)
+
+      q_result = nl_result["queryResults"][query]
+      sv_to_sentences = q_result.get("SV_to_Sentences", {})
+
+      # This list will hold the validated StatVarResult and TopicResult objects.
+      indicators = []
+      ranked_indicators = zip(q_result.get("SV", []),
+                              q_result.get("CosineScore", []))
+      for dcid, score in ranked_indicators:
+        # Filter by score.
+        if score < threshold:
+          continue
+
+        sv_info = sv_info_map.get(dcid, {})
+        # Get the top matching sentences for context, also filtered by score.
+        sentences = [
+            s['sentence']
+            for s in sv_to_sentences.get(dcid, [])
+            if threshold is None or s['score'] >= threshold
+        ]
+
+        # Based on the DCID, create either a TopicResult or a StatVarResult.
+        # Pydantic will validate the structure.
+        if "/topic/" in dcid:
+          indicator = TopicResult(dcid=dcid,
+                                  name=sv_info.get("name"),
+                                  description=sv_info.get("description"),
+                                  score=score,
+                                  sentences=sentences)
+        else:
+          indicator = StatVarResult(dcid=dcid,
+                                    name=sv_info.get("name"),
+                                    description=sv_info.get("description"),
+                                    score=score,
+                                    sentences=sentences)
+        indicators.append(indicator)
+
+        if max_candidates_per_index and len(
+            indicators) >= max_candidates_per_index:
           break
 
-      response_query_results[query][index] = IndexResponse(
-          model_threshold=nl_index_result.get("scoreThreshold"),
-          variables=variables,
-          topics=topics)
+      if indicators:
+        response_query_results[query][index] = IndexResponse(
+            model_threshold=nl_result.get("scoreThreshold"),
+            indicators=indicators)
 
   # Build the final SearchVariablesResponse object
-  response_metadata = ResponseMetadata(threshold_override=threshold_override,)
-  final_response = SearchVariablesResponse(results=response_query_results,
-                                           response_metadata=response_metadata)
-
   try:
+    response_metadata = ResponseMetadata(threshold_override=threshold_override,)
+    final_response = SearchVariablesResponse(
+        results=response_query_results, response_metadata=response_metadata)
     return final_response.model_dump_json(by_alias=True)
   except Exception as e:
+    # If there is a validation error, it's a 500 because the server
+    # is producing an invalid response.
     flask.abort(500, f"Response validation failed: {e}")
