@@ -62,13 +62,13 @@ class TopicResult(IndicatorResult):
 
 
 # Define the discriminated union type.
-Indicator = Annotated[Union[StatVarResult, TopicResult],
-                      Field(discriminator="indicator_type")]
+IndicatorResult = Annotated[Union[StatVarResult, TopicResult],
+                            Field(discriminator="indicator_type")]
 
 
 class IndexResponse(ApiBaseModel):
   model_threshold: float = Field(alias="modelThreshold")
-  indicators: List[Indicator] = Field(default_factory=list)
+  candidates: List[IndicatorResult] = Field(default_factory=list)
 
 
 class SearchVariablesResponse(ApiBaseModel):
@@ -140,7 +140,7 @@ def search_variables():
             "population of california": {
               "medium_ft": {
                 "modelThreshold": 0.75,
-                "indicators": [
+                "candidates": [
                   {
                     "dcid": "Count_Person",
                     "name": "Person Count",
@@ -256,7 +256,7 @@ def search_variables():
       sv_to_sentences = q_result.get("SV_to_Sentences", {})
 
       # This list will hold the validated StatVarResult and TopicResult objects.
-      indicators = []
+      candidates: List[IndicatorResult] = []
       ranked_indicators = zip(q_result.get("SV", []),
                               q_result.get("CosineScore", []))
       for dcid, score in ranked_indicators:
@@ -286,16 +286,16 @@ def search_variables():
                                     description=sv_info.get("description"),
                                     score=score,
                                     sentences=sentences)
-        indicators.append(indicator)
+        candidates.append(indicator)
 
         if max_candidates_per_index and len(
-            indicators) >= max_candidates_per_index:
+            candidates) >= max_candidates_per_index:
           break
 
-      if indicators:
+      if candidates:
         response_query_results[query][index] = IndexResponse(
             model_threshold=nl_result.get("scoreThreshold"),
-            indicators=indicators)
+            candidates=candidates)
 
   # Build the final SearchVariablesResponse object
   try:

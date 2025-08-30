@@ -124,11 +124,11 @@ class TestSearchVariables(unittest.TestCase):
     index_response = data["queryResults"]["population of california"][
         "medium_ft"]
     self.assertEqual(index_response["modelThreshold"], 0.75)
-    indicators = index_response["indicators"]
-    self.assertEqual(len(indicators), 2)
+    candidates = index_response["candidates"]
+    self.assertEqual(len(candidates), 2)
 
     # Check SV_1 (passes all filters)
-    sv1 = indicators[0]
+    sv1 = candidates[0]
     self.assertEqual(sv1["dcid"], "SV_1")
     self.assertEqual(sv1["name"], "SV1 Name")
     self.assertEqual(sv1["indicatorType"], "StatisticalVariable")
@@ -136,7 +136,7 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(sv1["sentences"], ["population of", "number of people in"])
 
     # Check SV_2 (passes all filters)
-    sv2 = indicators[1]
+    sv2 = candidates[1]
     self.assertEqual(sv2["dcid"], "SV_2")
     self.assertEqual(sv2["name"], "SV2 Name")
     self.assertEqual(sv2["indicatorType"], "StatisticalVariable")
@@ -209,9 +209,9 @@ class TestSearchVariables(unittest.TestCase):
 
       index_response = data["queryResults"]["population of california"][
           "medium_ft"]
-      indicators = index_response["indicators"]
-      self.assertEqual(len(indicators), 3)
-      sv3 = indicators[2]
+      candidates = index_response["candidates"]
+      self.assertEqual(len(candidates), 3)
+      sv3 = candidates[2]
       self.assertEqual(sv3["dcid"], "SV_3")
       self.assertEqual(sv3["name"], "SV3 Name")
       self.assertEqual(sv3["indicatorType"], "StatisticalVariable")
@@ -274,10 +274,10 @@ class TestSearchVariables(unittest.TestCase):
       data = json.loads(response.data)
       index_response = data["queryResults"]["population of california"][
           "medium_ft"]
-      indicators = index_response["indicators"]
+      candidates = index_response["candidates"]
       # Even though 3 SVs pass the threshold, only 1 should be returned.
-      self.assertEqual(len(indicators), 1)
-      self.assertEqual(indicators[0]["dcid"], "SV_1")
+      self.assertEqual(len(candidates), 1)
+      self.assertEqual(candidates[0]["dcid"], "SV_1")
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   def test_empty_nl_response(self, mock_nl_search_vars_in_parallel):
@@ -352,13 +352,13 @@ class TestSearchVariables(unittest.TestCase):
     self.assertIn("query1", data["queryResults"])
     self.assertIn("index1", data["queryResults"]["query1"])
     self.assertEqual(
-        data["queryResults"]["query1"]["index1"]["indicators"][0]["dcid"],
+        data["queryResults"]["query1"]["index1"]["candidates"][0]["dcid"],
         "SV_A")
 
     self.assertIn("query2", data["queryResults"])
     self.assertIn("index2", data["queryResults"]["query2"])
     self.assertEqual(
-        data["queryResults"]["query2"]["index2"]["indicators"][0]["dcid"],
+        data["queryResults"]["query2"]["index2"]["candidates"][0]["dcid"],
         "SV_B")
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
@@ -419,18 +419,18 @@ class TestSearchVariables(unittest.TestCase):
 
     # Check the final response structure.
     index_response = data["queryResults"]["some query"]["medium_ft"]
-    indicators = index_response["indicators"]
-    self.assertEqual(len(indicators), 2)
+    candidates = index_response["candidates"]
+    self.assertEqual(len(candidates), 2)
 
     # The order is preserved from the NL API response.
-    regular_sv = indicators[0]
+    regular_sv = candidates[0]
     self.assertEqual(regular_sv["dcid"], "SV_REGULAR")
     self.assertEqual(regular_sv["indicatorType"], "StatisticalVariable")
     self.assertEqual(regular_sv["name"], "Regular SV")
     self.assertAlmostEqual(regular_sv["score"], 0.9)
     self.assertEqual(regular_sv["sentences"], ["regular sv sentence"])
 
-    topic_sv = indicators[1]
+    topic_sv = candidates[1]
     self.assertEqual(topic_sv["dcid"], "dc/topic/MyTopic")
     self.assertEqual(topic_sv["indicatorType"], "Topic")
     self.assertEqual(topic_sv["name"], "My Topic")
@@ -484,9 +484,9 @@ class TestSearchVariables(unittest.TestCase):
                                                             skip_topics="true")
 
     index_response = data["queryResults"]["some query"]["medium_ft"]
-    indicators = index_response["indicators"]
-    self.assertEqual(len(indicators), 1)
-    self.assertEqual(indicators[0]["dcid"], "SV_REGULAR")
+    candidates = index_response["candidates"]
+    self.assertEqual(len(candidates), 1)
+    self.assertEqual(candidates[0]["dcid"], "SV_REGULAR")
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   @patch("server.services.datacommons.v2node")
@@ -523,18 +523,18 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
 
-    indicators = data["queryResults"]["population of california"]["medium_ft"][
-        "indicators"]
-    self.assertEqual(len(indicators), 2)
+    candidates = data["queryResults"]["population of california"]["medium_ft"][
+        "candidates"]
+    self.assertEqual(len(candidates), 2)
 
     # SV_1 is fully enriched
-    sv1 = indicators[0]
+    sv1 = candidates[0]
     self.assertEqual(sv1["dcid"], "SV_1")
     self.assertEqual(sv1["name"], "SV1 Name")
     self.assertEqual(sv1["description"], "SV1 Description")
 
     # SV_2 is not enriched, so name and description should be null
-    sv2 = indicators[1]
+    sv2 = candidates[1]
     self.assertEqual(sv2["dcid"], "SV_2")
     self.assertIsNone(sv2["name"])
     self.assertIsNone(sv2["description"])
