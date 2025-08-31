@@ -35,6 +35,14 @@ import {
  * This module contains helper functions for fetching and processing metadata.
  */
 
+/* 
+  The following are lists of provenances that contain known incorrect or otherwise
+  concerning date ranges or measurement methods. The respective date range or
+  measurement method will not be included in the compiled metadata.
+ */
+const dateRangeSuppressionProvenances = ["Wikidata", "WikipediaStatsData"];
+const measurementMethodSuppressionProvenances = ["WikipediaStatsData"];
+
 /*
   TODO (nick-next): provide options on degree of metadata returned, in order
       to accommodate requests such as those for just enough information
@@ -336,13 +344,21 @@ export async function fetchFacetsWithMetadata(
         const matchedSeries = Array.isArray(seriesList)
           ? matchSeriesByFacet(seriesList, facetInfo)
           : undefined;
-        if (matchedSeries) {
+        if (
+          matchedSeries &&
+          !dateRangeSuppressionProvenances.includes(newFacetInfo.provenanceName)
+        ) {
           newFacetInfo.dateRangeStart = matchedSeries.earliestDate;
           newFacetInfo.dateRangeEnd = matchedSeries.latestDate;
         }
       }
 
-      if (facetInfo.measurementMethod) {
+      if (
+        facetInfo.measurementMethod &&
+        !measurementMethodSuppressionProvenances.includes(
+          newFacetInfo.provenanceName
+        )
+      ) {
         newFacetInfo.measurementMethodDescription =
           measurementMethodMap[facetInfo.measurementMethod] ||
           startCase(facetInfo.measurementMethod.replace(/_/g, " "));
@@ -448,20 +464,41 @@ export async function fetchMetadata(
       const key = matchedSeries?.seriesKey ?? {};
       const unit = key.unit || facetInfo.unit;
 
+      const sourceName = provenanceData?.source?.[0]?.name;
+      const provenanceName =
+        provenanceData?.isPartOf?.[0]?.name ||
+        provenanceData?.name?.[0]?.value ||
+        importName;
+
+      let dateRangeStart: string | undefined;
+      let dateRangeEnd: string | undefined;
+
+      const measurementMethod = key.measurementMethod;
+      let measurementMethodDescription: string | undefined;
+
+      if (!dateRangeSuppressionProvenances.includes(provenanceName)) {
+        dateRangeStart = matchedSeries?.earliestDate;
+        dateRangeEnd = matchedSeries?.latestDate;
+      }
+
+      if (!measurementMethodSuppressionProvenances.includes(provenanceName)) {
+        measurementMethodDescription =
+          key.measurementMethod &&
+          (measurementMethodMap[key.measurementMethod] ||
+            startCase(key.measurementMethod.replace(/_/g, " ")));
+      }
+
       metadata[statVarId].push({
         statVarId,
         statVarName:
           statVarList.find((node) => node.dcid === statVarId)?.name ??
           statVarId,
         categories: statVarCategoryMap[statVarId] ?? [],
-        sourceName: provenanceData?.source?.[0]?.name,
+        sourceName,
         provenanceUrl: provenanceData?.url?.[0]?.value,
-        provenanceName:
-          provenanceData?.isPartOf?.[0]?.name ||
-          provenanceData?.name?.[0]?.value ||
-          importName,
-        dateRangeStart: matchedSeries?.earliestDate,
-        dateRangeEnd: matchedSeries?.latestDate,
+        provenanceName,
+        dateRangeStart,
+        dateRangeEnd,
         unit: unit ? unitMap[unit] || unit.replace(/_/g, " ") : unit,
         observationPeriod: key.observationPeriod,
         periodicity:
@@ -469,11 +506,8 @@ export async function fetchMetadata(
             ?.releaseFrequency,
         license: provenanceData?.licenseType?.[0]?.name,
         licenseDcid: provenanceData?.licenseType?.[0]?.dcid,
-        measurementMethod: key.measurementMethod,
-        measurementMethodDescription:
-          key.measurementMethod &&
-          (measurementMethodMap[key.measurementMethod] ||
-            startCase(key.measurementMethod.replace(/_/g, " "))),
+        measurementMethod,
+        measurementMethodDescription,
       });
     }
   }
