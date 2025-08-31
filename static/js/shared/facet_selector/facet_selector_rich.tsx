@@ -214,7 +214,9 @@ function NoFacetChoicesMessage({
         padding-left: ${variant === "inline" ? "0" : theme.spacing.sm}px;
         border: 1px solid transparent;
         line-height: 1rem;
-        color: ${theme.colors.text.primary.base};
+        && {
+          color: ${theme.colors.text.tertiary.base};
+        }
         flex-shrink: 0;
         visibility: ${loading ? "hidden" : "visible"};
         margin: 0;
