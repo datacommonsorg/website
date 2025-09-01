@@ -24,7 +24,13 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import React, { ReactElement } from "react";
+import React, {
+  forwardRef,
+  ReactElement,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
@@ -48,8 +54,47 @@ export function FacetSelectorStandardContent({
   mode,
 }: FacetSelectorStandardContentProps): ReactElement {
   const theme = useTheme();
+  const itemRefs = useRef(new Map<string, HTMLElement>());
+  const [isVisible, setIsVisible] = useState(false);
+  const hasScrolledRef = useRef(false);
+
+  /*
+    This hook scrolls the facet selector dialog so that the currently selected item is
+    centered in view. As a useLayoutEffect, it will run after the DOM is updated but
+    before it is painted and visible to the user. The ref is used to ensure that the
+    hook runs only when the component is first displayed. This allows us to keep the
+    dependencies honest.
+   */
+  useLayoutEffect(() => {
+    if (hasScrolledRef.current) {
+      return;
+    }
+    let firstSelectedId: string | null = null;
+    for (const facetInfo of facetList) {
+      const selectedFacetId = modalSelections[facetInfo.dcid];
+      if (selectedFacetId && selectedFacetId !== "") {
+        firstSelectedId = selectedFacetId;
+        break;
+      }
+    }
+    if (firstSelectedId) {
+      const targetElement = itemRefs.current.get(firstSelectedId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          block: "center",
+        });
+      }
+    }
+    setIsVisible(true);
+    hasScrolledRef.current = true;
+  }, [facetList, modalSelections]);
+
   return (
-    <>
+    <div
+      style={{
+        opacity: isVisible ? 1 : 0,
+      }}
+    >
       {facetList.length > 1 && (
         <p
           css={css`
@@ -150,6 +195,7 @@ export function FacetSelectorStandardContent({
                     facetInfo={facetInfo}
                     modalSelections={modalSelections}
                     onSelectionChange={onSelectionChange}
+                    itemRefs={itemRefs}
                     mode={mode}
                   />
                 </>
@@ -158,7 +204,7 @@ export function FacetSelectorStandardContent({
           </div>
         );
       })}
-    </>
+    </div>
   );
 }
 
@@ -170,71 +216,81 @@ interface FacetOptionProps {
   mode?: "chart" | "download";
 }
 
-function FacetOption({
-  facetInfo,
-  facetId,
-  isChecked,
-  onSelectionChange,
-  mode,
-}: FacetOptionProps): ReactElement {
-  const facetOptionId = `${facetInfo.dcid}-${facetId || "default"}-option`;
-  const theme = useTheme();
+const FacetOption = forwardRef<HTMLDivElement, FacetOptionProps>(
+  (
+    {
+      facetInfo,
+      facetId,
+      isChecked,
+      onSelectionChange,
+      mode,
+    }: FacetOptionProps,
+    ref
+  ) => {
+    const facetOptionId = `${facetInfo.dcid}-${facetId || "default"}-option`;
+    const theme = useTheme();
 
-  const metadata = facetInfo.metadataMap[facetId];
-  const displayName = facetInfo.displayNames?.[facetId];
+    const metadata = facetInfo.metadataMap[facetId];
+    const displayName = facetInfo.displayNames?.[facetId];
 
-  return (
-    <FormGroup
-      radio="true"
-      key={facetOptionId}
-      css={css`
-        margin: 0;
-        padding: 0;
-      `}
-    >
-      <Label
-        radio="true"
-        for={facetOptionId}
-        css={css`
-          display: flex;
-          gap: ${theme.spacing.md}px;
-          align-items: flex-start;
-          margin: 0;
-          padding: ${theme.spacing.sm}px ${theme.spacing.xl}px;
-          position: relative;
-          cursor: pointer;
-          &:hover,
-          &:checked {
-            background: ${theme.colors.background.primary.light};
-          }
-        `}
-      >
-        <Input
-          type="radio"
-          name={facetInfo.dcid}
-          id={facetOptionId}
-          checked={isChecked}
-          onChange={onSelectionChange}
+    return (
+      <div ref={ref}>
+        <FormGroup
+          radio="true"
+          key={facetOptionId}
           css={css`
-            position: relative;
-            margin: 5px 0 0 0;
+            margin: 0;
             padding: 0;
           `}
-        />
-        <FacetOptionContent
-          metadata={metadata}
-          displayName={displayName}
-          mode={mode}
-        />
-      </Label>
-    </FormGroup>
-  );
-}
+        >
+          <Label
+            radio="true"
+            for={facetOptionId}
+            css={css`
+              display: flex;
+              gap: ${theme.spacing.md}px;
+              align-items: flex-start;
+              margin: 0;
+              padding: ${theme.spacing.sm}px ${theme.spacing.xl}px;
+              position: relative;
+              cursor: pointer;
+              &:hover,
+              &:checked {
+                background: ${theme.colors.background.primary.light};
+              }
+            `}
+          >
+            <Input
+              type="radio"
+              name={facetInfo.dcid}
+              id={facetOptionId}
+              checked={isChecked}
+              onChange={onSelectionChange}
+              css={css`
+                position: relative;
+                margin: 5px 0 0 0;
+                padding: 0;
+              `}
+            />
+            <FacetOptionContent
+              metadata={metadata}
+              displayName={displayName}
+              mode={mode}
+            />
+          </Label>
+        </FormGroup>
+      </div>
+    );
+  }
+);
+
+FacetOption.displayName = "FacetOption";
 
 interface FacetOptionSectionProps {
   facetInfo: FacetSelectorFacetInfo;
   modalSelections: Record<string, string>;
   onSelectionChange: (dcid: string, facetId: string) => void;
+  itemRefs: React.MutableRefObject<Map<string, HTMLElement>>;
   mode?: "chart" | "download";
 }
 
@@ -242,6 +298,7 @@ function FacetOptionSection({
   facetInfo,
   modalSelections,
   onSelectionChange,
+  itemRefs,
   mode,
 }: FacetOptionSectionProps): ReactElement {
   const importNameToFacetOptions: Record<string, string[]> = {};
@@ -262,6 +319,14 @@ function FacetOptionSection({
 
   const selectedFacetId = modalSelections[facetInfo.dcid] || "";
 
+  const setRef = (facetId: string) => (el: HTMLDivElement) => {
+    if (el) {
+      itemRefs.current.set(facetId, el);
+    } else {
+      itemRefs.current.delete(facetId);
+    }
+  };
+
   if (shouldShowSections) {
     const sortedImportNames = Object.keys(importNameToFacetOptions).sort();
     return (
@@ -277,6 +342,7 @@ function FacetOptionSection({
             {importNameToFacetOptions[importName].map((facetId) => (
               <FacetOption
                 key={facetId}
+                ref={setRef(facetId)}
                 facetInfo={facetInfo}
                 facetId={facetId}
                 isChecked={selectedFacetId === facetId}
@@ -291,6 +357,7 @@ function FacetOptionSection({
         {facetOptionsNoImportName.map((facetId) => (
           <FacetOption
             key={facetId}
+            ref={setRef(facetId)}
             facetInfo={facetInfo}
             facetId={facetId}
             isChecked={selectedFacetId === facetId}
@@ -310,6 +377,7 @@ function FacetOptionSection({
             facetId !== "" && (
               <FacetOption
                 key={facetId}
+                ref={setRef(facetId)}
                 facetInfo={facetInfo}
                 facetId={facetId}
                 isChecked={selectedFacetId === facetId}
