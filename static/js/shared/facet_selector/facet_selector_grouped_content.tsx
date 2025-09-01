@@ -24,7 +24,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import React, { ReactElement, useMemo } from "react";
+import React, {
+  forwardRef,
+  ReactElement,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
@@ -61,6 +68,9 @@ export function FacetSelectorGroupedContent({
   mode,
 }: FacetSelectorGroupedContentProps): ReactElement {
   const theme = useTheme();
+  const itemRefs = useRef(new Map<string, HTMLElement>());
+  const [isVisible, setIsVisible] = useState(false);
+  const hasScrolledRef = useRef(false);
 
   const unifiedFacets = useMemo(() => {
     const facetMap = new Map<
@@ -97,8 +107,36 @@ export function FacetSelectorGroupedContent({
     : "";
   const totalStatVars = facetList.length;
 
+  useLayoutEffect(() => {
+    if (hasScrolledRef.current) {
+      return;
+    }
+    if (selectedFacetId && selectedFacetId !== "") {
+      const targetElement = itemRefs.current.get(selectedFacetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          block: "center",
+        });
+      }
+    }
+    setIsVisible(true);
+    hasScrolledRef.current = true;
+  }, [selectedFacetId]);
+
+  const setRef = (facetId: string) => (el: HTMLDivElement) => {
+    if (el) {
+      itemRefs.current.set(facetId, el);
+    } else {
+      itemRefs.current.delete(facetId);
+    }
+  };
+
   return (
-    <>
+    <div
+      style={{
+        opacity: isVisible ? 1 : 0,
+      }}
+    >
       <p
         css={css`
           ${theme.typography.family.text}
@@ -129,6 +167,7 @@ export function FacetSelectorGroupedContent({
         {Array.from(unifiedFacets.entries()).map(([facetId, facetData]) => (
           <GroupedFacetOption
             key={facetId}
+            ref={setRef(facetId)}
             facetId={facetId}
             facetData={facetData}
             selectedFacetId={selectedFacetId}
@@ -138,69 +177,77 @@ export function FacetSelectorGroupedContent({
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
-function GroupedFacetOption(props: GroupedFacetOptionProps): ReactElement {
-  const {
-    facetId,
-    facetData,
-    selectedFacetId,
-    onSelectionChange,
-    mode,
-    totalStatVars,
-  } = props;
-  const theme = useTheme();
-  const facetOptionId = `grouped-${facetId || "default"}-option`;
+const GroupedFacetOption = forwardRef<HTMLDivElement, GroupedFacetOptionProps>(
+  (
+    {
+      facetId,
+      facetData,
+      selectedFacetId,
+      onSelectionChange,
+      mode,
+      totalStatVars,
+    }: GroupedFacetOptionProps,
+    ref
+  ) => {
+    const theme = useTheme();
+    const facetOptionId = `grouped-${facetId || "default"}-option`;
 
-  return (
-    <FormGroup
-      radio="true"
-      key={facetOptionId}
-      css={css`
-        margin: 0;
-        padding: 0;
-      `}
-    >
-      <Label
-        radio="true"
-        for={facetOptionId}
-        css={css`
-          display: flex;
-          gap: ${theme.spacing.md}px;
-          align-items: flex-start;
-          margin: 0;
-          padding: ${theme.spacing.sm}px ${theme.spacing.xl}px;
-          position: relative;
-          cursor: pointer;
-          &:hover,
-          &:checked {
-            background: ${theme.colors.background.primary.light};
-          }
-        `}
-      >
-        <Input
-          type="radio"
-          name="grouped-facet-selector"
-          id={facetOptionId}
-          checked={selectedFacetId === facetId}
-          value={facetId}
-          onChange={onSelectionChange}
+    return (
+      <div ref={ref}>
+        <FormGroup
+          radio="true"
+          key={facetOptionId}
           css={css`
-            position: relative;
-            margin: 5px 0 0 0;
+            margin: 0;
             padding: 0;
           `}
-        />
-        <FacetOptionContent
-          metadata={facetData?.metadata}
-          displayName={facetData?.displayName}
-          mode={mode}
-          applicableStatVars={facetData?.applicableStatVars}
-          totalStatVars={totalStatVars}
-        />
-      </Label>
-    </FormGroup>
-  );
-}
+        >
+          <Label
+            radio="true"
+            for={facetOptionId}
+            css={css`
+              display: flex;
+              gap: ${theme.spacing.md}px;
+              align-items: flex-start;
+              margin: 0;
+              padding: ${theme.spacing.sm}px ${theme.spacing.xl}px;
+              position: relative;
+              cursor: pointer;
+              &:hover,
+              &:checked {
+                background: ${theme.colors.background.primary.light};
+              }
+            `}
+          >
+            <Input
+              type="radio"
+              name="grouped-facet-selector"
+              id={facetOptionId}
+              checked={selectedFacetId === facetId}
+              value={facetId}
+              onChange={onSelectionChange}
+              css={css`
+                position: relative;
+                margin: 5px 0 0 0;
+                padding: 0;
+              `}
+            />
+            <FacetOptionContent
+              metadata={facetData?.metadata}
+              displayName={facetData?.displayName}
+              mode={mode}
+              applicableStatVars={facetData?.applicableStatVars}
+              totalStatVars={totalStatVars}
+            />
+          </Label>
+        </FormGroup>
+      </div>
+    );
+  }
+);
+
+GroupedFacetOption.displayName = "GroupedFacetOption";
