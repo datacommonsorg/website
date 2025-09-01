@@ -244,8 +244,6 @@ function FacetOptionSection({
   onSelectionChange,
   mode,
 }: FacetOptionSectionProps): ReactElement {
-  const theme = useTheme();
-
   const importNameToFacetOptions: Record<string, string[]> = {};
   const facetOptionsNoImportName: string[] = [];
   let shouldShowSections = false;
