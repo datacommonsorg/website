@@ -455,7 +455,20 @@ function pointApiToPerSvRankingData(
           continue;
         }
         rankingPoint.value /= denomInfo.value;
-        sources.add(denomInfo.source);
+        const denomSeries = denomData.data[spec.denom]?.[place];
+        if (denomSeries?.facet) {
+          const denomFacet = denomData.facets[denomSeries.facet];
+          if (denomFacet) {
+            if (denomFacet.provenanceUrl) {
+              sources.add(denomFacet.provenanceUrl);
+            }
+            facets[denomSeries.facet] = denomFacet;
+            if (!statVarToFacets[spec.denom]) {
+              statVarToFacets[spec.denom] = new Set<string>();
+            }
+            statVarToFacets[spec.denom].add(denomSeries.facet);
+          }
+        }
       }
       rankingPoints.push(rankingPoint);
       dates.add(statPoint.date);
