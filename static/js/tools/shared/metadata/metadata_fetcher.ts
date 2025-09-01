@@ -40,8 +40,13 @@ import {
   concerning date ranges or measurement methods. The respective date range or
   measurement method will not be included in the compiled metadata.
  */
-const dateRangeSuppressionProvenances = ["Wikidata", "WikipediaStatsData"];
-const measurementMethodSuppressionProvenances = ["WikipediaStatsData"];
+
+/*
+  TODO (nick-next): The following suppression lists are temporary, and will be fixed
+       in the data. Remove when data is fixed at the source.
+ */
+const DATE_RANGE_SUPPRESSION_PROVENANCES = ["Wikidata", "WikipediaStatsData"];
+const MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES = ["WikipediaStatsData"];
 
 /*
   TODO (nick-next): provide options on degree of metadata returned, in order
@@ -346,7 +351,9 @@ export async function fetchFacetsWithMetadata(
           : undefined;
         if (
           matchedSeries &&
-          !dateRangeSuppressionProvenances.includes(newFacetInfo.provenanceName)
+          !DATE_RANGE_SUPPRESSION_PROVENANCES.includes(
+            newFacetInfo.provenanceName
+          )
         ) {
           newFacetInfo.dateRangeStart = matchedSeries.earliestDate;
           newFacetInfo.dateRangeEnd = matchedSeries.latestDate;
@@ -355,7 +362,7 @@ export async function fetchFacetsWithMetadata(
 
       if (
         facetInfo.measurementMethod &&
-        !measurementMethodSuppressionProvenances.includes(
+        !MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES.includes(
           newFacetInfo.provenanceName
         )
       ) {
@@ -464,6 +471,11 @@ export async function fetchMetadata(
       const key = matchedSeries?.seriesKey ?? {};
       const unit = key.unit || facetInfo.unit;
 
+      /*
+        TODO (nick-next): Move some of this logic upstream into flask.
+            This could be part of a larger task of consolidating the
+            metadata calls in the API.
+       */
       const sourceName = provenanceData?.source?.[0]?.name;
       const provenanceName =
         provenanceData?.isPartOf?.[0]?.name ||
@@ -476,12 +488,14 @@ export async function fetchMetadata(
       const measurementMethod = key.measurementMethod;
       let measurementMethodDescription: string | undefined;
 
-      if (!dateRangeSuppressionProvenances.includes(provenanceName)) {
+      if (!DATE_RANGE_SUPPRESSION_PROVENANCES.includes(provenanceName)) {
         dateRangeStart = matchedSeries?.earliestDate;
         dateRangeEnd = matchedSeries?.latestDate;
       }
 
-      if (!measurementMethodSuppressionProvenances.includes(provenanceName)) {
+      if (
+        !MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES.includes(provenanceName)
+      ) {
         measurementMethodDescription =
           key.measurementMethod &&
           (measurementMethodMap[key.measurementMethod] ||
