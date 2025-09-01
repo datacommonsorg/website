@@ -42,6 +42,14 @@
   }
 }
 
+#dc-explore #subject-page-main-pane {
+  .category:first-of-type {
+    .block:first-of-type {
+      padding-top: 0;
+    }
+  }
+}
+
 article.category {
   h2 {
     align-items: center;
