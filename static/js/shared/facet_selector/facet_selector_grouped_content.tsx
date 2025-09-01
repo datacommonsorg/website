@@ -107,6 +107,13 @@ export function FacetSelectorGroupedContent({
     : "";
   const totalStatVars = facetList.length;
 
+  /*
+    This hook scrolls the facet selector dialog so that the currently selected item is
+    centered in view. As a useLayoutEffect, it will run after the DOM is updated but
+    before it is painted and visible to the user. The ref is used to ensure that the
+    hook runs only when the component is first displayed. This allows us to keep the
+    dependencies honest.
+   */
   useLayoutEffect(() => {
     if (hasScrolledRef.current) {
       return;
