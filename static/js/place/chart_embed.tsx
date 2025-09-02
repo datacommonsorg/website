@@ -16,6 +16,8 @@
 
 /** @jsxImportSource @emotion/react */
 
+//TODO (nick-next): Add the chart embed dialog to the screenshot test suite.
+
 import { css, ThemeContext } from "@emotion/react";
 import * as d3 from "d3";
 import React, { ReactElement, RefObject } from "react";
