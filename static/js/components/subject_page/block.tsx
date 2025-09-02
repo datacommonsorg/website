@@ -18,14 +18,22 @@
  * Component for rendering a default block (block with no type).
  */
 
+/** @jsxImportSource @emotion/react */
+
 // Import web components
 import "../../../library";
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
-import { FormattedMessage } from "react-intl";
-import { Input, UncontrolledTooltip } from "reactstrap";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { Input } from "reactstrap";
 
 import { getVariableNameProcessingFn } from "../../../library/utils";
 import { TimeScaleOption } from "../../chart/types";
@@ -37,9 +45,20 @@ import {
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
 import { intl } from "../../i18n/i18n";
+import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { messages } from "../../i18n/i18n_messages";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import { FacetSelector } from "../../shared/facet_selector/facet_selector";
+import {
+  isFeatureEnabled,
+  METADATA_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
+import { usePromiseResolver } from "../../shared/hooks/promise_resolver";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import {
+  fetchFacetChoices,
+  fetchFacetChoicesWithin,
+} from "../../tools/shared/facet_choice_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
@@ -58,6 +77,8 @@ import {
   getComparisonPlaces,
   getHighlightTileDescription,
 } from "../../utils/tile_utils";
+import { Help } from "../elements/icons/help";
+import { Tooltip } from "../elements/tooltip/tooltip";
 import { AnswerMessageTile } from "../tiles/answer_message_tile";
 import { AnswerTableTile } from "../tiles/answer_table_tile";
 import { BarTile } from "../tiles/bar_tile";
@@ -73,6 +94,7 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
+import { useStatVarSpec } from "./stat_var_spec";
 
 // Lazy load tiles (except map) when they are within 1000px of the viewport
 const EXPLORE_LAZY_LOAD_MARGIN = "1000px";
@@ -119,6 +141,19 @@ export interface BlockPropType {
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
 
+const FACET_ELIGIBLE_TILE_GROUPS = [
+  new Set(["LINE", "HIGHLIGHT"]),
+  new Set(["SCATTER"]),
+  new Set(["BAR"]),
+  new Set(["MAP", "RANKING"]),
+];
+
+const FACET_ELIGIBLE_TILES = new Set(
+  _.flatten(FACET_ELIGIBLE_TILE_GROUPS.map((group) => Array.from(group)))
+);
+
+const FACET_GROUPING_ELIGIBLE_TILES = new Set(["BAR"]);
+
 /**
  * Helper for determining if we should snap the charts in this block to the
  * best available coverage
@@ -130,8 +165,12 @@ const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
  */
 function eligibleForSnapToHighestCoverage(
   columns: ColumnConfig[],
-  statVarProvider: StatVarProvider
+  statVarProvider: StatVarProvider,
+  highlightFacet?: FacetMetadata
 ): boolean {
+  if (highlightFacet) {
+    return false;
+  }
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
   const statVarKeys = _.flatten(tiles.map((tile) => tile.statVarKey));
   const tileTypes = _.flatten(
@@ -139,13 +178,13 @@ function eligibleForSnapToHighestCoverage(
   );
   const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
 
-  const isEligibleForSnapToHighestCoverage =
+  return (
     !_.find<StatVarSpec>(statVarSpecs, (statVarSpec) => !!statVarSpec.date) &&
     !_.find(
       tileTypes,
       (tileType) => tileType !== "MAP" && tileType !== "RANKING"
-    );
-  return isEligibleForSnapToHighestCoverage;
+    )
+  );
 }
 
 /**
@@ -161,7 +200,8 @@ async function shouldEnableSnapToHighestCoverage(
   placeDcid: string,
   enclosedPlaceType: string,
   columns: ColumnConfig[],
-  statVarProvider: StatVarProvider
+  statVarProvider: StatVarProvider,
+  facetIds?: string[]
 ): Promise<boolean> {
   // Check if highest coverage & latest date observations are the same
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
@@ -170,9 +210,11 @@ async function shouldEnableSnapToHighestCoverage(
   const variableDcids = statVarSpecs.map((svs) => svs.statVar);
   const isHighestCoverageDateEqualToLatestDates =
     await highestCoverageDatesEqualLatestDates(
+      "",
       placeDcid,
       enclosedPlaceType,
-      variableDcids
+      variableDcids,
+      facetIds
     );
 
   // Only enable the snap to highest coverage checkbox if the highest coverage
@@ -180,15 +222,76 @@ async function shouldEnableSnapToHighestCoverage(
   return !isHighestCoverageDateEqualToLatestDates;
 }
 
-export function Block(props: BlockPropType): JSX.Element {
+/**
+ * Helper for determining if a block contains tiles eligible for block-level
+ * facet selection, and if so, that these blocks share common stat vars.
+ * If a block ever has tile types that are not compatible in terms of
+ * sharing a facet selector (i.e., LINE and SCATTER), we return false.
+ *
+ * @returns boolean - true if block contains eligible tiles that share stat vars
+ */
+function blockEligibleForFacetSelector(
+  columns: ColumnConfig[],
+  isWebComponentBlock: boolean
+): boolean {
+  if (isWebComponentBlock || !isFeatureEnabled(METADATA_FEATURE_FLAG)) {
+    return false;
+  }
+
+  const allChartTiles = _.flatten(columns.map((c) => c.tiles)).filter((t) =>
+    FACET_ELIGIBLE_TILES.has(t.type)
+  );
+  if (allChartTiles.length < 1) {
+    return false;
+  }
+  const firstTileType = allChartTiles[0].type;
+  const compatibilityGroup = FACET_ELIGIBLE_TILE_GROUPS.find((group) =>
+    group.has(firstTileType)
+  );
+  if (!allChartTiles.every((tile) => compatibilityGroup.has(tile.type))) {
+    return false;
+  }
+  const firstSvKey = JSON.stringify(allChartTiles[0].statVarKey.slice().sort());
+  for (const tile of allChartTiles) {
+    const currentSvKey = JSON.stringify(tile.statVarKey.slice().sort());
+    if (currentSvKey !== firstSvKey) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * This helper gets the list of stat var specs for a block, assuming all stat
+ * vars are have already been determined to be consistent across its tiles.
+ *
+ * @returns StatVarSpec[]
+ */
+function getBlockStatVarSpecs(
+  columns: ColumnConfig[],
+  statVarProvider: StatVarProvider
+): StatVarSpec[] {
+  const allTiles = _.flatten(columns.map((c) => c.tiles));
+  const firstEligibleTile = allTiles.find((t) =>
+    FACET_ELIGIBLE_TILES.has(t.type)
+  );
+  if (!firstEligibleTile) {
+    return [];
+  }
+  return statVarProvider.getSpecList(firstEligibleTile.statVarKey);
+}
+
+export function Block(props: BlockPropType): ReactElement {
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
   const [useDenom, setUseDenom] = useState(props.startWithDenom);
+  const [denom, setDenom] = useState<string>("");
   const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
     props.columns,
-    props.statVarProvider
+    props.statVarProvider,
+    props.highlightFacet
   );
   const [snapToHighestCoverage, setSnapToHighestCoverage] = useState(
     isEligibleForSnapToHighestCoverage
@@ -198,9 +301,141 @@ export function Block(props: BlockPropType): JSX.Element {
     setShowSnapToHighestCoverageCheckbox,
   ] = useState(false);
   const [enableSnapToLatestData, setEnableSnapToLatestData] = useState(true);
+  const [facetOverrides, setFacetOverrides] = useState<Record<string, string>>(
+    {}
+  );
+  const [showFacetSelector, setShowFacetSelector] = useState(false);
+  const [blockSVs, setBlockSVs] = useState<StatVarSpec[]>([]);
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
-  const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
+
+  const { getStatVarSpec, getSingleStatVarSpec } = useStatVarSpec(
+    snapToHighestCoverage,
+    useDenom,
+    denom,
+    facetOverrides,
+    props.statVarProvider
+  );
+
+  const shouldGroupFacetSelections = useMemo(() => {
+    const allTiles = _.flatten(props.columns.map((c) => c.tiles));
+    return allTiles.some((tile) =>
+      FACET_GROUPING_ELIGIBLE_TILES.has(tile.type)
+    );
+  }, [props.columns]);
+
+  /*
+    This hook prepares the block level stat vars. It determines if we
+    have tiles that allow block-level facet selection, and if all those
+    tiles share the same stat vars. If so, we set the block level stat vars
+    and enable the facet selector.
+   */
+  useEffect(() => {
+    const blockEligible = blockEligibleForFacetSelector(
+      props.columns,
+      !!props.showWebComponents
+    );
+    const newList = blockEligible
+      ? getBlockStatVarSpecs(props.columns, props.statVarProvider)
+      : [];
+    setBlockSVs((prev) => {
+      if (_.isEqual(prev, newList)) {
+        return prev;
+      }
+      return newList;
+    });
+    setShowFacetSelector(blockEligible);
+  }, [props.columns, props.showWebComponents, props.statVarProvider]);
+
+  /**
+   * A function that looks at the tiles in the block and determines
+   * whether the fetch type for the chart associated with facet
+   * selection is will use the "within" version of the fetch. This
+   * is then used to ensure the facet selector uses the appropriate
+   * call to gather the facets.
+   *
+   * @param columns
+   */
+  function determineWithinPlaceFetch(columns: ColumnConfig[]): boolean {
+    const allTiles = _.flatten(columns.map((c) => c.tiles));
+    const firstEligibleTile = allTiles.find((tile) =>
+      FACET_ELIGIBLE_TILES.has(tile.type)
+    );
+
+    if (!firstEligibleTile) {
+      return false;
+    }
+
+    switch (firstEligibleTile.type) {
+      case "SCATTER":
+      case "MAP":
+        return true;
+      case "LINE":
+      case "HIGHLIGHT":
+        return !!firstEligibleTile.enclosedPlaceTypeOverride;
+      case "BAR":
+        return _.isEmpty(firstEligibleTile.comparisonPlaces);
+      default:
+        return false;
+    }
+  }
+
+  /**
+   * A function that fetches all facet metadata shared by eligible tiles in this block.
+   *
+   * (1) If blockSVs is empty, the block contains no facet-eligible tiles, so
+   *     we return null.
+   * (2) Otherwise we pull the base facets for each place/stat var pair and then enrich
+   *     them.
+   *
+   * @returns FacetSelectorFacetInfo[] | null - an array of the enriched facets or null
+   */
+  const fetchFacets = useCallback(async () => {
+    if (_.isEmpty(blockSVs)) {
+      return null;
+    }
+    const isWithinPlaceFetch = determineWithinPlaceFetch(props.columns);
+
+    if (isWithinPlaceFetch) {
+      return fetchFacetChoicesWithin(
+        props.place.dcid,
+        props.enclosedPlaceType,
+        blockSVs.map((sv) => ({
+          dcid: sv.statVar,
+          name: sv.name,
+          date: sv.date,
+        }))
+      );
+    } else {
+      const allTiles = _.flatten(props.columns.map((c) => c.tiles));
+      const placeDcids = new Set<string>([props.place.dcid]);
+      allTiles.forEach((tile) => {
+        if (tile.placeDcidOverride) {
+          placeDcids.add(tile.placeDcidOverride);
+        }
+        getComparisonPlaces(tile, props.place)?.forEach((p) =>
+          placeDcids.add(p)
+        );
+      });
+      return fetchFacetChoices(
+        Array.from(placeDcids),
+        blockSVs.map((sv) => ({ dcid: sv.statVar, name: sv.name }))
+      );
+    }
+  }, [blockSVs, props.columns, props.enclosedPlaceType, props.place]);
+
+  const {
+    data: facetList,
+    loading: facetsLoading,
+    error: facetsError,
+  } = usePromiseResolver(fetchFacets);
+
+  const onSvFacetIdUpdated = useCallback(
+    (svFacetId: Record<string, string>): void => {
+      setFacetOverrides((prev) => ({ ...prev, ...svFacetId }));
+    },
+    []
+  );
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -232,24 +467,53 @@ export function Block(props: BlockPropType): JSX.Element {
     if (!isEligibleForSnapToHighestCoverage) {
       return;
     }
+    setShowSnapToHighestCoverageCheckbox(false);
     (async (): Promise<void> => {
       const enableSnapToHighestCoverage =
         await shouldEnableSnapToHighestCoverage(
           props.place.dcid,
           props.enclosedPlaceType,
           props.columns,
-          props.statVarProvider
+          props.statVarProvider,
+          Object.values(facetOverrides)
         );
       setEnableSnapToLatestData(enableSnapToHighestCoverage);
       setShowSnapToHighestCoverageCheckbox(true);
     })();
-  }, [props]);
+  }, [
+    isEligibleForSnapToHighestCoverage,
+    facetOverrides,
+    props.place.dcid,
+    props.enclosedPlaceType,
+    props.columns,
+    props.statVarProvider,
+  ]);
+
+  useEffect(() => {
+    setDenom(props.denom || "");
+    if (props.highlightFacet) {
+      setDenom("");
+    }
+  }, [props.highlightFacet, props.denom]);
 
   return (
     <>
-      <div className="block-controls">
-        {props.denom && (
-          <span className="block-toggle">
+      <div className={`block-controls ${!facetsLoading ? "show" : ""}`}>
+        {showFacetSelector && (
+          <div className="block-modal-trigger">
+            <FacetSelector
+              svFacetId={facetOverrides}
+              facetList={facetList}
+              loading={facetsLoading}
+              error={!!facetsError}
+              onSvFacetIdUpdated={onSvFacetIdUpdated}
+              variant="inline"
+              allowSelectionGrouping={shouldGroupFacetSelections}
+            />
+          </div>
+        )}
+        {denom && (
+          <div className="block-toggle">
             <label>
               <Input
                 type="checkbox"
@@ -260,10 +524,10 @@ export function Block(props: BlockPropType): JSX.Element {
                 {intl.formatMessage(messages.seePerCapita)}
               </span>
             </label>
-          </span>
+          </div>
         )}
         {showSnapToHighestCoverageCheckbox && (
-          <span className="block-toggle">
+          <div className="block-toggle">
             <label>
               <Input
                 checked={snapToHighestCoverage}
@@ -274,36 +538,21 @@ export function Block(props: BlockPropType): JSX.Element {
                 type="checkbox"
               />
               <span className={enableSnapToLatestData ? "" : "label-disabled"}>
-                <FormattedMessage
-                  description="Checkbox label for an option that tells a chart visualization to show the latest data available"
-                  defaultMessage="Snap to date with highest coverage"
-                  id="snap-to-latest-data-checkbox-label"
-                />
+                {intl.formatMessage(
+                  chartComponentMessages.SnapToDateHighestCoverageLabel
+                )}
               </span>
             </label>
-            <span className="material-icons" ref={snapToLatestDataInfoRef}>
-              help_outlined
-            </span>
-            <UncontrolledTooltip
-              className="dc-tooltip"
-              placement="auto"
-              target={snapToLatestDataInfoRef}
-            >
-              {enableSnapToLatestData ? (
-                <FormattedMessage
-                  description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
-                  defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
-                  id="snap-to-latest-data-help-tooltip"
-                />
-              ) : (
-                <FormattedMessage
-                  description="Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
-                  defaultMessage="The highest coverage data is also the latest data available for this chart."
-                  id="snap-to-latest-data-overlap-help-tooltip"
-                />
+            <Tooltip
+              title={intl.formatMessage(
+                enableSnapToLatestData
+                  ? chartComponentMessages.SnapToDateHighestCoverageTooltip
+                  : chartComponentMessages.SnapToDateHighestCoverageOverlapTooltip
               )}
-            </UncontrolledTooltip>
-          </span>
+            >
+              <Help className="material-icons" />
+            </Tooltip>
+          </div>
         )}
       </div>
       <div className="block-body row" ref={columnSectionRef}>
@@ -328,7 +577,7 @@ export function Block(props: BlockPropType): JSX.Element {
                         minIdxToHide,
                         overridePlaceTypes,
                         columnTileClassName,
-                        useDenom ? props.denom : "",
+                        useDenom ? denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
                           : undefined
@@ -339,8 +588,10 @@ export function Block(props: BlockPropType): JSX.Element {
                         id,
                         minIdxToHide,
                         overridePlaceTypes,
+                        getStatVarSpec,
+                        getSingleStatVarSpec,
                         columnTileClassName,
-                        useDenom ? props.denom : "",
+                        useDenom ? denom : "",
                         snapToHighestCoverage
                           ? DATE_HIGHEST_COVERAGE
                           : undefined
@@ -385,10 +636,12 @@ function renderTiles(
   columnId: string,
   minIdxToHide: number,
   overridePlaces: Record<string, NamedTypedPlace>,
+  getStatVarSpec: (svKey: string[]) => StatVarSpec[],
+  getSingleStatVarSpec: (sv: string) => StatVarSpec,
   tileClassName?: string,
   blockDenom?: string,
   blockDate?: string
-): JSX.Element {
+): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
   }
@@ -418,10 +671,7 @@ function renderTiles(
             key={id}
             description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             highlightFacet={props.highlightFacet}
           />
         );
@@ -438,10 +688,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={
@@ -469,10 +716,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             comparisonPlaces={comparisonPlaces}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            statVarSpec={getStatVarSpec(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -501,10 +745,7 @@ function renderTiles(
             title={title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
-            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            variables={getStatVarSpec(tile.statVarKey)}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -545,10 +786,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             useLollipop={tile.barTileSpec?.useLollipop}
-            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
-              blockDate,
-              blockDenom,
-            })}
+            variables={getStatVarSpec(tile.statVarKey)}
             xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
             placeNameProp={tile.placeNameProp}
@@ -560,12 +798,11 @@ function renderTiles(
           />
         );
       case "SCATTER": {
-        const statVarSpec = props.statVarProvider.getSpecList(tile.statVarKey, {
-          blockDate,
-          blockDenom,
-        });
         title = blockDenom
-          ? addPerCapitaToVersusTitle(tile.title, statVarSpec)
+          ? addPerCapitaToVersusTitle(
+              tile.title,
+              getStatVarSpec(tile.statVarKey)
+            )
           : tile.title;
         return (
           <ScatterTile
@@ -577,7 +814,7 @@ function renderTiles(
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={statVarSpec}
+            statVarSpec={getStatVarSpec(tile.statVarKey)}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
             }
@@ -720,7 +957,7 @@ function renderWebComponents(
   tileClassName?: string,
   blockDenom?: string,
   blockDate?: string
-): JSX.Element {
+): ReactElement {
   if (!tiles || !overridePlaces) {
     return <></>;
   }

@@ -22,7 +22,8 @@ from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
-MAP_URL = '/tools/map'
+# TODO(juliawu): Remove disabled feature once new UI is rolled out to production
+MAP_URL = '/tools/map?disable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
 
 
@@ -62,10 +63,10 @@ class MapTestMixin():
 
     # Assert chart is correct.
     self.assertIn(
-        'Median Age of Population ',
+        'median age of population ',
         find_elem(self.driver,
                   by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
+                  value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
 
     # Assert was have 58 map regions and 5 legends.
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
@@ -98,10 +99,10 @@ class MapTestMixin():
     # Assert that a map chart is loaded
     self.assertIsNotNone(wait_elem(self.driver, by=By.ID, value='map-items'))
     self.assertIn(
-        "Median Age of Population ",
+        "median age of population ",
         find_elem(self.driver,
                   by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
+                  value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                      52)
@@ -141,10 +142,10 @@ class MapTestMixin():
     shared.wait_for_loading(self.driver)
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
-        'Median Age of Population ',
+        'median age of population ',
         find_elem(self.driver,
                   by=By.XPATH,
-                  value='//*[@id="map-chart"]/div/div[1]/h3').text)
+                  value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
 
     # Assert we have the right number of regions and legends
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),

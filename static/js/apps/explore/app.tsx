@@ -41,6 +41,7 @@ import {
   GA_EVENT_PAGE_VIEW,
   GA_PARAM_PLACE,
   GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
   GA_PARAM_TIMING_MS,
   GA_PARAM_TOPIC,
   triggerGAEvent,
@@ -359,6 +360,7 @@ export function App(props: AppProps): ReactElement {
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${gaTitle}${document.title}`,
       page_location: window.location.href.replace("#", "?"),
+      [GA_PARAM_SOURCE]: urlHashParams.origin,
     });
     /* eslint-enable camelcase */
     if (query) {
@@ -456,19 +458,29 @@ export function App(props: AppProps): ReactElement {
           const mainPlace = extractMainPlace(fulfillResponse);
           let mainPageMetadata = extractMetadata(fulfillResponse, mainPlace);
 
-          const highlightPageMetadataResp = extractMetadata(
+          let highlightPageMetadataResp = extractMetadata(
             highlightResponse,
             mainPlace
           );
 
           if (highlightPageMetadataResp) {
+            // If we have a highlight response, prevent any place page redirection.
+            allowRedirect = false;
+
+            // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
             mainPageMetadata = filterBlocksFromPageMetadata(
               mainPageMetadata,
               highlightPageMetadataResp.pageConfig.categories.flatMap(
                 (category) => category.blocks || []
               )
             );
-            allowRedirect = false;
+
+            if (shouldSkipPlaceOverview(mainPageMetadata)) {
+              // If the main page metadata is just a place overview, this means it has no data. We can skip
+              // the main page metadata and just use the highlight page metadata.
+              mainPageMetadata = highlightPageMetadataResp;
+              highlightPageMetadataResp = null;
+            }
           }
 
           updatePageMetadata(mainPageMetadata, highlightPageMetadataResp);

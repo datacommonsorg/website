@@ -14,20 +14,28 @@
  * limitations under the License.
  */
 
+import { ThemeProvider } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
 import { Chip } from "../../shared/chip";
-import { FacetSelectorLegacy } from "../../shared/facet_selector_legacy";
+import {
+  FacetSelector,
+  FacetSelectorFacetInfo,
+} from "../../shared/facet_selector/facet_selector";
 import { PlaceSelector } from "../../shared/place_selector";
-import { PointAllApiResponse, StatMetadata } from "../../shared/stat_types";
+import { PointAllApiResponse } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
+import theme from "../../theme/theme";
 import { stringifyFn } from "../../utils/axios";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
+import { FacetResponse } from "../../utils/data_fetch_utils";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
+import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
 import { Info, InfoPlace } from "./info";
 import { Preview } from "./preview";
 import { StatVarChooser } from "./stat_var_chooser";
@@ -80,14 +88,20 @@ interface PagePropType {
 }
 
 export function Page(props: PagePropType): ReactElement {
+  const dataCommonsClient = getDataCommonsClient();
+
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
   const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);
   const [previewDisabled, setPreviewDisabled] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [validationErrors, setValidationErrors] =
     useState<ValidationErrors>(null);
-  const [facetListPromise, setFacetListPromise] = useState(Promise.resolve([]));
-  // request object used to get facetListPromise
+  const [facetList, setFacetList] = useState<FacetSelectorFacetInfo[] | null>(
+    null
+  );
+  const [facetLoading, setFacetLoading] = useState(false);
+  const [facetError, setFacetError] = useState(false);
+  // request object used to get facetList
   const facetsReqObj = useRef({});
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
@@ -104,6 +118,8 @@ export function Page(props: PagePropType): ReactElement {
 
   useEffect(() => {
     if (shouldHideSourceSelector()) {
+      setFacetList(null);
+      facetsReqObj.current = {};
       return;
     }
     let minDate = selectedOptions.minDate;
@@ -116,6 +132,8 @@ export function Page(props: PagePropType): ReactElement {
       maxDate = DATE_LATEST;
     } else {
       if (!isValidDateInput(minDate) || !isValidDateInput(maxDate)) {
+        setFacetList(null);
+        facetsReqObj.current = {};
         return;
       }
     }
@@ -133,37 +151,57 @@ export function Page(props: PagePropType): ReactElement {
       variables: Object.keys(selectedOptions.selectedStatVars),
     };
     // if req object is the same as the one used for current
-    // svSourceListPromise, then don't need to update svSourceListPromise
-    if (_.isEqual(reqObj, facetsReqObj)) {
+    // request, then don't refetch
+    if (_.isEqual(reqObj, facetsReqObj.current)) {
       return;
     }
     facetsReqObj.current = reqObj;
-    setFacetListPromise(
-      axios
-        .get("/api/facets/within", {
-          params: reqObj,
-          paramsSerializer: stringifyFn,
-        })
-        .then((resp) => {
-          const facetResp: PointAllApiResponse = resp.data;
-          const sourceSelectorFacetList = [];
-          for (const sv in selectedOptions.selectedStatVars) {
-            if (sv in facetResp.data) {
-              const metadataMap: Record<string, StatMetadata> = {};
-              for (const item of facetResp.data[sv][""]) {
-                metadataMap[item.facet] = facetResp.facets[item.facet];
+    setFacetLoading(true);
+    setFacetError(false);
+    setFacetList(null);
+    axios
+      .get("/api/facets/within", {
+        params: reqObj,
+        paramsSerializer: stringifyFn,
+      })
+      .then(async (resp) => {
+        const baseFacetData: PointAllApiResponse = resp.data;
+        const baseFacets: FacetResponse = {};
+        for (const sv in selectedOptions.selectedStatVars) {
+          if (baseFacetData.data[sv] && baseFacetData.data[sv][""]) {
+            baseFacets[sv] = {};
+            for (const item of baseFacetData.data[sv][""]) {
+              if (baseFacetData.facets[item.facet]) {
+                baseFacets[sv][item.facet] = baseFacetData.facets[item.facet];
               }
-              sourceSelectorFacetList.push({
-                dcid: sv,
-                metadataMap,
-                name: selectedOptions.selectedStatVars[sv].title || sv,
-              });
             }
           }
-          return sourceSelectorFacetList;
-        })
-    );
-  }, [selectedOptions]);
+        }
+
+        const enrichedFacets = await fetchFacetsWithMetadata(
+          baseFacets,
+          dataCommonsClient
+        );
+
+        const sourceSelectorFacetList = [];
+        for (const sv in enrichedFacets) {
+          if (selectedOptions.selectedStatVars[sv]) {
+            sourceSelectorFacetList.push({
+              dcid: sv,
+              metadataMap: enrichedFacets[sv],
+              name: selectedOptions.selectedStatVars[sv].title || sv,
+            });
+          }
+        }
+        setFacetList(sourceSelectorFacetList);
+      })
+      .catch(() => {
+        setFacetError(true);
+      })
+      .finally(() => {
+        setFacetLoading(false);
+      });
+  }, [selectedOptions, dataCommonsClient]);
 
   if (!selectedOptions || !validationErrors) {
     return <></>;
@@ -174,7 +212,7 @@ export function Page(props: PagePropType): ReactElement {
     _.isEmpty(validationErrors.incompleteSelectionMessage) && !showPreview;
   return (
     // TODO: Try to move the options into a separate component.
-    <>
+    <ThemeProvider theme={theme}>
       <StatVarChooser
         statVars={selectedOptions.selectedStatVars}
         placeDcid={selectedOptions.selectedPlace.dcid}
@@ -356,9 +394,12 @@ export function Page(props: PagePropType): ReactElement {
             </div>
             {!shouldHideSourceSelector() && (
               <div className="download-option-section">
-                <FacetSelectorLegacy
+                <FacetSelector
+                  mode="download"
                   svFacetId={selectedOptions.selectedFacets}
-                  facetListPromise={facetListPromise}
+                  facetList={facetList}
+                  loading={facetLoading}
+                  error={facetError}
                   onSvFacetIdUpdated={(svFacetId): void => {
                     setSelectedOptions((prev) => {
                       return { ...prev, selectedFacets: svFacetId };
@@ -396,7 +437,7 @@ export function Page(props: PagePropType): ReactElement {
         )}
         {showInfo && <Info infoPlaces={props.infoPlaces} />}
       </div>
-    </>
+    </ThemeProvider>
   );
 
   function selectStatVar(dcid: string, info: StatVarInfo): void {

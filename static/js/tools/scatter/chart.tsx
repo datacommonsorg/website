@@ -21,7 +21,7 @@
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import { Card } from "reactstrap";
 
@@ -35,7 +35,7 @@ import {
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
-import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_PLOT,
   GA_PARAM_PLACE_DCID,
@@ -46,7 +46,8 @@ import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { ToolChartFooter } from "../shared/tool_chart_footer";
+import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
+import { ToolChartHeader } from "../shared/vis_tools/tool_chart_header";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { DisplayOptionsWrapper, PlaceInfo } from "./context";
 import { PlotOptions } from "./plot_options";
@@ -67,6 +68,8 @@ interface ChartPropsType {
   sources: Set<string>;
   svFacetId: Record<string, string>;
   facetList: FacetSelectorFacetInfo[];
+  facetListLoading: boolean;
+  facetListError: boolean;
   onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
 }
 
@@ -76,7 +79,7 @@ const MAP_LEGEND_CONTAINER_ID = "legend-container";
 const CONTAINER_ID = "chart";
 const DEBOUNCE_INTERVAL_MS = 30;
 
-export function Chart(props: ChartPropsType): JSX.Element {
+export function Chart(props: ChartPropsType): ReactElement {
   const svgContainerRef = useRef<HTMLDivElement>();
   const tooltipRef = useRef<HTMLDivElement>();
   const chartContainerRef = useRef<HTMLDivElement>();
@@ -168,6 +171,13 @@ export function Chart(props: ChartPropsType): JSX.Element {
 
   return (
     <div id="chart" className="chart-section-container" ref={chartContainerRef}>
+      <ToolChartHeader
+        svFacetId={props.svFacetId}
+        facetList={props.facetList}
+        facetListLoading={props.facetListLoading}
+        facetListError={props.facetListError}
+        onSvFacetIdUpdated={props.onSvFacetIdUpdated}
+      />
       <Card className="chart-card">
         <div className="chart-title">
           <h3>{yTitle}</h3>
@@ -186,9 +196,6 @@ export function Chart(props: ChartPropsType): JSX.Element {
         chartId="scatter"
         sources={props.sources}
         mMethods={null}
-        svFacetId={props.svFacetId}
-        facetList={props.facetList}
-        onSvFacetIdUpdated={props.onSvFacetIdUpdated}
         hideIsRatio={true}
       >
         <PlotOptions />
@@ -212,7 +219,9 @@ function clearSVGs(): void {
  * Plots the chart which could either be a scatter plot or map.
  * @param svgContainerRef Ref for the container to plot the chart within
  * @param tooltipRef Ref for the tooltip div
+ * @param mapLegendRef
  * @param props Options and information about the chart
+ * @param geoJsonData
  */
 function plot(
   svgContainerRef: React.MutableRefObject<HTMLDivElement>,
@@ -313,7 +322,7 @@ function getTooltipElement(
   yLabel: string,
   xPerCapita: boolean,
   yPerCapita: boolean
-): JSX.Element {
+): ReactElement {
   let supIndex = 0;
   const xPopDateMessage =
     xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate)

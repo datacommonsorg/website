@@ -81,16 +81,29 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
     null
   );
 
+  const {
+    statVarSpec,
+    place,
+    highlightFacet,
+    apiRoot,
+    description: highlightDesc,
+  } = props;
+
   useEffect(() => {
     (async (): Promise<void> => {
       try {
-        const data = await fetchData(props);
+        const data = await fetchData(
+          place,
+          statVarSpec,
+          highlightFacet,
+          apiRoot
+        );
         setHighlightData(data);
       } catch {
         setHighlightData(null);
       }
     })();
-  }, [props]);
+  }, [apiRoot, highlightFacet, place, statVarSpec, highlightDesc]);
 
   if (!highlightData) {
     return null;
@@ -166,32 +179,33 @@ export function getDescription(
 }
 
 export const fetchData = async (
-  props: HighlightTilePropType
+  place: NamedTypedPlace,
+  statVarSpec: StatVarSpec,
+  highlightFacet: FacetMetadata,
+  apiRoot?: string
 ): Promise<HighlightData> => {
+  const facetId = highlightFacet
+    ? undefined
+    : statVarSpec.facetId
+    ? [statVarSpec.facetId]
+    : undefined;
   // Now assume highlight only talks about one stat var.
   const statPromise = getPoint(
-    props.apiRoot,
-    [props.place.dcid],
-    [props.statVarSpec.statVar],
-    props.statVarSpec.date,
+    apiRoot,
+    [place.dcid],
+    [statVarSpec.statVar],
+    statVarSpec.date,
     undefined,
-    props.highlightFacet
+    highlightFacet,
+    facetId
   );
-  const denomPromise = props.statVarSpec.denom
-    ? getSeries(
-        props.apiRoot,
-        [props.place.dcid],
-        [props.statVarSpec.denom],
-        [],
-        props.highlightFacet
-      )
+  const denomPromise = statVarSpec.denom
+    ? getSeries(apiRoot, [place.dcid], [statVarSpec.denom], [], highlightFacet)
     : Promise.resolve(null);
   const [statResp, denomResp] = await Promise.all([statPromise, denomPromise]);
-  const mainStatData = _.isArray(
-    statResp.data[props.statVarSpec.statVar][props.place.dcid]
-  )
-    ? statResp.data[props.statVarSpec.statVar][props.place.dcid][0]
-    : statResp.data[props.statVarSpec.statVar][props.place.dcid];
+  const mainStatData = _.isArray(statResp.data[statVarSpec.statVar][place.dcid])
+    ? statResp.data[statVarSpec.statVar][place.dcid][0]
+    : statResp.data[statVarSpec.statVar][place.dcid];
   let value = mainStatData.value;
 
   const facets: Record<string, StatMetadata> = {};
@@ -201,10 +215,10 @@ export const fetchData = async (
 
   if (mainStatData.facet && facet) {
     facets[mainStatData.facet] = facet;
-    if (!statVarToFacets[props.statVarSpec.statVar]) {
-      statVarToFacets[props.statVarSpec.statVar] = new Set();
+    if (!statVarToFacets[statVarSpec.statVar]) {
+      statVarToFacets[statVarSpec.statVar] = new Set();
     }
-    statVarToFacets[props.statVarSpec.statVar].add(mainStatData.facet);
+    statVarToFacets[statVarSpec.statVar].add(mainStatData.facet);
   }
 
   const sources = new Set<string>();
@@ -212,27 +226,39 @@ export const fetchData = async (
     sources.add(facet.provenanceUrl);
   }
   const { unit, scaling, numFractionDigits } = getStatFormat(
-    props.statVarSpec,
+    statVarSpec,
     statResp
   );
   let numFractionDigitsUsed: number;
-  if (props.statVarSpec.denom) {
+  if (statVarSpec.denom) {
     const denomInfo = getDenomInfo(
-      props.statVarSpec,
+      statVarSpec,
       denomResp,
-      props.place.dcid,
+      place.dcid,
       mainStatData.date
     );
     if (denomInfo && value) {
       value /= denomInfo.value;
-      sources.add(denomInfo.source);
+      const denomSeries = denomResp.data[statVarSpec.denom]?.[place.dcid];
+
+      if (denomSeries?.facet) {
+        const denomFacet = denomResp.facets[denomSeries.facet];
+        if (denomFacet) {
+          sources.add(denomFacet.provenanceUrl);
+          facets[denomSeries.facet] = denomFacet;
+          if (!statVarToFacets[statVarSpec.denom]) {
+            statVarToFacets[statVarSpec.denom] = new Set<string>();
+          }
+          statVarToFacets[statVarSpec.denom].add(denomSeries.facet);
+        }
+      }
     } else {
       value = null;
     }
   }
   let errorMsg = "";
   if (_.isUndefined(value) || _.isNull(value)) {
-    errorMsg = getNoDataErrorMsg([props.statVarSpec]);
+    errorMsg = getNoDataErrorMsg([statVarSpec]);
   } else {
     // Only do additional calculations if value is not null or undefined
     // If value is a decimal, calculate the numFractionDigits as the number of

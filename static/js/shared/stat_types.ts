@@ -27,8 +27,14 @@ export interface StatMetadata {
   measurementMethod?: string;
   observationPeriod?: string;
   scalingFactor?: string;
+  isDcAggregate?: boolean;
   unit?: string;
   unitDisplayName?: string;
+  sourceName?: string;
+  provenanceName?: string;
+  measurementMethodDescription?: string;
+  dateRangeStart?: string;
+  dateRangeEnd?: string;
 }
 
 export interface Observation {

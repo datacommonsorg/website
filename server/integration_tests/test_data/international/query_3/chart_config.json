@@ -34,6 +34,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices.",
             "title": "GDP (Nominal Value) in Eurostat Nuts 3 Places of Spain"
           },
           {
@@ -63,6 +64,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices.",
             "title": "GDP (Nominal Value)"
           },
           {
@@ -91,6 +93,7 @@
                 ]
               }
             ],
+            "description": "Measure of a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
             "title": "Nominal GDP Per Capita"
           },
           {
@@ -119,6 +122,7 @@
                 ]
               }
             ],
+            "description": "The percentage change in a country's gross domestic product (GDP) over a specific period.",
             "title": "Growth Rate of GDP"
           },
           {
@@ -150,6 +154,7 @@
                 ]
               }
             ],
+            "description": "Measure of a country's total economic output per person, calculated by dividing the nominal GDP by the population.",
             "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain"
           },
           {
@@ -178,7 +183,69 @@
                 ]
               }
             ],
+            "description": "Measure of a country's total economic output per person, calculated by dividing the nominal GDP by the population.",
             "title": "Economic Activity: Nominal GDP (Nominal, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/nm9hcklgg5zb3"
+                    ],
+                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/nm9hcklgg5zb3"
+                    ],
+                    "title": "Population: Employed in Eurostat Nuts 3 Places of Spain (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Employed in Eurostat Nuts 3 Places of Spain"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/nm9hcklgg5zb3"
+                    ],
+                    "title": "Population: Employed in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Employed in Spain",
+                    "statVarKey": [
+                      "dc/nm9hcklgg5zb3"
+                    ],
+                    "title": "Population: Employed in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Employed"
           },
           {
             "columns": [
@@ -226,6 +293,10 @@
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          },
+          "dc/nm9hcklgg5zb3": {
+            "name": "Population: Employed",
+            "statVar": "dc/nm9hcklgg5zb3"
           },
           "sdg/EN_MAT_DOMCMPG": {
             "name": "Domestic material consumption per unit of GDP",

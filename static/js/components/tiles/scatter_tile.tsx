@@ -25,6 +25,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -42,6 +43,10 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -147,6 +152,10 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
   >(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
+  /*
+    TODO: (nick-next) destructure the props similarly to highlight to
+          allow a complete dependency array.
+   */
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;
@@ -166,7 +175,16 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
         setIsLoading(false);
       }
     })();
-  }, [props, scatterChartData, shouldLoad]);
+  }, [
+    props.lazyLoad,
+    props.apiRoot,
+    props.place.dcid,
+    props.placeNameProp,
+    props.enclosedPlaceType,
+    props.statVarSpec,
+    scatterChartData,
+    shouldLoad,
+  ]);
 
   const drawFn = useCallback(() => {
     if (!scatterChartData || !areDataPropsEqual()) {
@@ -188,6 +206,36 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
 
   useDrawOnResize(drawFn, svgContainer.current);
 
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!scatterChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const entityExpression = `${props.place.dcid}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      const defaultDate =
+        getFirstCappedStatVarSpecDate(props.statVarSpec) || "LATEST";
+      return buildObservationSpecs({
+        statVarSpecs: props.statVarSpec,
+        statVarToFacets: scatterChartData.statVarToFacets,
+        entityExpression,
+        defaultDate,
+      });
+    };
+  }, [
+    scatterChartData,
+    props.place,
+    props.enclosedPlaceType,
+    props.statVarSpec,
+  ]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
@@ -196,6 +244,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props, scatterChartData)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={scatterChartData && scatterChartData.errorMsg}
       id={props.id}
       isInitialLoading={_.isNull(scatterChartData)}
@@ -466,6 +515,19 @@ function rawToChart(
       point.xPopDate = denomInfo.date;
       point.xPopVal = denomInfo.value;
       sources.add(denomInfo.source);
+      const xDenomStatVar = xStatVar.denom;
+      const xDenomSeries = rawData.population.data?.[xDenomStatVar]?.[place];
+      if (xDenomSeries?.facet) {
+        const denomFacetId = xDenomSeries.facet;
+        const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
+        if (denomFacetMetadata) {
+          facets[denomFacetId] = denomFacetMetadata;
+          if (!statVarToFacets[xDenomStatVar]) {
+            statVarToFacets[xDenomStatVar] = new Set<string>();
+          }
+          statVarToFacets[xDenomStatVar].add(denomFacetId);
+        }
+      }
     }
     if (xUnitScaling.scaling) {
       point.xVal *= xUnitScaling.scaling;
@@ -485,6 +547,19 @@ function rawToChart(
       point.yPopDate = denomInfo.date;
       point.yPopVal = denomInfo.value;
       sources.add(denomInfo.source);
+      const yDenomStatVar = yStatVar.denom;
+      const yDenomSeries = rawData.population.data?.[yDenomStatVar]?.[place];
+      if (yDenomSeries?.facet) {
+        const denomFacetId = yDenomSeries.facet;
+        const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
+        if (denomFacetMetadata) {
+          facets[denomFacetId] = denomFacetMetadata;
+          if (!statVarToFacets[yDenomStatVar]) {
+            statVarToFacets[yDenomStatVar] = new Set<string>();
+          }
+          statVarToFacets[yDenomStatVar].add(denomFacetId);
+        }
+      }
     }
     if (yUnitScaling.scaling) {
       point.yVal *= yUnitScaling.scaling;

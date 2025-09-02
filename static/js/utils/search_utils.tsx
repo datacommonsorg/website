@@ -20,19 +20,21 @@ import React from "react";
 import { StatVarSearchResult } from "../shared/types";
 
 /**
- * Given a query for a list of places, returns a promise with stat vars and
+ * Given a query for a list of entities, returns a promise with stat vars and
  * stat var groups that match the query
  */
 export function getStatVarSearchResults(
   query: string,
-  places: string[],
-  svOnly: boolean
+  entities: string[],
+  svOnly: boolean,
+  limit = 100
 ): Promise<StatVarSearchResult> {
   const url = "/api/stats/stat-var-search";
   const payload = {
     query,
-    places,
+    entities,
     svOnly,
+    limit,
   };
   return axios.post(url, payload).then((resp) => {
     const data = resp.data;

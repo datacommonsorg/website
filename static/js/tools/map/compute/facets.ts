@@ -16,47 +16,80 @@
 
 // Custom hook to compute the list of facets to show in source selector.
 
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useState } from "react";
 
-import { FacetSelectorFacetInfo } from "../../../shared/facet_selector";
-import { StatMetadata } from "../../../shared/stat_types";
+import { FacetSelectorFacetInfo } from "../../../shared/facet_selector/facet_selector";
+import { getDataCommonsClient } from "../../../utils/data_commons_client";
+import { FacetResponse } from "../../../utils/data_fetch_utils";
+import { fetchFacetsWithMetadata } from "../../shared/metadata/metadata_fetcher";
 import { ChartStore } from "../chart_store";
 import { Context } from "../context";
 import { useAllStatReady } from "../ready_hooks";
 
-export function useComputeFacetList(
-  chartStore: ChartStore
-): FacetSelectorFacetInfo[] {
+export function useComputeFacetList(chartStore: ChartStore): {
+  facetList: FacetSelectorFacetInfo[];
+  facetListLoading: boolean;
+  facetListError: boolean;
+} {
   const { statVar } = useContext(Context);
   const allStatReady = useAllStatReady(chartStore);
-  return useMemo(() => {
-    if (!statVar.value.info || !allStatReady()) {
-      return null;
+  const [facetList, setFacetList] = useState([]);
+  const [facetListLoading, setFacetListLoading] = useState(false);
+  const [facetListError, setFacetListError] = useState(false);
+  const dataCommonsClient = getDataCommonsClient();
+
+  useEffect(() => {
+    if (!allStatReady()) {
+      setFacetList([]);
+      return;
     }
-    const filteredMetadataMap: Record<string, StatMetadata> = {};
-    const facets = chartStore.allStat.data.facets;
-    const data = chartStore.allStat.data.data;
-    for (const place in data) {
-      for (const obs of data[place]) {
-        if (obs.facet in facets) {
-          filteredMetadataMap[obs.facet] = facets[obs.facet];
+
+    setFacetListLoading(true);
+    setFacetListError(false);
+
+    const allStatData = chartStore.allStat.data;
+    const svDcid = statVar.value.dcid;
+    if (!svDcid) {
+      setFacetList([]);
+      setFacetListLoading(false);
+      return;
+    }
+
+    const baseFacets: FacetResponse = { [svDcid]: {} };
+    const data = allStatData.data;
+
+    if (data) {
+      for (const place in data) {
+        for (const obs of data[place]) {
+          if (allStatData.facets[obs.facet]) {
+            baseFacets[svDcid][obs.facet] = allStatData.facets[obs.facet];
+          }
         }
       }
     }
-    return [
-      {
-        dcid: statVar.value.dcid,
-        metadataMap: filteredMetadataMap,
-        name:
-          statVar.value.dcid in statVar.value.info
-            ? statVar.value.info[statVar.value.dcid].title
-            : statVar.value.dcid,
-      },
-    ];
-  }, [
-    statVar.value.dcid,
-    statVar.value.info,
-    chartStore.allStat.data,
-    allStatReady,
-  ]);
+
+    fetchFacetsWithMetadata(baseFacets, dataCommonsClient)
+      .then((enrichedMap) => {
+        if (!enrichedMap[svDcid]) {
+          setFacetList([]);
+          setFacetListLoading(false);
+          return;
+        }
+        const finalFacetList = [
+          {
+            dcid: svDcid,
+            name: statVar.value.info[svDcid]?.title || svDcid,
+            metadataMap: enrichedMap[svDcid],
+          },
+        ];
+        setFacetList(finalFacetList);
+        setFacetListLoading(false);
+      })
+      .catch(() => {
+        setFacetListError(true);
+        setFacetListLoading(false);
+      });
+  }, [allStatReady, chartStore.allStat.data, statVar.value, dataCommonsClient]);
+
+  return { facetList, facetListLoading, facetListError };
 }

@@ -19,6 +19,7 @@
  */
 
 import { DataCommonsClient } from "@datacommonsorg/client";
+import { startCase } from "lodash";
 
 import { StatMetadata } from "../../../shared/stat_types";
 import { NamedNode, StatVarFacetMap } from "../../../shared/types";
@@ -33,6 +34,19 @@ import {
 /**
  * This module contains helper functions for fetching and processing metadata.
  */
+
+/* 
+  The following are lists of provenances that contain known incorrect or otherwise
+  concerning date ranges or measurement methods. The respective date range or
+  measurement method will not be included in the compiled metadata.
+ */
+
+/*
+  TODO (nick-next): The following suppression lists are temporary, and will be fixed
+       in the data. Remove when data is fixed at the source.
+ */
+const DATE_RANGE_SUPPRESSION_PROVENANCES = ["Wikidata", "WikipediaStatsData"];
+const MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES = ["WikipediaStatsData"];
 
 /*
   TODO (nick-next): provide options on degree of metadata returned, in order
@@ -103,7 +117,7 @@ function matchSeriesByFacet(
  * @param dataCommonsClient - Client for Data Commons API calls
  * @returns Promise of an array of named nodes sorted by name
  */
-async function fetchStatVarNames(
+export async function fetchStatVarNames(
   statVars: string[],
   dataCommonsClient: DataCommonsClient
 ): Promise<NamedNode[]> {
@@ -132,7 +146,7 @@ async function fetchStatVarNames(
  * @param apiRoot - Optional API root URL for requests
  * @returns Promise of a mapping of stat var DCIDs to category names
  */
-async function fetchStatVarCategories(
+export async function fetchStatVarCategories(
   statVars: string[],
   apiRoot = ""
 ): Promise<Record<string, string[]>> {
@@ -196,7 +210,7 @@ async function fetchStatVarCategories(
  * @param apiRoot - Optional API root URL for requests
  * @returns A mapping of stat var DCIDs to provenance/series summaries
  */
-async function fetchStatVarProvenanceSummaries(
+export async function fetchStatVarProvenanceSummaries(
   statVars: string[],
   apiRoot = ""
 ): Promise<Record<string, StatVarProvenanceSummaries>> {
@@ -218,7 +232,7 @@ async function fetchStatVarProvenanceSummaries(
  * @param apiRoot - Optional API root URL for requests
  * @returns A mapping of stat var DCIDs to provenance data
  */
-async function fetchProvenanceInfo(
+export async function fetchProvenanceInfo(
   statVars: string[],
   facets: FacetResponse | Record<string, StatMetadata>,
   statVarToFacets: StatVarFacetMap | undefined,
@@ -226,14 +240,15 @@ async function fetchProvenanceInfo(
 ): Promise<Record<string, Provenance>> {
   const provenanceEndpoints = new Set<string>();
   statVars.forEach((statVarId) => {
-    if (statVarToFacets[statVarId]) {
-      statVarToFacets[statVarId].forEach((facetId) => {
-        const importName = getFacetInfo(statVarId, facetId, facets)?.importName;
-        if (importName) {
-          provenanceEndpoints.add(`dc/base/${importName}`);
-        }
-      });
-    }
+    const facetIds = statVarToFacets
+      ? statVarToFacets[statVarId] || []
+      : Object.keys(facets[statVarId] || {});
+    facetIds.forEach((facetId: string) => {
+      const importName = getFacetInfo(statVarId, facetId, facets)?.importName;
+      if (importName) {
+        provenanceEndpoints.add(`dc/base/${importName}`);
+      }
+    });
   });
 
   const provenanceMap: Record<string, Provenance> = {};
@@ -249,22 +264,120 @@ async function fetchProvenanceInfo(
 }
 
 /**
- * Fetches descriptions of the measurement methods from a
- * list of identifiers.
+ * Fetches the first of a specific property for a given set of nodes. This is used
+ * to lookup names or descriptions of items such as measuring methods.
  *
- * @param measurementMethods - Set of measurement method identifiers
- * @param dataCommonsClient - Client for Data Commons API calls
- * @returns A mapping of measurement methods to descriptions
+ * @param dcids - A Set of DCIDs for the nodes.
+ * @param prop - The property to fetch for each node (e.g., "name", "description").
+ * @param dataCommonsClient - Client for Data Commons API calls.
+ * @returns A mapping of measurement methods to the requested property value.
  */
-async function fetchMeasurementMethodDescriptions(
-  measurementMethods: Set<string>,
+async function fetchNodeProperty(
+  dcids: Set<string>,
+  prop: string,
   dataCommonsClient: DataCommonsClient
 ): Promise<Record<string, string>> {
-  if (!measurementMethods.size) return {};
+  if (!dcids.size) {
+    return {};
+  }
   return dataCommonsClient.getFirstNodeValues({
-    dcids: Array.from(measurementMethods),
-    prop: "description",
+    dcids: Array.from(dcids),
+    prop,
   });
+}
+
+/**
+ * Fetches and enriches facet metadata with human-readable and supplementary
+ * information like source names, date ranges, and descriptions.
+ * @param facets The basic facet response from an API call like getFacets.
+ * @param dataCommonsClient Client for Data Commons API calls.
+ * @param apiRoot Optional API root URL for requests.
+ * @returns The facets with enriched StatMetadata.
+ */
+export async function fetchFacetsWithMetadata(
+  facets: FacetResponse,
+  dataCommonsClient: DataCommonsClient,
+  apiRoot = ""
+): Promise<FacetResponse> {
+  const statVars = Object.keys(facets);
+  if (!statVars.length) return {};
+
+  const measurementMethods = new Set<string>();
+  const units = new Set<string>();
+  const statVarSet = new Set<string>();
+  for (const sv in facets) {
+    statVarSet.add(sv);
+    for (const facetId in facets[sv]) {
+      const facet = facets[sv][facetId];
+      if (facet.measurementMethod) {
+        measurementMethods.add(facet.measurementMethod);
+      }
+      if (facet.unit) {
+        units.add(facet.unit);
+      }
+    }
+  }
+
+  const [provenanceMap, variableData, measurementMethodMap, unitMap] =
+    await Promise.all([
+      fetchProvenanceInfo(statVars, facets, undefined, apiRoot),
+      fetchStatVarProvenanceSummaries(statVars, apiRoot),
+      fetchNodeProperty(measurementMethods, "description", dataCommonsClient),
+      fetchNodeProperty(units, "name", dataCommonsClient),
+    ]);
+
+  const enrichedFacets: FacetResponse = {};
+  for (const statVarId of statVars) {
+    enrichedFacets[statVarId] = {};
+    for (const facetId in facets[statVarId]) {
+      const facetInfo = facets[statVarId][facetId];
+      const newFacetInfo = { ...facetInfo };
+
+      if (facetInfo.importName) {
+        const provenanceId = `dc/base/${facetInfo.importName}`;
+        const provenanceData = provenanceMap[provenanceId];
+        if (provenanceData) {
+          newFacetInfo.sourceName = provenanceData.source?.[0]?.name;
+          newFacetInfo.provenanceName =
+            provenanceData.isPartOf?.[0]?.name ||
+            provenanceData.name?.[0]?.value ||
+            facetInfo.importName;
+        }
+        const seriesList =
+          variableData[statVarId]?.provenanceSummary?.[provenanceId]
+            ?.seriesSummary;
+        const matchedSeries = Array.isArray(seriesList)
+          ? matchSeriesByFacet(seriesList, facetInfo)
+          : undefined;
+        if (
+          matchedSeries &&
+          !DATE_RANGE_SUPPRESSION_PROVENANCES.includes(
+            newFacetInfo.provenanceName
+          )
+        ) {
+          newFacetInfo.dateRangeStart = matchedSeries.earliestDate;
+          newFacetInfo.dateRangeEnd = matchedSeries.latestDate;
+        }
+      }
+
+      if (
+        facetInfo.measurementMethod &&
+        !MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES.includes(
+          newFacetInfo.provenanceName
+        )
+      ) {
+        newFacetInfo.measurementMethodDescription =
+          measurementMethodMap[facetInfo.measurementMethod] ||
+          startCase(facetInfo.measurementMethod.replace(/_/g, " "));
+      }
+      if (facetInfo.unit) {
+        newFacetInfo.unitDisplayName =
+          unitMap[facetInfo.unit] || facetInfo.unit.replace(/_/g, " ");
+      }
+      enrichedFacets[statVarId][facetId] = newFacetInfo;
+    }
+  }
+  return enrichedFacets;
 }
 
 /**
@@ -306,9 +419,13 @@ export async function fetchMetadata(
   );
 
   const measurementMethods = new Set<string>();
+  const units = new Set<string>();
   for (const statVarId of statVars) {
     (statVarToFacets?.[statVarId] ?? new Set<string>()).forEach((facetId) => {
       const facetInfo = getFacetInfo(statVarId, facetId, facets);
+      if (facetInfo?.unit) {
+        units.add(facetInfo.unit);
+      }
       if (!facetInfo?.importName) return;
 
       const provId = `dc/base/${facetInfo.importName}`;
@@ -323,10 +440,10 @@ export async function fetchMetadata(
       }
     });
   }
-  const measurementMethodMap = await fetchMeasurementMethodDescriptions(
-    measurementMethods,
-    dataCommonsClient
-  );
+  const [measurementMethodMap, unitMap] = await Promise.all([
+    fetchNodeProperty(measurementMethods, "description", dataCommonsClient),
+    fetchNodeProperty(units, "name", dataCommonsClient),
+  ]);
 
   const metadata: Record<string, StatVarMetadata[]> = {};
   for (const statVarId of statVars) {
@@ -352,6 +469,38 @@ export async function fetchMetadata(
         : undefined;
 
       const key = matchedSeries?.seriesKey ?? {};
+      const unit = key.unit || facetInfo.unit;
+
+      /*
+        TODO (nick-next): Move some of this logic upstream into flask.
+            This could be part of a larger task of consolidating the
+            metadata calls in the API.
+       */
+      const sourceName = provenanceData?.source?.[0]?.name;
+      const provenanceName =
+        provenanceData?.isPartOf?.[0]?.name ||
+        provenanceData?.name?.[0]?.value ||
+        importName;
+
+      let dateRangeStart: string | undefined;
+      let dateRangeEnd: string | undefined;
+
+      const measurementMethod = key.measurementMethod;
+      let measurementMethodDescription: string | undefined;
+
+      if (!DATE_RANGE_SUPPRESSION_PROVENANCES.includes(provenanceName)) {
+        dateRangeStart = matchedSeries?.earliestDate;
+        dateRangeEnd = matchedSeries?.latestDate;
+      }
+
+      if (
+        !MEASUREMENT_METHODS_SUPPRESSION_PROVENANCES.includes(provenanceName)
+      ) {
+        measurementMethodDescription =
+          key.measurementMethod &&
+          (measurementMethodMap[key.measurementMethod] ||
+            startCase(key.measurementMethod.replace(/_/g, " ")));
+      }
 
       metadata[statVarId].push({
         statVarId,
@@ -359,26 +508,20 @@ export async function fetchMetadata(
           statVarList.find((node) => node.dcid === statVarId)?.name ??
           statVarId,
         categories: statVarCategoryMap[statVarId] ?? [],
-        sourceName: provenanceData?.source?.[0]?.name,
+        sourceName,
         provenanceUrl: provenanceData?.url?.[0]?.value,
-        provenanceName:
-          provenanceData?.isPartOf?.[0]?.name ||
-          provenanceData?.name?.[0]?.value ||
-          importName,
-        dateRangeStart: matchedSeries?.earliestDate,
-        dateRangeEnd: matchedSeries?.latestDate,
-        unit: key.unit,
+        provenanceName,
+        dateRangeStart,
+        dateRangeEnd,
+        unit: unit ? unitMap[unit] || unit.replace(/_/g, " ") : unit,
         observationPeriod: key.observationPeriod,
         periodicity:
           variableData[statVarId]?.provenanceSummary?.[provenanceId]
             ?.releaseFrequency,
         license: provenanceData?.licenseType?.[0]?.name,
         licenseDcid: provenanceData?.licenseType?.[0]?.dcid,
-        measurementMethod: key.measurementMethod,
-        measurementMethodDescription:
-          key.measurementMethod &&
-          (measurementMethodMap[key.measurementMethod] ??
-            key.measurementMethod),
+        measurementMethod,
+        measurementMethodDescription,
       });
     }
   }

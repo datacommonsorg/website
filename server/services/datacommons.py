@@ -23,6 +23,7 @@ import requests
 
 from server.lib import log
 from server.lib.cache import cache
+from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
@@ -32,7 +33,7 @@ cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
-@cache.memoize(timeout=TIMEOUT)
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
   headers = {'Content-Type': 'application/json'}
   dc_api_key = current_app.config.get('DC_API_KEY', '')
@@ -58,7 +59,7 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-@cache.memoize(timeout=TIMEOUT)
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
   headers = {'Content-Type': 'application/json'}
@@ -506,6 +507,14 @@ def search_statvar(query, places, sv_only):
       'query': query,
       'places': places,
       "sv_only": sv_only,
+  })
+
+
+def filter_statvars(stat_vars, entities):
+  url = get_service_url('/v2/variable/filter')
+  return post(url, {
+      'stat_vars': stat_vars,
+      'entities': entities,
   })
 
 

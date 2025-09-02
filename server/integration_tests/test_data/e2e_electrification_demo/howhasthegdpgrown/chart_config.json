@@ -10,8 +10,8 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/ETH",
                       "country/MAR",
+                      "country/ETH",
                       "country/KEN",
                       "country/GHA",
                       "country/SEN",
@@ -31,22 +31,11 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices",
             "title": "GDP (Nominal Value)"
           },
           {
             "columns": [
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  }
-                ]
-              },
               {
                 "tiles": [
                   {
@@ -55,6 +44,18 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
                     "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
+                    ],
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -157,6 +158,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices",
             "title": "Increase in GDP (Nominal Value) Over Time (Absolute Change)"
           },
           {
@@ -188,11 +190,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -212,11 +214,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Mali",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -283,6 +285,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices",
             "title": "Increase in GDP (Nominal Value) Over Time (Percent Change)"
           },
           {
@@ -326,11 +329,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SEN",
+                    "placeDcidOverride": "country/GIN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Senegal",
+                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -338,11 +341,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Guinea",
+                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
@@ -362,11 +365,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -386,11 +389,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Mali",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -409,6 +412,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices",
             "title": "Increase in GDP (Nominal Value) Over Time (Per Capita Change)"
           }
         ],
@@ -434,7 +438,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/ETH"
+        "country/MAR"
       ]
     }
   },
@@ -443,21 +447,21 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/ETH",
-    "name": "Ethiopia",
+    "dcid": "country/MAR",
+    "name": "Morocco",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "country/ETH",
-      "name": "Ethiopia",
+      "dcid": "country/MAR",
+      "name": "Morocco",
       "place_type": "Country"
     },
     {
-      "dcid": "country/MAR",
-      "name": "Morocco",
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
       "place_type": "Country"
     },
     {

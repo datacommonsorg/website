@@ -31,6 +31,7 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Measure of the total value of all goods and services produced within a country's borders in a given period, using current market prices.",
             "title": "GDP (Nominal Value)"
           },
           {
@@ -59,6 +60,7 @@
                 ]
               }
             ],
+            "description": "Measure of a country's economic output relative to its population, calculated by dividing the nominal GDP by the total population.",
             "title": "Nominal GDP Per Capita"
           },
           {
@@ -88,7 +90,37 @@
               }
             ],
             "denom": "Count_Person",
+            "description": "Inflation-adjusted measure reflecting the value of all goods and services produced by an economy, typically on an annual basis.",
             "title": "GDP (Real Value)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+                    ],
+                    "title": "Growth Rate of GDP in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Growth Rate of GDP in United States",
+                    "statVarKey": [
+                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+                    ],
+                    "title": "Growth Rate of GDP in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "The percentage change in a country's gross domestic product (GDP) over a specific period.",
+            "title": "Growth Rate of GDP"
           },
           {
             "columns": [
@@ -119,7 +151,9 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block",
+                      "dc/qt7ewllmt3826_multiple_place_bar_block",
+                      "dc/zz6gwv838v9w_multiple_place_bar_block"
                     ],
                     "title": "Breakdown of GDP by Industry in United States (${date})",
                     "type": "BAR"
@@ -129,34 +163,6 @@
             ],
             "denom": "Count_Person",
             "title": "Breakdown of GDP by Industry"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-                    ],
-                    "title": "Growth Rate of GDP in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Growth Rate of GDP in United States",
-                    "statVarKey": [
-                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-                    ],
-                    "title": "Growth Rate of GDP in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Growth Rate of GDP"
           },
           {
             "columns": [
@@ -313,34 +319,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population With Current Employment"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate in United States",
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Unemployment Rate"
           },
           {
             "columns": [
@@ -694,8 +672,8 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block"
                     ],
                     "title": "GDP of the Construction Industry and More in United States (${date})",
                     "type": "BAR"
@@ -763,14 +741,6 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Real Estate and Rental and Leasing Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Retail Trade (NAICS/44-45)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Transportation And Warehousing (NAICS/48-49)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Utilities Industry",
@@ -1052,10 +1022,6 @@
             "name": "Revenue of Establishments with Payroll: Mining, Quarrying, Oil & Gas",
             "statVar": "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll"
           },
-          "UnemploymentRate_Person": {
-            "name": "Unemployment Rate",
-            "statVar": "UnemploymentRate_Person"
-          },
           "dc/1j7jmy39fwhw5_multiple_place_bar_block": {
             "name": "Establishments in Agriculture, Forestry, Fishing And Hunting",
             "statVar": "dc/1j7jmy39fwhw5"
@@ -1180,6 +1146,10 @@
             "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
           },
+          "dc/qt7ewllmt3826_multiple_place_bar_block": {
+            "name": "dc/qt7ewllmt3826",
+            "statVar": "dc/qt7ewllmt3826"
+          },
           "dc/rw3t3r74kv7mc_multiple_place_bar_block": {
             "name": "Shipments or Receipts of Establishments With Payroll: Primary Metal Manufacturing",
             "statVar": "dc/rw3t3r74kv7mc"
@@ -1207,6 +1177,10 @@
           "dc/zkmdz1rhlt7q8_multiple_place_bar_block": {
             "name": "Shipments or Receipts of Establishments With Payroll: Nonmetallic Mineral Product Manufacturing",
             "statVar": "dc/zkmdz1rhlt7q8"
+          },
+          "dc/zz6gwv838v9w_multiple_place_bar_block": {
+            "name": "dc/zz6gwv838v9w",
+            "statVar": "dc/zz6gwv838v9w"
           },
           "sdg/EN_MAT_DOMCMPG": {
             "name": "Domestic material consumption per unit of GDP",

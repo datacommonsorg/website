@@ -86,7 +86,7 @@ def get_parent_places(dcid: str, locale: str = DEFAULT_LOCALE) -> List[Place]:
 
   Args:
     dcid: dcid of the place to get parents for
-    
+
   Returns:
     A list of places that are all the parents of the given DCID.
   """
@@ -193,7 +193,7 @@ def count_places_per_stat_var(
     places_to_consider: list[str] = []) -> List[Dict[str, int]]:
   """
   Returns a count of places with data for each stat var.
-  Removes the Stat var entirely if there are 0 places with data. 
+  Removes the Stat var entirely if there are 0 places with data.
   If there are more than 2 places with data, we just store it as 2.
   """
   stat_var_to_places_with_data = {}
@@ -533,7 +533,7 @@ def chart_config_to_overview_charts(
   Converts the given chart configuration into a list of Chart objects for API responses.
 
   Args:
-      chart_config (List[Dict]): A list of chart configuration dictionaries, 
+      chart_config (List[Dict]): A list of chart configuration dictionaries,
                                   each containing metadata like 'category', 'variables', 'title', etc.
 
   Returns:
@@ -717,7 +717,7 @@ def translate_chart_config(
   using the gettext function.
 
   Args:
-      chart_config (List[Dict]): A list of dictionaries where each dictionary contains 
+      chart_config (List[Dict]): A list of dictionaries where each dictionary contains
                                   chart configuration data. Each dictionary may have a 'titleId'
                                   field that needs to be translated into a 'title'.
       place_type: Type of the current place
@@ -859,19 +859,19 @@ def parse_nearby_value(nearby_value: str) -> Tuple[str, str | None, str | None]:
   """
   Parses a nearby value string to extract the place DCID, distance, and an optional unit.
 
-  The input string is expected to be in the format "place_dcid@distance", where 
-  `place_dcid` is a string identifier, and `distance` contains a numerical value followed 
+  The input string is expected to be in the format "place_dcid@distance", where
+  `place_dcid` is a string identifier, and `distance` contains a numerical value followed
   by an optional unit. The unit can be any string, but it is uncertain what format it will take.
 
   Args:
-      nearby_value (str): A string containing the place DCID and distance, separated by 
+      nearby_value (str): A string containing the place DCID and distance, separated by
                           an "@" symbol (e.g., "place123@1000m" or "place456@10").
 
   Returns:
       tuple: A tuple containing:
           - place_dcid (str): The place identifier extracted from the input string.
           - value (float or None): The numerical distance value if found, otherwise None.
-          - unit (str or None): The unit of the distance if present, otherwise None. 
+          - unit (str or None): The unit of the distance if present, otherwise None.
                                 The unit is any string following the number, and it may be optional.
   """
   # Split the input string into place_dcid and distance part

@@ -256,6 +256,7 @@
                 ]
               }
             ],
+            "description": "The percentage change in the total number of people in a population over a specific period.",
             "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey"
           },
           {
@@ -284,6 +285,7 @@
                 ]
               }
             ],
+            "description": "The percentage change in the total number of people in a population over a specific period.",
             "title": "Rate of Population Growth"
           },
           {
@@ -431,6 +433,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population in Eurostat Nuts 3 Places of Turkey"
           },
           {
@@ -459,6 +462,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population"
           }
         ],

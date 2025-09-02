@@ -19,7 +19,13 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import {
@@ -27,7 +33,12 @@ import {
   INITIAL_LOADING_CLASS,
 } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { DATE_HIGHEST_COVERAGE } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -86,20 +97,121 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const embedModalElement = useRef<ChartEmbed>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
+
+  const {
+    variables,
+    rankingMetadata,
+    enclosedPlaceType,
+    parentPlace,
+    apiRoot,
+    lazyLoad,
+  } = props;
+
   useEffect(() => {
-    if (props.lazyLoad && !shouldLoad) {
+    if (lazyLoad && !shouldLoad) {
       return;
     }
     (async (): Promise<void> => {
       try {
         setIsLoading(true);
-        const rankingData = await fetchData(props);
+        const rankingData = await fetchData(
+          variables,
+          rankingMetadata,
+          enclosedPlaceType,
+          parentPlace,
+          apiRoot
+        );
         setRankingData(rankingData);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [props, shouldLoad]);
+  }, [
+    lazyLoad,
+    apiRoot,
+    enclosedPlaceType,
+    parentPlace,
+    rankingMetadata,
+    shouldLoad,
+    variables,
+  ]);
+
+  /**
+    This hook merges all the facets across ranking units, providing a single
+    list that is sent into the ChartEmbed (data/svg download) component. This
+    allows the dialog to build a citation string that matches the data it provides.
+   */
+  const allFacets = useMemo(() => {
+    if (!rankingData) return {};
+    return Object.values(rankingData).reduce(
+      (acc, svData) => ({ ...acc, ...svData.facets }),
+      {}
+    );
+  }, [rankingData]);
+
+  /**
+    This hook merges the stat var to facet maps across ranking units, to provide a single
+    list that is sent into the ChartEmbed (data/svg download) component. This
+    allows the dialog to build a citation string that matches the data it provides.
+   */
+  const allStatVarToFacets = useMemo(() => {
+    if (!rankingData) return {};
+    return Object.values(rankingData).reduce(
+      (acc, svData) => ({ ...acc, ...svData.statVarToFacets }),
+      {}
+    );
+  }, [rankingData]);
+
+  /*
+    TODO (nick-next) getObservationSpec uses similar merging to the above memos and can be
+         updated to share functionality with the hooks.
+   */
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!rankingData) {
+      return undefined;
+    }
+    const allStatVarToFacets: StatVarFacetMap = {};
+    for (const sv in rankingData) {
+      if (rankingData[sv].statVarToFacets) {
+        Object.assign(allStatVarToFacets, rankingData[sv].statVarToFacets);
+      }
+    }
+
+    return (): ObservationSpec[] => {
+      const updatedStatVarSpecs = props.variables.map((spec) => {
+        // If the date is HIGHEST_COVERAGE, we get all data. This is because
+        // the V2 API does not have a HIGHEST_COVERAGE concept.
+        // Otherwise, if the date is blank, we ask for the latest.
+        const effectiveDate =
+          spec.date === DATE_HIGHEST_COVERAGE
+            ? DATE_HIGHEST_COVERAGE
+            : "LATEST";
+        const finalDate = getCappedStatVarDate(spec.statVar, effectiveDate);
+
+        return { ...spec, date: finalDate };
+      });
+
+      const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      return buildObservationSpecs({
+        statVarSpecs: updatedStatVarSpecs,
+        statVarToFacets: allStatVarToFacets,
+        entityExpression,
+      });
+    };
+  }, [
+    rankingData,
+    props.parentPlace,
+    props.enclosedPlaceType,
+    props.variables,
+  ]);
 
   const numRankingLists = getNumRankingLists(
     props.rankingMetadata,
@@ -186,6 +298,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               entityType={props.enclosedPlaceType}
               errorMsg={errorMsg}
               footnote={props.footnote}
+              getObservationSpecs={getObservationSpecs}
               hideFooter={props.hideFooter}
               isLoading={isLoading}
               key={statVar}
@@ -202,13 +315,24 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
             />
           );
         })}
-      <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+      <ChartEmbed
+        container={containerRef.current}
+        ref={embedModalElement}
+        statVarSpecs={props.variables}
+        facets={allFacets}
+        statVarToFacets={allStatVarToFacets}
+        apiRoot={props.apiRoot}
+      />
     </div>
   );
 }
 
 export async function fetchData(
-  props: RankingTilePropType
+  variables: StatVarSpec[],
+  rankingMetadata: RankingTileSpec,
+  enclosedPlaceType: string,
+  parentPlace: string,
+  apiRoot: string
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -217,7 +341,7 @@ export async function fetchData(
       [EMPTY_FACET_ID_KEY]: [],
     },
   };
-  for (const spec of props.variables) {
+  for (const spec of variables) {
     const variableDate = getCappedStatVarDate(spec.statVar, spec.date);
     const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
     if (!dateFacetToVariable[variableDate]) {
@@ -248,9 +372,9 @@ export async function fetchData(
       }
       statPromises.push(
         getPointWithin(
-          props.apiRoot,
-          props.enclosedPlaceType,
-          props.parentPlace,
+          apiRoot,
+          enclosedPlaceType,
+          parentPlace,
           dateFacetToVariable[date][facetId],
           dateParam,
           [],
@@ -268,24 +392,19 @@ export async function fetchData(
     });
     return mergedResponse;
   });
-  const denoms = props.variables.map((spec) => spec.denom).filter((sv) => !!sv);
+  const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
   const denomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
-    : getSeriesWithin(
-        props.apiRoot,
-        props.parentPlace,
-        props.enclosedPlaceType,
-        denoms
-      );
+    : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
   return Promise.all([statPromise, denomPromise]).then(
     ([statResp, denomResp]) => {
       const rankingData = pointApiToPerSvRankingData(
         statResp,
         denomResp,
-        props.variables
+        variables
       );
-      if (props.rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, props.variables);
+      if (rankingMetadata.showMultiColumn) {
+        return transformRankingDataForMultiColumn(rankingData, variables);
       }
       return rankingData;
     }
@@ -373,7 +492,25 @@ function pointApiToPerSvRankingData(
           continue;
         }
         rankingPoint.value /= denomInfo.value;
-        sources.add(denomInfo.source);
+        /*
+          To make full denominator facet information available outside the chart, we add the denominator facet
+          to the statVarToFacets map (which is ultimately passed into the TileSources component). With this,
+          the metadata modal can display full metadata for the per capita stat var and facets used in the chart.
+         */
+        const denomSeries = denomData.data[spec.denom]?.[place];
+        if (denomSeries?.facet) {
+          const denomFacet = denomData.facets[denomSeries.facet];
+          if (denomFacet) {
+            if (denomFacet.provenanceUrl) {
+              sources.add(denomFacet.provenanceUrl);
+            }
+            facets[denomSeries.facet] = denomFacet;
+            if (!statVarToFacets[spec.denom]) {
+              statVarToFacets[spec.denom] = new Set<string>();
+            }
+            statVarToFacets[spec.denom].add(denomSeries.facet);
+          }
+        }
       }
       rankingPoints.push(rankingPoint);
       dates.add(statPoint.date);
