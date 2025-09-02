@@ -137,7 +137,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   ]);
 
   /**
-    This hook mergers all the facets across ranking units, providing a single
+    This hook merges all the facets across ranking units, providing a single
     list that is sent into the ChartEmbed (data/svg download) component. This
     allows the dialog to build a citation string that matches the data it provides.
    */
