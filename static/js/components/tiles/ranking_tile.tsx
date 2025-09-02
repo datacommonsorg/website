@@ -455,6 +455,11 @@ function pointApiToPerSvRankingData(
           continue;
         }
         rankingPoint.value /= denomInfo.value;
+        /*
+          To make full denominator facet information available outside the chart, we add the denominator facet
+          to the statVarToFacets map (which is ultimately passed into the TileSources component). With this,
+          the metadata modal can display full metadata for the per capita stat var and facets used in the chart.
+         */
         const denomSeries = denomData.data[spec.denom]?.[place];
         if (denomSeries?.facet) {
           const denomFacet = denomData.facets[denomSeries.facet];
