@@ -218,20 +218,6 @@
   align-self: stretch;
 }
 
-.follow-up-questions-title {
-  display: flex;
-  padding: 0 0 1em 0;
-  flex-direction: column;
-  justify-content: center;
-  align-self: stretch;
-  color: #212529;
-  font-family: Google Sans, $font-family-sans-serif;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 28px; /* 127.273% */
-}
-
 .follow-up-questions-list-item {
   display: flex;
   flex-direction: column;

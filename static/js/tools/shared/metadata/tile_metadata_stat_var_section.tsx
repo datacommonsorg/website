@@ -234,13 +234,7 @@ export const TileMetadataStatVarSection = ({
                 </ContentWrapper>
 
                 <ContentWrapper>
-                  <h4>
-                    {intl.formatMessage(metadataComponentMessages.Topic)} /{" "}
-                    {intl.formatMessage(metadataComponentMessages.DCID)}
-                  </h4>
-                  {metadata.categories && metadata.categories.length > 0 && (
-                    <p>{metadata.categories.join(", ")}</p>
-                  )}
+                  <h4>{intl.formatMessage(metadataComponentMessages.DCID)}</h4>
                   <p>
                     <a
                       href={
@@ -254,6 +248,12 @@ export const TileMetadataStatVarSection = ({
                       {statVar.dcid}
                     </a>
                   </p>
+                  {metadata.categories && metadata.categories.length > 0 && (
+                    <p>
+                      {intl.formatMessage(metadataComponentMessages.Topic)} •{" "}
+                      {metadata.categories.join(", ")}
+                    </p>
+                  )}
                 </ContentWrapper>
 
                 {hasDateRange && (

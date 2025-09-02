@@ -1197,7 +1197,9 @@ describe("test ga event for Related Topics experiment", () => {
 
     // Render follow up component
     const followUp = render(
-      <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+      <ThemeProvider theme={theme}>
+        <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+      </ThemeProvider>
     );
     act(() => {
       mockAllIsIntersecting(false);
@@ -1249,7 +1251,11 @@ describe("test ga event for Related Topics experiment", () => {
     window.gtag = mockgtag;
 
     // Render follow up component
-    render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
+    render(
+      <ThemeProvider theme={theme}>
+        <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+      </ThemeProvider>
+    );
     act(() => {
       mockAllIsIntersecting(true);
     });
@@ -1297,7 +1303,11 @@ describe("test ga event for Related Topics experiment", () => {
       );
 
     // Render follow up component
-    render(<FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />);
+    render(
+      <ThemeProvider theme={theme}>
+        <FollowUpQuestions {...FOLLOW_UP_QUESTIONS_PROPS} />
+      </ThemeProvider>
+    );
 
     await waitFor(() => {
       expect(mockgtag).toHaveBeenCalledWith(
