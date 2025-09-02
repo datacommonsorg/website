@@ -496,7 +496,25 @@ function pointApiToPerSvRankingData(
           continue;
         }
         rankingPoint.value /= denomInfo.value;
-        sources.add(denomInfo.source);
+        /*
+          To make full denominator facet information available outside the chart, we add the denominator facet
+          to the statVarToFacets map (which is ultimately passed into the TileSources component). With this,
+          the metadata modal can display full metadata for the per capita stat var and facets used in the chart.
+         */
+        const denomSeries = denomData.data[spec.denom]?.[place];
+        if (denomSeries?.facet) {
+          const denomFacet = denomData.facets[denomSeries.facet];
+          if (denomFacet) {
+            if (denomFacet.provenanceUrl) {
+              sources.add(denomFacet.provenanceUrl);
+            }
+            facets[denomSeries.facet] = denomFacet;
+            if (!statVarToFacets[spec.denom]) {
+              statVarToFacets[spec.denom] = new Set<string>();
+            }
+            statVarToFacets[spec.denom].add(denomSeries.facet);
+          }
+        }
       }
       rankingPoints.push(rankingPoint);
       dates.add(statPoint.date);
