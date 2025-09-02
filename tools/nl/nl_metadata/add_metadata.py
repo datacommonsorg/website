@@ -20,12 +20,13 @@ This script retrives the metadata from the data commons API or BigQuery (BQ) tab
    Also translate the metadata if a target language is specified.
    If this step fails after MAX_RETRIES, the failed metadata will be saved to a separate file.
 4. Create a new dataframe with the SVs and their full metadata, and export it as a JSON file sv_complete_metadata_{target_language}_{page_number}.json.
-   If the flag --useGCS is specified, also save to cloud storage.
+   If the flag --useGCS is specified, save to cloud storage instead under a folder named with the current date.
 
 To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./add_metadata.py
 """
 import argparse
 import asyncio
+from datetime import datetime
 import json
 import os
 import typing
@@ -55,9 +56,11 @@ BIGQUERY_QUERY_BASE = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVaria
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
 EXPORTED_FILE_DIR = "tools/nl/nl_metadata"
 EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
-GCS_PROJECT_ID = "datcom-website-dev"
-GCS_BUCKET = "gmechali_csv_testing"  # TODO: Change to a dedicated bucket once we productionize
-GCS_FILE_DIR = "statvar_metadata"
+GCS_PROJECT_ID = "datcom-nl"
+GCS_BUCKET = "metadata_for_vertexai_search"
+GCS_FILE_DIR_RETRIES = "statvar_metadata_retries"
+GCS_FILE_DIR_FULL = "full_statvar_metadata_staging"
+GCS_FILE_DIR_NL = "nl_statvar_metadata_staging"
 
 # These are the properties common to evey stat var
 MEASURED_PROPERTY = "measuredProperty"
@@ -124,9 +127,9 @@ def extract_flag() -> argparse.Namespace:
   parser.add_argument(
       "--gcsFolder",
       help=
-      "The folder in the GCS bucket to save the results to. Defaults to 'statvar_metadata'.",
+      "The folder in the GCS bucket to save the results to. If unspecified, will choose one of 'full_statvar_metadata_staging', 'nl_statvar_metadata_staging' or 'statvar_metadata_retries' depending on other user inputs.",
       type=str,
-      default=GCS_FILE_DIR)
+      default=None)
   parser.add_argument(
       "--totalPartitions",
       help=
@@ -508,6 +511,7 @@ async def batch_generate_alt_sentences(
         generate_alt_sentences(gemini_client, gemini_config, gemini_prompt,
                                curr_batch, index * 5))
 
+  # TODO: Add validation to check that returned results match DCIDs in the input batches
   batched_results: list[list[dict[str,
                                   str | list[str]]]] = await asyncio.gather(
                                       *parallel_tasks)
@@ -527,10 +531,28 @@ async def batch_generate_alt_sentences(
   return results, failed_results
 
 
+def get_gcs_folder(gcs_folder: str | None, failed_attempts_path: str | None,
+                   use_bigquery: bool) -> str:
+  """
+  Returns the GCS folder to save the results to based on the user inputs.
+  """
+  date_folder = datetime.now().strftime("%Y_%m_%d")
+
+  if gcs_folder:
+    return f"{gcs_folder}/{date_folder}"
+
+  if failed_attempts_path:
+    return f"{GCS_FILE_DIR_RETRIES}/{date_folder}"
+
+  if use_bigquery:
+    return f"{GCS_FILE_DIR_FULL}/{date_folder}"
+
+  return f"{GCS_FILE_DIR_NL}/{date_folder}"
+
+
 def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
-                   exported_filename: str,
-                   should_save_to_gcs: bool,
-                   gcs_folder: str = GCS_FILE_DIR) -> None:
+                   exported_filename: str, should_save_to_gcs: bool,
+                   gcs_folder: str | None) -> None:
   """
   Exports the SV metadata list to a JSON file.
   """
@@ -603,11 +625,13 @@ async def main():
       exported_filename = f"{exported_sv_file}_partition{args.currPartition}_{page_number}"
       failed_filename = f"failures/failed_batch_partition{args.currPartition}_{page_number}"
 
-    export_to_json(full_metadata, exported_filename, args.useGCS,
-                   args.gcsFolder)
-    export_to_json(failed_metadata, failed_filename, args.useGCS,
-                   args.gcsFolder)
+    gcs_folder = get_gcs_folder(args.gcsFolder, args.failedAttemptsPath,
+                                args.useBigQuery) if args.useGCS else None
+
+    export_to_json(full_metadata, exported_filename, args.useGCS, gcs_folder)
+    export_to_json(failed_metadata, failed_filename, args.useGCS, gcs_folder)
     page_number += 1
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+  asyncio.run(main())
