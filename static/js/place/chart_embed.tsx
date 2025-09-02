@@ -305,6 +305,8 @@ class ChartEmbed extends React.Component<
                   display: block;
                   width: 100%;
                   height: auto;
+                  max-height: 220px;
+                  object-fit: contain;
                 }
               `}
             ></div>
