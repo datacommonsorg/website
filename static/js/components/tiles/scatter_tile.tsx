@@ -67,13 +67,13 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   clearContainer,
   getDenomInfo,
+  getDenomResp,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
@@ -349,7 +349,8 @@ async function getPopulationInfo(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  facets: FacetStore,
+  statResp: PointApiResponse,
+  // facets: FacetStore,
   apiRoot?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const statVars = new Set<string>();
@@ -361,43 +362,63 @@ async function getPopulationInfo(
   if (_.isEmpty(statVars)) {
     return [null, null];
   }
-  // gathering all promises for all facets used in denoms
-  const facetIds = facets ? Object.keys(facets) : [];
-  const denomPromises = facetIds.map((facetId) => {
-    return getSeriesWithin(
-      apiRoot,
-      placeDcid,
-      enclosedPlaceType,
-      Array.from(statVars),
-      [facetId]
-    );
-  });
 
-  // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
-  const defaultDenomPromise = getSeriesWithin(
+  console.log("stat vars passed in: ", [...statVars]);
+
+  const [denomsByFacet, defaultDenomData] = await getDenomResp(
+    [...statVars],
+    statResp,
     apiRoot,
+    true,
+    null,
     placeDcid,
-    enclosedPlaceType,
-    Array.from(statVars)
+    enclosedPlaceType
   );
 
-  const promiseResults = await Promise.all([
-    ...denomPromises,
-    defaultDenomPromise,
-  ]);
+  console.log(
+    "denoms by facet, default denoms in getPopulationInfo: ",
+    denomsByFacet,
+    defaultDenomData
+  );
 
-  const defaultDenomData = promiseResults.pop();
-  const facetDenomResults = promiseResults;
-
-  const denomsByFacet: Record<string, SeriesApiResponse> = {};
-  facetDenomResults.forEach((resp, index) => {
-    const requestedFacetId = facetIds[index];
-    // If the response has data, use it.
-    if (resp && !_.isEmpty(resp.facets)) {
-      denomsByFacet[requestedFacetId] = resp;
-    }
-  });
   return [denomsByFacet, defaultDenomData];
+  // // gathering all promises for all facets used in denoms
+  // const facetIds = facets ? Object.keys(facets) : [];
+  // const denomPromises = facetIds.map((facetId) => {
+  //   return getSeriesWithin(
+  //     apiRoot,
+  //     placeDcid,
+  //     enclosedPlaceType,
+  //     Array.from(statVars),
+  //     [facetId]
+  //   );
+  // });
+
+  // // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
+  // const defaultDenomPromise = getSeriesWithin(
+  //   apiRoot,
+  //   placeDcid,
+  //   enclosedPlaceType,
+  //   Array.from(statVars)
+  // );
+
+  // const promiseResults = await Promise.all([
+  //   ...denomPromises,
+  //   defaultDenomPromise,
+  // ]);
+
+  // const defaultDenomData = promiseResults.pop();
+  // const facetDenomResults = promiseResults;
+
+  // const denomsByFacet: Record<string, SeriesApiResponse> = {};
+  // facetDenomResults.forEach((resp, index) => {
+  //   const requestedFacetId = facetIds[index];
+  //   // If the response has data, use it.
+  //   if (resp && !_.isEmpty(resp.facets)) {
+  //     denomsByFacet[requestedFacetId] = resp;
+  //   }
+  // });
+  // return [denomsByFacet, defaultDenomData];
 }
 
 export const fetchData = async (
@@ -451,16 +472,22 @@ export const fetchData = async (
     ]);
     // HANDLE DENOM/POPULATION HERE
     // this formats and resolves the query promise
-    console.log("placeStats:", JSON.stringify(placeStats, null, 2));
+    console.log("placeStats:", placeStats);
     const [denomsByFacet, defaultDenomData] = await getPopulationInfo(
       props.place.dcid,
       props.enclosedPlaceType,
       props.statVarSpec,
-      placeStats.facets,
+      placeStats,
       props.apiRoot
     );
-    console.log("denomsByFacet:", JSON.stringify(denomsByFacet, null, 2));
-    console.log("defaultDenomData:", JSON.stringify(defaultDenomData, null, 2));
+    console.log(
+      "denomsByFacet in fetchData :",
+      JSON.stringify(denomsByFacet, null, 2)
+    );
+    console.log(
+      "defaultDenomData in fetchData:",
+      JSON.stringify(defaultDenomData, null, 2)
+    );
     const statVarNames = await getStatVarNames(
       props.statVarSpec,
       props.apiRoot
@@ -485,8 +512,8 @@ function rawToChart(
   rawData: RawData,
   props: ScatterTilePropType
 ): ScatterChartData {
-  console.log("rawToChart rawData:", JSON.stringify(rawData, null, 2));
-  console.log("rawToChart props:", JSON.stringify(props, null, 2));
+  // console.log("rawToChart rawData:", JSON.stringify(rawData, null, 2));
+  // console.log("rawToChart props:", JSON.stringify(props, null, 2));
   const yStatVar = props.statVarSpec[0];
   const xStatVar = props.statVarSpec[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
@@ -559,7 +586,7 @@ function rawToChart(
     const point = placeChartData.point;
     if (xStatVar.denom) {
       const xPlaceFacet = xPlacePointStat[place].facet;
-      console.log("xStatVar: ", xStatVar, xPlacePointStat[place].facet);
+      // console.log("xStatVar: ", xStatVar, xPlacePointStat[place].facet);
       const denomInfo = getDenomInfo(
         xStatVar,
         rawData.denomsByFacet,
@@ -568,10 +595,10 @@ function rawToChart(
         xPlaceFacet,
         rawData.defaultDenomData
       );
-      console.log(
-        `rawToChart x-denom for ${place}:`,
-        JSON.stringify(denomInfo, null, 2)
-      );
+      // console.log(
+      //   `rawToChart x-denom for ${place}:`,
+      //   JSON.stringify(denomInfo, null, 2)
+      // );
       if (!denomInfo) {
         // skip this data point because missing denom data.
         continue;

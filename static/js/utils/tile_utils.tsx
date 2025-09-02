@@ -379,7 +379,7 @@ export function getStatFormat(
 
   let overrideConfig = null;
   if (statMetadata) {
-    const isComplexUnit = !!statMetadata.unit?.match(/\[.+ [0-9]+]/);
+    const isComplexUnit = !!statMetadata.unit?.match(/.*\[.+ [0-9]+]/);
     // If complex unit, use the unit part to get the override config, otherwise
     // use the whole unit to get the override config.
     const unitStr = isComplexUnit
@@ -427,7 +427,7 @@ interface DenomInfo {
   @param placeType subplace type for getSeriesWithin
   @param highlightFacet optional highlight facet passed into getSeriesWithin
  */
-export function getDenomResp(
+export async function getDenomResp(
   denoms: string[],
   statResp: PointApiResponse,
   apiRoot: string,
@@ -438,43 +438,53 @@ export function getDenomResp(
   parentPlace?: string,
   placeType?: string,
   highlightFacet?: FacetMetadata
-): [Record<string, SeriesApiResponse>, SeriesApiResponse] {
+): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   // fetch the series for each facet
   const denomPromises = [];
-  if (!_.isEmpty(denoms) && statResp.facets) {
-    const facetIds = Object.keys(statResp.facets);
-    facetIds.map((facetId) => {
-      denomPromises.push(
-        useSeriesWithin
-          ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
-          : getSeries(apiRoot, allPlaces, denoms, [facetId], highlightFacet)
-      );
-    });
-  }
+  const facetIds =
+    !_.isEmpty(denoms) && statResp.facets ? Object.keys(statResp.facets) : [];
+  facetIds.forEach((facetId) => {
+    denomPromises.push(
+      useSeriesWithin
+        ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
+        : getSeries(apiRoot, allPlaces, denoms, [facetId], highlightFacet)
+    );
+  });
+  console.log("stat resp facets: ", statResp.facets);
+  console.log("denom promises: ", denomPromises);
   // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
   const defaultDenomPromise = _.isEmpty(denoms)
-    ? null
+    ? Promise.resolve(null)
     : useSeriesWithin
     ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
     : getSeries(apiRoot, allPlaces, denoms, []);
+  console.log("default denom promise: ", defaultDenomPromise);
 
   // organize results into a map from facet to API response
   const denomsByFacet: Record<string, SeriesApiResponse> = {};
-  let defaultDenomData: SeriesApiResponse;
-  Promise.all([...denomPromises, defaultDenomPromise]).then((denomResults) => {
-    // The last element of denomResps is defaultDenomPromise
-    defaultDenomData = denomResults.pop();
+  const denomResults = await Promise.all([
+    ...denomPromises,
+    defaultDenomPromise,
+  ]);
+  // The last element of denomResps is defaultDenomPromise
+  const defaultDenomData = denomResults.pop();
+  console.log("default desnom data: ", defaultDenomData);
 
-    denomResults.forEach((resp) => {
-      // should only have one facet per resp because we pass in exactly one
-      const facetId = Object.keys(resp.facets)[0];
-      if (facetId) {
-        denomsByFacet[facetId] = resp;
-      } else {
-        // if the facet isn't found or something goes wrong with the facet-specific denom data, use the default
-        denomsByFacet[facetId] = defaultDenomData;
-      }
-    });
+  denomResults.forEach((resp, i) => {
+    // should only have one facet per resp because we pass in exactly one
+    const facetId = facetIds[i];
+    if (facetId) {
+      denomsByFacet[facetId] = resp;
+    } else {
+      // if the facet isn't found or something goes wrong with the facet-specific denom data, log it
+      //  denomsByFacet[facetId] = defaultDenomData;
+      console.log(
+        "NO FACET ID FOUND, from resp.facets: ",
+        resp.facets,
+        " and resp: ",
+        resp
+      );
+    }
   });
 
   return [denomsByFacet, defaultDenomData];
@@ -555,7 +565,7 @@ export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
 export function clearContainer(container: HTMLDivElement): void {
   // Remove contents of the container
   const containerSelection = d3.select(container);
-  containerSelection.selectAll("*").remove();
+  containerSelection.selectAll("* ").remove();
 }
 
 /**
