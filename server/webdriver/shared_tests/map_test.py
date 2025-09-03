@@ -77,9 +77,7 @@ class MapTestMixin():
         len(find_elems(chart_legend, by=By.CLASS_NAME, value='tick')), 5)
 
     # Click United States breadcrumb
-    find_elem(self.driver,
-              by=By.XPATH,
-              value='//*[@id="chart-row"]/div/div/div/div[3]/div[3]/a').click()
+    shared.click_el(self.driver, (By.LINK_TEXT, 'United States'))
 
     # Assert redirect was correct
     place_list = find_elem(self.driver, by=By.ID, value='place-list')
