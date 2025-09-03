@@ -8,7 +8,7 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the license is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -26,7 +26,11 @@ import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants
 import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import { intl } from "../i18n/i18n";
 import { messages } from "../i18n/i18n_messages";
-import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
+import {
+  PointApiResponse,
+  SeriesApiResponse,
+  StatMetadata,
+} from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
@@ -379,7 +383,7 @@ export function getStatFormat(
 
   let overrideConfig = null;
   if (statMetadata) {
-    const isComplexUnit = !!statMetadata.unit?.match(/.*\[.+ [0-9]+]/);
+    const isComplexUnit = !!statMetadata.unit?.match(/.*[.+ [0-9]+]/);
     // If complex unit, use the unit part to get the override config, otherwise
     // use the whole unit to get the override config.
     const unitStr = isComplexUnit
@@ -411,6 +415,8 @@ interface DenomInfo {
   value: number;
   date: string;
   source: string;
+  facet?: StatMetadata;
+  facetId?: string;
 }
 
 /**
@@ -504,8 +510,6 @@ export async function getDenomResp(
  */
 export function getDenomInfo(
   svSpec: StatVarSpec,
-  // this is temporary while the facet-based denom is only used in the ranking tile, ultimately this will be:
-  // denomData: Record<string, SeriesApiResponse>,
   denomData: Record<string, SeriesApiResponse>,
   placeDcid: string,
   mainStatDate: string,
@@ -515,26 +519,45 @@ export function getDenomInfo(
   // (temporary) if denomData is a map, find the one that matches the facet used, otherwise use the regular denomData
   let matchingDenomData: SeriesApiResponse;
   matchingDenomData = denomData[facetUsed];
+  console.log(
+    "matching denomData for geo id: ",
+    placeDcid,
+    facetUsed,
+    matchingDenomData
+  );
   // default to defaultDenomData if no facet-specific denomData is found for a given place
+  let placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   if (
     !matchingDenomData ||
     !(svSpec.denom in matchingDenomData.data) ||
-    !matchingDenomData.data[svSpec.denom][placeDcid]
+    !placeDenomData ||
+    _.isEmpty(placeDenomData.series)
   ) {
     matchingDenomData = defaultDenomData;
+    console.log(
+      "setting matchingDenomData to default, defaultDenomData: ",
+      defaultDenomData
+    );
+    // resetting because denomData changed
+    placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   }
 
   if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
+    console.log("Returning null");
     return null;
   }
 
-  const placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
+    console.log(
+      "Returning null in a second place, placeDenomData: ",
+      placeDenomData
+    );
     return null;
   }
   const denomSeries = placeDenomData.series;
   const denomObs = getMatchingObservation(denomSeries, mainStatDate);
   if (!denomObs || !denomObs.value) {
+    console.log("Returning null third");
     return null;
   }
 
@@ -545,6 +568,8 @@ export function getDenomInfo(
     value: denomObs.value,
     date: denomObs.date,
     source,
+    facet: matchingDenomData?.facets?.[placeDenomData.facet],
+    facetId: placeDenomData?.facet,
   };
 }
 

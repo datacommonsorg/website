@@ -206,7 +206,7 @@ export const fetchData = async (
       date,
       [statSvs]
     );
-    const [denomsByFacet, defaultDenomData] = getDenomResp(
+    const [denomsByFacet, defaultDenomData] = await getDenomResp(
       denomSvs,
       statResp,
       props.apiRoot,

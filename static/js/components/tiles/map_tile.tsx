@@ -84,7 +84,7 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
+import { getPointWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   clearContainer,
@@ -548,7 +548,7 @@ export const fetchData = async (
     let denomsByFacet: Record<string, SeriesApiResponse> = null;
     let defaultDenomData: SeriesApiResponse = null;
     if (layer.variable.denom) {
-      [denomsByFacet, defaultDenomData] = getDenomResp(
+      [denomsByFacet, defaultDenomData] = await getDenomResp(
         [layer.variable.denom],
         placeStat,
         props.apiRoot,

@@ -27,7 +27,7 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { useLazyLoad } from "../../shared/hooks";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getPoint, getSeries } from "../../utils/data_fetch_utils";
+import { getPoint } from "../../utils/data_fetch_utils";
 import {
   clearContainer,
   getDenomInfo,
@@ -167,7 +167,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
     //       [props.statVarSpec.denom]
     //     )
     //   : null;
-    const [denomsByFacet, defaultDenomData] = getDenomResp(
+    const [denomsByFacet, defaultDenomData] = await getDenomResp(
       [props.statVarSpec.denom],
       statResp,
       props.apiRoot,

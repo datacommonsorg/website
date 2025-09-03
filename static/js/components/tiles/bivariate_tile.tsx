@@ -196,12 +196,12 @@ function getDataCsvCallback(
   };
 }
 
-function getPopulationData(
+async function getPopulationData(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   placeStats: PointApiResponse
-): [Record<string, SeriesApiResponse>, SeriesApiResponse] {
+): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const variables = [];
   for (const sv of statVarSpec) {
     if (sv.denom) {
@@ -212,7 +212,7 @@ function getPopulationData(
     return [null, null];
   } else {
     // return getSeriesWithin("", placeDcid, enclosedPlaceType, variables);
-    return getDenomResp(
+    return await getDenomResp(
       variables,
       placeStats,
       "",
@@ -242,7 +242,7 @@ export const fetchData = async (props: BivariateTilePropType) => {
       { statVarDcid: props.statVarSpec[1].statVar },
     ]
   );
-  const [denomsByFacet, defaultDenomData] = getPopulationData(
+  const [denomsByFacet, defaultDenomData] = await getPopulationData(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
