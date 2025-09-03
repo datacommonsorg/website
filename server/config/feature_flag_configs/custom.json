@@ -18,6 +18,12 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "explore_result_header",
+    "enabled": false,
+    "owner": "nick-next",
+    "description": "Enables the display of an updated explore page results header."
+  },
+  {
     "name": "factcheck_redirect",
     "enabled": false,
     "owner": "dwnoble",
@@ -54,10 +60,22 @@
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
   {
+    "name": "page_overview_links",
+    "enabled": false,
+    "owner": "javiervazquez",
+    "description": "A flag to guard if the embedded links in the overview are enabled."
+  },
+  {
     "name": "standardized_vis_tool",
     "enabled": false,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
+  },
+  {
+    "name": "stat_var_autocomplete_search_bar",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Enable stat var autocompletion in the NL Search bar"
   },
   {
     "name": "vai_for_statvar_search",

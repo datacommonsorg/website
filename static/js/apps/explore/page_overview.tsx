@@ -18,11 +18,40 @@
  * Component for rendering the generated page overview.
  */
 
+import { css, Theme, useTheme } from "@emotion/react";
 import axios, { AxiosResponse } from "axios";
 import _ from "lodash";
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
+import { InfoSpark } from "../../components/elements/icons/info_spark";
 import { Loading } from "../../components/elements/loading";
+import { Tooltip } from "../../components/elements/tooltip/tooltip";
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
+import {
+  isFeatureEnabled,
+  PAGE_OVERVIEW_LINKS,
+} from "../../shared/feature_flags/util";
+import {
+  GA_EVENT_PAGE_OVERVIEW_CLICK,
+  GA_EVENT_TOTAL_ANCHOR_COUNT,
+  GA_EVENT_TOTAL_COMPONENT_VIEW_TIME,
+  GA_PARAM_CLICK_TRACKING_MODE,
+  GA_PARAM_COMPONENT,
+  GA_PARAM_COUNT_ANCHOR_ELEMENTS,
+  GA_PARAM_PAGE_SOURCE,
+  GA_PARAM_TOTAL_VIEW_TIME,
+  GA_VALUE_INITIAL_CLICK,
+  GA_VALUE_INITIAL_VIEW,
+  GA_VALUE_PAGE_EXPLORE,
+  GA_VALUE_PAGE_OVERVIEW,
+  GA_VALUE_TOTAL_CLICKS,
+  GA_VALUE_TOTAL_VIEWS,
+  triggerComponentImpression,
+  triggerComponentView,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 
 const GLOBAL_CAPTURE_LINK_GROUP = /<([^<>]+)>/g;
@@ -58,12 +87,93 @@ interface PageOverviewPostBody {
 export function PageOverview(props: PageOverviewPropType): ReactElement {
   const [pageOverview, setPageOverview] = useState<Array<React.ReactNode>>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [hasInitialView, setHasInitalView] = useState<boolean>(false);
+  const hasInitialClick = useRef<boolean>(false);
+  const viewStartTime = useRef<number | null>(null);
+  const totalViewDuration = useRef<number>(0);
+  const theme = useTheme();
+
+  const { ref: inViewRef } = useInView({
+    rootMargin: "0px",
+    onChange: (inView) => {
+      if (inView) {
+        if (viewStartTime.current === null) {
+          viewStartTime.current = Date.now();
+        }
+        if (!hasInitialView) {
+          triggerComponentView(
+            GA_VALUE_PAGE_EXPLORE,
+            GA_VALUE_PAGE_OVERVIEW,
+            GA_VALUE_INITIAL_VIEW
+          );
+          setHasInitalView(true);
+        }
+        triggerComponentView(
+          GA_VALUE_PAGE_EXPLORE,
+          GA_VALUE_PAGE_OVERVIEW,
+          GA_VALUE_TOTAL_VIEWS
+        );
+      } else {
+        // Update total view time
+        if (viewStartTime.current !== null) {
+          const viewDuration = Date.now() - viewStartTime.current;
+          totalViewDuration.current = viewDuration + totalViewDuration.current;
+          viewStartTime.current = null;
+        }
+      }
+    },
+  });
+
+  const trackComponentClicks = (): void => {
+    if (!hasInitialClick.current) {
+      triggerGAEvent(GA_EVENT_PAGE_OVERVIEW_CLICK, {
+        [GA_PARAM_CLICK_TRACKING_MODE]: GA_VALUE_INITIAL_CLICK,
+      });
+      hasInitialClick.current = true;
+    }
+    triggerGAEvent(GA_EVENT_PAGE_OVERVIEW_CLICK, {
+      [GA_PARAM_CLICK_TRACKING_MODE]: GA_VALUE_TOTAL_CLICKS,
+    });
+  };
+
+  const trackTotalViewTimeBeforeUnload = (): void => {
+    // If the component is unmounting and was in view
+    if (viewStartTime.current !== null) {
+      const viewDuration: number = Date.now() - viewStartTime.current;
+      totalViewDuration.current = viewDuration + totalViewDuration.current;
+      viewStartTime.current = null;
+    }
+
+    // Google Analytics treats any value in a custom dimension that resembles a number as a number,
+    // even if it was originally formatted as text.
+    triggerGAEvent(GA_EVENT_TOTAL_COMPONENT_VIEW_TIME, {
+      [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+      [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+      [GA_PARAM_TOTAL_VIEW_TIME]: totalViewDuration.current.toString(),
+    });
+  };
+
   useEffect(() => {
+    triggerComponentImpression(GA_VALUE_PAGE_EXPLORE, GA_VALUE_PAGE_OVERVIEW);
     const statVars: Array<StatVarChartLocation> = getRelevantStatVars(
       props.pageMetadata
     );
-    getPageOverview(props.query, statVars)
+    getPageOverview(props.query, statVars, trackComponentClicks, theme)
       .then((value: Array<React.ReactNode>) => {
+        // Count anchor elements after they are set
+        const anchorCount = value.filter(
+          (el): el is React.ReactElement =>
+            React.isValidElement(el) &&
+            (el.type === "a" || (el.type !== "span" && el.props.onClick))
+        ).length;
+        // Google Analytics treats any value in a custom dimension that resembles a number as a number,
+        // even if it was originally formatted as text.
+        triggerGAEvent(GA_EVENT_TOTAL_ANCHOR_COUNT, {
+          [GA_PARAM_PAGE_SOURCE]: GA_VALUE_PAGE_EXPLORE,
+          [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
+          [GA_PARAM_COUNT_ANCHOR_ELEMENTS]: anchorCount.toString(),
+        });
+
         setPageOverview(value);
       })
       .catch(() => {
@@ -72,7 +182,16 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
       .finally(() => {
         setLoading(false);
       });
-  }, [props.query, props.pageMetadata]);
+
+    window.addEventListener("beforeunload", trackTotalViewTimeBeforeUnload);
+
+    return () => {
+      window.removeEventListener(
+        "beforeunload",
+        trackTotalViewTimeBeforeUnload
+      );
+    };
+  }, [props.query, props.pageMetadata, theme]);
 
   return (
     <>
@@ -81,8 +200,31 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
           <Loading />
         </div>
       )}
-      {pageOverview && (
-        <div className="page-overview-inner">{pageOverview}</div>
+      {!_.isEmpty(pageOverview) && (
+        <div
+          ref={inViewRef}
+          data-testid="page-overview-inner"
+          css={[
+            theme.typography.text.lg,
+            css`
+              padding-top: 1.5rem;
+            `,
+          ]}
+        >
+          <span
+            css={{
+              marginRight: theme.spacing.xs,
+            }}
+          >
+            {pageOverview}
+          </span>
+          <Tooltip
+            title={intl.formatMessage(messages.explorePageOverviewTooltip)}
+            placement="bottom"
+          >
+            <InfoSpark />
+          </Tooltip>
+        </div>
       )}
     </>
   );
@@ -90,7 +232,9 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
 
 const getPageOverview = async (
   query: string,
-  statVarChartLocations: Array<StatVarChartLocation>
+  statVarChartLocations: Array<StatVarChartLocation>,
+  trackingClicks: () => void,
+  theme: Theme
 ): Promise<Array<React.ReactNode>> => {
   if (_.isEmpty(query) || _.isEmpty(statVarChartLocations)) {
     return [];
@@ -112,7 +256,10 @@ const getPageOverview = async (
         "$1"
       );
       // If the markers still exist, the links were not marked properly so the overview with no links is returned
-      if (CHECK_MARKERS_EXIST.test(testStatSyntax)) {
+      if (
+        CHECK_MARKERS_EXIST.test(testStatSyntax) ||
+        !isFeatureEnabled(PAGE_OVERVIEW_LINKS)
+      ) {
         const cleanedOverview: string = testStatSyntax.replace(
           GLOBAL_MARKERS,
           ""
@@ -164,8 +311,11 @@ const getPageOverview = async (
         return (
           <a
             key={partId}
-            className="highlight-statvars"
-            onClick={(): void => scrollToStatVar(targetId)}
+            css={{ color: theme.colors.link.primary.base, cursor: "pointer" }}
+            onClick={(): void => {
+              trackingClicks();
+              scrollToStatVar(targetId);
+            }}
           >
             {statVarOverviewExcerpt}
           </a>
