@@ -148,14 +148,25 @@ function updateHash(context: ContextType): void {
   let hash = updateHashStatVar("", context.statVar.value);
   hash = updateHashPlaceInfo(hash, context.placeInfo.value);
   hash = updateHashDisplay(hash, context.display.value);
+  const args = new URLSearchParams(location.search);
   // leaflet flag is part of the search arguments instead of hash, so need to
   // update that separately
+<<<<<<< HEAD
   // TODO: forward along all args and then append hash in the url.
   const args = new URLSearchParams(location.search);
   if (context.display.value.allowLeaflet) {
     args.set(`${ALLOW_LEAFLET_URL_ARG}`, "1");
   }
   const newHash = encodeURIComponent(hash);
+=======
+  if (context.display.value.allowLeaflet) {
+    args.set(ALLOW_LEAFLET_URL_ARG, "1");
+  } else {
+    // Do not propagate this argument. Let context settings control this instead.
+    args.delete(ALLOW_LEAFLET_URL_ARG);
+  }
+  const newHash = hash ? `#${encodeURIComponent(hash)}` : "";
+>>>>>>> 45c417f3b3e0d842f1e2a25fecbf7422b2f83fda
   const newArgs = args.toString() ? `?${args.toString()}` : "";
   const currentHash = location.hash.replace("#", "");
   const currentArgs = location.search;
@@ -163,6 +174,10 @@ function updateHash(context: ContextType): void {
     (newHash || newArgs) &&
     (newHash !== currentHash || newArgs !== currentArgs)
   ) {
+<<<<<<< HEAD
     history.pushState({}, "", `${MAP_URL_PATH}${newArgs}#${newHash}`);
+=======
+    history.pushState({}, "", `${MAP_URL_PATH}${newArgs}${newHash}`);
+>>>>>>> 45c417f3b3e0d842f1e2a25fecbf7422b2f83fda
   }
 }
