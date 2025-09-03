@@ -62,6 +62,16 @@ clear_website_cache() {
   local script="import redis; redis_client = redis.StrictRedis(host=\"$HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(\"Clearing cache for $PROJECT_ID/$CLUSTER_NAME/$LOCATION, redis host $HOST:\",resp)"
   kubectl exec -it "$POD_NAME" -n website -- /bin/bash -c "python -c '$script'"
   echo "--- Website cache clearing complete for $PROJECT_ID ---"
+
+  # If there is a mixer-cache instance in the project, clear that too
+  local MIXER_HOST
+  MIXER_HOST=$(gcloud redis instances describe mixer-cache --region="$REDIS_REGION" --format="get(host)")
+  if [ -n "$MIXER_HOST" ]; then
+    echo "--- Clearing mixer cache for Project: $PROJECT_ID, Cluster: $CLUSTER_NAME, Location: $LOCATION ---"
+    local script="import redis; redis_client = redis.StrictRedis(host=\"$MIXER_HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(\"Clearing mixer cache for $PROJECT_ID/$CLUSTER_NAME/$LOCATION, redis host $MIXER_HOST:\",resp)"
+    kubectl exec -it "$POD_NAME" -n website -- /bin/bash -c "python -c '$script'"
+    echo "--- Mixer cache clearing complete for $PROJECT_ID ---"
+  fi
 }
 
 # Function to clear the mixer cache
