@@ -998,12 +998,12 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     """Tests that safe API calls handle errors gracefully."""
     # Test safe_obs_point error handling
     self.mock_obs_point.side_effect = Exception("API Error")
-    result = utils.safe_obs_point(["test_place"], ["test_var"])
+    result = dc.safe_obs_point(["test_place"], ["test_var"])
     self.assertEqual(result, {"byVariable": {}})
 
     # Test safe_obs_point_within error handling
     self.mock_obs_point_within.side_effect = Exception("API Error")
-    result = utils.safe_obs_point_within("test_place", "test_type",
+    result = dc.safe_obs_point_within("test_place", "test_type",
                                          ["test_var"])
     self.assertEqual(result, {"byVariable": {}})
 
