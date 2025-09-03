@@ -156,7 +156,7 @@ class VisTimelineTestMixin():
 
     # Check for the existence of the message
     header_message = chart_timeline.find_element(
-        By.XPATH, ".//header/p[text()='Displaying all the datasets available']")
+        By.XPATH, ".//header/p[text()='One dataset available for this chart']")
     self.assertIsNotNone(header_message)
 
   def test_manually_enter_options(self):
