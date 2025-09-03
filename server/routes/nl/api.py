@@ -14,14 +14,11 @@
 """Endpoints for Datacommons NL Experimentation"""
 
 import json
-from typing import Annotated, Dict, List, Literal, Optional, Union
+from typing import Annotated, Dict, List, Literal, Union
 
 import flask
-from flask import Blueprint
-from flask import request
-from pydantic import BaseModel
-from pydantic import ConfigDict
-from pydantic import Field
+from flask import Blueprint, request
+from pydantic import BaseModel, ConfigDict, Field
 
 from server.services import datacommons as dc
 
@@ -35,14 +32,14 @@ class ApiBaseModel(BaseModel):
 
 
 class ResponseMetadata(ApiBaseModel):
-  threshold_override: Optional[float] = Field(alias="thresholdOverride",
-                                              default=None)
+  threshold_override: float | None = Field(alias="thresholdOverride",
+                                           default=None)
 
 
 class IndicatorResult(ApiBaseModel):
   dcid: str
-  name: Optional[str] = None
-  description: Optional[str] = None
+  name: str | None = None
+  description: str | None = None
   # This is the discriminator field. It must be a string in the base model.
   indicator_type: str = Field(alias="indicatorType")
   score: float
@@ -76,7 +73,7 @@ class IndexResponse(ApiBaseModel):
 
 
 class SearchVariablesResponse(ApiBaseModel):
-  results: Dict[str, Dict[str, IndexResponse]] = Field(
+  results: dict[str, dict[str, IndexResponse]] = Field(
       alias="queryResults",
       description=
       "A dictionary where the key is the search string and the value is a dictionary from index name to an IndexResponse object.",
@@ -91,6 +88,12 @@ def encode_vector():
   queries = request.json.get('queries', [])
   return json.dumps(dc.nl_encode(model, queries))
 
+
+def _get_property_value(sv_data: dict, prop: str) -> str | None:  
+    """Safely extracts a property value from a v2/node response item."""  
+    prop_arcs = sv_data.get("arcs", {})  
+    prop_nodes = prop_arcs.get(prop, {}).get("nodes", [])  
+    return prop_nodes[0].get("value") if prop_nodes else None  
 
 @bp.route('/search-vector', methods=['POST'])
 def search_vector():
@@ -191,10 +194,15 @@ def search_variables():
 
   threshold_override = None
   if "threshold" in request.args:
+    value_exception = False
     try:
       threshold_override = float(request.args["threshold"])
     except ValueError:
+      value_exception = True
+    
+    if value_exception:
       flask.abort(400, "The `threshold` parameter must be a valid float.")
+    
 
   max_candidates_per_index = None
   if "max_candidates_per_index" in request.args:
@@ -210,12 +218,12 @@ def search_variables():
       default=False,
       type=lambda v: v.lower() in ["true", "1"],
   )
-  skip_topics_arg = "true" if skip_topics else ""
 
   # Step 1: Get search results from the NL server in parallel.
   #
-  nl_results_by_index = dc.nl_search_vars_in_parallel(
-      queries, indices, skip_topics=skip_topics_arg)
+  nl_results_by_index = dc.nl_search_vars_in_parallel(queries,
+                                                      indices,
+                                                      skip_topics=skip_topics)
 
   # Step 2: Collect all candidate DCIDs that pass the threshold for enrichment.
   all_dcids_to_enrich: set[str] = set()
@@ -225,29 +233,28 @@ def search_variables():
 
     threshold = threshold_override if threshold_override else nl_result.get(
         "scoreThreshold", 0.0)
-
+    indicators_above_threshold = 0
     for query, q_result in nl_result.get("queryResults", {}).items():
       ranked_indicators = zip(q_result.get("SV", []),
                               q_result.get("CosineScore", []))
       for dcid, score in ranked_indicators:
         if score >= threshold:
           all_dcids_to_enrich.add(dcid)
+          indicators_above_threshold += 1
+          if max_candidates_per_index and indicators_above_threshold >= max_candidates_per_index:
+            break
 
   # Step 3: Enrich the valid candidates with names and descriptions.
   sv_info_map = {}
   if all_dcids_to_enrich:
     sv_info_data = dc.v2node(list(all_dcids_to_enrich), "->[name,description]")
     for dcid, sv_data in sv_info_data.get("data", {}).items():
-      name_nodes = sv_data.get("arcs", {}).get("name", {}).get("nodes", [])
-      name = name_nodes[0].get("value") if name_nodes else None
-      desc_nodes = (sv_data.get("arcs", {}).get("description",
-                                                {}).get("nodes", []))
-      description = desc_nodes[0].get("value") if desc_nodes else None
-      sv_info_map[dcid] = {"name": name, "description": description}
+      sv_info_map[dcid] = {"name": _get_property_value(sv_data, "name"),
+                           "description": _get_property_value(sv_data, "description")}
 
   # Step 4: Assemble the final response, preserving original ranking and using
   # the Pydantic models for validation and serialization.
-  response_query_results: Dict[str, Dict[str, IndexResponse]] = {}
+  response_query_results: dict[str, dict[str, IndexResponse]] = {}
   for query in queries:
     response_query_results[query] = {}
     for index in indices:

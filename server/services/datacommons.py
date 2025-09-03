@@ -433,15 +433,15 @@ def nl_search_vars(
               log_extreme_calls=False)
 
 
-def nl_search_vars_in_parallel(queries,
-                               index_types: List[str],
-                               skip_topics="") -> Dict[str, Dict]:
+def nl_search_vars_in_parallel(queries: list[str],
+                               index_types: list[str],
+                               skip_topics: bool = False) -> dict[str, dict]:
   """Search sv from NL server in parallel for multiple indexes.
 
     Args:
         queries: A list of query strings.
         index_types: A list of index names to query.
-        skip_topics: A boolean string to skip topic-based SVs.
+        skip_topics: A boolean to skip topic-based SVs.
 
     Returns:
         A dictionary mapping from index name to the search result from that index.
@@ -452,7 +452,7 @@ def nl_search_vars_in_parallel(queries,
 
   def search_for_index(index):
     return index, nl_search_vars(queries, [index],
-                                 skip_topics=skip_topics,
+                                 skip_topics="true" if skip_topics else "",
                                  nl_root=nl_root,
                                  api_key=api_key)
 

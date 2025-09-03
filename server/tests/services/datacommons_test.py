@@ -302,7 +302,7 @@ class TestServiceDataCommonsNLSearchVarsInParallel(unittest.TestCase):
 
     result = nl_search_vars_in_parallel(queries=["foo"],
                                         index_types=["idx1", "idx2"],
-                                        skip_topics="true")
+                                        skip_topics=True)
 
     self.assertEqual(result, {
         "idx1": {
