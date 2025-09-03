@@ -194,15 +194,13 @@ def search_variables():
 
   threshold_override = None
   if "threshold" in request.args:
-    value_exception = False
+
     try:
       threshold_override = float(request.args["threshold"])
     except ValueError:
-      value_exception = True
-    
-    if value_exception:
       flask.abort(400, "The `threshold` parameter must be a valid float.")
-    
+        
+  raise Exception(threshold_override)  
 
   max_candidates_per_index = None
   if "max_candidates_per_index" in request.args:
