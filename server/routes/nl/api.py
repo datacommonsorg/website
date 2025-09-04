@@ -16,8 +16,11 @@
 import json
 
 import flask
-from flask import Blueprint, request
-from pydantic import BaseModel, ConfigDict, Field
+from flask import Blueprint
+from flask import request
+from pydantic import BaseModel
+from pydantic import ConfigDict
+from pydantic import Field
 
 from server.services import datacommons as dc
 
@@ -57,10 +60,7 @@ class IndexResult(ApiBaseModel):
 
 class QueryResult(ApiBaseModel):
   query: str
-  results: list[IndexResult] = Field(
-      alias="indexResults",
-      default_factory=list
-  )
+  results: list[IndexResult] = Field(alias="indexResults", default_factory=list)
 
 
 class SearchVariablesResponse(ApiBaseModel):
@@ -95,14 +95,16 @@ def search_vector():
                            skip_topics=request.args.get('skip_topics', ''))
 
 
-def _get_property_value(sv_data: dict, prop: str, *, by_name:bool=False) -> str | None:
+def _get_property_value(sv_data: dict,
+                        prop: str,
+                        *,
+                        by_name: bool = False) -> str | None:
   """Safely extracts a property value from a v2/node response item."""
   prop_arcs = sv_data.get("arcs", {})
   prop_nodes = prop_arcs.get(prop, {}).get("nodes", [])
 
   selector = "name" if by_name else "value"
   return prop_nodes[0].get(selector) if prop_nodes else None
-
 
 
 @bp.route("/search-indicators", methods=["GET"])
@@ -226,8 +228,9 @@ def search_indicators():
       threshold = threshold_override if threshold_override else nl_result.get(
           "scoreThreshold", 0.0)
 
-      ranked_indicators = zip(nl_result["queryResults"][query].get("SV", []),
-                              nl_result["queryResults"][query].get("CosineScore", []))
+      ranked_indicators = zip(
+          nl_result["queryResults"][query].get("SV", []),
+          nl_result["queryResults"][query].get("CosineScore", []))
       for dcid, score in ranked_indicators:
         # Filter by score.
         if score < threshold:
@@ -235,7 +238,8 @@ def search_indicators():
         all_dcids_to_enrich.add(dcid)
         truncated_results[query][index].append((dcid, score))
 
-        if max_candidates_per_index and len(truncated_results[query][index]) >= max_candidates_per_index:
+        if max_candidates_per_index and len(
+            truncated_results[query][index]) >= max_candidates_per_index:
           break
 
   # Step 3: Enrich all the valid candidates with a single batch call.
@@ -259,9 +263,12 @@ def search_indicators():
       nl_result = nl_results_by_index.get(index, {})
       if not nl_result:
         continue
-      
-      sv_to_sentences = nl_result.get("queryResults", {}).get(query, {}).get("SV_to_Sentences", {})
-      threshold = threshold_override if threshold_override else nl_result.get("scoreThreshold", 0.0)
+
+      sv_to_sentences = nl_result.get("queryResults",
+                                      {}).get(query,
+                                              {}).get("SV_to_Sentences", {})
+      threshold = threshold_override if threshold_override else nl_result.get(
+          "scoreThreshold", 0.0)
 
       for dcid, score in truncated_results[query].get(index, []):
         sv_info = sv_info_map.get(dcid, {})
@@ -277,12 +284,12 @@ def search_indicators():
                       type_of=sv_info.get("type_of"),
                       score=score,
                       search_descriptions=sentences))
-     
+
       index_results.append(
           IndexResult(index=index,
                       default_threshold=nl_result.get("scoreThreshold"),
                       results=candidates))
-   
+
     query_results.append(QueryResult(query=query, results=index_results))
   # Build the final SearchVariablesResponse object
   try:

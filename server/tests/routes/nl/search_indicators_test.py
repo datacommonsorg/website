@@ -16,8 +16,6 @@ import json
 import unittest
 from unittest.mock import patch
 
-from werkzeug.exceptions import BadRequest
-
 from web_app import app
 
 # Mock data for dc.nl_search_vars
@@ -257,22 +255,17 @@ class TestSearchVariables(unittest.TestCase):
 
   def test_invalid_threshold_param(self):
     # Test that a 400 error is returned if `threshold` is not a float.
-    with self.assertRaises(BadRequest) as cm:
-        self.app.get(
+    response = self.app.get(
         "/api/nl/search-indicators?queries=population+of+california&threshold=notafloat"
     )
-        
-    # Check the code for the captured exception
-    self.assertEqual(cm.exception.code, 400)
-   
+    self.assertEqual(response.status_code, 400)
 
   def test_invalid_max_candidates_param(self):
     # Test that a 400 error is returned if `max_candidates_per_index` is not an int.
-    with self.assertRaises(BadRequest) as cm:
-        self.app.get(
+    response = self.app.get(
         "/api/nl/search-indicators?queries=population+of+california&max_candidates_per_index=notanint"
     )
-    self.assertEqual(cm.exception.status_code, 400)
+    self.assertEqual(response.status_code, 400)
 
   @patch("server.services.datacommons.nl_server_config")
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
@@ -303,35 +296,35 @@ class TestSearchVariables(unittest.TestCase):
     }
     with patch("server.services.datacommons.v2node") as mock_v2node:
       mock_v2node.return_value = {
-        "data": {
-            "SV_1": {
-                "arcs": {
-                    "name": {
-                        "nodes": [{
-                            "value": "SV1 Name"
-                        }]
-                    },
-                    "typeOf": {
-                        "nodes": [{
-                            "name": "StatisticalVariable"
-                        }]
-                    }
-                }
-            },
-            "SV_2": {
-                "arcs": {
-                    "name": {
-                        "nodes": [{
-                            "value": "SV2 Name"
-                        }]
-                    },
-                    "typeOf": {
-                        "nodes": [{
-                            "name": "StatisticalVariable"
-                        }]
-                    }
-                }
-            }
+          "data": {
+              "SV_1": {
+                  "arcs": {
+                      "name": {
+                          "nodes": [{
+                              "value": "SV1 Name"
+                          }]
+                      },
+                      "typeOf": {
+                          "nodes": [{
+                              "name": "StatisticalVariable"
+                          }]
+                      }
+                  }
+              },
+              "SV_2": {
+                  "arcs": {
+                      "name": {
+                          "nodes": [{
+                              "value": "SV2 Name"
+                          }]
+                      },
+                      "typeOf": {
+                          "nodes": [{
+                              "name": "StatisticalVariable"
+                          }]
+                      }
+                  }
+              }
           }
       }
       response = self.app.get(
@@ -406,8 +399,24 @@ class TestSearchVariables(unittest.TestCase):
     }
     mock_v2node.return_value = {
         "data": {
-            "SV_A": {"arcs": {"name": {"nodes": [{"value": "SV A"}]}}},
-            "SV_B": {"arcs": {"name": {"nodes": [{"value": "SV B"}]}}},
+            "SV_A": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "SV A"
+                        }]
+                    }
+                }
+            },
+            "SV_B": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "SV B"
+                        }]
+                    }
+                }
+            },
         }
     }
 
