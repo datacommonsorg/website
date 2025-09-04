@@ -38,7 +38,17 @@ website:
       }
 
 mixer:
+  useSpannerGraph: true
+  enableV3: true
+  redis:
+    enabled: true
+    configFile: |
+      instances:
+        - region: "us-central1"
+          host: "10.38.211.19"
+          port: "6379"
   enableOtlp: true
+  v3MirrorFraction: 0.01
 
 ingress:
   enabled: false
