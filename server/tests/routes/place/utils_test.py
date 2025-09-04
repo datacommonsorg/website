@@ -403,6 +403,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             ])
     ]
 
+    mock_safe_obs_point = self.patch(dc, "safe_obs_point")
+    mock_safe_obs_point_within = self.patch(dc, "safe_obs_point_within")
     mock_data.mock_dc_api_data(stat_var='Count_Person',
                                places=[
                                    mock_data.CALIFORNIA.dcid,
@@ -410,8 +412,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_point=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='Count_Person',
                                places=[
@@ -422,8 +424,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_points_within=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
 
     # Assert the chart is there.
@@ -471,6 +473,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             ])
     ]
 
+    mock_safe_obs_point = self.patch(dc, "safe_obs_point")
+    mock_safe_obs_point_within = self.patch(dc, "safe_obs_point_within")
     mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
                                places=[
                                    mock_data.CALIFORNIA.dcid,
@@ -478,8 +482,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_point=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
                                places=[
@@ -490,8 +494,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.SAN_MATEO_COUNTY.dcid
                                ],
                                dc_obs_points_within=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
 
     # Assert the chart is there.
@@ -521,7 +525,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                     non_dividable=True)
             ])
     ]
-
     self.assertEqual(filtered_configs, expected_configs)
 
   def test_check_geo_data_exists_true(self):
@@ -993,3 +996,19 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
     self.assertEqual(resp[0].value, 150)  # The latest value
     self.assertEqual(resp[0].variableDcid, 'Count_Person')
+
+  def test_safe_api_error_handling(self):
+    """Tests that safe API calls handle errors gracefully."""
+    # Test safe_obs_point error handling
+    self.mock_obs_point.side_effect = Exception("API Error")
+    result = dc.safe_obs_point(["test_place"], ["test_var"])
+    self.assertEqual(result, {"byVariable": {}})
+
+    # Test safe_obs_point_within error handling
+    self.mock_obs_point_within.side_effect = Exception("API Error")
+    result = dc.safe_obs_point_within("test_place", "test_type", ["test_var"])
+    self.assertEqual(result, {"byVariable": {}})
+
+    # Verify both calls logged errors
+    self.mock_obs_point.assert_called_once()
+    self.mock_obs_point_within.assert_called_once()
