@@ -14,7 +14,6 @@
 """Endpoints for Datacommons NL Experimentation"""
 
 import json
-from typing import Annotated, List, Literal, Union
 
 import flask
 from flask import Blueprint, request
@@ -36,44 +35,36 @@ class ResponseMetadata(ApiBaseModel):
                                            default=None)
 
 
-class IndicatorResult(ApiBaseModel):
+class Indicator(ApiBaseModel):
   dcid: str
   name: str | None = None
   description: str | None = None
   # This is the discriminator field. It must be a string in the base model.
-  type_of: str = Field(alias="typeOf")
+  type_of: str | None = Field(alias="typeOf", default=None)
   score: float
-  sentences: list[str] = Field(
+  search_descriptions: list[str] = Field(
       default_factory=list,
       description=
       "A list of matching sentences from the embeddings index that have a score greater than or equal to the acting threshold."
   )
 
 
-class StatVarResult(IndicatorResult):
-  """Statistical Variable Result"""
-  type_of: Literal["StatisticalVariable"] = Field(
-      alias="typeOf", default="StatisticalVariable")
+class IndexResult(ApiBaseModel):
+  index: str
+  default_threshold: float | None = Field(alias="defaultThreshold")
+  results: list[Indicator] = Field(default_factory=list)
 
 
-class TopicResult(IndicatorResult):
-  """Topic Result"""
-  type_of: Literal["Topic"] = Field(alias="typeOf",
-                                           default="Topic")
-
-
-# Define the discriminated union type.
-IndicatorResult = Annotated[Union[StatVarResult, TopicResult],
-                            Field(discriminator="type_of")]
-
-
-class IndexResponse(ApiBaseModel):
-  model_threshold: float = Field(alias="modelThreshold")
-  candidates: List[IndicatorResult] = Field(default_factory=list)
+class QueryResult(ApiBaseModel):
+  query: str
+  results: list[IndexResult] = Field(
+      alias="indexResults",
+      default_factory=list
+  )
 
 
 class SearchVariablesResponse(ApiBaseModel):
-  results: dict[str, dict[str, IndexResponse]] = Field(
+  results: list[QueryResult] = Field(
       alias="queryResults",
       description=
       "A dictionary where the key is the search string and the value is a dictionary from index name to an IndexResponse object.",
@@ -88,12 +79,6 @@ def encode_vector():
   queries = request.json.get('queries', [])
   return json.dumps(dc.nl_encode(model, queries))
 
-
-def _get_property_value(sv_data: dict, prop: str) -> str | None:  
-    """Safely extracts a property value from a v2/node response item."""  
-    prop_arcs = sv_data.get("arcs", {})  
-    prop_nodes = prop_arcs.get(prop, {}).get("nodes", [])  
-    return prop_nodes[0].get("value") if prop_nodes else None  
 
 @bp.route('/search-vector', methods=['POST'])
 def search_vector():
@@ -110,8 +95,18 @@ def search_vector():
                            skip_topics=request.args.get('skip_topics', ''))
 
 
-@bp.route("/search-variables", methods=["GET"])
-def search_variables():
+def _get_property_value(sv_data: dict, prop: str, *, by_name:bool=False) -> str | None:
+  """Safely extracts a property value from a v2/node response item."""
+  prop_arcs = sv_data.get("arcs", {})
+  prop_nodes = prop_arcs.get(prop, {}).get("nodes", [])
+
+  selector = "name" if by_name else "value"
+  return prop_nodes[0].get(selector) if prop_nodes else None
+
+
+
+@bp.route("/search-indicators", methods=["GET"])
+def search_indicators():
   """Performs variable search for given queries, with optional filtering.
 
     **Disclaimer:** This endpoint is designated as experimental and corresponds
@@ -146,36 +141,30 @@ def search_variables():
     Returns:
         A JSON response structured like the following example:
         {
-          "queryResults": {
-            "population of california": {
-              "medium_ft": {
-                "modelThreshold": 0.75,
-                "candidates": [
-                  {
-                    "dcid": "Count_Person",
-                    "name": "Person Count",
-                    "description": "The total number of individuals...",
-                    "indicatorType": "StatisticalVariable",
-                    "score": 0.95,
-                    "sentences": [
-                      "population of",
-                      "number of people"
-                    ]
-                  },
-                  {
-                    "dcid": "dc/topic/Race",
-                    "name": "Population by Race",
-                    "description": "...",
-                    "indicatorType": "Topic",
-                    "score": 0.88,
-                    "sentences": [
-                      "population broken down by race"
-                    ]
-                  }
-                ],
-              }
+          "queryResults": [
+            {
+              "query": "population of california",
+              "indexes": [
+                {
+                  "index": "medium_ft",
+                  "defaultThreshold": 0.75,
+                  "results": [
+                    {
+                      "dcid": "Count_Person",
+                      "name": "Person Count",
+                      "description": "The total number of individuals...",
+                      "typeOf": "StatisticalVariable",
+                      "score": 0.95,
+                      "search_descriptions": [
+                        "population of",
+                        "number of people"
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
-          },
+          ],
           "responseMetadata": {
             "thresholdOverride": null
           }
@@ -223,95 +212,83 @@ def search_variables():
 
   # Step 2: Collect all candidate DCIDs that pass the threshold for enrichment.
   all_dcids_to_enrich: set[str] = set()
-  for index, nl_result in nl_results_by_index.items():
-    if not nl_result or "queryResults" not in nl_result:
-      continue
-
-    threshold = threshold_override if threshold_override else nl_result.get(
-        "scoreThreshold", 0.0)
-    indicators_above_threshold = 0
-    for query, q_result in nl_result.get("queryResults", {}).items():
-      ranked_indicators = zip(q_result.get("SV", []),
-                              q_result.get("CosineScore", []))
-      for dcid, score in ranked_indicators:
-        if score >= threshold:
-          all_dcids_to_enrich.add(dcid)
-          indicators_above_threshold += 1
-          if max_candidates_per_index and indicators_above_threshold >= max_candidates_per_index:
-            break
-
-  # Step 3: Enrich the valid candidates with names and descriptions.
-  sv_info_map = {}
-  if all_dcids_to_enrich:
-    sv_info_data = dc.v2node(list(all_dcids_to_enrich), "->[name,description]")
-    for dcid, sv_data in sv_info_data.get("data", {}).items():
-      sv_info_map[dcid] = {"name": _get_property_value(sv_data, "name"),
-                           "description": _get_property_value(sv_data, "description")}
-
-  # Step 4: Assemble the final response, preserving original ranking and using
-  # the Pydantic models for validation and serialization.
-  response_query_results: dict[str, dict[str, IndexResponse]] = {}
+  # This map stores the truncated list of (dcid, score) tuples for each query and index.
+  truncated_results: dict[str, dict[str, list[tuple[str, float]]]] = {}
   for query in queries:
-    response_query_results[query] = {}
+    truncated_results[query] = {}
     for index in indices:
       nl_result = nl_results_by_index.get(index)
       if not nl_result or "queryResults" not in nl_result or query not in nl_result[
           "queryResults"]:
         continue
 
+      truncated_results[query][index] = []
       threshold = threshold_override if threshold_override else nl_result.get(
           "scoreThreshold", 0.0)
 
-      q_result = nl_result["queryResults"][query]
-      sv_to_sentences = q_result.get("SV_to_Sentences", {})
-
-      # This list will hold the validated StatVarResult and TopicResult objects.
-      candidates: List[IndicatorResult] = []
-      ranked_indicators = zip(q_result.get("SV", []),
-                              q_result.get("CosineScore", []))
+      ranked_indicators = zip(nl_result["queryResults"][query].get("SV", []),
+                              nl_result["queryResults"][query].get("CosineScore", []))
       for dcid, score in ranked_indicators:
         # Filter by score.
         if score < threshold:
           continue
+        all_dcids_to_enrich.add(dcid)
+        truncated_results[query][index].append((dcid, score))
 
+        if max_candidates_per_index and len(truncated_results[query][index]) >= max_candidates_per_index:
+          break
+
+  # Step 3: Enrich all the valid candidates with a single batch call.
+  sv_info_map = {}
+  if all_dcids_to_enrich:
+    sv_info_data = dc.v2node(list(all_dcids_to_enrich),
+                             "->[name,description,typeOf]")
+    for dcid, sv_data in sv_info_data.get("data", {}).items():
+      sv_info_map[dcid] = {
+          "name": _get_property_value(sv_data, "name"),
+          "description": _get_property_value(sv_data, "description"),
+          "type_of": _get_property_value(sv_data, "typeOf", by_name=True)
+      }
+
+  # Step 4: Assemble the final response using the enriched data.
+  query_results = []
+  for query in queries:
+    index_results = []
+    for index in indices:
+      candidates = []
+      nl_result = nl_results_by_index.get(index, {})
+      if not nl_result:
+        continue
+      
+      sv_to_sentences = nl_result.get("queryResults", {}).get(query, {}).get("SV_to_Sentences", {})
+      threshold = threshold_override if threshold_override else nl_result.get("scoreThreshold", 0.0)
+
+      for dcid, score in truncated_results[query].get(index, []):
         sv_info = sv_info_map.get(dcid, {})
-        # Get the top matching sentences for context, also filtered by score.
         sentences = [
             s['sentence']
             for s in sv_to_sentences.get(dcid, [])
             if s['score'] >= threshold
         ]
-
-        # Based on the DCID, create either a TopicResult or a StatVarResult.
-        # Pydantic will validate the structure.
-        if "/topic/" in dcid:
-          indicator = TopicResult(dcid=dcid,
-                                  name=sv_info.get("name"),
-                                  description=sv_info.get("description"),
-                                  score=score,
-                                  sentences=sentences)
-        else:
-          indicator = StatVarResult(dcid=dcid,
-                                    name=sv_info.get("name"),
-                                    description=sv_info.get("description"),
-                                    score=score,
-                                    sentences=sentences)
-        candidates.append(indicator)
-
-        if max_candidates_per_index and len(
-            candidates) >= max_candidates_per_index:
-          break
-
-      if candidates:
-        response_query_results[query][index] = IndexResponse(
-            model_threshold=nl_result.get("scoreThreshold"),
-            candidates=candidates)
-
+        candidates.append(
+            Indicator(dcid=dcid,
+                      name=sv_info.get("name"),
+                      description=sv_info.get("description"),
+                      type_of=sv_info.get("type_of"),
+                      score=score,
+                      search_descriptions=sentences))
+     
+      index_results.append(
+          IndexResult(index=index,
+                      default_threshold=nl_result.get("scoreThreshold"),
+                      results=candidates))
+   
+    query_results.append(QueryResult(query=query, results=index_results))
   # Build the final SearchVariablesResponse object
   try:
     response_metadata = ResponseMetadata(threshold_override=threshold_override,)
     final_response = SearchVariablesResponse(
-        results=response_query_results, response_metadata=response_metadata)
+        results=query_results, response_metadata=response_metadata)
     return final_response.model_dump_json(by_alias=True)
   except Exception as e:
     # If there is a validation error, it's a 500 because the server

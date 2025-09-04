@@ -64,6 +64,11 @@ MOCK_V2NODE_RESPONSE = {
                         "value": "SV1 Description"
                     }]
                 },
+                "typeOf": {
+                    "nodes": [{
+                        "name": "StatisticalVariable"
+                    }]
+                },
             }
         },
         "SV_2": {
@@ -76,6 +81,11 @@ MOCK_V2NODE_RESPONSE = {
                 "description": {
                     "nodes": [{
                         "value": "SV2 Description"
+                    }]
+                },
+                "typeOf": {
+                    "nodes": [{
+                        "name": "StatisticalVariable"
                     }]
                 },
             }
@@ -91,8 +101,8 @@ class TestSearchVariables(unittest.TestCase):
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   @patch("server.services.datacommons.v2node")
-  def test_search_variables_full_flow(self, mock_v2node,
-                                      mock_nl_search_vars_in_parallel):
+  def test_search_indicators_full_flow(self, mock_v2node,
+                                       mock_nl_search_vars_in_parallel):
     # This test covers the main success path:
     # 1. NL search returns 3 SVs.
     # 2. Thresholding (using model's 0.75) keeps SV_1 and SV_2.
@@ -105,7 +115,7 @@ class TestSearchVariables(unittest.TestCase):
     mock_v2node.return_value = MOCK_V2NODE_RESPONSE
 
     response = self.app.get(
-        "/api/nl/search-variables?queries=population+of+california&index=medium_ft"
+        "/api/nl/search-indicators?queries=population+of+california&index=medium_ft"
     )
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
@@ -118,30 +128,33 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(mock_v2node.call_count, 1)
     v2node_call_args, _ = mock_v2node.call_args
     self.assertCountEqual(v2node_call_args[0], ["SV_1", "SV_2"])
-    self.assertEqual(v2node_call_args[1], "->[name,description]")
+    self.assertEqual(v2node_call_args[1], "->[name,description,typeOf]")
     # Check the final response structure and content
     self.assertIn("queryResults", data)
-    index_response = data["queryResults"]["population of california"][
-        "medium_ft"]
-    self.assertEqual(index_response["modelThreshold"], 0.75)
-    candidates = index_response["candidates"]
+    self.assertEqual(len(data["queryResults"]), 1)
+    query_result = data["queryResults"][0]
+    self.assertEqual(query_result["query"], "population of california")
+    self.assertEqual(len(query_result["indexResults"]), 1)
+    index_result = query_result["indexResults"][0]
+    self.assertEqual(index_result["index"], "medium_ft")
+    self.assertEqual(index_result["defaultThreshold"], 0.75)
+    candidates = index_result["results"]
     self.assertEqual(len(candidates), 2)
 
     # Check SV_1 (passes all filters)
     sv1 = candidates[0]
     self.assertEqual(sv1["dcid"], "SV_1")
     self.assertEqual(sv1["name"], "SV1 Name")
-    self.assertEqual(sv1["typeOf"], "StatisticalVariable")
     self.assertAlmostEqual(sv1["score"], 0.9)
-    self.assertEqual(sv1["sentences"], ["population of", "number of people in"])
+    self.assertEqual(sv1["search_descriptions"],
+                     ["population of", "number of people in"])
 
     # Check SV_2 (passes all filters)
     sv2 = candidates[1]
     self.assertEqual(sv2["dcid"], "SV_2")
     self.assertEqual(sv2["name"], "SV2 Name")
-    self.assertEqual(sv2["typeOf"], "StatisticalVariable")
     self.assertAlmostEqual(sv2["score"], 0.8)
-    self.assertEqual(sv2["sentences"], ["california population"])
+    self.assertEqual(sv2["search_descriptions"], ["california population"])
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   def test_threshold_override(self, mock_nl_search_vars_in_parallel):
@@ -168,6 +181,11 @@ class TestSearchVariables(unittest.TestCase):
                               "value": "SV1 Description"
                           }]
                       },
+                      "typeOf": {
+                          "nodes": [{
+                              "name": "StatisticalVariable"
+                          }]
+                      },
                   }
               },
               "SV_2": {
@@ -180,6 +198,11 @@ class TestSearchVariables(unittest.TestCase):
                       "description": {
                           "nodes": [{
                               "value": "SV2 Description"
+                          }]
+                      },
+                      "typeOf": {
+                          "nodes": [{
+                              "name": "StatisticalVariable"
                           }]
                       },
                   }
@@ -196,46 +219,52 @@ class TestSearchVariables(unittest.TestCase):
                               "value": "SV3 Description"
                           }]
                       },
+                      "typeOf": {
+                          "nodes": [{
+                              "name": "Topic"
+                          }]
+                      },
                   }
               },
           }
       }
 
       response = self.app.get(
-          "/api/nl/search-variables?queries=population+of+california&threshold=0.6&index=medium_ft"
+          "/api/nl/search-indicators?queries=population+of+california&threshold=0.6&index=medium_ft"
       )
       self.assertEqual(response.status_code, 200)
       data = json.loads(response.data)
 
-      index_response = data["queryResults"]["population of california"][
-          "medium_ft"]
-      candidates = index_response["candidates"]
+      query_result = data["queryResults"][0]
+      index_result = query_result["indexResults"][0]
+      candidates = index_result["results"]
       self.assertEqual(len(candidates), 3)
       sv3 = candidates[2]
       self.assertEqual(sv3["dcid"], "SV_3")
       self.assertEqual(sv3["name"], "SV3 Name")
-      self.assertEqual(sv3["typeOf"], "StatisticalVariable")
+      self.assertEqual(sv3["typeOf"], "Topic")
       self.assertAlmostEqual(sv3["score"], 0.7)
-      self.assertEqual(sv3["sentences"], ["residents of the state"])
+      self.assertEqual(sv3["search_descriptions"], ["residents of the state"])
 
       self.assertEqual(data["responseMetadata"]["thresholdOverride"], 0.6)
 
   def test_missing_queries_param(self):
     # Test that a 400 error is returned if `queries` is missing.
-    response = self.app.get("/api/nl/search-variables")
+    response = self.app.get("/api/nl/search-indicators")
     self.assertEqual(response.status_code, 400)
 
   def test_invalid_threshold_param(self):
     # Test that a 400 error is returned if `threshold` is not a float.
+    
     response = self.app.get(
-        "/api/nl/search-variables?queries=population+of+california&threshold=notafloat"
+        "/api/nl/search-indicators?queries=population+of+california&threshold=notafloat"
     )
     self.assertEqual(response.status_code, 400)
 
   def test_invalid_max_candidates_param(self):
     # Test that a 400 error is returned if `max_candidates_per_index` is not an int.
     response = self.app.get(
-        "/api/nl/search-variables?queries=population+of+california&max_candidates_per_index=notanint"
+        "/api/nl/search-indicators?queries=population+of+california&max_candidates_per_index=notanint"
     )
     self.assertEqual(response.status_code, 400)
 
@@ -253,7 +282,7 @@ class TestSearchVariables(unittest.TestCase):
 
     with patch("server.services.datacommons.v2node"):
       response = self.app.get(
-          "/api/nl/search-variables?queries=population+of+california")
+          "/api/nl/search-indicators?queries=population+of+california")
       self.assertEqual(response.status_code, 200)
 
       # Assert that nl_search_vars_in_parallel was called with the default index
@@ -266,16 +295,47 @@ class TestSearchVariables(unittest.TestCase):
     mock_nl_search_vars_in_parallel.return_value = {
         "medium_ft": MOCK_NL_SEARCH_VARS_RESPONSE
     }
-    with patch("server.services.datacommons.v2node"):
+    with patch("server.services.datacommons.v2node") as mock_v2node:
+      mock_v2node.return_value = {
+        "data": {
+            "SV_1": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "SV1 Name"
+                        }]
+                    },
+                    "typeOf": {
+                        "nodes": [{
+                            "name": "StatisticalVariable"
+                        }]
+                    }
+                }
+            },
+            "SV_2": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "SV2 Name"
+                        }]
+                    },
+                    "typeOf": {
+                        "nodes": [{
+                            "name": "StatisticalVariable"
+                        }]
+                    }
+                }
+            }
+          }
+      }
       response = self.app.get(
-          "/api/nl/search-variables?queries=population+of+california&threshold=0.6&max_candidates_per_index=1&index=medium_ft"
+          "/api/nl/search-indicators?queries=population+of+california&threshold=0.6&max_candidates_per_index=1&index=medium_ft"
       )
       self.assertEqual(response.status_code, 200)
       data = json.loads(response.data)
-      index_response = data["queryResults"]["population of california"][
-          "medium_ft"]
-      candidates = index_response["candidates"]
-      # Even though 3 SVs pass the threshold, only 1 should be returned.
+      query_result = data["queryResults"][0]
+      index_result = query_result["indexResults"][0]
+      candidates = index_result["results"]
       self.assertEqual(len(candidates), 1)
       self.assertEqual(candidates[0]["dcid"], "SV_1")
 
@@ -291,12 +351,12 @@ class TestSearchVariables(unittest.TestCase):
 
     query = "a query with no results"
     response = self.app.get(
-        f"/api/nl/search-variables?queries={query}&index=medium_ft")
+        f"/api/nl/search-indicators?queries={query}&index=medium_ft")
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
 
-    # Expect an empty queryResults dictionary
-    self.assertEqual(data["queryResults"], {query: {}})
+    # Expect an empty queryResults list
+    self.assertEqual(data["queryResults"][0]["indexResults"][0]["results"], [])
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   @patch("server.services.datacommons.v2node")
@@ -339,27 +399,41 @@ class TestSearchVariables(unittest.TestCase):
         },
     }
     mock_v2node.return_value = {
-        "data": {}
-    }  # Assume no extra info for simplicity
+        "data": {
+            "SV_A": {"arcs": {"name": {"nodes": [{"value": "SV A"}]}}},
+            "SV_B": {"arcs": {"name": {"nodes": [{"value": "SV B"}]}}},
+        }
+    }
 
     response = self.app.get(
-        "/api/nl/search-variables?queries=query1&queries=query2&index=index1&index=index2"
+        "/api/nl/search-indicators?queries=query1&queries=query2&index=index1&index=index2"
     )
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
 
     # Check that the nested dictionary structure is correct
-    self.assertIn("query1", data["queryResults"])
-    self.assertIn("index1", data["queryResults"]["query1"])
-    self.assertEqual(
-        data["queryResults"]["query1"]["index1"]["candidates"][0]["dcid"],
-        "SV_A")
+    self.assertEqual(len(data["queryResults"]), 2)
+    query1_result = next(
+        qr for qr in data["queryResults"] if qr["query"] == "query1")
+    self.assertEqual(len(query1_result["indexResults"]), 2)
+    index1_for_q1 = next(
+        ir for ir in query1_result["indexResults"] if ir["index"] == "index1")
+    self.assertEqual(len(index1_for_q1["results"]), 1)
+    self.assertEqual(index1_for_q1["results"][0]["dcid"], "SV_A")
+    index2_for_q1 = next(
+        ir for ir in query1_result["indexResults"] if ir["index"] == "index2")
+    self.assertEqual(len(index2_for_q1["results"]), 0)
 
-    self.assertIn("query2", data["queryResults"])
-    self.assertIn("index2", data["queryResults"]["query2"])
-    self.assertEqual(
-        data["queryResults"]["query2"]["index2"]["candidates"][0]["dcid"],
-        "SV_B")
+    query2_result = next(
+        qr for qr in data["queryResults"] if qr["query"] == "query2")
+    self.assertEqual(len(query2_result["indexResults"]), 2)
+    index1_for_q2 = next(
+        ir for ir in query2_result["indexResults"] if ir["index"] == "index1")
+    self.assertEqual(len(index1_for_q2["results"]), 0)
+    index2_for_q2 = next(
+        ir for ir in query2_result["indexResults"] if ir["index"] == "index2")
+    self.assertEqual(len(index2_for_q2["results"]), 1)
+    self.assertEqual(index2_for_q2["results"][0]["dcid"], "SV_B")
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   @patch("server.services.datacommons.v2node")
@@ -397,6 +471,11 @@ class TestSearchVariables(unittest.TestCase):
                         "nodes": [{
                             "value": "Regular SV"
                         }]
+                    },
+                    "typeOf": {
+                        "nodes": [{
+                            "name": "StatisticalVariable"
+                        }]
                     }
                 }
             },
@@ -406,6 +485,11 @@ class TestSearchVariables(unittest.TestCase):
                         "nodes": [{
                             "value": "My Topic"
                         }]
+                    },
+                    "typeOf": {
+                        "nodes": [{
+                            "name": "Topic"
+                        }]
                     }
                 }
             },
@@ -413,13 +497,14 @@ class TestSearchVariables(unittest.TestCase):
     }
 
     response = self.app.get(
-        "/api/nl/search-variables?queries=some+query&index=medium_ft")
+        "/api/nl/search-indicators?queries=some+query&index=medium_ft")
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
 
     # Check the final response structure.
-    index_response = data["queryResults"]["some query"]["medium_ft"]
-    candidates = index_response["candidates"]
+    query_result = data["queryResults"][0]
+    index_result = query_result["indexResults"][0]
+    candidates = index_result["results"]
     self.assertEqual(len(candidates), 2)
 
     # The order is preserved from the NL API response.
@@ -428,14 +513,14 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(regular_sv["typeOf"], "StatisticalVariable")
     self.assertEqual(regular_sv["name"], "Regular SV")
     self.assertAlmostEqual(regular_sv["score"], 0.9)
-    self.assertEqual(regular_sv["sentences"], ["regular sv sentence"])
+    self.assertEqual(regular_sv["search_descriptions"], ["regular sv sentence"])
 
     topic_sv = candidates[1]
     self.assertEqual(topic_sv["dcid"], "dc/topic/MyTopic")
     self.assertEqual(topic_sv["typeOf"], "Topic")
     self.assertEqual(topic_sv["name"], "My Topic")
     self.assertAlmostEqual(topic_sv["score"], 0.9)
-    self.assertEqual(topic_sv["sentences"], ["topic sentence"])
+    self.assertEqual(topic_sv["search_descriptions"], ["topic sentence"])
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   @patch("server.services.datacommons.v2node")
@@ -474,7 +559,7 @@ class TestSearchVariables(unittest.TestCase):
     }
 
     response = self.app.get(
-        "/api/nl/search-variables?queries=some+query&index=medium_ft&skip_topics=true"
+        "/api/nl/search-indicators?queries=some+query&index=medium_ft&skip_topics=true"
     )
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
@@ -483,8 +568,9 @@ class TestSearchVariables(unittest.TestCase):
                                                             ["medium_ft"],
                                                             skip_topics=True)
 
-    index_response = data["queryResults"]["some query"]["medium_ft"]
-    candidates = index_response["candidates"]
+    query_result = data["queryResults"][0]
+    index_result = query_result["indexResults"][0]
+    candidates = index_result["results"]
     self.assertEqual(len(candidates), 1)
     self.assertEqual(candidates[0]["dcid"], "SV_REGULAR")
 
@@ -512,19 +598,25 @@ class TestSearchVariables(unittest.TestCase):
                             "value": "SV1 Description"
                         }]
                     },
+                    "typeOf": {
+                        "nodes": [{
+                            "name": "StatisticalVariable"
+                        }]
+                    },
                 }
             }
         }
     }
 
     response = self.app.get(
-        "/api/nl/search-variables?queries=population+of+california&index=medium_ft"
+        "/api/nl/search-indicators?queries=population+of+california&index=medium_ft"
     )
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
 
-    candidates = data["queryResults"]["population of california"]["medium_ft"][
-        "candidates"]
+    query_result = data["queryResults"][0]
+    index_result = query_result["indexResults"][0]
+    candidates = index_result["results"]
     self.assertEqual(len(candidates), 2)
 
     # SV_1 is fully enriched
