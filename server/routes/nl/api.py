@@ -306,21 +306,24 @@ def search_indicators():
         indicator is kept if its highest-scoring sentence meets the threshold.
     3.  Enriches the final indicators with metadata like name and description.
 
-    The final output is a nested dictionary mapping from query to index name
-    to an `IndexResponse` object. This object contains a list of filtered,
-    ranked, and enriched `IndicatorResult` objects (StatVarResult or TopicResult).
+    The final output is a list of `QueryResult` objects, one for each input
+    query. Each `QueryResult` contains a list of `IndexResult` objects (one for
+    each index searched), which in turn hold the filtered and ranked indicators.
     For each of these results, the `sentences` list will only contain the
-    original matching sentences that also met or exceeded the threshold.
+    original matching sentences that also met or exceeded the acting threshold.
 
     Args (from query string):
         queries (str, repeated): The natural language queries to search for.
         index (str, repeated, optional): The embedding indices to query.
             Defaults to the server's default indices if not provided.
         threshold (float, optional): A score threshold to override the
-            model's default.
+            model's default for all indices.
         limit_per_index (int, optional): The max number of results
             to return per index.
-        skip_topics (bool, optional): Whether to skip topic-based indicators.
+        include_types (str, repeated, optional): A list of indicator types
+            (e.g., "StatisticalVariable", "Topic") to include. If provided,
+            only indicators of these types will be returned. If "Topic" is
+            omitted, the search will be optimized to skip topic indices.
 
     Returns:
         A JSON response structured like the following example:
@@ -328,7 +331,7 @@ def search_indicators():
           "queryResults": [
             {
               "query": "population of california",
-              "indexes": [
+              "indexResults": [
                 {
                   "index": "medium_ft",
                   "defaultThreshold": 0.75,
