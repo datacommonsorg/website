@@ -16,8 +16,11 @@
 import json
 
 import flask
-from flask import Blueprint, request
-from pydantic import BaseModel, ConfigDict, Field
+from flask import Blueprint
+from flask import request
+from pydantic import BaseModel
+from pydantic import ConfigDict
+from pydantic import Field
 
 from server.services import datacommons as dc
 
