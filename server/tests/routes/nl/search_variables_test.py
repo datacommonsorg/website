@@ -131,7 +131,7 @@ class TestSearchVariables(unittest.TestCase):
     sv1 = candidates[0]
     self.assertEqual(sv1["dcid"], "SV_1")
     self.assertEqual(sv1["name"], "SV1 Name")
-    self.assertEqual(sv1["indicatorType"], "StatisticalVariable")
+    self.assertEqual(sv1["typeOf"], "StatisticalVariable")
     self.assertAlmostEqual(sv1["score"], 0.9)
     self.assertEqual(sv1["sentences"], ["population of", "number of people in"])
 
@@ -139,7 +139,7 @@ class TestSearchVariables(unittest.TestCase):
     sv2 = candidates[1]
     self.assertEqual(sv2["dcid"], "SV_2")
     self.assertEqual(sv2["name"], "SV2 Name")
-    self.assertEqual(sv2["indicatorType"], "StatisticalVariable")
+    self.assertEqual(sv2["typeOf"], "StatisticalVariable")
     self.assertAlmostEqual(sv2["score"], 0.8)
     self.assertEqual(sv2["sentences"], ["california population"])
 
@@ -214,7 +214,7 @@ class TestSearchVariables(unittest.TestCase):
       sv3 = candidates[2]
       self.assertEqual(sv3["dcid"], "SV_3")
       self.assertEqual(sv3["name"], "SV3 Name")
-      self.assertEqual(sv3["indicatorType"], "StatisticalVariable")
+      self.assertEqual(sv3["typeOf"], "StatisticalVariable")
       self.assertAlmostEqual(sv3["score"], 0.7)
       self.assertEqual(sv3["sentences"], ["residents of the state"])
 
@@ -425,14 +425,14 @@ class TestSearchVariables(unittest.TestCase):
     # The order is preserved from the NL API response.
     regular_sv = candidates[0]
     self.assertEqual(regular_sv["dcid"], "SV_REGULAR")
-    self.assertEqual(regular_sv["indicatorType"], "StatisticalVariable")
+    self.assertEqual(regular_sv["typeOf"], "StatisticalVariable")
     self.assertEqual(regular_sv["name"], "Regular SV")
     self.assertAlmostEqual(regular_sv["score"], 0.9)
     self.assertEqual(regular_sv["sentences"], ["regular sv sentence"])
 
     topic_sv = candidates[1]
     self.assertEqual(topic_sv["dcid"], "dc/topic/MyTopic")
-    self.assertEqual(topic_sv["indicatorType"], "Topic")
+    self.assertEqual(topic_sv["typeOf"], "Topic")
     self.assertEqual(topic_sv["name"], "My Topic")
     self.assertAlmostEqual(topic_sv["score"], 0.9)
     self.assertEqual(topic_sv["sentences"], ["topic sentence"])

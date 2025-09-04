@@ -14,7 +14,7 @@
 """Endpoints for Datacommons NL Experimentation"""
 
 import json
-from typing import Annotated, Dict, List, Literal, Union
+from typing import Annotated, List, Literal, Union
 
 import flask
 from flask import Blueprint, request
@@ -41,7 +41,7 @@ class IndicatorResult(ApiBaseModel):
   name: str | None = None
   description: str | None = None
   # This is the discriminator field. It must be a string in the base model.
-  indicator_type: str = Field(alias="indicatorType")
+  type_of: str = Field(alias="typeOf")
   score: float
   sentences: list[str] = Field(
       default_factory=list,
@@ -52,19 +52,19 @@ class IndicatorResult(ApiBaseModel):
 
 class StatVarResult(IndicatorResult):
   """Statistical Variable Result"""
-  indicator_type: Literal["StatisticalVariable"] = Field(
-      alias="indicatorType", default="StatisticalVariable")
+  type_of: Literal["StatisticalVariable"] = Field(
+      alias="typeOf", default="StatisticalVariable")
 
 
 class TopicResult(IndicatorResult):
   """Topic Result"""
-  indicator_type: Literal["Topic"] = Field(alias="indicatorType",
+  type_of: Literal["Topic"] = Field(alias="typeOf",
                                            default="Topic")
 
 
 # Define the discriminated union type.
 IndicatorResult = Annotated[Union[StatVarResult, TopicResult],
-                            Field(discriminator="indicator_type")]
+                            Field(discriminator="type_of")]
 
 
 class IndexResponse(ApiBaseModel):
@@ -199,8 +199,6 @@ def search_variables():
       threshold_override = float(request.args["threshold"])
     except ValueError:
       flask.abort(400, "The `threshold` parameter must be a valid float.")
-        
-  raise Exception(threshold_override)  
 
   max_candidates_per_index = None
   if "max_candidates_per_index" in request.args:
