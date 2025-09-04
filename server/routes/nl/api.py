@@ -16,11 +16,8 @@
 import json
 
 import flask
-from flask import Blueprint
-from flask import request
-from pydantic import BaseModel
-from pydantic import ConfigDict
-from pydantic import Field
+from flask import Blueprint, request
+from pydantic import BaseModel, ConfigDict, Field
 
 from server.services import datacommons as dc
 
@@ -258,11 +255,6 @@ def _parse_request_args(
   if not queries:
     flask.abort(400, f"`{PARAM_QUERIES}` is a required parameter")
 
-  indices = request.args.getlist(PARAM_INDEX)
-  if not indices:
-    server_config = dc.nl_server_config()
-    indices = server_config.get("default_indexes", [])
-
   threshold_override = None
   if PARAM_THRESHOLD in request.args:
     try:
@@ -279,6 +271,11 @@ def _parse_request_args(
       flask.abort(
           400,
           f"The `{PARAM_LIMIT_PER_INDEX}` parameter must be a valid integer.")
+
+  indices = request.args.getlist(PARAM_INDEX)
+  if not indices:
+    server_config = dc.nl_server_config()
+    indices = server_config.get("default_indexes", [])
 
   include_types = request.args.getlist(PARAM_INCLUDE_TYPES)
   skip_topics = False
