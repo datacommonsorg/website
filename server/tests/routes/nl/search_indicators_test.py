@@ -16,6 +16,8 @@ import json
 import unittest
 from unittest.mock import patch
 
+from werkzeug.exceptions import BadRequest
+
 from web_app import app
 
 # Mock data for dc.nl_search_vars
@@ -255,18 +257,22 @@ class TestSearchVariables(unittest.TestCase):
 
   def test_invalid_threshold_param(self):
     # Test that a 400 error is returned if `threshold` is not a float.
-    
-    response = self.app.get(
+    with self.assertRaises(BadRequest) as cm:
+        self.app.get(
         "/api/nl/search-indicators?queries=population+of+california&threshold=notafloat"
     )
-    self.assertEqual(response.status_code, 400)
+        
+    # Check the code for the captured exception
+    self.assertEqual(cm.exception.code, 400)
+   
 
   def test_invalid_max_candidates_param(self):
     # Test that a 400 error is returned if `max_candidates_per_index` is not an int.
-    response = self.app.get(
+    with self.assertRaises(BadRequest) as cm:
+        self.app.get(
         "/api/nl/search-indicators?queries=population+of+california&max_candidates_per_index=notanint"
     )
-    self.assertEqual(response.status_code, 400)
+    self.assertEqual(cm.exception.status_code, 400)
 
   @patch("server.services.datacommons.nl_server_config")
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
