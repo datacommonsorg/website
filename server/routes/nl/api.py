@@ -34,6 +34,13 @@ PARAM_LIMIT_PER_INDEX = "limit_per_index"
 PARAM_INCLUDE_TYPES = "include_types"
 TYPE_TOPIC = "Topic"
 
+# Type alias for a DCID string
+Dcid = str
+# Type alias for a tuple of (DCID, score)
+IndicatorScore = tuple[str, float]
+# Type alias for the nested dictionary: {query: {index: [(dcid, score), ...]}}
+TruncatedResults = dict[str, dict[str, list[IndicatorScore]]]
+
 
 class ApiBaseModel(BaseModel):
   # Enables Pydantic models to be initialized using either the field's name
@@ -115,6 +122,173 @@ def _get_property_value(sv_data: dict,
   return prop_nodes[0].get(selector) if prop_nodes else None
 
 
+def _filter_and_truncate_results(
+    queries: list[str], indices: list[str],
+    nl_results_by_index: dict[str, dict], threshold_by_index: dict[str, float],
+    limit_per_index: int | None) -> tuple[TruncatedResults, set[Dcid]]:
+  """Filters NL search results by score, truncates, and collects unique DCIDs.
+
+  This function processes the raw results from the NL server, applies score
+  thresholding and optional limits, and prepares two key outputs for subsequent
+  processing steps.
+
+  Returns:
+      A tuple containing:
+      1.  A `TruncatedResults` dictionary, which has the following structure:
+          {
+              "query1": {
+                  "index1": [("dcid_A", 0.95), ("dcid_B", 0.92)],
+                  "index2": [("dcid_C", 0.88)]
+              },
+              "query2": { ... }
+          }
+      2.  A set of all unique DCIDs that passed the filtering, to be used for
+          metadata enrichment.
+  """
+  all_dcids_to_enrich: set[str] = set()
+  truncated_results: TruncatedResults = {}
+
+  for query in queries:
+    truncated_results[query] = {}
+    for index in indices:
+      nl_result = nl_results_by_index.get(index)
+      if not nl_result or "queryResults" not in nl_result or query not in nl_result.get(
+          "queryResults", {}):
+        continue
+
+      truncated_results[query][index] = []
+      threshold = threshold_by_index.get(index, 0.0)
+
+      query_nl_result = nl_result["queryResults"][query]
+      ranked_indicators = zip(query_nl_result.get("SV", []),
+                              query_nl_result.get("CosineScore", []))
+
+      for dcid, score in ranked_indicators:
+        # Filter by score.
+        if score < threshold:
+          continue
+
+        # If we are here, the indicator is a candidate.
+        all_dcids_to_enrich.add(dcid)
+        truncated_results[query][index].append((dcid, score))
+
+        # Stop if we've reached the per-index limit.
+        if limit_per_index and len(
+            truncated_results[query][index]) >= limit_per_index:
+          break
+
+  return truncated_results, all_dcids_to_enrich
+
+
+def _get_indicator_metadata(dcids: set[str]) -> dict[str, dict]:
+  """Gets name, description, and typeOf for a set of indicator DCIDs."""
+  if not dcids:
+    return {}
+
+  indicator_info_map = {}
+  sv_info_data = dc.v2node(list(dcids), "->[name,description,typeOf]")
+  for dcid, sv_data in sv_info_data.get("data", {}).items():
+    indicator_info_map[dcid] = {
+        "name": _get_property_value(sv_data, "name"),
+        "description": _get_property_value(sv_data, "description"),
+        "type_of": _get_property_value(sv_data, "typeOf", by_name=True)
+    }
+  return indicator_info_map
+
+
+def _build_final_response(queries: list[str], indices: list[str],
+                          nl_results_by_index: dict[str, dict],
+                          threshold_by_index: dict[str, float],
+                          truncated_results: TruncatedResults,
+                          indicator_info_map: dict[str, dict],
+                          response_metadata: ResponseMetadata,
+                          include_types: list[str]) -> SearchVariablesResponse:
+  """Builds the final JSON response from processed search and enrichment data."""
+  query_results = []
+  for query in queries:
+    index_results = []
+    for index in indices:
+      candidates = []
+      nl_result = nl_results_by_index.get(index, {})
+      if not nl_result:
+        index_results.append(
+            IndexResult(index=index, default_threshold=None,
+                        results=candidates))
+        continue
+
+      sv_to_sentences = nl_result.get("queryResults",
+                                      {}).get(query,
+                                              {}).get("SV_to_Sentences", {})
+      threshold = threshold_by_index.get(index, 0.0)
+
+      for dcid, score in truncated_results.get(query, {}).get(index, []):
+        sv_info = indicator_info_map.get(dcid, {})
+        sentences = [
+            s['sentence']
+            for s in sv_to_sentences.get(dcid, [])
+            if s['score'] >= threshold
+        ]
+        if include_types and sv_info.get("type_of") not in include_types:
+          continue
+
+        candidates.append(
+            Indicator(dcid=dcid,
+                      name=sv_info.get("name"),
+                      description=sv_info.get("description"),
+                      type_of=sv_info.get("type_of"),
+                      score=score,
+                      search_descriptions=sentences))
+
+      index_results.append(
+          IndexResult(index=index,
+                      default_threshold=nl_result.get("scoreThreshold"),
+                      results=candidates))
+
+    query_results.append(QueryResult(query=query, results=index_results))
+
+  final_response = SearchVariablesResponse(results=query_results,
+                                           response_metadata=response_metadata)
+  return final_response
+
+
+def _parse_request_args(
+) -> tuple[list[str], list[str], float | None, int | None, list[str], bool]:
+  """Parses and validates all query string arguments for the search."""
+  queries = request.args.getlist(PARAM_QUERIES)
+  if not queries:
+    flask.abort(400, f"`{PARAM_QUERIES}` is a required parameter")
+
+  indices = request.args.getlist(PARAM_INDEX)
+  if not indices:
+    server_config = dc.nl_server_config()
+    indices = server_config.get("default_indexes", [])
+
+  threshold_override = None
+  if PARAM_THRESHOLD in request.args:
+    try:
+      threshold_override = float(request.args[PARAM_THRESHOLD])
+    except ValueError:
+      flask.abort(400,
+                  f"The `{PARAM_THRESHOLD}` parameter must be a valid float.")
+
+  limit_per_index = None
+  if PARAM_LIMIT_PER_INDEX in request.args:
+    try:
+      limit_per_index = int(request.args[PARAM_LIMIT_PER_INDEX])
+    except ValueError:
+      flask.abort(
+          400,
+          f"The `{PARAM_LIMIT_PER_INDEX}` parameter must be a valid integer.")
+
+  include_types = request.args.getlist(PARAM_INCLUDE_TYPES)
+  skip_topics = False
+  if include_types and TYPE_TOPIC not in include_types:
+    skip_topics = True
+
+  return (queries, indices, threshold_override, limit_per_index, include_types,
+          skip_topics)
+
+
 @bp.route("/search-indicators", methods=["GET"])
 def search_indicators():
   """Performs variable search for given queries, with optional filtering.
@@ -183,131 +357,47 @@ def search_indicators():
   #
   # Step 0: Process inputs and fetch default indices if needed
   #
-  queries = request.args.getlist(PARAM_QUERIES)
-  if not queries:
-    flask.abort(400, f"`{PARAM_QUERIES}` is a required parameter")
-  indices = request.args.getlist(PARAM_INDEX)
-  if not indices:
-    server_config = dc.nl_server_config()
-    indices = server_config.get("default_indexes", [])
+  (queries, indices, threshold_override, limit_per_index, include_types,
+   skip_topics) = _parse_request_args()
 
-  threshold_override = None
-  if PARAM_THRESHOLD in request.args:
+  response_metadata = ResponseMetadata(threshold_override=threshold_override)
 
-    try:
-      threshold_override = float(request.args[PARAM_THRESHOLD])
-    except ValueError:
-      flask.abort(400,
-                  f"The `{PARAM_THRESHOLD}` parameter must be a valid float.")
-
-  limit_per_index = None
-  if PARAM_LIMIT_PER_INDEX in request.args:
-    try:
-      limit_per_index = int(request.args[PARAM_LIMIT_PER_INDEX])
-    except ValueError:
-      flask.abort(
-          400,
-          f"The `{PARAM_LIMIT_PER_INDEX}` parameter must be a valid integer.")
-
-  skip_topics = False
-  include_types = request.args.getlist(PARAM_INCLUDE_TYPES)
-  if include_types and TYPE_TOPIC not in include_types:
-    skip_topics = True
-
+  #
   # Step 1: Get search results from the NL server in parallel.
   #
   nl_results_by_index = dc.nl_search_vars_in_parallel(queries,
                                                       indices,
                                                       skip_topics=skip_topics)
 
+  # Pre-calculate the effective threshold for each index.
+  threshold_by_index: dict[str, float] = {}
+  for index in indices:
+    if threshold_override is not None:
+      threshold_by_index[index] = threshold_override
+    else:
+      threshold_by_index[index] = nl_results_by_index.get(index, {}).get(
+          "scoreThreshold", 0.0)
+
+  #
   # Step 2: Collect all candidate DCIDs that pass the threshold for enrichment.
-  all_dcids_to_enrich: set[str] = set()
-  # This map stores the truncated list of (dcid, score) tuples for each query and index.
-  truncated_results: dict[str, dict[str, list[tuple[str, float]]]] = {}
-  for query in queries:
-    truncated_results[query] = {}
-    for index in indices:
-      nl_result = nl_results_by_index.get(index)
-      if not nl_result or "queryResults" not in nl_result or query not in nl_result[
-          "queryResults"]:
-        continue
+  #
+  truncated_results, all_dcids_to_enrich = _filter_and_truncate_results(
+      queries, indices, nl_results_by_index, threshold_by_index,
+      limit_per_index)
 
-      truncated_results[query][index] = []
-      threshold = threshold_override if threshold_override else nl_result.get(
-          "scoreThreshold", 0.0)
-
-      ranked_indicators = zip(
-          nl_result["queryResults"][query].get("SV", []),
-          nl_result["queryResults"][query].get("CosineScore", []))
-      for dcid, score in ranked_indicators:
-        # Filter by score.
-        if score < threshold:
-          continue
-        all_dcids_to_enrich.add(dcid)
-        truncated_results[query][index].append((dcid, score))
-
-        if limit_per_index and len(
-            truncated_results[query][index]) >= limit_per_index:
-          break
-
+  #
   # Step 3: Enrich all the valid candidates with a single batch call.
-  sv_info_map = {}
-  if all_dcids_to_enrich:
-    sv_info_data = dc.v2node(list(all_dcids_to_enrich),
-                             "->[name,description,typeOf]")
-    for dcid, sv_data in sv_info_data.get("data", {}).items():
-      sv_info_map[dcid] = {
-          "name": _get_property_value(sv_data, "name"),
-          "description": _get_property_value(sv_data, "description"),
-          "type_of": _get_property_value(sv_data, "typeOf", by_name=True)
-      }
+  #
+  indicator_info_map = _get_indicator_metadata(all_dcids_to_enrich)
 
+  #
   # Step 4: Assemble the final response using the enriched data.
-  query_results = []
-  for query in queries:
-    index_results = []
-    for index in indices:
-      candidates = []
-      nl_result = nl_results_by_index.get(index, {})
-      if not nl_result:
-        continue
-
-      sv_to_sentences = nl_result.get("queryResults",
-                                      {}).get(query,
-                                              {}).get("SV_to_Sentences", {})
-      threshold = threshold_override if threshold_override else nl_result.get(
-          "scoreThreshold", 0.0)
-
-      for dcid, score in truncated_results[query].get(index, []):
-        sv_info = sv_info_map.get(dcid, {})
-        sentences = [
-            s['sentence']
-            for s in sv_to_sentences.get(dcid, [])
-            if s['score'] >= threshold
-        ]
-        if include_types and sv_info.get("type_of") not in include_types:
-          continue
-
-        candidates.append(
-            Indicator(dcid=dcid,
-                      name=sv_info.get("name"),
-                      description=sv_info.get("description"),
-                      type_of=sv_info.get("type_of"),
-                      score=score,
-                      search_descriptions=sentences))
-
-      index_results.append(
-          IndexResult(index=index,
-                      default_threshold=nl_result.get("scoreThreshold"),
-                      results=candidates))
-
-    query_results.append(QueryResult(query=query, results=index_results))
-  # Build the final SearchVariablesResponse object
+  #
   try:
-    response_metadata = ResponseMetadata(threshold_override=threshold_override,)
-    final_response = SearchVariablesResponse(
-        results=query_results, response_metadata=response_metadata)
-    return final_response.model_dump_json(by_alias=True)
+    final_response_obj = _build_final_response(
+        queries, indices, nl_results_by_index, threshold_by_index,
+        truncated_results, indicator_info_map, response_metadata, include_types)
+    return final_response_obj.model_dump_json(by_alias=True)
   except Exception as e:
     # If there is a validation error, it's a 500 because the server
     # is producing an invalid response.
