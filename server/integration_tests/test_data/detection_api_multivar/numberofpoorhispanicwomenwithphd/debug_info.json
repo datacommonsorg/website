@@ -42,11 +42,11 @@
       0.6745,
       0.67257,
       0.6718,
+      0.67088,
       0.66917,
       0.669,
       0.66822,
       0.66781,
-      0.66534,
       0.66507
     ],
     "MultiSV": {
@@ -201,11 +201,11 @@
       "Count_Person_NoHealthInsurance_HispanicOrLatino",
       "dc/5hc4etrfyj9qg",
       "Count_Person_Male_HispanicOrLatino",
+      "Count_Person_EducationalAttainmentUniversityGraduate_Unemployed_Female",
       "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone",
       "dc/hyfn2tlyz48lb",
       "Count_Person_25OrMoreYears_EducationalAttainmentSomeCollegeLessThan1Year_Female",
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
-      "Count_Person_EducationalAttainmentUniversityGraduate_Unemployed_Female",
       "Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAlone"
     ]
   },

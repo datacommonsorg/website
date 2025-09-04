@@ -32,45 +32,12 @@
             ],
             "denom": "Count_Person",
             "title": "Middle School Students"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/b3nmcj3w1lhed"
-                    ],
-                    "title": "Population: Middle School, Two or More Races in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Middle School, Two or More Races in Sunnyvale",
-                    "statVarKey": [
-                      "dc/b3nmcj3w1lhed"
-                    ],
-                    "title": "Population: Middle School, Two or More Races in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Middle School, Two or More Races"
           }
         ],
         "statVarSpec": {
           "Count_Person_DetailedMiddleSchool": {
             "name": "Middle School Students",
             "statVar": "Count_Person_DetailedMiddleSchool"
-          },
-          "dc/b3nmcj3w1lhed": {
-            "name": "Population: Middle School, Two or More Races",
-            "statVar": "dc/b3nmcj3w1lhed"
           }
         }
       }

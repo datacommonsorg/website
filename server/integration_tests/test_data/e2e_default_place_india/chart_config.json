@@ -456,45 +456,12 @@
             ],
             "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
             "title": "Female Life Expectancy in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female"
-                    ],
-                    "title": "Percent of Females Working Age Population in the Labor Force in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Percent of Females Working Age Population in the Labor Force in India",
-                    "statVarKey": [
-                      "Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female"
-                    ],
-                    "title": "Percent of Females Working Age Population in the Labor Force in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "description": "Labor force participation rate is the proportion of the population ages 15-64 that is economically active: all people who supply labor for the production of goods and services during a specified period. International labour organization, ILOSTAT database. Data retrieved in march 1, 2020.",
-            "title": "Percent of Females Working Age Population in the Labor Force"
           }
         ],
         "statVarSpec": {
           "Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce": {
             "name": "Percent of 15+ Years Old Males in the Labor Force",
             "statVar": "Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce"
-          },
-          "Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female": {
-            "name": "Percent of Females Working Age Population in the Labor Force",
-            "statVar": "Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female"
           },
           "Count_Person_Female": {
             "name": "Women",

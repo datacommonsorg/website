@@ -450,28 +450,17 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female_1145703171"
+                      "Count_Person_Female_1145703171",
+                      "Count_Person_Male_1145703171"
                     ],
-                    "title": "Women Over 85 in New York",
+                    "title": "Women and Men in New York",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Women Over 85 in New York",
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female_2019"
-                    ],
-                    "title": "Women Over 85 in New York",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Women Over 85"
+            "title": "Related: Women and Men"
           }
         ],
         "statVarSpec": {
@@ -514,16 +503,6 @@
             "date": "2019",
             "name": "Population: Female, Enrolled in School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
-          },
-          "Count_Person_85OrMoreYears_Female_1145703171": {
-            "facetId": "1145703171",
-            "name": "Women over 85",
-            "statVar": "Count_Person_85OrMoreYears_Female"
-          },
-          "Count_Person_85OrMoreYears_Female_2019": {
-            "date": "2019",
-            "name": "Women over 85",
-            "statVar": "Count_Person_85OrMoreYears_Female"
           },
           "Count_Person_Female_1145703171": {
             "facetId": "1145703171",
@@ -667,16 +646,6 @@
           "Count_Person_65OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
         ]
       },
-      "Count_Person_85OrMoreYears_Female": {
-        "race": [
-          "Count_Person_85OrMoreYears_Female_AsianAlone",
-          "Count_Person_85OrMoreYears_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_85OrMoreYears_Female_HispanicOrLatino",
-          "Count_Person_85OrMoreYears_Female_SomeOtherRaceAlone",
-          "Count_Person_85OrMoreYears_Female_TwoOrMoreRaces",
-          "Count_Person_85OrMoreYears_Female_WhiteAloneNotHispanicOrLatino"
-        ]
-      },
       "Count_Person_Female": {
         "age": [
           "Count_Person_15To44Years_Female",
@@ -684,8 +653,7 @@
           "Count_Person_60OrMoreYears_Female",
           "Count_Person_62OrMoreYears_Female",
           "Count_Person_65To66Years_Female",
-          "Count_Person_67To69Years_Female",
-          "Count_Person_85OrMoreYears_Female"
+          "Count_Person_67To69Years_Female"
         ],
         "educationalAttainment": [
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
