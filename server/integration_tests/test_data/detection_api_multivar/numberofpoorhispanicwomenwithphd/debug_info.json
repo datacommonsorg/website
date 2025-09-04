@@ -46,8 +46,8 @@
       0.669,
       0.66822,
       0.66781,
-      0.66507,
-      0.66487
+      0.66534,
+      0.66507
     ],
     "MultiSV": {
       "Candidates": [
@@ -205,8 +205,8 @@
       "dc/hyfn2tlyz48lb",
       "Count_Person_25OrMoreYears_EducationalAttainmentSomeCollegeLessThan1Year_Female",
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
-      "Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAlone",
-      "dc/epw58ne8mytn5"
+      "Count_Person_EducationalAttainmentUniversityGraduate_Unemployed_Female",
+      "Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAlone"
     ]
   },
   "props_matching": {
