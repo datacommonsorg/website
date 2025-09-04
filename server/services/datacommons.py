@@ -31,6 +31,7 @@ from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
 
 cfg = libconfig.get_config()
+logger = logging.getLogger(__name__)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
@@ -590,3 +591,32 @@ def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
     req["newStatVars"] = new_stat_vars
   url = get_service_url("/v1/internal/page/place")
   return post(url, req)
+
+
+def safe_obs_point(entities, variables, date='LATEST'):
+  """
+    Calls obs_point with error handling.
+    If an error occurs, returns a dict with an empty byVariable key.
+    """
+  try:
+    return obs_point(entities, variables, date)
+  except Exception as e:
+    logger.error(f"Error in obs_point call: {str(e)}", exc_info=True)
+    return {"byVariable": {}}
+
+
+def safe_obs_point_within(parent_entity,
+                          child_type,
+                          variables,
+                          date='LATEST',
+                          facet_ids=None):
+  """
+  Calls obs_point_within with error handling.
+  If an error occurs, returns a dict with an empty byVariable key.
+  """
+  try:
+    return obs_point_within(parent_entity, child_type, variables, date,
+                            facet_ids)
+  except Exception as e:
+    logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)
+    return {"byVariable": {}}
