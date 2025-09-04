@@ -136,7 +136,7 @@ def search_indicators():
             Defaults to the server's default indices if not provided.
         threshold (float, optional): A score threshold to override the
             model's default.
-        max_candidates_per_index (int, optional): The max number of results
+        limit_per_index (int, optional): The max number of results
             to return per index.
         skip_topics (bool, optional): Whether to skip topic-based indicators.
 
@@ -191,20 +191,18 @@ def search_indicators():
     except ValueError:
       flask.abort(400, "The `threshold` parameter must be a valid float.")
 
-  max_candidates_per_index = None
-  if "max_candidates_per_index" in request.args:
+  limit_per_index = None
+  if "limit_per_index" in request.args:
     try:
-      max_candidates_per_index = int(request.args["max_candidates_per_index"])
+      limit_per_index = int(request.args["limit_per_index"])
     except ValueError:
-      flask.abort(
-          400,
-          "The `max_candidates_per_index` parameter must be a valid integer.")
+      flask.abort(400,
+                  "The `limit_per_index` parameter must be a valid integer.")
 
-  skip_topics = request.args.get(
-      "skip_topics",
-      default=False,
-      type=lambda v: v.lower() in ["true", "1"],
-  )
+  skip_topics = False
+  include_types = request.args.getlist("include_types")
+  if include_types and 'Topic' not in include_types:
+    skip_topics = True
 
   # Step 1: Get search results from the NL server in parallel.
   #
@@ -238,8 +236,8 @@ def search_indicators():
         all_dcids_to_enrich.add(dcid)
         truncated_results[query][index].append((dcid, score))
 
-        if max_candidates_per_index and len(
-            truncated_results[query][index]) >= max_candidates_per_index:
+        if limit_per_index and len(
+            truncated_results[query][index]) >= limit_per_index:
           break
 
   # Step 3: Enrich all the valid candidates with a single batch call.
@@ -277,6 +275,9 @@ def search_indicators():
             for s in sv_to_sentences.get(dcid, [])
             if s['score'] >= threshold
         ]
+        if include_types and sv_info.get("type_of") not in include_types:
+          continue
+
         candidates.append(
             Indicator(dcid=dcid,
                       name=sv_info.get("name"),

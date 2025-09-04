@@ -261,9 +261,9 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(response.status_code, 400)
 
   def test_invalid_max_candidates_param(self):
-    # Test that a 400 error is returned if `max_candidates_per_index` is not an int.
+    # Test that a 400 error is returned if `limit_per_index` is not an int.
     response = self.app.get(
-        "/api/nl/search-indicators?queries=population+of+california&max_candidates_per_index=notanint"
+        "/api/nl/search-indicators?queries=population+of+california&limit_per_index=notanint"
     )
     self.assertEqual(response.status_code, 400)
 
@@ -290,7 +290,7 @@ class TestSearchVariables(unittest.TestCase):
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   def test_max_candidates(self, mock_nl_search_vars_in_parallel):
-    # Test that `max_candidates_per_index` correctly truncates the results.
+    # Test that `limit_per_index` correctly truncates the results.
     mock_nl_search_vars_in_parallel.return_value = {
         "medium_ft": MOCK_NL_SEARCH_VARS_RESPONSE
     }
@@ -328,7 +328,7 @@ class TestSearchVariables(unittest.TestCase):
           }
       }
       response = self.app.get(
-          "/api/nl/search-indicators?queries=population+of+california&threshold=0.6&max_candidates_per_index=1&index=medium_ft"
+          "/api/nl/search-indicators?queries=population+of+california&threshold=0.6&limit_per_index=1&index=medium_ft"
       )
       self.assertEqual(response.status_code, 200)
       data = json.loads(response.data)
@@ -567,14 +567,19 @@ class TestSearchVariables(unittest.TestCase):
                         "nodes": [{
                             "value": "Regular SV"
                         }]
-                    }
+                    },
+                    "typeOf": {
+                        "nodes": [{
+                            "name": "StatisticalVariable"
+                        }]
+                    },
                 }
             }
         }
     }
 
     response = self.app.get(
-        "/api/nl/search-indicators?queries=some+query&index=medium_ft&skip_topics=true"
+        "/api/nl/search-indicators?queries=some+query&index=medium_ft&include_types=StatisticalVariable"
     )
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
