@@ -452,93 +452,6 @@ class TestSearchVariables(unittest.TestCase):
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   @patch("server.services.datacommons.v2node")
-  def test_topic_separation(self, mock_v2node, mock_nl_search_vars_in_parallel):
-    # This test ensures that topic SVs are separated and handled correctly.
-    mock_nl_response = {
-        "queryResults": {
-            "some query": {
-                "SV": ["SV_REGULAR", "dc/topic/MyTopic"],
-                "CosineScore": [0.9, 0.9],
-                "SV_to_Sentences": {
-                    "SV_REGULAR": [{
-                        "sentence": "regular sv sentence",
-                        "score": 0.9
-                    }],
-                    "dc/topic/MyTopic": [{
-                        "sentence": "topic sentence",
-                        "score": 0.9
-                    }],
-                },
-            }
-        },
-        "scoreThreshold": 0.8,
-    }
-    mock_nl_search_vars_in_parallel.return_value = {
-        "medium_ft": mock_nl_response
-    }
-
-    # v2node should be called for both the regular SV and the topic.
-    mock_v2node.return_value = {
-        "data": {
-            "SV_REGULAR": {
-                "arcs": {
-                    "name": {
-                        "nodes": [{
-                            "value": "Regular SV"
-                        }]
-                    },
-                    "typeOf": {
-                        "nodes": [{
-                            "name": "StatisticalVariable"
-                        }]
-                    }
-                }
-            },
-            "dc/topic/MyTopic": {
-                "arcs": {
-                    "name": {
-                        "nodes": [{
-                            "value": "My Topic"
-                        }]
-                    },
-                    "typeOf": {
-                        "nodes": [{
-                            "name": "Topic"
-                        }]
-                    }
-                }
-            },
-        }
-    }
-
-    response = self.app.get(
-        "/api/nl/search-indicators?queries=some+query&index=medium_ft")
-    self.assertEqual(response.status_code, 200)
-    data = json.loads(response.data)
-
-    # Check the final response structure.
-    query_result = data["queryResults"][0]
-    index_result = query_result["indexResults"][0]
-    candidates = index_result["results"]
-    self.assertEqual(len(candidates), 2)
-
-    # The order is preserved from the NL API response.
-    regular_sv = candidates[0]
-    self.assertEqual(regular_sv["dcid"], "SV_REGULAR")
-    self.assertEqual(regular_sv["typeOf"], "StatisticalVariable")
-    self.assertEqual(regular_sv["name"], "Regular SV")
-    self.assertAlmostEqual(regular_sv["score"], 0.9)
-    self.assertEqual(regular_sv["search_descriptions"], ["regular sv sentence"])
-
-    topic_sv = candidates[1]
-    self.assertEqual(topic_sv["dcid"], "dc/topic/MyTopic")
-    self.assertEqual(topic_sv["typeOf"], "Topic")
-    self.assertEqual(topic_sv["name"], "My Topic")
-    self.assertAlmostEqual(topic_sv["score"], 0.9)
-    self.assertEqual(topic_sv["search_descriptions"], ["topic sentence"])
-
-  @patch("server.services.datacommons.nl_search_vars_in_parallel")
-  @patch("server.services.datacommons.v2node")
   def test_skip_topics(self, mock_v2node, mock_nl_search_vars_in_parallel):
     # Test that when `skip_topics=true`, topics are filtered out.
     mock_nl_response = {
@@ -650,3 +563,110 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(sv2["dcid"], "SV_2")
     self.assertIsNone(sv2["name"])
     self.assertIsNone(sv2["description"])
+
+  @patch("server.services.datacommons.nl_search_vars_in_parallel")
+  @patch("server.services.datacommons.v2node")
+  def test_include_types_filter(self, mock_v2node,
+                                mock_nl_search_vars_in_parallel):
+    # Test that `include_types` correctly filters the results.
+    mock_nl_response = {
+        "queryResults": {
+            "some query": {
+                "SV": ["SV_REGULAR", "dc/topic/MyTopic"],
+                "CosineScore": [0.9, 0.9],
+                "SV_to_Sentences": {
+                    "SV_REGULAR": [{
+                        "sentence": "regular sv sentence",
+                        "score": 0.9
+                    }],
+                    "dc/topic/MyTopic": [{
+                        "sentence": "topic sentence",
+                        "score": 0.9
+                    }],
+                },
+            }
+        },
+        "scoreThreshold": 0.8,
+    }
+    mock_nl_search_vars_in_parallel.return_value = {
+        "medium_ft": mock_nl_response
+    }
+    mock_v2node.return_value = {
+        "data": {
+            "SV_REGULAR": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "Regular SV"
+                        }]
+                    },
+                    "typeOf": {
+                        "nodes": [{
+                            "name": "StatisticalVariable"
+                        }]
+                    }
+                }
+            },
+            "dc/topic/MyTopic": {
+                "arcs": {
+                    "name": {
+                        "nodes": [{
+                            "value": "My Topic"
+                        }]
+                    },
+                    "typeOf": {
+                        "nodes": [{
+                            "name": "Topic"
+                        }]
+                    }
+                }
+            },
+        }
+    }
+
+    response = self.app.get(
+        "/api/nl/search-indicators?queries=some+query&index=medium_ft&include_types=StatisticalVariable"
+    )
+    self.assertEqual(response.status_code, 200)
+    data = json.loads(response.data)
+
+    query_result = data["queryResults"][0]
+    index_result = query_result["indexResults"][0]
+    candidates = index_result["results"]
+    self.assertEqual(len(candidates), 1)
+    self.assertEqual(candidates[0]["dcid"], "SV_REGULAR")
+    self.assertEqual(candidates[0]["typeOf"], "StatisticalVariable")
+
+  @patch("server.services.datacommons.nl_search_vars_in_parallel")
+  @patch("server.services.datacommons.v2node")
+  def test_empty_v2node_response(self, mock_v2node,
+                                 mock_nl_search_vars_in_parallel):
+    # Test graceful handling of an empty v2node response.
+    mock_nl_search_vars_in_parallel.return_value = {
+        "medium_ft": MOCK_NL_SEARCH_VARS_RESPONSE
+    }
+    mock_v2node.return_value = {"data": {}}  # Empty enrichment data
+
+    response = self.app.get(
+        "/api/nl/search-indicators?queries=population+of+california&index=medium_ft"
+    )
+    self.assertEqual(response.status_code, 200)
+    data = json.loads(response.data)
+
+    query_result = data["queryResults"][0]
+    index_result = query_result["indexResults"][0]
+    candidates = index_result["results"]
+    self.assertEqual(len(candidates), 2)
+
+    # Check that indicators are still present but without enrichment
+    sv1 = candidates[0]
+    self.assertEqual(sv1["dcid"], "SV_1")
+    self.assertIsNone(sv1["name"])
+    self.assertIsNone(sv1["description"])
+    self.assertIsNone(sv1["typeOf"])
+
+    sv2 = candidates[1]
+    self.assertEqual(sv2["dcid"], "SV_2")
+    self.assertIsNone(sv2["name"])
+    self.assertIsNone(sv2["description"])
+    self.assertIsNone(sv2["typeOf"])

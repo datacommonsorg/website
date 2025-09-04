@@ -26,6 +26,14 @@ from server.services import datacommons as dc
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
+# Constants for request parameters
+PARAM_QUERIES = "queries"
+PARAM_INDEX = "index"
+PARAM_THRESHOLD = "threshold"
+PARAM_LIMIT_PER_INDEX = "limit_per_index"
+PARAM_INCLUDE_TYPES = "include_types"
+TYPE_TOPIC = "Topic"
+
 
 class ApiBaseModel(BaseModel):
   # Enables Pydantic models to be initialized using either the field's name
@@ -175,33 +183,35 @@ def search_indicators():
   #
   # Step 0: Process inputs and fetch default indices if needed
   #
-  queries = request.args.getlist("queries")
+  queries = request.args.getlist(PARAM_QUERIES)
   if not queries:
-    flask.abort(400, "`queries` is a required parameter")
-  indices = request.args.getlist("index")
+    flask.abort(400, f"`{PARAM_QUERIES}` is a required parameter")
+  indices = request.args.getlist(PARAM_INDEX)
   if not indices:
     server_config = dc.nl_server_config()
     indices = server_config.get("default_indexes", [])
 
   threshold_override = None
-  if "threshold" in request.args:
+  if PARAM_THRESHOLD in request.args:
 
     try:
-      threshold_override = float(request.args["threshold"])
-    except ValueError:
-      flask.abort(400, "The `threshold` parameter must be a valid float.")
-
-  limit_per_index = None
-  if "limit_per_index" in request.args:
-    try:
-      limit_per_index = int(request.args["limit_per_index"])
+      threshold_override = float(request.args[PARAM_THRESHOLD])
     except ValueError:
       flask.abort(400,
-                  "The `limit_per_index` parameter must be a valid integer.")
+                  f"The `{PARAM_THRESHOLD}` parameter must be a valid float.")
+
+  limit_per_index = None
+  if PARAM_LIMIT_PER_INDEX in request.args:
+    try:
+      limit_per_index = int(request.args[PARAM_LIMIT_PER_INDEX])
+    except ValueError:
+      flask.abort(
+          400,
+          f"The `{PARAM_LIMIT_PER_INDEX}` parameter must be a valid integer.")
 
   skip_topics = False
-  include_types = request.args.getlist("include_types")
-  if include_types and 'Topic' not in include_types:
+  include_types = request.args.getlist(PARAM_INCLUDE_TYPES)
+  if include_types and TYPE_TOPIC not in include_types:
     skip_topics = True
 
   # Step 1: Get search results from the NL server in parallel.
