@@ -65,7 +65,7 @@ clear_website_cache() {
 
   # If there is a mixer-cache instance in the project, clear that too
   local MIXER_HOST
-  MIXER_HOST=$(gcloud redis instances describe mixer-cache --region="$REDIS_REGION" --format="get(host)")
+  MIXER_HOST=$(gcloud redis instances describe mixer-cache --region="$REDIS_REGION" --format="get(host)" 2>/dev/null || true)
   if [ -n "$MIXER_HOST" ]; then
     echo "--- Clearing mixer cache for Project: $PROJECT_ID, Cluster: $CLUSTER_NAME, Location: $LOCATION ---"
     local script="import redis; redis_client = redis.StrictRedis(host=\"$MIXER_HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(\"Clearing mixer cache for $PROJECT_ID/$CLUSTER_NAME/$LOCATION, redis host $MIXER_HOST:\",resp)"
