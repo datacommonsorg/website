@@ -597,7 +597,7 @@ class PlaceExplorerTestMixin():
                   '.place-summary')
 
     # Assert text Place in Tulum Municipality is present
-    wait_for_text(self.driver, "The population in Tulum was", By.CSS_SELECTOR,
+    wait_for_text(self.driver, "Place in Tulum Municipality", By.CSS_SELECTOR,
                   '.page-content-container .subheader')
 
   @pytest.mark.skip(reason="Fix theme compile error before re-enabling")

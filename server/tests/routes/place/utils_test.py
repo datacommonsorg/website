@@ -403,6 +403,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             ])
     ]
 
+    mock_safe_obs_point = self.patch(dc, "safe_obs_point")
+    mock_safe_obs_point_within = self.patch(dc, "safe_obs_point_within")
     mock_data.mock_dc_api_data(stat_var='Count_Person',
                                places=[
                                    mock_data.CALIFORNIA.dcid,
@@ -410,8 +412,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_point=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='Count_Person',
                                places=[
@@ -422,8 +424,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_points_within=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
 
     # Assert the chart is there.
@@ -471,6 +473,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             ])
     ]
 
+    mock_safe_obs_point = self.patch(dc, "safe_obs_point")
+    mock_safe_obs_point_within = self.patch(dc, "safe_obs_point_within")
     mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
                                places=[
                                    mock_data.CALIFORNIA.dcid,
@@ -478,8 +482,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_point=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
                                places=[
@@ -490,8 +494,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.SAN_MATEO_COUNTY.dcid
                                ],
                                dc_obs_points_within=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
 
     # Assert the chart is there.
@@ -521,7 +525,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                     non_dividable=True)
             ])
     ]
-
     self.assertEqual(filtered_configs, expected_configs)
 
   def test_check_geo_data_exists_true(self):
@@ -1003,8 +1006,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
 
     # Test safe_obs_point_within error handling
     self.mock_obs_point_within.side_effect = Exception("API Error")
-    result = dc.safe_obs_point_within("test_place", "test_type",
-                                         ["test_var"])
+    result = dc.safe_obs_point_within("test_place", "test_type", ["test_var"])
     self.assertEqual(result, {"byVariable": {}})
 
     # Verify both calls logged errors
