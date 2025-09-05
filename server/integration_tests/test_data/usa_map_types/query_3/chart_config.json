@@ -478,6 +478,96 @@
             ],
             "denom": "Count_Person",
             "title": "Population: No Income, Foreign Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Not Currently Enrolled in School in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Not Currently Enrolled in School in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Not Currently Enrolled in School in Washington",
+                    "statVarKey": [
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Not Currently Enrolled in School in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Not Currently Enrolled in School"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Workers in All Industries in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Workers in All Industries in Washington",
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Workers in All Industries in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Workers in All Industries"
           }
         ],
         "statVarSpec": {
@@ -505,6 +595,10 @@
             "name": "Population: 16 - 64 Years, Male, Did Not Work",
             "statVar": "Count_Person_Male_DidNotWork"
           },
+          "Count_Person_NotEnrolledInSchool": {
+            "name": "Population Not Currently Enrolled in School",
+            "statVar": "Count_Person_NotEnrolledInSchool"
+          },
           "Count_Person_NotInLaborForce": {
             "name": "Population: 16 Years or More, Not in Labor Force",
             "statVar": "Count_Person_NotInLaborForce"
@@ -516,6 +610,10 @@
           "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
             "name": "State Unemployment Insurance Claims",
             "statVar": "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+          },
+          "Count_Worker_NAICSTotalAllIndustries": {
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
           },
           "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow": {
             "name": "Insured Unemployment Rate",
