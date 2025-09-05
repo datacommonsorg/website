@@ -161,7 +161,7 @@ def assert_topics(self, driver, path_to_topics, classname, expected_topics):
 def search_for_places(self,
                       driver,
                       search_term,
-                      place_type,
+                      place_type=None,
                       is_new_vis_tools=True):
   """Interacts with a visualization tool page to manually search for places.
 
@@ -178,7 +178,7 @@ def search_for_places(self,
     _search_for_places_old(self, driver, search_term, place_type)
 
 
-def _search_for_places_old(self, driver, search_term, place_type):
+def _search_for_places_old(self, driver, search_term, place_type=None):
   # Type term into the search box.
   search_box_input = find_elem(driver, by=By.ID, value='ac')
   search_box_input.send_keys(search_term)
@@ -191,16 +191,17 @@ def _search_for_places_old(self, driver, search_term, place_type):
   wait_for_loading(driver)
   self.assertIsNotNone(wait_elem(driver, value='chip'))
 
-  # Choose place type
-  wait_for_loading(driver)
-  place_selector_place_type = find_elem(driver,
-                                        by=By.ID,
-                                        value='place-selector-place-type')
-  Select(place_selector_place_type).select_by_value(place_type)
+  if place_type:
+    # Choose place type
+    wait_for_loading(driver)
+    place_selector_place_type = find_elem(driver,
+                                          by=By.ID,
+                                          value='place-selector-place-type')
+    Select(place_selector_place_type).select_by_value(place_type)
   wait_for_loading(driver)
 
 
-def _search_for_places(self, driver, search_term, place_type):
+def _search_for_places(self, driver, search_term, place_type=None):
   # Click start
   click_el(driver, (By.CLASS_NAME, 'start-button'))
 
@@ -219,14 +220,15 @@ def _search_for_places(self, driver, search_term, place_type):
   # Click continue
   click_el(driver, (By.CLASS_NAME, 'continue-button'))
 
-  # Wait for place types to load and click on one
-  wait_elem(self.driver,
-            by=By.CSS_SELECTOR,
-            value='.place-type-selector .form-check-input')
-  # Find the specific label by its text using XPath and click it
-  place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
-  click_el(driver, (By.XPATH, place_type_xpath))
+  if place_type:
+    # Wait for place types to load and click on one
+    wait_elem(self.driver,
+              by=By.CSS_SELECTOR,
+              value='.place-type-selector .form-check-input')
+    # Find the specific label by its text using XPath and click it
+    place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
+    click_el(driver, (By.XPATH, place_type_xpath))
+    # Click continue
+    click_el(driver, (By.CLASS_NAME, 'continue-button'))
 
-  # Click continue
-  click_el(driver, (By.CLASS_NAME, 'continue-button'))
   wait_for_loading(self.driver)
