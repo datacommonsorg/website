@@ -18,6 +18,7 @@ import json
 import flask
 from flask import Blueprint
 from flask import request
+from flask import Response
 from pydantic import BaseModel
 from pydantic import ConfigDict
 from pydantic import Field
@@ -419,7 +420,8 @@ def search_indicators():
         req_args.queries, req_args.indices, nl_results_by_index,
         threshold_by_index, truncated_results, indicator_info_map,
         response_metadata, req_args.include_types)
-    return final_response_obj.model_dump_json(by_alias=True)
+    resp = final_response_obj.model_dump_json(by_alias=True)
+    return Response(resp, 200, mimetype='application/json')
   except Exception as e:
     # If there is a validation error, it's a 500 because the server
     # is producing an invalid response.
