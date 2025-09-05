@@ -148,6 +148,7 @@ function run_npm_lint_test {
 
 # Runs linting tools to automatically fix style issues in the
 # codebase. It can target client-side code (npm), Python code (py), or both.
+# Accepts one arg via ${extra_args[@]}".
 function run_lint_fix {
 
   # Helper function to fix client-side (npm) code.
@@ -155,6 +156,7 @@ function run_lint_fix {
     echo -e "#### Fixing client-side code"
     # Run commands in a subshell to avoid changing the current directory.
     (
+      cd "$(dirname "$0")"
       cd static
       # Install eslint if it's not already installed.
       npm list eslint || npm install eslint
@@ -166,19 +168,13 @@ function run_lint_fix {
   # Helper function to fix Python code.
   run_py_fix() {
     echo -e "#### Fixing Python code"
-    # Run commands in a subshell to isolate environment changes.
     (
+      # Run commands in a subshell to avoid changing the current directory.
+      cd "$(dirname "$0")"
       source .env/bin/activate
-      # Install Python formatting tools.
-      pip3 install yapf==0.40.2 -q
-      if ! command -v isort &> /dev/null
-      then
-        pip3 install isort -q
-      fi
-
+      pip3 install yapf==0.40.2 isort -q
       yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
-
-      isort server/ nl_server/ shared/ tools/  --skip-glob=*pb2.py  --skip-glob=**/.env/** --profile=google
+      isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.env/** --profile=google
       deactivate
     )
   }
