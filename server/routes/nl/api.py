@@ -16,12 +16,8 @@
 import json
 
 import flask
-from flask import Blueprint
-from flask import request
-from pydantic import BaseModel
-from pydantic import ConfigDict
-from pydantic import dataclasses
-from pydantic import Field
+from flask import Blueprint, request
+from pydantic import BaseModel, ConfigDict, Field, dataclasses
 
 from server.services import datacommons as dc
 
@@ -39,8 +35,7 @@ TYPE_TOPIC = "Topic"
 Dcid = str
 
 
-@dataclasses.dataclass
-class IndicatorScore:
+class IndicatorScore(BaseModel):
   dcid: str
   score: float
 
@@ -188,7 +183,8 @@ def _filter_and_truncate_results(
 
         # If we are here, the indicator is a candidate.
         all_dcids_to_enrich.add(dcid)
-        truncated_results[query][index].append(IndicatorScore(dcid, score))
+        truncated_results[query][index].append(
+            IndicatorScore(dcid=dcid, score=score))
 
         # Stop if we've reached the per-index limit.
         if limit_per_index and len(
