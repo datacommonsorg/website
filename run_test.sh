@@ -148,22 +148,31 @@ function run_npm_lint_test {
 
 # Fixes lint
 function run_lint_fix {
-  echo -e "#### Fixing client-side code"
-  cd static
-  npm list eslint || npm install eslint
-  npm run lint
-  cd ..
-
-  echo -e "#### Fixing Python code"
-  source .env/bin/activate
-  pip3 install yapf==0.40.2 -q
-  if ! command -v isort &> /dev/null
-  then
-    pip3 install isort -q
+  local fix_target=$1
+  if [[ -z "$fix_target" || "$fix_target" == "all" || "$fix_target" == "npm" ]]; then
+    echo -e "#### Fixing client-side code"
+    cd static
+    npm list eslint || npm install eslint
+    npm run lint
+    cd ..
   fi
-  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
-  isort server/ nl_server/ shared/ tools/  --skip-glob=*pb2.py  --skip-glob=**/.env/** --profile=google
-  deactivate
+
+  if [[ -z "$fix_target" || "$fix_target" == "all" || "$fix_target" == "py" ]]; then
+    echo -e "#### Fixing Python code"
+    source .env/bin/activate
+    pip3 install yapf==0.40.2 -q
+    if ! command -v isort &> /dev/null
+    then
+      pip3 install isort -q
+    fi
+    yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
+    isort server/ nl_server/ shared/ tools/  --skip-glob=*pb2.py  --skip-glob=**/.env/** --profile=google
+    deactivate
+  fi
+
+  if [[ "$fix_target" != "" && "$fix_target" != "all" && "$fix_target" != "npm" && "$fix_target" != "py" ]]; then
+    echo "Unknown lint fix target: $fix_target. Use 'py', 'npm', or no argument for all."
+  fi
 }
 
 # Build client side code
@@ -470,7 +479,7 @@ case "$command" in
       ;;
   -f)
       echo -e "### Fix lint errors"
-      run_lint_fix
+      run_lint_fix "${extra_args[@]}"
       ;;
   -a)
       echo -e "### Running all tests"
