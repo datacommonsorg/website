@@ -1,11 +1,12 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#      https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,24 +16,47 @@
 
 set -e
 
-ENV=$1
-REGION=$2
-
-if [[ $ENV == "" || $REGION == "" ]]; then
-  echo "Missing arg 1 (env) and/or arg 2 (region)"
+if [[ "$(basename "$PWD")" != "gke" ]]; then
+  echo "This script must be run from the 'gke' directory."
   exit 1
 fi
 
-CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+INSTANCE_SIZE_GB="10"
+REDIS_VERSION="redis_5_0"
 
+TARGET=$1
+ENV=$2
+REGION=$3
+
+if [[ $TARGET == "" || $ENV == "" || $REGION == "" ]]; then
+  echo "Usage: $0 <target> <env> <region>"
+  echo "Example: $0 mixer-standalone prod us-central1"
+  exit 1
+fi
+
+if [[ $TARGET == "website" ]]; then
+  INSTANCE_ID="webserver-cache"
+elif [[ $TARGET == "mixer-website" || $TARGET == "mixer-standalone" ]]; then
+  INSTANCE_ID="mixer-cache"
+else
+  echo "Error: app must be 'website', 'mixer-website', or 'mixer-standalone'"
+  exit 1
+fi
+
+if [[ $TARGET == "website" || $TARGET == "mixer-website" ]]; then
+  CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
+elif [[ $TARGET == "mixer-standalone" ]]; then
+  CONFIG_YAML="../mixer/deploy/gke/$ENV.yaml"
+fi
 PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 gcloud config set project $PROJECT_ID
 
 gcloud services enable redis.googleapis.com
 
-# Create 10G redis cache
-gcloud redis instances create webserver-cache --size=10 --region=$REGION \
-    --redis-version=redis_5_0
+gcloud redis instances create $INSTANCE_ID \
+  --size=$INSTANCE_SIZE_GB \
+  --region=$REGION \
+  --redis-version=$REDIS_VERSION
 
-gcloud redis instances describe webserver-cache --region=$REGION
+gcloud redis instances describe $INSTANCE_ID --region=$REGION
