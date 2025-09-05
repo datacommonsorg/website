@@ -181,7 +181,7 @@ function run_lint_fix {
 
   # Validate that at most one argument is provided.
   if [[ $# -gt 1 ]]; then
-    echo "Error: Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'." >&2
+    echo "Error: Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'" >&2
     return 1
   fi
 
