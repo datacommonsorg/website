@@ -16,8 +16,11 @@
 import json
 
 import flask
-from flask import Blueprint, request
-from pydantic import BaseModel, ConfigDict, Field, dataclasses
+from flask import Blueprint
+from flask import request
+from pydantic import BaseModel
+from pydantic import ConfigDict
+from pydantic import Field
 
 from server.services import datacommons as dc
 
@@ -44,13 +47,12 @@ class IndicatorScore(BaseModel):
 TruncatedResults = dict[str, dict[str, list[IndicatorScore]]]
 
 
-@dataclasses.dataclass
-class SearchRequest:
+class SearchIndicatorsRequest(BaseModel):
   """A dataclass to hold all parsed request arguments for a search."""
   queries: list[str]
   indices: list[str]
-  threshold_override: float | None
-  limit_per_index: int | None
+  threshold_override: float | None = None
+  limit_per_index: int | None = None
   include_types: list[str]
   skip_topics: bool
 
@@ -265,7 +267,7 @@ def _build_final_response(queries: list[str], indices: list[str],
   return final_response
 
 
-def _parse_request_args() -> SearchRequest:
+def _parse_request_args() -> SearchIndicatorsRequest:
   """Parses and validates all query string arguments for the search."""
   queries = request.args.getlist(PARAM_QUERIES)
   if not queries:
@@ -298,12 +300,12 @@ def _parse_request_args() -> SearchRequest:
   if include_types and TYPE_TOPIC not in include_types:
     skip_topics = True
 
-  return SearchRequest(queries=queries,
-                       indices=indices,
-                       threshold_override=threshold_override,
-                       limit_per_index=limit_per_index,
-                       include_types=include_types,
-                       skip_topics=skip_topics)
+  return SearchIndicatorsRequest(queries=queries,
+                                 indices=indices,
+                                 threshold_override=threshold_override,
+                                 limit_per_index=limit_per_index,
+                                 include_types=include_types,
+                                 skip_topics=skip_topics)
 
 
 @bp.route("/search-indicators", methods=["GET"])
