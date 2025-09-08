@@ -27,11 +27,6 @@ import { Button } from "../../components/elements/button/button";
 import { Public } from "../../components/elements/icons/public";
 import { ScatterPlot } from "../../components/elements/icons/scatter_plot";
 import {
-  isFeatureEnabled,
-  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
-import { PlaceSelector } from "../../shared/place_selector";
-import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
   getParentPlacesPromise,
@@ -47,9 +42,6 @@ interface PlaceAndTypeOptionsProps {
 
 function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
-  const useStandardizedUi = isFeatureEnabled(
-    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
-  );
   const theme = useTheme();
 
   /**
@@ -101,88 +93,48 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
     }
   }, [place.value, display]);
 
-  if (useStandardizedUi) {
-    return (
-      <EnclosedPlacesSelector
-        enclosedPlaceType={place.value.enclosedPlaceType}
-        onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
-        onPlaceSelected={place.setEnclosingPlace}
-        selectedParentPlace={place.value.enclosingPlace}
-        toggleSvHierarchyModalText={"Select variables"}
-        toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
+  return (
+    <EnclosedPlacesSelector
+      enclosedPlaceType={place.value.enclosedPlaceType}
+      onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
+      onPlaceSelected={place.setEnclosingPlace}
+      selectedParentPlace={place.value.enclosingPlace}
+      toggleSvHierarchyModalText={"Select variables"}
+      toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
+    >
+      <div
+        css={css`
+          border-radius: 0.25rem;
+          border: 1px solid ${theme.colors.border.primary.light};
+          display: flex;
+          flex-direction: row;
+          flex-shrink: 0;
+          flex-wrap: nowrap;
+          overflow: hidden;
+        `}
       >
-        <div
+        <Button
+          id="scatter-chart-type-selector-scatter"
+          variant={
+            display.chartType === ScatterChartType.SCATTER ? "flat" : "text"
+          }
+          onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
+          startIcon={<ScatterPlot />}
           css={css`
             border-radius: 0.25rem;
-            border: 1px solid ${theme.colors.border.primary.light};
-            display: flex;
-            flex-direction: row;
-            flex-shrink: 0;
-            flex-wrap: nowrap;
-            overflow: hidden;
           `}
-        >
-          <Button
-            id="scatter-chart-type-selector-scatter"
-            variant={
-              display.chartType === ScatterChartType.SCATTER ? "flat" : "text"
-            }
-            onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
-            startIcon={<ScatterPlot />}
-            css={css`
-              border-radius: 0.25rem;
-            `}
-          />
-          <Button
-            id="scatter-chart-type-selector-map"
-            variant={
-              display.chartType === ScatterChartType.MAP ? "flat" : "text"
-            }
-            onClick={(): void => display.setChartType(ScatterChartType.MAP)}
-            startIcon={<Public />}
-            css={css`
-              border-radius: 0.25rem;
-            `}
-          />
-        </div>
-      </EnclosedPlacesSelector>
-    );
-  }
-  return (
-    <PlaceSelector
-      selectedPlace={place.value.enclosingPlace}
-      enclosedPlaceType={place.value.enclosedPlaceType}
-      onPlaceSelected={place.setEnclosingPlace}
-      onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
-    >
-      <div className="d-inline d-lg-none" id="btn-sv-widget-modal">
-        <div className="btn btn-primary" onClick={props.toggleSvHierarchyModal}>
-          Select variables
-        </div>
-      </div>
-      <div className="chart-type-toggle">
-        <div
-          className={`${
-            display.chartType === ScatterChartType.SCATTER
-              ? "selected-chart-option"
-              : "chart-type-option"
-          }`}
-          onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
-        >
-          <i className="material-icons-outlined">scatter_plot</i>
-        </div>
-        <div
-          className={`${
-            display.chartType === ScatterChartType.MAP
-              ? "selected-chart-option"
-              : "chart-type-option"
-          }`}
+        />
+        <Button
+          id="scatter-chart-type-selector-map"
+          variant={display.chartType === ScatterChartType.MAP ? "flat" : "text"}
           onClick={(): void => display.setChartType(ScatterChartType.MAP)}
-        >
-          <i className="material-icons-outlined">public</i>
-        </div>
+          startIcon={<Public />}
+          css={css`
+            border-radius: 0.25rem;
+          `}
+        />
       </div>
-    </PlaceSelector>
+    </EnclosedPlacesSelector>
   );
 }
 

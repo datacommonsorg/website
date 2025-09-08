@@ -16,7 +16,7 @@
 
 import { css, ThemeProvider } from "@emotion/react";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
-import { Button, Card, Col, Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
@@ -24,12 +24,6 @@ import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
 } from "../../shared/feature_flags/util";
-import {
-  GA_EVENT_TOOL_PLACE_ADD,
-  GA_PARAM_PLACE_DCID,
-  triggerGAEvent,
-} from "../../shared/ga_events";
-import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import theme from "../../theme/theme";
@@ -151,75 +145,28 @@ class Page extends Component<unknown, PageStateType> {
                   </a>
                 </div>
               ))}
-            {useStandardizedUi ? (
-              <div
-                css={css`
-                  margin-bottom: ${theme.spacing.lg}px;
-                `}
-              >
-                {" "}
-                <PlaceSelectCard
-                  selectedPlaces={this.state.placeName}
-                  onPlaceSelected={(placeDcid: string): void => {
-                    addToken(
-                      TIMELINE_URL_PARAM_KEYS.PLACE,
-                      placeSep,
-                      placeDcid
-                    );
-                  }}
-                  onPlaceUnselected={(placeDcid: string): void => {
-                    removeToken(
-                      TIMELINE_URL_PARAM_KEYS.PLACE,
-                      placeSep,
-                      placeDcid
-                    );
-                  }}
-                  toggleSvHierarchyModalCallback={this.toggleSvHierarchyModal}
-                  toggleSvHierarchyModalText={"Select variable(s)"}
-                  searchBarInstructionText={"Select place(s):"}
-                />
-              </div>
-            ) : (
-              <Card id="place-search">
-                <Row>
-                  <Col sm={12}>
-                    <p>Select places:</p>
-                  </Col>
-                  <Col sm={12}>
-                    <SearchBar
-                      places={this.state.placeName}
-                      addPlace={(place): void => {
-                        addToken(
-                          TIMELINE_URL_PARAM_KEYS.PLACE,
-                          placeSep,
-                          place
-                        );
-                        triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
-                          [GA_PARAM_PLACE_DCID]: place,
-                        });
-                      }}
-                      removePlace={(place): void => {
-                        removeToken(
-                          TIMELINE_URL_PARAM_KEYS.PLACE,
-                          placeSep,
-                          place
-                        );
-                      }}
-                    />
-                  </Col>
-                </Row>
-                <Row className="d-inline d-lg-none">
-                  <Col>
-                    <Button
-                      color="primary"
-                      onClick={this.toggleSvHierarchyModal}
-                    >
-                      Select variables
-                    </Button>
-                  </Col>
-                </Row>
-              </Card>
-            )}
+            <div
+              css={css`
+                margin-bottom: ${theme.spacing.lg}px;
+              `}
+            >
+              <PlaceSelectCard
+                selectedPlaces={this.state.placeName}
+                onPlaceSelected={(placeDcid: string): void => {
+                  addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, placeDcid);
+                }}
+                onPlaceUnselected={(placeDcid: string): void => {
+                  removeToken(
+                    TIMELINE_URL_PARAM_KEYS.PLACE,
+                    placeSep,
+                    placeDcid
+                  );
+                }}
+                toggleSvHierarchyModalCallback={this.toggleSvHierarchyModal}
+                toggleSvHierarchyModalText={"Select variable(s)"}
+                searchBarInstructionText={"Select place(s):"}
+              />
+            </div>
 
             {numPlaces === 0 &&
               (useStandardizedUi ? (

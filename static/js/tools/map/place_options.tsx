@@ -21,13 +21,7 @@
 import { css, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
-import { Button, Col, Row } from "reactstrap";
 
-import {
-  isFeatureEnabled,
-  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
-} from "../../shared/feature_flags/util";
-import { PlaceSelector } from "../../shared/place_selector";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
@@ -43,9 +37,6 @@ interface PlaceOptionsProps {
 
 export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
   const { placeInfo } = useContext(Context);
-  const useStandardizedUi = isFeatureEnabled(
-    STANDARDIZED_VIS_TOOL_FEATURE_FLAG
-  );
   const theme = useTheme();
 
   useEffect(() => {
@@ -79,43 +70,22 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
     placeInfo.value.enclosedPlaceType,
   ]);
 
-  if (useStandardizedUi) {
-    return (
-      <div
-        css={css`
-          margin-bottom: ${theme.spacing.md}px;
-          width: 100%;
-        `}
-      >
-        <EnclosedPlacesSelector
-          enclosedPlaceType={placeInfo.value.enclosedPlaceType}
-          onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
-          onPlaceSelected={placeInfo.setSelectedPlace}
-          selectedParentPlace={placeInfo.value.selectedPlace}
-          toggleSvHierarchyModalText={"Select variable"}
-          toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
-        />
-      </div>
-    );
-  }
-
   return (
-    <PlaceSelector
-      selectedPlace={placeInfo.value.selectedPlace}
-      enclosedPlaceType={placeInfo.value.enclosedPlaceType}
-      onPlaceSelected={placeInfo.setSelectedPlace}
-      onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
-      getEnclosedPlaceTypes={getAllChildPlaceTypes}
-      customSearchPlaceholder={"Enter a country or state to get started"}
+    <div
+      css={css`
+        margin-bottom: ${theme.spacing.md}px;
+        width: 100%;
+      `}
     >
-      <Row className="d-inline d-lg-none">
-        <Col>
-          <Button color="primary" onClick={props.toggleSvHierarchyModal}>
-            Select variable
-          </Button>
-        </Col>
-      </Row>
-    </PlaceSelector>
+      <EnclosedPlacesSelector
+        enclosedPlaceType={placeInfo.value.enclosedPlaceType}
+        onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
+        onPlaceSelected={placeInfo.setSelectedPlace}
+        selectedParentPlace={placeInfo.value.selectedPlace}
+        toggleSvHierarchyModalText={"Select variable"}
+        toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
+      />
+    </div>
   );
 }
 
