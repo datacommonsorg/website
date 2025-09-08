@@ -588,6 +588,18 @@ class PlaceExplorerTestMixin():
         'Explore in Timeline tool',
     )
 
+  def test_tulum_loads(self):
+    """Test that Tulum loads with no data"""
+    self.driver.get(self.url_ + '/place/wikidataId/Q277408')
+
+    # Wait for and assert that "No data found" message appears for Tulum
+    wait_for_text(self.driver, "Tulum is a place in", By.CSS_SELECTOR,
+                  '.place-summary')
+
+    # Assert text Place in Tulum Municipality is present
+    wait_for_text(self.driver, "Place in Tulum Municipality", By.CSS_SELECTOR,
+                  '.page-content-container .subheader')
+
   @pytest.mark.skip(reason="Fix theme compile error before re-enabling")
   def test_place_ai_spark_icon_hover(self):
     self.driver.get(self.url_ + '/place/geoId/04')

@@ -16,6 +16,7 @@ import logging
 import os
 from pathlib import Path
 
+from flask import has_request_context
 from flask import request
 from flask_caching import Cache
 
@@ -76,6 +77,9 @@ def should_skip_cache():
     True if X-Skip-Cache header is set to 'true', False otherwise.
     Always returns False on any error to ensure caching remains functional.
   """
+  if not has_request_context():
+    # Cannot skip cache if there is no request context (e.g., in a thread).
+    return False
   try:
     skip_cache_header = request.headers.get('X-Skip-Cache')
     return skip_cache_header is not None and str(

@@ -41,7 +41,7 @@ export const facetSelectionComponentMessages = defineMessages({
   },
   NoAlternativeDatasets: {
     id: "noAlternativeDatasets",
-    defaultMessage: "Displaying all the datasets available",
+    defaultMessage: "One dataset available for this chart",
     description:
       "Text displayed in place of the dataset select button when no stat var has more than " +
       "one dataset associated with it, and therefore there is nothing for the user to select. ",
@@ -125,7 +125,7 @@ export const facetSelectionComponentMessages = defineMessages({
   CombinedDatasetForChartsOption: {
     id: "combinedDatasetForChartsOption",
     defaultMessage:
-      "Plot data points by combining data from the datasets listed below for maximal coverage",
+      "Plot data points using one or more of the datasets below to maximize coverage.",
     description:
       "The first option that appears at the top of each respective list of facets connected to a stat var. " +
       "This option indicates that the various facets will be combined automatically to provide best " +
@@ -134,7 +134,7 @@ export const facetSelectionComponentMessages = defineMessages({
   CombinedDatasetForDownloadOption: {
     id: "combinedDatasetForDownloadOption",
     defaultMessage:
-      "Combine data from the datasets listed below for maximal coverage",
+      "Combine data using one or more of the datasets below to maximize coverage.",
     description:
       "The first option that appears at the top of each respective list of facets connected to a stat var. " +
       "This option indicates that the various facets will be combined automatically to provide best " +

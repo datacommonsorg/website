@@ -18,12 +18,17 @@
  * Component for rendering the generated page overview.
  */
 
+import { css, Theme, useTheme } from "@emotion/react";
 import axios, { AxiosResponse } from "axios";
 import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
+import { InfoSpark } from "../../components/elements/icons/info_spark";
 import { Loading } from "../../components/elements/loading";
+import { Tooltip } from "../../components/elements/tooltip/tooltip";
+import { intl } from "../../i18n/i18n";
+import { messages } from "../../i18n/i18n_messages";
 import {
   isFeatureEnabled,
   PAGE_OVERVIEW_LINKS,
@@ -86,6 +91,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
   const hasInitialClick = useRef<boolean>(false);
   const viewStartTime = useRef<number | null>(null);
   const totalViewDuration = useRef<number>(0);
+  const theme = useTheme();
 
   const { ref: inViewRef } = useInView({
     rootMargin: "0px",
@@ -152,14 +158,13 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
     const statVars: Array<StatVarChartLocation> = getRelevantStatVars(
       props.pageMetadata
     );
-    getPageOverview(props.query, statVars, trackComponentClicks)
+    getPageOverview(props.query, statVars, trackComponentClicks, theme)
       .then((value: Array<React.ReactNode>) => {
-        setPageOverview(value);
-
         // Count anchor elements after they are set
         const anchorCount = value.filter(
           (el): el is React.ReactElement =>
-            React.isValidElement(el) && el.type === "a"
+            React.isValidElement(el) &&
+            (el.type === "a" || (el.type !== "span" && el.props.onClick))
         ).length;
         // Google Analytics treats any value in a custom dimension that resembles a number as a number,
         // even if it was originally formatted as text.
@@ -168,6 +173,8 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
           [GA_PARAM_COMPONENT]: GA_VALUE_PAGE_OVERVIEW,
           [GA_PARAM_COUNT_ANCHOR_ELEMENTS]: anchorCount.toString(),
         });
+
+        setPageOverview(value);
       })
       .catch(() => {
         setPageOverview([]);
@@ -184,7 +191,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
         trackTotalViewTimeBeforeUnload
       );
     };
-  }, [props.query, props.pageMetadata]);
+  }, [props.query, props.pageMetadata, theme]);
 
   return (
     <>
@@ -194,8 +201,29 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
         </div>
       )}
       {!_.isEmpty(pageOverview) && (
-        <div ref={inViewRef} className="page-overview-inner">
-          {pageOverview}
+        <div
+          ref={inViewRef}
+          data-testid="page-overview-inner"
+          css={[
+            theme.typography.text.lg,
+            css`
+              margin-bottom: ${theme.spacing.xl}px;
+            `,
+          ]}
+        >
+          <span
+            css={{
+              marginRight: theme.spacing.xs,
+            }}
+          >
+            {pageOverview}
+          </span>
+          <Tooltip
+            title={intl.formatMessage(messages.explorePageOverviewDisclaimer)}
+            placement="bottom"
+          >
+            <InfoSpark />
+          </Tooltip>
         </div>
       )}
     </>
@@ -205,7 +233,8 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
 const getPageOverview = async (
   query: string,
   statVarChartLocations: Array<StatVarChartLocation>,
-  trackingClicks: () => void
+  trackingClicks: () => void,
+  theme: Theme
 ): Promise<Array<React.ReactNode>> => {
   if (_.isEmpty(query) || _.isEmpty(statVarChartLocations)) {
     return [];
@@ -282,7 +311,7 @@ const getPageOverview = async (
         return (
           <a
             key={partId}
-            className="highlight-statvars"
+            css={{ color: theme.colors.link.primary.base, cursor: "pointer" }}
             onClick={(): void => {
               trackingClicks();
               scrollToStatVar(targetId);

@@ -15,6 +15,7 @@
 import re
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
@@ -70,36 +71,62 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     query = "#q=What is the population of Mountain View?"
 
     self.driver.get(self.url_ + EXPLORE_URL + page_overview_flag + query)
-    shared.wait_elem(driver=self.driver, value="page-overview-inner")
 
     self.assertIsNotNone(
-        find_elem(parent=self.driver,
-                  by=By.CLASS_NAME,
-                  value="page-overview-inner"),
+        shared.wait_elem(driver=self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='[data-testid="page-overview-inner"]'),
         "No page overview was generated.")
 
   def test_bar_select_different_facet(self):
     """Tests that the facet selector on a bar chart can be used to update the source."""
-    search_params = "#q=Age%20distribution%20in%20the%20united%20states"
+    search_params = "#q=Jobs%20in%20the%20united%20states"
     self.driver.get(self.url_ + EXPLORE_URL + search_params)
 
     shared.wait_for_loading(self.driver)
 
-    # Isolate the "Age Distribution" bar chart
+    # Isolate the "Categories of Jobs" bar chart
     all_chart_blocks = find_elems(self.driver, By.CLASS_NAME, 'block.subtopic')
     chart_block = None
     for block in all_chart_blocks:
       header = find_elem(block, By.TAG_NAME, 'h3')
-      if header and header.text == "Age Distribution":
+      if header and header.text == "Categories of Jobs":
         chart_block = block
         break
-    self.assertIsNotNone(chart_block,
-                         "Could not find the 'Age Distribution' chart block.")
+    self.assertIsNotNone(
+        chart_block, "Could not find the 'Categories of Jobs' chart block.")
 
-    original_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
-    self.assertIn('census.gov', original_source_text)
-    self.assertIn('data.census.gov', original_source_text)
-    self.assertIn('Show metadata', original_source_text)
+    # Check metadata before choosing a facet
+    sources_div_before = find_elem(chart_block,
+                                   value='sources',
+                                   by=By.CLASS_NAME)
+    metadata_link_before = sources_div_before.find_element(
+        By.XPATH, ".//a[contains(text(), 'Show metadata')]")
+    metadata_link_before.click()
+
+    # Wait for the dialog to be visible
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, '.dialog-content h4')))
+
+    dialog_content_before = find_elem(self.driver,
+                                      value='dialog-content',
+                                      by=By.CLASS_NAME)
+    # Find the "Observation period" header and check value underneath
+    obs_period_header_before = dialog_content_before.find_element(
+        By.XPATH, ".//h4[contains(text(), 'Observation period')]")
+    obs_period_value_before = obs_period_header_before.find_element(
+        By.XPATH, "following-sibling::p[1]")
+    self.assertIn(
+        "Monthly (P1M)", obs_period_value_before.text,
+        "Observation period should be 'Monthly (P1M)' before facet change.")
+
+    # Close the dialog
+    close_button = find_elem(self.driver, By.XPATH,
+                             "//button[contains(text(), 'Close')]")
+    close_button.click()
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.invisibility_of_element_located(
+            (By.CSS_SELECTOR, '.dialog-content')))
 
     # Click on the button to open the facet selector modal
     facet_button = find_elem(chart_block, By.CLASS_NAME,
@@ -112,28 +139,40 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                       By.CSS_SELECTOR, '.source-selector-facet-option-title'))
     source_options = self.driver.find_elements(
         By.CSS_SELECTOR, '.source-selector-facet-option-title')
-    self.assertEqual(len(source_options), 14)
-
+    self.assertEqual(len(source_options), 3)
     source_options[1].click()
 
-    # Click the modal-footer button to apply the changes
     modal_footer_button = find_elem(
         self.driver,
         value='source-selector-update-source-button',
         path_to_elem=['dialog-actions'])
     modal_footer_button.click()
 
-    # Wait for the source text to update.
-    wait_for_text(driver=chart_block,
-                  text="wonder.cdc.gov",
-                  by=By.CLASS_NAME,
-                  value='sources')
+    # Wait for the chart to reload after the change
+    shared.wait_for_loading(self.driver)
 
-    # Verify the source text has changed
-    updated_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
-    self.assertIn('wonder.cdc.gov', updated_source_text)
-    self.assertIn('Show metadata', updated_source_text)
-    self.assertNotIn('census.gov', updated_source_text)
+    sources_div_after = find_elem(chart_block,
+                                  value='sources',
+                                  by=By.CLASS_NAME)
+    metadata_link_after = sources_div_after.find_element(
+        By.XPATH, ".//a[contains(text(), 'Show metadata')]")
+    metadata_link_after.click()
+
+    # Wait for the dialog to be visible again
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, '.dialog-content h4')))
+
+    dialog_content_after = find_elem(self.driver,
+                                     value='dialog-content',
+                                     by=By.CLASS_NAME)
+    # Find the "Observation period" header and verify value has changed
+    obs_period_header_after = dialog_content_after.find_element(
+        By.XPATH, ".//h4[contains(text(), 'Observation period')]")
+    obs_period_value_after = obs_period_header_after.find_element(
+        By.XPATH, "following-sibling::p[1]")
+    self.assertIn(
+        "Yearly (P1Y)", obs_period_value_after.text,
+        "Observation period should be 'Yearly (P1Y)' after facet change.")
 
   def test_map_select_different_facet(self):
     """Tests that the facet selector on a map chart can be used to update the source."""
@@ -270,3 +309,38 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         "to", updated_date_part,
         f"Updated date '{updated_date_part}' should be a date range, but does not contain 'to'."
     )
+
+  def test_api_code_dialog(self):
+    """Tests that the API code dialog opens and contains expected text."""
+    search_params = "#q=demographics+in+the+united+states"
+    self.driver.get(self.url_ + EXPLORE_URL + search_params)
+
+    shared.wait_for_loading(self.driver)
+
+    # Isolate the "Population" chart block
+    all_chart_blocks = find_elems(self.driver, By.CLASS_NAME, 'block.subtopic')
+    chart_block = None
+    for block in all_chart_blocks:
+      header = find_elem(block, By.TAG_NAME, 'h3')
+      if header and header.text == "Population":
+        chart_block = block
+        break
+    self.assertIsNotNone(chart_block,
+                         "Could not find the 'Population' chart block.")
+
+    # Find and click the API link inside the chart's footer
+    api_link = find_elem(chart_block, By.CSS_SELECTOR, '.api-outlink a')
+    self.assertIsNotNone(api_link, "Could not find the API link.")
+    api_link.click()
+
+    # Wait for the dialog's textarea to appear and load its content
+    textarea = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        lambda d: d.find_element(By.TAG_NAME, 'textarea'))
+    self.assertIsNotNone(textarea, "API dialog's textarea did not appear.")
+
+    # Get the API endpoint (curl) from the textarea
+    actual_text = textarea.get_attribute('value')
+
+    # Verify that key parts of the API call are present
+    self.assertIn('"variable": {"dcids": ["Count_Person"]},', actual_text)
+    self.assertIn('"entity": {"dcids": ["country/USA"]}', actual_text)

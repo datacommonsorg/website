@@ -18,6 +18,12 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "explore_result_header",
+    "enabled": true,
+    "owner": "nick-next",
+    "description": "Enables the display of an updated explore page results header."
+  },
+  {
     "name": "factcheck_redirect",
     "enabled": false,
     "owner": "dwnoble",
@@ -31,7 +37,7 @@
   },
   {
     "name": "follow_up_questions_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience."
   },
@@ -66,7 +72,7 @@
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
   {
-    "name": "stat_var_autocomplete_search_bar",
+    "name": "enable_stat_var_autocomplete",
     "enabled": true,
     "owner": "gmechali",
     "description": "Enable stat var autocompletion in the NL Search bar"
