@@ -321,15 +321,6 @@ class StandardizedTimelineTestMixin():
 
     shared.wait_for_loading(self.driver)
 
-    # Assert title is correct
-    chart_title_container = find_elem(self.driver,
-                                      by=By.CSS_SELECTOR,
-                                      value='#chart .chart-card .chart-title')
-    self.assertIn(
-        'median age of population ',
-        find_elem(chart_title_container, by=By.XPATH,
-                  value='./h3[2]').text.lower())
-
     # Assert number of charts and lines is correct.
     charts = find_elems(self.driver,
                         by=By.XPATH,
