@@ -19,7 +19,7 @@ import logging
 from typing import Dict, List
 import urllib.parse
 
-from flask import current_app
+from flask import current_app, request
 import requests
 
 from server.lib import log
@@ -40,6 +40,10 @@ def get(url: str):
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
+  # header used in usage metric logging
+  xs = request.headers.get("x-surface")
+  if xs:
+    headers['x-surface'] = xs
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -72,6 +76,10 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
+  # header used in usage metric logging
+  xs = request.headers.get("x-surface")
+  if xs:
+    headers['x-surface'] = xs
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
