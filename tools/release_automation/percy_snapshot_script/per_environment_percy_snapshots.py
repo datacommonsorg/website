@@ -37,13 +37,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-# --- Configuration Constants ---
 WAIT_TIMEOUT = 15
 URLS_FILE = "urls.json"
 
-# --- Helper Functions ---
-
-# --- Revised setup_webdriver function ---
 def setup_webdriver():
     """Initializes and returns a Chrome WebDriver instance."""
     chrome_options = Options()
@@ -116,12 +112,12 @@ def take_single_snapshot(name: str, url: str):
         print(
             f"[PID {os.getpid()}] An error occurred while processing '{name}': {e} ❌"
         )
-        return False # Returning a failure status
+        return False
     finally:
         if driver:
             driver.quit()
 
-    return True # Returning a success status
+    return True
 
 
 # --- Main Execution ---
@@ -149,9 +145,6 @@ def main():
         if not base_url:
             raise ValueError(f"Invalid environment: {environment}")
 
-        # *** KEY CHANGE: Install driver ONCE before any parallel work ***
-        print("✅ WebDriver is pre-installed in the Docker image.")
-
         # Load all URLs
         all_urls = list(load_urls(base_url).items())
         total_urls = len(all_urls)
@@ -172,7 +165,6 @@ def main():
         # Run the snapshots in parallel within the shard
         with concurrent.futures.ProcessPoolExecutor(
                 max_workers=1) as executor:
-            # driver_path is no longer needed
             futures = [
                 executor.submit(take_single_snapshot, name, url)
                 for name, url in shard_urls
