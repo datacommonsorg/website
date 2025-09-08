@@ -44,6 +44,8 @@ interface TileMetadataStatVarSectionProps {
   statVar: NamedNode;
   // the list of metadata for this section (a mix of stat var and source metadata)
   metadataList: StatVarMetadata[];
+  // whether this stat var is used as a denominator
+  isDenom?: boolean;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
 }
@@ -53,6 +55,7 @@ const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 export const TileMetadataStatVarSection = ({
   statVar,
   metadataList,
+  isDenom,
   apiRoot,
 }: TileMetadataStatVarSectionProps): ReactElement | null => {
   const theme = useTheme();
@@ -231,13 +234,7 @@ export const TileMetadataStatVarSection = ({
                 </ContentWrapper>
 
                 <ContentWrapper>
-                  <h4>
-                    {intl.formatMessage(metadataComponentMessages.Topic)} /{" "}
-                    {intl.formatMessage(metadataComponentMessages.DCID)}
-                  </h4>
-                  {metadata.categories && metadata.categories.length > 0 && (
-                    <p>{metadata.categories.join(", ")}</p>
-                  )}
+                  <h4>{intl.formatMessage(metadataComponentMessages.DCID)}</h4>
                   <p>
                     <a
                       href={
@@ -251,6 +248,12 @@ export const TileMetadataStatVarSection = ({
                       {statVar.dcid}
                     </a>
                   </p>
+                  {metadata.categories && metadata.categories.length > 0 && (
+                    <p>
+                      {intl.formatMessage(metadataComponentMessages.Topic)} •{" "}
+                      {metadata.categories.join(", ")}
+                    </p>
+                  )}
                 </ContentWrapper>
 
                 {hasDateRange && (
@@ -307,6 +310,26 @@ export const TileMetadataStatVarSection = ({
                       )}
                     </h4>
                     <p>{metadata.measurementMethodDescription}</p>
+                  </ContentWrapper>
+                )}
+
+                {isDenom && (
+                  <ContentWrapper
+                    css={css`
+                      grid-column: 1 / span 2;
+                      @media (max-width: ${theme.breakpoints.sm}px) {
+                        grid-column: 1;
+                      }
+                    `}
+                  >
+                    <h4>
+                      {intl.formatMessage(metadataComponentMessages.Notes)}
+                    </h4>
+                    <p>
+                      {intl.formatMessage(
+                        metadataComponentMessages.PerCapitaNote
+                      )}
+                    </p>
                   </ContentWrapper>
                 )}
 

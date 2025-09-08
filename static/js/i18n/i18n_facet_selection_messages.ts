@@ -41,7 +41,7 @@ export const facetSelectionComponentMessages = defineMessages({
   },
   NoAlternativeDatasets: {
     id: "noAlternativeDatasets",
-    defaultMessage: "Displaying all the datasets available",
+    defaultMessage: "One dataset available for this chart",
     description:
       "Text displayed in place of the dataset select button when no stat var has more than " +
       "one dataset associated with it, and therefore there is nothing for the user to select. ",
@@ -87,6 +87,34 @@ export const facetSelectionComponentMessages = defineMessages({
       "vars, each introducing the list of facets that the user can choose from. This will be " +
       "used when choosing data to plot charts.",
   },
+  ExploreOtherDatasetsGroupedPromptMessage: {
+    id: "ExploreOtherDatasetsGroupedPromptMessage",
+    defaultMessage:
+      "Select the data source that you would like to use to build the plot",
+    description:
+      "Prompt message that appears in the dataset selection dialog, introducing the list of " +
+      "facets that the user can choose from. This is used when we have multiple stat vars " +
+      "but the choices are grouped together in a single selection (i.e. you only select one " +
+      "facet to cover all stat vars).",
+  },
+  AvailableStatVarsSingleMessage: {
+    id: "AvailableStatVarsSingleMessage",
+    defaultMessage: "Available for:",
+    description:
+      "Message shown preceding the name of a stat var when only a single stat var is available " +
+      "to a particular facet. The stat var will appear after the colon. For example: " +
+      '"Available for: Population 55 - 64 years". This will appear when exactly one stat var ' +
+      "is applicable, out of a total greater than one.",
+  },
+  AvailableStatVarsMultipleMessage: {
+    id: "AvailableStatVarsMultipleMessage",
+    defaultMessage: "Available for: {count}/{total} data points",
+    description:
+      "Message shown in the grouped view of the dataset selection dialog, indicating how many " +
+      "stat vars a particular facet is applicable to. For example, it might say: " +
+      '"Available for: 2/8 data points". This will appear when the facet is applicable to ' +
+      "more than one stat var, but not to all of them.",
+  },
   Update: {
     id: "update",
     defaultMessage: "Update",
@@ -97,7 +125,7 @@ export const facetSelectionComponentMessages = defineMessages({
   CombinedDatasetForChartsOption: {
     id: "combinedDatasetForChartsOption",
     defaultMessage:
-      "Plot data points by combining data from the datasets listed below for maximal coverage",
+      "Plot data points using one or more of the datasets below to maximize coverage.",
     description:
       "The first option that appears at the top of each respective list of facets connected to a stat var. " +
       "This option indicates that the various facets will be combined automatically to provide best " +
@@ -106,7 +134,7 @@ export const facetSelectionComponentMessages = defineMessages({
   CombinedDatasetForDownloadOption: {
     id: "combinedDatasetForDownloadOption",
     defaultMessage:
-      "Combine data from the datasets listed below for maximal coverage",
+      "Combine data using one or more of the datasets below to maximize coverage.",
     description:
       "The first option that appears at the top of each respective list of facets connected to a stat var. " +
       "This option indicates that the various facets will be combined automatically to provide best " +

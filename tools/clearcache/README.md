@@ -11,7 +11,7 @@ The `run.sh` script allows you to clear the cache for a specific target (`websit
 ### Usage
 
 ```bash
-./run.sh <TARGET> <ENVIRONMENT>
+./tools/clearcache/run.sh <TARGET> <ENVIRONMENT>
 ```
 
 ### Examples
@@ -19,13 +19,13 @@ The `run.sh` script allows you to clear the cache for a specific target (`websit
 To clear the website cache in the `dev` environment:
 
 ```bash
-./run.sh website dev
+./tools/clearcache/run.sh website dev
 ```
 
 To clear the mixer cache in the `autopush` environment:
 
 ```bash
-./run.sh mixer autopush
+./tools/clearcache/run.sh mixer autopush
 ```
 
 ## Cloud Build Execution

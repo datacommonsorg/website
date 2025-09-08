@@ -1,7 +1,7 @@
 /**
  * Copyright 2023 Google LLC
  *
- * Licensed under he Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -35,9 +35,12 @@ import {
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
 import {
+  EXPLORE_RESULT_HEADER,
   FOLLOW_UP_QUESTIONS_EXPERIMENT,
   FOLLOW_UP_QUESTIONS_GA,
   isFeatureEnabled,
+  PAGE_OVERVIEW_EXPERIMENT,
+  PAGE_OVERVIEW_GA,
 } from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
@@ -53,19 +56,29 @@ import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "./debug_info";
 import { FollowUpQuestions } from "./follow_up_questions";
 import { HighlightResult } from "./highlight_result";
+import { PageOverview } from "./page_overview";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
+import { ResultHeaderSectionLegacy } from "./result_header_section_legacy";
 import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
 
 const PAGE_ID = "explore";
 
 const EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO = 0.2;
+const EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO = 0.2;
 
 const showFollowUpQuestions =
   isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA) ||
   (isFeatureEnabled(FOLLOW_UP_QUESTIONS_EXPERIMENT) &&
     Math.random() < EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO);
+
+const showPageOverview =
+  isFeatureEnabled(PAGE_OVERVIEW_GA) ||
+  (isFeatureEnabled(PAGE_OVERVIEW_EXPERIMENT) &&
+    Math.random() < EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO);
+
+const showNewExploreResultHeader = isFeatureEnabled(EXPLORE_RESULT_HEADER);
 
 interface SuccessResultPropType {
   //the query string that brought up the given results
@@ -172,11 +185,25 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
         />
         {props.pageMetadata && !_.isEmpty(props.pageMetadata.pageConfig) && (
           <>
-            {!placeOverviewOnly && (
-              <ResultHeaderSection
+            {!placeOverviewOnly &&
+              (showNewExploreResultHeader ? (
+                <ResultHeaderSection
+                  pageMetadata={props.pageMetadata}
+                  placeUrlVal={placeUrlVal}
+                  hideRelatedTopics={showFollowUpQuestions}
+                  query={props.query}
+                />
+              ) : (
+                <ResultHeaderSectionLegacy
+                  pageMetadata={props.pageMetadata}
+                  placeUrlVal={placeUrlVal}
+                  hideRelatedTopics={showFollowUpQuestions}
+                />
+              ))}
+            {showPageOverview && (
+              <PageOverview
+                query={props.query}
                 pageMetadata={props.pageMetadata}
-                placeUrlVal={placeUrlVal}
-                hideRelatedTopics={showFollowUpQuestions}
               />
             )}
             <RankingUnitUrlFuncContext.Provider

@@ -31,6 +31,21 @@ export interface TextVariant {
       };
 }
 
+interface ButtonVariant {
+  backgroundColor: string;
+  color: string;
+  border: string;
+  borderRadius: string;
+  [key: string]:
+    | string
+    | number
+    | {
+        backgroundColor: string;
+        color: string;
+        border: string;
+      };
+}
+
 export interface Theme {
   breakpoints: {
     xs: number;
@@ -90,6 +105,11 @@ export interface Theme {
         light?: string;
         dark?: string;
       };
+      code?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
     };
     border?: {
       primary?: {
@@ -132,6 +152,13 @@ export interface Theme {
         dark?: string;
       };
       tertiary?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
+    };
+    error?: {
+      primary?: {
         base?: string;
         light?: string;
         dark?: string;
@@ -257,62 +284,11 @@ export interface Theme {
   };
   button: {
     variant: {
-      standard?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      inverted?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      text?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
-      flat?: {
-        backgroundColor: string;
-        color: string;
-        border: string;
-        borderRadius: string;
-        [key: string]:
-          | string
-          | number
-          | {
-              backgroundColor: string;
-              color: string;
-              border: string;
-            };
-      };
+      standard?: ButtonVariant;
+      inverted?: ButtonVariant;
+      text?: ButtonVariant;
+      flat?: ButtonVariant;
+      light?: ButtonVariant;
     };
     size: {
       sm?: {
@@ -324,6 +300,20 @@ export interface Theme {
       lg?: {
         padding: string;
       };
+    };
+  };
+  infoBox: {
+    backgroundColor: string;
+    heading: TextVariant;
+    icon: {
+      fontSize: string;
+      lineHeight: string;
+      [key: string]:
+        | string
+        | {
+            fontSize?: string;
+            lineHeight?: string;
+          };
     };
   };
   elevation: {

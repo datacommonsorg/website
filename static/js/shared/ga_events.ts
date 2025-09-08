@@ -29,10 +29,69 @@ export function triggerGAEvent(
 }
 
 /**
+ * A helper function to trigger Google Analytics events for component impressions.
+ * @param pageSource The path of the page where the component was successfully rendered.
+ * @param component A descriptive name of the component to track for impressions.
+ */
+export function triggerComponentImpression(
+  pageSource: string,
+  component: string
+): void {
+  triggerGAEvent(GA_EVENT_COMPONENT_IMPRESSION, {
+    [GA_PARAM_PAGE_SOURCE]: pageSource,
+    [GA_PARAM_COMPONENT]: component,
+  });
+}
+
+/**
+ * A helper function to trigger Google Analytics events for component views.
+ * @param pageSource The path of the page where the component was successfully viewed.
+ * @param component A descriptive name of the component to track for views.
+ * @param trackingMode Distinguishes between tracking initial and total views to have all view data in one place.
+ */
+export function triggerComponentView(
+  pageSource: string,
+  component: string,
+  trackingMode: string
+): void {
+  triggerGAEvent(GA_EVENT_COMPONENT_VIEW, {
+    [GA_PARAM_PAGE_SOURCE]: pageSource,
+    [GA_PARAM_COMPONENT]: component,
+    [GA_PARAM_VIEW_TRACKING_MODE]: trackingMode,
+  });
+}
+
+/**
  * Triggered on soft page navigations. To track all page views (and disable GA page view tracking), set
  * manual_ga_pageview: true in the Jinja page render.
  */
 export const GA_EVENT_PAGE_VIEW = "page_view";
+
+/**
+ * Triggered when a component to track is rendered.
+ * Parameters:
+ *  page_source : "explore",
+ *  component: "related_topics_generated_questions" | "page_overview"
+ */
+export const GA_EVENT_COMPONENT_IMPRESSION = "component_impression";
+
+/**
+ * Triggered when a component to track is viewed.
+ * Parameters:
+ *  page_source : "explore",
+ *  component: "page_overview"
+ *  view_tracking_mode : "initial_views" | "total_view"
+ */
+export const GA_EVENT_COMPONENT_VIEW = "component_view";
+
+/**
+ * Triggered when unloading a page to track the total amount of time a component was viewed.
+ * Parameters:
+ *  page_source: "explore",
+ *  component: "page_overview",
+ *  total_view_time: The duration in which the component was on screen in ms.
+ */
+export const GA_EVENT_TOTAL_COMPONENT_VIEW_TIME = "total_component_view_time";
 
 /**
  * Event name: place_category_click
@@ -244,6 +303,22 @@ export const GA_EVENT_STATVAR_SEARCH_SELECTION = "statvar_search_select";
  */
 export const GA_EVENT_STATVAR_HIERARCHY_CLICK = "statvar_hierarchy_click";
 
+/**
+ * Triggered when an embedded link in the Page Overview is clicked.
+ * Parameters:
+ *    "click_tracking_mode": "initial_click" | "total_clicks"
+ */
+export const GA_EVENT_PAGE_OVERVIEW_CLICK = "page_overview_click";
+
+/**
+ * Triggered when the page overview loads from the API request
+ * Parameters:
+ *    "page_source": "explore"
+ *    "component": "page_overview"
+ *    "count_anchor_elements": Total number of anchor elements displayed.
+ */
+export const GA_EVENT_TOTAL_ANCHOR_COUNT = "total_anchor_count";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -265,6 +340,12 @@ export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
 export const GA_PARAM_SEARCH_SELECTION = "search_selection";
 export const GA_PARAM_RELATED_TOPICS_MODE = "related_topics_mode";
+export const GA_PARAM_PAGE_SOURCE = "page_source";
+export const GA_PARAM_COMPONENT = "component";
+export const GA_PARAM_VIEW_TRACKING_MODE = "view_tracking_mode";
+export const GA_PARAM_CLICK_TRACKING_MODE = "click_tracking_mode";
+export const GA_PARAM_TOTAL_VIEW_TIME = "total_view_time";
+export const GA_PARAM_COUNT_ANCHOR_ELEMENTS = "count_anchor_elements";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -291,7 +372,7 @@ export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG =
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
-export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
+export const GA_VALUE_PAGE_EXPLORE = "explore";
 export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
 export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
 export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";
@@ -303,3 +384,8 @@ export const GA_VALUE_RELATED_TOPICS_GENERATED_QUESTIONS =
 // Parameter value for GA_PARAM_RELATED_TOPICS_MODE to represent the Related Topics mode in the Result Header.
 export const GA_VALUE_RELATED_TOPICS_HEADER_TOPICS =
   "related_topics_header_topics";
+export const GA_VALUE_PAGE_OVERVIEW = "page_overview";
+export const GA_VALUE_INITIAL_VIEW = "initial_view";
+export const GA_VALUE_TOTAL_VIEWS = "total_views";
+export const GA_VALUE_INITIAL_CLICK = "initial_click";
+export const GA_VALUE_TOTAL_CLICKS = "total_clicks";

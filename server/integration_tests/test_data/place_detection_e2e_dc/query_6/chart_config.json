@@ -384,8 +384,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Population Below International Poverty Line"
+            "title": "Proportion of Population Below International Poverty Line (%)"
           },
           {
             "columns": [
@@ -1388,6 +1387,13 @@
       {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
         "name": "Poverty by Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
         "types": [
           "Topic"
         ]

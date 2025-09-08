@@ -777,8 +777,10 @@
           "indianCensus/Count_Person_Religion_Buddhist_Literate_Female",
           "indianCensus/Count_Person_Religion_Christian_Literate_Female",
           "indianCensus/Count_Person_Religion_Hindu_Literate_Female",
+          "indianCensus/Count_Person_Religion_Jain_Literate_Female",
           "indianCensus/Count_Person_Religion_Muslim_Literate_Female",
-          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Literate_Female"
+          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Literate_Female",
+          "indianCensus/Count_Person_Religion_ReligionNotStated_Literate_Female"
         ]
       }
     },

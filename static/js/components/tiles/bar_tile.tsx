@@ -28,6 +28,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -45,6 +46,10 @@ import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { PLACE_TYPES } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -212,6 +217,42 @@ export function BarTile(props: BarTilePropType): ReactElement {
       }
     };
   }, [props.subscribe]);
+
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!barChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const defaultDate =
+        getFirstCappedStatVarSpecDate(props.variables) || "LATEST";
+      if ("places" in props && !_.isEmpty(props.places)) {
+        return buildObservationSpecs({
+          statVarSpecs: props.variables,
+          statVarToFacets: barChartData.statVarToFacets,
+          placeDcids: props.places,
+          defaultDate,
+        });
+      } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+        const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+        return buildObservationSpecs({
+          statVarSpecs: props.variables,
+          statVarToFacets: barChartData.statVarToFacets,
+          entityExpression,
+          defaultDate,
+        });
+      }
+      return [];
+    };
+  }, [barChartData, props]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
@@ -220,6 +261,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={barChartData && barChartData.errorMsg}
       id={props.id}
       isInitialLoading={_.isNull(barChartData)}
@@ -307,28 +349,61 @@ export const fetchData = async (
   props: BarTilePropType,
   dateOverride?: string
 ): Promise<BarChartData> => {
-  const statSvs = props.variables
-    .map((spec) => spec.statVar)
-    .filter((sv) => !!sv);
-  const denomSvs = props.variables
-    .map((spec) => spec.denom)
-    .filter((sv) => !!sv);
+  /*
+   In order to accommodate facet selection while keeping the stat var/facet relationship,
+   we group stat vars by their facets.
+  */
+  const svsByFacet = _.groupBy(props.variables, (spec) => spec.facetId || "");
   // Assume all variables will have the same date
   // TODO: Update getCsv to handle different dates for different variables
   const date = getFirstCappedStatVarSpecDate(props.variables, dateOverride);
   const apiRoot = props.apiRoot || "";
-  let statPromise: Promise<PointApiResponse>;
+
+  /*
+    Each of the facet groupings above will get its own data fetch (using getPoint
+    or getPointWithin) in order to apply the correct facet to the correct stat var.
+   */
+  const statPromises: Promise<PointApiResponse>[] = [];
+  if ("places" in props && !_.isEmpty(props.places)) {
+    for (const facetId in svsByFacet) {
+      const svSpecs = svsByFacet[facetId];
+      const statSvs = svSpecs.map((spec) => spec.statVar).filter(Boolean);
+      if (_.isEmpty(statSvs)) continue;
+      statPromises.push(
+        getPoint(
+          apiRoot,
+          props.places,
+          statSvs,
+          date,
+          [statSvs],
+          props.highlightFacet,
+          facetId ? [facetId] : undefined
+        )
+      );
+    }
+  } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+    for (const facetId in svsByFacet) {
+      const svSpecs = svsByFacet[facetId];
+      const statSvs = svSpecs.map((spec) => spec.statVar).filter(Boolean);
+      if (_.isEmpty(statSvs)) continue;
+      statPromises.push(
+        getPointWithin(
+          apiRoot,
+          props.enclosedPlaceType,
+          props.parentPlace,
+          statSvs,
+          date,
+          [statSvs],
+          facetId ? [facetId] : undefined
+        )
+      );
+    }
+  }
+
+  const denomSvs = props.variables.map((spec) => spec.denom).filter(Boolean);
   let denomPromise: Promise<SeriesApiResponse>;
   let filterPromise: Promise<PointApiResponse>;
   if ("places" in props && !_.isEmpty(props.places)) {
-    statPromise = getPoint(
-      apiRoot,
-      props.places,
-      statSvs,
-      date,
-      [statSvs],
-      props.highlightFacet
-    );
     filterPromise = getPoint(
       apiRoot,
       props.places,
@@ -340,14 +415,6 @@ export const fetchData = async (
       ? Promise.resolve(null)
       : getSeries(apiRoot, props.places, denomSvs, []);
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
-    statPromise = getPointWithin(
-      apiRoot,
-      props.enclosedPlaceType,
-      props.parentPlace,
-      statSvs,
-      date,
-      [statSvs]
-    );
     filterPromise = getPointWithin(
       apiRoot,
       props.enclosedPlaceType,
@@ -364,10 +431,19 @@ export const fetchData = async (
           denomSvs
         );
   }
+
   try {
-    const statResp = await statPromise;
-    const denomResp = await denomPromise;
-    const filterResp = await filterPromise;
+    const [statResps, denomResp, filterResp] = await Promise.all([
+      Promise.all(statPromises),
+      denomPromise,
+      filterPromise,
+    ]);
+    const statResp: PointApiResponse = { data: {}, facets: {} };
+    for (const resp of statResps) {
+      Object.assign(statResp.data, resp.data);
+      Object.assign(statResp.facets, resp.facets);
+    }
+
     // Find the most populated places.
     const popPoints: RankingPoint[] = [];
     // Non-place entities won't have a value for Count_Person.
@@ -493,6 +569,19 @@ function rawToChart(
         }
         dataPoint.value /= denomInfo.value;
         sources.add(denomInfo.source);
+        const denomStatVar = spec.denom;
+        const denomSeries = denomData.data?.[denomStatVar]?.[placeDcid];
+        if (denomSeries?.facet) {
+          const denomFacetId = denomSeries.facet;
+          const denomFacetMetadata = denomData.facets?.[denomFacetId];
+          if (denomFacetMetadata) {
+            facets[denomFacetId] = denomFacetMetadata;
+            if (!statVarToFacets[denomStatVar]) {
+              statVarToFacets[denomStatVar] = new Set<string>();
+            }
+            statVarToFacets[denomStatVar].add(denomFacetId);
+          }
+        }
       }
       if (scaling) {
         dataPoint.value *= scaling;
