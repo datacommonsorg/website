@@ -310,6 +310,8 @@ NON_EU_MAP_COUNTRIES = [
     'country/BGD',
     'country/CHN',
     'country/IND',
+    'country/KOR',
+    'country/MNG',
     'country/NPL',
     'country/PAK',
     'country/USA',
