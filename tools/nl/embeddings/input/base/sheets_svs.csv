@@ -3685,7 +3685,6 @@ Count_School_MiddleSchool,Number of middle schools
 Count_Teacher_MiddleSchool,Number of teachers in middle schools
 Count_Student_MiddleSchool,Number of students in middle schools
 Count_School_MiddleSchool_NationalSchool,Number of national middle schools
-Count_School_MiddleSchool_NationalSchool,Number of national middle schools
 Count_School_MiddleSchool_PublicSchool,Number of public middle schools
 Count_Student_MiddleSchool_PublicSchool,Number of students in public middle schools
 Count_School_MiddleSchool_PrivateSchool,Number of private middle schools
