@@ -86,7 +86,7 @@ export function EnclosedPlacesSelector(
       if (_.isEmpty(childPlaceTypes)) {
         // Alert user that no child place types were available.
         alert(
-          intl.formatMessage(toolMessages.UnsupportedEnclosedPlaceAlert, {
+          intl.formatMessage(toolMessages.unsupportedEnclosedPlaceAlert, {
             placeName: props.selectedParentPlace.name,
           })
         );
