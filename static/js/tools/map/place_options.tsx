@@ -22,11 +22,13 @@ import { css, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 
+import { FormCard } from "../../components/form_components/form_card";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { EnclosedPlacesSelector } from "../shared/vis_tools/place_selector/enclosed_places_selector";
+import { StatVarHierarchyToggleButton } from "../shared/vis_tools/place_selector/stat_var_hierarchy_toggle_button";
 import { Context, PlaceInfoWrapper } from "./context";
 import { getAllChildPlaceTypes } from "./util";
 
@@ -77,14 +79,18 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
         width: 100%;
       `}
     >
-      <EnclosedPlacesSelector
-        enclosedPlaceType={placeInfo.value.enclosedPlaceType}
-        onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
-        onPlaceSelected={placeInfo.setSelectedPlace}
-        selectedParentPlace={placeInfo.value.selectedPlace}
-        toggleSvHierarchyModalText={"Select variable"}
-        toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
-      />
+      <FormCard>
+        <EnclosedPlacesSelector
+          enclosedPlaceType={placeInfo.value.enclosedPlaceType}
+          onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
+          onPlaceSelected={placeInfo.setSelectedPlace}
+          selectedParentPlace={placeInfo.value.selectedPlace}
+        />
+        <StatVarHierarchyToggleButton
+          onClickCallback={props.toggleSvHierarchyModal}
+          text={"Select variable"}
+        />
+      </FormCard>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import { css, ThemeProvider } from "@emotion/react";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Container } from "reactstrap";
 
+import { FormCard } from "../../components/form_components/form_card";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
@@ -31,7 +32,8 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
 import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
-import { PlaceSelectCard } from "../shared/vis_tools/place_selector/place_select_card";
+import { PlaceSelect } from "../shared/vis_tools/place_selector/place_select_card";
+import { StatVarHierarchyToggleButton } from "../shared/vis_tools/place_selector/stat_var_hierarchy_toggle_button";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartRegion } from "./chart_region";
 import { MemoizedInfo } from "./info";
@@ -150,22 +152,30 @@ class Page extends Component<unknown, PageStateType> {
                 margin-bottom: ${theme.spacing.lg}px;
               `}
             >
-              <PlaceSelectCard
-                selectedPlaces={this.state.placeName}
-                onPlaceSelected={(placeDcid: string): void => {
-                  addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, placeDcid);
-                }}
-                onPlaceUnselected={(placeDcid: string): void => {
-                  removeToken(
-                    TIMELINE_URL_PARAM_KEYS.PLACE,
-                    placeSep,
-                    placeDcid
-                  );
-                }}
-                toggleSvHierarchyModalCallback={this.toggleSvHierarchyModal}
-                toggleSvHierarchyModalText={"Select variable(s)"}
-                searchBarInstructionText={"Select place(s):"}
-              />
+              <FormCard>
+                <PlaceSelect
+                  selectedPlaces={this.state.placeName}
+                  onPlaceSelected={(placeDcid: string): void => {
+                    addToken(
+                      TIMELINE_URL_PARAM_KEYS.PLACE,
+                      placeSep,
+                      placeDcid
+                    );
+                  }}
+                  onPlaceUnselected={(placeDcid: string): void => {
+                    removeToken(
+                      TIMELINE_URL_PARAM_KEYS.PLACE,
+                      placeSep,
+                      placeDcid
+                    );
+                  }}
+                  searchBarInstructionText={"Select place(s):"}
+                />
+                <StatVarHierarchyToggleButton
+                  onClickCallback={this.toggleSvHierarchyModal}
+                  text={"Select variable(s)"}
+                />
+              </FormCard>
             </div>
 
             {numPlaces === 0 &&

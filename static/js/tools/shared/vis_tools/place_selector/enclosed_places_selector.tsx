@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { intl } from "../../../../i18n/i18n";
 import { toolMessages } from "../../../../i18n/i18n_tool_messages";
@@ -28,15 +28,13 @@ import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getNamedTypedPlace,
 } from "../../../../utils/place_utils";
-import { PlaceSelectCard } from "./place_select_card";
+import { PlaceSelect } from "./place_select_card";
 import {
   getPlaceDcidCallback,
   loadChildPlaceTypes,
 } from "./place_select_utils";
 
 interface EnclosedPlacesSelectorProps {
-  // Child react nodes to render inside the card.
-  children?: ReactNode;
   // Current selected enclosed place type.
   enclosedPlaceType: string;
   // Callback to run when a place type is selected.
@@ -49,10 +47,6 @@ interface EnclosedPlacesSelectorProps {
   searchBarInstructionText?: string;
   // Selected enclosing place.
   selectedParentPlace: NamedTypedPlace;
-  // Text to show on button that toggles stat var hierarchy modal.
-  toggleSvHierarchyModalText: string;
-  // Callback to toggle stat var hierarchy modal.
-  toggleSvHierarchyModalCallback: () => void;
 }
 
 export function EnclosedPlacesSelector(
@@ -106,23 +100,23 @@ export function EnclosedPlacesSelector(
   }, [childPlaceTypes, props.enclosedPlaceType]);
 
   return (
-    <PlaceSelectCard
-      onPlaceSelected={getPlaceDcidCallback(props.onPlaceSelected)}
-      onPlaceUnselected={getPlaceDcidCallback(props.onPlaceUnselected)}
-      numPlacesLimit={1}
-      searchBarInstructionText={
-        props.searchBarInstructionText || "Enter a place"
-      }
-      selectedPlaces={
-        props.selectedParentPlace.dcid
-          ? {
-              [props.selectedParentPlace.dcid]: props.selectedParentPlace.name,
-            }
-          : {}
-      }
-      toggleSvHierarchyModalText={props.toggleSvHierarchyModalText}
-      toggleSvHierarchyModalCallback={props.toggleSvHierarchyModalCallback}
-    >
+    <>
+      <PlaceSelect
+        onPlaceSelected={getPlaceDcidCallback(props.onPlaceSelected)}
+        onPlaceUnselected={getPlaceDcidCallback(props.onPlaceUnselected)}
+        numPlacesLimit={1}
+        searchBarInstructionText={
+          props.searchBarInstructionText || "Enter a place"
+        }
+        selectedPlaces={
+          props.selectedParentPlace.dcid
+            ? {
+                [props.selectedParentPlace.dcid]:
+                  props.selectedParentPlace.name,
+              }
+            : {}
+        }
+      />
       <div>of type</div>
       <div>
         <select
@@ -141,7 +135,6 @@ export function EnclosedPlacesSelector(
           ))}
         </select>
       </div>
-      {props.children}
-    </PlaceSelectCard>
+    </>
   );
 }

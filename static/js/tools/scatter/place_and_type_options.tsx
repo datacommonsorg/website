@@ -26,6 +26,7 @@ import React, { useContext, useEffect } from "react";
 import { Button } from "../../components/elements/button/button";
 import { Public } from "../../components/elements/icons/public";
 import { ScatterPlot } from "../../components/elements/icons/scatter_plot";
+import { FormCard } from "../../components/form_components/form_card";
 import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
@@ -33,6 +34,7 @@ import {
 } from "../../utils/place_utils";
 import { getAllChildPlaceTypes } from "../map/util";
 import { EnclosedPlacesSelector } from "../shared/vis_tools/place_selector/enclosed_places_selector";
+import { StatVarHierarchyToggleButton } from "../shared/vis_tools/place_selector/stat_var_hierarchy_toggle_button";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 interface PlaceAndTypeOptionsProps {
@@ -94,14 +96,13 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   }, [place.value, display]);
 
   return (
-    <EnclosedPlacesSelector
-      enclosedPlaceType={place.value.enclosedPlaceType}
-      onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
-      onPlaceSelected={place.setEnclosingPlace}
-      selectedParentPlace={place.value.enclosingPlace}
-      toggleSvHierarchyModalText={"Select variables"}
-      toggleSvHierarchyModalCallback={props.toggleSvHierarchyModal}
-    >
+    <FormCard>
+      <EnclosedPlacesSelector
+        enclosedPlaceType={place.value.enclosedPlaceType}
+        onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
+        onPlaceSelected={place.setEnclosingPlace}
+        selectedParentPlace={place.value.enclosingPlace}
+      />
       <div
         css={css`
           border-radius: 0.25rem;
@@ -111,6 +112,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
           flex-shrink: 0;
           flex-wrap: nowrap;
           overflow: hidden;
+          width: fit-content;
         `}
       >
         <Button
@@ -134,7 +136,11 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
           `}
         />
       </div>
-    </EnclosedPlacesSelector>
+      <StatVarHierarchyToggleButton
+        onClickCallback={props.toggleSvHierarchyModal}
+        text={"Select variables"}
+      />
+    </FormCard>
   );
 }
 

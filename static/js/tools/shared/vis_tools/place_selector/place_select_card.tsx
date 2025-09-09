@@ -20,9 +20,7 @@
 
 import { css, useTheme } from "@emotion/react";
 import React, { ReactNode } from "react";
-import { Card } from "reactstrap";
 
-import { Button } from "../../../../components/elements/button/button";
 import {
   GA_EVENT_TOOL_PLACE_ADD,
   GA_PARAM_PLACE_DCID,
@@ -30,7 +28,7 @@ import {
 } from "../../../../shared/ga_events";
 import { SearchBar } from "../../../../shared/place_search_bar";
 
-interface PlaceSelectCardProps {
+interface PlaceSelectProps {
   // Child react nodes to render inside the card
   children?: ReactNode;
   // Callback to run when a place is selected
@@ -43,74 +41,54 @@ interface PlaceSelectCardProps {
   searchBarInstructionText: string;
   // Mapping of [dcid]: placeName of currently selected places
   selectedPlaces: Record<string, string>;
-  // Text to show on button that toggles stat var hierarchy modal
-  toggleSvHierarchyModalText: string;
-  // Callback to toggle stat var hierarchy modal
-  toggleSvHierarchyModalCallback: () => void;
 }
 
-export function PlaceSelectCard(props: PlaceSelectCardProps): JSX.Element {
+export function PlaceSelect(props: PlaceSelectProps): JSX.Element {
   const theme = useTheme();
   return (
-    <Card
+    <div
       css={css`
-        padding: ${theme.spacing.lg}px;
-        ${theme.radius.secondary}
+        align-items: center;
+        display: flex;
+        flex-grow: 1;
+        flex-wrap: wrap;
+        gap: ${theme.spacing.md}px ${theme.spacing.sm}px;
       `}
     >
+      <div>{props.searchBarInstructionText}</div>
       <div
         css={css`
-          align-items: center;
-          display: flex;
           flex-grow: 1;
-          flex-wrap: wrap;
-          gap: ${theme.spacing.md}px ${theme.spacing.sm}px;
+
+          // Override old search bar styling
+          #search {
+            margin: 0;
+          }
+
+          // Override old search icon styling
+          #search-icon {
+            margin: 0 -32px 0 16px !important;
+            position: relative !important;
+            top: 0 !important;
+          }
         `}
       >
-        <div>{props.searchBarInstructionText}</div>
-        <div
-          css={css`
-            flex-grow: 1;
-
-            // Override old search bar styling
-            #search {
-              margin: 0;
-            }
-
-            // Override old search icon styling
-            #search-icon {
-              margin: 0 -32px 0 16px !important;
-              position: relative !important;
-              top: 0 !important;
-            }
-          `}
-        >
-          <SearchBar
-            places={props.selectedPlaces}
-            addPlace={(placeDcid): void => {
-              selectPlace(placeDcid, props.onPlaceSelected);
-            }}
-            removePlace={(placeDcid): void =>
-              unselectPlace(
-                placeDcid,
-                props.onPlaceSelected,
-                props.onPlaceUnselected
-              )
-            }
-            numPlacesLimit={props.numPlacesLimit}
-          />
-        </div>
-        {props.children}
-        <div className="d-inline d-lg-none">
-          <Button
-            variant="inverted"
-            onClick={props.toggleSvHierarchyModalCallback}
-          >
-            {props.toggleSvHierarchyModalText}
-          </Button>
-        </div>
+        <SearchBar
+          places={props.selectedPlaces}
+          addPlace={(placeDcid): void => {
+            selectPlace(placeDcid, props.onPlaceSelected);
+          }}
+          removePlace={(placeDcid): void =>
+            unselectPlace(
+              placeDcid,
+              props.onPlaceSelected,
+              props.onPlaceUnselected
+            )
+          }
+          numPlacesLimit={props.numPlacesLimit}
+        />
       </div>
-    </Card>
+    </div>
   );
 }
 
