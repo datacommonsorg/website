@@ -16,7 +16,8 @@ from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
-from server.webdriver.shared_tests.explore_test import EXPLORE_URL, ExplorePageTestMixin
+from server.webdriver.shared_tests.explore_test import EXPLORE_URL
+from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
 
 
 class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
@@ -24,7 +25,7 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
 
   def test_success_result_with_no_follow_up_questions(self):
     """Test success result when follow up questions is not enabled."""
-    query = "#q=What is the population of Mountain View?"
+    query = "?disable_feature=follow_up_questions_experiment&disable_feature=explore_result_header#q=What is the population of Mountain View"
 
     self.driver.get(self.url_ + EXPLORE_URL + query)
     shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
@@ -36,6 +37,10 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
         empty_follow_up,
         "Follow Up Questions component is not empty despite the flag not being activated."
     )
+    # While Related Topics section should appear
+    topic_buttons = shared.find_elem(self.driver, By.CLASS_NAME,
+                                     'explore-relevant-topics')
+    self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
 
   def test_success_result_with_no_page_overview(self):
     """Test success result when page overview is not enabled."""
