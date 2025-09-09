@@ -620,3 +620,4 @@ def safe_obs_point_within(parent_entity,
   except Exception as e:
     logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)
     return {"byVariable": {}}
+    
