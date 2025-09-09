@@ -22,6 +22,7 @@ screenshots/screenshot_url.json
 .idea
 !.vscode/launch.json
 .env.list
+build/cdc/dev/.env-test
 
 # Mac
 .DS_Store

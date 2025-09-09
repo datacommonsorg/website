@@ -239,7 +239,19 @@ export const fetchData = async (
     );
     if (denomInfo && value) {
       value /= denomInfo.value;
-      sources.add(denomInfo.source);
+      const denomSeries = denomResp.data[statVarSpec.denom]?.[place.dcid];
+
+      if (denomSeries?.facet) {
+        const denomFacet = denomResp.facets[denomSeries.facet];
+        if (denomFacet) {
+          sources.add(denomFacet.provenanceUrl);
+          facets[denomSeries.facet] = denomFacet;
+          if (!statVarToFacets[statVarSpec.denom]) {
+            statVarToFacets[statVarSpec.denom] = new Set<string>();
+          }
+          statVarToFacets[statVarSpec.denom].add(denomSeries.facet);
+        }
+      }
     } else {
       value = null;
     }

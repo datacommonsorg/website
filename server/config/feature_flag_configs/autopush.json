@@ -49,7 +49,7 @@
   },
   {
     "name": "page_overview_experiment",
-    "enabled": true,
+    "enabled": false,
     "owner": "javiervazquez",
     "description": "Enables the page overview generated from query and relevant stat vars as an experiment."
   },
@@ -72,7 +72,7 @@
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
   },
   {
-    "name": "stat_var_autocomplete_search_bar",
+    "name": "enable_stat_var_autocomplete",
     "enabled": false,
     "owner": "gmechali",
     "description": "Enable stat var autocompletion in the NL Search bar"

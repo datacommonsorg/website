@@ -207,7 +207,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
           css={[
             theme.typography.text.lg,
             css`
-              padding-top: 1.5rem;
+              margin-bottom: ${theme.spacing.xl}px;
             `,
           ]}
         >
@@ -219,7 +219,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
             {pageOverview}
           </span>
           <Tooltip
-            title={intl.formatMessage(messages.explorePageOverviewTooltip)}
+            title={intl.formatMessage(messages.explorePageOverviewDisclaimer)}
             placement="bottom"
           >
             <InfoSpark />
