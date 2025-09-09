@@ -22,6 +22,8 @@ import _ from "lodash";
 import React, { ReactNode, useEffect, useState } from "react";
 import { CustomInput } from "reactstrap";
 
+import { intl } from "../../../../i18n/i18n";
+import { toolMessages } from "../../../../i18n/i18n_tool_messages";
 import { NamedTypedPlace } from "../../../../shared/types";
 import {
   ENCLOSED_PLACE_TYPE_NAMES,
@@ -81,6 +83,14 @@ export function EnclosedPlacesSelector(
       const newChildPlaceTypes = await loadChildPlaceTypes(
         props.selectedParentPlace
       );
+      if (_.isEmpty(childPlaceTypes)) {
+        // Alert user that no child place types were available.
+        alert(
+          intl.formatMessage(toolMessages.UnsupportedEnclosedPlaceAlert, {
+            placeName: props.selectedParentPlace.name,
+          })
+        );
+      }
       if (!_.isEqual(newChildPlaceTypes, childPlaceTypes)) {
         setChildPlaceTypes(newChildPlaceTypes);
       }

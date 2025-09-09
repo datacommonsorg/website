@@ -50,14 +50,7 @@ export async function loadChildPlaceTypes(
   selectedPlace: NamedTypedPlace
 ): Promise<string[]> {
   const parentPlaces = await getParentPlacesPromise(selectedPlace.dcid);
-  const newChildPlaceTypes = getEnclosedPlaceTypes(selectedPlace, parentPlaces);
-  if (_.isEmpty(newChildPlaceTypes)) {
-    alert(
-      `Sorry, we don't support ${selectedPlace.name}. Please select a different place.`
-    );
-    return [];
-  }
-  return newChildPlaceTypes;
+  return getEnclosedPlaceTypes(selectedPlace, parentPlaces);
 }
 
 /**

@@ -135,6 +135,12 @@ export const toolMessages = defineMessages({
     description:
       "Invitation for users to explore some example charts and visualizations.",
   },
+  UnsupportedEnclosedPlaceAlert: {
+    id: "unsupported_enclosed_place_alert",
+    defaultMessage: `Sorry, we don't support {placeName}. Please select a different place.`,
+    description:
+      "Message to users that the place they selected is unsupported by our tool",
+  },
 });
 
 export const VisToolExampleChartMessages = defineMessages({
