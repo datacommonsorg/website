@@ -20,7 +20,6 @@
 
 import _ from "lodash";
 import React, { ReactNode, useEffect, useState } from "react";
-import { CustomInput } from "reactstrap";
 
 import { intl } from "../../../../i18n/i18n";
 import { toolMessages } from "../../../../i18n/i18n_tool_messages";
@@ -83,7 +82,7 @@ export function EnclosedPlacesSelector(
       const newChildPlaceTypes = await loadChildPlaceTypes(
         props.selectedParentPlace
       );
-      if (_.isEmpty(childPlaceTypes)) {
+      if (_.isEmpty(newChildPlaceTypes)) {
         // Alert user that no child place types were available.
         alert(
           intl.formatMessage(toolMessages.unsupportedEnclosedPlaceAlert, {
@@ -126,9 +125,9 @@ export function EnclosedPlacesSelector(
     >
       <div>of type</div>
       <div>
-        <CustomInput
+        <select
           id={"place-selector-place-type"}
-          type="select"
+          className="form-control"
           value={props.enclosedPlaceType}
           onChange={(event): void =>
             props.onEnclosedPlaceTypeSelected(event.target.value)
@@ -140,7 +139,7 @@ export function EnclosedPlacesSelector(
               {ENCLOSED_PLACE_TYPE_NAMES[type] || type}
             </option>
           ))}
-        </CustomInput>
+        </select>
       </div>
       {props.children}
     </PlaceSelectCard>
