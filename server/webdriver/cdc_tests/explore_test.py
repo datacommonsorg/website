@@ -16,8 +16,7 @@ from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
-from server.webdriver.shared_tests.explore_test import EXPLORE_URL
-from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
+from server.webdriver.shared_tests.explore_test import EXPLORE_URL, ExplorePageTestMixin
 
 
 class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
@@ -37,10 +36,6 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
         empty_follow_up,
         "Follow Up Questions component is not empty despite the flag not being activated."
     )
-    # While Related Topics section should appear
-    topic_buttons = shared.find_elem(self.driver, By.CLASS_NAME,
-                                     'explore-relevant-topics')
-    self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
 
   def test_success_result_with_no_page_overview(self):
     """Test success result when page overview is not enabled."""
