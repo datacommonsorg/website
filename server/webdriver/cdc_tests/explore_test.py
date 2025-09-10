@@ -16,8 +16,7 @@ from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
-from server.webdriver.shared_tests.explore_test import EXPLORE_URL
-from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
+from server.webdriver.shared_tests.explore_test import EXPLORE_URL, ExplorePageTestMixin
 
 
 class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
@@ -26,14 +25,10 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
   def test_success_result_with_no_follow_up_questions(self):
     """Test success result when follow up questions is not enabled."""
 
-    disable_flags = [
-        'follow_up_questions_experiment',
-        'explore_result_header',
-    ]
-    params = '&'.join(f'disable_feature={flag}' for flag in disable_flags)
-    query = f'?{params}#q=What is the population of Mountain View'
+    params = '?disable_feature=follow_up_questions_ga&disable_feature=explore_result_header'
+    query = '#q=What is the population of Mountain View'
 
-    self.driver.get(self.url_ + EXPLORE_URL + query)
+    self.driver.get(self.url_ + EXPLORE_URL + params + query)
     shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
 
     # Follow Up Questions should not be present
