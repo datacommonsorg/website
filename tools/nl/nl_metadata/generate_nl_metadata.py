@@ -77,6 +77,12 @@ GEMINI_MAX_OUTPUT_TOKENS = 65535
 MAX_RETRIES = 3
 RETRY_DELAY_SECONDS = 2
 
+# Run Modes
+RUN_MODE_NL_ONLY = "nl_only"
+RUN_MODE_BIGQUERY = "bigquery"
+RUN_MODE_RETRY_FAILURES = "retry_failures"
+RUN_MODE_BIGQUERY_DIFFS = "bigquery_diffs"
+
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
 DC_API_KEY = os.getenv("DC_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -89,6 +95,12 @@ def extract_flags() -> argparse.Namespace:
   they will be set to True.
   """
   parser = argparse.ArgumentParser(description="./generate_nl_metadata.py")
+  parser.add_argument(
+      "--runMode",
+      help="The run mode for the script.",
+      choices=[RUN_MODE_NL_ONLY, RUN_MODE_BIGQUERY, RUN_MODE_RETRY_FAILURES, RUN_MODE_BIGQUERY_DIFFS],
+      required=True,
+      type=str)
   parser.add_argument(
       "--geminiApiKey",
       help="The Gemini API key to use for generating alternative sentences.",
@@ -106,12 +118,6 @@ def extract_flags() -> argparse.Namespace:
                       help="Whether to save results to/read input from GCS.",
                       action="store_true",
                       default=False)
-  parser.add_argument(
-      "--useBigQuery",
-      help=
-      "Whether to pull all 700,000+ statvars from BigQuery. If false/unspecified, only statvars used for NL will be used.",
-      action="store_true",
-      default=False)
   parser.add_argument(
       "--maxStatVars",
       help=
@@ -179,24 +185,32 @@ def verify_args(args: argparse.Namespace) -> None:
   if args.maxStatVars is not None and args.maxStatVars <= 0:
     print("Error: maxStatVars must be a positive integer.")
     raise ValueError("maxStatVars must be a positive integer.")
-  if args.failedAttemptsPath and not args.failedAttemptsPath.endswith(
-      (".json", "/")):
-    print("Error: failedAttemptsPath must be a path to a JSON file or a folder of JSON files.")
-    raise ValueError(
-        "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
-    )
-  if args.failedAttemptsPath and args.useGCS and not verify_gcs_path_exists(
-      args.failedAttemptsPath):
-    print(f"Error: GCS path {args.failedAttemptsPath} does not exist.")
-    raise ValueError(
-        f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
-    )
-  elif args.failedAttemptsPath and not args.useGCS and not os.path.exists(
-      args.failedAttemptsPath):
-    print(f"Error: Local path {args.failedAttemptsPath} does not exist.")
-    raise ValueError(
-        f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
-    )
+
+  if args.runMode == "retry_failures":
+    if not args.failedAttemptsPath:
+      print("Error: --failedAttemptsPath must be provided when runMode is 'retry_failures'.")
+      raise ValueError("--failedAttemptsPath must be provided when runMode is 'retry_failures'.")
+    if not args.failedAttemptsPath.endswith(
+        (".json", "/")):
+      print("Error: failedAttemptsPath must be a path to a JSON file or a folder of JSON files.")
+      raise ValueError(
+          "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
+      )
+    if args.useGCS and not verify_gcs_path_exists(
+        args.failedAttemptsPath):
+      print(f"Error: GCS path {args.failedAttemptsPath} does not exist.")
+      raise ValueError(
+          f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
+      )
+    elif not args.useGCS and not os.path.exists(
+        args.failedAttemptsPath):
+      print(f"Error: Local path {args.failedAttemptsPath} does not exist.")
+      raise ValueError(
+          f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
+      )
+  else:
+    if args.failedAttemptsPath:
+      print("Warning: --failedAttemptsPath is ignored when runMode is not 'retry_failures'.")
 
 
 def get_bq_query(num_partitions: int,
@@ -538,8 +552,7 @@ async def batch_generate_alt_sentences(
   return results, failed_results
 
 
-def get_gcs_folder(gcs_folder: str | None, failed_attempts_path: str | None,
-                   use_bigquery: bool) -> str:
+def get_gcs_folder(gcs_folder: str | None, run_mode: str) -> str:
   """
   Returns the GCS folder to save the results to based on the user inputs.
   """
@@ -553,10 +566,10 @@ def get_gcs_folder(gcs_folder: str | None, failed_attempts_path: str | None,
       # Store results in timestamp subfolders.
       return f"{gcs_folder}/{date_folder}"
 
-  if failed_attempts_path:
+  if run_mode == "retry_failures":
     return f"{GCS_FILE_DIR_RETRIES}/{date_folder}"
 
-  if use_bigquery:
+  if run_mode == RUN_MODE_BIGQUERY or run_mode == RUN_MODE_BIGQUERY_DIFFS:
     return f"{GCS_FILE_DIR_FULL}/{date_folder}"
 
   return f"{GCS_FILE_DIR_NL}/{date_folder}"
@@ -602,23 +615,19 @@ async def main():
 
   # Run mode can be either: retryFailure, BigQuery, NL-only, or BigQueryDiff.
 
-  if args.failedAttemptsPath is not None:
-    print(f"Reading previously failed attempts from: {args.failedAttemptsPath}")
-    sv_metadata_iter: list[list[dict[
-        str, str | list[str]]]] = read_sv_metadata_failed_attempts(
-            args.failedAttemptsPath, args.useGCS)
-  elif args.useBigQuery:
-    print("Fetching all StatVars from BigQuery...")
-    # Fetch from all 700,000+ SVs from BigQuery
-    # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
-    sv_metadata_iter: Iterator = create_sv_metadata_bigquery(
-        args.totalPartitions, args.currPartition, args.maxStatVars)
-  else:
-    print("Fetching StatVars from NL sheet (curated list)...")
-    # Fetch from only the ~3600 SVs currently used for NL
-    # SV Metadata is returned from create_sv_metadata_nl as a list of dictionaries, where each dictionary contains up to BATCH_SIZE (100) SVs.
-    # Wrap all the SVs in a list to normalize against BigQuery's page iterator - all 3600 SVs can be treated as one "page"
-    sv_metadata_iter: list[list[dict[str, str]]] = [create_sv_metadata_nl()]
+  sv_metadata_iter = None
+  match args.runMode:
+    case "retry_failures":
+      sv_metadata_iter = read_sv_metadata_failed_attempts(args.failedAttemptsPath, args.useGCS)
+    case RUN_MODE_BIGQUERY:
+      sv_metadata_iter = create_sv_metadata_bigquery(
+          args.totalPartitions, args.currPartition, args.maxStatVars)
+    case RUN_MODE_NL_ONLY:
+      sv_metadata_iter = [create_sv_metadata_nl()]
+    case "bigquery_diffs":
+      raise NotImplementedError("BigQuery Diffs mode is not yet implemented.")
+    case _:
+      raise ValueError(f"Unknown run mode: {args.runMode}")
 
   target_language = args.language
   output_filename, gemini_prompt = get_language_settings(target_language)
@@ -626,11 +635,11 @@ async def main():
   page_number: int = 1
   for sv_metadata_list in sv_metadata_iter:
     # When re-running failed attempts, sv_metadata_list already contains the full metadata.
-    if args.failedAttemptsPath is not None:
+    if args.runMode == "retry_failures":
       full_metadata = sv_metadata_list
     else:
       full_metadata: list[dict[str, str | list[str]]] = extract_metadata(
-          sv_metadata_list, args.useBigQuery)
+          sv_metadata_list, args.runMode == RUN_MODE_BIGQUERY or args.runMode == RUN_MODE_BIGQUERY_DIFFS)
     failed_metadata: list[dict[str, str | list[str]]] = []
 
     # Generate the Alt Sentences using Gemini
@@ -641,8 +650,7 @@ async def main():
     exported_filename = f"{output_filename}_{args.currPartition+1}_{page_number}"
     failed_filename = f"failures/failed_batch_{args.currPartition+1}_{page_number}"
 
-    gcs_folder = get_gcs_folder(args.gcsFolder, args.failedAttemptsPath,
-                                args.useBigQuery) if args.useGCS else None
+    gcs_folder = get_gcs_folder(args.gcsFolder, args.runMode) if args.useGCS else None
 
     export_to_json(full_metadata, exported_filename, args.useGCS, gcs_folder)
     export_to_json(failed_metadata, failed_filename, args.useGCS, gcs_folder)
