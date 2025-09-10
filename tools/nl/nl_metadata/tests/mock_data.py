@@ -15,7 +15,6 @@
 
 # Mock for argparse Namespace for the main E2E test
 MOCK_E2E_ARGS = {
-    'generateAltSentences': True,
     'geminiApiKey': 'test_key',
     'language': 'English',
     'useGCS': True,
@@ -29,7 +28,6 @@ MOCK_E2E_ARGS = {
 
 # Mock for argparse Namespace for the failed attempts E2E test
 MOCK_FAILED_ATTEMPTS_E2E_ARGS = {
-    'generateAltSentences': True,
     'geminiApiKey': 'test_key',
     'language': 'English',
     'useGCS': True,
@@ -43,7 +41,6 @@ MOCK_FAILED_ATTEMPTS_E2E_ARGS = {
 
 # Mock for argparse Namespace for the NL E2E test
 MOCK_NL_E2E_ARGS = {
-    'generateAltSentences': True,
     'geminiApiKey': 'test_key',
     'language': 'English',
     'useGCS': True,

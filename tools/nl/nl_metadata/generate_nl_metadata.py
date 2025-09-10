@@ -82,19 +82,13 @@ DC_API_KEY = os.getenv("DC_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
-def extract_flag() -> argparse.Namespace:
+def extract_flags() -> argparse.Namespace:
   """
   Defines and extracts the script flags from the command line arguments.
-  Note that for boolean flags (--generateAltSentences, --useGCS, and --useBigQuery), if these flags are present in the command line, 
+  Note that for boolean flags (--useGCS, and --useBigQuery), if these flags are present in the command line, 
   they will be set to True.
   """
   parser = argparse.ArgumentParser(description="./generate_nl_metadata.py")
-  parser.add_argument(
-      "--generateAltSentences",
-      help=
-      "Whether to generate alternative sentences for the SVs using the Gemini API.",
-      action="store_true",
-      default=False)
   parser.add_argument(
       "--geminiApiKey",
       help="The Gemini API key to use for generating alternative sentences.",
@@ -583,7 +577,7 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
 
 
 async def main():
-  args: argparse.Namespace = extract_flag()
+  args: argparse.Namespace = extract_flags()
   verify_args(args)
 
   if args.failedAttemptsPath is not None:
@@ -613,11 +607,11 @@ async def main():
       full_metadata: list[dict[str, str | list[str]]] = extract_metadata(
           sv_metadata_list, args.useBigQuery)
     failed_metadata: list[dict[str, str | list[str]]] = []
-    if args.generateAltSentences:
-      print(
-          f"Starting to generate alt sentences for batch number {page_number}")
-      full_metadata, failed_metadata = await batch_generate_alt_sentences(
-          full_metadata, args.geminiApiKey, gemini_prompt)
+
+    # Generate the Alt Sentences using Gemini
+    print(f"Generating alt sentences for batch number {page_number}")
+    full_metadata, failed_metadata = await batch_generate_alt_sentences(
+        full_metadata, args.geminiApiKey, gemini_prompt)
 
     exported_filename = f"{exported_sv_file}_{page_number}"
     failed_filename = f"failures/failed_batch_{page_number}"

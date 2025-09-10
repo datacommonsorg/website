@@ -75,7 +75,7 @@ def execute_cloud_run_jobs(api_keys: list[str], gcs_folder: str | None):
         f"\n--- Starting Job Execution {i+1}/{total_partitions} (Partition {curr_partition}) ---"
     )
 
-    container_args_list = ("generate_nl_metadata.py", "--generateAltSentences,"
+    container_args_list = ("generate_nl_metadata.py"
                            "--useGCS,"
                            "--useBigQuery,"
                            f"--totalPartitions={total_partitions},"
