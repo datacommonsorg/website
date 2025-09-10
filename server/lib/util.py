@@ -448,6 +448,8 @@ def load_fallback_feature_flags(environment: str):
 
   if environment in testing_environments:
     env_to_use = 'autopush'
+  elif environment == 'custom_test':
+    env_to_use = 'custom'
   elif environment in environments_with_local_files:
     env_to_use = environment
   else:
