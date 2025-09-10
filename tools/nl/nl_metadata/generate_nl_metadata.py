@@ -169,25 +169,31 @@ def verify_args(args: argparse.Namespace) -> None:
   Raises an error if any of the arguments are invalid.
   """
   if args.totalPartitions <= 0:
+    print("Error: Total number of partitions must be greater than 0.")
     raise ValueError("Total number of partitions must be greater than 0.")
   if args.currPartition < 0 or args.currPartition >= args.totalPartitions:
+    print(f"Error: Current partition number must be within the range [0, {args.totalPartitions}).")
     raise ValueError(
         f"Current partition number must be within the range [0, {args.totalPartitions})."
     )
   if args.maxStatVars is not None and args.maxStatVars <= 0:
+    print("Error: maxStatVars must be a positive integer.")
     raise ValueError("maxStatVars must be a positive integer.")
   if args.failedAttemptsPath and not args.failedAttemptsPath.endswith(
       (".json", "/")):
+    print("Error: failedAttemptsPath must be a path to a JSON file or a folder of JSON files.")
     raise ValueError(
         "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
     )
   if args.failedAttemptsPath and args.useGCS and not verify_gcs_path_exists(
       args.failedAttemptsPath):
+    print(f"Error: GCS path {args.failedAttemptsPath} does not exist.")
     raise ValueError(
         f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
     )
   elif args.failedAttemptsPath and not args.useGCS and not os.path.exists(
       args.failedAttemptsPath):
+    print(f"Error: Local path {args.failedAttemptsPath} does not exist.")
     raise ValueError(
         f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
     )
@@ -226,6 +232,7 @@ def read_sv_metadata_failed_attempts(
   """
   Reads previously failed SV metadata from either GCS or a local file path.
   """
+  print(f"Reading failed attempts from: {failed_attempts_path}")
   sv_metadata_to_process: list[dict[str, str | list[str]]] = []
 
   def read_jsonl(file: typing.TextIO | list[str],
@@ -277,6 +284,7 @@ def create_sv_metadata_bigquery(num_partitions: int,
   """
   Fetches all the SVs from BigQuery, and returns them in batches of PAGE_SIZE (3000).
   """
+  print(f"Fetching SV metadata from BigQuery (Partition {curr_partition}/{num_partitions})...")
   client = bigquery.Client()
   query = get_bq_query(num_partitions, curr_partition, max_stat_vars)
   query_job = client.query(query)
@@ -289,6 +297,7 @@ def create_sv_metadata_nl() -> list[dict[str, str]]:
   """
   Fetches the SVs and their sentences from the STAT_VAR_SHEET currently used for NL, and returns them as dictionaries in batches of BATCH_SIZE (100).
   """
+  print("Fetching SV metadata from NL sheet...")
   stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
   batched_list: list[pd.DataFrame] = split_into_batches(stat_var_sentences)
   batched_dicts: list[dict[str, str]] = [
@@ -362,6 +371,7 @@ def extract_metadata(
   Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API, or from BigQuery. 
   Normalizes the new metadata to type StatVarMetadata, and returns it as a list of dictionaries.
   """
+  print("Extracting metadata for batch...")
   sv_metadata_list = []
   client = DataCommonsClient(api_key=DC_API_KEY)
 
@@ -384,6 +394,8 @@ def extract_metadata(
 
       if not response_data:
         raise ValueError("No data found for the given DCIDs.")
+      else:
+        print(f"Fetched metadata for {len(response_data)} DCIDs.")
 
       curr_batch_metadata = flatten_dc_api_response(response_data, curr_batch)
       sv_metadata_list.extend(curr_batch_metadata)
@@ -487,6 +499,7 @@ async def batch_generate_alt_sentences(
   Separates sv_metadata_list into batches of 100 entries, and executes multiple parallel calls to generate_alt_sentences
   using Gemini and existing SV metadata. Flattens the list of results, and returns the metadata as a list of dictionaries.
   """
+  print(f"Starting batch generation of alternative sentences for {len(sv_metadata_list)} StatVars...")
   gemini_client = genai.Client(api_key=gemini_api_key)
   gemini_config = types.GenerateContentConfig(
       temperature=GEMINI_TEMPERATURE,
@@ -556,8 +569,10 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
   Exports the SV metadata list to a JSON file.
   """
   if not sv_metadata_list:
+    print(f"No StatVars to export for {exported_filename}. Skipping export.")
     return
 
+  print(f"Exporting {len(sv_metadata_list)} StatVars to {exported_filename}.json...")
   filename = f"{exported_filename}.json"
   local_file_path = f"{EXPORTED_FILE_DIR}/{filename}"
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
@@ -581,21 +596,25 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
 
 
 async def main():
+  print("Starting NL metadata generation script...")
   args: argparse.Namespace = extract_flags()
   verify_args(args)
 
   # Run mode can be either: retryFailure, BigQuery, NL-only, or BigQueryDiff.
 
   if args.failedAttemptsPath is not None:
+    print(f"Reading previously failed attempts from: {args.failedAttemptsPath}")
     sv_metadata_iter: list[list[dict[
         str, str | list[str]]]] = read_sv_metadata_failed_attempts(
             args.failedAttemptsPath, args.useGCS)
   elif args.useBigQuery:
+    print("Fetching all StatVars from BigQuery...")
     # Fetch from all 700,000+ SVs from BigQuery
     # SV Metadata is returned as an iterator of pages, where each page contains up to PAGE_SIZE (3000) SVs.
     sv_metadata_iter: Iterator = create_sv_metadata_bigquery(
         args.totalPartitions, args.currPartition, args.maxStatVars)
   else:
+    print("Fetching StatVars from NL sheet (curated list)...")
     # Fetch from only the ~3600 SVs currently used for NL
     # SV Metadata is returned from create_sv_metadata_nl as a list of dictionaries, where each dictionary contains up to BATCH_SIZE (100) SVs.
     # Wrap all the SVs in a list to normalize against BigQuery's page iterator - all 3600 SVs can be treated as one "page"
@@ -632,3 +651,4 @@ async def main():
 
 if __name__ == "__main__":
   asyncio.run(main())
+  print("NL metadata generation script finished.")
