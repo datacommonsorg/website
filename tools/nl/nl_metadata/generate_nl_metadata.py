@@ -532,8 +532,13 @@ def get_gcs_folder(gcs_folder: str | None, failed_attempts_path: str | None,
   """
   date_folder = datetime.now().strftime("%Y_%m_%d")
 
+  # The periodic folder is used for datastores with periodic ingestion.
   if gcs_folder:
-    return f"{gcs_folder}/{date_folder}"
+    if gcs_folder.endswith('periodic'):
+      return gcs_folder
+    else:
+      # Store results in timestamp subfolders.
+      return f"{gcs_folder}/{date_folder}"
 
   if failed_attempts_path:
     return f"{GCS_FILE_DIR_RETRIES}/{date_folder}"

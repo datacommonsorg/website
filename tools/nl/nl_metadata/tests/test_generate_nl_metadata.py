@@ -27,9 +27,11 @@ class TestAddMetadataE2E(unittest.TestCase):
 
   @patch('argparse.ArgumentParser.parse_args')
   @patch('google.cloud.storage.Client')
-  @patch('tools.nl.nl_metadata.generate_nl_metadata.batch_generate_alt_sentences',
-         new_callable=AsyncMock)
-  @patch('tools.nl.nl_metadata.generate_nl_metadata.create_sv_metadata_bigquery')
+  @patch(
+      'tools.nl.nl_metadata.generate_nl_metadata.batch_generate_alt_sentences',
+      new_callable=AsyncMock)
+  @patch(
+      'tools.nl.nl_metadata.generate_nl_metadata.create_sv_metadata_bigquery')
   def test_bq_to_gcs(self, mock_create_sv, mock_batch_generate, mock_gcs_client,
                      mock_parse_args):
     """
@@ -112,9 +114,12 @@ class TestAddMetadataE2E(unittest.TestCase):
 
   @patch('argparse.ArgumentParser.parse_args')
   @patch('google.cloud.storage.Client')
-  @patch('tools.nl.nl_metadata.generate_nl_metadata.batch_generate_alt_sentences',
-         new_callable=AsyncMock)
-  @patch('tools.nl.nl_metadata.generate_nl_metadata.read_sv_metadata_failed_attempts')
+  @patch(
+      'tools.nl.nl_metadata.generate_nl_metadata.batch_generate_alt_sentences',
+      new_callable=AsyncMock)
+  @patch(
+      'tools.nl.nl_metadata.generate_nl_metadata.read_sv_metadata_failed_attempts'
+  )
   @patch('tools.nl.nl_metadata.generate_nl_metadata.extract_metadata')
   @patch('tools.nl.nl_metadata.generate_nl_metadata.verify_gcs_path_exists')
   def test_failed_attempts_reingestion(self, mock_verify_gcs_path,
