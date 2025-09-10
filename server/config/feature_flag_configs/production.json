@@ -19,9 +19,15 @@
   },
   {
     "name": "follow_up_questions_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience."
+  },
+  {
+    "name": "explore_result_header",
+    "enabled": true,
+    "owner": "nick-next",
+    "description": "Enables the display of an updated explore page results header."
   },
   {
     "name": "page_overview_experiment",

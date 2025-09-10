@@ -26,6 +26,7 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     """Test success result when follow up questions is not enabled."""
 
     params = '?disable_feature=follow_up_questions_ga&disable_feature=explore_result_header'
+    params = ''
     query = '#q=What is the population of Mountain View'
 
     self.driver.get(self.url_ + EXPLORE_URL + params + query)
