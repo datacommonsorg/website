@@ -20,12 +20,12 @@ import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
+import { FormCard } from "../../components/form_components/form_card";
 import { Chip } from "../../shared/chip";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
 } from "../../shared/facet_selector/facet_selector";
-import { PlaceSelector } from "../../shared/place_selector";
 import { PointAllApiResponse } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
@@ -36,6 +36,7 @@ import { FacetResponse } from "../../utils/data_fetch_utils";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
 import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
+import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
 import { Info, InfoPlace } from "./info";
 import { Preview } from "./preview";
 import { StatVarChooser } from "./stat_var_chooser";
@@ -225,21 +226,26 @@ export function Page(props: PagePropType): ReactElement {
       <div id="plot-container">
         <h1 className="mb-4">Data Download Tool</h1>
         <div className="download-options-container">
-          <PlaceSelector
-            selectedPlace={selectedOptions.selectedPlace}
-            enclosedPlaceType={selectedOptions.enclosedPlaceType}
-            onPlaceSelected={(place): void =>
-              setSelectedOptions((prev) => {
-                return { ...prev, selectedPlace: place, enclosedPlaceType: "" };
-              })
-            }
-            onEnclosedPlaceTypeSelected={(enclosedPlaceType): void =>
-              setSelectedOptions((prev) => {
-                return { ...prev, enclosedPlaceType };
-              })
-            }
-            customPlaceSearchLabel="Places in"
-          >
+          <FormCard>
+            <EnclosedPlacesSelector
+              enclosedPlaceType={selectedOptions.enclosedPlaceType}
+              onEnclosedPlaceTypeSelected={(enclosedPlaceType): void =>
+                setSelectedOptions((prev) => {
+                  return { ...prev, enclosedPlaceType };
+                })
+              }
+              onPlaceSelected={(place): void =>
+                setSelectedOptions((prev) => {
+                  return {
+                    ...prev,
+                    selectedPlace: place,
+                    enclosedPlaceType: "",
+                  };
+                })
+              }
+              searchBarInstructionText="Places in"
+              selectedParentPlace={selectedOptions.selectedPlace}
+            />
             <div className="download-option-section">
               <div className="download-option-label">Date</div>
               <div className="download-date-options">
@@ -422,7 +428,7 @@ export function Page(props: PagePropType): ReactElement {
             >
               {getDataButtonText}
             </Button>
-          </PlaceSelector>
+          </FormCard>
           {!_.isEmpty(validationErrors.incompleteSelectionMessage) && (
             <div className="download-options-error-message">
               {validationErrors.incompleteSelectionMessage}

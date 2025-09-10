@@ -33,8 +33,8 @@ import {
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { getAllChildPlaceTypes } from "../map/util";
-import { EnclosedPlacesSelector } from "../shared/vis_tools/place_selector/enclosed_places_selector";
-import { StatVarHierarchyToggleButton } from "../shared/vis_tools/place_selector/stat_var_hierarchy_toggle_button";
+import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
+import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 interface PlaceAndTypeOptionsProps {

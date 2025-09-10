@@ -20,7 +20,7 @@
 
 import React from "react";
 
-import { Button } from "../../../../components/elements/button/button";
+import { Button } from "../../../components/elements/button/button";
 
 interface StatVarHierarchyToggleButtonProps {
   onClickCallback: () => void;

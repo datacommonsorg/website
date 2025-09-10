@@ -25,8 +25,8 @@ import {
   GA_EVENT_TOOL_PLACE_ADD,
   GA_PARAM_PLACE_DCID,
   triggerGAEvent,
-} from "../../../../shared/ga_events";
-import { SearchBar } from "../../../../shared/place_search_bar";
+} from "../../../shared/ga_events";
+import { SearchBar } from "../../../shared/place_search_bar";
 
 interface PlaceSelectProps {
   // Child react nodes to render inside the card

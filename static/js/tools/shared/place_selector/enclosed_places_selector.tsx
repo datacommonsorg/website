@@ -21,13 +21,13 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { intl } from "../../../../i18n/i18n";
-import { toolMessages } from "../../../../i18n/i18n_tool_messages";
-import { NamedTypedPlace } from "../../../../shared/types";
+import { intl } from "../../../i18n/i18n";
+import { toolMessages } from "../../../i18n/i18n_tool_messages";
+import { NamedTypedPlace } from "../../../shared/types";
 import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getNamedTypedPlace,
-} from "../../../../utils/place_utils";
+} from "../../../utils/place_utils";
 import { PlaceSelect } from "./place_select_card";
 import {
   getPlaceDcidCallback,

@@ -23,13 +23,13 @@ import _ from "lodash";
 import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
-} from "../../../../shared/constants";
-import { NamedTypedPlace } from "../../../../shared/types";
+} from "../../../shared/constants";
+import { NamedTypedPlace } from "../../../shared/types";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
-} from "../../../../utils/place_utils";
-import { isChildPlaceOf } from "../../../shared_util";
+} from "../../../utils/place_utils";
+import { isChildPlaceOf } from "../../shared_util";
 import {
   CHILD_PLACE_TYPES,
   USA_CHILD_PLACE_TYPES,
