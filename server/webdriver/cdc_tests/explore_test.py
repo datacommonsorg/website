@@ -25,7 +25,13 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
 
   def test_success_result_with_no_follow_up_questions(self):
     """Test success result when follow up questions is not enabled."""
-    query = "?disable_feature=follow_up_questions_ga&disable_feature=explore_result_header#q=What is the population of Mountain View"
+
+    disable_flags = [
+        'follow_up_questions_experiment',
+        'explore_result_header',
+    ]
+    params = '&'.join(f'disable_feature={flag}' for flag in disable_flags)
+    query = f'?{params}#q=What is the population of Mountain View'
 
     self.driver.get(self.url_ + EXPLORE_URL + query)
     shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
