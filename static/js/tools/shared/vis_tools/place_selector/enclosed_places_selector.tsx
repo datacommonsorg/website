@@ -106,7 +106,8 @@ export function EnclosedPlacesSelector(
         onPlaceUnselected={getPlaceDcidCallback(props.onPlaceUnselected)}
         numPlacesLimit={1}
         searchBarInstructionText={
-          props.searchBarInstructionText || "Enter a place"
+          props.searchBarInstructionText ||
+          intl.formatMessage(toolMessages.enterAPlaceInstruction)
         }
         selectedPlaces={
           props.selectedParentPlace.dcid
@@ -117,7 +118,7 @@ export function EnclosedPlacesSelector(
             : {}
         }
       />
-      <div>of type</div>
+      <div>{intl.formatMessage(toolMessages.childPlaceTypeInstruction)}</div>
       <div>
         <select
           id={"place-selector-place-type"}
