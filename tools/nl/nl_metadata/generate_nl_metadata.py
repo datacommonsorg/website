@@ -55,7 +55,7 @@ PAGE_SIZE = 3000
 BIGQUERY_QUERY_BASE = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL AND prov_id != \"dc/base/ExperimentalStatVars\""
 STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
 EXPORTED_FILE_DIR = "tools/nl/nl_metadata"
-EXPORTED_FILENAME_PREFIX = "sv_complete_metadata"
+OUTPUT_FILENAME_PREFIX = "sv_complete_metadata"
 GCS_PROJECT_ID = "datcom-nl"
 GCS_BUCKET = "metadata_for_vertexai_search"
 GCS_FILE_DIR_RETRIES = "statvar_metadata_retries"
@@ -299,8 +299,6 @@ def create_sv_metadata_nl() -> list[dict[str, str]]:
 
 
 def get_language_settings(target_language: str) -> tuple[str, str]:
-  exported_sv_file = f"{EXPORTED_FILENAME_PREFIX}_{target_language}"
-
   match target_language:
     case "French":
       language_schema = json.dumps(frenchSchema)
@@ -309,9 +307,11 @@ def get_language_settings(target_language: str) -> tuple[str, str]:
     case _:
       language_schema = json.dumps(englishSchema)
 
-  # return exported_sv_file, get_gemini_prompt_with_translations(target_language, language_schema) # Use this prompt if translations are needed
-  return exported_sv_file, get_gemini_prompt(
-      language_schema)  # Use this prompt for English-only results
+  # TODO(gmechali): Uncomment if we want to support other languages.
+  # return output_file_name, get_gemini_prompt_with_translations(target_language, language_schema)
+
+  output_file_name = f"{OUTPUT_FILENAME_PREFIX}_{target_language}"
+  return output_file_name, get_gemini_prompt(language_schema)
 
 
 def get_prop_value(prop_data) -> str:
@@ -568,17 +568,18 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
     print(
         f"{len(sv_metadata_list)} statvars saved to gs://{GCS_BUCKET}/{gcs_file_path}"
     )
-    return
-
-  os.makedirs(f"{EXPORTED_FILE_DIR}/failures", exist_ok=True)
-  with open(local_file_path, "w") as f:
-    f.write(sv_metadata_json)
-  print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
+  else:
+    os.makedirs(f"{EXPORTED_FILE_DIR}/failures", exist_ok=True)
+    with open(local_file_path, "w") as f:
+      f.write(sv_metadata_json)
+    print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
 
 
 async def main():
   args: argparse.Namespace = extract_flags()
   verify_args(args)
+
+  # Run mode can be either: retryFailure, BigQuery, NL-only, or BigQueryDiff.
 
   if args.failedAttemptsPath is not None:
     sv_metadata_iter: list[list[dict[
@@ -596,7 +597,7 @@ async def main():
     sv_metadata_iter: list[list[dict[str, str]]] = [create_sv_metadata_nl()]
 
   target_language = args.language
-  exported_sv_file, gemini_prompt = get_language_settings(target_language)
+  output_filename, gemini_prompt = get_language_settings(target_language)
 
   page_number: int = 1
   for sv_metadata_list in sv_metadata_iter:
@@ -613,11 +614,8 @@ async def main():
     full_metadata, failed_metadata = await batch_generate_alt_sentences(
         full_metadata, args.geminiApiKey, gemini_prompt)
 
-    exported_filename = f"{exported_sv_file}_{page_number}"
-    failed_filename = f"failures/failed_batch_{page_number}"
-    if args.totalPartitions > 1:
-      exported_filename = f"{exported_sv_file}_partition{args.currPartition}_{page_number}"
-      failed_filename = f"failures/failed_batch_partition{args.currPartition}_{page_number}"
+    exported_filename = f"{output_filename}_{args.currPartition+1}_{page_number}"
+    failed_filename = f"failures/failed_batch_{args.currPartition+1}_{page_number}"
 
     gcs_folder = get_gcs_folder(args.gcsFolder, args.failedAttemptsPath,
                                 args.useBigQuery) if args.useGCS else None
