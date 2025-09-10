@@ -41,8 +41,6 @@ interface EnclosedPlacesSelectorProps {
   onEnclosedPlaceTypeSelected: (placeType: string) => void;
   // Callback to run when a place is selected.
   onPlaceSelected: (place: NamedTypedPlace) => void;
-  // Callback to run when a place is unselected.
-  onPlaceUnselected?: (place: NamedTypedPlace) => void;
   // Text to show before the search bar.
   searchBarInstructionText?: string;
   // Selected enclosing place.
@@ -103,7 +101,6 @@ export function EnclosedPlacesSelector(
     <>
       <PlaceSelect
         onPlaceSelected={getPlaceDcidCallback(props.onPlaceSelected)}
-        onPlaceUnselected={getPlaceDcidCallback(props.onPlaceUnselected)}
         numPlacesLimit={1}
         searchBarInstructionText={
           props.searchBarInstructionText ||
