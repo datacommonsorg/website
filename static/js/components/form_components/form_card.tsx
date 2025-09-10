@@ -21,17 +21,25 @@
 import { css, useTheme } from "@emotion/react";
 import React from "react";
 
-export function FormCard(props: { children?: React.ReactNode }): JSX.Element {
+import { Box } from "../elements/wrappers/box";
+
+export function FormWrapper(props: {
+  children?: React.ReactNode;
+}): JSX.Element {
   const theme = useTheme();
   return (
-    <div
-      className="card"
-      css={css`
+    <Box
+      sx={css`
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: ${theme.spacing.sm}px;
         padding: ${theme.spacing.lg}px;
         ${theme.radius.secondary}
+        width: 100%;
       `}
     >
       {props.children}
-    </div>
+    </Box>
   );
 }

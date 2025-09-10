@@ -50,6 +50,7 @@ export function PlaceSelect(props: PlaceSelectProps): JSX.Element {
       css={css`
         align-items: center;
         display: flex;
+        flex-direction: row;
         flex-grow: 1;
         flex-wrap: wrap;
         gap: ${theme.spacing.md}px ${theme.spacing.sm}px;

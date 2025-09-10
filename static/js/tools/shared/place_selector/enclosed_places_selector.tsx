@@ -18,6 +18,7 @@
  * Card for selecting places in a parent place for our visualization tools.
  */
 
+import { css, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
@@ -51,6 +52,7 @@ export function EnclosedPlacesSelector(
   props: EnclosedPlacesSelectorProps
 ): JSX.Element {
   const [childPlaceTypes, setChildPlaceTypes] = useState([]);
+  const theme = useTheme();
 
   // Handles fetching childPlaceTypes to populate place type dropdown.
   useEffect(() => {
@@ -98,7 +100,16 @@ export function EnclosedPlacesSelector(
   }, [childPlaceTypes, props.enclosedPlaceType]);
 
   return (
-    <>
+    <div
+      css={css`
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: ${theme.spacing.sm}px;
+        flex-wrap: wrap;
+        flex-grow: 1;
+      `}
+    >
       <PlaceSelect
         onPlaceSelected={getPlaceDcidCallback(props.onPlaceSelected)}
         numPlacesLimit={1}
@@ -133,6 +144,6 @@ export function EnclosedPlacesSelector(
           ))}
         </select>
       </div>
-    </>
+    </div>
   );
 }

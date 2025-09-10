@@ -26,7 +26,7 @@ import React, { useContext, useEffect } from "react";
 import { Button } from "../../components/elements/button/button";
 import { Public } from "../../components/elements/icons/public";
 import { ScatterPlot } from "../../components/elements/icons/scatter_plot";
-import { FormCard } from "../../components/form_components/form_card";
+import { FormWrapper } from "../../components/form_components/form_card";
 import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
@@ -96,7 +96,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   }, [place.value, display]);
 
   return (
-    <FormCard>
+    <FormWrapper>
       <EnclosedPlacesSelector
         enclosedPlaceType={place.value.enclosedPlaceType}
         onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
@@ -140,7 +140,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
         onClickCallback={props.toggleSvHierarchyModal}
         text={"Select variables"}
       />
-    </FormCard>
+    </FormWrapper>
   );
 }
 
