@@ -19,7 +19,7 @@ Before running this script, make a copy of .env.sample and fill in your list of 
 1. gcloud auth login
 2. gcloud config set project datcom-nl
 
-Then, run this script using the command `python ./run_add_metadata.py`
+Then, run this script using the command `python ./trigger_nl_metadata_job.py`
 """
 
 import argparse
@@ -39,7 +39,7 @@ def extract_flag() -> argparse.Namespace:
   """
   Defines and extracts the gcsFolder to save results to from the command line arguments.
   """
-  parser = argparse.ArgumentParser(description="./add_metadata.py")
+  parser = argparse.ArgumentParser(description="./trigger_nl_metadata_job.py")
   parser.add_argument(
       "--gcsFolder",
       help=
@@ -75,7 +75,7 @@ def execute_cloud_run_jobs(api_keys: list[str], gcs_folder: str | None):
         f"\n--- Starting Job Execution {i+1}/{total_partitions} (Partition {curr_partition}) ---"
     )
 
-    container_args_list = ("add_metadata.py", "--generateAltSentences,"
+    container_args_list = ("generate_nl_metadata.py", "--generateAltSentences,"
                            "--useGCS,"
                            "--useBigQuery,"
                            f"--totalPartitions={total_partitions},"

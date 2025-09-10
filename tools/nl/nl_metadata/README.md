@@ -1,6 +1,6 @@
 # Statistical Variable Metadata Generation
 
-This directory contains scripts to augment metadata with alternative sentences for Data Commons Statistical Variables (StatVars). The primary script, `add_metadata.py`, fetches StatVar metadata, optionally uses the Gemini API to generate alternative natural language sentences, and exports the results to JSONL files.
+This directory contains scripts to augment metadata with alternative sentences for Data Commons Statistical Variables (StatVars). The primary script, `generate_nl_metadata.py`, fetches StatVar metadata, optionally uses the Gemini API to generate alternative natural language sentences, and exports the results to JSONL files.
 
 These generated files are intended to be used as a data source for a Vertex AI Search application to power natural language search over statistical variables. For an example Vertex AI Search application, see go/sv-search-preview. 
 
@@ -21,7 +21,7 @@ Before running the scripts, you need to set up your API keys.
 2.  Edit the newly created `.env` file and add your API keys:
     *   `DC_API_KEY`: Your Data Commons API key.
     *   `GEMINI_API_KEY`: A single Gemini API key, used for local runs.
-    *   `GEMINI_API_KEYS`: A comma-separated list of Gemini API keys, used for parallelized Cloud Run jobs (`run_add_metadata.py`). Separate API keys are used per Cloud Run job to prevent 429 (resource exhaustion) errors from Gemini. 
+    *   `GEMINI_API_KEYS`: A comma-separated list of Gemini API keys, used for parallelized Cloud Run jobs (`trigger_nl_metadata_job.py`). Separate API keys are used per Cloud Run job to prevent 429 (resource exhaustion) errors from Gemini. 
 
 ### 2. GCP Authentication
 
@@ -42,10 +42,10 @@ There are two primary ways to run the metadata generation process: locally for s
 
 ### Local Execution (for testing)
 
-You can run `add_metadata.py` directly to process a small number of StatVars. This is useful for testing and debugging. Note that python version 3.11 or later is required to run this script, be sure to follow step 0 to set up your developer environment which will ensure you have the correct version.
+You can run `generate_nl_metadata.py` directly to process a small number of StatVars. This is useful for testing and debugging. Note that python version 3.11 or later is required to run this script, be sure to follow step 0 to set up your developer environment which will ensure you have the correct version.
 
 ```bash
-python add_metadata.py [FLAGS]
+python generate_nl_metadata.py [FLAGS]
 ```
 
 **Common Flags:**
@@ -58,25 +58,25 @@ python add_metadata.py [FLAGS]
 
 ### Cloud Run Execution (for production)
 
-For processing the entire set of StatVars from BigQuery, the recommended approach is to use the `run_add_metadata.py` script. This script triggers a `stat-var-metadata-generator` Cloud Run job in the `us-central1` region, which runs the `add_metadata.py` script in a containerized environment.
+For processing the entire set of StatVars from BigQuery, the recommended approach is to use the `trigger_nl_metadata_job.py` script. This script triggers a `stat-var-metadata-generator` Cloud Run job in the `us-central1` region, which runs the `generate_nl_metadata.py` script in a containerized environment.
 
 The script will automatically partition the workload across the number of API keys provided in the `GEMINI_API_KEYS` environment variable, running one job per key in parallel. For reference, a previous run across all 250k stat vars in base DC's BigQuery table took approximately 1 hour for 12 parallel jobs to complete. Separate keys are needed per job to prevent 429 errors (resource exhaustion) from the Gemini API calls. For a list of Gemini API keys created specifically for this purpose, see this [spreadsheet](https://docs.google.com/spreadsheets/d/1DP3RwnwrU6VdDZFsK7FTcEZy--Cag1dQ4JUMWZZZ178/edit?usp=sharing&resourcekey=0-fBIYedZl45MT3gKRnG0Hdg). 
 
-By default, `run_add_metadata.py` executes the Cloud Run job with the following configuration:
+By default, `trigger_nl_metadata_job.py` executes the Cloud Run job with the following configuration:
 *   Processes the full set of StatVars from BigQuery (`--useBigQuery`).
 *   Generates alternative sentences for each StatVar (`--generateAltSentences`).
 *   Saves the output to GCS (`--useGCS`).
 
 ```bash
 # Run with default settings
-python run_add_metadata.py
+python trigger_nl_metadata_job.py
 ```
 
 You can also specify an optional `--gcsFolder` argument to override the default output directory in GCS.
 
 ```bash
 # Run with a custom output folder
-python run_add_metadata.py --gcsFolder="my_custom_folder"
+python trigger_nl_metadata_job.py --gcsFolder="my_custom_folder"
 ```
 
 After starting the job, you can monitor its status in the [Cloud Run section of the GCP Console](https://console.cloud.google.com/run) for the `datcom-nl` project.
@@ -117,7 +117,7 @@ When promoting from staging to prod, the app to be used is `full_statvar_search_
 
 ## Updating the Cloud Run Job
 
-The Cloud Run job runs from a Docker image. If you make any changes to the scripts in this directory (`add_metadata.py`, `gemini_prompt.py`, etc.), you must build and deploy a new Docker image for the changes to take effect in the Cloud Run environment.
+The Cloud Run job runs from a Docker image. If you make any changes to the scripts in this directory (`generate_nl_metadata.py`, `gemini_prompt.py`, etc.), you must build and deploy a new Docker image for the changes to take effect in the Cloud Run environment.
 
 1.  **Authenticate to the `datcom-ci` project:**
     ```bash
@@ -141,7 +141,7 @@ The Cloud Run job runs from a Docker image. If you make any changes to the scrip
 
 ## Running unit tests
 
-A few end-to-end unit tests are defined for the `add_metadata.py` script under `./tests/add_metadata_test.py`. To run this test, run the script `./run_metadata_test.sh` from this directory. Note that these tests are not currently run as part of the script `website/run_test.sh`.
+A few end-to-end unit tests are defined for the `generate_nl_metadata.py` script under `./tests/test_generate_nl_metadata.py`. To run this test, run the script `./run_tests.sh` from this directory. Note that these tests are not currently run as part of the script `website/run_test.sh`.
 
 ## API Endpoint Reference
 

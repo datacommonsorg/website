@@ -18,18 +18,18 @@ from unittest.mock import AsyncMock
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
-from tools.nl.nl_metadata import add_metadata
+from tools.nl.nl_metadata import generate_nl_metadata
 from tools.nl.nl_metadata.tests import mock_data
 
 
 class TestAddMetadataE2E(unittest.TestCase):
-  """End-to-end tests for add_metadata.py."""
+  """End-to-end tests for generate_nl_metadata.py."""
 
   @patch('argparse.ArgumentParser.parse_args')
   @patch('google.cloud.storage.Client')
-  @patch('tools.nl.nl_metadata.add_metadata.batch_generate_alt_sentences',
+  @patch('tools.nl.nl_metadata.generate_nl_metadata.batch_generate_alt_sentences',
          new_callable=AsyncMock)
-  @patch('tools.nl.nl_metadata.add_metadata.create_sv_metadata_bigquery')
+  @patch('tools.nl.nl_metadata.generate_nl_metadata.create_sv_metadata_bigquery')
   def test_bq_to_gcs(self, mock_create_sv, mock_batch_generate, mock_gcs_client,
                      mock_parse_args):
     """
@@ -41,7 +41,7 @@ class TestAddMetadataE2E(unittest.TestCase):
         """
 
     # Mock the command-line arguments
-    mock_parse_args.return_value = add_metadata.argparse.Namespace(
+    mock_parse_args.return_value = generate_nl_metadata.argparse.Namespace(
         **mock_data.MOCK_E2E_ARGS)
 
     # Mock the BigQuery data source
@@ -89,7 +89,7 @@ class TestAddMetadataE2E(unittest.TestCase):
     mock_bucket.blob.side_effect = set_blob_name
 
     # Run the main script
-    asyncio.run(add_metadata.main())
+    asyncio.run(generate_nl_metadata.main())
 
     # Assertions
     mock_create_sv.assert_called_once_with(1, 0, None)
@@ -112,11 +112,11 @@ class TestAddMetadataE2E(unittest.TestCase):
 
   @patch('argparse.ArgumentParser.parse_args')
   @patch('google.cloud.storage.Client')
-  @patch('tools.nl.nl_metadata.add_metadata.batch_generate_alt_sentences',
+  @patch('tools.nl.nl_metadata.generate_nl_metadata.batch_generate_alt_sentences',
          new_callable=AsyncMock)
-  @patch('tools.nl.nl_metadata.add_metadata.read_sv_metadata_failed_attempts')
-  @patch('tools.nl.nl_metadata.add_metadata.extract_metadata')
-  @patch('tools.nl.nl_metadata.add_metadata.verify_gcs_path_exists')
+  @patch('tools.nl.nl_metadata.generate_nl_metadata.read_sv_metadata_failed_attempts')
+  @patch('tools.nl.nl_metadata.generate_nl_metadata.extract_metadata')
+  @patch('tools.nl.nl_metadata.generate_nl_metadata.verify_gcs_path_exists')
   def test_failed_attempts_reingestion(self, mock_verify_gcs_path,
                                        mock_extract_metadata, mock_read_failed,
                                        mock_batch_generate, mock_gcs_client,
@@ -132,7 +132,7 @@ class TestAddMetadataE2E(unittest.TestCase):
     mock_verify_gcs_path.return_value = True
 
     # Mock the command-line arguments
-    mock_parse_args.return_value = add_metadata.argparse.Namespace(
+    mock_parse_args.return_value = generate_nl_metadata.argparse.Namespace(
         **mock_data.MOCK_FAILED_ATTEMPTS_E2E_ARGS)
 
     # Mock the data returned from reading the failed attempts file
@@ -162,7 +162,7 @@ class TestAddMetadataE2E(unittest.TestCase):
     mock_bucket.blob.side_effect = set_blob_name
 
     # Run the main script
-    asyncio.run(add_metadata.main())
+    asyncio.run(generate_nl_metadata.main())
 
     # Assertions
     mock_read_failed.assert_called_once_with('gs://some/failed/path/', True)

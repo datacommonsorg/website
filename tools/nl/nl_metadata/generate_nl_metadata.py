@@ -22,7 +22,7 @@ This script retrives the metadata from the data commons API or BigQuery (BQ) tab
 4. Create a new dataframe with the SVs and their full metadata, and export it as a JSON file sv_complete_metadata_{target_language}_{page_number}.json.
    If the flag --useGCS is specified, save to cloud storage instead under a folder named with the current date.
 
-To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./add_metadata.py
+To run this script, make a copy of .env.sample and register your data commons and Gemini API keys to DOTENV_FILE_PATH (./.env), then run the script using the command ./generate_nl_metadata.py
 """
 import argparse
 import asyncio
@@ -41,10 +41,10 @@ from google.cloud import storage
 from google.genai import types
 import google.genai as genai
 import pandas as pd
-from sv_types import englishSchema
-from sv_types import frenchSchema
-from sv_types import spanishSchema
-from sv_types import StatVarMetadata
+from schemas import englishSchema
+from schemas import frenchSchema
+from schemas import spanishSchema
+from schemas import StatVarMetadata
 
 DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
@@ -88,7 +88,7 @@ def extract_flag() -> argparse.Namespace:
   Note that for boolean flags (--generateAltSentences, --useGCS, and --useBigQuery), if these flags are present in the command line, 
   they will be set to True.
   """
-  parser = argparse.ArgumentParser(description="./add_metadata.py")
+  parser = argparse.ArgumentParser(description="./generate_nl_metadata.py")
   parser.add_argument(
       "--generateAltSentences",
       help=
