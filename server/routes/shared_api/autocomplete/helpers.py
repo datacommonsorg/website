@@ -288,5 +288,6 @@ def custom_rank_predictions(predictions: List[ScoredPrediction],
 
     pred.score = new_score
 
-  predictions.sort(key=lambda p: (p.score, not set(p.matched_query.lower().split()).isdisjoint(STOP_WORDS)))
+  predictions.sort(key=lambda p: (p.score, not set(p.matched_query.lower(
+  ).split()).isdisjoint(STOP_WORDS)))
   return predictions
