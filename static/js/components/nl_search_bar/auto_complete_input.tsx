@@ -198,12 +198,10 @@ export function AutoCompleteInput(
       setResults([]);
       setHoveredIdx(-1);
       setLastAutoCompleteSelection(results[hoveredIdx].name);
-      // setHasLocation(hasLocation || results[hoveredIdx].hasPlace || results[hoveredIdx].matchType === LOCATION_SEARCH);
       return;
     } else if (_.isEmpty(currentText)) {
       setResults([]);
       setLastAutoCompleteSelection("");
-      console.log("Setting hasLocation to false on empty input");
       setHasLocation(false);
       setHoveredIdx(-1);
       return;
@@ -286,7 +284,6 @@ export function AutoCompleteInput(
         event.preventDefault();
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
-      // Check space:
       case " ":
         selectResult(results[hoveredIdx], hoveredIdx, true);
     }
@@ -296,12 +293,20 @@ export function AutoCompleteInput(
     setHoveredIdx(selectedIndex);
     const textDisplayed =
       selectedIndex >= 0
-        ? replaceQueryWithSelection(baseInput, results[selectedIndex], hasLocation)
+        ? replaceQueryWithSelection(
+            baseInput,
+            results[selectedIndex],
+            hasLocation
+          )
         : baseInput;
     changeText(textDisplayed);
   }
 
-  function selectResult(result: AutoCompleteResult, idx: number, skipRedirection?: boolean): void {
+  function selectResult(
+    result: AutoCompleteResult,
+    idx: number,
+    skipRedirection?: boolean
+  ): void {
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
     });
@@ -311,8 +316,7 @@ export function AutoCompleteInput(
       stripPatternFromQuery(baseInput, result.matchedQuery).trim() === ""
     ) {
       if (result.dcid) {
-        console.log("Setting hasLocation to " + hasLocation || result.hasPlace + " from SV selection");
-        setHasLocation(hasLocation || result.hasPlace );
+        setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
           window.location.href = STAT_VAR_EXPLORER_PREFIX + result.dcid;
         }
@@ -322,24 +326,30 @@ export function AutoCompleteInput(
 
     if (result.matchType == LOCATION_SEARCH) {
       setHasLocation(true);
-      console.log("Setting hasLocation to true from place selection");
 
-      if (stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "" && result.dcid) {
-          triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
-            [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
-            [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(enableDynamicPlacehoder),
-          });
-          
-          const overrideParams = new URLSearchParams();
-          overrideParams.set("q", result.name);
-          const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
-          if (!skipRedirection) {
-            redirect(window.location.href, destinationUrl, overrideParams);
-          }
+      if (
+        stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "" &&
+        result.dcid
+      ) {
+        triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
+          [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+          [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(enableDynamicPlacehoder),
+        });
+
+        const overrideParams = new URLSearchParams();
+        overrideParams.set("q", result.name);
+        const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
+        if (!skipRedirection) {
+          redirect(window.location.href, destinationUrl, overrideParams);
+        }
       }
     }
 
-    const newString = replaceQueryWithSelection(baseInput, result, hasLocation || result.hasPlace);
+    const newString = replaceQueryWithSelection(
+      baseInput,
+      result,
+      hasLocation || result.hasPlace
+    );
     changeText(newString);
     if (!skipRedirection) {
       setTriggerSearch(newString);

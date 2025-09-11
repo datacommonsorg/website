@@ -52,7 +52,6 @@ export function AutoCompleteSuggestions(
   const [triggered, setTriggered] = useState(false);
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_RESULTS);
 
-  
   useEffect(() => {
     // Whenever the results change for a new query, reset the visible count.
     setVisibleCount(INITIAL_VISIBLE_RESULTS);
@@ -62,7 +61,8 @@ export function AutoCompleteSuggestions(
     result: AutoCompleteResult,
     baseInput: string
   ): ReactElement {
-    const isExactMatch = stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "";
+    const isExactMatch =
+      stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "";
     if (result.matchType === "stat_var_search") {
       if (isExactMatch) {
         return <ScatterPlot />;
@@ -96,7 +96,11 @@ export function AutoCompleteSuggestions(
       {props.allResults
         .slice(0, visibleCount)
         .map((result: AutoCompleteResult, idx: number) => {
-          const fullText = replaceQueryWithSelection(props.baseInput, result, props.hasLocation || result.hasPlace);
+          const fullText = replaceQueryWithSelection(
+            props.baseInput,
+            result,
+            props.hasLocation || result.hasPlace
+          );
           const parts = fullText.split(result.name);
           return (
             <div key={idx}>
