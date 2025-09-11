@@ -59,7 +59,7 @@ import {
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
-const STAT_VAR_EXPLORER_PREFIX = "/tools/statvar#sv=";
+const STAT_VAR_EXPLORER_PREFIX = "/explore#p=Earth&sv=";
 const LOCATION_SEARCH = "location_search";
 const STAT_VAR_SEARCH = "stat_var_search";
 
@@ -269,6 +269,7 @@ export function AutoCompleteInput(
         } else {
           executeQuery();
         }
+        setResults([]);
         break;
       case "ArrowUp":
         event.preventDefault();
