@@ -76,8 +76,8 @@ async def autocomplete():
   query_for_ngrams = original_query
   if concept_result and concept_result.get('place_name'):
     place_name = concept_result['place_name']
-    place_name_end_pos = original_query.lower().find(place_name.lower()) + len(
-        place_name)
+    place_name_end_pos = original_query.lower().find(
+        place_name.lower()) + len(place_name)
     query_for_ngrams = original_query[place_name_end_pos:].strip()
     logging.info(
         f'[Autocomplete] Adjusted query for n-grams: "{query_for_ngrams}" (place: "{place_name}")'
