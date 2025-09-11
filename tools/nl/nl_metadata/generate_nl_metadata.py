@@ -291,6 +291,30 @@ def read_sv_metadata_failed_attempts(
         sv_metadata_to_process = read_jsonl(f, sv_metadata_to_process)
   return split_into_batches(sv_metadata_to_process, PAGE_SIZE)
 
+def read_gcs_jsonl_ids(gcs_folder_path: str) -> set[str]:
+  """
+  Reads all JSONL files in a GCS folder and extracts DCIDs from them.
+  """
+  print(f"Reading DCIDs from GCS folder: {gcs_folder_path}")
+  gcs_client = storage.Client(project=GCS_PROJECT_ID)
+  bucket = gcs_client.bucket(GCS_BUCKET)
+  
+  dcids = set()
+  blobs = list(bucket.list_blobs(prefix=gcs_folder_path))
+  for blob in blobs:
+    if blob.name.endswith(".jsonl") or blob.name.endswith(".json"): # Assuming JSONL or JSON files
+      print(f"  Processing GCS file: {blob.name}")
+      content = blob.download_as_text()
+      for line in content.splitlines():
+        try:
+          data = json.loads(line)
+          if "dcid" in data:
+            dcids.add(data["dcid"])
+        except json.JSONDecodeError:
+          print(f"    Warning: Could not decode JSON from line in {blob.name}: {line[:50]}...")
+  print(f"Finished reading {len(dcids)} DCIDs from GCS folder: {gcs_folder_path}")
+  return dcids
+
 
 def create_sv_metadata_bigquery(num_partitions: int,
                                 curr_partition: int,
@@ -298,13 +322,61 @@ def create_sv_metadata_bigquery(num_partitions: int,
   """
   Fetches all the SVs from BigQuery, and returns them in batches of PAGE_SIZE (3000).
   """
-  print(f"Fetching SV metadata from BigQuery (Partition {curr_partition}/{num_partitions})...")
+  print(f"Fetching SV metadata from BigQuery (Partition {curr_partition+1}/{num_partitions})...")
   client = bigquery.Client()
   query = get_bq_query(num_partitions, curr_partition, max_stat_vars)
   query_job = client.query(query)
   results = query_job.result(page_size=PAGE_SIZE)
 
   return results.pages
+
+def get_bigquery_diffs_metadata(gcs_periodic_folder: str, num_partitions: int,
+                                curr_partition: int, max_stat_vars: int | None) -> Iterator:
+  """
+  Finds the diffs between BigQuery and GCS periodic folder, and fetches metadata for them.
+  """
+  print(f"Starting BigQuery Diffs mode for GCS folder: {gcs_periodic_folder}")
+
+  # 1. Get existing StatVar IDs from GCS periodic folder
+  existing_gcs_ids = read_gcs_jsonl_ids(gcs_periodic_folder)
+
+  # 2. Get current StatVar IDs from BigQuery
+  # Fetch only IDs from BigQuery for efficiency
+  print("Fetching all current StatVar IDs from BigQuery for diff comparison...")
+  bq_client = bigquery.Client()
+  bq_query_ids = BIGQUERY_QUERY_BASE + f" AND MOD(ABS(FARM_FINGERPRINT(id)), {num_partitions}) = {curr_partition} SELECT id"
+  if max_stat_vars is not None:
+    bq_query_ids += f" LIMIT {max_stat_vars}"
+  
+  query_job_ids = bq_client.query(bq_query_ids)
+  current_bq_ids = set()
+  for row in query_job_ids.result():
+    current_bq_ids.add(row.id)
+  print(f"Finished fetching {len(current_bq_ids)} current StatVar IDs from BigQuery.")
+
+  # 3. Find the diff
+  new_statvar_ids = current_bq_ids - existing_gcs_ids
+  print(f"Found {len(new_statvar_ids)} new/changed StatVars in BigQuery compared to GCS periodic folder.")
+
+  # 4. Fetch full metadata for new StatVars
+  # Convert set to list for fetch_metadata_for_dcids
+  new_statvar_ids_list = list(new_statvar_ids)
+  
+  # Fetch metadata in batches to avoid hitting URL length limits or BigQuery limits
+  batched_new_statvar_ids = split_into_batches(new_statvar_ids_list, BATCH_SIZE)
+  
+  # This will return an iterator of iterators. We need to flatten it.
+  # For simplicity, let's return a list of lists for now, and main() will handle iteration.
+  all_new_metadata_pages = []
+  for batch in batched_new_statvar_ids:
+      # fetch_metadata_for_dcids returns an Iterator, so we need to iterate it
+      for page in fetch_metadata_for_dcids(batch):
+          all_new_metadata_pages.append(page)
+  
+  # This is a bit tricky. fetch_metadata_for_dcids returns an Iterator of Pages. 
+  # The main loop expects an Iterator of Pages or a list of lists.
+  # For now, let's return a list of Pages, and the main loop can iterate over it.
+  return iter(all_new_metadata_pages)
 
 
 def create_sv_metadata_nl() -> list[dict[str, str]]:
@@ -613,19 +685,18 @@ async def main():
   args: argparse.Namespace = extract_flags()
   verify_args(args)
 
-  # Run mode can be either: retryFailure, BigQuery, NL-only, or BigQueryDiff.
-
   sv_metadata_iter = None
   match args.runMode:
     case "retry_failures":
       sv_metadata_iter = read_sv_metadata_failed_attempts(args.failedAttemptsPath, args.useGCS)
-    case RUN_MODE_BIGQUERY:
+    case "bigquery":
       sv_metadata_iter = create_sv_metadata_bigquery(
           args.totalPartitions, args.currPartition, args.maxStatVars)
-    case RUN_MODE_NL_ONLY:
+    case "nl_only":
       sv_metadata_iter = [create_sv_metadata_nl()]
     case "bigquery_diffs":
-      raise NotImplementedError("BigQuery Diffs mode is not yet implemented.")
+      sv_metadata_iter = get_bigquery_diffs_metadata(
+          args.gcsFolder, args.totalPartitions, args.currPartition, args.maxStatVars)
     case _:
       raise ValueError(f"Unknown run mode: {args.runMode}")
 
