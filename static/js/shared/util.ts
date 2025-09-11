@@ -325,7 +325,8 @@ export function escapeRegExp(string: string): string {
 
 export function replaceQueryWithSelection(
   query: string,
-  result: AutoCompleteResult
+  result: AutoCompleteResult,
+  hasLocation: boolean
 ): string {
   if (
     result.matchType === "stat_var_search" ||
@@ -338,6 +339,10 @@ export function replaceQueryWithSelection(
     const lastIndex = lowerCaseQuery.lastIndexOf(lowerCaseMatchedQuery);
     if (lastIndex !== -1) {
       const prefix = query.substring(0, lastIndex);
+      if (!hasLocation && result.matchType === "stat_var_search" && !result.hasPlace ) {
+        console.log("Adding ' on Earth' to SV selection because hasLocation is " + hasLocation);
+        return prefix + result.name + " on Earth";
+      }
       return prefix + result.name;
     }
   }
