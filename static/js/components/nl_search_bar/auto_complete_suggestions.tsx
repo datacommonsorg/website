@@ -43,6 +43,7 @@ interface AutoCompleteSuggestionsPropType {
   baseInputLastQuery: string;
   onClick: (result: AutoCompleteResult, idx: number) => void;
   hoveredIdx: number;
+  hasLocation: boolean;
 }
 
 export function AutoCompleteSuggestions(
@@ -95,7 +96,11 @@ export function AutoCompleteSuggestions(
       {props.allResults
         .slice(0, visibleCount)
         .map((result: AutoCompleteResult, idx: number) => {
-          const fullText = replaceQueryWithSelection(props.baseInput, result);
+          const fullText = replaceQueryWithSelection(
+            props.baseInput,
+            result,
+            props.hasLocation || result.hasPlace
+          );
           const parts = fullText.split(result.name);
           return (
             <div key={idx}>
