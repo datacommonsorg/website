@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 # Constants for Vertex AI Search Application
 VAI_PROJECT_ID = "datcom-nl"
 VAI_LOCATION = "global"
-VAI_SEARCH_ENGINE_ID = "full-statvar-search-prod_1753469819363"
+VAI_SEARCH_ENGINE_ID = "nl-statvar-search-prod_1753469590396"
 VAI_SEARCH_SERVING_CONFIG_ID = "default_search"
 LIMIT = 30
 
