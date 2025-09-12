@@ -463,7 +463,7 @@
           {
             "label": "Mongolia Statistics",
             "url": "https://www.1212.mn/en/statcate",
-            "description": "Mongolia's population, households and health statistics at country level."
+            "description": "Mongolia's population, households, health and labour statistics at country level."
           }
         ]
       },
@@ -1721,6 +1721,24 @@
     ]
   },
   {
+    "title": "Employment",
+    "slug": "employment",
+    "dataSourceGroups": [
+      {
+        "label": "Mongolian Statistical Service",
+        "url": "https://www.1212.mn/en/statcate",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Mongolia Statistics",
+            "url": "https://www.1212.mn/en/statcate",
+            "description": "Mongolia's population, households, health and labour statistics at country level."
+          }
+        ]
+      }
+    ]
+  },
+  {
     "title": "Energy",
     "slug": "energy",
     "dataSourceGroups": [
@@ -2279,7 +2297,7 @@
           {
             "label": "Mongolia Statistics",
             "url": "https://www.1212.mn/en/statcate",
-            "description": "Mongolia's population, households and health statistics at country level."
+            "description": "Mongolia's population, households, health and labour statistics at country level."
           }
         ]
       },
