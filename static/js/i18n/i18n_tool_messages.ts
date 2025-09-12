@@ -135,6 +135,24 @@ export const toolMessages = defineMessages({
     description:
       "Invitation for users to explore some example charts and visualizations.",
   },
+  unsupportedEnclosedPlaceAlert: {
+    id: "unsupported_enclosed_place_alert",
+    defaultMessage: `Sorry, we don't support {placeName}. Please select a different place.`,
+    description:
+      "Message to users that the place they selected is unsupported by our tool",
+  },
+  enterAPlaceInstruction: {
+    id: "enter_a_place_instruction",
+    defaultMessage: "Enter a place",
+    description:
+      "An instruction for users to type a place's name into a text box",
+  },
+  childPlaceTypeInstruction: {
+    id: "childPlaceTypeInstruction",
+    defaultMessage: "of type",
+    description:
+      "part of the label on a form saying 'Enter a place of type <type>' asking users to select a place type (e.g. city, country)",
+  },
 });
 
 export const VisToolExampleChartMessages = defineMessages({
