@@ -42,21 +42,18 @@ DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
 
 load_dotenv(dotenv_path=DOTENV_FILE_PATH)
 
+
 def extract_args() -> argparse.Namespace:
   """
   Defines and extracts command line arguments.
   """
   parser = argparse.ArgumentParser(description="./trigger_nl_metadata_job.py")
-  parser.add_argument("--runMode",
-                      help="The run mode for the script.",
-                      choices=[
-                          "bigquery",
-                          "bigquery_diffs",
-                          "retry_failures",
-                          "compact"
-                      ],
-                      required=True,
-                      type=str)
+  parser.add_argument(
+      "--runMode",
+      help="The run mode for the script.",
+      choices=["bigquery", "bigquery_diffs", "retry_failures", "compact"],
+      required=True,
+      type=str)
   parser.add_argument(
       "--gcsFolder",
       help="The folder in the GCS bucket to save the results to or read from.",
@@ -74,7 +71,8 @@ def extract_args() -> argparse.Namespace:
       default=None)
   parser.add_argument(
       "--delete_originals",
-      help="For compact mode: If set, deletes the original files after compaction.",
+      help=
+      "For compact mode: If set, deletes the original files after compaction.",
       action="store_true",
       default=False)
   parser.add_argument(
@@ -82,18 +80,17 @@ def extract_args() -> argparse.Namespace:
       help="The maximum number of statvars to process from BigQuery.",
       type=int,
       default=None)
-  parser.add_argument(
-      "--language",
-      help="The language for metadata results.",
-      choices=["English", "French", "Spanish"],
-      type=str,
-      default="English")
+  parser.add_argument("--language",
+                      help="The language for metadata results.",
+                      choices=["English", "French", "Spanish"],
+                      type=str,
+                      default="English")
   args = parser.parse_args()
   return args
 
 
 def execute_cloud_run_jobs(api_keys: list[str], args: argparse.Namespace):
-    """
+  """
     Executes the 'stat-var-metadata-generator' Cloud Run job.
 
     For partitioned modes, it triggers a separate execution for each API key.
@@ -103,74 +100,80 @@ def execute_cloud_run_jobs(api_keys: list[str], args: argparse.Namespace):
         api_keys: A list of API keys for partitioned jobs.
         args: The parsed command-line arguments.
     """
-    if not api_keys and args.runMode != 'compact':
-        print("Error: No API keys provided for a partitioned job.")
-        return
+  if not api_keys and args.runMode != 'compact':
+    print("Error: No API keys provided for a partitioned job.")
+    return
 
-    # Compact mode runs as a single job
+  # Compact mode runs as a single job
+  if args.runMode == 'compact':
+    total_partitions = 1
+    api_keys = [""]  # Dummy value to run loop once
+  else:
+    total_partitions = len(api_keys)
+
+  print(
+      f"🚀 Starting {total_partitions} Cloud Run job executions for '{GCS_JOB_NAME}' in '{args.runMode}' mode..."
+  )
+
+  for i, api_key_value in enumerate(api_keys):
+    curr_partition = i
+    print(
+        f"\n--- Starting Job Execution {i+1}/{total_partitions} (Partition {curr_partition}) ---"
+    )
+
+    container_args_list = [
+        "generate_nl_metadata.py",
+        f"--runMode={args.runMode}",
+        "--useGCS",
+    ]
+
+    if args.runMode != 'compact':
+      container_args_list.extend([
+          f"--totalPartitions={total_partitions}",
+          f"--currPartition={curr_partition}",
+          f"--geminiApiKey={api_key_value}",
+      ])
+
+    if args.gcsFolder:
+      container_args_list.append(f"--gcsFolder={args.gcsFolder}")
+    if args.language:
+      container_args_list.append(f"--language={args.language}")
+
+    if args.runMode in ['bigquery', 'bigquery_diffs'] and args.maxStatVars:
+      container_args_list.append(f"--maxStatVars={args.maxStatVars}")
+
+    if args.runMode == 'retry_failures' and args.failedAttemptsPath:
+      container_args_list.append(
+          f"--failedAttemptsPath={args.failedAttemptsPath}")
+
     if args.runMode == 'compact':
-        total_partitions = 1
-        api_keys = [""] # Dummy value to run loop once
-    else:
-        total_partitions = len(api_keys)
+      if args.output_filename:
+        container_args_list.append(f"--output_filename={args.output_filename}")
+      if args.delete_originals:
+        container_args_list.append("--delete_originals")
 
-    print(f"🚀 Starting {total_partitions} Cloud Run job executions for '{GCS_JOB_NAME}' in '{args.runMode}' mode...")
+    args_string = ",".join(container_args_list)
 
-    for i, api_key_value in enumerate(api_keys):
-        curr_partition = i
-        print(f"\n--- Starting Job Execution {i+1}/{total_partitions} (Partition {curr_partition}) ---")
+    command = [
+        "gcloud", "run", "jobs", "execute", GCS_JOB_NAME,
+        f"--region={GCS_REGION}", f"--args={args_string}"
+    ]
+    if api_key_value:
+      command.append(f"--update-env-vars=GEMINI_API_KEY={api_key_value}")
 
-        container_args_list = [
-            "generate_nl_metadata.py",
-            f"--runMode={args.runMode}",
-            "--useGCS",
-        ]
-
-        if args.runMode != 'compact':
-            container_args_list.extend([
-                f"--totalPartitions={total_partitions}",
-                f"--currPartition={curr_partition}",
-                f"--geminiApiKey={api_key_value}",
-            ])
-
-        if args.gcsFolder:
-            container_args_list.append(f"--gcsFolder={args.gcsFolder}")
-        if args.language:
-            container_args_list.append(f"--language={args.language}")
-
-        if args.runMode in ['bigquery', 'bigquery_diffs'] and args.maxStatVars:
-            container_args_list.append(f"--maxStatVars={args.maxStatVars}")
-
-        if args.runMode == 'retry_failures' and args.failedAttemptsPath:
-            container_args_list.append(f"--failedAttemptsPath={args.failedAttemptsPath}")
-        
-        if args.runMode == 'compact':
-            if args.output_filename:
-                container_args_list.append(f"--output_filename={args.output_filename}")
-            if args.delete_originals:
-                container_args_list.append("--delete_originals")
-
-        args_string = ",".join(container_args_list)
-        
-        command = [
-            "gcloud", "run", "jobs", "execute", GCS_JOB_NAME,
-            f"--region={GCS_REGION}",
-            f"--args={args_string}"
-        ]
-        if api_key_value:
-             command.append(f"--update-env-vars=GEMINI_API_KEY={api_key_value}")
-
-        print("Executing gcloud command...")
-        try:
-            subprocess.run(command, check=True, text=True)
-            print(f"✅ Job Execution {i+1}/{total_partitions} completed successfully.")
-        except subprocess.CalledProcessError as e:
-            print(f"❌ Error executing job {i+1}/{total_partitions}.")
-            print(f"Stderr: {e.stderr}")
-        except FileNotFoundError:
-            print("❌ Error: 'gcloud' command not found.")
-            print("Please ensure the Google Cloud SDK is installed and in your system's PATH.")
-            return
+    print("Executing gcloud command...")
+    try:
+      subprocess.run(command, check=True, text=True)
+      print(f"✅ Job Execution {i+1}/{total_partitions} completed successfully.")
+    except subprocess.CalledProcessError as e:
+      print(f"❌ Error executing job {i+1}/{total_partitions}.")
+      print(f"Stderr: {e.stderr}")
+    except FileNotFoundError:
+      print("❌ Error: 'gcloud' command not found.")
+      print(
+          "Please ensure the Google Cloud SDK is installed and in your system's PATH."
+      )
+      return
 
 
 if __name__ == "__main__":

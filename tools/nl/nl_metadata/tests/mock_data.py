@@ -195,7 +195,7 @@ MOCK_COMPACT_ARGS = {
     # Other args that are not used in this mode are set to None
     'geminiApiKey': None,
     'language': None,
-    'useGCS': True, # Assumed for this test
+    'useGCS': True,  # Assumed for this test
     'maxStatVars': None,
     'totalPartitions': 1,
     'currPartition': 0,

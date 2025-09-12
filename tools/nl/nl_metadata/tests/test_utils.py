@@ -13,7 +13,9 @@
 # limitations under the License.
 
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
+from unittest.mock import patch
+
 import pandas as pd
 
 from tools.nl.nl_metadata import utils
@@ -92,12 +94,25 @@ class TestUtils(unittest.TestCase):
     mock_statvar_data = {
         'constraintProperties': {
             'nodes': [
-                {'dcid': 'propDcid1', 'name': 'propName1'},
-                {'dcid': 'propDcid2'}  # Test fallback to dcid for name
+                {
+                    'dcid': 'propDcid1',
+                    'name': 'propName1'
+                },
+                {
+                    'dcid': 'propDcid2'
+                }  # Test fallback to dcid for name
             ]
         },
-        'propDcid1': {'nodes': [{'value': 'val1'}]},
-        'propDcid2': {'nodes': [{'name': 'val2'}]}
+        'propDcid1': {
+            'nodes': [{
+                'value': 'val1'
+            }]
+        },
+        'propDcid2': {
+            'nodes': [{
+                'name': 'val2'
+            }]
+        }
     }
 
     result = utils.extract_constraint_properties_dc_api(mock_statvar_data)

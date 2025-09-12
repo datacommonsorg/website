@@ -31,7 +31,8 @@ class TestAddMetadataE2E(unittest.TestCase):
       'tools.nl.nl_metadata.generate_nl_metadata.batch_generate_alt_sentences',
       new_callable=AsyncMock)
   @patch(
-      'tools.nl.nl_metadata.generate_nl_metadata.data_loader.create_sv_metadata_bigquery')
+      'tools.nl.nl_metadata.generate_nl_metadata.data_loader.create_sv_metadata_bigquery'
+  )
   def test_bq_to_gcs(self, mock_create_sv, mock_batch_generate, mock_gcs_client,
                      mock_parse_args):
     """
@@ -120,7 +121,8 @@ class TestAddMetadataE2E(unittest.TestCase):
   @patch(
       'tools.nl.nl_metadata.generate_nl_metadata.data_loader.read_sv_metadata_failed_attempts'
   )
-  @patch('tools.nl.nl_metadata.generate_nl_metadata.data_loader.extract_metadata')
+  @patch(
+      'tools.nl.nl_metadata.generate_nl_metadata.data_loader.extract_metadata')
   @patch('tools.nl.nl_metadata.generate_nl_metadata.verify_gcs_path_exists')
   def test_failed_attempts_reingestion(self, mock_verify_gcs_path,
                                        mock_extract_metadata, mock_read_failed,
@@ -241,15 +243,16 @@ class TestAddMetadataE2E(unittest.TestCase):
 
     # Assertions
     # Verify that list_blobs was called correctly to filter for the root folder
-    mock_bucket.list_blobs.assert_called_once_with(
-        prefix='my-periodic-folder/', delimiter='/')
+    mock_bucket.list_blobs.assert_called_once_with(prefix='my-periodic-folder/',
+                                                   delimiter='/')
 
     # Verify that the correct files were downloaded
     self.assertEqual(blob1.download_to_file.call_count, 1)
     self.assertEqual(blob2.download_to_file.call_count, 1)
 
     # Verify that the new compacted file was uploaded
-    mock_bucket.blob.assert_called_with('my-periodic-folder/compacted_test.jsonl')
+    mock_bucket.blob.assert_called_with(
+        'my-periodic-folder/compacted_test.jsonl')
     mock_upload_blob.upload_from_filename.assert_called_once()
 
     # Verify the temp file was removed
@@ -263,7 +266,7 @@ class TestAddMetadataE2E(unittest.TestCase):
   @patch('google.cloud.storage.Client')
   @patch('os.remove')
   def test_compact_mode_with_delete(self, mock_os_remove, mock_gcs_client,
-                                  mock_parse_args):
+                                    mock_parse_args):
     """
     Tests the compact run mode with the --delete_originals flag.
     - Verifies that the original root files are deleted after compaction.
@@ -292,8 +295,8 @@ class TestAddMetadataE2E(unittest.TestCase):
     asyncio.run(generate_nl_metadata.main())
 
     # Assertions
-    mock_bucket.list_blobs.assert_called_once_with(
-        prefix='my-periodic-folder/', delimiter='/')
+    mock_bucket.list_blobs.assert_called_once_with(prefix='my-periodic-folder/',
+                                                   delimiter='/')
     mock_upload_blob.upload_from_filename.assert_called_once()
 
     # Verify that original files WERE deleted
@@ -303,12 +306,15 @@ class TestAddMetadataE2E(unittest.TestCase):
   @patch('argparse.ArgumentParser.parse_args')
   @patch('google.cloud.storage.Client')
   @patch('google.cloud.bigquery.Client')
-  @patch('tools.nl.nl_metadata.generate_nl_metadata.data_loader.read_gcs_jsonl_ids')
+  @patch(
+      'tools.nl.nl_metadata.generate_nl_metadata.data_loader.read_gcs_jsonl_ids'
+  )
   @patch(
       'tools.nl.nl_metadata.generate_nl_metadata.batch_generate_alt_sentences',
       new_callable=AsyncMock)
   def test_bigquery_diffs_mode(self, mock_batch_generate, mock_read_gcs_ids,
-                             mock_bq_client, mock_gcs_client, mock_parse_args):
+                               mock_bq_client, mock_gcs_client,
+                               mock_parse_args):
     """
     Tests the bigquery_diffs run mode.
     - Mocks GCS to have an existing set of DCIDs.
@@ -334,7 +340,9 @@ class TestAddMetadataE2E(unittest.TestCase):
         self.id = id
 
     all_ids_query_job = MagicMock()
-    all_ids_query_job.result.return_value = [MockIdRow('dcid1'), MockIdRow('dcid3')]
+    all_ids_query_job.result.return_value = [
+        MockIdRow('dcid1'), MockIdRow('dcid3')
+    ]
 
     class MockDataRow:
 
@@ -351,14 +359,13 @@ class TestAddMetadataE2E(unittest.TestCase):
 
     diff_data_query_job = MagicMock()
     diff_data_query_job.result.return_value.pages = iter([[
-        MockDataRow(
-            id='dcid3',
-            name='Test Name 3',
-            measured_prop='Count',
-            population_type='Person',
-            stat_type='measuredValue',
-            p1='prop3',
-            v1='val3')
+        MockDataRow(id='dcid3',
+                    name='Test Name 3',
+                    measured_prop='Count',
+                    population_type='Person',
+                    stat_type='measuredValue',
+                    p1='prop3',
+                    v1='val3')
     ]])
 
     # Set the side_effect to return different results based on the query content
@@ -373,7 +380,8 @@ class TestAddMetadataE2E(unittest.TestCase):
     mock_bq_instance.query.side_effect = query_side_effect
 
     # Mock Gemini to successfully process the diff
-    mock_batch_generate.return_value = ([mock_data.GEMINI_RETRY_SUCCESS_RESULT], [])
+    mock_batch_generate.return_value = ([mock_data.GEMINI_RETRY_SUCCESS_RESULT],
+                                        [])
 
     # Mock GCS for upload
     mock_bucket = MagicMock()

@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """
 This file contains all the functions for loading statistical variable data from
 different sources like BigQuery, GCS, and local files.
@@ -21,14 +20,13 @@ import json
 import os
 import typing
 
+import config
 from datacommons_client.client import DataCommonsClient
 from google.api_core.page_iterator import Iterator
 from google.api_core.page_iterator import Page
 from google.cloud import bigquery
 from google.cloud import storage
 import pandas as pd
-
-import config
 from schemas import StatVarMetadata
 from utils import extract_constraint_properties_bigquery
 from utils import extract_constraint_properties_dc_api
@@ -124,7 +122,8 @@ def read_gcs_jsonl_ids(gcs_folder_path: str) -> set[str]:
             dcids.add(data["dcid"])
         except json.JSONDecodeError:
           print(
-              f"Warning: Could not decode JSON from line in {blob.name}: {line[:50]}...")
+              f"Warning: Could not decode JSON from line in {blob.name}: {line[:50]}..."
+          )
   print(
       f"Finished reading {len(dcids)} DCIDs from GCS folder: {gcs_folder_path}")
   return dcids

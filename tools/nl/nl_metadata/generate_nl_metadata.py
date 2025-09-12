@@ -364,16 +364,14 @@ async def main():
       sv_metadata_iter = data_loader.read_sv_metadata_failed_attempts(
           args.failedAttemptsPath, args.useGCS)
     case config.RUN_MODE_BIGQUERY:
-      sv_metadata_iter = data_loader.create_sv_metadata_bigquery(args.totalPartitions,
-                                                     args.currPartition,
-                                                     args.maxStatVars)
+      sv_metadata_iter = data_loader.create_sv_metadata_bigquery(
+          args.totalPartitions, args.currPartition, args.maxStatVars)
     case config.RUN_MODE_NL_ONLY:
       sv_metadata_iter = [data_loader.create_sv_metadata_nl()]
     case config.RUN_MODE_BIGQUERY_DIFFS:
-      sv_metadata_iter = data_loader.get_bigquery_diffs_metadata(args.gcsFolder,
-                                                     args.totalPartitions,
-                                                     args.currPartition,
-                                                     args.maxStatVars)
+      sv_metadata_iter = data_loader.get_bigquery_diffs_metadata(
+          args.gcsFolder, args.totalPartitions, args.currPartition,
+          args.maxStatVars)
     case config.RUN_MODE_COMPACT:
       compact_files(args.gcsFolder, args.output_filename, args.delete_originals)
       return  # Exit after compaction
@@ -389,9 +387,12 @@ async def main():
     if args.runMode == config.RUN_MODE_RETRY_FAILURES:
       full_metadata = sv_metadata_list
     else:
-      full_metadata: list[dict[str, str | list[str]]] = data_loader.extract_metadata(
-          sv_metadata_list, DC_API_KEY, args.runMode == config.RUN_MODE_BIGQUERY or
-          args.runMode == config.RUN_MODE_BIGQUERY_DIFFS)
+      full_metadata: list[dict[str,
+                               str | list[str]]] = data_loader.extract_metadata(
+                                   sv_metadata_list, DC_API_KEY,
+                                   args.runMode == config.RUN_MODE_BIGQUERY or
+                                   args.runMode
+                                   == config.RUN_MODE_BIGQUERY_DIFFS)
     failed_metadata: list[dict[str, str | list[str]]] = []
 
     # Generate the Alt Sentences using Gemini
