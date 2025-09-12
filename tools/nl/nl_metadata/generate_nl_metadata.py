@@ -49,61 +49,18 @@ import json
 import os
 import typing
 
-from datacommons_client.client import DataCommonsClient
+import config
+import data_loader
 from dotenv import load_dotenv
 from gemini_prompt import get_gemini_prompt
-from google.api_core.page_iterator import Iterator
-from google.api_core.page_iterator import Page
-from google.cloud import bigquery
+from gemini_service import batch_generate_alt_sentences
 from google.cloud import storage
-from google.genai import types
-import google.genai as genai
 import pandas as pd
 from schemas import englishSchema
 from schemas import frenchSchema
 from schemas import spanishSchema
-from schemas import StatVarMetadata
 
-DOTENV_FILE_PATH = "tools/nl/nl_metadata/.env"
-
-BATCH_SIZE = 100
-PAGE_SIZE = 3000
-BIGQUERY_IN_CLAUSE_BATCH_SIZE = 10000
-# BigQuery query to fetch the SVs. Excludes experimental SVs because they are not present in the prod data commons KG.
-# Also excludes SVs with null names, as these don't have enough metadata for Gemini to generate alt sentences.
-BIGQUERY_QUERY_BASE = "SELECT * FROM `datcom-store.dc_kg_latest.StatisticalVariable` WHERE name IS NOT NULL AND prov_id != \"dc/base/ExperimentalStatVars\""
-STAT_VAR_SHEET = "tools/nl/embeddings/input/base/sheets_svs.csv"
-EXPORTED_FILE_DIR = "tools/nl/nl_metadata"
-OUTPUT_FILENAME_PREFIX = "sv_complete_metadata"
-GCS_PROJECT_ID = "datcom-nl"
-GCS_BUCKET = "metadata_for_vertexai_search"
-GCS_FILE_DIR_RETRIES = "statvar_metadata_retries"
-GCS_FILE_DIR_FULL = "full_statvar_metadata_staging"
-GCS_FILE_DIR_NL = "nl_statvar_metadata_staging"
-
-# These are the properties common to evey stat var
-MEASURED_PROPERTY = "measuredProperty"
-NAME = "name"
-POPULATION_TYPE = "populationType"
-STAT_TYPE = "statType"
-
-# Constants used for Gemini API calls
-GEMINI_MODEL = "gemini-2.5-flash"
-GEMINI_TEMPERATURE = 1
-GEMINI_TOP_P = 1
-GEMINI_SEED = 0
-GEMINI_MAX_OUTPUT_TOKENS = 65535
-MAX_RETRIES = 3
-RETRY_DELAY_SECONDS = 2
-
-# Run Modes
-RUN_MODE_NL_ONLY = "nl_only"
-RUN_MODE_BIGQUERY = "bigquery"
-RUN_MODE_RETRY_FAILURES = "retry_failures"
-RUN_MODE_BIGQUERY_DIFFS = "bigquery_diffs"
-RUN_MODE_COMPACT = "compact"
-
-load_dotenv(dotenv_path=DOTENV_FILE_PATH)
+load_dotenv(dotenv_path=config.DOTENV_FILE_PATH)
 DC_API_KEY = os.getenv("DC_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
@@ -115,15 +72,16 @@ def extract_flags() -> argparse.Namespace:
   they will be set to True.
   """
   parser = argparse.ArgumentParser(description="./generate_nl_metadata.py")
-  parser.add_argument(
-      "--runMode",
-      help="The run mode for the script.",
-      choices=[
-          RUN_MODE_NL_ONLY, RUN_MODE_BIGQUERY, RUN_MODE_RETRY_FAILURES,
-          RUN_MODE_BIGQUERY_DIFFS, RUN_MODE_COMPACT
-      ],
-      required=True,
-      type=str)
+  parser.add_argument("--runMode",
+                      help="The run mode for the script.",
+                      choices=[
+                          config.RUN_MODE_NL_ONLY, config.RUN_MODE_BIGQUERY,
+                          config.RUN_MODE_RETRY_FAILURES,
+                          config.RUN_MODE_BIGQUERY_DIFFS,
+                          config.RUN_MODE_COMPACT
+                      ],
+                      required=True,
+                      type=str)
   parser.add_argument(
       "--geminiApiKey",
       help="The Gemini API key to use for generating alternative sentences.",
@@ -166,24 +124,23 @@ def extract_flags() -> argparse.Namespace:
       type=int,
       default=0)
   parser.add_argument(
-    "--failedAttemptsPath",
-    help="Path to a JSON file (or folder of files) containing previously failed SV metadata to re-process. If --useGCS is also specified, the file should be in the GCS bucket. " \
-    "Note that the specified file should contain all metadata - If this flag is used, neither BQ nor the DC API will be called.",
-    type=str,
-    default=None
-  )
+      "--failedAttemptsPath",
+      help="Path to a JSON file (or folder of files) containing previously failed SV metadata to re-process. If --useGCS is also specified, the file should be in the GCS bucket. " \
+      "Note that the specified file should contain all metadata - If this flag is used, neither BQ nor the DC API will be called.",
+      type=str,
+      default=None)
   parser.add_argument(
       "--output_filename",
-      help="For 'compact' mode: The name for the new, compacted file. Defaults to 'compacted_YYYYMMDD_HHMMSS.jsonl'.",
+      help=
+      "For 'compact' mode: The name for the new, compacted file. Defaults to 'compacted_YYYYMMDD_HHMMSS.jsonl'.",
       type=str,
-      default=""
-  )
+      default="")
   parser.add_argument(
       "--delete_originals",
-      help="For 'compact' mode: If set, deletes the original files after compaction. Defaults to False.",
+      help=
+      "For 'compact' mode: If set, deletes the original files after compaction. Defaults to False.",
       action="store_true",
-      default=False
-  )
+      default=False)
   args = parser.parse_args()
   return args
 
@@ -193,8 +150,8 @@ def verify_gcs_path_exists(gcs_path: str) -> bool:
   Verifies that the GCS path exists.
   Returns True if the path exists, False otherwise.
   """
-  gcs_client = storage.Client(project=GCS_PROJECT_ID)
-  bucket = gcs_client.bucket(GCS_BUCKET)
+  gcs_client = storage.Client(project=config.GCS_PROJECT_ID)
+  bucket = gcs_client.bucket(config.GCS_BUCKET)
 
   if gcs_path.endswith('.json'):  # Path is a file
     blob = bucket.blob(gcs_path)
@@ -219,210 +176,32 @@ def verify_args(args: argparse.Namespace) -> None:
   if args.maxStatVars is not None and args.maxStatVars <= 0:
     raise ValueError("maxStatVars must be a positive integer.")
 
-  if args.runMode == "retry_failures":
+  if args.runMode == config.RUN_MODE_RETRY_FAILURES:
     if not args.failedAttemptsPath:
-      raise ValueError("--failedAttemptsPath must be provided when runMode is 'retry_failures'.")
+      raise ValueError(
+          "--failedAttemptsPath must be provided when runMode is 'retry_failures'."
+      )
 
     if not args.failedAttemptsPath.endswith((".json", "/")):
-      raise ValueError("failedAttemptsPath must be a path to a JSON file or a folder of JSON files.")
+      raise ValueError(
+          "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
+      )
     if args.useGCS and not verify_gcs_path_exists(args.failedAttemptsPath):
       raise ValueError(
           f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
       )
-    elif not args.useGCS and not os.path.exists(
-        args.failedAttemptsPath):
+    elif not args.useGCS and not os.path.exists(args.failedAttemptsPath):
       raise ValueError(
           f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
       )
   else:
     if args.failedAttemptsPath:
-      print("Warning: --failedAttemptsPath is ignored when runMode is not 'retry_failures'.")
-
-  if args.runMode == "compact" and not args.gcsFolder:
-    raise ValueError("Error: --gcs_folder is required for 'compact' mode.")
-      
-
-
-def get_bq_query(num_partitions: int,
-                 curr_partition: int,
-                 limit: int | None = None) -> str:
-  """
-  Returns the BigQuery query to fetch the SVs. 
-  Uses the FARM_FINGERPRINT function to partition the SVs into num_partitions, and only fetches the SVs in the current partition.
-  If limit is specified, adds a LIMIT clause to the query.
-  """
-  query = BIGQUERY_QUERY_BASE + f" AND MOD(ABS(FARM_FINGERPRINT(id)), {num_partitions}) = {curr_partition}"
-  if limit is not None:
-    query += f" LIMIT {limit}"
-  return query
-
-
-def split_into_batches(
-    original_df: pd.DataFrame | list,
-    batch_size: int = BATCH_SIZE) -> list[pd.DataFrame] | list[list]:
-  """
-  Splits a dataframe into batches of a given size.
-  Ex. [1, 2, 3, 4, 5, 6] with BATCH_SIZE = 2 becomes [[1, 2], [3, 4], [5, 6]]
-  """
-  batched_df_list = []
-  for i in range(0, len(original_df), batch_size):
-    batched_df_list.append(original_df[i:i + batch_size])
-  return batched_df_list
-
-
-def read_sv_metadata_failed_attempts(
-    failed_attempts_path: str,
-    use_gcs: bool) -> list[dict[str, str | list[str]]]:
-  """
-  Reads previously failed SV metadata from either GCS or a local file path.
-  """
-  print(f"Reading failed attempts from: {failed_attempts_path}")
-  sv_metadata_to_process: list[dict[str, str | list[str]]] = []
-
-  def read_jsonl(file: typing.TextIO | list[str],
-                 metadata_list: list[dict[str, str | list[str]]]):
-    """
-    Reads a JSONL file and appends each line as a dictionary to the metadata_list.
-    """
-    for line in file:
-      entry = json.loads(line)
-      metadata_list.append(entry)
-    return metadata_list
-
-  if use_gcs:
-    gcs_client = storage.Client(project=GCS_PROJECT_ID)
-    bucket = gcs_client.bucket(GCS_BUCKET)
-
-    blobs = []
-    if failed_attempts_path.endswith('.json'):  # Treat as a specific file
-      blobs = [bucket.blob(failed_attempts_path)]
-    else:  # Treat as a folder prefix
-      blobs = list(bucket.list_blobs(prefix=failed_attempts_path))
-
-    for blob in blobs:
-      if blob.name.endswith(".json"):
-        print(f"Processing failed attempts from GCS: {blob.name}")
-        failed_data_str = blob.download_as_text()
-        sv_metadata_to_process = read_jsonl(failed_data_str.splitlines(),
-                                            sv_metadata_to_process)
-  else:  # Read from local file system
-    if os.path.isdir(failed_attempts_path):
-      for filename in os.listdir(failed_attempts_path):
-        if filename.endswith(".json"):
-          local_file_path = os.path.join(failed_attempts_path, filename)
-          print(
-              f"Processing failed attempts from local file: {local_file_path}")
-          with open(local_file_path, 'r') as f:
-            sv_metadata_to_process = read_jsonl(f, sv_metadata_to_process)
-    else:
       print(
-          f"Processing failed attempts from local file: {failed_attempts_path}")
-      with open(failed_attempts_path, 'r') as f:
-        sv_metadata_to_process = read_jsonl(f, sv_metadata_to_process)
-  return split_into_batches(sv_metadata_to_process, PAGE_SIZE)
+          "Warning: --failedAttemptsPath is ignored when runMode is not 'retry_failures'."
+      )
 
-def read_gcs_jsonl_ids(gcs_folder_path: str) -> set[str]:
-  """
-  Reads all JSONL files in a GCS folder and extracts DCIDs from them.
-  """
-  print(f"Reading DCIDs from GCS folder: {gcs_folder_path}")
-  gcs_client = storage.Client(project=GCS_PROJECT_ID)
-  bucket = gcs_client.bucket(GCS_BUCKET)
-  
-  dcids = set()
-  blobs = list(bucket.list_blobs(prefix=gcs_folder_path))
-  for blob in blobs:
-    if blob.name.endswith(".jsonl") or blob.name.endswith(".json"): # Assuming JSONL or JSON files
-      print(f"  Processing GCS file: {blob.name}")
-      content = blob.download_as_text()
-      for line in content.splitlines():
-        try:
-          data = json.loads(line)
-          if "dcid" in data:
-            dcids.add(data["dcid"])
-        except json.JSONDecodeError:
-          print(f"    Warning: Could not decode JSON from line in {blob.name}: {line[:50]}...")
-  print(f"Finished reading {len(dcids)} DCIDs from GCS folder: {gcs_folder_path}")
-  return dcids
-
-
-def create_sv_metadata_bigquery(num_partitions: int,
-                                curr_partition: int,
-                                max_stat_vars: int | None = None) -> Iterator:
-  """
-  Fetches all the SVs from BigQuery, and returns them in batches of PAGE_SIZE (3000).
-  """
-  print(f"Fetching SV metadata from BigQuery (Partition {curr_partition+1}/{num_partitions})...")
-  client = bigquery.Client()
-  query = get_bq_query(num_partitions, curr_partition, max_stat_vars)
-  query_job = client.query(query)
-  results = query_job.result(page_size=PAGE_SIZE)
-
-  return results.pages
-
-def get_bigquery_diffs_metadata(gcs_periodic_folder: str, num_partitions: int,
-                                curr_partition: int, max_stat_vars: int | None) -> Iterator:
-  """
-  Finds the diffs between BigQuery and GCS periodic folder, and fetches metadata for them.
-  """
-  print(f"Starting BigQuery Diffs mode for GCS folder: {gcs_periodic_folder}")
-
-  # 1. Get existing StatVar IDs from GCS periodic folder
-  existing_gcs_ids = read_gcs_jsonl_ids(gcs_periodic_folder)
-  # Print all the stat vars.
-  print("StatVar IDs in GCS periodic folder: ", existing_gcs_ids)
-
-  # 2. Get current StatVar IDs from BigQuery
-  # Fetch only IDs from BigQuery for efficiency
-  print("Fetching all current StatVar IDs from BigQuery for diff comparison...")
-  bq_client = bigquery.Client()
-  bq_query_ids = BIGQUERY_QUERY_BASE + f" AND MOD(ABS(FARM_FINGERPRINT(id)), {num_partitions}) = {curr_partition}"
-  if max_stat_vars is not None:
-    bq_query_ids += f" LIMIT {max_stat_vars}"
-  
-  query_job_ids = bq_client.query(bq_query_ids)
-  current_bq_ids = set()
-  for row in query_job_ids.result():
-    current_bq_ids.add(row.id)
-  print(f"Finished fetching {len(current_bq_ids)} current StatVar IDs from BigQuery.", current_bq_ids)
-
-  # 3. Find the diff
-  new_statvar_ids = current_bq_ids - existing_gcs_ids
-  print(f"Found {len(new_statvar_ids)} new/changed StatVars in BigQuery compared to GCS periodic folder.")
-
-  # 4. Fetch full metadata for new StatVars from BigQuery
-  if not new_statvar_ids:
-    return iter([])
-
-  # This generator will query BQ in batches and yield pages of results.
-  def pages_generator(dcids_set):
-    bq_client = bigquery.Client()
-    batched_ids = split_into_batches(list(dcids_set), BIGQUERY_IN_CLAUSE_BATCH_SIZE)
-    for batch in batched_ids:
-      if not batch:
-        continue
-      # Using quotes for string values in IN clause
-      formatted_ids = ", ".join([f'"{id}"' for id in batch])
-      query = f"{BIGQUERY_QUERY_BASE} AND id IN ({formatted_ids})"
-      query_job = bq_client.query(query)
-      results = query_job.result(page_size=PAGE_SIZE)
-      yield from results.pages
-
-  return pages_generator(new_statvar_ids)
-
-
-def create_sv_metadata_nl() -> list[dict[str, str]]:
-  """
-  Fetches the SVs and their sentences from the STAT_VAR_SHEET currently used for NL, and returns them as dictionaries in batches of BATCH_SIZE (100).
-  """
-  print("Fetching SV metadata from NL sheet...")
-  stat_var_sentences = pd.read_csv(STAT_VAR_SHEET)
-  batched_list: list[pd.DataFrame] = split_into_batches(stat_var_sentences)
-  batched_dicts: list[dict[str, str]] = [
-      curr_batch.set_index("dcid")["sentence"].to_dict()
-      for curr_batch in batched_list
-  ]
-  return batched_dicts
+  if args.runMode == config.RUN_MODE_COMPACT and not args.gcsFolder:
+    raise ValueError("Error: --gcs_folder is required for 'compact' mode.")
 
 
 def get_language_settings(target_language: str) -> tuple[str, str]:
@@ -434,249 +213,33 @@ def get_language_settings(target_language: str) -> tuple[str, str]:
     case _:
       language_schema = json.dumps(englishSchema)
 
-  # TODO(gmechali): Uncomment if we want to support other languages.
-  # return output_file_name, get_gemini_prompt_with_translations(target_language, language_schema)
-
-  output_file_name = f"{OUTPUT_FILENAME_PREFIX}_{target_language}"
+  output_file_name = f"{config.OUTPUT_FILENAME_PREFIX}_{target_language}"
   return output_file_name, get_gemini_prompt(language_schema)
-
-
-def get_prop_value(prop_data) -> str:
-  """
-  Extracts the property value from the property data.
-  For the "name" property, the value is stored in the "value" field.
-  For other properties, the value is stored in the "name" field.
-  If neither field exists, fall back on the "dcid" field.
-  """
-  first_node = prop_data["nodes"][0]
-  if "value" in first_node:
-    return first_node.get("value")
-  elif "name" in first_node:
-    return first_node.get("name")
-  else:
-    return first_node.get("dcid")
-
-
-def flatten_dc_api_response(
-    dc_api_metadata,
-    dcid_to_sentence: dict[str, str]) -> list[dict[str, str | list[str]]]:
-  """
-  Flattens the data commons API response into a list of stat vars with their metadata.
-  """
-  sv_metadata_list = []
-  for dcid, sentence in dcid_to_sentence.items():
-    new_row = StatVarMetadata(dcid=dcid, sentence=sentence)
-    dcid_data = dc_api_metadata[dcid]["arcs"]
-
-    new_row.name = get_prop_value(dcid_data[NAME])
-    new_row.measuredProperty = get_prop_value(dcid_data[MEASURED_PROPERTY])
-    new_row.populationType = get_prop_value(dcid_data[POPULATION_TYPE])
-    new_row.statType = get_prop_value(dcid_data[STAT_TYPE])
-    new_row.constraintProperties = extract_constraint_properties_dc_api(
-        dcid_data)
-    new_row.numConstraints = len(new_row.constraintProperties)
-
-    sv_metadata_list.append(new_row.__dict__)
-
-  return sv_metadata_list
-
-
-def extract_metadata(
-    batched_metadata: Page | list[dict[str, str]],
-    use_bigquery: bool = False,
-) -> list[dict[str, str | list[str]]]:
-  """
-  Extracts the metadata for a list of DCIDs (given as the keys in curr_batch) from the data commons API, or from BigQuery. 
-  Normalizes the new metadata to type StatVarMetadata, and returns it as a list of dictionaries.
-  """
-  print("Extracting metadata for batch...")
-  sv_metadata_list = []
-  client = DataCommonsClient(api_key=DC_API_KEY)
-
-  for curr_batch in batched_metadata:
-    if use_bigquery:  # curr_batch is a bigquery.table.Row corresponding to a single SV
-      constraint_properties = extract_constraint_properties_bigquery(curr_batch)
-      new_row = StatVarMetadata(dcid=curr_batch.id,
-                                name=curr_batch.name,
-                                measuredProperty=curr_batch.measured_prop,
-                                populationType=curr_batch.population_type,
-                                statType=curr_batch.stat_type,
-                                constraintProperties=constraint_properties,
-                                numConstraints=len(constraint_properties))
-      sv_metadata_list.append(new_row.__dict__)
-
-    else:  # curr_batch is a dict[str, str] corresponding to a batch of 100 SVs
-      response = client.node.fetch(node_dcids=list(curr_batch.keys()),
-                                   expression="->*")
-      response_data = response.to_dict().get("data", {})
-
-      if not response_data:
-        raise ValueError("No data found for the given DCIDs.")
-      else:
-        print(f"Fetched metadata for {len(response_data)} DCIDs.")
-
-      curr_batch_metadata = flatten_dc_api_response(response_data, curr_batch)
-      sv_metadata_list.extend(curr_batch_metadata)
-
-  return sv_metadata_list
-
-
-def extract_constraint_properties_bigquery(
-    statvar_data: bigquery.table.Row) -> list[str]:
-  """
-  Extracts the constraint properties from the BigQuery statvar_data and returns them as a list of strings.
-  The constraint properties are stored in BQ as key-value pairs in separate columns going from p1, v1, ..., p10, v10.
-  """
-  constraint_properties = []
-  for i in range(1, 11):
-    prop = getattr(statvar_data, f"p{i}", None)
-    val = getattr(statvar_data, f"v{i}", None)
-    if prop and val:
-      constraint_properties.append(f"{prop}: {val}")
-  return constraint_properties
-
-
-def extract_constraint_properties_dc_api(statvar_data) -> list[str]:
-  """
-  Extracts the constraint properties from the data commons API response and adds them to the new row.
-  """
-  constraint_properties = []
-  if "constraintProperties" not in statvar_data:
-    return constraint_properties
-
-  constraint_dcid_to_name: dict[str, str] = {}
-  for constrained_prop_node in statvar_data["constraintProperties"]["nodes"]:
-    # Use the "name" field if it exists, otherwise fall back on "dcid"
-    # Some constraintProperties nodes have both "name" and "dcid", others only have "dcid"
-    constraint_dcid = constrained_prop_node["dcid"]
-    constraint_dcid_to_name[constraint_dcid] = constrained_prop_node[
-        "name"] if "name" in constrained_prop_node else constraint_dcid
-
-  for dcid, name in constraint_dcid_to_name.items():
-    constraint_properties.append(
-        f"{name}: {get_prop_value(statvar_data[dcid])}")
-
-  return constraint_properties
-
-
-async def generate_alt_sentences(
-    gemini_client: genai.Client, gemini_config: types.GenerateContentConfig,
-    gemini_prompt: str, sv_metadata: list[dict[str, str | list[str]]],
-    delay: int) -> list[dict[str, str | list[str]]]:
-  """
-  Calls the Gemini API to generate alternative sentences for a list of SV metadata.
-  Returns the full metadata with alt sentences as a list of dictionaries. If the API call
-  fails, retry up to MAX_RETRIES times before returning the original, unmodified sv_metadata.
-  """
-  await asyncio.sleep(
-      delay
-  )  # Stagger each parallel Gemini API call by 5 seconds to prevent 429 errors from spiked usage.
-  prompt_with_metadata = types.Part.from_text(text=(gemini_prompt +
-                                                    str(sv_metadata)))
-
-  model_input = [types.Content(role="user", parts=[prompt_with_metadata])]
-  results: list[StatVarMetadata] = []
-  batch_start_dcid = sv_metadata[0]["dcid"]
-
-  for attempt in range(MAX_RETRIES):
-    try:
-      # Returns a GenerateContentResponse object, where the .parsed field contains the output from Gemini,
-      # formatted as list[StatVarMetadata] as specified by response_schema in gemini_config
-      response: types.GenerateContentResponse = await gemini_client.aio.models.generate_content(
-          model=GEMINI_MODEL, contents=model_input, config=gemini_config)
-
-      results = response.parsed
-      if not results:
-        raise ValueError("Gemini returned no parsed content (None or empty).")
-
-      return [sv.model_dump() for sv in results]
-    except ValueError as e:
-      print(
-          f"ValueError: {e} Attempt {attempt + 1}/{MAX_RETRIES} failed for the batch starting at DCID {batch_start_dcid}."
-      )
-    except Exception as e:
-      print(
-          f"Unexpected error encountered for attempt {attempt + 1}/{MAX_RETRIES} for the batch starting at DCID {batch_start_dcid}. Error: {e} "
-      )
-
-    if attempt + 1 == MAX_RETRIES:
-      print(
-          f"All {MAX_RETRIES} retry attempts failed for the batch starting at DCID {batch_start_dcid}. Returning original sv_metadata."
-      )
-      return sv_metadata
-
-    print(f"Retrying after {RETRY_DELAY_SECONDS} seconds...")
-    await asyncio.sleep(RETRY_DELAY_SECONDS)
-
-
-async def batch_generate_alt_sentences(
-    sv_metadata_list: list[dict[str, str | list[str]]], gemini_api_key: str,
-    gemini_prompt: str
-) -> tuple[list[dict[str, str | list[str]]], list[dict[str, str | list[str]]]]:
-  """
-  Separates sv_metadata_list into batches of 100 entries, and executes multiple parallel calls to generate_alt_sentences
-  using Gemini and existing SV metadata. Flattens the list of results, and returns the metadata as a list of dictionaries.
-  """
-  print(f"Starting batch generation of alternative sentences for {len(sv_metadata_list)} StatVars...")
-  gemini_client = genai.Client(api_key=gemini_api_key)
-  gemini_config = types.GenerateContentConfig(
-      temperature=GEMINI_TEMPERATURE,
-      top_p=GEMINI_TOP_P,
-      seed=GEMINI_SEED,
-      max_output_tokens=GEMINI_MAX_OUTPUT_TOKENS,
-      response_mime_type="application/json",
-      response_schema=list[StatVarMetadata]
-  )  # TODO: Add response_schemas in French/Spanish
-  batched_list: list[list[dict[str, str | list[str]]]] = split_into_batches(
-      sv_metadata_list)
-
-  parallel_tasks: list[asyncio.Task] = []
-  for index, curr_batch in enumerate(batched_list):
-    parallel_tasks.append(
-        generate_alt_sentences(gemini_client, gemini_config, gemini_prompt,
-                               curr_batch, index * 5))
-
-  # TODO: Add validation to check that returned results match DCIDs in the input batches
-  batched_results: list[list[dict[str,
-                                  str | list[str]]]] = await asyncio.gather(
-                                      *parallel_tasks)
-
-  results: list[dict[str, str | list[str]]] = []
-  failed_results: list[dict[str, str | list[str]]] = []
-
-  for batch in batched_results:
-    if batch[0]["generatedSentences"] is not None:
-      results.extend(batch)
-    else:
-      starting_dcid = batch[0]["dcid"]
-      print(
-          f"Added failed batch starting at DCID {starting_dcid} to failed results."
-      )
-      failed_results.extend(batch)
-  return results, failed_results
 
 
 def get_gcs_folder(gcs_folder: str | None, run_mode: str) -> str:
   """
   Returns the GCS folder to save the results to based on the user inputs.
   """
+  # If in diffs or retry mode and a specific folder is given, use it directly.
+  if (run_mode == config.RUN_MODE_BIGQUERY_DIFFS or
+      run_mode == config.RUN_MODE_RETRY_FAILURES) and gcs_folder:
+    return gcs_folder
+
   date_folder = datetime.now().strftime("%Y_%m_%d")
 
-  # The periodic folder is used for datastores with periodic ingestion.
   if gcs_folder:
-    if gcs_folder.endswith('periodic'):
-      return gcs_folder
-    else:
-      # Store results in timestamp subfolders.
-      return f"{gcs_folder}/{date_folder}"
+    # Store results in timestamp subfolders for other non-diff/non-retry runs.
+    return f"{gcs_folder}/{date_folder}"
 
-  if run_mode == "retry_failures":
-    return f"{GCS_FILE_DIR_RETRIES}/{date_folder}"
+  if run_mode == config.RUN_MODE_RETRY_FAILURES:
+    # Default location if no gcs_folder is provided
+    return f"{config.GCS_FILE_DIR_RETRIES}/{date_folder}"
 
-  if run_mode == RUN_MODE_BIGQUERY or run_mode == RUN_MODE_BIGQUERY_DIFFS:
-    return f"{GCS_FILE_DIR_FULL}/{date_folder}"
+  if run_mode == config.RUN_MODE_BIGQUERY:
+    return f"{config.GCS_FILE_DIR_FULL}/{date_folder}"
 
-  return f"{GCS_FILE_DIR_NL}/{date_folder}"
+  return f"{config.GCS_FILE_DIR_NL}/{date_folder}"
 
 
 def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
@@ -689,95 +252,105 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
     print(f"No StatVars to export for {exported_filename}. Skipping export.")
     return
 
-  print(f"Exporting {len(sv_metadata_list)} StatVars to {exported_filename}.json...")
+  print(
+      f"Exporting {len(sv_metadata_list)} StatVars to {exported_filename}.json..."
+  )
   filename = f"{exported_filename}.json"
-  local_file_path = f"{EXPORTED_FILE_DIR}/{filename}"
+  local_file_path = f"{config.EXPORTED_FILE_DIR}/{filename}"
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
   sv_metadata_json = sv_metadata_df.to_json(orient="records", lines=True)
 
   if should_save_to_gcs:
-    gcs_client = storage.Client(project=GCS_PROJECT_ID)
-    bucket = gcs_client.bucket(GCS_BUCKET)
+    gcs_client = storage.Client(project=config.GCS_PROJECT_ID)
+    bucket = gcs_client.bucket(config.GCS_BUCKET)
     gcs_file_path = f"{gcs_folder}/{filename}"
     blob = bucket.blob(gcs_file_path)
     blob.upload_from_string(sv_metadata_json, content_type="application/json")
 
     print(
-        f"{len(sv_metadata_list)} statvars saved to gs://{GCS_BUCKET}/{gcs_file_path}"
+        f"{len(sv_metadata_list)} statvars saved to gs://{config.GCS_BUCKET}/{gcs_file_path}"
     )
   else:
-    os.makedirs(f"{EXPORTED_FILE_DIR}/failures", exist_ok=True)
+    os.makedirs(f"{config.EXPORTED_FILE_DIR}/failures", exist_ok=True)
     with open(local_file_path, "w") as f:
       f.write(sv_metadata_json)
     print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
 
 
-def compact_files(gcs_folder: str, output_filename: str, delete_originals: bool):
-    """
-    Compacts all .jsonl files in a GCS folder into a single file and optionally deletes the originals.
-    """
-    print(f"Starting compaction for GCS folder: gs://{GCS_BUCKET}/{gcs_folder}")
+def compact_files(gcs_folder: str, output_filename: str,
+                  delete_originals: bool):
+  """
+  Compacts all .jsonl files in a GCS folder into a single file and optionally deletes the originals.
+  """
+  print(
+      f"Starting compaction for GCS folder: gs://{config.GCS_BUCKET}/{gcs_folder}"
+  )
 
-    if not output_filename:
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_filename = f"compacted_{timestamp}.jsonl"
+  storage_client = storage.Client(project=config.GCS_PROJECT_ID)
+  bucket = storage_client.bucket(config.GCS_BUCKET)
 
-    storage_client = storage.Client(project=GCS_PROJECT_ID)
-    bucket = storage_client.bucket(GCS_BUCKET)
+  if not output_filename:
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_filename = f"compacted_{timestamp}.jsonl"
 
-    # 1. List all original files to be compacted from the root of the folder
-    # Ensure the prefix ends with a delimiter to correctly list folder contents.
-    if not gcs_folder.endswith('/'):
-        gcs_folder += '/'
-    blobs_in_folder = bucket.list_blobs(prefix=gcs_folder, delimiter='/')
-    original_files = [
-        blob for blob in blobs_in_folder
-        if (blob.name.endswith('.jsonl') or blob.name.endswith('.json')) and output_filename not in blob.name
-    ]
+  # 1. List all original files to be compacted from the root of the folder
+  # Ensure the prefix ends with a delimiter to correctly list folder contents.
+  if not gcs_folder.endswith('/'):
+    gcs_folder += '/'
+  blobs_in_folder = bucket.list_blobs(prefix=gcs_folder, delimiter='/')
+  original_files = [
+      blob for blob in blobs_in_folder
+      if (blob.name.endswith('.jsonl') or blob.name.endswith('.json')) and
+      output_filename not in blob.name and '/failures/' not in blob.name
+  ]
 
-    if not original_files:
-        print("No .jsonl or .json files found to compact. Exiting.")
-        return
+  if not original_files:
+    print("No .jsonl or .json files found to compact. Exiting.")
+    return
 
-    print(f"Found {len(original_files)} files to compact:")
+  print(f"Found {len(original_files)} files to compact:")
+  for blob in original_files:
+    print(f"  - {blob.name}")
+
+  # Use a temporary file to avoid holding all data in memory
+  temp_file_path = "compacted_output.tmp.jsonl"
+
+  # 2. Download and append all files to the temporary local file
+  print("\nDownloading and merging files...")
+  with open(temp_file_path, 'wb') as temp_f:
     for blob in original_files:
-        print(f"  - {blob.name}")
+      print(f"  -> Merging {blob.name}")
+      blob.download_to_file(temp_f)
+      # Ensure a newline exists between concatenated files
+      temp_f.write(b'\n')
+  print("Merge complete.")
 
-    # Use a temporary file to avoid holding all data in memory
-    temp_file_path = "compacted_output.tmp.jsonl"
+  # 3. Upload the new compacted file
+  compacted_blob_path = f"{gcs_folder.rstrip('/')}/{output_filename}"
+  compacted_blob = bucket.blob(compacted_blob_path)
 
-    # 2. Download and append all files to the temporary local file
-    print("\nDownloading and merging files...")
-    with open(temp_file_path, 'wb') as temp_f:
-        for blob in original_files:
-            print(f"  -> Merging {blob.name}")
-            blob.download_to_file(temp_f)
-            # Ensure a newline exists between concatenated files
-            temp_f.write(b'\n')
-    print("Merge complete.")
+  print(
+      f"\nUploading new compacted file to: gs://{config.GCS_BUCKET}/{compacted_blob_path}"
+  )
+  compacted_blob.upload_from_filename(temp_file_path)
+  print("Upload complete.")
 
-    # 3. Upload the new compacted file
-    compacted_blob_path = f"{gcs_folder.rstrip('/')}/{output_filename}"
-    compacted_blob = bucket.blob(compacted_blob_path)
+  # 4. Clean up the local temporary file
+  os.remove(temp_file_path)
 
-    print(f"\nUploading new compacted file to: gs://{GCS_BUCKET}/{compacted_blob_path}")
-    compacted_blob.upload_from_filename(temp_file_path)
-    print("Upload complete.")
+  # 5. Delete original files if the flag is set
+  if delete_originals:
+    print(
+        f"\n--delete_originals flag is set. Deleting {len(original_files)} original files..."
+    )
+    for blob in original_files:
+      print(f"  -> Deleting {blob.name}")
+      blob.delete()
+    print("Deletion of original files complete.")
+  else:
+    print("\n--delete_originals flag not set. Original files have been kept.")
 
-    # 4. Clean up the local temporary file
-    os.remove(temp_file_path)
-
-    # 5. Delete original files if the flag is set
-    if delete_originals:
-        print(f"\n--delete_originals flag is set. Deleting {len(original_files)} original files...")
-        for blob in original_files:
-            print(f"  -> Deleting {blob.name}")
-            blob.delete()
-        print("Deletion of original files complete.")
-    else:
-        print("\n--delete_originals flag not set. Original files have been kept.")
-
-    print("\nCompaction process finished successfully.")
+  print("\nCompaction process finished successfully.")
 
 
 async def main():
@@ -787,19 +360,23 @@ async def main():
 
   sv_metadata_iter = None
   match args.runMode:
-    case "retry_failures":
-      sv_metadata_iter = read_sv_metadata_failed_attempts(args.failedAttemptsPath, args.useGCS)
-    case "bigquery":
-      sv_metadata_iter = create_sv_metadata_bigquery(
-          args.totalPartitions, args.currPartition, args.maxStatVars)
-    case "nl_only":
-      sv_metadata_iter = [create_sv_metadata_nl()]
-    case "bigquery_diffs":
-      sv_metadata_iter = get_bigquery_diffs_metadata(
-          args.gcsFolder, args.totalPartitions, args.currPartition, args.maxStatVars)
-    case "compact":
+    case config.RUN_MODE_RETRY_FAILURES:
+      sv_metadata_iter = data_loader.read_sv_metadata_failed_attempts(
+          args.failedAttemptsPath, args.useGCS)
+    case config.RUN_MODE_BIGQUERY:
+      sv_metadata_iter = data_loader.create_sv_metadata_bigquery(args.totalPartitions,
+                                                     args.currPartition,
+                                                     args.maxStatVars)
+    case config.RUN_MODE_NL_ONLY:
+      sv_metadata_iter = [data_loader.create_sv_metadata_nl()]
+    case config.RUN_MODE_BIGQUERY_DIFFS:
+      sv_metadata_iter = data_loader.get_bigquery_diffs_metadata(args.gcsFolder,
+                                                     args.totalPartitions,
+                                                     args.currPartition,
+                                                     args.maxStatVars)
+    case config.RUN_MODE_COMPACT:
       compact_files(args.gcsFolder, args.output_filename, args.delete_originals)
-      return
+      return  # Exit after compaction
     case _:
       raise ValueError(f"Unknown run mode: {args.runMode}")
 
@@ -809,11 +386,12 @@ async def main():
   page_number: int = 1
   for sv_metadata_list in sv_metadata_iter:
     # When re-running failed attempts, sv_metadata_list already contains the full metadata.
-    if args.runMode == "retry_failures":
+    if args.runMode == config.RUN_MODE_RETRY_FAILURES:
       full_metadata = sv_metadata_list
     else:
-      full_metadata: list[dict[str, str | list[str]]] = extract_metadata(
-          sv_metadata_list, args.runMode == RUN_MODE_BIGQUERY or args.runMode == RUN_MODE_BIGQUERY_DIFFS)
+      full_metadata: list[dict[str, str | list[str]]] = data_loader.extract_metadata(
+          sv_metadata_list, DC_API_KEY, args.runMode == config.RUN_MODE_BIGQUERY or
+          args.runMode == config.RUN_MODE_BIGQUERY_DIFFS)
     failed_metadata: list[dict[str, str | list[str]]] = []
 
     # Generate the Alt Sentences using Gemini
@@ -821,12 +399,13 @@ async def main():
     full_metadata, failed_metadata = await batch_generate_alt_sentences(
         full_metadata, args.geminiApiKey, gemini_prompt)
 
-    gcs_folder = get_gcs_folder(args.gcsFolder, args.runMode) if args.useGCS else None
+    gcs_folder = get_gcs_folder(args.gcsFolder,
+                                args.runMode) if args.useGCS else None
 
-    if args.runMode == RUN_MODE_BIGQUERY_DIFFS or args.runMode == "retry_failures":
+    if args.runMode == config.RUN_MODE_BIGQUERY_DIFFS or args.runMode == config.RUN_MODE_RETRY_FAILURES:
       timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
       # Create a unique filename for the diff file from this job partition
-      if args.runMode == "retry_failures":
+      if args.runMode == config.RUN_MODE_RETRY_FAILURES:
         exported_filename = f"diff_retry_{timestamp}_{args.currPartition+1}"
         failed_filename = f"failures/failed_retry_{timestamp}_{args.currPartition+1}"
       else:  # bigquery_diffs

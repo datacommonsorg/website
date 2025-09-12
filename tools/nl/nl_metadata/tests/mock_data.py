@@ -15,41 +15,47 @@
 
 # Mock for argparse Namespace for the main E2E test
 MOCK_E2E_ARGS = {
+    'runMode': 'bigquery',
     'geminiApiKey': 'test_key',
     'language': 'English',
     'useGCS': True,
-    'useBigQuery': True,
     'maxStatVars': None,
     'gcsFolder': None,
     'totalPartitions': 1,
     'currPartition': 0,
-    'failedAttemptsPath': None
+    'failedAttemptsPath': None,
+    'output_filename': None,
+    'delete_originals': False,
 }
 
 # Mock for argparse Namespace for the failed attempts E2E test
 MOCK_FAILED_ATTEMPTS_E2E_ARGS = {
+    'runMode': 'retry_failures',
     'geminiApiKey': 'test_key',
     'language': 'English',
     'useGCS': True,
-    'useBigQuery': False,
     'maxStatVars': None,
-    'gcsFolder': None,
+    'gcsFolder': 'my-periodic-folder',
     'totalPartitions': 1,
     'currPartition': 0,
-    'failedAttemptsPath': 'gs://some/failed/path/'
+    'failedAttemptsPath': 'gs://some/failed/path/',
+    'output_filename': None,
+    'delete_originals': False,
 }
 
 # Mock for argparse Namespace for the NL E2E test
 MOCK_NL_E2E_ARGS = {
+    'runMode': 'nl_only',
     'geminiApiKey': 'test_key',
     'language': 'English',
     'useGCS': True,
-    'useBigQuery': False,
     'maxStatVars': None,
     'gcsFolder': None,
     'totalPartitions': 1,
     'currPartition': 0,
-    'failedAttemptsPath': None
+    'failedAttemptsPath': None,
+    'output_filename': None,
+    'delete_originals': False,
 }
 
 # Mock BigQuery Row data
@@ -179,4 +185,40 @@ GEMINI_NL_SUCCESS_RESULT = {
     'numConstraints': 1,
     'sentence': 'NL sentence for dcid4',
     'generatedSentences': ['alt sentence 5', 'alt sentence 6']
+}
+
+# Mock for argparse Namespace for the compact mode test
+MOCK_COMPACT_ARGS = {
+    'runMode': 'compact',
+    'gcsFolder': 'my-periodic-folder',
+    'delete_originals': False,
+    # Other args that are not used in this mode are set to None
+    'geminiApiKey': None,
+    'language': None,
+    'useGCS': True, # Assumed for this test
+    'maxStatVars': None,
+    'totalPartitions': 1,
+    'currPartition': 0,
+    'failedAttemptsPath': None,
+    'output_filename': 'compacted_test.jsonl',
+}
+
+# Mock for argparse Namespace for the compact mode test with deletion
+MOCK_COMPACT_ARGS_WITH_DELETE = MOCK_COMPACT_ARGS.copy()
+MOCK_COMPACT_ARGS_WITH_DELETE['delete_originals'] = True
+
+# Mock for argparse Namespace for the diffs mode test
+MOCK_DIFFS_ARGS = {
+    'runMode': 'bigquery_diffs',
+    'gcsFolder': 'my-periodic-folder',
+    'useGCS': True,
+    'totalPartitions': 1,
+    'currPartition': 0,
+    'geminiApiKey': 'test_key',
+    # Other args not used in this test
+    'language': 'English',
+    'maxStatVars': None,
+    'failedAttemptsPath': None,
+    'output_filename': None,
+    'delete_originals': False,
 }
