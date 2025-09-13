@@ -1,0 +1,81 @@
+# helm_charts/dc_website/templates/config_files_as_cm.yaml
+
+# This file generates ConfigMaps from local files during Helm rendering.
+
+
+{{- if .Values.website.placeSummary.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: place-summary-config-country
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: |
+    {{- .Files.Get "server/config/summaries/place_summaries_for_country_.json" | nindent 4 }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: place-summary-config-geoid-0-2
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: |
+    {{- .Files.Get "server/config/summaries/place_summaries_for_geoId_0-2.json" | nindent 4 }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: place-summary-config-geoid-3-5
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: |
+    {{- .Files.Get "server/config/summaries/place_summaries_for_geoId_3-5.json" | nindent 4 }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: place-summary-config-geoid-6-9
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: |
+    {{- .Files.Get "server/config/summaries/place_summaries_for_geoId_6-9.json" | nindent 4 }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: place-summary-config-wikidataid
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: |
+    {{- .Files.Get "server/config/summaries/place_summaries_for_wikidataId_.json" | nindent 4 }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: place-summary-config-others
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: |
+    {{- .Files.Get "server/config/summaries/place_summaries_others.json" | nindent 4 }}
+{{- end }}
+
+
+{{- if .Values.nl.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nl-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  catalog.yaml: |
+    {{- .Files.Get "nl/catalog.yaml" | nindent 4 }}
+  env.yaml: |
+    {{- toYaml .Values.nl.env | nindent 4 }}
+{{- end }}
