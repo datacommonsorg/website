@@ -57,6 +57,7 @@ import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getDenomResp,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
@@ -383,32 +384,50 @@ export async function fetchData(
       );
     }
   }
-  const statPromise = Promise.all(statPromises).then((statResponses) => {
-    // Merge the responses of all stat promises
-    const mergedResponse = { data: {}, facets: {} };
-    statResponses.forEach((resp) => {
+  const statResponses = await Promise.all(statPromises);
+  // Merge the responses of all stat promises
+  const mergedResponse: PointApiResponse = { data: {}, facets: {} };
+  statResponses.forEach((resp) => {
+    if (resp) {
       mergedResponse.data = Object.assign(mergedResponse.data, resp.data);
       mergedResponse.facets = Object.assign(mergedResponse.facets, resp.facets);
-    });
-    return mergedResponse;
-  });
-  const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
-  const denomPromise = _.isEmpty(denoms)
-    ? Promise.resolve(null)
-    : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
-  return Promise.all([statPromise, denomPromise]).then(
-    ([statResp, denomResp]) => {
-      const rankingData = pointApiToPerSvRankingData(
-        statResp,
-        denomResp,
-        variables
-      );
-      if (rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, variables);
-      }
-      return rankingData;
     }
+  });
+
+  const denoms = _.uniq(
+    variables.map((spec) => spec.denom).filter((sv) => !!sv)
   );
+  let denomsByFacet: Record<string, SeriesApiResponse> = {};
+  let defaultDenomData: SeriesApiResponse = null;
+
+  if (!_.isEmpty(denoms)) {
+    [denomsByFacet, defaultDenomData] = await getDenomResp(
+      denoms,
+      mergedResponse,
+      apiRoot,
+      true, // useSeriesWithin
+      undefined, // allPlaces
+      parentPlace,
+      enclosedPlaceType
+    );
+  }
+
+  console.log(
+    "denoms by facet and defuault denoms in ranking tile: ",
+    denomsByFacet,
+    defaultDenomData
+  );
+
+  const rankingData = pointApiToPerSvRankingData(
+    mergedResponse,
+    denomsByFacet,
+    defaultDenomData,
+    variables
+  );
+  if (rankingMetadata.showMultiColumn) {
+    return transformRankingDataForMultiColumn(rankingData, variables);
+  }
+  return rankingData;
 }
 
 // Reduces RankingData to only the SV used for sorting, to be compatible for multi-column rendering in RankingUnit.
@@ -456,9 +475,11 @@ function transformRankingDataForMultiColumn(
 
 function pointApiToPerSvRankingData(
   statData: PointApiResponse,
-  denomData: SeriesApiResponse,
+  denomData: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   statVarSpecs: StatVarSpec[]
 ): RankingData {
+  console.log("denom data in pointApi: ", denomData);
   const rankingData: RankingData = {};
   // Get Ranking data
   for (const spec of statVarSpecs) {
@@ -486,7 +507,15 @@ function pointApiToPerSvRankingData(
         continue;
       }
       if (spec.denom) {
-        const denomInfo = getDenomInfo(spec, denomData, place, statPoint.date);
+        // find the denom data with the matching facet, and otherwise use the default data
+        const denomInfo = getDenomInfo(
+          spec,
+          denomData,
+          place,
+          statPoint.date,
+          statPoint.facet,
+          defaultDenomData
+        );
         if (!denomInfo) {
           console.log(`Skipping ${place}, missing ${spec.denom}`);
           continue;
@@ -497,18 +526,17 @@ function pointApiToPerSvRankingData(
           to the statVarToFacets map (which is ultimately passed into the TileSources component). With this,
           the metadata modal can display full metadata for the per capita stat var and facets used in the chart.
          */
-        const denomSeries = denomData.data[spec.denom]?.[place];
-        if (denomSeries?.facet) {
-          const denomFacet = denomData.facets[denomSeries.facet];
+        if (denomInfo?.facetId) {
+          const denomFacet = denomInfo?.facet;
           if (denomFacet) {
             if (denomFacet.provenanceUrl) {
               sources.add(denomFacet.provenanceUrl);
             }
-            facets[denomSeries.facet] = denomFacet;
+            facets[denomInfo?.facetId] = denomFacet;
             if (!statVarToFacets[spec.denom]) {
               statVarToFacets[spec.denom] = new Set<string>();
             }
-            statVarToFacets[spec.denom].add(denomSeries.facet);
+            statVarToFacets[spec.denom].add(denomInfo?.facetId);
           }
         }
       }

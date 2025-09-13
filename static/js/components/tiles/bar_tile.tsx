@@ -63,17 +63,13 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import {
-  getPoint,
-  getPointWithin,
-  getSeries,
-  getSeriesWithin,
-} from "../../utils/data_fetch_utils";
+import { getPoint, getPointWithin } from "../../utils/data_fetch_utils";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   clearContainer,
   getDenomInfo,
+  getDenomResp,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
@@ -401,9 +397,9 @@ export const fetchData = async (
   }
 
   const denomSvs = props.variables.map((spec) => spec.denom).filter(Boolean);
-  let denomPromise: Promise<SeriesApiResponse>;
   let filterPromise: Promise<PointApiResponse>;
   if ("places" in props && !_.isEmpty(props.places)) {
+    console.log("Getting point");
     filterPromise = getPoint(
       apiRoot,
       props.places,
@@ -411,10 +407,8 @@ export const fetchData = async (
       "",
       undefined
     );
-    denomPromise = _.isEmpty(denomSvs)
-      ? Promise.resolve(null)
-      : getSeries(apiRoot, props.places, denomSvs, []);
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+    console.log("Getting point within");
     filterPromise = getPointWithin(
       apiRoot,
       props.enclosedPlaceType,
@@ -422,27 +416,37 @@ export const fetchData = async (
       [FILTER_STAT_VAR],
       ""
     );
-    denomPromise = _.isEmpty(denomSvs)
-      ? Promise.resolve(null)
-      : getSeriesWithin(
-          apiRoot,
-          props.parentPlace,
-          props.enclosedPlaceType,
-          denomSvs
-        );
   }
 
   try {
-    const [statResps, denomResp, filterResp] = await Promise.all([
+    const [statResps, filterResp] = await Promise.all([
       Promise.all(statPromises),
-      denomPromise,
       filterPromise,
     ]);
+    console.log("filterResp.data: ", filterResp.data);
+
+    // Merge the responses of all stat promises to get all facets that they use
     const statResp: PointApiResponse = { data: {}, facets: {} };
     for (const resp of statResps) {
       Object.assign(statResp.data, resp.data);
       Object.assign(statResp.facets, resp.facets);
     }
+
+    // handling denoms
+    const useSeriesWithin =
+      !("places" in props && !_.isEmpty(props.places)) &&
+      "enclosedPlaceType" in props &&
+      "parentPlace" in props;
+    console.log("useSeriesWithin: ", useSeriesWithin);
+    const [denomsByFacet, defaultDenomData] = await getDenomResp(
+      denomSvs,
+      statResp,
+      apiRoot,
+      useSeriesWithin,
+      "places" in props ? props.places : [],
+      "parentPlace" in props ? props.parentPlace : "",
+      "enclosedPlaceType" in props ? props.enclosedPlaceType : ""
+    );
 
     // Find the most populated places.
     const popPoints: RankingPoint[] = [];
@@ -452,6 +456,7 @@ export const fetchData = async (
       const entityDcidsSet = new Set<string>();
       Object.keys(filterResp.data).forEach((statVarKey) => {
         Object.keys(filterResp.data[statVarKey]).forEach((entityDcid) => {
+          console.log("entity DCID: ", entityDcid);
           entityDcidsSet.add(entityDcid);
         });
       });
@@ -463,6 +468,7 @@ export const fetchData = async (
       });
     }
     for (const place in filterResp.data[FILTER_STAT_VAR]) {
+      console.log("place being pushed: ", place);
       popPoints.push({
         placeDcid: place,
         value: filterResp.data[FILTER_STAT_VAR][place].value,
@@ -499,7 +505,8 @@ export const fetchData = async (
     return rawToChart(
       props,
       statResp,
-      denomResp,
+      denomsByFacet,
+      defaultDenomData,
       popPoints,
       placeNames,
       placeType,
@@ -515,7 +522,8 @@ export const fetchData = async (
 function rawToChart(
   props: BarTilePropType,
   statData: PointApiResponse,
-  denomData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
   placeType: string,
@@ -562,7 +570,14 @@ function rawToChart(
         statVarToFacets[statVar].add(stat.facet);
       }
       if (spec.denom) {
-        const denomInfo = getDenomInfo(spec, denomData, placeDcid, stat.date);
+        const denomInfo = getDenomInfo(
+          spec,
+          denomsByFacet,
+          placeDcid,
+          stat.date,
+          stat.facet,
+          defaultDenomData
+        );
         if (!denomInfo) {
           // skip this data point because missing denom data.
           continue;
@@ -570,10 +585,15 @@ function rawToChart(
         dataPoint.value /= denomInfo.value;
         sources.add(denomInfo.source);
         const denomStatVar = spec.denom;
-        const denomSeries = denomData.data?.[denomStatVar]?.[placeDcid];
+        // using facet-specific info unless it doesn't exist
+        const denomSeries =
+          denomsByFacet[stat.facet]?.data?.[denomStatVar]?.[placeDcid] ??
+          defaultDenomData?.data?.[denomStatVar]?.[placeDcid];
         if (denomSeries?.facet) {
           const denomFacetId = denomSeries.facet;
-          const denomFacetMetadata = denomData.facets?.[denomFacetId];
+          const denomFacetMetadata =
+            denomsByFacet[stat.facet]?.facets?.[denomFacetId] ??
+            defaultDenomData?.facets?.[denomFacetId];
           if (denomFacetMetadata) {
             facets[denomFacetId] = denomFacetMetadata;
             if (!statVarToFacets[denomStatVar]) {
