@@ -211,7 +211,6 @@ async function getPopulationData(
   if (_.isEmpty(variables)) {
     return [null, null];
   } else {
-    // return getSeriesWithin("", placeDcid, enclosedPlaceType, variables);
     return await getDenomResp(
       variables,
       placeStats,
@@ -324,7 +323,6 @@ function rawToChart(
     });
     const point = placeChartData.point;
     if (xStatVar.denom) {
-      // TODO: confirm facet
       const xFacet = xPlacePointStat[place].facet;
       const denomInfo = getDenomInfo(
         xStatVar,

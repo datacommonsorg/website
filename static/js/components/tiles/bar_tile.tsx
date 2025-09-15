@@ -429,7 +429,7 @@ export const fetchData = async (
       Object.assign(statResp.facets, resp.facets);
     }
 
-    // handling denoms
+    // gets denom data that corresponds to the facets used for each entity
     const useSeriesWithin =
       !("places" in props && !_.isEmpty(props.places)) &&
       "enclosedPlaceType" in props &&
@@ -578,7 +578,7 @@ function rawToChart(
         dataPoint.value /= denomInfo.value;
         sources.add(denomInfo.source);
         const denomStatVar = spec.denom;
-        // using facet-specific info unless it doesn't exist
+        // using facet-specific info unless it doesn't exist, in that case we use the default best-available denom data
         const denomSeries =
           denomsByFacet[stat.facet]?.data?.[denomStatVar]?.[placeDcid] ??
           defaultDenomData?.data?.[denomStatVar]?.[placeDcid];

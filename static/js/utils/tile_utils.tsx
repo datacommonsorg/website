@@ -8,7 +8,7 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the license is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -502,10 +502,10 @@ export function getDenomInfo(
   facetUsed?: string,
   defaultDenomData?: SeriesApiResponse
 ): DenomInfo {
-  // (temporary) if denomData is a map, find the one that matches the facet used, otherwise use the regular denomData
+  // find the matching denominator data if it exists, for the facet used in the numerator
   let matchingDenomData: SeriesApiResponse;
   matchingDenomData = denomData[facetUsed];
-  // default to defaultDenomData if no facet-specific denomData is found for a given place
+  // default to defaultDenomData if no facet-specific denomData is found for a given entity
   let placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   if (
     !matchingDenomData ||
@@ -514,7 +514,6 @@ export function getDenomInfo(
     _.isEmpty(placeDenomData.series)
   ) {
     matchingDenomData = defaultDenomData;
-    // resetting because denomData changed
     placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   }
 

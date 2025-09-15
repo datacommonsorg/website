@@ -42,7 +42,6 @@ interface PlaceAxisChartData {
  */
 function getPlaceAxisChartData(
   placePointStat: EntityObservation,
-  // populationData: SeriesApiResponse,
   denomsByFacet: Record<string, SeriesApiResponse>,
   defaultDenomData: SeriesApiResponse,
   placeDcid: string,
@@ -52,7 +51,7 @@ function getPlaceAxisChartData(
   scaling?: number
 ): PlaceAxisChartData {
   const obs = placePointStat[placeDcid];
-  // finding the denom data that matches the facet of the current place
+  // finding the denom data that matches the facet of the current observation
   const populationData = denomsByFacet
     ? denomsByFacet[obs.facet]
     : defaultDenomData;

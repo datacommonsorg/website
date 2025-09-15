@@ -374,43 +374,6 @@ async function getPopulationInfo(
   );
 
   return [denomsByFacet, defaultDenomData];
-  // // gathering all promises for all facets used in denoms
-  // const facetIds = facets ? Object.keys(facets) : [];
-  // const denomPromises = facetIds.map((facetId) => {
-  //   return getSeriesWithin(
-  //     apiRoot,
-  //     placeDcid,
-  //     enclosedPlaceType,
-  //     Array.from(statVars),
-  //     [facetId]
-  //   );
-  // });
-
-  // // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
-  // const defaultDenomPromise = getSeriesWithin(
-  //   apiRoot,
-  //   placeDcid,
-  //   enclosedPlaceType,
-  //   Array.from(statVars)
-  // );
-
-  // const promiseResults = await Promise.all([
-  //   ...denomPromises,
-  //   defaultDenomPromise,
-  // ]);
-
-  // const defaultDenomData = promiseResults.pop();
-  // const facetDenomResults = promiseResults;
-
-  // const denomsByFacet: Record<string, SeriesApiResponse> = {};
-  // facetDenomResults.forEach((resp, index) => {
-  //   const requestedFacetId = facetIds[index];
-  //   // If the response has data, use it.
-  //   if (resp && !_.isEmpty(resp.facets)) {
-  //     denomsByFacet[requestedFacetId] = resp;
-  //   }
-  // });
-  // return [denomsByFacet, defaultDenomData];
 }
 
 export const fetchData = async (
@@ -437,12 +400,6 @@ export const fetchData = async (
     ],
     props.apiRoot
   );
-  // const populationPromise = getPopulationPromise(
-  //   props.place.dcid,
-  //   props.enclosedPlaceType,
-  //   props.statVarSpec,
-  //   props.apiRoot
-  // );
   const placeNamesParams = {
     dcid: props.place.dcid,
     descendentType: props.enclosedPlaceType,
@@ -461,8 +418,8 @@ export const fetchData = async (
       placeStatsPromise,
       placeNamesPromise,
     ]);
-    // HANDLE DENOM/POPULATION HERE
-    // this formats and resolves the query promise
+    // this formats and resolves the denominator query promises for every facet used in the numerators,
+    // plus a default denominator result that is used if a given entity's facet doesn't provide the denominator data
     const [denomsByFacet, defaultDenomData] = await getPopulationInfo(
       props.place.dcid,
       props.enclosedPlaceType,
