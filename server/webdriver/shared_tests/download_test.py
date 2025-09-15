@@ -101,14 +101,9 @@ class DownloadTestMixin():
     # Choose another stat var
     shared.click_el(self.driver,
                     (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
-
     # Click preview
     shared.wait_for_loading(self.driver)
-    form_container = find_elem(self.driver, by=By.ID, value='plot-container')
-    shared.click_el(form_container, (By.TAG_NAME, 'button'))
-    # shared.click_el(
-    #     self.driver,
-    #     (By.XPATH, '//*[@id="plot-container"]/div[1]/div/div/button'))
+    shared.click_el(self.driver, (By.CLASS_NAME, 'get-data-button'))
 
     # Wait for table to load
     shared.wait_for_loading(self.driver)
