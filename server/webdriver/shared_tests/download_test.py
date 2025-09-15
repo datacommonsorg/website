@@ -21,7 +21,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
-from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import TIMEOUT, find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import wait_elem
 
@@ -109,10 +109,12 @@ class DownloadTestMixin():
 
     # Assert preview table is correct
     shared.wait_for_loading(self.driver)
-    preview_section = find_elem(self.driver, by=By.ID, value='preview-section')
+    preview_section = wait_elem(self.driver, by=By.ID, value='preview-section')
     table = wait_elem(preview_section, by=By.TAG_NAME, value='table')
 
     # Assert table headers are correct
+    WebDriverWait(self.driver, TIMEOUT).until(
+        EC.visibility_of_element_located((By.TAG_NAME, 'th')))
     header_elements = find_elems(table, by=By.TAG_NAME, value='th')
     actual_headers = [h.text for h in header_elements]
     self.assertSetEqual(set(actual_headers), set(TABLE_HEADERS))
