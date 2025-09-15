@@ -13,7 +13,6 @@
 # limitations under the License.
 import os
 import tempfile
-import time
 
 import pytest
 from selenium.webdriver.common.by import By
@@ -23,7 +22,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
-from server.webdriver.base_utils import TIMEOUT
 from server.webdriver.base_utils import wait_elem
 
 DOWNLOAD_URL = '/tools/download'
