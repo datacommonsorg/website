@@ -85,13 +85,13 @@ def extract_flags() -> argparse.Namespace:
       "--geminiApiKey",
       help="The Gemini API key to use for generating alternative sentences.",
       type=str,
-      default=GEMINI_API_KEY)  # Default to the key in .env
+      default=GEMINI_API_KEY)
   parser.add_argument(
       "--language",
       help=
       "The language to return the metadata results in. Currently supports English, French, and Spanish.",
       choices=["English", "French", "Spanish"
-              ],  # TODO: Add support for passing multiple languages at once
+              ],
       type=str,
       default="English")
   parser.add_argument("--useGCS",
@@ -316,12 +316,14 @@ def compact_files(gcs_folder: str, output_filename: str,
 
   # 2. Download and append all files to the temporary local file
   print("\nDownloading and merging files...")
-  with open(temp_file_path, 'wb') as temp_f:
+  with open(temp_file_path, 'w', encoding='utf-8') as temp_f:
     for blob in original_files:
       print(f"  -> Merging {blob.name}")
-      blob.download_to_file(temp_f)
-      # Ensure a newline exists between concatenated files
-      temp_f.write(b'\n')
+      # Download content and write line by line to avoid extra newlines
+      content = blob.download_as_text()
+      for line in content.splitlines():
+        if line.strip():
+          temp_f.write(line + '\n')
   print("Merge complete.")
 
   # 3. Upload the new compacted file
@@ -331,7 +333,8 @@ def compact_files(gcs_folder: str, output_filename: str,
   print(
       f"\nUploading new compacted file to: gs://{config.GCS_BUCKET}/{compacted_blob_path}"
   )
-  compacted_blob.upload_from_filename(temp_file_path)
+  compacted_blob.upload_from_filename(temp_file_path,
+                                     content_type="application/json")
   print("Upload complete.")
 
   # 4. Clean up the local temporary file
