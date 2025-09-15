@@ -172,35 +172,7 @@ class VisTimelineTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.text_to_be_present_in_element(page_header_locator, 'Timeline'))
 
-    # Click the start button
-    shared.click_el(self.driver, (By.CLASS_NAME, 'start-button'))
-
-    # Type california into the search box.
-    element_present = EC.presence_of_element_located((By.ID, 'location-field'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element(By.ID, 'ac')
-    search_box_input.send_keys(PLACE_SEARCH_CA)
-
-    # Click on the first result.
-    first_result_locator = (By.XPATH, '(//*[contains(@class, "pac-item")])[1]')
-    shared.click_el(self.driver, first_result_locator)
-
-    # Type USA into the search box after California has been selected.
-    element_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, '.place-selector-selections .selected-place'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element(By.ID, 'ac')
-    search_box_input.send_keys(PLACE_SEARCH_USA)
-
-    # Click on the first result.
-    shared.click_el(self.driver, first_result_locator)
-
-    # Click continue after USA has been selected.
-    element_present = EC.text_to_be_present_in_element(
-        (By.CLASS_NAME, 'place-selector-selections'),
-        'United States of America')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
+    shared.search_for_multiple_places(self.driver, ["California", "USA"])
 
     # Choose stat vars
     shared.wait_for_loading(self.driver)

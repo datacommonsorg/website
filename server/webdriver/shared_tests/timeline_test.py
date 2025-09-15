@@ -164,38 +164,33 @@ class TimelineTestMixin():
     # Load Timeline Tool page with Statistical Variables.
     self.driver.get(self.url_ + TIMELINE_URL + STATVAR_URL_1)
 
-    # Wait until search box is present and type California.
-    search_box_input = find_elem(self.driver, by=By.ID, value='ac')
-    search_box_input.send_keys(PLACE_SEARCH_CA)
+    # # Wait until search box is present and type California.
+    # search_box_input = find_elem(self.driver, by=By.ID, value='ac')
+    # search_box_input.send_keys(PLACE_SEARCH_CA)
 
-    # Wait until there is at least one result in autocomplete results.
-    self.assertIsNotNone(find_elem(self.driver, value='pac-item'))
+    # # Wait until there is at least one result in autocomplete results.
+    # self.assertIsNotNone(find_elem(self.driver, value='pac-item'))
 
-    # Click on the first result.
-    shared.wait_for_loading(self.driver)
-    first_result = find_elem(self.driver,
-                             by=By.CSS_SELECTOR,
-                             value=".pac-item:nth-child(1)")
-    first_result.click()
+    # # Click on the first result.
+    # shared.wait_for_loading(self.driver)
+    # first_result = find_elem(self.driver,
+    #                          by=By.CSS_SELECTOR,
+    #                          value=".pac-item:nth-child(1)")
+    # first_result.click()
+    shared.search_for_places(self,
+                             self.driver,
+                             PLACE_SEARCH_CA,
+                             is_new_vis_tools=False)
 
     # Wait until the first line element within the card is present.
     shared.wait_for_loading(self.driver)
     self.assertIsNotNone(
         find_elem(self.driver, by=By.CSS_SELECTOR, value='.line:nth-child(1)'))
 
-    # Type USA into the search box.
-    search_box_input.clear()
-    search_box_input.send_keys(PLACE_SEARCH_USA)
-
-    # Wait until there is at least one result in autocomplete results.
-    shared.wait_for_loading(self.driver)
-    self.assertIsNotNone(find_elem(self.driver, value='pac-item'))
-
-    # Click on the first result.
-    first_result = find_elem(self.driver,
-                             by=By.CSS_SELECTOR,
-                             value=".pac-item:nth-child(1)")
-    first_result.click()
+    shared.search_for_places(self,
+                             self.driver,
+                             PLACE_SEARCH_USA,
+                             is_new_vis_tools=False)
 
     # Wait until the second line element within the card is present.
     shared.wait_for_loading(self.driver)
