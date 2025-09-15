@@ -13,6 +13,7 @@
 # limitations under the License.
 import os
 import tempfile
+import time
 
 import pytest
 from selenium.webdriver.common.by import By
@@ -108,10 +109,11 @@ class DownloadTestMixin():
         self.driver,
         (By.XPATH, '//*[@id="plot-container"]/div[1]/div/div/button'))
 
-    # Assert preview table is correct
+    # Wait for table to load
     shared.wait_for_loading(self.driver)
     preview_section = wait_elem(self.driver, by=By.ID, value='preview-section')
     table = wait_elem(preview_section, by=By.TAG_NAME, value='table')
+    time.sleep(10)
 
     # Assert table headers are correct
     WebDriverWait(self.driver, TIMEOUT).until(
