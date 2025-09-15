@@ -18,7 +18,6 @@ import time
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
@@ -105,19 +104,19 @@ class DownloadTestMixin():
 
     # Click preview
     shared.wait_for_loading(self.driver)
-    shared.click_el(
-        self.driver,
-        (By.XPATH, '//*[@id="plot-container"]/div[1]/div/div/button'))
+    form_container = find_elem(self.driver, by=By.ID, value='plot-container')
+    shared.click_el(self.driver, (By.TAG_NAME, 'button'))
+    # shared.click_el(
+    #     self.driver,
+    #     (By.XPATH, '//*[@id="plot-container"]/div[1]/div/div/button'))
 
     # Wait for table to load
     shared.wait_for_loading(self.driver)
     preview_section = wait_elem(self.driver, by=By.ID, value='preview-section')
     table = wait_elem(preview_section, by=By.TAG_NAME, value='table')
-    time.sleep(10)
 
     # Assert table headers are correct
-    WebDriverWait(self.driver, TIMEOUT).until(
-        EC.visibility_of_element_located((By.TAG_NAME, 'th')))
+    wait_elem(table, by=By.TAG_NAME, value='th')
     header_elements = find_elems(table, by=By.TAG_NAME, value='th')
     actual_headers = [h.text for h in header_elements]
     self.assertSetEqual(set(actual_headers), set(TABLE_HEADERS))
