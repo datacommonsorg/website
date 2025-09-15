@@ -455,15 +455,12 @@ export async function getDenomResp(
         : getSeries(apiRoot, allPlaces, denoms, [facetId])
     );
   });
-  console.log("stat resp facets: ", statResp.facets);
-  console.log("denom promises: ", denomPromises);
   // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
   const defaultDenomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
     : useSeriesWithin
     ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
     : getSeries(apiRoot, allPlaces, denoms, []);
-  console.log("default denom promise: ", defaultDenomPromise);
 
   // organize results into a map from facet to API response
   const denomsByFacet: Record<string, SeriesApiResponse> = {};
@@ -473,22 +470,12 @@ export async function getDenomResp(
   ]);
   // The last element of denomResps is defaultDenomPromise
   const defaultDenomData = denomResults.pop();
-  console.log("default desnom data: ", defaultDenomData);
 
   denomResults.forEach((resp, i) => {
     // should only have one facet per resp because we pass in exactly one
     const facetId = facetIds[i];
     if (facetId) {
       denomsByFacet[facetId] = resp;
-    } else {
-      // if the facet isn't found or something goes wrong with the facet-specific denom data, log it
-      //  denomsByFacet[facetId] = defaultDenomData;
-      console.log(
-        "NO FACET ID FOUND, from resp.facets: ",
-        resp.facets,
-        " and resp: ",
-        resp
-      );
     }
   });
 
@@ -518,12 +505,6 @@ export function getDenomInfo(
   // (temporary) if denomData is a map, find the one that matches the facet used, otherwise use the regular denomData
   let matchingDenomData: SeriesApiResponse;
   matchingDenomData = denomData[facetUsed];
-  console.log(
-    "matching denomData for geo id: ",
-    placeDcid,
-    facetUsed,
-    matchingDenomData
-  );
   // default to defaultDenomData if no facet-specific denomData is found for a given place
   let placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   if (
@@ -533,30 +514,22 @@ export function getDenomInfo(
     _.isEmpty(placeDenomData.series)
   ) {
     matchingDenomData = defaultDenomData;
-    console.log(
-      "setting matchingDenomData to default, defaultDenomData: ",
-      defaultDenomData
-    );
     // resetting because denomData changed
     placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   }
 
+  // if there really is no denominator data, return null -- this is handled in the tiles
   if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
-    console.log("Returning null");
     return null;
   }
 
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
-    console.log(
-      "Returning null in a second place, placeDenomData: ",
-      placeDenomData
-    );
     return null;
   }
+
   const denomSeries = placeDenomData.series;
   const denomObs = getMatchingObservation(denomSeries, mainStatDate);
   if (!denomObs || !denomObs.value) {
-    console.log("Returning null third");
     return null;
   }
 

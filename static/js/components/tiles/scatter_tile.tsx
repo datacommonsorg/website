@@ -363,8 +363,6 @@ async function getPopulationInfo(
     return [null, null];
   }
 
-  console.log("stat vars passed in: ", [...statVars]);
-
   const [denomsByFacet, defaultDenomData] = await getDenomResp(
     [...statVars],
     statResp,
@@ -373,12 +371,6 @@ async function getPopulationInfo(
     null,
     placeDcid,
     enclosedPlaceType
-  );
-
-  console.log(
-    "denoms by facet, default denoms in getPopulationInfo: ",
-    denomsByFacet,
-    defaultDenomData
   );
 
   return [denomsByFacet, defaultDenomData];
@@ -424,7 +416,6 @@ async function getPopulationInfo(
 export const fetchData = async (
   props: ScatterTilePropType
 ): Promise<ScatterChartData> => {
-  console.log("fetchData props:", JSON.stringify(props, null, 2));
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
     return;
@@ -472,21 +463,12 @@ export const fetchData = async (
     ]);
     // HANDLE DENOM/POPULATION HERE
     // this formats and resolves the query promise
-    console.log("placeStats:", placeStats);
     const [denomsByFacet, defaultDenomData] = await getPopulationInfo(
       props.place.dcid,
       props.enclosedPlaceType,
       props.statVarSpec,
       placeStats,
       props.apiRoot
-    );
-    console.log(
-      "denomsByFacet in fetchData :",
-      JSON.stringify(denomsByFacet, null, 2)
-    );
-    console.log(
-      "defaultDenomData in fetchData:",
-      JSON.stringify(defaultDenomData, null, 2)
     );
     const statVarNames = await getStatVarNames(
       props.statVarSpec,
@@ -500,10 +482,8 @@ export const fetchData = async (
       statVarNames,
     };
     const result = rawToChart(rawData, props);
-    console.log("fetchData result:", JSON.stringify(result, null, 2));
     return result;
   } catch (error) {
-    console.error("fetchData error:", error);
     return null;
   }
 };
@@ -512,8 +492,6 @@ function rawToChart(
   rawData: RawData,
   props: ScatterTilePropType
 ): ScatterChartData {
-  // console.log("rawToChart rawData:", JSON.stringify(rawData, null, 2));
-  // console.log("rawToChart props:", JSON.stringify(props, null, 2));
   const yStatVar = props.statVarSpec[0];
   const xStatVar = props.statVarSpec[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
@@ -573,9 +551,6 @@ function rawToChart(
       rawData.placeStats.facets
     );
     if (!placeChartData) {
-      console.log(
-        `SCATTER: no data ${xStatVar} / ${yStatVar} for ${place}. skipping.`
-      );
       continue;
     }
     placeChartData.sources.forEach((source) => {
@@ -586,7 +561,6 @@ function rawToChart(
     const point = placeChartData.point;
     if (xStatVar.denom) {
       const xPlaceFacet = xPlacePointStat[place].facet;
-      // console.log("xStatVar: ", xStatVar, xPlacePointStat[place].facet);
       const denomInfo = getDenomInfo(
         xStatVar,
         rawData.denomsByFacet,
@@ -595,10 +569,6 @@ function rawToChart(
         xPlaceFacet,
         rawData.defaultDenomData
       );
-      // console.log(
-      //   `rawToChart x-denom for ${place}:`,
-      //   JSON.stringify(denomInfo, null, 2)
-      // );
       if (!denomInfo) {
         // skip this data point because missing denom data.
         continue;
@@ -608,14 +578,6 @@ function rawToChart(
       point.xPopVal = denomInfo.value;
       sources.add(denomInfo.source);
       const xDenomStatVar = xStatVar.denom;
-      if (!rawData.denomsByFacet[xPlaceFacet] && rawData.defaultDenomData) {
-        console.log(
-          "Didn't find denom for facet: ",
-          xPlaceFacet,
-          facets[xPlaceFacet],
-          rawData.defaultDenomData.facets?.[xPlaceFacet]
-        );
-      }
       const xDenomSeries =
         rawData.denomsByFacet[xPlaceFacet]?.data?.[xDenomStatVar]?.[place] ??
         rawData.defaultDenomData?.data?.[xDenomStatVar]?.[place];
@@ -646,10 +608,6 @@ function rawToChart(
         yPlaceFacet,
         rawData.defaultDenomData
       );
-      console.log(
-        `rawToChart y-denom for ${place}:`,
-        JSON.stringify(denomInfo, null, 2)
-      );
       if (!denomInfo) {
         // skip this data point because missing denom data.
         continue;
@@ -659,14 +617,6 @@ function rawToChart(
       point.yPopVal = denomInfo.value;
       sources.add(denomInfo.source);
       const yDenomStatVar = yStatVar.denom;
-      if (!rawData.denomsByFacet[yPlaceFacet] && rawData.defaultDenomData) {
-        console.log(
-          "Didn't find denom for facet: ",
-          yPlaceFacet,
-          facets[yPlaceFacet],
-          rawData.defaultDenomData.facets?.[yPlaceFacet]
-        );
-      }
       const yDenomSeries =
         rawData.denomsByFacet[xStatVar.facetId]?.data?.[yDenomStatVar]?.[
           place

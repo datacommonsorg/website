@@ -695,7 +695,6 @@ function rawToChart(
       });
       if (rawData.variable.denom) {
         const facet = placeStat[placeDcid].facet;
-        console.log("FACET in map: ", facet);
         const denomInfo = getDenomInfo(
           rawData.variable,
           rawData.denomsByFacet,

@@ -399,7 +399,6 @@ export const fetchData = async (
   const denomSvs = props.variables.map((spec) => spec.denom).filter(Boolean);
   let filterPromise: Promise<PointApiResponse>;
   if ("places" in props && !_.isEmpty(props.places)) {
-    console.log("Getting point");
     filterPromise = getPoint(
       apiRoot,
       props.places,
@@ -408,7 +407,6 @@ export const fetchData = async (
       undefined
     );
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
-    console.log("Getting point within");
     filterPromise = getPointWithin(
       apiRoot,
       props.enclosedPlaceType,
@@ -423,7 +421,6 @@ export const fetchData = async (
       Promise.all(statPromises),
       filterPromise,
     ]);
-    console.log("filterResp.data: ", filterResp.data);
 
     // Merge the responses of all stat promises to get all facets that they use
     const statResp: PointApiResponse = { data: {}, facets: {} };
@@ -437,7 +434,6 @@ export const fetchData = async (
       !("places" in props && !_.isEmpty(props.places)) &&
       "enclosedPlaceType" in props &&
       "parentPlace" in props;
-    console.log("useSeriesWithin: ", useSeriesWithin);
     const [denomsByFacet, defaultDenomData] = await getDenomResp(
       denomSvs,
       statResp,
@@ -456,7 +452,6 @@ export const fetchData = async (
       const entityDcidsSet = new Set<string>();
       Object.keys(filterResp.data).forEach((statVarKey) => {
         Object.keys(filterResp.data[statVarKey]).forEach((entityDcid) => {
-          console.log("entity DCID: ", entityDcid);
           entityDcidsSet.add(entityDcid);
         });
       });
@@ -468,7 +463,6 @@ export const fetchData = async (
       });
     }
     for (const place in filterResp.data[FILTER_STAT_VAR]) {
-      console.log("place being pushed: ", place);
       popPoints.push({
         placeDcid: place,
         value: filterResp.data[FILTER_STAT_VAR][place].value,
@@ -514,7 +508,6 @@ export const fetchData = async (
       dateOverride
     );
   } catch (error) {
-    console.log(error);
     return null;
   }
 };

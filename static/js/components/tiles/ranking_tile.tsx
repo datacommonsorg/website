@@ -412,12 +412,6 @@ export async function fetchData(
     );
   }
 
-  console.log(
-    "denoms by facet and defuault denoms in ranking tile: ",
-    denomsByFacet,
-    defaultDenomData
-  );
-
   const rankingData = pointApiToPerSvRankingData(
     mergedResponse,
     denomsByFacet,
@@ -479,7 +473,6 @@ function pointApiToPerSvRankingData(
   defaultDenomData: SeriesApiResponse,
   statVarSpecs: StatVarSpec[]
 ): RankingData {
-  console.log("denom data in pointApi: ", denomData);
   const rankingData: RankingData = {};
   // Get Ranking data
   for (const spec of statVarSpecs) {

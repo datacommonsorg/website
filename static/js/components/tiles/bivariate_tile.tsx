@@ -315,7 +315,6 @@ function rawToChart(
       rawData.placeStats.facets
     );
     if (!placeChartData) {
-      console.log(`BIVARIATE: No data for ${place}, skipping`);
       continue;
     }
     placeChartData.sources.forEach((source) => {
@@ -327,7 +326,6 @@ function rawToChart(
     if (xStatVar.denom) {
       // TODO: confirm facet
       const xFacet = xPlacePointStat[place].facet;
-      console.log("FACET USED X: ", xFacet);
       const denomInfo = getDenomInfo(
         xStatVar,
         rawData.denomsByFacet,
@@ -350,7 +348,6 @@ function rawToChart(
     }
     if (yStatVar.denom) {
       const yFacet = yPlacePointStat[place].facet;
-      console.log("FACET USED Y: ", yFacet);
       const denomInfo = getDenomInfo(
         yStatVar,
         rawData.denomsByFacet,
