@@ -632,20 +632,11 @@ Count of live births where mothers are White,Count_BirthEvent_LiveBirth_MotherWh
 Count of live births where mothers are multi-race,Count_BirthEvent_LiveBirth_MotherTwoOrMoreRaces
 Count of live births where mothers have Doctorate Degree or Professional School Degree,Count_BirthEvent_LiveBirth_MotherDoctorateDegreeOrProfessionalSchoolDegree
 Count of people aged 15 or more years who are now married,Count_Person_15OrMoreYears_NowMarried
-Count of people with bachelor's degree in engineering manufacturing or construction engineering,Count_Person_BachelorOfEngineeringMajorOrEngineeringManufacturingOrConstructionEngineering
-Count of people with bachelor's degree in engineering or industry major,Count_Person_BachelorOfEngineeringMajorOrIndustries
-Count of people with bachelor's degree in information and communication technology,Count_Person_BachelorOfInformationAndCommunicationsTechnologiesMajor
 Count of student enrolled in college or graduate school,Count_Student_EnrolledInCollegeOrGraduateSchool
-Count of student with bachelor's degree,Count_Student_BachelorsDegree_TertiaryEducation
-Count of student with doctorate degree,Count_Student_DoctorateDegree_TertiaryEducation
-Count of unemployed females with a masters or doctorate degree,Count_Person_EducationalAttainmentMastersDegreeOrDoctorateDegree_Unemployed_Female
-Count of unemployed females with lower secondary education,Count_Person_Unemployed_Female_LowerSecondaryEducation
-Count of unemployed males with no formal education,Count_Person_EducationalAttainmentNoEducation_Unemployed_Male
 Count of unemployed people with a bachelor's degree or diploma,Count_Person_EducationalAttainmentBachelorsDegreeOrDiploma_Unemployed
 Count of unemployed people with a masters or doctorate degree,Count_Person_EducationalAttainmentMastersDegreeOrDoctorateDegree_Unemployed
 Count of unemployed people with no formal education,Count_Person_EducationalAttainmentNoEducation_Unemployed
 Count of unemployed people with specialized secondary education,Count_Person_Unemployed_SpecializedSecondarySchool
-Count of unmarried people aged 15 or more,Count_Person_15OrMoreYears_Unmarried
 Coverage by protected areas of important sites for mountain biodiversity,dc/topic/sdg_15.4.1
 Coverage of essential health services,dc/topic/sdg_3.8.1
 Coverage of protected areas in relation to marine areas,dc/topic/sdg_14.5.1
