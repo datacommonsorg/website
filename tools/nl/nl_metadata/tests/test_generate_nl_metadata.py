@@ -220,9 +220,11 @@ class TestAddMetadataE2E(unittest.TestCase):
     # Create mock blobs
     blob1 = MagicMock()
     blob1.name = 'my-periodic-folder/file1.jsonl'
+    blob1.download_as_text.return_value = '{"key": "value1"}\n'
 
     blob2 = MagicMock()
     blob2.name = 'my-periodic-folder/file2.jsonl'
+    blob2.download_as_text.return_value = '{"key": "value2"}\n'
 
     # This blob should be ignored because it's in a subdirectory
     # The delimiter='/' call means list_blobs won't even return it, but we mock the whole return list for clarity.
@@ -247,8 +249,8 @@ class TestAddMetadataE2E(unittest.TestCase):
                                                    delimiter='/')
 
     # Verify that the correct files were downloaded
-    self.assertEqual(blob1.download_to_file.call_count, 1)
-    self.assertEqual(blob2.download_to_file.call_count, 1)
+    self.assertEqual(blob1.download_as_text.call_count, 1)
+    self.assertEqual(blob2.download_as_text.call_count, 1)
 
     # Verify that the new compacted file was uploaded
     mock_bucket.blob.assert_called_with(
@@ -282,9 +284,11 @@ class TestAddMetadataE2E(unittest.TestCase):
     # Create mock blobs
     blob1 = MagicMock()
     blob1.name = 'my-periodic-folder/file1.jsonl'
+    blob1.download_as_text.return_value = '{}'
 
     blob2 = MagicMock()
     blob2.name = 'my-periodic-folder/file2.jsonl'
+    blob2.download_as_text.return_value = '{}'
 
     mock_bucket.list_blobs.return_value = [blob1, blob2]
 

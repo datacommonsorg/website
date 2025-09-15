@@ -60,7 +60,7 @@ def extract_args() -> argparse.Namespace:
       type=str,
       default=None)
   parser.add_argument(
-      "--failedAttemptsPath",
+      "--gcsFailureFolder",
       help="For retry_failures mode: Path in GCS to the failed attempts files.",
       type=str,
       default=None)
@@ -142,9 +142,8 @@ def execute_cloud_run_jobs(api_keys: list[str], args: argparse.Namespace):
     if args.runMode in ['bigquery', 'bigquery_diffs'] and args.maxStatVars:
       container_args_list.append(f"--maxStatVars={args.maxStatVars}")
 
-    if args.runMode == 'retry_failures' and args.failedAttemptsPath:
-      container_args_list.append(
-          f"--failedAttemptsPath={args.failedAttemptsPath}")
+    if args.runMode == 'retry_failures' and args.gcsFailureFolder:
+      container_args_list.append(f"--gcsFailureFolder={args.gcsFailureFolder}")
 
     if args.runMode == 'compact':
       if args.output_filename:

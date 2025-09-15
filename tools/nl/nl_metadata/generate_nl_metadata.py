@@ -110,6 +110,12 @@ def extract_flags() -> argparse.Namespace:
       type=str,
       default=None)
   parser.add_argument(
+      "--gcsFailureFolder",
+      help=
+      "The GCS folder to save failure files to. Defaults to a 'failures' subfolder within the main gcsFolder.",
+      type=str,
+      default=None)
+  parser.add_argument(
       "--totalPartitions",
       help=
       "The total number of partitions to run in parallel, each using a different Gemini API key. Only used if --useBigQuery is specified.",
@@ -121,12 +127,6 @@ def extract_flags() -> argparse.Namespace:
       "The current partition number (0-indexed) to run. Should be within the range [0, totalPartitions). Only used if --useBigQuery is specified.",
       type=int,
       default=0)
-  parser.add_argument(
-      "--failedAttemptsPath",
-      help="Path to a JSON file (or folder of files) containing previously failed SV metadata to re-process. If --useGCS is also specified, the file should be in the GCS bucket. " \
-      "Note that the specified file should contain all metadata - If this flag is used, neither BQ nor the DC API will be called.",
-      type=str,
-      default=None)
   parser.add_argument(
       "--output_filename",
       help=
@@ -175,28 +175,17 @@ def verify_args(args: argparse.Namespace) -> None:
     raise ValueError("maxStatVars must be a positive integer.")
 
   if args.runMode == config.RUN_MODE_RETRY_FAILURES:
-    if not args.failedAttemptsPath:
+    if not args.gcsFailureFolder:
       raise ValueError(
-          "--failedAttemptsPath must be provided when runMode is 'retry_failures'."
+          "--gcsFailureFolder must be provided when runMode is 'retry_failures'."
       )
-
-    if not args.failedAttemptsPath.endswith((".json", "/")):
+    if args.useGCS and not verify_gcs_path_exists(args.gcsFailureFolder):
       raise ValueError(
-          "failedAttemptsPath must be a path to a JSON file or a folder of JSON files."
+          f"GCS path {args.gcsFailureFolder} does not exist. Please check the path and try again."
       )
-    if args.useGCS and not verify_gcs_path_exists(args.failedAttemptsPath):
+    elif not args.useGCS:
       raise ValueError(
-          f"GCS path {args.failedAttemptsPath} does not exist. Please check the path and try again."
-      )
-    elif not args.useGCS and not os.path.exists(args.failedAttemptsPath):
-      raise ValueError(
-          f"Local path {args.failedAttemptsPath} does not exist. Please check the path and try again."
-      )
-  else:
-    if args.failedAttemptsPath:
-      print(
-          "Warning: --failedAttemptsPath is ignored when runMode is not 'retry_failures'."
-      )
+          "--useGCS must be specified when runMode is 'retry_failures'.")
 
   if args.runMode == config.RUN_MODE_COMPACT and not args.gcsFolder:
     raise ValueError("Error: --gcs_folder is required for 'compact' mode.")
@@ -363,7 +352,7 @@ async def main():
   match args.runMode:
     case config.RUN_MODE_RETRY_FAILURES:
       sv_metadata_iter = data_loader.read_sv_metadata_failed_attempts(
-          args.failedAttemptsPath, args.useGCS)
+          args.gcsFailureFolder, args.useGCS)
     case config.RUN_MODE_BIGQUERY:
       sv_metadata_iter = data_loader.create_sv_metadata_bigquery(
           args.totalPartitions, args.currPartition, args.maxStatVars)
@@ -404,6 +393,11 @@ async def main():
     gcs_folder = get_gcs_folder(args.gcsFolder,
                                 args.runMode) if args.useGCS else None
 
+    # Determine the folder for failure exports.
+    gcs_failure_folder = gcs_folder
+    if args.useGCS and args.gcsFailureFolder:
+      gcs_failure_folder = args.gcsFailureFolder
+
     if args.runMode == config.RUN_MODE_BIGQUERY_DIFFS or args.runMode == config.RUN_MODE_RETRY_FAILURES:
       timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
       # Create a unique filename for the diff file from this job partition
@@ -418,7 +412,8 @@ async def main():
       failed_filename = f"failures/failed_batch_{args.currPartition+1}_{page_number}"
 
     export_to_json(full_metadata, exported_filename, args.useGCS, gcs_folder)
-    export_to_json(failed_metadata, failed_filename, args.useGCS, gcs_folder)
+    export_to_json(failed_metadata, failed_filename, args.useGCS,
+                   gcs_failure_folder)
     page_number += 1
 
 

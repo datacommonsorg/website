@@ -21,9 +21,9 @@ MOCK_E2E_ARGS = {
     'useGCS': True,
     'maxStatVars': None,
     'gcsFolder': None,
+    'gcsFailureFolder': None,
     'totalPartitions': 1,
     'currPartition': 0,
-    'failedAttemptsPath': None,
     'output_filename': None,
     'delete_originals': False,
 }
@@ -36,9 +36,9 @@ MOCK_FAILED_ATTEMPTS_E2E_ARGS = {
     'useGCS': True,
     'maxStatVars': None,
     'gcsFolder': 'my-periodic-folder',
+    'gcsFailureFolder': 'gs://some/failed/path/',
     'totalPartitions': 1,
     'currPartition': 0,
-    'failedAttemptsPath': 'gs://some/failed/path/',
     'output_filename': None,
     'delete_originals': False,
 }
@@ -51,9 +51,9 @@ MOCK_NL_E2E_ARGS = {
     'useGCS': True,
     'maxStatVars': None,
     'gcsFolder': None,
+    'gcsFailureFolder': None,
     'totalPartitions': 1,
     'currPartition': 0,
-    'failedAttemptsPath': None,
     'output_filename': None,
     'delete_originals': False,
 }
@@ -197,9 +197,9 @@ MOCK_COMPACT_ARGS = {
     'language': None,
     'useGCS': True,  # Assumed for this test
     'maxStatVars': None,
+    'gcsFailureFolder': None,
     'totalPartitions': 1,
     'currPartition': 0,
-    'failedAttemptsPath': None,
     'output_filename': 'compacted_test.jsonl',
 }
 
@@ -218,7 +218,7 @@ MOCK_DIFFS_ARGS = {
     # Other args not used in this test
     'language': 'English',
     'maxStatVars': None,
-    'failedAttemptsPath': None,
+    'gcsFailureFolder': None,
     'output_filename': None,
     'delete_originals': False,
 }
