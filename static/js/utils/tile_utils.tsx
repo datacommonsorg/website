@@ -442,8 +442,7 @@ export async function getDenomResp(
   allPlaces?: string[],
   // parent and place type for series within queries
   parentPlace?: string,
-  placeType?: string,
-  highlightFacet?: FacetMetadata
+  placeType?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   // fetch the series for each facet
   const denomPromises = [];
@@ -453,7 +452,7 @@ export async function getDenomResp(
     denomPromises.push(
       useSeriesWithin
         ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
-        : getSeries(apiRoot, allPlaces, denoms, [facetId], highlightFacet)
+        : getSeries(apiRoot, allPlaces, denoms, [facetId])
     );
   });
   console.log("stat resp facets: ", statResp.facets);

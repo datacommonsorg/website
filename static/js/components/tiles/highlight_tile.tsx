@@ -235,8 +235,7 @@ export const fetchData = async (
       false,
       [place.dcid],
       "",
-      "",
-      highlightFacet
+      ""
     );
     const denomInfo = getDenomInfo(
       statVarSpec,
