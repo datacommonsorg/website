@@ -2053,6 +2053,7 @@ Number of black or african american people with disabilities,Count_Person_WithDi
 Number of boys under 4 years old,Count_Person_0To4Years_Male
 Number of burglaries,Count_CriminalActivities_Burglary
 Number of car thefts,Count_CriminalActivities_MotorVehicleTheft
+Number of chicken pox cases,Count_MedicalConditionIncident_ConditionVaricella
 Number of children without health insurance,Count_Person_18OrLessYears_NoHealthInsurance
 Number of civilians Aged 18 or More Resides In Nursing Facilities,Count_Person_18OrMoreYears_Civilian_ResidesInNursingFacilities
 Number of civilians aged 18 or more,Count_Person_18OrMoreYears_Civilian
@@ -2547,11 +2548,6 @@ Number of mumps cases,Count_MedicalConditionIncident_ConditionMumps
 Number of murders and non-negligent manslaughters,Count_CriminalActivities_MurderAndNonNegligentManslaughter
 Number of muti races females who have attended some college,dc/q98jxycvs422f
 Number of muti-race females,Count_Person_Female_TwoOrMoreRaces
-Number of national elementary schools,Count_School_ElementarySchool_NationalSchool
-Number of national high schools,Count_School_HighSchool_NationalSchool
-Number of national junior colleges,Count_School_JuniorCollege_NationalSchool
-Number of national kindergartens,Count_School_Kindergarten_NationalSchool
-Number of national middle schools,Count_School_MiddleSchool_NationalSchool
 Number of native born people who speak Asian and Pacific Island languages at home,dc/wbjmvkyqf6dm3
 Number of native hawaiian or other pacific islander households that have received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 Number of native hawaiian or other pacific islander people currently enrolled in school,dc/8cnhmxe67qddf
@@ -2746,20 +2742,10 @@ Number of people with public health insurance,Count_Person_WithPublicHealthInsur
 "Number of people working in sports, hobby, music instruments, and book stores",dc/e2zdnwjjhyj36
 Number of people working in the retail trade industry,dc/p69tpsldf99h7
 Number of primary syphilis cases,Count_MedicalConditionIncident_ConditionPrimarySyphilis
-Number of private elementary schools,Count_School_ElementarySchool_PrivateSchool
-Number of private high schools,Count_School_HighSchool_PrivateSchool
-Number of private junior colleges,Count_School_JuniorCollege_PrivateSchool
-Number of private kindergartens,Count_School_Kindergarten_PrivateSchool
-Number of private middle schools,Count_School_MiddleSchool_PrivateSchool
 Number of privately owned Wind Electric Power Generation establishments,dc/evcytmdmc9xgd
 Number of property crime incidents,Count_CriminalActivities_PropertyCrime
 Number of prople with self care disability,Count_Person_SelfCareDifficulty
 Number of public and central hospitals,Count_HealthEstablishment_PublicAndCentralHospital
-Number of public elementary schools,Count_School_ElementarySchool_PublicSchool
-Number of public high schools,Count_School_HighSchool_PublicSchool
-Number of public junior colleges,Count_School_JuniorCollege_PublicSchool
-Number of public kindergartens,Count_School_Kindergarten_PublicSchool
-Number of public middle schools,Count_School_MiddleSchool_PublicSchool
 Number of rental Housing Units with Cash Rent,Count_HousingUnit_WithCashRent
 Number of rented houses,Count_HousingUnit_RenterOccupied
 Number of renter occupied family households,Count_Household_FamilyHousehold_RenterOccupied
@@ -2843,17 +2829,6 @@ Number of students in high schools,Count_Student_HighSchool
 Number of students in junior colleges,Count_Student_JuniorCollege_Enrolled
 Number of students in kindergartens,Count_Student_Kindergarten
 Number of students in middle schools,Count_Student_MiddleSchool
-Number of students in national elementary schools,Count_Student_ElementarySchool_NationalSchool
-Number of students in national high schools,Count_Student_HighSchool_NationalSchool
-Number of students in national junior colleges,Count_Student_JuniorCollege_Enrolled_NationalSchool
-Number of students in private elementary schools,Count_Student_ElementarySchool_PrivateSchool
-Number of students in private high schools,Count_Student_HighSchool_PrivateSchool
-Number of students in private junior colleges,Count_Student_JuniorCollege_Enrolled_PrivateSchool
-Number of students in private middle schools,Count_Student_MiddleSchool_PrivateSchool
-Number of students in public elementary schools,Count_Student_ElementarySchool_PublicSchool
-Number of students in public high schools,Count_Student_HighSchool_PublicSchool
-Number of students in public junior colleges,Count_Student_JuniorCollege_Enrolled_PublicSchool
-Number of students in public middle schools,Count_Student_MiddleSchool_PublicSchool
 Number of students nrolled in Undergraduate college,Count_Person_DetailedEnrolledInCollegeUndergraduateYears
 Number of suicides of incarcerated females,dc/shgj6xwg96pp3
 Number of suicides of incarcerated males,dc/ep052e5d1p2t4
@@ -2879,7 +2854,6 @@ Number of urban scheduled caste people,Count_Person_ScheduledCaste_Urban
 Number of urban scheduled caste people below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Urban
 Number of urban scheduled tribe people,Count_Person_ScheduledTribe_Urban
 Number of urban scheduled tribe people below 6 years,Count_Person_ScheduledTribe_YearsUpto6_Urban
-Number of varicella cases,Count_MedicalConditionIncident_ConditionVaricella
 "Number of verified cases of killing, kidnapping, enforced disappearance, arbitrary detention and torture of journalists, associated media personnel, trade unionists and human rights advocates in the previous 12 months",dc/topic/sdg_16.10.1
 Number of veterans,Count_Person_Veteran
 "Number of victims of human trafficking per 100K population, by sex, age and form of exploitation",dc/topic/sdg_16.2.2
