@@ -105,7 +105,7 @@ class DownloadTestMixin():
     # Click preview
     shared.wait_for_loading(self.driver)
     form_container = find_elem(self.driver, by=By.ID, value='plot-container')
-    shared.click_el(self.driver, (By.TAG_NAME, 'button'))
+    shared.click_el(form_container, (By.TAG_NAME, 'button'))
     # shared.click_el(
     #     self.driver,
     #     (By.XPATH, '//*[@id="plot-container"]/div[1]/div/div/button'))
