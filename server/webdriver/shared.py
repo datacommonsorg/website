@@ -13,13 +13,11 @@
 # limitations under the License.
 """Common library for functions used by multiple webdriver tests"""
 
-import time
 import urllib
 import urllib.request
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
@@ -209,7 +207,7 @@ def _search_for_places(self, driver, search_term, place_type=None):
 
   if place_type:
     # Wait for place types to load and click on one
-    wait_elem(self.driver, by=By.CSS_SELECTOR, value='.place-type-selector')
+    wait_elem(self.driver, by=By.CLASS_NAME, value='place-type-selector')
     # Find the specific label by its text using XPath and click it
     place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
     click_el(driver, (By.XPATH, place_type_xpath))

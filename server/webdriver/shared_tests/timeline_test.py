@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import time
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -164,19 +162,7 @@ class TimelineTestMixin():
     # Load Timeline Tool page with Statistical Variables.
     self.driver.get(self.url_ + TIMELINE_URL + STATVAR_URL_1)
 
-    # # Wait until search box is present and type California.
-    # search_box_input = find_elem(self.driver, by=By.ID, value='ac')
-    # search_box_input.send_keys(PLACE_SEARCH_CA)
-
-    # # Wait until there is at least one result in autocomplete results.
-    # self.assertIsNotNone(find_elem(self.driver, value='pac-item'))
-
-    # # Click on the first result.
-    # shared.wait_for_loading(self.driver)
-    # first_result = find_elem(self.driver,
-    #                          by=By.CSS_SELECTOR,
-    #                          value=".pac-item:nth-child(1)")
-    # first_result.click()
+    # Search for California
     shared.search_for_places(self,
                              self.driver,
                              PLACE_SEARCH_CA,
