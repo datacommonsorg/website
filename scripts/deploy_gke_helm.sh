@@ -98,7 +98,8 @@ function deploy_mixer() {
   --set-file mixer.schemaConfigs."base\.mcf"=mixer/deploy/mapping/base.mcf \
   --set-file mixer.schemaConfigs."encode\.mcf"=mixer/deploy/mapping/encode.mcf \
   --set-file kgStoreConfig.bigqueryVersion=mixer/deploy/storage/bigquery.version \
-  --set-file kgStoreConfig.baseBigtableInfo=mixer/deploy/storage/base_bigtable_info.yaml
+  --set-file kgStoreConfig.baseBigtableInfo=mixer/deploy/storage/base_bigtable_info.yaml \
+  --set-file kgStoreConfig.spannerGraphInfo=mixer/deploy/storage/spanner_graph_info.yaml
 }
 
 # Deploy Cloud Endpoints

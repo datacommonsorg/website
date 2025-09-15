@@ -45,7 +45,17 @@ mixer:
   hostProject:
   serviceName:
   cacheSVFormula: true
+  useSpannerGraph: true
+  enableV3: true
+  redis:
+    enabled: true
+    configFile: |
+      instances:
+        - region: "us-central1"
+          host: "10.13.112.19"
+          port: "6379"
   enableOtlp: true
+  v3MirrorFraction: 0.5
 
 serviceAccount:
   name: website-ksa
