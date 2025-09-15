@@ -90,8 +90,7 @@ def extract_flags() -> argparse.Namespace:
       "--language",
       help=
       "The language to return the metadata results in. Currently supports English, French, and Spanish.",
-      choices=["English", "French", "Spanish"
-              ],
+      choices=["English", "French", "Spanish"],
       type=str,
       default="English")
   parser.add_argument("--useGCS",
@@ -334,7 +333,7 @@ def compact_files(gcs_folder: str, output_filename: str,
       f"\nUploading new compacted file to: gs://{config.GCS_BUCKET}/{compacted_blob_path}"
   )
   compacted_blob.upload_from_filename(temp_file_path,
-                                     content_type="application/json")
+                                      content_type="application/json")
   print("Upload complete.")
 
   # 4. Clean up the local temporary file

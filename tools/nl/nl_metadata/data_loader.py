@@ -109,7 +109,7 @@ def read_gcs_jsonl_ids(gcs_folder_path: str) -> set[str]:
   bucket = gcs_client.bucket(config.GCS_BUCKET)
 
   dcids = set()
-  blobs = list(bucket.list_blobs(prefix=gcs_folder_path))
+  blobs = list(bucket.list_blobs(prefix=gcs_folder_path, delimiter="/"))
   for blob in blobs:
     if blob.name.endswith(".jsonl") or blob.name.endswith(
         ".json"):  # Assuming JSONL or JSON files
