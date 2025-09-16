@@ -13,12 +13,38 @@
 # limitations under the License.
 
 steps:
+  # 1. Build the image
   - name: "gcr.io/cloud-builders/docker"
+    id: BUILD
     args:
       - build
       - --tag=us-west1-docker.pkg.dev/datcom-ci/cloud-run-source-deploy/nl-metadata-image:latest
       - "."
     dir: "tools/nl/nl_metadata"
 
-images:
-  - "us-west1-docker.pkg.dev/datcom-ci/cloud-run-source-deploy/nl-metadata-image:latest"
+  # 2. Push the image
+  - name: "gcr.io/cloud-builders/docker"
+    id: PUSH
+    args:
+      - push
+      - "us-west1-docker.pkg.dev/datcom-ci/cloud-run-source-deploy/nl-metadata-image:latest"
+    wait_for:
+      - BUILD
+
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: DEPLOY
+    entrypoint: gcloud
+    args:
+      - run
+      - jobs
+      - update
+      - stat-var-metadata-generator
+      - '--image'
+      - 'us-west1-docker.pkg.dev/datcom-ci/cloud-run-source-deploy/nl-metadata-image:latest'
+      - '--region'
+      - 'us-central1'
+      - '--project'
+      - 'datcom-nl'
+    wait_for:
+      - PUSH
