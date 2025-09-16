@@ -517,7 +517,7 @@ export function getDenomInfo(
     placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   }
 
-  // if there really is no denominator data, return null -- this is handled in the tiles
+  // if there really is no denominator data, return null
   if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
     return null;
   }
