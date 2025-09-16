@@ -234,9 +234,13 @@ export const fetchData = async (
       apiRoot,
       false,
       [place.dcid],
-      "",
-      ""
+      null,
+      null,
+      // if a single facet is selected
+      facetId
     );
+    console.log("denomsByFacet in highlight: ", denomsByFacet);
+    console.log("default denoms in highlight: ", defaultDenom);
     const denomInfo = getDenomInfo(
       statVarSpec,
       denomsByFacet,

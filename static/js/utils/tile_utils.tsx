@@ -431,7 +431,8 @@ interface DenomInfo {
   @param allPlaces list of place DCIDs to fetch if using getSeries
   @param parentPlace parent place for getSeriesWithin
   @param placeType subplace type for getSeriesWithin
-  @param highlightFacet optional highlight facet passed into getSeriesWithin
+  @param singleFacet optional facet if the user has selected the single-facet option, in which case we 
+  only ever use this facet and do not query default denom data
  */
 export async function getDenomResp(
   denoms: string[],
@@ -442,12 +443,22 @@ export async function getDenomResp(
   allPlaces?: string[],
   // parent and place type for series within queries
   parentPlace?: string,
-  placeType?: string
+  placeType?: string,
+  // multiple in the case that there are multiple variables -- we use this to indicate if we want to
+  // get default denom data
+  singleFacets?: string[]
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   // fetch the series for each facet
   const denomPromises = [];
-  const facetIds =
-    !_.isEmpty(denoms) && statResp.facets ? Object.keys(statResp.facets) : [];
+  let facetIds = [];
+  // if the user has selected a facet, only query for that one
+  if (singleFacets && singleFacets.length > 0) {
+    facetIds = singleFacets;
+  } else {
+    facetIds =
+      !_.isEmpty(denoms) && statResp.facets ? Object.keys(statResp.facets) : [];
+  }
+
   facetIds.forEach((facetId) => {
     denomPromises.push(
       useSeriesWithin
@@ -455,12 +466,17 @@ export async function getDenomResp(
         : getSeries(apiRoot, allPlaces, denoms, [facetId])
     );
   });
+
   // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
-  const defaultDenomPromise = _.isEmpty(denoms)
-    ? Promise.resolve(null)
-    : useSeriesWithin
-    ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
-    : getSeries(apiRoot, allPlaces, denoms, []);
+  // we don't query this if the user has selected a single facet, so if an entity using that facet does not have denominator information, we
+  // don't show it at all.
+  console.log("value of singleFacets: ", singleFacets, !!singleFacets);
+  const defaultDenomPromise =
+    _.isEmpty(denoms) || singleFacets?.length > 0
+      ? Promise.resolve(null)
+      : useSeriesWithin
+      ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
+      : getSeries(apiRoot, allPlaces, denoms, []);
 
   // organize results into a map from facet to API response
   const denomsByFacet: Record<string, SeriesApiResponse> = {};
@@ -470,6 +486,7 @@ export async function getDenomResp(
   ]);
   // The last element of denomResps is defaultDenomPromise
   const defaultDenomData = denomResults.pop();
+  console.log("denomResults pop: ", defaultDenomData);
 
   denomResults.forEach((resp, i) => {
     // should only have one facet per resp because we pass in exactly one

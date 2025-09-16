@@ -408,7 +408,10 @@ export async function fetchData(
       true, // useSeriesWithin
       undefined, // allPlaces
       parentPlace,
-      enclosedPlaceType
+      enclosedPlaceType,
+      // facet IDs used for the whole response -- this way if dif vars are included for dif variables they are all accounted
+      // for, but we still don't query denom data because we've selected facets
+      Object.keys(mergedResponse.facets)
     );
   }
 

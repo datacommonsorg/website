@@ -344,6 +344,7 @@ export function getReplacementStrings(
 export const fetchData = async (
   props: LineTilePropType
 ): Promise<LineChartData> => {
+  console.log("reaching lineGrph");
   const facetToVariable = { [EMPTY_FACET_ID_KEY]: [] };
   for (const spec of props.statVarSpec) {
     const facetId = spec.facetId || EMPTY_FACET_ID_KEY;
@@ -351,9 +352,9 @@ export const fetchData = async (
       facetToVariable[facetId] = [];
     }
     facetToVariable[facetId].push(spec.statVar);
-    if (spec.denom) {
-      facetToVariable[EMPTY_FACET_ID_KEY].push(spec.denom);
-    }
+    // if (spec.denom) {
+    //   facetToVariable[EMPTY_FACET_ID_KEY].push(spec.denom);
+    // }
   }
 
   const dataPromises: Promise<SeriesApiResponse>[] = [];
@@ -401,6 +402,7 @@ export const fetchData = async (
     return mergedResponse;
   });
   const resp = await dataPromise;
+
   // get place names from dcids
   const placeDcids = Object.keys(resp.data[props.statVarSpec[0].statVar]);
   const statVarNames = await getStatVarNames(
