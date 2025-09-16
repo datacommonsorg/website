@@ -357,6 +357,7 @@ export class StatVarHierarchy extends React.Component<
     path?: string[],
     isSearchSelection?: boolean
   ): void {
+    console.log("Toggling " + sv + " " + window.location.href);
     if (sv in this.state.svPath) {
       const tmp = _.cloneDeep(this.state.svPath);
       delete tmp[sv];
