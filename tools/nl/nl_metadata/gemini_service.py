@@ -7,6 +7,7 @@ from schemas import StatVarMetadata
 from utils import split_into_batches
 
 
+# TODO(gmechali): Consider switching the delay param to a duration type.
 async def generate_alt_sentences(
     gemini_client: genai.Client, gemini_config: types.GenerateContentConfig,
     gemini_prompt: str, sv_metadata: list[dict[str, str | list[str]]],
