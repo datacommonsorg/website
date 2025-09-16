@@ -35,7 +35,6 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
-import { FacetMetadata } from "../types/facet_metadata";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
 import { getSeries, getSeriesWithin } from "./data_fetch_utils";
@@ -468,8 +467,8 @@ export async function getDenomResp(
   });
 
   // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
-  // we don't query this if the user has selected a single facet, so if an entity using that facet does not have denominator information, we
-  // don't show it at all.
+  // we don't query this if the user has selected a single facet, so if an entity using that facet
+  // does not have denominator information, we don't show it at all.
   const defaultDenomPromise =
     _.isEmpty(denoms) || singleFacets?.length > 0
       ? Promise.resolve(null)

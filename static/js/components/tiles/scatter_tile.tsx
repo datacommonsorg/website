@@ -48,7 +48,6 @@ import {
   ObservationSpec,
 } from "../../shared/observation_specs";
 import {
-  FacetStore,
   PointApiResponse,
   SeriesApiResponse,
   StatMetadata,
