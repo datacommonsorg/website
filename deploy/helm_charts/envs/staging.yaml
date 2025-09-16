@@ -37,16 +37,6 @@ website:
         }
       }
 
-global:
-  mixer:
-    redis:
-      enabled: true
-      configFile: |
-        instances:
-          - region: "us-central1"
-            host: "10.38.211.19"
-            port: "6379"
-
 mixer:
   serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
   hostProject: "datcom-website-staging"
@@ -86,9 +76,6 @@ serviceGroups:
   recon: null
   svg:
     replicas: 2
-    # resources:
-    #   memoryRequest: "2G"
-    #   memoryLimit: "2G"
   node:
     replicas: 4
   observation:

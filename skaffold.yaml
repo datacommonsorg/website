@@ -450,7 +450,6 @@ profiles:
                   - region: "us-central1"
                     host: "10.212.232.163"
                     port: "6379"
-
               mixer.useSpannerGraph: true
               mixer.enableV3: true
               mixer.enableOtlp: true

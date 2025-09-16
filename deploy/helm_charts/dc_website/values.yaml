@@ -78,7 +78,7 @@ mixer:
     hostProject:
     serviceName:
 
-  schemaConfigs:
+    schemaConfigs:
 
 esp:
   image:
