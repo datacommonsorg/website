@@ -86,6 +86,9 @@ serviceGroups:
   recon: null
   svg:
     replicas: 2
+    # resources:
+    #   memoryRequest: "2G"
+    #   memoryLimit: "2G"
   node:
     replicas: 4
   observation:
