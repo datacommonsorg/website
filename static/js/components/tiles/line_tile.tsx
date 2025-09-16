@@ -65,6 +65,7 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
   clearContainer,
+  getDenomResp,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
@@ -346,15 +347,17 @@ export const fetchData = async (
 ): Promise<LineChartData> => {
   console.log("reaching lineGrph");
   const facetToVariable = { [EMPTY_FACET_ID_KEY]: [] };
+  const denoms = [];
   for (const spec of props.statVarSpec) {
     const facetId = spec.facetId || EMPTY_FACET_ID_KEY;
     if (!facetToVariable[facetId]) {
       facetToVariable[facetId] = [];
     }
     facetToVariable[facetId].push(spec.statVar);
-    // if (spec.denom) {
-    //   facetToVariable[EMPTY_FACET_ID_KEY].push(spec.denom);
-    // }
+    if (spec.denom) {
+      // facetToVariable[EMPTY_FACET_ID_KEY].push(spec.denom);
+      denoms.push(spec.denom);
+    }
   }
 
   const dataPromises: Promise<SeriesApiResponse>[] = [];
@@ -422,7 +425,26 @@ export const fetchData = async (
     // If many places and many stat vars, legends need to show both
     useBothLabels: props.statVarSpec.length > 1 && placeDcids.length > 1,
   };
-  return rawToChart(resp, props, placeNames, statVarNames, options);
+
+  // get denom info
+  const [denomsByFacet, defaultDenomData] = await getDenomResp(
+    denoms,
+    resp,
+    props.apiRoot,
+    !!props.enclosedPlaceType,
+    !props.enclosedPlaceType ? getPlaceDcids(props) : [],
+    props.enclosedPlaceType ? props.place.dcid : "",
+    props.enclosedPlaceType
+  );
+  return rawToChart(
+    resp,
+    props,
+    placeNames,
+    statVarNames,
+    options,
+    denomsByFacet,
+    defaultDenomData
+  );
 };
 
 export function draw(
@@ -464,7 +486,9 @@ function rawToChart(
   props: LineTilePropType,
   placeDcidToName: Record<string, string>,
   statVarDcidToName: Record<string, string>,
-  options: { usePlaceLabels: boolean; useBothLabels: boolean }
+  options: { usePlaceLabels: boolean; useBothLabels: boolean },
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse
 ): LineChartData {
   // (TODO): We assume the index of numerator and denominator matches.
   // This is brittle and should be updated in the protobuf that binds both
@@ -508,11 +532,16 @@ function rawToChart(
       const series = raw.data[spec.statVar][placeDcid];
       let obsList = series.series;
       if (spec.denom) {
-        const denomSeries = raw.data[spec.denom][placeDcid];
+        const denomInfo = denomsByFacet[spec.facetId] ?? defaultDenomData;
+        const denomSeries = denomInfo?.data?.[spec.denom]?.[placeDcid];
         obsList = computeRatio(obsList, denomSeries.series);
         if (denomSeries?.facet) {
-          sources.add(raw.facets[denomSeries.facet].provenanceUrl);
-          facets[denomSeries.facet] = raw.facets[denomSeries.facet];
+          // if denom facet is never used in numerator, we still want to get the source
+          const facetInfo =
+            raw.facets[denomSeries.facet] ??
+            denomInfo?.facets[denomSeries.facet];
+          sources.add(facetInfo.provenanceUrl);
+          facets[denomSeries.facet] = facetInfo;
           if (!statVarToFacets[spec.denom]) {
             statVarToFacets[spec.denom] = new Set<string>();
           }

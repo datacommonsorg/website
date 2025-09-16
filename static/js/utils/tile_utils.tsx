@@ -436,7 +436,7 @@ interface DenomInfo {
  */
 export async function getDenomResp(
   denoms: string[],
-  statResp: PointApiResponse,
+  statResp: PointApiResponse | SeriesApiResponse,
   apiRoot: string,
   useSeriesWithin: boolean,
   // for series queries
@@ -452,7 +452,7 @@ export async function getDenomResp(
   const denomPromises = [];
   let facetIds = [];
   // if the user has selected a facet, only query for that one
-  if (singleFacets && singleFacets.length > 0) {
+  if (singleFacets?.length > 0) {
     facetIds = singleFacets;
   } else {
     facetIds =
@@ -470,7 +470,6 @@ export async function getDenomResp(
   // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
   // we don't query this if the user has selected a single facet, so if an entity using that facet does not have denominator information, we
   // don't show it at all.
-  console.log("value of singleFacets: ", singleFacets, !!singleFacets);
   const defaultDenomPromise =
     _.isEmpty(denoms) || singleFacets?.length > 0
       ? Promise.resolve(null)
@@ -486,7 +485,6 @@ export async function getDenomResp(
   ]);
   // The last element of denomResps is defaultDenomPromise
   const defaultDenomData = denomResults.pop();
-  console.log("denomResults pop: ", defaultDenomData);
 
   denomResults.forEach((resp, i) => {
     // should only have one facet per resp because we pass in exactly one
@@ -531,13 +529,15 @@ export function getDenomInfo(
     _.isEmpty(placeDenomData.series)
   ) {
     matchingDenomData = defaultDenomData;
-    placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
   }
 
   // if there really is no denominator data, return null
   if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
     return null;
   }
+
+  // resetting in case the defaultDenomData was used
+  placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
 
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
     return null;

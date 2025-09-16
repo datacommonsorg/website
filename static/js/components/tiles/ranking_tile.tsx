@@ -53,7 +53,7 @@ import {
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
+import { getPointWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
@@ -342,9 +342,13 @@ export async function fetchData(
       [EMPTY_FACET_ID_KEY]: [],
     },
   };
+  const facetsRequested = [];
   for (const spec of variables) {
     const variableDate = getCappedStatVarDate(spec.statVar, spec.date);
     const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
+    if (spec.facetId) {
+      facetsRequested.push(spec.facetId);
+    }
     if (!dateFacetToVariable[variableDate]) {
       dateFacetToVariable[variableDate] = {};
     }
@@ -411,7 +415,7 @@ export async function fetchData(
       enclosedPlaceType,
       // facet IDs used for the whole response -- this way if dif vars are included for dif variables they are all accounted
       // for, but we still don't query denom data because we've selected facets
-      Object.keys(mergedResponse.facets)
+      facetsRequested
     );
   }
 
@@ -499,7 +503,6 @@ function pointApiToPerSvRankingData(
         value: statPoint.value,
       };
       if (_.isUndefined(rankingPoint.value)) {
-        console.log(`Skipping ${place}, missing ${spec.statVar}`);
         continue;
       }
       if (spec.denom) {
@@ -513,7 +516,6 @@ function pointApiToPerSvRankingData(
           defaultDenomData
         );
         if (!denomInfo) {
-          console.log(`Skipping ${place}, missing ${spec.denom}`);
           continue;
         }
         rankingPoint.value /= denomInfo.value;
