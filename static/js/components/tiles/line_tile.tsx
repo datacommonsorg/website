@@ -345,7 +345,6 @@ export function getReplacementStrings(
 export const fetchData = async (
   props: LineTilePropType
 ): Promise<LineChartData> => {
-  console.log("reaching lineGrph");
   const facetToVariable = { [EMPTY_FACET_ID_KEY]: [] };
   const denoms = [];
   for (const spec of props.statVarSpec) {
