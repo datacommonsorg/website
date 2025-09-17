@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
+import _, { set } from "lodash";
 import React, {
   ReactElement,
   useCallback,
@@ -59,7 +59,7 @@ import {
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
-const STAT_VAR_EXPLORER_PREFIX = "/tools/statvar#sv=";
+const EXPLORE_SV_FOR_EARTH = "/explore#p=Earth&sv=";
 const LOCATION_SEARCH = "location_search";
 const STAT_VAR_SEARCH = "stat_var_search";
 
@@ -68,6 +68,7 @@ export interface AutoCompleteResult {
   matchType: string;
   matchedQuery: string;
   name: string;
+  hasPlace?: boolean;
 }
 
 interface AutoCompleteInputPropType {
@@ -91,6 +92,7 @@ function convertJSONToAutoCompleteResults(
     matchType: json["match_type"],
     matchedQuery: json["matched_query"],
     name: json["name"],
+    hasPlace: json["has_place"] || false,
   }));
 }
 
@@ -114,6 +116,7 @@ export function AutoCompleteInput(
     useState("");
   const [lastScrollYOnTrigger, setLastScrollYOnTrigger] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [hasLocation, setHasLocation] = useState(false);
 
   const isHeaderBar = props.barType == "header";
 
@@ -199,11 +202,13 @@ export function AutoCompleteInput(
     } else if (_.isEmpty(currentText)) {
       setResults([]);
       setLastAutoCompleteSelection("");
+      setHasLocation(false);
       setHoveredIdx(-1);
       return;
     } else if (!currentText.includes(lastAutoCompleteSelection)) {
       lastSelection = "";
       setLastAutoCompleteSelection(lastSelection);
+      setHasLocation(false);
     }
 
     let queryForAutoComplete = currentText;
@@ -269,6 +274,7 @@ export function AutoCompleteInput(
         } else {
           executeQuery();
         }
+        setResults([]);
         break;
       case "ArrowUp":
         event.preventDefault();
@@ -278,6 +284,8 @@ export function AutoCompleteInput(
         event.preventDefault();
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
+      case " ":
+        selectResult(results[hoveredIdx], hoveredIdx, true);
     }
   }
 
@@ -285,31 +293,54 @@ export function AutoCompleteInput(
     setHoveredIdx(selectedIndex);
     const textDisplayed =
       selectedIndex >= 0
-        ? replaceQueryWithSelection(baseInput, results[selectedIndex])
+        ? replaceQueryWithSelection(
+            baseInput,
+            results[selectedIndex],
+            hasLocation
+          )
         : baseInput;
     changeText(textDisplayed);
   }
 
-  function selectResult(result: AutoCompleteResult, idx: number): void {
+  function selectResult(
+    result: AutoCompleteResult,
+    idx: number,
+    skipRedirection?: boolean
+  ): void {
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
     });
 
+    const queryText = replaceQueryWithSelection(
+      baseInput,
+      result,
+      hasLocation || result.hasPlace
+    );
+
     if (
-      result.matchType === STAT_VAR_SEARCH &&
+      result?.matchType === STAT_VAR_SEARCH &&
       stripPatternFromQuery(baseInput, result.matchedQuery).trim() === ""
     ) {
       if (result.dcid) {
-        window.location.href = STAT_VAR_EXPLORER_PREFIX + result.dcid;
+        setHasLocation(hasLocation || result.hasPlace);
+        if (!skipRedirection) {
+          window.location.href =
+            EXPLORE_SV_FOR_EARTH +
+            encodeURIComponent(result.dcid) +
+            "&q=" +
+            encodeURIComponent(queryText);
+        }
         return;
       }
     }
 
-    if (
-      result.matchType == LOCATION_SEARCH &&
-      stripPatternFromQuery(baseInput, result.matchedQuery).trim() === ""
-    ) {
-      if (result.dcid) {
+    if (result?.matchType == LOCATION_SEARCH) {
+      setHasLocation(true);
+
+      if (
+        stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "" &&
+        result.dcid
+      ) {
         triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE, {
           [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
           [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(enableDynamicPlacehoder),
@@ -318,13 +349,21 @@ export function AutoCompleteInput(
         const overrideParams = new URLSearchParams();
         overrideParams.set("q", result.name);
         const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
-        return redirect(window.location.href, destinationUrl, overrideParams);
+        if (!skipRedirection) {
+          redirect(window.location.href, destinationUrl, overrideParams);
+        }
       }
     }
 
-    const newString = replaceQueryWithSelection(baseInput, result);
+    const newString = replaceQueryWithSelection(
+      baseInput,
+      result,
+      hasLocation || result.hasPlace
+    );
     changeText(newString);
-    setTriggerSearch(newString);
+    if (!skipRedirection) {
+      setTriggerSearch(newString);
+    }
   }
 
   return (
@@ -370,6 +409,7 @@ export function AutoCompleteInput(
             allResults={results}
             hoveredIdx={hoveredIdx}
             onClick={selectResult}
+            hasLocation={hasLocation}
           />
         )}
       </div>
