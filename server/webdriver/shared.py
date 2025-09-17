@@ -178,19 +178,41 @@ def search_for_places(self,
 
 
 def _search_for_places_old(self, driver, search_term, place_type=None):
-  _search_and_select_first_item_in_dropdown(driver, search_term)
+  # Wait for search box to be visible
+  search_box_locator = (By.ID, 'ac')
+  search_box_input = WebDriverWait(driver, TIMEOUT).until(
+      EC.visibility_of_element_located(search_box_locator))
 
+  # Type search term into search box
+  search_box_input.clear()
+  search_box_input.send_keys(search_term)
+
+  # Wait for the dropdown list to appear
+  WebDriverWait(driver, TIMEOUT).until(
+      EC.visibility_of_element_located((By.CLASS_NAME, 'pac-container')))
+
+  # Wait for the dropdown list to be populated.
+  item = WebDriverWait(driver, TIMEOUT).until(
+      EC.element_to_be_clickable((By.CLASS_NAME, 'pac-item')))
+
+  # Click on first element
+  item.click()
+
+  # Wait for chip to be present
+  WebDriverWait(driver, TIMEOUT).until(
+      EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
+
+  # Wait for any loading spinners
   wait_for_loading(driver)
-  self.assertIsNotNone(wait_elem(driver, value='chip'))
 
   if place_type:
-    # Choose place type
-    wait_for_loading(driver)
-    place_selector_place_type = find_elem(driver,
-                                          by=By.ID,
-                                          value='place-selector-place-type')
+    # Wait for place type select to be clickable
+    place_selector_place_type = WebDriverWait(driver, TIMEOUT).until(
+        EC.element_to_be_clickable((By.ID, 'place-selector-place-type')))
+    # Select a place type
     Select(place_selector_place_type).select_by_value(place_type)
-  wait_for_loading(driver)
+    # Wait for any loading spinners
+    wait_for_loading(driver)
 
 
 def _search_for_places(self, driver, search_term, place_type=None):
@@ -207,7 +229,9 @@ def _search_for_places(self, driver, search_term, place_type=None):
 
   if place_type:
     # Wait for place types to load and click on one
-    wait_elem(self.driver, by=By.CLASS_NAME, value='place-type-selector')
+    wait_elem(self.driver,
+              by=By.CSS_SELECTOR,
+              value='.place-type-selector .form-check-input')
     # Find the specific label by its text using XPath and click it
     place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
     click_el(driver, (By.XPATH, place_type_xpath))
@@ -215,49 +239,3 @@ def _search_for_places(self, driver, search_term, place_type=None):
     click_el(driver, (By.CLASS_NAME, 'continue-button'))
 
   wait_for_loading(self.driver)
-
-
-def search_for_multiple_places(driver, search_terms):
-  """Interacts with a visualization tool page to manually search for multiple places sequentially.
-
-  Useful for the timeline tool where multiple places can be entered sequentially.
-
-  For each of the provided search terms:
-  - Enters the given term in the search bar
-  - Clicks the first autocomplete response
-
-  Expects the DOM of the newer version
-  of the visualization tools.
-  """
-  # Click start
-  click_el(driver, (By.CLASS_NAME, 'start-button'))
-
-  for search_term in search_terms:
-    _search_and_select_first_item_in_dropdown(driver, search_term)
-
-  # Click continue
-  click_el(driver, (By.CLASS_NAME, 'continue-button'))
-
-
-def _search_and_select_first_item_in_dropdown(driver, search_term):
-  """Interacts with a visualization tool page to search and select the first result"""
-  # Wait for search box to be visible
-  search_box_locator = (By.ID, 'ac')
-  search_box_input = WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located(search_box_locator))
-
-  # Type search term into search box
-  search_box_input.clear()
-  search_box_input.send_keys(search_term)
-
-  # Wait for the dropdown list to appear
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located((By.CLASS_NAME, 'pac-container')))
-  # Wait for the dropdown list to be populated.
-  item = WebDriverWait(driver, TIMEOUT).until(
-      EC.element_to_be_clickable((By.CLASS_NAME, 'pac-item')))
-  # Click on first element
-  item.click()
-
-  # Wait for any loading spinners
-  wait_for_loading(driver)
