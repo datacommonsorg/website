@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { TIMELINE_URL_PARAM_MAPPING } from "../../constants/app/visualization_constants";
+
 /**
  * Helper functions for the Visualization Tool.
  */
@@ -35,8 +37,7 @@ export function getStandardizedToolUrl(): string {
   const visType = currentHashParams.get("visType") || "map";
 
   // Get hash without "visType" to pass to new tools
-  const newHashParams = new URLSearchParams(currentHashParams.toString());
-  newHashParams.delete("visType");
+  const newHashParams = getStandardizedHashParams(visType, currentHashParams);
   const newHashString = newHashParams.toString()
     ? `#${newHashParams.toString()}`
     : "";
@@ -44,12 +45,72 @@ export function getStandardizedToolUrl(): string {
   return `/tools/${visType}${newHashString}`;
 }
 
-export function getStandardizedHash(): string {
-  // Get the current hash parameters
-  const currentHashParams = new URLSearchParams(
-    window.location.hash.replace("#", "")
-  );
-  // Convert each parameter to the new parameter
-  for 
-  return "";
+function getStandardizedHashParams(
+  visType: string,
+  currentHashParams: URLSearchParams
+): URLSearchParams {
+  switch (visType) {
+    case "scatter":
+      return getStandardizedScatterHashParams(currentHashParams);
+    case "timeline":
+      return getStandardizedTimelineHashParams(currentHashParams);
+    default:
+      return getStandardizedMapHashParams(currentHashParams);
+  }
+}
+
+/**
+ * Get equivalent hash parameters for /tools/map.
+ *
+ * Converts the hash parameters into equivalent hash parameters used by /tools/map.
+ * Note that because features are not 1:1 between /tools/visualization and /tools/map,
+ * only hash parameters supported by /tools/map will be returned.
+ *
+ * @param currentHashParams hash parameters in the current URL
+ * @returns a new set of hash parameters using the syntax of the old tools
+ */
+function getStandardizedMapHashParams(
+  currentHashParams: URLSearchParams
+): URLSearchParams {
+  return currentHashParams;
+}
+
+/**
+ * Get equivalent hash parameters for /tools/scatter.
+ *
+ * Converts the hash parameters into equivalent hash parameters used by /tools/scatter.
+ * Note that because features are not 1:1 between /tools/visualization and /tools/scatter,
+ * only hash parameters supported by /tools/scatter will be returned.
+ *
+ * @param currentHashParams hash parameters in the current URL
+ * @returns a new set of hash parameters using the syntax of the old tools
+ */
+function getStandardizedScatterHashParams(
+  currentHashParams: URLSearchParams
+): URLSearchParams {
+  return currentHashParams;
+}
+
+/**
+ * Get equivalent hash parameters for /tools/timeline.
+ *
+ * Converts the hash parameters into equivalent hash parameters used by /tools/timeline.
+ * Note that because features are not 1:1 between /tools/visualization and /tools/timeline,
+ * only hash parameters supported by /tools/timeline will be returned.
+ *
+ * @param currentHashParams hash parameters in the current URL
+ * @returns a new set of hash parameters using the syntax of the old tools
+ */
+function getStandardizedTimelineHashParams(
+  currentHashParams: URLSearchParams
+): URLSearchParams {
+  const newHashParams = new URLSearchParams();
+  // Convert each mappable parameter
+  Object.keys(TIMELINE_URL_PARAM_MAPPING).forEach((key) => {
+    newHashParams.set(
+      TIMELINE_URL_PARAM_MAPPING[key],
+      currentHashParams.get(key)
+    );
+  });
+  return newHashParams;
 }
