@@ -45,6 +45,12 @@ export function getStandardizedToolUrl(): string {
   return `/tools/${visType}${newHashString}`;
 }
 
+/**
+ * Convert current hash parameters into parameters for the "old" tools
+ * @param visType which visualization type the url is for
+ * @param currentHashParams current hash parameters
+ * @returns a new set of hash parameters matching the equivalent "old" version of the tool
+ */
 function getStandardizedHashParams(
   visType: string,
   currentHashParams: URLSearchParams
@@ -72,7 +78,7 @@ function getStandardizedHashParams(
 function getStandardizedMapHashParams(
   currentHashParams: URLSearchParams
 ): URLSearchParams {
-  return currentHashParams;
+  throw new Error("not implemented");
 }
 
 /**
@@ -88,7 +94,7 @@ function getStandardizedMapHashParams(
 function getStandardizedScatterHashParams(
   currentHashParams: URLSearchParams
 ): URLSearchParams {
-  return currentHashParams;
+  throw new Error("not implemented");
 }
 
 /**

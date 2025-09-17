@@ -46,11 +46,3 @@ export const TIMELINE_URL_PARAM_MAPPING: Record<string, string> = {
   [STAT_VAR_PARAM_KEYS.DCID]: "dcid",
   [STAT_VAR_PARAM_KEYS.PER_CAPITA]: "pc",
 };
-
-export const MAP_URL_PARAM_MAPPING: Record<string, string> = {
-  [URL_PARAMS.PLACE]: "place",
-  [URL_PARAMS.STAT_VAR]: "statsVar",
-  [URL_PARAMS.ENCLOSED_PLACE_TYPE]: "placeType",
-  [STAT_VAR_PARAM_KEYS.DCID]: "dcid",
-  [STAT_VAR_PARAM_KEYS.PER_CAPITA]: "pc",
-};
