@@ -73,8 +73,7 @@ def click_el(driver, element_locator):
   Returns the clicked element.
   """
   element_clickable = EC.element_to_be_clickable(element_locator)
-  WebDriverWait(driver, TIMEOUT).until(element_clickable)
-  element = driver.find_element(*element_locator)
+  element = WebDriverWait(driver, TIMEOUT).until(element_clickable)
   element.click()
   return element
 
@@ -161,7 +160,7 @@ def assert_topics(self, driver, path_to_topics, classname, expected_topics):
 def search_for_places(self,
                       driver,
                       search_term,
-                      place_type,
+                      place_type=None,
                       is_new_vis_tools=True):
   """Interacts with a visualization tool page to manually search for places.
 
@@ -178,29 +177,45 @@ def search_for_places(self,
     _search_for_places_old(self, driver, search_term, place_type)
 
 
-def _search_for_places_old(self, driver, search_term, place_type):
-  # Type term into the search box.
-  search_box_input = find_elem(driver, by=By.ID, value='ac')
+def _search_for_places_old(self, driver, search_term, place_type=None):
+  # Wait for search box to be visible
+  search_box_locator = (By.ID, 'ac')
+  search_box_input = WebDriverWait(driver, TIMEOUT).until(
+      EC.visibility_of_element_located(search_box_locator))
+
+  # Type search term into search box
+  search_box_input.clear()
   search_box_input.send_keys(search_term)
 
-  # Wait until there is at least one result in autocomplete results.
-  self.assertIsNotNone(wait_elem(driver, value='pac-item'))
+  # Wait for the dropdown list to appear
+  WebDriverWait(driver, TIMEOUT).until(
+      EC.visibility_of_element_located((By.CLASS_NAME, 'pac-container')))
 
-  # Click on the first result.
-  click_el(driver, (By.CSS_SELECTOR, '.pac-item:nth-child(1)'))
+  # Wait for the dropdown list to be populated.
+  item = WebDriverWait(driver, TIMEOUT).until(
+      EC.element_to_be_clickable((By.CLASS_NAME, 'pac-item')))
+
+  # Click on first element
+  item.click()
+
+  # Wait for chip to be present
+  WebDriverWait(driver, TIMEOUT).until(
+      EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
+
+  # Wait for any loading spinners
   wait_for_loading(driver)
-  self.assertIsNotNone(wait_elem(driver, value='chip'))
 
-  # Choose place type
-  wait_for_loading(driver)
-  place_selector_place_type = find_elem(driver,
-                                        by=By.ID,
-                                        value='place-selector-place-type')
-  Select(place_selector_place_type).select_by_value(place_type)
-  wait_for_loading(driver)
+  if place_type:
+    # Wait for place type select to be clickable
+    place_selector_place_type = WebDriverWait(driver, TIMEOUT).until(
+        EC.element_to_be_clickable((By.ID, 'place-selector-place-type')))
+    # Select a place type
+    Select(place_selector_place_type).select_by_value(place_type)
+    # Wait for any loading spinners
+    wait_for_loading(driver)
 
 
-def _search_for_places(self, driver, search_term, place_type):
+def _search_for_places(self, driver, search_term, place_type=None):
   # Click start
   click_el(driver, (By.CLASS_NAME, 'start-button'))
 
@@ -219,14 +234,15 @@ def _search_for_places(self, driver, search_term, place_type):
   # Click continue
   click_el(driver, (By.CLASS_NAME, 'continue-button'))
 
-  # Wait for place types to load and click on one
-  wait_elem(self.driver,
-            by=By.CSS_SELECTOR,
-            value='.place-type-selector .form-check-input')
-  # Find the specific label by its text using XPath and click it
-  place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
-  click_el(driver, (By.XPATH, place_type_xpath))
+  if place_type:
+    # Wait for place types to load and click on one
+    wait_elem(self.driver,
+              by=By.CSS_SELECTOR,
+              value='.place-type-selector .form-check-input')
+    # Find the specific label by its text using XPath and click it
+    place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
+    click_el(driver, (By.XPATH, place_type_xpath))
+    # Click continue
+    click_el(driver, (By.CLASS_NAME, 'continue-button'))
 
-  # Click continue
-  click_el(driver, (By.CLASS_NAME, 'continue-button'))
   wait_for_loading(self.driver)
