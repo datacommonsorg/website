@@ -41,7 +41,7 @@ interface AutoCompleteSuggestionsPropType {
   allResults: AutoCompleteResult[];
   baseInput: string;
   baseInputLastQuery: string;
-  onClick: (result: AutoCompleteResult, idx: number) => void;
+  onClick: (result: AutoCompleteResult, idx: number, fullText?: string) => void;
   hoveredIdx: number;
   hasLocation: boolean;
 }
@@ -114,7 +114,7 @@ export function AutoCompleteSuggestions(
                 <div
                   className="search-input-result"
                   key={"search-input-result-" + result.dcid}
-                  onClick={(): void => props.onClick(result, idx)}
+                  onClick={(): void => props.onClick(result, idx, fullText)}
                 >
                   <span className="search-result-icon">
                     {getIcon(result, props.baseInput)}

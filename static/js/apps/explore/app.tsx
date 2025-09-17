@@ -363,7 +363,7 @@ export function App(props: AppProps): ReactElement {
       [GA_PARAM_SOURCE]: urlHashParams.origin,
     });
     /* eslint-enable camelcase */
-    if (query) {
+    if (query && !urlHashParams.topic && !urlHashParams.statVars) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
       setStoreQueryString(query);
@@ -401,8 +401,8 @@ export function App(props: AppProps): ReactElement {
         });
     } else {
       client = client || CLIENT_TYPES.ENTITY;
-      setQuery("");
-      setStoreQueryString("");
+      setQuery(query || "");
+      setStoreQueryString(query || "");
 
       let data = {};
       if (urlHashParams.statVars) {

@@ -285,7 +285,7 @@ export function AutoCompleteInput(
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
       case " ":
-        selectResult(results[hoveredIdx], hoveredIdx, true);
+        selectResult(results[hoveredIdx], hoveredIdx, undefined, true);
     }
   }
 
@@ -305,11 +305,14 @@ export function AutoCompleteInput(
   function selectResult(
     result: AutoCompleteResult,
     idx: number,
+    fullText?: string,
     skipRedirection?: boolean
   ): void {
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
     });
+
+    const queryText = fullText === undefined ? inputText : fullText;
 
     if (
       result?.matchType === STAT_VAR_SEARCH &&
@@ -318,13 +321,13 @@ export function AutoCompleteInput(
       if (result.dcid) {
         setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
-          window.location.href = EXPLORE_SV_FOR_EARTH + result.dcid;
+          window.location.href = EXPLORE_SV_FOR_EARTH + result.dcid + "&q=" + queryText;
         }
         return;
       }
     }
 
-    if (result.matchType == LOCATION_SEARCH) {
+    if (result?.matchType == LOCATION_SEARCH) {
       setHasLocation(true);
 
       if (
