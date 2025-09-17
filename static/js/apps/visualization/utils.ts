@@ -43,3 +43,13 @@ export function getStandardizedToolUrl(): string {
 
   return `/tools/${visType}${newHashString}`;
 }
+
+export function getStandardizedHash(): string {
+  // Get the current hash parameters
+  const currentHashParams = new URLSearchParams(
+    window.location.hash.replace("#", "")
+  );
+  // Convert each parameter to the new parameter
+  for 
+  return "";
+}
