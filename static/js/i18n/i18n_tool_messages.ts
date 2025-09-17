@@ -137,7 +137,8 @@ export const toolMessages = defineMessages({
   },
   unsupportedEnclosedPlaceAlert: {
     id: "unsupported_enclosed_place_alert",
-    defaultMessage: `Sorry, we don't support {placeName}. Please select a different place.`,
+    defaultMessage:
+      "Sorry, we don't support {placeName}. Please select a different place.",
     description:
       "Message to users that the place they selected is unsupported by our tool",
   },
