@@ -539,96 +539,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population Not Currently Enrolled in School"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSTotalAllIndustries"
-                    ],
-                    "title": "Workers in All Industries in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Workers in All Industries in Washington",
-                    "statVarKey": [
-                      "Count_Worker_NAICSTotalAllIndustries"
-                    ],
-                    "title": "Workers in All Industries in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Workers in All Industries"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
-                    "statVarKey": [
-                      "Count_Person_FullTimeYearRoundWorker"
-                    ],
-                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16-64 Years, Full Time Year Round Worker"
           }
         ],
         "statVarSpec": {
@@ -647,10 +557,6 @@
           "Count_Person_Employed": {
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
-          },
-          "Count_Person_FullTimeYearRoundWorker": {
-            "name": "Population: 16 - 64 Years, Full Time Year Round Worker",
-            "statVar": "Count_Person_FullTimeYearRoundWorker"
           },
           "Count_Person_InLaborForce": {
             "name": "Population in the Labor Force",
@@ -675,10 +581,6 @@
           "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance": {
             "name": "State Unemployment Insurance Claims",
             "statVar": "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
-          },
-          "Count_Worker_NAICSTotalAllIndustries": {
-            "name": "Workers in All Industries",
-            "statVar": "Count_Worker_NAICSTotalAllIndustries"
           },
           "InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow": {
             "name": "Insured Unemployment Rate",
@@ -1079,12 +981,6 @@
     },
     "childTopics": [],
     "exploreMore": {
-      "Count_Person_FullTimeYearRoundWorker": {
-        "gender": [
-          "Count_Person_Female_FullTimeYearRoundWorker",
-          "Count_Person_Male_FullTimeYearRoundWorker"
-        ]
-      },
       "Count_Person_NotInLaborForce": {
         "residenceType": [
           "Count_Person_NotInLaborForce_ResidesInAdultCorrectionalFacilities",

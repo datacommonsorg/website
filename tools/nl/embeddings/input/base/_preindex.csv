@@ -596,6 +596,12 @@ Count of Earthquake Event: 7 - 8 Magnitude,Count_EarthquakeEvent_M7To8
 Count of Earthquake Event: 8 - 9 Magnitude,Count_EarthquakeEvent_M8To9
 Count of Earthquake Event: 9 Magnitude or More,Count_EarthquakeEvent_M9Onwards
 Count of Establishment,Count_Establishment
+Count of abortions,Count_Abortion
+Count of hospital beds for gynecology,Count_HospitalBed_Gynecology
+Count of hospital beds for internal medicine,Count_HospitalBed_InternalMedicine
+Count of hospital beds for neurology,Count_HospitalBed_Neurology
+Count of hospital beds for obstetrics,Count_HospitalBed_Obstetrics
+Count of hospital beds for ophthalmology,Count_HospitalBed_Ophthalmology
 Count of households with people over 60 receiving food stamps in the last 12 months,Count_Household_WithFoodStampsInThePast12Months_WithPeopleOver60
 Count of households without people over 60 receiving food stamps in the last 12 months,Count_Household_WithFoodStampsInThePast12Months_WithoutPeopleOver60
 Count of live births of married mothers,Count_BirthEvent_LiveBirth_MotherNowMarried
@@ -625,6 +631,12 @@ Count of live births where mothers are Unmarried,Count_BirthEvent_LiveBirth_Moth
 Count of live births where mothers are White,Count_BirthEvent_LiveBirth_MotherWhiteAlone
 Count of live births where mothers are multi-race,Count_BirthEvent_LiveBirth_MotherTwoOrMoreRaces
 Count of live births where mothers have Doctorate Degree or Professional School Degree,Count_BirthEvent_LiveBirth_MotherDoctorateDegreeOrProfessionalSchoolDegree
+Count of people aged 15 or more years who are now married,Count_Person_15OrMoreYears_NowMarried
+Count of student enrolled in college or graduate school,Count_Student_EnrolledInCollegeOrGraduateSchool
+Count of unemployed people with a bachelor's degree or diploma,Count_Person_EducationalAttainmentBachelorsDegreeOrDiploma_Unemployed
+Count of unemployed people with a masters or doctorate degree,Count_Person_EducationalAttainmentMastersDegreeOrDoctorateDegree_Unemployed
+Count of unemployed people with no formal education,Count_Person_EducationalAttainmentNoEducation_Unemployed
+Count of unemployed people with specialized secondary education,Count_Person_Unemployed_SpecializedSecondarySchool
 Coverage by protected areas of important sites for mountain biodiversity,dc/topic/sdg_15.4.1
 Coverage of essential health services,dc/topic/sdg_3.8.1
 Coverage of protected areas in relation to marine areas,dc/topic/sdg_14.5.1

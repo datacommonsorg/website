@@ -3642,3 +3642,16 @@ GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_Agriculture,Growth ra
 GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_ManufacturingSector,Growth rate of GDP in the manufacturing sector
 GrowthRate_Amount_EconomicActivity_GrossDomesticProduction_MiningQuarrying,Growth rate of GDP in the mining and quarrying sector
 Count_Person_15To59Years_Unemployed_Male_AsAFractionOf_Count_Person_15To59Years_Male,Male unemployment rate
+Count_Person_15OrMoreYears_NowMarried,Count of people aged 15 or more years who are now married
+Count_Abortion,Count of abortions
+Count_HospitalBed_Gynecology,Count of hospital beds for gynecology
+Count_HospitalBed_InternalMedicine,Count of hospital beds for internal medicine
+Count_HospitalBed_Neurology,Count of hospital beds for neurology
+Count_HospitalBed_Obstetrics,Count of hospital beds for obstetrics
+Count_HospitalBed_Ophthalmology,Count of hospital beds for ophthalmology
+Count_HospitalBed_InternalMedicine,Count of hospital beds for internal medicine
+Count_Student_EnrolledInCollegeOrGraduateSchool,Count of student enrolled in college or graduate school
+Count_Person_Unemployed_SpecializedSecondarySchool,Count of unemployed people with specialized secondary education
+Count_Person_EducationalAttainmentNoEducation_Unemployed,Count of unemployed people with no formal education
+Count_Person_EducationalAttainmentBachelorsDegreeOrDiploma_Unemployed,Count of unemployed people with a bachelor's degree or diploma
+Count_Person_EducationalAttainmentMastersDegreeOrDoctorateDegree_Unemployed,Count of unemployed people with a masters or doctorate degree
