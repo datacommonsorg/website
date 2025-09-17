@@ -314,5 +314,10 @@
     "height": 3000,
     "async": true,
     "width": 800
+  },
+  {
+    "url": "/explore#p=country/IND&sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&unit=USDollar&imp=WorldDevelopmentIndicators&obsPer=P1Y&chartType=TIMELINE_WITH_HIGHLIGHT&origin=aim",
+    "height": 3000,
+    "async": true
   }
 ]
