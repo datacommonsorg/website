@@ -648,7 +648,7 @@ export const DemoTooltips = (): ReactElement => {
               </p>
             </>
           }
-          sx={css`
+          boxCss={css`
             background-color: #000;
             color: #fff;
             a {

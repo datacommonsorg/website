@@ -30,6 +30,7 @@
                 ]
               }
             ],
+            "description": "The total number of people in a population.",
             "title": "Population"
           },
           {
@@ -86,7 +87,7 @@
                 ]
               }
             ],
-            "description": "Measure of how quickly the number of individuals in a population changes over a given period.",
+            "description": "The percentage change in the total number of people in a population over a specific period.",
             "title": "Rate of Population Growth"
           },
           {
@@ -115,7 +116,34 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "wikidataId/Q1489"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female_multiple_place_bar_block",
+                      "Count_Person_85OrMoreYears_Male_multiple_place_bar_block"
+                    ],
+                    "title": "Population 85 or Over by Gender in Mexico City (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population 85 or Over by Gender"
           },
           {
             "columns": [
@@ -201,6 +229,14 @@
           "Count_Person": {
             "name": "Population",
             "statVar": "Count_Person"
+          },
+          "Count_Person_85OrMoreYears_Female_multiple_place_bar_block": {
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Male_multiple_place_bar_block": {
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
           },
           "Count_Person_Female": {
             "name": "Women",
@@ -289,18 +325,6 @@
         "gender": [
           "Count_Person_Female",
           "Count_Person_Male"
-        ]
-      },
-      "Count_Person_Female": {
-        "age": [
-          "Count_Person_90To94Years_Female",
-          "Count_Person_95To99Years_Female"
-        ]
-      },
-      "Count_Person_Male": {
-        "age": [
-          "Count_Person_90To94Years_Male",
-          "Count_Person_95To99Years_Male"
         ]
       }
     },

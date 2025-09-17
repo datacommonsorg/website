@@ -17,6 +17,54 @@
 import { defineMessages } from "react-intl";
 
 export const chartComponentMessages = defineMessages({
+  ApiDialogButtonText: {
+    id: "apiDialogButtonText",
+    defaultMessage: "API code",
+    description:
+      "Label for button to open a dialog to view and copy API endpoints calls.",
+  },
+  ApiDialogTitle: {
+    id: "apiDialogTitle",
+    defaultMessage: "API code",
+    description:
+      "Label for the title of the dialog to view and copy API endpoints calls.",
+  },
+  ApiDialogIntroduction: {
+    id: "apiDialogIntroduction",
+    defaultMessage:
+      "Use the REST V2 API code below to access this data in JSON format. To get started, <apiKeyLink>obtain an API key</apiKeyLink> and replace the {apiKeyPlaceholder} placeholder with your actual key. For more details, check the <apiDocsLink>API documentation</apiDocsLink>.",
+    description:
+      "Introduction text for the API dialog, explaining how to use the code snippets and linking to documentation.",
+  },
+  ApiDialogIntroductionCustomDc: {
+    id: "apiDialogIntroductionCustomDc",
+    defaultMessage:
+      "Use the REST V2 API code below to access this data in JSON format. For more details, check the <apiDocsLink>API documentation</apiDocsLink>.",
+    description:
+      "Introduction text for the API dialog, explaining how to use the code snippets and linking to documentation. " +
+      "This version is used for custom Data Commons instances, where no API key is required.",
+  },
+  ApiDialogCopy: {
+    id: "apiCopy",
+    defaultMessage: "Copy",
+    description:
+      "Label for button to that will copy a single endpoint to the clipboard.",
+  },
+  ApiDialogCopyAll: {
+    id: "apiCopyAll",
+    defaultMessage: "Copy All",
+    description:
+      "Label for button to that will copy all endpoint calls to the clipboard. " +
+      "This will display when there is more than one endpoint in the API dialog.",
+  },
+  ApiDialogDenomHelperText: {
+    id: "apiDialogDenomHelperText",
+    defaultMessage: "(for per capita calculations)",
+    description:
+      "The text that will display after a stat var name in API dialog, when " +
+      "that stat var is used as a denom. The text should indicate that the " +
+      "previous stat var is used for per capita calculations.",
+  },
   ChartDownloadDialogTitle: {
     id: "chartDownloadDialogTitle",
     defaultMessage: "Download this chart",
@@ -43,5 +91,28 @@ export const chartComponentMessages = defineMessages({
     id: "dataError",
     defaultMessage: "Error fetching data.",
     description: "Error message for no when the CSV data fetch fails.",
+  },
+  SnapToDateHighestCoverageLabel: {
+    id: "snap-to-latest-data-checkbox-label",
+    defaultMessage: "Snap to date with highest coverage",
+    description:
+      "Checkbox label for an option that tells a chart visualization to show the latest data available.",
+  },
+  SnapToDateHighestCoverageTooltip: {
+    id: "snap-to-latest-data-help-tooltip",
+    defaultMessage:
+      "'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year.",
+    description:
+      "Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data " +
+      "is displayed in a chart.",
+  },
+  SnapToDateHighestCoverageOverlapTooltip: {
+    id: "snap-to-latest-data-overlap-help-tooltip",
+    defaultMessage:
+      "The highest coverage data is also the latest data available for this chart.",
+    description:
+      "Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what " +
+      "data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest " +
+      "coverage data overlaps with the most recent data available.",
   },
 });

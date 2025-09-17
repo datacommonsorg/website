@@ -24,11 +24,14 @@ import requests
 
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
 from server.routes.shared_api.place import findplacedcid
+from shared.lib.constants import STOP_WORDS
 
 MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MIN_CHARACTERS_PER_QUERY = 3
 MAX_NUM_OF_QUERIES = 4
 DISPLAYED_RESPONSE_COUNT_LIMIT = 5
+MAX_NGRAM_SIZE = 5
+
 # Additional places to hack in autocomplete
 TWO_WORD_CUSTOM_PLACES = [{
     'description': 'North America',
@@ -64,64 +67,8 @@ SKIP_AUTOCOMPLETE_TRIGGER = [
 TWO_LETTER_TRIGGERS = {"us"}
 
 
-def find_queries(user_query: str) -> List[str]:
-  """Extracts subqueries to send to the Google Maps Predictions API from the entire user input.
-  Returns:
-      List[str]: containing all subqueries to execute.
-  """
-  rgx = re.compile(r'\s+')
-  words_in_query = re.split(rgx, user_query)
-  queries = []
-  cumulative = ""
-
-  last_word = words_in_query[-1].lower().strip()
-  if last_word in SKIP_AUTOCOMPLETE_TRIGGER or (
-      last_word == "" and len(words_in_query) > 1 and
-      words_in_query[-2].lower().strip() in SKIP_AUTOCOMPLETE_TRIGGER):
-    # don't return any queries.
-    return []
-
-  for word in reversed(words_in_query):
-    # Extract at most 3 subqueries.
-    if len(queries) >= MAX_NUM_OF_QUERIES:
-      break
-
-    # Prepend the current word for the next subquery.
-    if len(cumulative) > 0:
-      cumulative = word + " " + cumulative
-    else:
-      cumulative = word
-
-    # Only send queries 3 characters or longer, except for the exceptions in TWO_LETTER_TRIGGERS.
-    if (len(cumulative) >= MIN_CHARACTERS_PER_QUERY or
-        (len(cumulative) == 2 and cumulative.lower() in TWO_LETTER_TRIGGERS)):
-      queries.append(cumulative)
-
-  # Start by running the longer queries.
-  queries.reverse()
-  return queries
-
-
-def execute_maps_request(query: str, language: str) -> Dict:
-  """Execute a request to the Google Maps Prediction API for a given query.
-  Returns:
-      Json object containing the google maps prediction response.
-  """
-  request_obj = {
-      'types': "(regions)",
-      'key': current_app.config['MAPS_API_KEY'],
-      'input': query,
-      'language': language
-  }
-  response = requests.post(MAPS_API_URL + urlencode(request_obj), json={})
-  return json.loads(response.text)
-
-
 def bag_of_letters(text: str) -> Dict:
-  """Creates a bag-of-letters representation of a given string.
-    Returns:
-    dict: A dictionary where keys are letters and values are their counts.
-    """
+  """Creates a bag-of-letters representation of a given string."""
   bag = {}
   for char in text.lower():
     if char.isalpha():
@@ -129,11 +76,8 @@ def bag_of_letters(text: str) -> Dict:
   return bag
 
 
-# TODO(gmechali): Look into a better typo algo e.g Levenshtein distance.
 def off_by_one_letter(str1_word: str, name_word: str) -> bool:
-  """Function to do off by one check.
-  Returns whether the two strings are off by at most one letter.
-  """
+  """Function to do off by one check."""
   offby = 0
   str1_bag = bag_of_letters(str1_word)
   str2_bag = bag_of_letters(name_word)
@@ -143,7 +87,6 @@ def off_by_one_letter(str1_word: str, name_word: str) -> bool:
     else:
       offby += value
 
-  # Add to offby for letters in str2 but not str1.
   for key, value in str2_bag.items():
     if key not in str1_bag:
       offby += value
@@ -152,18 +95,13 @@ def off_by_one_letter(str1_word: str, name_word: str) -> bool:
 
 
 def sanitize_and_replace_non_ascii(string: str) -> str:
-  """Sanitize and replace non ascii.
-  Returns:
-    String sanitized and without accents, cedillas, or enye."""
+  """Sanitize and replace non ascii."""
   nfkd_form = unicodedata.normalize('NFKD', string)
   return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
 def get_match_score(match_string: str, name: str) -> float:
-  """Computes a 'score' based on the matching words in two strings. Lowest
-  score is best match.
-  Returns:
-    Float score."""
+  """Computes a 'score' based on the matching words in two strings. The score is used for ranking, lower score is better."""
   name = sanitize_and_replace_non_ascii(name)
   match_string = sanitize_and_replace_non_ascii(match_string)
 
@@ -182,7 +120,6 @@ def get_match_score(match_string: str, name: str) -> float:
 
       name_word = name_word.lower()
       if idx == 0 and str1_idx == 0 and name_word.startswith(str1_word):
-        # boost score for start of query.
         score -= 0.25
 
       if str1_word == name_word:
@@ -206,95 +143,76 @@ def get_match_score(match_string: str, name: str) -> float:
   return score
 
 
-def score_below_zero(pred: ScoredPrediction) -> bool:
-  """Returns whether the score is below 0."""
-  return pred.score < 0
-
-
-def prepend_custom_places_hack(responses: List[ScoredPrediction],
-                               queries: List[str]) -> List[ScoredPrediction]:
-  """Prepend custom places as responses in order to hack it in autocomplete.
-  Returns:
-    List of scored predictions."""
-
-  if len(queries) == 0:
-    return responses
-
+def get_custom_place_suggestions(query: str) -> List[ScoredPrediction]:
+  """Generates suggestions from the hardcoded list of custom places."""
   custom_places_responses = []
-  single_word_query = queries[-1]
+  # Check for custom places (e.g., Europe, North America)
   for place in CUSTOM_PLACES:
-    scored_prediction = ScoredPrediction(description=place['description'],
-                                         place_id=None,
-                                         matched_query=single_word_query,
-                                         place_dcid=place['place_dcid'],
-                                         score=get_match_score(
-                                             single_word_query,
-                                             place['description']))
-    custom_places_responses.append(scored_prediction)
-
-  if len(queries) > 1:
-    two_word_query = queries[-2]
-    # If we have a 2 two word query, also place the two word custom places as responses.
-    for place in TWO_WORD_CUSTOM_PLACES:
-      scored_prediction = ScoredPrediction(description=place['description'],
-                                           place_id=None,
-                                           matched_query=two_word_query,
-                                           place_dcid=place['place_dcid'],
-                                           score=get_match_score(
-                                               two_word_query,
-                                               place['description']))
-      custom_places_responses.append(scored_prediction)
-
-  # Only keep custom places with a score below 0 as it implies it's close to the query.
-  custom_places_responses = list(
-      filter(score_below_zero, custom_places_responses))
-  return custom_places_responses + responses
+    score = get_match_score(query, place['description'])
+    if score < 0:
+      custom_places_responses.append(
+          ScoredPrediction(description=place['description'],
+                           place_id=None,
+                           matched_query=query,
+                           place_dcid=place['place_dcid'],
+                           score=score,
+                           source='custom_place'))
+  return custom_places_responses
 
 
-def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
-  """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
-  Returns:
-      List of json objects containing predictions from all queries issued after deduping.
-  """
-  all_responses = []
-  for query in queries:
-    predictions_for_query = execute_maps_request(query, lang)['predictions']
+def execute_maps_request(query: str, language: str) -> Dict:
+  """Execute a request to the Google Maps Prediction API for a given query."""
+  request_obj = {
+      'types': "(regions)",
+      'key': current_app.config['MAPS_API_KEY'],
+      'input': query,
+      'language': language
+  }
+  response = requests.post(MAPS_API_URL + urlencode(request_obj), json={})
+  return json.loads(response.text)
 
-    for pred in predictions_for_query:
-      scored_prediction = ScoredPrediction(description=pred['description'],
-                                           place_id=pred['place_id'],
-                                           place_dcid=None,
-                                           matched_query=query,
-                                           score=get_match_score(
-                                               query, pred['description']))
-      all_responses.append(scored_prediction)
 
-  all_responses.sort(key=get_score)
-  logging.info("[Place_Autocomplete] Received %d total place predictions.",
-               len(all_responses))
+def get_place_predictions(queries: List[str], lang: str,
+                          source: str) -> List[ScoredPrediction]:
+  """Trigger maps prediction api requests and process the output."""
+  place_id_to_best_query: Dict[str, str] = {}
+  place_id_to_description: Dict[str, str] = {}
+  place_id_to_rank: Dict[str, int] = {}
 
-  responses = []
-  place_ids = set()
-  index = 0
-  while len(responses) < 2 * DISPLAYED_RESPONSE_COUNT_LIMIT and index < len(
-      all_responses):
-    if all_responses[index].place_id not in place_ids:
-      responses.append(all_responses[index])
-      place_ids.add(all_responses[index].place_id)
-    index += 1
+  for q in queries:
+    predictions_for_query = execute_maps_request(q, lang).get('predictions', [])
+    for i, pred in enumerate(predictions_for_query):
+      place_id = pred['place_id']
+      if place_id not in place_id_to_rank or i < place_id_to_rank[place_id]:
+        place_id_to_rank[place_id] = i
+        place_id_to_description[place_id] = pred['description']
+        place_id_to_best_query[place_id] = q
+      # If the rank is the same, prefer the shorter query.
+      elif i == place_id_to_rank[place_id]:
+        if len(q) < len(place_id_to_best_query[place_id]):
+          place_id_to_best_query[place_id] = q
 
-  return responses
+  results: List[ScoredPrediction] = []
+  for place_id, best_query in place_id_to_best_query.items():
+    score = place_id_to_rank[place_id] - len(best_query) * 0.01
+    results.append(
+        ScoredPrediction(description=place_id_to_description[place_id],
+                         place_id=place_id,
+                         place_dcid=None,
+                         matched_query=best_query,
+                         score=score,
+                         source=source))
+
+  return results
 
 
 def fetch_place_id_to_dcid(
     prediction_responses: List[ScoredPrediction]) -> Dict[str, str]:
-  """Fetches the associated DCID for each place ID returned by Google.
-  Returns:
-    Mapping of Place ID to DCID."""
-
+  """Fetches the associated DCID for each place ID returned by Google."""
   place_ids = []
   for prediction in prediction_responses:
-    place_ids.append(prediction.place_id)
+    if prediction.place_id:
+      place_ids.append(prediction.place_id)
 
   place_id_to_dcid = dict()
   if place_ids:
@@ -310,6 +228,66 @@ def fetch_place_id_to_dcid(
   return prediction_responses
 
 
-def get_score(p: ScoredPrediction) -> float:
-  """Returns the score."""
-  return p.score
+def get_ngram_queries(query: str) -> List[str]:
+  """Generates n-gram queries from the tail end of a query string."""
+  tokens = query.split()
+  if not tokens:
+    return []
+  # Generate n-grams of size 1 to MAX_NGRAM_SIZE
+  ngrams = []
+  for n in range(1, MAX_NGRAM_SIZE + 1):
+    if n <= len(tokens):
+      ngrams.append(" ".join(tokens[-n:]))
+  return ngrams
+
+
+def custom_rank_predictions(predictions: List[ScoredPrediction],
+                            original_query: str) -> List[ScoredPrediction]:
+  """Ranks a list of predictions based on a custom scoring algorithm."""
+  for pred in predictions:
+    # Lower score is better.
+    new_score = pred.score
+
+    # Add a large boost for place suggestions that are a direct prefix/full match.
+    if pred.source in ['ngram_place', 'custom_place']:
+      if pred.matched_query.lower() == (pred.description.lower()):
+        new_score -= 30
+      elif pred.description.lower().startswith(pred.matched_query.lower()):
+        new_score -= 20
+
+    # Apply other source-based boosts.
+    if pred.source == 'core_concept_sv':
+      new_score -= 20
+    elif pred.source == 'ngram_sv':
+      new_score -= 20
+
+    # Boost based on how much of the original query was matched.
+    if 'ngram' in pred.source:
+      # Create a list of words from the query, excluding stop words
+      meaningful_words = [
+          word for word in pred.matched_query.lower().split()
+          if word not in STOP_WORDS
+      ]
+      # Join them back to calculate a "clean" length
+      clean_length = len(" ".join(meaningful_words))
+
+      # Apply boost using the clean_length
+      if pred.source == 'ngram_sv':
+        new_score -= clean_length * 0.2
+      elif pred.source == 'ngram_place':
+        new_score -= clean_length * 0.4
+
+      # Add a penalty for each stop word in the matched query.
+      words_in_match = pred.matched_query.lower().split()
+      stop_word_count = sum(1 for word in words_in_match if word in STOP_WORDS)
+      # This penalty is meant to counteract the length boost of stop words,
+      # making "total population" preferred over "against total population".
+      new_score += stop_word_count * 3.0
+    elif pred.source == 'custom_place':
+      new_score -= len(pred.matched_query) * 0.6
+
+    pred.score = new_score
+
+  predictions.sort(key=lambda p: (p.score, not set(p.matched_query.lower(
+  ).split()).isdisjoint(STOP_WORDS)))
+  return predictions

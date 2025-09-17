@@ -1,3 +1,5 @@
+# TODO: Copy tools/nl/embeddings/input/base/sheets_svs.csv into the container to support running this script against NL stat vars in GCP.
+
 # Use the official Python 3.12 image as a base
 FROM python:3.12-slim-bookworm
 
@@ -24,4 +26,4 @@ ENTRYPOINT ["python"]
 
 # Define the command to run your application
 # This is the command that gets executed when the job starts
-CMD ["add_metadata.py", "--generateAltSentences", "--useGCS", "--useBigQuery", "--maxStatVars=10000"]
+CMD ["generate_nl_metadata.py", "--useGCS", "--useBigQuery", "--maxStatVars=10000"]

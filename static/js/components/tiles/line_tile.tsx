@@ -24,6 +24,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -37,6 +38,11 @@ import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+  ObservationSpecOptions,
+} from "../../shared/observation_specs";
 import { SeriesApiResponse, StatMetadata } from "../../shared/stat_types";
 import {
   NamedTypedPlace,
@@ -170,6 +176,43 @@ export function LineTile(props: LineTilePropType): ReactElement {
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
+
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!chartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const options: ObservationSpecOptions = {
+        statVarSpecs: props.statVarSpec,
+        statVarToFacets: chartData.statVarToFacets,
+      };
+      if (props.enclosedPlaceType) {
+        options.entityExpression = `${props.place.dcid}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
+      } else {
+        options.placeDcids =
+          props.comparisonPlaces && props.comparisonPlaces.length > 0
+            ? props.comparisonPlaces
+            : [props.place.dcid];
+      }
+
+      return buildObservationSpecs(options);
+    };
+  }, [
+    chartData,
+    props.statVarSpec,
+    props.enclosedPlaceType,
+    props.place,
+    props.comparisonPlaces,
+  ]);
+
   return (
     <ChartTileContainer
       allowEmbed={true}
@@ -178,6 +221,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props)}
+      getObservationSpecs={getObservationSpecs}
       errorMsg={chartData && chartData.errorMsg}
       id={props.id}
       isInitialLoading={_.isNull(chartData)}
@@ -464,6 +508,14 @@ function rawToChart(
       if (spec.denom) {
         const denomSeries = raw.data[spec.denom][placeDcid];
         obsList = computeRatio(obsList, denomSeries.series);
+        if (denomSeries?.facet) {
+          sources.add(raw.facets[denomSeries.facet].provenanceUrl);
+          facets[denomSeries.facet] = raw.facets[denomSeries.facet];
+          if (!statVarToFacets[spec.denom]) {
+            statVarToFacets[spec.denom] = new Set<string>();
+          }
+          statVarToFacets[spec.denom].add(denomSeries.facet);
+        }
       }
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];

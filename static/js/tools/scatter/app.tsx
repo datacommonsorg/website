@@ -18,7 +18,7 @@
  * Main app component for scatter.
  */
 
-import { ThemeProvider } from "@emotion/react";
+import { css, ThemeProvider, useTheme } from "@emotion/react";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
@@ -31,6 +31,7 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import {
@@ -64,6 +65,7 @@ function App(): ReactElement {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
+  const theme = useTheme();
   return (
     <>
       <StatVarChooser
@@ -101,13 +103,26 @@ function App(): ReactElement {
             </Row>
           )}
           {showInfo && (
-            <Row>
+            <>
               {useStandardizedUi ? (
-                <VisToolInstructionsBox multiVariable />
+                <>
+                  <Row>
+                    <VisToolInstructionsBox toolType="scatter" />
+                  </Row>
+                  <Row
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="scatter" />
+                  </Row>
+                </>
               ) : (
-                <MemoizedInfo />
+                <Row>
+                  <MemoizedInfo />
+                </Row>
               )}
-            </Row>
+            </>
           )}
           {showChart && (
             <Row id="chart-row">

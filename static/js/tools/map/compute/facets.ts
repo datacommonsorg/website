@@ -18,7 +18,7 @@
 
 import { useContext, useEffect, useState } from "react";
 
-import { FacetSelectorFacetInfo } from "../../../shared/facet_selector";
+import { FacetSelectorFacetInfo } from "../../../shared/facet_selector/facet_selector";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { FacetResponse } from "../../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "../../shared/metadata/metadata_fetcher";

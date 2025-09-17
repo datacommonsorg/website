@@ -801,6 +801,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population in States of United States"
           },
           {
@@ -812,7 +813,7 @@
                       "highlightDate": "2018"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_2018_3357919774"
+                      "Median_Age_Person_2018_3795540742"
                     ],
                     "title": "Median Age of Population in United States",
                     "type": "LINE"
@@ -832,6 +833,7 @@
                 ]
               }
             ],
+            "description": "The median age of people in a population.",
             "title": "Median Age of Population"
           }
         ],
@@ -968,7 +970,7 @@
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block_2018": {
             "date": "2018",
-            "name": "% of Suicide Events",
+            "name": "Suicide Mortality Rate",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
           "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018": {
@@ -1084,9 +1086,9 @@
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
-          "Median_Age_Person_2018_3357919774": {
+          "Median_Age_Person_2018_3795540742": {
             "date": "2018",
-            "facetId": "3357919774",
+            "facetId": "3795540742",
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },

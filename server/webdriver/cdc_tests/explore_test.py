@@ -25,9 +25,11 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
 
   def test_success_result_with_no_follow_up_questions(self):
     """Test success result when follow up questions is not enabled."""
-    query = "#q=What is the population of Mountain View?"
 
-    self.driver.get(self.url_ + EXPLORE_URL + query)
+    params = '?disable_feature=follow_up_questions_ga&disable_feature=explore_result_header'
+    query = '#q=What is the population of Mountain View'
+
+    self.driver.get(self.url_ + EXPLORE_URL + params + query)
     shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
 
     # Follow Up Questions should not be present
@@ -41,3 +43,17 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     topic_buttons = shared.find_elem(self.driver, By.CLASS_NAME,
                                      'explore-relevant-topics')
     self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
+
+  def test_success_result_with_no_page_overview(self):
+    """Test success result when page overview is not enabled."""
+    query = "#q=What is the population of Mountain View?"
+
+    self.driver.get(self.url_ + EXPLORE_URL + query)
+
+    # Page Overview should not be present
+    self.assertIsNone(
+        shared.wait_elem(driver=self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='[data-testid="page-overview-inner"]'),
+        "Page Overview component is not empty despite the flag not being activated."
+    )

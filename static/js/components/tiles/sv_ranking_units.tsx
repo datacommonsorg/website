@@ -23,6 +23,7 @@ import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
+import { ObservationSpec } from "../../shared/observation_specs";
 import { StatVarSpec } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import {
@@ -48,6 +49,7 @@ interface SvRankingUnitsProps {
     chartTitle: string,
     sources: string[]
   ) => void;
+  getObservationSpecs?: () => ObservationSpec[];
   statVar: string;
   entityType: string;
   tileId: string;
@@ -132,6 +134,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   : null
               }
               footnote={props.footnote}
+              containerRef={props.containerRef}
+              getObservationSpecs={props.getObservationSpecs}
             ></ChartFooter>
           )}
         </div>
@@ -162,6 +166,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
                   footnote={props.footnote}
+                  containerRef={props.containerRef}
+                  getObservationSpecs={props.getObservationSpecs}
                 ></ChartFooter>
               )}
             </div>
@@ -191,6 +197,8 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
                   footnote={props.footnote}
+                  containerRef={props.containerRef}
+                  getObservationSpecs={props.getObservationSpecs}
                 ></ChartFooter>
               )}
             </div>

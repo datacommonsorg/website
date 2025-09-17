@@ -34,7 +34,7 @@
               }
             ],
             "denom": "Count_Person",
-            "description": "Total number of females in the population.",
+            "description": "The total number of females in a population.",
             "title": "Women"
           },
           {
@@ -674,7 +674,6 @@
           "Count_Person_85OrMoreYears_Female_HispanicOrLatino",
           "Count_Person_85OrMoreYears_Female_SomeOtherRaceAlone",
           "Count_Person_85OrMoreYears_Female_TwoOrMoreRaces",
-          "Count_Person_85OrMoreYears_Female_WhiteAlone",
           "Count_Person_85OrMoreYears_Female_WhiteAloneNotHispanicOrLatino"
         ]
       },
@@ -682,7 +681,6 @@
         "age": [
           "Count_Person_15To44Years_Female",
           "Count_Person_21OrMoreYears_Female",
-          "Count_Person_60OrMoreYears_Female",
           "Count_Person_62OrMoreYears_Female",
           "Count_Person_65To66Years_Female",
           "Count_Person_67To69Years_Female",
@@ -739,17 +737,11 @@
       },
       "Count_Person_Female_WhiteAlone": {
         "age": [
-          "Count_Person_10To14Years_Female_WhiteAlone",
           "Count_Person_15OrMoreYears_Female_WhiteAlone",
           "Count_Person_15To17Years_Female_WhiteAlone",
           "Count_Person_18To19Years_Female_WhiteAlone",
-          "Count_Person_20To24Years_Female_WhiteAlone",
           "Count_Person_25OrMoreYears_Female_WhiteAlone",
-          "Count_Person_25To29Years_Female_WhiteAlone",
-          "Count_Person_30To34Years_Female_WhiteAlone",
-          "Count_Person_5To9Years_Female_WhiteAlone",
-          "Count_Person_75To84Years_Female_WhiteAlone",
-          "Count_Person_85OrMoreYears_Female_WhiteAlone"
+          "Count_Person_75To84Years_Female_WhiteAlone"
         ]
       },
       "Count_Person_Female_WithHealthInsurance": {
@@ -772,7 +764,6 @@
         "age": [
           "Count_Person_15To44Years_Male",
           "Count_Person_21OrMoreYears_Male",
-          "Count_Person_60OrMoreYears_Male",
           "Count_Person_62OrMoreYears_Male",
           "Count_Person_65To66Years_Male",
           "Count_Person_67To69Years_Male"

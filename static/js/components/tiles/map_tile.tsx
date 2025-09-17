@@ -31,6 +31,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -48,8 +49,12 @@ import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import { USA_PLACE_DCID } from "../../shared/constants";
+import { DATE_HIGHEST_COVERAGE, USA_PLACE_DCID } from "../../shared/constants";
 import { useLazyLoad } from "../../shared/hooks";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+} from "../../shared/observation_specs";
 import {
   PointApiResponse,
   SeriesApiResponse,
@@ -204,6 +209,8 @@ export interface MapChartData {
   statVarToFacets?: StatVarFacetMap;
   // Set if the component receives a date value from a subscribed event
   dateOverride?: string;
+  // A mapping of stat var to the name of the variable
+  statVarToVariableName: Record<string, string>;
 }
 
 export function MapTile(props: MapTilePropType): ReactElement {
@@ -319,6 +326,48 @@ export function MapTile(props: MapTilePropType): ReactElement {
     };
   }, [props.subscribe]);
 
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!mapChartData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const layers = getDataSpec(props);
+      return layers.flatMap((layer) => {
+        let date: string;
+        const effectiveDate = mapChartData.dateOverride || layer.variable.date;
+        if (effectiveDate === DATE_HIGHEST_COVERAGE) {
+          // If the date is HIGHEST_COVERAGE, we get all data. This is because
+          // the V2 API does not have a HIGHEST_COVERAGE concept.
+          date = "";
+        } else {
+          // Otherwise, if the date is blank, we ask for the latest.
+          date = effectiveDate || "LATEST";
+        }
+        const finalDate = getCappedStatVarDate(layer.variable.statVar, date);
+        const updatedSpec: StatVarSpec = {
+          ...layer.variable,
+          date: finalDate,
+        };
+
+        const entityExpression = `${layer.parentPlace}<-containedInPlace+{typeOf:${layer.enclosedPlaceType}}`;
+
+        return buildObservationSpecs({
+          statVarSpecs: [updatedSpec],
+          statVarToFacets: mapChartData.statVarToFacets,
+          entityExpression,
+        });
+      });
+    };
+  }, [mapChartData, props]);
+
   return (
     <ChartTileContainer
       id={props.id}
@@ -364,6 +413,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
         }
         return dataRowsToCsv(rows, CSV_FIELD_DELIMITER, transformCsvHeader);
       }}
+      getObservationSpecs={getObservationSpecs}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       errorMsg={!_.isEmpty(mapChartData) && mapChartData.errorMsg}
@@ -448,6 +498,7 @@ export const fetchData = async (
     return null;
   }
   const rawDataArray = [];
+  const allStatVarToVariableNames: Record<string, string> = {};
   for (const layer of layers) {
     // TODO: Currently we make one set of data fetches per layer.
     //       We should switch to concurrent/batch calls across all layers.
@@ -517,13 +568,15 @@ export const fetchData = async (
           borderGeoJsonPromise,
         ]);
       // Get human-readable name of variable to display as label
-      const statVarDcidToName = await getStatVarNames(
+      const statVarToVariableName = await getStatVarNames(
         [layer.variable],
         props.apiRoot,
         props.getProcessedSVNameFn
       );
+      // Update the mapping of stat var to variable name
+      Object.assign(allStatVarToVariableNames, statVarToVariableName);
       layer.variable.name =
-        layer.variable.name || statVarDcidToName[layer.variable.statVar];
+        layer.variable.name || statVarToVariableName[layer.variable.statVar];
       // Only draw borders for containing places without 'wall to wall' coverage
       const borderGeoJson = shouldShowBorder(layer.enclosedPlaceType)
         ? borderGeoJsonData
@@ -543,12 +596,18 @@ export const fetchData = async (
       return null;
     }
   }
-  return rawToChart(rawDataArray, props, dateOverride);
+  return rawToChart(
+    rawDataArray,
+    props,
+    allStatVarToVariableNames,
+    dateOverride
+  );
 };
 
 function rawToChart(
   rawDataArray: RawData[],
   props: MapTilePropType,
+  statVarToVariableName: Record<string, string>,
   dateOverride?: string
 ): MapChartData {
   const allDataValues = [];
@@ -643,6 +702,20 @@ function rawToChart(
         placeChartData.metadata.popSource = denomInfo.source;
         placeChartData.metadata.popDate = denomInfo.date;
         sources.add(denomInfo.source);
+        const denomStatVar = rawData.variable.denom;
+        const denomSeries =
+          rawData.population.data?.[denomStatVar]?.[placeDcid];
+        if (denomSeries?.facet) {
+          const denomFacetId = denomSeries.facet;
+          const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
+          if (denomFacetMetadata) {
+            facets[denomFacetId] = denomFacetMetadata;
+            if (!statVarToFacets[denomStatVar]) {
+              statVarToFacets[denomStatVar] = new Set<string>();
+            }
+            statVarToFacets[denomStatVar].add(denomFacetId);
+          }
+        }
       }
       if (scaling) {
         value = value * scaling;
@@ -681,6 +754,7 @@ function rawToChart(
     facets,
     statVarToFacets,
     dateOverride,
+    statVarToVariableName,
   };
 }
 

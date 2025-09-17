@@ -115,8 +115,9 @@ interface CommonButtonProps {
   // 'inverted': a filled button.
   // 'text': a text-only button (no outline or fill).
   // 'flat': a filled, borderless button (fill but no outline).
+  // 'light': a lighter, subtle button (light color and no border)
   // Default: 'standard'
-  variant?: "standard" | "inverted" | "text" | "flat";
+  variant?: "standard" | "inverted" | "text" | "flat" | "light";
   // The size of the button.
   // Default: 'md'
   size?: "sm" | "md" | "lg";
@@ -186,12 +187,19 @@ export const Button = forwardRef<
     opacity: ${disabled ? 0.6 : 1};
     text-decoration: none;
     text-align: center;
+    transition: color 0.15s ease-in-out;
     &:hover {
       text-decoration: none;
     }
     &:disabled,
     &[aria-disabled="true"] {
       cursor: default;
+    }
+
+    .button-start-icon,
+    .button-end-icon {
+      display: inline-flex;
+      align-items: center;
     }
   `;
 
@@ -224,6 +232,9 @@ export const Button = forwardRef<
     `,
     flat: css`
       ${theme.button.variant.flat}
+    `,
+    light: css`
+      ${theme.button.variant.light}
     `,
   };
 

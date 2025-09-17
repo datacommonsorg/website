@@ -18,8 +18,8 @@
  * Main app component for map explorer.
  */
 
-import { ThemeProvider } from "@emotion/react";
-import React, { ReactElement, useEffect, useState } from "react";
+import { css, ThemeProvider, useTheme } from "@emotion/react";
+import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
@@ -31,6 +31,7 @@ import {
 } from "../../shared/feature_flags/util";
 import theme from "../../theme/theme";
 import { ToolHeader } from "../shared/tool_header";
+import { ChartLinkChips } from "../shared/vis_tools/chart_link_chips";
 import { VisToolInstructionsBox } from "../shared/vis_tools/vis_tool_instructions_box";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
@@ -44,6 +45,7 @@ import {
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
+  ifShowChart,
   MAP_URL_PATH,
   updateHashDisplay,
   updateHashPlaceInfo,
@@ -56,6 +58,10 @@ function App(): ReactElement {
   const useStandardizedUi = isFeatureEnabled(
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
+  const theme = useTheme();
+  const { placeInfo, statVar } = useContext(Context);
+  const showChart = ifShowChart(statVar.value, placeInfo.value);
+  const showInstructions = !showChart;
 
   return (
     <React.StrictMode>
@@ -79,10 +85,29 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          <Row>{useStandardizedUi ? <VisToolInstructionsBox /> : <Info />}</Row>
-          <Row id="chart-row">
-            <ChartLoader />
-          </Row>
+          {showInstructions && (
+            <Row>
+              {useStandardizedUi ? (
+                <>
+                  <VisToolInstructionsBox toolType="map" />
+                  <div
+                    css={css`
+                      margin-top: ${theme.spacing.xl}px;
+                    `}
+                  >
+                    <ChartLinkChips toolType="map" />
+                  </div>
+                </>
+              ) : (
+                <Info />
+              )}
+            </Row>
+          )}
+          {showChart && (
+            <Row id="chart-row">
+              <ChartLoader />
+            </Row>
+          )}
         </Container>
       </div>
     </React.StrictMode>
@@ -123,17 +148,23 @@ function updateHash(context: ContextType): void {
   let hash = updateHashStatVar("", context.statVar.value);
   hash = updateHashPlaceInfo(hash, context.placeInfo.value);
   hash = updateHashDisplay(hash, context.display.value);
+  const args = new URLSearchParams(location.search);
   // leaflet flag is part of the search arguments instead of hash, so need to
   // update that separately
-  // TODO: forward along all args and then append hash in the url.
-  let args = "";
   if (context.display.value.allowLeaflet) {
-    args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
+    args.set(ALLOW_LEAFLET_URL_ARG, "1");
+  } else {
+    // Do not propagate this argument. Let context settings control this instead.
+    args.delete(ALLOW_LEAFLET_URL_ARG);
   }
-  const newHash = encodeURIComponent(hash);
+  const newHash = hash ? `#${encodeURIComponent(hash)}` : "";
+  const newArgs = args.toString() ? `?${args.toString()}` : "";
   const currentHash = location.hash.replace("#", "");
   const currentArgs = location.search;
-  if (newHash && (newHash !== currentHash || args !== currentArgs)) {
-    history.pushState({}, "", `${MAP_URL_PATH}${args}#${newHash}`);
+  if (
+    (newHash || newArgs) &&
+    (newHash !== currentHash || newArgs !== currentArgs)
+  ) {
+    history.pushState({}, "", `${MAP_URL_PATH}${newArgs}${newHash}`);
   }
 }

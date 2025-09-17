@@ -131,6 +131,9 @@ const theme: Theme = {
         base: DC_GRAY_LIGHT,
         dark: DC_GRAY_DARK,
       },
+      code: {
+        base: DC_GREEN,
+      },
     },
     background: {
       primary: {
@@ -205,6 +208,13 @@ const theme: Theme = {
         base: DC_BLUE,
         light: DC_BLUE_LIGHT,
         dark: DC_BLUE_DARK,
+      },
+    },
+    error: {
+      primary: {
+        base: DC_RED,
+        light: DC_YELLOW,
+        dark: DC_RED_PILL_TEXT,
       },
     },
   },
@@ -362,6 +372,17 @@ const theme: Theme = {
           backgroundColor: DC_BLUE_WHITE_LIGHT,
           color: DC_BLUE,
           border: `1px solid ${DC_BLUE}`,
+        },
+      },
+      light: {
+        color: DC_GRAY_LIGHT,
+        backgroundColor: "transparent",
+        border: "none",
+        borderRadius: "none",
+        ["&:hover:not(:disabled):not([aria-disabled])"]: {
+          backgroundColor: "transparent",
+          color: DC_BLUE,
+          border: "none",
         },
       },
     },

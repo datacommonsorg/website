@@ -71,9 +71,9 @@ steps:
       apt-get update && apt-get install -y git gh
       cd /workspace || { echo "Failed to change directory to /workspace."; exit 1; }
 
-      echo "Checking for changes in server/integration_tests/test_data/..."
-      if git diff --exit-code --quiet -- server/integration_tests/test_data/; then
-        echo "No changes detected in goldens in server/integration_tests/test_data/. Skipping PR creation."
+      echo "Checking for changes in server/integration_tests/test_data/ and server/config/nl_page/..."
+      if git diff --exit-code --quiet -- server/integration_tests/test_data/ server/config/nl_page/; then
+        echo "No changes detected in goldens. Skipping PR creation."
         exit 0
       fi
       echo "Changes detected in goldens. Proceeding with PR creation."
@@ -81,7 +81,7 @@ steps:
       build_id_safe=$(echo "${BUILD_ID}" | tr -cd '[:alnum:]-')
       git checkout -b "nl-golden-update-${build_id_safe}"
 
-      git add server/integration_tests/test_data/
+      git add server/integration_tests/test_data/ server/config/nl_page/
       git commit -m "feat: Update goldens from Cloud Build workflow (build ${build_id_safe})"
 
       repo_full_name="${_GITHUB_ORG}/${_GITHUB_REPO}"
@@ -112,6 +112,7 @@ steps:
       echo "PR creation command sent using gh CLI. Pull Request URL: ${pr_url}"
   waitFor: ['run-nl-tests']
 
-options:
-  service_account: 'projects/879489846695/serviceAccounts/879489846695@cloudbuild.gserviceaccount.com'
-  logging: CLOUD_LOGGING_ONLY
+# TODO: Replace with a user service account. Default sevice account cannot be set in cloudbuild config
+# options:
+#   service_account: 'projects/879489846695/serviceAccounts/879489846695@cloudbuild.gserviceaccount.com'
+#   logging: CLOUD_LOGGING_ONLY
