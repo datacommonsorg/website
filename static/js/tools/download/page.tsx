@@ -20,7 +20,7 @@ import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
-import { FormWrapper } from "../../components/form_components/form_card";
+import { FormBox } from "../../components/form_components/form_box";
 import { Chip } from "../../shared/chip";
 import {
   FacetSelector,
@@ -226,7 +226,7 @@ export function Page(props: PagePropType): ReactElement {
       <div id="plot-container">
         <h1 className="mb-4">Data Download Tool</h1>
         <div className="download-options-container">
-          <FormWrapper>
+          <FormBox>
             <EnclosedPlacesSelector
               enclosedPlaceType={selectedOptions.enclosedPlaceType}
               onEnclosedPlaceTypeSelected={(enclosedPlaceType): void =>
@@ -428,7 +428,7 @@ export function Page(props: PagePropType): ReactElement {
             >
               {getDataButtonText}
             </Button>
-          </FormWrapper>
+          </FormBox>
           {!_.isEmpty(validationErrors.incompleteSelectionMessage) && (
             <div className="download-options-error-message">
               {validationErrors.incompleteSelectionMessage}

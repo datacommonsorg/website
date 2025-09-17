@@ -23,9 +23,7 @@ import React from "react";
 
 import { Box } from "../elements/wrappers/box";
 
-export function FormWrapper(props: {
-  children?: React.ReactNode;
-}): JSX.Element {
+export function FormBox(props: { children?: React.ReactNode }): JSX.Element {
   const theme = useTheme();
   return (
     <Box

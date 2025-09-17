@@ -22,7 +22,7 @@ import { css, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 
-import { FormWrapper } from "../../components/form_components/form_card";
+import { FormBox } from "../../components/form_components/form_box";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
@@ -79,7 +79,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
         width: 100%;
       `}
     >
-      <FormWrapper>
+      <FormBox>
         <EnclosedPlacesSelector
           enclosedPlaceType={placeInfo.value.enclosedPlaceType}
           onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
@@ -90,7 +90,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
           onClickCallback={props.toggleSvHierarchyModal}
           text={"Select variable"}
         />
-      </FormWrapper>
+      </FormBox>
     </div>
   );
 }

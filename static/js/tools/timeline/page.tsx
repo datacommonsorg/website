@@ -18,7 +18,7 @@ import { css, ThemeProvider } from "@emotion/react";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Container } from "reactstrap";
 
-import { FormWrapper } from "../../components/form_components/form_card";
+import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
@@ -152,7 +152,7 @@ class Page extends Component<unknown, PageStateType> {
                 margin-bottom: ${theme.spacing.lg}px;
               `}
             >
-              <FormWrapper>
+              <FormBox>
                 <PlaceSelect
                   selectedPlaces={this.state.placeName}
                   onPlaceSelected={(placeDcid: string): void => {
@@ -177,7 +177,7 @@ class Page extends Component<unknown, PageStateType> {
                   onClickCallback={this.toggleSvHierarchyModal}
                   text={"Select variable(s)"}
                 />
-              </FormWrapper>
+              </FormBox>
             </div>
 
             {numPlaces === 0 &&
