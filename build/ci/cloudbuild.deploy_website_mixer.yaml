@@ -20,7 +20,7 @@ substitutions:
 
 steps:
   # This step uses the _SHORT_SHA that was passed from the Pub/Sub message.
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  - name: 'gcr.io/datcom-ci/datacommons-script-runner'
     entrypoint: 'bash'
     args:
       - '-c'
