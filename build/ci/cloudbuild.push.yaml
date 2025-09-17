@@ -69,6 +69,21 @@ steps:
         docker push gcr.io/datcom-ci/datacommons-nl:latest
     waitFor: ["-"]
 
+  - id: push-datacommons-script-runner
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        docker build -f tools/script_runner/Dockerfile \
+          -t gcr.io/datcom-ci/datacommons-script-runner:$SHORT_SHA \
+          -t gcr.io/datcom-ci/datacommons-script-runner:latest \
+          .
+        docker push gcr.io/datcom-ci/datacommons-script-runner:$SHORT_SHA
+        docker push gcr.io/datcom-ci/datacommons-script-runner:latest
+    waitFor: ["-"]
+
   - id: push-nodejs-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -130,7 +145,7 @@ steps:
       - website-image-pushed
       - --project=datcom-ci
       - --message=${SHORT_SHA}
-    waitFor: ["push-web-server", "push-nl-server", "push-nodejs-server"]
+    waitFor: ["push-web-server", "push-nl-server", "push-nodejs-server", "push-datacommons-script-runner"]
 
 timeout: 3600s
 
