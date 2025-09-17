@@ -325,7 +325,10 @@ export function AutoCompleteInput(
         setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
           window.location.href =
-            EXPLORE_SV_FOR_EARTH + result.dcid + "&q=" + queryText;
+            EXPLORE_SV_FOR_EARTH +
+            encodeURIComponent(result.dcid) +
+            "&q=" +
+            encodeURIComponent(queryText);
         }
         return;
       }
