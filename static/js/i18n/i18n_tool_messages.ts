@@ -160,6 +160,30 @@ export const toolMessages = defineMessages({
     description:
       "part of the label on a form saying 'Enter a place of type <type>' asking users to select a place type (e.g. city, country)",
   },
+  selectAPlaceTypeInstruction: {
+    id: "selectAPlaceTypeInstruction",
+    defaultMessage: "Select a place type",
+    description:
+      "default value on a dropdown telling the user to select a place type from the given options",
+  },
+  selectAVariableInstruction: {
+    id: "selectAVariableInstruction",
+    defaultMessage: "Select variable",
+    description:
+      "Instruction inviting the user to select a statistical variable to plot",
+  },
+  selectMultipleVariablesInstruction: {
+    id: "selectMultipleVariablesInstruction",
+    defaultMessage: "Select variables",
+    description:
+      "Instruction inviting the user to select more than 1 statistical variable to plot",
+  },
+  placesIn: {
+    id: "places_in",
+    defaultMessage: "Places in",
+    description:
+      "Label on a textbox for a place, as in 'plot places in <user selected place>",
+  },
 });
 
 export const VisToolExampleChartMessages = defineMessages({

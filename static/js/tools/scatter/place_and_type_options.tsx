@@ -27,6 +27,8 @@ import { Button } from "../../components/elements/button/button";
 import { Public } from "../../components/elements/icons/public";
 import { ScatterPlot } from "../../components/elements/icons/scatter_plot";
 import { FormBox } from "../../components/form_components/form_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
@@ -138,7 +140,9 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
       </div>
       <StatVarHierarchyToggleButton
         onClickCallback={props.toggleSvHierarchyModal}
-        text={"Select variables"}
+        text={intl.formatMessage(
+          toolMessages.selectMultipleVariablesInstruction
+        )}
       />
     </FormBox>
   );

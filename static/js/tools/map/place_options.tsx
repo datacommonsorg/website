@@ -23,6 +23,8 @@ import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 
 import { FormBox } from "../../components/form_components/form_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
@@ -88,7 +90,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
         />
         <StatVarHierarchyToggleButton
           onClickCallback={props.toggleSvHierarchyModal}
-          text={"Select variable"}
+          text={intl.formatMessage(toolMessages.selectAVariableInstruction)}
         />
       </FormBox>
     </div>

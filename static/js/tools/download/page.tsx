@@ -21,6 +21,8 @@ import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
 import { FormBox } from "../../components/form_components/form_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import { Chip } from "../../shared/chip";
 import {
   FacetSelector,
@@ -243,7 +245,9 @@ export function Page(props: PagePropType): ReactElement {
                   };
                 })
               }
-              searchBarInstructionText="Places in"
+              searchBarInstructionText={intl.formatMessage(
+                toolMessages.placesIn
+              )}
               selectedParentPlace={selectedOptions.selectedPlace}
             />
             <div className="download-option-section">
@@ -417,7 +421,7 @@ export function Page(props: PagePropType): ReactElement {
             <Row className="d-lg-none">
               <Col>
                 <Button color="primary" onClick={toggleSvModalCallback}>
-                  Select variable
+                  {intl.formatMessage(toolMessages.selectAVariableInstruction)}
                 </Button>
               </Col>
             </Row>
