@@ -423,7 +423,7 @@ profiles:
             args:
               - "-c"
               - |
-                gcloud builds submit --config tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=production --project=datcom-ci --async 
+                gcloud builds submit --config tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=production --project=datcom-ci --async
     manifests:
       helm:
         releases:
