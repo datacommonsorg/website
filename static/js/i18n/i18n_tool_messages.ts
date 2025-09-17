@@ -148,6 +148,12 @@ export const toolMessages = defineMessages({
     description:
       "An instruction for users to type a place's name into a text box",
   },
+  enterPotentiallyMultiplePlacesInstruction: {
+    id: "enter_potentially_multiple_places_instruction",
+    defaultMessage: "Select place(s):",
+    description:
+      "An instruction for users to type one or many place's name into a text box",
+  },
   childPlaceTypeInstruction: {
     id: "childPlaceTypeInstruction",
     defaultMessage: "of type",

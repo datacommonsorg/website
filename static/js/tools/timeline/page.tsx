@@ -169,7 +169,9 @@ class Page extends Component<unknown, PageStateType> {
                       placeDcid
                     );
                   }}
-                  searchBarInstructionText={"Select place(s):"}
+                  searchBarInstructionText={intl.formatMessage(
+                    toolMessages.enterPotentiallyMultiplePlacesInstruction
+                  )}
                 />
                 <StatVarHierarchyToggleButton
                   onClickCallback={this.toggleSvHierarchyModal}
