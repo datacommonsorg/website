@@ -18,17 +18,25 @@
  * Place options for selecting the child place type and the enclosing place.
  */
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 
-import { PlaceSelector } from "../../shared/place_selector";
+import { Button } from "../../components/elements/button/button";
+import { Public } from "../../components/elements/icons/public";
+import { ScatterPlot } from "../../components/elements/icons/scatter_plot";
+import { FormBox } from "../../components/form_components/form_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { getAllChildPlaceTypes } from "../map/util";
+import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
+import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 interface PlaceAndTypeOptionsProps {
@@ -38,6 +46,7 @@ interface PlaceAndTypeOptionsProps {
 
 function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
+  const theme = useTheme();
 
   /**
    * Watch and update place info
@@ -89,40 +98,53 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   }, [place.value, display]);
 
   return (
-    <PlaceSelector
-      selectedPlace={place.value.enclosingPlace}
-      enclosedPlaceType={place.value.enclosedPlaceType}
-      onPlaceSelected={place.setEnclosingPlace}
-      onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
-    >
-      <div className="d-inline d-lg-none" id="btn-sv-widget-modal">
-        <div className="btn btn-primary" onClick={props.toggleSvHierarchyModal}>
-          Select variables
-        </div>
-      </div>
-      <div className="chart-type-toggle">
-        <div
-          className={`${
-            display.chartType === ScatterChartType.SCATTER
-              ? "selected-chart-option"
-              : "chart-type-option"
-          }`}
+    <FormBox>
+      <EnclosedPlacesSelector
+        enclosedPlaceType={place.value.enclosedPlaceType}
+        onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
+        onPlaceSelected={place.setEnclosingPlace}
+        selectedParentPlace={place.value.enclosingPlace}
+      />
+      <div
+        css={css`
+          border-radius: 0.25rem;
+          border: 1px solid ${theme.colors.border.primary.light};
+          display: flex;
+          flex-direction: row;
+          flex-shrink: 0;
+          flex-wrap: nowrap;
+          overflow: hidden;
+          width: fit-content;
+        `}
+      >
+        <Button
+          id="scatter-chart-type-selector-scatter"
+          variant={
+            display.chartType === ScatterChartType.SCATTER ? "flat" : "text"
+          }
           onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
-        >
-          <i className="material-icons-outlined">scatter_plot</i>
-        </div>
-        <div
-          className={`${
-            display.chartType === ScatterChartType.MAP
-              ? "selected-chart-option"
-              : "chart-type-option"
-          }`}
+          startIcon={<ScatterPlot />}
+          css={css`
+            border-radius: 0.25rem;
+          `}
+        />
+        <Button
+          id="scatter-chart-type-selector-map"
+          variant={display.chartType === ScatterChartType.MAP ? "flat" : "text"}
           onClick={(): void => display.setChartType(ScatterChartType.MAP)}
-        >
-          <i className="material-icons-outlined">public</i>
-        </div>
+          startIcon={<Public />}
+          css={css`
+            border-radius: 0.25rem;
+          `}
+        />
       </div>
-    </PlaceSelector>
+      <StatVarHierarchyToggleButton
+        onClickCallback={props.toggleSvHierarchyModal}
+        text={intl.formatMessage(
+          toolMessages.selectMultipleVariablesInstruction
+        )}
+      />
+    </FormBox>
   );
 }
 

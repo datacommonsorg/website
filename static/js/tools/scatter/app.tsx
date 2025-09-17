@@ -95,7 +95,14 @@ function App(): ReactElement {
             </Row>
           )}
           <Row>
-            <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
+            <div
+              css={css`
+                margin-bottom: ${theme.spacing.md}px;
+                width: 100%;
+              `}
+            >
+              <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
+            </div>
           </Row>
           {showChooseStatVarMessage && (
             <Row className="info-message">
