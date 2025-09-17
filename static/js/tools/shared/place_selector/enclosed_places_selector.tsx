@@ -29,7 +29,7 @@ import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getNamedTypedPlace,
 } from "../../../utils/place_utils";
-import { PlaceSelect } from "./place_select_card";
+import { PlaceSelect } from "./place_select";
 import {
   getPlaceDcidCallback,
   loadChildPlaceTypes,

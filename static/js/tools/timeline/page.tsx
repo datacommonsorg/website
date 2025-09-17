@@ -29,7 +29,7 @@ import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import theme from "../../theme/theme";
 import { getPlaceNames } from "../../utils/place_utils";
-import { PlaceSelect } from "../shared/place_selector/place_select_card";
+import { PlaceSelect } from "../shared/place_selector/place_select";
 import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ToolHeader } from "../shared/tool_header";
