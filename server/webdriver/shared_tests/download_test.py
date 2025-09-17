@@ -17,7 +17,6 @@ import tempfile
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
@@ -100,19 +99,17 @@ class DownloadTestMixin():
     # Choose another stat var
     shared.click_el(self.driver,
                     (By.ID, 'Count_Persondc/g/Demographics-Count_Person'))
-
     # Click preview
     shared.wait_for_loading(self.driver)
-    shared.click_el(
-        self.driver,
-        (By.XPATH, '//*[@id="plot-container"]/div[1]/div/div/button'))
+    shared.click_el(self.driver, (By.CLASS_NAME, 'get-data-button'))
 
-    # Assert preview table is correct
+    # Wait for table to load
     shared.wait_for_loading(self.driver)
-    preview_section = find_elem(self.driver, by=By.ID, value='preview-section')
+    preview_section = wait_elem(self.driver, by=By.ID, value='preview-section')
     table = wait_elem(preview_section, by=By.TAG_NAME, value='table')
 
     # Assert table headers are correct
+    wait_elem(table, by=By.TAG_NAME, value='th')
     header_elements = find_elems(table, by=By.TAG_NAME, value='th')
     actual_headers = [h.text for h in header_elements]
     self.assertSetEqual(set(actual_headers), set(TABLE_HEADERS))
