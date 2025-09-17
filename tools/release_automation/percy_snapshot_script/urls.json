@@ -228,14 +228,6 @@
     "name": "US Equity Topic (Wildcard)"
   },
   {
-    "path": "/explore/education-housing-commute",
-    "name": "Explore Education, Housing & Commute"
-  },
-  {
-    "path": "/explore/demographics",
-    "name": "Explore Demographics"
-  },
-  {
     "path": "/explore#t=dc/topic/Language&p=country/USA",
     "name": "Explore: Language in USA"
   },
@@ -318,10 +310,6 @@
   {
     "path": "/explore#q=What+languages+are+spoken+at+home+in+California&mb=4&test=screenshot",
     "name": "Explore: Languages Spoken at Home in California"
-  },
-  {
-    "path": "/explore#q=Which+state+in+the+US+has+the+most+Tamil+speakers&mb=4&test=screenshot",
-    "name": "Explore: US State with Most Tamil Speakers"
   },
   {
     "path": "/explore#q=Which+counties+in+the+US+have+most+immigrants&mb=4&test=screenshot",
@@ -472,10 +460,6 @@
     "name": "Explore: US Electricity Usage"
   },
   {
-    "path": "/explore#q=Green+jobs+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Green Jobs in the US"
-  },
-  {
     "path": "/explore#q=Electronic+Waste+generated+in+different+countries&mb=4&test=screenshot",
     "name": "Explore: Electronic Waste Generated Worldwide"
   },
@@ -504,28 +488,12 @@
     "name": "Explore: Countries with Most Greenhouse Gas Emissions"
   },
   {
-    "path": "/explore#q=How+does+PM2.5+correlate+with+asthma+across+US+counties&mb=4&test=screenshot",
-    "name": "Explore: PM2.5 vs. Asthma Correlation in US Counties"
-  },
-  {
     "path": "/explore#q=How+do+solar+installations+correlate+with+median+income+across+US+counties&mb=4&test=screenshot",
     "name": "Explore: Solar Installations vs. Median Income in US Counties"
   },
   {
-    "path": "/explore#q=AQI+vs+blood+pressure+in+New+Jersey&mb=4&test=screenshot",
-    "name": "Explore: AQI vs. Blood Pressure in New Jersey"
-  },
-  {
     "path": "/explore#q=Educational+Attainment+in+the+US&mb=4&test=screenshot",
     "name": "Explore: Educational Attainment in the US"
-  },
-  {
-    "path": "/explore#q=School+Enrollment+in+California&mb=4&test=screenshot",
-    "name": "Explore: School Enrollment in California"
-  },
-  {
-    "path": "/explore#q=Housing+in+Oakland&mb=4&test=screenshot",
-    "name": "Explore: Housing in Oakland"
   },
   {
     "path": "/explore#q=Commute+in+New+York+State&mb=4&test=screenshot",
@@ -538,10 +506,6 @@
   {
     "path": "/explore#q=Bachelors+majors+in+Berkeley+vs+Austin&mb=4&test=screenshot",
     "name": "Explore: Bachelor's Majors in Berkeley vs. Austin"
-  },
-  {
-    "path": "/explore#q=Student+demographics+among+schools+in+Sunnyvale&mb=4&test=screenshot",
-    "name": "Explore: Student Demographics in Sunnyvale Schools"
   },
   {
     "path": "/explore#q=Education+Attainment+by+Gender+in+New+York+City&mb=4&test=screenshot",
@@ -564,20 +528,12 @@
     "name": "Explore: Rooms per House in NYC vs. Salt Lake City"
   },
   {
-    "path": "/explore#q=Rental+prices+in+Oakland+vs+Berkeley&mb=4&test=screenshot",
-    "name": "Explore: Rental Prices in Oakland vs. Berkeley"
-  },
-  {
     "path": "/explore#q=When+were+the+houses+in+NYC+built?&mb=4&test=screenshot",
     "name": "Explore: NYC House Construction Year"
   },
   {
     "path": "/explore#q=Educational+attainment+of+homeowners+in+Boston&mb=4&test=screenshot",
     "name": "Explore: Educational Attainment of Homeowners in Boston"
-  },
-  {
-    "path": "/explore#q=Compare+modes+of+commute+between+NYC+and+Chicago&mb=4&test=screenshot",
-    "name": "Explore: Commute Modes NYC vs. Chicago"
   },
   {
     "path": "/explore#q=Counties+in+California+with+the+highest+work-from-home+population&mb=4&test=screenshot",
@@ -596,10 +552,6 @@
     "name": "Explore: Median Rent vs. Master's Degree Holders in California Counties"
   },
   {
-    "path": "/explore#q=Median+home+value+vs.+hypertension+in+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Median Home Value vs. Hypertension in US Counties"
-  },
-  {
     "path": "/explore#q=Median+home+value+vs.+Work+from+home+population+in+US+counties&mb=4&test=screenshot",
     "name": "Explore: Median Home Value vs. Work-from-Home Population in US Counties"
   },
@@ -610,490 +562,6 @@
   {
     "path": "/explore#q=What+is+the+breakdown+of+incarceration+rates+by+race+in+the+US&mb=4&test=screenshot",
     "name": "Explore: Racial Breakdown of Incarceration Rates in US"
-  },
-  {
-    "path": "/explore#q=What+about+health+equity+in+Santa+Clara+County&mb=4&test=screenshot",
-    "name": "Explore: Health Equity in Santa Clara County"
-  },
-  {
-    "path": "/explore#q=What+is+the+number+of+poor+hispanic+women+in+Santa+Clara+County&mb=4&test=screenshot",
-    "name": "Explore: Poor Hispanic Women in Santa Clara County"
-  },
-  {
-    "path": "/explore#q=Which+counties+in+the+US+hav+the+highest+unemployment+rate&mb=4&test=screenshot",
-    "name": "Explore: US Counties with Highest Unemployment Rate"
-  },
-  {
-    "path": "/explore#q=Which+counties+in+the+US+have+the+highest+rates+of+uninsured&mb=4&test=screenshot",
-    "name": "Explore: US Counties with Highest Uninsured Rates"
-  },
-  {
-    "path": "/explore#q=Which+countries+have+the+lowest+Gini+index&mb=4&test=screenshot",
-    "name": "Explore: Countries with Lowest Gini Index"
-  },
-  {
-    "path": "/explore#q=What+is+the+correlation+between+diabetes+and+poverty+across+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Diabetes vs. Poverty Correlation in US Counties"
-  },
-  {
-    "path": "/explore#q=&mb=4&test=screenshot",
-    "name": "Explore: Blank Search Query"
-  },
-  {
-    "path": "/explore#q=Jobs+in+Texas&mb=4&test=screenshot",
-    "name": "Explore: Jobs in Texas"
-  },
-  {
-    "path": "/explore#q=Businesses+by+type+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Businesses by Type in the US"
-  },
-  {
-    "path": "/explore#q=Median+income+in+Santa+Clara+County&mb=4&test=screenshot",
-    "name": "Explore: Median Income in Santa Clara County"
-  },
-  {
-    "path": "/explore#q=Employment+in+Florida&mb=4&test=screenshot",
-    "name": "Explore: Employment in Florida"
-  },
-  {
-    "path": "/explore#q=Poverty+in+Louisiana&mb=4&test=screenshot",
-    "name": "Explore: Poverty in Louisiana"
-  },
-  {
-    "path": "/explore#q=Industries+in+Dallas+County,+TX&mb=4&test=screenshot",
-    "name": "Explore: Industries in Dallas County, TX"
-  },
-  {
-    "path": "/explore#q=Economy+in+Brazil&mb=4&test=screenshot",
-    "name": "Explore: Economy in Brazil"
-  },
-  {
-    "path": "/explore#q=Businesses+by+industry+in+New+York+State&mb=4&test=screenshot",
-    "name": "Explore: Businesses by Industry in New York State"
-  },
-  {
-    "path": "/explore#q=Number+of+People+Employed+in+New+York+City+vs+Boston&mb=4&test=screenshot",
-    "name": "Explore: Employed People in NYC vs. Boston"
-  },
-  {
-    "path": "/explore#q=Number+of+privately+owned+businesses+in+California&mb=4&test=screenshot",
-    "name": "Explore: Privately Owned Businesses in California"
-  },
-  {
-    "path": "/explore#q=Education+expenditure+in+the+US+vs+Canada&mb=4&test=screenshot",
-    "name": "Explore: Education Expenditure US vs. Canada"
-  },
-  {
-    "path": "/explore#q=GDP+of+Iran&mb=4&test=screenshot",
-    "name": "Explore: GDP of Iran"
-  },
-  {
-    "path": "/explore#q=GDP+of+USA+vs+China+vs+India&mb=4&test=screenshot",
-    "name": "Explore: GDP of USA vs. China vs. India"
-  },
-  {
-    "path": "/explore#q=Remittances+in+Lebanon&mb=4&test=screenshot",
-    "name": "Explore: Remittances in Lebanon"
-  },
-  {
-    "path": "/explore#q=Income+vs+Health+Insurance+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Income vs. Health Insurance in US"
-  },
-  {
-    "path": "/explore#q=Richest+counties+in+CA&mb=4&test=screenshot",
-    "name": "Explore: Richest Counties in CA"
-  },
-  {
-    "path": "/explore#q=Richest+and+Poorest+countries+in+the+world+by+GDP&mb=4&test=screenshot",
-    "name": "Explore: Richest and Poorest Countries by GDP"
-  },
-  {
-    "path": "/explore#q=GDP+vs+Remittances+across+countries+in+Africa&mb=4&test=screenshot",
-    "name": "Explore: GDP vs. Remittances in African Countries"
-  },
-  {
-    "path": "/explore#q=Highest+Gini+Index+in+the+World&mb=4&test=screenshot",
-    "name": "Explore: Highest Gini Index in the World"
-  },
-  {
-    "path": "/explore#q=Countries+with+the+most+incoming+remittances+in+the+world&mb=4&test=screenshot",
-    "name": "Explore: Countries with Most Incoming Remittances"
-  },
-  {
-    "path": "/explore#q=Median+income+vs+unemployment+rate+in+California&mb=4&test=screenshot",
-    "name": "Explore: Median Income vs. Unemployment Rate in California"
-  },
-  {
-    "path": "/explore#q=Poverty+vs+Unemployment+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Poverty vs. Unemployment in the US"
-  },
-  {
-    "path": "/explore#q=Poorest+states+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Poorest States in the US"
-  },
-  {
-    "path": "/explore#q=Obesity+vs+Unemployment+in+the+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Obesity vs. Unemployment in US Counties"
-  },
-  {
-    "path": "/explore#q=Debt+vs+GDP+for+countries+in+Europe&mb=4&test=screenshot",
-    "name": "Explore: Debt vs. GDP for European Countries"
-  },
-  {
-    "path": "/explore#q=Gender+distribution+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Gender Distribution in the US"
-  },
-  {
-    "path": "/explore#q=Languages+spoken+in+California&mb=4&test=screenshot",
-    "name": "Explore: Languages Spoken in California"
-  },
-  {
-    "path": "/explore#q=Citizenship+in+Florida&mb=4&test=screenshot",
-    "name": "Explore: Citizenship in Florida"
-  },
-  {
-    "path": "/explore#q=Racial+Diversity+in+California&mb=4&test=screenshot",
-    "name": "Explore: Racial Diversity in California"
-  },
-  {
-    "path": "/explore#q=Statistics+on+Married+people+in+New+York+State&mb=4&test=screenshot",
-    "name": "Explore: Married People in New York State Statistics"
-  },
-  {
-    "path": "/explore#q=Median+age+in+Texas&mb=4&test=screenshot",
-    "name": "Explore: Median Age in Texas"
-  },
-  {
-    "path": "/explore#q=Young+and+Old+people+in+Florida&mb=4&test=screenshot",
-    "name": "Explore: Young and Old People in Florida"
-  },
-  {
-    "path": "/explore#q=Widowed+population+in+San+Francisco&mb=4&test=screenshot",
-    "name": "Explore: Widowed Population in San Francisco"
-  },
-  {
-    "path": "/explore#q=Citizenship+in+California+vs+Georgia&mb=4&test=screenshot",
-    "name": "Explore: Citizenship in California vs. Georgia"
-  },
-  {
-    "path": "/explore#q=People+of+Caribbean+origin+in+Florida&mb=4&test=screenshot",
-    "name": "Explore: People of Caribbean Origin in Florida"
-  },
-  {
-    "path": "/explore#q=Demographics+of+divorced+people+in+California&mb=4&test=screenshot",
-    "name": "Explore: Demographics of Divorced People in California"
-  },
-  {
-    "path": "/explore#q=Foreign+born+population+in+Texas&mb=4&test=screenshot",
-    "name": "Explore: Foreign Born Population in Texas"
-  },
-  {
-    "path": "/explore#q=Immigration+in+Texas+vs+California&mb=4&test=screenshot",
-    "name": "Explore: Immigration in Texas vs. California"
-  },
-  {
-    "path": "/explore#q=Counties+with+the+most+Spanish+speakers+in+California&mb=4&test=screenshot",
-    "name": "Explore: California Counties with Most Spanish Speakers"
-  },
-  {
-    "path": "/explore#q=Racial+breakdown+of+population+in+Texas+vs+New+York+State&mb=4&test=screenshot",
-    "name": "Explore: Racial Breakdown in Texas vs. New York State"
-  },
-  {
-    "path": "/explore#q=States+in+the+US+with+the+most+Tamil+speakers&mb=4&test=screenshot",
-    "name": "Explore: US States with Most Tamil Speakers"
-  },
-  {
-    "path": "/explore#q=Which+counties+in+the+US+have+most+immigrants&mb=4&test=screenshot",
-    "name": "Explore: US Counties with Most Immigrants"
-  },
-  {
-    "path": "/explore#q=US+citizenship+vs.+income+across+counties&mb=4&test=screenshot",
-    "name": "Explore: US Citizenship vs. Income Across Counties"
-  },
-  {
-    "path": "/explore#q=Racial+breakdown+of+population+vs.+obesity+prevalence+in+Alabama+counties&mb=4&test=screenshot",
-    "name": "Explore: Racial Breakdown vs. Obesity in Alabama Counties"
-  },
-  {
-    "path": "/explore#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&mb=4&test=screenshot",
-    "name": "Explore: Foreign Born Population vs. PhD Holders in California Counties"
-  },
-  {
-    "path": "/explore#q=Hispanic+population+vs.+Green+Jobs+in+Texas+counties&mb=4&test=screenshot",
-    "name": "Explore: Hispanic Population vs. Green Jobs in Texas Counties"
-  },
-  {
-    "path": "/explore#q=Top+health+issues+in+Arizona&mb=4&test=screenshot",
-    "name": "Explore: Top Health Issues in Arizona"
-  },
-  {
-    "path": "/explore#q=Health+Equity+in+California&mb=4&test=screenshot",
-    "name": "Explore: Health Equity in California"
-  },
-  {
-    "path": "/explore#q=Uninsured+in+Kansas&mb=4&test=screenshot",
-    "name": "Explore: Uninsured Population in Kansas"
-  },
-  {
-    "path": "/explore#q=Health+behaviors+in+Bangladesh&mb=4&test=screenshot",
-    "name": "Explore: Health Behaviors in Bangladesh"
-  },
-  {
-    "path": "/explore#q=Mortality+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Mortality in the US"
-  },
-  {
-    "path": "/explore#q=People+with+Asthma+in+Phoenix&mb=4&test=screenshot",
-    "name": "Explore: People with Asthma in Phoenix"
-  },
-  {
-    "path": "/explore#q=High+blood+pressure+in+Jackson,+MS&mb=4&test=screenshot",
-    "name": "Explore: High Blood Pressure in Jackson, MS"
-  },
-  {
-    "path": "/explore#q=Most+obese+cities+in+Kansas&mb=4&test=screenshot",
-    "name": "Explore: Most Obese Cities in Kansas"
-  },
-  {
-    "path": "/explore#q=Diabetes+in+Atlanta&mb=4&test=screenshot",
-    "name": "Explore: Diabetes in Atlanta"
-  },
-  {
-    "path": "/explore#q=Health+behaviors+in+India+vs+Norway&mb=4&test=screenshot",
-    "name": "Explore: Health Behaviors in India vs. Norway"
-  },
-  {
-    "path": "/explore#q=Immunization+in+Pakistan&mb=4&test=screenshot",
-    "name": "Explore: Immunization in Pakistan"
-  },
-  {
-    "path": "/explore#q=Immunizations+by+gender+in+Pakistan&mb=4&test=screenshot",
-    "name": "Explore: Immunizations by Gender in Pakistan"
-  },
-  {
-    "path": "/explore#q=Cancer+in+Illinois&mb=4&test=screenshot",
-    "name": "Explore: Cancer in Illinois"
-  },
-  {
-    "path": "/explore#q=Mental+health+in+Massachusetts&mb=4&test=screenshot",
-    "name": "Explore: Mental Health in Massachusetts"
-  },
-  {
-    "path": "/explore#q=Mental+health+in+Mercer+County+vs+Arlington+County&mb=4&test=screenshot",
-    "name": "Explore: Mental Health in Mercer vs. Arlington County"
-  },
-  {
-    "path": "/explore#q=Mortality+in+the+US+vs+Spain+vs+Nigeria&mb=4&test=screenshot",
-    "name": "Explore: Mortality in US vs. Spain vs. Nigeria"
-  },
-  {
-    "path": "/explore#q=Life+Expectancy+in+countries+in+Africa&mb=4&test=screenshot",
-    "name": "Explore: Life Expectancy in African Countries"
-  },
-  {
-    "path": "/explore#q=Causes+of+Death+in+Louisiana&mb=4&test=screenshot",
-    "name": "Explore: Causes of Death in Louisiana"
-  },
-  {
-    "path": "/explore#q=Obesity+vs+Unemployment+in+the+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Obesity vs. Unemployment in US Counties"
-  },
-  {
-    "path": "/explore#q=High+blood+pressure+vs+Asthma+in+Alabama&mb=4&test=screenshot",
-    "name": "Explore: High Blood Pressure vs. Asthma in Alabama"
-  },
-  {
-    "path": "/explore#q=Child+immunizations+vs+life+expectancy+in+Asia&mb=4&test=screenshot",
-    "name": "Explore: Child Immunizations vs. Life Expectancy in Asia"
-  },
-  {
-    "path": "/explore#q=Health+conditions+vs+median+age+in+Alameda+County&mb=4&test=screenshot",
-    "name": "Explore: Health Conditions vs. Median Age in Alameda County"
-  },
-  {
-    "path": "/explore#q=Obesity+vs+lack+of+sleep+in+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Obesity vs. Lack of Sleep in US Counties"
-  },
-  {
-    "path": "/explore#q=Best+immunization+rates+in+the+world&mb=4&test=screenshot",
-    "name": "Explore: Best Immunization Rates Worldwide"
-  },
-  {
-    "path": "/explore#q=Highest+rates+of+infant+mortality+in+the+world&mb=4&test=screenshot",
-    "name": "Explore: Highest Infant Mortality Rates Worldwide"
-  },
-  {
-    "path": "/explore#q=Life+expectancy+across+US+states&mb=4&test=screenshot",
-    "name": "Explore: Life Expectancy Across US States"
-  },
-  {
-    "path": "/explore#q=Maternal+mortality+across+countries+in+the+world&mb=4&test=screenshot",
-    "name": "Explore: Maternal Mortality Worldwide"
-  },
-  {
-    "path": "/explore#q=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: US Greenhouse Gas Emission Sources"
-  },
-  {
-    "path": "/explore#q=Emissions+in+Harris+County,+Texas&mb=4&test=screenshot",
-    "name": "Explore: Emissions in Harris County, Texas"
-  },
-  {
-    "path": "/explore#q=Pollution+in+Los+Angeles+County&mb=4&test=screenshot",
-    "name": "Explore: Pollution in Los Angeles County"
-  },
-  {
-    "path": "/explore#q=Projected+temperature+extremes+in+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Projected Temperature Extremes in US Counties"
-  },
-  {
-    "path": "/explore#q=Electricity+usage+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Electricity Usage in the US"
-  },
-  {
-    "path": "/explore#q=Green+jobs+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Green Jobs in the US"
-  },
-  {
-    "path": "/explore#q=Electronic+Waste+generated+in+different+countries&mb=4&test=screenshot",
-    "name": "Explore: Electronic Waste Generated Worldwide"
-  },
-  {
-    "path": "/explore#q=Floods+in+Pakistan&mb=4&test=screenshot",
-    "name": "Explore: Floods in Pakistan"
-  },
-  {
-    "path": "/explore#q=Solar+energy+consumption+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Solar Energy Consumption in the US"
-  },
-  {
-    "path": "/explore#q=Drought+events+around+the+world&mb=4&test=screenshot",
-    "name": "Explore: Drought Events Worldwide"
-  },
-  {
-    "path": "/explore#q=Counties+in+the+US+with+the+most+smoke+pollution&mb=4&test=screenshot",
-    "name": "Explore: US Counties with Most Smoke Pollution"
-  },
-  {
-    "path": "/explore#q=Top+sources+of+CO2+emissions+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Top Sources of CO2 Emissions in the US"
-  },
-  {
-    "path": "/explore#q=Which+countries+have+the+most+greenhouse+gas+emissions&mb=4&test=screenshot",
-    "name": "Explore: Countries with Most Greenhouse Gas Emissions"
-  },
-  {
-    "path": "/explore#q=How+does+PM2.5+correlate+with+asthma+across+US+counties&mb=4&test=screenshot",
-    "name": "Explore: PM2.5 vs. Asthma Correlation in US Counties"
-  },
-  {
-    "path": "/explore#q=How+do+solar+installations+correlate+with+median+income+across+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Solar Installations vs. Median Income in US Counties"
-  },
-  {
-    "path": "/explore#q=AQI+vs+blood+pressure+in+New+Jersey&mb=4&test=screenshot",
-    "name": "Explore: AQI vs. Blood Pressure in New Jersey"
-  },
-  {
-    "path": "/explore#q=Educational+Attainment+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Educational Attainment in the US"
-  },
-  {
-    "path": "/explore#q=School+Enrollment+in+California&mb=4&test=screenshot",
-    "name": "Explore: School Enrollment in California"
-  },
-  {
-    "path": "/explore#q=Housing+in+Oakland&mb=4&test=screenshot",
-    "name": "Explore: Housing in Oakland"
-  },
-  {
-    "path": "/explore#q=Commute+in+New+York+State&mb=4&test=screenshot",
-    "name": "Explore: Commute in New York State"
-  },
-  {
-    "path": "/explore#q=Bachelors+major+types+in+Texas&mb=4&test=screenshot",
-    "name": "Explore: Bachelor's Major Types in Texas"
-  },
-  {
-    "path": "/explore#q=Bachelors+majors+in+Berkeley+vs+Austin&mb=4&test=screenshot",
-    "name": "Explore: Bachelor's Majors in Berkeley vs. Austin"
-  },
-  {
-    "path": "/explore#q=Student+demographics+among+schools+in+Sunnyvale&mb=4&test=screenshot",
-    "name": "Explore: Student Demographics in Sunnyvale Schools"
-  },
-  {
-    "path": "/explore#q=Education+Attainment+by+Gender+in+New+York+City&mb=4&test=screenshot",
-    "name": "Explore: Education Attainment by Gender in New York City"
-  },
-  {
-    "path": "/explore#q=Bachelor's+degree+holders+in+California+counties&mb=4&test=screenshot",
-    "name": "Explore: Bachelor's Degree Holders in California Counties"
-  },
-  {
-    "path": "/explore#q=US+counties+with+the+most+number+of+PhDs&mb=4&test=screenshot",
-    "name": "Explore: US County with Most PhDs"
-  },
-  {
-    "path": "/explore#q=Home+value+in+Detroit&mb=4&test=screenshot",
-    "name": "Explore: Home Value in Detroit"
-  },
-  {
-    "path": "/explore#q=Compare+rooms+per+house+in+New+York+City+vs+Salt+Lake+City&mb=4&test=screenshot",
-    "name": "Explore: Rooms per House in NYC vs. Salt Lake City"
-  },
-  {
-    "path": "/explore#q=Rental+prices+in+Oakland+vs+Berkeley&mb=4&test=screenshot",
-    "name": "Explore: Rental Prices in Oakland vs. Berkeley"
-  },
-  {
-    "path": "/explore#q=When+were+the+houses+in+NYC+built?&mb=4&test=screenshot",
-    "name": "Explore: NYC House Construction Year"
-  },
-  {
-    "path": "/explore#q=Educational+attainment+of+homeowners+in+Boston&mb=4&test=screenshot",
-    "name": "Explore: Educational Attainment of Homeowners in Boston"
-  },
-  {
-    "path": "/explore#q=Compare+modes+of+commute+between+NYC+and+Chicago&mb=4&test=screenshot",
-    "name": "Explore: Commute Modes NYC vs. Chicago"
-  },
-  {
-    "path": "/explore#q=Counties+in+California+with+the+highest+work-from-home+population&mb=4&test=screenshot",
-    "name": "Explore: California Counties with Highest Work-from-Home Population"
-  },
-  {
-    "path": "/explore#q=Educational+Attainment+vs+Poverty+in+Florida&mb=4&test=screenshot",
-    "name": "Explore: Educational Attainment vs. Poverty in Florida"
-  },
-  {
-    "path": "/explore#q=Median+rent+vs.+Median+Income+in+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Median Rent vs. Median Income in US Counties"
-  },
-  {
-    "path": "/explore#q=Median+rent+vs.+Masters+degree+holders+in+California+counties&mb=4&test=screenshot",
-    "name": "Explore: Median Rent vs. Master's Degree Holders in California Counties"
-  },
-  {
-    "path": "/explore#q=Median+home+value+vs.+hypertension+in+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Median Home Value vs. Hypertension in US Counties"
-  },
-  {
-    "path": "/explore#q=Median+home+value+vs.+Work+from+home+population+in+US+counties&mb=4&test=screenshot",
-    "name": "Explore: Median Home Value vs. Work-from-Home Population in US Counties"
-  },
-  {
-    "path": "/explore#q=Economic+equity+in+California&mb=4&test=screenshot",
-    "name": "Explore: Economic Equity in California"
-  },
-  {
-    "path": "/explore#q=What+is+the+breakdown+of+incarceration+rates+by+race+in+the+US&mb=4&test=screenshot",
-    "name": "Explore: Racial Breakdown of Incarceration Rates in US"
-  },
-  {
-    "path": "/explore#q=What+about+health+equity+in+Santa+Clara+County&mb=4&test=screenshot",
-    "name": "Explore: Health Equity in Santa Clara County"
   },
   {
     "path": "/explore#q=What+is+the+number+of+poor+hispanic+women+in+Santa+Clara+County&mb=4&test=screenshot",
