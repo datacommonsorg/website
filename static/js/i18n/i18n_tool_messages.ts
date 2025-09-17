@@ -135,6 +135,55 @@ export const toolMessages = defineMessages({
     description:
       "Invitation for users to explore some example charts and visualizations.",
   },
+  unsupportedEnclosedPlaceAlert: {
+    id: "unsupported_enclosed_place_alert",
+    defaultMessage:
+      "Sorry, we don't support {placeName}. Please select a different place.",
+    description:
+      "Message to users that the place they selected is unsupported by our tool",
+  },
+  enterAPlaceInstruction: {
+    id: "enter_a_place_instruction",
+    defaultMessage: "Enter a place",
+    description:
+      "An instruction for users to type a place's name into a text box",
+  },
+  enterPotentiallyMultiplePlacesInstruction: {
+    id: "enter_potentially_multiple_places_instruction",
+    defaultMessage: "Select place(s):",
+    description:
+      "An instruction for users to type one or many place's name into a text box",
+  },
+  childPlaceTypeInstruction: {
+    id: "childPlaceTypeInstruction",
+    defaultMessage: "of type",
+    description:
+      "part of the label on a form saying 'Enter a place of type <type>' asking users to select a place type (e.g. city, country)",
+  },
+  selectAPlaceTypeInstruction: {
+    id: "selectAPlaceTypeInstruction",
+    defaultMessage: "Select a place type",
+    description:
+      "default value on a dropdown telling the user to select a place type from the given options",
+  },
+  selectAVariableInstruction: {
+    id: "selectAVariableInstruction",
+    defaultMessage: "Select variable",
+    description:
+      "Instruction inviting the user to select a statistical variable to plot",
+  },
+  selectMultipleVariablesInstruction: {
+    id: "selectMultipleVariablesInstruction",
+    defaultMessage: "Select variables",
+    description:
+      "Instruction inviting the user to select more than 1 statistical variable to plot",
+  },
+  placesIn: {
+    id: "places_in",
+    defaultMessage: "Places in",
+    description:
+      "Label on a textbox for a place, as in 'plot places in <user selected place>",
+  },
 });
 
 export const VisToolExampleChartMessages = defineMessages({
