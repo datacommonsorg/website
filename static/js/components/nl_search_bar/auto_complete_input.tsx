@@ -59,7 +59,7 @@ import {
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
-const STAT_VAR_EXPLORER_PREFIX = "/explore#p=Earth&sv=";
+const EXPLORE_SV_FOR_EARTH = "/explore#p=Earth&sv=";
 const LOCATION_SEARCH = "location_search";
 const STAT_VAR_SEARCH = "stat_var_search";
 
@@ -318,7 +318,7 @@ export function AutoCompleteInput(
       if (result.dcid) {
         setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
-          window.location.href = STAT_VAR_EXPLORER_PREFIX + result.dcid;
+          window.location.href = EXPLORE_SV_FOR_EARTH + result.dcid;
         }
         return;
       }

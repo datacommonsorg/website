@@ -15,6 +15,7 @@
 import asyncio
 import itertools
 import logging
+import re
 import time
 from typing import List
 
@@ -78,7 +79,8 @@ async def autocomplete():
     place_name = concept_result['place_name']
     place_name_end_pos = original_query.lower().find(
         place_name.lower()) + len(place_name)
-    query_for_ngrams = original_query[place_name_end_pos:].strip()
+    query_for_ngrams = original_query[place_name_end_pos:]
+    query_for_ngrams = re.sub(r"^\s*'s\s*", "", query_for_ngrams).strip()
     logging.info(
         f'[Autocomplete] Adjusted query for n-grams: "{query_for_ngrams}" (place: "{place_name}")'
     )
