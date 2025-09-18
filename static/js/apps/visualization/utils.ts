@@ -68,7 +68,7 @@ function getStandardizedHashParams(
 /**
  * Get equivalent hash parameters for /tools/map.
  *
- * Converts the hash parameters into equivalent hash parameters used by /tools/map.
+ * Converts the given hash parameters into equivalent hash parameters used by /tools/map.
  * Note that because features are not 1:1 between /tools/visualization and /tools/map,
  * only hash parameters supported by /tools/map will be returned.
  *
@@ -84,7 +84,7 @@ function getStandardizedMapHashParams(
 /**
  * Get equivalent hash parameters for /tools/scatter.
  *
- * Converts the hash parameters into equivalent hash parameters used by /tools/scatter.
+ * Converts the given hash parameters into equivalent hash parameters used by /tools/scatter.
  * Note that because features are not 1:1 between /tools/visualization and /tools/scatter,
  * only hash parameters supported by /tools/scatter will be returned.
  *
@@ -100,7 +100,7 @@ function getStandardizedScatterHashParams(
 /**
  * Get equivalent hash parameters for /tools/timeline.
  *
- * Converts the hash parameters into equivalent hash parameters used by /tools/timeline.
+ * Converts the given hash parameters into equivalent hash parameters used by /tools/timeline.
  * Note that because features are not 1:1 between /tools/visualization and /tools/timeline,
  * only hash parameters supported by /tools/timeline will be returned.
  *
@@ -113,10 +113,12 @@ function getStandardizedTimelineHashParams(
   const newHashParams = new URLSearchParams();
   // Convert each mappable parameter
   Object.keys(TIMELINE_URL_PARAM_MAPPING).forEach((key) => {
-    newHashParams.set(
-      TIMELINE_URL_PARAM_MAPPING[key],
-      currentHashParams.get(key)
-    );
+    if (currentHashParams.get(key)) {
+      newHashParams.set(
+        TIMELINE_URL_PARAM_MAPPING[key],
+        currentHashParams.get(key)
+      );
+    }
   });
   return newHashParams;
 }
