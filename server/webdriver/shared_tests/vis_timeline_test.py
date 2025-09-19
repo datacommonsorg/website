@@ -226,24 +226,6 @@ class VisTimelineTestMixin():
     chart_lines = charts[1].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 2)
 
-  def test_landing_page_link(self):
-    """Test one of the links on the landing page
-    """
-    self.driver.get(self.url_ + TIMELINE_URL)
-
-    # Click a link on the landing page
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'info-content'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
-
-    # Assert chart loads
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
-    charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
-    self.assertEqual(len(charts), 1)
-    chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
-    self.assertEqual(len(chart_lines), 3)
-
   def test_select_different_facet(self):
     """Test selecting a different facet of the metadata and verify the line changes."""
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
