@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
+import { escape } from "lodash";
 
 import {
   PARAM_VALUE_SEP,
@@ -46,18 +46,14 @@ const TIMELINE_STAT_VAR_SEPARATOR = "__"; // 2 underscores
  */
 export function getStandardizedToolUrl(): string {
   const currentHashParams = new URLSearchParams(
-    window.location.hash.replace("#", "")
+    decodeURIComponent(window.location.hash.replace("#", ""))
   );
   const visType = getVisTypeFromHash();
 
   // Convert hash parameters
   const newHashParams = getStandardizedHashParams(visType, currentHashParams);
-  const newHashString = newHashParams.toString()
-    ? `#${newHashParams.toString()}`
-    : "";
-  // Encode hash parameters to defend against XSS attacks
-  const encodedNewHashString = encodeURIComponent(newHashString);
-  return `/tools/${visType}${encodedNewHashString}`;
+  const newHashString = newHashParams.toString();
+  return `/tools/${visType}${newHashString ? `#${newHashString}` : ""}`;
 }
 
 /**
@@ -68,7 +64,7 @@ export function getStandardizedToolUrl(): string {
 export function getVisTypeFromHash(): VisType {
   // Get visualization type from URL hash parameters
   const currentHashParams = new URLSearchParams(
-    window.location.hash.substring(1)
+    decodeURIComponent(window.location.hash.replace("#", ""))
   );
   // Default to map tool if no visType is provided
   const visType = currentHashParams.get("visType") || "map";
@@ -175,10 +171,13 @@ function getTimelineHashParams(
           );
         }
       } else if (paramName && paramValue) {
-        // Otherwise, Add converted keys values as new param
+        // Otherwise, Add converted keys & values as new param
+        // Escape value to defend against XSS attacks
         newHashParams.set(
           paramName,
-          paramValue.replaceAll(PARAM_VALUE_SEP, TIMELINE_DEFAULT_SEPARATOR)
+          escape(
+            paramValue.replaceAll(PARAM_VALUE_SEP, TIMELINE_DEFAULT_SEPARATOR)
+          )
         );
       }
     }
@@ -230,7 +229,8 @@ function parseSvObject(
       }
 
       // Add DCIDs to list
-      const itemDcid = item[STAT_VAR_PARAM_KEYS.DCID];
+      // Escape DCID to defend against XSS attacks
+      const itemDcid = escape(item[STAT_VAR_PARAM_KEYS.DCID]);
       dcids.push(itemDcid);
 
       // Build the chart entry for this item
@@ -246,7 +246,8 @@ function parseSvObject(
           if (key == STAT_VAR_PARAM_KEYS.PER_CAPITA) {
             value = item[key] == "1" ? "true" : "false";
           }
-          chartEntry[paramNameMapping[key]] = value;
+          // Escape value to defend against XSS attacks
+          chartEntry[paramNameMapping[key]] = escape(value);
         }
       }
       if (Object.keys(chartEntry).length > 0) {
