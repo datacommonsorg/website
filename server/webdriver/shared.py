@@ -178,6 +178,46 @@ def search_for_places(self,
 
 
 def _search_for_places_old(self, driver, search_term, place_type=None):
+  # Search for place
+  _search_and_select_first_item_in_dropdown(driver, search_term)
+
+  if place_type:
+    # Wait for place type select to be clickable
+    place_selector_place_type = WebDriverWait(driver, TIMEOUT).until(
+        EC.element_to_be_clickable((By.ID, 'place-selector-place-type')))
+    # Select a place type
+    Select(place_selector_place_type).select_by_value(place_type)
+    # Wait for any loading spinners
+    wait_for_loading(driver)
+
+
+def _search_for_places(self, driver, search_term, place_type=None):
+  # Click start
+  click_el(driver, (By.CLASS_NAME, 'start-button'))
+
+  # Type term into the search box.
+  _search_and_select_first_item_in_dropdown(driver, search_term)
+
+  wait_for_loading(driver)
+
+  # Click continue
+  click_el(driver, (By.CLASS_NAME, 'continue-button'))
+
+  if place_type:
+    # Wait for place types to load and click on one
+    wait_elem(self.driver,
+              by=By.CSS_SELECTOR,
+              value='.place-type-selector .form-check-input')
+    # Find the specific label by its text using XPath and click it
+    place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
+    click_el(driver, (By.XPATH, place_type_xpath))
+    # Click continue
+    click_el(driver, (By.CLASS_NAME, 'continue-button'))
+
+  wait_for_loading(self.driver)
+
+
+def _search_and_select_first_item_in_dropdown(driver, search_term):
   # Wait for search box to be visible
   search_box_locator = (By.ID, 'ac')
   search_box_input = WebDriverWait(driver, TIMEOUT).until(
@@ -204,45 +244,3 @@ def _search_for_places_old(self, driver, search_term, place_type=None):
 
   # Wait for any loading spinners
   wait_for_loading(driver)
-
-  if place_type:
-    # Wait for place type select to be clickable
-    place_selector_place_type = WebDriverWait(driver, TIMEOUT).until(
-        EC.element_to_be_clickable((By.ID, 'place-selector-place-type')))
-    # Select a place type
-    Select(place_selector_place_type).select_by_value(place_type)
-    # Wait for any loading spinners
-    wait_for_loading(driver)
-
-
-def _search_for_places(self, driver, search_term, place_type=None):
-  # Click start
-  click_el(driver, (By.CLASS_NAME, 'start-button'))
-
-  # Type term into the search box.
-  wait_elem(self.driver, by=By.ID, value='location-field')
-  search_box_input = self.driver.find_element(By.ID, 'ac')
-  search_box_input.send_keys(search_term)
-
-  # Wait until there is at least one result in autocomplete results.
-  self.assertIsNotNone(wait_elem(driver, value='pac-item'))
-
-  # Click on the first result.
-  click_el(driver, (By.CSS_SELECTOR, '.pac-item:nth-child(1)'))
-  wait_for_loading(driver)
-
-  # Click continue
-  click_el(driver, (By.CLASS_NAME, 'continue-button'))
-
-  if place_type:
-    # Wait for place types to load and click on one
-    wait_elem(self.driver,
-              by=By.CSS_SELECTOR,
-              value='.place-type-selector .form-check-input')
-    # Find the specific label by its text using XPath and click it
-    place_type_xpath = f"//*[contains(@class, 'place-type-selector')]//label[text()='{place_type}']"
-    click_el(driver, (By.XPATH, place_type_xpath))
-    # Click continue
-    click_el(driver, (By.CLASS_NAME, 'continue-button'))
-
-  wait_for_loading(self.driver)
