@@ -178,6 +178,20 @@ function getTimelineHashParams(
 
 /**
  * Parses the stat var object string from the URL
+ *
+ * The visualization tools stores stat var dcids and  chart options (per capita, denominator, log, etc)
+ * as a list ofJSON objects, one for each stat var. This function extracts a list of stat var dcids
+ * and returns a new JSON object of chart options keyed by stat var dcid with parameter names
+ * translated into the equivalent old tool param names.
+ *
+ * E.g.,
+ * From: [{dcid: "dcid1", property1: "value1"}, {dcid: "dcid2", property1: "value2"}]
+ * to: {"dcid1": {equivalent_property: "value1"}, "dcid2": {equilavent_property: "value2"}}
+ *
+ * Note: The chart options will only be populated for a stat var if there are other properties
+ *       (per capita, denomnator, etc) associated with that stat var. This prevents issues with
+ *       parsing empty parameter values downstream in /tools/*.
+ *
  * @param svObjectString the string representation of the stat var object
  * @param paramNameMapping a mapping of vis tool param names to the equivalent old tool param names
  * @returns a tuple with a list of stat var dcids and a mapping of stat var dcis
@@ -216,6 +230,8 @@ function parseSvObject(
           Object.values(STAT_VAR_PARAM_KEYS).includes(key) &&
           Object.keys(paramNameMapping).includes(key)
         ) {
+          // Add entry if this parameter is both a valid
+          // /visualization param and a valid /tools/* params
           let value = item[key];
           if (key == STAT_VAR_PARAM_KEYS.PER_CAPITA) {
             value = item[key] == "1" ? "true" : "false";
@@ -224,10 +240,10 @@ function parseSvObject(
         }
       }
       if (Object.keys(chartEntry).length > 0) {
+        // Only add this stat var's chart options if not empty
         chartOptions[itemDcid] = chartEntry;
       }
     }
-    console.log(chartOptions);
     return [dcids, chartOptions];
   } catch (error) {
     // Invalid svObjectString
