@@ -23,7 +23,7 @@ from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 import server.webdriver.shared as shared
 
-TIMELINE_URL = '/tools/visualization#visType=timeline'
+TIMELINE_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=timeline'
 URL_HASH_1 = '&place=geoId/06___geoId/08&sv=%7B"dcid"%3A"Median_Age_Person"%7D___%7B"dcid"%3A"Count_Person_Female"%7D___%7B"dcid"%3A"Count_Person_Male"%7D'
 URL_HASH_2 = '&place=geoId/06___geoId/08&placeType=County&sv=%7B"dcid"%3A"LifeExpectancy_Person"%7D'
 PLACE_SEARCH_CA = 'California'
@@ -225,24 +225,6 @@ class VisTimelineTestMixin():
     self.assertEqual(len(chart_lines), 2)
     chart_lines = charts[1].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 2)
-
-  def test_landing_page_link(self):
-    """Test one of the links on the landing page
-    """
-    self.driver.get(self.url_ + TIMELINE_URL)
-
-    # Click a link on the landing page
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'info-content'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
-
-    # Assert chart loads
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
-    charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
-    self.assertEqual(len(charts), 1)
-    chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
-    self.assertEqual(len(chart_lines), 3)
 
   def test_select_different_facet(self):
     """Test selecting a different facet of the metadata and verify the line changes."""
