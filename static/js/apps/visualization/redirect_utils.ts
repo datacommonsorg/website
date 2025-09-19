@@ -28,6 +28,9 @@ import { TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
  * Helper functions for implementing the redirects from the Visualization Tool to the "old" tools.
  */
 
+// Allowed values for visType hash parameter
+const VIS_TOOL_TYPES = ["map", "scatter", "timeline"];
+type VisType = "map" | "scatter" | "timeline";
 // Separator between multiple hash parameter values used by /tools/timeline
 const TIMELINE_DEFAULT_SEPARATOR = ",";
 // Separator between multiple variables used by /tools/timeline
@@ -42,18 +45,19 @@ const TIMELINE_STAT_VAR_SEPARATOR = "__"; // 2 underscores
  * @returns equivalent url that can be used for redirecting.
  */
 export function getStandardizedToolUrl(): string {
-  const visType = getVisTypeFromHash();
   const currentHashParams = new URLSearchParams(
-    decodeURIComponent(window.location.hash).replace("#", "")
+    window.location.hash.replace("#", "")
   );
+  const visType = getVisTypeFromHash();
 
   // Convert hash parameters
   const newHashParams = getStandardizedHashParams(visType, currentHashParams);
   const newHashString = newHashParams.toString()
     ? `#${newHashParams.toString()}`
     : "";
-
-  return `/tools/${visType}${newHashString}`;
+  // Encode hash parameters to defend against XSS attacks
+  const encodedNewHashString = encodeURIComponent(newHashString);
+  return `/tools/${visType}${encodedNewHashString}`;
 }
 
 /**
@@ -61,13 +65,19 @@ export function getStandardizedToolUrl(): string {
  *
  * If no visualization type is specified, defaults to the "map"
  */
-export function getVisTypeFromHash(): string {
+export function getVisTypeFromHash(): VisType {
   // Get visualization type from URL hash parameters
   const currentHashParams = new URLSearchParams(
-    decodeURIComponent(window.location.hash).replace("#", "")
+    window.location.hash.substring(1)
   );
   // Default to map tool if no visType is provided
-  return currentHashParams.get("visType") || "map";
+  const visType = currentHashParams.get("visType") || "map";
+
+  // Sanitize visType to prevent path traversal and other injection attacks.
+  if (!VIS_TOOL_TYPES.includes(visType)) {
+    return "map";
+  }
+  return visType as VisType;
 }
 
 /**
@@ -77,7 +87,7 @@ export function getVisTypeFromHash(): string {
  * @returns a new set of hash parameters matching the equivalent "old" version of the tool
  */
 function getStandardizedHashParams(
-  visType: string,
+  visType: VisType,
   currentHashParams: URLSearchParams
 ): URLSearchParams {
   switch (visType) {
