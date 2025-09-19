@@ -27,13 +27,20 @@ import {
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
 } from "../../shared/feature_flags/util";
 import { App } from "./app";
-import { getStandardizedToolUrl } from "./utils";
+import { getStandardizedToolUrl, getVisTypeFromHash } from "./redirect_utils";
 
 window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       // If standardized vis tool flag is on, redirect to the old tools
-      if (isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
+
+      // TODO(juliawu): Right now only timeline redirect is implemented.
+      //                Implement the logic for the other tools.
+      const visType = getVisTypeFromHash();
+      if (
+        isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG) &&
+        visType == "timeline"
+      ) {
         window.location.href = getStandardizedToolUrl();
       } else {
         ReactDOM.render(
