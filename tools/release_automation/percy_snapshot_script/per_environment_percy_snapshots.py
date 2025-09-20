@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#       https://www.apache.org/licenses/LICENSE-2.0
+#         https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,6 @@ import argparse
 import concurrent.futures
 import json
 import os
-import shutil
 import time
 
 from percy import percy_snapshot
@@ -37,17 +36,13 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
-# --- Configuration Constants ---
 WAIT_TIMEOUT = 15
 URLS_FILE = "urls.json"
 
-# --- Helper Functions ---
 
-
-# --- Revised setup_webdriver function ---
 def setup_webdriver():
+  """Initializes and returns a Chrome WebDriver instance."""
   chrome_options = Options()
   chrome_options.add_argument("--headless")
   chrome_options.add_argument("--no-sandbox")
@@ -55,16 +50,11 @@ def setup_webdriver():
   chrome_options.add_argument("--window-size=1920,1080")
 
   try:
-    # Proper way to use ChromeDriverManager with Service
-    service = Service(ChromeDriverManager().install())
+    # Explicitly use the chromedriver executable at its absolute path
+    service = Service(executable_path="/usr/bin/chromedriver")
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
   except Exception as e:
-    if "zip file" in str(e).lower():
-      print("⚠️ Corrupted driver zip detected. Retrying after cache clear.")
-      shutil.rmtree(os.path.expanduser("~/.wdm"), ignore_errors=True)
-      service = Service(ChromeDriverManager().install())
-      return webdriver.Chrome(service=service, options=chrome_options)
     raise RuntimeError(f"Failed to set up WebDriver: {e}")
 
 
@@ -101,6 +91,7 @@ def take_single_snapshot(name: str, url: str):
   print(f"[PID {os.getpid()}] Starting snapshot for '{name}' at {url}...")
   driver = None
   try:
+    # The driver is found on the PATH, no argument needed
     driver = setup_webdriver()
     driver.get(url)
 
@@ -116,19 +107,17 @@ def take_single_snapshot(name: str, url: str):
       )
       time.sleep(5)
 
-    percy_snapshot(driver, name)
+    percy_snapshot(driver, name, responsiveSnapshotCapture=True)
     print(f"[PID {os.getpid()}] Snapshot taken for '{name}'. Done. 🎉")
   except Exception as e:
     print(
         f"[PID {os.getpid()}] An error occurred while processing '{name}': {e} ❌"
     )
-    # Returning a failure status
     return False
   finally:
     if driver:
       driver.quit()
 
-  # Returning a success status
   return True
 
 
@@ -145,11 +134,12 @@ def main():
   args = parser.parse_args()
   environment = args.env
 
-  # Centralized mapping of environments to base URLs
   BASE_URLS = {
       "staging": "https://staging.datacommons.org",
       "production": "https://datacommons.org"
   }
+
+  shard_index = int(os.getenv("SHARD_INDEX", "0"))
 
   try:
     base_url = BASE_URLS.get(environment)
@@ -161,7 +151,6 @@ def main():
     total_urls = len(all_urls)
 
     # Get sharding info from environment variables
-    shard_index = int(os.getenv("SHARD_INDEX", "0"))
     total_shards = int(os.getenv("TOTAL_SHARDS", "1"))
 
     # Divide the workload
@@ -175,8 +164,7 @@ def main():
     )
 
     # Run the snapshots in parallel within the shard
-    with concurrent.futures.ProcessPoolExecutor(
-        max_workers=os.cpu_count()) as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
       futures = [
           executor.submit(take_single_snapshot, name, url)
           for name, url in shard_urls

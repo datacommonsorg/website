@@ -48,11 +48,12 @@ def _get_language_client():
   return _language_client
 
 
-def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
+def analyze_query_concepts(query: str) -> Optional[Dict[str, any]]:
   """
   Uses the NL API to extract key concepts from a query using Part-of-Speech
-  tagging.
-  Returns a dictionary with the cleaned query and the original phrase, or None.
+  tagging and Entity Analysis.
+  Returns a dictionary with the cleaned query, the original phrase, whether
+  a place was found, and the name of the place, or None.
   """
   client = _get_language_client()
   KEEP_TAGS = {
@@ -65,11 +66,23 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
   try:
     document = language_v1.Document(content=query,
                                     type_=language_v1.Document.Type.PLAIN_TEXT)
-    response = client.analyze_syntax(
+    # Call both analyze_syntax and analyze_entities
+    syntax_response = client.analyze_syntax(
+        document=document, encoding_type=language_v1.EncodingType.UTF8)
+    entities_response = client.analyze_entities(
         document=document, encoding_type=language_v1.EncodingType.UTF8)
 
+    # Check for places in the entities response
+    has_place = False
+    place_name = ""
+    for entity in entities_response.entities:
+      if entity.type_ == language_v1.Entity.Type.LOCATION:
+        has_place = True
+        place_name = entity.name
+        break
+
     kept_tokens = []
-    for token in response.tokens:
+    for token in syntax_response.tokens:
       pos = token.part_of_speech
       if pos.tag == language_v1.PartOfSpeech.Tag.NOUN and pos.proper == language_v1.PartOfSpeech.Proper.PROPER:
         continue
@@ -92,6 +105,8 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, str]]:
     return {
         "cleaned_query": cleaned_query,
         "original_phrase": original_phrase,
+        "has_place": has_place,
+        "place_name": place_name,
     }
 
   except Exception as e:
