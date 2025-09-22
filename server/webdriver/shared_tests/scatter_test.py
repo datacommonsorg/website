@@ -106,7 +106,7 @@ class ScatterTestMixin():
         self.driver,
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
 
-    # Assert chart is correct.
+    # Assert chart title correct.
     wait_elem(self.driver, by=By.ID, value='scatterplot')
     chart = find_elem(self.driver,
                       by=By.CSS_SELECTOR,
@@ -115,6 +115,9 @@ class ScatterTestMixin():
                   find_elem(chart, by=By.XPATH, value='./h3[1]').text.lower())
     self.assertIn("median age of population ",
                   find_elem(chart, by=By.XPATH, value='./h3[2]').text.lower())
+
+    # Assert chart loads
+    wait_elem(self.driver, By.TAG_NAME, 'circle')
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
@@ -132,6 +135,7 @@ class ScatterTestMixin():
     # Assert chart loads
     shared.wait_for_loading(self.driver)
     wait_elem(self.driver, by=By.ID, value='scatterplot')
+    wait_elem(self.driver, By.CLASS_NAME, value='circle')
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
@@ -218,6 +222,7 @@ class StandardizedScatterTestMixin():
 
     # Assert is a scatter plot with at least 50 circles
     # (CA has 58 counties)
+    wait_elem(self.driver, By.TAG_NAME, 'circle')
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
@@ -271,6 +276,7 @@ class StandardizedScatterTestMixin():
 
     # Assert chart is a map with at least 50 regions
     # (CA has 58 counties)
+    wait_elem(self.driver, By.TAG_NAME, 'path')
     geo_region_container = find_elem(self.driver,
                                      by=By.ID,
                                      value='map-geo-regions')
@@ -330,6 +336,7 @@ class StandardizedScatterTestMixin():
 
     # Assert is a scatter plot with at least 50 circles
     # (CA has 58 counties)
+    wait_elem(self.driver, By.TAG_NAME, 'circle')
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')

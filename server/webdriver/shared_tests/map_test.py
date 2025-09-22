@@ -70,6 +70,7 @@ class MapTestMixin():
                   value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
 
     # Assert was have 58 map regions and 5 legends.
+    wait_elem(self.driver, By.TAG_NAME, 'path')
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                      58)
@@ -81,6 +82,7 @@ class MapTestMixin():
     shared.click_el(self.driver, (By.LINK_TEXT, 'United States'))
 
     # Assert redirect was correct
+    wait_elem(self.driver, By.ID, 'place-list')
     place_list = find_elem(self.driver, by=By.ID, value='place-list')
     shared.wait_for_loading(self.driver)
     self.assertEqual(
@@ -146,9 +148,13 @@ class MapTestMixin():
                   by=By.XPATH,
                   value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
 
-    # Assert we have the right number of regions and legends
+    # Assert we have the right number of regions
+    wait_elem(self.driver, By.TAG_NAME, 'path')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                      58)
+
+    # Assert we have the right number of legends
+    wait_elem(self.driver, By.CLASS_NAME, 'tick')
     chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
     self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
 
@@ -165,6 +171,7 @@ class MapTestMixin():
 
     # Assert chart loads
     shared.wait_for_loading(self.driver)
+    wait_elem(self.driver, By.TAG_NAME, 'path')
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertGreater(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                        1)
@@ -237,7 +244,9 @@ class StandardizedMapTestMixin():
                   value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
 
     # Assert we have the right number of regions and legends
+    wait_elem(self.driver, By.TAG_NAME, 'path')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                      58)
+    wait_elem(self.driver, By.CLASS_NAME, 'tick')
     chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
     self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
