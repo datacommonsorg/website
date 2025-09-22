@@ -26,7 +26,6 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import {
-  escapeRegExp,
   replaceQueryWithSelection,
   stripPatternFromQuery,
 } from "../../shared/util";
@@ -95,7 +94,7 @@ export function AutoCompleteSuggestions(
     >
       {props.allResults
         .slice(0, visibleCount)
-        .map((result: AutoCompleteResult, idx: number) => {
+        .map((result: AutoCompleteResult, idx: number): JSX.Element => {
           const fullText = replaceQueryWithSelection(
             props.baseInput,
             result,

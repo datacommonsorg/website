@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import _, { set } from "lodash";
+import _ from "lodash";
 import React, {
   ReactElement,
   useCallback,
