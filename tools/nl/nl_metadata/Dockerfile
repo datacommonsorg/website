@@ -12,6 +12,10 @@ COPY requirements.txt .
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the CSV file from the build context to the container
+# The path is relative to the Dockerfile location
+COPY ../../embeddings/input/base/sheets_svs.csv /app/tools/nl/embeddings/input/base/sheets_svs.csv
+
 # Copy your application code into the container
 # This copies everything from your local directory into /app in the container
 COPY . .
