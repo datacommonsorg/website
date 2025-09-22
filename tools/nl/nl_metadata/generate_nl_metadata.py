@@ -47,6 +47,12 @@ import asyncio
 from datetime import datetime
 import json
 import os
+import sys
+
+# WARNING: This disables a Python safety feature to allow parsing of extremely
+# long integers from the Gemini API response. This is a workaround for cases
+# where the model may return unexpectedly large numbers.
+sys.set_int_max_str_digits(0)  # 0 means no limit
 
 import config
 import data_loader
