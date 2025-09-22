@@ -178,32 +178,8 @@ def search_for_places(self,
 
 
 def _search_for_places_old(self, driver, search_term, place_type=None):
-  # Wait for search box to be visible
-  search_box_locator = (By.ID, 'ac')
-  search_box_input = WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located(search_box_locator))
-
-  # Type search term into search box
-  search_box_input.clear()
-  search_box_input.send_keys(search_term)
-
-  # Wait for the dropdown list to appear
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located((By.CLASS_NAME, 'pac-container')))
-
-  # Wait for the dropdown list to be populated.
-  item = WebDriverWait(driver, TIMEOUT).until(
-      EC.element_to_be_clickable((By.CLASS_NAME, 'pac-item')))
-
-  # Click on first element
-  item.click()
-
-  # Wait for chip to be present
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
-
-  # Wait for any loading spinners
-  wait_for_loading(driver)
+  # Search for place
+  _search_and_select_first_item_in_dropdown(driver, search_term)
 
   if place_type:
     # Wait for place type select to be clickable
@@ -242,7 +218,7 @@ def _search_for_places(self, driver, search_term, place_type=None):
 
 
 def search_for_multiple_places(driver, search_terms):
-  """Interacts with a visualization tool page to manually search for multiple places sequentially.
+  """Interacts with a google maps autocomplete search box to manually search for multiple places sequentially.
 
   Useful for the timeline tool where multiple places can be entered sequentially.
 
@@ -264,7 +240,7 @@ def search_for_multiple_places(driver, search_terms):
 
 
 def _search_and_select_first_item_in_dropdown(driver, search_term):
-  """Interacts with a visualization tool page to search and select the first result"""
+  """Interacts with a googl maps autocomplete search box to search and select the first result"""
   # Wait for search box to be visible
   search_box_locator = (By.ID, 'ac')
   search_box_input = WebDriverWait(driver, TIMEOUT).until(
