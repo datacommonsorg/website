@@ -250,7 +250,31 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
   )
   filename = f"{exported_filename}.json"
   local_file_path = os.path.join(config.EXPORTED_FILE_DIR, filename)
-  sv_metadata_df = pd.DataFrame(sv_metadata_list)
+  try:
+    sv_metadata_df = pd.DataFrame(sv_metadata_list)
+  except OverflowError:
+    print(
+        "OverflowError encountered. Building DataFrame row by row and skipping bad rows."
+    )
+    good_rows = []
+    bad_rows_count = 0
+    for item in sv_metadata_list:
+      try:
+        # The error is with conversion, so we test if a DF can be made.
+        pd.DataFrame([item])
+        good_rows.append(item)
+      except OverflowError:
+        bad_rows_count += 1
+        print(f"WARNING: Skipping a row due to OverflowError. Row data: {item}")
+
+    if not good_rows:
+      print("ERROR: All rows failed conversion. DataFrame will be empty.")
+      sv_metadata_df = pd.DataFrame()
+    else:
+      sv_metadata_df = pd.DataFrame(good_rows)
+
+    if bad_rows_count > 0:
+      print(f"Skipped {bad_rows_count} rows due to OverflowError.")
   sv_metadata_json = sv_metadata_df.to_json(orient="records", lines=True)
 
   if should_save_to_gcs:
@@ -261,14 +285,14 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
     blob.upload_from_string(sv_metadata_json, content_type="application/json")
 
     print(
-        f"{len(sv_metadata_list)} statvars saved to gs://{config.GCS_BUCKET}/{gcs_file_path}"
+        f"{len(sv_metadata_df)} statvars saved to gs://{config.GCS_BUCKET}/{gcs_file_path}"
     )
   else:
     os.makedirs(os.path.join(config.EXPORTED_FILE_DIR, "failures"),
                 exist_ok=True)
     with open(local_file_path, "w") as f:
       f.write(sv_metadata_json)
-    print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
+    print(f"{len(sv_metadata_df)} statvars saved to {local_file_path}")
 
 
 def compact_files(gcs_folder: str, output_filename: str,
