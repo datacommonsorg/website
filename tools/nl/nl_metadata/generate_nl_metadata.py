@@ -264,7 +264,8 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
         f"{len(sv_metadata_list)} statvars saved to gs://{config.GCS_BUCKET}/{gcs_file_path}"
     )
   else:
-    os.makedirs(os.path.join(config.EXPORTED_FILE_DIR, "failures"), exist_ok=True)
+    os.makedirs(os.path.join(config.EXPORTED_FILE_DIR, "failures"),
+                exist_ok=True)
     with open(local_file_path, "w") as f:
       f.write(sv_metadata_json)
     print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
