@@ -282,9 +282,10 @@ def compact_files(gcs_folder: str, output_filename: str,
 
   # 1. List all original files to be compacted from the root of the folder
   # Ensure the prefix ends with a delimiter to correctly list folder contents.
-  if not gcs_folder.endswith('/'):
-    gcs_folder += '/'
-  blobs_in_folder = bucket.list_blobs(prefix=gcs_folder, delimiter='/')
+  list_prefix = gcs_folder
+  if not list_prefix.endswith('/'):
+    list_prefix += '/'
+  blobs_in_folder = bucket.list_blobs(prefix=list_prefix, delimiter='/')
   original_files = [
       blob for blob in blobs_in_folder
       if (blob.name.endswith('.jsonl') or blob.name.endswith('.json')) and
@@ -315,7 +316,7 @@ def compact_files(gcs_folder: str, output_filename: str,
   print("Merge complete.")
 
   # 3. Upload the new compacted file
-  compacted_blob_path = f"{gcs_folder.rstrip('/')}/{output_filename}"
+  compacted_blob_path = os.path.join(gcs_folder, output_filename)
   compacted_blob = bucket.blob(compacted_blob_path)
 
   print(
