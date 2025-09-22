@@ -217,16 +217,16 @@ def get_gcs_folder(gcs_folder: str | None, run_mode: str) -> str:
 
   if gcs_folder:
     # Store results in timestamp subfolders for other non-diff/non-retry runs.
-    return f"{gcs_folder}/{date_folder}"
+    return os.path.join(gcs_folder, date_folder)
 
   if run_mode == config.RUN_MODE_RETRY_FAILURES:
     # Default location if no gcs_folder is provided
-    return f"{config.GCS_FILE_DIR_RETRIES}/{date_folder}"
+    return os.path.join(config.GCS_FILE_DIR_RETRIES, date_folder)
 
   if run_mode == config.RUN_MODE_BIGQUERY:
-    return f"{config.GCS_FILE_DIR_FULL}/{date_folder}"
+    return os.path.join(config.GCS_FILE_DIR_FULL, date_folder)
 
-  return f"{config.GCS_FILE_DIR_NL}/{date_folder}"
+  return os.path.join(config.GCS_FILE_DIR_NL, date_folder)
 
 
 def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
@@ -243,14 +243,14 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
       f"Exporting {len(sv_metadata_list)} StatVars to {exported_filename}.json..."
   )
   filename = f"{exported_filename}.json"
-  local_file_path = f"{config.EXPORTED_FILE_DIR}/{filename}"
+  local_file_path = os.path.join(config.EXPORTED_FILE_DIR, filename)
   sv_metadata_df = pd.DataFrame(sv_metadata_list)
   sv_metadata_json = sv_metadata_df.to_json(orient="records", lines=True)
 
   if should_save_to_gcs:
     gcs_client = storage.Client(project=config.GCS_PROJECT_ID)
     bucket = gcs_client.bucket(config.GCS_BUCKET)
-    gcs_file_path = f"{gcs_folder}/{filename}"
+    gcs_file_path = os.path.join(gcs_folder, filename)
     blob = bucket.blob(gcs_file_path)
     blob.upload_from_string(sv_metadata_json, content_type="application/json")
 
@@ -258,7 +258,7 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
         f"{len(sv_metadata_list)} statvars saved to gs://{config.GCS_BUCKET}/{gcs_file_path}"
     )
   else:
-    os.makedirs(f"{config.EXPORTED_FILE_DIR}/failures", exist_ok=True)
+    os.makedirs(os.path.join(config.EXPORTED_FILE_DIR, "failures"), exist_ok=True)
     with open(local_file_path, "w") as f:
       f.write(sv_metadata_json)
     print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
