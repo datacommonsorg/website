@@ -101,7 +101,10 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
 
     # Wait until the dialog is visible and populated with content
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, '.dialog-content h3')))
+        EC.visibility_of_element_located((
+            By.XPATH,
+            "//div[contains(@class, 'dialog-content')]//h3[contains(text(), 'Total population')]"
+        )))
 
     # Search for "Total population" text in dialog-content h3 elements
     dialog_content = find_elem(self.driver,
