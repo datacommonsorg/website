@@ -135,7 +135,7 @@ class ScatterTestMixin():
     # Assert chart loads
     shared.wait_for_loading(self.driver)
     wait_elem(self.driver, by=By.ID, value='scatterplot')
-    wait_elem(self.driver, By.CLASS_NAME, value='circle')
+    wait_elem(self.driver, By.TAG_NAME, value='circle')
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')

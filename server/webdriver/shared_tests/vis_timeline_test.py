@@ -19,7 +19,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import find_elem, wait_elem, wait_for_text
 from server.webdriver.base_utils import find_elems
 import server.webdriver.shared as shared
 
@@ -43,8 +43,16 @@ class VisTimelineTestMixin():
     # Assert 200 HTTP code: successful JS generation.
     self.assertEqual(shared.safe_url_open(self.url_ + '/visualization.js'), 200)
 
+    # Wait for page to load
+    wait_for_text(self.driver,
+                  text="Timeline",
+                  by=By.CSS_SELECTOR,
+                  value='.info-content h3')
+
     # Assert page title is correct.
     title_text = "Tools - " + self.dc_title_string
+    print(f"[DEBUG] Expected title to contain: '{title_text}'")
+    print(f"[DEBUG] Actual title was:          '{self.driver.title}'")
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
@@ -204,13 +212,12 @@ class VisTimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL)
 
     # Click a link on the landing page
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'info-content'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    wait_elem(self.driver, By.CSS_SELECTOR, 'info-content a')
     self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
+    shared.wait_for_loading(self.driver)
 
     # Assert chart loads
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    wait_elem(self.driver, By.CSS_SELECTOR, '.chart.timeline')
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
     self.assertEqual(len(charts), 1)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')

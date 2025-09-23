@@ -13,6 +13,7 @@
 # limitations under the License.
 """Common library for functions used by multiple webdriver tests"""
 
+import time
 import urllib
 import urllib.request
 
@@ -182,11 +183,15 @@ def _search_for_places_old(self, driver, search_term, place_type=None):
   _search_and_select_first_item_in_dropdown(driver, search_term)
 
   if place_type:
-    # Wait for place type select to be clickable
-    place_selector_place_type = WebDriverWait(driver, TIMEOUT).until(
-        EC.element_to_be_clickable((By.ID, 'place-selector-place-type')))
-    # Select a place type
+    # Wait for place type select to populate with the desired place type
+    place_selector_place_type = wait_elem(driver, By.ID,
+                                          'place-selector-place-type')
+    wait_elem(driver, By.CSS_SELECTOR,
+              f"#place-selector-place-type > option[value='{place_type}']")
+
+    # Select place type
     Select(place_selector_place_type).select_by_value(place_type)
+
     # Wait for any loading spinners
     wait_for_loading(driver)
 
@@ -218,7 +223,7 @@ def _search_for_places(self, driver, search_term, place_type=None):
 
 
 def search_for_multiple_places(driver, search_terms):
-  """Interacts with a google maps autocomplete search box to manually search for multiple places sequentially.
+  """Interacts with a visualization tool to manually search for multiple places sequentially.
 
   Useful for the timeline tool where multiple places can be entered sequentially.
 
@@ -233,13 +238,20 @@ def search_for_multiple_places(driver, search_terms):
   click_el(driver, (By.CLASS_NAME, 'start-button'))
 
   for search_term in search_terms:
-    _search_and_select_first_item_in_dropdown(driver, search_term)
+    # Search for place
+    _search_and_select_first_item_in_dropdown(driver,
+                                              search_term,
+                                              expect_chip=False)
+    # Wait for selection to appear instead of a chip
+    wait_elem(driver, By.CLASS_NAME, 'selected-place')
 
   # Click continue
   click_el(driver, (By.CLASS_NAME, 'continue-button'))
 
 
-def _search_and_select_first_item_in_dropdown(driver, search_term):
+def _search_and_select_first_item_in_dropdown(driver,
+                                              search_term,
+                                              expect_chip=True):
   """Interacts with a googl maps autocomplete search box to search and select the first result"""
   # Wait for search box to be visible
   search_box_locator = (By.ID, 'ac')
@@ -261,9 +273,10 @@ def _search_and_select_first_item_in_dropdown(driver, search_term):
   # Click on first element
   item.click()
 
-  # Wait for chip to be present
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
+  if expect_chip:
+    # Wait for chip to be present
+    WebDriverWait(driver, TIMEOUT).until(
+        EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
 
   # Wait for any loading spinners
   wait_for_loading(driver)
