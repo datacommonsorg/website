@@ -100,9 +100,9 @@ spec:
             periodSeconds: 10
           resources:
             limits:
-              memory: "8G"
+              memory: "5G"
             requests:
-              memory: "8G"
+              memory: "5G"
           volumeMounts:
             - name: ingress-config
               mountPath: /datacommons/ingress
