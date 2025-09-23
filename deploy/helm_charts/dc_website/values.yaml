@@ -118,16 +118,16 @@ serviceGroups:
       - "/v2/node"
     replicas: 1
     resources:
-      memoryRequest: "4G"
-      memoryLimit: "4G"
+      memoryRequest: "3G"
+      memoryLimit: "3G"
     nodePool:
   default:
     urlPaths:
       - "/*"
     replicas: 1
     resources:
-      memoryRequest: "4G"
-      memoryLimit: "4G"
+      memoryRequest: "2G"
+      memoryLimit: "2G"
     nodePool:
 
 ###############################################################################
