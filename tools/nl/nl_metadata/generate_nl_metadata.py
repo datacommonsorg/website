@@ -207,7 +207,7 @@ def get_language_settings(target_language: str) -> tuple[str, str]:
       language_schema = json.dumps(englishSchema)
 
   output_file_name = f"{config.OUTPUT_FILENAME_PREFIX}_{target_language}"
-  return output_file_name, get_gemini_prompt(language_schema)
+  return output_file_name, get_gemini_prompt()
 
 
 def get_gcs_folder(gcs_folder: str | None, run_mode: str) -> str:
