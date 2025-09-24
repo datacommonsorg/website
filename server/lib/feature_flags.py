@@ -13,6 +13,7 @@
 # limitations under the License.
 """Common library for functions related to feature flags"""
 
+import random
 from flask import current_app
 
 # URL Query Parameters
@@ -76,4 +77,15 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
   if is_feature_override_disabled(feature_name, request):
     return False
 
-  return app.config['FEATURE_FLAGS'].get(feature_name, False)
+  feature_flags = app.config['FEATURE_FLAGS']
+  if feature_name not in feature_flags:
+    return False
+
+  feature = feature_flags[feature_name]
+  if not feature['enabled']:
+    return False
+
+  if 'rollout_percentage' in feature:
+    return random.random() * 100 < feature['rollout_percentage']
+
+  return True

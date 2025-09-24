@@ -475,12 +475,15 @@ def load_feature_flags():
   if not data:
     data = load_fallback_feature_flags(environment)
 
-  # Create the dictionary using a dictionary comprehension
-  feature_flag_dict = {
-      flag["name"]: flag["enabled"]
-      for flag in data
-      if 'name' in flag and 'enabled' in flag
-  }
+  feature_flag_dict = {}
+  for flag in data:
+    if 'name' in flag and 'enabled' in flag:
+      feature_flag_dict[flag['name']] = {
+          'enabled': flag['enabled'],
+      }
+      if 'rollout_percentage' in flag:
+        feature_flag_dict[flag['name']]['rollout_percentage'] = flag[
+            'rollout_percentage']
   return feature_flag_dict
 
 
