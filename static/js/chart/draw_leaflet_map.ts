@@ -94,7 +94,7 @@ export function addGeotiffLayer(
   leafletMap: Map,
   geoRaster: GeoRaster,
   colorScale: d3.ScaleLinear<number, number>
-): GeoRasterLayer {
+): InstanceType<typeof GeoRasterLayer> {
   const geotiffLayer = new GeoRasterLayer({
     georaster: geoRaster,
     opacity: 1,

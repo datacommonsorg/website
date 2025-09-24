@@ -215,10 +215,10 @@ function getPopulationPromise(
 
 export const fetchData = async (
   props: BivariateTilePropType
-): Promise<BivariateChartData | void> => {
+): Promise<BivariateChartData | null> => {
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
-    return;
+    return null;
   }
   const geoJsonPromise: Promise<GeoJsonData> = axios
     .get(
