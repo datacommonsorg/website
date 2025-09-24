@@ -16,7 +16,6 @@ Defines prompts to be used to prompt Gemini to generate alternative sentences fo
 """
 
 
-
 def get_gemini_prompt() -> str:
   return f"""You are an expert linguist and a creative writer specializing in generating semantically rich and diverse descriptions of statistical variables for a state-of-the-art search application.
 
@@ -32,10 +31,10 @@ def get_gemini_prompt() -> str:
   You will be given a JSON array of statistical variable metadata objects.
 
   **Output Requirements:**
-  Your output MUST be a JSON array (a list of JSON objects).
-  Each JSON object in the list corresponds to a statistical variable from the input, **in the exact same order**.
-  Each object MUST contain a single key: `"generatedSentences"`.
-  The value of `"generatedSentences"` MUST be an array of 3-7 strings you generated for the corresponding variable.
+  Your output MUST be a JSON array of objects.
+  Each object MUST contain two keys:
+  1.  `"dcid"`: The original dcid from the input, copied exactly.
+  2.  `"generatedSentences"`: An array of 3-7 strings you generated.
 
   **Example:**
 
@@ -73,6 +72,7 @@ def get_gemini_prompt() -> str:
   ```json
   [
       {{
+          "dcid": "Count_Student_PreKindergarten",
           "generatedSentences": [
               "number of pre-k students",
               "kids in pre-kindergarten",
@@ -81,6 +81,7 @@ def get_gemini_prompt() -> str:
           ]
       }},
       {{
+          "dcid": "Count_Person_5OrMoreYears_ForeignBorn",
           "generatedSentences": [
               "number of immigrants age 5 and older",
               "Population of residents born outside the country, excluding young children",
@@ -114,15 +115,28 @@ def get_gemini_prompt_with_translations(target_language: str) -> str:
   You will be given a JSON array of statistical variable metadata objects in English.
 
   **Output Requirements:**
-  Your output MUST be a JSON array of objects. Each object in the list corresponds to a statistical variable from the input, **in the exact same order**.
-  Each object MUST contain a single key: `"generatedSentences"`.
-  The value of `"generatedSentences"` MUST be an array of 3-7 sentences you generated in **{target_language}**.
+  Your output MUST be a JSON array of objects.
+  Each object MUST contain two keys:
+  1.  `"dcid"`: The original dcid from the input, copied exactly.
+  2.  `"generatedSentences"`: An array of 3-7 sentences you generated in **{target_language}**.
 
   **Example:**
 
   *Input Metadata (English):*
   ```json
   [
+      {{
+          "dcid": "Count_Student_PreKindergarten",
+          "sentence": "Number of Students Enrolled in Pre Kindergarten Programs",
+          "name": "Count of Student: Pre Kindergarten",
+          "measuredProperty": "count",
+          "populationType": "Student",
+          "statType": "measuredValue",
+          "constraintProperties": [
+              "schoolGradeLevel: PreKindergarten"
+          ],
+          "numConstraints": 1
+      }},
       {{
           "dcid": "Count_Person_5OrMoreYears_ForeignBorn",
           "name": "Population: Foreign Born",
@@ -142,6 +156,15 @@ def get_gemini_prompt_with_translations(target_language: str) -> str:
   ```json
   [
       {{
+          "dcid": "Count_Student_PreKindergarten",
+          "generatedSentences": [
+              "número de estudiantes de pre-kínder",
+              "niños en pre-kindergarten",
+              "cantidad de alumnos en preescolar"
+          ]
+      }},
+      {{
+          "dcid": "Count_Person_5OrMoreYears_ForeignBorn",
           "generatedSentences": [
               "número de inmigrantes de 5 años o más",
               "Población de residentes nacidos fuera del país, excluyendo niños pequeños",

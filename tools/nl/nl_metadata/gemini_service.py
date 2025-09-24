@@ -5,7 +5,7 @@ import traceback
 import config
 from google.genai import types
 import google.genai as genai
-from schemas import GeminiGeneratedSentences
+from schemas import GeminiResponseItem
 from schemas import StatVarMetadata
 from utils import split_into_batches
 
@@ -17,7 +17,7 @@ async def generate_alt_sentences(
     delay: int) -> list[dict[str, str | list[str]]]:
   """
   Calls the Gemini API to generate alternative sentences for a list of SV metadata.
-  Merges the generated sentences back into the original metadata.
+  Merges the generated sentences back into the original metadata using the dcid.
   If the API call fails, retries up to MAX_RETRIES times before returning the original, unmodified sv_metadata.
   """
   await asyncio.sleep(
@@ -27,7 +27,6 @@ async def generate_alt_sentences(
                                                     str(sv_metadata)))
 
   model_input = [types.Content(role="user", parts=[prompt_with_metadata])]
-  results: list[GeminiGeneratedSentences] = []
   batch_start_dcid = sv_metadata[0]["dcid"]
 
   for attempt in range(config.MAX_RETRIES):
@@ -37,26 +36,19 @@ async def generate_alt_sentences(
       response: types.GenerateContentResponse = await gemini_client.aio.models.generate_content(
           model=config.GEMINI_MODEL, contents=model_input, config=gemini_config)
 
-      results = response.parsed
+      results: list[GeminiResponseItem] = response.parsed
       if not results:
         raise ValueError("Gemini returned no parsed content (None or empty).")
 
-      if len(results) != len(sv_metadata):
-        raise ValueError(
-            f"Mismatch between number of SVs sent ({len(sv_metadata)}) and sentence objects received ({len(results)})."
-        )
+      # Create a map from dcid to sentences for efficient and robust lookup
+      sentences_map = {item.dcid: item.generatedSentences for item in results if item}
 
-      # If Gemini returns a valid response but with null sentences for any item,
-      # raise an error to trigger a retry for the whole batch.
-      if any(not r or r.generatedSentences is None for r in results):
-        raise ValueError(
-            "Gemini returned one or more results with null/empty sentences.")
-
-      # Merge the generated sentences back into a new copy of the metadata
+      # Create a new list with merged data
       updated_metadata = []
-      for i, sv_item in enumerate(sv_metadata):
+      for sv_item in sv_metadata:
         new_item = sv_item.copy()
-        new_item['generatedSentences'] = results[i].generatedSentences
+        # Get sentences from the map, default to None if not found or if sentences were null
+        new_item['generatedSentences'] = sentences_map.get(new_item['dcid'])
         updated_metadata.append(new_item)
 
       return updated_metadata
@@ -97,7 +89,7 @@ async def batch_generate_alt_sentences(
       seed=config.GEMINI_SEED,
       max_output_tokens=config.GEMINI_MAX_OUTPUT_TOKENS,
       response_mime_type="application/json",
-      response_schema=list[GeminiGeneratedSentences])
+      response_schema=list[GeminiResponseItem])
   batched_list: list[list[dict[str, str | list[str]]]] = split_into_batches(
       sv_metadata_list, config.BATCH_SIZE)
 
@@ -115,9 +107,8 @@ async def batch_generate_alt_sentences(
   failed_results: list[dict[str, str | list[str]]] = []
 
   for batch in batched_results:
-    if batch and batch[0].get("generatedSentences") is not None:
-      results.extend(batch)
-    else:
+    if not batch or "generatedSentences" not in batch[0]:
+      # This indicates a complete failure for the batch, returning original metadata.
       if batch:
         starting_dcid = batch[0].get("dcid", "UNKNOWN")
         print(
@@ -126,4 +117,13 @@ async def batch_generate_alt_sentences(
       else:
         print("An empty batch was returned from Gemini, marking as failed.")
       failed_results.extend(batch)
+      continue
+
+    # Otherwise, process item by item for partial successes
+    for item in batch:
+      if item.get("generatedSentences"):
+        results.append(item)
+      else:
+        failed_results.append(item)
+
   return results, failed_results

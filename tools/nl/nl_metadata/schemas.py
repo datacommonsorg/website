@@ -14,10 +14,11 @@
 from pydantic import BaseModel
 
 
-class GeminiGeneratedSentences(BaseModel):
+class GeminiResponseItem(BaseModel):
   """
-  A class to structure the response from Gemini, containing only the generated sentences.
+  A class to structure an item in the response from Gemini, containing the dcid and the generated sentences.
   """
+  dcid: str
   generatedSentences: list[str] | None = None
 
 
