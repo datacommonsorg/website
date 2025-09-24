@@ -23,7 +23,11 @@
  * hydrated into other formats.
  */
 
-import { CUSTOM_DC_API_PATH, DEFAULT_API_ROOT } from "./constants";
+import {
+  CUSTOM_DC_API_PATH,
+  DEFAULT_API_ENDPOINT,
+  DEFAULT_API_V2_ENDPOINT,
+} from "../../library/constants";
 import { StatVarFacetMap, StatVarSpec } from "./types";
 
 /*
@@ -75,7 +79,33 @@ export interface ObservationSpecOptions {
  * @returns True if the apiRoot is for a custom DC, false otherwise.
  */
 export function isCustomDataCommons(apiRoot?: string): boolean {
-  return apiRoot && apiRoot !== DEFAULT_API_ROOT;
+  if (apiRoot !== undefined) {
+    // We are in a Web Component context. It's custom if the apiRoot is not a standard default endpoint.
+    return (
+      apiRoot !== DEFAULT_API_ENDPOINT && apiRoot !== DEFAULT_API_V2_ENDPOINT
+    );
+  } else {
+    // We are in the standard context. If isCustomDC exists and is set to zero, we are not a custom DC.
+    // We have to check this way because custom DCs may not have this flag set, but primary DC always will.
+    return globalThis.isCustomDC !== 0;
+  }
+}
+
+/**
+ * Builds the API V2 Observation url
+ * @param isCustomDc A boolean indicating whether we are in a custom DC
+ * @param apiRoot The root URL for the Data Commons API.
+ * @returns The full path to the endpoint.
+ */
+function getApiV2ObservationUrl(
+  isCustomDc: boolean,
+  apiRoot: string | undefined
+): string {
+  return isCustomDc
+    ? apiRoot
+      ? new URL(`${CUSTOM_DC_API_PATH}/v2/observation`, apiRoot).href
+      : `${window.location.origin}${CUSTOM_DC_API_PATH}/v2/observation`
+    : `${DEFAULT_API_V2_ENDPOINT}/v2/observation`;
 }
 
 /**
@@ -244,9 +274,7 @@ export function observationSpecToCurl(
 ): string {
   const isCustomDc = isCustomDataCommons(apiRoot);
 
-  const apiUrl = isCustomDc
-    ? new URL(`${CUSTOM_DC_API_PATH}/v2/observation`, apiRoot).href
-    : `${DEFAULT_API_ROOT}/v2/observation`;
+  const apiUrl = getApiV2ObservationUrl(isCustomDc, apiRoot);
 
   const authHeader = isCustomDc ? [] : [`  -H "X-API-Key: \${API_KEY}" \\`];
 
