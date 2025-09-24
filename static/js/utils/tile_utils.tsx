@@ -442,19 +442,31 @@ export async function getDenomResp(
   parentPlace?: string,
   placeType?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
+  console.log("Reaching getDenomResp");
   // fetch the series for each facet
+  // const denomPromises: Record<string, Promise<SeriesApiResponse>> = {};
   const denomPromises = [];
-  let facetIds = [];
-  facetIds =
+  const facetIds =
     !_.isEmpty(denoms) && statResp.facets ? Object.keys(statResp.facets) : [];
 
   facetIds.forEach((facetId) => {
     denomPromises.push(
+      // pass in empty facetId list because we want to use the highlight facet
       useSeriesWithin
-        ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
-        : getSeries(apiRoot, allPlaces, denoms, [facetId])
+        ? getSeriesWithin(
+            apiRoot,
+            parentPlace,
+            placeType,
+            denoms,
+            [],
+            statResp.facets[facetId]
+          )
+        : getSeries(apiRoot, allPlaces, denoms, [], statResp.facets[facetId])
     );
   });
+
+  console.log("denomPromises: ", denomPromises);
+  console.log("facetIds: ", facetIds);
 
   // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
   const defaultDenomPromise = _.isEmpty(denoms)
@@ -469,6 +481,8 @@ export async function getDenomResp(
     ...denomPromises,
     defaultDenomPromise,
   ]);
+
+  console.log("denom results len: ", denomResults.length, [...denomResults]);
   // The last element of denomResps is defaultDenomPromise
   const defaultDenomData = denomResults.pop();
 
@@ -476,9 +490,12 @@ export async function getDenomResp(
     // should only have one facet per resp because we pass in exactly one
     const facetId = facetIds[i];
     if (facetId) {
+      console.log("setting denomsByFacet[", facetId, "] to: ", resp);
       denomsByFacet[facetId] = resp;
     }
   });
+
+  console.log("denoms by facet: ", denomsByFacet);
 
   return [denomsByFacet, defaultDenomData];
 }
@@ -514,7 +531,10 @@ export function getDenomInfo(
     !placeDenomData ||
     _.isEmpty(placeDenomData.series)
   ) {
+    console.log("using default data for place ID: ", placeDcid);
     matchingDenomData = defaultDenomData;
+  } else {
+    console.log("Found matching data! for facet: ", facetUsed);
   }
 
   // if there really is no denominator data, return null
