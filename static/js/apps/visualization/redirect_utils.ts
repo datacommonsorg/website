@@ -19,22 +19,24 @@ import { escape } from "lodash";
 import {
   PARAM_VALUE_SEP,
   STAT_VAR_PARAM_KEYS,
-  TIMELINE_URL_PARAM_MAPPING,
   URL_PARAMS,
 } from "../../constants/app/visualization_constants";
 import { TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
+import {
+  ALLOWED_VIS_TOOL_TYPES,
+  ChartEntry,
+  DcidList,
+  OldToolChartOptions,
+  ParamNameMapping,
+  TIMELINE_DEFAULT_SEPARATOR,
+  TIMELINE_STAT_VAR_SEPARATOR,
+  TIMELINE_URL_PARAM_MAPPING,
+  VisType,
+} from "./redirect_constants";
 
 /**
  * Helper functions for implementing the redirects from the Visualization Tool to the "old" tools.
  */
-
-// Allowed values for visType hash parameter
-const VIS_TOOL_TYPES = ["map", "scatter", "timeline"];
-type VisType = "map" | "scatter" | "timeline";
-// Separator between multiple hash parameter values used by /tools/timeline
-const TIMELINE_DEFAULT_SEPARATOR = ",";
-// Separator between multiple variables used by /tools/timeline
-const TIMELINE_STAT_VAR_SEPARATOR = "__"; // 2 underscores
 
 /**
  * Get the equivalent URL for the "old" tools version of the current chart
@@ -42,14 +44,16 @@ const TIMELINE_STAT_VAR_SEPARATOR = "__"; // 2 underscores
  * Get the equivalent /tools/map, /tools/timeline, /tools/scatter chart.
  * If the user is on the landing page or a tool is not specified, defaults to the map tool.
  *
+ * @param visType (optional) specify the visualization tool type to get the url for
  * @returns equivalent url that can be used for redirecting.
  */
-export function getStandardizedToolUrl(): string {
+export function getStandardizedToolUrl(visType?: VisType): string {
+  if (!visType) {
+    visType = getVisTypeFromHash();
+  }
   const currentHashParams = new URLSearchParams(
     decodeURIComponent(window.location.hash.replace("#", ""))
   );
-  const visType = getVisTypeFromHash();
-
   // Convert hash parameters
   const newHashParams = getStandardizedHashParams(visType, currentHashParams);
   const newHashString = newHashParams.toString();
@@ -70,7 +74,7 @@ export function getVisTypeFromHash(): VisType {
   const visType = currentHashParams.get("visType") || "map";
 
   // Sanitize visType to prevent path traversal and other injection attacks.
-  if (!VIS_TOOL_TYPES.includes(visType)) {
+  if (!ALLOWED_VIS_TOOL_TYPES.includes(visType)) {
     return "map";
   }
   return visType as VisType;
@@ -208,8 +212,8 @@ function getTimelineHashParams(
  */
 function parseSvObject(
   svObjectString: string,
-  paramNameMapping: Record<string, string>
-): [string[], Record<string, Record<string, string>>] {
+  paramNameMapping: ParamNameMapping
+): [DcidList, OldToolChartOptions] {
   try {
     // Convert to a valid JSON string for parsing
     const validJsonString = `[${svObjectString.replaceAll(
@@ -220,8 +224,8 @@ function parseSvObject(
     // Parse the valid string
     const parsedSvObject = JSON.parse(validJsonString);
 
-    const dcids: string[] = [];
-    const chartOptions = {};
+    const dcids: DcidList = [];
+    const chartOptions = {} as OldToolChartOptions;
 
     for (const item of parsedSvObject) {
       if (!item || !(STAT_VAR_PARAM_KEYS.DCID in item)) {
@@ -234,16 +238,13 @@ function parseSvObject(
       dcids.push(itemDcid);
 
       // Build the chart entry for this item
-      const chartEntry: Record<string, string> = {};
+      const chartEntry = {} as ChartEntry;
       for (const key of Object.keys(item)) {
-        if (
-          Object.values(STAT_VAR_PARAM_KEYS).includes(key) &&
-          Object.keys(paramNameMapping).includes(key)
-        ) {
-          // Add entry if this parameter is both a valid
-          // /visualization param and a valid /tools/* params
+        if (Object.keys(paramNameMapping).includes(key)) {
+          // Add entry if this parameter is a valid /tools/* param
           let value = item[key];
           if (key == STAT_VAR_PARAM_KEYS.PER_CAPITA) {
+            // Per capita needs to be translated from 1 or 0 to true or false
             value = item[key] == "1" ? "true" : "false";
           }
           // Escape value to defend against XSS attacks

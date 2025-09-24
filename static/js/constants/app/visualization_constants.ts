@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
-
 /**
  * Constants used by the visualization app.
  */
@@ -40,10 +38,4 @@ export const STAT_VAR_PARAM_KEYS = {
 export const DISPLAY_PARAM_KEYS = {
   SCATTER_QUADRANTS: "q",
   SCATTER_LABELS: "l",
-};
-
-export const TIMELINE_URL_PARAM_MAPPING: Record<string, string> = {
-  [URL_PARAMS.PLACE]: TIMELINE_URL_PARAM_KEYS.PLACE,
-  [URL_PARAMS.STAT_VAR]: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
-  [STAT_VAR_PARAM_KEYS.PER_CAPITA]: "pc",
 };
