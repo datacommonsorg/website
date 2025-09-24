@@ -19,7 +19,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 import server.webdriver.shared as shared
 
-MAP_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=map'
+MAP_URL = '/tools/visualization#visType=map'
 URL_HASH_1 = '&place=geoId/06&placeType=County&sv=%7B"dcid"%3A"Count_Person_Female"%7D'
 
 

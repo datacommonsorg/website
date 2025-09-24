@@ -19,7 +19,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from server.webdriver.base_utils import find_elems
 import server.webdriver.shared as shared
 
-SCATTER_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=scatter'
+SCATTER_URL = '/tools/visualization#visType=scatter'
 URL_HASH_1 = '&place=geoId/06&placeType=County&sv=%7B"dcid"%3A"Count_Person_NoHealthInsurance"%7D___%7B"dcid"%3A"Count_Person_Female"%7D'
 
 
