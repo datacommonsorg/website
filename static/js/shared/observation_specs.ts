@@ -74,6 +74,22 @@ export interface ObservationSpecOptions {
 }
 
 /**
+ * Determines if the given API endpoint points to a custom Data Commons instance.
+ * @param endpoint
+ * @returns True if the given endpoint is standard (not custom), otherwise false
+ */
+function isStandardDCEndpoint(endpoint: string): boolean {
+  function normalizeEndpoint(url: string): string {
+    return url.replace(/\/+$/, "").toLowerCase();
+  }
+
+  const standardEndpoints = [DEFAULT_API_ENDPOINT, DEFAULT_API_V2_ENDPOINT].map(
+    normalizeEndpoint
+  );
+  return standardEndpoints.includes(normalizeEndpoint(endpoint));
+}
+
+/**
  * Determines if the given API root points to a custom Data Commons instance.
  * @param apiRoot The root URL for the Data Commons API.
  * @returns True if the apiRoot is for a custom DC, false otherwise.
@@ -81,9 +97,7 @@ export interface ObservationSpecOptions {
 export function isCustomDataCommons(apiRoot?: string): boolean {
   if (apiRoot !== undefined) {
     // We are in a Web Component context. It's custom if the apiRoot is not a standard default endpoint.
-    return (
-      apiRoot !== DEFAULT_API_ENDPOINT && apiRoot !== DEFAULT_API_V2_ENDPOINT
-    );
+    return !isStandardDCEndpoint(apiRoot);
   } else {
     // We are in the standard context. If isCustomDC exists and is set to zero, we are not a custom DC.
     // We have to check this way because custom DCs may not have this flag set, but primary DC always will.
