@@ -48,16 +48,17 @@ import {
  * @returns equivalent url that can be used for redirecting.
  */
 export function getStandardizedToolUrl(visType?: VisType): string {
+  let toolName = visType;
   if (!visType) {
-    visType = getVisTypeFromHash();
+    toolName = getVisTypeFromHash();
   }
   const currentHashParams = new URLSearchParams(
     decodeURIComponent(window.location.hash.replace("#", ""))
   );
   // Convert hash parameters
-  const newHashParams = getStandardizedHashParams(visType, currentHashParams);
+  const newHashParams = getStandardizedHashParams(toolName, currentHashParams);
   const newHashString = newHashParams.toString();
-  return `/tools/${visType}${newHashString ? `#${newHashString}` : ""}`;
+  return `/tools/${toolName}${newHashString ? `#${newHashString}` : ""}`;
 }
 
 /**
