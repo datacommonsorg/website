@@ -115,11 +115,18 @@ function getApiV2ObservationUrl(
   isCustomDc: boolean,
   apiRoot: string | undefined
 ): string {
-  return isCustomDc
-    ? apiRoot
-      ? new URL(`${CUSTOM_DC_API_PATH}/v2/observation`, apiRoot).href
-      : `${window.location.origin}${CUSTOM_DC_API_PATH}/v2/observation`
-    : `${DEFAULT_API_V2_ENDPOINT}/v2/observation`;
+  if (isCustomDc) {
+    if (apiRoot) {
+      // If it is a custom DC and an apiRoot exists, apiRoot is the base
+      return new URL(`${CUSTOM_DC_API_PATH}/v2/observation`, apiRoot).href;
+    } else {
+      // Otherwise use the current origin as the base.
+      return `${window.location.origin}${CUSTOM_DC_API_PATH}/v2/observation`;
+    }
+  } else {
+    // If it is a standard DC instance, use the default endpoint as the base.
+    return `${DEFAULT_API_V2_ENDPOINT}/v2/observation`;
+  }
 }
 
 /**
