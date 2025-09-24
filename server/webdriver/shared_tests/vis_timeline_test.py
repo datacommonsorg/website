@@ -227,7 +227,8 @@ class VisTimelineTestMixin():
     self.assertEqual(len(chart_lines), 2)
 
   def test_landing_page_link(self):
-    """Test one of the links on the landing page"""
+    """Test one of the links on the landing page
+    """
     self.driver.get(self.url_ + TIMELINE_URL)
 
     # Click a link on the landing page
