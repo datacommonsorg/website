@@ -34,8 +34,12 @@ import { intl } from "../../i18n/i18n";
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
+  GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
+  GA_PARAM_QUERY_AT_SELECTION,
+  GA_PARAM_SELECTION_TEXT,
+  GA_PARAM_SELECTION_TYPE,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
@@ -309,6 +313,9 @@ export function AutoCompleteInput(
   ): void {
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+      [GA_PARAM_SELECTION_TYPE]: result.matchType,
+      [GA_PARAM_SELECTION_TEXT]: result.name,
+      [GA_PARAM_QUERY_AT_SELECTION]: baseInput,
     });
 
     const queryText = replaceQueryWithSelection(
@@ -324,6 +331,9 @@ export function AutoCompleteInput(
       if (result.dcid) {
         setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
+          triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV, {
+            [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+          });
           window.location.href =
             EXPLORE_SV_FOR_EARTH +
             encodeURIComponent(result.dcid) +
