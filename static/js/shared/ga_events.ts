@@ -279,7 +279,7 @@ export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE =
 /**
  * Triggered on autocomplete selections that redirect directly to the explore page for an SV.
  * Parameters:
- *  "selection_index": <index of the selected autocomplete result.>
+ *  "selection_index": <index of the selected autocomplete result according to order shown to users>
  */
 export const GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV =
   "autocomplete_select_redirects_to_sv";
