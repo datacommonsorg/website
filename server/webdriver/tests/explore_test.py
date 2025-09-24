@@ -160,7 +160,10 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
 
     # Wait for the dialog to be visible again
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, '.dialog-content h4')))
+        EC.visibility_of_element_located((
+            By.XPATH,
+            "//h4[contains(text(), 'Observation period')]/following-sibling::p[contains(text(), 'Yearly (P1Y)')]"
+        )))
 
     dialog_content_after = find_elem(self.driver,
                                      value='dialog-content',
