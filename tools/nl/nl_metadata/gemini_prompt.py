@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """
-Defines the prompt to be used to prompt Gemini to generate alternative sentences for statistical variables.
+Defines prompts to be used to prompt Gemini to generate alternative sentences for statistical variables.
 """
+
 
 
 def get_gemini_prompt() -> str:
@@ -43,15 +44,27 @@ def get_gemini_prompt() -> str:
   [
       {{
           "dcid": "Count_Student_PreKindergarten",
+          "sentence": "Number of Students Enrolled in Pre Kindergarten Programs",
           "name": "Count of Student: Pre Kindergarten",
-          "constraintProperties": ["schoolGradeLevel: PreKindergarten"],
-          ...
+          "measuredProperty": "count",
+          "populationType": "Student",
+          "statType": "measuredValue",
+          "constraintProperties": [
+              "schoolGradeLevel: PreKindergarten"
+          ],
+          "numConstraints": 1
       }},
       {{
           "dcid": "Count_Person_5OrMoreYears_ForeignBorn",
           "name": "Population: Foreign Born",
-          "constraintProperties": ["age": "Years5Onwards", "nativity": "USC_ForeignBorn"],
-          ...
+          "measuredProperty": "count",
+          "populationType": "Person",
+          "statType": "measuredValue",
+          "constraintProperties": [
+              "age": "Years5Onwards",
+              "nativity": "USC_ForeignBorn"
+          ],
+          "numConstraints": 2
       }}
   ]
   ```
@@ -80,6 +93,67 @@ def get_gemini_prompt() -> str:
   ---
 
   Here is the metadata you need to process. Remember to return only the generated sentences in the specified JSON format.
+
+  **Metadata to process:**
+
+  """
+
+
+def get_gemini_prompt_with_translations(target_language: str) -> str:
+  return f"""You are an expert linguist and translator specializing in generating semantically rich and diverse descriptions of statistical variables for a state-of-the-art search application.
+
+  **Primary Goal:**
+  Your task is to generate a set of 3-7 conceptually different and natural-sounding alternative descriptions, **in {target_language}**, for each statistical variable provided. These sentences are critical as they will be used to generate embeddings for a Vertex AI Search application.
+
+  **Guiding Principles for Sentence Generation:**
+  1.  **Focus on the Semantic Core:** Analyze the `name`, `populationType`, and `constraintProperties` of the English input to understand the variable's meaning.
+  2.  **Maximize Conceptual & Synonym Diversity:** Generate creative and diverse sentences in {target_language} that capture the essence of the variable.
+  3.  **Anticipate User Intent:** Think like a user searching in {target_language}. The sentences should be direct descriptions, not full questions.
+
+  **Input:**
+  You will be given a JSON array of statistical variable metadata objects in English.
+
+  **Output Requirements:**
+  Your output MUST be a JSON array of objects. Each object in the list corresponds to a statistical variable from the input, **in the exact same order**.
+  Each object MUST contain a single key: `"generatedSentences"`.
+  The value of `"generatedSentences"` MUST be an array of 3-7 sentences you generated in **{target_language}**.
+
+  **Example:**
+
+  *Input Metadata (English):*
+  ```json
+  [
+      {{
+          "dcid": "Count_Person_5OrMoreYears_ForeignBorn",
+          "name": "Population: Foreign Born",
+          "measuredProperty": "count",
+          "populationType": "Person",
+          "statType": "measuredValue",
+          "constraintProperties": [
+              "age": "Years5Onwards",
+              "nativity": "USC_ForeignBorn"
+          ],
+          "numConstraints": 2
+      }}
+  ]
+  ```
+
+  *Expected Output (if target_language is "Spanish"):*
+  ```json
+  [
+      {{
+          "generatedSentences": [
+              "número de inmigrantes de 5 años o más",
+              "Población de residentes nacidos fuera del país, excluyendo niños pequeños",
+              "personas no nativas de 5 años o más",
+              "Población inmigrante sin incluir niños de 0 a 4 años"
+          ]
+      }}
+  ]
+  ```
+  ---
+
+  Here is the metadata you need to process. Remember to return only the generated sentences in **{target_language}** using the specified JSON format.
 
   **Metadata to process:**
 

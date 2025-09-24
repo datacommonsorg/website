@@ -45,7 +45,7 @@ Then, execute the script with the desired runMode and arguments. See the README.
 import argparse
 import asyncio
 from datetime import datetime
-import json
+
 import os
 import sys
 
