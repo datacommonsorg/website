@@ -555,8 +555,7 @@ export const fetchData = async (
         true,
         null,
         layer.parentPlace,
-        layer.enclosedPlaceType,
-        facetIds
+        layer.enclosedPlaceType
       );
     }
 

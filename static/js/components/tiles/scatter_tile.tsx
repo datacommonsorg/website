@@ -349,8 +349,7 @@ async function getPopulationInfo(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   statResp: PointApiResponse,
-  apiRoot?: string,
-  facets?: string[]
+  apiRoot?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const statVars = new Set<string>();
   for (const sv of statVarSpec) {
@@ -369,8 +368,7 @@ async function getPopulationInfo(
     true,
     null,
     placeDcid,
-    enclosedPlaceType,
-    facets
+    enclosedPlaceType
   );
 
   return [denomsByFacet, defaultDenomData];
@@ -425,8 +423,7 @@ export const fetchData = async (
       props.enclosedPlaceType,
       props.statVarSpec,
       placeStats,
-      props.apiRoot,
-      [props.statVarSpec[0].facetId, props.statVarSpec[1].facetId]
+      props.apiRoot
     );
     const statVarNames = await getStatVarNames(
       props.statVarSpec,

@@ -235,9 +235,7 @@ export const fetchData = async (
       false,
       [place.dcid],
       null,
-      null,
-      // if a single facet is selected
-      facetId
+      null
     );
     const denomInfo = getDenomInfo(
       statVarSpec,
