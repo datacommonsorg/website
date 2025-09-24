@@ -77,3 +77,22 @@ def is_feature_enabled(feature_name: str, app=None, request=None) -> bool:
     return False
 
   return app.config['FEATURE_FLAGS'].get(feature_name, False)
+
+
+def is_experiment_enabled(feature_name: str, percentage: int, request=None) -> bool:
+  """Returns whether the experiment with `feature_name` is enabled."""
+  if not request:
+    return False
+
+  # URL overrides still take top priority
+  if is_feature_override_enabled(feature_name, request):
+    return True
+  if is_feature_override_disabled(feature_name, request):
+    return False
+
+  # The experiment must be globally enabled in the config file.
+  if not current_app.config['FEATURE_FLAGS'].get(feature_name, False):
+    return False
+
+  # If globally enabled, check the random percentage.
+  return random.randint(0, 99) < percentage

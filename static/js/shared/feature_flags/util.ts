@@ -94,3 +94,32 @@ export function isFeatureEnabled(featureName: string): boolean {
   }
   return false;
 }
+
+/**
+ * Helper method to check if an experiment feature is enabled.
+ *
+ * @param featureName name of feature for which we want status.
+ * @param percentage the percentage of users (0-100) to enable the feature for.
+ * @returns Bool describing if the feature is enabled
+ */
+export function isExperimentEnabled(
+  featureName: string,
+  percentage: number
+): boolean {
+  // URL overrides still take top priority
+  if (isFeatureOverrideEnabled(featureName)) {
+    return true;
+  }
+  if (isFeatureOverrideDisabled(featureName)) {
+    return false;
+  }
+
+  // The experiment must be globally enabled in the server config.
+  const featureFlags = getFeatureFlags();
+  if (!featureFlags || !featureFlags[featureName]) {
+    return false;
+  }
+
+  // If globally enabled, check the random percentage.
+  return Math.random() * 100 < percentage;
+}
