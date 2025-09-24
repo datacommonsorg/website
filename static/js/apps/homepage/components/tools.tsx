@@ -66,7 +66,7 @@ export const Tools = ({ routes }: ToolsProps): ReactElement => {
           `}
         >
           Data Commons addresses offers data exploration tools and cloud-based
-          APIs to access and integrate cleaned datasets.
+          APIs to access and integrate cleaned facets.
         </p>
       </header>
       <div

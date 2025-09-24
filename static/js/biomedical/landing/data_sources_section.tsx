@@ -50,7 +50,7 @@ export function DataSourcesSection(): JSX.Element {
               18 different trusted sources
             </UnderlinedLink>{" "}
             like NIH NCBI and EMBL-EBI. Including commonly used open-source
-            datasets such as ChEMBL, ClinVar, Gene, GTEx, MeSH, PharmGKB, and
+            facets such as ChEMBL, ClinVar, Gene, GTEx, MeSH, PharmGKB, and
             UniProt. This collaborative effort unifies and harmonizes diverse
             biomedical data, enabling innovative research that transcends the
             limitations of isolated sources.

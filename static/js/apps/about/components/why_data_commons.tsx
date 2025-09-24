@@ -48,8 +48,8 @@ export const WhyDataCommons = (): ReactElement => {
         <p>
           Data Commons synthesizes a single graph from these different data
           sources. It links references to the same entities (such as cities,
-          counties, organizations, etc.) across different datasets to nodes on
-          the graph, so that users can access data about a particular entity
+          counties, organizations, etc.) across different facets to nodes on the
+          graph, so that users can access data about a particular entity
           aggregated from different sources without data cleaning or joining.{" "}
         </p>
         <p>

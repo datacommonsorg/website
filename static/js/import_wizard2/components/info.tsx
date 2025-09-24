@@ -30,7 +30,7 @@ export function Info(props: InfoProps): JSX.Element {
       <p>
         To get started you will first need to choose between a schema-full
         (recommended) or schema-less import. You can learn more on the full
-        process to add a dataset{" "}
+        process to add a facet{" "}
         <a href="https://github.com/datacommonsorg/data/tree/master/docs">
           here
         </a>
@@ -43,13 +43,13 @@ export function Info(props: InfoProps): JSX.Element {
           schema repo
         </a>
         , you are ready to use this wizard to expedite the import process for
-        your datasets!{" "}
+        your facets!{" "}
       </p>
       <div>
         Before starting the wizard, you will need
         <ul>
           <li>
-            A dataset that follows one of the supported templates:
+            A facet that follows one of the supported templates:
             <ul>
               {Object.values(TEMPLATE_OPTIONS).map((template, idx) => {
                 return (
