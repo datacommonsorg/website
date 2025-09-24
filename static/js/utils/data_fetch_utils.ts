@@ -140,19 +140,20 @@ async function selectFacet(
     return [];
   }
   const facetsResponse = await getFacets(apiRoot, entities, variables);
+  console.log("all facets in selectFacet: ", facetsResponse);
   for (const svDcid of Object.keys(facetsResponse)) {
     const facets = facetsResponse[svDcid];
     for (const [facetId, f] of Object.entries(facets)) {
       if (
-        (!_.isEmpty(highlightFacet.importName) &&
-          highlightFacet.importName !== f.importName) ||
-        (!_.isEmpty(highlightFacet.measurementMethod) &&
-          highlightFacet.measurementMethod !== f.measurementMethod) ||
-        (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
-        (!_.isEmpty(highlightFacet.observationPeriod) &&
-          highlightFacet.observationPeriod !== f.observationPeriod) ||
-        (!_.isEmpty(highlightFacet.scalingFactor) &&
-          highlightFacet.scalingFactor !== f.scalingFactor)
+        !_.isEmpty(highlightFacet.importName) &&
+        highlightFacet.importName !== f.importName
+        // (!_.isEmpty(highlightFacet.measurementMethod) &&
+        //   highlightFacet.measurementMethod !== f.measurementMethod) ||
+        // (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
+        // (!_.isEmpty(highlightFacet.observationPeriod) &&
+        //   highlightFacet.observationPeriod !== f.observationPeriod) ||
+        // (!_.isEmpty(highlightFacet.scalingFactor) &&
+        //   highlightFacet.scalingFactor !== f.scalingFactor)
       ) {
         continue;
       }
@@ -332,7 +333,11 @@ export function getSeries(
       params["facetIds"] = resolvedFacetIds;
     }
 
-    console.log("resolvedFacests in getSeries: ", resolvedFacetIds);
+    console.log(
+      "resolvedFacetIs in getseries: ",
+      highlightFacet,
+      resolvedFacetIds
+    );
 
     return axios
       .post(`${apiRoot || ""}/api/observations/series`, params)
