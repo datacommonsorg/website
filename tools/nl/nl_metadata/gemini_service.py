@@ -1,4 +1,6 @@
 import asyncio
+import sys
+import traceback
 
 import config
 from google.genai import types
@@ -39,23 +41,22 @@ async def generate_alt_sentences(
         raise ValueError("Gemini returned no parsed content (None or empty).")
 
       return [sv.model_dump() for sv in results]
-    except ValueError as e:
-      print(
-          f"ValueError: {e} Attempt {attempt + 1}/{config.MAX_RETRIES} failed for the batch starting at DCID {batch_start_dcid}."
-      )
     except Exception as e:
+      # Using print to stderr for GCP Error Reporting
       print(
-          f"Unexpected error encountered for attempt {attempt + 1}/{config.MAX_RETRIES} for the batch starting at DCID {batch_start_dcid}. Error: {e} "
-      )
+          f"Error on attempt {attempt + 1}/{config.MAX_RETRIES} for batch starting with {batch_start_dcid}: {e}",
+          file=sys.stderr)
+      traceback.print_exc()
 
-    if attempt + 1 == config.MAX_RETRIES:
-      print(
-          f"All {config.MAX_RETRIES} retry attempts failed for the batch starting at DCID {batch_start_dcid}. Returning original sv_metadata."
-      )
-      return sv_metadata
+    if attempt + 1 < config.MAX_RETRIES:
+      print(f"Retrying after {config.RETRY_DELAY_SECONDS} seconds...")
+      await asyncio.sleep(config.RETRY_DELAY_SECONDS)
 
-    print(f"Retrying after {config.RETRY_DELAY_SECONDS} seconds...")
-    await asyncio.sleep(config.RETRY_DELAY_SECONDS)
+  # If all retries fail, log to stderr and return original metadata
+  print(
+      f"All {config.MAX_RETRIES} retry attempts failed for batch starting with {batch_start_dcid}. Returning original metadata.",
+      file=sys.stderr)
+  return sv_metadata
 
 
 async def batch_generate_alt_sentences(
