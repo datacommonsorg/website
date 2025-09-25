@@ -13,7 +13,7 @@
 # limitations under the License.
 
 steps:
-  - name: 'gcr.io/datcom-ci/datacommons-script-runner:latest'
+  - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - 'tools/clearcache/run.sh'
