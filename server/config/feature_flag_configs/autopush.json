@@ -91,8 +91,8 @@
   },
   {
     "name": "gemini_2_5_flash_lite",
-    "enabled": true,
+    "enabled": false,
     "owner": "shixiao",
-    "description": "Enables using Gemini 2.5 Flash Lite on NL Eval."
+    "description": "Enables using Gemini 2.5 Flash Lite on NL detection. Default to use flash lite."
   }
 ]
