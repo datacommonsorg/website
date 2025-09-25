@@ -52,10 +52,9 @@ function getPlaceAxisChartData(
 ): PlaceAxisChartData {
   const obs = placePointStat[placeDcid];
   // finding the denom data that matches the facet of the current observation
-  // const populationData = denomsByFacet?.[obs.facet]
-  //   ? denomsByFacet[obs.facet]
-  //   : defaultDenomData;
-  const populationData = denomsByFacet?.[obs.facet];
+  const populationData = denomsByFacet?.[obs.facet]
+    ? denomsByFacet[obs.facet]
+    : defaultDenomData;
   const denomSeries =
     denom && populationData.data[denom] && populationData.data[denom][placeDcid]
       ? populationData.data[denom][placeDcid]
