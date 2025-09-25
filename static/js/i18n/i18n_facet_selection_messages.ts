@@ -48,7 +48,7 @@ export const facetSelectionComponentMessages = defineMessages({
   SelectDatasetForDownloadPromptMessage: {
     id: "selectDatasetForDownloadPromptMessage",
     defaultMessage:
-      "Select the data source that you would like to use to download the data for",
+      "Select the facet that you would like to use to download the data for",
     description:
       "Prompt message that appears in the facet selection dialog, introducing the list of " +
       "facets that the user can choose from. This will be used when choosing data to download.",
@@ -56,7 +56,7 @@ export const facetSelectionComponentMessages = defineMessages({
   SelectDatasetsForDownloadPromptMessage: {
     id: "selectDatasetsForDownloadPromptMessage",
     defaultMessage:
-      "Select the data sources that you would like to use to download the data",
+      "Select the facets that you would like to use to download the data",
     description:
       "Prompt message that appears in the facet selection dialog when there are multiple stat " +
       "vars, each introducing the list of facets that the user can choose from. This will be " +
@@ -72,7 +72,7 @@ export const facetSelectionComponentMessages = defineMessages({
   },
   ExploreOtherDatasetsSingleStatVarPromptMessage: {
     id: "ExploreOtherDatasetsSingleStatVarPromptMessage",
-    defaultMessage: "Select the data source that you would like to use to plot",
+    defaultMessage: "Select the facet that you would like to use to plot",
     description:
       "Prompt message that appears in the facet selection dialog, introducing the list of " +
       "facets that the user can choose from. This will be used when choosing data to plot charts.",
@@ -80,7 +80,7 @@ export const facetSelectionComponentMessages = defineMessages({
   ExploreOtherDatasetsMultipleStatVarsPromptMessage: {
     id: "ExploreOtherDatasetsMultipleStatVarsPromptMessage",
     defaultMessage:
-      "Select the data sources that you would like to use to build the plot",
+      "Select the facets that you would like to use to build the plot",
     description:
       "Prompt message that appears in the facet selection dialog when there are multiple stat " +
       "vars, each introducing the list of facets that the user can choose from. This will be " +
@@ -89,7 +89,7 @@ export const facetSelectionComponentMessages = defineMessages({
   ExploreOtherDatasetsGroupedPromptMessage: {
     id: "ExploreOtherDatasetsGroupedPromptMessage",
     defaultMessage:
-      "Select the data source that you would like to use to build the plot",
+      "Select the facet that you would like to use to build the plot",
     description:
       "Prompt message that appears in the facet selection dialog, introducing the list of " +
       "facets that the user can choose from. This is used when we have multiple stat vars " +
