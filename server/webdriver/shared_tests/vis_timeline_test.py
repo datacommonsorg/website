@@ -18,7 +18,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elem
-from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import wait_elem
+from server.webdriver.base_utils import wait_for_text
 import server.webdriver.shared as shared
 
 TIMELINE_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=timeline'
@@ -147,15 +148,18 @@ class VisTimelineTestMixin():
     # Wait until the chart has loaded
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
 
-    # Find the chart timeline container element
-    chart_timeline = find_elem(self.driver,
-                               value='.chart.timeline',
-                               by=By.CSS_SELECTOR)
+    # Wait for the chart timeline container element
+    chart_timeline = wait_elem(self.driver,
+                               by=By.CSS_SELECTOR,
+                               value=".chart.timeline")
+    self.assertIsNotNone(chart_timeline, "Chart timeline container not found.")
 
-    # Check for the existence of the message
-    header_message = chart_timeline.find_element(
-        By.XPATH, ".//header/p[text()='One dataset available for this chart']")
-    self.assertIsNotNone(header_message)
+    # Wait for the existence of the message
+    expected_text = "One dataset available for this chart"
+    wait_for_text(self.driver,
+                  text=expected_text,
+                  by=By.CSS_SELECTOR,
+                  value=".chart.timeline header")
 
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
@@ -248,9 +252,12 @@ class VisTimelineTestMixin():
 
     shared.wait_for_loading(self.driver)
 
-    original_source_text = find_elems(self.driver,
-                                      value='sources',
-                                      path_to_elem=['chart'])[0].text
+    sources_element = wait_elem(self.driver,
+                                by=By.CSS_SELECTOR,
+                                value=".chart .sources")
+    self.assertIsNotNone(sources_element, "Initial sources element not found.")
+
+    original_source_text = sources_element.text
     self.assertEqual(original_source_text, 'Source: census.gov • Show metadata')
 
     # Click on the button to open the source selector modal
@@ -276,9 +283,13 @@ class VisTimelineTestMixin():
     shared.wait_for_loading(self.driver)
 
     # Verify the source text has changed
-    updated_source_text = find_elem(self.driver,
-                                    value='sources',
-                                    path_to_elem=['chart']).text
+    updated_sources_element = wait_elem(self.driver,
+                                        by=By.CSS_SELECTOR,
+                                        value=".chart .sources")
+    self.assertIsNotNone(updated_sources_element,
+                         "Updated sources element not found.")
+
+    updated_source_text = updated_sources_element.text
     self.assertEqual(
         updated_source_text,
         'Sources: census.gov, data-explorer.oecd.org • Show metadata')
