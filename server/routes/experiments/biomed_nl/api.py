@@ -31,8 +31,8 @@ import server.routes.experiments.biomed_nl.utils as utils
 
 GEMINI_FLASH = 'gemini-2.5-flash'
 GEMINI_FLASH_TOKEN_LIMIT = 1500000
-GEMINI_1_5 = 'gemini-1.5-pro'
-GEMINI_1_5_TOKEN_LIMIT = 2000000
+GEMINI_PRO = 'gemini-1.5-pro'
+GEMINI_PRO_TOKEN_LIMIT = 2000000
 GEMINI_CHARS_PER_TOKEN_ESTIMATE = 4
 PROMPT_TRUNCATE_TOKEN_BUFFER = 5
 GEMINI_TIMEOUT = 240000  # 4 minutes
@@ -74,6 +74,13 @@ class BiomedNlApiResponse(BaseModel):
   entities: list[utils.GraphEntity] = []
 
 
+def _get_gemini_model_config(request=None):
+  """Returns the gemini model name and token limit based on the feature flag."""
+  if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH, request):
+    return GEMINI_FLASH, GEMINI_FLASH_TOKEN_LIMIT
+  return GEMINI_PRO, GEMINI_PRO_TOKEN_LIMIT
+
+
 def _append_fallback_response(query, response, path_finder,
                               traversed_entity_info, gemini_client):
   entity_info = {
@@ -92,9 +99,7 @@ def _append_fallback_response(query, response, path_finder,
       START_DCIDS=', '.join(path_finder.start_dcids),
       SELECTED_PATHS=utils.format_dict(selected_paths),
       ENTITY_INFO=utils.format_dict(entity_info))
-  model_name = GEMINI_FLASH if is_feature_enabled(
-      ENABLE_GEMINI_2_5_FLASH) else GEMINI_1_5
-  token_limit = GEMINI_FLASH_TOKEN_LIMIT if model_name == GEMINI_FLASH else GEMINI_1_5_TOKEN_LIMIT
+  model_name, token_limit = _get_gemini_model_config()
   token_count = gemini_client.models.count_tokens(
       model=model_name,
       contents=fallback_prompt,
@@ -131,9 +136,7 @@ def _fulfill_traversal_query(query):
                                    api_version='v1alpha',
                                    timeout=GEMINI_TIMEOUT))
 
-  model_name = GEMINI_FLASH if is_feature_enabled(
-      ENABLE_GEMINI_2_5_FLASH) else GEMINI_1_5
-  token_limit = GEMINI_FLASH_TOKEN_LIMIT if model_name == GEMINI_FLASH else GEMINI_1_5_TOKEN_LIMIT
+  model_name, token_limit = _get_gemini_model_config()
   path_finder = PathFinder(query, gemini_client, gemini_model_str=model_name)
 
   traversed_entity_info = {}
