@@ -23,7 +23,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import TIMEOUT
 from server.webdriver.base_utils import wait_elem
@@ -43,20 +42,20 @@ WEB_COMPONENT_TAG_NAMES = [
 ]
 
 
-def wait_for_loading(driver):
+def wait_for_loading(driver, timeout_seconds=LOADING_WAIT_TIME_SEC):
   """
   Wait for loading spinners to appear then disappear. Sometimes, more
   than one spinner will appear and disappear, so wait for MAX_NUM_SPINNERS
   spinners to appear and disappear. Or finish waiting if it takes more than
-  LOADING_WAIT_TIME_SEC seconds for the next spinner to appear.
+  timeout_seconds for the next spinner to appear.
   """
   screen_present = EC.visibility_of_element_located((By.ID, 'screen'))
   screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
   num_tries = 0
   while (num_tries < MAX_NUM_SPINNERS):
     try:
-      WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_present)
-      WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_hidden)
+      WebDriverWait(driver, timeout_seconds).until(screen_present)
+      WebDriverWait(driver, timeout_seconds).until(screen_hidden)
       num_tries += 1
     except:
       break

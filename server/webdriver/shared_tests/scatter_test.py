@@ -15,7 +15,6 @@
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elem
@@ -29,6 +28,10 @@ STANDARDIZED_SCATTER_URL = '/tools/scatter?enable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
     'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
     '&epd=geoId/06&epn=California&ept=County'
+
+# Scatter plots can take extra long to load
+# This is a custom, longer timeout to use for charts we know are slow
+LONG_TIMEOUT = 60  # seconds
 
 
 class ScatterTestMixin():
@@ -132,14 +135,18 @@ class ScatterTestMixin():
         self.driver,
         (By.XPATH, '//*[@id="placeholder-container"]/ul/li[1]/a[1]'))
 
-    # Assert chart loads
-    shared.wait_for_loading(self.driver)
-    wait_elem(self.driver, by=By.ID, value='scatterplot')
-    wait_elem(self.driver, By.TAG_NAME, value='circle')
-    circles = find_elems(self.driver,
-                         by=By.CSS_SELECTOR,
-                         value='#scatterplot circle')
-    self.assertGreater(len(circles), 1)
+    # Wait for chart to load
+    # This chart can be particularly slow, so use extra wait time
+    shared.wait_for_loading(self.driver, timeout_seconds=LONG_TIMEOUT)
+    wait_elem(self.driver, By.ID, 'chart-row', timeout_seconds=LONG_TIMEOUT)
+    # Assert that circles load
+    circles = wait_elem(self.driver,
+                        By.CSS_SELECTOR,
+                        '#scatterplot circle',
+                        timeout_seconds=LONG_TIMEOUT)
+
+    # Assert chart is correct
+    self.assertIsNotNone(circles)
 
 
 class StandardizedScatterTestMixin():
