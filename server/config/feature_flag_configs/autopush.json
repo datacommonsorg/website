@@ -100,5 +100,11 @@
     "enabled": false,
     "owner": "alyssaguo",
     "description": "Enables setting the relevance threshold to \"MEDIUM\" for Vertex AI stat var search application."
+  },
+  {
+    "name": "gemini_2_5_flash_lite",
+    "enabled": true,
+    "owner": "shixiao",
+    "description": "Enables using Gemini 2.5 Flash Lite on NL Eval."
   }
 ]
