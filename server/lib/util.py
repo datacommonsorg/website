@@ -477,13 +477,12 @@ def load_feature_flags():
 
   feature_flag_dict = {}
   for flag in data:
-    if 'name' in flag and 'enabled' in flag:
-      feature_flag_dict[flag['name']] = {
-          'enabled': flag['enabled'],
-      }
-      if 'rollout_percentage' in flag:
-        feature_flag_dict[flag['name']]['rollout_percentage'] = flag[
-            'rollout_percentage']
+    feature_flag_dict[flag['name']] = {
+        'enabled': flag['enabled'],
+    }
+    if 'rollout_percentage' in flag:
+      feature_flag_dict[
+          flag['name']]['rollout_percentage'] = flag['rollout_percentage']
   return feature_flag_dict
 
 
