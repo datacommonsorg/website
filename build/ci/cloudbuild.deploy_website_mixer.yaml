@@ -1,0 +1,53 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# This cloud build is triggered when there is a new mixer image pushed to artifact registry. It starts the mixer deployment via cloud deploy.
+
+# In the cloudbuild.yaml for the Cloud Deploy pipeline.
+substitutions:
+  _SHORT_SHA: ""
+
+steps:
+  # This step uses the _SHORT_SHA that was passed from the Pub/Sub message.
+  - name: 'gcr.io/datcom-ci/datacommons-script-runner'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # Fetch the latest mixer image commit hash from Artifact Registry
+        # The command lists all tags, filters out the "latest" tag, and gets the most recent one.
+        MIXER_GITHASH=$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
+          --project=datcom-ci \
+          --limit=1 \
+          --sort-by=~timestamp \
+          --filter="NOT tags:latest" \
+          --format='get(tags)')
+
+        if [[ -z "$MIXER_GITHASH" ]]; then
+          echo "Could not determine the mixer image hash from Artifact Registry. Exiting."
+          exit 1
+        fi
+
+        gcloud deploy apply --file=deploy/helm_charts/clouddeploy.yaml \
+          --region=us-central1 \
+          --project=datcom-ci
+
+        # The gcloud deploy releases create command uses variables from your build.
+        gcloud deploy releases create "release-${SHORT_SHA}" \
+          --delivery-pipeline=datacommons-website \
+          --region=us-central1 \
+          --skaffold-file=skaffold.yaml \
+          --images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:${_SHORT_SHA},gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:${MIXER_GITHASH},gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:${_SHORT_SHA},gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:${_SHORT_SHA}" \
+          --deploy-parameters="mixer.githash=${MIXER_GITHASH},MIXER_GITHASH=${MIXER_GITHASH},website.githash=${_SHORT_SHA}" \
+          --project=datcom-ci
