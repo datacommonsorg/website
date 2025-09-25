@@ -160,7 +160,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
       [props.statVarSpec.statVar],
       ""
     );
-    const [denomsByFacet, defaultDenomData] = await getDenomResp(
+    const denomsByFacet = await getDenomResp(
       [props.statVarSpec.denom],
       statResp,
       props.apiRoot,
@@ -185,8 +185,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
         denomsByFacet,
         props.place.dcid,
         statData.date,
-        statData.facet,
-        defaultDenomData
+        statData.facet
       );
       if (denomInfo && value) {
         value /= denomInfo.value;

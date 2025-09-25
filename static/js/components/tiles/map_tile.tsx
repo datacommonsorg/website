@@ -165,7 +165,6 @@ interface RawData {
   place: NamedTypedPlace;
   placeStat: PointApiResponse;
   denomsByFacet: Record<string, SeriesApiResponse>;
-  defaultDenomData: SeriesApiResponse;
   variable: StatVarSpec;
 }
 
@@ -546,9 +545,8 @@ export const fetchData = async (
       facetIds
     );
     let denomsByFacet: Record<string, SeriesApiResponse> = null;
-    let defaultDenomData: SeriesApiResponse = null;
     if (layer.variable.denom) {
-      [denomsByFacet, defaultDenomData] = await getDenomResp(
+      denomsByFacet = await getDenomResp(
         [layer.variable.denom],
         placeStat,
         props.apiRoot,
@@ -594,7 +592,6 @@ export const fetchData = async (
         place,
         placeStat,
         denomsByFacet,
-        defaultDenomData,
         variable: layer.variable,
       };
       rawDataArray.push(rawData);
@@ -700,8 +697,7 @@ function rawToChart(
           rawData.denomsByFacet,
           placeDcid,
           placeChartData.date,
-          facet,
-          rawData.defaultDenomData
+          facet
         );
         if (_.isEmpty(denomInfo)) {
           // skip this data point because missing denom data.
@@ -713,13 +709,11 @@ function rawToChart(
         sources.add(denomInfo.source);
         const denomStatVar = rawData.variable.denom;
         const denomSeries =
-          rawData.denomsByFacet[facet]?.data?.[denomStatVar]?.[placeDcid] ??
-          rawData.defaultDenomData?.data?.[denomStatVar]?.[placeDcid];
+          rawData.denomsByFacet[facet]?.data?.[denomStatVar]?.[placeDcid];
         if (denomSeries?.facet) {
           const denomFacetId = denomSeries.facet;
           const denomFacetMetadata =
-            rawData.denomsByFacet[facet]?.facets?.[denomFacetId] ??
-            rawData.defaultDenomData?.facets?.[denomFacetId];
+            rawData.denomsByFacet[facet]?.facets?.[denomFacetId];
           if (denomFacetMetadata) {
             facets[denomFacetId] = denomFacetMetadata;
             if (!statVarToFacets[denomStatVar]) {

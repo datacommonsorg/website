@@ -228,7 +228,7 @@ export const fetchData = async (
   );
   let numFractionDigitsUsed: number;
   if (statVarSpec.denom) {
-    const [denomsByFacet, defaultDenom] = await getDenomResp(
+    const denomsByFacet = await getDenomResp(
       [statVarSpec.denom],
       statResp,
       apiRoot,
@@ -242,8 +242,7 @@ export const fetchData = async (
       denomsByFacet,
       place.dcid,
       mainStatData.date,
-      mainStatData.facet,
-      defaultDenom
+      mainStatData.facet
     );
     if (denomInfo && value) {
       value /= denomInfo.value;

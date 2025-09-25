@@ -434,7 +434,7 @@ export const fetchData = async (
       !("places" in props && !_.isEmpty(props.places)) &&
       "enclosedPlaceType" in props &&
       "parentPlace" in props;
-    const [denomsByFacet, defaultDenomData] = await getDenomResp(
+    const denomsByFacet = await getDenomResp(
       denomSvs,
       statResp,
       apiRoot,
@@ -500,7 +500,6 @@ export const fetchData = async (
       props,
       statResp,
       denomsByFacet,
-      defaultDenomData,
       popPoints,
       placeNames,
       placeType,
@@ -516,7 +515,6 @@ function rawToChart(
   props: BarTilePropType,
   statData: PointApiResponse,
   denomsByFacet: Record<string, SeriesApiResponse>,
-  defaultDenomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
   placeType: string,
@@ -568,8 +566,7 @@ function rawToChart(
           denomsByFacet,
           placeDcid,
           stat.date,
-          stat.facet,
-          defaultDenomData
+          stat.facet
         );
         if (!denomInfo) {
           // skip this data point because missing denom data.
@@ -579,16 +576,10 @@ function rawToChart(
         sources.add(denomInfo.source);
         const denomStatVar = spec.denom;
         // using facet-specific info unless it doesn't exist, in that case we use the default best-available denom data
-        // const denomSeries =
-        //   denomsByFacet[stat.facet]?.data?.[denomStatVar]?.[placeDcid] ??
-        //   defaultDenomData?.data?.[denomStatVar]?.[placeDcid];
         const denomSeries =
           denomsByFacet[stat.facet]?.data?.[denomStatVar]?.[placeDcid];
         if (denomSeries?.facet) {
           const denomFacetId = denomSeries.facet;
-          // const denomFacetMetadata =
-          //   denomsByFacet[stat.facet]?.facets?.[denomFacetId] ??
-          //   defaultDenomData?.facets?.[denomFacetId];
           const denomFacetMetadata =
             denomsByFacet[stat.facet]?.facets?.[denomFacetId];
           if (denomFacetMetadata) {

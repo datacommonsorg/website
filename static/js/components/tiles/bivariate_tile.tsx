@@ -87,7 +87,6 @@ interface RawData {
   geoJson: GeoJsonData;
   placeStats: PointApiResponse;
   denomsByFacet: Record<string, SeriesApiResponse>;
-  defaultDenomData: SeriesApiResponse;
   placeNames: { [placeDcid: string]: string };
   parentPlaces: NamedTypedPlace[];
 }
@@ -201,7 +200,7 @@ async function getPopulationData(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   placeStats: PointApiResponse
-): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
+): Promise<Record<string, SeriesApiResponse>> {
   const variables = [];
   for (const sv of statVarSpec) {
     if (sv.denom) {
@@ -209,7 +208,7 @@ async function getPopulationData(
     }
   }
   if (_.isEmpty(variables)) {
-    return [null, null];
+    return null;
   } else {
     return await getDenomResp(
       variables,
@@ -241,7 +240,7 @@ export const fetchData = async (props: BivariateTilePropType) => {
       { statVarDcid: props.statVarSpec[1].statVar },
     ]
   );
-  const [denomsByFacet, defaultDenomData] = await getPopulationData(
+  const denomsByFacet = await getPopulationData(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
@@ -264,7 +263,6 @@ export const fetchData = async (props: BivariateTilePropType) => {
     const rawData = {
       placeStats,
       denomsByFacet,
-      defaultDenomData,
       placeNames,
       geoJson,
       parentPlaces,
@@ -310,7 +308,6 @@ function rawToChart(
       xPlacePointStat,
       yPlacePointStat,
       rawData.denomsByFacet,
-      rawData.defaultDenomData,
       rawData.placeStats.facets
     );
     if (!placeChartData) {
@@ -329,8 +326,7 @@ function rawToChart(
         rawData.denomsByFacet,
         place,
         point.xDate,
-        xFacet,
-        rawData.defaultDenomData
+        xFacet
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.
@@ -351,8 +347,7 @@ function rawToChart(
         rawData.denomsByFacet,
         place,
         point.yDate,
-        yFacet,
-        rawData.defaultDenomData
+        yFacet
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.

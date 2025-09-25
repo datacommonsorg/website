@@ -441,7 +441,7 @@ export async function getDenomResp(
   // parent and place type for series within queries
   parentPlace?: string,
   placeType?: string
-): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
+): Promise<Record<string, SeriesApiResponse>> {
   console.log("Reaching getDenomResp");
   // fetch the series for each facet
   // const denomPromises: Record<string, Promise<SeriesApiResponse>> = {};
@@ -469,23 +469,11 @@ export async function getDenomResp(
   console.log("denomPromises: ", denomPromises);
   console.log("facetIds: ", facetIds);
 
-  // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
-  // const defaultDenomPromise = _.isEmpty(denoms)
-  //   ? Promise.resolve(null)
-  //   : useSeriesWithin
-  //   ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
-  //   : getSeries(apiRoot, allPlaces, denoms, []);
-
   // organize results into a map from facet to API response
   const denomsByFacet: Record<string, SeriesApiResponse> = {};
-  const denomResults = await Promise.all([
-    ...denomPromises,
-    // defaultDenomPromise,
-  ]);
+  const denomResults = await Promise.all(denomPromises);
 
   console.log("denom results len: ", denomResults.length, [...denomResults]);
-  // The last element of denomResps is defaultDenomPromise
-  // const defaultDenomData = denomResults.pop();
 
   denomResults.forEach((resp, i) => {
     // should only have one facet per resp because we pass in exactly one
@@ -499,7 +487,7 @@ export async function getDenomResp(
   console.log("denoms by facet: ", denomsByFacet);
 
   // placeholder second value for now
-  return [denomsByFacet, denomsByFacet[0]];
+  return denomsByFacet;
 }
 
 /**
@@ -519,33 +507,17 @@ export function getDenomInfo(
   denomData: Record<string, SeriesApiResponse>,
   placeDcid: string,
   mainStatDate: string,
-  facetUsed?: string,
-  defaultDenomData?: SeriesApiResponse
+  facetUsed?: string
 ): DenomInfo {
-  // find the matching denominator data if it exists, for the facet used in the numerator
-  // let matchingDenomData: SeriesApiResponse;
+  // find the matching denominator data for the facet used in the numerator
+  // this result automatically uses the default best available if the specific facet wasn't available
   const matchingDenomData = denomData[facetUsed];
-  // default to defaultDenomData if no facet-specific denomData is found for a given entity
-  let placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
-  // if (
-  //   !matchingDenomData ||
-  //   !(svSpec.denom in matchingDenomData.data) ||
-  //   !placeDenomData ||
-  //   _.isEmpty(placeDenomData.series)
-  // ) {
-  //   console.log("using default data for place ID: ", placeDcid);
-  //   matchingDenomData = defaultDenomData;
-  // } else {
-  //   console.log("Found matching data! for facet: ", facetUsed);
-  // }
+  const placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
 
-  // if there really is no denominator data, return null
+  // if there is no denominator data, return null
   if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
     return null;
   }
-
-  // resetting in case the defaultDenomData was used
-  placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
 
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
     return null;

@@ -402,10 +402,9 @@ export async function fetchData(
     variables.map((spec) => spec.denom).filter((sv) => !!sv)
   );
   let denomsByFacet: Record<string, SeriesApiResponse> = {};
-  let defaultDenomData: SeriesApiResponse = null;
 
   if (!_.isEmpty(denoms)) {
-    [denomsByFacet, defaultDenomData] = await getDenomResp(
+    denomsByFacet = await getDenomResp(
       denoms,
       mergedResponse,
       apiRoot,
@@ -419,7 +418,6 @@ export async function fetchData(
   const rankingData = pointApiToPerSvRankingData(
     mergedResponse,
     denomsByFacet,
-    defaultDenomData,
     variables
   );
   if (rankingMetadata.showMultiColumn) {
@@ -474,7 +472,6 @@ function transformRankingDataForMultiColumn(
 function pointApiToPerSvRankingData(
   statData: PointApiResponse,
   denomData: Record<string, SeriesApiResponse>,
-  defaultDenomData: SeriesApiResponse,
   statVarSpecs: StatVarSpec[]
 ): RankingData {
   const rankingData: RankingData = {};
@@ -509,8 +506,7 @@ function pointApiToPerSvRankingData(
           denomData,
           place,
           statPoint.date,
-          statPoint.facet,
-          defaultDenomData
+          statPoint.facet
         );
         if (!denomInfo) {
           continue;
