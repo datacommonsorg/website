@@ -107,7 +107,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
           <div id="mapping-section" ref={containerRef}>
             <div>
               {
-                "Please add labels to help us map your facet to the Data Commons database. (*=required)"
+                "Please add labels to help us map your dataset to the Data Commons database. (*=required)"
               }
             </div>
             {/* TODO: update page heading to something more intuitive to users */}

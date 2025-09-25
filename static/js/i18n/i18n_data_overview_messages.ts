@@ -36,20 +36,20 @@ export const pageMessages = defineMessages({
   },
   DataSets: {
     id: "datasets",
-    defaultMessage: "Facets",
+    defaultMessage: "Datasets",
     description:
-      "Label used for an individual facet within a collection of data sources, akin to definition here https://en.wikipedia.org/wiki/Faceted_search",
+      "Label used for an individual dataset within a collection of data sources, akin to definition here https://en.wikipedia.org/wiki/Data_set",
   },
   Topics: {
     id: "topics",
     defaultMessage: "Topics",
     description:
-      "A label used for topic categories that can be applied to a facet. Example topics include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
+      "A label used for topic categories that can be applied to a dataset. Example topics include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing.",
   },
   License: {
     id: "license",
     defaultMessage: "License",
     description:
-      "A label used to for the copyright license associated with a facet. An example copyright license is Creative Commons 4 (https://creativecommons.org/licenses/by/4.0)",
+      "A label used to for the copyright license associated with a dataset. An example copyright license is Creative Commons 4 (https://creativecommons.org/licenses/by/4.0)",
   },
 });

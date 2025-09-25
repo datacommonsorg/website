@@ -25,7 +25,7 @@ import Quote from "../../../components/content/quote";
 export const OneQuote = (): ReactElement => {
   return (
     <Quote
-      quote="We were spending most of our time and resources cleaning facets.
+      quote="We were spending most of our time and resources cleaning data sets.
           Then we heard that there was this tool that essentially did that. When
           you fire up your Data Commons instance, the first thing you see is
           there are billions of data points already available covering basically

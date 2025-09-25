@@ -67,7 +67,7 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
       <div className="file-details-page-content">
         <div className="file-details-page-section">
           <div className="file-details-inputs">
-            <div>Please add details to help us understand the facet.</div>
+            <div>Please add details to help us understand the dataset.</div>
             <div>*=required</div>
             {/* Input for header row */}
             <div className="file-options-input">
