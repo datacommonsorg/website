@@ -21,6 +21,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 
 import {
+  GA_EVENT_AUTOCOMPLETE_LOAD_MORE,
   GA_EVENT_AUTOCOMPLETE_TRIGGERED,
   GA_PARAM_QUERY,
   triggerGAEvent,
@@ -139,7 +140,12 @@ export function AutoCompleteSuggestions(
       {showLoadMore && (
         <div
           className="search-input-result-section load-more-section"
-          onClick={() => setVisibleCount(visibleCount + RESULTS_TO_LOAD)}
+          onClick={() => {
+            triggerGAEvent(GA_EVENT_AUTOCOMPLETE_LOAD_MORE, {
+              [GA_PARAM_QUERY]: props.baseInput,
+            });
+            setVisibleCount(visibleCount + RESULTS_TO_LOAD);
+          }}
         >
           <div className="search-input-result">
             <span className="search-result-icon">
