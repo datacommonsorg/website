@@ -21,7 +21,7 @@ from flask import current_app
 import json5
 import requests
 
-from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH
+from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
@@ -91,7 +91,7 @@ def detect_with_gemini(query: str, history: List[List[str]],
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
   model_url_base = _GEMINI_FLASH_URL_BASE if is_feature_enabled(
-      ENABLE_GEMINI_2_5_FLASH) else _GEMINI_PRO_URL_BASE
+      ENABLE_GEMINI_2_5_FLASH_FLAG) else _GEMINI_PRO_URL_BASE
   r = requests.post(f'{model_url_base}?key={api_key}',
                     data=req,
                     headers=_API_HEADER)

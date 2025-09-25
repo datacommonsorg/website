@@ -25,7 +25,7 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH
+from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
 from server.lib.feature_flags import is_feature_enabled
 
 # Define blueprint
@@ -66,7 +66,7 @@ def _get_datagemma_result(query, mode):
                      data_fetcher=dc_nl_service).query(query=query)
   elif mode == _RAG_MODE:
     model_name = GEMINI_FLASH if is_feature_enabled(
-        ENABLE_GEMINI_2_5_FLASH) else GEMINI_PRO
+        ENABLE_GEMINI_2_5_FLASH_FLAG) else GEMINI_PRO
     gemini_model = GoogleAIStudio(
         model=model_name, api_keys=[current_app.config['GEMINI_API_KEY']])
     result = RAGFlow(llm_question=_VERTEX_AI_RAG,
