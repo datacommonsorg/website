@@ -340,14 +340,15 @@ export function getFacetsWithin(
   parentEntity: string,
   childType: string,
   variables: string[],
-  date?: string
+  date?: string,
+  surfaceHeaderValue?: string
 ): Promise<FacetResponse> {
   return axios
     .get<PointAllApiResponse>(`${apiRoot || ""}/api/facets/within`, {
       params: { parentEntity, childType, variables, date: date || "LATEST" },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": surfaceHeaderValue || "website",
       },
     })
     .then((resp) => {
@@ -377,14 +378,15 @@ export function getFacetsWithin(
 export function getFacets(
   apiRoot: string,
   entities: string[],
-  variables: string[]
+  variables: string[],
+  surfaceHeaderValue?: string
 ): Promise<FacetResponse> {
   return axios
     .get<SeriesAllApiResponse>(`${apiRoot || ""}/api/facets`, {
       params: { entities, variables },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": surfaceHeaderValue || "website",
       },
     })
     .then((resp) => {

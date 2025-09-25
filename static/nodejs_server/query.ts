@@ -89,7 +89,7 @@ function getBlockTileResults(
   apiRoot: string,
   allowedTilesTypes?: Set<string>,
   mode?: string,
-  surface_header_value?: string
+  surfaceHeaderValue?: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
@@ -115,7 +115,7 @@ function getBlockTileResults(
               useChartUrl,
               apikey,
               mode,
-              surface_header_value
+              surfaceHeaderValue
             )
           );
           break;
@@ -131,8 +131,7 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey,
-              surface_header_value
+              apikey
             )
           );
           break;
@@ -149,8 +148,7 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode,
-              surface_header_value
+              mode
             )
           );
           break;
@@ -166,8 +164,7 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey,
-              surface_header_value
+              apikey
             )
           );
           break;
@@ -180,8 +177,7 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot,
-              surface_header_value
+              apiRoot
             )
           );
           break;
@@ -189,14 +185,7 @@ function getBlockTileResults(
           tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
           tile.description = getHighlightTileDescription(tile, blockDenom);
           tilePromises.push(
-            getHighlightTileResult(
-              tileId,
-              tile,
-              place,
-              tileSvSpec,
-              apiRoot,
-              surface_header_value
-            )
+            getHighlightTileResult(tileId, tile, place, tileSvSpec, apiRoot)
           );
           break;
         default:
