@@ -29,10 +29,8 @@ steps:
         # The command lists all tags, filters out the "latest" tag, and gets the most recent one.
         mixer_githash=$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
           --project=datcom-ci \
-          --limit=1 \
-          --sort-by=~timestamp \
-          --filter="NOT tags:latest" \
-          --format='get(tags)')
+          --filter="tags:latest" \
+          --format='get(tags)' | tr ',' '\n' | grep -v "latest")
 
         if [[ -z "$mixer_githash" ]]; then
           echo "Could not determine the mixer image hash from Artifact Registry. Exiting."
