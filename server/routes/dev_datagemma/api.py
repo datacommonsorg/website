@@ -62,7 +62,7 @@ def _get_datagemma_result(query, mode):
                      data_fetcher=dc_nl_service).query(query=query)
   elif mode == _RAG_MODE:
     model_name = 'gemini-2.5-flash' if is_feature_enabled(
-      ENABLE_GEMINI_2_5_FLASH) else 'gemini-2.5-flash-lite'
+      ENABLE_GEMINI_2_5_FLASH) else 'gemini-1.5-pro'
     gemini_model = GoogleAIStudio(
         model=model_name, api_keys=[current_app.config['GEMINI_API_KEY']])
     result = RAGFlow(llm_question=_VERTEX_AI_RAG,
