@@ -324,8 +324,8 @@
     "description": "Subtitle for the metadata modal showing the list of variables to show source information for"
   },
   "showMetadata": {
-    "defaultMessage": "Show metadata",
-    "description": "Link to show source metadata for the chart"
+    "defaultMessage": "About this data",
+    "description": "Link to open a dialog that shows information about the data in the chart (the chart metadata)"
   },
   "singular_administrative_area": {
     "defaultMessage": "Administrative Area",
