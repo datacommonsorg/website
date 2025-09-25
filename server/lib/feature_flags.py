@@ -27,6 +27,7 @@ STANDARDIZED_VIS_TOOL_FEATURE_FLAG = 'standardized_vis_tool'
 VAI_FOR_STATVAR_SEARCH_FEATURE_FLAG = 'vai_for_statvar_search'
 VAI_MEDIUM_RELEVANCE_FEATURE_FLAG = 'vai_medium_relevance_threshold'
 ENABLE_STAT_VAR_AUTOCOMPLETE = 'enable_stat_var_autocomplete'
+GEMINI_2_5_FLASH_FEATURE_FLAG = 'gemini_2_5_flash'
 
 
 def is_feature_override_enabled(feature_name: str, request=None) -> bool:

@@ -18,6 +18,18 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "enable_gemini_2_5_flash",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Using Gemini 2.5 Flash for NL detection. Otherwise, use Flash Lite."
+  },
+  {
+    "name": "enable_stat_var_autocomplete",
+    "enabled": true,
+    "owner": "gmechali",
+    "description": "Enable stat var autocompletion in the NL Search bar"
+  },
+  {
     "name": "explore_result_header",
     "enabled": true,
     "owner": "nick-next",
@@ -40,6 +52,12 @@
     "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience."
+  },
+  {
+    "name": "gemini_2_5_flash_lite",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enables using Gemini 2.5 Flash Lite on NL detection. Default to use flash lite."
   },
   {
     "name": "metadata_modal",
@@ -70,12 +88,6 @@
     "enabled": true,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
-  },
-  {
-    "name": "enable_stat_var_autocomplete",
-    "enabled": true,
-    "owner": "gmechali",
-    "description": "Enable stat var autocompletion in the NL Search bar"
   },
   {
     "name": "vai_for_statvar_search",
