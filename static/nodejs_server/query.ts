@@ -88,7 +88,8 @@ function getBlockTileResults(
   apikey: string,
   apiRoot: string,
   allowedTilesTypes?: Set<string>,
-  mode?: string
+  mode?: string,
+  surface_header_value?: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
@@ -113,7 +114,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surface_header_value
             )
           );
           break;
@@ -129,7 +131,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surface_header_value
             )
           );
           break;
@@ -146,7 +149,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surface_header_value
             )
           );
           break;
@@ -162,7 +166,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surface_header_value
             )
           );
           break;
@@ -175,7 +180,8 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot
+              apiRoot,
+              surface_header_value
             )
           );
           break;
@@ -183,7 +189,14 @@ function getBlockTileResults(
           tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
           tile.description = getHighlightTileDescription(tile, blockDenom);
           tilePromises.push(
-            getHighlightTileResult(tileId, tile, place, tileSvSpec, apiRoot)
+            getHighlightTileResult(
+              tileId,
+              tile,
+              place,
+              tileSvSpec,
+              apiRoot,
+              surface_header_value
+            )
           );
           break;
         default:

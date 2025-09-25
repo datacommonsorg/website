@@ -104,7 +104,8 @@ export async function getBarTileResult(
   urlRoot: string,
   useChartUrl: boolean,
   apikey?: string,
-  mode?: string
+  mode?: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -115,7 +116,7 @@ export async function getBarTileResult(
     apiRoot
   );
   try {
-    const chartData = await fetchData(tileProp);
+    const chartData = await fetchData(tileProp, surfaceHeaderValue);
     const chartTitle = getChartTitle(
       tileConfig.title,
       getReplacementStrings(chartData)

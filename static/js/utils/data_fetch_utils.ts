@@ -183,7 +183,8 @@ export function getPoint(
   date: string,
   alignedVariables?: string[][],
   highlightFacet?: FacetMetadata,
-  facetIds?: string[]
+  facetIds?: string[],
+  surfaceHeaderValue?: string
 ): Promise<PointApiResponse> {
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
@@ -199,7 +200,7 @@ export function getPoint(
         params,
         paramsSerializer: stringifyFn,
         headers: {
-          "x-surface": "website",
+          "x-surface": surfaceHeaderValue || "website",
         },
       })
       .then((resp) => {
@@ -227,7 +228,8 @@ export function getPointWithin(
   variables: string[],
   date: string,
   alignedVariables?: string[][],
-  facetIds?: string[]
+  facetIds?: string[],
+  surfaceHeaderValue?: string
 ): Promise<PointApiResponse> {
   const params = { childType, date, parentEntity, variables };
   if (facetIds) {
@@ -238,7 +240,7 @@ export function getPointWithin(
       params,
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": surfaceHeaderValue || "website",
       },
     })
     .then((resp) => {
@@ -262,7 +264,8 @@ export function getSeries(
   entities: string[],
   variables: string[],
   facetIds?: string[],
-  highlightFacet?: FacetMetadata
+  highlightFacet?: FacetMetadata,
+  surfaceHeaderValue?: string
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
   return Promise.resolve(
@@ -277,7 +280,7 @@ export function getSeries(
     return axios
       .post(`${apiRoot || ""}/api/observations/series`, params, {
         headers: {
-          "x-surface": "website",
+          "x-surface": surfaceHeaderValue || "website",
         },
       })
       .then((resp) => resp.data);
@@ -299,7 +302,8 @@ export function getSeriesWithin(
   parentEntity: string,
   childType: string,
   variables: string[],
-  facetIds?: string[]
+  facetIds?: string[],
+  surfaceHeaderValue?: string
 ): Promise<SeriesApiResponse> {
   const params = { parentEntity, childType, variables };
   if (facetIds) {
@@ -310,7 +314,7 @@ export function getSeriesWithin(
       params,
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": surfaceHeaderValue || "website",
       },
     })
     .then((resp) => resp.data);

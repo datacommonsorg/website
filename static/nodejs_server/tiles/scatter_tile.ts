@@ -74,7 +74,8 @@ export async function getScatterTileResult(
   apiRoot: string,
   urlRoot: string,
   useChartUrl: boolean,
-  apikey?: string
+  apikey?: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -86,7 +87,7 @@ export async function getScatterTileResult(
   );
 
   try {
-    const chartData = await fetchData(tileProp);
+    const chartData = await fetchData(tileProp, surfaceHeaderValue);
     const chartTitle = getChartTitle(
       tileConfig.title,
       getReplacementStrings(tileProp, chartData)

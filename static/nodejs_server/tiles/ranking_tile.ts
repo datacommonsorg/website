@@ -166,7 +166,8 @@ export async function getRankingTileResult(
   place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult[]> {
   try {
     const rankingData = await fetchData(
@@ -174,7 +175,8 @@ export async function getRankingTileResult(
       tileConfig.rankingTileSpec,
       enclosedPlaceType,
       place,
-      apiRoot
+      apiRoot,
+      surfaceHeaderValue
     );
     const placeDcids = new Set<string>();
     Object.values(rankingData).forEach((rankingGroup) => {

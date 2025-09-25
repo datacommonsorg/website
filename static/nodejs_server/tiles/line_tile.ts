@@ -93,11 +93,12 @@ export async function getLineTileResult(
   urlRoot: string,
   useChartUrl: boolean,
   apikey?: string,
-  mode?: string
+  mode?: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(id, tileConfig, place, statVarSpec, apiRoot);
   try {
-    const chartData = await fetchData(tileProp);
+    const chartData = await fetchData(tileProp, surfaceHeaderValue);
     const chartTitle = getChartTitle(
       tileConfig.title,
       getReplacementStrings(tileProp, chartData)

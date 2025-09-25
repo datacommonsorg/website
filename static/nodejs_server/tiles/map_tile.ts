@@ -126,7 +126,8 @@ export async function getMapTileResult(
   apiRoot: string,
   urlRoot: string,
   useChartUrl: boolean,
-  apikey?: string
+  apikey?: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -137,7 +138,7 @@ export async function getMapTileResult(
     apiRoot
   );
   try {
-    const chartData = await fetchData(tileProp);
+    const chartData = await fetchData(tileProp, surfaceHeaderValue);
     const result: TileResult = {
       dataCsv: mapDataToCsv(chartData.layerData),
       placeType: enclosedPlaceType,
