@@ -63,7 +63,6 @@ function generateLinksJsx(links: InfoLink[]): JSX.Element[] {
 
   return links.map((link, ei) => {
     const punctuation = ei < links.length - 1 ? ", " : "";
-    console.log(link.url);
     let url = link.url;
     // If these links are being displayed on the page, the intention is to stay
     // on the "new" tools. To avoid linking to a redirect instead of the chart,
