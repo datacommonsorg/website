@@ -382,16 +382,12 @@ function getChartData(
   for (const namedPlace of place.enclosedPlaces) {
     const xDenom = x.perCapita ? x.denom : null;
     const yDenom = y.perCapita ? y.denom : null;
-    const facetUsedX = xStatData[namedPlace.dcid].facet;
-    const facetUsedY = yStatData[namedPlace.dcid].facet;
-    const denomsByFacet: Record<string, SeriesApiResponse> = {};
-    denomsByFacet[facetUsedX] = cache.populationData;
-    denomsByFacet[facetUsedY] = cache.populationData;
     const placeChartData = getPlaceScatterData(
       namedPlace,
       xStatData,
       yStatData,
-      denomsByFacet, // empty denomByFacet since we only care about the singular populationData here
+      {}, // empty denomByFacet since we only care about the singular populationData here
+      cache.populationData,
       cache.metadataMap,
       xDenom,
       yDenom,

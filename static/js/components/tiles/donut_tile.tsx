@@ -206,7 +206,7 @@ export const fetchData = async (
       date,
       [statSvs]
     );
-    const denomsByFacet = await getDenomResp(
+    const [denomsByFacet, defaultDenomData] = await getDenomResp(
       denomSvs,
       statResp,
       props.apiRoot,
@@ -239,6 +239,7 @@ export const fetchData = async (
       props,
       statResp,
       denomsByFacet,
+      defaultDenomData,
       popPoints,
       placeNames,
       statVarDcidToName
@@ -253,6 +254,7 @@ function rawToChart(
   props: DonutTilePropType,
   statData: PointApiResponse,
   denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
   statVarNames: Record<string, string>
@@ -288,7 +290,8 @@ function rawToChart(
           denomsByFacet,
           placeDcid,
           stat.date,
-          stat.facet
+          stat.facet,
+          defaultDenomData
         );
         if (!denomInfo) {
           // skip this data point because missing denom data.

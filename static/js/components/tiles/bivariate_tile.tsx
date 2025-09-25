@@ -87,6 +87,7 @@ interface RawData {
   geoJson: GeoJsonData;
   placeStats: PointApiResponse;
   denomsByFacet: Record<string, SeriesApiResponse>;
+  defaultDenomData: SeriesApiResponse;
   placeNames: { [placeDcid: string]: string };
   parentPlaces: NamedTypedPlace[];
 }
@@ -200,7 +201,7 @@ async function getPopulationData(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   placeStats: PointApiResponse
-): Promise<Record<string, SeriesApiResponse>> {
+): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const variables = [];
   for (const sv of statVarSpec) {
     if (sv.denom) {
@@ -208,7 +209,7 @@ async function getPopulationData(
     }
   }
   if (_.isEmpty(variables)) {
-    return null;
+    return [null, null];
   } else {
     return await getDenomResp(
       variables,
@@ -240,7 +241,7 @@ export const fetchData = async (props: BivariateTilePropType) => {
       { statVarDcid: props.statVarSpec[1].statVar },
     ]
   );
-  const denomsByFacet = await getPopulationData(
+  const [denomsByFacet, defaultDenomData] = await getPopulationData(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
@@ -263,6 +264,7 @@ export const fetchData = async (props: BivariateTilePropType) => {
     const rawData = {
       placeStats,
       denomsByFacet,
+      defaultDenomData,
       placeNames,
       geoJson,
       parentPlaces,
@@ -308,6 +310,7 @@ function rawToChart(
       xPlacePointStat,
       yPlacePointStat,
       rawData.denomsByFacet,
+      rawData.defaultDenomData,
       rawData.placeStats.facets
     );
     if (!placeChartData) {
@@ -326,7 +329,8 @@ function rawToChart(
         rawData.denomsByFacet,
         place,
         point.xDate,
-        xFacet
+        xFacet,
+        rawData.defaultDenomData
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.
@@ -347,7 +351,8 @@ function rawToChart(
         rawData.denomsByFacet,
         place,
         point.yDate,
-        yFacet
+        yFacet,
+        rawData.defaultDenomData
       );
       if (!denomInfo) {
         // skip this data point because missing denom data.

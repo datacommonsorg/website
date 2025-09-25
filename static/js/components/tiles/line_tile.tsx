@@ -426,7 +426,7 @@ export const fetchData = async (
   };
 
   // get denom info
-  const denomsByFacet = await getDenomResp(
+  const [denomsByFacet, defaultDenomData] = await getDenomResp(
     denoms,
     resp,
     props.apiRoot,
@@ -441,7 +441,8 @@ export const fetchData = async (
     placeNames,
     statVarNames,
     options,
-    denomsByFacet
+    denomsByFacet,
+    defaultDenomData
   );
 };
 
@@ -485,7 +486,8 @@ function rawToChart(
   placeDcidToName: Record<string, string>,
   statVarDcidToName: Record<string, string>,
   options: { usePlaceLabels: boolean; useBothLabels: boolean },
-  denomsByFacet: Record<string, SeriesApiResponse>
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse
 ): LineChartData {
   // (TODO): We assume the index of numerator and denominator matches.
   // This is brittle and should be updated in the protobuf that binds both
@@ -531,7 +533,32 @@ function rawToChart(
       let obsList = series.series;
       if (spec.denom) {
         console.log("facet: ", series.facet);
-        const denomInfo = denomsByFacet[series.facet];
+        let denomInfo = denomsByFacet[series.facet];
+        // let denomSeries =
+        //   denomInfo?.data?.[spec.denom]?.[placeDcid] ??
+        //   defaultDenomData?.data?.[spec.denom]?.[placeDcid];
+
+        // if the placeDcid is not available in the facet-specific denom, use best available
+        if (denomsByFacet[series.facet]?.data?.[spec.denom]?.[placeDcid]) {
+          console.log(
+            "using data! For facet, place: ",
+            series.facet,
+            placeDcid
+          );
+          denomInfo = denomsByFacet[series.facet];
+        } else {
+          console.log(
+            "using default for facet/place ",
+            series.facet,
+            placeDcid
+          );
+          console.log(
+            "denomsByFacet[series.facet]: ",
+            denomsByFacet[series.facet]
+          );
+          console.log("defaultDenomData: ", defaultDenomData);
+          denomInfo = defaultDenomData;
+        }
         const denomSeries = denomInfo?.data?.[spec.denom]?.[placeDcid];
         obsList = computeRatio(obsList, denomSeries.series);
         if (denomSeries?.facet) {

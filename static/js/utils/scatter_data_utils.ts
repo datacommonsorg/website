@@ -43,6 +43,7 @@ interface PlaceAxisChartData {
 function getPlaceAxisChartData(
   placePointStat: EntityObservation,
   denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   placeDcid: string,
   metadataMap: Record<string, StatMetadata>,
   popBounds?: [number, number],
@@ -51,6 +52,9 @@ function getPlaceAxisChartData(
 ): PlaceAxisChartData {
   const obs = placePointStat[placeDcid];
   // finding the denom data that matches the facet of the current observation
+  // const populationData = denomsByFacet?.[obs.facet]
+  //   ? denomsByFacet[obs.facet]
+  //   : defaultDenomData;
   const populationData = denomsByFacet?.[obs.facet];
   const denomSeries =
     denom && populationData.data[denom] && populationData.data[denom][placeDcid]
@@ -131,6 +135,7 @@ export function getPlaceScatterData(
   xStatVarData: EntityObservation,
   yStatVarData: EntityObservation,
   denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   metadataMap: Record<string, StatMetadata>,
   xDenom?: string,
   yDenom?: string,
@@ -141,6 +146,7 @@ export function getPlaceScatterData(
   const xChartData = getPlaceAxisChartData(
     xStatVarData,
     denomsByFacet,
+    defaultDenomData,
     namedPlace.dcid,
     metadataMap,
     popBounds,
@@ -153,6 +159,7 @@ export function getPlaceScatterData(
   const yChartData = getPlaceAxisChartData(
     yStatVarData,
     denomsByFacet,
+    defaultDenomData,
     namedPlace.dcid,
     metadataMap,
     popBounds,
