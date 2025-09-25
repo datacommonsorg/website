@@ -20,10 +20,13 @@ from typing import Callable, Dict, List
 from flask import current_app
 import json5
 import requests
+from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH
+from server.lib.feature_flags import is_feature_enabled
 
 from server.lib.nl.common import counters
 
-_GEMINI_PRO_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent"
+_GEMINI_FLASH_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+_GEMINI_FLASH_LITE_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
 _API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
@@ -87,11 +90,13 @@ def detect_with_geminipro(query: str, history: List[List[str]],
   req = json.dumps(req_data)
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
-  r = requests.post(f'{_GEMINI_PRO_URL_BASE}?key={api_key}',
+  model_url_base = _GEMINI_FLASH_URL_BASE if is_feature_enabled(
+      ENABLE_GEMINI_2_5_FLASH) else _GEMINI_FLASH_LITE_URL_BASE
+  r = requests.post(f'{model_url_base}?key={api_key}',
                     data=req,
                     headers=_API_HEADER)
   resp = r.json()
-  ctr.timeit('gemini_pro_call', start_time)
+  ctr.timeit('gemini_call', start_time)
 
   return parse_response(query,
                         resp,

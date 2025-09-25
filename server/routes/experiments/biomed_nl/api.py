@@ -24,11 +24,15 @@ from google import genai
 from pydantic import BaseModel
 from pydantic import Field
 
+from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH
+from server.lib.feature_flags import is_feature_enabled
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
 
-GEMINI_PRO = 'gemini-2.5-pro'
-GEMINI_PRO_TOKEN_LIMIT = 2000000
+GEMINI_FLASH = 'gemini-2.5-flash'
+GEMINI_FLASH_TOKEN_LIMIT = 1500000
+GEMINI_FLASH_LITE = 'gemini-2.5-flash-lite'
+GEMINI_FLASH_LITE_TOKEN_LIMIT = 5000000
 GEMINI_CHARS_PER_TOKEN_ESTIMATE = 4
 PROMPT_TRUNCATE_TOKEN_BUFFER = 5
 GEMINI_TIMEOUT = 240000  # 4 minutes
@@ -88,20 +92,22 @@ def _append_fallback_response(query, response, path_finder,
       START_DCIDS=', '.join(path_finder.start_dcids),
       SELECTED_PATHS=utils.format_dict(selected_paths),
       ENTITY_INFO=utils.format_dict(entity_info))
-
+  model_name = GEMINI_FLASH if is_feature_enabled(
+      ENABLE_GEMINI_2_5_FLASH) else GEMINI_FLASH_LITE
+  token_limit = GEMINI_FLASH_TOKEN_LIMIT if model_name == GEMINI_FLASH else GEMINI_FLASH_LITE_TOKEN_LIMIT
   token_count = gemini_client.models.count_tokens(
-      model=GEMINI_PRO,
+      model=model_name,
       contents=fallback_prompt,
   ).total_tokens
   truncation_loop_count = 0
-  while token_count > GEMINI_PRO_TOKEN_LIMIT:
+  while token_count > token_limit:
     truncation_loop_count += 1
     char_num_diff = (GEMINI_CHARS_PER_TOKEN_ESTIMATE *
-                     (abs(GEMINI_PRO_TOKEN_LIMIT - token_count)) +
+                     (abs(token_limit - token_count)) +
                      PROMPT_TRUNCATE_TOKEN_BUFFER)
     fallback_prompt = fallback_prompt[:-char_num_diff]
     token_count = gemini_client.models.count_tokens(
-        model=GEMINI_PRO,
+        model=model_name,
         contents=fallback_prompt,
     ).total_tokens
 
@@ -110,7 +116,7 @@ def _append_fallback_response(query, response, path_finder,
                     truncation_loop_count)
 
   gemini_response = gemini_client.models.generate_content(
-      model=GEMINI_PRO, contents=fallback_prompt)
+      model=model_name, contents=fallback_prompt)
   response.answer += '\n\n' + gemini_response.text
   response.debug += '\nFetched data too large for Gemini'
 
@@ -125,7 +131,10 @@ def _fulfill_traversal_query(query):
                                    api_version='v1alpha',
                                    timeout=GEMINI_TIMEOUT))
 
-  path_finder = PathFinder(query, gemini_client, gemini_model_str=GEMINI_PRO)
+  model_name = GEMINI_FLASH if is_feature_enabled(
+      ENABLE_GEMINI_2_5_FLASH) else GEMINI_FLASH_LITE
+  token_limit = GEMINI_FLASH_TOKEN_LIMIT if model_name == GEMINI_FLASH else GEMINI_FLASH_LITE_TOKEN_LIMIT
+  path_finder = PathFinder(query, gemini_client, gemini_model_str=model_name)
 
   traversed_entity_info = {}
   try:
@@ -161,12 +170,12 @@ def _fulfill_traversal_query(query):
         QUERY=query, ENTITY_INFO=utils.format_dict(traversed_entity_info))
 
     input_tokens = gemini_client.models.count_tokens(
-        contents=final_prompt, model=GEMINI_PRO).total_tokens
+        contents=final_prompt, model=model_name).total_tokens
 
     should_include_fallback = False
-    if input_tokens < GEMINI_PRO_TOKEN_LIMIT * 0.75:
+    if input_tokens < token_limit * 0.75:
       gemini_response = gemini_client.models.generate_content(
-          model=GEMINI_PRO,
+          model=model_name,
           contents=final_prompt,
           config={
               'response_mime_type': 'application/json',
