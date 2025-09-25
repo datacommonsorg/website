@@ -24,13 +24,9 @@ from google import genai
 from pydantic import BaseModel
 from pydantic import Field
 
-from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
-from server.lib.feature_flags import is_feature_enabled
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
 
-GEMINI_2_5_FLASH = 'gemini-2.5-flash'
-GEMINI_2_5_FLASH_TOKEN_LIMIT = 1500000
 GEMINI_2_5_PRO = 'gemini-2.5-pro'
 GEMINI_2_5_PRO_TOKEN_LIMIT = 2000000
 GEMINI_CHARS_PER_TOKEN_ESTIMATE = 4
@@ -76,8 +72,6 @@ class BiomedNlApiResponse(BaseModel):
 
 def _get_gemini_model_config(request=None):
   """Returns the gemini model name and token limit based on the feature flag."""
-  if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_FLAG, request):
-    return GEMINI_2_5_FLASH, GEMINI_2_5_FLASH_TOKEN_LIMIT
   return GEMINI_2_5_PRO, GEMINI_2_5_PRO_TOKEN_LIMIT
 
 
