@@ -38,7 +38,14 @@ website:
       }
 
 mixer:
+  serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
+  hostProject: "datcom-website-staging"
+  useSpannerGraph: true
+  enableV3: true
+  redis:
+    enabled: true
   enableOtlp: true
+  v3MirrorFraction: 0.01
 
 ingress:
   enabled: false
@@ -48,6 +55,8 @@ serviceAccount:
 
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -73,6 +82,12 @@ serviceGroups:
     replicas: 4
   default:
     replicas: 4
+
+nodejs:
+  enabled: true
+  image:
+    tag: ""
+  replicas: 4
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

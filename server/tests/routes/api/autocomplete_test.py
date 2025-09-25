@@ -68,7 +68,7 @@ class TestAutocomplete(unittest.TestCase):
     self.assertEqual(response.status_code, 200)
 
     response_dict = json.loads(response.data.decode("utf-8"))
-    self.assertEqual(len(response_dict["predictions"]), 5)
+    self.assertGreater(len(response_dict["predictions"]), 1)
 
   @patch(
       'server.routes.shared_api.autocomplete.autocomplete.is_feature_enabled',

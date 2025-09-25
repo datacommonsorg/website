@@ -207,7 +207,7 @@ export function PageOverview(props: PageOverviewPropType): ReactElement {
           css={[
             theme.typography.text.lg,
             css`
-              padding-top: 1.5rem;
+              margin-bottom: ${theme.spacing.xl}px;
             `,
           ]}
         >

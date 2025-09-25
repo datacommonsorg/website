@@ -1936,7 +1936,7 @@ Mean Monthly Wages,Mean_WagesMonthly_Worker,,Mean Monthly Wages,,Mean Monthly Wa
 ,Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery,,,,Annual Emissions: Waste Disposal Treatment and Recovery
 ,Annual_Amount_Emissions_SCC_27_NaturalSources,,,,Annual Emissions: Natural Sources
 ,Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources,,,,Annual Emissions: Misc
-,Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person,,,,% of Suicide Events
+,Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person,,,,Suicide Mortality Rate
 ,RetailDrugDistribution_DrugDistribution_dea/9809,,,,Retail Drug Distribution: Opium Combination Product 25 Mg/du
 ,Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person,,,,"Economic Activity: Nominal GDP (Nominal, Per Capita)"
 ,Count_Person_HispanicOrLatino_AsianOrPacificIslander,,,,Hispanic Asian/Pacific Islander Population
