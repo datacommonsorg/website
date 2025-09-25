@@ -37,7 +37,12 @@ import { getCappedStatVarDate } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
-import { getSeries, getSeriesWithin } from "./data_fetch_utils";
+import {
+  getSeries,
+  getSeriesWithin,
+  selectFacetsForDenominator,
+  selectFacetsWithinForDenominator,
+} from "./data_fetch_utils";
 import { getUnit } from "./stat_metadata_utils";
 import { addPerCapitaToTitle } from "./subject_page_utils";
 
@@ -438,7 +443,7 @@ export async function getDenomResp(
   useSeriesWithin: boolean,
   // for series queries
   allPlaces?: string[],
-  // parent and place type for series within queries
+  // parent and place type for collection queries
   parentPlace?: string,
   placeType?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
@@ -449,7 +454,27 @@ export async function getDenomResp(
   const facetIds =
     !_.isEmpty(denoms) && statResp.facets ? Object.keys(statResp.facets) : [];
 
-  facetIds.forEach((facetId) => {
+  for (const facetId of facetIds) {
+    const matchingFacetIds = !_.isEmpty(facetIds)
+      ? await Promise.resolve(facetIds)
+      : useSeriesWithin
+      ? await selectFacetsWithinForDenominator(
+          apiRoot,
+          parentPlace,
+          placeType,
+          denoms,
+          null,
+          statResp.facets[facetId]
+        )
+      : await selectFacetsForDenominator(
+          apiRoot,
+          allPlaces,
+          denoms,
+          statResp.facets[facetId]
+        );
+
+    console.log("all matching facet Ids: ", matchingFacetIds);
+
     denomPromises.push(
       // pass in empty facetId list because we want to use the highlight facet
       useSeriesWithin
@@ -458,12 +483,11 @@ export async function getDenomResp(
             parentPlace,
             placeType,
             denoms,
-            [],
-            statResp.facets[facetId]
+            matchingFacetIds
           )
-        : getSeries(apiRoot, allPlaces, denoms, [], statResp.facets[facetId])
+        : getSeries(apiRoot, allPlaces, denoms, matchingFacetIds)
     );
-  });
+  }
 
   console.log("denomPromises: ", denomPromises);
   console.log("facetIds: ", facetIds);

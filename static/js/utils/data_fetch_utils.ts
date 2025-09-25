@@ -145,15 +145,15 @@ async function selectFacet(
     const facets = facetsResponse[svDcid];
     for (const [facetId, f] of Object.entries(facets)) {
       if (
-        !_.isEmpty(highlightFacet.importName) &&
-        highlightFacet.importName !== f.importName
-        // (!_.isEmpty(highlightFacet.measurementMethod) &&
-        //   highlightFacet.measurementMethod !== f.measurementMethod) ||
-        // (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
-        // (!_.isEmpty(highlightFacet.observationPeriod) &&
-        //   highlightFacet.observationPeriod !== f.observationPeriod) ||
-        // (!_.isEmpty(highlightFacet.scalingFactor) &&
-        //   highlightFacet.scalingFactor !== f.scalingFactor)
+        (!_.isEmpty(highlightFacet.importName) &&
+          highlightFacet.importName !== f.importName) ||
+        (!_.isEmpty(highlightFacet.measurementMethod) &&
+          highlightFacet.measurementMethod !== f.measurementMethod) ||
+        (!_.isEmpty(highlightFacet.unit) && highlightFacet.unit !== f.unit) ||
+        (!_.isEmpty(highlightFacet.observationPeriod) &&
+          highlightFacet.observationPeriod !== f.observationPeriod) ||
+        (!_.isEmpty(highlightFacet.scalingFactor) &&
+          highlightFacet.scalingFactor !== f.scalingFactor)
       ) {
         continue;
       }
@@ -165,8 +165,46 @@ async function selectFacet(
 }
 
 /**
+ * Gets the data from /api/observations/point endpoint
+ * @param apiRoot api root
+ * @param entities list of entitites to get data for
+ * @param variables list of variables to get data for
+ * @param highlightFacet a single facet (given by the facet keys) that is
+ *        used to indicate the facet to be used in this fetch.
+ * @returns The Facet ID matching the highlight facet
+ *          or null if no matching facet is found.
+ */
+export async function selectFacetsForDenominator(
+  apiRoot: string,
+  entities: string[],
+  variables: string[],
+  highlightFacet?: FacetMetadata
+): Promise<string[] | null> {
+  if (!highlightFacet) {
+    return [];
+  }
+  const facetsResponse = await getFacets(apiRoot, entities, variables);
+  console.log("all facets in selectFacet: ", facetsResponse);
+  const allValidFacets = [];
+  for (const svDcid of Object.keys(facetsResponse)) {
+    const facets = facetsResponse[svDcid];
+    for (const [facetId, f] of Object.entries(facets)) {
+      if (
+        !_.isEmpty(highlightFacet.importName) &&
+        highlightFacet.importName !== f.importName
+      ) {
+        continue;
+      }
+      allValidFacets.push(facetId);
+    }
+  }
+
+  return allValidFacets;
+}
+
+/**
  * Fetches all facets that match the given variables /api/facets/within,
- * then finds the first that matches the given highlightFacet.
+ * and match the given highlightFacet.
  * Has more lax requirements, meaning we get all facets with the same import name, but
  * not measurement method or other facet attributes.
  * @param apiRoot api root
@@ -178,7 +216,7 @@ async function selectFacet(
  * @returns The Facet ID matching the highlight facet
  *          or null if no matching facet is found.
  */
-async function selectFacetsWithinForDenominator(
+export async function selectFacetsWithinForDenominator(
   apiRoot: string,
   parentEntity: string,
   childType: string,
@@ -196,6 +234,8 @@ async function selectFacetsWithinForDenominator(
     variables,
     date ?? "LATEST"
   );
+
+  const allValidFacets = [];
   console.log("all facets to select from: ", facetsResponse);
   for (const svDcid of Object.keys(facetsResponse)) {
     const facets = facetsResponse[svDcid];
@@ -206,11 +246,11 @@ async function selectFacetsWithinForDenominator(
       ) {
         continue;
       }
-      return [facetId];
+      allValidFacets.push(facetId);
     }
   }
 
-  return [];
+  return allValidFacets;
 }
 
 /**
