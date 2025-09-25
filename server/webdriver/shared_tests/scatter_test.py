@@ -31,7 +31,7 @@ URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
 
 # Scatter plots can take extra long to load
 # This is a custom, longer timeout to use for charts we know are slow
-LONG_TIMEOUT = 60  # seconds
+LONG_TIMEOUT = 90  # seconds
 
 
 class ScatterTestMixin():

@@ -259,6 +259,7 @@ def _search_and_select_first_item_in_dropdown(driver,
 
   # Type search term into search box
   search_box_input.clear()
+  search_box_input.click()
   search_box_input.send_keys(search_term)
 
   # Wait for the dropdown list to appear
