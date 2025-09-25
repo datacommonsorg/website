@@ -52,10 +52,17 @@ clear_website_cache() {
     return 1
   fi
 
+  # TODO(gmechali): Enforce a naming convention for Redis instances to avoid hardcoding names.
+  if [ "$ENVIRONMENT" == "dev" ]; then
+    REDIS_INSTANCE_NAME="website-cache"
+  else
+    REDIS_INSTANCE_NAME="webserver-cache"
+  fi
+  
   local HOST
-  HOST=$(gcloud redis instances describe webserver-cache --region="$REDIS_REGION" --format="get(host)")
+  HOST=$(gcloud redis instances describe $REDIS_INSTANCE_NAME --region="$REDIS_REGION" --format="get(host)")
   if [ -z "$HOST" ]; then
-    echo "Error: Could not find Redis instance 'webserver-cache' in region '$REDIS_REGION'. Exiting."
+    echo "Error: Could not find Redis instance '$REDIS_INSTANCE_NAME' in region '$REDIS_REGION'. Exiting."
     return 1
   fi
 
