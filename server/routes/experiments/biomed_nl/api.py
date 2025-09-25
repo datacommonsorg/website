@@ -27,7 +27,7 @@ from pydantic import Field
 from server.routes.experiments.biomed_nl.traversal import PathFinder
 import server.routes.experiments.biomed_nl.utils as utils
 
-GEMINI_PRO = 'gemini-2.5-pro'
+GEMINI_PRO = 'gemini-1.5-pro'
 GEMINI_PRO_TOKEN_LIMIT = 2000000
 GEMINI_CHARS_PER_TOKEN_ESTIMATE = 4
 PROMPT_TRUNCATE_TOKEN_BUFFER = 5

@@ -60,7 +60,7 @@ def _get_datagemma_result(query, mode):
                      data_fetcher=dc_nl_service).query(query=query)
   elif mode == _RAG_MODE:
     gemini_model = GoogleAIStudio(
-        model='gemini-2.5-pro', api_keys=[current_app.config['GEMINI_API_KEY']])
+        model='gemini-1.5-pro', api_keys=[current_app.config['GEMINI_API_KEY']])
     result = RAGFlow(llm_question=_VERTEX_AI_RAG,
                      llm_answer=gemini_model,
                      data_fetcher=dc_nl_service).query(query=query)
