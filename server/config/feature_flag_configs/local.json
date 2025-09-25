@@ -67,7 +67,7 @@
   },
   {
     "name": "page_overview_ga",
-    "enabled": true,
+    "enabled": false,
     "owner": "javiervazquez",
     "description": "Makes the page overview feature, generated from query and relevant stat vars, generally available."
   },
@@ -75,7 +75,6 @@
     "name": "page_overview_links",
     "enabled": true,
     "owner": "javiervazquez",
-    "rollout_percentage": 50,
     "description": "A flag to guard if the embedded links in the overview are enabled."
   },
   {
