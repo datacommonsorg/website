@@ -83,7 +83,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
               });
             }}
           >
-            <option value="">Facet</option>
+            <option value="">Dataset</option>
             {props.datasets.map((d) => {
               return (
                 <option
