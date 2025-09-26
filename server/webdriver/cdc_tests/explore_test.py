@@ -14,7 +14,6 @@
 
 from selenium.webdriver.common.by import By
 
-from server.webdriver import shared
 from server.webdriver.base_utils import wait_elem
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 from server.webdriver.shared_tests.explore_test import EXPLORE_URL
@@ -34,15 +33,17 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     wait_elem(driver=self.driver, value="follow-up-questions-container")
 
     # Follow Up Questions should not be present
-    empty_follow_up = wait_elem(parent=self.driver,
+    empty_follow_up = wait_elem(driver=self.driver,
+                                by=By.CLASS_NAME,
                                 value="follow-up-questions-container")
     self.assertIsNone(
         empty_follow_up,
         "Follow Up Questions component is not empty despite the flag not being activated."
     )
     # While Related Topics section should appear
-    topic_buttons = wait_elem(self.driver, By.CLASS_NAME,
-                              'explore-relevant-topics')
+    topic_buttons = wait_elem(driver=self.driver,
+                              by=By.CLASS_NAME,
+                              value='explore-relevant-topics')
     self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
 
   def test_success_result_with_no_page_overview(self):
@@ -53,8 +54,8 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
 
     # Page Overview should not be present
     self.assertIsNone(
-        shared.wait_elem(driver=self.driver,
-                         by=By.CSS_SELECTOR,
-                         value='[data-testid="page-overview-inner"]'),
+        wait_elem(driver=self.driver,
+                  by=By.CSS_SELECTOR,
+                  value='[data-testid="page-overview-inner"]'),
         "Page Overview component is not empty despite the flag not being activated."
     )
