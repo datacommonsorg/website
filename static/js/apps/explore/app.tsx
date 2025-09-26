@@ -282,12 +282,12 @@ export function App(props: AppProps): ReactElement {
         const inPlaces =
           placeNames?.length > 1
             ? intl.formatMessage(messages.inPlacesAndLastPlace, {
-                places: placeNames.slice(0, -1).join(", "),
-                lastPlace: placeNames[placeNames.length - 1] || "",
-              })
+              places: placeNames.slice(0, -1).join(", "),
+              lastPlace: placeNames[placeNames.length - 1] || "",
+            })
             : intl.formatMessage(messages.inPlace, {
-                place: placeNames[0] || "",
-              });
+              place: placeNames[0] || "",
+            });
         if (
           pageMetadata.mainTopics.length == 2 &&
           pageMetadata.mainTopics[0].name &&
@@ -354,8 +354,8 @@ export function App(props: AppProps): ReactElement {
     const gaTitle = query
       ? `Q: ${query} - `
       : topicsToUse
-      ? `T: ${topicsToUse} | P: ${places} - `
-      : "";
+        ? `T: ${topicsToUse} | P: ${places} - `
+        : "";
     /* eslint-disable camelcase */
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${gaTitle}${document.title}`,
@@ -374,6 +374,7 @@ export function App(props: AppProps): ReactElement {
         urlHashParams.idx,
         urlHashParams.disableExploreMore,
         urlHashParams.detector,
+        urlHashParams.disableFeature,
         urlHashParams.testMode,
         urlHashParams.i18n,
         client,
@@ -563,6 +564,7 @@ const fetchDetectAndFufillData = async (
   idx: string,
   disableExploreMore: string,
   detector: string,
+  disableFeature: string,
   testMode: string,
   i18n: string,
   client: string,
@@ -576,6 +578,7 @@ const fetchDetectAndFufillData = async (
 ): Promise<unknown> => {
   const fieldsMap = {
     [URL_HASH_PARAMS.DETECTOR]: detector,
+    [URL_HASH_PARAMS.DISABLE_FEATURE]: disableFeature,
     [URL_HASH_PARAMS.TEST_MODE]: testMode,
     [URL_HASH_PARAMS.I18N]: i18n,
     [URL_HASH_PARAMS.CLIENT]: client,

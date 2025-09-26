@@ -32,6 +32,7 @@ export const URL_HASH_PARAMS = {
   DEPRECATED_QUERY: "oq",
   // Detection params
   DETECTOR: "detector",
+  DISABLE_FEATURE: "disable_feature",
   // auto play params
   AUTO_PLAY_QUERY: "aq",
   AUTO_PLAY_DISABLE_TYPING: "at",
