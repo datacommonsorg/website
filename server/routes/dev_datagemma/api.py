@@ -33,7 +33,6 @@ bp = flask.Blueprint('dev_datagemma_api',
                      __name__,
                      url_prefix='/api/dev/datagemma')
 
-
 GEMINI_2_5_FLASH = 'gemini-2.5-flash'
 GEMINI_1_5_PRO = 'gemini-1.5-pro'
 
