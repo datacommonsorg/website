@@ -391,7 +391,7 @@ def get_variable_ancestors(dcid: str):
   return get(url).get("ancestors", [])
 
 
-def get_series_dates(parent_entity, child_type, variables, surfaceHeaderValue):
+def get_series_dates(parent_entity, child_type, variables, surfaceHeaderValue: str | None = None):
   """Get series dates."""
   url = get_service_url("/v1/bulk/observation-dates/linked")
   return post(

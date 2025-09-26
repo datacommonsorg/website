@@ -64,7 +64,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config, surfaceHeaderValue:
   explore_peer_groups = {}
   if (not state.uttr.insight_ctx.get(params.Params.EXP_MORE_DISABLED) and
       not params.is_special_dc(state.uttr.insight_ctx)):
-    explore_more_chart_vars_map = _get_explore_more_chart_vars(state)
+    explore_more_chart_vars_map = _get_explore_more_chart_vars(state, surfaceHeaderValue)
     explore_peer_groups = extension.chart_vars_to_explore_peer_groups(
         state, explore_more_chart_vars_map)
 
@@ -132,7 +132,7 @@ def _is_place_overview(ranked_charts: List[ChartSpec]) -> bool:
 
 
 def _get_explore_more_chart_vars(
-    state: PopulateState) -> Dict[str, List[ChartVars]]:
+    state: PopulateState, surfaceHeaderValue: str) -> Dict[str, List[ChartVars]]:
   # Get up to 10 SVs from each chart.
   explore_more_svs = set()
   for cs in state.uttr.rankedCharts:
@@ -150,7 +150,7 @@ def _get_explore_more_chart_vars(
     ext_tracker = existence.MainExistenceCheckTracker(
         state,
         state.places_to_check,
-        sv2chartvarslist=explore_more_chart_vars_map)
+        sv2chartvarslist=explore_more_chart_vars_map, surfaceHeaderValue=surfaceHeaderValue)
     ext_tracker.perform_existence_check()
     state.uttr.counters.timeit('explore_more_existence_check', start)
 

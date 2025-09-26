@@ -186,6 +186,7 @@ export function getPoint(
   facetIds?: string[],
   surfaceHeaderValue?: string
 ): Promise<PointApiResponse> {
+  console.log("surfaceHeaderValue in getpoint: ", surfaceHeaderValue);
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
     : selectFacet(apiRoot, entities, variables, highlightFacet);
@@ -231,6 +232,7 @@ export function getPointWithin(
   facetIds?: string[],
   surfaceHeaderValue?: string
 ): Promise<PointApiResponse> {
+  console.log("surfaceHeaderValue in getPointWithin: ", surfaceHeaderValue);
   const params = { childType, date, parentEntity, variables };
   if (facetIds) {
     params["facetIds"] = facetIds;
@@ -267,6 +269,7 @@ export function getSeries(
   highlightFacet?: FacetMetadata,
   surfaceHeaderValue?: string
 ): Promise<SeriesApiResponse> {
+  console.log("surfaceHeaderValue in getseroes: ", surfaceHeaderValue);
   const params = { entities, variables };
   return Promise.resolve(
     selectFacet(apiRoot, entities, variables, highlightFacet)
@@ -305,6 +308,7 @@ export function getSeriesWithin(
   facetIds?: string[],
   surfaceHeaderValue?: string
 ): Promise<SeriesApiResponse> {
+  console.log("surfaceHeaderValue in getserieswithin: ", surfaceHeaderValue);
   const params = { parentEntity, childType, variables };
   if (facetIds) {
     params["facetIds"] = facetIds;

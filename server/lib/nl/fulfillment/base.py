@@ -87,6 +87,7 @@ def populate_charts(state: PopulateState, surfaceHeaderValue: str) -> bool:
 # REQUIRES: places and svs are non-empty.
 def _add_charts_with_place_fallback(state: PopulateState,
                                     places: List[Place], surfaceHeaderValue: str) -> bool:
+  print("surfaceHeaderValue in _add_charts w fallback: ", surfaceHeaderValue)
   # Add charts for the given places.
   if _add_charts_with_existence_check(state, places, surfaceHeaderValue):
     return True
