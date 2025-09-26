@@ -19,7 +19,8 @@ import logging
 from typing import Dict, List
 import urllib.parse
 
-from flask import current_app, request
+from flask import current_app
+from flask import request
 import requests
 
 from server.lib import log
@@ -68,11 +69,19 @@ def post(url: str,
   key_to_use = api_key
   if key_to_use is None:
     key_to_use = current_app.config.get("DC_API_KEY", "")
-  return post_wrapper(url, req_str, key_to_use, log_extreme_calls, surfaceHeaderValue=surfaceHeaderValue)
+  return post_wrapper(url,
+                      req_str,
+                      key_to_use,
+                      log_extreme_calls,
+                      surfaceHeaderValue=surfaceHeaderValue)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool,surfaceHeaderValue: str | None = None):
+def post_wrapper(url,
+                 req_str: str,
+                 dc_api_key: str,
+                 log_extreme_calls: bool,
+                 surfaceHeaderValue: str | None = None):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
@@ -217,8 +226,7 @@ def series_facet(entities, variables, surfaceHeaderValue):
     """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["variable", "entity", "facet"],
           "entity": {
               "dcids": sorted(entities)
@@ -226,9 +234,7 @@ def series_facet(entities, variables, surfaceHeaderValue):
           "variable": {
               "dcids": sorted(variables)
           },
-      },
-      surfaceHeaderValue
-  )
+      }, surfaceHeaderValue)
 
 
 def point_within_facet(parent_entity, child_type, variables, date):
@@ -391,19 +397,19 @@ def get_variable_ancestors(dcid: str):
   return get(url).get("ancestors", [])
 
 
-def get_series_dates(parent_entity, child_type, variables, surfaceHeaderValue: str | None = None):
+def get_series_dates(parent_entity,
+                     child_type,
+                     variables,
+                     surfaceHeaderValue: str | None = None):
   """Get series dates."""
   url = get_service_url("/v1/bulk/observation-dates/linked")
   return post(
-      url,
-      {
+      url, {
           "linked_property": "containedInPlace",
           "linked_entity": parent_entity,
           "entity_type": child_type,
           "variables": variables,
-      },
-      surfaceHeaderValue
-  )
+      }, surfaceHeaderValue)
 
 
 def bio(entity):

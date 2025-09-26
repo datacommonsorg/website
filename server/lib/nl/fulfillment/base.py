@@ -85,8 +85,8 @@ def populate_charts(state: PopulateState, surfaceHeaderValue: str) -> bool:
 # to parent places, or parent place-types (for contained-in query-types).
 #
 # REQUIRES: places and svs are non-empty.
-def _add_charts_with_place_fallback(state: PopulateState,
-                                    places: List[Place], surfaceHeaderValue: str) -> bool:
+def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
+                                    surfaceHeaderValue: str) -> bool:
   # Add charts for the given places.
   if _add_charts_with_existence_check(state, places, surfaceHeaderValue):
     return True
@@ -188,8 +188,8 @@ def _maybe_switch_parent_type(
 
 
 # Add charts given a place and a list of stat-vars.
-def _add_charts_with_existence_check(state: PopulateState,
-                                     places: List[Place], surfaceHeaderValue: str) -> bool:
+def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
+                                     surfaceHeaderValue: str) -> bool:
   # This may set state.uttr.place_fallback
   _maybe_set_fallback(state, places)
 

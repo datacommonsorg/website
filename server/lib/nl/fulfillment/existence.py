@@ -201,7 +201,8 @@ class ExistenceCheckTracker:
 class MainExistenceCheckTracker(ExistenceCheckTracker):
 
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
-               sv2chartvarslist: OrderedDict[str, List[ChartVars]], surfaceHeaderValue: str):
+               sv2chartvarslist: OrderedDict[str, List[ChartVars]],
+               surfaceHeaderValue: str):
     super().__init__(state, place2keys)
     self.surfaceHeaderValue = surfaceHeaderValue
     places = place2keys.keys()

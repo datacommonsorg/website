@@ -220,8 +220,9 @@ def page_overview():
 # fulfills it into charts.
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
-                               debug_logs: Dict, surfaceHeaderValue: str) -> Dict:
-  
+                               debug_logs: Dict,
+                               surfaceHeaderValue: str = None) -> Dict:
+
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.

@@ -197,7 +197,8 @@ def sv_existence_for_places_check_single_point(
   start = time.time()
   series_facet = fetch.series_facet(entities=places,
                                     variables=svs,
-                                    all_facets=check_date, surfaceHeaderValue=surfaceHeaderValue)
+                                    all_facets=check_date,
+                                    surfaceHeaderValue=surfaceHeaderValue)
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
@@ -256,10 +257,12 @@ def _get_max_valid_date_idx(obs_dates: List[Dict[str, any]], start_date: str,
 # for this date and within _MAX_DATES_FOR_EXISTENCE dates of the date range) to
 # use as the latest date for the children of that place.
 # Returns a map of sv -> place key (place + child type) -> latest date.
-def get_contained_in_latest_date(places: List[str],
-                                 child_type: types.ContainedInPlaceType,
-                                 svs: List[str],
-                                 date_range: types.Date, surfaceHeaderValue: str) -> Sv2Place2Date:
+def get_contained_in_latest_date(
+    places: List[str],
+    child_type: types.ContainedInPlaceType,
+    svs: List[str],
+    date_range: types.Date,
+    surfaceHeaderValue: str = None) -> Sv2Place2Date:
   sv_place_latest_date = {}
   # This method only gets the date for children of a place
   if not date_range or not child_type:
@@ -268,7 +271,8 @@ def get_contained_in_latest_date(places: List[str],
       date_range)
   for place in places:
     place_key = get_place_key(place, child_type)
-    series_dates = dc.get_series_dates(place, child_type, svs, surfaceHeaderValue)
+    series_dates = dc.get_series_dates(place, child_type, svs,
+                                       surfaceHeaderValue)
     for dates_by_variable in series_dates.get('datesByVariable', []):
       sv = dates_by_variable.get('variable', '')
       if sv not in sv_place_latest_date:
