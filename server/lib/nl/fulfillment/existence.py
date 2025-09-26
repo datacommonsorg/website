@@ -256,8 +256,8 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
 
   # NOTE: If sv2extensions is set, then this is for extensions only.
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
-               svs: List[str], sv2extensions: Dict):
-    super().__init__(state, place2keys)
+               svs: List[str], sv2extensions: Dict, surfaceHeaderValue: str):
+    super().__init__(state, place2keys, surfaceHeaderValue)
 
     # Loop over all SVs, and construct existence check state.
     for sv in svs:
