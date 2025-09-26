@@ -14,6 +14,7 @@
 """Interface to LLM API for detection"""
 
 import json
+import logging
 import time
 from typing import Callable, Dict, List
 
@@ -94,6 +95,7 @@ def detect_with_gemini(query: str, history: List[List[str]],
   model_url_base = _GEMINI_2_5_FLASH_URL_BASE if is_feature_enabled(
       ENABLE_GEMINI_2_5_FLASH_FLAG,
       request=request) else _GEMINI_1_5_PRO_URL_BASE
+  logging.info(f'Gemini model URL for LLM API: {model_url_base}')
   r = requests.post(f'{model_url_base}?key={api_key}',
                     data=req,
                     headers=_API_HEADER)

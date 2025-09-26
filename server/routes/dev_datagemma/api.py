@@ -14,6 +14,7 @@
 """Endpoints for DataGemma page"""
 
 import json
+import logging
 
 from data_gemma import DataCommons
 from data_gemma import GoogleAIStudio
@@ -67,6 +68,7 @@ def _get_datagemma_result(query, mode):
   elif mode == _RAG_MODE:
     model_name = GEMINI_2_5_FLASH if is_feature_enabled(
         ENABLE_GEMINI_2_5_FLASH_FLAG, request=request) else GEMINI_1_5_PRO
+    logging.info(f'DataGemma using Gemini model: {model_name}')
     gemini_model = GoogleAIStudio(
         model=model_name, api_keys=[current_app.config['GEMINI_API_KEY']])
     result = RAGFlow(llm_question=_VERTEX_AI_RAG,
