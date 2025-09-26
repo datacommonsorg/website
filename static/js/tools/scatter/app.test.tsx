@@ -290,6 +290,9 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -308,6 +311,9 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -326,6 +332,9 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -344,6 +353,9 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -362,6 +374,9 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -380,6 +395,9 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -397,6 +415,9 @@ function mockAxios(): void {
         entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -427,6 +448,9 @@ function mockAxios(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {

@@ -343,11 +343,12 @@ export async function getQueryResult(
     });
   const postConfig = {
     headers: {
-      "x-surface": surfaceHeaderValue,
+      "x-surface": surfaceHeaderValue || "website",
     },
   };
   try {
     nlResp = await axios.post(url, {}, postConfig);
+    console.log("NL RESP LUCYL ", nlResp, url, apiRoot);
   } catch (e) {
     return { err: "Error fetching data." };
   }

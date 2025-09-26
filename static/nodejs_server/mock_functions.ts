@@ -50,7 +50,12 @@ export function queryAxiosMock(): void {
   when(axios.post)
     .calledWith(
       "/api/explore/detect-and-fulfill?q=family earnings in north dakota&detector=heuristic&client=bard&skipRelatedThings=true",
-      {}
+      {},
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
     )
     .mockResolvedValue(TIMELINE_NL_RESP);
   when(axios.get)
@@ -63,19 +68,38 @@ export function queryAxiosMock(): void {
         variables: ["Mean_Income_Household_FamilyHousehold"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue(HOUSEHOLD_INCOME_LATEST_POINTS_RESP);
   when(axios.post)
-    .calledWith("/api/observations/series", {
-      entities: ["geoId/38"],
-      variables: ["Mean_Income_Household_FamilyHousehold"],
-    })
+    .calledWith(
+      "/api/observations/series",
+      {
+        entities: ["geoId/38"],
+        variables: ["Mean_Income_Household_FamilyHousehold"],
+      },
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
+    )
     .mockResolvedValue(MEAN_HOUSEHOLD_INCOME_SERIES_RESP);
   when(axios.post)
-    .calledWith("/api/observations/series", {
-      entities: ["geoId/38"],
-      variables: ["Median_Income_Household_FamilyHousehold"],
-    })
+    .calledWith(
+      "/api/observations/series",
+      {
+        entities: ["geoId/38"],
+        variables: ["Median_Income_Household_FamilyHousehold"],
+      },
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
+    )
     .mockResolvedValue(MEDIAN_HOUSEHOLD_INCOME_SERIES_RESP);
   when(axios.post)
     .calledWith("/api/place/name", { dcids: ["geoId/38"], prop: undefined }, {})
@@ -141,7 +165,7 @@ export function queryAxiosMock(): void {
         ],
         prop: undefined,
       },
-      {}
+      { headers: { "x-surface": "website" } }
     )
     .mockResolvedValue(NORTH_DAKOTA_COUNTY_NAMES_RESP);
 
@@ -151,7 +175,12 @@ export function queryAxiosMock(): void {
   when(axios.post)
     .calledWith(
       "/api/explore/detect-and-fulfill?q=top jobs in santa clara county&detector=heuristic&client=bard&skipRelatedThings=true",
-      {}
+      {},
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
     )
     .mockResolvedValue(BAR_NL_RESP);
   when(axios.get)
@@ -182,6 +211,9 @@ export function queryAxiosMock(): void {
         ],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue(BAR_POINTS_RESP);
   when(axios.get)
@@ -192,6 +224,9 @@ export function queryAxiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue(BAR_FILTER_POINTS_RESP);
   when(axios.post)
@@ -208,7 +243,12 @@ export function queryAxiosMock(): void {
   when(axios.post)
     .calledWith(
       "/api/explore/detect-and-fulfill?q=obesity vs. poverty in counties of california&detector=heuristic&client=bard&skipRelatedThings=true",
-      {}
+      {},
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
     )
     .mockResolvedValue(SCATTER_NL_RESP);
   when(axios.get)
@@ -220,6 +260,9 @@ export function queryAxiosMock(): void {
         variables: ["Percent_Person_Obesity"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue(OBESITY_POINT_WITHIN_RESP);
   when(axios.get)
@@ -231,6 +274,9 @@ export function queryAxiosMock(): void {
         variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue(POVERTY_POINT_WITHIN_RESP);
   when(axios.get)
