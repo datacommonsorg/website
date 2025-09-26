@@ -305,8 +305,7 @@ class StandardizedTimelineTestMixin():
     shared.wait_for_loading(self.driver)
 
     # Wait for chart-region and lines within to load
-    wait_elem(self.driver, By.ID, "chart-region")
-    wait_elem(self.driver, By.CLASS_NAME, "line")
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
 
     # Assert number of charts and lines is correct.
     charts = find_elems(self.driver,

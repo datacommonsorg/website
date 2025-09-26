@@ -60,6 +60,9 @@ class ScatterTestMixin():
 
     # Wait until the chart has loaded.
     shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
+
+    # Assert chart is present
     scatterplot = find_elem(self.driver, by=By.ID, value='scatterplot')
     self.assertIsNotNone(scatterplot)
 
@@ -120,7 +123,7 @@ class ScatterTestMixin():
                   find_elem(chart, by=By.XPATH, value='./h3[2]').text.lower())
 
     # Assert chart loads
-    wait_elem(self.driver, By.TAG_NAME, 'circle')
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
@@ -138,15 +141,13 @@ class ScatterTestMixin():
     # Wait for chart to load
     # This chart can be particularly slow, so use extra wait time
     shared.wait_for_loading(self.driver, timeout_seconds=LONG_TIMEOUT)
-    wait_elem(self.driver, By.ID, 'chart-row', timeout_seconds=LONG_TIMEOUT)
-    # Assert that circles load
-    circles = wait_elem(self.driver,
-                        By.CSS_SELECTOR,
-                        '#scatterplot circle',
-                        timeout_seconds=LONG_TIMEOUT)
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
 
-    # Assert chart is correct
-    self.assertIsNotNone(circles)
+    # Assert circles loaded
+    circles = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#scatterplot circle')
+    self.assertGreater(len(circles), 1)
 
 
 class StandardizedScatterTestMixin():
@@ -229,7 +230,7 @@ class StandardizedScatterTestMixin():
 
     # Assert is a scatter plot with at least 50 circles
     # (CA has 58 counties)
-    wait_elem(self.driver, By.TAG_NAME, 'circle')
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
@@ -266,7 +267,7 @@ class StandardizedScatterTestMixin():
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
 
     # Wait for chart to load
-    wait_elem(self.driver, by=By.ID, value='chart')
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
 
     # Assert title is correct
     chart_title_container = find_elem(self.driver,
@@ -326,7 +327,7 @@ class StandardizedScatterTestMixin():
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
 
     # Wait for chart to load
-    wait_elem(self.driver, by=By.ID, value='chart')
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
 
     # Assert title is correct
     chart_title_container = find_elem(self.driver,

@@ -139,8 +139,11 @@ class MapTestMixin():
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
-    # Assert chart is correct.
+    # Wait for chart to load
     shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+
+    # Assert chart title is correct
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
         'median age of population ',
@@ -169,9 +172,12 @@ class MapTestMixin():
     find_elem(placeholder_container, by=By.XPATH,
               value='./ul/li[2]/a[1]').click()
 
-    # Assert chart loads
+    # Wait for chart to load
     shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
     wait_elem(self.driver, By.TAG_NAME, 'path')
+
+    # Assert chart loads
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertGreater(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                        1)
@@ -234,8 +240,11 @@ class StandardizedMapTestMixin():
         self.driver,
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
-    # Assert chart is correct.
+    # Wait for chart to load
     shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+
+    # Assert chart is correct.
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
         'median age of population ',
