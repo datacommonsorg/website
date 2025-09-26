@@ -25,7 +25,6 @@ steps:
 
   # STEP 2: Fetch the hash and create the release.
   - name: 'gcr.io/datcom-ci/datacommons-script-runner:latest'
-    submodules: true
     entrypoint: 'bash'
     args:
       - '-c'
