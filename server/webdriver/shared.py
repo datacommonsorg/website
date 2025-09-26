@@ -253,11 +253,11 @@ def search_for_multiple_places(driver, search_terms):
 def _search_and_select_first_item_in_dropdown(driver,
                                               search_term,
                                               expect_chip=True):
-  """Interacts with a googl maps autocomplete search box to search and select the first result"""
+  """Interacts with a google maps autocomplete search box to search and select the first result"""
   # Wait for search box to be visible
   search_box_locator = (By.ID, 'ac')
   search_box_input = WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located(search_box_locator))
+      EC.element_to_be_clickable(search_box_locator))
 
   # Type search term into search box
   ActionChains(driver)\
