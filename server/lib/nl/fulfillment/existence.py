@@ -53,7 +53,10 @@ class SVExistenceCheckState:
 class ExistenceCheckTracker:
 
   # NOTE: If sv2extensions is set, then this is for extensions only.
-  def __init__(self, state: PopulateState, place2keys: Dict, surfaceHeaderValue: str = None):
+  def __init__(self,
+               state: PopulateState,
+               place2keys: Dict,
+               surfaceHeaderValue: str = None):
     self.state = state
     self.place2keys = place2keys
     self.places = sorted(place2keys.keys())
