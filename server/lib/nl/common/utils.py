@@ -259,7 +259,7 @@ def _get_max_valid_date_idx(obs_dates: List[Dict[str, any]], start_date: str,
 def get_contained_in_latest_date(places: List[str],
                                  child_type: types.ContainedInPlaceType,
                                  svs: List[str],
-                                 date_range: types.Date) -> Sv2Place2Date:
+                                 date_range: types.Date, surfaceHeaderValue: str) -> Sv2Place2Date:
   sv_place_latest_date = {}
   # This method only gets the date for children of a place
   if not date_range or not child_type:
@@ -268,7 +268,7 @@ def get_contained_in_latest_date(places: List[str],
       date_range)
   for place in places:
     place_key = get_place_key(place, child_type)
-    series_dates = dc.get_series_dates(place, child_type, svs)
+    series_dates = dc.get_series_dates(place, child_type, svs, surfaceHeaderValue)
     for dates_by_variable in series_dates.get('datesByVariable', []):
       sv = dates_by_variable.get('variable', '')
       if sv not in sv_place_latest_date:

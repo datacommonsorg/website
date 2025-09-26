@@ -233,7 +233,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
-  fresp = nl_fulfillment.fulfill(utterance, cb_config)
+  fresp = nl_fulfillment.fulfill(utterance, cb_config, surfaceHeaderValue)
   utterance.counters.timeit('fulfillment', start)
 
   return helpers.prepare_response(utterance,

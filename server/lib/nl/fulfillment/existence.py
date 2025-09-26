@@ -123,7 +123,7 @@ class ExistenceCheckTracker:
     # Update sv_place_latest_dates with latest dates retrieved for contained in places
     sv_place_latest_dates = utils.get_contained_in_latest_date(
         places_with_child_type, self.state.place_type, sv_list,
-        self.state.date_range)
+        self.state.date_range, self.surfaceHeaderValue)
 
     # Get predicted latest dates for the svs and place keys in sv_place_facet
     predicted_latest_dates = utils.get_predicted_latest_date(

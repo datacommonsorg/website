@@ -43,7 +43,7 @@ class FulfillResp:
 
 
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config, surfaceHeaderValue: str) -> FulfillResp:
-  state = nl_fulfiller.fulfill(uttr)
+  state = nl_fulfiller.fulfill(uttr, surfaceHeaderValue)
 
   builder_result = nl_config_builder.build(state, cb_config)
   if not builder_result.page_config:
