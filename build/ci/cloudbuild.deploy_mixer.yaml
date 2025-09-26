@@ -50,8 +50,6 @@ steps:
         release_name="release-${mixer_githash}-$(date +%Y%m%d-%H%M%S)"
         echo "Creating release: ${release_name}"
 
-        # This command may not be necessary if your skaffold.yaml handles it,
-        # but leaving it as it was in your original file.
         gcloud deploy apply --file=deploy/helm_charts/clouddeploy.yaml \
           --region=us-central1 \
           --project=datcom-ci
