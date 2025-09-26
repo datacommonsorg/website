@@ -54,21 +54,21 @@ website and mixer changes.
   pip install python-setuptools
   ```
 
-- Node.js 18.4.0
+- Node.js 22.18.0
 
   Install [`nodejs`](https://nodejs.org/en/download/) and
   [nvm](https://github.com/nvm-sh/nvm#installing-and-updating). Run the
-  following command to use Node.js 18.4.0:
+  following command to use Node.js 22.18.0:
 
   ```bash
-  nvm install 18.4.0
-  nvm use 18.4.0
+  nvm install 22.18.0
+  nvm use 22.18.0
   ```
 
   To set this version as default:
 
   ```bash
-  nvm alias default 18.4.0
+  nvm alias default 22.18.0
   ```
 
 - Protoc 3.21.12
