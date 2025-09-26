@@ -109,7 +109,7 @@ class ScatterTestMixin():
         self.driver,
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
 
-    # Assert chart title correct.
+    # Assert chart title is correct.
     wait_elem(self.driver, by=By.ID, value='scatterplot')
     chart = find_elem(self.driver,
                       by=By.CSS_SELECTOR,

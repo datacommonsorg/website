@@ -13,7 +13,6 @@
 # limitations under the License.
 """Common library for functions used by multiple webdriver tests"""
 
-import time
 import urllib
 import urllib.request
 
