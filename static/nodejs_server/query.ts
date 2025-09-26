@@ -131,7 +131,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surfaceHeaderValue
             )
           );
           break;
@@ -148,7 +149,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surfaceHeaderValue
             )
           );
           break;
@@ -164,7 +166,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surfaceHeaderValue
             )
           );
           break;
@@ -177,7 +180,8 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot
+              apiRoot,
+              surfaceHeaderValue
             )
           );
           break;
@@ -185,7 +189,14 @@ function getBlockTileResults(
           tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
           tile.description = getHighlightTileDescription(tile, blockDenom);
           tilePromises.push(
-            getHighlightTileResult(tileId, tile, place, tileSvSpec, apiRoot)
+            getHighlightTileResult(
+              tileId,
+              tile,
+              place,
+              tileSvSpec,
+              apiRoot,
+              surfaceHeaderValue
+            )
           );
           break;
         default:
@@ -295,7 +306,8 @@ export async function getQueryResult(
   varThreshold: string,
   wantRelatedQuestions: boolean,
   detector: string,
-  idx?: string
+  idx?: string,
+  surfaceHeaderValue?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
 
@@ -407,7 +419,8 @@ export async function getQueryResult(
             apikey,
             apiRoot,
             allowedTileTypes,
-            mode
+            mode,
+            surfaceHeaderValue
           );
       }
       tilePromises.push(...blockTilePromises);

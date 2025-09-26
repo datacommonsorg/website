@@ -58,7 +58,7 @@ def detect():
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
 
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'explore', client, debug_logs)
+      request, 'explore', client, debug_logs, "" ) # empty surfaceHeader for now TODO
   if error_json:
     return error_json
 
@@ -105,6 +105,7 @@ def detect_and_fulfill():
 
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+  surfaceHeaderValue = request.headers.get("x-surface")
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -135,7 +136,7 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
-  return _fulfill_with_chart_config(utterance, debug_logs)
+  return _fulfill_with_chart_config(utterance, debug_logs, surfaceHeaderValue)
 
 
 #
@@ -219,7 +220,7 @@ def page_overview():
 # fulfills it into charts.
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
-                               debug_logs: Dict) -> Dict:
+                               debug_logs: Dict, surfaceHeaderValue: str) -> Dict:
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.

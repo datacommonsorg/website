@@ -188,7 +188,7 @@ def facet_contains_date(facet_data, facet_metadata, single_date,
 # combo has any single data point series
 def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str], single_date: types.Date,
-    date_range: types.Date, counters: ctr.Counters
+    date_range: types.Date, counters: ctr.Counters, surfaceHeaderValue: str
 ) -> tuple[Dict[str, Dict[str, Dict[str, str]]], Dict[str, Dict[str, bool]]]:
   if not svs:
     return {}, {}
@@ -197,7 +197,7 @@ def sv_existence_for_places_check_single_point(
   start = time.time()
   series_facet = fetch.series_facet(entities=places,
                                     variables=svs,
-                                    all_facets=check_date)
+                                    all_facets=check_date, surfaceHeaderValue=surfaceHeaderValue)
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}

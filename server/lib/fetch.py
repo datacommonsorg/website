@@ -242,7 +242,7 @@ def series_core(entities, variables, all_facets, facet_ids=None):
   return _compact_series(resp, all_facets)
 
 
-def series_facet(entities, variables, all_facets):
+def series_facet(entities, variables, all_facets, surfaceHeaderValue):
   """Fetches facet of series for given entities and variables.
 
   The response is in the following format:
@@ -263,7 +263,7 @@ def series_facet(entities, variables, all_facets):
   }
 
   """
-  resp = dc.series_facet(entities, variables)
+  resp = dc.series_facet(entities, variables, surfaceHeaderValue)
   compacted_series = _compact_series(resp, all_facets)
   processed_series = {'facets': compacted_series.get('facets', {}), 'data': {}}
   # Update compacted series so that the entity data is always a list.

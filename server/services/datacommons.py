@@ -59,7 +59,8 @@ def get(url: str):
 def post(url: str,
          req: Dict,
          api_key: str | None = None,
-         log_extreme_calls: bool = True):
+         log_extreme_calls: bool = True,
+         surfaceHeaderValue: str | None = None):
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
@@ -67,11 +68,11 @@ def post(url: str,
   key_to_use = api_key
   if key_to_use is None:
     key_to_use = current_app.config.get("DC_API_KEY", "")
-  return post_wrapper(url, req_str, key_to_use, log_extreme_calls)
+  return post_wrapper(url, req_str, key_to_use, log_extreme_calls, surfaceHeaderValue=surfaceHeaderValue)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
+def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool,surfaceHeaderValue: str | None = None):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
@@ -79,7 +80,8 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
   # header used in usage metric logging
   xs = request.headers.get("x-surface")
   if xs:
-    headers['x-surface'] = xs
+    # use surfaceHeaderValue if something has been passed in to override the surface header on the request
+    headers['x-surface'] = surfaceHeaderValue or xs
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
@@ -206,7 +208,7 @@ def obs_series_within(parent_entity, child_type, variables, facet_ids=None):
   return post(url, req)
 
 
-def series_facet(entities, variables):
+def series_facet(entities, variables, surfaceHeaderValue):
   """Gets facet of time series for the given entities and variables.
 
     Args:
@@ -225,6 +227,7 @@ def series_facet(entities, variables):
               "dcids": sorted(variables)
           },
       },
+      surfaceHeaderValue
   )
 
 
@@ -388,7 +391,7 @@ def get_variable_ancestors(dcid: str):
   return get(url).get("ancestors", [])
 
 
-def get_series_dates(parent_entity, child_type, variables):
+def get_series_dates(parent_entity, child_type, variables, surfaceHeaderValue):
   """Get series dates."""
   url = get_service_url("/v1/bulk/observation-dates/linked")
   return post(
@@ -399,6 +402,7 @@ def get_series_dates(parent_entity, child_type, variables):
           "entity_type": child_type,
           "variables": variables,
       },
+      surfaceHeaderValue
   )
 
 

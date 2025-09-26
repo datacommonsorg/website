@@ -146,7 +146,7 @@ class ExistenceCheckTracker:
     # TODO: Optimize this!
     self.existing_svs, existsv2places = \
       utils.sv_existence_for_places_check_single_point(
-        places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters)
+        places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters, surfaceHeaderValue=self.surfaceHeaderValue)
 
     sv_place_facet = self._get_sv_place_facet()
     sv_place_latest_dates = {}
@@ -201,8 +201,9 @@ class ExistenceCheckTracker:
 class MainExistenceCheckTracker(ExistenceCheckTracker):
 
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
-               sv2chartvarslist: OrderedDict[str, List[ChartVars]]):
+               sv2chartvarslist: OrderedDict[str, List[ChartVars]], surfaceHeaderValue: str):
     super().__init__(state, place2keys)
+    self.surfaceHeaderValue = surfaceHeaderValue
     places = place2keys.keys()
 
     # Loop over all SVs, and construct existence check state.

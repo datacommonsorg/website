@@ -48,7 +48,7 @@ _MAX_RANK = 1000
 
 
 # Populate chart specs in state.uttr and return True if something was added.
-def populate_charts(state: PopulateState) -> bool:
+def populate_charts(state: PopulateState, surfaceHeaderValue: str) -> bool:
   if not state.uttr.places:
     state.uttr.counters.err('populate_charts_emptyplace', 1)
     state.uttr.place_source = FulfillmentResult.UNRECOGNIZED
@@ -62,7 +62,7 @@ def populate_charts(state: PopulateState) -> bool:
     state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
     return False
 
-  success = _add_charts_with_place_fallback(state, places)
+  success = _add_charts_with_place_fallback(state, places, surfaceHeaderValue)
 
   if not success:
     state.uttr.counters.err('num_populate_fallbacks', 1)
@@ -86,9 +86,9 @@ def populate_charts(state: PopulateState) -> bool:
 #
 # REQUIRES: places and svs are non-empty.
 def _add_charts_with_place_fallback(state: PopulateState,
-                                    places: List[Place]) -> bool:
+                                    places: List[Place], surfaceHeaderValue: str) -> bool:
   # Add charts for the given places.
-  if _add_charts_with_existence_check(state, places):
+  if _add_charts_with_existence_check(state, places, surfaceHeaderValue):
     return True
   # That failed, we'll attempt fallback.
 
@@ -189,7 +189,7 @@ def _maybe_switch_parent_type(
 
 # Add charts given a place and a list of stat-vars.
 def _add_charts_with_existence_check(state: PopulateState,
-                                     places: List[Place]) -> bool:
+                                     places: List[Place], surfaceHeaderValue: str) -> bool:
   # This may set state.uttr.place_fallback
   _maybe_set_fallback(state, places)
 
@@ -205,7 +205,7 @@ def _add_charts_with_existence_check(state: PopulateState,
   # Avoid any mutations in existence tracker.
   chart_vars_map = copy.deepcopy(state.chart_vars_map)
   tracker = MainExistenceCheckTracker(state, state.places_to_check,
-                                      chart_vars_map)
+                                      chart_vars_map, surfaceHeaderValue)
   tracker.perform_existence_check()
   state.exist_chart_vars_list = chart_vars_fetch(tracker)
 

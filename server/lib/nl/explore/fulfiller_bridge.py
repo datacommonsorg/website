@@ -42,7 +42,7 @@ class FulfillResp:
   user_message: str
 
 
-def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
+def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config, surfaceHeaderValue: str) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr)
 
   builder_result = nl_config_builder.build(state, cb_config)
