@@ -19,7 +19,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver.base_utils import find_elem, wait_elem, wait_for_text
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import wait_elem
+from server.webdriver.base_utils import wait_for_text
 import server.webdriver.shared as shared
 
 TIMELINE_URL = '/tools/visualization#visType=timeline'
