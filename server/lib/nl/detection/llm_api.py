@@ -18,7 +18,8 @@ import logging
 import time
 from typing import Callable, Dict, List
 
-from flask import current_app, request
+from flask import current_app
+from flask import request
 import json5
 import requests
 

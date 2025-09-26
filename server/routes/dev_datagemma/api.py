@@ -22,7 +22,9 @@ from data_gemma import RAGFlow
 from data_gemma import RIGFlow
 from data_gemma import VertexAI
 import flask
-from flask import current_app, request, Response
+from flask import current_app
+from flask import request
+from flask import Response
 
 from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
 from server.lib.feature_flags import is_feature_enabled
