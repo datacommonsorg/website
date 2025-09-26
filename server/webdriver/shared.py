@@ -17,6 +17,7 @@ import urllib
 import urllib.request
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
@@ -199,7 +200,9 @@ def _search_for_places(self, driver, search_term, place_type=None):
   click_el(driver, (By.CLASS_NAME, 'start-button'))
 
   # Type term into the search box.
-  _search_and_select_first_item_in_dropdown(driver, search_term)
+  _search_and_select_first_item_in_dropdown(driver,
+                                            search_term,
+                                            expect_chip=False)
 
   wait_for_loading(driver)
 
@@ -257,13 +260,11 @@ def _search_and_select_first_item_in_dropdown(driver,
       EC.visibility_of_element_located(search_box_locator))
 
   # Type search term into search box
-  search_box_input.clear()
-  search_box_input.click()
-  search_box_input.send_keys(search_term)
-
-  # Wait for the dropdown list to appear
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located((By.CLASS_NAME, 'pac-container')))
+  ActionChains(driver)\
+    .move_to_element(search_box_input)\
+    .click()\
+    .send_keys(search_term)\
+    .perform()
 
   # Wait for the dropdown list to be populated.
   item = WebDriverWait(driver, TIMEOUT).until(
