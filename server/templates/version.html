@@ -94,9 +94,12 @@
                 {% for key, value in featureFlags.items() %}
                   <tr>
                     <td>{{ key }}:</td>
-                    <td class="{% if value %}true-status{% else %}false-status{% endif %}">
-                      {{ value }}
-                    </td>
+                    {% for key2, value2 in value.items() %}
+                      <td>{{ key2 }}:</td>
+                      <td class="{% if value2 %}true-status{% else %}false-status{% endif %}">
+                        {{ value2 }}
+                      </td>
+                    {% endfor %}
                   </tr>
                   {% endfor %}
               </tbody>
