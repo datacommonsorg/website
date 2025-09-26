@@ -18,6 +18,7 @@ from server.webdriver import shared
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 from server.webdriver.shared_tests.explore_test import EXPLORE_URL
 from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
+from server.webdriver.base_utils import wait_elem
 
 
 class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
@@ -30,18 +31,18 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
     query = '#q=What is the population of Mountain View'
 
     self.driver.get(self.url_ + EXPLORE_URL + params + query)
-    shared.wait_elem(driver=self.driver, value="follow-up-questions-container")
+    wait_elem(driver=self.driver, value="follow-up-questions-container")
 
     # Follow Up Questions should not be present
-    empty_follow_up = shared.find_elem(parent=self.driver,
-                                       value="follow-up-questions-container")
+    empty_follow_up = wait_elem(parent=self.driver,
+                                value="follow-up-questions-container")
     self.assertIsNone(
         empty_follow_up,
         "Follow Up Questions component is not empty despite the flag not being activated."
     )
     # While Related Topics section should appear
-    topic_buttons = shared.find_elem(self.driver, By.CLASS_NAME,
-                                     'explore-relevant-topics')
+    topic_buttons = wait_elem(self.driver, By.CLASS_NAME,
+                              'explore-relevant-topics')
     self.assertIsNotNone(topic_buttons, "Topic buttons element not found")
 
   def test_success_result_with_no_page_overview(self):
