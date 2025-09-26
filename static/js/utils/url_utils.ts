@@ -187,7 +187,9 @@ export function extractUrlHashParams(
     hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
   );
   const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
-  const disableFeature = getSingleParam(hashParams[URL_HASH_PARAMS.DISABLE_FEATURE]);
+  const disableFeature = getSingleParam(
+    hashParams[URL_HASH_PARAMS.DISABLE_FEATURE]
+  );
   const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
   const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
   const includeStopWords = getSingleParam(
