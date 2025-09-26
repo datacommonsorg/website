@@ -18,9 +18,9 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
-from server.webdriver import shared
 
 MAP_URL = '/tools/map'
 

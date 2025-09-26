@@ -15,10 +15,10 @@
 from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
+from server.webdriver.base_utils import wait_elem
 from server.webdriver.cdc_tests.cdc_base_webdriver import CdcTestBase
 from server.webdriver.shared_tests.explore_test import EXPLORE_URL
 from server.webdriver.shared_tests.explore_test import ExplorePageTestMixin
-from server.webdriver.base_utils import wait_elem
 
 
 class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
