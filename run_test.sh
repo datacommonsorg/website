@@ -348,8 +348,8 @@ function run_integration_test {
   source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
-  export DC_API_KEY=r9w9BYDg2cguprp9R2ujbR6gX1qeYy5crtlhnGY5lz5rzDGT
-  export LLM_API_KEY=AIzaSyBG2ZqWJhbQU3vpwMwFSUUUgPYW6a3jeBc
+  export DC_API_KEY=
+  export LLM_API_KEY=
   if [[ $ENV_PREFIX == "" ]]; then
     export ENV_PREFIX=Staging
   fi
