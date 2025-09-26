@@ -257,7 +257,7 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
                                             places=places,
                                             svs=ordered_existing_svs,
                                             num_charts=num_charts,
-                                            max_num_charts=max_num_charts)
+                                            max_num_charts=max_num_charts, surfaceHeaderValue=surfaceHeaderValue)
 
     # For a given handler, if we found any charts at all, we're good.
     if found:
@@ -291,7 +291,7 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
 
 def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
                                  svs: List[str], num_charts: int,
-                                 max_num_charts: int) -> bool:
+                                 max_num_charts: int, surfaceHeaderValue: str) -> bool:
   # Map of main SV -> peer SVs
   # Perform SV extension calls.
   # PERF-TODO: This is expensive! (multiple seconds)
@@ -315,7 +315,7 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
   # PERF-NOTE: We do two serial existence-checks because the SV extension
   # call is super expensive.
   tracker = ExtensionExistenceCheckTracker(state, state.places_to_check, svs,
-                                           sv2extensions)
+                                           sv2extensions, surfaceHeaderValue)
   tracker.perform_existence_check()
 
   # A set used to ensure that a set of SVs are constructed into charts
