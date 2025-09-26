@@ -350,7 +350,6 @@ export const fetchData = async (
   dateOverride?: string,
   surfaceHeaderValue?: string
 ): Promise<BarChartData> => {
-  console.log("surfaceHeaderValue in fetchData: ", surfaceHeaderValue);
   /*
    In order to accommodate facet selection while keeping the stat var/facet relationship,
    we group stat vars by their facets.

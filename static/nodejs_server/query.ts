@@ -94,10 +94,6 @@ function getBlockTileResults(
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
   const blockDenom = block.startWithDenom ? block.denom : "";
-  console.log(
-    "surfaceHeaderValue in getBlockTileResults: ",
-    surfaceHeaderValue
-  );
   block.columns.forEach((column, colIdx) => {
     column.tiles.forEach((tile, tileIdx) => {
       if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
@@ -313,7 +309,6 @@ export async function getQueryResult(
   idx?: string,
   surfaceHeaderValue?: string
 ): Promise<QueryResult> {
-  console.log("REACH GETQUERYRESULT, surfaceHeaderValue: ", surfaceHeaderValue);
   const startTime = process.hrtime.bigint();
 
   let allowedTileTypes = null;
@@ -354,7 +349,6 @@ export async function getQueryResult(
   try {
     nlResp = await axios.post(url, {}, postConfig);
   } catch (e) {
-    console.error("Error making request:\n", e.message);
     return { err: "Error fetching data." };
   }
 

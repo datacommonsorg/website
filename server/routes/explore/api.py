@@ -106,7 +106,6 @@ def detect_and_fulfill():
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
   surfaceHeaderValue = request.headers.get("x-surface")
-  print("surface header in detect and fulfill: ", surfaceHeaderValue)
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -223,7 +222,6 @@ def page_overview():
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                debug_logs: Dict, surfaceHeaderValue: str) -> Dict:
   
-  print("surface header value: ", surfaceHeaderValue)
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.

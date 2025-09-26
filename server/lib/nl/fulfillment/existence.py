@@ -144,7 +144,6 @@ class ExistenceCheckTracker:
   def _run(self):
     # Perform batch existence check.
     # TODO: Optimize this!
-    print("surfaceHeaderValue in _run (pased in!): ", self.surfaceHeaderValue)
     self.existing_svs, existsv2places = \
       utils.sv_existence_for_places_check_single_point(
         places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters, surfaceHeaderValue=self.surfaceHeaderValue)
@@ -176,7 +175,6 @@ class ExistenceCheckTracker:
           })
 
   def perform_existence_check(self):
-    print("surfaceHeaderValue in perform_existence_check: ", self.surfaceHeaderValue)
     self._run()
 
     # Set "exist_svs" in the same order it was originally found.

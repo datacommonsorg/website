@@ -107,10 +107,6 @@ export async function getBarTileResult(
   mode?: string,
   surfaceHeaderValue?: string
 ): Promise<TileResult> {
-  console.log(
-    "surfaceHeaderValue in bar tile results 2.0: ",
-    surfaceHeaderValue
-  );
   const tileProp = getTileProp(
     id,
     tileConfig,
