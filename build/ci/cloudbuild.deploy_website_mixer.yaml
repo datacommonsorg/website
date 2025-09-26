@@ -25,27 +25,57 @@ steps:
     args:
       - '-c'
       - |
-        # Fetch the latest mixer image commit hash from Artifact Registry
-        # The command lists all tags, filters out the "latest" tag, and gets the most recent one.
-        mixer_githash=$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
-          --project=datcom-ci \
-          --filter="tags:latest" \
-          --format='get(tags)' | tr ';' '\n' | grep -v "latest")
+        set -euo pipefail
 
-        if [[ -z "$mixer_githash" ]]; then
-          echo "Could not determine the mixer image hash from Artifact Registry. Exiting."
+        # 1. DETERMINE WEBSITE IMAGE HASH
+        # If _SHORT_SHA is passed from a website repo trigger, use it.
+        if [[ -n "${_SHORT_SHA}" ]]; then
+          echo "Using provided _SHORT_SHA for website images: ${_SHORT_SHA}"
+          website_githash="${_SHORT_SHA}"
+        else
+          # If not, this was triggered by a mixer push. Find the most recent stable website image.
+          echo "No _SHORT_SHA provided. Fetching latest website image hash from Artifact Registry."
+          website_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website \
+            --project=datcom-ci \
+            --filter="tags:latest" \
+            --format='get(tags)' | tr ';' '\n' | grep -v "latest")"
+        fi
+
+        if [[ -z "$website_githash" ]]; then
+          echo "ERROR: Could not determine the latest website image hash. Exiting."
           exit 1
         fi
+        echo "Found latest website image hash: $website_githash"
+
+        # 2. DETERMINE MIXER IMAGE HASH
+        echo "Fetching latest mixer image hash..."
+        mixer_githash="$(gcloud container images list-tags us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer \
+          --project=datcom-ci \
+          --filter="tags:latest" \
+          --format='get(tags)' | tr ';' '\n' | grep -v "latest")"
+
+        if [[ -z "$mixer_githash" ]]; then
+          echo "ERROR: Could not determine the mixer image hash from Artifact Registry. Exiting."
+          exit 1
+        fi
+        echo "Found latest mixer image hash: $mixer_githash"
+
+        # 3. CREATE DEPLOYMENT RELEASE
+        # Use a timestamp for a consistently unique release name.
+        release_name="release-${website_githash}-${mixer_githash}-$(date +%Y%m%d-%H%M%S)"
+        echo "Creating release: $release_name"
 
         gcloud deploy apply --file=deploy/helm_charts/clouddeploy.yaml \
           --region=us-central1 \
           --project=datcom-ci
 
-        # The gcloud deploy releases create command uses variables from your build.
-        gcloud deploy releases create "release-${_SHORT_SHA}" \
+        # Note the '$$' to use the shell variables defined above inside this command.
+        gcloud deploy releases create "$${release_name}" \
           --delivery-pipeline=datacommons-website \
           --region=us-central1 \
           --skaffold-file=skaffold.yaml \
-          --images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:${_SHORT_SHA},gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash},gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:${_SHORT_SHA},gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:${_SHORT_SHA}" \
-          --deploy-parameters="mixer.githash=$${mixer_githash},MIXER_GITHASH=$${mixer_githash},website.githash=${_SHORT_SHA}" \
+          --images="gcr.io/datcom-ci/datacommons-website=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-website:$${website_githash},gcr.io/datcom-ci/datacommons-mixer=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-mixer:$${mixer_githash},gcr.io/datcom-ci/datacommons-nodejs=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nodejs:$${website_githash},gcr.io/datcom-ci/datacommons-nl=us-docker.pkg.dev/datcom-ci/gcr.io/datacommons-nl:$${website_githash}" \
+          --deploy-parameters="mixer.githash=$${mixer_githash},MIXER_GITHASH=$${mixer_githash},website.githash=$${website_githash}" \
           --project=datcom-ci
+
+        echo "Successfully created release $${release_name}."
