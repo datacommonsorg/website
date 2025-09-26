@@ -58,7 +58,7 @@ def detect():
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
 
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'explore', client, debug_logs, "" ) # empty surfaceHeader for now TODO
+      request, 'explore', client, debug_logs)
   if error_json:
     return error_json
 
