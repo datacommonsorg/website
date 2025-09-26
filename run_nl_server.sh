@@ -29,7 +29,7 @@ trap cleanup SIGINT
 
 source .env/bin/activate
 
-PORT=6060
+PORT=8090
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 export FLASK_ENV=local
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
