@@ -71,6 +71,7 @@ steps:
 
   - id: push-datacommons-script-runner
     name: gcr.io/cloud-builders/docker
+    submodules: true
     entrypoint: "bash"
     args:
       - -c
