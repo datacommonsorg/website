@@ -19,6 +19,10 @@ substitutions:
   _SHORT_SHA: ""
 
 steps:
+  - name: 'gcr.io/cloud-builders/git'
+    id: 'Initialize Submodules'
+    args: ['submodule', 'update', '--init', '--recursive']
+
   # This step uses the _SHORT_SHA that was passed from the Pub/Sub message.
   - name: 'gcr.io/datcom-ci/datacommons-script-runner'
     entrypoint: 'bash'
