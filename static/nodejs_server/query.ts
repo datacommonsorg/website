@@ -88,7 +88,8 @@ function getBlockTileResults(
   apikey: string,
   apiRoot: string,
   allowedTilesTypes?: Set<string>,
-  mode?: string
+  mode?: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
@@ -113,7 +114,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surfaceHeaderValue
             )
           );
           break;
@@ -129,7 +131,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surfaceHeaderValue
             )
           );
           break;
@@ -146,7 +149,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surfaceHeaderValue
             )
           );
           break;
@@ -162,7 +166,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surfaceHeaderValue
             )
           );
           break;
@@ -175,7 +180,8 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot
+              apiRoot,
+              surfaceHeaderValue
             )
           );
           break;
@@ -183,7 +189,14 @@ function getBlockTileResults(
           tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
           tile.description = getHighlightTileDescription(tile, blockDenom);
           tilePromises.push(
-            getHighlightTileResult(tileId, tile, place, tileSvSpec, apiRoot)
+            getHighlightTileResult(
+              tileId,
+              tile,
+              place,
+              tileSvSpec,
+              apiRoot,
+              surfaceHeaderValue
+            )
           );
           break;
         default:
@@ -293,7 +306,8 @@ export async function getQueryResult(
   varThreshold: string,
   wantRelatedQuestions: boolean,
   detector: string,
-  idx?: string
+  idx?: string,
+  surfaceHeaderValue?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
 
@@ -305,7 +319,7 @@ export async function getQueryResult(
   } else if (mode === TOOLFORMER_RIG_MODE) {
     allowedTileTypes = TOOLFORMER_RIG_ALLOWED_CHARTS;
   }
-
+  console.log("reaching getQueryResult");
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
   let nlResp = null;
@@ -327,10 +341,17 @@ export async function getQueryResult(
       }
       url += `&${urlKey}=${params[urlKey]}`;
     });
+  const postConfig = {
+    headers: {
+      "x-surface": surfaceHeaderValue || "website",
+    },
+  };
+  console.log("Url: ", url);
+  console.log("postConfig: ", postConfig);
   try {
-    nlResp = await axios.post(url, {});
+    nlResp = await axios.post(url, {}, postConfig);
+    console.log("NL RESP LUCYL ", nlResp, url, apiRoot);
   } catch (e) {
-    console.error("Error making request:\n", e.message);
     return { err: "Error fetching data." };
   }
 
@@ -405,7 +426,8 @@ export async function getQueryResult(
             apikey,
             apiRoot,
             allowedTileTypes,
-            mode
+            mode,
+            surfaceHeaderValue
           );
       }
       tilePromises.push(...blockTilePromises);

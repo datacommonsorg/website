@@ -164,6 +164,7 @@ class DataCommonsWebClient {
       parentEntity: params.parentEntity,
       variables: params.variables,
     });
+    console.log("BAD CALL POINT");
     const url = `${
       this.apiRoot || ""
     }/api/observations/point/within?${queryString}`;

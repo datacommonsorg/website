@@ -240,6 +240,9 @@ function axiosMock(): void {
         variables: VARIABLES,
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: TEST_POINT_API_RESPONSE,
@@ -252,6 +255,9 @@ function axiosMock(): void {
         entities: ENTITIES,
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: TEST_POINT_API_RESPONSE,
@@ -286,6 +292,7 @@ test("getBestUnit", () => {
 
 test("getPoint no align", () => {
   axiosMock();
+  console.log("finished mock");
   return getPoint("", ENTITIES, VARIABLES, DATE).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_NO_ALIGN);
   });

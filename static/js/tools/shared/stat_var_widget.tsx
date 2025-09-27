@@ -63,10 +63,18 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
       axios
-        .post("/api/observation/existence", {
-          entities: props.sampleEntities.map((place) => place.dcid),
-          variables: Object.keys(props.selectedSVs),
-        })
+        .post(
+          "/api/observation/existence",
+          {
+            entities: props.sampleEntities.map((place) => place.dcid),
+            variables: Object.keys(props.selectedSVs),
+          },
+          {
+            headers: {
+              "x-surface": "website",
+            },
+          }
+        )
         .then((resp) => {
           const availableSVs = [];
           const unavailableSVs = [];

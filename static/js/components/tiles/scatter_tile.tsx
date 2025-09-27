@@ -347,7 +347,8 @@ function getPopulationPromise(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot?: string
+  apiRoot?: string,
+  surfaceHeaderValue?: string
 ): Promise<SeriesApiResponse> {
   const statVars = new Set<string>();
   for (const sv of statVarSpec) {
@@ -362,13 +363,16 @@ function getPopulationPromise(
       apiRoot,
       placeDcid,
       enclosedPlaceType,
-      Array.from(statVars)
+      Array.from(statVars),
+      null,
+      surfaceHeaderValue
     );
   }
 }
 
 export const fetchData = async (
-  props: ScatterTilePropType
+  props: ScatterTilePropType,
+  surfaceHeaderValue?: string
 ): Promise<ScatterChartData> => {
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
@@ -389,13 +393,15 @@ export const fetchData = async (
         facetId: props.statVarSpec[1].facetId,
       },
     ],
-    props.apiRoot
+    props.apiRoot,
+    surfaceHeaderValue
   );
   const populationPromise = getPopulationPromise(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
-    props.apiRoot
+    props.apiRoot,
+    surfaceHeaderValue
   );
   const placeNamesParams = {
     dcid: props.place.dcid,

@@ -182,7 +182,8 @@ export const fetchData = async (
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec,
   highlightFacet: FacetMetadata,
-  apiRoot?: string
+  apiRoot?: string,
+  surfaceHeaderValue?: string
 ): Promise<HighlightData> => {
   const facetId = highlightFacet
     ? undefined
@@ -197,10 +198,18 @@ export const fetchData = async (
     statVarSpec.date,
     undefined,
     highlightFacet,
-    facetId
+    facetId,
+    surfaceHeaderValue
   );
   const denomPromise = statVarSpec.denom
-    ? getSeries(apiRoot, [place.dcid], [statVarSpec.denom], [], highlightFacet)
+    ? getSeries(
+        apiRoot,
+        [place.dcid],
+        [statVarSpec.denom],
+        [],
+        highlightFacet,
+        surfaceHeaderValue
+      )
     : Promise.resolve(null);
   const [statResp, denomResp] = await Promise.all([statPromise, denomPromise]);
   const mainStatData = _.isArray(statResp.data[statVarSpec.statVar][place.dcid])

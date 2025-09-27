@@ -43,6 +43,9 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -122,6 +125,9 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {

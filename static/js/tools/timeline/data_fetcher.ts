@@ -176,6 +176,9 @@ export function fetchRawData(
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .then((resp) => {
       return resp.data;

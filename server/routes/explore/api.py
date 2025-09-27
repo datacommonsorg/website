@@ -105,6 +105,7 @@ def detect_and_fulfill():
 
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+  surfaceHeaderValue = request.headers.get("x-surface")
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -135,7 +136,7 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
-  return _fulfill_with_chart_config(utterance, debug_logs)
+  return _fulfill_with_chart_config(utterance, debug_logs, surfaceHeaderValue)
 
 
 #
@@ -219,7 +220,9 @@ def page_overview():
 # fulfills it into charts.
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
-                               debug_logs: Dict) -> Dict:
+                               debug_logs: Dict,
+                               surfaceHeaderValue: str = None) -> Dict:
+
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
@@ -232,7 +235,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
-  fresp = nl_fulfillment.fulfill(utterance, cb_config)
+  fresp = nl_fulfillment.fulfill(utterance, cb_config, surfaceHeaderValue)
   utterance.counters.timeit('fulfillment', start)
 
   return helpers.prepare_response(utterance,

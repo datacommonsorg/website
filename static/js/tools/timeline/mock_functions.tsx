@@ -101,10 +101,18 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/05"],
-      variables: ["Median_Age_Person"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["Median_Age_Person"],
+      },
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
+    )
     .mockResolvedValue({
       data: {
         Median_Age_Person: {
@@ -115,10 +123,18 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/05"],
-      variables: ["Median_Age_Person", "Count_Person"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["Median_Age_Person", "Count_Person"],
+      },
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
+    )
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -132,10 +148,18 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/05"],
-      variables: ["NotInTheTree"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["NotInTheTree"],
+      },
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
+    )
     .mockResolvedValue({
       data: {
         NotInTheTree: {
@@ -146,10 +170,18 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/05"],
-      variables: ["Count_Person"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["Count_Person"],
+      },
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
+    )
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -171,10 +203,18 @@ export function axiosMock(): void {
 
   // get data, geoId/05,Count_Person
   when(axios.post)
-    .calledWith("/api/observations/series", {
-      variables: ["Count_Person"],
-      entities: ["geoId/05"],
-    })
+    .calledWith(
+      "/api/observations/series",
+      {
+        variables: ["Count_Person"],
+        entities: ["geoId/05"],
+      },
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -213,6 +253,9 @@ export function axiosMock(): void {
         variables: ["Median_Age_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -282,6 +325,9 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {
@@ -322,6 +368,9 @@ export function axiosMock(): void {
         variables: ["NotInTheTree"],
       },
       paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "website",
+      },
     })
     .mockResolvedValue({
       data: {

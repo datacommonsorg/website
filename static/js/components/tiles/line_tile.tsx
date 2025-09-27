@@ -342,7 +342,8 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (
-  props: LineTilePropType
+  props: LineTilePropType,
+  surfaceHeaderValue?: string
 ): Promise<LineChartData> => {
   const facetToVariable = { [EMPTY_FACET_ID_KEY]: [] };
   for (const spec of props.statVarSpec) {
@@ -372,7 +373,8 @@ export const fetchData = async (
           props.place.dcid,
           props.enclosedPlaceType,
           facetToVariable[facetId],
-          facetIds
+          facetIds,
+          surfaceHeaderValue
         )
       );
     } else {
@@ -384,7 +386,8 @@ export const fetchData = async (
           placeDcids,
           facetToVariable[facetId],
           facetIds,
-          props.highlightFacet
+          props.highlightFacet,
+          surfaceHeaderValue
         )
       );
     }
