@@ -374,6 +374,7 @@ export function App(props: AppProps): ReactElement {
         urlHashParams.idx,
         urlHashParams.disableExploreMore,
         urlHashParams.detector,
+        urlHashParams.disableFeature,
         urlHashParams.testMode,
         urlHashParams.i18n,
         client,
@@ -563,6 +564,7 @@ const fetchDetectAndFufillData = async (
   idx: string,
   disableExploreMore: string,
   detector: string,
+  disableFeature: string,
   testMode: string,
   i18n: string,
   client: string,
@@ -576,6 +578,7 @@ const fetchDetectAndFufillData = async (
 ): Promise<unknown> => {
   const fieldsMap = {
     [URL_HASH_PARAMS.DETECTOR]: detector,
+    [URL_HASH_PARAMS.DISABLE_FEATURE]: disableFeature,
     [URL_HASH_PARAMS.TEST_MODE]: testMode,
     [URL_HASH_PARAMS.I18N]: i18n,
     [URL_HASH_PARAMS.CLIENT]: client,
