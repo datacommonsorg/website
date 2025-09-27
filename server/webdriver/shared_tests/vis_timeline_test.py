@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import time
-
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -24,7 +22,7 @@ from server.webdriver.base_utils import wait_elem
 from server.webdriver.base_utils import wait_for_text
 import server.webdriver.shared as shared
 
-TIMELINE_URL = '/tools/visualization#visType=timeline'
+TIMELINE_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=timeline'
 URL_HASH_1 = '&place=geoId/06___geoId/08&sv=%7B"dcid"%3A"Median_Age_Person"%7D___%7B"dcid"%3A"Count_Person_Female"%7D___%7B"dcid"%3A"Count_Person_Male"%7D'
 URL_HASH_2 = '&place=geoId/06___geoId/08&placeType=County&sv=%7B"dcid"%3A"LifeExpectancy_Person"%7D'
 PLACE_SEARCH_CA = 'California'
