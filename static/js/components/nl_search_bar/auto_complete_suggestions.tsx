@@ -27,7 +27,6 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import {
-  escapeRegExp,
   replaceQueryWithSelection,
   stripPatternFromQuery,
 } from "../../shared/util";
@@ -83,7 +82,7 @@ export function AutoCompleteSuggestions(
         [GA_PARAM_QUERY]: props.baseInput,
       });
     }
-  }, [props.allResults]);
+  }, [props.allResults, props.baseInput, triggered]);
 
   const showLoadMore =
     props.allResults.length > visibleCount &&
@@ -96,7 +95,7 @@ export function AutoCompleteSuggestions(
     >
       {props.allResults
         .slice(0, visibleCount)
-        .map((result: AutoCompleteResult, idx: number) => {
+        .map((result: AutoCompleteResult, idx: number): JSX.Element => {
           const fullText = replaceQueryWithSelection(
             props.baseInput,
             result,

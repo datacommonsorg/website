@@ -187,13 +187,15 @@ export function AppContextProvider(
       visTypeConfig.getChildTypesFn || getEnclosedPlaceTypes;
     getChildTypesPromise(places[0], getChildTypesFn).then(
       (newChildPlaceTypes) => {
-        if (_.isEqual(newChildPlaceTypes, childPlaceTypes)) {
-          return;
-        }
-        setChildPlaceTypes(newChildPlaceTypes);
+        setChildPlaceTypes((prevChildPlaceTypes) => {
+          if (_.isEqual(newChildPlaceTypes, prevChildPlaceTypes)) {
+            return prevChildPlaceTypes;
+          }
+          return newChildPlaceTypes;
+        });
       }
     );
-  }, [places, visTypeConfig]);
+  }, [places, visTypeConfig, isContextLoading]);
 
   // When child place types updates, update the selected enclosed place type
   useEffect(() => {
@@ -217,7 +219,7 @@ export function AppContextProvider(
       shouldUpdateHash.current.push(false);
       setEnclosedPlaceType(newEnclosedPlaceType);
     }
-  }, [childPlaceTypes, isContextLoading]);
+  }, [childPlaceTypes, isContextLoading, enclosedPlaceType, visTypeConfig]);
 
   // when list of places, enclosed place type, or vis type changes, update the
   // list of sample places to use for sv hierarchy.
@@ -237,7 +239,7 @@ export function AppContextProvider(
         }
       );
     }
-  }, [places, enclosedPlaceType, visTypeConfig]);
+  }, [places, enclosedPlaceType, visTypeConfig, isContextLoading]);
 
   // when list of sample places used in the sv hierarchy changes, update the
   // list of selected stat vars
@@ -261,7 +263,7 @@ export function AppContextProvider(
         }
       }
     );
-  }, [samplePlaces, statVars]);
+  }, [samplePlaces, statVars, isContextLoading, visTypeConfig]);
 
   // when the vis type changes, update the list of places and list of stat vars
   // according to the config for that vis type.
@@ -277,7 +279,7 @@ export function AppContextProvider(
       shouldUpdateHash.current.push(false);
       setStatVars(statVars.slice(0, visTypeConfig.numSv));
     }
-  }, [visTypeConfig]);
+  }, [visTypeConfig, isContextLoading, places, statVars]);
 
   // when values in the context changes, update the url hash.
   useEffect(() => {
@@ -297,7 +299,14 @@ export function AppContextProvider(
     }
     // For all values in this dependency array, setting the value should always
     // be preceded by shouldUpdateHash.current.push()
-  }, [places, enclosedPlaceType, statVars, visType, displayOptions]);
+  }, [
+    places,
+    enclosedPlaceType,
+    statVars,
+    visType,
+    displayOptions,
+    isContextLoading,
+  ]);
 
   return (
     <AppContext.Provider value={contextValue}>
