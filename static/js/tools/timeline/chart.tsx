@@ -329,7 +329,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       const facetList = this.getFacetList(statVars, enriched);
       this.setState({ facetList, facetListLoading: false });
     } catch {
-      console.error("Error loading datasets for selection.");
+      console.error("Error loading facets for selection.");
       this.setState({ facetListLoading: false, facetListError: true });
     }
   }
