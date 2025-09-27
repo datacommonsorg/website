@@ -15,7 +15,6 @@
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elem
@@ -29,6 +28,10 @@ STANDARDIZED_SCATTER_URL = '/tools/scatter?enable_feature=standardized_vis_tool'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
     'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
     '&epd=geoId/06&epn=California&ept=County'
+
+# Scatter plots can take extra long to load
+# This is a custom, longer timeout to use for charts we know are slow
+LONG_TIMEOUT = 120  # seconds
 
 
 class ScatterTestMixin():
@@ -57,6 +60,9 @@ class ScatterTestMixin():
 
     # Wait until the chart has loaded.
     shared.wait_for_loading(self.driver)
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
+
+    # Assert chart is present
     scatterplot = find_elem(self.driver, by=By.ID, value='scatterplot')
     self.assertIsNotNone(scatterplot)
 
@@ -106,7 +112,7 @@ class ScatterTestMixin():
         self.driver,
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
 
-    # Assert chart is correct.
+    # Assert chart title is correct.
     wait_elem(self.driver, by=By.ID, value='scatterplot')
     chart = find_elem(self.driver,
                       by=By.CSS_SELECTOR,
@@ -115,6 +121,9 @@ class ScatterTestMixin():
                   find_elem(chart, by=By.XPATH, value='./h3[1]').text.lower())
     self.assertIn("median age of population ",
                   find_elem(chart, by=By.XPATH, value='./h3[2]').text.lower())
+
+    # Assert chart loads
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
@@ -129,9 +138,12 @@ class ScatterTestMixin():
         self.driver,
         (By.XPATH, '//*[@id="placeholder-container"]/ul/li[1]/a[1]'))
 
-    # Assert chart loads
-    shared.wait_for_loading(self.driver)
-    wait_elem(self.driver, by=By.ID, value='scatterplot')
+    # Wait for chart to load
+    # This chart can be particularly slow, so use extra wait time
+    shared.wait_for_loading(self.driver, timeout_seconds=LONG_TIMEOUT)
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
+
+    # Assert circles loaded
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
@@ -218,6 +230,7 @@ class StandardizedScatterTestMixin():
 
     # Assert is a scatter plot with at least 50 circles
     # (CA has 58 counties)
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')
@@ -254,7 +267,7 @@ class StandardizedScatterTestMixin():
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
 
     # Wait for chart to load
-    wait_elem(self.driver, by=By.ID, value='chart')
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
 
     # Assert title is correct
     chart_title_container = find_elem(self.driver,
@@ -271,6 +284,7 @@ class StandardizedScatterTestMixin():
 
     # Assert chart is a map with at least 50 regions
     # (CA has 58 counties)
+    wait_elem(self.driver, By.TAG_NAME, 'path')
     geo_region_container = find_elem(self.driver,
                                      by=By.ID,
                                      value='map-geo-regions')
@@ -313,7 +327,7 @@ class StandardizedScatterTestMixin():
         (By.ID, 'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
 
     # Wait for chart to load
-    wait_elem(self.driver, by=By.ID, value='chart')
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
 
     # Assert title is correct
     chart_title_container = find_elem(self.driver,
@@ -330,6 +344,7 @@ class StandardizedScatterTestMixin():
 
     # Assert is a scatter plot with at least 50 circles
     # (CA has 58 counties)
+    wait_elem(self.driver, By.TAG_NAME, 'circle')
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')

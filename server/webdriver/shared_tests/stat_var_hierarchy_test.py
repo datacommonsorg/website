@@ -18,6 +18,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
 
@@ -44,27 +45,12 @@ class StatVarHierarchyTestMixin():
     rgx = re.compile(r'\(([0-9]+)\)')
     count_initial = int(rgx.search(initial_count_text).group(1))
 
-    # Wait until search box is present and Type california
-    search_box_input = find_elem(self.driver, by=By.ID, value='ac')
-    search_box_input.send_keys('California')
-
-    # Wait until there is at least one result in autocomplete results.
-    self.assertIsNotNone(wait_elem(self.driver, value='pac-item'))
-
-    # Click on the first result.
-    find_elem(self.driver, by=By.CSS_SELECTOR,
-              value='.pac-item:nth-child(1)').click()
-    self.assertIsNotNone(wait_elem(self.driver, value='chip'))
-
-    # Wait until the place type selector populates with options
-    self.assertIsNotNone(
-        wait_elem(self.driver,
-                  by=By.CSS_SELECTOR,
-                  value="option[value='County']"))
-
-    # Select the 'County' place type option
-    find_elem(self.driver, by=By.CSS_SELECTOR,
-              value="option[value='County']").click()
+    # Search for California Counties
+    shared.search_for_places(self,
+                             self.driver,
+                             "California",
+                             "County",
+                             is_new_vis_tools=False)
 
     # Wait until we see a change in the agricultural count.
     try:

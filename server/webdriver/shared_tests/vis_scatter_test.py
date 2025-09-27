@@ -22,6 +22,10 @@ import server.webdriver.shared as shared
 SCATTER_URL = '/tools/visualization#visType=scatter'
 URL_HASH_1 = '&place=geoId/06&placeType=County&sv=%7B"dcid"%3A"Count_Person_NoHealthInsurance"%7D___%7B"dcid"%3A"Count_Person_Female"%7D'
 
+# Scatter plots can take extra long to load
+# This is a custom, longer timeout to use for charts we know are slow
+LONG_TIMEOUT = 120  # seconds
+
 
 class VisScatterTestMixin():
   """Mixins to test the scatter visualization page."""
@@ -201,8 +205,9 @@ class VisScatterTestMixin():
     self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
 
     # Assert chart loads
-    element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart = self.driver.find_element(By.ID, 'scatterplot')
-    circles = chart.find_elements(By.TAG_NAME, 'circle')
+    # This chart can be slow to load, so we use extra wait time
+    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
+    circles = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#scatterplot circle')
     self.assertGreater(len(circles), 20)
