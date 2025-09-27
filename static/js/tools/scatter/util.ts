@@ -130,6 +130,9 @@ export async function getStatAllWithinPlace(
             variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
+          headers: {
+            "x-surface": "website",
+          },
         })
         .then((resp) => resp.data)
     );

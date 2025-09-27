@@ -165,7 +165,7 @@ export function queryAxiosMock(): void {
         ],
         prop: undefined,
       },
-      { headers: { "x-surface": "website" } }
+      {}
     )
     .mockResolvedValue(NORTH_DAKOTA_COUNTY_NAMES_RESP);
 

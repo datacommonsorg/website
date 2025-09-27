@@ -772,6 +772,7 @@ test("all functionalities", async () => {
   });
   await app.update();
   await waitFor(() => {
+    console.log("entire app text: ", app.text());
     expect(app.text()).toContain("Housing Units (2016)vsEmployed (2016)");
     expectCircles(3, app);
   });

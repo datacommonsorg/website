@@ -288,10 +288,18 @@ export function getFilteredStatVarPromise(
     return Promise.resolve([]);
   }
   return axios
-    .post("/api/observation/existence", {
-      entities: samplePlaces.map((place) => place.dcid),
-      variables: statVars.map((sv) => sv.dcid),
-    })
+    .post(
+      "/api/observation/existence",
+      {
+        entities: samplePlaces.map((place) => place.dcid),
+        variables: statVars.map((sv) => sv.dcid),
+      },
+      {
+        headers: {
+          "x-surface": "website",
+        },
+      }
+    )
     .then((resp) => {
       const availableSVs = new Set();
       const numRequired = getNumEntitiesExistence(samplePlaces, visTypeConfig);
