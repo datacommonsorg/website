@@ -308,8 +308,8 @@
     "description": "Title of a map plotting the statistical variable 'median income' in counties of Texas"
   },
   "metadata": {
-    "defaultMessage": "Metadata",
-    "description": "Title for metadata section (such as in dialog), akin to definition here https://en.wikipedia.org/wiki/Metadata"
+    "defaultMessage": "About this data",
+    "description": "Title for dialog that shows information about the data in the chart (the chart metadata)."
   },
   "metadataDateRange": {
     "defaultMessage": "Date range",
