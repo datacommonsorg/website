@@ -50,14 +50,15 @@ export const messages = defineMessages({
   },
   metadata: {
     id: "metadata",
-    defaultMessage: "Metadata",
+    defaultMessage: "About this data",
     description:
-      "Title for metadata section (such as in dialog), akin to definition here https://en.wikipedia.org/wiki/Metadata",
+      "Title for dialog that shows information about the data in the chart (the chart metadata).",
   },
   showMetadata: {
     id: "showMetadata",
-    defaultMessage: "Show metadata",
-    description: "Link to show source metadata for the chart",
+    defaultMessage: "About this data",
+    description:
+      "Link to open a dialog that shows information about the data in the chart (the chart metadata)",
   },
   chooseVariable: {
     id: "chooseVariable",

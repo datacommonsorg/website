@@ -101,7 +101,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                                    value='sources',
                                    by=By.CLASS_NAME)
     metadata_link_before = sources_div_before.find_element(
-        By.XPATH, ".//a[contains(text(), 'Show metadata')]")
+        By.XPATH, ".//a[contains(text(), 'About this data')]")
     metadata_link_before.click()
 
     # Wait for the dialog to be visible
@@ -155,7 +155,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
                                   value='sources',
                                   by=By.CLASS_NAME)
     metadata_link_after = sources_div_after.find_element(
-        By.XPATH, ".//a[contains(text(), 'Show metadata')]")
+        By.XPATH, ".//a[contains(text(), 'About this data')]")
     metadata_link_after.click()
 
     # Wait for the dialog to be visible again
@@ -200,7 +200,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     original_source_text = find_elem(chart_block, By.CLASS_NAME, 'sources').text
     self.assertEqual(
         original_source_text,
-        'Sources: data.census.gov, data.census.gov • Show metadata')
+        'Sources: data.census.gov, data.census.gov • About this data')
 
     # Click on the button to open the facet selector modal
     facet_button = find_elem(chart_block, By.CLASS_NAME,
@@ -226,7 +226,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     modal_footer_button.click()
 
     # Wait for the source text to update.
-    expected_source_text = "Source: wonder.cdc.gov • Show metadata"
+    expected_source_text = "Source: wonder.cdc.gov • About this data"
     wait_for_text(driver=chart_block,
                   text=expected_source_text,
                   by=By.CLASS_NAME,

@@ -75,7 +75,7 @@ describe("TileMetadataModal - error path", () => {
       </ThemeProvider>
     );
 
-    fireEvent.click(screen.getByText("Show metadata"));
+    fireEvent.click(screen.getByText("About this data"));
 
     await waitFor(() =>
       expect(screen.queryByText("Error loading metadata.")).not.toBeNull()

@@ -260,7 +260,8 @@ class VisTimelineTestMixin():
     self.assertIsNotNone(sources_element, "Initial sources element not found.")
 
     original_source_text = sources_element.text
-    self.assertEqual(original_source_text, 'Source: census.gov • Show metadata')
+    self.assertEqual(original_source_text,
+                     'Source: census.gov • About this data')
 
     # Click on the button to open the source selector modal
     find_elem(self.driver, value='source-selector-open-modal-button').click()
@@ -294,4 +295,4 @@ class VisTimelineTestMixin():
     updated_source_text = updated_sources_element.text
     self.assertEqual(
         updated_source_text,
-        'Sources: census.gov, data-explorer.oecd.org • Show metadata')
+        'Sources: census.gov, data-explorer.oecd.org • About this data')
