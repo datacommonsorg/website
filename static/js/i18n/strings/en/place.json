@@ -1,7 +1,75 @@
 {
+  "AvailableStatVarsMultipleMessage": {
+    "defaultMessage": "Available for: {count}/{total} data points",
+    "description": "Message shown in the grouped view of the dataset selection dialog, indicating how many stat vars a particular facet is applicable to. For example, it might say: \"Available for: 2/8 data points\". This will appear when the facet is applicable to more than one stat var, but not to all of them."
+  },
+  "AvailableStatVarsSingleMessage": {
+    "defaultMessage": "Available for:",
+    "description": "Message shown preceding the name of a stat var when only a single stat var is available to a particular facet. The stat var will appear after the colon. For example: \"Available for: Population 55 - 64 years\". This will appear when exactly one stat var is applicable, out of a total greater than one."
+  },
+  "ExploreOtherDatasetsGroupedPromptMessage": {
+    "defaultMessage": "Select the data source that you would like to use to build the plot",
+    "description": "Prompt message that appears in the dataset selection dialog, introducing the list of facets that the user can choose from. This is used when we have multiple stat vars but the choices are grouped together in a single selection (i.e. you only select one facet to cover all stat vars)."
+  },
+  "ExploreOtherDatasetsMultipleStatVarsPromptMessage": {
+    "defaultMessage": "Select the data sources that you would like to use to build the plot",
+    "description": "Prompt message that appears in the dataset selection dialog when there are multiple stat vars, each introducing the list of facets that the user can choose from. This will be used when choosing data to plot charts."
+  },
+  "ExploreOtherDatasetsSingleStatVarPromptMessage": {
+    "defaultMessage": "Select the data source that you would like to use to plot",
+    "description": "Prompt message that appears in the dataset selection dialog, introducing the list of facets that the user can choose from. This will be used when choosing data to plot charts."
+  },
+  "about_place": {
+    "defaultMessage": "About {place}",
+    "description": "Text to display in the header section of explore page search results for a place that has no parent places. For example 'All about World'. The {place} will be a link."
+  },
+  "about_place_in_place": {
+    "defaultMessage": "About {place}, {lowercasePlaceType} in {parentPlaces}",
+    "description": "Text to display in the header section of explore page search results for a place that has parent places. For example, for California, it shows 'All about California, state in USA, North America'.  The {place} and each parent place will be a link. Select either {lowercasePlaceType} or {uppercasePlaceType}, as is appropriate to the target language and position of the word in the translated sentence. Please leave the {uppercasePlaceType} or {lowercasePlaceType} and {place} and {parentPlaces} variables unchanged in the resulting translation."
+  },
   "alert-no_data_for_place": {
     "defaultMessage": "Sorry, but we don't have any data about {placeName}",
     "description": "Text for an alert that we show when user tries to navigate to a place with no data. For example, \"Sorry, but we don't have any data about {Hong Kong Island, Hong Kong}\"."
+  },
+  "apiCopy": {
+    "defaultMessage": "Copy",
+    "description": "Label for button to that will copy a single endpoint to the clipboard."
+  },
+  "apiCopyAll": {
+    "defaultMessage": "Copy All",
+    "description": "Label for button to that will copy all endpoint calls to the clipboard. This will display when there is more than one endpoint in the API dialog."
+  },
+  "apiDialogButtonText": {
+    "defaultMessage": "API code",
+    "description": "Label for button to open a dialog to view and copy API endpoints calls."
+  },
+  "apiDialogDenomHelperText": {
+    "defaultMessage": "(for per capita calculations)",
+    "description": "The text that will display after a stat var name in API dialog, when that stat var is used as a denom. The text should indicate that the previous stat var is used for per capita calculations."
+  },
+  "apiDialogIntroduction": {
+    "defaultMessage": "Use the REST V2 API code below to access this data in JSON format. To get started, <apiKeyLink>obtain an API key</apiKeyLink> and replace the {apiKeyPlaceholder} placeholder with your actual key. For more details, check the <apiDocsLink>API documentation</apiDocsLink>.",
+    "description": "Introduction text for the API dialog, explaining how to use the code snippets and linking to documentation."
+  },
+  "apiDialogIntroductionCustomDc": {
+    "defaultMessage": "Use the REST V2 API code below to access this data in JSON format. For more details, check the <apiDocsLink>API documentation</apiDocsLink>.",
+    "description": "Introduction text for the API dialog, explaining how to use the code snippets and linking to documentation. This version is used for custom Data Commons instances, where no API key is required."
+  },
+  "apiDialogTitle": {
+    "defaultMessage": "API code",
+    "description": "Label for the title of the dialog to view and copy API endpoints calls."
+  },
+  "attainment_of_bachelor_degree_in_colorado": {
+    "defaultMessage": "Attainment of bachelor's degree in Colorado",
+    "description": "Title of a map plotting the statistical variable 'bachelors degree attainment' for counties of Colorado"
+  },
+  "berkeley_and_piedmont_poverty": {
+    "defaultMessage": "Berkeley & Piedmont poverty",
+    "description": "Title of a line chart plotting the statistical variable 'poverty' for both Berkeley, USA and Piedmont, USA"
+  },
+  "cancel": {
+    "defaultMessage": "Cancel",
+    "description": "Button to close a modal or other interactive element without applying changes"
   },
   "category_in_place": {
     "defaultMessage": "{category} in {placeName}",
@@ -23,49 +91,17 @@
     "defaultMessage": "{variable1} Vs. {variable2} in {placeType} of {place}",
     "description": "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be \"Obesity Rate Vs. Income in States of USA\", or \"Housing vs Poverty in Countries of Europe\"."
   },
-  "chart_clause-other_placeType": {
-    "defaultMessage": "{chartTitle}: other {placeType}",
-    "description": "Used to describe other places. Like \"Educational Attainment in other {countries}\"."
-  },
-  "chart_clause-places_that_contain_place": {
-    "defaultMessage": "{chartTitle}: places that contain {placeName}",
-    "description": "Clause for places that contain some place. E.g. for \"Educational Attainment for places that contain {Fremont}\" (which would be Alameda County, California, USA, North America)."
-  },
-  "chart_clause-places_within_place": {
-    "defaultMessage": "{chartTitle}: places within {placeName}",
-    "description": "Clause for places within some other place. Used for choropleth map chart titles like \"Unemployment rate: places within {Tamil Nadu}.\""
-  },
-  "chart_clause-placetype_near_place": {
-    "defaultMessage": "{chartTitle}: {placeType} near {placeName}",
-    "description": "Preposition for somewhere close by. Used for choropleth map chart titles like \"Unemployment rate: {counties} near {Travis County}\" or \"Annual rainfall: {towns} near {Taos}\""
-  },
-  "chart_clause-rankings_in_place": {
-    "defaultMessage": "{variable}: rankings in {placeName}",
-    "description": "Used for chart titles like '{Unemployment rate}: rankings in {USA}'."
-  },
-  "chart_clause-variable_in_place": {
-    "defaultMessage": "{variable} in {placeName}",
-    "description": "Used for chart titles like \"{Unemployment rate} in {USA}\" or \"{Poverty rate} in {California}\"."
-  },
-  "chart_metadata-dotted_line_explanation": {
-    "defaultMessage": "(dotted line denotes missing data)",
-    "description": "Text to explain that dotted lines mean there are missing data. Please keep the parenthesis."
-  },
-  "chart_metadata-explore_more": {
-    "defaultMessage": "Explore More ›",
-    "description": "Hyperlink text to explore the data in a different page. Please keep the '›' symbol."
-  },
-  "chart_metadata-export": {
-    "defaultMessage": "Export",
-    "description": "Hyperlink text to export the data shown in charts."
-  },
-  "chart_metadata-feedback": {
-    "defaultMessage": "Feedback",
-    "description": "Text label for hyperlink to give Data Commons feedback on something on our website."
+  "chartDownloadDialogTitle": {
+    "defaultMessage": "Download this chart",
+    "description": "Label for the title of the dialog for downloading chart data."
   },
   "chart_metadata-provenance": {
     "defaultMessage": "Data from {sources}",
     "description": "Used to cite where our data is from, but that it was provided through Data Commons. e.g., 'Data from {nytimes.com} via Data Commons' or 'Data from {census.gov, nytimes.com}'"
+  },
+  "childPlaceTypeInstruction": {
+    "defaultMessage": "of type",
+    "description": "part of the label on a form saying 'Enter a place of type <type>' asking users to select a place type (e.g. city, country)"
   },
   "child_places_menu-places_in_place": {
     "defaultMessage": "Places in {placeName}",
@@ -75,13 +111,65 @@
     "defaultMessage": "Choose a variable to view its metadata",
     "description": "Title for the metadata modal showing the list of variables to show source information for"
   },
+  "citationGuidance": {
+    "defaultMessage": "Citation guidance",
+    "description": "Label preceding guidance on how to cite the data sources in the metadata modal."
+  },
   "close": {
     "defaultMessage": "Close",
-    "description": "Button to close the metadata modal"
+    "description": "Button to close a modal or other interactive element. Unlike 'Cancel', this does not imply abandoning changes; it simply dismisses the dialog. It is used when there are no contrasting actions."
+  },
+  "combinedDatasetForChartsOption": {
+    "defaultMessage": "Plot data points using one or more of the datasets below to maximize coverage.",
+    "description": "The first option that appears at the top of each respective list of facets connected to a stat var. This option indicates that the various facets will be combined automatically to provide best possible coverage. This will be used when choosing data to plot charts."
+  },
+  "combinedDatasetForDownloadOption": {
+    "defaultMessage": "Combine data using one or more of the datasets below to maximize coverage.",
+    "description": "The first option that appears at the top of each respective list of facets connected to a stat var. This option indicates that the various facets will be combined automatically to provide best possible coverage. This will be used when choosing data to download."
+  },
+  "copyCitation": {
+    "defaultMessage": "Copy citation",
+    "description": "Label for the button that copies the citation to the clipboard when clicked. The copied text will contain one or more sources. Citation is akin to the definition here https://en.wikipedia.org/wiki/Citation."
+  },
+  "copyValues": {
+    "defaultMessage": "Copy values",
+    "description": "Label for the button that copies the chart values to the clipboard when clicked."
+  },
+  "dataCommonsAggregate": {
+    "defaultMessage": "Data Commons aggregate",
+    "description": "Indicates that a data set is an aggregate derived by Data Commons from another data set."
+  },
+  "dataError": {
+    "defaultMessage": "Error fetching data.",
+    "description": "Error message for no when the CSV data fetch fails."
+  },
+  "dataSources": {
+    "defaultMessage": "Data sources",
+    "description": "Label preceding the list of data sources in the metadata modal."
+  },
+  "data_overview": {
+    "defaultMessage": "Data Overview",
+    "description": "Header text for the main title of the Data Overview page, a page that gives an overview of a place's data sources. This will appear next to the name of the place, as in: Canada · Data Overview"
+  },
+  "data_sources": {
+    "defaultMessage": "Data Sources",
+    "description": "Header text for the Data Overview page, a page that gives an overview of a place's data sources."
+  },
+  "datasetError": {
+    "defaultMessage": "Error loading datasets for selection.",
+    "description": "Message shown when the call to get available datasets failed."
+  },
+  "datasets": {
+    "defaultMessage": "Datasets",
+    "description": "Label used for an individual dataset within a collection of data sources, akin to definition here https://en.wikipedia.org/wiki/Data_set"
   },
   "dateRange": {
     "defaultMessage": "{minDate} to {maxDate}",
     "description": "Date range for a chart title. For example: \"2010 to 2020\". Please leave the variables {minDate} and {maxDate} unchanged in the translated message."
+  },
+  "dcid": {
+    "defaultMessage": "DCID",
+    "description": "Label for Data Commons ID (DCID), a unique identifier in the Data Commons knowledge graph."
   },
   "disasterTool": {
     "defaultMessage": "Disaster Tool",
@@ -91,37 +179,89 @@
     "defaultMessage": "Download",
     "description": "Button to download data from the chart"
   },
+  "downloadCSV": {
+    "defaultMessage": "CSV",
+    "description": "Label for the button that will download the data as a CSV."
+  },
+  "downloadSVG": {
+    "defaultMessage": "SVG",
+    "description": "Label for the button that will download the chart image."
+  },
   "embed_citation": {
     "defaultMessage": "Data from {sources} via Data Commons",
     "description": "Used to cite where the data is from, but that it was provided through Data Commons. For example, \"Data from {nytimes.com} via Data Commons\" or \"Data from {census.gov, nytimes.com} via Data Commons\". Please keep the name \"Data Commons\"."
-  },
-  "embed_download_chart_link": {
-    "defaultMessage": "Download Chart Image",
-    "description": "Text for the hyperlink text that will download the chart image."
-  },
-  "embed_download_csv_link": {
-    "defaultMessage": "Download Data as CSV",
-    "description": "Text for the hyperlink text that will download the data as a CSV."
-  },
-  "embed_export_chart_link": {
-    "defaultMessage": "Export this chart",
-    "description": "Text for the hyperlink text that will let users export data and export charts."
   },
   "enterQuery": {
     "defaultMessage": "Enter a question to explore",
     "description": "Placeholder text for the Data Commons search bar query input field"
   },
+  "enter_a_place_instruction": {
+    "defaultMessage": "Enter a place",
+    "description": "An instruction for users to type a place's name into a text box"
+  },
+  "enter_potentially_multiple_places_instruction": {
+    "defaultMessage": "Select place(s):",
+    "description": "An instruction for users to type one or many place's name into a text box"
+  },
   "exploreLink": {
     "defaultMessage": "Explore in {toolName}",
     "description": "Link to explore the chart in a specific tool"
+  },
+  "exploreOtherDatasets": {
+    "defaultMessage": "Explore other datasets",
+    "description": "Label for button and related dialog that allows the user to select datasets. Note that the wording covers both the situation where there is one stat var and multiple stat vars for which the user will be able to select a dataset."
   },
   "explore_data_on": {
     "defaultMessage": "Explore data on... \"{sampleQuestion}\"",
     "description": "Used for the dynamic placeholders in the search bar, gives an example of a query to type."
   },
-  "header-overview": {
-    "defaultMessage": "Overview",
-    "description": "Text for header or subheader of Overview charts on place pages."
+  "explore_follow_up_questions_disclaimer": {
+    "defaultMessage": "These suggested questions were generated by Gemini to guide your exploration. All data and visualizations on this page are from cited third-party sources.",
+    "description": "Informational tooltip text for the explore follow up questions. The questions are generated from the related topics and the user's query."
+  },
+  "explore_page_overview_disclaimer": {
+    "defaultMessage": "This introduction was generated with Gemini. All charts and data are provided by the third-party sources cited on each visualization, with minor processing by Data Commons.",
+    "description": "Informational tooltip text for the explore page overview introducing the statistical variables. Summary is generated from the titles of each chart on the page."
+  },
+  "in_place": {
+    "defaultMessage": "in {place}",
+    "description": "Text to display when we have a single place, and need to add the 'in' before the place. For example, 'in California'."
+  },
+  "in_places_and_last_place": {
+    "defaultMessage": "in {places} and {lastPlace}",
+    "description": "Text to display when we have a list of places, and need to add 'and' before the last place. For example, 'California, Texas, and New York'."
+  },
+  "info_box_instruction_header": {
+    "defaultMessage": "Follow these steps:",
+    "description": "heading for a set of instructions on how to use our tools"
+  },
+  "info_box_instruction_multi_variable_desktop": {
+    "defaultMessage": "Pick statistical variables in the left pane.",
+    "description": "An instruction for users to interact with a UI element on the left side of the page to select multiple statistical variables"
+  },
+  "info_box_instruction_multi_variable_mobile": {
+    "defaultMessage": "Pick statistical variables using the \"select variables\" button above.",
+    "description": "An instruction for users to use a button labeled 'select variables' to select multiple statistical variable to plot"
+  },
+  "info_box_instruction_places_map": {
+    "defaultMessage": "Enter your desired location (country or state) into the search box above, and then select the type of place you want to plot.",
+    "description": "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot States in USA)."
+  },
+  "info_box_instruction_places_scatter": {
+    "defaultMessage": "Enter your desired location (city, state, county, or country) into the search box above, and then select the type of place you want to plot.",
+    "description": "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France)"
+  },
+  "info_box_instruction_places_timeline": {
+    "defaultMessage": "Enter your desired location(s) (city, state, county, or country) into the search box above.",
+    "description": "Instructions for how to enter a list of places to plot using our chart visualization tools"
+  },
+  "info_box_instruction_variable_desktop": {
+    "defaultMessage": "Pick a statistical variable in the left pane.",
+    "description": "An instruction for users to interact with a UI element on the left side of the page"
+  },
+  "info_box_instruction_variable_mobile": {
+    "defaultMessage": "Pick a statistical variable using the \"select variable\" button above.",
+    "description": "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot"
   },
   "key_demographics": {
     "defaultMessage": "Key demographics",
@@ -131,9 +271,17 @@
     "defaultMessage": "Knowledge Graph",
     "description": "Link to the Knowledge Graph for the current place"
   },
-  "link-return_to_overview": {
-    "defaultMessage": "Back to overview",
-    "description": "Text for the link present in subtopic place pages directing the user back to the Overview page."
+  "learn_more_about_these_places": {
+    "defaultMessage": "Learn more about {numPlaces, plural, one {this <link>place</link>} other {these <link># places</link>}}",
+    "description": "A phrase where the text \"this place\" or \"these # places\" is an interactive element that shows a tooltip with more information."
+  },
+  "license": {
+    "defaultMessage": "License",
+    "description": "A label used for the copyright license associated with a dataset. An example copyright license is Creative Commons 4 (https://creativecommons.org/licenses/by/4.0)."
+  },
+  "literate_population_per_capita_vs_population_below_poverty_level_per_capita_for_states_in_india": {
+    "defaultMessage": "Literate population per capita vs. population below poverty level per capita for states in India",
+    "description": "Title of a scatter plot showing the correlation between the literate population per capita and population below poverty level per capita for states in India"
   },
   "loading": {
     "defaultMessage": "Loading...",
@@ -143,25 +291,149 @@
     "defaultMessage": "Map Tool",
     "description": "Title for the map tool"
   },
-  "more_charts": {
-    "defaultMessage": "More charts",
-    "description": "Link to explore more charts about a particular domain, such as Education or Health."
+  "map_visualization_tool_description": {
+    "defaultMessage": "The map explorer helps you visualize how a statistical variable can vary across geographic regions.",
+    "description": "a description of what our map explorer tool is used for"
+  },
+  "map_visualization_tool_name": {
+    "defaultMessage": "Map Explorer",
+    "description": "name of the tool that plots maps"
+  },
+  "measuringMethod": {
+    "defaultMessage": "Measuring method",
+    "description": "Label for the methodology used to produce the data. Examples are: ACS 5-Year Survey, OECD Regional Statistics."
+  },
+  "median_income_in_texas": {
+    "defaultMessage": "Median Income in Texas",
+    "description": "Title of a map plotting the statistical variable 'median income' in counties of Texas"
+  },
+  "metadata": {
+    "defaultMessage": "Metadata",
+    "description": "Title for metadata section (such as in dialog), akin to definition here https://en.wikipedia.org/wiki/Metadata"
+  },
+  "metadataDateRange": {
+    "defaultMessage": "Date range",
+    "description": "Label for date range information in metadata. Example date range is: 1960-2022."
+  },
+  "metadataError": {
+    "defaultMessage": "Error loading metadata.",
+    "description": "Message shown when the call to fetch the metadata failed."
+  },
+  "minorProcessing": {
+    "defaultMessage": "with minor processing by Data Commons",
+    "description": "Text indicating data was processed by Data Commons. This will appear in the citation section of the metadata modal after the list of sources."
   },
   "more_charts_link": {
     "defaultMessage": "More charts",
     "description": "Link text to show additional charts for the given chart category section for the current place."
   },
+  "noAlternativeDatasets": {
+    "defaultMessage": "One dataset available for this chart",
+    "description": "Text displayed in place of the dataset select button when no stat var has more than one dataset associated with it, and therefore there is nothing for the user to select. "
+  },
+  "noDataErrorMessage": {
+    "defaultMessage": "No data available.",
+    "description": "Error message for no data available"
+  },
+  "noMetadataAvailable": {
+    "defaultMessage": "No metadata available.",
+    "description": "Message shown when no metadata is available for a statistical variable."
+  },
   "no_charts": {
     "defaultMessage": "No {category} data found for {place}.",
     "description": "Text to display when a category has no charts. Example: \"No Economics data found for Austria.\". Please leave the {category} and {place} variables unchanged in the resulting translation."
   },
-  "place_breadcrumb": {
-    "defaultMessage": "{placeType} in {placeName}",
-    "description": "Gives context for where this place is located. E.g. on the Tokyo place page, we say \"{City} in {Japan, Asia}\"."
+  "notes": {
+    "defaultMessage": "Notes",
+    "description": "Label for the notes section. This contains information about the data that does not fit in other section."
+  },
+  "observationPeriod": {
+    "defaultMessage": "Observation period",
+    "description": "The time period over which an observation is made.Examples are: Yearly, Monthly. See: https://docs.datacommons.org/glossary.html#observation-period."
+  },
+  "perCapitaErrorMessage": {
+    "defaultMessage": "Could not calculate per capita.",
+    "description": "Error message for per capita calculation"
+  },
+  "perCapitaNote": {
+    "defaultMessage": "This statistical variable was used to calculate the per capita value. “Per capita” means “per person.” To calculate a per capita value, a total amount is divided by the number of people as represented by this variable.",
+    "description": "Label for the notes section. This contains information about the data that does not fit in other section."
+  },
+  "periodicity.list.comma": {
+    "defaultMessage": "{0}, {1}",
+    "description": "Pattern for joining two items with a comma in a list. English: 1 day, 2 hours"
+  },
+  "periodicity.list.moreThanTwo": {
+    "defaultMessage": "{items} and {lastItem}",
+    "description": "Pattern for joining more than two time units, where {items} is the comma-separated list and {lastItem} is the final item. English: 1 day, 2 hours and 3 minutes"
+  },
+  "periodicity.list.two": {
+    "defaultMessage": "{0} and {1}",
+    "description": "Pattern for joining two time units. English: 1 day and 2 hours"
+  },
+  "periodicity.multiple": {
+    "defaultMessage": "Every {units}",
+    "description": "Pattern for multiple time units where {units} is the formatted list of units. English: Every 1 day and 2 hours"
+  },
+  "periodicity.period.day": {
+    "defaultMessage": "{count, plural, one {Daily} other {Every # days}}",
+    "description": "Pattern for daily periodicity with plural handling. English: Daily, Every 2 days"
+  },
+  "periodicity.period.hour": {
+    "defaultMessage": "{count, plural, one {Hourly} other {Every # hours}}",
+    "description": "Pattern for hourly periodicity with plural handling. English: Hourly, Every 2 hours"
+  },
+  "periodicity.period.minute": {
+    "defaultMessage": "{count, plural, one {Every minute} other {Every # minutes}}",
+    "description": "Pattern for minute periodicity with plural handling. English: Every minute, Every 2 minutes"
+  },
+  "periodicity.period.month": {
+    "defaultMessage": "{count, plural, one {Monthly} other {Every # months}}",
+    "description": "Pattern for monthly periodicity with plural handling. English: Monthly, Every 2 months"
+  },
+  "periodicity.period.second": {
+    "defaultMessage": "{count, plural, one {Every second} other {Every # seconds}}",
+    "description": "Pattern for second periodicity with plural handling. English: Every second, Every 2 seconds"
+  },
+  "periodicity.period.week": {
+    "defaultMessage": "{count, plural, one {Weekly} other {Every # weeks}}",
+    "description": "Pattern for weekly periodicity with plural handling. English: Weekly, Every 2 weeks"
+  },
+  "periodicity.period.year": {
+    "defaultMessage": "{count, plural, one {Yearly} other {Every # years}}",
+    "description": "Pattern for yearly periodicity with plural handling. English: Yearly, Every 2 years"
+  },
+  "periodicity.unit.day": {
+    "defaultMessage": "{count, plural, one {# day} other {# days}}",
+    "description": "Day unit with count variable for translations. English: 1 day, 2 days"
+  },
+  "periodicity.unit.hour": {
+    "defaultMessage": "{count, plural, one {# hour} other {# hours}}",
+    "description": "Hour unit with count variable for translations. English: 1 hour, 2 hours"
+  },
+  "periodicity.unit.minute": {
+    "defaultMessage": "{count, plural, one {# minute} other {# minutes}}",
+    "description": "Minute unit with count variable for translations. English: 1 minute, 2 minutes"
+  },
+  "periodicity.unit.month": {
+    "defaultMessage": "{count, plural, one {# month} other {# months}}",
+    "description": "Month unit with count variable for translations. English: 1 month, 2 months"
+  },
+  "periodicity.unit.second": {
+    "defaultMessage": "{count, plural, one {# second} other {# seconds}}",
+    "description": "Second unit with count variable for translations. English: 1 second, 2 seconds"
+  },
+  "periodicity.unit.week": {
+    "defaultMessage": "{count, plural, one {# week} other {# weeks}}",
+    "description": "Week unit with count variable for translations. English: 1 week, 2 weeks"
+  },
+  "periodicity.unit.year": {
+    "defaultMessage": "{count, plural, one {# year} other {# years}}",
+    "description": "Year unit with count variable for translations. English: 1 year, 2 years"
   },
   "place_not_found": {
-    "defaultMessage": "Place \"{placeDcid}\" not found.",
-    "description": "Text to display on a 404 page when a place ID is not found. Example: \"Place \"dcid:geoId/04\" not found.\". Please leave the {placeDcid} variable unchanged in the resulting translation."
+    "defaultMessage": "Place not found.",
+    "description": "Text to display on a 404 page when a place ID is not found."
   },
   "place_page_ranking_table-ranking_in": {
     "defaultMessage": "Rankings (in)",
@@ -175,6 +447,14 @@
     "defaultMessage": "{placeType} in {parentPlaces}",
     "description": "Used for the place page subheader. Shows the place type of the current place, and a list of all parent places. For example, for California, it shows \"State in USA, North America, World\". Please leave the {placeType} and {parentPlaces} variables unchanged in the resulting translation."
   },
+  "places_in": {
+    "defaultMessage": "Places in",
+    "description": "Label on a textbox for a place, as in 'plot places in <user selected place>"
+  },
+  "pleaseCredit": {
+    "defaultMessage": "Please credit all sources listed above. Data provided by third-party sources through Data Commons remains subject to the original provider's license terms.",
+    "description": "Text providing guidance on citing data sources in academic work, publications, or other derivative uses."
+  },
   "plural_administrative_area": {
     "defaultMessage": "Administrative Areas",
     "description": "Label used for a collection of places, of type Administrative Area (an administrative division of generic type, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). An example use is 'Administrative Areas in Europe'. Please maintain capitalization."
@@ -187,21 +467,41 @@
     "defaultMessage": "Boroughs",
     "description": "A label or header for a collection of places of type Borough (generally places similar to a town or city, see https://en.wikipedia.org/wiki/Borough). Some examples: 'Boroughs in California', 'Median Age: Other Boroughs', or 'Ranking by Population for Boroughs in New York'. Please maintain capitalization."
   },
+  "plural_borough_lowercase": {
+    "defaultMessage": "boroughs",
+    "description": "A collection of places of type borough, for use when it appears inside a sentence. An example use is 'Data for all five boroughs of New York.' Please use lowercase where appropriate in the target language."
+  },
   "plural_city": {
     "defaultMessage": "Cities",
     "description": "A label or header for a collection of places of type City (generally places with more people than a town, borough or village, see https://en.wikipedia.org/wiki/City). Some examples: 'Cities in California', 'Median Age: Other Cities', or 'Rankings of Population for Cities in California'. Please maintain capitalization."
+  },
+  "plural_city_lowercase": {
+    "defaultMessage": "cities",
+    "description": "A collection of places of type city, for use when it appears inside a sentence. An example use is 'Population of cities in California.' Please use lowercase where appropriate in the target language."
   },
   "plural_continent": {
     "defaultMessage": "Continents",
     "description": "A label or header for a collection of places of type Continent (see https://en.wikipedia.org/wiki/Continent). Some examples: 'Continents in the world', 'Median Age: Other Continents', or 'Ranking by Population for Continents in the world'. Please maintain capitalization."
   },
+  "plural_continent_lowercase": {
+    "defaultMessage": "continents",
+    "description": "A collection of places of type continent, for use when it appears inside a sentence. An example use is 'Data for these continents is sparse.' Please use lowercase where appropriate in the target language."
+  },
   "plural_country": {
     "defaultMessage": "Countries",
     "description": "A label or header for a collection of places of type Country (see https://en.wikipedia.org/wiki/Country). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Ranking by Population for Countries in Europe'. Please maintain capitalization."
   },
+  "plural_country_lowercase": {
+    "defaultMessage": "countries",
+    "description": "A collection of places of type country, for use when it appears inside a sentence. An example use is 'Ranking all countries in Europe.' Please use lowercase where appropriate in the target language."
+  },
   "plural_county": {
     "defaultMessage": "Counties",
     "description": "A label or header for a collection of places of type County (generally subdivisions of a State, see https://en.wikipedia.org/wiki/County). Some examples: 'Counties in California', 'Median Age: Other Counties', or 'Rankings of Population for Counties in California'. Please maintain capitalization."
+  },
+  "plural_county_lowercase": {
+    "defaultMessage": "counties",
+    "description": "A collection of places of type county, for use when it appears inside a sentence. An example use is 'A list of counties in California.' Please use lowercase where appropriate in the target language."
   },
   "plural_eurostat_nuts": {
     "defaultMessage": "Eurostat NUTS {level} Places",
@@ -211,25 +511,57 @@
     "defaultMessage": "Neighborhoods",
     "description": "A label or header for a collection of places of type Neighborhood (generally places within a town or city, see https://en.wikipedia.org/wiki/Neighborhood). Some examples: 'Neighborhoods in California', 'Median Age: Other Neighborhoods', or 'Ranking by Population for Neighborhoods in Paris'. Please maintain capitalization."
   },
+  "plural_neighborhood_lowercase": {
+    "defaultMessage": "neighborhoods",
+    "description": "A collection of places of type neighborhood, for use when it appears inside a sentence. An example use is 'Exploring the different neighborhoods of Paris.' Please use lowercase where appropriate in the target language."
+  },
   "plural_places": {
     "defaultMessage": "Places",
-    "description": "General collection of places. It is used when we don\"t have a specific place type. Some examples: \"_Places_ in Russia\" as a header for a section with links to many places contained in Russia, as chart titles, such as \"Median Age: _Places_ near Paris\" or \"Median Age: Other _Places_\", or \"Ranking for All _Places_ in Russia\"."
+    "description": "General collection of places. It is used when we don't have a specific place type. Some examples: \"_Places_ in Russia\" as a header for a section with links to many places contained in Russia, as chart titles, such as \"Median Age: _Places_ near Paris\" or \"Median Age: Other _Places_\", or \"Ranking for All _Places_ in Russia\"."
+  },
+  "plural_places_lowercase": {
+    "defaultMessage": "places",
+    "description": "A general collection of places, for use when it appears inside a sentence. For example, \"This is a list of all places in Russia\". Please use lowercase where appropriate in the target language."
   },
   "plural_state": {
     "defaultMessage": "States",
-    "description": "A label or header for a collection of places of type State (generally a subdivision of a Country, see https://en.wikipedia.org/wiki/Constituent_state). Some examples: 'Countries in Europe', 'Median Age: Other Countries', or 'Ranking by Population for Countries in Europe'. Please maintain capitalization."
+    "description": "A label or header for a collection of places of type State (generally a subdivision of a Country, see https://en.wikipedia.org/wiki/Constituent_state). Some examples: 'States in United States', 'Median Age: Other States', or 'Ranking by Population for States in United States'. Please maintain capitalization."
+  },
+  "plural_state_lowercase": {
+    "defaultMessage": "states",
+    "description": "A collection of places of type state, for use when it appears inside a sentence. An example use is 'Comparing all states in the United States.' Please use lowercase where appropriate in the target language."
   },
   "plural_town": {
     "defaultMessage": "Towns",
     "description": "A label or header for a collection of places of type Town (generally places with fewer people than a city, but more than a village, see https://en.wikipedia.org/wiki/Town). Some examples: 'Towns in California', 'Median Age: Other Towns', or 'Rankings of Population for Towns in California'. Please maintain capitalization."
   },
+  "plural_town_lowercase": {
+    "defaultMessage": "towns",
+    "description": "A collection of places of type town, for use when it appears inside a sentence. An example use is 'A map showing all towns in the area.' Please use lowercase where appropriate in the target language."
+  },
   "plural_village": {
     "defaultMessage": "Villages",
     "description": "A label or header for a collection of places of type Village (generally places smaller than a town, see https://en.wikipedia.org/wiki/Village). Some examples: 'Villages in California', 'Median Age: Other Villages', or 'Ranking by Population for Villages in California'. Please maintain capitalization."
   },
+  "plural_village_lowercase": {
+    "defaultMessage": "villages",
+    "description": "A collection of places of type village, for use when it appears inside a sentence. An example use is 'The chart includes many small villages.' Please use lowercase where appropriate in the target language."
+  },
   "plural_zip_codes": {
     "defaultMessage": "Zip Codes",
     "description": "A collection of ZIP Codes. Some examples: \"_ZIP Codes_ in Fremont\" or \"Median Age: _ZIP Codes_ near 94539\", \"Median Age: Other _ZIP Codes_\" or \"Ranking by Number of Employed People for _ZIP Codes_ in Santa Clara County\"."
+  },
+  "plural_zip_codes_lowercase": {
+    "defaultMessage": "ZIP Codes",
+    "description": "A collection of ZIP Code areas, for use when it appears inside a sentence. For example, \"Ranking all _ZIP Codes_ in Santa Clara County\"."
+  },
+  "prevalence_of_coronary_heart_disease_vs_projected_temperature_rise_in_the_usa": {
+    "defaultMessage": "Prevalence of coronary heart disease vs. projected temperature rise in the USA",
+    "description": "Title of a scatter plot showing the correlation between coronary heart disease and projected temperature rise in the USA"
+  },
+  "publicationCadence": {
+    "defaultMessage": "Publication cadence",
+    "description": "Label for the cadence of publication. This is the rate of publication of the data. Examples are: Yearly, Monthly."
   },
   "ranking-document_title": {
     "defaultMessage": "Ranking by {statVar} - {pluralPlaceType} in {placeName}",
@@ -307,17 +639,65 @@
     "defaultMessage": "Relevant topics",
     "description": "Header text for the Relevant topics tab section for the current place. Example topics tabs include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing."
   },
+  "scalingFactor": {
+    "defaultMessage": "Scaling factor",
+    "description": "In conjunction with the measurement denominator, scaling factor indicates the multiplication factor applied to the value. See: https://docs.datacommons.org/glossary.html#scaling-factor."
+  },
   "scatterTool": {
     "defaultMessage": "Scatter Tool",
     "description": "Title for the scatter tool"
+  },
+  "scatter_visualization_tool_description": {
+    "defaultMessage": "The scatter plot explorer helps you visualize the correlation between two statistical variables.",
+    "description": "a description of what our scatter plot explorer tool is used for"
+  },
+  "scatter_visualization_tool_name": {
+    "defaultMessage": "Scatter Plot Explorer",
+    "description": "name of the tool that plots scatter plot charts"
   },
   "search_bar_placeholder-search_again": {
     "defaultMessage": "Search for another place",
     "description": "Text for the Search Box after we alerted the user that data isn't available for the place they just tried."
   },
+  "search_question_introduction": {
+    "defaultMessage": "Data related to your research question",
+    "description": "Text that displays above the user-inputted query to introduce that query. For example, if the query is 'How does health equity look in San Francisco', then the page will display: Data related to your research question 'How does health equity look in San Francisco'"
+  },
   "seePerCapita": {
     "defaultMessage": "See per capita",
     "description": "Checkbox label text for option that toggles per capita data"
+  },
+  "see_knowledge_graph": {
+    "defaultMessage": "See Knowledge Graph",
+    "description": "Link to the Knowledge Graph for the current place"
+  },
+  "selectAPlaceTypeInstruction": {
+    "defaultMessage": "Select a place type",
+    "description": "default value on a dropdown telling the user to select a place type from the given options"
+  },
+  "selectAVariableInstruction": {
+    "defaultMessage": "Select variable",
+    "description": "Instruction inviting the user to select a statistical variable to plot"
+  },
+  "selectDataset": {
+    "defaultMessage": "Select a dataset",
+    "description": "Label for button and related dialog that allows the user to select a dataset. This text is used when there is a single stat vars. A dataset here refers to the facet used to supply data to the chart."
+  },
+  "selectDatasetForDownloadPromptMessage": {
+    "defaultMessage": "Select the data source that you would like to use to download the data for",
+    "description": "Prompt message that appears in the dataset selection dialog, introducing the list of facets that the user can choose from. This will be used when choosing data to download."
+  },
+  "selectDatasets": {
+    "defaultMessage": "Select datasets",
+    "description": "Label for button and related dialog that allows the user to select datasets. This text is used when there are multiple stat vars. A dataset here refers to the facet used to supply data to the chart."
+  },
+  "selectDatasetsForDownloadPromptMessage": {
+    "defaultMessage": "Select the data sources that you would like to use to download the data",
+    "description": "Prompt message that appears in the dataset selection dialog when there are multiple stat vars, each introducing the list of facets that the user can choose from. This will be used when choosing data to download."
+  },
+  "selectMultipleVariablesInstruction": {
+    "defaultMessage": "Select variables",
+    "description": "Instruction inviting the user to select more than 1 statistical variable to plot"
   },
   "selectVariable": {
     "defaultMessage": "Select a variable from the list to see its details. The links below open the Statistical Variable Explorer in a new tab.",
@@ -339,21 +719,41 @@
     "defaultMessage": "Borough",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Borough, similar to a town or city. An example use is 'Borough in New York' to describe 'Queens'. Please maintain capitalization."
   },
+  "singular_borough_lowercase": {
+    "defaultMessage": "borough",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Borough, similar to a town or city, where it appears inside a sentence. An example use is 'A borough in New York' to describe 'Queens'. Please use lowercase where appropriate in the target language."
+  },
   "singular_city": {
     "defaultMessage": "City",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/City, generally a place with more people than a town, borough or village. An example use is 'City in France' to describe 'Paris'. Please maintain capitalization."
+  },
+  "singular_city_lowercase": {
+    "defaultMessage": "city",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/City, generally a place with more people than a town, borough or village, where it appears inside a sentence. An example use is 'A city in France' to describe 'Paris'. Please use lowercase where appropriate in the target language."
   },
   "singular_continent": {
     "defaultMessage": "Continent",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Continent. An example use is 'A Continent in the world' to describe 'Europe'. Please maintain capitalization."
   },
+  "singular_continent_lowercase": {
+    "defaultMessage": "continent",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Continent, where it appears inside a sentence. An example use is 'A continent in the world' to describe 'Europe'. Please use lowercase where appropriate in the target language."
+  },
   "singular_country": {
     "defaultMessage": "Country",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Country. An example use is 'A Country in Europe' to describe 'France'. Please maintain capitalization."
   },
+  "singular_country_lowercase": {
+    "defaultMessage": "country",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Country, where it appears inside a sentence. An example use is 'A country in Europe' to describe 'France'. Please use lowercase where appropriate in the target language."
+  },
   "singular_county": {
     "defaultMessage": "County",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/County, generally a subdivision of a State. An example use is 'County in California' to describe 'San Mateo County'. Please maintain capitalization."
+  },
+  "singular_county_lowercase": {
+    "defaultMessage": "county",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/County, generally a subdivision of a State, where it appears inside a sentence. An example use is 'A county in California' to describe 'San Mateo County'. Please use lowercase where appropriate in the target language."
   },
   "singular_eurostat_nuts": {
     "defaultMessage": "Eurostat NUTS {level} Place",
@@ -363,29 +763,53 @@
     "defaultMessage": "Neighborhood",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Neighborhood, generally a place within a town or city. An example use is 'Neighborhood in Paris' to describe '8th arrondissement'. Please maintain capitalization."
   },
+  "singular_neighborhood_lowercase": {
+    "defaultMessage": "neighborhood",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Neighborhood, generally a place within a town or city, where it appears inside a sentence. An example use is 'A neighborhood in Paris' to describe '8th arrondissement'. Please use lowercase where appropriate in the target language."
+  },
   "singular_place": {
     "defaultMessage": "Place",
     "description": "A general type of place. It is used as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say \"Moscow Oblast is A _Place_ in Russia\" or \"Lincoln Center is a _Place_ in New York City\"."
+  },
+  "singular_place_lowercase": {
+    "defaultMessage": "place",
+    "description": "A general type of place, for use when it appears inside a sentence. It is used as a top-level description of places with uncommon place types such as Eurostat NUTS or AdministrativeArea 1-5. For example, we may say \"Moscow Oblast is a place in Russia\" or \"Lincoln Center is a place in New York City\". Please use lowercase where appropriate in the target language."
   },
   "singular_state": {
     "defaultMessage": "State",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Constituent_state, generally a subdivision of a country. An example use is 'A State in United States' to describe 'California'. Please maintain capitalization."
   },
+  "singular_state_lowercase": {
+    "defaultMessage": "state",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Constituent_state, generally a subdivision of a country, where it appears inside a sentence. An example use is 'A state in United States' to describe 'California'. Please use lowercase where appropriate in the target language."
+  },
   "singular_town": {
     "defaultMessage": "Town",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Town, generally a place with fewer people than a city, but more than a village. An example use is 'Town in France' to describe 'Paris'. Please maintain capitalization."
+  },
+  "singular_town_lowercase": {
+    "defaultMessage": "town",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Town, generally a place with fewer people than a city, but more than a village, where it appears inside a sentence. An example use is 'A town in France' to describe 'Paris'. Please use lowercase where appropriate in the target language."
   },
   "singular_village": {
     "defaultMessage": "Village",
     "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Village, generally a place smaller than a town. An example use is 'Village in Harris County' to describe 'Hilshire Village'. Please maintain capitalization."
   },
+  "singular_village_lowercase": {
+    "defaultMessage": "village",
+    "description": "Label used for an administrative division, akin to definition here https://en.wikipedia.org/wiki/Village, generally a place smaller than a town, where it appears inside a sentence. An example use is 'A village in Harris County' to describe 'Hilshire Village'. Please use lowercase where appropriate in the target language."
+  },
   "singular_zip_code": {
     "defaultMessage": "ZIP Code",
     "description": "A ZIP Code area. Some examples, we say that 94539 is \"_ZIP Code_ in Alameda County, California, United States of America, North America\"."
   },
+  "singular_zip_code_lowercase": {
+    "defaultMessage": "ZIP Code",
+    "description": "A ZIP Code area, for use when it appears inside a sentence. For example, we say that 94539 is \"_ZIP Code_ in Alameda County, California, United States of America, North America\"."
+  },
   "snap-to-latest-data-checkbox-label": {
     "defaultMessage": "Snap to date with highest coverage",
-    "description": "Checkbox label for an option that tells a chart visualization to show the latest data available"
+    "description": "Checkbox label for an option that tells a chart visualization to show the latest data available."
   },
   "snap-to-latest-data-help-tooltip": {
     "defaultMessage": "'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year.",
@@ -399,9 +823,29 @@
     "defaultMessage": "Source",
     "description": "Title indicating that the chart data comes from the following single source"
   },
+  "sourceAndCitation": {
+    "defaultMessage": "Source and citation",
+    "description": "Title for source and citation section in the metadata modal."
+  },
   "sources": {
     "defaultMessage": "Sources",
     "description": "Title indicating that the chart data comes from the following multiple sources"
+  },
+  "sources.lowercase": {
+    "defaultMessage": "sources",
+    "description": "Same as “Sources” but in lowercase (for sentence-case labels)"
+  },
+  "stat_var_explorer_instructions_data_source": {
+    "defaultMessage": "Need more specific data? Filter by choosing a data source above.",
+    "description": "An instruction for users to select a data source to use in our statistical variable explorer tool"
+  },
+  "stat_var_explorer_instructions_desktop": {
+    "defaultMessage": "To start, select a variable from the left pane.",
+    "description": "An instruction for users to interact with a UI element on the left side of the screen to select a variable to display in our statistical variable explorer tool"
+  },
+  "stat_var_explorer_instructions_mobile": {
+    "defaultMessage": "To start, click the \"Select variable\" button below.",
+    "description": "An instruction for users to click on a button UI element to select a variable to display in our statistical variable explorer tool"
   },
   "summary_overview": {
     "defaultMessage": "Summary",
@@ -409,18 +853,66 @@
   },
   "summary_overview_tooltip": {
     "defaultMessage": "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data.",
-    "description": "Informational tooltip text for the AI-generated summary for the current place. AI sumamry is generated from the data sources linked on each chart."
+    "description": "Informational tooltip text for the AI-generated summary for the current place. AI summary is generated from the data sources linked on each chart."
   },
-  "the_world": {
-    "defaultMessage": "the World",
-    "description": "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth."
+  "switch_tool_version": {
+    "defaultMessage": "Switch tool version",
+    "description": "label on button allowing users to switch to an earlier version of our tools"
   },
   "timelineTool": {
     "defaultMessage": "Timeline Tool",
     "description": "Title for the timeline tool"
   },
+  "timeline_visualization_tool_description": {
+    "defaultMessage": "The timelines explorer helps you explore trends for statistical variables.",
+    "description": "a description of what our timelines explorer tool is used for"
+  },
+  "timeline_visualization_tool_name": {
+    "defaultMessage": "Timelines Explorer",
+    "description": "name of the tool that plots line charts, specifically a variable over time"
+  },
+  "topic": {
+    "defaultMessage": "Topic",
+    "description": "A label used for topic categories that can be applied to a dataset. Example topics include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing."
+  },
+  "topics": {
+    "defaultMessage": "Topics",
+    "description": "A label used for topic categories that can be applied to a dataset. Example topics include Crime, Demographics, Economics, Education, Energy, Environment, Equity, Health, and Housing."
+  },
+  "unemployment_rate_in_new_jersey": {
+    "defaultMessage": "Unemployment rate in New Jersey",
+    "description": "Title of a map plotting the statistical variable 'unemployment rate' in counties of New Jersey"
+  },
+  "unit": {
+    "defaultMessage": "Unit",
+    "description": "Label for the unit that describes the data. Example units are: Years, Gallons Per Year."
+  },
+  "university_towns_by_income": {
+    "defaultMessage": "University towns by income",
+    "description": "Title of a line chart plotting the statistical variable 'income' in a set of towns known for having a university"
+  },
+  "unsupported_enclosed_place_alert": {
+    "defaultMessage": "Sorry, we don't support {placeName}. Please select a different place.",
+    "description": "Message to users that the place they selected is unsupported by our tool"
+  },
+  "update": {
+    "defaultMessage": "Update",
+    "description": "Text of action button at the bottom of the dataset selection dialog that updates the dataset selection with the newly selected facet."
+  },
   "viaGoogle": {
     "defaultMessage": "via Google",
     "description": "Indicator displayed when chart data comes from Google. Example \"Source: www2.census.gov via Google\""
+  },
+  "vis_tool_examples_header": {
+    "defaultMessage": "Need ideas? Try these:",
+    "description": "Invitation for users to explore some example charts and visualizations."
+  },
+  "water_withdrawal_rate_in_california": {
+    "defaultMessage": "Water withdrawal rate in California",
+    "description": "Title of a line chart plotting the statistical variable 'water withdrawal rate' in California"
+  },
+  "water_withdrawal_rate_in_the_usa": {
+    "defaultMessage": "Water withdrawal rate in the USA",
+    "description": "Title of a map plotting the statistical variable 'water withdrawal rates' in US states."
   }
 }
