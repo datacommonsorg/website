@@ -207,7 +207,6 @@ export function getPoint(
     if (!_.isEmpty(resolvedFacetIds)) {
       params["facetId"] = resolvedFacetIds;
     }
-    console.log("LUCY Params: ", params);
     return axios
       .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
         params,
@@ -217,7 +216,6 @@ export function getPoint(
         },
       })
       .then((resp) => {
-        console.log("RESP DATA: ", resp.data);
         return getProcessedPointResponse(resp.data, alignedVariables);
       });
   });
@@ -249,7 +247,6 @@ export function getPointWithin(
   if (facetIds) {
     params["facetIds"] = facetIds;
   }
-  console.log("LUCY Params: ", params);
   return axios
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
       params,
@@ -259,7 +256,6 @@ export function getPointWithin(
       },
     })
     .then((resp) => {
-      console.log("RESP DATA: ", resp.data);
       return getProcessedPointResponse(resp.data, alignedVariables);
     });
 }

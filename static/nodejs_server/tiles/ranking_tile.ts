@@ -178,18 +178,15 @@ export async function getRankingTileResult(
       apiRoot,
       surfaceHeaderValue
     );
-    console.log("RESULT OF FETCH IN RANKING: ", rankingData);
     const placeDcids = new Set<string>();
     Object.values(rankingData).forEach((rankingGroup) => {
       rankingGroup.points.forEach((point) => {
         placeDcids.add(point.placeDcid);
       });
     });
-    console.log("reached immediately prior to place names");
     const placeNames = await getPlaceNames(Array.from(placeDcids).sort(), {
       apiRoot,
     });
-    console.log("PLACE NAMES: ", placeNames);
     const tileResults: TileResult[] = [];
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = _.cloneDeep(rankingData[sv]);
@@ -233,7 +230,6 @@ export async function getRankingTileResult(
     }
     return tileResults;
   } catch (e) {
-    console.log("Failed to get ranking tile result for: " + id);
     return null;
   }
 }

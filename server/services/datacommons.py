@@ -435,6 +435,7 @@ def nl_search_vars(
     skip_topics="",
     nl_root=None,
     api_key=None,
+    surfaceHeaderValue=None
 ):
   """Search sv from NL server."""
   idx_params = ",".join(index_types)
@@ -448,7 +449,7 @@ def nl_search_vars(
     url = f"{url}&skip_topics={skip_topics}"
   return post(url, {"queries": queries},
               api_key=api_key,
-              log_extreme_calls=False)
+              log_extreme_calls=False, surfaceHeaderValue=surfaceHeaderValue)
 
 
 def nl_search_vars_in_parallel(queries: list[str],
@@ -472,7 +473,8 @@ def nl_search_vars_in_parallel(queries: list[str],
     return index, nl_search_vars(queries, [index],
                                  skip_topics="true" if skip_topics else "",
                                  nl_root=nl_root,
-                                 api_key=api_key)
+                                 api_key=api_key,
+                                 surfaceHeaderValue=surfaceHeaderValue)
 
   with ThreadPoolExecutor() as executor:
     return {

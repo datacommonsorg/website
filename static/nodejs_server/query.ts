@@ -319,7 +319,6 @@ export async function getQueryResult(
   } else if (mode === TOOLFORMER_RIG_MODE) {
     allowedTileTypes = TOOLFORMER_RIG_ALLOWED_CHARTS;
   }
-  console.log("reaching getQueryResult");
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
   let nlResp = null;
@@ -346,11 +345,8 @@ export async function getQueryResult(
       "x-surface": surfaceHeaderValue || "website",
     },
   };
-  console.log("Url: ", url);
-  console.log("postConfig: ", postConfig);
   try {
     nlResp = await axios.post(url, {}, postConfig);
-    console.log("NL RESP LUCYL ", nlResp, url, apiRoot);
   } catch (e) {
     return { err: "Error fetching data." };
   }

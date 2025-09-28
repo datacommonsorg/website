@@ -381,6 +381,7 @@ def search_indicators():
   # Step 0: Process inputs and fetch default indices if needed
   #
   req_args = _parse_request_args()
+  surfaceHeaderValue=request.headers.get("x-surface")
 
   response_metadata = ResponseMetadata(
       threshold_override=req_args.threshold_override)
@@ -389,7 +390,7 @@ def search_indicators():
   # Step 1: Get search results from the NL server in parallel.
   #
   nl_results_by_index = dc.nl_search_vars_in_parallel(
-      req_args.queries, req_args.indices, skip_topics=req_args.skip_topics)
+      req_args.queries, req_args.indices, skip_topics=req_args.skip_topics, surfaceHeaderValue=surfaceHeaderValue)
 
   # Pre-calculate the effective threshold for each index.
   threshold_by_index: dict[str, float] = {}
