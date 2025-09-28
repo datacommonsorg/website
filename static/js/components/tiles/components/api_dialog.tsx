@@ -32,6 +32,7 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 import { FormattedMessage } from "react-intl";
 
@@ -41,6 +42,7 @@ import { messages } from "../../../i18n/i18n_messages";
 import {
   isCustomDataCommons,
   ObservationSpec,
+  observationSpecsToPythonScript,
   observationSpecToCurl,
 } from "../../../shared/observation_specs";
 import { Button } from "../../elements/button/button";
@@ -51,6 +53,62 @@ import {
   DialogContent,
   DialogTitle,
 } from "../../elements/dialog/dialog";
+
+type SingleSpecGenerator = (spec: ObservationSpec, apiRoot?: string) => string;
+type MultiSpecGenerator = (
+  specs: ObservationSpec[],
+  statVarNameMap: Record<string, string>,
+  apiRoot?: string
+) => string;
+
+/**
+  This interface provides the language specifications for rendering example API calls to users in
+  the API dialog.
+
+  The `displayStyle` determines how a given language behaves when we have multiple endpoints.
+
+  `single`: All endpoints are rendered together in a single block of code. This is suitable 
+      for languages like python or R, where we present a script that can contain multiple endpoints.
+  `multiple` Each endpoint is shown in its own section and can be copied independently. This is
+      suitable for cURL or raw GET requests, where each call stands on its own.
+
+  The generator is the function that takes the observation spec and transforms it into an example
+  for the target language. 
+    `single` languages require a generator with a `SingleSpecGenerator` shape.
+    `multiple` languages require a generator with a `MultipleSpecGenerator` shape.
+ */
+type LanguageSpec =
+  | {
+      slug: string;
+      name: string;
+      displayStyle: "multiple";
+      generator: SingleSpecGenerator;
+    }
+  | {
+      slug: string;
+      name: string;
+      displayStyle: "single";
+      generator: MultiSpecGenerator;
+    };
+
+const LANGUAGE_SPEC: LanguageSpec[] = [
+  {
+    slug: "curl",
+    name: "cURL",
+    displayStyle: "multiple",
+    generator: observationSpecToCurl,
+  },
+  {
+    slug: "python",
+    name: "Python",
+    displayStyle: "single",
+    generator: observationSpecsToPythonScript,
+  },
+];
+
+type LanguageSlug = typeof LANGUAGE_SPEC[number]["slug"];
+
+const DEFAULT_LANGUAGE_SLUG = "curl";
 
 interface ApiDialogProps {
   //whether the dialog is open
@@ -166,15 +224,27 @@ export function ApiDialog({
   containerRef,
 }: ApiDialogProps): ReactElement {
   const theme = useTheme();
-
-  const apiCalls = useMemo(() => {
-    return specs.map((s) => observationSpecToCurl(s, apiRoot));
-  }, [specs, apiRoot]);
-
-  const concatenatedEndpointCalls = useMemo(
-    () => apiCalls.join("\n\n\n"),
-    [apiCalls]
+  const [apiLanguage, setApiLanguage] = useState<LanguageSlug>(
+    DEFAULT_LANGUAGE_SLUG
   );
+
+  const currentLanguageSpec =
+    LANGUAGE_SPEC.find((lang) => lang.slug === apiLanguage) || LANGUAGE_SPEC[0];
+
+  const apiContent = useMemo(() => {
+    if (currentLanguageSpec.displayStyle === "multiple") {
+      return specs.map((s) => currentLanguageSpec.generator(s, apiRoot));
+    } else {
+      return currentLanguageSpec.generator(specs, statVarNameMap, apiRoot);
+    }
+  }, [specs, apiRoot, statVarNameMap, currentLanguageSpec]);
+
+  const concatenatedEndpointCalls = useMemo(() => {
+    if (Array.isArray(apiContent)) {
+      return apiContent.join("\n\n\n");
+    }
+    return apiContent;
+  }, [apiContent]);
 
   const numeratorSpecsCount = useMemo(
     () => specs.filter((s) => s.role !== "denominator").length,
@@ -239,39 +309,58 @@ export function ApiDialog({
           />
         </p>
 
-        {specs.map((observationSpec, index) => {
-          const showHeader =
-            observationSpec.role === "denominator" || numeratorSpecsCount > 1;
-          const statVarNames = getStatVarListString(
-            observationSpec.statVarDcids,
-            statVarNameMap
-          );
-          const title =
-            observationSpec.role === "denominator"
-              ? `${statVarNames} ${intl.formatMessage(
-                  chartComponentMessages.ApiDialogDenomHelperText
-                )}`
-              : statVarNames;
+        <div>
+          <label>Language:</label>
+          <select
+            value={apiLanguage}
+            onChange={(e): void => setApiLanguage(e.target.value)}
+          >
+            {LANGUAGE_SPEC.map((lang) => (
+              <option key={lang.slug} value={lang.slug}>
+                {lang.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          return (
-            <div
-              key={index}
-              css={css`
-                display: block;
-                width: 100%;
-                && > h3 {
-                  ${theme.typography.family.text}
-                  ${theme.typography.text.lg}
+        {currentLanguageSpec.displayStyle === "multiple" &&
+        Array.isArray(apiContent) ? (
+          specs.map((observationSpec, index) => {
+            const showHeader =
+              observationSpec.role === "denominator" || numeratorSpecsCount > 1;
+            const statVarNames = getStatVarListString(
+              observationSpec.statVarDcids,
+              statVarNameMap
+            );
+            const title =
+              observationSpec.role === "denominator"
+                ? `${statVarNames} ${intl.formatMessage(
+                    chartComponentMessages.ApiDialogDenomHelperText
+                  )}`
+                : statVarNames;
+
+            return (
+              <div
+                key={index}
+                css={css`
                   display: block;
-                  margin: 0 0 ${theme.spacing.md}px 0;
-                }
-              `}
-            >
-              {showHeader && <h3>{title}</h3>}
-              <ApiCallTextArea value={apiCalls[index] || ""} />
-            </div>
-          );
-        })}
+                  width: 100%;
+                  && > h3 {
+                    ${theme.typography.family.text}
+                    ${theme.typography.text.lg}
+                    display: block;
+                    margin: 0 0 ${theme.spacing.md}px 0;
+                  }
+                `}
+              >
+                {showHeader && <h3>{title}</h3>}
+                <ApiCallTextArea value={apiContent[index] || ""} />
+              </div>
+            );
+          })
+        ) : (
+          <ApiCallTextArea value={apiContent as string} />
+        )}
       </DialogContent>
       <DialogActions>
         <Button variant="text" onClick={onClose}>
@@ -280,9 +369,10 @@ export function ApiDialog({
         {!loading && specs.length > 0 && (
           <CopyToClipboardButton valueToCopy={concatenatedEndpointCalls}>
             {intl.formatMessage(
-              specs.length === 1
-                ? chartComponentMessages.ApiDialogCopy
-                : chartComponentMessages.ApiDialogCopyAll
+              currentLanguageSpec.displayStyle === "multiple" &&
+                specs.length > 1
+                ? chartComponentMessages.ApiDialogCopyAll
+                : chartComponentMessages.ApiDialogCopy
             )}
           </CopyToClipboardButton>
         )}

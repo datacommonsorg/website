@@ -28,6 +28,8 @@ import {
   DEFAULT_API_ENDPOINT,
   DEFAULT_API_V2_ENDPOINT,
 } from "../../library/constants";
+import { intl } from "../i18n/i18n";
+import { chartComponentMessages } from "../i18n/i18n_chart_messages";
 import { StatVarFacetMap, StatVarSpec } from "./types";
 
 /*
@@ -283,7 +285,7 @@ function groupDenominator(
 }
 
 /**
- * Converts an ObservationSpec into a cURL command string for debugging API calls.
+ * Converts an ObservationSpec into a cURL command string.
  *
  * @param spec The observation specification to convert.
  * @param apiRoot The root URL for the Data Commons API.
@@ -348,6 +350,116 @@ export function observationSpecToCurl(
     `  "${apiUrl}" \\`,
     `  ${dataPayload}`,
   ].join("\n");
+}
+
+/**
+ An interface used internally by the observationSpecsToPythonScript function
+ to type the python payload.
+ */
+interface ApiPayloadPython {
+  select: string[];
+  date?: string;
+  variable: {
+    dcids: string[];
+  };
+  entity: {
+    dcids?: string[];
+    expression?: string;
+  };
+  filter?: Record<string, string[]>;
+}
+
+/**
+ * Converts a list of ObservationSpecs into a Python script.
+ * Note that unlike curl, all requests will be in the same script.
+ *
+ * @param specs A list of observation specifications to convert.
+ * @param statVarNameMap a lookup of stat var DCIDs to names
+ * @param apiRoot The root URL for the Data Commons API.
+ * @returns A formatted Python script string.
+ */
+export function observationSpecsToPythonScript(
+  specs: ObservationSpec[],
+  statVarNameMap: Record<string, string>,
+  apiRoot?: string
+): string {
+  const isCustomDc = isCustomDataCommons(apiRoot);
+  const apiUrl = getApiV2ObservationUrl(isCustomDc, apiRoot);
+
+  // the introduction of the script with shared imports, headers and variables
+
+  const headers = isCustomDc
+    ? `headers = {'Content-Type': 'application/json'}`
+    : `headers = {'Content-Type': 'application/json', 'X-API-Key': f'{api_key}'}`;
+
+  const apiKeyLines = isCustomDc
+    ? []
+    : [`api_key = "API_KEY" # Replace with your API key`, ""];
+
+  const introduction = [
+    "import requests",
+    "",
+    ...apiKeyLines,
+    `url = "${apiUrl}"`,
+    headers,
+  ];
+
+  // we add a request for each endpoint.
+
+  const apiCallBlocks = specs.map((spec, index) => {
+    const payload: ApiPayloadPython = {
+      select: ["entity", "variable", "date", "value", "facet"],
+      variable: { dcids: spec.statVarDcids },
+      entity: {},
+    };
+
+    if (spec.date) {
+      payload.date = spec.date;
+    }
+    if (spec.entityDcids?.length > 0) {
+      payload.entity = { dcids: spec.entityDcids };
+    } else if (spec.entityExpression) {
+      payload.entity = { expression: spec.entityExpression };
+    }
+    if (spec.filter?.facetIds?.length > 0) {
+      const filterObject = {};
+      filterObject["facet_ids"] = spec.filter.facetIds;
+      payload.filter = filterObject;
+    }
+
+    const payloadString = JSON.stringify(payload, null, 4);
+
+    // if we have more than one spec (endpoint) we have to suffix the relevant vars.
+    const suffix = specs.length > 1 ? `_${index + 1}` : "";
+
+    const statVarNames = spec.statVarDcids
+      .map((id) => statVarNameMap[id] || id)
+      .join(", ");
+    const title =
+      spec.role === "denominator"
+        ? `${statVarNames} ${intl.formatMessage(
+            chartComponentMessages.ApiDialogDenomHelperText
+          )}`
+        : statVarNames;
+
+    const endpointIntroComment =
+      specs.length > 1 && index > 0
+        ? [`# ${title}`]
+        : specs.length > 1
+        ? [`# ${title}`]
+        : [];
+
+    const callBlock = [
+      ...endpointIntroComment,
+      `payload${suffix} = ${payloadString}`,
+      `response${suffix} = requests.post(url, json=payload${suffix}, headers=headers)`,
+      `print(response${suffix}.json())`,
+    ];
+    return callBlock.join("\n");
+  });
+
+  // we combine the introduction with each of the call blocks into our final script.
+  return [introduction.join("\n"), ...apiCallBlocks].join("\n\n");
 }
 
 /**
