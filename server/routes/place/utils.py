@@ -974,7 +974,7 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   return place_cohort_member_dcids
 
 
-def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
+def fetch_overview_table_data(place_dcid: str, surfaceHeaderValue: str = None) -> List[OverviewTableDataRow]:
   """
   Fetches overview table data for the specified place.
   """
@@ -986,7 +986,7 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   ]
 
   # Fetch all observations for each variable
-  resp = dc.obs_point([place_dcid], variables, date="LATEST")
+  resp = dc.obs_point([place_dcid], variables, date="LATEST", surfaceHeaderValue=surfaceHeaderValue)
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation

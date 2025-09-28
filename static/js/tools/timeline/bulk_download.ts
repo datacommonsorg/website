@@ -57,6 +57,9 @@ function downloadBulkData(
             variables: statVars,
           },
           paramsSerializer: stringifyFn,
+          headers: {
+            "x-surface": "website",
+          },
         })
         .then((resp) => {
           if (resp.data && resp.data.data) {

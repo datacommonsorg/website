@@ -56,6 +56,7 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
               make_cache_key=lib_util.post_body_cache_key)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
+  surfaceHeaderValue = request.headers.get("x-surface")
   if request.method == 'POST':
     entities = request.json.get('entities')
     variables = request.json.get('variables')
@@ -68,7 +69,7 @@ def series():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return fetch.series_core(entities, variables, False, facet_ids)
+  return fetch.series_core(entities, variables, False, facet_ids, surfaceHeaderValue=surfaceHeaderValue)
 
 
 @bp.route('/all')
@@ -77,11 +78,12 @@ def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
   entities = _get_filtered_arg_list(request.args.getlist('entities'))
   variables = _get_filtered_arg_list(request.args.getlist('variables'))
+  surfaceHeaderValue = request.headers.get("x-surface")
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return fetch.series_core(entities, variables, True)
+  return fetch.series_core(entities, variables, True, surfaceHeaderValue=surfaceHeaderValue)
 
 
 @bp.route('/within')
@@ -105,7 +107,7 @@ def series_within():
     return 'error: must provide a `variables` field', 400
 
   facet_ids = _get_filtered_arg_list(request.args.getlist('facetIds'))
-
+  surfaceHeaderValue = request.headers.get("x-surface")
   # Make batched calls there are too many child places for server to handle
   # Mixer checks num_places * num_variables and stop processing if the number is
   # too large. So the batch_size takes into account the number of variables.
@@ -117,14 +119,14 @@ def series_within():
                                              child_type).get(parent_entity, [])
       merged_response = {}
       for batch in shared.divide_into_batches(child_places, batch_size):
-        new_response = fetch.series_core(batch, variables, False, facet_ids)
+        new_response = fetch.series_core(batch, variables, False, facet_ids, surfaceHeaderValue=surfaceHeaderValue)
         merged_response = shared.merge_responses(merged_response, new_response)
       return merged_response, 200
     except Exception as e:
       logging.error(e)
       return 'error: Error encountered when attempting to make batch calls', 400
   return fetch.series_within_core(parent_entity, child_type, variables, False,
-                                  facet_ids)
+                                  facet_ids, surfaceHeaderValue=surfaceHeaderValue)
 
 
 @bp.route('/within/all')
@@ -147,4 +149,5 @@ def series_within_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
 
-  return fetch.series_within_core(parent_entity, child_type, variables, True)
+  surfaceHeaderValue = request.headers.get("x-surface")
+  return fetch.series_within_core(parent_entity, child_type, variables, True, surfaceHeaderValue=surfaceHeaderValue)

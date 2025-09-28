@@ -292,7 +292,8 @@ def get_place_variable_count():
 @cache.memoize(timeout=TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
-  child_places = child_fetch(dcid)
+  surfaceHeaderValue = request.headers.get("x-surface")
+  child_places = child_fetch(dcid, surfaceHeaderValue)
   for place_type in child_places:
     child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
     child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
@@ -300,7 +301,7 @@ def child(dcid):
 
 
 @cache.memoize(timeout=TIMEOUT)
-def child_fetch(parent_dcid):
+def child_fetch(parent_dcid, surfaceHeaderValue = None):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',
                                              False)
@@ -327,7 +328,7 @@ def child_fetch(parent_dcid):
   pop = {}
   obs_response = fetch.point_core(wanted_dcids, [POPULATION_DCID],
                                   date='LATEST',
-                                  all_facets=False)
+                                  all_facets=False, surfaceHeaderValue=surfaceHeaderValue)
   for entity, points in obs_response['data'].get(POPULATION_DCID, {}).items():
     if points:
       pop[entity] = points.get('value')

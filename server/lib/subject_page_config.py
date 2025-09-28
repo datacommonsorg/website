@@ -247,7 +247,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
 def place_metadata(place_dcid,
                    get_child_places=True,
                    arg_place_type=None,
-                   arg_place_name=None) -> PlaceMetadata:
+                   arg_place_name=None, surfaceHeaderValue=None) -> PlaceMetadata:
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """
@@ -292,7 +292,7 @@ def place_metadata(place_dcid,
 
   filtered_child_places = {}
   if get_child_places:
-    child_places = place_api.child_fetch(place_dcid)
+    child_places = place_api.child_fetch(place_dcid, surfaceHeaderValue)
     for place_type in child_places:
       child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
       child_places[place_type] = child_places[place_type][:place_api.

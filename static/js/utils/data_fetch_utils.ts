@@ -134,12 +134,18 @@ async function selectFacet(
   apiRoot: string,
   entities: string[],
   variables: string[],
-  highlightFacet?: FacetMetadata
+  highlightFacet?: FacetMetadata,
+  surfaceHeaderValue?: string
 ): Promise<string[] | null> {
   if (!highlightFacet) {
     return [];
   }
-  const facetsResponse = await getFacets(apiRoot, entities, variables);
+  const facetsResponse = await getFacets(
+    apiRoot,
+    entities,
+    variables,
+    surfaceHeaderValue
+  );
   for (const svDcid of Object.keys(facetsResponse)) {
     const facets = facetsResponse[svDcid];
     for (const [facetId, f] of Object.entries(facets)) {
@@ -188,14 +194,14 @@ export function getPoint(
 ): Promise<PointApiResponse> {
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
-    : selectFacet(apiRoot, entities, variables, highlightFacet);
+    : selectFacet(
+        apiRoot,
+        entities,
+        variables,
+        highlightFacet,
+        surfaceHeaderValue
+      );
 
-  console.log(
-    "FACET PROMISE: ",
-    facetPromise.then((r) => {
-      console.log("then worked, ", r);
-    })
-  );
   return facetPromise.then((resolvedFacetIds) => {
     const params: Record<string, unknown> = { date, entities, variables };
     if (!_.isEmpty(resolvedFacetIds)) {
@@ -279,7 +285,13 @@ export function getSeries(
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
   return Promise.resolve(
-    selectFacet(apiRoot, entities, variables, highlightFacet)
+    selectFacet(
+      apiRoot,
+      entities,
+      variables,
+      highlightFacet,
+      surfaceHeaderValue
+    )
   ).then((resolvedFacetIds) => {
     if (!_.isEmpty(facetIds)) {
       params["facetIds"] = facetIds;

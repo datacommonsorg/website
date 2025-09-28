@@ -70,6 +70,9 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
           variables: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,
+        headers: {
+          "x-surface": "website",
+        },
       })
       .then((resp) => {
         if (_.isEmpty(resp.data.data[statVar.value.dcid])) {

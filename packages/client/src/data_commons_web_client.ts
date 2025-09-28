@@ -127,18 +127,25 @@ class DataCommonsWebClient {
    * @param params.variables list of variables to get data for
    * @param params.date date to get the data for
    */
-  async getObservationsPoint(params: {
-    date?: string;
-    entities: string[];
-    variables: string[];
-  }): Promise<PointApiResponse> {
+  async getObservationsPoint(
+    params: {
+      date?: string;
+      entities: string[];
+      variables: string[];
+    },
+    surfaceHeaderValue?: string
+  ): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
       date: params.date,
       entities: params.entities,
       variables: params.variables,
     });
     const url = `${this.apiRoot || ""}/api/observations/point?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        "x-surface": surfaceHeaderValue || "website",
+      },
+    });
     return (await response.json()) as PointApiResponse;
   }
 
@@ -152,23 +159,29 @@ class DataCommonsWebClient {
    * @param params.variables list of variables to get data for
    * @param params.date date to get the data for
    */
-  async getObservationsPointWithin(params: {
-    parentEntity: string;
-    childType: string;
-    variables: string[];
-    date?: string;
-  }): Promise<PointApiResponse> {
+  async getObservationsPointWithin(
+    params: {
+      parentEntity: string;
+      childType: string;
+      variables: string[];
+      date?: string;
+    },
+    surfaceHeaderValue?: string
+  ): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
       childType: params.childType,
       date: params.date,
       parentEntity: params.parentEntity,
       variables: params.variables,
     });
-    console.log("BAD CALL POINT");
     const url = `${
       this.apiRoot || ""
     }/api/observations/point/within?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        "x-surface": surfaceHeaderValue || "website",
+      },
+    });
     return (await response.json()) as PointApiResponse;
   }
 
@@ -177,16 +190,23 @@ class DataCommonsWebClient {
    * @param params.entities list of enitites to get data for
    * @param params.variables list of variables to get data for
    */
-  async getObservationsSeries(params: {
-    entities: string[];
-    variables: string[];
-  }): Promise<SeriesApiResponse> {
+  async getObservationsSeries(
+    params: {
+      entities: string[];
+      variables: string[];
+    },
+    surfaceHeaderValue?: string
+  ): Promise<SeriesApiResponse> {
     const queryString = toURLSearchParams({
       entities: params.entities,
       variables: params.variables,
     });
     const url = `${this.apiRoot || ""}/api/observations/series?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        "x-surface": surfaceHeaderValue || "website",
+      },
+    });
     return (await response.json()) as SeriesApiResponse;
   }
 
@@ -197,11 +217,14 @@ class DataCommonsWebClient {
    * @param params.childType place type to get the data for
    * @param params.variables variable dcids to get data for
    */
-  async getObservationsSeriesWithin(params: {
-    parentEntity: string;
-    childType: string;
-    variables: string[];
-  }): Promise<SeriesApiResponse> {
+  async getObservationsSeriesWithin(
+    params: {
+      parentEntity: string;
+      childType: string;
+      variables: string[];
+    },
+    surfaceHeaderValue?: string
+  ): Promise<SeriesApiResponse> {
     const queryString = toURLSearchParams({
       parentEntity: params.parentEntity,
       childType: params.childType,
@@ -210,7 +233,11 @@ class DataCommonsWebClient {
     const url = `${
       this.apiRoot || ""
     }/api/observations/series/within?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        "x-surface": surfaceHeaderValue || "website",
+      },
+    });
     return (await response.json()) as SeriesApiResponse;
   }
 

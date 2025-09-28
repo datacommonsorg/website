@@ -322,13 +322,13 @@ def _datestr_to_date(datestr: str) -> datetime.date:
   raise ValueError(f'Unable to parse date {datestr}')
 
 
-def _compute_place_to_denom(sv: str, places: List[str]):
+def _compute_place_to_denom(sv: str, places: List[str], surfaceHeaderValue=None):
   place2denom = {}
   if sv != constants.DEFAULT_DENOMINATOR:
     denom_data = fetch.point_core(entities=places,
                                   variables=[constants.DEFAULT_DENOMINATOR],
                                   date='LATEST',
-                                  all_facets=False)
+                                  all_facets=False, surfaceHeaderValue=surfaceHeaderValue)
     for _, sv_data in denom_data['data'].items():
       for place, point in sv_data.items():
         if 'value' in point:
@@ -401,12 +401,13 @@ def filter_and_rank_places(
     child_type: types.ContainedInPlaceType,
     sv: str,
     value_filter: types.QuantityClassificationAttributes = None,
-    date: str = '') -> List[types.Place]:
+    date: str = '',
+    surfaceHeaderValue: str = None) -> List[types.Place]:
   if not date:
     # When there's no date specified, use latest date
     date = 'LATEST'
   api_resp = fetch.point_within_core(parent_place.dcid, child_type.value, [sv],
-                                     date, False)
+                                     date, False, surfaceHeaderValue)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
   for child_place, value_data in sv_data.items():
@@ -438,10 +439,11 @@ def filter_and_rank_places_per_capita(
     parent_place: types.Place,
     child_type: types.ContainedInPlaceType,
     sv: str,
-    filter: types.QuantityClassificationAttributes = None) -> List[types.Place]:
+    filter: types.QuantityClassificationAttributes = None,
+    surfaceHeaderValue = None) -> List[types.Place]:
   api_resp = fetch.point_within_core(parent_place.dcid, child_type.value,
                                      [sv, constants.DEFAULT_DENOMINATOR],
-                                     'LATEST', False)
+                                     'LATEST', False, surfaceHeaderValue=surfaceHeaderValue)
 
   p2denom = {}
   for p, d in api_resp.get('data', {}).get(constants.DEFAULT_DENOMINATOR,

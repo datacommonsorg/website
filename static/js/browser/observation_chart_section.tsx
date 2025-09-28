@@ -134,6 +134,9 @@ export class ObservationChartSection extends React.Component<
           variables: [this.props.statVarId],
         },
         paramsSerializer: stringifyFn,
+        headers: {
+          "x-surface": "website",
+        },
       })
       .then((resp) => {
         removeSpinner(this.containerId);
