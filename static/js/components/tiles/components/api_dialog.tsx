@@ -17,8 +17,16 @@
 /**
  * A dialog component to display the API calls for a particular
  * set of observations (usually sourced from a chart tile). The dialog will
- * take a list of specs and a stat var name lookup, and render a curl
- * implementation of each API call.
+ * take a list of specs and a stat var name lookup, and render examples
+ * of the API call in the languages given by the language specs.
+ *
+ * To add a new language, perform the following steps:
+ * - Create the generator function in `observation_specs`. This might be
+ *   called: `observationSpecsToPythonScript`. This function takes either
+ *   a single or multiple observation specs and renders the language
+ *   specific endpoints or scripts.
+ * - Add the language to the LANGUAGE_SPEC array. See instructions in that
+ *   section for information on how to create that object.
  *
  * Note that this can be extended later to allow for other methods of
  * calling the API (a raw GET or Python and other languages).
@@ -67,13 +75,13 @@ type MultiSpecGenerator = (
 
   The `displayStyle` determines how a given language behaves when we have multiple endpoints.
 
-  `single`: All endpoints are rendered together in a single block of code. This is suitable 
+  `single`: All endpoints are rendered together in a single block of code. This is suitable
       for languages like python or R, where we present a script that can contain multiple endpoints.
   `multiple` Each endpoint is shown in its own section and can be copied independently. This is
       suitable for cURL or raw GET requests, where each call stands on its own.
 
   The generator is the function that takes the observation spec and transforms it into an example
-  for the target language. 
+  for the target language.
     `single` languages require a generator with a `SingleSpecGenerator` shape.
     `multiple` languages require a generator with a `MultipleSpecGenerator` shape.
  */
