@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:18.4.0-slim
+FROM node:22.18.0-slim
 
 # GCB should read files from /resources.
 WORKDIR /resources
