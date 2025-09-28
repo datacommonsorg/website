@@ -94,13 +94,18 @@ def point():
     return fetch_highest_coverage(entities=entities,
                                   variables=variables,
                                   all_facets=False,
-                                  facet_ids=facet_id, surfaceHeaderValue=surfaceHeaderValue)
+                                  facet_ids=facet_id,
+                                  surfaceHeaderValue=surfaceHeaderValue)
 
   # If facet_ids are provided, we need to filter the data after fetching
   # the point data. This is because the fetch.point_core function does not
   # support filtering by facet_ids directly.
   all_facets = True if facet_id else False
-  point_data = fetch.point_core(entities, variables, date, all_facets, surfaceHeaderValue=surfaceHeaderValue)
+  point_data = fetch.point_core(entities,
+                                variables,
+                                date,
+                                all_facets,
+                                surfaceHeaderValue=surfaceHeaderValue)
 
   if not facet_id:
     return point_data
@@ -127,7 +132,11 @@ def point_all():
                                   all_facets=True,
                                   surfaceHeaderValue=surfaceHeaderValue)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_core(entities, variables, date, True, surfaceHeaderValue=surfaceHeaderValue)
+  return fetch.point_core(entities,
+                          variables,
+                          date,
+                          True,
+                          surfaceHeaderValue=surfaceHeaderValue)
 
 
 @bp.route('/within')
@@ -157,11 +166,16 @@ def point_within():
                                   child_type=child_type,
                                   variables=variables,
                                   all_facets=False,
-                                  facet_ids=facet_ids, 
+                                  facet_ids=facet_ids,
                                   surfaceHeaderValue=surfaceHeaderValue)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_within_core(parent_entity, child_type, variables, date,
-                                 False, facet_ids, surfaceHeaderValue=surfaceHeaderValue)
+  return fetch.point_within_core(parent_entity,
+                                 child_type,
+                                 variables,
+                                 date,
+                                 False,
+                                 facet_ids,
+                                 surfaceHeaderValue=surfaceHeaderValue)
 
 
 @bp.route('/within/all')
@@ -192,5 +206,9 @@ def point_within_all():
                                   all_facets=True,
                                   surfaceHeaderValue=surfaceHeaderValue)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_within_core(parent_entity, child_type, variables, date,
-                                 True, surfaceHeaderValue=surfaceHeaderValue)
+  return fetch.point_within_core(parent_entity,
+                                 child_type,
+                                 variables,
+                                 date,
+                                 True,
+                                 surfaceHeaderValue=surfaceHeaderValue)

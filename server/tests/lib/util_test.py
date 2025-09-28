@@ -1481,7 +1481,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
     lib_util.fetch_highest_coverage(variables=variables,
                                     all_facets=False,
                                     entities=entities)
-    mock_point_core.assert_called_with(entities, variables, '2021', False)
+    mock_point_core.assert_called_with(entities, variables, '2021', False, None)
 
   @patch('server.lib.util.datetime.date')
   @patch('server.lib.fetch.point_core')
@@ -1507,7 +1507,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
     lib_util.fetch_highest_coverage(variables=variables,
                                     all_facets=False,
                                     entities=entities)
-    mock_point_core.assert_called_with(entities, variables, '2020', False)
+    mock_point_core.assert_called_with(entities, variables, '2020', False, None)
 
   @patch('server.lib.fetch.point_within_core')
   @patch('server.services.datacommons.get_series_dates')
@@ -1626,7 +1626,8 @@ class TestFetchHighestCoverage(unittest.TestCase):
                                     child_type=child_type)
     # In this case, 2020 (195 observations) has higher coverage than 2021 and 2022 (155 observations)
     mock_point_within_core.assert_called_with(parent_entity, child_type,
-                                              variables, "2020", False, None)
+                                              variables, "2020", False, None,
+                                              None)
 
   @patch('server.lib.fetch.point_within_core')
   @patch('server.services.datacommons.get_series_dates')
@@ -1745,7 +1746,8 @@ class TestFetchHighestCoverage(unittest.TestCase):
                                     child_type=child_type)
     # In this case 2019 has the highest overall coverage (155 observations for who/Var1 + 175 observations for who/Var2)
     mock_point_within_core.assert_called_with(parent_entity, child_type,
-                                              variables, "2019", False, None)
+                                              variables, "2019", False, None,
+                                              None)
 
   @patch('server.lib.fetch.point_within_core')
   @patch('server.services.datacommons.get_series_dates')

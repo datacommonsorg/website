@@ -35,8 +35,12 @@ _MAX_PLACES_TO_RETURN = 7
 #
 # Computes ranked list of places after applying the filter
 #
-def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType, rank: int, surfaceHeaderValue: str = None) -> bool:
+def populate(state: PopulateState,
+             chart_vars: ChartVars,
+             places: List[Place],
+             chart_origin: ChartOriginType,
+             rank: int,
+             surfaceHeaderValue: str = None) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('filter-with-single-var_failed_cb_events', 1)
     return False
@@ -77,7 +81,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       child_type=state.place_type,
       sv=sv,
       value_filter=state.quantity,
-      date=date, surfaceHeaderValue=surfaceHeaderValue)
+      date=date,
+      surfaceHeaderValue=surfaceHeaderValue)
 
   if not ranked_children:
     state.uttr.counters.err('filter-with-single-var_emptyresults', 1)

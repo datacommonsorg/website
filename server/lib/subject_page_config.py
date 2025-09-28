@@ -247,7 +247,8 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
 def place_metadata(place_dcid,
                    get_child_places=True,
                    arg_place_type=None,
-                   arg_place_name=None, surfaceHeaderValue=None) -> PlaceMetadata:
+                   arg_place_name=None,
+                   surfaceHeaderValue=None) -> PlaceMetadata:
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """

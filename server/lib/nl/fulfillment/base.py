@@ -253,11 +253,13 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
       ordered_existing_svs = [v for v in state.uttr.svs if v in existing_svs]
-      found |= _add_charts_for_extended_svs(state=state,
-                                            places=places,
-                                            svs=ordered_existing_svs,
-                                            num_charts=num_charts,
-                                            max_num_charts=max_num_charts, surfaceHeaderValue=surfaceHeaderValue)
+      found |= _add_charts_for_extended_svs(
+          state=state,
+          places=places,
+          svs=ordered_existing_svs,
+          num_charts=num_charts,
+          max_num_charts=max_num_charts,
+          surfaceHeaderValue=surfaceHeaderValue)
 
     # For a given handler, if we found any charts at all, we're good.
     if found:
@@ -291,7 +293,8 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
 
 def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
                                  svs: List[str], num_charts: int,
-                                 max_num_charts: int, surfaceHeaderValue: str) -> bool:
+                                 max_num_charts: int,
+                                 surfaceHeaderValue: str) -> bool:
   # Map of main SV -> peer SVs
   # Perform SV extension calls.
   # PERF-TODO: This is expensive! (multiple seconds)

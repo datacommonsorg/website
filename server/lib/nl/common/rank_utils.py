@@ -322,13 +322,16 @@ def _datestr_to_date(datestr: str) -> datetime.date:
   raise ValueError(f'Unable to parse date {datestr}')
 
 
-def _compute_place_to_denom(sv: str, places: List[str], surfaceHeaderValue=None):
+def _compute_place_to_denom(sv: str,
+                            places: List[str],
+                            surfaceHeaderValue=None):
   place2denom = {}
   if sv != constants.DEFAULT_DENOMINATOR:
     denom_data = fetch.point_core(entities=places,
                                   variables=[constants.DEFAULT_DENOMINATOR],
                                   date='LATEST',
-                                  all_facets=False, surfaceHeaderValue=surfaceHeaderValue)
+                                  all_facets=False,
+                                  surfaceHeaderValue=surfaceHeaderValue)
     for _, sv_data in denom_data['data'].items():
       for place, point in sv_data.items():
         if 'value' in point:
@@ -440,10 +443,13 @@ def filter_and_rank_places_per_capita(
     child_type: types.ContainedInPlaceType,
     sv: str,
     filter: types.QuantityClassificationAttributes = None,
-    surfaceHeaderValue = None) -> List[types.Place]:
-  api_resp = fetch.point_within_core(parent_place.dcid, child_type.value,
+    surfaceHeaderValue=None) -> List[types.Place]:
+  api_resp = fetch.point_within_core(parent_place.dcid,
+                                     child_type.value,
                                      [sv, constants.DEFAULT_DENOMINATOR],
-                                     'LATEST', False, surfaceHeaderValue=surfaceHeaderValue)
+                                     'LATEST',
+                                     False,
+                                     surfaceHeaderValue=surfaceHeaderValue)
 
   p2denom = {}
   for p, d in api_resp.get('data', {}).get(constants.DEFAULT_DENOMINATOR,

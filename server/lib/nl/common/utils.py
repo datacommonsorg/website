@@ -271,8 +271,7 @@ def get_contained_in_latest_date(
       date_range)
   for place in places:
     place_key = get_place_key(place, child_type)
-    series_dates = dc.get_series_dates(place, child_type, svs,
-                                       surfaceHeaderValue)
+    series_dates = dc.get_series_dates(place, child_type, svs)
     for dates_by_variable in series_dates.get('datesByVariable', []):
       sv = dates_by_variable.get('variable', '')
       if sv not in sv_place_latest_date:

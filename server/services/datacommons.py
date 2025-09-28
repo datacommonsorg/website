@@ -104,7 +104,7 @@ def post_wrapper(url,
   return response.json()
 
 
-def obs_point(entities, variables, date="LATEST", surfaceHeaderValue = None):
+def obs_point(entities, variables, date="LATEST", surfaceHeaderValue=None):
   """Gets the observation point for the given entities of the given variable.
 
     Args:
@@ -115,8 +115,7 @@ def obs_point(entities, variables, date="LATEST", surfaceHeaderValue = None):
     """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["date", "value", "variable", "entity"],
           "entity": {
               "dcids": sorted(entities)
@@ -125,16 +124,15 @@ def obs_point(entities, variables, date="LATEST", surfaceHeaderValue = None):
               "dcids": sorted(variables)
           },
           "date": date,
-      },
-      surfaceHeaderValue
-  )
+      }, surfaceHeaderValue)
 
 
 def obs_point_within(parent_entity,
                      child_type,
                      variables,
                      date="LATEST",
-                     facet_ids=None, surfaceHeaderValue = None):
+                     facet_ids=None,
+                     surfaceHeaderValue=None):
   """Gets the statistical variable values for child places of a certain place
       type contained in a parent place at a given date.
 
@@ -192,7 +190,11 @@ def obs_series(entities, variables, facet_ids=None, surfaceHeaderValue=None):
   return post(url, req, surfaceHeaderValue)
 
 
-def obs_series_within(parent_entity, child_type, variables, facet_ids=None, surfaceHeaderValue=None):
+def obs_series_within(parent_entity,
+                      child_type,
+                      variables,
+                      facet_ids=None,
+                      surfaceHeaderValue=None):
   """Gets the statistical variable series for child places of a certain place
       type contained in a parent place.
 
@@ -218,7 +220,7 @@ def obs_series_within(parent_entity, child_type, variables, facet_ids=None, surf
   return post(url, req, surfaceHeaderValue)
 
 
-def series_facet(entities, variables, surfaceHeaderValue = None):
+def series_facet(entities, variables, surfaceHeaderValue=None):
   """Gets facet of time series for the given entities and variables.
 
     Args:
@@ -238,14 +240,17 @@ def series_facet(entities, variables, surfaceHeaderValue = None):
       }, surfaceHeaderValue)
 
 
-def point_within_facet(parent_entity, child_type, variables, date, surfaceHeaderValue=None):
+def point_within_facet(parent_entity,
+                       child_type,
+                       variables,
+                       date,
+                       surfaceHeaderValue=None):
   """Gets facet of for child places of a certain place type contained in a
     parent place at a given date.
     """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["variable", "entity", "facet"],
           "entity": {
               "expression":
@@ -256,9 +261,7 @@ def point_within_facet(parent_entity, child_type, variables, date, surfaceHeader
               "dcids": sorted(variables)
           },
           "date": date,
-      },
-      surfaceHeaderValue
-  )
+      }, surfaceHeaderValue)
 
 
 def v2observation(select, entity, variable, surfaceHeaderValue=None):
@@ -276,15 +279,11 @@ def v2observation(select, entity, variable, surfaceHeaderValue=None):
   if "dcids" in variable:
     variable["dcids"] = sorted([x for x in variable["dcids"] if x])
   url = get_service_url("/v2/observation")
-  return post(
-      url,
-      {
-          "select": select,
-          "entity": entity,
-          "variable": variable,
-      },
-      surfaceHeaderValue
-  )
+  return post(url, {
+      "select": select,
+      "entity": entity,
+      "variable": variable,
+  }, surfaceHeaderValue)
 
 
 def v2node(nodes, prop):
@@ -400,9 +399,7 @@ def get_variable_ancestors(dcid: str):
   return get(url).get("ancestors", [])
 
 
-def get_series_dates(parent_entity,
-                     child_type,
-                     variables):
+def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
   url = get_service_url("/v1/bulk/observation-dates/linked")
   return post(

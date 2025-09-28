@@ -162,10 +162,17 @@ def mock_dc_api_data(stat_var: str,
   val = create_mock_data(stat_var, places, data, include_facets, single_facet)
   val2 = create_mock_data(stat_var, places, data, include_facets, single_facet)
 
-  def mock_obs_point_side_effect(entities, variables, date='LATEST'):
+  def mock_obs_point_side_effect(entities,
+                                 variables,
+                                 date='LATEST',
+                                 surfaceHeaderValue=None):
     return val
 
-  def mock_obs_point_within_side_effect(entities, variables, date='LATEST'):
+  def mock_obs_point_within_side_effect(parent_entity,
+                                        child_type,
+                                        variables,
+                                        date='LATEST',
+                                        surfaceHeaderValue=None):
     return val2
 
   if dc_obs_point:

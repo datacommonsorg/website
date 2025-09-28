@@ -103,7 +103,10 @@ def populate(state: PopulateState,
                                   sv_place_latest_date=sv_place_latest_date)
 
 
-def _compute_answer_places(state: PopulateState, place: List[Place], sv: str, surfaceHeaderValue=None):
+def _compute_answer_places(state: PopulateState,
+                           place: List[Place],
+                           sv: str,
+                           surfaceHeaderValue=None):
   if classifications_of_type_from_utterance(state.uttr,
                                             ClassificationType.PER_CAPITA):
     if os.environ.get('FLASK_ENV') == 'test':
@@ -111,12 +114,14 @@ def _compute_answer_places(state: PopulateState, place: List[Place], sv: str, su
     else:
       nopc_vars = current_app.config['NOPC_VARS']
     if variable.is_percapita_relevant(sv, nopc_vars):
-      ranked_places = filter_and_rank_places_per_capita(place, state.place_type,
-                                                        sv, surfaceHeaderValue=surfaceHeaderValue)
+      ranked_places = filter_and_rank_places_per_capita(
+          place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
     else:
-      ranked_places = filter_and_rank_places(place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
+      ranked_places = filter_and_rank_places(
+          place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
   else:
-    ranked_places = filter_and_rank_places(place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
+    ranked_places = filter_and_rank_places(
+        place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
 
   if state.ranking_types[0] == RankingType.LOW:
     # Reverse the order.

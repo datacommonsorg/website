@@ -414,7 +414,7 @@ class TestChoroplethData(unittest.TestCase):
         }
     }
 
-    def num_data_side_effect(*args):
+    def num_data_side_effect(*args, **kwargs):
       if args[0] == test_dcid and args[1] == display_level:
         return num_api_resp
       else:
@@ -518,7 +518,7 @@ class TestChoroplethData(unittest.TestCase):
         }
     }
 
-    def num_data_side_effect(*args):
+    def num_data_side_effect(*args, **kwargs):
       if args[0] == test_dcid and args[1] == display_level:
         return num_api_resp
       else:
@@ -547,7 +547,7 @@ class TestChoroplethData(unittest.TestCase):
         }
     }
 
-    def denom_data_side_effect(*args):
+    def denom_data_side_effect(*args, **kwargs):
       if args[0] == geos and args[1] == [sv3]:
         return denom_api_resp
       else:

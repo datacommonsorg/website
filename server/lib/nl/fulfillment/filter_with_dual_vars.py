@@ -117,7 +117,8 @@ def populate(state: PopulateState,
       child_type=state.place_type,
       sv=sv,
       value_filter=state.quantity,
-      date=date, surfaceHeaderValue=surfaceHeaderValue)
+      date=date,
+      surfaceHeaderValue=surfaceHeaderValue)
 
   if not ranked_children:
     state.uttr.counters.err('filter-with-dual-vars_emptyresults', 1)
