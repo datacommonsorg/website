@@ -59,7 +59,7 @@ export const DataSources = ({
     <Tabs
       mode="routed"
       basePath="/data"
-      alignment="center"
+      alignment="left"
       tabs={dataSourceTabs}
     />
   );
