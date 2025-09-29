@@ -47,6 +47,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
+import { extractFlagsToPropagate } from "../../shared/util";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
@@ -68,7 +69,6 @@ import {
   isFulfillDataValid,
 } from "./explore_utils";
 import { SuccessResult } from "./success_result";
-import { extractFlagsToPropagate } from "../../shared/util";
 
 enum LoadingStatus {
   LOADING = "loading",
@@ -639,4 +639,3 @@ const generateArgsParams = (argsMap: Map<string, string>): string => {
 
   return args.join("&");
 };
-
