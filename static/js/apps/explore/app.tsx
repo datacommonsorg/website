@@ -374,7 +374,6 @@ export function App(props: AppProps): ReactElement {
         urlHashParams.idx,
         urlHashParams.disableExploreMore,
         urlHashParams.detector,
-        urlHashParams.disableFeature,
         urlHashParams.testMode,
         urlHashParams.i18n,
         client,
@@ -564,7 +563,6 @@ const fetchDetectAndFufillData = async (
   idx: string,
   disableExploreMore: string,
   detector: string,
-  disableFeature: string,
   testMode: string,
   i18n: string,
   client: string,
@@ -578,7 +576,6 @@ const fetchDetectAndFufillData = async (
 ): Promise<unknown> => {
   const fieldsMap = {
     [URL_HASH_PARAMS.DETECTOR]: detector,
-    [URL_HASH_PARAMS.DISABLE_FEATURE]: disableFeature,
     [URL_HASH_PARAMS.TEST_MODE]: testMode,
     [URL_HASH_PARAMS.I18N]: i18n,
     [URL_HASH_PARAMS.CLIENT]: client,
@@ -599,10 +596,14 @@ const fetchDetectAndFufillData = async (
   }
 
   const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
+
+  const searchParams = new URLSearchParams(window.location.search);
+  const searchArgs =
+    searchParams.size > 0 ? `&${generateSearchParams(searchParams)}` : "";
   try {
     const startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(
-      `/api/explore/detect-and-fulfill?q=${query}${args}`,
+      `/api/explore/detect-and-fulfill?q=${query}${args}${searchArgs}`,
       {
         contextHistory: savedContext,
         dc,
@@ -634,4 +635,14 @@ const generateArgsParams = (argsMap: Map<string, string>): string => {
   argsMap.forEach((value, key) => args.push(`${key}=${value}`));
 
   return args.join("&");
+};
+
+const generateSearchParams = (searchParams: URLSearchParams): string => {
+  const searchArgs: string[] = [];
+  for (const [field, value] of searchParams.entries()) {
+    if (value) {
+      searchArgs.push(`${field}=${value}`);
+    }
+  }
+  return searchArgs.join("&");
 };
