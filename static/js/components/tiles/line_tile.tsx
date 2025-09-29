@@ -354,7 +354,6 @@ export const fetchData = async (
     }
     facetToVariable[facetId].push(spec.statVar);
     if (spec.denom) {
-      // facetToVariable[EMPTY_FACET_ID_KEY].push(spec.denom);
       denoms.push(spec.denom);
     }
   }
@@ -525,44 +524,23 @@ function rawToChart(
   // Assume all stat var specs will use the same unit and scaling.
   const { unit, scaling } = getStatFormat(props.statVarSpec[0], null, raw);
   for (const spec of props.statVarSpec) {
-    console.log("spec: ", spec);
     // Do not modify the React state. Create a clone.
     const entityToSeries = raw.data[spec.statVar];
     for (const placeDcid in entityToSeries) {
       const series = raw.data[spec.statVar][placeDcid];
       let obsList = series.series;
       if (spec.denom) {
-        console.log("facet: ", series.facet);
         let denomInfo = denomsByFacet[series.facet];
-        // let denomSeries =
-        //   denomInfo?.data?.[spec.denom]?.[placeDcid] ??
-        //   defaultDenomData?.data?.[spec.denom]?.[placeDcid];
-
         // if the placeDcid is not available in the facet-specific denom, use best available
         if (denomsByFacet[series.facet]?.data?.[spec.denom]?.[placeDcid]) {
-          console.log(
-            "using data! For facet, place: ",
-            series.facet,
-            placeDcid
-          );
           denomInfo = denomsByFacet[series.facet];
         } else {
-          console.log(
-            "using default for facet/place ",
-            series.facet,
-            placeDcid
-          );
-          console.log(
-            "denomsByFacet[series.facet]: ",
-            denomsByFacet[series.facet]
-          );
-          console.log("defaultDenomData: ", defaultDenomData);
           denomInfo = defaultDenomData;
         }
         const denomSeries = denomInfo?.data?.[spec.denom]?.[placeDcid];
         obsList = computeRatio(obsList, denomSeries.series);
         if (denomSeries?.facet) {
-          // if denom facet is never used in numerator, we still want to get the source
+          // if denom facet is never used in numerator, we need to get the source from the denom info
           const facetInfo =
             raw.facets[denomSeries.facet] ??
             denomInfo?.facets[denomSeries.facet];

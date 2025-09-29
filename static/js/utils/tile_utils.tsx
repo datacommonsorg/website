@@ -37,12 +37,7 @@ import { getCappedStatVarDate } from "../shared/util";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
-import {
-  getSeries,
-  getSeriesWithin,
-  selectFacetsForDenominator,
-  selectFacetsWithinForDenominator,
-} from "./data_fetch_utils";
+import { getSeries, getSeriesWithin } from "./data_fetch_utils";
 import { getUnit } from "./stat_metadata_utils";
 import { addPerCapitaToTitle } from "./subject_page_utils";
 
@@ -387,7 +382,7 @@ export function getStatFormat(
 
   let overrideConfig = null;
   if (statMetadata) {
-    const isComplexUnit = !!statMetadata.unit?.match(/.*[.+ [0-9]+]/);
+    const isComplexUnit = !!statMetadata.unit?.match(/\[.+ [0-9]+]/);
     // If complex unit, use the unit part to get the override config, otherwise
     // use the whole unit to get the override config.
     const unitStr = isComplexUnit
@@ -447,50 +442,18 @@ export async function getDenomResp(
   parentPlace?: string,
   placeType?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
-  console.log("Reaching getDenomResp");
   // fetch the series for each facet
-  // const denomPromises: Record<string, Promise<SeriesApiResponse>> = {};
   const denomPromises = [];
   const facetIds =
     !_.isEmpty(denoms) && statResp.facets ? Object.keys(statResp.facets) : [];
 
   for (const facetId of facetIds) {
-    const matchingFacetIds = !_.isEmpty(facetIds)
-      ? await Promise.resolve(facetIds)
-      : useSeriesWithin
-      ? await selectFacetsWithinForDenominator(
-          apiRoot,
-          parentPlace,
-          placeType,
-          denoms,
-          null,
-          statResp.facets[facetId]
-        )
-      : await selectFacetsForDenominator(
-          apiRoot,
-          allPlaces,
-          denoms,
-          statResp.facets[facetId]
-        );
-
-    console.log("all matching facet Ids: ", matchingFacetIds);
-
     denomPromises.push(
-      // pass in empty facetId list because we want to use the highlight facet
       useSeriesWithin
-        ? getSeriesWithin(
-            apiRoot,
-            parentPlace,
-            placeType,
-            denoms,
-            matchingFacetIds
-          )
-        : getSeries(apiRoot, allPlaces, denoms, matchingFacetIds)
+        ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
+        : getSeries(apiRoot, allPlaces, denoms, [facetId])
     );
   }
-
-  console.log("denomPromises: ", denomPromises);
-  console.log("facetIds: ", facetIds);
 
   // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
   const defaultDenomPromise = _.isEmpty(denoms)
@@ -506,7 +469,6 @@ export async function getDenomResp(
     defaultDenomPromise,
   ]);
 
-  console.log("denom results len: ", denomResults.length, [...denomResults]);
   // The last element of denomResps is defaultDenomPromise
   const defaultDenomData = denomResults.pop();
 
@@ -514,12 +476,9 @@ export async function getDenomResp(
     // should only have one facet per resp because we pass in exactly one
     const facetId = facetIds[i];
     if (facetId) {
-      console.log("setting denomsByFacet[", facetId, "] to: ", resp);
       denomsByFacet[facetId] = resp;
     }
   });
-
-  console.log("denoms by facet: ", denomsByFacet);
 
   return [denomsByFacet, defaultDenomData];
 }
@@ -531,10 +490,13 @@ export async function getDenomResp(
  * the denom value that comes from the same facet as the data point. Otherwise, the best
  * general denom option is used.
  * @param svSpec the stat var spec of the data point to calculate per capita for
+ * @param denomData map facet ID -> population data. If the facet used in the stat var spec
+ * has denominator data, we use information from that facet.
  * @param placeDcid place of the data point
  * @param mainStatDate date of the data point
- * @param denomData population data to use for the calculation
  * @param facetUsed facet used for the data point
+ * @param defaultDenomData If there isn't denominator data available for the facet used in
+ * svSpec, we use the default data that is fetched with no particular facet
  */
 export function getDenomInfo(
   svSpec: StatVarSpec,
@@ -547,21 +509,19 @@ export function getDenomInfo(
   // find the matching denominator data if it exists, for the facet used in the numerator
   let matchingDenomData: SeriesApiResponse;
   matchingDenomData = denomData[facetUsed];
-  // default to defaultDenomData if no facet-specific denomData is found for a given entity
   let placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
+
+  // default to defaultDenomData if no facet-specific denomData is found for a given entity
   if (
     !matchingDenomData ||
     !(svSpec.denom in matchingDenomData.data) ||
     !placeDenomData ||
     _.isEmpty(placeDenomData.series)
   ) {
-    console.log("using default data for place ID: ", placeDcid);
     matchingDenomData = defaultDenomData;
-  } else {
-    console.log("Found matching data! for facet: ", facetUsed);
   }
 
-  // if there really is no denominator data, return null
+  // if is no denominator data at all, return null
   if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
     return null;
   }
@@ -608,7 +568,7 @@ export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
 export function clearContainer(container: HTMLDivElement): void {
   // Remove contents of the container
   const containerSelection = d3.select(container);
-  containerSelection.selectAll("* ").remove();
+  containerSelection.selectAll("*").remove();
 }
 
 /**

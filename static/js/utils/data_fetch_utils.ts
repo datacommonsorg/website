@@ -140,7 +140,6 @@ async function selectFacet(
     return [];
   }
   const facetsResponse = await getFacets(apiRoot, entities, variables);
-  console.log("all facets in selectFacet: ", facetsResponse);
   for (const svDcid of Object.keys(facetsResponse)) {
     const facets = facetsResponse[svDcid];
     for (const [facetId, f] of Object.entries(facets)) {
@@ -162,95 +161,6 @@ async function selectFacet(
   }
 
   return [];
-}
-
-/**
- * Gets the data from /api/observations/point endpoint
- * @param apiRoot api root
- * @param entities list of entitites to get data for
- * @param variables list of variables to get data for
- * @param highlightFacet a single facet (given by the facet keys) that is
- *        used to indicate the facet to be used in this fetch.
- * @returns The Facet ID matching the highlight facet
- *          or null if no matching facet is found.
- */
-export async function selectFacetsForDenominator(
-  apiRoot: string,
-  entities: string[],
-  variables: string[],
-  highlightFacet?: FacetMetadata
-): Promise<string[] | null> {
-  if (!highlightFacet) {
-    return [];
-  }
-  const facetsResponse = await getFacets(apiRoot, entities, variables);
-  console.log("all facets in selectFacet: ", facetsResponse);
-  const allValidFacets = [];
-  for (const svDcid of Object.keys(facetsResponse)) {
-    const facets = facetsResponse[svDcid];
-    for (const [facetId, f] of Object.entries(facets)) {
-      if (
-        !_.isEmpty(highlightFacet.importName) &&
-        highlightFacet.importName !== f.importName
-      ) {
-        continue;
-      }
-      allValidFacets.push(facetId);
-    }
-  }
-
-  return allValidFacets;
-}
-
-/**
- * Fetches all facets that match the given variables /api/facets/within,
- * and match the given highlightFacet.
- * Has more lax requirements, meaning we get all facets with the same import name, but
- * not measurement method or other facet attributes.
- * @param apiRoot api root
- * @param parentEntity parent place to get available facets for
- * @param childType place type to get available facets for
- * @param variables list of variables to get data for
- * @param highlightFacet a single facet (given by the facet keys) that is
- *        used to indicate the facet to be used in this fetch.
- * @returns The Facet ID matching the highlight facet
- *          or null if no matching facet is found.
- */
-export async function selectFacetsWithinForDenominator(
-  apiRoot: string,
-  parentEntity: string,
-  childType: string,
-  variables: string[],
-  date: string,
-  highlightFacet?: FacetMetadata
-): Promise<string[] | null> {
-  if (!highlightFacet) {
-    return [];
-  }
-  const facetsResponse = await getFacetsWithin(
-    apiRoot,
-    parentEntity,
-    childType,
-    variables,
-    date ?? "LATEST"
-  );
-
-  const allValidFacets = [];
-  console.log("all facets to select from: ", facetsResponse);
-  for (const svDcid of Object.keys(facetsResponse)) {
-    const facets = facetsResponse[svDcid];
-    for (const [facetId, f] of Object.entries(facets)) {
-      if (
-        !_.isEmpty(highlightFacet.importName) &&
-        highlightFacet.importName !== f.importName
-      ) {
-        continue;
-      }
-      allValidFacets.push(facetId);
-    }
-  }
-
-  return allValidFacets;
 }
 
 /**
@@ -306,8 +216,6 @@ export function getPoint(
  * @param facetIds an array of facet ids that if given, will be used in
  *        the fetch. This is an alternative way to specify the facets to
  *        complement highlightFacet, and will take priority if both are given.
- * @param highlightFacet a single facet (given by the facet keys) that is
- *        used to indicate the facet to be used in this fetch.
  */
 export function getPointWithin(
   apiRoot: string,
@@ -316,33 +224,20 @@ export function getPointWithin(
   variables: string[],
   date: string,
   alignedVariables?: string[][],
-  facetIds?: string[],
-  highlightFacet?: FacetMetadata
+  facetIds?: string[]
 ): Promise<PointApiResponse> {
-  const facetPromise = !_.isEmpty(facetIds)
-    ? Promise.resolve(facetIds)
-    : selectFacetsWithinForDenominator(
-        apiRoot,
-        parentEntity,
-        childType,
-        variables,
-        date,
-        highlightFacet
-      );
-  return facetPromise.then((resolvedFacetIds) => {
-    const params = { childType, date, parentEntity, variables };
-    if (!_.isEmpty(resolvedFacetIds)) {
-      params["facetIds"] = resolvedFacetIds;
-    }
-    return axios
-      .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
-        params,
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => {
-        return getProcessedPointResponse(resp.data, alignedVariables);
-      });
-  });
+  const params = { childType, date, parentEntity, variables };
+  if (facetIds) {
+    params["facetIds"] = facetIds;
+  }
+  return axios
+    .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
+      params,
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => {
+      return getProcessedPointResponse(resp.data, alignedVariables);
+    });
 }
 
 /**
@@ -373,12 +268,6 @@ export function getSeries(
       params["facetIds"] = resolvedFacetIds;
     }
 
-    console.log(
-      "resolvedFacetIs in getseries: ",
-      highlightFacet,
-      resolvedFacetIds
-    );
-
     return axios
       .post(`${apiRoot || ""}/api/observations/series`, params)
       .then((resp) => resp.data);
@@ -400,36 +289,18 @@ export function getSeriesWithin(
   parentEntity: string,
   childType: string,
   variables: string[],
-  facetIds?: string[],
-  highlightFacet?: FacetMetadata
+  facetIds?: string[]
 ): Promise<SeriesApiResponse> {
-  const facetPromise = !_.isEmpty(facetIds)
-    ? Promise.resolve(facetIds)
-    : selectFacetsWithinForDenominator(
-        apiRoot,
-        parentEntity,
-        childType,
-        variables,
-        null,
-        highlightFacet
-      );
-  return facetPromise.then((resolvedFacetIds) => {
-    console.log(
-      "resolvedFacetIs in getseriesWithin: ",
-      highlightFacet,
-      resolvedFacetIds
-    );
-    const params = { parentEntity, childType, variables };
-    if (!_.isEmpty(resolvedFacetIds)) {
-      params["facetIds"] = resolvedFacetIds;
-    }
-    return axios
-      .get(`${apiRoot || ""}/api/observations/series/within`, {
-        params,
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => resp.data);
-  });
+  const params = { parentEntity, childType, variables };
+  if (facetIds) {
+    params["facetIds"] = facetIds;
+  }
+  return axios
+    .get(`${apiRoot || ""}/api/observations/series/within`, {
+      params,
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => resp.data);
 }
 
 export interface FacetResponse {

@@ -578,7 +578,8 @@ function rawToChart(
         dataPoint.value /= denomInfo.value;
         sources.add(denomInfo.source);
         const denomStatVar = spec.denom;
-        // using facet-specific info unless it doesn't exist, in that case we use the default best-available denom data
+        // using facet-specific info unless it doesn't exist, in that case we use the
+        // default denom data with no facet specified
         const denomSeries =
           denomsByFacet[stat.facet]?.data?.[denomStatVar]?.[placeDcid] ??
           defaultDenomData?.data?.[denomStatVar]?.[placeDcid];

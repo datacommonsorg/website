@@ -85,7 +85,7 @@ function getPlaceAxisChartData(
   }
   let popValue = denomValue;
   let popDate = denomDate;
-  if (populationData) {
+  if (!_.isNull(populationData)) {
     const popSeries = populationData.data[DEFAULT_POPULATION_DCID]
       ? populationData.data[DEFAULT_POPULATION_DCID][placeDcid]
       : null;
