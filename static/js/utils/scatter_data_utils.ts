@@ -51,6 +51,9 @@ function getPlaceAxisChartData(
   scaling?: number
 ): PlaceAxisChartData {
   const obs = placePointStat[placeDcid];
+  if (_.isEmpty(obs)) {
+    return null;
+  }
   // finding the denom data that matches the facet of the current observation
   const populationData = denomsByFacet?.[obs.facet]
     ? denomsByFacet[obs.facet]
@@ -59,9 +62,6 @@ function getPlaceAxisChartData(
     denom && populationData.data[denom] && populationData.data[denom][placeDcid]
       ? populationData.data[denom][placeDcid]
       : null;
-  if (_.isEmpty(obs)) {
-    return null;
-  }
   if (denom && (_.isEmpty(denomSeries) || _.isEmpty(denomSeries.series))) {
     return null;
   }
