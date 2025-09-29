@@ -23,7 +23,6 @@ import queryString from "query-string";
 import React, { ReactElement, useState } from "react";
 
 import { Button } from "../../components/elements/button/button";
-import theme from "../../theme/theme";
 import {
   MultiSVCandidate,
   QueryResult,
