@@ -434,6 +434,7 @@ export const fetchData = async (
     props.enclosedPlaceType ? props.place.dcid : "",
     props.enclosedPlaceType
   );
+  console.log("denom data: ", denomsByFacet, defaultDenomData);
   return rawToChart(
     resp,
     props,
@@ -532,7 +533,10 @@ function rawToChart(
       if (spec.denom) {
         let denomInfo = denomsByFacet[series.facet];
         // if the placeDcid is not available in the facet-specific denom, use best available
-        if (denomsByFacet[series.facet]?.data?.[spec.denom]?.[placeDcid]) {
+        if (
+          denomsByFacet[series.facet]?.data?.[spec.denom]?.[placeDcid]?.series
+            .length > 0
+        ) {
           denomInfo = denomsByFacet[series.facet];
         } else {
           denomInfo = defaultDenomData;
