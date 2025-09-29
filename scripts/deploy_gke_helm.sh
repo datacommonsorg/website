@@ -86,6 +86,7 @@ function get_gke_credentials() {
 function deploy_mixer() {
   cd $ROOT
   helm upgrade --install dc-mixer mixer/deploy/helm_charts/mixer \
+  --namespace website \
   --atomic \
   --timeout 10m \
   --force  \
@@ -137,6 +138,7 @@ function deploy_website() {
     fi
   done
   helm upgrade --install dc-website deploy/helm_charts/dc_website \
+  --namespace website \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
   --debug \
   --atomic \

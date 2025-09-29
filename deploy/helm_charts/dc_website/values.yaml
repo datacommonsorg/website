@@ -63,7 +63,7 @@ mixer:
   image:
     project: "datcom-ci"
     pullPolicy: Always
-    tag:
+    tag: ""
 
     hostProject:
     serviceName:
@@ -125,6 +125,8 @@ serviceGroups:
 ###############################################################################
 nl:
   enabled: false
+  image:
+    tag: ""
   memory: "2G"
   workers: 1
   catalog: {}
@@ -148,6 +150,8 @@ nodejs:
   # When enabling the NodeJS server for the first time for a project, need to
   # update the cluster config by following instructions here: https://github.com/datacommonsorg/website/blob/master/gke/README.md
   enabled: false
+  image:
+    tag: ""
   env: "gke"
   replicas:
   apiRoot:

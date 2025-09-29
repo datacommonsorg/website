@@ -14,18 +14,6 @@ data:
     {{- end }}
   {{- end }}
 
-{{- if .Values.nl.enabled }}
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: nl-config
-  namespace: {{ .Values.namespace.name }}
-data:
-  catalog.yaml: {{ required "NL catalog file is required" .Values.nl.catalog | quote }}
-  env.yaml: {{ toYaml .Values.nl.env | quote }}
-{{- end }}
-
 {{- if .Values.website.redis.enabled }}
 ---
 kind: ConfigMap
@@ -34,7 +22,8 @@ metadata:
   name: redis-config
   namespace: {{ .Values.namespace.name }}
 data:
-  redis.json: {{ required "Redis config file is required" .Values.website.redis.configFile | quote }}
+  redis.json: |-
+{{ required "Redis config file is required" .Values.website.redis.configFile | indent 4 }}
 {{- end }}
 
 

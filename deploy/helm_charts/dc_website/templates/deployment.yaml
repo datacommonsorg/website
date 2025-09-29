@@ -1,3 +1,4 @@
+
 # Website App Kubernetes Deployment config. (https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 # This is to be extended by the dev/autopush/staging/prod overlay.
 # The deployment contains Flask web server container , gRPC mixer container and ESP container that transcodes grpc to JSON.
@@ -61,7 +62,7 @@ spec:
             name: blocklist-svg
       containers:
         - name: website
-          image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-website:{{ .Values.website.image.tag }}"
+          image: "gcr.io/datcom-ci/datacommons-website{{- if .Values.website.image.tag }}:{{ .Values.website.image.tag }}{{- end }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:
@@ -111,7 +112,7 @@ spec:
               value: "dummy"
         {{- if .Values.nl.enabled }}
         - name: nl
-          image: gcr.io/datcom-ci/datacommons-nl:{{ .Values.website.image.tag }}
+          image: "gcr.io/datcom-ci/datacommons-nl{{- if .Values.nl.image.tag }}:{{ .Values.nl.image.tag }}{{- end }}"
           resources:
             limits:
               memory: {{ .Values.nl.memory }}
@@ -188,7 +189,7 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name }}
       containers:
         - name: nodejs
-          image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-nodejs:{{ .Values.website.image.tag }}"
+          image: "gcr.io/datcom-ci/datacommons-nodejs{{- if .Values.nodejs.image.tag }}:{{ .Values.nodejs.image.tag }}{{- end }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:

@@ -21,9 +21,12 @@ from flask import current_app
 import json5
 import requests
 
+from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
+from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
-_GEMINI_PRO_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent"
+_GEMINI_2_5_FLASH_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+_GEMINI_1_5_PRO_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent"
 _API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
@@ -61,8 +64,8 @@ _GEMINI_REQ_DATA = {
 _SKIP_BEGIN_CHARS = ['`', '*']
 
 
-def detect_with_geminipro(query: str, history: List[List[str]],
-                          ctr: counters.Counters) -> Dict:
+def detect_with_gemini(query: str, history: List[List[str]],
+                       ctr: counters.Counters) -> Dict:
   req_data = _GEMINI_REQ_DATA.copy()
 
   text = current_app.config['LLM_PROMPT_TEXT'].gemini_pro + '\n\n'
@@ -87,7 +90,9 @@ def detect_with_geminipro(query: str, history: List[List[str]],
   req = json.dumps(req_data)
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
-  r = requests.post(f'{_GEMINI_PRO_URL_BASE}?key={api_key}',
+  model_url_base = _GEMINI_2_5_FLASH_URL_BASE if is_feature_enabled(
+      ENABLE_GEMINI_2_5_FLASH_FLAG) else _GEMINI_1_5_PRO_URL_BASE
+  r = requests.post(f'{model_url_base}?key={api_key}',
                     data=req,
                     headers=_API_HEADER)
   resp = r.json()

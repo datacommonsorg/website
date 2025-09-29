@@ -18,6 +18,19 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
+    "name": "enable_gemini_2_5_flash",
+    "enabled": true,
+    "owner": "shixiao",
+    "description": "Enabling Gemini 2.5 Flash for NL detection.",
+    "rollout_percentage": 50
+  },
+  {
+    "name": "enable_stat_var_autocomplete",
+    "enabled": false,
+    "owner": "gmechali",
+    "description": "Enable stat var autocompletion in the NL Search bar"
+  },
+  {
     "name": "explore_result_header",
     "enabled": true,
     "owner": "nick-next",
@@ -70,12 +83,6 @@
     "enabled": false,
     "owner": "juliawu",
     "description": "Enables standardized visualization tool UI for the /tool/map, /tool/scatter, and /tool/timeline pages"
-  },
-  {
-    "name": "enable_stat_var_autocomplete",
-    "enabled": false,
-    "owner": "gmechali",
-    "description": "Enable stat var autocompletion in the NL Search bar"
   },
   {
     "name": "vai_for_statvar_search",
