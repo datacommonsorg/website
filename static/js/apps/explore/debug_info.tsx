@@ -18,13 +18,11 @@
  * Debug info for a single query for the NL interface
  */
 
-import { css, ThemeProvider } from "@emotion/react";
 import _ from "lodash";
 import queryString from "query-string";
 import React, { ReactElement, useState } from "react";
 
 import { Button } from "../../components/elements/button/button";
-import theme from "../../theme/theme";
 import {
   MultiSVCandidate,
   QueryResult,
@@ -462,18 +460,14 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
                   {JSON.stringify(debugInfo.queryDetectionDebugLogs, null, 2)}
                 </pre>
               </div>
-              <ThemeProvider theme={theme}>
+              <div className="show-more">
                 <Button
-                  css={css`
-                    margin-bottom: ${theme.spacing.md}px;
-                  `}
                   variant="flat"
                   onClick={(): void => setIsCollapsed(!isCollapsed)}
                 >
                   {isCollapsed ? "Show More" : "Show Less"}
                 </Button>
-              </ThemeProvider>
-
+              </div>
               {!isCollapsed && (
                 <>
                   <div className="block">
