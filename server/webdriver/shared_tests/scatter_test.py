@@ -19,8 +19,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
-from server.webdriver.base_utils import wait_elem
 from server.webdriver.base_utils import LONG_TIMEOUT
+from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
 # TODO(juliawu): Remove feature flags once new UI is rolled out to production
