@@ -257,12 +257,10 @@ def _get_max_valid_date_idx(obs_dates: List[Dict[str, any]], start_date: str,
 # for this date and within _MAX_DATES_FOR_EXISTENCE dates of the date range) to
 # use as the latest date for the children of that place.
 # Returns a map of sv -> place key (place + child type) -> latest date.
-def get_contained_in_latest_date(
-    places: List[str],
-    child_type: types.ContainedInPlaceType,
-    svs: List[str],
-    date_range: types.Date,
-    surfaceHeaderValue: str = None) -> Sv2Place2Date:
+def get_contained_in_latest_date(places: List[str],
+                                 child_type: types.ContainedInPlaceType,
+                                 svs: List[str],
+                                 date_range: types.Date) -> Sv2Place2Date:
   sv_place_latest_date = {}
   # This method only gets the date for children of a place
   if not date_range or not child_type:

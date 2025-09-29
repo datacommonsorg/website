@@ -408,7 +408,6 @@ def choropleth_data(dcid):
       }
   """
   cc = request.json.get('spec', None)
-  surfaceHeaderValue = request.headers.get("x-surface")
   if not cc:
     return Response(json.dumps({}), 200, mimetype='application/json')
   stat_vars, denoms = shared.get_stat_vars([cc])
@@ -420,13 +419,8 @@ def choropleth_data(dcid):
   if not stat_vars or not geos:
     return Response(json.dumps({}), 200, mimetype='application/json')
   # Get data for all the stat vars for every place we will need and process the data
-  numerator_resp = fetch.point_within_core(
-      display_dcid,
-      display_level,
-      list(stat_vars),
-      'LATEST',
-      False,
-      surfaceHeaderValue=surfaceHeaderValue)
+  numerator_resp = fetch.point_within_core(display_dcid, display_level,
+                                           list(stat_vars), 'LATEST', False)
   denominator_resp = {}
   if denoms:
     denominator_resp = fetch.series_core(list(geos), list(denoms), False)
