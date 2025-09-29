@@ -17,14 +17,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import LONG_TIMEOUT
 import server.webdriver.shared as shared
 
 SCATTER_URL = '/tools/visualization#visType=scatter'
 URL_HASH_1 = '&place=geoId/06&placeType=County&sv=%7B"dcid"%3A"Count_Person_NoHealthInsurance"%7D___%7B"dcid"%3A"Count_Person_Female"%7D'
-
-# Scatter plots can take extra long to load
-# This is a custom, longer timeout to use for charts we know are slow
-LONG_TIMEOUT = 120  # seconds
 
 
 class VisScatterTestMixin():
