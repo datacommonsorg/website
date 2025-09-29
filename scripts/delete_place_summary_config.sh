@@ -33,7 +33,7 @@ CLUSTER_NAME=$CLUSTER_PREFIX-$LOCATION
 
 gcloud container clusters get-credentials $CLUSTER_NAME --region=$LOCATION --project=$PROJECT_ID
 
-# Use delete then create pattern because `kubectl apply` has memory limits
+# Delete legacy place summary config maps.
 kubectl delete configmap place-summary-config-country -n website --ignore-not-found
 kubectl delete configmap place-summary-config-geoid-0-2 -n website --ignore-not-found
 kubectl delete configmap place-summary-config-geoid-3-5 -n website --ignore-not-found
