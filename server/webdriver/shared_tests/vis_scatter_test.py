@@ -60,7 +60,8 @@ class VisScatterTestMixin():
     self.driver.get(self.url_ + SCATTER_URL + URL_HASH_1)
 
     # Wait until the chart has loaded.
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert place name is correct.
     place_name_chip = self.driver.find_element(
@@ -180,7 +181,8 @@ class VisScatterTestMixin():
     shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Assert chart is correct
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.scatter-chart .chart-headers h4')
     self.assertIn("median age of population ", chart_title.text.lower())
@@ -203,7 +205,7 @@ class VisScatterTestMixin():
 
     # Assert chart loads
     # This chart can be slow to load, so we use extra wait time
-    WebDriverWait(self.driver, LONG_TIMEOUT).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver, timeout_seconds=LONG_TIMEOUT)
     circles = find_elems(self.driver,
                          by=By.CSS_SELECTOR,
                          value='#scatterplot circle')

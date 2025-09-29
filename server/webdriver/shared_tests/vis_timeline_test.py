@@ -76,7 +76,8 @@ class VisTimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
 
     # Wait until the chart has loaded
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert place name is correct
     place_name_chips = self.driver.find_elements(
@@ -156,7 +157,8 @@ class VisTimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_2)
 
     # Wait until the chart has loaded
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Wait for the chart timeline container element
     chart_timeline = wait_elem(self.driver,
@@ -202,7 +204,8 @@ class VisTimelineTestMixin():
     shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Assert chart is correct
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
     self.assertEqual(len(charts), 2)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')

@@ -100,20 +100,17 @@ def select_source(driver, source_name, sv_dcid):
 
 def charts_rendered(driver):
   """
-  Wait asynchronously for charts or web components to show up
+  Custom expected condition to check that a chart or web component has rendered
   """
-  web_component_element_present = EC.any_of(*[
-      EC.presence_of_element_located((By.TAG_NAME, tag_name))
-      for tag_name in WEB_COMPONENT_TAG_NAMES
-  ])
-  chart_element_present = EC.presence_of_element_located(
-      (By.CLASS_NAME, ASYNC_ELEMENT_HOLDER_CLASS))
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.any_of(chart_element_present, web_component_element_present))
-
-  # Ensure chart tiles were rendered properly
+  # Attempt to find charts or web components
   chart_containers = driver.find_elements(By.CLASS_NAME,
                                           ASYNC_ELEMENT_HOLDER_CLASS)
+  web_component_containers = driver.find_elements(
+      By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
+  if not chart_containers and not web_component_containers:
+    # No charts found, return False
+    return False
+  # Ensure chart tiles were rendered properly
   for c in chart_containers:
     try:
       c.find_element(By.CLASS_NAME, ASYNC_ELEMENT_CLASS)
@@ -121,13 +118,18 @@ def charts_rendered(driver):
       return False
 
   # Ensure web components have an "id" attribute
-  web_component_containers = driver.find_elements(
-      By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
   for wc in list(web_component_containers):
     dom_id = wc.get_attribute("id")
     if not dom_id:
       return False
   return True
+
+
+def wait_for_charts_to_render(driver, timeout_seconds: float = TIMEOUT):
+  """
+  Wait for charts or web components to show up.
+  """
+  WebDriverWait(driver, timeout_seconds).until(charts_rendered)
 
 
 def safe_url_open(url):

@@ -141,7 +141,8 @@ class MapTestMixin():
 
     # Wait for chart to load
     shared.wait_for_loading(self.driver)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert chart title is correct
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
@@ -174,7 +175,8 @@ class MapTestMixin():
 
     # Wait for chart to load
     shared.wait_for_loading(self.driver)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
     wait_elem(self.driver, By.TAG_NAME, 'path')
 
     # Assert chart loads
@@ -242,7 +244,8 @@ class StandardizedMapTestMixin():
 
     # Wait for chart to load
     shared.wait_for_loading(self.driver)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert chart is correct.
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
