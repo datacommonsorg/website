@@ -19,10 +19,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.base_utils import find_elem
 import server.webdriver.shared as shared
+from server.webdriver.shared_tests.timeline_test import \
+    StandardizedTimelineTestMixin
 from server.webdriver.shared_tests.timeline_test import TimelineTestMixin
 
 
-class TestTimeline(TimelineTestMixin, BaseDcWebdriverTest):
+class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
+                   BaseDcWebdriverTest):
   """Class to test scatter page. Tests come from TimelineTestMixin."""
 
   # TODO(nick-next): Move to shared_tests once metadata_modal feature flag is dropped
@@ -98,7 +101,10 @@ class TestTimeline(TimelineTestMixin, BaseDcWebdriverTest):
 
     # Wait until the dialog is visible and populated with content
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, '.dialog-content h3')))
+        EC.visibility_of_element_located((
+            By.XPATH,
+            "//div[contains(@class, 'dialog-content')]//h3[contains(text(), 'Total population')]"
+        )))
 
     # Search for "Total population" text in dialog-content h3 elements
     dialog_content = find_elem(self.driver,

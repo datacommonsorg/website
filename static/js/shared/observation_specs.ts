@@ -23,7 +23,11 @@
  * hydrated into other formats.
  */
 
-import { CUSTOM_DC_API_PATH, DEFAULT_API_ROOT } from "./constants";
+import {
+  CUSTOM_DC_API_PATH,
+  DEFAULT_API_ENDPOINT,
+  DEFAULT_API_V2_ENDPOINT,
+} from "../../library/constants";
 import { StatVarFacetMap, StatVarSpec } from "./types";
 
 /*
@@ -70,12 +74,59 @@ export interface ObservationSpecOptions {
 }
 
 /**
+ * Determines if the given API endpoint points to a custom Data Commons instance.
+ * @param endpoint
+ * @returns True if the given endpoint is standard (not custom), otherwise false
+ */
+function isStandardDCEndpoint(endpoint: string): boolean {
+  function normalizeEndpoint(url: string): string {
+    return url.replace(/\/+$/, "").toLowerCase();
+  }
+
+  const standardEndpoints = [DEFAULT_API_ENDPOINT, DEFAULT_API_V2_ENDPOINT].map(
+    normalizeEndpoint
+  );
+  return standardEndpoints.includes(normalizeEndpoint(endpoint));
+}
+
+/**
  * Determines if the given API root points to a custom Data Commons instance.
  * @param apiRoot The root URL for the Data Commons API.
  * @returns True if the apiRoot is for a custom DC, false otherwise.
  */
 export function isCustomDataCommons(apiRoot?: string): boolean {
-  return apiRoot && apiRoot !== DEFAULT_API_ROOT;
+  if (apiRoot !== undefined) {
+    // We are in a Web Component context. It's custom if the apiRoot is not a standard default endpoint.
+    return !isStandardDCEndpoint(apiRoot);
+  } else {
+    // We are in the standard context. If isCustomDC exists and is set to zero, we are not a custom DC.
+    // We have to check this way because custom DCs may not have this flag set, but primary DC always will.
+    return globalThis.isCustomDC !== 0;
+  }
+}
+
+/**
+ * Builds the API V2 Observation url
+ * @param isCustomDc A boolean indicating whether we are in a custom DC
+ * @param apiRoot The root URL for the Data Commons API.
+ * @returns The full path to the endpoint.
+ */
+function getApiV2ObservationUrl(
+  isCustomDc: boolean,
+  apiRoot: string | undefined
+): string {
+  if (isCustomDc) {
+    if (apiRoot) {
+      // If it is a custom DC and an apiRoot exists, apiRoot is the base
+      return new URL(`${CUSTOM_DC_API_PATH}/v2/observation`, apiRoot).href;
+    } else {
+      // Otherwise use the current origin as the base.
+      return `${window.location.origin}${CUSTOM_DC_API_PATH}/v2/observation`;
+    }
+  } else {
+    // If it is a standard DC instance, use the default endpoint as the base.
+    return `${DEFAULT_API_V2_ENDPOINT}/v2/observation`;
+  }
 }
 
 /**
@@ -244,9 +295,7 @@ export function observationSpecToCurl(
 ): string {
   const isCustomDc = isCustomDataCommons(apiRoot);
 
-  const apiUrl = isCustomDc
-    ? new URL(`${CUSTOM_DC_API_PATH}/v2/observation`, apiRoot).href
-    : `${DEFAULT_API_ROOT}/v2/observation`;
+  const apiUrl = getApiV2ObservationUrl(isCustomDc, apiRoot);
 
   const authHeader = isCustomDc ? [] : [`  -H "X-API-Key: \${API_KEY}" \\`];
 

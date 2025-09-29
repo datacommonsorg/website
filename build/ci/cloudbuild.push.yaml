@@ -69,6 +69,21 @@ steps:
         docker push gcr.io/datcom-ci/datacommons-nl:latest
     waitFor: ["-"]
 
+  # - id: push-datacommons-script-runner
+  #   name: gcr.io/cloud-builders/docker
+  #   entrypoint: "bash"
+  #   args:
+  #     - -c
+  #     - |
+  #       set -e
+  #       docker build -f tools/script_runner/Dockerfile \
+  #         -t gcr.io/datcom-ci/datacommons-script-runner:$SHORT_SHA \
+  #         -t gcr.io/datcom-ci/datacommons-script-runner:latest \
+  #         .
+  #       docker push gcr.io/datcom-ci/datacommons-script-runner:$SHORT_SHA
+  #       docker push gcr.io/datcom-ci/datacommons-script-runner:latest
+  #   waitFor: ["-"]
+
   - id: push-nodejs-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -96,7 +111,7 @@ steps:
           -t gcr.io/datcom-ci/website-cron-testing:latest \
           .
         docker push gcr.io/datcom-ci/website-cron-testing:$SHORT_SHA
-        docker push gcr.io/datcom-ci/website-cron-testing:latest\
+        docker push gcr.io/datcom-ci/website-cron-testing:latest
     waitFor: ["-"]
 
   # Trigger website autopush deployment by bumping the website autopush version
@@ -119,6 +134,17 @@ steps:
         git add website/autopush/commit_hash.txt
         git commit -m "Deployed website to autopush at commit https://github.com/datacommonsorg/website/commit/$SHORT_SHA"
         git push origin master
+
+  # Publish a message to Pub/Sub to notify that the website image has been pushed.
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - pubsub
+      - topics
+      - publish
+      - website-image-pushed
+      - --project=datcom-ci
+      - --message=${SHORT_SHA}
     waitFor: ["push-web-server", "push-nl-server", "push-nodejs-server"]
 
 timeout: 3600s
