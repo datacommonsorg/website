@@ -68,6 +68,7 @@ import {
   isFulfillDataValid,
 } from "./explore_utils";
 import { SuccessResult } from "./success_result";
+import { extractFlagsToPropagate } from "../../shared/util";
 
 enum LoadingStatus {
   LOADING = "loading",
@@ -588,22 +589,24 @@ const fetchDetectAndFufillData = async (
     [URL_HASH_PARAMS.MAX_TOPIC_SVS]: maxTopicSvs,
     [URL_HASH_PARAMS.MAX_CHARTS]: maxCharts,
   };
-  const argsMap = new Map<string, string>();
+  const queryURL = new URLSearchParams();
+  queryURL.set("q", query);
+  const urlParams = extractFlagsToPropagate(window.location.href);
+  for (const [field, value] of urlParams.entries()) {
+    if (value) {
+      queryURL.set(field, value);
+    }
+  }
   for (const [field, value] of Object.entries(fieldsMap)) {
     if (value) {
-      argsMap.set(field, value);
+      queryURL.set(field, value);
     }
   }
 
-  const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
-
-  const searchParams = new URLSearchParams(window.location.search);
-  const searchArgs =
-    searchParams.size > 0 ? `&${generateSearchParams(searchParams)}` : "";
   try {
     const startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(
-      `/api/explore/detect-and-fulfill?q=${query}${args}${searchArgs}`,
+      `/api/explore/detect-and-fulfill?${queryURL.toString()}`,
       {
         contextHistory: savedContext,
         dc,
@@ -637,12 +640,3 @@ const generateArgsParams = (argsMap: Map<string, string>): string => {
   return args.join("&");
 };
 
-const generateSearchParams = (searchParams: URLSearchParams): string => {
-  const searchArgs: string[] = [];
-  for (const [field, value] of searchParams.entries()) {
-    if (value) {
-      searchArgs.push(`${field}=${value}`);
-    }
-  }
-  return searchArgs.join("&");
-};
