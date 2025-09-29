@@ -442,8 +442,9 @@ def filter_and_rank_places_per_capita(
     parent_place: types.Place,
     child_type: types.ContainedInPlaceType,
     sv: str,
-    filter: types.QuantityClassificationAttributes = None,
-    surfaceHeaderValue=None) -> List[types.Place]:
+    surfaceHeaderValue=None,
+    filter: types.QuantityClassificationAttributes = None
+    ) -> List[types.Place]:
   api_resp = fetch.point_within_core(parent_place.dcid,
                                      child_type.value,
                                      [sv, constants.DEFAULT_DENOMINATOR],
