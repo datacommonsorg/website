@@ -18,7 +18,6 @@
  * Component for rendering a place overview tile.
  */
 
-import React from "react";
 import { RawIntlProvider } from "react-intl";
 
 import { intl } from "../../i18n/i18n";

@@ -59,26 +59,6 @@ spec:
         - name: blocklist-svg
           configMap:
             name: blocklist-svg
-        {{- if .Values.website.placeSummary.enabled }}
-        - name: place-summary-config-country
-          configMap:
-            name: place-summary-config-country
-        - name: place-summary-config-geoid-0-2
-          configMap:
-            name: place-summary-config-geoid-0-2
-        - name: place-summary-config-geoid-3-5
-          configMap:
-            name: place-summary-config-geoid-3-5
-        - name: place-summary-config-geoid-6-9
-          configMap:
-            name: place-summary-config-geoid-6-9
-        - name: place-summary-config-wikidataid
-          configMap:
-            name: place-summary-config-wikidataid
-        - name: place-summary-config-others
-          configMap:
-            name: place-summary-config-others
-        {{- end }}
       containers:
         - name: website
           image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-website:{{ .Values.website.image.tag }}"
@@ -112,20 +92,6 @@ spec:
             {{- end }}
             - name: blocklist-svg
               mountPath: /datacommons/svg
-            {{- if .Values.website.placeSummary.enabled }}
-            - name: place-summary-config-country
-              mountPath: /datacommons/place-summary/country_
-            - name: place-summary-config-geoid-0-2
-              mountPath: /datacommons/place-summary/geoId_0-2
-            - name: place-summary-config-geoid-3-5
-              mountPath: /datacommons/place-summary/geoId_3-5
-            - name: place-summary-config-geoid-6-9
-              mountPath: /datacommons/place-summary/geoId_6-9
-            - name: place-summary-config-wikidataid
-              mountPath: /datacommons/place-summary/wikidataId_
-            - name: place-summary-config-others
-              mountPath: /datacommons/place-summary/others
-            {{- end }}
           env:
             - name: FLASK_ENV
               value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
