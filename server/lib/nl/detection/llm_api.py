@@ -24,11 +24,13 @@ import json5
 import requests
 
 from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
+from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_LITE_FLAG
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
-_GEMINI_2_5_FLASH_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
-_GEMINI_1_5_PRO_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent"
+_GEMINI_2_5_FLASH = 'gemini-2.5-flash'
+_GEMINI_2_5_FLASH_LITE = 'gemini-2.5-flash-lite'
+_GEMINI_1_5_PRO = 'gemini-1.5-pro'
 _API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
@@ -92,9 +94,11 @@ def detect_with_gemini(query: str, history: List[List[str]],
   req = json.dumps(req_data)
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
-  model_url_base = _GEMINI_2_5_FLASH_URL_BASE if is_feature_enabled(
-      ENABLE_GEMINI_2_5_FLASH_FLAG,
-      request=request) else _GEMINI_1_5_PRO_URL_BASE
+  model_name, err = extract_model_from_feature_flag()
+  if err:
+    ctr.err('failed_llm_api_model_flag', err)
+    return {}
+  model_url_base = _extract_url_from_model(model_name)
   logging.info(f'Gemini model URL for LLM API: {model_url_base}')
   r = requests.post(f'{model_url_base}?key={api_key}',
                     data=req,
@@ -190,3 +194,23 @@ def _extract_answer(resp: str) -> str:
         return '{"UNSAFE": true}'
 
   return '\n'.join(ans)
+
+def extract_model_from_feature_flag() -> tuple[str, str]:
+  """Returns the gemini model url based on the feature flag."""
+  gemini_2_5_flash_enabled = is_feature_enabled(
+      ENABLE_GEMINI_2_5_FLASH_FLAG,
+      request=request)
+  gemini_2_5_flash_lite_enabled = is_feature_enabled(
+      ENABLE_GEMINI_2_5_FLASH_LITE_FLAG,
+      request=request)
+  if gemini_2_5_flash_enabled and gemini_2_5_flash_lite_enabled:
+    return '', 'error: enable at most one model for LLM.'
+  if gemini_2_5_flash_lite_enabled:
+    return _GEMINI_2_5_FLASH_LITE, ''
+  elif gemini_2_5_flash_enabled:
+    return _GEMINI_2_5_FLASH, ''
+  else:
+    return _GEMINI_1_5_PRO, ''
+
+def _extract_url_from_model(model: str) -> str:
+  return f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent'
