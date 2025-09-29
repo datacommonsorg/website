@@ -66,7 +66,7 @@ website and mixer changes.
   ```
 
   **On macOS machines with a M1 chip**, run the following command to install additional dependencies.
-  * See [this](https://stackoverflow.com/a/71353060) for more details.
+  * These are required for the [node-canvas package](https://github.com/Automattic/node-canvas?tab=readme-ov-file#compiling).
 
   ```bash
   brew install pkg-config cairo pango libpng jpeg giflib librsvg
