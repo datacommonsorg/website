@@ -55,8 +55,14 @@ export function isFeatureOverrideDisabled(featureName: string): boolean {
  * Returns the feature flags for the current environment.
  * @returns
  */
-export function getFeatureFlags(): Record<string, boolean> {
-  return globalThis.FEATURE_FLAGS as Record<string, boolean>;
+export function getFeatureFlags(): Record<
+  string,
+  { enabled: boolean; rollout_percentage?: number }
+> {
+  return globalThis.FEATURE_FLAGS as Record<
+    string,
+    { enabled: boolean; rollout_percentage?: number }
+  >;
 }
 
 /**
@@ -90,7 +96,14 @@ export function isFeatureEnabled(featureName: string): boolean {
   // Check if the feature flag is enabled in server config
   const featureFlags = getFeatureFlags();
   if (featureFlags && featureName in featureFlags) {
-    return featureFlags[featureName];
+    const feature = featureFlags[featureName];
+    if (!feature.enabled) {
+      return false;
+    }
+    if (feature.rollout_percentage !== undefined) {
+      return Math.random() * 100 < feature.rollout_percentage;
+    }
+    return true;
   }
   return false;
 }

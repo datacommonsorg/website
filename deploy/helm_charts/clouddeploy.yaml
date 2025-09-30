@@ -21,11 +21,11 @@ serialPipeline:
   stages:
     - targetId: website-dev
       profiles: [website-dev]
-      deployParameters:
-      - values:
-        website.githash: ${WEBSITE_GITHASH}
-        mixer.githash: ${MIXER_GITHASH}
-        MIXER_GITHASH: ${MIXER_GITHASH}
+      # deployParameters:
+      # - values:
+      #   website.githash: ${website_githash}
+      #   mixer.githash: ${mixer_githash}
+      #   MIXER_GITHASH: ${mixer_githash}
       strategy:
         standard:
           predeploy:
@@ -34,11 +34,11 @@ serialPipeline:
             actions: ["clear-website-cache"]
     - targetId: website-autopush
       profiles: [website-autopush]
-      deployParameters:
-      - values:
-        website.githash: ${WEBSITE_GITHASH}
-        mixer.githash: ${MIXER_GITHASH}
-        MIXER_GITHASH: ${MIXER_GITHASH}
+      # deployParameters:
+      # - values:
+      #   # website.githash: ${website_githash}
+      #   # mixer.githash: ${mixer_githash}
+      #   # MIXER_GITHASH: ${mixer_githash}
       strategy:
         standard:
           predeploy:
@@ -47,11 +47,11 @@ serialPipeline:
             actions: ["clear-website-cache"]
     - targetId: website-staging
       profiles: [website-staging]
-      deployParameters:
-      - values:
-        website.githash: ${WEBSITE_GITHASH}
-        mixer.githash: ${MIXER_GITHASH}
-        MIXER_GITHASH: ${MIXER_GITHASH}
+      # deployParameters:
+      # - values:
+      #   website.githash: ${website_githash}
+      #   mixer.githash: ${mixer_githash}
+      #   MIXER_GITHASH: ${mixer_githash}
       strategy:
         standard:
           predeploy:
@@ -60,11 +60,11 @@ serialPipeline:
             actions: ["clear-website-cache", "run-percy-snapshots"]
     - targetId: website-prod
       profiles: [website-prod]
-      deployParameters:
-      - values:
-        website.githash: ${WEBSITE_GITHASH}
-        mixer.githash: ${MIXER_GITHASH}
-        MIXER_GITHASH: ${MIXER_GITHASH}
+      # deployParameters:
+      # - values:
+      #   website.githash: ${website_githash}
+      #   mixer.githash: ${mixer_githash}
+      #   MIXER_GITHASH: ${mixer_githash}
       strategy:
         standard:
           predeploy:
@@ -83,20 +83,20 @@ serialPipeline:
   stages:
     - targetId: mixer-dev
       profiles: [mixer-dev]
-      deployParameters:
-      - values:
-        mixer.githash: ${MIXER_GITHASH}
-        MIXER_GITHASH: ${MIXER_GITHASH}
+      # deployParameters:
+      # - values:
+      #   mixer.githash: ${mixer_githash}
+      #   MIXER_GITHASH: ${mixer_githash}
       strategy:
         standard:
           predeploy:
             actions: ["deploy-cloud-esp-mixer-dev"]
     - targetId: mixer-autopush
       profiles: [mixer-autopush]
-      deployParameters:
-      - values:
-        mixer.githash: ${MIXER_GITHASH}
-        MIXER_GITHASH: ${MIXER_GITHASH}
+      # deployParameters:
+      # - values:
+      #   mixer.githash: ${mixer_githash}
+      #   MIXER_GITHASH: ${mixer_githash}
       strategy:
         standard:
           predeploy:
@@ -105,10 +105,10 @@ serialPipeline:
             actions: ["clear-mixer-cache"]
     - targetId: mixer-staging
       profiles: [mixer-staging]
-      deployParameters:
-      - values:
-        mixer.githash: ${MIXER_GITHASH}
-        MIXER_GITHASH: ${MIXER_GITHASH}
+      # deployParameters:
+      # - values:
+      #   mixer.githash: ${mixer_githash}
+      #   MIXER_GITHASH: ${mixer_githash}
       strategy:
         standard:
           predeploy:
@@ -117,10 +117,10 @@ serialPipeline:
             actions: ["update-nl-integration-test-goldens"]
     - targetId: mixer-prod
       profiles: [mixer-prod]
-      deployParameters:
-      - values:
-        mixer.githash: ${MIXER_GITHASH}
-        MIXER_GITHASH: ${MIXER_GITHASH}
+      # deployParameters:
+      # - values:
+      #   mixer.githash: ${mixer_githash}
+      #   MIXER_GITHASH: ${mixer_githash}
       strategy:
         standard:
           predeploy:

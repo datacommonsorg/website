@@ -65,10 +65,11 @@ website and mixer changes.
   nvm use 18.4.0
   ```
 
-  To set this version as default:
+  **On macOS machines with a M1 chip**, run the following command to install additional dependencies.
+  * These are required for the [node-canvas package](https://github.com/Automattic/node-canvas?tab=readme-ov-file#compiling).
 
   ```bash
-  nvm alias default 18.4.0
+  brew install pkg-config cairo pango libpng jpeg giflib librsvg
   ```
 
 - Protoc 3.21.12
@@ -103,12 +104,7 @@ website and mixer changes.
 
 This will watch static files change and re-build on code edit.
 
-> NOTE: On macOS machines with a M1 chip, run the following command before running the above command.
-> See [this](https://stackoverflow.com/a/71353060) for more details.
-
-```bash
-brew install pkg-config cairo pango libpng jpeg giflib librsvg
-```
+If there are errors, make sure to run `nvm use v18.4.0` to set the correct version.
 
 ### Start the Flask Server
 

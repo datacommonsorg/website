@@ -1159,11 +1159,11 @@ describe("test ga event for the FacetSelector component", () => {
     );
 
     await waitFor(() => {
-      const button = getByText(/Explore other datasets/i);
+      const button = getByText(/Explore other facets/i);
       expect((button as HTMLButtonElement).disabled).toBe(false);
     });
 
-    fireEvent.click(getByText(/Explore other datasets/i));
+    fireEvent.click(getByText(/Explore other facets/i));
 
     await waitFor(() => {
       expect(getByText("Update")).toBeTruthy();
@@ -1496,7 +1496,7 @@ describe("test ga event for Page Overview experiment", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: true };
+    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
@@ -1538,7 +1538,7 @@ describe("test ga event for Page Overview experiment", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: true };
+    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
@@ -1596,7 +1596,7 @@ describe("test ga event for Page Overview experiment", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
-    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: true };
+    globalThis.FEATURE_FLAGS = { ["page_overview_links"]: { enabled: true } };
 
     // Mock Flask route
     axios.post = jest.fn().mockImplementation(() =>
