@@ -157,7 +157,7 @@ class VisTimelineTestMixin():
     self.assertIsNotNone(chart_timeline, "Chart timeline container not found.")
 
     # Wait for the existence of the message
-    expected_text = "One dataset available for this chart"
+    expected_text = "One facet available for this chart"
     wait_for_text(self.driver,
                   text=expected_text,
                   by=By.CSS_SELECTOR,
