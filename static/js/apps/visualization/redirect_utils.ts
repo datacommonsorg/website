@@ -26,9 +26,10 @@ import {
   ALLOWED_VIS_TOOL_TYPES,
   ChartEntry,
   DcidList,
+  DEFAULT_PARAM_SEPARATOR,
   OldToolChartOptions,
   ParamNameMapping,
-  TIMELINE_DEFAULT_SEPARATOR,
+  SCATTER_URL_PARAM_MAPPING,
   TIMELINE_STAT_VAR_SEPARATOR,
   TIMELINE_URL_PARAM_MAPPING,
   VisType,
@@ -128,7 +129,60 @@ function getMapHashParams(currentHashParams: URLSearchParams): URLSearchParams {
 function getScatterHashParams(
   currentHashParams: URLSearchParams
 ): URLSearchParams {
-  throw new Error("not implemented");
+  const newHashParams = new URLSearchParams();
+  // Convert each mappable parameter
+  Object.keys(SCATTER_URL_PARAM_MAPPING).forEach((key) => {
+    if (currentHashParams.get(key)) {
+      const paramName = SCATTER_URL_PARAM_MAPPING[key];
+      const paramValue = currentHashParams.get(key);
+
+      if (key == URL_PARAMS.STAT_VAR) {
+        // stat var key in /tools/visualization maps to both
+        // stat var dcids and chart options parameters in /tools/scatter
+        const [statVarDcids, chartOptions] = parseSvObject(
+          paramValue,
+          SCATTER_URL_PARAM_MAPPING
+        );
+
+        // Set first stat var as Y axis variable
+        const yAxisStatVarDcid = statVarDcids.at(0);
+        if (yAxisStatVarDcid) {
+          newHashParams.set("svy", yAxisStatVarDcid);
+          // Set y axis options
+          if (chartOptions[yAxisStatVarDcid]) {
+            Object.keys(chartOptions[yAxisStatVarDcid]).forEach((key) => {
+              newHashParams.set(`${key}y`, chartOptions[yAxisStatVarDcid][key]);
+            });
+          }
+        }
+
+        // Set second stat var as X axis variable
+        const xAxisStatVarDcid = statVarDcids.at(1);
+        if (xAxisStatVarDcid) {
+          newHashParams.set("svx", xAxisStatVarDcid);
+          // Set x axis options
+          if (chartOptions[xAxisStatVarDcid]) {
+            Object.keys(chartOptions[yAxisStatVarDcid]).forEach((key) => {
+              newHashParams.set(`${key}x`, chartOptions[yAxisStatVarDcid][key]);
+            });
+          }
+        }
+      } else if (paramName && paramValue) {
+        // Otherwise, Add converted keys & values as new param
+        // Escape value to defend against XSS attacks
+        newHashParams.set(
+          paramName,
+          escape(
+            paramValue.replaceAll(PARAM_VALUE_SEP, DEFAULT_PARAM_SEPARATOR)
+          )
+        );
+      }
+    }
+  });
+  // Set density to mode to true
+  // It is always on in /tools/visualization
+  newHashParams.set("dd", "1");
+  return newHashParams;
 }
 
 /**
@@ -181,7 +235,7 @@ function getTimelineHashParams(
         newHashParams.set(
           paramName,
           escape(
-            paramValue.replaceAll(PARAM_VALUE_SEP, TIMELINE_DEFAULT_SEPARATOR)
+            paramValue.replaceAll(PARAM_VALUE_SEP, DEFAULT_PARAM_SEPARATOR)
           )
         );
       }

@@ -18,6 +18,7 @@
  * Constants and types for implementing the redirects from the Visualization Tool to the "old" tools.
  */
 
+import { FieldToAbbreviation } from "../../tools/scatter/context";
 import { TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
 
 // Explicit type for a list of DCIDs to improve readability
@@ -50,12 +51,12 @@ export interface ParamNameMapping {
   dcid?: string;
   denom?: string;
   display?: string;
-  l?: string;
+  l?: string; // scatter labels
   log?: string;
   pc?: string;
   place?: string;
   placeType?: string;
-  q?: string;
+  q?: string; // scatter quadrants
   sv?: string;
 }
 
@@ -65,8 +66,8 @@ export type VisType = "map" | "scatter" | "timeline";
 // Allowed values for visType hash parameter
 export const ALLOWED_VIS_TOOL_TYPES = ["map", "scatter", "timeline"];
 
-// Separator between multiple hash parameter values used by /tools/timeline
-export const TIMELINE_DEFAULT_SEPARATOR = ",";
+// Separator between multiple hash parameter values used by /tools/*
+export const DEFAULT_PARAM_SEPARATOR = ",";
 
 // Separator between multiple variables used by /tools/timeline
 export const TIMELINE_STAT_VAR_SEPARATOR = "__"; // 2 underscores
@@ -77,4 +78,18 @@ export const TIMELINE_URL_PARAM_MAPPING: ParamNameMapping = {
   place: TIMELINE_URL_PARAM_KEYS.PLACE,
   sv: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
   pc: "pc",
+};
+
+// Mapping of visualization tool param names
+// to param names used by the scatter tool
+export const SCATTER_URL_PARAM_MAPPING: ParamNameMapping = {
+  date: FieldToAbbreviation.date,
+  denom: FieldToAbbreviation.denom,
+  l: FieldToAbbreviation.showLabels,
+  log: FieldToAbbreviation.log,
+  pc: FieldToAbbreviation.perCapita,
+  place: FieldToAbbreviation.enclosingPlaceDcid,
+  placeType: FieldToAbbreviation.enclosedPlaceType,
+  q: FieldToAbbreviation.showQuadrant,
+  sv: FieldToAbbreviation.statVarDcid,
 };
