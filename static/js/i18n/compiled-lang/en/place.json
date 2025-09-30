@@ -713,7 +713,7 @@
   "metadata": [
     {
       "type": 0,
-      "value": "Metadata"
+      "value": "About this data"
     }
   ],
   "metadataDateRange": [
@@ -1922,7 +1922,7 @@
   "showMetadata": [
     {
       "type": 0,
-      "value": "Show metadata"
+      "value": "About this data"
     }
   ],
   "singular_administrative_area": [
