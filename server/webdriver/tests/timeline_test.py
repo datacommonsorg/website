@@ -44,14 +44,14 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
     # Check the sources before toggling per capita
     original_source_text = find_elem(self.driver, By.CLASS_NAME, 'sources').text
     self.assertIn('datacatalog.worldbank.org', original_source_text)
-    self.assertIn('Show metadata', original_source_text)
+    self.assertIn('About this data', original_source_text)
     self.assertNotIn('census.gov', original_source_text)
 
     # Click on the button to open the metadata dialog
     sources_div = find_elem(self.driver, value='sources', by=By.CLASS_NAME)
     metadata_link = sources_div.find_element(
-        By.XPATH, ".//a[contains(text(), 'Show metadata')]")
-    self.assertIsNotNone(metadata_link, "Show metadata link not found")
+        By.XPATH, ".//a[contains(text(), 'About this data')]")
+    self.assertIsNotNone(metadata_link, "About this data link not found")
     metadata_link.click()
 
     # Wait until the dialog is visible and populated with content
@@ -92,13 +92,13 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
     updated_source_text = find_elem(self.driver, By.CLASS_NAME, 'sources').text
     self.assertIn('datacatalog.worldbank.org', updated_source_text)
     self.assertIn('census.gov', updated_source_text)
-    self.assertIn('Show metadata', updated_source_text)
+    self.assertIn('About this data', updated_source_text)
 
     # Open the metadata dialog again
     sources_div = find_elem(self.driver, value='sources', by=By.CLASS_NAME)
     metadata_link = sources_div.find_element(
-        By.XPATH, ".//a[contains(text(), 'Show metadata')]")
-    self.assertIsNotNone(metadata_link, "Show metadata link not found")
+        By.XPATH, ".//a[contains(text(), 'About this data')]")
+    self.assertIsNotNone(metadata_link, "About this data link not found")
     metadata_link.click()
 
     # Wait until the dialog is visible and populated with content
