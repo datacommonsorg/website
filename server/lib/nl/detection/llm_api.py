@@ -24,12 +24,14 @@ import json5
 import requests
 
 from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
+from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_LITE_FLAG
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
 _GEMINI_API_URL_TEMPLATE = "https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
-_GEMINI_2_5_FLASH_URL_BASE = _GEMINI_API_URL_TEMPLATE.format(model_name="gemini-2.5-flash")
-_GEMINI_2_5_FLASH_LITE_URL_BASE = _GEMINI_API_URL_TEMPLATE.format(model_name="gemini-2.5-flash-lite")
+_GEMINI_2_5_FLASH = '"gemini-2.5-flash"'
+_GEMINI_2_5_FLASH_LITE = '"gemini-2.5-flash-lite"'
+_GEMINI_1_5_PRO = '"gemini-1.5-pro"'
 _API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
@@ -93,9 +95,11 @@ def detect_with_gemini(query: str, history: List[List[str]],
   req = json.dumps(req_data)
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
-  model_url_base = _GEMINI_2_5_FLASH_URL_BASE if is_feature_enabled(
-      ENABLE_GEMINI_2_5_FLASH_FLAG,
-      request=request) else _GEMINI_2_5_FLASH_LITE_URL_BASE
+  model_name = detect_model_name()
+  if 'error' in model_name:
+    logging.error(f'Error in detecting Gemini model name: {model_name}')
+    return {}
+  model_url_base = _GEMINI_API_URL_TEMPLATE.format(model_name=model_name)
   logging.info(f'Gemini model URL for LLM API: {model_url_base}')
   r = requests.post(f'{model_url_base}?key={api_key}',
                     data=req,
@@ -191,3 +195,16 @@ def _extract_answer(resp: str) -> str:
         return '{"UNSAFE": true}'
 
   return '\n'.join(ans)
+
+
+def detect_model_name() -> str:
+  if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_FLAG,
+                        request=request) and is_feature_enabled(
+                            ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
+    return 'error: both Gemini 2.5 Flash and Flash Lite feature flags are enabled'
+  if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
+    return _GEMINI_2_5_FLASH_LITE
+  if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_FLAG, request=request):
+    return _GEMINI_2_5_FLASH
+
+  return _GEMINI_1_5_PRO

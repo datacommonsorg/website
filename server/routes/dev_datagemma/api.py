@@ -26,16 +26,12 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
-from server.lib.feature_flags import is_feature_enabled
+from server.lib.nl.detection.llm_api import detect_model_name
 
 # Define blueprint
 bp = flask.Blueprint('dev_datagemma_api',
                      __name__,
                      url_prefix='/api/dev/datagemma')
-
-GEMINI_2_5_FLASH = 'gemini-2.5-flash'
-GEMINI_2_5_FLASH_LITE = 'gemini-2.5-flash-lite'
 
 _RIG_MODE = 'rig'
 _RAG_MODE = 'rag'
@@ -49,7 +45,7 @@ _VERTEX_AI_RAG = VertexAI(project_id='datcom-website-dev',
                           prediction_endpoint_id='3459865124959944704')
 
 
-def _get_datagemma_result(query, mode):
+def _get_datagemma_result(query, mode, model_name):
   """Gets the results of running a datagemma flow on a query
   
   Args:
@@ -66,9 +62,6 @@ def _get_datagemma_result(query, mode):
     result = RIGFlow(llm=_VERTEX_AI_RIG,
                      data_fetcher=dc_nl_service).query(query=query)
   elif mode == _RAG_MODE:
-    model_name = GEMINI_2_5_FLASH if is_feature_enabled(
-        ENABLE_GEMINI_2_5_FLASH_FLAG,
-        request=request) else GEMINI_2_5_FLASH_LITE
     logging.info(f'DataGemma using Gemini model: {model_name}')
     gemini_model = GoogleAIStudio(
         model=model_name, api_keys=[current_app.config['GEMINI_API_KEY']])
@@ -86,7 +79,11 @@ def datagemma_query():
     return 'error: must provide a query field', 400
   if not mode or mode not in [_RIG_MODE, _RAG_MODE]:
     return f'error: must provide a mode field with values {_RIG_MODE} or {_RAG_MODE}', 400
-  dg_result = _get_datagemma_result(query, mode)
+  model_name = detect_model_name()
+  if 'error' in model_name:
+    logging.error(f'Error in detecting Gemini model name: {model_name}')
+    return f'error: {model_name}', 400
+  dg_result = _get_datagemma_result(query, mode, model_name)
   result = {'answer': '', 'debug': ''}
   if dg_result:
     result = {'answer': dg_result.answer(), 'debug': dg_result.debug()}
