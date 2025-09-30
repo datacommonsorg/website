@@ -131,9 +131,7 @@ class ScatterTestMixin():
 
     # Click on first link on landing page
     shared.wait_for_loading(self.driver)
-    shared.click_el(
-        self.driver,
-        (By.XPATH, '//*[@id="placeholder-container"]/ul/li[1]/a[1]'))
+    shared.click_el(self.driver, (By.CSS_SELECTOR, '#placeholder-container a'))
 
     # Wait for chart to load
     # This chart can be particularly slow, so use extra wait time
