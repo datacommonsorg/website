@@ -38,19 +38,20 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH)
 
     # Wait for the chart to load
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Check the sources before toggling per capita
     original_source_text = find_elem(self.driver, By.CLASS_NAME, 'sources').text
     self.assertIn('datacatalog.worldbank.org', original_source_text)
-    self.assertIn('Show metadata', original_source_text)
+    self.assertIn('About this data', original_source_text)
     self.assertNotIn('census.gov', original_source_text)
 
     # Click on the button to open the metadata dialog
     sources_div = find_elem(self.driver, value='sources', by=By.CLASS_NAME)
     metadata_link = sources_div.find_element(
-        By.XPATH, ".//a[contains(text(), 'Show metadata')]")
-    self.assertIsNotNone(metadata_link, "Show metadata link not found")
+        By.XPATH, ".//a[contains(text(), 'About this data')]")
+    self.assertIsNotNone(metadata_link, "About this data link not found")
     metadata_link.click()
 
     # Wait until the dialog is visible and populated with content
@@ -84,19 +85,20 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
 
     # Wait for the chart to reload
     shared.wait_for_loading(self.driver)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Verify the source text has changed
     updated_source_text = find_elem(self.driver, By.CLASS_NAME, 'sources').text
     self.assertIn('datacatalog.worldbank.org', updated_source_text)
     self.assertIn('census.gov', updated_source_text)
-    self.assertIn('Show metadata', updated_source_text)
+    self.assertIn('About this data', updated_source_text)
 
     # Open the metadata dialog again
     sources_div = find_elem(self.driver, value='sources', by=By.CLASS_NAME)
     metadata_link = sources_div.find_element(
-        By.XPATH, ".//a[contains(text(), 'Show metadata')]")
-    self.assertIsNotNone(metadata_link, "Show metadata link not found")
+        By.XPATH, ".//a[contains(text(), 'About this data')]")
+    self.assertIsNotNone(metadata_link, "About this data link not found")
     metadata_link.click()
 
     # Wait until the dialog is visible and populated with content
