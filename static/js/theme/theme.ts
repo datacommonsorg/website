@@ -137,6 +137,7 @@ const theme: Theme = {
       code: {
         base: DC_GREEN,
         highlight: DC_YELLOW_PILL_BCKG,
+        selected: DC_BLUE_WHITE_LIGHT,
         blue: DC_BLUE,
         grey: DC_GRAY,
         black: DC_BLUE_DARK,
