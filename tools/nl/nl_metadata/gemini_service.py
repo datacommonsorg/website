@@ -43,7 +43,9 @@ async def generate_alt_sentences(
         raise ValueError("Gemini returned no parsed content (None or empty).")
 
       # Create a map from dcid to sentences for efficient and robust lookup
-      sentences_map = {item.dcid: item.generatedSentences for item in results if item}
+      sentences_map = {
+          item.dcid: item.generatedSentences for item in results if item
+      }
 
       # Create a new list with merged data
       updated_metadata = []

@@ -14,9 +14,11 @@
 
 import asyncio
 import unittest
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
+from unittest.mock import MagicMock
 
 from google.genai import types
+
 from tools.nl.nl_metadata import gemini_service
 from tools.nl.nl_metadata.schemas import GeminiResponseItem
 
@@ -51,8 +53,11 @@ class TestGeminiService(unittest.TestCase):
       gemini_config = types.GenerateContentConfig()
 
       # Act
-      result = await gemini_service.generate_alt_sentences(
-          mock_gemini_client, gemini_config, "prompt", sv_metadata, delay=0)
+      result = await gemini_service.generate_alt_sentences(mock_gemini_client,
+                                                           gemini_config,
+                                                           "prompt",
+                                                           sv_metadata,
+                                                           delay=0)
 
       # Assert
       expected = [{
@@ -96,8 +101,11 @@ class TestGeminiService(unittest.TestCase):
 
       # Act
       # The function should merge the results for the items that have a DCID.
-      result = await gemini_service.generate_alt_sentences(
-          mock_gemini_client, gemini_config, "prompt", sv_metadata, delay=0)
+      result = await gemini_service.generate_alt_sentences(mock_gemini_client,
+                                                           gemini_config,
+                                                           "prompt",
+                                                           sv_metadata,
+                                                           delay=0)
 
       # Assert
       expected = [
@@ -143,8 +151,11 @@ class TestGeminiService(unittest.TestCase):
       gemini_config = types.GenerateContentConfig()
 
       # Act
-      result = await gemini_service.generate_alt_sentences(
-          mock_gemini_client, gemini_config, "prompt", sv_metadata, delay=0)
+      result = await gemini_service.generate_alt_sentences(mock_gemini_client,
+                                                           gemini_config,
+                                                           "prompt",
+                                                           sv_metadata,
+                                                           delay=0)
 
       # Assert
       expected = [
@@ -180,16 +191,19 @@ class TestGeminiService(unittest.TestCase):
       gemini_config = types.GenerateContentConfig()
 
       # Act
-      result = await gemini_service.generate_alt_sentences(
-          mock_gemini_client, gemini_config, "prompt", sv_metadata, delay=0)
+      result = await gemini_service.generate_alt_sentences(mock_gemini_client,
+                                                           gemini_config,
+                                                           "prompt",
+                                                           sv_metadata,
+                                                           delay=0)
 
       # Assert
       self.assertEqual(
-          result, sv_metadata
-      )  # Should return original metadata on failure
+          result, sv_metadata)  # Should return original metadata on failure
       # Check if it retried
-      self.assertEqual(mock_gemini_client.aio.models.generate_content.call_count,
-                       3)  # From config.MAX_RETRIES
+      self.assertEqual(
+          mock_gemini_client.aio.models.generate_content.call_count,
+          3)  # From config.MAX_RETRIES
 
     asyncio.run(run_test())
 
@@ -202,8 +216,11 @@ class TestGeminiService(unittest.TestCase):
       gemini_config = types.GenerateContentConfig()
 
       # Act
-      result = await gemini_service.generate_alt_sentences(
-          mock_gemini_client, gemini_config, "prompt", sv_metadata, delay=0)
+      result = await gemini_service.generate_alt_sentences(mock_gemini_client,
+                                                           gemini_config,
+                                                           "prompt",
+                                                           sv_metadata,
+                                                           delay=0)
 
       # Assert
       self.assertEqual(result, [])
