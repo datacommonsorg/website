@@ -44,8 +44,16 @@ class VisTimelineTestMixin():
     # Assert 200 HTTP code: successful JS generation.
     self.assertEqual(shared.safe_url_open(self.url_ + '/visualization.js'), 200)
 
+    # Wait for page to load
+    wait_for_text(self.driver,
+                  text="Timeline",
+                  by=By.CSS_SELECTOR,
+                  value='.info-content h3')
+
     # Assert page title is correct.
     title_text = "Tools - " + self.dc_title_string
+    print(f"[DEBUG] Expected title to contain: '{title_text}'")
+    print(f"[DEBUG] Actual title was:          '{self.driver.title}'")
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertEqual(title_text, self.driver.title)
@@ -68,7 +76,8 @@ class VisTimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
 
     # Wait until the chart has loaded
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert place name is correct
     place_name_chips = self.driver.find_elements(
@@ -148,7 +157,8 @@ class VisTimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_2)
 
     # Wait until the chart has loaded
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Wait for the chart timeline container element
     chart_timeline = wait_elem(self.driver,
@@ -176,35 +186,7 @@ class VisTimelineTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.text_to_be_present_in_element(page_header_locator, 'Timeline'))
 
-    # Click the start button
-    shared.click_el(self.driver, (By.CLASS_NAME, 'start-button'))
-
-    # Type california into the search box.
-    element_present = EC.presence_of_element_located((By.ID, 'location-field'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element(By.ID, 'ac')
-    search_box_input.send_keys(PLACE_SEARCH_CA)
-
-    # Click on the first result.
-    first_result_locator = (By.XPATH, '(//*[contains(@class, "pac-item")])[1]')
-    shared.click_el(self.driver, first_result_locator)
-
-    # Type USA into the search box after California has been selected.
-    element_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, '.place-selector-selections .selected-place'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    search_box_input = self.driver.find_element(By.ID, 'ac')
-    search_box_input.send_keys(PLACE_SEARCH_USA)
-
-    # Click on the first result.
-    shared.click_el(self.driver, first_result_locator)
-
-    # Click continue after USA has been selected.
-    element_present = EC.text_to_be_present_in_element(
-        (By.CLASS_NAME, 'place-selector-selections'),
-        'United States of America')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
+    shared.search_for_multiple_places(self.driver, ["California", "USA"])
 
     # Choose stat vars
     shared.wait_for_loading(self.driver)
@@ -222,7 +204,8 @@ class VisTimelineTestMixin():
     shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Assert chart is correct
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
     self.assertEqual(len(charts), 2)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
@@ -236,13 +219,12 @@ class VisTimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL)
 
     # Click a link on the landing page
-    element_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'info-content'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    wait_elem(self.driver, By.CSS_SELECTOR, 'info-content a')
     self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
+    shared.wait_for_loading(self.driver)
 
     # Assert chart loads
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    wait_elem(self.driver, By.CSS_SELECTOR, '.chart.timeline')
     charts = self.driver.find_elements(By.CSS_SELECTOR, '.chart.timeline')
     self.assertEqual(len(charts), 1)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')

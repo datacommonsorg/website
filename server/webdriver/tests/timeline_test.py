@@ -38,7 +38,8 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH)
 
     # Wait for the chart to load
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Check the sources before toggling per capita
     original_source_text = find_elem(self.driver, By.CLASS_NAME, 'sources').text
@@ -84,7 +85,8 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
 
     # Wait for the chart to reload
     shared.wait_for_loading(self.driver)
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Verify the source text has changed
     updated_source_text = find_elem(self.driver, By.CLASS_NAME, 'sources').text
