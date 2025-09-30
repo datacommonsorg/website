@@ -20,6 +20,12 @@
 
 import React from "react";
 
+import {
+  DISABLE_FEATURE_URL_PARAM,
+  isFeatureOverrideDisabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
+
 // Type for a single link.
 interface InfoLink {
   text: string;
@@ -57,9 +63,22 @@ function generateLinksJsx(links: InfoLink[]): JSX.Element[] {
 
   return links.map((link, ei) => {
     const punctuation = ei < links.length - 1 ? ", " : "";
+    let url = link.url;
+    // If these links are being displayed on the page, the intention is to stay
+    // on the "new" tools. To avoid linking to a redirect instead of the chart,
+    // we explicitly disable the standardized_vis_tool feature flag
+    // in links if the flag is currently explicitly disabled.
+    if (isFeatureOverrideDisabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
+      const urlWithFlag = new URL(link.url, window.location.href);
+      urlWithFlag.searchParams.set(
+        DISABLE_FEATURE_URL_PARAM,
+        STANDARDIZED_VIS_TOOL_FEATURE_FLAG
+      );
+      url = urlWithFlag.toString();
+    }
     return (
       <React.Fragment key={ei}>
-        <a href={link.url}>{link.text}</a>
+        <a href={url}>{link.text}</a>
         {punctuation}
       </React.Fragment>
     );

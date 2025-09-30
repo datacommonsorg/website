@@ -32,7 +32,7 @@ class TestTimeline(TimelineTestMixin, StandardizedTimelineTestMixin,
   def test_per_capita_metadata(self):
     """Test that per capita toggle affects metadata dialog content."""
 
-    TIMELINE_URL = '/tools/visualization#visType=timeline'
+    TIMELINE_URL = '/tools/visualization?disable_feature=standardized_vis_tool#visType=timeline'
     URL_HASH = '&place=country/USA&sv=%7B"dcid"%3A"Amount_EconomicActivity_GrossDomesticProduction_Nominal"%7D'
 
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH)
