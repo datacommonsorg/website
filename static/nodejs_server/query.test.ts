@@ -231,3 +231,35 @@ test("getQueryResult", async () => {
     }
   }
 });
+
+// this confirms that the surfaceHeaderValue successfully reaches the mixer call
+// getQueryResult is used in the nodejs/query endpoint by DataGemma
+test("getQueryResult with surfaceHeaderValue", async () => {
+  const expectedCharts = BAR_EXPECTED_RESULT;
+  const query = "top jobs in santa clara county";
+
+  // Mock data fetches
+  queryAxiosMock();
+
+  const result = await getQueryResult(
+    query,
+    true,
+    false,
+    "",
+    "",
+    "",
+    "bard",
+    "",
+    "",
+    false,
+    "",
+    "",
+    "datagemma"
+  );
+  try {
+    expect(result.charts).toStrictEqual(expectedCharts);
+  } catch (e) {
+    console.log(`Failed for query: ${query}`);
+    throw e;
+  }
+});

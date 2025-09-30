@@ -32,6 +32,7 @@ import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 
 export interface DatacommonsWebClientParams {
   apiRoot?: string;
+  surfaceHeaderValue?: string | null;
 }
 
 const LOCALE_PARAM = "hl";
@@ -39,10 +40,12 @@ const LOCALE_PARAM = "hl";
 class DataCommonsWebClient {
   /** Website API root */
   apiRoot?: string;
+  surfaceHeaderValue?: string | null;
 
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
+    this.surfaceHeaderValue = p.surfaceHeaderValue;
   }
 
   /**
@@ -127,14 +130,11 @@ class DataCommonsWebClient {
    * @param params.variables list of variables to get data for
    * @param params.date date to get the data for
    */
-  async getObservationsPoint(
-    params: {
-      date?: string;
-      entities: string[];
-      variables: string[];
-    },
-    surfaceHeaderValue?: string
-  ): Promise<PointApiResponse> {
+  async getObservationsPoint(params: {
+    date?: string;
+    entities: string[];
+    variables: string[];
+  }): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
       date: params.date,
       entities: params.entities,
@@ -143,7 +143,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/observations/point?${queryString}`;
     const response = await fetch(url, {
       headers: {
-        "x-surface": surfaceHeaderValue || "website",
+        "x-surface": this.surfaceHeaderValue || "website",
       },
     });
     return (await response.json()) as PointApiResponse;
@@ -159,15 +159,12 @@ class DataCommonsWebClient {
    * @param params.variables list of variables to get data for
    * @param params.date date to get the data for
    */
-  async getObservationsPointWithin(
-    params: {
-      parentEntity: string;
-      childType: string;
-      variables: string[];
-      date?: string;
-    },
-    surfaceHeaderValue?: string
-  ): Promise<PointApiResponse> {
+  async getObservationsPointWithin(params: {
+    parentEntity: string;
+    childType: string;
+    variables: string[];
+    date?: string;
+  }): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
       childType: params.childType,
       date: params.date,
@@ -179,7 +176,7 @@ class DataCommonsWebClient {
     }/api/observations/point/within?${queryString}`;
     const response = await fetch(url, {
       headers: {
-        "x-surface": surfaceHeaderValue || "website",
+        "x-surface": this.surfaceHeaderValue || "website",
       },
     });
     return (await response.json()) as PointApiResponse;
@@ -217,14 +214,11 @@ class DataCommonsWebClient {
    * @param params.childType place type to get the data for
    * @param params.variables variable dcids to get data for
    */
-  async getObservationsSeriesWithin(
-    params: {
-      parentEntity: string;
-      childType: string;
-      variables: string[];
-    },
-    surfaceHeaderValue?: string
-  ): Promise<SeriesApiResponse> {
+  async getObservationsSeriesWithin(params: {
+    parentEntity: string;
+    childType: string;
+    variables: string[];
+  }): Promise<SeriesApiResponse> {
     const queryString = toURLSearchParams({
       parentEntity: params.parentEntity,
       childType: params.childType,
@@ -235,7 +229,7 @@ class DataCommonsWebClient {
     }/api/observations/series/within?${queryString}`;
     const response = await fetch(url, {
       headers: {
-        "x-surface": surfaceHeaderValue || "website",
+        "x-surface": this.surfaceHeaderValue || "website",
       },
     });
     return (await response.json()) as SeriesApiResponse;

@@ -237,6 +237,67 @@ export function queryAxiosMock(): void {
     )
     .mockResolvedValue(SANTA_CLARA_NAME_RESP);
 
+  /*
+    bar test mocks with surfaceheaderValue set
+  */
+  when(axios.post)
+    .calledWith(
+      "/api/explore/detect-and-fulfill?q=top jobs in santa clara county&detector=heuristic&client=bard&skipRelatedThings=true",
+      {},
+      {
+        headers: {
+          "x-surface": "datagemma",
+        },
+      }
+    )
+    .mockResolvedValue(BAR_NL_RESP);
+  when(axios.get)
+    .calledWith("/api/observations/point", {
+      params: {
+        date: "",
+        entities: ["geoId/06085"],
+        variables: [
+          "Count_Worker_NAICSAccommodationFoodServices",
+          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
+          "Count_Worker_NAICSAgricultureForestryFishingHunting",
+          "Count_Worker_NAICSConstruction",
+          "Count_Worker_NAICSEducationalServices",
+          "Count_Worker_NAICSHealthCareSocialAssistance",
+          "dc/ndg1xk1e9frc2",
+          "Count_Worker_NAICSFinanceInsurance",
+          "Count_Worker_NAICSInformation",
+          "Count_Worker_NAICSArtsEntertainmentRecreation",
+          "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
+          "Count_Worker_NAICSOtherServices",
+          "dc/8p97n7l96lgg8",
+          "Count_Worker_NAICSUtilities",
+          "dc/p69tpsldf99h7",
+          "Count_Worker_NAICSRealEstateRentalLeasing",
+          "Count_Worker_NAICSPublicAdministration",
+          "Count_Worker_NAICSWholesaleTrade",
+          "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+        ],
+      },
+      paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "datagemma",
+      },
+    })
+    .mockResolvedValue(BAR_POINTS_RESP);
+  when(axios.get)
+    .calledWith("/api/observations/point", {
+      params: {
+        date: "",
+        entities: ["geoId/06085"],
+        variables: ["Count_Person"],
+      },
+      paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": "datagemma",
+      },
+    })
+    .mockResolvedValue(BAR_FILTER_POINTS_RESP);
+
   /**
    * scatter test mocks
    */

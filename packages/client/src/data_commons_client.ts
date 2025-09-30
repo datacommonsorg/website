@@ -66,6 +66,7 @@ export interface DatacommonsClientParams {
   apiRoot?: string;
   /** Overrides observation facet StatMetadata values by unit DCID. */
   facetOverride?: FacetOverride | null;
+  surfaceHeaderValue?: string | null;
 }
 
 class DataCommonsClient {
@@ -73,14 +74,19 @@ class DataCommonsClient {
   apiRoot?: string;
   webClient: DataCommonsWebClient;
   facetOverride: FacetOverride;
+  // indicates if a call originates from another DataCommons surface
+  // passed through to mixer calls for usage metrics
+  surfaceHeaderValue?: string | null;
 
   constructor(params?: DatacommonsClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
+    this.surfaceHeaderValue = p.surfaceHeaderValue;
     // Initialize DataCommonsWebClient with p.apiRoot since the client will call
     // parseWebsiteApiRoot on its own
     this.webClient = new DataCommonsWebClient({
       apiRoot: p.apiRoot,
+      surfaceHeaderValue: p.surfaceHeaderValue,
     });
     if (p.facetOverride === undefined) {
       this.facetOverride = DEFAULT_FACET_OVERRIDE;
@@ -96,11 +102,8 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns CSV string
    */
-  async getCsv(
-    params: GetCsvParams,
-    surfaceHeaderValue?: string
-  ): Promise<string> {
-    const dataRows = await this.getDataRows(params, surfaceHeaderValue);
+  async getCsv(params: GetCsvParams): Promise<string> {
+    const dataRows = await this.getDataRows(params);
     return dataRowsToCsv(
       dataRows,
       params.fieldDelimiter,
@@ -185,18 +188,12 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns Data rows list
    */
-  async getDataRows(
-    params: GetDataRowsParams,
-    surfaceHeaderValue?: string
-  ): Promise<DataRow[]> {
+  async getDataRows(params: GetDataRowsParams): Promise<DataRow[]> {
     // Fetch variable observations
     const pointApiResponse =
       "parentEntity" in params
-        ? await this.webClient.getObservationsPointWithin(
-            params,
-            surfaceHeaderValue
-          )
-        : await this.webClient.getObservationsPoint(params, surfaceHeaderValue);
+        ? await this.webClient.getObservationsPointWithin(params)
+        : await this.webClient.getObservationsPoint(params);
     if (!pointApiResponse) {
       return [];
     }
@@ -231,20 +228,14 @@ class DataCommonsClient {
     if (!_.isEmpty(validPerCapitaVariables)) {
       populationObservations =
         "parentEntity" in params
-          ? await this.webClient.getObservationsSeriesWithin(
-              {
-                ...params,
-                variables: [TOTAL_POPULATION_VARIABLE],
-              },
-              surfaceHeaderValue
-            )
-          : await this.webClient.getObservationsSeries(
-              {
-                ...params,
-                variables: [TOTAL_POPULATION_VARIABLE],
-              },
-              surfaceHeaderValue
-            );
+          ? await this.webClient.getObservationsSeriesWithin({
+              ...params,
+              variables: [TOTAL_POPULATION_VARIABLE],
+            })
+          : await this.webClient.getObservationsSeries({
+              ...params,
+              variables: [TOTAL_POPULATION_VARIABLE],
+            });
     }
     const rows = this.getDataRowsFromPointObservations(
       entityDcids,
@@ -267,11 +258,10 @@ class DataCommonsClient {
    * @returns List of data rows grouped by entity
    */
   async getDataRowsGroupedByEntity(
-    params: GetDataRowsParams,
-    surfaceHeaderValue?: string
+    params: GetDataRowsParams
   ): Promise<EntityGroupedDataRow[]> {
     // Fetch data rows with one entity and variable observation per row
-    const dataRows = await this.getDataRows(params, surfaceHeaderValue);
+    const dataRows = await this.getDataRows(params);
 
     // Group rows by entity dcid
     const dataRowsGroupedByEntityDcid = _.groupBy(
@@ -337,11 +327,8 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns CSV string
    */
-  async getCsvSeries(
-    params: GetCsvSeriesParams,
-    surfaceHeaderValue?: string
-  ): Promise<string> {
-    const dataRows = await this.getDataRowSeries(params, surfaceHeaderValue);
+  async getCsvSeries(params: GetCsvSeriesParams): Promise<string> {
+    const dataRows = await this.getDataRowSeries(params);
     return dataRowsToCsv(
       dataRows,
       params.fieldDelimiter,
@@ -356,21 +343,12 @@ class DataCommonsClient {
    * @param params {GetDataRowsParams} Entities and variables to fetch data for
    * @returns Data rows list
    */
-  async getDataRowSeries(
-    params: GetDataRowSeriesParams,
-    surfaceHeaderValue?: string
-  ): Promise<DataRow[]> {
+  async getDataRowSeries(params: GetDataRowSeriesParams): Promise<DataRow[]> {
     // Fetch variable observations
     const seriesApiResponse =
       "parentEntity" in params
-        ? await this.webClient.getObservationsSeriesWithin(
-            params,
-            surfaceHeaderValue
-          )
-        : await this.webClient.getObservationsSeries(
-            params,
-            surfaceHeaderValue
-          );
+        ? await this.webClient.getObservationsSeriesWithin(params)
+        : await this.webClient.getObservationsSeries(params);
     if (!seriesApiResponse) {
       return [];
     }
@@ -406,20 +384,14 @@ class DataCommonsClient {
     if (!_.isEmpty(validPerCapitaVariables)) {
       populationObservations =
         "parentEntity" in params
-          ? await this.webClient.getObservationsSeriesWithin(
-              {
-                ...params,
-                variables: [TOTAL_POPULATION_VARIABLE],
-              },
-              surfaceHeaderValue
-            )
-          : await this.webClient.getObservationsSeries(
-              {
-                ...params,
-                variables: [TOTAL_POPULATION_VARIABLE],
-              },
-              surfaceHeaderValue
-            );
+          ? await this.webClient.getObservationsSeriesWithin({
+              ...params,
+              variables: [TOTAL_POPULATION_VARIABLE],
+            })
+          : await this.webClient.getObservationsSeries({
+              ...params,
+              variables: [TOTAL_POPULATION_VARIABLE],
+            });
     }
     const dataRows = this.getDataRowsFromSeriesObservations(
       entityDcids,
