@@ -107,6 +107,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     parentPlace,
     apiRoot,
     lazyLoad,
+    surfaceHeaderValue,
   } = props;
 
   useEffect(() => {
@@ -121,7 +122,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           rankingMetadata,
           enclosedPlaceType,
           parentPlace,
-          apiRoot
+          apiRoot,
+          surfaceHeaderValue
         );
         setRankingData(rankingData);
       } finally {
@@ -136,6 +138,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     rankingMetadata,
     shouldLoad,
     variables,
+    surfaceHeaderValue,
   ]);
 
   /**

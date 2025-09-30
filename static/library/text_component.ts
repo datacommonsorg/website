@@ -48,7 +48,6 @@ export class DatacommonsTextComponent extends LitElement {
   render(): HTMLDivElement {
     const textTileProps: TextTilePropType = {
       link: this.link,
-      surfaceHeaderValue: WEB_COMPONENT_SURFACE_HEADER_VALUE,
     };
     return createWebComponentElement(TextTile, textTileProps);
   }
