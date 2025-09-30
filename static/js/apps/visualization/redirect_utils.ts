@@ -117,6 +117,57 @@ function getMapHashParams(currentHashParams: URLSearchParams): URLSearchParams {
 }
 
 /**
+ * Sets the URL parameters for a single scatter plot axis
+ * @param axis the axis to set parameters for, "x" or "y"
+ * @param statVarDcid the dcid of the stat var to use for this axis
+ * @param chartOptions the chart options for all the stat vars
+ * @param newHashParams the URLSearchParams to add the new parameters to
+ */
+function setAxisParams(
+  axis: "x" | "y",
+  statVarDcid: string,
+  chartOptions: OldToolChartOptions,
+  newHashParams: URLSearchParams
+): void {
+  if (!statVarDcid) {
+    return;
+  }
+  // Set the stat var for the axis
+  newHashParams.set(`sv${axis}`, statVarDcid);
+  const options = chartOptions[statVarDcid];
+  if (options) {
+    // Set each option for this stat var if present
+    Object.keys(options).forEach((key) => {
+      newHashParams.set(`${key}${axis}`, options[key]);
+    });
+  }
+}
+
+/**
+ * Handles processing the stat var parameter and setting the x and y axis
+ * parameters for scatter.
+ * @param paramValue the value of the stat var parameter
+ * @param newHashParams the URLSearchParams to add the new parameters to
+ */
+function handleScatterStatVars(
+  paramValue: string,
+  newHashParams: URLSearchParams
+): void {
+  const [statVarDcids, chartOptions] = parseSvObject(
+    paramValue,
+    SCATTER_URL_PARAM_MAPPING
+  );
+
+  if (!statVarDcids) {
+    return;
+  }
+  // Set first stat var as the Y axis variable
+  setAxisParams("y", statVarDcids.at(0), chartOptions, newHashParams);
+  // Set second stat var as the X axis variable
+  setAxisParams("x", statVarDcids.at(1), chartOptions, newHashParams);
+}
+
+/**
  * Get equivalent hash parameters for /tools/scatter.
  *
  * Converts the given hash parameters into equivalent hash parameters used by /tools/scatter.
@@ -132,42 +183,16 @@ function getScatterHashParams(
   const newHashParams = new URLSearchParams();
   // Convert each mappable parameter
   Object.keys(SCATTER_URL_PARAM_MAPPING).forEach((key) => {
-    if (currentHashParams.get(key)) {
+    const paramValue = currentHashParams.get(key);
+    if (!paramValue) {
+      return;
+    }
+
+    if (key === URL_PARAMS.STAT_VAR) {
+      handleScatterStatVars(paramValue, newHashParams);
+    } else {
       const paramName = SCATTER_URL_PARAM_MAPPING[key];
-      const paramValue = currentHashParams.get(key);
-
-      if (key == URL_PARAMS.STAT_VAR) {
-        // stat var key in /tools/visualization maps to both
-        // stat var dcids and chart options parameters in /tools/scatter
-        const [statVarDcids, chartOptions] = parseSvObject(
-          paramValue,
-          SCATTER_URL_PARAM_MAPPING
-        );
-
-        // Set first stat var as Y axis variable
-        const yAxisStatVarDcid = statVarDcids.at(0);
-        if (yAxisStatVarDcid) {
-          newHashParams.set("svy", yAxisStatVarDcid);
-          // Set y axis options
-          if (chartOptions[yAxisStatVarDcid]) {
-            Object.keys(chartOptions[yAxisStatVarDcid]).forEach((key) => {
-              newHashParams.set(`${key}y`, chartOptions[yAxisStatVarDcid][key]);
-            });
-          }
-        }
-
-        // Set second stat var as X axis variable
-        const xAxisStatVarDcid = statVarDcids.at(1);
-        if (xAxisStatVarDcid) {
-          newHashParams.set("svx", xAxisStatVarDcid);
-          // Set x axis options
-          if (chartOptions[xAxisStatVarDcid]) {
-            Object.keys(chartOptions[yAxisStatVarDcid]).forEach((key) => {
-              newHashParams.set(`${key}x`, chartOptions[yAxisStatVarDcid][key]);
-            });
-          }
-        }
-      } else if (paramName && paramValue) {
+      if (paramName) {
         // Otherwise, Add converted keys & values as new param
         // Escape value to defend against XSS attacks
         newHashParams.set(
