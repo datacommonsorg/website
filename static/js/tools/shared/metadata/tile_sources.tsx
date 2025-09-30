@@ -153,7 +153,7 @@ export function TileSources(props: {
                   apiRoot={props.apiRoot}
                   getObservationSpecs={getObservationSpecs}
                   containerRef={props.containerRef}
-                  variant="noIcon"
+                  variant="textOnly"
                 />
               </span>
             </>

@@ -39,15 +39,17 @@ interface ApiButtonProps {
   getObservationSpecs?: () => ObservationSpec[];
   // A ref to the chart container element.
   containerRef?: RefObject<HTMLElement>;
-  // The variant of the button to display. Defaults to "icon".
-  variant?: "icon" | "noIcon";
+  // The variant of the button to display. Defaults to "standard".
+  // `standard` displays the button as text with an icon to the left
+  // `textOnly` displays the button as text only, without the icon.
+  variant?: "standard" | "textOnly";
 }
 
 export function ApiButton({
   apiRoot,
   getObservationSpecs,
   containerRef,
-  variant = "icon",
+  variant = "standard",
 }: ApiButtonProps): ReactElement {
   const [apiOpen, setApiOpen] = useState(false);
   const [apiLoading, setApiLoading] = useState(false);
@@ -89,7 +91,7 @@ export function ApiButton({
 
   return (
     <>
-      {variant === "icon" && (
+      {variant === "standard" && (
         <span className="material-icons-outlined">code</span>
       )}
       <a
