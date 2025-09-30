@@ -69,7 +69,7 @@ function generateLinksJsx(links: InfoLink[]): JSX.Element[] {
     // we explicitly disable the standardized_vis_tool feature flag
     // in links if the flag is currently explicitly disabled.
     if (isFeatureOverrideDisabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
-      const urlWithFlag = new URL(link.url, window.location.origin);
+      const urlWithFlag = new URL(link.url, window.location.href);
       urlWithFlag.searchParams.set(
         DISABLE_FEATURE_URL_PARAM,
         STANDARDIZED_VIS_TOOL_FEATURE_FLAG

@@ -19,6 +19,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import LONG_TIMEOUT
 from server.webdriver.base_utils import wait_elem
 import server.webdriver.shared as shared
 
@@ -167,16 +168,14 @@ class MapTestMixin():
     self.driver.get(self.url_ + MAP_URL)
 
     # Click on first link on landing page
-    placeholder_container = find_elem(self.driver,
-                                      by=By.ID,
-                                      value='placeholder-container')
-    find_elem(placeholder_container, by=By.XPATH,
-              value='./ul/li[2]/a[1]').click()
+    first_link = wait_elem(self.driver,
+                           by=By.CSS_SELECTOR,
+                           value='#placeholder-container a')
+    first_link.click()
 
     # Wait for chart to load
     shared.wait_for_loading(self.driver)
-    shared.wait_for_charts_to_render(self.driver,
-                                     timeout_seconds=self.TIMEOUT_SEC)
+    shared.wait_for_charts_to_render(self.driver, timeout_seconds=LONG_TIMEOUT)
     wait_elem(self.driver, By.TAG_NAME, 'path')
 
     # Assert chart loads
