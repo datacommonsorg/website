@@ -52,7 +52,8 @@ function getTileProp(
   place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  surfaceHeaderValue?: string
 ): BarTilePropType {
   const barTileSpec = tileConfig.barTileSpec || {};
   return {
@@ -67,6 +68,7 @@ function getTileProp(
     useLollipop: barTileSpec.useLollipop || false,
     variables: statVarSpec,
     sort: convertToSortType(tileConfig.barTileSpec?.sort),
+    surfaceHeaderValue,
   };
 }
 
@@ -113,10 +115,11 @@ export async function getBarTileResult(
     place,
     enclosedPlaceType,
     statVarSpec,
-    apiRoot
+    apiRoot,
+    surfaceHeaderValue
   );
   try {
-    const chartData = await fetchData(tileProp, null, surfaceHeaderValue);
+    const chartData = await fetchData(tileProp, null);
     const chartTitle = getChartTitle(
       tileConfig.title,
       getReplacementStrings(chartData)

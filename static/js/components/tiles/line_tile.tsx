@@ -128,6 +128,8 @@ export interface LineTilePropType {
   lazyLoadMargin?: string;
   // Metadata for the facet to highlight.
   highlightFacet?: FacetMetadata;
+  // Passed into mixer calls to differentiate website and web components in usage logs
+  surfaceHeaderValue?: string;
 }
 
 export interface LineChartData {

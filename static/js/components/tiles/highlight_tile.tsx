@@ -62,6 +62,8 @@ export interface HighlightTilePropType {
   sources?: string[];
   // Facet metadata to use for the highlight tile
   highlightFacet?: FacetMetadata;
+  // Passed into mixer calls to differentiate website and web components in usage logs
+  surfaceHeaderValue?: string;
 }
 
 export interface HighlightData extends Observation {
@@ -87,6 +89,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
     highlightFacet,
     apiRoot,
     description: highlightDesc,
+    surfaceHeaderValue,
   } = props;
 
   useEffect(() => {
@@ -96,14 +99,22 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
           place,
           statVarSpec,
           highlightFacet,
-          apiRoot
+          apiRoot,
+          surfaceHeaderValue
         );
         setHighlightData(data);
       } catch {
         setHighlightData(null);
       }
     })();
-  }, [apiRoot, highlightFacet, place, statVarSpec, highlightDesc]);
+  }, [
+    apiRoot,
+    highlightFacet,
+    place,
+    statVarSpec,
+    highlightDesc,
+    surfaceHeaderValue,
+  ]);
 
   if (!highlightData) {
     return null;

@@ -24,6 +24,7 @@ import {
   DonutTile,
   DonutTilePropType,
 } from "../js/components/tiles/donut_tile";
+import { WEB_COMPONENT_SURFACE_HEADER_VALUE } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -128,6 +129,7 @@ export class DatacommonsPieComponent extends LitElement {
       subtitle: this.subheader,
       svgChartHeight: 200,
       title: this.header || this.title,
+      surfaceHeaderValue: WEB_COMPONENT_SURFACE_HEADER_VALUE,
     };
     return createWebComponentElement(DonutTile, donutTileProps);
   }

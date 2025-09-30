@@ -347,8 +347,7 @@ export function getReplacementStrings(
 
 export const fetchData = async (
   props: BarTilePropType,
-  dateOverride?: string,
-  surfaceHeaderValue?: string
+  dateOverride?: string
 ): Promise<BarChartData> => {
   /*
    In order to accommodate facet selection while keeping the stat var/facet relationship,
@@ -379,7 +378,7 @@ export const fetchData = async (
           [statSvs],
           props.highlightFacet,
           facetId ? [facetId] : undefined,
-          surfaceHeaderValue
+          props.surfaceHeaderValue
         )
       );
     }
@@ -397,7 +396,7 @@ export const fetchData = async (
           date,
           [statSvs],
           facetId ? [facetId] : undefined,
-          surfaceHeaderValue
+          props.surfaceHeaderValue
         )
       );
     }
@@ -415,7 +414,7 @@ export const fetchData = async (
       undefined,
       null,
       null,
-      surfaceHeaderValue
+      props.surfaceHeaderValue
     );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
@@ -425,7 +424,7 @@ export const fetchData = async (
           denomSvs,
           [],
           null,
-          surfaceHeaderValue
+          props.surfaceHeaderValue
         );
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     filterPromise = getPointWithin(
@@ -436,7 +435,7 @@ export const fetchData = async (
       "",
       null,
       null,
-      surfaceHeaderValue
+      props.surfaceHeaderValue
     );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
@@ -446,7 +445,7 @@ export const fetchData = async (
           props.enclosedPlaceType,
           denomSvs,
           null,
-          surfaceHeaderValue
+          props.surfaceHeaderValue
         );
   }
 

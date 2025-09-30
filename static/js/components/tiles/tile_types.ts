@@ -48,6 +48,9 @@ export interface ChartOptions {
   subtitle?: string;
   // height, in px, for the SVG chart
   svgChartHeight: number;
+  // indicates if the chart is used by a DC surface
+  // other than the website (e.g. web components, DataGemma, etc)
+  surfaceHeaderValue?: string;
   // TODO: implement placeNameProp for GAUGE and DONUT.
   // TODO: implement getProcessedSVNameFn for DONUT, GAUGE, MAP, SCATTER.
   // TODO: implement colors for SCATTER.
