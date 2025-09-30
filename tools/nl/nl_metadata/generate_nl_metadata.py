@@ -47,6 +47,12 @@ import asyncio
 from datetime import datetime
 import json
 import os
+import sys
+
+# WARNING: This disables a Python safety feature to allow parsing of extremely
+# long integers from the Gemini API response. This is a workaround for cases
+# where the model may return unexpectedly large numbers.
+sys.set_int_max_str_digits(0)  # 0 means no limit
 
 import config
 import data_loader
@@ -217,16 +223,16 @@ def get_gcs_folder(gcs_folder: str | None, run_mode: str) -> str:
 
   if gcs_folder:
     # Store results in timestamp subfolders for other non-diff/non-retry runs.
-    return f"{gcs_folder}/{date_folder}"
+    return os.path.join(gcs_folder, date_folder)
 
   if run_mode == config.RUN_MODE_RETRY_FAILURES:
     # Default location if no gcs_folder is provided
-    return f"{config.GCS_FILE_DIR_RETRIES}/{date_folder}"
+    return os.path.join(config.GCS_FILE_DIR_RETRIES, date_folder)
 
   if run_mode == config.RUN_MODE_BIGQUERY:
-    return f"{config.GCS_FILE_DIR_FULL}/{date_folder}"
+    return os.path.join(config.GCS_FILE_DIR_FULL, date_folder)
 
-  return f"{config.GCS_FILE_DIR_NL}/{date_folder}"
+  return os.path.join(config.GCS_FILE_DIR_NL, date_folder)
 
 
 def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
@@ -243,25 +249,50 @@ def export_to_json(sv_metadata_list: list[dict[str, str | list[str]]],
       f"Exporting {len(sv_metadata_list)} StatVars to {exported_filename}.json..."
   )
   filename = f"{exported_filename}.json"
-  local_file_path = f"{config.EXPORTED_FILE_DIR}/{filename}"
-  sv_metadata_df = pd.DataFrame(sv_metadata_list)
+  local_file_path = os.path.join(config.EXPORTED_FILE_DIR, filename)
+  try:
+    sv_metadata_df = pd.DataFrame(sv_metadata_list)
+  except OverflowError:
+    print(
+        "OverflowError encountered. Building DataFrame row by row and skipping bad rows."
+    )
+    good_rows = []
+    bad_rows_count = 0
+    for item in sv_metadata_list:
+      try:
+        # The error is with conversion, so we test if a DF can be made.
+        pd.DataFrame([item])
+        good_rows.append(item)
+      except OverflowError:
+        bad_rows_count += 1
+        print(f"WARNING: Skipping a row due to OverflowError. Row data: {item}")
+
+    if not good_rows:
+      print("ERROR: All rows failed conversion. DataFrame will be empty.")
+      sv_metadata_df = pd.DataFrame()
+    else:
+      sv_metadata_df = pd.DataFrame(good_rows)
+
+    if bad_rows_count > 0:
+      print(f"Skipped {bad_rows_count} rows due to OverflowError.")
   sv_metadata_json = sv_metadata_df.to_json(orient="records", lines=True)
 
   if should_save_to_gcs:
     gcs_client = storage.Client(project=config.GCS_PROJECT_ID)
     bucket = gcs_client.bucket(config.GCS_BUCKET)
-    gcs_file_path = f"{gcs_folder}/{filename}"
+    gcs_file_path = os.path.join(gcs_folder, filename)
     blob = bucket.blob(gcs_file_path)
     blob.upload_from_string(sv_metadata_json, content_type="application/json")
 
     print(
-        f"{len(sv_metadata_list)} statvars saved to gs://{config.GCS_BUCKET}/{gcs_file_path}"
+        f"{len(sv_metadata_df)} statvars saved to gs://{config.GCS_BUCKET}/{gcs_file_path}"
     )
   else:
-    os.makedirs(f"{config.EXPORTED_FILE_DIR}/failures", exist_ok=True)
+    os.makedirs(os.path.join(config.EXPORTED_FILE_DIR, "failures"),
+                exist_ok=True)
     with open(local_file_path, "w") as f:
       f.write(sv_metadata_json)
-    print(f"{len(sv_metadata_list)} statvars saved to {local_file_path}")
+    print(f"{len(sv_metadata_df)} statvars saved to {local_file_path}")
 
 
 def compact_files(gcs_folder: str, output_filename: str,
@@ -282,9 +313,10 @@ def compact_files(gcs_folder: str, output_filename: str,
 
   # 1. List all original files to be compacted from the root of the folder
   # Ensure the prefix ends with a delimiter to correctly list folder contents.
-  if not gcs_folder.endswith('/'):
-    gcs_folder += '/'
-  blobs_in_folder = bucket.list_blobs(prefix=gcs_folder, delimiter='/')
+  list_prefix = gcs_folder
+  if not list_prefix.endswith('/'):
+    list_prefix += '/'
+  blobs_in_folder = bucket.list_blobs(prefix=list_prefix, delimiter='/')
   original_files = [
       blob for blob in blobs_in_folder
       if (blob.name.endswith('.jsonl') or blob.name.endswith('.json')) and
@@ -315,7 +347,7 @@ def compact_files(gcs_folder: str, output_filename: str,
   print("Merge complete.")
 
   # 3. Upload the new compacted file
-  compacted_blob_path = f"{gcs_folder.rstrip('/')}/{output_filename}"
+  compacted_blob_path = os.path.join(gcs_folder, output_filename)
   compacted_blob = bucket.blob(compacted_blob_path)
 
   print(
