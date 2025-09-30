@@ -27,6 +27,9 @@
  *   specific endpoints or scripts.
  * - Add the language to the LANGUAGE_SPEC array. See instructions in that
  *   section for information on how to create that object.
+ * - If the language is not already set up for syntax highlighting in
+ *   code_block.tsx, go to that component and add syntax highlighting for
+ *   that language. Instructions are provided in that file.
  *
  * Note that this can be extended later to allow for other methods of
  * calling the API (a raw GET or Python and other languages).
@@ -37,9 +40,7 @@ import React, {
   ReactElement,
   ReactNode,
   RefObject,
-  useLayoutEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 import { FormattedMessage } from "react-intl";
@@ -48,6 +49,7 @@ import { intl } from "../../../i18n/i18n";
 import { chartComponentMessages } from "../../../i18n/i18n_chart_messages";
 import { messages } from "../../../i18n/i18n_messages";
 import {
+  buildObservationSpecManifest,
   isCustomDataCommons,
   ObservationSpec,
   observationSpecsToPythonScript,
@@ -55,6 +57,10 @@ import {
 } from "../../../shared/observation_specs";
 import { Button } from "../../elements/button/button";
 import { CopyToClipboardButton } from "../../elements/button/copy_to_clipboard_button";
+import CodeBlock, {
+  HighlightLanguage,
+  SpecialTerms,
+} from "../../elements/code/code_block";
 import {
   Dialog,
   DialogActions,
@@ -91,12 +97,14 @@ type LanguageSpec =
       name: string;
       displayStyle: "multiple";
       generator: SingleSpecGenerator;
+      highlightLanguage: HighlightLanguage;
     }
   | {
       slug: string;
       name: string;
       displayStyle: "single";
       generator: MultiSpecGenerator;
+      highlightLanguage: HighlightLanguage;
     };
 
 const LANGUAGE_SPEC: LanguageSpec[] = [
@@ -105,12 +113,14 @@ const LANGUAGE_SPEC: LanguageSpec[] = [
     name: "cURL",
     displayStyle: "multiple",
     generator: observationSpecToCurl,
+    highlightLanguage: "bash",
   },
   {
     slug: "python",
     name: "Python",
     displayStyle: "single",
     generator: observationSpecsToPythonScript,
+    highlightLanguage: "python",
   },
 ];
 
@@ -136,23 +146,22 @@ interface ApiDialogProps {
   containerRef?: RefObject<HTMLElement>;
 }
 
-interface ApiCallTextAreaProps {
+interface ApiCallCodeBlockProps {
   // the value (the text of an API endpoint call) that will be
-  // displayed in the text area.
+  // displayed in the code block area.
   value: string;
+  // the language of the code block for syntax highlighting
+  language: HighlightLanguage;
+  // An optional record of special terms to be highlighted in the code block
+  specialTerms?: SpecialTerms;
 }
 
-const ApiCallTextArea = ({ value }: ApiCallTextAreaProps): ReactElement => {
+function ApiCallCodeBlock({
+  value,
+  language,
+  specialTerms,
+}: ApiCallCodeBlockProps): ReactElement {
   const theme = useTheme();
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  useLayoutEffect(() => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = "auto";
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-  }, [value]);
 
   return (
     <div
@@ -173,29 +182,11 @@ const ApiCallTextArea = ({ value }: ApiCallTextAreaProps): ReactElement => {
           padding: ${theme.spacing.xs}px;
           cursor: pointer;
         `}
-      ></CopyToClipboardButton>
-      <textarea
-        ref={textareaRef}
-        css={css`
-          width: 100%;
-          border: 1px solid ${theme.colors.border.primary.light};
-          color: ${theme.colors.text.tertiary.base};
-          ${theme.radius.tertiary};
-          ${theme.typography.family.code};
-          ${theme.typography.text.sm};
-          padding: ${theme.spacing.md}px;
-          overflow-y: hidden;
-          resize: none;
-          &:focus {
-            outline: none;
-          }
-        `}
-        readOnly
-        value={value}
       />
+      <CodeBlock language={language} code={value} specialTerms={specialTerms} />
     </div>
   );
-};
+}
 
 function getStatVarListString(
   dcids: string[],
@@ -246,6 +237,17 @@ export function ApiDialog({
       return currentLanguageSpec.generator(specs, statVarNameMap, apiRoot);
     }
   }, [specs, apiRoot, statVarNameMap, currentLanguageSpec]);
+
+  const specialTerms = useMemo((): SpecialTerms => {
+    const manifest = buildObservationSpecManifest(specs);
+    return {
+      highlight: [
+        ...manifest.entities,
+        ...manifest.entityExpressions,
+        ...manifest.statVars,
+      ],
+    };
+  }, [specs]);
 
   const concatenatedEndpointCalls = useMemo(() => {
     if (Array.isArray(apiContent)) {
@@ -321,7 +323,9 @@ export function ApiDialog({
           <label>Language:</label>
           <select
             value={apiLanguage}
-            onChange={(e): void => setApiLanguage(e.target.value)}
+            onChange={(e): void =>
+              setApiLanguage(e.target.value as LanguageSlug)
+            }
           >
             {LANGUAGE_SPEC.map((lang) => (
               <option key={lang.slug} value={lang.slug}>
@@ -362,12 +366,20 @@ export function ApiDialog({
                 `}
               >
                 {showHeader && <h3>{title}</h3>}
-                <ApiCallTextArea value={apiContent[index] || ""} />
+                <ApiCallCodeBlock
+                  value={apiContent[index] || ""}
+                  language={currentLanguageSpec.highlightLanguage}
+                  specialTerms={specialTerms}
+                />
               </div>
             );
           })
         ) : (
-          <ApiCallTextArea value={apiContent as string} />
+          <ApiCallCodeBlock
+            value={apiContent as string}
+            language={currentLanguageSpec.highlightLanguage}
+            specialTerms={specialTerms}
+          />
         )}
       </DialogContent>
       <DialogActions>

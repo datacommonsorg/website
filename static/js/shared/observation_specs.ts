@@ -76,6 +76,45 @@ export interface ObservationSpecOptions {
 }
 
 /**
+ * A manifest of special terms associated with an observation spec.
+ * These can be used to provide a list of terms to be highlighted or
+ * otherwise treated specially later.
+ */
+export interface ObservationSpecManifest {
+  entities: string[];
+  entityExpressions: string[];
+  statVars: string[];
+}
+
+/**
+ * Builds a manifest entities and statistical variables from a
+ * list of observation specifications.
+ * @param specs An array of `ObservationSpec` objects.
+ * @returns An `ObservationSpecManifest` containing unique entities and stat vars.
+ */
+export function buildObservationSpecManifest(
+  specs: ObservationSpec[]
+): ObservationSpecManifest {
+  const allEntities = new Set<string>();
+  const allEntityExpressions = new Set<string>();
+  const allStatVars = new Set<string>();
+
+  for (const spec of specs) {
+    (spec.entityDcids || []).forEach((e) => allEntities.add(e));
+    if (spec.entityExpression) {
+      allEntityExpressions.add(spec.entityExpression);
+    }
+    spec.statVarDcids.forEach((sv) => allStatVars.add(sv));
+  }
+
+  return {
+    entities: Array.from(allEntities),
+    entityExpressions: Array.from(allEntityExpressions),
+    statVars: Array.from(allStatVars),
+  };
+}
+
+/**
  * Determines if the given API endpoint points to a custom Data Commons instance.
  * @param endpoint
  * @returns True if the given endpoint is standard (not custom), otherwise false
