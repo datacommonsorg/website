@@ -187,13 +187,10 @@ class DataCommonsWebClient {
    * @param params.entities list of enitites to get data for
    * @param params.variables list of variables to get data for
    */
-  async getObservationsSeries(
-    params: {
-      entities: string[];
-      variables: string[];
-    },
-    surfaceHeaderValue?: string
-  ): Promise<SeriesApiResponse> {
+  async getObservationsSeries(params: {
+    entities: string[];
+    variables: string[];
+  }): Promise<SeriesApiResponse> {
     const queryString = toURLSearchParams({
       entities: params.entities,
       variables: params.variables,
@@ -201,7 +198,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/observations/series?${queryString}`;
     const response = await fetch(url, {
       headers: {
-        "x-surface": surfaceHeaderValue || "website",
+        "x-surface": this.surfaceHeaderValue || "website",
       },
     });
     return (await response.json()) as SeriesApiResponse;
