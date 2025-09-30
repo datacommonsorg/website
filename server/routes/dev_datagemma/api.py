@@ -67,7 +67,8 @@ def _get_datagemma_result(query, mode):
                      data_fetcher=dc_nl_service).query(query=query)
   elif mode == _RAG_MODE:
     model_name = GEMINI_2_5_FLASH if is_feature_enabled(
-        ENABLE_GEMINI_2_5_FLASH_FLAG, request=request) else GEMINI_2_5_FLASH_LITE
+        ENABLE_GEMINI_2_5_FLASH_FLAG,
+        request=request) else GEMINI_2_5_FLASH_LITE
     logging.info(f'DataGemma using Gemini model: {model_name}')
     gemini_model = GoogleAIStudio(
         model=model_name, api_keys=[current_app.config['GEMINI_API_KEY']])
