@@ -107,8 +107,15 @@ export interface Theme {
       };
       code?: {
         base?: string;
-        light?: string;
-        dark?: string;
+        highlight?: string;
+        selected?: string;
+        blue?: string;
+        grey?: string;
+        black?: string;
+        red?: string;
+        green?: string;
+        orange?: string;
+        yellow?: string;
       };
     };
     border?: {

@@ -220,39 +220,39 @@ export default function CodeBlock({
       hyphens: "none",
 
       "& ::selection": {
-        background: "#eef2ff",
+        background:  theme.colors.text.code.selected,
       },
 
       ".token.comment, .token.prolog, .token.doctype, .token.cdata": {
-        color: "slategray",
+        color: theme.colors.text.code.grey,
       },
       ".token.punctuation": {
-        color: "#999",
+        color: theme.colors.text.code.black,
       },
       ".token.namespace": {
         opacity: 0.7,
       },
       ".token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted":
         {
-          color: "#905",
+          color: theme.colors.text.code.blue,
         },
       ".token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted":
         {
-          color: "#690",
+          color: theme.colors.text.code.green,
         },
       ".token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string":
         {
-          color: "#9a6e3a",
+          color: theme.colors.text.code.orange,
           background: "hsla(0, 0%, 100%, .5)",
         },
       ".token.atrule, .token.attr-value, .token.keyword": {
-        color: "#07a",
+        color: theme.colors.text.code.black,
       },
       ".token.function, .token.class-name": {
-        color: "#DD4A68",
+        color: theme.colors.text.code.blue,
       },
       ".token.regex, .token.important, .token.variable": {
-        color: "#e90",
+        color: theme.colors.text.code.yellow,
       },
       ".token.important, .token.bold": {
         fontWeight: "bold",
@@ -264,7 +264,7 @@ export default function CodeBlock({
         cursor: "help",
       },
       ".token.special-term-highlight": {
-        backgroundColor: "#F2D2E7",
+        backgroundColor: theme.colors.text.code.highlight,
         padding: "2px 3px",
         borderRadius: "3px",
       },

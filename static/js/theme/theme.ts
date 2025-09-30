@@ -101,6 +101,9 @@ const DC_YELLOW = "hsl(35, 100%, 29%)";
 const DC_YELLOW_PILL_TEXT = "hsl(3, 71%, 15%)";
 const DC_YELLOW_PILL_BCKG = "hsl(40, 100%, 91%)";
 
+const DC_ORANGE = "hsl(26 100% 35.9%)";
+const DC_YELLOW_DARK = "hsl(43 100% 35.9%)";
+
 const DC_GRAY_DARK = "hsl(200, 2.9%, 41.2%)";
 const DC_GRAY = "hsl(160, 2%, 27%)";
 const DC_GRAY_LIGHT = "hsl(0, 0%, 48%)";
@@ -133,6 +136,14 @@ const theme: Theme = {
       },
       code: {
         base: DC_GREEN,
+        highlight: DC_YELLOW_PILL_BCKG,
+        blue: DC_BLUE,
+        grey: DC_GRAY,
+        black: DC_BLUE_DARK,
+        red: DC_RED,
+        green: DC_GREEN,
+        orange: DC_ORANGE,
+        yellow: DC_YELLOW_DARK,
       },
     },
     background: {
