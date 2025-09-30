@@ -51,7 +51,6 @@ CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
 
-
 # Parent place types to include in listing of containing places at top of page
 # Keep sorted!
 PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
