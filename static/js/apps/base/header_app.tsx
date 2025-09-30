@@ -18,9 +18,11 @@
  * The app that renders the header component on all pages via the base template
  */
 
+import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { HeaderMenu, Labels, Routes } from "../../shared/types/base";
+import theme from "../../theme/theme";
 import HeaderBar from "./components/header_bar/header_bar";
 
 interface HeaderAppProps {
@@ -60,7 +62,7 @@ export function HeaderApp({
   routes,
 }: HeaderAppProps): ReactElement {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <HeaderBar
         name={name}
         logoPath={logoPath}
@@ -72,6 +74,6 @@ export function HeaderApp({
         labels={labels}
         routes={routes}
       />
-    </>
+    </ThemeProvider>
   );
 }
