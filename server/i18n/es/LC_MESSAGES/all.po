@@ -193,9 +193,6 @@ msgstr "Población más numerosa"
 msgid "Life Expectancy"
 msgstr "Esperanza de vida"
 
-msgid "Loading"
-msgstr "Cargando"
-
 msgid "Map Explorer"
 msgstr "Explorador de mapas"
 
@@ -273,9 +270,6 @@ msgstr "Estados (Estados Unidos)"
 
 msgid "Statistical Variable Explorer"
 msgstr "Explorador de variables estadísticas"
-
-msgid "Statistics"
-msgstr "Statistics"
 
 msgid "Sustainability Explorer"
 msgstr "Explorador de sostenibilidad"
@@ -862,6 +856,5 @@ msgstr "Emisiones de óxido nitroso (no biogénico)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Índice de extracción de agua"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Overview"
-msgstr "Vista general"
+
 
