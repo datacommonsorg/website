@@ -18,7 +18,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 from google.genai import types
 from tools.nl.nl_metadata import gemini_service
-from tools.nl.nl_metadata.schemas import GeminiGeneratedSentences
+from tools.nl.nl_metadata.schemas import GeminiResponseItem
 
 
 class TestGeminiService(unittest.TestCase):
@@ -30,8 +30,10 @@ class TestGeminiService(unittest.TestCase):
       mock_gemini_client = MagicMock()
       mock_response = MagicMock()
       mock_response.parsed = [
-          GeminiGeneratedSentences(generatedSentences=["alt 1", "alt 2"]),
-          GeminiGeneratedSentences(generatedSentences=["alt 3", "alt 4"]),
+          GeminiResponseItem(dcid="dcid1",
+                             generatedSentences=["alt 1", "alt 2"]),
+          GeminiResponseItem(dcid="dcid2",
+                             generatedSentences=["alt 3", "alt 4"]),
       ]
       mock_gemini_client.aio.models.generate_content = AsyncMock(
           return_value=mock_response)
@@ -74,7 +76,8 @@ class TestGeminiService(unittest.TestCase):
       mock_gemini_client = MagicMock()
       mock_response = MagicMock()
       mock_response.parsed = [
-          GeminiGeneratedSentences(generatedSentences=["alt 1", "alt 2"]),
+          GeminiResponseItem(dcid="dcid1",
+                             generatedSentences=["alt 1", "alt 2"]),
       ]  # Only one result for two inputs
       mock_gemini_client.aio.models.generate_content = AsyncMock(
           return_value=mock_response)
@@ -92,14 +95,24 @@ class TestGeminiService(unittest.TestCase):
       gemini_config = types.GenerateContentConfig()
 
       # Act
-      # The function should catch the error, retry, and return the original data
+      # The function should merge the results for the items that have a DCID.
       result = await gemini_service.generate_alt_sentences(
           mock_gemini_client, gemini_config, "prompt", sv_metadata, delay=0)
 
       # Assert
-      self.assertEqual(
-          result, sv_metadata
-      )  # Should return original metadata on failure
+      expected = [
+          {
+              'dcid': 'dcid1',
+              'name': 'Name 1',
+              'generatedSentences': ['alt 1', 'alt 2']
+          },
+          {
+              'dcid': 'dcid2',
+              'name': 'Name 2',
+              'generatedSentences': None
+          },
+      ]
+      self.assertEqual(result, expected)
 
     asyncio.run(run_test())
 
@@ -110,8 +123,9 @@ class TestGeminiService(unittest.TestCase):
       mock_gemini_client = MagicMock()
       mock_response = MagicMock()
       mock_response.parsed = [
-          GeminiGeneratedSentences(generatedSentences=["alt 1", "alt 2"]),
-          GeminiGeneratedSentences(generatedSentences=None),  # Null sentences
+          GeminiResponseItem(dcid="dcid1",
+                             generatedSentences=["alt 1", "alt 2"]),
+          GeminiResponseItem(dcid="dcid2", generatedSentences=None),
       ]
       mock_gemini_client.aio.models.generate_content = AsyncMock(
           return_value=mock_response)
@@ -133,9 +147,19 @@ class TestGeminiService(unittest.TestCase):
           mock_gemini_client, gemini_config, "prompt", sv_metadata, delay=0)
 
       # Assert
-      self.assertEqual(
-          result, sv_metadata
-      )  # Should return original metadata on failure
+      expected = [
+          {
+              'dcid': 'dcid1',
+              'name': 'Name 1',
+              'generatedSentences': ["alt 1", "alt 2"]
+          },
+          {
+              'dcid': 'dcid2',
+              'name': 'Name 2',
+              'generatedSentences': None
+          },
+      ]
+      self.assertEqual(result, expected)
 
     asyncio.run(run_test())
 
@@ -166,5 +190,23 @@ class TestGeminiService(unittest.TestCase):
       # Check if it retried
       self.assertEqual(mock_gemini_client.aio.models.generate_content.call_count,
                        3)  # From config.MAX_RETRIES
+
+    asyncio.run(run_test())
+
+  def test_generate_alt_sentences_empty_input(self):
+
+    async def run_test():
+      # Arrange
+      mock_gemini_client = MagicMock()
+      sv_metadata = []
+      gemini_config = types.GenerateContentConfig()
+
+      # Act
+      result = await gemini_service.generate_alt_sentences(
+          mock_gemini_client, gemini_config, "prompt", sv_metadata, delay=0)
+
+      # Assert
+      self.assertEqual(result, [])
+      mock_gemini_client.aio.models.generate_content.assert_not_called()
 
     asyncio.run(run_test())

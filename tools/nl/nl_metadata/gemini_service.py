@@ -20,6 +20,8 @@ async def generate_alt_sentences(
   Merges the generated sentences back into the original metadata using the dcid.
   If the API call fails, retries up to MAX_RETRIES times before returning the original, unmodified sv_metadata.
   """
+  if not sv_metadata:
+    return []
   await asyncio.sleep(
       delay
   )  # Stagger each parallel Gemini API call by 5 seconds to prevent 429 errors from spiked usage.
