@@ -590,13 +590,16 @@ const fetchDetectAndFufillData = async (
     [URL_HASH_PARAMS.MAX_CHARTS]: maxCharts,
   };
   const queryURL = new URLSearchParams();
+  // Set query param 'q' first so that it appears first in the URL.
   queryURL.set("q", query);
+  // Extract Search Params to queryURL.
   const urlParams = extractFlagsToPropagate(window.location.href);
   for (const [field, value] of urlParams.entries()) {
     if (value) {
       queryURL.set(field, value);
     }
   }
+  // Extract Hash Params to queryURL.
   for (const [field, value] of Object.entries(fieldsMap)) {
     if (value) {
       queryURL.set(field, value);
