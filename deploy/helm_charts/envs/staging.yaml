@@ -94,6 +94,8 @@ svg:
 
 cronTesting:
   enabled: true
+  webApiRoot: "http://website-service.website.svc.cluster.local:8080"
+  nodejsApiRoot: "http://website-nodejs-service.website.svc.cluster.local:8080"
   screenshotDomain: "staging.datacommons.org"
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically
