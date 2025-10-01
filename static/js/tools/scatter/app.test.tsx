@@ -33,7 +33,7 @@ import { when } from "jest-when";
 import React, { useEffect } from "react";
 
 import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { App } from "./app";
 import {
   Context,
@@ -291,9 +291,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -312,9 +310,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -333,9 +329,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -354,9 +348,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -375,9 +367,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -396,9 +386,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -410,16 +398,7 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/observations/point", {
-      params: {
-        variables: ["Count_Person"],
-        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
-      },
-      paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
-    })
+      headers: getXSurfaceHeader(),
     .mockResolvedValue({
       data: {
         data: {
@@ -449,9 +428,7 @@ function mockAxios(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {

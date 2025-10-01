@@ -24,8 +24,7 @@ import * as d3 from "d3";
 import { when } from "jest-when";
 
 import { drawGroupLineChart } from "../../chart/draw_line";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
   // Mock all the async axios call.
@@ -105,13 +104,7 @@ export function axiosMock(): void {
     .calledWith(
       "/api/observation/existence",
       {
-        entities: ["geoId/05"],
-        variables: ["Median_Age_Person"],
-      },
-      {
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue({
@@ -131,9 +124,7 @@ export function axiosMock(): void {
         variables: ["Median_Age_Person", "Count_Person"],
       },
       {
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue({
@@ -156,9 +147,7 @@ export function axiosMock(): void {
         variables: ["NotInTheTree"],
       },
       {
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue({
@@ -178,9 +167,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       {
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue({
@@ -211,9 +198,7 @@ export function axiosMock(): void {
         entities: ["geoId/05"],
       },
       {
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue({
@@ -254,9 +239,7 @@ export function axiosMock(): void {
         variables: ["Median_Age_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -326,9 +309,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -369,9 +350,7 @@ export function axiosMock(): void {
         variables: ["NotInTheTree"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {

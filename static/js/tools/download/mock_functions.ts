@@ -23,7 +23,7 @@ import axios from "axios";
 import { when } from "jest-when";
 
 import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
   // Mock all the async axios call.
@@ -315,13 +315,7 @@ export function axiosMock(): void {
     .calledWith(
       "/api/observation/existence",
       {
-        entities: ["geoId/06001", "geoId/06002"],
-        variables: ["Count_Person"],
-      },
-      {
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue({
@@ -341,9 +335,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       {
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue({

@@ -29,7 +29,7 @@ import {
   StatMetadata,
 } from "../shared/stat_types";
 import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
-import { stringifyFn } from "../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../utils/axios";
 import { getUnit } from "../utils/stat_metadata_utils";
 import { ObservationChart } from "./observation_chart";
 
@@ -135,9 +135,7 @@ export class ObservationChartSection extends React.Component<
           variables: [this.props.statVarId],
         },
         paramsSerializer: stringifyFn,
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       })
       .then((resp) => {
         removeSpinner(this.containerId);

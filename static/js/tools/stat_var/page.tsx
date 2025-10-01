@@ -31,7 +31,7 @@ import {
   StatVarSummary,
 } from "../../shared/types";
 import theme from "../../theme/theme";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getUrlToken, updateHash } from "../../utils/url_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
@@ -201,9 +201,7 @@ class Page extends Component<unknown, PageStateType> {
               variables,
             },
             {
-              headers: {
-                "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-              },
+              headers: getXSurfaceHeader(),
             }
           )
           .then((exResp) => {

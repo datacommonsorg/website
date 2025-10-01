@@ -25,7 +25,7 @@ import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getPointWithin } from "../../utils/data_fetch_utils";
 import {
   Axis,
@@ -131,9 +131,7 @@ export async function getStatAllWithinPlace(
             variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
-          headers: {
-            "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-          },
+          headers: getXSurfaceHeader(),
         })
         .then((resp) => resp.data)
     );

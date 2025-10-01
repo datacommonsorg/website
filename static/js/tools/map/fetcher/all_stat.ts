@@ -30,7 +30,7 @@ import {
   PointAllApiResponse,
 } from "../../../shared/stat_types";
 import { getCappedStatVarDate } from "../../../shared/util";
-import { stringifyFn } from "../../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
@@ -71,9 +71,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
           variables: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: getXSurfaceHeader(),
       })
       .then((resp) => {
         if (_.isEmpty(resp.data.data[statVar.value.dcid])) {
