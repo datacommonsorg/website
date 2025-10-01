@@ -13,17 +13,30 @@
 # limitations under the License.
 
 substitutions:
-  _VERS: "2025-07-31"
+  _VERS: "2025-10-01"
 
 steps:
-  - name: "gcr.io/cloud-builders/docker"
+  - id: build-mixer-only
+    name: "gcr.io/cloud-builders/docker"
     args:
       - build
       - "--build-arg=VERS=${_VERS}"
-      - --tag=gcr.io/datcom-ci/full-env:${_VERS}
+      - "--target=mixer-only"
+      - "--tag=gcr.io/datcom-ci/full-env:mixer-only-${_VERS}"
+      - "--tag=gcr.io/datcom-ci/full-env:mixer-only-latest"
+      - "."
+
+  - id: build-full-env
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - "--build-arg=VERS=${_VERS}"
+      - "--tag=gcr.io/datcom-ci/full-env:${_VERS}"
       - --tag=gcr.io/datcom-ci/full-env:latest
       - "."
 
 images:
+  - "gcr.io/datcom-ci/full-env:mixer-only-${_VERS}"
+  - "gcr.io/datcom-ci/full-env:mixer-only-latest"
   - "gcr.io/datcom-ci/full-env:${_VERS}"
   - "gcr.io/datcom-ci/full-env:latest"
