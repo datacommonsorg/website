@@ -85,6 +85,7 @@ export const TIMELINE_URL_PARAM_MAPPING: ParamNameMapping = {
 export const SCATTER_URL_PARAM_MAPPING: ParamNameMapping = {
   date: FieldToAbbreviation.date,
   denom: FieldToAbbreviation.denom,
+  display: "display",
   l: FieldToAbbreviation.showLabels,
   log: FieldToAbbreviation.log,
   pc: FieldToAbbreviation.perCapita,
