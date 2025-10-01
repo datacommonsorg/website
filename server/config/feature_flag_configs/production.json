@@ -12,6 +12,13 @@
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
   {
+    "name": "enable_gemini_2_5_flash",
+    "enabled": true,
+    "owner": "shixiao",
+    "description": "Enabling Gemini 2.5 Flash for NL detection.",
+    "rollout_percentage": 20
+  },
+  {
     "name": "explore_result_header",
     "enabled": true,
     "owner": "nick-next",
