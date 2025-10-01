@@ -19,10 +19,9 @@
   },
   {
     "name": "enable_gemini_2_5_flash",
-    "enabled": true,
+    "enabled": false,
     "owner": "shixiao",
-    "description": "Enabling Gemini 2.5 Flash for NL detection.",
-    "rollout_percentage": 20
+    "description": "Enabling Gemini 2.5 Flash for NL detection."
   },
   {
     "name": "enable_stat_var_autocomplete",
