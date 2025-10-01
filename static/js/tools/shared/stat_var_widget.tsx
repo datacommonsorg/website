@@ -24,6 +24,7 @@ import React, { createRef, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { NamedNode } from "../../shared/types";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
@@ -71,7 +72,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
           },
           {
             headers: {
-              "x-surface": "website",
+              "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
             },
           }
         )

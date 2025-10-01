@@ -82,7 +82,7 @@ export interface DonutTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
-  // Passed into mixer calls to differentiate website and web components in usage logs
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surfaceHeaderValue?: string;
 }
 

@@ -30,6 +30,8 @@ import {
 } from "./data_commons_web_client_types";
 import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "./constants";
+
 export interface DatacommonsWebClientParams {
   apiRoot?: string;
   surfaceHeaderValue?: string | null;
@@ -40,12 +42,13 @@ const LOCALE_PARAM = "hl";
 class DataCommonsWebClient {
   /** Website API root */
   apiRoot?: string;
-  surfaceHeaderValue?: string | null;
+  surfaceHeaderValue: string;
 
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
-    this.surfaceHeaderValue = p.surfaceHeaderValue;
+    this.surfaceHeaderValue =
+      p.surfaceHeaderValue || WEBSITE_SURFACE_HEADER_VALUE;
   }
 
   /**
@@ -143,7 +146,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/observations/point?${queryString}`;
     const response = await fetch(url, {
       headers: {
-        "x-surface": this.surfaceHeaderValue || "website",
+        "x-surface": this.surfaceHeaderValue,
       },
     });
     return (await response.json()) as PointApiResponse;
@@ -176,7 +179,7 @@ class DataCommonsWebClient {
     }/api/observations/point/within?${queryString}`;
     const response = await fetch(url, {
       headers: {
-        "x-surface": this.surfaceHeaderValue || "website",
+        "x-surface": this.surfaceHeaderValue,
       },
     });
     return (await response.json()) as PointApiResponse;
@@ -198,7 +201,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/observations/series?${queryString}`;
     const response = await fetch(url, {
       headers: {
-        "x-surface": this.surfaceHeaderValue || "website",
+        "x-surface": this.surfaceHeaderValue,
       },
     });
     return (await response.json()) as SeriesApiResponse;
@@ -226,7 +229,7 @@ class DataCommonsWebClient {
     }/api/observations/series/within?${queryString}`;
     const response = await fetch(url, {
       headers: {
-        "x-surface": this.surfaceHeaderValue || "website",
+        "x-surface": this.surfaceHeaderValue,
       },
     });
     return (await response.json()) as SeriesApiResponse;

@@ -73,8 +73,7 @@ export interface GaugeTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
-  // Optional: only used if tile is rendered from web components, to be passed into mixer calls
-  // so we can differentiate between website and web component usage
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surfaceHeaderValue?: string;
 }
 

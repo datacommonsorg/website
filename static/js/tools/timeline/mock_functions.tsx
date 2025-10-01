@@ -24,6 +24,7 @@ import * as d3 from "d3";
 import { when } from "jest-when";
 
 import { drawGroupLineChart } from "../../chart/draw_line";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
@@ -109,7 +110,7 @@ export function axiosMock(): void {
       },
       {
         headers: {
-          "x-surface": "website",
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
         },
       }
     )
@@ -131,7 +132,7 @@ export function axiosMock(): void {
       },
       {
         headers: {
-          "x-surface": "website",
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
         },
       }
     )
@@ -156,7 +157,7 @@ export function axiosMock(): void {
       },
       {
         headers: {
-          "x-surface": "website",
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
         },
       }
     )
@@ -178,7 +179,7 @@ export function axiosMock(): void {
       },
       {
         headers: {
-          "x-surface": "website",
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
         },
       }
     )
@@ -211,7 +212,7 @@ export function axiosMock(): void {
       },
       {
         headers: {
-          "x-surface": "website",
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
         },
       }
     )
@@ -254,7 +255,7 @@ export function axiosMock(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -326,7 +327,7 @@ export function axiosMock(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -369,7 +370,7 @@ export function axiosMock(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({

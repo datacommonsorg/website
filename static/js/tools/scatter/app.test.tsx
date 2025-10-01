@@ -32,6 +32,7 @@ import Enzyme, { mount } from "enzyme";
 import { when } from "jest-when";
 import React, { useEffect } from "react";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { stringifyFn } from "../../utils/axios";
 import { App } from "./app";
 import {
@@ -291,7 +292,7 @@ function mockAxios(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -312,7 +313,7 @@ function mockAxios(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -333,7 +334,7 @@ function mockAxios(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -354,7 +355,7 @@ function mockAxios(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -375,7 +376,7 @@ function mockAxios(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -396,7 +397,7 @@ function mockAxios(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -416,7 +417,7 @@ function mockAxios(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({
@@ -449,7 +450,7 @@ function mockAxios(): void {
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .mockResolvedValue({

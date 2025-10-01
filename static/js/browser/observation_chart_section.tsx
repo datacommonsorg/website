@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../shared/constants";
 import {
   Series,
   SeriesAllApiResponse,
@@ -135,7 +136,7 @@ export class ObservationChartSection extends React.Component<
         },
         paramsSerializer: stringifyFn,
         headers: {
-          "x-surface": "website",
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
         },
       })
       .then((resp) => {

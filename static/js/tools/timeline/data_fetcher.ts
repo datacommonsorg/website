@@ -18,6 +18,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import { DataGroup, DataPoint } from "../../chart/base";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import {
   DisplayNameApiResponse,
   EntitySeries,
@@ -177,7 +178,7 @@ export function fetchRawData(
       },
       paramsSerializer: stringifyFn,
       headers: {
-        "x-surface": "website",
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
       },
     })
     .then((resp) => {

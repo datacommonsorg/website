@@ -202,7 +202,7 @@ class Page extends Component<unknown, PageStateType> {
             },
             {
               headers: {
-                "x-surface": "website",
+                "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
               },
             }
           )

@@ -42,9 +42,7 @@ def get(url: str, surfaceHeaderValue=None):
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
-  xs = request.headers.get("x-surface")
-  if xs:
-    headers['x-surface'] = surfaceHeaderValue or xs
+  headers['x-surface'] = surfaceHeaderValue
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -87,10 +85,7 @@ def post_wrapper(url,
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
-  xs = request.headers.get("x-surface")
-  if xs:
-    # use surfaceHeaderValue if something has been passed in to override the surface header on the request
-    headers['x-surface'] = surfaceHeaderValue or xs
+  headers['x-surface'] = surfaceHeaderValue
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)

@@ -73,7 +73,7 @@ export interface HighlightTilePropType {
   sources?: string[];
   // Facet metadata to use for the highlight tile
   highlightFacet?: FacetMetadata;
-  // Passed into mixer calls to differentiate website and web components in usage logs
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surfaceHeaderValue?: string;
 }
 

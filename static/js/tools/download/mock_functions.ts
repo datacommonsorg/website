@@ -22,6 +22,7 @@ jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
@@ -319,7 +320,7 @@ export function axiosMock(): void {
       },
       {
         headers: {
-          "x-surface": "website",
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
         },
       }
     )
@@ -341,7 +342,7 @@ export function axiosMock(): void {
       },
       {
         headers: {
-          "x-surface": "website",
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
         },
       }
     )

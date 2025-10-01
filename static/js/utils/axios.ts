@@ -16,6 +16,8 @@
 
 import { stringify } from "qs";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../shared/constants";
+
 export const stringifyFn = (params): string => {
   return stringify(params, { arrayFormat: "repeat" });
 };
@@ -25,4 +27,10 @@ export const getRoot = (): string => {
     return globalThis.datacommons.root || "";
   }
   return "";
+};
+
+export const getXSurfaceHeader = (
+  surfaceHeaderValue: string = WEBSITE_SURFACE_HEADER_VALUE
+) => {
+  return { "x-surface": surfaceHeaderValue };
 };

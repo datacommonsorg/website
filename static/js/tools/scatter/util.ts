@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { stringifyFn } from "../../utils/axios";
@@ -131,7 +132,7 @@ export async function getStatAllWithinPlace(
           },
           paramsSerializer: stringifyFn,
           headers: {
-            "x-surface": "website",
+            "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
           },
         })
         .then((resp) => resp.data)

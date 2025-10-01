@@ -212,16 +212,16 @@ test("getQueryResult", async () => {
   for (const c of cases) {
     const result = await getQueryResult(
       c.query,
-      true,
-      false,
-      "",
-      "",
-      "",
-      "bard",
-      "",
-      "",
-      false,
-      ""
+      true, // useChartUrl
+      false, // allResults
+      "", // apiRoot
+      "", // apikey
+      "", // urlRoot
+      "bard", // client
+      "", // mode
+      "", // varThreshold
+      false, // wantRelatedQuestions
+      "" // detector
     );
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);
@@ -243,18 +243,18 @@ test("getQueryResult with surfaceHeaderValue", async () => {
 
   const result = await getQueryResult(
     query,
-    true,
-    false,
-    "",
-    "",
-    "",
-    "bard",
-    "",
-    "",
-    false,
-    "",
-    "",
-    "datagemma"
+    true, // useChartUrl
+    false, // allResults
+    "", // apiRoot
+    "", // apikey
+    "", // urlRoot
+    "bard", // client
+    "", // mode
+    "", // varThreshold
+    false, // wantRelatedQuestions
+    "", // detector
+    "", // idx
+    "datagemma" // surfaceHeaderValue
   );
   try {
     expect(result.charts).toStrictEqual(expectedCharts);

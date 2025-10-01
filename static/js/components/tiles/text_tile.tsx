@@ -25,8 +25,6 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 export interface TextTilePropType {
   // url to link to under "see more"
   link?: string;
-  // Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
 }
 
 export function TextTile(props: TextTilePropType): JSX.Element {

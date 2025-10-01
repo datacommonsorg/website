@@ -203,3 +203,6 @@ export const DATE_LATEST = "LATEST";
  * AbortController cancelled code
  */
 export const ABORT_CONTROLLER_CANCELLED = "ERR_CANCELED";
+
+// Value to be passed into fetchData and eventually to mixer to log usage from the website surface
+export const WEBSITE_SURFACE_HEADER_VALUE = "website";

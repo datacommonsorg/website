@@ -52,6 +52,7 @@ import {
 } from "../../shared/ga_events";
 import { NamedNode, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
+import { getXSurfaceHeader } from "../axios";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
@@ -295,9 +296,7 @@ export function getFilteredStatVarPromise(
         variables: statVars.map((sv) => sv.dcid),
       },
       {
-        headers: {
-          "x-surface": "website",
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .then((resp) => {
