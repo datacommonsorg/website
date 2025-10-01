@@ -17,6 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver.base_utils import find_elems
+from server.webdriver.base_utils import LONG_TIMEOUT
 import server.webdriver.shared as shared
 
 SCATTER_URL = '/tools/visualization#visType=scatter'
@@ -59,7 +60,8 @@ class VisScatterTestMixin():
     self.driver.get(self.url_ + SCATTER_URL + URL_HASH_1)
 
     # Wait until the chart has loaded.
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert place name is correct.
     place_name_chip = self.driver.find_element(
@@ -179,7 +181,8 @@ class VisScatterTestMixin():
     shared.click_el(self.driver, (By.CLASS_NAME, 'continue-button'))
 
     # Assert chart is correct
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.scatter-chart .chart-headers h4')
     self.assertIn("median age of population ", chart_title.text.lower())
@@ -201,8 +204,9 @@ class VisScatterTestMixin():
     self.driver.find_element(By.CSS_SELECTOR, '.info-content a').click()
 
     # Assert chart loads
-    element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart = self.driver.find_element(By.ID, 'scatterplot')
-    circles = chart.find_elements(By.TAG_NAME, 'circle')
+    # This chart can be slow to load, so we use extra wait time
+    shared.wait_for_charts_to_render(self.driver, timeout_seconds=LONG_TIMEOUT)
+    circles = find_elems(self.driver,
+                         by=By.CSS_SELECTOR,
+                         value='#scatterplot circle')
     self.assertGreater(len(circles), 20)
