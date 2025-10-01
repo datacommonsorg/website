@@ -253,25 +253,22 @@ export function AutoCompleteInput(
     sendDebouncedAutoCompleteRequest(queryForAutoComplete);
   }
 
-  const triggerAutoCompleteRequest = useCallback(async (query: string) => {
-    setLastScrollYOnTrigger(window.scrollY);
-    if (controller.current) {
-      controller.current.abort();
-    }
-    controller.current = new AbortController();
+  const triggerAutoCompleteRequest = useCallback(
+    async (query: string) => {
+      setLastScrollYOnTrigger(window.scrollY);
+      if (controller.current) {
+        controller.current.abort();
+      }
+      controller.current = new AbortController();
 
-    const urlParams = extractFlagsToPropagate(window.location.href);
-    urlParams.set("query", query);
-    const url = `/api/autocomplete?${urlParams.toString()}`;
+      const urlParams = extractFlagsToPropagate(window.location.href);
+      urlParams.set("query", query);
+      const url = `/api/autocomplete?${urlParams.toString()}`;
 
-    await axios
-      .get(url, {
-        signal: controller.current.signal,
-      })
-      .then((response) => {
-        if (controller.current.signal.aborted) {
-          return;
-        }
+      try {
+        const response = await axios.get(url, {
+          signal: controller.current.signal,
+        });
         const newResults = convertJSONToAutoCompleteResults(
           response.data.predictions || []
         );
@@ -286,13 +283,14 @@ export function AutoCompleteInput(
             setStatVarInfo((prev) => ({ ...prev, ...resp.data }));
           });
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         if (!axios.isCancel(err)) {
           console.log("Error fetching autocomplete suggestions: " + err);
         }
-      });
-  }, []);
+      }
+    },
+    [statVarInfo]
+  );
 
   const sendDebouncedAutoCompleteRequest = useMemo(() => {
     return _.debounce(triggerAutoCompleteRequest, DEBOUNCE_INTERVAL_MS);
