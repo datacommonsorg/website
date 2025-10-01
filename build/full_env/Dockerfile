@@ -122,7 +122,7 @@ FROM runtime AS webdriver
 # Set WORKDIR for potential later commands
 WORKDIR /resources
 
-# Install common utilities needed for the combined environment
+# Get utils needed for downloading packages
 RUN apt update && apt install -y --no-install-recommends \
     gnupg \
     wget \
@@ -147,7 +147,7 @@ RUN CHROME_DRIVER_VERSION=$(curl -sS https://googlechromelabs.github.io/chrome-f
     chown root:root /usr/bin/chromedriver && \
     chmod +x /usr/bin/chromedriver
 
-# Uninstall tools that aren't needed as part of the final image
+# Uninstall utils only needed for downloading packages (leave curl alone though)
 RUN apt autoremove -y gnupg wget unzip && \
     apt clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
