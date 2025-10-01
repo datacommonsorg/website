@@ -41,7 +41,7 @@ bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 async def autocomplete():
   """Predicts the user query for location and stat vars."""
   start_time = time.time()
-  lang = request.args.get('hl')
+  lang = request.args.get('hl', 'en')
   original_query = request.args.get('query', '')
 
   # Don't trigger autocomplete on short queries or if the last word is a stop word.

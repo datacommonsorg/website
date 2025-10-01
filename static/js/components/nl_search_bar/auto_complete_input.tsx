@@ -342,6 +342,8 @@ export function AutoCompleteInput(
     skipRedirection?: boolean
   ): void {
     setResults([]);
+    setHoveredIdx(-1);
+    setLastAutoCompleteSelection(result.name);
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
       [GA_PARAM_SELECTION_TYPE]: result.matchType,
