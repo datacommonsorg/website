@@ -41,7 +41,7 @@ RUN apt update && \
 FROM envoyproxy/envoy:v1.31.0 AS envoy-builder
 
 # Stage 5: Google Cloud SDK Builder
-FROM google/cloud-sdk:slim AS gcloud-builder
+FROM google/cloud-sdk:469.0.0-slim AS gcloud-builder
 
 # Stage 6: Node.js Builder
 # Uses a specific Node.js patch version.
@@ -67,14 +67,11 @@ COPY --from=protoc-builder /usr/local/include/google /usr/local/include/google
 # Copy Google Cloud SDK
 COPY --from=gcloud-builder /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk
 
-# Install common utilities needed for the combined environment,
+# Install common utilities needed for the combined environment.
 RUN apt update && apt install -y --no-install-recommends \
     ca-certificates \
     curl \
-    git \
-    gnupg \
-    wget \
-    unzip
+    git
 
 # Set PATH to include all binaries
 # --- IMPORTANT: Configure GOPATH and install Go Protobuf plugins ---
@@ -90,22 +87,22 @@ RUN mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
 # Install golangci-lint at version 2.3.0
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.3.0
 
-# Install yq
-RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq && \
-    chmod +x /usr/local/bin/yq
-
-# Install kubectl
-RUN wget -q -O - https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --dearmor > /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
+# Install yq and kubectl
+RUN apt update && apt install -y --no-install-recommends gnupg wget unzip \
+    && \
+    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq && \
+    chmod +x /usr/local/bin/yq \
+    && \
+    wget -q -O - https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --dearmor > /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" > /etc/apt/sources.list.d/kubernetes.list && \
     apt update && \
-    apt install -y kubectl
-
-# Uninstall utils only needed for downloading packages (leave curl alone though)
-RUN apt autoremove -y gnupg wget unzip && \
+    apt install -y kubectl \
+    && \
+    apt autoremove -y gnupg wget unzip && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-FROM mixer-only AS runtime
+FROM mixer-only
 
 # Set WORKDIR for potential later commands
 WORKDIR /resources
@@ -117,37 +114,23 @@ COPY --from=envoy-builder /usr/local/bin/envoy /usr/local/bin/envoy
 COPY --from=node-builder /usr/local/bin /usr/local/bin
 COPY --from=node-builder /usr/local/lib/node_modules /usr/local/lib/node_modules
 
-FROM runtime AS webdriver
-
-# Set WORKDIR for potential later commands
-WORKDIR /resources
-
-# Get utils needed for downloading packages
-RUN apt update && apt install -y --no-install-recommends \
-    gnupg \
-    wget \
-    unzip
-
-# Install Google Chrome
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/keyrings/google-chrome.gpg && \
+# Install Google Chrome, ChromeDriver, and default fonts
+RUN apt update && apt install -y --no-install-recommends gnupg wget unzip \
+    && \
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/keyrings/google-chrome.gpg && \
     echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     apt update && \
-    apt install -y google-chrome-stable
-
-# Install default fonts needed by Chrome/applications
-RUN apt install -y fonts-indic fonts-noto fonts-noto-cjk
-
-# Install ChromeDriver
-# Note: This method fetches the latest stable ChromeDriver compatible with the latest stable Chrome.
-# To use a specific version, replace the curl URL with the direct URL for that version.
-RUN CHROME_DRIVER_VERSION=$(curl -sS https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE) && \
+    apt install -y google-chrome-stable \
+    && \
+    CHROME_DRIVER_VERSION=$(curl -sS https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE) && \
     wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/${CHROME_DRIVER_VERSION}/linux64/chromedriver-linux64.zip && \
     unzip /tmp/chromedriver.zip -d /tmp/ && \
     cp /tmp/chromedriver-linux64/chromedriver /usr/bin/ && \
     chown root:root /usr/bin/chromedriver && \
-    chmod +x /usr/bin/chromedriver
-
-# Uninstall utils only needed for downloading packages (leave curl alone though)
-RUN apt autoremove -y gnupg wget unzip && \
+    chmod +x /usr/bin/chromedriver \
+    && \
+    apt install -y fonts-indic fonts-noto fonts-noto-cjk \
+    && \
+    apt autoremove -y gnupg wget unzip && \
     apt clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/*
