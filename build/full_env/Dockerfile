@@ -49,7 +49,7 @@ FROM node:18.4.0-slim AS node-builder
 
 # Semi-final stage: Combine all components
 # Using debian:bookworm-slim as a minimal base for the final image.
-FROM debian:bookworm-slim AS mixer-deploy
+FROM debian:bookworm-slim AS mixer-only
 
 # Set WORKDIR for potential later commands
 WORKDIR /resources
@@ -105,7 +105,7 @@ RUN apt autoremove -y gnupg wget unzip && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-FROM mixer-deploy AS runtime
+FROM mixer-only AS runtime
 
 # Set WORKDIR for potential later commands
 WORKDIR /resources
