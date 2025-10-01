@@ -373,8 +373,7 @@ function getPopulationPromise(
 }
 
 export const fetchData = async (
-  props: ScatterTilePropType,
-  surfaceHeaderValue?: string
+  props: ScatterTilePropType
 ): Promise<ScatterChartData> => {
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
@@ -396,14 +395,14 @@ export const fetchData = async (
       },
     ],
     props.apiRoot,
-    surfaceHeaderValue
+    props.surfaceHeaderValue
   );
   const populationPromise = getPopulationPromise(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
     props.apiRoot,
-    surfaceHeaderValue
+    props.surfaceHeaderValue
   );
   const placeNamesParams = {
     dcid: props.place.dcid,

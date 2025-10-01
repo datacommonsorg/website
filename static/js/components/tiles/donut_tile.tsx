@@ -205,7 +205,10 @@ export const fetchData = async (
       [props.place.dcid],
       [statSvs, FILTER_STAT_VAR].flat(1),
       date,
-      [statSvs]
+      [statSvs],
+      null,
+      null,
+      props.surfaceHeaderValue
     );
     const denomResp = _.isEmpty(denomSvs)
       ? null

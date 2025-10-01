@@ -42,7 +42,8 @@ function getTileProp(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  surfaceHeaderValue?: string
 ): ScatterTilePropType {
   return {
     id,
@@ -53,6 +54,7 @@ function getTileProp(
     svgChartHeight: SVG_HEIGHT,
     scatterTileSpec: tileConfig.scatterTileSpec,
     apiRoot,
+    surfaceHeaderValue,
   };
 }
 
@@ -83,11 +85,12 @@ export async function getScatterTileResult(
     place,
     enclosedPlaceType,
     statVarSpec,
-    apiRoot
+    apiRoot,
+    surfaceHeaderValue
   );
 
   try {
-    const chartData = await fetchData(tileProp, surfaceHeaderValue);
+    const chartData = await fetchData(tileProp);
     const chartTitle = getChartTitle(
       tileConfig.title,
       getReplacementStrings(tileProp, chartData)

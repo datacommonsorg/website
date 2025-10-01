@@ -493,8 +493,7 @@ function getDataSpec(
 
 export const fetchData = async (
   props: MapTilePropType,
-  dateOverride?: string,
-  surfaceHeaderValue?: string
+  dateOverride?: string
 ): Promise<MapChartData> => {
   const layers = getDataSpec(props);
   if (_.isEmpty(layers)) {
@@ -545,7 +544,7 @@ export const fetchData = async (
       dataDate,
       [],
       facetIds,
-      surfaceHeaderValue
+      props.surfaceHeaderValue
     );
     const populationPromise: Promise<SeriesApiResponse> = layer.variable.denom
       ? getSeriesWithin(
@@ -554,7 +553,7 @@ export const fetchData = async (
           layer.enclosedPlaceType,
           [layer.variable.denom],
           null,
-          surfaceHeaderValue
+          props.surfaceHeaderValue
         )
       : Promise.resolve(null);
     const parentPlacesPromise = props.parentPlaces
