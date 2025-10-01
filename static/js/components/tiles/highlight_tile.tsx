@@ -19,13 +19,24 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../../constants/css_constants";
 import { formatNumber, translateUnit } from "../../i18n/i18n";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+  ObservationSpecOptions,
+} from "../../shared/observation_specs";
 import { Observation, StatMetadata } from "../../shared/stat_types";
 import {
   NamedTypedPlace,
@@ -116,6 +127,30 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
     surfaceHeaderValue,
   ]);
 
+  /**
+   * Callback function for building observation specifications.
+   * This is used by the API dialog to generate API calls (e.g., cURL
+   * commands) for the user.
+   *
+   * @returns A function that builds an array of `ObservationSpec`
+   * objects, or `undefined` if chart data is not yet available.
+   */
+  const getObservationSpecs = useMemo(() => {
+    if (!highlightData) {
+      return undefined;
+    }
+    return (): ObservationSpec[] => {
+      const defaultDate = props.statVarSpec.date || "LATEST";
+      const options: ObservationSpecOptions = {
+        statVarSpecs: [props.statVarSpec],
+        placeDcids: [props.place.dcid],
+        statVarToFacets: highlightData.statVarToFacets,
+        defaultDate,
+      };
+      return buildObservationSpecs(options);
+    };
+  }, [highlightData, props.statVarSpec, props.place]);
+
   if (!highlightData) {
     return null;
   }
@@ -166,6 +201,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
           facets={highlightData.facets}
           statVarToFacets={highlightData.statVarToFacets}
           statVarSpecs={[props.statVarSpec]}
+          getObservationSpecs={getObservationSpecs}
         />
       )}
     </div>
