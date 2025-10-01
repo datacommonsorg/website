@@ -1,0 +1,690 @@
+{
+  "Highlighted": [
+    {
+      "sv": "Count_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "population",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Age_Person",
+      "unit": " years",
+      "scaling": "",
+      "name": "median age",
+      "computePerCapita": false
+    },
+    {
+      "sv": "LifeExpectancy_Person",
+      "unit": " years",
+      "scaling": "",
+      "name": "life expectancy",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Person",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income",
+      "computePerCapita": false
+    },
+    {
+      "sv": "UnemploymentRate_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "unemployment rate",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Amount_Consumption_Energy_PerCapita",
+      "unit": "kg",
+      "scaling": "",
+      "name": "energy consumption per capita",
+      "computePerCapita": false
+    }
+  ],
+  "Ignored": [
+    {
+      "sv": "Count_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "population",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Count_Person_USCitizenBornAbroadOfAmericanParents",
+      "unit": "",
+      "scaling": "",
+      "name": "number of citizens born abroad",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_MarriedAndNotSeparated",
+      "unit": "",
+      "scaling": "",
+      "name": "number of married people",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_Divorced",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_Person_NeverMarried",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_Person_Widowed",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_Person_Separated",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_HousingUnit_HouseholderRaceAsianAlone",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_HousingUnit_HouseholderRaceHispanicOrLatino",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_HousingUnit_HouseholderRaceWhiteAlone",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase",
+      "unit": "",
+      "scaling": "",
+      "name": "cumulative COVID-19 cases",
+      "computePerCapita": true
+    },
+    {
+      "sv": "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased",
+      "unit": "",
+      "scaling": "",
+      "name": "cumulative number of COVID-19 deaths",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Oxycodone",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of oxycodone sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Hydrocodone",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of hydrocodone sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Codeine",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of codeine sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Amphetamine",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of amphetamine sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "RetailDrugDistribution_DrugDistribution_Morphine",
+      "unit": "g",
+      "scaling": "",
+      "name": "amount of morphine sold",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_NotEnrolledInSchool",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people not enrolled in school",
+      "computePerCapita": true
+    }
+  ],
+  "Crime": [
+    {
+      "sv": "Count_CriminalActivities_CombinedCrime",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_CriminalActivities_ViolentCrime",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_CriminalActivities_PropertyCrime",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_CriminalActivities_Arson",
+      "unit": "",
+      "scaling": ""
+    },
+    {
+      "sv": "Count_CriminalIncidents_IsHateCrime",
+      "unit": "",
+      "scaling": ""
+    }
+  ],
+  "Demographics": [
+    {
+      "sv": "GrowthRate_Count_Person",
+      "unit": "%",
+      "scaling": "",
+      "name": "population growth rate",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Count_Person_PerArea",
+      "unit": "",
+      "scaling": "",
+      "name": "population per area",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Count_Person_Urban",
+      "unit": "",
+      "scaling": "",
+      "name": "urban population",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_Rural",
+      "unit": "",
+      "scaling": "",
+      "name": "rural population",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Median_Age_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "median age",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Count_Person_USCitizenBornInTheUnitedStates",
+      "unit": "",
+      "scaling": "",
+      "name": "number of US-born citizens",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_USCitizenByNaturalization",
+      "unit": "",
+      "scaling": "",
+      "name": "number of citizens by naturalization",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_NotAUSCitizen",
+      "unit": "",
+      "scaling": "",
+      "name": "number of non-citizens",
+      "computePerCapita": true
+    },
+    {
+      "sv": "FertilityRate_Person_Female",
+      "unit": "",
+      "scaling": "",
+      "name": "fertility rate",
+      "computePerCapita": false
+    }
+  ],
+  "Equity": [
+    {
+      "sv": "GiniIndex_EconomicActivity",
+      "unit": "",
+      "scaling": "",
+      "name": "Gini index",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income of American Indian or Alaska Native households",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Household_HouseholderRaceAsianAlone",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income of Asian households",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income of Black or African American households",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income of Hispanic or Latino households",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income of Native Hawaiian or other Pacific Islander households",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Household_HouseholderRaceWhiteAlone",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income of White households",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+      "unit": "$",
+      "scaling": "",
+      "name": "median female income",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Person_15OrMoreYears_Male_WithIncome",
+      "unit": "$",
+      "scaling": "",
+      "name": "median male income",
+      "computePerCapita": false
+    },
+    {
+      "sv": "UnemploymentRate_Person_Female",
+      "unit": "%",
+      "scaling": "",
+      "name": "female unemployment rate",
+      "computePerCapita": false
+    },
+    {
+      "sv": "UnemploymentRate_Person_Male",
+      "unit": "%",
+      "scaling": "",
+      "name": "male unemployment rate",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone",
+      "unit": "%",
+      "scaling": "",
+      "name": "percent of Black or African American people without health insurance",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_18To64Years_NoHealthInsurance_HispanicOrLatino",
+      "unit": "%",
+      "scaling": "",
+      "name": "percent of Hispanic or Latino people without health insurance",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_18To64Years_NoHealthInsurance_WhiteAlone",
+      "unit": "%",
+      "scaling": "",
+      "name": "percent of White people without health insurance",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_18To64Years_Female_NoHealthInsurance",
+      "unit": "%",
+      "scaling": "",
+      "name": "percent of women without health insurance",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_18To64Years_Male_NoHealthInsurance",
+      "unit": "%",
+      "scaling": "",
+      "name": "percent of men without health insurance",
+      "computePerCapita": false
+    }
+  ],
+  "Education": [
+    {
+      "sv": "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people with no schooling completed",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people who earned a high school diploma",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_EducationalAttainmentBachelorsDegree",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people who earned a bachelor's degree",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_EducationalAttainmentMastersDegree",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people who earned a master's degree",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_EducationalAttainmentDoctorateDegree",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people who earned a doctorate degree",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_EnrolledInSchool",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people enrolled in school",
+      "computePerCapita": true
+    }
+  ],
+  "Health": [
+    {
+      "sv": "LifeExpectancy_Person",
+      "unit": "",
+      "scaling": "",
+      "name": "life expectancy",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Count_Death_DiseasesOfTheCirculatorySystem",
+      "unit": "",
+      "scaling": "",
+      "name": "number of deaths from circulatory diseases",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Death_Neoplasms",
+      "unit": "",
+      "scaling": "",
+      "name": "number of deaths from cancerous tumors",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Death_DiseasesOfTheRespiratorySystem",
+      "unit": "",
+      "scaling": "",
+      "name": "number of deaths from respiratory diseases",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Death_ExternalCauses",
+      "unit": "",
+      "scaling": "",
+      "name": "number of deaths from external causes",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Death_DiseasesOfTheNervousSystem",
+      "unit": "",
+      "scaling": "",
+      "name": "number of deaths from neurological diseases",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth",
+      "unit": "%",
+      "scaling": 0.1,
+      "name": "infant death rate",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of children under 4 with wasting",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of children with severe wasting",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_WithHighCholesterol",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people with high cholesterol",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_WithHighBloodPressure",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people with high blood pressure",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_WithArthritis",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people with arthritis",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_WithMentalHealthNotGood",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people with poor mental health",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_WithPhysicalHealthNotGood",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people with poor physical health",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_SleepLessThan7Hours",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people who sleep less than 7 hours",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_Obesity",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people with obesity",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_BingeDrinking",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people who binge drink",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_PhysicalInactivity",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people who are physically inactive",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Percent_Person_Smoking",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of people who smoke",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears",
+      "unit": "L",
+      "scaling": "",
+      "name": "amount of alcohol consumed per capita",
+      "computePerCapita": false
+    }
+  ],
+  "Economics": [
+    {
+      "sv": "Count_Person_Employed",
+      "unit": "",
+      "scaling": "",
+      "name": "number of employed people",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years",
+      "unit": "%",
+      "scaling": 100,
+      "name": "percentage of people in labor force",
+      "computePerCapita": false
+    },
+    {
+      "sv": "UnemploymentRate_Person",
+      "unit": "%",
+      "scaling": "",
+      "name": "unemployment rate",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Count_Person_BelowPovertyLevelInThePast12Months",
+      "unit": "",
+      "scaling": "",
+      "name": "number of people below poverty level in the past 12 months",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance",
+      "unit": "",
+      "scaling": "",
+      "name": "number of state unemployment insurance claims",
+      "computePerCapita": true
+    },
+    {
+      "sv": "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years",
+      "unit": "%",
+      "scaling": "",
+      "name": "percentage of children aged 7 to 14 who are employed",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+      "unit": "$",
+      "scaling": "",
+      "name": "nominal GDP per capita",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Median_Income_Person",
+      "unit": "$",
+      "scaling": "",
+      "name": "median income",
+      "computePerCapita": false
+    }
+  ],
+  "Energy": [
+    {
+      "sv": "Annual_Average_RetailPrice_Electricity",
+      "unit": "\u00a2/kWh",
+      "scaling": "",
+      "name": "annual average electricity price",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Annual_Generation_Electricity",
+      "unit": "kWh",
+      "scaling": 100,
+      "name": "annual electricity generation",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Amount_Consumption_Energy_PerCapita",
+      "unit": "kg",
+      "scaling": "",
+      "name": "energy consumption per capita",
+      "computePerCapita": false
+    }
+  ],
+  "Housing": [
+    {
+      "sv": "Count_HousingUnit",
+      "unit": "",
+      "scaling": "",
+      "name": "number of housing units",
+      "computePerCapita": true
+    }
+  ],
+  "Environment": [
+    {
+      "sv": "AirQualityIndex_AirPollutant",
+      "unit": "",
+      "scaling": "",
+      "name": "air quality index (AQI)",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Mean_Concentration_AirPollutant_PM2.5",
+      "unit": "\u03bcg/m\u00b3",
+      "scaling": "",
+      "name": "mean PM2.5 concentration",
+      "computePerCapita": false
+    },
+    {
+      "sv": "Amount_Emissions_CarbonDioxide_PerCapita",
+      "unit": "t",
+      "scaling": "",
+      "name": "carbon dioxide emissions per capita",
+      "computePerCapita": false
+    }
+  ]
+}
