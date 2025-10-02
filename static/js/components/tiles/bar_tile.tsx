@@ -578,23 +578,12 @@ function rawToChart(
         dataPoint.value /= denomInfo.value;
         sources.add(denomInfo.source);
         const denomStatVar = spec.denom;
-        // using facet-specific info unless it doesn't exist, in that case we use the
-        // default denom data with no facet specified
-        const denomSeries =
-          denomsByFacet[stat.facet]?.data?.[denomStatVar]?.[placeDcid] ??
-          defaultDenomData?.data?.[denomStatVar]?.[placeDcid];
-        if (denomSeries?.facet) {
-          const denomFacetId = denomSeries.facet;
-          const denomFacetMetadata =
-            denomsByFacet[stat.facet]?.facets?.[denomFacetId] ??
-            defaultDenomData?.facets?.[denomFacetId];
-          if (denomFacetMetadata) {
-            facets[denomFacetId] = denomFacetMetadata;
-            if (!statVarToFacets[denomStatVar]) {
-              statVarToFacets[denomStatVar] = new Set<string>();
-            }
-            statVarToFacets[denomStatVar].add(denomFacetId);
+        if (denomInfo.facetId && denomInfo.facet) {
+          facets[denomInfo.facetId] = denomInfo.facet;
+          if (!statVarToFacets[denomStatVar]) {
+            statVarToFacets[denomStatVar] = new Set<string>();
           }
+          statVarToFacets[denomStatVar].add(denomInfo.facetId);
         }
       }
       if (scaling) {

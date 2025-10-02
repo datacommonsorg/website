@@ -712,21 +712,12 @@ function rawToChart(
         placeChartData.metadata.popDate = denomInfo.date;
         sources.add(denomInfo.source);
         const denomStatVar = rawData.variable.denom;
-        const denomSeries =
-          rawData.denomsByFacet[facet]?.data?.[denomStatVar]?.[placeDcid] ??
-          rawData.defaultDenomData?.data?.[denomStatVar]?.[placeDcid];
-        if (denomSeries?.facet) {
-          const denomFacetId = denomSeries.facet;
-          const denomFacetMetadata =
-            rawData.denomsByFacet[facet]?.facets?.[denomFacetId] ??
-            rawData.defaultDenomData?.facets?.[denomFacetId];
-          if (denomFacetMetadata) {
-            facets[denomFacetId] = denomFacetMetadata;
-            if (!statVarToFacets[denomStatVar]) {
-              statVarToFacets[denomStatVar] = new Set<string>();
-            }
-            statVarToFacets[denomStatVar].add(denomFacetId);
+        if (denomInfo.facetId && denomInfo.facet) {
+          facets[denomInfo.facetId] = denomInfo.facet;
+          if (!statVarToFacets[denomStatVar]) {
+            statVarToFacets[denomStatVar] = new Set<string>();
           }
+          statVarToFacets[denomStatVar].add(denomInfo.facetId);
         }
       }
       if (scaling) {

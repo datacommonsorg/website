@@ -283,7 +283,7 @@ export const fetchData = async (
     );
     if (denomInfo && value) {
       value /= denomInfo.value;
-      if (denomInfo.facet) {
+      if (denomInfo.facetId && denomInfo.facet) {
         sources.add(denomInfo.source);
         facets[denomInfo.facetId] = denomInfo.facet;
         if (!statVarToFacets[statVarSpec.denom]) {
