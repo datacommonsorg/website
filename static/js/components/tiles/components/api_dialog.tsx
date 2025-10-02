@@ -392,44 +392,46 @@ export function ApiDialog({
           </label>
         </div>
 
-        {currentLanguageSpec.displayStyle === "multiple" &&
-        Array.isArray(apiContent) ? (
-          specs.map((observationSpec, index) => {
-            const showHeader =
-              observationSpec.role === "denominator" || numeratorSpecsCount > 1;
-            const statVarNames = getStatVarListString(
-              observationSpec.statVarDcids,
-              statVarNameMap
-            );
-            const title =
-              observationSpec.role === "denominator"
-                ? `${statVarNames} ${intl.formatMessage(
-                    chartComponentMessages.ApiDialogDenomHelperText
-                  )}`
-                : statVarNames;
+        {LANGUAGE_SPEC.map((lang) => {
+          lang.displayStyle === "multiple" && Array.isArray(apiContent) ? (
+            specs.map((observationSpec, index) => {
+              const showHeader =
+                observationSpec.role === "denominator" ||
+                numeratorSpecsCount > 1;
+              const statVarNames = getStatVarListString(
+                observationSpec.statVarDcids,
+                statVarNameMap
+              );
+              const title =
+                observationSpec.role === "denominator"
+                  ? `${statVarNames} ${intl.formatMessage(
+                      chartComponentMessages.ApiDialogDenomHelperText
+                    )}`
+                  : statVarNames;
 
-            return (
-              <div
-                key={index}
-                css={css`
-                  display: block;
-                  width: 100%;
-                  && > h3 {
-                    ${theme.typography.family.text}
-                    ${theme.typography.text.lg}
+              return (
+                <div
+                  key={index}
+                  css={css`
                     display: block;
-                    margin: 0 0 ${theme.spacing.md}px 0;
-                  }
-                `}
-              >
-                {showHeader && <h3>{title}</h3>}
-                <ApiCallTextArea value={apiContent[index] || ""} />
-              </div>
-            );
-          })
-        ) : (
-          <ApiCallTextArea value={apiContent as string} />
-        )}
+                    width: 100%;
+                    && > h3 {
+                      ${theme.typography.family.text}
+                      ${theme.typography.text.lg}
+                      display: block;
+                      margin: 0 0 ${theme.spacing.md}px 0;
+                    }
+                  `}
+                >
+                  {showHeader && <h3>{title}</h3>}
+                  <ApiCallTextArea value={apiContent[index] || ""} />
+                </div>
+              );
+            })
+          ) : (
+            <ApiCallTextArea value={apiContent as string} />
+          );
+        })}
       </DialogContent>
       <DialogActions>
         <Button variant="text" onClick={onClose}>
