@@ -197,6 +197,101 @@ const ApiCallTextArea = ({ value }: ApiCallTextAreaProps): ReactElement => {
   );
 };
 
+interface ApiLanguageContentProps {
+  // the spec for the language for this particular content section
+  lang: LanguageSpec;
+  // whether this is the block for the currently selected language
+  isCurrent: boolean;
+  //the list of observation specs the content block will render
+  specs: ObservationSpec[];
+  //a lookup of stat var DCIDs to names
+  statVarNameMap: Record<string, string>;
+  // API root for data fetch; if provided, this will be used to create
+  // the API endpoint call with that API root.
+  apiRoot?: string;
+  // the number of numerator specs associated with the content block
+  numeratorSpecsCount: number;
+}
+
+const ApiLanguageContent = ({
+  lang,
+  isCurrent,
+  specs,
+  statVarNameMap,
+  numeratorSpecsCount,
+  apiRoot,
+}: ApiLanguageContentProps): ReactElement => {
+  const theme = useTheme();
+
+  if (lang.displayStyle === "multiple") {
+    return (
+      <div
+        key={lang.slug}
+        css={css`
+          display: flex;
+          flex-direction: column;
+          gap: ${theme.spacing.lg}px;
+          width: 100%;
+        `}
+      >
+        {specs.map((observationSpec, index) => {
+          const apiCall = (lang.generator as SingleSpecGenerator)(
+            observationSpec,
+            apiRoot
+          );
+          const showHeader =
+            observationSpec.role === "denominator" || numeratorSpecsCount > 1;
+          const statVarNames = getStatVarListString(
+            observationSpec.statVarDcids,
+            statVarNameMap
+          );
+          const title =
+            observationSpec.role === "denominator"
+              ? `${statVarNames} ${intl.formatMessage(
+                  chartComponentMessages.ApiDialogDenomHelperText
+                )}`
+              : statVarNames;
+
+          return (
+            <div
+              key={`${lang.slug}-${index}`}
+              css={css`
+                display: block;
+                width: 100%;
+                && > h3 {
+                  ${theme.typography.family.text}
+                  ${theme.typography.text.lg}
+                  display: block;
+                  margin: 0 0 ${theme.spacing.md}px 0;
+                }
+              `}
+            >
+              {showHeader && <h3>{title}</h3>}
+              <ApiCallTextArea value={apiCall} />
+            </div>
+          );
+        })}
+      </div>
+    );
+  } else {
+    const apiCall = (lang.generator as MultiSpecGenerator)(
+      specs,
+      statVarNameMap,
+      apiRoot
+    );
+    return (
+      <div
+        key={lang.slug}
+        css={css`
+          width: 100%;
+        `}
+      >
+        <ApiCallTextArea value={apiCall} />
+      </div>
+    );
+  }
+};
+
 function getStatVarListString(
   dcids: string[],
   nameMap: Record<string, string>
@@ -391,47 +486,17 @@ export function ApiDialog({
             </select>
           </label>
         </div>
-
-        {LANGUAGE_SPEC.map((lang) => {
-          lang.displayStyle === "multiple" && Array.isArray(apiContent) ? (
-            specs.map((observationSpec, index) => {
-              const showHeader =
-                observationSpec.role === "denominator" ||
-                numeratorSpecsCount > 1;
-              const statVarNames = getStatVarListString(
-                observationSpec.statVarDcids,
-                statVarNameMap
-              );
-              const title =
-                observationSpec.role === "denominator"
-                  ? `${statVarNames} ${intl.formatMessage(
-                      chartComponentMessages.ApiDialogDenomHelperText
-                    )}`
-                  : statVarNames;
-
-              return (
-                <div
-                  key={index}
-                  css={css`
-                    display: block;
-                    width: 100%;
-                    && > h3 {
-                      ${theme.typography.family.text}
-                      ${theme.typography.text.lg}
-                      display: block;
-                      margin: 0 0 ${theme.spacing.md}px 0;
-                    }
-                  `}
-                >
-                  {showHeader && <h3>{title}</h3>}
-                  <ApiCallTextArea value={apiContent[index] || ""} />
-                </div>
-              );
-            })
-          ) : (
-            <ApiCallTextArea value={apiContent as string} />
-          );
-        })}
+        {LANGUAGE_SPEC.map((lang) => (
+          <ApiLanguageContent
+            key={lang.slug}
+            lang={lang}
+            isCurrent={lang.slug === apiLanguage}
+            specs={specs}
+            statVarNameMap={statVarNameMap}
+            numeratorSpecsCount={numeratorSpecsCount}
+            apiRoot={apiRoot}
+          />
+        ))}
       </DialogContent>
       <DialogActions>
         <Button variant="text" onClick={onClose}>
