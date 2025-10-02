@@ -51,9 +51,6 @@ const PlaceOverviewTable = (props: {
       return dataRow.provenanceUrl;
     })
   );
-  const statVarDcids = dataRows.map((row) => {
-    return row.variableDcid;
-  });
 
   return (
     <div data-testid="place-overview-table">

@@ -213,10 +213,12 @@ function getPopulationPromise(
   }
 }
 
-export const fetchData = async (props: BivariateTilePropType) => {
+export const fetchData = async (
+  props: BivariateTilePropType
+): Promise<BivariateChartData | null> => {
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
-    return;
+    return null;
   }
   const geoJsonPromise: Promise<GeoJsonData> = axios
     .get(
@@ -375,7 +377,7 @@ function rawToChart(
 
 const getTooltipHtml =
   (points: { [placeDcid: string]: Point }, xLabel: string, yLabel: string) =>
-  (place: NamedPlace) => {
+  (place: NamedPlace): string => {
     const point = points[place.dcid];
     if (_.isEmpty(point)) {
       return (
