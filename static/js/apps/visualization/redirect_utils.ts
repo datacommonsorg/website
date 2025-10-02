@@ -26,9 +26,10 @@ import {
   ALLOWED_VIS_TOOL_TYPES,
   ChartEntry,
   DcidList,
+  DEFAULT_PARAM_SEPARATOR,
   OldToolChartOptions,
   ParamNameMapping,
-  TIMELINE_DEFAULT_SEPARATOR,
+  SCATTER_URL_PARAM_MAPPING,
   TIMELINE_STAT_VAR_SEPARATOR,
   TIMELINE_URL_PARAM_MAPPING,
   VisType,
@@ -116,6 +117,85 @@ function getMapHashParams(currentHashParams: URLSearchParams): URLSearchParams {
 }
 
 /**
+ * Sets the URL parameters for a single scatter plot axis
+ * @param axis the axis to set parameters for, "x" or "y"
+ * @param statVarDcid the dcid of the stat var to use for this axis
+ * @param chartOptions the chart options for all the stat vars
+ * @param newHashParams the URLSearchParams to add the new parameters to
+ */
+function setAxisParams(
+  axis: "x" | "y",
+  statVarDcid: string,
+  chartOptions: OldToolChartOptions,
+  newHashParams: URLSearchParams
+): void {
+  if (!statVarDcid) {
+    return;
+  }
+  // Set the stat var for the axis
+  newHashParams.set(`sv${axis}`, statVarDcid);
+  const options = chartOptions[statVarDcid];
+  if (options) {
+    // Set each option for this stat var if present
+    // Escape value to defend against XSS attacks
+    Object.keys(options).forEach((key) => {
+      newHashParams.set(`${key}${axis}`, escape(options[key]));
+    });
+  }
+}
+
+/**
+ * Handles processing the stat var parameter and setting the x and y axis
+ * parameters for scatter.
+ * @param paramValue the value of the stat var parameter
+ * @param newHashParams the URLSearchParams to add the new parameters to
+ */
+function handleScatterStatVars(
+  paramValue: string,
+  newHashParams: URLSearchParams
+): void {
+  const [statVarDcids, chartOptions] = parseSvObject(
+    paramValue,
+    SCATTER_URL_PARAM_MAPPING
+  );
+
+  if (!statVarDcids) {
+    return;
+  }
+  // Set first stat var as the Y axis variable
+  setAxisParams("y", statVarDcids.at(0), chartOptions, newHashParams);
+  // Set second stat var as the X axis variable
+  setAxisParams("x", statVarDcids.at(1), chartOptions, newHashParams);
+}
+
+/**
+ * Handles processing the display options parameter for scatter plots.
+ * @param paramValue the value of the display parameter, a JSON string of options.
+ * @param newHashParams the URLSearchParams to add the new parameters to.
+ */
+function handleScatterDisplayOptions(
+  paramValue: string,
+  newHashParams: URLSearchParams
+): void {
+  try {
+    const parsedDisplayOptions = JSON.parse(paramValue);
+    for (const key of Object.keys(parsedDisplayOptions)) {
+      if (SCATTER_URL_PARAM_MAPPING[key]) {
+        // Set display option
+        setSanitizedParam(
+          newHashParams,
+          SCATTER_URL_PARAM_MAPPING[key],
+          parsedDisplayOptions[key]
+        );
+      }
+    }
+  } catch {
+    // Invalid display value
+    return;
+  }
+}
+
+/**
  * Get equivalent hash parameters for /tools/scatter.
  *
  * Converts the given hash parameters into equivalent hash parameters used by /tools/scatter.
@@ -128,7 +208,30 @@ function getMapHashParams(currentHashParams: URLSearchParams): URLSearchParams {
 function getScatterHashParams(
   currentHashParams: URLSearchParams
 ): URLSearchParams {
-  throw new Error("not implemented");
+  const newHashParams = new URLSearchParams();
+  // Convert each mappable parameter
+  Object.keys(SCATTER_URL_PARAM_MAPPING).forEach((key) => {
+    const paramValue = currentHashParams.get(key);
+    if (!paramValue) {
+      return;
+    }
+
+    if (key === URL_PARAMS.STAT_VAR) {
+      handleScatterStatVars(paramValue, newHashParams);
+    } else if (key === URL_PARAMS.DISPLAY) {
+      handleScatterDisplayOptions(paramValue, newHashParams);
+    } else {
+      const paramName = SCATTER_URL_PARAM_MAPPING[key];
+      if (paramName) {
+        // Otherwise, Add converted keys & values as new param
+        setSanitizedParam(newHashParams, paramName, paramValue);
+      }
+    }
+  });
+  // Set density mode to true
+  // It is always on in /tools/visualization
+  newHashParams.set("dd", "1");
+  return newHashParams;
 }
 
 /**
@@ -177,13 +280,7 @@ function getTimelineHashParams(
         }
       } else if (paramName && paramValue) {
         // Otherwise, Add converted keys & values as new param
-        // Escape value to defend against XSS attacks
-        newHashParams.set(
-          paramName,
-          escape(
-            paramValue.replaceAll(PARAM_VALUE_SEP, TIMELINE_DEFAULT_SEPARATOR)
-          )
-        );
+        setSanitizedParam(newHashParams, paramName, paramValue);
       }
     }
   });
@@ -262,4 +359,20 @@ function parseSvObject(
     // Invalid svObjectString
     return [null, null];
   }
+}
+
+/**
+ * Sets a sanitized parameter on a URLSearchParams object.
+ * @param params the URLSearchParams object to set the parameter on.
+ * @param key the key of the parameter to set.
+ * @param value the value of the parameter to set.
+ */
+function setSanitizedParam(
+  params: URLSearchParams,
+  key: string,
+  value: string,
+  separator: string = DEFAULT_PARAM_SEPARATOR
+): void {
+  // Escape value to defend against XSS attacks
+  params.set(key, escape(value.replaceAll(PARAM_VALUE_SEP, separator)));
 }

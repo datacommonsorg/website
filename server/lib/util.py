@@ -300,6 +300,14 @@ def get_subject_page_config(filepath):
     return subject_page_config
 
 
+# Returns generated summaries for place explorer.
+def get_place_summaries():
+  filepath = os.path.join(get_repo_root(), "config", "summaries",
+                          "place_summaries.json")
+  with open(filepath, 'r') as f:
+    return json.load(f)
+
+
 # Returns topic pages loaded as SubjectPageConfig protos:
 # { topic_id: [SubjectPageConfig,...] }
 def get_topic_page_config():
