@@ -13,7 +13,7 @@
 # limitations under the License.
 
 substitutions:
-  _VERS: "2025-10-01"
+  _VERS: "2025-10-02"
 
 steps:
   - id: build-mixer-only

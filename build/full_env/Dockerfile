@@ -47,7 +47,7 @@ FROM google/cloud-sdk:469.0.0-slim AS gcloud-builder
 # Uses a specific Node.js patch version.
 FROM node:18.4.0-slim AS node-builder
 
-# Semi-final stage: Combine all components
+# Mixer-only stage: Combine all components, minus heavyweight runtime ones
 # Using debian:bookworm-slim as a minimal base for the final image.
 FROM debian:bookworm-slim AS mixer-only
 
@@ -71,7 +71,10 @@ COPY --from=gcloud-builder /usr/lib/google-cloud-sdk /usr/lib/google-cloud-sdk
 RUN apt update && apt install -y --no-install-recommends \
     ca-certificates \
     curl \
-    git
+    git \
+    && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set PATH to include all binaries
 # --- IMPORTANT: Configure GOPATH and install Go Protobuf plugins ---
@@ -87,25 +90,25 @@ RUN mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
 # Install golangci-lint at version 2.3.0
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.3.0
 
-# Install yq and kubectl
-RUN apt update && apt install -y --no-install-recommends gnupg wget unzip \
+# Install yq, kubectl, and GKE auth plugin for gcloud
+RUN apt update && apt install -y --no-install-recommends gnupg unzip wget \
     && \
     wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq \
     && \
     wget -q -O - https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --dearmor > /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" > /etc/apt/sources.list.d/kubernetes.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor > /usr/share/keyrings/cloud.google.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
     apt update && \
-    apt install -y kubectl \
+    apt install -y --no-install-recommends \
+    kubectl google-cloud-sdk-gke-gcloud-auth-plugin \
     && \
-    apt autoremove -y gnupg wget unzip && \
+    apt autoremove -y gnupg unzip wget && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
 FROM mixer-only
-
-# Set WORKDIR for potential later commands
-WORKDIR /resources
 
 # Copy Envoy binary
 COPY --from=envoy-builder /usr/local/bin/envoy /usr/local/bin/envoy
@@ -114,13 +117,13 @@ COPY --from=envoy-builder /usr/local/bin/envoy /usr/local/bin/envoy
 COPY --from=node-builder /usr/local/bin /usr/local/bin
 COPY --from=node-builder /usr/local/lib/node_modules /usr/local/lib/node_modules
 
-# Install Google Chrome, ChromeDriver, and default fonts
-RUN apt update && apt install -y --no-install-recommends gnupg wget unzip \
+# Install Google Chrome, ChromeDriver, default fonts, and `ps` utility.
+RUN apt update && apt install -y --no-install-recommends gnupg unzip wget \
     && \
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/keyrings/google-chrome.gpg && \
     echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     apt update && \
-    apt install -y google-chrome-stable \
+    apt install -y --no-install-recommends google-chrome-stable \
     && \
     CHROME_DRIVER_VERSION=$(curl -sS https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE) && \
     wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/${CHROME_DRIVER_VERSION}/linux64/chromedriver-linux64.zip && \
@@ -129,8 +132,10 @@ RUN apt update && apt install -y --no-install-recommends gnupg wget unzip \
     chown root:root /usr/bin/chromedriver && \
     chmod +x /usr/bin/chromedriver \
     && \
-    apt install -y fonts-indic fonts-noto fonts-noto-cjk \
+    apt install -y --no-install-recommends \
+    fonts-indic fonts-noto fonts-noto-cjk \
+    procps \
     && \
-    apt autoremove -y gnupg wget unzip && \
+    apt autoremove -y gnupg unzip && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
