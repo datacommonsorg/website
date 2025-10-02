@@ -28,6 +28,7 @@ import { intl } from "../i18n/i18n";
 import { messages } from "../i18n/i18n_messages";
 import {
   PointApiResponse,
+  Series,
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
@@ -508,17 +509,23 @@ export function getDenomInfo(
 ): DenomInfo {
   // find the matching denominator data if it exists, for the facet used in the numerator
   let matchingDenomData: SeriesApiResponse;
-  matchingDenomData = denomData[facetUsed];
-  let placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
-
-  // default to defaultDenomData if no facet-specific denomData is found for a given entity
-  if (
-    !matchingDenomData ||
-    !(svSpec.denom in matchingDenomData.data) ||
-    !placeDenomData ||
-    _.isEmpty(placeDenomData.series)
-  ) {
+  let placeDenomData: Series;
+  // if no facet can be identified on the numerator, use the default data
+  if (!facetUsed) {
     matchingDenomData = defaultDenomData;
+  } else {
+    matchingDenomData = denomData[facetUsed];
+    placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
+
+    // also default to defaultDenomData if no facet-specific denomData is found for a given entity
+    if (
+      !matchingDenomData ||
+      !(svSpec.denom in matchingDenomData.data) ||
+      !placeDenomData ||
+      _.isEmpty(placeDenomData.series)
+    ) {
+      matchingDenomData = defaultDenomData;
+    }
   }
 
   // if is no denominator data at all, return null
