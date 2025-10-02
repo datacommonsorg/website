@@ -37,6 +37,7 @@ import {
   SCATTER_NL_RESP,
   TIMELINE_NL_RESP,
 } from "./mock_data";
+import { getXSurfaceHeader } from "./query";
 
 export function queryAxiosMock(): void {
   // Mock all the async axios call.
@@ -52,9 +53,7 @@ export function queryAxiosMock(): void {
       "/api/explore/detect-and-fulfill?q=family earnings in north dakota&detector=heuristic&client=bard&skipRelatedThings=true",
       {},
       {
-        headers: {
-          "x-surface": "website",
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue(TIMELINE_NL_RESP);
@@ -68,9 +67,7 @@ export function queryAxiosMock(): void {
         variables: ["Mean_Income_Household_FamilyHousehold"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": "website",
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue(HOUSEHOLD_INCOME_LATEST_POINTS_RESP);
   when(axios.post)
@@ -81,9 +78,7 @@ export function queryAxiosMock(): void {
         variables: ["Mean_Income_Household_FamilyHousehold"],
       },
       {
-        headers: {
-          "x-surface": "website",
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue(MEAN_HOUSEHOLD_INCOME_SERIES_RESP);
@@ -95,9 +90,7 @@ export function queryAxiosMock(): void {
         variables: ["Median_Income_Household_FamilyHousehold"],
       },
       {
-        headers: {
-          "x-surface": "website",
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue(MEDIAN_HOUSEHOLD_INCOME_SERIES_RESP);
@@ -177,9 +170,7 @@ export function queryAxiosMock(): void {
       "/api/explore/detect-and-fulfill?q=top jobs in santa clara county&detector=heuristic&client=bard&skipRelatedThings=true",
       {},
       {
-        headers: {
-          "x-surface": "website",
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue(BAR_NL_RESP);
@@ -211,9 +202,7 @@ export function queryAxiosMock(): void {
         ],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": "website",
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue(BAR_POINTS_RESP);
   when(axios.get)
@@ -224,9 +213,7 @@ export function queryAxiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": "website",
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue(BAR_FILTER_POINTS_RESP);
   when(axios.post)
@@ -245,9 +232,7 @@ export function queryAxiosMock(): void {
       "/api/explore/detect-and-fulfill?q=top jobs in santa clara county&detector=heuristic&client=bard&skipRelatedThings=true",
       {},
       {
-        headers: {
-          "x-surface": "datagemma",
-        },
+        headers: getXSurfaceHeader("datagemma"),
       }
     )
     .mockResolvedValue(BAR_NL_RESP);
@@ -279,9 +264,7 @@ export function queryAxiosMock(): void {
         ],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": "datagemma",
-      },
+      headers: getXSurfaceHeader("datagemma"),
     })
     .mockResolvedValue(BAR_POINTS_RESP);
   when(axios.get)
@@ -292,9 +275,7 @@ export function queryAxiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": "datagemma",
-      },
+      headers: getXSurfaceHeader("datagemma"),
     })
     .mockResolvedValue(BAR_FILTER_POINTS_RESP);
 
@@ -306,9 +287,7 @@ export function queryAxiosMock(): void {
       "/api/explore/detect-and-fulfill?q=obesity vs. poverty in counties of california&detector=heuristic&client=bard&skipRelatedThings=true",
       {},
       {
-        headers: {
-          "x-surface": "website",
-        },
+        headers: getXSurfaceHeader(),
       }
     )
     .mockResolvedValue(SCATTER_NL_RESP);
@@ -321,9 +300,7 @@ export function queryAxiosMock(): void {
         variables: ["Percent_Person_Obesity"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": "website",
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue(OBESITY_POINT_WITHIN_RESP);
   when(axios.get)
@@ -335,9 +312,7 @@ export function queryAxiosMock(): void {
         variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
       },
       paramsSerializer: stringifyFn,
-      headers: {
-        "x-surface": "website",
-      },
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue(POVERTY_POINT_WITHIN_RESP);
   when(axios.get)

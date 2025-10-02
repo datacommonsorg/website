@@ -41,7 +41,11 @@ import {
   getHighlightTileDescription,
   getTileEventTypeSpecs,
 } from "../js/utils/tile_utils";
-import { BARD_CLIENT_URL_PARAM, TOOLFORMER_RIG_MODE } from "./constants";
+import {
+  BARD_CLIENT_URL_PARAM,
+  TOOLFORMER_RIG_MODE,
+  WEBSITE_SURFACE_HEADER_VALUE,
+} from "./constants";
 import { getBarTileResult } from "./tiles/bar_tile";
 import { getDisasterMapTileResult } from "./tiles/disaster_map_tile";
 import { getHighlightTileResult } from "./tiles/highlight_tile";
@@ -65,6 +69,12 @@ const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 const DEFAULT_QUERY_DETECTOR = "heuristic";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
+
+export const getXSurfaceHeader = (
+  surfaceHeaderValue: string = WEBSITE_SURFACE_HEADER_VALUE
+) => {
+  return { "x-surface": surfaceHeaderValue };
+};
 
 // Get the elapsed time in seconds given the start and end times in nanoseconds.
 function getElapsedTime(startTime: bigint, endTime: bigint): number {
@@ -341,9 +351,7 @@ export async function getQueryResult(
       url += `&${urlKey}=${params[urlKey]}`;
     });
   const postConfig = {
-    headers: {
-      "x-surface": surfaceHeaderValue || "website",
-    },
+    headers: getXSurfaceHeader(surfaceHeaderValue),
   };
   try {
     nlResp = await axios.post(url, {}, postConfig);
