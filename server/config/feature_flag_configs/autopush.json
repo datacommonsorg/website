@@ -22,7 +22,6 @@
     "enabled": true,
     "owner": "shixiao",
     "description": "Enabling Gemini 2.5 Flash for NL detection.",
-    "rollout_percentage": 100
   },
   {
     "name": "enable_stat_var_autocomplete",
