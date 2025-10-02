@@ -317,18 +317,79 @@ export function ApiDialog({
           />
         </p>
 
-        <div>
-          <label>Language:</label>
-          <select
-            value={apiLanguage}
-            onChange={(e): void => setApiLanguage(e.target.value)}
+        <div
+          css={css`
+            && {
+              position: relative;
+              display: flex;
+              align-items: center;
+            }
+          `}
+        >
+          <label
+            css={css`
+              && {
+                ${theme.typography.family.text}
+                ${theme.typography.text.sm}
+                position: relative;
+                font-weight: 600;
+                display: flex;
+                gap: 16px;
+                align-items: center;
+              }
+              &&::after {
+                content: "";
+                position: absolute;
+                background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMDAwMDAwIj48cGF0aCBkPSJNNDgwLTM2MCAyODAtNTYwaDQwMEw0ODAtMzYwWiIvPjwvc3ZnPg==);
+                background-repeat: no-repeat;
+                background-position: center center;
+                width: 16px;
+                height: 16px;
+                right: 6px;
+                top: 7px;
+                pointer-events: none;
+                z-index: 1;
+              }
+            `}
           >
-            {LANGUAGE_SPEC.map((lang) => (
-              <option key={lang.slug} value={lang.slug}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
+            <span
+              css={css`
+                ${theme.typography.family.text}
+                ${theme.typography.text.sm}
+                font-weight: 600;
+                margin: 0;
+              `}
+            >
+              Language:
+            </span>
+
+            <select
+              id="api-language-selector"
+              value={apiLanguage}
+              onChange={(e): void => setApiLanguage(e.target.value)}
+              css={css`
+                && {
+                  appearance: none;
+                  z-index: 1;
+                  cursor: pointer;
+                  ${theme.typography.family.text}
+                  ${theme.typography.text.sm}
+                  ${theme.radius.quaternary}
+                  border: 1px solid ${theme.colors.border.primary.light};
+                  padding: ${theme.spacing.xs}px ${theme.spacing.sm}px;
+                  background: white;
+                  min-width: 15ch;
+                  max-width: 30ch;
+                }
+              `}
+            >
+              {LANGUAGE_SPEC.map((lang) => (
+                <option key={lang.slug} value={lang.slug}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
         {currentLanguageSpec.displayStyle === "multiple" &&
