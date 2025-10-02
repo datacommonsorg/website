@@ -17,12 +17,12 @@ import urllib
 import urllib.request
 
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import find_elems
 from server.webdriver.base_utils import TIMEOUT
 from server.webdriver.base_utils import wait_elem
@@ -42,20 +42,20 @@ WEB_COMPONENT_TAG_NAMES = [
 ]
 
 
-def wait_for_loading(driver):
+def wait_for_loading(driver, timeout_seconds=LOADING_WAIT_TIME_SEC):
   """
   Wait for loading spinners to appear then disappear. Sometimes, more
   than one spinner will appear and disappear, so wait for MAX_NUM_SPINNERS
   spinners to appear and disappear. Or finish waiting if it takes more than
-  LOADING_WAIT_TIME_SEC seconds for the next spinner to appear.
+  timeout_seconds for the next spinner to appear.
   """
   screen_present = EC.visibility_of_element_located((By.ID, 'screen'))
   screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
   num_tries = 0
   while (num_tries < MAX_NUM_SPINNERS):
     try:
-      WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_present)
-      WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_hidden)
+      WebDriverWait(driver, timeout_seconds).until(screen_present)
+      WebDriverWait(driver, timeout_seconds).until(screen_hidden)
       num_tries += 1
     except:
       break
@@ -100,20 +100,17 @@ def select_source(driver, source_name, sv_dcid):
 
 def charts_rendered(driver):
   """
-  Wait asynchronously for charts or web components to show up
+  Custom expected condition to check that a chart or web component has rendered
   """
-  web_component_element_present = EC.any_of(*[
-      EC.presence_of_element_located((By.TAG_NAME, tag_name))
-      for tag_name in WEB_COMPONENT_TAG_NAMES
-  ])
-  chart_element_present = EC.presence_of_element_located(
-      (By.CLASS_NAME, ASYNC_ELEMENT_HOLDER_CLASS))
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.any_of(chart_element_present, web_component_element_present))
-
-  # Ensure chart tiles were rendered properly
+  # Attempt to find charts or web components
   chart_containers = driver.find_elements(By.CLASS_NAME,
                                           ASYNC_ELEMENT_HOLDER_CLASS)
+  web_component_containers = driver.find_elements(
+      By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
+  if not chart_containers and not web_component_containers:
+    # No charts found, return False
+    return False
+  # Ensure chart tiles were rendered properly
   for c in chart_containers:
     try:
       c.find_element(By.CLASS_NAME, ASYNC_ELEMENT_CLASS)
@@ -121,13 +118,18 @@ def charts_rendered(driver):
       return False
 
   # Ensure web components have an "id" attribute
-  web_component_containers = driver.find_elements(
-      By.CSS_SELECTOR, ", ".join(WEB_COMPONENT_TAG_NAMES))
   for wc in list(web_component_containers):
     dom_id = wc.get_attribute("id")
     if not dom_id:
       return False
   return True
+
+
+def wait_for_charts_to_render(driver, timeout_seconds: float = TIMEOUT):
+  """
+  Wait for charts or web components to show up.
+  """
+  WebDriverWait(driver, timeout_seconds).until(charts_rendered)
 
 
 def safe_url_open(url):
@@ -178,39 +180,19 @@ def search_for_places(self,
 
 
 def _search_for_places_old(self, driver, search_term, place_type=None):
-  # Wait for search box to be visible
-  search_box_locator = (By.ID, 'ac')
-  search_box_input = WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located(search_box_locator))
-
-  # Type search term into search box
-  search_box_input.clear()
-  search_box_input.send_keys(search_term)
-
-  # Wait for the dropdown list to appear
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located((By.CLASS_NAME, 'pac-container')))
-
-  # Wait for the dropdown list to be populated.
-  item = WebDriverWait(driver, TIMEOUT).until(
-      EC.element_to_be_clickable((By.CLASS_NAME, 'pac-item')))
-
-  # Click on first element
-  item.click()
-
-  # Wait for chip to be present
-  WebDriverWait(driver, TIMEOUT).until(
-      EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
-
-  # Wait for any loading spinners
-  wait_for_loading(driver)
+  # Search for place
+  _search_and_select_first_item_in_dropdown(driver, search_term)
 
   if place_type:
-    # Wait for place type select to be clickable
-    place_selector_place_type = WebDriverWait(driver, TIMEOUT).until(
-        EC.element_to_be_clickable((By.ID, 'place-selector-place-type')))
-    # Select a place type
+    # Wait for place type select to populate with the desired place type
+    place_selector_place_type = wait_elem(driver, By.ID,
+                                          'place-selector-place-type')
+    wait_elem(driver, By.CSS_SELECTOR,
+              f"#place-selector-place-type > option[value='{place_type}']")
+
+    # Select place type
     Select(place_selector_place_type).select_by_value(place_type)
+
     # Wait for any loading spinners
     wait_for_loading(driver)
 
@@ -220,15 +202,10 @@ def _search_for_places(self, driver, search_term, place_type=None):
   click_el(driver, (By.CLASS_NAME, 'start-button'))
 
   # Type term into the search box.
-  wait_elem(self.driver, by=By.ID, value='location-field')
-  search_box_input = self.driver.find_element(By.ID, 'ac')
-  search_box_input.send_keys(search_term)
+  _search_and_select_first_item_in_dropdown(driver,
+                                            search_term,
+                                            expect_chip=False)
 
-  # Wait until there is at least one result in autocomplete results.
-  self.assertIsNotNone(wait_elem(driver, value='pac-item'))
-
-  # Click on the first result.
-  click_el(driver, (By.CSS_SELECTOR, '.pac-item:nth-child(1)'))
   wait_for_loading(driver)
 
   # Click continue
@@ -246,3 +223,62 @@ def _search_for_places(self, driver, search_term, place_type=None):
     click_el(driver, (By.CLASS_NAME, 'continue-button'))
 
   wait_for_loading(self.driver)
+
+
+def search_for_multiple_places(driver, search_terms):
+  """Interacts with a visualization tool to manually search for multiple places sequentially.
+
+  Useful for the timeline tool where multiple places can be entered sequentially.
+
+  For each of the provided search terms:
+  - Enters the given term in the search bar
+  - Clicks the first autocomplete response
+
+  Expects the DOM of the newer version
+  of the visualization tools.
+  """
+  # Click start
+  click_el(driver, (By.CLASS_NAME, 'start-button'))
+
+  for search_term in search_terms:
+    # Search for place
+    _search_and_select_first_item_in_dropdown(driver,
+                                              search_term,
+                                              expect_chip=False)
+    # Wait for selection to appear instead of a chip
+    wait_elem(driver, By.CLASS_NAME, 'selected-place')
+
+  # Click continue
+  click_el(driver, (By.CLASS_NAME, 'continue-button'))
+
+
+def _search_and_select_first_item_in_dropdown(driver,
+                                              search_term,
+                                              expect_chip=True):
+  """Interacts with a google maps autocomplete search box to search and select the first result"""
+  # Wait for search box to be visible
+  search_box_locator = (By.ID, 'ac')
+  search_box_input = WebDriverWait(driver, TIMEOUT).until(
+      EC.element_to_be_clickable(search_box_locator))
+
+  # Type search term into search box
+  ActionChains(driver)\
+    .move_to_element(search_box_input)\
+    .click()\
+    .send_keys(search_term)\
+    .perform()
+
+  # Wait for the dropdown list to be populated.
+  item = WebDriverWait(driver, TIMEOUT).until(
+      EC.element_to_be_clickable((By.CLASS_NAME, 'pac-item')))
+
+  # Click on first element
+  item.click()
+
+  if expect_chip:
+    # Wait for chip to be present
+    WebDriverWait(driver, TIMEOUT).until(
+        EC.visibility_of_element_located((By.CLASS_NAME, 'chip')))
+
+  # Wait for any loading spinners
+  wait_for_loading(driver)
