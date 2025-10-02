@@ -274,7 +274,7 @@ def series_facet(entities, variables, all_facets, surfaceHeaderValue=None):
   }
 
   """
-  resp = dc.series_facet(entities, variables, surfaceHeaderValue)
+  resp = dc.series_facet(entities, variables, surfaceHeaderValue=surfaceHeaderValue)
   compacted_series = _compact_series(resp, all_facets)
   processed_series = {'facets': compacted_series.get('facets', {}), 'data': {}}
   # Update compacted series so that the entity data is always a list.

@@ -136,8 +136,6 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
-  print("surfaceHeaderValue: ", surfaceHeaderValue)
-
   return _fulfill_with_chart_config(utterance, debug_logs, surfaceHeaderValue)
 
 
