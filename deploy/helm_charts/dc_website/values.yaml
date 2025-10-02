@@ -26,6 +26,16 @@ website:
     enabled: false
     configFile:
 
+  placeSummary:
+    enabled: true
+    data:
+      country:
+      geoid_0_2:
+      geoid_3_5:
+      geoid_6_9:
+      wikidataId:
+      others:
+
   nodePool:
 
   evalTool:
