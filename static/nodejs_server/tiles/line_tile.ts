@@ -98,6 +98,7 @@ export async function getLineTileResult(
   mode?: string,
   surfaceHeaderValue?: string
 ): Promise<TileResult> {
+  console.log("Reached line tile");
   const tileProp = getTileProp(
     id,
     tileConfig,

@@ -375,6 +375,7 @@ function getPopulationPromise(
 export const fetchData = async (
   props: ScatterTilePropType
 ): Promise<ScatterChartData> => {
+  console.log("reaching scatter tile");
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
     return;

@@ -216,14 +216,17 @@ class Page extends Component<unknown, PageStateType> {
     const statVars = Array.from(
       getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
     );
+    console.log("places and statVars: ", places, statVars);
     let statVarInfoPromise = Promise.resolve({});
     if (statVars.length !== 0) {
       statVarInfoPromise = getStatVarInfo(statVars);
     }
+    console.log("statVarInfoPromise: ", statVarInfoPromise);
     let placesPromise = Promise.resolve({});
     if (places.length !== 0) {
       placesPromise = getPlaceNames(places);
     }
+    console.log("placesPromise: ", placesPromise);
     Promise.all([statVarInfoPromise, placesPromise]).then(
       ([statVarInfo, placeName]) => {
         // Schemaless stat vars are not associated with any triples.
@@ -234,12 +237,15 @@ class Page extends Component<unknown, PageStateType> {
             statVarInfo[statVar] = { mprop: statVar };
           }
         }
+        console.log("statVarInfo: ", statVarInfo);
+        console.log("PlaceName: ", placeName);
         this.setState({
           statVarInfo,
           placeName,
         });
       }
     );
+    console.log("finished fetchAndRender");
   }
 
   private toggleSvHierarchyModal(): void {

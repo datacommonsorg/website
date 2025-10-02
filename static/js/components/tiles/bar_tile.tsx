@@ -349,6 +349,7 @@ export const fetchData = async (
   props: BarTilePropType,
   dateOverride?: string
 ): Promise<BarChartData> => {
+  console.log("Reaching bar tile!");
   /*
    In order to accommodate facet selection while keeping the stat var/facet relationship,
    we group stat vars by their facets.
@@ -365,6 +366,7 @@ export const fetchData = async (
    */
   const statPromises: Promise<PointApiResponse>[] = [];
   if ("places" in props && !_.isEmpty(props.places)) {
+    console.log("case 1");
     for (const facetId in svsByFacet) {
       const svSpecs = svsByFacet[facetId];
       const statSvs = svSpecs.map((spec) => spec.statVar).filter(Boolean);
@@ -383,6 +385,7 @@ export const fetchData = async (
       );
     }
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+    console.log("case 2");
     for (const facetId in svsByFacet) {
       const svSpecs = svsByFacet[facetId];
       const statSvs = svSpecs.map((spec) => spec.statVar).filter(Boolean);

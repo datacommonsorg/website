@@ -56,10 +56,11 @@ def get_facets_within():
   if not variables:
     return 'error: must provide a variables field', 400
   date = request.args.get('date')
+  surfaceHeaderValue = request.headers.get("x-surface") or "website"
   if not is_valid_date(date):
     return 'error: date must be LATEST or YYYY or YYYY-MM or YYYY-MM-DD', 400
   return fetch.point_within_facet(parent_entity, child_type, variables, date,
-                                  True)
+                                  True, surfaceHeaderValue)
 
 
 @bp.route('/', strict_slashes=False)

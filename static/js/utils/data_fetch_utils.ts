@@ -207,9 +207,12 @@ export function getPoint(
     if (!_.isEmpty(resolvedFacetIds)) {
       params["facetId"] = resolvedFacetIds;
     }
+    console.log("params IN GETPOINT: ", params);
+    console.log("headers IN GETPOINT: ", getXSurfaceHeader(surfaceHeaderValue));
     return axios
       .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
         params,
+        paramsSerializer: stringifyFn,
         headers: getXSurfaceHeader(surfaceHeaderValue),
       })
       .then((resp) => {
@@ -292,7 +295,7 @@ export function getSeries(
 
     return axios
       .post(`${apiRoot || ""}/api/observations/series`, params, {
-      headers: getXSurfaceHeader(surfaceHeaderValue),
+        headers: getXSurfaceHeader(surfaceHeaderValue),
       })
       .then((resp) => resp.data);
   });

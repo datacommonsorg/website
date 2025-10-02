@@ -398,7 +398,16 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-      headers: getXSurfaceHeader(),
+    .calledWith("/api/observations/point", {
+      params: {
+        variables: ["Count_Person"],
+        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+      },
+      paramsSerializer: stringifyFn,
+      headers: {
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
+      },
+    })
     .mockResolvedValue({
       data: {
         data: {
@@ -428,7 +437,9 @@ function mockAxios(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: {
+        "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
+      },
     })
     .mockResolvedValue({
       data: {

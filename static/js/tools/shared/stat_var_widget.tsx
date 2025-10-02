@@ -24,10 +24,10 @@ import React, { createRef, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
-import { getXSurfaceHeader } from "../../utils/axios";
 import { NamedNode } from "../../shared/types";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { getXSurfaceHeader } from "../../utils/axios";
 import { StatVarInfo } from "../timeline/chart_region";
 
 interface StatVarWidgetPropsType {
@@ -63,6 +63,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
 
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
+      console.log("reaching before then!");
       axios
         .post(
           "/api/observation/existence",
@@ -75,6 +76,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
           }
         )
         .then((resp) => {
+          console.log("Reaching after then!");
           const availableSVs = [];
           const unavailableSVs = [];
           for (const sv in props.selectedSVs) {

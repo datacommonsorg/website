@@ -22,7 +22,6 @@ jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
@@ -224,6 +223,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -253,6 +253,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -283,6 +284,7 @@ export function axiosMock(): void {
         variables: ["Count_Person", "Median_Age_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -312,12 +314,9 @@ export function axiosMock(): void {
 
   // get place stats vars for places in geoId/06
   when(axios.post)
-    .calledWith(
-      "/api/observation/existence",
-      {
-        headers: getXSurfaceHeader(),
-      }
-    )
+    .calledWith("/api/observation/existence", {
+      headers: getXSurfaceHeader(),
+    })
     .mockResolvedValue({
       data: {
         Count_Person: {
