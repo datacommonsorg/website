@@ -434,7 +434,6 @@ export const fetchData = async (
     props.enclosedPlaceType ? props.place.dcid : "",
     props.enclosedPlaceType
   );
-  console.log("denom data: ", denomsByFacet, defaultDenomData);
   return rawToChart(
     resp,
     props,
