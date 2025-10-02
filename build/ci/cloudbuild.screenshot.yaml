@@ -15,7 +15,7 @@
 steps:
   # Build the static files
   - id: package_js
-    name: gcr.io/datcom-ci/node:2024-11-19
+    name: gcr.io/datcom-ci/node:${_NODE_VERSION}
     entrypoint: /bin/bash
     waitFor: ["-"]
     env:
@@ -24,8 +24,7 @@ steps:
     args:
       - -c
       - |
-        rm -rf static/node_modules
-        cp -r /resources/node_modules -d static/
+        ./build/node/load_preinstalled_modules.sh
         ./run_test.sh -b
 
   # Run the screenshot tests
@@ -52,6 +51,9 @@ steps:
         set -e
         gsutil -m cp ./screenshots/*.png ./screenshots/*.json gs://datcom-website-screenshot/local/$SHORT_SHA/
         rm -rf screenshots
+
+substitutions:
+  _NODE_VERSION: "2025-10-01"
 
 timeout: 3600s
 
