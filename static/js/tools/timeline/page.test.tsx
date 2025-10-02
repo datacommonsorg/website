@@ -64,11 +64,9 @@ test("Single place and single stat var", async () => {
       hash: "#place=geoId/05&statsVar=Median_Age_Person",
     },
   });
-  console.log("passed defineProperty");
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
   drawGroupLineChartMock();
-  console.log("passed drawGroupLine");
   // Mock all the async axios call
   axiosMock();
   // Do the actual render!
@@ -77,20 +75,16 @@ test("Single place and single stat var", async () => {
       <Page />
     </ThemeProvider>
   );
-  console.log("passed mount");
   await waitForComponentUpdates(wrapper);
-  console.log("passed waitForComponentUpdate");
   // Check that one chart is on the page and it matches snapshot
   expect(
     pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
   ).toMatchSnapshot();
-  console.log("passed first expect");
   // Open demographics node in stat var widget
   wrapper
     .find("#hierarchy-section .Collapsible__trigger")
     .at(0)
     .simulate("click");
-  console.log("passed wrapper");
   // Wait for the stat var info fetch
   await new Promise(process.nextTick);
   wrapper.update();

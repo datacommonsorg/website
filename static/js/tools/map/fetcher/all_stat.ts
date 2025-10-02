@@ -24,7 +24,6 @@ import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
 import {
   EntityObservationListWrapper,
   PointAllApiResponse,

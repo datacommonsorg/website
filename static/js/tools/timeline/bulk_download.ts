@@ -15,7 +15,6 @@
  */
 import axios from "axios";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
 import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";

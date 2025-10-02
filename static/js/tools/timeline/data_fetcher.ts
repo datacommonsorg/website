@@ -18,7 +18,6 @@ import axios from "axios";
 import _ from "lodash";
 
 import { DataGroup, DataPoint } from "../../chart/base";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import {
   DisplayNameApiResponse,
   EntitySeries,

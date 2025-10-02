@@ -223,8 +223,6 @@ test("getQueryResult", async () => {
       false, // wantRelatedQuestions
       "" // detector
     );
-    console.log("result: ", result);
-    console.log("Result.charts in getQueryResult: ", result.charts);
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);
     } catch (e) {

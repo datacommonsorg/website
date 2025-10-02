@@ -207,8 +207,6 @@ export function getPoint(
     if (!_.isEmpty(resolvedFacetIds)) {
       params["facetId"] = resolvedFacetIds;
     }
-    console.log("params IN GETPOINT: ", params);
-    console.log("headers IN GETPOINT: ", getXSurfaceHeader(surfaceHeaderValue));
     return axios
       .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
         params,

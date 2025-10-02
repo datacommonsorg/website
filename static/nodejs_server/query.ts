@@ -345,14 +345,11 @@ export async function getQueryResult(
       "x-surface": surfaceHeaderValue || "website",
     },
   };
-  console.log("postConfig: ", postConfig);
   try {
     nlResp = await axios.post(url, {}, postConfig);
   } catch (e) {
     return { err: "Error fetching data." };
   }
-
-  console.log("nlResp: ", nlResp);
 
   // process the nl result
   const nlResultTime = process.hrtime.bigint();
@@ -377,7 +374,6 @@ export async function getQueryResult(
 
   // If no place, return here
   if (!place.dcid) {
-    console.log("no place dcid");
     return { charts: [] };
   }
 

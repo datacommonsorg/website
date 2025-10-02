@@ -22,7 +22,6 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../shared/constants";
 import {
   Series,
   SeriesAllApiResponse,

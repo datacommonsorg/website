@@ -63,7 +63,6 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
 
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
-      console.log("reaching before then!");
       axios
         .post(
           "/api/observation/existence",
@@ -76,7 +75,6 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
           }
         )
         .then((resp) => {
-          console.log("Reaching after then!");
           const availableSVs = [];
           const unavailableSVs = [];
           for (const sv in props.selectedSVs) {
