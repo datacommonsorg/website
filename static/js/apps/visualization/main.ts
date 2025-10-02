@@ -39,7 +39,7 @@ window.addEventListener("load", (): void => {
       const visType = getVisTypeFromHash();
       if (
         isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG) &&
-        visType == "timeline"
+        ["timeline", "scatter"].includes(visType)
       ) {
         window.location.href = getStandardizedToolUrl();
       } else {
