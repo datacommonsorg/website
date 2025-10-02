@@ -523,17 +523,12 @@ function rawToChart(
       point.xPopVal = denomInfo.value;
       sources.add(denomInfo.source);
       const xDenomStatVar = xStatVar.denom;
-      const xDenomSeries = rawData.population.data?.[xDenomStatVar]?.[place];
-      if (xDenomSeries?.facet) {
-        const denomFacetId = xDenomSeries.facet;
-        const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
-        if (denomFacetMetadata) {
-          facets[denomFacetId] = denomFacetMetadata;
-          if (!statVarToFacets[xDenomStatVar]) {
-            statVarToFacets[xDenomStatVar] = new Set<string>();
-          }
-          statVarToFacets[xDenomStatVar].add(denomFacetId);
+      if (denomInfo.facetId && denomInfo.facet) {
+        facets[denomInfo.facetId] = denomInfo.facet;
+        if (!statVarToFacets[xDenomStatVar]) {
+          statVarToFacets[xDenomStatVar] = new Set<string>();
         }
+        statVarToFacets[xDenomStatVar].add(denomInfo.facetId);
       }
     }
     if (xUnitScaling.scaling) {
@@ -555,17 +550,12 @@ function rawToChart(
       point.yPopVal = denomInfo.value;
       sources.add(denomInfo.source);
       const yDenomStatVar = yStatVar.denom;
-      const yDenomSeries = rawData.population.data?.[yDenomStatVar]?.[place];
-      if (yDenomSeries?.facet) {
-        const denomFacetId = yDenomSeries.facet;
-        const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
-        if (denomFacetMetadata) {
-          facets[denomFacetId] = denomFacetMetadata;
-          if (!statVarToFacets[yDenomStatVar]) {
-            statVarToFacets[yDenomStatVar] = new Set<string>();
-          }
-          statVarToFacets[yDenomStatVar].add(denomFacetId);
+      if (denomInfo.facetId && denomInfo.facet) {
+        facets[denomInfo.facetId] = denomInfo.facet;
+        if (!statVarToFacets[yDenomStatVar]) {
+          statVarToFacets[yDenomStatVar] = new Set<string>();
         }
+        statVarToFacets[yDenomStatVar].add(denomInfo.facetId);
       }
     }
     if (yUnitScaling.scaling) {

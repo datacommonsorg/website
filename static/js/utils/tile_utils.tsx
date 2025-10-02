@@ -26,7 +26,11 @@ import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants
 import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import { intl } from "../i18n/i18n";
 import { messages } from "../i18n/i18n_messages";
-import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
+import {
+  PointApiResponse,
+  SeriesApiResponse,
+  StatMetadata,
+} from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
@@ -409,6 +413,8 @@ interface DenomInfo {
   value: number;
   date: string;
   source: string;
+  facet: StatMetadata;
+  facetId: string;
 }
 
 /**
@@ -446,6 +452,8 @@ export function getDenomInfo(
     value: denomObs.value,
     date: denomObs.date,
     source,
+    facet: denomData.facets[placeDenomData.facet],
+    facetId: placeDenomData.facet,
   };
 }
 

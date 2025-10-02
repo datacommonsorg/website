@@ -587,17 +587,12 @@ function rawToChart(
         dataPoint.value /= denomInfo.value;
         sources.add(denomInfo.source);
         const denomStatVar = spec.denom;
-        const denomSeries = denomData.data?.[denomStatVar]?.[placeDcid];
-        if (denomSeries?.facet) {
-          const denomFacetId = denomSeries.facet;
-          const denomFacetMetadata = denomData.facets?.[denomFacetId];
-          if (denomFacetMetadata) {
-            facets[denomFacetId] = denomFacetMetadata;
-            if (!statVarToFacets[denomStatVar]) {
-              statVarToFacets[denomStatVar] = new Set<string>();
-            }
-            statVarToFacets[denomStatVar].add(denomFacetId);
+        if (denomInfo.facetId && denomInfo.facet) {
+          facets[denomInfo.facetId] = denomInfo.facet;
+          if (!statVarToFacets[denomStatVar]) {
+            statVarToFacets[denomStatVar] = new Set<string>();
           }
+          statVarToFacets[denomStatVar].add(denomInfo.facetId);
         }
       }
       if (scaling) {
