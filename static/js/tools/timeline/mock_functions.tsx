@@ -101,9 +101,16 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      headers: getXSurfaceHeader(),
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["Median_Age_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         Median_Age_Person: {

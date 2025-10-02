@@ -314,9 +314,16 @@ export function axiosMock(): void {
 
   // get place stats vars for places in geoId/06
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      headers: getXSurfaceHeader(),
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/06001", "geoId/06002"],
+        variables: ["Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         Count_Person: {
