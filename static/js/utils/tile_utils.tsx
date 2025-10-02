@@ -508,34 +508,15 @@ export function getDenomInfo(
   defaultDenomData?: SeriesApiResponse
 ): DenomInfo {
   // find the matching denominator data if it exists, for the facet used in the numerator
-  let matchingDenomData: SeriesApiResponse;
-  let placeDenomData: Series;
-  // if no facet can be identified on the numerator, use the default data
-  if (!facetUsed) {
+  let matchingDenomData = denomData?.[facetUsed];
+  let placeDenomData = matchingDenomData?.data?.[svSpec.denom]?.[placeDcid];
+
+  if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
     matchingDenomData = defaultDenomData;
-  } else {
-    matchingDenomData = denomData[facetUsed];
-    placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
-
-    // also default to defaultDenomData if no facet-specific denomData is found for a given entity
-    if (
-      !matchingDenomData ||
-      !(svSpec.denom in matchingDenomData.data) ||
-      !placeDenomData ||
-      _.isEmpty(placeDenomData.series)
-    ) {
-      matchingDenomData = defaultDenomData;
-    }
+    placeDenomData = matchingDenomData?.data?.[svSpec.denom]?.[placeDcid];
   }
 
-  // if is no denominator data at all, return null
-  if (!matchingDenomData || !(svSpec.denom in matchingDenomData.data)) {
-    return null;
-  }
-
-  // resetting in case the defaultDenomData was used
-  placeDenomData = matchingDenomData.data[svSpec.denom][placeDcid];
-
+  // if there is no denom data at all, return null
   if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
     return null;
   }
