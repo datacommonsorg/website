@@ -82,7 +82,6 @@ function App(): ReactElement {
                   subtitle={intl.formatMessage(
                     toolMessages.scatterToolSubtitle
                   )}
-                  switchToolsUrl="/tools/visualization#visType%3Dscatter"
                 />
               ) : (
                 <div className="app-header">
