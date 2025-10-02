@@ -107,15 +107,8 @@ export interface Theme {
       };
       code?: {
         base?: string;
-        highlight?: string;
-        selected?: string;
-        blue?: string;
-        grey?: string;
-        black?: string;
-        red?: string;
-        green?: string;
-        orange?: string;
-        yellow?: string;
+        light?: string;
+        dark?: string;
       };
     };
     border?: {
@@ -322,6 +315,43 @@ export interface Theme {
             lineHeight?: string;
           };
     };
+  };
+  codeHighlight: {
+    background?: string;
+    border?: string;
+    text?: string;
+    highlight?: string;
+    selection?: string;
+    comment?: string;
+    prolog?: string;
+    doctype?: string;
+    cData?: string;
+    punctuation?: string;
+    property?: string;
+    tag?: string;
+    boolean?: string;
+    number?: string;
+    constant?: string;
+    symbol?: string;
+    deleted?: string;
+    selector?: string;
+    attrName?: string;
+    string?: string;
+    char?: string;
+    builtin?: string;
+    inserted?: string;
+    operator?: string;
+    entity?: string;
+    url?: string;
+    langCSS?: string;
+    atrule?: string;
+    attrValue?: string;
+    keyword?: string;
+    function?: string;
+    className?: string;
+    regex?: string;
+    important?: string;
+    variable?: string;
   };
   elevation: {
     none: {

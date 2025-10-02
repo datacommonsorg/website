@@ -196,9 +196,9 @@ export default function CodeBlock({
     position: "relative",
 
     "> pre[class*='language-']": {
-      background: "#ffffff",
-      color: "#2f2f2f",
-      border: "1px solid #e5e7eb",
+      background: theme.codeHighlight.background,
+      color: theme.codeHighlight.text,
+      border: `1px solid ${theme.codeHighlight.border}`,
       borderRadius: "8px",
       padding: "12px 14px",
       margin: 0,
@@ -207,7 +207,7 @@ export default function CodeBlock({
       tabSize: 2,
       ...theme.typography.family.code,
       fontSize: "0.9rem",
-      textShadow: "0 1px white",
+      textShadow: `0 1px ${theme.codeHighlight.background}`,
       textAlign: "left",
       whiteSpace: "pre",
       wordSpacing: "normal",
@@ -220,39 +220,39 @@ export default function CodeBlock({
       hyphens: "none",
 
       "& ::selection": {
-        background:  theme.colors.text.code.selected,
+        background: theme.codeHighlight.selection,
       },
 
       ".token.comment, .token.prolog, .token.doctype, .token.cdata": {
-        color: theme.colors.text.code.grey,
+        color: theme.codeHighlight.comment,
       },
       ".token.punctuation": {
-        color: theme.colors.text.code.black,
+        color: theme.codeHighlight.punctuation,
       },
       ".token.namespace": {
         opacity: 0.7,
       },
       ".token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted":
         {
-          color: theme.colors.text.code.blue,
+          color: theme.codeHighlight.property,
         },
       ".token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted":
         {
-          color: theme.colors.text.code.green,
+          color: theme.codeHighlight.selector,
         },
       ".token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string":
         {
-          color: theme.colors.text.code.orange,
+          color: theme.codeHighlight.operator,
           background: "hsla(0, 0%, 100%, .5)",
         },
       ".token.atrule, .token.attr-value, .token.keyword": {
-        color: theme.colors.text.code.black,
+        color: theme.codeHighlight.atrule,
       },
       ".token.function, .token.class-name": {
-        color: theme.colors.text.code.blue,
+        color: theme.codeHighlight.function,
       },
       ".token.regex, .token.important, .token.variable": {
-        color: theme.colors.text.code.yellow,
+        color: theme.codeHighlight.regex,
       },
       ".token.important, .token.bold": {
         fontWeight: "bold",
@@ -264,7 +264,7 @@ export default function CodeBlock({
         cursor: "help",
       },
       ".token.special-term-highlight": {
-        backgroundColor: theme.colors.text.code.highlight,
+        backgroundColor: theme.codeHighlight.highlight,
         padding: "2px 3px",
         borderRadius: "3px",
       },

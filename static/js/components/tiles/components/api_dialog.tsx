@@ -306,12 +306,16 @@ export function ApiDialog({
                 apiKeyPlaceholder: (
                   <code
                     css={css`
-                      color: ${theme.colors.text.code.base};
-                      font-size: 100%;
-                      ${theme.typography.family.code}}
+                      && {
+                        padding: 1px ${theme.spacing.xs}px;
+                        ${theme.typography.family.code}}
+                        font-size: 100%;
+                        color: ${theme.colors.text.code.dark};
+                        background: ${theme.colors.text.code.light};
+                      }
                     `}
                   >
-                    ${`{API_KEY}`}
+                    API_KEY
                   </code>
                 ),
               }),
