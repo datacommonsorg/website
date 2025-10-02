@@ -213,6 +213,7 @@ const ApiLanguageContent = ({
   statVarNameMap,
   numeratorSpecsCount,
   apiRoot,
+  specialTerms,
 }: ApiLanguageContentProps): ReactElement => {
   const theme = useTheme();
 
@@ -260,7 +261,11 @@ const ApiLanguageContent = ({
               `}
             >
               {showHeader && <h3>{title}</h3>}
-              <ApiCallTextArea value={apiCall} />
+              <ApiCallCodeBlock
+                value={apiCall}
+                language={lang.highlightLanguage}
+                specialTerms={specialTerms}
+              />
             </div>
           );
         })}
@@ -279,7 +284,11 @@ const ApiLanguageContent = ({
           width: 100%;
         `}
       >
-        <ApiCallTextArea value={apiCall} />
+        <ApiCallCodeBlock
+          value={apiCall}
+          language={lang.highlightLanguage}
+          specialTerms={specialTerms}
+        />
       </div>
     );
   }
@@ -503,6 +512,7 @@ export function ApiDialog({
             statVarNameMap={statVarNameMap}
             numeratorSpecsCount={numeratorSpecsCount}
             apiRoot={apiRoot}
+            specialTerms={specialTerms}
           />
         ))}
       </DialogContent>
