@@ -20,7 +20,6 @@ from typing import Dict, List
 import urllib.parse
 
 from flask import current_app
-from flask import request
 import requests
 
 from server.lib import log
