@@ -33,5 +33,6 @@ export const getRoot = (): string => {
 export const getXSurfaceHeader = (
   surfaceHeaderValue: string = WEBSITE_SURFACE_HEADER_VALUE
 ): Record<string, string> => {
+  console.log("Result from helper: ", { "x-surface": surfaceHeaderValue });
   return { "x-surface": surfaceHeaderValue };
 };

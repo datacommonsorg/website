@@ -56,13 +56,14 @@ class ExistenceCheckTracker:
   def __init__(self,
                state: PopulateState,
                place2keys: Dict,
-               surfaceHeaderValue: str = None):
+               surfaceHeaderValue: str = "website"):
     self.state = state
     self.place2keys = place2keys
     self.places = sorted(place2keys.keys())
     self.all_svs = set()
     self.exist_sv_states: List[SVExistenceCheckState] = []
-    self.surfaceHeaderValue = surfaceHeaderValue
+    self.surfaceHeaderValue = surfaceHeaderValue or "website"
+    print("Setting surfaceHeaderValue: ", surfaceHeaderValue)
     # Map of existing SVs with key as SV DCID and value as an ID to a facet that
     # has data for that SV.
     self.existing_svs = {}

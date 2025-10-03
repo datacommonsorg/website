@@ -123,6 +123,7 @@ def compute_related_things(
     _add_sdg_topics(state, related_things)
 
   if not is_this_sdg:
+    print("reaching compute_related_things: ", compute_related_things)
     related_things = prune_related_topics(related_things, state.uttr)
 
   state.uttr.counters.timeit("topic_expansion", start)

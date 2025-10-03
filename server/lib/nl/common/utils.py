@@ -90,6 +90,7 @@ def sv_existence_for_places(places: List[str], svs: List[str],
     return [], {}
 
   start = time.time()
+  
   sv_existence = fetch.observation_existence(svs, places)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
@@ -199,6 +200,7 @@ def sv_existence_for_places_check_single_point(
 
   check_date = bool(single_date) | bool(date_range)
   start = time.time()
+  print("coming from sv_existence_for_places_check_single_point: ", surfaceHeaderValue)
   series_facet = fetch.series_facet(entities=places,
                                     variables=svs,
                                     all_facets=check_date,

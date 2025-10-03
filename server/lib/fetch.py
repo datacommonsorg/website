@@ -187,6 +187,7 @@ def point_core(entities, variables, date, all_facets, surfaceHeaderValue=None):
     }
   }
   """
+  print("surfaceHeaderValue in point_core: ", surfaceHeaderValue)
   resp = dc.obs_point(entities,
                       variables,
                       date,
@@ -356,10 +357,11 @@ def observation_existence(variables, entities, surfaceHeaderValue=None):
     for e in entities:
       result[var][e] = False
   # Fetch existence check data
+  print("IN EXISTENCE CHECK: ", surfaceHeaderValue)
   resp = dc.v2observation(select=['variable', 'entity'],
                           entity={'dcids': entities},
                           variable={'dcids': variables},
-                          surfaceHeaderValue=surfaceHeaderValue)
+                          surfaceHeaderValue=(surfaceHeaderValue or "website"))
   for var, entity_obs in resp.get('byVariable', {}).items():
     for e in entity_obs.get('byEntity', {}):
       result[var][e] = True
