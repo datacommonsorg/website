@@ -79,7 +79,6 @@ const HeaderBarSearch = ({
   );
 
   useEffect(() => {
-    console.log("Rendering HeaderBarSearch" + enableStatVarAutocomplete);
     triggerGAEvent(GA_EVENT_RENDER_NL_SEARCH_BAR, {
       [GA_EVENT_STATVAR_AUTOCOMPLETE_ENABLED]: String(
         enableStatVarAutocomplete
