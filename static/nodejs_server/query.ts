@@ -70,9 +70,10 @@ const DEFAULT_QUERY_DETECTOR = "heuristic";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
 
+// formats header for calls to the Flask API, which is passed into mixer and used in usage logging
 export const getXSurfaceHeader = (
   surfaceHeaderValue: string = WEBSITE_SURFACE_HEADER_VALUE
-) => {
+): Record<string, string> => {
   return { "x-surface": surfaceHeaderValue };
 };
 
