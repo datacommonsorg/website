@@ -25,6 +25,12 @@
     "rollout_percentage": 100
   },
   {
+    "name": "enable_gemini_2_5_flash_lite",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enabling Gemini 2.5 Flash Lite for NL detection."
+  },
+  {
     "name": "enable_stat_var_autocomplete",
     "enabled": true,
     "owner": "gmechali",
