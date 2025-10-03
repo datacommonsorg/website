@@ -157,7 +157,7 @@ function PrismRenderer({
   const highlighted = useMemo(() => {
     const grammar = Prism.languages[language];
     if (!grammar) {
-      return code;
+      return Prism.Token.stringify(Prism.util.encode(code), language);
     }
 
     const highlightTerms = (specialTerms?.highlight ?? []).filter(Boolean);

@@ -88,8 +88,9 @@ type MultiSpecGenerator = (
 
   The generator is the function that takes the observation spec and transforms it into an example
   for the target language.
-    `single` languages require a generator with a `SingleSpecGenerator` shape.
-    `multiple` languages require a generator with a `MultipleSpecGenerator` shape.
+    `single` languages require a generator with a `MultiSpecGenerator` shape (combine multiple specs
+      into a single script)
+    `multiple` languages require a generator with a `SingleSpecGenerator` shape (one block per spec).
  */
 type LanguageSpec =
   | {
