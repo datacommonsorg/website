@@ -66,49 +66,19 @@ export interface CodeBlockProps {
   className?: string;
 }
 
-// A context for a single render, containing the regex for its specific terms.
-interface SpecialTermsContext {
-  highlightRegex: RegExp | null;
-}
-
-/*
- Because prism hooks are global, we want to make sure that any given render will only
- ever use its own SpecialTermsContext. We do this by mapping a unique "language" per render
- cycle to the relevant context, using the renderIdCounter.
- */
-const specialTermsContextMap = new Map<string, SpecialTermsContext>();
-let renderIdCounter = 0;
-
-let isWrapHookRegistered = false;
+type PrismTokenStream = (string | Prism.Token)[];
+type PrismNode = string | Prism.Token | PrismTokenStream;
 
 /**
- * This function registers the wrap hook. The hook will check if we have a special terms
- * context for this particular render cycle, and if so, use it to apply the rules of those
- * special terms (i.e., in the case of highlighting to add the highlight span).
+ * A guard to determine if a node is a Prism.Token.
  */
-function registerWrapHook(): void {
-  if (isWrapHookRegistered) return;
-
-  Prism.hooks.add("wrap", (env: Prism.hooks.ElementEnvironment) => {
-    const context = specialTermsContextMap.get(env.language);
-    if (!context || !context.highlightRegex) {
-      return;
-    }
-
-    if (typeof env.content !== "string") {
-      return;
-    }
-
-    const regex = context.highlightRegex;
-    regex.lastIndex = 0;
-    env.content = env.content.replace(
-      regex,
-      (match: string) =>
-        `<span class="token special-term-highlight">${match}</span>`
-    );
-  });
-
-  isWrapHookRegistered = true;
+function isPrismToken(node: unknown): node is Prism.Token {
+  return (
+    typeof node === "object" &&
+    node !== null &&
+    "type" in node &&
+    "content" in node
+  );
 }
 
 /**
@@ -127,8 +97,51 @@ function escapeRegex(str: string): string {
  */
 function buildTermsRegex(terms: string[]): RegExp | null {
   if (!terms.length) return null;
-  const body = `\\b(${terms.map(escapeRegex).join("|")})\\b`;
+  const body = `(${terms.map(escapeRegex).join("|")})`;
   return new RegExp(body, "g");
+}
+
+/**
+ * This function processes a token stream. When it finds a string,
+ * it splits it by the terms we want to highlight and wraps those in span tags.
+ * @param node
+ * @param regex
+ * @param termsSet
+ */
+function processTokenStream(
+  node: PrismNode,
+  regex: RegExp | null,
+  termsSet: Set<string>
+): PrismTokenStream {
+  if (isPrismToken(node)) {
+    // If the node is a token, we apply this function to its content and return a new one
+    const processedContent = processTokenStream(node.content, regex, termsSet);
+    return [new Prism.Token(node.type, processedContent, node.alias)];
+  }
+
+  if (Array.isArray(node)) {
+    // If the node is already an array, we process each item.
+    return node.flatMap((item) => processTokenStream(item, regex, termsSet));
+  }
+
+  if (typeof node === "string") {
+    if (!regex || termsSet.size === 0) {
+      return [node];
+    }
+
+    const parts = node.split(regex);
+
+    return parts.map((part, index) => {
+      // We are splitting by the terms we want (and telling regex to include them).
+      // Therefore, every odd entry will be a split (a term we want)
+      if (part && termsSet.has(part) && index % 2 === 1) {
+        return new Prism.Token("special-term-highlight", part);
+      }
+      return part;
+    });
+  }
+
+  return [];
 }
 
 /**
@@ -152,22 +165,16 @@ function PrismRenderer({
       return Prism.highlight(code, grammar, language);
     }
 
-    registerWrapHook();
+    const sortedHighlightTerms = [...highlightTerms].sort(
+      (a, b) => b.length - a.length
+    );
 
-    const callId = `highlight-${renderIdCounter++}`;
-    const context: SpecialTermsContext = {
-      highlightRegex: buildTermsRegex(highlightTerms),
-    };
+    const termsRegex = buildTermsRegex(sortedHighlightTerms);
+    const termsSet = new Set(sortedHighlightTerms);
 
-    // We set the special terms in the context map for the wrap hook to use.
-    specialTermsContextMap.set(callId, context);
-
-    try {
-      return Prism.highlight(code, grammar, callId);
-    } finally {
-      // We can now remove the special terms from the map, as the highlighting is complete.
-      specialTermsContextMap.delete(callId);
-    }
+    const tokens = Prism.tokenize(code, grammar);
+    const processedTokens = processTokenStream(tokens, termsRegex, termsSet);
+    return Prism.Token.stringify(processedTokens, language);
   }, [code, language, specialTerms]);
 
   const finalClassName = `language-${language} ${className ?? ""}`;
@@ -190,8 +197,6 @@ export default function CodeBlock({
 }: CodeBlockProps): React.JSX.Element {
   const theme = useTheme();
 
-  // These are taken from Prism's default CSS file.
-  // TODO (pablonoel): convert to DC colors and add a section for this to the theme.
   const container = css({
     position: "relative",
 
