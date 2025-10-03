@@ -188,10 +188,12 @@ export class GoogleMap extends React.Component<
   GoogleMapStateType
 > {
   div: React.RefObject<HTMLDivElement>;
+  map: google.maps.Map;
 
   constructor(props: GoogleMapPropType) {
     super(props);
     this.div = React.createRef();
+    this.map = null;
     this.state = {
       markerLocation: { lat: null, lng: null },
       mapInfo: {
@@ -236,23 +238,28 @@ export class GoogleMap extends React.Component<
 
   componentDidUpdate(): void {
     if (this.state.shouldShowMap) {
-      // initialize Map
-      const map = initMap(this.div.current);
-
-      if (this.state.geoJson) {
-        drawGeoJson(this.state.geoJson, map);
-      } else if (
-        Object.values(this.state.mapInfo).every((val) => val !== null)
-      ) {
-        // default to drawing polygons via KML coordinates if available
-        drawKmlCoordinates(this.state.mapInfo, map);
-      } else if (
-        this.state.markerLocation.lat &&
-        this.state.markerLocation.lng
-      ) {
-        // only draw marker pin if KML coordinates were not found
-        drawMarker(this.state.markerLocation, map);
+      if (this.div.current && !this.map) {
+        // Initialize map only if container div exists
+        this.map = initMap(this.div.current);
       }
+      if (this.map) {
+        if (this.state.geoJson) {
+          drawGeoJson(this.state.geoJson, this.map);
+        } else if (
+          Object.values(this.state.mapInfo).every((val) => val !== null)
+        ) {
+          // default to drawing polygons via KML coordinates if available
+          drawKmlCoordinates(this.state.mapInfo, this.map);
+        } else if (
+          this.state.markerLocation.lat &&
+          this.state.markerLocation.lng
+        ) {
+          // only draw marker pin if KML coordinates were not found
+          drawMarker(this.state.markerLocation, this.map);
+        }
+      }
+    } else {
+      this.map = null;
     }
   }
 
