@@ -511,13 +511,19 @@ function pointApiToPerSvRankingData(
           to the statVarToFacets map (which is ultimately passed into the TileSources component). With this,
           the metadata modal can display full metadata for the per capita stat var and facets used in the chart.
          */
-        if (denomInfo.facetId && denomInfo.facet) {
-          sources.add(denomInfo.source);
-          facets[denomInfo.facetId] = denomInfo.facet;
-          if (!statVarToFacets[spec.denom]) {
-            statVarToFacets[spec.denom] = new Set<string>();
+        const denomSeries = denomData.data[spec.denom]?.[place];
+        if (denomSeries?.facet) {
+          const denomFacet = denomData.facets[denomSeries.facet];
+          if (denomFacet) {
+            if (denomFacet.provenanceUrl) {
+              sources.add(denomFacet.provenanceUrl);
+            }
+            facets[denomSeries.facet] = denomFacet;
+            if (!statVarToFacets[spec.denom]) {
+              statVarToFacets[spec.denom] = new Set<string>();
+            }
+            statVarToFacets[spec.denom].add(denomSeries.facet);
           }
-          statVarToFacets[spec.denom].add(denomInfo.facetId);
         }
       }
       rankingPoints.push(rankingPoint);

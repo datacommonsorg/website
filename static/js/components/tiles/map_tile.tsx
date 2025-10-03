@@ -708,12 +708,18 @@ function rawToChart(
         placeChartData.metadata.popDate = denomInfo.date;
         sources.add(denomInfo.source);
         const denomStatVar = rawData.variable.denom;
-        if (denomInfo.facetId && denomInfo.facet) {
-          facets[denomInfo.facetId] = denomInfo.facet;
-          if (!statVarToFacets[denomStatVar]) {
-            statVarToFacets[denomStatVar] = new Set<string>();
+        const denomSeries =
+          rawData.population.data?.[denomStatVar]?.[placeDcid];
+        if (denomSeries?.facet) {
+          const denomFacetId = denomSeries.facet;
+          const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
+          if (denomFacetMetadata) {
+            facets[denomFacetId] = denomFacetMetadata;
+            if (!statVarToFacets[denomStatVar]) {
+              statVarToFacets[denomStatVar] = new Set<string>();
+            }
+            statVarToFacets[denomStatVar].add(denomFacetId);
           }
-          statVarToFacets[denomStatVar].add(denomInfo.facetId);
         }
       }
       if (scaling) {
