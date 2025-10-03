@@ -337,35 +337,6 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     self.assertIsNotNone(api_link, "Could not find the API link.")
     api_link.click()
 
-    # Wait for the dialog's cURL endpoint has appeared
-    wait_for_text(self.driver,
-                  text="curl",
-                  by=By.CSS_SELECTOR,
-                  value='pre[class*="language-"]')
-
-    curl_code_block = find_elem(self.driver,
-                                by=By.CSS_SELECTOR,
-                                value='pre[class*="language-"]')
-    self.assertIsNotNone(curl_code_block,
-                         "API dialog's cURL code block did not appear.")
-
-    # Get the API cURL endpoint from the code area
-    curl_actual_text = curl_code_block.text
-
-    # Verify that key parts of the API call are present
-    self.assertIn('"variable": {"dcids": ["Count_Person"]},', curl_actual_text)
-    self.assertIn('"entity": {"dcids": ["country/USA"]}', curl_actual_text)
-
-    # Find the language selector in order to change to Python
-    language_selector = find_elem(self.driver,
-                                  by=By.ID,
-                                  value='api-language-selector')
-    self.assertIsNotNone(language_selector,
-                         "API dialog's language selector not found.")
-
-    select = Select(language_selector)
-    select.select_by_value('python')
-
     # Wait until the dialog's Python endpoint has appeared
     wait_for_text(self.driver,
                   text="import",
@@ -382,3 +353,32 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     python_actual_text = python_code_block.text
     self.assertIn("Count_Person", python_actual_text)
     self.assertIn("country/USA", python_actual_text)
+
+    # Find the language selector in order to change to Python
+    language_selector = find_elem(self.driver,
+                                  by=By.ID,
+                                  value='api-language-selector')
+    self.assertIsNotNone(language_selector,
+                         "API dialog's language selector not found.")
+
+    select = Select(language_selector)
+    select.select_by_value('curl')
+
+    # Wait for the dialog's cURL endpoint has appeared
+    wait_for_text(self.driver,
+                  text="curl",
+                  by=By.CSS_SELECTOR,
+                  value='pre[class*="language-bash"]')
+
+    curl_code_block = find_elem(self.driver,
+                                by=By.CSS_SELECTOR,
+                                value='pre[class*="language-bash"]')
+    self.assertIsNotNone(curl_code_block,
+                         "API dialog's cURL code block did not appear.")
+
+    # Get the API cURL endpoint from the code area
+    curl_actual_text = curl_code_block.text
+
+    # Verify that key parts of the API call are present
+    self.assertIn('"variable": {"dcids": ["Count_Person"]},', curl_actual_text)
+    self.assertIn('"entity": {"dcids": ["country/USA"]}', curl_actual_text)

@@ -111,24 +111,24 @@ type LanguageSpec =
 
 const LANGUAGE_SPEC: LanguageSpec[] = [
   {
-    slug: "curl",
-    name: "cURL",
-    displayStyle: "multiple",
-    generator: observationSpecToCurl,
-    highlightLanguage: "bash",
-  },
-  {
     slug: "python",
     name: "Python",
     displayStyle: "single",
     generator: observationSpecsToPythonScript,
     highlightLanguage: "python",
   },
+  {
+    slug: "curl",
+    name: "cURL",
+    displayStyle: "multiple",
+    generator: observationSpecToCurl,
+    highlightLanguage: "bash",
+  },
 ];
 
 type LanguageSlug = typeof LANGUAGE_SPEC[number]["slug"];
 
-const DEFAULT_LANGUAGE_SLUG = "curl";
+const DEFAULT_LANGUAGE_SLUG = "python";
 
 interface ApiDialogProps {
   //whether the dialog is open
