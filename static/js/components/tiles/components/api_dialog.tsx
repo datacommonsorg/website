@@ -225,7 +225,10 @@ const ApiLanguageContent = ({
           display: flex;
           flex-direction: column;
           gap: ${theme.spacing.lg}px;
-          width: 100%;
+          transition: opacity 0.3s ease-in-out;
+          opacity: ${isCurrent ? 1 : 0};
+          height: ${isCurrent ? "100%" : "0"};
+          overflow: hidden;
         `}
       >
         {specs.map((observationSpec, index) => {
@@ -281,7 +284,10 @@ const ApiLanguageContent = ({
       <div
         key={lang.slug}
         css={css`
-          width: 100%;
+          transition: opacity 0.3s ease-in-out;
+          opacity: ${isCurrent ? 1 : 0};
+          height: ${isCurrent ? "100%" : "0"};
+          overflow: hidden;
         `}
       >
         <ApiCallCodeBlock
@@ -503,18 +509,26 @@ export function ApiDialog({
             </select>
           </label>
         </div>
-        {LANGUAGE_SPEC.map((lang) => (
-          <ApiLanguageContent
-            key={lang.slug}
-            lang={lang}
-            isCurrent={lang.slug === apiLanguage}
-            specs={specs}
-            statVarNameMap={statVarNameMap}
-            numeratorSpecsCount={numeratorSpecsCount}
-            apiRoot={apiRoot}
-            specialTerms={specialTerms}
-          />
-        ))}
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            position: relative;
+          `}
+        >
+          {LANGUAGE_SPEC.map((lang) => (
+            <ApiLanguageContent
+              key={lang.slug}
+              lang={lang}
+              isCurrent={lang.slug === apiLanguage}
+              specs={specs}
+              statVarNameMap={statVarNameMap}
+              numeratorSpecsCount={numeratorSpecsCount}
+              apiRoot={apiRoot}
+              specialTerms={specialTerms}
+            />
+          ))}
+        </div>
       </DialogContent>
       <DialogActions>
         <Button variant="text" onClick={onClose}>
