@@ -109,7 +109,7 @@ def run(driver, page_base_url, page_config):
   if page_config['async']:
     shared.wait_for_loading(driver)
     try:
-      WebDriverWait(driver, WAIT_TIMEOUT).until(shared.charts_rendered)
+      shared.wait_for_charts_to_render(driver, timeout_seconds=WAIT_TIMEOUT)
     except (TimeoutException, UnexpectedAlertPresentException) as e:
       logging.error("Exception for url: %s\n%s", url, e)
       raise e
