@@ -41,7 +41,7 @@ bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 async def autocomplete():
   """Predicts the user query for location and stat vars."""
   start_time = time.time()
-  lang = request.args.get('hl')
+  lang = request.args.get('hl', 'en')
   original_query = request.args.get('query', '')
 
   # Don't trigger autocomplete on short queries or if the last word is a stop word.
@@ -59,7 +59,8 @@ async def autocomplete():
 
   # Task A: Core Concept Stat Var Search
   concept_result = None
-  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE, request=request):
+  if lang == 'en' and is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE,
+                                         request=request):
     # Note: analyze_query_concepts is synchronous and makes a blocking API call.
     # We run it once at the start.
     concept_result = stat_vars.analyze_query_concepts(original_query)
@@ -107,7 +108,8 @@ async def autocomplete():
     })
 
     # Stat var n-gram search
-    if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE, request=request):
+    if lang == 'en' and is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE,
+                                           request=request):
       tasks.append(asyncio.to_thread(stat_vars.search_stat_vars, ngram_query))
       task_metadata.append({'source': 'ngram_sv', 'matched_query': ngram_query})
 
