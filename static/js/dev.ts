@@ -15,7 +15,7 @@
  */
 
 /**
- * @fileoverview dev page.
+ * @fileoverview dev page
  */
 
 import React from "react";
