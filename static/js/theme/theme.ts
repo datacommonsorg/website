@@ -425,8 +425,8 @@ const theme: Theme = {
   },
   codeHighlight: {
     background: DC_WHITE,
-    border: DC_GRAY_LIGHT,
-    text: DC_GRAY,
+    border: DC_BLACK_80,
+    text: DC_GRAY_LIGHT,
     highlight: DC_YELLOW_PILL_BCKG,
     selection: DC_BLUE_WHITE_LIGHT,
     comment: DC_GRAY,

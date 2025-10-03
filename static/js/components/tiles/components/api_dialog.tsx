@@ -422,8 +422,7 @@ export function ApiDialog({
                         padding: 1px ${theme.spacing.xs}px;
                         ${theme.typography.family.code}}
                         font-size: 100%;
-                        color: ${theme.colors.text.code.dark};
-                        background: ${theme.colors.text.code.light};
+                        color: ${theme.colors.text.code.base};
                       }
                     `}
                   >
@@ -458,6 +457,7 @@ export function ApiDialog({
               &&::after {
                 content: "";
                 position: absolute;
+                // This is a base64 rendering of the Material "arrow_drop_down" icon
                 background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMDAwMDAwIj48cGF0aCBkPSJNNDgwLTM2MCAyODAtNTYwaDQwMEw0ODAtMzYwWiIvPjwvc3ZnPg==);
                 background-repeat: no-repeat;
                 background-position: center center;

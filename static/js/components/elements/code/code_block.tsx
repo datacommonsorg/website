@@ -209,15 +209,20 @@ export default function CodeBlock({
       fontSize: "0.9rem",
       textShadow: `0 1px ${theme.codeHighlight.background}`,
       textAlign: "left",
-      whiteSpace: "pre",
+      whiteSpace: "pre-wrap",
       wordSpacing: "normal",
       wordBreak: "normal",
-      wordWrap: "normal",
+      wordWrap: "break-word",
       lineHeight: 1.5,
       WebkitHyphens: "none",
       MozHyphens: "none",
       msHyphens: "none",
       hyphens: "none",
+
+      "> code": {
+        ...theme.typography.family.code,
+        color: theme.codeHighlight.text,
+      },
 
       "& ::selection": {
         background: theme.codeHighlight.selection,
