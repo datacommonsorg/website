@@ -27,6 +27,7 @@ import {
   ChartEntry,
   DcidList,
   DEFAULT_PARAM_SEPARATOR,
+  MAP_URL_PARAM_MAPPING,
   OldToolChartOptions,
   ParamNameMapping,
   SCATTER_URL_PARAM_MAPPING,
@@ -113,7 +114,55 @@ function getStandardizedHashParams(
  * @returns a new set of hash parameters using the syntax of the old tools
  */
 function getMapHashParams(currentHashParams: URLSearchParams): URLSearchParams {
-  throw new Error("not implemented");
+  const newHashParams = new URLSearchParams();
+  // Convert each mappable parameter
+  Object.keys(MAP_URL_PARAM_MAPPING).forEach((key) => {
+    const paramValue = currentHashParams.get(key);
+    if (!paramValue) {
+      return;
+    }
+
+    if (key === URL_PARAMS.STAT_VAR) {
+      handleMapStatVars(paramValue, newHashParams);
+    } else {
+      const paramName = MAP_URL_PARAM_MAPPING[key];
+      if (paramName) {
+        // Otherwise, Add converted keys & values as new param
+        setSanitizedParam(newHashParams, paramName, paramValue);
+      }
+    }
+  });
+  return newHashParams;
+}
+
+/**
+ * Handles processing the stat var parameter for /tools/map.
+ * @param paramValue the value of the stat var parameter
+ * @param newHashParams the URLSearchParams to add the new parameters to
+ */
+function handleMapStatVars(
+  paramValue: string,
+  newHashParams: URLSearchParams
+): void {
+  const [statVarDcids, chartOptions] = parseSvObject(
+    paramValue,
+    MAP_URL_PARAM_MAPPING
+  );
+
+  const statVarDcid = statVarDcids.at(0);
+  if (!statVarDcid) {
+    return;
+  }
+
+  // Set first stat var as the stat var for the map
+  setSanitizedParam(newHashParams, "sv", statVarDcid);
+
+  const chartEntry = chartOptions[statVarDcid];
+  if (chartEntry) {
+    for (const [key, value] of Object.entries(chartEntry)) {
+      setSanitizedParam(newHashParams, key, value);
+    }
+  }
 }
 
 /**
