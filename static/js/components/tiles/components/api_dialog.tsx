@@ -57,7 +57,8 @@ import {
 } from "../../../shared/observation_specs";
 import { Button } from "../../elements/button/button";
 import { CopyToClipboardButton } from "../../elements/button/copy_to_clipboard_button";
-import CodeBlock, {
+import {
+  CodeBlock,
   HighlightLanguage,
   SpecialTerms,
 } from "../../elements/code/code_block";

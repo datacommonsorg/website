@@ -26,21 +26,16 @@
  * see instructions in `ApiDialog.tsx`.
  */
 
-// We disable lint's import ordering because the component imports must come after Prism itself.
-/* eslint-disable simple-import-sort/imports */
-import React, { useMemo } from "react";
 import { css, useTheme } from "@emotion/react";
-
 import Prism from "prismjs";
+import React, { useMemo } from "react";
 
-import "prismjs/components/prism-bash";
-import "prismjs/components/prism-python";
+void import("prismjs/components/prism-bash");
+void import("prismjs/components/prism-python");
 /*
  When later adding a new languages, import it here:
  import "prismjs/components/prism-json";
  */
-
-/* eslint-enable simple-import-sort/imports */
 
 // The available languages for highlighting.
 export type HighlightLanguage = "bash" | "python";
@@ -189,7 +184,7 @@ function PrismRenderer({
   );
 }
 
-export default function CodeBlock({
+export function CodeBlock({
   code,
   language,
   specialTerms,
