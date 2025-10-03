@@ -33,6 +33,7 @@ interface NlSearchBarPropType {
   shouldAutoFocus?: boolean;
   feedbackLink?: string;
   enableDynamicPlaceholders?: boolean;
+  enableStatVarAutocomplete?: boolean;
 }
 
 // an interface for the implementation of variants of the natural language search, passing shared common components
@@ -53,6 +54,8 @@ export interface NlSearchBarImplementationProps {
   feedbackLink?: string;
   // Whether to enable dynamic placeholders.
   enableDynamicPlaceholders?: boolean;
+  // Whether to enable stat var autocomplete.
+  enableStatVarAutocomplete?: boolean;
 }
 
 export function NlSearchBar(props: NlSearchBarPropType): ReactElement {
@@ -84,6 +87,7 @@ export function NlSearchBar(props: NlSearchBarPropType): ReactElement {
     shouldAutoFocus: props.shouldAutoFocus,
     feedbackLink: props.feedbackLink,
     enableDynamicPlaceholders: props.enableDynamicPlaceholders,
+    enableStatVarAutocomplete: props.enableStatVarAutocomplete,
   };
 
   const variant = props.variant || "standard";

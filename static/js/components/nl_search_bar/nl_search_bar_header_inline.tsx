@@ -35,6 +35,7 @@ const NlSearchBarHeaderInline = ({
   onSearch,
   shouldAutoFocus,
   enableDynamicPlaceholders,
+  enableStatVarAutocomplete,
 }: NlSearchBarImplementationProps): ReactElement => {
   const [autocompleteEnabled, setAutoCompleteEnabled] = useState(false);
   const urlParams = new URLSearchParams(window.location.search);
@@ -59,6 +60,7 @@ const NlSearchBarHeaderInline = ({
         shouldAutoFocus={shouldAutoFocus}
         barType="header"
         enableDynamicPlaceholders={enableDynamicPlaceholders}
+        enableStatVarAutocomplete={enableStatVarAutocomplete}
       />
     </div>
   );

@@ -356,6 +356,8 @@ export const GA_PARAM_SELECTION_TYPE = "selection_type";
 export const GA_PARAM_SELECTION_TEXT = "selection_text";
 export const GA_PARAM_QUERY_AT_SELECTION = "query_at_selection";
 export const GA_PARAM_DYNAMIC_PLACEHOLDER = "dynamic_placeholders_enabled";
+export const GA_EVENT_STATVAR_AUTOCOMPLETE_ENABLED =
+  "statvar_autocomplete_enabled";
 export const GA_PARAM_SEARCH_SELECTION = "search_selection";
 export const GA_PARAM_RELATED_TOPICS_MODE = "related_topics_mode";
 export const GA_PARAM_PAGE_SOURCE = "page_source";
