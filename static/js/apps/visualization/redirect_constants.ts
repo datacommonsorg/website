@@ -18,6 +18,7 @@
  * Constants and types for implementing the redirects from the Visualization Tool to the "old" tools.
  */
 
+import { URL_PARAM_KEYS as MAP_URL_PARAM_KEYS } from "../../tools/map/util";
 import { FieldToAbbreviation } from "../../tools/scatter/context";
 import { TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
 
@@ -93,4 +94,16 @@ export const SCATTER_URL_PARAM_MAPPING: ParamNameMapping = {
   placeType: FieldToAbbreviation.enclosedPlaceType,
   q: FieldToAbbreviation.showQuadrant,
   sv: FieldToAbbreviation.statVarDcid,
+};
+
+// Mapping of visualization tool param names
+// to param names used by the map tool
+export const MAP_URL_PARAM_MAPPING: ParamNameMapping = {
+  date: MAP_URL_PARAM_KEYS.DATE,
+  denom: MAP_URL_PARAM_KEYS.DENOM,
+  display: "display",
+  pc: MAP_URL_PARAM_KEYS.PER_CAPITA,
+  place: MAP_URL_PARAM_KEYS.SELECTED_PLACE_DCID,
+  placeType: MAP_URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE,
+  sv: MAP_URL_PARAM_KEYS.STAT_VAR_DCID,
 };
