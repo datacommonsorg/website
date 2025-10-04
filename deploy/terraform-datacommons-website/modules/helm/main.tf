@@ -101,6 +101,11 @@ resource "helm_release" "datcom_website" {
   }
 
   set {
+    name  = "website.googleMaps.enabled"
+    value = var.enable_google_maps
+  }
+
+  set {
     # The escaped "." is part of the key, as opposed to a separator.
     # key -> kubernetes.io/ingress.global-static-ip-name
     name = "ingress.annotations.kubernetes\\.io/ingress\\.global-static-ip-name"

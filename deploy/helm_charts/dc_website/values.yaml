@@ -44,6 +44,9 @@ website:
   dataGemma:
     enabled: false
 
+  googleMaps:
+    enabled: true
+
 nameOverride: ""
 fullnameOverride: ""
 
