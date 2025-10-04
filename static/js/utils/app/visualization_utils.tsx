@@ -52,6 +52,7 @@ import {
 } from "../../shared/ga_events";
 import { NamedNode, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
+import { getXSurfaceHeader } from "../axios";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
@@ -288,10 +289,16 @@ export function getFilteredStatVarPromise(
     return Promise.resolve([]);
   }
   return axios
-    .post("/api/observation/existence", {
-      entities: samplePlaces.map((place) => place.dcid),
-      variables: statVars.map((sv) => sv.dcid),
-    })
+    .post(
+      "/api/observation/existence",
+      {
+        entities: samplePlaces.map((place) => place.dcid),
+        variables: statVars.map((sv) => sv.dcid),
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .then((resp) => {
       const availableSVs = new Set();
       const numRequired = getNumEntitiesExistence(samplePlaces, visTypeConfig);

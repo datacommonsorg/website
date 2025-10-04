@@ -212,16 +212,16 @@ test("getQueryResult", async () => {
   for (const c of cases) {
     const result = await getQueryResult(
       c.query,
-      true,
-      false,
-      "",
-      "",
-      "",
-      "bard",
-      "",
-      "",
-      false,
-      ""
+      true, // useChartUrl
+      false, // allResults
+      "", // apiRoot
+      "", // apikey
+      "", // urlRoot
+      "bard", // client
+      "", // mode
+      "", // varThreshold
+      false, // wantRelatedQuestions
+      "" // detector
     );
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);
@@ -229,5 +229,37 @@ test("getQueryResult", async () => {
       console.log(`Failed for query: ${c.query}`);
       throw e;
     }
+  }
+});
+
+// this confirms that the surfaceHeaderValue successfully reaches the mixer call
+// getQueryResult is used in the nodejs/query endpoint by DataGemma
+test("getQueryResult with surfaceHeaderValue", async () => {
+  const expectedCharts = BAR_EXPECTED_RESULT;
+  const query = "top jobs in santa clara county";
+
+  // Mock data fetches
+  queryAxiosMock();
+
+  const result = await getQueryResult(
+    query,
+    true, // useChartUrl
+    false, // allResults
+    "", // apiRoot
+    "", // apikey
+    "", // urlRoot
+    "bard", // client
+    "", // mode
+    "", // varThreshold
+    false, // wantRelatedQuestions
+    "", // detector
+    "", // idx
+    "datagemma" // surfaceHeaderValue
+  );
+  try {
+    expect(result.charts).toStrictEqual(expectedCharts);
+  } catch (e) {
+    console.log(`Failed for query: ${query}`);
+    throw e;
   }
 });

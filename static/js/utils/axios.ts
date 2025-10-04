@@ -16,6 +16,8 @@
 
 import { stringify } from "qs";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../shared/constants";
+
 export const stringifyFn = (params): string => {
   return stringify(params, { arrayFormat: "repeat" });
 };
@@ -25,4 +27,12 @@ export const getRoot = (): string => {
     return globalThis.datacommons.root || "";
   }
   return "";
+};
+
+// formats header for calls to the Flask API, which is passed into mixer and used in usage logging
+export const getXSurfaceHeader = (
+  surfaceHeaderValue: string = WEBSITE_SURFACE_HEADER_VALUE
+): Record<string, string> => {
+  console.log("Result from helper: ", { "x-surface": surfaceHeaderValue });
+  return { "x-surface": surfaceHeaderValue };
 };

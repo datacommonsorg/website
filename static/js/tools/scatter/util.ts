@@ -24,7 +24,7 @@ import _ from "lodash";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getPointWithin } from "../../utils/data_fetch_utils";
 import {
   Axis,
@@ -62,7 +62,8 @@ export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
   statVars: { statVarDcid: string; date?: string; facetId?: string }[],
-  apiRoot?: string
+  apiRoot?: string,
+  surfaceHeaderValue?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -80,7 +81,8 @@ export async function getStatWithinPlace(
         [statVar.statVarDcid],
         dataDate,
         [],
-        facetIds
+        facetIds,
+        surfaceHeaderValue
       )
     );
   }
@@ -128,6 +130,7 @@ export async function getStatAllWithinPlace(
             variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
+          headers: getXSurfaceHeader(),
         })
         .then((resp) => resp.data)
     );

@@ -22,7 +22,10 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { TimeScaleOption } from "../js/chart/types";
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
-import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
+import {
+  DEFAULT_PER_CAPITA_DENOM,
+  WEB_COMPONENT_SURFACE_HEADER_VALUE,
+} from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -174,6 +177,7 @@ export class DatacommonsLineComponent extends LitElement {
         this.defaultVariableName
       ),
       placeNameProp: this.placeNameProp,
+      surfaceHeaderValue: WEB_COMPONENT_SURFACE_HEADER_VALUE,
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }

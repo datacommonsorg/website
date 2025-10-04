@@ -22,7 +22,10 @@ import _ from "lodash";
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
-import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
+import {
+  DEFAULT_PER_CAPITA_DENOM,
+  WEB_COMPONENT_SURFACE_HEADER_VALUE,
+} from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -278,6 +281,7 @@ export class DatacommonsBarComponent extends LitElement {
       yAxisMargin: this.yAxisMargin,
       subscribe: this.subscribe,
       disableEntityLink: this.disableEntityLink,
+      surfaceHeaderValue: WEB_COMPONENT_SURFACE_HEADER_VALUE,
     };
 
     return createWebComponentElement(BarTile, barTileProps);

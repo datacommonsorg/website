@@ -17,7 +17,7 @@ import axios from "axios";
 
 import { PointApiResponse } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getTokensFromUrl } from "./util";
 
 /* Start the loading spinner and gray out the background. */
@@ -57,6 +57,7 @@ function downloadBulkData(
             variables: statVars,
           },
           paramsSerializer: stringifyFn,
+          headers: getXSurfaceHeader(),
         })
         .then((resp) => {
           if (resp.data && resp.data.data) {

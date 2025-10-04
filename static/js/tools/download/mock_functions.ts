@@ -22,7 +22,7 @@ jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";
 
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
   // Mock all the async axios call.
@@ -223,6 +223,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -252,6 +253,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -282,6 +284,7 @@ export function axiosMock(): void {
         variables: ["Count_Person", "Median_Age_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -311,10 +314,16 @@ export function axiosMock(): void {
 
   // get place stats vars for places in geoId/06
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/06001", "geoId/06002"],
-      variables: ["Count_Person"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/06001", "geoId/06002"],
+        variables: ["Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -325,10 +334,16 @@ export function axiosMock(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/06002", "geoId/06001"],
-      variables: ["Count_Person"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/06002", "geoId/06001"],
+        variables: ["Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         Count_Person: {

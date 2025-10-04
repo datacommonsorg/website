@@ -153,6 +153,8 @@ export interface MapTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surfaceHeaderValue?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -541,14 +543,17 @@ export const fetchData = async (
       [layer.variable.statVar],
       dataDate,
       [],
-      facetIds
+      facetIds,
+      props.surfaceHeaderValue
     );
     const populationPromise: Promise<SeriesApiResponse> = layer.variable.denom
       ? getSeriesWithin(
           props.apiRoot,
           layer.parentPlace,
           layer.enclosedPlaceType,
-          [layer.variable.denom]
+          [layer.variable.denom],
+          null,
+          props.surfaceHeaderValue
         )
       : Promise.resolve(null);
     const parentPlacesPromise = props.parentPlaces

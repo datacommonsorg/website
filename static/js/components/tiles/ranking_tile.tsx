@@ -89,6 +89,8 @@ export interface RankingTilePropType
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surfaceHeaderValue?: string;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -105,6 +107,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     parentPlace,
     apiRoot,
     lazyLoad,
+    surfaceHeaderValue,
   } = props;
 
   useEffect(() => {
@@ -119,7 +122,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           rankingMetadata,
           enclosedPlaceType,
           parentPlace,
-          apiRoot
+          apiRoot,
+          surfaceHeaderValue
         );
         setRankingData(rankingData);
       } finally {
@@ -134,6 +138,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     rankingMetadata,
     shouldLoad,
     variables,
+    surfaceHeaderValue,
   ]);
 
   /**
@@ -332,7 +337,8 @@ export async function fetchData(
   rankingMetadata: RankingTileSpec,
   enclosedPlaceType: string,
   parentPlace: string,
-  apiRoot: string
+  apiRoot: string,
+  surfaceHeaderValue?: string
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -378,7 +384,8 @@ export async function fetchData(
           dateFacetToVariable[date][facetId],
           dateParam,
           [],
-          facetIds
+          facetIds,
+          surfaceHeaderValue
         )
       );
     }
@@ -395,7 +402,14 @@ export async function fetchData(
   const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
   const denomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
-    : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
+    : getSeriesWithin(
+        apiRoot,
+        parentPlace,
+        enclosedPlaceType,
+        denoms,
+        null,
+        surfaceHeaderValue
+      );
   return Promise.all([statPromise, denomPromise]).then(
     ([statResp, denomResp]) => {
       const rankingData = pointApiToPerSvRankingData(

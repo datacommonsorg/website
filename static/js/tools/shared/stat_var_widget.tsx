@@ -27,6 +27,7 @@ import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
 import { NamedNode } from "../../shared/types";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { getXSurfaceHeader } from "../../utils/axios";
 import { StatVarInfo } from "../timeline/chart_region";
 
 interface StatVarWidgetPropsType {
@@ -63,10 +64,16 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
       axios
-        .post("/api/observation/existence", {
-          entities: props.sampleEntities.map((place) => place.dcid),
-          variables: Object.keys(props.selectedSVs),
-        })
+        .post(
+          "/api/observation/existence",
+          {
+            entities: props.sampleEntities.map((place) => place.dcid),
+            variables: Object.keys(props.selectedSVs),
+          },
+          {
+            headers: getXSurfaceHeader(),
+          }
+        )
         .then((resp) => {
           const availableSVs = [];
           const unavailableSVs = [];

@@ -113,6 +113,8 @@ export interface ScatterTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surfaceHeaderValue?: string;
 }
 
 interface RawData {
@@ -347,7 +349,8 @@ function getPopulationPromise(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot?: string
+  apiRoot?: string,
+  surfaceHeaderValue?: string
 ): Promise<SeriesApiResponse> {
   const statVars = new Set<string>();
   for (const sv of statVarSpec) {
@@ -362,7 +365,9 @@ function getPopulationPromise(
       apiRoot,
       placeDcid,
       enclosedPlaceType,
-      Array.from(statVars)
+      Array.from(statVars),
+      null,
+      surfaceHeaderValue
     );
   }
 }
@@ -389,13 +394,15 @@ export const fetchData = async (
         facetId: props.statVarSpec[1].facetId,
       },
     ],
-    props.apiRoot
+    props.apiRoot,
+    props.surfaceHeaderValue
   );
   const populationPromise = getPopulationPromise(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
-    props.apiRoot
+    props.apiRoot,
+    props.surfaceHeaderValue
   );
   const placeNamesParams = {
     dcid: props.place.dcid,

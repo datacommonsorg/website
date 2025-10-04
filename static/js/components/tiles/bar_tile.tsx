@@ -377,7 +377,8 @@ export const fetchData = async (
           date,
           [statSvs],
           props.highlightFacet,
-          facetId ? [facetId] : undefined
+          facetId ? [facetId] : undefined,
+          props.surfaceHeaderValue
         )
       );
     }
@@ -394,7 +395,8 @@ export const fetchData = async (
           statSvs,
           date,
           [statSvs],
-          facetId ? [facetId] : undefined
+          facetId ? [facetId] : undefined,
+          props.surfaceHeaderValue
         )
       );
     }
@@ -409,18 +411,31 @@ export const fetchData = async (
       props.places,
       [FILTER_STAT_VAR],
       "",
-      undefined
+      undefined,
+      null,
+      null,
+      props.surfaceHeaderValue
     );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
-      : getSeries(apiRoot, props.places, denomSvs, []);
+      : getSeries(
+          apiRoot,
+          props.places,
+          denomSvs,
+          [],
+          null,
+          props.surfaceHeaderValue
+        );
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     filterPromise = getPointWithin(
       apiRoot,
       props.enclosedPlaceType,
       props.parentPlace,
       [FILTER_STAT_VAR],
-      ""
+      "",
+      null,
+      null,
+      props.surfaceHeaderValue
     );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
@@ -428,7 +443,9 @@ export const fetchData = async (
           apiRoot,
           props.parentPlace,
           props.enclosedPlaceType,
-          denomSvs
+          denomSvs,
+          null,
+          props.surfaceHeaderValue
         );
   }
 

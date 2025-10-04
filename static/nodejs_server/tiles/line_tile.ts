@@ -46,7 +46,8 @@ function getTileProp(
   tileConfig: TileConfig,
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  surfaceHeaderValue?: string
 ): LineTilePropType {
   const comparisonPlaces = getComparisonPlaces(tileConfig, place);
   return {
@@ -61,6 +62,7 @@ function getTileProp(
     startDate: tileConfig.lineTileSpec?.startDate,
     endDate: tileConfig.lineTileSpec?.endDate,
     highlightDate: tileConfig.lineTileSpec?.highlightDate,
+    surfaceHeaderValue,
   };
 }
 
@@ -93,9 +95,17 @@ export async function getLineTileResult(
   urlRoot: string,
   useChartUrl: boolean,
   apikey?: string,
-  mode?: string
+  mode?: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult> {
-  const tileProp = getTileProp(id, tileConfig, place, statVarSpec, apiRoot);
+  const tileProp = getTileProp(
+    id,
+    tileConfig,
+    place,
+    statVarSpec,
+    apiRoot,
+    surfaceHeaderValue
+  );
   try {
     const chartData = await fetchData(tileProp);
     const chartTitle = getChartTitle(

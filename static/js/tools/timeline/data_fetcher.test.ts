@@ -22,7 +22,7 @@ import { when } from "jest-when";
 
 import { loadLocaleData } from "../../i18n/i18n";
 import { SeriesAllApiResponse } from "../../shared/stat_types";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import {
   convertToDelta,
   fetchRawData,
@@ -43,6 +43,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -122,6 +123,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {

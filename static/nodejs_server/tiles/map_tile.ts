@@ -50,7 +50,8 @@ function getTileProp(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec,
-  apiRoot: string
+  apiRoot: string,
+  surfaceHeaderValue?: string
 ): MapTilePropType {
   return {
     id,
@@ -60,6 +61,7 @@ function getTileProp(
     statVarSpec,
     svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
     apiRoot,
+    surfaceHeaderValue,
   };
 }
 
@@ -126,7 +128,8 @@ export async function getMapTileResult(
   apiRoot: string,
   urlRoot: string,
   useChartUrl: boolean,
-  apikey?: string
+  apikey?: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -134,10 +137,11 @@ export async function getMapTileResult(
     place,
     enclosedPlaceType,
     statVarSpec,
-    apiRoot
+    apiRoot,
+    surfaceHeaderValue
   );
   try {
-    const chartData = await fetchData(tileProp);
+    const chartData = await fetchData(tileProp, null);
     const result: TileResult = {
       dataCsv: mapDataToCsv(chartData.layerData),
       placeType: enclosedPlaceType,

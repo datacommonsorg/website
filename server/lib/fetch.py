@@ -170,7 +170,7 @@ def _compact_series(series_resp, all_facets):
   return result
 
 
-def point_core(entities, variables, date, all_facets):
+def point_core(entities, variables, date, all_facets, surfaceHeaderValue=None):
   """Fetchs observation point for given entities, variables and date.
 
   The response is in the following format:
@@ -187,7 +187,11 @@ def point_core(entities, variables, date, all_facets):
     }
   }
   """
-  resp = dc.obs_point(entities, variables, date)
+  print("surfaceHeaderValue in point_core: ", surfaceHeaderValue)
+  resp = dc.obs_point(entities,
+                      variables,
+                      date,
+                      surfaceHeaderValue=surfaceHeaderValue)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
@@ -197,7 +201,8 @@ def point_within_core(ancestor_entity,
                       variables,
                       date,
                       all_facets,
-                      facet_ids=None):
+                      facet_ids=None,
+                      surfaceHeaderValue=None):
   """Fetchs observation point for descendent entities of certain type.
 
   The response is in the following format:
@@ -215,12 +220,16 @@ def point_within_core(ancestor_entity,
   }
   """
   resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
-                             facet_ids)
+                             facet_ids, surfaceHeaderValue)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
-def series_core(entities, variables, all_facets, facet_ids=None):
+def series_core(entities,
+                variables,
+                all_facets,
+                facet_ids=None,
+                surfaceHeaderValue=None):
   """Fetches observation series for given entities and variables.
 
   The response is in the following format:
@@ -237,12 +246,15 @@ def series_core(entities, variables, all_facets, facet_ids=None):
     }
   }
   """
-  resp = dc.obs_series(entities, variables, facet_ids)
+  resp = dc.obs_series(entities,
+                       variables,
+                       facet_ids,
+                       surfaceHeaderValue=surfaceHeaderValue)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
-def series_facet(entities, variables, all_facets):
+def series_facet(entities, variables, all_facets, surfaceHeaderValue=None):
   """Fetches facet of series for given entities and variables.
 
   The response is in the following format:
@@ -263,7 +275,9 @@ def series_facet(entities, variables, all_facets):
   }
 
   """
-  resp = dc.series_facet(entities, variables)
+  resp = dc.series_facet(entities,
+                         variables,
+                         surfaceHeaderValue=surfaceHeaderValue)
   compacted_series = _compact_series(resp, all_facets)
   processed_series = {'facets': compacted_series.get('facets', {}), 'data': {}}
   # Update compacted series so that the entity data is always a list.
@@ -277,13 +291,20 @@ def series_facet(entities, variables, all_facets):
   return processed_series
 
 
-def point_within_facet(ancestor_entity, descendent_type, variables, date,
-                       all_facets):
+def point_within_facet(ancestor_entity,
+                       descendent_type,
+                       variables,
+                       date,
+                       all_facets,
+                       surfaceHeaderValue=None):
   """Fetches facet of child places of a certain place type contained in a parent
   place at a given date.
   """
-  resp = dc.point_within_facet(ancestor_entity, descendent_type, variables,
-                               date)
+  resp = dc.point_within_facet(ancestor_entity,
+                               descendent_type,
+                               variables,
+                               date,
+                               surfaceHeaderValue=surfaceHeaderValue)
   return _compact_point(resp, all_facets)
 
 
@@ -291,7 +312,8 @@ def series_within_core(ancestor_entity,
                        descendent_type,
                        variables,
                        all_facets,
-                       facet_ids=None):
+                       facet_ids=None,
+                       surfaceHeaderValue=None):
   """Fetchs observation series for for descendent entities of certain type.
 
   The response is in the following format:
@@ -308,13 +330,16 @@ def series_within_core(ancestor_entity,
     }
   }
   """
-  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables,
-                              facet_ids)
+  resp = dc.obs_series_within(ancestor_entity,
+                              descendent_type,
+                              variables,
+                              facet_ids,
+                              surfaceHeaderValue=surfaceHeaderValue)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
 
-def observation_existence(variables, entities):
+def observation_existence(variables, entities, surfaceHeaderValue=None):
   """Check if observation exist for variable, entity pairs.
 
   Returns:
@@ -332,16 +357,18 @@ def observation_existence(variables, entities):
     for e in entities:
       result[var][e] = False
   # Fetch existence check data
+  print("IN EXISTENCE CHECK: ", surfaceHeaderValue)
   resp = dc.v2observation(select=['variable', 'entity'],
                           entity={'dcids': entities},
-                          variable={'dcids': variables})
+                          variable={'dcids': variables},
+                          surfaceHeaderValue=(surfaceHeaderValue or "website"))
   for var, entity_obs in resp.get('byVariable', {}).items():
     for e in entity_obs.get('byEntity', {}):
       result[var][e] = True
   return result
 
 
-def entity_variables(entities):
+def entity_variables(entities, surfaceHeaderValue=None):
   """Gets the statistical variables that have observations for given entities.
 
   Args:
@@ -356,7 +383,8 @@ def entity_variables(entities):
   """
   resp = dc.v2observation(select=['variable', 'entity'],
                           entity={'dcids': entities},
-                          variable={})
+                          variable={},
+                          surfaceHeaderValue=surfaceHeaderValue)
   result = {}
   for var, entity_obs in resp.get('byVariable', {}).items():
     result[var] = entity_obs.get('byEntity', {})

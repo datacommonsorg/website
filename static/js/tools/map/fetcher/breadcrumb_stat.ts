@@ -22,12 +22,13 @@ import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
 import {
   EntityObservationWrapper,
   PointApiResponse,
 } from "../../../shared/stat_types";
 import { getCappedStatVarDate } from "../../../shared/util";
-import { stringifyFn } from "../../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
@@ -73,6 +74,7 @@ export function useFetchBreadcrumbStat(
           variables: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,
+        headers: getXSurfaceHeader(),
       })
       .then((resp) => {
         if (_.isEmpty(resp.data.data[statVar.value.dcid])) {

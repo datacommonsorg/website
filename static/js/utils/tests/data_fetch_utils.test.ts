@@ -18,7 +18,7 @@
 import axios from "axios";
 import { when } from "jest-when";
 
-import { stringifyFn } from "../axios";
+import { getXSurfaceHeader, stringifyFn } from "../axios";
 import { getBestUnit, getPoint, getPointWithin } from "../data_fetch_utils";
 
 const TEST_UNIT = "unit";
@@ -240,6 +240,7 @@ function axiosMock(): void {
         variables: VARIABLES,
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: TEST_POINT_API_RESPONSE,
@@ -252,6 +253,7 @@ function axiosMock(): void {
         entities: ENTITIES,
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: TEST_POINT_API_RESPONSE,

@@ -41,7 +41,11 @@ import {
   getHighlightTileDescription,
   getTileEventTypeSpecs,
 } from "../js/utils/tile_utils";
-import { BARD_CLIENT_URL_PARAM, TOOLFORMER_RIG_MODE } from "./constants";
+import {
+  BARD_CLIENT_URL_PARAM,
+  TOOLFORMER_RIG_MODE,
+  WEBSITE_SURFACE_HEADER_VALUE,
+} from "./constants";
 import { getBarTileResult } from "./tiles/bar_tile";
 import { getDisasterMapTileResult } from "./tiles/disaster_map_tile";
 import { getHighlightTileResult } from "./tiles/highlight_tile";
@@ -66,6 +70,13 @@ const DEFAULT_QUERY_DETECTOR = "heuristic";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
 
+// formats header for calls to the Flask API, which is passed into mixer and used in usage logging
+export const getXSurfaceHeader = (
+  surfaceHeaderValue: string = WEBSITE_SURFACE_HEADER_VALUE
+): Record<string, string> => {
+  return { "x-surface": surfaceHeaderValue };
+};
+
 // Get the elapsed time in seconds given the start and end times in nanoseconds.
 function getElapsedTime(startTime: bigint, endTime: bigint): number {
   // Dividing bigints will cause decimals to be lost. Therefore, convert ns to
@@ -88,7 +99,8 @@ function getBlockTileResults(
   apikey: string,
   apiRoot: string,
   allowedTilesTypes?: Set<string>,
-  mode?: string
+  mode?: string,
+  surfaceHeaderValue?: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
@@ -113,7 +125,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surfaceHeaderValue
             )
           );
           break;
@@ -129,7 +142,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surfaceHeaderValue
             )
           );
           break;
@@ -146,7 +160,8 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              mode
+              mode,
+              surfaceHeaderValue
             )
           );
           break;
@@ -162,7 +177,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              surfaceHeaderValue
             )
           );
           break;
@@ -175,7 +191,8 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot
+              apiRoot,
+              surfaceHeaderValue
             )
           );
           break;
@@ -183,7 +200,14 @@ function getBlockTileResults(
           tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
           tile.description = getHighlightTileDescription(tile, blockDenom);
           tilePromises.push(
-            getHighlightTileResult(tileId, tile, place, tileSvSpec, apiRoot)
+            getHighlightTileResult(
+              tileId,
+              tile,
+              place,
+              tileSvSpec,
+              apiRoot,
+              surfaceHeaderValue
+            )
           );
           break;
         default:
@@ -293,7 +317,8 @@ export async function getQueryResult(
   varThreshold: string,
   wantRelatedQuestions: boolean,
   detector: string,
-  idx?: string
+  idx?: string,
+  surfaceHeaderValue?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
 
@@ -305,7 +330,6 @@ export async function getQueryResult(
   } else if (mode === TOOLFORMER_RIG_MODE) {
     allowedTileTypes = TOOLFORMER_RIG_ALLOWED_CHARTS;
   }
-
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
   let nlResp = null;
@@ -327,10 +351,12 @@ export async function getQueryResult(
       }
       url += `&${urlKey}=${params[urlKey]}`;
     });
+  const postConfig = {
+    headers: getXSurfaceHeader(surfaceHeaderValue),
+  };
   try {
-    nlResp = await axios.post(url, {});
+    nlResp = await axios.post(url, {}, postConfig);
   } catch (e) {
-    console.error("Error making request:\n", e.message);
     return { err: "Error fetching data." };
   }
 
@@ -405,7 +431,8 @@ export async function getQueryResult(
             apikey,
             apiRoot,
             allowedTileTypes,
-            mode
+            mode,
+            surfaceHeaderValue
           );
       }
       tilePromises.push(...blockTilePromises);

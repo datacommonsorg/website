@@ -31,7 +31,7 @@ import {
   StatVarSummary,
 } from "../../shared/types";
 import theme from "../../theme/theme";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getUrlToken, updateHash } from "../../utils/url_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
@@ -194,10 +194,16 @@ class Page extends Component<unknown, PageStateType> {
         const sources = resp.data["Source"];
         const variables = STAT_VAR_HIERARCHY_CONFIG.nodes.map((n) => n.dcid);
         axios
-          .post("/api/observation/existence", {
-            entities: resp.data["Source"].map((s) => s.dcid),
-            variables,
-          })
+          .post(
+            "/api/observation/existence",
+            {
+              entities: resp.data["Source"].map((s) => s.dcid),
+              variables,
+            },
+            {
+              headers: getXSurfaceHeader(),
+            }
+          )
           .then((exResp) => {
             const filteredSources: NamedTypedNode[] = [];
             const sourcesSeen = new Set<string>();

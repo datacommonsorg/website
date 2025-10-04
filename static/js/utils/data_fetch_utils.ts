@@ -30,7 +30,7 @@ import {
   StatMetadata,
 } from "../shared/stat_types";
 import { FacetMetadata } from "../types/facet_metadata";
-import { stringifyFn } from "./axios";
+import { getXSurfaceHeader, stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
 
 const EMPTY_UNIT = "EMPTY";
@@ -134,12 +134,18 @@ async function selectFacet(
   apiRoot: string,
   entities: string[],
   variables: string[],
-  highlightFacet?: FacetMetadata
+  highlightFacet?: FacetMetadata,
+  surfaceHeaderValue?: string
 ): Promise<string[] | null> {
   if (!highlightFacet) {
     return [];
   }
-  const facetsResponse = await getFacets(apiRoot, entities, variables);
+  const facetsResponse = await getFacets(
+    apiRoot,
+    entities,
+    variables,
+    surfaceHeaderValue
+  );
   for (const svDcid of Object.keys(facetsResponse)) {
     const facets = facetsResponse[svDcid];
     for (const [facetId, f] of Object.entries(facets)) {
@@ -183,11 +189,18 @@ export function getPoint(
   date: string,
   alignedVariables?: string[][],
   highlightFacet?: FacetMetadata,
-  facetIds?: string[]
+  facetIds?: string[],
+  surfaceHeaderValue?: string
 ): Promise<PointApiResponse> {
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
-    : selectFacet(apiRoot, entities, variables, highlightFacet);
+    : selectFacet(
+        apiRoot,
+        entities,
+        variables,
+        highlightFacet,
+        surfaceHeaderValue
+      );
 
   return facetPromise.then((resolvedFacetIds) => {
     const params: Record<string, unknown> = { date, entities, variables };
@@ -198,6 +211,7 @@ export function getPoint(
       .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
         params,
         paramsSerializer: stringifyFn,
+        headers: getXSurfaceHeader(surfaceHeaderValue),
       })
       .then((resp) => {
         return getProcessedPointResponse(resp.data, alignedVariables);
@@ -224,7 +238,8 @@ export function getPointWithin(
   variables: string[],
   date: string,
   alignedVariables?: string[][],
-  facetIds?: string[]
+  facetIds?: string[],
+  surfaceHeaderValue?: string
 ): Promise<PointApiResponse> {
   const params = { childType, date, parentEntity, variables };
   if (facetIds) {
@@ -234,6 +249,7 @@ export function getPointWithin(
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
       params,
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => {
       return getProcessedPointResponse(resp.data, alignedVariables);
@@ -256,11 +272,18 @@ export function getSeries(
   entities: string[],
   variables: string[],
   facetIds?: string[],
-  highlightFacet?: FacetMetadata
+  highlightFacet?: FacetMetadata,
+  surfaceHeaderValue?: string
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
   return Promise.resolve(
-    selectFacet(apiRoot, entities, variables, highlightFacet)
+    selectFacet(
+      apiRoot,
+      entities,
+      variables,
+      highlightFacet,
+      surfaceHeaderValue
+    )
   ).then((resolvedFacetIds) => {
     if (!_.isEmpty(facetIds)) {
       params["facetIds"] = facetIds;
@@ -269,7 +292,9 @@ export function getSeries(
     }
 
     return axios
-      .post(`${apiRoot || ""}/api/observations/series`, params)
+      .post(`${apiRoot || ""}/api/observations/series`, params, {
+        headers: getXSurfaceHeader(surfaceHeaderValue),
+      })
       .then((resp) => resp.data);
   });
 }
@@ -289,7 +314,8 @@ export function getSeriesWithin(
   parentEntity: string,
   childType: string,
   variables: string[],
-  facetIds?: string[]
+  facetIds?: string[],
+  surfaceHeaderValue?: string
 ): Promise<SeriesApiResponse> {
   const params = { parentEntity, childType, variables };
   if (facetIds) {
@@ -299,6 +325,7 @@ export function getSeriesWithin(
     .get(`${apiRoot || ""}/api/observations/series/within`, {
       params,
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => resp.data);
 }
@@ -323,12 +350,14 @@ export function getFacetsWithin(
   parentEntity: string,
   childType: string,
   variables: string[],
-  date?: string
+  date?: string,
+  surfaceHeaderValue?: string
 ): Promise<FacetResponse> {
   return axios
     .get<PointAllApiResponse>(`${apiRoot || ""}/api/facets/within`, {
       params: { parentEntity, childType, variables, date: date || "LATEST" },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => {
       const respData = resp.data;
@@ -357,12 +386,14 @@ export function getFacetsWithin(
 export function getFacets(
   apiRoot: string,
   entities: string[],
-  variables: string[]
+  variables: string[],
+  surfaceHeaderValue?: string
 ): Promise<FacetResponse> {
   return axios
     .get<SeriesAllApiResponse>(`${apiRoot || ""}/api/facets`, {
       params: { entities, variables },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => {
       const respData = resp.data;

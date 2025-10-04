@@ -24,7 +24,7 @@ import * as d3 from "d3";
 import { when } from "jest-when";
 
 import { drawGroupLineChart } from "../../chart/draw_line";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
   // Mock all the async axios call.
@@ -101,10 +101,16 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/05"],
-      variables: ["Median_Age_Person"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["Median_Age_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         Median_Age_Person: {
@@ -115,10 +121,16 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/05"],
-      variables: ["Median_Age_Person", "Count_Person"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["Median_Age_Person", "Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -132,10 +144,16 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/05"],
-      variables: ["NotInTheTree"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["NotInTheTree"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         NotInTheTree: {
@@ -146,10 +164,16 @@ export function axiosMock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/observation/existence", {
-      entities: ["geoId/05"],
-      variables: ["Count_Person"],
-    })
+    .calledWith(
+      "/api/observation/existence",
+      {
+        entities: ["geoId/05"],
+        variables: ["Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -171,10 +195,16 @@ export function axiosMock(): void {
 
   // get data, geoId/05,Count_Person
   when(axios.post)
-    .calledWith("/api/observations/series", {
-      variables: ["Count_Person"],
-      entities: ["geoId/05"],
-    })
+    .calledWith(
+      "/api/observations/series",
+      {
+        variables: ["Count_Person"],
+        entities: ["geoId/05"],
+      },
+      {
+        headers: getXSurfaceHeader(),
+      }
+    )
     .mockResolvedValue({
       data: {
         data: {
@@ -213,6 +243,7 @@ export function axiosMock(): void {
         variables: ["Median_Age_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -282,6 +313,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -322,6 +354,7 @@ export function axiosMock(): void {
         variables: ["NotInTheTree"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {

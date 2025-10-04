@@ -35,11 +35,13 @@ logger = logging.getLogger(__name__)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def get(url: str):
+def get(url: str, surfaceHeaderValue=None):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
+  # header used in usage metric logging
+  headers['x-surface'] = surfaceHeaderValue
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -55,7 +57,8 @@ def get(url: str):
 def post(url: str,
          req: Dict,
          api_key: str | None = None,
-         log_extreme_calls: bool = True):
+         log_extreme_calls: bool = True,
+         surfaceHeaderValue: str | None = None):
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
@@ -63,15 +66,27 @@ def post(url: str,
   key_to_use = api_key
   if key_to_use is None:
     key_to_use = current_app.config.get("DC_API_KEY", "")
-  return post_wrapper(url, req_str, key_to_use, log_extreme_calls)
+  print("in post: ", surfaceHeaderValue)
+  return post_wrapper(url,
+                      req_str,
+                      key_to_use,
+                      log_extreme_calls,
+                      surfaceHeaderValue=surfaceHeaderValue)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
+def post_wrapper(url,
+                 req_str: str,
+                 dc_api_key: str,
+                 log_extreme_calls: bool,
+                 surfaceHeaderValue: str | None = None):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
+  # header used in usage metric logging
+  print("surfaceHeaderValue: ", surfaceHeaderValue)
+  headers['x-surface'] = surfaceHeaderValue
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
@@ -85,7 +100,7 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
   return response.json()
 
 
-def obs_point(entities, variables, date="LATEST"):
+def obs_point(entities, variables, date="LATEST", surfaceHeaderValue=None):
   """Gets the observation point for the given entities of the given variable.
 
     Args:
@@ -95,9 +110,9 @@ def obs_point(entities, variables, date="LATEST"):
             observation is returned.
     """
   url = get_service_url("/v2/observation")
+  print("in obs_core: ", surfaceHeaderValue)
   return post(
-      url,
-      {
+      url, {
           "select": ["date", "value", "variable", "entity"],
           "entity": {
               "dcids": sorted(entities)
@@ -106,15 +121,15 @@ def obs_point(entities, variables, date="LATEST"):
               "dcids": sorted(variables)
           },
           "date": date,
-      },
-  )
+      }, surfaceHeaderValue=surfaceHeaderValue)
 
 
 def obs_point_within(parent_entity,
                      child_type,
                      variables,
                      date="LATEST",
-                     facet_ids=None):
+                     facet_ids=None,
+                     surfaceHeaderValue=None):
   """Gets the statistical variable values for child places of a certain place
       type contained in a parent place at a given date.
 
@@ -146,10 +161,11 @@ def obs_point_within(parent_entity,
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
-  return post(url, req)
+  print("passed in from obs_point_within: ", surfaceHeaderValue)
+  return post(url, req, surfaceHeaderValue=surfaceHeaderValue)
 
 
-def obs_series(entities, variables, facet_ids=None):
+def obs_series(entities, variables, facet_ids=None, surfaceHeaderValue=None):
   """Gets the observation time series for the given entities of the given
     variable.
 
@@ -169,10 +185,15 @@ def obs_series(entities, variables, facet_ids=None):
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
-  return post(url, req)
+  print("surf in obs_series: ", surfaceHeaderValue)
+  return post(url, req, surfaceHeaderValue=surfaceHeaderValue)
 
 
-def obs_series_within(parent_entity, child_type, variables, facet_ids=None):
+def obs_series_within(parent_entity,
+                      child_type,
+                      variables,
+                      facet_ids=None,
+                      surfaceHeaderValue=None):
   """Gets the statistical variable series for child places of a certain place
       type contained in a parent place.
 
@@ -195,10 +216,12 @@ def obs_series_within(parent_entity, child_type, variables, facet_ids=None):
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
-  return post(url, req)
+  
+  print("surfaceHeaderValue in obs_series_within: ", surfaceHeaderValue)
+  return post(url, req, surfaceHeaderValue=surfaceHeaderValue)
 
 
-def series_facet(entities, variables):
+def series_facet(entities, variables, surfaceHeaderValue=None):
   """Gets facet of time series for the given entities and variables.
 
     Args:
@@ -206,9 +229,9 @@ def series_facet(entities, variables):
         variables: A list of statistical variable DCIDs.
     """
   url = get_service_url("/v2/observation")
+  print("surfaceHeaderValue in series_facet: ", surfaceHeaderValue)
   return post(
-      url,
-      {
+      url, {
           "select": ["variable", "entity", "facet"],
           "entity": {
               "dcids": sorted(entities)
@@ -216,18 +239,21 @@ def series_facet(entities, variables):
           "variable": {
               "dcids": sorted(variables)
           },
-      },
-  )
+      }, surfaceHeaderValue=surfaceHeaderValue)
 
 
-def point_within_facet(parent_entity, child_type, variables, date):
+def point_within_facet(parent_entity,
+                       child_type,
+                       variables,
+                       date,
+                       surfaceHeaderValue=None):
   """Gets facet of for child places of a certain place type contained in a
     parent place at a given date.
     """
   url = get_service_url("/v2/observation")
+  print("surf in point_within_facet: ", surfaceHeaderValue)
   return post(
-      url,
-      {
+      url, {
           "select": ["variable", "entity", "facet"],
           "entity": {
               "expression":
@@ -238,11 +264,10 @@ def point_within_facet(parent_entity, child_type, variables, date):
               "dcids": sorted(variables)
           },
           "date": date,
-      },
-  )
+      }, surfaceHeaderValue=surfaceHeaderValue)
 
 
-def v2observation(select, entity, variable):
+def v2observation(select, entity, variable, surfaceHeaderValue=None):
   """
     Args:
       select: A list of select props.
@@ -257,14 +282,12 @@ def v2observation(select, entity, variable):
   if "dcids" in variable:
     variable["dcids"] = sorted([x for x in variable["dcids"] if x])
   url = get_service_url("/v2/observation")
-  return post(
-      url,
-      {
-          "select": select,
-          "entity": entity,
-          "variable": variable,
-      },
-  )
+  print("in v2Observation: ", surfaceHeaderValue)
+  return post(url, {
+      "select": select,
+      "entity": entity,
+      "variable": variable,
+  }, surfaceHeaderValue=surfaceHeaderValue)
 
 
 def v2node(nodes, prop):
@@ -384,14 +407,12 @@ def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
   url = get_service_url("/v1/bulk/observation-dates/linked")
   return post(
-      url,
-      {
+      url, {
           "linked_property": "containedInPlace",
           "linked_entity": parent_entity,
           "entity_type": child_type,
           "variables": variables,
-      },
-  )
+      })
 
 
 def bio(entity):
@@ -436,7 +457,8 @@ def nl_search_vars(
 
 def nl_search_vars_in_parallel(queries: list[str],
                                index_types: list[str],
-                               skip_topics: bool = False) -> dict[str, dict]:
+                               skip_topics: bool = False,
+                               surfaceHeaderValue=None) -> dict[str, dict]:
   """Search sv from NL server in parallel for multiple indexes.
 
     Args:
@@ -593,13 +615,13 @@ def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
   return post(url, req)
 
 
-def safe_obs_point(entities, variables, date='LATEST'):
+def safe_obs_point(entities, variables, date='LATEST', surfaceHeaderValue=None):
   """
     Calls obs_point with error handling.
     If an error occurs, returns a dict with an empty byVariable key.
     """
   try:
-    return obs_point(entities, variables, date)
+    return obs_point(entities, variables, date, surfaceHeaderValue)
   except Exception as e:
     logger.error(f"Error in obs_point call: {str(e)}", exc_info=True)
     return {"byVariable": {}}

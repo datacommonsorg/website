@@ -73,6 +73,8 @@ export interface GaugeTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surfaceHeaderValue?: string;
 }
 
 export interface GaugeChartData {
@@ -157,13 +159,20 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
       props.apiRoot,
       [props.place.dcid],
       [props.statVarSpec.statVar],
-      ""
+      "",
+      null,
+      null,
+      null,
+      props.surfaceHeaderValue
     );
     const denomResp = props.statVarSpec.denom
       ? await getSeries(
           props.apiRoot,
           [props.place.dcid],
-          [props.statVarSpec.denom]
+          [props.statVarSpec.denom],
+          null,
+          null,
+          props.surfaceHeaderValue
         )
       : null;
     const statVarDcidToName = await getStatVarNames(

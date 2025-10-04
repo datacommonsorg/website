@@ -32,7 +32,7 @@ import { PointAllApiResponse } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 import theme from "../../theme/theme";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse } from "../../utils/data_fetch_utils";
 import { getNamedTypedPlace } from "../../utils/place_utils";
@@ -166,6 +166,7 @@ export function Page(props: PagePropType): ReactElement {
       .get("/api/facets/within", {
         params: reqObj,
         paramsSerializer: stringifyFn,
+        headers: getXSurfaceHeader(),
       })
       .then(async (resp) => {
         const baseFacetData: PointAllApiResponse = resp.data;

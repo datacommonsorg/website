@@ -32,7 +32,7 @@ import Enzyme, { mount } from "enzyme";
 import { when } from "jest-when";
 import React, { useEffect } from "react";
 
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { App } from "./app";
 import {
   Context,
@@ -290,6 +290,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -308,6 +309,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -326,6 +328,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -344,6 +347,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -362,6 +366,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -380,6 +385,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -397,6 +403,7 @@ function mockAxios(): void {
         entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {
@@ -427,6 +434,7 @@ function mockAxios(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .mockResolvedValue({
       data: {

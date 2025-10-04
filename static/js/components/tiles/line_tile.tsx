@@ -128,6 +128,8 @@ export interface LineTilePropType {
   lazyLoadMargin?: string;
   // Metadata for the facet to highlight.
   highlightFacet?: FacetMetadata;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surfaceHeaderValue?: string;
 }
 
 export interface LineChartData {
@@ -372,7 +374,8 @@ export const fetchData = async (
           props.place.dcid,
           props.enclosedPlaceType,
           facetToVariable[facetId],
-          facetIds
+          facetIds,
+          props.surfaceHeaderValue
         )
       );
     } else {
@@ -384,7 +387,8 @@ export const fetchData = async (
           placeDcids,
           facetToVariable[facetId],
           facetIds,
-          props.highlightFacet
+          props.highlightFacet,
+          props.surfaceHeaderValue
         )
       );
     }

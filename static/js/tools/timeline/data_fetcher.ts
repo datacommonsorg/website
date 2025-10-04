@@ -27,7 +27,7 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { stringifyFn } from "../../utils/axios";
+import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceDisplayNames } from "../../utils/place_utils";
 import { computeRatio } from "../shared_util";
@@ -176,6 +176,7 @@ export function fetchRawData(
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
+      headers: getXSurfaceHeader(),
     })
     .then((resp) => {
       return resp.data;
