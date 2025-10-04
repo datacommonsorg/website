@@ -25,7 +25,6 @@ kind: Config
 metadata:
   name: website
 
-
 build:
   artifacts:
     # Artifacts for local development
@@ -134,8 +133,8 @@ profiles:
               mixer.githash: ${MIXER_GITHASH}
   - name: mixer-dev
     customActions:
-        - name: deploy-cloud-esp-mixer-dev
-          containers:
+      - name: deploy-cloud-esp-mixer-dev
+        containers:
           - name: gcloud-website0
             image: gcr.io/datcom-ci/datacommons-script-runner:latest
             command: ["/bin/bash"]
@@ -287,7 +286,7 @@ profiles:
             args:
               - "-c"
               - |
-                gcloud builds submit --config tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=staging --project=datcom-ci 
+                gcloud builds submit --config tools/release_automation/percy_snapshot_script/cloudbuild.per_environment_percy_snapshots.yaml --substitutions=_ENVIRONMENT=staging --project=datcom-ci
     manifests:
       helm:
         releases:
@@ -318,7 +317,7 @@ profiles:
               mixer.useSpannerGraph: true
               mixer.enableV3: true
               mixer.enableOtlp: true
-              mixer.v3MirrorFraction: 0.5
+              mixer.v3MirrorFraction: 0.01
               serviceAccount.name: website-ksa
               ingress.enabled: "true"
               mixer.useRedis: "true"
@@ -345,7 +344,7 @@ profiles:
             args:
               - "-c"
               - |
-                gcloud builds submit --config build/ci/cloudbuild.update_nl_goldens.yaml --project=datcom-ci 
+                gcloud builds submit --config build/ci/cloudbuild.update_nl_goldens.yaml --project=datcom-ci
     manifests:
       helm:
         releases:
