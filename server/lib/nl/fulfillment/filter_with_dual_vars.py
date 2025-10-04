@@ -108,6 +108,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     place_key = utils.get_place_key(places[0].dcid, state.place_type.value)
     date = state.exist_checks.get(sv, {}).get(place_key,
                                               ExistInfo()).latest_valid_date
+  print("populate fulfillemnt")
   ranked_children = rank_utils.filter_and_rank_places(
       parent_place=places[0],
       child_type=state.place_type,

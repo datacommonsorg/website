@@ -245,6 +245,7 @@ export function getPointWithin(
   if (facetIds) {
     params["facetIds"] = facetIds;
   }
+  console.log("in getPointWithin: ", getXSurfaceHeader(surfaceHeaderValue));
   return axios
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
       params,

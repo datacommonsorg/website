@@ -1026,6 +1026,7 @@ def fetch_highest_coverage(variables: List[str],
     }
   }
   """
+  print("in fetch highest: ", surfaceHeaderValue)
   if (entities is None) and ((parent_entity is None) or (child_type is None)):
     raise ValueError(
         "Must provide either 'entities' OR ('parent_entity' AND 'child_type') parameters to fetch_highest_coverage"

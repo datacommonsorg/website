@@ -203,7 +203,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
 
         return { ...spec, date: finalDate };
       });
-
+      console.log("entity expression");
       const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
       return buildObservationSpecs({
         statVarSpecs: updatedStatVarSpecs,

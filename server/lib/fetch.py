@@ -219,8 +219,9 @@ def point_within_core(ancestor_entity,
     }
   }
   """
+  print("from point_within_core")
   resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
-                             facet_ids, surfaceHeaderValue)
+                             facet_ids, surfaceHeaderValue=surfaceHeaderValue)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 

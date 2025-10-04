@@ -222,7 +222,8 @@ def count_places_per_stat_var(
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
-    parent_place_dcid: str) -> List[ServerChartConfiguration]:
+    parent_place_dcid: str,
+    surface_header_value: str = None) -> List[ServerChartConfiguration]:
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
 
@@ -240,10 +241,11 @@ async def filter_chart_config_for_data_existence(
         dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids)
     child_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, place_dcid, child_place_type,
-        child_places_stat_var_dcids)
+        child_places_stat_var_dcids, None, surface_header_value)
+    print("reaching obspoint calls")
     peer_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, parent_place_dcid, place_type,
-        peer_places_stat_var_dcids)
+        peer_places_stat_var_dcids, None, surface_header_value)
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
                                                place_dcid, [place_type])

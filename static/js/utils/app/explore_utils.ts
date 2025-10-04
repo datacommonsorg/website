@@ -87,6 +87,7 @@ export async function highestCoverageDatesEqualLatestDates(
   variables: string[],
   facetIds?: string[]
 ): Promise<boolean> {
+  console.log("reaching highest coverage thingy");
   const highestCoverageObservations = await getPointWithin(
     apiRoot,
     childType,

@@ -42,6 +42,7 @@ bp = Blueprint("place_api", __name__, url_prefix='/api/place')
 @log_execution_time
 @cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_charts(place_dcid: str):
+  print("Reaching place_charts")
   """
   Returns chart definitions for the specified place based on the availability of
   of data for that place. Results are translated into the user's locale.
@@ -79,6 +80,7 @@ async def place_charts(place_dcid: str):
 
   # Validate the category parameter.
   place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
+  surface_header_value = request.headers.get("x-surface")
   if place_category not in place_utils.ALLOWED_CATEGORIES:
     return error_response(
         f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.ALLOWED_CATEGORIES)}"
@@ -102,7 +104,8 @@ async def place_charts(place_dcid: str):
       place_dcid=place_dcid,
       place_type=place_type,
       parent_place_dcid=parent_place_dcid,
-      child_place_type=child_place_type_to_highlight)
+      child_place_type=child_place_type_to_highlight,
+      surface_header_value=surface_header_value)
 
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_config_for_category(

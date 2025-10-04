@@ -49,7 +49,7 @@ def populate(state: PopulateState,
              places: List[Place],
              chart_origin: ChartOriginType,
              rank: int,
-             ranking_count: int = 0) -> bool:
+             ranking_count: int = 0, surfaceHeaderValue: str = None) -> bool:
   if not state.ranking_types:
     state.uttr.counters.err('ranking-across-places_failed_cb_norankingtypes', 1)
     return False
@@ -85,7 +85,7 @@ def populate(state: PopulateState,
     if (rank == 0 and len(chart_vars.svs) == 1 and
         len(state.ranking_types) == 1 and
         state.ranking_types[0] in [RankingType.HIGH, RankingType.LOW]):
-      _compute_answer_places(state, places[0], chart_vars.svs[0])
+      _compute_answer_places(state, places[0], chart_vars.svs[0], surfaceHeaderValue=surfaceHeaderValue)
 
     if not utils.has_map(state.place_type, places[0]):
       chart_vars.skip_map_for_ranking = True
@@ -103,7 +103,7 @@ def populate(state: PopulateState,
                                   sv_place_latest_date=sv_place_latest_date)
 
 
-def _compute_answer_places(state: PopulateState, place: List[Place], sv: str):
+def _compute_answer_places(state: PopulateState, place: List[Place], sv: str, surfaceHeaderValue:str = None):
   if classifications_of_type_from_utterance(state.uttr,
                                             ClassificationType.PER_CAPITA):
     if os.environ.get('FLASK_ENV') == 'test':
@@ -114,9 +114,11 @@ def _compute_answer_places(state: PopulateState, place: List[Place], sv: str):
       ranked_places = filter_and_rank_places_per_capita(place, state.place_type,
                                                         sv)
     else:
-      ranked_places = filter_and_rank_places(place, state.place_type, sv)
+      print("compute case 1")
+      ranked_places = filter_and_rank_places(place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
   else:
-    ranked_places = filter_and_rank_places(place, state.place_type, sv)
+    print("compute case 2")
+    ranked_places = filter_and_rank_places(place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
 
   if state.ranking_types[0] == RankingType.LOW:
     # Reverse the order.

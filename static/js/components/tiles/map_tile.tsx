@@ -358,7 +358,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
           ...layer.variable,
           date: finalDate,
         };
-
+        console.log("entity expressions");
         const entityExpression = `${layer.parentPlace}<-containedInPlace+{typeOf:${layer.enclosedPlaceType}}`;
 
         return buildObservationSpecs({

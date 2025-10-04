@@ -45,7 +45,7 @@ _PLACE_TYPE_FALLBACK_THRESHOLD_RANK = 5
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType, rank: int) -> bool:
+             chart_origin: ChartOriginType, rank: int, surfaceHeaderValue: str = None) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('basic_failed_cb_events', 1)
     return False
@@ -67,14 +67,14 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     # PROJECTED_TEMP_TOPIC has some very custom handling in config-builder,
     # that needs to be deprecated.
     # TODO: Deprecate this flow completely!
-    return _populate_specific(state, chart_vars, places, chart_origin, rank)
+    return _populate_specific(state, chart_vars, places, chart_origin, rank, surfaceHeaderValue=surfaceHeaderValue)
   else:
-    return _populate_explore(state, chart_vars, places, chart_origin, rank)
+    return _populate_explore(state, chart_vars, places, chart_origin, rank, surfaceHeaderValue=surfaceHeaderValue)
 
 
 def _populate_explore(state: PopulateState, chart_vars: ChartVars,
                       places: List[Place], chart_origin: ChartOriginType,
-                      rank: int) -> bool:
+                      rank: int, surfaceHeaderValue: str = None) -> bool:
   added = False
   # TODO(gmechali): Consider making is_highlight a part of the utterance.
   # We use the chart type parameter as a proxy to determine if a specific chart
@@ -115,6 +115,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
         ranking_orig = state.ranking_types
         if not state.ranking_types:
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]
+        print("populate explore: ", surfaceHeaderValue)
         added_child_type_charts = ranking_across_places.populate(
             state,
             cv,
@@ -122,7 +123,8 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
             chart_origin,
             rank,
             ranking_count=_get_ranking_count_by_type(state.place_type,
-                                                     ranking_orig))
+                                                     ranking_orig),
+                                                     surfaceHeaderValue=surfaceHeaderValue)
         state.ranking_types = ranking_orig
       elif is_special_dc:
         # Return only map.
@@ -151,6 +153,7 @@ def _populate_specific(state: PopulateState, chart_vars: ChartVars,
     # Ranking query
     if state.place_type:
       # This is ranking across places.
+      print('populate specific')
       if ranking_across_places.populate(state, chart_vars, places, chart_origin,
                                         rank):
         _maybe_set_place_type_existence(state, rank)

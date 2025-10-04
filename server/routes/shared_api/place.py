@@ -258,9 +258,10 @@ def get_place_variable():
       List of unique statistical variable dcids each as a string.
   """
   dcids = request.args.getlist('dcids')
+  surfaceHeaderValue = request.headers.get('x-surface')
   if not dcids:
     dcids = request.json['dcids']
-  resp = fetch.entity_variables(dcids)
+  resp = fetch.entity_variables(dcids, surfaceHeaderValue)
   # All the keys (stat var dcid) in resp are variables for at lease one of the
   # places.
   return Response(json.dumps(list(resp.keys())),
@@ -278,10 +279,11 @@ def get_place_variable_count():
   dcids = request.args.getlist('dcids')
   if not dcids:
     return 'error: must provide `dcids` field', 400
+  surfaceHeaderValue = request.headers.get('x-surface')
   result = {}
   for dcid in dcids:
     result[dcid] = 0
-  resp = fetch.entity_variables(dcids)
+  resp = fetch.entity_variables(dcids, surfaceHeaderValue)
   for _, entity_obs in resp.items():
     for entity in entity_obs:
       result[entity] += 1
@@ -300,7 +302,7 @@ def child(dcid):
 
 
 @cache.memoize(timeout=TIMEOUT)
-def child_fetch(parent_dcid):
+def child_fetch(parent_dcid, surface_header_value=None):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',
                                              False)
@@ -327,7 +329,7 @@ def child_fetch(parent_dcid):
   pop = {}
   obs_response = fetch.point_core(wanted_dcids, [POPULATION_DCID],
                                   date='LATEST',
-                                  all_facets=False)
+                                  all_facets=False, surfaceHeaderValye=surface_header_value)
   for entity, points in obs_response['data'].get(POPULATION_DCID, {}).items():
     if points:
       pop[entity] = points.get('value')

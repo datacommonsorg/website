@@ -35,6 +35,7 @@ import {
 } from "../../constants/app/explore_constants";
 import { intl, localizeLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -531,13 +532,21 @@ const fetchFulfillData = async (
     }
     const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
-    const resp = await axios.post(`/api/explore/fulfill${args}`, {
-      dc,
-      entities: places,
-      variables: topics,
-      disableExploreMore,
-      skipRelatedThings,
-    });
+    const resp = await axios.post(
+      `/api/explore/fulfill${args}`,
+      {
+        dc,
+        entities: places,
+        variables: topics,
+        disableExploreMore,
+        skipRelatedThings,
+      },
+      {
+        headers: {
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
+        },
+      }
+    );
     if (startTime) {
       const elapsedTime = window.performance
         ? window.performance.now() - startTime
@@ -615,6 +624,13 @@ const fetchDetectAndFufillData = async (
         contextHistory: savedContext,
         dc,
         disableExploreMore,
+      },
+      {
+        // passing in a header indiciating that the call is made from the website
+        // used in Mixer usage logs
+        headers: {
+          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
+        },
       }
     );
     if (startTime) {

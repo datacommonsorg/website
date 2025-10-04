@@ -21,6 +21,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import redirect
 from flask import url_for
+from flask import request
 from google.protobuf.json_format import MessageToJson
 
 from server.lib.cache import cache
@@ -59,8 +60,10 @@ def sustainability_explorer(place_dcid=None):
     return "Error: no config installed"
   subject_config = copy.deepcopy(raw_subject_config)
 
+  surface_header_value = request.headers.get("x-surface")
+
   # Update contained places from place metadata
-  place_metadata = lib_subject_page_config.place_metadata(place_dcid)
+  place_metadata = lib_subject_page_config.place_metadata(place_dcid, surface_header_value=surface_header_value)
   if place_metadata.is_error:
     return flask.render_template(
         'sustainability.html',

@@ -32,6 +32,7 @@ import {
 } from "../../constants/app/explore_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
@@ -163,7 +164,12 @@ const getFollowUpQuestions = async (
     q: query,
     relatedTopics,
   };
-  return await axios.post(url, body).then((resp) => {
+  const metadata = {
+    headers: {
+      "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
+    },
+  };
+  return await axios.post(url, body, metadata).then((resp) => {
     const data = resp.data;
     return data.follow_up_questions.map((question) => {
       return {

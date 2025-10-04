@@ -105,7 +105,7 @@ def detect_and_fulfill():
 
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
-  surfaceHeaderValue = request.headers.get("x-surface")
+  surfaceHeaderValue = request.headers.get("x-surface") or "website"
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -136,6 +136,7 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
+  print("in detect and fulfill: ", surfaceHeaderValue)
   return _fulfill_with_chart_config(utterance, debug_logs, surfaceHeaderValue)
 
 
@@ -235,6 +236,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
+  print("chart config?", surfaceHeaderValue)
   fresp = nl_fulfillment.fulfill(utterance, cb_config, surfaceHeaderValue)
   utterance.counters.timeit('fulfillment', start)
 
@@ -311,4 +313,5 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                                mode=mode)
   utterance.insight_ctx = insight_ctx
   helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
+  print("in insight")
   return _fulfill_with_chart_config(utterance, debug_logs)

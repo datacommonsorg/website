@@ -53,6 +53,7 @@ def get_point_within_csv_rows(parent_place,
       represented as an array where each item is the value of a cell in the
       row.
   """
+  print("from csv")
   points_response = dc.obs_point_within(parent_place, child_type, sv_list, date)
 
   # dict of place dcid to dict of sv dcid to chosen data point.

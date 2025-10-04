@@ -17,6 +17,8 @@
 import axios from "axios";
 import _ from "lodash";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "./constants";
+
 interface StatVarInfo {
   // measurementDenominator
   md?: string;
@@ -60,14 +62,21 @@ function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
 async function getStatVar(
   dcids: string[],
   sample = false,
-  sampleSize = 5
+  sampleSize = 5,
+  surfaceHeaderValue: string = WEBSITE_SURFACE_HEADER_VALUE
 ): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
-  const resp = await axios.post("/api/place/variable", {
-    dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
-  });
+  const resp = await axios.post(
+    "/api/place/variable",
+    {
+      dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
+    },
+    {
+      headers: { "x-surface": surfaceHeaderValue },
+    }
+  );
   return new Set<string>(resp.data);
 }
 

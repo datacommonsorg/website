@@ -296,7 +296,10 @@ export function BarTile(props: BarTilePropType): ReactElement {
  */
 function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surfaceHeaderValue
+    );
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.variables);

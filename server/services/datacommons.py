@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def get(url: str, surfaceHeaderValue=None):
+def get(url: str, surfaceHeaderValue="unknown"):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
@@ -79,14 +79,14 @@ def post_wrapper(url,
                  req_str: str,
                  dc_api_key: str,
                  log_extreme_calls: bool,
-                 surfaceHeaderValue: str | None = None):
+                 surfaceHeaderValue: str | None = "unknown"):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
   print("surfaceHeaderValue: ", surfaceHeaderValue)
-  headers['x-surface'] = surfaceHeaderValue
+  headers['x-surface'] = surfaceHeaderValue 
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
@@ -631,14 +631,15 @@ def safe_obs_point_within(parent_entity,
                           child_type,
                           variables,
                           date='LATEST',
-                          facet_ids=None):
+                          facet_ids=None,
+                          surfaceHeaderValue=None):
   """
   Calls obs_point_within with error handling.
   If an error occurs, returns a dict with an empty byVariable key.
   """
   try:
     return obs_point_within(parent_entity, child_type, variables, date,
-                            facet_ids)
+                            facet_ids, surfaceHeaderValue=surfaceHeaderValue)
   except Exception as e:
     logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)
     return {"byVariable": {}}

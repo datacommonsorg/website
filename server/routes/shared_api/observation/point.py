@@ -162,6 +162,7 @@ def point_within():
   date = request.args.get('date') or DATE_LATEST
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
   # Fetch recent observations with the highest entity coverage
+  print("In point_withiN: ", surfaceHeaderValue)
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(parent_entity=parent_entity,
                                   child_type=child_type,

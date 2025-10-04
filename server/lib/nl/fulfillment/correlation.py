@@ -68,6 +68,7 @@ def _scatter(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if found:
     ranking_orig = state.ranking_types
     state.ranking_types = [RankingType.HIGH, RankingType.LOW]
+    print('populate scatter')
     found |= ranking_across_places.populate(state,
                                             chart_vars,
                                             places,

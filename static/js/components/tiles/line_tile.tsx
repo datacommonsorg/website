@@ -197,6 +197,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
         statVarToFacets: chartData.statVarToFacets,
       };
       if (props.enclosedPlaceType) {
+        console.log("entity ezpression");
         options.entityExpression = `${props.place.dcid}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
       } else {
         options.placeDcids =

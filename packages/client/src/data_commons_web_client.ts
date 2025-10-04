@@ -177,6 +177,8 @@ class DataCommonsWebClient {
     const url = `${
       this.apiRoot || ""
     }/api/observations/point/within?${queryString}`;
+
+    console.log("making calls via client");
     const response = await fetch(url, {
       headers: {
         "x-surface": this.surfaceHeaderValue,
