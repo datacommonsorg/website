@@ -409,6 +409,43 @@ interface ApiPayloadPython {
 }
 
 /**
+ * This function formats the Python payload for the API call. We use this
+ * rather than JSON.stringify because the latter function creates a format
+ * that takes up a lot of space.
+ * @param payload The API payload object.
+ * @returns A formatted string for the Python script.
+ */
+function formatPythonPayload(payload: ApiPayloadPython): string {
+  const lines: string[] = [];
+
+  lines.push(`    "select": ${JSON.stringify(payload.select)}`);
+
+  if (payload.date) {
+    lines.push(`    "date": ${JSON.stringify(payload.date)}`);
+  }
+
+  if (payload.variable?.dcids) {
+    const varDcids = JSON.stringify(payload.variable.dcids);
+    lines.push(`    "variable": {\n        "dcids": ${varDcids}\n    }`);
+  }
+
+  if (payload.entity?.dcids) {
+    const entityDcids = JSON.stringify(payload.entity.dcids);
+    lines.push(`    "entity": {\n        "dcids": ${entityDcids}\n    }`);
+  } else if (payload.entity?.expression) {
+    const entityExpr = JSON.stringify(payload.entity.expression);
+    lines.push(`    "entity": {\n        "expression": ${entityExpr}\n    }`);
+  }
+
+  if (payload.filter?.facet_ids) {
+    const facetIds = JSON.stringify(payload.filter.facet_ids);
+    lines.push(`    "filter": {\n        "facet_ids": ${facetIds}\n    }`);
+  }
+
+  return `{\n${lines.join(",\n")}\n}`;
+}
+
+/**
  * Converts a list of ObservationSpecs into a Python script.
  * Note that unlike curl, all requests will be in the same script.
  *
@@ -466,7 +503,7 @@ export function observationSpecsToPythonScript(
       payload.filter = filterObject;
     }
 
-    const payloadString = JSON.stringify(payload, null, 4);
+    const payloadString = formatPythonPayload(payload);
 
     // if we have more than one spec (endpoint) we have to suffix the relevant vars.
     const suffix = specs.length > 1 ? `_${index + 1}` : "";
