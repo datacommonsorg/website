@@ -16,6 +16,7 @@
 
 /* eslint-disable camelcase */
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import theme from "../../theme/theme";
 
 jest.mock("axios");
@@ -290,7 +291,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
     })
     .mockResolvedValue({
       data: {
@@ -309,7 +310,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
     })
     .mockResolvedValue({
       data: {
@@ -328,7 +329,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
     })
     .mockResolvedValue({
       data: {
@@ -347,7 +348,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
     })
     .mockResolvedValue({
       data: {
@@ -366,7 +367,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
     })
     .mockResolvedValue({
       data: {
@@ -385,7 +386,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
     })
     .mockResolvedValue({
       data: {
@@ -403,7 +404,7 @@ function mockAxios(): void {
         entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
     })
     .mockResolvedValue({
       data: {
@@ -434,7 +435,7 @@ function mockAxios(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
     })
     .mockResolvedValue({
       data: {
@@ -726,6 +727,7 @@ test("all functionalities", async () => {
       "/api/place/descendent?dcids=geoId/10&descendentType=County"
     );
   });
+  console.log("passed first expect");
 
   // Expand stat var menu
   app.find("#hierarchy-section .Collapsible__trigger").at(0).simulate("click");
@@ -747,6 +749,8 @@ test("all functionalities", async () => {
     expectCircles(0, app);
   });
 
+  console.log("passed second expect");
+
   // Select the second stat var, Count_HousingUnit, should show the scatter plot
   await act(async () => {
     app
@@ -756,9 +760,12 @@ test("all functionalities", async () => {
   });
   await app.update();
   await waitFor(() => {
+    console.log("Full text: ", app.text());
     expect(app.text()).toContain("Housing Units (2016)vsEmployed (2016)");
     expectCircles(3, app);
   });
+
+  console.log("third expect");
 
   // Clicking swap axis should successfully swap the x and y axis
   await act(async (): Promise<void> => {

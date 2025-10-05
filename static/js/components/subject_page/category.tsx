@@ -34,6 +34,7 @@ import { Block } from "./block";
 import { BlockContainer } from "./block_container";
 import { DisasterEventBlock } from "./disaster_event_block";
 import { StatVarProvider } from "./stat_var_provider";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 
 export interface CategoryPropType {
   id: string;
@@ -182,6 +183,7 @@ function renderBlocks(
                 startWithDenom={block.startWithDenom}
                 showWebComponents={props.showWebComponents}
                 highlightFacet={props.highlightFacet}
+                surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
               />
             </BlockContainer>
           </ErrorBoundary>

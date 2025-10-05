@@ -38,13 +38,15 @@ import { fetchFacetsWithMetadata } from "./metadata/metadata_fetcher";
  */
 export async function fetchFacetChoices(
   placeDcids: string[],
-  statVars: { dcid: string; name?: string }[]
+  statVars: { dcid: string; name?: string }[],
+  surfaceHeaderValue: string
 ): Promise<FacetSelectorFacetInfo[]> {
   const dataCommonsClient = getDataCommonsClient();
   const baseFacets = await getFacets(
     "",
     placeDcids,
-    statVars.map((sv) => sv.dcid)
+    statVars.map((sv) => sv.dcid),
+    surfaceHeaderValue
   );
   const enrichedFacets = await fetchFacetsWithMetadata(
     baseFacets,
@@ -69,11 +71,19 @@ export async function fetchFacetChoices(
 export async function fetchFacetChoicesWithin(
   parentPlace: string,
   enclosedPlaceType: string,
-  statVars: { dcid: string; name?: string; date?: string }[]
+  statVars: { dcid: string; name?: string; date?: string }[],
+  surfaceHeaderValue: string
 ): Promise<FacetSelectorFacetInfo[]> {
   const dataCommonsClient = getDataCommonsClient();
   const facetPromises = statVars.map((sv) =>
-    getFacetsWithin("", parentPlace, enclosedPlaceType, [sv.dcid], sv.date)
+    getFacetsWithin(
+      "",
+      parentPlace,
+      enclosedPlaceType,
+      [sv.dcid],
+      sv.date,
+      surfaceHeaderValue
+    )
   );
   const baseFacets = Object.assign({}, ...(await Promise.all(facetPromises)));
   const enrichedFacets = await fetchFacetsWithMetadata(

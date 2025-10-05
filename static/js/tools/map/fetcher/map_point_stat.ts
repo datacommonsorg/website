@@ -18,6 +18,7 @@
  * Fetch the map point stat data.
  */
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
@@ -59,12 +60,16 @@ export function useFetchMapPointStat(
     };
     const usedSV = statVar.value.mapPointSv || statVar.value.dcid;
     const date = getCappedStatVarDate(usedSV, dateCtx.value);
+    console.log("useFetchMapPointStat");
     getPointWithin(
       "",
       placeInfo.value.mapPointPlaceType,
       placeInfo.value.enclosingPlace.dcid,
       [usedSV],
-      date
+      date,
+      null, // alignedVariables
+      null, // facetIds
+      WEBSITE_SURFACE_HEADER_VALUE
     )
       .then((resp) => {
         if (_.isEmpty(resp.data[usedSV])) {

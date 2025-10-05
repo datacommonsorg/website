@@ -18,6 +18,7 @@ from flask import Blueprint
 from flask import request
 
 from server.lib import fetch
+from server.routes import UNKNOWN_SURFACE_HEADER_VALUE
 
 bp = Blueprint("facets", __name__, url_prefix='/api/facets')
 
@@ -56,7 +57,8 @@ def get_facets_within():
   if not variables:
     return 'error: must provide a variables field', 400
   date = request.args.get('date')
-  surfaceHeaderValue = request.headers.get("x-surface") or "unknown"
+  surfaceHeaderValue = request.headers.get(
+      "x-surface") or UNKNOWN_SURFACE_HEADER_VALUE
   if not is_valid_date(date):
     return 'error: date must be LATEST or YYYY or YYYY-MM or YYYY-MM-DD', 400
   return fetch.point_within_facet(parent_entity,
@@ -73,8 +75,8 @@ def get_facets():
   """
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
-  surfaceHeaderValue = request.headers.get("x-surface")
-  print("surfaceHeaderValue in get_facets: ", surfaceHeaderValue)
+  surfaceHeaderValue = request.headers.get(
+      "x-surface") or UNKNOWN_SURFACE_HEADER_VALUE
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:

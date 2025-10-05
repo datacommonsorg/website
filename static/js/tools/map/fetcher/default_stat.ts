@@ -18,6 +18,7 @@
  * Fetch the default (best available) stat data
  */
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
@@ -58,12 +59,16 @@ export function useFetchDefaultStat(
       },
     };
     const date = getCappedStatVarDate(statVar.value.dcid, dateCtx.value);
+    console.log("Reaching useFetchDefaultStat");
     getPointWithin(
       "",
       placeInfo.value.enclosedPlaceType,
       placeInfo.value.enclosingPlace.dcid,
       [statVar.value.dcid],
-      date
+      date,
+      null, // alignedVariables
+      null, // facetIds
+      WEBSITE_SURFACE_HEADER_VALUE
     )
       .then((resp) => {
         if (_.isEmpty(resp.data[statVar.value.dcid])) {

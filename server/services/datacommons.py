@@ -26,6 +26,7 @@ from server.lib import log
 from server.lib.cache import cache
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
+from server.lib.util import UNKNOWN_SURFACE_HEADER_VALUE
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -35,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def get(url: str, surfaceHeaderValue="unknown"):
+def get(url: str, surfaceHeaderValue=UNKNOWN_SURFACE_HEADER_VALUE):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
@@ -79,7 +80,7 @@ def post_wrapper(url,
                  req_str: str,
                  dc_api_key: str,
                  log_extreme_calls: bool,
-                 surfaceHeaderValue: str | None = "unknown"):
+                 surfaceHeaderValue: str | None = UNKNOWN_SURFACE_HEADER_VALUE):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:

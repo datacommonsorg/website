@@ -21,6 +21,7 @@
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
 import { EntitySeriesWrapper } from "../../../shared/stat_types";
 import { getSeries } from "../../../utils/data_fetch_utils";
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
@@ -60,7 +61,14 @@ export function useFetchBreadcrumbDenomStat(
       },
       error: null,
     };
-    getSeries("", placeDcids, [statVar.value.denom])
+    getSeries(
+      "",
+      placeDcids,
+      [statVar.value.denom],
+      null, // facetIds
+      null, // highlightFacet
+      WEBSITE_SURFACE_HEADER_VALUE
+    )
       .then((resp) => {
         if (_.isEmpty(resp.data[statVar.value.denom])) {
           action.error = "error fetching breadcrumb denom stat data";

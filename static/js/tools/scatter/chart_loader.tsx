@@ -206,6 +206,7 @@ async function loadData(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     [x.value, y.value],
+    "",
     surfaceHeaderValue
   );
   const statAllResponsePromise: Promise<PointAllApiResponse> =

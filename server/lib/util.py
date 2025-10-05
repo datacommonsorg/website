@@ -38,6 +38,8 @@ from server.config import subject_page_pb2
 import server.lib.fetch as fetch
 import server.services.datacommons as dc
 
+UNKNOWN_SURFACE_HEADER_VALUE = "unknown"
+
 _ready_check_timeout = 300  # seconds
 _ready_check_sleep_seconds = 5
 

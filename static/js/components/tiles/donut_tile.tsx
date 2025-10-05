@@ -212,7 +212,14 @@ export const fetchData = async (
     );
     const denomResp = _.isEmpty(denomSvs)
       ? null
-      : await getSeries(props.apiRoot, [props.place.dcid], denomSvs);
+      : await getSeries(
+          props.apiRoot,
+          [props.place.dcid],
+          denomSvs,
+          null,
+          null,
+          props.surfaceHeaderValue
+        );
 
     // Find the most populated places.
     let popPoints: RankingPoint[] = [];

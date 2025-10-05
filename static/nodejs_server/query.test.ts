@@ -16,6 +16,7 @@
 
 /* Tests for getting result for query endpoint */
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "./constants";
 import { queryAxiosMock } from "./mock_functions";
 import { getQueryResult } from "./query";
 import { TileResult } from "./types";
@@ -221,7 +222,9 @@ test("getQueryResult", async () => {
       "", // mode
       "", // varThreshold
       false, // wantRelatedQuestions
-      "" // detector
+      "", // detector
+      undefined, // idx
+      WEBSITE_SURFACE_HEADER_VALUE // surfaceHeaderValue
     );
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);

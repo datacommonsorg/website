@@ -210,7 +210,8 @@ class TestApiSeriesWithin(unittest.TestCase):
         },
     }
 
-    def side_effect(url, data, _=None):
+    def side_effect(url, data, _=None, surfaceHeaderValue=None):
+      print("SURF IN side effect: ", surfaceHeaderValue)
       if url.endswith('/v2/observation') and data == {
           'select': ['date', 'value', 'variable', 'entity'],
           'entity': {

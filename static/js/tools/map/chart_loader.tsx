@@ -62,6 +62,7 @@ import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
 import { CHART_LOADER_SCREEN, getRankingLink, shouldShowBorder } from "./util";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 
 export function ChartLoader(): ReactElement {
   // +++++++  Context

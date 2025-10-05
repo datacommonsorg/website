@@ -165,7 +165,14 @@ export function fetchRawData(
     facets: {},
   });
   if (denom) {
-    denomDataPromise = getSeries("", places, [denom]);
+    denomDataPromise = getSeries(
+      "",
+      places,
+      [denom],
+      null,
+      null,
+      surfaceHeaderValue
+    );
   }
   const displayNamesPromise: Promise<DisplayNameApiResponse> =
     getPlaceDisplayNames(places);

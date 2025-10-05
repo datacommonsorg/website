@@ -64,6 +64,7 @@ test("Single place and single stat var", async () => {
       hash: "#place=geoId/05&statsVar=Median_Age_Person",
     },
   });
+  console.log("passing defineProperty");
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
   drawGroupLineChartMock();
@@ -75,11 +76,13 @@ test("Single place and single stat var", async () => {
       <Page />
     </ThemeProvider>
   );
+  console.log("passing mount");
   await waitForComponentUpdates(wrapper);
   // Check that one chart is on the page and it matches snapshot
   expect(
     pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
   ).toMatchSnapshot();
+  console.log("passing snapshot 1");
   // Open demographics node in stat var widget
   wrapper
     .find("#hierarchy-section .Collapsible__trigger")
@@ -87,12 +90,15 @@ test("Single place and single stat var", async () => {
     .simulate("click");
   // Wait for the stat var info fetch
   await new Promise(process.nextTick);
+  console.log("passing nextTick");
   wrapper.update();
+  console.log("passing update");
   // Add one statVar by clicking the checkbox
   wrapper
     .find("#hierarchy-section input")
     .at(0)
     .simulate("change", { target: { checked: true } });
+  console.log("passing hierarchy section");
   // Check that url hash is updated
   window.location.hash = "#" + window.location.hash;
   expect(window.location.hash).toEqual(
@@ -110,6 +116,7 @@ test("Single place and single stat var", async () => {
   expect(
     pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
   ).toMatchSnapshot();
+  console.log("passing dispatchEvent");
   // Delete one statVar
   wrapper
     .find("#hierarchy-section input")
@@ -120,6 +127,7 @@ test("Single place and single stat var", async () => {
   expect(window.location.hash).toEqual(
     "#place=geoId%2F05&statsVar=Count_Person"
   );
+  console.log("passing new url");
   // Hack to trigger hashchange event to fire
   window.dispatchEvent(
     new HashChangeEvent("hashchange", {
@@ -132,6 +140,7 @@ test("Single place and single stat var", async () => {
   expect(
     pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
   ).toMatchSnapshot();
+  console.log("passing second to last");
   // Check that the stat var widget matches the snapshot
   expect(
     pretty(wrapper.find("#hierarchy-section").getDOMNode().innerHTML)

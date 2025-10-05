@@ -81,6 +81,7 @@ interface BivariateTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  surfaceHeaderValue?: string;
 }
 
 interface RawData {
@@ -198,7 +199,8 @@ function getDataCsvCallback(
 function getPopulationPromise(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
+  statVarSpec: StatVarSpec[],
+  surfaceHeaderValue: string
 ): Promise<SeriesApiResponse> {
   const variables = [];
   for (const sv of statVarSpec) {
@@ -209,7 +211,14 @@ function getPopulationPromise(
   if (_.isEmpty(variables)) {
     return Promise.resolve(null);
   } else {
-    return getSeriesWithin("", placeDcid, enclosedPlaceType, variables);
+    return getSeriesWithin(
+      "",
+      placeDcid,
+      enclosedPlaceType,
+      variables,
+      null,
+      surfaceHeaderValue
+    );
   }
 }
 
@@ -234,7 +243,8 @@ export const fetchData = async (props: BivariateTilePropType) => {
   const populationPromise: Promise<SeriesApiResponse> = getPopulationPromise(
     props.place.dcid,
     props.enclosedPlaceType,
-    props.statVarSpec
+    props.statVarSpec,
+    props.surfaceHeaderValue
   );
   const placeNamesPromise = axios
     .get(
