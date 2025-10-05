@@ -24,6 +24,7 @@ import {
   getBlockEventTypeSpecs,
 } from "../js/components/subject_page/disaster_event_block";
 import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
+import { UNKNOWN_SURFACE_HEADER_VALUE } from "../js/shared/constants";
 import {
   NamedTypedNode,
   NamedTypedPlace,
@@ -41,11 +42,7 @@ import {
   getHighlightTileDescription,
   getTileEventTypeSpecs,
 } from "../js/utils/tile_utils";
-import {
-  BARD_CLIENT_URL_PARAM,
-  TOOLFORMER_RIG_MODE,
-  WEBSITE_SURFACE_HEADER_VALUE,
-} from "./constants";
+import { BARD_CLIENT_URL_PARAM, TOOLFORMER_RIG_MODE } from "./constants";
 import { getBarTileResult } from "./tiles/bar_tile";
 import { getDisasterMapTileResult } from "./tiles/disaster_map_tile";
 import { getHighlightTileResult } from "./tiles/highlight_tile";
@@ -72,7 +69,7 @@ const NUM_RELATED_QUESTIONS = 6;
 
 // formats header for calls to the Flask API, which is passed into mixer and used in usage logging
 export const getXSurfaceHeader = (
-  surfaceHeaderValue: string = WEBSITE_SURFACE_HEADER_VALUE
+  surfaceHeaderValue: string
 ): Record<string, string> => {
   return { "x-surface": surfaceHeaderValue };
 };

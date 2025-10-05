@@ -33,6 +33,7 @@ import {
 } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import {
@@ -80,7 +81,8 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
     getFilteredStatVarPromise(
       samplePlaces,
       selectedStatVars,
-      visTypeConfig
+      visTypeConfig,
+      WEBSITE_SURFACE_HEADER_VALUE
     ).then((filteredStatVars) => {
       if (!_.isEqual(filteredStatVars, selectedStatVars)) {
         setSelectedStatVars(filteredStatVars);

@@ -43,6 +43,9 @@ interface StatVarWidgetPropsType {
   sampleEntities: NamedNode[];
   // Callback function when a list of stat vars are deselected
   deselectSVs: (svList: string[]) => void;
+  // Indicates which surface (website, web components, etc.) is making the call.
+  // Used in mixer usage logs
+  surfaceHeaderValue: string;
   // (Optional) A map of stat var dcid to their StatVarInfo for stat vars
   // selected from parent component.
   // For example, in timeline tool, these are stat vars parsed from URL.
@@ -71,7 +74,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             variables: Object.keys(props.selectedSVs),
           },
           {
-            headers: getXSurfaceHeader(),
+            headers: getXSurfaceHeader(props.surfaceHeaderValue),
           }
         )
         .then((resp) => {

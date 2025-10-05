@@ -220,8 +220,10 @@ def count_places_per_stat_var(
 
 @cache.memoize(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
-    chart_config: List[ServerChartConfiguration], place_dcid: str,
-    place_type: str, child_place_type: str,
+    chart_config: List[ServerChartConfiguration],
+    place_dcid: str,
+    place_type: str,
+    child_place_type: str,
     parent_place_dcid: str,
     surface_header_value: str = None) -> List[ServerChartConfiguration]:
   """

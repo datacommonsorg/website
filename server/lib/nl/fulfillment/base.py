@@ -224,8 +224,12 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
       chart_vars = copy.deepcopy(exist_cv)
       if chart_vars.event:
         if exist_cv.exist_event:
-          if handler.module.populate(state, chart_vars, places,
-                                     ChartOriginType.PRIMARY_CHART, idx, surfaceHeaderValue=surfaceHeaderValue):
+          if handler.module.populate(state,
+                                     chart_vars,
+                                     places,
+                                     ChartOriginType.PRIMARY_CHART,
+                                     idx,
+                                     surfaceHeaderValue=surfaceHeaderValue):
             found = True
             num_charts += 1
           else:
@@ -234,8 +238,12 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
         if chart_vars.svs:
           existing_svs.update(chart_vars.svs)
           print('calling populate', handler.module.populate)
-          if handler.module.populate(state, chart_vars, places,
-                                     ChartOriginType.PRIMARY_CHART, idx, surfaceHeaderValue=surfaceHeaderValue):
+          if handler.module.populate(state,
+                                     chart_vars,
+                                     places,
+                                     ChartOriginType.PRIMARY_CHART,
+                                     idx,
+                                     surfaceHeaderValue=surfaceHeaderValue):
             found = True
             num_charts += 1
           else:

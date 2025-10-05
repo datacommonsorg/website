@@ -157,7 +157,8 @@ export interface TimelineRawData {
 export function fetchRawData(
   places: string[],
   statVars: string[],
-  denom = ""
+  denom = "",
+  surfaceHeaderValue: string
 ): Promise<TimelineRawData> {
   let denomDataPromise: Promise<SeriesApiResponse> = Promise.resolve({
     data: {},
@@ -176,7 +177,7 @@ export function fetchRawData(
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(),
+      headers: getXSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => {
       return resp.data;

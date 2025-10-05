@@ -105,7 +105,7 @@ def detect_and_fulfill():
 
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
-  surfaceHeaderValue = request.headers.get("x-surface") or "website"
+  surface_header_value = request.headers.get("x-surface") or "unknown"
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -136,8 +136,8 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
-  print("in detect and fulfill: ", surfaceHeaderValue)
-  return _fulfill_with_chart_config(utterance, debug_logs, surfaceHeaderValue)
+  print("in detect and fulfill: ", surface_header_value)
+  return _fulfill_with_chart_config(utterance, debug_logs, surface_header_value)
 
 
 #
@@ -258,6 +258,7 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
   mode = request.args.get(Params.MODE.value, '')
+  surface_header_value = request.headers.get("x-surface")
   if not insight_ctx:
     return helpers.abort('Sorry, could not answer your query.',
                          '', [],
@@ -314,4 +315,4 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
   utterance.insight_ctx = insight_ctx
   helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
   print("in insight")
-  return _fulfill_with_chart_config(utterance, debug_logs)
+  return _fulfill_with_chart_config(utterance, debug_logs, surface_header_value)

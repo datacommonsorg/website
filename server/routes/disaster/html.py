@@ -20,13 +20,12 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import redirect
-from flask import url_for
 from flask import request
+from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
-
 
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
@@ -58,7 +57,8 @@ def disaster_dashboard(place_dcid=None):
   surface_header_value = request.headers.get("x-surface")
 
   # Update contained places from place metadata
-  place_metadata = lib_subject_page_config.place_metadata(place_dcid, surface_header_value=surface_header_value)
+  place_metadata = lib_subject_page_config.place_metadata(
+      place_dcid, surface_header_value=surface_header_value)
   if place_metadata.is_error:
     return flask.render_template(
         'disaster_dashboard.html',

@@ -111,7 +111,8 @@ export async function getStatWithinPlace(
 export async function getStatAllWithinPlace(
   parentPlace: string,
   childType: string,
-  statVars: { statVarDcid: string; date?: string }[]
+  statVars: { statVarDcid: string; date?: string }[],
+  surfaceHeaderValue: string
 ): Promise<PointAllApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -130,7 +131,7 @@ export async function getStatAllWithinPlace(
             variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
-          headers: getXSurfaceHeader(),
+          headers: getXSurfaceHeader(surfaceHeaderValue),
         })
         .then((resp) => resp.data)
     );

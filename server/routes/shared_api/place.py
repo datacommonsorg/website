@@ -329,7 +329,8 @@ def child_fetch(parent_dcid, surface_header_value=None):
   pop = {}
   obs_response = fetch.point_core(wanted_dcids, [POPULATION_DCID],
                                   date='LATEST',
-                                  all_facets=False, surfaceHeaderValye=surface_header_value)
+                                  all_facets=False,
+                                  surfaceHeaderValye=surface_header_value)
   for entity, points in obs_response['data'].get(POPULATION_DCID, {}).items():
     if points:
       pop[entity] = points.get('value')

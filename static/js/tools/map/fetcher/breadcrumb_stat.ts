@@ -18,11 +18,11 @@
  * Fetch the breadcrumb (parent places) stat data
  */
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
 import {
   EntityObservationWrapper,
   PointApiResponse,
@@ -74,7 +74,7 @@ export function useFetchBreadcrumbStat(
           variables: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,
-        headers: getXSurfaceHeader(),
+        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
       })
       .then((resp) => {
         if (_.isEmpty(resp.data.data[statVar.value.dcid])) {

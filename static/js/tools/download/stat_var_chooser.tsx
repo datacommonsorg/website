@@ -49,6 +49,7 @@ interface StatVarChooserProps {
   onStatVarRemoved: (sv: string) => void;
   openSvHierarchyModalCallback: () => void;
   openSvHierarchyModal: boolean;
+  surfaceHeaderValue: string;
 }
 
 const EMPTY_SV_AND_INFO: { dcid: string; info: StatVarInfo } = {
@@ -113,6 +114,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         }
         selectedSVs={selectedSVs}
         selectSV={(sv): void => selectSV(sv)}
+        surfaceHeaderValue={props.surfaceHeaderValue}
       />
       {/* Modal for selecting stat var to replace when too many are selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">

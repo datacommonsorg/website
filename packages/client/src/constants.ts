@@ -32,3 +32,5 @@ export const DEFAULT_GEOJSON_PROPERTY_NAME = "geoJsonCoordinatesDP1";
 export const DEFAULT_FIELD_DELIMITER = ".";
 // Value to be passed into fetchData and eventually to mixer to log usage from the website surface
 export const WEBSITE_SURFACE_HEADER_VALUE = "website";
+// Value to be passed into mixer to log usage from an unknown surface
+export const UNKNOWN_SURFACE_HEADER_VALUE = "unknown";

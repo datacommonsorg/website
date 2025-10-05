@@ -20,8 +20,8 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import redirect
-from flask import url_for
 from flask import request
+from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
 from server.lib.cache import cache
@@ -63,7 +63,8 @@ def sustainability_explorer(place_dcid=None):
   surface_header_value = request.headers.get("x-surface")
 
   # Update contained places from place metadata
-  place_metadata = lib_subject_page_config.place_metadata(place_dcid, surface_header_value=surface_header_value)
+  place_metadata = lib_subject_page_config.place_metadata(
+      place_dcid, surface_header_value=surface_header_value)
   if place_metadata.is_error:
     return flask.render_template(
         'sustainability.html',

@@ -220,8 +220,12 @@ def point_within_core(ancestor_entity,
   }
   """
   print("from point_within_core")
-  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
-                             facet_ids, surfaceHeaderValue=surfaceHeaderValue)
+  resp = dc.obs_point_within(ancestor_entity,
+                             descendent_type,
+                             variables,
+                             date,
+                             facet_ids,
+                             surfaceHeaderValue=surfaceHeaderValue)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
@@ -362,7 +366,7 @@ def observation_existence(variables, entities, surfaceHeaderValue=None):
   resp = dc.v2observation(select=['variable', 'entity'],
                           entity={'dcids': entities},
                           variable={'dcids': variables},
-                          surfaceHeaderValue=(surfaceHeaderValue or "website"))
+                          surfaceHeaderValue=(surfaceHeaderValue or "unknown"))
   for var, entity_obs in resp.get('byVariable', {}).items():
     for e in entity_obs.get('byEntity', {}):
       result[var][e] = True

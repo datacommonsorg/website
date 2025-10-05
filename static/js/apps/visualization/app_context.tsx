@@ -28,6 +28,7 @@ import {
   STAT_VAR_PARAM_KEYS,
   URL_PARAMS,
 } from "../../constants/app/visualization_constants";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 import { StatMetadata } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
@@ -253,14 +254,17 @@ export function AppContextProvider(
     }
     prevSamplePlaces.current = samplePlaces;
     prevStatVars.current = statVars;
-    getFilteredStatVarPromise(samplePlaces, statVars, visTypeConfig).then(
-      (filteredStatVars) => {
-        if (!_.isEqual(filteredStatVars, statVars)) {
-          shouldUpdateHash.current.push(false);
-          setStatVars(filteredStatVars);
-        }
+    getFilteredStatVarPromise(
+      samplePlaces,
+      statVars,
+      visTypeConfig,
+      WEBSITE_SURFACE_HEADER_VALUE
+    ).then((filteredStatVars) => {
+      if (!_.isEqual(filteredStatVars, statVars)) {
+        shouldUpdateHash.current.push(false);
+        setStatVars(filteredStatVars);
       }
-    );
+    });
   }, [samplePlaces, statVars]);
 
   // when the vis type changes, update the list of places and list of stat vars
@@ -392,7 +396,12 @@ export function AppContextProvider(
         allStatVarsPromise,
         samplePlacesPromise,
       ]).then(([statVars, samplePlaces]) => {
-        return getFilteredStatVarPromise(samplePlaces, statVars, visTypeConfig);
+        return getFilteredStatVarPromise(
+          samplePlaces,
+          statVars,
+          visTypeConfig,
+          WEBSITE_SURFACE_HEADER_VALUE
+        );
       });
     }
     // once every promise completes, set the values to the context

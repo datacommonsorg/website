@@ -23,7 +23,10 @@ import _ from "lodash";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
-import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import {
+  DEFAULT_POPULATION_DCID,
+  WEBSITE_SURFACE_HEADER_VALUE,
+} from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   EntityObservation,
@@ -168,7 +171,14 @@ function useCache(): Cache {
       !isLoading.areDataLoading &&
       !areDataLoaded(cache, xVal, yVal, placeVal)
     ) {
-      void loadData(x, y, placeVal, isLoading, setCache);
+      void loadData(
+        x,
+        y,
+        placeVal,
+        isLoading,
+        setCache,
+        WEBSITE_SURFACE_HEADER_VALUE
+      );
     }
   }, [xVal, yVal, placeVal]);
 
@@ -188,19 +198,23 @@ async function loadData(
   y: AxisWrapper,
   place: PlaceInfo,
   isLoading: IsLoadingWrapper,
-  setCache: (cache: Cache) => void
+  setCache: (cache: Cache) => void,
+  surfaceHeaderValue: string
 ): Promise<void> {
   isLoading.setAreDataLoading(true);
   const statResponsePromise: Promise<PointApiResponse> = getStatWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    [x.value, y.value]
+    [x.value, y.value],
+    surfaceHeaderValue
   );
   const statAllResponsePromise: Promise<PointAllApiResponse> =
-    getStatAllWithinPlace(place.enclosingPlace.dcid, place.enclosedPlaceType, [
-      x.value,
-      y.value,
-    ]);
+    getStatAllWithinPlace(
+      place.enclosingPlace.dcid,
+      place.enclosedPlaceType,
+      [x.value, y.value],
+      surfaceHeaderValue
+    );
   const populationSvList = new Set([DEFAULT_POPULATION_DCID]);
   for (const axis of [x.value, y.value]) {
     if (axis.denom) {
@@ -211,7 +225,9 @@ async function loadData(
     "",
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    Array.from(populationSvList)
+    Array.from(populationSvList),
+    null,
+    surfaceHeaderValue
   );
   try {
     const [statResponse, statAllResponse, populationData] = await Promise.all([

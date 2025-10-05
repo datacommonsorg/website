@@ -15,6 +15,7 @@
  */
 import axios from "axios";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
 import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
@@ -37,7 +38,8 @@ function removeSpinner(): void {
 function downloadBulkData(
   statVars: string[],
   descendentType: string,
-  ancestorDcid: string
+  ancestorDcid: string,
+  surfaceHeaderValue: string
 ): void {
   loadSpinner();
   axios
@@ -57,7 +59,7 @@ function downloadBulkData(
             variables: statVars,
           },
           paramsSerializer: stringifyFn,
-          headers: getXSurfaceHeader(),
+          headers: getXSurfaceHeader(surfaceHeaderValue),
         })
         .then((resp) => {
           if (resp.data && resp.data.data) {
@@ -112,7 +114,12 @@ window.addEventListener("load", (): void => {
     const link = links.item(i) as HTMLElement;
     const ptype = link.dataset.ptype;
     link.addEventListener("click", function () {
-      downloadBulkData(statVars, ptype, "country/USA");
+      downloadBulkData(
+        statVars,
+        ptype,
+        "country/USA",
+        WEBSITE_SURFACE_HEADER_VALUE
+      );
     });
   }
 });

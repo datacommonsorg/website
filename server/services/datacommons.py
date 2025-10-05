@@ -86,7 +86,7 @@ def post_wrapper(url,
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
   print("surfaceHeaderValue: ", surfaceHeaderValue)
-  headers['x-surface'] = surfaceHeaderValue 
+  headers['x-surface'] = surfaceHeaderValue
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
@@ -111,17 +111,17 @@ def obs_point(entities, variables, date="LATEST", surfaceHeaderValue=None):
     """
   url = get_service_url("/v2/observation")
   print("in obs_core: ", surfaceHeaderValue)
-  return post(
-      url, {
-          "select": ["date", "value", "variable", "entity"],
-          "entity": {
-              "dcids": sorted(entities)
-          },
-          "variable": {
-              "dcids": sorted(variables)
-          },
-          "date": date,
-      }, surfaceHeaderValue=surfaceHeaderValue)
+  return post(url, {
+      "select": ["date", "value", "variable", "entity"],
+      "entity": {
+          "dcids": sorted(entities)
+      },
+      "variable": {
+          "dcids": sorted(variables)
+      },
+      "date": date,
+  },
+              surfaceHeaderValue=surfaceHeaderValue)
 
 
 def obs_point_within(parent_entity,
@@ -216,7 +216,7 @@ def obs_series_within(parent_entity,
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
-  
+
   print("surfaceHeaderValue in obs_series_within: ", surfaceHeaderValue)
   return post(url, req, surfaceHeaderValue=surfaceHeaderValue)
 
@@ -230,16 +230,16 @@ def series_facet(entities, variables, surfaceHeaderValue=None):
     """
   url = get_service_url("/v2/observation")
   print("surfaceHeaderValue in series_facet: ", surfaceHeaderValue)
-  return post(
-      url, {
-          "select": ["variable", "entity", "facet"],
-          "entity": {
-              "dcids": sorted(entities)
-          },
-          "variable": {
-              "dcids": sorted(variables)
-          },
-      }, surfaceHeaderValue=surfaceHeaderValue)
+  return post(url, {
+      "select": ["variable", "entity", "facet"],
+      "entity": {
+          "dcids": sorted(entities)
+      },
+      "variable": {
+          "dcids": sorted(variables)
+      },
+  },
+              surfaceHeaderValue=surfaceHeaderValue)
 
 
 def point_within_facet(parent_entity,
@@ -252,19 +252,19 @@ def point_within_facet(parent_entity,
     """
   url = get_service_url("/v2/observation")
   print("surf in point_within_facet: ", surfaceHeaderValue)
-  return post(
-      url, {
-          "select": ["variable", "entity", "facet"],
-          "entity": {
-              "expression":
-                  "{0}<-containedInPlace+{{typeOf:{1}}}".format(
-                      parent_entity, child_type)
-          },
-          "variable": {
-              "dcids": sorted(variables)
-          },
-          "date": date,
-      }, surfaceHeaderValue=surfaceHeaderValue)
+  return post(url, {
+      "select": ["variable", "entity", "facet"],
+      "entity": {
+          "expression":
+              "{0}<-containedInPlace+{{typeOf:{1}}}".format(
+                  parent_entity, child_type)
+      },
+      "variable": {
+          "dcids": sorted(variables)
+      },
+      "date": date,
+  },
+              surfaceHeaderValue=surfaceHeaderValue)
 
 
 def v2observation(select, entity, variable, surfaceHeaderValue=None):
@@ -287,7 +287,8 @@ def v2observation(select, entity, variable, surfaceHeaderValue=None):
       "select": select,
       "entity": entity,
       "variable": variable,
-  }, surfaceHeaderValue=surfaceHeaderValue)
+  },
+              surfaceHeaderValue=surfaceHeaderValue)
 
 
 def v2node(nodes, prop):
@@ -638,8 +639,12 @@ def safe_obs_point_within(parent_entity,
   If an error occurs, returns a dict with an empty byVariable key.
   """
   try:
-    return obs_point_within(parent_entity, child_type, variables, date,
-                            facet_ids, surfaceHeaderValue=surfaceHeaderValue)
+    return obs_point_within(parent_entity,
+                            child_type,
+                            variables,
+                            date,
+                            facet_ids,
+                            surfaceHeaderValue=surfaceHeaderValue)
   except Exception as e:
     logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)
     return {"byVariable": {}}

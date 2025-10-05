@@ -283,7 +283,8 @@ export function getContextStatVar(svSpec: StatVarSpec): ContextStatVar {
 export function getFilteredStatVarPromise(
   samplePlaces: NamedNode[],
   statVars: ContextStatVar[],
-  visTypeConfig: VisTypeConfig
+  visTypeConfig: VisTypeConfig,
+  surfaceHeaderValue: string
 ): Promise<ContextStatVar[]> {
   if (_.isEmpty(samplePlaces) || _.isEmpty(statVars)) {
     return Promise.resolve([]);
@@ -296,7 +297,7 @@ export function getFilteredStatVarPromise(
         variables: statVars.map((sv) => sv.dcid),
       },
       {
-        headers: getXSurfaceHeader(),
+        headers: getXSurfaceHeader(surfaceHeaderValue),
       }
     )
     .then((resp) => {

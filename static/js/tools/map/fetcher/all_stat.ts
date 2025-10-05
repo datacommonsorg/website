@@ -20,6 +20,7 @@
 
 // TODO(shifucun): remove all the console.log() debugging.
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
@@ -70,7 +71,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
           variables: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,
-        headers: getXSurfaceHeader(),
+        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
       })
       .then((resp) => {
         if (_.isEmpty(resp.data.data[statVar.value.dcid])) {

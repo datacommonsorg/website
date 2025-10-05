@@ -24,6 +24,7 @@ import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
 import { Chip } from "../../shared/chip";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
@@ -166,7 +167,7 @@ export function Page(props: PagePropType): ReactElement {
       .get("/api/facets/within", {
         params: reqObj,
         paramsSerializer: stringifyFn,
-        headers: getXSurfaceHeader(),
+        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
       })
       .then(async (resp) => {
         const baseFacetData: PointAllApiResponse = resp.data;
@@ -225,6 +226,7 @@ export function Page(props: PagePropType): ReactElement {
         onStatVarRemoved={removeStatVar}
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
+        surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
       />
       <div id="plot-container">
         <h1 className="mb-4">Data Download Tool</h1>

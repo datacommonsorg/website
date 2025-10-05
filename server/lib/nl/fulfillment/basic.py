@@ -44,8 +44,12 @@ _PLACE_TYPE_FALLBACK_THRESHOLD_RANK = 5
 #
 
 
-def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType, rank: int, surfaceHeaderValue: str = None) -> bool:
+def populate(state: PopulateState,
+             chart_vars: ChartVars,
+             places: List[Place],
+             chart_origin: ChartOriginType,
+             rank: int,
+             surfaceHeaderValue: str = None) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('basic_failed_cb_events', 1)
     return False
@@ -67,14 +71,27 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     # PROJECTED_TEMP_TOPIC has some very custom handling in config-builder,
     # that needs to be deprecated.
     # TODO: Deprecate this flow completely!
-    return _populate_specific(state, chart_vars, places, chart_origin, rank, surfaceHeaderValue=surfaceHeaderValue)
+    return _populate_specific(state,
+                              chart_vars,
+                              places,
+                              chart_origin,
+                              rank,
+                              surfaceHeaderValue=surfaceHeaderValue)
   else:
-    return _populate_explore(state, chart_vars, places, chart_origin, rank, surfaceHeaderValue=surfaceHeaderValue)
+    return _populate_explore(state,
+                             chart_vars,
+                             places,
+                             chart_origin,
+                             rank,
+                             surfaceHeaderValue=surfaceHeaderValue)
 
 
-def _populate_explore(state: PopulateState, chart_vars: ChartVars,
-                      places: List[Place], chart_origin: ChartOriginType,
-                      rank: int, surfaceHeaderValue: str = None) -> bool:
+def _populate_explore(state: PopulateState,
+                      chart_vars: ChartVars,
+                      places: List[Place],
+                      chart_origin: ChartOriginType,
+                      rank: int,
+                      surfaceHeaderValue: str = None) -> bool:
   added = False
   # TODO(gmechali): Consider making is_highlight a part of the utterance.
   # We use the chart type parameter as a proxy to determine if a specific chart
@@ -124,7 +141,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
             rank,
             ranking_count=_get_ranking_count_by_type(state.place_type,
                                                      ranking_orig),
-                                                     surfaceHeaderValue=surfaceHeaderValue)
+            surfaceHeaderValue=surfaceHeaderValue)
         state.ranking_types = ranking_orig
       elif is_special_dc:
         # Return only map.
