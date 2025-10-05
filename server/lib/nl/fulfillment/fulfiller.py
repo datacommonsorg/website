@@ -45,6 +45,7 @@ _TOPIC_PREFIX = "dc/topic/"
 # Populate chart candidates in the utterance.
 #
 def fulfill(uttr: Utterance, surfaceHeaderValue: str) -> PopulateState:
+  print("in fulfill: ", surfaceHeaderValue)
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 

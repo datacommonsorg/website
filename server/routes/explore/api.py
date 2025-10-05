@@ -106,6 +106,7 @@ def detect_and_fulfill():
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
   surface_header_value = request.headers.get("x-surface") or "unknown"
+  print("IN detect and fulfill: ", surface_header_value)
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)

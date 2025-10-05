@@ -532,6 +532,7 @@ const fetchFulfillData = async (
     }
     const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
+    console.log("making call to fetchFulfilldata with correct header");
     const resp = await axios.post(
       `/api/explore/fulfill${args}`,
       {

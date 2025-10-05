@@ -20,11 +20,11 @@
 
 // TODO(shifucun): remove all the console.log() debugging.
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
 import {
   EntityObservationListWrapper,
   PointAllApiResponse,

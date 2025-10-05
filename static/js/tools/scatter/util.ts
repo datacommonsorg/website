@@ -114,6 +114,7 @@ export async function getStatAllWithinPlace(
   statVars: { statVarDcid: string; date?: string }[],
   surfaceHeaderValue: string
 ): Promise<PointAllApiResponse> {
+  console.log("in getStatAllWithinPlace: ", surfaceHeaderValue);
   // There are two stat vars for scatter plot.
   //
   // For IPCC stat vars, need to cut the data up to certain date, so here will

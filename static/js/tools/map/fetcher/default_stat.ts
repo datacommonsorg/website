@@ -18,10 +18,10 @@
  * Fetch the default (best available) stat data
  */
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
 import { EntityObservationWrapper } from "../../../shared/stat_types";
 import { getCappedStatVarDate } from "../../../shared/util";
 import { getPointWithin } from "../../../utils/data_fetch_utils";

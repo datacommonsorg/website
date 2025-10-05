@@ -111,6 +111,7 @@ def _compute_answer_places(state: PopulateState,
                            place: List[Place],
                            sv: str,
                            surfaceHeaderValue: str = None):
+  print("in compute_answer_places:", surfaceHeaderValue)
   if classifications_of_type_from_utterance(state.uttr,
                                             ClassificationType.PER_CAPITA):
     if os.environ.get('FLASK_ENV') == 'test':

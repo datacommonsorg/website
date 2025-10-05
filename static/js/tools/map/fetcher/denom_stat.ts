@@ -18,10 +18,10 @@
  * Fetch the stat data for denominator stat var
  */
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
 import { EntitySeriesWrapper } from "../../../shared/stat_types";
 import { getSeriesWithin } from "../../../utils/data_fetch_utils";
 import { ChartDataType, ChartStoreAction } from "../chart_store";

@@ -73,6 +73,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config,
   related_things = related.compute_related_things(state, plotted_orig_vars,
                                                   explore_peer_groups, surface_header_value)
 
+  print("finishing fulfill")
   return FulfillResp(chart_pb=builder_result.page_config,
                      related_things=related_things,
                      user_message=builder_result.page_msg)
