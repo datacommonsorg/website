@@ -18,10 +18,10 @@ from flask import Blueprint
 from flask import request
 
 from server.lib import fetch
-from server.routes import UNKNOWN_SURFACE_HEADER_VALUE
 
 bp = Blueprint("facets", __name__, url_prefix='/api/facets')
 
+UNKNOWN_SURFACE_HEADER_VALUE = "unknown"
 
 def is_valid_date(date):
   """

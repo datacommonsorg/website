@@ -84,14 +84,16 @@ def event_existence_for_place(place: str, event: types.EventType,
 # Returns a list of existing SVs (as a union across places).
 # The order of the returned SVs matches the input order.
 #
-def sv_existence_for_places(places: List[str], svs: List[str],
-                            counters: ctr.Counters) -> List[str]:
+def sv_existence_for_places(places: List[str],
+                            svs: List[str],
+                            counters: ctr.Counters,
+                            surfaceHeaderValue: str = None) -> List[str]:
   if not svs:
     return [], {}
 
   start = time.time()
 
-  sv_existence = fetch.observation_existence(svs, places)
+  sv_existence = fetch.observation_existence(svs, places, surfaceHeaderValue)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
     counters.err('sv_existence_for_places_failed', {

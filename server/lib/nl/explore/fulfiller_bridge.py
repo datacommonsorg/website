@@ -43,8 +43,8 @@ class FulfillResp:
 
 
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config,
-            surfaceHeaderValue: str) -> FulfillResp:
-  state = nl_fulfiller.fulfill(uttr, surfaceHeaderValue)
+            surface_header_value: str) -> FulfillResp:
+  state = nl_fulfiller.fulfill(uttr, surface_header_value)
 
   builder_result = nl_config_builder.build(state, cb_config)
   if not builder_result.page_config:
@@ -66,12 +66,12 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config,
   if (not state.uttr.insight_ctx.get(params.Params.EXP_MORE_DISABLED) and
       not params.is_special_dc(state.uttr.insight_ctx)):
     explore_more_chart_vars_map = _get_explore_more_chart_vars(
-        state, surfaceHeaderValue)
+        state, surface_header_value)
     explore_peer_groups = extension.chart_vars_to_explore_peer_groups(
         state, explore_more_chart_vars_map)
 
   related_things = related.compute_related_things(state, plotted_orig_vars,
-                                                  explore_peer_groups)
+                                                  explore_peer_groups, surface_header_value)
 
   return FulfillResp(chart_pb=builder_result.page_config,
                      related_things=related_things,

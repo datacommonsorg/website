@@ -26,7 +26,6 @@ from server.lib import log
 from server.lib.cache import cache
 from server.lib.cache import should_skip_cache
 import server.lib.config as libconfig
-from server.lib.util import UNKNOWN_SURFACE_HEADER_VALUE
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -34,6 +33,7 @@ from server.services.discovery import get_service_url
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
+UNKNOWN_SURFACE_HEADER_VALUE = "unknown"
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str, surfaceHeaderValue=UNKNOWN_SURFACE_HEADER_VALUE):
@@ -67,7 +67,8 @@ def post(url: str,
   key_to_use = api_key
   if key_to_use is None:
     key_to_use = current_app.config.get("DC_API_KEY", "")
-  print("in post: ", surfaceHeaderValue)
+  if "v2/observation" in url:
+    print("in post: ", surfaceHeaderValue)
   return post_wrapper(url,
                       req_str,
                       key_to_use,
@@ -86,7 +87,8 @@ def post_wrapper(url,
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
-  print("surfaceHeaderValue: ", surfaceHeaderValue)
+  if "v2/observation" in url:
+    print("in post wrapper: ", surfaceHeaderValue)
   headers['x-surface'] = surfaceHeaderValue
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)

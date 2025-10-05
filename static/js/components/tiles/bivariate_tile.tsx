@@ -238,7 +238,9 @@ export const fetchData = async (props: BivariateTilePropType) => {
     [
       { statVarDcid: props.statVarSpec[0].statVar },
       { statVarDcid: props.statVarSpec[1].statVar },
-    ]
+    ],
+    props.apiRoot,
+    props.surfaceHeaderValue
   );
   const populationPromise: Promise<SeriesApiResponse> = getPopulationPromise(
     props.place.dcid,
