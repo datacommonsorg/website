@@ -33,7 +33,7 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 #       auto-expanded peer groups of SVs.
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType, _: int) -> bool:
+             chart_origin: ChartOriginType, _: int = None) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('ranking-across-vars_failed_cb_events', 1)
     return False
