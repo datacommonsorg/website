@@ -277,7 +277,12 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/charts/${
       params.placeDcid
     }?${queryString}`;
-    const response = await fetch(url);
+    const config = {
+      headers: {
+        "x-surface": this.surfaceHeaderValue,
+      },
+    };
+    const response = await fetch(url, config);
     return (await response.json()) as PlaceChartsApiResponse;
   }
 

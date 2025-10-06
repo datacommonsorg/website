@@ -143,6 +143,7 @@ export function TileSources(props: {
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}
                     statVarSpecs={statVarSpecs}
+                    surfaceHeaderValue={props.surfaceHeaderValue}
                   />
                 )}
               </span>

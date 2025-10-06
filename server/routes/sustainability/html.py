@@ -60,7 +60,9 @@ def sustainability_explorer(place_dcid=None):
     return "Error: no config installed"
   subject_config = copy.deepcopy(raw_subject_config)
 
-  surface_header_value = request.headers.get("x-surface")
+  # currently is only referenced from the website. 
+  # this value is used in mixer logs
+  surface_header_value = "website"
 
   # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(
