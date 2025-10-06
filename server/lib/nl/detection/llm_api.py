@@ -53,8 +53,7 @@ _GEMINI_CONFIG = types.GenerateContentConfig(
             "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
             "threshold": "BLOCK_MEDIUM_AND_ABOVE"
         },
-    ]
-)
+    ])
 
 _SKIP_BEGIN_CHARS = ['`', '*']
 
@@ -81,17 +80,15 @@ def detect_with_gemini(query: str, history: List[List[str]],
   start_time = time.time()
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
-  
-  gemini_client = genai.Client(api_key=api_key,
-                               http_options=genai.types.HttpOptions(
-                                   api_version='v1'))
+
+  gemini_client = genai.Client(
+      api_key=api_key, http_options=genai.types.HttpOptions(api_version='v1'))
   model_name = _GEMINI_2_5_FLASH if is_feature_enabled(
-        ENABLE_GEMINI_2_5_FLASH_FLAG, request=request) else _GEMINI_1_5_PRO
+      ENABLE_GEMINI_2_5_FLASH_FLAG, request=request) else _GEMINI_1_5_PRO
   logging.info(f'Gemini model used for LLM API: {model_name}')
-  gemini_response = gemini_client.models.generate_content(
-          model=model_name,
-          contents=text,
-          config=_GEMINI_CONFIG)
+  gemini_response = gemini_client.models.generate_content(model=model_name,
+                                                          contents=text,
+                                                          config=_GEMINI_CONFIG)
 
   ctr.timeit('gemini_pro_call', start_time)
 
