@@ -32,7 +32,6 @@ import {
 } from "../../constants/app/explore_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
@@ -168,7 +167,7 @@ const getFollowUpQuestions = async (
     return data.follow_up_questions.map((question) => {
       return {
         text: question,
-        url: `/explore?enable_feature=${FOLLOW_UP_QUESTIONS_GA}#${getUpdatedHash(
+        url: `/explore#${getUpdatedHash(
           {
             [URL_HASH_PARAMS.QUERY]: question,
             [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_QUESTION,
