@@ -31,7 +31,6 @@ from server.lib.nl.common import counters
 _GEMINI_API_URL_TEMPLATE = "https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
 _GEMINI_2_5_FLASH = '"gemini-2.5-flash"'
 _GEMINI_2_5_FLASH_LITE = '"gemini-2.5-flash-lite"'
-_GEMINI_1_5_PRO = '"gemini-1.5-pro"'
 _API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
@@ -195,16 +194,6 @@ def _extract_answer(resp: str) -> str:
 
 
 def detect_model_name() -> str:
-  if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_FLAG,
-                        request=request) and is_feature_enabled(
-                            ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
-    logging.error(
-        'error: Both Gemini 2.5 Flash and Flash Lite feature flags are enabled, please enable only one. Force to use 1.5 Pro under this condition'
-    )
-    return _GEMINI_1_5_PRO
   if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
     return _GEMINI_2_5_FLASH_LITE
-  if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_FLAG, request=request):
-    return _GEMINI_2_5_FLASH
-
-  return _GEMINI_1_5_PRO
+  return _GEMINI_2_5_FLASH
