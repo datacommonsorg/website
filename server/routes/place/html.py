@@ -222,8 +222,7 @@ def place(place_dcid):
 
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
-  # surface_header_value = request.headers.get("x-surface")
-  surface_header_value = "website-test"
+  surface_header_value = request.headers.get("x-surface")
 
   canonical_links = get_canonical_links(place_dcid, category)
   return flask.render_template('place.html',
