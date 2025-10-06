@@ -216,7 +216,6 @@ def place(place_dcid):
     should_redirect = True
 
   if should_redirect:
-    print("Redirecting!!")
     redirect_args['place_dcid'] = place_dcid
     return flask.redirect(flask.url_for('place.place', **redirect_args),
                           code=301)
