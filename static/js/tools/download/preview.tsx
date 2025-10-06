@@ -156,7 +156,9 @@ export function Preview(props: PreviewProps): JSX.Element {
   }
 
   function onDownloadClicked(): void {
+    console.log("Reaching onDownloadClicked");
     if (_.isEmpty(csvReqPayload.current)) {
+      console.log("Returning");
       return;
     }
     const headers = {
@@ -167,6 +169,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     axios
       .post("/api/csv/within", csvReqPayload.current, headers)
       .then((resp) => {
+        console.log("finishing call, resp: ", resp);
         if (resp.data) {
           saveToFile(
             `${props.selectedOptions.selectedPlace.name}_${props.selectedOptions.enclosedPlaceType}.csv`,

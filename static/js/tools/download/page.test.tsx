@@ -83,16 +83,24 @@ test("Loading options from URL", async () => {
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
   wrapper.find(".download-button").at(0).simulate("click");
-  expect(axios.post).toHaveBeenCalledWith("/api/csv/within", {
-    childType: "County",
-    facetMap: {
-      Count_Person: "",
+  expect(axios.post).toHaveBeenCalledWith(
+    "/api/csv/within",
+    {
+      childType: "County",
+      facetMap: {
+        Count_Person: "",
+      },
+      maxDate: "latest",
+      minDate: "latest",
+      parentPlace: "geoId/06",
+      statVars: ["Count_Person"],
     },
-    maxDate: "latest",
-    minDate: "latest",
-    parentPlace: "geoId/06",
-    statVars: ["Count_Person"],
-  });
+    {
+      headers: {
+        "x-surface": "website",
+      },
+    }
+  );
   let savedFile = "";
   jest.spyOn(SharedUtil, "saveToFile").mockImplementation((fileName) => {
     savedFile = fileName;
@@ -169,16 +177,24 @@ test("Manually updating options", async () => {
   ).toMatchSnapshot();
   // Check that clicking download gets the right data and calls the saveToFile function.
   wrapper.find(".download-button").at(0).simulate("click");
-  expect(axios.post).toHaveBeenCalledWith("/api/csv/within", {
-    childType: "County",
-    facetMap: {
-      Count_Person: "",
+  expect(axios.post).toHaveBeenCalledWith(
+    "/api/csv/within",
+    {
+      childType: "County",
+      facetMap: {
+        Count_Person: "",
+      },
+      maxDate: "",
+      minDate: "2020",
+      parentPlace: "geoId/06",
+      statVars: ["Count_Person"],
     },
-    maxDate: "",
-    minDate: "2020",
-    parentPlace: "geoId/06",
-    statVars: ["Count_Person"],
-  });
+    {
+      headers: {
+        "x-surface": "website",
+      },
+    }
+  );
   let savedFile = "";
   jest.spyOn(SharedUtil, "saveToFile").mockImplementation((fileName) => {
     savedFile = fileName;

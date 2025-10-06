@@ -21,6 +21,7 @@
 jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";
+import { get } from "lodash";
 
 import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
@@ -356,55 +357,79 @@ export function axiosMock(): void {
 
   // get csv
   when(axios.post)
-    .calledWith("/api/csv/within", {
-      childType: "County",
-      facetMap: { Count_Person: "" },
-      maxDate: "latest",
-      minDate: "latest",
-      parentPlace: "geoId/06",
-      rowLimit: 7,
-      statVars: ["Count_Person"],
-    })
+    .calledWith(
+      "/api/csv/within",
+      {
+        childType: "County",
+        facetMap: { Count_Person: "" },
+        maxDate: "latest",
+        minDate: "latest",
+        parentPlace: "geoId/06",
+        rowLimit: 7,
+        statVars: ["Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      }
+    )
     .mockResolvedValue({
       data: csvData,
     });
 
   when(axios.post)
-    .calledWith("/api/csv/within", {
-      childType: "County",
-      facetMap: { Count_Person: "" },
-      maxDate: "latest",
-      minDate: "latest",
-      parentPlace: "geoId/06",
-      statVars: ["Count_Person"],
-    })
+    .calledWith(
+      "/api/csv/within",
+      {
+        childType: "County",
+        facetMap: { Count_Person: "" },
+        maxDate: "latest",
+        minDate: "latest",
+        parentPlace: "geoId/06",
+        statVars: ["Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      }
+    )
     .mockResolvedValue({
       data: csvData,
     });
 
   when(axios.post)
-    .calledWith("/api/csv/within", {
-      childType: "County",
-      facetMap: { Count_Person: "" },
-      maxDate: "",
-      minDate: "2020",
-      parentPlace: "geoId/06",
-      rowLimit: 7,
-      statVars: ["Count_Person"],
-    })
+    .calledWith(
+      "/api/csv/within",
+      {
+        childType: "County",
+        facetMap: { Count_Person: "" },
+        maxDate: "",
+        minDate: "2020",
+        parentPlace: "geoId/06",
+        rowLimit: 7,
+        statVars: ["Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      }
+    )
     .mockResolvedValue({
       data: csvData,
     });
 
   when(axios.post)
-    .calledWith("/api/csv/within", {
-      childType: "County",
-      facetMap: { Count_Person: "" },
-      maxDate: "",
-      minDate: "2020",
-      parentPlace: "geoId/06",
-      statVars: ["Count_Person"],
-    })
+    .calledWith(
+      "/api/csv/within",
+      {
+        childType: "County",
+        facetMap: { Count_Person: "" },
+        maxDate: "",
+        minDate: "2020",
+        parentPlace: "geoId/06",
+        statVars: ["Count_Person"],
+      },
+      {
+        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      }
+    )
     .mockResolvedValue({
       data: csvData,
     });
