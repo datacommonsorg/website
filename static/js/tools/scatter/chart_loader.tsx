@@ -76,13 +76,15 @@ type ChartData = {
   yUnit: string;
 };
 
-export function ChartLoader(): ReactElement {
+export function ChartLoader(props: {
+  surfaceHeaderValue: string;
+}): ReactElement {
   const { x, y, place, display } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
 
   const { facetSelectorMetadata, facetListLoading, facetListError } =
-    useFacetMetadata(cache?.baseFacets || null);
+    useFacetMetadata(cache?.baseFacets || null, props.surfaceHeaderValue);
 
   const xVal = x.value;
   const yVal = y.value;

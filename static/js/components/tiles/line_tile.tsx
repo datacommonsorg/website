@@ -237,6 +237,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       title={props.title}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       <div
         id={props.id}
@@ -257,7 +258,10 @@ export function LineTile(props: LineTilePropType): ReactElement {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(
+    props.apiRoot,
+    props.surfaceHeaderValue
+  );
   return () => {
     const perCapitaVariables = props.statVarSpec
       .filter((v) => v.denom)

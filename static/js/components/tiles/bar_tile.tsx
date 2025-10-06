@@ -275,6 +275,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       statVarSpecs={props.variables}
       forwardRef={containerRef}
       chartHeight={props.svgChartHeight}
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       <div
         id={props.id}

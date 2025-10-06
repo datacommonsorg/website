@@ -63,6 +63,7 @@ interface TopEventTilePropType {
   className?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  surfaceHeaderValue: string;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -133,7 +134,12 @@ export const TopEventTile = memo(function TopEventTile(
         <div className={`ranking-list top-event-content `}>
           <div className="ranking-header-section">
             {<h4>{!isInitialLoading && props.title}</h4>}
-            {showChart && <TileSources sources={sources} />}
+            {showChart && (
+              <TileSources
+                sources={sources}
+                surfaceHeaderValue={props.surfaceHeaderValue}
+              />
+            )}
           </div>
           {!showChart && !isInitialLoading && (
             <p>There were no severe events in that time period.</p>
@@ -393,7 +399,8 @@ export const TopEventTile = memo(function TopEventTile(
       "",
       "",
       "",
-      []
+      [],
+      props.surfaceHeaderValue
     );
   }
 

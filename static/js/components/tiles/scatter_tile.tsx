@@ -259,6 +259,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       title={props.title}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       <div className="scatter-tile-content">
         <div
@@ -306,7 +307,10 @@ function getDataCsvCallback(
   scatterChartData: ScatterChartData
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surfaceHeaderValue
+    );
     // Assume both variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);

@@ -235,7 +235,10 @@ export function MapTile(props: MapTilePropType): ReactElement {
     : null;
   const showZoomButtons =
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(
+    props.apiRoot,
+    props.surfaceHeaderValue
+  );
 
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
@@ -425,6 +428,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
           ? [props.dataSpecs[0].variable]
           : [props.statVarSpec]
       }
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">

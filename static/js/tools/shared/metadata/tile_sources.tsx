@@ -65,6 +65,8 @@ export function TileSources(props: {
   // a set of observation specs relevant to the chart. These
   // specs can be hydrated into API calls.
   getObservationSpecs?: () => ObservationSpec[];
+  // passed into calls to mixer to be used in usage logs
+  surfaceHeaderValue: string;
 }): ReactElement {
   const {
     facets,
@@ -134,6 +136,7 @@ export function TileSources(props: {
                     statVarSpecs={statVarSpecs}
                     facets={facets}
                     statVarToFacets={statVarToFacets}
+                    surfaceHeaderValue={props.surfaceHeaderValue}
                   />
                 ) : (
                   <TileMetadataModalSimple
@@ -154,6 +157,7 @@ export function TileSources(props: {
                   getObservationSpecs={getObservationSpecs}
                   containerRef={props.containerRef}
                   variant="textOnly"
+                  surfaceHeaderValue={props.surfaceHeaderValue}
                 />
               </span>
             </>

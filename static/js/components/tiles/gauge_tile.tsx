@@ -140,6 +140,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       statVarSpecs={[props.statVarSpec]}
       forwardRef={containerRef}
       chartHeight={props.svgChartHeight}
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -231,7 +232,10 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: GaugeTilePropType): () => Promise<string> {
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(
+    props.apiRoot,
+    props.surfaceHeaderValue
+  );
   return () => {
     return dataCommonsClient.getCsv({
       date: props.statVarSpec.date,

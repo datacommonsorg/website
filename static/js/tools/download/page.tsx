@@ -92,7 +92,10 @@ interface PagePropType {
 }
 
 export function Page(props: PagePropType): ReactElement {
-  const dataCommonsClient = getDataCommonsClient();
+  const dataCommonsClient = getDataCommonsClient(
+    null,
+    WEBSITE_SURFACE_HEADER_VALUE
+  );
 
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
   const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);

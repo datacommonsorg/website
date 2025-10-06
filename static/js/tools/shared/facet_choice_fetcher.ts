@@ -41,7 +41,7 @@ export async function fetchFacetChoices(
   statVars: { dcid: string; name?: string }[],
   surfaceHeaderValue: string
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient();
+  const dataCommonsClient = getDataCommonsClient(null, surfaceHeaderValue);
   const baseFacets = await getFacets(
     "",
     placeDcids,
@@ -74,7 +74,7 @@ export async function fetchFacetChoicesWithin(
   statVars: { dcid: string; name?: string; date?: string }[],
   surfaceHeaderValue: string
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient();
+  const dataCommonsClient = getDataCommonsClient(null, surfaceHeaderValue);
   const facetPromises = statVars.map((sv) =>
     getFacetsWithin(
       "",

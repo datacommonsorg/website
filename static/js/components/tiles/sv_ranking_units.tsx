@@ -65,6 +65,7 @@ interface SvRankingUnitsProps {
   isLoading?: boolean;
   statVarSpecs: StatVarSpec[];
   containerRef: React.RefObject<HTMLElement>;
+  surfaceHeaderValue: string;
 }
 
 /**
@@ -115,6 +116,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.apiRoot,
             props.statVarSpecs,
             props.containerRef,
+            props.surfaceHeaderValue,
             highestRankingUnitRef,
             props.onHoverToggled,
             props.errorMsg,
@@ -153,6 +155,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.apiRoot,
                 props.statVarSpecs,
                 props.containerRef,
+                props.surfaceHeaderValue,
                 highestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -184,6 +187,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.apiRoot,
                 props.statVarSpecs,
                 props.containerRef,
+                props.surfaceHeaderValue,
                 lowestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -314,6 +318,7 @@ export function getRankingUnit(
   apiRoot: string,
   statVarSpecs: StatVarSpec[],
   containerRef: React.RefObject<HTMLElement>,
+  surfaceHeaderValue: string,
   rankingUnitRef?: RefObject<HTMLDivElement>,
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string,
@@ -358,6 +363,7 @@ export function getRankingUnit(
             facets={rankingGroup.facets}
             statVarToFacets={rankingGroup.statVarToFacets}
             statVarSpecs={statVarSpecs}
+            surfaceHeaderValue={surfaceHeaderValue}
           />
         )
       }

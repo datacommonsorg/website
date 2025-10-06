@@ -228,7 +228,10 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
   const placeHolderArray = Array(numRankingLists).fill("");
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(
+    props.apiRoot,
+    props.surfaceHeaderValue
+  );
 
   /**
    * Opens export modal window
@@ -264,7 +267,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       chartHtml,
       chartTitle,
       "",
-      props.sources || Array.from(sources)
+      props.sources || Array.from(sources),
+      props.surfaceHeaderValue
     );
   }
   return (
@@ -317,6 +321,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               tileId={props.id}
               title={props.title}
               statVarSpecs={props.variables}
+              surfaceHeaderValue={props.surfaceHeaderValue}
             />
           );
         })}

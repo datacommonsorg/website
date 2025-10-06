@@ -45,7 +45,8 @@ function getRankingChartSvg(
   tileConfig: TileConfig,
   apiRoot: string,
   statVarSpecs: StatVarSpec[],
-  containerRef: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLElement>,
+  surfaceHeaderValue: string
 ): SVGSVGElement {
   const rankingHtml = ReactDOMServer.renderToString(
     getRankingUnit(
@@ -57,7 +58,8 @@ function getRankingChartSvg(
       tileConfig.rankingTileSpec.showHighest,
       apiRoot,
       statVarSpecs,
-      containerRef
+      containerRef,
+      surfaceHeaderValue
     )
   );
   const style = {
@@ -249,7 +251,8 @@ export async function getRankingChart(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  containerRef: React.RefObject<HTMLElement>
+  containerRef: React.RefObject<HTMLElement>,
+  surfaceHeaderValue: string
 ): Promise<SVGSVGElement> {
   try {
     const rankingData = await fetchData(
@@ -257,7 +260,8 @@ export async function getRankingChart(
       tileConfig.rankingTileSpec,
       enclosedPlaceType,
       place,
-      apiRoot
+      apiRoot,
+      surfaceHeaderValue
     );
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
@@ -268,7 +272,8 @@ export async function getRankingChart(
         tileConfig,
         apiRoot,
         statVarSpec,
-        containerRef
+        containerRef,
+        surfaceHeaderValue
       );
     }
   } catch (e) {

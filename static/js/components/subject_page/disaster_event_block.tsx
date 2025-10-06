@@ -78,6 +78,8 @@ interface DisasterEventBlockPropType {
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
   disasterBlockMetadata: DisasterBlockSpec;
+  // Passed into Mixer for usage logs
+  surfaceHeaderValue: string;
 }
 
 interface DisasterEventBlockData {
@@ -432,6 +434,7 @@ function renderTiles(
             disasterEventData={tileEventData}
             enclosedPlaceType={enclosedPlaceType}
             showExploreMore={props.showExploreMore}
+            surfaceHeaderValue={props.surfaceHeaderValue}
           />
         );
       }

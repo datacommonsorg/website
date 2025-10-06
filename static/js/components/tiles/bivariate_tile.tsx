@@ -150,6 +150,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       errorMsg={bivariateChartData && bivariateChartData.errorMsg}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       <div
         id={props.id}
@@ -177,7 +178,10 @@ function getDataCsvCallback(
   props: BivariateTilePropType
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surfaceHeaderValue
+    );
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);

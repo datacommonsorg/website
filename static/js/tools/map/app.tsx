@@ -107,7 +107,7 @@ function App(): ReactElement {
           )}
           {showChart && (
             <Row id="chart-row">
-              <ChartLoader />
+              <ChartLoader surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE} />
             </Row>
           )}
         </Container>

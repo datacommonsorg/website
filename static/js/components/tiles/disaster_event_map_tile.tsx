@@ -108,6 +108,8 @@ export interface DisasterEventMapTilePropType {
   apiRoot?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surfaceHeaderValue?: string;
 }
 
 export interface DisasterMapChartData {

@@ -55,6 +55,8 @@ interface TileMetadataModalPropType {
   containerRef?: React.RefObject<HTMLElement>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
+  // passed into mixer calls for usage logs
+  surfaceHeaderValue: string;
 }
 
 export function TileMetadataModal(
@@ -67,7 +69,10 @@ export function TileMetadataModal(
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(
+    props.apiRoot,
+    props.surfaceHeaderValue
+  );
 
   const denomStatVarDcids = useMemo(() => {
     const result = new Set<string>();

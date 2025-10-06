@@ -43,7 +43,8 @@ type FacetMetadataReturn = {
  * error state.
  */
 export function useFacetMetadata(
-  baseFacets: FacetResponse | null
+  baseFacets: FacetResponse | null,
+  surfaceHeaderValue: string
 ): FacetMetadataReturn {
   const [facetMetadata, setFacetMetadata] = useState<FacetMetadataReturn>({
     facetSelectorMetadata: {},
@@ -65,7 +66,7 @@ export function useFacetMetadata(
       try {
         const resp = await fetchFacetsWithMetadata(
           baseFacets,
-          getDataCommonsClient()
+          getDataCommonsClient(null, surfaceHeaderValue)
         );
 
         if (cancelled) return;

@@ -77,6 +77,8 @@ interface ChartTileContainerProp {
   forwardRef?: MutableRefObject<HTMLDivElement | null>;
   // Optional: Chart height
   chartHeight?: number;
+  // Passed into calls to mixer to use in usage logs
+  surfaceHeaderValue: string;
 }
 
 export function ChartTileContainer(
@@ -121,6 +123,7 @@ export function ChartTileContainer(
               facets={props.facets}
               statVarToFacets={props.statVarToFacets}
               statVarSpecs={props.statVarSpecs}
+              surfaceHeaderValue={props.surfaceHeaderValue}
             />
           )}
         </div>
@@ -165,7 +168,8 @@ export function ChartTileContainer(
       "",
       chartTitle,
       "",
-      Array.from(props.sources)
+      Array.from(props.sources),
+      props.surfaceHeaderValue
     );
   }
 }

@@ -137,6 +137,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       footnote={props.footnote}
       forwardRef={containerRef}
       statVarSpecs={props.statVarSpec}
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       <div
         id={props.id}
@@ -158,7 +159,10 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
  */
 function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surfaceHeaderValue
+    );
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);

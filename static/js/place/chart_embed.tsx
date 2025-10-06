@@ -168,7 +168,8 @@ class ChartEmbed extends React.Component<
     chartHtml: string,
     chartTitle: string,
     chartDate: string,
-    sources: string[]
+    sources: string[],
+    surfaceHeaderValue: string
   ): void {
     if (this.state.modal) {
       return;
@@ -190,7 +191,7 @@ class ChartEmbed extends React.Component<
         sources,
         svgXml,
       },
-      () => this.loadModalData(getDataCsv)
+      () => this.loadModalData(getDataCsv, surfaceHeaderValue)
     );
   }
 
@@ -401,7 +402,8 @@ class ChartEmbed extends React.Component<
    * Fetches CSV data and citation metadata when the dialog is opened.
    */
   private async loadModalData(
-    getDataCsv: () => Promise<string>
+    getDataCsv: () => Promise<string>,
+    surfaceHeaderValue: string
   ): Promise<void> {
     let dataCsv: string;
     let dataFetchError = false;
@@ -436,7 +438,10 @@ class ChartEmbed extends React.Component<
         if (statVarSet.size === 0) {
           return [];
         }
-        const dataCommonsClient = getDataCommonsClient(apiRoot);
+        const dataCommonsClient = getDataCommonsClient(
+          apiRoot,
+          surfaceHeaderValue
+        );
         const metadataResp = await fetchMetadata(
           statVarSet,
           facets,
