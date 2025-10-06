@@ -39,13 +39,13 @@ UNKNOWN_SURFACE_HEADER_VALUE = "unknown"
 @cache.memoize(timeout=TIMEOUT,
                unless=should_skip_cache,
                args_to_ignore=["surface_header_value"])
-def get(url: str, surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+def get(url: str, surface_header_value: str):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
-  headers['x-surface'] = surface_header_value
+  headers['x-surface'] = surface_header_value or UNKNOWN_SURFACE_HEADER_VALUE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -86,8 +86,7 @@ def post_wrapper(url,
                  req_str: str,
                  dc_api_key: str,
                  log_extreme_calls: bool,
-                 surface_header_value: str |
-                 None = UNKNOWN_SURFACE_HEADER_VALUE):
+                 surface_header_value: str | None):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
@@ -95,7 +94,7 @@ def post_wrapper(url,
   # header used in usage metric logging
   if "v2/observation" in url:
     print("in post wrapper: ", surface_header_value)
-  headers['x-surface'] = surface_header_value
+  headers['x-surface'] = surface_header_value or UNKNOWN_SURFACE_HEADER_VALUE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
