@@ -232,6 +232,7 @@ export async function getRankingTileResult(
     }
     return tileResults;
   } catch (e) {
+    console.log("Failed to get ranking tile result for: " + id);
     return null;
   }
 }

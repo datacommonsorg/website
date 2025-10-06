@@ -37,7 +37,10 @@ class ExploreTest(NLWebServerTestCase):
     resp = requests.post(
         self.get_server_url() +
         f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill',
-        json=req_json).json()
+        json=req_json,
+        headers = {
+          "x-surface": "website"
+        }).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   def run_detection(self,
@@ -58,7 +61,9 @@ class ExploreTest(NLWebServerTestCase):
           json={
               'contextHistory': ctx,
               'dc': dc,
-          }).json()
+          }, headers = {
+          "x-surface": "website"
+        }).json()
       ctx = resp['context']
       if len(queries) == 1:
         d = ''
@@ -86,7 +91,9 @@ class ExploreTest(NLWebServerTestCase):
           json={
               'contextHistory': ctx,
               'dc': dc,
-          }).json()
+          }, headers = {
+          "x-surface": "website"
+        }).json()
       ctx = resp['context']
       if len(queries) == 1:
         d = ''

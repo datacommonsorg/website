@@ -264,7 +264,6 @@ const PlaceCharts = (props: {
   place: NamedTypedPlace;
   pageConfig: SubjectPageConfig;
 }): React.JSX.Element => {
-  console.log("Reaching placeCharts");
   const { childPlaceType, place, pageConfig } = props;
   return (
     <div className="charts-container">
@@ -366,7 +365,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
       return;
     }
     const surfaceHeaderValue = pageMetadata.dataset.surfaceHeader;
-    console.log("surface header in place_main: ", surfaceHeaderValue);
     const dataCommonsClient = getDataCommonsClient(null, surfaceHeaderValue);
     (async (): Promise<void> => {
       try {

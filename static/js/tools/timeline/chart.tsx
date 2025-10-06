@@ -92,7 +92,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
 
   constructor(props: ChartPropsType) {
     super(props);
-    console.log("surf in chart: ", props.surfaceHeaderValue);
     this.svgContainer = React.createRef();
     this.denomInput = React.createRef();
     this.drawChart = this.drawChart.bind(this);

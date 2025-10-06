@@ -655,7 +655,6 @@ function renderTiles(
   blockDenom?: string,
   blockDate?: string
 ): ReactElement {
-  console.log("Reaching render tiles! ", props.surfaceHeaderValue);
   if (!tiles || !overridePlaces) {
     return <></>;
   }

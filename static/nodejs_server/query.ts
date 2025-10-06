@@ -354,6 +354,7 @@ export async function getQueryResult(
   try {
     nlResp = await axios.post(url, {}, postConfig);
   } catch (e) {
+    console.error("Error making request:\n", e.message);
     return { err: "Error fetching data." };
   }
 

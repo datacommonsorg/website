@@ -65,7 +65,6 @@ export class Page extends React.Component<
 
   constructor(props: RankingPagePropType) {
     super(props);
-    console.log("surf in ranking page: ", props.surfaceHeaderValue);
     this.state = {
       data: undefined,
     };

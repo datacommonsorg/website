@@ -60,7 +60,6 @@ export function useFetchMapPointStat(
     };
     const usedSV = statVar.value.mapPointSv || statVar.value.dcid;
     const date = getCappedStatVarDate(usedSV, dateCtx.value);
-    console.log("useFetchMapPointStat");
     getPointWithin(
       "",
       placeInfo.value.mapPointPlaceType,

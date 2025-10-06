@@ -313,7 +313,6 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
     req.query.relatedQuestions === URL_PARAM_VALUE_TRUTHY;
   const idx = (req.query.idx as string) || "";
   const detector = (req.query.detector as string) || "";
-  console.log("surfaceHeaderValue in nodejs/wuery: ", surfaceHeaderValue);
   getQueryResult(
     query,
     useChartUrl,

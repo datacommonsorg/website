@@ -59,7 +59,6 @@ export function useFetchDefaultStat(
       },
     };
     const date = getCappedStatVarDate(statVar.value.dcid, dateCtx.value);
-    console.log("Reaching useFetchDefaultStat");
     getPointWithin(
       "",
       placeInfo.value.enclosedPlaceType,

@@ -178,7 +178,6 @@ class DataCommonsWebClient {
       this.apiRoot || ""
     }/api/observations/point/within?${queryString}`;
 
-    console.log("making calls via client");
     const response = await fetch(url, {
       headers: {
         "x-surface": this.surfaceHeaderValue,
@@ -270,7 +269,6 @@ class DataCommonsWebClient {
     category?: string;
     locale?: string;
   }): Promise<PlaceChartsApiResponse> {
-    console.log("reaching get place charts, with: ", this.surfaceHeaderValue);
     const queryString = toURLSearchParams({
       category: params.category,
       [LOCALE_PARAM]: params.locale,

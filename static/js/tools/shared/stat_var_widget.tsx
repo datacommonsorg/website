@@ -64,11 +64,8 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [width, setWidth] = useState(STAT_VAR_SELECTOR_WIDTH);
 
-  console.log("surf in statvarwidget: ", props.surfaceHeaderValue);
-
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
-      console.log("making existence check");
       axios
         .post(
           "/api/observation/existence",
@@ -81,7 +78,6 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
           }
         )
         .then((resp) => {
-          console.log("in then, with resp: ", resp);
           const availableSVs = [];
           const unavailableSVs = [];
           for (const sv in props.selectedSVs) {
