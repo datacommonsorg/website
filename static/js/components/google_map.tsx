@@ -209,7 +209,7 @@ export class GoogleMap extends React.Component<
   }
 
   render(): JSX.Element {
-    if (!globalThis.enableGoogleMaps || !this.state.shouldShowMap) {
+    if (globalThis.enableGoogleMaps == false || !this.state.shouldShowMap) {
       return null;
     }
     return <div className="map-container" ref={this.div}></div>;
