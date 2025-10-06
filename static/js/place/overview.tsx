@@ -71,11 +71,17 @@ class Overview extends React.Component<OverviewPropType> {
             </div>
           )}
           <div className="row">
-            <div className={`col-12 ${this.props.showRanking && "col-md-4"}`}>
-              <GoogleMap dcid={this.props.dcid}></GoogleMap>
-            </div>
+            {globalThis.enableGoogleMaps && (
+              <div className={`col-12 ${this.props.showRanking && "col-md-4"}`}>
+                <GoogleMap dcid={this.props.dcid}></GoogleMap>
+              </div>
+            )}
             {this.props.showRanking && (
-              <div className={`col-12 col-md-8 ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
+              <div
+                className={`col-12 ${
+                  globalThis.enableGoogleMaps ? "col-md-8" : ""
+                } ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+              >
                 <Ranking
                   dcid={this.props.dcid}
                   locale={this.props.locale}
