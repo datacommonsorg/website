@@ -30,7 +30,6 @@ from server.lib.nl.common import counters
 
 _GEMINI_2_5_FLASH = 'gemini-2.5-flash'
 _GEMINI_1_5_PRO = 'gemini-1.5-pro'
-_API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
 _TEMPERATURE = 0.1
