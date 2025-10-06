@@ -167,12 +167,10 @@ const getFollowUpQuestions = async (
     return data.follow_up_questions.map((question) => {
       return {
         text: question,
-        url: `/explore#${getUpdatedHash(
-          {
-            [URL_HASH_PARAMS.QUERY]: question,
-            [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_QUESTION,
-          }
-        )}`,
+        url: `/explore#${getUpdatedHash({
+          [URL_HASH_PARAMS.QUERY]: question,
+          [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RELATED_QUESTION,
+        })}`,
       };
     });
   });
