@@ -39,7 +39,7 @@ UNKNOWN_SURFACE_HEADER_VALUE = "unknown"
 @cache.memoize(timeout=TIMEOUT,
                unless=should_skip_cache,
                args_to_ignore=["surface_header_value"])
-def get(url: str, surface_header_value: str):
+def get(url: str, surface_header_value: str = None):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
@@ -82,10 +82,7 @@ def post(url: str,
 @cache.memoize(timeout=TIMEOUT,
                unless=should_skip_cache,
                args_to_ignore=['surface_header_value'])
-def post_wrapper(url,
-                 req_str: str,
-                 dc_api_key: str,
-                 log_extreme_calls: bool,
+def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool,
                  surface_header_value: str | None):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
