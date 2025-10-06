@@ -95,7 +95,8 @@ class VisMapTestMixin():
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
     # Wait until the chart has loaded.
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert place name is correct.
     place_name_chip = self.driver.find_element(
@@ -237,7 +238,8 @@ class VisMapTestMixin():
     self.driver.get(self.url_ + MAP_URL + URL_HASH_1)
 
     # Wait until the chart has loaded.
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
+    shared.wait_for_charts_to_render(self.driver,
+                                     timeout_seconds=self.TIMEOUT_SEC)
 
     # Find the map region for Kern County (geoId/06029)
     kern_county = self.driver.find_element(

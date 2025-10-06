@@ -137,7 +137,6 @@ class Page extends Component<unknown, PageStateType> {
                   subtitle={intl.formatMessage(
                     toolMessages.timelineToolSubtitle
                   )}
-                  switchToolsUrl="/tools/visualization#visType%3Dtimeline"
                 />
               ) : (
                 <div className="app-header">
