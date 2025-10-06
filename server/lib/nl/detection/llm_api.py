@@ -36,7 +36,6 @@ _API_HEADER = {'content-type': 'application/json'}
 _TEMPERATURE = 0.1
 
 _GEMINI_CONFIG = types.GenerateContentConfig(
-    response_mime_type="application/json",
     temperature=_TEMPERATURE,
     safety_settings=[
         {
