@@ -609,7 +609,7 @@ Count of live births where mothers Education is Associates Degree,Count_BirthEve
 Count of live births where mothers Education is Bachelors Degree,Count_BirthEvent_LiveBirth_MotherBachelorsDegree
 Count of live births where mothers Education is High School,Count_BirthEvent_LiveBirth_MotherHighSchoolGraduateGedOrAlternative
 Count of live births where mothers Education is Less Than 9th Grade,Count_BirthEvent_LiveBirth_MotherLessThan9ThGrade
-Count of live births where mothers Education is Masters Degree,Count_BirthEvent_LiveBirth_MotherMastersDegree
+Count of live births where mothers Education is Master's Degree,Count_BirthEvent_LiveBirth_MotherMastersDegree
 Count of live births where mothers Education is high school without Diploma,Count_BirthEvent_LiveBirth_Mother9ThTo12ThGradeNoDiploma
 Count of live births where mothers Ethnicity is Hispanic or Latino,Count_BirthEvent_LiveBirth_MotherHispanicOrLatino
 Count of live births where mothers Ethnicity is Not Hispanic or Latino,Count_BirthEvent_LiveBirth_MotherNotHispanicOrLatino
@@ -634,7 +634,7 @@ Count of live births where mothers have Doctorate Degree or Professional School 
 Count of people aged 15 or more years who are now married,Count_Person_15OrMoreYears_NowMarried
 Count of student enrolled in college or graduate school,Count_Student_EnrolledInCollegeOrGraduateSchool
 Count of unemployed people with a bachelor's degree or diploma,Count_Person_EducationalAttainmentBachelorsDegreeOrDiploma_Unemployed
-Count of unemployed people with a masters or doctorate degree,Count_Person_EducationalAttainmentMastersDegreeOrDoctorateDegree_Unemployed
+Count of unemployed people with a master's or doctorate degree,Count_Person_EducationalAttainmentMastersDegreeOrDoctorateDegree_Unemployed
 Count of unemployed people with no formal education,Count_Person_EducationalAttainmentNoEducation_Unemployed
 Count of unemployed people with specialized secondary education,Count_Person_Unemployed_SpecializedSecondarySchool
 Coverage by protected areas of important sites for mountain biodiversity,dc/topic/sdg_15.4.1
@@ -1576,7 +1576,7 @@ Number of Females with Some College Education for 1 or More Years with No Degree
 Number of Females with Some College Education for Less than 1 Year,Count_Person_25OrMoreYears_EducationalAttainmentSomeCollegeLessThan1Year_Female
 Number of Females with a Bachelors or Higher Degree,Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female
 Number of Females with a Doctorate Degree,Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female
-Number of Females with a Masters Degree,Count_Person_25OrMoreYears_EducationalAttainmentMastersDegree_Female
+Number of Females with a Master's Degree,Count_Person_25OrMoreYears_EducationalAttainmentMastersDegree_Female
 Number of Females with a Professional School Degree,Count_Person_25OrMoreYears_EducationalAttainmentProfessionalSchoolDegree_Female
 Number of Finance and Insurance establishments,Count_Establishment_NAICSFinanceInsurance
 Number of Fire Incident Complexes,Count_FireIncidentComplex
@@ -1790,7 +1790,7 @@ Number of Males with Some College Education for 1 or More Years with No Degree,C
 Number of Males with Some College Education for Less than 1 Year,Count_Person_25OrMoreYears_EducationalAttainmentSomeCollegeLessThan1Year_Male
 Number of Males with a Bachelors Degree or Higher,Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Male
 Number of Males with a Doctorate Degree,Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male
-Number of Males with a Masters Degree,Count_Person_25OrMoreYears_EducationalAttainmentMastersDegree_Male
+Number of Males with a Master's Degree,Count_Person_25OrMoreYears_EducationalAttainmentMastersDegree_Male
 Number of Males with a Professional School Degree,Count_Person_25OrMoreYears_EducationalAttainmentProfessionalSchoolDegree_Male
 Number of Management Of Companies and Enterprises establishments,Count_Establishment_NAICSManagementOfCompaniesEnterprises;dc/9pz1cse6yndtg
 Number of Manufacturing establishments,Count_Establishment_NAICSManufacturing;dc/1wf1h5esex2d
@@ -2004,7 +2004,7 @@ Number of Students Enrolled in Adult Education Programs,Count_Student_AdultEduca
 Number of Students Enrolled in BRA High School Programs,Count_Student_BRAHighSchool
 Number of Students Enrolled in Bachelors Degree Programs,Count_Student_BachelorsDegree
 Number of Students Enrolled in Brazil Pre Vestibular Programs,Count_Student_BrazilPreVestibular
-Number of Students Enrolled in Masters Degree Or Higher Programs,Count_Student_MastersDegreeOrHigher
+Number of Students Enrolled in Master's Degree Or Higher Programs,Count_Student_MastersDegreeOrHigher
 Number of Students Enrolled in Nursery Programs,Count_Student_Nursery
 Number of Students Enrolled in Pre Kindergarten Programs,Count_Student_PreKindergarten
 Number of Students in Private School,Count_Student_PrivateSchool
@@ -2595,7 +2595,7 @@ Number of people Enrolled in College or Graduate School and Resides in College o
 Number of people Enrolled in College or Graduate School and Resides in Group Quarters,Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInGroupQuarters
 Number of people Enrolled in College or Graduate School and Resides in Nursing Facilities,Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInNursingFacilities
 Number of people With Ambulatory Difficulty,Count_Person_AmbulatoryDifficulty
-Number of people With Masters Degree,Count_Person_EducationalAttainmentMastersDegree
+Number of people With Master's Degree,Count_Person_EducationalAttainmentMastersDegree
 Number of people With Vision Difficulty,Count_Person_VisionDifficulty
 Number of people Working in the Accommodation and Food Services Industry,Count_Worker_NAICSAccommodationFoodServices
 Number of people Working in the Administrative Support and Waste Management and Remediation Services Industry,Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices
@@ -2937,14 +2937,14 @@ Percentage of Females Aged 15-19 Who Gave Birth in the Past 12 Months,Count_Pers
 Percentage of Females Aged 15-50 Who Gave Birth in the Past 12 Months,Count_Person_15To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_15To50Years_Female
 Percentage of Females with a Bachelors Degree or Higher Educational Attainment,Count_Person_25OrMoreYears_Female_BachelorsDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears_Female
 Percentage of Females with a Doctorate Degree,Count_Person_25OrMoreYears_Female_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Female
-Percentage of Females with a Masters Degree or Higher,Count_Person_25OrMoreYears_Female_MastersDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears_Female
+Percentage of Females with a Master's Degree or Higher,Count_Person_25OrMoreYears_Female_MastersDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears_Female
 Percentage of Females with a Tertiary Education,Count_Person_25OrMoreYears_Female_TertiaryEducation_AsFractionOf_Count_Person_25OrMoreYears_Female
 Percentage of Full Immunization Coverage Among 1 Year Old female,WHO/fullv_Female
 Percentage of Full Immunization Coverage Among 1 Year Old in Rural Areas,WHO/fullv_Rural
 Percentage of Full Immunization Coverage Among 1 Year Old in Urban areas,WHO/fullv_Urban
 Percentage of Full Immunization Coverage Among 1 Year Old male,WHO/fullv_Male
 Percentage of Males Who Have a Doctorate Degree,Count_Person_25OrMoreYears_Male_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Male
-Percentage of Males Who Have a Masters Degree or Higher,Count_Person_25OrMoreYears_Male_MastersDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears_Male
+Percentage of Males Who Have a Master's Degree or Higher,Count_Person_25OrMoreYears_Male_MastersDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears_Male
 Percentage of Males Who Have a Tertiary Education,Count_Person_25OrMoreYears_Male_TertiaryEducation_AsFractionOf_Count_Person_25OrMoreYears_Male
 Percentage of Males with a Bachelors Degree or Higher,Count_Person_25OrMoreYears_Male_BachelorsDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears_Male
 Percentage of People Aged 20 and above With Diabetes,Percent_Person_20OrMoreYears_WithDiabetes
@@ -2979,7 +2979,7 @@ Percentage of males aged 25 to 64 who are enrolled in education or training,Coun
 Percentage of males aged 25 to 64 who have tertiary education,Count_Person_25To64Years_TertiaryEducation_Male_AsAFractionOfCount_Person_25To64Years_Male
 Percentage of males aged 25 to 64 who have upper secondary education or higher,Count_Person_25To64Years_UpperSecondaryEducationOrHigher_Male_AsAFractionOfCount_Person_25To64Years_Male
 Percentage of people Aged 25 to 59 Who are Illiterate,Count_Person_25To59Years_Illiterate_AsAFractionOf_Count_Person_25To59Years
-Percentage of people Who Have a Masters Degree or Higher,Count_Person_25OrMoreYears_MastersDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears
+Percentage of people Who Have a Master's Degree or Higher,Count_Person_25OrMoreYears_MastersDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears
 Percentage of people Who Have a Tertiary Education,Count_Person_25OrMoreYears_TertiaryEducation_AsFractionOf_Count_Person_25OrMoreYears
 Percentage of people aged 25 to 64 who are enrolled in education or training,Count_Person_25To64Years_EnrolledInEducationOrTraining_AsAFractionOfCount_Person_25To64Years
 Percentage of people aged 25 to 64 who have tertiary education,Count_Person_25To64Years_TertiaryEducation_AsAFractionOfCount_Person_25To64Years
