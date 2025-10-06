@@ -240,7 +240,8 @@ async def filter_chart_config_for_data_existence(
   async def fetch_and_process_stats():
     """Fetches and processes observation data concurrently."""
     current_place_obs_point_task = asyncio.to_thread(
-        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids, None, surface_header_value)
+        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids, None,
+        surface_header_value)
     child_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, place_dcid, child_place_type,
         child_places_stat_var_dcids, None, None, surface_header_value)
@@ -1203,8 +1204,8 @@ def format_stat_var_value(value: float, unit: str) -> str:
 
 
 async def _fetch_summary_data(
-    place_dcid: str, variable_dcids: List[str],
-    locale: str, surface_header_value: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
+    place_dcid: str, variable_dcids: List[str], locale: str,
+    surface_header_value: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
   """
   Fetches the place, parent places, and place observations for the given place DCID.
 
@@ -1217,13 +1218,16 @@ async def _fetch_summary_data(
   print("in fetch_summary_data")
   place = asyncio.to_thread(fetch_place, place_dcid, locale)
   parent_places = asyncio.to_thread(get_parent_places, place_dcid, locale)
-  place_observations = asyncio.to_thread(dc.obs_point, [place_dcid],
-                                         variable_dcids,
-                                         date="LATEST", surface_header_value=surface_header_value)
+  place_observations = asyncio.to_thread(
+      dc.obs_point, [place_dcid],
+      variable_dcids,
+      date="LATEST",
+      surface_header_value=surface_header_value)
   return await asyncio.gather(place, parent_places, place_observations)
 
 
-async def generate_place_summary(place_dcid: str, locale: str, surface_header_value: str) -> str:
+async def generate_place_summary(place_dcid: str, locale: str,
+                                 surface_header_value: str) -> str:
   """
   Generates a place summary for the given place DCID.
   """

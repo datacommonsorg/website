@@ -55,7 +55,8 @@ def get_point_within_csv_rows(parent_place,
       row.
   """
   print("from csv")
-  points_response = dc.obs_point_within(parent_place, child_type, sv_list, date, None, surface_header_value)
+  points_response = dc.obs_point_within(parent_place, child_type, sv_list, date,
+                                        None, surface_header_value)
 
   # dict of place dcid to dict of sv dcid to chosen data point.
   data_by_place = {}
@@ -269,7 +270,8 @@ def get_stats_within_place_csv():
         get_point_within_csv_rows(parent_place, child_type, sv_list, facet_map,
                                   date, row_limit, surface_header_value))
   else:
-    series_response = dc.obs_series_within(parent_place, child_type, sv_list, None, surface_header_value)
+    series_response = dc.obs_series_within(parent_place, child_type, sv_list,
+                                           None, surface_header_value)
     result_csv.extend(
         get_series_csv_rows(series_response, sv_list, facet_map, min_date,
                             max_date, row_limit))

@@ -97,7 +97,7 @@ async def place_charts(place_dcid: str):
 
   parent_place_override, child_place_type_to_highlight, place_type = await fetch_place_types(
       place)
-  
+
   print("after fetch_place and fetch_place_types")
 
   parent_place_dcid = parent_place_override.dcid if parent_place_override else None
@@ -111,13 +111,13 @@ async def place_charts(place_dcid: str):
       parent_place_dcid=parent_place_dcid,
       child_place_type=child_place_type_to_highlight,
       surface_header_value=surface_header_value)
-  
+
   print("after filter_chart_config_for_data_existence with value")
 
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_config_for_category(
       place_category, chart_config_existing_data)
-  
+
   print("after filter_chart_config_for_category")
 
   # Translate chart config titles
@@ -233,7 +233,8 @@ def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  data_rows = place_utils.fetch_overview_table_data(place_dcid, surface_header_value)
+  data_rows = place_utils.fetch_overview_table_data(place_dcid,
+                                                    surface_header_value)
 
   return jsonify(PlaceOverviewTableApiResponse(data=data_rows))
 
@@ -242,10 +243,11 @@ def overview_table(place_dcid: str):
 @log_execution_time
 @cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_summary(place_dcid: str):
-  surfaceHeaderValue = request.headers.get("x-surface")
-  print("in place_Summary: ", surfaceHeaderValue)
+  surface_header_value = request.headers.get("x-surface")
+  print("in place_Summary: ", surface_header_value)
   """
   Fetches and returns place summary data for the specified place.
   """
-  summary = await place_utils.generate_place_summary(place_dcid, g.locale)
+  summary = await place_utils.generate_place_summary(place_dcid, g.locale,
+                                                     surface_header_value)
   return jsonify(PlaceSummaryApiResponse(summary=summary))

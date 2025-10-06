@@ -22,8 +22,8 @@ from urllib.parse import urlencode
 
 import flask
 from flask import current_app
-from flask import request
 from flask import g
+from flask import request
 from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
@@ -184,7 +184,8 @@ def place_explorer():
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 @cache.cached(query_string=True)
 def place(place_dcid):
-  print("Reaching place with dcid! request headers: ", request.headers.get("x-surface"))
+  print("Reaching place with dcid! request headers: ",
+        request.headers.get("x-surface"))
   """
   Renders place page with the given DCID.
 
@@ -226,13 +227,13 @@ def place(place_dcid):
   surface_header_value = "website-test"
 
   canonical_links = get_canonical_links(place_dcid, category)
-  return flask.render_template(
-      'place.html',
-      canonical_links=canonical_links,
-      category=category,
-      maps_api_key=current_app.config['MAPS_API_KEY'],
-      place_dcid=place_dcid,
-      place_name=place_name,
-      surface_header_value=surface_header_value,
-      sample_questions=json.dumps(
-          current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
+  return flask.render_template('place.html',
+                               canonical_links=canonical_links,
+                               category=category,
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               place_dcid=place_dcid,
+                               place_name=place_name,
+                               surface_header_value=surface_header_value,
+                               sample_questions=json.dumps(
+                                   current_app.config.get(
+                                       'HOMEPAGE_SAMPLE_QUESTIONS', [])))

@@ -172,6 +172,7 @@ def mock_dc_api_data(stat_var: str,
                                         child_type,
                                         variables,
                                         date='LATEST',
+                                        facetIds=None,
                                         surface_header_value=None):
     return val2
 

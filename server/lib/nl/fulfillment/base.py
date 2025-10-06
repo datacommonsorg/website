@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import copy
+import inspect
 import time
 from typing import List
 
@@ -239,12 +240,17 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
         if chart_vars.svs:
           existing_svs.update(chart_vars.svs)
           print('calling populate', handler.module.populate)
-          if handler.module.populate(state,
-                                     chart_vars,
-                                     places,
-                                     ChartOriginType.PRIMARY_CHART,
-                                     idx,
-                                     surface_header_value=surface_header_value):
+          populate_kwargs = {
+              'state': state,
+              'chart_vars': chart_vars,
+              'places': places,
+              'chart_origin': ChartOriginType.PRIMARY_CHART,
+              'rank': idx,
+          }
+          if 'surface_header_value' in inspect.signature(
+              handler.module.populate).parameters:
+            populate_kwargs['surface_header_value'] = surface_header_value
+          if handler.module.populate(**populate_kwargs):
             found = True
             num_charts += 1
           else:
