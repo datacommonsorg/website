@@ -42,8 +42,8 @@ website:
       }
 
 mixer:
-  hostProject:
-  serviceName:
+  serviceName: "website-esp.endpoints.datcom-website-autopush.cloud.goog"
+  hostProject: "datcom-website-autopush"
   cacheSVFormula: true
   useSpannerGraph: true
   enableV3: true
@@ -60,8 +60,13 @@ mixer:
 serviceAccount:
   name: website-ksa
 
+ingress:
+  enabled: true
+
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -105,10 +110,14 @@ serviceGroups:
 
 nodejs:
   enabled: true
+  image:
+    tag: ""
   replicas: 12
 
 cronTesting:
   enabled: true
   screenshotDomain: "autopush.datacommons.org"
+  webApiRoot: "http://website-service.website.svc.cluster.local:8080"
+  nodejsApiRoot: "http://website-nodejs-service.website.svc.cluster.local:8080"
   nodePool: "pool-1"
   schedule: "0 */12 * * *"

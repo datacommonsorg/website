@@ -34,13 +34,18 @@ import { intl } from "../../i18n/i18n";
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
+  GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
+  GA_PARAM_QUERY_AT_SELECTION,
+  GA_PARAM_SELECTION_TEXT,
+  GA_PARAM_SELECTION_TYPE,
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
 import {
   extractFlagsToPropagate,
+  getStatVarInfo,
   redirect,
   replaceQueryWithSelection,
   stripPatternFromQuery,
@@ -59,7 +64,6 @@ import {
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
-const EXPLORE_SV_FOR_EARTH = "/explore#p=Earth&sv=";
 const LOCATION_SEARCH = "location_search";
 const STAT_VAR_SEARCH = "stat_var_search";
 
@@ -69,6 +73,8 @@ export interface AutoCompleteResult {
   matchedQuery: string;
   name: string;
   hasPlace?: boolean;
+  fullText?: string;
+  placeDcid?: string;
 }
 
 interface AutoCompleteInputPropType {
@@ -117,6 +123,8 @@ export function AutoCompleteInput(
   const [lastScrollYOnTrigger, setLastScrollYOnTrigger] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [hasLocation, setHasLocation] = useState(false);
+  const [statVarInfo, setStatVarInfo] = useState({});
+  const [processedResults, setProcessedResults] = useState([]);
 
   const isHeaderBar = props.barType == "header";
 
@@ -147,6 +155,28 @@ export function AutoCompleteInput(
     setDynamicPlaceholdersEnabled,
     setDynamicPlaceholdersDone,
   ]);
+
+  useEffect(() => {
+    if (_.isEmpty(results)) {
+      setProcessedResults([]);
+      return;
+    }
+
+    const newProcessedResults = results.map((result) => {
+      const selection = replaceQueryWithSelection(
+        baseInput,
+        result,
+        hasLocation,
+        statVarInfo
+      );
+      return {
+        ...result,
+        fullText: selection.query,
+        placeDcid: selection.placeDcid,
+      };
+    });
+    setProcessedResults(newProcessedResults);
+  }, [results, statVarInfo, baseInput, hasLocation]);
 
   const placeholderText =
     !inputActive && dynamicPlaceholdersEnabled && !dynamicPlaceholdersDone
@@ -235,36 +265,44 @@ export function AutoCompleteInput(
     sendDebouncedAutoCompleteRequest(queryForAutoComplete);
   }
 
-  const triggerAutoCompleteRequest = useCallback(async (query: string) => {
-    setLastScrollYOnTrigger(window.scrollY);
-    if (controller.current) {
-      controller.current.abort();
-    }
-    controller.current = new AbortController();
+  const triggerAutoCompleteRequest = useCallback(
+    async (query: string) => {
+      setLastScrollYOnTrigger(window.scrollY);
+      if (controller.current) {
+        controller.current.abort();
+      }
+      controller.current = new AbortController();
 
-    const urlParams = extractFlagsToPropagate(window.location.href);
-    urlParams.set("query", query);
-    const url = `/api/autocomplete?${urlParams.toString()}`;
+      const urlParams = extractFlagsToPropagate(window.location.href);
+      urlParams.set("query", query);
+      const url = `/api/autocomplete?${urlParams.toString()}`;
 
-    await axios
-      .get(url, {
-        signal: controller.current.signal,
-      })
-      .then((response) => {
-        if (controller.current.signal.aborted) {
-          return;
-        }
-        setResults(
-          convertJSONToAutoCompleteResults(response.data.predictions || [])
+      try {
+        const response = await axios.get(url, {
+          signal: controller.current.signal,
+        });
+        const newResults = convertJSONToAutoCompleteResults(
+          response.data.predictions || []
         );
+        setResults(newResults);
         setBaseInputLastQuery(query);
-      })
-      .catch((err) => {
+        const statVarDcids = newResults
+          .filter((result) => result.matchType === STAT_VAR_SEARCH)
+          .map((result) => result.dcid);
+        const dcidsToFetch = statVarDcids.filter((dcid) => !statVarInfo[dcid]);
+        if (dcidsToFetch.length > 0) {
+          getStatVarInfo(dcidsToFetch).then((resp) => {
+            setStatVarInfo((prev) => ({ ...prev, ...resp.data }));
+          });
+        }
+      } catch (err) {
         if (!axios.isCancel(err)) {
           console.log("Error fetching autocomplete suggestions: " + err);
         }
-      });
-  }, []);
+      }
+    },
+    [statVarInfo]
+  );
 
   const sendDebouncedAutoCompleteRequest = useMemo(() => {
     return _.debounce(triggerAutoCompleteRequest, DEBOUNCE_INTERVAL_MS);
@@ -297,20 +335,16 @@ export function AutoCompleteInput(
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
       case " ":
-        selectResult(results[hoveredIdx], hoveredIdx, true);
+        if (hoveredIdx >= 0) {
+          selectResult(results[hoveredIdx], hoveredIdx, true);
+        }
     }
   }
 
   function processArrowKey(selectedIndex: number): void {
     setHoveredIdx(selectedIndex);
     const textDisplayed =
-      selectedIndex >= 0
-        ? replaceQueryWithSelection(
-            baseInput,
-            results[selectedIndex],
-            hasLocation
-          )
-        : baseInput;
+      selectedIndex >= 0 ? processedResults[selectedIndex].fullText : baseInput;
     changeText(textDisplayed);
   }
 
@@ -319,15 +353,19 @@ export function AutoCompleteInput(
     idx: number,
     skipRedirection?: boolean
   ): void {
+    setResults([]);
+    setHoveredIdx(-1);
+    setLastAutoCompleteSelection(result.name);
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+      [GA_PARAM_SELECTION_TYPE]: result.matchType,
+      [GA_PARAM_SELECTION_TEXT]: result.name,
+      [GA_PARAM_QUERY_AT_SELECTION]: baseInput,
     });
 
-    const queryText = replaceQueryWithSelection(
-      baseInput,
-      result,
-      hasLocation || result.hasPlace
-    );
+    const selectedProcessedResult = processedResults[idx];
+    const queryText = selectedProcessedResult.fullText;
+    const placeDcid = selectedProcessedResult.placeDcid;
 
     if (
       result?.matchType === STAT_VAR_SEARCH &&
@@ -336,8 +374,12 @@ export function AutoCompleteInput(
       if (result.dcid) {
         setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
+          triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV, {
+            [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+          });
+          const placeParam = placeDcid ? `p=${placeDcid}` : "p=Earth";
           window.location.href =
-            EXPLORE_SV_FOR_EARTH +
+            `/explore#${placeParam}&sv=` +
             encodeURIComponent(result.dcid) +
             "&q=" +
             encodeURIComponent(queryText);
@@ -367,15 +409,11 @@ export function AutoCompleteInput(
       }
     }
 
-    const newString = replaceQueryWithSelection(
-      baseInput,
-      result,
-      hasLocation || result.hasPlace
-    );
-    changeText(newString);
+    changeText(queryText);
     if (!skipRedirection) {
-      setTriggerSearch(newString);
+      setTriggerSearch(queryText);
     }
+    setResults([]);
   }
 
   return (
@@ -418,7 +456,7 @@ export function AutoCompleteInput(
           <AutoCompleteSuggestions
             baseInput={baseInput}
             baseInputLastQuery={baseInputLastQuery}
-            allResults={results}
+            allResults={processedResults}
             hoveredIdx={hoveredIdx}
             onClick={selectResult}
             hasLocation={hasLocation}

@@ -294,8 +294,13 @@ export function AppContextProvider(
       displayOptions
     );
     const currentHash = location.hash.replace("#", "");
+    const currentQueryString = location.search; // Propogate the current query string
     if (newHash && newHash !== currentHash) {
-      history.pushState({}, "", `/tools/visualization#${newHash}`);
+      history.pushState(
+        {},
+        "",
+        `/tools/visualization${currentQueryString}#${newHash}`
+      );
     }
     // For all values in this dependency array, setting the value should always
     // be preceded by shouldUpdateHash.current.push()
