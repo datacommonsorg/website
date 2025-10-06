@@ -29,8 +29,8 @@ from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
 _GEMINI_API_URL_TEMPLATE = "https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
-_GEMINI_2_5_FLASH = '"gemini-2.5-flash"'
-_GEMINI_2_5_FLASH_LITE = '"gemini-2.5-flash-lite"'
+_GEMINI_2_5_FLASH = 'gemini-2.5-flash'
+_GEMINI_2_5_FLASH_LITE = 'gemini-2.5-flash-lite'
 _API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
