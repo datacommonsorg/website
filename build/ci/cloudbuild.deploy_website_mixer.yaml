@@ -66,7 +66,7 @@ steps:
 
         # 3. CREATE DEPLOYMENT RELEASE
         # Use a timestamp for a consistently unique release name.
-        release_name="release-${website_githash}-${mixer_githash}-$(date +%Y%m%d-%H%M%S)"
+        release_name="v-${website_githash}-${mixer_githash}-$(date +%Y%m%d-%H%M%S)"
         echo "Creating release: $release_name"
 
         gcloud deploy apply --file=deploy/helm_charts/clouddeploy.yaml \

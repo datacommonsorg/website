@@ -22,15 +22,32 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
+import {
+  isFeatureEnabled,
+  STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
+} from "../../shared/feature_flags/util";
 import { App } from "./app";
+import { getStandardizedToolUrl, getVisTypeFromHash } from "./redirect_utils";
 
 window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
-      ReactDOM.render(
-        React.createElement(App),
-        document.getElementById("main-pane")
-      );
+      // If standardized vis tool flag is on, redirect to the old tools
+
+      // TODO(juliawu): Right now only timeline redirect is implemented.
+      //                Implement the logic for the other tools.
+      const visType = getVisTypeFromHash();
+      if (
+        isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG) &&
+        ["timeline", "scatter"].includes(visType)
+      ) {
+        window.location.href = getStandardizedToolUrl();
+      } else {
+        ReactDOM.render(
+          React.createElement(App),
+          document.getElementById("main-pane")
+        );
+      }
     }
   );
 });

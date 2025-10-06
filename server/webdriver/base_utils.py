@@ -25,6 +25,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
 TIMEOUT = 60
+# Charts can take a long time to load.
+# This is a custom, longer timeout to use for charts we know are slow.
+LONG_TIMEOUT = 120  # seconds
 
 
 def create_driver(preferences=None):
