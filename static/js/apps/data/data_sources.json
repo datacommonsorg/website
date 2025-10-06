@@ -2513,11 +2513,6 @@
             "description": "Includes data about various heat-stress-induced medical incidents."
           },
           {
-            "label": "Mortality_UnderlyingCause_SingleRace",
-            "url": "https://wonder.cdc.gov/ucd-icd10-expanded.html",
-            "description": "Mortality statistics by the underlying cause of death, demographics, and location (State level) for single races."
-          },
-          {
             "label": "National Notifiable Diseases Surveillance System (NNDSS)",
             "url": "https://www.cdc.gov/nndss/data-statistics/index.html",
             "description": "Weekly and annual cases of selected national notifiable (infectious and non-infectious) diseases reported by the 50 states, New York City, the District of Columbia, and the U.S. territories."
@@ -2536,6 +2531,11 @@
             "label": "Pregnancy Risk Assessment Monitoring System (PRAMS)",
             "url": "https://www.cdc.gov/prams/php/data-research/index.html",
             "description": "Annual survey that gathers data on various health measures for pregnant women and their babies."
+          },
+          {
+            "label": "Underlying cause of death",
+            "url": "https://wonder.cdc.gov/ucd-icd10-expanded.html",
+            "description": "Mortality statistics broken down by the underlying cause of death, residence, age, race, ethinicity, and sex."
           },
           {
             "label": "Wonder: Compressed Mortality",
