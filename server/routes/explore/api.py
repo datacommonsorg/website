@@ -223,7 +223,7 @@ def page_overview():
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                debug_logs: Dict,
-                               surfaceHeaderValue: str = None) -> Dict:
+                               surface_header_value: str = None) -> Dict:
 
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
@@ -237,8 +237,8 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
-  print("chart config?", surfaceHeaderValue)
-  fresp = nl_fulfillment.fulfill(utterance, cb_config, surfaceHeaderValue)
+  print("chart config?", surface_header_value)
+  fresp = nl_fulfillment.fulfill(utterance, cb_config, surface_header_value)
   utterance.counters.timeit('fulfillment', start)
 
   return helpers.prepare_response(utterance,

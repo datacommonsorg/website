@@ -149,6 +149,7 @@ function renderBlocks(
                 eventTypeSpec={props.eventTypeSpec}
                 showExploreMore={props.showExploreMore}
                 disasterBlockMetadata={block.disasterBlockSpec || {}}
+                surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
               />
             </BlockContainer>
           </ErrorBoundary>

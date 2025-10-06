@@ -139,6 +139,7 @@ export function ChartTileContainer(
         footnote={props.footnote}
         getObservationSpecs={props.getObservationSpecs}
         containerRef={containerRef}
+        surfaceHeaderValue={props.surfaceHeaderValue}
       />
 
       {showEmbed && (

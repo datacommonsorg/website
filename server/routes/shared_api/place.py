@@ -258,10 +258,10 @@ def get_place_variable():
       List of unique statistical variable dcids each as a string.
   """
   dcids = request.args.getlist('dcids')
-  surfaceHeaderValue = request.headers.get('x-surface')
+  surface_header_value = request.headers.get('x-surface')
   if not dcids:
     dcids = request.json['dcids']
-  resp = fetch.entity_variables(dcids, surfaceHeaderValue)
+  resp = fetch.entity_variables(dcids, surface_header_value)
   # All the keys (stat var dcid) in resp are variables for at lease one of the
   # places.
   return Response(json.dumps(list(resp.keys())),
@@ -279,11 +279,11 @@ def get_place_variable_count():
   dcids = request.args.getlist('dcids')
   if not dcids:
     return 'error: must provide `dcids` field', 400
-  surfaceHeaderValue = request.headers.get('x-surface')
+  surface_header_value = request.headers.get('x-surface')
   result = {}
   for dcid in dcids:
     result[dcid] = 0
-  resp = fetch.entity_variables(dcids, surfaceHeaderValue)
+  resp = fetch.entity_variables(dcids, surface_header_value)
   for _, entity_obs in resp.items():
     for entity in entity_obs:
       result[entity] += 1

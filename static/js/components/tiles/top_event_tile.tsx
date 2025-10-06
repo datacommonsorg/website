@@ -228,6 +228,7 @@ export const TopEventTile = memo(function TopEventTile(
                   }
                 : null
             }
+            surfaceHeaderValue={props.surfaceHeaderValue}
           />
         </div>
       </div>

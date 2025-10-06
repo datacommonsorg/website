@@ -390,6 +390,7 @@ function renderTiles(
             tileSpec={tile.disasterEventMapTileSpec}
             parentPlaces={props.parentPlaces}
             showExploreMore={props.showExploreMore}
+            surfaceHeaderValue={props.surfaceHeaderValue}
           />
         );
       }
@@ -412,6 +413,7 @@ function renderTiles(
             property={tile.histogramTileSpec.prop}
             disasterEventData={tileEventData}
             showExploreMore={props.showExploreMore}
+            surfaceHeaderValue={props.surfaceHeaderValue}
           />
         );
       }

@@ -980,7 +980,7 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
 
 def fetch_overview_table_data(
     place_dcid: str,
-    surfaceHeaderValue: str = None) -> List[OverviewTableDataRow]:
+    surface_header_value: str = None) -> List[OverviewTableDataRow]:
   """
   Fetches overview table data for the specified place.
   """
@@ -995,7 +995,7 @@ def fetch_overview_table_data(
   resp = dc.obs_point([place_dcid],
                       variables,
                       date="LATEST",
-                      surfaceHeaderValue=surfaceHeaderValue)
+                      surface_header_value=surface_header_value)
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation

@@ -138,6 +138,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               footnote={props.footnote}
               containerRef={props.containerRef}
               getObservationSpecs={props.getObservationSpecs}
+              surfaceHeaderValue={props.surfaceHeaderValue}
             ></ChartFooter>
           )}
         </div>
@@ -171,6 +172,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   footnote={props.footnote}
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
+                  surfaceHeaderValue={props.surfaceHeaderValue}
                 ></ChartFooter>
               )}
             </div>
@@ -203,6 +205,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   footnote={props.footnote}
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
+                  surfaceHeaderValue={props.surfaceHeaderValue}
                 ></ChartFooter>
               )}
             </div>

@@ -55,6 +55,7 @@ interface ChartFooterPropType {
   containerRef?: RefObject<HTMLElement>;
   // Additional content that will display in the footer.
   children?: React.ReactNode;
+  surfaceHeaderValue: string;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
@@ -91,6 +92,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     apiRoot={props.apiRoot}
                     getObservationSpecs={props.getObservationSpecs}
                     containerRef={props.containerRef}
+                    surfaceHeaderValue={props.surfaceHeaderValue}
                   />
                 </div>
               )}

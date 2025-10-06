@@ -50,7 +50,7 @@ def populate(state: PopulateState,
              chart_origin: ChartOriginType,
              rank: int,
              ranking_count: int = 0,
-             surfaceHeaderValue: str = None) -> bool:
+             surface_header_value: str = None) -> bool:
   if not state.ranking_types:
     state.uttr.counters.err('ranking-across-places_failed_cb_norankingtypes', 1)
     return False
@@ -89,7 +89,7 @@ def populate(state: PopulateState,
       _compute_answer_places(state,
                              places[0],
                              chart_vars.svs[0],
-                             surfaceHeaderValue=surfaceHeaderValue)
+                             surface_header_value=surface_header_value)
 
     if not utils.has_map(state.place_type, places[0]):
       chart_vars.skip_map_for_ranking = True
@@ -110,8 +110,8 @@ def populate(state: PopulateState,
 def _compute_answer_places(state: PopulateState,
                            place: List[Place],
                            sv: str,
-                           surfaceHeaderValue: str = None):
-  print("in compute_answer_places:", surfaceHeaderValue)
+                           surface_header_value: str = None):
+  print("in compute_answer_places:", surface_header_value)
   if classifications_of_type_from_utterance(state.uttr,
                                             ClassificationType.PER_CAPITA):
     if os.environ.get('FLASK_ENV') == 'test':
@@ -124,11 +124,11 @@ def _compute_answer_places(state: PopulateState,
     else:
       print("compute case 1")
       ranked_places = filter_and_rank_places(
-          place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
+          place, state.place_type, sv, surface_header_value=surface_header_value)
   else:
     print("compute case 2")
     ranked_places = filter_and_rank_places(
-        place, state.place_type, sv, surfaceHeaderValue=surfaceHeaderValue)
+        place, state.place_type, sv, surface_header_value=surface_header_value)
 
   if state.ranking_types[0] == RankingType.LOW:
     # Reverse the order.

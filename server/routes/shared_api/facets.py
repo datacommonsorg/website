@@ -57,7 +57,7 @@ def get_facets_within():
   if not variables:
     return 'error: must provide a variables field', 400
   date = request.args.get('date')
-  surfaceHeaderValue = request.headers.get(
+  surface_header_value = request.headers.get(
       "x-surface") or UNKNOWN_SURFACE_HEADER_VALUE
   if not is_valid_date(date):
     return 'error: date must be LATEST or YYYY or YYYY-MM or YYYY-MM-DD', 400
@@ -66,7 +66,7 @@ def get_facets_within():
                                   variables,
                                   date,
                                   True,
-                                  surfaceHeaderValue=surfaceHeaderValue)
+                                  surface_header_value=surface_header_value)
 
 
 @bp.route('/', strict_slashes=False)
@@ -75,7 +75,7 @@ def get_facets():
   """
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
-  surfaceHeaderValue = request.headers.get(
+  surface_header_value = request.headers.get(
       "x-surface") or UNKNOWN_SURFACE_HEADER_VALUE
   if not entities:
     return 'error: must provide a `entities` field', 400
@@ -84,4 +84,4 @@ def get_facets():
   return fetch.series_facet(entities,
                             variables,
                             True,
-                            surfaceHeaderValue=surfaceHeaderValue)
+                            surface_header_value=surface_header_value)

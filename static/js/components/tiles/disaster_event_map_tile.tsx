@@ -206,6 +206,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
             }
           : null
       }
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
         <div className={`${CSS_SELECTOR_PREFIX}-chart-section`}>

@@ -49,7 +49,7 @@ def populate(state: PopulateState,
              places: List[Place],
              chart_origin: ChartOriginType,
              rank: int,
-             surfaceHeaderValue: str = None) -> bool:
+             surface_header_value: str = None) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('basic_failed_cb_events', 1)
     return False
@@ -76,14 +76,14 @@ def populate(state: PopulateState,
                               places,
                               chart_origin,
                               rank,
-                              surfaceHeaderValue=surfaceHeaderValue)
+                              surface_header_value=surface_header_value)
   else:
     return _populate_explore(state,
                              chart_vars,
                              places,
                              chart_origin,
                              rank,
-                             surfaceHeaderValue=surfaceHeaderValue)
+                             surface_header_value=surface_header_value)
 
 
 def _populate_explore(state: PopulateState,
@@ -91,7 +91,7 @@ def _populate_explore(state: PopulateState,
                       places: List[Place],
                       chart_origin: ChartOriginType,
                       rank: int,
-                      surfaceHeaderValue: str = None) -> bool:
+                      surface_header_value: str = None) -> bool:
   added = False
   # TODO(gmechali): Consider making is_highlight a part of the utterance.
   # We use the chart type parameter as a proxy to determine if a specific chart
@@ -132,7 +132,7 @@ def _populate_explore(state: PopulateState,
         ranking_orig = state.ranking_types
         if not state.ranking_types:
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]
-        print("populate explore: ", surfaceHeaderValue)
+        print("populate explore: ", surface_header_value)
         added_child_type_charts = ranking_across_places.populate(
             state,
             cv,
@@ -141,7 +141,7 @@ def _populate_explore(state: PopulateState,
             rank,
             ranking_count=_get_ranking_count_by_type(state.place_type,
                                                      ranking_orig),
-            surfaceHeaderValue=surfaceHeaderValue)
+            surface_header_value=surface_header_value)
         state.ranking_types = ranking_orig
       elif is_special_dc:
         # Return only map.

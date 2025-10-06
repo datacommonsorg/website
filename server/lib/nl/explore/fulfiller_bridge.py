@@ -136,7 +136,7 @@ def _is_place_overview(ranked_charts: List[ChartSpec]) -> bool:
 
 def _get_explore_more_chart_vars(
     state: PopulateState,
-    surfaceHeaderValue: str) -> Dict[str, List[ChartVars]]:
+    surface_header_value: str) -> Dict[str, List[ChartVars]]:
   # Get up to 10 SVs from each chart.
   explore_more_svs = set()
   for cs in state.uttr.rankedCharts:
@@ -155,7 +155,7 @@ def _get_explore_more_chart_vars(
         state,
         state.places_to_check,
         sv2chartvarslist=explore_more_chart_vars_map,
-        surfaceHeaderValue=surfaceHeaderValue)
+        surface_header_value=surface_header_value)
     ext_tracker.perform_existence_check()
     state.uttr.counters.timeit('explore_more_existence_check', start)
 

@@ -47,6 +47,7 @@ interface HistogramTilePropType {
   selectedDate: string;
   title: string;
   showExploreMore?: boolean;
+  surfaceHeaderValue: string;
 }
 
 const DAY_FORMAT = "YYYY-MM-DD";
@@ -289,6 +290,7 @@ export const HistogramTile = memo(function HistogramTile(
             }
           : null
       }
+      surfaceHeaderValue={props.surfaceHeaderValue}
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
