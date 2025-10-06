@@ -270,6 +270,7 @@ class DataCommonsWebClient {
     category?: string;
     locale?: string;
   }): Promise<PlaceChartsApiResponse> {
+    console.log("reaching get place charts, with: ", this.surfaceHeaderValue);
     const queryString = toURLSearchParams({
       category: params.category,
       [LOCALE_PARAM]: params.locale,
@@ -322,7 +323,12 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/overview-table/${
       params.placeDcid
     }?${queryString}`;
-    const response = await fetch(url);
+    const options = {
+      headers: {
+        "x-surface": this.surfaceHeaderValue,
+      },
+    };
+    const response = await fetch(url, options);
     return (await response.json()) as PlaceOverviewTableApiResponse;
   }
 

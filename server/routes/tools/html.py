@@ -106,6 +106,7 @@ def stat_var():
 def download():
   # List of DCIDs displayed in the info page for download tool
   # NOTE: EXACTLY 2 EXAMPLES REQUIRED.
+  print("In download")
   with open(get_example_file('download')) as f:
     info_places = json.load(f)
     return flask.render_template(

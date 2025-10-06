@@ -36,7 +36,8 @@ def get_point_within_csv_rows(parent_place,
                               sv_list,
                               facet_map,
                               date,
-                              row_limit=None):
+                              row_limit=None,
+                              surface_header_value=None):
   """Gets the csv rows for a set of statistical variables data for child places
     of a certain place type contained in a parent place.
 
@@ -54,7 +55,7 @@ def get_point_within_csv_rows(parent_place,
       row.
   """
   print("from csv")
-  points_response = dc.obs_point_within(parent_place, child_type, sv_list, date)
+  points_response = dc.obs_point_within(parent_place, child_type, sv_list, date, None, surface_header_value)
 
   # dict of place dcid to dict of sv dcid to chosen data point.
   data_by_place = {}
@@ -232,6 +233,8 @@ def get_stats_within_place_csv():
           facet to get data from
       rowLimit (optional): number of csv rows to return
   """
+  surface_header_value = request.headers.get("x-surface")
+  print("in stats_within_place_csv: ", surface_header_value)
   parent_place = request.json.get("parentPlace")
   if not parent_place:
     return "error: must provide a parentPlace field", 400
@@ -264,9 +267,9 @@ def get_stats_within_place_csv():
       date = "LATEST"
     result_csv.extend(
         get_point_within_csv_rows(parent_place, child_type, sv_list, facet_map,
-                                  date, row_limit))
+                                  date, row_limit, surface_header_value))
   else:
-    series_response = dc.obs_series_within(parent_place, child_type, sv_list)
+    series_response = dc.obs_series_within(parent_place, child_type, sv_list, None, surface_header_value)
     result_csv.extend(
         get_series_csv_rows(series_response, sv_list, facet_map, min_date,
                             max_date, row_limit))

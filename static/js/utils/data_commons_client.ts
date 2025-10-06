@@ -61,6 +61,12 @@ export function getDataCommonsClient(
       apiRoot,
       surfaceHeaderValue: surface,
     });
+  } else if (surface) {
+    return new DataCommonsClient({
+      apiRoot: DEFAULT_CLIENT_API_ROOT,
+      surfaceHeaderValue: surface,
+    });
   }
+
   return defaultDataCommonsClient;
 }

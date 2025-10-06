@@ -449,6 +449,7 @@ export function Page(props: PagePropType): ReactElement {
           <Preview
             selectedOptions={previewOptions}
             isDisabled={previewDisabled}
+            surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
           />
         )}
         {showInfo && <Info infoPlaces={props.infoPlaces} />}
