@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import e from "express";
 import _ from "lodash";
 import React, {
   ReactElement,
@@ -323,17 +324,15 @@ export function AutoCompleteInput(
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
       default:
-        // Handle alphanumeric and backspace keys
+        // Handle alphanumeric, space and backspace keys
         if (
-          (event.key.length === 1 && /[a-zA-Z0-9]/.test(event.key)) ||
-          event.key === "Backspace" || event.key === " " || event.key === "Delete"
+          hoveredIdx >= 0 &&
+          (/[a-zA-Z0-9]/.test(event.key) ||
+            event.key === " " ||
+            event.key === "Backspace" ||
+            event.key === "Delete")
         ) {
-          if (hoveredIdx >= 0) {
-            console.log("Selecting hovered index on key press");
-            selectResult(results[hoveredIdx], hoveredIdx, true);
-          }
-        } else {
-          console.log("something else.");
+          selectResult(results[hoveredIdx], hoveredIdx, true);
         }
     }
   }
