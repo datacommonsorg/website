@@ -45,12 +45,6 @@ variable "enable_ingress" {
   default     = true
 }
 
-variable "enable_google_maps" {
-  type        = bool
-  description = "Enable Google Maps component in the website."
-  default     = true
-}
-
 variable "global_static_ip_name" {
   type        = string
   description = "Name of the Ipv4 global static ip in GCP where dc_website_domain resolves to."
