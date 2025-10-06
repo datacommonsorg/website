@@ -75,8 +75,7 @@ def populate(state: PopulateState,
                               chart_vars,
                               places,
                               chart_origin,
-                              rank,
-                              surface_header_value=surface_header_value)
+                              rank)
   else:
     return _populate_explore(state,
                              chart_vars,
