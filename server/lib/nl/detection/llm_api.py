@@ -96,9 +96,6 @@ def detect_with_gemini(query: str, history: List[List[str]],
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
   model_name = detect_model_name()
-  if 'error' in model_name:
-    logging.error(f'Error in detecting Gemini model name: {model_name}')
-    return {}
   model_url_base = _GEMINI_API_URL_TEMPLATE.format(model_name=model_name)
   logging.info(f'Gemini model URL for LLM API: {model_url_base}')
   r = requests.post(f'{model_url_base}?key={api_key}',
@@ -201,7 +198,8 @@ def detect_model_name() -> str:
   if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_FLAG,
                         request=request) and is_feature_enabled(
                             ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
-    return 'error: both Gemini 2.5 Flash and Flash Lite feature flags are enabled'
+    logging.error('error: Both Gemini 2.5 Flash and Flash Lite feature flags are enabled, please enable only one. Force to use 1.5 Pro under this condition')
+    return _GEMINI_1_5_PRO
   if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
     return _GEMINI_2_5_FLASH_LITE
   if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_FLAG, request=request):
