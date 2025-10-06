@@ -198,7 +198,9 @@ def detect_model_name() -> str:
   if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_FLAG,
                         request=request) and is_feature_enabled(
                             ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
-    logging.error('error: Both Gemini 2.5 Flash and Flash Lite feature flags are enabled, please enable only one. Force to use 1.5 Pro under this condition')
+    logging.error(
+        'error: Both Gemini 2.5 Flash and Flash Lite feature flags are enabled, please enable only one. Force to use 1.5 Pro under this condition'
+    )
     return _GEMINI_1_5_PRO
   if is_feature_enabled(ENABLE_GEMINI_2_5_FLASH_LITE_FLAG, request=request):
     return _GEMINI_2_5_FLASH_LITE
