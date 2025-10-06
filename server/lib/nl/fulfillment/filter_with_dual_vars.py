@@ -79,7 +79,7 @@ def set_overrides(state: PopulateState):
 #
 # TODO: Consider deduping with filter_with_single_var.populate.
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType, _: int) -> bool:
+             chart_origin: ChartOriginType) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('filter-with-dual-vars_failed_cb_events', 1)
     return False

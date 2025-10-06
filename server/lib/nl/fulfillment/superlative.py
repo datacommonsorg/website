@@ -132,7 +132,7 @@ def set_overrides(state: PopulateState) -> bool:
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType, _: int) -> bool:
+             chart_origin: ChartOriginType) -> bool:
   if not state.ranking_types:
     state.uttr.counters.err('superlatives_failed_cb_norankingtypes', 1)
     return False
