@@ -159,8 +159,13 @@ export function Preview(props: PreviewProps): JSX.Element {
     if (_.isEmpty(csvReqPayload.current)) {
       return;
     }
+    const headers = {
+      headers: {
+        "x-surface": props.surfaceHeaderValue,
+      },
+    };
     axios
-      .post("/api/csv/within", csvReqPayload.current)
+      .post("/api/csv/within", csvReqPayload.current, headers)
       .then((resp) => {
         if (resp.data) {
           saveToFile(
