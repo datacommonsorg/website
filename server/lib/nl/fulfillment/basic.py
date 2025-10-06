@@ -71,11 +71,7 @@ def populate(state: PopulateState,
     # PROJECTED_TEMP_TOPIC has some very custom handling in config-builder,
     # that needs to be deprecated.
     # TODO: Deprecate this flow completely!
-    return _populate_specific(state,
-                              chart_vars,
-                              places,
-                              chart_origin,
-                              rank)
+    return _populate_specific(state, chart_vars, places, chart_origin, rank)
   else:
     return _populate_explore(state,
                              chart_vars,
