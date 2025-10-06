@@ -26,6 +26,7 @@ import { ThemeProvider } from "@emotion/react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
 import theme from "../../../theme/theme";
 import * as metadataFetcher from "./metadata_fetcher";
 import { TileMetadataModal } from "./tile_metadata_modal";
@@ -71,6 +72,7 @@ describe("TileMetadataModal - error path", () => {
               facetId: "",
             },
           ]}
+          surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
         />
       </ThemeProvider>
     );

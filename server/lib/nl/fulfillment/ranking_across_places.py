@@ -124,7 +124,10 @@ def _compute_answer_places(state: PopulateState,
     else:
       print("compute case 1")
       ranked_places = filter_and_rank_places(
-          place, state.place_type, sv, surface_header_value=surface_header_value)
+          place,
+          state.place_type,
+          sv,
+          surface_header_value=surface_header_value)
   else:
     print("compute case 2")
     ranked_places = filter_and_rank_places(

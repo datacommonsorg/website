@@ -23,6 +23,7 @@ bp = Blueprint("facets", __name__, url_prefix='/api/facets')
 
 UNKNOWN_SURFACE_HEADER_VALUE = "unknown"
 
+
 def is_valid_date(date):
   """
   Returns whether or not the date string is valid. Valid date strings are:

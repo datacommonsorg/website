@@ -183,6 +183,8 @@ def follow_up_questions():
 @cache.cached(timeout=TIMEOUT, make_cache_key=post_body_cache_key)
 def page_overview():
 
+  print('reaching overview')
+
   initial_query = request.get_json().get('q', '')
   stat_vars = request.get_json().get('statVars', [])
 
@@ -199,6 +201,7 @@ def page_overview():
   generated_overview, stat_var_links = overview.generate_page_overview(
       query=initial_query, stat_var_titles=stat_vars)
 
+  print("finished generated overview", generated_overview, stat_var_links)
   if not generated_overview or not stat_var_links:
     return Response(json.dumps(
         {'error': "Page overview could not be generated at this time."}),

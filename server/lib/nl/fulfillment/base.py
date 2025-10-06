@@ -118,7 +118,8 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
         'child': place.dcid,
         'parent': earth.dcid
     })
-    return _add_charts_with_existence_check(state, [earth], surface_header_value)
+    return _add_charts_with_existence_check(state, [earth],
+                                            surface_header_value)
 
   # Get the place-type.  Either of child-place (contained-in query-type),
   # or of the place itself.

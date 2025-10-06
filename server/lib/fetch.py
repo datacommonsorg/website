@@ -289,7 +289,7 @@ def series_facet(entities,
   resp = dc.series_facet(entities,
                          variables,
                          surface_header_value=surface_header_value)
-  
+
   compacted_series = _compact_series(resp, all_facets)
   processed_series = {'facets': compacted_series.get('facets', {}), 'data': {}}
   # Update compacted series so that the entity data is always a list.
@@ -381,7 +381,8 @@ def observation_existence(variables,
   return result
 
 
-def entity_variables(entities, surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+def entity_variables(entities,
+                     surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
   """Gets the statistical variables that have observations for given entities.
 
   Args:

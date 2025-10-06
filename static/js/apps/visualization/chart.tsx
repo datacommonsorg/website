@@ -20,11 +20,11 @@
 import React, { useContext, useRef, useState } from "react";
 
 import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 
 export function Chart(): JSX.Element {
   const appContext = useContext(AppContext);

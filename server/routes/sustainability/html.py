@@ -20,7 +20,6 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import redirect
-from flask import request
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
@@ -60,7 +59,7 @@ def sustainability_explorer(place_dcid=None):
     return "Error: no config installed"
   subject_config = copy.deepcopy(raw_subject_config)
 
-  # currently is only referenced from the website. 
+  # currently is only referenced from the website.
   # this value is used in mixer logs
   surface_header_value = "website"
 

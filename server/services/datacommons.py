@@ -35,7 +35,10 @@ logger = logging.getLogger(__name__)
 
 UNKNOWN_SURFACE_HEADER_VALUE = "unknown"
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+
+@cache.memoize(timeout=TIMEOUT,
+               unless=should_skip_cache,
+               args_to_ignore=["surface_header_value"])
 def get(url: str, surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
@@ -76,12 +79,15 @@ def post(url: str,
                       surface_header_value=surface_header_value)
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
+@cache.memoize(timeout=TIMEOUT,
+               unless=should_skip_cache,
+               args_to_ignore=['surface_header_value'])
 def post_wrapper(url,
                  req_str: str,
                  dc_api_key: str,
                  log_extreme_calls: bool,
-                 surface_header_value: str | None = UNKNOWN_SURFACE_HEADER_VALUE):
+                 surface_header_value: str |
+                 None = UNKNOWN_SURFACE_HEADER_VALUE):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
@@ -619,7 +625,10 @@ def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
   return post(url, req)
 
 
-def safe_obs_point(entities, variables, date='LATEST', surface_header_value=None):
+def safe_obs_point(entities,
+                   variables,
+                   date='LATEST',
+                   surface_header_value=None):
   """
     Calls obs_point with error handling.
     If an error occurs, returns a dict with an empty byVariable key.
