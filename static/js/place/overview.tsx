@@ -51,6 +51,7 @@ interface OverviewPropType {
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
+    const showGoogleMap = globalThis.enableGoogleMaps == false;
     return (
       <section
         className={`factoid col-12 ${
@@ -59,7 +60,7 @@ class Overview extends React.Component<OverviewPropType> {
       >
         <div className="overview-tile">
           <div className="row">
-            {globalThis.enableGoogleMaps && (
+            {showGoogleMap && (
               <div className={`col-12 ${this.props.showRanking && "col-md-4"}`}>
                 <GoogleMap dcid={this.props.dcid}></GoogleMap>
               </div>
@@ -67,7 +68,7 @@ class Overview extends React.Component<OverviewPropType> {
             {this.props.showRanking && (
               <div
                 className={`col-12 ${
-                  globalThis.enableGoogleMaps ? "col-md-8" : ""
+                  showGoogleMap && "col-md-8"
                 } ${ASYNC_ELEMENT_HOLDER_CLASS}`}
               >
                 <Ranking
