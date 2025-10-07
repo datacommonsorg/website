@@ -72,7 +72,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     date = get_date_string(state.single_date)
   elif state.date_range:
     date = sv_place_latest_date.get(sv, '').get(place_key, '')
-  print("populate double")
   ranked_children = rank_utils.filter_and_rank_places(
       parent_place=places[0],
       child_type=state.place_type,

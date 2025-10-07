@@ -21,6 +21,7 @@ from server.lib import fetch
 
 bp = Blueprint("facets", __name__, url_prefix='/api/facets')
 
+
 def is_valid_date(date):
   """
   Returns whether or not the date string is valid. Valid date strings are:
@@ -55,8 +56,7 @@ def get_facets_within():
   if not variables:
     return 'error: must provide a variables field', 400
   date = request.args.get('date')
-  surface_header_value = request.headers.get(
-      "x-surface")
+  surface_header_value = request.headers.get("x-surface")
   if not is_valid_date(date):
     return 'error: date must be LATEST or YYYY or YYYY-MM or YYYY-MM-DD', 400
   return fetch.point_within_facet(parent_entity,
@@ -73,8 +73,7 @@ def get_facets():
   """
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
-  surface_header_value = request.headers.get(
-      "x-surface")
+  surface_header_value = request.headers.get("x-surface")
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:

@@ -261,10 +261,7 @@ def series_core(entities,
   return _compact_series(resp, all_facets)
 
 
-def series_facet(entities,
-                 variables,
-                 all_facets,
-                 surface_header_value=None):
+def series_facet(entities, variables, all_facets, surface_header_value=None):
   """Fetches facet of series for given entities and variables.
 
   The response is in the following format:
@@ -350,9 +347,7 @@ def series_within_core(ancestor_entity,
   return _compact_series(resp, all_facets)
 
 
-def observation_existence(variables,
-                          entities,
-                          surface_header_value=None):
+def observation_existence(variables, entities, surface_header_value=None):
   """Check if observation exist for variable, entity pairs.
 
   Returns:
@@ -380,8 +375,7 @@ def observation_existence(variables,
   return result
 
 
-def entity_variables(entities,
-                     surface_header_value=None):
+def entity_variables(entities, surface_header_value=None):
   """Gets the statistical variables that have observations for given entities.
 
   Args:
