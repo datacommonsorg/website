@@ -240,15 +240,15 @@ async def filter_chart_config_for_data_existence(
   async def fetch_and_process_stats():
     """Fetches and processes observation data concurrently."""
     current_place_obs_point_task = asyncio.to_thread(
-        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids, None,
-        surface_header_value)
+        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids,
+        'LATEST', surface_header_value)
     child_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, place_dcid, child_place_type,
-        child_places_stat_var_dcids, None, None, surface_header_value)
+        child_places_stat_var_dcids, 'LATEST', None, surface_header_value)
     print("reaching obspoint calls")
     peer_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, parent_place_dcid, place_type,
-        peer_places_stat_var_dcids, None, None, surface_header_value)
+        peer_places_stat_var_dcids, 'LATEST', None, surface_header_value)
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
                                                place_dcid, [place_type])
