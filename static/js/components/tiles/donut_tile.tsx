@@ -210,8 +210,8 @@ export const fetchData = async (
       [statSvs, FILTER_STAT_VAR].flat(1),
       date,
       [statSvs],
-      null,
-      null,
+      null, // highlightFacet
+      null, // facetIds
       props.surfaceHeaderValue
     );
     const denomResp = _.isEmpty(denomSvs)
@@ -220,8 +220,8 @@ export const fetchData = async (
           props.apiRoot,
           [props.place.dcid],
           denomSvs,
-          null,
-          null,
+          null, // facetIds
+          null, // highlightFacet
           props.surfaceHeaderValue
         );
 

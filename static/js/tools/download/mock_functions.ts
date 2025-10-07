@@ -21,10 +21,9 @@
 jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";
-import { get } from "lodash";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
-import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
+import { stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
   // Mock all the async axios call.
@@ -225,7 +224,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -255,7 +254,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -286,7 +285,7 @@ export function axiosMock(): void {
         variables: ["Count_Person", "Median_Age_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -323,7 +322,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       {
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       }
     )
     .mockResolvedValue({
@@ -343,7 +342,7 @@ export function axiosMock(): void {
         variables: ["Count_Person"],
       },
       {
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       }
     )
     .mockResolvedValue({
@@ -369,7 +368,7 @@ export function axiosMock(): void {
         statVars: ["Count_Person"],
       },
       {
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       }
     )
     .mockResolvedValue({
@@ -388,7 +387,7 @@ export function axiosMock(): void {
         statVars: ["Count_Person"],
       },
       {
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       }
     )
     .mockResolvedValue({
@@ -408,7 +407,7 @@ export function axiosMock(): void {
         statVars: ["Count_Person"],
       },
       {
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       }
     )
     .mockResolvedValue({
@@ -427,7 +426,7 @@ export function axiosMock(): void {
         statVars: ["Count_Person"],
       },
       {
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       }
     )
     .mockResolvedValue({

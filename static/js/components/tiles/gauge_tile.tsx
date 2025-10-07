@@ -160,10 +160,10 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
       props.apiRoot,
       [props.place.dcid],
       [props.statVarSpec.statVar],
-      "",
-      null,
-      null,
-      null,
+      "", // date
+      null, // alignedVariables
+      null, // highlightFacet
+      null, // facetIds
       props.surfaceHeaderValue
     );
     const denomResp = props.statVarSpec.denom
@@ -171,8 +171,8 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
           props.apiRoot,
           [props.place.dcid],
           [props.statVarSpec.denom],
-          null,
-          null,
+          null, // facetIds
+          null, // highlightFacet
           props.surfaceHeaderValue
         )
       : null;

@@ -414,10 +414,10 @@ export const fetchData = async (
       apiRoot,
       props.places,
       [FILTER_STAT_VAR],
-      "",
-      undefined,
-      null,
-      null,
+      "", // date
+      undefined, // alignedVariables
+      null, // highlightFacet
+      null, // facetIds
       props.surfaceHeaderValue
     );
     denomPromise = _.isEmpty(denomSvs)
@@ -426,8 +426,8 @@ export const fetchData = async (
           apiRoot,
           props.places,
           denomSvs,
-          [],
-          null,
+          [], // facetIds
+          null, // highlightFacet
           props.surfaceHeaderValue
         );
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
@@ -436,9 +436,9 @@ export const fetchData = async (
       props.enclosedPlaceType,
       props.parentPlace,
       [FILTER_STAT_VAR],
-      "",
-      null,
-      null,
+      "", // date
+      null, // alignedVariables
+      null, // facetIds
       props.surfaceHeaderValue
     );
     denomPromise = _.isEmpty(denomSvs)
@@ -448,7 +448,7 @@ export const fetchData = async (
           props.parentPlace,
           props.enclosedPlaceType,
           denomSvs,
-          null,
+          null, // facetIds
           props.surfaceHeaderValue
         );
   }

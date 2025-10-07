@@ -17,6 +17,8 @@
 import axios from "axios";
 import _ from "lodash";
 
+import { getXSurfaceHeader } from "../utils/axios";
+
 interface StatVarInfo {
   // measurementDenominator
   md?: string;
@@ -72,7 +74,7 @@ async function getStatVar(
       dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
     },
     {
-      headers: { "x-surface": surfaceHeaderValue },
+      headers: getXSurfaceHeader(surfaceHeaderValue),
     }
   );
   return new Set<string>(resp.data);

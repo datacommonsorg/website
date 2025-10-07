@@ -28,6 +28,7 @@ import Enzyme, { mount, ReactWrapper } from "enzyme";
 import pretty from "pretty";
 import React from "react";
 
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import * as SharedUtil from "../../shared/util";
 import { InfoPlace } from "./info";
 import { axiosMock } from "./mock_functions";
@@ -96,9 +97,7 @@ test("Loading options from URL", async () => {
       statVars: ["Count_Person"],
     },
     {
-      headers: {
-        "x-surface": "website",
-      },
+      headers: WEBSITE_SURFACE_HEADER,
     }
   );
   let savedFile = "";
@@ -190,9 +189,7 @@ test("Manually updating options", async () => {
       statVars: ["Count_Person"],
     },
     {
-      headers: {
-        "x-surface": "website",
-      },
+      headers: WEBSITE_SURFACE_HEADER,
     }
   );
   let savedFile = "";
