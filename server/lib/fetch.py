@@ -19,7 +19,6 @@ import copy
 import re
 from typing import Dict, List
 
-from server.lib.util import UNKNOWN_SURFACE_HEADER_VALUE
 import server.services.datacommons as dc
 
 COMPLEX_UNIT_REGEX = r'\[.+ [0-9]+\]'
@@ -175,7 +174,7 @@ def point_core(entities,
                variables,
                date,
                all_facets,
-               surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+               surface_header_value=None):
   """Fetchs observation point for given entities, variables and date.
 
   The response is in the following format:
@@ -206,7 +205,7 @@ def point_within_core(ancestor_entity,
                       date,
                       all_facets,
                       facet_ids=None,
-                      surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+                      surface_header_value=None):
   """Fetchs observation point for descendent entities of certain type.
 
   The response is in the following format:
@@ -237,7 +236,7 @@ def series_core(entities,
                 variables,
                 all_facets,
                 facet_ids=None,
-                surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+                surface_header_value=None):
   """Fetches observation series for given entities and variables.
 
   The response is in the following format:
@@ -265,7 +264,7 @@ def series_core(entities,
 def series_facet(entities,
                  variables,
                  all_facets,
-                 surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+                 surface_header_value=None):
   """Fetches facet of series for given entities and variables.
 
   The response is in the following format:
@@ -308,7 +307,7 @@ def point_within_facet(ancestor_entity,
                        variables,
                        date,
                        all_facets,
-                       surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+                       surface_header_value=None):
   """Fetches facet of child places of a certain place type contained in a parent
   place at a given date.
   """
@@ -325,7 +324,7 @@ def series_within_core(ancestor_entity,
                        variables,
                        all_facets,
                        facet_ids=None,
-                       surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+                       surface_header_value=None):
   """Fetchs observation series for for descendent entities of certain type.
 
   The response is in the following format:
@@ -353,7 +352,7 @@ def series_within_core(ancestor_entity,
 
 def observation_existence(variables,
                           entities,
-                          surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+                          surface_header_value=None):
   """Check if observation exist for variable, entity pairs.
 
   Returns:
@@ -382,7 +381,7 @@ def observation_existence(variables,
 
 
 def entity_variables(entities,
-                     surface_header_value=UNKNOWN_SURFACE_HEADER_VALUE):
+                     surface_header_value=None):
   """Gets the statistical variables that have observations for given entities.
 
   Args:
