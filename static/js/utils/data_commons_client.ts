@@ -18,8 +18,8 @@ import {
   DataCommonsClient,
   DataCommonsWebClient,
 } from "@datacommonsorg/client";
-import { UNKNOWN_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 
+const UNKNOWN_SURFACE_HEADER_VALUE = "unknown";
 /**
  * Default @datacommonsorg/client apiRoot value is "/", meaning the current
  * hostname in the browser
