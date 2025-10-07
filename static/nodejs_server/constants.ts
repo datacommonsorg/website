@@ -71,3 +71,7 @@ export const TOOLFORMER_RAG_MODE = "toolformer_rag";
 export const TOOLFORMER_RIG_MODE = "toolformer_rig";
 // Value to be passed into fetchData and eventually to mixer to log usage from the website surface
 export const WEBSITE_SURFACE_HEADER_VALUE = "website";
+// Actual header using value above
+export const WEBSITE_SURFACE_HEADER = {
+  "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
+};

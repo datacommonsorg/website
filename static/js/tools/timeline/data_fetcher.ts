@@ -166,11 +166,11 @@ export function fetchRawData(
   });
   if (denom) {
     denomDataPromise = getSeries(
-      "",
+      "", // apiRoot
       places,
       [denom],
-      null,
-      null,
+      null, // facetIds
+      null, // highlightFacet
       surfaceHeaderValue
     );
   }

@@ -22,14 +22,14 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../shared/constants";
+import { WEBSITE_SURFACE_HEADER } from "../shared/constants";
 import {
   Series,
   SeriesAllApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
 import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
-import { getXSurfaceHeader, stringifyFn } from "../utils/axios";
+import { stringifyFn } from "../utils/axios";
 import { getUnit } from "../utils/stat_metadata_utils";
 import { ObservationChart } from "./observation_chart";
 
@@ -135,7 +135,7 @@ export class ObservationChartSection extends React.Component<
           variables: [this.props.statVarId],
         },
         paramsSerializer: stringifyFn,
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       })
       .then((resp) => {
         removeSpinner(this.containerId);

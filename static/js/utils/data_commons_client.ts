@@ -49,16 +49,8 @@ export function getDataCommonsClient(
   apiRoot?: string,
   surfaceHeaderValue?: string
 ): DataCommonsClient {
-  const surface = surfaceHeaderValue;
-  if (apiRoot) {
-    return new DataCommonsClient({
-      apiRoot,
-      surfaceHeaderValue: surface,
-    });
-  }
-
   return new DataCommonsClient({
-    apiRoot: DEFAULT_CLIENT_API_ROOT,
-    surfaceHeaderValue: surface,
+    apiRoot: apiRoot ?? DEFAULT_CLIENT_API_ROOT,
+    surfaceHeaderValue: surfaceHeaderValue ?? null,
   });
 }

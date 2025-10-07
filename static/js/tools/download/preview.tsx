@@ -25,6 +25,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Card } from "reactstrap";
 
 import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
+import { getXSurfaceHeader } from "../../utils/axios";
 import {
   DATE_ALL,
   DATE_LATEST,
@@ -160,9 +161,7 @@ export function Preview(props: PreviewProps): JSX.Element {
       return;
     }
     const headers = {
-      headers: {
-        "x-surface": props.surfaceHeaderValue,
-      },
+      headers: getXSurfaceHeader(props.surfaceHeaderValue),
     };
     axios
       .post("/api/csv/within", csvReqPayload.current, headers)
@@ -189,9 +188,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     const reqObject = _.cloneDeep(csvReqPayload.current);
     reqObject["rowLimit"] = NUM_ROWS;
     const headers = {
-      headers: {
-        "x-surface": surfaceHeaderValue,
-      },
+      headers: getXSurfaceHeader(props.surfaceHeaderValue),
     };
     axios
       .post("/api/csv/within", reqObject, headers)

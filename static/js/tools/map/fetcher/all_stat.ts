@@ -24,13 +24,13 @@ import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../../shared/constants";
+import { WEBSITE_SURFACE_HEADER } from "../../../shared/constants";
 import {
   EntityObservationListWrapper,
   PointAllApiResponse,
 } from "../../../shared/stat_types";
 import { getCappedStatVarDate } from "../../../shared/util";
-import { getXSurfaceHeader, stringifyFn } from "../../../utils/axios";
+import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
@@ -71,7 +71,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
           variables: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       })
       .then((resp) => {
         if (_.isEmpty(resp.data.data[statVar.value.dcid])) {

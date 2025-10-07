@@ -73,7 +73,7 @@ export async function getHighlightTileResult(
     const highlightData = await fetchData(
       place,
       statVarSpec,
-      null,
+      null, // highlightFacet
       apiRoot,
       surfaceHeaderValue
     );

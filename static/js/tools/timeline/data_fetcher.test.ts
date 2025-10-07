@@ -21,9 +21,12 @@ import axios from "axios";
 import { when } from "jest-when";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import {
+  WEBSITE_SURFACE_HEADER,
+  WEBSITE_SURFACE_HEADER_VALUE,
+} from "../../shared/constants";
 import { SeriesAllApiResponse } from "../../shared/stat_types";
-import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
+import { stringifyFn } from "../../utils/axios";
 import {
   convertToDelta,
   fetchRawData,
@@ -44,7 +47,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -124,7 +127,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {

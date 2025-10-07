@@ -24,7 +24,10 @@ import React, { Component } from "react";
 import { Button } from "reactstrap";
 
 import { PropertyValues } from "../../shared/api_response_types";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import {
+  WEBSITE_SURFACE_HEADER,
+  WEBSITE_SURFACE_HEADER_VALUE,
+} from "../../shared/constants";
 import {
   NamedNode,
   NamedTypedNode,
@@ -32,7 +35,7 @@ import {
   StatVarSummary,
 } from "../../shared/types";
 import theme from "../../theme/theme";
-import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
+import { stringifyFn } from "../../utils/axios";
 import { getUrlToken, updateHash } from "../../utils/url_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
@@ -203,7 +206,7 @@ class Page extends Component<unknown, PageStateType> {
               variables,
             },
             {
-              headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+              headers: WEBSITE_SURFACE_HEADER,
             }
           )
           .then((exResp) => {

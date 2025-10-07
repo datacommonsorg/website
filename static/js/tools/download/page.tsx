@@ -24,7 +24,10 @@ import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
 import { Chip } from "../../shared/chip";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import {
+  WEBSITE_SURFACE_HEADER,
+  WEBSITE_SURFACE_HEADER_VALUE,
+} from "../../shared/constants";
 import {
   FacetSelector,
   FacetSelectorFacetInfo,
@@ -33,7 +36,7 @@ import { PointAllApiResponse } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 import theme from "../../theme/theme";
-import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
+import { stringifyFn } from "../../utils/axios";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse } from "../../utils/data_fetch_utils";
 import { getNamedTypedPlace } from "../../utils/place_utils";
@@ -170,7 +173,7 @@ export function Page(props: PagePropType): ReactElement {
       .get("/api/facets/within", {
         params: reqObj,
         paramsSerializer: stringifyFn,
-        headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
+        headers: WEBSITE_SURFACE_HEADER,
       })
       .then(async (resp) => {
         const baseFacetData: PointAllApiResponse = resp.data;

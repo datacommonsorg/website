@@ -119,7 +119,7 @@ export async function getBarTileResult(
     surfaceHeaderValue
   );
   try {
-    const chartData = await fetchData(tileProp, null);
+    const chartData = await fetchData(tileProp);
     const chartTitle = getChartTitle(
       tileConfig.title,
       getReplacementStrings(chartData)

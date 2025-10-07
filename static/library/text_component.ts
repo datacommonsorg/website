@@ -19,7 +19,6 @@ import { customElement, property } from "lit/decorators.js";
 
 import tilesCssString from "../css/tiles.scss";
 import { TextTile, TextTilePropType } from "../js/components/tiles/text_tile";
-import { WEB_COMPONENT_SURFACE_HEADER_VALUE } from "./constants";
 import { createWebComponentElement } from "./utils";
 
 /**

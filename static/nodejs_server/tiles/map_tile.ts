@@ -141,7 +141,7 @@ export async function getMapTileResult(
     surfaceHeaderValue
   );
   try {
-    const chartData = await fetchData(tileProp, null);
+    const chartData = await fetchData(tileProp);
     const result: TileResult = {
       dataCsv: mapDataToCsv(chartData.layerData),
       placeType: enclosedPlaceType,

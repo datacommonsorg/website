@@ -55,8 +55,6 @@ export const SCATTER_URL_PATH = "/tools/scatter";
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
  * @param apiRoot API root
- * @param dateOverride Optional. Use this date instead of dates associated with
- *        statVars
  */
 export async function getStatWithinPlace(
   parentPlace: string,

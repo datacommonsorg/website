@@ -208,7 +208,7 @@ async function loadData(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     [x.value, y.value],
-    "",
+    "", // apiRoot
     surfaceHeaderValue
   );
   const statAllResponsePromise: Promise<PointAllApiResponse> =
@@ -229,7 +229,7 @@ async function loadData(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     Array.from(populationSvList),
-    null,
+    null, // facetIds
     surfaceHeaderValue
   );
   try {
