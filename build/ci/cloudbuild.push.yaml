@@ -76,6 +76,11 @@ steps:
       - -c
       - |
         set -e
+        # The datacommons-script-runner image needs git to be installed to fetch
+        # the submodules.
+        apt-get update && apt-get install -y git
+        git submodule update --init --recursive
+
         docker build -f tools/script_runner/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-script-runner:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-script-runner:latest \

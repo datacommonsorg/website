@@ -117,5 +117,7 @@ nodejs:
 cronTesting:
   enabled: true
   screenshotDomain: "autopush.datacommons.org"
+  webApiRoot: "http://website-service.website.svc.cluster.local:8080"
+  nodejsApiRoot: "http://website-nodejs-service.website.svc.cluster.local:8080"
   nodePool: "pool-1"
   schedule: "0 */12 * * *"

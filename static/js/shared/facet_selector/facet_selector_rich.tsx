@@ -232,6 +232,13 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
     !error &&
     !areFacetsConsistent(facetList);
 
+  /*
+   This is true if more than one choice can be made in the dialog (i.e.,
+   we are not in grouped mode, and we have more than one stat var).
+   */
+  const multipleChoicesAvailable =
+    !allowSelectionGrouping && finalFacetList && finalFacetList.length > 1;
+
   return (
     <>
       <Button
@@ -254,7 +261,7 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
       >
         {intl.formatMessage(
           mode === "download"
-            ? finalFacetList && finalFacetList.length > 1
+            ? multipleChoicesAvailable
               ? facetSelectionComponentMessages.SelectDatasets
               : facetSelectionComponentMessages.SelectDataset
             : facetSelectionComponentMessages.ExploreOtherDatasets
@@ -276,6 +283,7 @@ export function FacetSelectorRich(props: FacetSelectorRichProps): ReactElement {
         facetList={finalFacetList}
         open={modalOpen}
         onClose={(): void => setModalOpen(false)}
+        multipleChoicesAvailable={multipleChoicesAvailable}
       />
     </>
   );
@@ -315,6 +323,7 @@ function FacetSelectorModal(
   props: FacetSelectorRichProps & {
     open: boolean;
     onClose: () => void;
+    multipleChoicesAvailable: boolean;
   }
 ): ReactElement {
   const {
@@ -382,7 +391,7 @@ function FacetSelectorModal(
     >
       <DialogTitle>
         {intl.formatMessage(
-          facetList?.length > 1
+          props.multipleChoicesAvailable
             ? facetSelectionComponentMessages.SelectDatasets
             : facetSelectionComponentMessages.SelectDataset
         )}
