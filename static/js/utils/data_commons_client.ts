@@ -18,11 +18,7 @@ import {
   DataCommonsClient,
   DataCommonsWebClient,
 } from "@datacommonsorg/client";
-
-import {
-  UNKNOWN_SURFACE_HEADER_VALUE,
-  WEBSITE_SURFACE_HEADER_VALUE,
-} from "../shared/constants";
+import { UNKNOWN_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
 
 /**
  * Default @datacommonsorg/client apiRoot value is "/", meaning the current
@@ -33,11 +29,11 @@ export const DEFAULT_CLIENT_API_ROOT = "/";
 
 export const defaultDataCommonsWebClient = new DataCommonsWebClient({
   apiRoot: DEFAULT_CLIENT_API_ROOT,
-  surfaceHeaderValue: WEBSITE_SURFACE_HEADER_VALUE,
+  surfaceHeaderValue: UNKNOWN_SURFACE_HEADER_VALUE,
 });
 export const defaultDataCommonsClient = new DataCommonsClient({
   apiRoot: DEFAULT_CLIENT_API_ROOT,
-  surfaceHeaderValue: WEBSITE_SURFACE_HEADER_VALUE,
+  surfaceHeaderValue: UNKNOWN_SURFACE_HEADER_VALUE,
 });
 
 /**
@@ -53,20 +49,16 @@ export function getDataCommonsClient(
   apiRoot?: string,
   surfaceHeaderValue?: string
 ): DataCommonsClient {
-  const surface = surfaceHeaderValue
-    ? surfaceHeaderValue
-    : UNKNOWN_SURFACE_HEADER_VALUE;
+  const surface = surfaceHeaderValue;
   if (apiRoot) {
     return new DataCommonsClient({
       apiRoot,
       surfaceHeaderValue: surface,
     });
-  } else if (surface) {
-    return new DataCommonsClient({
-      apiRoot: DEFAULT_CLIENT_API_ROOT,
-      surfaceHeaderValue: surface,
-    });
   }
 
-  return defaultDataCommonsClient;
+  return new DataCommonsClient({
+    apiRoot: DEFAULT_CLIENT_API_ROOT,
+    surfaceHeaderValue: surface,
+  });
 }

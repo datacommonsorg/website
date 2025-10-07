@@ -24,7 +24,6 @@ import {
   getBlockEventTypeSpecs,
 } from "../js/components/subject_page/disaster_event_block";
 import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
-import { UNKNOWN_SURFACE_HEADER_VALUE } from "../js/shared/constants";
 import {
   NamedTypedNode,
   NamedTypedPlace,

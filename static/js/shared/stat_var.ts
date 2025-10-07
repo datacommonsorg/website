@@ -17,8 +17,6 @@
 import axios from "axios";
 import _ from "lodash";
 
-import { UNKNOWN_SURFACE_HEADER_VALUE } from "./constants";
-
 interface StatVarInfo {
   // measurementDenominator
   md?: string;
@@ -63,7 +61,7 @@ async function getStatVar(
   dcids: string[],
   sample = false,
   sampleSize = 5,
-  surfaceHeaderValue = UNKNOWN_SURFACE_HEADER_VALUE
+  surfaceHeaderValue = ""
 ): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());

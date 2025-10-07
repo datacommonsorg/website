@@ -24,10 +24,7 @@ import * as d3 from "d3";
 import { when } from "jest-when";
 
 import { drawGroupLineChart } from "../../chart/draw_line";
-import {
-  UNKNOWN_SURFACE_HEADER_VALUE,
-  WEBSITE_SURFACE_HEADER_VALUE,
-} from "../../shared/constants";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
@@ -113,7 +110,6 @@ export function axiosMock(): void {
       },
       {
         headers: getXSurfaceHeader(WEBSITE_SURFACE_HEADER_VALUE),
-        // headers: getXSurfaceHeader(UNKNOWN_SURFACE_HEADER_VALUE),
       }
     )
     .mockResolvedValue({

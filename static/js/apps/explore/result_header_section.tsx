@@ -36,6 +36,7 @@ import { intl, LocalizedLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { pageMessages } from "../../i18n/i18n_place_messages";
 import { displayNameForPlaceType } from "../../place/util";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
@@ -47,7 +48,7 @@ import { NamedTypedPlace } from "../../shared/types";
 import theme from "../../theme/theme";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
-import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { ItemList } from "./item_list";
 
 interface PlacesTooltipContentProps {
@@ -396,6 +397,11 @@ export function ResultHeaderSection(
     ? []
     : getTopics(props.pageMetadata, props.placeUrlVal);
 
+  const dataCommonsClient = getDataCommonsClient(
+    null,
+    WEBSITE_SURFACE_HEADER_VALUE
+  );
+
   useEffect(() => {
     const initialPlaces = props.pageMetadata.places;
     if (!initialPlaces || initialPlaces.length === 0) {
@@ -406,7 +412,7 @@ export function ResultHeaderSection(
     (async (): Promise<void> => {
       try {
         const promises = initialPlaces.map((place) =>
-          defaultDataCommonsWebClient.getRelatedPLaces({
+          dataCommonsClient.webClient.getRelatedPLaces({
             placeDcid: place.dcid,
           })
         );
