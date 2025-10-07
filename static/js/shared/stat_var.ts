@@ -63,7 +63,7 @@ async function getStatVar(
   dcids: string[],
   sample = false,
   sampleSize = 5,
-  surfaceHeaderValue: string = UNKNOWN_SURFACE_HEADER_VALUE
+  surfaceHeaderValue = UNKNOWN_SURFACE_HEADER_VALUE
 ): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
