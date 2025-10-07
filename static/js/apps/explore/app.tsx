@@ -35,7 +35,10 @@ import {
 } from "../../constants/app/explore_constants";
 import { intl, localizeLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import {
+  WEBSITE_SURFACE_HEADER,
+  WEBSITE_SURFACE_HEADER_VALUE,
+} from "../../shared/constants";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -547,9 +550,7 @@ const fetchFulfillData = async (
         skipRelatedThings,
       },
       {
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: WEBSITE_SURFACE_HEADER,
       }
     );
     if (startTime) {
@@ -633,9 +634,7 @@ const fetchDetectAndFufillData = async (
       {
         // passing in a header indiciating that the call is made from the website
         // used in Mixer usage logs
-        headers: {
-          "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
-        },
+        headers: WEBSITE_SURFACE_HEADER,
       }
     );
     if (startTime) {

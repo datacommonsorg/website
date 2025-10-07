@@ -105,7 +105,6 @@ class TestApiPointWithin(unittest.TestCase):
     }
 
     def post_side_effect(url, data, _=None, surface_header_value=None):
-      print("SURF IN POST SIDE EFFECT: ", surface_header_value)
       if url.endswith('/v2/observation') and data == {
           'select': ['date', 'value', 'variable', 'entity'],
           'entity': {

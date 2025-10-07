@@ -20,7 +20,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { PropertyValues } from "../shared/api_response_types";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../shared/constants";
+import { WEBSITE_SURFACE_HEADER } from "../shared/constants";
 import { BrowserPage } from "./app";
 import { getPageDisplayType, PageDisplayType } from "./types";
 
@@ -41,7 +41,7 @@ window.addEventListener("load", (): void => {
     .then((resp) => resp.data);
   const numStatVarsPromise = axios
     .get(`/api/place/variable/count?dcids=${dcid}`, {
-      headers: { "x-surface": WEBSITE_SURFACE_HEADER_VALUE },
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .then((resp) => resp.data[dcid])
     .catch(() => {
