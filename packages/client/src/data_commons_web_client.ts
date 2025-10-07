@@ -42,7 +42,7 @@ const LOCALE_PARAM = "hl";
 class DataCommonsWebClient {
   /** Website API root */
   apiRoot?: string;
-  xSurfaceHeader?: any;
+  xSurfaceHeader?: Record<string, string>;
 
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};

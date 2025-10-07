@@ -31,5 +31,5 @@ export const getRoot = (): string => {
 export const getXSurfaceHeader = (
   surfaceHeaderValue: string
 ): Record<string, string> => {
-  return { "x-surface": surfaceHeaderValue };
+  return { "x-surface": surfaceHeaderValue ?? "" };
 };
