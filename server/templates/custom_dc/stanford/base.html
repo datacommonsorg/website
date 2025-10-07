@@ -51,6 +51,7 @@
   <script>
     globalThis.viaGoogle = true;
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.enableGoogleMaps = {{ config['ENABLE_GOOGLE_MAPS'] | tojson }};
   </script>
   <title>{{ title }} - Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
