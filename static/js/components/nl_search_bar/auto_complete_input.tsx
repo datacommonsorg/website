@@ -31,6 +31,7 @@ import React, {
 import { Input, InputGroup } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
+import { ENABLE_STAT_VAR_AUTOCOMPLETE } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
@@ -88,6 +89,7 @@ interface AutoCompleteInputPropType {
   shouldAutoFocus: boolean;
   barType: string;
   enableDynamicPlaceholders?: boolean;
+  enableStatVarAutocomplete?: boolean;
 }
 
 function convertJSONToAutoCompleteResults(
@@ -263,6 +265,12 @@ export function AutoCompleteInput(
 
       const urlParams = extractFlagsToPropagate(window.location.href);
       urlParams.set("query", query);
+      // Force the backend to use the stat var autocomplete model if the feature is enabled.
+      if (props.enableStatVarAutocomplete) {
+        urlParams.set("enable_feature", ENABLE_STAT_VAR_AUTOCOMPLETE);
+      } else {
+        urlParams.set("disable_feature", ENABLE_STAT_VAR_AUTOCOMPLETE);
+      }
       const url = `/api/autocomplete?${urlParams.toString()}`;
 
       try {
