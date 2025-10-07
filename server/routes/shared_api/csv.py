@@ -54,7 +54,6 @@ def get_point_within_csv_rows(parent_place,
       represented as an array where each item is the value of a cell in the
       row.
   """
-  print("from csv")
   points_response = dc.obs_point_within(parent_place, child_type, sv_list, date,
                                         None, surface_header_value)
 
@@ -235,7 +234,6 @@ def get_stats_within_place_csv():
       rowLimit (optional): number of csv rows to return
   """
   surface_header_value = request.headers.get("x-surface")
-  print("in stats_within_place_csv: ", surface_header_value)
   parent_place = request.json.get("parentPlace")
   if not parent_place:
     return "error: must provide a parentPlace field", 400

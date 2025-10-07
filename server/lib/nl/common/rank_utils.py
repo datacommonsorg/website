@@ -102,7 +102,6 @@ def rank_places_by_series_growth(
   start = time.time()
   facet_to_fetch = ''
   if sv in constants.SVS_TO_CHECK_FACET:
-    print("coming from rank_palces_by_series_growth")
     series_facets = fetch.series_facet(entities=places,
                                        variables=[sv],
                                        all_facets=True)
@@ -407,7 +406,6 @@ def filter_and_rank_places(
   if not date:
     # When there's no date specified, use latest date
     date = 'LATEST'
-  print("from filter, ", surface_header_value)
   api_resp = fetch.point_within_core(parent_place.dcid,
                                      child_type.value, [sv],
                                      date,
@@ -445,7 +443,6 @@ def filter_and_rank_places_per_capita(
     child_type: types.ContainedInPlaceType,
     sv: str,
     filter: types.QuantityClassificationAttributes = None) -> List[types.Place]:
-  print("from filter 2")
   api_resp = fetch.point_within_core(parent_place.dcid, child_type.value,
                                      [sv, constants.DEFAULT_DENOMINATOR],
                                      'LATEST', False)

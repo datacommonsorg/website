@@ -202,8 +202,6 @@ def sv_existence_for_places_check_single_point(
 
   check_date = bool(single_date) | bool(date_range)
   start = time.time()
-  print("coming from sv_existence_for_places_check_single_point: ",
-        surface_header_value)
   series_facet = fetch.series_facet(entities=places,
                                     variables=svs,
                                     all_facets=check_date,

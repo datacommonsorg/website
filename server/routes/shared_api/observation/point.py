@@ -89,7 +89,6 @@ def point():
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
   surface_header_value = request.headers.get('x-surface')
-  print("surface_header_value in point: ", surface_header_value)
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(entities=entities,
@@ -162,7 +161,6 @@ def point_within():
   date = request.args.get('date') or DATE_LATEST
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
   # Fetch recent observations with the highest entity coverage
-  print("In point_withiN: ", surface_header_value)
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(parent_entity=parent_entity,
                                   child_type=child_type,

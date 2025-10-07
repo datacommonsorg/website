@@ -111,7 +111,6 @@ def _compute_answer_places(state: PopulateState,
                            place: List[Place],
                            sv: str,
                            surface_header_value: str = None):
-  print("in compute_answer_places:", surface_header_value)
   if classifications_of_type_from_utterance(state.uttr,
                                             ClassificationType.PER_CAPITA):
     if os.environ.get('FLASK_ENV') == 'test':
@@ -122,14 +121,12 @@ def _compute_answer_places(state: PopulateState,
       ranked_places = filter_and_rank_places_per_capita(place, state.place_type,
                                                         sv)
     else:
-      print("compute case 1")
       ranked_places = filter_and_rank_places(
           place,
           state.place_type,
           sv,
           surface_header_value=surface_header_value)
   else:
-    print("compute case 2")
     ranked_places = filter_and_rank_places(
         place, state.place_type, sv, surface_header_value=surface_header_value)
 

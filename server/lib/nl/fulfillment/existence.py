@@ -63,7 +63,6 @@ class ExistenceCheckTracker:
     self.all_svs = set()
     self.exist_sv_states: List[SVExistenceCheckState] = []
     self.surface_header_value = surface_header_value or "unknown"
-    print("Setting surface_header_value: ", surface_header_value)
     # Map of existing SVs with key as SV DCID and value as an ID to a facet that
     # has data for that SV.
     self.existing_svs = {}

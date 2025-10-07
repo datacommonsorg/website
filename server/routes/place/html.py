@@ -184,8 +184,6 @@ def place_explorer():
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 @cache.cached(query_string=True)
 def place(place_dcid):
-  print("Reaching place with dcid! request headers: ",
-        request.headers.get("x-surface"))
   """
   Renders place page with the given DCID.
 

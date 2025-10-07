@@ -56,7 +56,6 @@ class TestPageOverview(unittest.TestCase):
                                       'statVars': STAT_VARS
                                   })
 
-    print("Resp: ", resp)
     assert resp.status_code == 200
     assert resp.json['pageOverview'] == EXPECTED_OVERVIEW
     assert resp.json['statVarChartLinks'] == [

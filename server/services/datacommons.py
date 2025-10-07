@@ -70,8 +70,6 @@ def post(url: str,
   key_to_use = api_key
   if key_to_use is None:
     key_to_use = current_app.config.get("DC_API_KEY", "")
-  if "v2/observation" in url:
-    print("in post: ", surface_header_value)
   return post_wrapper(url,
                       req_str,
                       key_to_use,
@@ -89,8 +87,6 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool,
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
-  if "v2/observation" in url:
-    print("in post wrapper: ", surface_header_value)
   headers['x-surface'] = surface_header_value or UNKNOWN_SURFACE_HEADER_VALUE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
@@ -115,7 +111,6 @@ def obs_point(entities, variables, date="LATEST", surface_header_value=None):
             observation is returned.
     """
   url = get_service_url("/v2/observation")
-  print("in obs_core: ", surface_header_value)
   return post(url, {
       "select": ["date", "value", "variable", "entity"],
       "entity": {
@@ -166,7 +161,6 @@ def obs_point_within(parent_entity,
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
-  print("passed in from obs_point_within: ", surface_header_value)
   return post(url, req, surface_header_value=surface_header_value)
 
 
@@ -190,7 +184,6 @@ def obs_series(entities, variables, facet_ids=None, surface_header_value=None):
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
-  print("surf in obs_series: ", surface_header_value)
   return post(url, req, surface_header_value=surface_header_value)
 
 
@@ -222,7 +215,6 @@ def obs_series_within(parent_entity,
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
 
-  print("surface_header_value in obs_series_within: ", surface_header_value)
   return post(url, req, surface_header_value=surface_header_value)
 
 
@@ -234,7 +226,6 @@ def series_facet(entities, variables, surface_header_value=None):
         variables: A list of statistical variable DCIDs.
     """
   url = get_service_url("/v2/observation")
-  print("surface_header_value in series_facet: ", surface_header_value)
   return post(url, {
       "select": ["variable", "entity", "facet"],
       "entity": {
@@ -256,7 +247,6 @@ def point_within_facet(parent_entity,
     parent place at a given date.
     """
   url = get_service_url("/v2/observation")
-  print("surf in point_within_facet: ", surface_header_value)
   return post(url, {
       "select": ["variable", "entity", "facet"],
       "entity": {
@@ -287,7 +277,6 @@ def v2observation(select, entity, variable, surface_header_value=None):
   if "dcids" in variable:
     variable["dcids"] = sorted([x for x in variable["dcids"] if x])
   url = get_service_url("/v2/observation")
-  print("in v2Observation: ", surface_header_value)
   return post(url, {
       "select": select,
       "entity": entity,

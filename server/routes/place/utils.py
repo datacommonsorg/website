@@ -993,7 +993,6 @@ def fetch_overview_table_data(
   ]
 
   # Fetch all observations for each variable
-  print("in fetch_overview_table_data")
   resp = dc.obs_point([place_dcid],
                       variables,
                       date="LATEST",
@@ -1215,7 +1214,6 @@ async def _fetch_summary_data(
     locale: The locale to fetch the data in
 
   """
-  print("in fetch_summary_data")
   place = asyncio.to_thread(fetch_place, place_dcid, locale)
   parent_places = asyncio.to_thread(get_parent_places, place_dcid, locale)
   place_observations = asyncio.to_thread(

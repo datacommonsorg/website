@@ -89,7 +89,6 @@ def populate_charts(state: PopulateState, surface_header_value: str) -> bool:
 def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
                                     surface_header_value: str) -> bool:
   # Add charts for the given places.
-  print("place fallback: ", surface_header_value)
   if _add_charts_with_existence_check(state, places, surface_header_value):
     return True
   # That failed, we'll attempt fallback.
@@ -193,7 +192,6 @@ def _maybe_switch_parent_type(
 # Add charts given a place and a list of stat-vars.
 def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
                                      surface_header_value: str) -> bool:
-  print("in add charts with existence: ", surface_header_value)
   # This may set state.uttr.place_fallback
   _maybe_set_fallback(state, places)
 
@@ -245,7 +243,6 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
       else:
         if chart_vars.svs:
           existing_svs.update(chart_vars.svs)
-          print('calling populate', handler.module.populate)
           populate_kwargs = {
               'state': state,
               'chart_vars': chart_vars,

@@ -127,7 +127,6 @@ def _populate_explore(state: PopulateState,
         ranking_orig = state.ranking_types
         if not state.ranking_types:
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]
-        print("populate explore: ", surface_header_value)
         added_child_type_charts = ranking_across_places.populate(
             state,
             cv,
@@ -165,7 +164,6 @@ def _populate_specific(state: PopulateState, chart_vars: ChartVars,
     # Ranking query
     if state.place_type:
       # This is ranking across places.
-      print('populate specific')
       if ranking_across_places.populate(state, chart_vars, places, chart_origin,
                                         rank):
         _maybe_set_place_type_existence(state, rank)

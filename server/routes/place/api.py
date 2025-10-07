@@ -42,7 +42,6 @@ bp = Blueprint("place_api", __name__, url_prefix='/api/place')
 @log_execution_time
 @cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_charts(place_dcid: str):
-  print("Reaching place_charts")
   """
   Returns chart definitions for the specified place based on the availability of
   of data for that place. Results are translated into the user's locale.
@@ -81,7 +80,6 @@ async def place_charts(place_dcid: str):
   # Validate the category parameter.
   place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
   surface_header_value = request.headers.get("x-surface")
-  print("surface header in place/charts: ", surface_header_value)
   if place_category not in place_utils.ALLOWED_CATEGORIES:
     return error_response(
         f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.ALLOWED_CATEGORIES)}"
@@ -90,15 +88,11 @@ async def place_charts(place_dcid: str):
   # Retrieve available place page charts
   full_chart_config = place_utils.read_chart_configs()
 
-  print("After chart configs")
-
   # Blocking call to fetch the current place info
   place = await asyncio.to_thread(place_utils.fetch_place, place_dcid, g.locale)
 
   parent_place_override, child_place_type_to_highlight, place_type = await fetch_place_types(
       place)
-
-  print("after fetch_place and fetch_place_types")
 
   parent_place_dcid = parent_place_override.dcid if parent_place_override else None
 
@@ -112,13 +106,9 @@ async def place_charts(place_dcid: str):
       child_place_type=child_place_type_to_highlight,
       surface_header_value=surface_header_value)
 
-  print("after filter_chart_config_for_data_existence with value")
-
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_config_for_category(
       place_category, chart_config_existing_data)
-
-  print("after filter_chart_config_for_category")
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
@@ -229,7 +219,6 @@ async def related_places(place_dcid: str):
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def overview_table(place_dcid: str):
   surface_header_value = request.headers.get("x-surface")
-  print("x-surface in overview-table: ", surface_header_value)
   """
   Fetches and returns overview table data for the specified place.
   """
@@ -244,7 +233,6 @@ def overview_table(place_dcid: str):
 @cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_summary(place_dcid: str):
   surface_header_value = request.headers.get("x-surface")
-  print("in place_Summary: ", surface_header_value)
   """
   Fetches and returns place summary data for the specified place.
   """
