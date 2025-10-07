@@ -51,7 +51,10 @@ interface OverviewPropType {
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
+    // whether to show the <GoogleMaps /> component
+    // if globalThis.enableGoogleMaps is unset, defaults to true
     const showGoogleMap = globalThis.enableGoogleMaps == false;
+
     return (
       <section
         className={`factoid col-12 ${

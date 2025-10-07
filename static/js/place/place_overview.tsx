@@ -160,6 +160,8 @@ export const PlaceOverview = (props: {
   const isInUsa = isPlaceContainedInUsa(
     parentPlaces.map((place) => place.dcid)
   );
+  // whether to show the <GoogleMaps /> component
+  // if globalThis.enableGoogleMaps is unset, defaults to the value of isInUsa
   const showGoogleMap = isInUsa && !(globalThis.enableGoogleMaps == false);
   const theme = useTheme();
   return (
