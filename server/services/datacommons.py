@@ -114,6 +114,9 @@ def obs_point(entities, variables, date="LATEST", surface_header_value=None):
         variables: A list of statistical variables.
         date (optional): The date of the observation. If not set, the latest
             observation is returned.
+        surface_header_value (optional): Passed into calls to mixer for usage logs.
+          Indicates which DC surface (website, datagemma, etc.) the call
+          originates from.
     """
   url = get_service_url("/v2/observation")
   return post(url, {
@@ -143,6 +146,9 @@ def obs_point_within(parent_entity,
         child_type: Type of child places as a string.
         variables: List of statistical variable DCIDs each as a string.
         date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
+        surface_header_value (optional): Passed into calls to mixer for usage logs.
+          Indicates which DC surface (website, datagemma, etc.) the call
+          originates from.
 
     Returns:
         Dict with a key "facets" and a key "byVariable".
@@ -176,6 +182,9 @@ def obs_series(entities, variables, facet_ids=None, surface_header_value=None):
     Args:
         entities: A list of entities DCIDs.
         variables: A list of statistical variables.
+        surface_header_value (optional): Passed into calls to mixer for usage logs.
+          Indicates which DC surface (website, datagemma, etc.) the call
+          originates from.
     """
   url = get_service_url("/v2/observation")
   req = {
@@ -204,6 +213,9 @@ def obs_series_within(parent_entity,
         parent_entity: Parent entity DCID as a string.
         child_type: Type of child places as a string.
         variables: List of statistical variable DCIDs each as a string.
+        surface_header_value (optional): Passed into calls to mixer for usage logs.
+          Indicates which DC surface (website, datagemma, etc.) the call
+          originates from.
     """
   url = get_service_url("/v2/observation")
   req = {
@@ -229,6 +241,9 @@ def series_facet(entities, variables, surface_header_value=None):
     Args:
         entities: A list of entity DCIDs.
         variables: A list of statistical variable DCIDs.
+        surface_header_value (optional): Passed into calls to mixer for usage logs.
+          Indicates which DC surface (website, datagemma, etc.) the call
+          originates from.
     """
   url = get_service_url("/v2/observation")
   return post(url, {
@@ -250,6 +265,11 @@ def point_within_facet(parent_entity,
                        surface_header_value=None):
   """Gets facet of for child places of a certain place type contained in a
     parent place at a given date.
+
+    Args:
+        surface_header_value (optional): Passed into calls to mixer for usage logs.
+          Indicates which DC surface (website, datagemma, etc.) the call
+          originates from.
     """
   url = get_service_url("/v2/observation")
   request_body = {
@@ -466,6 +486,9 @@ def nl_search_vars_in_parallel(queries: list[str],
         queries: A list of query strings.
         index_types: A list of index names to query.
         skip_topics: A boolean to skip topic-based SVs.
+        surface_header_value (optional): Passed into calls to mixer for usage logs.
+          Indicates which DC surface (website, datagemma, etc.) the call
+          originates from.
 
     Returns:
         A dictionary mapping from index name to the search result from that index.
@@ -623,6 +646,11 @@ def safe_obs_point(entities,
   """
     Calls obs_point with error handling.
     If an error occurs, returns a dict with an empty byVariable key.
+
+    Args:
+        surface_header_value (optional): Passed into calls to mixer for usage logs.
+          Indicates which DC surface (website, datagemma, etc.) the call
+          originates from.
     """
   try:
     return obs_point(entities, variables, date, surface_header_value)
@@ -640,6 +668,11 @@ def safe_obs_point_within(parent_entity,
   """
   Calls obs_point_within with error handling.
   If an error occurs, returns a dict with an empty byVariable key.
+
+  Args:
+      surface_header_value (optional): Passed into calls to mixer for usage logs.
+        Indicates which DC surface (website, datagemma, etc.) the call
+        originates from.
   """
   try:
     return obs_point_within(parent_entity,

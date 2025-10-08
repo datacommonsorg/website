@@ -232,6 +232,9 @@ async def filter_chart_config_for_data_existence(
   Args:
       chart_config (List[Dict]): A list of chart configurations, where each configuration includes statistical variable DCIDs under the key 'variables'.
       place_dcid (str): dcid for the place of interest.
+      surface_header_value (optional): Passed into calls to mixer for usage logs.
+        Indicates which DC surface (website, datagemma, etc.) the call
+        originates from.
 
   Returns:
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
@@ -984,6 +987,11 @@ def fetch_overview_table_data(
     surface_header_value: str = None) -> List[OverviewTableDataRow]:
   """
   Fetches overview table data for the specified place.
+
+  Args:
+      surface_header_value (optional): Passed into calls to mixer for usage logs.
+        Indicates which DC surface (website, datagemma, etc.) the call
+        originates from.
   """
   data_rows = []
   place_overview_table_variable_translations = get_place_overview_table_variable_to_locale_message(
@@ -1212,6 +1220,8 @@ async def _fetch_summary_data(
     place_dcid: The DCID of the place to fetch summary data for
     variable_dcids: The DCIDs of the variables to fetch observations for
     locale: The locale to fetch the data in
+    surface_header_value: Passed into calls to mixer for usage logs. Indicates
+      which DC surface (website, datagemma, etc.) the call originates from.
 
   """
   place = asyncio.to_thread(fetch_place, place_dcid, locale)
@@ -1228,6 +1238,11 @@ async def generate_place_summary(place_dcid: str, locale: str,
                                  surface_header_value: str) -> str:
   """
   Generates a place summary for the given place DCID.
+
+  Args:
+      surface_header_value (optional): Passed into calls to mixer for usage logs.
+        Indicates which DC surface (website, datagemma, etc.) the call
+        originates from.
   """
   # Only generate summary in English
   if locale and locale != DEFAULT_LOCALE:

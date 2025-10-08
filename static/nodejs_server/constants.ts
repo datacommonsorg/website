@@ -23,6 +23,7 @@ import {
   LEGEND_MARGIN_RIGHT,
   LEGEND_TICK_LABEL_MARGIN,
 } from "../js/chart/draw_map_utils";
+import { WEBSITE_SURFACE_HEADER_VALUE } from "../js/shared/constants";
 
 // Height of the svg to render.
 export const SVG_HEIGHT = 300;
@@ -69,8 +70,6 @@ export const BARD_CLIENT_URL_PARAM = "bard";
 export const TOOLFORMER_RAG_MODE = "toolformer_rag";
 // The param value when mode is toolformer_rig
 export const TOOLFORMER_RIG_MODE = "toolformer_rig";
-// Value to be passed into fetchData and eventually to mixer to log usage from the website surface
-export const WEBSITE_SURFACE_HEADER_VALUE = "website";
 // Actual header using value above
 export const WEBSITE_SURFACE_HEADER = {
   "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
