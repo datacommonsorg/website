@@ -109,12 +109,12 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
 
     # Wait for observation charts to be loaded.
     self.assertIsNotNone(find_elem(self.driver, value='observation-chart'))
-    observations_section = find_elem(self.driver,
-                                     by=By.XPATH,
-                                     value='//*[@id="node-content"]/div[2]')
+    chart_section = find_elem(self.driver,
+                              by=By.CLASS_NAME,
+                              value='chart-section')
 
     # Switch to table view for the first chart
-    observation_section_chart_1 = find_elem(observations_section, value='card')
+    observation_section_chart_1 = find_elem(chart_section, value='card')
     table_view_button = find_elem(observation_section_chart_1,
                                   by=By.TAG_NAME,
                                   value='button')
@@ -124,8 +124,11 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     table = find_elem(observation_section_chart_1,
                       by=By.TAG_NAME,
                       value='table')
-    first_row = find_elem(table, by=By.XPATH, value='.//tbody/tr[2]/td')
-    first_row.click()
+    first_observation = find_elem(table,
+                                  by=By.CLASS_NAME,
+                                  value='clickable-text')
+    first_observation.screenshot("first_row.png")
+    first_observation.click()
 
     # Wait for the new page to open in a new tab
     new_page_opened = EC.number_of_windows_to_be(2)
@@ -163,12 +166,10 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
                   value='//*[@id="node-content"]/div[1]/div/table'))
 
     # Click the point on the chart for the year 1850
-    point = find_elem(
-        self.driver,
-        by=By.XPATH,
-        value=
-        '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/div/*[name()="svg"]/'
-        + '*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]')
+    observation_chart = find_elem(self.driver,
+                                  by=By.CLASS_NAME,
+                                  value='observation-chart')
+    point = find_elem(observation_chart, by=By.TAG_NAME, value='circle')
     point.click()
 
     # Wait for the new page to open in a new tab
