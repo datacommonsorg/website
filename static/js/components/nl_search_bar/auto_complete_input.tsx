@@ -330,8 +330,15 @@ export function AutoCompleteInput(
         event.preventDefault();
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
-      case " ":
-        if (hoveredIdx >= 0) {
+      default:
+        // Handle alphanumeric, space and backspace keys
+        if (
+          hoveredIdx >= 0 &&
+          (/[a-zA-Z0-9]/.test(event.key) ||
+            event.key === " " ||
+            event.key === "Backspace" ||
+            event.key === "Delete")
+        ) {
           selectResult(results[hoveredIdx], hoveredIdx, true);
         }
     }
