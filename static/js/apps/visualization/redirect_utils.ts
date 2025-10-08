@@ -160,7 +160,13 @@ function handleMapStatVars(
   const chartEntry = chartOptions[statVarDcid];
   if (chartEntry) {
     for (const [key, value] of Object.entries(chartEntry)) {
-      setSanitizedParam(newHashParams, key, value);
+      if (key == MAP_URL_PARAM_MAPPING.pc) {
+        // Map tool uses 0 or 1 for per capita
+        const perCapitaValue = value == "true" ? "1" : "0";
+        setSanitizedParam(newHashParams, key, perCapitaValue);
+      } else {
+        setSanitizedParam(newHashParams, key, value);
+      }
     }
   }
 }
