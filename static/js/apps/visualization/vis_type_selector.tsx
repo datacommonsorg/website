@@ -48,10 +48,7 @@ export function VisTypeSelector(): JSX.Element {
   );
 
   function onTypeSelected(type: VisType): void {
-    if (
-      isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG) &&
-      [VisType.TIMELINE, VisType.SCATTER].includes(type)
-    ) {
+    if (isFeatureEnabled(STANDARDIZED_VIS_TOOL_FEATURE_FLAG)) {
       // redirect to old tool
       window.location.href = getStandardizedToolUrl(type);
     } else {
