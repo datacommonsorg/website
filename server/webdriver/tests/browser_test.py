@@ -127,7 +127,6 @@ class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     first_observation = find_elem(table,
                                   by=By.CLASS_NAME,
                                   value='clickable-text')
-    first_observation.screenshot("first_row.png")
     first_observation.click()
 
     # Wait for the new page to open in a new tab
