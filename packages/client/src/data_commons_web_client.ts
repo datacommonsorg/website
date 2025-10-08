@@ -42,7 +42,8 @@ const LOCALE_PARAM = "hl";
 class DataCommonsWebClient {
   /** Website API root */
   apiRoot?: string;
-  xSurfaceHeader?: Record<string, string>;
+  /** This is the full header, not just the value of x-surface */
+  xSurfaceHeader: Record<string, string>;
 
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
@@ -272,10 +273,10 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/charts/${
       params.placeDcid
     }?${queryString}`;
-    const config = {
+    const options = {
       headers: this.xSurfaceHeader,
     };
-    const response = await fetch(url, config);
+    const response = await fetch(url, options);
     return (await response.json()) as PlaceChartsApiResponse;
   }
 

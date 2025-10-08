@@ -14,27 +14,14 @@
  * limitations under the License.
  */
 
-import {
-  DataCommonsClient,
-  DataCommonsWebClient,
-} from "@datacommonsorg/client";
+import { DataCommonsClient } from "@datacommonsorg/client";
 
-const UNKNOWN_SURFACE_HEADER_VALUE = "unknown";
 /**
  * Default @datacommonsorg/client apiRoot value is "/", meaning the current
  * hostname in the browser
  * It also uses the website surface value for usage logging in mixer.
  */
 export const DEFAULT_CLIENT_API_ROOT = "/";
-
-export const defaultDataCommonsWebClient = new DataCommonsWebClient({
-  apiRoot: DEFAULT_CLIENT_API_ROOT,
-  surfaceHeaderValue: UNKNOWN_SURFACE_HEADER_VALUE,
-});
-export const defaultDataCommonsClient = new DataCommonsClient({
-  apiRoot: DEFAULT_CLIENT_API_ROOT,
-  surfaceHeaderValue: UNKNOWN_SURFACE_HEADER_VALUE,
-});
 
 /**
  * Returns a DataCommonsClient instance.

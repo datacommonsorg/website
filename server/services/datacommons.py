@@ -33,6 +33,9 @@ from server.services.discovery import get_service_url
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
+# This is passed into mixer if no other x-surface header is provided, and indicates
+# that this call came from an unknown DC surface via the website. This is set here to
+# differentiate these calls from public API calls that have no x-surface header, 
 UNKNOWN_SURFACE_HEADER_VALUE = "unknown"
 
 
@@ -45,6 +48,8 @@ def get(url: str, surface_header_value: str = None):
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
+  # this is set even if get() is called for endpoints that we don't write usage 
+  # logs for, to maintain consistency and 
   headers['x-surface'] = surface_header_value or UNKNOWN_SURFACE_HEADER_VALUE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
@@ -247,7 +252,7 @@ def point_within_facet(parent_entity,
     parent place at a given date.
     """
   url = get_service_url("/v2/observation")
-  return post(url, {
+  request_body = {
       "select": ["variable", "entity", "facet"],
       "entity": {
           "expression":
@@ -258,7 +263,8 @@ def point_within_facet(parent_entity,
           "dcids": sorted(variables)
       },
       "date": date,
-  },
+  }
+  return post(url, request_body,
               surface_header_value=surface_header_value)
 
 
