@@ -21,6 +21,7 @@ from langdetect import detect as detect_lang
 import requests
 
 from shared.lib.test_server import NLWebServerTestCase
+from shared.lib.constants import TEST_SURFACE, SURFACE_HEADER_NAME
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -29,6 +30,8 @@ _TEST_MODE = os.environ.get('TEST_MODE', '')
 _TEST_DATA = 'test_data'
 
 _MAX_FOOTNOTE_LENGTH = 500
+
+TEST_SURFACE = "integration-test"
 
 
 class ExploreTest(NLWebServerTestCase):
@@ -39,7 +42,7 @@ class ExploreTest(NLWebServerTestCase):
         f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill',
         json=req_json,
         headers={
-            "x-surface": "website"
+            SURFACE_HEADER_NAME: TEST_SURFACE
         }).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
@@ -63,7 +66,7 @@ class ExploreTest(NLWebServerTestCase):
               'dc': dc,
           },
           headers={
-              "x-surface": "website"
+              SURFACE_HEADER_NAME: TEST_SURFACE
           }).json()
       ctx = resp['context']
       if len(queries) == 1:
@@ -94,7 +97,7 @@ class ExploreTest(NLWebServerTestCase):
               'dc': dc,
           },
           headers={
-              "x-surface": "website"
+              SURFACE_HEADER_NAME: TEST_SURFACE
           }).json()
       ctx = resp['context']
       if len(queries) == 1:

@@ -27,6 +27,7 @@ from server.lib.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
 from server.routes import TIMEOUT
+from shared.lib.constants import WEBSITE_SURFACE_HEADER_VALUE
 
 DEFAULT_CONTAINED_PLACE_TYPES = {
     "Continent": "Country",
@@ -61,7 +62,7 @@ def sustainability_explorer(place_dcid=None):
 
   # currently is only referenced from the website.
   # this value is used in mixer logs
-  surface_header_value = "website"
+  surface_header_value = WEBSITE_SURFACE_HEADER_VALUE
 
   # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(
