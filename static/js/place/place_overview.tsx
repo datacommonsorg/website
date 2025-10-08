@@ -162,7 +162,7 @@ export const PlaceOverview = (props: {
   );
   // whether to show the <GoogleMaps /> component
   // if globalThis.enableGoogleMaps is unset, defaults to the value of isInUsa
-  const showGoogleMap = isInUsa && !(globalThis.enableGoogleMaps == false);
+  const showGoogleMap = isInUsa && !globalThis.disableGoogleMaps;
   const theme = useTheme();
   return (
     <div

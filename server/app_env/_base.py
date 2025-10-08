@@ -105,7 +105,7 @@ class Config:
   # Whether to block all crawlers like GoogleBot from access to entire site
   DISABLE_CRAWLERS = False
   # Whether to show the Google Maps component.
-  # Will use the value of the environment variable ENABLE_GOOGLE_MAPS.
-  # Defaults to True if not provided.
-  ENABLE_GOOGLE_MAPS = os.environ.get('ENABLE_GOOGLE_MAPS',
-                                      'True').lower() == 'true'
+  # Will use the value of the environment variable DISABLE_GOOGLE_MAPS.
+  # Defaults to False if not provided.
+  DISABLE_GOOGLE_MAPS = os.environ.get('DISABLE_GOOGLE_MAPS',
+                                       'False').lower() == 'true'
