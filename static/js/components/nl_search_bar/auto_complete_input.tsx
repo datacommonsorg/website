@@ -31,7 +31,10 @@ import React, {
 import { Input, InputGroup } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
-import { ENABLE_STAT_VAR_AUTOCOMPLETE } from "../../shared/feature_flags/util";
+import {
+  ENABLE_FEATURE_URL_PARAM,
+  ENABLE_STAT_VAR_AUTOCOMPLETE,
+} from "../../shared/feature_flags/util";
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
@@ -84,7 +87,10 @@ interface AutoCompleteInputPropType {
   invalid: boolean;
   inputId: string;
   onChange: (query: string) => void;
-  onSearch: (dynamicPlaceholdersEnabled: boolean) => void;
+  onSearch: (
+    dynamicPlaceholdersEnabled: boolean,
+    statVarAutoCompleteEnabled: boolean
+  ) => void;
   feedbackLink: string;
   shouldAutoFocus: boolean;
   barType: string;
@@ -207,7 +213,7 @@ export function AutoCompleteInput(
     setResults([]);
     setHoveredIdx(-1);
     controller.current.abort();
-    props.onSearch(dynamicPlaceholdersEnabled);
+    props.onSearch(dynamicPlaceholdersEnabled, props.enableStatVarAutocomplete);
   }
 
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -369,6 +375,10 @@ export function AutoCompleteInput(
     const selectedProcessedResult = processedResults[idx];
     const queryText = selectedProcessedResult.fullText;
     const placeDcid = selectedProcessedResult.placeDcid;
+    const urlParams = extractFlagsToPropagate(window.location.href);
+    if (props.enableAutoComplete) {
+      urlParams.set(ENABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
+    }
 
     if (
       result?.matchType === STAT_VAR_SEARCH &&
@@ -382,7 +392,7 @@ export function AutoCompleteInput(
           });
           const placeParam = placeDcid ? `p=${placeDcid}` : "p=Earth";
           window.location.href =
-            `/explore#${placeParam}&sv=` +
+            `/explore?${urlParams.toString()}#${placeParam}&sv=` +
             encodeURIComponent(result.dcid) +
             "&q=" +
             encodeURIComponent(queryText);
@@ -405,6 +415,9 @@ export function AutoCompleteInput(
 
         const overrideParams = new URLSearchParams();
         overrideParams.set("q", result.name);
+        if (props.enableStatVarAutocomplete) {
+          overrideParams.set("enable_feature", ENABLE_STAT_VAR_AUTOCOMPLETE);
+        }
         const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
         if (!skipRedirection) {
           redirect(window.location.href, destinationUrl, overrideParams);
