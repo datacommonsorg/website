@@ -71,6 +71,10 @@ locals {
     {
       name  = "REDIS_PORT"
       value = try(local.redis_instance.port, "")
+    },
+    {
+      name = "DISABLE_GOOGLE_MAPS"
+      value = tostring(var.disable_google_maps)
     }
   ]
 
