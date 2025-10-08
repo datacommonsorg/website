@@ -37,6 +37,7 @@ _TEMPERATURE = 0.1
 
 _GEMINI_CONFIG = types.GenerateContentConfig(
     temperature=_TEMPERATURE,
+    response_mime_type='application/json',
     safety_settings=[
         {
             "category": "HARM_CATEGORY_HARASSMENT",
@@ -83,7 +84,7 @@ def detect_with_gemini(query: str, history: List[List[str]],
   api_key = current_app.config['LLM_API_KEY']
 
   gemini_client = genai.Client(
-      api_key=api_key, http_options=genai.types.HttpOptions(api_version='v1'))
+      api_key=api_key, http_options=genai.types.HttpOptions(api_version='v1beta'))
   model_name = detect_model_name()
   logging.info(f'Gemini model used for LLM API: {model_name}')
   gemini_response = gemini_client.models.generate_content(model=model_name,
