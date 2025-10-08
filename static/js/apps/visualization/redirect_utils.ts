@@ -119,6 +119,7 @@ function getMapHashParams(currentHashParams: URLSearchParams): URLSearchParams {
   Object.keys(MAP_URL_PARAM_MAPPING).forEach((key) => {
     const paramValue = currentHashParams.get(key);
     if (!paramValue) {
+      // Skip params not present in current URL
       return;
     }
 
@@ -127,7 +128,6 @@ function getMapHashParams(currentHashParams: URLSearchParams): URLSearchParams {
     } else {
       const paramName = MAP_URL_PARAM_MAPPING[key];
       if (paramName) {
-        // Otherwise, Add converted keys & values as new param
         setSanitizedParam(newHashParams, paramName, paramValue);
       }
     }
