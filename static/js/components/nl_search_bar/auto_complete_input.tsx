@@ -87,10 +87,7 @@ interface AutoCompleteInputPropType {
   invalid: boolean;
   inputId: string;
   onChange: (query: string) => void;
-  onSearch: (
-    dynamicPlaceholdersEnabled: boolean,
-    statVarAutoCompleteEnabled: boolean
-  ) => void;
+  onSearch: (dynamicPlaceholdersEnabled: boolean) => void;
   feedbackLink: string;
   shouldAutoFocus: boolean;
   barType: string;
@@ -213,7 +210,7 @@ export function AutoCompleteInput(
     setResults([]);
     setHoveredIdx(-1);
     controller.current.abort();
-    props.onSearch(dynamicPlaceholdersEnabled, props.enableStatVarAutocomplete);
+    props.onSearch(dynamicPlaceholdersEnabled);
   }
 
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
