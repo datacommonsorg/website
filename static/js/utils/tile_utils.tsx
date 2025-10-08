@@ -28,7 +28,6 @@ import { intl } from "../i18n/i18n";
 import { messages } from "../i18n/i18n_messages";
 import {
   PointApiResponse,
-  Series,
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
@@ -442,7 +441,7 @@ export async function getDenomResp(
   // parent and place type for collection queries
   parentPlace?: string,
   placeType?: string
-): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
+): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse | null]> {
   // fetch the series for each facet
   const denomPromises = [];
   const facetIds =
@@ -505,7 +504,7 @@ export function getDenomInfo(
   placeDcid: string,
   mainStatDate: string,
   facetUsed?: string,
-  defaultDenomData?: SeriesApiResponse
+  defaultDenomData?: SeriesApiResponse | null
 ): DenomInfo {
   // find the matching denominator data if it exists, for the facet used in the numerator
   let matchingDenomData = denomData?.[facetUsed];

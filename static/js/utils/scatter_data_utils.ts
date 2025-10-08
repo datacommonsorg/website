@@ -121,6 +121,8 @@ interface PlaceScatterData {
  * @param namedPlace place to get chart data for
  * @param xStatVarData data for the x axis stat var
  * @param yStatVarData data for the y axis stat var
+ * @param denomsByFacet map of facetId to denominator series result
+ * @param defaultDenomData default denominator series result, queried without specifying facet
  * @param populationData data for the population stat vars
  * @param metadataMap map of metahash to metadata for stat var data
  * @param xDenom optional denominator to use for x axis value calculation
