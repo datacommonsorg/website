@@ -33,7 +33,10 @@ import Cheerio from "cheerio";
 import Enzyme, { mount } from "enzyme";
 import React from "react";
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import {
+  SURFACE_HEADER_NAME,
+  WEBSITE_SURFACE_HEADER_VALUE,
+} from "../../shared/constants";
 import theme from "../../theme/theme";
 import { BarTile } from "./bar_tile";
 
@@ -85,7 +88,7 @@ function mockAxios(): void {
   mockedAxios.get.mockImplementation((url, config) => {
     if (
       url === "/api/observations/point/within" &&
-      config.headers["x-surface"] === WEBSITE_SURFACE_HEADER_VALUE
+      config.headers[SURFACE_HEADER_NAME] === WEBSITE_SURFACE_HEADER_VALUE
     ) {
       /* eslint-disable camelcase */
       return Promise.resolve({

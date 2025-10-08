@@ -16,6 +16,8 @@
 
 import { stringify } from "qs";
 
+import { SURFACE_HEADER_NAME } from "../shared/constants";
+
 export const stringifyFn = (params): string => {
   return stringify(params, { arrayFormat: "repeat" });
 };
@@ -30,6 +32,6 @@ export const getRoot = (): string => {
 // formats header for calls to the Flask API, which is passed into mixer and used in usage logging
 export const getXSurfaceHeader = (
   surfaceHeaderValue: string
-): Record<string, string> => {
-  return { "x-surface": surfaceHeaderValue ?? "" };
+): Record<typeof SURFACE_HEADER_NAME, string> => {
+  return { [SURFACE_HEADER_NAME]: surfaceHeaderValue };
 };

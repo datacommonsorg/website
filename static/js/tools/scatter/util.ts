@@ -24,7 +24,7 @@ import _ from "lodash";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { getXSurfaceHeader, stringifyFn } from "../../utils/axios";
+import { getSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getPointWithin } from "../../utils/data_fetch_utils";
 import {
   Axis,
@@ -130,7 +130,7 @@ export async function getStatAllWithinPlace(
             variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
-          headers: getXSurfaceHeader(surfaceHeaderValue),
+          headers: getSurfaceHeader(surfaceHeaderValue),
         })
         .then((resp) => resp.data)
     );

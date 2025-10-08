@@ -27,7 +27,7 @@ import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
 import { NamedNode } from "../../shared/types";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import { getXSurfaceHeader } from "../../utils/axios";
+import { getSurfaceHeader } from "../../utils/axios";
 import { StatVarInfo } from "../timeline/chart_region";
 
 interface StatVarWidgetPropsType {
@@ -74,7 +74,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             variables: Object.keys(props.selectedSVs),
           },
           {
-            headers: getXSurfaceHeader(props.surfaceHeaderValue),
+            headers: getSurfaceHeader(props.surfaceHeaderValue),
           }
         )
         .then((resp) => {

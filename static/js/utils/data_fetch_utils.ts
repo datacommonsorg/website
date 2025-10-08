@@ -30,7 +30,7 @@ import {
   StatMetadata,
 } from "../shared/stat_types";
 import { FacetMetadata } from "../types/facet_metadata";
-import { getXSurfaceHeader, stringifyFn } from "./axios";
+import { getSurfaceHeader, stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
 
 const EMPTY_UNIT = "EMPTY";
@@ -217,7 +217,7 @@ export function getPoint(
       .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
         params,
         paramsSerializer: stringifyFn,
-        headers: getXSurfaceHeader(surfaceHeaderValue),
+        headers: getSurfaceHeader(surfaceHeaderValue),
       })
       .then((resp) => {
         return getProcessedPointResponse(resp.data, alignedVariables);
@@ -258,7 +258,7 @@ export function getPointWithin(
     .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
       params,
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(surfaceHeaderValue),
+      headers: getSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => {
       return getProcessedPointResponse(resp.data, alignedVariables);
@@ -305,7 +305,7 @@ export function getSeries(
 
     return axios
       .post(`${apiRoot || ""}/api/observations/series`, params, {
-        headers: getXSurfaceHeader(surfaceHeaderValue),
+        headers: getSurfaceHeader(surfaceHeaderValue),
       })
       .then((resp) => resp.data);
   });
@@ -340,7 +340,7 @@ export function getSeriesWithin(
     .get(`${apiRoot || ""}/api/observations/series/within`, {
       params,
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(surfaceHeaderValue),
+      headers: getSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => resp.data);
 }
@@ -375,7 +375,7 @@ export function getFacetsWithin(
     .get<PointAllApiResponse>(`${apiRoot || ""}/api/facets/within`, {
       params: { parentEntity, childType, variables, date: date || "LATEST" },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(surfaceHeaderValue),
+      headers: getSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => {
       const respData = resp.data;
@@ -414,7 +414,7 @@ export function getFacets(
     .get<SeriesAllApiResponse>(`${apiRoot || ""}/api/facets`, {
       params: { entities, variables },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader(surfaceHeaderValue),
+      headers: getSurfaceHeader(surfaceHeaderValue),
     })
     .then((resp) => {
       const respData = resp.data;

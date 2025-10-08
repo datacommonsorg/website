@@ -30,7 +30,7 @@ import {
 } from "./data_commons_web_client_types";
 import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 
-import { UNKNOWN_SURFACE_HEADER_VALUE } from "./constants";
+import { UNKNOWN_SURFACE_HEADER_VALUE, SURFACE_HEADER_NAME } from "./constants";
 
 export interface DatacommonsWebClientParams {
   apiRoot?: string;
@@ -42,8 +42,8 @@ const LOCALE_PARAM = "hl";
 class DataCommonsWebClient {
   /** Website API root */
   apiRoot?: string;
-  /** This is the full header, not just the value of x-surface */
-  xSurfaceHeader: Record<string, string>;
+  /** Headers passed into calls to the Flask API */
+  headers: Record<string, string>;
 
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
@@ -51,8 +51,8 @@ class DataCommonsWebClient {
     const surfaceHeaderValue =
       p.surfaceHeaderValue || UNKNOWN_SURFACE_HEADER_VALUE;
 
-    this.xSurfaceHeader = {
-      "x-surface": surfaceHeaderValue,
+    this.headers = {
+      SURFACE_HEADER_NAME: surfaceHeaderValue,
     };
   }
 
@@ -150,7 +150,7 @@ class DataCommonsWebClient {
     });
     const url = `${this.apiRoot || ""}/api/observations/point?${queryString}`;
     const response = await fetch(url, {
-      headers: this.xSurfaceHeader,
+      headers: this.headers,
     });
     return (await response.json()) as PointApiResponse;
   }
@@ -182,7 +182,7 @@ class DataCommonsWebClient {
     }/api/observations/point/within?${queryString}`;
 
     const response = await fetch(url, {
-      headers: this.xSurfaceHeader,
+      headers: this.headers,
     });
     return (await response.json()) as PointApiResponse;
   }
@@ -202,7 +202,7 @@ class DataCommonsWebClient {
     });
     const url = `${this.apiRoot || ""}/api/observations/series?${queryString}`;
     const response = await fetch(url, {
-      headers: this.xSurfaceHeader,
+      headers: this.headers,
     });
     return (await response.json()) as SeriesApiResponse;
   }
@@ -228,7 +228,7 @@ class DataCommonsWebClient {
       this.apiRoot || ""
     }/api/observations/series/within?${queryString}`;
     const response = await fetch(url, {
-      headers: this.xSurfaceHeader,
+      headers: this.headers,
     });
     return (await response.json()) as SeriesApiResponse;
   }
@@ -274,7 +274,7 @@ class DataCommonsWebClient {
       params.placeDcid
     }?${queryString}`;
     const options = {
-      headers: this.xSurfaceHeader,
+      headers: this.headers,
     };
     const response = await fetch(url, options);
     return (await response.json()) as PlaceChartsApiResponse;
@@ -317,7 +317,7 @@ class DataCommonsWebClient {
       params.placeDcid
     }?${queryString}`;
     const options = {
-      headers: this.xSurfaceHeader,
+      headers: this.headers,
     };
     const response = await fetch(url, options);
     return (await response.json()) as PlaceOverviewTableApiResponse;

@@ -41,7 +41,11 @@ import {
   getHighlightTileDescription,
   getTileEventTypeSpecs,
 } from "../js/utils/tile_utils";
-import { BARD_CLIENT_URL_PARAM, TOOLFORMER_RIG_MODE } from "./constants";
+import {
+  BARD_CLIENT_URL_PARAM,
+  SURFACE_HEADER_NAME,
+  TOOLFORMER_RIG_MODE,
+} from "./constants";
 import { getBarTileResult } from "./tiles/bar_tile";
 import { getDisasterMapTileResult } from "./tiles/disaster_map_tile";
 import { getHighlightTileResult } from "./tiles/highlight_tile";
@@ -67,10 +71,10 @@ const DEFAULT_QUERY_DETECTOR = "heuristic";
 const NUM_RELATED_QUESTIONS = 6;
 
 // formats header for calls to the Flask API, which is passed into mixer and used in usage logging
-export const getXSurfaceHeader = (
+export const getSurfaceHeader = (
   surfaceHeaderValue: string
-): Record<string, string> => {
-  return { "x-surface": surfaceHeaderValue };
+): Record<typeof SURFACE_HEADER_NAME, string> => {
+  return { [SURFACE_HEADER_NAME]: surfaceHeaderValue };
 };
 
 // Get the elapsed time in seconds given the start and end times in nanoseconds.
@@ -348,7 +352,7 @@ export async function getQueryResult(
       url += `&${urlKey}=${params[urlKey]}`;
     });
   const postConfig = {
-    headers: getXSurfaceHeader(surfaceHeaderValue),
+    headers: getSurfaceHeader(surfaceHeaderValue),
   };
   try {
     nlResp = await axios.post(url, {}, postConfig);

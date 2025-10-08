@@ -207,7 +207,10 @@ export const ABORT_CONTROLLER_CANCELLED = "ERR_CANCELED";
 // Value to be passed into mixer to log usage from the website surface
 export const WEBSITE_SURFACE_HEADER_VALUE = "website";
 
+// The name of the header that passes the surface into calls to Mixer
+export const SURFACE_HEADER_NAME = "x-surface";
+
 // header using the website surface value
 export const WEBSITE_SURFACE_HEADER = {
-  "x-surface": WEBSITE_SURFACE_HEADER_VALUE,
+  SURFACE_HEADER_NAME: WEBSITE_SURFACE_HEADER_VALUE,
 };

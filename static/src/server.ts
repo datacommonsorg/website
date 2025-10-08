@@ -19,6 +19,7 @@ import { JSDOM } from "jsdom";
 import _ from "lodash";
 import sharp from "sharp";
 
+import { SURFACE_HEADER_NAME } from "../js/shared/constants";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import type {} from "../js/theme/emotion";
 import {
@@ -303,7 +304,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   // from the request headers
   const protocol = req.headers["x-forwarded-proto"] || req.protocol;
   const host = req.headers["x-forwarded-host"] || req.headers.host;
-  const surfaceHeaderValue = req.headers["x-surface"]?.[0];
+  const surfaceHeaderValue = req.headers[SURFACE_HEADER_NAME]?.[0];
   const apikey = (req.query.apikey as string) || "";
   const urlRoot = `${protocol}://${host}`;
   const client = (req.query.client as string) || BARD_CLIENT_URL_PARAM;

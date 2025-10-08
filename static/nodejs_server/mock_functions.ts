@@ -38,7 +38,7 @@ import {
   SCATTER_NL_RESP,
   TIMELINE_NL_RESP,
 } from "./mock_data";
-import { getXSurfaceHeader } from "./query";
+import { getSurfaceHeader } from "./query";
 
 export function queryAxiosMock(): void {
   // Mock all the async axios call.
@@ -233,7 +233,7 @@ export function queryAxiosMock(): void {
       "/api/explore/detect-and-fulfill?q=top jobs in santa clara county&detector=heuristic&client=bard&skipRelatedThings=true",
       {},
       {
-        headers: getXSurfaceHeader("datagemma"),
+        headers: getSurfaceHeader("datagemma"),
       }
     )
     .mockResolvedValue(BAR_NL_RESP);
@@ -265,7 +265,7 @@ export function queryAxiosMock(): void {
         ],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader("datagemma"),
+      headers: getSurfaceHeader("datagemma"),
     })
     .mockResolvedValue(BAR_POINTS_RESP);
   when(axios.get)
@@ -276,7 +276,7 @@ export function queryAxiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: getXSurfaceHeader("datagemma"),
+      headers: getSurfaceHeader("datagemma"),
     })
     .mockResolvedValue(BAR_FILTER_POINTS_RESP);
 
