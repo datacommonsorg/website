@@ -21,12 +21,17 @@
     "name": "enable_gemini_2_5_flash",
     "enabled": true,
     "owner": "shixiao",
-    "description": "Enabling Gemini 2.5 Flash for NL detection.",
-    "rollout_percentage": 50
+    "description": "Enabling Gemini 2.5 Flash for NL detection."
+  },
+  {
+    "name": "enable_gemini_2_5_flash_lite",
+    "enabled": false,
+    "owner": "shixiao",
+    "description": "Enabling Gemini 2.5 Flash Lite for NL detection."
   },
   {
     "name": "enable_stat_var_autocomplete",
-    "enabled": false,
+    "enabled": true,
     "owner": "gmechali",
     "description": "Enable stat var autocompletion in the NL Search bar"
   },

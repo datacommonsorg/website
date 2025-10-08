@@ -26,12 +26,7 @@ import {
   GA_PARAM_QUERY,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import {
-  escapeRegExp,
-  replaceQueryWithSelection,
-  stripPatternFromQuery,
-} from "../../shared/util";
-import { ScatterPlot } from "../elements/icons/scatter_plot";
+import { stripPatternFromQuery } from "../../shared/util";
 import { Search } from "../elements/icons/search";
 import { AutoCompleteResult } from "./auto_complete_input";
 
@@ -66,7 +61,7 @@ export function AutoCompleteSuggestions(
       stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "";
     if (result.matchType === "stat_var_search") {
       if (isExactMatch) {
-        return <ScatterPlot />;
+        return <Search />;
       }
     } else if (result.matchType === "location_search") {
       if (isExactMatch) {
@@ -97,11 +92,7 @@ export function AutoCompleteSuggestions(
       {props.allResults
         .slice(0, visibleCount)
         .map((result: AutoCompleteResult, idx: number) => {
-          const fullText = replaceQueryWithSelection(
-            props.baseInput,
-            result,
-            props.hasLocation || result.hasPlace
-          );
+          const fullText = result.fullText;
           const parts = fullText.split(result.name);
           return (
             <div key={idx}>
