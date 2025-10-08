@@ -84,7 +84,8 @@ def detect_with_gemini(query: str, history: List[List[str]],
   api_key = current_app.config['LLM_API_KEY']
 
   gemini_client = genai.Client(
-      api_key=api_key, http_options=genai.types.HttpOptions(api_version='v1beta'))
+      api_key=api_key,
+      http_options=genai.types.HttpOptions(api_version='v1beta'))
   model_name = detect_model_name()
   logging.info(f'Gemini model used for LLM API: {model_name}')
   gemini_response = gemini_client.models.generate_content(model=model_name,
