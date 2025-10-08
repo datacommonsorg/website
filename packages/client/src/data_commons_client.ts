@@ -66,6 +66,10 @@ export interface DatacommonsClientParams {
   apiRoot?: string;
   /** Overrides observation facet StatMetadata values by unit DCID. */
   facetOverride?: FacetOverride | null;
+  /**
+   * Passed into calls to mixer for usage logs. Indicates which DC surface
+   * (website, datagemma, etc.) the call originates from.
+   */
   surfaceHeaderValue?: string | null;
 }
 

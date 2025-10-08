@@ -265,11 +265,6 @@ def point_within_facet(parent_entity,
                        surface_header_value=None):
   """Gets facet of for child places of a certain place type contained in a
     parent place at a given date.
-
-    Args:
-        surface_header_value (optional): Passed into calls to mixer for usage logs.
-          Indicates which DC surface (website, datagemma, etc.) the call
-          originates from.
     """
   url = get_service_url("/v2/observation")
   request_body = {

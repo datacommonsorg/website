@@ -127,6 +127,9 @@ function getProcessedPointResponse(
  * @param variables list of variables to get data for
  * @param highlightFacet a single facet (given by the facet keys) that is
  *        used to indicate the facet to be used in this fetch.
+ * @param surfaceHeaderValue Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  * @returns The Facet ID matching the highlight facet
  *          or null if no matching facet is found.
  */
@@ -181,6 +184,9 @@ async function selectFacet(
  * @param facetIds an array of facet ids that if given, will be used in
  *        the fetch. This is an alternative way to specify the facets to
  *        complement highlightFacet.
+ * @param surfaceHeaderValue Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  */
 export function getPoint(
   apiRoot: string,
@@ -230,6 +236,9 @@ export function getPoint(
  * @param facetIds an array of facet ids that if given, will be used in
  *        the fetch. This is an alternative way to specify the facets to
  *        complement highlightFacet, and will take priority if both are given.
+ * @param surfaceHeaderValue Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  */
 export function getPointWithin(
   apiRoot: string,
@@ -265,6 +274,9 @@ export function getPointWithin(
  * @param variables list of variables to get data for
  * @param facetIds list of facet ids to get data for
  * @param highlightFacet the facet to highlight
+ * @param surfaceHeaderValue Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  * @returns The data for the given entities and variables, matching the provided facet if applicable.
  */
 export function getSeries(
@@ -307,6 +319,9 @@ export function getSeries(
  * @param variables variables to get data for
  * @param facetIds an array of facet ids that if given, will be used in
  *        the fetch.
+ * @param surfaceHeaderValue Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  * @returns
  */
 export function getSeriesWithin(
@@ -344,6 +359,9 @@ export interface FacetResponse {
  * @param childType place type to get available facets for
  * @param variables variables to get available facets for
  * @param date date to get available facets for
+ * @param surfaceHeaderValue Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  */
 export function getFacetsWithin(
   apiRoot: string,
@@ -382,6 +400,9 @@ export function getFacetsWithin(
  * @param apiRoot api root
  * @param entities entities to get available facets for
  * @param variables variables to get available facets for
+ * @param surfaceHeaderValue Passed into calls to mixer for usage logs.
+ *        Indicates which DC surface (website, datagemma, etc.) the call
+ *        originates from.
  */
 export function getFacets(
   apiRoot: string,
