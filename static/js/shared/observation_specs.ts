@@ -539,6 +539,117 @@ export function observationSpecsToPythonScript(
 }
 
 /**
+ * This function formats the Python keyword arguments for a
+ * Data Commons Client Python API call.
+ * @param spec The observation specification object.
+ * @returns A list of formatted argument strings for the Python script.
+ */
+function formatDataCommonsPythonClientArgs(spec: ObservationSpec): string[] {
+  const params: string[] = [];
+  params.push(`    variable_dcids=${JSON.stringify(spec.statVarDcids)}`);
+
+  const date = spec.date === "" ? "latest" : spec.date;
+  if (date && date !== "latest") {
+    params.push(`    date='${date}'`);
+  }
+
+  if (spec.entityDcids?.length > 0) {
+    params.push(`    entity_dcids=${JSON.stringify(spec.entityDcids)}`);
+  } else if (spec.entityExpression) {
+    params.push(
+      `    entity_expression=${JSON.stringify(spec.entityExpression)}`
+    );
+  }
+
+  if (spec.filter?.facetIds?.length > 0) {
+    params.push(`    filter_facet_ids=${JSON.stringify(spec.filter.facetIds)}`);
+  }
+  return params;
+}
+
+/**
+ * Converts a list of ObservationSpecs into a Python script that uses the
+ * Data Commons Python Client library.
+ *
+ * @param specs A list of observation specifications to convert.
+ * @param statVarNameMap a lookup of stat var DCIDs to names
+ * @param apiRoot The root URL for the Data Commons API.
+ * @returns A formatted Python script string.
+ */
+export function observationSpecsToDataCommonsClientScript(
+  specs: ObservationSpec[],
+  statVarNameMap: Record<string, string>,
+  apiRoot?: string
+): string {
+  const isCustomDc = isCustomDataCommons(apiRoot);
+
+  // the introduction of the script with shared imports, headers and variables
+
+  const apiKeyLines = isCustomDc
+    ? []
+    : [`api_key = "API_KEY" # Replace with your API key`, ""];
+
+  let clientInstantiationLine: string;
+  if (isCustomDc) {
+    let hostname = '"DC_HOSTNAME"';
+    if (apiRoot) {
+      try {
+        hostname = `"${new URL(apiRoot).hostname}"`;
+      } catch (e) {
+        console.error(
+          "Could not parse hostname from custom DC apiRoot:",
+          apiRoot
+        );
+      }
+    }
+    clientInstantiationLine = `client = DataCommonsClient(dc_instance=${hostname})`;
+  } else {
+    clientInstantiationLine = `client = DataCommonsClient(api_key=api_key)`;
+  }
+
+  const introduction = [
+    `# Requirements: pip install "datacommons-client[Pandas]"`,
+    "import pandas as pd",
+    "from datacommons_client.client import DataCommonsClient",
+    "",
+    ...apiKeyLines,
+    clientInstantiationLine,
+  ];
+
+  // we add a request for each endpoint.
+
+  const apiCallBlocks = specs.map((spec, index) => {
+    const statVarNames = spec.statVarDcids
+      .map((id) => statVarNameMap[id] || id)
+      .join(", ");
+    const title =
+      spec.role === "denominator"
+        ? `${statVarNames} ${intl.formatMessage(
+            chartComponentMessages.ApiDialogDenomHelperText
+          )}`
+        : statVarNames;
+
+    const endpointIntroComment = specs.length > 1 ? [`# ${title}`] : [];
+
+    const params = formatDataCommonsPythonClientArgs(spec);
+    const suffix = specs.length > 1 ? `_${index + 1}` : "";
+
+    const callBlock = [
+      ...endpointIntroComment,
+      `response${suffix} = client.observation.fetch(`,
+      params.join(",\n"),
+      `)`,
+      `df${suffix} = pd.DataFrame(response${suffix}.to_observation_records().model_dump())`,
+      `print(df${suffix})`,
+    ];
+
+    return callBlock.join("\n");
+  });
+
+  return [introduction.join("\n"), ...apiCallBlocks].join("\n\n");
+}
+
+/**
  * Retrieves facet IDs for a given statistical variable from the facet map.
  * This is used to find the correct facets for a denominator.
  *

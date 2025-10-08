@@ -52,6 +52,7 @@ import {
   buildObservationSpecManifest,
   isCustomDataCommons,
   ObservationSpec,
+  observationSpecsToDataCommonsClientScript,
   observationSpecsToPythonScript,
   observationSpecToCurl,
 } from "../../../shared/observation_specs";
@@ -111,6 +112,13 @@ type LanguageSpec =
 
 const LANGUAGE_SPEC: LanguageSpec[] = [
   {
+    slug: "python-dc-client",
+    name: "Python (Data Commons Client Library)",
+    displayStyle: "single",
+    generator: observationSpecsToDataCommonsClientScript,
+    highlightLanguage: "python",
+  },
+  {
     slug: "python",
     name: "Python",
     displayStyle: "single",
@@ -128,7 +136,7 @@ const LANGUAGE_SPEC: LanguageSpec[] = [
 
 type LanguageSlug = typeof LANGUAGE_SPEC[number]["slug"];
 
-const DEFAULT_LANGUAGE_SLUG = "python";
+const DEFAULT_LANGUAGE_SLUG = "python-dc-client";
 
 interface ApiDialogProps {
   //whether the dialog is open
@@ -496,7 +504,8 @@ export function ApiDialog({
                   ${theme.typography.text.sm}
                   ${theme.radius.quaternary}
                   border: 1px solid ${theme.colors.border.primary.light};
-                  padding: ${theme.spacing.xs}px ${theme.spacing.sm}px;
+                  padding: ${theme.spacing.xs}px ${theme.spacing.lg}px
+                    ${theme.spacing.xs}px ${theme.spacing.sm}px;
                   background: white;
                   min-width: 15ch;
                   max-width: 30ch;
