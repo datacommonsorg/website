@@ -194,6 +194,7 @@ function useCache(): Cache {
  * @param place
  * @param isLoading
  * @param setCache
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 async function loadData(
   x: AxisWrapper,

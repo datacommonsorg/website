@@ -306,6 +306,7 @@ export function getRankingUnitPoints(
  * @param rankingGroup the RankingGroup information to get the ranking unit for
  * @param rankingMetadata the RankingTileSpec to get the ranking unit for
  * @param isHighest whether or not this ranking unit is showing highest
+ * @param surfaceHeaderValue value to pass into calls to mixer for usage logs
  * @param rankingUnitRef ref object to attach to the ranking unit
  * @param onHoverToggled callback when user hovers over a row
  * @param errorMsg Erorr message

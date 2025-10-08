@@ -66,6 +66,7 @@ function getTileProp(
  * @param enclosedPlaceType enclosed place type to use in the tile
  * @param statVarSpec list of stat var specs to show in the tile
  * @param apiRoot API root to use to fetch data
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getScatterTileResult(
   id: string,

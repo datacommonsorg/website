@@ -30,6 +30,7 @@ export const DEFAULT_CLIENT_API_ROOT = "/";
  * window.location.origin
  *
  * @param apiRoot
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  * @returns DataCommonsClient instance
  */
 export function getDataCommonsClient(

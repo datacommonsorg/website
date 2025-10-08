@@ -63,6 +63,7 @@ interface TopEventTilePropType {
   className?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Passed into mixer calls to differentiate DC features (website, web components, etc) in usage logs
   surfaceHeaderValue: string;
 }
 

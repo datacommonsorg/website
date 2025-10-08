@@ -95,6 +95,7 @@ function getBarChartSvg(
  * @param enclosedPlaceType enclosed place type to use for bar chart
  * @param statVarSpec list of stat var specs to show in the bar chart
  * @param apiRoot API root to use to fetch data
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getBarTileResult(
   id: string,

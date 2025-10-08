@@ -55,6 +55,8 @@ interface ChartFooterPropType {
   containerRef?: RefObject<HTMLElement>;
   // Additional content that will display in the footer.
   children?: React.ReactNode;
+  // Passed into calls to mixer for usage logs. Indicates which DC surface
+  // (website, datagemma, etc.) the call originates from.
   surfaceHeaderValue: string;
 }
 

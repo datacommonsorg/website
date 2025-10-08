@@ -55,6 +55,7 @@ export const SCATTER_URL_PATH = "/tools/scatter";
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
  * @param apiRoot API root
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getStatWithinPlace(
   parentPlace: string,
@@ -104,7 +105,7 @@ export async function getStatWithinPlace(
  * @param parentPlace the place to get data within
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
- *
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getStatAllWithinPlace(
   parentPlace: string,

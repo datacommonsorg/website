@@ -55,7 +55,7 @@ interface TileMetadataModalPropType {
   containerRef?: React.RefObject<HTMLElement>;
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
-  // passed into mixer calls for usage logs
+  // used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
   surfaceHeaderValue: string;
 }
 

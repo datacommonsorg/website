@@ -39,6 +39,7 @@ type FacetMetadataReturn = {
  * with the metadata required to display the rich dataset select dialog.
  *
  * @param baseFacets A map of stat vars to facets.
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  * @returns An object containing the enriched facet data, loading state, and
  * error state.
  */

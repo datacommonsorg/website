@@ -161,6 +161,7 @@ function getRankingUnitResult(
  * @param enclosedPlaceType enclosed place type to use in the tile
  * @param statVarSpec list of stat var specs to show in the tile
  * @param apiRoot API root to use to fetch data
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getRankingTileResult(
   id: string,
@@ -245,6 +246,7 @@ export async function getRankingTileResult(
  * @param enclosedPlaceType the enclosed place type to get the chart for
  * @param statVarSpec list of stat var specs to show in the chart
  * @param apiRoot API root to use to fetch data
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getRankingChart(
   tileConfig: TileConfig,

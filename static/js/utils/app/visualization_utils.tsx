@@ -279,6 +279,7 @@ export function getContextStatVar(svSpec: StatVarSpec): ContextStatVar {
  * @param samplePlaces sample places used for the stat var hierarchy
  * @param statVars full list of stat vars
  * @param visTypeConfig the vis type config being used
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export function getFilteredStatVarPromise(
   samplePlaces: NamedNode[],

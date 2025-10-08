@@ -65,7 +65,7 @@ export function TileSources(props: {
   // a set of observation specs relevant to the chart. These
   // specs can be hydrated into API calls.
   getObservationSpecs?: () => ObservationSpec[];
-  // passed into calls to mixer to be used in usage logs
+  // Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
   surfaceHeaderValue: string;
 }): ReactElement {
   const {

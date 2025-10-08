@@ -118,6 +118,7 @@ function getMapChartSvg(
  * @param enclosedPlaceType enclosed place type to use in the tile
  * @param statVarSpec stat var spec to show in the tile
  * @param apiRoot API root to use to fetch data
+ * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getMapTileResult(
   id: string,
