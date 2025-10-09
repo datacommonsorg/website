@@ -100,6 +100,9 @@ const HeaderBarSearch = ({
               [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(
                 dynamicPlaceholdersEnabled
               ),
+              [GA_EVENT_STATVAR_AUTOCOMPLETE_ENABLED]: String(
+                enableStatVarAutocomplete
+              ),
               [GA_PARAM_SOURCE]:
                 gaValueSearchSource ?? GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
             });

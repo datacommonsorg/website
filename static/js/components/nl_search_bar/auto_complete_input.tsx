@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
+import _, { set } from "lodash";
 import React, {
   ReactElement,
   useCallback,
@@ -61,6 +61,7 @@ import {
   enableDynamicPlacehoder,
   placeholderMessages,
 } from "./dynamic_placeholder_helper";
+import { exec } from "child_process";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
@@ -362,15 +363,10 @@ export function AutoCompleteInput(
       if (result.dcid) {
         setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
-          triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV, {
-            [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
-          });
-          const placeParam = placeDcid ? `p=${placeDcid}` : "p=Earth";
-          window.location.href =
-            `/explore#${placeParam}&sv=` +
-            encodeURIComponent(result.dcid) +
-            "&q=" +
-            encodeURIComponent(queryText);
+          // TODO(gmechali): Consider using SV redirection via URL param injection.
+          changeText(queryText);
+          setTriggerSearch(queryText);
+          setResults([]);
         }
         return;
       }
