@@ -26,6 +26,7 @@ import {
 } from "../../../../constants/app/explore_constants";
 import { localizeLink } from "../../../../i18n/i18n";
 import {
+  ENABLE_FEATURE_URL_PARAM,
   ENABLE_STAT_VAR_AUTOCOMPLETE,
   isFeatureEnabled,
 } from "../../../../shared/feature_flags/util";
@@ -116,12 +117,22 @@ const HeaderBarSearch = ({
               [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(
                 dynamicPlaceholdersEnabled
               ),
+              [GA_EVENT_STATVAR_AUTOCOMPLETE_ENABLED]: String(
+                enableStatVarAutocomplete
+              ),
               [GA_PARAM_SOURCE]:
                 gaValueSearchSource ?? GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
             });
+            const urlSearchParams = new URLSearchParams();
+            if (enableStatVarAutocomplete) {
+              urlSearchParams.set(
+                ENABLE_FEATURE_URL_PARAM,
+                ENABLE_STAT_VAR_AUTOCOMPLETE
+              );
+            }
             // Localize the url to maintain the current page's locale.
             const localizedUrl = localizeLink(`/explore`);
-            const localizedUrlWithQuery = `${localizedUrl}#q=${encodeURIComponent(
+            const localizedUrlWithQuery = `${localizedUrl}?${urlSearchParams.toString()}#q=${encodeURIComponent(
               q
             )}`;
             window.location.href = localizedUrlWithQuery;
