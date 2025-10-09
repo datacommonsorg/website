@@ -39,7 +39,6 @@ import {
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
-  GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
   GA_PARAM_QUERY_AT_SELECTION,
@@ -385,15 +384,10 @@ export function AutoCompleteInput(
       if (result.dcid) {
         setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
-          triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV, {
-            [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
-          });
-          const placeParam = placeDcid ? `p=${placeDcid}` : "p=Earth";
-          window.location.href =
-            `/explore?${urlParams.toString()}#${placeParam}&sv=` +
-            encodeURIComponent(result.dcid) +
-            "&q=" +
-            encodeURIComponent(queryText);
+          // TODO(gmechali): Consider using SV redirection via URL param injection.
+          changeText(queryText);
+          setTriggerSearch(queryText);
+          setResults([]);
         }
         return;
       }
