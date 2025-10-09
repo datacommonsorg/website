@@ -196,7 +196,7 @@ def _trim_dups(related_things: Dict):
     related_things[k] = k_list
 
 
-def prune_related_topics(related_things, uttr, surface: str = None):
+def prune_related_topics(related_things, uttr):
   # Check the data existence for related topics
   all_topics = list(
       set(([x["dcid"] for x in related_things["parentTopics"]] +
