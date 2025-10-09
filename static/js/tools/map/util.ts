@@ -837,6 +837,17 @@ export function ifShowChart(statVar: StatVar, placeInfo: PlaceInfo): boolean {
   );
 }
 
+export function shouldShowStatVarInstructions(
+  statVar: StatVar,
+  placeInfo: PlaceInfo
+): boolean {
+  return (
+    _.isNull(statVar.info) &&
+    !_.isEmpty(placeInfo.enclosingPlace.dcid) &&
+    !_.isEmpty(placeInfo.enclosedPlaceType)
+  );
+}
+
 export function getRankingLink(
   statVar: StatVar,
   placeDcid: string,
