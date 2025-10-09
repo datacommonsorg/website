@@ -28,7 +28,8 @@ from server.lib.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
 from server.routes import TIMEOUT
-from shared.lib.constants import WEBSITE_SURFACE, SURFACE_HEADER_NAME
+from shared.lib.constants import SURFACE_HEADER_NAME
+from shared.lib.constants import WEBSITE_SURFACE
 
 DEFAULT_CONTAINED_PLACE_TYPES = {
     "Continent": "Country",

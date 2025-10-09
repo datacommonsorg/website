@@ -26,7 +26,8 @@ from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
-from shared.lib.constants import WEBSITE_SURFACE, SURFACE_HEADER_NAME
+from shared.lib.constants import SURFACE_HEADER_NAME
+from shared.lib.constants import WEBSITE_SURFACE
 
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"

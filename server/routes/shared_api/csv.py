@@ -36,8 +36,7 @@ def get_point_within_csv_rows(parent_place,
                               sv_list,
                               facet_map,
                               date,
-                              row_limit=None,
-                              surface=None):
+                              row_limit=None):
   """Gets the csv rows for a set of statistical variables data for child places
     of a certain place type contained in a parent place.
 
@@ -54,8 +53,7 @@ def get_point_within_csv_rows(parent_place,
       represented as an array where each item is the value of a cell in the
       row.
   """
-  points_response = dc.obs_point_within(parent_place, child_type, sv_list, date,
-                                        None)
+  points_response = dc.obs_point_within(parent_place, child_type, sv_list, date)
 
   # dict of place dcid to dict of sv dcid to chosen data point.
   data_by_place = {}
@@ -267,8 +265,7 @@ def get_stats_within_place_csv():
         get_point_within_csv_rows(parent_place, child_type, sv_list, facet_map,
                                   date, row_limit))
   else:
-    series_response = dc.obs_series_within(parent_place, child_type, sv_list,
-                                           None)
+    series_response = dc.obs_series_within(parent_place, child_type, sv_list)
     result_csv.extend(
         get_series_csv_rows(series_response, sv_list, facet_map, min_date,
                             max_date, row_limit))

@@ -300,7 +300,7 @@ def child(dcid):
 
 
 @cache.memoize(timeout=TIMEOUT)
-def child_fetch(parent_dcid, surface=None):
+def child_fetch(parent_dcid):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',
                                              False)
