@@ -114,6 +114,9 @@ class Page extends Component<unknown, PageStateType> {
       STANDARDIZED_VIS_TOOL_FEATURE_FLAG
     );
 
+    const showStatVarInstructions = numPlaces !== 0 && numStatVarInfo === 0;
+    const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
+
     return (
       <ThemeProvider theme={theme}>
         <StatVarWidget
@@ -179,10 +182,13 @@ class Page extends Component<unknown, PageStateType> {
               </FormBox>
             </div>
 
-            {numPlaces === 0 &&
-              (useStandardizedUi ? (
-                <>
-                  <VisToolInstructionsBox toolType="timeline" />
+            {useStandardizedUi && !showChart ? (
+              <>
+                <VisToolInstructionsBox
+                  toolType="timeline"
+                  showStatVarInstructionsOnly={showStatVarInstructions}
+                />
+                {numPlaces === 0 && (
                   <div
                     css={css`
                       margin-top: ${theme.spacing.xl}px;
@@ -190,11 +196,12 @@ class Page extends Component<unknown, PageStateType> {
                   >
                     <ChartLinkChips toolType="timeline" />
                   </div>
-                </>
-              ) : (
-                <MemoizedInfo />
-              ))}
-            {numPlaces !== 0 && numStatVarInfo !== 0 && (
+                )}
+              </>
+            ) : (
+              numPlaces === 0 && <MemoizedInfo />
+            )}
+            {showChart && (
               <div id="chart-region">
                 <ChartRegion
                   placeName={this.state.placeName}
