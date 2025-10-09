@@ -62,7 +62,6 @@ function App(): ReactElement {
   const theme = useTheme();
   const { placeInfo, statVar } = useContext(Context);
   const showChart = ifShowChart(statVar.value, placeInfo.value);
-  const showInstructions = !showChart;
   const showStatVarInstructions = shouldShowStatVarInstructions(
     statVar.value,
     placeInfo.value
@@ -89,7 +88,7 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          {showInstructions && (
+          {!showChart && (
             <Row>
               {useStandardizedUi ? (
                 <>

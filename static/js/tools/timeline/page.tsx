@@ -188,7 +188,7 @@ class Page extends Component<unknown, PageStateType> {
                   toolType="timeline"
                   showStatVarInstructionsOnly={showStatVarInstructions}
                 />
-                {numPlaces === 0 && (
+                {!showStatVarInstructions && (
                   <div
                     css={css`
                       margin-top: ${theme.spacing.xl}px;
