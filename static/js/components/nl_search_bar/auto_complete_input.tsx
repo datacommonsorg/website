@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import { exec } from "child_process";
 import _, { set } from "lodash";
 import React, {
   ReactElement,
@@ -39,7 +40,6 @@ import {
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
-  GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
   GA_PARAM_QUERY_AT_SELECTION,
@@ -66,7 +66,6 @@ import {
   enableDynamicPlacehoder,
   placeholderMessages,
 } from "./dynamic_placeholder_helper";
-import { exec } from "child_process";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
