@@ -44,11 +44,8 @@ _PLACE_TYPE_FALLBACK_THRESHOLD_RANK = 5
 #
 
 
-def populate(state: PopulateState,
-             chart_vars: ChartVars,
-             places: List[Place],
-             chart_origin: ChartOriginType,
-             rank: int) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType, rank: int) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('basic_failed_cb_events', 1)
     return False
@@ -72,17 +69,11 @@ def populate(state: PopulateState,
     # TODO: Deprecate this flow completely!
     return _populate_specific(state, chart_vars, places, chart_origin, rank)
   else:
-    return _populate_explore(state,
-                             chart_vars,
-                             places,
-                             chart_origin,
-                             rank)
+    return _populate_explore(state, chart_vars, places, chart_origin, rank)
 
 
-def _populate_explore(state: PopulateState,
-                      chart_vars: ChartVars,
-                      places: List[Place],
-                      chart_origin: ChartOriginType,
+def _populate_explore(state: PopulateState, chart_vars: ChartVars,
+                      places: List[Place], chart_origin: ChartOriginType,
                       rank: int) -> bool:
   added = False
   # TODO(gmechali): Consider making is_highlight a part of the utterance.

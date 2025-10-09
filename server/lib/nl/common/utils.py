@@ -84,14 +84,12 @@ def event_existence_for_place(place: str, event: types.EventType,
 # Returns a list of existing SVs (as a union across places).
 # The order of the returned SVs matches the input order.
 #
-def sv_existence_for_places(places: List[str],
-                            svs: List[str],
+def sv_existence_for_places(places: List[str], svs: List[str],
                             counters: ctr.Counters) -> List[str]:
   if not svs:
     return [], {}
 
   start = time.time()
-
   sv_existence = fetch.observation_existence(svs, places)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
@@ -189,18 +187,14 @@ def facet_contains_date(facet_data, facet_metadata, single_date,
 # 2. a map of existing SVs to a map of places to whether or not that SV, place
 # combo has any single data point series
 def sv_existence_for_places_check_single_point(
-    places: List[str],
-    svs: List[str],
-    single_date: types.Date,
-    date_range: types.Date,
-    counters: ctr.Counters,
+    places: List[str], svs: List[str], single_date: types.Date,
+    date_range: types.Date, counters: ctr.Counters
 ) -> tuple[Dict[str, Dict[str, Dict[str, str]]], Dict[str, Dict[str, bool]]]:
   if not svs:
     return {}, {}
 
   check_date = bool(single_date) | bool(date_range)
   start = time.time()
-  # print("in sv_existence_for_places_check_single_point, surface:", surface)
   series_facet = fetch.series_facet(entities=places,
                                     variables=svs,
                                     all_facets=check_date)

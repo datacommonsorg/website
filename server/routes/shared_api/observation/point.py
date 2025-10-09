@@ -99,10 +99,7 @@ def point():
   # the point data. This is because the fetch.point_core function does not
   # support filtering by facet_ids directly.
   all_facets = True if facet_id else False
-  point_data = fetch.point_core(entities,
-                                variables,
-                                date,
-                                all_facets)
+  point_data = fetch.point_core(entities, variables, date, all_facets)
 
   if not facet_id:
     return point_data
@@ -158,12 +155,8 @@ def point_within():
                                   all_facets=False,
                                   facet_ids=facet_ids)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_within_core(parent_entity,
-                                 child_type,
-                                 variables,
-                                 date,
-                                 False,
-                                 facet_ids)
+  return fetch.point_within_core(parent_entity, child_type, variables, date,
+                                 False, facet_ids)
 
 
 @bp.route('/within/all')
@@ -192,8 +185,5 @@ def point_within_all():
                                   variables=variables,
                                   all_facets=True)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_within_core(parent_entity,
-                                 child_type,
-                                 variables,
-                                 date,
+  return fetch.point_within_core(parent_entity, child_type, variables, date,
                                  True)

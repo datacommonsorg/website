@@ -204,8 +204,7 @@ def prune_related_topics(related_things, uttr, surface: str = None):
            [x["dcid"] for x in related_things["childTopics"]])))
 
   valid_topics, _ = utils.sv_existence_for_places([x.dcid for x in uttr.places],
-                                                  all_topics,
-                                                  uttr.counters)
+                                                  all_topics, uttr.counters)
   valid_topics_set = set(valid_topics)
   related_things["parentTopics"] = [
       t for t in related_things["parentTopics"] if t["dcid"] in valid_topics_set

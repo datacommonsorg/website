@@ -21,8 +21,8 @@ from typing import Any, Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
-from flask_babel import gettext
 from flask import request
+from flask_babel import gettext
 
 from server.lib import fetch
 from server.lib.cache import cache
@@ -221,10 +221,8 @@ def count_places_per_stat_var(
 
 @cache.memoize(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
-    chart_config: List[ServerChartConfiguration],
-    place_dcid: str,
-    place_type: str,
-    child_place_type: str,
+    chart_config: List[ServerChartConfiguration], place_dcid: str,
+    place_type: str, child_place_type: str,
     parent_place_dcid: str) -> List[ServerChartConfiguration]:
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
@@ -981,8 +979,7 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   return place_cohort_member_dcids
 
 
-def fetch_overview_table_data(
-    place_dcid: str) -> List[OverviewTableDataRow]:
+def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   """
   Fetches overview table data for the specified place.
 
@@ -999,7 +996,8 @@ def fetch_overview_table_data(
   ]
 
   # Fetch all observations for each variable
-  print("surface in fetch_overview_table_data:", request.headers.get("x-surface"))
+  print("surface in fetch_overview_table_data:",
+        request.headers.get("x-surface"))
   resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
 
@@ -1207,7 +1205,8 @@ def format_stat_var_value(value: float, unit: str) -> str:
 
 
 async def _fetch_summary_data(
-    place_dcid: str, variable_dcids: List[str], locale: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
+    place_dcid: str, variable_dcids: List[str],
+    locale: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
   """
   Fetches the place, parent places, and place observations for the given place DCID.
 

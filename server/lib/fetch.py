@@ -217,10 +217,7 @@ def point_within_core(ancestor_entity,
     }
   }
   """
-  resp = dc.obs_point_within(ancestor_entity,
-                             descendent_type,
-                             variables,
-                             date,
+  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
                              facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
@@ -293,9 +290,7 @@ def point_within_facet(ancestor_entity,
   """Fetches facet of child places of a certain place type contained in a parent
   place at a given date.
   """
-  resp = dc.point_within_facet(ancestor_entity,
-                               descendent_type,
-                               variables,
+  resp = dc.point_within_facet(ancestor_entity, descendent_type, variables,
                                date)
   return _compact_point(resp, all_facets)
 
@@ -321,9 +316,7 @@ def series_within_core(ancestor_entity,
     }
   }
   """
-  resp = dc.obs_series_within(ancestor_entity,
-                              descendent_type,
-                              variables,
+  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables,
                               facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)

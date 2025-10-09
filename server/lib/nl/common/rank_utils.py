@@ -406,10 +406,8 @@ def filter_and_rank_places(
   if not date:
     # When there's no date specified, use latest date
     date = 'LATEST'
-  api_resp = fetch.point_within_core(parent_place.dcid,
-                                     child_type.value, [sv],
-                                     date,
-                                     False)
+  api_resp = fetch.point_within_core(parent_place.dcid, child_type.value, [sv],
+                                     date, False)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
   for child_place, value_data in sv_data.items():

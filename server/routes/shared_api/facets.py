@@ -58,10 +58,7 @@ def get_facets_within():
   date = request.args.get('date')
   if not is_valid_date(date):
     return 'error: date must be LATEST or YYYY or YYYY-MM or YYYY-MM-DD', 400
-  return fetch.point_within_facet(parent_entity,
-                                  child_type,
-                                  variables,
-                                  date,
+  return fetch.point_within_facet(parent_entity, child_type, variables, date,
                                   True)
 
 

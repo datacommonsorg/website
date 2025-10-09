@@ -17,10 +17,10 @@ from concurrent.futures import ThreadPoolExecutor
 import json
 import logging
 from typing import Dict, List
-from flask import request
 import urllib.parse
 
 from flask import current_app
+from flask import request
 import requests
 
 from server.lib import log
@@ -119,7 +119,7 @@ def obs_point(entities, variables, date="LATEST", surface=None):
           Indicates which DC surface (website, datagemma, etc.) the call
           originates from.
     """
-  
+
   surface = request.headers.get('x-surface')
   print("HEader in obs_point: ", surface)
   url = get_service_url("/v2/observation")
@@ -680,10 +680,7 @@ def safe_obs_point_within(parent_entity,
         originates from.
   """
   try:
-    return obs_point_within(parent_entity,
-                            child_type,
-                            variables,
-                            date,
+    return obs_point_within(parent_entity, child_type, variables, date,
                             facet_ids)
   except Exception as e:
     logger.error(f"Error in obs_point_within call: {str(e)}", exc_info=True)

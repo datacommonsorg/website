@@ -68,10 +68,7 @@ def series():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  return fetch.series_core(entities,
-                           variables,
-                           False,
-                           facet_ids)
+  return fetch.series_core(entities, variables, False, facet_ids)
 
 
 @bp.route('/all')
@@ -119,21 +116,14 @@ def series_within():
                                              child_type).get(parent_entity, [])
       merged_response = {}
       for batch in shared.divide_into_batches(child_places, batch_size):
-        new_response = fetch.series_core(batch,
-                                         variables,
-                                         False,
-                                         facet_ids)
+        new_response = fetch.series_core(batch, variables, False, facet_ids)
         merged_response = shared.merge_responses(merged_response, new_response)
       return merged_response, 200
     except Exception as e:
       logging.error(e)
       return 'error: Error encountered when attempting to make batch calls', 400
-  return fetch.series_within_core(parent_entity,
-                                  child_type,
-                                  variables,
-                                  False,
+  return fetch.series_within_core(parent_entity, child_type, variables, False,
                                   facet_ids)
-
 
 
 @bp.route('/within/all')
@@ -156,7 +146,4 @@ def series_within_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
 
-  return fetch.series_within_core(parent_entity,
-                                  child_type,
-                                  variables,
-                                  True)
+  return fetch.series_within_core(parent_entity, child_type, variables, True)

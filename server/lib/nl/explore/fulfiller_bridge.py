@@ -42,8 +42,7 @@ class FulfillResp:
   user_message: str
 
 
-def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config,
-            surface: str = None) -> FulfillResp:
+def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr)
 
   builder_result = nl_config_builder.build(state, cb_config)
@@ -132,7 +131,8 @@ def _is_place_overview(ranked_charts: List[ChartSpec]) -> bool:
       0].chart_type == ChartType.PLACE_OVERVIEW
 
 
-def _get_explore_more_chart_vars(state: PopulateState) -> Dict[str, List[ChartVars]]:
+def _get_explore_more_chart_vars(
+    state: PopulateState) -> Dict[str, List[ChartVars]]:
   # Get up to 10 SVs from each chart.
   explore_more_svs = set()
   for cs in state.uttr.rankedCharts:

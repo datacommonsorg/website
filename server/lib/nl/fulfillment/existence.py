@@ -53,9 +53,7 @@ class SVExistenceCheckState:
 class ExistenceCheckTracker:
 
   # NOTE: If sv2extensions is set, then this is for extensions only.
-  def __init__(self,
-               state: PopulateState,
-               place2keys: Dict):
+  def __init__(self, state: PopulateState, place2keys: Dict):
     self.state = state
     self.place2keys = place2keys
     self.places = sorted(place2keys.keys())
@@ -204,8 +202,7 @@ class ExistenceCheckTracker:
 class MainExistenceCheckTracker(ExistenceCheckTracker):
 
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
-               sv2chartvarslist: OrderedDict[str,
-                                             List[ChartVars]]):
+               sv2chartvarslist: OrderedDict[str, List[ChartVars]]):
     super().__init__(state, place2keys)
     places = place2keys.keys()
 

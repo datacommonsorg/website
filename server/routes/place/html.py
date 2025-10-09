@@ -30,8 +30,8 @@ from server.lib.cache import cache
 from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
 import server.routes.shared_api.place as place_api
-import shared.lib.gcs as gcs
 from shared.lib.constants import WEBSITE_SURFACE
+import shared.lib.gcs as gcs
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 

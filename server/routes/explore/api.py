@@ -87,7 +87,7 @@ def detect():
 #  - entities: An ordered list of places or other entity DCIDs.
 #  - variables: A ordered list of SV or topic (dc/topic/..) DCIDs.
 #  - childEntityType: A type of child entity (optional)
-#  - A header with an "x-surface" field indicating which DC surface (website, 
+#  - A header with an "x-surface" field indicating which DC surface (website,
 #   MCP server, etc) the request is coming from.
 #
 @bp.route('/fulfill', methods=['POST'])
