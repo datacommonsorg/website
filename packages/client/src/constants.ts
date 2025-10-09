@@ -34,5 +34,5 @@ export const DEFAULT_FIELD_DELIMITER = ".";
 export const WEBSITE_SURFACE = "website";
 // Value to be passed into mixer to log usage from an unknown surface
 export const UNKNOWN_surface = "unknown";
-// The name of the header that passes the surface into calls to Mixer
+// Name of the header that passes the surface into calls to Mixer
 export const SURFACE_HEADER_NAME = "x-surface";
