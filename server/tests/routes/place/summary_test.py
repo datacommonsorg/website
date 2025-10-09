@@ -25,7 +25,7 @@ import pytest
 from server.routes.place.types import Place
 import server.routes.place.utils as place_utils
 from server.services import datacommons as dc
-from shared.lib.constants import WEBSITE_SURFACE_HEADER_VALUE
+from shared.lib.constants import WEBSITE_SURFACE
 
 
 # Mock observations data
@@ -152,7 +152,7 @@ class TestPlaceSummary(unittest.IsolatedAsyncioTestCase):
       expected_summary = "90210 is a census zip code tabulation area in California, the United States of America. The population in 90210 was 19,652 in 2023. The median age in 90210 was 51.2 in 2023. The median income in 90210 was $78,750 in 2023. The percentage of people with obesity in 90210 was 21.6% in 2022. The percentage of people who binge drink in 90210 was 17.3% in 2022. The percentage of people who smoke in 90210 was 7.2% in 2022."
 
       actual_summary = await place_utils.generate_place_summary(
-          place.dcid, g.locale, WEBSITE_SURFACE_HEADER_VALUE)
+          place.dcid, g.locale, WEBSITE_SURFACE)
 
       self.assertEqual(actual_summary, expected_summary)
 
@@ -187,7 +187,7 @@ class TestPlaceSummary(unittest.IsolatedAsyncioTestCase):
       expected_summary = " The population in World was 8,061,876,001 in 2023. The nominal GDP per capita in World was $13,169.6 in 2023. The life expectancy in World was 73.33 in 2023. The energy consumption per capita in World was 1,851.19kgoe in 2022. The carbon dioxide emissions per capita in World was 4.68t in 2023."
 
       actual_summary = await place_utils.generate_place_summary(
-          place.dcid, g.locale, WEBSITE_SURFACE_HEADER_VALUE)
+          place.dcid, g.locale, WEBSITE_SURFACE)
 
       self.assertEqual(actual_summary, expected_summary)
 
@@ -236,6 +236,6 @@ class TestPlaceSummary(unittest.IsolatedAsyncioTestCase):
       expected_summary = "The United States of America is a country in North America. The population in the United States of America was 340,110,988 in 2024. The median age in the United States of America was 38.7 in 2023. The median income in the United States of America was $39,982 in 2023. The unemployment rate in the United States of America was 4.2% in 2025. The nominal GDP per capita in the United States of America was $82,769.41 in 2023. The Gini index in the United States of America was 41.3 in 2022. The life expectancy in the United States of America was 78.39 in 2023. The percentage of people with obesity in the United States of America was 33.4% in 2022. The percentage of people who binge drink in the United States of America was 18% in 2022. The percentage of people who smoke in the United States of America was 13.2% in 2022. The energy consumption per capita in the United States of America was 6,428.36kgoe in 2023. The carbon dioxide emissions per capita in the United States of America was 13.98t in 2023."
 
       actual_summary = await place_utils.generate_place_summary(
-          place.dcid, g.locale, WEBSITE_SURFACE_HEADER_VALUE)
+          place.dcid, g.locale, WEBSITE_SURFACE)
 
       self.assertEqual(actual_summary, expected_summary)

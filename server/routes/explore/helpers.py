@@ -292,7 +292,7 @@ def update_insight_ctx_for_chart_fulfill(request: Dict,
 #
 def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                               debug_logs: Dict,
-                              surface_header_value: str = None) -> Dict:
+                              surface: str = None) -> Dict:
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
@@ -305,7 +305,7 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=set())
 
   start = time.time()
-  state = fulfillment.fulfill(utterance, surface_header_value)
+  state = fulfillment.fulfill(utterance, surface)
   utterance = state.uttr
   utterance.counters.timeit('fulfillment', start)
 

@@ -72,9 +72,9 @@ const NUM_RELATED_QUESTIONS = 6;
 
 // formats header for calls to the Flask API, which is passed into mixer and used in usage logging
 export const getSurfaceHeader = (
-  surfaceHeaderValue: string
+  surface: string
 ): Record<typeof SURFACE_HEADER_NAME, string> => {
-  return { [SURFACE_HEADER_NAME]: surfaceHeaderValue };
+  return { [SURFACE_HEADER_NAME]: surface };
 };
 
 // Get the elapsed time in seconds given the start and end times in nanoseconds.
@@ -100,7 +100,7 @@ function getBlockTileResults(
   apiRoot: string,
   allowedTilesTypes?: Set<string>,
   mode?: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
@@ -126,7 +126,7 @@ function getBlockTileResults(
               useChartUrl,
               apikey,
               mode,
-              surfaceHeaderValue
+              surface
             )
           );
           break;
@@ -143,7 +143,7 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              surfaceHeaderValue
+              surface
             )
           );
           break;
@@ -161,7 +161,7 @@ function getBlockTileResults(
               useChartUrl,
               apikey,
               mode,
-              surfaceHeaderValue
+              surface
             )
           );
           break;
@@ -178,7 +178,7 @@ function getBlockTileResults(
               urlRoot,
               useChartUrl,
               apikey,
-              surfaceHeaderValue
+              surface
             )
           );
           break;
@@ -192,7 +192,7 @@ function getBlockTileResults(
               enclosedPlaceType,
               tileSvSpec,
               apiRoot,
-              surfaceHeaderValue
+              surface
             )
           );
           break;
@@ -206,7 +206,7 @@ function getBlockTileResults(
               place,
               tileSvSpec,
               apiRoot,
-              surfaceHeaderValue
+              surface
             )
           );
           break;
@@ -318,7 +318,7 @@ export async function getQueryResult(
   wantRelatedQuestions: boolean,
   detector: string,
   idx?: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
 
@@ -352,7 +352,7 @@ export async function getQueryResult(
       url += `&${urlKey}=${params[urlKey]}`;
     });
   const postConfig = {
-    headers: getSurfaceHeader(surfaceHeaderValue),
+    headers: getSurfaceHeader(surface),
   };
   try {
     nlResp = await axios.post(url, {}, postConfig);
@@ -433,7 +433,7 @@ export async function getQueryResult(
             apiRoot,
             allowedTileTypes,
             mode,
-            surfaceHeaderValue
+            surface
           );
       }
       tilePromises.push(...blockTilePromises);

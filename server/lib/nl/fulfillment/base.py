@@ -49,7 +49,7 @@ _MAX_RANK = 1000
 
 
 # Populate chart specs in state.uttr and return True if something was added.
-def populate_charts(state: PopulateState, surface_header_value: str) -> bool:
+def populate_charts(state: PopulateState, surface: str) -> bool:
   if not state.uttr.places:
     state.uttr.counters.err('populate_charts_emptyplace', 1)
     state.uttr.place_source = FulfillmentResult.UNRECOGNIZED
@@ -63,7 +63,7 @@ def populate_charts(state: PopulateState, surface_header_value: str) -> bool:
     state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
     return False
 
-  success = _add_charts_with_place_fallback(state, places, surface_header_value)
+  success = _add_charts_with_place_fallback(state, places, surface)
 
   if not success:
     state.uttr.counters.err('num_populate_fallbacks', 1)
@@ -87,9 +87,9 @@ def populate_charts(state: PopulateState, surface_header_value: str) -> bool:
 #
 # REQUIRES: places and svs are non-empty.
 def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
-                                    surface_header_value: str) -> bool:
+                                    surface: str) -> bool:
   # Add charts for the given places.
-  if _add_charts_with_existence_check(state, places, surface_header_value):
+  if _add_charts_with_existence_check(state, places, surface):
     return True
   # That failed, we'll attempt fallback.
 
@@ -118,8 +118,7 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
         'child': place.dcid,
         'parent': earth.dcid
     })
-    return _add_charts_with_existence_check(state, [earth],
-                                            surface_header_value)
+    return _add_charts_with_existence_check(state, [earth], surface)
 
   # Get the place-type.  Either of child-place (contained-in query-type),
   # or of the place itself.
@@ -166,7 +165,7 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
       })
       place = parents[0]
 
-    if _add_charts_with_existence_check(state, [place], surface_header_value):
+    if _add_charts_with_existence_check(state, [place], surface):
       return True
     # Else, try next parent type.
     parent_type = utils.get_parent_place_type(parent_type, place)
@@ -191,7 +190,7 @@ def _maybe_switch_parent_type(
 
 # Add charts given a place and a list of stat-vars.
 def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
-                                     surface_header_value: str) -> bool:
+                                     surface: str) -> bool:
   # This may set state.uttr.place_fallback
   _maybe_set_fallback(state, places)
 
@@ -207,7 +206,7 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
   # Avoid any mutations in existence tracker.
   chart_vars_map = copy.deepcopy(state.chart_vars_map)
   tracker = MainExistenceCheckTracker(state, state.places_to_check,
-                                      chart_vars_map, surface_header_value)
+                                      chart_vars_map, surface)
   tracker.perform_existence_check()
   state.exist_chart_vars_list = chart_vars_fetch(tracker)
 
@@ -232,9 +231,8 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
           }
           if 'rank' in inspect.signature(handler.module.populate).parameters:
             populate_kwargs['rank'] = idx
-          if 'surface_header_value' in inspect.signature(
-              handler.module.populate).parameters:
-            populate_kwargs['surface_header_value'] = surface_header_value
+          if 'surface' in inspect.signature(handler.module.populate).parameters:
+            populate_kwargs['surface'] = surface
           if handler.module.populate(**populate_kwargs):
             found = True
             num_charts += 1
@@ -251,9 +249,8 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
           }
           if 'rank' in inspect.signature(handler.module.populate).parameters:
             populate_kwargs['rank'] = idx
-          if 'surface_header_value' in inspect.signature(
-              handler.module.populate).parameters:
-            populate_kwargs['surface_header_value'] = surface_header_value
+          if 'surface' in inspect.signature(handler.module.populate).parameters:
+            populate_kwargs['surface'] = surface
           if handler.module.populate(**populate_kwargs):
             found = True
             num_charts += 1
@@ -275,13 +272,12 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
       ordered_existing_svs = [v for v in state.uttr.svs if v in existing_svs]
-      found |= _add_charts_for_extended_svs(
-          state=state,
-          places=places,
-          svs=ordered_existing_svs,
-          num_charts=num_charts,
-          max_num_charts=max_num_charts,
-          surface_header_value=surface_header_value)
+      found |= _add_charts_for_extended_svs(state=state,
+                                            places=places,
+                                            svs=ordered_existing_svs,
+                                            num_charts=num_charts,
+                                            max_num_charts=max_num_charts,
+                                            surface=surface)
 
     # For a given handler, if we found any charts at all, we're good.
     if found:
@@ -315,8 +311,7 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
 
 def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
                                  svs: List[str], num_charts: int,
-                                 max_num_charts: int,
-                                 surface_header_value: str) -> bool:
+                                 max_num_charts: int, surface: str) -> bool:
   # Map of main SV -> peer SVs
   # Perform SV extension calls.
   # PERF-TODO: This is expensive! (multiple seconds)
@@ -340,7 +335,7 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
   # PERF-NOTE: We do two serial existence-checks because the SV extension
   # call is super expensive.
   tracker = ExtensionExistenceCheckTracker(state, state.places_to_check, svs,
-                                           sv2extensions, surface_header_value)
+                                           sv2extensions, surface)
   tracker.perform_existence_check()
 
   # A set used to ensure that a set of SVs are constructed into charts

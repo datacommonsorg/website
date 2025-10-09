@@ -39,4 +39,4 @@ export const MATERIAL_ICONS_STYLESHEET_URL =
 export const DEFAULT_PER_CAPITA_DENOM = "Count_Person";
 
 /** Value to be passed into fetchData and eventually to mixer to log usage from the web components surface */
-export const WEB_COMPONENT_SURFACE_HEADER_VALUE = "web-component";
+export const WEB_COMPONENT_SURFACE = "web-component";

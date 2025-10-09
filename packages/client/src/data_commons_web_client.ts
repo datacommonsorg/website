@@ -30,11 +30,11 @@ import {
 } from "./data_commons_web_client_types";
 import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 
-import { UNKNOWN_SURFACE_HEADER_VALUE, SURFACE_HEADER_NAME } from "./constants";
+import { UNKNOWN_surface, SURFACE_HEADER_NAME } from "./constants";
 
 export interface DatacommonsWebClientParams {
   apiRoot?: string;
-  surfaceHeaderValue?: string | null;
+  surface?: string | null;
 }
 
 const LOCALE_PARAM = "hl";
@@ -48,11 +48,10 @@ class DataCommonsWebClient {
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
-    const surfaceHeaderValue =
-      p.surfaceHeaderValue || UNKNOWN_SURFACE_HEADER_VALUE;
+    const surface = p.surface || UNKNOWN_surface;
 
     this.headers = {
-      SURFACE_HEADER_NAME: surfaceHeaderValue,
+      SURFACE_HEADER_NAME: surface,
     };
   }
 

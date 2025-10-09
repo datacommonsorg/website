@@ -16,7 +16,7 @@
 
 /* Tests for getting result for query endpoint */
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../js/shared/constants";
+import { WEBSITE_SURFACE } from "../js/shared/constants";
 import { queryAxiosMock } from "./mock_functions";
 import { getQueryResult } from "./query";
 import { TileResult } from "./types";
@@ -224,7 +224,7 @@ test("getQueryResult", async () => {
       false, // wantRelatedQuestions
       "", // detector
       undefined, // idx
-      WEBSITE_SURFACE_HEADER_VALUE // surfaceHeaderValue
+      WEBSITE_SURFACE // surface
     );
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);
@@ -235,9 +235,9 @@ test("getQueryResult", async () => {
   }
 });
 
-// this confirms that the surfaceHeaderValue successfully reaches the mixer call
+// this confirms that the surface successfully reaches the mixer call
 // getQueryResult is used in the nodejs/query endpoint by DataGemma
-test("getQueryResult with surfaceHeaderValue", async () => {
+test("getQueryResult with surface", async () => {
   const expectedCharts = BAR_EXPECTED_RESULT;
   const query = "top jobs in santa clara county";
 
@@ -257,7 +257,7 @@ test("getQueryResult with surfaceHeaderValue", async () => {
     false, // wantRelatedQuestions
     "", // detector
     "", // idx
-    "datagemma" // surfaceHeaderValue
+    "datagemma" // surface
   );
   try {
     expect(result.charts).toStrictEqual(expectedCharts);

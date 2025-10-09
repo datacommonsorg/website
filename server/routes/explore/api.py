@@ -105,7 +105,7 @@ def detect_and_fulfill():
 
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
-  surface_header_value = request.headers.get("x-surface") or "unknown"
+  surface = request.headers.get("x-surface") or "unknown"
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -136,7 +136,7 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
-  return _fulfill_with_chart_config(utterance, debug_logs, surface_header_value)
+  return _fulfill_with_chart_config(utterance, debug_logs, surface)
 
 
 #
@@ -221,7 +221,7 @@ def page_overview():
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                debug_logs: Dict,
-                               surface_header_value: str = None) -> Dict:
+                               surface: str = None) -> Dict:
 
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
@@ -235,7 +235,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
-  fresp = nl_fulfillment.fulfill(utterance, cb_config, surface_header_value)
+  fresp = nl_fulfillment.fulfill(utterance, cb_config, surface)
   utterance.counters.timeit('fulfillment', start)
 
   return helpers.prepare_response(utterance,
@@ -256,7 +256,7 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
   mode = request.args.get(Params.MODE.value, '')
-  surface_header_value = request.headers.get("x-surface")
+  surface = request.headers.get("x-surface")
   if not insight_ctx:
     return helpers.abort('Sorry, could not answer your query.',
                          '', [],
@@ -312,4 +312,4 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                                mode=mode)
   utterance.insight_ctx = insight_ctx
   helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
-  return _fulfill_with_chart_config(utterance, debug_logs, surface_header_value)
+  return _fulfill_with_chart_config(utterance, debug_logs, surface)

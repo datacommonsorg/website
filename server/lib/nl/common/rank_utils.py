@@ -402,7 +402,7 @@ def filter_and_rank_places(
     sv: str,
     value_filter: types.QuantityClassificationAttributes = None,
     date: str = '',
-    surface_header_value: str = None) -> List[types.Place]:
+    surface: str = None) -> List[types.Place]:
   if not date:
     # When there's no date specified, use latest date
     date = 'LATEST'
@@ -410,7 +410,7 @@ def filter_and_rank_places(
                                      child_type.value, [sv],
                                      date,
                                      False,
-                                     surface_header_value=surface_header_value)
+                                     surface=surface)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
   for child_place, value_data in sv_data.items():

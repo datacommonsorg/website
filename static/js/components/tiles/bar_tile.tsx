@@ -275,7 +275,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       statVarSpecs={props.variables}
       forwardRef={containerRef}
       chartHeight={props.svgChartHeight}
-      surfaceHeaderValue={props.surfaceHeaderValue}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -299,7 +299,7 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
     const dataCommonsClient = getDataCommonsClient(
       props.apiRoot,
-      props.surfaceHeaderValue
+      props.surface
     );
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
@@ -382,7 +382,7 @@ export const fetchData = async (
           [statSvs],
           props.highlightFacet,
           facetId ? [facetId] : undefined,
-          props.surfaceHeaderValue
+          props.surface
         )
       );
     }
@@ -400,7 +400,7 @@ export const fetchData = async (
           date,
           [statSvs],
           facetId ? [facetId] : undefined,
-          props.surfaceHeaderValue
+          props.surface
         )
       );
     }
@@ -418,7 +418,7 @@ export const fetchData = async (
       undefined, // alignedVariables
       null, // highlightFacet
       null, // facetIds
-      props.surfaceHeaderValue
+      props.surface
     );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
@@ -428,7 +428,7 @@ export const fetchData = async (
           denomSvs,
           [], // facetIds
           null, // highlightFacet
-          props.surfaceHeaderValue
+          props.surface
         );
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     filterPromise = getPointWithin(
@@ -439,7 +439,7 @@ export const fetchData = async (
       "", // date
       null, // alignedVariables
       null, // facetIds
-      props.surfaceHeaderValue
+      props.surface
     );
     denomPromise = _.isEmpty(denomSvs)
       ? Promise.resolve(null)
@@ -449,7 +449,7 @@ export const fetchData = async (
           props.enclosedPlaceType,
           denomSvs,
           null, // facetIds
-          props.surfaceHeaderValue
+          props.surface
         );
   }
 

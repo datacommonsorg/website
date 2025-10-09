@@ -83,7 +83,7 @@ export interface DonutTilePropType {
    */
   lazyLoadMargin?: string;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
+  surface?: string;
 }
 
 interface DonutChartData {
@@ -137,7 +137,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       footnote={props.footnote}
       forwardRef={containerRef}
       statVarSpecs={props.statVarSpec}
-      surfaceHeaderValue={props.surfaceHeaderValue}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -161,7 +161,7 @@ function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
   return () => {
     const dataCommonsClient = getDataCommonsClient(
       props.apiRoot,
-      props.surfaceHeaderValue
+      props.surface
     );
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
@@ -212,7 +212,7 @@ export const fetchData = async (
       [statSvs],
       null, // highlightFacet
       null, // facetIds
-      props.surfaceHeaderValue
+      props.surface
     );
     const denomResp = _.isEmpty(denomSvs)
       ? null
@@ -222,7 +222,7 @@ export const fetchData = async (
           denomSvs,
           null, // facetIds
           null, // highlightFacet
-          props.surfaceHeaderValue
+          props.surface
         );
 
     // Find the most populated places.

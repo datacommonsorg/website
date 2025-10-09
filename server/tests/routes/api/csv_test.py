@@ -62,7 +62,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     mock_place_names.side_effect = place_side_effect
 
     def point_within_side_effect(parent_place, child_type, stat_vars, date,
-                                 facet_ids, surface_header_value):
+                                 facet_ids, surface):
       if (parent_place != expected_parent_place or
           child_type != expected_child_type or
           set(stat_vars) != set(expected_stat_vars)):
@@ -171,7 +171,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     mock_place_names.side_effect = place_side_effect
 
     def series_within_side_effect(parent_place, child_type, stat_vars,
-                                  facet_ids, surface_header_value):
+                                  facet_ids, surface):
       if (parent_place == expected_parent_place and
           child_type == expected_child_type and
           stat_vars == expected_stat_vars):

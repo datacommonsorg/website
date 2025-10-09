@@ -129,7 +129,7 @@ export interface LineTilePropType {
   // Metadata for the facet to highlight.
   highlightFacet?: FacetMetadata;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
+  surface?: string;
 }
 
 export interface LineChartData {
@@ -236,7 +236,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       title={props.title}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
-      surfaceHeaderValue={props.surfaceHeaderValue}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -257,10 +257,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
-  const dataCommonsClient = getDataCommonsClient(
-    props.apiRoot,
-    props.surfaceHeaderValue
-  );
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
   return () => {
     const perCapitaVariables = props.statVarSpec
       .filter((v) => v.denom)
@@ -379,7 +376,7 @@ export const fetchData = async (
           props.enclosedPlaceType,
           facetToVariable[facetId],
           facetIds,
-          props.surfaceHeaderValue
+          props.surface
         )
       );
     } else {
@@ -392,7 +389,7 @@ export const fetchData = async (
           facetToVariable[facetId],
           facetIds,
           props.highlightFacet,
-          props.surfaceHeaderValue
+          props.surface
         )
       );
     }

@@ -34,20 +34,20 @@ import { fetchFacetsWithMetadata } from "./metadata/metadata_fetcher";
  *
  * @param placeDcids - Array of place DCIDs to fetch facets for
  * @param statVars - Array of stat vars
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  * @returns Promise of an array of facet info objects for FacetSelector
  */
 export async function fetchFacetChoices(
   placeDcids: string[],
   statVars: { dcid: string; name?: string }[],
-  surfaceHeaderValue: string
+  surface: string
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient(null, surfaceHeaderValue);
+  const dataCommonsClient = getDataCommonsClient(null, surface);
   const baseFacets = await getFacets(
     "",
     placeDcids,
     statVars.map((sv) => sv.dcid),
-    surfaceHeaderValue
+    surface
   );
   const enrichedFacets = await fetchFacetsWithMetadata(
     baseFacets,
@@ -67,16 +67,16 @@ export async function fetchFacetChoices(
  * @param parentPlace - The DCID of the parent place (e.g., a state or country)
  * @param enclosedPlaceType - The type of enclosed places to consider (e.g., county)
  * @param statVars - Array of stat vars
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  * @returns Promise of an array of facet info objects for FacetSelector
  */
 export async function fetchFacetChoicesWithin(
   parentPlace: string,
   enclosedPlaceType: string,
   statVars: { dcid: string; name?: string; date?: string }[],
-  surfaceHeaderValue: string
+  surface: string
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient(null, surfaceHeaderValue);
+  const dataCommonsClient = getDataCommonsClient(null, surface);
   const facetPromises = statVars.map((sv) =>
     getFacetsWithin(
       "",
@@ -84,7 +84,7 @@ export async function fetchFacetChoicesWithin(
       enclosedPlaceType,
       [sv.dcid],
       sv.date,
-      surfaceHeaderValue
+      surface
     )
   );
   const baseFacets = Object.assign({}, ...(await Promise.all(facetPromises)));

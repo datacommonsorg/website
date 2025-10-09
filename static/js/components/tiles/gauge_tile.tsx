@@ -74,7 +74,7 @@ export interface GaugeTilePropType {
    */
   lazyLoadMargin?: string;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
+  surface?: string;
 }
 
 export interface GaugeChartData {
@@ -140,7 +140,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       statVarSpecs={[props.statVarSpec]}
       forwardRef={containerRef}
       chartHeight={props.svgChartHeight}
-      surfaceHeaderValue={props.surfaceHeaderValue}
+      surface={props.surface}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -164,7 +164,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
       null, // alignedVariables
       null, // highlightFacet
       null, // facetIds
-      props.surfaceHeaderValue
+      props.surface
     );
     const denomResp = props.statVarSpec.denom
       ? await getSeries(
@@ -173,7 +173,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
           [props.statVarSpec.denom],
           null, // facetIds
           null, // highlightFacet
-          props.surfaceHeaderValue
+          props.surface
         )
       : null;
     const statVarDcidToName = await getStatVarNames(
@@ -232,10 +232,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: GaugeTilePropType): () => Promise<string> {
-  const dataCommonsClient = getDataCommonsClient(
-    props.apiRoot,
-    props.surfaceHeaderValue
-  );
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
   return () => {
     return dataCommonsClient.getCsv({
       date: props.statVarSpec.date,

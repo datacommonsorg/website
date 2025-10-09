@@ -88,14 +88,14 @@ def point():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
-  surface_header_value = request.headers.get('x-surface')
+  surface = request.headers.get('x-surface')
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(entities=entities,
                                   variables=variables,
                                   all_facets=False,
                                   facet_ids=facet_id,
-                                  surface_header_value=surface_header_value)
+                                  surface=surface)
 
   # If facet_ids are provided, we need to filter the data after fetching
   # the point data. This is because the fetch.point_core function does not
@@ -105,7 +105,7 @@ def point():
                                 variables,
                                 date,
                                 all_facets,
-                                surface_header_value=surface_header_value)
+                                surface=surface)
 
   if not facet_id:
     return point_data
@@ -124,19 +124,15 @@ def point_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
-  surface_header_value = request.headers.get("x-surface")
+  surface = request.headers.get("x-surface")
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(entities=entities,
                                   variables=variables,
                                   all_facets=True,
-                                  surface_header_value=surface_header_value)
+                                  surface=surface)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_core(entities,
-                          variables,
-                          date,
-                          True,
-                          surface_header_value=surface_header_value)
+  return fetch.point_core(entities, variables, date, True, surface=surface)
 
 
 @bp.route('/within')
@@ -148,7 +144,7 @@ def point_within():
 
   This returns the observation for the preferred facet.
   """
-  surface_header_value = request.headers.get('x-surface')
+  surface = request.headers.get('x-surface')
   parent_entity = request.args.get('parentEntity')
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
@@ -167,7 +163,7 @@ def point_within():
                                   variables=variables,
                                   all_facets=False,
                                   facet_ids=facet_ids,
-                                  surface_header_value=surface_header_value)
+                                  surface=surface)
   # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_within_core(parent_entity,
                                  child_type,
@@ -175,7 +171,7 @@ def point_within():
                                  date,
                                  False,
                                  facet_ids,
-                                 surface_header_value=surface_header_value)
+                                 surface=surface)
 
 
 @bp.route('/within/all')
@@ -187,7 +183,7 @@ def point_within_all():
 
   This returns the observation for all facets.
   """
-  surface_header_value = request.headers.get('x-surface')
+  surface = request.headers.get('x-surface')
   parent_entity = request.args.get('parentEntity')
   if not parent_entity:
     return 'error: must provide a `parentEntity` field', 400
@@ -204,11 +200,11 @@ def point_within_all():
                                   child_type=child_type,
                                   variables=variables,
                                   all_facets=True,
-                                  surface_header_value=surface_header_value)
+                                  surface=surface)
   # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_within_core(parent_entity,
                                  child_type,
                                  variables,
                                  date,
                                  True,
-                                 surface_header_value=surface_header_value)
+                                 surface=surface)

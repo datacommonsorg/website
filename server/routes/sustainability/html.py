@@ -27,7 +27,7 @@ from server.lib.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
 from server.routes import TIMEOUT
-from shared.lib.constants import WEBSITE_SURFACE_HEADER_VALUE
+from shared.lib.constants import WEBSITE_SURFACE
 
 DEFAULT_CONTAINED_PLACE_TYPES = {
     "Continent": "Country",
@@ -62,11 +62,11 @@ def sustainability_explorer(place_dcid=None):
 
   # currently is only referenced from the website.
   # this value is used in mixer logs
-  surface_header_value = WEBSITE_SURFACE_HEADER_VALUE
+  surface = WEBSITE_SURFACE
 
   # Update contained places from place metadata
-  place_metadata = lib_subject_page_config.place_metadata(
-      place_dcid, surface_header_value=surface_header_value)
+  place_metadata = lib_subject_page_config.place_metadata(place_dcid,
+                                                          surface=surface)
   if place_metadata.is_error:
     return flask.render_template(
         'sustainability.html',

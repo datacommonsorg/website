@@ -225,14 +225,14 @@ async def filter_chart_config_for_data_existence(
     place_type: str,
     child_place_type: str,
     parent_place_dcid: str,
-    surface_header_value: str = None) -> List[ServerChartConfiguration]:
+    surface: str = None) -> List[ServerChartConfiguration]:
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
 
   Args:
       chart_config (List[Dict]): A list of chart configurations, where each configuration includes statistical variable DCIDs under the key 'variables'.
       place_dcid (str): dcid for the place of interest.
-      surface_header_value (optional): Passed into calls to mixer for usage logs.
+      surface (optional): Passed into calls to mixer for usage logs.
         Indicates which DC surface (website, datagemma, etc.) the call
         originates from.
 
@@ -244,14 +244,14 @@ async def filter_chart_config_for_data_existence(
     """Fetches and processes observation data concurrently."""
     current_place_obs_point_task = asyncio.to_thread(
         dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids, 'LATEST',
-        surface_header_value)
+        surface)
     child_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, place_dcid, child_place_type,
-        child_places_stat_var_dcids, 'LATEST', None, surface_header_value)
+        child_places_stat_var_dcids, 'LATEST', None, surface)
     print("reaching obspoint calls")
     peer_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, parent_place_dcid, place_type,
-        peer_places_stat_var_dcids, 'LATEST', None, surface_header_value)
+        peer_places_stat_var_dcids, 'LATEST', None, surface)
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
                                                place_dcid, [place_type])
@@ -983,13 +983,12 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
 
 
 def fetch_overview_table_data(
-    place_dcid: str,
-    surface_header_value: str = None) -> List[OverviewTableDataRow]:
+    place_dcid: str, surface: str = None) -> List[OverviewTableDataRow]:
   """
   Fetches overview table data for the specified place.
 
   Args:
-      surface_header_value (optional): Passed into calls to mixer for usage logs.
+      surface (optional): Passed into calls to mixer for usage logs.
         Indicates which DC surface (website, datagemma, etc.) the call
         originates from.
   """
@@ -1001,10 +1000,7 @@ def fetch_overview_table_data(
   ]
 
   # Fetch all observations for each variable
-  resp = dc.obs_point([place_dcid],
-                      variables,
-                      date="LATEST",
-                      surface_header_value=surface_header_value)
+  resp = dc.obs_point([place_dcid], variables, date="LATEST", surface=surface)
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
@@ -1212,7 +1208,7 @@ def format_stat_var_value(value: float, unit: str) -> str:
 
 async def _fetch_summary_data(
     place_dcid: str, variable_dcids: List[str], locale: str,
-    surface_header_value: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
+    surface: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
   """
   Fetches the place, parent places, and place observations for the given place DCID.
 
@@ -1220,27 +1216,26 @@ async def _fetch_summary_data(
     place_dcid: The DCID of the place to fetch summary data for
     variable_dcids: The DCIDs of the variables to fetch observations for
     locale: The locale to fetch the data in
-    surface_header_value: Passed into calls to mixer for usage logs. Indicates
+    surface: Passed into calls to mixer for usage logs. Indicates
       which DC surface (website, datagemma, etc.) the call originates from.
 
   """
   place = asyncio.to_thread(fetch_place, place_dcid, locale)
   parent_places = asyncio.to_thread(get_parent_places, place_dcid, locale)
-  place_observations = asyncio.to_thread(
-      dc.obs_point, [place_dcid],
-      variable_dcids,
-      date="LATEST",
-      surface_header_value=surface_header_value)
+  place_observations = asyncio.to_thread(dc.obs_point, [place_dcid],
+                                         variable_dcids,
+                                         date="LATEST",
+                                         surface=surface)
   return await asyncio.gather(place, parent_places, place_observations)
 
 
 async def generate_place_summary(place_dcid: str, locale: str,
-                                 surface_header_value: str) -> str:
+                                 surface: str) -> str:
   """
   Generates a place summary for the given place DCID.
 
   Args:
-      surface_header_value (optional): Passed into calls to mixer for usage logs.
+      surface (optional): Passed into calls to mixer for usage logs.
         Indicates which DC surface (website, datagemma, etc.) the call
         originates from.
   """
@@ -1252,7 +1247,7 @@ async def generate_place_summary(place_dcid: str, locale: str,
   variable_dcids = [v["dcid"] for v in PLACE_SUMMARY_VARIABLES]
 
   place, parent_places, place_observations = await _fetch_summary_data(
-      place_dcid, variable_dcids, locale, surface_header_value)
+      place_dcid, variable_dcids, locale, surface)
   variable_observations = []
 
   # Iterate over each variable and extract the most recent observation

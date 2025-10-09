@@ -48,7 +48,7 @@ interface TileMetadataModalSimpleProps {
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
   // passed into mixer calls for usage logs
-  surfaceHeaderValue: string;
+  surface: string;
 }
 
 // [dcid, name]
@@ -84,10 +84,7 @@ export function TileMetadataModalSimple(
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
-  const dataCommonsClient = getDataCommonsClient(
-    props.apiRoot,
-    props.surfaceHeaderValue
-  );
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   const dcids = useMemo(() => {
     const dcidSet = new Set<string>();

@@ -28,7 +28,7 @@ import { useAllStatReady } from "../ready_hooks";
 
 export function useComputeFacetList(
   chartStore: ChartStore,
-  surfaceHeaderValue: string
+  surface: string
 ): {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
@@ -39,7 +39,7 @@ export function useComputeFacetList(
   const [facetList, setFacetList] = useState([]);
   const [facetListLoading, setFacetListLoading] = useState(false);
   const [facetListError, setFacetListError] = useState(false);
-  const dataCommonsClient = getDataCommonsClient(null, surfaceHeaderValue);
+  const dataCommonsClient = getDataCommonsClient(null, surface);
 
   useEffect(() => {
     if (!allStatReady()) {

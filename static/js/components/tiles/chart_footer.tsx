@@ -57,7 +57,7 @@ interface ChartFooterPropType {
   children?: React.ReactNode;
   // Passed into calls to mixer for usage logs. Indicates which DC surface
   // (website, datagemma, etc.) the call originates from.
-  surfaceHeaderValue: string;
+  surface: string;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
@@ -94,7 +94,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     apiRoot={props.apiRoot}
                     getObservationSpecs={props.getObservationSpecs}
                     containerRef={props.containerRef}
-                    surfaceHeaderValue={props.surfaceHeaderValue}
+                    surface={props.surface}
                   />
                 </div>
               )}

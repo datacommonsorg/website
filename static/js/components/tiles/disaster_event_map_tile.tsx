@@ -109,7 +109,7 @@ export interface DisasterEventMapTilePropType {
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
+  surface?: string;
 }
 
 export interface DisasterMapChartData {
@@ -206,7 +206,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
             }
           : null
       }
-      surfaceHeaderValue={props.surfaceHeaderValue}
+      surface={props.surface}
     >
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
         <div className={`${CSS_SELECTOR_PREFIX}-chart-section`}>

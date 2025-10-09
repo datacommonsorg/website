@@ -992,7 +992,7 @@ def fetch_highest_coverage(variables: List[str],
                            parent_entity: str | None = None,
                            child_type: str | None = None,
                            facet_ids: List[str] | None = None,
-                           surface_header_value=None):
+                           surface=None):
   """
   Fetches the latest available data with the best coverage for the given
   entities (list of entities OR (parent entity and child type)), variables, and
@@ -1047,12 +1047,11 @@ def fetch_highest_coverage(variables: List[str],
   if entities is not None:
     point_response = fetch.point_core(entities, variables,
                                       highest_coverage_date, all_facets,
-                                      surface_header_value)
+                                      surface)
   else:
     point_response = fetch.point_within_core(parent_entity, child_type,
                                              variables, highest_coverage_date,
-                                             all_facets, facet_ids,
-                                             surface_header_value)
+                                             all_facets, facet_ids, surface)
   return point_response
 
 

@@ -70,7 +70,7 @@ export interface DatacommonsClientParams {
    * Passed into calls to mixer for usage logs. Indicates which DC surface
    * (website, datagemma, etc.) the call originates from.
    */
-  surfaceHeaderValue?: string | null;
+  surface?: string | null;
 }
 
 class DataCommonsClient {
@@ -80,17 +80,17 @@ class DataCommonsClient {
   facetOverride: FacetOverride;
   // indicates if a call originates from another DataCommons surface
   // passed through to mixer calls for usage metrics
-  surfaceHeaderValue?: string | null;
+  surface?: string | null;
 
   constructor(params?: DatacommonsClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
-    this.surfaceHeaderValue = p.surfaceHeaderValue;
+    this.surface = p.surface;
     // Initialize DataCommonsWebClient with p.apiRoot since the client will call
     // parseWebsiteApiRoot on its own
     this.webClient = new DataCommonsWebClient({
       apiRoot: p.apiRoot,
-      surfaceHeaderValue: p.surfaceHeaderValue,
+      surface: p.surface,
     });
     if (p.facetOverride === undefined) {
       this.facetOverride = DEFAULT_FACET_OVERRIDE;

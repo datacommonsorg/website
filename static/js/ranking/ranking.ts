@@ -19,7 +19,7 @@
  */
 
 import { loadLocaleData } from "../i18n/i18n";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../shared/constants";
+import { WEBSITE_SURFACE } from "../shared/constants";
 import { renderRankingComponent } from "./component";
 
 window.addEventListener("load", (): void => {
@@ -58,7 +58,7 @@ window.addEventListener("load", (): void => {
       unit,
       scaling,
       date,
-      surfaceHeaderValue: WEBSITE_SURFACE_HEADER_VALUE,
+      surface: WEBSITE_SURFACE,
     });
   });
 });

@@ -28,7 +28,7 @@ import {
   STAT_VAR_PARAM_KEYS,
   URL_PARAMS,
 } from "../../constants/app/visualization_constants";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 import { StatMetadata } from "../../shared/stat_types";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
@@ -258,7 +258,7 @@ export function AppContextProvider(
       samplePlaces,
       statVars,
       visTypeConfig,
-      WEBSITE_SURFACE_HEADER_VALUE
+      WEBSITE_SURFACE
     ).then((filteredStatVars) => {
       if (!_.isEqual(filteredStatVars, statVars)) {
         shouldUpdateHash.current.push(false);
@@ -400,7 +400,7 @@ export function AppContextProvider(
           samplePlaces,
           statVars,
           visTypeConfig,
-          WEBSITE_SURFACE_HEADER_VALUE
+          WEBSITE_SURFACE
         );
       });
     }

@@ -49,7 +49,7 @@ export interface ChartOptions {
   // height, in px, for the SVG chart
   svgChartHeight: number;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
+  surface?: string;
   // TODO: implement placeNameProp for GAUGE and DONUT.
   // TODO: implement getProcessedSVNameFn for DONUT, GAUGE, MAP, SCATTER.
   // TODO: implement colors for SCATTER.

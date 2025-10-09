@@ -85,7 +85,7 @@ export async function highestCoverageDatesEqualLatestDates(
   parentEntity: string,
   childType: string,
   variables: string[],
-  surfaceHeaderValue: string,
+  surface: string,
   facetIds?: string[]
 ): Promise<boolean> {
   const highestCoverageObservations = await getPointWithin(
@@ -96,7 +96,7 @@ export async function highestCoverageDatesEqualLatestDates(
     DATE_HIGHEST_COVERAGE,
     undefined,
     facetIds,
-    surfaceHeaderValue
+    surface
   );
 
   const latestObservations = await getPointWithin(
@@ -107,7 +107,7 @@ export async function highestCoverageDatesEqualLatestDates(
     DATE_LATEST,
     undefined,
     facetIds,
-    surfaceHeaderValue
+    surface
   );
 
   // Return false if we find any "latest observation dates" that differ from the

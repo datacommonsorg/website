@@ -25,7 +25,7 @@ import { Container, Row } from "reactstrap";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
@@ -69,7 +69,7 @@ function App(): ReactElement {
       <StatVarChooser
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
-        surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
+        surface={WEBSITE_SURFACE}
       />
       <div id="plot-container" className={ASYNC_ELEMENT_HOLDER_CLASS}>
         <Container fluid={true}>
@@ -107,7 +107,7 @@ function App(): ReactElement {
           )}
           {showChart && (
             <Row id="chart-row">
-              <ChartLoader surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE} />
+              <ChartLoader surface={WEBSITE_SURFACE} />
             </Row>
           )}
         </Container>

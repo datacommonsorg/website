@@ -18,7 +18,7 @@
  * Config for the map vis type.
  */
 
-import { WEBSITE_SURFACE_HEADER_VALUE } from "@datacommonsorg/client/dist/constants";
+import { WEBSITE_SURFACE } from "@datacommonsorg/client/dist/constants";
 import _ from "lodash";
 import React, { ReactElement, useCallback } from "react";
 
@@ -40,12 +40,12 @@ import { VisType } from "../vis_type_configs";
 
 interface ChartFacetSelectorProps {
   appContext: AppContextType;
-  surfaceHeaderValue: string;
+  surface: string;
 }
 
 function ChartFacetSelector({
   appContext,
-  surfaceHeaderValue,
+  surface,
 }: ChartFacetSelectorProps): ReactElement {
   const statVar = appContext.statVars[0];
   const svFacetId = { [statVar.dcid]: statVar.facetId };
@@ -60,14 +60,14 @@ function ChartFacetSelector({
           name: statVar.info.title || statVar.dcid,
         },
       ],
-      surfaceHeaderValue
+      surface
     );
   }, [
     appContext.enclosedPlaceType,
     appContext.places,
     statVar.dcid,
     statVar.info.title,
-    surfaceHeaderValue,
+    surface,
   ]);
 
   const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
@@ -103,7 +103,7 @@ function ChartFacetSelector({
 export function getChartArea(
   appContext: AppContextType,
   chartHeight: number,
-  surfaceHeaderValue: string
+  surface: string
 ): ReactElement {
   const perCapitaInputs = appContext.statVars[0].info.pcAllowed
     ? [
@@ -128,10 +128,7 @@ export function getChartArea(
         <ChartHeader
           inputSections={[{ inputs: perCapitaInputs }]}
           facetSelector={
-            <ChartFacetSelector
-              appContext={appContext}
-              surfaceHeaderValue={surfaceHeaderValue}
-            />
+            <ChartFacetSelector appContext={appContext} surface={surface} />
           }
         />
         <MapTile
@@ -142,7 +139,7 @@ export function getChartArea(
           svgChartHeight={chartHeight}
           title={statVarLabel + " (${date})"}
           allowZoom={true}
-          surfaceHeaderValue={surfaceHeaderValue}
+          surface={surface}
         />
       </div>
       <div className="chart">
@@ -167,7 +164,7 @@ export function getChartArea(
               hover
             );
           }}
-          surfaceHeaderValue={surfaceHeaderValue}
+          surface={surface}
         />
       </div>
     </>

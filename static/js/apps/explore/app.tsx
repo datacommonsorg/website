@@ -36,8 +36,8 @@ import {
 import { intl, localizeLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import {
+  WEBSITE_SURFACE,
   WEBSITE_SURFACE_HEADER,
-  WEBSITE_SURFACE_HEADER_VALUE,
 } from "../../shared/constants";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
@@ -353,10 +353,7 @@ export function App(props: AppProps): ReactElement {
       places = [urlHashParams.place];
     }
 
-    const dataCommonsClient = getDataCommonsClient(
-      null,
-      WEBSITE_SURFACE_HEADER_VALUE
-    );
+    const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
 
     let fulfillmentPromise: Promise<unknown>;
     let highlightPromise: Promise<unknown>;

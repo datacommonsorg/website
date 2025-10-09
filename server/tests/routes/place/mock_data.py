@@ -165,7 +165,7 @@ def mock_dc_api_data(stat_var: str,
   def mock_obs_point_side_effect(entities,
                                  variables,
                                  date='LATEST',
-                                 surface_header_value=None):
+                                 surface=None):
     return val
 
   def mock_obs_point_within_side_effect(parent_entity,
@@ -173,7 +173,7 @@ def mock_dc_api_data(stat_var: str,
                                         variables,
                                         date='LATEST',
                                         facetIds=None,
-                                        surface_header_value=None):
+                                        surface=None):
     return val2
 
   if dc_obs_point:

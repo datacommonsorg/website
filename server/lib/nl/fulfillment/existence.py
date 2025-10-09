@@ -56,13 +56,13 @@ class ExistenceCheckTracker:
   def __init__(self,
                state: PopulateState,
                place2keys: Dict,
-               surface_header_value: str = None):
+               surface: str = None):
     self.state = state
     self.place2keys = place2keys
     self.places = sorted(place2keys.keys())
     self.all_svs = set()
     self.exist_sv_states: List[SVExistenceCheckState] = []
-    self.surface_header_value = surface_header_value
+    self.surface = surface
     # Map of existing SVs with key as SV DCID and value as an ID to a facet that
     # has data for that SV.
     self.existing_svs = {}
@@ -150,7 +150,7 @@ class ExistenceCheckTracker:
     # TODO: Optimize this!
     self.existing_svs, existsv2places = \
       utils.sv_existence_for_places_check_single_point(
-        places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters, surface_header_value=self.surface_header_value)
+        places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters, surface=self.surface)
 
     sv_place_facet = self._get_sv_place_facet()
     sv_place_latest_dates = {}
@@ -205,9 +205,9 @@ class ExistenceCheckTracker:
 class MainExistenceCheckTracker(ExistenceCheckTracker):
 
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
-               sv2chartvarslist: OrderedDict[str, List[ChartVars]],
-               surface_header_value: str):
-    super().__init__(state, place2keys, surface_header_value)
+               sv2chartvarslist: OrderedDict[str,
+                                             List[ChartVars]], surface: str):
+    super().__init__(state, place2keys, surface)
     places = place2keys.keys()
 
     # Loop over all SVs, and construct existence check state.
@@ -256,8 +256,8 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
 
   # NOTE: If sv2extensions is set, then this is for extensions only.
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
-               svs: List[str], sv2extensions: Dict, surface_header_value: str):
-    super().__init__(state, place2keys, surface_header_value)
+               svs: List[str], sv2extensions: Dict, surface: str):
+    super().__init__(state, place2keys, surface)
 
     # Loop over all SVs, and construct existence check state.
     for sv in svs:

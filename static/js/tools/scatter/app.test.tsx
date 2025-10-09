@@ -17,8 +17,8 @@
 /* eslint-disable camelcase */
 
 import {
+  WEBSITE_SURFACE,
   WEBSITE_SURFACE_HEADER,
-  WEBSITE_SURFACE_HEADER_VALUE,
 } from "../../shared/constants";
 import theme from "../../theme/theme";
 

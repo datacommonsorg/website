@@ -458,4 +458,4 @@ EMBEDDINGS_FILE_NAME = 'embeddings.csv'
 
 SURFACE_HEADER_NAME = "x-surface"
 TEST_SURFACE = "integration-test"
-WEBSITE_SURFACE_HEADER_VALUE = "website"
+WEBSITE_SURFACE = "website"

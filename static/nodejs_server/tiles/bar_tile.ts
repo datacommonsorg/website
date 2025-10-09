@@ -53,7 +53,7 @@ function getTileProp(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): BarTilePropType {
   const barTileSpec = tileConfig.barTileSpec || {};
   return {
@@ -68,7 +68,7 @@ function getTileProp(
     useLollipop: barTileSpec.useLollipop || false,
     variables: statVarSpec,
     sort: convertToSortType(tileConfig.barTileSpec?.sort),
-    surfaceHeaderValue,
+    surface,
   };
 }
 
@@ -95,7 +95,7 @@ function getBarChartSvg(
  * @param enclosedPlaceType enclosed place type to use for bar chart
  * @param statVarSpec list of stat var specs to show in the bar chart
  * @param apiRoot API root to use to fetch data
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getBarTileResult(
   id: string,
@@ -108,7 +108,7 @@ export async function getBarTileResult(
   useChartUrl: boolean,
   apikey?: string,
   mode?: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -117,7 +117,7 @@ export async function getBarTileResult(
     enclosedPlaceType,
     statVarSpec,
     apiRoot,
-    surfaceHeaderValue
+    surface
   );
   try {
     const chartData = await fetchData(tileProp);

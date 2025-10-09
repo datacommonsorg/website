@@ -19,7 +19,7 @@ import React, { Component } from "react";
 
 import {
   DEFAULT_POPULATION_DCID,
-  WEBSITE_SURFACE_HEADER_VALUE,
+  WEBSITE_SURFACE,
 } from "../../shared/constants";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
@@ -128,7 +128,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               onMetadataMapUpdate={(metadataMap): void => {
                 this.metadataMap = { ...this.metadataMap, ...metadataMap };
               }}
-              surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
+              surface={WEBSITE_SURFACE}
             ></Chart>
           );
         }, this)}

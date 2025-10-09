@@ -41,7 +41,7 @@ const NUM_DEFAULT_COL = 2;
 interface PreviewProps {
   selectedOptions: DownloadOptions;
   isDisabled: boolean;
-  surfaceHeaderValue: string;
+  surface: string;
 }
 
 export function Preview(props: PreviewProps): JSX.Element {
@@ -59,7 +59,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     }
     prevOptions.current = props.selectedOptions;
     csvReqPayload.current = getCsvReqPayload();
-    fetchPreviewData(props.surfaceHeaderValue);
+    fetchPreviewData(props.surface);
   }, [props, errorMessage]);
 
   // We only want to show preview once preview data has been fetched.
@@ -161,7 +161,7 @@ export function Preview(props: PreviewProps): JSX.Element {
       return;
     }
     const headers = {
-      headers: getSurfaceHeader(props.surfaceHeaderValue),
+      headers: getSurfaceHeader(props.surface),
     };
     axios
       .post("/api/csv/within", csvReqPayload.current, headers)
@@ -180,7 +180,7 @@ export function Preview(props: PreviewProps): JSX.Element {
       });
   }
 
-  function fetchPreviewData(surfaceHeaderValue: string): void {
+  function fetchPreviewData(surface: string): void {
     loadSpinner(SECTION_ID);
     if (_.isEmpty(csvReqPayload.current)) {
       return;
@@ -188,7 +188,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     const reqObject = _.cloneDeep(csvReqPayload.current);
     reqObject["rowLimit"] = NUM_ROWS;
     const headers = {
-      headers: getSurfaceHeader(props.surfaceHeaderValue),
+      headers: getSurfaceHeader(props.surface),
     };
     axios
       .post("/api/csv/within", reqObject, headers)

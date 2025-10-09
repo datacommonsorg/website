@@ -39,13 +39,13 @@ type FacetMetadataReturn = {
  * with the metadata required to display the rich dataset select dialog.
  *
  * @param baseFacets A map of stat vars to facets.
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  * @returns An object containing the enriched facet data, loading state, and
  * error state.
  */
 export function useFacetMetadata(
   baseFacets: FacetResponse | null,
-  surfaceHeaderValue: string
+  surface: string
 ): FacetMetadataReturn {
   const [facetMetadata, setFacetMetadata] = useState<FacetMetadataReturn>({
     facetSelectorMetadata: {},
@@ -67,7 +67,7 @@ export function useFacetMetadata(
       try {
         const resp = await fetchFacetsWithMetadata(
           baseFacets,
-          getDataCommonsClient(null, surfaceHeaderValue)
+          getDataCommonsClient(null, surface)
         );
 
         if (cancelled) return;

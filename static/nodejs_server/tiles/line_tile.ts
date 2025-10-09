@@ -47,7 +47,7 @@ function getTileProp(
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): LineTilePropType {
   const comparisonPlaces = getComparisonPlaces(tileConfig, place);
   return {
@@ -62,7 +62,7 @@ function getTileProp(
     startDate: tileConfig.lineTileSpec?.startDate,
     endDate: tileConfig.lineTileSpec?.endDate,
     highlightDate: tileConfig.lineTileSpec?.highlightDate,
-    surfaceHeaderValue,
+    surface,
   };
 }
 
@@ -85,7 +85,7 @@ function getLineChartSvg(
  * @param place place to show the tile for
  * @param statVarSpec list of stat var specs to show in the tile
  * @param apiRoot API root to use to fetch data
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getLineTileResult(
   id: string,
@@ -97,7 +97,7 @@ export async function getLineTileResult(
   useChartUrl: boolean,
   apikey?: string,
   mode?: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -105,7 +105,7 @@ export async function getLineTileResult(
     place,
     statVarSpec,
     apiRoot,
-    surfaceHeaderValue
+    surface
   );
   try {
     const chartData = await fetchData(tileProp);

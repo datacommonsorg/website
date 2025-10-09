@@ -54,11 +54,11 @@ def disaster_dashboard(place_dcid=None):
 
   dashboard_config = copy.deepcopy(raw_dashboard_config)
 
-  surface_header_value = request.headers.get("x-surface")
+  surface = request.headers.get("x-surface")
 
   # Update contained places from place metadata
-  place_metadata = lib_subject_page_config.place_metadata(
-      place_dcid, surface_header_value=surface_header_value)
+  place_metadata = lib_subject_page_config.place_metadata(place_dcid,
+                                                          surface=surface)
   if place_metadata.is_error:
     return flask.render_template(
         'disaster_dashboard.html',

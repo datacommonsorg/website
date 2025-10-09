@@ -59,7 +59,7 @@ function getDataCsv(
  * @param place place to show the tile for
  * @param statVarSpec stat var spec to show in the tile
  * @param apiRoot API root to use to fetch data
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getHighlightTileResult(
   id: string,
@@ -67,7 +67,7 @@ export async function getHighlightTileResult(
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec,
   apiRoot: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(tileConfig, place, statVarSpec, apiRoot);
   try {
@@ -76,7 +76,7 @@ export async function getHighlightTileResult(
       statVarSpec,
       null, // highlightFacet
       apiRoot,
-      surfaceHeaderValue
+      surface
     );
     const result: TileResult = {
       dataCsv: getDataCsv(tileProp, highlightData),

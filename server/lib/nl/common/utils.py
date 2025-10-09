@@ -87,13 +87,13 @@ def event_existence_for_place(place: str, event: types.EventType,
 def sv_existence_for_places(places: List[str],
                             svs: List[str],
                             counters: ctr.Counters,
-                            surface_header_value: str = None) -> List[str]:
+                            surface: str = None) -> List[str]:
   if not svs:
     return [], {}
 
   start = time.time()
 
-  sv_existence = fetch.observation_existence(svs, places, surface_header_value)
+  sv_existence = fetch.observation_existence(svs, places, surface)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
     counters.err('sv_existence_for_places_failed', {
@@ -195,7 +195,7 @@ def sv_existence_for_places_check_single_point(
     single_date: types.Date,
     date_range: types.Date,
     counters: ctr.Counters,
-    surface_header_value: str = None
+    surface: str = None
 ) -> tuple[Dict[str, Dict[str, Dict[str, str]]], Dict[str, Dict[str, bool]]]:
   if not svs:
     return {}, {}
@@ -205,7 +205,7 @@ def sv_existence_for_places_check_single_point(
   series_facet = fetch.series_facet(entities=places,
                                     variables=svs,
                                     all_facets=check_date,
-                                    surface_header_value=surface_header_value)
+                                    surface=surface)
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}

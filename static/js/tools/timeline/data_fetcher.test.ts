@@ -22,8 +22,8 @@ import { when } from "jest-when";
 
 import { loadLocaleData } from "../../i18n/i18n";
 import {
+  WEBSITE_SURFACE,
   WEBSITE_SURFACE_HEADER,
-  WEBSITE_SURFACE_HEADER_VALUE,
 } from "../../shared/constants";
 import { SeriesAllApiResponse } from "../../shared/stat_types";
 import { stringifyFn } from "../../utils/axios";
@@ -254,7 +254,7 @@ test("fetch raw data", () => {
     ["geoId/05", "geoId/06"],
     ["Count_Person", "Count_Person_Male"],
     "",
-    WEBSITE_SURFACE_HEADER_VALUE
+    WEBSITE_SURFACE
   ).then((data: TimelineRawData) => {
     expect(data).toEqual({
       denomData: { data: {}, facets: {} },

@@ -24,7 +24,7 @@ import {
   ScatterTile,
   ScatterTilePropType,
 } from "../js/components/tiles/scatter_tile";
-import { WEB_COMPONENT_SURFACE_HEADER_VALUE } from "./constants";
+import { WEB_COMPONENT_SURFACE } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -149,7 +149,7 @@ export class DatacommonsScatterComponent extends LitElement {
       svgChartHeight: 200,
       title: this.header,
       placeNameProp: this.placeNameProp,
-      surfaceHeaderValue: WEB_COMPONENT_SURFACE_HEADER_VALUE,
+      surface: WEB_COMPONENT_SURFACE,
     };
     return createWebComponentElement(ScatterTile, scatterTileProps);
   }

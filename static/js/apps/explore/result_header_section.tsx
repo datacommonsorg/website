@@ -36,7 +36,7 @@ import { intl, LocalizedLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import { pageMessages } from "../../i18n/i18n_place_messages";
 import { displayNameForPlaceType } from "../../place/util";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,
   GA_EVENT_RELATED_TOPICS_VIEW,
@@ -397,10 +397,7 @@ export function ResultHeaderSection(
     ? []
     : getTopics(props.pageMetadata, props.placeUrlVal);
 
-  const dataCommonsClient = getDataCommonsClient(
-    null,
-    WEBSITE_SURFACE_HEADER_VALUE
-  );
+  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
 
   useEffect(() => {
     const initialPlaces = props.pageMetadata.places;

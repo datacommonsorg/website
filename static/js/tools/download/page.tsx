@@ -25,8 +25,8 @@ import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
 import { Chip } from "../../shared/chip";
 import {
+  WEBSITE_SURFACE,
   WEBSITE_SURFACE_HEADER,
-  WEBSITE_SURFACE_HEADER_VALUE,
 } from "../../shared/constants";
 import {
   FacetSelector,
@@ -95,10 +95,7 @@ interface PagePropType {
 }
 
 export function Page(props: PagePropType): ReactElement {
-  const dataCommonsClient = getDataCommonsClient(
-    null,
-    WEBSITE_SURFACE_HEADER_VALUE
-  );
+  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
 
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
   const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);
@@ -232,7 +229,7 @@ export function Page(props: PagePropType): ReactElement {
         onStatVarRemoved={removeStatVar}
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
-        surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
+        surface={WEBSITE_SURFACE}
       />
       <div id="plot-container">
         <h1 className="mb-4">Data Download Tool</h1>
@@ -452,7 +449,7 @@ export function Page(props: PagePropType): ReactElement {
           <Preview
             selectedOptions={previewOptions}
             isDisabled={previewDisabled}
-            surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
+            surface={WEBSITE_SURFACE}
           />
         )}
         {showInfo && <Info infoPlaces={props.infoPlaces} />}

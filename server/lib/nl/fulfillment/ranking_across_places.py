@@ -50,7 +50,7 @@ def populate(state: PopulateState,
              chart_origin: ChartOriginType,
              rank: int,
              ranking_count: int = 0,
-             surface_header_value: str = None) -> bool:
+             surface: str = None) -> bool:
   if not state.ranking_types:
     state.uttr.counters.err('ranking-across-places_failed_cb_norankingtypes', 1)
     return False
@@ -89,7 +89,7 @@ def populate(state: PopulateState,
       _compute_answer_places(state,
                              places[0],
                              chart_vars.svs[0],
-                             surface_header_value=surface_header_value)
+                             surface=surface)
 
     if not utils.has_map(state.place_type, places[0]):
       chart_vars.skip_map_for_ranking = True
@@ -110,7 +110,7 @@ def populate(state: PopulateState,
 def _compute_answer_places(state: PopulateState,
                            place: List[Place],
                            sv: str,
-                           surface_header_value: str = None):
+                           surface: str = None):
   if classifications_of_type_from_utterance(state.uttr,
                                             ClassificationType.PER_CAPITA):
     if os.environ.get('FLASK_ENV') == 'test':
@@ -121,14 +121,15 @@ def _compute_answer_places(state: PopulateState,
       ranked_places = filter_and_rank_places_per_capita(place, state.place_type,
                                                         sv)
     else:
-      ranked_places = filter_and_rank_places(
-          place,
-          state.place_type,
-          sv,
-          surface_header_value=surface_header_value)
+      ranked_places = filter_and_rank_places(place,
+                                             state.place_type,
+                                             sv,
+                                             surface=surface)
   else:
-    ranked_places = filter_and_rank_places(
-        place, state.place_type, sv, surface_header_value=surface_header_value)
+    ranked_places = filter_and_rank_places(place,
+                                           state.place_type,
+                                           sv,
+                                           surface=surface)
 
   if state.ranking_types[0] == RankingType.LOW:
     # Reverse the order.

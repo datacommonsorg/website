@@ -74,7 +74,7 @@ export interface HighlightTilePropType {
   // Facet metadata to use for the highlight tile
   highlightFacet?: FacetMetadata;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
+  surface?: string;
 }
 
 export interface HighlightData extends Observation {
@@ -100,7 +100,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
     highlightFacet,
     apiRoot,
     description: highlightDesc,
-    surfaceHeaderValue,
+    surface,
   } = props;
 
   useEffect(() => {
@@ -111,21 +111,14 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
           statVarSpec,
           highlightFacet,
           apiRoot,
-          surfaceHeaderValue
+          surface
         );
         setHighlightData(data);
       } catch {
         setHighlightData(null);
       }
     })();
-  }, [
-    apiRoot,
-    highlightFacet,
-    place,
-    statVarSpec,
-    highlightDesc,
-    surfaceHeaderValue,
-  ]);
+  }, [apiRoot, highlightFacet, place, statVarSpec, highlightDesc, surface]);
 
   /**
    * Callback function for building observation specifications.
@@ -202,7 +195,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
           statVarToFacets={highlightData.statVarToFacets}
           statVarSpecs={[props.statVarSpec]}
           getObservationSpecs={getObservationSpecs}
-          surfaceHeaderValue={props.surfaceHeaderValue}
+          surface={props.surface}
         />
       )}
     </div>
@@ -231,7 +224,7 @@ export const fetchData = async (
   statVarSpec: StatVarSpec,
   highlightFacet: FacetMetadata,
   apiRoot?: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<HighlightData> => {
   const facetId = highlightFacet
     ? undefined
@@ -247,7 +240,7 @@ export const fetchData = async (
     undefined,
     highlightFacet,
     facetId,
-    surfaceHeaderValue
+    surface
   );
   const denomPromise = statVarSpec.denom
     ? getSeries(
@@ -256,7 +249,7 @@ export const fetchData = async (
         [statVarSpec.denom],
         [],
         highlightFacet,
-        surfaceHeaderValue
+        surface
       )
     : Promise.resolve(null);
   const [statResp, denomResp] = await Promise.all([statPromise, denomPromise]);

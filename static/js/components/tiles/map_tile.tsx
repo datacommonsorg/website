@@ -154,7 +154,7 @@ export interface MapTilePropType {
    */
   lazyLoadMargin?: string;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
+  surface?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -235,10 +235,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
     : null;
   const showZoomButtons =
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
-  const dataCommonsClient = getDataCommonsClient(
-    props.apiRoot,
-    props.surfaceHeaderValue
-  );
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
@@ -427,7 +424,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
           ? [props.dataSpecs[0].variable]
           : [props.statVarSpec]
       }
-      surfaceHeaderValue={props.surfaceHeaderValue}
+      surface={props.surface}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
@@ -547,7 +544,7 @@ export const fetchData = async (
       dataDate,
       [],
       facetIds,
-      props.surfaceHeaderValue
+      props.surface
     );
     const populationPromise: Promise<SeriesApiResponse> = layer.variable.denom
       ? getSeriesWithin(
@@ -556,7 +553,7 @@ export const fetchData = async (
           layer.enclosedPlaceType,
           [layer.variable.denom],
           null,
-          props.surfaceHeaderValue
+          props.surface
         )
       : Promise.resolve(null);
     const parentPlacesPromise = props.parentPlaces

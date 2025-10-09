@@ -21,7 +21,7 @@ import React, { memo, ReactElement } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { FacetMetadata } from "../../types/facet_metadata";
 import {
@@ -149,7 +149,7 @@ function renderBlocks(
                 eventTypeSpec={props.eventTypeSpec}
                 showExploreMore={props.showExploreMore}
                 disasterBlockMetadata={block.disasterBlockSpec || {}}
-                surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
+                surface={WEBSITE_SURFACE}
               />
             </BlockContainer>
           </ErrorBoundary>
@@ -184,7 +184,7 @@ function renderBlocks(
                 startWithDenom={block.startWithDenom}
                 showWebComponents={props.showWebComponents}
                 highlightFacet={props.highlightFacet}
-                surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
+                surface={WEBSITE_SURFACE}
               />
             </BlockContainer>
           </ErrorBoundary>

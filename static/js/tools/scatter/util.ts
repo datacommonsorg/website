@@ -55,14 +55,14 @@ export const SCATTER_URL_PATH = "/tools/scatter";
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
  * @param apiRoot API root
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
   statVars: { statVarDcid: string; date?: string; facetId?: string }[],
   apiRoot?: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -81,7 +81,7 @@ export async function getStatWithinPlace(
         dataDate,
         [],
         facetIds,
-        surfaceHeaderValue
+        surface
       )
     );
   }
@@ -105,13 +105,13 @@ export async function getStatWithinPlace(
  * @param parentPlace the place to get data within
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getStatAllWithinPlace(
   parentPlace: string,
   childType: string,
   statVars: { statVarDcid: string; date?: string }[],
-  surfaceHeaderValue: string
+  surface: string
 ): Promise<PointAllApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -130,7 +130,7 @@ export async function getStatAllWithinPlace(
             variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
-          headers: getSurfaceHeader(surfaceHeaderValue),
+          headers: getSurfaceHeader(surface),
         })
         .then((resp) => resp.data)
     );

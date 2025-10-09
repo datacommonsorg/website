@@ -44,7 +44,7 @@ _TOPIC_PREFIX = "dc/topic/"
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: Utterance, surface_header_value: str) -> PopulateState:
+def fulfill(uttr: Utterance, surface: str) -> PopulateState:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
@@ -146,7 +146,7 @@ def fulfill(uttr: Utterance, surface_header_value: str) -> PopulateState:
     state.disable_fallback = True
 
   # Call populate_charts.
-  if not base.populate_charts(state, surface_header_value):
+  if not base.populate_charts(state, surface):
     # If that failed, try OVERVIEW.
     state.uttr.query_type = QueryType.OVERVIEW
     overview.populate(uttr)

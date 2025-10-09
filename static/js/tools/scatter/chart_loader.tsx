@@ -25,7 +25,7 @@ import React, { ReactElement, useContext, useEffect, useState } from "react";
 import { Point } from "../../chart/draw_scatter";
 import {
   DEFAULT_POPULATION_DCID,
-  WEBSITE_SURFACE_HEADER_VALUE,
+  WEBSITE_SURFACE,
 } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
@@ -76,15 +76,13 @@ type ChartData = {
   yUnit: string;
 };
 
-export function ChartLoader(props: {
-  surfaceHeaderValue: string;
-}): ReactElement {
+export function ChartLoader(props: { surface: string }): ReactElement {
   const { x, y, place, display } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
 
   const { facetSelectorMetadata, facetListLoading, facetListError } =
-    useFacetMetadata(cache?.baseFacets || null, props.surfaceHeaderValue);
+    useFacetMetadata(cache?.baseFacets || null, props.surface);
 
   const xVal = x.value;
   const yVal = y.value;
@@ -173,14 +171,7 @@ function useCache(): Cache {
       !isLoading.areDataLoading &&
       !areDataLoaded(cache, xVal, yVal, placeVal)
     ) {
-      void loadData(
-        x,
-        y,
-        placeVal,
-        isLoading,
-        setCache,
-        WEBSITE_SURFACE_HEADER_VALUE
-      );
+      void loadData(x, y, placeVal, isLoading, setCache, WEBSITE_SURFACE);
     }
   }, [xVal, yVal, placeVal]);
 
@@ -194,7 +185,7 @@ function useCache(): Cache {
  * @param place
  * @param isLoading
  * @param setCache
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 async function loadData(
   x: AxisWrapper,
@@ -202,7 +193,7 @@ async function loadData(
   place: PlaceInfo,
   isLoading: IsLoadingWrapper,
   setCache: (cache: Cache) => void,
-  surfaceHeaderValue: string
+  surface: string
 ): Promise<void> {
   isLoading.setAreDataLoading(true);
   const statResponsePromise: Promise<PointApiResponse> = getStatWithinPlace(
@@ -210,14 +201,14 @@ async function loadData(
     place.enclosedPlaceType,
     [x.value, y.value],
     "", // apiRoot
-    surfaceHeaderValue
+    surface
   );
   const statAllResponsePromise: Promise<PointAllApiResponse> =
     getStatAllWithinPlace(
       place.enclosingPlace.dcid,
       place.enclosedPlaceType,
       [x.value, y.value],
-      surfaceHeaderValue
+      surface
     );
   const populationSvList = new Set([DEFAULT_POPULATION_DCID]);
   for (const axis of [x.value, y.value]) {
@@ -231,7 +222,7 @@ async function loadData(
     place.enclosedPlaceType,
     Array.from(populationSvList),
     null, // facetIds
-    surfaceHeaderValue
+    surface
   );
   try {
     const [statResponse, statAllResponse, populationData] = await Promise.all([

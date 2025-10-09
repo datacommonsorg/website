@@ -31,7 +31,7 @@ export const getRoot = (): string => {
 
 // formats header for calls to the Flask API, which is passed into mixer and used in usage logging
 export const getSurfaceHeader = (
-  surfaceHeaderValue: string
+  surface: string
 ): Record<typeof SURFACE_HEADER_NAME, string> => {
-  return { [SURFACE_HEADER_NAME]: surfaceHeaderValue };
+  return { [SURFACE_HEADER_NAME]: surface };
 };

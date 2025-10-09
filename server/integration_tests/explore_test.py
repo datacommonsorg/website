@@ -20,8 +20,9 @@ import unittest
 from langdetect import detect as detect_lang
 import requests
 
+from shared.lib.constants import SURFACE_HEADER_NAME
+from shared.lib.constants import TEST_SURFACE
 from shared.lib.test_server import NLWebServerTestCase
-from shared.lib.constants import TEST_SURFACE, SURFACE_HEADER_NAME
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -30,6 +31,7 @@ _TEST_MODE = os.environ.get('TEST_MODE', '')
 _TEST_DATA = 'test_data'
 
 _MAX_FOOTNOTE_LENGTH = 500
+
 
 class ExploreTest(NLWebServerTestCase):
 

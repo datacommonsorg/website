@@ -158,7 +158,7 @@ export function fetchRawData(
   places: string[],
   statVars: string[],
   denom = "",
-  surfaceHeaderValue: string
+  surface: string
 ): Promise<TimelineRawData> {
   let denomDataPromise: Promise<SeriesApiResponse> = Promise.resolve({
     data: {},
@@ -171,7 +171,7 @@ export function fetchRawData(
       [denom],
       null, // facetIds
       null, // highlightFacet
-      surfaceHeaderValue
+      surface
     );
   }
   const displayNamesPromise: Promise<DisplayNameApiResponse> =
@@ -184,7 +184,7 @@ export function fetchRawData(
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
-      headers: getSurfaceHeader(surfaceHeaderValue),
+      headers: getSurfaceHeader(surface),
     })
     .then((resp) => {
       return resp.data;

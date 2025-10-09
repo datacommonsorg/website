@@ -248,7 +248,7 @@ def place_metadata(place_dcid,
                    get_child_places=True,
                    arg_place_type=None,
                    arg_place_name=None,
-                   surface_header_value=None) -> PlaceMetadata:
+                   surface=None) -> PlaceMetadata:
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """
@@ -293,7 +293,7 @@ def place_metadata(place_dcid,
 
   filtered_child_places = {}
   if get_child_places:
-    child_places = place_api.child_fetch(place_dcid, surface_header_value)
+    child_places = place_api.child_fetch(place_dcid, surface)
     for place_type in child_places:
       child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
       child_places[place_type] = child_places[place_type][:place_api.

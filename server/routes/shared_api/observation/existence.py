@@ -33,10 +33,8 @@ def observation_existence():
   """
   variables = request.json.get('variables', [])
   entities = request.json.get('entities', [])
-  surface_header_value = request.headers.get("x-surface")
+  surface = request.headers.get("x-surface")
   return Response(json.dumps(
-      fetch.observation_existence(variables,
-                                  entities,
-                                  surface_header_value=surface_header_value)),
+      fetch.observation_existence(variables, entities, surface=surface)),
                   200,
                   mimetype='application/json')

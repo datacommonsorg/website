@@ -226,7 +226,7 @@ export function queryAxiosMock(): void {
     .mockResolvedValue(SANTA_CLARA_NAME_RESP);
 
   /*
-    bar test mocks with surfaceheaderValue set
+    bar test mocks with surface set
   */
   when(axios.post)
     .calledWith(

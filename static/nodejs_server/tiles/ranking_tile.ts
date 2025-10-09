@@ -46,7 +46,7 @@ function getRankingChartSvg(
   apiRoot: string,
   statVarSpecs: StatVarSpec[],
   containerRef: React.RefObject<HTMLElement>,
-  surfaceHeaderValue: string
+  surface: string
 ): SVGSVGElement {
   const rankingHtml = ReactDOMServer.renderToString(
     getRankingUnit(
@@ -59,7 +59,7 @@ function getRankingChartSvg(
       apiRoot,
       statVarSpecs,
       containerRef,
-      surfaceHeaderValue
+      surface
     )
   );
   const style = {
@@ -161,7 +161,7 @@ function getRankingUnitResult(
  * @param enclosedPlaceType enclosed place type to use in the tile
  * @param statVarSpec list of stat var specs to show in the tile
  * @param apiRoot API root to use to fetch data
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getRankingTileResult(
   id: string,
@@ -170,7 +170,7 @@ export async function getRankingTileResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<TileResult[]> {
   try {
     const rankingData = await fetchData(
@@ -179,7 +179,7 @@ export async function getRankingTileResult(
       enclosedPlaceType,
       place,
       apiRoot,
-      surfaceHeaderValue
+      surface
     );
     const placeDcids = new Set<string>();
     Object.values(rankingData).forEach((rankingGroup) => {
@@ -246,7 +246,7 @@ export async function getRankingTileResult(
  * @param enclosedPlaceType the enclosed place type to get the chart for
  * @param statVarSpec list of stat var specs to show in the chart
  * @param apiRoot API root to use to fetch data
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getRankingChart(
   tileConfig: TileConfig,
@@ -255,7 +255,7 @@ export async function getRankingChart(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   containerRef: React.RefObject<HTMLElement>,
-  surfaceHeaderValue: string
+  surface: string
 ): Promise<SVGSVGElement> {
   try {
     const rankingData = await fetchData(
@@ -264,7 +264,7 @@ export async function getRankingChart(
       enclosedPlaceType,
       place,
       apiRoot,
-      surfaceHeaderValue
+      surface
     );
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
@@ -276,7 +276,7 @@ export async function getRankingChart(
         apiRoot,
         statVarSpec,
         containerRef,
-        surfaceHeaderValue
+        surface
       );
     }
   } catch (e) {

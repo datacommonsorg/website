@@ -58,13 +58,13 @@ function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
  * @param sample Whether to sample `sampleSize` places from the given places, and only
  * get the statvars for them.
  * @param sampleSize Since the stat vars for places of the same type are relatively uniform, default sample size can be small to speed up this function.
- * @param surfaceHeaderValue the DC surface (website, web components, etc.) making the call to mixer for usage logs
+ * @param surface the DC surface (website, web components, etc.) making the call to mixer for usage logs
  */
 async function getStatVar(
   dcids: string[],
   sample = false,
   sampleSize = 5,
-  surfaceHeaderValue: string = null
+  surface: string = null
 ): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
@@ -75,7 +75,7 @@ async function getStatVar(
       dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
     },
     {
-      headers: getSurfaceHeader(surfaceHeaderValue),
+      headers: getSurfaceHeader(surface),
     }
   );
   return new Set<string>(resp.data);

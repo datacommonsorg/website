@@ -279,13 +279,13 @@ export function getContextStatVar(svSpec: StatVarSpec): ContextStatVar {
  * @param samplePlaces sample places used for the stat var hierarchy
  * @param statVars full list of stat vars
  * @param visTypeConfig the vis type config being used
- * @param surfaceHeaderValue Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export function getFilteredStatVarPromise(
   samplePlaces: NamedNode[],
   statVars: ContextStatVar[],
   visTypeConfig: VisTypeConfig,
-  surfaceHeaderValue: string
+  surface: string
 ): Promise<ContextStatVar[]> {
   if (_.isEmpty(samplePlaces) || _.isEmpty(statVars)) {
     return Promise.resolve([]);
@@ -298,7 +298,7 @@ export function getFilteredStatVarPromise(
         variables: statVars.map((sv) => sv.dcid),
       },
       {
-        headers: getSurfaceHeader(surfaceHeaderValue),
+        headers: getSurfaceHeader(surface),
       }
     )
     .then((resp) => {

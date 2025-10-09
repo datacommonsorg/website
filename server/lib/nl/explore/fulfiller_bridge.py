@@ -43,8 +43,8 @@ class FulfillResp:
 
 
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config,
-            surface_header_value: str) -> FulfillResp:
-  state = nl_fulfiller.fulfill(uttr, surface_header_value)
+            surface: str) -> FulfillResp:
+  state = nl_fulfiller.fulfill(uttr, surface)
 
   builder_result = nl_config_builder.build(state, cb_config)
   if not builder_result.page_config:
@@ -65,14 +65,12 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config,
   explore_peer_groups = {}
   if (not state.uttr.insight_ctx.get(params.Params.EXP_MORE_DISABLED) and
       not params.is_special_dc(state.uttr.insight_ctx)):
-    explore_more_chart_vars_map = _get_explore_more_chart_vars(
-        state, surface_header_value)
+    explore_more_chart_vars_map = _get_explore_more_chart_vars(state, surface)
     explore_peer_groups = extension.chart_vars_to_explore_peer_groups(
         state, explore_more_chart_vars_map)
 
   related_things = related.compute_related_things(state, plotted_orig_vars,
-                                                  explore_peer_groups,
-                                                  surface_header_value)
+                                                  explore_peer_groups, surface)
 
   return FulfillResp(chart_pb=builder_result.page_config,
                      related_things=related_things,
@@ -134,9 +132,8 @@ def _is_place_overview(ranked_charts: List[ChartSpec]) -> bool:
       0].chart_type == ChartType.PLACE_OVERVIEW
 
 
-def _get_explore_more_chart_vars(
-    state: PopulateState,
-    surface_header_value: str) -> Dict[str, List[ChartVars]]:
+def _get_explore_more_chart_vars(state: PopulateState,
+                                 surface: str) -> Dict[str, List[ChartVars]]:
   # Get up to 10 SVs from each chart.
   explore_more_svs = set()
   for cs in state.uttr.rankedCharts:
@@ -155,7 +152,7 @@ def _get_explore_more_chart_vars(
         state,
         state.places_to_check,
         sv2chartvarslist=explore_more_chart_vars_map,
-        surface_header_value=surface_header_value)
+        surface=surface)
     ext_tracker.perform_existence_check()
     state.uttr.counters.timeit('explore_more_existence_check', start)
 

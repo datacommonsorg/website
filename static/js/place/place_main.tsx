@@ -364,8 +364,8 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setHasError(true);
       return;
     }
-    const surfaceHeaderValue = pageMetadata.dataset.surfaceHeader;
-    const dataCommonsClient = getDataCommonsClient(null, surfaceHeaderValue);
+    const surface = pageMetadata.dataset.surfaceHeader;
+    const dataCommonsClient = getDataCommonsClient(null, surface);
     (async (): Promise<void> => {
       try {
         const [

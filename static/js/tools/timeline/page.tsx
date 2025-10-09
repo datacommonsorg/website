@@ -21,7 +21,7 @@ import { Container } from "reactstrap";
 import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
-import { WEBSITE_SURFACE_HEADER_VALUE } from "../../shared/constants";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
@@ -128,7 +128,7 @@ class Page extends Component<unknown, PageStateType> {
           selectSV={(sv): void =>
             addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
           }
-          surfaceHeaderValue={WEBSITE_SURFACE_HEADER_VALUE}
+          surface={WEBSITE_SURFACE}
         />
         <div id="plot-container">
           <Container fluid={true}>

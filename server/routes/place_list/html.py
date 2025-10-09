@@ -42,8 +42,8 @@ def index():
 @bp.route('/place-list/<path:dcid>')
 @cache.memoize(timeout=TIMEOUT)
 def node(dcid):
-  surface_header_value = request.headers.get("x-surface")
-  child_places = child_fetch(dcid, surface_header_value)
+  surface = request.headers.get("x-surface")
+  child_places = child_fetch(dcid, surface)
   place_by_type = collections.defaultdict(list)
   for place_type, childs in child_places.items():
     for child in childs:

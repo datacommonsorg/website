@@ -56,7 +56,7 @@ interface TileMetadataModalPropType {
   // root URL used to generate stat var explorer and license links
   apiRoot?: string;
   // used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
-  surfaceHeaderValue: string;
+  surface: string;
 }
 
 export function TileMetadataModal(
@@ -69,10 +69,7 @@ export function TileMetadataModal(
   const [metadataMap, setMetadataMap] = useState<
     Record<string, StatVarMetadata[]>
   >({});
-  const dataCommonsClient = getDataCommonsClient(
-    props.apiRoot,
-    props.surfaceHeaderValue
-  );
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   const denomStatVarDcids = useMemo(() => {
     const result = new Set<string>();

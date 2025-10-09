@@ -45,7 +45,7 @@ export interface VisTypeConfig {
   getChartArea: (
     appContext: AppContextType,
     chartHeight: number,
-    surfaceHeaderValue: string
+    surface: string
   ) => JSX.Element;
   // function to get the component that gives information about the vis type
   getInfoContent: () => JSX.Element;

@@ -90,7 +90,7 @@ export interface RankingTilePropType
    */
   lazyLoadMargin?: string;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
-  surfaceHeaderValue?: string;
+  surface?: string;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -107,7 +107,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     parentPlace,
     apiRoot,
     lazyLoad,
-    surfaceHeaderValue,
+    surface,
   } = props;
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           enclosedPlaceType,
           parentPlace,
           apiRoot,
-          surfaceHeaderValue
+          surface
         );
         setRankingData(rankingData);
       } finally {
@@ -138,7 +138,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     rankingMetadata,
     shouldLoad,
     variables,
-    surfaceHeaderValue,
+    surface,
   ]);
 
   /**
@@ -227,10 +227,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
   const placeHolderArray = Array(numRankingLists).fill("");
-  const dataCommonsClient = getDataCommonsClient(
-    props.apiRoot,
-    props.surfaceHeaderValue
-  );
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   /**
    * Opens export modal window
@@ -267,7 +264,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       chartTitle,
       "",
       props.sources || Array.from(sources),
-      props.surfaceHeaderValue
+      props.surface
     );
   }
   return (
@@ -320,7 +317,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               tileId={props.id}
               title={props.title}
               statVarSpecs={props.variables}
-              surfaceHeaderValue={props.surfaceHeaderValue}
+              surface={props.surface}
             />
           );
         })}
@@ -342,7 +339,7 @@ export async function fetchData(
   enclosedPlaceType: string,
   parentPlace: string,
   apiRoot: string,
-  surfaceHeaderValue?: string
+  surface?: string
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -389,7 +386,7 @@ export async function fetchData(
           dateParam,
           [],
           facetIds,
-          surfaceHeaderValue
+          surface
         )
       );
     }
@@ -412,7 +409,7 @@ export async function fetchData(
         enclosedPlaceType,
         denoms,
         null,
-        surfaceHeaderValue
+        surface
       );
   return Promise.all([statPromise, denomPromise]).then(
     ([statResp, denomResp]) => {

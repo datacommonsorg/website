@@ -162,7 +162,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
     # Reload configs for faster local iteration.
     raw_subject_config = lib_util.get_disaster_event_config()
 
-  surface_header_value = request.headers.get("x-surface")
+  surface = request.headers.get("x-surface")
 
   subject_config = copy.deepcopy(raw_subject_config)
   places = get_places(properties)
@@ -170,9 +170,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   subject_page_args = EMPTY_SUBJECT_PAGE_ARGS
   if place_dcid:
     place_metadata = lib_subject_page_config.place_metadata(
-        place_dcid,
-        get_child_places=False,
-        surface_header_value=surface_header_value)
+        place_dcid, get_child_places=False, surface=surface)
     if not place_metadata.is_error:
       # Update contained places from place metadata
       subject_config.metadata.contained_place_types.clear()

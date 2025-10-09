@@ -22,10 +22,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "../js/components/tiles/tile_types";
-import {
-  DEFAULT_PER_CAPITA_DENOM,
-  WEB_COMPONENT_SURFACE_HEADER_VALUE,
-} from "./constants";
+import { DEFAULT_PER_CAPITA_DENOM, WEB_COMPONENT_SURFACE } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -263,7 +260,7 @@ export class DatacommonsMapComponent extends LitElement {
       placeNameProp: this.placeNameProp,
       geoJsonProp: this.geoJsonProp,
       subscribe: this.subscribe,
-      surfaceHeaderValue: WEB_COMPONENT_SURFACE_HEADER_VALUE,
+      surface: WEB_COMPONENT_SURFACE,
     };
     return createWebComponentElement(MapTile, mapTileProps);
   }

@@ -48,7 +48,7 @@ export interface RankingPagePropType {
   scaling: number;
   unit: string;
   date: string;
-  surfaceHeaderValue: string;
+  surface: string;
 }
 
 interface RankingPageStateType {
@@ -345,7 +345,7 @@ export class Page extends React.Component<
       this.props.placeType,
       [DEFAULT_POPULATION_DCID],
       null,
-      this.props.surfaceHeaderValue
+      this.props.surface
     );
     const statPromise: Promise<PointApiResponse> = getPointWithin(
       getRoot(),
@@ -355,7 +355,7 @@ export class Page extends React.Component<
       this.props.date,
       null,
       null,
-      this.props.surfaceHeaderValue
+      this.props.surface
     );
     const placeNamesPromise: Promise<Record<string, string>> = axios
       .get(`${getRoot()}/api/place/descendent/name`, {
