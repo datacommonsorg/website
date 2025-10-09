@@ -102,7 +102,6 @@ def rank_places_by_series_growth(
   start = time.time()
   facet_to_fetch = ''
   if sv in constants.SVS_TO_CHECK_FACET:
-    print("Checking facets for sv:", sv)
     series_facets = fetch.series_facet(entities=places,
                                        variables=[sv],
                                        all_facets=True)

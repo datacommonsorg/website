@@ -12,11 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from functools import wraps
 import unittest
 from unittest import mock
 
 import server.tests.routes.api.mock_data as mock_data
 from web_app import app
+
+
+def with_request_context(headers=None):
+  """Decorator to wrap a test function in a Flask request context."""
+
+  def decorator(f):
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+      with app.test_request_context(headers=headers or {}):
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+  return decorator
 
 
 class TestGetStatsWithinPlaceCsv(unittest.TestCase):
@@ -44,116 +60,112 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                           })
     assert no_stat_vars.status_code == 400
 
+  @with_request_context(headers={'x-surface': 'website'})
   @mock.patch('server.routes.shared_api.csv.dc.obs_point_within')
   @mock.patch('server.routes.shared_api.csv.names')
   def test_single_date(self, mock_place_names, mock_point_within):
-    with app.test_request_context():
-      expected_parent_place = "country/USA"
-      expected_child_type = "State"
-      children_places = ["geoId/01", "geoId/02", "geoId/06"]
-      expected_stat_vars = ["Count_Person", "UnemploymentRate_Person"]
-      expected_date = "2015"
+    expected_parent_place = "country/USA"
+    expected_child_type = "State"
+    children_places = ["geoId/01", "geoId/02", "geoId/06"]
+    expected_stat_vars = ["Count_Person", "UnemploymentRate_Person"]
+    expected_date = "2015"
 
-      def place_side_effect(places):
-        if places == children_places:
-          return {
-              "geoId/01": "Alabama",
-              "geoId/02": "",
-              "geoId/06": "California"
-          }
-        else:
-          return {}
+    def place_side_effect(places):
+      if places == children_places:
+        return {"geoId/01": "Alabama", "geoId/02": "", "geoId/06": "California"}
+      else:
+        return {}
 
-      mock_place_names.side_effect = place_side_effect
+    mock_place_names.side_effect = place_side_effect
 
-      def point_within_side_effect(parent_place, child_type, stat_vars, date):
-        if (parent_place != expected_parent_place or
-            child_type != expected_child_type or
-            set(stat_vars) != set(expected_stat_vars)):
-          return {}
-        if date == "LATEST":
-          return mock_data.POINT_WITHIN_LATEST_ALL_FACETS
-        if date == expected_date:
-          return mock_data.POINT_WITHIN_2015_ALL_FACETS
+    def point_within_side_effect(parent_place, child_type, stat_vars, date):
+      if (parent_place != expected_parent_place or
+          child_type != expected_child_type or
+          set(stat_vars) != set(expected_stat_vars)):
+        return {}
+      if date == "LATEST":
+        return mock_data.POINT_WITHIN_LATEST_ALL_FACETS
+      if date == expected_date:
+        return mock_data.POINT_WITHIN_2015_ALL_FACETS
 
-      mock_point_within.side_effect = point_within_side_effect
-      endpoint_url = "api/csv/within"
-      base_req_json = {
-          "parentPlace": expected_parent_place,
-          "childType": expected_child_type,
-          "statVars": expected_stat_vars
-      }
+    mock_point_within.side_effect = point_within_side_effect
+    endpoint_url = "api/csv/within"
+    base_req_json = {
+        "parentPlace": expected_parent_place,
+        "childType": expected_child_type,
+        "statVars": expected_stat_vars
+    }
 
-      latest_date_req_json = base_req_json.copy()
-      latest_date_req_json["minDate"] = "latest"
-      latest_date_req_json["maxDate"] = "latest"
-      latest_date = app.test_client().post(endpoint_url,
-                                           json=latest_date_req_json,
-                                           headers={'x-surface': 'website'})
-      assert latest_date.status_code == 200
-      assert latest_date.data.decode("utf-8") == (
-          "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-          +
-          "geoId/01,Alabama,2020,4893186,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
-          +
-          "geoId/02,,2020,736990,https://www.census.gov/,2022-04,4.9,https://www.bls.gov/lau/\r\n"
-          +
-          "geoId/06,California,2020,836990,https://www.census.gov/,2022-03,6.4,https://www.bls.gov/lau/\r\n"
-      )
+    latest_date_req_json = base_req_json.copy()
+    latest_date_req_json["minDate"] = "latest"
+    latest_date_req_json["maxDate"] = "latest"
+    latest_date = app.test_client().post(endpoint_url,
+                                         json=latest_date_req_json,
+                                         headers={'x-surface': 'website'})
+    assert latest_date.status_code == 200
+    assert latest_date.data.decode("utf-8") == (
+        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
+        +
+        "geoId/01,Alabama,2020,4893186,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
+        +
+        "geoId/02,,2020,736990,https://www.census.gov/,2022-04,4.9,https://www.bls.gov/lau/\r\n"
+        +
+        "geoId/06,California,2020,836990,https://www.census.gov/,2022-03,6.4,https://www.bls.gov/lau/\r\n"
+    )
 
-      single_date_req_json = base_req_json.copy()
-      single_date_req_json["minDate"] = expected_date
-      single_date_req_json["maxDate"] = expected_date
-      single_date = app.test_client().post(endpoint_url,
-                                           json=single_date_req_json)
-      assert single_date.status_code == 200
-      assert single_date.data.decode("utf-8") == (
-          "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-          +
-          "geoId/01,Alabama,2015,3120960,https://www.census.gov/programs-surveys/popest.html,2015,12,https://www.bls.gov/lau/\r\n"
-          +
-          "geoId/02,,2015,625216,https://www.census.gov/programs-surveys/popest.html,2015,5.6,https://www.bls.gov/lau/\r\n"
-          +
-          "geoId/06,California,2015,9931715,https://www.census.gov/programs-surveys/popest.html,2015,3.7,https://www.bls.gov/lau/\r\n"
-      )
+    single_date_req_json = base_req_json.copy()
+    single_date_req_json["minDate"] = expected_date
+    single_date_req_json["maxDate"] = expected_date
+    single_date = app.test_client().post(endpoint_url,
+                                         json=single_date_req_json)
+    assert single_date.status_code == 200
+    assert single_date.data.decode("utf-8") == (
+        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
+        +
+        "geoId/01,Alabama,2015,3120960,https://www.census.gov/programs-surveys/popest.html,2015,12,https://www.bls.gov/lau/\r\n"
+        +
+        "geoId/02,,2015,625216,https://www.census.gov/programs-surveys/popest.html,2015,5.6,https://www.bls.gov/lau/\r\n"
+        +
+        "geoId/06,California,2015,9931715,https://www.census.gov/programs-surveys/popest.html,2015,3.7,https://www.bls.gov/lau/\r\n"
+    )
 
-      latest_date_facets_req_json = base_req_json.copy()
-      latest_date_facets_req_json["minDate"] = "latest"
-      latest_date_facets_req_json["maxDate"] = "latest"
-      latest_date_facets_req_json["facetMap"] = {
-          "Count_Person": "1145703171",
-          "UnemploymentRate_Person": "1249140336"
-      }
-      latest_date_facets = app.test_client().post(
-          endpoint_url, json=latest_date_facets_req_json)
-      assert latest_date_facets.status_code == 200
-      assert latest_date_facets.data.decode("utf-8") == (
-          "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-          +
-          "geoId/01,Alabama,2020,4893186,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
-          +
-          "geoId/02,,2020,736990,https://www.census.gov/,2022-04,4.9,https://www.bls.gov/lau/\r\n"
-          + "geoId/06,California,2020,836990,https://www.census.gov/,,,\r\n")
+    latest_date_facets_req_json = base_req_json.copy()
+    latest_date_facets_req_json["minDate"] = "latest"
+    latest_date_facets_req_json["maxDate"] = "latest"
+    latest_date_facets_req_json["facetMap"] = {
+        "Count_Person": "1145703171",
+        "UnemploymentRate_Person": "1249140336"
+    }
+    latest_date_facets = app.test_client().post(
+        endpoint_url, json=latest_date_facets_req_json)
+    assert latest_date_facets.status_code == 200
+    assert latest_date_facets.data.decode("utf-8") == (
+        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
+        +
+        "geoId/01,Alabama,2020,4893186,https://www.census.gov/,2022-04,2.8,https://www.bls.gov/lau/\r\n"
+        +
+        "geoId/02,,2020,736990,https://www.census.gov/,2022-04,4.9,https://www.bls.gov/lau/\r\n"
+        + "geoId/06,California,2020,836990,https://www.census.gov/,,,\r\n")
 
-      single_date_facets_req_json = base_req_json.copy()
-      single_date_facets_req_json["minDate"] = expected_date
-      single_date_facets_req_json["maxDate"] = expected_date
-      single_date_facets_req_json["facetMap"] = {
-          "Count_Person": "2517965213",
-          "UnemploymentRate_Person": ""
-      }
-      single_date_facets = app.test_client().post(
-          endpoint_url, json=single_date_facets_req_json)
-      assert single_date_facets.status_code == 200
-      assert single_date_facets.data.decode("utf-8") == (
-          "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
-          +
-          "geoId/01,Alabama,2015,3120960,https://www.census.gov/programs-surveys/popest.html,2015,12,https://www.bls.gov/lau/\r\n"
-          +
-          "geoId/02,,2015,625216,https://www.census.gov/programs-surveys/popest.html,2015,5.6,https://www.bls.gov/lau/\r\n"
-          +
-          "geoId/06,California,2015,9931715,https://www.census.gov/programs-surveys/popest.html,2015,3.7,https://www.bls.gov/lau/\r\n"
-      )
+    single_date_facets_req_json = base_req_json.copy()
+    single_date_facets_req_json["minDate"] = expected_date
+    single_date_facets_req_json["maxDate"] = expected_date
+    single_date_facets_req_json["facetMap"] = {
+        "Count_Person": "2517965213",
+        "UnemploymentRate_Person": ""
+    }
+    single_date_facets = app.test_client().post(
+        endpoint_url, json=single_date_facets_req_json)
+    assert single_date_facets.status_code == 200
+    assert single_date_facets.data.decode("utf-8") == (
+        "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"
+        +
+        "geoId/01,Alabama,2015,3120960,https://www.census.gov/programs-surveys/popest.html,2015,12,https://www.bls.gov/lau/\r\n"
+        +
+        "geoId/02,,2015,625216,https://www.census.gov/programs-surveys/popest.html,2015,5.6,https://www.bls.gov/lau/\r\n"
+        +
+        "geoId/06,California,2015,9931715,https://www.census.gov/programs-surveys/popest.html,2015,3.7,https://www.bls.gov/lau/\r\n"
+    )
 
   @mock.patch('server.routes.shared_api.csv.dc.obs_series_within')
   @mock.patch('server.routes.shared_api.csv.names')

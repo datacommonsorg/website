@@ -16,6 +16,7 @@
 import copy
 import random
 from typing import Dict, List
+from functools import wraps
 import unittest
 from unittest import mock
 
@@ -43,6 +44,21 @@ SAMPLE_CHART_CONFIG = ServerChartConfiguration('Economics', 'title_id', 'title',
                                                'description',
                                                ['LifeExpectancy'], None,
                                                [SAMPLE_BLOCK_METADATA])
+
+
+def with_request_context(headers=None):
+  """Decorator to wrap a test function in a Flask request context."""
+
+  def decorator(f):
+
+    @wraps(f)
+    def decorated_function(self, *args, **kwargs):
+      with self.app.test_request_context(headers=headers or {}):
+        return f(self, *args, **kwargs)
+
+    return decorated_function
+
+  return decorator
 
 
 @pytest.fixture(scope="module")
@@ -946,61 +962,59 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(set(peers),
                      {mock_data.ARIZONA.dcid, mock_data.NEW_YORK.dcid})
 
+  @with_request_context()
   def test_fetch_overview_table_data(self):
-    with self.app.test_request_context():
-      mock_data.mock_dc_api_data(
-          stat_var='Count_Person',
-          places=[mock_data.CALIFORNIA.dcid],
-          dc_obs_point=True,
-          dc_obs_points_within=False,
-          mock_obs_point=self.mock_obs_point,
-          mock_obs_point_within=self.mock_obs_point_within,
-          data=[{
-              "date": "2024-01-01",
-              "value": 100
-          }, {
-              "date": "2025-01-02",
-              "value": 200
-          }, {
-              "date": "2023-01-03",
-              "value": 150
-          }],
-          include_facets=True)
-      resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
-      self.assertEqual(len(resp), 1)
-      self.assertEqual(resp[0].name, 'Population')
-      self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
-      self.assertEqual(resp[0].value,
-                       200)  # The most recent value among all facets
-      self.assertEqual(resp[0].variableDcid, 'Count_Person')
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               dc_obs_points_within=False,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[{
+                                   "date": "2024-01-01",
+                                   "value": 100
+                               }, {
+                                   "date": "2025-01-02",
+                                   "value": 200
+                               }, {
+                                   "date": "2023-01-03",
+                                   "value": 150
+                               }],
+                               include_facets=True)
+    resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
+    self.assertEqual(len(resp), 1)
+    self.assertEqual(resp[0].name, 'Population')
+    self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
+    self.assertEqual(resp[0].value,
+                     200)  # The most recent value among all facets
+    self.assertEqual(resp[0].variableDcid, 'Count_Person')
 
+  @with_request_context()
   def test_fetch_overview_table_data_single_facets(self):
-    with self.app.test_request_context():
-      mock_data.mock_dc_api_data(
-          stat_var='Count_Person',
-          places=[mock_data.CALIFORNIA.dcid],
-          dc_obs_point=True,
-          dc_obs_points_within=False,
-          mock_obs_point=self.mock_obs_point,
-          mock_obs_point_within=self.mock_obs_point_within,
-          data=[{
-              "date": "2021",
-              "value": 100
-          }, {
-              "date": "2022",
-              "value": 200
-          }, {
-              "date": "2023",
-              "value": 150
-          }],
-          include_facets=True,
-          single_facet=True)
-      resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
-      self.assertEqual(len(resp), 1)
-      self.assertEqual(resp[0].name, 'Population')
-      self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
-      self.assertEqual(resp[0].value, 150)  # The latest value
-      self.assertEqual(resp[0].variableDcid, 'Count_Person')
+    mock_data.mock_dc_api_data(stat_var='Count_Person',
+                               places=[mock_data.CALIFORNIA.dcid],
+                               dc_obs_point=True,
+                               dc_obs_points_within=False,
+                               mock_obs_point=self.mock_obs_point,
+                               mock_obs_point_within=self.mock_obs_point_within,
+                               data=[{
+                                   "date": "2021",
+                                   "value": 100
+                               }, {
+                                   "date": "2022",
+                                   "value": 200
+                               }, {
+                                   "date": "2023",
+                                   "value": 150
+                               }],
+                               include_facets=True,
+                               single_facet=True)
+    resp = utils.fetch_overview_table_data(mock_data.CALIFORNIA.dcid)
+    self.assertEqual(len(resp), 1)
+    self.assertEqual(resp[0].name, 'Population')
+    self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
+    self.assertEqual(resp[0].value, 150)  # The latest value
+    self.assertEqual(resp[0].variableDcid, 'Count_Person')
 
   def test_safe_api_error_handling(self):
     """Tests that safe API calls handle errors gracefully."""
