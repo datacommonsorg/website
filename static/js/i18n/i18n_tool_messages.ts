@@ -17,12 +17,6 @@
 import { defineMessages } from "react-intl";
 
 export const toolMessages = defineMessages({
-  switchToolVersion: {
-    id: "switch_tool_version",
-    defaultMessage: "Switch tool version",
-    description:
-      "label on button allowing users to switch to an earlier version of our tools",
-  },
   mapToolTitle: {
     id: "map_visualization_tool_name",
     defaultMessage: "Map Explorer",
