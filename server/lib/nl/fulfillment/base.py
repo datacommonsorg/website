@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import inspect
 import time
 from typing import List
 
@@ -86,7 +85,8 @@ def populate_charts(state: PopulateState) -> bool:
 # to parent places, or parent place-types (for contained-in query-types).
 #
 # REQUIRES: places and svs are non-empty.
-def _add_charts_with_place_fallback(state: PopulateState, places: List[Place]) -> bool:
+def _add_charts_with_place_fallback(state: PopulateState,
+                                    places: List[Place]) -> bool:
   # Add charts for the given places.
   if _add_charts_with_existence_check(state, places):
     return True
@@ -188,7 +188,8 @@ def _maybe_switch_parent_type(
 
 
 # Add charts given a place and a list of stat-vars.
-def _add_charts_with_existence_check(state: PopulateState, places: List[Place]) -> bool:
+def _add_charts_with_existence_check(state: PopulateState,
+                                     places: List[Place]) -> bool:
   # This may set state.uttr.place_fallback
   _maybe_set_fallback(state, places)
 
@@ -203,7 +204,6 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place]) 
 
   # Avoid any mutations in existence tracker.
   chart_vars_map = copy.deepcopy(state.chart_vars_map)
-  # print("IN _add_charts_with_existence_check, surface:", surface)
   tracker = MainExistenceCheckTracker(state, state.places_to_check,
                                       chart_vars_map)
   tracker.perform_existence_check()
@@ -222,17 +222,8 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place]) 
       chart_vars = copy.deepcopy(exist_cv)
       if chart_vars.event:
         if exist_cv.exist_event:
-          populate_kwargs = {
-              'state': state,
-              'chart_vars': chart_vars,
-              'places': places,
-              'chart_origin': ChartOriginType.PRIMARY_CHART,
-          }
-          if 'rank' in inspect.signature(handler.module.populate).parameters:
-            populate_kwargs['rank'] = idx
-          # if 'surface' in inspect.signature(handler.module.populate).parameters:
-          #   populate_kwargs['surface'] = surface
-          if handler.module.populate(**populate_kwargs):
+          if handler.module.populate(state, chart_vars, places,
+                                     ChartOriginType.PRIMARY_CHART, idx):
             found = True
             num_charts += 1
           else:
@@ -240,17 +231,8 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place]) 
       else:
         if chart_vars.svs:
           existing_svs.update(chart_vars.svs)
-          populate_kwargs = {
-              'state': state,
-              'chart_vars': chart_vars,
-              'places': places,
-              'chart_origin': ChartOriginType.PRIMARY_CHART,
-          }
-          if 'rank' in inspect.signature(handler.module.populate).parameters:
-            populate_kwargs['rank'] = idx
-          # if 'surface' in inspect.signature(handler.module.populate).parameters:
-          #   populate_kwargs['surface'] = surface
-          if handler.module.populate(**populate_kwargs):
+          if handler.module.populate(state, chart_vars, places,
+                                     ChartOriginType.PRIMARY_CHART, idx):
             found = True
             num_charts += 1
           else:
