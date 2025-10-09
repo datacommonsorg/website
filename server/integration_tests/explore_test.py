@@ -31,9 +31,6 @@ _TEST_DATA = 'test_data'
 
 _MAX_FOOTNOTE_LENGTH = 500
 
-TEST_SURFACE = "integration-test"
-
-
 class ExploreTest(NLWebServerTestCase):
 
   def run_fulfillment(self, test_dir, req_json, failure='', test='', i18n=''):

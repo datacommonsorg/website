@@ -18,6 +18,7 @@
 import copy
 import re
 from typing import Dict, List
+from flask import request
 
 import server.services.datacommons as dc
 
@@ -175,6 +176,8 @@ def point_core(entities,
                date,
                all_facets,
                surface_header_value=None):
+  head = request.headers.get('x-surface')
+  print("HEader in point_Core: ", head, surface_header_value)
   """Fetchs observation point for given entities, variables and date.
 
   The response is in the following format:
