@@ -238,6 +238,7 @@ export function App(props: AppProps): ReactElement {
     userQuery?: string,
     isHighlight?: boolean
   ): void {
+    console.log("reaching process fulfill");
     setDebugData(fulfillData["debug"]);
     setStoreDebugData(fulfillData["debug"]);
     const userMessage = {

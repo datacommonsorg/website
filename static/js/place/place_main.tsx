@@ -365,6 +365,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       return;
     }
     const surface = pageMetadata.dataset.surfaceHeader;
+    console.log("surface in place_main: ", surface);
     const dataCommonsClient = getDataCommonsClient(null, surface);
     (async (): Promise<void> => {
       try {

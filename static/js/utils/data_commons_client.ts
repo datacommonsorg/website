@@ -37,6 +37,7 @@ export function getDataCommonsClient(
   apiRoot?: string,
   surface?: string
 ): DataCommonsClient {
+  console.log("calling getDataCommonsClient, surface: ", surface);
   return new DataCommonsClient({
     apiRoot: apiRoot ?? DEFAULT_CLIENT_API_ROOT,
     surface: surface ?? null,

@@ -22,6 +22,7 @@ from typing import Any, Callable, Dict, List, Set, Tuple
 import flask
 from flask import current_app
 from flask_babel import gettext
+from flask import request
 
 from server.lib import fetch
 from server.lib.cache import cache
@@ -224,8 +225,7 @@ async def filter_chart_config_for_data_existence(
     place_dcid: str,
     place_type: str,
     child_place_type: str,
-    parent_place_dcid: str,
-    surface: str = None) -> List[ServerChartConfiguration]:
+    parent_place_dcid: str) -> List[ServerChartConfiguration]:
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
 
@@ -243,15 +243,14 @@ async def filter_chart_config_for_data_existence(
   async def fetch_and_process_stats():
     """Fetches and processes observation data concurrently."""
     current_place_obs_point_task = asyncio.to_thread(
-        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids, 'LATEST',
-        surface)
+        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids, 'LATEST')
     child_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, place_dcid, child_place_type,
-        child_places_stat_var_dcids, 'LATEST', None, surface)
+        child_places_stat_var_dcids, 'LATEST', None)
     print("reaching obspoint calls")
     peer_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, parent_place_dcid, place_type,
-        peer_places_stat_var_dcids, 'LATEST', None, surface)
+        peer_places_stat_var_dcids, 'LATEST', None)
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
                                                place_dcid, [place_type])
@@ -983,7 +982,7 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
 
 
 def fetch_overview_table_data(
-    place_dcid: str, surface: str = None) -> List[OverviewTableDataRow]:
+    place_dcid: str) -> List[OverviewTableDataRow]:
   """
   Fetches overview table data for the specified place.
 
@@ -1000,7 +999,8 @@ def fetch_overview_table_data(
   ]
 
   # Fetch all observations for each variable
-  resp = dc.obs_point([place_dcid], variables, date="LATEST", surface=surface)
+  print("surface in fetch_overview_table_data:", request.headers.get("x-surface"))
+  resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
 
   # Iterate over each variable and extract the most recent observation
@@ -1207,8 +1207,7 @@ def format_stat_var_value(value: float, unit: str) -> str:
 
 
 async def _fetch_summary_data(
-    place_dcid: str, variable_dcids: List[str], locale: str,
-    surface: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
+    place_dcid: str, variable_dcids: List[str], locale: str) -> Tuple[Place, List[Place], Dict[str, Any]]:
   """
   Fetches the place, parent places, and place observations for the given place DCID.
 
@@ -1222,15 +1221,14 @@ async def _fetch_summary_data(
   """
   place = asyncio.to_thread(fetch_place, place_dcid, locale)
   parent_places = asyncio.to_thread(get_parent_places, place_dcid, locale)
+  print("surface in _fetch_summary_data:", request.headers.get("x-surface"))
   place_observations = asyncio.to_thread(dc.obs_point, [place_dcid],
                                          variable_dcids,
-                                         date="LATEST",
-                                         surface=surface)
+                                         date="LATEST")
   return await asyncio.gather(place, parent_places, place_observations)
 
 
-async def generate_place_summary(place_dcid: str, locale: str,
-                                 surface: str) -> str:
+async def generate_place_summary(place_dcid: str, locale: str) -> str:
   """
   Generates a place summary for the given place DCID.
 
@@ -1247,7 +1245,7 @@ async def generate_place_summary(place_dcid: str, locale: str,
   variable_dcids = [v["dcid"] for v in PLACE_SUMMARY_VARIABLES]
 
   place, parent_places, place_observations = await _fetch_summary_data(
-      place_dcid, variable_dcids, locale, surface)
+      place_dcid, variable_dcids, locale)
   variable_observations = []
 
   # Iterate over each variable and extract the most recent observation

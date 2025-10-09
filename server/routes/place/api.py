@@ -79,7 +79,6 @@ async def place_charts(place_dcid: str):
 
   # Validate the category parameter.
   place_category = request.args.get("category", place_utils.OVERVIEW_CATEGORY)
-  surface = request.headers.get("x-surface")
   if place_category not in place_utils.ALLOWED_CATEGORIES:
     return error_response(
         f"Argument 'category' {place_category} must be one of: {', '.join(place_utils.ALLOWED_CATEGORIES)}"
@@ -103,8 +102,7 @@ async def place_charts(place_dcid: str):
       place_dcid=place_dcid,
       place_type=place_type,
       parent_place_dcid=parent_place_dcid,
-      child_place_type=child_place_type_to_highlight,
-      surface=surface)
+      child_place_type=child_place_type_to_highlight)
 
   # Only keep the chart config for the current category.
   chart_config_for_category = place_utils.filter_chart_config_for_category(
@@ -218,11 +216,11 @@ async def related_places(place_dcid: str):
 @log_execution_time
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def overview_table(place_dcid: str):
-  surface = request.headers.get("x-surface")
   """
   Fetches and returns overview table data for the specified place.
   """
-  data_rows = place_utils.fetch_overview_table_data(place_dcid, surface)
+  print("surface in overview table: ", request.headers.get("x-surface"))
+  data_rows = place_utils.fetch_overview_table_data(place_dcid)
 
   return jsonify(PlaceOverviewTableApiResponse(data=data_rows))
 
@@ -231,10 +229,9 @@ def overview_table(place_dcid: str):
 @log_execution_time
 @cache.cached(timeout=TIMEOUT, query_string=True)
 async def place_summary(place_dcid: str):
-  surface = request.headers.get("x-surface")
   """
   Fetches and returns place summary data for the specified place.
   """
-  summary = await place_utils.generate_place_summary(place_dcid, g.locale,
-                                                     surface)
+  print("surface in place summary:", request.headers.get("x-surface"))
+  summary = await place_utils.generate_place_summary(place_dcid, g.locale)
   return jsonify(PlaceSummaryApiResponse(summary=summary))

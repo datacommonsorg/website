@@ -31,6 +31,7 @@ from server.lib.i18n import AVAILABLE_LANGUAGES
 from server.lib.i18n import DEFAULT_LOCALE
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
+from shared.lib.constants import WEBSITE_SURFACE
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -220,7 +221,8 @@ def place(place_dcid):
 
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
-  surface = request.headers.get("x-surface")
+  # Set this to the website surface because this is rendered directly as a website URL and doesn't usually pass metadata
+  surface = WEBSITE_SURFACE
 
   canonical_links = get_canonical_links(place_dcid, category)
   return flask.render_template('place.html',

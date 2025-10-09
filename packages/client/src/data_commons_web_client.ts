@@ -53,6 +53,7 @@ class DataCommonsWebClient {
     this.headers = {
       [SURFACE_HEADER_NAME]: surface,
     };
+    console.log("headers: ", this.headers);
   }
 
   /**
@@ -276,6 +277,7 @@ class DataCommonsWebClient {
       headers: this.headers,
     };
     const response = await fetch(url, options);
+    console.log("response: ", response);
     return (await response.json()) as PlaceChartsApiResponse;
   }
 
@@ -338,7 +340,10 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/summary/${
       params.placeDcid
     }?${queryString}`;
-    const response = await fetch(url);
+    const options = {
+      headers: this.headers,
+    };
+    const response = await fetch(url, options);
     return (await response.json()) as PlaceSummaryApiResponse;
   }
 }
