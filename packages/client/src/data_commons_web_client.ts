@@ -51,7 +51,7 @@ class DataCommonsWebClient {
     const surface = p.surface || UNKNOWN_surface;
 
     this.headers = {
-      SURFACE_HEADER_NAME: surface,
+      [SURFACE_HEADER_NAME]: surface,
     };
   }
 

@@ -146,6 +146,7 @@ def fulfill(uttr: Utterance, surface: str) -> PopulateState:
     state.disable_fallback = True
 
   # Call populate_charts.
+  print("Before in fulfiller, surface:", surface)
   if not base.populate_charts(state, surface):
     # If that failed, try OVERVIEW.
     state.uttr.query_type = QueryType.OVERVIEW

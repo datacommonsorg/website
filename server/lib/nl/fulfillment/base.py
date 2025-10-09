@@ -205,6 +205,7 @@ def _add_charts_with_existence_check(state: PopulateState, places: List[Place],
 
   # Avoid any mutations in existence tracker.
   chart_vars_map = copy.deepcopy(state.chart_vars_map)
+  print("IN _add_charts_with_existence_check, surface:", surface)
   tracker = MainExistenceCheckTracker(state, state.places_to_check,
                                       chart_vars_map, surface)
   tracker.perform_existence_check()

@@ -212,5 +212,5 @@ export const SURFACE_HEADER_NAME = "x-surface";
 
 // header using the website surface value
 export const WEBSITE_SURFACE_HEADER = {
-  SURFACE_HEADER_NAME: WEBSITE_SURFACE,
+  [SURFACE_HEADER_NAME]: WEBSITE_SURFACE,
 };

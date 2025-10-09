@@ -621,6 +621,7 @@ const fetchDetectAndFufillData = async (
 
   try {
     const startTime = window.performance ? window.performance.now() : undefined;
+    console.log("header in call: ", WEBSITE_SURFACE_HEADER);
     const resp = await axios.post(
       `/api/explore/detect-and-fulfill?${queryURL.toString()}`,
       {

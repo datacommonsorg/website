@@ -305,6 +305,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const protocol = req.headers["x-forwarded-proto"] || req.protocol;
   const host = req.headers["x-forwarded-host"] || req.headers.host;
   const surface = req.headers[SURFACE_HEADER_NAME]?.[0];
+  console.log("surface in /nodejs/query:", surface);
   const apikey = (req.query.apikey as string) || "";
   const urlRoot = `${protocol}://${host}`;
   const client = (req.query.client as string) || BARD_CLIENT_URL_PARAM;

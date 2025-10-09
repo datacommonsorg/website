@@ -136,6 +136,7 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
+  print("surface in detect_and_fulfill:", surface)
   return _fulfill_with_chart_config(utterance, debug_logs, surface)
 
 
@@ -311,5 +312,6 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                                client=client,
                                mode=mode)
   utterance.insight_ctx = insight_ctx
+  print("surface in _fulfill_with_insight_ctx:", surface)
   helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
   return _fulfill_with_chart_config(utterance, debug_logs, surface)

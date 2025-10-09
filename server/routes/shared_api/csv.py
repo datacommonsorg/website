@@ -55,7 +55,7 @@ def get_point_within_csv_rows(parent_place,
       row.
   """
   points_response = dc.obs_point_within(parent_place, child_type, sv_list, date,
-                                        None, surface)
+                                        None)
 
   # dict of place dcid to dict of sv dcid to chosen data point.
   data_by_place = {}
@@ -233,7 +233,6 @@ def get_stats_within_place_csv():
           facet to get data from
       rowLimit (optional): number of csv rows to return
   """
-  surface = request.headers.get("x-surface")
   parent_place = request.json.get("parentPlace")
   if not parent_place:
     return "error: must provide a parentPlace field", 400
@@ -266,10 +265,10 @@ def get_stats_within_place_csv():
       date = "LATEST"
     result_csv.extend(
         get_point_within_csv_rows(parent_place, child_type, sv_list, facet_map,
-                                  date, row_limit, surface))
+                                  date, row_limit))
   else:
     series_response = dc.obs_series_within(parent_place, child_type, sv_list,
-                                           None, surface)
+                                           None)
     result_csv.extend(
         get_series_csv_rows(series_response, sv_list, facet_map, min_date,
                             max_date, row_limit))

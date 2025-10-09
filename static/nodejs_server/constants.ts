@@ -70,7 +70,3 @@ export const BARD_CLIENT_URL_PARAM = "bard";
 export const TOOLFORMER_RAG_MODE = "toolformer_rag";
 // The param value when mode is toolformer_rig
 export const TOOLFORMER_RIG_MODE = "toolformer_rig";
-// Actual header using value above
-export const WEBSITE_SURFACE_HEADER = {
-  "x-surface": WEBSITE_SURFACE,
-};

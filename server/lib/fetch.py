@@ -173,8 +173,6 @@ def _compact_series(series_resp, all_facets):
 
 
 def point_core(entities, variables, date, all_facets, surface=None):
-  head = request.headers.get('x-surface')
-  print("HEader in point_Core: ", head, surface)
   """Fetchs observation point for given entities, variables and date.
 
   The response is in the following format:
@@ -191,7 +189,7 @@ def point_core(entities, variables, date, all_facets, surface=None):
     }
   }
   """
-  resp = dc.obs_point(entities, variables, date, surface=surface)
+  resp = dc.obs_point(entities, variables, date)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
@@ -223,8 +221,7 @@ def point_within_core(ancestor_entity,
                              descendent_type,
                              variables,
                              date,
-                             facet_ids,
-                             surface=surface)
+                             facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
@@ -246,7 +243,7 @@ def series_core(entities, variables, all_facets, facet_ids=None, surface=None):
     }
   }
   """
-  resp = dc.obs_series(entities, variables, facet_ids, surface=surface)
+  resp = dc.obs_series(entities, variables, facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
@@ -272,7 +269,7 @@ def series_facet(entities, variables, all_facets, surface=None):
   }
 
   """
-  resp = dc.series_facet(entities, variables, surface=surface)
+  resp = dc.series_facet(entities, variables)
 
   compacted_series = _compact_series(resp, all_facets)
   processed_series = {'facets': compacted_series.get('facets', {}), 'data': {}}
@@ -299,8 +296,7 @@ def point_within_facet(ancestor_entity,
   resp = dc.point_within_facet(ancestor_entity,
                                descendent_type,
                                variables,
-                               date,
-                               surface=surface)
+                               date)
   return _compact_point(resp, all_facets)
 
 
@@ -308,8 +304,7 @@ def series_within_core(ancestor_entity,
                        descendent_type,
                        variables,
                        all_facets,
-                       facet_ids=None,
-                       surface=None):
+                       facet_ids=None):
   """Fetchs observation series for for descendent entities of certain type.
 
   The response is in the following format:
@@ -329,8 +324,7 @@ def series_within_core(ancestor_entity,
   resp = dc.obs_series_within(ancestor_entity,
                               descendent_type,
                               variables,
-                              facet_ids,
-                              surface=surface)
+                              facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
@@ -355,8 +349,7 @@ def observation_existence(variables, entities, surface=None):
   # Fetch existence check data
   resp = dc.v2observation(select=['variable', 'entity'],
                           entity={'dcids': entities},
-                          variable={'dcids': variables},
-                          surface=surface)
+                          variable={'dcids': variables})
   for var, entity_obs in resp.get('byVariable', {}).items():
     for e in entity_obs.get('byEntity', {}):
       result[var][e] = True
@@ -378,8 +371,7 @@ def entity_variables(entities, surface=None):
   """
   resp = dc.v2observation(select=['variable', 'entity'],
                           entity={'dcids': entities},
-                          variable={},
-                          surface=surface)
+                          variable={})
   result = {}
   for var, entity_obs in resp.get('byVariable', {}).items():
     result[var] = entity_obs.get('byEntity', {})
