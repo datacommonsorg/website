@@ -219,7 +219,6 @@ def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  print("surface in overview table: ", request.headers.get("x-surface"))
   data_rows = place_utils.fetch_overview_table_data(place_dcid)
 
   return jsonify(PlaceOverviewTableApiResponse(data=data_rows))
@@ -232,6 +231,5 @@ async def place_summary(place_dcid: str):
   """
   Fetches and returns place summary data for the specified place.
   """
-  print("surface in place summary:", request.headers.get("x-surface"))
   summary = await place_utils.generate_place_summary(place_dcid, g.locale)
   return jsonify(PlaceSummaryApiResponse(summary=summary))

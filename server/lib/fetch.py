@@ -19,8 +19,6 @@ import copy
 import re
 from typing import Dict, List
 
-from flask import request
-
 import server.services.datacommons as dc
 
 COMPLEX_UNIT_REGEX = r'\[.+ [0-9]+\]'
@@ -266,7 +264,6 @@ def series_facet(entities, variables, all_facets):
 
   """
   resp = dc.series_facet(entities, variables)
-
   compacted_series = _compact_series(resp, all_facets)
   processed_series = {'facets': compacted_series.get('facets', {}), 'data': {}}
   # Update compacted series so that the entity data is always a list.

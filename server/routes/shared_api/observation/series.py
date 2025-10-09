@@ -105,6 +105,7 @@ def series_within():
     return 'error: must provide a `variables` field', 400
 
   facet_ids = _get_filtered_arg_list(request.args.getlist('facetIds'))
+
   # Make batched calls there are too many child places for server to handle
   # Mixer checks num_places * num_variables and stop processing if the number is
   # too large. So the batch_size takes into account the number of variables.

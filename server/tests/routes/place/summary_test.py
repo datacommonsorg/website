@@ -25,7 +25,6 @@ import pytest
 from server.routes.place.types import Place
 import server.routes.place.utils as place_utils
 from server.services import datacommons as dc
-from shared.lib.constants import WEBSITE_SURFACE
 
 
 # Mock observations data

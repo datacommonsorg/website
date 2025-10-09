@@ -175,7 +175,6 @@ class ExistenceCheckTracker:
           })
 
   def perform_existence_check(self):
-    # print("IN perform_existence_check, surface:", self.surface)
     self._run()
 
     # Set "exist_svs" in the same order it was originally found.

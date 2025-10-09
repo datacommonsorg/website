@@ -155,7 +155,6 @@ class MapTestMixin():
 
     # Assert we have the right number of regions
     wait_elem(self.driver, By.TAG_NAME, 'path')
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                      58)
 

@@ -107,7 +107,6 @@ def detect_and_fulfill():
 
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
-  # surface = request.headers.get("x-surface") or "unknown"
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -138,7 +137,6 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
-  # print("surface in detect_and_fulfill:", surface)
   return _fulfill_with_chart_config(utterance, debug_logs)
 
 
@@ -224,7 +222,6 @@ def page_overview():
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                debug_logs: Dict) -> Dict:
-
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
@@ -312,6 +309,5 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                                client=client,
                                mode=mode)
   utterance.insight_ctx = insight_ctx
-  # print("surface in _fulfill_with_insight_ctx:", surface)
   helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
   return _fulfill_with_chart_config(utterance, debug_logs)

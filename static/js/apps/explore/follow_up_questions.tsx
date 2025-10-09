@@ -164,10 +164,7 @@ const getFollowUpQuestions = async (
     q: query,
     relatedTopics,
   };
-  const config = {
-    headers: WEBSITE_SURFACE_HEADER,
-  };
-  return await axios.post(url, body, config).then((resp) => {
+  return await axios.post(url, body).then((resp) => {
     const data = resp.data;
     return data.follow_up_questions.map((question) => {
       return {

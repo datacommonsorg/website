@@ -21,7 +21,6 @@ from typing import Any, Callable, Dict, List, Set, Tuple
 
 import flask
 from flask import current_app
-from flask import request
 from flask_babel import gettext
 
 from server.lib import fetch
@@ -238,14 +237,13 @@ async def filter_chart_config_for_data_existence(
   async def fetch_and_process_stats():
     """Fetches and processes observation data concurrently."""
     current_place_obs_point_task = asyncio.to_thread(
-        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids, 'LATEST')
+        dc.safe_obs_point, [place_dcid], current_place_stat_var_dcids)
     child_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, place_dcid, child_place_type,
-        child_places_stat_var_dcids, 'LATEST', None)
-    print("reaching obspoint calls")
+        child_places_stat_var_dcids)
     peer_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, parent_place_dcid, place_type,
-        peer_places_stat_var_dcids, 'LATEST', None)
+        peer_places_stat_var_dcids)
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
                                                place_dcid, [place_type])
@@ -988,8 +986,6 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   ]
 
   # Fetch all observations for each variable
-  print("surface in fetch_overview_table_data:",
-        request.headers.get("x-surface"))
   resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
 
@@ -1206,10 +1202,10 @@ async def _fetch_summary_data(
     place_dcid: The DCID of the place to fetch summary data for
     variable_dcids: The DCIDs of the variables to fetch observations for
     locale: The locale to fetch the data in
+
   """
   place = asyncio.to_thread(fetch_place, place_dcid, locale)
   parent_places = asyncio.to_thread(get_parent_places, place_dcid, locale)
-  print("surface in _fetch_summary_data:", request.headers.get("x-surface"))
   place_observations = asyncio.to_thread(dc.obs_point, [place_dcid],
                                          variable_dcids,
                                          date="LATEST")
