@@ -19,8 +19,7 @@
  */
 
 import axios from "axios";
-import { exec } from "child_process";
-import _, { set } from "lodash";
+import _ from "lodash";
 import React, {
   ReactElement,
   useCallback,
