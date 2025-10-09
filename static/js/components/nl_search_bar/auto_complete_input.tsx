@@ -414,7 +414,10 @@ export function AutoCompleteInput(
         const overrideParams = new URLSearchParams();
         overrideParams.set("q", result.name);
         if (props.enableStatVarAutocomplete) {
-          overrideParams.set(ENABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
+          overrideParams.set(
+            ENABLE_FEATURE_URL_PARAM,
+            ENABLE_STAT_VAR_AUTOCOMPLETE
+          );
         }
         const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
         if (!skipRedirection) {
