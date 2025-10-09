@@ -25,7 +25,7 @@ export const toolMessages = defineMessages({
   mapToolSubtitle: {
     id: "map_visualization_tool_description",
     defaultMessage:
-      "The map explorer helps you visualize how a statistical variable can vary across geographic regions.",
+      "The Map Explorer helps you visualize how a statistical variable can vary across geographic regions.",
     description: "a description of what our map explorer tool is used for",
   },
   scatterToolTitle: {
@@ -35,7 +35,7 @@ export const toolMessages = defineMessages({
   },
   scatterToolSubtitle: {
     id: "scatter_visualization_tool_description",
-    defaultMessage: `The scatter plot explorer helps you visualize the correlation between two statistical variables.`,
+    defaultMessage: `The Scatter Plot Explorer helps you visualize the correlation between two statistical variables.`,
     description:
       "a description of what our scatter plot explorer tool is used for",
   },
@@ -48,7 +48,7 @@ export const toolMessages = defineMessages({
   timelineToolSubtitle: {
     id: "timeline_visualization_tool_description",
     defaultMessage:
-      "The timelines explorer helps you explore trends for statistical variables.",
+      "The Timelines Explorer helps you explore trends for statistical variables.",
     description:
       "a description of what our timelines explorer tool is used for",
   },
