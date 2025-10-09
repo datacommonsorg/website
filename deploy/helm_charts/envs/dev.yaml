@@ -100,7 +100,7 @@ svg:
 
 nodejs:
   enabled: true
-  apiRoot: "http://website-nodejs-service:8080"
+  apiRoot: "http://website-service:8080"
   image:
     tag: ""
   replicas: 2
