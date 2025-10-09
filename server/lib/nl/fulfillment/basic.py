@@ -48,8 +48,7 @@ def populate(state: PopulateState,
              chart_vars: ChartVars,
              places: List[Place],
              chart_origin: ChartOriginType,
-             rank: int,
-             surface: str = None) -> bool:
+             rank: int) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('basic_failed_cb_events', 1)
     return False
@@ -77,16 +76,14 @@ def populate(state: PopulateState,
                              chart_vars,
                              places,
                              chart_origin,
-                             rank,
-                             surface=surface)
+                             rank)
 
 
 def _populate_explore(state: PopulateState,
                       chart_vars: ChartVars,
                       places: List[Place],
                       chart_origin: ChartOriginType,
-                      rank: int,
-                      surface: str = None) -> bool:
+                      rank: int) -> bool:
   added = False
   # TODO(gmechali): Consider making is_highlight a part of the utterance.
   # We use the chart type parameter as a proxy to determine if a specific chart
@@ -134,8 +131,7 @@ def _populate_explore(state: PopulateState,
             chart_origin,
             rank,
             ranking_count=_get_ranking_count_by_type(state.place_type,
-                                                     ranking_orig),
-            surface=surface)
+                                                     ranking_orig))
         state.ranking_types = ranking_orig
       elif is_special_dc:
         # Return only map.

@@ -402,16 +402,14 @@ def filter_and_rank_places(
     child_type: types.ContainedInPlaceType,
     sv: str,
     value_filter: types.QuantityClassificationAttributes = None,
-    date: str = '',
-    surface: str = None) -> List[types.Place]:
+    date: str = '') -> List[types.Place]:
   if not date:
     # When there's no date specified, use latest date
     date = 'LATEST'
   api_resp = fetch.point_within_core(parent_place.dcid,
                                      child_type.value, [sv],
                                      date,
-                                     False,
-                                     surface=surface)
+                                     False)
   sv_data = api_resp.get('data', {}).get(sv, {})
   child_and_value = []
   for child_place, value_data in sv_data.items():
