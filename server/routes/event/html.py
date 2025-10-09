@@ -31,6 +31,8 @@ import server.lib.shared as shared_api
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
+from shared.lib.constants import WEBSITE_SURFACE, SURFACE_HEADER_NAME
+
 
 DEFAULT_EVENT_DCID = ""
 
@@ -143,6 +145,10 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
 @bp.route('/<path:dcid>', strict_slashes=False)
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def event_node(dcid=DEFAULT_EVENT_DCID):
+  # This endpoint is currently only referenced from the website, via URL without metadata,
+  # so we set the surface header to website here to pass into mixer.
+  request.headers = {**request.headers, SURFACE_HEADER_NAME: WEBSITE_SURFACE}
+  print(f"Surface set to {request.headers[SURFACE_HEADER_NAME]}")
   # Get node properties
   node_name = escape(dcid)
   properties = {}

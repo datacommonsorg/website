@@ -25,11 +25,9 @@ from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 
-def populate(state: PopulateState,
-             chart_vars: ChartVars,
-             contained_places: List[Place],
-             chart_origin: ChartOriginType,
-             _: int = None) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars,
+             contained_places: List[Place], chart_origin: ChartOriginType,
+             _: int) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('containedin_failed_cb_events', 1)
     return False

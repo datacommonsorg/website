@@ -28,11 +28,8 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 _MAX_VARS_PER_CHART = 5
 
 
-def populate(state: PopulateState,
-             chart_vars: ChartVars,
-             places: List[Place],
-             chart_origin: ChartOriginType,
-             _: int = None) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType, _: int) -> bool:
   if not state.uttr.svs and not state.uttr.places:
     # If both the SVs and places are empty, then do not attempt to fulfill.
     # This avoids using incorrect context for unrelated queries like

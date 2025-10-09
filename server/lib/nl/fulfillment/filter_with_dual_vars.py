@@ -78,11 +78,8 @@ def set_overrides(state: PopulateState):
 # retrieve a var for those places.
 #
 # TODO: Consider deduping with filter_with_single_var.populate.
-def populate(state: PopulateState,
-             chart_vars: ChartVars,
-             places: List[Place],
-             chart_origin: ChartOriginType,
-             surface: str = None) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType, _: int) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('filter-with-dual-vars_failed_cb_events', 1)
     return False
@@ -140,12 +137,8 @@ def populate(state: PopulateState,
 
   # Perform existence checks.
   existing_svs, _ = utils.sv_existence_for_places_check_single_point(
-      place_dcids,
-      selected_svs,
-      state.single_date,
-      state.date_range,
-      state.uttr.counters,
-      surface=surface)
+      place_dcids, selected_svs, state.single_date, state.date_range,
+      state.uttr.counters)
   # Get the predicted latest dates from results of existence checks
   sv_place_latest_date = {}
   _, end_date = get_date_range_strings(state.date_range)

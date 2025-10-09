@@ -20,6 +20,7 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import redirect
+from flask import request
 from flask import url_for
 from google.protobuf.json_format import MessageToJson
 
@@ -27,7 +28,7 @@ from server.lib.cache import cache
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
 from server.routes import TIMEOUT
-from shared.lib.constants import WEBSITE_SURFACE
+from shared.lib.constants import WEBSITE_SURFACE, SURFACE_HEADER_NAME
 
 DEFAULT_CONTAINED_PLACE_TYPES = {
     "Continent": "Country",
@@ -44,6 +45,10 @@ bp = Blueprint("sustainability", __name__, url_prefix='/sustainability')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def sustainability_explorer(place_dcid=None):
+  # This endpoint is currently only referenced from the website, via URL without metadata,
+  # so we set the surface header to website here to pass into mixer.
+  request.headers = {**request.headers, SURFACE_HEADER_NAME: WEBSITE_SURFACE}
+  print(f"Surface set to {request.headers[SURFACE_HEADER_NAME]}")
   if not place_dcid:
     return redirect(url_for(
         'sustainability.sustainability_explorer',
@@ -60,13 +65,8 @@ def sustainability_explorer(place_dcid=None):
     return "Error: no config installed"
   subject_config = copy.deepcopy(raw_subject_config)
 
-  # currently is only referenced from the website.
-  # this value is used in mixer logs
-  surface = WEBSITE_SURFACE
-
   # Update contained places from place metadata
-  place_metadata = lib_subject_page_config.place_metadata(place_dcid,
-                                                          surface=surface)
+  place_metadata = lib_subject_page_config.place_metadata(place_dcid)
   if place_metadata.is_error:
     return flask.render_template(
         'sustainability.html',

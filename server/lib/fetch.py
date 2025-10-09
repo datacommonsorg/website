@@ -172,7 +172,7 @@ def _compact_series(series_resp, all_facets):
   return result
 
 
-def point_core(entities, variables, date, all_facets, surface=None):
+def point_core(entities, variables, date, all_facets):
   """Fetchs observation point for given entities, variables and date.
 
   The response is in the following format:
@@ -199,8 +199,7 @@ def point_within_core(ancestor_entity,
                       variables,
                       date,
                       all_facets,
-                      facet_ids=None,
-                      surface=None):
+                      facet_ids=None):
   """Fetchs observation point for descendent entities of certain type.
 
   The response is in the following format:
@@ -223,7 +222,7 @@ def point_within_core(ancestor_entity,
   return _compact_point(resp, all_facets)
 
 
-def series_core(entities, variables, all_facets, facet_ids=None, surface=None):
+def series_core(entities, variables, all_facets, facet_ids=None):
   """Fetches observation series for given entities and variables.
 
   The response is in the following format:
@@ -245,7 +244,7 @@ def series_core(entities, variables, all_facets, facet_ids=None, surface=None):
   return _compact_series(resp, all_facets)
 
 
-def series_facet(entities, variables, all_facets, surface=None):
+def series_facet(entities, variables, all_facets):
   """Fetches facet of series for given entities and variables.
 
   The response is in the following format:
@@ -285,8 +284,7 @@ def point_within_facet(ancestor_entity,
                        descendent_type,
                        variables,
                        date,
-                       all_facets,
-                       surface=None):
+                       all_facets):
   """Fetches facet of child places of a certain place type contained in a parent
   place at a given date.
   """
@@ -322,7 +320,7 @@ def series_within_core(ancestor_entity,
   return _compact_series(resp, all_facets)
 
 
-def observation_existence(variables, entities, surface=None):
+def observation_existence(variables, entities):
   """Check if observation exist for variable, entity pairs.
 
   Returns:
@@ -349,7 +347,7 @@ def observation_existence(variables, entities, surface=None):
   return result
 
 
-def entity_variables(entities, surface=None):
+def entity_variables(entities):
   """Gets the statistical variables that have observations for given entities.
 
   Args:

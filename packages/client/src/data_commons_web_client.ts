@@ -267,8 +267,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/charts/${
       params.placeDcid
     }?${queryString}`;
-    const options = this.options;
-    const response = await fetch(url, options);
+    const response = await fetch(url, this.options);
     console.log("response: ", response);
     return (await response.json()) as PlaceChartsApiResponse;
   }
@@ -309,8 +308,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/overview-table/${
       params.placeDcid
     }?${queryString}`;
-    const options = this.options;
-    const response = await fetch(url, options);
+    const response = await fetch(url, this.options);
     return (await response.json()) as PlaceOverviewTableApiResponse;
   }
 
@@ -330,8 +328,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/summary/${
       params.placeDcid
     }?${queryString}`;
-    const options = this.options;
-    const response = await fetch(url, options);
+    const response = await fetch(url, this.options);
     return (await response.json()) as PlaceSummaryApiResponse;
   }
 }

@@ -26,6 +26,7 @@ from google.protobuf.json_format import MessageToJson
 
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util
+from shared.lib.constants import WEBSITE_SURFACE, SURFACE_HEADER_NAME
 
 EARTH_FIRE_SEVERITY_MIN = 500
 FIRE_EVENT_TYPE_SPEC = "fire"
@@ -37,6 +38,10 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=None):
+  # This endpoint is currently only referenced from the website, via URL without metadata,
+  # so we set the surface header to website here to pass into mixer.
+  request.headers = {**request.headers, SURFACE_HEADER_NAME: WEBSITE_SURFACE}
+  print(f"Surface set to {request.headers[SURFACE_HEADER_NAME]}")
   if not place_dcid:
     return redirect(url_for(
         'disasters.disaster_dashboard',
@@ -55,8 +60,7 @@ def disaster_dashboard(place_dcid=None):
   dashboard_config = copy.deepcopy(raw_dashboard_config)
 
   # Update contained places from place metadata
-  place_metadata = lib_subject_page_config.place_metadata(place_dcid,
-                                                          surface=surface)
+  place_metadata = lib_subject_page_config.place_metadata(place_dcid)
   if place_metadata.is_error:
     return flask.render_template(
         'disaster_dashboard.html',

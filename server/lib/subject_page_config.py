@@ -16,6 +16,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Union
 
 from markupsafe import escape
+from flask import request
 
 from server.config import subject_page_pb2
 import server.lib.fetch as fetch
@@ -247,8 +248,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
 def place_metadata(place_dcid,
                    get_child_places=True,
                    arg_place_type=None,
-                   arg_place_name=None,
-                   surface=None) -> PlaceMetadata:
+                   arg_place_name=None) -> PlaceMetadata:
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """
@@ -293,6 +293,7 @@ def place_metadata(place_dcid,
 
   filtered_child_places = {}
   if get_child_places:
+    print("surface in place_metadata: ", request.headers.get("x-surface"))
     child_places = place_api.child_fetch(place_dcid)
     for place_type in child_places:
       child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
