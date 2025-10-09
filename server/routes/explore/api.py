@@ -87,6 +87,8 @@ def detect():
 #  - entities: An ordered list of places or other entity DCIDs.
 #  - variables: A ordered list of SV or topic (dc/topic/..) DCIDs.
 #  - childEntityType: A type of child entity (optional)
+#  - A header with an "x-surface" field indicating which DC surface (website, 
+#   MCP server, etc) the request is coming from.
 #
 @bp.route('/fulfill', methods=['POST'])
 def fulfill():
@@ -105,7 +107,7 @@ def detect_and_fulfill():
 
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
-  surface = request.headers.get("x-surface") or "unknown"
+  # surface = request.headers.get("x-surface") or "unknown"
 
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
@@ -136,8 +138,8 @@ def detect_and_fulfill():
   nl_detector.setup_for_explore(utterance)
   utterance.counters.timeit('setup_for_explore', start)
 
-  print("surface in detect_and_fulfill:", surface)
-  return _fulfill_with_chart_config(utterance, debug_logs, surface)
+  # print("surface in detect_and_fulfill:", surface)
+  return _fulfill_with_chart_config(utterance, debug_logs)
 
 
 #
@@ -221,8 +223,7 @@ def page_overview():
 # fulfills it into charts.
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
-                               debug_logs: Dict,
-                               surface: str = None) -> Dict:
+                               debug_logs: Dict) -> Dict:
 
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
@@ -236,7 +237,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
-  fresp = nl_fulfillment.fulfill(utterance, cb_config, surface)
+  fresp = nl_fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
 
   return helpers.prepare_response(utterance,
@@ -257,7 +258,6 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
   test = request.args.get(Params.TEST.value, '')
   client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
   mode = request.args.get(Params.MODE.value, '')
-  surface = request.headers.get("x-surface")
   if not insight_ctx:
     return helpers.abort('Sorry, could not answer your query.',
                          '', [],
@@ -312,6 +312,6 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                                client=client,
                                mode=mode)
   utterance.insight_ctx = insight_ctx
-  print("surface in _fulfill_with_insight_ctx:", surface)
+  # print("surface in _fulfill_with_insight_ctx:", surface)
   helpers.update_insight_ctx_for_chart_fulfill(request, utterance, dc_name)
-  return _fulfill_with_chart_config(utterance, debug_logs, surface)
+  return _fulfill_with_chart_config(utterance, debug_logs)

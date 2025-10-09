@@ -62,7 +62,6 @@ def compute_related_things(
     state: ftypes.PopulateState,
     plotted_orig_vars: List[PlottedOrigVar],
     explore_peer_groups: Dict[str, Dict[str, List[str]]],
-    surface: str,
 ):
   # Trim child and parent places based on existence check results.
   _trim_nonexistent_places(state)
@@ -124,7 +123,7 @@ def compute_related_things(
     _add_sdg_topics(state, related_things)
 
   if not is_this_sdg:
-    related_things = prune_related_topics(related_things, state.uttr, surface)
+    related_things = prune_related_topics(related_things, state.uttr)
 
   state.uttr.counters.timeit("topic_expansion", start)
 
@@ -206,8 +205,7 @@ def prune_related_topics(related_things, uttr, surface: str = None):
 
   valid_topics, _ = utils.sv_existence_for_places([x.dcid for x in uttr.places],
                                                   all_topics,
-                                                  uttr.counters,
-                                                  surface=surface)
+                                                  uttr.counters)
   valid_topics_set = set(valid_topics)
   related_things["parentTopics"] = [
       t for t in related_things["parentTopics"] if t["dcid"] in valid_topics_set

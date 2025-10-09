@@ -55,14 +55,12 @@ class ExistenceCheckTracker:
   # NOTE: If sv2extensions is set, then this is for extensions only.
   def __init__(self,
                state: PopulateState,
-               place2keys: Dict,
-               surface: str = None):
+               place2keys: Dict):
     self.state = state
     self.place2keys = place2keys
     self.places = sorted(place2keys.keys())
     self.all_svs = set()
     self.exist_sv_states: List[SVExistenceCheckState] = []
-    self.surface = surface
     # Map of existing SVs with key as SV DCID and value as an ID to a facet that
     # has data for that SV.
     self.existing_svs = {}
@@ -150,7 +148,7 @@ class ExistenceCheckTracker:
     # TODO: Optimize this!
     self.existing_svs, existsv2places = \
       utils.sv_existence_for_places_check_single_point(
-        places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters, surface=self.surface)
+        places=self.places, svs=list(self.all_svs), single_date=self.state.single_date, date_range=self.state.date_range, counters=self.state.uttr.counters)
 
     sv_place_facet = self._get_sv_place_facet()
     sv_place_latest_dates = {}
@@ -179,7 +177,7 @@ class ExistenceCheckTracker:
           })
 
   def perform_existence_check(self):
-    print("IN perform_existence_check, surface:", self.surface)
+    # print("IN perform_existence_check, surface:", self.surface)
     self._run()
 
     # Set "exist_svs" in the same order it was originally found.
@@ -207,8 +205,8 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
 
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
                sv2chartvarslist: OrderedDict[str,
-                                             List[ChartVars]], surface: str):
-    super().__init__(state, place2keys, surface)
+                                             List[ChartVars]]):
+    super().__init__(state, place2keys)
     places = place2keys.keys()
 
     # Loop over all SVs, and construct existence check state.
@@ -257,8 +255,8 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
 
   # NOTE: If sv2extensions is set, then this is for extensions only.
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
-               svs: List[str], sv2extensions: Dict, surface: str):
-    super().__init__(state, place2keys, surface)
+               svs: List[str], sv2extensions: Dict):
+    super().__init__(state, place2keys)
 
     # Loop over all SVs, and construct existence check state.
     for sv in svs:

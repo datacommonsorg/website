@@ -20,8 +20,8 @@ jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";
 
+import { WEBSITE_SURFACE_HEADER } from "../js/shared/constants";
 import { stringifyFn } from "../js/utils/axios";
-import { WEBSITE_SURFACE_HEADER } from "./constants";
 import {
   BAR_FILTER_POINTS_RESP,
   BAR_NL_RESP,

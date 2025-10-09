@@ -296,6 +296,7 @@ app.disable("etag");
 
 app.get("/nodejs/query", (req: Request, res: Response) => {
   const query = req.query.q as string;
+  console.log("query:", query);
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   // If the value for allCharts param is truthy, we should return all charts.
   // Otherwise, return QUERY_MAX_RESULTS number of charts.

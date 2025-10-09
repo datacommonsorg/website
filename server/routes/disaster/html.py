@@ -54,8 +54,6 @@ def disaster_dashboard(place_dcid=None):
 
   dashboard_config = copy.deepcopy(raw_dashboard_config)
 
-  surface = request.headers.get("x-surface")
-
   # Update contained places from place metadata
   place_metadata = lib_subject_page_config.place_metadata(place_dcid,
                                                           surface=surface)

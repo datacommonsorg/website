@@ -23,7 +23,6 @@ import {
   LEGEND_MARGIN_RIGHT,
   LEGEND_TICK_LABEL_MARGIN,
 } from "../js/chart/draw_map_utils";
-import { WEBSITE_SURFACE } from "../js/shared/constants";
 
 // Height of the svg to render.
 export const SVG_HEIGHT = 300;
