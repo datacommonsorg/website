@@ -14,9 +14,9 @@
 """Unit tests for server.routes.place.utils."""
 
 import copy
+from functools import wraps
 import random
 from typing import Dict, List
-from functools import wraps
 import unittest
 from unittest import mock
 

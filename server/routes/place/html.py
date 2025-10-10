@@ -23,7 +23,6 @@ from urllib.parse import urlencode
 import flask
 from flask import current_app
 from flask import g
-from flask import request
 from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
