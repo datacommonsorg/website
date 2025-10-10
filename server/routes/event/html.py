@@ -148,7 +148,6 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   # This endpoint is currently only referenced from the website, via URL without metadata,
   # so we set the surface header to website here to pass into mixer.
   request.headers = {**request.headers, SURFACE_HEADER_NAME: WEBSITE_SURFACE}
-  print(f"Surface set to {request.headers[SURFACE_HEADER_NAME]}")
   # Get node properties
   node_name = escape(dcid)
   properties = {}

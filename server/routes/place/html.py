@@ -221,7 +221,7 @@ def place(place_dcid):
 
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
-  # Set this to the website surface because this is rendered directly as a website URL and doesn't usually pass metadata
+  # Set this to the website surface because this is rendered without metadata
   surface = WEBSITE_SURFACE
 
   canonical_links = get_canonical_links(place_dcid, category)

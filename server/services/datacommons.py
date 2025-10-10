@@ -121,7 +121,6 @@ def obs_point(entities, variables, date="LATEST", surface=None):
     """
 
   surface = request.headers.get('x-surface')
-  print("HEader in obs_point: ", surface)
   url = get_service_url("/v2/observation")
   return post(url, {
       "select": ["date", "value", "variable", "entity"],
@@ -162,7 +161,6 @@ def obs_point_within(parent_entity,
 
     """
   surface = request.headers.get('x-surface')
-  print("HEader in obs_point_within: ", surface)
   url = get_service_url("/v2/observation")
   req = {
       "select": ["date", "value", "variable", "entity"],
@@ -193,7 +191,6 @@ def obs_series(entities, variables, facet_ids=None, surface=None):
           originates from.
     """
   surface = request.headers.get('x-surface')
-  print("HEader in obs_series: ", surface)
   url = get_service_url("/v2/observation")
   req = {
       "select": ["date", "value", "variable", "entity"],
@@ -226,7 +223,6 @@ def obs_series_within(parent_entity,
           originates from.
     """
   surface = request.headers.get('x-surface')
-  print("HEader in obs_series_within: ", surface)
   url = get_service_url("/v2/observation")
   req = {
       "select": ["date", "value", "variable", "entity"],
@@ -256,7 +252,6 @@ def series_facet(entities, variables, surface=None):
           originates from.
     """
   surface = request.headers.get('x-surface')
-  print("HEader in series_facet: ", surface)
   url = get_service_url("/v2/observation")
   return post(url, {
       "select": ["variable", "entity", "facet"],
@@ -279,7 +274,6 @@ def point_within_facet(parent_entity,
     parent place at a given date.
     """
   surface = request.headers.get('x-surface')
-  print("HEader in point_within_facet: ", surface)
   url = get_service_url("/v2/observation")
   request_body = {
       "select": ["variable", "entity", "facet"],
@@ -307,7 +301,6 @@ def v2observation(select, entity, variable, surface=None):
   # Remove None from dcids and sort them. Note do not sort in place to avoid
   # changing the original input.
   surface = surface or request.headers.get('x-surface')
-  print("HEader in v2Observation: ", surface)
   if "dcids" in entity:
     entity["dcids"] = sorted([x for x in entity["dcids"] if x])
   if "dcids" in variable:
