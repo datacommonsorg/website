@@ -116,7 +116,7 @@ function processTokenStream(
 
   if (Array.isArray(node)) {
     // A type assertion to account for potential inference issues in certain TS environments.
-    const arrayNode = node as Prism.Token[];
+    const arrayNode = node as (string | Prism.Token)[];
     // If the node is already an array, we process each item.
     return arrayNode.flatMap((item) =>
       processTokenStream(item, regex, termsSet)
