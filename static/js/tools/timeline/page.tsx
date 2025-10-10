@@ -181,26 +181,26 @@ class Page extends Component<unknown, PageStateType> {
                 />
               </FormBox>
             </div>
-
-            {useStandardizedUi && !showChart ? (
-              <>
-                <VisToolInstructionsBox
-                  toolType="timeline"
-                  showStatVarInstructionsOnly={showStatVarInstructions}
-                />
-                {!showStatVarInstructions && (
-                  <div
-                    css={css`
-                      margin-top: ${theme.spacing.xl}px;
-                    `}
-                  >
-                    <ChartLinkChips toolType="timeline" />
-                  </div>
-                )}
-              </>
-            ) : (
-              numPlaces === 0 && <MemoizedInfo />
-            )}
+            {!showChart &&
+              (useStandardizedUi ? (
+                <>
+                  <VisToolInstructionsBox
+                    toolType="timeline"
+                    showStatVarInstructionsOnly={showStatVarInstructions}
+                  />
+                  {!showStatVarInstructions && (
+                    <div
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="timeline" />
+                    </div>
+                  )}
+                </>
+              ) : (
+                <MemoizedInfo />
+              ))}
             {showChart && (
               <div id="chart-region">
                 <ChartRegion
