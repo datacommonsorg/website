@@ -115,8 +115,12 @@ function processTokenStream(
   }
 
   if (Array.isArray(node)) {
+    // A type assertion to account for potential inference issues in certain TS environments.
+    const arrayNode = node as Prism.Token[];
     // If the node is already an array, we process each item.
-    return node.flatMap((item) => processTokenStream(item, regex, termsSet));
+    return arrayNode.flatMap((item) =>
+      processTokenStream(item, regex, termsSet)
+    );
   }
 
   if (typeof node === "string") {
@@ -124,7 +128,9 @@ function processTokenStream(
       return [node];
     }
 
-    const parts = node.split(regex);
+    // A type assertion to account for potential inference issues in certain TS environments.
+    const stringNode = node as string;
+    const parts = stringNode.split(regex);
 
     return parts.map((part, index) => {
       // We are splitting by the terms we want (and telling regex to include them).
