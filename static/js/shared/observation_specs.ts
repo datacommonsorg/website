@@ -45,9 +45,10 @@ export interface ObservationSpec {
   entityDcids?: string[];
   // A Data Commons entity expression to select entities (e.g., 'country/USA->county').
   entityExpression?: string;
-  // The specific date to fetch the observation for in 'YYYY-MM-DD' format.
-  // An empty date retrieve tha latest.
-  // Defaults to empty.
+  // The date to fetch the observation for.
+  // - Omit the key or use an empty string ("") to retrieve all dates.
+  // - Use the string "LATEST" to retrieve the latest observation.
+  // - Use 'YYYY-MM-DD' format for a specific date.
   date?: string;
   // An optional filter to apply to the observation query.
   filter?: {
@@ -548,9 +549,10 @@ function formatDataCommonsPythonClientArgs(spec: ObservationSpec): string[] {
   const params: string[] = [];
   params.push(`    variable_dcids=${JSON.stringify(spec.statVarDcids)}`);
 
-  const date = spec.date === "" ? "latest" : spec.date;
-  if (date && date !== "latest") {
-    params.push(`    date='${date}'`);
+  if (!spec.date) {
+    params.push(`    date='all'`);
+  } else if (spec.date !== "LATEST") {
+    params.push(`    date='${spec.date}'`);
   }
 
   if (spec.entityDcids?.length > 0) {
@@ -639,8 +641,10 @@ export function observationSpecsToDataCommonsClientScript(
       `response${suffix} = client.observation.fetch(`,
       params.join(",\n"),
       `)`,
-      `df${suffix} = pd.DataFrame(response${suffix}.to_observation_records().model_dump())`,
-      `print(df${suffix})`,
+      `print(response${suffix}.model_dump())`,
+      ``,
+      `# Optional: convert to a Pandas DataFrame`,
+      `# df${suffix} = pd.DataFrame(response${suffix}.to_observation_records().model_dump())`,
     ];
 
     return callBlock.join("\n");
