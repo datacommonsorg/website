@@ -29,6 +29,7 @@ import { toolMessages } from "../../../i18n/i18n_tool_messages";
 interface VisToolInstructionsBoxProps {
   // Which tool the instructions are for
   toolType: "map" | "scatter" | "timeline";
+  // Whether to only show instructions for selecting stat vars
   showStatVarInstructionsOnly?: boolean;
 }
 
@@ -81,6 +82,9 @@ export function VisToolInstructionsBox(
   }
 }
 
+/**
+ * Instructions for selecting a single variable, that responds to screen size
+ */
 const SingleVariableInstructions = (
   <>
     <span className="d-none d-lg-inline">
@@ -92,6 +96,9 @@ const SingleVariableInstructions = (
   </>
 );
 
+/**
+ * Instructions for selecting multiple variables, that responds to screen size
+ */
 const MultiVariableInstructions = (
   <>
     <span className="d-none d-lg-inline">

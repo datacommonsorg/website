@@ -837,6 +837,9 @@ export function ifShowChart(statVar: StatVar, placeInfo: PlaceInfo): boolean {
   );
 }
 
+/**
+ * Determine whether instructions specific for selecting stat vars should be shown
+ */
 export function shouldShowStatVarInstructions(
   statVar: StatVar,
   placeInfo: PlaceInfo
