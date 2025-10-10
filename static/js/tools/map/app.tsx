@@ -78,7 +78,6 @@ function App(): ReactElement {
               <ToolHeader
                 title={intl.formatMessage(toolMessages.mapToolTitle)}
                 subtitle={intl.formatMessage(toolMessages.mapToolSubtitle)}
-                switchToolsUrl="/tools/visualization#visType%3Dmap"
               />
             ) : (
               <Title />
