@@ -296,7 +296,6 @@ app.disable("etag");
 
 app.get("/nodejs/query", (req: Request, res: Response) => {
   const query = req.query.q as string;
-  console.log("query:", query);
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   // If the value for allCharts param is truthy, we should return all charts.
   // Otherwise, return QUERY_MAX_RESULTS number of charts.
@@ -306,7 +305,6 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const protocol = req.headers["x-forwarded-proto"] || req.protocol;
   const host = req.headers["x-forwarded-host"] || req.headers.host;
   const surface = req.headers[SURFACE_HEADER_NAME]?.[0];
-  console.log("surface in /nodejs/query:", surface);
   const apikey = (req.query.apikey as string) || "";
   const urlRoot = `${protocol}://${host}`;
   const client = (req.query.client as string) || BARD_CLIENT_URL_PARAM;

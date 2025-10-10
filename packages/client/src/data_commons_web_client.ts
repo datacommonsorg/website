@@ -55,7 +55,6 @@ class DataCommonsWebClient {
         [SURFACE_HEADER_NAME]: surface,
       },
     };
-    console.log("options: ", this.options);
   }
 
   /**
@@ -268,7 +267,6 @@ class DataCommonsWebClient {
       params.placeDcid
     }?${queryString}`;
     const response = await fetch(url, this.options);
-    console.log("response: ", response);
     return (await response.json()) as PlaceChartsApiResponse;
   }
 

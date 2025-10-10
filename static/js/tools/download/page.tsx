@@ -95,7 +95,6 @@ interface PagePropType {
 }
 
 export function Page(props: PagePropType): ReactElement {
-  console.log("calling getDCC! surface: ", WEBSITE_SURFACE);
   const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
 
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
