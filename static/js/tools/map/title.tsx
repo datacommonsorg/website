@@ -20,6 +20,8 @@
 
 import React, { useContext } from "react";
 
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import { Context } from "./context";
 import { ifShowChart } from "./util";
 
@@ -30,9 +32,11 @@ export function Title(): JSX.Element {
     <>
       {!ifShowChart(statVar.value, placeInfo.value) && (
         <div className="app-header">
-          <h1 className="mb-4">Map Explorer</h1>
+          <h1 className="mb-4">
+            {intl.formatMessage(toolMessages.mapToolTitle)}
+          </h1>
           <a href="/tools/visualization#visType%3Dmap">
-            Go back to the new Map Explorer
+            {intl.formatMessage(toolMessages.mapToolGoBackMessage)}
           </a>
         </div>
       )}

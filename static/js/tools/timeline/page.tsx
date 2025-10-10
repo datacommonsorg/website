@@ -137,9 +137,11 @@ class Page extends Component<unknown, PageStateType> {
               />
             ) : (
               <div className="app-header">
-                <h1 className="mb-4">Timelines Explorer</h1>
+                <h1 className="mb-4">
+                  {intl.formatMessage(toolMessages.timelineToolTitle)}
+                </h1>
                 <a href="/tools/visualization#visType%3Dtimeline">
-                  Go back to the new Timelines Explorer
+                  {intl.formatMessage(toolMessages.timelineToolGoBackMessage)}
                 </a>
               </div>
             )}

@@ -28,6 +28,12 @@ export const toolMessages = defineMessages({
       "The Map Explorer helps you visualize how a statistical variable can vary across geographic regions.",
     description: "a description of what our map explorer tool is used for",
   },
+  mapToolGoBackMessage: {
+    id: "map_tool_go_back_message",
+    defaultMessage: "Go back to the new Map Explorer",
+    description:
+      "label on a button that takes the user to a newer version of the Map Explorer",
+  },
   scatterToolTitle: {
     id: "scatter_visualization_tool_name",
     defaultMessage: "Scatter Plot Explorer",
@@ -38,6 +44,12 @@ export const toolMessages = defineMessages({
     defaultMessage: `The Scatter Plot Explorer helps you visualize the correlation between two statistical variables.`,
     description:
       "a description of what our scatter plot explorer tool is used for",
+  },
+  scatterToolGoBackMessage: {
+    id: "scatter_tool_go_back_message",
+    defaultMessage: "Go back to the new Scatter Plot Explorer",
+    description:
+      "label on a button that takes the user to a newer version of the Scatter Plot Explorer",
   },
   timelineToolTitle: {
     id: "timeline_visualization_tool_name",
@@ -51,6 +63,12 @@ export const toolMessages = defineMessages({
       "The Timelines Explorer helps you explore trends for statistical variables.",
     description:
       "a description of what our timelines explorer tool is used for",
+  },
+  timelineToolGoBackMessage: {
+    id: "timeline_tool_go_back_message",
+    defaultMessage: "Go back to the new Timelines Explorer",
+    description:
+      "label on a button that takes the user to a newer version of the Timelines Explorer",
   },
   infoBoxInstructionHeader: {
     id: "info_box_instruction_header",

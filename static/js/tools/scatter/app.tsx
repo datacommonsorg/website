@@ -82,9 +82,11 @@ function App(): ReactElement {
               />
             ) : (
               <div className="app-header">
-                <h1 className="mb-4">Scatter Plot Explorer</h1>
+                <h1 className="mb-4">
+                  {intl.formatMessage(toolMessages.scatterToolTitle)}
+                </h1>
                 <a href="/tools/visualization#visType%3Dscatter">
-                  Go back to the new Scatter Plot Explorer
+                  {intl.formatMessage(toolMessages.scatterToolGoBackMessage)}
                 </a>
               </div>
             )}
