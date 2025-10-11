@@ -94,18 +94,21 @@ function groupStatVars(appContext: AppContextType): {
 interface ChartFacetSelectorProps {
   appContext: AppContextType;
   chartSvInfo: ContextStatVar[];
+  surface: string;
 }
 
 function ChartFacetSelector({
   appContext,
   chartSvInfo,
+  surface,
 }: ChartFacetSelectorProps): ReactElement {
   const fetchFacets = useCallback(async () => {
     return fetchFacetChoices(
       appContext.places.map((place) => place.dcid),
-      chartSvInfo.map((sv) => ({ dcid: sv.dcid, name: sv.info.title }))
+      chartSvInfo.map((sv) => ({ dcid: sv.dcid, name: sv.info.title })),
+      surface
     );
-  }, [appContext.places, chartSvInfo]);
+  }, [appContext.places, chartSvInfo, surface]);
 
   const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
 
@@ -144,7 +147,8 @@ function ChartFacetSelector({
 
 function getChartArea(
   appContext: AppContextType,
-  chartHeight: number
+  chartHeight: number,
+  surface: string
 ): ReactElement {
   const lineChartGrouping = groupStatVars(appContext);
   return (
@@ -187,6 +191,7 @@ function getChartArea(
                 <ChartFacetSelector
                   appContext={appContext}
                   chartSvInfo={chartSvInfo}
+                  surface={surface}
                 />
               }
             />
@@ -200,6 +205,7 @@ function getChartArea(
               place={appContext.places[0]}
               colors={COLORS}
               showTooltipOnHover={true}
+              surface={surface}
             />
           </div>
         );

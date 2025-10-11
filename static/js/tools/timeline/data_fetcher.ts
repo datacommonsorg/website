@@ -27,7 +27,7 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { stringifyFn } from "../../utils/axios";
+import { getSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceDisplayNames } from "../../utils/place_utils";
 import { computeRatio } from "../shared_util";
@@ -157,14 +157,22 @@ export interface TimelineRawData {
 export function fetchRawData(
   places: string[],
   statVars: string[],
-  denom = ""
+  denom = "",
+  surface: string
 ): Promise<TimelineRawData> {
   let denomDataPromise: Promise<SeriesApiResponse> = Promise.resolve({
     data: {},
     facets: {},
   });
   if (denom) {
-    denomDataPromise = getSeries("", places, [denom]);
+    denomDataPromise = getSeries(
+      "", // apiRoot
+      places,
+      [denom],
+      null, // facetIds
+      null, // highlightFacet
+      surface
+    );
   }
   const displayNamesPromise: Promise<DisplayNameApiResponse> =
     getPlaceDisplayNames(places);
@@ -176,6 +184,7 @@ export function fetchRawData(
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
+      headers: getSurfaceHeader(surface),
     })
     .then((resp) => {
       return resp.data;

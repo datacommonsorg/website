@@ -42,7 +42,8 @@ function getTileProp(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string
+  apiRoot: string,
+  surface?: string
 ): ScatterTilePropType {
   return {
     id,
@@ -53,6 +54,7 @@ function getTileProp(
     svgChartHeight: SVG_HEIGHT,
     scatterTileSpec: tileConfig.scatterTileSpec,
     apiRoot,
+    surface,
   };
 }
 
@@ -64,6 +66,7 @@ function getTileProp(
  * @param enclosedPlaceType enclosed place type to use in the tile
  * @param statVarSpec list of stat var specs to show in the tile
  * @param apiRoot API root to use to fetch data
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getScatterTileResult(
   id: string,
@@ -74,7 +77,8 @@ export async function getScatterTileResult(
   apiRoot: string,
   urlRoot: string,
   useChartUrl: boolean,
-  apikey?: string
+  apikey?: string,
+  surface?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -82,7 +86,8 @@ export async function getScatterTileResult(
     place,
     enclosedPlaceType,
     statVarSpec,
-    apiRoot
+    apiRoot,
+    surface
   );
 
   try {

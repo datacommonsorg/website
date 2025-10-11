@@ -82,6 +82,8 @@ export interface DonutTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 interface DonutChartData {
@@ -135,6 +137,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       footnote={props.footnote}
       forwardRef={containerRef}
       statVarSpecs={props.statVarSpec}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -156,7 +159,10 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
  */
 function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surface
+    );
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -203,11 +209,21 @@ export const fetchData = async (
       [props.place.dcid],
       [statSvs, FILTER_STAT_VAR].flat(1),
       date,
-      [statSvs]
+      [statSvs],
+      null, // highlightFacet
+      null, // facetIds
+      props.surface
     );
     const denomResp = _.isEmpty(denomSvs)
       ? null
-      : await getSeries(props.apiRoot, [props.place.dcid], denomSvs);
+      : await getSeries(
+          props.apiRoot,
+          [props.place.dcid],
+          denomSvs,
+          null, // facetIds
+          null, // highlightFacet
+          props.surface
+        );
 
     // Find the most populated places.
     let popPoints: RankingPoint[] = [];

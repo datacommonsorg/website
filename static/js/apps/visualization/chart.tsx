@@ -20,6 +20,7 @@
 import React, { useContext, useRef, useState } from "react";
 
 import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
@@ -56,7 +57,7 @@ export function Chart(): JSX.Element {
         />
       </div>
       <div className="chart-area">
-        {visTypeConfig.getChartArea(appContext, chartHeight)}
+        {visTypeConfig.getChartArea(appContext, chartHeight, WEBSITE_SURFACE)}
         {footer && <div className="footer">{footer}</div>}
       </div>
     </div>

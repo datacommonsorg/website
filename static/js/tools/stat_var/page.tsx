@@ -25,6 +25,10 @@ import { Button } from "reactstrap";
 
 import { PropertyValues } from "../../shared/api_response_types";
 import {
+  WEBSITE_SURFACE,
+  WEBSITE_SURFACE_HEADER,
+} from "../../shared/constants";
+import {
   NamedNode,
   NamedTypedNode,
   StatVarHierarchyType,
@@ -123,6 +127,7 @@ class Page extends Component<unknown, PageStateType> {
           selectedSVs={svs}
           selectSV={(sv): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
           disableAlert={true}
+          surface={WEBSITE_SURFACE}
         />
         <div id="plot-container">
           <div className="container">
@@ -194,10 +199,16 @@ class Page extends Component<unknown, PageStateType> {
         const sources = resp.data["Source"];
         const variables = STAT_VAR_HIERARCHY_CONFIG.nodes.map((n) => n.dcid);
         axios
-          .post("/api/observation/existence", {
-            entities: resp.data["Source"].map((s) => s.dcid),
-            variables,
-          })
+          .post(
+            "/api/observation/existence",
+            {
+              entities: resp.data["Source"].map((s) => s.dcid),
+              variables,
+            },
+            {
+              headers: WEBSITE_SURFACE_HEADER,
+            }
+          )
           .then((exResp) => {
             const filteredSources: NamedTypedNode[] = [];
             const sourcesSeen = new Set<string>();

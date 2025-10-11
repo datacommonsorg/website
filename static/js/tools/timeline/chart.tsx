@@ -22,6 +22,7 @@ import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { Chip } from "../../shared/chip";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
@@ -67,6 +68,7 @@ interface ChartPropsType {
   ) => void;
   // Map of stat var dcid to a facet id
   svFacetId: Record<string, string>;
+  surface: string;
 }
 
 interface ChartStateType {
@@ -109,7 +111,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       facetListLoading: false,
       facetListError: false,
     };
-    this.dataCommonsClient = new DataCommonsClient();
+    this.dataCommonsClient = new DataCommonsClient({
+      surface: WEBSITE_SURFACE,
+    });
   }
 
   render(): ReactElement {
@@ -302,7 +306,12 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const statVars = Object.keys(this.props.statVarInfos);
 
     try {
-      const rawData = await fetchRawData(places, statVars, this.props.denom);
+      const rawData = await fetchRawData(
+        places,
+        statVars,
+        this.props.denom,
+        this.props.surface
+      );
       this.props.onMetadataMapUpdate(rawData.metadataMap);
 
       this.setState({ rawData }, () => {

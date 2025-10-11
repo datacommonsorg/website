@@ -66,6 +66,11 @@ export interface DatacommonsClientParams {
   apiRoot?: string;
   /** Overrides observation facet StatMetadata values by unit DCID. */
   facetOverride?: FacetOverride | null;
+  /**
+   * Passed into calls to mixer for usage logs. Indicates which DC surface
+   * (website, datagemma, etc.) the call originates from.
+   */
+  surface?: string | null;
 }
 
 class DataCommonsClient {
@@ -73,14 +78,19 @@ class DataCommonsClient {
   apiRoot?: string;
   webClient: DataCommonsWebClient;
   facetOverride: FacetOverride;
+  // indicates if a call originates from another DataCommons surface
+  // passed through to mixer calls for usage metrics
+  surface?: string | null;
 
   constructor(params?: DatacommonsClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
+    this.surface = p.surface;
     // Initialize DataCommonsWebClient with p.apiRoot since the client will call
     // parseWebsiteApiRoot on its own
     this.webClient = new DataCommonsWebClient({
       apiRoot: p.apiRoot,
+      surface: p.surface,
     });
     if (p.facetOverride === undefined) {
       this.facetOverride = DEFAULT_FACET_OVERRIDE;

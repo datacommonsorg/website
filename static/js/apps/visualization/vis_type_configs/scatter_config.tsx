@@ -100,10 +100,12 @@ function getDisplayInputs(appContext: AppContextType): InputInfo[] {
 
 interface ChartFacetSelectorProps {
   appContext: AppContextType;
+  surface: string;
 }
 
 function ChartFacetSelector({
   appContext,
+  surface,
 }: ChartFacetSelectorProps): ReactElement {
   const statVars = useMemo(
     () => appContext.statVars.slice(0, 2),
@@ -123,7 +125,8 @@ function ChartFacetSelector({
         dcid: sv.dcid,
         name: sv.info.title,
         date: sv.date,
-      }))
+      })),
+      surface
     );
   }, [appContext.places, appContext.enclosedPlaceType, statVars]);
 
@@ -156,7 +159,8 @@ function ChartFacetSelector({
 
 function getChartArea(
   appContext: AppContextType,
-  chartHeight: number
+  chartHeight: number,
+  surface: string
 ): ReactElement {
   // If any svs do not allow per capita, hide the per capita inputs.
   const hidePcInputs =
@@ -178,7 +182,9 @@ function getChartArea(
           },
           { label: "Display:", inputs: getDisplayInputs(appContext) },
         ]}
-        facetSelector={<ChartFacetSelector appContext={appContext} />}
+        facetSelector={
+          <ChartFacetSelector appContext={appContext} surface={surface} />
+        }
       />
       <ScatterTile
         id="vis-tool-scatter"
@@ -198,6 +204,7 @@ function getChartArea(
           showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
           showQuadrants: appContext.displayOptions.scatterQuadrants,
         }}
+        surface={surface}
       />
     </div>
   );

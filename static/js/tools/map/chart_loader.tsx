@@ -63,7 +63,7 @@ import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
 import { CHART_LOADER_SCREEN, getRankingLink, shouldShowBorder } from "./util";
 
-export function ChartLoader(): ReactElement {
+export function ChartLoader(props: { surface: string }): ReactElement {
   // +++++++  Context
   const { dateCtx, placeInfo, statVar, display } = useContext(Context);
 
@@ -113,8 +113,10 @@ export function ChartLoader(): ReactElement {
     dispatchSources,
     dispatchMetadata
   );
-  const { facetList, facetListLoading, facetListError } =
-    useComputeFacetList(chartStore);
+  const { facetList, facetListLoading, facetListError } = useComputeFacetList(
+    chartStore,
+    props.surface
+  );
   const { sampleDates, sampleFacet } = useComputeSampleDates(chartStore);
   const legendDomain = useComputeLegendDomain(chartStore, sampleFacet);
 

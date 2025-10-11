@@ -19,6 +19,7 @@
  */
 
 import { loadLocaleData } from "../i18n/i18n";
+import { WEBSITE_SURFACE } from "../shared/constants";
 import { renderRankingComponent } from "./component";
 
 window.addEventListener("load", (): void => {
@@ -57,6 +58,7 @@ window.addEventListener("load", (): void => {
       unit,
       scaling,
       date,
+      surface: WEBSITE_SURFACE,
     });
   });
 });

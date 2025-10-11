@@ -25,6 +25,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Card } from "reactstrap";
 
 import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
+import { getSurfaceHeader } from "../../utils/axios";
 import {
   DATE_ALL,
   DATE_LATEST,
@@ -40,6 +41,7 @@ const NUM_DEFAULT_COL = 2;
 interface PreviewProps {
   selectedOptions: DownloadOptions;
   isDisabled: boolean;
+  surface: string;
 }
 
 export function Preview(props: PreviewProps): JSX.Element {
@@ -57,7 +59,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     }
     prevOptions.current = props.selectedOptions;
     csvReqPayload.current = getCsvReqPayload();
-    fetchPreviewData();
+    fetchPreviewData(props.surface);
   }, [props, errorMessage]);
 
   // We only want to show preview once preview data has been fetched.
@@ -158,8 +160,11 @@ export function Preview(props: PreviewProps): JSX.Element {
     if (_.isEmpty(csvReqPayload.current)) {
       return;
     }
+    const headers = {
+      headers: getSurfaceHeader(props.surface),
+    };
     axios
-      .post("/api/csv/within", csvReqPayload.current)
+      .post("/api/csv/within", csvReqPayload.current, headers)
       .then((resp) => {
         if (resp.data) {
           saveToFile(
@@ -175,15 +180,18 @@ export function Preview(props: PreviewProps): JSX.Element {
       });
   }
 
-  function fetchPreviewData(): void {
+  function fetchPreviewData(surface: string): void {
     loadSpinner(SECTION_ID);
     if (_.isEmpty(csvReqPayload.current)) {
       return;
     }
     const reqObject = _.cloneDeep(csvReqPayload.current);
     reqObject["rowLimit"] = NUM_ROWS;
+    const headers = {
+      headers: getSurfaceHeader(props.surface),
+    };
     axios
-      .post("/api/csv/within", reqObject)
+      .post("/api/csv/within", reqObject, headers)
       .then((resp) => {
         if (resp.data) {
           Papa.parse(resp.data, {

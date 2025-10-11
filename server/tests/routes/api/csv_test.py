@@ -12,11 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from functools import wraps
 import unittest
 from unittest import mock
 
 import server.tests.routes.api.mock_data as mock_data
 from web_app import app
+
+
+def with_request_context(headers=None):
+  """Decorator to wrap a test function in a Flask request context."""
+
+  def decorator(f):
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+      with app.test_request_context(headers=headers or {}):
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+  return decorator
 
 
 class TestGetStatsWithinPlaceCsv(unittest.TestCase):
@@ -44,6 +60,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                           })
     assert no_stat_vars.status_code == 400
 
+  @with_request_context(headers={'x-surface': 'website'})
   @mock.patch('server.routes.shared_api.csv.dc.obs_point_within')
   @mock.patch('server.routes.shared_api.csv.names')
   def test_single_date(self, mock_place_names, mock_point_within):
@@ -83,7 +100,8 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     latest_date_req_json["minDate"] = "latest"
     latest_date_req_json["maxDate"] = "latest"
     latest_date = app.test_client().post(endpoint_url,
-                                         json=latest_date_req_json)
+                                         json=latest_date_req_json,
+                                         headers={'x-surface': 'website'})
     assert latest_date.status_code == 200
     assert latest_date.data.decode("utf-8") == (
         "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"

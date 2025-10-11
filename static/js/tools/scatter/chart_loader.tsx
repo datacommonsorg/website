@@ -23,7 +23,10 @@ import _ from "lodash";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
-import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import {
+  DEFAULT_POPULATION_DCID,
+  WEBSITE_SURFACE,
+} from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   EntityObservation,
@@ -73,13 +76,13 @@ type ChartData = {
   yUnit: string;
 };
 
-export function ChartLoader(): ReactElement {
+export function ChartLoader(props: { surface: string }): ReactElement {
   const { x, y, place, display } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
 
   const { facetSelectorMetadata, facetListLoading, facetListError } =
-    useFacetMetadata(cache?.baseFacets || null);
+    useFacetMetadata(cache?.baseFacets || null, props.surface);
 
   const xVal = x.value;
   const yVal = y.value;
@@ -168,7 +171,7 @@ function useCache(): Cache {
       !isLoading.areDataLoading &&
       !areDataLoaded(cache, xVal, yVal, placeVal)
     ) {
-      void loadData(x, y, placeVal, isLoading, setCache);
+      void loadData(x, y, placeVal, isLoading, setCache, WEBSITE_SURFACE);
     }
   }, [xVal, yVal, placeVal]);
 
@@ -182,25 +185,31 @@ function useCache(): Cache {
  * @param place
  * @param isLoading
  * @param setCache
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 async function loadData(
   x: AxisWrapper,
   y: AxisWrapper,
   place: PlaceInfo,
   isLoading: IsLoadingWrapper,
-  setCache: (cache: Cache) => void
+  setCache: (cache: Cache) => void,
+  surface: string
 ): Promise<void> {
   isLoading.setAreDataLoading(true);
   const statResponsePromise: Promise<PointApiResponse> = getStatWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    [x.value, y.value]
+    [x.value, y.value],
+    "", // apiRoot
+    surface
   );
   const statAllResponsePromise: Promise<PointAllApiResponse> =
-    getStatAllWithinPlace(place.enclosingPlace.dcid, place.enclosedPlaceType, [
-      x.value,
-      y.value,
-    ]);
+    getStatAllWithinPlace(
+      place.enclosingPlace.dcid,
+      place.enclosedPlaceType,
+      [x.value, y.value],
+      surface
+    );
   const populationSvList = new Set([DEFAULT_POPULATION_DCID]);
   for (const axis of [x.value, y.value]) {
     if (axis.denom) {
@@ -211,7 +220,9 @@ async function loadData(
     "",
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    Array.from(populationSvList)
+    Array.from(populationSvList),
+    null, // facetIds
+    surface
   );
   try {
     const [statResponse, statAllResponse, populationData] = await Promise.all([

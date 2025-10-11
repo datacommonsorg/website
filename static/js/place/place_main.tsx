@@ -35,7 +35,7 @@ import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
-import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
+import { getDataCommonsClient } from "../utils/data_commons_client";
 import { PlaceOverview } from "./place_overview";
 import {
   createPlacePageCategoryHref,
@@ -364,6 +364,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setHasError(true);
       return;
     }
+    const surface = pageMetadata.dataset.surfaceHeader;
+    console.log("surface in place_main: ", surface);
+    const dataCommonsClient = getDataCommonsClient(null, surface);
     (async (): Promise<void> => {
       try {
         const [
@@ -372,20 +375,20 @@ export const DevPlaceMain = (): React.JSX.Element => {
           relatedPlacesApiResponse,
           placeOverviewTableApiResponse,
         ] = await Promise.all([
-          defaultDataCommonsWebClient.getPlaceSummary({
+          dataCommonsClient.webClient.getPlaceSummary({
             locale,
             placeDcid: place.dcid,
           }),
-          defaultDataCommonsWebClient.getPlaceCharts({
+          dataCommonsClient.webClient.getPlaceCharts({
             category,
             locale,
             placeDcid: place.dcid,
           }),
-          defaultDataCommonsWebClient.getRelatedPLaces({
+          dataCommonsClient.webClient.getRelatedPLaces({
             locale,
             placeDcid: place.dcid,
           }),
-          defaultDataCommonsWebClient.getPlaceOverviewTable({
+          dataCommonsClient.webClient.getPlaceOverviewTable({
             locale,
             placeDcid: place.dcid,
           }),

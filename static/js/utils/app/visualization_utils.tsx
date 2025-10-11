@@ -52,6 +52,7 @@ import {
 } from "../../shared/ga_events";
 import { NamedNode, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
+import { getSurfaceHeader } from "../axios";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
@@ -278,20 +279,28 @@ export function getContextStatVar(svSpec: StatVarSpec): ContextStatVar {
  * @param samplePlaces sample places used for the stat var hierarchy
  * @param statVars full list of stat vars
  * @param visTypeConfig the vis type config being used
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export function getFilteredStatVarPromise(
   samplePlaces: NamedNode[],
   statVars: ContextStatVar[],
-  visTypeConfig: VisTypeConfig
+  visTypeConfig: VisTypeConfig,
+  surface: string
 ): Promise<ContextStatVar[]> {
   if (_.isEmpty(samplePlaces) || _.isEmpty(statVars)) {
     return Promise.resolve([]);
   }
   return axios
-    .post("/api/observation/existence", {
-      entities: samplePlaces.map((place) => place.dcid),
-      variables: statVars.map((sv) => sv.dcid),
-    })
+    .post(
+      "/api/observation/existence",
+      {
+        entities: samplePlaces.map((place) => place.dcid),
+        variables: statVars.map((sv) => sv.dcid),
+      },
+      {
+        headers: getSurfaceHeader(surface),
+      }
+    )
     .then((resp) => {
       const availableSVs = new Set();
       const numRequired = getNumEntitiesExistence(samplePlaces, visTypeConfig);

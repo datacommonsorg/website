@@ -25,6 +25,10 @@ import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
 import { Chip } from "../../shared/chip";
 import {
+  WEBSITE_SURFACE,
+  WEBSITE_SURFACE_HEADER,
+} from "../../shared/constants";
+import {
   FacetSelector,
   FacetSelectorFacetInfo,
 } from "../../shared/facet_selector/facet_selector";
@@ -91,7 +95,7 @@ interface PagePropType {
 }
 
 export function Page(props: PagePropType): ReactElement {
-  const dataCommonsClient = getDataCommonsClient();
+  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
 
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
   const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);
@@ -166,6 +170,7 @@ export function Page(props: PagePropType): ReactElement {
       .get("/api/facets/within", {
         params: reqObj,
         paramsSerializer: stringifyFn,
+        headers: WEBSITE_SURFACE_HEADER,
       })
       .then(async (resp) => {
         const baseFacetData: PointAllApiResponse = resp.data;
@@ -224,6 +229,7 @@ export function Page(props: PagePropType): ReactElement {
         onStatVarRemoved={removeStatVar}
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
+        surface={WEBSITE_SURFACE}
       />
       <div id="plot-container">
         <h1 className="mb-4">Data Download Tool</h1>
@@ -443,6 +449,7 @@ export function Page(props: PagePropType): ReactElement {
           <Preview
             selectedOptions={previewOptions}
             isDisabled={previewDisabled}
+            surface={WEBSITE_SURFACE}
           />
         )}
         {showInfo && <Info infoPlaces={props.infoPlaces} />}

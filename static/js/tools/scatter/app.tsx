@@ -25,6 +25,7 @@ import { Container, Row } from "reactstrap";
 import { Spinner } from "../../components/spinner";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import {
   isFeatureEnabled,
   STANDARDIZED_VIS_TOOL_FEATURE_FLAG,
@@ -71,6 +72,7 @@ function App(): ReactElement {
       <StatVarChooser
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
+        surface={WEBSITE_SURFACE}
       />
       <div id="plot-container">
         <Container fluid={true}>
@@ -130,7 +132,7 @@ function App(): ReactElement {
           )}
           {showChart && (
             <Row id="chart-row">
-              <ChartLoader />
+              <ChartLoader surface={WEBSITE_SURFACE} />
             </Row>
           )}
         </Container>

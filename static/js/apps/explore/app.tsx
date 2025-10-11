@@ -36,6 +36,10 @@ import {
 import { intl, localizeLink } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
 import {
+  WEBSITE_SURFACE,
+  WEBSITE_SURFACE_HEADER,
+} from "../../shared/constants";
+import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
   GA_EVENT_PAGE_VIEW,
@@ -52,7 +56,7 @@ import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { defaultDataCommonsWebClient } from "../../utils/data_commons_client";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import {
   extractUrlHashParams,
@@ -349,6 +353,8 @@ export function App(props: AppProps): ReactElement {
       places = [urlHashParams.place];
     }
 
+    const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
+
     let fulfillmentPromise: Promise<unknown>;
     let highlightPromise: Promise<unknown>;
 
@@ -414,7 +420,7 @@ export function App(props: AppProps): ReactElement {
           statVars = [urlHashParams.statVars];
         }
 
-        data = await defaultDataCommonsWebClient.getNodePropvalsIn({
+        data = await dataCommonsClient.webClient.getNodePropvalsIn({
           dcids: statVars,
           prop: "relevantVariable",
         });
@@ -531,13 +537,19 @@ const fetchFulfillData = async (
     }
     const args = argsMap.size > 0 ? `?${generateArgsParams(argsMap)}` : "";
     const startTime = window.performance ? window.performance.now() : undefined;
-    const resp = await axios.post(`/api/explore/fulfill${args}`, {
-      dc,
-      entities: places,
-      variables: topics,
-      disableExploreMore,
-      skipRelatedThings,
-    });
+    const resp = await axios.post(
+      `/api/explore/fulfill${args}`,
+      {
+        dc,
+        entities: places,
+        variables: topics,
+        disableExploreMore,
+        skipRelatedThings,
+      },
+      {
+        headers: WEBSITE_SURFACE_HEADER,
+      }
+    );
     if (startTime) {
       const elapsedTime = window.performance
         ? window.performance.now() - startTime
@@ -615,6 +627,11 @@ const fetchDetectAndFufillData = async (
         contextHistory: savedContext,
         dc,
         disableExploreMore,
+      },
+      {
+        // passing in a header indiciating that the call is made from the website
+        // used in Mixer usage logs
+        headers: WEBSITE_SURFACE_HEADER,
       }
     );
     if (startTime) {

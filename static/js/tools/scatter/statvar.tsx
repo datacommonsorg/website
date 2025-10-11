@@ -65,6 +65,7 @@ const defaultModalSelected: ModalSelected = Object.freeze({
 interface StatVarChooserProps {
   openSvHierarchyModalCallback: () => void;
   openSvHierarchyModal: boolean;
+  surface: string;
 }
 
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
@@ -164,6 +165,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         selectSV={(sv): void =>
           addStatVar(x, y, sv, setThirdStatVar, setModalOpen)
         }
+        surface={props.surface}
       />
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">

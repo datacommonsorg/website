@@ -137,6 +137,7 @@ export interface BlockPropType {
   // Whether to render tiles as web components
   showWebComponents?: boolean;
   highlightFacet?: FacetMetadata;
+  surface: string;
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
@@ -201,6 +202,7 @@ async function shouldEnableSnapToHighestCoverage(
   enclosedPlaceType: string,
   columns: ColumnConfig[],
   statVarProvider: StatVarProvider,
+  surface: string,
   facetIds?: string[]
 ): Promise<boolean> {
   // Check if highest coverage & latest date observations are the same
@@ -214,6 +216,7 @@ async function shouldEnableSnapToHighestCoverage(
       placeDcid,
       enclosedPlaceType,
       variableDcids,
+      surface,
       facetIds
     );
 
@@ -404,7 +407,8 @@ export function Block(props: BlockPropType): ReactElement {
           dcid: sv.statVar,
           name: sv.name,
           date: sv.date,
-        }))
+        })),
+        props.surface
       );
     } else {
       const allTiles = _.flatten(props.columns.map((c) => c.tiles));
@@ -419,10 +423,17 @@ export function Block(props: BlockPropType): ReactElement {
       });
       return fetchFacetChoices(
         Array.from(placeDcids),
-        blockSVs.map((sv) => ({ dcid: sv.statVar, name: sv.name }))
+        blockSVs.map((sv) => ({ dcid: sv.statVar, name: sv.name })),
+        props.surface
       );
     }
-  }, [blockSVs, props.columns, props.enclosedPlaceType, props.place]);
+  }, [
+    blockSVs,
+    props.columns,
+    props.enclosedPlaceType,
+    props.place,
+    props.surface,
+  ]);
 
   const {
     data: facetList,
@@ -475,6 +486,7 @@ export function Block(props: BlockPropType): ReactElement {
           props.enclosedPlaceType,
           props.columns,
           props.statVarProvider,
+          props.surface,
           Object.values(facetOverrides)
         );
       setEnableSnapToLatestData(enableSnapToHighestCoverage);
@@ -487,6 +499,7 @@ export function Block(props: BlockPropType): ReactElement {
     props.enclosedPlaceType,
     props.columns,
     props.statVarProvider,
+    props.surface,
   ]);
 
   useEffect(() => {
@@ -673,6 +686,7 @@ function renderTiles(
             place={place}
             statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             highlightFacet={props.highlightFacet}
+            surface={props.surface}
           />
         );
       }
@@ -703,6 +717,7 @@ function renderTiles(
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
+            surface={props.surface}
           />
         );
       case "LINE":
@@ -733,6 +748,7 @@ function renderTiles(
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
             highlightFacet={props.highlightFacet}
+            surface={props.surface}
           />
         );
       case "RANKING":
@@ -759,6 +775,7 @@ function renderTiles(
                   )
                 : undefined
             }
+            surface={props.surface}
           />
         );
       case "BAR":
@@ -795,6 +812,7 @@ function renderTiles(
               tile.barTileSpec?.defaultVariableName
             )}
             highlightFacet={props.highlightFacet}
+            surface={props.surface}
           />
         );
       case "SCATTER": {
@@ -823,6 +841,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
             placeNameProp={tile.placeNameProp}
+            surface={props.surface}
           />
         );
       }
@@ -848,6 +867,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            surface={props.surface}
           />
         );
       }
@@ -873,6 +893,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={props.surface}
           ></GaugeTile>
         );
       case "DONUT":
@@ -893,6 +914,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={props.surface}
           ></DonutTile>
         );
       case "DESCRIPTION":

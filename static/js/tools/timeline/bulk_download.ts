@@ -15,9 +15,10 @@
  */
 import axios from "axios";
 
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
-import { stringifyFn } from "../../utils/axios";
+import { getSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getTokensFromUrl } from "./util";
 
 /* Start the loading spinner and gray out the background. */
@@ -37,7 +38,8 @@ function removeSpinner(): void {
 function downloadBulkData(
   statVars: string[],
   descendentType: string,
-  ancestorDcid: string
+  ancestorDcid: string,
+  surface: string
 ): void {
   loadSpinner();
   axios
@@ -57,6 +59,7 @@ function downloadBulkData(
             variables: statVars,
           },
           paramsSerializer: stringifyFn,
+          headers: getSurfaceHeader(surface),
         })
         .then((resp) => {
           if (resp.data && resp.data.data) {
@@ -111,7 +114,7 @@ window.addEventListener("load", (): void => {
     const link = links.item(i) as HTMLElement;
     const ptype = link.dataset.ptype;
     link.addEventListener("click", function () {
-      downloadBulkData(statVars, ptype, "country/USA");
+      downloadBulkData(statVars, ptype, "country/USA", WEBSITE_SURFACE);
     });
   }
 });

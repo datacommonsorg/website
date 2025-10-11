@@ -17,6 +17,8 @@
 import axios from "axios";
 import _ from "lodash";
 
+import { getSurfaceHeader } from "../utils/axios";
+
 interface StatVarInfo {
   // measurementDenominator
   md?: string;
@@ -56,18 +58,26 @@ function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
  * @param sample Whether to sample `sampleSize` places from the given places, and only
  * get the statvars for them.
  * @param sampleSize Since the stat vars for places of the same type are relatively uniform, default sample size can be small to speed up this function.
+ * @param surface the DC surface (website, web components, etc.) making the call to mixer for usage logs
  */
 async function getStatVar(
   dcids: string[],
   sample = false,
-  sampleSize = 5
+  sampleSize = 5,
+  surface: string = null
 ): Promise<Set<string>> {
   if (dcids.length === 0) {
     return Promise.resolve(new Set<string>());
   }
-  const resp = await axios.post("/api/place/variable", {
-    dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
-  });
+  const resp = await axios.post(
+    "/api/place/variable",
+    {
+      dcids: sample ? _.sampleSize(dcids, sampleSize).sort() : dcids,
+    },
+    {
+      headers: getSurfaceHeader(surface),
+    }
+  );
   return new Set<string>(resp.data);
 }
 

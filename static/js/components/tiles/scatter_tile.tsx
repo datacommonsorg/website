@@ -113,6 +113,8 @@ export interface ScatterTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 interface RawData {
@@ -257,6 +259,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       title={props.title}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surface={props.surface}
     >
       <div className="scatter-tile-content">
         <div
@@ -304,7 +307,10 @@ function getDataCsvCallback(
   scatterChartData: ScatterChartData
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surface
+    );
     // Assume both variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -347,7 +353,8 @@ function getPopulationPromise(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot?: string
+  apiRoot?: string,
+  surface?: string
 ): Promise<SeriesApiResponse> {
   const statVars = new Set<string>();
   for (const sv of statVarSpec) {
@@ -362,7 +369,9 @@ function getPopulationPromise(
       apiRoot,
       placeDcid,
       enclosedPlaceType,
-      Array.from(statVars)
+      Array.from(statVars),
+      null,
+      surface
     );
   }
 }
@@ -389,13 +398,15 @@ export const fetchData = async (
         facetId: props.statVarSpec[1].facetId,
       },
     ],
-    props.apiRoot
+    props.apiRoot,
+    props.surface
   );
   const populationPromise = getPopulationPromise(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
-    props.apiRoot
+    props.apiRoot,
+    props.surface
   );
   const placeNamesParams = {
     dcid: props.place.dcid,
