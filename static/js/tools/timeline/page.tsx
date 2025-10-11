@@ -130,23 +130,21 @@ class Page extends Component<unknown, PageStateType> {
         />
         <div id="plot-container">
           <Container fluid={true}>
-            {numPlaces === 0 &&
-              (useStandardizedUi ? (
-                <ToolHeader
-                  title={intl.formatMessage(toolMessages.timelineToolTitle)}
-                  subtitle={intl.formatMessage(
-                    toolMessages.timelineToolSubtitle
-                  )}
-                  switchToolsUrl="/tools/visualization#visType%3Dtimeline"
-                />
-              ) : (
-                <div className="app-header">
-                  <h1 className="mb-4">Timelines Explorer</h1>
-                  <a href="/tools/visualization#visType%3Dtimeline">
-                    Go back to the new Timelines Explorer
-                  </a>
-                </div>
-              ))}
+            {useStandardizedUi ? (
+              <ToolHeader
+                title={intl.formatMessage(toolMessages.timelineToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.timelineToolSubtitle)}
+              />
+            ) : (
+              <div className="app-header">
+                <h1 className="mb-4">
+                  {intl.formatMessage(toolMessages.timelineToolTitle)}
+                </h1>
+                <a href="/tools/visualization#visType%3Dtimeline">
+                  {intl.formatMessage(toolMessages.timelineToolGoBackMessage)}
+                </a>
+              </div>
+            )}
             <div
               css={css`
                 margin-bottom: ${theme.spacing.lg}px;

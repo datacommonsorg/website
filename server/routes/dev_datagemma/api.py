@@ -14,6 +14,7 @@
 """Endpoints for DataGemma page"""
 
 import json
+import logging
 
 from data_gemma import DataCommons
 from data_gemma import GoogleAIStudio
@@ -24,6 +25,8 @@ import flask
 from flask import current_app
 from flask import request
 from flask import Response
+
+from server.lib.nl.detection.llm_api import detect_model_name
 
 # Define blueprint
 bp = flask.Blueprint('dev_datagemma_api',
@@ -59,8 +62,10 @@ def _get_datagemma_result(query, mode):
     result = RIGFlow(llm=_VERTEX_AI_RIG,
                      data_fetcher=dc_nl_service).query(query=query)
   elif mode == _RAG_MODE:
+    model_name = detect_model_name()
+    logging.info(f'DataGemma using Gemini model: {model_name}')
     gemini_model = GoogleAIStudio(
-        model='gemini-2.5-pro', api_keys=[current_app.config['GEMINI_API_KEY']])
+        model=model_name, api_keys=[current_app.config['GEMINI_API_KEY']])
     result = RAGFlow(llm_question=_VERTEX_AI_RAG,
                      llm_answer=gemini_model,
                      data_fetcher=dc_nl_service).query(query=query)

@@ -265,6 +265,11 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
         }
       }
 
+      env {
+        name = "DISABLE_GOOGLE_MAPS"
+        value = tostring(var.disable_google_maps)
+      }
+
       startup_probe {
         http_get {
           path = "/healthz"
