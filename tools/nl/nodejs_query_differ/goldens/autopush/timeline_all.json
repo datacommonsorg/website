@@ -498,7 +498,7 @@
       ],
       "title": "Median Earnings for Women in Counties of North Dakota (2016)",
       "type": "TABLE",
-      "unit": "USD",
+      "unit": "Infl. adj. USD (CY)",
       "vars": [
         "Median_Earnings_Person_Female"
       ],
@@ -519,7 +519,7 @@
       ],
       "title": "Median Earnings for Men in Counties of North Dakota (2016)",
       "type": "TABLE",
-      "unit": "USD",
+      "unit": "Infl. adj. USD (CY)",
       "vars": [
         "Median_Earnings_Person_Male"
       ],
@@ -527,7 +527,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,\"Mean Earnings of Household: Foreign Born, Asia\"\r\n2019,111652\r\n2018,116599\r\n2017,93486\r\n2016,96167\r\n2015,82192\r\n2014,80719",
+      "dataCsv": "label,\"Mean Earnings of Household: Foreign Born, Asia\"\r\n2023,103105\r\n2022,116098\r\n2021,108513\r\n2020,97208\r\n2019,111652\r\n2018,116599\r\n2017,93486\r\n2016,96167\r\n2015,82192\r\n2014,80719",
       "legend": [
         "Mean Earnings of Household: Foreign Born, Asia"
       ],
@@ -547,8 +547,8 @@
         "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
       ],
       "highlight": {
-        "date": "2019",
-        "value": 111652
+        "date": "2023",
+        "value": 103105
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
@@ -650,7 +650,7 @@
       "chartUrl": ""
     },
     {
-      "dataCsv": "label,\"Population: 16 Years or More, With Earnings\"\r\n2019,449730\r\n2018,449818\r\n2017,449547\r\n2016,444904\r\n2015,437154\r\n2014,428757\r\n2013,420838\r\n2012,414037\r\n2011,408780\r\n2010,403426",
+      "dataCsv": "label,\"Population: 16 Years or More, With Earnings\"\r\n2023,454658\r\n2022,454160\r\n2021,453781\r\n2020,451131\r\n2019,449730\r\n2018,449818\r\n2017,449547\r\n2016,444904\r\n2015,437154\r\n2014,428757\r\n2013,420838\r\n2012,414037\r\n2011,408780\r\n2010,403426",
       "legend": [
         "Population: 16 Years or More, With Earnings"
       ],
@@ -670,14 +670,14 @@
         "Count_Person_16OrMoreYears_WithEarnings"
       ],
       "highlight": {
-        "date": "2019",
-        "value": 449730
+        "date": "2023",
+        "value": 454658
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "dataCsv": "rank,place,\"Population: 16 Years or More, With Earnings\"\r\n1,Cass County,114087\r\n2,Burleigh County,56047\r\n3,Grand Forks County,44469\r\n4,Ward County,42256\r\n5,Williams County,20332\r\n49,Steele County,1026\r\n50,Oliver County,871\r\n51,Sheridan County,674\r\n52,Billings County,531\r\n53,Slope County,364",
+      "dataCsv": "rank,place,\"Population: 16 Years or More, With Earnings\"\r\n1,Cass County,121734\r\n2,Burleigh County,55692\r\n3,Grand Forks County,45509\r\n4,Ward County,41423\r\n5,Williams County,21630\r\n49,Oliver County,914\r\n50,Steele County,855\r\n51,Sheridan County,713\r\n52,Billings County,559\r\n53,Slope County,442",
       "placeType": "County",
       "places": [
         "geoId/38"
@@ -688,7 +688,7 @@
           "url": "https://data.census.gov/cedsci/table?q=S2001&tid=ACSST1Y2019.S2001"
         }
       ],
-      "title": "Population: 16 Years or More, With Earnings in Counties of North Dakota (2019)",
+      "title": "Population: 16 Years or More, With Earnings in Counties of North Dakota (2023)",
       "type": "TABLE",
       "unit": "",
       "vars": [
