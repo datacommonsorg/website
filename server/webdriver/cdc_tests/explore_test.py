@@ -26,7 +26,7 @@ class TestExplorePage(ExplorePageTestMixin, CdcTestBase):
   def test_success_result_with_no_follow_up_questions(self):
     """Test success result when follow up questions is not enabled."""
 
-    params = '?disable_feature=follow_up_questions_ga&disable_feature=explore_result_header'
+    params = '?disable_feature=explore_result_header'
     query = '#q=What is the population of Mountain View'
 
     self.driver.get(self.url_ + EXPLORE_URL + params + query)

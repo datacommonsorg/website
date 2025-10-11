@@ -36,8 +36,6 @@ import {
 } from "../../shared/context";
 import {
   EXPLORE_RESULT_HEADER,
-  FOLLOW_UP_QUESTIONS_EXPERIMENT,
-  FOLLOW_UP_QUESTIONS_GA,
   isFeatureEnabled,
   PAGE_OVERVIEW_EXPERIMENT,
   PAGE_OVERVIEW_GA,
@@ -65,13 +63,7 @@ import { UserMessage } from "./user_message";
 
 const PAGE_ID = "explore";
 
-const EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO = 0.2;
 const EXPERIMENT_PAGE_OVERVIEW_ROLLOUT_RATIO = 0.2;
-
-const showFollowUpQuestions =
-  isFeatureEnabled(FOLLOW_UP_QUESTIONS_GA) ||
-  (isFeatureEnabled(FOLLOW_UP_QUESTIONS_EXPERIMENT) &&
-    Math.random() < EXPERIMENT_FOLLOW_UP_ROLLOUT_RATIO);
 
 const showPageOverview =
   isFeatureEnabled(PAGE_OVERVIEW_GA) ||
@@ -190,14 +182,14 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 <ResultHeaderSection
                   pageMetadata={props.pageMetadata}
                   placeUrlVal={placeUrlVal}
-                  hideRelatedTopics={showFollowUpQuestions}
+                  hideRelatedTopics={true}
                   query={props.query}
                 />
               ) : (
                 <ResultHeaderSectionLegacy
                   pageMetadata={props.pageMetadata}
                   placeUrlVal={placeUrlVal}
-                  hideRelatedTopics={showFollowUpQuestions}
+                  hideRelatedTopics={true}
                 />
               ))}
             {showPageOverview && (
@@ -251,7 +243,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 <ScrollToTopButton />
               </ExploreContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {showFollowUpQuestions && !_.isEmpty(relatedTopics) && (
+            {!_.isEmpty(relatedTopics) && (
               <FollowUpQuestions
                 query={props.query}
                 pageMetadata={props.pageMetadata}
