@@ -29,6 +29,8 @@ import { toolMessages } from "../../../i18n/i18n_tool_messages";
 interface VisToolInstructionsBoxProps {
   // Which tool the instructions are for
   toolType: "map" | "scatter" | "timeline";
+  // Whether to only show instructions for selecting stat vars
+  showStatVarInstructionsOnly?: boolean;
 }
 
 /**
@@ -54,42 +56,56 @@ function getPlaceInstructionToShow(props: VisToolInstructionsBoxProps): string {
 export function VisToolInstructionsBox(
   props: VisToolInstructionsBoxProps
 ): JSX.Element {
-  return (
-    <InfoBox
-      heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
-    >
-      <ol>
-        <li>{getPlaceInstructionToShow(props)}</li>
-        <li>
-          {props.toolType == "map" ? (
-            <>
-              <span className="d-none d-lg-inline">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsVariableDesktop
-                )}
-              </span>
-              <span className="d-inline d-lg-none">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsVariableMobile
-                )}
-              </span>
-            </>
-          ) : (
-            <>
-              <span className="d-none d-lg-inline">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsMultiVariableDesktop
-                )}
-              </span>
-              <span className="d-inline d-lg-none">
-                {intl.formatMessage(
-                  toolMessages.infoBoxInstructionsMultiVariableMobile
-                )}
-              </span>
-            </>
-          )}
-        </li>
-      </ol>
-    </InfoBox>
-  );
+  if (props.showStatVarInstructionsOnly) {
+    return (
+      <InfoBox>
+        {props.toolType == "map"
+          ? SingleVariableInstructions
+          : MultiVariableInstructions}
+      </InfoBox>
+    );
+  } else {
+    return (
+      <InfoBox
+        heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
+      >
+        <ol>
+          <li>{getPlaceInstructionToShow(props)}</li>
+          <li>
+            {props.toolType == "map"
+              ? SingleVariableInstructions
+              : MultiVariableInstructions}
+          </li>
+        </ol>
+      </InfoBox>
+    );
+  }
 }
+
+/**
+ * Instructions for selecting a single variable, that responds to screen size
+ */
+const SingleVariableInstructions = (
+  <>
+    <span className="d-none d-lg-inline">
+      {intl.formatMessage(toolMessages.infoBoxInstructionsVariableDesktop)}
+    </span>
+    <span className="d-inline d-lg-none">
+      {intl.formatMessage(toolMessages.infoBoxInstructionsVariableMobile)}
+    </span>
+  </>
+);
+
+/**
+ * Instructions for selecting multiple variables, that responds to screen size
+ */
+const MultiVariableInstructions = (
+  <>
+    <span className="d-none d-lg-inline">
+      {intl.formatMessage(toolMessages.infoBoxInstructionsMultiVariableDesktop)}
+    </span>
+    <span className="d-inline d-lg-none">
+      {intl.formatMessage(toolMessages.infoBoxInstructionsMultiVariableMobile)}
+    </span>
+  </>
+);
