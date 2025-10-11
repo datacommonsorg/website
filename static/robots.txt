@@ -31,4 +31,3 @@ Sitemap: https://datacommons.org/sitemap/CensusTract.0.txt
 Sitemap: https://datacommons.org/sitemap/HighSchoolDistrict.0.txt
 Sitemap: https://datacommons.org/sitemap/ElementarySchoolDistrict.0.txt
 Sitemap: https://datacommons.org/sitemap/stat_vars.txt
-
