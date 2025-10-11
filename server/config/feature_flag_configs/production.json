@@ -18,6 +18,13 @@
     "description": "Enabling Gemini 2.5 Flash for NL detection."
   },
   {
+    "name": "enable_stat_var_autocomplete",
+    "enabled": true,
+    "owner": "gmechali",
+    "rollout_percentage": 20,
+    "description": "Enable stat var autocompletion in the NL Search bar"
+  },
+  {
     "name": "explore_result_header",
     "enabled": true,
     "owner": "nick-next",
