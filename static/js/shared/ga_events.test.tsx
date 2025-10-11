@@ -80,7 +80,7 @@ import { mockAllIsIntersecting } from "react-intersection-observer/test-utils";
 import { FollowUpQuestions } from "../apps/explore/follow_up_questions";
 import { PageOverview } from "../apps/explore/page_overview";
 import { ResultHeaderSection } from "../apps/explore/result_header_section";
-import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
+import { GeoJsonData, MapPoint } from "../chart/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
 import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
@@ -156,14 +156,12 @@ import { StatVarInfo } from "./stat_var";
 import { DataPointMetadata } from "./types";
 import { NamedTypedPlace, StatVarHierarchyType, StatVarSummary } from "./types";
 
-const CATEGORY = "Economics";
 const PLACE_DCID = "geoId/05";
 const PLACE_NAME = "Arkansas";
 const STAT_VAR_1 = "Median_Income_Household";
 const STAT_VAR_2 = "Median_Age_Person";
 const STAT_VAR_3 = "Count_Person";
-const SOURCES = "sources";
-const ID = "a";
+
 const NUMBER = 123;
 const PLACE_ADDED = "africa";
 const QUERY = "What is the health equity in Mountain View?";
@@ -185,21 +183,6 @@ const STAT_VAR_CHART_LINKS = [
     naturalLanguage: "student enrollment",
   },
 ];
-// Props for place explorer chart.
-const PLACE_CHART_PROPS = {
-  category: CATEGORY,
-  chartType: chartTypeEnum.LINE,
-  dcid: PLACE_DCID,
-  id: "",
-  isUsaPlace: true,
-  locale: "en",
-  names: { [PLACE_DCID]: PLACE_NAME },
-  rankingTemplateUrl: "",
-  statsVars: [STAT_VAR_1],
-  title: "",
-  trend: { exploreUrl: "", series: {}, sources: [SOURCES] },
-  unit: "",
-};
 
 // Props for map tool chart.
 const MAP_POINTS: MapPoint[] = [
@@ -1189,11 +1172,10 @@ describe("test ga event for Related Topics experiment", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
-    axios.post = jest
-      .fn()
-      .mockImplementation(() =>
-        Promise.resolve({ data: { follow_up_questions: [QUERY] } })
-      );
+    axios.post = jest.fn().mockImplementation(() => {
+      // eslint-disable-next-line camelcase
+      return Promise.resolve({ data: { follow_up_questions: [QUERY] } });
+    });
 
     // Render follow up component
     const followUp = render(
@@ -1296,11 +1278,10 @@ describe("test ga event for Related Topics experiment", () => {
     window.gtag = mockgtag;
 
     // Mock Flask route
-    axios.post = jest
-      .fn()
-      .mockImplementation(() =>
-        Promise.resolve({ data: { follow_up_questions: [QUERY] } })
-      );
+    axios.post = jest.fn().mockImplementation(() => {
+      // eslint-disable-next-line camelcase
+      return Promise.resolve({ data: { follow_up_questions: [QUERY] } });
+    });
 
     // Render follow up component
     render(

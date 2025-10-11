@@ -32,17 +32,9 @@ interface PageSelectorPropType {
 }
 
 export function PageSelector(props: PageSelectorPropType): JSX.Element {
-  const [placeOptions, setPlaceOptions] = useState<
-    Record<string, string> | undefined
-  >({});
-
   const [morePlaces, setMorePlaces] = useState<NamedTypedPlace[] | undefined>(
     []
   );
-
-  useEffect(() => {
-    getPlaceOptions(props.selectedTopic, props.topicsSummary, setPlaceOptions);
-  }, [props]);
 
   useEffect(() => {
     getMorePlaces(props.morePlaces, setMorePlaces);
@@ -118,24 +110,6 @@ export function PageSelector(props: PageSelectorPropType): JSX.Element {
       </div>
     </div>
   );
-}
-
-function getPlaceOptions(
-  selectedTopic: string,
-  topicsSummary: TopicsSummary,
-  setPlaceOptions: (placeOptions: Record<string, string>) => void
-): void {
-  const placeOptionDcids = topicsSummary.topicPlaceMap[selectedTopic] || [];
-  // TODO: make this call in flask and pass it down with the topicsSummary
-  getPlaceNames(placeOptionDcids)
-    .then((placeNames) => {
-      setPlaceOptions(placeNames);
-    })
-    .catch(() => {
-      const placeOptions = {};
-      placeOptionDcids.forEach((place) => (placeOptions[place] = place));
-      setPlaceOptions(placeOptions);
-    });
 }
 
 function getMorePlaces(

@@ -136,10 +136,16 @@ export function AutoCompleteInput(
   const { placeholder } = useQueryStore();
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       setLastScrollY(window.scrollY);
-    });
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [setLastScrollY]);
 
+  useEffect(() => {
     if (!inputText && props.enableDynamicPlaceholders) {
       enableDynamicPlacehoder(
         setSampleQuestionText,
@@ -147,7 +153,13 @@ export function AutoCompleteInput(
         setDynamicPlaceholdersDone
       );
     }
-  }, []);
+  }, [
+    inputText,
+    props.enableDynamicPlaceholders,
+    setSampleQuestionText,
+    setDynamicPlaceholdersEnabled,
+    setDynamicPlaceholdersDone,
+  ]);
 
   useEffect(() => {
     if (_.isEmpty(results)) {

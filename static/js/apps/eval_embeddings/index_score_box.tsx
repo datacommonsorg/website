@@ -160,7 +160,10 @@ function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
   );
 }
 
-const searchVector = async (sentence: string, indexName: string) => {
+const searchVector = async (
+  sentence: string,
+  indexName: string
+): Promise<any> => {
   return axios
     .post(`/api/nl/search-vector?idx=${indexName}`, {
       queries: [sentence],
@@ -170,7 +173,10 @@ const searchVector = async (sentence: string, indexName: string) => {
     });
 };
 
-const encodeVector = async (sentence: string, modelName: string) => {
+const encodeVector = async (
+  sentence: string,
+  modelName: string
+): Promise<number[]> => {
   return axios
     .post(`/api/nl/encode-vector?model=${modelName}`, {
       queries: [sentence],
