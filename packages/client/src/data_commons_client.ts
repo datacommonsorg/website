@@ -19,7 +19,7 @@
  */
 
 import rewind from "@turf/rewind";
-import { Feature, FeatureCollection, Geometry, Point } from "geojson";
+import { Feature, FeatureCollection, Geometry } from "geojson";
 import * as _ from "lodash";
 
 import {
