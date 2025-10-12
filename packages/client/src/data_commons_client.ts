@@ -341,8 +341,6 @@ class DataCommonsClient {
         ? Object.keys(apiResponseFacets)
         : [];
 
-    console.log("facetIds: ", facetIds);
-
     for (const facetId of facetIds) {
       denomsByFacet[facetId] =
         "parentEntity" in params
@@ -358,8 +356,6 @@ class DataCommonsClient {
             });
     }
 
-    console.log("denoms by facet: ", denomsByFacet);
-
     // default denom data with no facet filter
     defaultDenomData =
       "parentEntity" in params
@@ -371,8 +367,6 @@ class DataCommonsClient {
             ...params,
             variables: [TOTAL_POPULATION_VARIABLE],
           });
-
-    console.log("default denomdate: ", defaultDenomData);
 
     return [denomsByFacet, defaultDenomData];
   }
@@ -605,7 +599,6 @@ class DataCommonsClient {
     placeDcid: string,
     numeratorFacet?: string
   ): [Series | null, StatMetadata | null] {
-    console.log("reaching denom info");
     let matchingDenomData: SeriesApiResponse | null = null;
     let placeDenomData: Series | undefined | null = null;
     let facetUsed: StatMetadata | null = null;
@@ -614,13 +607,6 @@ class DataCommonsClient {
     if (numeratorFacet) {
       matchingDenomData = denomsByFacet?.[numeratorFacet];
       placeDenomData = matchingDenomData?.data?.[denomVar]?.[placeDcid];
-
-      console.log(
-        "Found matching place data for num facet: ",
-        numeratorFacet,
-        ": ",
-        placeDenomData
-      );
 
       // getting the facet metadata for the facet we're using
       facetUsed = _.get(
@@ -633,7 +619,6 @@ class DataCommonsClient {
     if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
       matchingDenomData = defaultDenomData;
       placeDenomData = matchingDenomData?.data?.[denomVar]?.[placeDcid];
-      console.log("using default data: ", placeDenomData);
       facetUsed = placeDenomData
         ? _.get(
             defaultDenomData?.facets,
@@ -697,7 +682,6 @@ class DataCommonsClient {
           entityDcid,
           observation.facet
         );
-        console.log("selected populationFacet: ", populationFacet);
         // if we have denom data
         if (series && populationFacet) {
           const closestPopulationObservation = this.getClosestObservationToDate(
@@ -817,7 +801,6 @@ class DataCommonsClient {
             facet.scalingFactor || 1
           );
         }
-        console.log("selected populationFacet: ", populationFacet);
         // if we have denom data
         series.series.forEach((observation, observationIndex) => {
           const row: DataRow = this.buildDataRow(
