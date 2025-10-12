@@ -217,10 +217,77 @@ class DataCommonsClient {
         )
       : ({} as NodePropValues);
 
-    // Fetch population data for per capita calculations
-    let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
-    if (!_.isEmpty(validPerCapitaVariables)) {
-      populationObservations =
+    /*
+// fetch the series for each facet
+  const denomPromises = [];
+  const facetIds =
+    !_.isEmpty(denoms) && statResp.facets ? Object.keys(statResp.facets) : [];
+
+  for (const facetId of facetIds) {
+    denomPromises.push(
+      useSeriesWithin
+        ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
+        : getSeries(apiRoot, allPlaces, denoms, [facetId])
+    );
+  }
+
+  // for the case when the facet used in the statResponse does not have the denom information, we use the standard denom
+  const defaultDenomPromise = _.isEmpty(denoms)
+    ? Promise.resolve(null)
+    : useSeriesWithin
+    ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
+    : getSeries(apiRoot, allPlaces, denoms, []);
+
+  // organize results into a map from facet to API response
+  const denomsByFacet: Record<string, SeriesApiResponse> = {};
+  const denomResults = await Promise.all([
+    ...denomPromises,
+    defaultDenomPromise,
+  ]);
+
+  // The last element of denomResps is defaultDenomPromise
+  const defaultDenomData = denomResults.pop();
+
+  denomResults.forEach((resp, i) => {
+    // should only have one facet per resp because we pass in exactly one
+    const facetId = facetIds[i];
+    if (facetId) {
+      denomsByFacet[facetId] = resp;
+    }
+  });
+
+  return [denomsByFacet, defaultDenomData];
+    */
+    const denoms = validPerCapitaVariables;
+    let denomsByFacet: Record<string, SeriesApiResponse | null> = {};
+    let defaultDenomData: SeriesApiResponse | null = null;
+    if (!_.isEmpty(denoms)) {
+      const facetIds =
+        !_.isEmpty(denoms) && pointApiResponse.facets
+          ? Object.keys(pointApiResponse.facets)
+          : [];
+
+      console.log("facetIds: ", facetIds);
+
+      for (const facetId of facetIds) {
+        denomsByFacet[facetId] =
+          "parentEntity" in params
+            ? await this.webClient.getObservationsSeriesWithin({
+                ...params,
+                variables: [TOTAL_POPULATION_VARIABLE],
+                facetIds: [facetId],
+              })
+            : await this.webClient.getObservationsSeries({
+                ...params,
+                variables: [TOTAL_POPULATION_VARIABLE],
+                facetIds: [facetId],
+              });
+      }
+
+      console.log("denoms by facet: ", denomsByFacet);
+
+      // default denom data with no facet filter
+      defaultDenomData =
         "parentEntity" in params
           ? await this.webClient.getObservationsSeriesWithin({
               ...params,
@@ -230,7 +297,23 @@ class DataCommonsClient {
               ...params,
               variables: [TOTAL_POPULATION_VARIABLE],
             });
+
+      console.log("default denomdate: ", defaultDenomData);
     }
+    // Fetch population data for per capita calculations
+    // let populationObservations: SeriesApiResponse = { data: {}, facets: {} };
+    // if (!_.isEmpty(validPerCapitaVariables)) {
+    //   populationObservations =
+    //     "parentEntity" in params
+    //       ? await this.webClient.getObservationsSeriesWithin({
+    //           ...params,
+    //           variables: [TOTAL_POPULATION_VARIABLE],
+    //         })
+    //       : await this.webClient.getObservationsSeries({
+    //           ...params,
+    //           variables: [TOTAL_POPULATION_VARIABLE],
+    //         });
+    // }
     const rows = this.getDataRowsFromPointObservations(
       entityDcids,
       params.variables,
@@ -238,7 +321,8 @@ class DataCommonsClient {
       entityPropValues,
       variablePropValues,
       populationPropValues,
-      populationObservations
+      denomsByFacet,
+      defaultDenomData
     );
     return Promise.resolve(rows);
   }
@@ -536,6 +620,74 @@ class DataCommonsClient {
   }
 
   /**
+   * Gets information needed to calculate per capita for a single stat data point.
+   * Uses the denom value with the closest date to the mainStatDate and returns
+   * null if no matching value is found or matching value is 0. If available, uses
+   * the denom value that comes from the same facet as the data point. Otherwise, the best
+   * general denom option is used.
+   * @param svSpec the stat var spec of the data point to calculate per capita for
+   * @param denomData map facet ID -> population data. If the facet used in the stat var spec
+   * has denominator data, we use information from that facet.
+   * @param placeDcid place of the data point
+   * @param mainStatDate date of the data point
+   * @param facetUsed facet used for the data point
+   * @param defaultDenomData If there isn't denominator data available for the facet used in
+   * svSpec, we use the default data that is fetched with no particular facet
+   */
+
+  // --> Need the series for this particular entity, and the facet ID it comes from
+  // then we do this if that denom info exists
+  private getDenomInfo(
+    denomVar: string,
+    denomsByFacet: Record<string, SeriesApiResponse | null>,
+    defaultDenomData: SeriesApiResponse | null,
+    placeDcid: string,
+    numeratorFacet?: string
+  ): [Series | null, StatMetadata | null] {
+    console.log("reaching denom info");
+    let matchingDenomData: SeriesApiResponse | null = null;
+    let placeDenomData: Series | undefined | null = null;
+    let facetUsed: StatMetadata | null = null;
+
+    // find the matching denominator data if it exists, for the facet used in the numerator
+    if (numeratorFacet) {
+      matchingDenomData = denomsByFacet?.[numeratorFacet];
+      placeDenomData = matchingDenomData?.data?.[denomVar]?.[placeDcid];
+
+      console.log(
+        "Found matching place data for num facet: ",
+        numeratorFacet,
+        ": ",
+        placeDenomData
+      );
+
+      // getting the facet metadata for the facet we're using
+      facetUsed = _.get(
+        denomsByFacet?.[numeratorFacet]?.facets,
+        numeratorFacet || "",
+        {} as StatMetadata
+      );
+    }
+
+    if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
+      matchingDenomData = defaultDenomData;
+      placeDenomData = matchingDenomData?.data?.[denomVar]?.[placeDcid];
+      console.log("using default data: ", placeDenomData);
+      facetUsed = placeDenomData
+        ? _.get(
+            defaultDenomData?.facets,
+            placeDenomData.facet || "",
+            {} as StatMetadata
+          )
+        : null;
+    }
+
+    placeDenomData = placeDenomData ?? null;
+
+    return [placeDenomData, facetUsed];
+  }
+
+  /**
    * Enriches PointApiResponse and converts response into a list of `DataRow`s
    * @param entityDcids Entity DCIDs
    * @param variableDcids Variable DCIDs
@@ -552,7 +704,8 @@ class DataCommonsClient {
     entityPropValues: NodePropValues,
     variablePropValues: NodePropValues,
     populationPropValues: NodePropValues,
-    populationObservations: SeriesApiResponse
+    denomsByFacet: Record<string, SeriesApiResponse | null>,
+    defaultDenomData: SeriesApiResponse | null
   ): DataRow[] {
     const dataRows: DataRow[] = [];
     entityDcids.forEach((entityDcid) => {
@@ -576,21 +729,16 @@ class DataCommonsClient {
           facet
         );
         // Set per-capita data
-        if (
-          TOTAL_POPULATION_VARIABLE in populationObservations.data &&
-          entityDcid in
-            populationObservations.data[TOTAL_POPULATION_VARIABLE] &&
-          populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid]
-            .series.length > 0
-        ) {
-          const series =
-            populationObservations.data[TOTAL_POPULATION_VARIABLE][entityDcid];
-          const populationFacet = _.get(
-            populationObservations.facets,
-            series.facet || "",
-            {} as StatMetadata
-          );
-
+        const [series, populationFacet] = this.getDenomInfo(
+          TOTAL_POPULATION_VARIABLE,
+          denomsByFacet,
+          defaultDenomData,
+          entityDcid,
+          observation.facet
+        );
+        console.log("selected populationFacet: ", populationFacet);
+        // if we have denom data
+        if (series && populationFacet) {
           const closestPopulationObservation = this.getClosestObservationToDate(
             series.series,
             observation.date
