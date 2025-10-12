@@ -334,7 +334,7 @@ class DataCommonsClient {
   ): Promise<
     [Record<string, SeriesApiResponse | null>, SeriesApiResponse | null]
   > {
-    let denomsByFacet: Record<string, SeriesApiResponse | null> = {};
+    const denomsByFacet: Record<string, SeriesApiResponse | null> = {};
     let defaultDenomData: SeriesApiResponse | null = null;
     const facetIds =
       !_.isEmpty(denoms) && apiResponseFacets
