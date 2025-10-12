@@ -31,11 +31,14 @@ import React, {
 import { Input, InputGroup } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
-import { ENABLE_STAT_VAR_AUTOCOMPLETE } from "../../shared/feature_flags/util";
+import {
+  DISABLE_FEATURE_URL_PARAM,
+  ENABLE_FEATURE_URL_PARAM,
+  ENABLE_STAT_VAR_AUTOCOMPLETE,
+} from "../../shared/feature_flags/util";
 import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
-  GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
   GA_PARAM_QUERY_AT_SELECTION,
@@ -267,9 +270,9 @@ export function AutoCompleteInput(
       urlParams.set("query", query);
       // Force the backend to use the stat var autocomplete model if the feature is enabled.
       if (props.enableStatVarAutocomplete) {
-        urlParams.set("enable_feature", ENABLE_STAT_VAR_AUTOCOMPLETE);
+        urlParams.set(ENABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
       } else {
-        urlParams.set("disable_feature", ENABLE_STAT_VAR_AUTOCOMPLETE);
+        urlParams.set(DISABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
       }
       const url = `/api/autocomplete?${urlParams.toString()}`;
 
@@ -330,8 +333,15 @@ export function AutoCompleteInput(
         event.preventDefault();
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
-      case " ":
-        if (hoveredIdx >= 0) {
+      default:
+        // Handle alphanumeric, space and backspace keys
+        if (
+          hoveredIdx >= 0 &&
+          (/[a-zA-Z0-9]/.test(event.key) ||
+            event.key === " " ||
+            event.key === "Backspace" ||
+            event.key === "Delete")
+        ) {
           selectResult(results[hoveredIdx], hoveredIdx, true);
         }
     }
@@ -362,6 +372,10 @@ export function AutoCompleteInput(
     const selectedProcessedResult = processedResults[idx];
     const queryText = selectedProcessedResult.fullText;
     const placeDcid = selectedProcessedResult.placeDcid;
+    const urlParams = extractFlagsToPropagate(window.location.href);
+    if (props.enableAutoComplete) {
+      urlParams.set(ENABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
+    }
 
     if (
       result?.matchType === STAT_VAR_SEARCH &&
@@ -370,15 +384,10 @@ export function AutoCompleteInput(
       if (result.dcid) {
         setHasLocation(hasLocation || result.hasPlace);
         if (!skipRedirection) {
-          triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV, {
-            [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
-          });
-          const placeParam = placeDcid ? `p=${placeDcid}` : "p=Earth";
-          window.location.href =
-            `/explore#${placeParam}&sv=` +
-            encodeURIComponent(result.dcid) +
-            "&q=" +
-            encodeURIComponent(queryText);
+          // TODO(gmechali): Consider using SV redirection via URL param injection.
+          changeText(queryText);
+          setTriggerSearch(queryText);
+          setResults([]);
         }
         return;
       }
@@ -398,6 +407,12 @@ export function AutoCompleteInput(
 
         const overrideParams = new URLSearchParams();
         overrideParams.set("q", result.name);
+        if (props.enableStatVarAutocomplete) {
+          overrideParams.set(
+            ENABLE_FEATURE_URL_PARAM,
+            ENABLE_STAT_VAR_AUTOCOMPLETE
+          );
+        }
         const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
         if (!skipRedirection) {
           redirect(window.location.href, destinationUrl, overrideParams);
