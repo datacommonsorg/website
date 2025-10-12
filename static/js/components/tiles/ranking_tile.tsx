@@ -500,6 +500,7 @@ function pointApiToPerSvRankingData(
         value: statPoint.value,
       };
       if (_.isUndefined(rankingPoint.value)) {
+        console.log(`Skipping ${place}, missing ${spec.statVar}`);
         continue;
       }
       if (spec.denom) {
@@ -513,6 +514,7 @@ function pointApiToPerSvRankingData(
           defaultDenomData
         );
         if (!denomInfo) {
+          console.log(`Skipping ${place}, missing ${spec.denom}`);
           continue;
         }
         rankingPoint.value /= denomInfo.value;

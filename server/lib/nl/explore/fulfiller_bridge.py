@@ -44,7 +44,6 @@ class FulfillResp:
 
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr)
-  print("passed first fulfill")
 
   builder_result = nl_config_builder.build(state, cb_config)
   if not builder_result.page_config:
@@ -72,7 +71,6 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   related_things = related.compute_related_things(state, plotted_orig_vars,
                                                   explore_peer_groups)
 
-  print("reaching end of fulfill")
   return FulfillResp(chart_pb=builder_result.page_config,
                      related_things=related_things,
                      user_message=builder_result.page_msg)

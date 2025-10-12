@@ -314,6 +314,7 @@ function rawToChart(
       rawData.placeStats.facets
     );
     if (!placeChartData) {
+      console.log(`BIVARIATE: No data for ${place}, skipping`);
       continue;
     }
     placeChartData.sources.forEach((source) => {

@@ -399,7 +399,6 @@ def prepare_response(utterance: nl_utterance.Utterance,
       status_str += '**No SVs Found**.'
 
   has_charts = True if page_config else False
-  print("mostly prepared response")
   return prepare_response_common(data_dict, status_str, detection, dbg_counters,
                                  debug_logs, has_charts, utterance.test,
                                  utterance.client)
@@ -428,7 +427,6 @@ def prepare_response_common(data_dict: Dict,
     data_dict['session'] = session_info
     loop.run_until_complete(bt.write_row(session_info, data_dict, dbg_counters))
 
-  print("finished prepare_response_common")
   return data_dict
 
 

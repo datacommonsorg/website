@@ -506,6 +506,9 @@ function rawToChart(
       rawData.placeStats.facets
     );
     if (!placeChartData) {
+      console.log(
+        `SCATTER: no data ${xStatVar} / ${yStatVar} for ${place}. skipping.`
+      );
       continue;
     }
     placeChartData.sources.forEach((source) => {

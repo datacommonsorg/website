@@ -101,7 +101,6 @@ def fulfill():
 #
 @bp.route('/detect-and-fulfill', methods=['POST'])
 def detect_and_fulfill():
-  print("Reaching d and f")
   debug_logs = {}
 
   test = request.args.get(Params.TEST.value, '')
@@ -121,8 +120,6 @@ def detect_and_fulfill():
       request, 'explore', client, debug_logs)
   if error_json:
     return error_json
-
-  print("have utterance: ", utterance)
 
   # Set some params used downstream in explore flow.
   utterance.insight_ctx[
@@ -237,8 +234,6 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   start = time.time()
   fresp = nl_fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
-
-  print("fulfilled")
 
   return helpers.prepare_response(utterance,
                                   fresp.chart_pb,

@@ -508,6 +508,7 @@ export const fetchData = async (
       dateOverride
     );
   } catch (error) {
+    console.log(error);
     return null;
   }
 };
