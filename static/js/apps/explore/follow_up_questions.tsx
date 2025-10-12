@@ -32,7 +32,6 @@ import {
 } from "../../constants/app/explore_constants";
 import { intl } from "../../i18n/i18n";
 import { messages } from "../../i18n/i18n_messages";
-import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import { FOLLOW_UP_QUESTIONS_GA } from "../../shared/feature_flags/util";
 import {
   GA_EVENT_RELATED_TOPICS_CLICK,

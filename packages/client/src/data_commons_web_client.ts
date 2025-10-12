@@ -30,7 +30,7 @@ import {
 } from "./data_commons_web_client_types";
 import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 
-import { UNKNOWN_surface, SURFACE_HEADER_NAME } from "./constants";
+import { UNKNOWN_SURFACE, SURFACE_HEADER_NAME } from "./constants";
 
 export interface DatacommonsWebClientParams {
   apiRoot?: string;
@@ -48,7 +48,7 @@ class DataCommonsWebClient {
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
-    const surface = p.surface || UNKNOWN_surface;
+    const surface = p.surface || UNKNOWN_SURFACE;
 
     this.options = {
       headers: {
