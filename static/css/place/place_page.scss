@@ -56,8 +56,11 @@ main {
       font-weight: 400;
       line-height: 28px;
       margin: 0;
-      padding: 0 24px 12px;
+      padding: 0 0 10px 0;
     }
+   .block-body .chart-container:first-of-type {
+      margin-top: 0;
+   }
   }
 }
 
@@ -69,7 +72,6 @@ main {
 
   .place-info {
     flex-grow: 1;
-    padding: 0 24px;
 
     h1 {
       align-items: center;
@@ -126,7 +128,6 @@ main {
   margin: 8px 0;
   padding-top: 10px;
   margin-bottom: 32px;
-  padding: 10px 24px 0;
 
   .explore-relevant-topics {
     margin-right: 12px;
@@ -139,12 +140,6 @@ main {
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-  .block-controls {
-    padding-left: 24px;
-    padding-right: 24px;
   }
 }
 
