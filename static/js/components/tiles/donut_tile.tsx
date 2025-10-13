@@ -29,12 +29,13 @@ import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getPoint, getSeries } from "../../utils/data_fetch_utils";
+import { getPoint } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   clearContainer,
   getDenomInfo,
+  getDenomResp,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
@@ -205,9 +206,13 @@ export const fetchData = async (
       date,
       [statSvs]
     );
-    const denomResp = _.isEmpty(denomSvs)
-      ? null
-      : await getSeries(props.apiRoot, [props.place.dcid], denomSvs);
+    const [denomsByFacet, defaultDenomData] = await getDenomResp(
+      denomSvs,
+      statResp,
+      props.apiRoot,
+      false,
+      [props.place.dcid]
+    );
 
     // Find the most populated places.
     let popPoints: RankingPoint[] = [];
@@ -233,7 +238,8 @@ export const fetchData = async (
     return rawToChart(
       props,
       statResp,
-      denomResp,
+      denomsByFacet,
+      defaultDenomData,
       popPoints,
       placeNames,
       statVarDcidToName
@@ -247,7 +253,8 @@ export const fetchData = async (
 function rawToChart(
   props: DonutTilePropType,
   statData: PointApiResponse,
-  denomData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
   statVarNames: Record<string, string>
@@ -278,7 +285,14 @@ function rawToChart(
         sources.add(raw.facets[stat.facet].provenanceUrl);
       }
       if (spec.denom) {
-        const denomInfo = getDenomInfo(spec, denomData, placeDcid, stat.date);
+        const denomInfo = getDenomInfo(
+          spec,
+          denomsByFacet,
+          placeDcid,
+          stat.date,
+          stat.facet,
+          defaultDenomData
+        );
         if (!denomInfo) {
           // skip this data point because missing denom data.
           continue;

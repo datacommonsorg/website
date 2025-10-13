@@ -113,8 +113,8 @@ def series_within():
   if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
     try:
       logging.info("Fetching child places series in batches")
-      child_places = fetch.descendent_places([parent_entity],
-                                             child_type).get(parent_entity, [])
+      child_places_resp = fetch.descendent_places([parent_entity], child_type)
+      child_places = child_places_resp.get(parent_entity, [])
       merged_response = {}
       for batch in shared.divide_into_batches(child_places, batch_size):
         new_response = fetch.series_core(batch, variables, False, facet_ids)
