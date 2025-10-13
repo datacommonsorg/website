@@ -74,25 +74,23 @@ function App(): ReactElement {
       />
       <div id="plot-container">
         <Container fluid={true}>
-          {!showChart && (
-            <Row>
-              {useStandardizedUi ? (
-                <ToolHeader
-                  title={intl.formatMessage(toolMessages.scatterToolTitle)}
-                  subtitle={intl.formatMessage(
-                    toolMessages.scatterToolSubtitle
-                  )}
-                />
-              ) : (
-                <div className="app-header">
-                  <h1 className="mb-4">Scatter Plot Explorer</h1>
-                  <a href="/tools/visualization#visType%3Dscatter">
-                    Go back to the new Scatter Plot Explorer
-                  </a>
-                </div>
-              )}
-            </Row>
-          )}
+          <Row>
+            {useStandardizedUi ? (
+              <ToolHeader
+                title={intl.formatMessage(toolMessages.scatterToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.scatterToolSubtitle)}
+              />
+            ) : (
+              <div className="app-header">
+                <h1 className="mb-4">
+                  {intl.formatMessage(toolMessages.scatterToolTitle)}
+                </h1>
+                <a href="/tools/visualization#visType%3Dscatter">
+                  {intl.formatMessage(toolMessages.scatterToolGoBackMessage)}
+                </a>
+              </div>
+            )}
+          </Row>
           <Row>
             <div
               css={css`
