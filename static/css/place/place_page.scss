@@ -61,6 +61,16 @@ main {
    .block-body .chart-container:first-of-type {
       margin-top: 0;
    }
+   .block-body .row {
+    & .chart-container:last-of-type {
+      margin-bottom: 0;
+    }
+    @include media-breakpoint-down(sm) {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+   }
   }
 }
 
