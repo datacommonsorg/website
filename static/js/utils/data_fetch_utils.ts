@@ -295,15 +295,12 @@ export function getSeriesWithin(
   if (facetIds) {
     params["facetIds"] = facetIds;
   }
-  console.log("params for series within: ", params);
-  const resp = axios
+  return axios
     .get(`${apiRoot || ""}/api/observations/series/within`, {
       params,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
-  console.log("resp for series within: ", resp);
-  return resp;
 }
 
 export interface FacetResponse {
