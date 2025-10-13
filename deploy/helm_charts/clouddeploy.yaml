@@ -53,12 +53,6 @@ metadata:
 description: My application delivery pipeline for DataCommons Mixer API cluster
 serialPipeline:
   stages:
-    - targetId: mixer-dev
-      profiles: [mixer-dev]
-      strategy:
-        standard:
-          predeploy:
-            actions: ["deploy-cloud-esp-mixer-dev"]
     - targetId: mixer-autopush
       profiles: [mixer-autopush]
       strategy:
