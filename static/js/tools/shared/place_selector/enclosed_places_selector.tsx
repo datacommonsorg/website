@@ -18,7 +18,8 @@
  * Card for selecting places in a parent place for our visualization tools.
  */
 
-import { css, useTheme } from "@emotion/react";
+import { css, SerializedStyles, useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
@@ -128,12 +129,15 @@ export function EnclosedPlacesSelector(
       />
       <div>{intl.formatMessage(toolMessages.childPlaceTypeInstruction)}</div>
       <div>
-        <select
+        <PlaceTypeSelect
           id={"place-selector-place-type"}
           className="form-control"
           value={props.enclosedPlaceType}
           onChange={(event): void =>
             props.onEnclosedPlaceTypeSelected(event.target.value)
+          }
+          isHighlighted={
+            props.selectedParentPlace.dcid && !props.enclosedPlaceType
           }
         >
           <option value="">Select a place type</option>
@@ -142,8 +146,23 @@ export function EnclosedPlacesSelector(
               {ENCLOSED_PLACE_TYPE_NAMES[type] || type}
             </option>
           ))}
-        </select>
+        </PlaceTypeSelect>
       </div>
     </div>
   );
 }
+
+/** A select component with custom styling that allows the selector to be highlighted */
+const PlaceTypeSelect = styled.select<{ isHighlighted: boolean }>`
+  // Add a smooth transition for the highlight effect
+  transition: box-shadow 0.15s ease-in-out, border-color 0.15s ease-in-out;
+
+  // Conditionally apply highlight
+  ${(props): SerializedStyles | false =>
+    props.isHighlighted &&
+    css`
+      border-color: ${props.theme.colors.button.primary.base};
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem ${props.theme.colors.button.primary.light};
+    `}
+`;
