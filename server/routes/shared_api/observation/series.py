@@ -106,6 +106,8 @@ def series_within():
 
   facet_ids = _get_filtered_arg_list(request.args.getlist('facetIds'))
 
+  print("Params: ", parent_entity, child_type, variables, facet_ids)
+
   # Make batched calls there are too many child places for server to handle
   # Mixer checks num_places * num_variables and stop processing if the number is
   # too large. So the batch_size takes into account the number of variables.
@@ -113,8 +115,10 @@ def series_within():
   if parent_entity in _BATCHED_CALL_PLACES.get(child_type, []):
     try:
       logging.info("Fetching child places series in batches")
-      child_places = fetch.descendent_places([parent_entity],
-                                             child_type).get(parent_entity, [])
+      child_places_resp = fetch.descendent_places([parent_entity],
+                                             child_type)
+      print("child places resp: ", child_places_resp)
+      child_places = child_places_resp.get(parent_entity, [])
       merged_response = {}
       for batch in shared.divide_into_batches(child_places, batch_size):
         new_response = fetch.series_core(batch, variables, False, facet_ids)

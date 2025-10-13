@@ -387,6 +387,8 @@ def property_values(nodes, prop, out=True, constraints=''):
     <node_dcid>: [value list]
   }
   """
+  print("formatted props: ", '{}{}{}'.format('->' if out else '<-', prop,
+                                          constraints))
   resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
                                           constraints))
   result = {}

@@ -217,6 +217,8 @@ class DataCommonsClient {
         )
       : ({} as NodePropValues);
 
+    // Fetch population data for per capita calculations
+    // Match the numerator facet with the denominator if available
     const denoms = validPerCapitaVariables;
     let denomsByFacet: Record<string, SeriesApiResponse | null> = {};
     let defaultDenomData: SeriesApiResponse | null = null;
@@ -327,6 +329,17 @@ class DataCommonsClient {
     );
   }
 
+  /**
+   * Fetches denominator data for per capita calculations.
+   * Gets a map of denominator data for each facet used in the numerator
+   * API response, as well as the default denominator data with no facet
+   * filter that serves as a fallback if facet-specific data is not available.
+   *
+   * @param denoms List of denominator variable dcids (usually Count_Person)
+   * @param apiResponseFacets Facet store from the numerator API response
+   * @param params Parameters for fetching data rows
+   * @returns A record of denominator data by facet and the default denominator data
+   */
   private async getDenomData(
     denoms: string[],
     apiResponseFacets: FacetStore,
@@ -415,6 +428,7 @@ class DataCommonsClient {
       : ({} as NodePropValues);
 
     // Fetch population data for per capita calculations
+    // Match the numerator facet with the denominator if available
     const denoms = validPerCapitaVariables;
     let denomsByFacet: Record<string, SeriesApiResponse | null> = {};
     let defaultDenomData: SeriesApiResponse | null = null;
@@ -640,7 +654,8 @@ class DataCommonsClient {
    * @param pointApiResponse Entity/variable observations
    * @param entityPropValues Additional entity properties to fetch
    * @param variablePropValues Additional variable properties to fetch
-   * @param populationObservations Population observations for our list of entities for per-capita calculations
+   * @param denomsByFacet Population observations for our list of entities, keyed by facet ID
+   * @param defaultDenomData Population observations for our list of entities with no facet filter
    * @returns data rows
    */
   private getDataRowsFromPointObservations(
@@ -760,7 +775,8 @@ class DataCommonsClient {
    * @param seriesApiResponse Entity/variable observations
    * @param entityPropValues Additional entity properties to fetch
    * @param variablePropValues Additional variable properties to fetch
-   * @param populationObservations Population observations for our list of entities for per-capita calculations
+   * @param denomsByFacet Population observations for our list of entities, keyed by facet ID
+   * @param defaultDenomData Population observations for our list of entities with no facet filter
    * @returns data rows
    */
   private getDataRowsFromSeriesObservations(

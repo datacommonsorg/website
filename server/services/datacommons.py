@@ -82,6 +82,8 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
+  if not response.text:
+    return {}
   return response.json()
 
 
