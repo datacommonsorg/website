@@ -229,6 +229,9 @@ export function AutoCompleteInput(
     if (selectionApplied) {
       triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
         [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
+        [GA_PARAM_SELECTION_TYPE]: results[hoveredIdx].matchType,
+        [GA_PARAM_SELECTION_TEXT]: results[hoveredIdx].name,
+        [GA_PARAM_QUERY_AT_SELECTION]: baseInput,
       });
       setResults([]);
       setHoveredIdx(-1);
