@@ -9,11 +9,9 @@ export TABLE_DESCRIPTION="Table to store usage logs from GCP logging"
 # Note that the destination BQ dataset can be in a different GCP project from the project where the logs are written from.
 export DESTINATION_PROJECT_ID=${LOG_SOURCE_PROJECT_ID}
 # Name of the BigQuery dataset to route logs to
-# TODO: move to usage_logs once perms are updated
-export DESTINATION_DATASET="manual_usage_logs"
+export DESTINATION_DATASET="usage_logs"
 # Name of the BigQuery dataset table
-# TODO: change to query_logs once perms are updated
-export DESTINATION_TABLE="stdout"
+export DESTINATION_TABLE="query_logs"
 # A description of the sink, optional
 export DESCRIPTION="routes usage logs to a bigquery table"
 # An attribute that only your logs have
