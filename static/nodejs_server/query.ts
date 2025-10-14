@@ -24,7 +24,6 @@ import {
   getBlockEventTypeSpecs,
 } from "../js/components/subject_page/disaster_event_block";
 import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
-import { SURFACE_HEADER_NAME } from "../js/shared/constants";
 import {
   NamedTypedNode,
   NamedTypedPlace,
@@ -34,6 +33,7 @@ import {
   BlockConfig,
   EventTypeSpec,
 } from "../js/types/subject_page_proto_types";
+import { getSurfaceHeader } from "../js/utils/axios";
 import {
   getDate,
   getSeverityFilters,
@@ -66,13 +66,6 @@ const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 const DEFAULT_QUERY_DETECTOR = "heuristic";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
-
-// formats header for calls to the Flask API, which is passed into mixer and used in usage logging
-export const getSurfaceHeader = (
-  surface: string
-): Record<typeof SURFACE_HEADER_NAME, string> => {
-  return { [SURFACE_HEADER_NAME]: surface };
-};
 
 // Get the elapsed time in seconds given the start and end times in nanoseconds.
 function getElapsedTime(startTime: bigint, endTime: bigint): number {

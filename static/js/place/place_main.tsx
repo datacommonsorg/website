@@ -31,6 +31,7 @@ import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { pageMessages } from "../i18n/i18n_place_messages";
+import { WEBSITE_SURFACE } from "../shared/constants";
 import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
@@ -364,8 +365,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setHasError(true);
       return;
     }
-    const surface = pageMetadata.dataset.surfaceHeader;
-    const dataCommonsClient = getDataCommonsClient(null, surface);
+    const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
     (async (): Promise<void> => {
       try {
         const [
