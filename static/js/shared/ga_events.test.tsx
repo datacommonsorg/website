@@ -104,7 +104,7 @@ import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
-import { WEBSITE_SURFACE } from "./constants";
+import { TEST_SURFACE } from "./constants";
 import { FacetSelectorFacetInfo } from "./facet_selector/facet_selector";
 import {
   GA_EVENT_COMPONENT_IMPRESSION,
@@ -260,7 +260,7 @@ const TIMELINE_PROPS = {
   removeStatVar: (): null => null,
   statVarInfos: { [STAT_VAR_1]: { title: "" } } as Record<string, StatVarInfo>,
   svFacetId: { [STAT_VAR_1]: "" },
-  surface: WEBSITE_SURFACE,
+  surface: TEST_SURFACE,
 };
 
 // Props and context for scatter plot tool chart.

@@ -192,10 +192,12 @@ class DataCommonsWebClient {
   async getObservationsSeries(params: {
     entities: string[];
     variables: string[];
+    facetIds?: string[];
   }): Promise<SeriesApiResponse> {
     const queryString = toURLSearchParams({
       entities: params.entities,
       variables: params.variables,
+      facetIds: params.facetIds,
     });
     const url = `${this.apiRoot || ""}/api/observations/series?${queryString}`;
     const response = await fetch(url, this.options);
@@ -208,16 +210,19 @@ class DataCommonsWebClient {
    * @param params.parentEntity parent place dcid to get the data for
    * @param params.childType place type to get the data for
    * @param params.variables variable dcids to get data for
+   * @param facets optional list of facetIds to filter the data by
    */
   async getObservationsSeriesWithin(params: {
     parentEntity: string;
     childType: string;
     variables: string[];
+    facetIds?: string[];
   }): Promise<SeriesApiResponse> {
     const queryString = toURLSearchParams({
       parentEntity: params.parentEntity,
       childType: params.childType,
       variables: params.variables,
+      facetIds: params.facetIds,
     });
     const url = `${
       this.apiRoot || ""

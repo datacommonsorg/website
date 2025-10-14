@@ -16,7 +16,7 @@
 
 /* Tests for getting result for query endpoint */
 
-import { WEBSITE_SURFACE } from "../js/shared/constants";
+import { TEST_SURFACE } from "../js/shared/constants";
 import { queryAxiosMock } from "./mock_functions";
 import { getQueryResult } from "./query";
 import { TileResult } from "./types";
@@ -224,7 +224,7 @@ test("getQueryResult", async () => {
       false, // wantRelatedQuestions
       "", // detector
       undefined, // idx
-      WEBSITE_SURFACE // surface
+      TEST_SURFACE // surface
     );
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);

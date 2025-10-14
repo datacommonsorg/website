@@ -33,7 +33,7 @@ import Cheerio from "cheerio";
 import Enzyme, { mount } from "enzyme";
 import React from "react";
 
-import { SURFACE_HEADER_NAME, WEBSITE_SURFACE } from "../../shared/constants";
+import { SURFACE_HEADER_NAME, TEST_SURFACE } from "../../shared/constants";
 import theme from "../../theme/theme";
 import { BarTile } from "./bar_tile";
 
@@ -85,7 +85,7 @@ function mockAxios(): void {
   mockedAxios.get.mockImplementation((url, config) => {
     if (
       url === "/api/observations/point/within" &&
-      config.headers[SURFACE_HEADER_NAME] === WEBSITE_SURFACE
+      config.headers[SURFACE_HEADER_NAME] === TEST_SURFACE
     ) {
       /* eslint-disable camelcase */
       return Promise.resolve({
@@ -156,7 +156,7 @@ describe("BarTile", () => {
           title={"Chart Title"}
           enclosedPlaceType={"NAICSEnum"}
           parentPlace={"NAICSEnum"}
-          surface={WEBSITE_SURFACE}
+          surface={TEST_SURFACE}
         />
       </ThemeProvider>
     );

@@ -18,10 +18,7 @@
 import axios from "axios";
 import { when } from "jest-when";
 
-import {
-  WEBSITE_SURFACE,
-  WEBSITE_SURFACE_HEADER,
-} from "../../shared/constants";
+import { TEST_SURFACE, TEST_SURFACE_HEADER } from "../../shared/constants";
 import { stringifyFn } from "../axios";
 import { getBestUnit, getPoint, getPointWithin } from "../data_fetch_utils";
 
@@ -244,7 +241,7 @@ function axiosMock(): void {
         variables: VARIABLES,
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: TEST_POINT_API_RESPONSE,
@@ -257,7 +254,7 @@ function axiosMock(): void {
         entities: ENTITIES,
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: TEST_POINT_API_RESPONSE,
@@ -300,7 +297,7 @@ test("getPoint no align", () => {
     undefined, // alignedVariables
     undefined, // highlightFacet
     undefined, // facetIds
-    WEBSITE_SURFACE
+    TEST_SURFACE
   ).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_NO_ALIGN);
   });
@@ -316,7 +313,7 @@ test("getPoint align", () => {
     [["stat_var_1", "stat_var_2"]],
     undefined, // highlightFacet
     undefined, // facetIds
-    WEBSITE_SURFACE
+    TEST_SURFACE
   ).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_1_2_ALIGNED);
   });
@@ -332,7 +329,7 @@ test("getPointWithin no align", () => {
     DATE,
     undefined, // alignedVariables
     undefined, // facetIds
-    WEBSITE_SURFACE
+    TEST_SURFACE
   ).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_NO_ALIGN);
   });
@@ -348,7 +345,7 @@ test("getPointWithin", () => {
     DATE,
     [["stat_var_1", "stat_var_2"]],
     undefined, // facetIds
-    WEBSITE_SURFACE
+    TEST_SURFACE
   ).then((resp) => {
     expect(resp).toEqual(TEST_PROCESSED_RESPONSE_1_2_ALIGNED);
   });

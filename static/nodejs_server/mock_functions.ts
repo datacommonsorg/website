@@ -20,7 +20,8 @@ jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";
 
-import { WEBSITE_SURFACE_HEADER } from "../js/shared/constants";
+import { TEST_SURFACE_HEADER } from "../js/shared/constants";
+import { getSurfaceHeader } from "../js/utils/axios";
 import { stringifyFn } from "../js/utils/axios";
 import {
   BAR_FILTER_POINTS_RESP,
@@ -38,7 +39,6 @@ import {
   SCATTER_NL_RESP,
   TIMELINE_NL_RESP,
 } from "./mock_data";
-import { getSurfaceHeader } from "./query";
 
 export function queryAxiosMock(): void {
   // Mock all the async axios call.
@@ -54,7 +54,7 @@ export function queryAxiosMock(): void {
       "/api/explore/detect-and-fulfill?q=family earnings in north dakota&detector=heuristic&client=bard&skipRelatedThings=true",
       {},
       {
-        headers: WEBSITE_SURFACE_HEADER,
+        headers: TEST_SURFACE_HEADER,
       }
     )
     .mockResolvedValue(TIMELINE_NL_RESP);
@@ -68,7 +68,7 @@ export function queryAxiosMock(): void {
         variables: ["Mean_Income_Household_FamilyHousehold"],
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue(HOUSEHOLD_INCOME_LATEST_POINTS_RESP);
   when(axios.post)
@@ -79,7 +79,7 @@ export function queryAxiosMock(): void {
         variables: ["Mean_Income_Household_FamilyHousehold"],
       },
       {
-        headers: WEBSITE_SURFACE_HEADER,
+        headers: TEST_SURFACE_HEADER,
       }
     )
     .mockResolvedValue(MEAN_HOUSEHOLD_INCOME_SERIES_RESP);
@@ -91,7 +91,7 @@ export function queryAxiosMock(): void {
         variables: ["Median_Income_Household_FamilyHousehold"],
       },
       {
-        headers: WEBSITE_SURFACE_HEADER,
+        headers: TEST_SURFACE_HEADER,
       }
     )
     .mockResolvedValue(MEDIAN_HOUSEHOLD_INCOME_SERIES_RESP);
@@ -171,7 +171,7 @@ export function queryAxiosMock(): void {
       "/api/explore/detect-and-fulfill?q=top jobs in santa clara county&detector=heuristic&client=bard&skipRelatedThings=true",
       {},
       {
-        headers: WEBSITE_SURFACE_HEADER,
+        headers: TEST_SURFACE_HEADER,
       }
     )
     .mockResolvedValue(BAR_NL_RESP);
@@ -203,7 +203,7 @@ export function queryAxiosMock(): void {
         ],
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue(BAR_POINTS_RESP);
   when(axios.get)
@@ -214,7 +214,7 @@ export function queryAxiosMock(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue(BAR_FILTER_POINTS_RESP);
   when(axios.post)
@@ -288,7 +288,7 @@ export function queryAxiosMock(): void {
       "/api/explore/detect-and-fulfill?q=obesity vs. poverty in counties of california&detector=heuristic&client=bard&skipRelatedThings=true",
       {},
       {
-        headers: WEBSITE_SURFACE_HEADER,
+        headers: TEST_SURFACE_HEADER,
       }
     )
     .mockResolvedValue(SCATTER_NL_RESP);
@@ -301,7 +301,7 @@ export function queryAxiosMock(): void {
         variables: ["Percent_Person_Obesity"],
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue(OBESITY_POINT_WITHIN_RESP);
   when(axios.get)
@@ -313,7 +313,7 @@ export function queryAxiosMock(): void {
         variables: ["Count_Person_BelowPovertyLevelInThePast12Months"],
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue(POVERTY_POINT_WITHIN_RESP);
   when(axios.get)

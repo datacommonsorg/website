@@ -214,3 +214,9 @@ export const SURFACE_HEADER_NAME = "x-surface";
 export const WEBSITE_SURFACE_HEADER = {
   [SURFACE_HEADER_NAME]: WEBSITE_SURFACE,
 };
+
+// Header value used for integration tests
+export const TEST_SURFACE = "integration-test";
+export const TEST_SURFACE_HEADER = {
+  [SURFACE_HEADER_NAME]: TEST_SURFACE,
+};

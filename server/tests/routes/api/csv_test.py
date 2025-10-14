@@ -17,6 +17,8 @@ import unittest
 from unittest import mock
 
 import server.tests.routes.api.mock_data as mock_data
+from shared.lib.constants import SURFACE_HEADER_NAME
+from shared.lib.constants import TEST_SURFACE_HEADER
 from web_app import app
 
 
@@ -60,7 +62,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                           })
     assert no_stat_vars.status_code == 400
 
-  @with_request_context(headers={'x-surface': 'website'})
+  @with_request_context(headers=TEST_SURFACE_HEADER)
   @mock.patch('server.routes.shared_api.csv.dc.obs_point_within')
   @mock.patch('server.routes.shared_api.csv.names')
   def test_single_date(self, mock_place_names, mock_point_within):
@@ -99,9 +101,10 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
     latest_date_req_json = base_req_json.copy()
     latest_date_req_json["minDate"] = "latest"
     latest_date_req_json["maxDate"] = "latest"
-    latest_date = app.test_client().post(endpoint_url,
-                                         json=latest_date_req_json,
-                                         headers={'x-surface': 'website'})
+    latest_date = app.test_client().post(
+        endpoint_url,
+        json=latest_date_req_json,
+        headers={SURFACE_HEADER_NAME: TEST_SURFACE_HEADER})
     assert latest_date.status_code == 200
     assert latest_date.data.decode("utf-8") == (
         "placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n"

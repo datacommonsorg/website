@@ -21,7 +21,7 @@ from langdetect import detect as detect_lang
 import requests
 
 from shared.lib.constants import SURFACE_HEADER_NAME
-from shared.lib.constants import TEST_SURFACE
+from shared.lib.constants import TEST_SURFACE_HEADER
 from shared.lib.test_server import NLWebServerTestCase
 
 _dir = os.path.dirname(os.path.abspath(__file__))
@@ -41,7 +41,7 @@ class ExploreTest(NLWebServerTestCase):
         f'/api/explore/fulfill?test={test}&i18n={i18n}&client=test_fulfill',
         json=req_json,
         headers={
-            SURFACE_HEADER_NAME: TEST_SURFACE
+            SURFACE_HEADER_NAME: TEST_SURFACE_HEADER
         }).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
@@ -65,7 +65,7 @@ class ExploreTest(NLWebServerTestCase):
               'dc': dc,
           },
           headers={
-              SURFACE_HEADER_NAME: TEST_SURFACE
+              SURFACE_HEADER_NAME: TEST_SURFACE_HEADER
           }).json()
       ctx = resp['context']
       if len(queries) == 1:
@@ -96,7 +96,7 @@ class ExploreTest(NLWebServerTestCase):
               'dc': dc,
           },
           headers={
-              SURFACE_HEADER_NAME: TEST_SURFACE
+              SURFACE_HEADER_NAME: TEST_SURFACE_HEADER
           }).json()
       ctx = resp['context']
       if len(queries) == 1:

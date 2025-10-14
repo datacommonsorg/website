@@ -457,5 +457,6 @@ DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
 EMBEDDINGS_FILE_NAME = 'embeddings.csv'
 
 SURFACE_HEADER_NAME = "x-surface"
-TEST_SURFACE = "integration-test"
 WEBSITE_SURFACE = "website"
+TEST_SURFACE = "integration-test"
+TEST_SURFACE_HEADER = {SURFACE_HEADER_NAME: "integration-test"}

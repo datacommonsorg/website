@@ -16,10 +16,8 @@
 
 /* eslint-disable camelcase */
 
-import {
-  WEBSITE_SURFACE,
-  WEBSITE_SURFACE_HEADER,
-} from "../../shared/constants";
+// Use website instead of test because this tests the scatter app where we set the header to 'website'
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import theme from "../../theme/theme";
 
 jest.mock("axios");

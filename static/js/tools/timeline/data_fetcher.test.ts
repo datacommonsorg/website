@@ -21,10 +21,7 @@ import axios from "axios";
 import { when } from "jest-when";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import {
-  WEBSITE_SURFACE,
-  WEBSITE_SURFACE_HEADER,
-} from "../../shared/constants";
+import { TEST_SURFACE, TEST_SURFACE_HEADER } from "../../shared/constants";
 import { SeriesAllApiResponse } from "../../shared/stat_types";
 import { stringifyFn } from "../../utils/axios";
 import {
@@ -47,7 +44,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -127,7 +124,7 @@ function axiosMock(): void {
         entities: ["geoId/05", "geoId/06"],
       },
       paramsSerializer: stringifyFn,
-      headers: WEBSITE_SURFACE_HEADER,
+      headers: TEST_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -254,7 +251,7 @@ test("fetch raw data", () => {
     ["geoId/05", "geoId/06"],
     ["Count_Person", "Count_Person_Male"],
     "",
-    WEBSITE_SURFACE
+    TEST_SURFACE
   ).then((data: TimelineRawData) => {
     expect(data).toEqual({
       denomData: { data: {}, facets: {} },
