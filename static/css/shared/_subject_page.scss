@@ -138,6 +138,7 @@ article.category {
 .block-body {
   display: flex;
   margin-top: 5px;
+  
   @include media-breakpoint-down(sm) {
     gap: 24px;
   }
