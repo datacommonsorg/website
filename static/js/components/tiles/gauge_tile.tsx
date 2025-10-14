@@ -173,6 +173,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
           statResp,
           props.apiRoot,
           false,
+          props.surface,
           [props.place.dcid]
         )
       : [null, null];

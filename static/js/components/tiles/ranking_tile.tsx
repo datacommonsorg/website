@@ -418,6 +418,7 @@ export async function fetchData(
       mergedResponse,
       apiRoot,
       true, // useSeriesWithin
+      surface,
       undefined, // allPlaces
       parentPlace,
       enclosedPlaceType

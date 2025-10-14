@@ -451,6 +451,7 @@ export const fetchData = async (
       statResp,
       apiRoot,
       useSeriesWithin,
+      props.surface,
       "places" in props ? props.places : [],
       "parentPlace" in props ? props.parentPlace : "",
       "enclosedPlaceType" in props ? props.enclosedPlaceType : ""

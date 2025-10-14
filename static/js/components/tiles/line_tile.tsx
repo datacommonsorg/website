@@ -435,6 +435,7 @@ export const fetchData = async (
     resp,
     props.apiRoot,
     !!props.enclosedPlaceType,
+    props.surface,
     !props.enclosedPlaceType ? getPlaceDcids(props) : [],
     props.enclosedPlaceType ? props.place.dcid : "",
     props.enclosedPlaceType

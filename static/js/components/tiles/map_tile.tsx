@@ -556,6 +556,7 @@ export const fetchData = async (
         placeStat,
         props.apiRoot,
         true,
+        props.surface,
         null,
         layer.parentPlace,
         layer.enclosedPlaceType

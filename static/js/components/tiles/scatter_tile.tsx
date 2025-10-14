@@ -355,6 +355,7 @@ async function getPopulationInfo(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   statResp: PointApiResponse,
+  surface: string,
   apiRoot?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const statVars = new Set<string>();
@@ -372,6 +373,7 @@ async function getPopulationInfo(
     statResp,
     apiRoot,
     true,
+    surface,
     null,
     placeDcid,
     enclosedPlaceType
@@ -430,6 +432,7 @@ export const fetchData = async (
       props.enclosedPlaceType,
       props.statVarSpec,
       placeStats,
+      props.surface,
       props.apiRoot
     );
     const statVarNames = await getStatVarNames(

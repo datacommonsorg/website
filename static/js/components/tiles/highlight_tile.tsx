@@ -276,6 +276,7 @@ export const fetchData = async (
       statResp,
       apiRoot,
       false,
+      surface,
       [place.dcid],
       null,
       null
