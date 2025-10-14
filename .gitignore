@@ -7,7 +7,10 @@ __pycache__/
 .env_nl/
 screenshots/*.png
 screenshots/screenshot_url.json
-.gemini
+
+# Gemini
+.gemini/*
+!.gemini/config.yaml
 
 
 # Production static files
