@@ -205,13 +205,9 @@ async function getPopulationData(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-<<<<<<< HEAD
-  surface: string
-): Promise<SeriesApiResponse> {
-=======
+  surface: string,
   placeStats: PointApiResponse
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
   const variables = [];
   for (const sv of statVarSpec) {
     if (sv.denom) {
@@ -221,15 +217,6 @@ async function getPopulationData(
   if (_.isEmpty(variables)) {
     return [null, null];
   } else {
-<<<<<<< HEAD
-    return getSeriesWithin(
-      "",
-      placeDcid,
-      enclosedPlaceType,
-      variables,
-      null,
-      surface
-=======
     return await getDenomResp(
       variables,
       placeStats,
@@ -238,7 +225,6 @@ async function getPopulationData(
       null,
       placeDcid,
       enclosedPlaceType
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
     );
   }
 }
@@ -267,11 +253,8 @@ export const fetchData = async (props: BivariateTilePropType) => {
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
-<<<<<<< HEAD
-    props.surface
-=======
+    props.surface,
     placeStats
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
   );
   const placeNamesPromise = axios
     .get(

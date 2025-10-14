@@ -215,18 +215,6 @@ export const fetchData = async (
       null, // facetIds
       props.surface
     );
-<<<<<<< HEAD
-    const denomResp = _.isEmpty(denomSvs)
-      ? null
-      : await getSeries(
-          props.apiRoot,
-          [props.place.dcid],
-          denomSvs,
-          null, // facetIds
-          null, // highlightFacet
-          props.surface
-        );
-=======
     const [denomsByFacet, defaultDenomData] = await getDenomResp(
       denomSvs,
       statResp,
@@ -234,7 +222,6 @@ export const fetchData = async (
       false,
       [props.place.dcid]
     );
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
 
     // Find the most populated places.
     let popPoints: RankingPoint[] = [];

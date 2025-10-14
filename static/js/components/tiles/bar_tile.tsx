@@ -415,19 +415,6 @@ export const fetchData = async (
       null, // facetIds
       props.surface
     );
-<<<<<<< HEAD
-    denomPromise = _.isEmpty(denomSvs)
-      ? Promise.resolve(null)
-      : getSeries(
-          apiRoot,
-          props.places,
-          denomSvs,
-          [], // facetIds
-          null, // highlightFacet
-          props.surface
-        );
-=======
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     filterPromise = getPointWithin(
       apiRoot,
@@ -439,19 +426,6 @@ export const fetchData = async (
       null, // facetIds
       props.surface
     );
-<<<<<<< HEAD
-    denomPromise = _.isEmpty(denomSvs)
-      ? Promise.resolve(null)
-      : getSeriesWithin(
-          apiRoot,
-          props.parentPlace,
-          props.enclosedPlaceType,
-          denomSvs,
-          null, // facetIds
-          props.surface
-        );
-=======
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
   }
 
   try {

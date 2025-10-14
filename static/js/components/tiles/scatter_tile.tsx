@@ -354,15 +354,9 @@ async function getPopulationInfo(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-<<<<<<< HEAD
-  apiRoot?: string,
-  surface?: string
-): Promise<SeriesApiResponse> {
-=======
   statResp: PointApiResponse,
   apiRoot?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
   const statVars = new Set<string>();
   for (const sv of statVarSpec) {
     if (sv.denom) {
@@ -370,20 +364,7 @@ async function getPopulationInfo(
     }
   }
   if (_.isEmpty(statVars)) {
-<<<<<<< HEAD
-    return Promise.resolve(null);
-  } else {
-    return getSeriesWithin(
-      apiRoot,
-      placeDcid,
-      enclosedPlaceType,
-      Array.from(statVars),
-      null,
-      surface
-    );
-=======
     return [null, null];
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
   }
 
   const [denomsByFacet, defaultDenomData] = await getDenomResp(
@@ -424,16 +405,6 @@ export const fetchData = async (
     props.apiRoot,
     props.surface
   );
-<<<<<<< HEAD
-  const populationPromise = getPopulationPromise(
-    props.place.dcid,
-    props.enclosedPlaceType,
-    props.statVarSpec,
-    props.apiRoot,
-    props.surface
-  );
-=======
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
   const placeNamesParams = {
     dcid: props.place.dcid,
     descendentType: props.enclosedPlaceType,

@@ -243,20 +243,6 @@ export const fetchData = async (
     facetId,
     surface
   );
-<<<<<<< HEAD
-  const denomPromise = statVarSpec.denom
-    ? getSeries(
-        apiRoot,
-        [place.dcid],
-        [statVarSpec.denom],
-        [],
-        highlightFacet,
-        surface
-      )
-    : Promise.resolve(null);
-  const [statResp, denomResp] = await Promise.all([statPromise, denomPromise]);
-=======
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
   const mainStatData = _.isArray(statResp.data[statVarSpec.statVar][place.dcid])
     ? statResp.data[statVarSpec.statVar][place.dcid][0]
     : statResp.data[statVarSpec.statVar][place.dcid];

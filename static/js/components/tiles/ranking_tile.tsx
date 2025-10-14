@@ -403,34 +403,6 @@ export async function fetchData(
     if (resp) {
       mergedResponse.data = Object.assign(mergedResponse.data, resp.data);
       mergedResponse.facets = Object.assign(mergedResponse.facets, resp.facets);
-<<<<<<< HEAD
-    });
-    return mergedResponse;
-  });
-  const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
-  const denomPromise = _.isEmpty(denoms)
-    ? Promise.resolve(null)
-    : getSeriesWithin(
-        apiRoot,
-        parentPlace,
-        enclosedPlaceType,
-        denoms,
-        null,
-        surface
-      );
-  return Promise.all([statPromise, denomPromise]).then(
-    ([statResp, denomResp]) => {
-      const rankingData = pointApiToPerSvRankingData(
-        statResp,
-        denomResp,
-        variables
-      );
-      if (rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, variables);
-      }
-      return rankingData;
-=======
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
     }
   });
 

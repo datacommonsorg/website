@@ -548,18 +548,6 @@ export const fetchData = async (
       facetIds,
       props.surface
     );
-<<<<<<< HEAD
-    const populationPromise: Promise<SeriesApiResponse> = layer.variable.denom
-      ? getSeriesWithin(
-          props.apiRoot,
-          layer.parentPlace,
-          layer.enclosedPlaceType,
-          [layer.variable.denom],
-          null,
-          props.surface
-        )
-      : Promise.resolve(null);
-=======
     let denomsByFacet: Record<string, SeriesApiResponse> = null;
     let defaultDenomData: SeriesApiResponse = null;
     if (layer.variable.denom) {
@@ -574,7 +562,6 @@ export const fetchData = async (
       );
     }
 
->>>>>>> 7ed17ad44c9f48091d36a2ac2839847836d9069a
     const parentPlacesPromise = props.parentPlaces
       ? Promise.resolve(props.parentPlaces)
       : axios
