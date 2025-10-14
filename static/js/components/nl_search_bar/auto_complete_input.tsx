@@ -221,7 +221,9 @@ export function AutoCompleteInput(
     if (!props.enableAutoComplete) return;
 
     const selectionApplied =
-    !_.isEmpty(currentText) && !_.isEmpty(lastAutoCompleteSelection) && currentText.trim().endsWith(lastAutoCompleteSelection);
+      !_.isEmpty(currentText) &&
+      !_.isEmpty(lastAutoCompleteSelection) &&
+      currentText.trim().endsWith(lastAutoCompleteSelection);
 
     let lastSelection = lastAutoCompleteSelection;
     if (selectionApplied) {
@@ -365,7 +367,7 @@ export function AutoCompleteInput(
       [GA_PARAM_SELECTION_TEXT]: result.name,
       [GA_PARAM_QUERY_AT_SELECTION]: baseInput,
     });
-    
+
     const selectedProcessedResult = processedResults[idx];
     const queryText = selectedProcessedResult.fullText;
     // TODO(gmechali): Reconsider whether to use the selectedProcessedResult.placeDcid.
@@ -374,10 +376,9 @@ export function AutoCompleteInput(
       urlParams.set(ENABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
     }
 
-    
     if (result?.matchType == LOCATION_SEARCH) {
       setHasLocation(true);
-      
+
       if (
         stripPatternFromQuery(baseInput, result.matchedQuery).trim() === "" &&
         result.dcid
@@ -386,7 +387,7 @@ export function AutoCompleteInput(
           [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
           [GA_PARAM_DYNAMIC_PLACEHOLDER]: String(enableDynamicPlacehoder),
         });
-        
+
         const overrideParams = new URLSearchParams();
         overrideParams.set("q", result.name);
         if (props.enableStatVarAutocomplete) {
@@ -401,7 +402,9 @@ export function AutoCompleteInput(
         }
       }
     } else if (result?.matchType === STAT_VAR_SEARCH) {
-      setHasLocation(hasLocation || result.placeDcid != null || result.hasPlace);
+      setHasLocation(
+        hasLocation || result.placeDcid != null || result.hasPlace
+      );
     }
 
     changeText(queryText);

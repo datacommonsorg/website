@@ -122,7 +122,8 @@ async def autocomplete():
         p.matched_query = meta['original_phrase']
       else:
         p.matched_query = meta['matched_query']
-      p.has_place = has_location or (concept_result['has_place'] if concept_result else False)
+      p.has_place = has_location or (concept_result['has_place']
+                                     if concept_result else False)
       all_predictions.append(p)
 
   # 2. RANK: Apply custom ranking to all gathered predictions.
