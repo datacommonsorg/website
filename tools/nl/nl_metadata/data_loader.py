@@ -176,7 +176,7 @@ def get_bigquery_diffs_metadata(gcs_periodic_folder: str, num_partitions: int,
   # 3. Find the diff
   new_statvar_ids = current_bq_ids - existing_gcs_ids
   print(
-      f"Found {len(new_statvar_ids)} new/changed StatVars in BigQuery compared to GCS periodic folder."
+      f"Found {len(new_statvar_ids)} new/changed StatVars in BigQuery compared to GCS periodic folder.\n{list(new_statvar_ids)}"
   )
 
   # 4. Fetch full metadata for new StatVars from BigQuery
