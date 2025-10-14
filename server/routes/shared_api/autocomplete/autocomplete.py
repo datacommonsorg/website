@@ -43,6 +43,7 @@ async def autocomplete():
   start_time = time.time()
   lang = request.args.get('hl', 'en')
   original_query = request.args.get('query', '')
+  has_location = request.args.get('has_location', 'false') == 'true'
 
   # Don't trigger autocomplete on short queries or if the last word is a stop word.
   words = original_query.split()
@@ -53,7 +54,6 @@ async def autocomplete():
     return jsonify(AutoCompleteApiResponse(predictions=[]))
 
   # 1. FAN-OUT: Create all concurrent tasks.
-  logging.info(f'[Autocomplete] Original Query: {original_query}')
   tasks = []
   task_metadata = []
 
@@ -64,7 +64,6 @@ async def autocomplete():
     # Note: analyze_query_concepts is synchronous and makes a blocking API call.
     # We run it once at the start.
     concept_result = stat_vars.analyze_query_concepts(original_query)
-    logging.info(f'[Autocomplete] Concept Result: {concept_result}')
     if concept_result:
       tasks.append(
           asyncio.to_thread(stat_vars.search_stat_vars,
@@ -82,12 +81,8 @@ async def autocomplete():
         place_name.lower()) + len(place_name)
     query_for_ngrams = original_query[place_name_end_pos:]
     query_for_ngrams = re.sub(r"^\s*'s\s*", "", query_for_ngrams).strip()
-    logging.info(
-        f'[Autocomplete] Adjusted query for n-grams: "{query_for_ngrams}" (place: "{place_name}")'
-    )
 
   ngram_queries = helpers.get_ngram_queries(query_for_ngrams)
-  logging.info(f'[Autocomplete] N-gram queries: {ngram_queries}')
 
   for ngram_query in ngram_queries:
     # Custom place suggestions
@@ -127,18 +122,13 @@ async def autocomplete():
         p.matched_query = meta['original_phrase']
       else:
         p.matched_query = meta['matched_query']
-      p.has_place = concept_result['has_place'] if concept_result else False
+      p.has_place = has_location or (concept_result['has_place']
+                                     if concept_result else False)
       all_predictions.append(p)
-
-  logging.info(
-      f'[Autocomplete] Total predictions before ranking: {len(all_predictions)}'
-  )
 
   # 2. RANK: Apply custom ranking to all gathered predictions.
   ranked_predictions = helpers.custom_rank_predictions(all_predictions,
                                                        original_query)
-  logging.info(
-      f'[Autocomplete] Total predictions after ranking: {ranked_predictions}')
 
   # 3. MERGE: Deduplicate and format the final list.
   places_to_fetch_dcid = [
@@ -162,8 +152,5 @@ async def autocomplete():
       final_predictions.append(current_prediction)
 
   duration_ms = (time.time() - start_time) * 1000
-  logging.info(
-      f'[Autocomplete] Returning {len(final_predictions)} predictions in {duration_ms:.2f} ms'
-  )
 
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))

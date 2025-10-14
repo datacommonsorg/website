@@ -28,6 +28,8 @@ import {
   DEFAULT_API_ENDPOINT,
   DEFAULT_API_V2_ENDPOINT,
 } from "../../library/constants";
+import { intl } from "../i18n/i18n";
+import { chartComponentMessages } from "../i18n/i18n_chart_messages";
 import { StatVarFacetMap, StatVarSpec } from "./types";
 
 /*
@@ -43,9 +45,10 @@ export interface ObservationSpec {
   entityDcids?: string[];
   // A Data Commons entity expression to select entities (e.g., 'country/USA->county').
   entityExpression?: string;
-  // The specific date to fetch the observation for in 'YYYY-MM-DD' format.
-  // An empty date retrieve tha latest.
-  // Defaults to empty.
+  // The date to fetch the observation for.
+  // - Omit the key or use an empty string ("") to retrieve all dates.
+  // - Use the string "LATEST" to retrieve the latest observation.
+  // - Use 'YYYY-MM-DD' format for a specific date.
   date?: string;
   // An optional filter to apply to the observation query.
   filter?: {
@@ -71,6 +74,45 @@ export interface ObservationSpecOptions {
   entityExpression?: string;
   // A default date to use for statistical variables that do not specify one. */
   defaultDate?: string;
+}
+
+/**
+ * A manifest of special terms associated with an observation spec.
+ * These can be used to provide a list of terms to be highlighted or
+ * otherwise treated specially later.
+ */
+export interface ObservationSpecManifest {
+  entities: string[];
+  entityExpressions: string[];
+  statVars: string[];
+}
+
+/**
+ * Builds a manifest entities and statistical variables from a
+ * list of observation specifications.
+ * @param specs An array of `ObservationSpec` objects.
+ * @returns An `ObservationSpecManifest` containing unique entities and stat vars.
+ */
+export function buildObservationSpecManifest(
+  specs: ObservationSpec[]
+): ObservationSpecManifest {
+  const allEntities = new Set<string>();
+  const allEntityExpressions = new Set<string>();
+  const allStatVars = new Set<string>();
+
+  for (const spec of specs) {
+    (spec.entityDcids || []).forEach((e) => allEntities.add(e));
+    if (spec.entityExpression) {
+      allEntityExpressions.add(spec.entityExpression);
+    }
+    spec.statVarDcids.forEach((sv) => allStatVars.add(sv));
+  }
+
+  return {
+    entities: Array.from(allEntities),
+    entityExpressions: Array.from(allEntityExpressions),
+    statVars: Array.from(allStatVars),
+  };
 }
 
 /**
@@ -283,7 +325,7 @@ function groupDenominator(
 }
 
 /**
- * Converts an ObservationSpec into a cURL command string for debugging API calls.
+ * Converts an ObservationSpec into a cURL command string.
  *
  * @param spec The observation specification to convert.
  * @param apiRoot The root URL for the Data Commons API.
@@ -348,6 +390,267 @@ export function observationSpecToCurl(
     `  "${apiUrl}" \\`,
     `  ${dataPayload}`,
   ].join("\n");
+}
+
+/**
+ An interface used internally by the observationSpecsToPythonScript function
+ to type the python payload.
+ */
+interface ApiPayloadPython {
+  select: string[];
+  date?: string;
+  variable: {
+    dcids: string[];
+  };
+  entity: {
+    dcids?: string[];
+    expression?: string;
+  };
+  filter?: Record<string, string[]>;
+}
+
+/**
+ * This function formats the Python payload for the API call. We use this
+ * rather than JSON.stringify because the latter function creates a format
+ * that takes up a lot of space.
+ * @param payload The API payload object.
+ * @returns A formatted string for the Python script.
+ */
+function formatPythonPayload(payload: ApiPayloadPython): string {
+  const lines: string[] = [];
+
+  lines.push(`    "select": ${JSON.stringify(payload.select)}`);
+
+  if (payload.date) {
+    lines.push(`    "date": ${JSON.stringify(payload.date)}`);
+  }
+
+  if (payload.variable?.dcids) {
+    const varDcids = JSON.stringify(payload.variable.dcids);
+    lines.push(`    "variable": {\n        "dcids": ${varDcids}\n    }`);
+  }
+
+  if (payload.entity?.dcids) {
+    const entityDcids = JSON.stringify(payload.entity.dcids);
+    lines.push(`    "entity": {\n        "dcids": ${entityDcids}\n    }`);
+  } else if (payload.entity?.expression) {
+    const entityExpr = JSON.stringify(payload.entity.expression);
+    lines.push(`    "entity": {\n        "expression": ${entityExpr}\n    }`);
+  }
+
+  if (payload.filter?.facet_ids) {
+    const facetIds = JSON.stringify(payload.filter.facet_ids);
+    lines.push(`    "filter": {\n        "facet_ids": ${facetIds}\n    }`);
+  }
+
+  return `{\n${lines.join(",\n")}\n}`;
+}
+
+/**
+ * Converts a list of ObservationSpecs into a Python script.
+ * Note that unlike curl, all requests will be in the same script.
+ *
+ * @param specs A list of observation specifications to convert.
+ * @param statVarNameMap a lookup of stat var DCIDs to names
+ * @param apiRoot The root URL for the Data Commons API.
+ * @returns A formatted Python script string.
+ */
+export function observationSpecsToPythonScript(
+  specs: ObservationSpec[],
+  statVarNameMap: Record<string, string>,
+  apiRoot?: string
+): string {
+  const isCustomDc = isCustomDataCommons(apiRoot);
+  const apiUrl = getApiV2ObservationUrl(isCustomDc, apiRoot);
+
+  // the introduction of the script with shared imports, headers and variables
+
+  const headers = isCustomDc
+    ? `headers = {'Content-Type': 'application/json'}`
+    : `headers = {'Content-Type': 'application/json', 'X-API-Key': f'{api_key}'}`;
+
+  const apiKeyLines = isCustomDc
+    ? []
+    : [`api_key = "API_KEY" # Replace with your API key`, ""];
+
+  const introduction = [
+    "import requests",
+    "",
+    ...apiKeyLines,
+    `url = "${apiUrl}"`,
+    headers,
+  ];
+
+  // we add a request for each endpoint.
+
+  const apiCallBlocks = specs.map((spec, index) => {
+    const payload: ApiPayloadPython = {
+      select: ["entity", "variable", "date", "value", "facet"],
+      variable: { dcids: spec.statVarDcids },
+      entity: {},
+    };
+
+    if (spec.date) {
+      payload.date = spec.date;
+    }
+    if (spec.entityDcids?.length > 0) {
+      payload.entity = { dcids: spec.entityDcids };
+    } else if (spec.entityExpression) {
+      payload.entity = { expression: spec.entityExpression };
+    }
+    if (spec.filter?.facetIds?.length > 0) {
+      const filterObject = {};
+      filterObject["facet_ids"] = spec.filter.facetIds;
+      payload.filter = filterObject;
+    }
+
+    const payloadString = formatPythonPayload(payload);
+
+    // if we have more than one spec (endpoint) we have to suffix the relevant vars.
+    const suffix = specs.length > 1 ? `_${index + 1}` : "";
+
+    const statVarNames = spec.statVarDcids
+      .map((id) => statVarNameMap[id] || id)
+      .join(", ");
+    const title =
+      spec.role === "denominator"
+        ? `${statVarNames} ${intl.formatMessage(
+            chartComponentMessages.ApiDialogDenomHelperText
+          )}`
+        : statVarNames;
+
+    const endpointIntroComment =
+      specs.length > 1 && index > 0
+        ? [`# ${title}`]
+        : specs.length > 1
+        ? [`# ${title}`]
+        : [];
+
+    const callBlock = [
+      ...endpointIntroComment,
+      `payload${suffix} = ${payloadString}`,
+      `response${suffix} = requests.post(url, json=payload${suffix}, headers=headers)`,
+      `print(response${suffix}.json())`,
+    ];
+    return callBlock.join("\n");
+  });
+
+  // we combine the introduction with each of the call blocks into our final script.
+  return [introduction.join("\n"), ...apiCallBlocks].join("\n\n");
+}
+
+/**
+ * This function formats the Python keyword arguments for a
+ * Data Commons Client Python API call.
+ * @param spec The observation specification object.
+ * @returns A list of formatted argument strings for the Python script.
+ */
+function formatDataCommonsPythonClientArgs(spec: ObservationSpec): string[] {
+  const params: string[] = [];
+  params.push(`    variable_dcids=${JSON.stringify(spec.statVarDcids)}`);
+
+  if (!spec.date) {
+    params.push(`    date='all'`);
+  } else if (spec.date !== "LATEST") {
+    params.push(`    date='${spec.date}'`);
+  }
+
+  if (spec.entityDcids?.length > 0) {
+    params.push(`    entity_dcids=${JSON.stringify(spec.entityDcids)}`);
+  } else if (spec.entityExpression) {
+    params.push(
+      `    entity_expression=${JSON.stringify(spec.entityExpression)}`
+    );
+  }
+
+  if (spec.filter?.facetIds?.length > 0) {
+    params.push(`    filter_facet_ids=${JSON.stringify(spec.filter.facetIds)}`);
+  }
+  return params;
+}
+
+/**
+ * Converts a list of ObservationSpecs into a Python script that uses the
+ * Data Commons Python Client library.
+ *
+ * @param specs A list of observation specifications to convert.
+ * @param statVarNameMap a lookup of stat var DCIDs to names
+ * @param apiRoot The root URL for the Data Commons API.
+ * @returns A formatted Python script string.
+ */
+export function observationSpecsToDataCommonsClientScript(
+  specs: ObservationSpec[],
+  statVarNameMap: Record<string, string>,
+  apiRoot?: string
+): string {
+  const isCustomDc = isCustomDataCommons(apiRoot);
+
+  // the introduction of the script with shared imports, headers and variables
+
+  const apiKeyLines = isCustomDc
+    ? []
+    : [`api_key = "API_KEY" # Replace with your API key`, ""];
+
+  let clientInstantiationLine: string;
+  if (isCustomDc) {
+    let hostname = '"DC_HOSTNAME"';
+    if (apiRoot) {
+      try {
+        hostname = `"${new URL(apiRoot).hostname}"`;
+      } catch (e) {
+        console.error(
+          "Could not parse hostname from custom DC apiRoot:",
+          apiRoot
+        );
+      }
+    }
+    clientInstantiationLine = `client = DataCommonsClient(dc_instance=${hostname})`;
+  } else {
+    clientInstantiationLine = `client = DataCommonsClient(api_key=api_key)`;
+  }
+
+  const introduction = [
+    `# Requirements: pip install "datacommons-client[Pandas]"`,
+    "import pandas as pd",
+    "from datacommons_client.client import DataCommonsClient",
+    "",
+    ...apiKeyLines,
+    clientInstantiationLine,
+  ];
+
+  // we add a request for each endpoint.
+
+  const apiCallBlocks = specs.map((spec, index) => {
+    const statVarNames = spec.statVarDcids
+      .map((id) => statVarNameMap[id] || id)
+      .join(", ");
+    const title =
+      spec.role === "denominator"
+        ? `${statVarNames} ${intl.formatMessage(
+            chartComponentMessages.ApiDialogDenomHelperText
+          )}`
+        : statVarNames;
+
+    const endpointIntroComment = specs.length > 1 ? [`# ${title}`] : [];
+
+    const params = formatDataCommonsPythonClientArgs(spec);
+    const suffix = specs.length > 1 ? `_${index + 1}` : "";
+
+    const callBlock = [
+      ...endpointIntroComment,
+      `response${suffix} = client.observation.fetch(`,
+      params.join(",\n"),
+      `)`,
+      `print(response${suffix}.model_dump())`,
+      ``,
+      `# Optional: convert to a Pandas DataFrame`,
+      `# df${suffix} = pd.DataFrame(response${suffix}.to_observation_records().model_dump())`,
+    ];
+
+    return callBlock.join("\n");
+  });
+
+  return [introduction.join("\n"), ...apiCallBlocks].join("\n\n");
 }
 
 /**
