@@ -99,9 +99,6 @@ def analyze_query_concepts(query: str) -> Optional[Dict[str, any]]:
     last_offset = last_token.text.begin_offset + len(last_token.text.content)
     original_phrase = query[first_offset:last_offset]
 
-    logging.info("NL API extracted phrase '%s' (cleaned: '%s') from query '%s'",
-                 original_phrase, cleaned_query, query)
-
     return {
         "cleaned_query": cleaned_query,
         "original_phrase": original_phrase,
