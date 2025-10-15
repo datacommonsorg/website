@@ -1,0 +1,9 @@
+numpy
+python-dateutil
+pydantic
+scikit-learn
+pandas
+absl-py
+typing-extensions
+requests
+Flask==2.3.2
