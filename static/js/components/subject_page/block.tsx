@@ -23,6 +23,7 @@
 // Import web components
 import "../../../library";
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, {
@@ -285,6 +286,7 @@ function getBlockStatVarSpecs(
 }
 
 export function Block(props: BlockPropType): ReactElement {
+  const theme = useTheme();
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
@@ -511,7 +513,22 @@ export function Block(props: BlockPropType): ReactElement {
 
   return (
     <>
-      <div className={`block-controls ${!facetsLoading ? "show" : ""}`}>
+      <div
+        className={`block-controls ${!facetsLoading ? "show" : ""}`}
+        css={css`
+          && {
+            span,
+            label,
+            button,
+            input {
+              ${theme.typography.family.text}
+              ${theme.typography.text.sm}
+              margin: 0;
+              padding: 0;
+            }
+          }
+        `}
+      >
         {showFacetSelector && (
           <div className="block-modal-trigger">
             <FacetSelector
