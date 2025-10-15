@@ -47,6 +47,7 @@ import {
   applyHashStatVar,
   ifShowChart,
   MAP_URL_PATH,
+  shouldShowStatVarInstructions,
   updateHashDisplay,
   updateHashPlaceInfo,
   updateHashStatVar,
@@ -61,7 +62,10 @@ function App(): ReactElement {
   const theme = useTheme();
   const { placeInfo, statVar } = useContext(Context);
   const showChart = ifShowChart(statVar.value, placeInfo.value);
-  const showInstructions = !showChart;
+  const showStatVarInstructions = shouldShowStatVarInstructions(
+    statVar.value,
+    placeInfo.value
+  );
 
   return (
     <React.StrictMode>
@@ -84,18 +88,23 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          {showInstructions && (
+          {!showChart && (
             <Row>
               {useStandardizedUi ? (
                 <>
-                  <VisToolInstructionsBox toolType="map" />
-                  <div
-                    css={css`
-                      margin-top: ${theme.spacing.xl}px;
-                    `}
-                  >
-                    <ChartLinkChips toolType="map" />
-                  </div>
+                  <VisToolInstructionsBox
+                    toolType="map"
+                    showStatVarInstructionsOnly={showStatVarInstructions}
+                  />
+                  {!showStatVarInstructions && (
+                    <div
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="map" />
+                    </div>
+                  )}
                 </>
               ) : (
                 <Info />
