@@ -25,21 +25,27 @@ describe("redirect_utils", () => {
 
   afterAll(() => {
     // Reset the original window.location for future tests
-    window.location = originalLocation as any;
+    window.location = originalLocation;
   });
 
   // Mocks window.location with a new URL for the given relative path
   // Deletes original read-only window.location and replaces with a
   // writeable mock object.
   const mockWindowLocation = (relativePath: string): void => {
+    // Use type assertion to allow deleting a read-only property
+    delete (window as Partial<Window>).location;
+
+    // Create a writeable mock window.location
     const url = new URL(relativePath, MOCK_HOSTNAME);
-    delete (window as any).location;
-    window.location = {
-      ...originalLocation,
-      href: url.href,
-      pathname: url.pathname,
-      hash: url.hash,
-    } as any;
+    Object.defineProperty(window, "location", {
+      writable: true,
+      value: {
+        ...originalLocation,
+        href: url.href,
+        pathname: url.pathname,
+        hash: url.hash,
+      },
+    });
   };
 
   describe("getStandardizedToolUrl", () => {
