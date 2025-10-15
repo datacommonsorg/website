@@ -17,9 +17,9 @@ from typing import Dict, List
 
 from absl import app
 from absl import flags
-from eval_models import *
+from eval_models import EvalMetadata, NlApiScrape, NlGolden, NlQueryEvalScore
 import pandas as pd
-from scape import scrape_query
+from scrape import scrape_query
 from score import compute_scores
 from utils import csv_to_df
 from utils import df_to_csv
@@ -49,7 +49,7 @@ flags.DEFINE_string("eval_file_suffix", "",
 
 flags.DEFINE_string("description", "", "Detail for the evaluation to log.")
 
-flags.DEFINE_string("change_log", "", "Changes for the evluation to log.")
+flags.DEFINE_string("change_log", "", "Changes for the evaluation to log.")
 
 _RUNTIME_HOST = {
     'local': 'http://localhost:8080',
@@ -62,8 +62,8 @@ def _scrape_queryset(queryset: Dict[int, str], detector: str,
                      runtime_host: str) -> List[NlApiScrape]:
   full_scrape = []
 
-  for id, query in queryset.items():
-    response = scrape_query(id, query, runtime_host, detector)
+  for query_id, query in queryset.items():
+    response = scrape_query(query_id, query, runtime_host, detector)
     full_scrape.append(response)
 
   return full_scrape

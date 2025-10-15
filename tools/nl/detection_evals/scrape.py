@@ -90,8 +90,7 @@ def _parse_places(id: int, query: str, dbg_info: Any) -> List[DetectedPlace]:
     llm_response = dbg_info.get('llm_response', {})
     if llm_response:
       # TODO: verify if skipping llm_response when sub_place_type is present is correct
-      logging.info(f'[places] llm_response:", )',
-                   dbg_info.get('llm_response', {}))
+      logging.info(f'[places] llm_response: {dbg_info.get("llm_response", {})}')
 
       llm_sub_place = llm_response.get('SUB_PLACE_TYPE', '')
       if 'DEFAULT_TYPE' in llm_sub_place:
@@ -198,7 +197,7 @@ def _parse_variables(id: int, query: str,
         info_logs.get('filtered_svs', [])[0], topics_processed, id, query)
 
   elif detection_type == 'Hybrid - LLM Fallback' or detection_type == 'LLM Based':
-    variable_strs = query_detection_logs['llm_response']['METRICS']
+    variable_strs = query_detection_logs.get('llm_response', {}).get('METRICS', [])
     if len(variable_strs) > 1:
       logging.warning('[vars] multiple llm detected statvars')
 
@@ -227,7 +226,7 @@ def scrape_query(id: int,
     response = requests.post(
         f'{host_website}/api/explore/detect-and-fulfill?q={query}&detector={detector_type}',
         json={},
-        timeout=None)
+        timeout=600)
 
     if response.status_code != 200:
       logging.warning(
@@ -243,8 +242,8 @@ def scrape_query(id: int,
     query_response = response.json()
 
   except json.JSONDecodeError as e:
-    raise json.JSONDecodeError(
-        f'[api] NL API response is not valid JSON; {id} ("{query}"); {e}')
+    raise ValueError(
+        f'[api] NL API response is not valid JSON; {id} ("{query}"); Original error: {e}')
 
   logging.debug(query_response)
 

@@ -13,7 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-python3 -m venv .env
+if [ ! -d ".env" ]; then  
+  python3 -m venv .env  
+fi 
+
 source .env/bin/activate
 python3 -m pip install --upgrade pip setuptools
 python3 -m pip install -r requirements.txt

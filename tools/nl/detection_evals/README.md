@@ -1,7 +1,7 @@
 # Detection Evals
 
 This folder contains resources and scripts for evaluation for nl
-detection. These are for running experiments evaluation with difference
+detection. These are for running experiments evaluation with different
 Golden Curation, environment and detectors.
 
 ## Prerequisites
@@ -12,7 +12,7 @@ Golden Curation, environment and detectors.
 
 ### Input Structure
 
-In the input CSV file, you need to have a [NlGolden](.detection_evals/eval_models.py#L78) type data. It contains below fields.
+In the input CSV file, you need to have a [NlGolden](eval_models.py#L78) type data. It contains below fields.
 
   - id: This is a unique key to identify the query
   - query: This is the full query string
