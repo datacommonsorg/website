@@ -22,7 +22,8 @@ import server.lib.fetch as fetch
 import server.lib.nl.common.counters as nl_ctr
 import server.lib.nl.common.utils as nl_utils
 import server.routes.shared_api.place as place_api
-
+from flask import request
+from shared.lib.constants import SURFACE_HEADER_NAME, WEBSITE_SURFACE
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
 OVERRIDE_CONTAINED_PLACE_TYPES = {
@@ -169,6 +170,9 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
   """
   Returns the page config stripped of charts with no data.
   """
+  # This endpoint is currently only referenced from the website, via URL without metadata,
+  # so we set the surface header to website here to pass into mixer.
+  request.headers = {**request.headers, SURFACE_HEADER_NAME: WEBSITE_SURFACE}
   ctr = nl_ctr.Counters()
 
   all_stat_vars = get_all_variables(page_config)
@@ -251,6 +255,9 @@ def place_metadata(place_dcid,
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """
+  # This endpoint is currently only referenced from the website, via URL without metadata,
+  # so we set the surface header to website here to pass into mixer.
+  request.headers = {**request.headers, SURFACE_HEADER_NAME: WEBSITE_SURFACE}
   place_types = [DEFAULT_PLACE_TYPE]
   parent_places = []
   if place_dcid != DEFAULT_PLACE_DCID:
