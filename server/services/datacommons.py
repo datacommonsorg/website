@@ -41,17 +41,16 @@ UNKNOWN_SURFACE = "unknown"
 
 
 @cache.memoize(timeout=TIMEOUT,
-               unless=should_skip_cache,
-               args_to_ignore=["surface"])
-def get(url: str, surface: str = None):
+               unless=should_skip_cache)
+def get(url: str):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
   # header used in usage metric logging
   # this is set even if get() is called for endpoints that we don't write usage
-  # logs for, to maintain consistency and
-  headers['x-surface'] = surface or UNKNOWN_SURFACE
+  # logs for to maintain consistency
+  headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -67,8 +66,8 @@ def get(url: str, surface: str = None):
 def post(url: str,
          req: Dict,
          api_key: str | None = None,
-         log_extreme_calls: bool = True,
-         surface: str | None = None):
+         log_extreme_calls: bool = True):
+
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
@@ -79,21 +78,21 @@ def post(url: str,
   return post_wrapper(url,
                       req_str,
                       key_to_use,
-                      log_extreme_calls,
-                      surface=surface)
+                      log_extreme_calls)
 
 
 @cache.memoize(timeout=TIMEOUT,
-               unless=should_skip_cache,
-               args_to_ignore=['surface'])
-def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool,
-                 surface: str | None):
+               unless=should_skip_cache)
+def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
-  # header used in usage metric logging
-  headers['x-surface'] = surface or UNKNOWN_SURFACE
+  
+  # Header from the flask call making this request
+  # Represents the DC surface (website, web components, etc.) where the call originates
+  # Used in mixer's usage logs
+  headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
@@ -107,7 +106,7 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool,
   return response.json()
 
 
-def obs_point(entities, variables, date="LATEST", surface=None):
+def obs_point(entities, variables, date="LATEST"):
   """Gets the observation point for the given entities of the given variable.
 
     Args:
@@ -115,12 +114,7 @@ def obs_point(entities, variables, date="LATEST", surface=None):
         variables: A list of statistical variables.
         date (optional): The date of the observation. If not set, the latest
             observation is returned.
-        surface (optional): Passed into calls to mixer for usage logs.
-          Indicates which DC surface (website, datagemma, etc.) the call
-          originates from.
     """
-
-  surface = request.headers.get('x-surface')
   url = get_service_url("/v2/observation")
   return post(url, {
       "select": ["date", "value", "variable", "entity"],
@@ -131,16 +125,14 @@ def obs_point(entities, variables, date="LATEST", surface=None):
           "dcids": sorted(variables)
       },
       "date": date,
-  },
-              surface=surface)
+  })
 
 
 def obs_point_within(parent_entity,
                      child_type,
                      variables,
                      date="LATEST",
-                     facet_ids=None,
-                     surface=None):
+                     facet_ids=None):
   """Gets the statistical variable values for child places of a certain place
       type contained in a parent place at a given date.
 
@@ -149,9 +141,6 @@ def obs_point_within(parent_entity,
         child_type: Type of child places as a string.
         variables: List of statistical variable DCIDs each as a string.
         date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
-        surface (optional): Passed into calls to mixer for usage logs.
-          Indicates which DC surface (website, datagemma, etc.) the call
-          originates from.
 
     Returns:
         Dict with a key "facets" and a key "byVariable".
@@ -160,7 +149,6 @@ def obs_point_within(parent_entity,
         The value for "byVariable" is a list of dicts containing observations.
 
     """
-  surface = request.headers.get('x-surface')
   url = get_service_url("/v2/observation")
   req = {
       "select": ["date", "value", "variable", "entity"],
@@ -176,21 +164,17 @@ def obs_point_within(parent_entity,
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
-  return post(url, req, surface=surface)
+  return post(url, req)
 
 
-def obs_series(entities, variables, facet_ids=None, surface=None):
+def obs_series(entities, variables, facet_ids=None):
   """Gets the observation time series for the given entities of the given
     variable.
 
     Args:
         entities: A list of entities DCIDs.
         variables: A list of statistical variables.
-        surface (optional): Passed into calls to mixer for usage logs.
-          Indicates which DC surface (website, datagemma, etc.) the call
-          originates from.
     """
-  surface = request.headers.get('x-surface')
   url = get_service_url("/v2/observation")
   req = {
       "select": ["date", "value", "variable", "entity"],
@@ -203,14 +187,13 @@ def obs_series(entities, variables, facet_ids=None, surface=None):
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
-  return post(url, req, surface=surface)
+  return post(url, req)
 
 
 def obs_series_within(parent_entity,
                       child_type,
                       variables,
-                      facet_ids=None,
-                      surface=None):
+                      facet_ids=None):
   """Gets the statistical variable series for child places of a certain place
       type contained in a parent place.
 
@@ -218,11 +201,7 @@ def obs_series_within(parent_entity,
         parent_entity: Parent entity DCID as a string.
         child_type: Type of child places as a string.
         variables: List of statistical variable DCIDs each as a string.
-        surface (optional): Passed into calls to mixer for usage logs.
-          Indicates which DC surface (website, datagemma, etc.) the call
-          originates from.
     """
-  surface = request.headers.get('x-surface')
   url = get_service_url("/v2/observation")
   req = {
       "select": ["date", "value", "variable", "entity"],
@@ -238,20 +217,16 @@ def obs_series_within(parent_entity,
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
 
-  return post(url, req, surface=surface)
+  return post(url, req)
 
 
-def series_facet(entities, variables, surface=None):
+def series_facet(entities, variables):
   """Gets facet of time series for the given entities and variables.
 
     Args:
         entities: A list of entity DCIDs.
         variables: A list of statistical variable DCIDs.
-        surface (optional): Passed into calls to mixer for usage logs.
-          Indicates which DC surface (website, datagemma, etc.) the call
-          originates from.
     """
-  surface = request.headers.get('x-surface')
   url = get_service_url("/v2/observation")
   return post(url, {
       "select": ["variable", "entity", "facet"],
@@ -261,21 +236,18 @@ def series_facet(entities, variables, surface=None):
       "variable": {
           "dcids": sorted(variables)
       },
-  },
-              surface=surface)
+  })
 
 
 def point_within_facet(parent_entity,
                        child_type,
                        variables,
-                       date,
-                       surface=None):
+                       date):
   """Gets facet of for child places of a certain place type contained in a
     parent place at a given date.
-    """
-  surface = request.headers.get('x-surface')
+  """
   url = get_service_url("/v2/observation")
-  request_body = {
+  return post(url, {
       "select": ["variable", "entity", "facet"],
       "entity": {
           "expression":
@@ -286,11 +258,10 @@ def point_within_facet(parent_entity,
           "dcids": sorted(variables)
       },
       "date": date,
-  }
-  return post(url, request_body, surface=surface)
+  })
 
 
-def v2observation(select, entity, variable, surface=None):
+def v2observation(select, entity, variable):
   """
     Args:
       select: A list of select props.
@@ -300,7 +271,6 @@ def v2observation(select, entity, variable, surface=None):
     """
   # Remove None from dcids and sort them. Note do not sort in place to avoid
   # changing the original input.
-  surface = surface or request.headers.get('x-surface')
   if "dcids" in entity:
     entity["dcids"] = sorted([x for x in entity["dcids"] if x])
   if "dcids" in variable:
@@ -310,8 +280,7 @@ def v2observation(select, entity, variable, surface=None):
       "select": select,
       "entity": entity,
       "variable": variable,
-  },
-              surface=surface)
+  })
 
 
 def v2node(nodes, prop):
@@ -488,9 +457,6 @@ def nl_search_vars_in_parallel(queries: list[str],
         queries: A list of query strings.
         index_types: A list of index names to query.
         skip_topics: A boolean to skip topic-based SVs.
-        surface (optional): Passed into calls to mixer for usage logs.
-          Indicates which DC surface (website, datagemma, etc.) the call
-          originates from.
 
     Returns:
         A dictionary mapping from index name to the search result from that index.
@@ -641,15 +607,10 @@ def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
   return post(url, req)
 
 
-def safe_obs_point(entities, variables, date='LATEST', surface=None):
+def safe_obs_point(entities, variables, date='LATEST'):
   """
     Calls obs_point with error handling.
     If an error occurs, returns a dict with an empty byVariable key.
-
-    Args:
-        surface (optional): Passed into calls to mixer for usage logs.
-          Indicates which DC surface (website, datagemma, etc.) the call
-          originates from.
     """
   try:
     return obs_point(entities, variables, date)
@@ -666,11 +627,6 @@ def safe_obs_point_within(parent_entity,
   """
   Calls obs_point_within with error handling.
   If an error occurs, returns a dict with an empty byVariable key.
-
-  Args:
-      surface (optional): Passed into calls to mixer for usage logs.
-        Indicates which DC surface (website, datagemma, etc.) the call
-        originates from.
   """
   try:
     return obs_point_within(parent_entity, child_type, variables, date,
