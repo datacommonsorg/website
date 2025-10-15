@@ -68,7 +68,6 @@ interface ChartPropsType {
   ) => void;
   // Map of stat var dcid to a facet id
   svFacetId: Record<string, string>;
-  surface: string;
 }
 
 interface ChartStateType {
@@ -310,7 +309,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         places,
         statVars,
         this.props.denom,
-        this.props.surface
+        WEBSITE_SURFACE
       );
       this.props.onMetadataMapUpdate(rawData.metadataMap);
 

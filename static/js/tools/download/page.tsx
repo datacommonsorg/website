@@ -229,7 +229,6 @@ export function Page(props: PagePropType): ReactElement {
         onStatVarRemoved={removeStatVar}
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
-        surface={WEBSITE_SURFACE}
       />
       <div id="plot-container">
         <h1 className="mb-4">Data Download Tool</h1>
@@ -449,7 +448,6 @@ export function Page(props: PagePropType): ReactElement {
           <Preview
             selectedOptions={previewOptions}
             isDisabled={previewDisabled}
-            surface={WEBSITE_SURFACE}
           />
         )}
         {showInfo && <Info infoPlaces={props.infoPlaces} />}

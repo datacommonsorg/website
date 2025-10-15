@@ -17,10 +17,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
-import {
-  DEFAULT_POPULATION_DCID,
-  WEBSITE_SURFACE,
-} from "../../shared/constants";
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
@@ -128,7 +125,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               onMetadataMapUpdate={(metadataMap): void => {
                 this.metadataMap = { ...this.metadataMap, ...metadataMap };
               }}
-              surface={WEBSITE_SURFACE}
             ></Chart>
           );
         }, this)}

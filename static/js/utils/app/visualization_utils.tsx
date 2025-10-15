@@ -42,6 +42,7 @@ import {
 import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
+  WEBSITE_SURFACE_HEADER,
 } from "../../shared/constants";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
@@ -52,7 +53,6 @@ import {
 } from "../../shared/ga_events";
 import { NamedNode, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
-import { getSurfaceHeader } from "../axios";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
@@ -284,8 +284,7 @@ export function getContextStatVar(svSpec: StatVarSpec): ContextStatVar {
 export function getFilteredStatVarPromise(
   samplePlaces: NamedNode[],
   statVars: ContextStatVar[],
-  visTypeConfig: VisTypeConfig,
-  surface: string
+  visTypeConfig: VisTypeConfig
 ): Promise<ContextStatVar[]> {
   if (_.isEmpty(samplePlaces) || _.isEmpty(statVars)) {
     return Promise.resolve([]);
@@ -298,7 +297,7 @@ export function getFilteredStatVarPromise(
         variables: statVars.map((sv) => sv.dcid),
       },
       {
-        headers: getSurfaceHeader(surface),
+        headers: WEBSITE_SURFACE_HEADER,
       }
     )
     .then((resp) => {

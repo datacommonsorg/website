@@ -18,6 +18,7 @@
 
 import { useContext, useEffect, useState } from "react";
 
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../../shared/facet_selector/facet_selector";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { FacetResponse } from "../../../utils/data_fetch_utils";
@@ -26,10 +27,7 @@ import { ChartStore } from "../chart_store";
 import { Context } from "../context";
 import { useAllStatReady } from "../ready_hooks";
 
-export function useComputeFacetList(
-  chartStore: ChartStore,
-  surface: string
-): {
+export function useComputeFacetList(chartStore: ChartStore): {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
@@ -39,7 +37,7 @@ export function useComputeFacetList(
   const [facetList, setFacetList] = useState([]);
   const [facetListLoading, setFacetListLoading] = useState(false);
   const [facetListError, setFacetListError] = useState(false);
-  const dataCommonsClient = getDataCommonsClient(null, surface);
+  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
 
   useEffect(() => {
     if (!allStatReady()) {

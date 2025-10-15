@@ -21,6 +21,7 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
 
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { getDataCommonsClient } from "../../../utils/data_commons_client";
 import { FacetResponse } from "../../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "../../shared/metadata/metadata_fetcher";
@@ -44,8 +45,7 @@ type FacetMetadataReturn = {
  * error state.
  */
 export function useFacetMetadata(
-  baseFacets: FacetResponse | null,
-  surface: string
+  baseFacets: FacetResponse | null
 ): FacetMetadataReturn {
   const [facetMetadata, setFacetMetadata] = useState<FacetMetadataReturn>({
     facetSelectorMetadata: {},
@@ -67,7 +67,7 @@ export function useFacetMetadata(
       try {
         const resp = await fetchFacetsWithMetadata(
           baseFacets,
-          getDataCommonsClient(null, surface)
+          getDataCommonsClient(null, WEBSITE_SURFACE)
         );
 
         if (cancelled) return;

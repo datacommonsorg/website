@@ -24,10 +24,7 @@ import React, { Component } from "react";
 import { Button } from "reactstrap";
 
 import { PropertyValues } from "../../shared/api_response_types";
-import {
-  WEBSITE_SURFACE,
-  WEBSITE_SURFACE_HEADER,
-} from "../../shared/constants";
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import {
   NamedNode,
   NamedTypedNode,
@@ -127,7 +124,6 @@ class Page extends Component<unknown, PageStateType> {
           selectedSVs={svs}
           selectSV={(sv): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
           disableAlert={true}
-          surface={WEBSITE_SURFACE}
         />
         <div id="plot-container">
           <div className="container">

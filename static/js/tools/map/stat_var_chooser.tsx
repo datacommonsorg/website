@@ -41,7 +41,6 @@ import { DEFAULT_DISPLAY_OPTIONS, getMapPointPlaceType } from "./util";
 interface StatVarChooserProps {
   openSvHierarchyModalCallback: () => void;
   openSvHierarchyModal: boolean;
-  surface: string;
 }
 
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
@@ -113,7 +112,6 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       selectSV={(svDcid): void =>
         selectStatVar(dateCtx, statVar, display, placeInfo, svDcid)
       }
-      surface={props.surface}
     />
   );
 }
