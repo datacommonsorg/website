@@ -220,6 +220,7 @@ export const fetchData = async (
       statResp,
       props.apiRoot,
       false,
+      props.surface,
       [props.place.dcid]
     );
 

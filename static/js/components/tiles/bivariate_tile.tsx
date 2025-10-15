@@ -222,8 +222,8 @@ async function getPopulationData(
       placeStats,
       "",
       true,
-      null,
       placeDcid,
+      null,
       enclosedPlaceType
     );
   }
