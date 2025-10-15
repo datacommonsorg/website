@@ -66,12 +66,10 @@ describe("redirect_utils", () => {
       return new URL(relativePath, MOCK_HOSTNAME).pathname;
     };
 
-    // Get the query parameters and values of the given relative URL
-
     type UrlTestCase = {
-      description: string;
-      originalPath: string;
-      expectedPath: string;
+      description: string; // Test description to show in output
+      originalPath: string; // Relative path to convert
+      expectedPath: string; // Expected relative path output
     };
 
     const testCases: UrlTestCase[] = [
