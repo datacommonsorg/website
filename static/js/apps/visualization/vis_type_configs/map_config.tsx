@@ -18,7 +18,6 @@
  * Config for the map vis type.
  */
 
-import { WEBSITE_SURFACE } from "@datacommonsorg/client/dist/constants";
 import _ from "lodash";
 import React, { ReactElement, useCallback } from "react";
 

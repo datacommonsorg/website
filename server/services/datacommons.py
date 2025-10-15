@@ -40,8 +40,7 @@ logger = logging.getLogger(__name__)
 UNKNOWN_SURFACE = "unknown"
 
 
-@cache.memoize(timeout=TIMEOUT,
-               unless=should_skip_cache)
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
@@ -75,20 +74,16 @@ def post(url: str,
   key_to_use = api_key
   if key_to_use is None:
     key_to_use = current_app.config.get("DC_API_KEY", "")
-  return post_wrapper(url,
-                      req_str,
-                      key_to_use,
-                      log_extreme_calls)
+  return post_wrapper(url, req_str, key_to_use, log_extreme_calls)
 
 
-@cache.memoize(timeout=TIMEOUT,
-               unless=should_skip_cache)
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
-  
+
   # Header from the flask call making this request
   # Represents the DC surface (website, web components, etc.) where the call originates
   # Used in mixer's usage logs
@@ -116,16 +111,17 @@ def obs_point(entities, variables, date="LATEST"):
             observation is returned.
     """
   url = get_service_url("/v2/observation")
-  return post(url, {
-      "select": ["date", "value", "variable", "entity"],
-      "entity": {
-          "dcids": sorted(entities)
-      },
-      "variable": {
-          "dcids": sorted(variables)
-      },
-      "date": date,
-  })
+  return post(
+      url, {
+          "select": ["date", "value", "variable", "entity"],
+          "entity": {
+              "dcids": sorted(entities)
+          },
+          "variable": {
+              "dcids": sorted(variables)
+          },
+          "date": date,
+      })
 
 
 def obs_point_within(parent_entity,
@@ -190,10 +186,7 @@ def obs_series(entities, variables, facet_ids=None):
   return post(url, req)
 
 
-def obs_series_within(parent_entity,
-                      child_type,
-                      variables,
-                      facet_ids=None):
+def obs_series_within(parent_entity, child_type, variables, facet_ids=None):
   """Gets the statistical variable series for child places of a certain place
       type contained in a parent place.
 
@@ -228,37 +221,36 @@ def series_facet(entities, variables):
         variables: A list of statistical variable DCIDs.
     """
   url = get_service_url("/v2/observation")
-  return post(url, {
-      "select": ["variable", "entity", "facet"],
-      "entity": {
-          "dcids": sorted(entities)
-      },
-      "variable": {
-          "dcids": sorted(variables)
-      },
-  })
+  return post(
+      url, {
+          "select": ["variable", "entity", "facet"],
+          "entity": {
+              "dcids": sorted(entities)
+          },
+          "variable": {
+              "dcids": sorted(variables)
+          },
+      })
 
 
-def point_within_facet(parent_entity,
-                       child_type,
-                       variables,
-                       date):
+def point_within_facet(parent_entity, child_type, variables, date):
   """Gets facet of for child places of a certain place type contained in a
     parent place at a given date.
   """
   url = get_service_url("/v2/observation")
-  return post(url, {
-      "select": ["variable", "entity", "facet"],
-      "entity": {
-          "expression":
-              "{0}<-containedInPlace+{{typeOf:{1}}}".format(
-                  parent_entity, child_type)
-      },
-      "variable": {
-          "dcids": sorted(variables)
-      },
-      "date": date,
-  })
+  return post(
+      url, {
+          "select": ["variable", "entity", "facet"],
+          "entity": {
+              "expression":
+                  "{0}<-containedInPlace+{{typeOf:{1}}}".format(
+                      parent_entity, child_type)
+          },
+          "variable": {
+              "dcids": sorted(variables)
+          },
+          "date": date,
+      })
 
 
 def v2observation(select, entity, variable):
