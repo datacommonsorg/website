@@ -264,13 +264,14 @@ function getScatterHashParams(
   currentHashParams: URLSearchParams
 ): URLSearchParams {
   const newHashParams = new URLSearchParams();
+  let hasValidParams = false;
   // Convert each mappable parameter
   Object.keys(SCATTER_URL_PARAM_MAPPING).forEach((key) => {
     const paramValue = currentHashParams.get(key);
     if (!paramValue) {
       return;
     }
-
+    hasValidParams = true;
     if (key === URL_PARAMS.STAT_VAR) {
       handleScatterStatVars(paramValue, newHashParams);
     } else if (key === URL_PARAMS.DISPLAY) {
@@ -283,9 +284,12 @@ function getScatterHashParams(
       }
     }
   });
-  // Set density mode to true
-  // It is always on in /tools/visualization
-  newHashParams.set("dd", "1");
+
+  if (hasValidParams) {
+    // If there are other params, set density mode to true
+    // It is always on in /tools/visualization
+    newHashParams.set("dd", "1");
+  }
   return newHashParams;
 }
 
