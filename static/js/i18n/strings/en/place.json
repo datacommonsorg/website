@@ -1,23 +1,23 @@
 {
   "AvailableStatVarsMultipleMessage": {
     "defaultMessage": "Available for: {count}/{total} data points",
-    "description": "Message shown in the grouped view of the dataset selection dialog, indicating how many stat vars a particular facet is applicable to. For example, it might say: \"Available for: 2/8 data points\". This will appear when the facet is applicable to more than one stat var, but not to all of them."
+    "description": "Message shown in the grouped view of the facet selection dialog, indicating how many stat vars a particular facet is applicable to. For example, it might say: \"Available for: 2/8 data points\". This will appear when the facet is applicable to more than one stat var, but not to all of them."
   },
   "AvailableStatVarsSingleMessage": {
     "defaultMessage": "Available for:",
     "description": "Message shown preceding the name of a stat var when only a single stat var is available to a particular facet. The stat var will appear after the colon. For example: \"Available for: Population 55 - 64 years\". This will appear when exactly one stat var is applicable, out of a total greater than one."
   },
   "ExploreOtherDatasetsGroupedPromptMessage": {
-    "defaultMessage": "Select the data source that you would like to use to build the plot",
-    "description": "Prompt message that appears in the dataset selection dialog, introducing the list of facets that the user can choose from. This is used when we have multiple stat vars but the choices are grouped together in a single selection (i.e. you only select one facet to cover all stat vars)."
+    "defaultMessage": "Select the facet that you would like to use to build the plot",
+    "description": "Prompt message that appears in the facet selection dialog, introducing the list of facets that the user can choose from. This is used when we have multiple stat vars but the choices are grouped together in a single selection (i.e. you only select one facet to cover all stat vars)."
   },
   "ExploreOtherDatasetsMultipleStatVarsPromptMessage": {
-    "defaultMessage": "Select the data sources that you would like to use to build the plot",
-    "description": "Prompt message that appears in the dataset selection dialog when there are multiple stat vars, each introducing the list of facets that the user can choose from. This will be used when choosing data to plot charts."
+    "defaultMessage": "Select the facets that you would like to use to build the plot",
+    "description": "Prompt message that appears in the facet selection dialog when there are multiple stat vars, each introducing the list of facets that the user can choose from. This will be used when choosing data to plot charts."
   },
   "ExploreOtherDatasetsSingleStatVarPromptMessage": {
-    "defaultMessage": "Select the data source that you would like to use to plot",
-    "description": "Prompt message that appears in the dataset selection dialog, introducing the list of facets that the user can choose from. This will be used when choosing data to plot charts."
+    "defaultMessage": "Select the facet that you would like to use to plot",
+    "description": "Prompt message that appears in the facet selection dialog, introducing the list of facets that the user can choose from. This will be used when choosing data to plot charts."
   },
   "about_place": {
     "defaultMessage": "About {place}",
@@ -120,11 +120,11 @@
     "description": "Button to close a modal or other interactive element. Unlike 'Cancel', this does not imply abandoning changes; it simply dismisses the dialog. It is used when there are no contrasting actions."
   },
   "combinedDatasetForChartsOption": {
-    "defaultMessage": "Plot data points using one or more of the datasets below to maximize coverage.",
+    "defaultMessage": "Plot data points using one or more of the facets below to maximize coverage.",
     "description": "The first option that appears at the top of each respective list of facets connected to a stat var. This option indicates that the various facets will be combined automatically to provide best possible coverage. This will be used when choosing data to plot charts."
   },
   "combinedDatasetForDownloadOption": {
-    "defaultMessage": "Combine data using one or more of the datasets below to maximize coverage.",
+    "defaultMessage": "Combine data using one or more of the facets below to maximize coverage.",
     "description": "The first option that appears at the top of each respective list of facets connected to a stat var. This option indicates that the various facets will be combined automatically to provide best possible coverage. This will be used when choosing data to download."
   },
   "copyCitation": {
@@ -156,8 +156,8 @@
     "description": "Header text for the Data Overview page, a page that gives an overview of a place's data sources."
   },
   "datasetError": {
-    "defaultMessage": "Error loading datasets for selection.",
-    "description": "Message shown when the call to get available datasets failed."
+    "defaultMessage": "Error loading facets for selection.",
+    "description": "Message shown when the call to get available facets failed."
   },
   "datasets": {
     "defaultMessage": "Datasets",
@@ -208,8 +208,8 @@
     "description": "Link to explore the chart in a specific tool"
   },
   "exploreOtherDatasets": {
-    "defaultMessage": "Explore other datasets",
-    "description": "Label for button and related dialog that allows the user to select datasets. Note that the wording covers both the situation where there is one stat var and multiple stat vars for which the user will be able to select a dataset."
+    "defaultMessage": "Explore other facets",
+    "description": "Label for button and related dialog that allows the user to select facets. Note that the wording covers both the situation where there is one stat var and multiple stat vars for which the user will be able to select a facet."
   },
   "explore_data_on": {
     "defaultMessage": "Explore data on... \"{sampleQuestion}\"",
@@ -291,8 +291,12 @@
     "defaultMessage": "Map Tool",
     "description": "Title for the map tool"
   },
+  "map_tool_go_back_message": {
+    "defaultMessage": "Go back to the new Map Explorer",
+    "description": "label on a button that takes the user to a newer version of the Map Explorer"
+  },
   "map_visualization_tool_description": {
-    "defaultMessage": "The map explorer helps you visualize how a statistical variable can vary across geographic regions.",
+    "defaultMessage": "The Map Explorer helps you visualize how a statistical variable can vary across geographic regions.",
     "description": "a description of what our map explorer tool is used for"
   },
   "map_visualization_tool_name": {
@@ -328,8 +332,8 @@
     "description": "Link text to show additional charts for the given chart category section for the current place."
   },
   "noAlternativeDatasets": {
-    "defaultMessage": "One dataset available for this chart",
-    "description": "Text displayed in place of the dataset select button when no stat var has more than one dataset associated with it, and therefore there is nothing for the user to select. "
+    "defaultMessage": "One facet available for this chart",
+    "description": "Text displayed in place of the facet select button when no stat var has more than one facet associated with it, and therefore there is nothing for the user to select. "
   },
   "noDataErrorMessage": {
     "defaultMessage": "No data available.",
@@ -647,8 +651,12 @@
     "defaultMessage": "Scatter Tool",
     "description": "Title for the scatter tool"
   },
+  "scatter_tool_go_back_message": {
+    "defaultMessage": "Go back to the new Scatter Plot Explorer",
+    "description": "label on a button that takes the user to a newer version of the Scatter Plot Explorer"
+  },
   "scatter_visualization_tool_description": {
-    "defaultMessage": "The scatter plot explorer helps you visualize the correlation between two statistical variables.",
+    "defaultMessage": "The Scatter Plot Explorer helps you visualize the correlation between two statistical variables.",
     "description": "a description of what our scatter plot explorer tool is used for"
   },
   "scatter_visualization_tool_name": {
@@ -680,20 +688,20 @@
     "description": "Instruction inviting the user to select a statistical variable to plot"
   },
   "selectDataset": {
-    "defaultMessage": "Select a dataset",
-    "description": "Label for button and related dialog that allows the user to select a dataset. This text is used when there is a single stat vars. A dataset here refers to the facet used to supply data to the chart."
+    "defaultMessage": "Select a facet",
+    "description": "Label for button and related dialog that allows the user to select a facet. This text is used when there is a single stat vars. A facet here refers to the facet used to supply data to the chart."
   },
   "selectDatasetForDownloadPromptMessage": {
-    "defaultMessage": "Select the data source that you would like to use to download the data for",
-    "description": "Prompt message that appears in the dataset selection dialog, introducing the list of facets that the user can choose from. This will be used when choosing data to download."
+    "defaultMessage": "Select the facet that you would like to use to download the data for",
+    "description": "Prompt message that appears in the facet selection dialog, introducing the list of facets that the user can choose from. This will be used when choosing data to download."
   },
   "selectDatasets": {
-    "defaultMessage": "Select datasets",
-    "description": "Label for button and related dialog that allows the user to select datasets. This text is used when there are multiple stat vars. A dataset here refers to the facet used to supply data to the chart."
+    "defaultMessage": "Select facets",
+    "description": "Label for button and related dialog that allows the user to select facets. This text is used when there are multiple stat vars. A facet here refers to the facet used to supply data to the chart."
   },
   "selectDatasetsForDownloadPromptMessage": {
-    "defaultMessage": "Select the data sources that you would like to use to download the data",
-    "description": "Prompt message that appears in the dataset selection dialog when there are multiple stat vars, each introducing the list of facets that the user can choose from. This will be used when choosing data to download."
+    "defaultMessage": "Select the facets that you would like to use to download the data",
+    "description": "Prompt message that appears in the facet selection dialog when there are multiple stat vars, each introducing the list of facets that the user can choose from. This will be used when choosing data to download."
   },
   "selectMultipleVariablesInstruction": {
     "defaultMessage": "Select variables",
@@ -855,16 +863,16 @@
     "defaultMessage": "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data.",
     "description": "Informational tooltip text for the AI-generated summary for the current place. AI summary is generated from the data sources linked on each chart."
   },
-  "switch_tool_version": {
-    "defaultMessage": "Switch tool version",
-    "description": "label on button allowing users to switch to an earlier version of our tools"
-  },
   "timelineTool": {
     "defaultMessage": "Timeline Tool",
     "description": "Title for the timeline tool"
   },
+  "timeline_tool_go_back_message": {
+    "defaultMessage": "Go back to the new Timelines Explorer",
+    "description": "label on a button that takes the user to a newer version of the Timelines Explorer"
+  },
   "timeline_visualization_tool_description": {
-    "defaultMessage": "The timelines explorer helps you explore trends for statistical variables.",
+    "defaultMessage": "The Timelines Explorer helps you explore trends for statistical variables.",
     "description": "a description of what our timelines explorer tool is used for"
   },
   "timeline_visualization_tool_name": {
@@ -897,7 +905,7 @@
   },
   "update": {
     "defaultMessage": "Update",
-    "description": "Text of action button at the bottom of the dataset selection dialog that updates the dataset selection with the newly selected facet."
+    "description": "Text of action button at the bottom of the facet selection dialog that updates the facet selection with the newly selected facet."
   },
   "viaGoogle": {
     "defaultMessage": "via Google",
