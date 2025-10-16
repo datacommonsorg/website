@@ -30,19 +30,19 @@
   "ExploreOtherDatasetsGroupedPromptMessage": [
     {
       "type": 0,
-      "value": "Select the data source that you would like to use to build the plot"
+      "value": "Select the facet that you would like to use to build the plot"
     }
   ],
   "ExploreOtherDatasetsMultipleStatVarsPromptMessage": [
     {
       "type": 0,
-      "value": "Select the data sources that you would like to use to build the plot"
+      "value": "Select the facets that you would like to use to build the plot"
     }
   ],
   "ExploreOtherDatasetsSingleStatVarPromptMessage": [
     {
       "type": 0,
-      "value": "Select the data source that you would like to use to plot"
+      "value": "Select the facet that you would like to use to plot"
     }
   ],
   "about_place": [
@@ -340,13 +340,13 @@
   "combinedDatasetForChartsOption": [
     {
       "type": 0,
-      "value": "Plot data points using one or more of the datasets below to maximize coverage."
+      "value": "Plot data points using one or more of the facets below to maximize coverage."
     }
   ],
   "combinedDatasetForDownloadOption": [
     {
       "type": 0,
-      "value": "Combine data using one or more of the datasets below to maximize coverage."
+      "value": "Combine data using one or more of the facets below to maximize coverage."
     }
   ],
   "copyCitation": [
@@ -394,7 +394,7 @@
   "datasetError": [
     {
       "type": 0,
-      "value": "Error loading datasets for selection."
+      "value": "Error loading facets for selection."
     }
   ],
   "datasets": [
@@ -492,7 +492,7 @@
   "exploreOtherDatasets": [
     {
       "type": 0,
-      "value": "Explore other datasets"
+      "value": "Explore other facets"
     }
   ],
   "explore_data_on": [
@@ -686,10 +686,16 @@
       "value": "Map Tool"
     }
   ],
+  "map_tool_go_back_message": [
+    {
+      "type": 0,
+      "value": "Go back to the new Map Explorer"
+    }
+  ],
   "map_visualization_tool_description": [
     {
       "type": 0,
-      "value": "The map explorer helps you visualize how a statistical variable can vary across geographic regions."
+      "value": "The Map Explorer helps you visualize how a statistical variable can vary across geographic regions."
     }
   ],
   "map_visualization_tool_name": [
@@ -743,7 +749,7 @@
   "noAlternativeDatasets": [
     {
       "type": 0,
-      "value": "One dataset available for this chart"
+      "value": "One facet available for this chart"
     }
   ],
   "noDataErrorMessage": [
@@ -1835,10 +1841,16 @@
       "value": "Scatter Tool"
     }
   ],
+  "scatter_tool_go_back_message": [
+    {
+      "type": 0,
+      "value": "Go back to the new Scatter Plot Explorer"
+    }
+  ],
   "scatter_visualization_tool_description": [
     {
       "type": 0,
-      "value": "The scatter plot explorer helps you visualize the correlation between two statistical variables."
+      "value": "The Scatter Plot Explorer helps you visualize the correlation between two statistical variables."
     }
   ],
   "scatter_visualization_tool_name": [
@@ -1886,25 +1898,25 @@
   "selectDataset": [
     {
       "type": 0,
-      "value": "Select a dataset"
+      "value": "Select a facet"
     }
   ],
   "selectDatasetForDownloadPromptMessage": [
     {
       "type": 0,
-      "value": "Select the data source that you would like to use to download the data for"
+      "value": "Select the facet that you would like to use to download the data for"
     }
   ],
   "selectDatasets": [
     {
       "type": 0,
-      "value": "Select datasets"
+      "value": "Select facets"
     }
   ],
   "selectDatasetsForDownloadPromptMessage": [
     {
       "type": 0,
-      "value": "Select the data sources that you would like to use to download the data"
+      "value": "Select the facets that you would like to use to download the data"
     }
   ],
   "selectMultipleVariablesInstruction": [
@@ -2163,22 +2175,22 @@
       "value": "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data."
     }
   ],
-  "switch_tool_version": [
-    {
-      "type": 0,
-      "value": "Switch tool version"
-    }
-  ],
   "timelineTool": [
     {
       "type": 0,
       "value": "Timeline Tool"
     }
   ],
+  "timeline_tool_go_back_message": [
+    {
+      "type": 0,
+      "value": "Go back to the new Timelines Explorer"
+    }
+  ],
   "timeline_visualization_tool_description": [
     {
       "type": 0,
-      "value": "The timelines explorer helps you explore trends for statistical variables."
+      "value": "The Timelines Explorer helps you explore trends for statistical variables."
     }
   ],
   "timeline_visualization_tool_name": [
