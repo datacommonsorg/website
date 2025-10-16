@@ -114,6 +114,9 @@ class Page extends Component<unknown, PageStateType> {
       STANDARDIZED_VIS_TOOL_FEATURE_FLAG
     );
 
+    const showStatVarInstructions = numPlaces !== 0 && numStatVarInfo === 0;
+    const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
+
     return (
       <ThemeProvider theme={theme}>
         <StatVarWidget
@@ -130,22 +133,21 @@ class Page extends Component<unknown, PageStateType> {
         />
         <div id="plot-container">
           <Container fluid={true}>
-            {numPlaces === 0 &&
-              (useStandardizedUi ? (
-                <ToolHeader
-                  title={intl.formatMessage(toolMessages.timelineToolTitle)}
-                  subtitle={intl.formatMessage(
-                    toolMessages.timelineToolSubtitle
-                  )}
-                />
-              ) : (
-                <div className="app-header">
-                  <h1 className="mb-4">Timelines Explorer</h1>
-                  <a href="/tools/visualization#visType%3Dtimeline">
-                    Go back to the new Timelines Explorer
-                  </a>
-                </div>
-              ))}
+            {useStandardizedUi ? (
+              <ToolHeader
+                title={intl.formatMessage(toolMessages.timelineToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.timelineToolSubtitle)}
+              />
+            ) : (
+              <div className="app-header">
+                <h1 className="mb-4">
+                  {intl.formatMessage(toolMessages.timelineToolTitle)}
+                </h1>
+                <a href="/tools/visualization#visType%3Dtimeline">
+                  {intl.formatMessage(toolMessages.timelineToolGoBackMessage)}
+                </a>
+              </div>
+            )}
             <div
               css={css`
                 margin-bottom: ${theme.spacing.lg}px;
@@ -178,23 +180,27 @@ class Page extends Component<unknown, PageStateType> {
                 />
               </FormBox>
             </div>
-
-            {numPlaces === 0 &&
+            {!showChart &&
               (useStandardizedUi ? (
                 <>
-                  <VisToolInstructionsBox toolType="timeline" />
-                  <div
-                    css={css`
-                      margin-top: ${theme.spacing.xl}px;
-                    `}
-                  >
-                    <ChartLinkChips toolType="timeline" />
-                  </div>
+                  <VisToolInstructionsBox
+                    toolType="timeline"
+                    showStatVarInstructionsOnly={showStatVarInstructions}
+                  />
+                  {!showStatVarInstructions && (
+                    <div
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="timeline" />
+                    </div>
+                  )}
                 </>
               ) : (
                 <MemoizedInfo />
               ))}
-            {numPlaces !== 0 && numStatVarInfo !== 0 && (
+            {showChart && (
               <div id="chart-region">
                 <ChartRegion
                   placeName={this.state.placeName}

@@ -20,32 +20,24 @@ from typing import Callable, Dict, List
 
 from flask import current_app
 from flask import request
+from google import genai
+from google.genai import types
 import json5
-import requests
 
 from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_FLAG
 from server.lib.feature_flags import ENABLE_GEMINI_2_5_FLASH_LITE_FLAG
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import counters
 
-_GEMINI_API_URL_TEMPLATE = "https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
 _GEMINI_2_5_FLASH = 'gemini-2.5-flash'
 _GEMINI_2_5_FLASH_LITE = 'gemini-2.5-flash-lite'
-_API_HEADER = {'content-type': 'application/json'}
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
 _TEMPERATURE = 0.1
 
-_GEMINI_REQ_DATA = {
-    'contents': [{
-        'parts': [{
-            'text': '',
-        }],
-    }],
-    'generationConfig': {
-        'temperature': _TEMPERATURE,
-    },
-    'safetySettings': [
+_GEMINI_CONFIG = types.GenerateContentConfig(
+    temperature=_TEMPERATURE,
+    safety_settings=[
         {
             "category": "HARM_CATEGORY_HARASSMENT",
             "threshold": "BLOCK_MEDIUM_AND_ABOVE"
@@ -62,15 +54,13 @@ _GEMINI_REQ_DATA = {
             "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
             "threshold": "BLOCK_MEDIUM_AND_ABOVE"
         },
-    ]
-}
+    ])
 
 _SKIP_BEGIN_CHARS = ['`', '*']
 
 
 def detect_with_gemini(query: str, history: List[List[str]],
                        ctr: counters.Counters) -> Dict:
-  req_data = _GEMINI_REQ_DATA.copy()
 
   text = current_app.config['LLM_PROMPT_TEXT'].gemini_pro + '\n\n'
   if not history:
@@ -88,23 +78,22 @@ def detect_with_gemini(query: str, history: List[List[str]],
     # For subsequent queries in the session.
     text += 'As a follow up to the last sentence, convert this sentence to JSON: "' + query + '"'
 
-  req_data['contents'][0]['parts'][0]['text'] = text
-
   start_time = time.time()
-  req = json.dumps(req_data)
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['LLM_API_KEY']
+
+  gemini_client = genai.Client(
+      api_key=api_key, http_options=genai.types.HttpOptions(api_version='v1'))
   model_name = detect_model_name()
-  model_url_base = _GEMINI_API_URL_TEMPLATE.format(model_name=model_name)
-  logging.info(f'Gemini model URL for LLM API: {model_url_base}')
-  r = requests.post(f'{model_url_base}?key={api_key}',
-                    data=req,
-                    headers=_API_HEADER)
-  resp = r.json()
+  logging.info(f'Gemini model used for LLM API: {model_name}')
+  gemini_response = gemini_client.models.generate_content(model=model_name,
+                                                          contents=text,
+                                                          config=_GEMINI_CONFIG)
+
   ctr.timeit('gemini_pro_call', start_time)
 
   return parse_response(query,
-                        resp,
+                        gemini_response.to_json_dict(),
                         get_content_fn=extract_gemini_response,
                         ctr=ctr)
 
