@@ -30,14 +30,10 @@ import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
+from shared.lib.constants import UNKNOWN_SURFACE
 
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
-
-# This is passed into mixer if no other x-surface header is provided, and indicates
-# that this call came from an unknown DC surface via the website. This is set here to
-# differentiate these calls from public API calls that have no x-surface header,
-UNKNOWN_SURFACE = "unknown"
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
