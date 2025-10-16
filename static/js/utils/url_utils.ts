@@ -61,7 +61,11 @@ export function getUpdatedHash(
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   // Remove all existing params not present in the new params
   Array.from(urlParams.keys()).forEach((key) => {
-    if (!(key in params) && !PARAMS_TO_PERSIST.has(key) || !paramsToPersist.has(key)) {
+    const isPermanentParamToPersist = PARAMS_TO_PERSIST.has(key);
+    const isCurrentParamToPersist = paramsToPersist && paramsToPersist.has(key);
+    if (key in params || isPermanentParamToPersist || isCurrentParamToPersist) {
+      // Keep param
+    } else {
       urlParams.delete(key);
     }
   });
@@ -87,7 +91,6 @@ export function getUpdatedHash(
  * @param params Map of param to new value.
  */
 export function updateHash(params: Record<string, string | string[]>, paramsToPersist?: Set<string>): void {
-  console.log("Updating hash " + JSON.stringify(params) + " " + window.location.href);
   window.location.hash = getUpdatedHash(params, paramsToPersist);
 }
 

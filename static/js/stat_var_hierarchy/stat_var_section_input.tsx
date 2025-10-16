@@ -123,7 +123,6 @@ export class StatVarSectionInput extends React.Component<
   }
 
   private handleInputChange(): void {
-    console.log("Selecting " + this.props.statVar.id + " " + window.location.href);
     this.context.togglePath(this.props.statVar.id, this.props.path);
     this.setState({
       checked: !this.state.checked,

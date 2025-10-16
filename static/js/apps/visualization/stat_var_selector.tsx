@@ -193,7 +193,6 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
   );
 
   function addSv(sv: string): void {
-    console.log("Adding " + sv + " " + window.location.href);
     getStatVarInfo([sv]).then((info) => {
       const setStatVarsFn = props.selectOnContinue
         ? setSelectedStatVars

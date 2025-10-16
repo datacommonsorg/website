@@ -264,6 +264,7 @@ export function App(props: AppProps): ReactElement {
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
         if (category.dcid) {
+          console.log("are we here? unlikely");
           category.url = `/explore/#${getUpdatedHash({
             [URL_HASH_PARAMS.TOPIC]: category.dcid,
             [URL_HASH_PARAMS.PLACE]: pageMetadata.place.dcid,

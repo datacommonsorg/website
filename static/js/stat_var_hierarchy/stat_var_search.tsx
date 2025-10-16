@@ -305,7 +305,6 @@ export class StatVarHierarchySearch extends React.Component<
       [GA_PARAM_QUERY]: this.state.query,
       [GA_PARAM_SEARCH_SELECTION]: selectedID,
     });
-    console.log("Selected " + selectedID + " " + window.location.href);
     let displayName = "";
     if (this.state.svResults) {
       for (const sv of this.state.svResults) {
