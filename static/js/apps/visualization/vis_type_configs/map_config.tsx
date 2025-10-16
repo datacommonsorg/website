@@ -24,6 +24,7 @@ import React, { ReactElement, useCallback } from "react";
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
 import { RankingTile } from "../../../components/tiles/ranking_tile";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
@@ -39,12 +40,10 @@ import { VisType } from "../vis_type_configs";
 
 interface ChartFacetSelectorProps {
   appContext: AppContextType;
-  surface: string;
 }
 
 function ChartFacetSelector({
   appContext,
-  surface,
 }: ChartFacetSelectorProps): ReactElement {
   const statVar = appContext.statVars[0];
   const svFacetId = { [statVar.dcid]: statVar.facetId };
@@ -58,15 +57,13 @@ function ChartFacetSelector({
           dcid: statVar.dcid,
           name: statVar.info.title || statVar.dcid,
         },
-      ],
-      surface
+      ]
     );
   }, [
     appContext.enclosedPlaceType,
     appContext.places,
     statVar.dcid,
     statVar.info.title,
-    surface,
   ]);
 
   const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
@@ -101,8 +98,7 @@ function ChartFacetSelector({
 
 export function getChartArea(
   appContext: AppContextType,
-  chartHeight: number,
-  surface: string
+  chartHeight: number
 ): ReactElement {
   const perCapitaInputs = appContext.statVars[0].info.pcAllowed
     ? [
@@ -126,9 +122,7 @@ export function getChartArea(
       <div className="chart">
         <ChartHeader
           inputSections={[{ inputs: perCapitaInputs }]}
-          facetSelector={
-            <ChartFacetSelector appContext={appContext} surface={surface} />
-          }
+          facetSelector={<ChartFacetSelector appContext={appContext} />}
         />
         <MapTile
           id="vis-tool-map"
@@ -138,7 +132,7 @@ export function getChartArea(
           svgChartHeight={chartHeight}
           title={statVarLabel + " (${date})"}
           allowZoom={true}
-          surface={surface}
+          surface={WEBSITE_SURFACE}
         />
       </div>
       <div className="chart">
@@ -163,7 +157,7 @@ export function getChartArea(
               hover
             );
           }}
-          surface={surface}
+          surface={WEBSITE_SURFACE}
         />
       </div>
     </>

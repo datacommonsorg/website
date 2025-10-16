@@ -23,6 +23,7 @@ import React, { ReactElement, useCallback } from "react";
 
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
@@ -94,21 +95,18 @@ function groupStatVars(appContext: AppContextType): {
 interface ChartFacetSelectorProps {
   appContext: AppContextType;
   chartSvInfo: ContextStatVar[];
-  surface: string;
 }
 
 function ChartFacetSelector({
   appContext,
   chartSvInfo,
-  surface,
 }: ChartFacetSelectorProps): ReactElement {
   const fetchFacets = useCallback(async () => {
     return fetchFacetChoices(
       appContext.places.map((place) => place.dcid),
-      chartSvInfo.map((sv) => ({ dcid: sv.dcid, name: sv.info.title })),
-      surface
+      chartSvInfo.map((sv) => ({ dcid: sv.dcid, name: sv.info.title }))
     );
-  }, [appContext.places, chartSvInfo, surface]);
+  }, [appContext.places, chartSvInfo]);
 
   const { data: facetList, loading, error } = usePromiseResolver(fetchFacets);
 
@@ -147,8 +145,7 @@ function ChartFacetSelector({
 
 function getChartArea(
   appContext: AppContextType,
-  chartHeight: number,
-  surface: string
+  chartHeight: number
 ): ReactElement {
   const lineChartGrouping = groupStatVars(appContext);
   return (
@@ -191,7 +188,6 @@ function getChartArea(
                 <ChartFacetSelector
                   appContext={appContext}
                   chartSvInfo={chartSvInfo}
-                  surface={surface}
                 />
               }
             />
@@ -205,7 +201,7 @@ function getChartArea(
               place={appContext.places[0]}
               colors={COLORS}
               showTooltipOnHover={true}
-              surface={surface}
+              surface={WEBSITE_SURFACE}
             />
           </div>
         );

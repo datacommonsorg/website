@@ -22,6 +22,7 @@ import _ from "lodash";
 import React, { ReactElement, useCallback, useMemo } from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import {
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
@@ -100,12 +101,10 @@ function getDisplayInputs(appContext: AppContextType): InputInfo[] {
 
 interface ChartFacetSelectorProps {
   appContext: AppContextType;
-  surface: string;
 }
 
 function ChartFacetSelector({
   appContext,
-  surface,
 }: ChartFacetSelectorProps): ReactElement {
   const statVars = useMemo(
     () => appContext.statVars.slice(0, 2),
@@ -125,8 +124,7 @@ function ChartFacetSelector({
         dcid: sv.dcid,
         name: sv.info.title,
         date: sv.date,
-      })),
-      surface
+      }))
     );
   }, [appContext.places, appContext.enclosedPlaceType, statVars]);
 
@@ -159,8 +157,7 @@ function ChartFacetSelector({
 
 function getChartArea(
   appContext: AppContextType,
-  chartHeight: number,
-  surface: string
+  chartHeight: number
 ): ReactElement {
   // If any svs do not allow per capita, hide the per capita inputs.
   const hidePcInputs =
@@ -182,9 +179,7 @@ function getChartArea(
           },
           { label: "Display:", inputs: getDisplayInputs(appContext) },
         ]}
-        facetSelector={
-          <ChartFacetSelector appContext={appContext} surface={surface} />
-        }
+        facetSelector={<ChartFacetSelector appContext={appContext} />}
       />
       <ScatterTile
         id="vis-tool-scatter"
@@ -204,7 +199,7 @@ function getChartArea(
           showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
           showQuadrants: appContext.displayOptions.scatterQuadrants,
         }}
-        surface={surface}
+        surface={WEBSITE_SURFACE}
       />
     </div>
   );
