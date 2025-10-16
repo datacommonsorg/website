@@ -90,6 +90,8 @@ export interface RankingTilePropType
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -106,6 +108,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     parentPlace,
     apiRoot,
     lazyLoad,
+    surface,
   } = props;
 
   useEffect(() => {
@@ -120,7 +123,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           rankingMetadata,
           enclosedPlaceType,
           parentPlace,
-          apiRoot
+          apiRoot,
+          surface
         );
         setRankingData(rankingData);
       } finally {
@@ -135,6 +139,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     rankingMetadata,
     shouldLoad,
     variables,
+    surface,
   ]);
 
   /**
@@ -199,7 +204,6 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
 
         return { ...spec, date: finalDate };
       });
-
       const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
       return buildObservationSpecs({
         statVarSpecs: updatedStatVarSpecs,
@@ -224,7 +228,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
   const placeHolderArray = Array(numRankingLists).fill("");
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   /**
    * Opens export modal window
@@ -260,7 +264,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       chartHtml,
       chartTitle,
       "",
-      props.sources || Array.from(sources)
+      props.sources || Array.from(sources),
+      props.surface
     );
   }
   return (
@@ -313,6 +318,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               tileId={props.id}
               title={props.title}
               statVarSpecs={props.variables}
+              surface={props.surface}
             />
           );
         })}
@@ -333,7 +339,8 @@ export async function fetchData(
   rankingMetadata: RankingTileSpec,
   enclosedPlaceType: string,
   parentPlace: string,
-  apiRoot: string
+  apiRoot: string,
+  surface?: string
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -383,7 +390,8 @@ export async function fetchData(
           dateFacetToVariable[date][facetId],
           dateParam,
           [],
-          facetIds
+          facetIds,
+          surface
         )
       );
     }
@@ -410,6 +418,7 @@ export async function fetchData(
       mergedResponse,
       apiRoot,
       true, // useSeriesWithin
+      surface,
       undefined, // allPlaces
       parentPlace,
       enclosedPlaceType
