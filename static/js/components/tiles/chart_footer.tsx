@@ -63,7 +63,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
       <slot name="footer" {...{ part: "footer" }}>
         <Footnote text={props.footnote} />
       </slot>
-      <footer className="chart-container-footer">
+      <footer className="chart-container-footer" {...{ part: "tools-footer" }}>
         <div className="main-footer-section">
           <div className="outlinks">
             {props.handleEmbed && (

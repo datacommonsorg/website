@@ -12,6 +12,25 @@
     "description": "Enables the biomed_nl experimental features by registering the experiments/biomed_nl api and html routes."
   },
   {
+    "name": "enable_gemini_2_5_flash",
+    "enabled": true,
+    "owner": "shixiao",
+    "description": "Enabling Gemini 2.5 Flash for NL detection."
+  },
+  {
+    "name": "enable_stat_var_autocomplete",
+    "enabled": true,
+    "owner": "gmechali",
+    "rollout_percentage": 20,
+    "description": "Enable stat var autocompletion in the NL Search bar"
+  },
+  {
+    "name": "explore_result_header",
+    "enabled": true,
+    "owner": "nick-next",
+    "description": "Enables the display of an updated explore page results header."
+  },
+  {
     "name": "follow_up_questions_experiment",
     "enabled": true,
     "owner": "javiervazquez",
@@ -19,7 +38,7 @@
   },
   {
     "name": "follow_up_questions_ga",
-    "enabled": false,
+    "enabled": true,
     "owner": "javiervazquez",
     "description": "Enables the follow up questions generated from related topics to general audience."
   },
@@ -56,7 +75,7 @@
   },
   {
     "name": "metadata_modal",
-    "enabled": false,
+    "enabled": true,
     "owner": "nick-next",
     "description": "Feature flag to show the complete metadata modal. If not set, the older modal will be used as a fallback."
   },
