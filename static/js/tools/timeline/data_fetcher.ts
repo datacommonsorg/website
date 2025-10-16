@@ -19,6 +19,10 @@ import _ from "lodash";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
+  WEBSITE_SURFACE,
+  WEBSITE_SURFACE_HEADER,
+} from "../../shared/constants";
+import {
   DisplayNameApiResponse,
   EntitySeries,
   Observation,
@@ -27,7 +31,7 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { getSurfaceHeader, stringifyFn } from "../../utils/axios";
+import { stringifyFn } from "../../utils/axios";
 import { getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceDisplayNames } from "../../utils/place_utils";
 import { computeRatio } from "../shared_util";
@@ -157,8 +161,7 @@ export interface TimelineRawData {
 export function fetchRawData(
   places: string[],
   statVars: string[],
-  denom = "",
-  surface: string
+  denom = ""
 ): Promise<TimelineRawData> {
   let denomDataPromise: Promise<SeriesApiResponse> = Promise.resolve({
     data: {},
@@ -171,7 +174,7 @@ export function fetchRawData(
       [denom],
       null, // facetIds
       null, // highlightFacet
-      surface
+      WEBSITE_SURFACE
     );
   }
   const displayNamesPromise: Promise<DisplayNameApiResponse> =
@@ -184,7 +187,7 @@ export function fetchRawData(
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
-      headers: getSurfaceHeader(surface),
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .then((resp) => {
       return resp.data;

@@ -21,7 +21,7 @@ import { defineMessages } from "react-intl";
 
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
-import { DEFAULT_POPULATION_DCID } from "../shared/constants";
+import { DEFAULT_POPULATION_DCID, WEBSITE_SURFACE } from "../shared/constants";
 import {
   PointApiResponse,
   Series,
@@ -48,7 +48,6 @@ export interface RankingPagePropType {
   scaling: number;
   unit: string;
   date: string;
-  surface: string;
 }
 
 interface RankingPageStateType {
@@ -345,7 +344,7 @@ export class Page extends React.Component<
       this.props.placeType,
       [DEFAULT_POPULATION_DCID],
       null,
-      this.props.surface
+      WEBSITE_SURFACE
     );
     const statPromise: Promise<PointApiResponse> = getPointWithin(
       getRoot(),
@@ -355,7 +354,7 @@ export class Page extends React.Component<
       this.props.date,
       null,
       null,
-      this.props.surface
+      WEBSITE_SURFACE
     );
     const placeNamesPromise: Promise<Record<string, string>> = axios
       .get(`${getRoot()}/api/place/descendent/name`, {

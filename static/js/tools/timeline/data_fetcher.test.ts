@@ -250,8 +250,7 @@ test("fetch raw data", () => {
   return fetchRawData(
     ["geoId/05", "geoId/06"],
     ["Count_Person", "Count_Person_Male"],
-    "",
-    TEST_SURFACE
+    ""
   ).then((data: TimelineRawData) => {
     expect(data).toEqual({
       denomData: { data: {}, facets: {} },

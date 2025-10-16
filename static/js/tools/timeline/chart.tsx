@@ -305,12 +305,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const statVars = Object.keys(this.props.statVarInfos);
 
     try {
-      const rawData = await fetchRawData(
-        places,
-        statVars,
-        this.props.denom,
-        WEBSITE_SURFACE
-      );
+      const rawData = await fetchRawData(places, statVars, this.props.denom);
       this.props.onMetadataMapUpdate(rawData.metadataMap);
 
       this.setState({ rawData }, () => {

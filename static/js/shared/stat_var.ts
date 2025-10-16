@@ -17,8 +17,6 @@
 import axios from "axios";
 import _ from "lodash";
 
-import { getSurfaceHeader } from "../utils/axios";
-
 interface StatVarInfo {
   // measurementDenominator
   md?: string;
