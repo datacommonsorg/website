@@ -18,15 +18,19 @@
  * Place options for selecting the enclosing place and enclosed place type.
  */
 
+import { css, useTheme } from "@emotion/react";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
-import { Button, Col, Row } from "reactstrap";
 
-import { PlaceSelector } from "../../shared/place_selector";
+import { FormBox } from "../../components/form_components/form_box";
+import { intl } from "../../i18n/i18n";
+import { toolMessages } from "../../i18n/i18n_tool_messages";
 import {
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
+import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places_selector";
+import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
 import { Context, PlaceInfoWrapper } from "./context";
 import { getAllChildPlaceTypes } from "./util";
 
@@ -37,6 +41,7 @@ interface PlaceOptionsProps {
 
 export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
   const { placeInfo } = useContext(Context);
+  const theme = useTheme();
 
   useEffect(() => {
     if (!placeInfo.value.selectedPlace.dcid) {
@@ -70,22 +75,28 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
   ]);
 
   return (
-    <PlaceSelector
-      selectedPlace={placeInfo.value.selectedPlace}
-      enclosedPlaceType={placeInfo.value.enclosedPlaceType}
-      onPlaceSelected={placeInfo.setSelectedPlace}
-      onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
-      getEnclosedPlaceTypes={getAllChildPlaceTypes}
-      customSearchPlaceholder={"Enter a country or state to get started"}
+    <div
+      css={css`
+        margin-bottom: ${theme.spacing.md}px;
+        width: 100%;
+      `}
     >
-      <Row className="d-inline d-lg-none">
-        <Col>
-          <Button color="primary" onClick={props.toggleSvHierarchyModal}>
-            Select variable
-          </Button>
-        </Col>
-      </Row>
-    </PlaceSelector>
+      <FormBox>
+        <EnclosedPlacesSelector
+          enclosedPlaceType={placeInfo.value.enclosedPlaceType}
+          onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
+          onPlaceSelected={placeInfo.setSelectedPlace}
+          selectedParentPlace={placeInfo.value.selectedPlace}
+          searchBarPlaceholderText={intl.formatMessage(
+            toolMessages.mapToolSearchBoxPlaceholder
+          )}
+        />
+        <StatVarHierarchyToggleButton
+          onClickCallback={props.toggleSvHierarchyModal}
+          text={intl.formatMessage(toolMessages.selectAVariableInstruction)}
+        />
+      </FormBox>
+    </div>
   );
 }
 

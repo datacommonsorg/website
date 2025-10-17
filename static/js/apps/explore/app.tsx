@@ -47,6 +47,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { useQueryStore } from "../../shared/stores/query_store_hook";
+import { extractFlagsToPropagate } from "../../shared/util";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
@@ -363,7 +364,7 @@ export function App(props: AppProps): ReactElement {
       [GA_PARAM_SOURCE]: urlHashParams.origin,
     });
     /* eslint-enable camelcase */
-    if (query) {
+    if (query && !urlHashParams.topic && !urlHashParams.statVars) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
       setStoreQueryString(query);
@@ -401,8 +402,8 @@ export function App(props: AppProps): ReactElement {
         });
     } else {
       client = client || CLIENT_TYPES.ENTITY;
-      setQuery("");
-      setStoreQueryString("");
+      setQuery(query || "");
+      setStoreQueryString(query || "");
 
       let data = {};
       if (urlHashParams.statVars) {
@@ -588,18 +589,28 @@ const fetchDetectAndFufillData = async (
     [URL_HASH_PARAMS.MAX_TOPIC_SVS]: maxTopicSvs,
     [URL_HASH_PARAMS.MAX_CHARTS]: maxCharts,
   };
-  const argsMap = new Map<string, string>();
+  // Construct query URL with parameters to the server API.
+  const queryURL = new URLSearchParams();
+  // Set query param 'q' first so that it appears first in the URL.
+  queryURL.set("q", query);
+  // Extract Search Params to queryURL.
+  const urlParams = extractFlagsToPropagate(window.location.href);
+  for (const [field, value] of urlParams.entries()) {
+    if (value) {
+      queryURL.set(field, value);
+    }
+  }
+  // Extract Hash Params to queryURL.
   for (const [field, value] of Object.entries(fieldsMap)) {
     if (value) {
-      argsMap.set(field, value);
+      queryURL.set(field, value);
     }
   }
 
-  const args = argsMap.size > 0 ? `&${generateArgsParams(argsMap)}` : "";
   try {
     const startTime = window.performance ? window.performance.now() : undefined;
     const resp = await axios.post(
-      `/api/explore/detect-and-fulfill?q=${query}${args}`,
+      `/api/explore/detect-and-fulfill?${queryURL.toString()}`,
       {
         contextHistory: savedContext,
         dc,
