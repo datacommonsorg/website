@@ -21,6 +21,7 @@
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { NamedNode, StatVarFacetMap } from "../../shared/types";
 import { buildCitationParts } from "../../tools/shared/metadata/citations";
 import { StatVarMetadata } from "../../tools/shared/metadata/metadata";
@@ -59,12 +60,16 @@ async function doMetadataFetch(props: HighlightResultProps): Promise<{
     }
   }
 
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(
+    props.apiRoot,
+    WEBSITE_SURFACE
+  );
 
   const facets: FacetResponse = await getFacets(
     props.apiRoot,
     [props.highlightPageMetadata.place.dcid],
-    Array.from(statVarSet)
+    Array.from(statVarSet),
+    WEBSITE_SURFACE
   );
 
   const statVarFacetMap: StatVarFacetMap = {};
