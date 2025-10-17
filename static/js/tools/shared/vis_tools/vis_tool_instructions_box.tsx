@@ -22,13 +22,14 @@
 
 import React from "react";
 
+import { VisType } from "../../../apps/visualization/redirect_constants";
 import { InfoBox } from "../../../components/content/info_box";
 import { intl } from "../../../i18n/i18n";
 import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
 interface VisToolInstructionsBoxProps {
   // Which tool the instructions are for
-  toolType: "map" | "scatter" | "timeline";
+  toolType: VisType;
   // Whether to only show instructions for selecting stat vars
   showStatVarInstructionsOnly?: boolean;
 }
@@ -39,8 +40,8 @@ interface VisToolInstructionsBoxProps {
  * @param props props passed into VisToolInstructionsBox
  * @returns an i18n formatted string to display in the instructions
  */
-function getPlaceInstructionToShow(props: VisToolInstructionsBoxProps): string {
-  switch (props.toolType) {
+function getPlaceInstructionToShow(visType: VisType): string {
+  switch (visType) {
     case "map": {
       return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesMap);
     }
@@ -53,59 +54,75 @@ function getPlaceInstructionToShow(props: VisToolInstructionsBoxProps): string {
   }
 }
 
+/**
+ * Helper function to determine which variation on the instructions for
+ * selecting statistical variables the box should show.
+ *
+ * Returns both desktop and mobile versions of the message in the format
+ *    [ desktop, mobile ]
+ *
+ * @param props props passed into VisToolInstructionsBox
+ * @returns i18n formatted strings to display in the instructions
+ */
+function getVariableInstructionToShow(visType: VisType): [string, string] {
+  switch (visType) {
+    case "map": {
+      return [
+        intl.formatMessage(toolMessages.infoBoxInstructionsVariableDesktopMap),
+        intl.formatMessage(toolMessages.infoBoxInstructionsVariableMobileMap),
+      ];
+    }
+    case "scatter": {
+      return [
+        intl.formatMessage(
+          toolMessages.infoBoxInstructionsVariableDesktopScatter
+        ),
+        intl.formatMessage(
+          toolMessages.infoBoxInstructionsVariableMobileScatter
+        ),
+      ];
+    }
+    default: {
+      return [
+        intl.formatMessage(
+          toolMessages.infoBoxInstructionsVariableDesktopTimeline
+        ),
+        intl.formatMessage(
+          toolMessages.infoBoxInstructionsVariableMobileTimeline
+        ),
+      ];
+    }
+  }
+}
+
 export function VisToolInstructionsBox(
   props: VisToolInstructionsBoxProps
 ): JSX.Element {
+  const [desktopText, mobileText] = getVariableInstructionToShow(
+    props.toolType
+  );
+  // Instructions shown are responsive to desktop vs mobile screensizes
+  // Uses bootstrap classes to match the implementation of the stat var
+  // selection sidebar and "show variables" button.
+  // TODO (juliawu): Switch all of these classes over to emotion styling.
+  const StatVarInstructions = (
+    <>
+      <span className="d-none d-lg-inline">{desktopText}</span>
+      <span className="d-inline d-lg-none">{mobileText}</span>
+    </>
+  );
   if (props.showStatVarInstructionsOnly) {
-    return (
-      <InfoBox>
-        {props.toolType == "map"
-          ? SingleVariableInstructions
-          : MultiVariableInstructions}
-      </InfoBox>
-    );
+    return <InfoBox>{StatVarInstructions}</InfoBox>;
   } else {
     return (
       <InfoBox
         heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
       >
         <ol>
-          <li>{getPlaceInstructionToShow(props)}</li>
-          <li>
-            {props.toolType == "map"
-              ? SingleVariableInstructions
-              : MultiVariableInstructions}
-          </li>
+          <li>{getPlaceInstructionToShow(props.toolType)}</li>
+          <li>{StatVarInstructions}</li>
         </ol>
       </InfoBox>
     );
   }
 }
-
-/**
- * Instructions for selecting a single variable, that responds to screen size
- */
-const SingleVariableInstructions = (
-  <>
-    <span className="d-none d-lg-inline">
-      {intl.formatMessage(toolMessages.infoBoxInstructionsVariableDesktop)}
-    </span>
-    <span className="d-inline d-lg-none">
-      {intl.formatMessage(toolMessages.infoBoxInstructionsVariableMobile)}
-    </span>
-  </>
-);
-
-/**
- * Instructions for selecting multiple variables, that responds to screen size
- */
-const MultiVariableInstructions = (
-  <>
-    <span className="d-none d-lg-inline">
-      {intl.formatMessage(toolMessages.infoBoxInstructionsMultiVariableDesktop)}
-    </span>
-    <span className="d-inline d-lg-none">
-      {intl.formatMessage(toolMessages.infoBoxInstructionsMultiVariableMobile)}
-    </span>
-  </>
-);
