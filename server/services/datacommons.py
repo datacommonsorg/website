@@ -20,6 +20,7 @@ from typing import Dict, List
 import urllib.parse
 
 from flask import current_app
+from flask import request
 import requests
 
 from server.lib import log
@@ -29,6 +30,7 @@ import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
+from shared.lib.constants import UNKNOWN_SURFACE
 
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
@@ -40,6 +42,10 @@ def get(url: str):
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
+  # header used in usage metric logging
+  # this is set even if get() is called for endpoints that we don't write usage
+  # logs for to maintain consistency
+  headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -56,6 +62,7 @@ def post(url: str,
          req: Dict,
          api_key: str | None = None,
          log_extreme_calls: bool = True):
+
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
@@ -72,6 +79,11 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
     headers["x-api-key"] = dc_api_key
+
+  # Header from the flask call making this request
+  # Represents the DC surface (website, web components, etc.) where the call originates
+  # Used in mixer's usage logs
+  headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
@@ -96,8 +108,7 @@ def obs_point(entities, variables, date="LATEST"):
     """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["date", "value", "variable", "entity"],
           "entity": {
               "dcids": sorted(entities)
@@ -106,8 +117,7 @@ def obs_point(entities, variables, date="LATEST"):
               "dcids": sorted(variables)
           },
           "date": date,
-      },
-  )
+      })
 
 
 def obs_point_within(parent_entity,
@@ -195,6 +205,7 @@ def obs_series_within(parent_entity, child_type, variables, facet_ids=None):
   }
   if facet_ids:
     req["filter"] = {"facetIds": facet_ids}
+
   return post(url, req)
 
 
@@ -207,8 +218,7 @@ def series_facet(entities, variables):
     """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["variable", "entity", "facet"],
           "entity": {
               "dcids": sorted(entities)
@@ -216,18 +226,16 @@ def series_facet(entities, variables):
           "variable": {
               "dcids": sorted(variables)
           },
-      },
-  )
+      })
 
 
 def point_within_facet(parent_entity, child_type, variables, date):
   """Gets facet of for child places of a certain place type contained in a
     parent place at a given date.
-    """
+  """
   url = get_service_url("/v2/observation")
   return post(
-      url,
-      {
+      url, {
           "select": ["variable", "entity", "facet"],
           "entity": {
               "expression":
@@ -238,8 +246,7 @@ def point_within_facet(parent_entity, child_type, variables, date):
               "dcids": sorted(variables)
           },
           "date": date,
-      },
-  )
+      })
 
 
 def v2observation(select, entity, variable):
@@ -257,14 +264,11 @@ def v2observation(select, entity, variable):
   if "dcids" in variable:
     variable["dcids"] = sorted([x for x in variable["dcids"] if x])
   url = get_service_url("/v2/observation")
-  return post(
-      url,
-      {
-          "select": select,
-          "entity": entity,
-          "variable": variable,
-      },
-  )
+  return post(url, {
+      "select": select,
+      "entity": entity,
+      "variable": variable,
+  })
 
 
 def v2node(nodes, prop):
@@ -384,14 +388,12 @@ def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
   url = get_service_url("/v1/bulk/observation-dates/linked")
   return post(
-      url,
-      {
+      url, {
           "linked_property": "containedInPlace",
           "linked_entity": parent_entity,
           "entity_type": child_type,
           "variables": variables,
-      },
-  )
+      })
 
 
 def bio(entity):

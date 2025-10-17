@@ -81,6 +81,7 @@ interface BivariateTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  surface?: string;
 }
 
 interface RawData {
@@ -150,6 +151,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       errorMsg={bivariateChartData && bivariateChartData.errorMsg}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -177,7 +179,10 @@ function getDataCsvCallback(
   props: BivariateTilePropType
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surface
+    );
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -200,6 +205,7 @@ async function getPopulationData(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
+  surface: string,
   placeStats: PointApiResponse
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const variables = [];
@@ -216,8 +222,8 @@ async function getPopulationData(
       placeStats,
       "",
       true,
-      null,
       placeDcid,
+      null,
       enclosedPlaceType
     );
   }
@@ -241,12 +247,15 @@ export const fetchData = async (
     [
       { statVarDcid: props.statVarSpec[0].statVar },
       { statVarDcid: props.statVarSpec[1].statVar },
-    ]
+    ],
+    props.apiRoot,
+    props.surface
   );
   const [denomsByFacet, defaultDenomData] = await getPopulationData(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
+    props.surface,
     placeStats
   );
   const placeNamesPromise = axios
