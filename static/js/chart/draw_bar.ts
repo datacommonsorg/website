@@ -50,7 +50,7 @@ import {
 import { ChartOptions, HorizontalBarChartOptions } from "./types";
 
 // Horizontal bar chart default style
-export const HORIZONTAL_BAR_CHART = {
+const HORIZONTAL_BAR_CHART = {
   barHeight: 30,
   marginBottom: 10,
   marginLeft: 80,
@@ -158,7 +158,7 @@ function getLegendItems(dataGroups: DataGroup[]): LegendItem[] {
  * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
  * @param relativeBoundary tooltip boundary relative to its container element.
  */
-export function positionTooltip(
+function positionTooltip(
   tooltipDiv: d3.Selection<HTMLDivElement, any, any, any>,
   datapointX: number,
   datapointY: number,

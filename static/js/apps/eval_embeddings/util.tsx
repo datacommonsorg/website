@@ -53,7 +53,7 @@ function dcg(scores: number[], k?: number): number {
   }, 0);
 }
 
-export function ndcg(newList: string[], baselineList: string[]): number {
+function ndcg(newList: string[], baselineList: string[]): number {
   const relevanceScores = calculateRelevanceScores(baselineList);
   const newScores = newList.map((token) => relevanceScores[token] || 0);
   const baselineScores = baselineList.map((token) => relevanceScores[token]);
@@ -62,7 +62,7 @@ export function ndcg(newList: string[], baselineList: string[]): number {
   return dcgBase > 0 ? dcgNew / dcgBase : 0;
 }
 
-export function accuracy(newList: string[], baselineList: string[]): number {
+function accuracy(newList: string[], baselineList: string[]): number {
   const baseLineSet = new Set(baselineList);
   let numMatch = 0;
   for (const token of newList.slice(0, baselineList.length)) {

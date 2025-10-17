@@ -58,14 +58,14 @@ export function isPlaceContainedInUsa(parentPlaces: string[]): boolean {
 /**
  * Given a DCID and list of parent places, returns whether this dcid is the USA, or contained in the USA.
  */
-export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
+function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
   return dcid === USA_PLACE_DCID || isPlaceContainedInUsa(parentPlaces);
 }
 
 /**
  * A set of place types to render a choropleth for.
  */
-export const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set([
+const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set([
   "Country",
   "State",
   "County",

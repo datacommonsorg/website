@@ -23,17 +23,17 @@ export const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // number to select top data points for large data
 export const NUM_DATA_POINTS = 10;
 // tooltip constant for all charts
-export const TOOL_TIP = d3
+const TOOL_TIP = d3
   .select("#main")
   .append("div")
   .attr("class", "tooltip");
 // shift in tooltip positions
-export const TOOL_TIP_SHIFT = 60;
+const TOOL_TIP_SHIFT = 60;
 // default brightness for barcharts
-export const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
+const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
 // x axis label shift
-export const X_LABEL_SHIFT = 40;
-export type Datum =
+const X_LABEL_SHIFT = 40;
+type Datum =
   | DiseaseGeneAssociationData
   | ProteinNumData
   | ProteinNode
@@ -43,7 +43,7 @@ export const GRAPH_BROWSER_REDIRECT = "/browser/";
 /**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
-export function onMouseOver(
+function onMouseOver(
   elementID: string,
   toolTipText: string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
@@ -60,7 +60,7 @@ export function onMouseOver(
 /**
  * Update position of global tooltip to track mouse.
  */
-export function onMouseMove(): void {
+function onMouseMove(): void {
   TOOL_TIP.style("left", d3.event.pageX - TOOL_TIP_SHIFT + "px").style(
     "top",
     d3.event.pageY - TOOL_TIP_SHIFT + "px"
@@ -70,7 +70,7 @@ export function onMouseMove(): void {
 /**
  * When mouse leaves element specified by given id, reset its brightness and hide the global tooltip.
  */
-export function onMouseOut(elementID: string): void {
+function onMouseOut(elementID: string): void {
   // reset element brightness
   d3.select(`#${elementID}`).style("filter", "brightness(100%)");
   // hide tooltip
