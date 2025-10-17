@@ -90,7 +90,10 @@ export function getUpdatedHash(
  * Updates URL hash param with given value.
  * @param params Map of param to new value.
  */
-export function updateHash(params: Record<string, string | string[]>, paramsToPersist?: Set<string>): void {
+export function updateHash(
+  params: Record<string, string | string[]>,
+  paramsToPersist?: Set<string>
+): void {
   window.location.hash = getUpdatedHash(params, paramsToPersist);
 }
 

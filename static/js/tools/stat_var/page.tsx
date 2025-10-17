@@ -119,9 +119,19 @@ class Page extends Component<unknown, PageStateType> {
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
           sampleEntities={entities}
-          deselectSVs={async (): Promise<void> => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" }, new Set([SV_URL_PARAMS.DATASET, SV_URL_PARAMS.SOURCE]))}
+          deselectSVs={async (): Promise<void> =>
+            updateHash(
+              { [SV_URL_PARAMS.STAT_VAR]: "" },
+              new Set([SV_URL_PARAMS.DATASET, SV_URL_PARAMS.SOURCE])
+            )
+          }
           selectedSVs={svs}
-          selectSV={async (sv): Promise<void> => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv }, new Set([SV_URL_PARAMS.DATASET, SV_URL_PARAMS.SOURCE]))}
+          selectSV={async (sv): Promise<void> =>
+            updateHash(
+              { [SV_URL_PARAMS.STAT_VAR]: sv },
+              new Set([SV_URL_PARAMS.DATASET, SV_URL_PARAMS.SOURCE])
+            )
+          }
           disableAlert={true}
         />
         <div id="plot-container">
