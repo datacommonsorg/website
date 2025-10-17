@@ -427,6 +427,7 @@ interface DenomInfo {
   @param statResp a response for the numerator, from which we get facet information
   @param apiRoot root API string passed into getSeries/getSeriesWithin 
   @param useSeriesWithin boolean indiciating if getSeries or getSeriesWithin should be used
+  @param surface the DC product requesting this information (website, web components, etc.)
   @param allPlaces list of place DCIDs to fetch if using getSeries
   @param parentPlace parent place for getSeriesWithin
   @param placeType subplace type for getSeriesWithin
@@ -436,6 +437,7 @@ export async function getDenomResp(
   statResp: PointApiResponse | SeriesApiResponse,
   apiRoot: string,
   useSeriesWithin: boolean,
+  surface: string,
   // for series queries
   allPlaces?: string[],
   // parent and place type for collection queries
@@ -450,8 +452,22 @@ export async function getDenomResp(
   for (const facetId of facetIds) {
     denomPromises.push(
       useSeriesWithin
-        ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms, [facetId])
-        : getSeries(apiRoot, allPlaces, denoms, [facetId])
+        ? getSeriesWithin(
+            apiRoot,
+            parentPlace,
+            placeType,
+            denoms,
+            [facetId],
+            surface
+          )
+        : getSeries(
+            apiRoot,
+            allPlaces,
+            denoms,
+            [facetId],
+            null /* highlight facet */,
+            surface
+          )
     );
   }
 
@@ -459,8 +475,22 @@ export async function getDenomResp(
   const defaultDenomPromise = _.isEmpty(denoms)
     ? Promise.resolve(null)
     : useSeriesWithin
-    ? getSeriesWithin(apiRoot, parentPlace, placeType, denoms)
-    : getSeries(apiRoot, allPlaces, denoms, []);
+    ? getSeriesWithin(
+        apiRoot,
+        parentPlace,
+        placeType,
+        denoms,
+        null /* facetIds */,
+        surface
+      )
+    : getSeries(
+        apiRoot,
+        allPlaces,
+        denoms,
+        [],
+        null /* highlightFacet */,
+        surface
+      );
 
   // organize results into a map from facet to API response
   const denomsByFacet: Record<string, SeriesApiResponse> = {};

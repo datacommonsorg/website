@@ -50,7 +50,8 @@ function getTileProp(
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec,
-  apiRoot: string
+  apiRoot: string,
+  surface?: string
 ): MapTilePropType {
   return {
     id,
@@ -60,6 +61,7 @@ function getTileProp(
     statVarSpec,
     svgChartHeight: SVG_HEIGHT - LEGEND_MARGIN_VERTICAL * 2,
     apiRoot,
+    surface,
   };
 }
 
@@ -116,6 +118,7 @@ function getMapChartSvg(
  * @param enclosedPlaceType enclosed place type to use in the tile
  * @param statVarSpec stat var spec to show in the tile
  * @param apiRoot API root to use to fetch data
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getMapTileResult(
   id: string,
@@ -126,7 +129,8 @@ export async function getMapTileResult(
   apiRoot: string,
   urlRoot: string,
   useChartUrl: boolean,
-  apikey?: string
+  apikey?: string,
+  surface?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -134,7 +138,8 @@ export async function getMapTileResult(
     place,
     enclosedPlaceType,
     statVarSpec,
-    apiRoot
+    apiRoot,
+    surface
   );
   try {
     const chartData = await fetchData(tileProp);

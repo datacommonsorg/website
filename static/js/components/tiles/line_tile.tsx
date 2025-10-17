@@ -129,6 +129,8 @@ export interface LineTilePropType {
   lazyLoadMargin?: string;
   // Metadata for the facet to highlight.
   highlightFacet?: FacetMetadata;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 export interface LineChartData {
@@ -235,6 +237,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
       title={props.title}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -255,7 +258,7 @@ export function LineTile(props: LineTilePropType): ReactElement {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
   return () => {
     const perCapitaVariables = props.statVarSpec
       .filter((v) => v.denom)
@@ -374,7 +377,8 @@ export const fetchData = async (
           props.place.dcid,
           props.enclosedPlaceType,
           facetToVariable[facetId],
-          facetIds
+          facetIds,
+          props.surface
         )
       );
     } else {
@@ -386,7 +390,8 @@ export const fetchData = async (
           placeDcids,
           facetToVariable[facetId],
           facetIds,
-          props.highlightFacet
+          props.highlightFacet,
+          props.surface
         )
       );
     }
@@ -430,6 +435,7 @@ export const fetchData = async (
     resp,
     props.apiRoot,
     !!props.enclosedPlaceType,
+    props.surface,
     !props.enclosedPlaceType ? getPlaceDcids(props) : [],
     props.enclosedPlaceType ? props.place.dcid : "",
     props.enclosedPlaceType
