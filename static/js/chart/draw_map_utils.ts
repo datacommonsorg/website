@@ -31,7 +31,7 @@ import { getColorFn } from "./base";
 export const LEGEND_MARGIN_VERTICAL = 6;
 export const LEGEND_MARGIN_RIGHT = 5;
 export const LEGEND_IMG_WIDTH = 10;
-export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
+const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 export const LEGEND_TICK_LABEL_MARGIN = 10;
 const MIN_COLOR = "#f0f0f0";
 const AXIS_TEXT_FILL = "#2b2929";
@@ -249,7 +249,7 @@ const genScaleImg = (
  * @param variableId id to give the legend bar
  * @returns
  */
-export function generateLegend(
+function generateLegend(
   svg: d3.Selection<SVGElement, any, any, any>,
   height: number,
   color: d3.ScaleLinear<number, number>,

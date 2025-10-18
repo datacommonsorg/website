@@ -50,7 +50,7 @@ import {
 import { ChartOptions, HorizontalBarChartOptions } from "./types";
 
 // Horizontal bar chart default style
-export const HORIZONTAL_BAR_CHART = {
+const HORIZONTAL_BAR_CHART = {
   barHeight: 30,
   marginBottom: 10,
   marginLeft: 80,
@@ -158,7 +158,7 @@ function getLegendItems(dataGroups: DataGroup[]): LegendItem[] {
  * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
  * @param relativeBoundary tooltip boundary relative to its container element.
  */
-export function positionTooltip(
+function positionTooltip(
   tooltipDiv: d3.Selection<HTMLDivElement, any, any, any>,
   datapointX: number,
   datapointY: number,
@@ -331,7 +331,7 @@ export function drawStackBarChart(
   const colorOrder = options?.statVarColorOrder || keys;
   const colorFn = getColorFn(colorOrder, options?.colors);
 
-  const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
+  const setData = (d: d3.Series<{ [key: string]: number }, string>): any[] => {
     return d
       .filter((item) => item.length >= 2 && !isNaN(item[0]) && !isNaN(item[1]))
       .map((item) => ({
@@ -709,7 +709,7 @@ function drawHorizontalStackedBars(
   useLollipop?: boolean,
   unit?: string
 ): void {
-  const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
+  const setData = (d: d3.Series<{ [key: string]: number }, string>): any[] => {
     return d
       .filter((dp) => dp.length >= 2 && !isNaN(dp[0]) && !isNaN(dp[1]))
       .map((dp) => ({

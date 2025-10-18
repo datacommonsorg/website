@@ -23,7 +23,7 @@ import {
   InteractingProteinType,
   ProteinVarType,
 } from "./page";
-export { Datum } from "../bio_charts_utils";
+
 import { InteractionGraphData, InteractionLink, ProteinNode } from "./types";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
@@ -38,7 +38,7 @@ export interface ProteinStrData {
 }
 
 // interface for variant gene associations for plotting error bars
-export interface VarGeneDataPoint {
+interface VarGeneDataPoint {
   associationID: string;
   id: string;
   name: string;

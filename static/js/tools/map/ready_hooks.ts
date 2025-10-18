@@ -26,7 +26,7 @@ import { ChartStore } from "./chart_store";
 import { Context } from "./context";
 import { shouldShowBorder } from "./util";
 
-export function useGeoJsonReady(chartStore: ChartStore): () => boolean {
+function useGeoJsonReady(chartStore: ChartStore): () => boolean {
   const { placeInfo } = useContext(Context);
 
   return useCallback(() => {
@@ -182,7 +182,7 @@ export function useMapPointStatReady(chartStore: ChartStore): () => boolean {
   ]);
 }
 
-export function useMapPointCoordinateReady(
+function useMapPointCoordinateReady(
   chartStore: ChartStore
 ): () => boolean {
   const { placeInfo } = useContext(Context);
