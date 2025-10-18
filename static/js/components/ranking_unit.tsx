@@ -203,8 +203,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                             href={urlFunc(
                               point.placeDcid,
                               props.entityType,
-                              props.apiRoot,
-                              props.statVar
+                              props.apiRoot
                             )}
                             text={
                               <PlaceName
