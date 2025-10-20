@@ -21,7 +21,7 @@
 import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Button } from "../../components/elements/button/button";
 import { Public } from "../../components/elements/icons/public";
@@ -46,6 +46,10 @@ interface PlaceAndTypeOptionsProps {
 
 function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
+  const [enclosedPlacesError, setEnclosedPlacesError] = useState<{
+    placeDcid: string;
+    enclosedPlaceType: string;
+  } | null>(null);
   const theme = useTheme();
 
   /**
@@ -69,9 +73,16 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
       return;
     }
     if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
-      loadEnclosedPlaces(place, isLoading);
+      if (
+        enclosedPlacesError &&
+        place.value.enclosingPlace.dcid == enclosedPlacesError.placeDcid &&
+        place.value.enclosedPlaceType == enclosedPlacesError.enclosedPlaceType
+      ) {
+        return;
+      }
+      loadEnclosedPlaces(place, isLoading, setEnclosedPlacesError);
     }
-  }, [place, isLoading]);
+  }, [place, isLoading, enclosedPlacesError]);
 
   /**
    * If map view is selected, check that map view is possible before rendering
@@ -150,11 +161,16 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
 
 function loadEnclosedPlaces(
   place: PlaceInfoWrapper,
-  isLoading: IsLoadingWrapper
+  isLoading: IsLoadingWrapper,
+  setEnclosedPlacesError: (failedSettings: {
+    placeDcid: string;
+    enclosedPlaceType: string;
+  }) => void
 ): void {
   const placeDcid = place.value.enclosingPlace.dcid;
   const enclosedPlaceType = place.value.enclosedPlaceType;
   let placeNamesRetrieved = false;
+  isLoading.setArePlacesLoading(true);
   axios
     .get(
       `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`
@@ -172,30 +188,36 @@ function loadEnclosedPlaces(
         );
         place.setEnclosedPlaces(enclosedPlaces);
         placeNamesRetrieved = true;
-      }
-    })
-    .catch(() => (placeNamesRetrieved = false));
-  isLoading.setArePlacesLoading(true);
-  getEnclosedPlacesPromise(placeDcid, enclosedPlaceType)
-    .then((enclosedPlaces) => {
-      isLoading.setArePlacesLoading(false);
-      if (!placeNamesRetrieved) {
-        if (!_.isEmpty(enclosedPlaces)) {
-          place.setEnclosedPlaces(enclosedPlaces);
-        } else {
-          place.setEnclosedPlaceType("");
-          alert(
-            `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
-              `${enclosedPlaceType}. Try picking another type or place.`
-          );
-        }
+        isLoading.setArePlacesLoading(false);
       }
     })
     .catch(() => {
-      isLoading.setArePlacesLoading(false);
-      alert(
-        `Error fetching places of type ${enclosedPlaceType} for ${place.value.enclosingPlace.name}.`
-      );
+      placeNamesRetrieved = false;
+      // Get enclosed place dcids as backup if names can't be found
+      getEnclosedPlacesPromise(placeDcid, enclosedPlaceType)
+        .then((enclosedPlaces) => {
+          isLoading.setArePlacesLoading(false);
+          if (!placeNamesRetrieved) {
+            if (!_.isEmpty(enclosedPlaces)) {
+              place.setEnclosedPlaces(enclosedPlaces);
+              isLoading.setArePlacesLoading(false);
+            } else {
+              setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
+              isLoading.setArePlacesLoading(false);
+              alert(
+                `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
+                  `${enclosedPlaceType}. Try picking another type or place.`
+              );
+            }
+          }
+        })
+        .catch(() => {
+          isLoading.setArePlacesLoading(false);
+          setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
+          alert(
+            `Error fetching places of type ${enclosedPlaceType} for ${place.value.enclosingPlace.name}.`
+          );
+        });
     });
 }
 
