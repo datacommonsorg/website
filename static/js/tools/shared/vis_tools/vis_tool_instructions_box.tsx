@@ -27,6 +27,42 @@ import { InfoBox } from "../../../components/content/info_box";
 import { intl } from "../../../i18n/i18n";
 import { toolMessages } from "../../../i18n/i18n_tool_messages";
 
+const toolInstructions = {
+  map: {
+    place: intl.formatMessage(toolMessages.infoBoxInstructionsPlacesMap),
+    variable: {
+      desktop: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableDesktopMap
+      ),
+      mobile: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableMobileMap
+      ),
+    },
+  },
+  scatter: {
+    place: intl.formatMessage(toolMessages.infoBoxInstructionsPlacesScatter),
+    variable: {
+      desktop: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableDesktopScatter
+      ),
+      mobile: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableMobileScatter
+      ),
+    },
+  },
+  timeline: {
+    place: intl.formatMessage(toolMessages.infoBoxInstructionsPlacesTimeline),
+    variable: {
+      desktop: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableDesktopTimeline
+      ),
+      mobile: intl.formatMessage(
+        toolMessages.infoBoxInstructionsVariableMobileTimeline
+      ),
+    },
+  },
+};
+
 interface VisToolInstructionsBoxProps {
   // Which tool the instructions are for
   toolType: VisType;
@@ -34,73 +70,13 @@ interface VisToolInstructionsBoxProps {
   showStatVarInstructionsOnly?: boolean;
 }
 
-/**
- * Helper function to determine which variation on the instructions for
- * inputting a place the box should show.
- * @param props props passed into VisToolInstructionsBox
- * @returns an i18n formatted string to display in the instructions
- */
-function getPlaceInstructionToShow(visType: VisType): string {
-  switch (visType) {
-    case "map": {
-      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesMap);
-    }
-    case "scatter": {
-      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesScatter);
-    }
-    default: {
-      return intl.formatMessage(toolMessages.infoBoxInstructionsPlacesTimeline);
-    }
-  }
-}
-
-/**
- * Helper function to determine which variation on the instructions for
- * selecting statistical variables the box should show.
- *
- * Returns both desktop and mobile versions of the message in the format
- *    [ desktop, mobile ]
- *
- * @param props props passed into VisToolInstructionsBox
- * @returns i18n formatted strings to display in the instructions
- */
-function getVariableInstructionToShow(visType: VisType): [string, string] {
-  switch (visType) {
-    case "map": {
-      return [
-        intl.formatMessage(toolMessages.infoBoxInstructionsVariableDesktopMap),
-        intl.formatMessage(toolMessages.infoBoxInstructionsVariableMobileMap),
-      ];
-    }
-    case "scatter": {
-      return [
-        intl.formatMessage(
-          toolMessages.infoBoxInstructionsVariableDesktopScatter
-        ),
-        intl.formatMessage(
-          toolMessages.infoBoxInstructionsVariableMobileScatter
-        ),
-      ];
-    }
-    default: {
-      return [
-        intl.formatMessage(
-          toolMessages.infoBoxInstructionsVariableDesktopTimeline
-        ),
-        intl.formatMessage(
-          toolMessages.infoBoxInstructionsVariableMobileTimeline
-        ),
-      ];
-    }
-  }
-}
-
 export function VisToolInstructionsBox(
   props: VisToolInstructionsBoxProps
 ): JSX.Element {
-  const [desktopText, mobileText] = getVariableInstructionToShow(
-    props.toolType
-  );
+  const instructions = toolInstructions[props.toolType];
+  const desktopText = instructions.variable.desktop;
+  const mobileText = instructions.variable.mobile;
+
   // Instructions shown are responsive to desktop vs mobile screensizes
   // Uses bootstrap classes to match the implementation of the stat var
   // selection sidebar and "show variables" button.
@@ -111,6 +87,7 @@ export function VisToolInstructionsBox(
       <span className="d-inline d-lg-none">{mobileText}</span>
     </>
   );
+
   if (props.showStatVarInstructionsOnly) {
     return <InfoBox>{StatVarInstructions}</InfoBox>;
   } else {
@@ -119,7 +96,7 @@ export function VisToolInstructionsBox(
         heading={intl.formatMessage(toolMessages.infoBoxInstructionHeader)}
       >
         <ol>
-          <li>{getPlaceInstructionToShow(props.toolType)}</li>
+          <li>{instructions.place}</li>
           <li>{StatVarInstructions}</li>
         </ol>
       </InfoBox>
