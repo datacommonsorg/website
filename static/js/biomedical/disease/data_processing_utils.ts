@@ -162,9 +162,7 @@ export function getDiseaseSymptomAssociation(
  * @param data the data pertaining to the disease of interest
  * @returns an array of chemical compounds with their associated properties
  */
-function getChemicalCompoundData(
-  data: GraphNodes
-): ChemicalCompoundDataType[] {
+function getChemicalCompoundData(data: GraphNodes): ChemicalCompoundDataType[] {
   if (
     _.isEmpty(data) ||
     _.isEmpty(data.nodes) ||

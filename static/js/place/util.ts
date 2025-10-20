@@ -65,11 +65,7 @@ function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
 /**
  * A set of place types to render a choropleth for.
  */
-const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set([
-  "Country",
-  "State",
-  "County",
-]);
+const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set(["Country", "State", "County"]);
 
 /**
  * An ordered list of place types for which to highlight child places.

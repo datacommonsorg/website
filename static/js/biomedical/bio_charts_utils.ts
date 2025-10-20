@@ -23,10 +23,7 @@ export const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // number to select top data points for large data
 export const NUM_DATA_POINTS = 10;
 // tooltip constant for all charts
-const TOOL_TIP = d3
-  .select("#main")
-  .append("div")
-  .attr("class", "tooltip");
+const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // shift in tooltip positions
 const TOOL_TIP_SHIFT = 60;
 // default brightness for barcharts

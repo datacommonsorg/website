@@ -335,8 +335,7 @@ export const GA_EVENT_PAGE_OVERVIEW_CLICK = "page_overview_click";
 export const GA_EVENT_TOTAL_ANCHOR_COUNT = "total_anchor_count";
 
 // GA event parameters
-const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
-  "place_category_click_source";
+const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE = "place_category_click_source";
 const GA_PARAM_PLACE_CATEGORY_CLICK = "place_category_click";
 export const GA_PARAM_PLACE_CHART_CLICK = "place_chart_click";
 export const GA_PARAM_STAT_VAR = "stat_var";

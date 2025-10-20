@@ -192,9 +192,7 @@ function getReplacementStrings(
   };
 }
 
-const fetchData = async (
-  props: DonutTilePropType
-): Promise<DonutChartData> => {
+const fetchData = async (props: DonutTilePropType): Promise<DonutChartData> => {
   // Assume all variables will have the same date
   // TODO: Handle different dates for different variables
   const date = getFirstCappedStatVarSpecDate(props.statVarSpec);

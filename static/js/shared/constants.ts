@@ -106,8 +106,7 @@ export const MAX_DATE = "2050-06";
 
 export const DEFAULT_POPULATION_DCID = "Count_Person";
 
-const DENOM_INPUT_PLACEHOLDER =
-  "Enter a variable dcid e.g. Count_Person";
+const DENOM_INPUT_PLACEHOLDER = "Enter a variable dcid e.g. Count_Person";
 
 export const SOURCE_DISPLAY_NAME = {
   "https://unstats.un.org/sdgs/dataportal": "Global SDG Database",

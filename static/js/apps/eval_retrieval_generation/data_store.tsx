@@ -77,10 +77,7 @@ export async function getAllFields(path: string): Promise<DocumentData> {
 }
 
 // Gets a field from a doc at the specified path
-async function getField(
-  path: string,
-  fieldKey: string
-): Promise<string> {
+async function getField(path: string, fieldKey: string): Promise<string> {
   const docData = await getAllFields(path);
   return docData ? docData[fieldKey] : "";
 }

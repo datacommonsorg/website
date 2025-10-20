@@ -182,9 +182,7 @@ export function useMapPointStatReady(chartStore: ChartStore): () => boolean {
   ]);
 }
 
-function useMapPointCoordinateReady(
-  chartStore: ChartStore
-): () => boolean {
+function useMapPointCoordinateReady(chartStore: ChartStore): () => boolean {
   const { placeInfo } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.mapPointCoordinate.context;

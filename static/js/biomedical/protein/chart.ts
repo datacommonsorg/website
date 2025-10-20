@@ -23,7 +23,6 @@ import {
   InteractingProteinType,
   ProteinVarType,
 } from "./page";
-
 import { InteractionGraphData, InteractionLink, ProteinNode } from "./types";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
