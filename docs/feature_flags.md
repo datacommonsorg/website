@@ -6,7 +6,11 @@ Feature flags allow us to rapidly deploy flag-gated changes per environment, out
 
 This script automates the deployment of feature flags from `master` to a Google Cloud Storage (GCS) bucket and optionally restarts a Kubernetes deployment.
 
-### Usage
+The Cloud Build job ([update-feature-flags](https://pantheon.corp.google.com/cloud-build/triggers?e=13803378&mods=-monitoring_api_staging&project=datcom-ci&pageState=(%22triggers%22:(%22f%22:%22%255B%257B_22k_22_3A_22_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22update-feature-flags_5C_22_22%257D%255D%22)))) checks for changes to the feature flag files when pushing to main then follows (cloudbuild.update_feature_flags.yaml)[https://github.com/datacommonsorg/website/blob/master/build/ci/cloudbuild.update_feature_flags.yaml] to call [scripts/update_gcs_feature_flags.sh](https://github.com/datacommonsorg/website/blob/master/scripts/update_gcs_feature_flags.sh) for the appropriate environments.  
+
+### Manual Usage
+
+Note: this script is automatically executed by the Cloud Build job update-feature-flags on PR merge into main. This script should only be manually executed in one-off, rare circumstances.
 
 ```bash
 ./scripts/update_gcs_feature_flags.sh <environment>
@@ -67,6 +71,8 @@ This script uploads the feature flag configuration files from the Github master 
 2. **Define flag in server layer**: Add your flag constant to [feature_flags.py](https://github.com/datacommonsorg/website/blob/master/server/lib/feature_flags.py#L19) helper file for use in the API layer.
 3. **Define flag in client layer**: Add your flag constant to [feature_flags/util.ts](https://github.com/datacommonsorg/website/blob/master/static/js/shared/feature_flags/util.ts#L18) helper file for use in the client layer.
 4. **Check flag value and implement your feature**
+    * [server layer example](https://github.com/datacommonsorg/website/blob/53ea3aa41e8478526bb2052b1738d7146f180d2f/server/routes/shared_api/autocomplete/autocomplete.py#L62)
+    * [client layer example](https://github.com/datacommonsorg/website/blob/53ea3aa41e8478526bb2052b1738d7146f180d2f/static/js/apps/visualization/main.ts#L35)
 5. **Deploy & update GCS Flag files**: Once your code reaches production, you can enable your flags and run the script to update the GCS flag files.
 6. **Restart Kubernetes**: The script to update the GCS flag files will prompt you to restart Kubernetes, on restart the new flags will be applied and your feature will be enabled.
 
