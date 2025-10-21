@@ -19,7 +19,7 @@
  */
 
 import { css, useTheme } from "@emotion/react";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -46,7 +46,7 @@ interface PlaceAndTypeOptionsProps {
 
 function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
-  const [enclosedPlacesError, setEnclosedPlacesError] = useState<{
+  const [failedEnclosedPlaces, setFailedEnclosedPlaces] = useState<{
     placeDcid: string;
     enclosedPlaceType: string;
   } | null>(null);
@@ -74,15 +74,26 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
     }
     if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
       if (
-        enclosedPlacesError &&
-        place.value.enclosingPlace.dcid == enclosedPlacesError.placeDcid &&
-        place.value.enclosedPlaceType == enclosedPlacesError.enclosedPlaceType
+        failedEnclosedPlaces &&
+        place.value.enclosingPlace.dcid == failedEnclosedPlaces.placeDcid &&
+        place.value.enclosedPlaceType == failedEnclosedPlaces.enclosedPlaceType
       ) {
+        // Place options selected match a previously failed fetch, do not repeat
         return;
       }
-      loadEnclosedPlaces(place, isLoading, setEnclosedPlacesError);
+      const controller = new AbortController();
+      loadEnclosedPlaces(
+        place,
+        isLoading,
+        setFailedEnclosedPlaces,
+        controller.signal
+      );
+      return () => {
+        // Abort any old axios calls if component re-renders
+        controller.abort();
+      };
     }
-  }, [place, isLoading, enclosedPlacesError]);
+  }, [place, isLoading, failedEnclosedPlaces]);
 
   /**
    * If map view is selected, check that map view is possible before rendering
@@ -165,15 +176,16 @@ function loadEnclosedPlaces(
   setEnclosedPlacesError: (failedSettings: {
     placeDcid: string;
     enclosedPlaceType: string;
-  }) => void
+  }) => void,
+  signal: AxiosRequestConfig["signal"]
 ): void {
   const placeDcid = place.value.enclosingPlace.dcid;
   const enclosedPlaceType = place.value.enclosedPlaceType;
-  let placeNamesRetrieved = false;
   isLoading.setArePlacesLoading(true);
   axios
     .get(
-      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`,
+      { signal }
     )
     .then((resp) => {
       const enclosedPlacesToNames = resp.data;
@@ -187,33 +199,35 @@ function loadEnclosedPlaces(
           }
         );
         place.setEnclosedPlaces(enclosedPlaces);
-        placeNamesRetrieved = true;
         isLoading.setArePlacesLoading(false);
       }
     })
-    .catch(() => {
-      placeNamesRetrieved = false;
+    .catch((error) => {
+      if (axios.isCancel(error)) {
+        // Skip catch actions if request is canceled
+        return;
+      }
       // Get enclosed place dcids as backup if names can't be found
-      getEnclosedPlacesPromise(placeDcid, enclosedPlaceType)
+      getEnclosedPlacesPromise(placeDcid, enclosedPlaceType, signal)
         .then((enclosedPlaces) => {
           isLoading.setArePlacesLoading(false);
-          if (!placeNamesRetrieved) {
-            if (!_.isEmpty(enclosedPlaces)) {
-              place.setEnclosedPlaces(enclosedPlaces);
-              isLoading.setArePlacesLoading(false);
-            } else {
-              setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
-              isLoading.setArePlacesLoading(false);
-              alert(
-                `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
-                  `${enclosedPlaceType}. Try picking another type or place.`
-              );
-            }
+          if (!_.isEmpty(enclosedPlaces)) {
+            place.setEnclosedPlaces(enclosedPlaces);
+          } else {
+            setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
+            alert(
+              `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
+                `${enclosedPlaceType}. Try picking another type or place.`
+            );
           }
         })
         .catch(() => {
-          isLoading.setArePlacesLoading(false);
+          if (axios.isCancel(error)) {
+            // Skip catch actions if request is canceled
+            return;
+          }
           setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
+          isLoading.setArePlacesLoading(false);
           alert(
             `Error fetching places of type ${enclosedPlaceType} for ${place.value.enclosingPlace.name}.`
           );
