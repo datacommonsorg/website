@@ -27,6 +27,8 @@ from absl import app
 from absl import flags
 import requests
 
+from shared.lib.constants import CRON_TEST_SURFACE, SURFACE_HEADER_NAME
+
 FLAGS = flags.FLAGS
 
 INPUT_DIR = "input"
@@ -326,6 +328,9 @@ class AdversarialQueriesTest:
           json={
               'contextHistory': {},
               'dc': f'{post_dc_param}',
+          },
+          headers={
+              SURFACE_HEADER_NAME: CRON_TEST_SURFACE
           },
           timeout=30)
     except requests.exceptions.ReadTimeout:
