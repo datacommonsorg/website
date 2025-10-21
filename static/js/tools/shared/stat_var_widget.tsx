@@ -51,6 +51,11 @@ interface StatVarWidgetPropsType {
   selectSV?: (sv: string) => void;
   // Whether to disable the alert when there are unavailable SVs.
   disableAlert?: boolean;
+  // Manually controlled isCollapsed
+  // Sets whether to collapse the widget
+  isCollapsedOverride?: boolean;
+  // Manually controlled isCollapsed setter, sets isCollapsedOverride.
+  setIsCollapsedOverride?: (boolean) => void;
 }
 
 export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
@@ -58,8 +63,19 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   // reattached to the modal when it is opened on small screens.
   const svHierarchyContainerRef = createRef<HTMLDivElement>();
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsedInternal, setIsCollapsedInternal] = useState(false);
   const [width, setWidth] = useState(STAT_VAR_SELECTOR_WIDTH);
+
+  // If manual override is provided for isCollapsed, use that
+  // Otherwise, use internal state
+  const isCollapsed =
+    props.isCollapsedOverride !== undefined
+      ? props.isCollapsedOverride
+      : isCollapsedInternal;
+  const setIsCollapsed =
+    props.setIsCollapsedOverride !== undefined
+      ? props.setIsCollapsedOverride
+      : setIsCollapsedInternal;
 
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
