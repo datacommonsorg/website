@@ -3,7 +3,6 @@ from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import DetectionArgs
-from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
