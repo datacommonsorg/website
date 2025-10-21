@@ -88,7 +88,7 @@ class Page extends Component<unknown, PageStateType> {
     this.fetchDataAndRender();
   }
 
-  componentDidUpdate(prevProps, prevState): void {
+  componentDidUpdate(_prevProps: unknown, prevState: PageStateType): void {
     if (this.state.placeName !== prevState.placeName) {
       if (!_.isEmpty(this.state.placeName)) {
         // Show stat var widget if a place is selected

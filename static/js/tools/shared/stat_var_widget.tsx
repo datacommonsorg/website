@@ -56,7 +56,7 @@ interface StatVarWidgetPropsType {
   // Sets whether to collapse the widget
   isCollapsedOverride?: boolean;
   // Manually controlled isCollapsed setter, sets isCollapsedOverride.
-  setIsCollapsedOverride?: (boolean) => void;
+  setIsCollapsedOverride?: (valueToSet: boolean) => void;
 }
 
 export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
