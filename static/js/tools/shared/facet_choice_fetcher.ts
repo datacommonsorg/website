@@ -20,7 +20,7 @@
 
 import { WEBSITE_SURFACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
-import { getDataCommonsClient } from "../../utils/data_commons_client";
+import { DEFAULT_WEBSITE_DATA_COMMONS_CLIENT } from "../../utils/data_commons_client";
 import { getFacets, getFacetsWithin } from "../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "./metadata/metadata_fetcher";
 
@@ -41,7 +41,7 @@ export async function fetchFacetChoices(
   placeDcids: string[],
   statVars: { dcid: string; name?: string }[]
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
+  const dataCommonsClient = DEFAULT_WEBSITE_DATA_COMMONS_CLIENT;
   const baseFacets = await getFacets(
     "",
     placeDcids,
@@ -73,7 +73,7 @@ export async function fetchFacetChoicesWithin(
   enclosedPlaceType: string,
   statVars: { dcid: string; name?: string; date?: string }[]
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
+  const dataCommonsClient = DEFAULT_WEBSITE_DATA_COMMONS_CLIENT;
   const facetPromises = statVars.map((sv) =>
     getFacetsWithin(
       "",
