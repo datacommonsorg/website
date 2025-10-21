@@ -45,6 +45,8 @@ interface EnclosedPlacesSelectorProps {
   onPlaceSelected: (place: NamedTypedPlace) => void;
   // Text to show before the search bar.
   searchBarInstructionText?: string;
+  // Placeholder text to show in the place search bar.
+  searchBarPlaceholderText?: string;
   // Selected enclosing place.
   selectedParentPlace: NamedTypedPlace;
 }
@@ -118,6 +120,7 @@ export function EnclosedPlacesSelector(
           props.searchBarInstructionText ||
           intl.formatMessage(toolMessages.enterAPlaceInstruction)
         }
+        searchBarPlaceholderText={props.searchBarPlaceholderText}
         selectedPlaces={
           props.selectedParentPlace.dcid
             ? {

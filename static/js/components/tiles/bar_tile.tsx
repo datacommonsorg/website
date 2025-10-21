@@ -271,6 +271,7 @@ export function BarTile(props: BarTilePropType): ReactElement {
       statVarSpecs={props.variables}
       forwardRef={containerRef}
       chartHeight={props.svgChartHeight}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -292,7 +293,10 @@ export function BarTile(props: BarTilePropType): ReactElement {
  */
 function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surface
+    );
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.variables);
@@ -373,7 +377,8 @@ export const fetchData = async (
           date,
           [statSvs],
           props.highlightFacet,
-          facetId ? [facetId] : undefined
+          facetId ? [facetId] : undefined,
+          props.surface
         )
       );
     }
@@ -390,7 +395,8 @@ export const fetchData = async (
           statSvs,
           date,
           [statSvs],
-          facetId ? [facetId] : undefined
+          facetId ? [facetId] : undefined,
+          props.surface
         )
       );
     }
@@ -403,8 +409,11 @@ export const fetchData = async (
       apiRoot,
       props.places,
       [FILTER_STAT_VAR],
-      "",
-      undefined
+      "", // date
+      undefined, // alignedVariables
+      null, // highlightFacet
+      null, // facetIds
+      props.surface
     );
   } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
     filterPromise = getPointWithin(
@@ -412,7 +421,10 @@ export const fetchData = async (
       props.enclosedPlaceType,
       props.parentPlace,
       [FILTER_STAT_VAR],
-      ""
+      "", // date
+      null, // alignedVariables
+      null, // facetIds
+      props.surface
     );
   }
 
@@ -439,6 +451,7 @@ export const fetchData = async (
       statResp,
       apiRoot,
       useSeriesWithin,
+      props.surface,
       "places" in props ? props.places : [],
       "parentPlace" in props ? props.parentPlace : "",
       "enclosedPlaceType" in props ? props.enclosedPlaceType : ""
