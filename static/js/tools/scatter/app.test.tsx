@@ -16,6 +16,8 @@
 
 /* eslint-disable camelcase */
 
+// Use website instead of test because this tests the scatter app where we set the header to 'website'
+import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import theme from "../../theme/theme";
 
 jest.mock("axios");
@@ -290,6 +292,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -308,6 +311,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -326,6 +330,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -344,6 +349,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -362,6 +368,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -380,6 +387,7 @@ function mockAxios(): void {
         date: "",
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -397,6 +405,7 @@ function mockAxios(): void {
         entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
@@ -427,6 +436,7 @@ function mockAxios(): void {
         variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .mockResolvedValue({
       data: {
