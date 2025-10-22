@@ -38,7 +38,7 @@ cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
-def get_request_headers() -> dict:
+def get_basic_request_headers() -> dict:
   headers = {"Content-Type": "application/json"}
   if has_app_context():
     headers["x-api-key"] = current_app.config.get("DC_API_KEY", "")
@@ -53,7 +53,7 @@ def get_request_headers() -> dict:
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
-  headers = get_request_headers()
+  headers = get_basic_request_headers()
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -73,14 +73,11 @@ def post(url: str, req: Dict, headers: dict = None):
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
 
-  if not headers:
-    headers = get_request_headers()
-
   return post_wrapper(url, req_str, headers)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, headers: dict):
+def post_wrapper(url, req_str: str, headers: dict = None):
   #
   # CRITICAL: This function is called from synchronous and asynchronous contexts
   # (including background threads via asyncio.to_thread).
@@ -89,6 +86,9 @@ def post_wrapper(url, req_str: str, headers: dict):
   # explicitly via the `request_info` argument.
   #
   req = json.loads(req_str)
+
+  if not headers:
+    headers = get_basic_request_headers()
 
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
