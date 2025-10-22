@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import asyncio
 import json
 import os
 import unittest
 from unittest import mock
+
+from requests import Response
 
 from flask import Flask
 
@@ -199,7 +202,7 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
   def test_without_skip_topics(self, mock_post):
     idx_param = "fake_index"
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url, data, headers=None):
       assert url.endswith(f"/api/search_vars?idx={idx_param}")
       self.assertEqual(data, {"queries": ["foo", "bar"]})
       return {}
@@ -217,7 +220,7 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
   def test_with_skip_topics(self, mock_post):
     idx_param = "fake_index"
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url, data, headers=None):
       assert url.endswith(f"/api/search_vars?idx={idx_param}&skip_topics=true")
       self.assertEqual(data, {"queries": ["foo", "bar"]})
       return {}
@@ -282,34 +285,58 @@ class TestServiceDataCommonsNLSearchVarsInParallel(unittest.TestCase):
   def tearDown(self):
     self.app_context.pop()
 
-  @mock.patch("server.services.datacommons.nl_search_vars")
-  def test_basic(self, mock_nl_search_vars):
+  @mock.patch("requests.post")
+  def test_basic(self, mock_post):
 
-    def side_effect(queries, index_types, skip_topics, nl_root, api_key):
-      # Assert that the config is passed down correctly from the app context
-      self.assertEqual(nl_root, "fake_root")
-      self.assertEqual(api_key, "fake_key")
-      self.assertEqual(queries, ["foo"])
-      self.assertEqual(skip_topics, "true")
-      # Return a unique value for each index to check the final dict
-      if index_types == ["idx1"]:
-        return {"result": "one"}
-      if index_types == ["idx2"]:
-        return {"result": "two"}
-      return {}
-
-    mock_nl_search_vars.side_effect = side_effect
-
-    result = nl_search_vars_in_parallel(queries=["foo"],
-                                        index_types=["idx1", "idx2"],
-                                        skip_topics=True)
-
-    self.assertEqual(result, {
-        "idx1": {
-            "result": "one"
+# The function is called for each index type.
+    idx1_result = {
+        "queryResults": {
+            "foo": {
+                "SV": ["Count_Person"],
+                "CosineScore": [0.9],
+                "SV_to_Sentences": {
+                    "Count_Person": [{
+                        "sentence": "person count",
+                        "score": 0.9
+                    }]
+                },
+            }
         },
-        "idx2": {
-            "result": "two"
+        "scoreThreshold": 0.7,
+        "debugLogs": {
+            "sv_detection_query_index_types": ["idx1"]
         }
-    })
-    self.assertEqual(mock_nl_search_vars.call_count, 2)
+    }
+    idx2_result = {
+        "queryResults": {
+            "foo": {
+                "SV": ["Count_Criminal"],
+                "CosineScore": [0.8]
+            }
+        },
+        "scoreThreshold": 0.7,
+    }
+
+    def side_effect(url, *args, **kwargs):
+      # This is the most robust way: create a real Response object
+      resp = Response()
+      resp.status_code = 200
+
+      if "idx1" in url:
+        # Set the ._content attribute.
+        # This will *automatically* make both resp.json() and resp.text work correctly.
+        resp._content = json.dumps(idx1_result).encode('utf-8')
+        
+      else:
+        resp._content = json.dumps(idx2_result).encode('utf-8')
+
+      return resp
+
+    mock_post.side_effect = side_effect
+
+    with self.app.test_request_context('/', headers={'x-surface': 'test'}):
+      result = asyncio.run(nl_search_vars_in_parallel(
+          queries=["foo"], index_types=["idx1", "idx2"], skip_topics=True))
+
+      self.assertEqual(result, {"idx1": idx1_result, "idx2": idx2_result})
+      self.assertEqual(mock_post.call_count, 2)

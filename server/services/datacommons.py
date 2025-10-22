@@ -13,7 +13,7 @@
 # limitations under the License.
 """Copy of Data Commons Python Client API Core without pandas dependency."""
 
-from concurrent.futures import ThreadPoolExecutor
+import asyncio
 import json
 import logging
 from typing import Dict, List
@@ -21,6 +21,7 @@ import urllib.parse
 
 from flask import current_app
 from flask import request
+from flask import has_request_context, has_app_context
 import requests
 
 from server.lib import log
@@ -36,16 +37,22 @@ cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
+
+def get_request_headers() -> dict:
+  headers = {"Content-Type": "application/json"}
+  if has_app_context():
+    headers["x-api-key"] =  current_app.config.get("DC_API_KEY", "")
+
+  if has_request_context():
+      # Represents the DC surface (website, web components, etc.) where the call originates
+      # Used in mixer's usage logs
+      headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
+  
+  return headers
+
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
-  headers = {"Content-Type": "application/json"}
-  dc_api_key = current_app.config.get("DC_API_KEY", "")
-  if dc_api_key:
-    headers["x-api-key"] = dc_api_key
-  # header used in usage metric logging
-  # this is set even if get() is called for endpoints that we don't write usage
-  # logs for to maintain consistency
-  headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
+  headers = get_request_headers()
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -57,38 +64,38 @@ def get(url: str):
             response.json()["message"]))
   return response.json()
 
-
 def post(url: str,
          req: Dict,
-         api_key: str | None = None,
-         log_extreme_calls: bool = True):
+         headers: dict = None
+         ):
 
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
-  key_to_use = api_key
-  if key_to_use is None:
-    key_to_use = current_app.config.get("DC_API_KEY", "")
-  return post_wrapper(url, req_str, key_to_use, log_extreme_calls)
+  
+  if not headers:
+    headers = get_request_headers()
+
+  return post_wrapper(url, req_str, headers)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
-  req = json.loads(req_str)
-  headers = {"Content-Type": "application/json"}
-  if dc_api_key:
-    headers["x-api-key"] = dc_api_key
+def post_wrapper(url, req_str: str, headers: dict):
+  #
+  # CRITICAL: This function is called from synchronous and asynchronous contexts
+  # (including background threads via asyncio.to_thread).
+  # It MUST NOT, under any circumstances, access the global `flask.request` context.
+  # All required request data (headers, etc.) MUST be passed
+  # explicitly via the `request_info` argument.
+  #
+  req = json.loads(req_str)  
 
-  # Header from the flask call making this request
-  # Represents the DC surface (website, web components, etc.) where the call originates
-  # Used in mixer's usage logs
-  headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
-  if log_extreme_calls:
-    call_logger.finish(response)
+  call_logger.finish(response)
+  
   if response.status_code != 200:
     raise ValueError(
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
@@ -419,26 +426,25 @@ def nl_search_vars(
     reranker="",
     skip_topics="",
     nl_root=None,
-    api_key=None,
+    headers=None,
 ):
   """Search sv from NL server."""
   idx_params = ",".join(index_types)
-  root = nl_root
-  if root is None:
-    root = current_app.config["NL_ROOT"]
-  url = f"{root}/api/search_vars?idx={idx_params}"
+  if not nl_root:
+    nl_root = current_app.config["NL_ROOT"]
+  url = f"{nl_root}/api/search_vars?idx={idx_params}"
   if reranker:
     url = f"{url}&reranker={reranker}"
   if skip_topics:
     url = f"{url}&skip_topics={skip_topics}"
   return post(url, {"queries": queries},
-              api_key=api_key,
-              log_extreme_calls=False)
+              headers=headers,
+             )
 
 
-def nl_search_vars_in_parallel(queries: list[str],
-                               index_types: list[str],
-                               skip_topics: bool = False) -> dict[str, dict]:
+async def nl_search_vars_in_parallel(
+    queries: list[str], index_types: list[str], skip_topics: bool = False
+) -> dict[str, dict]:
   """Search sv from NL server in parallel for multiple indexes.
 
     Args:
@@ -451,19 +457,20 @@ def nl_search_vars_in_parallel(queries: list[str],
     """
   # Get config from application context before starting threads.
   nl_root = current_app.config["NL_ROOT"]
-  api_key = current_app.config.get("DC_API_KEY", "")
+  post_headers = get_request_headers()
 
-  def search_for_index(index):
-    return index, nl_search_vars(queries, [index],
-                                 skip_topics="true" if skip_topics else "",
-                                 nl_root=nl_root,
-                                 api_key=api_key)
+  async def search_for_index(index):
+    result = await asyncio.to_thread(nl_search_vars,
+                                     queries=queries,
+                                     index_types=[index],
+                                     skip_topics="true" if skip_topics else "",
+                                     nl_root=nl_root,
+                                     headers=post_headers)
+    return index, result
 
-  with ThreadPoolExecutor() as executor:
-    return {
-        index: result
-        for index, result in executor.map(search_for_index, index_types)
-    }
+  tasks = [search_for_index(index) for index in index_types]
+  results = await asyncio.gather(*tasks)
+  return {index: result for index, result in results}
 
 
 def nl_detect_verbs(query):

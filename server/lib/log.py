@@ -26,6 +26,8 @@ import time
 import traceback
 
 from flask import current_app
+from flask import has_app_context
+
 import requests
 
 # 3500 may seem v high,  but there are known paths (like ranking across
@@ -81,6 +83,10 @@ class ExtremeCallLogger:
     if os.environ.get('FLASK_ENV') in ['production', 'custom']:
       return
 
+    # Do not log extreme calls from async processes that have no access to global flask.current_app
+    if not has_app_context():
+      return
+    
     self._try_log_payload(
         log_enabled=current_app.config.get('LOG_DC_REQUEST_PAYLOAD'),
         log_percentage=current_app.config.get(
