@@ -101,9 +101,6 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
     chart_block = WebDriverWait(
         self.driver, self.TIMEOUT_SEC).until(categories_of_jobs_block_present)
 
-    self.assertIsNotNone(
-        chart_block, "Could not find the 'Categories of Jobs' chart block.")
-
     # Check metadata before choosing a facet
     sources_div_before = find_elem(chart_block,
                                    value='sources',
