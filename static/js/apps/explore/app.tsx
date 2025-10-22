@@ -435,6 +435,7 @@ export function App(props: AppProps): ReactElement {
         }
         topicsToUse = allTopics;
 
+        console.log("Fetching CHART TYPE: " + urlHashParams.chartType);
         highlightPromise = fetchFulfillData(
           places,
           statVars,

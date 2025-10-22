@@ -663,6 +663,7 @@ function renderTiles(
   blockDenom?: string,
   blockDate?: string
 ): ReactElement {
+  console.log("RENDERING with " + JSON.stringify(props.highlightFacet));
   if (!tiles || !overridePlaces) {
     return <></>;
   }
@@ -726,6 +727,7 @@ function renderTiles(
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
             surface={WEBSITE_SURFACE}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "LINE":
@@ -784,6 +786,7 @@ function renderTiles(
                 : undefined
             }
             surface={WEBSITE_SURFACE}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "BAR":

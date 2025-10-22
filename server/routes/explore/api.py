@@ -95,6 +95,7 @@ def fulfill():
   """Data handler."""
   debug_logs = {}
   counters = ctr.Counters()
+  print("REQEUST\n\n" + str(request))
   return _fulfill_with_insight_ctx(request, debug_logs, counters)
 
 
@@ -222,6 +223,7 @@ def page_overview():
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                debug_logs: Dict) -> Dict:
+  print(utterance)
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.

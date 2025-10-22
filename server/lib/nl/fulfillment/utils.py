@@ -147,6 +147,7 @@ def add_chart_to_utterance(
   if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
     place_type = place_type.value
+  print("\n\n\n\\n\n\n\n\nnCHART CANDIDATE" + str(chart_type))
   # Make a copy of chart-vars since it change.
   ch = ChartSpec(chart_type=chart_type,
                  svs=copy.deepcopy(chart_vars.svs),

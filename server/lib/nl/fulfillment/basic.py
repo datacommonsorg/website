@@ -17,6 +17,7 @@ from typing import List
 
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
@@ -81,6 +82,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   # was requested, and should be used as the highlight chart. On highlight chart
   # cases, we don't want to show any other chart.
   is_highlight = bool(state.uttr.insight_ctx.get(params.Params.CHART_TYPE))
+  is_chart_type_highlight = ChartType.from_string(state.uttr.insight_ctx.get(params.Params.CHART_TYPE)) == ChartType.RANKING_WITH_MAP if state.uttr.insight_ctx.get(params.Params.CHART_TYPE) else False
 
   # For peer-groups, add multi-line charts.
   max_rank_and_map_charts = _get_max_rank_and_map_charts(chart_vars, state)
@@ -111,7 +113,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
       # TODO(gmechali): Refactor this code for more explicit logic.
       # The is_highlight check is to avoid showing the related contained-in
       # chart when the user has asked for a specific chart.
-      if not is_highlight and not is_special_dc or state.ranking_types:
+      if (not is_highlight or is_chart_type_highlight) and not is_special_dc or state.ranking_types:
         ranking_orig = state.ranking_types
         if not state.ranking_types:
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]

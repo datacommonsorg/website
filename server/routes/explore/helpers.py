@@ -284,6 +284,7 @@ def update_insight_ctx_for_chart_fulfill(request: Dict,
       if param_val.isnumeric():
         param_val = int(param_val)
     utterance.insight_ctx[p] = param_val
+    print("Param val: " + str(p) + ":" + str(param_val))
 
 
 #

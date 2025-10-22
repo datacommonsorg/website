@@ -30,6 +30,7 @@ _MAX_VARS_PER_CHART = 5
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
+  is_highlight = bool(state.uttr.insight_ctx.get(params.Params.CHART_TYPE))
   if not state.uttr.svs and not state.uttr.places:
     # If both the SVs and places are empty, then do not attempt to fulfill.
     # This avoids using incorrect context for unrelated queries like
@@ -77,7 +78,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                   chart_origin,
                                   sv_place_facet=sv_place_facet,
                                   sv_place_latest_date=sv_place_latest_date)
-  else:
+  elif is_highlight:
+    print("IN IN THIS!!!")
     # If its not a peer-group add one chart at a time.
     added = False
     all_svs = copy.deepcopy(chart_vars.svs)
@@ -87,9 +89,11 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       if not eres.exist_svs:
         state.uttr.counters.err('simple_failed_existence', 1)
         return False
+      print("MAYBE DEMOTE")
       chart_type = _maybe_demote(ChartType.TIMELINE_WITH_HIGHLIGHT,
                                  eres.is_single_point, state)
       sv_place_facet = None
+      print("ChartType " + str(chart_type))
       if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT and (
           state.date_range or state.single_date):
         sv_place_facet = ext.get_sv_place_facet(chart_vars.svs, places,
