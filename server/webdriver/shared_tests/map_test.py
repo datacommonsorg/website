@@ -77,7 +77,7 @@ class MapTestMixin():
                      58)
     chart_legend = find_elem(self.driver, by=By.ID, value='choropleth-legend')
     self.assertGreater(
-        len(find_elems(chart_legend, by=By.TAG_NAME, value='tick')), 5)
+        len(find_elems(chart_legend, by=By.CLASS_NAME, value='tick')), 5)
 
     # Click United States breadcrumb
     shared.click_el(self.driver, (By.LINK_TEXT, 'United States'))
@@ -162,7 +162,7 @@ class MapTestMixin():
     wait_elem(self.driver, By.CLASS_NAME, 'tick')
     chart_legend = find_elem(self.driver, by=By.ID, value='choropleth-legend')
     self.assertGreater(
-        len(find_elems(chart_legend, by=By.TAG_NAME, value='tick')), 5)
+        len(find_elems(chart_legend, by=By.CLASS_NAME, value='tick')), 5)
 
   def test_landing_page_link(self):
     """Test for landing page link."""
