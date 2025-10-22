@@ -47,6 +47,9 @@ def get_basic_request_headers() -> dict:
     # Represents the DC surface (website, web components, etc.) where the call originates
     # Used in mixer's usage logs
     headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
+  else:
+    headers['x-surface'] = UNKNOWN_SURFACE
+
 
   return headers
 
