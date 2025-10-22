@@ -56,7 +56,7 @@ import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { DEFAULT_WEBSITE_DATA_COMMONS_CLIENT } from "../../utils/data_commons_client";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import {
   extractUrlHashParams,
@@ -353,7 +353,7 @@ export function App(props: AppProps): ReactElement {
       places = [urlHashParams.place];
     }
 
-    const dataCommonsClient = DEFAULT_WEBSITE_DATA_COMMONS_CLIENT;
+    const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
 
     let fulfillmentPromise: Promise<unknown>;
     let highlightPromise: Promise<unknown>;

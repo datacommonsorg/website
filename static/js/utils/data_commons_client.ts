@@ -16,19 +16,12 @@
 
 import { DataCommonsClient } from "@datacommonsorg/client";
 
-import { WEBSITE_SURFACE } from "../shared/constants";
-
 /**
  * Default @datacommonsorg/client apiRoot value is "/", meaning the current
  * hostname in the browser
  * It also uses the website surface value for usage logging in mixer.
  */
 export const DEFAULT_CLIENT_API_ROOT = "/";
-
-export const DEFAULT_WEBSITE_DATA_COMMONS_CLIENT = new DataCommonsClient({
-  apiRoot: DEFAULT_CLIENT_API_ROOT,
-  surface: WEBSITE_SURFACE,
-});
 
 /**
  * Returns a DataCommonsClient instance.
