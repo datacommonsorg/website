@@ -122,7 +122,9 @@ class TestSearchVariables(unittest.TestCase):
 
     # Check that the correct external calls were made
     mock_nl_search_vars_in_parallel.assert_called_once_with(
-        ["population of california"], ["medium_ft"], skip_topics=False)
+        ["population of california"], ["medium_ft"],
+        skip_topics=False,
+        surface_header_value=None)
 
     # Check v2node call.
     self.assertEqual(mock_v2node.call_count, 1)
@@ -286,7 +288,9 @@ class TestSearchVariables(unittest.TestCase):
 
       # Assert that nl_search_vars_in_parallel was called with the default index
       mock_nl_search_vars_in_parallel.assert_called_once_with(
-          ["population of california"], ["default_index_1"], skip_topics=False)
+          ["population of california"], ["default_index_1"],
+          skip_topics=False,
+          surface_header_value=None)
 
   @patch("server.services.datacommons.nl_search_vars_in_parallel")
   def test_max_candidates(self, mock_nl_search_vars_in_parallel):
@@ -497,9 +501,10 @@ class TestSearchVariables(unittest.TestCase):
     self.assertEqual(response.status_code, 200)
     data = json.loads(response.data)
 
-    mock_nl_search_vars_in_parallel.assert_called_once_with(["some query"],
-                                                            ["medium_ft"],
-                                                            skip_topics=True)
+    mock_nl_search_vars_in_parallel.assert_called_once_with(
+        ["some query"], ["medium_ft"],
+        skip_topics=True,
+        surface_header_value=None)
 
     query_result = data["queryResults"][0]
     index_result = query_result["indexResults"][0]

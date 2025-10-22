@@ -43,7 +43,11 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
   def test_termination_condition_max_pages_fetched(self, mock_post):
     response_with_next_token = get_json("v2node_response_with_next_token")
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url,
+                    data,
+                    api_key=None,
+                    log_extreme_calls=False,
+                    surface_header_value=None):
       assert url.endswith("/v2/node")
       assert data == {
           "nodes": ["dc/1", "dc/2"],
@@ -66,7 +70,11 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
   def test_termination_condition_no_next_token(self, mock_post):
     response_without_next_token = get_json("v2node_response_without_next_token")
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url,
+                    data,
+                    api_key=None,
+                    log_extreme_calls=False,
+                    surface_header_value=None):
       assert url.endswith("/v2/node")
       assert data == {
           "nodes": ["dc/1", "dc/2"],
@@ -92,7 +100,11 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
 
     call_count = 0
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url,
+                    data,
+                    api_key=None,
+                    log_extreme_calls=False,
+                    surface_header_value=None):
       nonlocal call_count
       call_count += 1
       assert url.endswith("/v2/node")
@@ -123,7 +135,11 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
         "v2node_properties_without_next_token")
     call_count = 0
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url,
+                    data,
+                    api_key=None,
+                    log_extreme_calls=False,
+                    surface_header_value=None):
       nonlocal call_count
       call_count += 1
       assert url.endswith("/v2/node")
@@ -148,7 +164,11 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
   @mock.patch("server.services.datacommons.post")
   def test_empty_response_returns_empty(self, mock_post):
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url,
+                    data,
+                    api_key=None,
+                    log_extreme_calls=False,
+                    surface_header_value=None):
       assert url.endswith("/v2/node")
       assert data == {
           "nodes": ["dc/1", "dc/2"],
@@ -166,7 +186,11 @@ class TestServiceDataCommonsV2NodePaginated(unittest.TestCase):
   def test_no_data_in_response(self, mock_post):
     response_with_no_data_for_dcids = {"data": {"dc/1": {}, "dc/2": {}}}
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url,
+                    data,
+                    api_key=None,
+                    log_extreme_calls=False,
+                    surface_header_value=None):
       assert url.endswith("/v2/node")
       assert data == {
           "nodes": ["dc/1", "dc/2"],
@@ -199,7 +223,11 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
   def test_without_skip_topics(self, mock_post):
     idx_param = "fake_index"
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url,
+                    data,
+                    api_key=None,
+                    log_extreme_calls=False,
+                    surface_header_value=None):
       assert url.endswith(f"/api/search_vars?idx={idx_param}")
       self.assertEqual(data, {"queries": ["foo", "bar"]})
       return {}
@@ -217,7 +245,11 @@ class TestServiceDataCommonsNLSearchVars(unittest.TestCase):
   def test_with_skip_topics(self, mock_post):
     idx_param = "fake_index"
 
-    def side_effect(url, data, api_key=None, log_extreme_calls=False):
+    def side_effect(url,
+                    data,
+                    api_key=None,
+                    log_extreme_calls=False,
+                    surface_header_value=None):
       assert url.endswith(f"/api/search_vars?idx={idx_param}&skip_topics=true")
       self.assertEqual(data, {"queries": ["foo", "bar"]})
       return {}
@@ -285,7 +317,12 @@ class TestServiceDataCommonsNLSearchVarsInParallel(unittest.TestCase):
   @mock.patch("server.services.datacommons.nl_search_vars")
   def test_basic(self, mock_nl_search_vars):
 
-    def side_effect(queries, index_types, skip_topics, nl_root, api_key):
+    def side_effect(queries,
+                    index_types,
+                    skip_topics,
+                    nl_root,
+                    api_key,
+                    surface_header_value=None):
       # Assert that the config is passed down correctly from the app context
       self.assertEqual(nl_root, "fake_root")
       self.assertEqual(api_key, "fake_key")
