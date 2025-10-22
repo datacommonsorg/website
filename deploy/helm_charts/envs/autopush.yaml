@@ -110,14 +110,13 @@ serviceGroups:
 
 nodejs:
   enabled: true
-  apiRoot: "http://website-nodejs-service:8080"
+  apiRoot: "http://website-service:8080"
   image:
     tag: ""
   replicas: 12
 
 cronTesting:
   enabled: true
-  screenshotDomain: "autopush.datacommons.org"
   webApiRoot: "http://website-service:8080"
   nodejsApiRoot: "http://website-nodejs-service:8080"
   nodePool: "pool-1"

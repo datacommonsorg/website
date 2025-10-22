@@ -84,11 +84,12 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
+import { getPointWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   clearContainer,
   getDenomInfo,
+  getDenomResp,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
@@ -153,6 +154,8 @@ export interface MapTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -163,7 +166,8 @@ interface RawData {
   parentPlaces: NamedTypedPlace[];
   place: NamedTypedPlace;
   placeStat: PointApiResponse;
-  population: SeriesApiResponse;
+  denomsByFacet: Record<string, SeriesApiResponse>;
+  defaultDenomData: SeriesApiResponse;
   variable: StatVarSpec;
 }
 
@@ -233,7 +237,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
     : null;
   const showZoomButtons =
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
@@ -356,7 +360,6 @@ export function MapTile(props: MapTilePropType): ReactElement {
           ...layer.variable,
           date: finalDate,
         };
-
         const entityExpression = `${layer.parentPlace}<-containedInPlace+{typeOf:${layer.enclosedPlaceType}}`;
 
         return buildObservationSpecs({
@@ -423,6 +426,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
           ? [props.dataSpecs[0].variable]
           : [props.statVarSpec]
       }
+      surface={props.surface}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
@@ -534,23 +538,31 @@ export const fetchData = async (
       dateOverride || layer.variable.date
     );
     const facetIds = layer.variable.facetId ? [layer.variable.facetId] : null;
-    const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
+    const placeStat: PointApiResponse = await getPointWithin(
       props.apiRoot,
       layer.enclosedPlaceType,
       layer.parentPlace,
       [layer.variable.statVar],
       dataDate,
       [],
-      facetIds
+      facetIds,
+      props.surface
     );
-    const populationPromise: Promise<SeriesApiResponse> = layer.variable.denom
-      ? getSeriesWithin(
-          props.apiRoot,
-          layer.parentPlace,
-          layer.enclosedPlaceType,
-          [layer.variable.denom]
-        )
-      : Promise.resolve(null);
+    let denomsByFacet: Record<string, SeriesApiResponse> = null;
+    let defaultDenomData: SeriesApiResponse = null;
+    if (layer.variable.denom) {
+      [denomsByFacet, defaultDenomData] = await getDenomResp(
+        [layer.variable.denom],
+        placeStat,
+        props.apiRoot,
+        true,
+        props.surface,
+        null,
+        layer.parentPlace,
+        layer.enclosedPlaceType
+      );
+    }
+
     const parentPlacesPromise = props.parentPlaces
       ? Promise.resolve(props.parentPlaces)
       : axios
@@ -559,14 +571,11 @@ export const fetchData = async (
           )
           .then((resp) => resp.data);
     try {
-      const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
-        await Promise.all([
-          geoJsonPromise,
-          placeStatPromise,
-          populationPromise,
-          parentPlacesPromise,
-          borderGeoJsonPromise,
-        ]);
+      const [geoJson, parentPlaces, borderGeoJsonData] = await Promise.all([
+        geoJsonPromise,
+        parentPlacesPromise,
+        borderGeoJsonPromise,
+      ]);
       // Get human-readable name of variable to display as label
       const statVarToVariableName = await getStatVarNames(
         [layer.variable],
@@ -588,7 +597,8 @@ export const fetchData = async (
         parentPlaces,
         place,
         placeStat,
-        population,
+        denomsByFacet,
+        defaultDenomData,
         variable: layer.variable,
       };
       rawDataArray.push(rawData);
@@ -688,11 +698,14 @@ function rawToChart(
         }
       });
       if (rawData.variable.denom) {
+        const facet = placeStat[placeDcid].facet;
         const denomInfo = getDenomInfo(
           rawData.variable,
-          rawData.population,
+          rawData.denomsByFacet,
           placeDcid,
-          placeChartData.date
+          placeChartData.date,
+          facet,
+          rawData.defaultDenomData
         );
         if (_.isEmpty(denomInfo)) {
           // skip this data point because missing denom data.
@@ -703,18 +716,12 @@ function rawToChart(
         placeChartData.metadata.popDate = denomInfo.date;
         sources.add(denomInfo.source);
         const denomStatVar = rawData.variable.denom;
-        const denomSeries =
-          rawData.population.data?.[denomStatVar]?.[placeDcid];
-        if (denomSeries?.facet) {
-          const denomFacetId = denomSeries.facet;
-          const denomFacetMetadata = rawData.population.facets?.[denomFacetId];
-          if (denomFacetMetadata) {
-            facets[denomFacetId] = denomFacetMetadata;
-            if (!statVarToFacets[denomStatVar]) {
-              statVarToFacets[denomStatVar] = new Set<string>();
-            }
-            statVarToFacets[denomStatVar].add(denomFacetId);
+        if (denomInfo.facetId && denomInfo.facet) {
+          facets[denomInfo.facetId] = denomInfo.facet;
+          if (!statVarToFacets[denomStatVar]) {
+            statVarToFacets[denomStatVar] = new Set<string>();
           }
+          statVarToFacets[denomStatVar].add(denomInfo.facetId);
         }
       }
       if (scaling) {
