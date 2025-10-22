@@ -50,7 +50,6 @@ def get_basic_request_headers() -> dict:
   else:
     headers['x-surface'] = UNKNOWN_SURFACE
 
-
   return headers
 
 
@@ -69,24 +68,17 @@ def get(url: str):
   return response.json()
 
 
-def make_post_cache_key(url, req, headers=None):
-  """
-  Custom cache key function for `post`.
-  The `f` argument is the function being called (post).
-  
-  This key is built *only* using `url` and `payload`.
-  It pointedly IGNORES the `request_info` kwarg.
-  """
+def post(url: str, req: Dict, headers: dict | None = None):
 
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
-  return (url, req_str)
+  return post_wrapper(url, req_str, headers)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post(url, req: Dict, headers: dict = None):
+def post_wrapper(url, req_str: Dict, headers: dict | None = None):
   #
   # CRITICAL: This function is called from synchronous and asynchronous contexts
   # (including background threads via asyncio.to_thread).
@@ -94,6 +86,7 @@ def post(url, req: Dict, headers: dict = None):
   # All required request data (headers, etc.) MUST be passed
   # explicitly via the `request_info` argument.
   #
+  req = json.loads(req_str)
 
   if not headers:
     headers = get_basic_request_headers()
@@ -109,9 +102,6 @@ def post(url, req: Dict, headers: dict = None):
             response.status_code, response.reason,
             response.json()["message"]))
   return response.json()
-
-
-post.make_cache_key = make_post_cache_key
 
 
 def obs_point(entities, variables, date="LATEST"):
@@ -447,11 +437,7 @@ def nl_search_vars(
     url = f"{url}&reranker={reranker}"
   if skip_topics:
     url = f"{url}&skip_topics={skip_topics}"
-  return post(
-      url,
-      {"queries": queries},
-      headers=headers,
-  )
+  return post(url, {"queries": queries}, headers=headers)
 
 
 async def nl_search_vars_in_parallel(
