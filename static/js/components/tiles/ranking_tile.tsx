@@ -68,6 +68,7 @@ import {
 import { LoadingHeader } from "./loading_header";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const RANKING_COUNT = 5;
 const HEADING_HEIGHT = 36;
@@ -94,7 +95,7 @@ export interface RankingTilePropType
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surface?: string;
   // Metadata for the facet to highlight.
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -128,7 +129,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           parentPlace,
           apiRoot,
           surface,
-          props.highlightFacet
+          props.facetSelector
         );
         setRankingData(rankingData);
       } finally {
@@ -343,7 +344,7 @@ export async function fetchData(
   parentPlace: string,
   apiRoot: string,
   surface?: string,
-  highlightFacet?: FacetMetadata
+  facetSelector?: FacetSelectionCriteria
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -395,7 +396,7 @@ export async function fetchData(
           [],
           facetIds,
           surface,
-          highlightFacet
+          facetSelector?.facetMetadata
         )
       );
     }
