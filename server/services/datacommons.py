@@ -36,8 +36,8 @@ cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def get(url: str):
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache, )
+def get(url: str, surface_header_value: str = None):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
   if dc_api_key:
@@ -46,8 +46,9 @@ def get(url: str):
   # this is set even if get() is called for endpoints that we don't write usage
   # logs for to maintain consistency
   if has_request_context():
-    headers['x-surface'] = request.headers.get('x-surface')
-  headers['x-surface'] = headers['x-surface'] or UNKNOWN_SURFACE
+    headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
+  else:
+    headers['x-surface'] = surface_header_value or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -63,7 +64,8 @@ def get(url: str):
 def post(url: str,
          req: Dict,
          api_key: str | None = None,
-         log_extreme_calls: bool = True):
+         log_extreme_calls: bool = True,
+         surface_header_value: str = None):
 
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
@@ -72,11 +74,11 @@ def post(url: str,
   key_to_use = api_key
   if key_to_use is None:
     key_to_use = current_app.config.get("DC_API_KEY", "")
-  return post_wrapper(url, req_str, key_to_use, log_extreme_calls)
+  return post_wrapper(url, req_str, key_to_use, log_extreme_calls, surface_header_value=surface_header_value)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
+def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool, surface_header_value: str = None):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
@@ -86,8 +88,10 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
   # Represents the DC surface (website, web components, etc.) where the call originates
   # Used in mixer's usage logs
   if has_request_context():
-    headers['x-surface'] = request.headers.get('x-surface')
-  headers['x-surface'] = headers['x-surface'] or UNKNOWN_SURFACE
+    headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
+  else:
+    # fall back to param input if flask request context is not available
+    headers['x-surface'] = surface_header_value or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
@@ -424,6 +428,7 @@ def nl_search_vars(
     skip_topics="",
     nl_root=None,
     api_key=None,
+    surface_header_value: str = None
 ):
   """Search sv from NL server."""
   idx_params = ",".join(index_types)
@@ -437,12 +442,12 @@ def nl_search_vars(
     url = f"{url}&skip_topics={skip_topics}"
   return post(url, {"queries": queries},
               api_key=api_key,
-              log_extreme_calls=False)
+              log_extreme_calls=False, surface_header_value=surface_header_value)
 
 
 def nl_search_vars_in_parallel(queries: list[str],
                                index_types: list[str],
-                               skip_topics: bool = False) -> dict[str, dict]:
+                               skip_topics: bool = False, surface_header_value: str = None) -> dict[str, dict]:
   """Search sv from NL server in parallel for multiple indexes.
 
     Args:
@@ -461,7 +466,8 @@ def nl_search_vars_in_parallel(queries: list[str],
     return index, nl_search_vars(queries, [index],
                                  skip_topics="true" if skip_topics else "",
                                  nl_root=nl_root,
-                                 api_key=api_key)
+                                 api_key=api_key,
+                                 surface_header_value=surface_header_value)
 
   with ThreadPoolExecutor() as executor:
     return {

@@ -17,7 +17,7 @@ import json
 
 import flask
 from flask import Blueprint
-from flask import request
+from flask import request, has_request_context
 from flask import Response
 from pydantic import BaseModel
 from pydantic import ConfigDict
@@ -384,12 +384,18 @@ def search_indicators():
 
   response_metadata = ResponseMetadata(
       threshold_override=req_args.threshold_override)
+  
+  # If the flask context is available, set the surface header
+  # The context is not preserved due to threading in nl_search_vars_in_parallel
+  # so we pass this in as a parameter instead
+  if has_request_context():
+    surface_header_value = request.headers.get('x-surface')
 
   #
   # Step 1: Get search results from the NL server in parallel.
   #
   nl_results_by_index = dc.nl_search_vars_in_parallel(
-      req_args.queries, req_args.indices, skip_topics=req_args.skip_topics)
+      req_args.queries, req_args.indices, skip_topics=req_args.skip_topics, surface_header_value=surface_header_value)
 
   # Pre-calculate the effective threshold for each index.
   threshold_by_index: dict[str, float] = {}
