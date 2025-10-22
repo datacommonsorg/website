@@ -74,6 +74,7 @@ import {
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const EMPTY_FACET_ID_KEY = "empty";
 
@@ -128,7 +129,7 @@ export interface LineTilePropType {
    */
   lazyLoadMargin?: string;
   // Metadata for the facet to highlight.
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surface?: string;
 }
@@ -390,7 +391,7 @@ export const fetchData = async (
           placeDcids,
           facetToVariable[facetId],
           facetIds,
-          props.highlightFacet,
+          props.facetSelector,
           props.surface
         )
       );

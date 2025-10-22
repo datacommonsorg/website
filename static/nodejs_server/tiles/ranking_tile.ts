@@ -38,6 +38,7 @@ import { htmlToSvg } from "../../js/utils/svg_utils";
 import { FONT_FAMILY, FONT_SIZE, SVG_HEIGHT, SVG_WIDTH } from "../constants";
 import { TileResult } from "../types";
 import { getProcessedSvg, getSources } from "./utils";
+import { FacetSelectionCriteria } from "../../js/types/facet_selection_criteria";
 
 function getRankingChartSvg(
   rankingGroup: RankingGroup,
@@ -172,7 +173,7 @@ export async function getRankingTileResult(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   surface?: string,
-  highlightFacet?: FacetMetadata
+  facetSelector?: FacetSelectionCriteria
 ): Promise<TileResult[]> {
   try {
     const rankingData = await fetchData(
@@ -182,7 +183,7 @@ export async function getRankingTileResult(
       place,
       apiRoot,
       surface,
-      highlightFacet
+      facetSelector
     );
     const placeDcids = new Set<string>();
     Object.values(rankingData).forEach((rankingGroup) => {
@@ -259,7 +260,7 @@ export async function getRankingChart(
   apiRoot: string,
   containerRef: React.RefObject<HTMLElement>,
   surface: string,
-  highlightFacet?: FacetMetadata
+  facetSelector?: FacetSelectionCriteria
 ): Promise<SVGSVGElement> {
   try {
     const rankingData = await fetchData(
@@ -269,7 +270,7 @@ export async function getRankingChart(
       place,
       apiRoot,
       surface,
-      highlightFacet
+      facetSelector
     );
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
