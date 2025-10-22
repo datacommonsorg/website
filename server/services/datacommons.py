@@ -46,9 +46,8 @@ def get(url: str, surface_header_value: str = None):
   # header used in usage metric logging
   # this is set even if get() is called for endpoints that we don't write usage
   # logs for to maintain consistency
-  headers['x-surface'] = request.headers.get(
-      'x-surface') if has_request_context(
-      ) else surface_header_value or UNKNOWN_SURFACE
+  surface = request.headers.get('x-surface') if has_request_context() else surface_header_value
+  headers['x-surface'] = surface or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -95,9 +94,8 @@ def post_wrapper(url,
   # Header from the flask call making this request
   # Represents the DC surface (website, web components, etc.) where the call originates
   # Used in mixer's usage logs
-  headers['x-surface'] = request.headers.get(
-      'x-surface') if has_request_context(
-      ) else surface_header_value or UNKNOWN_SURFACE
+  surface = request.headers.get('x-surface') if has_request_context() else surface_header_value
+  headers['x-surface'] = surface or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
