@@ -33,7 +33,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   chart_type = state.uttr.insight_ctx.get(params.Params.CHART_TYPE)
 
   is_highlight = bool(chart_type) if chart_type else False
-  is_timeline_highlight = ChartType.from_string(chart_type) == ChartType.TIMELINE_WITH_HIGHLIGHT if is_highlight else False
+  is_timeline_highlight = ChartType.from_string(
+      chart_type
+  ) == ChartType.TIMELINE_WITH_HIGHLIGHT if is_highlight else False
 
   if not state.uttr.svs and not state.uttr.places:
     # If both the SVs and places are empty, then do not attempt to fulfill.
@@ -110,7 +112,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                       sv_place_latest_date=sv_place_latest_date)
     return added
 
-  return False # Fallback
+  return False  # Fallback
 
 
 def _maybe_demote(chart_type: ChartType, is_single_point: bool,
