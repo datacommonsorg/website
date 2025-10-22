@@ -66,18 +66,24 @@ def get(url: str):
   return response.json()
 
 
-def post(url: str, req: Dict, headers: dict = None):
+def make_post_cache_key(url, req, headers=None):
+  """
+  Custom cache key function for `post`.
+  The `f` argument is the function being called (post).
+  
+  This key is built *only* using `url` and `payload`.
+  It pointedly IGNORES the `request_info` kwarg.
+  """
 
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
-
-  return post_wrapper(url, req_str, headers)
+  return (url, req_str)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, headers: dict = None):
+def post(url, req: Dict, headers: dict = None):
   #
   # CRITICAL: This function is called from synchronous and asynchronous contexts
   # (including background threads via asyncio.to_thread).
@@ -85,7 +91,6 @@ def post_wrapper(url, req_str: str, headers: dict = None):
   # All required request data (headers, etc.) MUST be passed
   # explicitly via the `request_info` argument.
   #
-  req = json.loads(req_str)
 
   if not headers:
     headers = get_basic_request_headers()
@@ -101,6 +106,9 @@ def post_wrapper(url, req_str: str, headers: dict = None):
             response.status_code, response.reason,
             response.json()["message"]))
   return response.json()
+
+
+post.make_cache_key = make_post_cache_key
 
 
 def obs_point(entities, variables, date="LATEST"):
@@ -459,7 +467,7 @@ async def nl_search_vars_in_parallel(
     """
   # Get config from application context before starting threads.
   nl_root = current_app.config["NL_ROOT"]
-  post_headers = get_request_headers()
+  post_headers = get_basic_request_headers()
 
   async def search_for_index(index):
     result = await asyncio.to_thread(nl_search_vars,
