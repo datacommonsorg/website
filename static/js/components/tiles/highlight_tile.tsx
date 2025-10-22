@@ -55,6 +55,7 @@ import {
   getStatFormat,
   ReplacementStrings,
 } from "../../utils/tile_utils";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 // units that should be formatted as part of the number
 const NUMBER_UNITS = ["%"];
@@ -73,7 +74,7 @@ export interface HighlightTilePropType {
   // Optional: Override sources for this tile
   sources?: string[];
   // Facet metadata to use for the highlight tile
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surface?: string;
 }
@@ -98,7 +99,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
   const {
     statVarSpec,
     place,
-    highlightFacet,
+    facetSelector,
     apiRoot,
     description: highlightDesc,
     surface,
@@ -110,7 +111,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
         const data = await fetchData(
           place,
           statVarSpec,
-          highlightFacet,
+          facetSelector,
           apiRoot,
           surface
         );
@@ -119,7 +120,7 @@ export function HighlightTile(props: HighlightTilePropType): ReactElement {
         setHighlightData(null);
       }
     })();
-  }, [apiRoot, highlightFacet, place, statVarSpec, highlightDesc, surface]);
+  }, [apiRoot, facetSelector, place, statVarSpec, highlightDesc, surface]);
 
   /**
    * Callback function for building observation specifications.
@@ -223,11 +224,11 @@ export function getDescription(
 export const fetchData = async (
   place: NamedTypedPlace,
   statVarSpec: StatVarSpec,
-  highlightFacet: FacetMetadata,
+  facetSelector: FacetSelectionCriteria,
   apiRoot?: string,
   surface?: string
 ): Promise<HighlightData> => {
-  const facetId = highlightFacet
+  const facetId = facetSelector
     ? undefined
     : statVarSpec.facetId
     ? [statVarSpec.facetId]
@@ -239,7 +240,7 @@ export const fetchData = async (
     [statVarSpec.statVar],
     statVarSpec.date,
     undefined,
-    highlightFacet,
+    facetSelector.facetMetadata,
     facetId,
     surface
   );

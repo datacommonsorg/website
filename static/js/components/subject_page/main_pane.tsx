@@ -34,6 +34,7 @@ import { getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
 import { DataFetchContextProvider } from "./data_fetch_context";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 interface SubjectPageMainPanePropType {
   // Id for this subject page.
@@ -53,7 +54,7 @@ interface SubjectPageMainPanePropType {
   // Default enclosed place type
   defaultEnclosedPlaceType?: string;
   // The facet to highlight in the rendered page (optional)
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
   // Metadata loading state: true (loading), false (loaded), undefined (no metadata)
   metadataLoadingState?: boolean;
 }
@@ -110,7 +111,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
                   showExploreMore={props.showExploreMore}
                   parentPlaces={props.parentPlaces}
                   showWebComponents={props.showWebComponents}
-                  highlightFacet={props.highlightFacet}
+                  facetSelector={props.facetSelector}
                   metadataLoadingState={props.metadataLoadingState}
                 />
               </ErrorBoundary>

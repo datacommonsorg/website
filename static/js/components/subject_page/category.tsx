@@ -34,6 +34,7 @@ import { Block } from "./block";
 import { BlockContainer } from "./block_container";
 import { DisasterEventBlock } from "./disaster_event_block";
 import { StatVarProvider } from "./stat_var_provider";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 export interface CategoryPropType {
   id: string;
@@ -52,7 +53,7 @@ export interface CategoryPropType {
   // Whether to render tiles as web components
   showWebComponents?: boolean;
   // The facet to highlight in the rendered page (optional)
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
   // Metadata loading state: true (loading), false (loaded), undefined (no metadata)
   metadataLoadingState?: boolean;
 }
@@ -181,7 +182,7 @@ function renderBlocks(
                 denom={block.denom}
                 startWithDenom={block.startWithDenom}
                 showWebComponents={props.showWebComponents}
-                highlightFacet={props.highlightFacet}
+                facetSelector={props.facetSelector}
               />
             </BlockContainer>
           </ErrorBoundary>

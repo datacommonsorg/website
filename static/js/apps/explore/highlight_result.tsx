@@ -33,13 +33,14 @@ import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getFacets } from "../../utils/data_fetch_utils";
 import { isPlaceOverviewOnly } from "../../utils/explore_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const PAGE_ID = "highlight-result";
 
 interface HighlightResultProps {
   highlightPageMetadata: SubjectPageMetadata;
   maxBlock: number;
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
   apiRoot?: string;
 }
 
@@ -76,7 +77,7 @@ async function doMetadataFetch(props: HighlightResultProps): Promise<{
   for (const statVar in facets) {
     const facet = facets[statVar];
     for (const facetId in facet) {
-      if (facet[facetId].importName === props.highlightFacet.importName) {
+      if (facet[facetId].importName === props.facetSelector?.facetMetadata?.importName) {
         statVarFacetMap[statVar] = new Set([facetId]);
         break;
       }
@@ -113,7 +114,7 @@ function generateCitationSources(
  * the page configuration and place information.
  * @param props.maxBlock - The maximum number of blocks to display in the trimmed
  * category configuration.
- * @param props.highlightFacet - The facet to highlight in the rendered page.
+ * @param props.facetSelector - The selection criteria for the facet to highlight in the rendered page.
  *
  * @returns A React element rendering the highlight result section.
  */
@@ -127,7 +128,7 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
     // Fetch metadata when component mounts or props change
     const fetchData = async (): Promise<void> => {
       if (
-        !props.highlightFacet ||
+        !props.facetSelector ||
         isPlaceOverviewOnly(props.highlightPageMetadata)
       ) {
         return;
@@ -190,7 +191,7 @@ export function HighlightResult(props: HighlightResultProps): ReactElement {
         place={props.highlightPageMetadata.place}
         pageConfig={trimCategory(pageConfig, props.maxBlock)}
         showExploreMore={false}
-        highlightFacet={props.highlightFacet}
+        facetSelector={props.facetSelector}
         metadataLoadingState={metadataLoadingState}
       />
     </div>

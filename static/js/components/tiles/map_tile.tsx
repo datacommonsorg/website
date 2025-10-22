@@ -100,6 +100,7 @@ import {
 import { ChartTileContainer } from "./chart_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "./tile_types";
 import { useDrawOnResize } from "./use_draw_on_resize";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
@@ -158,7 +159,7 @@ export interface MapTilePropType {
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surface?: string;
   // Metadata for the facet to highlight.
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
 }
 
 // Api responses associated with a single layer of the map
@@ -548,7 +549,7 @@ export const fetchData = async (
       [],
       facetIds,
       props.surface,
-      props.highlightFacet
+      props.facetSelector?.facetMetadata
     );
     let denomsByFacet: Record<string, SeriesApiResponse> = null;
     let defaultDenomData: SeriesApiResponse = null;

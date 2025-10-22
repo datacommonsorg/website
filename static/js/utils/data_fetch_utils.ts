@@ -32,6 +32,7 @@ import {
 import { FacetMetadata } from "../types/facet_metadata";
 import { getSurfaceHeader, stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
+import { FacetSelectionCriteria } from "../types/facet_selection_criteria";
 
 const EMPTY_UNIT = "EMPTY";
 const FACET_WITHIN_ENTITY = "";
@@ -280,12 +281,12 @@ export function getSeries(
   entities: string[],
   variables: string[],
   facetIds?: string[],
-  highlightFacet?: FacetMetadata,
+  facetSelector?: FacetSelectionCriteria,
   surface?: string
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
   return Promise.resolve(
-    selectFacet(apiRoot, entities, variables, highlightFacet, surface)
+    selectFacet(apiRoot, entities, variables, facetSelector?.facetMetadata, surface)
   ).then((resolvedFacetIds) => {
     if (!_.isEmpty(facetIds)) {
       params["facetIds"] = facetIds;
