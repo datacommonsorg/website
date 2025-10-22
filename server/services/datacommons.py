@@ -20,7 +20,8 @@ from typing import Dict, List
 import urllib.parse
 
 from flask import current_app
-from flask import request, has_request_context
+from flask import has_request_context
+from flask import request
 import requests
 
 from server.lib import log
@@ -45,7 +46,9 @@ def get(url: str, surface_header_value: str = None):
   # header used in usage metric logging
   # this is set even if get() is called for endpoints that we don't write usage
   # logs for to maintain consistency
-  headers['x-surface'] = request.headers.get('x-surface') if has_request_context() else surface_header_value or UNKNOWN_SURFACE
+  headers['x-surface'] = request.headers.get(
+      'x-surface') if has_request_context(
+      ) else surface_header_value or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -71,11 +74,19 @@ def post(url: str,
   key_to_use = api_key
   if key_to_use is None:
     key_to_use = current_app.config.get("DC_API_KEY", "")
-  return post_wrapper(url, req_str, key_to_use, log_extreme_calls, surface_header_value=surface_header_value)
+  return post_wrapper(url,
+                      req_str,
+                      key_to_use,
+                      log_extreme_calls,
+                      surface_header_value=surface_header_value)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool, surface_header_value: str = None):
+def post_wrapper(url,
+                 req_str: str,
+                 dc_api_key: str,
+                 log_extreme_calls: bool,
+                 surface_header_value: str = None):
   req = json.loads(req_str)
   headers = {"Content-Type": "application/json"}
   if dc_api_key:
@@ -84,7 +95,9 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool, su
   # Header from the flask call making this request
   # Represents the DC surface (website, web components, etc.) where the call originates
   # Used in mixer's usage logs
-  headers['x-surface'] = request.headers.get('x-surface') if has_request_context() else surface_header_value or UNKNOWN_SURFACE
+  headers['x-surface'] = request.headers.get(
+      'x-surface') if has_request_context(
+      ) else surface_header_value or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
@@ -414,15 +427,13 @@ def resolve(nodes, prop):
   return post(url, {"nodes": nodes, "property": prop})
 
 
-def nl_search_vars(
-    queries,
-    index_types: List[str],
-    reranker="",
-    skip_topics="",
-    nl_root=None,
-    api_key=None,
-    surface_header_value: str = None
-):
+def nl_search_vars(queries,
+                   index_types: List[str],
+                   reranker="",
+                   skip_topics="",
+                   nl_root=None,
+                   api_key=None,
+                   surface_header_value: str = None):
   """Search sv from NL server."""
   idx_params = ",".join(index_types)
   root = nl_root
@@ -435,12 +446,15 @@ def nl_search_vars(
     url = f"{url}&skip_topics={skip_topics}"
   return post(url, {"queries": queries},
               api_key=api_key,
-              log_extreme_calls=False, surface_header_value=surface_header_value)
+              log_extreme_calls=False,
+              surface_header_value=surface_header_value)
 
 
-def nl_search_vars_in_parallel(queries: list[str],
-                               index_types: list[str],
-                               skip_topics: bool = False, surface_header_value: str = None) -> dict[str, dict]:
+def nl_search_vars_in_parallel(
+    queries: list[str],
+    index_types: list[str],
+    skip_topics: bool = False,
+    surface_header_value: str = None) -> dict[str, dict]:
   """Search sv from NL server in parallel for multiple indexes.
 
     Args:
