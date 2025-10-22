@@ -143,9 +143,9 @@ class MapTestMixin():
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
     # Wait for chart to load
+    # This chart can be slow, so we use a longer timeout
     shared.wait_for_loading(self.driver)
-    shared.wait_for_charts_to_render(self.driver,
-                                     timeout_seconds=self.TIMEOUT_SEC)
+    shared.wait_for_charts_to_render(self.driver, timeout_seconds=LONG_TIMEOUT)
 
     # Assert chart title is correct
     self.assertIn(
