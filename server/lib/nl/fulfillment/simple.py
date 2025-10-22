@@ -30,6 +30,11 @@ _MAX_VARS_PER_CHART = 5
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
+  chart_type = state.uttr.insight_ctx.get(params.Params.CHART_TYPE)
+
+  is_highlight = bool(chart_type) if chart_type else False
+  is_timeline_highlight = ChartType.from_string(chart_type) == ChartType.TIMELINE_WITH_HIGHLIGHT if is_highlight else False
+
   if not state.uttr.svs and not state.uttr.places:
     # If both the SVs and places are empty, then do not attempt to fulfill.
     # This avoids using incorrect context for unrelated queries like
@@ -77,7 +82,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                   chart_origin,
                                   sv_place_facet=sv_place_facet,
                                   sv_place_latest_date=sv_place_latest_date)
-  else:
+  elif not is_highlight or is_timeline_highlight:
     # If its not a peer-group add one chart at a time.
     added = False
     all_svs = copy.deepcopy(chart_vars.svs)
@@ -104,6 +109,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                       sv_place_facet=sv_place_facet,
                                       sv_place_latest_date=sv_place_latest_date)
     return added
+
+  return False # Fallback
 
 
 def _maybe_demote(chart_type: ChartType, is_single_point: bool,
