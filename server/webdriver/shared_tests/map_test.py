@@ -262,4 +262,4 @@ class StandardizedMapTestMixin():
     wait_elem(self.driver, By.CLASS_NAME, 'tick')
     chart_legend = find_elem(self.driver, by=By.ID, value='choropleth-legend')
     self.assertGreater(
-        len(find_elems(chart_legend, by=By.TAG_NAME, value='tick')), 5)
+        len(find_elems(chart_legend, by=By.CLASS_NAME, value='tick')), 5)
