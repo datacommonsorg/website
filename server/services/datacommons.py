@@ -20,7 +20,7 @@ from typing import Dict, List
 import urllib.parse
 
 from flask import current_app
-from flask import request
+from flask import request, has_request_context
 import requests
 
 from server.lib import log
@@ -45,7 +45,9 @@ def get(url: str):
   # header used in usage metric logging
   # this is set even if get() is called for endpoints that we don't write usage
   # logs for to maintain consistency
-  headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
+  if has_request_context():
+    headers['x-surface'] = request.headers.get('x-surface')
+  headers['x-surface'] = headers['x-surface'] or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -83,7 +85,9 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool):
   # Header from the flask call making this request
   # Represents the DC surface (website, web components, etc.) where the call originates
   # Used in mixer's usage logs
-  headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
+  if has_request_context():
+    headers['x-surface'] = request.headers.get('x-surface')
+  headers['x-surface'] = headers['x-surface'] or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
