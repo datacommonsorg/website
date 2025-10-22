@@ -75,9 +75,11 @@ class MapTestMixin():
     chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
                      58)
-    chart_legend = find_elem(self.driver, by=By.ID, value='choropleth-legend')
     self.assertGreater(
-        len(find_elems(chart_legend, by=By.CLASS_NAME, value='tick')), 5)
+        len(
+            find_elems(self.driver,
+                       by=By.CSS_SELECTOR,
+                       value='#choropleth-legend .tick')), 5)
 
     # Click United States breadcrumb
     shared.click_el(self.driver, (By.LINK_TEXT, 'United States'))
@@ -105,9 +107,9 @@ class MapTestMixin():
         find_elem(self.driver,
                   by=By.XPATH,
                   value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
-    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     52)
+    self.assertEqual(
+        len(find_elems(self.driver, by=By.CSS_SELECTOR,
+                       value='#map-items path')), 52)
 
     # Click explore timeline
     find_elem(self.driver, value='explore-timeline-text').click()
@@ -141,12 +143,11 @@ class MapTestMixin():
         (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
 
     # Wait for chart to load
+    # This chart can be slow, so we use a longer timeout
     shared.wait_for_loading(self.driver)
-    shared.wait_for_charts_to_render(self.driver,
-                                     timeout_seconds=self.TIMEOUT_SEC)
+    shared.wait_for_charts_to_render(self.driver, timeout_seconds=LONG_TIMEOUT)
 
     # Assert chart title is correct
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
         'median age of population ',
         find_elem(self.driver,
@@ -155,13 +156,17 @@ class MapTestMixin():
 
     # Assert we have the right number of regions
     wait_elem(self.driver, By.TAG_NAME, 'path')
-    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     58)
+    self.assertEqual(
+        len(find_elems(self.driver, by=By.CSS_SELECTOR,
+                       value='#map-items path')), 58)
 
     # Assert we have the right number of legends
     wait_elem(self.driver, By.CLASS_NAME, 'tick')
-    chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
-    self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
+    self.assertGreater(
+        len(
+            find_elems(self.driver,
+                       by=By.CSS_SELECTOR,
+                       value='#choropleth-legend .tick')), 5)
 
   def test_landing_page_link(self):
     """Test for landing page link."""
@@ -179,9 +184,9 @@ class MapTestMixin():
     wait_elem(self.driver, By.TAG_NAME, 'path')
 
     # Assert chart loads
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
-    self.assertGreater(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                       1)
+    self.assertGreater(
+        len(find_elems(self.driver, by=By.CSS_SELECTOR,
+                       value='#map-items path')), 1)
 
 
 class StandardizedMapTestMixin():
@@ -247,7 +252,6 @@ class StandardizedMapTestMixin():
                                      timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert chart is correct.
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
         'median age of population ',
         find_elem(self.driver,
@@ -256,8 +260,12 @@ class StandardizedMapTestMixin():
 
     # Assert we have the right number of regions and legends
     wait_elem(self.driver, By.TAG_NAME, 'path')
-    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     58)
+    self.assertEqual(
+        len(find_elems(self.driver, by=By.CSS_SELECTOR,
+                       value='#map-items path')), 58)
     wait_elem(self.driver, By.CLASS_NAME, 'tick')
-    chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
-    self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
+    self.assertGreater(
+        len(
+            find_elems(self.driver,
+                       by=By.CSS_SELECTOR,
+                       value='#choropleth-legend .tick')), 5)
