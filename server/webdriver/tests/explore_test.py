@@ -95,7 +95,7 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
         if header and header.text == "Categories of Jobs":
           chart_block = block
           break
-      return chart_block
+      return chart_block or False
 
     # Wait for 'Categories of Jobs' block to be present
     chart_block = WebDriverWait(
