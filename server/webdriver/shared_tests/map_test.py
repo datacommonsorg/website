@@ -146,7 +146,6 @@ class MapTestMixin():
                                      timeout_seconds=self.TIMEOUT_SEC)
 
     # Assert chart title is correct
-    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
     self.assertIn(
         'median age of population ',
         find_elem(self.driver,
@@ -155,13 +154,17 @@ class MapTestMixin():
 
     # Assert we have the right number of regions
     wait_elem(self.driver, By.TAG_NAME, 'path')
-    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
-                     58)
+    self.assertEqual(
+        len(find_elems(self.driver, by=By.CSS_SELECTOR,
+                       value='#map-items path')), 58)
 
     # Assert we have the right number of legends
     wait_elem(self.driver, By.CLASS_NAME, 'tick')
-    chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
-    self.assertGreater(len(find_elems(chart_legend, value='tick')), 5)
+    self.assertGreater(
+        len(
+            find_elems(self.driver,
+                       by=By.CSS_SELECTOR,
+                       value='#choropleth-legend tick')), 5)
 
   def test_landing_page_link(self):
     """Test for landing page link."""
