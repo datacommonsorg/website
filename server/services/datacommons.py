@@ -36,7 +36,7 @@ cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
-@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache, )
+@cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str, surface_header_value: str = None):
   headers = {"Content-Type": "application/json"}
   dc_api_key = current_app.config.get("DC_API_KEY", "")
@@ -45,10 +45,7 @@ def get(url: str, surface_header_value: str = None):
   # header used in usage metric logging
   # this is set even if get() is called for endpoints that we don't write usage
   # logs for to maintain consistency
-  if has_request_context():
-    headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
-  else:
-    headers['x-surface'] = surface_header_value or UNKNOWN_SURFACE
+  headers['x-surface'] = request.headers.get('x-surface') if has_request_context() else surface_header_value or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
@@ -87,11 +84,7 @@ def post_wrapper(url, req_str: str, dc_api_key: str, log_extreme_calls: bool, su
   # Header from the flask call making this request
   # Represents the DC surface (website, web components, etc.) where the call originates
   # Used in mixer's usage logs
-  if has_request_context():
-    headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
-  else:
-    # fall back to param input if flask request context is not available
-    headers['x-surface'] = surface_header_value or UNKNOWN_SURFACE
+  headers['x-surface'] = request.headers.get('x-surface') if has_request_context() else surface_header_value or UNKNOWN_SURFACE
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)

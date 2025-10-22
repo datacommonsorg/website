@@ -388,8 +388,7 @@ def search_indicators():
   # If the flask context is available, set the surface header
   # The context is not preserved due to threading in nl_search_vars_in_parallel
   # so we pass this in as a parameter instead
-  if has_request_context():
-    surface_header_value = request.headers.get('x-surface')
+  surface_header_value = request.headers.get('x-surface') if has_request_context() else None
 
   #
   # Step 1: Get search results from the NL server in parallel.
