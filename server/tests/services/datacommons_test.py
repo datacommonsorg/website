@@ -18,9 +18,8 @@ import os
 import unittest
 from unittest import mock
 
-from requests import Response
-
 from flask import Flask
+from requests import Response
 
 from server.lib.cache import cache
 from server.lib.cache import should_skip_cache
@@ -273,7 +272,8 @@ class TestServiceDataCommonsCacheSkip(unittest.TestCase):
       self.assertFalse(should_skip_cache())
 
 
-class TestServiceDataCommonsNLSearchVarsInParallel(unittest.TestCase):
+class TestServiceDataCommonsNLSearchVarsInParallel(
+    unittest.IsolatedAsyncioTestCase):
 
   def setUp(self):
     self.app = Flask(__name__)
@@ -285,10 +285,9 @@ class TestServiceDataCommonsNLSearchVarsInParallel(unittest.TestCase):
   def tearDown(self):
     self.app_context.pop()
 
-  @mock.patch("requests.post")
-  def test_basic(self, mock_post):
+  async def test_basic(self):
 
-# The function is called for each index type.
+    # The function is called for each index type.
     idx1_result = {
         "queryResults": {
             "foo": {
@@ -326,17 +325,18 @@ class TestServiceDataCommonsNLSearchVarsInParallel(unittest.TestCase):
         # Set the ._content attribute.
         # This will *automatically* make both resp.json() and resp.text work correctly.
         resp._content = json.dumps(idx1_result).encode('utf-8')
-        
+
       else:
         resp._content = json.dumps(idx2_result).encode('utf-8')
 
       return resp
 
-    mock_post.side_effect = side_effect
+    with mock.patch('requests.post') as mock_post:
+      mock_post.side_effect = side_effect
 
-    with self.app.test_request_context('/', headers={'x-surface': 'test'}):
-      result = asyncio.run(nl_search_vars_in_parallel(
-          queries=["foo"], index_types=["idx1", "idx2"], skip_topics=True))
+      result = await nl_search_vars_in_parallel(queries=["foo"],
+                                                index_types=["idx1", "idx2"],
+                                                skip_topics=True)
 
       self.assertEqual(result, {"idx1": idx1_result, "idx2": idx2_result})
       self.assertEqual(mock_post.call_count, 2)

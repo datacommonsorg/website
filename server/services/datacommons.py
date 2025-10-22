@@ -20,8 +20,9 @@ from typing import Dict, List
 import urllib.parse
 
 from flask import current_app
+from flask import has_app_context
+from flask import has_request_context
 from flask import request
-from flask import has_request_context, has_app_context
 import requests
 
 from server.lib import log
@@ -37,18 +38,18 @@ cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
-
 def get_request_headers() -> dict:
   headers = {"Content-Type": "application/json"}
   if has_app_context():
-    headers["x-api-key"] =  current_app.config.get("DC_API_KEY", "")
+    headers["x-api-key"] = current_app.config.get("DC_API_KEY", "")
 
   if has_request_context():
-      # Represents the DC surface (website, web components, etc.) where the call originates
-      # Used in mixer's usage logs
-      headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
-  
+    # Represents the DC surface (website, web components, etc.) where the call originates
+    # Used in mixer's usage logs
+    headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
+
   return headers
+
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
 def get(url: str):
@@ -64,16 +65,14 @@ def get(url: str):
             response.json()["message"]))
   return response.json()
 
-def post(url: str,
-         req: Dict,
-         headers: dict = None
-         ):
+
+def post(url: str, req: Dict, headers: dict = None):
 
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
-  
+
   if not headers:
     headers = get_request_headers()
 
@@ -89,13 +88,13 @@ def post_wrapper(url, req_str: str, headers: dict):
   # All required request data (headers, etc.) MUST be passed
   # explicitly via the `request_info` argument.
   #
-  req = json.loads(req_str)  
+  req = json.loads(req_str)
 
   # Send the request and verify the request succeeded
   call_logger = log.ExtremeCallLogger(req, url=url)
   response = requests.post(url, json=req, headers=headers)
   call_logger.finish(response)
-  
+
   if response.status_code != 200:
     raise ValueError(
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
@@ -437,14 +436,17 @@ def nl_search_vars(
     url = f"{url}&reranker={reranker}"
   if skip_topics:
     url = f"{url}&skip_topics={skip_topics}"
-  return post(url, {"queries": queries},
-              headers=headers,
-             )
+  return post(
+      url,
+      {"queries": queries},
+      headers=headers,
+  )
 
 
 async def nl_search_vars_in_parallel(
-    queries: list[str], index_types: list[str], skip_topics: bool = False
-) -> dict[str, dict]:
+    queries: list[str],
+    index_types: list[str],
+    skip_topics: bool = False) -> dict[str, dict]:
   """Search sv from NL server in parallel for multiple indexes.
 
     Args:
