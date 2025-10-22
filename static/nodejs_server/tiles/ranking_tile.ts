@@ -37,7 +37,6 @@ import { htmlToSvg } from "../../js/utils/svg_utils";
 import { FONT_FAMILY, FONT_SIZE, SVG_HEIGHT, SVG_WIDTH } from "../constants";
 import { TileResult } from "../types";
 import { getProcessedSvg, getSources } from "./utils";
-import { FacetSelectionCriteria } from "../../js/types/facet_selection_criteria";
 
 function getRankingChartSvg(
   rankingGroup: RankingGroup,
