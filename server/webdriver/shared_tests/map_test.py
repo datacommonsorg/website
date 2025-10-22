@@ -105,9 +105,9 @@ class MapTestMixin():
         find_elem(self.driver,
                   by=By.XPATH,
                   value='//*[@id="map-chart"]/div/div[1]/h3').text.lower())
-    self.assertEqual(
-        len(find_elems(self.driver, by=By.CSS_SELECTOR,
-                       value='#map-items path')), 52)
+    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
+    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
+                     52)
 
     # Click explore timeline
     find_elem(self.driver, value='explore-timeline-text').click()
@@ -180,9 +180,9 @@ class MapTestMixin():
     wait_elem(self.driver, By.TAG_NAME, 'path')
 
     # Assert chart loads
-    self.assertGreater(
-        len(find_elems(self.driver, by=By.CSS_SELECTOR,
-                       value='#map-items path')), 1)
+    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
+    self.assertGreater(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
+                       1)
 
 
 class StandardizedMapTestMixin():
@@ -256,9 +256,9 @@ class StandardizedMapTestMixin():
 
     # Assert we have the right number of regions and legends
     wait_elem(self.driver, By.TAG_NAME, 'path')
-    self.assertEqual(
-        len(find_elems(self.driver, by=By.CSS_SELECTOR,
-                       value='#map-items path')), 58)
+    chart_map = find_elem(self.driver, by=By.ID, value='map-items')
+    self.assertEqual(len(find_elems(chart_map, by=By.TAG_NAME, value='path')),
+                     58)
     wait_elem(self.driver, By.CLASS_NAME, 'tick')
     chart_legend = find_elem(self.driver, by=By.ID, value='choropleth-legend')
     self.assertGreater(
