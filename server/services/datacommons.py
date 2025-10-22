@@ -39,16 +39,15 @@ logger = logging.getLogger(__name__)
 
 
 def get_basic_request_headers() -> dict:
-  headers = {"Content-Type": "application/json"}
+  headers = {"Content-Type": "application/json", "x-surface": UNKNOWN_SURFACE}
+
   if has_app_context():
     headers["x-api-key"] = current_app.config.get("DC_API_KEY", "")
 
   if has_request_context():
     # Represents the DC surface (website, web components, etc.) where the call originates
     # Used in mixer's usage logs
-    headers['x-surface'] = request.headers.get('x-surface') or UNKNOWN_SURFACE
-  else:
-    headers['x-surface'] = UNKNOWN_SURFACE
+    headers['x-surface'] = request.headers.get("x-surface", UNKNOWN_SURFACE)
 
   return headers
 
