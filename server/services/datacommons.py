@@ -32,14 +32,14 @@ import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
-from shared.lib.constants import UNKNOWN_SURFACE
+from shared.lib.constants import UNKNOWN_SURFACE, SURFACE_HEADER_NAME
 
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
 def get_basic_request_headers() -> dict:
-  headers = {"Content-Type": "application/json", "x-surface": UNKNOWN_SURFACE}
+  headers = {"Content-Type": "application/json", SURFACE_HEADER_NAME: UNKNOWN_SURFACE}
 
   if has_app_context():
     headers["x-api-key"] = current_app.config.get("DC_API_KEY", "")
@@ -47,7 +47,7 @@ def get_basic_request_headers() -> dict:
   if has_request_context():
     # Represents the DC surface (website, web components, etc.) where the call originates
     # Used in mixer's usage logs
-    headers['x-surface'] = request.headers.get("x-surface", UNKNOWN_SURFACE)
+    headers[SURFACE_HEADER_NAME] = request.headers.get(SURFACE_HEADER_NAME, UNKNOWN_SURFACE)
 
   return headers
 
@@ -77,11 +77,11 @@ def post(url: str, req: Dict, headers: dict | None = None):
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: Dict, headers: dict | None = None):
+def post_wrapper(url, req_str: str, headers: dict | None = None):
   #
   # CRITICAL: This function is called from synchronous and asynchronous contexts
   # (including background threads via asyncio.to_thread).
-  # It MUST NOT, access the global `flask.request` context.
+  # It MUST NOT access the global flask.request context or app context without checking if they are available first.
   # All required request data (headers, etc.) MUST be passed via the `headers` argument or
   # available via flask's request context. See `get_basic_request_headers` for an example
   # of how to check whether app and/or request context is available.
