@@ -316,13 +316,11 @@ class TestServiceDataCommonsNLSearchVarsInParallel(
     }
 
     def side_effect(url, *args, **kwargs):
-      # This is the most robust way: create a real Response object
       resp = Response()
       resp.status_code = 200
 
       if "idx1" in url:
-        # Set the ._content attribute.
-        # This will *automatically* make both resp.json() and resp.text work correctly.
+        # Setting the ._content attribute automatically makes both resp.json() and resp.text available.
         resp._content = json.dumps(idx1_result).encode('utf-8')
 
       else:

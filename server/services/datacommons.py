@@ -81,9 +81,10 @@ def post_wrapper(url, req_str: Dict, headers: dict | None = None):
   #
   # CRITICAL: This function is called from synchronous and asynchronous contexts
   # (including background threads via asyncio.to_thread).
-  # It MUST NOT, under any circumstances, access the global `flask.request` context.
-  # All required request data (headers, etc.) MUST be passed
-  # explicitly via the `request_info` argument.
+  # It MUST NOT, access the global `flask.request` context.
+  # All required request data (headers, etc.) MUST be passed via the `headers` argument or 
+  # available via flask's request context. See `get_basic_request_headers` for an example
+  # of how to check whether app and/or request context is available.
   #
   req = json.loads(req_str)
 
