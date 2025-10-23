@@ -251,7 +251,7 @@ class VisMapTestMixin():
     actions = ActionChains(self.driver)
     actions.move_to_element(kern_county).perform()
 
-    # Wait for tooltip to appear and verify contents
-    tooltip = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located((By.ID, "tooltip")))
-    self.assertIn("Female population", tooltip.text)
+    # Check that tooltip contains stat var
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.text_to_be_present_in_element((By.ID, "tooltip"),
+                                         "Female population"))
