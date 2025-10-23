@@ -32,14 +32,18 @@ import server.lib.config as libconfig
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
-from shared.lib.constants import UNKNOWN_SURFACE, SURFACE_HEADER_NAME
+from shared.lib.constants import SURFACE_HEADER_NAME
+from shared.lib.constants import UNKNOWN_SURFACE
 
 cfg = libconfig.get_config()
 logger = logging.getLogger(__name__)
 
 
 def get_basic_request_headers() -> dict:
-  headers = {"Content-Type": "application/json", SURFACE_HEADER_NAME: UNKNOWN_SURFACE}
+  headers = {
+      "Content-Type": "application/json",
+      SURFACE_HEADER_NAME: UNKNOWN_SURFACE
+  }
 
   if has_app_context():
     headers["x-api-key"] = current_app.config.get("DC_API_KEY", "")
@@ -47,7 +51,8 @@ def get_basic_request_headers() -> dict:
   if has_request_context():
     # Represents the DC surface (website, web components, etc.) where the call originates
     # Used in mixer's usage logs
-    headers[SURFACE_HEADER_NAME] = request.headers.get(SURFACE_HEADER_NAME, UNKNOWN_SURFACE)
+    headers[SURFACE_HEADER_NAME] = request.headers.get(SURFACE_HEADER_NAME,
+                                                       UNKNOWN_SURFACE)
 
   return headers
 
