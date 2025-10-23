@@ -78,11 +78,13 @@ def post(url: str, req: Dict, headers: dict | None = None):
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
+  if headers:
+    headers = json.dumps(headers, sort_keys=True)
   return post_wrapper(url, req_str, headers)
 
 
 @cache.memoize(timeout=TIMEOUT, unless=should_skip_cache)
-def post_wrapper(url, req_str: str, headers: dict | None = None):
+def post_wrapper(url, req_str: str, headers_str: str | None = None):
   #
   # CRITICAL: This function is called from synchronous and asynchronous contexts
   # (including background threads via asyncio.to_thread).
@@ -93,7 +95,9 @@ def post_wrapper(url, req_str: str, headers: dict | None = None):
   #
   req = json.loads(req_str)
 
-  if not headers:
+  if headers_str:
+    headers = json.loads(headers_str)
+  else:
     headers = get_basic_request_headers()
 
   # Send the request and verify the request succeeded
