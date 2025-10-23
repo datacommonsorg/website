@@ -310,7 +310,7 @@ def _parse_request_args() -> SearchIndicatorsRequest:
 
 
 @bp.route("/search-indicators", methods=["GET"])
-def search_indicators():
+async def search_indicators():
   """Performs variable search for given queries, with optional filtering.
 
     **Disclaimer:** This endpoint is designated as experimental and corresponds
@@ -388,7 +388,7 @@ def search_indicators():
   #
   # Step 1: Get search results from the NL server in parallel.
   #
-  nl_results_by_index = dc.nl_search_vars_in_parallel(
+  nl_results_by_index = await dc.nl_search_vars_in_parallel(
       req_args.queries, req_args.indices, skip_topics=req_args.skip_topics)
 
   # Pre-calculate the effective threshold for each index.
