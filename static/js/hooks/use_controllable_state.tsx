@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-import { Dispatch, SetStateAction, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 /**
  * A custom hook to manage state that can be either controlled (from props)
@@ -22,29 +29,55 @@ import { Dispatch, SetStateAction, useState } from "react";
  * just like React.useState. If controlled, will use the given controlled
  * value and setter.
  *
- * @param controlledValue The value passed from props (if any).
- * @param setControlledValue The value setter passed from props (if any).
- *                           Must be provided if controlledValue is provided.
+ * @param value The value passed from props (if any).
+ * @param onChange The value setter passed from props (if any).
+ *                           Must be provided if value is provided.
  * @param defaultValue The initial value to use if uncontrolled.
  * @returns A [value, setValue] tuple, just like React.useState.
  */
 export function useControllableState<T>(
-  controlledValue: T | undefined,
-  setControlledValue: ((newValue: T) => void) | undefined,
-  defaultValue: T
+  value: T | undefined,
+  onChange: ((next: T) => void) | undefined,
+  defaultValue: T | (() => T)
 ): readonly [T, Dispatch<SetStateAction<T>>] {
   // Determine if the component is controlled
-  const isControlled =
-    controlledValue !== undefined && setControlledValue !== undefined;
+  // Use controlled mode if a value is passed in from props
+  const isControlled = value !== undefined;
 
   // Set up internal state for the uncontrolled case
   const [internalValue, setInternalValue] = useState(defaultValue);
 
   // Used the controlled value if controlled, otherwise use internal value
-  const stateValue = isControlled ? controlledValue : internalValue;
+  const stateValue = isControlled ? value : internalValue;
 
-  // Used controlled setter if controlled, otherwise use internal setter
-  const setStateValue = isControlled ? setControlledValue : setInternalValue;
+  // Wrap stateValue in a ref so that it's not a dependency in setStateValue
+  // This keeps setStateValue stable instead of recreating itself when the value changes
+  const stateValueRef = useRef(stateValue);
+  useEffect(() => {
+    stateValueRef.current = stateValue;
+  }, [stateValue]);
+
+  // Callback to set the state value
+  const setStateValue: Dispatch<SetStateAction<T>> = useCallback(
+    (newValue) => {
+      const currentValue = stateValueRef.current;
+
+      // If new value follows (prev) => prev + 1 pattern, execute function
+      const resolvedValue =
+        newValue instanceof Function ? newValue(currentValue) : newValue;
+
+      if (!isControlled) {
+        // If uncontrolled, use internal setter
+        setInternalValue(resolvedValue);
+      }
+
+      if (onChange) {
+        // If controlled, use controlled setter if provided
+        onChange(resolvedValue);
+      }
+    },
+    [isControlled, onChange]
+  );
 
   return [stateValue, setStateValue];
 }
