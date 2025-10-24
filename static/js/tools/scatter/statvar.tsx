@@ -98,16 +98,13 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   };
 
   useEffect(() => {
-    if (
-      place.value.enclosingPlace.dcid &&
-      !_.isEmpty(place.value.enclosedPlaces)
-    ) {
+    if (place.value.enclosingPlace.dcid && place.value.enclosedPlaceType) {
       // Show stat var widget if both a place and place type are selected
       setStatVarWidgetIsCollapsed(false);
     } else {
       setStatVarWidgetIsCollapsed(true);
     }
-  }, [place.value.enclosedPlaces, place.value.enclosingPlace.dcid]);
+  }, [place.value.enclosedPlaceType, place.value.enclosingPlace.dcid]);
 
   useEffect(() => {
     const statVarsToGetInfo = [];
