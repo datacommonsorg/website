@@ -39,6 +39,13 @@ import { EnclosedPlacesSelector } from "../shared/place_selector/enclosed_places
 import { StatVarHierarchyToggleButton } from "../shared/place_selector/stat_var_hierarchy_toggle_button";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
+
+// A specific parent place and enclosed place type combination
+interface PlaceAndTypeSettings {
+  placeDcid: string;
+  enclosedPlaceType: string;
+}
+
 interface PlaceAndTypeOptionsProps {
   // Callback function to toggle the stat var widget (modal for small screen sizes).
   toggleSvHierarchyModal: () => void;
@@ -46,10 +53,9 @@ interface PlaceAndTypeOptionsProps {
 
 function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
-  const [failedEnclosedPlaces, setFailedEnclosedPlaces] = useState<{
-    placeDcid: string;
-    enclosedPlaceType: string;
-  } | null>(null);
+  // Store the last place and place type combination that resulted in a failed fetch
+  const [failedEnclosedPlaces, setFailedEnclosedPlaces] =
+    useState<PlaceAndTypeSettings | null>(null);
   const theme = useTheme();
 
   /**
@@ -170,13 +176,17 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   );
 }
 
+/**
+ * Fetches enclosed places within a parent place for a specific child place type.
+ * @param place State object holding the enclosing place and child place type.
+ * @param isLoading State object for tracking loading status.
+ * @param setEnclosedPlacesError Callback to record settings that caused a fetch failure.
+ * @param signal Signal for aborting the axios request.
+ */
 function loadEnclosedPlaces(
   place: PlaceInfoWrapper,
   isLoading: IsLoadingWrapper,
-  setEnclosedPlacesError: (failedSettings: {
-    placeDcid: string;
-    enclosedPlaceType: string;
-  }) => void,
+  setEnclosedPlacesError: (failedSettings: PlaceAndTypeSettings) => void,
   signal: AxiosRequestConfig["signal"]
 ): void {
   const placeDcid = place.value.enclosingPlace.dcid;
@@ -214,6 +224,7 @@ function loadEnclosedPlaces(
           if (!_.isEmpty(enclosedPlaces)) {
             place.setEnclosedPlaces(enclosedPlaces);
           } else {
+            // Record the place and enclosed place type that resulted in no enclosed places
             setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
             alert(
               `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
@@ -226,6 +237,7 @@ function loadEnclosedPlaces(
             // Skip catch actions if request is canceled
             return;
           }
+          // Record the place and enclosed place type that resulted in an error
           setEnclosedPlacesError({ placeDcid, enclosedPlaceType });
           isLoading.setArePlacesLoading(false);
           alert(
