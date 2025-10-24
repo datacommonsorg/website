@@ -21,7 +21,7 @@ from absl import app
 from absl import flags
 import requests
 
-from shared.lib.constants import CRON_TEST_SURFACE, SURFACE_HEADER_NAME
+from shared.lib.constants import TEST_SURFACE_HEADER
 
 FLAGS = flags.FLAGS
 
@@ -64,9 +64,7 @@ def run_test():
     client = test_case.get('client', '')
     resp = requests.get(
         f'{FLAGS.base_url}/nodejs/query?q={query}&allCharts={all_charts}&client={client}',
-        headers={
-            SURFACE_HEADER_NAME: CRON_TEST_SURFACE
-        }
+        headers=TEST_SURFACE_HEADER
     ).json()
     for chart in resp.get('charts', []):
       chart['chartUrl'] = ''
