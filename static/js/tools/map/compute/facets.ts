@@ -16,7 +16,7 @@
 
 // Custom hook to compute the list of facets to show in source selector.
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import { FacetSelectorFacetInfo } from "../../../shared/facet_selector/facet_selector";
 import { DEFAULT_WEBSITE_DATA_COMMONS_CLIENT } from "../../../utils/data_commons_client";
@@ -36,7 +36,10 @@ export function useComputeFacetList(chartStore: ChartStore): {
   const [facetList, setFacetList] = useState([]);
   const [facetListLoading, setFacetListLoading] = useState(false);
   const [facetListError, setFacetListError] = useState(false);
-  const dataCommonsClient = DEFAULT_WEBSITE_DATA_COMMONS_CLIENT;
+  const dataCommonsClient = useMemo(
+    () => DEFAULT_WEBSITE_DATA_COMMONS_CLIENT,
+    []
+  );
 
   useEffect(() => {
     if (!allStatReady()) {
