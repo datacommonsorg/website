@@ -64,8 +64,7 @@ def run_test():
     client = test_case.get('client', '')
     resp = requests.get(
         f'{FLAGS.base_url}/nodejs/query?q={query}&allCharts={all_charts}&client={client}',
-        headers=TEST_SURFACE_HEADER
-    ).json()
+        headers=TEST_SURFACE_HEADER).json()
     for chart in resp.get('charts', []):
       chart['chartUrl'] = ''
     file_name = test_case.get('name', '') + '.json'
