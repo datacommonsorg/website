@@ -24,6 +24,7 @@ import React, { createRef, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
+import { useControllableState } from "../../hooks/use_controllable_state";
 import { WEBSITE_SURFACE_HEADER } from "../../shared/constants";
 import { NamedNode } from "../../shared/types";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
@@ -51,6 +52,11 @@ interface StatVarWidgetPropsType {
   selectSV?: (sv: string) => void;
   // Whether to disable the alert when there are unavailable SVs.
   disableAlert?: boolean;
+  // Manually controlled isCollapsed
+  // Sets whether to collapse the widget
+  isCollapsedOverride?: boolean;
+  // Manually controlled isCollapsed setter, sets isCollapsedOverride.
+  setIsCollapsedOverride?: (valueToSet: boolean) => void;
 }
 
 export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
@@ -58,8 +64,13 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   // reattached to the modal when it is opened on small screens.
   const svHierarchyContainerRef = createRef<HTMLDivElement>();
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const [width, setWidth] = useState(STAT_VAR_SELECTOR_WIDTH);
+
+  const [isCollapsed, setIsCollapsed] = useControllableState(
+    props.isCollapsedOverride,
+    props.setIsCollapsedOverride,
+    false
+  );
 
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {

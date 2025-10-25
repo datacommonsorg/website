@@ -22,7 +22,7 @@ from server.webdriver import shared
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
 
-MAP_URL = '/tools/map'
+DOWNLOAD_URL = '/tools/download'
 
 
 class StatVarHierarchyTestMixin():
@@ -30,7 +30,7 @@ class StatVarHierarchyTestMixin():
 
   def test_filter(self):
     """Test the stat var filtering based on place selection."""
-    self.driver.get(self.url_ + MAP_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL)
 
     # Wait until stat var hierarchy is present
     self.assertIsNotNone(
