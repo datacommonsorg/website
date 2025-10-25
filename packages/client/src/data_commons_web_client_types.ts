@@ -17,6 +17,19 @@
 /**
  * Interface definitions supporting DataCommonsWebClient
  */
+
+export interface StatVarSpec {
+  statVar: string;
+  denom: string;
+  unit: string;
+  scaling: number;
+  log: boolean;
+  name?: string;
+  date?: string;
+  noPerCapita?: boolean;
+  facetId?: string;
+}
+
 export interface StatMetadata {
   importName?: string | null;
   provenanceUrl?: string | null;
