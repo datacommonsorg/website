@@ -13,8 +13,8 @@
 # limitations under the License.
 
 steps:
-  - id: "client-test"
-    name: gcr.io/datcom-ci/node:2023-04-18
+  - id: client-test
+    name: gcr.io/datcom-ci/node:${_NODE_VERSION}
     entrypoint: /bin/bash
     waitFor: ["-"]
     env:
@@ -23,17 +23,16 @@ steps:
     args:
       - -c
       - |
-        # The node docker image comes with a pre-installed node_modules directory.
-        # Copy node_modules onto the static folder and update the node_module packages instead of downloading from scratch.
-        # This step is done for speed, downloading the delta files is faster than downloading the entire dependencies.
-        rm -rf static/node_modules
-        cp -r /resources/node_modules -d static/
-
-        # ./run_test.sh -lbc will run lint test, build client packages, and run client tests.
-        set -e
+        ./build/node/load_preinstalled_modules.sh
+        # Run lint test
         ./run_test.sh -l
+        # Build client packages
         ./run_test.sh -b
+        # Run client tests
         ./run_test.sh -c
+
+substitutions:
+  _NODE_VERSION: "2025-10-01"
 
 options:
   machineType: "N1_HIGHCPU_8"

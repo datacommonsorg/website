@@ -317,8 +317,7 @@ function run_cdc_webdriver_test {
     rerun_options="--reruns 2"
   fi
 
-  python3 -m pytest $rerun_options -m "one_at_a_time" server/webdriver/cdc_tests/ ${@}
-  python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
+  python3 -m pytest -n auto $rerun_options server/webdriver/cdc_tests/ ${@}
 
   stop_servers
   deactivate

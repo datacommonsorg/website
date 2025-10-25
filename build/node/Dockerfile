@@ -14,18 +14,28 @@
 
 FROM node:18.4.0-slim
 
-# GCB should read files from /resources.
-WORKDIR /resources
-
 # Install curl.
 RUN apt-get -y update
 RUN apt-get -y install curl
 
-COPY package.json /resources/package.json
-COPY package-lock.json /resources/package-lock.json
+# static
+COPY static/package.json /resources/static/package.json
+COPY static/package-lock.json /resources/static/package-lock.json
 
-# Install only the production dependencies using package.json.
-RUN npm install --omit=dev
+# client
+COPY packages/client/package.json /resources/packages/client/package.json
+COPY packages/client/package-lock.json /resources/packages/client/package-lock.json
 
-# Remove anything other than node_modules.
-RUN rm -rf package.json package-lock.json
+# web-components
+COPY packages/web-components/package.json /resources/packages/web-components/package.json
+COPY packages/web-components/package-lock.json /resources/packages/web-components/package-lock.json
+
+WORKDIR /resources/static
+
+RUN npm install && rm -rf package.json package-lock.json
+WORKDIR /resources/packages/client
+RUN npm install && rm -rf package.json package-lock.json
+WORKDIR /resources/packages/web-components
+RUN npm install && rm -rf package.json package-lock.json
+
+WORKDIR /resources
