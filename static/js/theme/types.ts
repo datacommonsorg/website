@@ -352,6 +352,9 @@ export interface Theme {
     regex?: string;
     important?: string;
     variable?: string;
+    csvSeparator?: string;
+    csvValue?: string;
+    csvStringValue?: string;
   };
   elevation: {
     none: {

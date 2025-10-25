@@ -32,13 +32,15 @@ import React, { useMemo } from "react";
 
 void import("prismjs/components/prism-bash");
 void import("prismjs/components/prism-python");
+void import("prismjs/components/prism-csv");
+
 /*
  When later adding a new languages, import it here:
  import "prismjs/components/prism-json";
  */
 
 // The available languages for highlighting.
-export type HighlightLanguage = "bash" | "python";
+export type HighlightLanguage = "bash" | "python" | "csv";
 
 /**
  * A record of terms to be treated in a special way by the code block.
@@ -150,6 +152,19 @@ function PrismRenderer({
   className,
 }: CodeBlockProps): React.JSX.Element {
   const highlighted = useMemo(() => {
+    if (
+      language === "csv" &&
+      Prism.languages.csv &&
+      !Prism.languages.csv.string
+    ) {
+      Prism.languages.insertBefore("csv", "value", {
+        string: {
+          pattern: /"(?:[^"]|"")*"/,
+          alias: "value",
+        },
+      });
+    }
+
     const grammar = Prism.languages[language];
     if (!grammar) {
       return Prism.Token.stringify(Prism.util.encode(code), language);
@@ -234,6 +249,17 @@ export function CodeBlock({
       ".token.punctuation": {
         color: theme.codeHighlight.punctuation,
       },
+
+      "&.language-csv .token.punctuation": {
+        color: theme.codeHighlight.csvSeparator,
+      },
+      "&.language-csv .token.value": {
+        color: theme.codeHighlight.csvValue,
+      },
+      "&.language-csv .token.value.string": {
+        color: theme.codeHighlight.csvStringValue,
+      },
+
       ".token.namespace": {
         opacity: 0.7,
       },
