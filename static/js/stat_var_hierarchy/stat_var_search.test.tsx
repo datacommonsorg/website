@@ -105,7 +105,7 @@ describe("StatVarHierarchySearch Component", () => {
   );
   let mockGetStatVarSearchResults: jest.Mock;
 
-  const createMockResponse = (numSvResults: number) => ({
+  const createMockResponse = (numSvResults: number): any => ({
     matches: [],
     statVarGroups: [],
     statVars: Array(numSvResults).fill({ name: "sv", dcid: "sv" }),
@@ -124,7 +124,7 @@ describe("StatVarHierarchySearch Component", () => {
     jest.clearAllMocks();
   });
 
-  const simulateInput = (query: string) => {
+  const simulateInput = (query: string): void => {
     wrapper
       .find("input.statvar-search-input")
       .simulate("change", { target: { value: query } });
