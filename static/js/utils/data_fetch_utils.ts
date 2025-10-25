@@ -237,21 +237,28 @@ export function getPointWithin(
   date: string,
   alignedVariables?: string[][],
   facetIds?: string[],
-  surface?: string
+  surface?: string,
+  highlightFacet?: FacetMetadata
 ): Promise<PointApiResponse> {
-  const params = { childType, date, parentEntity, variables };
-  if (facetIds) {
-    params["facetIds"] = facetIds;
-  }
-  return axios
-    .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
-      params,
-      paramsSerializer: stringifyFn,
-      headers: getSurfaceHeader(surface),
-    })
-    .then((resp) => {
-      return getProcessedPointResponse(resp.data, alignedVariables);
-    });
+  const facetPromise = !_.isEmpty(facetIds)
+    ? Promise.resolve(facetIds)
+    : selectFacet(apiRoot, [parentEntity], variables, highlightFacet, surface);
+
+  return facetPromise.then((resolvedFacetIds) => {
+    const params = { childType, date, parentEntity, variables };
+    if (!_.isEmpty(resolvedFacetIds)) {
+      params["facetIds"] = [resolvedFacetIds];
+    }
+    return axios
+      .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
+        params,
+        paramsSerializer: stringifyFn,
+        headers: getSurfaceHeader(surface),
+      })
+      .then((resp) => {
+        return getProcessedPointResponse(resp.data, alignedVariables);
+      });
+  });
 }
 
 /**
