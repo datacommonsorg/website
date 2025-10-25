@@ -48,7 +48,7 @@ import { NamedTypedPlace } from "../../shared/types";
 import theme from "../../theme/theme";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
-import { getDataCommonsClient } from "../../utils/data_commons_client";
+import { DEFAULT_WEBSITE_DATA_COMMONS_CLIENT } from "../../utils/data_commons_client";
 import { ItemList } from "./item_list";
 
 interface PlacesTooltipContentProps {
@@ -397,7 +397,7 @@ export function ResultHeaderSection(
     ? []
     : getTopics(props.pageMetadata, props.placeUrlVal);
 
-  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
+  const dataCommonsClient = DEFAULT_WEBSITE_DATA_COMMONS_CLIENT;
 
   useEffect(() => {
     const initialPlaces = props.pageMetadata.places;
