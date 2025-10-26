@@ -20,7 +20,7 @@
 
 import rewind from "@turf/rewind";
 import { Feature, FeatureCollection, Geometry } from "geojson";
-import * as _ from "lodash";
+import _ from "lodash";
 
 import {
   DEFAULT_ENTITY_PROPS,
@@ -754,14 +754,13 @@ class DataCommonsClient {
    * null if no matching value is found or matching value is 0. If available, uses
    * the denom value that comes from the same facet as the data point. Otherwise, the best
    * general denom option is used.
-   * @param svSpec the stat var spec of the data point to calculate per capita for
-   * @param denomData map facet ID -> population data. If the facet used in the stat var spec
    * has denominator data, we use information from that facet.
-   * @param placeDcid place of the data point
-   * @param mainStatDate date of the data point
-   * @param facetUsed facet used for the data point
+   * @param denomVar
+   * @param denomsByFacet
    * @param defaultDenomData If there isn't denominator data available for the facet used in
    * svSpec, we use the default data that is fetched with no particular facet
+   * @param placeDcid place of the data point
+   * @param numeratorFacet
    */
 
   // --> Need the series for this particular entity, and the facet ID it comes from
@@ -814,6 +813,7 @@ class DataCommonsClient {
    * @param pointApiResponse Entity/variable observations
    * @param entityPropValues Additional entity properties to fetch
    * @param variablePropValues Additional variable properties to fetch
+   * @param denomPropValues
    * @param denomsByFacet Population observations for our list of entities, keyed by facet ID
    * @param defaultDenomData Population observations for our list of entities with no facet filter
    * @param statVarSpecs Full StatVarSpec set to pull facet-specific data. This will be used over variables if provided
@@ -955,8 +955,10 @@ class DataCommonsClient {
    * @param seriesApiResponse Entity/variable observations
    * @param entityPropValues Additional entity properties to fetch
    * @param variablePropValues Additional variable properties to fetch
+   * @param denomPropValues Property values for the denominator variables used in per-capita calculations
    * @param denomsByFacet Population observations for our list of entities, keyed by facet ID
    * @param defaultDenomData Population observations for our list of entities with no facet filter
+   * @param statVarSpecs Full StatVarSpec set to pull facet-specific data. This will be used over variables if provided
    * @returns data rows
    */
   private getDataRowsFromSeriesObservations(
