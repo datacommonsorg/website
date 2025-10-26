@@ -489,17 +489,18 @@ class DataCommonsClient {
     const observationPromises: Promise<SeriesApiResponse>[] = [];
     const isWithin = "parentEntity" in params;
 
+    //if we are provided a list of StatVarSpecs, we will use these to fetch the data
     if (params.statVarSpecs && params.statVarSpecs.length > 0) {
       variables = params.statVarSpecs.map((spec) => spec.statVar);
       denoms = params.statVarSpecs
         .map((spec) => spec.denom)
         .filter((denom): denom is string => Boolean(denom));
 
+      //we group API calls by facet (to pull the data as efficiently as possible).
       const specsByFacet = _.groupBy(
         params.statVarSpecs,
         (spec) => spec.facetId || EMPTY_FACET_ID_KEY
       );
-
       for (const facetId in specsByFacet) {
         const specs = specsByFacet[facetId];
         const varsForThisCall = specs.map((spec) => spec.statVar);
@@ -526,6 +527,8 @@ class DataCommonsClient {
         }
       }
     } else {
+      // if we are given a list of variables, we follow the older path and fetch data for those variables
+      // note that when given variables, we can neither fetch a specific facet nor use a non-default denom
       variables = params.variables;
       perCapitaVariables = params.perCapitaVariables || [];
       denoms = perCapitaVariables.length > 0 ? [TOTAL_POPULATION_VARIABLE] : [];
@@ -839,7 +842,8 @@ class DataCommonsClient {
         const spec = specMap[variableDcid];
         let observationData =
           pointApiResponse.data[variableDcid][entityDcid] || null;
-
+        // the endpoint will sometimes give us the point nested in an array.
+        // the below lines mirror a very similar line in barchart.
         if (Array.isArray(observationData) && observationData.length > 0) {
           observationData = observationData[0];
         }
