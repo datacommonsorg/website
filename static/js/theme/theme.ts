@@ -459,10 +459,10 @@ const theme: Theme = {
     regex: DC_YELLOW_DARK,
     important: DC_YELLOW_DARK,
     variable: DC_YELLOW_DARK,
-    csvHeader: DC_GRAY,
-    csvSeparator: DC_GRAY,
+    csvHeader: DC_GREEN,
+    csvSeparator: DC_ORANGE,
     csvStringValue: DC_GRAY_LIGHT,
-    csvValue: DC_YELLOW_DARK,
+    csvValue: DC_BLUE,
   },
   elevation: {
     none: {
