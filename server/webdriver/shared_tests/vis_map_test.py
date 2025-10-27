@@ -243,16 +243,20 @@ class VisMapTestMixin():
                                      timeout_seconds=self.TIMEOUT_SEC)
 
     # Find the map region for Kern County (geoId/06029)
-    kern_county = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]',
-    )
+    # Wait for visibility, not just presence, in case of re-renders
+    kern_county = WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.visibility_of_element_located((
+            By.XPATH,
+            '//*[@id="map-items"]//*[local-name()="path"][contains(@part, "place-path-geoId/06029")]'
+        )))
 
     # Hover over the region using ActionChains
     actions = ActionChains(self.driver)
-    actions.move_to_element(kern_county).perform()
+    actions.move_to_element(kern_county).pause(0.5).perform()
+
+    # Wait for tooltip to be visible, not just presence, in case of re-renders
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.visibility_of_element_located((By.ID, "tooltip")))
 
     # Check that tooltip contains stat var
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.text_to_be_present_in_element((By.ID, "tooltip"),
-                                         "Female population"))
+    wait_for_text(self.driver, "Female population", By.ID, "tooltip")
