@@ -144,7 +144,7 @@ class TestFollowUpQuestions(unittest.TestCase):
                                               related_topics=RELATED_TOPICS)
 
   def test_generate_follow_up_questions_no_api_key(self):
-    app.config.pop("LLM_API_KEY")
+    app.config.pop("LLM_API_KEY", None)
     with app.app_context():
       assert [] == generate_follow_up_questions(query=QUERY,
                                                 related_topics=RELATED_TOPICS)
