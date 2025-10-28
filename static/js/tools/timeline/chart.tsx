@@ -15,12 +15,14 @@
  */
 import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
-import React, { Component, ReactElement } from "react";
+import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { ChartEmbed } from "../../place/chart_embed";
 import { Chip } from "../../shared/chip";
 import { WEBSITE_SURFACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
@@ -33,8 +35,16 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import {
+  buildObservationSpecs,
+  ObservationSpec,
+  ObservationSpecOptions,
+} from "../../shared/observation_specs";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
+import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
+import { getMergedSvg, transformCsvHeader } from "../../utils/tile_utils";
 import { fetchFacetsWithMetadata } from "../shared/metadata/metadata_fetcher";
 import { ToolChartFooter } from "../shared/vis_tools/tool_chart_footer";
 import { ToolChartHeader } from "../shared/vis_tools/tool_chart_header";
@@ -49,7 +59,7 @@ import {
   statDataFromModels,
   TimelineRawData,
 } from "./data_fetcher";
-import { setChartOption, setMetahash } from "./util";
+import { getMetahash, setChartOption, setMetahash } from "./util";
 
 const CHART_HEIGHT = 300;
 
@@ -62,11 +72,6 @@ interface ChartPropsType {
   // Whether the chart is on for the delta (increment) of the data.
   delta: boolean;
   removeStatVar: (statVar: string) => void;
-  onDataUpdate: (mprop: string, data: StatData) => void;
-  onMetadataMapUpdate: (
-    metadataMap: Record<string, Record<string, StatMetadata>>
-  ) => void;
-  // Map of stat var dcid to a facet id
   svFacetId: Record<string, string>;
 }
 
@@ -77,6 +82,7 @@ interface ChartStateType {
   facetList: FacetSelectorFacetInfo[];
   facetListLoading: boolean;
   facetListError: boolean;
+  isDataLoaded: boolean;
 }
 
 class Chart extends Component<ChartPropsType, ChartStateType> {
@@ -88,16 +94,24 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
   maxYear: string; // In the format of YYYY
   resizeObserver: ResizeObserver;
   dataCommonsClient: DataCommonsClient;
+  containerRef: RefObject<HTMLDivElement>;
+  embedModalElement: RefObject<ChartEmbed>;
 
   constructor(props: ChartPropsType) {
     super(props);
     this.svgContainer = React.createRef();
     this.denomInput = React.createRef();
+    this.containerRef = createRef();
+    this.embedModalElement = createRef();
     this.drawChart = this.drawChart.bind(this);
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.loadRawData = this.loadRawData.bind(this);
     this.processData = this.processData.bind(this);
     this.enrichFacets = this.enrichFacets.bind(this);
+    this.handleEmbed = this.handleEmbed.bind(this);
+    this.getStatVarSpecs = this.getStatVarSpecs.bind(this);
+    this.getDataCsv = this.getDataCsv.bind(this);
+    this.getObservationSpecs = this.getObservationSpecs.bind(this);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.minYear = urlParams.get("minYear");
@@ -109,6 +123,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       facetList: null,
       facetListLoading: false,
       facetListError: false,
+      isDataLoaded: false,
     };
     this.dataCommonsClient = new DataCommonsClient({
       surface: WEBSITE_SURFACE,
@@ -133,8 +148,45 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       svFacetId[sv] =
         sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
     }
+
+    // Prepare props for ChartEmbed.
+    const embedStatVarSpecs: StatVarSpec[] = [];
+    const embedStatVarToFacets: StatVarFacetMap = {};
+    if (this.state.isDataLoaded) {
+      for (const svDcid in this.props.statVarInfos) {
+        const svInfo = this.props.statVarInfos[svDcid];
+        const firstPlace = Object.keys(this.props.placeNameMap)[0];
+        const facetId = this.state.statData.data[svDcid][firstPlace]?.facet;
+        embedStatVarSpecs.push({
+          statVar: svDcid,
+          name: svInfo.title,
+          denom: this.props.pc ? this.props.denom : undefined,
+          facetId,
+          log: false,
+          scaling: undefined,
+          unit: undefined,
+        });
+        if (facetId) {
+          embedStatVarToFacets[svDcid] = new Set([facetId]);
+        }
+      }
+      // Get the denom for ChartEmbed
+      if (this.props.pc && this.props.denom) {
+        const firstPlace = Object.keys(this.props.placeNameMap)[0];
+        const denomFacetId =
+          this.state.rawData.statAllData[this.props.denom]?.[firstPlace]?.[0]
+            .facet;
+        if (denomFacetId) {
+          embedStatVarToFacets[this.props.denom] = new Set([denomFacetId]);
+        }
+      }
+    }
+
     return (
-      <div className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
+      <div
+        className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+        ref={this.containerRef}
+      >
         <ToolChartHeader
           svFacetId={svFacetId}
           facetList={this.state.facetList}
@@ -180,6 +232,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
             setChartOption(this.props.chartId, "pc", isPerCapita)
           }
+          handleEmbed={this.handleEmbed}
+          getObservationSpecs={this.getObservationSpecs}
+          containerRef={this.containerRef}
         >
           <span className="chart-option">
             <FormGroup check>
@@ -208,6 +263,14 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
             </FormGroup>
           </span>
         </ToolChartFooter>
+        {this.state.isDataLoaded && (
+          <ChartEmbed
+            ref={this.embedModalElement}
+            facets={this.state.statData.facets}
+            statVarSpecs={embedStatVarSpecs}
+            statVarToFacets={embedStatVarToFacets}
+          />
+        )}
       </div>
     );
   }
@@ -269,6 +332,62 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.processData();
   }
 
+  private handleEmbed(): void {
+    if (!this.embedModalElement.current) return;
+    const { svgXml, height, width } = getMergedSvg(this.containerRef.current);
+    const chartTitle = "";
+    this.embedModalElement.current.show(
+      svgXml,
+      this.getDataCsv,
+      width,
+      height,
+      "",
+      chartTitle,
+      "",
+      this.state.statData ? Array.from(this.state.statData.sources) : [],
+      WEBSITE_SURFACE
+    );
+  }
+
+  private getDataCsv(): Promise<string> {
+    const dataCommonsClient = getDataCommonsClient();
+    const statVarSpecs = this.getStatVarSpecs();
+    return dataCommonsClient.getCsvSeries({
+      entities: Object.keys(this.props.placeNameMap),
+      statVarSpecs,
+      variables: [],
+      transformHeader: transformCsvHeader,
+      fieldDelimiter: CSV_FIELD_DELIMITER,
+    });
+  }
+
+  private getStatVarSpecs(): StatVarSpec[] {
+    const statVarSpecs: StatVarSpec[] = [];
+    const statVars = Object.keys(this.props.statVarInfos);
+    const metahash = getMetahash();
+    for (const statVar of statVars) {
+      statVarSpecs.push({
+        statVar,
+        denom: this.props.pc ? this.props.denom : undefined,
+        name: this.props.statVarInfos[statVar]?.title,
+        facetId: metahash[statVar],
+        unit: undefined,
+        scaling: undefined,
+        log: false,
+      });
+    }
+    return statVarSpecs;
+  }
+
+  private getObservationSpecs(): ObservationSpec[] {
+    const statVarSpecs = this.getStatVarSpecs();
+    const options: ObservationSpecOptions = {
+      placeDcids: Object.keys(this.props.placeNameMap),
+      statVarSpecs,
+    };
+    return buildObservationSpecs(options);
+  }
+
   private handleWindowResize(): void {
     if (!this.svgContainer.current) {
       return;
@@ -306,8 +425,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
 
     try {
       const rawData = await fetchRawData(places, statVars, this.props.denom);
-      this.props.onMetadataMapUpdate(rawData.metadataMap);
-
       this.setState({ rawData }, () => {
         void this.enrichFacets(statVars, rawData.metadataMap);
       });
@@ -396,9 +513,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       }
       this.units = Array.from(units).sort();
     }
-
-    this.props.onDataUpdate(this.props.chartId, statData);
     this.setState({ statData, ipccModels });
+    if (!this.state.isDataLoaded) {
+      this.setState({ isDataLoaded: true });
+    }
   }
 
   /**

@@ -18,12 +18,9 @@ import _ from "lodash";
 import React, { Component } from "react";
 
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
-import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
-import { saveToFile } from "../../shared/util";
 import { getStatVarGroups } from "../../utils/app/timeline_utils";
 import { Chart } from "./chart";
-import { StatData } from "./data_fetcher";
 import {
   getChartOption,
   getDenom,
@@ -53,37 +50,8 @@ interface ChartRegionPropsType {
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
-  downloadLink: HTMLAnchorElement;
-  bulkDownloadLink: HTMLAnchorElement;
-  allStatData: { [key: string]: StatData };
-  // map of stat var dcid to map of metahash to source metadata
-  metadataMap: Record<string, Record<string, StatMetadata>>;
-
   constructor(props: ChartRegionPropsType) {
     super(props);
-    this.allStatData = {};
-    this.metadataMap = {};
-    this.downloadLink = document.getElementById(
-      "download-link"
-    ) as HTMLAnchorElement;
-    if (this.downloadLink) {
-      this.downloadLink.onclick = (): void => {
-        saveToFile("export.csv", this.createDataCsv(this.props.placeName));
-      };
-    }
-    this.bulkDownloadLink = document.getElementById(
-      "bulk-download-link"
-    ) as HTMLAnchorElement;
-    if (this.bulkDownloadLink) {
-      this.bulkDownloadLink.onclick = (): void => {
-        // Carry over hash params, which is used by the bulk download tool for
-        // stat var parsing.
-        window.location.href = window.location.href.replace(
-          "/timeline",
-          "/timeline/bulk_download"
-        );
-      };
-    }
   }
 
   render(): JSX.Element {
@@ -113,7 +81,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               pc={chartGroupInfo.chartIdToOptions[mprop].perCapita}
               denom={chartGroupInfo.chartIdToOptions[mprop].denom}
               delta={chartGroupInfo.chartIdToOptions[mprop].delta}
-              onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar): void => {
                 removeToken("statsVar", statVarSep, statVar);
                 setMetahash({ [statVar]: "" });
@@ -122,35 +89,11 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 getMetahash(),
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
-              onMetadataMapUpdate={(metadataMap): void => {
-                this.metadataMap = { ...this.metadataMap, ...metadataMap };
-              }}
-            ></Chart>
+            />
           );
-        }, this)}
+        })}
       </React.Fragment>
     );
-  }
-
-  componentWillUnmount(): void {
-    if (this.downloadLink) {
-      this.downloadLink.style.display = "none";
-    }
-    if (this.bulkDownloadLink) {
-      this.bulkDownloadLink.style.display = "none";
-    }
-  }
-
-  private onDataUpdate(groupId: string, data: StatData): void {
-    this.allStatData[groupId] = data;
-    const displayStyle =
-      Object.keys(this.allStatData).length > 0 ? "inline-block" : "none";
-    if (this.downloadLink) {
-      this.downloadLink.style.display = displayStyle;
-    }
-    if (this.bulkDownloadLink) {
-      this.bulkDownloadLink.style.display = displayStyle;
-    }
   }
 
   /**
@@ -182,60 +125,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       chartIdToStatVars: groups,
       chartOrder,
     };
-  }
-
-  private createDataCsv(placeNames: Record<string, string>): string {
-    // Get all the dates
-    let allDates = new Set<string>();
-    for (const mprop in this.allStatData) {
-      const statData = this.allStatData[mprop];
-      allDates = new Set([...Array.from(allDates), ...statData.dates]);
-    }
-    // Create the the header row.
-    const header = ["date"];
-    for (const mprop in this.allStatData) {
-      const statData = this.allStatData[mprop];
-      for (const place of statData.places) {
-        for (const sv of statData.statVars) {
-          header.push(`${place} ${sv}`);
-        }
-      }
-    }
-
-    // Iterate each year, group, place, stats var to populate data
-    const rows: string[][] = [];
-    for (const date of Array.from(allDates)) {
-      const row: string[] = [date];
-      for (const mprop in this.allStatData) {
-        const statData = this.allStatData[mprop];
-        for (const sv of statData.statVars) {
-          for (const place of statData.places) {
-            const tmp = statData.data[sv][place];
-            let val = "";
-            if (tmp && tmp.series) {
-              for (const obs of tmp.series) {
-                if (obs.date == date) {
-                  val = obs.value.toString();
-                  break;
-                }
-              }
-            }
-            row.push(val);
-          }
-        }
-      }
-      rows.push(row);
-    }
-    let headerRow = header.join(",") + "\n";
-    for (const dcid in placeNames) {
-      const re = new RegExp(dcid, "g");
-      headerRow = headerRow.replace(re, placeNames[dcid]);
-    }
-    let result = headerRow;
-    for (const row of rows) {
-      result += row.join(",") + "\n";
-    }
-    return result;
   }
 }
 

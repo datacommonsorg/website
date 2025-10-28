@@ -19,17 +19,20 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, RefObject, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
+import { ApiButton } from "../../../components/tiles/components/api_button";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_PARAM_TOOL_CHART_OPTION,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   triggerGAEvent,
 } from "../../../shared/ga_events";
+import { ObservationSpec } from "../../../shared/observation_specs";
 import { urlToDisplayText } from "../../../shared/util";
 
 interface ToolChartFooterProps {
@@ -47,6 +50,15 @@ interface ToolChartFooterProps {
   onIsPerCapitaUpdated?: (isPerCapita: boolean) => void;
   // children components
   children?: React.ReactNode;
+  // a function passed through from the chart that handles the task
+  // of creating the embedding used in the download functionality.
+  handleEmbed?: () => void;
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
+  // A ref to the chart container element.
+  containerRef?: RefObject<HTMLElement>;
 }
 
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
@@ -82,6 +94,29 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
                 props.mMethods.size > 1 ? "s" : ""
               }: ${mMethods}`}</span>
             </div>
+          )}
+          {props.handleEmbed && (
+            <span className="chart-option">
+              <span className="material-icons-outlined">download</span>
+              <a
+                href="#"
+                onClick={(e): void => {
+                  e.preventDefault();
+                  props.handleEmbed();
+                }}
+              >
+                {intl.formatMessage(messages.download)}
+              </a>
+            </span>
+          )}
+          {props.getObservationSpecs && (
+            <span className="chart-option">
+              <ApiButton
+                getObservationSpecs={props.getObservationSpecs}
+                containerRef={props.containerRef}
+                surface={WEBSITE_SURFACE}
+              />
+            </span>
           )}
         </div>
         <div
