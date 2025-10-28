@@ -13,7 +13,7 @@
 # use-partitioned-tables: tables grouped by day, which reduces storage costs.
 # project: your GCP project ID for the project where the logs are coming from.
 
-SINK_NAME="usage_log_sink"
+SINK_NAME="usage_logger"
 LOG_SOURCE_PROJECT_ID="datcom-website-prod"
 DESTINATION_DATASET="usage_logs"
 DESTINATION_TABLE="test_logger_script"

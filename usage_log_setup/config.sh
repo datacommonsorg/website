@@ -1,9 +1,9 @@
 ## Log Sink
 
 # The GCP project where your logs appear
-export LOG_SOURCE_PROJECT_ID="datcom-website-autopush"
+export LOG_SOURCE_PROJECT_ID="datcom-website-prod"
 # Name of the log sink that routes usage logs from Cloud Logging to BigQuery
-export SINK_NAME="usage-logs-to-bq"
+export SINK_NAME="usage_logger"
 # A description of the sink, optional
 export DESCRIPTION="routes usage logs to a bigquery table"
 # An attribute that only your logs have

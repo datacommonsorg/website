@@ -9,6 +9,7 @@ DESTINATION="bigquery.googleapis.com/projects/${DESTINATION_PROJECT_ID}/datasets
 # The destination dataset must exist before creating the sink. If it already exists, skip this step.
 # Note that this can be in a different GCP project than the one where the logs are coming from.
 # We don't manually define a table, because the logger will automatically create it with a schema based on the logs injested.
+# TODO: skip this if the dataset already exists
 bq --location=US mk \
     --dataset \
     --description="${DATASET_DESCRIPTION}" \
