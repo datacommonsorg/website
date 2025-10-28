@@ -152,6 +152,14 @@ function PrismRenderer({
   className,
 }: CodeBlockProps): React.JSX.Element {
   const highlighted = useMemo(() => {
+    /*
+      Out of the box, Prism provides CSV highlighting, distinguishing only
+      separators from values. We want to add the ability to distinguish strings
+      from other values so we can color them differently. The patch below adds
+      string to the CSV language, using a regex pattern that determines of the token
+      starts and ends with double-quotes, and contains no double-quotes inside ([^"])
+      unless they are escaped by doubling ("").
+     */
     if (
       language === "csv" &&
       Prism.languages.csv &&
@@ -187,7 +195,10 @@ function PrismRenderer({
       processedTokens = processTokenStream(tokens, termsRegex, termsSet);
     }
 
-    // If we are handling a CSV, we apply header tags to the first line
+    /*
+      In addition to the string detection patch above, we also augment CSVs to distinguish
+      the header. All tokens in teh first line will be given a "header" class.
+     */
     if (language === "csv") {
       let firstLine = true;
       for (const token of processedTokens) {
