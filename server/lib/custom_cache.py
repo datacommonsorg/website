@@ -24,12 +24,14 @@ def cache_and_log(timeout):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
+            print("Reaching cacheer!!!!")
             # Generate the cache key
-            key = cache.memoize_make_cache_key()(f, *args, **kwargs)
+            key = cache._memoize_make_cache_key()(f, *args, **kwargs)
             # Try to get the result from the cache
             cached_result = cache.get(key)
 
             if cached_result is not None:
+                print("cache hit: ", cached_result)
                 # Cache hit
                 try:
                     # TODO: Figure out what the unique ID is and how to get it
