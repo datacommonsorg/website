@@ -13,9 +13,9 @@
 # use-partitioned-tables: tables grouped by day, which reduces storage costs.
 # project: your GCP project ID for the project where the logs are coming from.
 
-SINK_NAME="testing_script"
-LOG_SOURCE_PROJECT_ID="datcom-website-dev"
-DESTINATION_DATASET="usage_logs_dataset"
+SINK_NAME="usage_log_sink"
+LOG_SOURCE_PROJECT_ID="datcom-website-prod"
+DESTINATION_DATASET="usage_logs"
 DESTINATION_TABLE="test_logger_script"
 
 DESTINATION="bigquery.googleapis.com/projects/${LOG_SOURCE_PROJECT_ID}/datasets/${DESTINATION_DATASET}/tables/${DESTINATION_TABLE}"
