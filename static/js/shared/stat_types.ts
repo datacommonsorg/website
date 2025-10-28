@@ -20,6 +20,7 @@
 
 // TODO (nick-next): combine this with the new FacetMetadata
 // TODO (nick-next): remove all duplicate types.
+// TODO (nick-next): comment the client library version to document that `StatMetadata` matches.
 
 export interface StatMetadata {
   importName?: string;
