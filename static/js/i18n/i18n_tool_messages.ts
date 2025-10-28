@@ -57,6 +57,20 @@ export const toolMessages = defineMessages({
     description:
       "label on a button that takes the user to a newer version of the Scatter Plot Explorer",
   },
+  scatterToolScatterChartTypeTooltip: {
+    id: "scatter_tool_scatter_chart_type_tooltip",
+    defaultMessage:
+      "Visualize the relationship between two statistical variables using a scatter plot",
+    description:
+      "Explanation of a chart type option that describes a scatter plot",
+  },
+  scatterToolBivariateChartTypeTooltip: {
+    id: "scatter_tool_bivariate_chart_type_tooltip",
+    defaultMessage:
+      "Visualize the geographical co-location of two statistical variables using a bivariate map",
+    description:
+      "Explanation of a chart type option that describes a bivariate map plot",
+  },
   timelineToolTitle: {
     id: "timeline_visualization_tool_name",
     defaultMessage: "Timelines Explorer",

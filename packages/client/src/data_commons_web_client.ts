@@ -138,16 +138,19 @@ class DataCommonsWebClient {
    * @param params.entities list of entitites to get data for
    * @param params.variables list of variables to get data for
    * @param params.date date to get the data for
+   * @param params.facetIds optional list of facetIds to filter data for
    */
   async getObservationsPoint(params: {
     date?: string;
     entities: string[];
     variables: string[];
+    facetIds?: string[];
   }): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
       date: params.date,
       entities: params.entities,
       variables: params.variables,
+      facetId: params.facetIds,
     });
     const url = `${this.apiRoot || ""}/api/observations/point?${queryString}`;
     const response = await fetch(url, this.options);
@@ -163,18 +166,21 @@ class DataCommonsWebClient {
    * @param params.parentEntity the parent entity of the entities to get data for
    * @param params.variables list of variables to get data for
    * @param params.date date to get the data for
+   * @param params.facetIds optional list of facetIds to filter data for
    */
   async getObservationsPointWithin(params: {
     parentEntity: string;
     childType: string;
     variables: string[];
     date?: string;
+    facetIds?: string[];
   }): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
       childType: params.childType,
       date: params.date,
       parentEntity: params.parentEntity,
       variables: params.variables,
+      facetIds: params.facetIds,
     });
     const url = `${
       this.apiRoot || ""
