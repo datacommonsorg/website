@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Custom cache definitions and functions."""
+"""Custom cache that logs mixer request IDs from cache hits"""
 
 import logging
 from functools import wraps
@@ -24,20 +24,19 @@ def cache_and_log(timeout):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            print("Reaching cacheer!!!!")
             # Generate the cache key
             key = cache._memoize_make_cache_key()(f, *args, **kwargs)
             # Try to get the result from the cache
             cached_result = cache.get(key)
 
             if cached_result is not None:
-                print("cache hit: ", cached_result)
                 # Cache hit
                 try:
-                    # TODO: Figure out what the unique ID is and how to get it
-                    unique_id = cached_result.get("debug", {}).get("id")
-                    if unique_id:
-                        logger.info(f"Cache hit for key {key} with unique ID {unique_id}")
+                    # NOTE: this is a fake ID but in theory would be added to the requests
+                    # it is a list of the request_ids for all mixer calls that contributed to the cached result
+                    unique_ids = cached_result.get("request_ids", {})
+                    for id in unique_ids:
+                        logger.info(f"Cache hit for key {key} with unique ID {id}")
                 except Exception as e:
                     logger.error(f"Error logging cache hit for key {key}: {e}")
                 return cached_result
