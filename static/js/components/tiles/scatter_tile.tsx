@@ -315,25 +315,24 @@ function getDataCsvCallback(
     // Assume both variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
-    const perCapitaVariables = [
+    const clientStatVarSpecs = [
       scatterChartData.xStatVar,
       scatterChartData.yStatVar,
-    ].map((v) => (v.denom ? v.statVar : ""));
+    ];
+
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
+
     return dataCommonsClient.getCsv({
       childType: props.enclosedPlaceType,
       date,
       entityProps,
       fieldDelimiter: CSV_FIELD_DELIMITER,
       parentEntity: props.place.dcid,
-      perCapitaVariables: _.uniq(perCapitaVariables),
       transformHeader: transformCsvHeader,
-      variables: [
-        scatterChartData.xStatVar.statVar,
-        scatterChartData.yStatVar.statVar,
-      ],
+      statVarSpecs: clientStatVarSpecs,
+      variables: [],
     });
   };
 }
