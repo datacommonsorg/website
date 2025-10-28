@@ -15,6 +15,7 @@
  */
 
 import { css, ThemeProvider } from "@emotion/react";
+import _ from "lodash";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Container } from "reactstrap";
 
@@ -52,6 +53,8 @@ interface PageStateType {
   statVarInfo: Record<string, StatVarInfo>;
   // Whether the SV Hierarchy Modal is opened.
   showSvHierarchyModal: boolean;
+  // Whether the SV Hierarchy sidebar is collapsed.
+  statVarWidgetIsCollapsed: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
@@ -65,6 +68,7 @@ class Page extends Component<unknown, PageStateType> {
       placeName: {},
       statVarInfo: {},
       showSvHierarchyModal: false,
+      statVarWidgetIsCollapsed: true,
     };
     // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
     // menu but reattached to the modal when it is opened on small screens.
@@ -75,9 +79,24 @@ class Page extends Component<unknown, PageStateType> {
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
+  setStatVarWidgetIsCollapsed = (isCollapsed: boolean): void => {
+    this.setState({ statVarWidgetIsCollapsed: isCollapsed });
+  };
+
   componentDidMount(): void {
     window.addEventListener("hashchange", this.fetchDataAndRender);
     this.fetchDataAndRender();
+  }
+
+  componentDidUpdate(_prevProps: unknown, prevState: PageStateType): void {
+    if (this.state.placeName !== prevState.placeName) {
+      if (!_.isEmpty(this.state.placeName)) {
+        // Show stat var widget if a place is selected
+        this.setStatVarWidgetIsCollapsed(false);
+      } else {
+        this.setStatVarWidgetIsCollapsed(true);
+      }
+    }
   }
 
   render(): ReactElement {
@@ -116,7 +135,6 @@ class Page extends Component<unknown, PageStateType> {
 
     const showStatVarInstructions = numPlaces !== 0 && numStatVarInfo === 0;
     const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
-
     return (
       <ThemeProvider theme={theme}>
         <StatVarWidget
@@ -130,6 +148,8 @@ class Page extends Component<unknown, PageStateType> {
           selectSV={(sv): void =>
             addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
           }
+          isCollapsedOverride={this.state.statVarWidgetIsCollapsed}
+          setIsCollapsedOverride={this.setStatVarWidgetIsCollapsed}
         />
         <div id="plot-container">
           <Container fluid={true}>
