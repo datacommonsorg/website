@@ -86,16 +86,20 @@ class TestExplorePage(ExplorePageTestMixin, BaseDcWebdriverTest):
 
     shared.wait_for_loading(self.driver)
 
-    # Isolate the "Categories of Jobs" bar chart
-    all_chart_blocks = find_elems(self.driver, By.CLASS_NAME, 'block.subtopic')
-    chart_block = None
-    for block in all_chart_blocks:
-      header = find_elem(block, By.TAG_NAME, 'h3')
-      if header and header.text == "Categories of Jobs":
-        chart_block = block
-        break
-    self.assertIsNotNone(
-        chart_block, "Could not find the 'Categories of Jobs' chart block.")
+    def categories_of_jobs_block_present(driver):
+      """Look for the Categories of Jobs block"""
+      all_chart_blocks = find_elems(driver, By.CLASS_NAME, 'block.subtopic')
+      chart_block = None
+      for block in all_chart_blocks:
+        header = find_elem(block, By.TAG_NAME, 'h3')
+        if header and header.text == "Categories of Jobs":
+          chart_block = block
+          break
+      return chart_block or False
+
+    # Wait for 'Categories of Jobs' block to be present
+    chart_block = WebDriverWait(
+        self.driver, self.TIMEOUT_SEC).until(categories_of_jobs_block_present)
 
     # Check metadata before choosing a facet
     sources_div_before = find_elem(chart_block,

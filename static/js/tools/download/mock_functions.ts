@@ -200,7 +200,10 @@ export function axiosMock(): void {
 
   // get places in for counties in geoId/06
   when(axios.get)
-    .calledWith("/api/place/descendent?dcids=geoId/06&descendentType=County")
+    .calledWith(
+      "/api/place/descendent?dcids=geoId/06&descendentType=County",
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         "geoId/06": ["geoId/06001", "geoId/06002"],
