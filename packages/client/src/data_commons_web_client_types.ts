@@ -18,6 +18,10 @@
  * Interface definitions supporting DataCommonsWebClient
  */
 
+/*
+  StatVarSpec has a corresponding interface in: static/js/shared/types.ts
+  When updating this interface, update its corresponding definition to match.
+ */
 export interface StatVarSpec {
   statVar: string;
   denom: string;
