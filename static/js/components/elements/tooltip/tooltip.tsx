@@ -46,9 +46,9 @@
  *
  * Note: When the tooltip trigger is an element with primary click
  * functionality (such as a button or a link), it is recommended to set
- * `disableTouchListener` to true to prevent the tooltip from
- * interfering with the element's primary action on touch devices. When
- * using this approach, ensure the tooltip content is non-critical.
+ * `longPress` to true. On touch, the tooltip appears while the user
+ * presses and hides on release (no close button or persistence), so it
+ * won’t interfere with the primary action.
  *
  * Descriptions of the options available can be found in the comments
  * annotating the interface for the tooltip.
@@ -66,10 +66,10 @@
  * </Tooltip>
  *
  * // Tooltip with button trigger
- * // Touch popovers are disabled as the button has its own action
+ * // Touch tooltips are set to longPress as the button has its own action
  * <Tooltip
  *   title="This is a button"
- *   disableTouchListener
+ *   longPress
  * >
  *   <button onClick={(): void => console.log("click")}>
  *     Hover me
@@ -186,6 +186,13 @@ interface TooltipProps {
   followCursor?: boolean;
   // Whether to show the arrow. Defaults to false.
   showArrow?: boolean;
+  // If true, the tooltip will only open on touch devices via a long press.
+  // This is useful when the trigger element has its own primary click action.
+  // This should not be combined with disableTouchListener. If both are set,
+  // touch will not open the tooltip.
+  longPress?: boolean;
+  // The delay in ms to wait for a long press. Defaults to 500ms.
+  longPressDelay?: number;
   // Touch events do not open the tooltip if true. Default false. This can be used to
   // suppress touch opening the tooltip when the tooltip is an action.
   disableTouchListener?: boolean;
@@ -228,6 +235,7 @@ const TOOLTIP_DEFAULT_ANIMATION_DURATION = 150;
 const TOOLTIP_DEFAULT_ANIMATION_DISTANCE = 5;
 const TOOLTIP_DEFAULT_CLOSE_DELAY = 0;
 const TOOLTIP_DEFAULT_TRIGGER_BUFFER = 10;
+const TOOLTIP_DEFAULT_LONG_PRESS_DELAY = 500;
 
 /**
  * The tooltip box that appears when the user activates
@@ -584,13 +592,16 @@ function createTriggerNode({
   popoverMode,
   wrapperComponent,
   triggerRef,
-  handleMouseEnter,
+  handlePointerEnter,
   handleMouseMove,
-  handleTriggerMouseLeave,
+  handleTriggerPointerLeave,
   handleFocus,
   handleBlur,
   handleTouchStart,
   handleClick,
+  handleTouchMove,
+  handleTouchEnd,
+  handleContextMenu,
   handleTriggerKeyDown,
   triggerCss,
 }: {
@@ -599,13 +610,16 @@ function createTriggerNode({
   popoverMode: boolean;
   wrapperComponent?: React.ElementType;
   triggerRef: (node: HTMLDivElement | null) => void;
-  handleMouseEnter: () => void;
+  handlePointerEnter: (e: React.PointerEvent<HTMLDivElement>) => void;
   handleMouseMove: (e: ReactMouseEvent<HTMLDivElement>) => void;
-  handleTriggerMouseLeave: (e: ReactMouseEvent<HTMLDivElement>) => void;
+  handleTriggerPointerLeave: (e: React.PointerEvent<HTMLDivElement>) => void;
   handleFocus: () => void;
   handleBlur: (e: React.FocusEvent<HTMLDivElement>) => void;
   handleTouchStart: () => void;
   handleClick: () => void;
+  handleTouchMove: () => void;
+  handleTouchEnd: () => void;
+  handleContextMenu: (e: ReactMouseEvent<HTMLDivElement>) => void;
   handleTriggerKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
   triggerCss?: Interpolation<Theme>;
 }): ReactElement {
@@ -625,23 +639,32 @@ function createTriggerNode({
     return React.cloneElement(triggerChild, {
       ref: triggerRef,
       css: triggerCss,
-      onMouseEnter: mergeHandlers(
-        triggerChild.props.onMouseEnter,
-        handleMouseEnter
+      onPointerEnter: mergeHandlers(
+        triggerChild.props.onPointerEnter,
+        handlePointerEnter
       ),
       onMouseMove: mergeHandlers(
         triggerChild.props.onMouseMove,
         handleMouseMove
       ),
-      onMouseLeave: mergeHandlers(
-        triggerChild.props.onMouseLeave,
-        handleTriggerMouseLeave
+      onPointerLeave: mergeHandlers(
+        triggerChild.props.onPointerLeave,
+        handleTriggerPointerLeave
       ),
       onFocus: mergeHandlers(triggerChild.props.onFocus, handleFocus),
       onBlur: mergeHandlers(triggerChild.props.onBlur, handleBlur),
       onTouchStart: mergeHandlers(
         triggerChild.props.onTouchStart,
         handleTouchStart
+      ),
+      onTouchMove: mergeHandlers(
+        triggerChild.props.onTouchMove,
+        handleTouchMove
+      ),
+      onTouchEnd: mergeHandlers(triggerChild.props.onTouchEnd, handleTouchEnd),
+      onContextMenu: mergeHandlers(
+        triggerChild.props.onContextMenu,
+        handleContextMenu
       ),
       onClick: mergeHandlers(triggerChild.props.onClick, handleClick),
       onKeyDown: mergeHandlers(
@@ -661,13 +684,16 @@ function createTriggerNode({
           },
           triggerCss,
         ]}
-        onMouseEnter={handleMouseEnter}
+        onPointerEnter={handlePointerEnter}
         onMouseMove={handleMouseMove}
-        onMouseLeave={handleTriggerMouseLeave}
+        onPointerLeave={handleTriggerPointerLeave}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onTouchStart={handleTouchStart}
         onClick={handleClick}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onContextMenu={handleContextMenu}
         onKeyDown={handleTriggerKeyDown}
         tabIndex={0}
       >
@@ -689,6 +715,8 @@ export const Tooltip = ({
   placement,
   followCursor = false,
   showArrow = false,
+  longPress = false,
+  longPressDelay = TOOLTIP_DEFAULT_LONG_PRESS_DELAY,
   disableTouchListener = false,
   skidding,
   distance,
@@ -744,6 +772,8 @@ export const Tooltip = ({
 
   const closeTimeoutRef = useRef<number | null>(null);
   const unmountTimeoutRef = useRef<number | null>(null);
+  const longPressTimerRef = useRef<number | null>(null);
+  const suppressClickRef = useRef<boolean>(false);
 
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const tooltipBoxRef = useRef<HTMLDivElement | null>(null);
@@ -803,6 +833,21 @@ export const Tooltip = ({
     }
   }, []);
 
+  const clearLongPressTimer = useCallback(() => {
+    if (longPressTimerRef.current !== null) {
+      window.clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      clearCloseTimeout();
+      clearUnmountTimeout();
+      clearLongPressTimer();
+    };
+  }, [clearCloseTimeout, clearUnmountTimeout, clearLongPressTimer]);
+
   const handleOpen = useCallback(
     (asPopover = false): void => {
       clearCloseTimeout();
@@ -823,6 +868,7 @@ export const Tooltip = ({
   const handleClose = useCallback((): void => {
     clearCloseTimeout();
     clearUnmountTimeout();
+    clearLongPressTimer();
 
     const isPopover = openAsPopover || popoverMode;
 
@@ -840,6 +886,7 @@ export const Tooltip = ({
   }, [
     clearCloseTimeout,
     clearUnmountTimeout,
+    clearLongPressTimer,
     effectiveFadeDuration,
     effectiveAnimationDuration,
     openAsPopover,
@@ -880,12 +927,24 @@ export const Tooltip = ({
   /*
    * Mouse and touch event handlers
    */
-  const handleMouseEnter = useCallback((): void => {
-    if (isTouch) return;
-    if (!popoverMode) {
-      handleOpen();
-    }
-  }, [isTouch, popoverMode, handleOpen]);
+  const handlePointerEnter = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>): void => {
+      // we need to check that we aren't on touch (to prevent browser emulated events
+      // from opening the tooltip on tap).
+      if (e.pointerType !== "mouse" && e.pointerType !== "pen") {
+        return;
+      }
+
+      if (longPressTimerRef.current !== null) {
+        return;
+      }
+
+      if (!popoverMode) {
+        handleOpen();
+      }
+    },
+    [popoverMode, handleOpen]
+  );
 
   const handleMouseMove = useCallback(
     (e: ReactMouseEvent<HTMLDivElement>) => {
@@ -902,8 +961,8 @@ export const Tooltip = ({
     [effectiveFollowCursor, refs, update]
   );
 
-  const handleTriggerMouseLeave = useCallback(
-    (e: ReactMouseEvent<HTMLDivElement>) => {
+  const handleTriggerPointerLeave = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
       if (popoverMode || openAsPopover) return;
 
       if (effectiveFollowCursor) {
@@ -930,8 +989,8 @@ export const Tooltip = ({
     ]
   );
 
-  const handleTooltipMouseLeave = useCallback(
-    (e: ReactMouseEvent<HTMLDivElement>) => {
+  const handleTooltipPointerLeave = useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
       if (popoverMode) return;
 
       if (
@@ -975,18 +1034,81 @@ export const Tooltip = ({
 
   const handleTouchStart = useCallback((): void => {
     if (disableTouchListener) return;
-
-    if (openAsPopover) {
-      handleClose();
-    } else {
-      handleOpen(true);
+    if (!longPress) {
+      if (openAsPopover) {
+        handleClose();
+      } else {
+        handleOpen(true);
+      }
+      return;
     }
-  }, [disableTouchListener, openAsPopover, handleClose, handleOpen]);
+
+    // at this point we know we are in long press mode, and we start the timer
+    clearLongPressTimer();
+    suppressClickRef.current = false;
+    longPressTimerRef.current = window.setTimeout(() => {
+      // we don't want the click event to trigger (that follows the lifting of the finger)
+      suppressClickRef.current = true;
+      handleOpen(false);
+      longPressTimerRef.current = null;
+    }, longPressDelay);
+  }, [
+    disableTouchListener,
+    longPress,
+    openAsPopover,
+    handleClose,
+    handleOpen,
+    clearLongPressTimer,
+    longPressDelay,
+  ]);
+
+  const handleTouchMove = useCallback(() => {
+    if (!longPress) return;
+    clearLongPressTimer();
+  }, [longPress, clearLongPressTimer]);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!longPress) return;
+
+    clearLongPressTimer();
+    handleClose();
+  }, [longPress, clearLongPressTimer, handleClose]);
+
+  const handleContextMenu = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (longPress) {
+        e.preventDefault();
+      }
+    },
+    [longPress]
+  );
 
   const handleClick = useCallback((): void => {
     if (!popoverMode || isTouch) return;
     open ? handleClose() : handleOpen(true);
   }, [popoverMode, isTouch, open, handleClose, handleOpen]);
+
+  /*
+   * This effect intercepts the onclick and, after a long press, allows
+   * us to suppress the click event that would have otherwise happened.
+   */
+  useEffect(() => {
+    const trigger = triggerRef.current;
+    if (!trigger || !longPress) return;
+
+    const suppressClick = (e: MouseEvent): void => {
+      if (suppressClickRef.current) {
+        e.preventDefault();
+        e.stopPropagation();
+        suppressClickRef.current = false;
+      }
+    };
+
+    trigger.addEventListener("click", suppressClick, { capture: true });
+    return () => {
+      trigger.removeEventListener("click", suppressClick, { capture: true });
+    };
+  }, [longPress, suppressClickRef]);
 
   /*
    * Keyboard interaction handlers
@@ -1118,13 +1240,16 @@ export const Tooltip = ({
     popoverMode,
     wrapperComponent,
     triggerRef: mergedReferenceRef,
-    handleMouseEnter,
+    handlePointerEnter,
     handleMouseMove,
-    handleTriggerMouseLeave,
+    handleTriggerPointerLeave,
     handleFocus,
     handleBlur,
     handleTouchStart,
     handleClick,
+    handleTouchMove,
+    handleTouchEnd,
+    handleContextMenu,
     handleTriggerKeyDown,
     triggerCss,
   });
@@ -1161,7 +1286,7 @@ export const Tooltip = ({
             ref={mergedFloatingRef}
             role="tooltip"
             onKeyDown={handleTooltipKeyDown}
-            onMouseLeave={handleTooltipMouseLeave}
+            onPointerLeave={handleTooltipPointerLeave}
             $maxWidth={effectiveMaxWidth}
             $placement={computedPlacement}
             $visible={open}

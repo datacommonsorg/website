@@ -113,7 +113,7 @@ export const DemoTooltips = (): ReactElement => {
               </p>
             </>
           }
-          disableTouchListener
+          longPress
         >
           <button
             onClick={(): void => console.log("click")}
@@ -140,7 +140,7 @@ export const DemoTooltips = (): ReactElement => {
         <h4>Description:</h4>
         <p>
           A button that can be hovered, with a rich content tooltip. The button
-          has an action on click, so touch popovers are disabled.
+          has an action on click, so touch popovers are set to long-press.
         </p>
         <h4>Details:</h4>
         <ul>
@@ -151,7 +151,7 @@ export const DemoTooltips = (): ReactElement => {
             <strong>Content:</strong> HTML (React) Element
           </li>
           <li>
-            <strong>disableTouchListener:</strong> true
+            <strong>longPress:</strong> true
           </li>
         </ul>
       </div>
@@ -176,7 +176,7 @@ export const DemoTooltips = (): ReactElement => {
         <h4>Description:</h4>
         <p>
           A button that can be hovered, with a rich content tooltip. The button
-          has an action on click, so touch popovers are disabled.
+          has an action on click, so touch popovers are set to long-press.
         </p>
         <h4>Details:</h4>
         <ul>
@@ -191,6 +191,9 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>cursor:</strong> default
+          </li>
+          <li>
+            <strong>longPress:</strong> true
           </li>
         </ul>
       </div>

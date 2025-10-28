@@ -150,7 +150,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
           title={intl.formatMessage(
             toolMessages.scatterToolScatterChartTypeTooltip
           )}
-          disableTouchListener
+          longPress
         >
           <Button
             id="scatter-chart-type-selector-scatter"
@@ -168,7 +168,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
           title={intl.formatMessage(
             toolMessages.scatterToolBivariateChartTypeTooltip
           )}
-          disableTouchListener
+          longPress
         >
           <Button
             id="scatter-chart-type-selector-map"
