@@ -30,6 +30,7 @@ def cache_and_log(timeout):
             cached_result = cache.get(key)
 
             if cached_result is not None:
+                print("cache hit! result: ", cached_result)
                 # Cache hit
                 try:
                     # NOTE: this is a fake ID but in theory would be added to the requests
@@ -42,6 +43,7 @@ def cache_and_log(timeout):
                 return cached_result
 
             # Cache miss
+            print("cache miss")
             result = f(*args, **kwargs)
             cache.set(key, result, timeout=timeout)
             return result
