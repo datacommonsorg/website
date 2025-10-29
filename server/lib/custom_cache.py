@@ -33,8 +33,7 @@ def cache_and_log(timeout):
                 # print("cache hit! result: ", cached_result.get("requestId", {}))
                 # Cache hit
                 try:
-                    # NOTE: this is a fake ID but in theory would be added to the requests
-                    # it is a list of the request_ids for all mixer calls that contributed to the cached result
+                    # NOTE: this will eventually be a list if we expand the cache to other places that use multiple requests
                     unique_id = cached_result.get("requestId", {})
                     # for id in unique_ids:
                     if unique_id:
