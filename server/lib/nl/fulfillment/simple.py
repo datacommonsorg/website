@@ -39,6 +39,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   # Do not mutate the original.
   chart_vars = copy.deepcopy(chart_vars)
+  # Just a comment.
 
   is_special_dc = params.is_special_dc(state.uttr.insight_ctx)
 
