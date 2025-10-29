@@ -59,6 +59,7 @@ $resize-handle-width: 5px;
   flex-shrink: 0;
   letter-spacing: 0;
   position: relative;
+  transition: width $transition-animation;
   width: $widget-min-width;
 }
 
@@ -93,7 +94,6 @@ $resize-handle-width: 5px;
 }
 
 .explore-menu-container.collapsed {
-  transition: width $transition-animation;
   width: 0 !important;
   #explore-menu-toggle {
     transition: right $transition-animation;

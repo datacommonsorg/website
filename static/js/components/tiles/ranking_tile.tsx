@@ -250,17 +250,15 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         // Assume all variables will have the same date
         // TODO: Update getCsv to handle multiple dates
         const date = getFirstCappedStatVarSpecDate(props.variables);
-        const perCapitaVariables = props.variables
-          .filter((v) => v.denom)
-          .map((v) => v.statVar);
+
         return dataCommonsClient.getCsv({
           childType: props.enclosedPlaceType,
           date,
           fieldDelimiter: CSV_FIELD_DELIMITER,
           parentEntity: props.parentPlace,
-          perCapitaVariables,
           transformHeader: transformCsvHeader,
-          variables: props.variables.map((v) => v.statVar),
+          statVarSpecs: props.variables,
+          variables: [],
         });
       },
       chartWidth,

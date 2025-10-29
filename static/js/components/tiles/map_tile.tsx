@@ -410,10 +410,8 @@ export function MapTile(props: MapTilePropType): ReactElement {
               date,
               entityProps,
               parentEntity,
-              perCapitaVariables: props.statVarSpec.denom
-                ? [props.statVarSpec.statVar]
-                : undefined,
-              variables: [layer.variable.statVar],
+              variables: [],
+              statVarSpecs: [layer.variable],
             }))
           );
         }
