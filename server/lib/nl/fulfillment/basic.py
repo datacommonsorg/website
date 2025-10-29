@@ -115,7 +115,8 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
       # TODO(gmechali): Refactor this code for more explicit logic.
       # The is_chart_injection check is to avoid showing the related contained-in
       # chart when the user has asked for a specific chart.
-      if is_map_with_ranking_highlight or state.ranking_types or (not is_chart_injection and not is_special_dc):
+      if is_map_with_ranking_highlight or state.ranking_types or (
+          not is_chart_injection and not is_special_dc):
         ranking_orig = state.ranking_types
         if not state.ranking_types:
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]
