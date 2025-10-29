@@ -32,10 +32,11 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
   chart_type = state.uttr.insight_ctx.get(params.Params.CHART_TYPE)
 
-  is_highlight = bool(chart_type) if chart_type else False
+  # Configurations to specify whether to inject a Timeline chart.
+  is_chart_injection = bool(chart_type) if chart_type else False
   is_timeline_highlight = ChartType.from_string(
       chart_type
-  ) == ChartType.TIMELINE_WITH_HIGHLIGHT if is_highlight else False
+  ) == ChartType.TIMELINE_WITH_HIGHLIGHT if is_chart_injection else False
 
   if not state.uttr.svs and not state.uttr.places:
     # If both the SVs and places are empty, then do not attempt to fulfill.
@@ -84,7 +85,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                                   chart_origin,
                                   sv_place_facet=sv_place_facet,
                                   sv_place_latest_date=sv_place_latest_date)
-  elif not is_highlight or is_timeline_highlight:
+  elif not is_chart_injection or is_timeline_highlight:
     # If its not a peer-group add one chart at a time.
     added = False
     all_svs = copy.deepcopy(chart_vars.svs)
