@@ -200,7 +200,7 @@ class ExplorePageTestMixin():
                               'highlight-result-title')
     map_tile = find_elem(highlight_div, By.CLASS_NAME, 'map-chart')
     self.assertIsNotNone(map_tile)
-    
+
     ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile-chart')
     self.assertIsNotNone(ranking_tile)
 
