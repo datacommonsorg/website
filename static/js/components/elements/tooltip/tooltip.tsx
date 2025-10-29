@@ -603,6 +603,7 @@ function createTriggerNode({
   handleTouchEnd,
   handleContextMenu,
   handleTriggerKeyDown,
+  longPress,
   triggerCss,
 }: {
   children: ReactNode;
@@ -621,8 +622,18 @@ function createTriggerNode({
   handleTouchEnd: () => void;
   handleContextMenu: (e: ReactMouseEvent<HTMLDivElement>) => void;
   handleTriggerKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
+  longPress: boolean;
   triggerCss?: Interpolation<Theme>;
 }): ReactElement {
+  // these long press styles prevent clashing mobile behavior when the user holds a sustained press.
+  const longPressStyles = longPress
+    ? {
+        WebkitTouchCallout: "none",
+        userSelect: "none",
+        WebkitUserSelect: "none",
+      }
+    : {};
+
   let triggerChild: ReactElement;
 
   if (typeof children === "string" || typeof children === "number") {
@@ -638,7 +649,7 @@ function createTriggerNode({
   if (isTriggerFocusable(triggerChild)) {
     return React.cloneElement(triggerChild, {
       ref: triggerRef,
-      css: triggerCss,
+      css: [longPressStyles, triggerCss],
       onPointerEnter: mergeHandlers(
         triggerChild.props.onPointerEnter,
         handlePointerEnter
@@ -682,6 +693,7 @@ function createTriggerNode({
             display: "inline-flex",
             cursor: cursor ? cursor : popoverMode ? "pointer" : "inherit",
           },
+          longPressStyles,
           triggerCss,
         ]}
         onPointerEnter={handlePointerEnter}
@@ -1251,6 +1263,7 @@ export const Tooltip = ({
     handleTouchEnd,
     handleContextMenu,
     handleTriggerKeyDown,
+    longPress,
     triggerCss,
   });
 
