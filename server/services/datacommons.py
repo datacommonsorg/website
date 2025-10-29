@@ -110,9 +110,9 @@ def post_wrapper(url, req_str: str, headers_str: str | None = None):
         "An HTTP {} code ({}) was returned by the mixer:\n{}".format(
             response.status_code, response.reason,
             response.json()["message"]))
-  if "observation" in url:
-    print("raw response text: ", response.text)
-    print("response: ",response.json())
+  # if "observation" in url:
+  #   print("raw response text: ", response.text)
+  #   print("response: ",response.json())
   return response.json()
 
 

@@ -30,14 +30,15 @@ def cache_and_log(timeout):
             cached_result = cache.get(key)
 
             if cached_result is not None:
-                print("cache hit! result: ", cached_result)
+                # print("cache hit! result: ", cached_result.get("requestId", {}))
                 # Cache hit
                 try:
                     # NOTE: this is a fake ID but in theory would be added to the requests
                     # it is a list of the request_ids for all mixer calls that contributed to the cached result
-                    unique_ids = cached_result.get("request_ids", {})
-                    for id in unique_ids:
-                        logger.info(f"Cache hit for key {key} with unique ID {id}")
+                    unique_id = cached_result.get("requestId", {})
+                    # for id in unique_ids:
+                    if unique_id:
+                        logger.info(f"Cache hit for key {key} with unique ID {unique_id}")
                 except Exception as e:
                     logger.error(f"Error logging cache hit for key {key}: {e}")
                 return cached_result
