@@ -25,8 +25,18 @@
  * By default:
  * - On desktop devices: behaves as a standard tooltip that appears
  *   on hover
- * - On touch devices: behaves as a popover that appears on tap and
- *   includes a close button
+ * - On touch devices (standard): behaves as a popover that appears on
+ *   tap and includes a close button
+ * - On touch devices (action): if a tooltip trigger contains a primary
+ *   click action (it is a button, a link or contains a click event),
+ *   then on touch screens, this will be rendered as a standard tooltip
+ *   that opens on a long press.
+ *
+ * The touch screen's long press defaults can be overridden by
+ * explicit use of the `triggerTouchOnLongPress` prop (by which you can turn
+ * long press interaction on for a regular tooltip or off for a primary action
+ * tooltip). While this is possible to do, the default functionality is recommended
+ * unless there is a very specific use-case.
  *
  * The component can be explicitly set to "popover" mode, thereby
  * behaving as a popover on all devices.
@@ -44,12 +54,6 @@
  * the tooltip is in "followCursor" mode, as by design the mouse can
  * never enter the tooltip.
  *
- * Note: When the tooltip trigger is an element with primary click
- * functionality (such as a button or a link), it is recommended to set
- * `longPress` to true. On touch, the tooltip appears while the user
- * presses and hides on release (no close button or persistence), so it
- * won’t interfere with the primary action.
- *
  * Descriptions of the options available can be found in the comments
  * annotating the interface for the tooltip.
  *
@@ -66,10 +70,9 @@
  * </Tooltip>
  *
  * // Tooltip with button trigger
- * // Touch tooltips are set to longPress as the button has its own action
+ * // Touch tooltips are set to trigger on long press as the button has its own action
  * <Tooltip
  *   title="This is a button"
- *   longPress
  * >
  *   <button onClick={(): void => console.log("click")}>
  *     Hover me
@@ -190,7 +193,7 @@ interface TooltipProps {
   // This is useful when the trigger element has its own primary click action.
   // This should not be combined with disableTouchListener. If both are set,
   // touch will not open the tooltip.
-  longPress?: boolean;
+  triggerTouchOnLongPress?: boolean;
   // The delay in ms to wait for a long press. Defaults to 500ms.
   longPressDelay?: number;
   // Touch events do not open the tooltip if true. Default false. This can be used to
@@ -415,6 +418,24 @@ function isTriggerFocusable(child: ReactNode): boolean {
 }
 
 /**
+ * Check if the trigger element is an "action" element, meaning it has
+ * a primary click behavior (like a button, link, or has an onClick).
+ */
+function isActionTrigger(child: React.ReactElement): boolean {
+  const props = child.props || {};
+
+  if (child.type === "button") {
+    return true;
+  }
+
+  if (child.type === "a" && !!props.href) {
+    return true;
+  }
+
+  return !!props.onClick;
+}
+
+/**
  * Gets all focusable elements in a node (used for managing tabbing into
  * the tooltip)
  */
@@ -603,7 +624,7 @@ function createTriggerNode({
   handleTouchEnd,
   handleContextMenu,
   handleTriggerKeyDown,
-  longPress,
+  triggerTouchOnLongPress,
   triggerCss,
 }: {
   children: ReactNode;
@@ -622,11 +643,11 @@ function createTriggerNode({
   handleTouchEnd: () => void;
   handleContextMenu: (e: ReactMouseEvent<HTMLDivElement>) => void;
   handleTriggerKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
-  longPress: boolean;
+  triggerTouchOnLongPress: boolean;
   triggerCss?: Interpolation<Theme>;
 }): ReactElement {
   // these long press styles prevent clashing mobile behavior when the user holds a sustained press.
-  const longPressStyles = longPress
+  const longPressStyles = triggerTouchOnLongPress
     ? {
         WebkitTouchCallout: "none",
         userSelect: "none",
@@ -727,7 +748,7 @@ export const Tooltip = ({
   placement,
   followCursor = false,
   showArrow = false,
-  longPress = false,
+  triggerTouchOnLongPress,
   longPressDelay = TOOLTIP_DEFAULT_LONG_PRESS_DELAY,
   disableTouchListener = false,
   skidding,
@@ -744,6 +765,13 @@ export const Tooltip = ({
   arrowProps,
 }: TooltipProps): ReactElement => {
   const tooltipId = useUniqueId("tooltip");
+
+  let isAction = false;
+  if (React.isValidElement(children)) {
+    isAction = isActionTrigger(children);
+  }
+
+  const longPress = triggerTouchOnLongPress ?? isAction;
 
   const popoverMode = mode === "popover";
   const isTouch = isTouchDevice();
@@ -1263,7 +1291,7 @@ export const Tooltip = ({
     handleTouchEnd,
     handleContextMenu,
     handleTriggerKeyDown,
-    longPress,
+    triggerTouchOnLongPress: longPress,
     triggerCss,
   });
 

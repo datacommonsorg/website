@@ -150,7 +150,6 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
           title={intl.formatMessage(
             toolMessages.scatterToolScatterChartTypeTooltip
           )}
-          longPress
         >
           <Button
             id="scatter-chart-type-selector-scatter"
@@ -168,7 +167,6 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
           title={intl.formatMessage(
             toolMessages.scatterToolBivariateChartTypeTooltip
           )}
-          longPress
         >
           <Button
             id="scatter-chart-type-selector-map"
