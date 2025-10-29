@@ -173,7 +173,7 @@ class ExplorePageTestMixin():
 
   def test_highlight_chart_us_states_gdp_ranking_with_map(self):
     """Test the highlight chart for Population ranking with map of US States."""
-    highlight_params = "sv=Count_Person&p=country/USA&imp=USCensusPEP_Annual_Population&mm=CensusPEPSurvey&obsPer=P1Y&chartType=RANKING_WITH_MAP"
+    highlight_params = "#sv=Count_Person&p=country/USA&imp=USCensusPEP_Annual_Population&mm=CensusPEPSurvey&obsPer=P1Y&chartType=RANKING_WITH_MAP"
     self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
 
     shared.wait_for_loading(self.driver)
