@@ -17,7 +17,9 @@
 /**
  * Footer for charts created by the different tools
  */
-
+/** @jsxImportSource @emotion/react */
+import { css, useTheme } from "@emotion/react";
+import styled from "@emotion/styled";
 import _ from "lodash";
 import React, { ReactElement, RefObject, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
@@ -66,11 +68,54 @@ const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const SELECTOR_PREFIX = "chart-footer";
 
 export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
+  const theme = useTheme();
+
   const mMethods = !_.isEmpty(props.mMethods)
     ? Array.from(props.mMethods).join(", ")
     : "";
   const ratioCheckboxId = props.chartId + "-ratio";
   const [chartOptionsOpened, setChartOptionsOpened] = useState(true);
+
+  const ChartFooterActionWrapper = styled.p`
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacing.xs}px;
+    margin: 0;
+    padding: 0;
+    ${theme.typography.family.text}
+    ${theme.typography.text.xs}
+    color: ${theme.colors.link.primary.base};
+    & > a {
+      margin: 0;
+      padding: 0;
+    }
+    & > .material-icons-outlined {
+      ${theme.typography.text.md}
+      margin: 0;
+      padding: 0;
+    }
+  `;
+
+  const ChartFooterMetaDataWrapper = styled.p`
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    ${theme.typography.family.text}
+    ${theme.typography.text.xs}
+    line-height: 1.2rem;
+    color: ${theme.colors.text.tertiary.base};
+    & > a {
+      margin: 0;
+      padding: 0;
+      text-decoration: underline;
+      color: ${theme.colors.text.tertiary.base};
+      &:hover {
+        color: ${theme.colors.link.primary.base};
+      }
+    }
+  `;
 
   return (
     <>
@@ -79,24 +124,17 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
           chartOptionsOpened ? "no-bottom-border" : ""
         }`}
       >
-        <div className={`${SELECTOR_PREFIX}-metadata-section`}>
-          {!_.isEmpty(props.sources) && (
-            <div className={`${SELECTOR_PREFIX}-metadata`}>
-              <span>Data from {getSourcesJsx(props.sources)}</span>
-              {globalThis.viaGoogle
-                ? " " + intl.formatMessage(messages.viaGoogle)
-                : ""}
-            </div>
-          )}
-          {!_.isEmpty(mMethods) && (
-            <div className={`${SELECTOR_PREFIX}-metadata`}>
-              <span>{`Measurement method${
-                props.mMethods.size > 1 ? "s" : ""
-              }: ${mMethods}`}</span>
-            </div>
-          )}
+        <div
+          className={`${SELECTOR_PREFIX}-metadata-section`}
+          css={css`
+            display: flex;
+            align-items: center;
+            gap: ${theme.spacing.md}px;
+            flex-wrap: wrap;
+          `}
+        >
           {props.handleEmbed && (
-            <span className="chart-option">
+            <ChartFooterActionWrapper>
               <span className="material-icons-outlined">download</span>
               <a
                 href="#"
@@ -107,16 +145,33 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
               >
                 {intl.formatMessage(messages.download)}
               </a>
-            </span>
+            </ChartFooterActionWrapper>
           )}
           {props.getObservationSpecs && (
-            <span className="chart-option">
+            <ChartFooterActionWrapper>
               <ApiButton
                 getObservationSpecs={props.getObservationSpecs}
                 containerRef={props.containerRef}
                 surface={WEBSITE_SURFACE}
               />
-            </span>
+            </ChartFooterActionWrapper>
+          )}
+          {!_.isEmpty(props.sources) && (
+            <ChartFooterMetaDataWrapper>
+              Data from:&nbsp;{getSourcesJsx(props.sources)}
+              {globalThis.viaGoogle
+                ? " " + intl.formatMessage(messages.viaGoogle)
+                : ""}
+              .
+            </ChartFooterMetaDataWrapper>
+          )}
+          {!_.isEmpty(mMethods) && (
+            <ChartFooterMetaDataWrapper>
+              {`Measurement method${
+                props.mMethods.size > 1 ? "s" : ""
+              }: ${mMethods}`}
+              .
+            </ChartFooterMetaDataWrapper>
           )}
         </div>
         <div
