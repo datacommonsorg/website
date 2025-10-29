@@ -111,6 +111,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
       # TODO(gmechali): Refactor this code for more explicit logic.
       # The is_highlight check is to avoid showing the related contained-in
       # chart when the user has asked for a specific chart.
+      # just a new comment.
       if not is_highlight and not is_special_dc or state.ranking_types:
         ranking_orig = state.ranking_types
         if not state.ranking_types:
