@@ -29,7 +29,6 @@ import {
   getRankingUnitTitle,
 } from "../../js/components/tiles/sv_ranking_units";
 import { StatVarSpec } from "../../js/shared/types";
-import { FacetMetadata } from "../../js/types/facet_metadata";
 import { RankingGroup } from "../../js/types/ranking_unit_types";
 import { TileConfig } from "../../js/types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../../js/utils/chart_csv_utils";
@@ -171,8 +170,7 @@ export async function getRankingTileResult(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   apiRoot: string,
-  surface?: string,
-  highlightFacet?: FacetMetadata
+  surface?: string
 ): Promise<TileResult[]> {
   try {
     const rankingData = await fetchData(
@@ -181,8 +179,7 @@ export async function getRankingTileResult(
       enclosedPlaceType,
       place,
       apiRoot,
-      surface,
-      highlightFacet
+      surface
     );
     const placeDcids = new Set<string>();
     Object.values(rankingData).forEach((rankingGroup) => {
@@ -258,8 +255,7 @@ export async function getRankingChart(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   containerRef: React.RefObject<HTMLElement>,
-  surface: string,
-  highlightFacet?: FacetMetadata
+  surface: string
 ): Promise<SVGSVGElement> {
   try {
     const rankingData = await fetchData(
@@ -268,8 +264,7 @@ export async function getRankingChart(
       enclosedPlaceType,
       place,
       apiRoot,
-      surface,
-      highlightFacet
+      surface
     );
     for (const sv of Object.keys(rankingData)) {
       const rankingGroup = rankingData[sv];
