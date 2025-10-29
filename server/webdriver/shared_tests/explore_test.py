@@ -171,7 +171,7 @@ class ExplorePageTestMixin():
     wait_for_text(self.driver, expected_citation, By.CLASS_NAME,
                   "metadata-summary")
 
-  def test_highlight_chart_us_states_gdp_ranking_with_map(self):
+  def test_highlight_chart_us_states_pop_ranking_with_map(self):
     """Test the highlight chart for Population ranking with map of US States."""
     highlight_params = "#sv=Count_Person&p=country/USA&imp=USCensusPEP_Annual_Population&mm=CensusPEPSurvey&obsPer=P1Y&chartType=RANKING_WITH_MAP"
     self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
@@ -201,7 +201,7 @@ class ExplorePageTestMixin():
     map_tile = find_elem(highlight_div, By.CLASS_NAME, 'map-chart')
     self.assertIsNotNone(map_tile)
 
-    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile-chart')
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-chart')
     self.assertIsNotNone(ranking_tile)
 
   def test_highlight_chart_clears(self):
