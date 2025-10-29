@@ -171,6 +171,39 @@ class ExplorePageTestMixin():
     wait_for_text(self.driver, expected_citation, By.CLASS_NAME,
                   "metadata-summary")
 
+  def test_highlight_chart_us_states_gdp_ranking_with_map(self):
+    """Test the highlight chart for Population ranking with map of US States."""
+    highlight_params = "sv=Count_Person&p=country/USA&imp=USCensusPEP_Annual_Population&mm=CensusPEPSurvey&obsPer=P1Y&chartType=RANKING_WITH_MAP"
+    self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
+
+    shared.wait_for_loading(self.driver)
+
+    # Test for the expected place names in either the new or legacy callout
+    locators = [(By.ID, 'place-callout'),
+                (By.ID, 'result-header-place-callout')]
+    header_element = find_any_of_elems(self.driver, locators)
+
+    if not header_element:
+      self.fail(
+          "Neither legacy 'place-callout' nor new 'result-header-place-callout' was found."
+      )
+
+    header_id = header_element.get_attribute('id')
+    if header_id == 'place-callout':
+      # Legacy header
+      self.assertIn('United States', header_element.text)
+    elif header_id == 'result-header-place-callout':
+      # New header
+      self._assert_places_in_tooltip(['United States'])
+
+    highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                              'highlight-result-title')
+    map_tile = find_elem(highlight_div, By.CLASS_NAME, 'map-chart')
+    self.assertIsNotNone(map_tile)
+    
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile-chart')
+    self.assertIsNotNone(ranking_tile)
+
   def test_highlight_chart_clears(self):
     """Test the highlight chart for France GDP timeline clears after topic selected."""
     highlight_params = "#sv=Amount_EconomicActivity_GrossDomesticProduction_Nominal&p=country%2FFRA___country%2FITA&chartType=BAR_CHART"
