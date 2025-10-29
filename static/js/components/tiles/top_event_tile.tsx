@@ -63,6 +63,8 @@ interface TopEventTilePropType {
   className?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Passed into mixer calls to differentiate DC features (website, web components, etc) in usage logs
+  surface: string;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -133,7 +135,9 @@ export const TopEventTile = memo(function TopEventTile(
         <div className={`ranking-list top-event-content `}>
           <div className="ranking-header-section">
             {<h4>{!isInitialLoading && props.title}</h4>}
-            {showChart && <TileSources sources={sources} />}
+            {showChart && (
+              <TileSources sources={sources} surface={props.surface} />
+            )}
           </div>
           {!showChart && !isInitialLoading && (
             <p>There were no severe events in that time period.</p>
@@ -222,6 +226,7 @@ export const TopEventTile = memo(function TopEventTile(
                   }
                 : null
             }
+            surface={props.surface}
           />
         </div>
       </div>
@@ -393,7 +398,8 @@ export const TopEventTile = memo(function TopEventTile(
       "",
       "",
       "",
-      []
+      [],
+      props.surface
     );
   }
 

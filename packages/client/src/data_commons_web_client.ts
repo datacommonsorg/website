@@ -30,8 +30,11 @@ import {
 } from "./data_commons_web_client_types";
 import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 
+import { UNKNOWN_SURFACE, SURFACE_HEADER_NAME } from "./constants";
+
 export interface DatacommonsWebClientParams {
   apiRoot?: string;
+  surface?: string | null;
 }
 
 const LOCALE_PARAM = "hl";
@@ -39,10 +42,19 @@ const LOCALE_PARAM = "hl";
 class DataCommonsWebClient {
   /** Website API root */
   apiRoot?: string;
+  /** Headers passed into calls to the Flask API */
+  options: { headers: Record<string, string> };
 
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
     this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
+    const surface = p.surface || UNKNOWN_SURFACE;
+
+    this.options = {
+      headers: {
+        [SURFACE_HEADER_NAME]: surface,
+      },
+    };
   }
 
   /**
@@ -126,19 +138,22 @@ class DataCommonsWebClient {
    * @param params.entities list of entitites to get data for
    * @param params.variables list of variables to get data for
    * @param params.date date to get the data for
+   * @param params.facetIds optional list of facetIds to filter data for
    */
   async getObservationsPoint(params: {
     date?: string;
     entities: string[];
     variables: string[];
+    facetIds?: string[];
   }): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
       date: params.date,
       entities: params.entities,
       variables: params.variables,
+      facetId: params.facetIds,
     });
     const url = `${this.apiRoot || ""}/api/observations/point?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, this.options);
     return (await response.json()) as PointApiResponse;
   }
 
@@ -151,23 +166,27 @@ class DataCommonsWebClient {
    * @param params.parentEntity the parent entity of the entities to get data for
    * @param params.variables list of variables to get data for
    * @param params.date date to get the data for
+   * @param params.facetIds optional list of facetIds to filter data for
    */
   async getObservationsPointWithin(params: {
     parentEntity: string;
     childType: string;
     variables: string[];
     date?: string;
+    facetIds?: string[];
   }): Promise<PointApiResponse> {
     const queryString = toURLSearchParams({
       childType: params.childType,
       date: params.date,
       parentEntity: params.parentEntity,
       variables: params.variables,
+      facetIds: params.facetIds,
     });
     const url = `${
       this.apiRoot || ""
     }/api/observations/point/within?${queryString}`;
-    const response = await fetch(url);
+
+    const response = await fetch(url, this.options);
     return (await response.json()) as PointApiResponse;
   }
 
@@ -187,7 +206,7 @@ class DataCommonsWebClient {
       facetIds: params.facetIds,
     });
     const url = `${this.apiRoot || ""}/api/observations/series?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, this.options);
     return (await response.json()) as SeriesApiResponse;
   }
 
@@ -214,7 +233,7 @@ class DataCommonsWebClient {
     const url = `${
       this.apiRoot || ""
     }/api/observations/series/within?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, this.options);
     return (await response.json()) as SeriesApiResponse;
   }
 
@@ -258,7 +277,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/charts/${
       params.placeDcid
     }?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, this.options);
     return (await response.json()) as PlaceChartsApiResponse;
   }
 
@@ -298,7 +317,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/overview-table/${
       params.placeDcid
     }?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, this.options);
     return (await response.json()) as PlaceOverviewTableApiResponse;
   }
 
@@ -318,7 +337,7 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/place/summary/${
       params.placeDcid
     }?${queryString}`;
-    const response = await fetch(url);
+    const response = await fetch(url, this.options);
     return (await response.json()) as PlaceSummaryApiResponse;
   }
 }

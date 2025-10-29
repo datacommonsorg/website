@@ -154,6 +154,8 @@ export interface MapTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -235,7 +237,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
     : null;
   const showZoomButtons =
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
@@ -358,7 +360,6 @@ export function MapTile(props: MapTilePropType): ReactElement {
           ...layer.variable,
           date: finalDate,
         };
-
         const entityExpression = `${layer.parentPlace}<-containedInPlace+{typeOf:${layer.enclosedPlaceType}}`;
 
         return buildObservationSpecs({
@@ -406,10 +407,8 @@ export function MapTile(props: MapTilePropType): ReactElement {
               date,
               entityProps,
               parentEntity,
-              perCapitaVariables: props.statVarSpec.denom
-                ? [props.statVarSpec.statVar]
-                : undefined,
-              variables: [layer.variable.statVar],
+              variables: [],
+              statVarSpecs: [layer.variable],
             }))
           );
         }
@@ -425,6 +424,7 @@ export function MapTile(props: MapTilePropType): ReactElement {
           ? [props.dataSpecs[0].variable]
           : [props.statVarSpec]
       }
+      surface={props.surface}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
@@ -543,7 +543,8 @@ export const fetchData = async (
       [layer.variable.statVar],
       dataDate,
       [],
-      facetIds
+      facetIds,
+      props.surface
     );
     let denomsByFacet: Record<string, SeriesApiResponse> = null;
     let defaultDenomData: SeriesApiResponse = null;
@@ -553,6 +554,7 @@ export const fetchData = async (
         placeStat,
         props.apiRoot,
         true,
+        props.surface,
         null,
         layer.parentPlace,
         layer.enclosedPlaceType

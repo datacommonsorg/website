@@ -23,7 +23,10 @@ import _ from "lodash";
 import React, { ReactElement, useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
-import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import {
+  DEFAULT_POPULATION_DCID,
+  WEBSITE_SURFACE,
+} from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   EntityObservation,
@@ -194,13 +197,17 @@ async function loadData(
   const statResponsePromise: Promise<PointApiResponse> = getStatWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    [x.value, y.value]
+    [x.value, y.value],
+    "", // apiRoot
+    WEBSITE_SURFACE
   );
   const statAllResponsePromise: Promise<PointAllApiResponse> =
-    getStatAllWithinPlace(place.enclosingPlace.dcid, place.enclosedPlaceType, [
-      x.value,
-      y.value,
-    ]);
+    getStatAllWithinPlace(
+      place.enclosingPlace.dcid,
+      place.enclosedPlaceType,
+      [x.value, y.value],
+      WEBSITE_SURFACE
+    );
   const populationSvList = new Set([DEFAULT_POPULATION_DCID]);
   for (const axis of [x.value, y.value]) {
     if (axis.denom) {
@@ -211,7 +218,9 @@ async function loadData(
     "",
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    Array.from(populationSvList)
+    Array.from(populationSvList),
+    null, // facetIds
+    WEBSITE_SURFACE
   );
   try {
     const [statResponse, statAllResponse, populationData] = await Promise.all([

@@ -166,9 +166,6 @@ cronTesting:
   # deployment runtime.
   webApiRoot:
   nodejsRoot:
-  # The domain to use for screenshot tests. Screenshot tests will only run if
-  # this is set.
-  screenshotDomain:
   # whether or not sanity tests are enabled
   enableSanity: true
   # whether or not adversarial tests are enabled

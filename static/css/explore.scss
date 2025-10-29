@@ -66,6 +66,14 @@
     font-size: 1.25rem;
   }
 
+  .chart-container:first-of-type {
+    margin-top: 0;
+  }
+  
+  .chart-container:last-of-type {
+    margin-bottom: 0;
+  }
+
   .explore-charts.place-overview-only {
     #subject-page-main-pane {
       .category {

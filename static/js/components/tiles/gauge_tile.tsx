@@ -74,6 +74,8 @@ export interface GaugeTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 export interface GaugeChartData {
@@ -139,6 +141,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       statVarSpecs={[props.statVarSpec]}
       forwardRef={containerRef}
       chartHeight={props.svgChartHeight}
+      surface={props.surface}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -158,7 +161,11 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
       props.apiRoot,
       [props.place.dcid],
       [props.statVarSpec.statVar],
-      ""
+      "", // date
+      null, // alignedVariables
+      null, // highlightFacet
+      null, // facetIds
+      props.surface
     );
     const [denomsByFacet, defaultDenomData] = props.statVarSpec.denom
       ? await getDenomResp(
@@ -166,6 +173,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
           statResp,
           props.apiRoot,
           false,
+          props.surface,
           [props.place.dcid]
         )
       : [null, null];
@@ -228,7 +236,7 @@ const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: GaugeTilePropType): () => Promise<string> {
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
   return () => {
     return dataCommonsClient.getCsv({
       date: props.statVarSpec.date,

@@ -25,6 +25,7 @@ import React, { ReactElement, RefObject } from "react";
 import { wrap } from "../chart/base";
 import { Button } from "../components/elements/button/button";
 import { CopyToClipboardButton } from "../components/elements/button/copy_to_clipboard_button";
+import { CodeBlock } from "../components/elements/code/code_block";
 import {
   Dialog,
   DialogActions,
@@ -102,7 +103,6 @@ class ChartEmbed extends React.Component<
   declare context: Theme;
 
   private readonly svgContainerElement: React.RefObject<HTMLDivElement>;
-  private readonly textareaElement: React.RefObject<HTMLTextAreaElement>;
   private readonly containerRef: RefObject<HTMLElement>;
 
   constructor(props: unknown) {
@@ -124,7 +124,6 @@ class ChartEmbed extends React.Component<
       dataError: false,
     };
     this.svgContainerElement = React.createRef();
-    this.textareaElement = React.createRef();
     this.containerRef = React.createRef();
 
     if (this.containerRef.current !== this.props.container) {
@@ -137,7 +136,6 @@ class ChartEmbed extends React.Component<
     this.onOpened = this.onOpened.bind(this);
     this.onDownloadSvg = this.onDownloadSvg.bind(this);
     this.onDownloadData = this.onDownloadData.bind(this);
-    this.onClickTextarea = this.onClickTextarea.bind(this);
   }
 
   componentDidUpdate(prevProps: ChartEmbedPropsType): void {
@@ -168,7 +166,8 @@ class ChartEmbed extends React.Component<
     chartHtml: string,
     chartTitle: string,
     chartDate: string,
-    sources: string[]
+    sources: string[],
+    surface: string
   ): void {
     if (this.state.modal) {
       return;
@@ -190,7 +189,7 @@ class ChartEmbed extends React.Component<
         sources,
         svgXml,
       },
-      () => this.loadModalData(getDataCsv)
+      () => this.loadModalData(getDataCsv, surface)
     );
   }
 
@@ -221,27 +220,6 @@ class ChartEmbed extends React.Component<
       this.svgContainerElement.current.append(imageElement);
       this.setState({ chartDownloadXml });
     }
-  }
-
-  /**
-   * On click handler on the text area.
-   * - If the user clicks on the text area and doesn't drag the mouse,
-   *   select all of the text (to help them copy and paste)
-   * - If the user clicks and drags, don't select all of the text and allow them
-   *   to make their selection
-   */
-  public onClickTextarea(): void {
-    const selection = window.getSelection().toString();
-    // User is trying to select specific text.
-    if (selection) {
-      return;
-    }
-    // User single-clicked without dragging. Select the entire CSV text
-    this.textareaElement.current.focus();
-    this.textareaElement.current.setSelectionRange(
-      0,
-      this.textareaElement.current.value.length
-    );
   }
 
   /**
@@ -312,26 +290,21 @@ class ChartEmbed extends React.Component<
                 }
               `}
             ></div>
-            <textarea
-              id={"copy-svg"}
-              value={this.state.dataCsv}
-              readOnly
-              ref={this.textareaElement}
-              onClick={this.onClickTextarea}
+            <CodeBlock
+              language="csv"
+              code={this.state.dataCsv}
               css={css`
-                overflow-x: hidden;
                 width: 100%;
-                height: auto;
-                border: 1px solid ${theme.colors.border.primary.light};
-                ${theme.radius.tertiary};
-                ${theme.typography.family.code};
-                ${theme.typography.text.sm};
-                padding: ${theme.spacing.md}px;
-                &:focus {
-                  outline: none;
+                height: 100%;
+                overflow-x: auto;
+                overflow-y: auto;
+
+                pre,
+                code {
+                  white-space: pre;
                 }
               `}
-            ></textarea>
+            />
           </div>
           {this.state.citation.length > 0 && (
             <div
@@ -401,7 +374,8 @@ class ChartEmbed extends React.Component<
    * Fetches CSV data and citation metadata when the dialog is opened.
    */
   private async loadModalData(
-    getDataCsv: () => Promise<string>
+    getDataCsv: () => Promise<string>,
+    surface: string
   ): Promise<void> {
     let dataCsv: string;
     let dataFetchError = false;
@@ -436,7 +410,7 @@ class ChartEmbed extends React.Component<
         if (statVarSet.size === 0) {
           return [];
         }
-        const dataCommonsClient = getDataCommonsClient(apiRoot);
+        const dataCommonsClient = getDataCommonsClient(apiRoot, surface);
         const metadataResp = await fetchMetadata(
           statVarSet,
           facets,
