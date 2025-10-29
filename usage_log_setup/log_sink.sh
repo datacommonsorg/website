@@ -5,11 +5,10 @@ source ./usage_log_setup/config.sh
 DESTINATION="bigquery.googleapis.com/projects/${DESTINATION_PROJECT_ID}/datasets/${DESTINATION_DATASET}/tables/${DESTINATION_TABLE}"
 
 # # Create the destination dataset
-# https://cloud.google.com/bigquery/docs/datasets#bq 
-# The destination dataset must exist before creating the sink. If it already exists, skip this step.
-# Note that this can be in a different GCP project than the one where the logs are coming from.
+# Docs: https://cloud.google.com/bigquery/docs/datasets#bq 
+# The destination dataset must exist before creating the sink. 
+# TODO: If it already exists, skip this step.
 # We don't manually define a table, because the logger will automatically create it with a schema based on the logs injested.
-# TODO: skip this if the dataset already exists
 bq --location=US mk \
     --dataset \
     --description="${DATASET_DESCRIPTION}" \
@@ -38,7 +37,7 @@ echo "Created sink ${SINK_NAME} in project ${LOG_SOURCE_PROJECT_ID} that routes 
 # run into access issues there, ask someone with Data Owner status on the dataset 
 # TODO: lucysking is a data owner but has intern status and that might be blocking permissions here. Not 
 # totally clear exactly which roles will and will not have access to this. 
-# There might also be a better command that can streamline this.
+# There might also be a better command that can streamline this but I can't test it
 
 # Log sink's service account
 WRITER_IDENTITY=$(gcloud logging sinks describe "${SINK_NAME}" --format='value(writerIdentity)' --project="${LOG_SOURCE_PROJECT_ID}")
