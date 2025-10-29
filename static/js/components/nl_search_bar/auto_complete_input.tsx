@@ -375,6 +375,7 @@ export function AutoCompleteInput(
     if (props.enableAutoComplete) {
       urlParams.set(ENABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
     }
+    // And another comment.
 
     if (result?.matchType == LOCATION_SEARCH) {
       setHasLocation(true);
