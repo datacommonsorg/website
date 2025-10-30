@@ -189,19 +189,14 @@ class ExplorePageTestMixin():
       )
 
     header_id = header_element.get_attribute('id')
-    if header_id == 'place-callout':
-      # Legacy header
-      self.assertIn('United States', header_element.text)
-    elif header_id == 'result-header-place-callout':
-      # New header
-      self._assert_places_in_tooltip(['United States'])
+    self.assertIn('United States', header_element.text)
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
                               'highlight-result-title')
     map_tile = find_elem(highlight_div, By.CLASS_NAME, 'map-chart')
     self.assertIsNotNone(map_tile)
 
-    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-chart')
+    ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
     self.assertIsNotNone(ranking_tile)
 
   def test_highlight_chart_clears(self):
