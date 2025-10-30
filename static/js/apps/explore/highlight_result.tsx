@@ -27,13 +27,13 @@ import { buildCitationParts } from "../../tools/shared/metadata/citations";
 import { StatVarMetadata } from "../../tools/shared/metadata/metadata";
 import { fetchMetadata } from "../../tools/shared/metadata/metadata_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { FacetResponse, getFacets } from "../../utils/data_fetch_utils";
 import { isPlaceOverviewOnly } from "../../utils/explore_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const PAGE_ID = "highlight-result";
 
@@ -77,7 +77,10 @@ async function doMetadataFetch(props: HighlightResultProps): Promise<{
   for (const statVar in facets) {
     const facet = facets[statVar];
     for (const facetId in facet) {
-      if (facet[facetId].importName === props.facetSelector?.facetMetadata?.importName) {
+      if (
+        facet[facetId].importName ===
+        props.facetSelector?.facetMetadata?.importName
+      ) {
         statVarFacetMap[statVar] = new Set([facetId]);
         break;
       }

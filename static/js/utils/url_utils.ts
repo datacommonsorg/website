@@ -234,7 +234,7 @@ export function extractUrlHashParams(
     chartType,
     origin,
     facetMetadata,
-    date
+    date,
   };
 }
 

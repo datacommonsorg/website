@@ -26,6 +26,7 @@ import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { SdgContext } from "../../shared/context";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   CategoryConfig,
   SubjectPageConfig,
@@ -34,7 +35,6 @@ import { getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
 import { DataFetchContextProvider } from "./data_fetch_context";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 interface SubjectPageMainPanePropType {
   // Id for this subject page.

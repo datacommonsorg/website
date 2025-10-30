@@ -20,10 +20,12 @@ import { FacetMetadata } from "./facet_metadata";
  * Represents the different criteria we can use to select a facet.
  */
 export interface FacetSelectionCriteria {
+  // TODO(gmechali): Also add the facetId(s) here that should take precedence over the facetMetadata.
+
   /**
    * The metadata about the facet, be that measurement method, observation period among other things.
    */
-  facetMetadata?: FacetMetadata
+  facetMetadata?: FacetMetadata;
 
   /**
    * The date observed in the data.

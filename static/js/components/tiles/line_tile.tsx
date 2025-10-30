@@ -51,6 +51,7 @@ import {
 } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   getContextStatVar,
   getHash,
@@ -74,7 +75,6 @@ import {
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const EMPTY_FACET_ID_KEY = "empty";
 

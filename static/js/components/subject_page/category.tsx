@@ -23,6 +23,7 @@ import ReactMarkdown from "react-markdown";
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   CategoryConfig,
   EventTypeSpec,
@@ -34,7 +35,6 @@ import { Block } from "./block";
 import { BlockContainer } from "./block_container";
 import { DisasterEventBlock } from "./disaster_event_block";
 import { StatVarProvider } from "./stat_var_provider";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 export interface CategoryPropType {
   id: string;

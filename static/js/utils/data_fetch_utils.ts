@@ -30,9 +30,9 @@ import {
   StatMetadata,
 } from "../shared/stat_types";
 import { FacetMetadata } from "../types/facet_metadata";
+import { FacetSelectionCriteria } from "../types/facet_selection_criteria";
 import { getSurfaceHeader, stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
-import { FacetSelectionCriteria } from "../types/facet_selection_criteria";
 
 const EMPTY_UNIT = "EMPTY";
 const FACET_WITHIN_ENTITY = "";
@@ -150,7 +150,7 @@ async function selectFacet(
     for (const [facetId, f] of Object.entries(facets)) {
       const highlightFacet = facetSelector.facetMetadata;
       if (
-        !highlightFacet || (
+        !highlightFacet ||
         (!_.isEmpty(highlightFacet.importName) &&
           highlightFacet.importName !== f.importName) ||
         (!_.isEmpty(highlightFacet.measurementMethod) &&
@@ -160,7 +160,7 @@ async function selectFacet(
           highlightFacet.observationPeriod !== f.observationPeriod) ||
         (!_.isEmpty(highlightFacet.scalingFactor) &&
           highlightFacet.scalingFactor !== f.scalingFactor)
-      )) {
+      ) {
         continue;
       }
       return [facetId];

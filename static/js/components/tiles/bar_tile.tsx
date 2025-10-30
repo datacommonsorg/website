@@ -56,6 +56,7 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import { StatVarFacetMap } from "../../shared/types";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
@@ -82,7 +83,6 @@ import {
   MultiOrContainedInPlaceMultiVariableTileType,
 } from "./tile_types";
 import { useDrawOnResize } from "./use_draw_on_resize";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const NUM_PLACES = 7;
 

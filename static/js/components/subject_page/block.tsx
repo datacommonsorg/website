@@ -65,6 +65,7 @@ import {
   fetchFacetChoicesWithin,
 } from "../../tools/shared/facet_choice_fetcher";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
@@ -100,7 +101,6 @@ import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
 import { useStatVarSpec } from "./stat_var_spec";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 // Lazy load tiles (except map) when they are within 1000px of the viewport
 const EXPLORE_LAZY_LOAD_MARGIN = "1000px";

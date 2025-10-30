@@ -47,6 +47,7 @@ import {
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   RankingData,
   RankingGroup,
@@ -68,7 +69,6 @@ import {
 import { LoadingHeader } from "./loading_header";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const RANKING_COUNT = 5;
 const HEADING_HEIGHT = 36;

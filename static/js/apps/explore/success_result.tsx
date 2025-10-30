@@ -44,6 +44,7 @@ import {
 } from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import {
@@ -62,7 +63,6 @@ import { ResultHeaderSection } from "./result_header_section";
 import { ResultHeaderSectionLegacy } from "./result_header_section_legacy";
 import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const PAGE_ID = "explore";
 

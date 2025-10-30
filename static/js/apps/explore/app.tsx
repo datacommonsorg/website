@@ -117,7 +117,8 @@ export function App(props: AppProps): ReactElement {
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
   const [highlightPageMetadata, setHighlightPageMetadata] =
     useState<SubjectPageMetadata>(null);
-  const [highlightFacet, setHighlightFacet] = useState<FacetSelectionCriteria>(null);
+  const [highlightFacet, setHighlightFacet] =
+    useState<FacetSelectionCriteria>(null);
   const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
@@ -345,8 +346,8 @@ export function App(props: AppProps): ReactElement {
     let topicsToUse = toApiList(urlHashParams.topic || DEFAULT_TOPIC);
     const fsm = {
       date: urlHashParams.date,
-      facetMetadata: urlHashParams.facetMetadata
-    }
+      facetMetadata: urlHashParams.facetMetadata,
+    };
     setHighlightFacet(fsm);
 
     let places = [];

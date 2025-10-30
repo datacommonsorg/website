@@ -79,6 +79,7 @@ import {
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   getContextStatVar,
   getHash,
@@ -100,7 +101,6 @@ import {
 import { ChartTileContainer } from "./chart_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "./tile_types";
 import { useDrawOnResize } from "./use_draw_on_resize";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";

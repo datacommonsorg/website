@@ -255,7 +255,7 @@ export async function getRankingChart(
   statVarSpec: StatVarSpec[],
   apiRoot: string,
   containerRef: React.RefObject<HTMLElement>,
-  surface: string,
+  surface: string
 ): Promise<SVGSVGElement> {
   try {
     const rankingData = await fetchData(

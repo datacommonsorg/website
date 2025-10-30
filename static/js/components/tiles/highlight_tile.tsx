@@ -45,6 +45,7 @@ import {
 } from "../../shared/types";
 import { TileSources } from "../../tools/shared/metadata/tile_sources";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { getPoint } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
@@ -55,7 +56,6 @@ import {
   getStatFormat,
   ReplacementStrings,
 } from "../../utils/tile_utils";
-import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 // units that should be formatted as part of the number
 const NUMBER_UNITS = ["%"];

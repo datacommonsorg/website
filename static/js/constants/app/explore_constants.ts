@@ -58,7 +58,7 @@ export const URL_HASH_PARAMS = {
   UNIT: "unit",
 
   // The following are used for exact data selection
-  DATE: "date"
+  DATE: "date",
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL
