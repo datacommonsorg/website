@@ -56,6 +56,9 @@ export const URL_HASH_PARAMS = {
   OBSERVATION_PERIOD: "obsPer",
   SCALING_FACTOR: "scaling",
   UNIT: "unit",
+
+  // The following are used for exact data selection
+  DATE: "date"
 };
 export const CLIENT_TYPES = {
   // User typed in a p=X&t=Y URL

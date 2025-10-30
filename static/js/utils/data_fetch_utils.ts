@@ -32,6 +32,7 @@ import {
 import { FacetMetadata } from "../types/facet_metadata";
 import { getSurfaceHeader, stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";
+import { FacetSelectionCriteria } from "../types/facet_selection_criteria";
 
 const EMPTY_UNIT = "EMPTY";
 const FACET_WITHIN_ENTITY = "";
@@ -137,17 +138,19 @@ async function selectFacet(
   apiRoot: string,
   entities: string[],
   variables: string[],
-  highlightFacet?: FacetMetadata,
+  facetSelector?: FacetSelectionCriteria,
   surface?: string
 ): Promise<string[] | null> {
-  if (!highlightFacet) {
+  if (!facetSelector) {
     return [];
   }
   const facetsResponse = await getFacets(apiRoot, entities, variables, surface);
   for (const svDcid of Object.keys(facetsResponse)) {
     const facets = facetsResponse[svDcid];
     for (const [facetId, f] of Object.entries(facets)) {
+      const highlightFacet = facetSelector.facetMetadata;
       if (
+        !highlightFacet || (
         (!_.isEmpty(highlightFacet.importName) &&
           highlightFacet.importName !== f.importName) ||
         (!_.isEmpty(highlightFacet.measurementMethod) &&
@@ -157,7 +160,7 @@ async function selectFacet(
           highlightFacet.observationPeriod !== f.observationPeriod) ||
         (!_.isEmpty(highlightFacet.scalingFactor) &&
           highlightFacet.scalingFactor !== f.scalingFactor)
-      ) {
+      )) {
         continue;
       }
       return [facetId];
@@ -189,18 +192,21 @@ export function getPoint(
   variables: string[],
   date: string,
   alignedVariables?: string[][],
-  highlightFacet?: FacetMetadata,
+  facetSelector?: FacetSelectionCriteria,
   facetIds?: string[],
   surface?: string
 ): Promise<PointApiResponse> {
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
-    : selectFacet(apiRoot, entities, variables, highlightFacet, surface);
+    : selectFacet(apiRoot, entities, variables, facetSelector, surface);
 
   return facetPromise.then((resolvedFacetIds) => {
     const params: Record<string, unknown> = { date, entities, variables };
     if (!_.isEmpty(resolvedFacetIds)) {
       params["facetId"] = resolvedFacetIds;
+    }
+    if (facetSelector?.date) {
+      params["date"] = facetSelector.date;
     }
     return axios
       .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point`, {
@@ -238,16 +244,20 @@ export function getPointWithin(
   alignedVariables?: string[][],
   facetIds?: string[],
   surface?: string,
-  highlightFacet?: FacetMetadata
+  facetSelector?: FacetSelectionCriteria
 ): Promise<PointApiResponse> {
+  console.log("Heyyyy getting something!" + JSON.stringify(facetSelector));
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
-    : selectFacet(apiRoot, [parentEntity], variables, highlightFacet, surface);
+    : selectFacet(apiRoot, [parentEntity], variables, facetSelector, surface);
 
   return facetPromise.then((resolvedFacetIds) => {
     const params = { childType, date, parentEntity, variables };
     if (!_.isEmpty(resolvedFacetIds)) {
       params["facetIds"] = [resolvedFacetIds];
+    }
+    if (facetSelector.date) {
+      params["date"] = facetSelector.date;
     }
     return axios
       .get<PointApiResponse>(`${apiRoot || ""}/api/observations/point/within`, {
@@ -280,12 +290,12 @@ export function getSeries(
   entities: string[],
   variables: string[],
   facetIds?: string[],
-  highlightFacet?: FacetMetadata,
+  facetSelector?: FacetSelectionCriteria,
   surface?: string
 ): Promise<SeriesApiResponse> {
   const params = { entities, variables };
   return Promise.resolve(
-    selectFacet(apiRoot, entities, variables, highlightFacet, surface)
+    selectFacet(apiRoot, entities, variables, facetSelector, surface)
   ).then((resolvedFacetIds) => {
     if (!_.isEmpty(facetIds)) {
       params["facetIds"] = facetIds;

@@ -56,7 +56,6 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import { StatVarFacetMap } from "../../shared/types";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
@@ -83,6 +82,7 @@ import {
   MultiOrContainedInPlaceMultiVariableTileType,
 } from "./tile_types";
 import { useDrawOnResize } from "./use_draw_on_resize";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 
 const NUM_PLACES = 7;
 
@@ -127,7 +127,7 @@ interface BarTileSpecificSpec {
   // Optional: Disable the entity href link for this component
   disableEntityLink?: boolean;
   // Metadata for the facet to highlight.
-  highlightFacet?: FacetMetadata;
+  facetSelector?: FacetSelectionCriteria;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -373,7 +373,7 @@ export const fetchData = async (
           statSvs,
           date,
           [statSvs],
-          props.highlightFacet,
+          props.facetSelector,
           facetId ? [facetId] : undefined,
           props.surface
         )
