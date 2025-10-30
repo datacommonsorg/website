@@ -46,6 +46,7 @@ import {
 } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
+import { FacetMetadata } from "../../types/facet_metadata";
 import {
   RankingData,
   RankingGroup,
@@ -92,6 +93,8 @@ export interface RankingTilePropType
   lazyLoadMargin?: string;
   // Optional: Passed into mixer calls to differentiate website and web components in usage logs
   surface?: string;
+  // Metadata for the facet to highlight.
+  highlightFacet?: FacetMetadata;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -124,7 +127,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           enclosedPlaceType,
           parentPlace,
           apiRoot,
-          surface
+          surface,
+          props.highlightFacet
         );
         setRankingData(rankingData);
       } finally {
@@ -338,7 +342,8 @@ export async function fetchData(
   enclosedPlaceType: string,
   parentPlace: string,
   apiRoot: string,
-  surface?: string
+  surface?: string,
+  highlightFacet?: FacetMetadata
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -389,7 +394,8 @@ export async function fetchData(
           dateParam,
           [],
           facetIds,
-          surface
+          surface,
+          highlightFacet
         )
       );
     }
