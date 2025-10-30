@@ -335,13 +335,9 @@ class ChartEmbed extends React.Component<
                   metadataComponentMessages.SourceAndCitation
                 )}
               </h3>
+              <p>{buildCitationNodes(this.state.citation)}</p>
               <p>
-                {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
-                {buildCitationNodes(this.state.citation)}
-              </p>
-              <p>
-                {intl.formatMessage(metadataComponentMessages.CitationGuidance)}{" "}
-                • {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
+                {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
               </p>
             </div>
           )}
