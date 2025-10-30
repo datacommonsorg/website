@@ -246,7 +246,6 @@ export function getPointWithin(
   surface?: string,
   facetSelector?: FacetSelectionCriteria
 ): Promise<PointApiResponse> {
-  console.log("Heyyyy getting something!" + JSON.stringify(facetSelector));
   const facetPromise = !_.isEmpty(facetIds)
     ? Promise.resolve(facetIds)
     : selectFacet(apiRoot, [parentEntity], variables, facetSelector, surface);
@@ -256,7 +255,7 @@ export function getPointWithin(
     if (!_.isEmpty(resolvedFacetIds)) {
       params["facetIds"] = [resolvedFacetIds];
     }
-    if (facetSelector.date) {
+    if (facetSelector?.date) {
       params["date"] = facetSelector.date;
     }
     return axios

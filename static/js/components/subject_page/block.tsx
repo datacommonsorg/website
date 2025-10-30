@@ -174,7 +174,7 @@ function eligibleForSnapToHighestCoverage(
   statVarProvider: StatVarProvider,
   facetSelector?: FacetSelectionCriteria
 ): boolean {
-  if (facetSelector) {
+  if (!_.isEmpty(facetSelector?.facetMetadata) || !_.isEmpty(facetSelector?.date)) {
     return false;
   }
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
@@ -471,6 +471,7 @@ export function Block(props: BlockPropType): ReactElement {
   }, [props]);
 
   useEffect(() => {
+    console.log("SO isEligibleForSnapToHighestCoverage " + isEligibleForSnapToHighestCoverage);
     if (!isEligibleForSnapToHighestCoverage) {
       return;
     }
@@ -498,7 +499,7 @@ export function Block(props: BlockPropType): ReactElement {
 
   useEffect(() => {
     setDenom(props.denom || "");
-    if (props.facetSelector) {
+    if (props.facetSelector?.facetMetadata) {
       setDenom("");
     }
   }, [props.facetSelector, props.denom]);
