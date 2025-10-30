@@ -182,7 +182,12 @@ class ExplorePageTestMixin():
     locators = [(By.ID, 'place-callout'),
                 (By.ID, 'result-header-place-callout')]
     header_element = find_any_of_elems(self.driver, locators)
-    wait_for_text(header_element, 'United States', By.TAG_NAME, 'p')
+    header_id = header_element.get_attribute('id')
+    if header_id == 'place-callout':
+      # Legacy header
+      self.assertIn('United States', header_element.text)
+    elif header_id == 'result-header-place-callout':
+      wait_for_text(header_element, 'United States', By.TAG_NAME, 'p')
 
     if not header_element:
       self.fail(
