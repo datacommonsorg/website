@@ -15,11 +15,10 @@
  */
 
 /**
- * Place options for selecting the child place type and the enclosing place.
+ * Toggle for selecting the chart type for the scatter tool
  */
 
 import { css, useTheme } from "@emotion/react";
-import _ from "lodash";
 import React, { useContext } from "react";
 
 import { Button } from "../../components/elements/button/button";
