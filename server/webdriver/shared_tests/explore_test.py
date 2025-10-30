@@ -182,13 +182,14 @@ class ExplorePageTestMixin():
     locators = [(By.ID, 'place-callout'),
                 (By.ID, 'result-header-place-callout')]
     header_element = find_any_of_elems(self.driver, locators)
+    wait_for_text(header_element, 'United States', By.TAG_NAME,
+                         'p')
 
     if not header_element:
       self.fail(
           "Neither legacy 'place-callout' nor new 'result-header-place-callout' was found."
       )
 
-    header_id = header_element.get_attribute('id')
     self.assertIn('United States', header_element.text)
 
     highlight_div = find_elem(self.driver, By.CLASS_NAME,
