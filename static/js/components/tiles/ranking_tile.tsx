@@ -46,7 +46,6 @@ import {
 } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   RankingData,

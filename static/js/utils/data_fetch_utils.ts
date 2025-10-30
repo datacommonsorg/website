@@ -29,7 +29,6 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
-import { FacetMetadata } from "../types/facet_metadata";
 import { FacetSelectionCriteria } from "../types/facet_selection_criteria";
 import { getSurfaceHeader, stringifyFn } from "./axios";
 import { getUnit } from "./stat_metadata_utils";

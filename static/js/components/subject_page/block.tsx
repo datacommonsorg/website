@@ -64,7 +64,6 @@ import {
   fetchFacetChoices,
   fetchFacetChoicesWithin,
 } from "../../tools/shared/facet_choice_fetcher";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
@@ -174,7 +173,10 @@ function eligibleForSnapToHighestCoverage(
   statVarProvider: StatVarProvider,
   facetSelector?: FacetSelectionCriteria
 ): boolean {
-  if (!_.isEmpty(facetSelector?.facetMetadata) || !_.isEmpty(facetSelector?.date)) {
+  if (
+    !_.isEmpty(facetSelector?.facetMetadata) ||
+    !_.isEmpty(facetSelector?.date)
+  ) {
     return false;
   }
   const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
@@ -471,7 +473,6 @@ export function Block(props: BlockPropType): ReactElement {
   }, [props]);
 
   useEffect(() => {
-    console.log("SO isEligibleForSnapToHighestCoverage " + isEligibleForSnapToHighestCoverage);
     if (!isEligibleForSnapToHighestCoverage) {
       return;
     }

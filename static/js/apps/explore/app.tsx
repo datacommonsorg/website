@@ -54,7 +54,6 @@ import { useQueryStore } from "../../shared/stores/query_store_hook";
 import { extractFlagsToPropagate } from "../../shared/util";
 import theme from "../../theme/theme";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";

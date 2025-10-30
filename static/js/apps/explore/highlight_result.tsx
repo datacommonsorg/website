@@ -26,7 +26,6 @@ import { NamedNode, StatVarFacetMap } from "../../shared/types";
 import { buildCitationParts } from "../../tools/shared/metadata/citations";
 import { StatVarMetadata } from "../../tools/shared/metadata/metadata";
 import { fetchMetadata } from "../../tools/shared/metadata/metadata_fetcher";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";

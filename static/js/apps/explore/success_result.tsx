@@ -43,7 +43,6 @@ import {
   PAGE_OVERVIEW_GA,
 } from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";

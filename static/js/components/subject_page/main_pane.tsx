@@ -25,7 +25,6 @@ import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { SdgContext } from "../../shared/context";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   CategoryConfig,

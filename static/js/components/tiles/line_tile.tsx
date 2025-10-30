@@ -50,7 +50,6 @@ import {
   StatVarSpec,
 } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
-import { FacetMetadata } from "../../types/facet_metadata";
 import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import {
   getContextStatVar,
