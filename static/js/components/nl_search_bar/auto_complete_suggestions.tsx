@@ -78,7 +78,7 @@ export function AutoCompleteSuggestions(
         [GA_PARAM_QUERY]: props.baseInput,
       });
     }
-  }, [props.allResults]);
+  }, [props.allResults, props.baseInput, triggered]);
 
   const showLoadMore =
     props.allResults.length > visibleCount &&
