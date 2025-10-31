@@ -189,16 +189,6 @@ export const PLACE_TYPES = new Set([
 ]);
 
 /**
- *  the API root of the REST v2 API for display purposes when not a custom DC instance
- */
-export const DEFAULT_API_ROOT = "https://api.datacommons.org";
-
-/**
- *  the path from the root to the API in a custom DC instance
- */
-export const CUSTOM_DC_API_PATH = "/core/api";
-
-/**
  * date query param value for requesting latest overall available for
  * /api/observations/point/* endpoints
  */
@@ -213,3 +203,20 @@ export const DATE_LATEST = "LATEST";
  * AbortController cancelled code
  */
 export const ABORT_CONTROLLER_CANCELLED = "ERR_CANCELED";
+
+// Value to be passed into mixer to log usage from the website surface
+export const WEBSITE_SURFACE = "website";
+
+// The name of the header that passes the surface into calls to Mixer
+export const SURFACE_HEADER_NAME = "x-surface";
+
+// header using the website surface value
+export const WEBSITE_SURFACE_HEADER = {
+  [SURFACE_HEADER_NAME]: WEBSITE_SURFACE,
+};
+
+// Header value used for integration tests
+export const TEST_SURFACE = "integration-test";
+export const TEST_SURFACE_HEADER = {
+  [SURFACE_HEADER_NAME]: TEST_SURFACE,
+};

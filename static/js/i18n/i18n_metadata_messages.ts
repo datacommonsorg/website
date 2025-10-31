@@ -113,14 +113,10 @@ export const metadataComponentMessages = defineMessages({
   },
   SourceAndCitation: {
     id: "sourceAndCitation",
-    defaultMessage: "Source and citation",
-    description: "Title for source and citation section in the metadata modal.",
-  },
-  DataSources: {
-    id: "dataSources",
-    defaultMessage: "Data sources",
+    defaultMessage: "Citation",
     description:
-      "Label preceding the list of data sources in the metadata modal.",
+      "Title for citation section in the metadata modal. Citation is akin to the " +
+      "definition here https://en.wikipedia.org/wiki/Citation",
   },
   MinorProcessing: {
     id: "minorProcessing",
@@ -128,12 +124,6 @@ export const metadataComponentMessages = defineMessages({
     description:
       "Text indicating data was processed by Data Commons. This will appear in the citation " +
       "section of the metadata modal after the list of sources.",
-  },
-  CitationGuidance: {
-    id: "citationGuidance",
-    defaultMessage: "Citation guidance",
-    description:
-      "Label preceding guidance on how to cite the data sources in the metadata modal.",
   },
   PleaseCredit: {
     id: "pleaseCredit",

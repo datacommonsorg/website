@@ -41,17 +41,8 @@ website:
       }
 
 mixer:
-  useSpannerGraph: true
-  enableV3: true
-  redis:
-    enabled: true
-    configFile: |
-      instances:
-        - region: "us-central1"
-          host: "10.212.232.163"
-          port: "6379"
-  enableOtlp: true
-  v3MirrorFraction: 0.0002
+  serviceName: "website-esp.endpoints.datcom-website-prod.cloud.goog"
+  hostProject: "datcom-website-prod"
 
 serviceAccount:
   name: website-ksa

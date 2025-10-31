@@ -300,14 +300,6 @@ def get_subject_page_config(filepath):
     return subject_page_config
 
 
-# Returns generated summaries for place explorer.
-def get_place_summaries():
-  filepath = os.path.join(get_repo_root(), "config", "summaries",
-                          "place_summaries.json")
-  with open(filepath, 'r') as f:
-    return json.load(f)
-
-
 # Returns topic pages loaded as SubjectPageConfig protos:
 # { topic_id: [SubjectPageConfig,...] }
 def get_topic_page_config():
@@ -475,12 +467,14 @@ def load_feature_flags():
   if not data:
     data = load_fallback_feature_flags(environment)
 
-  # Create the dictionary using a dictionary comprehension
-  feature_flag_dict = {
-      flag["name"]: flag["enabled"]
-      for flag in data
-      if 'name' in flag and 'enabled' in flag
-  }
+  feature_flag_dict = {}
+  for flag in data:
+    feature_flag_dict[flag['name']] = {
+        'enabled': flag['enabled'],
+    }
+    if 'rollout_percentage' in flag:
+      feature_flag_dict[
+          flag['name']]['rollout_percentage'] = flag['rollout_percentage']
   return feature_flag_dict
 
 

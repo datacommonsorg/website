@@ -20,9 +20,7 @@ MAX_DAYS_OLD=90
 PARENT_FOLDERS=(
   "gs://datcom-website-periodic-testing/bard"
   "gs://datcom-website-periodic-testing/autopush"
-  "gs://datcom-website-screenshot/autopush.datacommons.org/"
   "gs://datcom-website-periodic-testing/staging"
-  "gs://datcom-website-screenshot/staging.datacommons.org/"
 )
 CURRENT_TS=$(TZ="America/Los_Angeles" date +"%s")
 

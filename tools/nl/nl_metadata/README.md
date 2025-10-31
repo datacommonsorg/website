@@ -120,24 +120,20 @@ When promoting from staging to prod, the app to be used is `full_statvar_search_
 
 ## Updating the Cloud Run Job
 
-The Cloud Run job runs from a Docker image. If you make any changes to the scripts in this directory (`generate_nl_metadata.py`, `gemini_prompt.py`, etc.), you must build and deploy a new Docker image for the changes to take effect in the Cloud Run environment.
+The Cloud Run job runs from a Docker image. This image is automatically rebuilt daily. If you make any changes to the scripts in this directory (`generate_nl_metadata.py`, `gemini_prompt.py`, etc.), you must build and deploy a new Docker image for the changes to take effect in the Cloud Run environment.
 
 1.  **Authenticate to the `datcom-ci` project:**
     ```bash
     gcloud config set project datcom-ci
     ```
-2.  **Navigate to this directory:**
+2.  **From the project root directory, submit the build:**
     ```bash
-    cd tools/nl/nl_metadata
+    gcloud builds submit --config tools/nl/nl_metadata/cloudbuild.push_image.yaml .
     ```
-3.  **Submit the build:**
-    ```bash
-    gcloud builds submit --region=us-west1 --tag us-west1-docker.pkg.dev/datcom-ci/cloud-run-source-deploy/nl-metadata-image:latest
-    ```
-4.  **Verify the deployment:**
+3.  **Verify the deployment:**
     You can verify that the new image was built and pushed successfully by checking the [Artifact Registry in the `datcom-ci` project](https://console.cloud.google.com/artifacts/docker/datcom-ci/us-west1/cloud-run-source-deploy).
 
-5.  **Switch back to the `datcom-nl` project** to run the job:
+4.  **Switch back to the `datcom-nl` project** to run the job:
     ```bash
     gcloud config set project datcom-nl
     ```

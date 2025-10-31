@@ -65,6 +65,7 @@ interface SvRankingUnitsProps {
   isLoading?: boolean;
   statVarSpecs: StatVarSpec[];
   containerRef: React.RefObject<HTMLElement>;
+  surface: string;
 }
 
 /**
@@ -115,6 +116,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             props.apiRoot,
             props.statVarSpecs,
             props.containerRef,
+            props.surface,
             highestRankingUnitRef,
             props.onHoverToggled,
             props.errorMsg,
@@ -136,6 +138,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               footnote={props.footnote}
               containerRef={props.containerRef}
               getObservationSpecs={props.getObservationSpecs}
+              surface={props.surface}
             ></ChartFooter>
           )}
         </div>
@@ -153,6 +156,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.apiRoot,
                 props.statVarSpecs,
                 props.containerRef,
+                props.surface,
                 highestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -168,6 +172,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   footnote={props.footnote}
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
+                  surface={props.surface}
                 ></ChartFooter>
               )}
             </div>
@@ -184,6 +189,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 props.apiRoot,
                 props.statVarSpecs,
                 props.containerRef,
+                props.surface,
                 lowestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -199,6 +205,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                   footnote={props.footnote}
                   containerRef={props.containerRef}
                   getObservationSpecs={props.getObservationSpecs}
+                  surface={props.surface}
                 ></ChartFooter>
               )}
             </div>
@@ -299,6 +306,7 @@ export function getRankingUnitPoints(
  * @param rankingGroup the RankingGroup information to get the ranking unit for
  * @param rankingMetadata the RankingTileSpec to get the ranking unit for
  * @param isHighest whether or not this ranking unit is showing highest
+ * @param surface value to pass into calls to mixer for usage logs
  * @param rankingUnitRef ref object to attach to the ranking unit
  * @param onHoverToggled callback when user hovers over a row
  * @param errorMsg Erorr message
@@ -314,6 +322,7 @@ export function getRankingUnit(
   apiRoot: string,
   statVarSpecs: StatVarSpec[],
   containerRef: React.RefObject<HTMLElement>,
+  surface: string,
   rankingUnitRef?: RefObject<HTMLDivElement>,
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string,
@@ -358,6 +367,7 @@ export function getRankingUnit(
             facets={rankingGroup.facets}
             statVarToFacets={rankingGroup.statVarToFacets}
             statVarSpecs={statVarSpecs}
+            surface={surface}
           />
         )
       }

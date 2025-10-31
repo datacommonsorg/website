@@ -52,7 +52,6 @@ interface ToolChartFooterProps {
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
 const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const SELECTOR_PREFIX = "chart-footer";
-const FEEDBACK_LINK = "/feedback";
 
 export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
   const mMethods = !_.isEmpty(props.mMethods)
@@ -121,9 +120,6 @@ export function ToolChartFooter(props: ToolChartFooterProps): ReactElement {
           {props.children}
         </div>
       )}
-      <div className="feedback-link">
-        <a href={FEEDBACK_LINK}>Feedback</a>
-      </div>
     </>
   );
 }

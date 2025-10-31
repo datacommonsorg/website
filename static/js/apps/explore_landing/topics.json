@@ -66,24 +66,20 @@
         ],
         "statvar": [
           {
-            "title": "Population with household spending on health greater than 10% of total household in the world",
-            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FFINPROTECTION_CATA_TOT_10_LEVEL_SH%22%7D"
+            "title": "Gini Index around the world",
+            "url": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22GiniIndex_EconomicActivity%22%7D"
           },
           {
-            "title": "Total population pushed below a relative poverty line by household health expenditures in the world",
-            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FFINPROTECTION_IMP_NP_REL_LEVEL_MILLION%22%7D"
+            "title": "Proportion of population with access to electricity in the world",
+            "url": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FEG_ACS_ELEC%22%7D"
           },
           {
-            "title": "Mortality rate attributed to unsafe water, unsafe sanitation in the world",
-            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FWSH_1%22%7D"
+            "title": "Proportion of individuals using the internet in the world",
+            "url": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FIT_USE_ii99%22%7D"
           },
           {
-            "title": "Legal frameworks that promote, enforce and monitor gender equality -- Area 3: employment and economic benefits in the world",
-            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSG_LGL_GENEQEMP%22%7D"
-          },
-          {
-            "title": "Legal frameworks that promote, enforce and monitor gender equality -- Area 2: violence against women in the world",
-            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSG_LGL_GENEQVAW%22%7D"
+            "title": "Proportion of population using basic drinking water services in the world",
+            "url": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSH_H2O_SAFE%22%7D"
           }
         ]
       },

@@ -46,14 +46,18 @@ interface StatVarChooserProps {
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const { dateCtx, statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState([]);
+  const [statVarWidgetIsCollapsed, setStatVarWidgetIsCollapsed] =
+    useState(true);
 
   useEffect(() => {
     const enclosingPlaceDcid = placeInfo.value.enclosingPlace.dcid;
     const enclosedPlaceType = placeInfo.value.enclosedPlaceType;
     if (_.isEmpty(enclosingPlaceDcid) || _.isEmpty(enclosedPlaceType)) {
       setSamplePlaces([]);
+      setStatVarWidgetIsCollapsed(true);
       return;
     }
+    setStatVarWidgetIsCollapsed(false);
     getEnclosedPlacesPromise(enclosingPlaceDcid, enclosedPlaceType).then(
       (enclosedPlaces) => {
         const samplePlaces = getSamplePlaces(
@@ -112,6 +116,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       selectSV={(svDcid): void =>
         selectStatVar(dateCtx, statVar, display, placeInfo, svDcid)
       }
+      isCollapsedOverride={statVarWidgetIsCollapsed}
+      setIsCollapsedOverride={setStatVarWidgetIsCollapsed}
     />
   );
 }

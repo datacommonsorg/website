@@ -87,6 +87,15 @@ class TestFeatureFlags(unittest.TestCase):
     """Should default to False if feature is not in config."""
     self.assertFalse(is_feature_enabled(TEST_FEATURE_FLAG, app=self.app))
 
+  def test_feature_flag_experimental_rollout(self):
+    """Should return True if feature flag is in rollout and False otherwise"""
+    # 0% rollout should be disabled
+    mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True, rolloutPercent=0)
+    self.assertFalse(is_feature_enabled(TEST_FEATURE_FLAG, app=self.app))
+    # 100% rollout should be enabled
+    mock_feature_flags(self.app, [TEST_FEATURE_FLAG], True, rolloutPercent=100)
+    self.assertTrue(is_feature_enabled(TEST_FEATURE_FLAG, app=self.app))
+
   def test_url_enable_override_wins_over_config(self):
     """Should return True if URL enable override is provided"""
     # Config says False but request says True

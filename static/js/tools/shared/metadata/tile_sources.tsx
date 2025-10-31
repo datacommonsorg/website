@@ -24,6 +24,7 @@
 
 import React, { ReactElement } from "react";
 
+import { ApiButton } from "../../../components/tiles/components/api_button";
 import { NL_SOURCE_REPLACEMENTS } from "../../../constants/app/explore_constants";
 import { intl } from "../../../i18n/i18n";
 import { messages } from "../../../i18n/i18n_messages";
@@ -36,6 +37,7 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../../shared/ga_events";
+import { ObservationSpec } from "../../../shared/observation_specs";
 import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../../shared/types";
 import { urlToDisplayText } from "../../../shared/util";
@@ -59,8 +61,20 @@ export function TileSources(props: {
   sources?: Set<string> | string[];
   containerRef?: React.RefObject<HTMLElement>;
   apiRoot?: string;
+  // A callback function passed through from the chart that will collate
+  // a set of observation specs relevant to the chart. These
+  // specs can be hydrated into API calls.
+  getObservationSpecs?: () => ObservationSpec[];
+  // Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
+  surface: string;
 }): ReactElement {
-  const { facets, statVarToFacets, statVarSpecs, sources } = props;
+  const {
+    facets,
+    statVarToFacets,
+    statVarSpecs,
+    sources,
+    getObservationSpecs,
+  } = props;
   if (!facets && !sources) {
     return null;
   }
@@ -122,14 +136,30 @@ export function TileSources(props: {
                     statVarSpecs={statVarSpecs}
                     facets={facets}
                     statVarToFacets={statVarToFacets}
+                    surface={props.surface}
                   />
                 ) : (
                   <TileMetadataModalSimple
                     apiRoot={props.apiRoot}
                     containerRef={props.containerRef}
                     statVarSpecs={statVarSpecs}
+                    surface={props.surface}
                   />
                 )}
+              </span>
+            </>
+          )}
+          {getObservationSpecs && (
+            <>
+              <span {...{ part: "source-separator" }}> • </span>
+              <span {...{ part: "source-show-api-link" }}>
+                <ApiButton
+                  apiRoot={props.apiRoot}
+                  getObservationSpecs={getObservationSpecs}
+                  containerRef={props.containerRef}
+                  variant="textOnly"
+                  surface={props.surface}
+                />
               </span>
             </>
           )}

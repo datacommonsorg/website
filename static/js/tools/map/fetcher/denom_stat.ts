@@ -21,6 +21,7 @@
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { EntitySeriesWrapper } from "../../../shared/stat_types";
 import { getSeriesWithin } from "../../../utils/data_fetch_utils";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
@@ -56,7 +57,9 @@ export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
       "",
       placeInfo.value.enclosingPlace.dcid,
       placeInfo.value.enclosedPlaceType,
-      [statVar.value.denom]
+      [statVar.value.denom],
+      null, // facetIds
+      WEBSITE_SURFACE
     )
       .then((resp) => {
         if (_.isEmpty(resp.data[statVar.value.denom])) {

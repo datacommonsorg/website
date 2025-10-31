@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import _ from "lodash";
 
 import {
@@ -116,11 +116,13 @@ export function getChildPlacesPromise(
  */
 export function getEnclosedPlacesPromise(
   placeDcid: string,
-  childPlaceType: string
+  childPlaceType: string,
+  signal?: AxiosRequestConfig["signal"]
 ): Promise<Array<NamedPlace>> {
   return axios
     .get(
-      `/api/place/descendent?dcids=${placeDcid}&descendentType=${childPlaceType}`
+      `/api/place/descendent?dcids=${placeDcid}&descendentType=${childPlaceType}`,
+      { signal }
     )
     .then((resp) => {
       const enclosedPlaces = resp.data[placeDcid];

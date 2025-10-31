@@ -23,6 +23,7 @@
 // Import web components
 import "../../../library";
 
+import { css, useTheme } from "@emotion/react";
 import axios from "axios";
 import _ from "lodash";
 import React, {
@@ -47,7 +48,11 @@ import {
 import { intl } from "../../i18n/i18n";
 import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { messages } from "../../i18n/i18n_messages";
-import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import {
+  DATE_HIGHEST_COVERAGE,
+  DATE_LATEST,
+  WEBSITE_SURFACE,
+} from "../../shared/constants";
 import { FacetSelector } from "../../shared/facet_selector/facet_selector";
 import {
   isFeatureEnabled,
@@ -282,6 +287,7 @@ function getBlockStatVarSpecs(
 }
 
 export function Block(props: BlockPropType): ReactElement {
+  const theme = useTheme();
   const minIdxToHide = getMinTileIdxToHide();
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
@@ -498,7 +504,22 @@ export function Block(props: BlockPropType): ReactElement {
 
   return (
     <>
-      <div className={`block-controls ${!facetsLoading ? "show" : ""}`}>
+      <div
+        className={`block-controls ${!facetsLoading ? "show" : ""}`}
+        css={css`
+          && {
+            span,
+            label,
+            button,
+            input {
+              ${theme.typography.family.text}
+              ${theme.typography.text.sm}
+              margin: 0;
+              padding: 0;
+            }
+          }
+        `}
+      >
         {showFacetSelector && (
           <div className="block-modal-trigger">
             <FacetSelector
@@ -673,6 +694,7 @@ function renderTiles(
             place={place}
             statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             highlightFacet={props.highlightFacet}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -703,6 +725,8 @@ function renderTiles(
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
+            surface={WEBSITE_SURFACE}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "LINE":
@@ -733,6 +757,7 @@ function renderTiles(
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
             highlightFacet={props.highlightFacet}
+            surface={WEBSITE_SURFACE}
           />
         );
       case "RANKING":
@@ -759,6 +784,8 @@ function renderTiles(
                   )
                 : undefined
             }
+            surface={WEBSITE_SURFACE}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "BAR":
@@ -795,6 +822,7 @@ function renderTiles(
               tile.barTileSpec?.defaultVariableName
             )}
             highlightFacet={props.highlightFacet}
+            surface={WEBSITE_SURFACE}
           />
         );
       case "SCATTER": {
@@ -823,6 +851,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
             placeNameProp={tile.placeNameProp}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -848,6 +877,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -873,6 +903,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={WEBSITE_SURFACE}
           ></GaugeTile>
         );
       case "DONUT":
@@ -893,6 +924,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={WEBSITE_SURFACE}
           ></DonutTile>
         );
       case "DESCRIPTION":

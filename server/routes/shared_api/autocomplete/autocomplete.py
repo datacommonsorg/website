@@ -15,6 +15,7 @@
 import asyncio
 import itertools
 import logging
+import re
 import time
 from typing import List
 
@@ -40,8 +41,9 @@ bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 async def autocomplete():
   """Predicts the user query for location and stat vars."""
   start_time = time.time()
-  lang = request.args.get('hl')
+  lang = request.args.get('hl', 'en')
   original_query = request.args.get('query', '')
+  has_location = request.args.get('has_location', 'false') == 'true'
 
   # Don't trigger autocomplete on short queries or if the last word is a stop word.
   words = original_query.split()
@@ -52,16 +54,16 @@ async def autocomplete():
     return jsonify(AutoCompleteApiResponse(predictions=[]))
 
   # 1. FAN-OUT: Create all concurrent tasks.
-  logging.info(f'[Autocomplete] Original Query: {original_query}')
   tasks = []
   task_metadata = []
 
   # Task A: Core Concept Stat Var Search
-  if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE, request=request):
+  concept_result = None
+  if lang == 'en' and is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE,
+                                         request=request):
     # Note: analyze_query_concepts is synchronous and makes a blocking API call.
     # We run it once at the start.
     concept_result = stat_vars.analyze_query_concepts(original_query)
-    logging.info(f'[Autocomplete] Concept Result: {concept_result}')
     if concept_result:
       tasks.append(
           asyncio.to_thread(stat_vars.search_stat_vars,
@@ -72,8 +74,15 @@ async def autocomplete():
       })
 
   # Task B: N-gram and Custom Place Search
-  ngram_queries = helpers.get_ngram_queries(original_query)
-  logging.info(f'[Autocomplete] N-gram queries: {ngram_queries}')
+  query_for_ngrams = original_query
+  if concept_result and concept_result.get('place_name'):
+    place_name = concept_result['place_name']
+    place_name_end_pos = original_query.lower().find(
+        place_name.lower()) + len(place_name)
+    query_for_ngrams = original_query[place_name_end_pos:]
+    query_for_ngrams = re.sub(r"^\s*'s\s*", "", query_for_ngrams).strip()
+
+  ngram_queries = helpers.get_ngram_queries(query_for_ngrams)
 
   for ngram_query in ngram_queries:
     # Custom place suggestions
@@ -94,7 +103,8 @@ async def autocomplete():
     })
 
     # Stat var n-gram search
-    if is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE, request=request):
+    if lang == 'en' and is_feature_enabled(ENABLE_STAT_VAR_AUTOCOMPLETE,
+                                           request=request):
       tasks.append(asyncio.to_thread(stat_vars.search_stat_vars, ngram_query))
       task_metadata.append({'source': 'ngram_sv', 'matched_query': ngram_query})
 
@@ -112,17 +122,13 @@ async def autocomplete():
         p.matched_query = meta['original_phrase']
       else:
         p.matched_query = meta['matched_query']
+      p.has_place = has_location or (concept_result['has_place']
+                                     if concept_result else False)
       all_predictions.append(p)
-
-  logging.info(
-      f'[Autocomplete] Total predictions before ranking: {len(all_predictions)}'
-  )
 
   # 2. RANK: Apply custom ranking to all gathered predictions.
   ranked_predictions = helpers.custom_rank_predictions(all_predictions,
                                                        original_query)
-  logging.info(
-      f'[Autocomplete] Total predictions after ranking: {ranked_predictions}')
 
   # 3. MERGE: Deduplicate and format the final list.
   places_to_fetch_dcid = [
@@ -141,12 +147,10 @@ async def autocomplete():
           name=prediction.description,
           match_type='location_search' if is_place else 'stat_var_search',
           matched_query=prediction.matched_query,
-          dcid=prediction.place_dcid)
+          dcid=prediction.place_dcid,
+          has_place=prediction.has_place)
       final_predictions.append(current_prediction)
 
   duration_ms = (time.time() - start_time) * 1000
-  logging.info(
-      f'[Autocomplete] Returning {len(final_predictions)} predictions in {duration_ms:.2f} ms'
-  )
 
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))

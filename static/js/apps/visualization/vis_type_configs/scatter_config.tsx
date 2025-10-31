@@ -22,6 +22,7 @@ import _ from "lodash";
 import React, { ReactElement, useCallback, useMemo } from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import {
   GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
@@ -198,6 +199,7 @@ function getChartArea(
           showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
           showQuadrants: appContext.displayOptions.scatterQuadrants,
         }}
+        surface={WEBSITE_SURFACE}
       />
     </div>
   );

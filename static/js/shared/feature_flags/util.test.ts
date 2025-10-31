@@ -93,27 +93,43 @@ describe("isFeatureEnabled", () => {
   // Test environment-specific feature flag settings
   test("returns true when feature flag is enabled in FEATURE_FLAGS", () => {
     window.location.search = "";
-    globalThis.FEATURE_FLAGS = { [featureName]: true };
+    globalThis.FEATURE_FLAGS = { [featureName]: { enabled: true } };
     expect(isFeatureEnabled(featureName)).toBe(true);
   });
 
   test("returns false when feature flag is disabled in FEATURE_FLAGS", () => {
     window.location.search = "";
-    globalThis.FEATURE_FLAGS = { [featureName]: false };
+    globalThis.FEATURE_FLAGS = { [featureName]: { enabled: false } };
     expect(isFeatureEnabled(featureName)).toBe(false);
   });
 
   // Test disabling feature flags
   test("returns false when disable param is present", () => {
     window.location.search = `?${DISABLE_FEATURE_URL_PARAM}=${featureName}`;
-    globalThis.FEATURE_FLAGS = { [featureName]: true };
+    globalThis.FEATURE_FLAGS = { [featureName]: { enabled: true } };
     expect(isFeatureEnabled(featureName)).toBe(false);
   });
 
   test("keyword in url but not as a query parameter does not override", () => {
     // test case: url is missing the '?' in front
     window.location.href = `/${DISABLE_FEATURE_URL_PARAM}=${featureName}`;
-    globalThis.FEATURE_FLAGS = { [featureName]: true };
+    globalThis.FEATURE_FLAGS = { [featureName]: { enabled: true } };
     expect(isFeatureEnabled(featureName)).toBe(true);
+  });
+
+  test("returns true when rollout percentage is 100", () => {
+    window.location.search = "";
+    globalThis.FEATURE_FLAGS = {
+      [featureName]: { enabled: true, rollout_percentage: 100 },
+    };
+    expect(isFeatureEnabled(featureName)).toBe(true);
+  });
+
+  test("returns false when rollout percentage is 0", () => {
+    window.location.search = "";
+    globalThis.FEATURE_FLAGS = {
+      [featureName]: { enabled: true, rollout_percentage: 0 },
+    };
+    expect(isFeatureEnabled(featureName)).toBe(false);
   });
 });

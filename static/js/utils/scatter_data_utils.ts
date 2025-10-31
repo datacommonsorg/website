@@ -42,7 +42,8 @@ interface PlaceAxisChartData {
  */
 function getPlaceAxisChartData(
   placePointStat: EntityObservation,
-  populationData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   placeDcid: string,
   metadataMap: Record<string, StatMetadata>,
   popBounds?: [number, number],
@@ -50,13 +51,17 @@ function getPlaceAxisChartData(
   scaling?: number
 ): PlaceAxisChartData {
   const obs = placePointStat[placeDcid];
+  if (_.isEmpty(obs)) {
+    return null;
+  }
+  // finding the denom data that matches the facet of the current observation
+  const populationData = denomsByFacet?.[obs.facet]
+    ? denomsByFacet[obs.facet]
+    : defaultDenomData;
   const denomSeries =
     denom && populationData.data[denom] && populationData.data[denom][placeDcid]
       ? populationData.data[denom][placeDcid]
       : null;
-  if (_.isEmpty(obs)) {
-    return null;
-  }
   if (denom && (_.isEmpty(denomSeries) || _.isEmpty(denomSeries.series))) {
     return null;
   }
@@ -116,6 +121,8 @@ interface PlaceScatterData {
  * @param namedPlace place to get chart data for
  * @param xStatVarData data for the x axis stat var
  * @param yStatVarData data for the y axis stat var
+ * @param denomsByFacet map of facetId to denominator series result
+ * @param defaultDenomData default denominator series result, queried without specifying facet
  * @param populationData data for the population stat vars
  * @param metadataMap map of metahash to metadata for stat var data
  * @param xDenom optional denominator to use for x axis value calculation
@@ -128,7 +135,8 @@ export function getPlaceScatterData(
   namedPlace: NamedPlace,
   xStatVarData: EntityObservation,
   yStatVarData: EntityObservation,
-  populationData: SeriesApiResponse,
+  denomsByFacet: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   metadataMap: Record<string, StatMetadata>,
   xDenom?: string,
   yDenom?: string,
@@ -138,7 +146,8 @@ export function getPlaceScatterData(
 ): PlaceScatterData {
   const xChartData = getPlaceAxisChartData(
     xStatVarData,
-    populationData,
+    denomsByFacet,
+    defaultDenomData,
     namedPlace.dcid,
     metadataMap,
     popBounds,
@@ -150,7 +159,8 @@ export function getPlaceScatterData(
   }
   const yChartData = getPlaceAxisChartData(
     yStatVarData,
-    populationData,
+    denomsByFacet,
+    defaultDenomData,
     namedPlace.dcid,
     metadataMap,
     popBounds,

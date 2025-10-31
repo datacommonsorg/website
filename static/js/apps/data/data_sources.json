@@ -2533,6 +2533,11 @@
             "description": "Annual survey that gathers data on various health measures for pregnant women and their babies."
           },
           {
+            "label": "Underlying cause of death",
+            "url": "https://wonder.cdc.gov/ucd-icd10-expanded.html",
+            "description": "Mortality statistics broken down by the underlying cause of death, residence, age, race, ethinicity, and sex."
+          },
+          {
             "label": "Wonder: Compressed Mortality",
             "url": "https://wonder.cdc.gov/cmf-icd10.html",
             "description": "Mortality counts for all U.S. states and counties, broken down by underlying cause of death, age, race, sex, and year."

@@ -624,6 +624,9 @@ body.no-header-search-bar {
   @media (max-width: 620px) {
     padding-top: 0;
   }
+  @media (min-width: 620px) {
+    max-width: 70%;
+  }
 
   .search-bar {
     align-items: center;

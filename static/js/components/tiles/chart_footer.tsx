@@ -55,6 +55,9 @@ interface ChartFooterPropType {
   containerRef?: RefObject<HTMLElement>;
   // Additional content that will display in the footer.
   children?: React.ReactNode;
+  // Passed into calls to mixer for usage logs. Indicates which DC surface
+  // (website, datagemma, etc.) the call originates from.
+  surface: string;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
@@ -63,7 +66,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
       <slot name="footer" {...{ part: "footer" }}>
         <Footnote text={props.footnote} />
       </slot>
-      <footer className="chart-container-footer">
+      <footer className="chart-container-footer" {...{ part: "tools-footer" }}>
         <div className="main-footer-section">
           <div className="outlinks">
             {props.handleEmbed && (
@@ -91,6 +94,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     apiRoot={props.apiRoot}
                     getObservationSpecs={props.getObservationSpecs}
                     containerRef={props.containerRef}
+                    surface={props.surface}
                   />
                 </div>
               )}

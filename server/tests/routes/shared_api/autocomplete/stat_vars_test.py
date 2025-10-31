@@ -15,6 +15,7 @@
 import unittest
 from unittest import mock
 
+from google.cloud.language_v1.types import AnalyzeEntitiesResponse
 from google.cloud.language_v1.types import AnalyzeSyntaxResponse
 from google.cloud.language_v1.types import PartOfSpeech
 from google.cloud.language_v1.types import TextSpan
@@ -75,8 +76,13 @@ class TestStatVars(unittest.TestCase):
         ])
       return response
 
+    def mock_analyze_entities(document, encoding_type):
+      response = AnalyzeEntitiesResponse()
+      return response
+
     mock_lang_client = mock.Mock()
     mock_lang_client.analyze_syntax.side_effect = mock_analyze_syntax
+    mock_lang_client.analyze_entities.side_effect = mock_analyze_entities
     mock_get_lang_client.return_value = mock_lang_client
 
     # Test case 1: Adjectives are now removed.

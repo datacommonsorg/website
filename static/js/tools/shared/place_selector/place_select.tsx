@@ -39,6 +39,8 @@ interface PlaceSelectProps {
   numPlacesLimit?: number;
   // Text to show before the search bar
   searchBarInstructionText: string;
+  // Placeholder text to show in the search bar before text is entered
+  searchBarPlaceholderText?: string;
   // Mapping of [dcid]: placeName of currently selected places
   selectedPlaces: Record<string, string>;
 }
@@ -87,6 +89,7 @@ export function PlaceSelect(props: PlaceSelectProps): JSX.Element {
             )
           }
           numPlacesLimit={props.numPlacesLimit}
+          customPlaceHolder={props.searchBarPlaceholderText}
         />
       </div>
     </div>

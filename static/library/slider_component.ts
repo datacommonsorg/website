@@ -20,6 +20,7 @@ import { css, CSSResult, html, LitElement, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../js/shared/constants";
+import { WEB_COMPONENT_SURFACE } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -622,7 +623,10 @@ export class DatacommonsSliderComponent extends LitElement {
 
   private async fetchObservationDates(): Promise<void> {
     const apiRoot = getApiRoot(this.apiRoot);
-    const dataCommonsWebClient = new DataCommonsWebClient({ apiRoot });
+    const dataCommonsWebClient = new DataCommonsWebClient({
+      apiRoot,
+      surface: WEB_COMPONENT_SURFACE,
+    });
     if (
       (!this.places && (!this.parentPlace || !this.childPlaceType)) ||
       (!this.variable && !this.variables)

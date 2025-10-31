@@ -76,12 +76,7 @@ article.category {
     align-items: center;
     display: flex;
     gap: 6px;
-    padding: 14px 0;
     width: auto;
-
-    @include media-breakpoint-down(sm) {
-      padding: 7px 0;
-    }
 
     span, p {
       font-size: 14px !important;
@@ -115,6 +110,7 @@ article.category {
 
 .highlight-result-title .subtopic:last-of-type {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding-bottom: 1.5em;
 }
 
 .subtopic.notitle:not(:first-of-type) {
@@ -142,14 +138,21 @@ article.category {
 .block-body {
   display: flex;
   margin-top: 5px;
+  
+  @include media-breakpoint-down(sm) {
+    gap: 24px;
+  }
 }
 
 .block-controls {
   display: flex;
   flex-direction: row;
-  gap: 1.1rem;
+  align-items: center;
+  gap: 16px;
   opacity: 0;
   transition: opacity .3s ease-in-out;
+  margin: 8px 0 16px 0;
+  min-height: 22px;
 
   &.show {
     opacity: 1;
@@ -157,20 +160,19 @@ article.category {
 
   @include media-breakpoint-down(sm) {
     flex-direction: column;
-    gap: 0;
-    margin-top: 14px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 16px 0;
   }
 }
 
 .block-toggle {
-  align-items: center;
   display: flex;
-  padding: 14px 0;
+  align-items: center;
+  margin: 0;
+  padding: 0;
   width: auto;
-
-  @include media-breakpoint-down(sm) {
-    padding: 7px 0;
-  }
 
   label {
     align-items: center;

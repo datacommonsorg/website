@@ -3,6 +3,7 @@ https://datacommons.org/place/country/AFG
 https://datacommons.org/place/country/AFI
 https://datacommons.org/place/country/AGO
 https://datacommons.org/place/country/AIA
+https://datacommons.org/place/country/ALA
 https://datacommons.org/place/country/ALB
 https://datacommons.org/place/country/AND
 https://datacommons.org/place/country/ANT
@@ -263,9 +264,9 @@ https://datacommons.org/place/country/YUG
 https://datacommons.org/place/country/ZAF
 https://datacommons.org/place/country/ZMB
 https://datacommons.org/place/country/ZWE
+https://datacommons.org/place/wikidataId/Q130340667
 https://datacommons.org/place/wikidataId/Q23681
 https://datacommons.org/place/wikidataId/Q244165
-https://datacommons.org/place/wikidataId/Q27304761
 https://datacommons.org/place/wikidataId/Q29999
 https://datacommons.org/place/wikidataId/Q31354462
 https://datacommons.org/place/wikidataId/Q40362

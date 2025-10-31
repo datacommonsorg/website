@@ -27,6 +27,7 @@ import {
   HIDE_TILE_CLASS,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { NamedNode, NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
@@ -388,6 +389,7 @@ function renderTiles(
             tileSpec={tile.disasterEventMapTileSpec}
             parentPlaces={props.parentPlaces}
             showExploreMore={props.showExploreMore}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -410,6 +412,7 @@ function renderTiles(
             property={tile.histogramTileSpec.prop}
             disasterEventData={tileEventData}
             showExploreMore={props.showExploreMore}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -432,6 +435,7 @@ function renderTiles(
             disasterEventData={tileEventData}
             enclosedPlaceType={enclosedPlaceType}
             showExploreMore={props.showExploreMore}
+            surface={WEBSITE_SURFACE}
           />
         );
       }

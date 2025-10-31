@@ -42,6 +42,7 @@ import {
 import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
+  WEBSITE_SURFACE_HEADER,
 } from "../../shared/constants";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
@@ -288,10 +289,16 @@ export function getFilteredStatVarPromise(
     return Promise.resolve([]);
   }
   return axios
-    .post("/api/observation/existence", {
-      entities: samplePlaces.map((place) => place.dcid),
-      variables: statVars.map((sv) => sv.dcid),
-    })
+    .post(
+      "/api/observation/existence",
+      {
+        entities: samplePlaces.map((place) => place.dcid),
+        variables: statVars.map((sv) => sv.dcid),
+      },
+      {
+        headers: WEBSITE_SURFACE_HEADER,
+      }
+    )
     .then((resp) => {
       const availableSVs = new Set();
       const numRequired = getNumEntitiesExistence(samplePlaces, visTypeConfig);

@@ -86,6 +86,7 @@ function get_gke_credentials() {
 function deploy_mixer() {
   cd $ROOT
   helm upgrade --install dc-mixer mixer/deploy/helm_charts/mixer \
+  --namespace website \
   --atomic \
   --timeout 10m \
   --force  \
@@ -137,6 +138,7 @@ function deploy_website() {
     fi
   done
   helm upgrade --install dc-website deploy/helm_charts/dc_website \
+  --namespace website \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
   --debug \
   --atomic \
@@ -146,13 +148,7 @@ function deploy_website() {
   --set nodejs.apiRoot="$WEBSITE_SERVICE_URL" \
   --set cronTesting.webApiRoot="$WEBSITE_SERVICE_URL" \
   --set cronTesting.nodejsApiRoot="$NODEJS_SERVICE_URL" \
-  --set-file nl.catalog=deploy/nl/catalog.yaml \
-  --set-file website.placeSummary.data.country=server/config/summaries/place_summaries_for_country_.json \
-  --set-file website.placeSummary.data.geoid_0_2=server/config/summaries/place_summaries_for_geoId_0-2.json \
-  --set-file website.placeSummary.data.geoid_3_5=server/config/summaries/place_summaries_for_geoId_3-5.json \
-  --set-file website.placeSummary.data.geoid_6_9=server/config/summaries/place_summaries_for_geoId_6-9.json \
-  --set-file website.placeSummary.data.wikidataid=server/config/summaries/place_summaries_for_wikidataId_.json \
-  --set-file website.placeSummary.data.others=server/config/summaries/place_summaries_others.json
+  --set-file nl.catalog=deploy/nl/catalog.yaml
 }
 
 cd $ROOT

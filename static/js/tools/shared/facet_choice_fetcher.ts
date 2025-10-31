@@ -18,6 +18,7 @@
  * File to contain helper functions for fetching facet choices for UI components.
  */
 
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getFacets, getFacetsWithin } from "../../utils/data_fetch_utils";
@@ -40,11 +41,12 @@ export async function fetchFacetChoices(
   placeDcids: string[],
   statVars: { dcid: string; name?: string }[]
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient();
+  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
   const baseFacets = await getFacets(
     "",
     placeDcids,
-    statVars.map((sv) => sv.dcid)
+    statVars.map((sv) => sv.dcid),
+    WEBSITE_SURFACE
   );
   const enrichedFacets = await fetchFacetsWithMetadata(
     baseFacets,
@@ -71,9 +73,16 @@ export async function fetchFacetChoicesWithin(
   enclosedPlaceType: string,
   statVars: { dcid: string; name?: string; date?: string }[]
 ): Promise<FacetSelectorFacetInfo[]> {
-  const dataCommonsClient = getDataCommonsClient();
+  const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
   const facetPromises = statVars.map((sv) =>
-    getFacetsWithin("", parentPlace, enclosedPlaceType, [sv.dcid], sv.date)
+    getFacetsWithin(
+      "",
+      parentPlace,
+      enclosedPlaceType,
+      [sv.dcid],
+      sv.date,
+      WEBSITE_SURFACE
+    )
   );
   const baseFacets = Object.assign({}, ...(await Promise.all(facetPromises)));
   const enrichedFacets = await fetchFacetsWithMetadata(

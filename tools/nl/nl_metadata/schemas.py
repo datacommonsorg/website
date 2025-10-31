@@ -14,6 +14,14 @@
 from pydantic import BaseModel
 
 
+class GeminiResponseItem(BaseModel):
+  """
+  A class to structure an item in the response from Gemini, containing the dcid and the generated sentences.
+  """
+  dcid: str
+  generatedSentences: list[str] | None = None
+
+
 class StatVarMetadata(BaseModel):
   """
     A class to structure and normalize metadata pulled for statistical variables from the Data Commons API, BigQuery and Gemini.

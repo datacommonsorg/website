@@ -134,14 +134,8 @@ export const TileMetadataModalContent = ({
           <h3>
             {intl.formatMessage(metadataComponentMessages.SourceAndCitation)}
           </h3>
-          <p>
-            {intl.formatMessage(metadataComponentMessages.DataSources)} •{" "}
-            {buildCitationNodes(citationParts)}
-          </p>
-          <p>
-            {intl.formatMessage(metadataComponentMessages.CitationGuidance)} •{" "}
-            {intl.formatMessage(metadataComponentMessages.PleaseCredit)}
-          </p>
+          <p>{buildCitationNodes(citationParts)}</p>
+          <p>{intl.formatMessage(metadataComponentMessages.PleaseCredit)}</p>
         </div>
       )}
     </div>

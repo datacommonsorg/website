@@ -222,9 +222,6 @@ def fetch_place_id_to_dcid(
     if prediction.place_id in place_id_to_dcid:
       prediction.place_dcid = place_id_to_dcid[prediction.place_id]
 
-  logging.info("[Place_Autocomplete] Found %d place ID to DCID mappings.",
-               len(place_id_to_dcid))
-
   return prediction_responses
 
 

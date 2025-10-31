@@ -94,6 +94,11 @@ export function FacetSelectorStandardContent({
       style={{
         opacity: isVisible ? 1 : 0,
       }}
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: ${facetList.length > 1 ? theme.spacing.lg : theme.spacing.sm}px;
+      `}
     >
       {facetList.length > 1 && (
         <p
