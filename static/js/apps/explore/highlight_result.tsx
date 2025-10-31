@@ -22,9 +22,9 @@ import React, { ReactElement, useMemo } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { FacetMetadata } from "../../types/facet_metadata";
+import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { trimCategory } from "../../utils/subject_page_utils";
-import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
 const PAGE_ID = "highlight-result";
 
