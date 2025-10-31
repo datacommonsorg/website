@@ -51,7 +51,6 @@ export function ChartTypeToggle(): JSX.Element {
         title={intl.formatMessage(
           toolMessages.scatterToolScatterChartTypeTooltip
         )}
-        disableTouchListener
       >
         <Button
           id="scatter-chart-type-selector-scatter"
@@ -69,7 +68,6 @@ export function ChartTypeToggle(): JSX.Element {
         title={intl.formatMessage(
           toolMessages.scatterToolBivariateChartTypeTooltip
         )}
-        disableTouchListener
       >
         <Button
           id="scatter-chart-type-selector-map"

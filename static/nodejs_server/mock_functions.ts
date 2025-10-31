@@ -63,7 +63,6 @@ export function queryAxiosMock(): void {
       params: {
         childType: "County",
         date: "",
-        facetIds: [],
         parentEntity: "geoId/38",
         variables: ["Mean_Income_Household_FamilyHousehold"],
       },
