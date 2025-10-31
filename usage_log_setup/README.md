@@ -30,7 +30,7 @@ GCP automatically creates a table within the dataset and assigns it a schema bas
 
 If you're combining logs from multiple Mixer instances in different GCP projects, you can run this script to create a sink in each project and use the same dataset as the destination for both. This gives you one consolidated log table for all of your instances.
 
-### 4. Wait a few minutes until you can see that the BigQuery table you just created has been populated with logs in the GCP console.
+### 4. Wait a few minutes until you can see that the BigQuery destination table has been populated with logs in the GCP console.
 
 GCP will automatically recognize the schema of the incoming logs. This table now stores all raw, query-level logs written by mixer.
 
