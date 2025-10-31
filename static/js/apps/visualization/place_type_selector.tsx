@@ -40,7 +40,7 @@ export function PlaceTypeSelector(
     if (selectedPlaceType !== enclosedPlaceType) {
       setSelectedPlaceType(enclosedPlaceType);
     }
-  }, [enclosedPlaceType, selectedPlaceType]);
+  }, [enclosedPlaceType]);
 
   return (
     <div className="place-type-selector">

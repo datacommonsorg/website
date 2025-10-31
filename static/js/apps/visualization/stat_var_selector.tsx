@@ -65,13 +65,13 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
     if (visTypeConfig.numSv && selectedStatVars.length > visTypeConfig.numSv) {
       setSelectedStatVars(selectedStatVars.slice(0, visTypeConfig.numSv));
     }
-  }, [visTypeConfig, selectedStatVars]);
+  }, [visTypeConfig]);
 
   useEffect(() => {
     if (!_.isEqual(statVars, selectedStatVars)) {
       setSelectedStatVars(statVars);
     }
-  }, [statVars, selectedStatVars]);
+  }, [statVars]);
 
   useEffect(() => {
     if (!props.selectOnContinue || samplePlaces === null) {
@@ -86,7 +86,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
         setSelectedStatVars(filteredStatVars);
       }
     });
-  }, [samplePlaces, props.selectOnContinue, selectedStatVars, visTypeConfig]);
+  }, [samplePlaces]);
 
   return (
     <div className="stat-var-selector">

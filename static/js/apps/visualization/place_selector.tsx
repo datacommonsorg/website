@@ -48,13 +48,13 @@ export function PlaceSelector(props: {
     if (!_.isEqual(places, selectedPlaces)) {
       setSelectedPlaces(places);
     }
-  }, [places, selectedPlaces]);
+  }, [places]);
 
   useEffect(() => {
     if (visTypeConfig.singlePlace && selectedPlaces.length > 1) {
       setSelectedPlaces(selectedPlaces.slice(0, 1));
     }
-  }, [visType, selectedPlaces, visTypeConfig]);
+  }, [visType]);
 
   return (
     <div className="place-selector">
