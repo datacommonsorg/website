@@ -35,7 +35,7 @@ export const DISABLE_FEATURE_URL_PARAM = "disable_feature";
  * @param featureName name of feature for which we want status.
  * @returns true if the feature is enabled by the URL parameter, false otherwise.
  */
-export function isFeatureOverrideEnabled(featureName: string): boolean {
+function isFeatureOverrideEnabled(featureName: string): boolean {
   const urlParams = new URLSearchParams(window.location.search);
   const enabledFeatures = urlParams.getAll(ENABLE_FEATURE_URL_PARAM);
   return enabledFeatures.includes(featureName);
@@ -56,7 +56,7 @@ export function isFeatureOverrideDisabled(featureName: string): boolean {
  * Returns the feature flags for the current environment.
  * @returns
  */
-export function getFeatureFlags(): Record<
+function getFeatureFlags(): Record<
   string,
   { enabled: boolean; rollout_percentage?: number }
 > {

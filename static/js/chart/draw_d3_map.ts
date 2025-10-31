@@ -70,7 +70,7 @@ const HIGHLIGHTED_STROKE_COLOR = "#202020";
 const STROKE_WIDTH = "0.5px";
 const HIGHLIGHTED_STROKE_WIDTH = "1.25px";
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
-export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
+const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME = "region-highlighted-no-click";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
@@ -269,7 +269,7 @@ function addTooltip(containerElement: HTMLDivElement): void {
  * Merge multiple geoJsons into one FeatureCollection
  * @param geoJsons array of geoJsons to combine.
  */
-export function combineGeoJsons(geoJsons: GeoJsonData[]): GeoJsonData {
+function combineGeoJsons(geoJsons: GeoJsonData[]): GeoJsonData {
   let features = [];
   for (const geoJson of geoJsons) {
     features = features.concat(geoJson.features);

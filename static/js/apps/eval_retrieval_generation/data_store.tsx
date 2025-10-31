@@ -77,7 +77,7 @@ export async function getAllFields(path: string): Promise<DocumentData> {
 }
 
 // Gets a field from a doc at the specified path
-export async function getField(
+async function getField(
   path: string,
   fieldKey: string
 ): Promise<string> {
@@ -198,7 +198,7 @@ export async function getCallCount(
  * @param sheet the sheet to get rows from
  * @param rowIdxList the list of rows to get from the sheet
  */
-export async function getSheetsRows(
+async function getSheetsRows(
   sheet: GoogleSpreadsheetWorksheet,
   rowIdxList: number[]
 ): Promise<Record<number, GoogleSpreadsheetRow>> {
