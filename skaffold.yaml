@@ -121,9 +121,7 @@ profiles:
                   - region: "us-central1"
                     host: "10.60.165.235"
                     port: "6379"
-              mixer.useSpannerGraph: true
               mixer.enableOtlp: true
-              mixer.v3MirrorFraction: 0.5
               serviceAccount.name: website-ksa
               ingress.enabled: "true"
               mixer.hostProject: "datcom-website-dev"
