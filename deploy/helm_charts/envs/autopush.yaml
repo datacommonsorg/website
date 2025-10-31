@@ -110,14 +110,14 @@ serviceGroups:
 
 nodejs:
   enabled: true
+  apiRoot: "http://website-service:8080"
   image:
     tag: ""
   replicas: 12
 
 cronTesting:
   enabled: true
-  screenshotDomain: "autopush.datacommons.org"
-  webApiRoot: "http://website-service.website.svc.cluster.local:8080"
-  nodejsApiRoot: "http://website-nodejs-service.website.svc.cluster.local:8080"
+  webApiRoot: "http://website-service:8080"
+  nodejsApiRoot: "http://website-nodejs-service:8080"
   nodePool: "pool-1"
   schedule: "0 */12 * * *"

@@ -157,6 +157,7 @@ export const PlaceOverview = (props: {
   const isInUsa = isPlaceContainedInUsa(
     parentPlaces.map((place) => place.dcid)
   );
+  const showGoogleMap = isInUsa && !globalThis.disableGoogleMaps;
   const theme = useTheme();
   return (
     <div
@@ -219,7 +220,7 @@ export const PlaceOverview = (props: {
           }
         `}
       >
-        {isInUsa && (
+        {showGoogleMap && (
           <div>
             <GoogleMap dcid={place.dcid}></GoogleMap>
           </div>

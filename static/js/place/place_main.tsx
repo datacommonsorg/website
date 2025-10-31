@@ -30,11 +30,12 @@ import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { pageMessages } from "../i18n/i18n_place_messages";
+import { WEBSITE_SURFACE } from "../shared/constants";
 import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
-import { defaultDataCommonsWebClient } from "../utils/data_commons_client";
+import { getDataCommonsClient } from "../utils/data_commons_client";
 import { PlaceOverview } from "./place_overview";
 import {
   createPlacePageCategoryHref,
@@ -361,6 +362,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setHasError(true);
       return;
     }
+    const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
     (async (): Promise<void> => {
       try {
         const [
@@ -369,20 +371,20 @@ export const DevPlaceMain = (): React.JSX.Element => {
           relatedPlacesApiResponse,
           placeOverviewTableApiResponse,
         ] = await Promise.all([
-          defaultDataCommonsWebClient.getPlaceSummary({
+          dataCommonsClient.webClient.getPlaceSummary({
             locale,
             placeDcid: place.dcid,
           }),
-          defaultDataCommonsWebClient.getPlaceCharts({
+          dataCommonsClient.webClient.getPlaceCharts({
             category,
             locale,
             placeDcid: place.dcid,
           }),
-          defaultDataCommonsWebClient.getRelatedPLaces({
+          dataCommonsClient.webClient.getRelatedPLaces({
             locale,
             placeDcid: place.dcid,
           }),
-          defaultDataCommonsWebClient.getPlaceOverviewTable({
+          dataCommonsClient.webClient.getPlaceOverviewTable({
             locale,
             placeDcid: place.dcid,
           }),

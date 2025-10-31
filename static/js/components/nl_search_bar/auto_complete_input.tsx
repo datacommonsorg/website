@@ -32,9 +32,13 @@ import { Input, InputGroup } from "reactstrap";
 
 import { intl } from "../../i18n/i18n";
 import {
+  DISABLE_FEATURE_URL_PARAM,
+  ENABLE_FEATURE_URL_PARAM,
+  ENABLE_STAT_VAR_AUTOCOMPLETE,
+} from "../../shared/feature_flags/util";
+import {
   GA_EVENT_AUTOCOMPLETE_SELECTION,
   GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_PLACE,
-  GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV,
   GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
   GA_PARAM_DYNAMIC_PLACEHOLDER,
   GA_PARAM_QUERY_AT_SELECTION,
@@ -88,6 +92,7 @@ interface AutoCompleteInputPropType {
   shouldAutoFocus: boolean;
   barType: string;
   enableDynamicPlaceholders?: boolean;
+  enableStatVarAutocomplete?: boolean;
 }
 
 function convertJSONToAutoCompleteResults(
@@ -228,20 +233,16 @@ export function AutoCompleteInput(
     if (!props.enableAutoComplete) return;
 
     const selectionApplied =
-      hoveredIdx >= 0 &&
-      hoveredIdx < results.length &&
-      currentText.trim().endsWith(results[hoveredIdx].name);
+      !_.isEmpty(currentText) &&
+      !_.isEmpty(lastAutoCompleteSelection) &&
+      currentText.trim().endsWith(lastAutoCompleteSelection);
 
     let lastSelection = lastAutoCompleteSelection;
     if (selectionApplied) {
-      triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
-        [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
-      });
-      setResults([]);
-      setHoveredIdx(-1);
-      setLastAutoCompleteSelection(results[hoveredIdx].name);
       return;
-    } else if (_.isEmpty(currentText)) {
+    }
+
+    if (_.isEmpty(currentText)) {
       setResults([]);
       setLastAutoCompleteSelection("");
       setHasLocation(false);
@@ -262,11 +263,11 @@ export function AutoCompleteInput(
       }
     }
 
-    sendDebouncedAutoCompleteRequest(queryForAutoComplete);
+    sendDebouncedAutoCompleteRequest(queryForAutoComplete, hasLocation);
   }
 
   const triggerAutoCompleteRequest = useCallback(
-    async (query: string) => {
+    async (query: string, hasLocation?: boolean) => {
       setLastScrollYOnTrigger(window.scrollY);
       if (controller.current) {
         controller.current.abort();
@@ -275,6 +276,15 @@ export function AutoCompleteInput(
 
       const urlParams = extractFlagsToPropagate(window.location.href);
       urlParams.set("query", query);
+      // Force the backend to use the stat var autocomplete model if the feature is enabled.
+      if (props.enableStatVarAutocomplete) {
+        urlParams.set(ENABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
+      } else {
+        urlParams.set(DISABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
+      }
+      if (hasLocation) {
+        urlParams.set("has_location", "true");
+      }
       const url = `/api/autocomplete?${urlParams.toString()}`;
 
       try {
@@ -320,7 +330,7 @@ export function AutoCompleteInput(
       case "Enter":
         event.preventDefault();
         if (hoveredIdx >= 0) {
-          selectResult(results[hoveredIdx], hoveredIdx);
+          selectResult(processedResults[hoveredIdx], hoveredIdx);
         } else {
           executeQuery();
         }
@@ -334,9 +344,16 @@ export function AutoCompleteInput(
         event.preventDefault();
         processArrowKey(Math.min(hoveredIdx + 1, results.length - 1));
         break;
-      case " ":
-        if (hoveredIdx >= 0) {
-          selectResult(results[hoveredIdx], hoveredIdx, true);
+      default:
+        // Handle alphanumeric, space and backspace keys
+        if (
+          hoveredIdx >= 0 &&
+          (/[a-zA-Z0-9]/.test(event.key) ||
+            event.key === " " ||
+            event.key === "Backspace" ||
+            event.key === "Delete")
+        ) {
+          selectResult(processedResults[hoveredIdx], hoveredIdx, true);
         }
     }
   }
@@ -355,7 +372,7 @@ export function AutoCompleteInput(
   ): void {
     setResults([]);
     setHoveredIdx(-1);
-    setLastAutoCompleteSelection(result.name);
+    setLastAutoCompleteSelection(result.fullText);
     triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
       [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
       [GA_PARAM_SELECTION_TYPE]: result.matchType,
@@ -365,27 +382,10 @@ export function AutoCompleteInput(
 
     const selectedProcessedResult = processedResults[idx];
     const queryText = selectedProcessedResult.fullText;
-    const placeDcid = selectedProcessedResult.placeDcid;
-
-    if (
-      result?.matchType === STAT_VAR_SEARCH &&
-      stripPatternFromQuery(baseInput, result.matchedQuery).trim() === ""
-    ) {
-      if (result.dcid) {
-        setHasLocation(hasLocation || result.hasPlace);
-        if (!skipRedirection) {
-          triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION_REDIRECTS_TO_SV, {
-            [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
-          });
-          const placeParam = placeDcid ? `p=${placeDcid}` : "p=Earth";
-          window.location.href =
-            `/explore#${placeParam}&sv=` +
-            encodeURIComponent(result.dcid) +
-            "&q=" +
-            encodeURIComponent(queryText);
-        }
-        return;
-      }
+    // TODO(gmechali): Reconsider whether to use the selectedProcessedResult.placeDcid.
+    const urlParams = extractFlagsToPropagate(window.location.href);
+    if (props.enableAutoComplete) {
+      urlParams.set(ENABLE_FEATURE_URL_PARAM, ENABLE_STAT_VAR_AUTOCOMPLETE);
     }
 
     if (result?.matchType == LOCATION_SEARCH) {
@@ -402,11 +402,21 @@ export function AutoCompleteInput(
 
         const overrideParams = new URLSearchParams();
         overrideParams.set("q", result.name);
+        if (props.enableStatVarAutocomplete) {
+          overrideParams.set(
+            ENABLE_FEATURE_URL_PARAM,
+            ENABLE_STAT_VAR_AUTOCOMPLETE
+          );
+        }
         const destinationUrl = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
         if (!skipRedirection) {
           redirect(window.location.href, destinationUrl, overrideParams);
         }
       }
+    } else if (result?.matchType === STAT_VAR_SEARCH) {
+      setHasLocation(
+        hasLocation || result.placeDcid != null || result.hasPlace
+      );
     }
 
     changeText(queryText);

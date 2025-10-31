@@ -246,6 +246,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                     props.pageMetadata.pageConfig,
                     maxBlock
                   )}
+                  highlightFacet={props.highlightFacet}
                   svgChartHeight={SVG_CHART_HEIGHT}
                   showExploreMore={true}
                 />

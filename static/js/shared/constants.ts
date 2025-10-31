@@ -203,3 +203,20 @@ export const DATE_LATEST = "LATEST";
  * AbortController cancelled code
  */
 export const ABORT_CONTROLLER_CANCELLED = "ERR_CANCELED";
+
+// Value to be passed into mixer to log usage from the website surface
+export const WEBSITE_SURFACE = "website";
+
+// The name of the header that passes the surface into calls to Mixer
+export const SURFACE_HEADER_NAME = "x-surface";
+
+// header using the website surface value
+export const WEBSITE_SURFACE_HEADER = {
+  [SURFACE_HEADER_NAME]: WEBSITE_SURFACE,
+};
+
+// Header value used for integration tests
+export const TEST_SURFACE = "integration-test";
+export const TEST_SURFACE_HEADER = {
+  [SURFACE_HEADER_NAME]: TEST_SURFACE,
+};

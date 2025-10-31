@@ -15,6 +15,7 @@
  */
 
 import { css, ThemeProvider } from "@emotion/react";
+import _ from "lodash";
 import React, { Component, createRef, ReactElement, RefObject } from "react";
 import { Container } from "reactstrap";
 
@@ -52,6 +53,8 @@ interface PageStateType {
   statVarInfo: Record<string, StatVarInfo>;
   // Whether the SV Hierarchy Modal is opened.
   showSvHierarchyModal: boolean;
+  // Whether the SV Hierarchy sidebar is collapsed.
+  statVarWidgetIsCollapsed: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
@@ -65,6 +68,7 @@ class Page extends Component<unknown, PageStateType> {
       placeName: {},
       statVarInfo: {},
       showSvHierarchyModal: false,
+      statVarWidgetIsCollapsed: true,
     };
     // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
     // menu but reattached to the modal when it is opened on small screens.
@@ -75,9 +79,24 @@ class Page extends Component<unknown, PageStateType> {
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
+  setStatVarWidgetIsCollapsed = (isCollapsed: boolean): void => {
+    this.setState({ statVarWidgetIsCollapsed: isCollapsed });
+  };
+
   componentDidMount(): void {
     window.addEventListener("hashchange", this.fetchDataAndRender);
     this.fetchDataAndRender();
+  }
+
+  componentDidUpdate(_prevProps: unknown, prevState: PageStateType): void {
+    if (this.state.placeName !== prevState.placeName) {
+      if (!_.isEmpty(this.state.placeName)) {
+        // Show stat var widget if a place is selected
+        this.setStatVarWidgetIsCollapsed(false);
+      } else {
+        this.setStatVarWidgetIsCollapsed(true);
+      }
+    }
   }
 
   render(): ReactElement {
@@ -114,6 +133,8 @@ class Page extends Component<unknown, PageStateType> {
       STANDARDIZED_VIS_TOOL_FEATURE_FLAG
     );
 
+    const showStatVarInstructions = numPlaces !== 0 && numStatVarInfo === 0;
+    const showChart = numPlaces !== 0 && numStatVarInfo !== 0;
     return (
       <ThemeProvider theme={theme}>
         <StatVarWidget
@@ -127,25 +148,26 @@ class Page extends Component<unknown, PageStateType> {
           selectSV={(sv): void =>
             addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
           }
+          isCollapsedOverride={this.state.statVarWidgetIsCollapsed}
+          setIsCollapsedOverride={this.setStatVarWidgetIsCollapsed}
         />
         <div id="plot-container">
           <Container fluid={true}>
-            {numPlaces === 0 &&
-              (useStandardizedUi ? (
-                <ToolHeader
-                  title={intl.formatMessage(toolMessages.timelineToolTitle)}
-                  subtitle={intl.formatMessage(
-                    toolMessages.timelineToolSubtitle
-                  )}
-                />
-              ) : (
-                <div className="app-header">
-                  <h1 className="mb-4">Timelines Explorer</h1>
-                  <a href="/tools/visualization#visType%3Dtimeline">
-                    Go back to the new Timelines Explorer
-                  </a>
-                </div>
-              ))}
+            {useStandardizedUi ? (
+              <ToolHeader
+                title={intl.formatMessage(toolMessages.timelineToolTitle)}
+                subtitle={intl.formatMessage(toolMessages.timelineToolSubtitle)}
+              />
+            ) : (
+              <div className="app-header">
+                <h1 className="mb-4">
+                  {intl.formatMessage(toolMessages.timelineToolTitle)}
+                </h1>
+                <a href="/tools/visualization#visType%3Dtimeline">
+                  {intl.formatMessage(toolMessages.timelineToolGoBackMessage)}
+                </a>
+              </div>
+            )}
             <div
               css={css`
                 margin-bottom: ${theme.spacing.lg}px;
@@ -178,23 +200,27 @@ class Page extends Component<unknown, PageStateType> {
                 />
               </FormBox>
             </div>
-
-            {numPlaces === 0 &&
+            {!showChart &&
               (useStandardizedUi ? (
                 <>
-                  <VisToolInstructionsBox toolType="timeline" />
-                  <div
-                    css={css`
-                      margin-top: ${theme.spacing.xl}px;
-                    `}
-                  >
-                    <ChartLinkChips toolType="timeline" />
-                  </div>
+                  <VisToolInstructionsBox
+                    toolType="timeline"
+                    showStatVarInstructionsOnly={showStatVarInstructions}
+                  />
+                  {!showStatVarInstructions && (
+                    <div
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="timeline" />
+                    </div>
+                  )}
                 </>
               ) : (
                 <MemoizedInfo />
               ))}
-            {numPlaces !== 0 && numStatVarInfo !== 0 && (
+            {showChart && (
               <div id="chart-region">
                 <ChartRegion
                   placeName={this.state.placeName}

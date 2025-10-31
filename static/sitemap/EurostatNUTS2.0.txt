@@ -197,6 +197,8 @@ https://datacommons.org/place/nuts/HR01
 https://datacommons.org/place/nuts/HR02
 https://datacommons.org/place/nuts/HR03
 https://datacommons.org/place/nuts/HR04
+https://datacommons.org/place/nuts/HR05
+https://datacommons.org/place/nuts/HR06
 https://datacommons.org/place/nuts/HU11
 https://datacommons.org/place/nuts/HU12
 https://datacommons.org/place/nuts/HU21
@@ -270,6 +272,10 @@ https://datacommons.org/place/nuts/NO04
 https://datacommons.org/place/nuts/NO05
 https://datacommons.org/place/nuts/NO06
 https://datacommons.org/place/nuts/NO07
+https://datacommons.org/place/nuts/NO08
+https://datacommons.org/place/nuts/NO09
+https://datacommons.org/place/nuts/NO0A
+https://datacommons.org/place/nuts/NO0B
 https://datacommons.org/place/nuts/PL21
 https://datacommons.org/place/nuts/PL22
 https://datacommons.org/place/nuts/PL41

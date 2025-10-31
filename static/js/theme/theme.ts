@@ -87,6 +87,9 @@ const DC_YELLOW = "hsl(35, 100%, 29%)";
 const DC_YELLOW_PILL_TEXT = "hsl(3, 71%, 15%)";
 const DC_YELLOW_PILL_BCKG = "hsl(40, 100%, 91%)";
 
+const DC_ORANGE = "hsl(26 100% 35.9%)";
+const DC_YELLOW_DARK = "hsl(43 100% 35.9%)";
+
 const DC_GRAY_DARK = "hsl(200, 2.9%, 41.2%)";
 const DC_GRAY = "hsl(160, 2%, 27%)";
 const DC_GRAY_LIGHT = "hsl(0, 0%, 48%)";
@@ -119,6 +122,8 @@ const theme: Theme = {
       },
       code: {
         base: DC_GREEN,
+        light: DC_GREEN_PILL_BCKG,
+        dark: DC_GREEN_PILL_TEXT,
       },
     },
     background: {
@@ -403,6 +408,47 @@ const theme: Theme = {
         lineHeight: "1.75rem",
       },
     },
+  },
+  codeHighlight: {
+    background: DC_WHITE,
+    border: DC_BLACK_80,
+    text: DC_GRAY,
+    highlight: DC_YELLOW_PILL_BCKG,
+    selection: DC_BLUE_WHITE_LIGHT,
+    comment: DC_GRAY_LIGHT,
+    prolog: DC_GRAY_LIGHT,
+    doctype: DC_GRAY_LIGHT,
+    cData: DC_GRAY_LIGHT,
+    punctuation: DC_BLUE_DARK,
+    property: DC_BLUE,
+    tag: DC_BLUE,
+    boolean: DC_BLUE,
+    number: DC_BLUE,
+    constant: DC_BLUE,
+    symbol: DC_BLUE,
+    deleted: DC_BLUE,
+    selector: DC_GREEN,
+    attrName: DC_GREEN,
+    string: DC_GREEN,
+    char: DC_GREEN,
+    builtin: DC_GREEN,
+    inserted: DC_GREEN,
+    operator: DC_ORANGE,
+    entity: DC_ORANGE,
+    url: DC_ORANGE,
+    langCSS: DC_ORANGE,
+    atrule: DC_BLUE,
+    attrValue: DC_BLUE,
+    keyword: DC_BLUE,
+    function: DC_BLUE,
+    className: DC_BLUE,
+    regex: DC_YELLOW_DARK,
+    important: DC_YELLOW_DARK,
+    variable: DC_YELLOW_DARK,
+    csvHeader: DC_GREEN,
+    csvSeparator: DC_ORANGE,
+    csvStringValue: DC_GRAY_LIGHT,
+    csvValue: DC_BLUE,
   },
   elevation: {
     none: {
