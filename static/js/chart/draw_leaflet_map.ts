@@ -94,11 +94,11 @@ export function addGeotiffLayer(
   leafletMap: Map,
   geoRaster: GeoRaster,
   colorScale: d3.ScaleLinear<number, number>
-) {
+): InstanceType<typeof GeoRasterLayer> {
   const geotiffLayer = new GeoRasterLayer({
     georaster: geoRaster,
     opacity: 1,
-    pixelValuesToColorFn: (value: { number: number }): string => {
+    pixelValuesToColorFn: (value: { number: number }): string | null => {
       if (value[GEORASTER_DATA_BAND] === NO_DATA_VALUE) {
         return null;
       } else {
@@ -128,7 +128,7 @@ export function addGeoJsonLayer(
   geojson: GeoJsonData,
   geotiffLayer: Layer,
   geoRaster: GeoRaster
-) {
+): L.GeoJSON {
   if (geotiffLayer.getTooltip()) {
     geotiffLayer.unbindTooltip();
   }
