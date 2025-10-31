@@ -306,7 +306,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const host = req.headers["x-forwarded-host"] || req.headers.host;
   const surfaceHeader = req.headers[SURFACE_HEADER_NAME];
   const surface = Array.isArray(surfaceHeader)
-    ? surfaceHeader[0]
+    ? surfaceHeader?.[0]
     : surfaceHeader;
   const apikey = (req.query.apikey as string) || "";
   const urlRoot = `${protocol}://${host}`;
