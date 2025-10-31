@@ -22,7 +22,11 @@ import {
   DEFAULT_TOPIC,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import {
+  DATE_HIGHEST_COVERAGE,
+  DATE_LATEST,
+  WEBSITE_SURFACE,
+} from "../../shared/constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPointWithin } from "../data_fetch_utils";
 import { getUpdatedHash } from "../url_utils";
@@ -94,7 +98,8 @@ export async function highestCoverageDatesEqualLatestDates(
     variables,
     DATE_HIGHEST_COVERAGE,
     undefined,
-    facetIds
+    facetIds,
+    WEBSITE_SURFACE
   );
 
   const latestObservations = await getPointWithin(
@@ -104,7 +109,8 @@ export async function highestCoverageDatesEqualLatestDates(
     variables,
     DATE_LATEST,
     undefined,
-    facetIds
+    facetIds,
+    WEBSITE_SURFACE
   );
 
   // Return false if we find any "latest observation dates" that differ from the

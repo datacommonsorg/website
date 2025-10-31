@@ -113,10 +113,6 @@ const config = {
       __dirname + "/css/biomedical/protein.scss",
     ],
     static: __dirname + "/css/static.scss",
-    screenshot: [
-      __dirname + "/js/apps/screenshot/main.ts",
-      __dirname + "/css/screenshot.scss",
-    ],
     search: [
       __dirname + "/js/search/search.ts",
       __dirname + "/css/search.scss",

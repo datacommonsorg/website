@@ -23,6 +23,7 @@ import React, { ReactElement, useCallback } from "react";
 
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
@@ -200,6 +201,7 @@ function getChartArea(
               place={appContext.places[0]}
               colors={COLORS}
               showTooltipOnHover={true}
+              surface={WEBSITE_SURFACE}
             />
           </div>
         );

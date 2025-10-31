@@ -43,7 +43,7 @@ logger = logging.getLogger(__name__)
 # TODO: Move the VAI app to a different GCP project and figure out a better way to authenticate (ex. use API keys)
 VAI_PROJECT_ID = "datcom-nl"
 VAI_LOCATION = "global"
-VAI_ENGINE_ID = "full-statvar-search-prod_1753469819363"
+VAI_ENGINE_ID = "full-statvar-search-prod-p_1757437817854"
 VAI_SERVING_CONFIG_ID = "default_config"
 
 

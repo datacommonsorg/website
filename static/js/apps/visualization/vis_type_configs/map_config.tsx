@@ -24,6 +24,7 @@ import React, { ReactElement, useCallback } from "react";
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
 import { RankingTile } from "../../../components/tiles/ranking_tile";
+import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelector } from "../../../shared/facet_selector/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { usePromiseResolver } from "../../../shared/hooks/promise_resolver";
@@ -131,6 +132,7 @@ export function getChartArea(
           svgChartHeight={chartHeight}
           title={statVarLabel + " (${date})"}
           allowZoom={true}
+          surface={WEBSITE_SURFACE}
         />
       </div>
       <div className="chart">
@@ -155,6 +157,7 @@ export function getChartArea(
               hover
             );
           }}
+          surface={WEBSITE_SURFACE}
         />
       </div>
     </>

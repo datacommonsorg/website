@@ -455,3 +455,12 @@ DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
 
 # The name of the embeddings CSV file.
 EMBEDDINGS_FILE_NAME = 'embeddings.csv'
+
+SURFACE_HEADER_NAME = "x-surface"
+WEBSITE_SURFACE = "website"
+TEST_SURFACE = "integration-test"
+TEST_SURFACE_HEADER = {SURFACE_HEADER_NAME: "integration-test"}
+# This is passed into mixer if no other x-surface header is provided, and indicates
+# that this call came from an unknown DC surface via the website. This is set here to
+# differentiate these calls from public API calls that have no x-surface header,
+UNKNOWN_SURFACE = "unknown"

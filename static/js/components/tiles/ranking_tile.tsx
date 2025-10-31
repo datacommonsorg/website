@@ -46,6 +46,7 @@ import {
 } from "../../shared/stat_types";
 import { StatVarFacetMap, StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
+import { FacetMetadata } from "../../types/facet_metadata";
 import {
   RankingData,
   RankingGroup,
@@ -53,10 +54,11 @@ import {
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getDataCommonsClient } from "../../utils/data_commons_client";
-import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
+import { getPointWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getDenomResp,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
@@ -89,6 +91,10 @@ export interface RankingTilePropType
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
+  // Metadata for the facet to highlight.
+  highlightFacet?: FacetMetadata;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -105,6 +111,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     parentPlace,
     apiRoot,
     lazyLoad,
+    surface,
   } = props;
 
   useEffect(() => {
@@ -119,7 +126,9 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
           rankingMetadata,
           enclosedPlaceType,
           parentPlace,
-          apiRoot
+          apiRoot,
+          surface,
+          props.highlightFacet
         );
         setRankingData(rankingData);
       } finally {
@@ -134,6 +143,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
     rankingMetadata,
     shouldLoad,
     variables,
+    surface,
   ]);
 
   /**
@@ -198,7 +208,6 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
 
         return { ...spec, date: finalDate };
       });
-
       const entityExpression = `${props.parentPlace}<-containedInPlace+{typeOf:${props.enclosedPlaceType}}`;
       return buildObservationSpecs({
         statVarSpecs: updatedStatVarSpecs,
@@ -223,7 +232,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
   const placeHolderArray = Array(numRankingLists).fill("");
-  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
 
   /**
    * Opens export modal window
@@ -241,17 +250,15 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
         // Assume all variables will have the same date
         // TODO: Update getCsv to handle multiple dates
         const date = getFirstCappedStatVarSpecDate(props.variables);
-        const perCapitaVariables = props.variables
-          .filter((v) => v.denom)
-          .map((v) => v.statVar);
+
         return dataCommonsClient.getCsv({
           childType: props.enclosedPlaceType,
           date,
           fieldDelimiter: CSV_FIELD_DELIMITER,
           parentEntity: props.parentPlace,
-          perCapitaVariables,
           transformHeader: transformCsvHeader,
-          variables: props.variables.map((v) => v.statVar),
+          statVarSpecs: props.variables,
+          variables: [],
         });
       },
       chartWidth,
@@ -259,7 +266,8 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
       chartHtml,
       chartTitle,
       "",
-      props.sources || Array.from(sources)
+      props.sources || Array.from(sources),
+      props.surface
     );
   }
   return (
@@ -312,6 +320,7 @@ export function RankingTile(props: RankingTilePropType): ReactElement {
               tileId={props.id}
               title={props.title}
               statVarSpecs={props.variables}
+              surface={props.surface}
             />
           );
         })}
@@ -332,7 +341,9 @@ export async function fetchData(
   rankingMetadata: RankingTileSpec,
   enclosedPlaceType: string,
   parentPlace: string,
-  apiRoot: string
+  apiRoot: string,
+  surface?: string,
+  highlightFacet?: FacetMetadata
 ): Promise<RankingData> {
   // Get map of date to map of facet id to variables that should use this date
   // and facet id for its data fetch
@@ -341,9 +352,13 @@ export async function fetchData(
       [EMPTY_FACET_ID_KEY]: [],
     },
   };
+  const facetsRequested = [];
   for (const spec of variables) {
     const variableDate = getCappedStatVarDate(spec.statVar, spec.date);
     const variableFacetId = spec.facetId || EMPTY_FACET_ID_KEY;
+    if (spec.facetId) {
+      facetsRequested.push(spec.facetId);
+    }
     if (!dateFacetToVariable[variableDate]) {
       dateFacetToVariable[variableDate] = {};
     }
@@ -378,37 +393,52 @@ export async function fetchData(
           dateFacetToVariable[date][facetId],
           dateParam,
           [],
-          facetIds
+          facetIds,
+          surface,
+          highlightFacet
         )
       );
     }
   }
-  const statPromise = Promise.all(statPromises).then((statResponses) => {
-    // Merge the responses of all stat promises
-    const mergedResponse = { data: {}, facets: {} };
-    statResponses.forEach((resp) => {
+  const statResponses = await Promise.all(statPromises);
+  // Merge the responses of all stat promises
+  const mergedResponse: PointApiResponse = { data: {}, facets: {} };
+  statResponses.forEach((resp) => {
+    if (resp) {
       mergedResponse.data = Object.assign(mergedResponse.data, resp.data);
       mergedResponse.facets = Object.assign(mergedResponse.facets, resp.facets);
-    });
-    return mergedResponse;
-  });
-  const denoms = variables.map((spec) => spec.denom).filter((sv) => !!sv);
-  const denomPromise = _.isEmpty(denoms)
-    ? Promise.resolve(null)
-    : getSeriesWithin(apiRoot, parentPlace, enclosedPlaceType, denoms);
-  return Promise.all([statPromise, denomPromise]).then(
-    ([statResp, denomResp]) => {
-      const rankingData = pointApiToPerSvRankingData(
-        statResp,
-        denomResp,
-        variables
-      );
-      if (rankingMetadata.showMultiColumn) {
-        return transformRankingDataForMultiColumn(rankingData, variables);
-      }
-      return rankingData;
     }
+  });
+
+  const denoms = _.uniq(
+    variables.map((spec) => spec.denom).filter((sv) => !!sv)
   );
+  let denomsByFacet: Record<string, SeriesApiResponse> = {};
+  let defaultDenomData: SeriesApiResponse = null;
+
+  if (!_.isEmpty(denoms)) {
+    [denomsByFacet, defaultDenomData] = await getDenomResp(
+      denoms,
+      mergedResponse,
+      apiRoot,
+      true, // useSeriesWithin
+      surface,
+      undefined, // allPlaces
+      parentPlace,
+      enclosedPlaceType
+    );
+  }
+
+  const rankingData = pointApiToPerSvRankingData(
+    mergedResponse,
+    denomsByFacet,
+    defaultDenomData,
+    variables
+  );
+  if (rankingMetadata.showMultiColumn) {
+    return transformRankingDataForMultiColumn(rankingData, variables);
+  }
+  return rankingData;
 }
 
 // Reduces RankingData to only the SV used for sorting, to be compatible for multi-column rendering in RankingUnit.
@@ -456,7 +486,8 @@ function transformRankingDataForMultiColumn(
 
 function pointApiToPerSvRankingData(
   statData: PointApiResponse,
-  denomData: SeriesApiResponse,
+  denomData: Record<string, SeriesApiResponse>,
+  defaultDenomData: SeriesApiResponse,
   statVarSpecs: StatVarSpec[]
 ): RankingData {
   const rankingData: RankingData = {};
@@ -486,7 +517,15 @@ function pointApiToPerSvRankingData(
         continue;
       }
       if (spec.denom) {
-        const denomInfo = getDenomInfo(spec, denomData, place, statPoint.date);
+        // find the denom data with the matching facet, and otherwise use the default data
+        const denomInfo = getDenomInfo(
+          spec,
+          denomData,
+          place,
+          statPoint.date,
+          statPoint.facet,
+          defaultDenomData
+        );
         if (!denomInfo) {
           console.log(`Skipping ${place}, missing ${spec.denom}`);
           continue;
@@ -497,19 +536,13 @@ function pointApiToPerSvRankingData(
           to the statVarToFacets map (which is ultimately passed into the TileSources component). With this,
           the metadata modal can display full metadata for the per capita stat var and facets used in the chart.
          */
-        const denomSeries = denomData.data[spec.denom]?.[place];
-        if (denomSeries?.facet) {
-          const denomFacet = denomData.facets[denomSeries.facet];
-          if (denomFacet) {
-            if (denomFacet.provenanceUrl) {
-              sources.add(denomFacet.provenanceUrl);
-            }
-            facets[denomSeries.facet] = denomFacet;
-            if (!statVarToFacets[spec.denom]) {
-              statVarToFacets[spec.denom] = new Set<string>();
-            }
-            statVarToFacets[spec.denom].add(denomSeries.facet);
+        if (denomInfo.facetId && denomInfo.facet) {
+          sources.add(denomInfo.source);
+          facets[denomInfo.facetId] = denomInfo.facet;
+          if (!statVarToFacets[spec.denom]) {
+            statVarToFacets[spec.denom] = new Set<string>();
           }
+          statVarToFacets[spec.denom].add(denomInfo.facetId);
         }
       }
       rankingPoints.push(rankingPoint);

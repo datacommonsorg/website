@@ -30,7 +30,19 @@ website:
     enabled: false
 
 mixer:
+  serviceName: "website-esp.endpoints.datcom-website-dev.cloud.goog"
+  hostProject: "datcom-website-dev"
+  useSpannerGraph: true
+  enableV3: true
+  redis:
+    enabled: true
+    configFile: |
+      instances:
+        - region: "us-central1"
+          host: "10.60.165.235"
+          port: "6379"
   enableOtlp: true
+  v3MirrorFraction: 0.5
 
 serviceAccount:
   name: website-ksa
@@ -51,6 +63,8 @@ serviceGroups:
 
 nl:
   enabled: true
+  image:
+    tag: ""
   env:
     default_indexes:
       - base_uae_mem
@@ -81,12 +95,19 @@ nl:
         prediction_endpoint_id: "284894457873039360"
     enable_reranking: true
 
+svg:
+  blocklistFile: []
+
 nodejs:
   enabled: true
+  apiRoot: "http://website-service:8080"
+  image:
+    tag: ""
   replicas: 2
 
 cronTesting:
   enabled: true
-  screenshotDomain: "dev.datacommons.org"
+  webApiRoot: "http://website-service:8080"
+  nodejsApiRoot: "http://website-nodejs-service:8080"
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically

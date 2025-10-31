@@ -24,6 +24,7 @@ import requests
 
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
 from server.routes.shared_api.place import findplacedcid
+from shared.lib.constants import STOP_WORDS
 
 MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MIN_CHARACTERS_PER_QUERY = 3
@@ -221,9 +222,6 @@ def fetch_place_id_to_dcid(
     if prediction.place_id in place_id_to_dcid:
       prediction.place_dcid = place_id_to_dcid[prediction.place_id]
 
-  logging.info("[Place_Autocomplete] Found %d place ID to DCID mappings.",
-               len(place_id_to_dcid))
-
   return prediction_responses
 
 
@@ -261,14 +259,32 @@ def custom_rank_predictions(predictions: List[ScoredPrediction],
       new_score -= 20
 
     # Boost based on how much of the original query was matched.
-    if pred.source == 'ngram_sv':
-      new_score -= len(pred.matched_query) * 0.2
-    elif pred.source == 'ngram_place':
-      new_score -= len(pred.matched_query) * 0.4
+    if 'ngram' in pred.source:
+      # Create a list of words from the query, excluding stop words
+      meaningful_words = [
+          word for word in pred.matched_query.lower().split()
+          if word not in STOP_WORDS
+      ]
+      # Join them back to calculate a "clean" length
+      clean_length = len(" ".join(meaningful_words))
+
+      # Apply boost using the clean_length
+      if pred.source == 'ngram_sv':
+        new_score -= clean_length * 0.2
+      elif pred.source == 'ngram_place':
+        new_score -= clean_length * 0.4
+
+      # Add a penalty for each stop word in the matched query.
+      words_in_match = pred.matched_query.lower().split()
+      stop_word_count = sum(1 for word in words_in_match if word in STOP_WORDS)
+      # This penalty is meant to counteract the length boost of stop words,
+      # making "total population" preferred over "against total population".
+      new_score += stop_word_count * 3.0
     elif pred.source == 'custom_place':
       new_score -= len(pred.matched_query) * 0.6
 
     pred.score = new_score
 
-  predictions.sort(key=lambda p: p.score)
+  predictions.sort(key=lambda p: (p.score, not set(p.matched_query.lower(
+  ).split()).isdisjoint(STOP_WORDS)))
   return predictions

@@ -14,6 +14,7 @@
 """Unit tests for server.routes.place.utils."""
 
 import copy
+from functools import wraps
 import random
 from typing import Dict, List
 import unittest
@@ -45,6 +46,21 @@ SAMPLE_CHART_CONFIG = ServerChartConfiguration('Economics', 'title_id', 'title',
                                                [SAMPLE_BLOCK_METADATA])
 
 
+def with_request_context(headers=None):
+  """Decorator to wrap a test function in a Flask request context."""
+
+  def decorator(f):
+
+    @wraps(f)
+    def decorated_function(self, *args, **kwargs):
+      with self.app.test_request_context(headers=headers or {}):
+        return f(self, *args, **kwargs)
+
+    return decorated_function
+
+  return decorator
+
+
 @pytest.fixture(scope="module")
 def app():
   app = Flask(__name__)
@@ -65,6 +81,7 @@ def app():
           }]
       }]
   }]
+  Babel(app)
   return app
 
 
@@ -72,12 +89,12 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
   """Tests for utils within the place api."""
 
   @pytest.fixture(autouse=True)
-  def setup_app_context(self, request):
+  def setup_app_context(self, app, request):
     """Setup the app context and cache for each test."""
 
-    self.app = request.getfixturevalue('app')
+    self.app = app
     self.cache = Cache(self.app)
-    self.app_context = self.app.app_context()
+    self.app_context = self.app.test_request_context()
 
   def setUp(self):
     super().setUp()
@@ -403,6 +420,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             ])
     ]
 
+    mock_safe_obs_point = self.patch(dc, "safe_obs_point")
+    mock_safe_obs_point_within = self.patch(dc, "safe_obs_point_within")
     mock_data.mock_dc_api_data(stat_var='Count_Person',
                                places=[
                                    mock_data.CALIFORNIA.dcid,
@@ -410,8 +429,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_point=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='Count_Person',
                                places=[
@@ -422,8 +441,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_points_within=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
 
     # Assert the chart is there.
@@ -471,6 +490,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
             ])
     ]
 
+    mock_safe_obs_point = self.patch(dc, "safe_obs_point")
+    mock_safe_obs_point_within = self.patch(dc, "safe_obs_point_within")
     mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
                                places=[
                                    mock_data.CALIFORNIA.dcid,
@@ -478,8 +499,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.ARIZONA.dcid
                                ],
                                dc_obs_point=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
     mock_data.mock_dc_api_data(stat_var='LifeExpectancy',
                                places=[
@@ -490,8 +511,8 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                    mock_data.SAN_MATEO_COUNTY.dcid
                                ],
                                dc_obs_points_within=True,
-                               mock_obs_point=self.mock_obs_point,
-                               mock_obs_point_within=self.mock_obs_point_within,
+                               mock_obs_point=mock_safe_obs_point,
+                               mock_obs_point_within=mock_safe_obs_point_within,
                                data=list([1234, 321]))
 
     # Assert the chart is there.
@@ -521,7 +542,6 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                                     non_dividable=True)
             ])
     ]
-
     self.assertEqual(filtered_configs, expected_configs)
 
   def test_check_geo_data_exists_true(self):
@@ -942,6 +962,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(set(peers),
                      {mock_data.ARIZONA.dcid, mock_data.NEW_YORK.dcid})
 
+  @with_request_context()
   def test_fetch_overview_table_data(self):
     mock_data.mock_dc_api_data(stat_var='Count_Person',
                                places=[mock_data.CALIFORNIA.dcid],
@@ -968,6 +989,7 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
                      200)  # The most recent value among all facets
     self.assertEqual(resp[0].variableDcid, 'Count_Person')
 
+  @with_request_context()
   def test_fetch_overview_table_data_single_facets(self):
     mock_data.mock_dc_api_data(stat_var='Count_Person',
                                places=[mock_data.CALIFORNIA.dcid],
@@ -993,3 +1015,19 @@ class TestUtils(unittest.IsolatedAsyncioTestCase):
     self.assertEqual(resp[0].provenanceUrl, 'prov.com/facet_1')
     self.assertEqual(resp[0].value, 150)  # The latest value
     self.assertEqual(resp[0].variableDcid, 'Count_Person')
+
+  def test_safe_api_error_handling(self):
+    """Tests that safe API calls handle errors gracefully."""
+    # Test safe_obs_point error handling
+    self.mock_obs_point.side_effect = Exception("API Error")
+    result = dc.safe_obs_point(["test_place"], ["test_var"])
+    self.assertEqual(result, {"byVariable": {}})
+
+    # Test safe_obs_point_within error handling
+    self.mock_obs_point_within.side_effect = Exception("API Error")
+    result = dc.safe_obs_point_within("test_place", "test_type", ["test_var"])
+    self.assertEqual(result, {"byVariable": {}})
+
+    # Verify both calls logged errors
+    self.mock_obs_point.assert_called_once()
+    self.mock_obs_point_within.assert_called_once()

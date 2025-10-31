@@ -17,12 +17,6 @@
 import { defineMessages } from "react-intl";
 
 export const toolMessages = defineMessages({
-  switchToolVersion: {
-    id: "switch_tool_version",
-    defaultMessage: "Switch tool version",
-    description:
-      "label on button allowing users to switch to an earlier version of our tools",
-  },
   mapToolTitle: {
     id: "map_visualization_tool_name",
     defaultMessage: "Map Explorer",
@@ -31,8 +25,20 @@ export const toolMessages = defineMessages({
   mapToolSubtitle: {
     id: "map_visualization_tool_description",
     defaultMessage:
-      "The map explorer helps you visualize how a statistical variable can vary across geographic regions.",
+      "The Map Explorer helps you visualize how a statistical variable can vary across geographic regions.",
     description: "a description of what our map explorer tool is used for",
+  },
+  mapToolGoBackMessage: {
+    id: "map_tool_go_back_message",
+    defaultMessage: "Go back to the new Map Explorer",
+    description:
+      "label on a button that takes the user to a newer version of the Map Explorer",
+  },
+  mapToolSearchBoxPlaceholder: {
+    id: "map_tool_search_box_placeholder",
+    defaultMessage: "Enter a country or state to get started",
+    description:
+      "Placeholder text in a search bar inviting the user to type in the name of a place",
   },
   scatterToolTitle: {
     id: "scatter_visualization_tool_name",
@@ -41,9 +47,29 @@ export const toolMessages = defineMessages({
   },
   scatterToolSubtitle: {
     id: "scatter_visualization_tool_description",
-    defaultMessage: `The scatter plot explorer helps you visualize the correlation between two statistical variables.`,
+    defaultMessage: `The Scatter Plot Explorer helps you visualize the correlation between two statistical variables.`,
     description:
       "a description of what our scatter plot explorer tool is used for",
+  },
+  scatterToolGoBackMessage: {
+    id: "scatter_tool_go_back_message",
+    defaultMessage: "Go back to the new Scatter Plot Explorer",
+    description:
+      "label on a button that takes the user to a newer version of the Scatter Plot Explorer",
+  },
+  scatterToolScatterChartTypeTooltip: {
+    id: "scatter_tool_scatter_chart_type_tooltip",
+    defaultMessage:
+      "Visualize the relationship between two statistical variables using a scatter plot",
+    description:
+      "Explanation of a chart type option that describes a scatter plot",
+  },
+  scatterToolBivariateChartTypeTooltip: {
+    id: "scatter_tool_bivariate_chart_type_tooltip",
+    defaultMessage:
+      "Visualize the geographical co-location of two statistical variables using a bivariate map",
+    description:
+      "Explanation of a chart type option that describes a bivariate map plot",
   },
   timelineToolTitle: {
     id: "timeline_visualization_tool_name",
@@ -54,9 +80,15 @@ export const toolMessages = defineMessages({
   timelineToolSubtitle: {
     id: "timeline_visualization_tool_description",
     defaultMessage:
-      "The timelines explorer helps you explore trends for statistical variables.",
+      "The Timelines Explorer helps you explore trends for statistical variables.",
     description:
       "a description of what our timelines explorer tool is used for",
+  },
+  timelineToolGoBackMessage: {
+    id: "timeline_tool_go_back_message",
+    defaultMessage: "Go back to the new Timelines Explorer",
+    description:
+      "label on a button that takes the user to a newer version of the Timelines Explorer",
   },
   infoBoxInstructionHeader: {
     id: "info_box_instruction_header",
@@ -73,42 +105,55 @@ export const toolMessages = defineMessages({
   infoBoxInstructionsPlacesScatter: {
     id: "info_box_instruction_places_scatter",
     defaultMessage:
-      "Enter your desired location (city, state, county, or country) into the search box above, and then select the type of place you want to plot.",
+      "Enter your desired location (country, state, county, or city) into the search box above, and then select the type of place you want to plot.",
     description:
       "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France)",
   },
   infoBoxInstructionsPlacesTimeline: {
     id: "info_box_instruction_places_timeline",
     defaultMessage:
-      "Enter your desired location(s) (city, state, county, or country) into the search box above.",
+      "Enter your desired location(s) (country, state, county, or city) into the search box above.",
     description:
       "Instructions for how to enter a list of places to plot using our chart visualization tools",
   },
-  infoBoxInstructionsVariableDesktop: {
-    id: "info_box_instruction_variable_desktop",
+  infoBoxInstructionsVariableDesktopTimeline: {
+    id: "info_box_instruction_variable_desktop_timeline",
+    defaultMessage: "Pick one or more statistical variables in the left pane.",
+    description:
+      "Instruction for users to interact with a UI element on the left side of the page.",
+  },
+  infoBoxInstructionsVariableMobileTimeline: {
+    id: "info_box_instruction_variable_mobile_timeline",
+    defaultMessage:
+      'Pick one or more statistical variables using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
+  infoBoxInstructionsVariableDesktopScatter: {
+    id: "info_box_instruction_variable_desktop_scatter",
+    defaultMessage: "Pick two statistical variables in the left pane.",
+    description:
+      "Instruction for users to interact with a UI element on the left side of the page.",
+  },
+  infoBoxInstructionsVariableMobileScatter: {
+    id: "info_box_instruction_variable_mobile_scatter",
+    defaultMessage:
+      'Pick two statistical variables using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
+  infoBoxInstructionsVariableDesktopMap: {
+    id: "info_box_instruction_variable_desktop_map",
     defaultMessage: "Pick a statistical variable in the left pane.",
     description:
-      "An instruction for users to interact with a UI element on the left side of the page",
+      "Instruction for users to interact with a UI element on the left side of the page.",
   },
-  infoBoxInstructionsVariableMobile: {
-    id: "info_box_instruction_variable_mobile",
+  infoBoxInstructionsVariableMobileMap: {
+    id: "info_box_instruction_variable_mobile_map",
     defaultMessage:
       'Pick a statistical variable using the "select variable" button above.',
     description:
       "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
-  },
-  infoBoxInstructionsMultiVariableDesktop: {
-    id: "info_box_instruction_multi_variable_desktop",
-    defaultMessage: "Pick statistical variables in the left pane.",
-    description:
-      "An instruction for users to interact with a UI element on the left side of the page to select multiple statistical variables",
-  },
-  infoBoxInstructionsMultiVariableMobile: {
-    id: "info_box_instruction_multi_variable_mobile",
-    defaultMessage:
-      'Pick statistical variables using the "select variables" button above.',
-    description:
-      "An instruction for users to use a button labeled 'select variables' to select multiple statistical variable to plot",
   },
   statVarExplorerInstructionsDesktop: {
     id: "stat_var_explorer_instructions_desktop",
@@ -134,6 +179,55 @@ export const toolMessages = defineMessages({
     defaultMessage: "Need ideas? Try these:",
     description:
       "Invitation for users to explore some example charts and visualizations.",
+  },
+  unsupportedEnclosedPlaceAlert: {
+    id: "unsupported_enclosed_place_alert",
+    defaultMessage:
+      "Sorry, we don't support {placeName}. Please select a different place.",
+    description:
+      "Message to users that the place they selected is unsupported by our tool",
+  },
+  enterAPlaceInstruction: {
+    id: "enter_a_place_instruction",
+    defaultMessage: "Enter a place",
+    description:
+      "An instruction for users to type a place's name into a text box",
+  },
+  enterPotentiallyMultiplePlacesInstruction: {
+    id: "enter_potentially_multiple_places_instruction",
+    defaultMessage: "Select place(s):",
+    description:
+      "An instruction for users to type one or many place's name into a text box",
+  },
+  childPlaceTypeInstruction: {
+    id: "childPlaceTypeInstruction",
+    defaultMessage: "of type",
+    description:
+      "part of the label on a form saying 'Enter a place of type <type>' asking users to select a place type (e.g. city, country)",
+  },
+  selectAPlaceTypeInstruction: {
+    id: "selectAPlaceTypeInstruction",
+    defaultMessage: "Select a place type",
+    description:
+      "default value on a dropdown telling the user to select a place type from the given options",
+  },
+  selectAVariableInstruction: {
+    id: "selectAVariableInstruction",
+    defaultMessage: "Select variable",
+    description:
+      "Instruction inviting the user to select a statistical variable to plot",
+  },
+  selectMultipleVariablesInstruction: {
+    id: "selectMultipleVariablesInstruction",
+    defaultMessage: "Select variables",
+    description:
+      "Instruction inviting the user to select more than 1 statistical variable to plot",
+  },
+  placesIn: {
+    id: "places_in",
+    defaultMessage: "Places in",
+    description:
+      "Label on a textbox for a place, as in 'plot places in <user selected place>",
   },
 });
 

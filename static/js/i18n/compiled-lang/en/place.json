@@ -1,4 +1,86 @@
 {
+  "AvailableStatVarsMultipleMessage": [
+    {
+      "type": 0,
+      "value": "Available for: "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "/"
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": " data points"
+    }
+  ],
+  "AvailableStatVarsSingleMessage": [
+    {
+      "type": 0,
+      "value": "Available for:"
+    }
+  ],
+  "ExploreOtherDatasetsGroupedPromptMessage": [
+    {
+      "type": 0,
+      "value": "Select the facet that you would like to use to build the plot"
+    }
+  ],
+  "ExploreOtherDatasetsMultipleStatVarsPromptMessage": [
+    {
+      "type": 0,
+      "value": "Select the facets that you would like to use to build the plot"
+    }
+  ],
+  "ExploreOtherDatasetsSingleStatVarPromptMessage": [
+    {
+      "type": 0,
+      "value": "Select the facet that you would like to use to plot"
+    }
+  ],
+  "about_place": [
+    {
+      "type": 0,
+      "value": "About "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    }
+  ],
+  "about_place_in_place": [
+    {
+      "type": 0,
+      "value": "About "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    },
+    {
+      "type": 0,
+      "value": ", "
+    },
+    {
+      "type": 1,
+      "value": "lowercasePlaceType"
+    },
+    {
+      "type": 0,
+      "value": " in "
+    },
+    {
+      "type": 1,
+      "value": "parentPlaces"
+    }
+  ],
   "alert-no_data_for_place": [
     {
       "type": 0,
@@ -7,6 +89,116 @@
     {
       "type": 1,
       "value": "placeName"
+    }
+  ],
+  "apiCopy": [
+    {
+      "type": 0,
+      "value": "Copy"
+    }
+  ],
+  "apiCopyAll": [
+    {
+      "type": 0,
+      "value": "Copy All"
+    }
+  ],
+  "apiDialogButtonText": [
+    {
+      "type": 0,
+      "value": "API code"
+    }
+  ],
+  "apiDialogDenomHelperText": [
+    {
+      "type": 0,
+      "value": "(for per capita calculations)"
+    }
+  ],
+  "apiDialogIntroduction": [
+    {
+      "type": 0,
+      "value": "Use the REST V2 API code below to access this data in JSON format. To get started, "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "obtain an API key"
+        }
+      ],
+      "type": 8,
+      "value": "apiKeyLink"
+    },
+    {
+      "type": 0,
+      "value": " and replace the "
+    },
+    {
+      "type": 1,
+      "value": "apiKeyPlaceholder"
+    },
+    {
+      "type": 0,
+      "value": " placeholder with your actual key. For more details, check the "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "API documentation"
+        }
+      ],
+      "type": 8,
+      "value": "apiDocsLink"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "apiDialogIntroductionCustomDc": [
+    {
+      "type": 0,
+      "value": "Use the REST V2 API code below to access this data in JSON format. For more details, check the "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "API documentation"
+        }
+      ],
+      "type": 8,
+      "value": "apiDocsLink"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "apiDialogTitle": [
+    {
+      "type": 0,
+      "value": "API code"
+    }
+  ],
+  "attainment_of_bachelor_degree_in_colorado": [
+    {
+      "type": 0,
+      "value": "Attainment of bachelor's degree in Colorado"
+    }
+  ],
+  "berkeley_and_piedmont_poverty": [
+    {
+      "type": 0,
+      "value": "Berkeley & Piedmont poverty"
+    }
+  ],
+  "cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
     }
   ],
   "category_in_place": [
@@ -95,120 +287,10 @@
       "value": "place"
     }
   ],
-  "chart_clause-other_placeType": [
-    {
-      "type": 1,
-      "value": "chartTitle"
-    },
+  "chartDownloadDialogTitle": [
     {
       "type": 0,
-      "value": ": other "
-    },
-    {
-      "type": 1,
-      "value": "placeType"
-    }
-  ],
-  "chart_clause-places_that_contain_place": [
-    {
-      "type": 1,
-      "value": "chartTitle"
-    },
-    {
-      "type": 0,
-      "value": ": places that contain "
-    },
-    {
-      "type": 1,
-      "value": "placeName"
-    }
-  ],
-  "chart_clause-places_within_place": [
-    {
-      "type": 1,
-      "value": "chartTitle"
-    },
-    {
-      "type": 0,
-      "value": ": places within "
-    },
-    {
-      "type": 1,
-      "value": "placeName"
-    }
-  ],
-  "chart_clause-placetype_near_place": [
-    {
-      "type": 1,
-      "value": "chartTitle"
-    },
-    {
-      "type": 0,
-      "value": ": "
-    },
-    {
-      "type": 1,
-      "value": "placeType"
-    },
-    {
-      "type": 0,
-      "value": " near "
-    },
-    {
-      "type": 1,
-      "value": "placeName"
-    }
-  ],
-  "chart_clause-rankings_in_place": [
-    {
-      "type": 1,
-      "value": "variable"
-    },
-    {
-      "type": 0,
-      "value": ": rankings in "
-    },
-    {
-      "type": 1,
-      "value": "placeName"
-    }
-  ],
-  "chart_clause-variable_in_place": [
-    {
-      "type": 1,
-      "value": "variable"
-    },
-    {
-      "type": 0,
-      "value": " in "
-    },
-    {
-      "type": 1,
-      "value": "placeName"
-    }
-  ],
-  "chart_metadata-dotted_line_explanation": [
-    {
-      "type": 0,
-      "value": "(dotted line denotes missing data)"
-    }
-  ],
-  "chart_metadata-explore_more": [
-    {
-      "type": 0,
-      "value": "Explore More ›"
-    }
-  ],
-  "chart_metadata-export": [
-    {
-      "type": 0,
-      "value": "Export"
-    }
-  ],
-  "chart_metadata-feedback": [
-    {
-      "type": 0,
-      "value": "Feedback"
+      "value": "Download this chart"
     }
   ],
   "chart_metadata-provenance": [
@@ -219,6 +301,12 @@
     {
       "type": 1,
       "value": "sources"
+    }
+  ],
+  "childPlaceTypeInstruction": [
+    {
+      "type": 0,
+      "value": "of type"
     }
   ],
   "child_places_menu-places_in_place": [
@@ -243,6 +331,66 @@
       "value": "Close"
     }
   ],
+  "combinedDatasetForChartsOption": [
+    {
+      "type": 0,
+      "value": "Plot data points using one or more of the facets below to maximize coverage."
+    }
+  ],
+  "combinedDatasetForDownloadOption": [
+    {
+      "type": 0,
+      "value": "Combine data using one or more of the facets below to maximize coverage."
+    }
+  ],
+  "copyCitation": [
+    {
+      "type": 0,
+      "value": "Copy citation"
+    }
+  ],
+  "copyValues": [
+    {
+      "type": 0,
+      "value": "Copy values"
+    }
+  ],
+  "dataCommonsAggregate": [
+    {
+      "type": 0,
+      "value": "Data Commons aggregate"
+    }
+  ],
+  "dataError": [
+    {
+      "type": 0,
+      "value": "Error fetching data."
+    }
+  ],
+  "data_overview": [
+    {
+      "type": 0,
+      "value": "Data Overview"
+    }
+  ],
+  "data_sources": [
+    {
+      "type": 0,
+      "value": "Data Sources"
+    }
+  ],
+  "datasetError": [
+    {
+      "type": 0,
+      "value": "Error loading facets for selection."
+    }
+  ],
+  "datasets": [
+    {
+      "type": 0,
+      "value": "Datasets"
+    }
+  ],
   "dateRange": [
     {
       "type": 1,
@@ -257,6 +405,12 @@
       "value": "maxDate"
     }
   ],
+  "dcid": [
+    {
+      "type": 0,
+      "value": "DCID"
+    }
+  ],
   "disasterTool": [
     {
       "type": 0,
@@ -267,6 +421,18 @@
     {
       "type": 0,
       "value": "Download"
+    }
+  ],
+  "downloadCSV": [
+    {
+      "type": 0,
+      "value": "CSV"
+    }
+  ],
+  "downloadSVG": [
+    {
+      "type": 0,
+      "value": "SVG"
     }
   ],
   "embed_citation": [
@@ -283,28 +449,22 @@
       "value": " via Data Commons"
     }
   ],
-  "embed_download_chart_link": [
-    {
-      "type": 0,
-      "value": "Download Chart Image"
-    }
-  ],
-  "embed_download_csv_link": [
-    {
-      "type": 0,
-      "value": "Download Data as CSV"
-    }
-  ],
-  "embed_export_chart_link": [
-    {
-      "type": 0,
-      "value": "Export this chart"
-    }
-  ],
   "enterQuery": [
     {
       "type": 0,
       "value": "Enter a question to explore"
+    }
+  ],
+  "enter_a_place_instruction": [
+    {
+      "type": 0,
+      "value": "Enter a place"
+    }
+  ],
+  "enter_potentially_multiple_places_instruction": [
+    {
+      "type": 0,
+      "value": "Select place(s):"
     }
   ],
   "exploreLink": [
@@ -315,6 +475,12 @@
     {
       "type": 1,
       "value": "toolName"
+    }
+  ],
+  "exploreOtherDatasets": [
+    {
+      "type": 0,
+      "value": "Explore other facets"
     }
   ],
   "explore_data_on": [
@@ -331,10 +497,104 @@
       "value": "\""
     }
   ],
-  "header-overview": [
+  "explore_follow_up_questions_disclaimer": [
     {
       "type": 0,
-      "value": "Overview"
+      "value": "These suggested questions were generated by Gemini to guide your exploration. All data and visualizations on this page are from cited third-party sources."
+    }
+  ],
+  "explore_page_overview_disclaimer": [
+    {
+      "type": 0,
+      "value": "This introduction was generated with Gemini. All charts and data are provided by the third-party sources cited on each visualization, with minor processing by Data Commons."
+    }
+  ],
+  "in_place": [
+    {
+      "type": 0,
+      "value": "in "
+    },
+    {
+      "type": 1,
+      "value": "place"
+    }
+  ],
+  "in_places_and_last_place": [
+    {
+      "type": 0,
+      "value": "in "
+    },
+    {
+      "type": 1,
+      "value": "places"
+    },
+    {
+      "type": 0,
+      "value": " and "
+    },
+    {
+      "type": 1,
+      "value": "lastPlace"
+    }
+  ],
+  "info_box_instruction_header": [
+    {
+      "type": 0,
+      "value": "Follow these steps:"
+    }
+  ],
+  "info_box_instruction_places_map": [
+    {
+      "type": 0,
+      "value": "Enter your desired location (country or state) into the search box above, and then select the type of place you want to plot."
+    }
+  ],
+  "info_box_instruction_places_scatter": [
+    {
+      "type": 0,
+      "value": "Enter your desired location (country, state, county, or city) into the search box above, and then select the type of place you want to plot."
+    }
+  ],
+  "info_box_instruction_places_timeline": [
+    {
+      "type": 0,
+      "value": "Enter your desired location(s) (country, state, county, or city) into the search box above."
+    }
+  ],
+  "info_box_instruction_variable_desktop_map": [
+    {
+      "type": 0,
+      "value": "Pick a statistical variable in the left pane."
+    }
+  ],
+  "info_box_instruction_variable_desktop_scatter": [
+    {
+      "type": 0,
+      "value": "Pick two statistical variables in the left pane."
+    }
+  ],
+  "info_box_instruction_variable_desktop_timeline": [
+    {
+      "type": 0,
+      "value": "Pick one or more statistical variables in the left pane."
+    }
+  ],
+  "info_box_instruction_variable_mobile_map": [
+    {
+      "type": 0,
+      "value": "Pick a statistical variable using the \"select variable\" button above."
+    }
+  ],
+  "info_box_instruction_variable_mobile_scatter": [
+    {
+      "type": 0,
+      "value": "Pick two statistical variables using the \"select variable\" button above."
+    }
+  ],
+  "info_box_instruction_variable_mobile_timeline": [
+    {
+      "type": 0,
+      "value": "Pick one or more statistical variables using the \"select variable\" button above."
     }
   ],
   "key_demographics": [
@@ -349,10 +609,69 @@
       "value": "Knowledge Graph"
     }
   ],
-  "link-return_to_overview": [
+  "learn_more_about_these_places": [
     {
       "type": 0,
-      "value": "Back to overview"
+      "value": "Learn more about "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "this "
+            },
+            {
+              "children": [
+                {
+                  "type": 0,
+                  "value": "place"
+                }
+              ],
+              "type": 8,
+              "value": "link"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "these "
+            },
+            {
+              "children": [
+                {
+                  "type": 7
+                },
+                {
+                  "type": 0,
+                  "value": " places"
+                }
+              ],
+              "type": 8,
+              "value": "link"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "numPlaces"
+    }
+  ],
+  "license": [
+    {
+      "type": 0,
+      "value": "License"
+    }
+  ],
+  "literate_population_per_capita_vs_population_below_poverty_level_per_capita_for_states_in_india": [
+    {
+      "type": 0,
+      "value": "Literate population per capita vs. population below poverty level per capita for states in India"
     }
   ],
   "loading": [
@@ -367,16 +686,88 @@
       "value": "Map Tool"
     }
   ],
-  "more_charts": [
+  "map_tool_go_back_message": [
     {
       "type": 0,
-      "value": "More charts"
+      "value": "Go back to the new Map Explorer"
+    }
+  ],
+  "map_tool_search_box_placeholder": [
+    {
+      "type": 0,
+      "value": "Enter a country or state to get started"
+    }
+  ],
+  "map_visualization_tool_description": [
+    {
+      "type": 0,
+      "value": "The Map Explorer helps you visualize how a statistical variable can vary across geographic regions."
+    }
+  ],
+  "map_visualization_tool_name": [
+    {
+      "type": 0,
+      "value": "Map Explorer"
+    }
+  ],
+  "measuringMethod": [
+    {
+      "type": 0,
+      "value": "Measuring method"
+    }
+  ],
+  "median_income_in_texas": [
+    {
+      "type": 0,
+      "value": "Median Income in Texas"
+    }
+  ],
+  "metadata": [
+    {
+      "type": 0,
+      "value": "About this data"
+    }
+  ],
+  "metadataDateRange": [
+    {
+      "type": 0,
+      "value": "Date range"
+    }
+  ],
+  "metadataError": [
+    {
+      "type": 0,
+      "value": "Error loading metadata."
+    }
+  ],
+  "minorProcessing": [
+    {
+      "type": 0,
+      "value": "with minor processing by Data Commons"
     }
   ],
   "more_charts_link": [
     {
       "type": 0,
       "value": "More charts"
+    }
+  ],
+  "noAlternativeDatasets": [
+    {
+      "type": 0,
+      "value": "One facet available for this chart"
+    }
+  ],
+  "noDataErrorMessage": [
+    {
+      "type": 0,
+      "value": "No data available."
+    }
+  ],
+  "noMetadataAvailable": [
+    {
+      "type": 0,
+      "value": "No metadata available."
     }
   ],
   "no_charts": [
@@ -401,32 +792,541 @@
       "value": "."
     }
   ],
-  "place_breadcrumb": [
+  "notes": [
+    {
+      "type": 0,
+      "value": "Notes"
+    }
+  ],
+  "observationPeriod": [
+    {
+      "type": 0,
+      "value": "Observation period"
+    }
+  ],
+  "perCapitaErrorMessage": [
+    {
+      "type": 0,
+      "value": "Could not calculate per capita."
+    }
+  ],
+  "perCapitaNote": [
+    {
+      "type": 0,
+      "value": "This statistical variable was used to calculate the per capita value. “Per capita” means “per person.” To calculate a per capita value, a total amount is divided by the number of people as represented by this variable."
+    }
+  ],
+  "periodicity.list.comma": [
     {
       "type": 1,
-      "value": "placeType"
+      "value": "0"
     },
     {
       "type": 0,
-      "value": " in "
+      "value": ", "
     },
     {
       "type": 1,
-      "value": "placeName"
+      "value": "1"
+    }
+  ],
+  "periodicity.list.moreThanTwo": [
+    {
+      "type": 1,
+      "value": "items"
+    },
+    {
+      "type": 0,
+      "value": " and "
+    },
+    {
+      "type": 1,
+      "value": "lastItem"
+    }
+  ],
+  "periodicity.list.two": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " and "
+    },
+    {
+      "type": 1,
+      "value": "1"
+    }
+  ],
+  "periodicity.multiple": [
+    {
+      "type": 0,
+      "value": "Every "
+    },
+    {
+      "type": 1,
+      "value": "units"
+    }
+  ],
+  "periodicity.period.day": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Daily"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " days"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.period.hour": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hourly"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " hours"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.period.minute": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every minute"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " minutes"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.period.month": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Monthly"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " months"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.period.second": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every second"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " seconds"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.period.week": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Weekly"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " weeks"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.period.year": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Yearly"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Every "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " years"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.unit.day": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " day"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " days"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.unit.hour": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " hour"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " hours"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.unit.minute": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " minute"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " minutes"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.unit.month": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " month"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " months"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.unit.second": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " second"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " seconds"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.unit.week": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " week"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " weeks"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "periodicity.unit.year": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " year"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " years"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "place_not_found": [
     {
       "type": 0,
-      "value": "Place \""
-    },
-    {
-      "type": 1,
-      "value": "placeDcid"
-    },
-    {
-      "type": 0,
-      "value": "\" not found."
+      "value": "Place not found."
     }
   ],
   "place_page_ranking_table-ranking_in": [
@@ -463,6 +1363,18 @@
       "value": "parentPlaces"
     }
   ],
+  "places_in": [
+    {
+      "type": 0,
+      "value": "Places in"
+    }
+  ],
+  "pleaseCredit": [
+    {
+      "type": 0,
+      "value": "Please credit all sources listed above. Data provided by third-party sources through Data Commons remains subject to the original provider's license terms."
+    }
+  ],
   "plural_administrative_area": [
     {
       "type": 0,
@@ -489,10 +1401,22 @@
       "value": "Boroughs"
     }
   ],
+  "plural_borough_lowercase": [
+    {
+      "type": 0,
+      "value": "boroughs"
+    }
+  ],
   "plural_city": [
     {
       "type": 0,
       "value": "Cities"
+    }
+  ],
+  "plural_city_lowercase": [
+    {
+      "type": 0,
+      "value": "cities"
     }
   ],
   "plural_continent": [
@@ -501,16 +1425,34 @@
       "value": "Continents"
     }
   ],
+  "plural_continent_lowercase": [
+    {
+      "type": 0,
+      "value": "continents"
+    }
+  ],
   "plural_country": [
     {
       "type": 0,
       "value": "Countries"
     }
   ],
+  "plural_country_lowercase": [
+    {
+      "type": 0,
+      "value": "countries"
+    }
+  ],
   "plural_county": [
     {
       "type": 0,
       "value": "Counties"
+    }
+  ],
+  "plural_county_lowercase": [
+    {
+      "type": 0,
+      "value": "counties"
     }
   ],
   "plural_eurostat_nuts": [
@@ -533,10 +1475,22 @@
       "value": "Neighborhoods"
     }
   ],
+  "plural_neighborhood_lowercase": [
+    {
+      "type": 0,
+      "value": "neighborhoods"
+    }
+  ],
   "plural_places": [
     {
       "type": 0,
       "value": "Places"
+    }
+  ],
+  "plural_places_lowercase": [
+    {
+      "type": 0,
+      "value": "places"
     }
   ],
   "plural_state": [
@@ -545,10 +1499,22 @@
       "value": "States"
     }
   ],
+  "plural_state_lowercase": [
+    {
+      "type": 0,
+      "value": "states"
+    }
+  ],
   "plural_town": [
     {
       "type": 0,
       "value": "Towns"
+    }
+  ],
+  "plural_town_lowercase": [
+    {
+      "type": 0,
+      "value": "towns"
     }
   ],
   "plural_village": [
@@ -557,10 +1523,34 @@
       "value": "Villages"
     }
   ],
+  "plural_village_lowercase": [
+    {
+      "type": 0,
+      "value": "villages"
+    }
+  ],
   "plural_zip_codes": [
     {
       "type": 0,
       "value": "Zip Codes"
+    }
+  ],
+  "plural_zip_codes_lowercase": [
+    {
+      "type": 0,
+      "value": "ZIP Codes"
+    }
+  ],
+  "prevalence_of_coronary_heart_disease_vs_projected_temperature_rise_in_the_usa": [
+    {
+      "type": 0,
+      "value": "Prevalence of coronary heart disease vs. projected temperature rise in the USA"
+    }
+  ],
+  "publicationCadence": [
+    {
+      "type": 0,
+      "value": "Publication cadence"
     }
   ],
   "ranking-document_title": [
@@ -845,10 +1835,46 @@
       "value": "Relevant topics"
     }
   ],
+  "scalingFactor": [
+    {
+      "type": 0,
+      "value": "Scaling factor"
+    }
+  ],
   "scatterTool": [
     {
       "type": 0,
       "value": "Scatter Tool"
+    }
+  ],
+  "scatter_tool_bivariate_chart_type_tooltip": [
+    {
+      "type": 0,
+      "value": "Visualize the geographical co-location of two statistical variables using a bivariate map"
+    }
+  ],
+  "scatter_tool_go_back_message": [
+    {
+      "type": 0,
+      "value": "Go back to the new Scatter Plot Explorer"
+    }
+  ],
+  "scatter_tool_scatter_chart_type_tooltip": [
+    {
+      "type": 0,
+      "value": "Visualize the relationship between two statistical variables using a scatter plot"
+    }
+  ],
+  "scatter_visualization_tool_description": [
+    {
+      "type": 0,
+      "value": "The Scatter Plot Explorer helps you visualize the correlation between two statistical variables."
+    }
+  ],
+  "scatter_visualization_tool_name": [
+    {
+      "type": 0,
+      "value": "Scatter Plot Explorer"
     }
   ],
   "search_bar_placeholder-search_again": [
@@ -857,10 +1883,64 @@
       "value": "Search for another place"
     }
   ],
+  "search_question_introduction": [
+    {
+      "type": 0,
+      "value": "Data related to your research question"
+    }
+  ],
   "seePerCapita": [
     {
       "type": 0,
       "value": "See per capita"
+    }
+  ],
+  "see_knowledge_graph": [
+    {
+      "type": 0,
+      "value": "See Knowledge Graph"
+    }
+  ],
+  "selectAPlaceTypeInstruction": [
+    {
+      "type": 0,
+      "value": "Select a place type"
+    }
+  ],
+  "selectAVariableInstruction": [
+    {
+      "type": 0,
+      "value": "Select variable"
+    }
+  ],
+  "selectDataset": [
+    {
+      "type": 0,
+      "value": "Select a facet"
+    }
+  ],
+  "selectDatasetForDownloadPromptMessage": [
+    {
+      "type": 0,
+      "value": "Select the facet that you would like to use to download the data for"
+    }
+  ],
+  "selectDatasets": [
+    {
+      "type": 0,
+      "value": "Select facets"
+    }
+  ],
+  "selectDatasetsForDownloadPromptMessage": [
+    {
+      "type": 0,
+      "value": "Select the facets that you would like to use to download the data"
+    }
+  ],
+  "selectMultipleVariablesInstruction": [
+    {
+      "type": 0,
+      "value": "Select variables"
     }
   ],
   "selectVariable": [
@@ -872,7 +1952,7 @@
   "showMetadata": [
     {
       "type": 0,
-      "value": "Show metadata"
+      "value": "About this data"
     }
   ],
   "singular_administrative_area": [
@@ -901,10 +1981,22 @@
       "value": "Borough"
     }
   ],
+  "singular_borough_lowercase": [
+    {
+      "type": 0,
+      "value": "borough"
+    }
+  ],
   "singular_city": [
     {
       "type": 0,
       "value": "City"
+    }
+  ],
+  "singular_city_lowercase": [
+    {
+      "type": 0,
+      "value": "city"
     }
   ],
   "singular_continent": [
@@ -913,16 +2005,34 @@
       "value": "Continent"
     }
   ],
+  "singular_continent_lowercase": [
+    {
+      "type": 0,
+      "value": "continent"
+    }
+  ],
   "singular_country": [
     {
       "type": 0,
       "value": "Country"
     }
   ],
+  "singular_country_lowercase": [
+    {
+      "type": 0,
+      "value": "country"
+    }
+  ],
   "singular_county": [
     {
       "type": 0,
       "value": "County"
+    }
+  ],
+  "singular_county_lowercase": [
+    {
+      "type": 0,
+      "value": "county"
     }
   ],
   "singular_eurostat_nuts": [
@@ -945,10 +2055,22 @@
       "value": "Neighborhood"
     }
   ],
+  "singular_neighborhood_lowercase": [
+    {
+      "type": 0,
+      "value": "neighborhood"
+    }
+  ],
   "singular_place": [
     {
       "type": 0,
       "value": "Place"
+    }
+  ],
+  "singular_place_lowercase": [
+    {
+      "type": 0,
+      "value": "place"
     }
   ],
   "singular_state": [
@@ -957,10 +2079,22 @@
       "value": "State"
     }
   ],
+  "singular_state_lowercase": [
+    {
+      "type": 0,
+      "value": "state"
+    }
+  ],
   "singular_town": [
     {
       "type": 0,
       "value": "Town"
+    }
+  ],
+  "singular_town_lowercase": [
+    {
+      "type": 0,
+      "value": "town"
     }
   ],
   "singular_village": [
@@ -969,7 +2103,19 @@
       "value": "Village"
     }
   ],
+  "singular_village_lowercase": [
+    {
+      "type": 0,
+      "value": "village"
+    }
+  ],
   "singular_zip_code": [
+    {
+      "type": 0,
+      "value": "ZIP Code"
+    }
+  ],
+  "singular_zip_code_lowercase": [
     {
       "type": 0,
       "value": "ZIP Code"
@@ -999,10 +2145,40 @@
       "value": "Source"
     }
   ],
+  "sourceAndCitation": [
+    {
+      "type": 0,
+      "value": "Citation"
+    }
+  ],
   "sources": [
     {
       "type": 0,
       "value": "Sources"
+    }
+  ],
+  "sources.lowercase": [
+    {
+      "type": 0,
+      "value": "sources"
+    }
+  ],
+  "stat_var_explorer_instructions_data_source": [
+    {
+      "type": 0,
+      "value": "Need more specific data? Filter by choosing a data source above."
+    }
+  ],
+  "stat_var_explorer_instructions_desktop": [
+    {
+      "type": 0,
+      "value": "To start, select a variable from the left pane."
+    }
+  ],
+  "stat_var_explorer_instructions_mobile": [
+    {
+      "type": 0,
+      "value": "To start, click the \"Select variable\" button below."
     }
   ],
   "summary_overview": [
@@ -1017,22 +2193,102 @@
       "value": "We use AI to summarize insights from our sourced data (linked on each chart). While we aim for accuracy, please review the summary and consult the source data."
     }
   ],
-  "the_world": [
-    {
-      "type": 0,
-      "value": "the World"
-    }
-  ],
   "timelineTool": [
     {
       "type": 0,
       "value": "Timeline Tool"
     }
   ],
+  "timeline_tool_go_back_message": [
+    {
+      "type": 0,
+      "value": "Go back to the new Timelines Explorer"
+    }
+  ],
+  "timeline_visualization_tool_description": [
+    {
+      "type": 0,
+      "value": "The Timelines Explorer helps you explore trends for statistical variables."
+    }
+  ],
+  "timeline_visualization_tool_name": [
+    {
+      "type": 0,
+      "value": "Timelines Explorer"
+    }
+  ],
+  "topic": [
+    {
+      "type": 0,
+      "value": "Topic"
+    }
+  ],
+  "topics": [
+    {
+      "type": 0,
+      "value": "Topics"
+    }
+  ],
+  "unemployment_rate_in_new_jersey": [
+    {
+      "type": 0,
+      "value": "Unemployment rate in New Jersey"
+    }
+  ],
+  "unit": [
+    {
+      "type": 0,
+      "value": "Unit"
+    }
+  ],
+  "university_towns_by_income": [
+    {
+      "type": 0,
+      "value": "University towns by income"
+    }
+  ],
+  "unsupported_enclosed_place_alert": [
+    {
+      "type": 0,
+      "value": "Sorry, we don't support "
+    },
+    {
+      "type": 1,
+      "value": "placeName"
+    },
+    {
+      "type": 0,
+      "value": ". Please select a different place."
+    }
+  ],
+  "update": [
+    {
+      "type": 0,
+      "value": "Update"
+    }
+  ],
   "viaGoogle": [
     {
       "type": 0,
       "value": "via Google"
+    }
+  ],
+  "vis_tool_examples_header": [
+    {
+      "type": 0,
+      "value": "Need ideas? Try these:"
+    }
+  ],
+  "water_withdrawal_rate_in_california": [
+    {
+      "type": 0,
+      "value": "Water withdrawal rate in California"
+    }
+  ],
+  "water_withdrawal_rate_in_the_usa": [
+    {
+      "type": 0,
+      "value": "Water withdrawal rate in the USA"
     }
   ]
 }

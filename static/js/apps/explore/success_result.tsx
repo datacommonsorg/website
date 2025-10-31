@@ -105,28 +105,6 @@ interface SuccessResultPropType {
 export function SuccessResult(props: SuccessResultPropType): ReactElement {
   const searchSectionRef = useRef<HTMLDivElement>(null);
   const chartSectionRef = useRef<HTMLDivElement>(null);
-  if (!props.pageMetadata) {
-    return null;
-  }
-  const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
-    ? Object.keys(props.pageMetadata.childPlaces)[0]
-    : "";
-  const placeUrlVal = (
-    props.exploreContext?.entities || [props.pageMetadata.place.dcid]
-  ).join(URL_DELIM);
-  const topicUrlVal = (props.exploreContext?.variables || []).join(URL_DELIM);
-  // TODO: Consider if we want to include both topics.
-  const relatedPlaceTopic = _.isEmpty(props.pageMetadata.mainTopics)
-    ? {
-        dcid: topicUrlVal,
-        name: "",
-        types: null,
-      }
-    : props.pageMetadata.mainTopics[0];
-
-  const hashParams = queryString.parse(window.location.hash);
-  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
-  const maxBlock = parseInt(maxBlockParam as string);
 
   useEffect(() => {
     const searchBoundingBox = searchSectionRef.current?.getBoundingClientRect();
@@ -152,6 +130,29 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (!props.pageMetadata) {
+    return null;
+  }
+  const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
+    ? Object.keys(props.pageMetadata.childPlaces)[0]
+    : "";
+  const placeUrlVal = (
+    props.exploreContext?.entities || [props.pageMetadata.place.dcid]
+  ).join(URL_DELIM);
+  const topicUrlVal = (props.exploreContext?.variables || []).join(URL_DELIM);
+  // TODO: Consider if we want to include both topics.
+  const relatedPlaceTopic = _.isEmpty(props.pageMetadata.mainTopics)
+    ? {
+        dcid: topicUrlVal,
+        name: "",
+        types: null,
+      }
+    : props.pageMetadata.mainTopics[0];
+
+  const hashParams = queryString.parse(window.location.hash);
+  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
+  const maxBlock = parseInt(maxBlockParam as string);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
   const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
   const relatedTopics = getTopics(props.pageMetadata, "");
@@ -245,6 +246,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                     props.pageMetadata.pageConfig,
                     maxBlock
                   )}
+                  highlightFacet={props.highlightFacet}
                   svgChartHeight={SVG_CHART_HEIGHT}
                   showExploreMore={true}
                 />

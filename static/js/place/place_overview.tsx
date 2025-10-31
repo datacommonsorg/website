@@ -51,9 +51,6 @@ const PlaceOverviewTable = (props: {
       return dataRow.provenanceUrl;
     })
   );
-  const statVarDcids = dataRows.map((row) => {
-    return row.variableDcid;
-  });
 
   return (
     <div data-testid="place-overview-table">
@@ -160,6 +157,7 @@ export const PlaceOverview = (props: {
   const isInUsa = isPlaceContainedInUsa(
     parentPlaces.map((place) => place.dcid)
   );
+  const showGoogleMap = isInUsa && !globalThis.disableGoogleMaps;
   const theme = useTheme();
   return (
     <div
@@ -222,7 +220,7 @@ export const PlaceOverview = (props: {
           }
         `}
       >
-        {isInUsa && (
+        {showGoogleMap && (
           <div>
             <GoogleMap dcid={place.dcid}></GoogleMap>
           </div>

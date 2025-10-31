@@ -52,16 +52,33 @@ clear_website_cache() {
     return 1
   fi
 
+  # TODO(gmechali): Enforce a naming convention for Redis instances to avoid hardcoding names.
+  if [ "$ENVIRONMENT" == "dev" ]; then
+    REDIS_INSTANCE_NAME="website-cache"
+  else
+    REDIS_INSTANCE_NAME="webserver-cache"
+  fi
+  
   local HOST
-  HOST=$(gcloud redis instances describe webserver-cache --region="$REDIS_REGION" --format="get(host)")
+  HOST=$(gcloud redis instances describe $REDIS_INSTANCE_NAME --region="$REDIS_REGION" --format="get(host)")
   if [ -z "$HOST" ]; then
-    echo "Error: Could not find Redis instance 'webserver-cache' in region '$REDIS_REGION'. Exiting."
+    echo "Error: Could not find Redis instance '$REDIS_INSTANCE_NAME' in region '$REDIS_REGION'. Exiting."
     return 1
   fi
 
   local script="import redis; redis_client = redis.StrictRedis(host=\"$HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(\"Clearing cache for $PROJECT_ID/$CLUSTER_NAME/$LOCATION, redis host $HOST:\",resp)"
   kubectl exec -it "$POD_NAME" -n website -- /bin/bash -c "python -c '$script'"
   echo "--- Website cache clearing complete for $PROJECT_ID ---"
+
+  # If there is a mixer-cache instance in the project, clear that too
+  local MIXER_HOST
+  MIXER_HOST=$(gcloud redis instances describe mixer-cache --region="$REDIS_REGION" --format="get(host)" 2>/dev/null || true)
+  if [ -n "$MIXER_HOST" ]; then
+    echo "--- Clearing mixer cache for Project: $PROJECT_ID, Cluster: $CLUSTER_NAME, Location: $LOCATION ---"
+    local script="import redis; redis_client = redis.StrictRedis(host=\"$MIXER_HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(\"Clearing mixer cache for $PROJECT_ID/$CLUSTER_NAME/$LOCATION, redis host $MIXER_HOST:\",resp)"
+    kubectl exec -it "$POD_NAME" -n website -- /bin/bash -c "python -c '$script'"
+    echo "--- Mixer cache clearing complete for $PROJECT_ID ---"
+  fi
 }
 
 # Function to clear the mixer cache

@@ -15,58 +15,107 @@
 apiVersion: deploy.cloud.google.com/v1
 kind: DeliveryPipeline
 metadata:
-  name: datacommons-website-release-pipeline
+  name: datacommons-website
 description: My application delivery pipeline for DataCommons Website (and associated Mixer)
 serialPipeline:
   stages:
-    - targetId: datacommons-website-dev
-      profiles: [datacommons-website-dev]
-      deployParameters:
-      - values:
-        website.githash: ${WEBSITE_GITHASH}
-        mixer.githash: ${MIXER_GITHASH}
-    - targetId: datacommons-website-autopush
-      profiles: [datacommons-website-autopush]
-      deployParameters:
-      - values:
-        website.githash: ${WEBSITE_GITHASH}
-        mixer.githash: ${MIXER_GITHASH}
-    - targetId: datacommons-website-staging
-      profiles: [datacommons-website-staging]
-      deployParameters:
-      - values:
-        website.githash: ${WEBSITE_GITHASH}
-        mixer.githash: ${MIXER_GITHASH}
+    - targetId: website-autopush
+      profiles: [website-autopush]
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-autopush"]
+          postdeploy:
+            actions: ["clear-website-cache"]
+    - targetId: website-staging
+      profiles: [website-staging]
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-staging"]
+          postdeploy:
+            actions: ["clear-website-cache", "run-percy-snapshots"]
+    - targetId: website-prod
+      profiles: [website-prod]
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-prod"]
+          postdeploy:
+            actions: ["clear-website-cache", "run-percy-snapshots"]
+
 ---
 
 apiVersion: deploy.cloud.google.com/v1
 kind: DeliveryPipeline
 metadata:
-  name: datacommons-mixer-release-pipeline
+  name: datacommons-mixer
 description: My application delivery pipeline for DataCommons Mixer API cluster
 serialPipeline:
   stages:
-    - targetId: datacommons-mixer-dev
-      profiles: [datacommons-mixer-dev]
-      deployParameters:
-      - values:
-        mixer.githash: ${MIXER_GITHASH}
-    - targetId: datacommons-mixer-autopush
-      profiles: [datacommons-mixer-autopush]
-      deployParameters:
-      - values:
-        mixer.githash: ${MIXER_GITHASH}
-    - targetId: datacommons-mixer-staging
-      profiles: [datacommons-mixer-staging]
-      deployParameters:
-      - values:
-        mixer.githash: ${MIXER_GITHASH}
+    - targetId: mixer-autopush
+      profiles: [mixer-autopush]
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-mixer-autopush"]
+          postdeploy:
+            actions: ["clear-mixer-cache"]
+    - targetId: mixer-staging
+      profiles: [mixer-staging]
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-mixer-staging"]
+          postdeploy:
+            actions: ["update-nl-integration-test-goldens"]
+    - targetId: mixer-prod
+      profiles: [mixer-prod]
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-mixer-prod"]
+
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: datacommons-website-dev
+description: My application delivery pipeline for DataCommons's DEV Website (and associated Mixer)
+serialPipeline:
+  stages:
+    - targetId: website-dev
+      profiles: [website-dev]
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-dev"]
+          postdeploy:
+            actions: ["clear-website-cache"]
+
+---
+
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: datacommons-mixer-dev
+description: My application delivery pipeline for DataCommons's DEV Mixer API cluster
+serialPipeline:
+  stages:
+    - targetId: mixer-dev
+      profiles: [mixer-dev]
+      strategy:
+        standard:
+          predeploy:
+            actions: ["deploy-cloud-esp-mixer-dev"]
+
 ---
 
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: datacommons-website-dev
+  name: website-dev
 description: Development GKE cluster for the website in project datcom-website-dev
 gke:
   cluster: projects/datcom-website-dev/locations/us-central1/clusters/website-us-central1
@@ -74,7 +123,7 @@ gke:
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: datacommons-mixer-dev
+  name: mixer-dev
 description: Development GKE cluster for the mixer in project datcom-mixer-dev
 gke:
   cluster: projects/datcom-mixer-dev-316822/locations/us-central1/clusters/mixer-us-central1
@@ -83,7 +132,7 @@ gke:
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: datacommons-website-autopush
+  name: website-autopush
 description: Development GKE cluster for the website in project datcom-website-autopush
 gke:
   cluster: projects/datcom-website-autopush/locations/us-central1/clusters/website-us-central1
@@ -91,7 +140,7 @@ gke:
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: datacommons-mixer-autopush
+  name: mixer-autopush
 description: Development GKE cluster for the mixer in project datcom-mixer-autopush
 gke:
   cluster: projects/datcom-mixer-autopush/locations/us-central1/clusters/mixer-us-central1
@@ -100,7 +149,7 @@ gke:
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: datacommons-website-staging
+  name: website-staging
 description: Development GKE cluster for the website in project datcom-website-staging
 gke:
   cluster: projects/datcom-website-staging/locations/us-central1/clusters/website-us-central1
@@ -108,7 +157,43 @@ gke:
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: datacommons-mixer-staging
+  name: mixer-staging
 description: Development GKE cluster for the mixer in project datcom-mixer-staging
 gke:
   cluster: projects/datcom-mixer-staging/locations/us-central1/clusters/mixer-us-central1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: website-prod
+description: A multi-target for production deployments to multiple clusters
+requireApproval: true
+multiTarget:
+  targetIds:
+  - website-prod-central
+  - website-prod-west
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: website-prod-central
+description: Production GKE cluster for the website in us-central1
+gke:
+  cluster: projects/datcom-website-prod/locations/us-central1/clusters/website-us-central1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: website-prod-west
+description: Production GKE cluster for the website in us-west1
+gke:
+  cluster: projects/datcom-website-prod/locations/us-west1/clusters/website-us-west1
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: mixer-prod
+description: Development GKE cluster for the mixer in project datcom-mixer
+requireApproval: true
+gke:
+  cluster: projects/datcom-mixer/locations/us-central1/clusters/mixer-us-central1

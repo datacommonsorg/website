@@ -146,24 +146,65 @@ function run_npm_lint_test {
   cd ..
 }
 
-# Fixes lint
+# Runs linting tools to automatically fix style issues in the
+# codebase. It can target client-side code (npm), Python code (py), or both.
+# Accepts one arg via ${extra_args[@]}".
 function run_lint_fix {
-  echo -e "#### Fixing client-side code"
-  cd static
-  npm list eslint || npm install eslint
-  npm run lint
-  cd ..
 
-  echo -e "#### Fixing Python code"
-  source .env/bin/activate
-  pip3 install yapf==0.40.2 -q
-  if ! command -v isort &> /dev/null
-  then
-    pip3 install isort -q
+  # Helper function to fix client-side (npm) code.
+  run_npm_fix() {
+    echo -e "#### Fixing client-side code"
+    # Run commands in a subshell to avoid changing the current directory.
+    (
+      cd "$(dirname "$0")"
+      cd static
+      # Install eslint if it's not already installed.
+      npm list eslint || npm install eslint
+
+      npm run lint
+    )
+  }
+
+  # Helper function to fix Python code.
+  run_py_fix() {
+    echo -e "#### Fixing Python code"
+    (
+      # Run commands in a subshell to avoid changing the current directory.
+      cd "$(dirname "$0")"
+      source .env/bin/activate
+      pip3 install yapf==0.40.2 isort -q
+      yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
+      isort server/ nl_server/ shared/ tools/ --skip-glob=*pb2.py --skip-glob=**/.env/** --profile=google
+      deactivate
+    )
+  }
+
+  # Validate that at most one argument is provided.
+  if [[ $# -gt 1 ]]; then
+    echo "Error: Only one lint target can be specified at a time. To run all targets by default, run './run_test -f'" >&2
+    return 1
   fi
-  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
-  isort server/ nl_server/ shared/ tools/  --skip-glob=*pb2.py  --skip-glob=**/.env/** --profile=google
-  deactivate
+
+  # Set the target for lint fixing. Default to 'all' if no argument is given.
+  local fix_target=${1:-all}
+
+  # Execute the correct linting function based on the target.
+  case "$fix_target" in
+    npm)
+      run_npm_fix
+      ;;
+    py)
+      run_py_fix
+      ;;
+    all) # Default case: if no argument or 'all' is provided.
+      run_npm_fix
+      run_py_fix
+      ;;
+    *)
+      echo "Unknown lint fix target: $fix_target. Use 'py', 'npm', or 'all'." >&2
+      return 1
+      ;;
+  esac
 }
 
 # Build client side code
@@ -280,24 +321,6 @@ function run_cdc_webdriver_test {
   python3 -m pytest -n auto $rerun_options -m "not one_at_a_time" server/webdriver/cdc_tests/ ${@}
 
   stop_servers
-  deactivate
-}
-
-# Run test for screenshot test codes.
-function run_screenshot_test {
-  source .env/bin/activate
-  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
-  if [ ! -d server/dist  ]
-  then
-    echo "no dist folder, please run ./run_test.sh -b to build js first."
-    exit 1
-  fi
-  export FLASK_ENV=webdriver
-  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  export ENABLE_MODEL=true
-  export DC_API_KEY=
-  export LLM_API_KEY=
-  python3 -m pytest -n auto --reruns 2 server/webdriver/screenshot/ ${@}
   deactivate
 }
 
@@ -464,13 +487,9 @@ case "$command" in
       echo -e "### Running client tests"
       run_npm_test "${extra_args[@]}"
       ;;
-  -s)
-      echo -e "### Running screenshot tests"
-      run_screenshot_test "${extra_args[@]}"
-      ;;
   -f)
       echo -e "### Fix lint errors"
-      run_lint_fix
+      run_lint_fix "${extra_args[@]}"
       ;;
   -a)
       echo -e "### Running all tests"

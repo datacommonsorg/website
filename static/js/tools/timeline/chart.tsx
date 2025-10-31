@@ -22,6 +22,7 @@ import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw_line";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { Chip } from "../../shared/chip";
+import { WEBSITE_SURFACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector/facet_selector";
 import {
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
@@ -109,7 +110,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       facetListLoading: false,
       facetListError: false,
     };
-    this.dataCommonsClient = new DataCommonsClient();
+    this.dataCommonsClient = new DataCommonsClient({
+      surface: WEBSITE_SURFACE,
+    });
   }
 
   render(): ReactElement {
@@ -329,7 +332,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       const facetList = this.getFacetList(statVars, enriched);
       this.setState({ facetList, facetListLoading: false });
     } catch {
-      console.error("Error loading datasets for selection.");
+      console.error("Error loading facets for selection.");
       this.setState({ facetListLoading: false, facetListError: true });
     }
   }
