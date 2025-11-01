@@ -726,6 +726,7 @@ function renderTiles(
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
             surface={WEBSITE_SURFACE}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "LINE":
@@ -784,6 +785,7 @@ function renderTiles(
                 : undefined
             }
             surface={WEBSITE_SURFACE}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "BAR":
