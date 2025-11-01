@@ -361,27 +361,35 @@ export function replaceQueryWithSelection(
       ) {
         const placeTypeSummary = statVarInfo?.[result.dcid]?.placeTypeSummary;
         if (placeTypeSummary) {
-          const countryPlaces = placeTypeSummary?.Country?.topPlaces || [];
-          const statePlaces = placeTypeSummary?.State?.topPlaces || [];
-          const adminArea1Places =
-            placeTypeSummary?.AdministrativeArea1?.topPlaces || [];
-          const eurostatNUTS1Places =
-            placeTypeSummary?.EurostatNUTS1?.topPlaces || [];
-
-          // Use the spread syntax to create a new array containing all elements
-          const places = [
-            ...countryPlaces,
-            ...statePlaces,
-            ...adminArea1Places,
-            ...eurostatNUTS1Places,
-          ];
-          if (places && places.length > 0) {
-            const randomIndex = Math.floor(Math.random() * places.length);
-            const randomPlace = places[randomIndex];
+          // Check for Earth first.
+          const earthPlace = placeTypeSummary?.Place?.topPlaces?.find(
+            (p) => p.dcid === "Earth"
+          );
+          if (earthPlace) {
             return {
-              query: `${prefix}${result.name} in ${randomPlace.name}`,
-              placeDcid: randomPlace.dcid,
+              query: `${prefix}${result.name} in the ${earthPlace.name}`,
+              placeDcid: earthPlace.dcid,
             };
+          }
+
+          // Ordered list of other place types.
+          const placeTypes = [
+            "Continent",
+            "Country",
+            "State",
+            "AdministrativeArea1",
+            "EurostatNUTS1",
+          ];
+          for (const placeType of placeTypes) {
+            const places = placeTypeSummary?.[placeType]?.topPlaces;
+            if (places && places.length > 0) {
+              const randomIndex = Math.floor(Math.random() * places.length);
+              const randomPlace = places[randomIndex];
+              return {
+                query: `${prefix}${result.name} in ${randomPlace.name}`,
+                placeDcid: randomPlace.dcid,
+              };
+            }
           }
         }
         return {
