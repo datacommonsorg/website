@@ -133,6 +133,11 @@ export interface DisplayOptionsWrapper {
   setDomain: Setter<[number, number, number]>;
 }
 
+export interface ErrorEncounteredWrapper {
+  value: boolean;
+  set: Setter<boolean>;
+}
+
 export interface DataContext {
   date?: string;
   statVar?: StatVar;
@@ -146,6 +151,7 @@ export interface ContextType {
   placeInfo: PlaceInfoWrapper;
   isLoading: IsLoadingWrapper;
   display: DisplayOptionsWrapper;
+  errorEncountered: ErrorEncounteredWrapper;
 }
 
 export const Context = createContext({} as ContextType);
@@ -154,6 +160,7 @@ export function useInitialContext(params: URLSearchParams): ContextType {
   const [date, setDate] = useState(applyHashDate(params));
   const [statVar, setStatVar] = useState(applyHashStatVar(params));
   const [placeInfo, setPlaceInfo] = useState(applyHashPlaceInfo(params));
+  const [errorEncountered, setErrorEncountered] = useState(false);
   const [isLoading, setIsLoading] = useState({
     isDataLoading: false,
     isPlaceInfoLoading: false,
@@ -222,6 +229,10 @@ export function useInitialContext(params: URLSearchParams): ContextType {
       setShowTimeSlider: (showTimeSlider) =>
         setDisplay({ ...display, showTimeSlider }),
       setDomain: (domain) => setDisplay({ ...display, domain }),
+    },
+    errorEncountered: {
+      value: errorEncountered,
+      set: (value) => setErrorEncountered(value),
     },
   };
 }

@@ -44,7 +44,8 @@ interface StatVarChooserProps {
 }
 
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
-  const { dateCtx, statVar, placeInfo, display } = useContext(Context);
+  const { dateCtx, statVar, placeInfo, display, errorEncountered } =
+    useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState([]);
   const [statVarWidgetIsCollapsed, setStatVarWidgetIsCollapsed] =
     useState(true);
@@ -58,16 +59,20 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       return;
     }
     setStatVarWidgetIsCollapsed(false);
-    getEnclosedPlacesPromise(enclosingPlaceDcid, enclosedPlaceType).then(
-      (enclosedPlaces) => {
+    getEnclosedPlacesPromise(enclosingPlaceDcid, enclosedPlaceType)
+      .then((enclosedPlaces) => {
         const samplePlaces = getSamplePlaces(
           enclosingPlaceDcid,
           enclosedPlaceType,
           enclosedPlaces
         );
         setSamplePlaces(samplePlaces);
-      }
-    );
+        errorEncountered.set(false);
+      })
+      .catch(() => {
+        setSamplePlaces([]);
+        errorEncountered.set(true);
+      });
   }, [placeInfo.value.enclosingPlace, placeInfo.value.enclosedPlaceType]);
 
   useEffect(() => {

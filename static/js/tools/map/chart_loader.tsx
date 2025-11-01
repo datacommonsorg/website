@@ -191,7 +191,7 @@ export function ChartLoader(): ReactElement {
       return (
         <div className="p-5">
           {`Sorry, maps are not available for ` +
-            `${placeInfo.value.enclosedPlaceType}` +
+            `${placeInfo.value.enclosedPlaceType} ` +
             `in ${placeInfo.value.selectedPlace.name}. ` +
             `Try picking another place or type of place.`}
         </div>
