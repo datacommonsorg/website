@@ -30,12 +30,11 @@ import { ScrollToTopButton } from "../components/elements/scroll_to_top_button";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { pageMessages } from "../i18n/i18n_place_messages";
-import { WEBSITE_SURFACE } from "../shared/constants";
 import { useQueryStore } from "../shared/stores/query_store_hook";
 import { NamedTypedPlace } from "../shared/types";
 import theme from "../theme/theme";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
-import { getDataCommonsClient } from "../utils/data_commons_client";
+import { DEFAULT_WEBSITE_DATA_COMMONS_CLIENT } from "../utils/data_commons_client";
 import { PlaceOverview } from "./place_overview";
 import {
   createPlacePageCategoryHref,
@@ -362,7 +361,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setHasError(true);
       return;
     }
-    const dataCommonsClient = getDataCommonsClient(null, WEBSITE_SURFACE);
+    const dataCommonsClient = DEFAULT_WEBSITE_DATA_COMMONS_CLIENT;
     (async (): Promise<void> => {
       try {
         const [
