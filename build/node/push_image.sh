@@ -19,10 +19,8 @@ set -e
 
 gcloud config set project datcom-ci
 
-cp ../../static/package.json .
-cp ../../static/package-lock.json .
+./copy_package_files.sh
 
 gcloud builds submit . --config=cloudbuild.yaml
 
-
-rm package.json package-lock.json
+./copy_package_files.sh --cleanup
