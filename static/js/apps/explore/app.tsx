@@ -477,7 +477,7 @@ export function App(props: AppProps): ReactElement {
             // Remove duplicate block(s) from main page metadata that are already in the highlight page metadata.
             mainPageMetadata = filterBlocksFromPageMetadata(
               mainPageMetadata,
-              highlightPageMetadataResp.pageConfig.categories.flatMap(
+              highlightPageMetadataResp.pageConfig.categories?.flatMap(
                 (category) => category.blocks || []
               )
             );
