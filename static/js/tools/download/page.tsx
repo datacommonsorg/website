@@ -251,7 +251,7 @@ export function Page(props: PagePropType): ReactElement {
                 })
               }
               searchBarInstructionText={intl.formatMessage(
-                toolMessages.placesIn
+                toolMessages.enterAPlaceInstruction
               )}
               selectedParentPlace={selectedOptions.selectedPlace}
             />

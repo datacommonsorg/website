@@ -189,7 +189,7 @@ export const toolMessages = defineMessages({
   },
   enterAPlaceInstruction: {
     id: "enter_a_place_instruction",
-    defaultMessage: "Enter a place",
+    defaultMessage: "Location:",
     description:
       "An instruction for users to type a place's name into a text box",
   },
@@ -201,13 +201,13 @@ export const toolMessages = defineMessages({
   },
   childPlaceTypeInstruction: {
     id: "childPlaceTypeInstruction",
-    defaultMessage: "of type",
+    defaultMessage: "Breakdown by:",
     description:
       "part of the label on a form saying 'Enter a place of type <type>' asking users to select a place type (e.g. city, country)",
   },
-  selectAPlaceTypeInstruction: {
-    id: "selectAPlaceTypeInstruction",
-    defaultMessage: "Select a place type",
+  selectAPlaceTypePlaceholder: {
+    id: "selectAPlaceTypePlaceholder",
+    defaultMessage: "Select geographic level",
     description:
       "default value on a dropdown telling the user to select a place type from the given options",
   },
@@ -222,12 +222,6 @@ export const toolMessages = defineMessages({
     defaultMessage: "Select variables",
     description:
       "Instruction inviting the user to select more than 1 statistical variable to plot",
-  },
-  placesIn: {
-    id: "places_in",
-    defaultMessage: "Places in",
-    description:
-      "Label on a textbox for a place, as in 'plot places in <user selected place>",
   },
 });
 
