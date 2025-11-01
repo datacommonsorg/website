@@ -43,7 +43,7 @@ import {
   PAGE_OVERVIEW_GA,
 } from "../../shared/feature_flags/util";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
-import { FacetMetadata } from "../../types/facet_metadata";
+import { FacetSelectionCriteria } from "../../types/facet_selection_criteria";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import {
@@ -98,8 +98,8 @@ interface SuccessResultPropType {
   hideHeaderSearchBar: boolean;
   // Object containing the highlight page metadata only.
   highlightPageMetadata?: SubjectPageMetadata;
-  // Facet for highlight
-  highlightFacet?: FacetMetadata;
+  // Criteria for selecting the facet.
+  facetSelector?: FacetSelectionCriteria;
 }
 
 export function SuccessResult(props: SuccessResultPropType): ReactElement {
@@ -234,7 +234,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                 {props.highlightPageMetadata && (
                   <HighlightResult
                     highlightPageMetadata={props.highlightPageMetadata}
-                    highlightFacet={props.highlightFacet}
+                    facetSelector={props.facetSelector}
                     maxBlock={maxBlock}
                     apiRoot={props.exploreContext.apiRoot}
                   />
@@ -246,7 +246,7 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
                     props.pageMetadata.pageConfig,
                     maxBlock
                   )}
-                  highlightFacet={props.highlightFacet}
+                  facetSelector={props.facetSelector}
                   svgChartHeight={SVG_CHART_HEIGHT}
                   showExploreMore={true}
                 />

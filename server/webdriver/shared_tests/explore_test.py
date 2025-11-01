@@ -253,3 +253,21 @@ class ExplorePageTestMixin():
     highlight_divs = find_elems(self.driver, By.CLASS_NAME,
                                 'highlight-result-title')
     self.assertEqual(len(highlight_divs), 0)
+
+
+def test_highlight_chart_date_selection(self):
+  """Test the highlight chart for Population ranking with map of US States."""
+  highlight_params = "sv=Count_DenseFogEvent&p=country/USA&chartType=RANKING_WITH_MAP&obsPer=P1Y&date=2023"
+  self.driver.get(self.url_ + EXPLORE_URL + highlight_params)
+
+  shared.wait_for_loading(self.driver)
+
+  highlight_div = find_elem(self.driver, By.CLASS_NAME,
+                            'highlight-result-title')
+
+  ranking_tile = find_elem(highlight_div, By.CLASS_NAME, 'ranking-tile')
+  self.assertIsNotNone(ranking_tile)
+  ranking_date_cells = find_elems(ranking_tile, By.CLASS_NAME,
+                                  'ranking-date-cell')
+  for cell in ranking_date_cells:
+    self.assertIn('2023', cell.text)
