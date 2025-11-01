@@ -40,12 +40,9 @@ website:
 mixer:
   serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
   hostProject: "datcom-website-staging"
-  useSpannerGraph: true
-  enableV3: true
   redis:
     enabled: true
   enableOtlp: true
-  v3MirrorFraction: 0.01
 
 ingress:
   enabled: false
