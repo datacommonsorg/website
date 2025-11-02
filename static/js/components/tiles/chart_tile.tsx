@@ -152,6 +152,7 @@ export function ChartTileContainer(
           statVarSpecs={props.statVarSpecs}
           facets={props.facets}
           statVarToFacets={props.statVarToFacets}
+          statVarDateRanges={props.statVarDateRanges}
           apiRoot={props.apiRoot}
         />
       )}
