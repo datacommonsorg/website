@@ -974,7 +974,7 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   return place_cohort_member_dcids
 
 
-def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
+def fetch_overview_table_data(place_dcid: str) -> tuple[List[OverviewTableDataRow], str]:
   """
   Fetches overview table data for the specified place.
   """
@@ -988,6 +988,9 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
   # Fetch all observations for each variable
   resp = dc.obs_point([place_dcid], variables, date="LATEST")
   facets = resp.get("facets", {})
+  # Return this so we know which mixer calls are used in the cached result
+  requestId = resp.get("requestId", "")
+  print("requestId in fetch_overview_table_data: ", requestId)
 
   # Iterate over each variable and extract the most recent observation
   for item in place_overview_table_variable_translations:
@@ -1021,7 +1024,7 @@ def fetch_overview_table_data(place_dcid: str) -> List[OverviewTableDataRow]:
             variableDcid=variable_dcid,
         ))
 
-  return data_rows
+  return data_rows, requestId
 
 
 def extract_most_recent_facet_observations(

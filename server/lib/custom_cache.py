@@ -30,7 +30,8 @@ def cache_and_log(timeout):
             cached_result = cache.get(key)
 
             if cached_result is not None:
-                # print("cache hit! result: ", cached_result.get("requestId", {}))
+                print("cache hit! result: ", cached_result.get("requestId", {}))
+                
                 # Cache hit
                 try:
                     # NOTE: this will eventually be a list if we expand the cache to other places that use multiple requests

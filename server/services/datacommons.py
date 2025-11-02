@@ -126,7 +126,7 @@ def obs_point(entities, variables, date="LATEST"):
             observation is returned.
     """
   url = get_service_url("/v2/observation")
-  return post(
+  ret =  post(
       url, {
           "select": ["date", "value", "variable", "entity"],
           "entity": {
@@ -137,6 +137,8 @@ def obs_point(entities, variables, date="LATEST"):
           },
           "date": date,
       })
+  print("ID in obs_point: ", ret.get("requestId", ""), ret)
+  return ret
 
 
 def obs_point_within(parent_entity,

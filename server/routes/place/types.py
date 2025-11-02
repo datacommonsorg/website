@@ -171,8 +171,11 @@ class OverviewTableDataRow:
 class PlaceOverviewTableApiResponse:
   """
   API Response for /api/place/overview-table/<place_dcid>
+  Also includes the request ID from the mixer call used
+  to populate the data for logging
   """
   data: List[OverviewTableDataRow]
+  requestId: str
 
 
 @dataclass

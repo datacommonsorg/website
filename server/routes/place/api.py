@@ -219,9 +219,10 @@ def overview_table(place_dcid: str):
   """
   Fetches and returns overview table data for the specified place.
   """
-  data_rows = place_utils.fetch_overview_table_data(place_dcid)
+  data_rows, requestId = place_utils.fetch_overview_table_data(place_dcid)
+  print("request ID in overview_table: ", requestId)
 
-  return jsonify(PlaceOverviewTableApiResponse(data=data_rows))
+  return jsonify(PlaceOverviewTableApiResponse(data=data_rows, requestId=requestId))
 
 
 @bp.route('/summary/<path:place_dcid>')
