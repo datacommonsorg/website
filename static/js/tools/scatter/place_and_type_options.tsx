@@ -26,6 +26,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Button } from "../../components/elements/button/button";
 import { Public } from "../../components/elements/icons/public";
 import { ScatterPlot } from "../../components/elements/icons/scatter_plot";
+import { Tooltip } from "../../components/elements/tooltip/tooltip";
 import { FormBox } from "../../components/form_components/form_box";
 import { intl } from "../../i18n/i18n";
 import { toolMessages } from "../../i18n/i18n_tool_messages";
@@ -145,26 +146,40 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
           width: fit-content;
         `}
       >
-        <Button
-          id="scatter-chart-type-selector-scatter"
-          variant={
-            display.chartType === ScatterChartType.SCATTER ? "flat" : "text"
-          }
-          onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
-          startIcon={<ScatterPlot />}
-          css={css`
-            border-radius: 0.25rem;
-          `}
-        />
-        <Button
-          id="scatter-chart-type-selector-map"
-          variant={display.chartType === ScatterChartType.MAP ? "flat" : "text"}
-          onClick={(): void => display.setChartType(ScatterChartType.MAP)}
-          startIcon={<Public />}
-          css={css`
-            border-radius: 0.25rem;
-          `}
-        />
+        <Tooltip
+          title={intl.formatMessage(
+            toolMessages.scatterToolScatterChartTypeTooltip
+          )}
+        >
+          <Button
+            id="scatter-chart-type-selector-scatter"
+            variant={
+              display.chartType === ScatterChartType.SCATTER ? "flat" : "text"
+            }
+            onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
+            startIcon={<ScatterPlot />}
+            css={css`
+              border-radius: 0.25rem;
+            `}
+          />
+        </Tooltip>
+        <Tooltip
+          title={intl.formatMessage(
+            toolMessages.scatterToolBivariateChartTypeTooltip
+          )}
+        >
+          <Button
+            id="scatter-chart-type-selector-map"
+            variant={
+              display.chartType === ScatterChartType.MAP ? "flat" : "text"
+            }
+            onClick={(): void => display.setChartType(ScatterChartType.MAP)}
+            startIcon={<Public />}
+            css={css`
+              border-radius: 0.25rem;
+            `}
+          />
+        </Tooltip>
       </div>
       <StatVarHierarchyToggleButton
         onClickCallback={props.toggleSvHierarchyModal}
