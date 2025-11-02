@@ -16,6 +16,7 @@
 
 import logging
 from functools import wraps
+from flask import Response
 from server.lib.cache import cache
 
 logger = logging.getLogger(__name__)
@@ -30,15 +31,22 @@ def cache_and_log(timeout):
             cached_result = cache.get(key)
 
             if cached_result is not None:
-                print("cache hit! result: ", cached_result.get("requestId", {}))
-                
                 # Cache hit
                 try:
-                    # NOTE: this will eventually be a list if we expand the cache to other places that use multiple requests
-                    unique_id = cached_result.get("requestId", {})
-                    # for id in unique_ids:
+                    if isinstance(cached_result, Response):
+                        # The cached result is a Flask Response object.
+                        # .get_json() parses the response data as JSON.
+                        cached_data = cached_result.get_json()
+                    else:
+                        # The cached result is a dict.
+                        cached_data = cached_result
+
+                    unique_id = cached_data.get("requestId")
+                    print("cache hit! requestId from cache: ", unique_id)
                     if unique_id:
-                        logger.info(f"Cache hit for key {key} with unique ID {unique_id}")
+                        logger.info(
+                            f"Cache hit for key {key} with unique ID {unique_id}"
+                        )
                 except Exception as e:
                     logger.error(f"Error logging cache hit for key {key}: {e}")
                 return cached_result
