@@ -44,8 +44,7 @@ interface StatVarChooserProps {
 }
 
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
-  const { dateCtx, statVar, placeInfo, display, errorEncountered } =
-    useContext(Context);
+  const { dateCtx, statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState([]);
   const [statVarWidgetIsCollapsed, setStatVarWidgetIsCollapsed] =
     useState(true);
@@ -67,11 +66,16 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
           enclosedPlaces
         );
         setSamplePlaces(samplePlaces);
-        errorEncountered.set(false);
       })
       .catch(() => {
         setSamplePlaces([]);
-        errorEncountered.set(true);
+        alert(
+          `Sorry, an error was encountered while loading places of type ${enclosedPlaceType} for ${enclosingPlaceDcid}. Please try a different place or type of place.`
+        );
+        // Clear place and variables to avoid a loop of retries
+        placeInfo.setSelectedPlace({ name: "", dcid: "", types: [] });
+        statVar.setDcid("");
+        return;
       });
   }, [placeInfo.value.enclosingPlace, placeInfo.value.enclosedPlaceType]);
 

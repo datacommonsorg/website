@@ -87,7 +87,6 @@ import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
 import {
   Context as MapContext,
   DisplayOptionsWrapper as MapDisplayOptionsWrapper,
-  ErrorEncounteredWrapper,
   IsLoadingWrapper as MapIsLoadingWrapper,
   PlaceInfoWrapper as MapPlaceInfoWrapper,
   StatVarWrapper,
@@ -425,10 +424,6 @@ const MAP_CONTEXT = {
     setMapPointSv: () => null,
     setMetahash: () => null,
   } as StatVarWrapper,
-  errorEncountered: {
-    value: false,
-    set: () => null,
-  } as ErrorEncounteredWrapper,
 };
 
 const SCATTER_CONTEXT = {

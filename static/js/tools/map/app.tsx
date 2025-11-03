@@ -60,7 +60,7 @@ function App(): ReactElement {
     STANDARDIZED_VIS_TOOL_FEATURE_FLAG
   );
   const theme = useTheme();
-  const { placeInfo, statVar, errorEncountered } = useContext(Context);
+  const { placeInfo, statVar } = useContext(Context);
   const showChart = ifShowChart(statVar.value, placeInfo.value);
   const showStatVarInstructions = shouldShowStatVarInstructions(
     statVar.value,
@@ -88,45 +88,33 @@ function App(): ReactElement {
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          {errorEncountered.value ? (
-            <div className="p-5">
-              {`Sorry, an error was encountered ` +
-                `while loading maps for ` +
-                `${placeInfo.value.enclosedPlaceType} ` +
-                `in ${placeInfo.value.selectedPlace.name}. ` +
-                `Try picking another place or type of place.`}
-            </div>
-          ) : (
-            <>
-              {!showChart && (
-                <Row>
-                  {useStandardizedUi ? (
-                    <>
-                      <VisToolInstructionsBox
-                        toolType="map"
-                        showStatVarInstructionsOnly={showStatVarInstructions}
-                      />
-                      {!showStatVarInstructions && (
-                        <div
-                          css={css`
-                            margin-top: ${theme.spacing.xl}px;
-                          `}
-                        >
-                          <ChartLinkChips toolType="map" />
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <Info />
+          {!showChart && (
+            <Row>
+              {useStandardizedUi ? (
+                <>
+                  <VisToolInstructionsBox
+                    toolType="map"
+                    showStatVarInstructionsOnly={showStatVarInstructions}
+                  />
+                  {!showStatVarInstructions && (
+                    <div
+                      css={css`
+                        margin-top: ${theme.spacing.xl}px;
+                      `}
+                    >
+                      <ChartLinkChips toolType="map" />
+                    </div>
                   )}
-                </Row>
+                </>
+              ) : (
+                <Info />
               )}
-              {showChart && (
-                <Row id="chart-row">
-                  <ChartLoader />
-                </Row>
-              )}
-            </>
+            </Row>
+          )}
+          {showChart && (
+            <Row id="chart-row">
+              <ChartLoader />
+            </Row>
           )}
         </Container>
       </div>
