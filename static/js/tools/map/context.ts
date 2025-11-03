@@ -133,6 +133,8 @@ export interface DisplayOptionsWrapper {
   setDomain: Setter<[number, number, number]>;
 }
 
+// Value and Setter to track whether an error
+// was encountered while fetching data
 export interface ErrorEncounteredWrapper {
   value: boolean;
   set: Setter<boolean>;
@@ -230,6 +232,7 @@ export function useInitialContext(params: URLSearchParams): ContextType {
         setDisplay({ ...display, showTimeSlider }),
       setDomain: (domain) => setDisplay({ ...display, domain }),
     },
+    // Store wwhether an error was encountered while fetching data
     errorEncountered: {
       value: errorEncountered,
       set: (value) => setErrorEncountered(value),
