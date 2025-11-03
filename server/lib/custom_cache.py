@@ -50,6 +50,13 @@ def cache_and_log(timeout):
           if unique_id:
             logger.info(
                 f"Cache hit for key {key} with unique ID {unique_id}")
+          else:
+            # more than one ID
+            ids = cached_data.get("requestIds")
+            if ids:
+                logger.info(
+                    f"Cache hit for key {key} with MANY Ids {ids}")
+              
         except Exception as e:
           logger.error(f"Error logging cache hit for key {key}: {e}")
         return cached_result

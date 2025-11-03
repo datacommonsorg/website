@@ -77,6 +77,7 @@ class PlaceChartsApiResponse:
   blocks: List[BlockConfig]
   place: Place
   categories: List[Category]
+  requestIds: List[str]
 
 
 @dataclass

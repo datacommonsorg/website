@@ -25,6 +25,7 @@ from flask_babel import gettext
 
 from server.lib import fetch
 from server.lib.cache import cache
+from server.lib.custom_cache import cache_and_log
 from server.lib.i18n import DEFAULT_LOCALE
 from server.lib.i18n_messages import get_other_places_in_parent_place_str
 from server.lib.i18n_messages import \
@@ -218,7 +219,8 @@ def count_places_per_stat_var(
   return stat_var_to_places_with_data
 
 
-@cache.memoize(timeout=TIMEOUT)
+# @cache.memoize(timeout=TIMEOUT)
+@cache_and_log(timeout=TIMEOUT)
 async def filter_chart_config_for_data_existence(
     chart_config: List[ServerChartConfiguration], place_dcid: str,
     place_type: str, child_place_type: str,
@@ -233,6 +235,7 @@ async def filter_chart_config_for_data_existence(
   Returns:
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
   """
+  print("reaching filter_chart_config_for_data_existence")
 
   async def fetch_and_process_stats():
     """Fetches and processes observation data concurrently."""
@@ -244,6 +247,7 @@ async def filter_chart_config_for_data_existence(
     peer_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, parent_place_dcid, place_type,
         peer_places_stat_var_dcids)
+    
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
                                                place_dcid, [place_type])
@@ -251,6 +255,10 @@ async def filter_chart_config_for_data_existence(
     current_place_obs_point_response, child_places_obs_point_within, peer_places_obs_point_within, fetch_peer_places = await asyncio.gather(
         current_place_obs_point_task, child_places_obs_point_within_task,
         peer_places_obs_point_within_task, fetch_peer_places_task)
+    
+    requestIds = [current_place_obs_point_response["requestId"], child_places_obs_point_within["requestId"], peer_places_obs_point_within["requestId"]]
+    print("requestIds in fetch_and_process_stats: ", requestIds)
+
     count_places_per_child_sv_task = asyncio.to_thread(
         count_places_per_stat_var, child_places_obs_point_within,
         child_places_stat_var_dcids, 2)
@@ -279,7 +287,7 @@ async def filter_chart_config_for_data_existence(
         count_places_per_sv_task, count_places_per_child_sv_task,
         count_places_per_peer_sv_task, child_geo_task, peer_geo_task)
 
-    return current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data
+    return current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data, requestIds
 
   # Get a flat list of all statistical variable dcids in the chart config
   current_place_stat_var_dcids = []
@@ -315,7 +323,7 @@ async def filter_chart_config_for_data_existence(
     if needs_peer_places_data:
       peer_places_stat_var_dcids.extend(variables)
 
-  current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data = await fetch_and_process_stats(
+  current_place_stat_vars_with_observations, child_stat_var_to_places_with_data, peer_stat_var_to_places_with_data, child_places_have_geo_data, peer_places_have_geo_data, requestIds = await fetch_and_process_stats(
   )
 
   # Build set of all stat vars that have data for our place & children places
@@ -398,7 +406,7 @@ async def filter_chart_config_for_data_existence(
     if config.blocks:
       valid_chart_configs.append(config)
 
-  return valid_chart_configs
+  return valid_chart_configs, requestIds
 
 
 def check_geo_data_exists(place_dcid: str, child_place_type: str) -> bool:
