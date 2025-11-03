@@ -169,6 +169,8 @@ def _compact_series(series_resp, all_facets):
               'series': [],
           }
   result['data'] = data
+  result['requestId'] = series_resp["requestId"]
+  print("requestId in _compact_series: ", series_resp["requestId"])
   return result
 
 

@@ -21,6 +21,7 @@ from flask import request
 from server.lib import fetch
 from server.lib import shared
 from server.lib.cache import cache
+from server.lib.custom_cache import cache_and_log
 import server.lib.util as lib_util
 from server.routes import TIMEOUT
 
@@ -51,11 +52,12 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
 
 
 @bp.route('', strict_slashes=False, methods=['GET', 'POST'])
-@cache.cached(timeout=TIMEOUT,
-              query_string=True,
-              make_cache_key=lib_util.post_body_cache_key)
+@cache_and_log(timeout=TIMEOUT,
+               query_string=True,
+               make_cache_key=lib_util.post_body_cache_key)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
+  print("reaching series!!")
   if request.method == 'POST':
     entities = request.json.get('entities')
     variables = request.json.get('variables')
@@ -70,9 +72,8 @@ def series():
     return 'error: must provide a `variables` field', 400
   return fetch.series_core(entities, variables, False, facet_ids)
 
-
 @bp.route('/all')
-@cache.cached(timeout=TIMEOUT, query_string=True)
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
   entities = _get_filtered_arg_list(request.args.getlist('entities'))
@@ -85,7 +86,7 @@ def series_all():
 
 
 @bp.route('/within')
-@cache.cached(timeout=TIMEOUT, query_string=True)
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 def series_within():
   """Gets the observation for child entities of a certain type contained in a
   parent entity at a given date.
@@ -128,7 +129,7 @@ def series_within():
 
 
 @bp.route('/within/all')
-@cache.cached(timeout=TIMEOUT, query_string=True)
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 def series_within_all():
   """Gets the observation for child entities of a certain type contained in a
   parent entity at a given date.

@@ -1054,6 +1054,7 @@ def fetch_highest_coverage(variables: List[str],
 
 
 def post_body_cache_key():
+  print("reached cache maker")
   """
   Builds flask cache key for GET and POST requests.
 
