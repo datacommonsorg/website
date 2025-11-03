@@ -17,6 +17,7 @@ from flask import request
 
 from server.lib import fetch
 from server.lib.cache import cache
+from server.lib.custom_cache import cache_and_log
 from server.lib.util import fetch_highest_coverage
 from server.routes import TIMEOUT
 from shared.lib.constants import DATE_HIGHEST_COVERAGE
@@ -69,14 +70,16 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
         for f_id in active_facets_in_filtered_data
         if f_id in point_data.get('facets', {})
     }
-    point_to_return = {'facets': final_facets_info, 'data': filtered_data}
+    print("request ID in _filter_point_for_facets: ", point_data["requestId"])
+    point_to_return = {'facets': final_facets_info, 'data': filtered_data, 'request_id': point_data["requestId"]}
     return point_to_return
 
   return point_data
 
 
 @bp.route('', strict_slashes=False)
-@cache.cached(timeout=TIMEOUT, query_string=True)
+# @cache.cached(timeout=TIMEOUT, query_string=True)
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 def point():
   """Handler to get the observation point given multiple stat vars and places."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -104,11 +107,13 @@ def point():
   if not facet_id:
     return point_data
 
+  print("request ID in point: ", point_data["requestId"])
   return _filter_point_for_facets(point_data, facet_id)
 
 
 @bp.route('/all')
-@cache.cached(timeout=TIMEOUT, query_string=True)
+# @cache.cached(timeout=TIMEOUT, query_string=True)
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 def point_all():
   """Handler to get all the observation points given multiple stat vars and entities."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -128,7 +133,8 @@ def point_all():
 
 
 @bp.route('/within')
-@cache.cached(timeout=TIMEOUT, query_string=True)
+# @cache.cached(timeout=TIMEOUT, query_string=True)
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 def point_within():
   """Gets the observations for child entities of a certain place
   type contained in a parent entity at a given date. If no date given, will
@@ -155,12 +161,16 @@ def point_within():
                                   all_facets=False,
                                   facet_ids=facet_ids)
   # Fetch observations from a specific date or date = 'LATEST'
-  return fetch.point_within_core(parent_entity, child_type, variables, date,
+  
+  resp = fetch.point_within_core(parent_entity, child_type, variables, date,
                                  False, facet_ids)
+  print("requestId in point_within: ", resp)
+  return resp
 
 
 @bp.route('/within/all')
-@cache.cached(timeout=TIMEOUT, query_string=True)
+# @cache.cached(timeout=TIMEOUT, query_string=True)
+@cache_and_log(timeout=TIMEOUT, query_string=True)
 def point_within_all():
   """Gets the observations for child entities of a certain place
   type contained in a parent entity at a given date. If no date given, will

@@ -18,19 +18,29 @@ import asyncio
 import logging
 from functools import wraps
 from flask import Response
+from flask import request
 from server.lib.cache import cache
 
 logger = logging.getLogger(__name__)
 
 
-def cache_and_log(timeout):
+def cache_and_log(timeout, query_string: bool = False):
 
   def decorator(f):
 
     @wraps(f)
     def decorated_function(*args, **kwargs):
+
+      def make_cache_key(*args, **kwargs):
+        # Use the default cache key maker
+        key = cache._memoize_make_cache_key()(*args, **kwargs)
+        # If query_string is True, append the request query string to the key
+        if query_string:
+          return key + request.query_string.decode('utf-8')
+        return key
+
       # Generate the cache key
-      key = cache._memoize_make_cache_key()(f, *args, **kwargs)
+      key = make_cache_key(f, *args, **kwargs)
       # Try to get the result from the cache
       cached_result = cache.get(key)
 

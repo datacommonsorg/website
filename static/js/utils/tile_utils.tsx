@@ -365,6 +365,11 @@ export function getStatFormat(
   // Get stat metadata info from stat data
   let statMetadata = null;
   if (statPointData) {
+    console.log(
+      "statPointData: ",
+      statPointData,
+      statPointData.data[svSpec.statVar]
+    );
     const obsWithFacet = Object.values(statPointData.data[svSpec.statVar]).find(
       (obs) => !!obs.facet
     );
