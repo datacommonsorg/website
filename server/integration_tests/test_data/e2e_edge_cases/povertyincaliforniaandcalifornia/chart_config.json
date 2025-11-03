@@ -71,37 +71,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below Poverty Line (Per Capita) in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
@@ -895,10 +864,6 @@
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
-            "name": "Population Below poverty line (Per Capita)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
             "name": "Asians Below Poverty Line",
