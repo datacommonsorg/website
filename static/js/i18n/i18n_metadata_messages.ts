@@ -49,11 +49,11 @@ export const metadataComponentMessages = defineMessages({
   },
   DisplayedDateRange: {
     id: "metadataDisplayedDateRange",
-    defaultMessage: "(Displaying: {dateRange})",
+    defaultMessage: "(displaying {dateRange})",
     description:
       "A wrapper string to show which date range is being actively displayed on the chart, and this date " +
       "range is different than the date range above. The {dateRange} variable will be replaced by the " +
-      "displayed range. For example: (Displayed: 2020-2022).",
+      "displayed range. For example: (displaying 2020-2022).",
   },
   Unit: {
     id: "unit",

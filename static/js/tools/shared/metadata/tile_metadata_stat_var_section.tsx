@@ -199,7 +199,7 @@ export const TileMetadataStatVarSection = ({
                 metadataComponentMessages.DisplayedDateRange,
                 { dateRange: chartRangeString }
               );
-              dateRangeValue = `${metaRangeString} ${displayedString}`;
+              dateRangeValue = `${metaRangeString}, ${displayedString}`;
             }
           }
 
