@@ -189,6 +189,38 @@
                     "statVarKey": [
                       "Count_Person_16OrMoreYears_WithEarnings"
                     ],
+                    "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings"
+                    ],
+                    "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, With Earnings in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_WithEarnings"
+                    ],
                     "title": "Population: 16 Years or More, With Earnings in Washington",
                     "type": "LINE"
                   }
