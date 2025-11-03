@@ -57,6 +57,20 @@ export const toolMessages = defineMessages({
     description:
       "label on a button that takes the user to a newer version of the Scatter Plot Explorer",
   },
+  scatterToolScatterChartTypeTooltip: {
+    id: "scatter_tool_scatter_chart_type_tooltip",
+    defaultMessage:
+      "Visualize the relationship between two statistical variables using a scatter plot",
+    description:
+      "Explanation of a chart type option that describes a scatter plot",
+  },
+  scatterToolBivariateChartTypeTooltip: {
+    id: "scatter_tool_bivariate_chart_type_tooltip",
+    defaultMessage:
+      "Visualize the geographical co-location of two statistical variables using a bivariate map",
+    description:
+      "Explanation of a chart type option that describes a bivariate map plot",
+  },
   timelineToolTitle: {
     id: "timeline_visualization_tool_name",
     defaultMessage: "Timelines Explorer",
@@ -102,31 +116,44 @@ export const toolMessages = defineMessages({
     description:
       "Instructions for how to enter a list of places to plot using our chart visualization tools",
   },
-  infoBoxInstructionsVariableDesktop: {
-    id: "info_box_instruction_variable_desktop",
+  infoBoxInstructionsVariableDesktopTimeline: {
+    id: "info_box_instruction_variable_desktop_timeline",
+    defaultMessage: "Pick one or more statistical variables in the left pane.",
+    description:
+      "Instruction for users to interact with a UI element on the left side of the page.",
+  },
+  infoBoxInstructionsVariableMobileTimeline: {
+    id: "info_box_instruction_variable_mobile_timeline",
+    defaultMessage:
+      'Pick one or more statistical variables using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
+  infoBoxInstructionsVariableDesktopScatter: {
+    id: "info_box_instruction_variable_desktop_scatter",
+    defaultMessage: "Pick two statistical variables in the left pane.",
+    description:
+      "Instruction for users to interact with a UI element on the left side of the page.",
+  },
+  infoBoxInstructionsVariableMobileScatter: {
+    id: "info_box_instruction_variable_mobile_scatter",
+    defaultMessage:
+      'Pick two statistical variables using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
+  infoBoxInstructionsVariableDesktopMap: {
+    id: "info_box_instruction_variable_desktop_map",
     defaultMessage: "Pick a statistical variable in the left pane.",
     description:
-      "An instruction for users to interact with a UI element on the left side of the page",
+      "Instruction for users to interact with a UI element on the left side of the page.",
   },
-  infoBoxInstructionsVariableMobile: {
-    id: "info_box_instruction_variable_mobile",
+  infoBoxInstructionsVariableMobileMap: {
+    id: "info_box_instruction_variable_mobile_map",
     defaultMessage:
       'Pick a statistical variable using the "select variable" button above.',
     description:
       "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
-  },
-  infoBoxInstructionsMultiVariableDesktop: {
-    id: "info_box_instruction_multi_variable_desktop",
-    defaultMessage: "Pick statistical variables in the left pane.",
-    description:
-      "An instruction for users to interact with a UI element on the left side of the page to select multiple statistical variables",
-  },
-  infoBoxInstructionsMultiVariableMobile: {
-    id: "info_box_instruction_multi_variable_mobile",
-    defaultMessage:
-      'Pick statistical variables using the "select variables" button above.',
-    description:
-      "An instruction for users to use a button labeled 'select variables' to select multiple statistical variable to plot",
   },
   statVarExplorerInstructionsDesktop: {
     id: "stat_var_explorer_instructions_desktop",
