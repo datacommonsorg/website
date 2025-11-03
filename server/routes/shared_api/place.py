@@ -290,7 +290,8 @@ def get_place_variable_count():
 
 
 @bp.route('/child/<path:dcid>')
-@cache.memoize(timeout=TIMEOUT)
+# @cache.memoize(timeout=TIMEOUT)
+@cache_and_log(timeout=TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
   child_places, request_id = child_fetch(dcid)
