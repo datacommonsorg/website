@@ -255,7 +255,7 @@
                     "statVarKey": [
                       "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
                     ],
-                    "title": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange in Spain",
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in Spain",
                     "type": "LINE"
                   }
                 ]
@@ -263,17 +263,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange in Spain",
+                    "description": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in Spain",
                     "statVarKey": [
                       "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
                     ],
-                    "title": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange in Spain",
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in Spain",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+            "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter)"
           },
           {
             "columns": [
@@ -307,7 +307,7 @@
         ],
         "statVarSpec": {
           "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange": {
-            "name": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange",
+            "name": "Adjusted GDP Growth Rate (Quarter-over-Quarter)",
             "statVar": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {

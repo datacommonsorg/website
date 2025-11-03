@@ -623,7 +623,7 @@
                     "statVarKey": [
                       "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
                     ],
-                    "title": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange in United States",
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -631,17 +631,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange in United States",
+                    "description": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
                     "statVarKey": [
                       "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
                     ],
-                    "title": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange in United States",
+                    "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
+            "title": "Adjusted GDP Growth Rate (Quarter-over-Quarter)"
           },
           {
             "columns": [
@@ -715,7 +715,7 @@
         ],
         "statVarSpec": {
           "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange": {
-            "name": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange",
+            "name": "Adjusted GDP Growth Rate (Quarter-over-Quarter)",
             "statVar": "Adjusted_GrowthRate_GrossDomesticProduct_EconomicActivity_QuarterOnChange"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block": {
