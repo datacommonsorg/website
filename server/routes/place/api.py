@@ -16,12 +16,12 @@ Defines endpoints for the place page.
 """
 
 import asyncio
+import json
 
 from flask import Blueprint
 from flask import g
 from flask import jsonify
 from flask import request
-import json
 
 from server.lib.cache import cache
 from server.lib.custom_cache import cache_and_log
@@ -240,10 +240,10 @@ def overview_table(place_dcid: str):
 @cache_and_log(timeout=TIMEOUT)
 async def place_summary(place_dcid: str):
   # todo: query_string=true
-
   """
   Fetches and returns place summary data for the specified place.
   """
-  summary, requestId = await place_utils.generate_place_summary(place_dcid, g.locale)
+  summary, requestId = await place_utils.generate_place_summary(
+      place_dcid, g.locale)
   print("requestId in place_summary: ", requestId)
   return jsonify(PlaceSummaryApiResponse(summary=summary, requestId=requestId))

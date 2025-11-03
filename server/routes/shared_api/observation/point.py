@@ -71,7 +71,11 @@ def _filter_point_for_facets(point_data, facet_ids: list[str]):
         if f_id in point_data.get('facets', {})
     }
     print("request ID in _filter_point_for_facets: ", point_data["requestId"])
-    point_to_return = {'facets': final_facets_info, 'data': filtered_data, 'request_id': point_data["requestId"]}
+    point_to_return = {
+        'facets': final_facets_info,
+        'data': filtered_data,
+        'request_id': point_data["requestId"]
+    }
     return point_to_return
 
   return point_data
@@ -161,7 +165,7 @@ def point_within():
                                   all_facets=False,
                                   facet_ids=facet_ids)
   # Fetch observations from a specific date or date = 'LATEST'
-  
+
   resp = fetch.point_within_core(parent_entity, child_type, variables, date,
                                  False, facet_ids)
   print("requestId in point_within: ", resp)

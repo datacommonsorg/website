@@ -27,8 +27,8 @@ import requests
 
 from server.lib import log
 from server.lib.cache import should_skip_cache
-from server.lib.custom_cache import cache_and_log
 import server.lib.config as libconfig
+from server.lib.custom_cache import cache_and_log
 from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -112,7 +112,7 @@ def post_wrapper(url, req_str: str, headers_str: str | None = None):
             response.json()["message"]))
   if "observation" in url:
     print("raw response text: ", response.text)
-    print("response: ",response.json())
+    print("response: ", response.json())
   return response.json()
 
 
@@ -126,7 +126,7 @@ def obs_point(entities, variables, date="LATEST"):
             observation is returned.
     """
   url = get_service_url("/v2/observation")
-  ret =  post(
+  ret = post(
       url, {
           "select": ["date", "value", "variable", "entity"],
           "entity": {

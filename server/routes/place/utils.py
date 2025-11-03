@@ -247,7 +247,6 @@ async def filter_chart_config_for_data_existence(
     peer_places_obs_point_within_task = asyncio.to_thread(
         dc.safe_obs_point_within, parent_place_dcid, place_type,
         peer_places_stat_var_dcids)
-    
 
     fetch_peer_places_task = asyncio.to_thread(fetch_peer_places_within,
                                                place_dcid, [place_type])
@@ -255,8 +254,12 @@ async def filter_chart_config_for_data_existence(
     current_place_obs_point_response, child_places_obs_point_within, peer_places_obs_point_within, fetch_peer_places = await asyncio.gather(
         current_place_obs_point_task, child_places_obs_point_within_task,
         peer_places_obs_point_within_task, fetch_peer_places_task)
-    
-    requestIds = [current_place_obs_point_response["requestId"], child_places_obs_point_within["requestId"], peer_places_obs_point_within["requestId"]]
+
+    requestIds = [
+        current_place_obs_point_response["requestId"],
+        child_places_obs_point_within["requestId"],
+        peer_places_obs_point_within["requestId"]
+    ]
     print("requestIds in fetch_and_process_stats: ", requestIds)
 
     count_places_per_child_sv_task = asyncio.to_thread(
@@ -982,7 +985,8 @@ def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   return place_cohort_member_dcids
 
 
-def fetch_overview_table_data(place_dcid: str) -> tuple[List[OverviewTableDataRow], str]:
+def fetch_overview_table_data(
+    place_dcid: str) -> tuple[List[OverviewTableDataRow], str]:
   """
   Fetches overview table data for the specified place.
   """
@@ -1238,7 +1242,7 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
       place_dcid, variable_dcids, locale)
   variable_observations = []
 
-  requestId =  place_observations["requestId"] or ""
+  requestId = place_observations["requestId"] or ""
 
   print("requestIDs in generate_place_summary: ", requestId)
 

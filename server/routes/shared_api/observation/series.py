@@ -72,6 +72,7 @@ def series():
     return 'error: must provide a `variables` field', 400
   return fetch.series_core(entities, variables, False, facet_ids)
 
+
 @bp.route('/all')
 @cache_and_log(timeout=TIMEOUT, query_string=True)
 def series_all():

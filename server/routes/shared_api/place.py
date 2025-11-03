@@ -299,7 +299,9 @@ def child(dcid):
     child_places[place_type].sort(key=lambda x: x['pop'], reverse=True)
     child_places[place_type] = child_places[place_type][:CHILD_PLACE_LIMIT]
   print("requestid in child: ", request_id)
-  return Response(json.dumps(child_places, request_id), 200, mimetype='application/json')
+  return Response(json.dumps(child_places, request_id),
+                  200,
+                  mimetype='application/json')
 
 
 # @cache.memoize(timeout=TIMEOUT)

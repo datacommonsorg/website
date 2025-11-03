@@ -11,14 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Custom cache that logs mixer request IDs from cache hits"""
 
 import asyncio
-import logging
 from functools import wraps
-from flask import Response
+import logging
+
 from flask import request
+from flask import Response
+
 from server.lib.cache import cache
 
 logger = logging.getLogger(__name__)
@@ -36,9 +37,10 @@ def cache_and_log(timeout, query_string: bool = False, make_cache_key=None):
     # make_cache_key from the outer scope (closure).
     def get_cache_key(*args, **kwargs):
       # if a custom key function is provided, use it
-      print("make cache key: ", make_cache_key) # Preserve user's print statement
+      print("make cache key: ",
+            make_cache_key)  # Preserve user's print statement
       if make_cache_key:
-        key = make_cache_key() # Pass f to custom key maker
+        key = make_cache_key()  # Pass f to custom key maker
       else:
         # Otherwise, use the default cache key maker
         key = cache._memoize_make_cache_key()(f, *args, **kwargs)
@@ -61,10 +63,10 @@ def cache_and_log(timeout, query_string: bool = False, make_cache_key=None):
           cached_data = cached_result
 
         unique_id = cached_data.get("requestId")
-        print("cache hit! requestId from cache: ", unique_id) # Preserve user's print statement
+        print("cache hit! requestId from cache: ",
+              unique_id)  # Preserve user's print statement
         if unique_id:
-          logger.info(
-              f"Cache hit for key {key} with unique ID {unique_id}")
+          logger.info(f"Cache hit for key {key} with unique ID {unique_id}")
         else:
           # more than one ID
           ids = cached_data.get("requestIds")
@@ -85,10 +87,11 @@ def cache_and_log(timeout, query_string: bool = False, make_cache_key=None):
           return cached_result
 
         # Cache miss
-        print("cache miss") # Preserve user's print statement
-        result = await f(*args, **kwargs) # Await the async function
+        print("cache miss")  # Preserve user's print statement
+        result = await f(*args, **kwargs)  # Await the async function
         cache.set(key, result, timeout=timeout)
         return result
+
       return async_wrapper
     else:
       # If it's a synchronous function, return a synchronous wrapper.
@@ -101,10 +104,11 @@ def cache_and_log(timeout, query_string: bool = False, make_cache_key=None):
           return cached_result
 
         # Cache miss
-        print("cache miss") # Preserve user's print statement
-        result = f(*args, **kwargs) # Call the synchronous function directly
+        print("cache miss")  # Preserve user's print statement
+        result = f(*args, **kwargs)  # Call the synchronous function directly
         cache.set(key, result, timeout=timeout)
         return result
+
       return sync_wrapper
 
   return decorator
