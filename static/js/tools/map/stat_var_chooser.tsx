@@ -70,11 +70,11 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       .catch(() => {
         setSamplePlaces([]);
         alert(
-          `Sorry, an error was encountered while loading places of type ${enclosedPlaceType} for ${enclosingPlaceDcid}. Please try a different place or type of place.`
+          `Can't find data for this place and breakdown. Please try a different selection.`
         );
         // Clear place and variables to avoid a loop of retries
-        placeInfo.setSelectedPlace({ name: "", dcid: "", types: [] });
-        statVar.setDcid("");
+        placeInfo.setEnclosingPlace({ dcid: "", name: "" });
+        statVar.set({ dcid: "", info: null });
         return;
       });
   }, [placeInfo.value.enclosingPlace, placeInfo.value.enclosedPlaceType]);
