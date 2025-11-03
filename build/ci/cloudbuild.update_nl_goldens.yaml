@@ -6,7 +6,7 @@ substitutions:
 
 availableSecrets:
   secretManager:
-  - versionName: projects/879489846695/secrets/GH_PAT/versions/1
+  - versionName: projects/879489846695/secrets/GH_PAT/versions/latest
     env: 'ghsecret'
 
 
