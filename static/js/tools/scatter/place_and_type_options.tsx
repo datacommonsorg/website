@@ -18,7 +18,6 @@
  * Place options for selecting the child place type and the enclosing place.
  */
 
-import { css, useTheme } from "@emotion/react";
 import axios, { AxiosRequestConfig } from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
@@ -54,7 +53,6 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   // Store the last place and place type combination that resulted in a failed fetch
   const [failedEnclosedPlaces, setFailedEnclosedPlaces] =
     useState<PlaceAndTypeSettings | null>(null);
-  const theme = useTheme();
 
   /**
    * Watch and update place info
