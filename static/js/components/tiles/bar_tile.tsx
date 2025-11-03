@@ -300,9 +300,6 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.variables);
-    const perCapitaVariables = props.variables
-      .filter((v) => v.denom)
-      .map((v) => v.statVar);
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
@@ -314,9 +311,9 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
         entityProps,
         entities: props.places,
         fieldDelimiter: CSV_FIELD_DELIMITER,
-        perCapitaVariables,
         transformHeader: transformCsvHeader,
-        variables: props.variables.map((v) => v.statVar),
+        statVarSpecs: props.variables,
+        variables: [],
       });
     } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
       return dataCommonsClient.getCsv({
@@ -325,9 +322,9 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
         entityProps,
         fieldDelimiter: CSV_FIELD_DELIMITER,
         parentEntity: props.parentPlace,
-        perCapitaVariables,
         transformHeader: transformCsvHeader,
-        variables: props.variables.map((v) => v.statVar),
+        statVarSpecs: props.variables,
+        variables: [],
       });
     }
     return new Promise(() => "Error fetching CSV");

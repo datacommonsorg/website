@@ -53,26 +53,12 @@ const WIDTH = {
   xl: 1310,
 };
 
-const ICONS = {
-  xs: 12,
-  sm: 18,
-  md: 24,
-  lg: 32,
-  xl: 48,
-};
-
 const DC_BLACK = "hsl(0, 0%, 18.82%)";
 
-const DC_BLACK_00 = "hsl(0, 0.00%, 0%)";
-const DC_BLACK_10 = "hsl(0, 0.00%, 10%)";
-const DC_BLACK_20 = "hsl(0, 0.00%, 20%)";
 const DC_BLACK_30 = "hsl(0, 0.00%, 30%)";
-const DC_BLACK_40 = "hsl(0, 0.00%, 40%)";
-const DC_BLACK_50 = "hsl(0, 0.00%, 50%)";
-const DC_BLACK_60 = "hsl(0, 0.00%, 60%)";
+
 const DC_BLACK_70 = "hsl(0, 0.00%, 70%)";
 const DC_BLACK_80 = "hsl(0, 0.00%, 80%)";
-const DC_BLACK_90 = "hsl(0, 0.00%, 90%)";
 
 const DC_WHITE = "hsl(255, 100%, 100%)";
 const DC_BONE = "hsl(216, 55%, 98%)";
@@ -459,6 +445,10 @@ const theme: Theme = {
     regex: DC_YELLOW_DARK,
     important: DC_YELLOW_DARK,
     variable: DC_YELLOW_DARK,
+    csvHeader: DC_GREEN,
+    csvSeparator: DC_ORANGE,
+    csvStringValue: DC_GRAY_LIGHT,
+    csvValue: DC_BLUE,
   },
   elevation: {
     none: {

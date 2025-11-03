@@ -40,12 +40,9 @@ website:
 mixer:
   serviceName: "website-esp.endpoints.datcom-website-staging.cloud.goog"
   hostProject: "datcom-website-staging"
-  useSpannerGraph: true
-  enableV3: true
   redis:
     enabled: true
   enableOtlp: true
-  v3MirrorFraction: 0.01
 
 ingress:
   enabled: false
@@ -96,6 +93,6 @@ svg:
 cronTesting:
   enabled: true
   webApiRoot: "http://website-service:8080"
-  nodejsApiRoot: "http://website-nodejs-service:8080"
+  nodejsApiRoot: "" # skip nodejs tests in staging
   nodePool: "default-pool"
   schedule: "* * 31 2 *" # invalid day for month -> never run automatically

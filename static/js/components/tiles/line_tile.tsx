@@ -260,9 +260,6 @@ export function LineTile(props: LineTilePropType): ReactElement {
 function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
   const dataCommonsClient = getDataCommonsClient(props.apiRoot, props.surface);
   return () => {
-    const perCapitaVariables = props.statVarSpec
-      .filter((v) => v.denom)
-      .map((v) => v.statVar);
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
@@ -273,10 +270,10 @@ function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
         entityProps,
         fieldDelimiter: CSV_FIELD_DELIMITER,
         parentEntity: props.place.dcid,
-        perCapitaVariables,
         startDate: props.startDate,
         transformHeader: transformCsvHeader,
-        variables: props.statVarSpec.map((v) => v.statVar),
+        statVarSpecs: props.statVarSpec,
+        variables: [],
       });
     } else {
       const entities = getPlaceDcids(props);
@@ -285,10 +282,10 @@ function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
         entities,
         entityProps,
         fieldDelimiter: CSV_FIELD_DELIMITER,
-        perCapitaVariables: _.uniq(perCapitaVariables),
         startDate: props.startDate,
         transformHeader: transformCsvHeader,
-        variables: props.statVarSpec.map((v) => v.statVar),
+        statVarSpecs: props.statVarSpec,
+        variables: [],
       });
     }
   };
