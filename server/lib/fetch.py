@@ -131,6 +131,8 @@ def _compact_point(point_resp, all_facets):
         else:
           data[var][entity] = {}
   result['data'] = data
+  result['requestId'] = point_resp.get("requestId", "")
+  print("requestID in compactPoint", result['requestId'])
   return result
 
 
