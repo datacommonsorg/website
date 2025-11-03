@@ -18,9 +18,8 @@
 
 import { useContext, useEffect, useMemo, useState } from "react";
 
-import { WEBSITE_SURFACE } from "../../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../../shared/facet_selector/facet_selector";
-import { getDataCommonsClient } from "../../../utils/data_commons_client";
+import { DEFAULT_WEBSITE_DATA_COMMONS_CLIENT } from "../../../utils/data_commons_client";
 import { FacetResponse } from "../../../utils/data_fetch_utils";
 import { fetchFacetsWithMetadata } from "../../shared/metadata/metadata_fetcher";
 import { ChartStore } from "../chart_store";
@@ -38,7 +37,7 @@ export function useComputeFacetList(chartStore: ChartStore): {
   const [facetListLoading, setFacetListLoading] = useState(false);
   const [facetListError, setFacetListError] = useState(false);
   const dataCommonsClient = useMemo(
-    () => getDataCommonsClient(null, WEBSITE_SURFACE),
+    () => DEFAULT_WEBSITE_DATA_COMMONS_CLIENT,
     []
   );
 
