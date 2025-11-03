@@ -40,4 +40,4 @@ def detect(query: str, prev_utterance: utterance.Utterance,
                    svs_detected=empty_svs_detection,
                    classifications=[],
                    llm_resp={},
-                   detector=ActualDetectorType.Agentic)
+                   detector=ActualDetectorType.Agent)

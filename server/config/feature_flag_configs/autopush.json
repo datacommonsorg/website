@@ -18,10 +18,10 @@
     "description": "Enables the data_overview/<place> routes."
   },
   {
-    "name": "enable_agentic_detector",
+    "name": "enable_agent_detector",
     "enabled": true,
     "owner": "clincoln8",
-    "description": "Enables detector=agentic to be a valid detection mode for NL parsing."
+    "description": "Enables detector=agent to be a valid detection mode for NL parsing."
   },
   {
     "name": "enable_gemini_2_5_flash",
