@@ -113,7 +113,6 @@ export const DemoTooltips = (): ReactElement => {
               </p>
             </>
           }
-          disableTouchListener
         >
           <button
             onClick={(): void => console.log("click")}
@@ -140,7 +139,8 @@ export const DemoTooltips = (): ReactElement => {
         <h4>Description:</h4>
         <p>
           A button that can be hovered, with a rich content tooltip. The button
-          has an action on click, so touch popovers are disabled.
+          has an action on click, so touch popovers are set to long-press by
+          default.
         </p>
         <h4>Details:</h4>
         <ul>
@@ -149,9 +149,6 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>Content:</strong> HTML (React) Element
-          </li>
-          <li>
-            <strong>disableTouchListener:</strong> true
           </li>
         </ul>
       </div>
@@ -176,7 +173,8 @@ export const DemoTooltips = (): ReactElement => {
         <h4>Description:</h4>
         <p>
           A button that can be hovered, with a rich content tooltip. The button
-          has an action on click, so touch popovers are disabled.
+          has an action on click, so touch popovers are set to long-press by
+          default.
         </p>
         <h4>Details:</h4>
         <ul>
@@ -191,6 +189,27 @@ export const DemoTooltips = (): ReactElement => {
           </li>
           <li>
             <strong>cursor:</strong> default
+          </li>
+        </ul>
+      </div>
+
+      <div className="box">
+        <Tooltip title={"About this link"}>
+          <a href="https://google.com">Google Search</a>
+        </Tooltip>
+        <hr />
+        <h4>Description:</h4>
+        <p>
+          A link that can be hovered, with tooltip. The button has an action on
+          click, so touch popovers are set to long-press by default.
+        </p>
+        <h4>Details:</h4>
+        <ul>
+          <li>
+            <strong>Trigger:</strong> HTML (React) Element
+          </li>
+          <li>
+            <strong>Content:</strong> Test string Element
           </li>
         </ul>
       </div>

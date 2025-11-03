@@ -81,6 +81,7 @@ interface BivariateTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  surface?: string;
 }
 
 interface RawData {
@@ -150,6 +151,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       errorMsg={bivariateChartData && bivariateChartData.errorMsg}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surface={props.surface}
     >
       <div
         id={props.id}
@@ -177,7 +179,10 @@ function getDataCsvCallback(
   props: BivariateTilePropType
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surface
+    );
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -200,6 +205,7 @@ async function getPopulationData(
   placeDcid: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
+  surface: string,
   placeStats: PointApiResponse
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const variables = [];
@@ -216,17 +222,19 @@ async function getPopulationData(
       placeStats,
       "",
       true,
-      null,
       placeDcid,
+      null,
       enclosedPlaceType
     );
   }
 }
 
-export const fetchData = async (props: BivariateTilePropType) => {
+export const fetchData = async (
+  props: BivariateTilePropType
+): Promise<BivariateChartData | null> => {
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
-    return;
+    return null;
   }
   const geoJsonPromise: Promise<GeoJsonData> = axios
     .get(
@@ -239,12 +247,15 @@ export const fetchData = async (props: BivariateTilePropType) => {
     [
       { statVarDcid: props.statVarSpec[0].statVar },
       { statVarDcid: props.statVarSpec[1].statVar },
-    ]
+    ],
+    props.apiRoot,
+    props.surface
   );
   const [denomsByFacet, defaultDenomData] = await getPopulationData(
     props.place.dcid,
     props.enclosedPlaceType,
     props.statVarSpec,
+    props.surface,
     placeStats
   );
   const placeNamesPromise = axios
@@ -391,7 +402,7 @@ function rawToChart(
 
 const getTooltipHtml =
   (points: { [placeDcid: string]: Point }, xLabel: string, yLabel: string) =>
-  (place: NamedPlace) => {
+  (place: NamedPlace): string => {
     const point = points[place.dcid];
     if (_.isEmpty(point)) {
       return (

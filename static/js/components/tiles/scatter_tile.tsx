@@ -113,6 +113,8 @@ export interface ScatterTilePropType {
    * this margin of the viewport. Default: "0px"
    */
   lazyLoadMargin?: string;
+  // Optional: Passed into mixer calls to differentiate website and web components in usage logs
+  surface?: string;
 }
 
 interface RawData {
@@ -258,6 +260,7 @@ export function ScatterTile(props: ScatterTilePropType): ReactElement {
       title={props.title}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
+      surface={props.surface}
     >
       <div className="scatter-tile-content">
         <div
@@ -305,29 +308,31 @@ function getDataCsvCallback(
   scatterChartData: ScatterChartData
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    const dataCommonsClient = getDataCommonsClient(
+      props.apiRoot,
+      props.surface
+    );
     // Assume both variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
-    const perCapitaVariables = [
+    const clientStatVarSpecs = [
       scatterChartData.xStatVar,
       scatterChartData.yStatVar,
-    ].map((v) => (v.denom ? v.statVar : ""));
+    ];
+
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
+
     return dataCommonsClient.getCsv({
       childType: props.enclosedPlaceType,
       date,
       entityProps,
       fieldDelimiter: CSV_FIELD_DELIMITER,
       parentEntity: props.place.dcid,
-      perCapitaVariables: _.uniq(perCapitaVariables),
       transformHeader: transformCsvHeader,
-      variables: [
-        scatterChartData.xStatVar.statVar,
-        scatterChartData.yStatVar.statVar,
-      ],
+      statVarSpecs: clientStatVarSpecs,
+      variables: [],
     });
   };
 }
@@ -349,6 +354,7 @@ async function getPopulationInfo(
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
   statResp: PointApiResponse,
+  surface: string,
   apiRoot?: string
 ): Promise<[Record<string, SeriesApiResponse>, SeriesApiResponse]> {
   const statVars = new Set<string>();
@@ -366,6 +372,7 @@ async function getPopulationInfo(
     statResp,
     apiRoot,
     true,
+    surface,
     null,
     placeDcid,
     enclosedPlaceType
@@ -396,7 +403,8 @@ export const fetchData = async (
         facetId: props.statVarSpec[1].facetId,
       },
     ],
-    props.apiRoot
+    props.apiRoot,
+    props.surface
   );
   const placeNamesParams = {
     dcid: props.place.dcid,
@@ -423,6 +431,7 @@ export const fetchData = async (
       props.enclosedPlaceType,
       props.statVarSpec,
       placeStats,
+      props.surface,
       props.apiRoot
     );
     const statVarNames = await getStatVarNames(

@@ -324,24 +324,6 @@ function run_cdc_webdriver_test {
   deactivate
 }
 
-# Run test for screenshot test codes.
-function run_screenshot_test {
-  source .env/bin/activate
-  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
-  if [ ! -d server/dist  ]
-  then
-    echo "no dist folder, please run ./run_test.sh -b to build js first."
-    exit 1
-  fi
-  export FLASK_ENV=webdriver
-  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  export ENABLE_MODEL=true
-  export DC_API_KEY=
-  export LLM_API_KEY=
-  python3 -m pytest -n auto --reruns 2 server/webdriver/screenshot/ ${@}
-  deactivate
-}
-
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
@@ -504,10 +486,6 @@ case "$command" in
   -c)
       echo -e "### Running client tests"
       run_npm_test "${extra_args[@]}"
-      ;;
-  -s)
-      echo -e "### Running screenshot tests"
-      run_screenshot_test "${extra_args[@]}"
       ;;
   -f)
       echo -e "### Fix lint errors"

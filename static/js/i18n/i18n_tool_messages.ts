@@ -34,6 +34,12 @@ export const toolMessages = defineMessages({
     description:
       "label on a button that takes the user to a newer version of the Map Explorer",
   },
+  mapToolSearchBoxPlaceholder: {
+    id: "map_tool_search_box_placeholder",
+    defaultMessage: "Enter a country or state to get started",
+    description:
+      "Placeholder text in a search bar inviting the user to type in the name of a place",
+  },
   scatterToolTitle: {
     id: "scatter_visualization_tool_name",
     defaultMessage: "Scatter Plot Explorer",
@@ -50,6 +56,20 @@ export const toolMessages = defineMessages({
     defaultMessage: "Go back to the new Scatter Plot Explorer",
     description:
       "label on a button that takes the user to a newer version of the Scatter Plot Explorer",
+  },
+  scatterToolScatterChartTypeTooltip: {
+    id: "scatter_tool_scatter_chart_type_tooltip",
+    defaultMessage:
+      "Visualize the relationship between two statistical variables using a scatter plot",
+    description:
+      "Explanation of a chart type option that describes a scatter plot",
+  },
+  scatterToolBivariateChartTypeTooltip: {
+    id: "scatter_tool_bivariate_chart_type_tooltip",
+    defaultMessage:
+      "Visualize the geographical co-location of two statistical variables using a bivariate map",
+    description:
+      "Explanation of a chart type option that describes a bivariate map plot",
   },
   timelineToolTitle: {
     id: "timeline_visualization_tool_name",
@@ -85,42 +105,55 @@ export const toolMessages = defineMessages({
   infoBoxInstructionsPlacesScatter: {
     id: "info_box_instruction_places_scatter",
     defaultMessage:
-      "Enter your desired location (city, state, county, or country) into the search box above, and then select the type of place you want to plot.",
+      "Enter your desired location (country, state, county, or city) into the search box above, and then select the type of place you want to plot.",
     description:
       "instructions for how to enter the group of places to plot using our chart visualization tools, (e.g., plot cities in France)",
   },
   infoBoxInstructionsPlacesTimeline: {
     id: "info_box_instruction_places_timeline",
     defaultMessage:
-      "Enter your desired location(s) (city, state, county, or country) into the search box above.",
+      "Enter your desired location(s) (country, state, county, or city) into the search box above.",
     description:
       "Instructions for how to enter a list of places to plot using our chart visualization tools",
   },
-  infoBoxInstructionsVariableDesktop: {
-    id: "info_box_instruction_variable_desktop",
+  infoBoxInstructionsVariableDesktopTimeline: {
+    id: "info_box_instruction_variable_desktop_timeline",
+    defaultMessage: "Pick one or more statistical variables in the left pane.",
+    description:
+      "Instruction for users to interact with a UI element on the left side of the page.",
+  },
+  infoBoxInstructionsVariableMobileTimeline: {
+    id: "info_box_instruction_variable_mobile_timeline",
+    defaultMessage:
+      'Pick one or more statistical variables using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
+  infoBoxInstructionsVariableDesktopScatter: {
+    id: "info_box_instruction_variable_desktop_scatter",
+    defaultMessage: "Pick two statistical variables in the left pane.",
+    description:
+      "Instruction for users to interact with a UI element on the left side of the page.",
+  },
+  infoBoxInstructionsVariableMobileScatter: {
+    id: "info_box_instruction_variable_mobile_scatter",
+    defaultMessage:
+      'Pick two statistical variables using the "select variable" button above.',
+    description:
+      "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
+  },
+  infoBoxInstructionsVariableDesktopMap: {
+    id: "info_box_instruction_variable_desktop_map",
     defaultMessage: "Pick a statistical variable in the left pane.",
     description:
-      "An instruction for users to interact with a UI element on the left side of the page",
+      "Instruction for users to interact with a UI element on the left side of the page.",
   },
-  infoBoxInstructionsVariableMobile: {
-    id: "info_box_instruction_variable_mobile",
+  infoBoxInstructionsVariableMobileMap: {
+    id: "info_box_instruction_variable_mobile_map",
     defaultMessage:
       'Pick a statistical variable using the "select variable" button above.',
     description:
       "An instruction for users to use a button labeled 'select variable' to select a statistical variable to plot",
-  },
-  infoBoxInstructionsMultiVariableDesktop: {
-    id: "info_box_instruction_multi_variable_desktop",
-    defaultMessage: "Pick statistical variables in the left pane.",
-    description:
-      "An instruction for users to interact with a UI element on the left side of the page to select multiple statistical variables",
-  },
-  infoBoxInstructionsMultiVariableMobile: {
-    id: "info_box_instruction_multi_variable_mobile",
-    defaultMessage:
-      'Pick statistical variables using the "select variables" button above.',
-    description:
-      "An instruction for users to use a button labeled 'select variables' to select multiple statistical variable to plot",
   },
   statVarExplorerInstructionsDesktop: {
     id: "stat_var_explorer_instructions_desktop",

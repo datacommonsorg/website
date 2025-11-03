@@ -19,6 +19,10 @@ import _ from "lodash";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
+  WEBSITE_SURFACE,
+  WEBSITE_SURFACE_HEADER,
+} from "../../shared/constants";
+import {
   DisplayNameApiResponse,
   EntitySeries,
   Observation,
@@ -164,7 +168,14 @@ export function fetchRawData(
     facets: {},
   });
   if (denom) {
-    denomDataPromise = getSeries("", places, [denom]);
+    denomDataPromise = getSeries(
+      "", // apiRoot
+      places,
+      [denom],
+      null, // facetIds
+      null, // highlightFacet
+      WEBSITE_SURFACE
+    );
   }
   const displayNamesPromise: Promise<DisplayNameApiResponse> =
     getPlaceDisplayNames(places);
@@ -176,6 +187,7 @@ export function fetchRawData(
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
+      headers: WEBSITE_SURFACE_HEADER,
     })
     .then((resp) => {
       return resp.data;

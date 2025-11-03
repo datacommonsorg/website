@@ -24,7 +24,7 @@ import _ from "lodash";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { stringifyFn } from "../../utils/axios";
+import { getSurfaceHeader, stringifyFn } from "../../utils/axios";
 import { getPointWithin } from "../../utils/data_fetch_utils";
 import {
   Axis,
@@ -55,14 +55,14 @@ export const SCATTER_URL_PATH = "/tools/scatter";
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
  * @param apiRoot API root
- * @param dateOverride Optional. Use this date instead of dates associated with
- *        statVars
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
   statVars: { statVarDcid: string; date?: string; facetId?: string }[],
-  apiRoot?: string
+  apiRoot?: string,
+  surface?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -80,7 +80,8 @@ export async function getStatWithinPlace(
         [statVar.statVarDcid],
         dataDate,
         [],
-        facetIds
+        facetIds,
+        surface
       )
     );
   }
@@ -104,12 +105,13 @@ export async function getStatWithinPlace(
  * @param parentPlace the place to get data within
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
- *
+ * @param surface Used in mixer usage logs. Indicates which surface (website, web components, etc) is making the call.
  */
 export async function getStatAllWithinPlace(
   parentPlace: string,
   childType: string,
-  statVars: { statVarDcid: string; date?: string }[]
+  statVars: { statVarDcid: string; date?: string }[],
+  surface: string
 ): Promise<PointAllApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -128,6 +130,7 @@ export async function getStatAllWithinPlace(
             variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
+          headers: getSurfaceHeader(surface),
         })
         .then((resp) => resp.data)
     );

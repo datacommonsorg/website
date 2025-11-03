@@ -87,6 +87,9 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
           onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
           onPlaceSelected={placeInfo.setSelectedPlace}
           selectedParentPlace={placeInfo.value.selectedPlace}
+          searchBarPlaceholderText={intl.formatMessage(
+            toolMessages.mapToolSearchBoxPlaceholder
+          )}
         />
         <StatVarHierarchyToggleButton
           onClickCallback={props.toggleSvHierarchyModal}

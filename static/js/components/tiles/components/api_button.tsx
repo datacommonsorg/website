@@ -43,6 +43,8 @@ interface ApiButtonProps {
   // `standard` displays the button as text with an icon to the left
   // `textOnly` displays the button as text only, without the icon.
   variant?: "standard" | "textOnly";
+  // Passed into calls made to mixer for usage logs
+  surface: string;
 }
 
 export function ApiButton({
@@ -50,6 +52,7 @@ export function ApiButton({
   getObservationSpecs,
   containerRef,
   variant = "standard",
+  surface,
 }: ApiButtonProps): ReactElement {
   const [apiOpen, setApiOpen] = useState(false);
   const [apiLoading, setApiLoading] = useState(false);
@@ -72,7 +75,7 @@ export function ApiButton({
       }
 
       if (allSvDcids.size > 0) {
-        const dataCommonsClient = getDataCommonsClient(apiRoot);
+        const dataCommonsClient = getDataCommonsClient(apiRoot, surface);
         const namedNodes = await fetchStatVarNames(
           Array.from(allSvDcids),
           dataCommonsClient

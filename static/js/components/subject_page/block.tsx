@@ -48,7 +48,11 @@ import {
 import { intl } from "../../i18n/i18n";
 import { chartComponentMessages } from "../../i18n/i18n_chart_messages";
 import { messages } from "../../i18n/i18n_messages";
-import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import {
+  DATE_HIGHEST_COVERAGE,
+  DATE_LATEST,
+  WEBSITE_SURFACE,
+} from "../../shared/constants";
 import { FacetSelector } from "../../shared/facet_selector/facet_selector";
 import {
   isFeatureEnabled,
@@ -690,6 +694,7 @@ function renderTiles(
             place={place}
             statVarSpec={getSingleStatVarSpec(tile.statVarKey[0])}
             highlightFacet={props.highlightFacet}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -720,6 +725,8 @@ function renderTiles(
             allowZoom={true}
             colors={tile.mapTileSpec?.colors}
             footnote={props.footnote}
+            surface={WEBSITE_SURFACE}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "LINE":
@@ -750,6 +757,7 @@ function renderTiles(
             endDate={tile.lineTileSpec?.endDate}
             highlightDate={tile.lineTileSpec?.highlightDate}
             highlightFacet={props.highlightFacet}
+            surface={WEBSITE_SURFACE}
           />
         );
       case "RANKING":
@@ -776,6 +784,8 @@ function renderTiles(
                   )
                 : undefined
             }
+            surface={WEBSITE_SURFACE}
+            highlightFacet={props.highlightFacet}
           />
         );
       case "BAR":
@@ -812,6 +822,7 @@ function renderTiles(
               tile.barTileSpec?.defaultVariableName
             )}
             highlightFacet={props.highlightFacet}
+            surface={WEBSITE_SURFACE}
           />
         );
       case "SCATTER": {
@@ -840,6 +851,7 @@ function renderTiles(
             showExploreMore={props.showExploreMore}
             footnote={props.footnote}
             placeNameProp={tile.placeNameProp}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -865,6 +877,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            surface={WEBSITE_SURFACE}
           />
         );
       }
@@ -890,6 +903,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={WEBSITE_SURFACE}
           ></GaugeTile>
         );
       case "DONUT":
@@ -910,6 +924,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             title={title}
             subtitle={tile.subtitle}
+            surface={WEBSITE_SURFACE}
           ></DonutTile>
         );
       case "DESCRIPTION":
