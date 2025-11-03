@@ -184,3 +184,4 @@ class PlaceSummaryApiResponse:
   API Response for /api/place/summary/<place_dcid>
   """
   summary: str
+  requestId: str

@@ -218,6 +218,7 @@ async def related_places(place_dcid: str):
 @log_execution_time
 @cache_and_log(timeout=TIMEOUT)
 def overview_table(place_dcid: str):
+  # todo: query_string=true
   """
   Fetches and returns overview table data for the specified place.
   """
@@ -232,10 +233,13 @@ def overview_table(place_dcid: str):
 
 @bp.route('/summary/<path:place_dcid>')
 @log_execution_time
-@cache.cached(timeout=TIMEOUT, query_string=True)
+@cache_and_log(timeout=TIMEOUT)
 async def place_summary(place_dcid: str):
+  # todo: query_string=true
+
   """
   Fetches and returns place summary data for the specified place.
   """
-  summary = await place_utils.generate_place_summary(place_dcid, g.locale)
-  return jsonify(PlaceSummaryApiResponse(summary=summary))
+  summary, requestId = await place_utils.generate_place_summary(place_dcid, g.locale)
+  print("requestId in place_summary: ", requestId)
+  return jsonify(PlaceSummaryApiResponse(summary=summary, requestId=requestId))

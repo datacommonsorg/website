@@ -1230,6 +1230,10 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
       place_dcid, variable_dcids, locale)
   variable_observations = []
 
+  requestId =  place_observations["requestId"] or ""
+
+  print("requestIDs in generate_place_summary: ", requestId)
+
   # Iterate over each variable and extract the most recent observation
   for variable in PLACE_SUMMARY_VARIABLES:
     variable_dcid = variable["dcid"]
@@ -1265,4 +1269,4 @@ async def generate_place_summary(place_dcid: str, locale: str) -> str:
             year=variable_observation["observation"]["date"][:4]))
 
   summary = " ".join(sentences)
-  return summary
+  return summary, requestId
