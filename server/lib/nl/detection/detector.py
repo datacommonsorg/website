@@ -18,13 +18,13 @@ from typing import Dict, List
 from flask import current_app
 from flask import request
 
-from server.lib.feature_flags import ENABLE_AGENTIC_DETECTOR
+from server.lib.feature_flags import ENABLE_AGENT_DETECTOR
 from server.lib.feature_flags import is_feature_enabled
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection import agentic_detector
+from server.lib.nl.detection import agent_detector
 from server.lib.nl.detection import heuristic_detector
 from server.lib.nl.detection import llm_detector
 from server.lib.nl.detection import llm_fallback
@@ -47,7 +47,7 @@ _DETECTORS_REQUIRING_LLM_PROMPT= [
 ]
 
 _DETECTORS_REQUIRING_GEMINI_KEY = _DETECTORS_REQUIRING_LLM_PROMPT + [
-    RequestedDetectorType.Agentic.value,
+    RequestedDetectorType.Agent.value,
 ]
 
 MAX_CHILD_LIMIT = 50
@@ -88,17 +88,17 @@ def detect(detector_type: str, original_query: str, no_punct_query: str,
     return llm_detection
 
   #
-  # Agentic Detection.
+  # Agent Detection.
   #
-  if detector_type == RequestedDetectorType.Agentic.value and is_feature_enabled(
-      ENABLE_AGENTIC_DETECTOR, request=request):
-    agentic_detection = agentic_detector.detect(
+  if detector_type == RequestedDetectorType.Agent.value and is_feature_enabled(
+      ENABLE_AGENT_DETECTOR, request=request):
+    agent_detection = agent_detector.detect(
         query=original_query,
         prev_utterance=prev_utterance,
         query_detection_debug_logs=query_detection_debug_logs,
         counters=counters,
         dargs=dargs)
-    return agentic_detection
+    return agent_detection
 
   #
   # Heuristic detection.
